@@ -153,21 +153,24 @@ describe('CONTENT dataset invariants', () => {
     }
   });
 
-  it('Fearless non-release moments avoid record artwork and Getty comp previews (#743)', () => {
+  it('Fearless moments avoid Getty comp previews and limit record artwork to documented exceptions (#743)', () => {
     const fearless = CONTENT.filter((item) => item.eraId === 'fearless');
-    const releaseArtworkSlugs = new Set([
+    const recordArtworkAllowlist = new Set([
       'love-story-single-release',
       'white-horse-single-release',
       'fearless-platinum-edition',
       'today-was-a-fairytale-release',
       'fearless-billboard-no-1-debut',
+      // Calendar-era placement (#3314): this Speak Now catalog story happened
+      // before that era began, and its existing primary image is single art.
+      'vault-fearless-back-to-december-her-first-apology-song',
     ]);
     expect(fearless.length).toBeGreaterThan(0);
 
     for (const item of fearless) {
       for (const image of item.images) {
         expect(image.url, item.id).not.toContain('media.gettyimages.com');
-        if (!releaseArtworkSlugs.has(item.slug ?? '')) {
+        if (!recordArtworkAllowlist.has(item.slug ?? item.id)) {
           expect(image.url, item.id).not.toMatch(
             /^https:\/\/upload\.wikimedia\.org\/wikipedia\/en\//,
           );

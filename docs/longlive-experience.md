@@ -721,7 +721,10 @@ constellation.
   is unrendered as of 2026-08-13 (decision 2, `docs/decisions.md` — the era
   page has no first-party Spotify playback by design; see §5.5/§7/§8). 10
   signature moments have YouTube videos. 1989 + folklore point at
-  original/deluxe (not Taylor's Version) pending a product call.
+  original/deluxe (not Taylor's Version). Taylor's Version rerelease-video
+  placement is no longer pending: the 2026-08-25 era-by-date decision puts
+  each video in the era containing its real publish date, never the original
+  album's era.
 - Track-video pairing (`lib/longlive/track-video.ts`): 48 of 244 track-guide
   songs pair with an official video today, all `music_video` kind — an exact
   title match against `VideoNote.relatedSongs` (or the video's own title), no

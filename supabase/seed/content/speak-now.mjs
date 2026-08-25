@@ -913,35 +913,6 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster —
-      // the song, and its radio-single release.
-      // Cross-link (Stage 3, 2026-08-13): + the 2010 AMAs performance.
-      relatedIds: [
-        'moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two',
-        'moment:vault-speak-now-back-to-december-meets-apologize-at-the-2010-amas',
-      ],
-      year: 2010,
-      month: 10,
-      day: 12,
-      category: 'music',
-      title: 'Back to December, her first apology song',
-      snippet:
-        '"Guys get what they deserve in my songs, and if they deserve an apology, they should get one" — her first-ever apology track, later confirmed by Taylor Lautner as being about him.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Back_to_December',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png',
-      moment: {
-        context:
-          'In interviews before Speak Now\'s release, Taylor explained she\'d broken her own pattern: "Guys get what they deserve in my songs, and if they deserve an apology, they should get one. There was someone who was absolutely wonderful to me and I dropped the ball, and I needed to say all that."\n\nIt was the first time she wrote an apology to an ex rather than a critique of one. Actor Taylor Lautner, whom she\'d dated in late 2009, confirmed in a 2016 interview that he was the song\'s subject.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Back_to_December' }],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png',
-            credit: 'Big Machine Records',
-          },
-        ],
-      },
-    },
-    {
       year: 2010,
       month: 10,
       day: 25,
@@ -1194,65 +1165,6 @@ export default {
         ],
       },
     },
-
-    // --- Deep timeline fill (2026-07-08, content/deep-a): the era's full
-    // singles run + live album + Hunger Games one-off (release was empty),
-    // tour depth, the awards year, and the relationships' documented starts.
-    // Every claim verified against its cited source this session; business
-    // and relationship items carry two independent sources per the framework.
-    {
-      slug: 'mine-rush-release',
-      year: 2010,
-      month: 8,
-      day: 4,
-      category: 'release',
-      title: 'Mine leaks, so the label ships it 12 days early',
-      snippet:
-        'An unauthorized MP3 of "Mine" hit the internet in early August 2010 — Big Machine answered by rushing the lead single to radio and iTunes on Aug. 4, twelve days ahead of schedule.',
-      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/',
-      thumbnailUrl: 'https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg',
-      moment: {
-        context:
-          'She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. "Mine" introduced Speak Now two and a half months before the album arrived.\n\nThe numbers vindicated the scramble: originally slated for August 16, the single debuted at No. 3 on the Hot 100 with 297,000 downloads — at the time the eighth-biggest sales debut ever for a digital song. The music video, co-directed by Taylor and Roman White and shot in Kennebunkport, Maine with British actor Toby Hemingway as the love interest (she cast him after seeing Feast of Love), premiered on CMT August 27 and went on to win Video of the Year at the 2011 CMT Music Awards.',
-        sources: [
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/',
-            source_title: "Taylor Swift's 'Mine' Single Leaks",
-            publisher: 'Billboard',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Mine_(Taylor_Swift_song)',
-            source_title: 'Mine (Taylor Swift song)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-09',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'CBS News',
-            url: 'https://www.cbsnews.com/news/taylor-swift-rush-releases-mine-to-radio-after-internet-leak-speak-now-album-in-october/',
-            source_title: 'Taylor Swift Rush Releases "Mine" to Radio After Internet Leak',
-            publisher: 'CBS News',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-        ],
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg',
-            credit: 'Big Machine Records / YouTube (official music video still)',
-            caption: "Still from the official 'Mine' music video, via the video's YouTube thumbnail.",
-            kind: 'archival',
-          },
-        ],
-      },
-    },
     {
       slug: 'speak-now-album-release',
       significance: 'defining', // the only album she's ever written entirely alone — a direct answer to critics who doubted her (docs/decisions.md, 2026-07-19)
@@ -1381,7 +1293,7 @@ export default {
       // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster.
       // Cross-link (Stage 3, 2026-08-13): + the 2010 AMAs performance.
       relatedIds: [
-        'moment:vault-speak-now-back-to-december-her-first-apology-song',
+        'moment:vault-fearless-back-to-december-her-first-apology-song',
         'moment:vault-speak-now-back-to-december-meets-apologize-at-the-2010-amas',
       ],
       year: 2010,
@@ -2117,74 +2029,6 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "speak-now-taylors-version",
-      // Cross-link (Stage 3, 2026-08-06): the announcement and record-week
-      // moments for this same album, over in the midnights era.
-      relatedIds: [
-        "moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville",
-        "moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th",
-        'moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville',
-        'moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th',
-      ],
-      year: 2023,
-      month: 7,
-      day: 7,
-      category: "music",
-      title: "Speak Now (Taylor's Version)",
-      snippet: "The third re-recording arrives with six previously unreleased \"From the Vault\" tracks.",
-      moment: {
-        sources: [
-          {
-            outlet: 'CBS News',
-            url: 'https://www.cbsnews.com/news/taylor-swift-speak-now-taylors-version-vault-tracks-better-than-revenge-mattress-lyric/',
-            source_title: 'Taylor Swift releases "Speak Now: Taylor\'s Version" with previously unreleased tracks and a change to a lyric',
-            publisher: 'CBS News',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'American Songwriter',
-            url: 'https://americansongwriter.com/taylor-swift-releases-re-recorded-version-of-speak-now-its-yours-its-mine-its-ours/',
-            source_title: 'Taylor Swift Releases Re-Recorded Version of \'Speak Now\': "It\'s Yours, It\'s Mine, It\'s Ours"',
-            publisher: 'American Songwriter',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "Speak Now (Taylor's Version) released July 7, 2023, with six vault tracks, including \"Castles Crumbling\" featuring Hayley Williams of Paramore — reclaiming the only album in her catalog she's said was written entirely without a co-writer.",
-        // Photo pass #762 (2026-07-20): page had zero photos, and the July 2023
-        // re-recording release has no red-carpet event of its own. Used a freely
-        // licensed Commons shot of the Eras Tour's Speak Now set — the lilac
-        // Speak Now ballgown and koi-fish guitar were the era's live face that
-        // same summer. License (CC BY 2.0, Paolo V) verified via the Commons
-        // API; curl 200 image/jpeg 1300x1987; downloaded and Read-viewed.
-        // focalPoint written immediately after url per the field-order rule.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_%2853109468131%29.jpg',
-            focalPoint: '59% 51%',
-            credit: 'Paolo V via Wikimedia Commons, CC BY 2.0',
-            caption: 'The Eras Tour Speak Now set — the lilac ballgown and koi-fish guitar — the live embodiment of the era she reclaimed with the July 2023 re-recording.',
-            kind: 'archival',
-          },
-          // Photo pass (2026-07-20, #762): 2nd photo — the official album cover
-          // for the re-recording itself. Full-res en.wikipedia file curl-verified
-          // 200 image/png, downloaded and viewed; focal point set by eye.
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Taylor_Swift_-_Speak_Now_%28Taylor%27s_Version%29.png',
-            focalPoint: '52% 30%',
-            credit: 'Republic Records',
-            caption: 'The Speak Now (Taylor\'s Version) album cover — the purple-tulle re-recording released July 7, 2023.',
-            kind: 'archival',
-          },
-        ],
-      },
-    },
 
     // ── YouTube-appearances research pass (2026-08-12) ──
     // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
@@ -2216,7 +2060,7 @@ export default {
       // Cross-link (Stage 3, 2026-08-13): the "Back to December" cluster —
       // the song's origin and its radio-single release.
       relatedIds: [
-        'moment:vault-speak-now-back-to-december-her-first-apology-song',
+        'moment:vault-fearless-back-to-december-her-first-apology-song',
         'moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two',
       ],
       year: 2010,
@@ -2236,6 +2080,438 @@ export default {
           { outlet: 'YouTube — LadyStefani (fan archive)', url: 'https://www.youtube.com/watch?v=L8-HPbEemcY' },
         ],
         photos: [],
+      },
+    },
+
+    {
+      year: 2012,
+      month: 10,
+      day: 9,
+      category: 'music',
+      // Cross-link (Stage 3, 2026-07-27): the "I Knew You Were Trouble"
+      // cluster — the dubstep debut, its global chart run, and the video's
+      // birthday drop — now interlink.
+      relatedIds: [
+        'moment:vault-red-i-knew-you-were-trouble-goes-global',
+        'moment:vault-red-the-i-knew-you-were-trouble-video-drops-on-her-23rd-birthday',
+      ],
+      title: 'I Knew You Were Trouble brings dubstep to pop radio',
+      snippet: 'A wobble-bass drop in the middle of a breakup song — critics called it the moment mainstream pop stopped being "sonically conservative."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
+      moment: {
+        context:
+          'Produced with Max Martin and Shellback after Taylor sketched the melody on piano, the drop was there — by her account — to convey the chaotic emotions of the lyrics, not to chase a trend.\n\nCritics treated it as a hinge point anyway: the New York Times\' Jon Caramanica called the wobble a "wrecking ball" that shifted "the dynamic of not only the song but also of Ms. Swift\'s career," and the Los Angeles Times noted that while DJs like Skrillex and Zedd had popularized dubstep, this was the song that introduced it to a mainstream pop audience that had been "sonically conservative for the past half-decade." It sold 416,000 downloads in its first week — making her the first artist ever with two 400,000-download opening weeks — and peaked at No. 2 on the Hot 100.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 9,
+      category: 'fashion',
+      title: 'High-waisted shorts become a recurring signature',
+      snippet:
+        'Sparkling oxfords, Keds, and high-waisted shorts on nearly every red carpet and stage appearance — a 1950s-inflected throughline across the whole era, from the VMAs to the Grammys.',
+      sourceUrl: 'https://www.foxnews.com/lifestyle/photos-taylor-swift-and-her-signature-high-waisted-shorts',
+      thumbnailUrl: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1',
+      moment: {
+        context:
+          'Documented instances stack up across the whole album cycle: the 2012 MTV VMAs performance of "We Are Never Ever Getting Back Together," the iHeartRadio Music Festival that September, the MTV European Music Awards in November, both coasts\' Jingle Balls that December — KIIS FM in Los Angeles and Z100 at Madison Square Garden — and white high-waisted shorts at the February 2013 Grammys. The silhouette even followed her off duty, turning up in a retro black-and-white swimsuit while paddleboarding in Westerly, Rhode Island.\n\nFashion director Melissa Liebling-Goldberg told Fox News the retro high-waist look was a deliberate throughline: "Taylor Swift is really bringing back the retro look of a high waist." The appeal, she explained, was practical as much as nostalgic — "the trick to making it flattering is finding the right proportion to your torso" — and versatile enough to work "with everything from retro bikinis to flared skirts to short shorts."',
+        sources: [
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/lifestyle/photos-taylor-swift-and-her-signature-high-waisted-shorts',
+          },
+        ],
+        // T16 image-fix pass (2026-07-10): the original URL requested Fox's
+        // 96x96 thumbnail rendition (3 KB, unusable). Swapped to the same
+        // CDN asset's 1200x1200 rendition — same photo, same host, just a
+        // usable size. Verified HTTP 200 + image/jpeg + subject visually
+        // confirmed this session (Swift on stage in striped top and
+        // high-waisted black shorts, arm raised over the crowd).
+        photos: [
+          {
+            url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1',
+            // Face upper-center as she stands above the crowd; keep it framed under a wide crop.
+            focalPoint: '48% 30%',
+            credit: 'Fox News',
+          },
+        ],
+        // Shop pass (2026-07-21): no single pair was ever named -- a
+        // current retro high-waisted denim short, verified in stock, in
+        // the same recurring silhouette.
+        products: [
+          {
+            brand: 'GOLDSTITCH',
+            item: 'Vintage Denim High-Waisted Jean Shorts',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Womens-Juniors-Vintage-Waisted-Shorts/dp/B00KSYPWWO',
+            price: '$14.98',
+            isAlternative: true,
+            altNote: 'No single named pair -- she wore many high-waisted shorts across the era -- this is a current pair in the same retro-inflected silhouette.',
+          },
+        ],
+      },
+    },
+
+    // --- Business/chart + music + sightings depth pass (2026-07-05) ---
+    {
+      significance: 'notable', // her first-ever Hot 100 #1, the chart record that opened the era's whole commercial run (docs/decisions.md, 2026-07-19)
+      year: 2012,
+      month: 8,
+      day: 22,
+      category: 'business',
+      title: "'We Are Never Ever Getting Back Together' becomes her first-ever Hot 100 No. 1",
+      // Era-timeline milestone + video (issue #616, 2026-07-29): moved here
+      // from the now-deleted duplicate stub `red-wanegbt`, which told the
+      // same single's chart-topping story in two sentences with no sources.
+      milestone: { id: "m-red-0", label: "First #1 single", kind: "award" },
+      video: { youtubeId: "WA4iX5D9Z64", title: "Taylor Swift - We Are Never Ever Getting Back Together" },
+      snippet:
+        "Red's lead single leapt from No. 72 to No. 1 in a single week — her first career Hot 100 chart-topper on her 46th entry, after 'You Belong With Me' and 'Today Was a Fairytale' had both stalled at No. 2.",
+      sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/4/40/We_Are_Never_Ever_Getting_Back_Together.png',
+      moment: {
+        context:
+          "The song sold 623,000 downloads in its first week — the highest one-week digital sales total ever by a female artist at the time, and second all-time behind only Flo Rida's \"Right Round.\" It entered the Hot 100 Airplay chart at No. 25 before jumping to No. 14 the next week on a 29% surge in radio audience. The single led the rollout for Red's October 22 release, arriving as Taylor's first Hot 100 No. 1 after two previous singles had each peaked at No. 2.\n\nThe song itself was written almost by accident: a friend of an ex dropped by the studio while Taylor was working with Max Martin and Shellback and mentioned rumors the couple were reconciling — after the friend left, Taylor picked up an acoustic guitar, improvised the refrain on the spot, and the three finished the song in about 25 minutes. It went on to spend three non-consecutive weeks at No. 1 and pick up a Record of the Year nomination at the Grammys — even as country radio kept it out of the Country Airplay top ten, an early flashpoint in the was-she-still-country debate that shadowed the whole album.",
+        sources: [
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/We_Are_Never_Ever_Getting_Back_Together' },
+          // Merged (issue #616 dedup) from the now-deleted duplicate
+          // `red-wanegbt` stub, which a later vault pass had sourced.
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2247416/the-number-ones-taylor-swifts-we-are-never-ever-getting-back-together/columns/the-number-ones',
+            source_title: 'The Number Ones: Taylor Swift\'s "We Are Never Ever Getting Back Together"',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18, #762): single cover viewed — face sits top-left,
+        // so the focal point pulls up-left. Added the 2013 Grammys ringmaster performance of
+        // this song (the ceremony where it was up for Record of the Year, per context above);
+        // PopCrush's own article image, curl-verified 200 + image/webp, vision-confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/40/We_Are_Never_Ever_Getting_Back_Together.png',
+            credit: 'Big Machine Records',
+            focalPoint: '30% 20%',
+          },
+          {
+            url: 'https://townsquare.media/site/252/files/2013/02/TaylorSwift1.jpg?w=980&q=75',
+            credit: 'Getty Images / PopCrush',
+            focalPoint: '45% 28%',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 10,
+      day: 16,
+      category: 'music',
+      title: 'State of Grace opens Red with her first arena-rock swing',
+      snippet:
+        'A "howling, U2-style epic with reverb-drenched guitars," per Rolling Stone — Taylor\'s own description was simpler: "This sounds like the feeling of falling in love in an epic way."',
+      sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/state-of-grace',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/8/8a/Taylor_Swift_-_State_of_Grace.png',
+      moment: {
+        context:
+          'Previewing the song on Good Morning America, Taylor explained: "I wrote this song about when you first fall in love with someone. The possibilities. Kind of thinking about the different ways that it could go."\n\nOn the sound she added: "It\'s a really big sound. To me, this sounds like the feeling of falling in love in an epic way" — a deliberate departure into arena rock that opens the album before its country roots resurface. A stripped-down acoustic version included on the Target-exclusive edition was, in her words, "really acoustic and like emotional and sweet."',
+        sources: [{ outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/state-of-grace' }],
+        // Real-photo pass (2026-07-09): promotional single cover from Wikipedia's
+        // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/8a/Taylor_Swift_-_State_of_Grace.png',
+            credit: 'Big Machine Records',
+            caption: 'Promotional single cover for "State of Grace," released ahead of the album in October 2012.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+
+    // --- Deep timeline fill (2026-07-08): release/tour/business/relationship
+    // depth for an era that had 0 release items and 1 tour item. New items
+    // carry the audit's additive provenance fields (slug + publisher/
+    // source_type/accessed_at/reliability_score alongside legacy {outlet,url}),
+    // same convention as the-life-of-a-showgirl.mjs. Every claim verified
+    // against its cited source via search on 2026-07-08; no fabrication.
+    // Photos deliberately omitted where no already-verified image URL exists.
+    {
+      slug: 'red-announced-google-hangout',
+      year: 2012,
+      month: 8,
+      day: 13,
+      category: 'release',
+      title: 'Red announced live from her living room, on a Google+ Hangout',
+      snippet:
+        'A worldwide webcast from Nashville on August 13, 2012: the album title, the October 22 date, and — dropped the same night — a brand-new single called "We Are Never Ever Getting Back Together."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
+      moment: {
+        context:
+          'More than 70,000 fans were watching at the stream\'s peak as she laid out the whole plan: a 16-track album called Red, out October 22, with her first outside co-writers since she wrote all of Speak Now solo — Ed Sheeran and Max Martin among them.\n\nShe explained the title as an emotional color-code, saying the songs were "all pretty much about the kind of tumultuous, crazy, insane, intense, semi-toxic relationships that I\'ve experienced in the last two years." Then she premiered "We Are Never Ever Getting Back Together," which went on to become her first career Hot 100 No. 1 — a direct-to-fans rollout she\'s been elaborating on ever since.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
+            source_title: 'Red (Taylor Swift album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-to-release-new-red-album-in-october-191751/',
+            source_title: "Taylor Swift to Release New 'Red' Album in October",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
+            source_title: "Taylor Swift's New Single Hits No. 1 on Hot 100",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18, #762): added the webcast still itself — Taylor
+        // in the living room with fans, Red cover on the screen behind her — from Taste of
+        // Country's own announcement-day article. Curl-verified 200 + image/webp, vision-
+        // confirmed as the Aug 13, 2012 Google+ Hangout. Cover art focal matches the copy
+        // on the Grammys-noms page.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
+            credit: 'Big Machine Records',
+            focalPoint: '50% 32%',
+          },
+          {
+            url: 'https://townsquare.media/site/204/files/2012/08/TaylorSwiftRed.jpg?w=980&q=75',
+            credit: 'YouTube webcast still / Taste of Country',
+            focalPoint: '46% 42%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'red-ronan-stand-up-to-cancer',
+      year: 2012,
+      month: 9,
+      day: 8,
+      category: 'music',
+      title: 'Ronan, a charity single built from a grieving mother\'s blog',
+      snippet:
+        'Written from Maya Thompson\'s blog posts about her son Ronan, who died of neuroblastoma at three — Thompson gets a co-writing credit, and every dollar went to fighting cancer.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Ronan_(song)',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
+      moment: {
+        context:
+          'Taylor debuted the song live at the Stand Up to Cancer telethon on September 8, 2012, and released it as an iTunes-exclusive the same night, with all proceeds donated to cancer charities. She assembled the lyrics from direct quotes in Thompson\'s blog about her son, crediting her as co-writer — with Thompson\'s share of the proceeds going to her Ronan Thompson Foundation. The song reached No. 16 on the Hot 100 and was certified gold, and Thompson told MTV that Taylor "got it in a way that most people don\'t."\n\nSwift has treated the song as close to unperformable since: she has sung it live only twice, at the 2012 telethon and again on August 17, 2015 in Glendale, Arizona, when Thompson attended the 1989 World Tour. She re-recorded it for Red (Taylor\'s Version) in 2021 — after writing to Thompson for permission, explaining that Red was "an album of heartbreak and healing ... and of the loss of an imagined future alongside someone."',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Ronan_(song)',
+            source_title: 'Ronan (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-debuts-ronan-at-stand-up-to-cancer-benefit-122781/',
+            source_title: "Taylor Swift Debuts 'Ronan' at Stand Up To Cancer Benefit",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // Real-photo pass (2026-07-09): Wikimedia Commons hosts a public-domain
+        // vector replica of the text-only "Ronan" single cover (the artwork is
+        // below the threshold of originality). Faithful to the real cover but not
+        // the original raster file, so kind 'reference' with an honest caption.
+        // Verified HTTP 200 + image/png this session.
+        // Photo-enrichment audit (2026-07-18, #762): stays at one image. No reachable
+        // outlet-CDN photo depicts the SU2C telecast performance itself — Taste of Country's
+        // own article images are a dead placeholder (Ronan.jpg) and an off-hook 2012 VMAs
+        // red-carpet close-up (TaylorSwiftCP.jpg), both downloaded and viewed this run; the
+        // telecast stills live only on watermarked wire services. Cover viewed: text block
+        // sits in the upper-middle of the square, so the focal point rides slightly high.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
+            credit: 'Big Machine Records (vector replica via Wikimedia Commons)',
+            caption: 'The "Ronan" single cover — shown here as a faithful vector replica of the text-only artwork, hosted on Wikimedia Commons.',
+            kind: 'reference',
+            focalPoint: '50% 42%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'red-begin-again-single',
+      // Cross-link (Stage 3, 2026-08-06): the "Begin Again" cluster — the
+      // single, and its music-video companion piece.
+      relatedIds: ['moment:vault-speak-now-begin-again-as-the-soft-landing'],
+      year: 2012,
+      month: 10,
+      day: 1,
+      category: 'release',
+      title: 'Begin Again sends a country valentine ahead of the pop swerve',
+      snippet:
+        'Sent to country radio October 1 (after a Sept. 25 digital release), three weeks before the album — a soft, waltzing country ballad about a first date that heals, deliberately reassuring country radio before Red\'s dubstep drop landed.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/1/1e/Taylor_Swift_-_Begin_Again.png',
+      moment: {
+        context:
+          'The second track released from Red, sent to country radio as a counterweight to the pop-leaning lead single. Taylor described it as a song about "when you\'ve gotten through a really bad relationship and you finally dust yourself off and go on that first date after a horrible breakup."\n\nIt debuted and peaked at No. 7 on the Hot 100 on release-week downloads and earned a Grammy nomination for Best Country Song. The Philip Andelman video — a solitary, contemplative walk through Paris that ends at a café — was, in her words, a "love letter" to the city, about "somebody moving on and finding yourself again."',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)',
+            source_title: 'Begin Again (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
+        // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18, #762): added a Commons shot of her performing
+        // this exact song on the Red Tour B-stage (Tacoma Dome; uploader's description names
+        // "Begin Again"). CC BY-SA 2.0, curl-verified 200 + image/jpeg, vision-confirmed —
+        // solo under a spotlight on the riser, which is how the song was staged.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Taylor_Swift_-_Begin_Again.png',
+            credit: 'Big Machine Records',
+            caption: 'Single cover art for "Begin Again," released October 1, 2012.',
+            kind: 'primary',
+            focalPoint: '62% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_-_Red_Tour_-_Tacoma_Dome_-_Begin_Again_on_B-stage.jpg',
+            credit: 'Selbe Lynn / Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Performing "Begin Again" alone on the B-stage riser during the Red Tour at Tacoma Dome.',
+            kind: 'primary',
+            focalPoint: '50% 42%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'red-title-track-names-the-album',
+      year: 2012,
+      month: 10,
+      day: 2,
+      category: 'music',
+      title: 'Red, the song that named the record',
+      snippet:
+        'Loving him was like driving a new Maserati down a dead-end street — the title track\'s color-coded theory of a relationship whose emotions ran too hot to be anything but red.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/c/c0/Taylor_Swift_-_Red_%28Single%29.png',
+      moment: {
+        context:
+          'Taylor has explained that the album took its name from this song\'s central idea: the semi-toxic relationships she was writing about were defined by intense, burning emotion — red — rather than the blues and grays of ordinary heartbreak. The lyric maps feelings to colors directly: losing him was blue, missing him was dark gray, loving him was red. She wrote it on September 7, 2011, on the flight home to Nashville after a Tacoma, Washington show, homesick and still mid-tour.\n\nOn release week the track debuted at No. 6 on the Hot 100 on album-preview downloads, then became the album\'s fifth single in June 2013, peaking at No. 2 on Hot Country Songs across a 42-week run — at the time the longest-charting single of her career. Its biggest television moment came at the November 2013 CMA Awards, reworked acoustically with Alison Krauss on fiddle and Vince Gill on harmony.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)',
+            source_title: 'Red (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
+        // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18, #762): added a Red Tour live close-up (Jana
+        // Zills, St. Louis, March 2013 — CC BY 2.0, curl-verified 200 + image/jpeg, vision-
+        // confirmed): red gown at the red crystal mic, the album's signature color on stage.
+        // An era-performance shot, not a photo of the writing session — no photo of that
+        // exists; flagged here for honesty.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/c/c0/Taylor_Swift_-_Red_%28Single%29.png',
+            credit: 'Big Machine Records',
+            caption: 'Single cover art for "Red," the album\'s fifth single.',
+            kind: 'primary',
+            focalPoint: '28% 15%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Red_Tour_4%2C_2013.jpg',
+            credit: 'Jana Zills / Wikimedia Commons (CC BY 2.0)',
+            caption: 'On the Red Tour in St. Louis, March 2013 — red gown, red crystal mic.',
+            kind: 'archival',
+            focalPoint: '46% 24%',
+          },
+        ],
+      },
+    },
+    // Duplicate stub removed (issue #616, 2026-07-29): told the same "We Are
+    // Never Ever Getting Back Together" chart-topping story as the richer,
+    // sourced item above in two sentences with no sources; its milestone
+    // marker (m-red-0) and video field moved there.
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "red-begin-again",
+      year: 2012,
+      month: 10,
+      day: 1,
+      category: "music",
+      title: "“Begin Again” as the soft landing",
+      snippet: "A gentle promotional single about hope after heartbreak.",
+      video: { youtubeId: "cMPEd8m79Hw", title: "Taylor Swift - Begin Again" },
+      moment: {
+        sources: [
+          {
+            outlet: 'HuffPost',
+            url: 'https://www.huffpost.com/2012/09/24/taylor-swift-begin-again_n_1909027.html',
+            source_title: 'Taylor Swift\'s \'Begin Again\' Previewed On \'Good Morning America\'',
+            publisher: 'HuffPost',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-begin-again-preview/',
+            source_title: 'Taylor Swift Samples New Song \'Begin Again\' on \'Good Morning America\'',
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
+        context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
       },
     },
   ],

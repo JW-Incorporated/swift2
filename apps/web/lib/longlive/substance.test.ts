@@ -231,7 +231,7 @@ describe('substanceScore over real vault content', () => {
 
   it('scores the meaty ring piece above the thin single announcement by a wide margin', () => {
     const meaty = substanceScore(
-      byId('vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already'),
+      byId('vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already'),
     );
     const thin = substanceScore(byId('vault-debut-curls-sundresses-and-cowboy-boots'));
     expect(meaty).toBeGreaterThan(thin * 4);

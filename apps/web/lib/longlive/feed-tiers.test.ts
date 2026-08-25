@@ -279,12 +279,12 @@ describe('assignFeedTiers over REAL vault content', () => {
   });
 
   it('earns the meaty unsigned ring piece a hero base tier on substance alone — no significance set', () => {
-    const id = 'vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already';
+    const id = 'vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already';
     const it = ALL_VAULT_ITEMS.find((c) => c.id === id)!;
     expect(it.significance).toBeUndefined();
     expect(substanceScore(it)).toBeGreaterThan(HERO_SCORE_THRESHOLD);
     expect(baseTierFor(it)).toBe('hero');
-    // In the live TLOAS feed it sits close behind the wedding hero, so hero
+    // In the live TTPD feed it sits close behind another hero, so hero
     // spacing steps it to media — the ONE demotion pacing is still allowed.
     expect(realTier(id)).toBe('media');
   });

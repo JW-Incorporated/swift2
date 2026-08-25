@@ -18,12 +18,13 @@ import type { MomentVideo, VideoNote } from './types';
  * Normalization deliberately does NOT strip an edition qualifier like
  * "(Taylor's Version)" or "(From The Vault)": those change which recording is
  * being named, not how it's formatted, and the corpus proves the distinction
- * is live — the Fearless era carries both a "The Best Day" video and a
- * "The Best Day (Taylor's Version)" video, and collapsing that pair would
- * pair a track with the wrong recording's video. Only the format-only
- * decorations that never occur on a song's actual title are stripped:
- * "(Official Music Video)", "(Official Video)", "(Music Video)",
- * "(Official Lyric Video)", "(Lyric Video)".
+ * is live — the corpus carries both a "The Best Day" video and a "The Best
+ * Day (Taylor's Version)" video, and collapsing that pair would
+ * pair a track with the wrong recording's video even when calendar-era
+ * placement puts the original and Taylor's Version videos in different era
+ * buckets. Only the format-only decorations that never occur on a song's
+ * actual title are stripped: "(Official Music Video)", "(Official Video)",
+ * "(Music Video)", "(Official Lyric Video)", "(Lyric Video)".
  */
 const DECORATION_PATTERNS: RegExp[] = [
   /\(official music video\)/gi,

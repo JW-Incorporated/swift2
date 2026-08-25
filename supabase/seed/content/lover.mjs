@@ -8,79 +8,6 @@
 export default {
   eraSlug: 'lover',
   items: [
-    // Era-ignition beat (2026-07-30, #828): the Lover timeline used to open on
-    // the June 30 masters sale — a business tragedy two singles deep — with the
-    // April pastel turn living only inside a fashion caption. This is the
-    // answering card to reputation's close (the April 22 Gigi Hadid party), and
-    // the beat the era was missing.
-    {
-      year: 2019,
-      month: 4,
-      day: 25,
-      category: 'music',
-      slug: 'lover-era-ignition-me-pastel-turn',
-      title: 'The pastel turn: ME! ends the reputation black',
-      snippet:
-        'A pastel countdown, a commissioned butterfly mural, and an NFL-Draft-night interview with Robin Roberts — the single most legible palette flip of her career, staged across April 2019.',
-      sourceUrl:
-        'https://pitchfork.com/news/taylor-swift-to-release-new-song-and-video-me-tonight/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
-      relatedIds: [
-        'moment:vault-lover-seven-pastel-outfit-changes-in-the-me-video',
-        'moment:vault-reputation-a-denim-themed-birthday-party-for-gigi-hadid-sans-denim',
-      ],
-      moment: {
-        context:
-          'reputation had ended in black and white; Lover announced itself in pastels. On April 13, 2019, a countdown debuted on Taylor\'s Instagram and website, ticking toward April 26 while a run of colorful posts kept repeating the date. On April 25, Taylor made a surprise appearance at the butterfly mural she had commissioned from street artist Kelsey Montague in Nashville\'s Gulch. Hearts, flowers, rainbows, and cats filled the wings; Montague added "ME!" between them as fans watched. Taylor sent the crowd to ABC for her next clue: a live chat with Robin Roberts that night.\n\nDuring the 2019 NFL Draft broadcast, Taylor discussed the new single with Roberts. On April 26, "ME!" arrived with a candy-colored video and Brendon Urie of Panic! at the Disco — her first new music since reputation, and an immediate visual break from that era. The video amassed 65.2 million Vevo views in its first 24 hours, setting the platform\'s single-day record. The palette flip was no longer tucked inside a teaser: this was the Lover era\'s public opening scene.',
-        sources: [
-          {
-            outlet: 'The Washington Post',
-            url: 'https://www.washingtonpost.com/arts-entertainment/2019/04/17/taylor-swifts-guessing-games-about-her-music-started-off-savvy-now-theyre-essential/',
-            source_title:
-              'Taylor Swift\'s guessing games about her music started off as savvy. Now they\'re essential.',
-            publisher: 'The Washington Post',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-24',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'MusicRow',
-            url: 'https://musicrow.com/2019/04/taylor-swift-makes-surprise-appearance-at-nashville-mural/',
-            source_title: 'Taylor Swift Makes Surprise Appearance At Nashville Mural',
-            publisher: 'MusicRow',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-24',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Pitchfork',
-            url: 'https://pitchfork.com/news/taylor-swift-to-release-new-song-and-video-me-tonight/',
-            source_title: 'Taylor Swift Releases New Song and Video "ME!": Watch',
-            publisher: 'Pitchfork',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-24',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Guinness World Records',
-            url: 'https://www.guinnessworldrecords.com/world-records/112534-most-viewed-vevo-video-in-24-hours',
-            source_title: 'Most viewed VEVO video in 24 hours',
-            publisher: 'Guinness World Records',
-            source_type: 'official',
-            accessed_at: '2026-08-24',
-            reliability_score: 5,
-          },
-        ],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
-            focalPoint: '50% 50%',
-            credit: 'Republic Records (single cover art)',
-            kind: 'primary',
-          },
-        ],
-      },
-    },
     {
       year: 2019,
       month: 9,
@@ -150,72 +77,6 @@ export default {
             focalPoint: '58% 28%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
-          },
-        ],
-      },
-    },
-    {
-      // Cross-link (Stage 3, 2026-07-30): the "You Need to Calm Down" pair —
-      // the video's petition and the costumes in it — now interlink.
-      relatedIds: ['moment:vault-lover-rainbow-wig-western-shirt-and-a-french-fries-costume-in-you-'],
-      year: 2019,
-      month: 6,
-      day: 17,
-      category: 'business',
-      title: 'You Need to Calm Down turns a music video into an Equality Act petition',
-      snippet:
-        'The video ends with a call to sign her petition for the Equality Act; by the VMAs that August, it had half a million signatures.',
-      sourceUrl: 'https://www.advocate.com/news/2019/6/17/taylor-swift-releases-lgbtq-packed-video-you-need-calm-down',
-      thumbnailUrl:
-        // Image-fix pass (2026-07-10): #239 — Advocate crop had a "VIDEO SCREENSHOT" watermark baked into the
-        // pixels (confirmed even on the un-cropped source). Replaced with an eonline.com frame from the same video
-        // (curl-verified HTTP 200 image/jpeg); visually confirmed Taylor in the trailer-park pink fur coat/pearl
-        // sunglasses look, no watermark, no collage.
-        'https://akns-images.eonline.com/eol_images/Entire_Site/201969/rs_1043x646-190709093159-taylor-swift-music-video-2.jpg?fit=around%7C1043:646&output-quality=90&crop=1043:646;center,top',
-      moment: {
-        context:
-          'The video itself, released June 17, 2019 and produced with Todrick Hall, packed its trailer-park block party with LGBTQ figures — Ellen DeGeneres, Billy Porter, Laverne Cox, RuPaul, the Queer Eye cast, Adam Rippon, and Jesse Tyler Ferguson with his real-life husband Justin Mikita — and closed on the on-screen ask: "Let\'s show our pride by demanding that, on a national level, our laws truly treat all our citizens equally." The Advocate called it her most pro-LGBTQ statement ever, and one of the most political stances she had taken with her music.\n\nShe personally wrote to her home-state senator, Lamar Alexander, urging support: "For American citizens to be denied jobs or housing based on who they love or how they identify, in my opinion, is un-American and cruel." Accepting Video of the Year at the VMAs, she noted the petition had "five times the amount that it would need to warrant a response from the White House."',
-        sources: [
-          {
-            outlet: 'The Advocate',
-            url: 'https://www.advocate.com/news/2019/6/17/taylor-swift-releases-lgbtq-packed-video-you-need-calm-down',
-          },
-          {
-            outlet: 'Elite Daily',
-            url: 'https://www.elitedaily.com/p/heres-how-to-sign-taylor-swifts-petition-supporting-the-equality-act-18700857',
-          },
-          // YouTube-appearances research pass (2026-08-12): this item's context
-          // already narrates the Aug. 26 VMA acceptance speech and the
-          // White-House-response threshold, so the speech is sourced here
-          // rather than split into a second moment about the same night (the
-          // era's fashion items already carry the VMA red carpet).
-          {
-            outlet: 'CBS News',
-            url: 'https://www.cbsnews.com/detroit/news/taylor-swift-calls-out-white-house-during-vmas-acceptance-speech',
-          },
-          // The acceptance speech itself on MTV's own channel —
-          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
-          {
-            outlet: 'YouTube — MTV',
-            url: 'https://www.youtube.com/watch?v=8z4icNgFSPI',
-          },
-        ],
-        // Photo pass (#762, 2026-08-07): added a second still — the official
-        // aerial pool shot from the same video — downloaded and vision-
-        // confirmed. Set focalPoint on both photos individually by eye.
-        photos: [
-          {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201969/rs_1043x646-190709093159-taylor-swift-music-video-2.jpg?fit=around%7C1043:646&output-quality=90&crop=1043:646;center,top',
-            focalPoint: '55% 30%',
-            credit: 'E! News (video still)',
-          },
-          {
-            url: 'https://i.ytimg.com/vi/Dkk9gvTmCXY/maxresdefault.jpg',
-            focalPoint: '50% 50%',
-            credit: 'Taylor Swift / YouTube (official "You Need to Calm Down" video, aerial still)',
-            caption:
-              'An aerial shot from the "You Need to Calm Down" video: Taylor floating on a yellow inner tube in a rose-ringed trailer-park pool.',
-            kind: 'archival',
           },
         ],
       },
@@ -320,57 +181,6 @@ export default {
             price: '$1,595.00',
             isAlternative: true,
             altNote: 'Her exact custom Versace blazer dress is discontinued -- this is a current multicolor sequin blazer dress in the same mini-length, shoulder-padded spirit.',
-          },
-        ],
-      },
-    },
-    {
-      // Cross-link (Stage 3, 2026-07-30): the "Cruel Summer" cluster — the
-      // song's origin, the No. 1 milestone, and the four-years-later chart
-      // arc — now interlink.
-      relatedIds: [
-        'moment:vault-lover-cruel-summer-born-from-a-casual-jam-with-st-vincent-and-jack',
-        'moment:vault-midnights-cruel-summer-hits-no-1-four-years-after-it-came-out',
-      ],
-      year: 2023,
-      month: 10,
-      day: 28,
-      category: 'business',
-      title: 'Cruel Summer takes four years to become a No. 1',
-      snippet:
-        "Debuted at No. 29 in 2019, fell to No. 71 the next week — until the Eras Tour revived it in 2023 and finally pushed it to No. 1.",
-      sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'It topped the Hot 100 on the chart dated October 28, 2023 — four years, one month and three weeks after it debuted, the fifth-longest climb to No. 1 in the chart\'s history.\n\nFans had campaigned for it since 2019, and the Eras Tour\'s opening Lover set turned the campaign into a groundswell (roughly 2.3 million TikTok videos deep); a live version, a remix, and the concert film\'s October release finally pushed it over, with 18.6 million streams and a roughly 1,400% sales spike in its final chart week. It landed as her 10th career No. 1 and Lover\'s first — and, as she noted, "it\'s not even the summer anymore."',
-        sources: [
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/',
-          },
-          {
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-cruel-summer-tops-billboard-hot-100-1234860029/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png',
-            credit: 'Republic Records (single cover art)',
-            kind: 'primary',
-            focalPoint: '42% 32%',
-          },
-          // Photo-enrichment pass (2026-07-18, #762): license-verified
-          // Commons photo of the Eras Tour Lover act — the set "Cruel
-          // Summer" opened nightly during the song's chart revival (CC BY
-          // 2.0, Michael Hicks; extmetadata checked this session).
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Eras_Tour_-_Minneapolis%2C_MN_-_Lover_act_-_4.jpg',
-            credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
-            caption: 'The Eras Tour Lover act in Minneapolis, June 2023 — the nightly "Cruel Summer" singalong that powered the song back up the chart.',
-            kind: 'archival',
-            focalPoint: '54% 45%',
           },
         ],
       },
@@ -516,169 +326,6 @@ export default {
         ],
       },
     },
-    // --- Fashion/photo depth pass (2026-07-04)
-    {
-      year: 2019,
-      month: 4,
-      day: 26,
-      category: 'fashion',
-      relatedIds: ['moment:vault-lover-the-pastel-turn-me-ends-the-reputation-black'],
-      title: 'Seven pastel outfit changes in the ME! video',
-      snippet:
-        'Styled by Joseph Cassell Falconer, the video traded Reputation black-and-white for tulle, pastels, and bold suiting — including a Monique Lhuillier tea-length dress and a lemon-yellow power suit.',
-      sourceUrl: 'https://www.etonline.com/see-every-dreamy-outfit-taylor-swift-wears-in-me-music-video-124147',
-      thumbnailUrl: 'https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-04/taylor-swift-me-music-video-1280.jpg',
-      moment: {
-        context:
-          'Longtime stylist Joseph Cassell Falconer put her through seven looks for the video, including a floral Monique Lhuillier tea-length dress with Alison Lou earrings and Roger Vivier shoes, an Alexander McQueen floral jacket-and-shorts set, and a ruffled Amorphose top over an Monica Ivena tulle skirt — the first full preview of the pastel "Lover" aesthetic.\n\nThe wardrobe had a huge stage to debut on: the video, co-directed by Taylor and Dave Meyers and premiered at midnight on April 26, 2019, pulled in 65.2 million views in its first day — breaking the 24-hour Vevo record previously held by Ariana Grande\'s "Thank U, Next" — and critics read the bright palette as a deliberate, symbolic exit from the reputation era\'s black-and-white. The kitten Brendon Urie hands her mid-video was real, and stayed: Taylor adopted him as her third cat, Benjamin Button.',
-        sources: [
-          {
-            outlet: 'Entertainment Tonight',
-            url: 'https://www.etonline.com/see-every-dreamy-outfit-taylor-swift-wears-in-me-music-video-124147',
-          },
-          {
-            outlet: 'Refinery29',
-            url: 'https://www.refinery29.com/en-us/2019/04/230942/taylor-swift-me-music-video-outfit-looks-shop',
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Me!',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-04/taylor-swift-me-music-video-1280.jpg',
-            credit: 'Entertainment Tonight',
-          },
-        ],
-        // Shop pass (2026-07-22): the exact Monique Lhuillier tea-length
-        // dress is discontinued -- a current pink floral tiered midi,
-        // verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Lulus',
-            item: 'Tea Party Chic Pink Floral Print Tie-Strap Tiered Midi Dress',
-            retailer: 'lulus.com',
-            url: 'https://www.lulus.com/products/tea-party-chic-pink-floral-print-tie-strap-tiered-midi-dress/1712196.html',
-            price: '$30.00',
-            isAlternative: true,
-            altNote: 'Her exact Monique Lhuillier tea-length dress is long discontinued -- this is a current pink floral tiered midi in the same tea-party, pastel-floral spirit.',
-          },
-        ],
-      },
-    },
-    {
-      // Cross-link (Stage 3, 2026-07-30): sibling "You Need to Calm Down" moment.
-      relatedIds: ['moment:vault-lover-you-need-to-calm-down-turns-a-music-video-into-an-equality-a'],
-      year: 2019,
-      month: 6,
-      day: 17,
-      category: 'fashion',
-      title: 'Rainbow wig, western shirt, and a French fries costume in You Need to Calm Down',
-      snippet:
-        'Five outfit changes in the trailer-park video, from a peach Agent Provocateur robe to a rainbow wig with a Marina Hoermanseder western shirt and gold Saint Laurent shorts, ending in a French fries costume playing off Katy Perry\'s Met Gala burger dress.',
-      sourceUrl: 'https://www.etonline.com/all-of-taylor-swifts-fabulous-outfits-from-you-need-to-calm-down-music-video-shop-the-looks-127156',
-      thumbnailUrl:
-        // Image-fix pass (2026-07-10): #237 — old bustle still was the opening trailer-park scene (pearl
-        // sunglasses/fur coat), none of the three named looks. Replaced with a billboard.com still (curl-verified
-        // HTTP 200 image/jpeg, no watermark) visually confirmed showing Taylor in the French fries costume next to
-        // Katy Perry's burger costume — the closing look this moment specifically calls out.
-        'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calm-down-vid-2019-billboard-1548.jpg?w=875&h=583&crop=1',
-      moment: {
-        context:
-          'The looks tracked the video\'s scenes: a peach silk Agent Provocateur robe and Sophia Webster heels to open, a pink Norma Kamali bikini with a faux-fur Vivetta jacket poolside, then a rainbow wig with a purple Marina Hoermanseder western shirt, gold metallic Saint Laurent shorts, and Irregular Choice unicorn boots.\n\nIt closes with a French fries costume and red Buffalo London x Opening Ceremony sandals, a direct callback to Katy Perry\'s cheeseburger look at the 2019 Met Gala.',
-        sources: [
-          {
-            outlet: 'Entertainment Tonight',
-            url: 'https://www.etonline.com/all-of-taylor-swifts-fabulous-outfits-from-you-need-to-calm-down-music-video-shop-the-looks-127156',
-          },
-          {
-            outlet: 'Bustle',
-            url: 'https://www.bustle.com/p/all-the-looks-from-taylor-swifts-you-need-to-calm-down-music-video-are-a-rainbow-dream-18010763',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calm-down-vid-2019-billboard-1548.jpg?w=875&h=583&crop=1',
-            credit: 'Billboard',
-            caption: "Taylor in the closing French fries costume, next to Katy Perry's burger costume.",
-          },
-        ],
-        // Shop pass (2026-07-22): the exact Marina Hoermanseder shirt is
-        // discontinued -- a current rainbow western snap shirt, verified
-        // in stock, closest real match.
-        products: [
-          {
-            brand: 'Wrangler',
-            item: "Women's Multicolor Rainbow Bandana Western Snap Shirt",
-            retailer: 'jacksonswestern.com',
-            url: 'https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/',
-            price: '$55.00',
-            isAlternative: true,
-            altNote: 'Her exact Marina Hoermanseder shirt is discontinued -- this sources the western shirt only, matching its rainbow palette (not the wig, shorts, boots, or fries costume).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2019,
-      month: 6,
-      day: 17,
-      category: 'fashion',
-      title: 'The glitter heart eye that became the Lover era\'s signature',
-      snippet:
-        'On the Lover album cover, shot by Valheria Rocha, she swapped her signature red lip for bright fuchsia and outlined one eye in a giant glittery heart, with streaks of pink and blue through her hair.',
-      sourceUrl: 'https://www.refinery29.com/en-us/2019/06/235426/taylor-swift-lover-album-heart-makeup',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'Taylor credited the cover to "the artistic genius that is @valheria123" (photographer Valheria Rocha) on Instagram. The heart-lined eye, glitter, and pastel pink-and-blue hair streaks became a recurring beauty motif across the era\'s videos and press cycle.\n\nEvery element was a departure from an established signature: the giant glitter heart outlined her right eye, the trademark red lip went bright fuchsia, and the pink-and-blue streaks replaced the all-blonde hair fans had watched for a decade. Fans immediately began hunting for a hidden meaning, the way her beauty choices have a history of doubling as Easter eggs (as Refinery29 pointed out) — and, more practically, planning recreations: "All of us are going to show up with glittery heart to the tour," as one put it, back when the era was still supposed to get one.',
-        sources: [
-          {
-            outlet: 'Refinery29',
-            url: 'https://www.refinery29.com/en-us/2019/06/235426/taylor-swift-lover-album-heart-makeup',
-          },
-          {
-            outlet: 'YouBeauty',
-            url: 'https://www.youbeauty.com/celebs/taylor-swift-provides-summer-makeup-inspo-on-her-lover-album-cover/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/c/cd/Taylor_Swift_-_Lover.png',
-            credit: 'Republic Records / Valheria Rocha (album cover art)',
-            caption: 'The Lover album cover, shot by Valheria Rocha — the glitter heart eye in its original context.',
-            kind: 'primary',
-            focalPoint: '49% 52%',
-          },
-          // Photo-enrichment pass (2026-07-19, #762): from the cited
-          // Refinery29 story's own CDN (s2.r29static.com), downloaded and
-          // vision-confirmed — the era's fuchsia lip and pink-tipped
-          // ponytail on stage at Wango Tango, weeks before the cover.
-          {
-            url: 'https://s2.r29static.com/bin/entry/6b6/x,80/2201581/image.jpg',
-            credit: 'Getty Images via Refinery29',
-            caption: 'The era\'s new beauty look in motion: fuchsia lip and pink-tipped ponytail at Wango Tango that June, from Refinery29\'s story on the cover makeup.',
-            kind: 'archival',
-            focalPoint: '50% 18%',
-          },
-        ],
-        // Shop pass (2026-07-22): a makeup look, not a garment -- offering
-        // a real glitter cosmetic rather than forcing a clothing link
-        // onto a beauty item.
-        products: [
-          {
-            brand: 'Too Faced',
-            item: 'Disco Crush High Shine Glitter Eye + Face Sparkle in Heart Eyes',
-            retailer: 'ulta.com',
-            url: 'https://www.ulta.com/p/disco-crush-high-shine-glitter-eye-face-sparkle-pimprod2046472?sku=2627323',
-            price: '$18.00',
-            isAlternative: true,
-            altNote: 'The exact cover makeup was custom -- this rose-gold glitter is a real eye-and-face cosmetic for recreating the sparkle, not the exact product used.',
-          },
-        ],
-      },
-    },
     {
       year: 2019,
       month: 11,
@@ -724,154 +371,6 @@ export default {
             price: '$357.21',
             isAlternative: true,
             altNote: 'Her custom Julien Macdonald gown was never sold at retail -- this is a current made-to-order emerald sequin gown, a one-shoulder plunge rather than a draped silhouette.',
-          },
-        ],
-      },
-    },
-    // --- Fashion/photo depth pass round 2 (2026-07-04)
-    {
-      year: 2019,
-      month: 8,
-      day: 22,
-      category: 'fashion',
-      title: 'Jessica Jones sequin shorts and René Caovilla boots for the pre-release GMA set',
-      snippet:
-        'The morning before Lover dropped, she played Central Park in multi-colored Jessica Jones sequin shorts, a sheer Helmut Lang blouse over a Wolford bodysuit, and glitter-soled René Caovilla Karlotta boots.',
-      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-outfit-gma-performance-photos-8528049/',
-      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-gma-aug-2019-billboard-1548.jpg?w=942&h=628&crop=1',
-      moment: {
-        context:
-          'Performing "Me!," "You Need to Calm Down," and "Shake It Off" at Central Park\'s SummerStage on August 22, 2019, one day ahead of the Lover release. Footwear News (via Yahoo) named each piece: Jessica Jones sequin high-waisted shorts, a Helmut Lang sheer pink blouse, a Wolford bodysuit, and René Caovilla\'s black suede Karlotta booties with a glitter-covered sole.\n\nThe sparkle was only half the booking: the same Good Morning America appearance included the sit-down with Robin Roberts in which she confirmed, on air, that she planned to re-record her Big Machine catalog — so the glitter-soled boots ended up sharing a news cycle with one of the biggest business decisions of her career.',
-        sources: [
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/pop/taylor-swift-outfit-gma-performance-photos-8528049/',
-          },
-          {
-            outlet: 'Yahoo / Footwear News',
-            url: 'https://www.yahoo.com/lifestyle/taylor-swift-ren-caovilla-boots-155958921.html',
-          },
-          {
-            outlet: 'Good Morning America',
-            url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-record-music-year-important-artists-work-65115745',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-gma-aug-2019-billboard-1548.jpg?w=942&h=628&crop=1',
-            credit: 'Billboard',
-          },
-        ],
-        // Shop pass (2026-07-22): the exact Jessica Jones shorts are
-        // discontinued -- a current multicolor sequin high-waist short,
-        // verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Mardi Gras Apparel',
-            item: 'Mardi Gras Sequin High-Waist Shorts',
-            retailer: 'mardigrasapparel.us',
-            url: 'https://mardigrasapparel.us/products/mardi-gras-sequin-high-waist-shorts-purple-gold-green',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0696/5457/7459/files/mardi-gras-sequin-high-waist-shorts-purple-gold-greenbeauty-hub-5743705.png?v=1767469696',
-            price: '$24.95',
-            isAlternative: true,
-            altNote: 'Jessica Jones\'s shorts are discontinued -- this sources the shorts only, matching high waist and multicolor sequins (not the blouse, bodysuit, or boots).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2019,
-      month: 8,
-      day: 22,
-      category: 'fashion',
-      title: 'A Johanna Ortiz tiered dress for the Lover music video',
-      snippet:
-        'In the pastel-house music video, she plays guitar in a yellow Johanna Ortiz "Ladies Who Lunch" tiered dress with matching Rebecca de Ravenel "Les Bonbons" ball earrings and an orange headband.',
-      sourceUrl: 'https://www.spotern.com/en/spot/video/taylor-swift-lover-official-music-video/226542/yellow-tiered-dress-of-taylor-swift-in-the-music-video-lover',
-      thumbnailUrl: 'https://medias.spotern.com/spots/w640/226/226542-1566837979.jpg',
-      moment: {
-        context:
-          'The "Lover" video follows a couple through a color-coded house spanning different moods and moments of a shared life. The sunshine-yellow tiered dress is identified as Johanna Ortiz\'s "Ladies Who Lunch" style, paired with Rebecca de Ravenel "Les Bonbons" drop earrings — part of the video\'s wider pastel wardrobe.\n\nThe house itself was the concept: co-directed by Taylor and Drew Kirsch and premiered on YouTube on August 22, 2019 — hours before the album dropped — the video puts the couple\'s whole domestic life inside a dollhouse held in a snow globe, one distinctly colored room at a time, with former tour dancer Christian Owens as the male lead. Critics compared the miniature, hyper-art-directed rooms to a Wes Anderson film, and the closing shot reveals the child holding the snow globe is the couple\'s daughter.',
-        sources: [
-          {
-            outlet: 'Spotern',
-            url: 'https://www.spotern.com/en/spot/video/taylor-swift-lover-official-music-video/226542/yellow-tiered-dress-of-taylor-swift-in-the-music-video-lover',
-          },
-          {
-            outlet: 'Social Media Style',
-            url: 'https://www.socialmediastyle.org/post/taylor-swift-s-yellow-ball-earrings-and-tiered-dress-from-the-lover-music-video',
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Lover_(Taylor_Swift_song)',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://medias.spotern.com/spots/w640/226/226542-1566837979.jpg',
-            credit: 'Spotern',
-          },
-        ],
-        // Shop pass (2026-07-22): the exact Johanna Ortiz dress is
-        // discontinued -- a current yellow floral midi, verified in
-        // stock, closest real match.
-        products: [
-          {
-            brand: 'Princess Polly',
-            item: 'Nellie Midi Dress',
-            retailer: 'us.princesspolly.com',
-            url: 'https://us.princesspolly.com/products/nellie-midi-dress-yellow-floral',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0061/8627/0804/products/1-modelinfo-Elise-us2_dbc4c6ea-e3f6-4369-be3f-28a17c6794ec.jpg?v=1660000325',
-            price: '$19.00',
-            isAlternative: true,
-            altNote: 'Her exact Johanna Ortiz "Ladies Who Lunch" dress is discontinued -- this is a current yellow floral midi in the same sunshine-yellow spirit, not literally tiered.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2019,
-      month: 7,
-      day: 10,
-      category: 'fashion',
-      title: 'A sequined romper and Kat Maconie heels at the Amazon Prime Day concert',
-      snippet:
-        'Opening with pyrotechnics for "ME!," she performed the Hammerstein Ballroom show in a black-and-purple sequined romper with Kat Maconie\'s glitter-jeweled "Frida" block heels.',
-      sourceUrl: 'https://www.yahoo.com/entertainment/taylor-swift-steals-spotlight-block-152845330.html',
-      thumbnailUrl:
-        'https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5',
-      moment: {
-        context:
-          'Headlining the Amazon Prime Day Concert at Hammerstein Ballroom on July 10, 2019 alongside Dua Lipa, SZA, and Becky G, she opened with "Me!" in a sparkling black-and-purple striped sequin romper. Footwear News named her shoes as Kat Maconie\'s $370 "Frida" style — thick block heels with dark, reflective jewel detailing and a thin silver ankle strap.\n\nIt was "stadium-level production" jammed into a theater — pyrotechnics, smoke cannons, and spark showers, per Billboard\'s recap — across a set that gave "You Need to Calm Down" its live debut and ran through "I Knew You Were Trouble," "Style," and "Love Story," plus acoustic takes on "Welcome to New York" and "Delicate," before a confetti-drenched "Shake It Off" closed the night with Becky G and Dua Lipa back onstage.',
-        sources: [
-          {
-            outlet: 'Yahoo / Footwear News',
-            url: 'https://www.yahoo.com/entertainment/taylor-swift-steals-spotlight-block-152845330.html',
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/pop/amazon-prime-day-concert-recap-taylor-swift-8519537/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5',
-            credit: 'Footwear News',
-          },
-        ],
-        // Shop pass (2026-07-22): the exact custom striped romper is
-        // discontinued -- a current black sequin romper, verified in
-        // stock, closest real match.
-        products: [
-          {
-            brand: 'Julian Chang',
-            item: 'Eres Long-Sleeve V Neck Sequin Romper',
-            retailer: 'julianchang.com',
-            url: 'https://julianchang.com/products/eres-romper',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/2100/2615/files/3135BlackSequinJulianChang.jpg?v=1758735654',
-            price: '$315.00',
-            isAlternative: true,
-            altNote: 'The custom striped romper is discontinued -- this is a current black sequin romper in the same short one-piece silhouette, without purple striping (heels not separately sourced).',
           },
         ],
       },
@@ -1211,48 +710,10 @@ export default {
         ],
       },
     },
-    // --- Music backstory + sighting/fashion/business depth pass (2026-07-05)
-    {
-      // Cross-link (Stage 3, 2026-07-27): sibling "Shake It Off" moments.
-      relatedIds: [
-        'moment:vault-1989-shake-it-off-and-the-pivot-from-victim-to-punchline-maker',
-        'moment:vault-1989-shake-it-off-launches-the-era',
-        'moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single',
-      ],
-      year: 2019,
-      month: 6,
-      day: 14,
-      category: 'sighting',
-      title: 'A surprise "Shake It Off" at the Stonewall Inn for Pride\'s 50th anniversary',
-      snippet:
-        'Hours after "You Need to Calm Down" dropped, she showed up unannounced at the Stonewall Inn\'s 50th-anniversary Pride event: "Thank you for having me, Stonewall. Happy Pride!"',
-      sourceUrl: 'https://abcnews.com/Entertainment/taylor-swift-makes-surprise-appearance-stonewall-inn-performs/story?id=63731487',
-      thumbnailUrl: 'https://s.abcnews.com/images/GMA/taylor-swift-stonewall-gty-mo-20190615_hpMain_16x9_992.jpg?w=992',
-      moment: {
-        context:
-          'In mid-June 2019, hours after releasing "You Need to Calm Down," Taylor made a surprise appearance at AEG and the Stonewall Inn\'s invitation-only Pride celebration marking the 50th anniversary of the Stonewall uprising, headlined by Jesse Tyler Ferguson.\n\nShe performed an acoustic "Shake It Off," telling the crowd, "Thank you for having me, Stonewall. Happy Pride!" before inviting Ferguson onstage for a duet, saying she\'d heard it was his favorite karaoke song.',
-        sources: [
-          {
-            outlet: 'ABC News',
-            url: 'https://abcnews.com/Entertainment/taylor-swift-makes-surprise-appearance-stonewall-inn-performs/story?id=63731487',
-          },
-          {
-            outlet: 'BuzzFeed News',
-            url: 'https://www.buzzfeed.com/adeonibada/taylor-swift-surprise-performance-stonewall-inn-nyc-pride',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://s.abcnews.com/images/GMA/taylor-swift-stonewall-gty-mo-20190615_hpMain_16x9_992.jpg?w=992',
-            credit: 'Getty Images via ABC News',
-          },
-        ],
-      },
-    },
     {
       // Cross-link (Stage 3, 2026-07-30): sibling "Cruel Summer" moments.
       relatedIds: [
-        'moment:vault-lover-cruel-summer-takes-four-years-to-become-a-no-1',
+        'moment:vault-midnights-cruel-summer-takes-four-years-to-become-a-no-1',
         'moment:vault-midnights-cruel-summer-hits-no-1-four-years-after-it-came-out',
       ],
       year: 2019,
@@ -1897,118 +1358,6 @@ export default {
         ],
       },
     },
-    // --- Deep timeline fill (2026-07-08, content/deep-c): music backstories
-    // for the remaining marquee tracks, the era's missing release-category
-    // moments (singles, the holiday one-off, the concert special), the
-    // one-off shows that stood in for a tour, and the two business wavetops
-    // (the Big Machine sale + the on-air re-recording pledge) that frame the
-    // whole era. Every claim verified against its cited source. New items
-    // carry the audit's additive provenance fields; thumbnails deliberately
-    // null per the 2026-07-08 media policy (no new hotlinks).
-    {
-      slug: 'the-archer-track-five',
-      year: 2019,
-      month: 7,
-      day: 23,
-      category: 'release',
-      title: 'The Archer arrives as track five — and everyone knew what that meant',
-      snippet:
-        'Out July 23, 2019 as a promotional single, announced on an Instagram Live where she acknowledged the fan-spotted pattern herself: track five is where the most vulnerable song goes. This one asks "who could ever leave me, darling? But who could stay?"',
-      sourceUrl: 'https://en.wikipedia.org/wiki/The_Archer_(Taylor_Swift_song)',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'A synth-heartbeat ballad written and produced with Jack Antonoff — the writing took about two hours, by his account, though the LinnDrum-and-DX7 production never breaks into a radio chorus by design.\n\nShe announced it on an Instagram Live minutes before it dropped, explaining she wanted fans to hear a track five early because that slot holds the songs that are "the most honest, emotional, vulnerable, and personal." The title flips her Sagittarius archer into the era\'s sharpest self-inventory — "I\'ve been the archer, I\'ve been the prey" — and with no video or chart push, it worked as a deliberate "this album has feelings" flare sent up between the candy-colored singles. Stereogum and Slant both ranked it the sixth-best song of 2019.',
-        sources: [
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/The_Archer_(Taylor_Swift_song)',
-            source_title: 'The Archer (Taylor Swift song)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-08',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/articles/news/8523616/taylor-swift-the-archer-listen',
-            source_title: "Taylor Swift's 'The Archer': Listen",
-            publisher: 'Billboard',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-09',
-            reliability_score: 4,
-          },
-        ],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Taylor_Swift_-_The_Archer.png',
-            focalPoint: '50% 50%',
-            credit: 'Republic Records (single cover art)',
-            kind: 'primary',
-          },
-        ],
-      },
-    },
-    {
-      slug: 'lover-title-track-waltz',
-      year: 2019,
-      month: 8,
-      day: 16,
-      category: 'music',
-      title: 'Lover, the waltz she wrote alone',
-      snippet:
-        'The title track, written solo and released a week ahead of the album as its third single — a hazy, slow-dance waltz produced with Jack Antonoff, and the quietest thesis statement she\'s ever put a whole era\'s name on.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(Taylor_Swift_song)',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'She wrote it alone late one night at the piano, and the recording with Jack Antonoff at Electric Lady took about six hours; her pitch for the sound was "just the last two people on a dance floor at 3 a.m. swaying" — a song that could have played at "a wedding reception in 1980 or 1970 or now."\n\nThe bridge — "swear to be overdramatic and true to my lover" — is written like vows on purpose ("I love a bridge, and I was really able to go to Bridge City," she said on release day). It got its live debut in her 2019 VMAs medley, a Shawn Mendes duet remix followed that November with verses he wrote himself, and it earned her first Grammy nomination for Song of the Year as a solo writer.',
-        sources: [
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Lover_(Taylor_Swift_song)',
-            source_title: 'Lover (Taylor Swift song)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-09',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-lover-new-song-new-album-listen-871277/',
-            source_title: "Hear Taylor Swift's Tender New Song 'Lover'",
-            publisher: 'Rolling Stone',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-09',
-            reliability_score: 4,
-          },
-        ],
-        // Photo-enrichment pass (2026-07-18, #762): music-video still upgraded
-        // from the 480×360 hqdefault to the same video's 1280×720 maxres
-        // render (video id oEmbed-verified: "Taylor Swift - Lover (Official
-        // Music Video)", Taylor Swift channel). Added the official Lover
-        // (Remix) feat. Shawn Mendes lyric-video artwork — the November 2019
-        // duet the story mentions (also oEmbed-verified against her channel).
-        // Both downloaded and visually confirmed this session.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/-BjZmE2gtdo/maxresdefault.jpg',
-            credit: 'Republic Records / YouTube (official music video still)',
-            caption: "Still from the official 'Lover' music video, co-directed by Taylor and Drew Kirsch.",
-            kind: 'archival',
-            focalPoint: '49% 36%',
-          },
-          {
-            url: 'https://i.ytimg.com/vi/b5Zay_Hd_7Q/maxresdefault.jpg',
-            credit: 'Republic Records / YouTube (official lyric video still)',
-            caption:
-              "Artwork from the official 'Lover (Remix)' lyric video — the November 2019 duet with verses Shawn Mendes wrote himself.",
-            kind: 'archival',
-            focalPoint: '50% 45%',
-          },
-        ],
-      },
-    },
     {
       slug: 'london-boy-idris-elba',
       year: 2019,
@@ -2233,8 +1582,8 @@ export default {
       significance: 'defining', // the actual arrival of the album that owns her whole catalog's turning point, the first she's owned outright (docs/decisions.md, 2026-07-19)
       relatedIds: [
           'moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi',
-        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
-        'moment:vault-lover-the-re-recording-plan-confirmed-on-live-tv-the-day-before-lo',
+        'moment:vault-reputation-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        'moment:vault-reputation-the-re-recording-plan-confirmed-on-live-tv-the-day-before-lo',
         'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
       ],
       year: 2019,
@@ -2729,207 +2078,6 @@ export default {
         ],
       },
     },
-    {
-      slug: 'big-machine-sale-worst-case-scenario',
-      significance: 'defining', // reshaped the whole industry's masters conversation, launched Taylor's Version (docs/decisions.md, 2026-07-19)
-      threadIds: ['taylors-version'],
-      relatedIds: [
-          'moment:vault-tloas-father-figure-rebuilds-george-michaels-1988-hit-with-his-est',
-        'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
-        'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1',
-        'moment:vault-midnights-1989-taylors-version-announced-at-the-final-us-show-on-the-d',
-        'moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi',
-        'moment:vault-folklore-her-masters-get-sold-again-this-time-to-shamrock-capital-for',
-      ],
-      year: 2019,
-      month: 6,
-      day: 30,
-      category: 'business',
-      title: '"My worst case scenario": Scooter Braun buys Big Machine — and her first six albums',
-      snippet:
-        'June 30, 2019: Ithaca Holdings acquired Big Machine for over $300 million, her masters included. Her Tumblr response the same day called it her "worst case scenario" — the opening shot of the defining business war of her career.',
-      sourceUrl: 'https://variety.com/2019/music/news/taylor-swifts-masters-scooter-brauns-bullying-inside-the-big-machine-ithaca-holdings-deal-1203256640/',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'Her Tumblr post laid out the history in one line — "For years I asked, pleaded for a chance to own my work" — and said the alternative she\'d been offered was to "sign back up to Big Machine Records and \'earn\' one album back at a time, one for every new one I turned in."\n\nShe wrote that she\'d learned of the deal "as it was announced to the world"; Scott Borchetta answered with a blog post titled "So, It\'s Time For Some Truth," claiming he had texted her the night before, which she disputed. #IStandWithTaylor trended worldwide within hours. Everything that follows in this era traces back to this sale: the AMA standoff, Miss Americana\'s framing, the on-air re-recording pledge — and eventually the entire Taylor\'s Version project.\n\nThe deal\'s paperwork tells a quieter story than the headlines did. Ithaca Holdings\' own announcement, put out through PR Newswire on the morning of June 30, disclosed no price at all — the widely-cited "over $300 million" came from press reporting, not from the release itself. It named the Carlyle Group as backing the purchase through its Carlyle Partners VI fund and staying on as a minority shareholder, with Carlyle\'s Jay Sammons joining Ithaca\'s board. Borchetta didn\'t simply cash out and walk away: he took a minority interest in the combined company and a board seat, and stayed on as Big Machine\'s president and CEO. What changed hands was every master recording of her first six albums, from her 2006 debut through reputation — the catalog she built before leaving for Republic, and the exact body of work the Taylor\'s Version project would spend the next years reclaiming.',
-        sources: [
-          {
-            outlet: 'Variety',
-            url: 'https://variety.com/2019/music/news/taylor-swifts-masters-scooter-brauns-bullying-inside-the-big-machine-ithaca-holdings-deal-1203256640/',
-            source_title: "Taylor Swift Vs. Scooter Braun: Inside the Big Machine-Ithaca Deal",
-            publisher: 'Variety',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/lists/taylor-swift-scooter-braun-feud-timeline/',
-            source_title: "Taylor Swift and Scooter Braun's Feud: A Timeline",
-            publisher: 'Billboard',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'PR Newswire',
-            url: 'https://www.prnewswire.com/news-releases/scooter-brauns-ithaca-holdings-acquires-scott-borchettas-big-machine-label-group-300878263.html',
-            source_title: "Scooter Braun's Ithaca Holdings Acquires Scott Borchetta's Big Machine Label Group",
-            publisher: 'PR Newswire (Ithaca Holdings)',
-            source_type: 'official',
-            accessed_at: '2026-08-16',
-            reliability_score: 5,
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Taylor_Swift_masters_dispute',
-            source_title: 'Taylor Swift masters dispute',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-08',
-            reliability_score: 2,
-          },
-        ],
-        // Photo-enrichment pass (2026-07-18, #762): added Billboard's own art
-        // for its feud-timeline story (the second source this page cites) —
-        // a clean side-by-side of the two parties on billboard.com's CDN,
-        // captioned honestly as later photos, since no press photo of the
-        // 2019 sale itself exists. No usable Commons photo of Scott
-        // Borchetta was found (only a signature graphic). Verified HTTP 200
-        // + image/jpeg, downloaded, and visually confirmed this session.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Scooter_Braun.jpg',
-            credit: 'TechCrunch (CC BY 2.0), via Wikimedia Commons',
-            caption: 'Reference image: Scooter Braun, whose Ithaca Holdings acquired Big Machine — an earlier conference photo, not from the 2019 deal.',
-            kind: 'reference',
-            focalPoint: '49% 28%',
-          },
-          {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/10/scooter-braun-taylor-swift-2024-billboard-1548.jpg',
-            credit: 'Billboard',
-            caption:
-              "The two sides of the fight, in Billboard's art for its feud timeline — later photos of Braun and Taylor, not from the 2019 sale.",
-            kind: 'reference',
-            focalPoint: '50% 30%',
-          },
-          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
-          // real, verified photos from the surrounding news cycle — no photo
-          // op exists for the sale itself, so this is the era's actual
-          // documented fallout, same convention as the reference photo above.
-          {
-            url: 'https://i.guim.co.uk/img/media/952d2b76234c00dea74332a4b49e9ee26bb26884/0_31_3000_1800/master/3000.jpg?crop=none&dpr=1&s=none&width=1000',
-            focalPoint: '50% 28%',
-            credit: 'Richard Shotwell/Invision/AP, via The Guardian',
-            caption: 'A contemporaneous reference image shows Taylor arriving at the Billboard Music Awards on May 1, 2019, two months before the Big Machine sale.',
-            kind: 'reference',
-          },
-          // Two ca-times.brightspotcdn.com (LA Times) candidates were dropped
-          // here 2026-07-19: curl returned 200 + real image bytes, but the
-          // CDN serves a 1x1 placeholder to actual browser requests
-          // (Referer-based hotlink protection) — caught only by testing in
-          // a real browser (naturalWidth === 1), not by curl. See
-          // docs/decisions.md for the full note; every other domain in this
-          // pass tested clean.
-          {
-            url: 'https://media.vanityfair.com/photos/5ddb4a90d223c300093e7f42/master/w_2560%2Cc_limit/taylor-swift-ama-perfomance.jpg',
-            focalPoint: '30% 28%',
-            credit: 'JC Olivera/Getty Images, via Vanity Fair',
-            caption: 'Taylor accepts Artist of the Decade at the 2019 American Music Awards amid the public dispute over performing her Big Machine-era songs.',
-            kind: 'archival',
-          },
-          {
-            url: 'https://i.guim.co.uk/img/media/62052f41de01072ab003d60e57853e969dd49106/0_363_3994_2397/master/3994.jpg?crop=none&dpr=1&s=none&width=1000',
-            focalPoint: '58% 33%',
-            credit: 'Kevin Mazur/Getty Images for ABA, via The Guardian',
-            caption: 'Taylor performs on Good Morning America on Aug. 22, 2019, the day she publicly confirmed that she planned to rerecord her catalog.',
-            kind: 'archival',
-          },
-          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 2 more,
-          // re-challenging the prior "no usable Borchetta photo" note — still
-          // true (only a signature graphic exists), but a period-accurate
-          // Scooter Braun photo and the literal album-titles-shirt statement
-          // both turned up on this harder second look. Both curl-verified;
-          // the shirt photo downloaded and vision-confirmed.
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Scooter_Braun_Interview_2020.png',
-            focalPoint: '49% 30%',
-            credit: 'Ashley Graham interview, via Wikimedia Commons (CC BY 3.0)',
-            caption: 'Braun in a 2020 interview, months after the Big Machine deal closed.',
-            kind: 'reference',
-          },
-          {
-            url: 'https://townsquare.media/site/623/files/2019/11/taylor-siwft-2019-amas-40.jpg?w=980&q=75',
-            focalPoint: '48% 17%',
-            credit: 'Townsquare Media, via The Boot',
-            caption: 'At the 2019 AMAs that November, she opened her medley in a men\'s shirt printed with the titles of the six albums under dispute — "Speak Now," "Red," "reputation," "1989," "Fearless" — a wordless statement mid-feud.',
-            kind: 'archival',
-          },
-        ],
-      },
-    },
-    {
-      slug: 'gma-rerecording-pledge',
-      year: 2019,
-      month: 8,
-      day: 22,
-      category: 'business',
-      title: 'The re-recording plan, confirmed on live TV the day before Lover dropped',
-      snippet:
-        'Asked on Good Morning America whether she really planned to re-record her Big Machine catalog: "Yeah, that\'s true, and it\'s something I\'m very excited about." Broadcast Aug. 22, 2019 — Lover arrived the next day.',
-      sourceUrl: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-record-music-year-important-artists-work-65115745',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'She told Robin Roberts exactly how the plan worked: "My contract says that starting November 2020, so next year, I can record albums 1 through 5 all over again," adding, "I think it\'s important for artists to own their work."\n\nThe interview ran alongside a Central Park SummerStage concert for fans who had camped out overnight — "You Need to Calm Down," "ME!," and "Shake It Off," plus the reveal that Lover would be "the first one that I will own." Fifteen months later she was in the studio doing exactly that — the AMA-night reveal covered in the folklore era.',
-        sources: [
-          {
-            outlet: 'Good Morning America',
-            url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-record-music-year-important-artists-work-65115745',
-            source_title: "Taylor Swift performs live on 'GMA,' reveals she'll re-record her old albums",
-            publisher: 'ABC News / Good Morning America',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Variety',
-            url: 'https://variety.com/2019/music/news/taylor-swift-performs-on-gma-talks-re-recording-big-machine-songs-watch-1203310319/',
-            source_title: "Taylor Swift Performs on 'GMA,' Talks Re-Recording Big Machine Songs",
-            publisher: 'Variety',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-        ],
-        // Photo-enrichment pass (2026-07-18, #762): segment still upgraded
-        // from hqdefault to maxres (video id oEmbed-verified: "Taylor Swift
-        // says she'll re-record her old albums | Live on GMA", Good Morning
-        // America channel). Added GMA's own wide frame of the Central Park
-        // SummerStage concert that ran alongside the interview, from the
-        // story this page cites (s.abcnews.com CDN — a different frame than
-        // the one added to the lover-first-owned-album page). Both
-        // downloaded and visually confirmed this session.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/ellK-CXh7B4/maxresdefault.jpg',
-            credit: 'Good Morning America / YouTube (official segment still)',
-            caption: "Still from GMA's official YouTube upload of the segment where she confirmed the re-recording plan.",
-            kind: 'archival',
-            focalPoint: '42% 40%',
-          },
-          {
-            url: 'https://s.abcnews.com/images/GMA/taylor-swift5abc-ml-190822_hpMain_16x9_992.jpg',
-            credit: 'ABC News / Good Morning America',
-            caption:
-              'The Central Park SummerStage show that ran alongside the interview, Aug. 22, 2019 — fans had camped out overnight.',
-            kind: 'archival',
-            focalPoint: '49% 28%',
-          },
-        ],
-      },
-    },
 
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
@@ -2996,48 +2144,291 @@ export default {
         ],
       },
     },
+
     {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "lover-masters",
-      year: 2019,
-      month: 6,
-      day: 30,
-      category: "sighting",
-      title: "The masters are sold",
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-lov-1", label: "Masters sold", kind: "business" },
-      snippet: "Her back catalog changes hands without her — igniting a fight to reclaim her work.",
-      // No photo (photo-enrichment #762, 2026-07-20): the June 30, 2019
-      // Big Machine/Ithaca masters sale is a business transaction with no
-      // photographable event. A generic same-period Swift portrait would be
-      // off-hook, and there is no verifiable image OF the sale — left
-      // photo-less rather than fabricate. Skip on future runs.
-      hiddenClue: { clue: "She announced she would re-record her old albums.", payoff: "The “Taylor’s Version” project was born — reclaiming her catalog one album at a time." },
+      // Cross-link (Stage 3, 2026-07-27): sibling "Shake It Off" moments.
+      relatedIds: [
+        'moment:vault-red-shake-it-off-and-the-pivot-from-victim-to-punchline-maker',
+        'moment:vault-red-shake-it-off-launches-the-era',
+        'moment:vault-reputation-a-surprise-shake-it-off-at-the-stonewall-inn-for-prides-50th',
+      ],
+      year: 2020,
+      month: 3,
+      day: 13,
+      category: 'business',
+      title: '"Shake It Off" becomes her first Diamond-certified single',
+      snippet:
+        'Crossing 10 million units in the U.S. made her the first female artist in history to hold both a Diamond-certified single and a Diamond-certified album.',
+      sourceUrl: 'https://www.forbes.com/sites/bryanrolli/2020/03/14/taylor-swift-shake-it-off-riaa-diamond-certification/',
+      thumbnailUrl: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960',
       moment: {
+        context:
+          'The RIAA certified "Shake It Off" Diamond on March 13, 2020, for surpassing 10 million combined sales-and-streaming units — her first single to reach that tier, following Fearless\'s Diamond album certification in December 2017.\n\nAt the time, 1989\'s other singles stood at 8x Platinum ("Blank Space") and 6x Platinum ("Bad Blood"), with "Wildest Dreams" at 4x Platinum and the album itself certified 9x Platinum.',
         sources: [
           {
-            outlet: 'NPR',
-            url: 'https://text.npr.org/737613627',
-            source_title: 'Taylor Swift\'s Former Label Big Machine Is Sold, Rankling The Star',
-            publisher: 'NPR',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-            notes: 'NPR\'s text-only host; the canonical npr.org url timed out on every fetch attempt.',
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/bryanrolli/2020/03/14/taylor-swift-shake-it-off-riaa-diamond-certification/',
+          },
+          {
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2020/03/14/taylor-swifts-shake-it-off-earns-diamond-certification-in-us-lover-album-reaches-2x-platinum/',
           },
           {
             outlet: 'Forbes',
-            url: 'https://www.forbes.com/sites/caitlinkelley/2019/06/30/taylor-swift-calls-scooter-braun-manipulative-after-big-machine-sells-her-catalog/',
-            source_title: 'Taylor Swift Calls Scooter Braun \'Manipulative\' After Big Machine Sells Her Catalog',
-            publisher: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2023/10/10/taylor-swifts-1989-songs-ranked/',
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18, #762): added the ballerina frame from the
+        // official Shake It Off video (id oEmbed-verified against @TaylorSwift; 480px frame,
+        // downloaded and visually confirmed). Per-image focal points set by viewing each image.
+        photos: [
+          {
+            url: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960',
+            credit: 'Forbes',
+            focalPoint: '45% 24%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/hq2.jpg',
+            credit: 'Big Machine Records / Taylor Swift via YouTube',
+            kind: 'archival',
+            focalPoint: '52% 48%',
+            caption: "The swan-tutu ballerina scene from the official 'Shake It Off' video — the single that, six years on, became her first Diamond-certified song.",
+          },
+        ],
+      },
+    },
+    {
+      year: 2020,
+      month: 3,
+      day: 20,
+      category: 'music',
+      significance: 'defining', // the four-year saga's actual resolution — vindication on tape (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-6", label: "Full call leaks", kind: "life" },
+      title: 'The full call leaks, and she was telling the truth',
+      snippet:
+        'Four years after the Snapchat clips, the full 25-minute "Famous" call leaks — and the "that bitch" line is nowhere in it. He never read it to her. Her response points everyone to Feeding America instead.',
+      sourceUrl: 'https://variety.com/2020/music/news/taylor-swift-kanye-west-phone-call-leaks-read-full-transcript-1203541363/',
+      thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+        'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+      ],
+      moment: {
+        context:
+          'Late on the night of March 20, 2020, the unedited call — all 25 minutes of it — surfaced online, and Variety transcribed every word. The full recording showed what the 2016 Snapchat edit had left out: West never read her the "I made that bitch famous" line she was accused of approving. The conversation she\'d described in her original statement was the conversation that had actually happened.\n\nHer response, on Instagram Stories, didn\'t relitigate: the footage proved "that I was telling the truth the whole time about *that call* (you know, the one that was illegally recorded, that somebody edited and manipulated in order to frame me)" — and then, with the world a week into pandemic lockdown, she pointed followers to Feeding America and the World Health Organization instead: "If you have the ability to, please join me in donating during this crisis."\n\nFour years of "liar" and snake emojis, answered by the tape itself — the vindication reputation had been written without.\n\nIt did not settle cleanly. Days later, on March 24, Kim Kardashian pushed back on Twitter — calling the reopened dispute "very self-serving given the suffering millions of real victims are facing right now" in the first weeks of the pandemic, disputing Taylor\'s account of the call, and saying it was the last time she would address it. Taylor\'s publicist, Tree Paine, answered in kind: "this is my UNEDITED original statement. Btw, when you take parts out, that\'s editing. P.S. who did you guys piss off to leak that video?" Fans flooded Kardashian\'s replies with #KimKardashianIsOverParty and rat emojis; how the full tape leaked at all was never established.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2020/music/news/taylor-swift-kanye-west-phone-call-leaks-read-full-transcript-1203541363/',
+          },
+          {
+            outlet: 'Global News',
+            url: 'https://globalnews.ca/news/6717438/taylor-swift-kanye-west-full-leaked-phone-call/',
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-says-she-was-framed-as-2016-phone-call-with-kanye-west-leaks-online-2633977',
+          },
+          {
+            // Depth pass (Answerer, 2026-08-19): sources the March 24 2020
+            // aftermath added above — Kardashian's pushback tweets, Tree
+            // Paine's reply, and the #KimKardashianIsOverParty backlash.
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/kim-kardashian-blasts-taylor-swift-leaked-kanye-phone-call-video-1286120/',
+          },
+        ],
+        // Photo pass 2026-07-19 (defining-events-31-50): genuinely thin —
+        // this is a March 2020 pandemic-lockdown, Instagram-Stories-only
+        // event with no public appearance or press photo op of its own.
+        // 3 real, verified reference photos: the most recent public sighting
+        // of both parties before the leak, none claiming to depict the leak
+        // itself.
+        photos: [
+          {
+            url: 'https://www.deseret.com/resizer/v2/3SBWN62DPKVBNOM5OCEMSLB4CY.jpg?auth=f2f1556df77c838ffb25beba3cd481a6d23be38d2b195ee46ba46d063b9fcc19&focal=1216%2C845&width=800&height=556',
+            credit: 'Deseret News',
+            caption: 'Taylor at the "Miss Americana" Sundance premiere, Jan. 23, 2020 — her last major public appearance before the leak and the pandemic lockdown that followed weeks later.',
+            kind: 'reference',
+            // Over-the-shoulder pose; her face sits upper-left of center.
+            focalPoint: '40% 25%',
+          },
+          {
+            url: 'https://hollywoodlife.com/wp-content/uploads/2020/03/taylor-swift-kimye-full-phone-call-leaked-rex-ftr-1-1.jpg',
+            credit: 'Rex, via HollywoodLife',
+            caption: 'A composite of both parties around this period: Taylor at Sundance, West and Kardashian at a 2020 event.',
+            kind: 'reference',
+            // Left/right split composite; all faces read in the upper band.
+            focalPoint: '50% 22%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Kim_Kardashian_and_Kanye_West_at_the_Met_Gala_in_2019.png',
+            credit: 'Cosmopolitan UK, Wikimedia Commons (CC BY 3.0)',
+            caption: 'Kardashian and West in 2019, the year before the full call surfaced.',
+            kind: 'reference',
+            // Two faces center-frame, West a touch higher than Kardashian.
+            focalPoint: '46% 40%',
+          },
+        ],
+      },
+    },
+
+    // --- Thin-era top-up (2026-07-08, audit rollout PR 2): release items,
+    // remaining song stories, the era's business wavetops, and the one real,
+    // sourced relationship moment (the William Bowery reveal). Tour and
+    // sighting stay genuinely empty — no touring happened and the 2026-07-05
+    // sightings research pass (above) confirmed ~zero candid sightings.
+    // New items carry the audit's additive provenance fields.
+    {
+      slug: 'folklore-sixteen-hour-announcement',
+      significance: 'defining', // the pandemic-era reinvention that reshaped how she releases music (docs/decisions.md, 2026-07-19)
+      year: 2020,
+      month: 7,
+      day: 23,
+      category: 'release',
+      title: 'Sixteen hours\' notice: the announcement that invented the surprise era',
+      snippet:
+        '"Most of the things I had planned this summer didn\'t end up happening, but there is something I hadn\'t planned on that DID happen" — posted the morning of July 23, 2020. The album arrived at midnight.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
+      thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-evermore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+        'moment:vault-evermore-folklores-sister-arrives',
+        'moment:vault-midnights-midnights-3am-edition-surprises-fans-with-7-more-songs',
+      ],
+      moment: {
+        // The post this page is ABOUT (issue #762, Part B). Shortcode from the
+        // permalink TODAY embeds; verified by rendering
+        // instagram.com/p/CC-9usjDzUw/embed/captioned: the taylorswift verified
+        // account and the exact "Most of the things I had planned this summer…"
+        // announcement caption (the sibling CC--BUtDjav post is the separate
+        // deluxe-editions post and was deliberately not used). Embedded rather
+        // than hotlinked — Instagram CDN urls are signed/expiring and the host
+        // is not on the image allowlist.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'CC-9usjDzUw',
+          label:
+            'The surprise announcement post: black-and-white forest photos captioned "Most of the things I had planned this summer didn\'t end up happening, but there is something I hadn\'t planned on that DID" — folklore, out at midnight.',
+          postedOn: '2020-07-23',
+        },
+        // Third paragraph added 2026-07-19 (found in review): the item
+        // claimed a reinvention without substantiating its impact, just
+        // announcement mechanics — this backs the claim with real reception.
+        context:
+          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — a grid of captionless black-and-white Beth Garrabrant forest photos, no warning of any kind — with the "cardigan" video dropping alongside it at midnight. The post went up the morning of July 23 and the album arrived at midnight into July 24: under a day\'s notice, nearer fourteen hours than the "sixteen" of the fan shorthand.\n\nThe "isolation" framing hid a crowd. Aaron Dessner of The National wrote and produced most of it — about 11 of the 16 tracks — Jack Antonoff the rest, Justin Vernon (Bon Iver) sang the "exile" duet, and a mystery co-writer, "William Bowery," took credit on "exile" and "betty," revealed months later in the Long Pond Studio Sessions film as Taylor\'s partner Joe Alwyn. The record was built entirely remotely, Dessner mailing instrumental sketches from his upstate Long Pond studio; even he didn\'t know who Bowery was.\n\nThe no-notice gamble paid off historically: "cardigan" debuted at No. 1 on the Hot 100 the same week folklore entered the Billboard 200 at No. 1 — the first time any artist opened atop both charts at once. folklore drew 80.6 million day-one Spotify streams (a record for a female artist) and 846,000 first-week U.S. units, aided by eight distinct deluxe editions sold only through her site. The surprise drop became the template she reused for evermore five months later. She closed the announcement note with a line that reads now like a thesis for the decade that followed: "My gut is telling me that if you make something you love, you should just put it out into the world."',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
+            source_title: 'Folklore (Taylor Swift album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-folklore-surprise-album-1033102/',
+            source_title: 'Taylor Swift Finally Abandoned the Traditional Album Rollout',
+            publisher: 'Rolling Stone',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-leaves-her-comfort-zones-behind-on-the-head-spinning-heart-breaking-folklore-1033533/',
+            source_title: "Taylor Swift's 'Folklore': Rob Sheffield Reviews the Album",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-cardigan-folklore-debut-number-one/',
+            source_title: "Taylor Swift Is 1st Artist to Open Atop Hot 100 & Billboard 200 in Same Week",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/news/2020/7/taylor-swift-breaks-24-hour-streaming-record-on-spotify-for-8th-album-folklore-625253',
+            source_title: 'Taylor Swift breaks 24-hour streaming record on Spotify for folklore',
+            publisher: 'Guinness World Records',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/artists/taylor-swift/william-bowery-joe-alwyn-folklore-exile/',
+            source_title: 'Taylor Swift confirms Joe Alwyn is mystery folklore writer William Bowery',
+            publisher: 'Capital FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 3,
           },
         ],
-        context: "News that her master recordings were sold set off the defining business battle of her career and the plan to re-record everything.",
+        // Real-photo pass (2026-07-09): official album cover — the image the
+        // announcement itself revealed. Stable upload.wikimedia.org copy,
+        // verified HTTP 200 + image/png this session.
+        // Photo-enrichment run 17 (2026-07-18, #762): focal point only. No
+        // verifiable distinct second image — the nine-photo Instagram grid IS
+        // the cover image already shown here, and the outlet stills found for
+        // the announcement stories are logo-branded video frames (rejected).
+        // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): re-challenged
+        // per Joey's direction — this pool grew to 6 across the earlier
+        // 10-defining-events pass. A 7th was searched for again this pass
+        // (Long Pond Studio Sessions stills, the evermore/folklore cover-art
+        // cross-link) but every option found was either a text-only PD logo
+        // with no real photographic content, or an image already at the
+        // overuse checker's 4-use cap in its own era file. Genuinely thin
+        // past 6 for this specific announcement-mechanics story.
+        photos: [
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // real, verified photos from the actual announcement post and the
+          // Beth Garrabrant forest shoot that introduced the album.
+          {
+            url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=1000',
+            focalPoint: '48% 22%',
+            credit: 'Taylor Swift/Instagram, via The Guardian',
+            caption: 'The black-and-white forest montage Taylor posted with the July 23 surprise announcement for folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/74cae4f3a285b8a8638cfbc76355b2f0c0db29c5/0_54_1737_1385/master/1737.jpg?crop=none&dpr=1&s=none&width=465',
+            focalPoint: '40% 30%',
+            credit: 'Beth Garrabrant/Stoke PR, via The Guardian',
+            caption: 'A Beth Garrabrant black-and-white portrait from the forest shoot used to introduce folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/5f1b15f8562110dad1181c8f/master/w_2560%2Cc_limit/taylor-swift-new-album-lede.jpg',
+            focalPoint: '35% 30%',
+            credit: 'Beth Garrabrant, via Vanity Fair',
+            caption: 'A separate Garrabrant image from the isolated folklore photo shoot shows Taylor in the album\'s woodland setting.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/5f22f28283d239dce41f81b1/master/w_2560%2Cc_limit/Screenshot%25202020-07-30%2520at%252012.16.56%2520PM.png',
+            focalPoint: '53% 24%',
+            credit: 'Taylor Swift/YouTube, via Vanity Fair',
+            caption: 'A frame from the self-directed "cardigan" video, released at midnight alongside folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/6f8132a91d5eaf50614417ced6bee7903341fd46/0_0_1482_1958/master/1482.jpg?crop=none&dpr=1&s=none&width=465',
+            focalPoint: '52% 22%',
+            credit: 'TAS Rights Management, via The Guardian',
+            caption: 'Taylor wears the signature knit cardigan in a release-period promotional image for the video and album.',
+            kind: 'primary',
+          },
+        ],
       },
     },
   ],

@@ -2301,5 +2301,128 @@ export default {
         ],
       },
     },
+
+    {
+      // Cross-link (Stage 3, 2026-07-30): the "Love Story" pair — the song's
+      // story, and the single's release two months ahead of the album — now
+      // interlink.
+      relatedIds: ['moment:vault-debut-love-story-arrives-two-months-before-the-album'],
+      year: 2008,
+      month: 9,
+      day: 15,
+      category: 'music',
+      title: "Love Story, and the boy her family didn't approve of",
+      snippet:
+        "Inspired by a boy she never actually dated — one her family and friends \"all said they didn't like.\"",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+      moment: {
+        context:
+          "She's said the disapproval reminded her of Romeo and Juliet — \"the only people who wanted them to be together were them\" — so she gave her version the happy ending Shakespeare didn't, swapping the double suicide for a marriage proposal she felt the characters deserved.\n\nThe whole thing came fast: she wrote it on her bedroom floor in about 20 minutes, then cut a rough demo in roughly 15 minutes the next day. The boy stayed anonymous — she's only ever said he was someone she never actually dated, and that when she brought him around, \"[they] all said they didn't like him. All of them!\"",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)' },
+          { outlet: 'Wide Open Country', url: 'https://www.wideopencountry.com/love-story-taylor-swift/' },
+        ],
+        // Photo-enrichment pass (2026-07-30): added the official "Love Story"
+        // music-video still (YouTube id 8xg3vE8Ie_E, oEmbed-verified channel
+        // "Taylor Swift" @TaylorSwift; curl 200 image/jpeg); downloaded and
+        // vision-confirmed.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+            focalPoint: '52% 45%',
+            credit: 'Big Machine Records / official Taylor Swift YouTube channel',
+            caption: 'Still from the official "Love Story" music video.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    // --- Music/business/tour depth pass (2026-07-05)
+    {
+      year: 2008,
+      month: 10,
+      day: 28,
+      category: 'music',
+      title: "You're Not Sorry, and the ex-boyfriend who felt like Prince Charming",
+      snippet: "He \"came across as Prince Charming\" — until Taylor found out how many secrets he'd been keeping from her.",
+      sourceUrl: "https://en.wikipedia.org/wiki/You%27re_Not_Sorry",
+      thumbnailUrl:
+        'https://i.ytimg.com/vi/hNiMWIwAr3k/hqdefault.jpg',
+      moment: {
+        context:
+          'She\'s said the inspiration was an ex-boyfriend whose lies took a while to surface: "He came across as Prince Charming [...] who had a lot of secrets that he didn\'t tell me about." The situation became a "breaking point" where she felt she had to walk away before getting hurt further.\n\nShe wrote the song alone and produced it with Nathan Chapman at Blackbird Studio in Nashville, releasing it Oct. 28, 2008 as a promotional single ahead of the album.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/You%27re_Not_Sorry' }],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hNiMWIwAr3k/hqdefault.jpg',
+            focalPoint: '50% 45%',
+            credit: "Fearless Tour performance still, via Taylor Swift's Tour Extras on YouTube",
+            caption: 'Performing the "You\'re Not Sorry" piano mashup on the Fearless Tour.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+
+
+    // --- Deep timeline fill (2026-07-08, content/deep-a): the era's singles
+    // and reissue (release was empty), song origin stories, tour lore, the
+    // 2009 CMA sweep, and her acting/SNL firsts. Every claim verified against
+    // its cited source this session; business items carry two independent
+    // sources per the framework.
+    {
+      slug: 'love-story-single-release',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Love Story" moment.
+      relatedIds: ['moment:vault-debut-love-story-and-the-boy-her-family-didnt-approve-of'],
+      year: 2008,
+      month: 9,
+      day: 15,
+      category: 'release',
+      title: 'Love Story arrives two months before the album',
+      snippet:
+        'Sept. 15, 2008: the lead single from Fearless goes out to country radio ahead of the album — and starts a climb that wouldn\'t stop until it had topped pop radio too.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+      moment: {
+        context:
+          'It peaked at No. 4 on the Hot 100, spent two weeks atop Hot Country Songs — and five months later became the first country song ever to hit No. 1 on Billboard\'s pop-radio chart (see February 2009).\n\nThe long tail is the real story: roughly 18 million copies sold worldwide make it one of the best-selling singles ever released, and its 6.2 million US copies still stand as her biggest-selling song at home — a lead single that outsold everything the superstar decade that followed produced.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
+            source_title: 'Love Story (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Wide Open Country',
+            url: 'https://www.wideopencountry.com/love-story-taylor-swift/',
+            source_title: "'Love Story': The Story Behind The Classic Taylor Swift Song",
+            publisher: 'Wide Open Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 3,
+          },
+        ],
+        // Photo-enrichment run 16 (2026-07-18, #762): added a still from the
+        // official "Love Story" music video, which premiered Sept. 12, 2008,
+        // days before the single's radio release — video id verified via
+        // YouTube oEmbed (title "Taylor Swift - Love Story", channel
+        // @TaylorSwift); thumbnail verified HTTP 200 + image/jpeg, downloaded
+        // and visually confirmed. Per-image focal points set by eye.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+            credit: 'Big Machine Records / YouTube (official music video still)',
+            caption: 'The sepia close-up from the official "Love Story" video, which premiered days before the single went to country radio.',
+            kind: 'archival',
+            focalPoint: '48% 40%',
+          },
+        ],
+      },
+    },
   ],
 };

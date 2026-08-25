@@ -95,7 +95,7 @@ export default {
       title: 'She published poetry, and half the fandom missed it',
       secret:
         'The Target-exclusive reputation magazines carried two original Taylor poems — "Why She Disappeared" and "If You\'re Anything Like Me" — plus her paintings and handwritten lyrics. For an era with essentially no press interviews, the poems were the closest thing to an explanation she ever gave.',
-      deeperLink: 'moment:vault-reputation-the-reputation-secret-sessions-500-fans-four-houses-zero-lea',
+      deeperLink: 'moment:vault-1989-the-reputation-secret-sessions-500-fans-four-houses-zero-lea',
       provenance: 'sourced',
       sources: [
         {

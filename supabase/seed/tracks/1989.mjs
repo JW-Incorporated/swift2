@@ -108,7 +108,7 @@ export default {
             why: "The tourism-ambassador appointment this song is inseparable from — the honor, and the 'carpetbagger' backlash it drew.",
           },
           {
-            relatedId: 'moment:vault-1989-welcome-to-new-york-with-the-proceeds-going-to-the-citys-sch',
+            relatedId: 'moment:vault-red-welcome-to-new-york-with-the-proceeds-going-to-the-citys-sch',
             label: "The proceeds go to NYC's schools",
             why: "Where the money went: Swift's $50,000 gift of the single's proceeds to the New York City Department of Education.",
           },
@@ -402,12 +402,12 @@ export default {
         ],
         connections: [
           {
-            relatedId: 'moment:vault-1989-shake-it-off-launches-the-era',
+            relatedId: 'moment:vault-red-shake-it-off-launches-the-era',
             label: 'Shake It Off launches the era',
             why: 'The moment page for the single that opened the 1989 pop reinvention.',
           },
           {
-            relatedId: 'moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single',
+            relatedId: 'moment:vault-lover-shake-it-off-becomes-her-first-diamond-certified-single',
             label: 'Shake It Off becomes her first Diamond-certified single',
             why: 'The moment page for its RIAA Diamond milestone.',
           },
@@ -676,7 +676,7 @@ export default {
             why: "Another 1989 cut about a romance lived as fragile and doomed — 'Wildest Dreams' pre-mourns it while 'Out of the Woods' panics through it.",
           },
           {
-            relatedId: 'moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
+            relatedId: 'moment:vault-midnights-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
             label: "1989 (Taylor's Version) announced",
             why: "Part of the same re-recordings arc: 'Wildest Dreams (Taylor's Version)' jumped the queue in 2021, two years before this head-to-toe-blue announcement of the full 1989 (Taylor's Version).",
           },
