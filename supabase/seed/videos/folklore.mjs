@@ -61,55 +61,6 @@ export default {
       sources: [yt('K-a8s8OLBSE', 'Taylor Swift - cardigan'), wiki('Cardigan_(song)', 'cardigan (song)')],
     },
     {
-      // Cross-era medley — filed under folklore because "august" is the
-      // folklore song in it and this follows the same precedent as the 2021
-      // Grammys folklore/evermore medley (filed under one era with the other
-      // songs' real homes documented, not duplicated as a second video
-      // record — no cross-era video-track container exists, per
-      // supabase/seed/videos/_example.mjs). The other two songs in this
-      // medley are NOT folklore: "All Too Well" is Red's, and "I Knew It, I
-      // Knew You" is Taylor's Toy Story 5 single (Walt Disney Records, no
-      // album era at all) — see supabase/seed/content/the-life-of-a-showgirl.mjs
-      // for its extensive separate chart-moment coverage and its own music
-      // video (YouTube id hDU4GB1PTxc), which is a different upload from
-      // this live-performance recording.
-      slug: 'icon-sessions-grammy-museum-medley',
-      kind: 'performance',
-      title: 'The Icon Sessions at the Grammy Museum',
-      director: null,
-      releasedOn: '2026-08-24',
-      relatedSongs: ['I Knew It, I Knew You', 'August', 'All Too Well'],
-      tags: ['Music'],
-      summary:
-        'A medley of "I Knew It, I Knew You," "August" and "All Too Well" for The Recording Academy Songwriters & Composers Wing 20-Year Retrospective, live at the Grammy Museum — pairing her Toy Story 5 single with catalog favorites from folklore and Red.',
-      symbolism: null,
-      easterEggs: [],
-      officialUrl: 'https://www.youtube.com/watch?v=_9jaJtmraXA',
-      media: [
-        {
-          kind: 'oembed',
-          rights: 'platform_tos',
-          provider: 'youtube',
-          post_url: 'https://www.youtube.com/watch?v=_9jaJtmraXA',
-          oembed_fetched_at: '2026-08-25',
-          attribution: 'Taylor Swift — official YouTube channel',
-        },
-      ],
-      sources: [
-        {
-          source_url: 'https://www.youtube.com/watch?v=_9jaJtmraXA',
-          source_title: 'Taylor Swift Performance - The Icon Sessions at the Grammy Museum',
-          publisher: 'Taylor Swift (official YouTube channel)',
-          source_type: 'official',
-          accessed_at: '2026-08-25',
-          reliability_score: 5,
-          excerpt: null,
-          notes:
-            'official upload on the verified Taylor Swift channel (63.3M subscribers) — verified via live browser navigation to the video and channel page 2026-08-25; description quoted verbatim.',
-        },
-      ],
-    },
-    {
       slug: 'folklore-long-pond-studio-sessions-film',
       kind: 'documentary',
       title: 'folklore: the long pond studio sessions',

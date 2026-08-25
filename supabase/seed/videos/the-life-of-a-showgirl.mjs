@@ -176,6 +176,53 @@ export default {
       ],
     },
     {
+      // Filed here by the event's real-world date (2026-08-24, inside this
+      // era's range), NOT by the songs performed — none of the three songs
+      // in this medley ("I Knew It, I Knew You," "august," "All Too Well")
+      // is a tloas track. Era placement is decided solely by when a piece of
+      // content happened, never by the catalog era of what it references
+      // (docs/decisions.md 2026-08-25; this entry was the case that
+      // surfaced the gap — it previously sat in folklore.mjs because
+      // "august" is a folklore song). See the same cross-reference note on
+      // 'i-knew-it-i-knew-you-mv' above: distinct upload from that
+      // standalone music video — this is the live-performance recording.
+      slug: 'icon-sessions-grammy-museum-medley',
+      kind: 'performance',
+      title: 'The Icon Sessions at the Grammy Museum',
+      director: null,
+      releasedOn: '2026-08-24',
+      relatedSongs: ['I Knew It, I Knew You', 'August', 'All Too Well'],
+      tags: ['Music'],
+      summary:
+        'A medley of "I Knew It, I Knew You," "August" and "All Too Well" for The Recording Academy Songwriters & Composers Wing 20-Year Retrospective, live at the Grammy Museum — pairing her Toy Story 5 single with catalog favorites from folklore and Red.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=_9jaJtmraXA',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=_9jaJtmraXA',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=_9jaJtmraXA',
+          source_title: 'Taylor Swift Performance - The Icon Sessions at the Grammy Museum',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes:
+            'official upload on the verified Taylor Swift channel (63.3M subscribers) — verified via live browser navigation to the video and channel page 2026-08-25; description quoted verbatim.',
+        },
+      ],
+    },
+    {
       slug: 'the-official-release-party-of-a-showgirl',
       kind: 'performance',
       title: 'The Official Release Party of a Showgirl',
