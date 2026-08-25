@@ -2293,7 +2293,7 @@ export default {
           // snippet names. curl 200 image/png 2302x1500; Read-viewed: single video frame, no
           // watermark or collage, distinct from the plum-skort frame above.
           {
-            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.16.26-AM.png?ssl=1',
+            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.16.26-AM.png',
             credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
             caption: 'The lavender Popflex tulle skirt and matching corset bra, mid-rehearsal in the video.',
             focalPoint: '41% 25%',
@@ -2390,7 +2390,7 @@ export default {
         'Watched the Jan. 26 AFC Championship win over Buffalo from a VIP suite, then shared a kiss with Travis in the falling confetti with his mom Donna Kelce right there for it.',
       sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-celebrates-kansas-city-chiefs-afc-win/story?id=118133249',
       thumbnailUrl:
-        'https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg',
+        'https://dims.apnews.com/dims4/default/aaf01e8/2147483647/strip/true/crop/3022x2015%2B0%2B0/resize/599x399%21/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F1e%2F0f%2Fb7bedc75699b2a5bb6ceb0e5f3af%2Fcc4f0c89c69d41a8965e44bb67f811eb',
       moment: {
         context:
           'Kansas City beat Buffalo 32-29 in the Jan. 26, 2025 AFC Championship at Arrowhead, sending the Chiefs to a second straight Super Bowl — and a Feb. 9 shot at becoming the first NFL team ever to win three in a row. Kelce had two catches for 19 yards in the win, his fifth conference title as a Chief.\n\nWhen the confetti cannons fired, cameras found the night\'s defining image: Taylor and Kelce kissing amid the falling paper with Donna Kelce beside them. By ABC\'s tally, the Chiefs had won every game Taylor attended that season — eight regular-season dates at Arrowhead plus both playoff rounds — a streak that would finally break two weeks later in New Orleans.',
@@ -2402,20 +2402,17 @@ export default {
         ],
         photos: [
           {
-            url: 'https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg',
-            credit: 'AP',
+            url: 'https://dims.apnews.com/dims4/default/aaf01e8/2147483647/strip/true/crop/3022x2015%2B0%2B0/resize/599x399%21/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F1e%2F0f%2Fb7bedc75699b2a5bb6ceb0e5f3af%2Fcc4f0c89c69d41a8965e44bb67f811eb',
+            credit: 'AP / Ashley Landis',
             // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
             // the confetti kiss itself — the two faces meet right of center,
             // upper third, her gloved hand on his cheek.
             focalPoint: '55% 32%',
           },
           {
-            url: 'https://i.abcnewsfe.com/a/746ae3a7-ce19-4c9c-a703-bc8dfc6d5f42/taylor-swift1-gty-ml-250127_1737980240663_hpEmbed_17x16.jpg',
-            credit: 'Getty Images',
-            // Focal point set 2026-07-18 (run 7) by viewing: near-square two-shot,
-            // Travis's face upper-left, Taylor's face right of center in the LV
-            // beanie; midpoint keeps both under a wide crop.
-            focalPoint: '52% 40%',
+            url: 'https://dims.apnews.com/dims4/default/cf69427/2147483647/strip/true/crop/2831x1888%2B0%2B0/resize/599x399%21/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Fda%2Fd8%2F7595fc694f2cc53fd35321aea664%2F9b03c060e1bc4216a66dd56be4b516ea',
+            credit: 'AP / Ashley Landis',
+            focalPoint: '62% 30%',
           },
         ],
       },
@@ -2489,7 +2486,7 @@ export default {
         // unvetted third-party CDN with no allowlist precedent.)
         photos: [
           {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20250625/5a891109-de90-4fa4-977d-964e635bcea1_1750852610.jpg?fit=around%7C1200:1200&output-quality=90&crop=1200:1200;center,top',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20250625/5a891109-de90-4fa4-977d-964e635bcea1_1750852610.jpg',
             focalPoint: '62% 25%',
             credit: 'E! News (via Kane Brown\'s Instagram)',
             caption:
@@ -2514,7 +2511,7 @@ export default {
       // Image-fix pass (2026-07-10 retry): #362 — swapped in the clean, unbordered frame from
       // the same June 28, 2025 shoot (see photos[] below) to replace the TMZ letterbox crop.
       thumbnailUrl:
-        'https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729',
+        'https://media.zenfs.com/en/page_six_articles_559/89c5d1c1ef03b7418b67a546d78fe729',
       moment: {
         context:
           'The Saturday, June 28, 2025 dinner date put her in a $3,500 Balmain houndstooth tweed A-line minidress — chain-metal straps, oversized gold buttons, frayed trim — with taupe Christian Louboutin "Miss Jane" sandals and an Aspinal of London trunk bag, while Travis kept it simple in a fresh white top, trousers, and black loafers.\n\nE! priced the full look near $30,000 once the jewelry was counted: a $22,500 Panthère de Cartier necklace on a gold-and-diamond chain, a $3,400 Ofira "Tattoo" diamond ring, and a diamond-studded gold Rolex — red-carpet hardware deployed for a restaurant run, photographed on the way in and published the next morning.',
@@ -2557,7 +2554,7 @@ export default {
         // collage. Replaced the TMZ bordered photo with it.
         photos: [
           {
-            url: 'https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729',
+            url: 'https://media.zenfs.com/en/page_six_articles_559/89c5d1c1ef03b7418b67a546d78fe729',
             credit: 'The Image Direct',
             // Photo pass #762 (2026-07-19): viewed — full-body walking shot, face high in the
             // portrait frame.
