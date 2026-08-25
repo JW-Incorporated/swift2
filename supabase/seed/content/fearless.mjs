@@ -686,6 +686,12 @@ export default {
       title: 'A few months with her Valentine\'s Day co-star, Taylor Lautner',
       snippet: 'A set romance that became real, then ended quietly by December — Lautner later confirmed on the record that she was the one who ended it.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/',
+      // Getty retirement pass (issue #935, 2026-08-24): the Getty comp URL
+      // retired per the 2026-08-15 no-rehosted-third-party-press-photos
+      // decision. Same Dec. 3, 2009 outing already has a verified People.com
+      // CDN copy in the "Benihana" item just above (FameFlynet/Backgrid, via
+      // People) — reused here rather than sourcing a second image of the
+      // same day. Verified live via probe() — HTTP 206, image/jpeg.
       thumbnailUrl:
         'https://people.com/thmb/O6ePoeN7buQvyyFWlSBaP1--m08=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(527x431:529x433)/taylor-lautner-taylor-swift-0130-c1d2ef188ab7473d81c5910a05228eeb.jpg',
       // Cross-link (Stage 3, 2026-08-17): "Today Was a Fairytale," the song
@@ -709,6 +715,15 @@ export default {
             url: 'https://www.yahoo.com/entertainment/taylor-swift-taylor-lautner-relationship-130738009.html',
           },
         ],
+        // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried a
+        // baked-in watermark; replaced with an unwatermarked Getty candid of
+        // the couple from the same Dec. 3, 2009 outing.
+        // Getty retirement pass (issue #935, 2026-08-24): the Getty comp URL
+        // retired per the 2026-08-15 decision. Replaced with the same
+        // People.com CDN photo already verified for the "Benihana" item's
+        // Dec. 3, 2009 outing (allowlisted host, unwatermarked). Verified
+        // live via probe() — HTTP 206, image/jpeg — both Swift and Lautner
+        // together, matches this record's date and subject.
         photos: [
           {
             url: 'https://people.com/thmb/O6ePoeN7buQvyyFWlSBaP1--m08=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(527x431:529x433)/taylor-lautner-taylor-swift-0130-c1d2ef188ab7473d81c5910a05228eeb.jpg',
@@ -1560,7 +1575,7 @@ export default {
         // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried two
         // baked-in watermarks; an interim Getty frame was used next.
         // Kevin Stream 1 (#751, 2026-07-23): that interim frame was a
-        // media.gettyimages.com watermarked comp (banned host). No freely
+        // Getty comp-image CDN watermarked comp (banned host). No freely
         // licensed photo of the Aug. 27, 2009 MSG show itself exists on
         // Commons, so replaced with a freely licensed Fearless Tour 2009
         // concert photo as an era illustration and the caption reworded to

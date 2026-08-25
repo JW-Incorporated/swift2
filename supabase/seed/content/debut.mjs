@@ -200,7 +200,7 @@ export default {
         // Entertainment Center/Sommet Center, renamed Bridgestone Arena in
         // 2010 — same building) plus other real, dated 2007 appearances. All
         // curl-verified 200 + image/jpeg, downloaded and visually confirmed.
-        // Kevin Stream 1 (#751, 2026-07-23): dropped the media.gettyimages.com
+        // Kevin Stream 1 (#751, 2026-07-23): dropped the Getty comp-image CDN's
         // watermarked press-room comp (banned host) — the moment keeps its 5
         // freely licensed photos; thumbnail repointed to the Aug. 2007 shot.
         photos: [

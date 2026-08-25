@@ -902,7 +902,7 @@ export default {
         // tayswiftstyle collage for a single clean editorial shot of the
         // bodysuit-and-jacket opening-number set.
         // Kevin Stream 1 (#751, 2026-07-23): the interim shot was a
-        // media.gettyimages.com watermarked comp (banned host); replaced with
+        // Getty comp-image CDN watermarked comp (banned host); replaced with
         // a freely licensed Commons photo of the same "...Ready For It?"
         // opening set (Seattle, Reputation Stadium Tour). Curl-verified 200 +
         // image/jpeg and vision-confirmed (black sequined bodysuit, black
@@ -1017,11 +1017,24 @@ export default {
         // illuminated snake set piece, matching the CIE finding's
         // description of the original photo; verified HTTP 200 +
         // image/jpeg and eyeballed this session.
+        // Getty retirement pass (issue #935, 2026-08-24): the Getty comp URL
+        // retired per the 2026-08-15 decision. A same-costume replacement on
+        // an allowlisted host could not be verified after a real search
+        // (Wikimedia Commons' Reputation Stadium Tour categories, incl. the
+        // MetLife date itself and Minneapolis, only turned up other
+        // costumes from the same "Delicate" segment, not this rainbow
+        // tinsel take; Billboard/WWD/People coverage of the tour was
+        // generic hero shots). Reused this item's own thumbnailUrl
+        // (tayswiftstyle.wordpress.com, already an allowlisted host and the
+        // correct dress/moment) rather than force a wrong-costume match —
+        // it is the same image already trusted as this record's primary
+        // thumbnail. TODO: swap for a single, unwatermarked press photo of
+        // this exact costume if one turns up.
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/1004129336/photo/east-rutherford-nj-taylor-swift-swift-performs-onstage-during-the-taylor-swift-reputation.jpg?s=612x612&w=0&k=20&c=ZFwV3GLrIALEaen0WKvTgnFcKmQr4QrmRSvGUUlUle4=',
-            credit: 'Kevin Mazur/TAS18/Getty Images',
-            caption: 'Taylor Swift performing in the "cotton candy" tinsel-fringe dress at MetLife Stadium, July 22, 2018.',
+            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pcati7kyz11r4fk4fo1_r1_1280.jpg?w=1100',
+            credit: 'Via Taylor Swift Style',
+            caption: 'Taylor Swift performing in the "cotton candy" tinsel-fringe dress during the Reputation Stadium Tour, July 2018.',
             kind: 'archival',
           },
         ],

@@ -567,7 +567,12 @@ export default {
       // head-and-shoulders crop that barely showed the halter strap. Replaced with a verified Getty
       // Images full-length photo (id 139353810, HTTP 200, image/jpeg, visually confirmed: the white
       // halter dress with belted waist, full skirt, at the 2011 Teen Choice Awards red carpet).
-      thumbnailUrl: 'https://media.gettyimages.com/id/139353810/photo/universal-city-ca-taylor-swift-arrives-at-teen-choice-2011-at-the-gibson-amphitheatre-on.jpg?s=612x612&w=0&k=20&c=ikjub89NrsPL5br_63iqmNw_mXtseHJbQAYLDJEjpo8=',
+      // Getty retirement pass (issue #935, 2026-08-24): the Getty comp URL
+      // retired per the 2026-08-15 decision. Replaced with People.com's own
+      // CDN copy of the same white halter dress at the 2011 Teen Choice
+      // Awards (verified live via probe(), visually confirmed: same dress,
+      // belt, and blue/green Teen Choice backdrop).
+      thumbnailUrl: 'https://people.com/thmb/obc5e6qZmF1E_-THSfTJFiRY-a0=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(144x0:146x2)/taylor-swift-290-4d5ff902cd4c40eb8c498611e25c25dc.jpg',
       moment: {
         context:
           "The look was a deliberate Old-Hollywood homage: a white halterneck dress by Rafael Cennamo, styled with a Ranjana Khan belt, Neil Lane jewelry, and Fendi shoes — Marilyn Monroe by way of a 21-year-old country-pop star, worn with her hair pulled back in a ponytail.\n\nThe occasion earned the reference: at the August 7, 2011 show at Universal City's Gibson Amphitheatre she received the Ultimate Choice Award, the show's honorary top prize. She also won five voted categories outright that night — Choice Female Artist, both country awards ('Mean' took Country Track), Break-Up Song for 'Back to December,' and Red Carpet Fashion Icon ('Mine' was only a nominee for Choice Love Song, which went to Selena Gomez & the Scene) — plus the Ultimate Choice Award, a near-sweep powered by Speak Now's singles run.",
@@ -581,8 +586,14 @@ export default {
             // halter neckline at low res. Replaced with Getty Images id 139353810 (curl-verified
             // HTTP 200 image/jpeg; Read-viewed: full-length shot clearly showing the white halter
             // dress with jeweled belt at the 2011 Teen Choice Awards).
-            url: 'https://media.gettyimages.com/id/139353810/photo/universal-city-ca-taylor-swift-arrives-at-teen-choice-2011-at-the-gibson-amphitheatre-on.jpg?s=612x612&w=0&k=20&c=ikjub89NrsPL5br_63iqmNw_mXtseHJbQAYLDJEjpo8=',
-            credit: 'Gregg DeGuire/FilmMagic',
+            // Getty retirement pass (issue #935, 2026-08-24): the Getty comp
+            // URL retired per the 2026-08-15 decision. Replaced with
+            // People.com's own CDN copy of the same dress/event. Verified
+            // live via probe(); photographer credit not independently
+            // confirmed for this specific replacement, so credited to the
+            // hosting outlet.
+            url: 'https://people.com/thmb/obc5e6qZmF1E_-THSfTJFiRY-a0=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(144x0:146x2)/taylor-swift-290-4d5ff902cd4c40eb8c498611e25c25dc.jpg',
+            credit: 'Via People',
             caption: 'Arriving at the 2011 Teen Choice Awards in the Marilyn Monroe-inspired white halter dress.',
             kind: 'primary',
           },
@@ -1119,8 +1130,14 @@ export default {
       // verified Getty Images photo (id 129173267, HTTP 200, image/jpeg, visually confirmed: the
       // 'Wonderstruck' step-and-repeat backdrop is visible behind her) taken at the actual launch
       // event at Macy's Herald Square, October 13, 2011.
+      // Getty retirement pass (issue #935, 2026-08-24): the Getty comp URL
+      // retired per the 2026-08-15 decision. Replaced with WWD's own hotlink
+      // (allowlisted host) from its own launch-day coverage — shows Taylor
+      // beside the giant Wonderstruck bottle prop with the Macy's/
+      // Wonderstruck step-and-repeat visible behind her. Verified live via
+      // probe(); no watermark.
       thumbnailUrl:
-        'https://media.gettyimages.com/id/129173267/photo/taylor-swifts-wonderstruck-fragrance-launch.jpg?s=594x594&w=0&k=20&c=ibJp3dK0NvxFinzatkJl7lOPCieM5xP3asbvei7IB8s=',
+        'https://wwd.com/wp-content/uploads/2011/10/taylor01.jpg',
       moment: {
         context:
           'Taylor partnered with Elizabeth Arden on Wonderstruck, her first fragrance, released in US stores in October 2011.\n\nShe named it directly after her own lyric: "I wrote the lyric, \'I\'m wonderstruck, blushing all the way home,\' for the song \'Enchanted\' about the first time you meet someone," adding that fragrance helps "shape someone\'s first impression and memory of you." It became her best-selling perfume, and alongside Justin Bieber\'s "Someday," helped drive a reported 57% jump in celebrity-fragrance sales that year.',
@@ -1137,8 +1154,14 @@ export default {
             // Getty Images id 129173267 (curl-verified HTTP 200 image/jpeg; Read-viewed: 'Wonderstruck'
             // logo visible on the step-and-repeat behind her), taken at the Macy's Herald Square
             // launch event, October 13, 2011.
-            url: 'https://media.gettyimages.com/id/129173267/photo/taylor-swifts-wonderstruck-fragrance-launch.jpg?s=594x594&w=0&k=20&c=ibJp3dK0NvxFinzatkJl7lOPCieM5xP3asbvei7IB8s=',
-            credit: 'Cindy Ord/Getty Images',
+            // Getty retirement pass (issue #935, 2026-08-24): the Getty comp
+            // URL retired per the 2026-08-15 decision. Replaced with WWD's
+            // own hotlink from its Oct. 2011 launch-day coverage of this
+            // same event. Verified live via probe(); photographer credit not
+            // independently confirmed for this replacement, so credited to
+            // the hosting outlet.
+            url: 'https://wwd.com/wp-content/uploads/2011/10/taylor01.jpg',
+            credit: 'Via WWD',
             caption: "At her Wonderstruck fragrance launch at Macy's Herald Square, October 13, 2011 in New York City.",
             kind: 'primary',
           },
