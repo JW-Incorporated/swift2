@@ -4374,18 +4374,17 @@ export default {
         // per the audit's §A2 stand-in rule. Public domain, Wikimedia Commons.
         // Photo-enrichment run 11 (2026-07-18, #762): added the aftermath that
         // WAS photographable — fans gathered in Vienna's streets on Aug. 8 to
-        // sing together anyway. From TODAY's coverage on NBC's own CDN;
-        // verified HTTP 200 + image/jpeg, downloaded and vision-confirmed
-        // (crowd, friendship bracelets, raised phones and a gerbera).
+        // sing together anyway. AP's photo shows the friendship bracelets fans
+        // gave an Austrian police officer in the city center that day.
         // Focal points set per image by viewing.
         photos: [
           {
-            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_social_share_1200x630_center,f_auto,q_auto:best/rockcms/2024-08/taylor-swift-concert-vienna-zz-240808-03-8b9e7e.jpg',
-            credit: 'Getty Images (via TODAY / NBC News)',
-            caption: 'Aug. 8, 2024: on the night the first show should have opened, fans filled Vienna\'s streets — friendship bracelets on, phones up — to sing her songs together anyway.',
+            url: 'https://dims.apnews.com/dims4/default/3075db7/2147483647/strip/true/crop/3368x2318+0+0/resize/1198x824!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F2f%2F1e%2F4ec11b2e19d60c4614a57ef90c4c%2F6a7d4bfcdbad4f18bcb94c1087a17161',
+            credit: 'AP Photo / Heinz-Peter Bader',
+            caption: 'Aug. 8, 2024: an Austrian police officer in Vienna wears friendship bracelets given by Swifties after the three shows were cancelled.',
             kind: 'primary',
-            // The raised flower-and-phone cluster is the subject, mid-frame.
-            focalPoint: '50% 40%',
+            // The bracelets are the subject, just left of center.
+            focalPoint: '44% 42%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ernst-Happel-Stadion_02.jpg/960px-Ernst-Happel-Stadion_02.jpg',
@@ -4506,7 +4505,7 @@ export default {
             notes: '2018 baseline: nearly 65,000 registrations via vote.org after her first political post',
           },
         ],
-        // T16 photo pass (2026-07-09): Getty file photo CBS News ran with its
+        // T16 photo pass (2026-07-09): Getty file photo NBC News ran with its
         // endorsement coverage (the endorsement itself was an Instagram post,
         // whose cat portrait is not freely rehostable). Verified HTTP 200 +
         // image/jpeg; visually confirmed (Swift onstage, 2024).
@@ -4518,11 +4517,11 @@ export default {
         // Focal point set by viewing.
         photos: [
           {
-            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2024/09/11/edfca45c-3300-45c7-9daf-30c51d86fe4e/thumbnail/1200x630g2/528b3593333d50ff51e0e52340b1ca69/gettyimages-2166943469.jpg',
-            credit: 'Getty Images (via CBS News)',
-            caption: 'Taylor in 2024 — the file photo CBS News ran with its coverage of the endorsement, which itself was an Instagram post.',
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/rockcms/2024-07/240730-taylor-swift-mb-1200-ee2128.jpg',
+            credit: 'Getty Images (via NBC News)',
+            caption: 'Taylor in 2024 — the file photo NBC News ran with its coverage of the endorsement, which itself was an Instagram post.',
             kind: 'archival',
-            // Over-the-shoulder look to camera; face centered, eyes upper-middle.
+            // Tight performance portrait; face centered, eyes upper-middle.
             focalPoint: '49% 38%',
           },
           // Photo pass 2026-07-19 (defining-events-31-50): re-challenged —
@@ -4532,22 +4531,22 @@ export default {
           // "cat lady" line, and the debate's two moderators) weren't
           // searched for before.
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Kamala_Harris_Vice_Presidential_Portrait.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Kamala_Harris_Vice_Presidential_Portrait_%28cropped%29.jpg/960px-Kamala_Harris_Vice_Presidential_Portrait_%28cropped%29.jpg',
             focalPoint: '50% 30%',
             credit: 'Official White House portrait (public domain)',
             caption: 'Kamala Harris, the candidate the endorsement named directly.',
             kind: 'reference',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/January_2025_Official_Vice_Presidential_Portrait_of_JD_Vance.jpg/960px-January_2025_Official_Vice_Presidential_Portrait_of_JD_Vance.jpg',
             focalPoint: '54% 30%',
             credit: 'Official White House portrait (public domain)',
             caption: 'JD Vance, whose "childless cat ladies" line Taylor borrowed for her own sign-off.',
             kind: 'reference',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/5/53/P20211222AS-1417_%2851898637810%29_%28cropped%29.jpg',
-            focalPoint: '60% 22%',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/P20211222AS-1417_%2851898637810%29.jpg/960px-P20211222AS-1417_%2851898637810%29.jpg',
+            focalPoint: '28% 40%',
             credit: 'Adam Schultz / The White House (public domain)',
             caption: 'David Muir, who co-moderated the Sept. 10, 2024 debate the endorsement followed within minutes.',
             kind: 'reference',
