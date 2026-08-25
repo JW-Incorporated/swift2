@@ -9,11 +9,8 @@
  *
  * Every exported function here degrades to a no-op (or the most permissive
  * outcome) when `session` is `null` — the same graceful-degrade contract
- * `clown-session.ts`'s header documents. Nothing here throws into the
- * response path; callers still wrap the write-side calls in `.catch(() =>
- * {})` (matching `clown-predictions.ts`'s existing best-effort convention)
- * as defense in depth against a bug in this module, not because any path
- * here is expected to throw.
+ * `clown-session.ts`'s header documents. Write failures reject so the route
+ * can log them while still returning the already-composed answer.
  */
 import type { ClownSession } from './clown-session';
 import { clownAuthHeaders, clownMemoryEnv } from './clown-session';
@@ -251,25 +248,37 @@ export async function loadClownHistory(
 
 const MAX_TURN_TEXT = 4000;
 
-async function appendTurn(
+async function appendTurnPair(
   session: ClownSession,
   conversationId: string,
-  role: 'user' | 'assistant',
-  text: string,
+  question: string,
+  answerText: string,
   fetchImpl: typeof fetch,
 ): Promise<void> {
   const env = clownMemoryEnv();
   if (!env) return;
-  await fetchImpl(`${env.supabaseUrl}/rest/v1/clown_turn`, {
+  const userCreatedAt = Date.now();
+  const res = await fetchImpl(`${env.supabaseUrl}/rest/v1/clown_turn`, {
     method: 'POST',
     headers: { ...clownAuthHeaders(env, session), 'content-type': 'application/json' },
-    body: JSON.stringify({
-      conversation_id: conversationId,
-      user_id: session.userId,
-      role,
-      text: text.slice(0, MAX_TURN_TEXT),
-    }),
+    body: JSON.stringify([
+      {
+        conversation_id: conversationId,
+        user_id: session.userId,
+        role: 'user',
+        text: question.slice(0, MAX_TURN_TEXT),
+        created_at: new Date(userCreatedAt).toISOString(),
+      },
+      {
+        conversation_id: conversationId,
+        user_id: session.userId,
+        role: 'assistant',
+        text: answerText.slice(0, MAX_TURN_TEXT),
+        created_at: new Date(userCreatedAt + 1).toISOString(),
+      },
+    ]),
   });
+  if (!res.ok) throw new Error(`clown memory turn insert failed (${res.status})`);
 }
 
 /** How many of the MOST RECENT turns stay as individual rows — well above
@@ -360,15 +369,15 @@ export interface RecordTurnInput {
 }
 
 /**
- * Best-effort — the caller (`route.ts`) fire-and-forgets this with a
- * `.catch(() => {})`, same discipline as `persistPrediction`. No-ops
- * entirely when `session` is `null` (auth unavailable — today's real state).
+ * Best-effort — the caller (`route.ts`) waits for this to settle before the
+ * response stream closes and logs a rejection without replacing the answer.
+ * No-ops entirely when `session` is `null` (auth unavailable — today's real
+ * state).
  */
 export async function recordClownMemory(input: RecordTurnInput, fetchImpl: typeof fetch = fetch): Promise<void> {
   if (!input.session) return;
   const conversation = await getOrCreateConversation(input.session, fetchImpl);
   if (!conversation) return;
-  await appendTurn(input.session, conversation.id, 'user', input.question, fetchImpl);
-  await appendTurn(input.session, conversation.id, 'assistant', input.answerText, fetchImpl);
+  await appendTurnPair(input.session, conversation.id, input.question, input.answerText, fetchImpl);
   await maintainRollingSummary(input.session, conversation, fetchImpl);
 }
