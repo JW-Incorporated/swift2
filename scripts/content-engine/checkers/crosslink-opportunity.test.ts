@@ -77,6 +77,17 @@ describe('scorePair', () => {
     expect(r.flag).toBe(false);
   });
 
+  it('does NOT treat a shared generic city as a subject connection', async () => {
+    const a = moment({ key: 'a', title: 'Matching outfits in Los Angeles before a flight' });
+    const b = moment({
+      key: 'b',
+      era: 'lover',
+      file: 'supabase/seed/content/lover.mjs',
+      title: 'A rumored night out in Los Angeles',
+    });
+    expect(await check([a, b])).toEqual([]);
+  });
+
   it('requires more than one signal: a lone shared tag never flags', () => {
     const a = moment({ key: 'a', title: 'A quiet studio afternoon', tags: ['Lore'], year: 2012, month: 1 });
     const b = moment({ key: 'b', title: 'A very different day entirely', tags: ['Lore'], year: 2012, month: 9 });

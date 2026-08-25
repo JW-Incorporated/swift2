@@ -3881,6 +3881,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg", credit: "John Shearer/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
+      relatedIds: ["moment:vault-midnights-roberto-cavalli-gold-fringe-for-the-fearless-set", "moment:vault-midnights-the-original-reputation-catsuit-cut-outs-and-all"],
       products: [{ brand: "Showpo", item: "Kai Two Piece Top and Skirt Set", retailer: "showpo.com", url: "https://www.showpo.com/us/products/kai-two-piece-top-and-skirt-set-sequin-strappy-crop-top-and-wrap-tie-side-mini-skirt-in-sc2605000502", price: "$105.00", isAlternative: true, altNote: "The custom Cavalli look was never sold at retail -- this light-blue sequin two-piece matches its color, sparkle, and silhouette (boots not separately sourced)." }],
     },
     {
@@ -4167,6 +4168,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg", credit: "Kevin Winter/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
+      relatedIds: ["moment:vault-midnights-the-original-reputation-catsuit-cut-outs-and-all", "moment:vault-midnights-a-midnight-blue-star-scattered-roberto-cavalli-look-at-the-2"],
       products: [{ brand: "Mac Duggal", item: "Multicolor Metallic Sequin One Shoulder Fringe Dress", retailer: "macduggal.com", url: "https://macduggal.com/products/6212", price: "$698.00", isAlternative: true, altNote: "The custom Cavalli stage dress was never sold at retail -- this gold-silver ombre sequin fringe dress recreates its shimmer and movement (boots not separately sourced).", imageUrl: "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/6212-GoldSilverOmbre-AB.jpg?v=1766609094" }],
     },
     {
@@ -4191,6 +4193,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg", credit: "Kevin Winter/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
+      relatedIds: ["moment:vault-midnights-a-midnight-blue-star-scattered-roberto-cavalli-look-at-the-2"],
       products: [{ brand: "Fashion Nova", item: "Lara Cut Out Jumpsuit", retailer: "fashionnova.com", url: "https://www.fashionnova.com/products/lara-cut-out-jumpsuit-fncolorname-black", price: "$39.99", isAlternative: true, altNote: "The asymmetrical Cavalli catsuit was custom-made -- this black one-shoulder cutout jumpsuit echoes its one-piece shape with flared pants (boots not separately sourced)." }],
     },
     {
@@ -4275,6 +4278,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg", credit: "Getty Images", kind: "primary", focalPoint: "53% 12%" }, { url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-2023-Grammys-683x1024.jpeg", credit: "Getty Images", kind: "archival", focalPoint: "45% 25%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2023/02/06/taylor-swift-wore-roberto-cavalli-to-the-2023-grammy-awards/" }, { name: "WWD", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-roberto-cavalli-2023-grammy-awards-1235509202/" }],
+      relatedIds: ["moment:vault-midnights-roberto-cavalli-and-louboutin-for-the-1989-set"],
       products: [{ brand: "Showpo", item: "Aurora Two Piece Top and Skirt Set", retailer: "showpo.com", url: "https://www.showpo.com/us/products/aurora-two-piece-top-and-skirt-set-floral-sequin-cowl-neck-top-and-maxi-skirt-in-baby-blue", price: "$45.00", isAlternative: true, altNote: "The custom Cavalli Grammys set was never sold at retail -- this blue sequin two-piece keeps the cropped-top-and-skirt formula, in pale blue with floral sequins and a cowl neck." }],
     },
     {
@@ -7731,7 +7735,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.", "Then she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance of a few songs for the small crowd — even as the specifics stayed inside the room. No setlist was released, and none is invented here; what is on the record is that she performed, not what. The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what surfaced came from the guests themselves rather than any official recording."],
       tags: ["Music"],
       sources: [{ name: "All About Taylor Swift's Secret Show in L.A. This Week & Who Was Invited to Attend", url: "https://www.justjared.com/2026/08/21/all-about-taylor-swifts-secret-show-in-l-a-this-week-who-was-invited-to-attend/", reliability: 3, type: "reputable_press" }, { name: "Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp", url: "https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-secret-show-travis-kelce/", reliability: 3, type: "reputable_press" }],
-      relatedIds: ["moment:vault-tloas-named-to-the-nashville-songwriters-hall-of-fame-its-youngest", "moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame"],
+      relatedIds: ["moment:vault-tloas-named-to-the-nashville-songwriters-hall-of-fame-its-youngest", "moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame", "moment:vault-tloas-a-rare-la-appearance-and-five-songs-for-the-eras-tour-films-"],
       significance: "notable",
     },
     {
@@ -7744,7 +7748,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["Six weeks after the concert film of her tour’s last night pulled five Emmy nominations, Taylor showed up to campaign for it in person. On Aug. 20, 2026 she made a rare appearance at a private For-Your-Consideration event in Los Angeles — the kind of small, no-press voters’ gathering the awards season runs on — in support of Taylor Swift: The Eras Tour: The Final Show and its craft nominees, chief among them director Glenn Weiss. About 50 Emmy voters were in the room; no media were admitted and no recording devices were allowed, so what left the event were her remarks and a setlist, carried out secondhand.", "Her reflection turned on a single idea: escapism. The Eras Tour, she said, “was such a phenomenon because of so many factors, but one that I know is really important is that it was a source of great escapism for the people who were there.” She framed the film as an attempt to keep that feeling intact, describing the conversations she and Weiss had about how to preserve the experience — the sense of “relaxation and freedom” for the fans in the stadium — so that the thing that made the concert special survived the translation to screen.", "Then she played, as reported, five songs on the Eras Tour piano — opening with the new single “I Knew It, I Knew You,” then “August,” “All Too Well” and “Cardigan,” and closing on “Champagne Problems.” It was a quiet, deliberate piece of awards-season stagecraft from an artist who rarely works a voters’ room: the film competes for Outstanding Variety Special (Pre-Recorded) on the primetime telecast, with Weiss double-nominated for his direction, and the appearance put the person the nominations attach to in front of the people casting the ballots."],
       tags: ["Tour"],
       sources: [{ name: "Taylor Swift Talks 'Eras Tour: The Final Show' At Emmy Event", url: "https://deadline.com/2026/08/taylor-swift-eras-tour-final-show-emmy-nominations-1237047840/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift Joins Emmy Campaign for Eras Tour Film, Performing Five Songs for Voters", url: "https://culture.org/archive/taylor-swift-joins-emmy-campaign-for-eras-tour-film/", reliability: 3, type: "press" }],
-      relatedIds: ["moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod", "moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last"],
+      relatedIds: ["moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod", "moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last", "moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros"],
       significance: "notable",
     },
     {

@@ -606,6 +606,12 @@ export default {
       },
     },
     {
+      // Cross-links (crosslink-opportunity, 2026-08-24): Cavalli's other
+      // opening-night Eras Tour looks for the Fearless and reputation sets.
+      relatedIds: [
+        'moment:vault-midnights-roberto-cavalli-gold-fringe-for-the-fearless-set',
+        'moment:vault-midnights-the-original-reputation-catsuit-cut-outs-and-all',
+      ],
       year: 2023,
       month: 3,
       day: 17,
@@ -1865,6 +1871,12 @@ export default {
       month: 3,
       day: 17,
       category: 'fashion',
+      // Cross-links (crosslink-opportunity, 2026-08-24): Cavalli's reputation
+      // look from the same tour opener, and the house's Grammys look six weeks earlier.
+      relatedIds: [
+        'moment:vault-midnights-the-original-reputation-catsuit-cut-outs-and-all',
+        'moment:vault-midnights-a-midnight-blue-star-scattered-roberto-cavalli-look-at-the-2',
+      ],
       title: 'Roberto Cavalli gold fringe for the Fearless set',
       snippet:
         'A sparkling gold fringe mini-dress by Roberto Cavalli, paired again with knee-high Christian Louboutin boots, for the Fearless segment of Eras Tour night one.',
@@ -1949,6 +1961,9 @@ export default {
       month: 3,
       day: 17,
       category: 'fashion',
+      // Cross-link (crosslink-opportunity, 2026-08-24): the house's
+      // star-scattered Grammys look six weeks before this tour costume debuted.
+      relatedIds: ['moment:vault-midnights-a-midnight-blue-star-scattered-roberto-cavalli-look-at-the-2'],
       title: 'The original reputation catsuit, cut-outs and all',
       snippet:
         'A Roberto Cavalli catsuit with a leg and arm cut-out, plus matching Roberto Cavalli boots, for the reputation segment — the version she wore for the tour\'s first year-plus of shows.',
@@ -2243,6 +2258,9 @@ export default {
 
     // --- Fashion/photo depth pass 2 (2026-07-04)
     {
+      // Cross-link (crosslink-opportunity, 2026-08-24): Cavalli's 1989-set
+      // two-piece, which followed this red-carpet look six weeks later.
+      relatedIds: ['moment:vault-midnights-roberto-cavalli-and-louboutin-for-the-1989-set'],
       year: 2023,
       month: 2,
       day: 5,
