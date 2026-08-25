@@ -1,5 +1,5 @@
 /**
- * Clownbot agent loop (PLAN.md Stage 10) — best-effort prediction persist.
+ * Clownbot agent loop (PLAN.md Stage 10) — prediction persistence.
  * PLAN.md Stage 11 wires this for real: `bot_prediction` now exists
  * (`supabase/migrations/20260904000000_clown_sessions.sql`), RLS scoped so
  * the `authenticated` (anonymous-auth) user may insert/read only their own
@@ -26,10 +26,9 @@ export interface PersistPredictionInput {
 const MAX_QUESTION = 600;
 
 /**
- * Best-effort — never blocks the response. A network/HTTP failure DOES
- * reject; the caller never `await`s this on the response's critical path
- * (fire-and-forget with a `.catch(() => {})` is the intended usage; see
- * `route.ts`), so a rejection here is swallowed there, not here.
+ * A network or HTTP failure rejects. The route waits for the write to settle
+ * before closing its stream and logs a rejection without replacing the
+ * already-composed answer.
  *
  * Writes `claim` (the falsifiable position — `take.stance`), `theory_name`,
  * `cited_ids`, `delulu`, and `status: 'pending'` — enough structure for a
@@ -41,7 +40,7 @@ export async function persistPrediction(input: PersistPredictionInput): Promise<
   if (!input.session) return;
   const env = clownMemoryEnv();
   if (!env) return;
-  await fetch(`${env.supabaseUrl}/rest/v1/bot_prediction`, {
+  const res = await fetch(`${env.supabaseUrl}/rest/v1/bot_prediction`, {
     method: 'POST',
     headers: { ...clownAuthHeaders(env, input.session), 'content-type': 'application/json' },
     body: JSON.stringify({
@@ -55,4 +54,5 @@ export async function persistPrediction(input: PersistPredictionInput): Promise<
       status: 'pending',
     }),
   });
+  if (!res.ok) throw new Error(`clown prediction insert failed (${res.status})`);
 }
