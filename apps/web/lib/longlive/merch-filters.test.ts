@@ -94,10 +94,15 @@ describe('merchItemImage', () => {
     // verified moment.products entries — 2 on moments with a real primary
     // photo (moment) and 3 on a moment with only a reference/stand-in photo
     // (monogram, since item.imageUrl isn't set on any of them).
+    // 50/7 -> 51/6 (issue #1721, 2026-08-25): a photo-sparsity pass gave a
+    // previously zero-photo moment (unrelated to the #884 additions above)
+    // its first real photo, so its shop-the-look product's image now
+    // resolves via the moment fallback instead of the blank monogram
+    // placeholder.
     expect(split).toBe(74);
     expect(product).toBe(2);
-    expect(moment).toBe(50);
-    expect(monogram).toBe(7);
+    expect(moment).toBe(51);
+    expect(monogram).toBe(6);
     expect(split + product + moment + monogram).toBe(133);
   });
 

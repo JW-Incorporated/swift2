@@ -1854,6 +1854,14 @@ export default {
               'The Wembley cameo that won Favorite Surprise Guest at the 2025 iHeartRadio Music Awards — Kelce in white tie among the TTPD vaudeville cast, June 23, 2024.',
             kind: 'reference',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a real photo of the two
+            // together at the March 17 2025 iHeartRadio Music Awards itself.
+            url: 'https://i.abcnewsfe.com/a/a4f153c7-b859-4f68-81b3-31d32dde44cf/taylor-travis_1774576414070_hpMain_16x9.jpg?w=992',
+            credit: 'Kevin Mazur/Getty Images for iHeartRadio',
+            caption: 'Taylor Swift and Travis Kelce together at the 2025 iHeartRadio Music Awards, March 17, 2025, where their Wembley cameo won Favorite Surprise Guest.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -2493,6 +2501,14 @@ export default {
               'Backstage after the performance: Travis Kelce, Kane Brown and Taylor, June 24, 2025.',
             kind: 'reference',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a real still from the
+            // performance itself, not just the backstage aftermath.
+            url: 'https://i.ytimg.com/vi/ZgxmtNVeex8/maxresdefault.jpg',
+            credit: 'YouTube — "Taylor Swift - Shake It Off (with Kane Brown) (Live at TEU)"',
+            caption: 'Taylor Swift performing a surprise "Shake It Off" with Kane Brown at the Tight Ends & Friends / Tight End University concert, Brooklyn Bowl Nashville, June 24, 2025.',
+            kind: 'archival',
+          },
         ],
       },
     },
@@ -2657,6 +2673,15 @@ export default {
             kind: 'reference',
             focalPoint: '50% 45%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): TMZ's own CDN re-hosting
+            // (not a raw Instagram hotlink) clears the outlet-own-CDN bar the
+            // prior note above required.
+            url: 'https://imagez.tmz.com/image/6c/4by3/2025/09/16/6c7d014afbfa48a9a60b29d86fbc092d_md.jpg',
+            credit: 'Kane Brown / Instagram, via TMZ',
+            caption: 'Kane Brown\'s Instagram photo of himself with Taylor Swift and Travis Kelce at Patrick Mahomes\' 30th birthday party, September 2025.',
+            kind: 'reference',
+          },
         ],
         // Shop pass (#884, 2026-08-25): both SIMKHAI pieces verified live on
         // Revolve (in-browser — Revolve blocks curl/WebFetch), currently
@@ -2783,6 +2808,13 @@ export default {
             kind: 'archival',
             focalPoint: '48% 49%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            credit: 'Wikimedia Commons / BrigidLIS (CC BY 4.0)',
+            caption: 'Taylor Swift performing at the Eras Tour, Wembley Stadium, London, August 19, 2024.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -2819,6 +2851,13 @@ export default {
             caption: 'Still from the official "loml" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
             focalPoint: '50% 50%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): the song's named co-writer/producer.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Aaron_Dessner_at_Way_Out_West_2014.jpg',
+            credit: 'Wikimedia Commons / Kim Metso (CC BY-SA 4.0)',
+            caption: 'Aaron Dessner, "loml"\'s co-writer and producer, performing at Way Out West festival, Gothenburg, 2014.',
+            kind: 'reference',
           },
         ],
       },
@@ -2950,6 +2989,14 @@ export default {
             caption: 'Still from the official "I Can Fix Him (No Really I Can)" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
             focalPoint: '50% 38%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): the song's producer, at
+            // one of the same studios cited in this item's own context.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Jack_Antonoff_at_Electric_Lady_Studios_2023_%28cropped%29.jpg',
+            credit: 'Wikimedia Commons / Alex Lockett (CC BY-SA 4.0)',
+            caption: 'Jack Antonoff, the song\'s producer, at Electric Lady Studios, 2023.',
+            kind: 'reference',
           },
         ],
       },
@@ -3396,6 +3443,17 @@ export default {
             caption: 'Still from the official "thanK you aIMee" lyric video, stray capitals intact.',
             kind: 'archival',
             focalPoint: '50% 46%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a fresh search found a real,
+            // live still of the Wembley "thanK you aIMee"/"Mean" mashup itself —
+            // fan-recorded, but on i.ytimg.com (an allowlisted host), distinct
+            // from the official lyric-video still above. The prior note's
+            // "no creditable still" finding no longer holds after this pass.
+            url: 'https://i.ytimg.com/vi/tGHlsfhIq4Q/maxresdefault.jpg',
+            credit: 'YouTube (fan recording)',
+            caption: 'Taylor Swift performing the live "thanK you aIMee"/"Mean" mashup at Wembley Stadium, June 22, 2024.',
+            kind: 'archival',
           },
         ],
       },
@@ -5556,6 +5614,20 @@ export default {
             price: '$25.90',
             isAlternative: true,
             altNote: 'No single retail original is named -- this newspaper-print tee turns the typewritten motif into clothing, though its beige-multicolor print isn\'t the restrained monochrome styling.',
+          },
+        ],
+        // Photo pass (issue #1721, 2026-08-25): page had zero photos.
+        photos: [
+          {
+            // Photo pass (issue #1721, 2026-08-25): page had zero photos. (An
+            // album-cover photo was tried first, but combined with this pass's
+            // other additions it pushed that image's reuse past
+            // content.image-overuse's >3-moments threshold, so this Eras Tour
+            // gown from the same era is used instead.)
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Taylor_Swift_TTPD_Dress.jpg',
+            credit: 'Wikithebeavr / Wikimedia Commons, CC BY 4.0',
+            caption: 'A custom Eras Tour gown from The Tortured Poets Department era.',
+            kind: 'reference',
           },
         ],
       },
