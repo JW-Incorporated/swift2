@@ -1,5 +1,32 @@
-import { describe, expect, it } from 'vitest';
+import { mkdir, rm, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkDraft } from './check-drafts.mjs';
+
+// checkMedia reads real files under apps/web/public/ (PUBLIC_DIR in
+// check-drafts.mjs), so the aspect-ratio-rejection test below needs an actual
+// tall file on disk rather than a mock. It used to point at the real
+// mood-chat-screen.png, back when that library asset genuinely was the
+// 780x1688 shape IG rejects — issue #3157 regenerated it (and the other 8
+// *-screen.png files) at the in-range 1080x1350 ig-portrait preset, which
+// would have silently turned this into a no-op "flags nothing" test. A
+// synthetic PNG (header bytes only — imageMeta only reads the IHDR width/
+// height, see image-liveness.mjs) written to a gitignored temp path keeps the
+// regression real without committing a permanent fake-shaped binary to the
+// library.
+const PUBLIC_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'apps', 'web', 'public');
+const TALL_FIXTURE_REL = '/social/library/__test-fixture-tall-780x1688.png';
+const TALL_FIXTURE_PATH = path.join(PUBLIC_DIR, TALL_FIXTURE_REL);
+
+function makePngHeader(width: number, height: number): Buffer {
+  const buf = Buffer.alloc(24);
+  buf.set([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a], 0); // PNG signature
+  buf.write('IHDR', 12, 'ascii');
+  buf.writeUInt32BE(width, 16);
+  buf.writeUInt32BE(height, 20);
+  return buf;
+}
 
 describe('bodySimilarity', () => {
   it('is 1 for identical text', () => {
@@ -496,9 +523,19 @@ describe('checkMedia', () => {
   //    time. Nine days of IG posts (15–23 Aug 2026) died on exactly this —
   //    tall 780x1688 site screenshots (ratio 0.462) — with nothing inspecting
   //    image shape (social/calendar.md). X has no such limit. ──
-  it('flags an Instagram image outside the accepted aspect-ratio range', async () => {
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
-    expect(findings.some((f) => f.includes("outside Instagram's accepted") && f.includes('780x1688'))).toBe(true);
+  describe('with a genuinely tall (780x1688) fixture on disk', () => {
+    beforeAll(async () => {
+      await mkdir(path.dirname(TALL_FIXTURE_PATH), { recursive: true });
+      await writeFile(TALL_FIXTURE_PATH, makePngHeader(780, 1688));
+    });
+    afterAll(async () => {
+      await rm(TALL_FIXTURE_PATH, { force: true });
+    });
+
+    it('flags an Instagram image outside the accepted aspect-ratio range', async () => {
+      const findings = await checkMedia('a.json', { platform: 'instagram', media: [TALL_FIXTURE_REL], mediaKind: 'site-screen' }, []);
+      expect(findings.some((f) => f.includes("outside Instagram's accepted") && f.includes('780x1688'))).toBe(true);
+    });
   });
 
   it('accepts an in-range 1080x1350 Instagram image (aspect gate passes)', async () => {
