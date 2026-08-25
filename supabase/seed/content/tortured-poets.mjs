@@ -2683,6 +2683,41 @@ export default {
             kind: 'reference',
           },
         ],
+        // Shop pass (#884, 2026-08-25): both SIMKHAI pieces verified live on
+        // Revolve (in-browser — Revolve blocks curl/WebFetch), currently
+        // marked down and sold out. The Gucci pumps she wore were "dark red"
+        // Ottavia platform pumps; that colorway's only live listing
+        // (Net-a-Porter) is blocked by bot protection and Bergdorf's page
+        // wouldn't render, so this is the same Ottavia style in the
+        // verified-live Black colorway as the nearest in-stock alternative.
+        products: [
+          {
+            brand: 'SIMKHAI',
+            item: 'Poppy Vest in Sand Plaid',
+            retailer: 'revolve.com',
+            url: 'https://www.revolve.com/simkhai-poppy-vest-in-sand-plaid/dp/JSKI-WO47/',
+            price: '$222.00',
+            inStock: false,
+          },
+          {
+            brand: 'SIMKHAI',
+            item: 'Payton Wrap Mini Skirt in Sand Plaid',
+            retailer: 'revolve.com',
+            url: 'https://www.revolve.com/simkhai-payton-wrap-mini-skirt-in-sand-plaid/dp/JSKI-WQ100/',
+            price: '$241.00',
+            inStock: false,
+          },
+          {
+            brand: 'Gucci',
+            item: 'Ottavia Leather Platform Loafer Pumps',
+            retailer: 'neimanmarcus.com',
+            url: 'https://www.neimanmarcus.com/p/gucci-ottavia-leather-platform-loafer-pumps-prod274440624',
+            price: '$1,560.00',
+            inStock: true,
+            isAlternative: true,
+            altNote: 'Same Ottavia style; she wore it in "dark red" (Rosso Ancora) — that colorway\'s listings are blocked by bot protection everywhere checked, so this is the verified-live Black colorway.',
+          },
+        ],
       },
     },
     // (The Oct. 12, 2025 Arrowhead/Caitlin Clark sighting and the June 2026
@@ -4887,6 +4922,20 @@ export default {
             caption: 'During the Best Collaboration acceptance for "Fortnight" — one of the seven wins that tied Beyoncé\'s all-time VMAs record.',
             kind: 'archival',
             focalPoint: '50% 28%',
+          },
+        ],
+        // Shop pass (#884, 2026-08-25): the Dior tartan carpet look was a
+        // custom red-carpet piece (no product page exists — skipped per the
+        // sourcing rule). The Monse mid-show change is real RTW; its page is
+        // delisted from monse.com but still resolves live on Amazon Luxury,
+        // currently unavailable.
+        products: [
+          {
+            brand: 'Monse',
+            item: 'Harness Tapestry Dress — Alien Multi Print',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/MONSE-Harness-Tapestry-Dress-Alien/dp/B0FB9MHTDS',
+            inStock: false,
           },
         ],
       },
