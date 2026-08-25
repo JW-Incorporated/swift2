@@ -98,8 +98,7 @@ export default {
       snippet:
         'A fictional murder mystery, complete with a cheating husband, a framed mistress, and a sister for an alibi.',
       sourceUrl: 'https://en.wikipedia.org/wiki/No_Body,_No_Crime',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/IEPomqor2A8/hqdefault.jpg',
       moment: {
         context:
           'The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately.\n\nTaylor had written the song entirely alone while deep in a true-crime documentary and podcast phase, then sent Aaron Dessner a voice memo of the finished thing; the production leans all the way into its country staging, harmonica courtesy of Josh Kaufman. It even went to country radio as a single in January 2021, and when HAIM opened Eras Tour shows in 2023, it bumped "\'tis the damn season" to become the evermore set\'s opener.',
@@ -122,15 +121,9 @@ export default {
             reliability_score: 3,
           },
         ],
-        // Photo-enrichment pass (2026-07-29): added the official lyric-video
-        // still (YouTube channel "Taylor Swift", oEmbed-verified) alongside
-        // the cover; both downloaded and vision-confirmed.
+        // Official lyric-video still from the oEmbed-verified Taylor Swift
+        // channel, downloaded and vision-confirmed.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
-            focalPoint: '42% 45%',
-            credit: 'Republic Records',
-          },
           {
             url: 'https://i.ytimg.com/vi/IEPomqor2A8/hqdefault.jpg',
             focalPoint: '50% 50%',
@@ -1241,7 +1234,7 @@ export default {
       snippet:
         "While Joe Alwyn wrapped filming in Belfast, she turned up at Shu Restaurant for staff selfies one night, then stayed for a local busker's entire three-hour set at The Tipsy Bird the next.",
       sourceUrl: 'https://www.rte.ie/entertainment/2021/0913/1246573-taylor-swift-thrills-fans-at-a-belfast-bar/',
-      thumbnailUrl: 'https://www.rte.ie/images/001825a9-500.jpg',
+      thumbnailUrl: 'https://www.rte.ie/images/001825a9-1000.jpg',
       moment: {
         context:
           'Taylor was in Belfast to support Joe Alwyn as he finished filming the BBC/Hulu adaptation of Sally Rooney\'s "Conversations with Friends." On Thursday, September 9, 2021, she dined at Shu Restaurant on the Lisburn Road and posed for selfies with staff, who posted that she "was so lovely and really is a beautiful person inside and out."\n\nThe next night, Friday September 10, she turned up at The Tipsy Bird cocktail bar in the city centre and stayed for musician Tiernán Heffron\'s full three-hour set, joining a singalong and tipping him afterward; Heffron said, "It\'s not everyday Taylor Swift walks into your gig and stays for your whole three hour set. She was the most lovely person!" The bar confirmed her visit and posed for a photo with its team.',
@@ -1252,7 +1245,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.rte.ie/images/001825a9-500.jpg',
+            url: 'https://www.rte.ie/images/001825a9-1000.jpg',
             credit: 'The Tipsy Bird via Facebook',
           },
         ],
@@ -1789,7 +1782,8 @@ export default {
       snippet:
         'The first From the Vault track ever released, out April 7, 2021 ahead of Fearless (Taylor\'s Version) — a 2008 castoff fans immediately read as a Joe Jonas song. Sophie Turner\'s Instagram verdict: "It\'s not NOT a bop."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mr._Perfectly_Fine',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-and-Sophie-Turner-billboard-1548-1617818770.jpg',
       moment: {
         context:
           'Written solo when she was 18 and left off the original Fearless, it introduced the vault-track format that became the re-recording project\'s signature: finished songs from each album\'s original sessions, released as new. Produced with Jack Antonoff for the 2021 release, it debuted at No. 90 on the Hot 100 and climbed to No. 30, reaching No. 2 on Hot Country Songs — remarkable mileage for a thirteen-year-old castoff.\n\nThen there was the subplot: fans immediately read the song as a Joe Jonas post-mortem, and Turner — married to Jonas at the time — posted it to her Instagram story with the now-famous verdict, "It\'s not NOT a bop." Taylor reposted her with a Game of Thrones bow, writing that she was "forever bending the knee" for the queen of the north.',
@@ -1826,13 +1820,6 @@ export default {
         // Stories, which have no permalink and expired within 24 hours;
         // nothing exists to embed.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',
-            focalPoint: '50% 30%',
-            credit: 'Republic Records (single cover art)',
-            caption: 'Cover artwork for "Mr. Perfectly Fine (Taylor\'s Version) (From the Vault)."',
-            kind: 'primary',
-          },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-and-Sophie-Turner-billboard-1548-1617818770.jpg',
             focalPoint: '50% 28%',
@@ -1923,9 +1910,6 @@ export default {
             reliability_score: 4,
           },
         ],
-        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
-        // upload.wikimedia.org copy (exact filename from the article HTML).
-        // URL verified HTTP 200 + image/png this session.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png',
@@ -2429,7 +2413,7 @@ export default {
       snippet:
         'Announced on Good Morning America on Feb. 11, 2021 and out that night — the first finished piece of the re-recording project, 13 years after the original, sounding almost eerily identical on purpose.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor%27s_Version)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/aXzVF3XeS8M/maxresdefault.jpg',
       moment: {
         context:
           'The announcement letter set the template the whole project would follow: a full album (Fearless) coming, vault tracks from the original sessions — and stray capital letters hiding the release date in plain sight for fans to decode.\n\nFans had technically heard the new recording already, via a snippet in a Match.com ad the previous December. The finished single debuted at No. 1 on Hot Country Songs, making her only the second artist ever — after Dolly Parton — to top a Billboard chart with both the original and re-recorded versions of the same song.',
@@ -2457,15 +2441,6 @@ export default {
         // upload.wikimedia.org copy (exact filename from the article HTML).
         // URL verified HTTP 200 + image/png this session.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png',
-            credit: 'Republic Records (single cover art)',
-            caption: 'Cover artwork for "Love Story (Taylor\'s Version)," the first re-recording released.',
-            kind: 'primary',
-            // Focal point set by viewing: she stands on the left in the white
-            // gown, face in the upper-left quarter, arm extended right.
-            focalPoint: '30% 25%',
-          },
           // Photo pass #762 (2026-07-18): still from the official "Love Story
           // (Taylor's Version)" lyric video — built from vintage fan-club
           // footage; this frame is a 2008-era clip of her making heart hands.
@@ -2710,19 +2685,6 @@ export default {
             // dreamscape with the handwritten title dead center — genuinely
             // reads best centered; no face or subject to protect.
             focalPoint: '50% 50%',
-          },
-          // Photo pass #762 (2026-07-18): the single's own cover art — Swift
-          // in sunglasses and a striped shirt — from Wikipedia's stable
-          // upload.wikimedia.org copy (exact filename from the article HTML).
-          // curl 200 image/png 300x300, downloaded and vision-confirmed.
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/f/ff/Wildest_Dreams_%28Taylor%27s_Version%29_-_Taylor_Swift.png',
-            credit: 'Republic Records (single cover art)',
-            caption: 'The Wildest Dreams (Taylor\'s Version) cover — the artwork that appeared when the re-record surprise-dropped mid-TikTok trend.',
-            kind: 'primary',
-            // Focal point set by viewing: face in sunglasses upper-center-
-            // right, sunlit wall behind.
-            focalPoint: '55% 28%',
           },
         ],
       },

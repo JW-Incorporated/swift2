@@ -1199,8 +1199,7 @@ export default {
       snippet:
         'An unauthorized MP3 of "Mine" hit the internet in early August 2010 — Big Machine answered by rushing the lead single to radio and iTunes on Aug. 4, twelve days ahead of schedule.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/5/56/Taylor_Swift_-_Mine.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg',
       moment: {
         context:
           'She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. "Mine" introduced Speak Now two and a half months before the album arrived.\n\nThe numbers vindicated the scramble: originally slated for August 16, the single debuted at No. 3 on the Hot 100 with 297,000 downloads — at the time the eighth-biggest sales debut ever for a digital song. The music video, co-directed by Taylor and Roman White and shot in Kennebunkport, Maine with British actor Toby Hemingway as the love interest (she cast him after seeing Feast of Love), premiered on CMT August 27 and went on to win Video of the Year at the 2011 CMT Music Awards.',
@@ -1234,11 +1233,6 @@ export default {
           },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/5/56/Taylor_Swift_-_Mine.png',
-            credit: 'Big Machine Records (single cover art)',
-            kind: 'primary',
-          },
           {
             url: 'https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg',
             credit: 'Big Machine Records / YouTube (official music video still)',
@@ -1425,8 +1419,7 @@ export default {
       snippet:
         'March 2011: the album\'s bluegrass-leaning critic clapback becomes single three — the one that would end up with two Grammys and a live banjo on the Grammy stage.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mean_(song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/2/2d/Taylor_Swift_-_Mean.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/jYa1eI1hpDE/hqdefault.jpg',
       moment: {
         context:
           'Sending the most traditionally country track on Speak Now to radio mid-tour doubled as a statement about where she still lived musically; eleven months later it won Best Country Song and Best Country Solo Performance.\n\nIt had already debuted and peaked at No. 11 on the Hot 100 on album-week sales in 2010; released to country radio March 7, 2011, it passed a million digital copies by that August. The Declan Whitebloom video — shot over two days at Los Angeles\' Orpheum Theatre with young actors Joey King and Presley Cash — reframed the critic clapback as an anti-bullying story, and Grammy.com\'s retrospective still reads the song the way fans did in 2011: "a deliciously twangy clapback to critic Bob Lefsetz."',
@@ -1452,12 +1445,6 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/2/2d/Taylor_Swift_-_Mean.png',
-            credit: 'Big Machine Records (single cover art)',
-            kind: 'primary',
-            focalPoint: '25% 60%',
-          },
-          {
             url: 'https://i.ytimg.com/vi/jYa1eI1hpDE/hqdefault.jpg',
             credit: 'Big Machine Records / YouTube (official music video still)',
             caption: "Still from the official 'Mean' music video, via the video's YouTube thumbnail.",
@@ -1477,8 +1464,7 @@ export default {
       snippet:
         'July 18, 2011: a song written at 16 and bootlegged from 2007 bar shows becomes the album\'s fifth single — because fans simply would not stop asking for it.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Sparks_Fly_(song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/9/91/Sparks_Fly_-_Single.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/oKar-tF__ac/hqdefault.jpg',
       moment: {
         context:
           'A fan-filmed 2007 performance circulated online for years, and backstage requests at the 2010 CMA Music Festival pushed her to rework the song for Speak Now. The single just made official what tour setlists already knew.\n\nThe studio version kept the original arrangement while retouching lyrics she\'d written at 16. As the album\'s fifth single it reached No. 17 on the Hot 100 and went all the way to No. 1 on Hot Country Songs that November, eventually certified platinum — and, fittingly for a song the live shows kept alive, its Christian Lamb-directed video was cut entirely from Speak Now World Tour concert footage.',
@@ -1494,12 +1480,6 @@ export default {
           },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/9/91/Sparks_Fly_-_Single.png',
-            credit: 'Big Machine Records (single cover art)',
-            kind: 'primary',
-            focalPoint: '32% 14%',
-          },
           {
             url: 'https://i.ytimg.com/vi/oKar-tF__ac/hqdefault.jpg',
             credit: 'Big Machine Records / YouTube (official music video still)',
@@ -1522,7 +1502,7 @@ export default {
         'Nov. 21, 2011: a CD-plus-DVD of the North American leg arrives — the full show on film, plus tour covers of Train\'s "Drops of Jupiter," "Bette Davis Eyes," and the Jackson 5\'s "I Want You Back."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour_%E2%80%93_Live',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
+        'https://upload.wikimedia.org/wikipedia/commons/c/c8/Taylor_Swift_-_Long_Live_-_Speak_Now_Tour_in_Vancouver.jpg',
       moment: {
         context:
           'Her first live album, released through Big Machine while the era was still running; it debuted at No. 11 on the Billboard 200 with 77,000 first-week copies.\n\nThe package ran 79 minutes on CD and two hours on the DVD, directed by Ryan Polito from footage shot across the tour\'s North American leg. Beyond the Billboard 200 debut it climbed to No. 2 on Top Country Albums — and it preserved the tour\'s cover-song habit on record, from Train\'s "Drops of Jupiter" to the Jackson 5\'s "I Want You Back," years before surprise covers hardened into a formal nightly slot on her tours.',
@@ -1542,12 +1522,6 @@ export default {
         // American leg the DVD was cut from). curl-verified 200 image/jpeg,
         // downloaded and vision-confirmed (full band mid-song on the tour stage).
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
-            credit: 'Big Machine Records (album cover art)',
-            kind: 'primary',
-            focalPoint: '47% 29%',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Taylor_Swift_-_Long_Live_-_Speak_Now_Tour_in_Vancouver.jpg',
             credit: 'Andy (agroove) / Wikimedia Commons, CC BY-SA 2.0',
