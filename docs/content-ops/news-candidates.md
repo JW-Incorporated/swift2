@@ -27,13 +27,54 @@ so far".
 
 Stories: 120
 
-## Taylor Swift To Become Youngest Woman Inducted Into Songwriters Hall Of Fame
+## Kirk Cameron Criticizes Taylor Swift's Views on Morality
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: The Songwriters Hall Of Fame has announced its 2026 class, headlined by Taylor Swift. Swift, 36, becomes the youngest woman ever inducted into the hall when the ceremony takes place Thursday, June 11 at the Marriott Marquis Hotel in New York City. (Stevie Wonder, who was 32 at his 1983 induction, was the only younger inductee, excluding posthumous honorees.) The press release announcing her induct
+- first seen: 2026-08-25 05:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kirk Cameron has publicly criticized Taylor Swift, labeling her actions as 's***** immorality' and a rebellion against biblical morality. This statement has sparked discussions surrounding her influence and values in the music industry.
 - sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2486084/taylor-swift-to-become-youngest-woman-inducted-into-songwriters-hall-of-fame/news/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikwFBVV95cUxPNE9YcXp2MklERVBTd0ttb3lEektOeGZucUVLOUREUUF6NTRybEJlSS0ya3NxaGtsRV84MTdLemM3VHRuVWllX0xoTjh2Yi12aG9wT1BoY1lsVk1XS1J6c21rOUJfY2gyaFF2OWJxZGtaOC1xR1FLWHB3Q0ZTSGJ5SGpGcGdEMDdwSF9OQ0dwVjEydVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Adam Scott Describes Taylor Swift and Travis Kelce's Wedding
+
+- first seen: 2026-08-25 05:44 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Adam Scott provides insights into the wedding of Taylor Swift and Travis Kelce, sharing his experience and observations. The event has drawn attention due to the high-profile nature of the couple.
+- sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMif0FVX3lxTE5ocFNuYlBGUHhYcEVkaWZZZ1cwY09DNzd5VWtBWGRBVDhySEd4X050VUozV0dKZzZIcjlhNW1OeElxRDhJa3pOZFFfRFhfYnNVay1QX01ORjUzOHptelc1VVpOWUJNUUU4Wm1qS29MQWlSVWFfdzBmWTgzT0JhalU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Surprises Audience with Medley at Grammy Museum Interview
+
+- first seen: 2026-08-25 05:44 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: During an interview at the Grammy Museum, Taylor Swift delighted attendees by performing a surprise medley of her songs. The performance showcased her artistry and connection with fans.
+- sources:
+  - [unverified] Bleeding Cool News — https://news.google.com/rss/articles/CBMingFBVV95cUxNNUZxZ1JOQVVDSWJfWHVNRkFfbTBMeUZuOHhFZVEwZFpMWUhfYWk5dkZhaXpNb05RNjQ2clhjeDdIUEhBa2hfck56MkxsbTktcVdSUFp1dXNlUzJoblBNWFdoMGUxX1JyME55bmJsVnJ0aUJaNzlHb0NJc0RQTHVuakNhelpCZ1ZiVERIeHQzZnFXeDJrNzRJZUo5NzRVQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift On Writing "I Knew You Were Trouble" As A "Really Sad Ballad" & Why She Wants To Honor Her Country Roots The "Further Along This Path I Get" - Deadline
+
+- first seen: 2026-08-25 05:44 UTC | category: — | importance: —
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift On Writing "I Knew You Were Trouble" As A "Really Sad Ballad" & Why She Wants To Honor Her Country Roots The "Further Along This Path I Get"  Deadline
+- sources:
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMilgFBVV95cUxNV0I1VWYzaTVqZU9XZ200NmNQXzB1OW44Qkg3eDFBM2VrZmZtZkxLN0dwZV9wdE9tVWpRazREVFNJczRPaTVnSlJ0bW5wNlNOVWVKNlhpdUtBZ3dUcGdJTUtrcWhZM1FFOUhsNXRReVpaQkxYZEF1bzF6Z2I3Y1ZGWXZ5U0kxVmF4UXhkM21MUE9LZzhsRmc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/08/taylor-swift-i-knew-you-were-trouble-country-roots-1237049519/
+
+## Taylor Swift admits she chooses her words carefully when mocking critics - Entertainment Weekly
+
+- first seen: 2026-08-25 05:44 UTC | category: — | importance: —
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift admits she chooses her words carefully when mocking critics  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMinAFBVV95cUxQNklma1U0Y0xiV2p5Y1VISmdZcTFrVFFzY3FsNk9GVU1ydVBLck91THpTSlMxRU9XcC01WTJmWFZWWVYxZ3BKbGZyWE9Za2FpYV80NzNLSGtiWUh1YUgweWpNaTdmOTM5SmFvOWI5cUlKV2o0QW9VRGluWGVRbm5pbW1xRFhKLVVnNGZyN0JDVGhiYlc3SG9GYkFnci0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## 20 Years Later, Taylor Swift Has Something to Say About Her Country Roots - Taste of Country
+
+- first seen: 2026-08-25 05:44 UTC | category: — | importance: —
+- verification_status: rumor | source_count: 1
+- summary: 20 Years Later, Taylor Swift Has Something to Say About Her Country Roots  Taste of Country
+- sources:
+  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMic0FVX3lxTE1XaThIVm43WHdMaEl6UUpxOUpJVDFaNnhubmVmTEs5d013aXl1NDZra0tNdmEycWRydHJyWGpJWmJtLTdMdzZFWmhTVUg1X1N1TXgwN1BiRWdtbDdZSFFaY0doZ3hOV2lSa3Rpb3M1d2hIcTQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Discussion of Taylor Swift's Song "Willow"
 
@@ -67,64 +108,21 @@ Stories: 120
 - sources:
   - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2482594/the-top-40-pop-songs-of-2025/lists/year-in-review/2025-in-review/
 
-## 'I imagined it somewhere a bit more private'
+## Taylor Swift Named Youngest Female Inductee Into Songwriters Hall Of Fame
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 8
 - verification_status: single_source | source_count: 1
-- summary: Taylor Swift and Travis Kelce are rumoured to be tying the knot today in New York's Madison Square Garden.
+- summary: The Songwriters Hall Of Fame will induct Taylor Swift as its youngest female member at the 2026 ceremony. Key works highlighted include "All Too Well (10 Minute Version) (Taylor’s Version)" and "Blank Space."
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2486084/taylor-swift-to-become-youngest-woman-inducted-into-songwriters-hall-of-fame/news/
+
+## Taylor Swift and Travis Kelce Rumored to Marry Today
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift and Travis Kelce are rumored to be tying the knot today at Madison Square Garden in New York. This speculation comes amid ongoing discussions about their relationship.
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/c982ryn1y4xo?at_medium=RSS&at_campaign=rss
-
-## Finn Wolfhard Announces New Album Fire From The Hip: Hear “I’ll Let You Finish”
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: Finn Wolfhard released his debut solo album Happy Birthday last June. The Stranger Things star, PUP music video regular, and Replacements superfan had played in a couple of bands before, but Happy Birthday came about because he challenged himself to write 50 songs within a calendar year. I guess that challenge did him good, because Wolfhard already has a new album on the way.
-The post Finn Wolfhar
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2497321/finn-wolfhard-announces-new-album-fire-from-the-hip-hear-ill-let-you-finish/music/
-
-## Bleachers Share “i’m not joking,” Jack Antonoff Addresses Not Working On Latest Taylor Swift Album
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: everyone for ten minutes, the new album from Jack Antonoff's Bleachers, is coming out in just under a month. So far we've heard the singles "the van," "dirty wedding dress," and "you and forever," and today they're back with "i'm not joking," a ballad that gets a little freaky with it as far as Bleachers songs go. Antonoff plays a medeival-sounding harpsichord and dobro guitar, and there's also so
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2497483/bleachers-share-im-not-joking-jack-antonoff-addresses-not-working-on-latest-taylor-swift-album/music/
-
-## Lindsey Buckingham Addresses Viral “Silver Springs” Video, Says He’s Inspired By Sombr
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: You'll never get away from the sound of the woman that loves you. Right now, Fleetwood Mac are in the midst of a major gen-Z revival that's been going for years, and their 1977 song "Silver Springs" is a big part of the reason why. "Silver Springs" is currently the band's sixth most popular song on Spotify (as far as trending, not all-time streams). But when the band first recorded "Silver Springs
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2497578/lindsey-buckingham-addresses-viral-silver-springs-video-says-hes-inspired-by-sombr/news/
-
-## Charli XCX – “I Keep Thinking About You Every Single Day And Night”
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: Yesterday, Charli XCX returned with the polarizing, ragebaity anthem "Rock Music." The Brat star is getting ready for a new era, and she's already sharing the b-side titled "I Keep Thinking About You Every Single Day And Night." It's only available on vinyl and her b-sides Instagram account.
-The post Charli XCX – “I Keep Thinking About You Every Single Day And Night” appeared first on Stereogum.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2498472/charli-xcx-i-keep-thinking-about-you-every-single-day-and-night/music/
-
-## Paul Mescal Interviews Paul McCartney
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: The Boys Of Dungeon Lane is the name of Paul McCartney's new album revisiting his Liverpool coming of age, due out this Friday. It's also the name of a new interview special available to watch on Amazon Live and in the Amazon Music app as of 11 a.m. ET today, in which McCartney is interviewed by actor Paul Mescal, who is playing him in the upcoming Beatles biopics directed by Sam Mendes.
-The post 
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2500083/paul-mescal-interviews-paul-mccartney/news/
-
-## Taylor Swift’s ‘The Eras Tour: The Final Show’ Nets 5 Emmy Noms With Swift Earning One Herself
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift’s filmic final bow in regards to her record-breaking Eras tour, Taylor Swift: The Eras Tour: The Final Show has earned five Emmy nominations, with Swift getting one herself. The Emmy era for the companion film to the six-part docuseries released last December includes recognition in the Best Variety Special (Prerecorded), Best Directing for […]
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/taylor-swift-emmy-nominations-2026-eras-tour-the-final-show-1236977321/
 
 ## Mariah Carey Headlines Opening Ceremony of Milano Cortina Olympics
 
@@ -150,67 +148,53 @@ The post
 - sources:
   - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2498964/weezer-album-inducted-into-the-library-of-congress-national-recording-registry/news/
 
-## Taylor Swift Announces Toy Story 5 Song “I Knew It, I Knew You”
+## Finn Wolfhard Announces New Album Fire From The Hip
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: Taylor Swift is back. The singer just announced a new song called "I Knew It, I Knew You" for the upcoming Toy Story 5 movie. The track is written and produced by Swift and Jack Antonoff, and it comes out this Friday (June 5).
-The post Taylor Swift Announces <em>Toy Story 5</em> Song “I Knew It, I Knew You” appeared first on Stereogum.
+- summary: Finn Wolfhard has announced his upcoming album Fire From The Hip and released a new single titled 'I’ll Let You Finish.' This follows his debut album Happy Birthday released last June, which was the result of a personal songwriting challenge.
 - sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2500937/taylor-swift-announces-toy-story-5-song-i-knew-it-i-knew-you/news/
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2497321/finn-wolfhard-announces-new-album-fire-from-the-hip-hear-ill-let-you-finish/music/
 
-## Taylor Swift – “I Knew It, I Knew You”
+## Jack Antonoff Discusses New Bleachers Song and Not Collaborating with Taylor Swift
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: After many weeks of speculation and teasers, Taylor Swift revealed this week that she did indeed create a new song for Toy Story 5. It's called "I Knew It, I Knew You," and it's out right now.
-The post Taylor Swift – “I Knew It, I Knew You” appeared first on Stereogum.
+- summary: Jack Antonoff's band Bleachers has released a new song titled "i'm not joking," as part of their upcoming album. In addressing the song's theme of love, Antonoff also clarified that he did not contribute to the latest Taylor Swift album.
 - sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2501269/taylor-swift-i-knew-it-i-knew-you/music/
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2497483/bleachers-share-im-not-joking-jack-antonoff-addresses-not-working-on-latest-taylor-swift-album/music/
 
-## Country Star, Seemingly Engaged, Sings At Football Benefit
+## Lindsey Buckingham Discusses Viral "Silver Springs" Video
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 6
 - verification_status: single_source | source_count: 1
-- summary: Maybe Taylor Swift is really doing this country reboot? Or was her latest public appearance merely a case of right place, right time, right lyrics? 
-The post Country Star, Seemingly Engaged, Sings At Football Benefit appeared first on Stereogum.
+- summary: Lindsey Buckingham comments on the resurgence of Fleetwood Mac's song "Silver Springs," noting its current popularity among Gen-Z listeners on Spotify. Originally not included on the album Rumours, the song has gained significant attention as part of the band's legacy.
 - sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2503237/country-star-seemingly-engaged-sings-at-football-benefit/news/
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2497578/lindsey-buckingham-addresses-viral-silver-springs-video-says-hes-inspired-by-sombr/news/
 
-## Aaron Lewis Reacts After Shredded Copy Of His MAGA Album Cover Is Used As Taylor Swift Merch Packaging
+## Charli XCX Unveils New B-Side 'I Keep Thinking About You Every Single Day And Night'
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: release | importance: 6
 - verification_status: single_source | source_count: 1
-- summary: Earlier this week, a Taylor Swift fan got a strange surprise while unpacking some of her Toy Story 5 merch. Mixed in with the recycled packing paper was a mysterious shredded image of a bearded man. After a quick Google search, she discovered it was the CD booklet for Aaron Lewis' forthcoming country album, Give My Country Back, which hasn't been released yet through UMG.
-The post Aaron Lewis Reac
+- summary: Charli XCX has released a new b-side titled 'I Keep Thinking About You Every Single Day And Night,' available exclusively on vinyl and her b-sides Instagram account. This comes alongside her latest anthem 'Rock Music.'
 - sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2503683/aaron-lewis-reacts-after-shredded-copy-of-his-maga-album-cover-is-used-as-taylor-swift-merch-packaging/news/
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2498472/charli-xcx-i-keep-thinking-about-you-every-single-day-and-night/music/
 
-## Rumoured guests in SUVs pull up to Madison Square Garden
+## Paul McCartney's New Album and Interview Special Released
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: corroborated | source_count: 3
-- summary: Black SUVs were seen driving into the rumoured venue in New York.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cy4e15j912no?at_medium=RSS&at_campaign=rss
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/news/audio/2026/jul/03/taylor-swift-wedding-the-latest
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/gallery/taylor-swift-travis-kelces-wedding-guests-ethan-hawke-hugh-grant-jason-sudeikis-more/
-
-## Taylor Swift's rumoured wedding celebrations begin with star-studded New York event
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: Actress Lena Dunham, model Gigi Hadid and longtime music collaborator Jack Antonoff were spotted in formal attire near Madison Square Garden.
+- summary: Paul McCartney's album 'The Boys Of Dungeon Lane,' reflecting on his Liverpool youth, is set for release this Friday. An interview with McCartney by actor Paul Mescal is also available on Amazon Live and in the Amazon Music app starting today.
 - sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/crlw1eeez19o?at_medium=RSS&at_campaign=rss
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2500083/paul-mescal-interviews-paul-mccartney/news/
 
-## What Does It Cost to Take Over Madison Square Garden?
+## Taylor Swift's 'The Eras Tour: The Final Show' Receives 5 Emmy Nominations
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 8
 - verification_status: single_source | source_count: 1
-- summary: It’s not just rent. There’s security, insurance, permits and other costs, not to mention extra police presence.
+- summary: Taylor Swift's film 'The Eras Tour: The Final Show' has received five nominations for the Emmy Awards, including a personal nomination for Swift. The recognition comes in various categories, highlighting the film's impact as part of her record-breaking tour.
 - sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/03/style/swift-wedding-msg-cost.html
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/taylor-swift-emmy-nominations-2026-eras-tour-the-final-show-1236977321/
 
 ## Prince William Discusses World Cup Football on Podcast
 
@@ -252,77 +236,63 @@ The post Aaron Lewis Reac
 - sources:
   - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2501886/taylor-swift-sings-with-randy-newman-performs-new-single-at-toy-story-5-premiere/news/
 
-## Taylor Swift Wears Dior Dress by Jonathan Anderson for MSG Wedding
+## Taylor Swift Reveals New Song for Toy Story 5
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: release | importance: 8
 - verification_status: single_source | source_count: 1
-- summary: The pop star said “I do” to a gown designed by Jonathan Anderson, the French house’s creative director.
+- summary: Taylor Swift has announced her upcoming song "I Knew It, I Knew You" for Toy Story 5, written and produced by Swift and Jack Antonoff. The track is set to be released this Friday, June 5.
 - sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/03/style/taylor-swift-wedding-dress-dior.html
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2500937/taylor-swift-announces-toy-story-5-song-i-knew-it-i-knew-you/news/
 
-## Taylor Swift and Travis Kelce marry at New York City’s Madison Square Garden
+## Taylor Swift Releases New Song for Toy Story 5
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: release | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has officially released a new song titled "I Knew It, I Knew You" for Toy Story 5 after weeks of speculation and teasers. The song is now available for listeners.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2501269/taylor-swift-i-knew-it-i-knew-you/music/
+
+## Taylor Swift Performs at Football Benefit Amid Engagement Rumors
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift made a public appearance singing at a football benefit event, leading to speculation about her engagement. The performance raised questions about her possible return to country music.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2503237/country-star-seemingly-engaged-sings-at-football-benefit/news/
+
+## Aaron Lewis Addresses Shredded Album Cover Found in Taylor Swift Merch Packaging
+
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A Taylor Swift fan found a shredded image of Aaron Lewis' upcoming album packaging mixed in with her Toy Story 5 merch. Lewis has reacted to the unexpected use of his album cover in this context.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2503683/aaron-lewis-reacts-after-shredded-copy-of-his-maga-album-cover-is-used-as-taylor-swift-merch-packaging/news/
+
+## SUVs Seen Arriving at Madison Square Garden Ahead of Event
+
+- first seen: 2026-08-25 02:22 UTC | category: tour | importance: 5
 - verification_status: corroborated | source_count: 3
-- summary: The couple invited an array of celebrity guests to the wedding, including Gigi Hadid and Bradley Cooper, while Adam Sandler officiated their nuptials
-
-In pictures: Fans and A-list stars gather for the wedding
-
-
-Taylor Swift and Travis Kelce are officially wed. The couple hosted their wedding celebration on Friday in New York City, nearly three years after first meeting.
-The ceremony was officiated
+- summary: Black SUVs were spotted entering Madison Square Garden, fueling speculation about potential guests for an upcoming event. The venue has been abuzz with activity related to Taylor Swift.
 - sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/03/style/adam-sandler-officiant-swift-kelce-wedding.html
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cwye2j038m1o?at_medium=RSS&at_campaign=rss
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/jul/03/taylor-swift-travis-kelce-wedding-msg-new-york
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cy4e15j912no?at_medium=RSS&at_campaign=rss
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/news/audio/2026/jul/03/taylor-swift-wedding-the-latest
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/gallery/taylor-swift-travis-kelces-wedding-guests-ethan-hawke-hugh-grant-jason-sudeikis-more/
 
-## Police, fans and celebrities - What it's like outside the Swift wedding
+## Taylor Swift's Rumored Wedding Celebrations Kick Off in New York
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 7
 - verification_status: single_source | source_count: 1
-- summary: The BBC's Nada Tawfik reports from the scene, bringing us the atmosphere outside Madison Square Garden.
+- summary: Celebrities including Lena Dunham, Gigi Hadid, and Jack Antonoff were seen dressed formally near Madison Square Garden, fueling rumors of Taylor Swift's wedding celebrations.
 - sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cly9pddzp1po?at_medium=RSS&at_campaign=rss
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/crlw1eeez19o?at_medium=RSS&at_campaign=rss
 
-## Celebrities spotted at Taylor Swift's wedding
+## The Costs Involved in Taking Over Madison Square Garden
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: Celebrity guests, from singer Benson Boone to actors Hugh Grant and Ethan Hawke were seen arriving ahead of the event.
+- summary: The article discusses various expenses associated with taking over Madison Square Garden, highlighting costs such as rent, security, insurance, permits, and additional police presence.
 - sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cz752v002weo?at_medium=RSS&at_campaign=rss
-
-## From friendship bracelets to wedding rings: A Taylor and Travis timeline
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift and Travis Kelce are celebrating their wedding with a party at New York's Madison Square Garden this weekend, her publicist says.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cqj19p112qjo?at_medium=RSS&at_campaign=rss
-
-## Broadway’s ‘Two Strangers (Carry A Cake Across New York)’ Sweetly Nicks Some Swift Publicity
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: Broadway’s Two Strangers (Carry a Cake Across New York), a British musical import that got terrific reviews but could always use some help in enticing ticket-buyers, has landed on a light-hearted, if not truly light-fingered, bit of coattail publicity-riding to boost its own visibility. Taylor Swift probably won’t mind. The musical by Jim Barne & […]
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/broadway-two-strangers-carry-a-cake-taylor-swift-1236974155/
-
-## ‘GMA’ Co-Hosts Robin Roberts, George Stephanopoulos & Michael Strahan Offer Up Few Swift-Kelce Wedding Crumbs
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: Well, it’s not exactly state secrets, but GMA hosts Robin Roberts, George Stephanopoulos and Michael Strahan have shared a few of their observations on yesterday’s Taylor Swift-Travis Kelce nuptials at Madison Square Garden. All three of the hosts attended the wedding yesterday, and offered up a few – a very few – details on today’s […]
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/gma-robin-roberts-george-stephanopoulos-taylor-swift-1236974166/
-
-## Melania Trump Picks Adam Lippes Dress for Fourth of July Celebration
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: The First Lady has worn styles from the American designer for key events like a White House tea with King Charles III and Queen Camilla in April.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/culture-news/melania-trump-adam-lippes-fourth-of-july-dress-1239052544/
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/03/style/swift-wedding-msg-cost.html
 
 ## Taylor Swift's Wedding Sparks Marketing Activity for Various Brands
 
@@ -396,118 +366,71 @@ The ceremony was officiated
 - sources:
   - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/taylor-swift-travis-kelce-married-1236974086/
 
-## From 'a beautiful night' to 'world's greatest hangover', guests react to Taylor and Travis's wedding
+## Taylor Swift Wears Dior Designed by Jonathan Anderson
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: Some of the famous guests have been posting on social media about the big day in New York.
+- summary: Taylor Swift was seen in a gown designed by Jonathan Anderson for Dior during a wedding event at Madison Square Garden. The dress showcased the creative direction of the French fashion house's head designer.
 - sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/clyxxr9n2kjo?at_medium=RSS&at_campaign=rss
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/03/style/taylor-swift-wedding-dress-dior.html
 
-## Taylor & Travis - how AI images fill the gap when there’s no news
+## Taylor Swift and Travis Kelce Officially Wed in NYC
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 9
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift and Travis Kelce have tied the knot in a wedding ceremony at Madison Square Garden in New York City, with Adam Sandler officiating. The event saw a gathering of celebrity guests, including Gigi Hadid and Bradley Cooper.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/03/style/adam-sandler-officiant-swift-kelce-wedding.html
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cwye2j038m1o?at_medium=RSS&at_campaign=rss
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/jul/03/taylor-swift-travis-kelce-wedding-msg-new-york
+
+## Atmosphere Outside Madison Square Garden During Swift Wedding
+
+- first seen: 2026-08-25 02:22 UTC | category: sighting | importance: 6
 - verification_status: single_source | source_count: 1
-- summary: Until we get official news from Tayvis' wedding - fake pics are everywhere
+- summary: BBC's Nada Tawfik reports on the scene outside Madison Square Garden, where police, fans, and celebrities gather for the Swift wedding. The atmosphere is highlighted as fans and onlookers observe the events unfold.
 - sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zfvxjfr?at_medium=RSS&at_campaign=rss
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cly9pddzp1po?at_medium=RSS&at_campaign=rss
 
-## Taylor Swift’s Best Christian Louboutin Shoe Moments Through the Years: ‘The Eras’ Tour and More
+## Celebrities Seen Arriving at Taylor Swift's Wedding
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: sighting | importance: 7
 - verification_status: single_source | source_count: 1
-- summary: The French fashion house provided Swift and husband Travis Kelce with custom shoes for their wedding.
+- summary: Various celebrities, including singer Benson Boone and actors Hugh Grant and Ethan Hawke, were spotted arriving for Taylor Swift's wedding. The event attracted significant attention from notable figures in the entertainment industry.
 - sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-christian-louboutin-shoe-moments-wedding-1239053291/
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cz752v002weo?at_medium=RSS&at_campaign=rss
 
-## These Taylor Swift wedding pictures are not real
+## Taylor Swift and Travis Kelce to Host Wedding Celebration at Madison Square Garden
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 8
 - verification_status: single_source | source_count: 1
-- summary: Some pictures being shared of Swift in a wedding dress are AI generated or from a different wedding entirely
+- summary: Taylor Swift and Travis Kelce are set to celebrate their wedding with a party at Madison Square Garden, according to her publicist. This event marks a significant moment in their relationship timeline.
 - sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cjwggg31jgyo?at_medium=RSS&at_campaign=rss
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cqj19p112qjo?at_medium=RSS&at_campaign=rss
 
-## Trump Cashes In While Others Lose Out
+## Broadway Show Uses Taylor Swift for Promotional Boost
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: Readers react to President Trump’s windfall. Also: Mr. Trump’s intervention in the World Cup; Taylor Swift, feminist bride; rich political donors.
+- summary: The musical 'Two Strangers (Carry A Cake Across New York)' is leveraging Taylor Swift's visibility for promotion. Despite receiving strong reviews, the production seeks increased ticket sales through this publicity strategy.
 - sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/06/opinion/trump-windfall.html
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/broadway-two-strangers-carry-a-cake-taylor-swift-1236974155/
 
-## Taylor Swift’s Dior Couture Wedding Dress Was an ‘Emotional’ Undertaking for Jonathan Anderson
+## GMA Hosts Share Observations on Swift-Kelce Wedding
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 6
 - verification_status: single_source | source_count: 1
-- summary: The Dior creative director spoke with WWD's Joelle Diderich at the maison's fall 2026 couture show.
+- summary: GMA co-hosts Robin Roberts, George Stephanopoulos, and Michael Strahan attended the Taylor Swift-Travis Kelce wedding and shared limited details about the event on-air. Their comments provided a glimpse into the nuptials held at Madison Square Garden.
 - sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-dior-wedding-dress-jonathan-anderson-1239054304/
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/gma-robin-roberts-george-stephanopoulos-taylor-swift-1236974166/
 
-## Dior Fall 2026 Couture: Taylor Made
+## Melania Trump Wears Adam Lippes Dress for Fourth of July
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: Fresh off dressing Taylor Swift and Travis Kelce for their wedding, Jonathan Anderson sidestepped traditional romance with a collection inspired by U.S. artist Lynda Benglis.
+- summary: Melania Trump chose a dress by American designer Adam Lippes for the Fourth of July celebration. She has previously worn his designs for significant events, including a tea at the White House with King Charles III and Queen Camilla.
 - sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/runway/fall-couture-2026/paris/christian-dior/review/
-
-## Taylor Swift and Travis Kelce’s Wedding Fashions Generate $26.7 Million in MIV
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: Even without any official wedding photo or video releases, Taylor Swift and Travis Kelce's luxury wedding attire, worn for their megawatt July 3 wedding at Madison Square Garden, generated an estimated $26.7 million in media impact value in the 48 hours following the celebration.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-scoops/taylor-swift-travis-kelce-wedding-fashion-mvi-million-dior-1239054869/
-
-## How the ‘Swift-Kelce Effect’ May Be Coming to a Wedding Near You
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: Trends are likely to emerge from the spectacle that was the July 3 celebration at Madison Square Garden.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/07/style/swift-kelce-wedding-effect.html
-
-## Fans Celebrate Taylor Swift and Travis Kelce’s Wedding With Charitable Donations
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: corroborated | source_count: 2
-- summary: Inspired by Taylor Swift and Travis Kelce’s $26 million charitable gifts ahead of their wedding, Swifties are expressing their own generosity through donations to causes the couple supports.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/ryan-seacrest-canceled-rsvp-taylor-swift-travis-kelce-wedding-1236639908/
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/07/style/taylor-swift-travis-kelce-wedding-fans-charity-donations.html
-
-## From a $96,090 Diamond Necklace to a $55 Ring: Inside the Guests’ Jewelry at Taylor Swift’s Wedding
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: Brittany Mahomes, Selena Gomez and more guests arrived in Tacori, Chopard and jewelry ranging from six figures to $55.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-wedding-guest-jewelry-1239056627/
-
-## Taylor Swift Fans Eagerly Await First Look at Her Wedding Dress
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: As details trickle out, the image of the bride’s Dior ensemble remains under wraps.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-wedding-dress-reveal-dior-couture-1236640479/
-
-## 10 Taylor Swift Songs Written For Movies From ‘Cats’ To ‘Where The Crawdads Sing’
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: Aside from her Grammy-winning albums, Taylor Swift has contributed several songs to blockbuster films. From her early work on songs both she and Miley Cyrus sing in Hannah Montana: The Movie (2009) to two contributions to The Hunger Games film trilogy, Swift has made her mark on popular projects. More recent works include collaborations with […]
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/taylor-swift-songs-written-for-movies-toy-story-5-crawdads/
-
-## The Wait-and-See Wedding Era: Taylor Swift, Dua Lipa, Zendaya and More Create Fervor Without Photos
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: Instead of splashing photos all over social media, celebrity brides are being more private about what and when they share about their weddings.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/culture-news/celebrity-wedding-dresses-taylor-swift-1239059820/
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/culture-news/melania-trump-adam-lippes-fourth-of-july-dress-1239052544/
 
 ## Greg James Discusses Taylor Swift's Wedding Details
 
@@ -549,88 +472,110 @@ The ceremony was officiated
 - sources:
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/05/style/hamptons-celebrity-weekend-swift-wedding.html
 
-## Madison Square Garden Celebrity ‘Risk’ List, Revealed
+## Guests Share Reactions to Taylor Swift and Travis's Wedding Day
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 8
 - verification_status: single_source | source_count: 1
-- summary: Why were celebrity Knicks fans and Taylor Swift’s wedding guests named on a secret security database?
+- summary: Celebrities who attended Taylor Swift and Travis's wedding in New York have taken to social media to share their reactions, describing the event as 'a beautiful night' and commenting on the aftermath. The wedding has garnered significant attention from fans and media alike.
 - sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/09/podcasts/madison-square-garden-wedding-travis-kelce-taylor-swift.html
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/clyxxr9n2kjo?at_medium=RSS&at_campaign=rss
 
-## How Greg James and Graham Norton plotted before Taylor Swift's wedding
+## AI Images Populate Gap in News About Taylor and Travis
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: Greg James tells the story of his 'Traitors castle' moment with Graham Norton.
+- summary: With no official updates on Taylor Swift and Travis Kelce's wedding, AI-generated images are circulating to fill the void. Fans are accessing these fake pictures as speculation continues about the couple's future.
 - sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cvgdywxd2rlo?at_medium=RSS&at_campaign=rss
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zfvxjfr?at_medium=RSS&at_campaign=rss
 
-## Taylor Swift and Reality TV Shows Like ‘Summer House’ Earn Emmy Nods
+## Taylor Swift Showcases Christian Louboutin Styles at 'The Eras' Tour
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 6
 - verification_status: single_source | source_count: 1
-- summary: Nominations for unscripted programs recognized a certain newlywed and the scandalous reality hit of the spring.
+- summary: Taylor Swift has had notable moments in Christian Louboutin shoes, especially highlighted during 'The Eras' Tour. The fashion house also created custom shoes for her wedding with Travis Kelce.
 - sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/08/arts/television/taylor-swift-reality-tv-emmys.html
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-christian-louboutin-shoe-moments-wedding-1239053291/
 
-## Dior’s Couture Show in Paris
+## Debunking Fake Taylor Swift Wedding Dress Images
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: Jonathan Anderson’s latest couture collection may have left some clues about Taylor Swift’s wedding dress. Our chief fashion critic, Vanessa Friedman, discusses the most memorable looks from the show.
+- summary: Recent images circulating of Taylor Swift in a wedding dress have been identified as either AI-generated or from a different wedding event. Fans are urged to verify the authenticity of such pictures before sharing.
 - sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/video/style/100000010990396/diors-couture-show-in-paris.html
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cjwggg31jgyo?at_medium=RSS&at_campaign=rss
 
-## Digested week: Crone Law cometh and in this heat it says cotton
+## Readers Discuss Trump's Financial Gains Amidst Wider Losses
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: Plus, bad form from Tay-Tay, Arthurian gladness and the conundrums of getting back on a bike
-Another heatwave. Unbearable. And this one is going to push me over the edge. I’m going to have to take the young folk to task over how they dress. It’s not the amount of flesh on show – dear God, while you’re young and lovely and depilation is still worth the investment because it doesn’t all grow back by
+- summary: The article highlights readers' reactions to President Trump's financial success, along with his involvement in the World Cup and mentions of Taylor Swift. It touches on the impact of wealthy political donors during this time.
 - sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/uk-news/2026/jul/10/digested-week-heatwave-taylor-swift-arthur-fery-wimbledon
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/06/opinion/trump-windfall.html
 
-## Taylor Swift Paid New York City $160K Fee for Star-Studded Wedding, Says Zohran Mamdani
+## Dior's Creative Director Discusses Taylor Swift's Wedding Dress
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: The NYC mayor told reporters on Friday the superstar performer has covered the permit fee required for the police role in working the July 3 event at Madison Square Garden.
+- summary: Jonathan Anderson, Dior's creative director, shared insights about the emotional process behind creating Taylor Swift's wedding dress during an interview at the fall 2026 couture show.
 - sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-york-city-permit-fee-wedding-1236644083/
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-dior-wedding-dress-jonathan-anderson-1239054304/
 
-## Taylor Swift and Travis Kelce Unite in Marriage: An Imagined New York Times Wedding Announcement
+## Dior Couture Collection Inspired by Lynda Benglis
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 6
 - verification_status: single_source | source_count: 1
-- summary: This traditional wedding announcement marks the union of the pop star and football player, who exchanged vows on Friday at Madison Square Garden.
+- summary: Jonathan Anderson's Dior Fall 2026 Couture collection was influenced by U.S. artist Lynda Benglis and follows his recent work dressing Taylor Swift and Travis Kelce for their wedding.
 - sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/04/style/taylor-swift-travis-kelce-wedding-announcement.html
+  - [established] WWD — Taylor Swift tag — https://wwd.com/runway/fall-couture-2026/paris/christian-dior/review/
 
-## Eric Stonestreet Says Taylor Swift Madison Square Garden Wedding Gave Guests Privacy and Security Too
+## Taylor Swift and Travis Kelce's Wedding Attire Generates $26.7 Million in Media Impact
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 7
 - verification_status: single_source | source_count: 1
-- summary: “I think my favorite moment was just that they created a place that they could have the normalcy that they deserve,” the actor said.
+- summary: Taylor Swift and Travis Kelce's wedding outfits, featured in their July 3 ceremony at Madison Square Garden, generated an estimated $26.7 million in media impact value within 48 hours of the event, despite no official photos or videos being released.
 - sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/eric-stonestreet-taylor-swift-travis-kelce-wedding-1236649537/
+  - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-scoops/taylor-swift-travis-kelce-wedding-fashion-mvi-million-dior-1239054869/
 
-## Hold the front page! Marilyn Monroe is Dakota Johnson’s ninth cousin three times removed
+## Emerging Trends from Swift-Kelce Celebration at Madison Square Garden
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 6
 - verification_status: single_source | source_count: 1
-- summary: The vogue for celebrity ancestors can be traced back to Robert Pattinson descending from Dracula and Benedict Cumberbatch being related to just about everyone
-To mark Marilyn Monroe’s 100th birthday, a short film will premiere at this year’s Venice film festival. Entitled Flesh Impact, the film has been written and directed by Maggie Gyllenhaal, and will star two versions of Monroe. The first, pla
+- summary: The recent celebration at Madison Square Garden is expected to inspire new trends, particularly in wedding themes and fashion. The event is being referred to as the 'Swift-Kelce Effect' and may influence upcoming weddings.
 - sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/film/2026/jul/31/marilyn-monroe-dakota-johnson-related-ninth-cousin-three-times-removed
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/07/style/swift-kelce-wedding-effect.html
 
-## Phil Collins Reveals He Nearly Died From Alcohol Abuse: “People Were Coming To Say Goodbye”
+## Fans Honor Swift and Kelce's Wedding with Charitable Donations
 
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: In celebration of Taylor Swift and Travis Kelce's upcoming wedding, fans are making donations to charitable causes supported by the couple, inspired by their own significant contributions of $26 million.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/ryan-seacrest-canceled-rsvp-taylor-swift-travis-kelce-wedding-1236639908/
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/07/style/taylor-swift-travis-kelce-wedding-fans-charity-donations.html
+
+## Jewelry Worn by Guests at Taylor Swift's Wedding Revealed
+
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 6
 - verification_status: single_source | source_count: 1
-- summary: Phil Collins has not been in good health in recent years, but until now it wasn't publicly known just how bad things got. In a new interview, Collins, 75, revealed he was on his death bed two years ago due to alcohol abuse.
-The post Phil Collins Reveals He Nearly Died From Alcohol Abuse: “People Were Coming To Say Goodbye” appeared first on Stereogum.
+- summary: Guests at Taylor Swift's wedding showcased a variety of jewelry, ranging from a $96,090 diamond necklace to a $55 ring, featuring brands like Tacori and Chopard.
 - sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2507139/phil-collins-reveals-he-nearly-died-from-alcohol-abuse-people-were-coming-to-say-goodbye/news/
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-wedding-guest-jewelry-1239056627/
+
+## Fans Anticipate Taylor Swift's Wedding Dress Reveal
+
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Swift fans are excited as they await the first look at her wedding dress, designed by Dior. While details are emerging, the actual image of the ensemble has yet to be revealed.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-wedding-dress-reveal-dior-couture-1236640479/
+
+## Celebrity Brides Keep Wedding Details Private Amid Trend
+
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Celebrities like Taylor Swift, Dua Lipa, and Zendaya are opting for privacy regarding their weddings, moving away from sharing extensive photos on social media. This trend highlights a more reserved approach to capturing and revealing personal moments.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/culture-news/celebrity-wedding-dresses-taylor-swift-1239059820/
 
 ## Adéla, Ariana Grande, Sabrina Carpenter and More Pop Stars Are Taking Custom Christian Louboutin Shoes to the Stage
 
@@ -655,6 +600,86 @@ The post Phil Collins Reveals He Nearly Died From Alcohol Abuse: “People Were 
 - summary: Midtown Manhattan, known for its high-rise offices and tourist accommodations, has become a center for various dramatic spectacles this summer. The area is gaining attention despite not being traditionally regarded as hip.
 - sources:
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/09/nyregion/midtown-manhattan-nyc-taylor-swift-knicks.html
+
+## Taylor Swift Fans Listed in Madison Square Garden Security Database
+
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift's wedding guests were included in a secret security database at Madison Square Garden alongside other celebrity Knicks fans. The reasons for this classification have not been disclosed in the report.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/09/podcasts/madison-square-garden-wedding-travis-kelce-taylor-swift.html
+
+## Greg James Shares Story Involving Graham Norton Related to Taylor Swift's Wedding
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Greg James recounts a moment involving Graham Norton connected to Taylor Swift's wedding plans, sharing insights from their conversation. The story provides a glimpse into the interactions surrounding the event.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cvgdywxd2rlo?at_medium=RSS&at_campaign=rss
+
+## Taylor Swift and 'Summer House' Nominated for Emmy Awards
+
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift's involvement in unscripted programs has led to recognition, as she receives an Emmy nomination alongside 'Summer House', a popular reality TV show. The nominations highlight notable figures in the realm of reality television.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/08/arts/television/taylor-swift-reality-tv-emmys.html
+
+## Dior Couture Show Discusses Possible Clues for Swift's Wedding Dress
+
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The latest couture collection by Jonathan Anderson may offer hints regarding Taylor Swift's wedding dress. Fashion critic Vanessa Friedman shares insights on the standout looks from the show.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/video/style/100000010990396/diors-couture-show-in-paris.html
+
+## Fashion Commentary: Crone Law Advocates for Cotton During Heatwave
+
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A recent commentary discusses the need for a 'Crone Law', advocating for wearing cotton in high temperatures. It highlights the importance of fabric choice amidst a heatwave, rather than modesty or appearance.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/uk-news/2026/jul/10/digested-week-heatwave-taylor-swift-arthur-fery-wimbledon
+
+## Taylor Swift Covers NYC Permit Fee for Wedding at Madison Square Garden
+
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has paid a $160,000 permit fee to New York City for police services during her star-studded wedding event held at Madison Square Garden on July 3, as confirmed by the NYC mayor.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-york-city-permit-fee-wedding-1236644083/
+
+## Imagined Wedding Announcement for Taylor Swift and Travis Kelce
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 3
+- verification_status: single_source | source_count: 1
+- summary: A fictional wedding announcement describes an imagined marriage between Taylor Swift and Travis Kelce, taking place at Madison Square Garden. This playful narrative highlights their union in a traditional announcement format.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/04/style/taylor-swift-travis-kelce-wedding-announcement.html
+
+## Eric Stonestreet Comments on Taylor Swift's Madison Square Garden Wedding Privacy
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Eric Stonestreet expressed appreciation for the privacy and security provided at Taylor Swift's wedding at Madison Square Garden, noting it allowed guests to enjoy a sense of normalcy.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/eric-stonestreet-taylor-swift-travis-kelce-wedding-1236649537/
+
+## Dakota Johnson Dressed as Marilyn Monroe Ahead of Film Premiere
+
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: A new photo of Dakota Johnson as Marilyn Monroe has been released in anticipation of the film 'Flesh Impact'. The film, directed by Maggie Gyllenhaal, premieres at the Venice Film Festival to honor Monroe's 100th birthday and features Johnson portraying Monroe in her prime.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/film/2026/jul/31/marilyn-monroe-dakota-johnson-related-ninth-cousin-three-times-removed
+
+## Phil Collins Discusses Health Struggles Related to Alcohol Abuse
+
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Phil Collins opens up about his severe health issues connected to alcohol abuse, revealing he was near death two years ago. The details were shared in a recent interview, shedding light on his challenging experiences in recent years.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2507139/phil-collins-reveals-he-nearly-died-from-alcohol-abuse-people-were-coming-to-say-goodbye/news/
 
 ## Taylor Swift songs removed from Trump and White House’s social media posts
 
@@ -836,15 +861,6 @@ Taylor Swift reveals her sneaky way of clapping back at critics  Page Six
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOamVsbVZUdVhEYXU2ZWFwalVrdFExaWV4NmJFRDdieWNfbXZsTWFSZHVQdjVuX0dWX2dkOTZrLXBwaEw4b3EzdnJrYk4ycDlGZ3lZZDRlaVNLMzAwb2o0c3UwSjduN3B4QUExZGpJWDhwVTVkRVhyV2JIWU9vR2NtNVlac243Zy11dXdSdE5wSEJZcUVYQktSRkJ0Y0htemF0ZnNUdGhvcE5MaWs?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift on Dealing With Public Perception and Deciding Not to Opt Out Before Her Career “Got Unmanageably Big”
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: corroborated | source_count: 2
-- summary: The star joined Recording Academy CEO Harvey Mason Jr. for a 20-year retrospective chat at the Grammy Museum.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-public-perception-career-unmanageably-big-1236680277/
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiakFVX3lxTFBmM2NndHdwY01lZ0dBUWJHRFprNlgwc3ZGRFoxOU1Mc2lFZjdlVjdHRGpxZVl5bktYRHR4dXZNT2RHZjVzSncwYkJROUVaUUVBZzVxX0x0cnBYdUlpVGRUOHBPa0g0bGlIWEE?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift’s Romantic Green Dress Has Fans Convinced They’ve Figured Out Her Next Album - Yahoo
 
 - first seen: 2026-08-25 02:22 UTC | category: — | importance: —
@@ -853,14 +869,6 @@ Taylor Swift reveals her sneaky way of clapping back at critics  Page Six
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQY0hMRHl0UlZDU3NpcFhySzRvcnQ1M2lfaTdjdjZJUklYV1FtQ3N0OE1XejExdXV0bUZEQnJQSms2N0ljRUtaZGY3N3dhY05fMWwzUm1YWTdFdnZDWXRGWW1wVENRUWVJUVBxMGhUeU5pT0JDNVdsUWtteFZpb3B5SGZmNEtRT0dVZUFiZFJ5UWxYWGxFQUhKd2NxNzJlZUUw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQR3FINkQ1UGRYNmZsY0tqWVhMVVFNOC01dTNPVlVQMHFYd0M0NUxYSHlnT1V6aXBiS2tGUk0tazZHNzlGbHVmaGMwdThVWEZLb1pUN3dMa0hTc1FWajJ6MXBNV1JCb0FfM0R0QXhsU0pRU3ktMTc4aXZhLVF2cmFGWUxlYTFleGlISjMxdEJ3UzZRc2VIQXQw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift’s Grammy Museum dress sure looks like an Easter egg - Page Six
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Grammy Museum dress sure looks like an Easter egg  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMlFvVUg3T2hKbjk4VWZzbEN4M2NMbUVMQ1BQMEQ5a01KWTJKQ2xmZFlUWmdIYkg5Skcyc3ZDWUNKY01aUGwzRk5IN19oWGVmUTE4ZzBmOGVOSGVvU1hTbzZBMzhaV0xkX2VmanBGSWlvM2pIZlR3d0hSSE5EblU0S1dELVlvd3lmdkt4UnFjTXltc0pLb3hCX1RkWGR4S0VNaFpzeXJOYmhNZ2k3RkhN?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Reveals the ‘Coping Mechanism’ Mantra She Repeats to Herself When Things Feel ‘Unmanageably Big’ - People.com
 
@@ -921,15 +929,6 @@ Taylor Swift reveals her sneaky way of clapping back at critics  Page Six
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPS053UGM0ZEZLTFlidExTMGZueUJPcVdPRllhM3k2MXVTM0pyRFZjTEc0ZHMxdFBKUHFDYVJEc21icHQ4LUx5MFlNaGgtT196UThXdEE2SnMycEJ6OU5PUTJrYmFIQ3hNYll4Ujg1ekQyaGdGWlF1UU9TV1JhMGhxQ0tZQTNvaGdUcXV2bnVDQTVwQjI3ZW9EaHFKdWlsLWFwT1FBRUl3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMitgFBVV95cUxNVWNxVmxGMncwemZYWnpTTl9tUVBhNG5ybzI0SlhCTlBYUFpOc1dSOXFGMDYzaG5XdWJ0VTA3dEJQYkxPSVl2bTNUMEdUaWxyaGpENGpxVGk2dFN3d2N0RXJXUExlVzJRN0VUY2xiOC0wVHJyeGdpcEVLYW94V0pIVmZMM1AzT3NDbm4yVzR1WGo5Y2RJbkV3Q2ZiaTRXUDBEUGZlSmlFQ0xsMFBoR1ZGa0s2WU8ydw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Performs Mashup at Grammy Museum
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: In a recent video at the Grammy Museum, Taylor Swift performed a mashup of her songs ‘All Too Well,’ ‘I Knew It, I Knew You,’ and ‘August.’
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPV09pcExZR2YxS0tNNmM5a2YxVXM1RWtjWVlwNF96bTRtdmVGVm5fdHVqRDA1ajZiZTZTSDBUaDcxNDMxOUNqUndEdmhUenZjY3l2RnlwSTdEVE5sR0R5TmNlTF9wMVp4VjNqalJEWFU4bS1Gb3V5RXpwRlRRWlZWS0JwUHRwQXVVRnJuMW5naEV6cmhrU01XZjRibWRkbExrbUI5cS1hLVY4QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-sings-mashup-all-too-well-grammy-museum-video-1236842092/
-
 ## Emmy Nominee Olivia Newman Discusses Collaborations Including Taylor Swift
 
 - first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
@@ -945,6 +944,42 @@ Taylor Swift reveals her sneaky way of clapping back at critics  Page Six
 - summary: Taylor Swift was recently spotted in a $798 slip dress that is considered perfect for fall activities. The stylish choice showcases her fashion sense for the season.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMic0FVX3lxTE5wODNJVXEyTzAtZkhmZ0EtS1VwdjJReHBVZUdZQTRhQmFna01uaGFoaU9JS1p3amh3RTdYVi1YQ3VERTEyb3JTeXRxR0d5N0tYcUdOd212dWgtM01jUDloSkh3UFBlVEJVcW4yLXc5cjNkZjA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift on Dealing With Public Perception and Deciding Not to Opt Out Before Her Career “Got Unmanageably Big”
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: corroborated | source_count: 3
+- summary: The star joined Recording Academy CEO Harvey Mason Jr. for a 20-year retrospective chat at the Grammy Museum.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-public-perception-career-unmanageably-big-1236680277/
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiakFVX3lxTFBmM2NndHdwY01lZ0dBUWJHRFprNlgwc3ZGRFoxOU1Mc2lFZjdlVjdHRGpxZVl5bktYRHR4dXZNT2RHZjVzSncwYkJROUVaUUVBZzVxX0x0cnBYdUlpVGRUOHBPa0g0bGlIWEE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOaDhfc0tXcEhSaGJNVGxjLUltSVRaZHVycnpSdXhqcmVtRXVDdUQ5QzhsbkRCXzFxUGxlbC1IcVFSdXNXN25IdGZuZlpNODZPUzRjcVZ4UG91WHR4RUNQYl9pQmZ5OTVTNWJRWnZrNFNnajAzT3pKdFhMYWN4UUdhWi1CdHI0VndYTEllaWR2NWRIMDRvOFJRQzFTQ0lnSjcwRVlkc0ZOdGpWTUtUYlRxRFdja2VWYzdy?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift’s Grammy Museum dress sure looks like an Easter egg - Page Six
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Grammy Museum dress sure looks like an Easter egg  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMlFvVUg3T2hKbjk4VWZzbEN4M2NMbUVMQ1BQMEQ5a01KWTJKQ2xmZFlUWmdIYkg5Skcyc3ZDWUNKY01aUGwzRk5IN19oWGVmUTE4ZzBmOGVOSGVvU1hTbzZBMzhaV0xkX2VmanBGSWlvM2pIZlR3d0hSSE5EblU0S1dELVlvd3lmdkt4UnFjTXltc0pLb3hCX1RkWGR4S0VNaFpzeXJOYmhNZ2k3RkhN?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Performs Mashup at Grammy Museum
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: In a recent video at the Grammy Museum, Taylor Swift performed a mashup of her songs ‘All Too Well,’ ‘I Knew It, I Knew You,’ and ‘August.’
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPV09pcExZR2YxS0tNNmM5a2YxVXM1RWtjWVlwNF96bTRtdmVGVm5fdHVqRDA1ajZiZTZTSDBUaDcxNDMxOUNqUndEdmhUenZjY3l2RnlwSTdEVE5sR0R5TmNlTF9wMVp4VjNqalJEWFU4bS1Gb3V5RXpwRlRRWlZWS0JwUHRwQXVVRnJuMW5naEV6cmhrU01XZjRibWRkbExrbUI5cS1hLVY4QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-sings-mashup-all-too-well-grammy-museum-video-1236842092/
+  - [unverified] Rolling Stone Australia — https://news.google.com/rss/articles/CBMimgFBVV95cUxOM0NRbFEwcTQtbHpGNVFvRV9Ha2FYaEM4bW54YkhUdzY5d1JXZXpPZUMwejZnNXJZaG5VdXlZMUM1SklKN0tDVDFYZTIzalJHLUtBRzdMMGdKZ29ZN2JkTlpkd045UDhMVzk0dVBmMFFsMHA3ZGNESlp1UzFWYWxiRWdQakM2ME1ERmNJNTYtdEcwNFVNeGV5cmt3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Film Contributions Highlighted
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has written songs for various blockbuster films, including contributions to 'Hannah Montana: The Movie' and 'The Hunger Games' trilogy, showcasing her impact on popular cinema beyond her music albums.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/taylor-swift-songs-written-for-movies-toy-story-5-crawdads/
 
 ## Taylor Swift’s New Dolby Atmos Release Includes Two Reputation Lyric Changes
 
@@ -980,52 +1015,3 @@ The streets of New York City and the first-class lounges of Heathrow and JFK air
 Taylor Swift had kept fans guessing about whether it was her nuptials that had caused the closure of 11 streets in mi
 - sources:
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/jul/03/taylor-swift-travis-kelce-wedding-new-york
-
-## Paul McCartney Performs at Taylor Swift's Wedding Reception
-
-- first seen: 2026-08-25 02:22 UTC | category: sighting | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Paul McCartney played 'I Want to Hold Your Hand' at Taylor Swift and Travis Kelce's wedding reception, marking the first time he performed the song in 60 years. The event took place at Madison Square Garden, featuring a star-studded guest list, as reported by People magazine.
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/artanddesign/2026/jul/05/paul-mccartney-i-want-to-hold-your-hand-taylor-swift-wedding
-
-## Taylor Swift's Generosity Highlighted in New Commentary
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: A commentary discusses the impact of fame on celebrities like Taylor Swift, focusing on her talent, work ethic, and philanthropic gestures during her Eras tour. It raises questions about self-admiration amidst their success.
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/commentisfree/2026/jul/08/superstars-huge-egos-cristiano-ronaldo-taylor-swift
-
-## Man Sentenced for Terror Plot Aimed at Taylor Swift Concert
-
-- first seen: 2026-08-25 02:22 UTC | category: tour | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: An Austrian man has been sentenced to 15 years in prison after pleading guilty to terrorism-related offenses connected to a plot targeting Taylor Swift's Eras Tour concert in Vienna, which was cancelled for safety reasons. Two suspects were arrested, with one having ties to ISIS.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2500568/austrian-man-sentenced-to-15-years-for-terror-plot-targeting-taylor-swift-concert/news/
-
-## Taylor Swift Inducted into Songwriters Hall of Fame
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift became the youngest woman inducted into the Songwriters Hall of Fame, discussing her future in music and quoting *Yellowstone*. This follows her recent release of a song for the Toy Story 5 soundtrack and performance at the film's premiere.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2502103/taylor-swift-says-sombr-is-the-future-quotes-yellowstone-at-songwriters-hall-of-fame-induction/news/
-
-## Why are we so obsessed with Taylor Swift’s wedding? | Dave Schilling
-
-- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
-- verification_status: single_source | source_count: 1
-- summary: With marriage rates in decline, the appeal of a big wedding that we can live vicariously is stronger than ever
-Finally, after decades, I have something in common with Taylor Swift. It feels great to say that out loud, in public. No, I’m not famous, rich, particularly attractive, or a woman. I really, really can’t sing. Like, not even my karaoke is tolerable for human ears (dogs seem to be fine wit
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/commentisfree/2026/jul/09/taylor-swift-wedding-obsession-msg
-
-## Taylor Swift Discusses 'The Eras Tour: The Final Show' with Director Glenn Weiss
-
-- first seen: 2026-08-25 02:22 UTC | category: tour | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: In a recent event with Emmy voters, Taylor Swift shared insights on collaborating with director Glenn Weiss for 'The Eras Tour: The Final Show', focusing on capturing the essence of her tour's conclusion. The event took place at the Ross House in Los Angeles.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/08/taylor-swift-eras-tour-final-show-emmy-nominations-1237047840/
