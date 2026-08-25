@@ -11,8 +11,10 @@ describe('currentTheories — column 1', () => {
     const items = currentTheories(NOW);
     // Real corpus, real count — asserted exactly so a future change to the
     // corpus fails this test loudly instead of silently padding.
-    expect(items.length).toBe(9);
-    expect(items.length).toBeLessThan(10);
+    // 9 -> 10 (#3153): admits the ESB green/"TS"-logo new-era theory
+    // (showgirl-esb-green-ts-debut-era), a pending theory-track entry.
+    expect(items.length).toBe(10);
+    expect(items.length).toBeLessThanOrEqual(10);
   });
 
   it('caps at 10 even if the corpus were to grow past it', () => {
