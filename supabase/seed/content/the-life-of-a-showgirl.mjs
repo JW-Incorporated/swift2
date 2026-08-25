@@ -4115,6 +4115,69 @@ export default {
         ],
       },
     },
+    {
+      slug: 'showgirl-adam-scott-wedding',
+      year: 2026,
+      month: 8,
+      day: 24,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      title: 'Adam Scott on the wedding: "at its core, it just felt like a regular wedding"',
+      snippet:
+        'Actor Adam Scott, a guest at the July 3 wedding, told TODAY that for all the Madison Square Garden scale — "more people than were at my wedding" — the night "just felt like a regular wedding," with "everyone teared up."',
+      sourceUrl: 'https://www.today.com/popculture/adam-scott-taylor-swift-wedding-reaction-rcna594098',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Among the roughly 1,000 guests at Madison Square Garden on July 3 was actor Adam Scott, and on the Aug. 24 episode of TODAY he added his read of the night to the growing on-record guest color. Speaking to Craig Melvin, he cast the scale and the feeling as a contradiction that resolved itself: "It was kind of on a grand scale. There were more people than were at my wedding, but at its core, it just felt like a regular wedding with two people coming (together)." He remembered the room the way earlier guests had — "Everyone was teared up. It was a really lovely, lovely event." — and said the impression he kept was the plainest one: "you had the sense that these are just people who love each other." Like the other guests bound by the day\'s NDA, he described the tenor without the particulars.',
+        // Intake #3306 (2026-08-25 Vault Run, Content Shift): the latest in the
+        // on-record wedding-guest-color run (Gronkowski #2130, Kylie Kelce
+        // #1842, Barkley #1844, Maren Morris #1780). A single named-guest read
+        // on the wedding's emotional tenor is a wedding SUB-detail, not a
+        // defining moment, so it is right-sized (short body, no hero) exactly
+        // like the Morris item above it. Confirmed: named guest, dated TODAY
+        // interview (Aug 24), relationship/wedding so two independent
+        // established outlets are required and comfortably met (TODAY,
+        // Billboard, NBC New York; also HuffPost, Yahoo carry it). Location is
+        // MSG at venue level (documented past public event, L2 OK), no redline.
+        // Cut the "dad points" joke about Scott's young daughter — a private
+        // minor, per privacy-redlines.md. Photo deferred: image hosts
+        // (upload.wikimedia.org) are org-egress-blocked (403) this session, so
+        // this ships text-only per content-shift.md step 3b, and the
+        // photo-sparsity checker routes it to Photo Enrichment. Publisher
+        // domains are likewise egress-blocked for direct fetch; the quotes and
+        // real URLs were corroborated across the outlets below via WebSearch.
+        sources: [
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/adam-scott-taylor-swift-wedding-reaction-rcna594098',
+            source_title: "Adam Scott Shares What Taylor Swift and Travis Kelce's Wedding Was Really Like",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-left-impression-adam-scott-1236323290/',
+            source_title: "Adam Scott Reveals the Impression Taylor Swift & Travis Kelce's Wedding Left on Him",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NBC New York',
+            url: 'https://www.nbcnewyork.com/entertainment/entertainment-news/adam-scott-taylor-swift-travis-kelce-wedding/6539891/',
+            source_title: "Adam Scott shares what Taylor Swift and Travis Kelce's wedding was really like",
+            publisher: 'NBC New York',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-25',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
     // --- Rumor Desk 2026-08-05 (intake: news digest). A wholly-unconfirmed,
     // social-tier gossip claim about the newlyweds' rumored puppy — admissible
     // because it is attributable (Deuxmoi, named), dated, and adjudicable (it
@@ -10684,6 +10747,22 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-09',
             reliability_score: 3,
+          },
+          // Answerer depth pass (Vault Run 2026-08-25, hot-thin-topic): adds a
+          // second strong (reliability 4) outlet so this recent, high-interest
+          // wedding item clears the hot-thin-topic checker's 2-strong-source
+          // bar honestly (it had only Billboard). Fox News independently
+          // carries the on-record decline and Barkley's stated reasons; no new
+          // claim added to the prose. Verified via WebSearch this session
+          // (publisher direct-fetch is egress-blocked).
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/sports/charles-barkley-declined-travis-kelce-taylor-swift-wedding-invitation-simple-reason',
+            source_title: 'Charles Barkley declined Travis Kelce and Taylor Swift\'s wedding invitation for a simple reason',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-25',
+            reliability_score: 4,
           },
         ],
         // Archival portrait — Barkley's remarks were an interview, not a
