@@ -706,6 +706,17 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       outcome: "debunked",
       sources: [{ name: "Aaron Dessner Sets the Record Straight on Gracie Abrams' 'Death Wish': It's 'Definitely Not' About Taylor Swift", url: "https://www.billboard.com/music/music-news/aaron-dessner-gracie-abrams-death-wish-noah-kahan-interview-1236299956/", reliability: 4, type: "reputable_press" }, { name: "The National's Aaron Dessner speaks out on if Gracie Abrams' 'Death Wish' is about Taylor Swift", url: "https://www.nme.com/news/music/the-nationals-aaron-dessner-speaks-out-on-if-gracie-abrams-death-wish-is-about-taylor-swift-3958555", reliability: 4, type: "reputable_press" }, { name: "Gracie Abrams Song \"Death Wish\" Is Not About Taylor Swift", url: "https://www.eonline.com/news/1434254/gracie-abrams-song-death-wish-is-not-about-taylor-swift", reliability: 3, type: "reputable_press" }],
     },
+    {
+      slug: "showgirl-esb-green-ts-debut-era",
+      kind: "theory",
+      title: "The green Empire State Building and the \"TS\" logos that lit a new-era hunt",
+      claim: "On Aug 20, 2026 the Empire State Building glowed green, its official X account captioning it \"WhaTS happening?\" — capitalized \"TS\" reading as Taylor's initials. The same day, a green \"TS\" logo turned up on a black wall at an undisclosed spot, with more spotted across several cities. Swifties read the convergence as an easter-egg cue for her next era.",
+      evidence: "The facts are on the record and sourced (the ESB light change and the ESB official account's \"WhaTS happening?\" post); everything past them is fan decoding, and the reads openly diverge. The loudest ties green to her 2006 self-titled debut — whose 20th anniversary lands Oct 24, 2026 — and reads it as a debut \"Taylor's Version\" tease; others point instead to Reputation's black-and-green snake imagery, the other un-re-recorded title. Fans noted the font and layout match none of her past album branding. The pattern is real — the ESB lit orange in Aug 2025 for The Life of a Showgirl and blue in Jul 2026 for the wedding — but so is the countervailing coverage (\"Swifties calm down, not everything is an Easter egg\"). Nothing so far officially links the green display to any confirmed project. If an announcement or a debunk follows, this promotes with the citation; if it goes quiet, it fades.",
+      confidence: "plausible",
+      outcome: "pending",
+      sources: [{ name: "Taylor Swift Fuels Album Theories as Empire State Building Flashes Green 'TS' Logo and Asks 'WhaTS Happening?'", url: "https://www.ibtimes.co.uk/empire-state-building-green-taylor-swift-speculation-1815429", reliability: 3, type: "reputable_press" }, { name: "Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories", url: "https://www.contactmusic.com/story/467/3593838/empire-state-building-goes-green-as-mysterious-ts-symbols-spark-taylor-swift-fan-theories", reliability: 3, type: "reputable_press" }, { name: "Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories", url: "https://uk.news.yahoo.com/empire-state-building-goes-green-090000104.html", reliability: 3, type: "reputable_press" }],
+      relatedSlugs: ["tloas:showgirl-spotify-canvas-color-swap"],
+    },
   ],
   "ttpd": [
     {
