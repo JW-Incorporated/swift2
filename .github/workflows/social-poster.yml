@@ -62,6 +62,22 @@
 # same delivery path watchdog.yml and brief-mailer.yml already use. Separate
 # from the failure surfacing above — that reddens the run and alerts via
 # watchdog; this only ever reports good news, one email per run that had one.
+#
+# Failure EMAIL (2026-08-25, traced from a real incident — 2026-08-24's
+# Midnights/Anti-Hero item died to an X 403 "duplicate content" error and
+# nobody heard about it, issue #3282). A red run alone wasn't reaching Joey:
+# watchdog's cadence check only alarms on zero successes in its window, and a
+# single permanently-failed item sandwiched between successful runs (the
+# normal case — most 30-minute runs post something else fine) stays
+# invisible to it. The "Email Joey on a permanent post failure" step below
+# closes that gap directly, reusing the exact send path already proven for
+# the Founders' Brief and watchdog alerts (scripts/watchdog/send-mail.py,
+# GMAIL_APP_PASSWORD + MARJORIE_EMAIL — provisioned since issue #484, no new
+# secret) instead of inventing a second one. This one covers FAILURES only —
+# genuinely independent of the success email above: different trigger
+# (steps.post.outcome == 'failure' vs. a written SOCIAL_POSTER_NOTIFY
+# payload), so a run with both a success and a permanent failure sends both
+# emails, and a run with only one sends only that one.
 name: social-poster
 on:
   schedule:
@@ -259,3 +275,32 @@ jobs:
             --body-file "$BODY_FILE" \
             --base main --head "$BRANCH"
           gh pr merge "$BRANCH" --squash --auto --delete-branch
+
+      # See the "Failure EMAIL" header note above. `if: always()` — this must
+      # fire even if the commit step above fails to push/open its PR; email
+      # delivery must not depend on git succeeding. `steps.post.outcome` is
+      # the exact same signal the commit step already uses for POST_OUTCOME /
+      # the PR's "⛔ A POST FAILED" title suffix, so there is no second
+      # definition of "did this run fail" to keep in sync. send-mail.py
+      # skips quietly (exit 0) if GMAIL_APP_PASSWORD/MARJORIE_EMAIL are ever
+      # unset — never blocks the run either way.
+      - name: Email Joey on a permanent post failure
+        if: always() && steps.post.outcome == 'failure'
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          REPORT_FILE: ${{ runner.temp }}/social-poster-report.md
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          BODY_FILE="$RUNNER_TEMP/social-poster-failure-body.md"
+          if [ -s "$REPORT_FILE" ]; then
+            cp "$REPORT_FILE" "$BODY_FILE"
+          else
+            echo "A post permanently failed but produced no report (the poster step crashed before reporting)." > "$BODY_FILE"
+          fi
+          jq -n --arg body "$(cat "$BODY_FILE")" --arg url "$RUN_URL" \
+            '{subject: "⛔ Social post failed — longlivets.com", body: $body, url: $url}' > payload.json
+          python3 scripts/watchdog/send-mail.py payload.json

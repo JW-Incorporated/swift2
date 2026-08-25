@@ -7,6 +7,27 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-25 — Landing page rethink closed: current landing page stays as-is
+
+**Decision:** DoD item 1 ("Landing page rethink — scroll-first + obvious
+nav") is closed with no rework. The current landing page (`#684`/`#740`,
+eyebrow + subtitle `#1225`, the ModeToggle) is the shipped landing
+experience going forward; no new design spec, mockups, or nav rebuild.
+
+**Why:** Joey reviewed the live site and judged the current landing page
+already meets the bar — "the landing page is perfect as is." The rethink's
+original problem statement (a new user may not immediately understand
+"threads," nav visibility) is superseded by this direct read of the shipped
+product, not by a design exercise.
+
+**Alternatives considered:** none — this is a founder call reversing planned
+scope, not a design trade-off; no rework was started, so there is nothing to
+unwind.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-25).
+
+---
+
 ## 2026-08-25 — Social caption register: from lowercase-warm-detached to "a fan in love, out loud"
 
 **Decision:** the social voice's *register* changes — captions must read as

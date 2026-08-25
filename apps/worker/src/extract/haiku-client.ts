@@ -17,6 +17,7 @@ import { CURRENT_ITEM_CATEGORIES, CURRENT_ITEM_STATUSES, LOCATION_LEVELS } from 
 import type { CurrentItemCategory, CurrentItemStatus, LocationLevel } from '@swift2/shared';
 import { EXTRACT_SYSTEM_PROMPT, RECORD_KNOWLEDGE_TOOL } from './prompt';
 import type {
+  ExtractCommentThread,
   ExtractedCurrentItem,
   ExtractedFanSignal,
   ExtractedTheory,
@@ -31,6 +32,8 @@ const ANTHROPIC_VERSION = '2023-06-01';
 const MAX_TOKENS = 1_024;
 /** Cluster titles+snippets are capped to this many characters (proposal §4.5). */
 const MAX_CLUSTER_CHARS = 6_000;
+/** Reddit comment context has its own bound so it cannot crowd out the cluster. */
+const MAX_COMMENT_THREAD_CHARS = 6_000;
 
 const RECORD_KNOWLEDGE_KINDS = new Set<RecordKnowledgeKind>(['current_item', 'fan_signal', 'both', 'skip']);
 const SKIP_REASONS = new Set<SkipReason>(['not_taylor', 'no_truth_value', 'redline', 'duplicate', 'stale']);
@@ -38,6 +41,8 @@ const SKIP_REASONS = new Set<SkipReason>(['not_taylor', 'no_truth_value', 'redli
 export interface ExtractInput {
   /** The cluster's own raw items — titles/snippets, one per outlet. */
   items: readonly { title: string; snippet: string }[];
+  /** Optional, transient Reddit discussion context grouped by post. */
+  commentThreads?: readonly ExtractCommentThread[];
   /** symbol_lexicon keys, so the model can match rather than invent one. May be empty this early. */
   symbolLexiconKeys: readonly string[];
   eraId: string;
@@ -51,8 +56,23 @@ function clusterText(items: readonly { title: string; snippet: string }[]): stri
   return joined.length > MAX_CLUSTER_CHARS ? joined.slice(0, MAX_CLUSTER_CHARS) : joined;
 }
 
+function commentThreadText(threads: readonly ExtractCommentThread[]): string {
+  const joined = threads
+    .map((thread) => {
+      const comments = thread.comments
+        .map((body) => body.replace(/\s+/g, ' ').trim())
+        .filter(Boolean)
+        .map((body) => `- ${body}`)
+        .join('\n');
+      return comments ? `POST: ${thread.postTitle}\n${comments}` : '';
+    })
+    .filter(Boolean)
+    .join('\n\n');
+  return joined.length > MAX_COMMENT_THREAD_CHARS ? joined.slice(0, MAX_COMMENT_THREAD_CHARS) : joined;
+}
+
 function buildUserMessage(input: ExtractInput): string {
-  return [
+  const message = [
     `TODAY: ${input.today}`,
     `CURRENT ERA: ${input.eraId}`,
     `SYMBOL LEXICON (match these keys where they apply; do not invent a new one): ${
@@ -61,7 +81,16 @@ function buildUserMessage(input: ExtractInput): string {
     '',
     'CLUSTER (titles/snippets from every outlet covering this story):',
     clusterText(input.items),
-  ].join('\n');
+  ];
+  const comments = commentThreadText(input.commentThreads ?? []);
+  if (comments) {
+    message.push(
+      '',
+      'REDDIT COMMENT THREAD CONTEXT (individual fan comments; use only for aggregate discussion signal):',
+      comments,
+    );
+  }
+  return message.join('\n');
 }
 
 function extractToolInput(body: unknown): unknown | null {

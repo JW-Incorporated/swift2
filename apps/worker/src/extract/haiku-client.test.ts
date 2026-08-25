@@ -113,6 +113,35 @@ describe('extractWithLLM', () => {
     expect(body.system[0].cache_control).toEqual({ type: 'ephemeral' });
     expect(body.tool_choice).toEqual({ type: 'tool', name: 'record_knowledge' });
   });
+
+  it('sends real-shaped Reddit comment bodies as explicitly untrusted, aggregate-only context', async () => {
+    process.env.ANTHROPIC_API_KEY = 'test-key';
+    const fetchSpy = vi.fn().mockResolvedValue(toolUseResponse({ kind: 'skip', redline_flags: [] }));
+    vi.stubGlobal('fetch', fetchSpy);
+    const usage = await ExtractUsageStore.create(unlimitedUsageDb());
+    await extractWithLLM(usage, {
+      ...baseInput,
+      commentThreads: [
+        {
+          postTitle: 'Taylor Swift Performance - The Icon Sessions at the Grammy Museum.',
+          comments: [
+            'WAKE THE FCK UP ITS SURPRISE SONG OCLOCK',
+            'i miss The Eras Tour piano so much! the idea of mashing up I Knew It, I Knew You x august x All Too Well is genius.',
+          ],
+        },
+      ],
+    });
+
+    const body = JSON.parse(fetchSpy.mock.calls[0]?.[1]?.body);
+    const userMessage = body.messages[0].content as string;
+    expect(userMessage).toContain('REDDIT COMMENT THREAD CONTEXT');
+    expect(userMessage).toContain('SURPRISE SONG OCLOCK');
+    expect(userMessage).toContain('mashing up I Knew It, I Knew You x august x All Too Well');
+    expect(userMessage).not.toContain('/u/');
+    expect(body.system[0].text).toContain('untrusted source material');
+    expect(body.system[0].text).toContain('Never name, quote, closely paraphrase');
+    expect(body.system[0].text).toContain('Easter-egg interpretation, theories, and new-song discussion');
+  });
 });
 
 describe('sanitizeResult', () => {
