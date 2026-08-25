@@ -286,7 +286,7 @@ describe('musicVideosForEra', () => {
 // standalone `?video=` param of their own.
 describe('findVideoEraId', () => {
   it('finds the real era for a known video slug (the #3312 repro)', () => {
-    expect(findVideoEraId('icon-sessions-grammy-museum-medley')).toBe('folklore');
+    expect(findVideoEraId('icon-sessions-grammy-museum-medley')).toBe('tloas');
   });
 
   it('returns null for a slug that matches no video anywhere', () => {
