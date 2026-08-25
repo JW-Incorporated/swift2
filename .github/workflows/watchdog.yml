@@ -893,12 +893,28 @@ jobs:
             local PREFIX="$1" WINDOW="$2" LANE="$3" CADENCE="$4"
             local CUTOFF RECENT ALERT_TITLE
             CUTOFF=$(date -u -d "-${WINDOW} hours" +%Y-%m-%dT%H:%M:%SZ)
-            # gh pr list sorts newest-first by default (confirmed empirically) —
-            # 100 comfortably covers this repo's real PR volume (~8/day) within
-            # any of these windows.
-            RECENT=$(gh pr list --repo "$REPO" --state all --limit 100 \
+            # FALSE ALARM 2026-08-25 (#3303): this used to be a plain
+            # `gh pr list --state all --limit 100` sorted newest-first, then
+            # filtered by date client-side in jq. The comment here used to say
+            # "100 comfortably covers this repo's real PR volume (~8/day)" —
+            # that assumption silently expired as PR volume grew. At alert
+            # time the newest 100 PRs (state:all) only reached back to
+            # 2026-08-24T21:54:34Z, under 18h — so a genuinely healthy
+            # `vault/2026-08-24-run2` PR from 16:44Z that same day (~22.6h
+            # old, comfortably inside the 36h window) was pushed out of the
+            # top-100 slice by ~100 OTHER PRs created after it, and never
+            # reached the jq date filter at all. RECENT came back 0 for a
+            # lane that was not actually down.
+            # Fix: filter by date SERVER-SIDE via the search API's `created:`
+            # qualifier, so no client-side count cap can silently truncate
+            # the window regardless of how busy the repo gets — verified
+            # 2026-08-25 to correctly return both 08-24 vault PRs. -L 1000 is
+            # the gh CLI's own pagination ceiling for search results, kept
+            # generous rather than re-picking another number that can expire.
+            RECENT=$(gh pr list --repo "$REPO" --state all -L 1000 \
+              --search "created:>=${CUTOFF}" \
               --json headRefName,createdAt \
-              --jq "[.[] | select(.headRefName | startswith(\"${PREFIX}\")) | select(.createdAt >= \"${CUTOFF}\")] | length")
+              --jq "[.[] | select(.headRefName | startswith(\"${PREFIX}\"))] | length")
 
             ALERT_TITLE="Watchdog: ${LANE} hasn't produced a PR in ${WINDOW}h"
 
