@@ -196,7 +196,11 @@ live tracker is #530.
 
 **Worked if:** #530 closes with a real-device pass recorded.
 
-**Status:** OPEN
+**Done 2026-08-24 (Joey):** tested the EAS build on a real Android phone —
+works great. #530 closed with the pass recorded. Next step per #67's
+checklist: Play Store submission (separate, not blocking this item).
+
+**Status:** DONE
 
 ---
 
