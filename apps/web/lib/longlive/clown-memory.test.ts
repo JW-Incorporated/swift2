@@ -236,9 +236,11 @@ describe('recordClownMemory — toggle ON, a resolved session', () => {
     expect(typeof createBody.expires_at).toBe('string');
 
     const turnPosts = calls.filter((c) => c.url.includes('/rest/v1/clown_turn') && c.init.method === 'POST');
-    expect(turnPosts).toHaveLength(2);
-    expect(JSON.parse(String(turnPosts[0].init.body)).role).toBe('user');
-    expect(JSON.parse(String(turnPosts[1].init.body)).role).toBe('assistant');
+    expect(turnPosts).toHaveLength(1);
+    const turnPair = JSON.parse(String(turnPosts[0].init.body));
+    expect(turnPair).toHaveLength(2);
+    expect(turnPair.map((turn: { role: string }) => turn.role)).toEqual(['user', 'assistant']);
+    expect(turnPair[0].created_at < turnPair[1].created_at).toBe(true);
 
     const fold = calls.find((c) => c.url.includes('/rest/v1/rpc/fold_clown_conversation'));
     expect(fold).toBeDefined();
@@ -348,7 +350,31 @@ describe('recordClownMemory — toggle ON, a resolved session', () => {
     const conversationPosts = calls.filter((c) => c.url === 'https://example.supabase.co/rest/v1/clown_conversation' && c.init.method === 'POST');
     expect(conversationPosts).toHaveLength(0);
     const turnPosts = calls.filter((c) => c.url.includes('/rest/v1/clown_turn') && c.init.method === 'POST');
-    expect(turnPosts.every((c) => JSON.parse(String(c.init.body)).conversation_id === 'conv-existing')).toBe(true);
+    expect(turnPosts).toHaveLength(1);
+    expect(JSON.parse(String(turnPosts[0].init.body)).every((turn: { conversation_id: string }) => turn.conversation_id === 'conv-existing')).toBe(true);
+  });
+
+  it('rejects a failed atomic turn-pair insert and never folds a partial conversation', async () => {
+    const calls: Array<{ url: string; init: RequestInit }> = [];
+    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
+      calls.push({ url: String(url), init });
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: '' }]);
+      if (String(url).includes('/rest/v1/clown_turn') && init.method === 'POST') return json({ message: 'write failed' }, 500);
+      return json({}, 200);
+    });
+
+    await expect(
+      recordClownMemory(
+        { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
+        fetchSpy as unknown as typeof fetch,
+      ),
+    ).rejects.toThrow('clown memory turn insert failed (500)');
+
+    const turnPosts = calls.filter((c) => c.url.includes('/rest/v1/clown_turn') && c.init.method === 'POST');
+    expect(turnPosts).toHaveLength(1);
+    expect(JSON.parse(String(turnPosts[0].init.body))).toHaveLength(2);
+    expect(calls.some((c) => c.url.includes('/rest/v1/clown_turn?select'))).toBe(false);
+    expect(calls.some((c) => c.url.includes('/rest/v1/rpc/fold_clown_conversation'))).toBe(false);
   });
 
   it('folds turns past the retention window into summary and deletes the evicted rows, in ONE RPC call', async () => {

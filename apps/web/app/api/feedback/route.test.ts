@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { POST, defangGitHub, titleFrom, bodyFrom } from './route';
+import { POST, defangGitHub, titleFrom, bodyFrom, trustedClientIp } from './route';
 
 const ZWSP = '​';
 
@@ -38,19 +38,38 @@ describe('titleFrom', () => {
 });
 
 describe('bodyFrom', () => {
-  it('marks the ticket user-submitted and blockquotes the message', () => {
+  it('marks the ticket user-submitted and fences the message as a code block', () => {
     const body = bodyFrom('the polaroid image is broken', { eraId: '1989', eraName: '1989' });
     expect(body).toContain('<!-- feedback:user -->');
     expect(body).toContain('🧑 User');
-    expect(body).toContain('> the polaroid image is broken');
+    expect(body).toContain('```\nthe polaroid image is broken\n```');
     expect(body).toContain('`1989`');
   });
 
-  it('defangs mentions/refs in the message body (blockquotes do NOT stop autolinking)', () => {
+  it('defangs mentions/refs in the message body (belt) even though the fence (suspenders) already neutralizes them', () => {
     const body = bodyFrom('ping @maintainer about #1', {});
     expect(body).not.toMatch(/@[A-Za-z0-9]/);
     expect(body).not.toMatch(/#[0-9]/);
     expect(body).toContain(`@${ZWSP}maintainer`);
+  });
+
+  it('neutralizes markdown link/image injection (#1974) by fencing the message as code', () => {
+    const body = bodyFrom('click here [Reset your password](https://evil.example) ![x](https://evil.example/pixel.png)', {});
+    // The raw markdown syntax survives literally INSIDE the fence (harmless —
+    // GitHub renders fenced code verbatim, no link/image ever materializes)...
+    expect(body).toContain('```\nclick here [Reset your password](https://evil.example) ![x](https://evil.example/pixel.png)\n```');
+    // ...and nothing outside the fence carries the injected syntax.
+    const outsideFence = body.split('```').filter((_, i) => i % 2 === 0).join('');
+    expect(outsideFence).not.toContain('[Reset your password]');
+    expect(outsideFence).not.toContain('![x]');
+  });
+
+  it('widens the fence past any backtick run already in the message so it cannot escape early', () => {
+    const message = 'here is some code: ```js\nconsole.log(1)\n``` and more text';
+    const body = bodyFrom(message, {});
+    // The fence markers around the message must be longer than the longest
+    // backtick run inside it (4 backticks beats the message's own 3).
+    expect(body).toContain('````\n' + message + '\n````');
   });
 
   it('code-wraps client-supplied environment fields so markdown/mentions in them are inert', () => {
@@ -61,6 +80,25 @@ describe('bodyFrom', () => {
     expect(body).toContain('`ping @evil`');
     expect(body).toContain('`UA/#9`');
     expect(body).toContain('`http://x/@evil`');
+  });
+});
+
+describe('trustedClientIp (#1973 spoofable-XFF fix)', () => {
+  const headersReq = (headers: Record<string, string>) =>
+    new Request('http://localhost/api/feedback', { headers });
+
+  it('prefers x-real-ip (Vercel-set, not client-spoofable) over any x-forwarded-for value', () => {
+    expect(
+      trustedClientIp(headersReq({ 'x-real-ip': '9.9.9.9', 'x-forwarded-for': '1.1.1.1, 2.2.2.2' })),
+    ).toBe('9.9.9.9');
+  });
+
+  it("falls back to the RIGHTMOST x-forwarded-for hop (the one Vercel's own edge appended), not the client-supplied leftmost one", () => {
+    expect(trustedClientIp(headersReq({ 'x-forwarded-for': '6.6.6.6, 9.9.9.9' }))).toBe('9.9.9.9');
+  });
+
+  it('returns "unknown" when neither header is present', () => {
+    expect(trustedClientIp(headersReq({}))).toBe('unknown');
   });
 });
 
@@ -75,6 +113,31 @@ describe('POST', () => {
   afterEach(() => {
     vi.unstubAllEnvs();
     vi.unstubAllGlobals();
+  });
+
+  it('rate-limits a rotating-XFF attacker at the shared rightmost hop, closing #1973 (spoofable leftmost XFF bypass)', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'feedback-scoped-token');
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(new Response(JSON.stringify({ number: 1 }), { status: 201 })),
+    );
+
+    // Simulates the #1973 attack: the client-supplied (leftmost) XFF segment
+    // rotates every request, but the segment Vercel's own edge appends (the
+    // rightmost hop) stays fixed at the attacker's one real connection. The
+    // OLD code kept the leftmost segment as the rate-limit key, so every
+    // request landed in a brand-new bucket and NONE were ever 429'd — this
+    // is a direct regression test for that bypass. MAX_PER_WINDOW is 5.
+    const statuses: number[] = [];
+    for (let i = 0; i < 7; i += 1) {
+      const res = await POST(
+        req({ message: `attack ${i}` }, { 'x-forwarded-for': `6.6.6.${i}, 9.9.9.9` }),
+      );
+      statuses.push(res.status);
+    }
+
+    expect(statuses.slice(0, 5).every((s) => s !== 429)).toBe(true);
+    expect(statuses.slice(5)).toEqual([429, 429]);
   });
 
   it('drops honeypot submissions silently (200, no GitHub call)', async () => {

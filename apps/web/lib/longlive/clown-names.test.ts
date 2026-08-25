@@ -19,8 +19,30 @@ describe('theory naming — deterministic reuse without cross-session memory', (
   });
 
   it('pins the canonical name from a cited receipt', () => {
-    const got = resolveTheoryName('anything at all', [receipt('lore:rep-tv-debut-tv')], 'Some Other Name');
+    const got = resolveTheoryName(
+      'anything at all',
+      [receipt('lore:rep-tv-debut-tv')],
+      'Some Other Name',
+    );
     expect(got).toEqual({ name: 'Debutation', canonical: true });
+  });
+
+  it('does not let a supporting receipt pin an unrelated take (#1996)', () => {
+    const got = resolveTheoryName(
+      'Decode the timing: masters in May, album announcement in August. Coincidence, or a plan?',
+      [receipt('lore:masters-buyback'), receipt('lore:rep-tv-debut-tv')],
+      'The Masters Clock',
+    );
+    expect(got).toEqual({ name: 'The Masters Clock', canonical: false });
+  });
+
+  it('does not call an announcement-method ranking Debutation just because that receipt is present (#1996)', () => {
+    const got = resolveTheoryName(
+      'Rank her announcement methods by how hard they made us work. Countdown, podcast, liner note, orange door — take a side.',
+      [receipt('lore:tloas-countdown-announcement'), receipt('lore:rep-tv-debut-tv')],
+      'The Announcement Olympics',
+    );
+    expect(got?.name).not.toBe('Debutation');
   });
 
   it('pins the canonical name from the question alone', () => {
@@ -54,7 +76,9 @@ describe('theory naming — deterministic reuse without cross-session memory', (
       const viaId = entry.receiptIds?.[0]
         ? resolveTheoryName('', [receipt(entry.receiptIds[0])], null)
         : null;
-      const viaKeyword = entry.keywords?.[0] ? resolveTheoryName(entry.keywords[0], [], null) : null;
+      const viaKeyword = entry.keywords?.[0]
+        ? resolveTheoryName(entry.keywords[0], [], null)
+        : null;
       expect(viaId?.name ?? viaKeyword?.name, `${entry.name} unreachable`).toBe(entry.name);
     }
   });
@@ -71,17 +95,43 @@ describe('theory naming — deterministic reuse without cross-session memory', (
     ).toBe('The Twelve-Twelve Cipher');
     // The evermore hill is reachable by its own receipts, name and all.
     expect(
-      resolveTheoryName('anything', [receipt('moment:vault-evermore-folklores-sister-arrives')], null)
-        ?.name,
+      resolveTheoryName(
+        'anything',
+        [receipt('moment:vault-evermore-folklores-sister-arrives')],
+        null,
+      )?.name,
     ).toBe('The evermore Hill');
   });
 
-  it('picks the theory with the most cited-receipt overlap on a tie of one', () => {
-    // A single unambiguous AI receipt resolves to The Machine Question, not the
-    // first registry entry — that overlap-count logic is the thing that mattered.
+  it('scores the AI controversy above its shared orange-door fragment (#1996)', () => {
+    const got = resolveTheoryName(
+      'The orange-door videos and #SwiftiesAgainstAI — take a side, and be honest about what a bot is doing in this argument.',
+      [receipt('lore:swifties-against-ai'), receipt('lore:orange-doors-hunt')],
+      null,
+    );
+    expect(got).toEqual({ name: 'The Machine Question', canonical: true });
+  });
+
+  it('scores 12:12 plus numerology above an incidental orange-door mention (#1996)', () => {
+    const got = resolveTheoryName(
+      'My orange-door plus 12:12 numerology theory says the next reveal lands at midnight.',
+      [receipt('lore:tloas-countdown-announcement'), receipt('lore:orange-doors-hunt')],
+      null,
+    );
+    expect(got).toEqual({ name: 'The Twelve-Twelve Cipher', canonical: true });
+  });
+
+  it('uses the dominant cited receipt rather than registry order', () => {
     const single = resolveTheoryName('', [receipt('lore:swifties-against-ai')], null);
     expect(single?.canonical).toBe(true);
     expect(single?.name).toBe('The Machine Question');
+  });
+
+  it('falls back to the model name when canonical scores tie', () => {
+    expect(resolveTheoryName('countdown halftime', [], 'The Broadcast Clock')).toEqual({
+      name: 'The Broadcast Clock',
+      canonical: false,
+    });
   });
 
   it('is deterministic — same inputs, same output', () => {

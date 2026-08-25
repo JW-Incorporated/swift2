@@ -67,7 +67,17 @@ Options:
  * the screenshot is taken. Each case mirrors a locator already proven out in
  * e2e/vault.spec.ts (same site, same patterns) rather than inventing new
  * hooks — see that file's block comment for why role/label locators are
- * preferred over markup we'd have to add just for screenshots. */
+ * preferred over markup we'd have to add just for screenshots.
+ *
+ * `lens`/`mood`/the default branch used to wait on TopBar.tsx's `ModeToggle`
+ * tablist (`getByRole('tab', ...)`) — that tablist is wrapped in
+ * `hidden md:block` (desktop only) and so is excluded from the accessibility
+ * tree entirely at every mobile-width viewport, old `mobile` preset and new
+ * `ig-portrait` alike (`display:none` isn't just visually hidden, Playwright
+ * never resolves it "visible"). It silently broke once `BottomNav.tsx`
+ * shipped as the mobile nav — found while regenerating the ig-portrait
+ * library (#3157). These now wait on BottomNav's own mobile-visible buttons
+ * instead. */
 async function waitForReady(page, readiness) {
   if (readiness === 'era') {
     await page.getByRole('slider', { name: /timeline scrubber$/i }).waitFor({ state: 'visible' });
@@ -79,11 +89,13 @@ async function waitForReady(page, readiness) {
       await hint.click();
     }
   } else if (readiness === 'lens') {
-    await page.getByRole('tab', { name: 'Threads', selected: true }).waitFor({ state: 'visible' });
+    // "All threads" (ThreadsMode.tsx) only renders once a thread lens is
+    // active — a reliable, mobile-visible stand-in for "selected" state.
+    await page.getByRole('button', { name: 'All threads' }).waitFor({ state: 'visible' });
   } else if (readiness === 'item') {
     await page.getByRole('dialog').first().waitFor({ state: 'visible' });
   } else if (readiness === 'mood') {
-    const moodTab = page.getByRole('tab', { name: 'Mood' });
+    const moodTab = page.getByRole('button', { name: 'Mood' });
     await moodTab.waitFor({ state: 'visible' });
     await moodTab.click();
     // The mood textarea's aria-label (MoodChat.tsx) isn't always present in
@@ -91,7 +103,7 @@ async function waitForReady(page, readiness) {
     // signal that the chat (and starter chips beside it) has rendered.
     await page.getByPlaceholder('however you want to say it').waitFor({ state: 'visible' });
   } else {
-    await page.getByRole('tab', { name: 'Eras' }).waitFor({ state: 'visible' });
+    await page.getByRole('button', { name: 'Eras' }).waitFor({ state: 'visible' });
   }
   // Settle CSS transitions/animations (mode switches, dialog open, era-skin
   // theme swap) before the pixels are captured.
@@ -140,6 +152,14 @@ async function main() {
     });
     const page = await context.newPage();
     await page.goto(new URL(target.path, baseUrl).toString(), { waitUntil: 'networkidle' });
+    // Floating widgets that follow the viewport (FeedbackButton's "report an
+    // issue" bubble + its session-dismiss ×) are real, always-on site chrome
+    // for a visitor, but at the short ig-portrait frame they land on top of
+    // hero content instead of empty space below it — not something a
+    // marketing image should ship with. Opt in via `data-social-hide` on the
+    // element itself (see FeedbackButton.tsx) rather than hardcoding a
+    // selector here.
+    await page.addStyleTag({ content: '[data-social-hide]{display:none!important}' });
     await waitForReady(page, target.readiness);
 
     await mkdir(path.dirname(args.out), { recursive: true });

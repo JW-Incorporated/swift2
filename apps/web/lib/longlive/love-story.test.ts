@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { allocateHitRanges, durationLabel, mergedTimeline, monthsBetween, previousRelationship, soloLeadIn } from './love-story';
 import { RELATIONSHIPS, SINGLE_PERIODS } from './lenses';
+import { songTargetOf } from './tracks';
 import type { Relationship, SinglePeriod } from './types';
 
 const rels: Relationship[] = [
@@ -170,5 +171,22 @@ describe('solo-period editorial depth', () => {
       const period = SINGLE_PERIODS.find((entry) => entry.id === id);
       expect(period?.context).toBeUndefined();
     }
+  });
+});
+
+describe('relationship song links', () => {
+  const songs = [...RELATIONSHIPS, ...SINGLE_PERIODS].flatMap((entry) => entry.songs ?? []);
+
+  it('resolves every authored song id to a real track-guide entry', () => {
+    for (const song of songs) {
+      if (!song.relatedId) continue;
+      expect(songTargetOf(song.relatedId), `${song.title} (${song.relatedId})`).not.toBeNull();
+    }
+  });
+
+  it('leaves only songs absent from the track guide non-interactive', () => {
+    expect(songs.filter((song) => !song.relatedId).map((song) => song.title)).toEqual([
+      'This Is What You Came For',
+    ]);
   });
 });

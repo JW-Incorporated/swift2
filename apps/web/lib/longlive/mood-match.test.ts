@@ -188,6 +188,16 @@ describe('matchMoods — behaviour', () => {
     const picks = matchMoods({ moods: { joy: 1 }, energy: 0.1 }, { catalogue: cat });
     expect(picks[0].slug).toBe('quiet');
   });
+
+  it('uses authored energy/valence as the secondary signal for a tied single axis (#2000)', () => {
+    const cat: SongMood[] = [
+      buildSong('alpha-chaos', '1989', { calm: 0.8 }, 0.95, 0.1),
+      buildSong('zeta-calm', 'folklore', { calm: 0.8 }, 0.2, 0.7),
+    ];
+    const picks = matchMoods({ moods: { calm: 1 } }, { catalogue: cat, diversity: 0 });
+    expect(picks.map((p) => p.slug)).toEqual(['zeta-calm', 'alpha-chaos']);
+    expect(picks[0].score).toBe(picks[1].score);
+  });
 });
 
 describe('matchMoods — era diversity', () => {

@@ -517,16 +517,21 @@ export default {
       "title": "🏙️ Out in New York City",
       "snippet": "A casual street look with a cozy oversized sweater, high-waisted shorts, and ankle boots, accessorized with a structured handbag while walking through the city.",
       "sourceUrl": null,
-      "thumbnailUrl": "https://media.gettyimages.com/id/1138766978/photo/celebrity-sightings-in-new-york-city-april-22-2019.jpg?s=1024x1024&w=gi&k=20&c=S4g3_nitT6xDNlUMfyTdzIIY6C-YQVAKvHmKLvtl73k=",
+      // Getty retirement pass (issue #935, 2026-08-24): the Getty comp URL
+      // retired per the 2026-08-15 decision. No equivalent real photo of
+      // this specific outfit (oversized sweater + high-waisted shorts +
+      // ankle boots + structured handbag, NYC, Aug. 2019) could be verified
+      // on an allowlisted host after a real search of People.com, E! News,
+      // Yahoo, and Wikimedia Commons — candidates found were either
+      // unwatermarked-host mismatches (different outfit/date) or hosted on
+      // unvetted aggregators. This is an unpublished candidates-file entry
+      // (sourceUrl was already null), so left with no photo rather than a
+      // wrong match; TODO: source a real replacement or drop the item.
+      "thumbnailUrl": null,
       "moment": {
         "context": "A casual street look with a cozy oversized sweater, high-waisted shorts, and ankle boots, accessorized with a structured handbag while walking through the city. Pieces: oversized knit sweater, high-waisted shorts, ankle boots.",
         "sources": [],
-        "photos": [
-          {
-            "url": "https://media.gettyimages.com/id/1138766978/photo/celebrity-sightings-in-new-york-city-april-22-2019.jpg?s=1024x1024&w=gi&k=20&c=S4g3_nitT6xDNlUMfyTdzIIY6C-YQVAKvHmKLvtl73k=",
-            "credit": "Via Getty Images"
-          }
-        ]
+        "photos": []
       }
     },
     {

@@ -70,6 +70,7 @@ apps/web/
                                    opens TrackGuide
     TrackGuide.tsx                 per-album song track guide overlay; songs paired to an official
                                    video (lib/longlive/track-video.ts) play inline via MomentVideo
+    TrackDetail.tsx / OverlayNav.tsx   per-song dossier + shared sticky overlay navigation
     TheoryGuide.tsx                per-era theories/easter-eggs overlay; still functional but no
                                    longer opened from the era hero (the three-pill guide row is
                                    gone) — PR3 reaches it via timeline egg doorway cards
@@ -144,11 +145,16 @@ new tab for that"). See §5.5 and §7.
 ### ContentItem — a "moment" within an era (`content.ts`)
 ```ts
 ContentItem = { id, eraId, date (YYYY-MM-DD), title, blurb, tags: ContentTag[],
-                image, hiddenClue?, video?: MomentVideo }
+                images: ImageRef[], hiddenClue?, video?: MomentVideo }
 ContentTag = 'Music'|'Fashion'|'Tour'|'Relationship'|'Lore'
 ```
-Authoring order doesn't matter — the UI sorts chronologically. `image`
-defaults to the era art if omitted (see `build()` in `content.ts`).
+Authoring order doesn't matter — the UI sorts chronologically. `images`
+defaults to the era art if omitted (see `build()` in `content.ts`). Each
+`ImageRef` may carry `focalPoint` (a CSS `object-position`, such as
+`'50% 25%'`). Every surface that cover-crops an `ImageRef` must apply
+`focalPointOf(image)`; reducing the ref to its URL drops the authored crop.
+Unset focal points deliberately remain centered. Full-photo `object-contain`
+viewers do not apply focal positioning because they do not crop.
 
 ### Threads / lenses (`lenses.ts`)
 ```ts
@@ -438,7 +444,7 @@ Consequences for component code:
 | Current tier / live feed | `CurrentItemCard` + `CurrentItemDetail` | Knowledge-engine Stage 5 (`docs/proposals/2026-08-23-knowledge-engine.md`). `current_item` rows for the current/ongoing era merge into `mergeEraFeed` as a 5th `EraFeedEntry` kind, `'current'` (`current-feed.ts`'s `currentFeedEntries`), fetched via `app/vault/current/[eraId]/route.ts` → `packages/core/src/knowledge` at request time, ISR `revalidate: 900` — the Vault stays static, only the current era's live slice is dynamic. The card reuses `MomentDetail`'s dashed-unconfirmed visual language (`border-2 border-dashed`, era-accent) rather than the component itself — every `current_item` is provisional by definition (not yet promoted into the Vault) so the treatment is unconditional, not gated on a rumor status. Header chip reads "Live" or "Live · reported by `<outlet>`" (`outletFor()`, first source's outlet name). `CurrentItemDetail`'s confidence-style banner is MANDATORY at every status (unlike `MomentDetail`'s, which hides once confirmed) and carries a "Help us verify this" button that files an `/api/intake` POST. Rows with `promoted_to` set are hidden from the feed. The masthead (`LandingMasthead`) swaps its tagline to "Updated Nh ago · N new this week" (`summarizeCurrentActivity`) once the current era has live data, computed client-only after mount. |
 | Era scrubber | `TimelineScrubber` | morph-on-grab; snaps to era boundaries |
 | Moment detail | `MomentDetail` | opened via `openItem`; the video renders **above the article body** — right after the confidence banner, never below the body or inside the citations footnote (#2051; the banner stays above it so a rumor warning is met before the media). YouTube **citations** still embed in the sources footnote exactly as before (minus one duplicating `item.video`) — #2051 proposed promoting a lone citation to the top slot too, and that is deliberately NOT shipped: 6 of the 29 it would fire on are fan re-uploads, and presenting one as a page's lead media is a rights call for Joey, not a refactor (see `detailVideoFor`). **The ~42vh hero itself PLAYS when the hero image is only a still of the moment's own video** (`heroVideoFor` — 10 of the 16 video-carrying moments; Joey, 2026-08-13: "played the video from the top"). There the body embed yields to it (`detailVideoFor` returns null), and the player's width is capped at `42vh*16/9` so it fills the column on a phone and lands at exactly 42vh on desktop. **A sub-confirmed `confidence` blocks the promotion** — the hero sits above the rumor banner and #2051 requires the banner first, so a rumored moment keeps its video in the body. Any OTHER image that is a frame of the page's own video also leaves the gallery and the photo viewer (`imageDuplicatesPageVideo`; matched by id, since one video appears as `maxres2`/`maxres3`/… in the seeds). A hero that is a genuinely different photo is untouched — photo hero, body video, lightbox and all. Selection is `heroVideoFor` / `detailVideoFor` / `footnoteVideoSources` in `video-affordance.ts`, not in the component. Also shows the hidden clue; sub-confirmed `confidence` renders the loud rumor banner and `rumors` renders the "What's rumored" split (see the rumor recipe in §8) |
-| Track guide | `TrackGuide` | opened via `TrackGuideBar` (the full-width pill directly under the era's quoted lyric, in the old player's slot — same shape, same play button) or `openTrackGuide`; per-song sourced notes. Since PR2, a track can also play inline: `trackVideoFor()` (`lib/longlive/track-video.ts`) pairs a track's title against the era's videos, matching on `VideoNote.relatedSongs` (falling back to the video's own title), both sides lowercased/punctuation-stripped/whitespace-collapsed and compared with exact equality — no fuzzy or substring matching. Edition qualifiers ("Taylor's Version", "From The Vault", "10 Minute Version") are never stripped, since they name a different recording (Fearless carries both "The Best Day" and "The Best Day (Taylor's Version)" as separate videos). 48 of 244 track-guide songs pair today (~20%), all `music_video` kind; a paired row renders an inline click-to-play `MomentVideo` under the note, an unpaired row shows no play control at all (#2051 — a card that can't play must never look like one that can) |
+| Track guide | `TrackGuide` / `TrackDetail` | opened via `TrackGuideBar` (the full-width pill directly under the era's quoted lyric, in the old player's slot — same shape, same play button) or `openTrackGuide`; per-song sourced notes. Both the guide and each song dossier keep `OverlayNav` sticky at the top with the Long Live wordmark, the current-era label/menu, the global mode rail, Share, and the shared 44×44 close affordance (#773). Choosing the era menu exits the stacked track overlays before opening `EraSelector`, so it cannot render hidden behind the song page. Since PR2, a track can also play inline: `trackVideoFor()` (`lib/longlive/track-video.ts`) pairs a track's title against the era's videos, matching on `VideoNote.relatedSongs` (falling back to the video's own title), both sides lowercased/punctuation-stripped/whitespace-collapsed and compared with exact equality — no fuzzy or substring matching. Edition qualifiers ("Taylor's Version", "From The Vault", "10 Minute Version") are never stripped, since they name a different recording (Fearless carries both "The Best Day" and "The Best Day (Taylor's Version)" as separate videos). 48 of 244 track-guide songs pair today (~20%), all `music_video` kind; a paired row renders an inline click-to-play `MomentVideo` under the note, an unpaired row shows no play control at all (#2051 — a card that can't play must never look like one that can) |
 | Theories & eggs | `TheoryGuide` | the overlay and `openTheoryGuide` action still exist and work, but nothing in the era hero opens them as of PR2 — the three-pill guide row that used to launch it was removed. PR3 reaches it via egg doorway cards in the timeline instead. Confidence + outcome badges on every record |
 | Global filter | `FilterBar` (mounted once by `EraStream`) | one sticky six-chip control — the five `ContentTag`s plus Videos, a peer chip rather than a second axis — that persists as you scroll between eras (§5.8). Selecting Videos shows everything watchable in the era (every video record + moments carrying footage), de-duped by `youtubeId` — records against moments (#439) and, since #2057, moments against each other, so it shows one card per video rather than one per moment. Selection rules in `lib/longlive/filters.ts` + `lib/longlive/era-feed.ts` |
 | Thread gallery | `ThreadsMode`/`ThreadsGallery` | thread cards + "Where threads cross" launcher |
@@ -447,6 +453,23 @@ Consequences for component code:
 | Crossings | `Crossings` | two threads on one axis; markers where they intersect |
 | Era ↔ Thread pivots | `EraSection` strip + `Crossings` links | via `openThread` / `openEra` |
 | Clown bot | `ClownChat` + `ClownBoard` | 4th toggle surface (`mode === 'clown'`). Build B (`docs/decisions.md` 2026-08-13, J1–J7) — a big `clown bot` title (`font-era`, the shipped page-title pattern), one full-width chat box that stays blank until the reader sends a first message (a small "Try our chat bot — ask a question below" line in the empty stream, no pre-filled example conversation), and beneath it `ClownBoard`'s two prefill columns: "What we're clowning on" (open theories, recency-ranked, no padding to a fixed count) and "Past confirmed easter eggs" (ledger-derived). Tapping a column item, or a starter chip, prefills the composer (`clown-starters.ts`) without auto-sending — the reader still hits send. Every column item and chip resolves with **zero model calls**; only sending a composed message reaches `POST /api/clown`. Answers show a compact delulu-only indicator in the header (J4 — Evidence/Confidence meters were dropped as redundant with the source cards) with source cards beneath it. Retrieval is deterministic and grounded — the model is handed corpus docs and may not invent entities (`clown-retrieve.ts`/`clown-index.ts`, blocklist-filtered at index build time). A disabled or over-cap model falls back to a deterministic, zero-model card composer (`clown-fallback.ts`) — see `docs/ops/clown-kill-switch.md`. Never speaks as Taylor; no imagery of her on the surface. Share is disabled here for the same reason as Mood. |
+
+**Clownboard honesty invariant (#1998):** `confirmedEggs()` means exactly
+confirmed records whose authored `kind` is `easter_egg`. Confirmed fan
+predictions, common readings, and lore-ledger verdicts never enter the decoded
+count, and the rebuilt surface exposes no aggregate "called/clowned" accuracy
+stat. The column copy says "Planted, decoded, then confirmed" so an egg is not
+presented as a prediction the bot successfully called.
+
+**Mood matching invariants (#1999/#2000):** the keyword fallback understands
+Swiftie era framing (`reputation`/`villain era`), hype/anticipation language,
+and negated sit-still phrases as high energy. When an otherwise-unrefined
+single mood axis gives several songs the same primary score, `mood-match.ts`
+uses the catalogue's authored energy/valence dimensions as the secondary
+signal before the final deterministic slug fallback. The hand-tuned `feral
+about a bridge` starter remains pinned to the cathartic bridge set led by All
+Too Well (10 Minute Version), and energetic starter vectors do not receive the
+heavy-heartbreak intro.
 
 ---
 
@@ -465,7 +488,7 @@ curated items).
 **Add a music video to a moment:** add `video` to that `ContentItem`. Verify
 the ID. It renders automatically in `MomentDetail`.
 
-**Add shoppable products to a fashion moment:** add `moment.products` to the
+**Add shoppable products to a fashion or beauty moment:** add `moment.products` to the
 seed item (`supabase/seed/content/<era>.mjs`):
 `[{ brand, item, retailer, url, price?, inStock?, isAlternative?, altNote? }]`
 — `retailer` is a bare lowercase hostname (`'ralphlauren.com'`; it's the
@@ -477,8 +500,8 @@ look" block automatically. The UI must always link via `buildShopUrl()`
 (`lib/longlive/shop.ts`) — never `product.url` directly — that function is
 the single seam where affiliate wrapping (keyed by `retailer`) gets injected
 later with zero content edits (`docs/decisions.md` 2026-07-19). The
-`content.fashion-products` checker (content engine) queues fashion moments
-that name branded garments but carry no products.
+`content.fashion-products` checker (content engine) queues moments that name
+branded garments or specific cosmetics (including shades) but carry no products.
 
 **No exact product page exists (custom/couture/discontinued):** don't skip
 the moment silently — offer the closest verified buyable match instead

@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -16,7 +18,7 @@ import {
  */
 describe('lore integrity — no source, no ship', () => {
   it('has items', () => {
-    expect(LORE.length).toBeGreaterThan(0);
+    expect(LORE.length).toBeGreaterThanOrEqual(10);
   });
 
   it('every item carries at least one real https source', () => {
@@ -66,11 +68,13 @@ describe('lore integrity — no source, no ship', () => {
   it('carries no location detail past city level', () => {
     // A blunt guard against the privacy redline sneaking in through a lore
     // edit: no street addresses, no flight identifiers, no coordinates.
-    const banned = /\b\d{1,5}\s+\w+\s+(street|st|avenue|ave|road|rd|drive|dr|lane|ln)\b|\bzip\b|\btail number\b/i;
+    const banned =
+      /\b\d{1,5}\s+\w+\s+(street|st|avenue|ave|road|rd|drive|dr|lane|ln)\b|\bzip\b|\btail number\b/i;
     for (const item of LORE) {
-      expect(banned.test(`${item.headline} ${item.detail}`), `${item.id} has L3 location detail`).toBe(
-        false,
-      );
+      expect(
+        banned.test(`${item.headline} ${item.detail}`),
+        `${item.id} has L3 location detail`,
+      ).toBe(false);
     }
   });
 
@@ -88,7 +92,9 @@ describe('freshness is reported honestly', () => {
   });
 
   it('goes stale once the sweep is older than the window', () => {
-    const later = new Date(Date.parse(`${LORE_UPDATED_ON}T00:00:00Z`) + (FRESH_WINDOW_DAYS + 1) * 86_400_000);
+    const later = new Date(
+      Date.parse(`${LORE_UPDATED_ON}T00:00:00Z`) + (FRESH_WINDOW_DAYS + 1) * 86_400_000,
+    );
     expect(loreFreshness(later).stale).toBe(true);
   });
 
@@ -97,7 +103,25 @@ describe('freshness is reported honestly', () => {
     expect(loreFreshness(earlier).ageDays).toBe(0);
   });
 
+  it('keeps an older open claim live when the scheduled sweep rechecked it recently (#1997)', () => {
+    const now = new Date(`${LORE_UPDATED_ON}T00:00:00Z`);
+    expect(loreFreshness(now).liveCount).toBe(4);
+  });
+
   it('daysBetween handles a malformed date without throwing', () => {
     expect(daysBetween('not-a-date', new Date())).toBe(Number.POSITIVE_INFINITY);
+  });
+});
+
+describe('scheduled refresh ownership', () => {
+  it('connects the scheduled Rumor Desk lane to the Clownbot fallback file (#1997)', () => {
+    const root = resolve(import.meta.dirname, '../../../..');
+    const lane = readFileSync(
+      resolve(root, 'docs/agents/runner-prompts/vault-lanes/4-rumor-desk.md'),
+      'utf8',
+    );
+    expect(lane).toContain('apps/web/lib/longlive/clownbot-lore.ts');
+    expect(lane).toContain('LORE_UPDATED_ON');
+    expect(lane).toContain('lastCheckedOn');
   });
 });

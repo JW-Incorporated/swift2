@@ -1,16 +1,16 @@
 import { CONTENT } from './content';
 import { ERAS } from './eras';
-import { EGG_NODES, motifOf } from './lenses';
-import { tracksForEra } from './tracks';
+import { EGG_NODES, motifOf, THREADS } from './lenses';
+import { tracksForEra, trackKey } from './tracks';
 import { theoriesForEra } from './theories';
 import { allVideoRecordsForEra } from './videos';
-import type { EraId, MotifId } from './types';
+import type { EraId, LensId, MotifId } from './types';
 
 /**
  * Long Live — client-side search (audit T7 / §E.11).
  *
  * A static in-memory index over content that is ALREADY shipped to the client
- * (moments, eras, tracks, theories, videos, Clue Web eggs).
+ * (moments, eras, threads, tracks, theories, videos, Clue Web eggs).
  * No backend, no per-user request, no fetch — the index is built lazily once
  * per session from the same modules the UI renders from, so it can never
  * drift from what is on screen (and respects the repo's cost-discipline
@@ -24,18 +24,20 @@ import type { EraId, MotifId } from './types';
 
 /**
  * Where selecting a result takes you — mapped 1:1 onto existing store
- * actions by the SearchOverlay (openItem / openEra / openTrackGuide /
- * openTheoryGuide / openClueWebTrail). Search introduces no
- * new navigation surface of its own.
+ * actions by the SearchOverlay (openItem / openEra / openSong /
+ * openTheoryGuide / openClueWebTrail / openThread / openVideo). Search
+ * introduces no new navigation surface of its own.
  */
 export type SearchTarget =
   | { kind: 'moment'; itemId: string }
   | { kind: 'era'; eraId: EraId }
-  | { kind: 'track-guide'; eraId: EraId }
+  | { kind: 'track'; eraId: EraId; trackKey: string }
   | { kind: 'theory-guide'; eraId: EraId }
-  | { kind: 'trail'; motifId: MotifId };
+  | { kind: 'trail'; motifId: MotifId }
+  | { kind: 'thread'; lensId: LensId }
+  | { kind: 'video'; eraId: EraId; videoId: string };
 
-export type SearchDocType = 'moment' | 'era' | 'track' | 'theory' | 'video' | 'egg';
+export type SearchDocType = 'moment' | 'era' | 'track' | 'theory' | 'video' | 'egg' | 'thread';
 
 export interface SearchDoc {
   /** Unique across the whole index (`<type>:<id>`). */
@@ -174,6 +176,7 @@ export const MAX_RESULTS_PER_TYPE = 5;
 /** Presentation order + labels for result groups. */
 const GROUP_META: { type: SearchDocType; label: string }[] = [
   { type: 'era', label: 'Eras' },
+  { type: 'thread', label: 'Threads' },
   { type: 'moment', label: 'Moments' },
   { type: 'egg', label: 'Clue Web' },
   { type: 'theory', label: 'Theories & eggs' },
@@ -311,6 +314,15 @@ export function buildSearchIndex(): SearchDoc[] {
     );
   }
 
+  for (const thread of THREADS) {
+    docs.push(
+      makeDoc('thread', thread.id, thread.title, thread.kicker, null, { kind: 'thread', lensId: thread.id }, [
+        thread.kicker,
+        thread.what,
+      ]),
+    );
+  }
+
   for (const era of ERAS) {
     for (const track of tracksForEra(era.id)) {
       docs.push(
@@ -320,7 +332,7 @@ export function buildSearchIndex(): SearchDoc[] {
           track.title,
           `${era.album} · ${track.note}`,
           era.id,
-          { kind: 'track-guide', eraId: era.id },
+          { kind: 'track', eraId: era.id, trackKey: trackKey(era.id, track) },
           [track.note, era.album],
         ),
       );
@@ -344,9 +356,12 @@ export function buildSearchIndex(): SearchDoc[] {
     // search hit is not a card, and its failure mode is the opposite one —
     // filtering here would make the app look like it has never heard of
     // Miss Americana or The Eras Tour film, which reads as a content gap
-    // rather than a curation choice. Safe because the target below is the ERA
-    // section, not the card: the result still lands somewhere real, on the era
-    // whose timeline covers the work.
+    // rather than a curation choice. The target still carries `videoId`
+    // (#652): SearchOverlay's openVideo scrolls straight to that video's own
+    // card when one is mounted, and falls back to landing on the era (still
+    // somewhere real) when it isn't — an unplayable record has no card at
+    // all, and a playable one already embedded inline in a moment doesn't
+    // get a second standalone card (era-feed.ts's de-dupe).
     for (const video of allVideoRecordsForEra(era.id)) {
       docs.push(
         makeDoc(
@@ -355,7 +370,7 @@ export function buildSearchIndex(): SearchDoc[] {
           video.title,
           video.summary ?? `${era.album} era video`,
           era.id,
-          { kind: 'era', eraId: era.id },
+          { kind: 'video', eraId: era.id, videoId: video.slug },
           [video.summary ?? '', video.relatedSongs.join(' '), video.easterEggs.join(' ')],
         ),
       );
