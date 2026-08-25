@@ -27,6 +27,78 @@ so far".
 
 Stories: 120
 
+## Taylor Swift’s Grammy Museum Performance Features HQ Footage of Her New Diamond Wedding Band - Cosmo
+
+- first seen: 2026-08-25 21:39 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Grammy Museum Performance Features HQ Footage of Her New Diamond Wedding Band  Cosmopolitan
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMipAFBVV95cUxPSmRHV0hYMm5xY2tkZHdwbWp3LW1ab3B5LWxYM0RfTDNFZUJ1YXhFS0VBRjJEXy1Lc1ZsVXBEVEZhNlRHMEVDYlRMOWhMRnBFVFJNNFdkdW5DYU01Ymh5cm9Pa0kzUnROdjFZWGdIWUpaN3Y1YWFQVnhMQXJXQm1iVmEwbFNSc3dsWS15WkxtOEhTaXQ4NzY5eTRmUF9YNkgxUVVINA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift’s Wedding Invitation Officially Leaks Amid Claims Guests Are Angry at Her Over Travis K
+
+- first seen: 2026-08-25 21:39 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Wedding Invitation Officially Leaks Amid Claims Guests Are Angry at Her Over Travis Kelce’s Behavior—‘Completely Betrayed’  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisgFBVV95cUxPSW4wLWlYR2JHZ2VmRkl2RlBfNFBNVzViZHMycXFHX05BbFJXcy1lclNjWUlpUDk5RlFmSjVQd2FiOWpaQWE3bzM4enA2dldsRV9WOTJMUnVqT0gySTMyOE5BUXhCc21EUlJsTUJiQ3Y5U05hbUlPNGRSQVJDSEJ5dTdJSDBpSDVndXFybzVQYUZSRkNDVEMxNmtveUVxU1NFMU1CZFpua3ZxWk5oMmNxNFFB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Puts Her Wedding Ring On Full Display During First Performance Since Marrying Travis Ke
+
+- first seen: 2026-08-25 21:39 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Puts Her Wedding Ring On Full Display During First Performance Since Marrying Travis Kelce  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPLU91bmlUVHQ4UXpGVWRqY1BxT0NlUVFDZWQ5bFdJY2dfQTY1eTlDVWVFbzdYSDdMVXhndUpEV2xFNXZnWDI3WHlLdWVuUDNnNmRUOXdjeWsyNFBHMVlzcS1aR2RuOXg4NGk4TTgwS3RwRm9JWkRVMURTZjl6NTYwMWZObGV6a19BMHNWVFRRRkxJWHBHVko2YmdYaUlTTnRJ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## What Is Taylor Swift Cooking Up Now? - The Cut
+
+- first seen: 2026-08-25 21:39 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: What Is Taylor Swift Cooking Up Now?  The Cut
+- sources:
+  - [unverified] The Cut — https://news.google.com/rss/articles/CBMigwFBVV95cUxOYi1oUGgwLURWNTg3Y3VPaEJaM200UnVpQ0s1aHN6NFlnWlNHdUE4QTJyTXhvR3lRUXJZVV82cFE0ZTU0RVNKejNHOF9KNFJaYndWX0dTVVVnM3hETGZDcHBRYUlWc0M3MjcyZjltYjNpd2xGSmFjT2dhWThXcjQzTkJqQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift says she cherishes her Nashville songwriting roots - Axios
+
+- first seen: 2026-08-25 21:39 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift says she cherishes her Nashville songwriting roots  Axios
+- sources:
+  - [unverified] Axios — https://news.google.com/rss/articles/CBMikwFBVV95cUxONVI1M3hMTVJUZXI0dTZRQmoxN00xZVozUmI0VHVybFNpYzF6aDFOU0FfUVNMX3l6elpDOFU3X09RcE9QanliLTcyOXdOOVJoQy1rRFdKOFZ3SXB4M0FLdEx1Ni1wQTZaWmphUmhnNGhCOGptaDRJaTJYelI1ZUFOUjlZX19mS0x0QURQUWFFX3JNQUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Gives a Closer Look at Her Wedding Band and Ring Stack During Recent Performance - inst
+
+- first seen: 2026-08-25 21:39 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Gives a Closer Look at Her Wedding Band and Ring Stack During Recent Performance  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNWR6bFg2ZzBJYjk5bEFyYUM0b296cWl0WG9vNXgxZGJ2NF9zLXViU3YxaEFhQ09vWG9jeTl6c3ppWWtIX1hFVlRqTHpZcTlia1pMTGxaRXVPLU5VNld2SjQ2SW1JdHZ3Y2t0LXVGYUNuYmJXb0Z2MThCU2J2dTl4Mk1WQ1FRNTd2?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift’s ‘Confessional Songwriter’ Dig Has Fans Naming Olivia Rodrigo - Yahoo
+
+- first seen: 2026-08-25 21:39 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s ‘Confessional Songwriter’ Dig Has Fans Naming Olivia Rodrigo  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNdUV4cE5IQVdZZGhxWTNNWGNscDFjOGhIcmh3Tk16NllueHYzUGx4TE55dU5LZ29GWXNHV2NIOXhaRzRHcm9LX0NhQUhfbjFSUy1LQW5lN1NRQVpPeGFKaG1fNjZIZWdyeDdFanhKTlZURVRjOEtOaDAyX1B0NEZ2ZjdTcUNVMDRlU1VKSER2VUVBd3BVUFotRGljekRrWW9PNklGV0R2b2NOZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift & Travis Kelce Made a Major Move For Dolly Parton Before Her Death - Men's Journal
+
+- first seen: 2026-08-25 21:39 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce Made a Major Move For Dolly Parton Before Her Death  Men's Journal
+- sources:
+  - [unverified] Men's Journal — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNa0E5eG81Qk5mdGlwMjhzakxsSE90OEJlRlFyS1djUnlxVXJqaHJ6Nk92Z3d1eHRzVEM4MFl4RTd1bzBVTDB4Z0lxcFgxVThqX1hiVjlRbkxlX3V5cXA0c3dDTG12NWpwVHJJendTT2MxelhYLWR6MDdlVjZIRVMtdVNiRVNYb05BVHJvcUNPQ3c1SlBpTEJsajdGS1k4N2prSUlVa25QNTc1M0NBTWtKbEpxRUdIbXhVeWVj?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Proves Taylor Swift Isn’t the Only Singer in the Family with His Mic’d Up Songs at Chie
+
+- first seen: 2026-08-25 21:39 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Proves Taylor Swift Isn’t the Only Singer in the Family with His Mic’d Up Songs at Chiefs Practice  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxNNlMxTkNJd084Z3UtbTg5YXRwOWlNaEV1QTdpekt3dkdkVVdKa1pOYjFlbEdaYVFsbEVpT1BaWXNESnVSeklqd2VuU2pQVDF1Yy1lZHNfVUVwWmhjVC1pMW40RWI1TXk4cmFiWUgtdFJKSi1qNUxlQzFfMW56ajhIeTg2cFJjZXM4MzBiNnZTb3FiWVBqQjZONm1GMXNxQ1E?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift‘s Seafoam-Green Streak Is Trying to Tell Us Something - Harper's BAZAAR
 
 - first seen: 2026-08-25 17:42 UTC | category: sighting | importance: 3
@@ -917,15 +989,6 @@ The singer, who has the most top 10 singles in UK chart history of any female ar
 - sources:
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/uk-news/2026/aug/14/digested-week-humid-new-york-london-oven-blast-heat
 
-## Adam Scott Shares Surprises from Swift and Kelce's Wedding
-
-- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Adam Scott discusses his impressions and surprises from the wedding of Taylor Swift and Travis Kelce. The comments reflect insights from an insider's perspective on the event.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxPQ05QcmJ6TkR1dng0d3gxQ2hyaFNSdG5udF9PUjF1blVWOUNtdXZhb010dlgyQWlpUjFJSHdZNzNfdVowTjBJZFM5TUZDVkYzRmxybVZ0OWVtNW9QVW1KbTZneHdDQnpCNlJiSVFuek0xeGh2U2pHaGEtM1drQm5aOWNVZlNJZ1NILUxjOHMxSzM5UzFKRGp1WExzNFNnc3BteGxmRTljc2x3SUZOVVF0cGVSS3I?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQRENzOVBDeVN4LUc2ZUJGR1BnczhXOGJhQWc1MEpZV0NtMjhGS2hDYzZDMWJyWTJnYUV2bTFmcS0ybzhRa1k3OGlPNllZbUhfWG9CRHJRNUZTd1hIbjVVMUcwSkxlMzYyUUkxVnVDbzhqNkVpYmNUTVQ1TTlPSDF3akJKRDNNbWlROVp2S0stb2lsb2FLTzdXMlg4MWVqZzVfM1NIeFY4VQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Shows Off Short New Haircut in Black Floral Empire Waist Slip Dress at L.A. Event - Yah
 
 - first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
@@ -941,71 +1004,3 @@ The singer, who has the most top 10 singles in UK chart history of any female ar
 - summary: The Icon Sessions with Taylor Swift — Presented by Recording Academy's Songwriters & Composers Wing  YouTube
 - sources:
   - [unverified] YouTube — https://news.google.com/rss/articles/CBMiXEFVX3lxTFB0VFNFaGktTXVIR3hWYXo2UUc2WXNZZUd3WURtS08yM2l5NlpvN2RldHZXdEVFQk1YUzJtQU9LNXRXVFkzeVZGYU9GX3p5ZjFyZDcwdG5IeENYcjZQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reveals 'I Knew You Were Trouble' Was Nearly A Sad Ballad - Buckeye Country 105.5
-
-- first seen: 2026-08-25 02:22 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Reveals 'I Knew You Were Trouble' Was Nearly A Sad Ballad  Buckeye Country 105.5
-- sources:
-  - [unverified] Buckeye Country 105.5 — https://news.google.com/rss/articles/CBMiwwFBVV95cUxQcVlkcmZ5VzBNQ3NjTXJ1WGVCTkJOMmRfMG5Cc2xzb0hwM3RuQTBETVFQd3VHZHZmZUVoT01xbFRqZFV4RHNWLVUtWm04UUczaFYwTTQ1a3hIU0ZyUGk2cy1vbGRWcC1CUl80SXkyX1pBZjRQWTZTeWpqd3QxdUR0Nlo2TkE2dl9ZRWRzZ0E2UVVUTnpBeldNRWI5dlZLcWI3SW53M2prZUtzbEZsUWN2MG9tU21Gdk5oVFVzdEI4U21QSHM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Breaks Down Songwriting Process and Performs Medley During Recording Academy Q&A - Cons
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Breaks Down Songwriting Process and Performs Medley During Recording Academy Q&A  Consequence of Sound
-- sources:
-  - [unverified] Consequence of Sound — https://news.google.com/rss/articles/CBMigAFBVV95cUxNQ2FDSzFzNDY4bnkxWGRfYUpqNmhfUlRONnktNlNxOXczZWJTcFNXbGszTXVuQ3BidjRDanQ0NVB2UzA4NEFvMUoyQ2Y2em1odUFsR2lOODFCVEdHMHBqeGJ1Y3FQbUJRQWR1V0FuNkItV0JWdWlBNnBwNGxIS1VNZA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'idea fairy': Key takeaways from her Grammy talk - USA Today
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's 'idea fairy': Key takeaways from her Grammy talk  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNV1dBMkpHdkpGSmktMnNiSzQ2RnZtWDhLRGtITnN5MEVRSGItY0xOZHp3U0tWSEN2bVI4Vm5sV1BNMmZwUXlIcEIxbGdtWEh6c1poeEhPT2t6Zjg5VFhZRmNxMVQ4RTFGOE5hRjZjaVBzT1pZU203dl91c0N6dnhRYXRNS21IeGxNSmlfZFFiZDVhNmxuMUJjdVBEeS1XcnF6aGRsNWVYVFZpdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Isn’t Done With Her Surprise Song Mashups - Vulture
-
-- first seen: 2026-08-25 02:22 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Isn’t Done With Her Surprise Song Mashups  Vulture
-- sources:
-  - [unverified] Vulture — https://news.google.com/rss/articles/CBMigAFBVV95cUxOVHQzNEVCLVhnd2phVVNqdTdXOGNRTlJTeVpJYXE1RUlNSFZpaUhYcjZNb1JYUzJPb0x0cnJWU1dSYXJ4clRHajl4bmMzOTM2QkhwOElsUm9kTFZxT0x6Mi1ZZkpNUG9Za3BSSWkyVFJ3TFVHSXR0SjhNNEVTc0M4VQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Watch Taylor Swift Say She Feels ‘More Loyal’ to Her Country Roots Than Ever & Whip Up an Eras Tour-
-
-- first seen: 2026-08-25 02:22 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Watch Taylor Swift Say She Feels ‘More Loyal’ to Her Country Roots Than Ever & Whip Up an Eras Tour-Coded Surprise Piano Mash-Up  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOamVsbVZUdVhEYXU2ZWFwalVrdFExaWV4NmJFRDdieWNfbXZsTWFSZHVQdjVuX0dWX2dkOTZrLXBwaEw4b3EzdnJrYk4ycDlGZ3lZZDRlaVNLMzAwb2o0c3UwSjduN3B4QUExZGpJWDhwVTVkRVhyV2JIWU9vR2NtNVlac243Zy11dXdSdE5wSEJZcUVYQktSRkJ0Y0htemF0ZnNUdGhvcE5MaWs?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift’s Romantic Green Dress Has Fans Convinced They’ve Figured Out Her Next Album - Yahoo
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift’s Romantic Green Dress Has Fans Convinced They’ve Figured Out Her Next Album  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQY0hMRHl0UlZDU3NpcFhySzRvcnQ1M2lfaTdjdjZJUklYV1FtQ3N0OE1XejExdXV0bUZEQnJQSms2N0ljRUtaZGY3N3dhY05fMWwzUm1YWTdFdnZDWXRGWW1wVENRUWVJUVBxMGhUeU5pT0JDNVdsUWtteFZpb3B5SGZmNEtRT0dVZUFiZFJ5UWxYWGxFQUhKd2NxNzJlZUUw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQR3FINkQ1UGRYNmZsY0tqWVhMVVFNOC01dTNPVlVQMHFYd0M0NUxYSHlnT1V6aXBiS2tGUk0tazZHNzlGbHVmaGMwdThVWEZLb1pUN3dMa0hTc1FWajJ6MXBNV1JCb0FfM0R0QXhsU0pRU3ktMTc4aXZhLVF2cmFGWUxlYTFleGlISjMxdEJ3UzZRc2VIQXQw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift on Dealing With Public Perception and Deciding Not to Opt Out Before Her Career “Got Un
-
-- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: The star joined Recording Academy CEO Harvey Mason Jr. for a 20-year retrospective chat at the Grammy Museum.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-public-perception-career-unmanageably-big-1236680277/
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiakFVX3lxTFBmM2NndHdwY01lZ0dBUWJHRFprNlgwc3ZGRFoxOU1Mc2lFZjdlVjdHRGpxZVl5bktYRHR4dXZNT2RHZjVzSncwYkJROUVaUUVBZzVxX0x0cnBYdUlpVGRUOHBPa0g0bGlIWEE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOaDhfc0tXcEhSaGJNVGxjLUltSVRaZHVycnpSdXhqcmVtRXVDdUQ5QzhsbkRCXzFxUGxlbC1IcVFSdXNXN25IdGZuZlpNODZPUzRjcVZ4UG91WHR4RUNQYl9pQmZ5OTVTNWJRWnZrNFNnajAzT3pKdFhMYWN4UUdhWi1CdHI0VndYTEllaWR2NWRIMDRvOFJRQzFTQ0lnSjcwRVlkc0ZOdGpWTUtUYlRxRFdja2VWYzdy?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reveals the ‘Coping Mechanism’ Mantra She Repeats to Herself When Things Feel ‘Unmanage
-
-- first seen: 2026-08-25 02:22 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Reveals the ‘Coping Mechanism’ Mantra She Repeats to Herself When Things Feel ‘Unmanageably Big’  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxORnJJMDI5cDB3N25zYTk2Y2wyQng4TkF3enVRdjFqX3RlZEo1djlyeXpZT1pyRVJIZ1ZxYlQ2OGNERXpocWNNUFVNVkZWTm56NkNKeFozZVdGZkM5VkV5YXJLYjBCYmZOMEVuTnl2MUlMWHV2ZWpDSDgzOGh2bF84Ylh4TzVLekxNS3hleW9yZDZ2ZHQyX3FrcEl4VUFvNzh2SkY4UG81MjIzVzhLNnhQMEVWazFlVm1laHVuakV3S0YwU1U1MlNtazlOeXc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxQbE1fTFZtU2NvTDE4Rk5rQ2czOE5BUi1TazJKNFlxZnE5blNCSFVVWlMyak1uVjYxbUJYUUhhNHNjNG1wdkF0blBES0R5amFiNDBJWmFnRzBiUk14SzdObEZqWG1CQ25ySDR4WmhCUGdzbkdpOHkwV1FmTWk4a1lkX2VBcEJwcHBrZjE3QUZGeVVvZ0FoVzJBRkVtTDlWTVV1dXo3TE1n?oc=5&hl=en-US&gl=US&ceid=US:en
