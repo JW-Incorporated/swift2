@@ -3153,6 +3153,24 @@ export default {
             focalPoint: '46% 30%',
           },
         ],
+        // Shop pass (#884, 2026-08-25): the tee itself is a one-off — Alana
+        // Haim's hand-cut Cricut lettering on a $3 Gildan blank, never sold
+        // as a finished "Stevie Knicks" product — so there's no product page
+        // for the exact garment. The blank it's built on is real and
+        // verified live (Amazon, in stock): same G500 Heavy Cotton style in
+        // the Knicks-orange colorway, for anyone who wants to DIY their own.
+        products: [
+          {
+            brand: 'Gildan',
+            item: 'Heavy Cotton T-Shirt (G500) — Orange',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Gildan-Cotton-T-Shirt-Orange-Medium/dp/B00I84H5AS',
+            price: '$7.02',
+            inStock: true,
+            isAlternative: true,
+            altNote: 'The "Stevie Knicks" tee itself was never sold — Alana Haim hand-cut the lettering onto a $3 Gildan blank. This is the same blank Gildan style (G500) in the Knicks-orange colorway, for the DIY version.',
+          },
+        ],
       },
     },
     {

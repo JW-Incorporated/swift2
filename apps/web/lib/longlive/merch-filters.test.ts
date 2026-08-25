@@ -18,7 +18,9 @@ describe('merchByEra', () => {
     // 159 -> 128 (issue #722, 2026-08-24): removing ~29 thin, single-source
     // fashion/wardrobe timeline cards from the founding eras also removed
     // their `products` entries — a real, intended composition shift.
-    expect(total).toBe(128);
+    // 128 -> 133 (issue #884, 2026-08-25): Stylist pass added 5 verified
+    // moment.products entries across 3 moments.
+    expect(total).toBe(133);
     // count is precomputed as items.length, per the contract
     for (const g of groups) expect(g.count).toBe(g.items.length);
   });
@@ -88,11 +90,15 @@ describe('merchItemImage', () => {
     // single-source fashion/wardrobe timeline cards from the founding eras
     // also removed their `products` entries — a real, intended composition
     // shift; product and monogram counts are unaffected.
+    // 74/2/48/4 -> 74/2/50/7 (issue #884, 2026-08-25): Stylist pass added 5
+    // verified moment.products entries — 2 on moments with a real primary
+    // photo (moment) and 3 on a moment with only a reference/stand-in photo
+    // (monogram, since item.imageUrl isn't set on any of them).
     expect(split).toBe(74);
     expect(product).toBe(2);
-    expect(moment).toBe(48);
-    expect(monogram).toBe(4);
-    expect(split + product + moment + monogram).toBe(128);
+    expect(moment).toBe(50);
+    expect(monogram).toBe(7);
+    expect(split + product + moment + monogram).toBe(133);
   });
 
   it('never returns the era-art fallback path for a product or moment photo', () => {
