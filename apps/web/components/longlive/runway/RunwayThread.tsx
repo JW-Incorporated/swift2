@@ -5,6 +5,7 @@ import { getEra } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
 import { RUNWAY_LOOKS } from '@/lib/longlive/lenses';
 import { contentForThreadInEra } from '@/lib/longlive/threads';
+import { focalPointOf } from '@/lib/longlive/types';
 import { FromTheEras } from '../FromTheEras';
 
 // Hotlinked photo URLs bypass Next's image optimizer (whose remotePatterns
@@ -70,6 +71,7 @@ export function RunwayThread() {
                       fill
                       unoptimized={isRemoteUrl(feature.url)}
                       className="object-cover"
+                      style={{ objectPosition: focalPointOf(feature) }}
                     />
                     <div
                       className="absolute inset-x-0 bottom-0 h-20"
@@ -97,6 +99,7 @@ export function RunwayThread() {
                           fill
                           unoptimized={isRemoteUrl(img.url)}
                           className="object-cover"
+                          style={{ objectPosition: focalPointOf(img) }}
                         />
                       </div>
                       {img.caption && (

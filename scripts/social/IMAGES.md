@@ -110,6 +110,17 @@ settled before shooting (see `waitForReady` in the script — same
 role/label locators already proven out in `e2e/vault.spec.ts`), and
 dismisses the first-visit "Got it" timeline hint that would otherwise always
 fire in a fresh Playwright context with no local storage history.
+`waitForReady`'s `lens`/`mood`/default branches wait on `BottomNav.tsx`'s
+mobile tab buttons, not `TopBar.tsx`'s `ModeToggle` tablist — that tablist is
+`hidden md:block` (desktop only) and is excluded from the accessibility tree
+at any mobile-width viewport, so a `getByRole('tab', ...)` wait on it never
+resolves below the `md` breakpoint (found and fixed regenerating the
+ig-portrait library, issue #3157).
+
+Also hides any element carrying `data-social-hide` (e.g. `FeedbackButton.tsx`'s
+floating "report an issue" bubble) via an injected style tag before shooting —
+real, always-on site chrome for a visitor, but at the short `ig-portrait`
+frame it lands on top of hero content instead of empty space below it.
 
 ## `seed-library.mjs` — regenerating the reusable library
 

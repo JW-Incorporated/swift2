@@ -91,11 +91,13 @@ read once on mount (`deepLink.ts`) and never written back.
 | Path (under `apps/web/`) | Responsibility |
 |---|---|
 | `lib/longlive/store.tsx` | The single state container: `mode`, `eraId`, `lensId`, overlays, era-scroll snapshot, `ReturnPoint` doorway back-to-position stack (`pushReturnPoint`/`popReturnPoint`) |
+| `lib/longlive/return-point-stack.ts` | Pure matching-consume rule for doorway return points; unrelated back restores leave the LIFO entry intact |
 | `lib/longlive/tags.ts` | `ContentTag` — the 5 authored topic tags. **Does not re-export the type; import `ContentTag` from `./types`** |
 | `lib/longlive/filters.ts` | `FilterId` (the 5 tags + `Videos`), `ALL_FILTERS`, `filterMatches`, `filtersForEntry`, `filterForThread` (LensId→FilterId, exhaustive) |
 | `lib/longlive/anchor-date.ts` | Sort-key resolution for undated items. `displayDate` is null unless `via === 'exact'`; `via: 'clamped'` is a real date pulled inside an era's window (P3 step 14a) |
 | `components/longlive/FilterBar.tsx` | The ONE global sticky filter row. Mounted once by `EraStream`, never per era |
 | `lib/longlive/era-feed.ts` | Pure feed logic: `EraFeedEntry` (5 kinds — Stage 5 added `current`), `mergeEraFeed`, `visibleFeed` — one signature each (P3 step 14b). Doorway construction in `doorways.ts`, spacing in `space-doorways.ts`, live-item construction in `current-feed.ts` |
+| `lib/longlive/era-feed-clusters.ts` | #696 release-day pileups: `clusterSameDayMoments`/`CLUSTER_MIN_SIZE` collapse a same-day `moment` run into one `ClusterEntry`, applied AFTER `visibleFeed` — render-only, never touches filtering/tiering |
 | `lib/longlive/doorways.ts` | Builds `thread`/`egg` doorway entries (`threadDoorwaysForEra` clamps out-of-window anchors, `eggDoorwaysForEra`); `theoryThreadId` — the R4 theory→thread mapping, shared with `TheoryCard.tsx` |
 | `lib/longlive/current-feed.ts` | Knowledge-engine Stage 5: `currentFeedEntries` (builds the `current` `EraFeedEntry` kind from `current_item` rows), `outletFor`, `CURRENT_ITEM_STATUS_COPY`, `summarizeCurrentActivity` (masthead line) |
 | `lib/longlive/use-current-items.ts` | Client hook: fetches the current era's live rows from `/vault/current/[eraId]`, fails soft to `[]` |
@@ -118,7 +120,8 @@ read once on mount (`deepLink.ts`) and never written back.
 | `lib/longlive/era-jump-landing.ts` | Pure: `jumpLandingScrollTop` (lands a jump target below the sticky chrome) and `shouldRunEraJump` (gates EraStream's mount-time jump so a fresh `/` load doesn't jump past the masthead) |
 | `lib/longlive/chrome-offset.ts` | `measureChromeHeight()` — the one place that measures live TopBar + FilterBar height; every jump/scroll/scrubber offset goes through it instead of a hardcoded constant |
 | `components/longlive/EraSection.tsx` | One era's wiring: hero, lyric, feed/doorway data, doorway tap → `pushReturnPoint`. Split (P3 step 15, was 826 lines) into the files below — none over 300 |
-| `components/longlive/EraFeedList.tsx` | Renders `EraSection`'s merged feed: dispatches each `EraFeedEntry` kind to the right card component |
+| `components/longlive/EraFeedList.tsx` | Renders `EraSection`'s merged feed: dispatches each `EraFeedEntry` kind (plus `era-feed-clusters.ts`'s `cluster`) to the right card component |
+| `components/longlive/ClusterCard.tsx` | #696 collapsible "release day, track by track" card — collapsed same-day `MomentCard` run, expands to the full normal-tiered grid |
 | `components/longlive/CurrentItemCard.tsx` | Live `current_item` feed card (kind: `'current'`) — dashed-unconfirmed border, "Live · reported by X" chip |
 | `components/longlive/CurrentItemDetail.tsx` | Live item's detail overlay — mandatory dashed rumor banner + "Help us verify" (POSTs `/api/intake`). State owned locally by `EraSection`, not the shared store |
 | `components/longlive/MomentCard.tsx` | Moment card wrapper: box + inline video play affordance (#2057) |

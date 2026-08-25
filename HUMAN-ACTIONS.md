@@ -88,7 +88,15 @@ with either a real severity-ranked table or "0 open alerts" — not the
 **Actions → dependabot-alerts-snapshot → Run workflow** (uncheck "dry run"
 to actually publish).
 
-**Status:** OPEN
+**Done 2026-08-24 (Joey):** set `DEPENDABOT_ALERTS_PAT`, confirmed present
+via `gh secret list`. Verified end-to-end same day rather than waiting for
+Monday — triggered the workflow manually (`gh workflow run
+dependabot-alerts-snapshot.yml -f dry_run=false`), it completed
+successfully, and tracking issue #3185 updated with a real fetch (no more
+"PAT not configured" placeholder). Paul Blart can now actually see the CVE
+feed.
+
+**Status:** DONE
 
 ---
 
@@ -129,34 +137,6 @@ updated to say "is registered."
 
 ---
 
-### 19. [BLOCKING] 17 Getty photos with unclear rights, still live in seed content — ~15 min to decide, lawyer's call
-
-**Filed:** 2026-08-24
-
-**Why it matters:** issue #935 (filed 2026-07-20, never surfaced to you — this
-is separate from the 2026-08-15 decision that retired 12 *social-library*
-JPGs; that decision didn't touch this batch). 17 `media.gettyimages.com`
-comp-image URLs are hotlinked 33 times across 4 era content files
-(`supabase/seed/content/fearless.mjs`, `speak-now.mjs`, `debut.mjs`,
-`reputation.mjs`), confirmed still present today, plus 2 more recently added
-in `supabase/seed/candidates/00-orbit.mjs`. This is the same class of rights
-exposure the 2026-08-15 decision was written to close — it just never
-reached this batch. Tied to the #800 LEGAL launch gate.
-
-**Steps:**
-1. Decide (with counsel, same lawyer who cleared #800's other items):
-   license these 17 for real use, or retire them the same way the 12
-   social-library images were retired 2026-08-15.
-2. Tell a session which — either path is mechanical once decided (swap for
-   licensed/CC images, or strip the hotlinks per the existing retirement
-   pattern).
-
-**Worked if:** `grep -r "gettyimages.com" supabase/seed/` returns nothing, or
-returns only licensed/counsel-approved uses.
-
-**Status:** OPEN
-
----
 
 ### 18. [UPGRADE] Refresh the production database — content seed has drifted, not urgent — ~15 min, needs Wyatt
 
@@ -196,7 +176,11 @@ live tracker is #530.
 
 **Worked if:** #530 closes with a real-device pass recorded.
 
-**Status:** OPEN
+**Done 2026-08-24 (Joey):** tested the EAS build on a real Android phone —
+works great. #530 closed with the pass recorded. Next step per #67's
+checklist: Play Store submission (separate, not blocking this item).
+
+**Status:** DONE
 
 ---
 
@@ -613,7 +597,18 @@ above plus Stage 3's own `usage_daily.sql` /
 unapplied against production as of this merge, not 3 or 4 — same fix
 (step 1 above) closes all of them in one `npm run db:migrate` run.
 
-**Status:** OPEN
+**Done 2026-08-24 (Joey):** ran `npm run db:migrate` from a checkout with
+`apps/worker/.env` set up — all 27 migrations applied clean, then ran it a
+second time with zero errors (the script re-runs every file unconditionally
+by design, so a clean second pass IS the idempotency proof — no
+"relation already exists"-style failures). Production is caught up; the
+knowledge engine, clown-sessions, and the `increment_usage_daily`
+grant-scoping security fix are all live. `psql` wasn't available locally
+for the optional pgvector check, so a small script
+(`scripts/check-pgvector.mjs`, PR #3235) was added as a psql-free
+alternative — separate, non-blocking follow-up.
+
+**Status:** DONE
 
 ---
 
@@ -642,6 +637,13 @@ numbers, so the work is deliberately parked.
 TikTok/Instagram view counts for accounts you do not own are **not obtainable**
 on any legitimate path, and Etsy listings carry **no review count**. Hype
 evidence will be Reddit score + comments + press mentions.
+
+**Progress (2026-08-24):** Etsy Open API done — `ETSY_KEYSTRING` and
+`ETSY_SHARED_SECRET` are saved (values never seen by any session, key names
+only). Awin (step 3, referral revenue) also done — `AWIN_API` saved, same
+way. Reddit script app (step 1) still needed before the marketplace-
+research work can start — no code exists yet to consume any of these
+credentials, this was just registering accounts/keys ahead of that build.
 
 **Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
 
@@ -826,6 +828,21 @@ reflects it, and a test PR still merges once `build` is green.
 
 <!-- Finished items move here with a date. Numbers keep their original ID.
      Never delete — the history is how we stop re-asking. -->
+
+### 19. [BLOCKING] 17 Getty photos with unclear rights, still live in seed content — ~15 min to decide, lawyer's call
+
+**Status:** DONE — 2026-08-24, Joey, in chat: retire and replace with real,
+verified, non-Getty images (not license, not strip blank). A fresh grep the
+same session found only 6 distinct URLs (11 references) still live — the
+rest had already been retired in earlier work. All 6 replaced with verified
+live images on allowlisted hosts (People.com, WWD, tayswiftstyle.wordpress.com,
+one already-fixed YouTube still found on `origin/main`); one item
+(`00-orbit.mjs` NYC street style, an unpublished candidate) left with no
+photo and a TODO rather than a forced mismatch. `grep -r "gettyimages.com"
+supabase/seed/` returns nothing. Full writeup in `docs/decisions.md`
+(2026-08-24 entry). PR: see `fix/retire-getty-seed-images` branch.
+
+---
 
 ### 13. [UPGRADE] Add `ANTHROPIC_API_KEY` as a worker repo secret — ~2 min
 

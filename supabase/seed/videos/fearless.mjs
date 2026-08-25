@@ -188,6 +188,44 @@ export default {
       ],
     },
     {
+      slug: 'change-mv',
+      kind: 'music_video',
+      title: 'Change',
+      director: null,
+      releasedOn: null,
+      relatedSongs: ['Change'],
+      tags: ['Music'],
+      summary:
+        'Taylor and her band perform in a ballroom, intercut with a version featuring 2008 Beijing Olympics footage tying the anthem to Team USA.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=B1jYllE0T-k',
+      media: [embed('B1jYllE0T-k')],
+      sources: [yt('B1jYllE0T-k', 'Taylor Swift - Change'), wiki('Change_(Taylor_Swift_song)', 'Change (Taylor Swift song)')],
+    },
+    {
+      slug: 'mr-perfectly-fine-taylors-version-lyric-video',
+      kind: 'lyric_video',
+      title: "Mr. Perfectly Fine (Taylor's Version) (From the Vault)",
+      director: null,
+      releasedOn: '2021-04-09',
+      relatedSongs: ["Mr. Perfectly Fine (Taylor's Version)"],
+      tags: ['Music'],
+      summary:
+        'A vault-track lyric video released alongside Fearless (Taylor\'s Version) — the "casually cruel" comeback song fans had wanted a video for since it leaked in 2010.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-24 (author_name "Taylor Swift", title "Taylor
+      // Swift - Mr. Perfectly Fine (Taylor's Version) (From The Vault) (Lyric
+      // Video)").
+      officialUrl: 'https://www.youtube.com/watch?v=rFjJs6ZjPe8',
+      media: [embed('rFjJs6ZjPe8', '2026-08-24')],
+      sources: [
+        yt('rFjJs6ZjPe8', "Taylor Swift - Mr. Perfectly Fine (Taylor's Version) (From The Vault) (Lyric Video)"),
+        wiki('Mr._Perfectly_Fine', 'Mr. Perfectly Fine'),
+      ],
+    },
+    {
       slug: 'journey-to-fearless',
       kind: 'tour_film',
       title: 'Journey to Fearless',

@@ -19,12 +19,14 @@
 //   - Also closes its own alert once WINDOW_END passes even if still
 //     unconfirmed — the standing 9-day check inherits full coverage the
 //     moment this expires, so nothing goes unwatched.
-//   - Trivially removable at any time: delete the "Karen post-repair
-//     confirmation" step from watchdog.yml (or this file). Nothing else
-//     imports it.
+//   - The confirmation mode is removable at any time by deleting its workflow
+//     step. The standing filing check also uses this file's report selector,
+//     which remains permanent.
 //
 // Usage: node --use-env-proxy scripts/watchdog/karen-post-repair-check.mjs \
 //          --repo owner/name --alert-body /tmp/alert-body.md
+//        node scripts/watchdog/karen-post-repair-check.mjs \
+//          --print-newest docs/audits/engine
 // Exit: 0 = nothing to alarm on (confirmed, or window expired) — caller closes.
 //       1 = window still open and unconfirmed — caller opens.
 //       2 = the check itself broke — caller must not report this as "clear".
@@ -111,18 +113,37 @@ export function evaluate({ prs, newestReport, now = new Date(), since = REPAIR_S
 
 /** Newest `docs/audits/engine/*-cie-run.md` report, or null. Filenames are
  * `YYYY-MM-DD-cie-run.md`, optionally with a `-HHMMSS` (and a `-N` tiebreaker)
- * suffix when a second run lands on the same date (#489) — lexical sort stays
- * chronological within a date either way. */
+ * suffix when a second run lands on the same date (#489). Normalize those
+ * parts before sorting because the timestamped rerun sorts lexically before
+ * the unsuffixed first run (#3255). */
 export function readNewestReport(dir = REPORTS_DIR) {
-  let files;
+  let reports;
   try {
-    files = readdirSync(dir).filter((f) => /^\d{4}-\d{2}-\d{2}(-\d+)*-cie-run\.md$/.test(f)).sort();
+    reports = readdirSync(dir)
+      .map((name) => {
+        const match = /^(\d{4}-\d{2}-\d{2})(?:-(\d{6})(?:-(\d+))?)?-cie-run\.md$/.exec(name);
+        if (!match) return null;
+        return {
+          name,
+          date: match[1],
+          time: match[2] ? Number(match[2]) : -1,
+          sequence: match[3] ? Number(match[3]) : 1,
+        };
+      })
+      .filter(Boolean)
+      .sort(
+        (a, b) =>
+          a.date.localeCompare(b.date) ||
+          a.time - b.time ||
+          a.sequence - b.sequence ||
+          a.name.localeCompare(b.name),
+      );
   } catch {
     return null;
   }
-  const name = files[files.length - 1];
-  if (!name) return null;
-  const date = name.slice(0, 10);
+  const newest = reports[reports.length - 1];
+  if (!newest) return null;
+  const { name, date } = newest;
   const text = readFileSync(join(dir, name), 'utf8');
   return { name, date, text };
 }
@@ -145,6 +166,13 @@ async function main() {
   };
   const repo = arg('--repo') ?? process.env.REPO ?? process.env.GITHUB_REPOSITORY;
   const repoArgs = repo ? ['--repo', repo] : [];
+
+  const printNewestDir = arg('--print-newest');
+  if (printNewestDir) {
+    const newestReport = readNewestReport(printNewestDir);
+    if (newestReport) console.log(join(printNewestDir, newestReport.name));
+    return;
+  }
 
   const { stdout } = await gh([
     'pr', 'list', ...repoArgs, '--state', 'merged',

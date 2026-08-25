@@ -5,11 +5,9 @@
  *
  * Column 1 is derived from `theories.generated.ts` (unresolved theories, i.e.
  * `kind === 'theory' && outcome === 'pending'`) plus `clownbot-lore.ts` rumors
- * still open (`status === 'rumor' | 'reported'`). Column 2 ports the
- * confirmed side of `clownbot-ledger.ts`'s CLOWNED/CONFIRMED derivation:
- * vault entries with `outcome === 'confirmed'`, plus lore items whose
- * `ledger.verdict === 'confirmed'`. Debunked/clowned verdicts never appear in
- * either column.
+ * still open (`status === 'rumor' | 'reported'`). Column 2 contains only
+ * planted-and-decoded easter eggs. Confirmed fan predictions, common readings,
+ * and lore verdicts are a different category and never enter its count (#1998).
  *
  * `TheoryNote` (theories.generated.ts) carries no per-item date. The era's
  * `end` boundary is the best real signal the corpus offers for a sort key —
@@ -140,40 +138,28 @@ export function currentTheories(now: Date): BoardItem[] {
 }
 
 export interface ConfirmedEggsOptions {
-  /**
-   * True: only entries whose `kind` is a planted-and-decoded easter egg
-   * (`kind === 'easter_egg'`). A confirmed *theory* (a fan prediction that
-   * landed) is excluded, and so are lore-ledger confirmations — every
-   * ledger entry records a fan-theory verdict by construction (see
-   * `clownbot-ledger.ts`'s own framing), never a decoded egg, so `LoreItem`
-   * carries no `kind` to test here. Default `false`: every confirmed entry,
-   * matching build A's ledger unchanged.
-   */
-  eggsOnly?: boolean;
   /** Cap the number of items returned, newest first. Omitted = unlimited. */
   limit?: number;
 }
 
 /**
  * Column 2 — "past confirmed easter eggs".
- * Ported from clownbot-ledger.ts: theories.generated.ts entries with
- * outcome === 'confirmed', plus lore items with a ledger block.
- * Confirmed only — 'debunked' is a different thing and does not belong
- * in a column labelled "confirmed".
+ * Exactly theories.generated.ts entries with `kind === 'easter_egg'` and
+ * `outcome === 'confirmed'`. The old all-confirmed default was the padding
+ * bug in #1998: it made decoded eggs and common readings look like successful
+ * fandom predictions. This narrower function cannot recreate that tally.
  *
- * Sort key: same as column 1 — newest first, by `date` (the lore item's
- * `ledger.on` resolution date, or the vault entry's era `end` boundary),
+ * Sort key: same as column 1 — newest first, by the vault entry's era `end`,
  * with a title tiebreak. `limit` slices AFTER that sort, so a capped list
  * is always the most recent confirmations, never an arbitrary slice.
  */
 export function confirmedEggs(opts: ConfirmedEggsOptions = {}): BoardItem[] {
-  const { eggsOnly = false, limit } = opts;
+  const { limit } = opts;
   const items: BoardItem[] = [];
 
   for (const [eraId, notes] of Object.entries(THEORIES_RAW)) {
     for (const note of notes ?? []) {
-      if (note.outcome !== 'confirmed') continue;
-      if (eggsOnly && note.kind !== 'easter_egg') continue;
+      if (note.outcome !== 'confirmed' || note.kind !== 'easter_egg') continue;
       const date = getEra(eraId).end;
       items.push({
         id: `theory:${eraId}:${note.slug}`,
@@ -184,20 +170,6 @@ export function confirmedEggs(opts: ConfirmedEggsOptions = {}): BoardItem[] {
         era: resolveEraName(date),
       });
     }
-  }
-
-  for (const item of LORE) {
-    if (!item.ledger || item.ledger.verdict !== 'confirmed') continue;
-    // Ledger entries are fan-theory verdicts, never planted-and-decoded eggs.
-    if (eggsOnly) continue;
-    items.push({
-      id: `lore:${item.id}`,
-      title: item.headline,
-      blurb: firstLine(item.detail),
-      prompt: item.prompts?.[0] ?? naturalPrompt(item.headline),
-      date: item.ledger.on,
-      era: resolveEraName(item.ledger.on),
-    });
   }
 
   items.sort(byDateDesc);

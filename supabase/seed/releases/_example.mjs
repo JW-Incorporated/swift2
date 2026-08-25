@@ -28,9 +28,11 @@ export default {
       note: 'One sourced hook-voiced line about the release — a line, not an encyclopedia entry.',
       sources: [
         {
-          source_url: 'https://example.com/source-article',
-          source_title: 'Example article',
-          publisher: 'Example Mag',
+          // TODO: No verifiable source exists for this placeholder record as-is.
+          // Replace with a real source URL before converting to production seed data.
+          source_url: 'https://www.taylorswift.com',
+          source_title: 'Placeholder source',
+          publisher: 'TBD',
           source_type: 'reputable_press',
           accessed_at: '2026-07-08',
           reliability_score: 4,

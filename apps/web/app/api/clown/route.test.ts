@@ -115,6 +115,10 @@ vi.mock('../../../lib/longlive/clown-memory', () => ({
   recordClownMemory: vi.fn(async () => {}),
 }));
 
+vi.mock('../../../lib/longlive/clown-predictions', () => ({
+  persistPrediction: vi.fn(async () => {}),
+}));
+
 // `resolveClownSession` is mocked (no Supabase env is set in this test file,
 // so the real implementation would return null every time via its own
 // no-network-call fast path — fine for "toggle off" tests, but the
@@ -138,6 +142,7 @@ vi.mock('../../../lib/longlive/clown-index', async () => {
 import { POST } from './route';
 import { runClownAgent } from '../../../lib/longlive/clown-agent';
 import { incrementUserUsage, loadClownHistory, recordClownMemory } from '../../../lib/longlive/clown-memory';
+import { persistPrediction } from '../../../lib/longlive/clown-predictions';
 import { encodeSessionToken, resolveClownSession, type ClownSession } from '../../../lib/longlive/clown-session';
 import { CRISIS_MESSAGE, OUT_OF_SCOPE_MESSAGE, REFUSALS } from '../../../lib/longlive/clown-safety';
 import { FALLBACK_INTRO_CHIP, FALLBACK_INTRO_DEGRADED } from '../../../lib/longlive/clown-fallback';
@@ -219,6 +224,8 @@ beforeEach(() => {
   vi.mocked(loadClownHistory).mockResolvedValue(null);
   vi.mocked(recordClownMemory).mockReset();
   vi.mocked(recordClownMemory).mockResolvedValue(undefined);
+  vi.mocked(persistPrediction).mockReset();
+  vi.mocked(persistPrediction).mockResolvedValue(undefined);
   vi.spyOn(console, 'log').mockImplementation(() => {});
 });
 
@@ -652,6 +659,51 @@ describe('POST /api/clown', () => {
       const call = vi.mocked(recordClownMemory).mock.calls[0][0];
       expect(call.session).toEqual(FIXTURE_SESSION);
       expect(call.question).toBe(MASTERS_QUERY);
+    });
+
+    it('keeps the response stream open until prediction and memory writes settle', async () => {
+      let resolveMemory!: () => void;
+      const memoryPending = new Promise<void>((resolve) => {
+        resolveMemory = resolve;
+      });
+      vi.mocked(resolveClownSession).mockResolvedValueOnce(FIXTURE_SESSION);
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      vi.mocked(recordClownMemory).mockReturnValueOnce(memoryPending);
+
+      const res = await post({ text: MASTERS_QUERY }, '10.4.0.16');
+      let streamClosed = false;
+      const answerPromise = finalAnswer(res).then((answer) => {
+        streamClosed = true;
+        return answer;
+      });
+      await vi.waitFor(() => expect(recordClownMemory).toHaveBeenCalledTimes(1));
+      expect(persistPrediction).toHaveBeenCalledTimes(1);
+      expect(streamClosed).toBe(false);
+
+      resolveMemory();
+      const answer = await answerPromise;
+      expect(answer.kind).toBe('take');
+      expect(streamClosed).toBe(true);
+    });
+
+    it('logs each rejected persistence write without replacing the answer', async () => {
+      vi.mocked(resolveClownSession).mockResolvedValueOnce(FIXTURE_SESSION);
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      vi.mocked(persistPrediction).mockRejectedValueOnce(new Error('prediction unavailable'));
+      vi.mocked(recordClownMemory).mockRejectedValueOnce(new Error('memory unavailable'));
+
+      const res = await post({ text: MASTERS_QUERY }, '10.4.0.17');
+      const answer = await finalAnswer(res);
+
+      expect(answer.kind).toBe('take');
+      expect(console.log).toHaveBeenCalledWith(
+        'clown:persistence-failed',
+        JSON.stringify({ target: 'prediction', message: 'prediction unavailable' }),
+      );
+      expect(console.log).toHaveBeenCalledWith(
+        'clown:persistence-failed',
+        JSON.stringify({ target: 'memory', message: 'memory unavailable' }),
+      );
     });
 
     it('an incoming clown_session cookie is decoded and passed through to resolveClownSession', async () => {

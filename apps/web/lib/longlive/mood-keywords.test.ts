@@ -170,10 +170,24 @@ describe('keywordQuery', () => {
       }
     });
 
+    it('the #2000 nervous-about-TS12 example returns forward-looking picks, not the old alphabetical grief set', () => {
+      const picks = topSlugs('kind of nervous about TS12 honestly, what if it flops');
+      expect(picks[0]).toBe('long-live');
+      expect(picks).not.toEqual(['clean', 'cruel-summer', 'dear-john', 'dont-blame-me', 'my-tears-ricochet']);
+    });
+
     it('"reputation villain era" reads as defiance', () => {
       const q = keywordQuery('in my reputation villain era today');
       expect(q.moods.defiance).toBeGreaterThan(0);
       expect(matchMoods(q, { limit: 5 }).length).toBeGreaterThan(0);
+    });
+
+    it('understands the remaining #1999 Swiftie idioms', () => {
+      expect(keywordQuery('feeling completely delulu today').moods.catharsis).toBeGreaterThan(0);
+      const club = keywordQuery('crying in the club');
+      expect(club.moods.heartbreak).toBeGreaterThan(0);
+      expect(club.moods.catharsis).toBeGreaterThan(0);
+      expect(club.energy).toBeGreaterThan(0.6);
     });
 
     // Agitation support words count only INSIDE a hype context. Solo, they are

@@ -141,7 +141,7 @@ const AXIS_KEYWORDS: Record<MoodAxis, readonly string[]> = {
     // catharsis ("feeling everything at once") is the axis that spans both.
     // Feral/unhinged/wired read as the same chaotic-release register.
     'drunk', 'tipsy', 'buzzed', 'wasted', 'hammered', 'tequila',
-    'feral', 'unhinged', 'wired',
+    'feral', 'unhinged', 'wired', 'delulu', 'crying in the club',
   ],
 };
 
@@ -153,7 +153,7 @@ const AXIS_KEYWORDS: Record<MoodAxis, readonly string[]> = {
 // Only the NEGATED sit-still forms are high energy — "can't sit still" is
 // agitation, but "i just want to sit still" is a wish for calm, so the bare
 // phrase stays out.
-const HIGH_ENERGY = ['pumped', 'hyped', 'dancing', 'dance', 'party', 'loud', 'driving', 'blasting', 'amped', 'wild', 'unhinged', 'feral', 'buzzing', 'restless', 'cant sit still', 'cannot sit still', 'not sit still', 'couldnt sit still', 'jittery', 'bouncing off the walls', 'vibrating', 'drunk', 'tipsy', 'buzzed', 'wasted', 'hammered', 'tequila', 'wired'];
+const HIGH_ENERGY = ['pumped', 'hyped', 'dancing', 'dance', 'party', 'loud', 'driving', 'blasting', 'amped', 'wild', 'unhinged', 'feral', 'buzzing', 'restless', 'cant sit still', 'cannot sit still', 'not sit still', 'couldnt sit still', 'jittery', 'bouncing off the walls', 'vibrating', 'drunk', 'tipsy', 'buzzed', 'wasted', 'hammered', 'tequila', 'wired', 'crying in the club'];
 // 'still' removed (#1999) — it cancelled "hyped" in "can't sit still". The
 // small-hours markers 1am/2am/4am join 3am; ennui words read as low energy too.
 const LOW_ENERGY = ['tired', 'sleepy', 'quiet', 'slow', 'calm', 'cozy', 'cosy', 'mellow', 'soft', '1am', '2am', '3am', '4am', 'late night', 'exhausted', 'drained', 'worn out', 'numb', 'heavy', 'flat', 'meh', 'blah', 'bored', 'eh', 'sluggish', 'listless', 'hungover', 'hanging'];

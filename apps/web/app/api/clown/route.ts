@@ -316,17 +316,26 @@ export async function POST(req: Request): Promise<Response> {
           const resolvedName = resolveTheoryName(text, sources, run.take.theoryName);
           const finalTake = { ...run.take, theoryName: resolvedName?.name ?? null };
           const answer = answerFromTake(finalTake, sources, run.investigation);
-          // Best-effort — never awaited into the response path; see
-          // clown-predictions.ts for exactly what "best-effort" degrades to.
-          void persistPrediction({ session: memorySession, question: text, take: finalTake, sources }).catch(() => {});
-          // PLAN.md Stage 11 — same best-effort posture; no-ops entirely
-          // when memorySession is null (see clown-memory.ts).
-          void recordClownMemory({
-            session: memorySession,
-            question: text,
-            answerText: `${finalTake.stance} ${finalTake.argument}`.trim(),
-          }).catch(() => {});
           emit({ type: 'answer', answer });
+          const persistenceResults = await Promise.allSettled([
+            persistPrediction({ session: memorySession, question: text, take: finalTake, sources }),
+            recordClownMemory({
+              session: memorySession,
+              question: text,
+              answerText: `${finalTake.stance} ${finalTake.argument}`.trim(),
+            }),
+          ]);
+          for (const [index, result] of persistenceResults.entries()) {
+            if (result.status === 'rejected') {
+              console.log(
+                'clown:persistence-failed',
+                JSON.stringify({
+                  target: index === 0 ? 'prediction' : 'memory',
+                  message: result.reason instanceof Error ? result.reason.message : 'unknown',
+                }),
+              );
+            }
+          }
           return;
         }
         console.log('clown:gate-reject', JSON.stringify({ kind: rejection.kind }));

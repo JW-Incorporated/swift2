@@ -98,8 +98,7 @@ export default {
       snippet:
         'A fictional murder mystery, complete with a cheating husband, a framed mistress, and a sister for an alibi.',
       sourceUrl: 'https://en.wikipedia.org/wiki/No_Body,_No_Crime',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/IEPomqor2A8/hqdefault.jpg',
       moment: {
         context:
           'The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately.\n\nTaylor had written the song entirely alone while deep in a true-crime documentary and podcast phase, then sent Aaron Dessner a voice memo of the finished thing; the production leans all the way into its country staging, harmonica courtesy of Josh Kaufman. It even went to country radio as a single in January 2021, and when HAIM opened Eras Tour shows in 2023, it bumped "\'tis the damn season" to become the evermore set\'s opener.',
@@ -122,15 +121,9 @@ export default {
             reliability_score: 3,
           },
         ],
-        // Photo-enrichment pass (2026-07-29): added the official lyric-video
-        // still (YouTube channel "Taylor Swift", oEmbed-verified) alongside
-        // the cover; both downloaded and vision-confirmed.
+        // Official lyric-video still from the oEmbed-verified Taylor Swift
+        // channel, downloaded and vision-confirmed.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
-            focalPoint: '42% 45%',
-            credit: 'Republic Records',
-          },
           {
             url: 'https://i.ytimg.com/vi/IEPomqor2A8/hqdefault.jpg',
             focalPoint: '50% 50%',
@@ -413,12 +406,8 @@ export default {
       snippet:
         '10 minutes and 13 seconds — beating a nearly 50-year-old record held by Don McLean\'s "American Pie." Taylor\'s own reaction: "You guys sent a 10-minute song to Number One for the first time in history."',
       sourceUrl: 'https://www.guinnessworldrecords.com/news/2021/11/taylor-swifts-10-minute-all-too-well-is-longest-song-to-reach-no-1-683614',
-      // Image-fix pass (2026-07-10): tickets #193/#147 — old Guinness URL was a
-      // two-panel news collage (Red TV cover + premiere photo, visible seam).
-      // Swapped to the Red (Taylor's Version) cover art, already verified live
-      // (HTTP 200 + image/png) and in use elsewhere in this file.
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+        'https://i.ytimg.com/vi/tollGa3S0o8/maxresdefault.jpg',
       moment: {
         context:
           'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.\n\nBoth the song and its parent album debuted at No. 1 in the same week — "twin No. 1 chart debuts," per Variety — with Red (Taylor\'s Version) entering the Billboard 200 on top and the ten-minute cut bowing at No. 1 on the Hot 100, an unusually direct payoff for a track fans had spent nearly a decade asking her to release in full. The version was a "From the Vault" recording, a restored expansion of the 5:29 song from 2012\'s Red, and Taylor leaned the entire promotional push on it: she performed the full ten minutes on Saturday Night Live on Nov. 13, 2021 — one of the longest musical performances in the show\'s history — premiered the self-directed short film in New York, and surprised the theater audience with an acoustic set. The record it broke had stood since January 1972, so a fifty-year-old benchmark fell to a song most listeners already knew by heart.',
@@ -468,15 +457,6 @@ export default {
         // (the same two-panel collage flagged in the 2026-07-10 note above).
         // Each URL verified HTTP 200 + a real image/* content-type via curl.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
-            credit: 'Republic Records (album cover art)',
-            caption: "The Red (Taylor's Version) cover — \"All Too Well (10 Minute Version)\" is the album's centerpiece track that set the longest-No.-1-song record.",
-            kind: 'primary',
-            // Focal point set by viewing: her face sits left of center under
-            // the burgundy cap, ringed hand raised to the right.
-            focalPoint: '42% 46%',
-          },
           // Photo pass #762 (2026-07-18): still from All Too Well: The Short
           // Film — Sadie Sink and Dylan O'Brien forehead-to-forehead in the
           // car; the self-directed film is named in this page's context as a
@@ -1073,11 +1053,11 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moments.
-      relatedIds: [
-        'moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party',
-        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
-      ],
+      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moment.
+      // (issue #722, 2026-08-24: the Vanity Fair Oscar-party look was routed
+      // off the Speak Now timeline into the Runway thread, so that leg of
+      // the cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb'],
       year: 2021,
       month: 11,
       day: 11,
@@ -1254,7 +1234,7 @@ export default {
       snippet:
         "While Joe Alwyn wrapped filming in Belfast, she turned up at Shu Restaurant for staff selfies one night, then stayed for a local busker's entire three-hour set at The Tipsy Bird the next.",
       sourceUrl: 'https://www.rte.ie/entertainment/2021/0913/1246573-taylor-swift-thrills-fans-at-a-belfast-bar/',
-      thumbnailUrl: 'https://www.rte.ie/images/001825a9-500.jpg',
+      thumbnailUrl: 'https://www.rte.ie/images/001825a9-1000.jpg',
       moment: {
         context:
           'Taylor was in Belfast to support Joe Alwyn as he finished filming the BBC/Hulu adaptation of Sally Rooney\'s "Conversations with Friends." On Thursday, September 9, 2021, she dined at Shu Restaurant on the Lisburn Road and posed for selfies with staff, who posted that she "was so lovely and really is a beautiful person inside and out."\n\nThe next night, Friday September 10, she turned up at The Tipsy Bird cocktail bar in the city centre and stayed for musician Tiernán Heffron\'s full three-hour set, joining a singalong and tipping him afterward; Heffron said, "It\'s not everyday Taylor Swift walks into your gig and stays for your whole three hour set. She was the most lovely person!" The bar confirmed her visit and posed for a photo with its team.',
@@ -1265,7 +1245,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.rte.ie/images/001825a9-500.jpg',
+            url: 'https://www.rte.ie/images/001825a9-1000.jpg',
             credit: 'The Tipsy Bird via Facebook',
           },
         ],
@@ -1532,7 +1512,7 @@ export default {
         "Every re-recorded and vault track hit the Hot 100 at once — Billboard: \"the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100's history.\"",
       sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-26-songs-hot-100-red-taylors-version-1235001484/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+        'https://i.ytimg.com/vi/5UMCrq-bBCg/maxresdefault.jpg',
       moment: {
         context:
           'In the week ending Nov. 27, 2021, 26 tracks from Red (Taylor\'s Version) debuted on the Hot 100 simultaneously. Billboard: "Notably, with all the songs above new to the survey, the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100\'s history."\n\nThe same week, Taylor also extended her own record for the most simultaneously charted Hot 100 entries among women — a mark Summer Walker had tied just a week earlier. At the time, only Drake — with 27 total titles charted after Scorpion\'s 2018 release — had ever had more entries from one act on a single week\'s survey; Morgan Wallen has since surpassed both marks, with 36 songs in 2023 and 37 in 2025.',
@@ -1548,13 +1528,6 @@ export default {
           },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
-            credit: 'Republic Records',
-            // Focal point set by viewing: her face sits left of center under
-            // the burgundy cap, ringed hand raised to the right.
-            focalPoint: '42% 46%',
-          },
           // Photo pass #762 (2026-07-18): still from the official "I Bet You
           // Think About Me" video, released Nov. 15, 2021 — inside the very
           // chart week this page covers; it's one of the 26 debuting tracks.
@@ -1809,7 +1782,8 @@ export default {
       snippet:
         'The first From the Vault track ever released, out April 7, 2021 ahead of Fearless (Taylor\'s Version) — a 2008 castoff fans immediately read as a Joe Jonas song. Sophie Turner\'s Instagram verdict: "It\'s not NOT a bop."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mr._Perfectly_Fine',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-and-Sophie-Turner-billboard-1548-1617818770.jpg',
       moment: {
         context:
           'Written solo when she was 18 and left off the original Fearless, it introduced the vault-track format that became the re-recording project\'s signature: finished songs from each album\'s original sessions, released as new. Produced with Jack Antonoff for the 2021 release, it debuted at No. 90 on the Hot 100 and climbed to No. 30, reaching No. 2 on Hot Country Songs — remarkable mileage for a thirteen-year-old castoff.\n\nThen there was the subplot: fans immediately read the song as a Joe Jonas post-mortem, and Turner — married to Jonas at the time — posted it to her Instagram story with the now-famous verdict, "It\'s not NOT a bop." Taylor reposted her with a Game of Thrones bow, writing that she was "forever bending the knee" for the queen of the north.',
@@ -1846,13 +1820,6 @@ export default {
         // Stories, which have no permalink and expired within 24 hours;
         // nothing exists to embed.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',
-            focalPoint: '50% 30%',
-            credit: 'Republic Records (single cover art)',
-            caption: 'Cover artwork for "Mr. Perfectly Fine (Taylor\'s Version) (From the Vault)."',
-            kind: 'primary',
-          },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-and-Sophie-Turner-billboard-1548-1617818770.jpg',
             focalPoint: '50% 28%',
@@ -1943,9 +1910,6 @@ export default {
             reliability_score: 4,
           },
         ],
-        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
-        // upload.wikimedia.org copy (exact filename from the article HTML).
-        // URL verified HTTP 200 + image/png this session.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png',
@@ -2216,9 +2180,10 @@ export default {
     // them (the NSAI-speech item cites "ivy" as Taylor's flagship Quill lyric;
     // "'tis the damn season" names Dorothea as a character "whose namesake
     // track sits later on the album"). This pass authors ivy, dorothea and long
-    // story short so those hooks land somewhere. Sources: each song's Wikipedia
-    // page + Slate's evermore track-by-track (already trusted in this file, see
-    // gold rush). closure remains for a later run. Photos deferred to Photo
+    // story short so those hooks land somewhere. Sources: Wikipedia's evermore
+    // coverage (or the song page where one exists) + Slate's track-by-track
+    // (already trusted in this file, see gold rush). closure remains for a later
+    // run. Photos deferred to Photo
     // Enrichment: no lyric-video still could be id-verified in this headless env.
     {
       slug: 'ivy-clandestine-affair',
@@ -2229,7 +2194,7 @@ export default {
       title: "ivy, a clandestine affair that grows like the vine it's named for",
       snippet:
         'A married woman drawn into a secret affair that creeps from winter into spring like ivy — and the one song Taylor later named as her flagship "Quill" lyric, the most literary pen she owns.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
       thumbnailUrl: 'https://i.ytimg.com/vi/9nIOx-ezlzA/hqdefault.jpg',
       moment: {
         context:
@@ -2237,11 +2202,11 @@ export default {
         sources: [
           {
             outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
-            source_title: 'Ivy (Taylor Swift song)',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+            source_title: 'Evermore (album)',
             publisher: 'Wikipedia',
             source_type: 'wiki',
-            accessed_at: '2026-07-30',
+            accessed_at: '2026-08-24',
             reliability_score: 2,
           },
           {
@@ -2251,6 +2216,15 @@ export default {
             publisher: 'Slate',
             source_type: 'reputable_press',
             accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-nsai-songwriter-artist-decade-award-2022-speech-all-too-well-3314076',
+            source_title: "Taylor Swift wins NSAI's Songwriter-Artist of the Decade Award",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
             reliability_score: 4,
           },
         ],
@@ -2388,7 +2362,7 @@ export default {
       title: 'closure, the 5/4 kiss-off that turns down the tidy ending',
       snippet:
         'evermore\'s most experimental track: an off-kilter 5/4 song wrapped in clattering, industrial drums, where Taylor takes an olive branch from someone who wronged her and hands it straight back — "I don\'t need your closure."',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
       thumbnailUrl: 'https://i.ytimg.com/vi/AIFnKqIeEdY/hqdefault.jpg',
       moment: {
         context:
@@ -2396,11 +2370,11 @@ export default {
         sources: [
           {
             outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
-            source_title: 'Closure (Taylor Swift song)',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+            source_title: 'Evermore (album)',
             publisher: 'Wikipedia',
             source_type: 'wiki',
-            accessed_at: '2026-08-01',
+            accessed_at: '2026-08-24',
             reliability_score: 2,
           },
           {
@@ -2439,7 +2413,7 @@ export default {
       snippet:
         'Announced on Good Morning America on Feb. 11, 2021 and out that night — the first finished piece of the re-recording project, 13 years after the original, sounding almost eerily identical on purpose.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor%27s_Version)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/aXzVF3XeS8M/maxresdefault.jpg',
       moment: {
         context:
           'The announcement letter set the template the whole project would follow: a full album (Fearless) coming, vault tracks from the original sessions — and stray capital letters hiding the release date in plain sight for fans to decode.\n\nFans had technically heard the new recording already, via a snippet in a Match.com ad the previous December. The finished single debuted at No. 1 on Hot Country Songs, making her only the second artist ever — after Dolly Parton — to top a Billboard chart with both the original and re-recorded versions of the same song.',
@@ -2467,15 +2441,6 @@ export default {
         // upload.wikimedia.org copy (exact filename from the article HTML).
         // URL verified HTTP 200 + image/png this session.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png',
-            credit: 'Republic Records (single cover art)',
-            caption: 'Cover artwork for "Love Story (Taylor\'s Version)," the first re-recording released.',
-            kind: 'primary',
-            // Focal point set by viewing: she stands on the left in the white
-            // gown, face in the upper-left quarter, arm extended right.
-            focalPoint: '30% 25%',
-          },
           // Photo pass #762 (2026-07-18): still from the official "Love Story
           // (Taylor's Version)" lyric video — built from vintage fan-club
           // footage; this frame is a 2008-era clip of her making heart hands.
@@ -2512,6 +2477,10 @@ export default {
         'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
         // Cross-link (Stage 3, 2026-08-10): the vault-track format's debut.
         'moment:vault-evermore-mr-perfectly-fine-opens-the-vault',
+        // Cross-link (issue #719, item 3): back to the original 2008 release
+        // on a fearless surface — this era page is titled "Fearless
+        // (Taylor's Version)" but carried no link to the actual TV story.
+        'moment:vault-fearless-fearless-arrives-and-debuts-at-no-1-on-the-billboard-200',
       ],
       title: "Fearless (Taylor's Version): 26 songs, six from the vault",
       snippet:
@@ -2720,19 +2689,6 @@ export default {
             // dreamscape with the handwritten title dead center — genuinely
             // reads best centered; no face or subject to protect.
             focalPoint: '50% 50%',
-          },
-          // Photo pass #762 (2026-07-18): the single's own cover art — Swift
-          // in sunglasses and a striped shirt — from Wikipedia's stable
-          // upload.wikimedia.org copy (exact filename from the article HTML).
-          // curl 200 image/png 300x300, downloaded and vision-confirmed.
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/f/ff/Wildest_Dreams_%28Taylor%27s_Version%29_-_Taylor_Swift.png',
-            credit: 'Republic Records (single cover art)',
-            caption: 'The Wildest Dreams (Taylor\'s Version) cover — the artwork that appeared when the re-record surprise-dropped mid-TikTok trend.',
-            kind: 'primary',
-            // Focal point set by viewing: face in sunglasses upper-center-
-            // right, sunlit wall behind.
-            focalPoint: '55% 28%',
           },
         ],
       },

@@ -155,6 +155,27 @@ export default {
       ],
     },
     {
+      slug: 'the-last-time-mv',
+      kind: 'music_video',
+      title: 'The Last Time',
+      director: null,
+      releasedOn: null,
+      relatedSongs: ['The Last Time'],
+      tags: ['Music'],
+      summary:
+        'A live-performance video built from Red Tour footage of Taylor and duet partner Gary Lightbody trading the song\'s dueling verses onstage, seated on facing stools — the album\'s final single.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-24 (author_name "Taylor Swift", title "Taylor
+      // Swift - The Last Time ft. Gary Lightbody").
+      officialUrl: 'https://www.youtube.com/watch?v=QuijXg8wm28',
+      media: [embed('QuijXg8wm28', '2026-08-24')],
+      sources: [
+        yt('QuijXg8wm28', 'Taylor Swift - The Last Time ft. Gary Lightbody'),
+        wiki('The_Last_Time_(Taylor_Swift_song)', 'The Last Time (Taylor Swift song)'),
+      ],
+    },
+    {
       slug: 'begin-again-mv',
       kind: 'music_video',
       title: 'Begin Again',
