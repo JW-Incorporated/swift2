@@ -2783,6 +2783,22 @@ export default {
             note:
               "A Deuxmoi blind item — lowest source tier — self-flagged as unconfirmed. Kept as an earlier data point on the same 'when is the next tour' question. No location. Resolves on an official tour announcement; fades if it stays silent.",
           },
+          {
+            // Rumor Desk 2026-08-25: a fresh data point on the same "when does
+            // she tour again" question — UK festival speculation for 2027. Held
+            // at REGION level per the location matrix: an unannounced future
+            // booking is speculative provenance, so the specific festival is
+            // NOT named (coarsened from the source, which names it).
+            claim:
+              'Speculation grew that Taylor could headline a major UK summer festival in 2027 after the festival\'s organiser, asked in mid-August 2026 whether Taylor was among next year\'s booked headliners, laughed and declined to confirm or deny — while cautioning that "pretty much 95%" of festival rumours turn out wrong.',
+            reportedBy: 'NME',
+            reportedOn: '2026-08-14',
+            status: 'unconfirmed',
+            url: 'https://www.nme.com/news/music/emily-eavis-confirms-glastonbury-2027-headliners-booked-as-she-responds-to-madonna-rumours-3962795',
+            sourceTier: 'tabloid',
+            locationSpecificity: 'region',
+            note: 'Forward-looking tour speculation. Location held at region level (a country, no named festival or city) per the matrix — the underlying report names a specific festival, coarsened here because an unannounced future booking is speculative provenance. Resolves when the 2027 line-up is announced; fades if she is not on it. The organiser herself cautioned most such rumours are wrong.',
+          },
         ],
       },
     },
@@ -9267,6 +9283,23 @@ export default {
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo.',
             kind: 'reference',
+          },
+        ],
+        // Rumor Desk 2026-08-25: her own on-record Grammy Museum remarks
+        // (Always-OK) read by outlets as a signal her next project could lean
+        // country. Public-facing music speculation; no location, no redline.
+        // Resolves against the genre of whatever she releases next.
+        rumors: [
+          {
+            claim:
+              'At the Grammy Museum Icon Sessions on Aug. 18, 2026, Taylor said she feels "more and more tied" and "more loyal" to her country roots and wants to honor them "more and more" — remarks outlets read, alongside her country-charting 2026 single "I Knew It, I Knew You," as a hint her next project could lean back toward country.',
+            reportedBy: 'Rolling Stone',
+            reportedOn: '2026-08-19',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-honor-country-roots-tim-mcgraw-1235614372/',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-25',
+            note: 'Her own on-record quote (Always-OK); the adjudicable part is the read that her next work leans country. Resolves against the genre of her next release; fades if the read goes nowhere. No location.',
           },
         ],
       },
