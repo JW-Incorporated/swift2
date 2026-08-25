@@ -29,7 +29,6 @@
 //     validate-content.mjs errors on a stale entry, so the list can only
 //     shrink, never rot into a permanent exemption nobody rechecks.
 export const PHOTO_HOST_LEGACY = new Set([
-  'cdn.sanity.io',
   'cdn.shopify.com',
   'entertainmentnow.com',
   'fashionsizzle.com',
