@@ -668,16 +668,7 @@ export default {
           },
           { outlet: 'CBS News', url: 'https://www.cbsnews.com/news/taylor-swift-midnights-3am-anti-hero-video/' },
         ],
-        // Real-photo pass (2026-07-09): the album art the 3am tracks extended.
-        // Wikipedia's stable upload.wikimedia.org copy; verified HTTP 200 + image/png.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
-            credit: 'Republic Records',
-            caption: 'The standard-edition Midnights cover — the "complete concept album" of 13 songs the surprise 3am tracks were framed as outtakes from.',
-            kind: 'archival',
-            focalPoint: '40% 47%',
-          },
           {
             url: 'https://i.ytimg.com/vi/iFX6_9h7th0/maxresdefault.jpg',
             credit: 'Taylor Swift/YouTube',
@@ -685,6 +676,14 @@ export default {
               'The white-flag art of the official lyric video for "The Great War" — the opening 3am track, surrendering the fight the song spends its runtime surviving.',
             kind: 'archival',
             focalPoint: '55% 55%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/B-MfwP_RmHY/maxresdefault.jpg',
+            credit: 'Taylor Swift/YouTube',
+            caption:
+              'The official lyric video for "Would\'ve, Could\'ve, Should\'ve" — another of the seven songs released with the 3am Edition.',
+            kind: 'archival',
+            focalPoint: '50% 50%',
           },
         ],
       },
@@ -3164,8 +3163,6 @@ export default {
             url: 'https://www.billboard.com/music/chart-beat/taylor-swift-midnights-back-number-one-billboard-200-til-dawn-late-nights-1235345655/',
           },
         ],
-        // Real-photo pass (2026-07-09): album artwork; Wikipedia's stable copy,
-        // verified HTTP 200 + image/png this session.
         // Photo-enrichment pass (2026-07-18): added a freely licensed frame of
         // the Midnights set (Lavender Haze clouds) at U.S. Bank Stadium,
         // June 24, 2023 — the same month the deluxe editions put the album back
@@ -3173,18 +3170,19 @@ export default {
         // stadium signage visible).
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
-            credit: 'Republic Records',
-            caption: 'Midnights — back at No. 1 in June 2023, eight months after release, on the strength of the Til Dawn and Late Night deluxe editions.',
-            kind: 'archival',
-            focalPoint: '50% 52%',
-          },
-          {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Eras_Tour_-_Minneapolis%2C_Minnesota_-_Midnights_act_1.jpg/960px-Eras_Tour_-_Minneapolis%2C_Minnesota_-_Midnights_act_1.jpg',
             credit: 'Michael Hicks, CC BY 2.0, via Wikimedia Commons',
             caption: 'The Midnights act at Minneapolis\' U.S. Bank Stadium in June 2023 — the album onstage the same month the deluxe drops sent it back to No. 1.',
             kind: 'archival',
             focalPoint: '53% 58%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/XzOvgu3GPwY/maxresdefault.jpg',
+            credit: 'Taylor Swift/YouTube',
+            caption:
+              'Taylor and Ice Spice in the official "Karma" remix video — one of the May 2023 deluxe-release additions that sent Midnights back to No. 1.',
+            kind: 'archival',
+            focalPoint: '50% 40%',
           },
         ],
       },

@@ -413,12 +413,8 @@ export default {
       snippet:
         '10 minutes and 13 seconds — beating a nearly 50-year-old record held by Don McLean\'s "American Pie." Taylor\'s own reaction: "You guys sent a 10-minute song to Number One for the first time in history."',
       sourceUrl: 'https://www.guinnessworldrecords.com/news/2021/11/taylor-swifts-10-minute-all-too-well-is-longest-song-to-reach-no-1-683614',
-      // Image-fix pass (2026-07-10): tickets #193/#147 — old Guinness URL was a
-      // two-panel news collage (Red TV cover + premiere photo, visible seam).
-      // Swapped to the Red (Taylor's Version) cover art, already verified live
-      // (HTTP 200 + image/png) and in use elsewhere in this file.
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+        'https://i.ytimg.com/vi/tollGa3S0o8/maxresdefault.jpg',
       moment: {
         context:
           'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.\n\nBoth the song and its parent album debuted at No. 1 in the same week — "twin No. 1 chart debuts," per Variety — with Red (Taylor\'s Version) entering the Billboard 200 on top and the ten-minute cut bowing at No. 1 on the Hot 100, an unusually direct payoff for a track fans had spent nearly a decade asking her to release in full. The version was a "From the Vault" recording, a restored expansion of the 5:29 song from 2012\'s Red, and Taylor leaned the entire promotional push on it: she performed the full ten minutes on Saturday Night Live on Nov. 13, 2021 — one of the longest musical performances in the show\'s history — premiered the self-directed short film in New York, and surprised the theater audience with an acoustic set. The record it broke had stood since January 1972, so a fifty-year-old benchmark fell to a song most listeners already knew by heart.',
@@ -468,15 +464,6 @@ export default {
         // (the same two-panel collage flagged in the 2026-07-10 note above).
         // Each URL verified HTTP 200 + a real image/* content-type via curl.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
-            credit: 'Republic Records (album cover art)',
-            caption: "The Red (Taylor's Version) cover — \"All Too Well (10 Minute Version)\" is the album's centerpiece track that set the longest-No.-1-song record.",
-            kind: 'primary',
-            // Focal point set by viewing: her face sits left of center under
-            // the burgundy cap, ringed hand raised to the right.
-            focalPoint: '42% 46%',
-          },
           // Photo pass #762 (2026-07-18): still from All Too Well: The Short
           // Film — Sadie Sink and Dylan O'Brien forehead-to-forehead in the
           // car; the self-directed film is named in this page's context as a
@@ -1532,7 +1519,7 @@ export default {
         "Every re-recorded and vault track hit the Hot 100 at once — Billboard: \"the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100's history.\"",
       sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-26-songs-hot-100-red-taylors-version-1235001484/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+        'https://i.ytimg.com/vi/5UMCrq-bBCg/maxresdefault.jpg',
       moment: {
         context:
           'In the week ending Nov. 27, 2021, 26 tracks from Red (Taylor\'s Version) debuted on the Hot 100 simultaneously. Billboard: "Notably, with all the songs above new to the survey, the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100\'s history."\n\nThe same week, Taylor also extended her own record for the most simultaneously charted Hot 100 entries among women — a mark Summer Walker had tied just a week earlier. At the time, only Drake — with 27 total titles charted after Scorpion\'s 2018 release — had ever had more entries from one act on a single week\'s survey; Morgan Wallen has since surpassed both marks, with 36 songs in 2023 and 37 in 2025.',
@@ -1548,13 +1535,6 @@ export default {
           },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
-            credit: 'Republic Records',
-            // Focal point set by viewing: her face sits left of center under
-            // the burgundy cap, ringed hand raised to the right.
-            focalPoint: '42% 46%',
-          },
           // Photo pass #762 (2026-07-18): still from the official "I Bet You
           // Think About Me" video, released Nov. 15, 2021 — inside the very
           // chart week this page covers; it's one of the 26 debuting tracks.
