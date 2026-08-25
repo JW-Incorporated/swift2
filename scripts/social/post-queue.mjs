@@ -93,7 +93,14 @@ import {
 } from './lib/queue.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
 import { mediaUrlsReachable } from './lib/preflight.mjs';
-import { OUTCOME, hasBlockingFailure, summarizeRun, formatReportMarkdown, formatAnnotations } from './lib/run-report.mjs';
+import {
+  OUTCOME,
+  hasBlockingFailure,
+  summarizeRun,
+  formatReportMarkdown,
+  formatAnnotations,
+  formatPostedNotification,
+} from './lib/run-report.mjs';
 
 const MEDIA_BASE_URL = 'https://www.longlivets.com';
 const MAX_ATTEMPTS = 3;
@@ -226,6 +233,22 @@ async function publishReport(outcomes, { abortReason } = {}) {
     await writeFile(process.env.SOCIAL_POSTER_REPORT, markdown).catch((err) =>
       console.error(`social-poster: could not write report file: ${err.message ?? err}`),
     );
+  }
+
+  // Founder success-email payload (2026-08-25, docs/decisions.md same date):
+  // an email on every post that actually went out, separate from the
+  // failure-surfacing this file already does. Written only when the
+  // workflow asks for it (SOCIAL_POSTER_NOTIFY set) and only when something
+  // actually posted — formatPostedNotification returns null on a run with
+  // zero posted items, and no file means the workflow step sends no mail.
+  if (process.env.SOCIAL_POSTER_NOTIFY) {
+    const notification = formatPostedNotification(outcomes, { runUrl });
+    if (notification) {
+      await writeFile(
+        process.env.SOCIAL_POSTER_NOTIFY,
+        JSON.stringify({ ...notification, url: runUrl ?? '' }, null, 2),
+      ).catch((err) => console.error(`social-poster: could not write notify payload: ${err.message ?? err}`));
+    }
   }
   return { summary, markdown };
 }
@@ -435,6 +458,7 @@ export async function main() {
         file: entry.file,
         platform: item.platform,
         url: result.url,
+        ...(facebook ? { facebookUrl: facebook.url } : {}),
         ...(facebookError ? { facebookError } : {}),
       });
 

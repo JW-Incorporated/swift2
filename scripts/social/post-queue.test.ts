@@ -606,6 +606,64 @@ describe('post-queue: a Facebook cross-post failure is visible, but never redden
     const posted = JSON.parse(await readFile(path.join(root, 'social', 'posted', 'a-ig.json'), 'utf-8'));
     expect(posted.facebookPostId).toBeUndefined();
   });
+
+  it('carries facebookUrl on the outcome when the cross-post succeeds', async () => {
+    process.env.FB_PAGE_ID = 'dummy-page';
+    stubIgFetch({
+      publish: { ok: true, status: 200, body: { id: 'ig-post-10' } },
+      facebook: { ok: true, status: 200, body: { post_id: 'fb-post-77' } },
+    });
+    await seedQueueItem('a-ig.json', igItem());
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'instagram' });
+    expect(outcomes[0].facebookUrl).toContain('fb-post-77');
+    expect(outcomes[0].facebookError).toBeUndefined();
+  });
+});
+
+// 2026-08-25, docs/decisions.md same date: Joey wants an email on every
+// social post that actually goes out, with a real per-platform link — an
+// explicit exception to the founder-email cap. post-queue.mjs writes the
+// mail payload itself (SOCIAL_POSTER_NOTIFY) so the workflow step only has
+// to forward it through scripts/watchdog/send-mail.py.
+describe('post-queue: SOCIAL_POSTER_NOTIFY (founder success-email payload)', () => {
+  it('writes a mail-ready payload with the real post URL when something posts', async () => {
+    const notifyPath = path.join(root, 'notify.json');
+    process.env.SOCIAL_POSTER_NOTIFY = notifyPath;
+    stubFetch({ ok: true, status: 200, body: { data: { id: '2086959658460230140' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    await runPoster();
+
+    const payload = JSON.parse(await readFile(notifyPath, 'utf-8'));
+    expect(payload.subject).toContain('1 post went live');
+    expect(payload.body).toContain('https://x.com/longlivetscom/status/2086959658460230140');
+  });
+
+  it('writes nothing when the env var is unset', async () => {
+    delete process.env.SOCIAL_POSTER_NOTIFY;
+    stubFetch({ ok: true, status: 200, body: { data: { id: '1' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    await runPoster();
+
+    // No path was ever given, so there's nothing to assert a file at — the
+    // real assertion is that main() doesn't throw when the env var is unset.
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('writes no file when nothing posted (e.g. a permanent failure only)', async () => {
+    const notifyPath = path.join(root, 'notify.json');
+    process.env.SOCIAL_POSTER_NOTIFY = notifyPath;
+    stubFetch({ ok: false, status: 403, body: { detail: 'not permitted' } });
+    await seedQueueItem('a-x.json', xItem({ attempts: 2 }));
+
+    await runPoster();
+
+    await expect(readFile(notifyPath, 'utf-8')).rejects.toThrow();
+  });
 });
 
 describe('post-queue: the happy path stays green', () => {
