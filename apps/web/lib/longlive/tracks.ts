@@ -126,6 +126,27 @@ export function nextTrackOnAlbum(eraId: EraId, track: TrackNote): TrackNote | nu
 }
 
 /**
+ * The adjacent track for the song page's Previous/Next navigation (#774
+ * Option 2). Deliberately walks EVERY sourced track note in album order —
+ * `tracksForEra`'s generator-sorted array, by position — not just numbered
+ * tracks the way `nextTrackOnAlbum` does for "Keep exploring": Joey's
+ * explicit scope call on #774 was that Previous/Next must not silently skip
+ * a sourced note that lacks a full dossier. Null at either end (no wrap).
+ */
+export function adjacentTrackOnAlbum(
+  eraId: EraId,
+  track: TrackNote,
+  direction: 'previous' | 'next',
+): TrackNote | null {
+  const tracks = tracksForEra(eraId);
+  const key = trackKey(eraId, track);
+  const idx = tracks.findIndex((t) => trackKey(eraId, t) === key);
+  if (idx === -1) return null;
+  const targetIdx = direction === 'next' ? idx + 1 : idx - 1;
+  return tracks[targetIdx] ?? null;
+}
+
+/**
  * The "Keep exploring" list (issue #498 follow-ups / Joey 2026-07-15):
  * the FIRST entry is always the album's next song — the strongest "related"
  * item there is — followed by the dossier's curated connections (de-duped
