@@ -22,6 +22,7 @@ import {
   type EraFeedEntry,
 } from '@/lib/longlive/era-feed';
 import { useEraCurrentFeed } from '@/lib/longlive/use-era-current-feed';
+import { clusterSameDayMoments } from '@/lib/longlive/era-feed-clusters';
 import { threadDoorwaysForEra, eggDoorwaysForEra } from '@/lib/longlive/doorways';
 import { spaceDoorways } from '@/lib/longlive/space-doorways';
 import { feedCardImageHidden } from '@/lib/longlive/video-affordance';
@@ -101,6 +102,12 @@ export function EraSection({
     [items, videoFeed, era.start, era.end, doorwayEntries, liveEntries],
   );
   const feedEntries = useMemo(() => visibleFeed(mergedFeed, filters), [mergedFeed, filters]);
+  // Release-day pileups (#696): same-day moment runs collapse into one
+  // collapsible card for RENDERING ONLY — every computation below (tiers,
+  // video ownership, image suppression) still reads `feedEntries`/`visible`,
+  // the ungrouped list, so grouping can never change what a card looks like,
+  // only how many of them the reader sees before expanding.
+  const renderEntries = useMemo(() => clusterSameDayMoments(feedEntries), [feedEntries]);
   // The filtered feed's moment items — everything downstream that reasons
   // about "the moments actually on screen" (video ownership, image
   // suppression, card tiers) reads this instead of `items`.
@@ -270,7 +277,7 @@ export function EraSection({
       {/* Chronological feed (newest-first): moments, videos and doorways —
           see EraFeedList for the render dispatch. */}
       <EraFeedList
-        entries={feedEntries}
+        entries={renderEntries}
         era={era}
         tiers={tiers}
         videoOwnerIds={videoOwnerIds}

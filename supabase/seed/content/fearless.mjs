@@ -21,7 +21,7 @@ export default {
       snippet:
         "Inspired by a boy she never actually dated — one her family and friends \"all said they didn't like.\"",
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
       moment: {
         context:
           "She's said the disapproval reminded her of Romeo and Juliet — \"the only people who wanted them to be together were them\" — so she gave her version the happy ending Shakespeare didn't, swapping the double suicide for a marriage proposal she felt the characters deserved.\n\nThe whole thing came fast: she wrote it on her bedroom floor in about 20 minutes, then cut a rough demo in roughly 15 minutes the next day. The boy stayed anonymous — she's only ever said he was someone she never actually dated, and that when she brought him around, \"[they] all said they didn't like him. All of them!\"",
@@ -35,16 +35,11 @@ export default {
         // vision-confirmed.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
-            focalPoint: '68% 28%',
-            credit: 'Big Machine Records',
-          },
-          {
             url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
             focalPoint: '52% 45%',
             credit: 'Big Machine Records / official Taylor Swift YouTube channel',
             caption: 'Still from the official "Love Story" music video.',
-            kind: 'archival',
+            kind: 'primary',
           },
         ],
       },
@@ -57,7 +52,8 @@ export default {
       title: "Fifteen, written for her best friend Abigail",
       snippet: "A freshman-year memory, built around one line about her best friend Abigail's heartbreak.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Fifteen_(song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_en_Fifteen_cantando.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original',
       moment: {
         context:
           'The whole song grew backwards from one line — "Abigail gave everything she had to a boy who changed his mind" — which Taylor has said she wrote first, building everything else around it. Unsure how Abigail would take something so personal, Taylor played her the finished song and asked first. Abigail\'s answer: "If one girl can kind of learn from it or connect to a song like that, it\'s totally worth it."\n\nRecording it wrecked Taylor anyway — she\'s admitted she cried in the studio, "the things that make me cry are when the people I love have gone through pain and I\'ve seen it" — and when Roman White shot the surreal green-screen garden video, Abigail appeared in it as herself.',
@@ -67,9 +63,11 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png',
-            focalPoint: '62% 32%',
-            credit: 'Big Machine Records',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_en_Fifteen_cantando.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original',
+            focalPoint: '68% 34%',
+            credit: 'Flickr user 11001344@N02 (CC BY 2.0), via Wikimedia Commons',
+            caption: 'Performing "Fifteen" on the Fearless Tour in June 2009.',
+            kind: 'primary',
           },
         ],
       },
@@ -115,13 +113,6 @@ export default {
           },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
-            credit: 'Big Machine Records',
-            // Focal point set 2026-07-18 by viewing (300x300): profile facing
-            // left-of-center, wind-blown curls filling the right half.
-            focalPoint: '40% 32%',
-          },
           // Photo pass #762 (2026-07-18): still from the Recording Academy's
           // official GRAMMY Rewind upload of this exact win — Swift at the
           // mic with the gramophone, "13" inked on her waving hand. oEmbed-
@@ -180,56 +171,6 @@ export default {
             credit: 'Michael Tran/FilmMagic, via Teen Vogue',
             caption: 'Taylor poses in the Grammy press room with all four awards she won that night, including Album of the Year.',
             kind: 'primary',
-          },
-        ],
-      },
-    },
-    {
-      year: 2008,
-      month: 11,
-      day: 12,
-      category: 'fashion',
-      title: 'A silver Kaufman Franco gown for the 2008 CMAs',
-      snippet: 'A body-hugging silver Kaufman Franco gown, hair pinned into a sleek bun, at the 42nd CMA Awards.',
-      sourceUrl: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
-      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/E8AuEcoVjwZx6nd2RDfhQa.jpeg',
-      moment: {
-        context:
-          'Worn Nov. 12, 2008 at Nashville\'s Sommet Center — the night after Fearless hit shelves — where she also performed "Love Story" on the show.\n\nE!\'s retrospective marks it as the turning point in her CMA style: a body-hugging silver Kaufman Franco and a sleek bun that read noticeably more polished and grown-up than the curls and sundresses of her debut-era carpets, arriving right as the album that would define the next two years did.',
-        sources: [
-          {
-            outlet: 'E! Online',
-            url: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
-          },
-          {
-            outlet: 'Marie Claire',
-            url: 'https://www.marieclaire.com/fashion/taylor-swift-gowns/',
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/2008_Country_Music_Association_Awards',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://cdn.mos.cms.futurecdn.net/E8AuEcoVjwZx6nd2RDfhQa.jpeg',
-            credit: 'Marie Claire',
-          },
-        ],
-        // Shop pass (2026-07-21): the real KaufmanFranco gown has no
-        // e-commerce (brochure-only site, no Collections storefront) --
-        // a current, verified in-stock alternative in the same silver
-        // one-shoulder silhouette.
-        products: [
-          {
-            brand: 'WonderlandByLilian',
-            item: 'Elegant Silver Sequin One-Shoulder Evening Gown',
-            retailer: 'wonderlandbylilian.com',
-            url: 'https://wonderlandbylilian.com/products/elegant-silver-sequin-one-shoulder-evening-gown-and-silver-glitter-dress-pretty-sequin-dress-with-asymmetrical-design-plus-size',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0550/3919/7262/files/Elegant_Silver_Sequin_One-Shoulder_Evening_Gown_and_Silver_Glitter_Dress_-_Pretty_Sequin_Dress_with_Asymmetrical_Design_Plus_Size_5f737b9e-cc41-4ba1-994b-66a7888f099d.png?v=1779300207',
-            price: '$695.00',
-            isAlternative: true,
-            altNote: 'KaufmanFranco has no e-commerce -- this is a current made-to-order silver one-shoulder gown in the same body-hugging silhouette.',
           },
         ],
       },
@@ -440,14 +381,14 @@ export default {
           // the interruption, the Beyoncé invite-back, and her own
           // performance/red-carpet that night. Curl-verified live.
           {
-            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922286265/Kayne-West-jumps-onstage--007.jpg?crop=none&dpr=1&s=none&width=375',
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922286265/Kayne-West-jumps-onstage--007.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '50% 22%',
             credit: 'Jeff Kravitz/FilmMagic, via The Guardian',
             caption: 'Kanye West steps onto the VMA stage while Taylor is accepting Best Female Video at Radio City Music Hall.',
             kind: 'primary',
           },
           {
-            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922290422/Singer-Taylor-Swift-speak-012.jpg?crop=none&dpr=1&s=none&width=375',
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922290422/Singer-Taylor-Swift-speak-012.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '50% 22%',
             credit: 'Kevin Mazur/WireImage, via The Guardian',
             caption: 'Taylor finally finishes her acceptance speech after Beyoncé invites her back onstage later that night.',
@@ -586,7 +527,7 @@ export default {
       title: 'A silver sequined gown, worn into an interruption no one saw coming',
       snippet: 'A floor-length silver gown, matching the Moonman she was mid-speech with when Kanye West took the mic.',
       sourceUrl: 'https://www.eonline.com/news/1407066/revisiting-taylor-swift-and-kanye-wests-mtv-vmas-feud-15-years-later',
-      thumbnailUrl: 'https://media.gettyimages.com/id/90711948/photo/2009-mtv-video-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=fOcdRBdNZWp3iccajOnxlMcQfah9P6PsfGr3EsD_URk=',
+      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/DQ3KoxNSJgDDtCrzfjpf83.jpg',
       moment: {
         context:
           'A one-shoulder, skin-toned KaufmanFranco gown covered in silver beads and sequins, finished with a bold red lip, per The Hollywood Reporter\'s VMA style retrospective — and she\'d arrived at the show in a Cinderella-style coach, leaning all the way into the fairytale staging.\n\nBy the time Beyoncé called her back out at the end of the night to finish her speech, she\'d already changed into the red strapless vintage dress from her performance — so the gown of the era\'s most infamous televised moment was only on screen for those few minutes.',
@@ -600,16 +541,16 @@ export default {
             url: 'https://www.hollywoodreporter.com/news/general-news/see-taylor-swifts-mtv-video-music-awards-11-year-style-evolution-1234123/',
           },
         ],
-        // Image-fix pass (2026-07-10): the Hollywood Reporter frame was a
-        // two-panel collage (this gown plus a different red dress); replaced
-        // with a single un-collaged Getty red-carpet arrivals frame of the
-        // silver sequined gown. Verified HTTP 200 + image/jpeg and visually
-        // confirmed (one-shoulder silver/nude sequined gown, VMA '09 backdrop)
-        // this session.
+        // Image-fix pass (issue #745, 2026-08-24): the Getty comp URL always
+        // rendered with a visible Getty watermark on the live site. Replaced
+        // with Marie Claire's own CDN copy of the same red-carpet frame
+        // (allowlisted host, unwatermarked). Verified live via probe() —
+        // HTTP 206, image/jpeg, 1992x3000 — and visually confirmed
+        // (one-shoulder silver/nude sequined gown, VMA '09 backdrop).
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/90711948/photo/2009-mtv-video-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=fOcdRBdNZWp3iccajOnxlMcQfah9P6PsfGr3EsD_URk=',
-            credit: 'Michael Loccisano/Getty Images',
+            url: 'https://cdn.mos.cms.futurecdn.net/DQ3KoxNSJgDDtCrzfjpf83.jpg',
+            credit: 'Getty Images, via Marie Claire',
             caption: 'The silver sequined KaufmanFranco gown on the VMA red carpet, Sept. 13, 2009.',
             kind: 'primary',
           },
@@ -627,460 +568,6 @@ export default {
             price: '$589.00',
             isAlternative: true,
             altNote: 'Her exact KaufmanFranco gown has no e-commerce path (brand has no current online store) -- this is a current made-to-order silver sequin off-shoulder gown in the same one-shoulder silhouette.',
-          },
-        ],
-      },
-    },
-
-    // --- Fashion/photo depth pass (2026-07-04)
-    {
-      year: 2009,
-      month: 2,
-      day: 18,
-      category: 'fashion',
-      title: 'A sparkly Kaufmanfranco mini and a curled updo at the 2009 BRIT Awards',
-      snippet: 'A sequined Kaufmanfranco mini dress, Christian Louboutin heels, and a curled updo on the London red carpet.',
-      sourceUrl: 'https://www.taylorswiftstyle.com/post-grid/brit-021809',
-      thumbnailUrl:
-        'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/1ad829fe-c8e1-4226-87a4-ce32e97a570b/BRIT+Awards+February+2009+Taylor+Swift+Style+Feature+Image.png',
-      moment: {
-        context:
-          'Worn Feb. 18, 2009 in London, the look paired a Kaufmanfranco sparkly mini with Christian Louboutin Prive platform pumps, a Judith Leiber sparkly clutch and David Yurman jewelry — an early sign of the sleeker, sparklier red-carpet era Fearless ushered in.\n\nFashion archivist Sarah Chapelle\'s Taylor Swift Style catalogs it as a textbook example of the era\'s formula — in her words, "a sparkly mini, curled updo and Christian Louboutin heels created the Taylor trifecta at the 2009 BRITs." The same three-part recipe would repeat across the Fearless awards run, right up to the silver KaufmanFranco she wore to the VMAs that September.',
-        sources: [
-          { outlet: 'Taylor Swift Style', url: 'https://www.taylorswiftstyle.com/post-grid/brit-021809' },
-          { outlet: 'Taylor Swift Style', url: 'https://www.taylorswiftstyle.com/fearless' },
-        ],
-        photos: [
-          {
-            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/1ad829fe-c8e1-4226-87a4-ce32e97a570b/BRIT+Awards+February+2009+Taylor+Swift+Style+Feature+Image.png',
-            credit: 'Taylor Swift Style',
-          },
-        ],
-        // Shop pass (2026-07-21): Kaufmanfranco has no e-commerce -- a
-        // current, verified in-stock silver sequin mini in the same spirit.
-        products: [
-          {
-            brand: 'Princess Polly',
-            item: 'Miss Me Sequin Mini Dress',
-            retailer: 'us.princesspolly.com',
-            url: 'https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0061/8627/0804/files/1-modelinfo-anna-us2_50d8d45d-d7e9-436c-8612-a72cbd106a3e.jpg?v=1757460707',
-            price: '$85.00',
-            isAlternative: true,
-            altNote: 'Her Kaufmanfranco mini has no e-commerce path -- a current silver sequin mini in the same sparkly-mini spirit (Louboutin, Judith Leiber and David Yurman pieces not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      // Cross-link (Stage 3, 2026-07-30): the "Reem Acra" cluster — three
-      // gowns by the same designer across three award shows — now interlink.
-      relatedIds: [
-        'moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover',
-        'moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi',
-      ],
-      year: 2009,
-      month: 11,
-      day: 11,
-      category: 'fashion',
-      title: 'A gold Reem Acra gown for a four-award sweep at the 2009 CMAs',
-      snippet: 'A floor-skimming gold Reem Acra gown and an old-Hollywood pinned-back style, the night she swept all four of her CMA nominations.',
-      sourceUrl: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
-      thumbnailUrl: 'https://media.gettyimages.com/id/93005940/photo/the-43rd-annual-cma-awards-arrivals.jpg?s=594x594&w=0&k=20&c=vSzO7akNN5nM5rgvS8oYRyyvApcm0uCienxGRp9sFYI=',
-      moment: {
-        context:
-          'At the Nov. 11, 2009 CMA Awards in Nashville, Taylor paired the gold gown with hair pinned back in an old-Hollywood style — a more grown-up counterpoint to the sleek silver look she\'d worn the year before. E!\'s CMA style retrospective remembers her looking "like a total award-winning star," in "a gold Reem Acra gown that skimmed the floor."\n\nThe styling matched the scoreboard: she swept all four categories she was nominated in that night — Entertainer of the Year, Female Vocalist of the Year, Album of the Year for Fearless, and Music Video of the Year for "Love Story" — becoming the youngest Entertainer of the Year winner in CMA history.',
-        sources: [
-          {
-            outlet: 'E! Online',
-            url: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/2009_Country_Music_Association_Awards',
-          },
-          {
-            outlet: 'Just Jared Jr. (photo gallery — 2009 CMA Awards)',
-            url: 'https://www.justjaredjr.com/photo-gallery/346791/taylor-swift-sweeps-cmas-00/',
-          },
-        ],
-        // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried a
-        // baked-in watermark; replaced with an unwatermarked Getty red-carpet
-        // frame from the same Nov. 11, 2009 CMA Awards. Verified HTTP 200 +
-        // image/jpeg and visually confirmed (gold sequined gown, CMA Awards
-        // step-and-repeat) this session.
-        photos: [
-          {
-            url: 'https://media.gettyimages.com/id/93005940/photo/the-43rd-annual-cma-awards-arrivals.jpg?s=594x594&w=0&k=20&c=vSzO7akNN5nM5rgvS8oYRyyvApcm0uCienxGRp9sFYI=',
-            credit: 'Taylor Hill/WireImage, via Getty Images',
-            caption:
-              'The gold Reem Acra gown on the red carpet at the Nov. 11, 2009 CMA Awards.',
-            kind: 'primary',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2009 gown is discontinued -- a
-        // current Reem Acra gown, verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Reem Acra',
-            item: 'Sleeveless Crystal and Pearl Embroidered Gown',
-            retailer: 'reemacra.com',
-            url: 'https://www.reemacra.com/products/cloque-brocade-long-dress-with-draped-sleeves-copy',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0030/4273/8245/files/UPDATED_GOLD_2.jpg?v=1749137605',
-            price: '$7,595.00',
-            isAlternative: true,
-            altNote: 'Her exact 2009 gold gown is discontinued -- this is a current Reem Acra gown in nude/silver rather than gold, same house and floor-skimming formality.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2010,
-      month: 1,
-      day: 31,
-      category: 'fashion',
-      title: 'A blue sequined KaufmanFranco gown for a four-Grammy night',
-      snippet: 'A navy, off-the-shoulder KaufmanFranco sequin gown, Louboutin pumps, and Lorraine Schwartz earrings — worn the night Fearless won Album of the Year.',
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-grammys-red-carpet-dress-look-outfit/',
-      thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2023/02/Depositphotos_15014271_XL.jpg?resize=800%2C1204&ssl=1',
-      moment: {
-        context:
-          'At the Jan. 31, 2010 Grammys at Staples Center in Los Angeles, the KaufmanFranco Blue Sequin Off-the-Shoulder Gown — worn with Christian Louboutin pumps and Lorraine Schwartz earrings — was the glam counterpoint to the biggest night of her career to that point.\n\nBy the end of it she had four trophies, including Album of the Year for Fearless, making the 20-year-old the youngest artist ever to win the top prize at the time. Femestella\'s retrospective files the navy gown among her most iconic Grammy looks — a full pivot into old-Hollywood sparkle from the sundresses of two years earlier.',
-        sources: [
-          {
-            outlet: 'Femestella',
-            url: 'https://www.femestella.com/taylor-swift-iconic-grammys-red-carpet-dress-look-outfit/',
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards',
-          },
-        ],
-        // Photo pass #762 (2026-07-19): stays at 1 photo — the cited
-        // Femestella retrospective's other frames are different years' looks
-        // (2009 black J. Mendel, 2012 gold Zuhair Murad — both downloaded and
-        // viewed to check), and Wikimedia Commons has no 52nd-Grammys Swift
-        // photos. No verifiable second frame of this gown on an allowed CDN.
-        photos: [
-          {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2023/02/Depositphotos_15014271_XL.jpg?resize=800%2C1204&ssl=1',
-            credit: 'Depositphotos',
-            // Focal point set by viewing (photo pass #762, 2026-07-19):
-            // full-length red-carpet shot, face top-of-frame just right
-            // of center.
-            focalPoint: '51% 12%',
-          },
-        ],
-        // Shop pass (2026-07-21): KaufmanFranco has no e-commerce -- a
-        // current, verified in-stock navy sequin off-shoulder gown in the
-        // same silhouette.
-        products: [
-          {
-            brand: 'La Femme',
-            item: 'Sequin Off-the-Shoulder Evening Gown',
-            retailer: 'promgirl.com',
-            url: 'https://www.promgirl.com/products/la-femme-lf-21-29653-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0617/6414/1261/files/CzQNN6hqFWThMtvR.jpg?v=1762527363',
-            price: '$149.00',
-            isAlternative: true,
-            altNote: 'Her KaufmanFranco gown has no e-commerce path -- a current La Femme navy sequin off-shoulder gown, same silhouette (Louboutin pumps, Lorraine Schwartz earrings not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2010,
-      month: 1,
-      day: 31,
-      category: 'fashion',
-      title: "Curls swept to the side to make room for four Grammys",
-      snippet: "Her long, shoulder-length curls — the signature look of the Fearless era — swept to one side at the 2010 Grammys.",
-      sourceUrl: 'https://www.etonline.com/gallery/152871_taylor_swift_hair_timeline/68589',
-      thumbnailUrl: 'https://www.etonline.com/sites/default/files/styles/640xh/public/slides/152871/set_taylor_swift_96311259.jpg?width=1024&quality=80',
-      moment: {
-        context:
-          'Entertainment Tonight\'s hair-timeline retrospective singles out this look: curls swept to the side "to make room for all of her awards" the night Fearless won Album of the Year and Best Country Album.\n\nThe side-swept style did a lot of on-camera work that evening — she performed a medley with Fleetwood Mac\'s Stevie Nicks and made four trips to the podium at Staples Center. It was a signature outing for the ringlet curls she\'d worn since her debut, still reading as the era\'s calling card from every camera angle.',
-        sources: [
-          {
-            outlet: 'Entertainment Tonight',
-            url: 'https://www.etonline.com/gallery/152871_taylor_swift_hair_timeline/68589',
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards',
-          },
-        ],
-        // Photo pass #762 (2026-07-19): stays at 1 photo — the cited ET
-        // slideshow's other slides are other eras' hairstyles (wrong moment),
-        // and Wikimedia Commons has no 52nd-Grammys Swift photos. The sibling
-        // blue-gown and mauve-dress pages already cover this night's other
-        // angles, so no duplicate was borrowed from them.
-        photos: [
-          {
-            url: 'https://www.etonline.com/sites/default/files/styles/640xh/public/slides/152871/set_taylor_swift_96311259.jpg?width=1024&quality=80',
-            credit: 'Entertainment Tonight',
-            // Focal point set by viewing (photo pass #762, 2026-07-19):
-            // press-room shot with the four Grammys held at chest height,
-            // face upper-middle just right of center.
-            focalPoint: '52% 25%',
-          },
-        ],
-        // Shop pass (2026-07-21): a hairstyle, not a garment -- offering the
-        // styling tool rather than forcing a clothing link onto a hair item
-        // (same product as the debut.mjs precedent for this same ringlet-curl look).
-        products: [
-          {
-            brand: 'Asani',
-            item: 'Curling Iron Hair Wand (3/8")',
-            retailer: 'amazon.com',
-            url: 'https://www.amazon.com/Curling-Creates-Clearly-Defined-Ringlets/dp/B0CMK36C4P',
-            price: '$16.99',
-            isAlternative: true,
-            altNote: 'Not her exact styling tool (undocumented) — a slim-barrel curling wand suited to the side-swept ringlet curls she wore this night.',
-          },
-        ],
-      },
-    },
-
-    // --- Fashion/photo depth pass 2 (2026-07-04)
-    {
-      year: 2008,
-      month: 11,
-      day: 10,
-      category: 'fashion',
-      title: 'A French Connection Tallulah skirt for a Letterman appearance',
-      snippet: "A French Connection 'Tallulah' skirt, Christian Louboutin 'Babel' leather boots, and Nordstrom floral tights for The Late Show with David Letterman.",
-      sourceUrl: 'https://www.taylorswiftstyle.com/post-grid/letterman-111008',
-      thumbnailUrl:
-        'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/7d638f75-6b9b-4ff6-b9d2-06e0871c2dba/David+Letterman+November+2008+Taylor+Swift+Style+Feature+Image.png',
-      moment: {
-        context:
-          'Worn Nov. 10, 2008 in New York for a Letterman taping, days before Fearless hit shelves — a low-key, mixed-designer look (French Connection "Tallulah" skirt, Christian Louboutin "Babel" leather boots, Nordstrom floral tights and a black turtleneck) typical of her pre-tour press-run style.\n\nTaylor Swift Style\'s archive ranks the ensemble among the writer\'s all-time favorite Taylor outfits, while noting how completely her styling logic changed in the years since: today\'s Taylor, the blog reckons, would swap the heeled boots for pumps, crop the turtleneck, and drop the stacks of bracelets that were practically a uniform in 2008.',
-        sources: [
-          { outlet: 'Taylor Swift Style', url: 'https://www.taylorswiftstyle.com/post-grid/letterman-111008' },
-        ],
-        photos: [
-          {
-            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/7d638f75-6b9b-4ff6-b9d2-06e0871c2dba/David+Letterman+November+2008+Taylor+Swift+Style+Feature+Image.png',
-            credit: 'Taylor Swift Style',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2008 "Tallulah" skirt is
-        // discontinued -- a current French Connection skirt, verified
-        // in stock, closest real match.
-        products: [
-          {
-            brand: 'French Connection',
-            item: 'Structured Taffeta Midi Skirt',
-            retailer: 'usa.frenchconnection.com',
-            url: 'https://usa.frenchconnection.com/products/739ab-tbu',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0799/9029/2735/files/29.jpg?v=1776960308',
-            price: '$84.00',
-            isAlternative: true,
-            altNote: 'The "Tallulah" skirt is long discontinued -- a current French Connection structured midi skirt, same house (Louboutin boots, Nordstrom tights not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2009,
-      month: 3,
-      day: 1,
-      category: 'fashion',
-      title: 'A white BCBG Max Azria cocktail dress for a Daily Telegraph shoot',
-      snippet: 'A white BCBG Max Azria Corozo cocktail dress paired with stacked bracelets for a March 2009 Daily Telegraph feature.',
-      sourceUrl: 'https://www.taylorswiftstyle.com/post-grid/dailytelegraph-030109',
-      thumbnailUrl:
-        'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/eca000d7-4a7b-4b27-b5b3-4d4fef296c74/The+Daily+Telegraph+March+2009+Taylor+Swift+Style+Feature+Image.png',
-      moment: {
-        context:
-          'Shot for The Daily Telegraph in March 2009, the BCBG Max Azria Corozo cocktail dress was styled with stacked bracelets — a recurring accessory choice fashion writers flag as signature to her Fearless-era press look.\n\n"Those stacked bracelets! So Fearless era," is how Sarah Chapelle\'s Taylor Swift Style archive files the shoot — the armful of bangles turning up in nearly every press photo of the stretch. Even Selena Gomez remembers the accessory as definitional: recalling their first meeting around 2008, she described "the crazy curly Taylor" with "bracelets that went all the way up."',
-        sources: [
-          { outlet: 'Taylor Swift Style', url: 'https://www.taylorswiftstyle.com/post-grid/dailytelegraph-030109' },
-          {
-            outlet: 'Hola!',
-            url: 'https://www.hola.com/us/celebrities/20250807849060/selena-gomez-jonas-brothers-taylor-swift-friendship/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/eca000d7-4a7b-4b27-b5b3-4d4fef296c74/The+Daily+Telegraph+March+2009+Taylor+Swift+Style+Feature+Image.png',
-            credit: 'Taylor Swift Style',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2009 "Corozo" dress is
-        // discontinued -- a current BCBG dress, verified in stock,
-        // closest real match.
-        products: [
-          {
-            brand: 'BCBGMAXAZRIA',
-            item: 'Bubble Mini Dress',
-            retailer: 'bcbg.com',
-            url: 'https://bcbg.com/collections/bcbgmaxazria-the-white-edit/products/bubble-mini-dress-in-jasmine',
-            price: '$298.00',
-            isAlternative: true,
-            altNote: 'The exact "Corozo" cocktail dress from 2009 is long discontinued -- this is a current BCBGMAXAZRIA white mini dress, same house, same classic-white cocktail silhouette.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2010,
-      month: 1,
-      day: 31,
-      category: 'fashion',
-      title: 'A mauve Dolce & Gabbana dress for her first Grammy win',
-      snippet: 'A mauve Dolce & Gabbana cocktail dress, worn when "White Horse" won Best Country Song at the 2010 Grammys pre-telecast ceremony.',
-      sourceUrl: 'https://www.justjaredjr.com/2010/01/31/taylor-swift-white-horse-grammy-winner/',
-      thumbnailUrl:
-        'https://media.gettyimages.com/id/96303852/photo/the-52nd-annual-grammy-awards-pre-telecast-show.jpg?s=594x594&w=0&k=20&c=m6WSv7vy-GdYcvplS6Q2QZh-kSvnl2vE1PtlTEmQjvw=',
-      moment: {
-        context:
-          'Held earlier in the day before the televised main event (where she\'d later wear the blue KaufmanFranco gown), the pre-telecast ceremony was where "White Horse" picked up Best Country Song and Best Female Country Vocal Performance — the first two Grammy wins of her career.\n\nThe mauve Dolce & Gabbana cocktail dress ended up in the record books almost by accident: by night\'s end she had four trophies including Album of the Year, so the low-key afternoon look is what she\'s wearing in the photos of the wins that started the count. Just Jared Jr.\'s gallery from the ceremony catches her accepting with the gramophone in hand.',
-        sources: [
-          {
-            outlet: 'JustJared Jr.',
-            url: 'https://www.justjaredjr.com/2010/01/31/taylor-swift-white-horse-grammy-winner/',
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards',
-          },
-        ],
-        // Image-fix pass (2026-07-10): the previous hotlink was actually from
-        // the Jan. 30 "Salute to Icons" gala the night before (silver dress,
-        // with Katy Perry) rather than this Jan. 31 pre-telecast win; replaced
-        // with an unwatermarked Getty frame of her onstage at the actual
-        // pre-telecast ceremony in the mauve dress. Verified HTTP 200 +
-        // image/jpeg and visually confirmed (mauve/dusty-rose cocktail dress,
-        // Staples Center pre-telecast stage) this session.
-        // Photo pass #762 (2026-07-19): stays at 1 photo — the cited Just
-        // Jared Jr. gallery is watermarked (JUST JARED logo, checked by
-        // downloading a full-size frame), and its lead frame is actually the
-        // Jan. 30 "Salute to Icons" gala (silver dress, with Katy Perry) —
-        // the same wrong-event image the 2026-07-10 image-fix pass removed.
-        photos: [
-          {
-            url: 'https://media.gettyimages.com/id/96303852/photo/the-52nd-annual-grammy-awards-pre-telecast-show.jpg?s=594x594&w=0&k=20&c=m6WSv7vy-GdYcvplS6Q2QZh-kSvnl2vE1PtlTEmQjvw=',
-            credit: 'Kevin Winter/Getty Images',
-            caption: 'Accepting Best Country Song for "White Horse" at the Jan. 31, 2010 Grammy pre-telecast ceremony.',
-            kind: 'primary',
-            // Focal point set by viewing (photo pass #762, 2026-07-19):
-            // full-length stage shot, face in the top sixth, hint left
-            // of center. Re-confirmed unwatermarked at this render size.
-            focalPoint: '49% 14%',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2010 dress is discontinued -- a
-        // current Dolce & Gabbana dress, verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Dolce & Gabbana',
-            item: 'Satin Calf-Length Corset Dress',
-            retailer: 'dolcegabbana.com',
-            url: 'https://www.dolcegabbana.com/en-us/fashion/women/clothing/dresses/satin-calf-length-corset-dress-pink-F6DIHTFURAGF0844.html',
-            price: '$3,495.00',
-            isAlternative: true,
-            altNote: 'Her exact mauve 2010 dress is long discontinued -- this is a current Dolce & Gabbana corset dress in pink rather than mauve, same house and cocktail-dress formality.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2010,
-      month: 1,
-      day: 6,
-      category: 'fashion',
-      // Cross-link (Stage 3, 2026-08-10): the "Jenny Packham" designer cluster.
-      relatedIds: ['moment:vault-red-a-jenny-packham-lace-gown-blooms-with-red-at-the-2012-cmas'],
-      title: "A Jenny Packham resort mini for the 2010 People's Choice Awards",
-      snippet: 'A white Jenny Packham Resort 2010 mini dress, Christian Louboutin pumps, and Neil Lane jewelry at the Nokia Theatre.',
-      sourceUrl: 'https://taylorswiftstyled.com/2013/11/11/2010-peoples-choice-awards-january-6-2010-3/',
-      thumbnailUrl: 'https://media.gettyimages.com/id/95615213/photo/peoples-choice-awards-2010-inside.jpg?s=594x594&w=0&k=20&c=i2sE4_vzMgI0z9xq55bKp3xHMw8YS29LcycMA7v6bWU=',
-      moment: {
-        context:
-          'Worn Jan. 6, 2010 at the Nokia Theatre L.A. Live, the night she won Favorite Female Artist — a leggy, sparkle-free mini in contrast to the sequined gowns dominating her other red-carpet stops that awards season.\n\nThe win itself came over a heavyweight ballot — Beyoncé, Britney Spears, Carrie Underwood and Pink — and she read the moment as an omen for the year ahead: "What a beautiful, beautiful way to start out a new decade," she told the crowd, crediting the fans as "the ones who choose which songs on the radio you want to turn up." Twenty-five days later, the omen paid off with four Grammys.',
-        sources: [
-          {
-            outlet: 'Taylor Swift Styled',
-            url: 'https://taylorswiftstyled.com/2013/11/11/2010-peoples-choice-awards-january-6-2010-3/',
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/music-news/taylor-swift-wins-favorite-female-artist-at-2010-peoples-choice-awards-960796/',
-          },
-        ],
-        // Image-fix pass (2026-07-10): the taylorswiftstyled.com hotlink was a
-        // two-panel dress-comparison collage; replaced with a single unwatermarked
-        // Getty frame backstage at the actual show. Verified HTTP 200 +
-        // image/jpeg and visually confirmed (white Jenny Packham mini, holding
-        // the Favorite Female Artist trophy) this session.
-        photos: [
-          {
-            url: 'https://media.gettyimages.com/id/95615213/photo/peoples-choice-awards-2010-inside.jpg?s=594x594&w=0&k=20&c=i2sE4_vzMgI0z9xq55bKp3xHMw8YS29LcycMA7v6bWU=',
-            credit: 'Michael Buckner/Getty Images',
-            caption: 'Backstage in the Jenny Packham mini with her Favorite Female Artist trophy, Jan. 6, 2010.',
-            kind: 'primary',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact Resort 2010 mini is
-        // discontinued -- a current Jenny Packham dress, verified in
-        // stock, closest real match.
-        products: [
-          {
-            brand: 'Jenny Packham',
-            item: 'Sirocco',
-            retailer: 'jennypackham.com',
-            url: 'https://www.jennypackham.com/products/sirocco',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0749/1410/3586/files/ZED104LSIROCCOBordeaux_0.jpg?v=1782401119',
-            price: '$4,930.00',
-            isAlternative: true,
-            altNote: 'Her Resort 2010 mini is discontinued -- a current Jenny Packham mini in bordeaux, not white, same house (Louboutin pumps, Neil Lane jewelry not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2010,
-      month: 6,
-      day: 9,
-      category: 'fashion',
-      title: 'A John Galliano buckle-strap dress for the 2010 CMT Music Awards',
-      snippet: "A deep-purple John Galliano 'Buckle Strap Dress' at the 2010 CMT Music Awards in Nashville — the first year she wore her hair straight for the show.",
-      sourceUrl: 'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
-      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/e2a6da3bf8ab-gettyimages-101937337.jpg',
-      moment: {
-        context:
-          'Worn June 9, 2010 at Bridgestone Arena, the John Galliano dress marked a style pivot for the CMTs — the first year her signature curls gave way to straight blonde hair on that red carpet.\n\nThe night itself was a rare Fearless-era shutout: nominated for Video of the Year and Female Video of the Year for "You Belong with Me," she lost the first to Carrie Underwood\'s "Cowboy Casanova" and the second, in a mild upset, to Miranda Lambert\'s "White Liar" — one of the few award shows of the stretch where the deep-purple dress, not a trophy haul, was the story.',
-        sources: [
-          {
-            outlet: 'Hello!',
-            url: 'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
-          },
-          {
-            outlet: 'The Boot',
-            url: 'https://theboot.com/cmt-awards-winners-2010/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/e2a6da3bf8ab-gettyimages-101937337.jpg',
-            credit: 'Getty Images / Hello!',
-          },
-        ],
-        // Shop pass (2026-07-21): John Galliano's own brand has no current
-        // retail path (dormant until a Zara collab launching later in 2026,
-        // not yet live) -- a current, verified in-stock designer alternative.
-        products: [
-          {
-            brand: 'Rodarte',
-            item: 'Lavender Daisy Silk Twill Mini Dress With Broderie Anglais Ruffle And Belt',
-            retailer: 'shoprodarte.com',
-            url: 'https://shoprodarte.com/products/lavender-daisy-silk-twill-mini-dress-with-broderie-anglais-ruffle-and-belt',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0286/1121/5408/files/RDT_PF26_C_Dress_2601-A_c.jpg?v=1775416608',
-            price: '$1,695.00',
-            isAlternative: true,
-            altNote: 'John Galliano the brand has no current retail path -- a current Rodarte lavender belted mini, lighter than the deep purple original, same designer-tier belted-mini silhouette.',
           },
         ],
       },
@@ -1159,7 +646,7 @@ export default {
       title: 'A hockey date with Taylor Lautner at the Staples Center',
       snippet: 'Spotted together at a Kings–Blue Jackets game after she picked him up from LAX — the outing that confirmed the "Taylor Squared" romance rumors.',
       sourceUrl: 'https://theboot.com/taylor-swift-taylor-lautner-3/',
-      thumbnailUrl: 'https://media.gettyimages.com/id/92338597/photo/columbus-blue-jackets-v-los-angeles-kings.jpg?s=594x594&w=0&k=20&c=mRN-Vj_Vy27121bqUS3wWF1EjIx5iemjLkCSp5v9gn4=',
+      thumbnailUrl: 'https://people.com/thmb/G87KXPwCFp6mSACQ_efnqOa1wjg=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(551x307:553x309)/taylor-lautner-taylor-swift-3-0130-0fbe69f4661c4e5ea6ae4681b6a287e1.jpg',
       relatedIds: [
         'moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner',
         'moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner',
@@ -1171,14 +658,16 @@ export default {
         sources: [{ outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-taylor-lautner-3/' }],
         // Image-fix pass (2026-07-10): the previous townsquare.media hotlink
         // was serving the site's own placeholder/logo graphic, not a real
-        // photo. Replaced with a genuine Getty photo from the actual Oct. 25,
-        // 2009 Kings-Blue Jackets game. Verified HTTP 200 + image/jpeg and
-        // visually confirmed (both Swift and Lautner seated together at the
-        // game) this session.
+        // photo. Image-fix pass (issue #745, 2026-08-24): the Getty comp URL
+        // always rendered with a visible Getty watermark on the live site.
+        // Replaced with People.com's own CDN copy of the same photo
+        // (allowlisted host, unwatermarked). Verified live via probe() —
+        // HTTP 206, image/jpeg, 1200x833 — and visually confirmed (both
+        // Swift and Lautner seated together at the game).
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/92338597/photo/columbus-blue-jackets-v-los-angeles-kings.jpg?s=594x594&w=0&k=20&c=mRN-Vj_Vy27121bqUS3wWF1EjIx5iemjLkCSp5v9gn4=',
-            credit: 'Andrew D. Bernstein/NHLI via Getty Images',
+            url: 'https://people.com/thmb/G87KXPwCFp6mSACQ_efnqOa1wjg=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(551x307:553x309)/taylor-lautner-taylor-swift-3-0130-0fbe69f4661c4e5ea6ae4681b6a287e1.jpg',
+            credit: 'Andrew D. Bernstein/NHLI via Getty Images, via People',
             caption: 'Together in the stands at the Kings-Blue Jackets game, Staples Center, Oct. 25, 2009.',
             kind: 'primary',
           },
@@ -1197,8 +686,14 @@ export default {
       title: 'A few months with her Valentine\'s Day co-star, Taylor Lautner',
       snippet: 'A set romance that became real, then ended quietly by December — Lautner later confirmed on the record that she was the one who ended it.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/',
+      // Getty retirement pass (issue #935, 2026-08-24): the Getty comp URL
+      // retired per the 2026-08-15 no-rehosted-third-party-press-photos
+      // decision. Same Dec. 3, 2009 outing already has a verified People.com
+      // CDN copy in the "Benihana" item just above (FameFlynet/Backgrid, via
+      // People) — reused here rather than sourcing a second image of the
+      // same day. Verified live via probe() — HTTP 206, image/jpeg.
       thumbnailUrl:
-        'https://media.gettyimages.com/id/2230719065/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=nIIEsh_b-K1G32j7WfSWEA62lLJKWGPGESEdoxpAWww=',
+        'https://people.com/thmb/O6ePoeN7buQvyyFWlSBaP1--m08=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(527x431:529x433)/taylor-lautner-taylor-swift-0130-c1d2ef188ab7473d81c5910a05228eeb.jpg',
       // Cross-link (Stage 3, 2026-08-17): "Today Was a Fairytale," the song
       // written for the Valentine's Day movie she co-starred in with him.
       relatedIds: [
@@ -1222,13 +717,17 @@ export default {
         ],
         // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried a
         // baked-in watermark; replaced with an unwatermarked Getty candid of
-        // the couple from the same Dec. 3, 2009 outing. Verified HTTP 200 +
-        // image/jpeg and visually confirmed (both Taylors together) this
-        // session.
+        // the couple from the same Dec. 3, 2009 outing.
+        // Getty retirement pass (issue #935, 2026-08-24): the Getty comp URL
+        // retired per the 2026-08-15 decision. Replaced with the same
+        // People.com CDN photo already verified for the "Benihana" item's
+        // Dec. 3, 2009 outing (allowlisted host, unwatermarked). Verified
+        // live via probe() — HTTP 206, image/jpeg — both Swift and Lautner
+        // together, matches this record's date and subject.
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/2230719065/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=nIIEsh_b-K1G32j7WfSWEA62lLJKWGPGESEdoxpAWww=',
-            credit: 'Bauer-Griffin/GC Images',
+            url: 'https://people.com/thmb/O6ePoeN7buQvyyFWlSBaP1--m08=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(527x431:529x433)/taylor-lautner-taylor-swift-0130-c1d2ef188ab7473d81c5910a05228eeb.jpg',
+            credit: 'FameFlynet/Backgrid, via People',
             caption:
               'Together in Los Angeles on Dec. 3, 2009 — weeks before the quiet breakup.',
             kind: 'primary',
@@ -1245,7 +744,7 @@ export default {
       title: 'Benihana and Menchie’s frozen yogurt with Taylor Lautner',
       snippet: 'Photographed leaving a Beverly Hills dinner with Taylor Lautner, carrying a giant pink box and a stuffed polar bear.',
       sourceUrl: 'https://www.justjaredjr.com/2009/12/04/taylor-lautner-taylor-swift-benihana-buds/',
-      thumbnailUrl: 'https://media.gettyimages.com/id/2230718733/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=uw4mj6X64bIucRaYDJQvGPQFTGIKZdPj-q1YXerW31Q=',
+      thumbnailUrl: 'https://people.com/thmb/O6ePoeN7buQvyyFWlSBaP1--m08=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(527x431:529x433)/taylor-lautner-taylor-swift-0130-c1d2ef188ab7473d81c5910a05228eeb.jpg',
       relatedIds: [
         'moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner',
         'moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center',
@@ -1265,12 +764,19 @@ export default {
         // the same Dec. 3, 2009 outing. benihana-05.jpg was removed outright —
         // it actually showed a young woman at a fence gate (not Swift or
         // Lautner, likely Emma Roberts on set) and didn't depict this outing
-        // at all. Verified the replacement HTTP 200 + image/jpeg and visually
-        // confirmed (both Swift and Lautner together) this session.
+        // at all.
+        // Image-fix pass (issue #745, 2026-08-24): the Getty comp URL always
+        // rendered with a visible Getty watermark on the live site. Replaced
+        // with People.com's own CDN copy of the same Dec. 3, 2009 outing
+        // (allowlisted host, unwatermarked). Verified live via probe() —
+        // HTTP 206, image/jpeg, 1200x1546 — and visually confirmed (both
+        // Swift and Lautner leaving Benihana together, matches the People
+        // caption "spotted leaving dinner at Benihana and heading over to
+        // Menchies Yogurt").
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/2230718733/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=uw4mj6X64bIucRaYDJQvGPQFTGIKZdPj-q1YXerW31Q=',
-            credit: 'Bauer-Griffin/GC Images',
+            url: 'https://people.com/thmb/O6ePoeN7buQvyyFWlSBaP1--m08=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(527x431:529x433)/taylor-lautner-taylor-swift-0130-c1d2ef188ab7473d81c5910a05228eeb.jpg',
+            credit: 'FameFlynet/Backgrid, via People',
             caption: 'Together in Los Angeles on the Dec. 3, 2009 outing.',
             kind: 'primary',
           },
@@ -1337,7 +843,7 @@ export default {
       snippet: "A live 'Half of My Heart' at Z100's Jingle Ball, obvious onstage chemistry, a 12-year age gap — and rumors that became a real, brief relationship.",
       sourceUrl: 'https://www.billboard.com/music/music-news/john-mayer-taylor-swift-duet-half-of-my-heart-performance-1235291747/',
       thumbnailUrl:
-        'https://media.gettyimages.com/id/94673660/photo/z100s-jingle-ball-2009-presented-by-h-m-show.jpg?s=594x594&w=0&k=20&c=E59rBFYnR4Ncd9xBGTWP2Z7eMj8WOUs75Hy4l1odmC8=',
+        'https://i.ytimg.com/vi/U8k_Paf4E14/maxresdefault.jpg',
       moment: {
         context:
           'Mayer, then 31, had invited 19-year-old Taylor to sing on "Half of My Heart" while he was still finishing Battle Studies, and their live duet at Z100\'s Jingle Ball made the chemistry public. The romance the rumors predicted did happen — and was over within a couple of months.\n\nThe real aftermath arrived on her next album: "Dear John" called out the age gap directly, and Mayer fired back in a 2012 Rolling Stone interview, calling it "cheap songwriting" and "a really lousy thing to do."',
@@ -1355,16 +861,12 @@ export default {
             url: 'https://www.justjaredjr.com/2009/12/12/taylor-swift-jingles-all-the-way/',
           },
         ],
-        // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried a
-        // baked-in watermark; replaced with an unwatermarked Getty photo of
-        // the same duet. Verified HTTP 200 + image/jpeg and visually
-        // confirmed (Swift and Mayer sharing the MSG stage) this session.
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/94673660/photo/z100s-jingle-ball-2009-presented-by-h-m-show.jpg?s=594x594&w=0&k=20&c=E59rBFYnR4Ncd9xBGTWP2Z7eMj8WOUs75Hy4l1odmC8=',
+            url: 'https://i.ytimg.com/vi/U8k_Paf4E14/maxresdefault.jpg',
             // Both singers' faces sit in the top third; bias upward to keep them.
             focalPoint: '48% 24%',
-            credit: 'Kevin Mazur/WireImage',
+            credit: 'Still from Samantha Faigen\'s Dec. 11, 2009 concert footage, via YouTube',
             caption:
               'Onstage with John Mayer for the "Half of My Heart" duet at Z100\'s Jingle Ball, Madison Square Garden, Dec. 11, 2009.',
             kind: 'primary',
@@ -1442,16 +944,18 @@ export default {
       snippet: "He \"came across as Prince Charming\" — until Taylor found out how many secrets he'd been keeping from her.",
       sourceUrl: "https://en.wikipedia.org/wiki/You%27re_Not_Sorry",
       thumbnailUrl:
-        "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png",
+        'https://i.ytimg.com/vi/hNiMWIwAr3k/hqdefault.jpg',
       moment: {
         context:
           'She\'s said the inspiration was an ex-boyfriend whose lies took a while to surface: "He came across as Prince Charming [...] who had a lot of secrets that he didn\'t tell me about." The situation became a "breaking point" where she felt she had to walk away before getting hurt further.\n\nShe wrote the song alone and produced it with Nathan Chapman at Blackbird Studio in Nashville, releasing it Oct. 28, 2008 as a promotional single ahead of the album.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/You%27re_Not_Sorry' }],
         photos: [
           {
-            url: "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png",
-            focalPoint: '46% 20%',
-            credit: 'Big Machine Records',
+            url: 'https://i.ytimg.com/vi/hNiMWIwAr3k/hqdefault.jpg',
+            focalPoint: '50% 45%',
+            credit: "Fearless Tour performance still, via Taylor Swift's Tour Extras on YouTube",
+            caption: 'Performing the "You\'re Not Sorry" piano mashup on the Fearless Tour.',
+            kind: 'primary',
           },
         ],
       },
@@ -1465,23 +969,21 @@ export default {
       snippet: 'She met a guy who seemed perfect on paper — then wrote a song, with country outlaw John Rich, about missing an ex who wasn\'t.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Way_I_Loved_You',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+        'https://i.ytimg.com/vi/IY43emg0W6Y/hqdefault.jpg',
       moment: {
         context:
           'Taylor was inspired after meeting someone who seemed like the ideal partner but didn\'t feel as exciting as a more toxic ex. She brought the idea to a writing session with John Rich, saying he related "because he is that complicated, frustrating messy guy in his relationships."\n\nShe called the collaboration "just so cool" and Rich "an incredible writer"; he, in turn, was impressed by her songwriting and connection with her audience at her age.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Way_I_Loved_You' }],
-        // T16 photo pass (2026-07-09): the song is an album track with no
-        // single artwork or video, so this is the parent album's cover art
-        // from the Wikipedia article's stable upload.wikimedia.org copy —
-        // verified HTTP 200 + image/png this session.
+        // Issue #743: replaced generic album art with a verified still from
+        // an actual Fearless Tour performance of this song.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+            url: 'https://i.ytimg.com/vi/IY43emg0W6Y/hqdefault.jpg',
             // Photo pass #762 (2026-07-31): viewed. Profile turned left, curls
             // fanned out around her face — face sits left-of-center, upper third.
-            focalPoint: '38% 30%',
-            credit: 'Big Machine Records (album cover art)',
-            caption: 'Cover art for Fearless, the album that carries "The Way I Loved You."',
+            focalPoint: '42% 46%',
+            credit: "Fearless Tour performance still, via Taylor Swift's Tour Extras on YouTube",
+            caption: 'Performing "The Way I Loved You" on the Fearless Tour.',
             kind: 'primary',
           },
         ],
@@ -1537,7 +1039,7 @@ export default {
       title: "Untouchable, the one Fearless song she didn't write alone from scratch",
       snippet: 'A cover of a Luna Halo rock song her label president introduced her to — reworked into a stripped-down country-pop bonus track.',
       sourceUrl: 'https://theboot.com/taylor-swift-untouchable/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/7uQ5gCqASaY/hqdefault.jpg',
       moment: {
         context:
           'Taylor discovered Luna Halo\'s "Untouchable" when her label president gave her the band\'s album, then debuted a stripped-down cover during a 2008 "Stripped" session before including a reworked version — new lyrics and arrangement, earning her a co-writing credit — on the Fearless: Platinum Edition.\n\nLuna Halo\'s Nathan Barlowe on her pick: "She could have chosen any cover in the world, but that\'s what she chose."',
@@ -1547,12 +1049,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
-            // Photo pass #762 (2026-07-31): viewed. Same cover as the other
-            // Fearless album-track pages — face left-of-center, upper third.
-            focalPoint: '38% 30%',
-            credit: 'Big Machine Records',
-            caption: 'Cover art for Fearless, the album that carries her "Untouchable" cover.',
+            url: 'https://i.ytimg.com/vi/7uQ5gCqASaY/hqdefault.jpg',
+            focalPoint: '50% 42%',
+            credit: 'Taylor Swift official artist channel / YouTube',
+            caption: 'Performing "Untouchable" for Clear Channel Stripped in 2008.',
             kind: 'primary',
           },
         ],
@@ -1567,7 +1067,8 @@ export default {
       title: 'Fearless spends 11 weeks at No. 1 — a record for the whole decade',
       snippet: 'Eleven non-consecutive weeks atop the Billboard 200: the longest run for a female country album, and for any album released in the 2000s.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg/500px-Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg',
       moment: {
         context:
           'After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade. It logged 58 weeks in the top 10, a record for a country act, and was the only 2000s album to spend its entire first year there.\n\nThe number kept its stature inside her own catalog for a while, too: when The Tortured Poets Department reached an 11th week at No. 1 in July 2024, Billboard framed it as tying Fearless and 1989 as her longest-leading albums — before TTPD pushed on to 17 weeks, the 11-week mark her teenage self set was the one to catch for 15 years.',
@@ -1579,13 +1080,6 @@ export default {
           },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
-            credit: 'Big Machine Records',
-            // Focal point set 2026-07-18 by viewing (300x300): profile facing
-            // left-of-center, wind-blown curls filling the right half.
-            focalPoint: '40% 32%',
-          },
           // Photo pass #762 (2026-07-18): Commons shot from the Fearless
           // Tour's Portland stop, EXIF-dated May 16, 2009 — taken inside the
           // very spring the album was logging its record 11 weeks at No. 1
@@ -1597,7 +1091,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg/500px-Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg',
             credit: 'calmdownlove, Wikimedia Commons (CC BY 2.0) — Fearless Tour, Portland, May 16, 2009 (archival, era context)',
             caption: 'On the Fearless Tour in Portland, May 2009 — mid-victory-lap for an album spending its eleventh week at No. 1 that spring.',
-            kind: 'archival',
+            kind: 'primary',
             // Focal point set by viewing: tall frame; she stands center-left,
             // face upper-left quadrant beneath the raised fist.
             focalPoint: '32% 24%',
@@ -1613,7 +1107,7 @@ export default {
       title: 'The best-selling album in America — for all of 2009',
       snippet: '3.217 million copies sold in the US in 2009 alone, making 20-year-old Taylor the youngest artist — and only female country act — with a calendar-year best-seller.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/Taylor_Swift_Fearless_Tour_02.jpg',
       moment: {
         context:
           'With 3.217 million copies sold in the United States throughout 2009, Fearless was the year\'s best-selling album in the country, making Taylor, then 20, the youngest artist and the only female country musician to have a best-selling album of a calendar year.\n\nIt also spent a total of 58 weeks in the Billboard 200\'s top 10 — a record for a country musician, and the only 2000s album to spend its first full year there.',
@@ -1625,15 +1119,10 @@ export default {
         // sparkling violet dress). Per-image focal points set by eye.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
-            credit: 'Big Machine Records',
-            focalPoint: '35% 35%',
-          },
-          {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/Taylor_Swift_Fearless_Tour_02.jpg',
             credit: 'WEZL (CC BY 2.0), via Wikimedia Commons',
             caption: 'On the Fearless Tour in April 2010, just after Fearless closed 2009 as America\'s best-selling album.',
-            kind: 'archival',
+            kind: 'primary',
             focalPoint: '35% 30%',
           },
         ],
@@ -1680,61 +1169,6 @@ export default {
       },
     },
 
-    {
-      year: 2010,
-      month: 4,
-      day: 18,
-      category: 'fashion',
-      title: 'A wisteria Marchesa gown for the 2010 ACM Awards',
-      snippet: 'A draped, chiffon-embroidered wisteria Marchesa gown, Christian Louboutin heels, and Neil Lane jewels at the Academy of Country Music Awards.',
-      sourceUrl: 'https://www.justjaredjr.com/2010/04/18/taylor-swift-is-acm-amazing/',
-      thumbnailUrl: 'https://media.gettyimages.com/id/98533973/photo/45th-annual-academy-of-country-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=67QbByMHXPBbPhVd880zAhmLEoz7-Hm5Ns4unn8vrnA=',
-      moment: {
-        context:
-          'At the April 18, 2010 ACM Awards at Las Vegas’ MGM Grand Garden Arena, 20-year-old Taylor wore the Marchesa gown on the carpet ahead of nominations including Entertainer of the Year, then changed mid-performance into a Carmen Marc Valvo dress she tore away on stage.\n\nFor once the trophies went elsewhere: despite nominations spanning Entertainer of the Year, Top Female Vocalist of the Year, and Song of the Year and Video of the Year for "You Belong with Me," she went home empty-handed, with Entertainer of the Year going to Carrie Underwood. Her performance slot went to "Change" — one of the only major award nights of the era where the draped wisteria chiffon, not a sweep, was the headline.',
-        sources: [
-          {
-            outlet: 'Just Jared Jr.',
-            url: 'https://www.justjaredjr.com/2010/04/18/taylor-swift-is-acm-amazing/',
-          },
-          {
-            outlet: 'Just Jared',
-            url: 'https://www.justjared.com/2010/04/18/taylor-swift-acm-awards-2010-performance/',
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/45th_Academy_of_Country_Music_Awards',
-          },
-        ],
-        // Image-fix pass (2026-07-10): the Just Jared Jr. headline hotlink was
-        // a 300x300 two-panel fan-site collage; replaced with a single
-        // full-length Getty arrivals frame. Verified HTTP 200 + image/jpeg and
-        // visually confirmed (draped lavender/wisteria one-shoulder Marchesa
-        // gown, ACM step-and-repeat) this session.
-        photos: [
-          {
-            url: 'https://media.gettyimages.com/id/98533973/photo/45th-annual-academy-of-country-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=67QbByMHXPBbPhVd880zAhmLEoz7-Hm5Ns4unn8vrnA=',
-            credit: 'Jon Kopaloff/FilmMagic, via Getty Images',
-            caption: 'The wisteria Marchesa gown on the red carpet at the April 18, 2010 ACM Awards.',
-            kind: 'primary',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact wisteria gown is discontinued --
-        // a current Marchesa gown, verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Marchesa',
-            item: 'Chantilly Lace Tiered Gown',
-            retailer: 'marchesa.com',
-            url: 'https://www.marchesa.com/products/sleeveless-chantilly-lace-gown-with-v-neckline-and',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0725/8941/0404/files/Artboard2_663f604c-10e3-4591-a4d1-6edafd5693d1.jpg?v=1779757639',
-            price: '$845.75',
-            isAlternative: true,
-            altNote: 'Her wisteria gown is discontinued -- a current Marchesa gown in black, not wisteria, same house and tiered silhouette (Louboutin heels, Neil Lane jewels not separately sourced).',
-          },
-        ],
-      },
-    },
 
     // --- Deep timeline fill (2026-07-08, content/deep-a): the era's singles
     // and reissue (release was empty), song origin stories, tour lore, the
@@ -1753,8 +1187,7 @@ export default {
       snippet:
         'Sept. 15, 2008: the lead single from Fearless goes out to country radio ahead of the album — and starts a climb that wouldn\'t stop until it had topped pop radio too.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
       moment: {
         context:
           'It peaked at No. 4 on the Hot 100, spent two weeks atop Hot Country Songs — and five months later became the first country song ever to hit No. 1 on Billboard\'s pop-radio chart (see February 2009).\n\nThe long tail is the real story: roughly 18 million copies sold worldwide make it one of the best-selling singles ever released, and its 6.2 million US copies still stand as her biggest-selling song at home — a lead single that outsold everything the superstar decade that followed produced.',
@@ -1786,11 +1219,6 @@ export default {
         // and visually confirmed. Per-image focal points set by eye.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
-            credit: 'Big Machine Records (single cover art)',
-            focalPoint: '70% 30%',
-          },
-          {
             url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
             credit: 'Big Machine Records / YouTube (official music video still)',
             caption: 'The sepia close-up from the official "Love Story" video, which premiered days before the single went to country radio.',
@@ -1813,8 +1241,7 @@ export default {
       snippet:
         'She\'d considered holding "White Horse" for her third album — until Grey\'s Anatomy used it in its season-five premiere, and it became the second Fearless single that December.',
       sourceUrl: 'https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/7/74/Taylor_Swift_-_White_Horse.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/D1Xr-JFLxik/hqdefault.jpg',
       moment: {
         context:
           'A devoted Grey\'s fan, she didn\'t undersell the moment: "You should\'ve seen tears streaming down my face when I got the phone call that they were going to use that song." The September 2008 premiere placement settled the tracklist question — "if it wasn\'t going to be on the show, then we weren\'t going to put it on the album," she admitted — and the song itself runs the fairy-tale imagery of the rest of Fearless in reverse. As she put it to CMT: "this is not a fairy tale at all — this is real life."\n\nThe single followed in December, peaked at No. 13 on the Hot 100, and later took two Grammys: Best Country Song and Best Female Country Vocal Performance.',
@@ -1849,13 +1276,6 @@ export default {
         // focal points set by eye.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/7/74/Taylor_Swift_-_White_Horse.png',
-            credit: 'Big Machine Records (single cover art)',
-            caption: 'Single cover art for "White Horse."',
-            kind: 'primary',
-            focalPoint: '65% 35%',
-          },
-          {
             url: 'https://i.ytimg.com/vi/D1Xr-JFLxik/hqdefault.jpg',
             credit: 'Big Machine Records / YouTube (official music video still)',
             caption: 'From the official "White Horse" video — the un-fairy-tale the song promises.',
@@ -1876,7 +1296,7 @@ export default {
         'Oct. 26, 2009: the Platinum Edition reissue drops six new tracks — "Jump Then Fall," "Untouchable," a piano "Forever & Always," "Come In with the Rain," "SuperStar," and "The Other Side of the Door."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+        'https://upload.wikimedia.org/wikipedia/commons/c/c4/Taylor_Swift_Fearless_Tour_05.jpg',
       moment: {
         context:
           'Announced Sept. 10, 2009 and released mid-tour, the reissue placed the six new songs ahead of the original tracklist and paired the CD with a DVD — keeping a year-old blockbuster in the conversation straight through awards season.\n\nThe DVD side was a fan-service time capsule: the music videos for "Change," "The Best Day," "Love Story," "White Horse" and "You Belong with Me," behind-the-scenes footage from the latter three shoots and from the Fearless Tour\'s opening night, plus "Thug Story" — the CMT Awards rap spoof with T-Pain. The reissue also queued up one more single: the title track, "Fearless," released that January.',
@@ -1898,11 +1318,6 @@ export default {
         // and visually confirmed (yellow dress, cowboy boots, acoustic
         // guitar on the stool). Per-image focal points set by eye.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
-            credit: 'Big Machine Records',
-            focalPoint: '35% 35%',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Taylor_Swift_Fearless_Tour_05.jpg',
             credit: 'WEZL (CC BY 2.0), via Wikimedia Commons',
@@ -1931,8 +1346,7 @@ export default {
       snippet:
         'A one-off for the Valentine\'s Day soundtrack, released Jan. 19, 2010 on iTunes only — 325,000 downloads in week one, the biggest ever for a female artist at the time.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Today_Was_a_Fairytale',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/xSWVPqnKcXQ/hqdefault.jpg',
       moment: {
         context:
           'The record it broke was Britney Spears\'s "Womanizer." It debuted at No. 2 on the Hot 100 and went to No. 1 in Canada — her first Canadian Hot 100 chart-topper — all from a soundtrack single for the rom-com she was starring in with Taylor Lautner.\n\nThe song itself was a leftover: she\'d written it back in summer 2008 and offered it to the film\'s producers because it didn\'t fit the album she was building. Twelve days after release she sang it at the 52nd Grammys in a medley with Stevie Nicks — the performance whose shaky vocals drew enough criticism that her label chief publicly defended her — and it finally joined the era\'s official canon on Fearless (Taylor\'s Version) in 2021.',
@@ -1956,17 +1370,7 @@ export default {
             reliability_score: 2,
           },
         ],
-        // T16 photo pass (2026-07-09): cover art taken from the Wikipedia
-        // article's stable upload.wikimedia.org copy; verified HTTP 200 +
-        // image/png this session.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png',
-            credit: 'Big Machine Records (single cover art)',
-            caption: 'Single cover art for "Today Was a Fairytale."',
-            kind: 'primary',
-            focalPoint: '67% 75%',
-          },
           // Photo-enrichment run 16 (2026-07-18, #762): no official video was
           // made for the 2010 original (the HD "music video" uploads are
           // fan-made — rejected), so this is the title card of the official
@@ -1993,8 +1397,7 @@ export default {
       snippet:
         'Written about Stephen Barker Liles of Love and Theft, who\'d opened shows for her — and she spelled out who it was for in the album\'s hidden liner-note code: "LOVE AND THEFT."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Hey_Stephen',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/7/72/Love_and_Theft_-_Stephen_Barker_Liles.jpg',
+      thumbnailUrl: 'https://i.ytimg.com/vi/tMhiHrL7rPE/hqdefault.jpg',
       moment: {
         context:
           'Every Fearless lyric sheet hid a capitalized-letter message inside the printed lyrics; "Hey Stephen"\'s decoded to the name of its subject\'s band — the era\'s Easter-egg culture, already fully operational in 2008.\n\nTaylor texted Liles about the song after the album dropped, and his first reaction was dread: "What did I do? Because she doesn\'t really write very many nice songs about guys. So I was very relieved when it turned out to be a nice song." He eventually answered in kind, writing Taylor a response song, "Try to Make It Anyway," recorded in his home studio and released in 2011.',
@@ -2017,26 +1420,8 @@ export default {
             accessed_at: '2026-07-09',
             reliability_score: 3,
           },
-          // License provenance for the reference image below (Commons file page):
-          {
-            outlet: 'Wikimedia Commons (file page — Love and Theft - Stephen Barker Liles)',
-            url: 'https://commons.wikimedia.org/wiki/File:Love_and_Theft_-_Stephen_Barker_Liles.jpg',
-          },
         ],
-        // T16 photo pass (2026-07-09): no free or stable photo of Swift and
-        // Liles together could be verified, so this is a clearly-labeled
-        // reference image of the song's subject — CC BY 2.0 per the Commons
-        // file page cited above (crop of a 2010 WEZL concert photo). Verified
-        // HTTP 200 + image/jpeg and visually confirmed this session.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/7/72/Love_and_Theft_-_Stephen_Barker_Liles.jpg',
-            credit: "WEZL Charleston's Best Country / CC BY 2.0, via Wikimedia Commons",
-            caption:
-              'For reference — Stephen Barker Liles of Love and Theft, the song\'s namesake, performing in May 2010.',
-            kind: 'reference',
-            focalPoint: '48% 22%',
-          },
           // Photo-enrichment run 16 (2026-07-18, #762): still from the
           // official Hey Stephen (Taylor's Version) lyric video — id verified
           // via YouTube oEmbed (channel @TaylorSwift); thumbnail verified
@@ -2086,26 +1471,16 @@ export default {
             reliability_score: 2,
           },
         ],
-        // T16 photo pass (2026-07-09): cover art from the Wikipedia article's
-        // stable upload.wikimedia.org copy; video still is the thumbnail of the
-        // official upload — video id VuNIsY6JdUw verified via YouTube oEmbed
-        // this session (title "Taylor Swift - You Belong With Me", channel
-        // @TaylorSwift). Both URLs verified HTTP 200 + image content-type.
+        // Official video id VuNIsY6JdUw was verified via YouTube oEmbed
+        // (title "Taylor Swift - You Belong With Me", channel @TaylorSwift).
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_You_Belong_with_Me.png',
-            focalPoint: '58% 42%',
-            credit: 'Big Machine Records (single cover art)',
-            caption: 'Single cover art for "You Belong with Me."',
-            kind: 'primary',
-          },
           {
             url: 'https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg',
             focalPoint: '46% 22%',
             credit: 'Big Machine Records / official Taylor Swift YouTube channel',
             caption:
               'Still from the official "You Belong with Me" music video, directed by Roman White — the dance-scene arrival in a white dress.',
-            kind: 'archival',
+            kind: 'primary',
           },
         ],
       },
@@ -2151,7 +1526,7 @@ export default {
         // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried two
         // baked-in watermarks; an interim Getty frame was used next.
         // Kevin Stream 1 (#751, 2026-07-23): that interim frame was a
-        // media.gettyimages.com watermarked comp (banned host). No freely
+        // Getty comp-image CDN watermarked comp (banned host). No freely
         // licensed photo of the Aug. 27, 2009 MSG show itself exists on
         // Commons, so replaced with a freely licensed Fearless Tour 2009
         // concert photo as an era illustration and the caption reworded to
@@ -2244,7 +1619,7 @@ export default {
         'Nov. 11, 2009: the CMAs hand their top prize to a 19-year-old — the youngest Entertainer of the Year in the award\'s history, and the first woman to win it since Shania Twain in 1999.',
       sourceUrl: 'https://theboot.com/taylor-swift-wins-2009-cma-entertainer-of-the-year/',
       thumbnailUrl:
-        'https://media.gettyimages.com/id/92999603/photo/the-43rd-annual-cma-awards-performances-and-awards.jpg?s=594x594&w=0&k=20&c=c0ywESeQ4T5SlLbIozC6BDQv2g71urPuzthsW__5Dn8=',
+        'https://akns-images.eonline.com/eol_images/Entire_Site/2016926/rs_634x1024-161026143557-634.Taylor-Swift-CMA-2009-Nashville.kg.102616.jpg',
       moment: {
         context:
           'She won every category she was nominated in that night, with Fearless taking Album of the Year and "Love Story" winning Music Video of the Year — the country establishment\'s full endorsement, one year to the day after the album dropped.\n\nShe pulled her whole band onstage for the big one and didn\'t bother playing it cool: "I will never forget this moment because in this moment, everything I ever wanted has just happened to me." She also thanked the competition — every artist in the category, she noted, had once let her open for them.',
@@ -2283,28 +1658,23 @@ export default {
         ],
         // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried
         // watermarks in both top corners; replaced with an unwatermarked
-        // Getty photo of the same Entertainer of the Year acceptance moment
-        // (Faith Hill and Tim McGraw are not in this particular frame, so the
-        // caption below was reworded to match what the photo actually shows).
-        // Verified HTTP 200 + image/jpeg and visually confirmed (gold gown,
-        // hand to face at the mic) this session.
+        // Getty photo of the same Entertainer of the Year acceptance moment.
+        // Image-fix pass (issue #745, 2026-08-24): that Getty comp URL always
+        // rendered with a visible Getty watermark on the live site. No
+        // allowed-CDN equivalent of the exact acceptance-speech frame exists
+        // (The Boot carries only a logo placeholder; Wikimedia has nothing
+        // from the 2009 CMAs; Billboard's is the 2011 win) — replaced instead
+        // with E! Online's own CDN copy of a red-carpet arrival shot in the
+        // same gold gown from the same night (allowlisted host,
+        // unwatermarked); caption reworded from "accepting" to "arriving" to
+        // match what this frame actually shows. Verified live via probe() —
+        // HTTP 206, image/jpeg, 634x1024.
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/92999603/photo/the-43rd-annual-cma-awards-performances-and-awards.jpg?s=594x594&w=0&k=20&c=c0ywESeQ4T5SlLbIozC6BDQv2g71urPuzthsW__5Dn8=',
-            // Focal-point pass #762 (2026-07-20): downloaded and viewed the
-            // frame — portrait 428x594, gold gown, hand to face at the mic,
-            // her face near the top-center. Wide card crops must hold the
-            // face, so anchor high. NOTE: this remains on media.gettyimages.com
-            // (a comp host the enrichment protocol discourages); no allowed-CDN
-            // equivalent of this exact 2009 acceptance frame could be found
-            // (The Boot article carries only a logo placeholder; Wikimedia has
-            // nothing from the 2009 CMAs; Billboard's is the 2011 win). Flagged
-            // for a human to re-source rather than dropped, since it is a
-            // genuine, unwatermarked image of the exact moment.
-            focalPoint: '48% 16%',
-            credit: 'Frank Micelotta/Getty Images',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016926/rs_634x1024-161026143557-634.Taylor-Swift-CMA-2009-Nashville.kg.102616.jpg',
+            credit: 'Donna Svennevik/ABC via Getty Images, via E! Online',
             caption:
-              'Accepting Entertainer of the Year in the gold gown, Nov. 11, 2009 — the biggest of her wins that night.',
+              'Arriving at the 43rd CMA Awards in the gold gown she wore to accept Entertainer of the Year, Nov. 11, 2009.',
             kind: 'primary',
           },
         ],
@@ -2321,7 +1691,7 @@ export default {
         'The week ending Feb. 28, 2009, "Love Story" hit No. 1 on Billboard\'s Pop Songs chart — the first country crossover ever to do it.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
+        'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
       moment: {
         context:
           'Country songs had crossed to pop radio for decades without finishing the climb — Shania Twain\'s "You\'re Still the One" had set the previous high-water mark at No. 3 in 1998.\n\n"Love Story" went all the way the week ending Feb. 28, 2009, on top of a No. 4 Hot 100 peak and two weeks atop Hot Country Songs — the data point that made the eventual pop pivot look less like a risk than a formality.',
@@ -2345,9 +1715,8 @@ export default {
             reliability_score: 3,
           },
         ],
-        // T16 photo pass (2026-07-09): the song that crossed over — its cover
-        // art, from the Wikipedia article's stable upload.wikimedia.org copy.
-        // Verified HTTP 200 + image/png this session.
+        // Issue #743: the official music-video still replaces generic single
+        // art on this non-release moment.
         // Photo-enrichment run 16 (2026-07-18, #762): added a clearly-labeled
         // CC BY 3.0 Commons reference photo of Shania Twain, whose "You're
         // Still the One" held the previous country-crossover high (No. 3,
@@ -2356,11 +1725,11 @@ export default {
         // confirmed. Per-image focal points set by eye.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
-            credit: 'Big Machine Records (single cover art)',
-            caption: 'Single cover art for "Love Story," the first country song to top Billboard\'s pop-radio chart.',
+            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+            credit: 'Big Machine Records / official Taylor Swift YouTube channel',
+            caption: 'Still from the official "Love Story" music video.',
             kind: 'primary',
-            focalPoint: '70% 30%',
+            focalPoint: '52% 45%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/ShaniaTwain1.jpg',

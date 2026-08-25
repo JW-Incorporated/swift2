@@ -7,7 +7,7 @@ import { PHOTO_HOST_LEGACY, hostOf } from './photo-host-gate.mjs';
 // only worth anything if it can shrink and never grow. This is the size the
 // day the gate went up (2026-08-24, issue #1968). Adding an entry to make a
 // build green makes this FAIL — that's the point.
-const PHOTO_HOST_LEGACY_CEILING = 93;
+const PHOTO_HOST_LEGACY_CEILING = 16;
 
 describe('PHOTO_HOST_LEGACY only ever shrinks', () => {
   it(`never exceeds its ${PHOTO_HOST_LEGACY_CEILING}-entry ceiling`, () => {

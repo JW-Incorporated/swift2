@@ -264,7 +264,10 @@ export function FeedbackButton() {
           "Feedback" silently dismissed the widget instead of opening it
           (re-review finding D, 2026-08-13). Laid out side by side with a gap
           instead, so the two 44px targets never overlap. */}
-      <div className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex items-center gap-2 md:bottom-4">
+      <div
+        data-social-hide="feedback-button"
+        className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex items-center gap-2 md:bottom-4"
+      >
         {/* Dismisses the whole widget for the rest of the session (Joey: "it
             shouldn't keep coming back and annoying them"), distinct from just
             closing the compose panel. Only offered while idle; while
