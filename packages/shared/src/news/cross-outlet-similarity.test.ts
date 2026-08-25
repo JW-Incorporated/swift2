@@ -208,6 +208,56 @@ describe('CrossOutletSimilarityProvider — regression, issue #915 (Healy/Shaq/P
   });
 });
 
+describe('CrossOutletSimilarityProvider — regression, issue #3179 (single-token entity corroboration)', () => {
+  // #3179: signal 3 (shared entity + date) doesn't clear the sentence-initial
+  // guard when the shared celebrity name isn't the title's first word — three
+  // genuinely distinct statements about "Shaq" (rephrased so "Shaq" isn't
+  // sentence-initial) all shared the single-token entity "shaq" and the same
+  // calendar date, so the OLD code manufactured a false cluster. A single
+  // shared single-token name isn't distinctive enough alone; it recurs across
+  // many unrelated stories about that person.
+
+  it('does NOT cluster three distinct Shaq statements sharing only a single-token entity', () => {
+    const items = [
+      item('a', "NBA legend Shaq says he didn't get a wedding invite", {
+        publishedAt: '2026-08-15T10:00:00Z',
+      }),
+      item('b', 'Basketball star Shaq shares a 4-word message to the newlyweds', {
+        publishedAt: '2026-08-15T14:00:00Z',
+      }),
+      item('c', 'Ex-NBA star Shaq jokes about not being invited to wedding', {
+        publishedAt: '2026-08-15T18:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(3);
+  });
+
+  it('still clusters when two distinct single-token entities are both shared (corroboration)', () => {
+    const items = [
+      item('a', 'Reports say Shaq and Wembley reveal plans for a new arena', {
+        publishedAt: '2026-08-15T10:00:00Z',
+      }),
+      item('b', 'Sources confirm Wembley deal with Shaq as ambassador', {
+        publishedAt: '2026-08-15T16:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(1);
+  });
+
+  it('still clusters on a single shared multi-word entity alone (unchanged behavior)', () => {
+    const items = [
+      item('a', 'Vera Wang teases a new project', { publishedAt: '2026-08-20T08:00:00Z' }),
+      item('b', 'Sources say Vera Wang is behind a secret new project', {
+        publishedAt: '2026-08-20T18:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(1);
+  });
+});
+
 describe('CrossOutletSimilarityProvider — cross-story assignment via ExistingStory', () => {
   it('attaches a new item to an existing story on canonical URL match', () => {
     const existing: ExistingStory[] = [

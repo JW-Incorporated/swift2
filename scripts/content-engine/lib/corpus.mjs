@@ -11,7 +11,7 @@ const SEED = join(ROOT, 'supabase', 'seed');
 
 /**
  * @typedef {Object} Item
- * @property {string} type   moment|track|theory|video|tour|release
+ * @property {string} type   moment|track|song-mood|theory|video|tour|release
  * @property {string} file   repo-relative seed file
  * @property {string} era
  * @property {string} key    natural key or slug (stable identity)
@@ -115,6 +115,21 @@ export async function loadCorpus() {
       sources: sourcesOf(t.sources),
       images: [],
       raw: t,
+    });
+  }
+
+  // ── song moods (song-moods/<era>.mjs) ──
+  for (const { file, fileEra, row: s } of await loadDir(join(SEED, 'song-moods'), 'songs')) {
+    const era = s.eraSlug ?? fileEra;
+    const useCase = Array.isArray(s.useCase) ? s.useCase.join('\n') : undefined;
+    items.push({
+      type: 'song-mood', file, era,
+      key: s.slug ?? `${era}|song-mood`,
+      title: s.slug ?? '(untitled song mood)',
+      texts: cleanText({ oneLiner: s.oneLiner, useCase }),
+      sources: [],
+      images: [],
+      raw: s,
     });
   }
 

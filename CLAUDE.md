@@ -307,3 +307,22 @@ unreachable UI click, or a guard-denied action goes in `HUMAN-ACTIONS.md` at
 the project root, the moment you identify it. Full conventions (status
 values, numbering, `SKIP` is final) live in the **`human-actions` skill** —
 invoke it whenever you create or open that file.
+
+## Every work request lands in one of two funnels — never email (#3146)
+
+A request for an engineering change — from a founder, from an agent's brief
+(e.g. Tree's weekly mailer), from anyone — must land where the team already
+looks, not in an inbox nobody monitors as a work queue. Two funnels, no third:
+
+1. **A GitHub issue** — for anything the fleet can act on. Issues are the
+   shared source of truth and the fleet already triages them (`intake`,
+   `cie`, etc. labels), so the request gets worked without a founder
+   relaying it by hand. This is the default.
+2. **`HUMAN-ACTIONS.md`** — for the subset that genuinely needs a founder's
+   own hands (login, payment, approval, a UI click, a guard-denied action).
+
+If a change request arrives over any other channel (an email quoted to you,
+a chat aside, a comment buried in an unrelated thread), your first action is
+to file it into the right funnel so it isn't lost — a GitHub issue if the
+fleet can act on it, a `HUMAN-ACTIONS.md` entry if only a founder can. Don't
+leave a work item living only in conversation.

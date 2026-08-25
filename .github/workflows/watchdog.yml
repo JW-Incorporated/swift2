@@ -545,25 +545,33 @@ jobs:
           STALE_HOURS=$(( STALE_DAYS * 24 ))
           ALERT_TITLE="Watchdog: Karen scanned but filed no tickets"
 
-          # Report filenames are YYYY-MM-DD-cie-run.md, so lexical sort is
-          # chronological. Newest wins. After the 2026-08-14 fix, only Karen's
-          # own `all` run writes here at all (a bare `scan` self-check now
-          # defaults to .scratch/), so "newest" reliably means "her newest".
-          NEWEST=$(ls docs/audits/engine/*-cie-run.md 2>/dev/null | sort | tail -1 || true)
-          if [ -z "$NEWEST" ]; then
-            echo "no CIE run reports in docs/audits/engine — nothing to check yet."
-            exit 0
-          fi
-          RUN_DATE=$(basename "$NEWEST" | cut -d- -f1-3)
-          AGE_H=$(( ( $(date -u +%s) - $(date -u -d "$RUN_DATE" +%s) ) / 3600 ))
-          RUN_MARKER=$(grep -o '<!-- cie-run:[^>]*-->' "$NEWEST" | tail -1 || true)
-          FILING_MARKER=$(grep -o '<!-- cie-filing:[^>]*-->' "$NEWEST" | tail -1 || true)
-          echo "newest report: $NEWEST (${AGE_H}h old) run-marker: ${RUN_MARKER:-<none>} filing-marker: ${FILING_MARKER:-<none>}"
-
+          # Reports use an unsuffixed name for the first run of a date and a
+          # time suffix for reruns. The shared selector normalizes those forms
+          # so a same-day rerun ranks after the first run (#3255).
+          NEWEST=$(node scripts/watchdog/karen-post-repair-check.mjs --print-newest docs/audits/engine)
           PROBLEM=""
+          RUN_DATE=""
+          AGE_H=""
+          RUN_MARKER=""
+          FILING_MARKER=""
+          if [ -z "$NEWEST" ]; then
+            TODAY=$(date -u +%F)
+            if [ "$TODAY" \< "$RUN_MARKER_EPOCH" ]; then
+              echo "no CIE run reports before provenance epoch $RUN_MARKER_EPOCH — nothing to check yet."
+              exit 0
+            fi
+            PROBLEM="No canonical CIE run reports were found in \`docs/audits/engine/\`. Karen has no auditable run at all, or her reports are not reaching \`main\`."
+            echo "no CIE run reports in docs/audits/engine — opening the persistent alert."
+          else
+            RUN_DATE=$(basename "$NEWEST" | cut -d- -f1-3)
+            AGE_H=$(( ( $(date -u +%s) - $(date -u -d "$RUN_DATE" +%s) ) / 3600 ))
+            RUN_MARKER=$(grep -o '<!-- cie-run:[^>]*-->' "$NEWEST" | tail -1 || true)
+            FILING_MARKER=$(grep -o '<!-- cie-filing:[^>]*-->' "$NEWEST" | tail -1 || true)
+            echo "newest report: $NEWEST (${AGE_H}h old) run-marker: ${RUN_MARKER:-<none>} filing-marker: ${FILING_MARKER:-<none>}"
+          fi
 
           # 1. Staleness — the real fix for the five-day outage.
-          if [ "$AGE_H" -gt "$STALE_HOURS" ]; then
+          if [ -z "$PROBLEM" ] && [ "$AGE_H" -gt "$STALE_HOURS" ]; then
             PROBLEM="Karen's newest run report is \`$(basename "$NEWEST")\` — **${AGE_H}h old** (expected within ${STALE_DAYS} days / ${STALE_HOURS}h). She has stopped producing reports, or her report isn't reaching \`main\`."
           fi
 
@@ -618,7 +626,11 @@ jobs:
             echo "**Why this matters more than it looks:** a stale or unreachable Karen looks identical to a healthy one from outside — same report file, same PR, same merge — unless something checks this. A five-day outage (2026-08-09 → 2026-08-14) and ~1,220 findings destroyed by two earlier filing failures (2026-07-26, 2026-08-09) both went unnoticed this way."
             echo ""
             echo "Check, in order:"
-            echo "1. The report itself: [\`${NEWEST}\`](https://github.com/${REPO}/blob/main/${NEWEST}) — its 'Ticket filing' section names the exact failure, if any."
+            if [ -n "$NEWEST" ]; then
+              echo "1. The report itself: [\`${NEWEST}\`](https://github.com/${REPO}/blob/main/${NEWEST}) — its 'Ticket filing' section names the exact failure, if any."
+            else
+              echo "1. Confirm why [\`docs/audits/engine/\`](https://github.com/${REPO}/tree/main/docs/audits/engine) contains no canonical CIE run report."
+            fi
             echo "2. Can the runner write to GitHub at all? \`node --use-env-proxy scripts/content-engine/run.mjs issues --create\` from a clean checkout does the label-upsert preflight first and says so in one second."
             echo "3. Karen is a Wyatt-account cloud routine (\`docs/agents/runners.md\`), not an Actions workflow — its logs live there, not in this repo's Actions tab. If she's stale, someone with access to the routine dashboard needs to confirm she's actually enabled and firing — this repo cannot see that."
             echo ""

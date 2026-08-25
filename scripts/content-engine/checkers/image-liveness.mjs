@@ -124,7 +124,9 @@ const BUF_CAP = 256 * 1024;
 // Forbes…) commonly answers our unattended probe this way — datacenter runner
 // IP + a bot User-Agent + a Range request trip anti-bot/hotlink rules even
 // though the exact URL returns 200 in a real browser. Only 404/410 (+ non-image
-// bodies and hard connection failures) are true hotlink-rot. Refusals are
+// bodies are true hotlink-rot. Hard connection failures are retried and then
+// left unverified: a transient network failure is not proof an image is gone.
+// Refusals are
 // retried once WITHOUT Range, then reported as UNVERIFIED (never filed as
 // "broken") — the same discipline already applied to 429 throttling. Sketchy
 // hosts still surface via the P2 image.host-reputation finding.
@@ -160,18 +162,24 @@ async function probeOnce(url, useRange = true) {
   }
 }
 
-// Retry rate-limits with exponential backoff. A persistent 429 — or an outright
-// refusal (401/403/…) — is reported as "unverified" (NOT broken) so throttling
-// and anti-bot blocks never masquerade as a dead image.
-async function probe(url) {
+// Retry rate-limits and connection failures with exponential backoff. A
+// persistent 429, connection failure, or outright refusal (401/403/…) is
+// reported as "unverified" (NOT broken) so probe failures never masquerade as
+// a dead image.
+export async function probe(url) {
   let attempt = 0;
   for (;;) {
     const r = await probeOnce(url);
     if (r.refused) return { unverified: true, reason: `host refused the probe (HTTP ${r.status}) — anti-bot/hotlink block, not confirmed dead` };
-    if (!r.rateLimited) return r;
+    if (!r.rateLimited && !r.error) return r;
     attempt++;
-    if (attempt > 4) return { unverified: true, reason: 'rate-limited (429) after retries' };
-    await sleep(Math.max(r.retryAfter * 1000, 800 * 2 ** attempt) + Math.random() * 400);
+    const maxAttempts = r.rateLimited ? 4 : 2;
+    if (attempt > maxAttempts) {
+      return r.rateLimited
+        ? { unverified: true, reason: 'rate-limited (429) after retries' }
+        : { unverified: true, reason: `fetch failed after retries (${r.error})` };
+    }
+    await sleep(Math.max((r.retryAfter ?? 0) * 1000, 800 * 2 ** attempt) + Math.random() * 400);
   }
 }
 
@@ -224,8 +232,9 @@ export async function check(items, ctx = {}) {
         confidence: 0.5,
       }));
     }
-    // Throttled or refused despite retries — report as unverified, never as
-    // broken (a host blocking our bot is not proof the image is gone).
+    // Throttled, refused, or transiently unreachable despite retries — report
+    // as unverified, never as broken (a failed probe is not proof the image is
+    // gone).
     if (r.unverified) { unverified++; continue; }
     // SSRF guard tripped — a seed image pointing inside the network is its own
     // finding (and the probe never ran).
@@ -277,6 +286,6 @@ export async function check(items, ctx = {}) {
       }));
     }
   }
-  if (unverified && ctx.log) ctx.log(`  (${unverified} images unverified — host throttled or refused the probe; not filed as broken)`);
+  if (unverified && ctx.log) ctx.log(`  (${unverified} images unverified — probe throttled, refused, or failed transiently; not filed as broken)`);
   return findings;
 }

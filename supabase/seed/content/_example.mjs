@@ -31,7 +31,9 @@ export default {
       // significance: 'defining',
       title: 'Butterfly jumpsuit at the VMAs',
       snippet: 'One-line preview of the look — a hook, not the article.',
-      sourceUrl: 'https://example.com/source-article',
+      // TODO: No verifiable source exists for this placeholder record as-is.
+      // Replace with a real source URL before converting to production seed data.
+      sourceUrl: 'https://www.taylorswift.com',
       thumbnailUrl: null, // hotlink only; null if none
       // confidence (OPTIONAL): one of the 8 shared levels (official |
       // confirmed_interview | reputable_reporting | strong_fan_consensus |
@@ -47,8 +49,8 @@ export default {
       // Optional Tier 1 detail shown when a user taps into this item:
       moment: {
         context: 'A few sentences of editorial context — still metadata, not a copied article.',
-        sources: [{ outlet: 'Example Mag', url: 'https://example.com/source-article' }],
-        photos: [{ url: 'https://example.com/photo.jpg', credit: 'Getty Images' }],
+        sources: [{ outlet: 'TBD', url: 'https://www.taylorswift.com' }],
+        photos: [{ url: 'https://www.taylorswift.com', credit: 'Getty Images' }],
         // products (OPTIONAL, fashion moments): the exact garments worn, each
         // pointing at the retailer's own product-detail page. HARD RULES
         // (docs/decisions.md 2026-07-19): url is the DIRECT https product
@@ -83,7 +85,7 @@ export default {
         //     reportedBy: 'Example Mag',
         //     reportedOn: '2026-07-02',
         //     status: 'unconfirmed',
-        //     url: 'https://example.com/the-report',
+        //     url: 'https://www.taylorswift.com',
         //     note: 'Optional context — an estimate caveat, what debunked it (<=400).',
         //   },
         // ],

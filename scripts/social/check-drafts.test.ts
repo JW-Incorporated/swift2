@@ -1,5 +1,32 @@
-import { describe, expect, it } from 'vitest';
+import { mkdir, rm, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkDraft } from './check-drafts.mjs';
+
+// checkMedia reads real files under apps/web/public/ (PUBLIC_DIR in
+// check-drafts.mjs), so the aspect-ratio-rejection test below needs an actual
+// tall file on disk rather than a mock. It used to point at the real
+// mood-chat-screen.png, back when that library asset genuinely was the
+// 780x1688 shape IG rejects — issue #3157 regenerated it (and the other 8
+// *-screen.png files) at the in-range 1080x1350 ig-portrait preset, which
+// would have silently turned this into a no-op "flags nothing" test. A
+// synthetic PNG (header bytes only — imageMeta only reads the IHDR width/
+// height, see image-liveness.mjs) written to a gitignored temp path keeps the
+// regression real without committing a permanent fake-shaped binary to the
+// library.
+const PUBLIC_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'apps', 'web', 'public');
+const TALL_FIXTURE_REL = '/social/library/__test-fixture-tall-780x1688.png';
+const TALL_FIXTURE_PATH = path.join(PUBLIC_DIR, TALL_FIXTURE_REL);
+
+function makePngHeader(width: number, height: number): Buffer {
+  const buf = Buffer.alloc(24);
+  buf.set([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a], 0); // PNG signature
+  buf.write('IHDR', 12, 'ascii');
+  buf.writeUInt32BE(width, 16);
+  buf.writeUInt32BE(height, 20);
+  return buf;
+}
 
 describe('bodySimilarity', () => {
   it('is 1 for identical text', () => {
@@ -437,7 +464,10 @@ describe('checkMedia', () => {
   });
 
   it('site-screen tiles must live under /social/library/ but NOT under the photo corpus', async () => {
-    const ok = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
+    // Use an in-range 1080x1350 asset: as of 2026-08-24 the checker also gates
+    // Instagram aspect ratio, and the tall *-screen.png captures (780x1688)
+    // now fail that gate — so they can't double as the "valid path" fixture.
+    const ok = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' }, []);
     expect(ok).toEqual([]);
     for (const tile of ['/social/2026-07-17-electric-lady-1.png', CORPUS_PHOTO]) {
       const bad = await checkMedia('a.json', { platform: 'instagram', media: [tile], mediaKind: 'site-screen' }, []);
@@ -482,7 +512,39 @@ describe('checkMedia', () => {
   });
 
   it('accepts a real, existing screenshot file under the declared standard', async () => {
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
+    // 1080x1350 in-range asset (see the aspect-ratio note above; the tall
+    // *-screen.png captures now correctly fail the Instagram aspect gate).
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' }, []);
     expect(findings).toEqual([]);
+  });
+
+  // ── Instagram aspect-ratio gate (2026-08-24). Instagram rejects a feed image
+  //    outside ~0.8–1.91 (width/height) at publish time; catch it at draft
+  //    time. Nine days of IG posts (15–23 Aug 2026) died on exactly this —
+  //    tall 780x1688 site screenshots (ratio 0.462) — with nothing inspecting
+  //    image shape (social/calendar.md). X has no such limit. ──
+  describe('with a genuinely tall (780x1688) fixture on disk', () => {
+    beforeAll(async () => {
+      await mkdir(path.dirname(TALL_FIXTURE_PATH), { recursive: true });
+      await writeFile(TALL_FIXTURE_PATH, makePngHeader(780, 1688));
+    });
+    afterAll(async () => {
+      await rm(TALL_FIXTURE_PATH, { force: true });
+    });
+
+    it('flags an Instagram image outside the accepted aspect-ratio range', async () => {
+      const findings = await checkMedia('a.json', { platform: 'instagram', media: [TALL_FIXTURE_REL], mediaKind: 'site-screen' }, []);
+      expect(findings.some((f) => f.includes("outside Instagram's accepted") && f.includes('780x1688'))).toBe(true);
+    });
+  });
+
+  it('accepts an in-range 1080x1350 Instagram image (aspect gate passes)', async () => {
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' }, []);
+    expect(findings.some((f) => f.includes('aspect'))).toBe(false);
+  });
+
+  it('does NOT apply the aspect-ratio gate to X drafts', async () => {
+    const findings = await checkMedia('a.json', { platform: 'x', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
+    expect(findings.some((f) => f.includes('aspect'))).toBe(false);
   });
 });

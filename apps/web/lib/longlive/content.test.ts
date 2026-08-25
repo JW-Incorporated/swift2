@@ -152,6 +152,29 @@ describe('CONTENT dataset invariants', () => {
       }
     }
   });
+
+  it('Fearless non-release moments avoid record artwork and Getty comp previews (#743)', () => {
+    const fearless = CONTENT.filter((item) => item.eraId === 'fearless');
+    const releaseArtworkSlugs = new Set([
+      'love-story-single-release',
+      'white-horse-single-release',
+      'fearless-platinum-edition',
+      'today-was-a-fairytale-release',
+      'fearless-billboard-no-1-debut',
+    ]);
+    expect(fearless.length).toBeGreaterThan(0);
+
+    for (const item of fearless) {
+      for (const image of item.images) {
+        expect(image.url, item.id).not.toContain('media.gettyimages.com');
+        if (!releaseArtworkSlugs.has(item.slug ?? '')) {
+          expect(image.url, item.id).not.toMatch(
+            /^https:\/\/upload\.wikimedia\.org\/wikipedia\/en\//,
+          );
+        }
+      }
+    }
+  });
 });
 
 describe('MILESTONES derivation (consolidation stage 2b)', () => {
