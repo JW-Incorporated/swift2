@@ -32,7 +32,7 @@ export default {
       energy: 0.75,
       valence: 0.85,
       useCase: ['choosing your own sunny outlook', 'happiness you built for yourself', 'a bright track-three high', 'forgiving yourself for something that did not pan out'],
-      oneLiner: 'Contentment engineered on purpose, forgiveness for a past that fell through turned into deliberate joy.',
+      oneLiner: 'Contentment engineered on purpose, joy manufactured like the man-made stone in its title, not left to luck.',
     },
     {
       slug: 'father-figure',
@@ -109,7 +109,7 @@ export default {
       energy: 0.60,
       valence: 0.40,
       useCase: ['standing by a friend the internet turned on', 'refusing to pile on', 'loyalty as a rebuttal to public judgment'],
-      oneLiner: 'A loyalty pledge aimed at the pile-on, standing closer to condemned friends instead of a safer distance.',
+      oneLiner: 'A loyalty pledge aimed at the pile-on, standing closer to condemned friends instead of keeping a safer distance.',
     },
     {
       slug: 'honey',
