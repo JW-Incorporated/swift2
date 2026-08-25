@@ -117,7 +117,7 @@ history" below.
 | SCAN | 🔴 | founder | **The criterion is unsatisfiable as written.** It requires a scan every night; a 2026-07-25 cost decision throttled the runner to weekly. Either the criterion drops to weekly or the runner goes back to nightly and the repo pays for it — a cost call, not an engineering one | — |
 | ERRORS | 🟡 | agent | `unverified` — the ticketed P0 queue is 0 and the filable P1 queue is 4 tickets, but a fresh scan at merge 2026-08-12 finds **1 unticketed P0** (the new `safety.rumor-redline` checker from #1930, merged today, flags a venue-level whereabouts rumor), the agent factual + image passes have never run, and the nightly scan that is meant to keep this queue current runs weekly. Ticket filing produced nothing 2026-08-02 → 08-12; its root cause closed at merge (#1869 fixed by PR #1887, merged 2026-08-12) but no scheduled run has yet proven filing works again. The queue can neither be drained nor trusted | #552 |
 | ALARMS | 🟢 | nobody | Nothing — founder confirmed Analytics 2026-08-01; the hourly prod smoke check has been clean far past the 3 consecutive runs the criterion asked for | — |
-| LEGAL | 🟡 | founder | Counsel must review the drafts; founders must answer nine `[FOUNDERS: …]` blanks and settle the minors/COPPA question, which may force a product change. **The only gate whose blocker is irreducibly a founder** | #800 |
+| LEGAL | 🟢 | nobody | Nothing — all nine `[FOUNDERS: …]` blanks filled (#2332, merged 2026-08-24), minors/COPPA settled (not directed to children under 13), counsel reviewed and Joey confirmed "proceed" (issue #800, 2026-08-18; issue closed 2026-08-25). `LEGAL_STATUS` stays `'draft'` (banner + noindex) until a separate founder call flips it to `'approved'` — a forward decision, not a blocker on this gate | — |
 | BACKUPS | 🟡 | founder | Wyatt must read the Supabase plan + automated-backup/PITR status off the dashboard, then run one drill against production's own bytes. The drill itself is built and passing | #680 |
 | PLUMBING | 🟢 | nobody | Nothing — the synthetic monitor was re-anchored and has passed 10/10 daily since 2026-08-01; branch protection is live as ruleset `protect-main` | — |
 | CAMPAIGN | 🟢 | nobody | Nothing — plan, accounts, footer icons, OG cards and an automated poster are all live and publishing | — |
@@ -125,9 +125,9 @@ history" below.
 
 <!-- gates:scoreboard:end -->
 
-**Count: 🟢 6 · 🟡 5 · 🔴 1.** Of the 6 non-green: **3 blocked on a founder**
-(SCAN, LEGAL, BACKUPS), **1 on an agent** (ERRORS), **2 on nobody** (DEPTH,
-WORTHY). Only the three founder rows are genuinely scarce; the other three
+**Count: 🟢 7 · 🟡 4 · 🔴 1.** Of the 5 non-green: **2 blocked on a founder**
+(SCAN, BACKUPS), **1 on an agent** (ERRORS), **2 on nobody** (DEPTH,
+WORTHY). Only the two founder rows are genuinely scarce; the other three
 are unclaimed work.
 
 ## Cadence provenance

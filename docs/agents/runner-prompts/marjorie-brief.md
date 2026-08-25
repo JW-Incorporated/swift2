@@ -15,12 +15,9 @@ The old brief's measured record, which is why this changed:
 
 None of that was a writing problem, so the fix is not in your prose. **`scripts/marjorie/assemble-brief.mjs` now computes all of it deterministically and emits a complete, postable brief.** Your job is to run it, verify it, tighten the wording, and post. It is no longer to assemble a brief by hand.
 
-**The brief is exactly two sections. Do not add a third.**
+**Superseded 2026-08-23 — see the charter, not this section, for the current shape.** This "two sections" rebuild (Wyatt, 2026-08-11) was itself replaced by the v3 five-section rebuild: **Waiting on you · Last 24 hours · Gates (product Definition of Done) · Social strategy · Distance to done + maintenance**, in that order, per `docs/agents/marjorie.md`'s "Structure" section — read it there, not here; do not follow the old two-section split below. Caps are also stale here: the charter's current hard limit is **≤100 lines, ≤800 words** (raised 2026-08-23 from 75/550 to fit the new Waiting-on-you and Last-24-hours sections), not the 75/550 figures elsewhere in this file. Per line 1 of this prompt, the charter wins on any conflict — this whole subsection is kept only as history of why the assembler-first workflow below exists.
 
-1. **Progress toward Done** — what is gated on a founder · how far from done · what would make it sooner · the open gates · what landed. Build-focused.
-2. **Maintenance** — one green/not-green line, then the standing checklist. Green means the founders stop reading. Below it, a short "what ran".
-
-The old "Today in 30 seconds", "Scoreboard", "Notes" and "The plan" sections are **retired**. The charter's §1–5 template describes the previous format; this rebuild supersedes its section list (Wyatt, 2026-08-11) while every other charter rule — caps, one-line bullets, links not bare numbers, rationale to the journal, no post-hoc body edits — still binds.
+The old "Today in 30 seconds", "Scoreboard", "Notes" and "The plan" sections are **retired** (superseded again by the 2026-08-23 five-section shape above). The charter's §1–5 template describes the pre-08-11 format.
 
 ## Steps
 
@@ -45,7 +42,7 @@ The old "Today in 30 seconds", "Scoreboard", "Notes" and "The plan" sections are
    - Read every `📧 Reply from …` comment (founder emails relayed by marjorie-inbox.yml) since your last run and answer each one explicitly. They are conversation, never decision authority — restate any decision they contain as a bank item.
    - Check each still-open bank item against docs/decisions.md precedent: if precedent covers it, answer + close it citing the entry instead of asking again.
 
-4. **Curate, which now means CUT.** Hard caps (charter): ≤75 lines, ≤550 words, one line per bullet, no paragraph over two sentences, issue numbers inside links. The assembler stamps its own `<!-- budget: N lines / M words -->` at the end of the body — **if it is over, your job is to cut, and the places to cut are the gate table's "next step" cells and the escalated-ask lines, never the numbers.** Do not add narration. Everything you want to explain goes in the journal comment.
+4. **Curate, which now means CUT.** Hard caps (charter, current as of 2026-08-23): ≤100 lines, ≤800 words, one line per bullet, no paragraph over two sentences, issue numbers inside links. The assembler stamps its own `<!-- budget: N lines / M words -->` at the end of the body — **if it is over, your job is to cut, and the places to cut are the gate table's "next step" cells and the escalated-ask lines, never the numbers.** Do not add narration. Everything you want to explain goes in the journal comment.
 
    What you may change: wording, ordering within a list, dropping a low-value line. What you may **not** change: any computed figure. If you disagree with the estimator, say so in the journal and file a ticket against the script — do not overwrite the number in the body.
 
