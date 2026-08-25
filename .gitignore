@@ -61,3 +61,5 @@ clownbot-battery-*.json
 
 # Repowise local index (repowise-setup skill) — rebuildable, never tracked.
 .repowise/
+codex-full-log.jsonl
+codex-stdout.log
