@@ -42,6 +42,14 @@ export interface ExtractedFanSignal {
   theories: ExtractedTheory[];
 }
 
+/** Transient Reddit context for one post in a cluster. Comment authors and
+ * ids are deliberately omitted: the model only needs bodies to identify an
+ * aggregate discussion pattern, never an individual commenter. */
+export interface ExtractCommentThread {
+  postTitle: string;
+  comments: readonly string[];
+}
+
 /** The exact `record_knowledge` tool output shape (proposal §4.5). */
 export interface RecordKnowledgeResult {
   kind: RecordKnowledgeKind;

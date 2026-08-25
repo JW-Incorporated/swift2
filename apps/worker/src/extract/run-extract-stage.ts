@@ -5,7 +5,9 @@
 // single cluster's failure logs and continues, never aborts the whole stage.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { fetchPostComments } from '../sources/reddit-rss';
 import { extractWithLLM } from './haiku-client';
+import type { ExtractCommentThread } from './types';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import {
   writeCurrentItem,
@@ -43,17 +45,55 @@ interface PendingStory {
   summary: string | null;
 }
 
-async function loadRawItems(
-  db: SupabaseClient,
-  storyId: string,
-): Promise<{ title: string; snippet: string }[]> {
+interface RawItem {
+  title: string;
+  snippet: string;
+  url: string;
+  sourceType?: string;
+}
+
+async function loadRawItems(db: SupabaseClient, storyId: string): Promise<RawItem[]> {
   const { data, error } = await db
     .from('news_raw_item')
-    .select('title, snippet')
+    .select('title, snippet, url, news_source(source_type)')
     .eq('story_id', storyId)
     .limit(20);
   if (error) throw new Error(`raw item load failed for story ${storyId}: ${error.message}`);
-  return (data ?? []).map((r) => ({ title: r.title as string, snippet: (r.snippet as string) ?? '' }));
+  return (data ?? []).map((r) => {
+    const relation = r.news_source as { source_type?: string } | { source_type?: string }[] | null;
+    const source = Array.isArray(relation) ? relation[0] : relation;
+    return {
+      title: r.title as string,
+      snippet: (r.snippet as string) ?? '',
+      url: r.url as string,
+      sourceType: source?.source_type,
+    };
+  });
+}
+
+async function loadCommentThreads(
+  items: readonly RawItem[],
+  storyId: string,
+): Promise<ExtractCommentThread[]> {
+  const threads = await Promise.all(
+    items
+      .filter((item) => item.sourceType === 'reddit_rss')
+      .map(async (item): Promise<ExtractCommentThread | null> => {
+        try {
+          const comments = await fetchPostComments(item.url);
+          if (comments.length === 0) return null;
+          return { postTitle: item.title, comments: comments.map((comment) => comment.body) };
+        } catch (err) {
+          // Comment context is best-effort enrichment. A network/parser error
+          // must not defer an otherwise extractable clustered story.
+          console.error(
+            `reddit comment context unavailable for story ${storyId}: ${(err as Error).message}`,
+          );
+          return null;
+        }
+      }),
+  );
+  return threads.filter((thread): thread is ExtractCommentThread => thread !== null);
 }
 
 async function loadClusterSources(db: SupabaseClient, storyId: string): Promise<ClusterSource[]> {
@@ -107,10 +147,20 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
         loadRawItems(db, story.id),
         loadClusterSources(db, story.id),
       ]);
-      const clusterItems = items.length > 0 ? items : [{ title: story.canonical_title, snippet: story.summary ?? '' }];
+      const clusterItems =
+        items.length > 0
+          ? items.map(({ title, snippet }) => ({ title, snippet }))
+          : [{ title: story.canonical_title, snippet: story.summary ?? '' }];
+      // Without a configured model call there is nowhere for transient
+      // comment bodies to go, so do not spend Reddit requests enriching a
+      // cluster that extractWithLLM will immediately defer.
+      const commentThreads = process.env.ANTHROPIC_API_KEY
+        ? await loadCommentThreads(items, story.id)
+        : [];
 
       const extracted = await extractWithLLM(usage, {
         items: clusterItems,
+        ...(commentThreads.length > 0 ? { commentThreads } : {}),
         symbolLexiconKeys,
         eraId: CURRENT_ERA_ID,
         today,
