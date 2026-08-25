@@ -1,5 +1,6 @@
 import type { AppearanceVideoKind, EraId, VideoNote, VideoNoteKind } from './types';
 import { VIDEOS_RAW } from './videos.generated';
+import { ERAS } from './eras';
 
 /**
  * Per-era official videos / visual media — static data synced at build time
@@ -153,6 +154,21 @@ export function eraVideoFeed(
       }
       return a.title.localeCompare(b.title);
     });
+}
+
+/**
+ * Which era owns the video record with this slug, or null if none does
+ * (#3312 — a `?item=` deep link may name a video's slug rather than a
+ * moment's id, since videos have no separate share param of their own; see
+ * `store.tsx`'s deep-link effect). Scans every era's full record list
+ * (`allVideoRecordsForEra`, not just the playable ones) so a stale/unplayable
+ * slug still resolves to the right era rather than silently failing.
+ */
+export function findVideoEraId(slug: string): EraId | null {
+  for (const era of ERAS) {
+    if (allVideoRecordsForEra(era.id).some((v) => v.slug === slug)) return era.id;
+  }
+  return null;
 }
 
 // The legacy per-song matcher (`videoForTrack`, exact-title after stripping

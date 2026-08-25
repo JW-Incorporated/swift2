@@ -10,8 +10,10 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { deepLinkTarget } from './deepLink';
+import { deepLinkTarget, resolveVideoDeepLink } from './deepLink';
 import { CURRENT_ERA_ID, getEra } from './eras';
+import { getContentItem } from './content';
+import { allVideoRecordsForEra, findVideoEraId } from './videos';
 import { THREADS } from './lenses';
 import { resolveTrackKey } from './tracks';
 import {
@@ -587,9 +589,31 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // one — pushing a back-entry here would trap the first back gesture.
     suppressNavPushRef.current = true;
     if (target.kind === 'item') {
-      // The moment overlay reads over the era stream.
-      setModeRaw('era');
-      setOpenItemId(target.id);
+      if (getContentItem(target.id)) {
+        // The moment overlay reads over the era stream.
+        setModeRaw('era');
+        setOpenItemId(target.id);
+      } else {
+        // Not a moment id — resolve it as a video slug instead (#3312). A
+        // still-unresolved id falls through to the front door, same as a bad
+        // moment id always has.
+        const eraHint = new URLSearchParams(window.location.search).get('era');
+        const videoEraId = resolveVideoDeepLink(
+          target.id,
+          eraHint,
+          (id) => getEra(id).id === id,
+          (eraId, slug) => allVideoRecordsForEra(eraId as EraId).some((v) => v.slug === slug),
+          findVideoEraId,
+        );
+        if (videoEraId) {
+          // Mirrors the `openVideo` action (defined below) exactly: jump to
+          // the video's era, clear filters so its card can't be hidden, and
+          // queue the scroll-to-card anchor EraStream consumes on mount.
+          openEra(videoEraId as EraId);
+          clearFilters();
+          setPendingVideoAnchor(`era-video-${target.id}`);
+        }
+      }
     } else if (target.kind === 'song') {
       // The song dossier stacks on top of its album's track guide, so open
       // both — same state openSong sets. A stale key resolves to null; drop it
