@@ -154,6 +154,110 @@ describe('CrossOutletSimilarityProvider.similarity — signal 3: shared entities
   });
 });
 
+describe('CrossOutletSimilarityProvider — regression, issue #915 (Healy/Shaq/Paisley)', () => {
+  // #915 measured the OLD LexicalSimilarityProvider (title-only Jaccard, since
+  // replaced by this provider per cross-outlet-similarity.ts's own module doc)
+  // against three real event groups and found lowering its threshold alone
+  // would be wrong: the Shaq "trio" is three genuinely distinct statements
+  // (must NOT cluster) while Healy/Paisley are each one event covered
+  // repeatedly (MUST cluster). Re-run here against the provider that actually
+  // ships today, asserting both directions per the issue's own ask.
+
+  it('does NOT cluster the Shaq trio — three distinct statements, not one event (exact headlines from #915)', () => {
+    const items = [
+      item('a', "Shaq says he didn't get an invite", { publishedAt: '2026-08-15T10:00:00Z' }),
+      item('b', 'Shaq shared a 4-word message to the newlyweds', { publishedAt: '2026-08-15T14:00:00Z' }),
+      item('c', "Shaquille O'Neal jokingly thanks them for not inviting him", {
+        publishedAt: '2026-08-15T18:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(3);
+  });
+
+  it('clusters the Healy marriage coverage — one event, four outlets', () => {
+    const items = [
+      item('a', 'Matty Healy marries Gabbriette Bechtel in surprise ceremony', {
+        publishedAt: '2026-08-10T09:00:00Z',
+      }),
+      item('b', '1975 frontman Matty Healy weds model Gabbriette Bechtel', {
+        publishedAt: '2026-08-10T12:00:00Z',
+      }),
+      item('c', "Matty Healy, Taylor Swift's ex, ties the knot with Gabbriette Bechtel", {
+        publishedAt: '2026-08-10T15:00:00Z',
+      }),
+      item('d', 'Gabbriette Bechtel and Matty Healy are officially married', {
+        publishedAt: '2026-08-10T20:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(1);
+  });
+
+  it('clusters the Brad Paisley pair — one event, two outlets', () => {
+    const items = [
+      item('a', 'Brad Paisley performs surprise set at star-studded wedding', {
+        publishedAt: '2026-08-12T11:00:00Z',
+      }),
+      item('b', 'Country star Brad Paisley plays surprise wedding set for A-list couple', {
+        publishedAt: '2026-08-12T22:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(1);
+  });
+});
+
+describe('CrossOutletSimilarityProvider — regression, issue #3179 (single-token entity corroboration)', () => {
+  // #3179: signal 3 (shared entity + date) doesn't clear the sentence-initial
+  // guard when the shared celebrity name isn't the title's first word — three
+  // genuinely distinct statements about "Shaq" (rephrased so "Shaq" isn't
+  // sentence-initial) all shared the single-token entity "shaq" and the same
+  // calendar date, so the OLD code manufactured a false cluster. A single
+  // shared single-token name isn't distinctive enough alone; it recurs across
+  // many unrelated stories about that person.
+
+  it('does NOT cluster three distinct Shaq statements sharing only a single-token entity', () => {
+    const items = [
+      item('a', "NBA legend Shaq says he didn't get a wedding invite", {
+        publishedAt: '2026-08-15T10:00:00Z',
+      }),
+      item('b', 'Basketball star Shaq shares a 4-word message to the newlyweds', {
+        publishedAt: '2026-08-15T14:00:00Z',
+      }),
+      item('c', 'Ex-NBA star Shaq jokes about not being invited to wedding', {
+        publishedAt: '2026-08-15T18:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(3);
+  });
+
+  it('still clusters when two distinct single-token entities are both shared (corroboration)', () => {
+    const items = [
+      item('a', 'Reports say Shaq and Wembley reveal plans for a new arena', {
+        publishedAt: '2026-08-15T10:00:00Z',
+      }),
+      item('b', 'Sources confirm Wembley deal with Shaq as ambassador', {
+        publishedAt: '2026-08-15T16:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(1);
+  });
+
+  it('still clusters on a single shared multi-word entity alone (unchanged behavior)', () => {
+    const items = [
+      item('a', 'Vera Wang teases a new project', { publishedAt: '2026-08-20T08:00:00Z' }),
+      item('b', 'Sources say Vera Wang is behind a secret new project', {
+        publishedAt: '2026-08-20T18:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(1);
+  });
+});
+
 describe('CrossOutletSimilarityProvider — cross-story assignment via ExistingStory', () => {
   it('attaches a new item to an existing story on canonical URL match', () => {
     const existing: ExistingStory[] = [

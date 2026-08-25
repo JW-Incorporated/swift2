@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { ArrowRight, Compass } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { primaryImage, type ContentItem } from '@/lib/longlive/types';
+import { focalPointOf, primaryImageRef, type ContentItem } from '@/lib/longlive/types';
 
 // Hotlinked photo URLs bypass Next's image optimizer (whose remotePatterns
 // allowlist covers only YouTube posters) — same pattern as MomentDetail.
@@ -46,7 +46,8 @@ export function FromTheEras({
       <div className="flex flex-col gap-1.5">
         {shown.map((item) => {
           const era = getEra(item.eraId);
-          const img = primaryImage(item);
+          const img = primaryImageRef(item);
+          const imgUrl = img?.url ?? '/placeholder.svg';
           return (
             <button
               key={item.id}
@@ -56,7 +57,14 @@ export function FromTheEras({
               aria-label={`Open “${item.title}” (${era.shortName}, ${item.dateLabel})`}
             >
               <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg">
-                <Image src={img} alt="" fill unoptimized={isRemoteUrl(img)} className="object-cover" />
+                <Image
+                  src={imgUrl}
+                  alt=""
+                  fill
+                  unoptimized={isRemoteUrl(imgUrl)}
+                  className="object-cover"
+                  style={{ objectPosition: focalPointOf(img) }}
+                />
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-sm font-medium" style={{ color: 'var(--era-ink)' }}>

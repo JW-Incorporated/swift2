@@ -1481,6 +1481,8 @@ export default {
             kind: 'primary',
             focalPoint: '35% 55%',
           },
+          // Re-verified HTTP 200 + image/jpeg on 2026-08-24 (#3043 — the CIE
+          // flag was a transient probe failure, not hotlink-rot).
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-ttpd-ae-241208-28a3c3.jpg',
             credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
@@ -1488,6 +1490,8 @@ export default {
             kind: 'primary',
             focalPoint: '55% 40%',
           },
+          // Re-verified HTTP 200 + image/jpeg on 2026-08-24 (#3044 — the CIE
+          // flag was a transient probe failure, not hotlink-rot).
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-1989-2-ae-241208-a3754a.jpg',
             credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
@@ -1508,9 +1512,9 @@ export default {
               'As the Eras Tour wound down, an Us Weekly cover story reported that Taylor was weighing another tour — "albeit on a smaller scale than the Eras Tour" — as soon as 2026, a source saying "She had such a great experience on Eras. She really wants to do it again," while cautioning nothing was locked: "A lot of it hinges on what happens over the next year with Travis."',
             reportedBy: 'Us Weekly',
             reportedOn: '2024-12-03',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swifts-next-album-engagement-burning-questions-answered-excl/',
-            note: 'Forward-looking tour speculation; no location. Re-checked 2026-08-05: no tour announced and the source\'s 2026 window has largely passed — Taylor released The Life of a Showgirl, married Kelce, and told BBC Radio 1 in October 2025 she was "so tired," with no plans to tour soon. Unlikely now but not formally denied; resolves on an announcement, fades otherwise.',
+            note: 'Faded 2026-08-24 (issue #3137): the 2026 window this report named has fully lapsed with no tour announced — Taylor spent that stretch releasing The Life of a Showgirl and marrying Kelce instead. Re-checked again this pass: still no follow-up tour announced or denied, gone quiet nearly two years on. The Deuxmoi entry below carries the live version of the same question with a still-open 2027 window.',
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-08-24',
           },
@@ -1545,7 +1549,7 @@ export default {
       snippet: 'A final tally of $2,077,618,725 across 10.17 million tickets — roughly double the previous all-time tour record.',
       sourceUrl: 'https://www.forbes.com/sites/maryroeloffs/2024/12/09/taylor-swifts-eras-tour-grossed-2-billion-double-any-other-tour-in-history-report-says/',
       thumbnailUrl:
-        'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
+        'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg',
       moment: {
         context:
           'Her production company confirmed the totals to The New York Times: 10,168,008 tickets across 149 shows on five continents, at an average of $204 a seat — roughly double the previous all-time record, Coldplay\'s $1 billion Music of the Spheres run, which needed more dates to get there.\n\nThe figure counts tickets only; merchandise, the record-grossing concert film, and the Eras Tour Book all sit outside the tally. Pollstar had already estimated the tour crossed the billion-dollar line in November 2023 — the second billion took barely a year more.',
@@ -1572,14 +1576,16 @@ export default {
         // Photo pass #762 (2026-08-16): a second photo WAS on an outlet CDN
         // all along — Variety's own hero image for the cited $2B article,
         // just not one the earlier Commons-only searches would have found.
+        // Rotted transform query strings dropped (2026-08-24, #3045/#3046):
+        // publisher originals resolve fine without them.
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg',
             focalPoint: '45% 27%',
             credit: 'Emma McIntyre/TAS24/Getty Images',
           },
           {
-            url: 'https://variety.com/wp-content/uploads/2024/12/swift-fringe-GettyImages-2188653759.jpg?w=1000&h=667&crop=1',
+            url: 'https://variety.com/wp-content/uploads/2024/12/swift-fringe-GettyImages-2188653759.jpg',
             focalPoint: '34% 24%',
             credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management, via Variety',
             caption:
@@ -1612,6 +1618,8 @@ export default {
         ],
         // T16 photo pass (2026-07-09): the nominated album's cover from
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
+        // Re-verified HTTP 200 + image/png on 2026-08-24 (#3047 — the CIE
+        // flag was a transient probe failure, not hotlink-rot).
         // Photo pass (2026-07-18, #762): + Getty Toronto show photo from the
         // cited Billboard nominations-reaction story (she reacted to the six
         // nods from the Toronto stage that night). Downloaded + vision-confirmed.
@@ -1968,7 +1976,7 @@ export default {
           // distinct from the display_05 crop above (display_05 is the only other Songbook file
           // used in this seed, so no cross-page duplicate).
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg/960px-Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg',
             credit: '14GTR / Wikimedia Commons (CC0)',
             caption:
               "The full Fortnight stop on the V&A's Songbook Trail: the Elena Velez gown staged on a plinth of antique books, with the typewriter and neon wiring completing the scene.",
@@ -2002,7 +2010,7 @@ export default {
       snippet:
         'A custom Christian Dior look from the Resort 2025 collection — plaid bustier, open cape-like skirt, thigh-high Stuart Weitzman boots, and lace-up gloves. Fans called it "Reputation"-coded.',
       sourceUrl: 'https://www.marieclaire.com/fashion/taylor-swift-2024-vmas-red-carpet-tartan-corset/',
-      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg',
+      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a-1200-80.jpg',
       moment: {
         context:
           'The Sept. 11, 2024 look adapted a runway design from Dior\'s Resort 2025 collection — a show Dior staged in Scotland — into a tartan bustier with black hot pants and an open skirt that flowed behind her "like a Highland warrior\'s cape" — Marie Claire\'s phrase for it. Joseph Cassell Falconer styled it with Stuart Weitzman thigh-high boots, lace-up leather gloves, and a plaid choker cut to match the corset print; hair was a classic blow-out over heavy black eyeliner and a lighter-than-usual red lip.\n\nFans immediately filed the black-and-plaid punk styling as "Reputation"-coded — the same guessing game her black Versace VMAs look had set off in 2023 — though she never commented on the inspiration. Whatever the signal, the night itself became a record haul: she left with seven Moon Persons, including her third straight Video of the Year.',
@@ -2018,14 +2026,14 @@ export default {
         ],
         photos: [
           {
-            url: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a-1200-80.jpg',
             credit: 'Getty Images',
             // Photo pass #762 (2026-07-19): viewed — landscape close-up against the neon "20"
             // stage sign, face left-of-center in the upper third.
             focalPoint: '46% 30%',
           },
           {
-            url: 'https://cdn.mos.cms.futurecdn.net/KVrtqLFYbAQRxkZBWvfzjd.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/KVrtqLFYbAQRxkZBWvfzjd-1200-80.jpg',
             credit: 'Getty Images',
             // Photo pass #762 (2026-07-19): viewed — full-length carpet shot, face high in frame.
             focalPoint: '52% 15%',
@@ -2058,7 +2066,7 @@ export default {
         'A one-shoulder sequined red minidress with a Lorraine Schwartz thigh chain spelling "T" — for Travis — plus Casadei heels.',
       sourceUrl: 'https://www.eonline.com/news/1412664/grammys-2025-taylor-swift-red-carpet-fashion-moment',
       thumbnailUrl:
-        'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg',
+        'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/1240x1860/4ae6b2706602461f95e8f081252d5450/gettyimages-2197310399.jpg',
       moment: {
         context:
           'The custom one-shoulder Vivienne Westwood mini read as a message: Chiefs red, worn Feb. 2 at Crypto.com Arena exactly one week before Kansas City\'s Super Bowl LIX matchup with the Eagles, with the Lorraine Schwartz diamond thigh chain dangling a single "T" fans immediately read as Travis, absent while he prepared for the game.\n\nCasadei heels finished the look as she carried six nominations into the night, including her record seventh Album of the Year nod for The Tortured Poets Department.',
@@ -2074,7 +2082,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg',
+            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/1240x1860/4ae6b2706602461f95e8f081252d5450/gettyimages-2197310399.jpg',
             credit: 'Getty Images',
             // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
             // full-length red-carpet pose in the red Westwood mini; face high,
@@ -2087,7 +2095,7 @@ export default {
             // earrings, red lip, the draped one-shoulder bodice. Downloaded and
             // vision-confirmed against the same MusiCares Fire Relief backdrop
             // as the existing CBS full-length.
-            url: 'https://cdn.mos.cms.futurecdn.net/8jriSdzqvBHFQGNi9PLQzV.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/8jriSdzqvBHFQGNi9PLQzV-1200-80.jpg',
             credit: 'Getty Images via Marie Claire',
             caption: 'The details up close: ruby chandelier earrings and the draped, corseted Westwood bodice.',
             // Focal point set by viewing: landscape close-up, face left of
@@ -2099,7 +2107,7 @@ export default {
             // futurecdn render of the sharp Getty full-length — the Lorraine
             // Schwartz "T" thigh chain and red Casadei heels the snippet calls
             // out are clearly visible. Downloaded and vision-confirmed.
-            url: 'https://cdn.mos.cms.futurecdn.net/GPDhDuw6VEnmseepjCckUf.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/GPDhDuw6VEnmseepjCckUf-1200-80.jpg',
             credit: 'Getty Images via Marie Claire',
             caption: 'The full look on the carpet: the one-shoulder mini with the diamond thigh chain dangling its single "T".',
             // Focal point set by viewing: full-length portrait pose, face high
@@ -2139,7 +2147,7 @@ export default {
         'A custom off-white Schiaparelli Haute Couture gown by Daniel Roseberry — draped silk crepe with corset-style lacing at the back and a thigh-high slit — worn on the 2024 Grammys red carpet hours before revealing the new album.',
       sourceUrl: 'https://www.redcarpet-fashionawards.com/2024/02/05/taylor-swift-wore-schiaparelli-haute-couture-to-the-2024-grammy-awards/',
       thumbnailUrl:
-        'https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg',
+        'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1978657268-H-2024.jpg?w=1296&h=730&crop=1',
       moment: {
         context:
           'Adapted from a look in Schiaparelli\'s Fall 2023 ready-to-wear collection, the gown added a dramatic train and high leg slit for the Feb. 4, 2024 ceremony.\n\nTaylor paired it with opera-length gloves, black Giuseppe Zanotti sandals, and more than 300 carats of black-and-white diamonds from Lorraine Schwartz, including a choker built around a vintage watch face.',
@@ -2155,12 +2163,11 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg',
-            credit: 'Matt Winkelmeyer/Getty Images for The Recording Academy',
-            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
-            // full-length carpet shot, the white train sweeping right; face high
-            // in the upper-left quadrant.
-            focalPoint: '34% 15%',
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1978657268-H-2024.jpg?w=1296&h=730&crop=1',
+            credit: 'Robyn Beck/AFP via Getty Images',
+            // Image-fix pass 2026-08-24: viewed the replacement from the cited
+            // Hollywood Reporter story; Swift is centered with her face high.
+            focalPoint: '44% 18%',
           },
         ],
         // Shop pass (2026-07-22): the custom Schiaparelli Haute Couture
@@ -2192,7 +2199,7 @@ export default {
       snippet:
         'The video\'s opening scene puts her in Australian designer Toni Matičevski\'s "Candescence" gown from his Spring/Summer 2024 collection — crisp pearl-white cotton gathered at the hip into a high-low, sculptural silhouette.',
       sourceUrl: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-toni-maticevski-gown-fortnight-music-video-1236321522/',
-      thumbnailUrl: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000',
+      thumbnailUrl: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg',
       moment: {
         context:
           'The "Candescence" gown, from Matičevski\'s Spring 2024 collection, is engineered like sculpture: a strapless bodice with internal boning and a rounded, collar-skimming neckline, in crisp pearl-white crinkled cotton gathered asymmetrically at the hip into a high-low skirt. It surfaces in the video\'s most-teased beat — Taylor hurling an object at a glass pane — and WWD framed the bridal-coded silhouette as the romantic counterweight to the video\'s asylum gothic.\n\nThe gown is one of several distinct costume changes across the "Fortnight" video\'s different vignettes — a separate look from the black Elena Velez/Unttld gothic ensemble already covered elsewhere in this era, and from the Celine-designed piece in the video\'s rain-soaked finale.',
@@ -2204,7 +2211,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000',
+            url: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg',
             credit: 'Republic Records',
             // Image-fix pass (2026-07-10): #345 — vision-confirmed this is a studio/lookbook shot
             // of the correct gown on a runway/lookbook model (not Swift); searched WWD, YouTube's
@@ -2256,7 +2263,7 @@ export default {
       // cited source below); curl-verified HTTP 200 image/png and vision-confirmed single-frame,
       // no watermark/collage, matching the "plum Popflex Active skort" described in the context.
       thumbnailUrl:
-        'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1',
+        'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?ssl=1',
       moment: {
         context:
           'The video, styled around Eras Tour rehearsal footage, mixed pieces from small activewear brands (Popflex Active, WISKII Active) with Golden Goose sneakers and an Awe Inspired gold pendant necklace — a deliberately unglamorous, backstage counterpoint to the tour\'s stage costuming.\n\nFor Popflex founder Cassey Ho — the Blogilates creator who designs the line — the placement was surreal: she wrote that her heart pounded and her team\'s Slack "blew up" as she stood frozen in front of the TV counting her own designs onscreen, with Popflex pieces (including the viral lavender Pirouette skort and the Twirl skort) appearing four separate times in the video.',
@@ -2274,7 +2281,7 @@ export default {
           {
             // Image-fix pass (2026-07-10): #346 — replaced the Eras Tour stage-costume photo (see
             // thumbnailUrl note above) with the same verified Blogilates video screenshot.
-            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1',
+            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?ssl=1',
             credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
             caption: 'The plum Popflex Active skort from the video\'s backstage rehearsal footage.',
             // Photo pass #762 (2026-07-19): viewed — mid-dance on the marked rehearsal floor,
@@ -2286,7 +2293,7 @@ export default {
           // snippet names. curl 200 image/png 2302x1500; Read-viewed: single video frame, no
           // watermark or collage, distinct from the plum-skort frame above.
           {
-            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.16.26-AM.png?ssl=1',
+            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.16.26-AM.png',
             credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
             caption: 'The lavender Popflex tulle skirt and matching corset bra, mid-rehearsal in the video.',
             focalPoint: '41% 25%',
@@ -2326,7 +2333,7 @@ export default {
         'Sat between her parents Scott and Andrea for the Jan. 18 divisional-round game at Arrowhead, with Caitlin Clark — personally invited by Travis — a row back and Ed Kelce also in the suite.',
       sourceUrl: 'https://www.si.com/wnba/caitlin-clark-watching-chiefs-texans-playoff-game-suite-taylor-swift',
       thumbnailUrl:
-        'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
+        'https://images2.minutemediacdn.com/image/upload/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
       relatedIds: [
         'moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb',
         'moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t',
@@ -2348,7 +2355,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
+            url: 'https://images2.minutemediacdn.com/image/upload/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
             credit: 'Jamie Squire/Getty Images',
             // Photo pass #762 (2026-07-19): viewed — suite window above the crowd; Swift's face
             // sits right-of-center behind the glass, Scott Swift mid-frame.
@@ -2383,7 +2390,7 @@ export default {
         'Watched the Jan. 26 AFC Championship win over Buffalo from a VIP suite, then shared a kiss with Travis in the falling confetti with his mom Donna Kelce right there for it.',
       sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-celebrates-kansas-city-chiefs-afc-win/story?id=118133249',
       thumbnailUrl:
-        'https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg',
+        'https://dims.apnews.com/dims4/default/aaf01e8/2147483647/strip/true/crop/3022x2015%2B0%2B0/resize/599x399%21/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F1e%2F0f%2Fb7bedc75699b2a5bb6ceb0e5f3af%2Fcc4f0c89c69d41a8965e44bb67f811eb',
       moment: {
         context:
           'Kansas City beat Buffalo 32-29 in the Jan. 26, 2025 AFC Championship at Arrowhead, sending the Chiefs to a second straight Super Bowl — and a Feb. 9 shot at becoming the first NFL team ever to win three in a row. Kelce had two catches for 19 yards in the win, his fifth conference title as a Chief.\n\nWhen the confetti cannons fired, cameras found the night\'s defining image: Taylor and Kelce kissing amid the falling paper with Donna Kelce beside them. By ABC\'s tally, the Chiefs had won every game Taylor attended that season — eight regular-season dates at Arrowhead plus both playoff rounds — a streak that would finally break two weeks later in New Orleans.',
@@ -2395,20 +2402,17 @@ export default {
         ],
         photos: [
           {
-            url: 'https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg',
-            credit: 'AP',
+            url: 'https://dims.apnews.com/dims4/default/aaf01e8/2147483647/strip/true/crop/3022x2015%2B0%2B0/resize/599x399%21/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F1e%2F0f%2Fb7bedc75699b2a5bb6ceb0e5f3af%2Fcc4f0c89c69d41a8965e44bb67f811eb',
+            credit: 'AP / Ashley Landis',
             // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
             // the confetti kiss itself — the two faces meet right of center,
             // upper third, her gloved hand on his cheek.
             focalPoint: '55% 32%',
           },
           {
-            url: 'https://i.abcnewsfe.com/a/746ae3a7-ce19-4c9c-a703-bc8dfc6d5f42/taylor-swift1-gty-ml-250127_1737980240663_hpEmbed_17x16.jpg',
-            credit: 'Getty Images',
-            // Focal point set 2026-07-18 (run 7) by viewing: near-square two-shot,
-            // Travis's face upper-left, Taylor's face right of center in the LV
-            // beanie; midpoint keeps both under a wide crop.
-            focalPoint: '52% 40%',
+            url: 'https://dims.apnews.com/dims4/default/cf69427/2147483647/strip/true/crop/2831x1888%2B0%2B0/resize/599x399%21/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Fda%2Fd8%2F7595fc694f2cc53fd35321aea664%2F9b03c060e1bc4216a66dd56be4b516ea',
+            credit: 'AP / Ashley Landis',
+            focalPoint: '62% 30%',
           },
         ],
       },
@@ -2482,7 +2486,7 @@ export default {
         // unvetted third-party CDN with no allowlist precedent.)
         photos: [
           {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20250625/5a891109-de90-4fa4-977d-964e635bcea1_1750852610.jpg?fit=around%7C1200:1200&output-quality=90&crop=1200:1200;center,top',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20250625/5a891109-de90-4fa4-977d-964e635bcea1_1750852610.jpg',
             focalPoint: '62% 25%',
             credit: 'E! News (via Kane Brown\'s Instagram)',
             caption:
@@ -2507,7 +2511,7 @@ export default {
       // Image-fix pass (2026-07-10 retry): #362 — swapped in the clean, unbordered frame from
       // the same June 28, 2025 shoot (see photos[] below) to replace the TMZ letterbox crop.
       thumbnailUrl:
-        'https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729',
+        'https://media.zenfs.com/en/page_six_articles_559/89c5d1c1ef03b7418b67a546d78fe729',
       moment: {
         context:
           'The Saturday, June 28, 2025 dinner date put her in a $3,500 Balmain houndstooth tweed A-line minidress — chain-metal straps, oversized gold buttons, frayed trim — with taupe Christian Louboutin "Miss Jane" sandals and an Aspinal of London trunk bag, while Travis kept it simple in a fresh white top, trousers, and black loafers.\n\nE! priced the full look near $30,000 once the jewelry was counted: a $22,500 Panthère de Cartier necklace on a gold-and-diamond chain, a $3,400 Ofira "Tattoo" diamond ring, and a diamond-studded gold Rolex — red-carpet hardware deployed for a restaurant run, photographed on the way in and published the next morning.',
@@ -2516,6 +2520,24 @@ export default {
           {
             outlet: 'E! News',
             url: 'https://www.eonline.com/news/1419311/taylor-swift-wears-s22-500-necklace-on-travis-kelce-date-night',
+          },
+          {
+            outlet: 'ELLE',
+            url: 'https://www.elle.com/culture/celebrities/a65243131/taylor-swift-balmain-white-minidress-nyc-travis-kelce/',
+            source_title: 'Taylor Swift Wears Pink and White Balmain Minidress on NYC Date With Travis Kelce',
+            publisher: 'ELLE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: "Harper's Bazaar",
+            url: 'https://www.harpersbazaar.com/celebrity/latest/a65251820/taylor-swift-pink-balmain-dress-sentimental-jewelry-date-travis-kelce-nyc/',
+            source_title: 'Taylor Swift Is Preppy in a Pink Tweed Balmain Dress for Date Night With Travis Kelce',
+            publisher: "Harper's Bazaar",
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
           },
         ],
         // Image-fix pass (2026-07-10): #361 — removed the bdcd54... photo (vision-confirmed a
@@ -2532,23 +2554,11 @@ export default {
         // collage. Replaced the TMZ bordered photo with it.
         photos: [
           {
-            url: 'https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729',
+            url: 'https://media.zenfs.com/en/page_six_articles_559/89c5d1c1ef03b7418b67a546d78fe729',
             credit: 'The Image Direct',
             // Photo pass #762 (2026-07-19): viewed — full-body walking shot, face high in the
             // portrait frame.
             focalPoint: '53% 12%',
-          },
-          // Photo pass #762 (2026-07-19): second frame of the same June 28, 2025 outing from the
-          // cited E! News article's own CDN (akns-images.eonline.com, the article's lead image,
-          // captioned "Taylor Swift and Travis Kelce in NYC"). curl 200 image/jpeg 1200x1200;
-          // Read-viewed: the couple hand in hand — same pink Balmain mini with gold buttons, same
-          // construction-fence backdrop — single frame, no watermark. E! exposes no photographer
-          // byline on this image, so the credit stays at the outlet level.
-          {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20250630/a3a86034-2ab6-49c1-bc30-2f5ade7cf52b_1751297982.jpg',
-            credit: 'Via E! News',
-            caption: 'Hand in hand with Travis on the way into dinner, June 28, 2025.',
-            focalPoint: '70% 28%',
           },
         ],
         // Stylist source pass (2026-07-21): the headline pieces of this look, linked
@@ -2603,6 +2613,33 @@ export default {
             outlet: 'E! News',
             url: 'https://www.eonline.com/news/1422599/taylor-swift-travis-kelce-at-patrick-mahomes-30th-birthday-party',
           },
+          {
+            outlet: 'ELLE',
+            url: 'https://www.elle.com/culture/celebrities/a66093360/how-taylor-swift-snuck-into-travis-kelce-philadelphia-eagles-game/',
+            source_title: "How Taylor Swift Snuck Into Travis Kelce's Philadelphia Eagles Game",
+            publisher: 'ELLE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Kansas City Star',
+            url: 'https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article312128876.html',
+            source_title: "Taylor Swift's fans loved her classic look at Patrick Mahomes' birthday party",
+            publisher: 'Kansas City Star',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Instagram (@kanebrown, official post)',
+            url: 'https://www.instagram.com/p/DOpLxWRjBAx/',
+            source_title: "Kane Brown's photo from Patrick Mahomes' 30th birthday party",
+            publisher: 'Instagram',
+            source_type: 'social',
+            accessed_at: '2026-08-24',
+            reliability_score: 5,
+          },
         ],
         // T16 photo pass (2026-07-09): no photo of Swift exists from this
         // game (the point of the item) and the party photos are third-party
@@ -2614,7 +2651,7 @@ export default {
         // the outlet-own-CDN rule. Deliberately left at one photo.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg/960px-Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8e/Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg',
             credit: 'Kj1595 via Wikimedia Commons, CC BY-SA 4.0',
             caption: 'Reference image: Arrowhead Stadium (2019 file photo). No photos of Taylor surfaced from this game — she attended unseen, confirmed by a source to E!.',
             kind: 'reference',
@@ -2656,16 +2693,16 @@ export default {
         // HTTP 200 + image/jpeg; visually confirmed (saucer + beam onstage).
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Taylor_Swift_Eras_Tour_TTPD_Set_Down_Bad.jpg/960px-Taylor_Swift_Eras_Tour_TTPD_Set_Down_Bad.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/29/Taylor_Swift_Eras_Tour_TTPD_Set_Down_Bad.jpg',
             credit: 'Vixy13 via Wikimedia Commons, CC BY 4.0',
             caption: 'The "Down Bad" staging in the Eras Tour\'s TTPD set (Paris, May 2024): a flying saucer beams its light down on the abandoned narrator.',
             kind: 'archival',
             focalPoint: '29% 50%',
           },
           // Photo pass #762 run 10 (2026-07-18): official lyric-video still, video id
-          // oEmbed-verified against @TaylorSwift this run; 1280x720 maxres render.
+          // oEmbed-verified against @TaylorSwift this run; 1280x720 maxres WebP render.
           {
-            url: 'https://i.ytimg.com/vi/EVbtjaWXQVg/maxresdefault.jpg',
+            url: 'https://i.ytimg.com/vi_webp/EVbtjaWXQVg/maxresdefault.webp',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "Down Bad" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
@@ -2701,11 +2738,11 @@ export default {
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
         // Photo pass #762 run 10 (2026-07-18): upgraded 480x360 hqdefault -> 1280x720
-        // maxres (same video). Deliberately one photo: studio track never performed
+        // maxres WebP (same video). Deliberately one photo: studio track never performed
         // solo live; no distinct on-topic image exists on an approved CDN.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/CCUr2pNJft4/maxresdefault.jpg',
+            url: 'https://i.ytimg.com/vi_webp/CCUr2pNJft4/maxresdefault.webp',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "So Long, London" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
@@ -2918,7 +2955,7 @@ export default {
             focalPoint: '50% 45%',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/The_Eras_Tour_The_Tortured_Poets_Department_Performance.png/960px-The_Eras_Tour_The_Tortured_Poets_Department_Performance.png',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/The_Eras_Tour_The_Tortured_Poets_Department_Performance.png',
             credit: 'Sally-Marie Böhm, CC BY-SA 4.0, via Wikimedia Commons',
             caption: 'The song\'s Tortured Poets set staging on the Eras Tour — Taylor and dancer Jan Ravnik on the hydraulic platforms (Gelsenkirchen, July 2024).',
             kind: 'archival',
@@ -2955,31 +2992,18 @@ export default {
             url: 'https://www.capitalfm.com/news/music/taylor-swift-grammys-nominations-2025/',
           },
         ],
-        // Photo pass (2026-07-18, #762): the prior 480×360 hqdefault still
-        // duplicated (at lower res) the same MV frame already used full-size
-        // on the "Fortnight opens the album" page — replaced with the Getty
-        // Toronto show photo from the cited Billboard nominations-reaction
-        // story (distinct file from the Toronto photo on the AOTY-nomination
-        // page). Downloaded + vision-confirmed. Deliberately one photo: the
-        // only other candidate found (Capital FM's hero) is a stitched
-        // archive collage from earlier ceremonies, rejected as off-event.
+        // Commons CC BY 4.0 photos of the TTPD and "Fortnight" Eras Tour
+        // staging. File metadata and live image responses verified 2026-08-24.
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/11/Taylor-Swift-_-The-Eras-Tour-Toronto-ON-345-billboard-1548.jpg?w=1024',
-            credit: 'Getty Images (via Billboard)',
-            caption: 'In Toronto the night the 2025 Grammy nominations landed: "you guys got this album nominated for six Grammys."',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Taylor_Swift_TTPD_Dress.jpg/1280px-Taylor_Swift_TTPD_Dress.jpg',
+            credit: 'Wikithebeavr via Wikimedia Commons, CC BY 4.0',
+            caption: 'Performing the Tortured Poets set on the Eras Tour, the album nominated for six Grammys.',
             kind: 'archival',
             focalPoint: '53% 26%',
           },
-          // Photo Enrichment lane (Vault Run 2026-08-15): a second, distinct
-          // image — the "Fortnight" performance on the Eras Tour's Tortured
-          // Poets set, the song the Record/Song-of-the-Year nods honored. The
-          // prior "deliberately one photo" note rejected a bad collage; this is
-          // a good, on-song second. Commons file (Vixy13, CC BY 4.0); curl 200
-          // image/jpeg, 500px thumb downloaded and vision-confirmed (white
-          // staircase set, white looks, starlit backdrop).
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/500px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight_2.jpg/1280px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight_2.jpg',
             focalPoint: '50% 22%',
             credit: 'Vixy13 via Wikimedia Commons, CC BY 4.0',
             caption: 'Performing "Fortnight" on the Eras Tour\'s Tortured Poets set — the album\'s lead single, up for both Record and Song of the Year.',
@@ -3099,9 +3123,8 @@ export default {
         ],
         // T16 photo pass (2026-07-09): the chart-topping album's cover from
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
-        // Photo pass (2026-07-18, #762): + Beth Garrabrant album-shoot
-        // portrait ("The Black Dog") from Billboard's own chart story for
-        // this debut (its hero image). Downloaded + vision-confirmed.
+        // The public-domain TTPD wordmark provides a stable second image for
+        // the album's chart debut. Metadata and live response verified 2026-08-24.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
@@ -3111,9 +3134,9 @@ export default {
             focalPoint: '50% 55%',
           },
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Black-Dog-billboard-1548.jpg?w=1024',
-            credit: 'Beth Garrabrant (via Billboard)',
-            caption: 'From the TTPD album shoot — the era imagery that fronted Billboard\'s coverage of the 2.61 million-unit debut.',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/The_Tortured_Poets_Department_logo.png',
+            credit: 'Republic Records via Wikimedia Commons',
+            caption: 'The Tortured Poets Department wordmark — the album behind the 2.61 million-unit debut.',
             kind: 'archival',
             focalPoint: '45% 22%',
           },
@@ -3208,18 +3231,24 @@ export default {
         // Billboard ran with its own top-14 chart story — a different frame
         // from the ytimg maxres still on the "Fortnight opens the album"
         // page. Downloaded + vision-confirmed.
+        // V&A costume-display swap (2026-08-24): the Wikipedia single-art
+        // cover was replaced with the CC0 Fortnight costume display at the
+        // V&A, a more stable image tied to the single that led the sweep.
+        // Image-liveness repair (2026-08-24): the broken Billboard frame was
+        // replaced with the official video's 1280×720 YouTube thumbnail.
+        // Range-fetch verified and vision-confirmed.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/9/91/Taylor_Swift_-_Fortnight.png',
-            credit: 'Republic Records',
-            caption: 'Single artwork for "Fortnight," which led the historic top-14 sweep from No. 1.',
-            kind: 'primary',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Taylor_Swift_Songbook_Trail_Fortnight_display_03.jpg/1280px-Taylor_Swift_Songbook_Trail_Fortnight_display_03.jpg',
+            credit: '14GTR via Wikimedia Commons, CC0',
+            caption: 'The "Fortnight" video ensemble on display at the V&A — from the single that led the historic top-14 sweep.',
+            kind: 'archival',
             focalPoint: '50% 55%',
           },
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/04/taylor-swift-post-malone-fortnight-music-video-still-billboard-1548.jpg?w=1024',
-            credit: 'Taylor Swift / Republic Records (via Billboard)',
-            caption: 'Taylor and Post Malone in the "Fortnight" video — the No. 1 that led a chart-history first.',
+            url: 'https://i.ytimg.com/vi/q3zqJs7JUCQ/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Official "Fortnight" video still — the No. 1 that led a chart-history first.',
             kind: 'archival',
             focalPoint: '50% 38%',
           },
@@ -3327,7 +3356,7 @@ export default {
         // and a Taylor Nation email — no creditable still on an approved CDN.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/oaBJlKXBvjk/maxresdefault.jpg',
+            url: 'https://img.youtube.com/vi/oaBJlKXBvjk/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "thanK you aIMee" lyric video, stray capitals intact.',
             kind: 'archival',
@@ -3407,25 +3436,24 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
-        // Photo pass (2026-07-18, #762): render upgraded from 480×360
-        // hqdefault to the same video's 1280×720 maxresdefault (HTTP-checked
-        // + viewed). + the Swift/Welch polaroid that fronted Holler's Miami
-        // "Florida!!!" duet story — Holler's own metadata credits the photo
-        // to Taylor Swift. Downloaded + vision-confirmed.
+        // Image-liveness repair (2026-08-24): the official lyric-video still
+        // now uses YouTube's alternate allowlisted thumbnail host. The broken
+        // Holler image was replaced with Rolling Stone's 1600×900 Miami
+        // performance photo. Both were range-fetched and vision-confirmed.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/uEssK8o3jKg/maxresdefault.jpg',
+            url: 'https://img.youtube.com/vi/uEssK8o3jKg/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "Florida!!! (feat. Florence + The Machine)" lyric video.',
             kind: 'archival',
             focalPoint: '50% 60%',
           },
           {
-            url: 'https://cdn.sanity.io/images/o6uq28nb/production/e92e7a8463fee4535c9c538f067276de0a77c9c3-2048x2011.jpg?w=1200',
-            credit: 'Taylor Swift (via Holler)',
-            caption: 'Taylor and Florence Welch — the collaborators behind the album\'s biggest-sounding song.',
+            url: 'https://www.rollingstone.com/wp-content/uploads/2024/10/taylor-swift-florence-welch-florida-miami-show.jpg?w=1600&h=900&crop=1',
+            credit: 'John Shearer/TAS24/Getty Images for TAS Rights Management',
+            caption: 'Taylor and Florence Welch perform "Florida!!!" at Hard Rock Stadium in Miami, Oct. 18, 2024.',
             kind: 'archival',
-            focalPoint: '47% 27%',
+            focalPoint: '50% 30%',
           },
         ],
       },
@@ -3509,18 +3537,24 @@ export default {
         // + viewed). + a Commons CC BY 2.0 portrait of Travis Kelce, the
         // song's widely read subject, as a reference image (license
         // API-verified; same pattern as the Hendersonville reference photo).
+        // Photo pass (2026-08-24): the same official video's 640×480
+        // sddefault frame is live after the maxresdefault transform rotted
+        // (HTTP-checked + viewed).
+        // Image-liveness repair (2026-08-24): the dead 2021 Commons URL was
+        // replaced with a live public-domain U.S. Air Force portrait crop.
+        // Commons metadata and a range fetch verified the file.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/w-FkV0EM_CU/maxresdefault.jpg',
+            url: 'https://i.ytimg.com/vi/w-FkV0EM_CU/sddefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "So High School" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
             focalPoint: '43% 45%',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Travis_Kelce_2021.jpg',
-            credit: 'Erik Drost, CC BY 2.0, via Wikimedia Commons',
-            caption: 'Travis Kelce — the song\'s widely read subject, down to the resurfaced marry-kiss-kill clip.',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Travis_kelce_2017_training_camp_%28cropped%29.jpg',
+            credit: 'U.S. Air Force Master Sgt. April Wickes, public domain, via Wikimedia Commons',
+            caption: 'Travis Kelce at Chiefs training camp in 2017 — the song\'s widely read subject.',
             kind: 'reference',
             focalPoint: '50% 38%',
           },
@@ -3625,14 +3659,14 @@ export default {
         // distinctive roof. Note the CDN serves browser user-agents only.
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/06/Taylor-Swift-_-The-Eras-Tour-Edinburgh-Scotland-02-2024-billboard-1548.jpg?w=1024',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/06/Taylor-Swift-_-The-Eras-Tour-Edinburgh-Scotland-02-2024-billboard-1548.jpg',
             credit: 'Getty Images (via Billboard)',
             caption: 'The folklore set at Murrayfield Stadium, Edinburgh, during the record-breaking June 2024 stand.',
             kind: 'archival',
             focalPoint: '52% 25%',
           },
           {
-            url: 'https://image.cnbcfm.com/api/v1/image/107428490-1718277585941-gettyimages-2156561216-_gc10806_lnvlarov.jpeg?v=1733316726&w=1480&h=833',
+            url: 'https://image.cnbcfm.com/api/v1/image/107428490-1718277585941-gettyimages-2156561216-_gc10806_lnvlarov.jpeg',
             credit: 'Getty Images (via CNBC)',
             caption: 'Playing to a record Murrayfield crowd — each of the three nights topped the Scottish stadium attendance record the last had just set.',
             kind: 'archival',
@@ -3803,7 +3837,7 @@ export default {
         // fringe dress, crystal guitar). Focal points set per image by viewing.
         photos: [
           {
-            url: 'https://i.abcnewsfe.com/a/93f66532-3cd0-4fd1-8a10-52594110c859/taylor-swift-nc-jt-240615_1718457109716_hpMain_16x9.jpg?w=1600',
+            url: 'https://i.abcnewsfe.com/a/93f66532-3cd0-4fd1-8a10-52594110c859/taylor-swift-nc-jt-240615_1718457109716_hpMain_16x9.jpg',
             credit: 'ABC News',
             caption: 'Onstage during the June 2024 Anfield stand in Liverpool, where show 100 doubled as the end-date announcement.',
             kind: 'archival',
@@ -3811,7 +3845,7 @@ export default {
             focalPoint: '45% 25%',
           },
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/06/taylor-swift-liverpool-night-1-2024-billboard-1548.jpg?w=1024',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/06/taylor-swift-liverpool-night-1-2024-billboard-1548.jpg',
             credit: 'Getty Images (via Billboard)',
             caption: 'The Fearless set on June 13, 2024 at Anfield — night one of the Liverpool stand, and the Eras Tour\'s 100th show.',
             kind: 'primary',
@@ -4348,18 +4382,17 @@ export default {
         // per the audit's §A2 stand-in rule. Public domain, Wikimedia Commons.
         // Photo-enrichment run 11 (2026-07-18, #762): added the aftermath that
         // WAS photographable — fans gathered in Vienna's streets on Aug. 8 to
-        // sing together anyway. From TODAY's coverage on NBC's own CDN;
-        // verified HTTP 200 + image/jpeg, downloaded and vision-confirmed
-        // (crowd, friendship bracelets, raised phones and a gerbera).
+        // sing together anyway. AP's photo shows the friendship bracelets fans
+        // gave an Austrian police officer in the city center that day.
         // Focal points set per image by viewing.
         photos: [
           {
-            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_social_share_1200x630_center,f_auto,q_auto:best/rockcms/2024-08/taylor-swift-concert-vienna-zz-240808-03-8b9e7e.jpg',
-            credit: 'Getty Images (via TODAY / NBC News)',
-            caption: 'Aug. 8, 2024: on the night the first show should have opened, fans filled Vienna\'s streets — friendship bracelets on, phones up — to sing her songs together anyway.',
+            url: 'https://dims.apnews.com/dims4/default/3075db7/2147483647/strip/true/crop/3368x2318+0+0/resize/1198x824!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F2f%2F1e%2F4ec11b2e19d60c4614a57ef90c4c%2F6a7d4bfcdbad4f18bcb94c1087a17161',
+            credit: 'AP Photo / Heinz-Peter Bader',
+            caption: 'Aug. 8, 2024: an Austrian police officer in Vienna wears friendship bracelets given by Swifties after the three shows were cancelled.',
             kind: 'primary',
-            // The raised flower-and-phone cluster is the subject, mid-frame.
-            focalPoint: '50% 40%',
+            // The bracelets are the subject, just left of center.
+            focalPoint: '44% 42%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ernst-Happel-Stadion_02.jpg/960px-Ernst-Happel-Stadion_02.jpg',
@@ -4480,7 +4513,7 @@ export default {
             notes: '2018 baseline: nearly 65,000 registrations via vote.org after her first political post',
           },
         ],
-        // T16 photo pass (2026-07-09): Getty file photo CBS News ran with its
+        // T16 photo pass (2026-07-09): Getty file photo NBC News ran with its
         // endorsement coverage (the endorsement itself was an Instagram post,
         // whose cat portrait is not freely rehostable). Verified HTTP 200 +
         // image/jpeg; visually confirmed (Swift onstage, 2024).
@@ -4492,11 +4525,11 @@ export default {
         // Focal point set by viewing.
         photos: [
           {
-            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2024/09/11/edfca45c-3300-45c7-9daf-30c51d86fe4e/thumbnail/1200x630g2/528b3593333d50ff51e0e52340b1ca69/gettyimages-2166943469.jpg',
-            credit: 'Getty Images (via CBS News)',
-            caption: 'Taylor in 2024 — the file photo CBS News ran with its coverage of the endorsement, which itself was an Instagram post.',
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/rockcms/2024-07/240730-taylor-swift-mb-1200-ee2128.jpg',
+            credit: 'Getty Images (via NBC News)',
+            caption: 'Taylor in 2024 — the file photo NBC News ran with its coverage of the endorsement, which itself was an Instagram post.',
             kind: 'archival',
-            // Over-the-shoulder look to camera; face centered, eyes upper-middle.
+            // Tight performance portrait; face centered, eyes upper-middle.
             focalPoint: '49% 38%',
           },
           // Photo pass 2026-07-19 (defining-events-31-50): re-challenged —
@@ -4506,28 +4539,28 @@ export default {
           // "cat lady" line, and the debate's two moderators) weren't
           // searched for before.
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Kamala_Harris_Vice_Presidential_Portrait.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Kamala_Harris_Vice_Presidential_Portrait_%28cropped%29.jpg/960px-Kamala_Harris_Vice_Presidential_Portrait_%28cropped%29.jpg',
             focalPoint: '50% 30%',
             credit: 'Official White House portrait (public domain)',
             caption: 'Kamala Harris, the candidate the endorsement named directly.',
             kind: 'reference',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/January_2025_Official_Vice_Presidential_Portrait_of_JD_Vance.jpg/960px-January_2025_Official_Vice_Presidential_Portrait_of_JD_Vance.jpg',
             focalPoint: '54% 30%',
             credit: 'Official White House portrait (public domain)',
             caption: 'JD Vance, whose "childless cat ladies" line Taylor borrowed for her own sign-off.',
             kind: 'reference',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/5/53/P20211222AS-1417_%2851898637810%29_%28cropped%29.jpg',
-            focalPoint: '60% 22%',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/P20211222AS-1417_%2851898637810%29.jpg/960px-P20211222AS-1417_%2851898637810%29.jpg',
+            focalPoint: '28% 40%',
             credit: 'Adam Schultz / The White House (public domain)',
             caption: 'David Muir, who co-moderated the Sept. 10, 2024 debate the endorsement followed within minutes.',
             kind: 'reference',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Linsey_Davis_at_BookExpo_%2805437%29_%28cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Linsey_Davis_at_BookExpo_%2805437%29.jpg/1280px-Linsey_Davis_at_BookExpo_%2805437%29.jpg',
             focalPoint: '54% 22%',
             credit: 'Rhododendrites, Wikimedia Commons (CC BY-SA 4.0)',
             caption: 'Linsey Davis, the debate\'s other co-moderator.',
@@ -4672,29 +4705,21 @@ export default {
             inStock: false,
           },
         ],
-        // T16 photo pass (2026-07-09): AP photo from ABC News' coverage of
-        // this outing, on ABC's own CDN. Verified HTTP 200 + image/jpeg;
-        // visually confirmed (both couples in the Arthur Ashe box).
+        // CIE image-liveness repair (2026-08-24): Getty frames from Just
+        // Jared's event gallery, verified live and visually confirmed.
         photos: [
           {
-            url: 'https://i.abcnewsfe.com/a/667ac5d8-cb5f-48cd-9230-89ea434a7644/Taylor-Travis-Patrick-Brittany-USOpen-1-ap-jm-240908_1725821927016_hpMain_16x9.jpg?w=1600',
-            credit: 'AP (via ABC News)',
+            url: 'https://cdn01.justjared.com/wp-content/uploads/2024/09/taylor-travis-us-open1/taylor-swift-travis-kelce-us-open-mahomes-2024-10.jpg',
+            credit: 'Getty Images (via Just Jared)',
             caption: 'Taylor, Brittany Mahomes, Travis Kelce, and Patrick Mahomes in the box at Arthur Ashe Stadium, Sept. 8, 2024.',
             kind: 'primary',
-            // Photo pass #762 (2026-07-19): viewed — the two couples' faces cluster around the
-            // center of the frame; this keeps all four in a wide crop.
-            focalPoint: '55% 42%',
+            focalPoint: '53% 37%',
           },
-          // Photo pass #762 (2026-07-19): second frame from the same cited ABC News story's own
-          // CDN — the Reuters photo embedded in the article body ("-rt-" in the filename, vs the
-          // AP "-ap-" lead above). curl 200 image/jpeg 1500x952; Read-viewed: Swift clapping in
-          // the red gingham dress between Kelce (Gucci bucket hat) and the Mahomeses — clearly a
-          // different moment from the AP hug frame, no watermark.
           {
-            url: 'https://i.abcnewsfe.com/a/1fc501ac-ba55-40eb-b3ce-02983fbfa66f/Taylor-Travis-Patrick-Brittany-USOpen-1-rt-jm-240908_1725822057337_hpEmbed_11x7.jpg?w=1500',
-            credit: 'Reuters (via ABC News)',
-            caption: 'Applauding the final from the box — Kelce, Taylor, and the Mahomeses reacting to the match.',
-            focalPoint: '47% 42%',
+            url: 'https://cdn01.justjared.com/wp-content/uploads/2024/09/taylor-travis-us-open1/taylor-swift-travis-kelce-us-open-mahomes-2024-16.jpg',
+            credit: 'Getty Images (via Just Jared)',
+            caption: 'Taylor and Travis watching the men\'s final from their Arthur Ashe Stadium box.',
+            focalPoint: '50% 35%',
           },
         ],
       },
@@ -4788,30 +4813,22 @@ export default {
             notes: 'The 30–30 Beyoncé tie survived the 2025 ceremony; Swift lost her lone 2025 nod (Artist of the Year) to Lady Gaga',
           },
         ],
-        // T16 photo pass (2026-07-09): Getty ceremony photo from Rolling
-        // Stone's own records coverage (first source above). Verified HTTP
-        // 200 + image/jpeg; visually confirmed (Moon Person in hand, onstage).
-        // Photo-enrichment run 11 (2026-07-18, #762): added Billboard's frame
-        // of the Best Collaboration acceptance from the same night — a
-        // distinct outfit-and-podium moment from the silver-dress VOTY frame.
-        // Verified HTTP 200 + image/jpeg, downloaded and vision-confirmed.
-        // Focal points set per image by viewing.
+        // CIE image-liveness repair (2026-08-24): ceremony frames from
+        // allowlisted YouTube thumbnails, verified live and visually confirmed.
         photos: [
           {
-            url: 'https://www.rollingstone.com/wp-content/uploads/2024/09/taylor-record-for-VOY-awards.jpg?resize=1600%2C900',
-            credit: 'Getty Images (via Rolling Stone)',
-            caption: 'Accepting one of seven Moon Persons at the 2024 VMAs on Sept. 11, 2024 — including a record third straight Video of the Year.',
+            url: 'https://i.ytimg.com/vi/OpK6oFpUxg4/maxresdefault.jpg',
+            credit: 'MTV footage (via Page Six / YouTube)',
+            caption: 'Accepting Video of the Year for "Fortnight" with Post Malone and the video team at the 2024 VMAs.',
             kind: 'primary',
-            // Mid-laugh at the mic; face upper-center-left, trophy mid-frame.
-            focalPoint: '48% 20%',
+            focalPoint: '55% 32%',
           },
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/09/taylor-swift-best-collab-mtv-vmas-2024-billboard-1548.jpg?w=1024',
-            credit: 'Getty Images (via Billboard)',
-            caption: 'Accepting Best Collaboration for "Fortnight" in the plaid corset look — one of the seven wins that tied Beyoncé\'s all-time VMAs record.',
+            url: 'https://i.ytimg.com/vi/rT7DjJel1SU/maxresdefault.jpg',
+            credit: 'MTV (via YouTube)',
+            caption: 'During the Best Collaboration acceptance for "Fortnight" — one of the seven wins that tied Beyoncé\'s all-time VMAs record.',
             kind: 'archival',
-            // Face high, slightly left of center; Moon Person at chest height.
-            focalPoint: '47% 18%',
+            focalPoint: '50% 28%',
           },
         ],
       },
@@ -4909,7 +4926,7 @@ export default {
         // image by viewing.
         photos: [
           {
-            url: 'https://variety.com/wp-content/uploads/2024/12/targetbook.png?w=1000',
+            url: 'https://variety.com/wp-content/uploads/2024/12/targetbook.png',
             credit: 'Target (via Variety)',
             caption: 'The Eras Tour Book — 256 pages, $39.99, Target-exclusive, and 2024\'s biggest new-release print debut.',
             kind: 'primary',
@@ -4917,7 +4934,7 @@ export default {
             focalPoint: '48% 42%',
           },
           {
-            url: 'https://www.rollingstone.com/wp-content/uploads/2024/12/eras-tour-book-copies.jpg?crop=0px%2C0px%2C1798px%2C1014px&resize=1600%2C900',
+            url: 'https://www.rollingstone.com/wp-content/uploads/2024/12/eras-tour-book-copies.jpg',
             credit: 'via Rolling Stone',
             caption: 'Shrink-wrapped copies in the Target aisle over Thanksgiving weekend 2024, when 814,000 sold in two days.',
             kind: 'archival',
@@ -5197,7 +5214,7 @@ export default {
         // confirmed (Swift seated with the six LPs fanned out).
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2025/05/02-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
+            url: 'https://www.billboard.com/wp-content/uploads/2025/05/02-taylor-swift-with-albums-2025-billboard-1548.jpg',
             credit: 'Courtesy of Taylor Swift (via Billboard)',
             caption: 'The photo released with the May 30, 2025 announcement: Taylor with the six albums she bought back from Shamrock Capital.',
             kind: 'primary',
@@ -5209,7 +5226,7 @@ export default {
           // LP in hand). Verified HTTP 200 + image/jpeg, downloaded and
           // visually confirmed.
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2025/05/01-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
+            url: 'https://www.billboard.com/wp-content/uploads/2025/05/01-taylor-swift-with-albums-2025-billboard-1548.jpg',
             credit: 'Courtesy of Taylor Swift (via Billboard)',
             caption:
               'A second frame from the announcement set: reading the sleeves of the reclaimed records, reputation in hand.',
@@ -5217,20 +5234,10 @@ export default {
             // She sits center-left with the albums fanned across her lap; face in the upper quarter.
             focalPoint: '46% 30%',
           },
-          // Photo depth pass (round 2, 2026-07-19): two more frames from the
-          // same Billboard-hosted announcement shoot (sequential 03/04 in the
-          // same URL series as the two above). Each verified HTTP 200 +
-          // image/jpeg, downloaded and viewed this session.
+          // Frame 04 from the same Billboard-hosted announcement shoot.
+          // Re-verified HTTP 200 + image/jpeg on 2026-08-24.
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2025/05/03-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
-            credit: 'Courtesy of Taylor Swift (via Billboard)',
-            caption: 'A third frame from the announcement set: seated cross-legged with all six reclaimed albums fanned in a circle around her.',
-            kind: 'primary',
-            // Kneeling, face upper-center; albums ring the lower half of frame.
-            focalPoint: '48% 28%',
-          },
-          {
-            url: 'https://www.billboard.com/wp-content/uploads/2025/05/04-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
+            url: 'https://www.billboard.com/wp-content/uploads/2025/05/04-taylor-swift-with-albums-2025-billboard-1548.jpg',
             credit: 'Courtesy of Taylor Swift (via Billboard)',
             caption: 'A closer frame from the same shoot, hands resting on the reclaimed sleeves.',
             kind: 'primary',
@@ -5257,9 +5264,9 @@ export default {
       snippet:
         'TTPD goes 0-for-6 at the 2025 Grammys. The image that survives the night isn\'t a loss — it\'s Taylor presenting Best Country Album to a stunned Beyoncé for Cowboy Carter, one Album of the Year titan handing the genre trophy to the other.',
       sourceUrl: 'https://www.foxnews.com/entertainment/taylor-swift-leaves-grammys-no-awards-following-record-breaking-year',
-      // Photo pass (#762 run 6, 2026-07-18): thumbnail = the Best Country Album
-      // presentation photo added below.
-      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2025/02/beyonce-grammy-awards-win-country-2025-billboard-1548.jpg?w=1024',
+      // Official Recording Academy video thumbnail, verified HTTP 200 +
+      // image/jpeg (1280x720) and visually confirmed on 2026-08-24.
+      thumbnailUrl: 'https://i.ytimg.com/vi/aGn3HgbqRC8/maxresdefault.jpg',
       moment: {
         context:
           'The Feb. 2, 2025 ceremony resolved all six nominations against her: Album of the Year went to Beyoncé\'s Cowboy Carter, "Not Like Us" swept Record of the Year, Song of the Year, and Best Music Video past "Fortnight," "Die With a Smile" took Best Pop Duo/Group Performance over "us.," and Sabrina Carpenter\'s Short n\' Sweet beat TTPD for Best Pop Vocal Album. Cameras kept finding her having a good night anyway — raising a glass when Kendrick Lamar\'s record swept, cheering when her tour opener Sabrina won.\n\nThe beat everyone kept came mid-show: Taylor presenting Best Country Album to a visibly stunned Beyoncé — her first-ever country win, from the artist whose own country-to-pop arc made her the category\'s most famous graduate. When Cowboy Carter later took Album of the Year, Taylor and Jay-Z clinked champagne glasses in the audience — a graceful coda to a night the internet had framed all week as a face-off.',
@@ -5286,28 +5293,24 @@ export default {
             url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-red-dress-grammys-1236899833/',
           },
         ],
-        // Photo pass (#762 run 6, 2026-07-18): both photos hotlinked from the
-        // outlets' own CDNs, curl-verified HTTP 200 + image/jpeg, downloaded
-        // and visually confirmed this session (the presentation moment and the
-        // red Vivienne Westwood carpet look). No watermarks.
+        // Official Recording Academy video thumbnails, verified HTTP 200 +
+        // image/jpeg (1280x720) and visually confirmed on 2026-08-24.
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2025/02/beyonce-grammy-awards-win-country-2025-billboard-1548.jpg?w=1024',
-            credit: 'Sonja Flemming/CBS, via Billboard',
+            url: 'https://i.ytimg.com/vi/aGn3HgbqRC8/maxresdefault.jpg',
+            credit: 'Recording Academy / GRAMMYs (official acceptance video, YouTube)',
             caption:
-              'The moment everyone kept: Taylor, in red Vivienne Westwood, just after presenting Best Country Album to a stunned Beyoncé — the first Black woman to win the category.',
+              'Beyoncé accepts the Best Country Album Grammy that Taylor presented — the first Black woman to win the category.',
             kind: 'primary',
-            // Beyoncé with the trophy is center-right, Swift upper-left; faces live in the top third.
-            focalPoint: '45% 25%',
+            focalPoint: '50% 28%',
           },
           {
-            url: 'https://wwd.com/wp-content/uploads/2025/02/Taylor-Swift-Red-Vivienne-Westwood-Dress-Grammys-2025-1.jpg?w=1000',
-            credit: 'Frazer Harrison/Getty Images, via WWD',
+            url: 'https://i.ytimg.com/vi/CReGebxw4Ko/maxresdefault.jpg',
+            credit: 'Recording Academy / GRAMMYs (official fashion-cam video, YouTube)',
             caption:
               'The Red-era callback on the carpet: sparkling one-shoulder Vivienne Westwood with ruby chandelier earrings — worn to a night that ended 0-for-6.',
             kind: 'primary',
-            // Tall portrait crop; her eyes sit in the upper third, face centered.
-            focalPoint: '50% 30%',
+            focalPoint: '52% 28%',
           },
         ],
       },
@@ -5437,40 +5440,24 @@ export default {
             notes: 'Producer split: Antonoff-led standard 16, Dessner-led Anthology 15',
           },
         ],
-        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
-        // "Fortnight" MV id q3zqJs7JUCQ verified via YouTube oEmbed this
-        // session ("Taylor Swift - Fortnight (feat. Post Malone) (Official
-        // Music Video)", author @TaylorSwift); maxres1 frame (1280x720)
-        // curl-verified 200 image/jpeg, downloaded and viewed — the
-        // black-and-white asylum close-up, distinct from the maxresdefault
-        // already used on the Fortnight single page. The Wikipedia album
-        // cover render is only 300px (below the 400px floor), so the
-        // lead-single frame carries the album's monochrome aesthetic instead.
+        // Official Taylor Swift lyric-video thumbnails, verified HTTP 200 +
+        // image/jpeg (1280x720) and visually confirmed on 2026-08-24.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/q3zqJs7JUCQ/maxres1.jpg',
-            credit: 'Taylor Swift / Republic Records (official "Fortnight" video frame, YouTube)',
+            url: 'https://i.ytimg.com/vi/RQMz4JDbtmI/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official title-track lyric video, YouTube)',
             caption:
-              'The album’s black-and-white world, distilled: Taylor in the "Fortnight" video that arrived with TTPD on release night.',
+              'The album’s monochrome “department” visual, from the official title-track lyric video.',
             kind: 'primary',
-            // Stark close-up; her eyes sit in the upper third, face centered.
-            focalPoint: '47% 35%',
+            focalPoint: '50% 48%',
           },
           {
-            // Salvaged 2026-07-19 from photo-enrichment PR #887, which was
-            // otherwise superseded by a racing run: the album's OWN package
-            // photography (Beth Garrabrant), which suits the album page
-            // better than a music-video frame. Billboard's CDN, photographer
-            // in the filename; re-verified 200 image/jpeg (774KB) this
-            // session. The en-wiki cover render was rejected at 300px
-            // (under the 400px floor).
-            url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Albatross-billboard-1548.jpg',
-            credit: 'Beth Garrabrant / Republic Records, via Billboard',
+            url: 'https://i.ytimg.com/vi/4wOsiM2T_xc/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official “The Albatross” lyric video, YouTube)',
             caption:
-              'The album package’s gray seaside portrait — the era’s black-and-white, ink-stained mood in one frame.',
+              'The black-and-gray title card from the official “The Albatross” lyric video.',
             kind: 'primary',
-            // Face upper-center-left against the flat gray sky.
-            focalPoint: '45% 28%',
+            focalPoint: '50% 50%',
           },
         ],
       },

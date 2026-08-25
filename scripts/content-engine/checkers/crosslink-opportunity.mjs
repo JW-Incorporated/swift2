@@ -86,6 +86,7 @@ const CONTEXT_ENTITY = new Set([
   'grand ole opry', 'grand ole opry house',
   // generic tour/geography phrases
   'world tour', 'stadium tour', 'north american', 'new york', 'new york city',
+  'los angeles',
 ]);
 
 export function entitiesOf(text) {

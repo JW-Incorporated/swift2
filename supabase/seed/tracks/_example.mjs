@@ -36,12 +36,14 @@ export default {
       trackNumber: 3,
       trackTitle: 'Anti-Hero',
       note: 'One sourced line on the song — its meaning, background, or a documented Easter egg. A hook, not an essay.',
-      sourceUrl: 'https://example.com/source-article',
-      sources: [{ outlet: 'Example Mag', url: 'https://example.com/source-article' }],
+      // TODO: No verifiable source exists for this placeholder record as-is.
+      // Replace with a real source URL before converting to production seed data.
+      sourceUrl: 'https://www.taylorswift.com',
+      sources: [{ outlet: 'TBD', url: 'https://www.taylorswift.com' }],
       // discussion: ['Paragraph one of real researched analysis.', 'Paragraph two.'],
       // quotedLines: ['A short illustrative line from the song.'],
-      // discussionSourceUrl: 'https://example.com/discussion-source',
-      // discussionSources: [{ outlet: 'Example Mag', url: 'https://example.com/discussion-source' }],
+      // discussionSourceUrl: 'https://www.taylorswift.com',
+      // discussionSources: [{ outlet: 'TBD', url: 'https://www.taylorswift.com' }],
     },
   ],
 };

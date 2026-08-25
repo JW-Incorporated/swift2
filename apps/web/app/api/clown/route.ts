@@ -11,6 +11,7 @@ import { docToRetrievedItem, composeFallback, type RetrievedItem } from '../../.
 import { answerFromFallback, answerFromTake } from '../../../lib/longlive/clown-answer';
 import { resolveScopeSignal } from '../../../lib/longlive/clown-agent-tools';
 import { AGENT_MAX_WALL_MS, runClownAgent } from '../../../lib/longlive/clown-agent';
+import { explainClownQuestion } from '../../../lib/longlive/clown-explain';
 import { persistPrediction } from '../../../lib/longlive/clown-predictions';
 import { incrementUserUsage, loadClownHistory, recordClownMemory } from '../../../lib/longlive/clown-memory';
 import {
@@ -170,6 +171,13 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json(messageAnswer([refusal(conversationHit).message]));
   }
 
+  // JARGON / PRODUCT EXPLAINERS — newcomer questions are deterministic,
+  // source-free, and never spend a model call or start a persisted session.
+  const explanation = explainClownQuestion(text);
+  if (explanation) {
+    return NextResponse.json(messageAnswer([explanation.text]));
+  }
+
   // CHIP TAPS — the request marks itself as originating from a prefill
   // column. Those resolve here, via the unchanged deterministic compile-time
   // retrieval, and MUST NOT reach the model or the agent loop; that is what
@@ -308,17 +316,26 @@ export async function POST(req: Request): Promise<Response> {
           const resolvedName = resolveTheoryName(text, sources, run.take.theoryName);
           const finalTake = { ...run.take, theoryName: resolvedName?.name ?? null };
           const answer = answerFromTake(finalTake, sources, run.investigation);
-          // Best-effort — never awaited into the response path; see
-          // clown-predictions.ts for exactly what "best-effort" degrades to.
-          void persistPrediction({ session: memorySession, question: text, take: finalTake, sources }).catch(() => {});
-          // PLAN.md Stage 11 — same best-effort posture; no-ops entirely
-          // when memorySession is null (see clown-memory.ts).
-          void recordClownMemory({
-            session: memorySession,
-            question: text,
-            answerText: `${finalTake.stance} ${finalTake.argument}`.trim(),
-          }).catch(() => {});
           emit({ type: 'answer', answer });
+          const persistenceResults = await Promise.allSettled([
+            persistPrediction({ session: memorySession, question: text, take: finalTake, sources }),
+            recordClownMemory({
+              session: memorySession,
+              question: text,
+              answerText: `${finalTake.stance} ${finalTake.argument}`.trim(),
+            }),
+          ]);
+          for (const [index, result] of persistenceResults.entries()) {
+            if (result.status === 'rejected') {
+              console.log(
+                'clown:persistence-failed',
+                JSON.stringify({
+                  target: index === 0 ? 'prediction' : 'memory',
+                  message: result.reason instanceof Error ? result.reason.message : 'unknown',
+                }),
+              );
+            }
+          }
           return;
         }
         console.log('clown:gate-reject', JSON.stringify({ kind: rejection.kind }));

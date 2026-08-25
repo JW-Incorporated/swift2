@@ -33,13 +33,13 @@ const JUMP_SCROLL_MAX_MS = 8000;
  * theme). Scrolling past Debut lands on the origin end-cap.
  */
 export function EraStream() {
-  const { eraId, eraJumpSeq, scrubbing, filters } = useAppState();
+  const { eraId, eraJumpSeq, scrubbing, filters, pendingVideoAnchor } = useAppState();
   // Read the live scrubbing flag without making it an effect dependency —
   // toggling it shouldn't tear down/rebuild the scroll listener, it should
   // just change what a single already-running listener does on its next call.
   const scrubbingRef = useRef(scrubbing);
   scrubbingRef.current = scrubbing;
-  const { setActiveEra, saveEraScroll, getEraScroll, setMode } = useAppActions();
+  const { setActiveEra, saveEraScroll, getEraScroll, setMode, clearPendingVideoAnchor } = useAppActions();
   // PLAN.md Stage 5: the current era's live current_item rows, fetched once
   // here (not per EraSection) so the masthead's "Updated Nh ago" line and
   // the current era's feed entries read the exact same fetch.
@@ -208,6 +208,40 @@ export function EraStream() {
 
     return stop;
   }, [eraJumpSeq]);
+
+  // Search video deep-links (#652): once `openVideo` sets a pending scroll
+  // target, poll for that video's own card for a short bounded window and
+  // scroll it into view the moment it mounts. Deliberately separate from the
+  // era-jump correction above — this is a best-effort refinement on TOP of
+  // that landing, not a replacement for it, so a video with no standalone
+  // card (unplayable, or embedded inline in a moment — search.ts) just times
+  // out silently and leaves the reader on the era, exactly where the era-jump
+  // effect already put them.
+  useEffect(() => {
+    if (!pendingVideoAnchor) return;
+    let cancelled = false;
+    let timer: number | undefined;
+    const deadline = Date.now() + 3000;
+    const attempt = () => {
+      if (cancelled) return;
+      const el = document.querySelector<HTMLElement>(`[data-ll-item="${pendingVideoAnchor}"]`);
+      if (el) {
+        el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        clearPendingVideoAnchor();
+        return;
+      }
+      if (Date.now() > deadline) {
+        clearPendingVideoAnchor();
+        return;
+      }
+      timer = window.setTimeout(attempt, 150);
+    };
+    attempt();
+    return () => {
+      cancelled = true;
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
+  }, [pendingVideoAnchor, clearPendingVideoAnchor]);
 
   const sequence = useMemo(() => erasBackFrom(anchorId, count), [anchorId, count]);
   const reachedBeginning = isFirstEra(sequence[sequence.length - 1].id);

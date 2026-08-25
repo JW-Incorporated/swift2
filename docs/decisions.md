@@ -7,6 +7,74 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-24 — Retired the last 6 live `media.gettyimages.com` comp URLs from seed content; replaced with real, verified, non-Getty images
+
+**Decision:** the 6 remaining `media.gettyimages.com` comp-image URLs still
+live in `supabase/seed/**` (surfaced by issue #935 / `HUMAN-ACTIONS.md` #19)
+are retired and REPLACED with real, verified, non-Getty images — not
+stripped blank. This follows the same retire-and-replace direction as the
+2026-08-15 "No rehosted third-party press photos" entry above, extended
+here to seed-content hotlinks the earlier pass didn't reach (that entry
+closed the `apps/web/public/social/library/**` rehosting practice; this one
+closes the remaining `supabase/seed/content/**` hotlinks issue #935 flagged
+separately on 2026-07-20).
+
+**Scope:** issue #935 was filed against 17 distinct Getty URLs (33
+references) across `fearless.mjs`, `speak-now.mjs`, `debut.mjs`,
+`reputation.mjs`, plus 2 in `supabase/seed/candidates/00-orbit.mjs`. A fresh
+grep on 2026-08-24 found only 6 distinct URLs (11 live references) still
+present — the rest had already been retired by prior "Image-fix pass" /
+"Kevin Stream 1" work sessions referenced in this repo's own seed-file
+comments. This entry covers those final 6:
+
+1. **Fearless — Taylor Lautner, Dec. 3, 2009** (`fearless.mjs`): replaced
+   with the same People.com CDN photo already verified for this repo's
+   "Benihana and Menchie's" item, which documents the identical outing —
+   no new sourcing needed, avoided a redundant second image of the same day.
+2. **Fearless — John Mayer, Z100 Jingle Ball, Dec. 11, 2009** (`fearless.mjs`):
+   discovered mid-pass that `origin/main` had already retired this one
+   independently (a YouTube concert-footage still, `i.ytimg.com`, credited
+   to Samantha Faigen) — kept that existing fix rather than duplicate it.
+3. **Speak Now — 2011 Teen Choice Awards white halter dress** (`speak-now.mjs`):
+   replaced with People.com's own CDN copy of the same dress/event.
+4. **Speak Now — Wonderstruck fragrance launch, Macy's Herald Square, Oct.
+   13, 2011** (`speak-now.mjs`): replaced with WWD's own hotlink from its
+   contemporaneous launch-day coverage of the same event (allowlisted via
+   `PHOTO_HOST_LEGACY`).
+5. **Reputation — the "cotton candy" tinsel-fringe dress, Reputation Stadium
+   Tour** (`reputation.mjs`): no equivalent single, unwatermarked press
+   photo of this exact costume could be verified on an allowlisted host
+   after checking Wikimedia Commons' Reputation Stadium Tour categories
+   (including the MetLife date itself), Billboard, WWD, and People — those
+   turned up other costumes from the same "Delicate" segment, not this
+   rainbow take. Reused this item's own `thumbnailUrl`
+   (`tayswiftstyle.wordpress.com`, already an allowlisted host and the
+   correct dress) for the `photos[]` entry too, rather than force a
+   wrong-costume substitute. Left a TODO in the seed file for a cleaner
+   single-photo replacement if one turns up.
+6. **`00-orbit.mjs` — NYC street style, Aug. 2019** (unpublished candidates
+   file, `sourceUrl` was already `null`): no equivalent real photo of this
+   specific outfit could be verified on an allowlisted host after checking
+   People.com, E! News, Yahoo, and Wikimedia Commons. Set `thumbnailUrl:
+   null` / `photos: []` (an established pattern already used 200+ times in
+   this same file) with a TODO comment, rather than force a mismatched
+   image into an unpublished, never-sourced candidate entry.
+
+Every replacement was verified live via this repo's own `probe()`
+(`scripts/content-engine/checkers/image-liveness.mjs`) before use — all
+resolve HTTP 200/206, `image/jpeg`. `grep -r "gettyimages.com"
+supabase/seed/` returns nothing as of this entry.
+
+**Why:** the exposure this batch carried was the same class the 2026-08-15
+entry closed for the social library — unlicensed Getty comp thumbnails,
+hotlinked and shipped as the product's own asset on a site that carries
+affiliate links (commercial use). Tied to the #800 LEGAL launch gate.
+
+**Approved by:** Joey, in chat, 2026-08-24 (`HUMAN-ACTIONS.md` #19) —
+retire-and-replace, not license.
+
+---
+
 ## 2026-08-24 — Knowledge engine vendor picks: GNews free tier + engineered daily cap; Tumblr consumer-key-only, no OAuth
 
 **Context:** PLAN.md Stage 6 (fan adapters). The 2026-08-23 kickoff entry

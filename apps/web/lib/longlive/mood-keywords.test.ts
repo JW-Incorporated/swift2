@@ -170,10 +170,24 @@ describe('keywordQuery', () => {
       }
     });
 
+    it('the #2000 nervous-about-TS12 example returns forward-looking picks, not the old alphabetical grief set', () => {
+      const picks = topSlugs('kind of nervous about TS12 honestly, what if it flops');
+      expect(picks[0]).toBe('long-live');
+      expect(picks).not.toEqual(['clean', 'cruel-summer', 'dear-john', 'dont-blame-me', 'my-tears-ricochet']);
+    });
+
     it('"reputation villain era" reads as defiance', () => {
       const q = keywordQuery('in my reputation villain era today');
       expect(q.moods.defiance).toBeGreaterThan(0);
       expect(matchMoods(q, { limit: 5 }).length).toBeGreaterThan(0);
+    });
+
+    it('understands the remaining #1999 Swiftie idioms', () => {
+      expect(keywordQuery('feeling completely delulu today').moods.catharsis).toBeGreaterThan(0);
+      const club = keywordQuery('crying in the club');
+      expect(club.moods.heartbreak).toBeGreaterThan(0);
+      expect(club.moods.catharsis).toBeGreaterThan(0);
+      expect(club.energy).toBeGreaterThan(0.6);
     });
 
     // Agitation support words count only INSIDE a hype context. Solo, they are
@@ -201,29 +215,76 @@ describe('keywordQuery', () => {
 
   // #1988 — the everyday casual register that used to dead-end in UNCLEAR.
   describe('casual register (#1988)', () => {
-    it.each(['meh', 'bored', 'idk', 'fine i guess'])('returns songs for %j', (text) => {
+    it.each(['meh', 'bored', 'idk', 'eh', 'fine i guess'])('returns songs for %j', (text) => {
       expect(matchMoods(keywordQuery(text), { limit: 5 }).length).toBeGreaterThan(0);
     });
 
-    it('good news reads as joyful and upbeat', () => {
-      const q = keywordQuery('I just got a promotion!!');
+    it('the exact promotion example reads as joyful and upbeat', () => {
+      const q = keywordQuery('i just got a promotion!!');
       expect(q.moods.joy).toBeGreaterThan(0);
       expect(q.valence ?? 0).toBeGreaterThan(0.6);
+    });
+
+    it.each(['passed', 'aced'])('recognizes the issue-listed celebration word %j', (text) => {
+      const q = keywordQuery(text);
+      expect(q.moods.joy).toBeGreaterThan(0);
+      expect(q.valence ?? 0).toBeGreaterThan(0.6);
+      expect(matchMoods(q, { limit: 5 }).length).toBeGreaterThan(0);
+    });
+
+    it('work stress prefers calm relief and excludes the ticket mismatches', () => {
+      const q = keywordQuery('stressed about work');
+      expect(q.intent).toBe('everyday-stress');
+      expect(q.moods.calm).toBeGreaterThan(0);
+      expect(q.valence).toBeCloseTo(0.45);
+      const slugs = topSlugs('stressed about work', 5);
+      expect(slugs[0]).toBe('clean');
+      expect(slugs).not.toContain('dear-john');
+      expect(slugs).not.toContain('soon-youll-get-better');
+    });
+
+    it('bare tired prefers mid-valence calm over breakup devastation', () => {
+      const q = keywordQuery('tired');
+      expect(q.intent).toBe('fatigue');
+      expect(q.moods.calm).toBeGreaterThan(0);
+      expect(q.valence).toBeCloseTo(0.45);
+      const slugs = topSlugs('tired', 5);
+      expect(slugs).not.toContain('hoax');
+      expect(slugs).not.toContain('last-kiss');
     });
   });
 
   // #1986 — breakup-script gaps: rumination/self-blame, "leaves you", and 1am.
   describe('breakup-script gaps (#1986)', () => {
-    it('rumination / self-blame reads as heartbreak', () => {
-      const q = keywordQuery('keep replaying everything I did wrong');
+    it('the exact rumination / self-blame example reads as heartbreak', () => {
+      const q = keywordQuery('i keep replaying everything i did wrong');
       expect(q.moods.heartbreak).toBeGreaterThan(0);
       expect(matchMoods(q, { limit: 5 }).length).toBeGreaterThan(0);
     });
 
-    it('"1am" and "leaves you" now register (heartbreak, quiet)', () => {
+    it('the exact small-hours / present-tense leaving example registers', () => {
       const q = keywordQuery('why does 1am hit different when someone leaves you');
       expect(q.moods.heartbreak).toBeGreaterThan(0);
       expect(q.energy).toBeLessThan(0.5); // 1am is a small-hours low-energy marker
+    });
+
+    it.each([
+      'leaving me',
+      "shouldn't have",
+      'messed up',
+      'screwed up',
+      "can't stop thinking",
+      'what did i do',
+    ])('recognizes the explicit breakup-script literal %j', (text) => {
+      const q = keywordQuery(text);
+      expect(q.moods.heartbreak).toBeGreaterThan(0);
+      expect(q.valence).toBeLessThan(0.5);
+    });
+
+    it.each(['1am', '2am', '3am', '4am'])('recognizes %s as a small-hours signal', (text) => {
+      const q = keywordQuery(text);
+      expect(q.energy).toBeLessThan(0.5);
+      expect(matchMoods(q, { limit: 5 }).length).toBeGreaterThan(0);
     });
   });
 
@@ -234,10 +295,20 @@ describe('keywordQuery', () => {
       expect(q.moods.longing).toBeGreaterThan(0);
       expect(q.energy ?? 1).toBeLessThan(0.5);
       expect(q.valence ?? 1).toBeLessThan(0.5);
-      // The exact songs the ticket flagged (up-tempo wanting) must not lead.
+      expect(q.intent).toBe('companionship');
       const slugs = topSlugs('I just want to feel less alone', 5);
+      expect(slugs).toEqual([
+        'this-is-me-trying',
+        'youre-on-your-own-kid',
+        'long-live',
+        'seven',
+        'the-outside',
+      ]);
+      expect(slugs).not.toContain('august');
       expect(slugs).not.toContain('cruel-summer');
       expect(slugs).not.toContain('dress');
+      expect(slugs).not.toContain('untouchable');
+      expect(slugs).not.toContain('marjorie');
     });
   });
 });

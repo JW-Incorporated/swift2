@@ -211,7 +211,7 @@ export default {
             'Taylor Swift sparks curiosity with new "Easter Eggs" on streaming platforms',
           publisher: 'Geo.tv',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-20',
+          accessed_at: '2026-08-24',
           reliability_score: 3,
           excerpt: null,
           notes:
@@ -239,7 +239,7 @@ export default {
         'When Gracie Abrams\'s "Death Wish" circulated, some Swifties read its lines about power, cruelty and a damaged relationship as a coded shot at Taylor — folding Abrams, one of Taylor\'s close friends and Eras Tour openers, into a supposed hidden feud.',
       evidence:
         'The song\'s co-writer and producer, Aaron Dessner — the same collaborator behind folklore and evermore — was asked about the theory head-on in a July 21, 2026 Billboard interview and shut it down flatly: "Yeah, definitely not." He said Abrams wrote it "at a time when [Gracie] was writing about a friend\'s ex, being in a bad relationship," and added that he did not even know the person\'s identity — so there is no hidden third party to expose, and nothing about Taylor in it. NME and E! News carried the same denial. The reading was always a fan inference stacked on a public friendship, never anything Abrams or Dessner had suggested; on the record from the man who helped write the song, it resolves debunked.',
-      confidence: 'reputable_reporting',
+      confidence: 'confirmed_interview',
       outcome: 'debunked',
       sources: [
         {

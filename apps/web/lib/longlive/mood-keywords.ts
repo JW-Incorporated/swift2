@@ -49,11 +49,13 @@ const AXIS_KEYWORDS: Record<MoodAxis, readonly string[]> = {
     // present-tense form of "left me"), and the 1am-spiral rumination/self-blame
     // that is the whole texture of the catalogue's saddest songs.
     'leaves you', 'leave you', 'leaving you', 'when someone leaves', 'someone leaves',
-    'when they leave', 'walked out', 'walked away from me',
+    'when they leave', 'leaving me', 'walked out', 'walked away from me',
     'replaying', 'replay', 'keep replaying', 'cant stop replaying', 'going over it',
+    'cant stop thinking',
     'over and over', 'ruminating', 'my fault', 'it was my fault', 'all my fault',
     'everything i did wrong', 'what i did wrong', 'blaming myself', 'blame myself',
-    'should have', 'shouldve', 'if only', 'wish i had done',
+    'what did i do', 'should have', 'shouldve', 'shouldnt have', 'messed up',
+    'screwed up', 'if only', 'wish i had done',
     // 'hungover' / 'hanging' (UK slang for hungover, NOT for drunk) are
     // deliberately NOT on this axis. They carry low energy and low valence,
     // which they get from LOW_ENERGY/LOW_VALENCE below, and `hasSignal` is
@@ -89,7 +91,7 @@ const AXIS_KEYWORDS: Record<MoodAxis, readonly string[]> = {
     // #1999 — the "lover era" as a mood. #1988 — good news is the everyday
     // register the box kept dead-ending: a promotion, a job, a graduation, a win.
     'lover era', 'promotion', 'got promoted', 'got the job', 'new job', 'got the offer',
-    'graduated', 'engaged', 'good news', 'accomplished', 'nailed it', 'aced', 'passed my',
+    'graduated', 'engaged', 'good news', 'accomplished', 'nailed it', 'aced', 'passed', 'passed my',
     'i won', 'we won', 'proud of myself',
   ],
   calm: [
@@ -102,7 +104,7 @@ const AXIS_KEYWORDS: Record<MoodAxis, readonly string[]> = {
     // #1988 — the casual/low-key register. "meh", "bored", "idk" used to
     // dead-end in UNCLEAR; mapped to calm they return low-key songs instead.
     'meh', 'blah', 'bleh', 'bored', 'whatever', 'indifferent', 'so so', 'same old',
-    'nothing much', 'idk', 'i dont know', 'i guess', 'nothing new',
+    'nothing much', 'idk', 'i dont know', 'i guess', 'nothing new', 'eh',
   ],
   defiance: [
     'defiant', 'defiance', 'empowered', 'powerful', 'fierce', 'unstoppable', 'confident',
@@ -139,7 +141,7 @@ const AXIS_KEYWORDS: Record<MoodAxis, readonly string[]> = {
     // catharsis ("feeling everything at once") is the axis that spans both.
     // Feral/unhinged/wired read as the same chaotic-release register.
     'drunk', 'tipsy', 'buzzed', 'wasted', 'hammered', 'tequila',
-    'feral', 'unhinged', 'wired',
+    'feral', 'unhinged', 'wired', 'delulu', 'crying in the club',
   ],
 };
 
@@ -151,12 +153,15 @@ const AXIS_KEYWORDS: Record<MoodAxis, readonly string[]> = {
 // Only the NEGATED sit-still forms are high energy — "can't sit still" is
 // agitation, but "i just want to sit still" is a wish for calm, so the bare
 // phrase stays out.
-const HIGH_ENERGY = ['pumped', 'hyped', 'dancing', 'dance', 'party', 'loud', 'driving', 'blasting', 'amped', 'wild', 'unhinged', 'feral', 'buzzing', 'restless', 'cant sit still', 'cannot sit still', 'not sit still', 'couldnt sit still', 'jittery', 'bouncing off the walls', 'vibrating', 'drunk', 'tipsy', 'buzzed', 'wasted', 'hammered', 'tequila', 'wired'];
+const HIGH_ENERGY = ['pumped', 'hyped', 'dancing', 'dance', 'party', 'loud', 'driving', 'blasting', 'amped', 'wild', 'unhinged', 'feral', 'buzzing', 'restless', 'cant sit still', 'cannot sit still', 'not sit still', 'couldnt sit still', 'jittery', 'bouncing off the walls', 'vibrating', 'drunk', 'tipsy', 'buzzed', 'wasted', 'hammered', 'tequila', 'wired', 'crying in the club'];
 // 'still' removed (#1999) — it cancelled "hyped" in "can't sit still". The
 // small-hours markers 1am/2am/4am join 3am; ennui words read as low energy too.
-const LOW_ENERGY = ['tired', 'sleepy', 'quiet', 'slow', 'calm', 'cozy', 'cosy', 'mellow', 'soft', '1am', '2am', '3am', '4am', 'late night', 'exhausted', 'drained', 'worn out', 'numb', 'heavy', 'flat', 'meh', 'blah', 'bored', 'sluggish', 'listless', 'hungover', 'hanging'];
-const HIGH_VALENCE = ['happy', 'joy', 'joyful', 'excited', 'in love', 'celebrating', 'good', 'great', 'amazing', 'winning', 'blissful', 'grateful', 'proud', 'promotion', 'promoted', 'got the job', 'good news', 'graduated', 'engaged', 'accomplished', 'nailed it'];
-const LOW_VALENCE = ['sad', 'heartbroken', 'depressed', 'down', 'miserable', 'lonely', 'crying', 'grief', 'hopeless', 'empty', 'grumpy', 'annoyed', 'frustrated', 'angry', 'awful', 'terrible', 'horrible', 'rough', 'bad day', 'worst', 'sucks', 'exhausted', 'drained', 'anxious', 'stressed', 'upset', 'bummed', 'gloomy', 'hungover', 'hanging'];
+const LOW_ENERGY = ['tired', 'sleepy', 'quiet', 'slow', 'calm', 'cozy', 'cosy', 'mellow', 'soft', '1am', '2am', '3am', '4am', 'late night', 'exhausted', 'drained', 'worn out', 'numb', 'heavy', 'flat', 'meh', 'blah', 'bored', 'eh', 'sluggish', 'listless', 'hungover', 'hanging'];
+const HIGH_VALENCE = ['happy', 'joy', 'joyful', 'excited', 'in love', 'celebrating', 'good', 'great', 'amazing', 'winning', 'blissful', 'grateful', 'proud', 'promotion', 'promoted', 'got the job', 'good news', 'graduated', 'engaged', 'accomplished', 'nailed it', 'aced', 'passed'];
+const LOW_VALENCE = ['sad', 'heartbroken', 'depressed', 'down', 'miserable', 'lonely', 'crying', 'grief', 'hopeless', 'empty', 'grumpy', 'annoyed', 'frustrated', 'angry', 'awful', 'terrible', 'horrible', 'rough', 'bad day', 'worst', 'sucks', 'exhausted', 'drained', 'anxious', 'stressed', 'upset', 'bummed', 'gloomy', 'leaving me', 'my fault', 'did wrong', 'should have', 'shouldnt have', 'messed up', 'screwed up', 'cant stop thinking', 'what did i do', 'hungover', 'hanging'];
+
+/** Everyday work pressure needs relief, not the betrayal-heavy catharsis shelf. */
+const EVERYDAY_STRESS_KEYWORDS = ['stressed about work', 'stressed at work', 'work stress'];
 
 /**
  * #1999 — the anticipation/excitement register. Deliberately NOT a ninth song
@@ -259,7 +264,6 @@ function stripFigurativeDeath(hay: string): string {
   }
   return out;
 }
-
 /**
  * True when the reader's words carry an explicit bereavement/death signal. Used
  * by the route AND by {@link keywordQuery} to set {@link MoodQuery.bereavement},
@@ -388,6 +392,12 @@ export function keywordQuery(text: string): MoodQuery {
   const lonely = LONELINESS_KEYWORDS.some((w) => contains(hay, w));
   if (lonely) moods.longing = Math.max(moods.longing ?? 0, 0.6);
 
+  const everydayStress = EVERYDAY_STRESS_KEYWORDS.some((w) => contains(hay, w));
+  if (everydayStress) moods.calm = Math.max(moods.calm ?? 0, 0.7);
+
+  const bareFatigue = hay === ' tired ';
+  if (bareFatigue) moods.calm = Math.max(moods.calm ?? 0, 0.6);
+
   // #1984 — an explicit bereavement signal ("my grandma just died") asserts
   // heartbreak so there is something for the matcher to rank on (a bare "died"
   // hits no axis and would otherwise dead-end in UNCLEAR), and — via the flag set
@@ -396,7 +406,16 @@ export function keywordQuery(text: string): MoodQuery {
   const bereaved = hasBereavementSignal(text);
   if (bereaved) moods.heartbreak = Math.max(moods.heartbreak ?? 0, 0.7);
 
-  const query: MoodQuery = { moods };
+  const query: MoodQuery = {
+    moods,
+    intent: lonely
+      ? 'companionship'
+      : everydayStress
+        ? 'everyday-stress'
+        : bareFatigue
+          ? 'fatigue'
+          : undefined,
+  };
 
   const highWord = HIGH_ENERGY.some((w) => contains(hay, w));
   const lowWord = LOW_ENERGY.some((w) => contains(hay, w));
@@ -411,7 +430,8 @@ export function keywordQuery(text: string): MoodQuery {
 
   const happyWord = HIGH_VALENCE.some((w) => contains(hay, w));
   const sadWord = LOW_VALENCE.some((w) => contains(hay, w));
-  if (lonely || bereaved) query.valence = 0.15;
+  if (everydayStress || bareFatigue) query.valence = 0.45;
+  else if (lonely || bereaved) query.valence = 0.15;
   else if (anticipation > 0 && !sadWord) query.valence = 0.8;
   else if (happyWord && !sadWord) query.valence = 0.85;
   else if (sadWord && !happyWord) query.valence = 0.15;

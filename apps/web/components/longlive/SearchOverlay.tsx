@@ -7,6 +7,7 @@ import {
   Clapperboard,
   Compass,
   CornerDownLeft,
+  Layers,
   Lightbulb,
   Music2,
   Search,
@@ -51,6 +52,7 @@ import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 const TYPE_ICON: Record<SearchDocType, typeof Search> = {
   era: Compass,
+  thread: Layers,
   moment: Sparkles,
   egg: Waypoints,
   theory: Lightbulb,
@@ -202,14 +204,20 @@ export function SearchOverlay() {
       case 'era':
         actions.openEra(target.eraId);
         break;
-      case 'track-guide':
-        actions.openTrackGuide(target.eraId);
+      case 'track':
+        actions.openSong(target.eraId, target.trackKey);
         break;
       case 'theory-guide':
         actions.openTheoryGuide(target.eraId);
         break;
       case 'trail':
         actions.openClueWebTrail(target.motifId);
+        break;
+      case 'thread':
+        actions.openThread(target.lensId);
+        break;
+      case 'video':
+        actions.openVideo(target.eraId, target.videoId);
         break;
     }
   }

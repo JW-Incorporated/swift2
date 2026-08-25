@@ -26,3 +26,16 @@ describe('jumpWindow', () => {
     expect(jumpWindow('not-an-era').count).toBeGreaterThanOrEqual(1);
   });
 });
+
+// #659: the "Hidden clue" badge (MomentCardButton.tsx) paints
+// text-[color:var(--era-accent-text)] — Red's own `accent` measured 3.73:1
+// against its `surface`, below AA's 4.5:1 floor for that small text, even
+// before the (now-removed) glint opacity dip made it worse. `accentText`
+// verified against Red's surface/bg with a standalone contrast calculation
+// (not re-run in-suite — see tags.test.ts).
+describe('ERAS — #659 (accentText fallback for small text)', () => {
+  it("sets a lighter accentText on Red, where the raw accent fails 4.5:1 on its own surface", () => {
+    const red = ERAS.find((e) => e.id === 'red');
+    expect(red?.theme.accentText).toBe('#de6159');
+  });
+});

@@ -21,8 +21,9 @@ export default {
       slug: 'lover-era-ignition-me-pastel-turn',
       title: 'The pastel turn: ME! ends the reputation black',
       snippet:
-        'A countdown clock, a butterfly mural repainted overnight, and an NFL-Draft-night interview with Robin Roberts — the single most legible palette flip of her career, staged across April 2019.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Me!_(song)',
+        'A pastel countdown, a commissioned butterfly mural, and an NFL-Draft-night interview with Robin Roberts — the single most legible palette flip of her career, staged across April 2019.',
+      sourceUrl:
+        'https://pitchfork.com/news/taylor-swift-to-release-new-song-and-video-me-tonight/',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
       relatedIds: [
         'moment:vault-lover-seven-pastel-outfit-changes-in-the-me-video',
@@ -30,9 +31,45 @@ export default {
       ],
       moment: {
         context:
-          'reputation had ended in black and white; Lover began in every color at once. On April 13, 2019, a countdown to midnight on April 26 appeared on her website and her feed turned to pastel skies — the snake era formally over. On April 25, street artist Kelsey Montague\'s butterfly mural in Nashville\'s Gulch was repainted with the word "Me!", the campaign hiding in plain sight on a public wall fans could pose in front of. That same day, during ABC\'s NFL Draft broadcast, she confirmed the details to Robin Roberts.\n\n"ME!", her duet with Brendon Urie of Panic! at the Disco, premiered at midnight on April 26 — written by Taylor with Joel Little and Urie, and produced by Taylor and Little. The video pulled 65.2 million views in its first 24 hours, breaking Vevo\'s single-day record; the song debuted at No. 100 on the Hot 100, then leapt to a No. 2 peak the following week. Critics read the bright palette exactly as intended: a deliberate, public exit from reputation\'s black-and-white, and the first full sight of the Lover aesthetic.',
+          'reputation had ended in black and white; Lover announced itself in pastels. On April 13, 2019, a countdown debuted on Taylor\'s Instagram and website, ticking toward April 26 while a run of colorful posts kept repeating the date. On April 25, Taylor made a surprise appearance at the butterfly mural she had commissioned from street artist Kelsey Montague in Nashville\'s Gulch. Hearts, flowers, rainbows, and cats filled the wings; Montague added "ME!" between them as fans watched. Taylor sent the crowd to ABC for her next clue: a live chat with Robin Roberts that night.\n\nDuring the 2019 NFL Draft broadcast, Taylor discussed the new single with Roberts. On April 26, "ME!" arrived with a candy-colored video and Brendon Urie of Panic! at the Disco — her first new music since reputation, and an immediate visual break from that era. The video amassed 65.2 million Vevo views in its first 24 hours, setting the platform\'s single-day record. The palette flip was no longer tucked inside a teaser: this was the Lover era\'s public opening scene.',
         sources: [
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Me!_(song)' },
+          {
+            outlet: 'The Washington Post',
+            url: 'https://www.washingtonpost.com/arts-entertainment/2019/04/17/taylor-swifts-guessing-games-about-her-music-started-off-savvy-now-theyre-essential/',
+            source_title:
+              'Taylor Swift\'s guessing games about her music started off as savvy. Now they\'re essential.',
+            publisher: 'The Washington Post',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'MusicRow',
+            url: 'https://musicrow.com/2019/04/taylor-swift-makes-surprise-appearance-at-nashville-mural/',
+            source_title: 'Taylor Swift Makes Surprise Appearance At Nashville Mural',
+            publisher: 'MusicRow',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Pitchfork',
+            url: 'https://pitchfork.com/news/taylor-swift-to-release-new-song-and-video-me-tonight/',
+            source_title: 'Taylor Swift Releases New Song and Video "ME!": Watch',
+            publisher: 'Pitchfork',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/world-records/112534-most-viewed-vevo-video-in-24-hours',
+            source_title: 'Most viewed VEVO video in 24 hours',
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-08-24',
+            reliability_score: 5,
+          },
         ],
         photos: [
           {
@@ -221,24 +258,16 @@ export default {
       title: 'Death By A Thousand Cuts, borrowed from a Netflix movie that borrowed from her',
       snippet: 'A song written after crying over a rom-com — whose director had made that movie while listening to Taylor\'s own 1989.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Death_by_a_Thousand_Cuts_(song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/BBd9gcrj2Wk/hqdefault.jpg',
       moment: {
         context:
-          'Director Jennifer Kaytin Robinson said her film "Someone Great" was mainly inspired by 1989, especially "Clean." Taylor, after the song came from watching that film: "I just wrote a song based on something she made, which she made while listening to something I made, which is the most meta thing that\'s ever happened to me."\n\nThe song also settled a question she had raised about herself in print: in a March 2019 essay she wondered whether finding happiness would dull a catalog built on breakup songs, and resolved to write from friends\' experiences, books, and fictional characters instead of only her own life. She later told NPR\'s Tiny Desk audience she had absorbed breakup books and movies while making Lover — this track is the proof of concept. Its live debut came acoustically at the one-night City of Lover show in Paris, the version whose artwork appears here.',
+          'Director Jennifer Kaytin Robinson said her film "Someone Great" was mainly inspired by 1989, especially "Clean." Taylor, after the song came from watching that film: "I just wrote a song based on something she made, which she made while listening to something I made, which is the most meta thing that\'s ever happened to me."\n\nThe song also settled a question she had raised about herself in print: in a March 2019 essay she wondered whether finding happiness would dull a catalog built on breakup songs, and resolved to write from friends\' experiences, books, and fictional characters instead of only her own life. She later told NPR\'s Tiny Desk audience she had absorbed breakup books and movies while making Lover — this track is the proof of concept. Its live debut came acoustically at the one-night City of Lover show in Paris.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Death_by_a_Thousand_Cuts_(song)' }],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png',
-            credit: 'Republic Records (single cover art, Live from Paris version)',
-            kind: 'primary',
-            focalPoint: '35% 48%',
-          },
           // Photo-enrichment pass (2026-07-18, #762): official Someone Great
           // trailer thumbnail — the Netflix film this page's story is about —
           // video id verified via YouTube oEmbed (author "Netflix") this
-          // session. (The song's own Live From Paris video thumbnail was
-          // rejected as a duplicate of the cover art above.)
+          // session.
           {
             url: 'https://i.ytimg.com/vi/BBd9gcrj2Wk/hqdefault.jpg',
             credit: 'Netflix via YouTube (official trailer)',
@@ -2427,16 +2456,9 @@ export default {
             reliability_score: 4,
           },
         ],
-        // Focal points set 2026-08-07 (#762): both images individually
-        // viewed — the cover has young Taylor and the dog left-of-center,
-        // the video still has toddler Taylor right-of-center, upper frame.
+        // Focal point set 2026-08-07 (#762): the video still has toddler
+        // Taylor right-of-center, upper frame.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/e/e6/Taylor_Swift_-_Christmas_Tree_Farm.png',
-            focalPoint: '38% 45%',
-            credit: 'Republic Records (single cover art)',
-            kind: 'primary',
-          },
           {
             url: 'https://i.ytimg.com/vi/mN3rDTAdM2o/hqdefault.jpg',
             focalPoint: '65% 35%',
@@ -2797,7 +2819,7 @@ export default {
           // op exists for the sale itself, so this is the era's actual
           // documented fallout, same convention as the reference photo above.
           {
-            url: 'https://i.guim.co.uk/img/media/952d2b76234c00dea74332a4b49e9ee26bb26884/0_31_3000_1800/master/3000.jpg?crop=none&dpr=1&s=none&width=465',
+            url: 'https://i.guim.co.uk/img/media/952d2b76234c00dea74332a4b49e9ee26bb26884/0_31_3000_1800/master/3000.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '50% 28%',
             credit: 'Richard Shotwell/Invision/AP, via The Guardian',
             caption: 'A contemporaneous reference image shows Taylor arriving at the Billboard Music Awards on May 1, 2019, two months before the Big Machine sale.',
@@ -2818,7 +2840,7 @@ export default {
             kind: 'archival',
           },
           {
-            url: 'https://i.guim.co.uk/img/media/62052f41de01072ab003d60e57853e969dd49106/0_363_3994_2397/master/3994.jpg?crop=none&dpr=1&s=none&width=465',
+            url: 'https://i.guim.co.uk/img/media/62052f41de01072ab003d60e57853e969dd49106/0_363_3994_2397/master/3994.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '58% 33%',
             credit: 'Kevin Mazur/Getty Images for ABA, via The Guardian',
             caption: 'Taylor performs on Good Morning America on Aug. 22, 2019, the day she publicly confirmed that she planned to rerecord her catalog.',

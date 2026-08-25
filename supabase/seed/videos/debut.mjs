@@ -114,22 +114,6 @@ export default {
       ],
     },
     {
-      slug: 'change-mv',
-      kind: 'music_video',
-      title: 'Change',
-      director: null,
-      releasedOn: null,
-      relatedSongs: ['Change'],
-      tags: ['Music'],
-      summary:
-        'Taylor and her band perform in a ballroom, intercut with a version featuring 2008 Beijing Olympics footage tying the anthem to Team USA.',
-      symbolism: null,
-      easterEggs: [],
-      officialUrl: 'https://www.youtube.com/watch?v=B1jYllE0T-k',
-      media: [embed('B1jYllE0T-k')],
-      sources: [yt('B1jYllE0T-k', 'Taylor Swift - Change'), wiki('Change_(Taylor_Swift_song)', 'Change (Taylor Swift song)')],
-    },
-    {
       slug: 'picture-to-burn-mv',
       kind: 'music_video',
       title: 'Picture to Burn',
