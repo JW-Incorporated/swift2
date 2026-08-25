@@ -88,7 +88,15 @@ with either a real severity-ranked table or "0 open alerts" — not the
 **Actions → dependabot-alerts-snapshot → Run workflow** (uncheck "dry run"
 to actually publish).
 
-**Status:** OPEN
+**Done 2026-08-24 (Joey):** set `DEPENDABOT_ALERTS_PAT`, confirmed present
+via `gh secret list`. Verified end-to-end same day rather than waiting for
+Monday — triggered the workflow manually (`gh workflow run
+dependabot-alerts-snapshot.yml -f dry_run=false`), it completed
+successfully, and tracking issue #3185 updated with a real fetch (no more
+"PAT not configured" placeholder). Paul Blart can now actually see the CVE
+feed.
+
+**Status:** DONE
 
 ---
 
