@@ -35,11 +35,9 @@
 // `author`/`content/contentSnippet`/`isoDate` — sorted server-side by
 // `sort=top`, so no separate score field is needed to bound to "top N."
 //
-// `fetchPostComments` is exported and independently tested but NOT wired
-// into the pipeline yet — teaching the extract stage to actually read
-// comment context for Easter-egg/theory detection is scoped as a follow-up
-// (issue #3284) rather than rushed into this change alongside the fetch
-// primitive.
+// `fetchPostComments` is called only from the per-story extract loop, after
+// clustering, so comment requests stay bounded to posts that reached a real
+// story rather than every raw item at ingest.
 
 import Parser from 'rss-parser';
 import type { NormalizedNewsItem } from '@swift2/shared/news';
