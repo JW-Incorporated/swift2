@@ -37,7 +37,7 @@ export const CONFIG = {
     minBytes: 8 * 1024, // 8KB — below this is almost always a placeholder/spacer
     fetchTimeoutMs: 15000,
     concurrency: 4, // polite parallelism when probing image URLs (Wikimedia throttles hard)
-    okContentTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif'],
+    okContentTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif', 'image/svg+xml'],
   },
 
   // ── Image-host reputation (near-term CSAM/junk mitigation) ────────────────
