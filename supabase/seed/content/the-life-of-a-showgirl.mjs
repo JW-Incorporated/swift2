@@ -10748,6 +10748,22 @@ export default {
             accessed_at: '2026-08-09',
             reliability_score: 3,
           },
+          // Answerer depth pass (Vault Run 2026-08-25, hot-thin-topic): adds a
+          // second strong (reliability 4) outlet so this recent, high-interest
+          // wedding item clears the hot-thin-topic checker's 2-strong-source
+          // bar honestly (it had only Billboard). Fox News independently
+          // carries the on-record decline and Barkley's stated reasons; no new
+          // claim added to the prose. Verified via WebSearch this session
+          // (publisher direct-fetch is egress-blocked).
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/sports/charles-barkley-declined-travis-kelce-taylor-swift-wedding-invitation-simple-reason',
+            source_title: 'Charles Barkley declined Travis Kelce and Taylor Swift\'s wedding invitation for a simple reason',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-25',
+            reliability_score: 4,
+          },
         ],
         // Archival portrait — Barkley's remarks were an interview, not a
         // photographed event, so this is the closest true visual (same pattern
