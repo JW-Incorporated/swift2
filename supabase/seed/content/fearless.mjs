@@ -381,14 +381,14 @@ export default {
           // the interruption, the Beyoncé invite-back, and her own
           // performance/red-carpet that night. Curl-verified live.
           {
-            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922286265/Kayne-West-jumps-onstage--007.jpg?crop=none&dpr=1&s=none&width=375',
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922286265/Kayne-West-jumps-onstage--007.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '50% 22%',
             credit: 'Jeff Kravitz/FilmMagic, via The Guardian',
             caption: 'Kanye West steps onto the VMA stage while Taylor is accepting Best Female Video at Radio City Music Hall.',
             kind: 'primary',
           },
           {
-            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922290422/Singer-Taylor-Swift-speak-012.jpg?crop=none&dpr=1&s=none&width=375',
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922290422/Singer-Taylor-Swift-speak-012.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '50% 22%',
             credit: 'Kevin Mazur/WireImage, via The Guardian',
             caption: 'Taylor finally finishes her acceptance speech after Beyoncé invites her back onstage later that night.',
@@ -1187,8 +1187,7 @@ export default {
       snippet:
         'Sept. 15, 2008: the lead single from Fearless goes out to country radio ahead of the album — and starts a climb that wouldn\'t stop until it had topped pop radio too.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
       moment: {
         context:
           'It peaked at No. 4 on the Hot 100, spent two weeks atop Hot Country Songs — and five months later became the first country song ever to hit No. 1 on Billboard\'s pop-radio chart (see February 2009).\n\nThe long tail is the real story: roughly 18 million copies sold worldwide make it one of the best-selling singles ever released, and its 6.2 million US copies still stand as her biggest-selling song at home — a lead single that outsold everything the superstar decade that followed produced.',
@@ -1220,11 +1219,6 @@ export default {
         // and visually confirmed. Per-image focal points set by eye.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
-            credit: 'Big Machine Records (single cover art)',
-            focalPoint: '70% 30%',
-          },
-          {
             url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
             credit: 'Big Machine Records / YouTube (official music video still)',
             caption: 'The sepia close-up from the official "Love Story" video, which premiered days before the single went to country radio.',
@@ -1247,8 +1241,7 @@ export default {
       snippet:
         'She\'d considered holding "White Horse" for her third album — until Grey\'s Anatomy used it in its season-five premiere, and it became the second Fearless single that December.',
       sourceUrl: 'https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/7/74/Taylor_Swift_-_White_Horse.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/D1Xr-JFLxik/hqdefault.jpg',
       moment: {
         context:
           'A devoted Grey\'s fan, she didn\'t undersell the moment: "You should\'ve seen tears streaming down my face when I got the phone call that they were going to use that song." The September 2008 premiere placement settled the tracklist question — "if it wasn\'t going to be on the show, then we weren\'t going to put it on the album," she admitted — and the song itself runs the fairy-tale imagery of the rest of Fearless in reverse. As she put it to CMT: "this is not a fairy tale at all — this is real life."\n\nThe single followed in December, peaked at No. 13 on the Hot 100, and later took two Grammys: Best Country Song and Best Female Country Vocal Performance.',
@@ -1283,13 +1276,6 @@ export default {
         // focal points set by eye.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/7/74/Taylor_Swift_-_White_Horse.png',
-            credit: 'Big Machine Records (single cover art)',
-            caption: 'Single cover art for "White Horse."',
-            kind: 'primary',
-            focalPoint: '65% 35%',
-          },
-          {
             url: 'https://i.ytimg.com/vi/D1Xr-JFLxik/hqdefault.jpg',
             credit: 'Big Machine Records / YouTube (official music video still)',
             caption: 'From the official "White Horse" video — the un-fairy-tale the song promises.',
@@ -1310,7 +1296,7 @@ export default {
         'Oct. 26, 2009: the Platinum Edition reissue drops six new tracks — "Jump Then Fall," "Untouchable," a piano "Forever & Always," "Come In with the Rain," "SuperStar," and "The Other Side of the Door."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+        'https://upload.wikimedia.org/wikipedia/commons/c/c4/Taylor_Swift_Fearless_Tour_05.jpg',
       moment: {
         context:
           'Announced Sept. 10, 2009 and released mid-tour, the reissue placed the six new songs ahead of the original tracklist and paired the CD with a DVD — keeping a year-old blockbuster in the conversation straight through awards season.\n\nThe DVD side was a fan-service time capsule: the music videos for "Change," "The Best Day," "Love Story," "White Horse" and "You Belong with Me," behind-the-scenes footage from the latter three shoots and from the Fearless Tour\'s opening night, plus "Thug Story" — the CMT Awards rap spoof with T-Pain. The reissue also queued up one more single: the title track, "Fearless," released that January.',
@@ -1332,11 +1318,6 @@ export default {
         // and visually confirmed (yellow dress, cowboy boots, acoustic
         // guitar on the stool). Per-image focal points set by eye.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
-            credit: 'Big Machine Records',
-            focalPoint: '35% 35%',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Taylor_Swift_Fearless_Tour_05.jpg',
             credit: 'WEZL (CC BY 2.0), via Wikimedia Commons',
@@ -1365,8 +1346,7 @@ export default {
       snippet:
         'A one-off for the Valentine\'s Day soundtrack, released Jan. 19, 2010 on iTunes only — 325,000 downloads in week one, the biggest ever for a female artist at the time.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Today_Was_a_Fairytale',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/xSWVPqnKcXQ/hqdefault.jpg',
       moment: {
         context:
           'The record it broke was Britney Spears\'s "Womanizer." It debuted at No. 2 on the Hot 100 and went to No. 1 in Canada — her first Canadian Hot 100 chart-topper — all from a soundtrack single for the rom-com she was starring in with Taylor Lautner.\n\nThe song itself was a leftover: she\'d written it back in summer 2008 and offered it to the film\'s producers because it didn\'t fit the album she was building. Twelve days after release she sang it at the 52nd Grammys in a medley with Stevie Nicks — the performance whose shaky vocals drew enough criticism that her label chief publicly defended her — and it finally joined the era\'s official canon on Fearless (Taylor\'s Version) in 2021.',
@@ -1390,17 +1370,7 @@ export default {
             reliability_score: 2,
           },
         ],
-        // T16 photo pass (2026-07-09): cover art taken from the Wikipedia
-        // article's stable upload.wikimedia.org copy; verified HTTP 200 +
-        // image/png this session.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png',
-            credit: 'Big Machine Records (single cover art)',
-            caption: 'Single cover art for "Today Was a Fairytale."',
-            kind: 'primary',
-            focalPoint: '67% 75%',
-          },
           // Photo-enrichment run 16 (2026-07-18, #762): no official video was
           // made for the 2010 original (the HD "music video" uploads are
           // fan-made — rejected), so this is the title card of the official
@@ -1427,8 +1397,7 @@ export default {
       snippet:
         'Written about Stephen Barker Liles of Love and Theft, who\'d opened shows for her — and she spelled out who it was for in the album\'s hidden liner-note code: "LOVE AND THEFT."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Hey_Stephen',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/7/72/Love_and_Theft_-_Stephen_Barker_Liles.jpg',
+      thumbnailUrl: 'https://i.ytimg.com/vi/tMhiHrL7rPE/hqdefault.jpg',
       moment: {
         context:
           'Every Fearless lyric sheet hid a capitalized-letter message inside the printed lyrics; "Hey Stephen"\'s decoded to the name of its subject\'s band — the era\'s Easter-egg culture, already fully operational in 2008.\n\nTaylor texted Liles about the song after the album dropped, and his first reaction was dread: "What did I do? Because she doesn\'t really write very many nice songs about guys. So I was very relieved when it turned out to be a nice song." He eventually answered in kind, writing Taylor a response song, "Try to Make It Anyway," recorded in his home studio and released in 2011.',
@@ -1451,26 +1420,8 @@ export default {
             accessed_at: '2026-07-09',
             reliability_score: 3,
           },
-          // License provenance for the reference image below (Commons file page):
-          {
-            outlet: 'Wikimedia Commons (file page — Love and Theft - Stephen Barker Liles)',
-            url: 'https://commons.wikimedia.org/wiki/File:Love_and_Theft_-_Stephen_Barker_Liles.jpg',
-          },
         ],
-        // T16 photo pass (2026-07-09): no free or stable photo of Swift and
-        // Liles together could be verified, so this is a clearly-labeled
-        // reference image of the song's subject — CC BY 2.0 per the Commons
-        // file page cited above (crop of a 2010 WEZL concert photo). Verified
-        // HTTP 200 + image/jpeg and visually confirmed this session.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/7/72/Love_and_Theft_-_Stephen_Barker_Liles.jpg',
-            credit: "WEZL Charleston's Best Country / CC BY 2.0, via Wikimedia Commons",
-            caption:
-              'For reference — Stephen Barker Liles of Love and Theft, the song\'s namesake, performing in May 2010.',
-            kind: 'reference',
-            focalPoint: '48% 22%',
-          },
           // Photo-enrichment run 16 (2026-07-18, #762): still from the
           // official Hey Stephen (Taylor's Version) lyric video — id verified
           // via YouTube oEmbed (channel @TaylorSwift); thumbnail verified

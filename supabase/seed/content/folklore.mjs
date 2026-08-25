@@ -1238,7 +1238,7 @@ export default {
           // real, verified photos from the actual announcement post and the
           // Beth Garrabrant forest shoot that introduced the album.
           {
-            url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=465',
+            url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '48% 22%',
             credit: 'Taylor Swift/Instagram, via The Guardian',
             caption: 'The black-and-white forest montage Taylor posted with the July 23 surprise announcement for folklore.',
