@@ -180,11 +180,17 @@ const CARD_JOBS = [
   },
 ];
 
+// ig-portrait (1080x1350 @2x, see capture-targets.mjs) — the mobile preset's
+// 780x1688 output is rejected by Instagram outright (issue #3156/#3157); every
+// screen job here feeds the IG queue, so every job captures at that preset.
 const SCREEN_JOBS = [
-  ...THREADS.map((t) => ({ out: `thread-${t.id}-screen.png`, args: ['--lens', t.id] })),
-  { out: 'mood-chat-screen.png', args: ['--mood'] },
-  { out: 'era-midnights-screen.png', args: ['--era', 'midnights'] },
-  { out: 'era-tloas-screen.png', args: ['--era', 'tloas'] },
+  ...THREADS.map((t) => ({
+    out: `thread-${t.id}-screen.png`,
+    args: ['--lens', t.id, '--viewport', 'ig-portrait'],
+  })),
+  { out: 'mood-chat-screen.png', args: ['--mood', '--viewport', 'ig-portrait'] },
+  { out: 'era-midnights-screen.png', args: ['--era', 'midnights', '--viewport', 'ig-portrait'] },
+  { out: 'era-tloas-screen.png', args: ['--era', 'tloas', '--viewport', 'ig-portrait'] },
 ];
 
 async function runCards() {

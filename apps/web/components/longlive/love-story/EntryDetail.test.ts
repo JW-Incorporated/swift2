@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { RELATIONSHIPS } from '@/lib/longlive/lenses';
 
 const source = readFileSync(new URL('./EntryDetail.tsx', import.meta.url), 'utf8');
 
@@ -28,5 +29,19 @@ describe('EntryDetail song chips (#1856)', () => {
 
   it('leaves Escape to the song overlay before collapsing the underlying chapter', () => {
     expect(source).toContain("e.key === 'Escape' && !share && !trackGuideEraId");
+  });
+});
+
+describe('EntryDetail married banner (#651)', () => {
+  it('gates the "Married July 2026" banner on the Kelce entry\'s real id', () => {
+    const kelce = RELATIONSHIPS.find((r) => r.name === 'Travis Kelce');
+
+    expect(kelce).toBeDefined();
+    expect(source).toContain(`entry.id === '${kelce!.id}'`);
+    expect(source).toContain('Married July 2026 — the resolution.');
+  });
+
+  it('does not gate the banner on the stale, never-matching \'kelce\' id', () => {
+    expect(source).not.toContain("entry.id === 'kelce'");
   });
 });
