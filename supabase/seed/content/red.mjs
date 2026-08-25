@@ -33,7 +33,7 @@ export default {
       snippet:
         "1.208 million copies in week one — the strongest opening week for any album since Eminem's The Eminem Show in 2002, and her second million-selling debut in a row.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg',
       moment: {
         context:
           "Nobody was supposed to sell like this anymore. Red's 1.208 million was the first opening week to clear 1.2 million since The Eminem Show moved 1.3 million in 2002 — and it landed in a market where, as Slate put it, even a very popular artist shipping 300,000 copies out of the gate counted as a huge success.\n\nRed roughly doubled the year's next-best debut, and unlike Lady Gaga's Born This Way, which cracked a million the year before with help from Amazon's 99-cent promotional pricing, it did so selling at $7.99. The week also made her the first female solo artist with two million-selling weeks (alongside Speak Now) and surpassed Garth Brooks's Double Live as the fastest-selling country album.\n\nBeyond the raw number, Red entered the Billboard 200 at No. 1 — her third studio album in a row to debut on top — and it did so almost entirely on full-price purchases at a moment the industry had already begun writing off blockbuster sales weeks. The 1.208-million total stayed the biggest week of Taylor's career until she broke her own record two years later, when 1989 opened to 1.287 million in 2014, and it stood among the largest opening weeks any album had posted since the CD era's peak. It also sharpened the pattern Slate marveled at: where a strong 2012 debut meant 300,000 copies, Taylor had cleared four times that, doubling the year's next-best debut and turning a release week into the kind of cultural event only a handful of artists in the world could still reliably command in a fragmenting market.",
@@ -47,19 +47,11 @@ export default {
             url: 'https://www.rollingstone.com/music/music-country/taylor-swifts-red-sells-1-2-million-copies-in-first-week-243204/',
           },
         ],
-        // Photo-enrichment pass (2026-07-18): focal point set by viewing — the
-        // cover's lower face/red lip sits just above center-left under the hat
-        // brim. (Counts as one unique photo; thumbnailUrl reuses the same file.)
         // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): this item
         // stands in for the whole era's arrival (no dedicated release-day
         // item exists), so 6 more real, verified Red Tour photos anchor the
         // era the record-setting week opened. All curl 200, image/jpeg.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
-            credit: 'Big Machine Records',
-            focalPoint: '45% 38%',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg',
             focalPoint: '54% 30%',
@@ -1852,19 +1844,14 @@ export default {
             reliability_score: 4,
           },
         ],
-        // T16 full-standard pass (2026-07-09): real paparazzi photo of the
-        // couple from the Hyannis Port summer (E! Online's "Romance Rewind"
-        // gallery, agency-credited "Paul Adao/INFphoto.com" in the gallery's
-        // own metadata). The item is about the October split, so the summer
-        // photo ships as kind 'archival' with a dated caption. Verified
-        // HTTP 200 + image/jpeg + subject visually confirmed this session.
+        // Distinct archival photo from E! Online's cited "Romance Rewind"
+        // gallery, verified live via the image-liveness probe (2026-08-24).
         photos: [
           {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg',
-            // Two figures wading, faces in the upper third of the tall frame.
-            focalPoint: '45% 28%',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012722/634.ConorKennedy.TaylorSwift.081912.jpeg',
+            focalPoint: '50% 28%',
             credit: 'Paul Adao/INFphoto.com, via E! Online',
-            caption: 'Taylor and Conor Kennedy on the shore at Hyannis Port in August 2012 — the summer that quietly ended that October.',
+            caption: 'Taylor with Conor Kennedy during an Aug. 19, 2012 visit to his mother\'s gravesite — one of their last photographed outings before the split.',
             kind: 'archival',
           },
         ],

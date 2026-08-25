@@ -25,7 +25,7 @@ export default {
         "1,047,000 copies in week one — the first album since Lil Wayne's Tha Carter III to cross a million in its opening week.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Taylor_Swift_-_Speak_Now_tour_2011.jpg/960px-Taylor_Swift_-_Speak_Now_tour_2011.jpg',
       moment: {
         context:
           "It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991.\n\nIt also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did.",
@@ -41,11 +41,6 @@ export default {
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-speak-now-sales-charts/' },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
-            credit: 'Big Machine Records',
-            focalPoint: '62% 18%',
-          },
           // Photo pass #762 run 25 (2026-07-18): no photographable "sales week"
           // event exists, so the second image is honest era context — the tour
           // production the million-copy week funded. Commons file page checked
@@ -979,17 +974,12 @@ export default {
         'All 14 standard-edition tracks credited to Taylor alone — a direct answer to critics who doubted a 20-year-old could really write her own songs.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
+        'https://upload.wikimedia.org/wikipedia/commons/2/22/Taylor_Swift_-_Speak_Now_tour_2011_01.jpg',
       moment: {
         context:
           'Taylor wrote every song on the standard 14-track edition by herself, gathering ideas during the Fearless Tour.\n\nShe\'s since described it as her answer to critics who doubted her songwriting was really her own. (The deluxe-edition bonus track "If This Was a Movie" is her only co-write on the record, with Martin Johnson.) It remains the only album in her catalog written without a single co-writer.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now' }],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
-            credit: 'Big Machine Records',
-            focalPoint: '62% 18%',
-          },
           // Photo pass #762 run 25 (2026-07-18): second image is the album's
           // songs on stage — an era-context tour frame, honestly captioned.
           // Commons file page checked (CC BY 2.0, author dephisticate); curl
