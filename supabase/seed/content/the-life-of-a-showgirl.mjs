@@ -587,12 +587,12 @@ export default {
               "Eight months after the Sphere denial, a Daily Mail source revived the Vegas talk — saying residency discussions were 'ongoing' across several Strip venues, with Taylor 'eyeing seven dates' but 'nothing set in stone,' and her 'main focus' a full tour rather than a residency.",
             reportedBy: "Daily Mail",
             reportedOn: "2026-04-07",
-            status: "unconfirmed",
+            status: "faded",
             url: "https://www.realitytea.com/2026/04/07/taylor-swift-las-vegas-performance-residency/",
             sourceTier: "tabloid",
             lastCheckedOn: "2026-08-24",
             note:
-              "Daily Mail insider quotes, as carried by Reality Tea. As of this check no Life of a Showgirl tour or Las Vegas residency has been officially announced. Resolves confirmed on an official announcement; fades if it goes quiet.",
+              "Faded 2026-08-24 (issue #3137): re-checked — no Vegas residency or Sphere show has been announced, and no further reporting on this tip has surfaced since April 2026. Reported, never confirmed or denied, gone quiet. The July 2026 TicketNews entry below carries the same open question with fresher sourcing.",
           },
           {
             claim:
@@ -3856,13 +3856,13 @@ export default {
             reportedOn: '2026-07-30',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-154313639.html',
-            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee that went up on the day — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction — the speculative part is the arena\'s decision, so no location payload is carried.',
+            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction, so no location payload is carried. Re-checked 2026-08-24 (issue #3137): still nothing decided or announced.',
             // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): same
             // correction as the photo-release entry above — the note called it
             // a gossip-newsletter tip from unnamed insiders while the field
             // claimed 'tabloid'. MLive/Yahoo carried it; they did not report it.
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-02',
+            lastCheckedOn: '2026-08-24',
           },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
