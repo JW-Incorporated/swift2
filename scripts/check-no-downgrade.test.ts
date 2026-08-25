@@ -61,6 +61,21 @@ describe('parseLockVersions', () => {
     expect([...versions.keys()]).not.toContain('apps/web');
   });
 
+  it('ignores dependencies bundled inside another published package', () => {
+    const l = {
+      lockfileVersion: 3,
+      packages: {
+        '': { name: 'root' },
+        'node_modules/foo': { version: '2.0.0' },
+        'node_modules/vendor/node_modules/foo': { version: '9.0.0', inBundle: true },
+        'node_modules/vendor/node_modules/bundled-only': { version: '1.0.0', inBundle: true },
+      },
+    };
+    const { versions } = parseLockVersions(l);
+    expect(versions.get('foo')).toBe('2.0.0');
+    expect(versions.has('bundled-only')).toBe(false);
+  });
+
   it('throws (BROKEN GATE) when there is no packages map', () => {
     expect(() => parseLockVersions({ lockfileVersion: 1 } as never)).toThrow(/packages/);
   });
@@ -123,5 +138,24 @@ describe('findDowngrades', () => {
     // Conservative by design: max dropped 2.0.0 -> 1.0.0, so it is flagged for a
     // human to confirm the 2.x removal was intentional (the allowlist is the yes).
     expect(findDowngrades(base, head).map((d) => d.name)).toEqual(['foo']);
+  });
+
+  it('does not mistake a surviving bundled copy for a downgrade when a resolved package is removed', () => {
+    const base = {
+      lockfileVersion: 3,
+      packages: {
+        '': {},
+        'node_modules/foo': { version: '2.0.0' },
+        'node_modules/vendor/node_modules/foo': { version: '1.0.0', inBundle: true },
+      },
+    };
+    const head = {
+      lockfileVersion: 3,
+      packages: {
+        '': {},
+        'node_modules/vendor/node_modules/foo': { version: '1.0.0', inBundle: true },
+      },
+    };
+    expect(findDowngrades(base, head)).toEqual([]);
   });
 });
