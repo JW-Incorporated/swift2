@@ -145,7 +145,9 @@ describe('privacy policy — must describe what the code actually does', () => {
   const corpus = allStrings(PRIVACY_POLICY).join('\n').toLowerCase();
 
   // Every entry here is a real data flow verified in the shipped code on
-  // 2026-08-11. If one of these disappears from the policy, either the feature
+  // 2026-08-11 (Clownbot entries added 2026-08-24, issue #3251, verified
+  // against clown-memory.ts/clown-session.ts/clown-client.ts as of that
+  // date). If one of these disappears from the policy, either the feature
   // was removed (fine — delete the line here too) or the policy went stale in
   // exactly the way it went stale before.
   it.each([
@@ -162,6 +164,11 @@ describe('privacy policy — must describe what the code actually does', () => {
     ['the user-agent string it sends', 'user-agent'],
     ['IP handling', 'ip address'],
     ['children', 'children'],
+    ['Clownbot', 'clownbot'],
+    ['Clownbot sending text to the AI service', 'claude api'],
+    ['Clownbot conversation retention', '180 days'],
+    ['the Clownbot session cookie', 'cookie'],
+    ['that the Clownbot memory system may be off', 'switched on'],
   ])('discloses %s', (_label, needle) => {
     expect(corpus).toContain(needle);
   });

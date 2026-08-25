@@ -20,8 +20,16 @@
  * Fullscreen API — unreliable on iOS Safari for non-video elements).
  * `ClownBoard` below prefills the composer on tap, never auto-sends.
  *
- * NEVER render Taylor Swift imagery on this surface and never persist the
- * reader's words anywhere but the one POST below.
+ * NEVER render Taylor Swift imagery on this surface. The reader's words DO
+ * leave this component in more than the one POST below: the client holds no
+ * transcript of its own beyond the store's capped `clownMessages` (never
+ * persisted — see the comment on that field), but the server side of that
+ * POST forwards the question/transcript to Anthropic's Claude API to answer
+ * it, and — once the anonymous-identity system in `clown-memory.ts` is
+ * switched on — stores the conversation in Supabase for up to 180 days
+ * (`legal.ts`'s "Clownbot" privacy-policy section, issue #3251). This
+ * component itself still does nothing beyond the one `fetch` below; the
+ * warning above was simply wrong about what happens after that.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
