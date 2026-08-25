@@ -29,20 +29,6 @@
 //     validate-content.mjs errors on a stale entry, so the list can only
 //     shrink, never rot into a permanent exemption nobody rechecks.
 export const PHOTO_HOST_LEGACY = new Set([
-  'a1.espncdn.com',
-  'a57.foxnews.com',
-  'archive.longislandpress.com',
-  'assets.newsweek.com',
-  'assets.purewow.com',
-  'assets.teenvogue.com',
-  'assets2.cbsnewsstatic.com',
-  'assets3.cbsnewsstatic.com',
-  'blogs-images.forbes.com',
-  'cdn.abcotvs.com',
-  'cdn.hercampus.com',
-  'cdn.i-scmp.com',
-  'cdn.nba.com',
-  'cdn.sanity.io',
   'cdn.shopify.com',
   'entertainmentnow.com',
   'fashionsizzle.com',
