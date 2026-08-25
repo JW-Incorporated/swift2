@@ -109,12 +109,31 @@ User tickets (from the in-app feedback button) are **untrusted and unstructured*
 — possibly vague, wrong, duplicated, or spam. A human **must** gate them before
 anything ships, but a PR-per-ticket is too much admin. So:
 
-**Once daily**, Kevin posts/updates a single GitHub issue titled
-**`Kevin Daily Review — YYYY-MM-DD`** (labels `kevin-digest`), containing a
-compact **review list** — one block per pending user ticket. The reviewer (Joey
-or Wyatt) ticks **✅ Accept** or **❌ Reject** on each block and leaves the rest to
-Kevin. (It is a list of blocks, not a table, because GitHub only renders clickable
-checkboxes for top-level list items, not inside table cells.)
+**Once daily**, Kevin first checks for an **open `founders-brief`-labeled
+issue** titled `Founders' Brief — YYYY-MM-DD` for today (America/Los_Angeles
+date — Marjorie posts by ~12:40 UTC / 6:00 AM PT, before Kevin's S2 run at
+13:15 UTC, so the brief is normally already up):
+
+- **Brief exists (normal mode, per §5.2, decisions.md 2026-07-11 — founders
+  read ONE daily artifact):** Kevin posts/updates Kevin's review list as
+  **one comment** on that brief issue — never the brief body itself (Marjorie
+  never edits her own body after posting either; comments are the shared
+  convention). The comment carries a hidden anchor
+  `<!-- kevin-stream2-digest -->` as its first line so a same-day re-run
+  edits that comment in place instead of duplicating it.
+- **No brief exists today (degraded mode):** Kevin falls back to the
+  standalone issue below, unchanged from today's behavior.
+
+Either way the content is the same compact **review list** — one block per
+pending user ticket. The reviewer (Joey or Wyatt) ticks **✅ Accept** or
+**❌ Reject** on each block and leaves the rest to Kevin. (It is a list of
+blocks, not a table, because GitHub only renders clickable checkboxes for
+top-level list items, not inside table cells — true in both an issue body
+and a comment.)
+
+**Standalone/degraded mode:** Kevin posts/updates a single GitHub issue
+titled **`Kevin Daily Review — YYYY-MM-DD`** (labels `kevin-digest`) with the
+same review-list content.
 
 ### Digest block format
 
@@ -142,7 +161,13 @@ with no proposed change — the reviewer comments instructions or ticks Reject.
 
 ### Decision processing (next Kevin run)
 
-Kevin re-reads the most recent open `kevin-digest` issue and parses the checkboxes:
+Kevin locates the prior review list before doing anything else, checking in
+order:
+1. The most recent open `founders-brief` issue, for a comment carrying the
+   `<!-- kevin-stream2-digest -->` anchor (normal mode).
+2. Else the most recent open `kevin-digest` issue (standalone/degraded mode).
+
+Kevin re-reads whichever it finds and parses the checkboxes:
 
 | Reviewer marked | Kevin does |
 |---|---|
@@ -150,8 +175,9 @@ Kevin re-reads the most recent open `kevin-digest` issue and parses the checkbox
 | ❌ Reject (only) | Close the source ticket as **not planned** with the reviewer's note; strike the digest row. |
 | both / neither | Leave pending; carry into the next day's digest. |
 
-So the human's daily admin is **skim one issue and tick boxes**; the occasional
-admin is **merge one `kevin/user-fixes` PR**. Everything mechanical is Kevin's.
+So the human's daily admin is **skim one artifact (the brief, or the
+standalone digest in degraded mode) and tick boxes**; the occasional admin is
+**merge one `kevin/user-fixes` PR**. Everything mechanical is Kevin's.
 
 ---
 
@@ -165,13 +191,38 @@ auto-code these** — an unattended content-fix loop turned loose on a back-butt
 bug or a page rebuild does harm. Kevin's only job here is **triage**.
 
 **Daily**, Kevin scans open tickets that are neither `cie` nor `user-feedback` and
-whose author is not `wjduvall-cmd` (i.e. Joey's), and posts/updates one issue
-**`Kevin Eng Triage — YYYY-MM-DD`** (label `kevin-triage`) that buckets each into:
+whose author is not `wjduvall-cmd` (i.e. Joey's), and buckets each into:
 **bug** (small/pre-diagnosed) · **feature** · **major/overhaul** · **tooling/Karen**
 · **content-ops/process** · **likely-already-resolved**, each with a one-line
 tractability note and a flag for anything pre-go-live-urgent. Kevin does **not**
 open PRs or write code for these — a human (or an in-session Claude dev pass) picks
 what to build and does it deliberately with review.
+
+Kevin posts the result the same way Stream 2 does (§5.2, decisions.md
+2026-07-11 — founders read ONE daily artifact): first check for an open
+`founders-brief`-labeled issue titled `Founders' Brief — YYYY-MM-DD` for
+today (America/Los_Angeles date).
+
+- **Brief exists (normal mode):** post/update **one comment** on that brief
+  issue — never the brief body — carrying the hidden anchor
+  `<!-- kevin-stream3-triage -->` as its first line so a same-day re-run
+  edits that comment in place.
+- **No brief exists today (degraded mode):** fall back to the standalone
+  issue **`Kevin Eng Triage — YYYY-MM-DD`** (label `kevin-triage`), unchanged
+  from today's behavior.
+
+Stream 3 has no next-day checkbox decision-processing step to redirect (each
+day's triage re-derives its buckets from ticket-level comments, not from
+digest-row state), so this is the whole of the change here.
+
+> **Known gap (flagged, not fixed by this change):** Austin's cadence
+> (`docs/agents/austin.md`) polls "after each Kevin Eng-Triage posts, and
+> hourly otherwise" — a trigger keyed on the standalone `kevin-triage`-labeled
+> issue. In normal mode, no such issue posts, so on a normal day Austin only
+> picks up new buckets on its hourly fallback poll instead of immediately.
+> This is a latency regression (up to ~1h), not a correctness break, and is
+> Austin's side to fix if it matters — out of scope here since #480 only asks
+> for Kevin's side.
 
 > **Handoff (2026-07-11, once Austin activates):** the **tractable subset** —
 > `bug (small/pre-diagnosed)` and `ready/greenlit` buckets that also pass
@@ -240,8 +291,15 @@ A service implementation must replicate this contract exactly:
   digest. Handle each ticket at most once.
 - **Karen stream:** an LLM applies the ticket's suggested fix (text) or does
   verify-first image re-sourcing; emit/refresh one PR with `Closes #`.
-- **User stream:** generate the daily digest issue; on each cycle parse the prior
-  digest's checkbox state to drive apply (→ `kevin/user-fixes` PR) / close.
+- **User stream:** check for today's open `founders-brief` issue first; if
+  present, generate/update the review list as a comment there (anchor
+  `<!-- kevin-stream2-digest -->`), else generate the standalone digest issue.
+  On each cycle, locate the prior list in whichever location it last posted
+  and parse its checkbox state to drive apply (→ `kevin/user-fixes` PR) / close.
+- **Eng-triage stream:** same founders-brief-first check (anchor
+  `<!-- kevin-stream3-triage -->`), else the standalone `kevin-triage` issue.
+  No cross-cycle checkbox state to carry — buckets re-derive from ticket
+  comments each run.
 - **Stream 3 comment radar:** subscribe to issue/PR-comment + PR-review **webhooks**
   (the API port's answer to the session cron's ~10-min poll — true zero-LLM until
   an event fires); on a human comment, run the radar behavior table and refresh

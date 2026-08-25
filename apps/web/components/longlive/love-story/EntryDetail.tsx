@@ -105,7 +105,7 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
           </div>
         </div>
 
-        {entry.id === 'kelce' && (
+        {entry.id === 'rel-kelce' && (
           <div className="mt-3 flex items-center gap-2 rounded px-3 py-2 text-xs font-medium" style={{ background: `${color}18`, color }}>
             <Heart size={12} className="fill-current" />
             Married July 2026 — the resolution.
