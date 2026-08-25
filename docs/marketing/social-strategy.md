@@ -284,26 +284,31 @@ see §3, it's the only real engagement data we can get.
 
 ## 2. The weekly calendar grammar
 
-### Slots — 3 per day, fixed times
+### Slots — 2 paired campaign beats per day, fixed times
 
-| Slot | Time (UTC) | Local | Platform | Normally filled by |
+| Beat | Time (UTC) | Local | Queue items | Normally filled by |
 |---|---|---|---|---|
-| **A** | `15:00Z` | 11am ET / 8am PT | X | heartbeat (on-this-day when today has a real Vault match) |
-| **B** | `23:00Z` | 7pm ET / 4pm PT | Instagram | the live campaign — launch arc, thread hero, or mood beat; heartbeat otherwise |
-| **C** | `23:30Z` | 7:30pm ET / 4:30pm PT | X | campaign sibling on campaign days; a **different** heartbeat subject otherwise |
+| **A** | `15:00Z` | 11am ET / 8am PT | X + Instagram pair | heartbeat (on-this-day when today has a real Vault match) |
+| **B** | `23:00Z` | 7pm ET / 4pm PT | X + Instagram pair | the live campaign — launch arc, thread hero, or mood beat; heartbeat otherwise |
 
-Evening-US is the priority window (growth-plan §6), which is why the IG slot and
-the stronger X slot sit there. Facebook rides every IG post automatically
-(`postToFacebookPage`) — it is never planned separately.
+Evening-US is the priority window (growth-plan §6), which is why the stronger
+campaign beat sits there. Each beat becomes two queue items authored together,
+with the same story-unique `campaign` and `scheduledAt`. Facebook rides every
+Instagram item automatically (`postToFacebookPage`) — it is never planned or
+drafted separately.
 
-**Weekly volume: 7 IG + 14 X = 21 posts.** That sits under every cap: the poster
-allows 5 per run and 10 per platform per day, and 3 slots/day stays inside the
-Growth run's ≤4 drafts per run.
+**Weekly volume: 14 IG + 14 X = 28 posts.** That sits under every cap: each
+posting cycle handles a two-item pair against the poster's 5-per-run cap, both
+platforms remain under 10/day, and two pairs/day exactly match the Growth run's
+≤4 drafts per run.
 
 ### Sibling rule + the X length rule
 
-**Heartbeat days never sibling-pair.** Slot C is a different subject from slot
-B, full stop. Only campaign posts run true IG+X siblings, and when they do:
+**Every campaign, including heartbeat, is an IG+X sibling pair authored in the
+same change.** An Instagram item is also the Facebook delivery path. The only
+escape hatch is a specific `Single-platform exception: <human-readable reason>`
+in the existing item's `why`; an inconvenient visual or a forgotten sibling is
+not an exception. For every pair:
 
 - The X post is **written first, as its own post**: one idea, the link. It is
   never the IG caption truncated.

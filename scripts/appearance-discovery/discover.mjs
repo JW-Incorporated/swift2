@@ -15,7 +15,7 @@
 //
 // FAST LANE (added 2026-08-25, docs/decisions.md "Detection-triggered social
 // auto-post"): alongside that intake issue, FILE mode also stages a
-// templated social/queue/*.json draft (lib/social-draft.mjs) — a caption
+// templated X + Instagram social/queue/*.json pair (lib/social-draft.mjs) — captions
 // that only ever restates RSS metadata (title/channel/URL), never a claim
 // about content. The workflow's own git step commits it via a PR; it posts
 // live on schedule same as any other queue draft (no approval gate, per that
@@ -32,7 +32,7 @@
 //
 // Exit code: non-zero when any channel failed to fetch/parse, when filing was
 // refused (dedupe fail-closed), when any issue create failed, or when a
-// social draft failed to build — loud beats quiet (see runners.md: a silent
+// social pair failed to build — loud beats quiet (see runners.md: a silent
 // no-op is indistinguishable from a broken run).
 import { readdirSync, readFileSync, writeFileSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -43,7 +43,7 @@ import { CHANNELS, feedUrl } from './channels.mjs';
 import { parseFeed, looksLikeFeed } from './lib/feed.mjs';
 import { matchRule, isFresh } from './lib/filter.mjs';
 import { videoIdsIn, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
-import { buildSocialDraft } from './lib/social-draft.mjs';
+import { buildSocialDraftPair, fetchAppearanceThumbnail } from './lib/social-draft.mjs';
 
 const INTAKE_LABEL = 'intake';
 // Matches the label as it already exists on the repo — the upsert is a no-op
@@ -357,18 +357,23 @@ async function main() {
         console.error(`  FAILED to file ${c.videoId}: ${e.message}`);
         continue; // no fast-lane draft for a video whose slow-lane lead didn't even file
       }
-      // Fast lane (docs/decisions.md 2026-08-25, "Detection-triggered social
-      // auto-post"): stage a social/queue/ draft alongside the intake issue.
+      // Fast lane (docs/decisions.md 2026-08-25): stage an X + Instagram
+      // social/queue/ pair alongside the intake issue. Instagram supplies the
+      // Facebook cross-post, so there is no third queue item.
       // Never blocks or undoes the issue that already filed — a bad draft is
       // loud, not fatal, same "loud beats quiet" posture as everything else
       // in this script. The workflow's own git step (appearance-discovery.yml)
       // commits whatever lands here via a PR; check-drafts.mjs is the real
       // content gate before it can ever post.
       try {
-        const { filename, item } = buildSocialDraft(c);
-        writeFileSync(join(root, 'social', 'queue', filename), `${JSON.stringify(item, null, 2)}\n`, 'utf8');
-        staged++;
-        console.log(`  staged social/queue/${filename}`);
+        const { drafts, media } = buildSocialDraftPair(c);
+        const thumbnail = await fetchAppearanceThumbnail(c);
+        writeFileSync(join(root, media.repoPath), thumbnail.bytes);
+        for (const { filename, item } of drafts) {
+          writeFileSync(join(root, 'social', 'queue', filename), `${JSON.stringify(item, null, 2)}\n`, 'utf8');
+          staged++;
+          console.log(`  staged social/queue/${filename}`);
+        }
       } catch (e) {
         draftFailures.push(`${c.videoId}: ${e.message}`);
         console.error(`  FAILED to stage social draft for ${c.videoId}: ${e.message}`);
@@ -376,11 +381,11 @@ async function main() {
     }
   } else if (!FILE_MODE) {
     // Dry run: preview what the fast lane would stage, without touching the
-    // filesystem or gh — buildSocialDraft is pure, so this is a free preview.
+    // filesystem, thumbnail network, or gh — buildSocialDraftPair is pure.
     for (const c of plan.toFile) {
       try {
-        const { filename } = buildSocialDraft(c);
-        console.log(`  would stage social/queue/${filename}`);
+        const { drafts } = buildSocialDraftPair(c);
+        for (const { filename } of drafts) console.log(`  would stage social/queue/${filename}`);
       } catch (e) {
         console.log(`  would FAIL to stage a social draft for ${c.videoId}: ${e.message}`);
       }

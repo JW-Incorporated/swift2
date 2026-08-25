@@ -5,6 +5,15 @@ Feeds `.github/workflows/social-poster.yml` (runs every 30 min). Full context: `
 - **`queue/`** — drafts waiting to ship. One JSON file per post. **Every draft added or changed here is checked by `scripts/social/check-drafts.mjs` before it can auto-merge** — see "Draft-time checks" below. That script is the main quality gate now; the guards in `scripts/social/lib/queue.mjs` at post time exist to stop a bad draft from actually posting wrong, not to be the first line of defense.
 - **`posted/`** — the log of everything sent, moved here automatically on success.
 
+**Hard pairing rule (Joey, 2026-08-25): every real campaign is two queue
+items authored together** — one `platform: "x"`, one
+`platform: "instagram"`, with the exact same story-unique `campaign` value.
+The Instagram item already auto-cross-posts to Facebook, so never draft a
+third Facebook item. A campaign may be intentionally single-platform only
+when the existing item's `why` includes
+`Single-platform exception: <specific human-readable reason>`; missing media,
+forgetting the sibling, or convenience is not a reason.
+
 **State recording (2026-08-12, issue #2031):** every run persists its
 queue/posted/failed changes through a `social-poster/state-*` PR that
 auto-merges when `build` is green — `social/posted/` and `social/failed/` are
@@ -59,7 +68,19 @@ UTC three attempts later. Rules live in `scripts/social/lib/queue-schema.mjs`.
 - `scheduledAt`: **this is what ships the post.** Since 2026-07-25 (see `docs/decisions.md`) there is no per-item approval gate — when this timestamp passes, the next poster run sends it, subject only to the caps, the guards below, and `SOCIAL_FREEZE`. Choose it deliberately and never backdate.
 - `approvedBy` + `approvedAt`: **optional provenance only** — a record of who signed off and when, for the cases where a human did. They no longer gate anything; the poster does not check them. (They were a hard gate until 2026-07-25.)
 - `campaign`: **story-unique** (e.g. `on-this-day:red-announcement-wanegbt`), shared ONLY between the IG/X siblings covering the same story. Used by `check-drafts.mjs`'s cross-post-copy check to find an X draft's IG sibling — and by the poster's idempotency check (`findPostedDuplicate`), which treats same platform + same campaign as an already-posted duplicate. A thematic bucket value reused across stories (`heartbeat:on-this-day` on five different posts) therefore false-skips every post in the bucket after its first one lands, and the 48h rule then retires them to `failed/` — found and fixed queue-wide on 2026-08-12.
+- `why`: the human-readable "why this, why now" audit trail. It does not
+  normally change routing. The only pairing escape hatch is the exact marker
+  `Single-platform exception: <specific human-readable reason>` in this field;
+  the campaign-pair checker deliberately ignores vague prose such as "works
+  better on X."
 - `failureReason`: written by the poster (never by a drafter) when an item lands in `failed/` — a human-readable explanation, distinct from `lastError` (the raw API error text), covering the 48h-stale case too where there may never have been an API error at all.
+
+The deterministic `content.social-post-missing` checker scans every unique
+`campaign` across both `social/queue/` and `social/posted/`. A campaign without
+both X and Instagram produces a P2 finding unless it carries the explicit
+exception marker above. `social/failed/` does not satisfy the rule: a failed
+item neither reached the audience nor remains queued to do so. Historical
+findings are surfaced for review rather than backfilled automatically.
 
 ## Draft-time checks (`scripts/social/check-drafts.mjs`)
 
