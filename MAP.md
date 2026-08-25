@@ -163,12 +163,14 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-fallback.ts` (+ `.test.ts`) | Zero-model card composer |
 | `apps/web/lib/longlive/clown-starters.ts` (+ `.test.ts`) | Column item → composer prefill string |
 | `apps/web/lib/longlive/clown-names.ts` (+ `.test.ts`) | Ported name registry |
+| `apps/web/lib/longlive/clown-explain.ts` (+ `.test.ts`) | Plain-language clowning/delulu/Easter-egg definitions; deterministic meta-question intercept before retrieval/model |
 | `apps/web/lib/longlive/clown-client.ts` (+ `-prompt.ts`, `.test.ts`) | The one model call; tier as a named constant; `CLOWN_MODEL_DISABLED` kill switch |
 | `apps/web/lib/longlive/clown-answer.ts` | `ClownAnswer` — the one client-facing shape |
 | `apps/web/lib/longlive/clown-gate.ts` (+ `.test.ts`) | Output re-screen |
 | `apps/web/lib/longlive/clown-usage.ts` (+ `.test.ts`) | Ported cap reservoir |
 | `apps/web/components/longlive/ClownChat.tsx` | App-panel shell — state, the `ask()` fetch/stream loop, layout — fullscreen toggle + docked composer split out below (300-line cap, HUMAN-ACTIONS.md #15 LOW finding) |
 | `apps/web/components/longlive/ClownChatTitlebar.tsx` | Titlebar (avatar/label/online dot/expand toggle), split out of ClownChat.tsx (300-line cap) |
+| `apps/web/components/longlive/ClownEmptyState.tsx` | Newcomer vocabulary guide + four composer-prefill starters; buttons never auto-send |
 | `apps/web/components/longlive/ClownChatComposer.tsx` | Docked composer pill (textarea/send), split out of ClownChat.tsx (300-line cap); textarea auto-grows via `useAutoResizeTextarea` |
 | `apps/web/lib/longlive/clown-chat-ui.ts` | `useAutoResizeTextarea` / `useStickToBottomScroll` — the composer's grow-to-fit and the stream's stick-to-bottom-unless-scrolled-up auto-scroll |
 | `apps/web/components/longlive/ClownMessageRow.tsx` | One transcript turn — user bubble + bot reply (split out of ClownChat.tsx, 300-line cap) |
@@ -269,6 +271,13 @@ file by mistake — the names are easy to confuse.
 | `apps/web/lib/longlive/mood-battery.ts` | The 10 acceptance cases as typed data, imported by the route tests |
 | `scripts/check-mood-battery.mjs` | **Live** battery against a real `POST /api/mood` + real key — the only thing that exercises model judgment. `npm run dev --workspace @swift2/web -- -p 3100` first. **Port 3100, never 3000** (an agent killed Joey's server there). Case list is mirrored from `mood-battery.ts`; edit both |
 | `MOODBOT.md` | How to add songs / re-score moods |
+| `apps/web/lib/longlive/mood-intents.ts` | Hand-checked preferred/excluded song policies for companionship, everyday work stress, and bare fatigue |
+
+Casual-language guardrails (#1985/#1986/#1988) live across
+`mood-keywords.ts` and `mood-match.ts`: the lexicon recognizes the ticket's
+literal phrases, while narrow companionship/work-stress/fatigue intents pin
+or exclude only the hand-checked issue examples. General axis scoring and the
+#1984 bereavement gate remain unchanged.
 
 ## Dead / do-not-touch
 
