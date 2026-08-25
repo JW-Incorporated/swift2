@@ -25,6 +25,18 @@ function monthItems(scope: Page | Locator): Locator {
   return scope.locator('[data-ll-item]');
 }
 
+// A genuine moment card only — excludes the egg/thread "doorway" cards
+// (DoorwayCard.tsx) that deliberately share `data-ll-item` and the same card
+// silhouette so the timeline scrubber measures them as real rail anchors too.
+// A doorway opens TheoryGuide or switches to Threads mode, not a MomentDetail
+// sheet named after its own heading, so picking `monthItems().first()`
+// indiscriminately breaks whenever content ordering puts a doorway first.
+function realMomentItems(scope: Page | Locator): Locator {
+  return monthItems(scope).filter({
+    hasNotText: /See this in Theories & eggs|Follow this thread/,
+  });
+}
+
 // The reader is a client component that hydrates and then auto-scrolls to the
 // most recent era. Wait until it's interactive before poking at it.
 async function gotoVault(page: Page) {
@@ -97,31 +109,27 @@ test.describe('Vault smoke', () => {
 
   test('per-era category filter hides non-matching items without jumping', async ({ page }) => {
     await gotoVault(page);
-    await enterEra(page);
 
-    // This used to loop over `section[data-era]` hunting for an era with a 2+
-    // category filter. That selector matches ZERO elements — the attribute is
-    // `data-ll-section` (the same rename that already caught `data-ll-item`) —
-    // so the loop body never ran and the assertion below failed on a null
-    // target in about a second. Not a timeout, and not the site: the filter
-    // works, with five chips.
-    //
-    // The search is also obsolete now that `enterEra` steps INTO one era: there
-    // is exactly one section on screen, so scope to it instead of hunting.
-    const era = page.locator('section[data-ll-section]').first();
-    await expect(era).toBeVisible();
+    // R2 (FilterBar.tsx): category filtering is no longer a per-era "Filter"
+    // toggle that expands into a chip group scoped to that era's section.
+    // It's now ONE global sticky bar — role="group", aria-label "Filter the
+    // timeline" — mounted once by EraStream with an always-visible "All"
+    // chip plus one chip per topic tag. No toggle to find or expand; that's
+    // what the 45s timeout on `getByRole('button', { name: /^Filter/ })` was
+    // actually waiting on — a button that no longer exists. The filter still
+    // applies within whichever era section is on screen, so scope the
+    // before/after item counts to it, same as before.
+    const filterBar = page.getByRole('group', { name: 'Filter the timeline' });
+    await expect(filterBar).toBeVisible();
 
-    const filterToggle = era.getByRole('button', { name: /^Filter/ }).first();
-    await filterToggle.scrollIntoViewIfNeeded();
-    await filterToggle.click();
-
-    const chipButtons = era
-      .getByRole('group', { name: /Filter .* by category/ })
-      .getByRole('button');
+    const chipButtons = filterBar.getByRole('button');
     expect(
       await chipButtons.count(),
-      'expected this era to offer 2+ category chips',
-    ).toBeGreaterThanOrEqual(2);
+      'expected the "All" chip plus 2+ category chips',
+    ).toBeGreaterThanOrEqual(3);
+
+    const era = page.locator('section[data-ll-section]').first();
+    await expect(era).toBeVisible();
 
     const before = await monthItems(era).count();
     expect(before).toBeGreaterThan(0);
@@ -129,12 +137,9 @@ test.describe('Vault smoke', () => {
     // Record scroll position right before applying the filter.
     const beforeScroll = await scrollTop(page);
 
-    // Select the first category chip and read its label so we can verify what
-    // survives the filter. The chip is an icon + a bare text node — it has no
-    // span at all. The old locator described an earlier "<emoji> <Label>" chip
-    // whose label lived in a span; against the current lucide-icon chip it
-    // matched nothing and hung until the 45s test timeout.
-    const chip = chipButtons.first();
+    // Chip 0 is "All" (clears the set) — skip it and pick the first real
+    // category chip, then read its label so we can verify what survives.
+    const chip = chipButtons.nth(1);
     const label = (await chip.innerText()).trim();
     await chip.click();
     await expect(chip).toHaveAttribute('aria-pressed', 'true');
@@ -174,7 +179,12 @@ test.describe('Vault smoke', () => {
     await gotoVault(page);
     await enterEra(page);
 
-    const item = monthItems(page).first();
+    // `.first()` on ALL `data-ll-item` cards is content-order-dependent: an
+    // egg/thread doorway card can sort first, and clicking one opens
+    // TheoryGuide (or switches to Threads mode) instead of a MomentDetail
+    // sheet named after itself — that mismatch, not a broken sheet, is what
+    // made this locator time out. realMomentItems excludes those doorways.
+    const item = realMomentItems(page).first();
     await item.scrollIntoViewIfNeeded();
     // The card's TITLE, via its heading. This used to read `span` #1, which is
     // the DATE ("December 25") — MomentMeta renders the date label first. So
