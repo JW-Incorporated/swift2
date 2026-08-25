@@ -27,6 +27,71 @@ so far".
 
 Stories: 120
 
+## Taylor Swift‘s Seafoam-Green Streak Is Trying to Tell Us Something - Harper's BAZAAR
+
+- first seen: 2026-08-25 17:42 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift‘s Seafoam-Green Streak Is Trying to Tell Us Something  Harper's BAZAAR
+- sources:
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMizgFBVV95cUxObDNuQlhNOFBGQ1RWVHV3Y3hoaVZUVkY5aEVpZkVZcXlEUENlVFVoRnR6ZmpyNjZwRE05UFdyUkRqcFRUcU9JNXpVZnhpMVVacy03cUNxUVd4R1RvMmd1OWR6UEtnNEpZVUxvNkNiSl9VS2lXeTdhcV9pTG84TDIxeUhrbk9Lb3FBaDRROVYyZ2VWdjh6R24tcmw2b3NGcHAxenhlbHZEdVVHb29YUExNVXZET1hRcVV5UGV4S2VGQWVpaEhSV0lNd2ZHNWx6Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Talks With Recording Academy - chorus.fm
+
+- first seen: 2026-08-25 17:42 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Talks With Recording Academy  chorus.fm
+- sources:
+  - [unverified] chorus.fm — https://news.google.com/rss/articles/CBMic0FVX3lxTE43RVYwQmVvSDJELTVmSjAzV1c2aFg1M1lIUGFBM3dxcmhiNVc4N1BCQm5MWGk1cmhaZFoxVmdLY3FWMFdsckFRVmlVbFdwVjBhSkhNV2J1OUh2czdnQ3NKeTVFYzZCQ3NRdXd3TlRsMDI4Y2s?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift’s Engagement Ring and New Wedding Band Are on Full Display During First Post-Wedding Pe
+
+- first seen: 2026-08-25 17:42 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Engagement Ring and New Wedding Band Are on Full Display During First Post-Wedding Performance  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxPZkRXdnBtWDNrdHFmUmpvbkRZb0RJT2NKa2VGMnB4dW9TdzVSRU8zVDgtWjdQUEZvTE9ESTh4Zy1fcnlYcUNZQlJ2dzEyR3pNRW5tamNMN0wtcDZUVlpkWURGaUpneGlZMzZhbF9IeEUxNnZXcl9pN296SmYzcVY2MmtjRkU1d3V0TDBiSmtjNU5CWGxoTktqRFRoZ0MyRS1ldmw0Sg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Looks Back on Her Country Beginnings and Admits Her Loyalty Has Grown - American Songwr
+
+- first seen: 2026-08-25 17:42 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Looks Back on Her Country Beginnings and Admits Her Loyalty Has Grown  American Songwriter
+- sources:
+  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMitAFBVV95cUxPcTNvZnZDV3kxREYtdHJ4R2NfYlNaZUFCa1FKWk1SM04xOGc2dHdaWWJnVVhkV2hHRTVFT2hyLXFNZWh6YzRpejBBVjBSY19welRseDE0aUI5QWJ1WmM2bEJfZkFkbUo4R1IyWTBzS3NBOXk5VExPMjhYUml6eFhud0Q5dnZpclBkRFR4RWhnYkxLVmsxODBLR0F3V1BLbWpvclcyXzFmTmhNRlFoVFZXVm1jQ3k?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## The Jason Show: Taylor Swift's Grammy Museum interview, Fast Food Field Trip - FOX 9 Minneapolis-St.
+
+- first seen: 2026-08-25 17:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Jason Show: Taylor Swift's Grammy Museum interview, Fast Food Field Trip  FOX 9 Minneapolis-St. Paul
+- sources:
+  - [unverified] FOX 9 Minneapolis-St. Paul — https://news.google.com/rss/articles/CBMiW0FVX3lxTE1iWndPeGVoM2lNaDFlbDRyQU5JMkx6Ui14eEFJdk5Qd2VVbzNEcEFaSWV5YWhxLUh3M2tta1VGUTBXa1BaS3VjbjFiZ0Z3Yl9Ea2x5Y3VOamV6RkXSAWBBVV95cUxOTjhxVURWTy1MXzItZG5uYVptZWgtZFh1dmlXVjZoa09RdUMtWTgtN3ZJak9TY200TGdBTjZQUmhLODFQUVA4Zk1YZ25tLXRTTUptYzdEbVR4Q3lTdU5rcFM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift impersonator finds joy, fulfillment in bringing icon to region - journal-news.net
+
+- first seen: 2026-08-25 17:42 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift impersonator finds joy, fulfillment in bringing icon to region  journal-news.net
+- sources:
+  - [unverified] journal-news.net — https://news.google.com/rss/articles/CBMijgJBVV95cUxNNkh3ZzRGdlAxVVFrdVNsTFpyVy1KdjU1ZmNEODdPMXVQWm00NjdlcUpXd05sVDRSUHdncTlLYXpueTFCVGtSOTFuMUtyclh2RjE4eVJVWWU0RWJuR0ZoWTJmSUZNNFJ0a0x2SVNIZTVFaEhFMm1BMG5qVWE0YnZIY3RVMmVUMjBNRGV6S19OSVlCLWc1VjNBSHRpTEhkZU5EajBwSE5jR3FyMkozVkFPNkdPcGNWWVNreFFXUTJnSTQwWVNUbUY3VlEtUFlPQlhadFlYNFkwT2tRcTBLUUpPaVN4M05hVGpDRF9QbGFwVkFmVGdjUHI1UHJ5cmZfa04zNWd3WE4wendVT2pXa2c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Is Taylor Swift's Floral Updo a Hint About Her Next Era?—See the Video - Allure
+
+- first seen: 2026-08-25 17:42 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Is Taylor Swift's Floral Updo a Hint About Her Next Era?—See the Video  Allure
+- sources:
+  - [unverified] Allure — https://news.google.com/rss/articles/CBMiY0FVX3lxTE4yeFR1cTNwcUFVZHVoQk44MlNaakYtN01ya3BBOTRDRDYxVW5IOGVfVHBqZ2JKVWFHUkZwNHBLSWRlYzUtdGNPa2pSd243aFdpRzk1VWE3ZzIyVldEZVJjaDRkQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift’s Light Green Outfits Have Fans Predicting Her Next Album - ELLE
+
+- first seen: 2026-08-25 17:42 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift’s Light Green Outfits Have Fans Predicting Her Next Album  ELLE
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMitwFBVV95cUxQZE5vSlJELXc4TU5laEkyUGUwVEtQdGJMc1JsQ3VWeFBkWnNDQ0lvZjNfOGZDOEhuTzlFR3hJMk14R2lDZTA0TU93b3BkWnRkQWRlZ0c2ZUJnWmRfZEx2UV9ydnVLczBaOUVZOGJla1liV0pYM1JMdXFyTXg0NmNpRmp5YWFrN243Y0NoRlpXUFMwT29qMDFsbHZkVW5SUmtMd1RRTERFTThoWXBCdGdvdzlpNXBEXzg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQbHh5LUhUZkNNY2dsaW1JZmZ2VHl2YjdPNm5nc05Rb1A3MmhRLVp1eU5ZMm5HTTA5clZ4Qzg4M3FGZ0NoSE5tUkZFZWdYYklIVG9YSTBBdDNnMWFVbUpoWlVVQXZ4dzZGbDQ3RXpkbEI0eXJjNHlqckx0SF9OYngzdnpTcmtRZlBjaEJwaU5oNURpM0FGbU1VWlhZajNFam8?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Why Everyone Thinks Taylor Swift’s Dôen Dress Is a DebutTV Easter Egg - Yahoo
 
 - first seen: 2026-08-25 14:00 UTC | category: fashion | importance: 5
@@ -926,14 +991,6 @@ The singer, who has the most top 10 singles in UK chart history of any female ar
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQY0hMRHl0UlZDU3NpcFhySzRvcnQ1M2lfaTdjdjZJUklYV1FtQ3N0OE1XejExdXV0bUZEQnJQSms2N0ljRUtaZGY3N3dhY05fMWwzUm1YWTdFdnZDWXRGWW1wVENRUWVJUVBxMGhUeU5pT0JDNVdsUWtteFZpb3B5SGZmNEtRT0dVZUFiZFJ5UWxYWGxFQUhKd2NxNzJlZUUw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQR3FINkQ1UGRYNmZsY0tqWVhMVVFNOC01dTNPVlVQMHFYd0M0NUxYSHlnT1V6aXBiS2tGUk0tazZHNzlGbHVmaGMwdThVWEZLb1pUN3dMa0hTc1FWajJ6MXBNV1JCb0FfM0R0QXhsU0pRU3ktMTc4aXZhLVF2cmFGWUxlYTFleGlISjMxdEJ3UzZRc2VIQXQw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Reveals the ‘Coping Mechanism’ Mantra She Repeats to Herself When Things Feel ‘Unmanage
-
-- first seen: 2026-08-25 02:22 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Reveals the ‘Coping Mechanism’ Mantra She Repeats to Herself When Things Feel ‘Unmanageably Big’  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxORnJJMDI5cDB3N25zYTk2Y2wyQng4TkF3enVRdjFqX3RlZEo1djlyeXpZT1pyRVJIZ1ZxYlQ2OGNERXpocWNNUFVNVkZWTm56NkNKeFozZVdGZkM5VkV5YXJLYjBCYmZOMEVuTnl2MUlMWHV2ZWpDSDgzOGh2bF84Ylh4TzVLekxNS3hleW9yZDZ2ZHQyX3FrcEl4VUFvNzh2SkY4UG81MjIzVzhLNnhQMEVWazFlVm1laHVuakV3S0YwU1U1MlNtazlOeXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift on Dealing With Public Perception and Deciding Not to Opt Out Before Her Career “Got Un
 
 - first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
@@ -944,69 +1001,11 @@ The singer, who has the most top 10 singles in UK chart history of any female ar
   - [unverified] IMDb — https://news.google.com/rss/articles/CBMiakFVX3lxTFBmM2NndHdwY01lZ0dBUWJHRFprNlgwc3ZGRFoxOU1Mc2lFZjdlVjdHRGpxZVl5bktYRHR4dXZNT2RHZjVzSncwYkJROUVaUUVBZzVxX0x0cnBYdUlpVGRUOHBPa0g0bGlIWEE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOaDhfc0tXcEhSaGJNVGxjLUltSVRaZHVycnpSdXhqcmVtRXVDdUQ5QzhsbkRCXzFxUGxlbC1IcVFSdXNXN25IdGZuZlpNODZPUzRjcVZ4UG91WHR4RUNQYl9pQmZ5OTVTNWJRWnZrNFNnajAzT3pKdFhMYWN4UUdhWi1CdHI0VndYTEllaWR2NWRIMDRvOFJRQzFTQ0lnSjcwRVlkc0ZOdGpWTUtUYlRxRFdja2VWYzdy?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift’s Grammy Museum dress sure looks like an Easter egg - Page Six
+## Taylor Swift Reveals the ‘Coping Mechanism’ Mantra She Repeats to Herself When Things Feel ‘Unmanage
 
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Grammy Museum dress sure looks like an Easter egg  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMlFvVUg3T2hKbjk4VWZzbEN4M2NMbUVMQ1BQMEQ5a01KWTJKQ2xmZFlUWmdIYkg5Skcyc3ZDWUNKY01aUGwzRk5IN19oWGVmUTE4ZzBmOGVOSGVvU1hTbzZBMzhaV0xkX2VmanBGSWlvM2pIZlR3d0hSSE5EblU0S1dELVlvd3lmdkt4UnFjTXltc0pLb3hCX1RkWGR4S0VNaFpzeXJOYmhNZ2k3RkhN?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Jewelry Featured Prominently at Grammy Museum Performance
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During a performance at the Grammy Museum, Taylor Swift's ring became a focal point. The event highlighted her style and the significance of her accessory choices.
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiowFBVV95cUxNWFBrQjlZU2lmdWJOZnFPNkdXbzBScjh5eXNtQUNBLWJFWno2Zzk4dHNSUi04UUxYeHdTQnRiN2ZzZFA3QUlNMUZBSHNvSkd3MnMyUEtuYi1mSDdUZHNvS1MtUnk3aFdFLUVweWdzMEpIRHMwMGNIQkctRURHaEg4TmIzblR4SDZRVVBiNC1rMHk3R2VVeVczMllMcXl6LU1XWElj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Discusses Honoring Her Country Roots in Interview
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 6
+- first seen: 2026-08-25 02:22 UTC | category: sighting | importance: 3
 - verification_status: corroborated | source_count: 2
-- summary: In a rare interview for the Recording Academy's Icon Sessions series, Taylor Swift shared her thoughts on honoring her country roots more than ever. The conversation was led by Recording Academy CEO Harvey Mason Jr.
+- summary: Taylor Swift Reveals the ‘Coping Mechanism’ Mantra She Repeats to Herself When Things Feel ‘Unmanageably Big’  People.com
 - sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-honor-country-roots-tim-mcgraw-1235614372/
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiowFBVV95cUxNOVBlSjNHOFBqc3JGLWRJQURpd3ZmZHBtb2dCQmhDWkJFVDdGYTI0X250NGhpYXQwbExsVTdQcWNpd1g4Vkw2QmhPcDBMeVVFYV90RU5sY0RVQWtXbnRSTFJZc0g2blJSbXdzMjAwY1g5SlNhaVdETzVJMUhzaUtmdGRaNmR2TloyVE9qaUpfNXNzd0M2ZEVDaVdLak5zdVpHbDRj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Discusses Original Concept for 'I Knew You Were Trouble'
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: In a recent Q&A at the Grammy Museum, Taylor Swift shared insights on how her 2012 hit 'I Knew You Were Trouble' was originally written as a sad ballad before incorporating dubstep elements. The discussion highlighted her creative process behind the song's evolution.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-i-knew-you-were-trouble-grammy-museum-clip-1236841957/
-
-## Taylor Swift Shares Insights on 'Tim McGraw' Meaning
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift discusses the hidden meanings in her debut single 'Tim McGraw' in a recent interview. This revelation sheds light on the song's deeper themes and significance in her career.
-- sources:
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPU2R3dHdIRG0yV0o5RkctRURSUFQtOG9RTVlHOWphYlBXUW5BOFpwV1FmX3prSHRCOVR4WFdCZGNoTzBMcHFyMUZBNDJVSk1oUlJSWVgwUlZXYUt4ZkhyNERjbTNxd19fbFBTUURmTWhUaVlsT2dzaVBuVm5BNDF1d3BITWdWbjMwREpUazdMZ2hiOUNRZi1sanpVTkRKd2FYdldkYmZMRm8wQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Adam Scott Discusses Taylor Swift and Travis Kelce's Wedding Experience
-
-- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: Adam Scott shares insights on the wedding of Taylor Swift and Travis Kelce, providing details about the event as seen from his perspective. The discussion sheds light on the couple's special day.
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxOTW1DSzVKY2djcE5GcEt0YjljcXQ2UzlYRTFKVlV1eFAwYk5PT0dqcVljX1NxbUp0djJxcXRrMHlfblBhS1NYeFBLbFhhREZFb1ZMNnF2Zk1QTkRvZTg4V0E1dm1oM1RQeHN6Sld2MlZsWXR5WlJyVlduR0JFdkFZbzI0SkhtV1JuMFVSSQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPS053UGM0ZEZLTFlidExTMGZueUJPcVdPRllhM3k2MXVTM0pyRFZjTEc0ZHMxdFBKUHFDYVJEc21icHQ4LUx5MFlNaGgtT196UThXdEE2SnMycEJ6OU5PUTJrYmFIQ3hNYll4Ujg1ekQyaGdGWlF1UU9TV1JhMGhxQ0tZQTNvaGdUcXV2bnVDQTVwQjI3ZW9EaHFKdWlsLWFwT1FBRUl3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitgFBVV95cUxNVWNxVmxGMncwemZYWnpTTl9tUVBhNG5ybzI0SlhCTlBYUFpOc1dSOXFGMDYzaG5XdWJ0VTA3dEJQYkxPSVl2bTNUMEdUaWxyaGpENGpxVGk2dFN3d2N0RXJXUExlVzJRN0VUY2xiOC0wVHJyeGdpcEVLYW94V0pIVmZMM1AzT3NDbm4yVzR1WGo5Y2RJbkV3Q2ZiaTRXUDBEUGZlSmlFQ0xsMFBoR1ZGa0s2WU8ydw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Emmy Nominee Olivia Newman Discusses Collaborations Including Taylor Swift
-
-- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Olivia Newman, director of Netflix's Emmy-nominated film ‘Remarkably Bright Creatures,’ highlights her collaborations with notable figures, including Taylor Swift, in a recent interview.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/video/remarkably-bright-creatures-olivia-newman-video-interview/
-
-## Taylor Swift Wears $798 Slip Dress Ideal for Fall Activities
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was recently spotted in a $798 slip dress that is considered perfect for fall activities. The stylish choice showcases her fashion sense for the season.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMic0FVX3lxTE5wODNJVXEyTzAtZkhmZ0EtS1VwdjJReHBVZUdZQTRhQmFna01uaGFoaU9JS1p3amh3RTdYVi1YQ3VERTEyb3JTeXRxR0d5N0tYcUdOd212dWgtM01jUDloSkh3UFBlVEJVcW4yLXc5cjNkZjA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxORnJJMDI5cDB3N25zYTk2Y2wyQng4TkF3enVRdjFqX3RlZEo1djlyeXpZT1pyRVJIZ1ZxYlQ2OGNERXpocWNNUFVNVkZWTm56NkNKeFozZVdGZkM5VkV5YXJLYjBCYmZOMEVuTnl2MUlMWHV2ZWpDSDgzOGh2bF84Ylh4TzVLekxNS3hleW9yZDZ2ZHQyX3FrcEl4VUFvNzh2SkY4UG81MjIzVzhLNnhQMEVWazFlVm1laHVuakV3S0YwU1U1MlNtazlOeXc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxQbE1fTFZtU2NvTDE4Rk5rQ2czOE5BUi1TazJKNFlxZnE5blNCSFVVWlMyak1uVjYxbUJYUUhhNHNjNG1wdkF0blBES0R5amFiNDBJWmFnRzBiUk14SzdObEZqWG1CQ25ySDR4WmhCUGdzbkdpOHkwV1FmTWk4a1lkX2VBcEJwcHBrZjE3QUZGeVVvZ0FoVzJBRkVtTDlWTVV1dXo3TE1n?oc=5&hl=en-US&gl=US&ceid=US:en
