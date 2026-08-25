@@ -85,3 +85,106 @@ describe('#657 EraSelector is a real focus-trapped dialog', () => {
     expect(src).toContain('useFocusTrap(selectorOpen, dialogRef);');
   });
 });
+
+// #3177: the same #657 fix, extended to the 5 remaining overlays named in
+// that issue's audit trail.
+
+describe('#3177 TrackGuide is a real focus-trapped dialog', () => {
+  const src = read('./TrackGuide.tsx');
+
+  it('imports the shared focus trap', () => {
+    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+  });
+
+  it('the guide root declares dialog semantics and a focus target', () => {
+    const tag = openingTag(src, 'aria-label={`${era.album} track guide`}');
+    expect(tag).toContain('role="dialog"');
+    expect(tag).toContain('aria-modal="true"');
+    expect(tag).toContain('tabIndex={-1}');
+    expect(tag).toContain('ref={dialogRef}');
+  });
+
+  it('wires the trap onto the guide root while open', () => {
+    expect(src).toContain('useFocusTrap(open, dialogRef);');
+  });
+});
+
+describe('#3177 TheoryGuide is a real focus-trapped dialog', () => {
+  const src = read('./TheoryGuide.tsx');
+
+  it('imports the shared focus trap', () => {
+    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+  });
+
+  it('the guide root declares dialog semantics and a focus target', () => {
+    const tag = openingTag(src, 'aria-label={`${era.name} theories and easter eggs`}');
+    expect(tag).toContain('role="dialog"');
+    expect(tag).toContain('aria-modal="true"');
+    expect(tag).toContain('tabIndex={-1}');
+    expect(tag).toContain('ref={dialogRef}');
+  });
+
+  it('wires the trap onto the guide root while open', () => {
+    expect(src).toContain('useFocusTrap(open, dialogRef);');
+  });
+});
+
+describe('#3177 ShareSheet is a real focus-trapped dialog', () => {
+  const src = read('./ShareSheet.tsx');
+
+  it('imports the shared focus trap', () => {
+    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+  });
+
+  it('the card root declares dialog semantics and a focus target', () => {
+    const tag = openingTag(src, 'aria-labelledby="share-sheet-title"');
+    expect(tag).toContain('role="dialog"');
+    expect(tag).toContain('aria-modal="true"');
+    expect(tag).toContain('tabIndex={-1}');
+    expect(tag).toContain('ref={dialogRef}');
+  });
+
+  it('wires the trap onto the card root while a share target is set', () => {
+    expect(src).toContain('useFocusTrap(Boolean(share), dialogRef);');
+  });
+});
+
+describe('#3177 the feedback panel is a real focus-trapped dialog', () => {
+  const src = read('./FeedbackButton.tsx');
+
+  it('imports the shared focus trap', () => {
+    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+  });
+
+  it('the panel root declares dialog semantics and a focus target', () => {
+    const tag = openingTag(src, 'aria-label="Send feedback"');
+    expect(tag).toContain('role="dialog"');
+    expect(tag).toContain('aria-modal="true"');
+    expect(tag).toContain('tabIndex={-1}');
+    expect(tag).toContain('ref={dialogRef}');
+  });
+
+  it('wires the trap onto the panel root while open', () => {
+    expect(src).toContain('useFocusTrap(open, dialogRef);');
+  });
+});
+
+describe('#3177 SearchOverlay is a real focus-trapped dialog', () => {
+  const src = read('./SearchOverlay.tsx');
+
+  it('imports the shared focus trap', () => {
+    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+  });
+
+  it('the overlay root declares dialog semantics and a focus target', () => {
+    const tag = openingTag(src, 'aria-label="Search the archive"');
+    expect(tag).toContain('role="dialog"');
+    expect(tag).toContain('aria-modal="true"');
+    expect(tag).toContain('tabIndex={-1}');
+    expect(tag).toContain('ref={dialogRef}');
+  });
+
+  it('wires the trap onto the overlay root while open', () => {
+    expect(src).toContain('useFocusTrap(searchOpen, dialogRef);');
+  });
+});

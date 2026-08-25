@@ -4,6 +4,7 @@ import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { MessageSquarePlus, X, Check, Loader2 } from 'lucide-react';
 import { useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
+import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 
 // A floating "report an issue" button, fixed to the bottom-right so it follows
 // the viewport as you scroll. Opens a small free-form panel; on submit it POSTs
@@ -61,6 +62,7 @@ export function FeedbackButton() {
   const [errorMsg, setErrorMsg] = useState('');
   const [dismissed, setDismissed] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
   const textareaId = useId();
 
   // Hydrate before paint, never during render — reading sessionStorage
@@ -80,6 +82,8 @@ export function FeedbackButton() {
     setDismissed(true);
     writeDismissed();
   }
+
+  useFocusTrap(open, dialogRef);
 
   useEffect(() => {
     if (!open) return;
@@ -174,7 +178,10 @@ export function FeedbackButton() {
     <>
       {open && (
         <div
+          ref={dialogRef}
+          tabIndex={-1}
           role="dialog"
+          aria-modal="true"
           aria-label="Send feedback"
           // Mobile: cleared of BottomNav (fixed, ~56px + safe-area-inset-bottom)
           // by sitting well above it; desktop is unchanged (no bottom nav there).
