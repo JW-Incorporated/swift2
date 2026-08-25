@@ -25,380 +25,1007 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 46
+Stories: 120
 
-## Completely Betrayed: Taylor Swift freaked out after guest leaked private wedding invitation - MARCA
+## Taylor Swift To Become Youngest Woman Inducted Into Songwriters Hall Of Fame
 
-- first seen: 2026-08-24 02:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Completely Betrayed: Taylor Swift freaked out after guest leaked private wedding invitation  MARCA
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: The Songwriters Hall Of Fame has announced its 2026 class, headlined by Taylor Swift. Swift, 36, becomes the youngest woman ever inducted into the hall when the ceremony takes place Thursday, June 11 at the Marriott Marquis Hotel in New York City. (Stevie Wonder, who was 32 at his 1983 induction, was the only younger inductee, excluding posthumous honorees.) The press release announcing her induct
 - sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi6gFBVV95cUxNZDdBYWl1cXp0bzdoZ1BfQUI5WjNvRHJrYkZEaHpjdU1IN3paMV9ta0pwZDZWeVVfRmRZOFp3b3FJc0g2ckpybGRpMi1JQlpEWGxOcXB5N3BaSW8yczFRT244OGhxeElKNm05RkU4OXFyQTZWZENRMzBaVGlmNTlsaWNabGFlMnllNnZIUnJDcVVhaVQtME5SZTdKc3d4WEdIdmhCRUNISnlNZk1mUk5IRThoS0lfekJ4VVJVbkNTaDZmTW9CSEE5Ni0zV1l1QnMxbktMejB1cjQ2NWllT2VRd21hWmgxOVo3bWfSAeoBQVVfeXFMTzBGXzZBZmhKRTJHLW9Ld29RUlZTeVE2R3Q3cE9FMzZkUHRfazFFOWVMM20xdFdvTm4zWmhkR2Zaem1EUUdXRDhnRjEtMXlsY0lpRk9qU0VFX1JvYVJTS1RRUTBSaFJtVlZvRGRDYjRJY2k5Wk90YmxUYUFnbXBsNkNLUlhneG9SUHpETzFzMFZob3BVMWVPYUptTHQ2cVB6ZjdBR0dTRm9RZEtobnhsS0lKUjBKVmFKeVdBakpSZzFyMERrZ3VSX2tqSE9mb3dxbEE5a3NUTU92RWhVTFR1eGtJNms5b3VqSzJ3?oc=5
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2486084/taylor-swift-to-become-youngest-woman-inducted-into-songwriters-hall-of-fame/news/
 
-## NFL Is Reportedly Dealing With An Unexpected Taylor Swift Problem - Yahoo Sports
+## Discussion of Taylor Swift's Song "Willow"
 
-- first seen: 2026-08-24 02:36 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: NFL Is Reportedly Dealing With An Unexpected Taylor Swift Problem  Yahoo Sports
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Stereogum features a post that delves into Taylor Swift's song "Willow." The article is part of their series called The Number Ones.
 - sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikwFBVV95cUxQS1o2VkJCc3JNZzdaeGFVeTVFdnd0TXZrMUUyVG5YeVR6bVJHQmNRQjBpRmJ3RGQzWjQyTlItczB3VnlUdjREYWhhLTlWakRkUE1ySjhGaXNfaDNLUThER3ZNQUQ4TGVQd0dWcTBzQlNNT1hYZ19adnJLRGstMFlaaHJtS3A3UjZPbkt2eFowZkpXdEk?oc=5
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2482727/the-number-ones-taylor-swifts-willow/columns/the-number-ones/
 
-## Dean Blandino reveals Taylor Swift's frustration with famous tactic Eagles used to stop Chiefs - MAR
+## Robbie Williams Sets UK Record for Most #1 Albums, Ahead of Taylor Swift Album Release
 
-- first seen: 2026-08-23 21:32 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Dean Blandino reveals Taylor Swift's frustration with famous tactic Eagles used to stop Chiefs  MARCA
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Robbie Williams has achieved the most UK #1 albums of all time, now holding 16 chart-toppers. This milestone surpasses the Beatles' record of 15, accomplished during a 29-year span, while the Beatles took 37 years. His achievement comes as Taylor Swift's album rollout continues.
 - sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi8AFBVV95cUxNRm1scWRCLUVmVnRUWG40ajhGMUN5Wjd0V3E5TVVzV1h6dVRBMnFreC1rWXNvNHBPbk9uY1Y1QUhtbGtydjFCU2N1NjFzMUtvS2JwWFVMVnRyc0JUTl9LTlMxOUJCY3gzbC1jRW9idWl3WFR3bU00dGlpbUUzb1pHOXVpb0k2SE1oclNUYXBMYzhDS3BEckNmREJjRXdyUmc5TGlkWWpXZS12ZC1wTU9pLWU1YjV2WmE0ZlpmMUhFUmNBbFE0ZTBFSFVWMzhabkt6empRSmtudDBWalpZOUtONjhnRUxFTHZfNjZHWG1NLWjSAfABQVVfeXFMUGt3ajA0bFhqZFdWekhPT2x3UlBVWFZpd3QybXZRV1VKbmVwS2ZNQ0tJRUxQOE5nRVRhR1c5Um56TmxCMEtnRnBpMkFSaWlXaVpOZkJoMUhOYW5hTDNhVGN3aDZqZkJva1pqYWNKcUh3VFpiVHlYcDhTMG5wUE5BMDdIaWJsbEplc0tla0lnWmU0NUFqVmxOSnFJaGY2VF9qclE1Yy1YZlhRVVQwUldmTDY2OXhVaDBhNDlsRUhmYllMcXFKUW9jZ0RTRklPNjNFZWV4aHN2Z21jY1Z3NEJlcVBhX3VmcExsTko5Yy02TElo?oc=5
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2486498/robbie-williams-breaks-beatles-chart-record-by-waiting-out-taylor-swift-album-rollout/news/
 
-## Did Travis Kelce really cheat on Taylor Swift? Truth behind viral 21-year-old Brazilian woman claim 
+## Robyn Premieres New Tracks at NYE Event in Brooklyn
 
-- first seen: 2026-08-23 21:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Did Travis Kelce really cheat on Taylor Swift? Truth behind viral 21-year-old Brazilian woman claim | Hindustan Times  Hindustan Times
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Robyn debuted her new songs "Talk To Me" and "Sexistential" during her New Year’s Eve show in Brooklyn, following a performance at CNN's Times Square live broadcast. This marks an exciting moment for fans of the Swedish alt-pop artist.
 - sources:
-  - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMi9AFBVV95cUxQWmJxc0pGNGJVZVFOWGotRGU4R25SbjZEVkY4U3BhTHFSVkdCSzlFOFJzelpjbWlJNWJLNGtsS3Y3OXhFUmd3Q010RkRUOFBhTmxoS2R5X3lHbjJESHJVQkhtVFhiUDlRNTd5NnZwMFJvUzlTUkRMLVBpUTVJeHB4bTQtQ1FlQXV1eDhnLUhOdmtGT0w4N0RTWjZBYXMtcnltLW1kR0FqaVVIcFF6RDZaaDFPWnNoVVlxTVh0VFRBZURvQ1J3cnFFaDVGYkFSUjgzbVh2dzdRSnRycFdFaHR3QmhlUklIWE9PbERYSUxFRmo5WVhU0gH6AUFVX3lxTE5neDJtVnBWby0tMmVhVTJGbnhocnZkZlR1WUpCMUk3MjBWZXZZaEJKNXh6NFE1VzNNblZGcm4wT0hHa3RPbjQzLTZobzNYc3dzVkUtMmFZdFZZRFR5S1ZWRkg0b2xrVmhscThiWUstV09EZDFmdUZmWG0tYXhJemQxUzcxZURCUW4yT2V4d05VYTFnMENZVm1EYmF2Q2EyZmtXSGkxMG9zN2ZvSnJkaDdVT2ZrSWVVT3dKeGNLemxOUnQyblZWbHkxZlpidDFpN2RnQmsteWFWdERSVEhrTGF4YklPUFF2Uk5XdUdCLUVaX0ZHN2lhS3ZCMnc?oc=5
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2483951/robyn-debuts-new-songs-talk-to-me-and-sexistential-at-brooklyn-nye-show-plays-cnns-times-square-bash/news/
 
-## Designers dreaming up Taylor Swift-inspired wedding gowns - Channel 3000
+## Top 40 Pop Songs of 2025 Announced
 
-- first seen: 2026-08-23 21:32 UTC | category: fashion | importance: 5
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A new list highlights the top 40 pop songs of 2025, showcasing the growing diversity and volume in pop music. The compilation reflects the challenges of curating such a list amidst the influx of new releases.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2482594/the-top-40-pop-songs-of-2025/lists/year-in-review/2025-in-review/
+
+## 'I imagined it somewhere a bit more private'
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift and Travis Kelce are rumoured to be tying the knot today in New York's Madison Square Garden.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/c982ryn1y4xo?at_medium=RSS&at_campaign=rss
+
+## Finn Wolfhard Announces New Album Fire From The Hip: Hear “I’ll Let You Finish”
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Finn Wolfhard released his debut solo album Happy Birthday last June. The Stranger Things star, PUP music video regular, and Replacements superfan had played in a couple of bands before, but Happy Birthday came about because he challenged himself to write 50 songs within a calendar year. I guess that challenge did him good, because Wolfhard already has a new album on the way.
+The post Finn Wolfhar
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2497321/finn-wolfhard-announces-new-album-fire-from-the-hip-hear-ill-let-you-finish/music/
+
+## Bleachers Share “i’m not joking,” Jack Antonoff Addresses Not Working On Latest Taylor Swift Album
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: everyone for ten minutes, the new album from Jack Antonoff's Bleachers, is coming out in just under a month. So far we've heard the singles "the van," "dirty wedding dress," and "you and forever," and today they're back with "i'm not joking," a ballad that gets a little freaky with it as far as Bleachers songs go. Antonoff plays a medeival-sounding harpsichord and dobro guitar, and there's also so
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2497483/bleachers-share-im-not-joking-jack-antonoff-addresses-not-working-on-latest-taylor-swift-album/music/
+
+## Lindsey Buckingham Addresses Viral “Silver Springs” Video, Says He’s Inspired By Sombr
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: You'll never get away from the sound of the woman that loves you. Right now, Fleetwood Mac are in the midst of a major gen-Z revival that's been going for years, and their 1977 song "Silver Springs" is a big part of the reason why. "Silver Springs" is currently the band's sixth most popular song on Spotify (as far as trending, not all-time streams). But when the band first recorded "Silver Springs
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2497578/lindsey-buckingham-addresses-viral-silver-springs-video-says-hes-inspired-by-sombr/news/
+
+## Charli XCX – “I Keep Thinking About You Every Single Day And Night”
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Yesterday, Charli XCX returned with the polarizing, ragebaity anthem "Rock Music." The Brat star is getting ready for a new era, and she's already sharing the b-side titled "I Keep Thinking About You Every Single Day And Night." It's only available on vinyl and her b-sides Instagram account.
+The post Charli XCX – “I Keep Thinking About You Every Single Day And Night” appeared first on Stereogum.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2498472/charli-xcx-i-keep-thinking-about-you-every-single-day-and-night/music/
+
+## Paul Mescal Interviews Paul McCartney
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: The Boys Of Dungeon Lane is the name of Paul McCartney's new album revisiting his Liverpool coming of age, due out this Friday. It's also the name of a new interview special available to watch on Amazon Live and in the Amazon Music app as of 11 a.m. ET today, in which McCartney is interviewed by actor Paul Mescal, who is playing him in the upcoming Beatles biopics directed by Sam Mendes.
+The post 
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2500083/paul-mescal-interviews-paul-mccartney/news/
+
+## Taylor Swift’s ‘The Eras Tour: The Final Show’ Nets 5 Emmy Noms With Swift Earning One Herself
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift’s filmic final bow in regards to her record-breaking Eras tour, Taylor Swift: The Eras Tour: The Final Show has earned five Emmy nominations, with Swift getting one herself. The Emmy era for the companion film to the six-part docuseries released last December includes recognition in the Best Variety Special (Prerecorded), Best Directing for […]
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/taylor-swift-emmy-nominations-2026-eras-tour-the-final-show-1236977321/
+
+## Mariah Carey Headlines Opening Ceremony of Milano Cortina Olympics
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Mariah Carey performed at the Opening Ceremony of the 2026 Milano Cortina Winter Olympics, showcasing a snow queen theme. The event marked a seasonal shift away from her traditional Christmas performances.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2488350/watch-mariah-carey-perform-at-the-2026-milano-cortina-olympics-opening-ceremony/news/
+
+## US Vinyl Sales Exceed $1 Billion in 2025
+
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: In 2025, US vinyl sales surpassed $1 billion for the first time since 1983, with 46.8 million units sold. This milestone reflects a 5% increase in physical sales compared to 2024, highlighting the resurgence of vinyl in the music industry.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2492328/us-vinyl-sales-surpass-1-billion-for-the-first-time-since-1983/news/
+
+## Weezer Album Added to Library of Congress Registry
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The Library of Congress has selected a Weezer album for inclusion in its National Recording Registry, recognizing its cultural and historical significance. This program has been archiving notable recordings since 2002.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2498964/weezer-album-inducted-into-the-library-of-congress-national-recording-registry/news/
+
+## Taylor Swift Announces Toy Story 5 Song “I Knew It, I Knew You”
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift is back. The singer just announced a new song called "I Knew It, I Knew You" for the upcoming Toy Story 5 movie. The track is written and produced by Swift and Jack Antonoff, and it comes out this Friday (June 5).
+The post Taylor Swift Announces <em>Toy Story 5</em> Song “I Knew It, I Knew You” appeared first on Stereogum.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2500937/taylor-swift-announces-toy-story-5-song-i-knew-it-i-knew-you/news/
+
+## Taylor Swift – “I Knew It, I Knew You”
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: After many weeks of speculation and teasers, Taylor Swift revealed this week that she did indeed create a new song for Toy Story 5. It's called "I Knew It, I Knew You," and it's out right now.
+The post Taylor Swift – “I Knew It, I Knew You” appeared first on Stereogum.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2501269/taylor-swift-i-knew-it-i-knew-you/music/
+
+## Country Star, Seemingly Engaged, Sings At Football Benefit
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Maybe Taylor Swift is really doing this country reboot? Or was her latest public appearance merely a case of right place, right time, right lyrics? 
+The post Country Star, Seemingly Engaged, Sings At Football Benefit appeared first on Stereogum.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2503237/country-star-seemingly-engaged-sings-at-football-benefit/news/
+
+## Aaron Lewis Reacts After Shredded Copy Of His MAGA Album Cover Is Used As Taylor Swift Merch Packaging
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Earlier this week, a Taylor Swift fan got a strange surprise while unpacking some of her Toy Story 5 merch. Mixed in with the recycled packing paper was a mysterious shredded image of a bearded man. After a quick Google search, she discovered it was the CD booklet for Aaron Lewis' forthcoming country album, Give My Country Back, which hasn't been released yet through UMG.
+The post Aaron Lewis Reac
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2503683/aaron-lewis-reacts-after-shredded-copy-of-his-maga-album-cover-is-used-as-taylor-swift-merch-packaging/news/
+
+## Rumoured guests in SUVs pull up to Madison Square Garden
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: corroborated | source_count: 3
-- summary: Designers dreaming up Taylor Swift-inspired wedding gowns  Channel 3000
+- summary: Black SUVs were seen driving into the rumoured venue in New York.
 - sources:
-  - [unverified] Channel 3000 — https://news.google.com/rss/articles/CBMi-gFBVV95cUxOQW83SFcyXzdtSW8wUjlfdE52cGhueFo0NEJEbnFYTnlvMWtoZ3RyNUtYQTJ3UXhwTGoxOW9OYjVGMmxVS25DaUlGOWF3b3kwc3BJTmhRYTJURGFya0ZpUXNJc3BXVXBsZ3ZJN3VneXU3UEtZZmtZNk00di1MUlczd0VuX2ZsS0J3eVQtOWlpS01TcnhsTzRGUWhuSll3RzM4YlctbXg4LVczcFZxWkMtb0RMdmh1RGNvUE5IT0ExNkdUZk05WGRXWU9hZ254NnlibXVFQ093cm5lSG9JNV81aS02OENmNl84WndiZ3p6QkpXLXFyVXJCbXp3?oc=5
-  - [unverified] Lee News Central — https://news.google.com/rss/articles/CBMijwJBVV95cUxPeGxmbUlNM3NicVFyVW1xLUdKbW9qeDdvamwyWTJRczIyTHR3S2thY0dlRkREX0hRcVBvcGhyQlU1ODhKaUZHWDFfWG9GV1phOHl4Tk96Sk9wb3BuZEZUa3pWRFRyZFB6dlBtQWh1M1pCMEc4RGxyN1BrcDdzeVRxNUp4Ujl5ZzdTdElnN0ZUUmU2d3Y0U2dDa2JQeWk4VVVGUEt6eXlrWVR2enIxT3c0OW44TVdyWEpxT29oRmhwZTk2aUZTODZPYmQ4ekZOZkRqOVNCR0NCOFA0YlM1cUxscFc4a3A4YnVzaDF1U1V5V3RZa2k2bFVjdjBZcGh6RnI4UHVObk9EWnFIclVCRHRr?oc=5
-  - [unverified] The Pantagraph — https://news.google.com/rss/articles/CBMiugFBVV95cUxNWmpjLVpsZklGcDVNbkZCSjAzU3dJdmllRklNcXFFVVJsU1Rad0l6WEZrRm9sYnVkaEZJMTBYY2FVa2ZJM1puM2xmbU9qd1FYa29HV1Q0VU1QNnlRTHZqTUpFNWM2a1BNd2EyT3duSWN2S3AzSTlRMnBoeGRzOGxJTWR2MXRaZkVxSmdFVXJIbDFBQmJ3T0QyRnduV2FyT0ZiSHpWeTRPM1A0LWl1bWRvUzR1d3FVanZQNlE?oc=5
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cy4e15j912no?at_medium=RSS&at_campaign=rss
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/news/audio/2026/jul/03/taylor-swift-wedding-the-latest
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/gallery/taylor-swift-travis-kelces-wedding-guests-ethan-hawke-hugh-grant-jason-sudeikis-more/
 
-## NFL Has a Strange New Problem Because of Taylor Swift - heavy.com
+## Taylor Swift's rumoured wedding celebrations begin with star-studded New York event
 
-- first seen: 2026-08-23 17:32 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: NFL Has a Strange New Problem Because of Taylor Swift  heavy.com
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Actress Lena Dunham, model Gigi Hadid and longtime music collaborator Jack Antonoff were spotted in formal attire near Madison Square Garden.
 - sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPM1ZsMjdWYXF3Rks0NEkxUURfTlRDVFcxQUFzMEJpN29CTGpUVG9XeVlfUXY4YjA5T05reE9yeEtDaTBMWVotZmxoZlVUaVpjc1Y5MUR4Ukp5b0p3Y3NQWVhxbGxJNEtnQ2hwdWFnOG90eVhmSnAtb3hwU1JCOGlYc3Z2dkZlR3hUQjBr?oc=5
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/crlw1eeez19o?at_medium=RSS&at_campaign=rss
 
-## Taylor Swift Shows Off Short New Haircut in Black Floral Empire Waist Slip Dress at L.A. Event - ins
+## What Does It Cost to Take Over Madison Square Garden?
 
-- first seen: 2026-08-23 17:32 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Shows Off Short New Haircut in Black Floral Empire Waist Slip Dress at L.A. Event  instyle.com
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: It’s not just rent. There’s security, insurance, permits and other costs, not to mention extra police presence.
 - sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxPQlFyN3YxbnNPUmlrLWJkclJ2aWxQRW96RDBnQnR3RHRYVm1Jd1FucGVLVWc3ZXluZ0hZZWV0STlGWHVXaU9nM1h4ZDlhQTN2cklteVVBQkRsdTlRdF9pdzR6eGZUMFI3UGdxOHV1MkFPbmc0NDMzbHlKdzBiLUxia2RPNkZ4TVlseDJzaVo2WFNrazd1MldlXzNYMzJiNEFVdHg5cDg4V3hQMDVwb3g0MQ?oc=5
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/03/style/swift-wedding-msg-cost.html
 
-## Taylor Swift Left Angry After Private Travis Kelce Wedding Invite Leaks, According to Sources - Yaho
+## Prince William Discusses World Cup Football on Podcast
 
-- first seen: 2026-08-23 17:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Left Angry After Private Travis Kelce Wedding Invite Leaks, According to Sources  Yahoo Lifestyle Canada
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Prince William appeared on Travis Kelce's podcast, sharing his hopes for England's success in the World Cup. He also mentioned that his father dislikes football.
 - sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifkFVX3lxTE9ZN2VTRUZlV2ptNG1aS1lwd3p1eW1Tc3dUV293YWtQTVZxTDRiN2lNcHJmVGZIY25yYWRWUDQ2WXFkUV9QVTUzN01QYjN3cW1HT19OSm9QX2pYQmw3WVJIVVduWVdkR3VsbmV3Q0JON0x5MXZZeHZkUWZKamptQQ?oc=5
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cdx7dxrwg7ro?at_medium=RSS&at_campaign=rss
 
-## Taylor Swift Puts a Floral Twist on the Summer Slip Dress Trend for an Event in Los Angeles - ELLE
+## Kirk Hammett Wears Controversial Taylor Swift Shirt on Stage
 
-- first seen: 2026-08-23 17:32 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Puts a Floral Twist on the Summer Slip Dress Trend for an Event in Los Angeles  ELLE
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Metallica guitarist Kirk Hammett performed in a shirt stating "Taylor Swift Is a CIA Psyop," leading to backlash from Swift's fans. The shirt has sparked discussions among fans and commentators alike.
 - sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMimgFBVV95cUxNZk5McE5udTFrNGRLdzhaV1dVbHlWaVBvUUIydWQtRXktc29TMjBYdTF6dXc5Q3oxSU1HeElGbXBLVF92MTZ3dklwNFpadXlzSnZYaS10Tzhlc3ladXlNS19BZjY5Rm5OUDhodnptTXZib0NxVVVWWUJCSTkyRzJ1eVp4OUVMSTZhQTVQMVBnLXo0QVFCV093QzB3?oc=5
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2502894/the-swifties-are-coming-for-metallicas-kirk-hammett/news/
 
-## Every Photo of Taylor Swift and Travis Kelce Since Their Wedding - People.com
+## Wu-Tang Clan's Performance Linked to Knicks' NBA Finals Comeback
 
-- first seen: 2026-08-23 13:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Every Photo of Taylor Swift and Travis Kelce Since Their Wedding  People.com
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The Wu-Tang Clan's halftime performance at an NBA Finals game is suggested to have inspired the New York Knicks' historic comeback. The performance is highlighted in an article discussing the game's significance.
 - sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMif0FVX3lxTFB1M2lBaVNDaFd4elpjRm5Zc2UwNmxQR1NfS25GbnVlWl90SG10elN3bGpkTXJrTkh0Nlk0YTJnWGFXRC0tVmhnX0hYcFdZMFZMSm1xY18tcVp2NHh6d1lRSDlKRy13bld2R0FlZi1KY0pfOWp5dk5CLUN5ZEdzTUk?oc=5
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2502034/wu-tang-clans-halftime-performance-preceded-and-sparked-the-knicks-historic-nba-finals-comeback/news/
 
-## Leaving Travis behind? Taylor Swift swaps her newlywed life for a girls' night out with Dakota Johns
+## Taylor Swift and Travis Kelce Get Married in New York
 
-- first seen: 2026-08-23 13:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Leaving Travis behind? Taylor Swift swaps her newlywed life for a girls' night out with Dakota Johnson  MARCA
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has married NFL star Travis Kelce in a ceremony held in New York over the Fourth of July weekend. The event marks a significant moment in her public life as she begins a new chapter.
 - sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi9AFBVV95cUxPZWF1cW5hUnluekVOTjhxb0xyVjVQWHJ0OWo0Z2VsM3loTUlXd20tVkNKZllJb1BYSkJEVkNoNnZ5eFFWeXA5RWFyLWhiS2d4Mzc2UWdMdWg1VjJJWlIzMl91R1ZFLUt5d2JHYV9TelZIZVctTmxkMkhzU25QLTVIUkZVaUhDTzBGOURlZ0RSSXhfc3FMTVJqWHc4WEN0b2p2RmVyRXVwZEctZTVkWnUweXdtQVlfZzRud1BOQkN6QVJkQl9EbTBidzhKc0VxMFdldkhZZ0I4WDhMX2ZERXgxU0xzd2s0U3NTRHZ1N2RQR3VDSENf0gH0AUFVX3lxTE1DU1NRNzlyMHRXWXRvZ3VtZDJKWkZRNHlHMnJPcTBJbkszMlkyb1JvcmVNVUNUMmcyMXp0TGJyR2xhUG00MmNLUDMtU3h3b1c0Tkh0NFBXR1hJZTc3N1dwY3NqdG1SRFVHd1NXMnZIS2ZZQm9ZYmF0RDZwc0RpSThLLW5QTmt5ZjNGUmVGbnJ6WGZjRVVQcW9ZSnpsUjNmNGZVaVBPX0hUa2pLTjNxY2pRNTdxTGMyblRCTzdwQml4WGlDc0s5dHBEd21uYS1HOVhlZ1cyekhod2RoZWNoZnhiZzFzeWZMMm4yMW1xX1hXNEVPZlo?oc=5
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/commentisfree/2026/jul/03/celebrity-wedding-today-who-taylor-swift-travis-kelce
 
-## Taylor Swift ‘Shocked’ Over Death of Former Nashville Neighbor Hayden Panettiere — Source - Yahoo
+## Taylor Swift and Randy Newman Perform Together at Toy Story 5 Premiere
 
-- first seen: 2026-08-23 09:38 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift ‘Shocked’ Over Death of Former Nashville Neighbor Hayden Panettiere — Source  Yahoo
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift and Randy Newman took the stage together to perform during the premiere of Toy Story 5. This performance comes following Swift's recent recognition as one of the top songwriters by The New York Times.
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPZHN1cldLM05aTEdoTTFDbVlfNkpxcGxsS2NBbjRnZ196STAzUEZoaUlMTy0xNGwtNDRmV3ljNGlqR1BadWpQUms2Y19namtJdWFBYXRKaUtsTzI0a1JWMWp4ZXFaaGdkOVl3cXI4YjdMZVdzRGV0YnV3Y09aWnFQb3pTSEVsWDBpTVlrdm9ZOWFLY3k3ZXYwS3R0Y09hUnFBSXJn?oc=5
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2501886/taylor-swift-sings-with-randy-newman-performs-new-single-at-toy-story-5-premiere/news/
 
-## Taylor Swift Shocked by Hayden Panettiere’s Sudden Death at 36: ‘Deeply Saddened’ - parade.com
+## Taylor Swift Wears Dior Dress by Jonathan Anderson for MSG Wedding
 
-- first seen: 2026-08-23 09:38 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Shocked by Hayden Panettiere’s Sudden Death at 36: ‘Deeply Saddened’  parade.com
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: The pop star said “I do” to a gown designed by Jonathan Anderson, the French house’s creative director.
 - sources:
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxOdUtoUjdwWE5CMWNrQUppeF9QeU9lWEtvRXBXSUtIRFZ2WDBweEQyUTQxWnc5NDJZc2prZktGMjZsYmhGOXc5d0l0ZzdEYWhsUHdkUFpKN2NQRFdKSFBTWldBbm1yNk9mOFBJLWdZTGRiYzFBbkdPTTljUVhZQ08wejlGeWdUTk05VHlKcVhvcXllX2QwTHB5OVBPTjZ0Ymk4bDNv?oc=5
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/03/style/taylor-swift-wedding-dress-dior.html
 
-## Jason Kelce Reveals How Taylor Swift’s Relationship With Travis Opened New Doors After NFL Retiremen
+## Taylor Swift and Travis Kelce marry at New York City’s Madison Square Garden
 
-- first seen: 2026-08-23 09:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce Reveals How Taylor Swift’s Relationship With Travis Opened New Doors After NFL Retirement  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQR1FTWHRyUExidWpmWWtWd3lqay03dWtIS2Z3Q0dqZlgzc0Q2eGx1c3pGaExwa254b3kzOHhxN2N5dUpBT200dTFTRFRkeVI5SXJ5WGQ4M0t0eVZXT25lc2F6UExpcVItbHpLcEVFWjBXQzFRU1U3dE5iSUl2eDVDOGVjNllMWWts?oc=5
-
-## “Tush Push Sucks”: Taylor Swift's Blunt Take on Eagles' Controversial Play Sparked an Unlikely Frien
-
-- first seen: 2026-08-23 05:40 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: “Tush Push Sucks”: Taylor Swift's Blunt Take on Eagles' Controversial Play Sparked an Unlikely Friendship With FOX Analyst Dean Blandino  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihAFBVV95cUxOWkNaM296UVQ5aWRjcDhZQkFhVTJtRmZPQmV2YjJjS0ZYYjFFRWV0eG1od1NDSl83WG5fekFHbE9qVlB6Qk9TeDlsV1JyZnFxNlpjNWxLT3V5YnhiLXdKcDdVaXVuWVQtUWpIcmlSaE5KZlY1emdDdWV0ZWtMUUJ3RE5OVDc?oc=5
-
-## Kylie Kelce reveals Taylor Swift's influence on her kids - Yahoo News Canada
-
-- first seen: 2026-08-23 05:40 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce reveals Taylor Swift's influence on her kids  Yahoo News Canada
-- sources:
-  - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMif0FVX3lxTE92X2txUlRYNWVMMi00ek5XU3Z3SzhaejBLZ0J5OENrY2x0alBQSGlYZlVlS3NZRjIxVU1rdHl0czFkNGJlaDctWUY1b0hockl1dk1UWFpjbzMyZ2xFV3hHNTRaZFVMcWZTWFhRamc0VE1hX2tfeExGWUtwWVFNYTA?oc=5
-
-## Taylor Swift Keeps Low Profile for Night Out with Dakota Johnson at L.A. Hotspot (Report) - Just Jar
-
-- first seen: 2026-08-23 05:40 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Keeps Low Profile for Night Out with Dakota Johnson at L.A. Hotspot (Report)  Just Jared
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiwgFBVV95cUxNcVFsU004QnlTck93RVExZS12OVZIUE1ncWlKUTU1MTZrejVtelFqYkJtQ1lfTk8zWkZMazlhZXJkR1Rjd0FyOVdfWExXNUx0RHExNjFDNUxEdTBvMlh5X2dVVUFDTldJMWl6VGsxQVdBS2xkSXVlRTdxUlQ2NVBXS05kSzQxSEdxTVloOGlHQXlHcmJpTlRVUlJCaktLYmpqOThzYjRHa0I0d2NwVVltaDFKNThiVzE5amhOTDVZZk9QZw?oc=5
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE9HbXlud1E1elR0MXhxVmpLdFJvTGZ1SUd0S0x0czFUNHBzR3R0MWlvR2JGaUNpRUdmRElPVDRfZlRJdmR0QlhnSDJ3WkNxSHlleEUxWnJ4Z3p0R0NxUHBsdUl2aHpadw?oc=5
-
-## Caitlin Clark wants Taylor Swift to rep her signature Caitlin 1s - Yahoo Sports
-
-- first seen: 2026-08-23 02:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark wants Taylor Swift to rep her signature Caitlin 1s  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPYms2R3o2MWdhODYtd3I0ekhYUGxqR0U2QmZ2Z0o3V3hyYlRjcm5nQi1za3JDaFpnMktTYXY1SkRJeWFsME5ZYThqeUxXc2xtbktQcHVRMzh6a2ZrQVlna3ZSYlRpNlR5bUgxb1Bka2Y4ZFZTS1IwYkxyclZGYkpSX1pLcGJ5R2Ew?oc=5
-
-## Little Compton Council Wants 25% of the New 'Taylor Swift Tax' Sent Back to Town - Uprise RI
-
-- first seen: 2026-08-23 02:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Little Compton Council Wants 25% of the New 'Taylor Swift Tax' Sent Back to Town  Uprise RI
-- sources:
-  - [unverified] Uprise RI — https://news.google.com/rss/articles/CBMitAFBVV95cUxQaVhkTHZDUjBCNTduN1hha2tFbmhDN3FhcEpqNlpaZHBGVlVBVUEwUUZwWDcxVExLRkZaUmRCcEpqQ1QtMVpGcXdiVWppMVczRzZtMXVhcWlnUDdKd3p6MTBNdk5scVlhMGswLUdMZVU0Vm1HSDdYd1JzRk9OdXJ2THE1RTQwSW8tTnJsUVZZY1BrMXpNY3FNZy1aZFo3dEV2R0VTQ2FCeTgzaEdVS19DZWhWVEU?oc=5
-
-## Kylie Kelce Calls Taylor Swift ‘Aunt Taylor’ After Wedding and Reveals Her Influence on the Girls - 
-
-- first seen: 2026-08-23 02:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Calls Taylor Swift ‘Aunt Taylor’ After Wedding and Reveals Her Influence on the Girls  Currently.com
-- sources:
-  - [unverified] Currently.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQNkNpemd1bkZYOE84aHlGNDUzZVVHMFp3MHV0dDFQYzYyRGd2WVFVY1FMdE44WTlqMm5BMVNnOTdieVpGZ1FMN1FzVWxyTHlQajFUa19CTGRKQ1p2dDB2RVFPMHJnanFKQW1CV1ZDb2g3OEdIdXlVWUV6RXRHVjJ5VFdZcXd4N0xf?oc=5
-
-## Taylor Swift has a disdain for Eagles’ Tush Push, an NFL rules analyst revealed - Kansas City Star
-
-- first seen: 2026-08-22 21:33 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has a disdain for Eagles’ Tush Push, an NFL rules analyst revealed  Kansas City Star
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNcndVVDJzWFF4Z0ROeVRfZUlZME9vMzVMTGRKcEQyZVJ0WWkwZGdZWWd3QVJjUkhpck55Y3BvaFFjeTR2RGNoNUhib01xSHNoYnRPeWhWci1BZnVhQ1dmXzZTU3ZucGI3c1JoS0JPN2paMThCRFNPcmYwSGNBUXlCX3g0d1YyUUNpWmkzbS1ncHhhUdIBkgFBVV95cUxNMjUtSUJwOVVoRU5OY3dfdnAybTVsME9aNEZlbF9CSjBpNmZsM1Y2Vl9icUFfbzgzRkNzcUQ1cUllcEZMRFVsVHdnMWIxUzVDbWdKNlF5VFZUd0hUbmFRc01aQ3otZ3YtV25nQ3pBS0RwdXBSMWh3VzR4WHZMWVNwR1Q5MzF4Si1CWUVBYy1rXzFwQQ?oc=5
-
-## Dean Blandino said Taylor Swift thinks the Eagles’ tush push sucks - Bleeding Green Nation
-
-- first seen: 2026-08-22 21:33 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Dean Blandino said Taylor Swift thinks the Eagles’ tush push sucks  Bleeding Green Nation
-- sources:
-  - [unverified] Bleeding Green Nation — https://news.google.com/rss/articles/CBMipgFBVV95cUxQb3lsNTZKOWJpeWthVEhkY0RFM3g0ZGwxLXR6THlpYnFaYmJXclNQQUZmMWkweFJzXzBmWVdqRmhuMzZHSG9taGEyMGdXLW5ZMjlrd3JQOGtUUWtFallTbVcyTE9hZ2k4RXlabWZ6cnk3QUpTREtGRW9rOV9ONF9ndWJMcTlsRTBqcmdxT1FHZmo5TWdjQlA0eTIzbjI0VEZNLXlUc3F3?oc=5
-
-## Taylor Swift Looks So “1989” at a Private Emmys Event - Harper's BAZAAR
-
-- first seen: 2026-08-22 21:33 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Looks So “1989” at a Private Emmys Event  Harper's BAZAAR
-- sources:
-  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMiywFBVV95cUxQZ0ZyQktaRERFTWJXczBWQTdFLS1hLTNMQnZlRk9jRXFQN0hsQk9ya3RnUmZmb1hfcEdQYmJhVU5jcHJVdFl2Y2swV2JReHV3OVI0MmZoZm1UaEIyY2Nwc3A3YXFMcGN6bXNaeTlZOHRUZk1YUVRmVVdLNExBUFhHLWYyNG5TX2xBRzBBSWtfQk9OUlJXV2ZsWlVBWWtPNzNOakgxalByNHZ6VWZ4d1RLTkR3VEswVmRzb2U4Rm90ZzdXc1otS1BsRGVUdw?oc=5
-
-## Taylor Swift Enjoys Girls Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding 
-
-- first seen: 2026-08-22 21:33 UTC | category: relationship | importance: 5
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: corroborated | source_count: 3
-- summary: Taylor Swift Enjoys Girls Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding  instyle.com
+- summary: The couple invited an array of celebrity guests to the wedding, including Gigi Hadid and Bradley Cooper, while Adam Sandler officiated their nuptials
+
+In pictures: Fans and A-list stars gather for the wedding
+
+
+Taylor Swift and Travis Kelce are officially wed. The couple hosted their wedding celebration on Friday in New York City, nearly three years after first meeting.
+The ceremony was officiated
 - sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOcXlza3dxOFdGVlNoaXpZeldoRUlGU1gtMDB3ZG95cjNweXlYTndUaVZSZkVicENuOEs4cTBkcXYwdFhfTDFlZ0xBZlhCT25fS0tiOWllWGNENlZVNjlqdThGM0VleHRoTTcwN0x5NHlCVWlURG1BbVdadUxRU3VoQlkzZDNEQjdsM3ZtcUdIaHM2SUtqU1VIUXdlTXRrOE12OFNFS3Z3QWdOYmRBb2N1Z2ZfNFlJdDJP?oc=5
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOZnYxYnozZDMxcV90NTI1THY3UjFDWUxraFpKREw0RFpsZnRNM1BTNTQtamk2OHplNEtFTXBPWFBzVERtcm1qR3RjcDVPVTJ3aGJwVFRCMnk0UTd3Yk9DeFFQX2taVVZfSmE3cXN3dnFCVWlINW52UGZZYTQ1dXpYSEs5WFMyOVhWWVcxclVLekVMRDQ5NzZ1MV9jMnFOb1Q3bFZUM0Npbzhid3R5Ylh4cjlDUGprWHVrTTQw?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPVHZRZ2NuT0t4WlVQem1BVlZsdWRmY053RU1NZmpOSFJQb0djSFNoMHZMU2NScjh1d1dXN3pVbW0xQzNmSmdwTzhuMHhreTRYMHdWa00wQVhLelcxTWZqc1UydmluSUMweTVSWWRXendOYUh1VFYyWVJ2VmR1NGFPaVk2NzY1YWQ1SnRzNmFQck40N05IU1Q3ZFdPVVVWcjFmQmxv?oc=5
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/03/style/adam-sandler-officiant-swift-kelce-wedding.html
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cwye2j038m1o?at_medium=RSS&at_campaign=rss
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/jul/03/taylor-swift-travis-kelce-wedding-msg-new-york
 
-## Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp - heavy.
+## Police, fans and celebrities - What it's like outside the Swift wedding
 
-- first seen: 2026-08-22 21:33 UTC | category: relationship | importance: 5
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: The BBC's Nada Tawfik reports from the scene, bringing us the atmosphere outside Madison Square Garden.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cly9pddzp1po?at_medium=RSS&at_campaign=rss
+
+## Celebrities spotted at Taylor Swift's wedding
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Celebrity guests, from singer Benson Boone to actors Hugh Grant and Ethan Hawke were seen arriving ahead of the event.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cz752v002weo?at_medium=RSS&at_campaign=rss
+
+## From friendship bracelets to wedding rings: A Taylor and Travis timeline
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift and Travis Kelce are celebrating their wedding with a party at New York's Madison Square Garden this weekend, her publicist says.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cqj19p112qjo?at_medium=RSS&at_campaign=rss
+
+## Broadway’s ‘Two Strangers (Carry A Cake Across New York)’ Sweetly Nicks Some Swift Publicity
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Broadway’s Two Strangers (Carry a Cake Across New York), a British musical import that got terrific reviews but could always use some help in enticing ticket-buyers, has landed on a light-hearted, if not truly light-fingered, bit of coattail publicity-riding to boost its own visibility. Taylor Swift probably won’t mind. The musical by Jim Barne & […]
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/broadway-two-strangers-carry-a-cake-taylor-swift-1236974155/
+
+## ‘GMA’ Co-Hosts Robin Roberts, George Stephanopoulos & Michael Strahan Offer Up Few Swift-Kelce Wedding Crumbs
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Well, it’s not exactly state secrets, but GMA hosts Robin Roberts, George Stephanopoulos and Michael Strahan have shared a few of their observations on yesterday’s Taylor Swift-Travis Kelce nuptials at Madison Square Garden. All three of the hosts attended the wedding yesterday, and offered up a few – a very few – details on today’s […]
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/gma-robin-roberts-george-stephanopoulos-taylor-swift-1236974166/
+
+## Melania Trump Picks Adam Lippes Dress for Fourth of July Celebration
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: The First Lady has worn styles from the American designer for key events like a White House tea with King Charles III and Queen Camilla in April.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/culture-news/melania-trump-adam-lippes-fourth-of-july-dress-1239052544/
+
+## Taylor Swift's Wedding Sparks Marketing Activity for Various Brands
+
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Businesses are leveraging Taylor Swift's wedding as a marketing opportunity, utilizing A.I.-generated content and timely digital advertisements to engage with fans and capitalize on the event's popularity.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/05/style/taylor-swift-wedding-marketing-brands-ai.html
+
+## Storm Disrupts Live Report on Taylor Swift's Marriage
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A live BBC report by Floyd Cush on Taylor Swift's marriage faced interruptions due to a severe thunderstorm. The report highlighted the unexpected weather conditions affecting the broadcast.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/c5yzx7ndk4jo?at_medium=RSS&at_campaign=rss
+
+## Taylor Swift Celebrates Milestone with Unique Themes
+
+- first seen: 2026-08-25 02:22 UTC | category: tour | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift marks a special occasion with references to a forgotten founder and a tour of Revolutionary taverns, alongside a nod to a royal wedding.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/04/briefing/happy-birthday-to-us.html
+
+## Taylor Swift and Travis Kelce Celebrate Wedding in New York
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Stars and fans gathered to celebrate the wedding of Taylor Swift and Travis Kelce in New York on Friday. The event saw various celebrities and sports figures in attendance.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/c7vyqgy4r5lo?at_medium=RSS&at_campaign=rss
+
+## Taylor Swift Weds Travis Kelce in Custom Christian Louboutin Shoes
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift wore custom Christian Louboutin shoes paired with Dior haute couture for her wedding to Travis Kelce. The renowned designer crafted hundreds of shoes for her 'Eras Tour' prior to her marriage.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-custom-christian-louboutin-wedding-shoes-1239052399/
+
+## AMC CEO's Post on Swift-Kelce Event Draws Attention Before Deletion
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: AMC Theatres CEO Adam Aron shared and then deleted a post regarding Taylor Swift and Travis Kelce's wedding attendance. The post sparked interest during discussions on Good Morning America where hosts were careful in their comments about the couple.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/amc-ceo-adam-aron-posts-then-deletes-insider-account-of-swift-kelce-nuptials-i-wish-you-all-could-have-been-there-with-me-1236974194/
+
+## Taylor Swift Nominated for 2026 Emmys Alongside Bad Bunny and Lady Gaga
+
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has received a nomination for the 2026 Emmys, joining fellow artists Bad Bunny and Lady Gaga on the list of nominees. This announcement highlights the increasing recognition of pop stars in major award categories.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2504620/taylor-swift-bad-bunny-lady-gaga-nominated-for-2026-emmys/news/
+
+## Taylor Swift Showcases Haute Couture in Wedding Statement
+
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift, a 14-time Grammy winner, styled an elegant wedding look featuring custom Christian Dior couture, Cartier jewelry, and bespoke Christian Louboutin shoes.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-christian-dior-haute-couture-for-wedding-1239052398/
+
+## Taylor Swift and Travis Kelce Confirm Their Marriage
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift and Travis Kelce are officially married, ending weeks of speculation. The ceremony featured Adam Sandler as the officiant, with the couple dressed in Christian Dior haute couture and Christian Louboutin shoes.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/07/taylor-swift-travis-kelce-married-1236974086/
+
+## From 'a beautiful night' to 'world's greatest hangover', guests react to Taylor and Travis's wedding
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Some of the famous guests have been posting on social media about the big day in New York.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/clyxxr9n2kjo?at_medium=RSS&at_campaign=rss
+
+## Taylor & Travis - how AI images fill the gap when there’s no news
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Until we get official news from Tayvis' wedding - fake pics are everywhere
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zfvxjfr?at_medium=RSS&at_campaign=rss
+
+## Taylor Swift’s Best Christian Louboutin Shoe Moments Through the Years: ‘The Eras’ Tour and More
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: The French fashion house provided Swift and husband Travis Kelce with custom shoes for their wedding.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-christian-louboutin-shoe-moments-wedding-1239053291/
+
+## These Taylor Swift wedding pictures are not real
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Some pictures being shared of Swift in a wedding dress are AI generated or from a different wedding entirely
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cjwggg31jgyo?at_medium=RSS&at_campaign=rss
+
+## Trump Cashes In While Others Lose Out
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Readers react to President Trump’s windfall. Also: Mr. Trump’s intervention in the World Cup; Taylor Swift, feminist bride; rich political donors.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/06/opinion/trump-windfall.html
+
+## Taylor Swift’s Dior Couture Wedding Dress Was an ‘Emotional’ Undertaking for Jonathan Anderson
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: The Dior creative director spoke with WWD's Joelle Diderich at the maison's fall 2026 couture show.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-dior-wedding-dress-jonathan-anderson-1239054304/
+
+## Dior Fall 2026 Couture: Taylor Made
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Fresh off dressing Taylor Swift and Travis Kelce for their wedding, Jonathan Anderson sidestepped traditional romance with a collection inspired by U.S. artist Lynda Benglis.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/runway/fall-couture-2026/paris/christian-dior/review/
+
+## Taylor Swift and Travis Kelce’s Wedding Fashions Generate $26.7 Million in MIV
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Even without any official wedding photo or video releases, Taylor Swift and Travis Kelce's luxury wedding attire, worn for their megawatt July 3 wedding at Madison Square Garden, generated an estimated $26.7 million in media impact value in the 48 hours following the celebration.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-scoops/taylor-swift-travis-kelce-wedding-fashion-mvi-million-dior-1239054869/
+
+## How the ‘Swift-Kelce Effect’ May Be Coming to a Wedding Near You
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Trends are likely to emerge from the spectacle that was the July 3 celebration at Madison Square Garden.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/07/style/swift-kelce-wedding-effect.html
+
+## Fans Celebrate Taylor Swift and Travis Kelce’s Wedding With Charitable Donations
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp  heavy.com
+- summary: Inspired by Taylor Swift and Travis Kelce’s $26 million charitable gifts ahead of their wedding, Swifties are expressing their own generosity through donations to causes the couple supports.
 - sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxOSmdxMXdEX2ZYbGZTZkUzOEQ2c2xOYnBhNFBaQ3hFLS1PczhpY2hZbUR1RVFXdE1abW9RdG5Ld3dUOXRnQkUyUXFkek9meHdyVVlwVFRIaDJsMFJDY283Y0lyclVFcnFOd3NOakZydjlpLUJtZ19SZWdfLTlUWjlLYW9vOG5ZaDNmdVhyTmtPTQ?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPRkluX2NIbG54NUtDR0c5R3pXYnFRemZYRjZYMUhqRVdoeDRvenBxR1E2NzJkTGNLd0FoWlRzQmZXNUs2dWEyWkNrQklMeDZJRHlpdlBkU3VwOVZFbWZjUmFVeVR0WlFLMWFPRWZjWXNsRTExVm1NQURhRmI1cFQwTllvMGQ0UVlzZGlFcWQ3U0NCOEVtcUVwSkhtWmdEOW1zdmpFZHBB?oc=5
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/ryan-seacrest-canceled-rsvp-taylor-swift-travis-kelce-wedding-1236639908/
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/07/style/taylor-swift-travis-kelce-wedding-fans-charity-donations.html
 
-## Taylor Swift Shatters An All-Time Chart Record - Forbes
+## From a $96,090 Diamond Necklace to a $55 Ring: Inside the Guests’ Jewelry at Taylor Swift’s Wedding
 
-- first seen: 2026-08-22 17:33 UTC | category: sighting | importance: 3
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Brittany Mahomes, Selena Gomez and more guests arrived in Tacori, Chopard and jewelry ranging from six figures to $55.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-wedding-guest-jewelry-1239056627/
+
+## Taylor Swift Fans Eagerly Await First Look at Her Wedding Dress
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: As details trickle out, the image of the bride’s Dior ensemble remains under wraps.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-wedding-dress-reveal-dior-couture-1236640479/
+
+## 10 Taylor Swift Songs Written For Movies From ‘Cats’ To ‘Where The Crawdads Sing’
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Aside from her Grammy-winning albums, Taylor Swift has contributed several songs to blockbuster films. From her early work on songs both she and Miley Cyrus sing in Hannah Montana: The Movie (2009) to two contributions to The Hunger Games film trilogy, Swift has made her mark on popular projects. More recent works include collaborations with […]
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/taylor-swift-songs-written-for-movies-toy-story-5-crawdads/
+
+## The Wait-and-See Wedding Era: Taylor Swift, Dua Lipa, Zendaya and More Create Fervor Without Photos
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Instead of splashing photos all over social media, celebrity brides are being more private about what and when they share about their weddings.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/culture-news/celebrity-wedding-dresses-taylor-swift-1239059820/
+
+## Greg James Discusses Taylor Swift's Wedding Details
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: DJ Greg James shared insights about Taylor Swift's wedding during his morning show after attending the event in New York City. He revealed moments involving cakes and keepsakes from the celebration.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cx2kd1de8l5o?at_medium=RSS&at_campaign=rss
+
+## Taylor Swift's Influence on Modern Dating Trends
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: An article explores how Taylor Swift's approach to love and relationships inspires a new dating concept called 'Chalant dating', emphasizing authenticity and openness. It discusses a shift in dating culture as individuals lean towards expressing their true passions.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/lifeandstyle/2026/jul/06/chalant-dating-taylor-swift-pass-notes
+
+## Taylor Swift's Lyrics Reflect Her Views on Marriage
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Though details of Taylor Swift's wedding are scarce, her extensive catalog of songs offers insights into her perspectives on marriage. Analyzing her lyrics reveals significant themes related to love and commitment.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/05/arts/music/taylor-swift-wedding-marriage-lyrics.html
+
+## Exploring the Influence of Taylor Swift on Dior's Couture Show
+
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: The article discusses potential hints regarding Taylor Swift's wedding dress as seen in Dior's recent couture show. It examines the intersection of fashion and celebrity influence in high-profile events.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/07/style/dior-couture-taylor-swift-wedding.html
+
+## Few Celebrity Sightings in the Hamptons after Taylor Swift's Wedding
+
+- first seen: 2026-08-25 02:22 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: This Fourth of July weekend in the Hamptons saw a surprising scarcity of notable celebrity sightings, leaving locals and visitors alike taken aback.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/05/style/hamptons-celebrity-weekend-swift-wedding.html
+
+## Madison Square Garden Celebrity ‘Risk’ List, Revealed
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Why were celebrity Knicks fans and Taylor Swift’s wedding guests named on a secret security database?
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/09/podcasts/madison-square-garden-wedding-travis-kelce-taylor-swift.html
+
+## How Greg James and Graham Norton plotted before Taylor Swift's wedding
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Greg James tells the story of his 'Traitors castle' moment with Graham Norton.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cvgdywxd2rlo?at_medium=RSS&at_campaign=rss
+
+## Taylor Swift and Reality TV Shows Like ‘Summer House’ Earn Emmy Nods
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Nominations for unscripted programs recognized a certain newlywed and the scandalous reality hit of the spring.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/08/arts/television/taylor-swift-reality-tv-emmys.html
+
+## Dior’s Couture Show in Paris
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Jonathan Anderson’s latest couture collection may have left some clues about Taylor Swift’s wedding dress. Our chief fashion critic, Vanessa Friedman, discusses the most memorable looks from the show.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/video/style/100000010990396/diors-couture-show-in-paris.html
+
+## Digested week: Crone Law cometh and in this heat it says cotton
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Plus, bad form from Tay-Tay, Arthurian gladness and the conundrums of getting back on a bike
+Another heatwave. Unbearable. And this one is going to push me over the edge. I’m going to have to take the young folk to task over how they dress. It’s not the amount of flesh on show – dear God, while you’re young and lovely and depilation is still worth the investment because it doesn’t all grow back by
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/uk-news/2026/jul/10/digested-week-heatwave-taylor-swift-arthur-fery-wimbledon
+
+## Taylor Swift Paid New York City $160K Fee for Star-Studded Wedding, Says Zohran Mamdani
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: The NYC mayor told reporters on Friday the superstar performer has covered the permit fee required for the police role in working the July 3 event at Madison Square Garden.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-york-city-permit-fee-wedding-1236644083/
+
+## Taylor Swift and Travis Kelce Unite in Marriage: An Imagined New York Times Wedding Announcement
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: This traditional wedding announcement marks the union of the pop star and football player, who exchanged vows on Friday at Madison Square Garden.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/04/style/taylor-swift-travis-kelce-wedding-announcement.html
+
+## Eric Stonestreet Says Taylor Swift Madison Square Garden Wedding Gave Guests Privacy and Security Too
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: “I think my favorite moment was just that they created a place that they could have the normalcy that they deserve,” the actor said.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/eric-stonestreet-taylor-swift-travis-kelce-wedding-1236649537/
+
+## Hold the front page! Marilyn Monroe is Dakota Johnson’s ninth cousin three times removed
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: The vogue for celebrity ancestors can be traced back to Robert Pattinson descending from Dracula and Benedict Cumberbatch being related to just about everyone
+To mark Marilyn Monroe’s 100th birthday, a short film will premiere at this year’s Venice film festival. Entitled Flesh Impact, the film has been written and directed by Maggie Gyllenhaal, and will star two versions of Monroe. The first, pla
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/film/2026/jul/31/marilyn-monroe-dakota-johnson-related-ninth-cousin-three-times-removed
+
+## Phil Collins Reveals He Nearly Died From Alcohol Abuse: “People Were Coming To Say Goodbye”
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Phil Collins has not been in good health in recent years, but until now it wasn't publicly known just how bad things got. In a new interview, Collins, 75, revealed he was on his death bed two years ago due to alcohol abuse.
+The post Phil Collins Reveals He Nearly Died From Alcohol Abuse: “People Were Coming To Say Goodbye” appeared first on Stereogum.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2507139/phil-collins-reveals-he-nearly-died-from-alcohol-abuse-people-were-coming-to-say-goodbye/news/
+
+## Adéla, Ariana Grande, Sabrina Carpenter and More Pop Stars Are Taking Custom Christian Louboutin Shoes to the Stage
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: The designer creates looks to match the aesthetic of each artist.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/musicians-custom-christian-louboutin-concert-shoes-1239093094/
+
+## Cyclists Raise £61,000 in Ride for Rori
+
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Participants in the Ride for Rori cycled from Paris to London, successfully raising £61,000 for the Oxford Hospitals Charity. The event highlights community effort in supporting healthcare initiatives.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cj3gdz1vpmvo?at_medium=RSS&at_campaign=rss
+
+## Midtown Manhattan Hosts Dramatic Summer Events
+
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Midtown Manhattan, known for its high-rise offices and tourist accommodations, has become a center for various dramatic spectacles this summer. The area is gaining attention despite not being traditionally regarded as hip.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/09/nyregion/midtown-manhattan-nyc-taylor-swift-knicks.html
+
+## Taylor Swift songs removed from Trump and White House’s social media posts
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Rage-baiting efforts of Trump accounts silenced after posts such as a video linking her Red album to Republicans
+Some of Taylor Swift’s songs have been removed from videos posted on social media by Donald Trump’s campaign and the White House, silencing efforts to mock the pop star.
+A video posted on 3 August featuring the US president and the first lady, Melania Trump, watching fireworks was poste
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/us-news/2026/aug/09/taylor-swift-songs-removed-trump-white-house-posts
+
+## Taylor Swift Gets Her Songs Muted On Donald Trump’s Troll TikToks
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: The TikTok account Team Trump was launched by Donald Trump's campaign in late July 2024 and has used audio of Taylor Swift tracks, among other popular songs, since at least last year. Now Swift's team appears to have finally taken action.
+The post Taylor Swift Gets Her Songs Muted On Donald Trump’s Troll TikToks appeared first on Stereogum.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2507725/taylor-swift-gets-her-songs-muted-on-donald-trumps-troll-tiktoks/news/
+
+## Taylor Swift To Be Inducted Into Nashville Songwriters Hall Of Fame
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift will be inducted into the Nashville Songwriters Hall of Fame this year, the foundation announced today. Swift is one of the songwriters revealed today by the Hall of Fame as the class of ’26 inductees. She is being inducted in the Contemporary Songwriter/Artists category alongside Miranda Lambert, Chris Stapleton and Phil Vassar. Lyle […]
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/08/taylor-swift-nashville-songwriters-hall-of-fame-1237031223/
+
+## Travis Kelce on How Marrying Taylor Swift at Madison Square Garden Fulfilled “Childhood Dream”: “Mecca of All Sports Venues”
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: “I can’t thank the owners of MSG enough for allowing us to get an opportunity to do that, knowing that we wanted a private event and everything,” Kelce said.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/travis-kelce-taylor-swift-msg-wedding-childhood-dream-1236672194/
+
+## Travis Kelce says wedding to Taylor Swift was 'the best night of my life' in first official comments
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: corroborated | source_count: 3
+- summary: Kelce’s remarks on his marriage to Swift at Madison Square Garden comes weeks after the event, which remains shrouded in mystery
+American football star Travis Kelce has described his secretive early July wedding to pop sensation Taylor Swift as “the best night of my life.”
+“I appreciate everybody who came out and celebrated and, you know, had fun with us,” the Kansas City Chiefs player told a brie
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/aug/13/travis-kelce-comments-taylor-swift-wedding-best-night-of-my-life
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cx2r179e232o?at_medium=RSS&at_campaign=rss
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/article/taylor-swift-travis-kelce-msg-wedding-details.html
+
+## Madonna will not be playing Glastonbury in 2027, Emily Eavis says
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Festival organiser says she has booked next year’s headliners but would not say if Taylor Swift is among them
+Madonna will not be performing at next year’s Glastonbury, the festival’s organiser, Emily Eavis, has said.
+The singer, who has the most top 10 singles in UK chart history of any female artist, has never featured at Britain’s biggest music festival.
+ Continue reading...
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/aug/14/madonna-will-not-be-playing-glastonbury-2027-emily-eavis-says
+
+## Taylor Swift Praises Phoebe Bridgers’ ‘Lost Weekend’ as “An Absolute Triumph in Every Way”
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: It's her birthday but she gave us a gift," Swift wrote on Instagram on Monday.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-praises-phoebe-bridgers-lost-weekend-1236675382/
+
+## MTV Video Music Awards 2026 Nominations: Madonna & Taylor Swift Top List At The VMAs
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Madonna reigns supreme with the most mentions at the 2026 MTV Video Music Awards nominations. The Queen of Pop received 11 nominations, including Video of the Year for “Confessions II — The Film,” Artist of the Year, and Song of the Year for “Bring Your Love.” Following Madonna with nine nominations is Taylor Swift, whose […]
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/mtv-video-music-awards-2026-nominations-vma/
+
+## Kylie Kelce Shares Taylor Swift's Family Nickname
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift Shatters An All-Time Chart Record  Forbes
+- summary: Kylie Kelce has disclosed a surprising family nickname for Taylor Swift, shedding light on a personal aspect of the singer's life. The revelation highlights Swift's connections and relationships.
 - sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiogFBVV95cUxQNzhkVGpxNmlIdE5hMks3YmxpTkNSaXlLVnlSTDIwU3A0VzJpSkxIS2hSZWVqbjNmRTZhV290YkJVXzNEMWdPNGNCT0JWaExoX3ZfdC00ZHhpeHMxdDhwT0ZRMjQxT2FOMFpXdFNONVdCZE5NYUlHLXlaak1ZZ1h4Q0I1Q2RENWp5blp4RTR3UWVOcDd1VE4xYXY0NG0zb1RTQVE?oc=5
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxNYU1rRkJwd1Bta3RFdjdQbTdBbDFRZW04MUpPWmtSdDhwcUpyRkM5RzV5c05GRW9ZdG5laUN5YnNxQmpxcXdDdkFZQXBuTGcydkdLVHhNLXBCb29kWGRyY1BHYnNWUURpY0owR3A2OTBQUGlOZnVtM1Jzc1hVc3UtRGxzNA?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## This NYC Dress Brand Was a Fashion-Insider Secret—Until Taylor Swift Just Wore It - Who What Wear
+## Taylor Swift's 'All Too Well (10 Minute Version)' Reviewed
 
-- first seen: 2026-08-22 17:33 UTC | category: fashion | importance: 5
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Stereogum has published a piece reviewing Taylor Swift’s 'All Too Well (10 Minute Version) (Taylor’s Version) [From The Vault].' The article provides insights into the track's significance in her discography.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2507854/the-number-ones-taylor-swifts-all-too-well-10-minute-version-taylors-version-from-the-vault/columns/the-number-ones/
+
+## Taylor Swift to be Inducted into Nashville Songwriters Hall of Fame
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift is set to be inducted into the Nashville Songwriters Hall of Fame this fall, making her the youngest-ever inductee. She will join fellow honorees Lyle Lovett, Shawn Camp, and Bruce Channel.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-tapped-for-nashville-songwriters-hall-of-fame-1236670984/
+
+## Taylor Swift Nominated for 9 VMAs Alongside Madonna's 11
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: At the 2026 VMA nominations, Madonna leads with 11 nominations while Taylor Swift follows with nine. Sabrina Carpenter and Ariana Grande are both tied for third with seven nominations each.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/2026-vmas-nominations-madonna-taylor-swift-lead-1236675785/
+
+## New York heat prompts discussion of Taylor Swift’s low-key wedding
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A recent article discusses the extreme heat in New York and briefly mentions Taylor Swift's wedding in the context of the conversation. The piece highlights the unusual weather conditions causing locals to reflect on their experiences.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/uk-news/2026/aug/14/digested-week-humid-new-york-london-oven-blast-heat
+
+## Taylor Swift Shows Off Short New Haircut in Black Floral Empire Waist Slip Dress at L.A. Event - Yahoo
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: rumor | source_count: 1
-- summary: This NYC Dress Brand Was a Fashion-Insider Secret—Until Taylor Swift Just Wore It  Who What Wear
+- summary: Taylor Swift Shows Off Short New Haircut in Black Floral Empire Waist Slip Dress at L.A. Event  Yahoo
 - sources:
-  - [unverified] Who What Wear — https://news.google.com/rss/articles/CBMikgFBVV95cUxPbExMVERoRk1QbGI5TkxJWVd5SFJnLUU1S2tKZW5VN00wamFId0FLaEJ2X3lGSGduektfU001TlpaWkVOZ1M4LXNmTGx4eXhSaGZ5NmNGRnRTQnJKa21aZkQ1ak1aS0dCZi03RWxPbjRUdnZPSzRaazF1TjU3U3NGVXNXaGFEa0paY19IUFlNLV9RUQ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOQ0NsXzNSaFo0ZTVWQWlicm56aXJSQkFGLVhqcFh1WTFtclVsNVRaTFJ4TTBtTTR4NkItanQxZml2NURZdm5NdUhfdXl5am8td21namVYUnFxSUFRMUFNZ0JmNTFDRlZEUGdCejBGMjYwazIyS3BRZ21ZTXIwa3V3MVBvLXc2TFJSUDZjeDk2SlVRblU0b0toQjNFLWdPSms?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## As Andy Reid lauds Travis Kelce’s dedication, Taylor Swift steals spotlight with secret performance 
+## The Icon Sessions with Taylor Swift — Presented by Recording Academy's Songwriters & Composers Wing - YouTube
 
-- first seen: 2026-08-22 17:33 UTC | category: relationship | importance: 5
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: rumor | source_count: 1
-- summary: As Andy Reid lauds Travis Kelce’s dedication, Taylor Swift steals spotlight with secret performance  Yahoo Sports
+- summary: The Icon Sessions with Taylor Swift — Presented by Recording Academy's Songwriters & Composers Wing  YouTube
 - sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigwFBVV95cUxNN3ZxdWpMelNSOFkwY29GalpUOEtydXh3cmRKVDNzdDVHY3JNLXR1alJ2dm1zNk5tQXlfTGZQN1dsMDhLRUZMbXVPcVJPVjZDWDFoY2tHcThHYjh3bWdhOEx3dUJFUjlya2lZaUdRNEo3dWtMWldYbnVKcW10Mnp0MU5mbw?oc=5
+  - [unverified] YouTube — https://news.google.com/rss/articles/CBMiXEFVX3lxTFB0VFNFaGktTXVIR3hWYXo2UUc2WXNZZUd3WURtS08yM2l5NlpvN2RldHZXdEVFQk1YUzJtQU9LNXRXVFkzeVZGYU9GX3p5ZjFyZDcwdG5IeENYcjZQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Recalls Making ‘Eras Tour’ Doc in Rare L.A. Appearance Ahead of 2026 Emmys - Us Weekly
+## Taylor Swift Recalls Writing 'I Knew You Were Trouble' As a Ballad - Variety
 
-- first seen: 2026-08-22 17:33 UTC | category: tour | importance: 5
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift Recalls Making ‘Eras Tour’ Doc in Rare L.A. Appearance Ahead of 2026 Emmys  Us Weekly
+- summary: Taylor Swift Recalls Writing 'I Knew You Were Trouble' As a Ballad  Variety
+Taylor Swift on Dealing With Public Perception and Deciding Not to Opt Out Before Her Career “Got Unmanageably Big”  The Hollywood Reporter
+Taylor Swift reveals her sneaky way of clapping back at critics  Page Six
 - sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipAFBVV95cUxOTFNIM0I4NkRKV1hnVlVOaUtXQWZYYjFIUldXZU5IdTc5RTJWNWZiY3p4RDFUM3c3SG1zYWNFdDl1c3hpVTA2ZkRCWVlNcG5obGlyWTR2UndPQUVaU3dhSVBEeFk0cTFLX05JeEp2Q0RSY01pckRhcDNJVkJSNE5IemJwNmUzRG9lTkJJOFNQWnI2WGl4djZab2dPckdpU1IzbG1HSA?oc=5
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipgFBVV95cUxNZ1ZJT3NfZEFzLWVFeHRhYXRvUW1JZlFFYmhTb04wLTFZYUw0UF94UG5BNWt5QzRwY3VVa3pzZVVxQ1BtTEJ4MFlkSmdSbmZhakgxWGtad2FPQ1ZmcjY4dkswMHd5dlg3RzBlV3UzVzRXSWpHajNTeXRrVVFXcHAtRi02dUJ2ZmdkeGFKX3RuU09YemZ2dWd2RnZWREFHWDhuNjMtRXhn?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Reportedly Set to Release 'Three New Albums' as Travis Kelce Tests 'Tough' Country Musi
+## Taylor Swift Reveals 'I Knew You Were Trouble' Was Nearly A Sad Ballad - Buckeye Country 105.5
 
-- first seen: 2026-08-22 17:33 UTC | category: relationship | importance: 5
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift Reportedly Set to Release 'Three New Albums' as Travis Kelce Tests 'Tough' Country Music Industry  International Business Times
+- summary: Taylor Swift Reveals 'I Knew You Were Trouble' Was Nearly A Sad Ballad  Buckeye Country 105.5
 - sources:
-  - [unverified] International Business Times — https://news.google.com/rss/articles/CBMiwAFBVV95cUxOdWlhWVVTc0pYSDVpTWNkWU9rMUkxaVkydVZSRUFQdm0yT19CN3d4Zl9Nclotdnhldzl2VExLYjNvaFRmQ2JSbmVmRkxkRTdSNTEzUFpOZXRNUm5JQjFEUl9DRDZtWk1iQjc1VTJHMTBpVGtoR2p3U282cnVrMzlxUkFCMlA3blRLU1JzYWxVdmpIR1laNVlvUkhHTjk1eHBXUm03NlJCemJuYXFBeWdDckJYTGJTWnFqei1XTUNZbTA?oc=5
+  - [unverified] Buckeye Country 105.5 — https://news.google.com/rss/articles/CBMiwwFBVV95cUxQcVlkcmZ5VzBNQ3NjTXJ1WGVCTkJOMmRfMG5Cc2xzb0hwM3RuQTBETVFQd3VHZHZmZUVoT01xbFRqZFV4RHNWLVUtWm04UUczaFYwTTQ1a3hIU0ZyUGk2cy1vbGRWcC1CUl80SXkyX1pBZjRQWTZTeWpqd3QxdUR0Nlo2TkE2dl9ZRWRzZ0E2UVVUTnpBeldNRWI5dlZLcWI3SW53M2prZUtzbEZsUWN2MG9tU21Gdk5oVFVzdEI4U21QSHM?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift reveals ‘great escapism' behind tour in ‘Emmys bid' - Yahoo Lifestyle Canada
+## Taylor Swift Breaks Down Songwriting Process and Performs Medley During Recording Academy Q&A - Consequence of Sound
 
-- first seen: 2026-08-22 17:33 UTC | category: fashion | importance: 5
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift reveals ‘great escapism' behind tour in ‘Emmys bid'  Yahoo Lifestyle Canada
+- summary: Taylor Swift Breaks Down Songwriting Process and Performs Medley During Recording Academy Q&A  Consequence of Sound
 - sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMigwFBVV95cUxPMXpUcVZYczNCLWdnLV9WLVR6aUFURmlvMS1TV1VaSkw0RnlycmJWQ0p1Q3NtcmxRV0Z5dDdzVFR2eTRnaktDNWlCUVVhRmxwSFU1OHdyRzY4aGp6cE1OV0F5eW9nbG41QU95SUlMU1ZQc0NDUnNzc09XbEV5MXduX0ZkTQ?oc=5
+  - [unverified] Consequence of Sound — https://news.google.com/rss/articles/CBMigAFBVV95cUxNQ2FDSzFzNDY4bnkxWGRfYUpqNmhfUlRONnktNlNxOXczZWJTcFNXbGszTXVuQ3BidjRDanQ0NVB2UzA4NEFvMUoyQ2Y2em1odUFsR2lOODFCVEdHMHBqeGJ1Y3FQbUJRQWR1V0FuNkItV0JWdWlBNnBwNGxIS1VNZA?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Travis Kelce and Taylor Swift Can Now Wear Matching Cartier Watches - GQ
+## Taylor Swift's 'idea fairy': Key takeaways from her Grammy talk - USA Today
 
-- first seen: 2026-08-22 17:33 UTC | category: relationship | importance: 5
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: rumor | source_count: 1
-- summary: Travis Kelce and Taylor Swift Can Now Wear Matching Cartier Watches  GQ
+- summary: Taylor Swift's 'idea fairy': Key takeaways from her Grammy talk  USA Today
 - sources:
-  - [unverified] GQ — https://news.google.com/rss/articles/CBMiYkFVX3lxTE5LajU1aEo0eDJUbDR4eHlpQ3BnNlNwak9sMGJJeGdONjRvMll5ODV1UzJjUURkbm9UbkE2eVRFcnlOakthU3VzQkVwU2Q1andfWHdoanFQVlcwTkFCR3RYU2l3?oc=5
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNV1dBMkpHdkpGSmktMnNiSzQ2RnZtWDhLRGtITnN5MEVRSGItY0xOZHp3U0tWSEN2bVI4Vm5sV1BNMmZwUXlIcEIxbGdtWEh6c1poeEhPT2t6Zjg5VFhZRmNxMVQ4RTFGOE5hRjZjaVBzT1pZU203dl91c0N6dnhRYXRNS21IeGxNSmlfZFFiZDVhNmxuMUJjdVBEeS1XcnF6aGRsNWVYVFZpdw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift & Travis Kelce's Post-Wedding Dilemma: Where Will They Call Their 'Forever Home'? - Yah
+## Taylor Swift Isn’t Done With Her Surprise Song Mashups - Vulture
 
-- first seen: 2026-08-22 17:33 UTC | category: relationship | importance: 5
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce's Post-Wedding Dilemma: Where Will They Call Their 'Forever Home'?  Yahoo
+- summary: Taylor Swift Isn’t Done With Her Surprise Song Mashups  Vulture
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxQM3JORFJERkhTRGJZWFR5ZzREVE5EVWU5ZDBOYVBvbDVUS1dGdWFQNzUzOExody1WeWJDTHNMVjZQUG96ZXMyYXR4RzlLb2U3dlRjcmNLYWwzRTctMlRMM0hVVWVYd1N1d3JrUVRYbF9KdHRCQlRub1BrdUNmRjU2bVNYb2dlQjFTeS1veFNUbmYzdm1FeVg5NS02YVAzcmNhdWcw?oc=5
+  - [unverified] Vulture — https://news.google.com/rss/articles/CBMigAFBVV95cUxOVHQzNEVCLVhnd2phVVNqdTdXOGNRTlJTeVpJYXE1RUlNSFZpaUhYcjZNb1JYUzJPb0x0cnJWU1dSYXJ4clRHajl4bmMzOTM2QkhwOElsUm9kTFZxT0x6Mi1ZZkpNUG9Za3BSSWkyVFJ3TFVHSXR0SjhNNEVTc0M4VQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Caitlin Clark has a Taylor Swift sneaker thought 'she would probably like' - Yahoo Sports
+## Watch Taylor Swift Say She Feels ‘More Loyal’ to Her Country Roots Than Ever & Whip Up an Eras Tour-Coded Surprise Piano Mash-Up - Billboard
 
-- first seen: 2026-08-22 13:40 UTC | category: sighting | importance: 3
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: rumor | source_count: 1
-- summary: Caitlin Clark has a Taylor Swift sneaker thought 'she would probably like'  Yahoo Sports
+- summary: Watch Taylor Swift Say She Feels ‘More Loyal’ to Her Country Roots Than Ever & Whip Up an Eras Tour-Coded Surprise Piano Mash-Up  Billboard
 - sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQc2RiSTNiMTl6VC1BQ2Npalp6dXhvT0NIejdQUGlEMjBrR0czbTI4N244YjBuNDU2TVJyUnZ5RklwcDZIbTlkZFVqSE9fS3Zqa0tDNkhTcWU2ZmpNSEUtUnFNYkxuLU5ha0IyWU81NXNUVkp4QWN0V1JGSDE5WGF0OVRXTWxORXc1Vksw?oc=5
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOamVsbVZUdVhEYXU2ZWFwalVrdFExaWV4NmJFRDdieWNfbXZsTWFSZHVQdjVuX0dWX2dkOTZrLXBwaEw4b3EzdnJrYk4ycDlGZ3lZZDRlaVNLMzAwb2o0c3UwSjduN3B4QUExZGpJWDhwVTVkRVhyV2JIWU9vR2NtNVlac243Zy11dXdSdE5wSEJZcUVYQktSRkJ0Y0htemF0ZnNUdGhvcE5MaWs?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Jan 18, 2025; Kansas City, Missouri, USA; Recording artist Taylor Swift (upper middle) sits with Ind
+## Taylor Swift on Dealing With Public Perception and Deciding Not to Opt Out Before Her Career “Got Unmanageably Big”
 
-- first seen: 2026-08-22 13:40 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Jan 18, 2025; Kansas City, Missouri, USA; Recording artist Taylor Swift (upper middle) sits with Indiana Fever guard Caitlin Clark (upper right) during the fourth quarter of a 2025 AFC divisional round game between the Kansas City Chiefs and the Houston Tex  The Daily News | Texas' Oldest Newspaper
-- sources:
-  - [unverified] The Daily News | Texas' Oldest Newspaper — https://news.google.com/rss/articles/CBMijwJBVV95cUxNdXBKd2NOaEtEdkp2blV3MEFkdG14aFJoVnlmdkRHNDZPeTFRbVlCM1RETE5oaVFzbjZQdFB6TVd2RThQVVlMQXV1NjVvLS0yNHRvelpESkdZNVVEQ1RMTkxzY3NlOElBMllQT1FBNVgxY0hMNkgwVF9GVmw2ZUE4YkJIakdrYmx1OTBWN1dqQWp6MENZUkwtVWtBa1drc29XSmJublJRODVfQTRrWXVUaVFSM3FmdDAtUy1kNmlDQXlQOFdjTl9MWlMzY2RXZmdIeTJuMUlhaTgyMXhpRzNwWXdnZjEwT3hsMXV3Q0VBT2pOeUlLRVFpM3dmWWFHUFZYT1k3UUw4MnNQOGtBaTNr?oc=5
-
-## This Summer Has Had a Hit as Big as “Old Town Road,” Even Though You Might Never Have Heard It - Sla
-
-- first seen: 2026-08-22 13:40 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: This Summer Has Had a Hit as Big as “Old Town Road,” Even Though You Might Never Have Heard It  Slate
-- sources:
-  - [unverified] Slate — https://news.google.com/rss/articles/CBMirAFBVV95cUxQTzRtRlNSem5YMTBWd21BM3dpWjhmdGNDT2R2NXFpZGtkSGNFQ3RxVHRIak82ZFJEOTgyWGt3c2c0XzlJVFZtWXdULU83MmwtVUwxVGIyU2JUN0VlOWxRWWRIMVNBX3FINldLd0N3ZWxhUmxtSHQ1MzFFempPQkNHYUdzZ0g2TlBzTDF1U1M0M0J0MzY4SDVQRzI5elJhcDVkRldfMG50bF9NYmFa?oc=5
-
-## Thanks to Taylor Swift, sancerre is the wine of the summer - The Times
-
-- first seen: 2026-08-22 13:40 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Thanks to Taylor Swift, sancerre is the wine of the summer  The Times
-- sources:
-  - [unverified] The Times — https://news.google.com/rss/articles/CBMipwFBVV95cUxQemFteWRXejN1ZWZlODc3NnlVSG9DZUNySi1uaVU0dlpEbVpSeFo3b3BpUk1ia3dMZXJVVVB1c1hWVmtjc1JTdEstRjRzWVMwaWo5MnFWYWtRYkh5bGd6czgtTllpQlY1bmJ5Ujh1cjZPb1I4eGhPRS11OFhwSElSTm1TSUZVMTBHTFNoSG95TGNsbnFRcmZLLWE3RHJWVXVEaFZxSktVWQ?oc=5
-
-## 10 of the Biggest Celebrity Weddings of Summer 2026 - People.com
-
-- first seen: 2026-08-22 13:40 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: 10 of the Biggest Celebrity Weddings of Summer 2026  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiakFVX3lxTE5SZnVFeEJ3VHdEUTZJWFc3QlNZRWZ6Um5aRmdLaTB6OFFySjRnb25VSC1vNGw4UUt1d0RJeXh0eVRoWkx5elpTMWdxX0lpSGoxUkpORDlkT3ZCSlBzVGxhTGtRamVldVpjV0E?oc=5
-
-## $44 Levi’s Jeans, Taylor Swift’s Skort, and 48 More Excellent Deals - New York Magazine
-
-- first seen: 2026-08-22 09:38 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: $44 Levi’s Jeans, Taylor Swift’s Skort, and 48 More Excellent Deals  New York Magazine
-- sources:
-  - [unverified] New York Magazine — https://news.google.com/rss/articles/CBMiekFVX3lxTE9TV04xZEd4OURIaENrMmR2VTE5cFc2SFZjTzllUUZoaE9BNFZhMzZHMUdDejNtVkdEZnVfbGhhSXd6YXJJZE0xcC1HZ1RMbUFKbVlmWERDYmlCZFNadkxjM2dtZXJsUllocmZLbi1CV3QwSUIzTmVpeWJB?oc=5
-
-## Blank Space: The Unofficial Taylor Swift Tribute Tour Stops in Pittsburg – KSNF/KODE - FourStatesHom
-
-- first seen: 2026-08-22 09:38 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Blank Space: The Unofficial Taylor Swift Tribute Tour Stops in Pittsburg – KSNF/KODE  FourStatesHomepage.com
-- sources:
-  - [unverified] FourStatesHomepage.com — https://news.google.com/rss/articles/CBMivwFBVV95cUxQZzNXLVZSLTEzYXR3MDNxRVJDVmU0RDFaMU1vZWNxVFlxX0VtV1RZYnhNTmNLNm9JNm9DaXRIRE1Yb3RmVDZfV25PcTlZUXZpSlFCS25faklCUVoxb0lIUkZxRFNDSFFzd0x3TGpvMGFHMi0xMHh3ZVFkMzdaNE9xbzZzaFNnT3ljSks3SzFuUDRkc3NyUlRka2ZpSmdKTmNhbWJ2bC1uWEtPREgwZ0djQmYyT0NvZjM2YWFIUkhyQQ?oc=5
-
-## Jason Kelce Fears He's on a 'Sinking Ship' as Taylor Swift Wins Over His Four Daughters - Yahoo
-
-- first seen: 2026-08-22 05:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce Fears He's on a 'Sinking Ship' as Taylor Swift Wins Over His Four Daughters  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMijgFBVV95cUxOY3NYbTRmZVAtcGpQVS1FcXdGUkNfUHAwZXdiaGJISXFqNTNneXZEaExhZmpFQjZ6MEFHckpNbXZGdXphSzd1M3FlTTBNZzlLRVhYMHgwNklwZUlMdjl2X3BXOWs3N0l6TjR4VHlwTFg3dEZuNDVrazBOa3FyV1I0amYxcDZNaTIzb2MwOGJ3?oc=5
-
-## Ryan Fitzpatrick, Tom Hanks and a top hat: QB shares hilarious Kelce-Swift wedding story - USA Today
-
-- first seen: 2026-08-22 02:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Ryan Fitzpatrick, Tom Hanks and a top hat: QB shares hilarious Kelce-Swift wedding story  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMivgFBVV95cUxQdFF4dXpCMmx4ellOMWQxemJibTBXWDJyRy03Y3BJdFNvVVNZc09kTVlRWXNoTTJUN3RPcEZPdmVaNXVwcm9rdUpaMml0eDZ4Wk8wcVJnTVgxQnhpdVk1TF9yTzRsS3NpVEJLZ3F2Wk5DUDRuSnk1MXpUbGhkazRnWnRzTmZpT3RRa3o4YWNpdE1CSXFaRUVDZVFjZEtqLXp6bEFDZW42a1poRjlYUnUwVGRKREhhMTJ4YlZhLTNn?oc=5
-
-## Taylor Swift Talks 'Eras Tour: The Final Show' At Emmy Event - Deadline
-
-- first seen: 2026-08-22 02:20 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Talks 'Eras Tour: The Final Show' At Emmy Event  Deadline
-- sources:
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMilgFBVV95cUxOclRZLUhjWkJnQk9NZ3NRQmNIZ2Mzd1FIZFZIaF9xZF82VDQ5bXQtVTktc2l6WFB3cTA4ekZfX3NaZm8zRGdQUmJfRjFma0I2c3VCYjByTElJMC01YUxqR3FzN2w1aU9jM2hiRmRUR01yUGFtYk85OTd2MmQ4VXlqSnRrOE1iemtmX2gwZzVERGlvU1F3MVE?oc=5
-
-## Owners Sue Rhode Island Over 'Taylor Swift Tax' - Uprise RI
-
-- first seen: 2026-08-22 02:20 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Owners Sue Rhode Island Over 'Taylor Swift Tax'  Uprise RI
-- sources:
-  - [unverified] Uprise RI — https://news.google.com/rss/articles/CBMidEFVX3lxTFBzTlBlc3ZWdmpCUUd0N3h3NVE5c0xSamREdDQxOXd5eFpLaFI3QURmS3ZMQ09fREVZYVl0Zl96N0xfMy1UXzMzRHhwSzlMaHBPUS1YZmxMYVV1ekl1U2o5aWJLWE1IOXMyaG05dUFYZU50Unpm?oc=5
-
-## Tom Hanks Criticized NFL’s Ryan Fitzpatrick for ‘Faux Pas’ at Travis Kelce and Taylor Swift’s Weddin
-
-- first seen: 2026-08-22 02:20 UTC | category: relationship | importance: 5
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: corroborated | source_count: 2
-- summary: Tom Hanks Criticized NFL’s Ryan Fitzpatrick for ‘Faux Pas’ at Travis Kelce and Taylor Swift’s Wedding  Us Weekly
+- summary: The star joined Recording Academy CEO Harvey Mason Jr. for a 20-year retrospective chat at the Grammy Museum.
 - sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiowFBVV95cUxQellUbjdvZmJCTU1xS05CU0VaZ19MWWJvb1hPMDBlN1hpbWlKMi1RZ29xdFp5OHZMczNZZE1tc0l0WWlZNDd1TC1mVVhvd2pJR0xkbzJHSnQ3TURqb1RLdlBKSU8tSkZzOExzNHV1ejZlbjZCMmRMdEtoTG9oX2MxTjhQb2tIYjB4MkhlTXZYcmhrdW1ST0ZhZmZraHlzYVZOVHNJ?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOVVVhVXpGZVV3YTFwR0tFcmlaTzlqUjQ3cnZKQ2hPRk5BQ20taWxXSUdaalE5NEpXaURPQ20xQzNPMkxibkl4dklMMUYyMnZ0ZmtQZ1BZc0M1amtCZVdEUWJLbzlHY19uczg3enM2MkRZZW1XVFR5Z3RRWkJ2RGs2NWFMSUhiZDh6NUdzak5qMnFjZ0hDdk9BR0hRNXFoVTd6?oc=5
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-public-perception-career-unmanageably-big-1236680277/
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiakFVX3lxTFBmM2NndHdwY01lZ0dBUWJHRFprNlgwc3ZGRFoxOU1Mc2lFZjdlVjdHRGpxZVl5bktYRHR4dXZNT2RHZjVzSncwYkJROUVaUUVBZzVxX0x0cnBYdUlpVGRUOHBPa0g0bGlIWEE?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## All About Taylor Swift’s Secret Show in L.A. This Week & Who Was Invited to Attend - Just Jared
+## Taylor Swift’s Romantic Green Dress Has Fans Convinced They’ve Figured Out Her Next Album - Yahoo
 
-- first seen: 2026-08-22 02:20 UTC | category: sighting | importance: 3
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
 - verification_status: corroborated | source_count: 2
-- summary: All About Taylor Swift’s Secret Show in L.A. This Week & Who Was Invited to Attend  Just Jared
+- summary: Taylor Swift’s Romantic Green Dress Has Fans Convinced They’ve Figured Out Her Next Album  Yahoo
 - sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMitwFBVV95cUxNS1NsZklQc2xpUmt2MUR4NGV3WUNqanNDX25hRFdFeDE3YTZnNjY0UVNLaTVFVXU1SXhqX2VIT29Zc211WS1PTmVsSUhFSXRENHdnTDNJMkdQbDlqR0hLSldHQ09vQ3dRYUZYOWtwZzRaeVlKMU1OVDRLZ2hnWWNSUklaZEVDUFJqWl93dmNxeHRHZ1JQX1F2ZjVYMkpDZ3hRUzdUT1RxSjQ0QWxfaEhSVnZ6OF8ybVk?oc=5
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE9PaXhNd1F4UGhiS1Z2ei1qdjZNdVNzSW5DWk5OTTd0TkVrbjVOcmxDUEFYcGw4ZXp0S1ViQkZvTUpiUFAyLV9WbFZaTk9SVXZsZklmVXVoU0JCeXhfZDB5NmloRmNCQQ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQY0hMRHl0UlZDU3NpcFhySzRvcnQ1M2lfaTdjdjZJUklYV1FtQ3N0OE1XejExdXV0bUZEQnJQSms2N0ljRUtaZGY3N3dhY05fMWwzUm1YWTdFdnZDWXRGWW1wVENRUWVJUVBxMGhUeU5pT0JDNVdsUWtteFZpb3B5SGZmNEtRT0dVZUFiZFJ5UWxYWGxFQUhKd2NxNzJlZUUw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQR3FINkQ1UGRYNmZsY0tqWVhMVVFNOC01dTNPVlVQMHFYd0M0NUxYSHlnT1V6aXBiS2tGUk0tazZHNzlGbHVmaGMwdThVWEZLb1pUN3dMa0hTc1FWajJ6MXBNV1JCb0FfM0R0QXhsU0pRU3ktMTc4aXZhLVF2cmFGWUxlYTFleGlISjMxdEJ3UzZRc2VIQXQw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift’s Grammy Museum dress sure looks like an Easter egg - Page Six
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Grammy Museum dress sure looks like an Easter egg  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMlFvVUg3T2hKbjk4VWZzbEN4M2NMbUVMQ1BQMEQ5a01KWTJKQ2xmZFlUWmdIYkg5Skcyc3ZDWUNKY01aUGwzRk5IN19oWGVmUTE4ZzBmOGVOSGVvU1hTbzZBMzhaV0xkX2VmanBGSWlvM2pIZlR3d0hSSE5EblU0S1dELVlvd3lmdkt4UnFjTXltc0pLb3hCX1RkWGR4S0VNaFpzeXJOYmhNZ2k3RkhN?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reveals the ‘Coping Mechanism’ Mantra She Repeats to Herself When Things Feel ‘Unmanageably Big’ - People.com
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Reveals the ‘Coping Mechanism’ Mantra She Repeats to Herself When Things Feel ‘Unmanageably Big’  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxORnJJMDI5cDB3N25zYTk2Y2wyQng4TkF3enVRdjFqX3RlZEo1djlyeXpZT1pyRVJIZ1ZxYlQ2OGNERXpocWNNUFVNVkZWTm56NkNKeFozZVdGZkM5VkV5YXJLYjBCYmZOMEVuTnl2MUlMWHV2ZWpDSDgzOGh2bF84Ylh4TzVLekxNS3hleW9yZDZ2ZHQyX3FrcEl4VUFvNzh2SkY4UG81MjIzVzhLNnhQMEVWazFlVm1laHVuakV3S0YwU1U1MlNtazlOeXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Jewelry Featured Prominently at Grammy Museum Performance
+
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During a performance at the Grammy Museum, Taylor Swift's ring became a focal point. The event highlighted her style and the significance of her accessory choices.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiowFBVV95cUxNWFBrQjlZU2lmdWJOZnFPNkdXbzBScjh5eXNtQUNBLWJFWno2Zzk4dHNSUi04UUxYeHdTQnRiN2ZzZFA3QUlNMUZBSHNvSkd3MnMyUEtuYi1mSDdUZHNvS1MtUnk3aFdFLUVweWdzMEpIRHMwMGNIQkctRURHaEg4TmIzblR4SDZRVVBiNC1rMHk3R2VVeVczMllMcXl6LU1XWElj?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Discusses Honoring Her Country Roots in Interview
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: In a rare interview for the Recording Academy's Icon Sessions series, Taylor Swift shared her thoughts on honoring her country roots more than ever. The conversation was led by Recording Academy CEO Harvey Mason Jr.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-honor-country-roots-tim-mcgraw-1235614372/
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiowFBVV95cUxNOVBlSjNHOFBqc3JGLWRJQURpd3ZmZHBtb2dCQmhDWkJFVDdGYTI0X250NGhpYXQwbExsVTdQcWNpd1g4Vkw2QmhPcDBMeVVFYV90RU5sY0RVQWtXbnRSTFJZc0g2blJSbXdzMjAwY1g5SlNhaVdETzVJMUhzaUtmdGRaNmR2TloyVE9qaUpfNXNzd0M2ZEVDaVdLak5zdVpHbDRj?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Adam Scott Shares Surprises from Swift and Kelce's Wedding
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Adam Scott discusses his impressions and surprises from the wedding of Taylor Swift and Travis Kelce. The comments reflect insights from an insider's perspective on the event.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxPQ05QcmJ6TkR1dng0d3gxQ2hyaFNSdG5udF9PUjF1blVWOUNtdXZhb010dlgyQWlpUjFJSHdZNzNfdVowTjBJZFM5TUZDVkYzRmxybVZ0OWVtNW9QVW1KbTZneHdDQnpCNlJiSVFuek0xeGh2U2pHaGEtM1drQm5aOWNVZlNJZ1NILUxjOHMxSzM5UzFKRGp1WExzNFNnc3BteGxmRTljc2x3SUZOVVF0cGVSS3I?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Discusses Original Concept for 'I Knew You Were Trouble'
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: In a recent Q&A at the Grammy Museum, Taylor Swift shared insights on how her 2012 hit 'I Knew You Were Trouble' was originally written as a sad ballad before incorporating dubstep elements. The discussion highlighted her creative process behind the song's evolution.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-i-knew-you-were-trouble-grammy-museum-clip-1236841957/
+
+## Taylor Swift Shares Insights on 'Tim McGraw' Meaning
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift discusses the hidden meanings in her debut single 'Tim McGraw' in a recent interview. This revelation sheds light on the song's deeper themes and significance in her career.
+- sources:
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPU2R3dHdIRG0yV0o5RkctRURSUFQtOG9RTVlHOWphYlBXUW5BOFpwV1FmX3prSHRCOVR4WFdCZGNoTzBMcHFyMUZBNDJVSk1oUlJSWVgwUlZXYUt4ZkhyNERjbTNxd19fbFBTUURmTWhUaVlsT2dzaVBuVm5BNDF1d3BITWdWbjMwREpUazdMZ2hiOUNRZi1sanpVTkRKd2FYdldkYmZMRm8wQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Adam Scott Discusses Taylor Swift and Travis Kelce's Wedding Experience
+
+- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: Adam Scott shares insights on the wedding of Taylor Swift and Travis Kelce, providing details about the event as seen from his perspective. The discussion sheds light on the couple's special day.
+- sources:
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxOTW1DSzVKY2djcE5GcEt0YjljcXQ2UzlYRTFKVlV1eFAwYk5PT0dqcVljX1NxbUp0djJxcXRrMHlfblBhS1NYeFBLbFhhREZFb1ZMNnF2Zk1QTkRvZTg4V0E1dm1oM1RQeHN6Sld2MlZsWXR5WlJyVlduR0JFdkFZbzI0SkhtV1JuMFVSSQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPS053UGM0ZEZLTFlidExTMGZueUJPcVdPRllhM3k2MXVTM0pyRFZjTEc0ZHMxdFBKUHFDYVJEc21icHQ4LUx5MFlNaGgtT196UThXdEE2SnMycEJ6OU5PUTJrYmFIQ3hNYll4Ujg1ekQyaGdGWlF1UU9TV1JhMGhxQ0tZQTNvaGdUcXV2bnVDQTVwQjI3ZW9EaHFKdWlsLWFwT1FBRUl3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitgFBVV95cUxNVWNxVmxGMncwemZYWnpTTl9tUVBhNG5ybzI0SlhCTlBYUFpOc1dSOXFGMDYzaG5XdWJ0VTA3dEJQYkxPSVl2bTNUMEdUaWxyaGpENGpxVGk2dFN3d2N0RXJXUExlVzJRN0VUY2xiOC0wVHJyeGdpcEVLYW94V0pIVmZMM1AzT3NDbm4yVzR1WGo5Y2RJbkV3Q2ZiaTRXUDBEUGZlSmlFQ0xsMFBoR1ZGa0s2WU8ydw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Performs Mashup at Grammy Museum
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: In a recent video at the Grammy Museum, Taylor Swift performed a mashup of her songs ‘All Too Well,’ ‘I Knew It, I Knew You,’ and ‘August.’
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPV09pcExZR2YxS0tNNmM5a2YxVXM1RWtjWVlwNF96bTRtdmVGVm5fdHVqRDA1ajZiZTZTSDBUaDcxNDMxOUNqUndEdmhUenZjY3l2RnlwSTdEVE5sR0R5TmNlTF9wMVp4VjNqalJEWFU4bS1Gb3V5RXpwRlRRWlZWS0JwUHRwQXVVRnJuMW5naEV6cmhrU01XZjRibWRkbExrbUI5cS1hLVY4QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-sings-mashup-all-too-well-grammy-museum-video-1236842092/
+
+## Emmy Nominee Olivia Newman Discusses Collaborations Including Taylor Swift
+
+- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Olivia Newman, director of Netflix's Emmy-nominated film ‘Remarkably Bright Creatures,’ highlights her collaborations with notable figures, including Taylor Swift, in a recent interview.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/video/remarkably-bright-creatures-olivia-newman-video-interview/
+
+## Taylor Swift Wears $798 Slip Dress Ideal for Fall Activities
+
+- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was recently spotted in a $798 slip dress that is considered perfect for fall activities. The stylish choice showcases her fashion sense for the season.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMic0FVX3lxTE5wODNJVXEyTzAtZkhmZ0EtS1VwdjJReHBVZUdZQTRhQmFna01uaGFoaU9JS1p3amh3RTdYVi1YQ3VERTEyb3JTeXRxR0d5N0tYcUdOd212dWgtM01jUDloSkh3UFBlVEJVcW4yLXc5cjNkZjA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift’s New Dolby Atmos Release Includes Two Reputation Lyric Changes
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift loves to release different versions of her albums. Her latest album, The Life Of A Showgirl, received multiple deluxe versions: So Punk On The Internet Version, So Glamorous Cabaret Version, etc. Yesterday (Dec. 12), on the pop superstar's birthday eve (happy birthday Taylor!), she quietly shared a subtly altered edition of her sixth studio LP Reputation via Apple Music. 
+The post Tay
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2482875/taylor-swifts-new-dolby-atmos-release-includes-two-reputation-lyric-changes/news/
+
+## Taylor Swift’s Retro “Opalite” Video Stars Everyone Who Was On The Graham Norton Show With Her
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Four months ago, Taylor Swift was on UK talk show The Graham Norton Show as part of a celebrity panel with Domhnall Gleeson, Jodie Turner-Smith, Greta Lee, Cillian Murphy, and Lewis Capaldi. All of them, Norton included, are in Swift's new video for "Opalite," the next single from her album The Life Of A Showgirl. During the show, Swift got the idea to cast all these celebs in a video together aft
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2488236/taylor-swifts-retro-opalite-video-stars-everyone-who-was-on-the-graham-norton-show-with-her/news/
+
+## Bruno Mars Says He Did Not Diss Taylor Swift
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Bruno Mars and Taylor Swift became hugely famous around the same time, and the two of them remain stadium-level megastars many years after most of their peers have faded away. Beyond that, though, Mars and Swift don't honestly have that much in common. Their styles of pop music are radically dissimilar, and their careers haven't overlapped much. As the photo above will attest, Swift once handed Ma
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2492496/bruno-mars-says-he-did-not-diss-taylor-swift/news/
+
+## Stars assemble in New York City amid preparations for Taylor Swift 4 July wedding
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: Singer and fiance Travis Kelce have been coy but festivities are getting under way at Madison Square Garden
+The streets of New York City and the first-class lounges of Heathrow and JFK airports were crawling on Friday with celebrities on their way to attend the wedding of the year.
+Taylor Swift had kept fans guessing about whether it was her nuptials that had caused the closure of 11 streets in mi
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/jul/03/taylor-swift-travis-kelce-wedding-new-york
+
+## Paul McCartney Performs at Taylor Swift's Wedding Reception
+
+- first seen: 2026-08-25 02:22 UTC | category: sighting | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Paul McCartney played 'I Want to Hold Your Hand' at Taylor Swift and Travis Kelce's wedding reception, marking the first time he performed the song in 60 years. The event took place at Madison Square Garden, featuring a star-studded guest list, as reported by People magazine.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/artanddesign/2026/jul/05/paul-mccartney-i-want-to-hold-your-hand-taylor-swift-wedding
+
+## Taylor Swift's Generosity Highlighted in New Commentary
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A commentary discusses the impact of fame on celebrities like Taylor Swift, focusing on her talent, work ethic, and philanthropic gestures during her Eras tour. It raises questions about self-admiration amidst their success.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/commentisfree/2026/jul/08/superstars-huge-egos-cristiano-ronaldo-taylor-swift
+
+## Man Sentenced for Terror Plot Aimed at Taylor Swift Concert
+
+- first seen: 2026-08-25 02:22 UTC | category: tour | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: An Austrian man has been sentenced to 15 years in prison after pleading guilty to terrorism-related offenses connected to a plot targeting Taylor Swift's Eras Tour concert in Vienna, which was cancelled for safety reasons. Two suspects were arrested, with one having ties to ISIS.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2500568/austrian-man-sentenced-to-15-years-for-terror-plot-targeting-taylor-swift-concert/news/
+
+## Taylor Swift Inducted into Songwriters Hall of Fame
+
+- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift became the youngest woman inducted into the Songwriters Hall of Fame, discussing her future in music and quoting *Yellowstone*. This follows her recent release of a song for the Toy Story 5 soundtrack and performance at the film's premiere.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2502103/taylor-swift-says-sombr-is-the-future-quotes-yellowstone-at-songwriters-hall-of-fame-induction/news/
+
+## Why are we so obsessed with Taylor Swift’s wedding? | Dave Schilling
+
+- first seen: 2026-08-25 02:22 UTC | category: — | importance: —
+- verification_status: single_source | source_count: 1
+- summary: With marriage rates in decline, the appeal of a big wedding that we can live vicariously is stronger than ever
+Finally, after decades, I have something in common with Taylor Swift. It feels great to say that out loud, in public. No, I’m not famous, rich, particularly attractive, or a woman. I really, really can’t sing. Like, not even my karaoke is tolerable for human ears (dogs seem to be fine wit
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/commentisfree/2026/jul/09/taylor-swift-wedding-obsession-msg
+
+## Taylor Swift Discusses 'The Eras Tour: The Final Show' with Director Glenn Weiss
+
+- first seen: 2026-08-25 02:22 UTC | category: tour | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: In a recent event with Emmy voters, Taylor Swift shared insights on collaborating with director Glenn Weiss for 'The Eras Tour: The Final Show', focusing on capturing the essence of her tour's conclusion. The event took place at the Ross House in Los Angeles.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/08/taylor-swift-eras-tour-final-show-emmy-nominations-1237047840/
