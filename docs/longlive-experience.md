@@ -488,7 +488,7 @@ curated items).
 **Add a music video to a moment:** add `video` to that `ContentItem`. Verify
 the ID. It renders automatically in `MomentDetail`.
 
-**Add shoppable products to a fashion moment:** add `moment.products` to the
+**Add shoppable products to a fashion or beauty moment:** add `moment.products` to the
 seed item (`supabase/seed/content/<era>.mjs`):
 `[{ brand, item, retailer, url, price?, inStock?, isAlternative?, altNote? }]`
 — `retailer` is a bare lowercase hostname (`'ralphlauren.com'`; it's the
@@ -500,8 +500,8 @@ look" block automatically. The UI must always link via `buildShopUrl()`
 (`lib/longlive/shop.ts`) — never `product.url` directly — that function is
 the single seam where affiliate wrapping (keyed by `retailer`) gets injected
 later with zero content edits (`docs/decisions.md` 2026-07-19). The
-`content.fashion-products` checker (content engine) queues fashion moments
-that name branded garments but carry no products.
+`content.fashion-products` checker (content engine) queues moments that name
+branded garments or specific cosmetics (including shades) but carry no products.
 
 **No exact product page exists (custom/couture/discontinued):** don't skip
 the moment silently — offer the closest verified buyable match instead
