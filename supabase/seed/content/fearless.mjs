@@ -1096,6 +1096,22 @@ export default {
             // face upper-left quadrant beneath the raised fist.
             focalPoint: '32% 24%',
           },
+          // Photo pass #762 (2026-08-25): a second image — no chart-ceremony
+          // photo exists for a Billboard 200 record (there is no ceremony),
+          // so era context again, distinct from the Portland tour shot above:
+          // a red-carpet portrait from April 2, 2009, three weeks after the
+          // March 14 11th-week milestone. Commons VRT-confirmed free-use
+          // permission (ticket #2009121510015033); curl-verified 200
+          // image/jpeg, downloaded and vision-confirmed (close portrait,
+          // updo hair, strapless dress).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/e8/TaylorSwiftApr09.jpg',
+            focalPoint: '48% 30%',
+            credit: 'Angela George, Wikimedia Commons (free use, VRT-confirmed)',
+            caption:
+              'At the "Hannah Montana: The Movie" premiere, April 2, 2009 — three weeks after Fearless logged its record-setting 11th week at No. 1 (era context, not a chart-ceremony photo).',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -2015,6 +2031,13 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo pass #762 (2026-08-25): searched for a second image — the
+        // cited Billboard piece is paywalled (tollbit gateway, HTTP 402) so
+        // its hero art couldn't be verified; the NPR source's lead image is
+        // an unrelated Fresh Air show tile, not Taylor; no CC-licensed
+        // Commons photo dated to the Nov. 11, 2008 release week or the
+        // Nov. 12 CMA Awards was found. Left reviewed-sparse at one photo
+        // (the album cover) rather than pad with an unverifiable frame.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
