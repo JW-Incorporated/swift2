@@ -2798,6 +2798,7 @@ export default {
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
             note: 'Forward-looking tour speculation. Location held at region level (a country, no named festival or city) per the matrix — the underlying report names a specific festival, coarsened here because an unannounced future booking is speculative provenance. Resolves when the 2027 line-up is announced; fades if she is not on it. The organiser herself cautioned most such rumours are wrong.',
+            lastCheckedOn: '2026-08-26',
           },
         ],
       },
@@ -4252,7 +4253,7 @@ export default {
             url: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
             note: 'Traces to a single Deuxmoi blind item, aggregated the same day by Cosmopolitan, SheKnows and others; carried at the social tier. Cosmopolitan/AOL: neither Taylor nor Kelce "has publicly confirmed they adopted a puppy or revealed its name." A pet, not a private individual — no redline; no location. Resolves if the couple confirms the dog and name, fades if it stays unaddressed.',
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-05',
+            lastCheckedOn: '2026-08-26',
           },
         ],
         // Photo pass #762 (2026-08-06): re-confirms the deliberate no-photo
