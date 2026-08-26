@@ -5,11 +5,12 @@
 // checkers (image.host-reputation: "this host is unvetted, eyeball it") roll up
 // into a single tracking issue, so 194 non-defects don't drown the tracker.
 // The engine only PROPOSES — an issue is a fix-it ticket, never a content change.
-import { writeFileSync, unlinkSync } from 'node:fs';
+import { writeFileSync, unlinkSync, readFileSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
-import { rank, fingerprint } from './finding.mjs';
+import { dirname, join } from 'node:path';
+import { rank, fingerprint, legacyFingerprint } from './finding.mjs';
 import { CONFIG } from '../config.mjs';
+import { ROOT } from './corpus.mjs';
 // Shared gh runner: CLI when present, GitHub REST when it isn't. This module
 // used to shell out to `gh` directly, which is why Karen's 2026-07-26 nightly
 // completed a clean 1096-item scan and then threw away all 623 filable
@@ -77,6 +78,32 @@ export async function ensureLabels() {
 }
 
 const FP_MARKER = /cie-fp:([0-9a-f]{6,64})/g;
+
+export const FP_CACHE_PATH = join(ROOT, CONFIG.output.findingsDir, 'filed-fingerprints.json');
+
+/**
+ * Local first-line fingerprint cache (#487). GitHub's search index can lag a
+ * just-created issue by a few seconds — two runs close together (or a quick
+ * manual re-run) can miss it via `/search` and file a duplicate. This file
+ * remembers every fingerprint this engine has confirmed filed (created this
+ * run, or found already on the tracker), read before any GitHub call, so a
+ * same-machine re-run never rediscovers the same lag. It is a cache, never
+ * authoritative on its own — a miss still falls through to the real GitHub
+ * lookups below. `path` is overridable (tests use a temp file).
+ */
+function loadFpCache(path) {
+  try {
+    return new Set(JSON.parse(readFileSync(path, 'utf8')));
+  } catch {
+    return new Set();
+  }
+}
+function saveFpCache(path, set) {
+  try {
+    mkdirSync(dirname(path), { recursive: true });
+    writeFileSync(path, JSON.stringify([...set]), 'utf8');
+  } catch { /* best-effort — never block filing on a cache-write failure */ }
+}
 
 /**
  * One bulk read of every `cie` issue body → the set of fingerprints already on
@@ -192,12 +219,16 @@ export function rollupFingerprint(checker) {
  * that discarded 597 findings (2026-08-09) and one that discarded 623
  * (2026-07-26) are the two incidents this return value exists to make loud.
  */
-export async function createIssues(findings, { dryRun = true, limit = Infinity, minConfidence = 0.5, log = () => {} } = {}) {
+export async function createIssues(findings, { dryRun = true, limit = Infinity, minConfidence = 0.5, log = () => {}, fpCachePath = FP_CACHE_PATH } = {}) {
   const ranked = rank(findings.filter((f) => f.confidence >= minConfidence || f.escalate));
   const created = [];
   const skipped = [];
   const unfiled = []; // { title, fp, reason }
   let count = 0;
+
+  // Local first-line cache (#487) — checked before any GitHub call, on every
+  // run including dry runs (a plain local-disk read, not network).
+  const fpCache = loadFpCache(fpCachePath);
 
   // Fingerprint cache (see loadKnownFingerprints): a hit is always proof of
   // "already filed"; a miss is proof of "never filed" only when the prefetch
@@ -214,29 +245,37 @@ export async function createIssues(findings, { dryRun = true, limit = Infinity, 
     else log(`  (${pre.issues} existing ${PFX} issues scanned, ${known.size} fingerprints known${knownComplete ? ', complete' : ', possibly truncated'})`);
   }
 
-  /** true / false / throws. A throw means "unknown", never "not filed". */
-  const alreadyFiled = async (fp) => {
-    if (known?.has(fp)) return true;
+  /**
+   * true / false / throws. A throw means "unknown", never "not filed". Checks
+   * both the current-scheme fingerprint and the pre-#487 `legacyFp`, so the
+   * 9+ issues already filed under the old scheme are still recognized —
+   * without this, they'd re-file once under the new scheme.
+   */
+  const alreadyFiled = async (fp, legacyFp) => {
+    if (fpCache.has(fp) || fpCache.has(legacyFp)) return true;
+    if (known?.has(fp) || known?.has(legacyFp)) return true;
     if (knownComplete) return false; // authoritative miss — no /search call (403 in cloud)
-    return existsByFp(fp);
+    if (await existsByFp(fp)) return true;
+    return legacyFp !== fp && existsByFp(legacyFp);
   };
 
   /** Shared file-one-thing path: dedupe (fail closed) → create (record failure). */
-  async function file(fp, title, body, labels, extra) {
+  async function file(fp, legacyFp, title, body, labels, extra) {
     if (!dryRun) {
       let exists;
       try {
-        exists = await alreadyFiled(fp);
+        exists = await alreadyFiled(fp, legacyFp);
       } catch (e) {
         unfiled.push({ title, fp, reason: `dedupe lookup failed: ${errText(e)}` });
         return;
       }
-      if (exists) { skipped.push(fp); return; }
+      if (exists) { skipped.push(fp); fpCache.add(fp); return; }
     }
     try {
       const r = await createIssue({ title, body, labels }, dryRun);
       created.push({ ...r, title, ...extra });
       count++;
+      if (!dryRun) fpCache.add(fp);
     } catch (e) {
       unfiled.push({ title, fp, reason: `issue create failed: ${errText(e)}` });
     }
@@ -249,12 +288,13 @@ export async function createIssues(findings, { dryRun = true, limit = Infinity, 
   for (const f of individual) {
     if (count >= limit) break;
     const fp = fingerprint(f);
+    const legacyFp = legacyFingerprint(f);
     const labels = [PFX, `${PFX}:${f.severity}`];
-    if (f.checker.startsWith('safety.')) labels.push(`${PFX}:safety`);
+    if (f.checker.startsWith('safety.') && (f.severity === 'P0' || f.escalate)) labels.push(`${PFX}:safety`);
     if (f.checker.startsWith('image.')) labels.push(`${PFX}:image`);
     if (f.checker.startsWith('fact.')) labels.push(`${PFX}:fact`);
     if (f.escalate) labels.push(`${PFX}:escalate`);
-    await file(fp, `[CIE ${f.severity}] ${f.title}`, bodyFor(f, fp), labels, { severity: f.severity });
+    await file(fp, legacyFp, `[CIE ${f.severity}] ${f.title}`, bodyFor(f, fp), labels, { severity: f.severity });
   }
 
   // 2) Rollups — deterministic P2/P3 only: one tracking issue per checker.
@@ -293,8 +333,12 @@ export async function createIssues(findings, { dryRun = true, limit = Infinity, 
       shown++;
     }
     if (shown < fs.length) itemLines.push(`\n…and ${fs.length - shown} more (see the run report for the full list).`);
-    await file(fp, title, [...header, ...itemLines, ...footer].join('\n'), [PFX, `${PFX}:${worst}`], { severity: worst, rollup: fs.length });
+    // Rollup fingerprints hash a literal placeholder excerpt ('rollup'), which
+    // survives the #487 excerpt-normalization unchanged, so the legacy and
+    // current schemes always agree here — no separate legacy lookup needed.
+    await file(fp, fp, title, [...header, ...itemLines, ...footer].join('\n'), [PFX, `${PFX}:${worst}`], { severity: worst, rollup: fs.length });
   }
 
+  if (!dryRun) saveFpCache(fpCachePath, fpCache);
   return { created, skipped: skipped.length, unfiled, dryRun };
 }

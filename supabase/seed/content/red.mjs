@@ -28,12 +28,12 @@ export default {
       day: 30,
       category: 'business',
       significance: 'defining', // stands in for the whole Red era's arrival — no dedicated release-day item exists yet (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1', 'moment:vault-speak-now-speak-now-sells-over-a-million-copies-in-a-single-week'],
+      relatedIds: ['moment:vault-evermore-red-gets-its-do-over-red-taylors-version-opens-at-no-1', 'moment:vault-speak-now-speak-now-sells-over-a-million-copies-in-a-single-week'],
       title: 'Red sells 1.2 million copies — the biggest week in a decade',
       snippet:
         "1.208 million copies in week one — the strongest opening week for any album since Eminem's The Eminem Show in 2002, and her second million-selling debut in a row.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg',
       moment: {
         context:
           "Nobody was supposed to sell like this anymore. Red's 1.208 million was the first opening week to clear 1.2 million since The Eminem Show moved 1.3 million in 2002 — and it landed in a market where, as Slate put it, even a very popular artist shipping 300,000 copies out of the gate counted as a huge success.\n\nRed roughly doubled the year's next-best debut, and unlike Lady Gaga's Born This Way, which cracked a million the year before with help from Amazon's 99-cent promotional pricing, it did so selling at $7.99. The week also made her the first female solo artist with two million-selling weeks (alongside Speak Now) and surpassed Garth Brooks's Double Live as the fastest-selling country album.\n\nBeyond the raw number, Red entered the Billboard 200 at No. 1 — her third studio album in a row to debut on top — and it did so almost entirely on full-price purchases at a moment the industry had already begun writing off blockbuster sales weeks. The 1.208-million total stayed the biggest week of Taylor's career until she broke her own record two years later, when 1989 opened to 1.287 million in 2014, and it stood among the largest opening weeks any album had posted since the CD era's peak. It also sharpened the pattern Slate marveled at: where a strong 2012 debut meant 300,000 copies, Taylor had cleared four times that, doubling the year's next-best debut and turning a release week into the kind of cultural event only a handful of artists in the world could still reliably command in a fragmenting market.",
@@ -47,19 +47,11 @@ export default {
             url: 'https://www.rollingstone.com/music/music-country/taylor-swifts-red-sells-1-2-million-copies-in-first-week-243204/',
           },
         ],
-        // Photo-enrichment pass (2026-07-18): focal point set by viewing — the
-        // cover's lower face/red lip sits just above center-left under the hat
-        // brim. (Counts as one unique photo; thumbnailUrl reuses the same file.)
         // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): this item
         // stands in for the whole era's arrival (no dedicated release-day
         // item exists), so 6 more real, verified Red Tour photos anchor the
         // era the record-setting week opened. All curl 200, image/jpeg.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
-            credit: 'Big Machine Records',
-            focalPoint: '45% 38%',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg',
             focalPoint: '54% 30%',
@@ -171,34 +163,6 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_22.png',
-            credit: 'Big Machine Records',
-          },
-        ],
-      },
-    },
-    {
-      year: 2012,
-      month: 10,
-      day: 9,
-      category: 'music',
-      // Cross-link (Stage 3, 2026-07-27): the "I Knew You Were Trouble"
-      // cluster — the dubstep debut, its global chart run, and the video's
-      // birthday drop — now interlink.
-      relatedIds: [
-        'moment:vault-red-i-knew-you-were-trouble-goes-global',
-        'moment:vault-red-the-i-knew-you-were-trouble-video-drops-on-her-23rd-birthday',
-      ],
-      title: 'I Knew You Were Trouble brings dubstep to pop radio',
-      snippet: 'A wobble-bass drop in the middle of a breakup song — critics called it the moment mainstream pop stopped being "sonically conservative."',
-      sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
-      moment: {
-        context:
-          'Produced with Max Martin and Shellback after Taylor sketched the melody on piano, the drop was there — by her account — to convey the chaotic emotions of the lyrics, not to chase a trend.\n\nCritics treated it as a hinge point anyway: the New York Times\' Jon Caramanica called the wobble a "wrecking ball" that shifted "the dynamic of not only the song but also of Ms. Swift\'s career," and the Los Angeles Times noted that while DJs like Skrillex and Zedd had popularized dubstep, this was the song that introduced it to a mainstream pop audience that had been "sonically conservative for the past half-decade." It sold 416,000 downloads in its first week — making her the first artist ever with two 400,000-download opening weeks — and peaked at No. 2 on the Hot 100.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble' }],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -360,7 +324,9 @@ export default {
       day: 6,
       category: 'fashion',
       // Cross-link (Stage 3, 2026-08-10): the "Elie Saab" designer cluster.
-      relatedIds: ['moment:vault-speak-now-a-pink-elie-saab-sequin-gown-at-the-billboard-music-awards'],
+      // (issue #722, 2026-08-24: the sibling Billboard Awards look was
+      // routed off the Speak Now timeline into the Runway thread, so that
+      // leg of the cluster no longer resolves to a moment id.)
       title: 'A wine-red Elie Saab gown for a historic Pinnacle Award',
       snippet: 'A wine-colored Elie Saab gown at the CMAs, the night she became the first woman ever to receive the Pinnacle Award.',
       sourceUrl: 'https://www.refinery29.com/en-us/2013/11/56892/taylor-swift-cma-awards',
@@ -481,10 +447,10 @@ export default {
     },
     {
       // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
-      relatedIds: [
-        'moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice',
-        'moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-',
-      ],
+      // (issue #722, 2026-08-24: the sibling People's Choice look was routed
+      // off the Speak Now timeline into the Runway thread, so that leg of
+      // the cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-'],
       year: 2013,
       month: 2,
       day: 10,
@@ -531,54 +497,6 @@ export default {
             price: '$3,195.00',
             isAlternative: true,
             altNote: 'Her exact 2013 J. Mendel gown is long discontinued -- this is a current ivory gown in the same cream-and-white register (Jimmy Choo heels, Lorraine Schwartz jewelry not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2012,
-      month: 9,
-      category: 'fashion',
-      title: 'High-waisted shorts become a recurring signature',
-      snippet:
-        'Sparkling oxfords, Keds, and high-waisted shorts on nearly every red carpet and stage appearance — a 1950s-inflected throughline across the whole era, from the VMAs to the Grammys.',
-      sourceUrl: 'https://www.foxnews.com/lifestyle/photos-taylor-swift-and-her-signature-high-waisted-shorts',
-      thumbnailUrl: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1',
-      moment: {
-        context:
-          'Documented instances stack up across the whole album cycle: the 2012 MTV VMAs performance of "We Are Never Ever Getting Back Together," the iHeartRadio Music Festival that September, the MTV European Music Awards in November, both coasts\' Jingle Balls that December — KIIS FM in Los Angeles and Z100 at Madison Square Garden — and white high-waisted shorts at the February 2013 Grammys. The silhouette even followed her off duty, turning up in a retro black-and-white swimsuit while paddleboarding in Westerly, Rhode Island.\n\nFashion director Melissa Liebling-Goldberg told Fox News the retro high-waist look was a deliberate throughline: "Taylor Swift is really bringing back the retro look of a high waist." The appeal, she explained, was practical as much as nostalgic — "the trick to making it flattering is finding the right proportion to your torso" — and versatile enough to work "with everything from retro bikinis to flared skirts to short shorts."',
-        sources: [
-          {
-            outlet: 'Fox News',
-            url: 'https://www.foxnews.com/lifestyle/photos-taylor-swift-and-her-signature-high-waisted-shorts',
-          },
-        ],
-        // T16 image-fix pass (2026-07-10): the original URL requested Fox's
-        // 96x96 thumbnail rendition (3 KB, unusable). Swapped to the same
-        // CDN asset's 1200x1200 rendition — same photo, same host, just a
-        // usable size. Verified HTTP 200 + image/jpeg + subject visually
-        // confirmed this session (Swift on stage in striped top and
-        // high-waisted black shorts, arm raised over the crowd).
-        photos: [
-          {
-            url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1',
-            // Face upper-center as she stands above the crowd; keep it framed under a wide crop.
-            focalPoint: '48% 30%',
-            credit: 'Fox News',
-          },
-        ],
-        // Shop pass (2026-07-21): no single pair was ever named -- a
-        // current retro high-waisted denim short, verified in stock, in
-        // the same recurring silhouette.
-        products: [
-          {
-            brand: 'GOLDSTITCH',
-            item: 'Vintage Denim High-Waisted Jean Shorts',
-            retailer: 'amazon.com',
-            url: 'https://www.amazon.com/Womens-Juniors-Vintage-Waisted-Shorts/dp/B00KSYPWWO',
-            price: '$14.98',
-            isAlternative: true,
-            altNote: 'No single named pair -- she wore many high-waisted shorts across the era -- this is a current pair in the same retro-inflected silhouette.',
           },
         ],
       },
@@ -681,7 +599,9 @@ export default {
       day: 1,
       category: 'fashion',
       // Cross-link (Stage 3, 2026-08-10): the "Jenny Packham" designer cluster.
-      relatedIds: ['moment:vault-fearless-a-jenny-packham-resort-mini-for-the-2010-peoples-choice-awar'],
+      // (issue #722, 2026-08-24: the sibling People's Choice look was routed
+      // off the Fearless timeline into the Runway thread, so that leg of
+      // the cluster no longer resolves to a moment id.)
       title: 'A Jenny Packham lace gown blooms with red at the 2012 CMAs',
       snippet:
         'A nude lace Jenny Packham gown embellished with sparkling red-and-gold rose appliques on the red carpet at the 46th CMA Awards, paired with straightened hair and bangs instead of her usual curls.',
@@ -719,11 +639,11 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moments.
-      relatedIds: [
-        'moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party',
-        'moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show',
-      ],
+      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moment.
+      // (issue #722, 2026-08-24: the sibling Vanity Fair Oscar-party look was
+      // routed off the Speak Now timeline into the Runway thread, so that
+      // leg of the cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show'],
       year: 2013,
       month: 5,
       day: 19,
@@ -1183,64 +1103,6 @@ export default {
         ],
       },
     },
-
-    // --- Business/chart + music + sightings depth pass (2026-07-05) ---
-    {
-      significance: 'notable', // her first-ever Hot 100 #1, the chart record that opened the era's whole commercial run (docs/decisions.md, 2026-07-19)
-      year: 2012,
-      month: 8,
-      day: 22,
-      category: 'business',
-      title: "'We Are Never Ever Getting Back Together' becomes her first-ever Hot 100 No. 1",
-      // Era-timeline milestone + video (issue #616, 2026-07-29): moved here
-      // from the now-deleted duplicate stub `red-wanegbt`, which told the
-      // same single's chart-topping story in two sentences with no sources.
-      milestone: { id: "m-red-0", label: "First #1 single", kind: "award" },
-      video: { youtubeId: "WA4iX5D9Z64", title: "Taylor Swift - We Are Never Ever Getting Back Together" },
-      snippet:
-        "Red's lead single leapt from No. 72 to No. 1 in a single week — her first career Hot 100 chart-topper on her 46th entry, after 'You Belong With Me' and 'Today Was a Fairytale' had both stalled at No. 2.",
-      sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/4/40/We_Are_Never_Ever_Getting_Back_Together.png',
-      moment: {
-        context:
-          "The song sold 623,000 downloads in its first week — the highest one-week digital sales total ever by a female artist at the time, and second all-time behind only Flo Rida's \"Right Round.\" It entered the Hot 100 Airplay chart at No. 25 before jumping to No. 14 the next week on a 29% surge in radio audience. The single led the rollout for Red's October 22 release, arriving as Taylor's first Hot 100 No. 1 after two previous singles had each peaked at No. 2.\n\nThe song itself was written almost by accident: a friend of an ex dropped by the studio while Taylor was working with Max Martin and Shellback and mentioned rumors the couple were reconciling — after the friend left, Taylor picked up an acoustic guitar, improvised the refrain on the spot, and the three finished the song in about 25 minutes. It went on to spend three non-consecutive weeks at No. 1 and pick up a Record of the Year nomination at the Grammys — even as country radio kept it out of the Country Airplay top ten, an early flashpoint in the was-she-still-country debate that shadowed the whole album.",
-        sources: [
-          {
-            outlet: 'The Hollywood Reporter',
-            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
-          },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/We_Are_Never_Ever_Getting_Back_Together' },
-          // Merged (issue #616 dedup) from the now-deleted duplicate
-          // `red-wanegbt` stub, which a later vault pass had sourced.
-          {
-            outlet: 'Stereogum',
-            url: 'https://stereogum.com/2247416/the-number-ones-taylor-swifts-we-are-never-ever-getting-back-together/columns/the-number-ones',
-            source_title: 'The Number Ones: Taylor Swift\'s "We Are Never Ever Getting Back Together"',
-            publisher: 'Stereogum',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-        ],
-        // Photo-enrichment pass (2026-07-18, #762): single cover viewed — face sits top-left,
-        // so the focal point pulls up-left. Added the 2013 Grammys ringmaster performance of
-        // this song (the ceremony where it was up for Record of the Year, per context above);
-        // PopCrush's own article image, curl-verified 200 + image/webp, vision-confirmed.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/4/40/We_Are_Never_Ever_Getting_Back_Together.png',
-            credit: 'Big Machine Records',
-            focalPoint: '30% 20%',
-          },
-          {
-            url: 'https://townsquare.media/site/252/files/2013/02/TaylorSwift1.jpg?w=980&q=75',
-            credit: 'Getty Images / PopCrush',
-            focalPoint: '45% 28%',
-          },
-        ],
-      },
-    },
     {
       significance: 'notable', // a genuine, outright genre-tour gross record when it closed (docs/decisions.md, 2026-07-19)
       year: 2014,
@@ -1331,33 +1193,6 @@ export default {
             credit: 'Raph_PH, Wikimedia Commons (CC BY 2.0)',
             caption: 'Kacey Musgraves, whose debut Same Trailer Different Park won Best Country Album over Red.',
             kind: 'reference',
-          },
-        ],
-      },
-    },
-    {
-      year: 2012,
-      month: 10,
-      day: 16,
-      category: 'music',
-      title: 'State of Grace opens Red with her first arena-rock swing',
-      snippet:
-        'A "howling, U2-style epic with reverb-drenched guitars," per Rolling Stone — Taylor\'s own description was simpler: "This sounds like the feeling of falling in love in an epic way."',
-      sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/state-of-grace',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/8/8a/Taylor_Swift_-_State_of_Grace.png',
-      moment: {
-        context:
-          'Previewing the song on Good Morning America, Taylor explained: "I wrote this song about when you first fall in love with someone. The possibilities. Kind of thinking about the different ways that it could go."\n\nOn the sound she added: "It\'s a really big sound. To me, this sounds like the feeling of falling in love in an epic way" — a deliberate departure into arena rock that opens the album before its country roots resurface. A stripped-down acoustic version included on the Target-exclusive edition was, in her words, "really acoustic and like emotional and sweet."',
-        sources: [{ outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/state-of-grace' }],
-        // Real-photo pass (2026-07-09): promotional single cover from Wikipedia's
-        // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/8a/Taylor_Swift_-_State_of_Grace.png',
-            credit: 'Big Machine Records',
-            caption: 'Promotional single cover for "State of Grace," released ahead of the album in October 2012.',
-            kind: 'primary',
           },
         ],
       },
@@ -1577,237 +1412,6 @@ export default {
         ],
       },
     },
-
-    // --- Deep timeline fill (2026-07-08): release/tour/business/relationship
-    // depth for an era that had 0 release items and 1 tour item. New items
-    // carry the audit's additive provenance fields (slug + publisher/
-    // source_type/accessed_at/reliability_score alongside legacy {outlet,url}),
-    // same convention as the-life-of-a-showgirl.mjs. Every claim verified
-    // against its cited source via search on 2026-07-08; no fabrication.
-    // Photos deliberately omitted where no already-verified image URL exists.
-    {
-      slug: 'red-announced-google-hangout',
-      year: 2012,
-      month: 8,
-      day: 13,
-      category: 'release',
-      title: 'Red announced live from her living room, on a Google+ Hangout',
-      snippet:
-        'A worldwide webcast from Nashville on August 13, 2012: the album title, the October 22 date, and — dropped the same night — a brand-new single called "We Are Never Ever Getting Back Together."',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
-      moment: {
-        context:
-          'More than 70,000 fans were watching at the stream\'s peak as she laid out the whole plan: a 16-track album called Red, out October 22, with her first outside co-writers since she wrote all of Speak Now solo — Ed Sheeran and Max Martin among them.\n\nShe explained the title as an emotional color-code, saying the songs were "all pretty much about the kind of tumultuous, crazy, insane, intense, semi-toxic relationships that I\'ve experienced in the last two years." Then she premiered "We Are Never Ever Getting Back Together," which went on to become her first career Hot 100 No. 1 — a direct-to-fans rollout she\'s been elaborating on ever since.',
-        sources: [
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
-            source_title: 'Red (Taylor Swift album)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-08',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-to-release-new-red-album-in-october-191751/',
-            source_title: "Taylor Swift to Release New 'Red' Album in October",
-            publisher: 'Rolling Stone',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-09',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'The Hollywood Reporter',
-            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
-            source_title: "Taylor Swift's New Single Hits No. 1 on Hot 100",
-            publisher: 'The Hollywood Reporter',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-        ],
-        // Photo-enrichment pass (2026-07-18, #762): added the webcast still itself — Taylor
-        // in the living room with fans, Red cover on the screen behind her — from Taste of
-        // Country's own announcement-day article. Curl-verified 200 + image/webp, vision-
-        // confirmed as the Aug 13, 2012 Google+ Hangout. Cover art focal matches the copy
-        // on the Grammys-noms page.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
-            credit: 'Big Machine Records',
-            focalPoint: '50% 32%',
-          },
-          {
-            url: 'https://townsquare.media/site/204/files/2012/08/TaylorSwiftRed.jpg?w=980&q=75',
-            credit: 'YouTube webcast still / Taste of Country',
-            focalPoint: '46% 42%',
-          },
-        ],
-      },
-    },
-    {
-      slug: 'red-ronan-stand-up-to-cancer',
-      year: 2012,
-      month: 9,
-      day: 8,
-      category: 'music',
-      title: 'Ronan, a charity single built from a grieving mother\'s blog',
-      snippet:
-        'Written from Maya Thompson\'s blog posts about her son Ronan, who died of neuroblastoma at three — Thompson gets a co-writing credit, and every dollar went to fighting cancer.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Ronan_(song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
-      moment: {
-        context:
-          'Taylor debuted the song live at the Stand Up to Cancer telethon on September 8, 2012, and released it as an iTunes-exclusive the same night, with all proceeds donated to cancer charities. She assembled the lyrics from direct quotes in Thompson\'s blog about her son, crediting her as co-writer — with Thompson\'s share of the proceeds going to her Ronan Thompson Foundation. The song reached No. 16 on the Hot 100 and was certified gold, and Thompson told MTV that Taylor "got it in a way that most people don\'t."\n\nSwift has treated the song as close to unperformable since: she has sung it live only twice, at the 2012 telethon and again on August 17, 2015 in Glendale, Arizona, when Thompson attended the 1989 World Tour. She re-recorded it for Red (Taylor\'s Version) in 2021 — after writing to Thompson for permission, explaining that Red was "an album of heartbreak and healing ... and of the loss of an imagined future alongside someone."',
-        sources: [
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Ronan_(song)',
-            source_title: 'Ronan (song)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-08',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-debuts-ronan-at-stand-up-to-cancer-benefit-122781/',
-            source_title: "Taylor Swift Debuts 'Ronan' at Stand Up To Cancer Benefit",
-            publisher: 'Rolling Stone',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-        ],
-        // Real-photo pass (2026-07-09): Wikimedia Commons hosts a public-domain
-        // vector replica of the text-only "Ronan" single cover (the artwork is
-        // below the threshold of originality). Faithful to the real cover but not
-        // the original raster file, so kind 'reference' with an honest caption.
-        // Verified HTTP 200 + image/png this session.
-        // Photo-enrichment audit (2026-07-18, #762): stays at one image. No reachable
-        // outlet-CDN photo depicts the SU2C telecast performance itself — Taste of Country's
-        // own article images are a dead placeholder (Ronan.jpg) and an off-hook 2012 VMAs
-        // red-carpet close-up (TaylorSwiftCP.jpg), both downloaded and viewed this run; the
-        // telecast stills live only on watermarked wire services. Cover viewed: text block
-        // sits in the upper-middle of the square, so the focal point rides slightly high.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
-            credit: 'Big Machine Records (vector replica via Wikimedia Commons)',
-            caption: 'The "Ronan" single cover — shown here as a faithful vector replica of the text-only artwork, hosted on Wikimedia Commons.',
-            kind: 'reference',
-            focalPoint: '50% 42%',
-          },
-        ],
-      },
-    },
-    {
-      slug: 'red-begin-again-single',
-      // Cross-link (Stage 3, 2026-08-06): the "Begin Again" cluster — the
-      // single, and its music-video companion piece.
-      relatedIds: ['moment:vault-red-begin-again-as-the-soft-landing'],
-      year: 2012,
-      month: 10,
-      day: 1,
-      category: 'release',
-      title: 'Begin Again sends a country valentine ahead of the pop swerve',
-      snippet:
-        'Sent to country radio October 1 (after a Sept. 25 digital release), three weeks before the album — a soft, waltzing country ballad about a first date that heals, deliberately reassuring country radio before Red\'s dubstep drop landed.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/1/1e/Taylor_Swift_-_Begin_Again.png',
-      moment: {
-        context:
-          'The second track released from Red, sent to country radio as a counterweight to the pop-leaning lead single. Taylor described it as a song about "when you\'ve gotten through a really bad relationship and you finally dust yourself off and go on that first date after a horrible breakup."\n\nIt debuted and peaked at No. 7 on the Hot 100 on release-week downloads and earned a Grammy nomination for Best Country Song. The Philip Andelman video — a solitary, contemplative walk through Paris that ends at a café — was, in her words, a "love letter" to the city, about "somebody moving on and finding yourself again."',
-        sources: [
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)',
-            source_title: 'Begin Again (Taylor Swift song)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-08',
-            reliability_score: 2,
-          },
-        ],
-        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
-        // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
-        // Photo-enrichment pass (2026-07-18, #762): added a Commons shot of her performing
-        // this exact song on the Red Tour B-stage (Tacoma Dome; uploader's description names
-        // "Begin Again"). CC BY-SA 2.0, curl-verified 200 + image/jpeg, vision-confirmed —
-        // solo under a spotlight on the riser, which is how the song was staged.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Taylor_Swift_-_Begin_Again.png',
-            credit: 'Big Machine Records',
-            caption: 'Single cover art for "Begin Again," released October 1, 2012.',
-            kind: 'primary',
-            focalPoint: '62% 30%',
-          },
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_-_Red_Tour_-_Tacoma_Dome_-_Begin_Again_on_B-stage.jpg',
-            credit: 'Selbe Lynn / Wikimedia Commons (CC BY-SA 2.0)',
-            caption: 'Performing "Begin Again" alone on the B-stage riser during the Red Tour at Tacoma Dome.',
-            kind: 'primary',
-            focalPoint: '50% 42%',
-          },
-        ],
-      },
-    },
-    {
-      slug: 'red-title-track-names-the-album',
-      year: 2012,
-      month: 10,
-      day: 2,
-      category: 'music',
-      title: 'Red, the song that named the record',
-      snippet:
-        'Loving him was like driving a new Maserati down a dead-end street — the title track\'s color-coded theory of a relationship whose emotions ran too hot to be anything but red.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/c/c0/Taylor_Swift_-_Red_%28Single%29.png',
-      moment: {
-        context:
-          'Taylor has explained that the album took its name from this song\'s central idea: the semi-toxic relationships she was writing about were defined by intense, burning emotion — red — rather than the blues and grays of ordinary heartbreak. The lyric maps feelings to colors directly: losing him was blue, missing him was dark gray, loving him was red. She wrote it on September 7, 2011, on the flight home to Nashville after a Tacoma, Washington show, homesick and still mid-tour.\n\nOn release week the track debuted at No. 6 on the Hot 100 on album-preview downloads, then became the album\'s fifth single in June 2013, peaking at No. 2 on Hot Country Songs across a 42-week run — at the time the longest-charting single of her career. Its biggest television moment came at the November 2013 CMA Awards, reworked acoustically with Alison Krauss on fiddle and Vince Gill on harmony.',
-        sources: [
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)',
-            source_title: 'Red (Taylor Swift song)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-08',
-            reliability_score: 2,
-          },
-        ],
-        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
-        // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
-        // Photo-enrichment pass (2026-07-18, #762): added a Red Tour live close-up (Jana
-        // Zills, St. Louis, March 2013 — CC BY 2.0, curl-verified 200 + image/jpeg, vision-
-        // confirmed): red gown at the red crystal mic, the album's signature color on stage.
-        // An era-performance shot, not a photo of the writing session — no photo of that
-        // exists; flagged here for honesty.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/c/c0/Taylor_Swift_-_Red_%28Single%29.png',
-            credit: 'Big Machine Records',
-            caption: 'Single cover art for "Red," the album\'s fifth single.',
-            kind: 'primary',
-            focalPoint: '28% 15%',
-          },
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Red_Tour_4%2C_2013.jpg',
-            credit: 'Jana Zills / Wikimedia Commons (CC BY 2.0)',
-            caption: 'On the Red Tour in St. Louis, March 2013 — red gown, red crystal mic.',
-            kind: 'archival',
-            focalPoint: '46% 24%',
-          },
-        ],
-      },
-    },
     {
       slug: 'red-conor-kennedy-split',
       // Cross-link (Stage 3, 2026-08-06): the "Conor Kennedy" cluster — how
@@ -1848,19 +1452,14 @@ export default {
             reliability_score: 4,
           },
         ],
-        // T16 full-standard pass (2026-07-09): real paparazzi photo of the
-        // couple from the Hyannis Port summer (E! Online's "Romance Rewind"
-        // gallery, agency-credited "Paul Adao/INFphoto.com" in the gallery's
-        // own metadata). The item is about the October split, so the summer
-        // photo ships as kind 'archival' with a dated caption. Verified
-        // HTTP 200 + image/jpeg + subject visually confirmed this session.
+        // Distinct archival photo from E! Online's cited "Romance Rewind"
+        // gallery, verified live via the image-liveness probe (2026-08-24).
         photos: [
           {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg',
-            // Two figures wading, faces in the upper third of the tall frame.
-            focalPoint: '45% 28%',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012722/634.ConorKennedy.TaylorSwift.081912.jpeg',
+            focalPoint: '50% 28%',
             credit: 'Paul Adao/INFphoto.com, via E! Online',
-            caption: 'Taylor and Conor Kennedy on the shore at Hyannis Port in August 2012 — the summer that quietly ended that October.',
+            caption: 'Taylor with Conor Kennedy during an Aug. 19, 2012 visit to his mother\'s gravesite — one of their last photographed outings before the split.',
             kind: 'archival',
           },
         ],
@@ -1871,7 +1470,7 @@ export default {
       // Cross-link (Stage 3, 2026-07-27): sibling "I Knew You Were Trouble"
       // moments.
       relatedIds: [
-        'moment:vault-red-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
+        'moment:vault-speak-now-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
         'moment:vault-red-i-knew-you-were-trouble-goes-global',
       ],
       year: 2012,
@@ -1983,7 +1582,7 @@ export default {
       // Martin/Shellback single and to the album itself. Both target ids
       // verified present in content-vault.generated.ts.
       relatedIds: [
-        'moment:vault-red-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
+        'moment:vault-speak-now-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
         'moment:vault-red-red-heartbreak-in-every-genre',
       ],
       year: 2013,
@@ -2429,78 +2028,6 @@ export default {
         ],
       },
     },
-    {
-      slug: 'red-taylors-version-number-one',
-      threadIds: ['taylors-version'],
-      year: 2021,
-      month: 11,
-      day: 21,
-      category: 'business',
-      significance: 'notable', // a real chart record (fastest to four #1s, breaking a 46-year-old Elton John mark), but one of four TV chart debuts rather than a career-wide top-40 event (docs/decisions.md, 2026-07-19)
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-red-3", label: "Red (TV) opens at #1", kind: "album" },
-      relatedIds: ['moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he'],
-      title: 'Red gets its do-over: Red (Taylor\'s Version) opens at No. 1',
-      snippet:
-        "Nine years later, the re-recording debuted atop the Billboard 200 with 605,000 units — 2021's biggest sales week for any album to that point, her tenth No. 1, and the fastest run to four chart-toppers by a solo artist, breaking Elton John's 1975 record.",
-      sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-tenth-number-one-album-billboard-200-red-taylors-version-1235000860/',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
-      moment: {
-        context:
-          'Of the 605,000 first-week units (week ending Nov. 18, 2021), 369,000 were pure album sales — 2021\'s biggest sales week for any album to that point, a mark Adele\'s 30 topped a week later — including 114,000 on vinyl, at the time the largest vinyl sales week of the modern chart era. The 30-track set, including nine from-the-vault songs and the 10-minute "All Too Well," gave Taylor her tenth Billboard 200 No. 1 and made her the fastest solo artist ever to notch four chart-toppers, in under 16 months — breaking a 46-year-old Elton John record.\n\nThe streaming side told the same story: 303 million on-demand streams, the biggest streaming week ever recorded for a country album. The tenth No. 1 also put her in company only Barbra Streisand (with 11) had reached among women — a chart footnote that doubled as vindication for the re-recording project itself.',
-        sources: [
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-tenth-number-one-album-billboard-200-red-taylors-version-1235000860/',
-            source_title: "Taylor Swift's 'Red (Taylor's Version)' Debuts at No. 1 on Billboard 200",
-            publisher: 'Billboard',
-            source_type: 'chart_database',
-            accessed_at: '2026-07-08',
-            reliability_score: 5,
-          },
-          {
-            outlet: 'Forbes',
-            url: 'https://www.forbes.com/sites/hughmcintyre/2021/11/21/taylor-swift-earns-her-milestone-tenth-no-1-album-with-red-taylors-version/',
-            source_title: "Taylor Swift Earns Her Milestone Tenth No. 1 Album With 'Red (Taylor's Version)'",
-            publisher: 'Forbes',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/chart-beat/adele-30-billboard-200-albums-chart-debut-1235003213/',
-            source_title: "Adele's '30' Debuts Atop the Billboard 200 With 2021's Biggest Sales Week",
-            publisher: 'Billboard',
-            source_type: 'chart_database',
-            accessed_at: '2026-07-08',
-            reliability_score: 5,
-          },
-        ],
-        // Photo-enrichment pass (2026-07-18, #762): added the official All Too Well: The
-        // Short Film frame (Sadie Sink and Dylan O'Brien) — the campaign centerpiece of this
-        // exact chart week, released Nov 12, 2021, and the vehicle for the 10-minute track
-        // this page's context credits for the record. Official Taylor Swift channel
-        // thumbnail via i.ytimg.com (same pattern as the vault's other official-video
-        // stills), curl-verified 200 + image/jpeg, vision-confirmed.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
-            credit: 'Republic Records',
-            focalPoint: '45% 42%',
-          },
-          {
-            url: 'https://i.ytimg.com/vi/tollGa3S0o8/maxresdefault.jpg',
-            credit: 'Republic Records / Taylor Swift via YouTube',
-            caption: 'Sadie Sink and Dylan O\'Brien in All Too Well: The Short Film, released with Red (Taylor\'s Version) the same chart week.',
-            kind: 'archival',
-            focalPoint: '52% 40%',
-          },
-        ],
-      },
-    },
 
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
@@ -2539,45 +2066,6 @@ export default {
           },
         ],
         context: "Red is maximalist and messy on purpose — dubstep drops next to acoustic confessionals, all of it about one crimson-colored heartbreak.\n\nThe centerpiece, a ten-minute epic, would return years later as a cultural event of its own.",
-      },
-    },
-    // Duplicate stub removed (issue #616, 2026-07-29): told the same "We Are
-    // Never Ever Getting Back Together" chart-topping story as the richer,
-    // sourced item above in two sentences with no sources; its milestone
-    // marker (m-red-0) and video field moved there.
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "red-begin-again",
-      year: 2012,
-      month: 10,
-      day: 1,
-      category: "music",
-      title: "“Begin Again” as the soft landing",
-      snippet: "A gentle promotional single about hope after heartbreak.",
-      video: { youtubeId: "cMPEd8m79Hw", title: "Taylor Swift - Begin Again" },
-      moment: {
-        sources: [
-          {
-            outlet: 'HuffPost',
-            url: 'https://www.huffpost.com/2012/09/24/taylor-swift-begin-again_n_1909027.html',
-            source_title: 'Taylor Swift\'s \'Begin Again\' Previewed On \'Good Morning America\'',
-            publisher: 'HuffPost',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Taste of Country',
-            url: 'https://tasteofcountry.com/taylor-swift-begin-again-preview/',
-            source_title: 'Taylor Swift Samples New Song \'Begin Again\' on \'Good Morning America\'',
-            publisher: 'Taste of Country',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
       },
     },
     {
@@ -2777,6 +2265,319 @@ export default {
             caption:
               'Taylor at the "Good Morning America" studio on Oct. 22, 2012, the night before her Times Square concert marking the Red release.',
             kind: 'reference',
+          },
+        ],
+      },
+    },
+
+    {
+      // Cross-link (Stage 3, 2026-07-27): the "Shake It Off" cluster — its
+      // meaning, the era-launch milestone, its Diamond certification, and the
+      // Stonewall Pride surprise performance — now interlink.
+      relatedIds: [
+        'moment:vault-red-shake-it-off-launches-the-era',
+        'moment:vault-lover-shake-it-off-becomes-her-first-diamond-certified-single',
+        'moment:vault-reputation-a-surprise-shake-it-off-at-the-stonewall-inn-for-prides-50th',
+      ],
+      year: 2014,
+      month: 8,
+      day: 18,
+      category: 'music',
+      title: 'Shake It Off, and the pivot from victim to punchline-maker',
+      snippet: 'The tonal opposite of Mean — critics get a shrug and a wink instead of a wound.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Shake_It_Off',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg',
+      moment: {
+        context:
+          "In her Rolling Stone cover story that fall, she spelled out the shift: \"Mean\" had answered critics \"from kind of a victimized perspective,\" while years of having \"every part of my life dissected — my choices, my actions, my words, my body, my style, my music\" taught her a different response: \"you can either let it break you, or you can get really good at dodging punches.\"\n\nWritten and produced with Max Martin and Shellback — she pictured it as the song that drags reluctant dancers onto the floor at a wedding — it dropped the same day as the album-announcement livestream and entered the Hot 100 at No. 1, just the 22nd song ever to debut on top. Four nonconsecutive weeks at No. 1 later, it was on its way to becoming her first Diamond-certified single.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Shake_It_Off' },
+          { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/the-reinvention-of-taylor-swift-116925/' },
+        ],
+        // Focal point 2026-07-20 (by eye): reference frame from the "Shake It
+        // Off" video — a vertical crop with Taylor's face near the top.
+        // Photo pass (2026-07-20, #762): 2nd verified frame from the same
+        // official video (id nfWlot6h_JM, oEmbed author "Taylor Swift";
+        // maxresdefault curl-verified 200 image/jpeg, downloaded and viewed).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg',
+            focalPoint: '48% 16%',
+            credit: 'Big Machine Records',
+            caption: 'A frame from the "Shake It Off" video — the all-black look on the bare white soundstage.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/maxresdefault.jpg',
+            focalPoint: '50% 46%',
+            credit: 'Taylor Swift / Big Machine Records, via YouTube',
+            caption: 'The hip-hop dance-crew scene from the same official "Shake It Off" video — the self-deprecating punchline in motion.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+
+    // --- Sightings depth pass (2026-07-05): candid, real-world public-
+    // appearance moments per the founder's request — squad outings, July 4th
+    // Rhode Island parties, Calvin Harris/Tom Hiddleston dating-era candids,
+    // and an airport look. Every photo URL hotlinked to the outlet's own CDN
+    // and checked for a 2xx image response before being added.
+    {
+      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
+      relatedIds: [
+        'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+      ],
+      year: 2014,
+      month: 7,
+      category: 'sighting',
+      title: 'A rain-soaked Fourth of July family portrait in Rhode Island',
+      snippet:
+        "Emma Stone, Lena Dunham, and a Slip 'N Slide built to fight the rain — the first of what became an annual squad tradition at her Rhode Island beach house.",
+      sourceUrl: 'https://www.eonline.com/news/557177/taylor-swift-has-amazing-fourth-of-july-weekend-poses-for-family-portrait-with-9-pals-see-the-photos',
+      thumbnailUrl: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2014/07/swift-king/taylor-swift-emma-stone-fourth-of-july-weekend-04.jpg',
+      moment: {
+        context:
+          "Taylor hosted Emma Stone, Jaime King, Ingrid Michaelson, Jessica Stam, Jessica Szohr, and Girls creator Lena Dunham, among others, for the 2014 holiday weekend at her Rhode Island house.\n\nRain didn't stop the group — they built a giant Slip 'N Slide, baked an American-flag cake, and posed for a group \"family portrait\" that Dunham photobombed with a mock scowl and a raised middle finger. \"When the 4th of July gives you nonstop rain, make a giant slip n slide,\" Taylor captioned one photo. Dunham called the weekend her personal Coachella.",
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/557177/taylor-swift-has-amazing-fourth-of-july-weekend-poses-for-family-portrait-with-9-pals-see-the-photos',
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/864384/taylor-swift-s-4th-of-july-party-squad-a-visual-guide',
+          },
+        ],
+        // Image-fix pass (2026-07-10): #173 — old photo was a Slip 'N Slide action shot
+        // (a guest on an inflatable turtle), not the posed "family portrait." Swapped for
+        // Just Jared's actual full-resolution group couch photo from the same weekend (curl-
+        // verified 200/image-jpeg, downloaded and visually confirmed the full posed squad,
+        // Taylor included, on a couch — matching the moment's "family portrait" description).
+        photos: [{ url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2014/07/swift-king/taylor-swift-emma-stone-fourth-of-july-weekend-04.jpg', credit: 'Just Jared', kind: 'archival', caption: "The posed \"family portrait\" from the rain-soaked July 2014 Rhode Island weekend." }],
+      },
+    },
+    {
+      // Cross-link (Stage 3, 2026-07-30): the "Out of the Woods" pair — the
+      // writing-room voice memo and the video that closed the era — now
+      // interlink.
+      relatedIds: ['moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve'],
+      year: 2014,
+      month: 10,
+      day: 14,
+      category: 'music',
+      title: 'Out of the Woods: a voice memo written to Jack Antonoff\'s track mid-flight',
+      snippet:
+        'She called it the song that "best represents" the album — built around a real snowmobile accident and twenty stitches she\'d kept out of the tabloids.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg',
+      moment: {
+        context:
+          "Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Taylor on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track.\n\nThe bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time.",
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)' }],
+        // Photo-enrichment pass (2026-07-18, #762): added the blizzard frame from the
+        // official Out of the Woods video (id oEmbed-verified against @TaylorSwift;
+        // downloaded and visually confirmed). Focal points set per image by viewing.
+        // Karen #877 fix (2026-07-19): same frame upgraded hq2 (480x360, 6KB)
+        // -> maxres2 (1280x720); downloaded and vision-confirmed identical.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg',
+            credit: 'Big Machine Records / Taylor Swift via YouTube',
+            kind: 'archival',
+            focalPoint: '48% 42%',
+            caption: "Frost-covered mid-blizzard — a still from Joseph Kahn's official 'Out of the Woods' video, premiered on New Year's Eve 2015.",
+          },
+        ],
+      },
+    },
+
+    // --- Deep timeline fill (2026-07-08): release/tour depth for an era that
+    // had 0 release items, plus the rollout, fan-culture, and business moments
+    // the era is famous for. New items carry the audit's additive provenance
+    // fields (slug + publisher/source_type/accessed_at/reliability_score
+    // alongside legacy {outlet,url}), same convention as
+    // the-life-of-a-showgirl.mjs. Every claim verified against its cited
+    // source via search on 2026-07-08; no fabrication. Photos deliberately
+    // omitted where no already-verified image URL exists.
+    {
+      slug: '1989-announced-yahoo-livestream',
+      year: 2014,
+      month: 8,
+      day: 18,
+      category: 'release',
+      title: 'A Yahoo livestream announces 1989 — her "first documented, official pop album"',
+      snippet:
+        'August 18, 2014: a worldwide livestream reveals the album title, the October 27 date, the Polaroid cover — and drops "Shake It Off" plus its video the same day.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/1989_(album)',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
+      moment: {
+        context:
+          'On the livestream she declared the record her first documented, official pop album, formally closing the country chapter the Red era had already strained — a pivot her own label resisted. Big Machine\'s Scott Borchetta, hearing the finished album, asked her to add country tracks with fiddle; she refused, reasoning that "if you chase two rabbits, you lose them both," and the label settled for not promoting it to country radio at all.\n\nMax Martin came aboard as co-executive producer to keep the synth-pop palette cohesive, "Shake It Off" dropped the same day and entered the Hot 100 at No. 1, and naming the album for her birth year — fronted by a Polaroid crop that cut off her face — set the visual language for everything that followed.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/1989_(album)',
+            source_title: '1989 (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Shake_It_Off',
+            source_title: 'Shake It Off',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18, #762): added the signature frame from the
+        // Shake It Off video, which dropped the same day as this livestream (id
+        // oEmbed-verified against @TaylorSwift; downloaded and visually confirmed).
+        // Album-cover focalPoint matches the same image on the 2025 Diamond item.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
+            credit: 'Big Machine Records',
+            focalPoint: '50% 38%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/maxresdefault.jpg',
+            credit: 'Big Machine Records / Taylor Swift via YouTube',
+            kind: 'archival',
+            focalPoint: '50% 48%',
+            caption: "The 'Shake It Off' video's most-talked-about scene — the single and video dropped the same day as the livestream reveal.",
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-welcome-to-new-york-schools',
+      year: 2014,
+      month: 10,
+      day: 20,
+      category: 'music',
+      title: 'Welcome to New York, with the proceeds going to the city\'s schools',
+      snippet:
+        'The synth-drenched opener that announced the move to New York — and whose sales she donated to New York City public schools.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Track one of 1989 doubled as a mission statement for the era\'s move from Nashville to Manhattan — she\'d relocated in April 2014, and put the song first to mark the city as a formative influence on the record\'s "wide-eyed optimism." She wrote and produced it with Ryan Tedder, who programmed the first draft on a Juno-106 synth in about three hours.\n\nActual New Yorkers were split — critics called the portrait idealized, one noting it skipped the subway rats and closet-sized bedrooms — but the charity piece was concrete: in February 2015 the Department of Education confirmed a $50,000 donation from the single\'s sales, more than a first-year NYC public school teacher\'s starting salary at the time.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(song)',
+            source_title: 'Welcome to New York (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-donated-50k-new-york-public-schools-welcome-to-new-york-6480453/',
+            source_title: "Taylor Swift Donated $50k to NYC Public Schools From 'Welcome to New York' Sales",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NYC & Company',
+            url: 'https://www.business.nyctourism.com/press-media/press-releases/nyc-company-announces-taylor-swift-as-new-york-citys-global-welcome-ambassa',
+            source_title: "NYC & Company Announces Taylor Swift as New York City's Global Welcome Ambassador",
+            publisher: 'NYC Tourism + Conventions',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg/960px-Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg',
+            focalPoint: '52% 16%',
+            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
+            kind: 'archival',
+            caption: "On the 1989 World Tour at Ford Field in Detroit, May 30, 2015 — the show opened every night with 'Welcome to New York' against a mock Manhattan skyline.",
+          },
+        ],
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-shake-it-off",
+      // Cross-links (depth pass 2026-08-12): the sibling moments this
+      // headline stub summarizes — the song's own story and its Diamond cert.
+      relatedIds: [
+        'moment:vault-red-shake-it-off-and-the-pivot-from-victim-to-punchline-maker',
+        'moment:vault-lover-shake-it-off-becomes-her-first-diamond-certified-single',
+      ],
+      year: 2014,
+      month: 8,
+      day: 18,
+      category: "music",
+      title: "“Shake It Off” launches the era",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-0", label: "“Shake It Off”", kind: "life" },
+      // Corrected 2026-08-11 with the citation added below: the debut was a
+      // Yahoo/ABC live-stream from the Empire State Building observation
+      // deck, not a stadium (TheWrap). The old wording contradicted the
+      // source this moment now cites.
+      snippet:
+        "A lead single announces the full pop pivot from the top of the Empire State Building.",
+      video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
+      moment: {
+        sources: [
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/taylor-swift-drops-shake-it-off-from-the-empire-state-building-video/',
+            source_title: 'Taylor Swift Drops \'Shake It Off\' From the Empire State Building (Video)',
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2014/08/27/taylor-swifts-shake-it-off-debuts-at-1/',
+            source_title: 'Taylor Swift\'s \'Shake It Off\' Debuts At No. 1',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          // Depth pass 2026-08-12 (rows-per-month audit): livestream details,
+          // Romanek video, 22nd-ever No. 1 debut, four weeks at No. 1, and
+          // the later Diamond certification verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Shake_It_Off',
+            source_title: 'Shake It Off — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
+        ],
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 114-char
+        // caption). Every figure verified against the sources above.
+        context:
+          "The whole pivot was announced in one afternoon. In a worldwide Yahoo/ABC livestream on August 18, 2014, from the Empire State Building's observation deck, she named the new album 1989, called it her first documented, official pop record, set the October 27 date, and dropped the lead single and its Mark Romanek-directed video on the spot. The video played the critics' harshest read of her — the awkward over-earnest dancer — for laughs, planting her mid-frame in troupes of professionals (ballet, breakdance, cheer squads) whose moves she cheerfully failed to keep up with.\n\nThe single became just the 22nd song in Hot 100 history to debut at No. 1, her second US No. 1 overall, and held the top spot for four nonconsecutive weeks while staying in the top ten for nearly six months. Years later the RIAA certified it Diamond — ten million units — making her the first woman with both a Diamond single and a Diamond album (Fearless).",
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/hqdefault.jpg',
+            focalPoint: '46% 55%',
+            credit: 'Big Machine Records / YouTube (official video still)',
+            caption: 'Taylor crawls through a row of dancers\' legs in the "Shake It Off" video — the lead single that opened the pop era.',
+            kind: 'primary',
           },
         ],
       },

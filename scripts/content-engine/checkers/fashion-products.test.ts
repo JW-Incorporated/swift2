@@ -35,6 +35,24 @@ describe('fashion-products check', () => {
     expect(await check([ring])).toEqual([]);
   });
 
+  it('flags named makeup products with a specific shade', async () => {
+    const makeup = fashion({
+      title: 'Pat McGrath built the Bejeweled red lip',
+      texts: { context: 'Pat McGrath Labs Legendary Wear lipstick in Elson 4.' },
+    });
+    const found = await check([makeup]);
+    expect(found).toHaveLength(1);
+    expect(found[0].title).toContain('beauty product');
+  });
+
+  it('does NOT flag a generic makeup look with no named retail product', async () => {
+    const look = fashion({
+      title: 'A dramatic makeup look',
+      texts: { context: 'Pat McGrath created a jeweled smoky cat-eye for the video.' },
+    });
+    expect(await check([look])).toEqual([]);
+  });
+
   it('does NOT flag couture / custom / atelier one-offs — no product page exists', async () => {
     const couture = fashion({ title: 'A gown', texts: { context: 'A custom off-white Schiaparelli Haute Couture gown.' } });
     const custom = fashion({ key: 'k2', texts: { context: 'A custom Etro gown for the medley.' } });

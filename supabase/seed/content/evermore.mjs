@@ -98,8 +98,7 @@ export default {
       snippet:
         'A fictional murder mystery, complete with a cheating husband, a framed mistress, and a sister for an alibi.',
       sourceUrl: 'https://en.wikipedia.org/wiki/No_Body,_No_Crime',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/IEPomqor2A8/hqdefault.jpg',
       moment: {
         context:
           'The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately.\n\nTaylor had written the song entirely alone while deep in a true-crime documentary and podcast phase, then sent Aaron Dessner a voice memo of the finished thing; the production leans all the way into its country staging, harmonica courtesy of Josh Kaufman. It even went to country radio as a single in January 2021, and when HAIM opened Eras Tour shows in 2023, it bumped "\'tis the damn season" to become the evermore set\'s opener.',
@@ -122,15 +121,9 @@ export default {
             reliability_score: 3,
           },
         ],
-        // Photo-enrichment pass (2026-07-29): added the official lyric-video
-        // still (YouTube channel "Taylor Swift", oEmbed-verified) alongside
-        // the cover; both downloaded and vision-confirmed.
+        // Official lyric-video still from the oEmbed-verified Taylor Swift
+        // channel, downloaded and vision-confirmed.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
-            focalPoint: '42% 45%',
-            credit: 'Republic Records',
-          },
           {
             url: 'https://i.ytimg.com/vi/IEPomqor2A8/hqdefault.jpg',
             focalPoint: '50% 50%',
@@ -285,11 +278,11 @@ export default {
       // Cross-link (Stage 3, 2026-07-27): sibling "Fearless (Taylor's
       // Version)" moments.
       relatedIds: [
-        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        'moment:vault-reputation-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
         'moment:vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas',
         'moment:vault-evermore-fearless-taylors-version-26-songs-six-from-the-vault',
-        'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1',
+        'moment:vault-evermore-red-gets-its-do-over-red-taylors-version-opens-at-no-1',
       ],
       title: 'Fearless (Taylor\'s Version) is the first re-recorded album ever to hit No. 1',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
@@ -405,7 +398,7 @@ export default {
       day: 22,
       category: 'business',
       significance: 'defining', // an unprecedented chart record for a song fans had wanted for a decade (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a', 'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1'],
+      relatedIds: ['moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a', 'moment:vault-evermore-red-gets-its-do-over-red-taylors-version-opens-at-no-1'],
       title: 'All Too Well (10 Minute Version) becomes the longest song ever to hit No. 1',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -413,12 +406,8 @@ export default {
       snippet:
         '10 minutes and 13 seconds — beating a nearly 50-year-old record held by Don McLean\'s "American Pie." Taylor\'s own reaction: "You guys sent a 10-minute song to Number One for the first time in history."',
       sourceUrl: 'https://www.guinnessworldrecords.com/news/2021/11/taylor-swifts-10-minute-all-too-well-is-longest-song-to-reach-no-1-683614',
-      // Image-fix pass (2026-07-10): tickets #193/#147 — old Guinness URL was a
-      // two-panel news collage (Red TV cover + premiere photo, visible seam).
-      // Swapped to the Red (Taylor's Version) cover art, already verified live
-      // (HTTP 200 + image/png) and in use elsewhere in this file.
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+        'https://i.ytimg.com/vi/tollGa3S0o8/maxresdefault.jpg',
       moment: {
         context:
           'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.\n\nBoth the song and its parent album debuted at No. 1 in the same week — "twin No. 1 chart debuts," per Variety — with Red (Taylor\'s Version) entering the Billboard 200 on top and the ten-minute cut bowing at No. 1 on the Hot 100, an unusually direct payoff for a track fans had spent nearly a decade asking her to release in full. The version was a "From the Vault" recording, a restored expansion of the 5:29 song from 2012\'s Red, and Taylor leaned the entire promotional push on it: she performed the full ten minutes on Saturday Night Live on Nov. 13, 2021 — one of the longest musical performances in the show\'s history — premiered the self-directed short film in New York, and surprised the theater audience with an acoustic set. The record it broke had stood since January 1972, so a fifty-year-old benchmark fell to a song most listeners already knew by heart.',
@@ -468,15 +457,6 @@ export default {
         // (the same two-panel collage flagged in the 2026-07-10 note above).
         // Each URL verified HTTP 200 + a real image/* content-type via curl.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
-            credit: 'Republic Records (album cover art)',
-            caption: "The Red (Taylor's Version) cover — \"All Too Well (10 Minute Version)\" is the album's centerpiece track that set the longest-No.-1-song record.",
-            kind: 'primary',
-            // Focal point set by viewing: her face sits left of center under
-            // the burgundy cap, ringed hand raised to the right.
-            focalPoint: '42% 46%',
-          },
           // Photo pass #762 (2026-07-18): still from All Too Well: The Short
           // Film — Sadie Sink and Dylan O'Brien forehead-to-forehead in the
           // car; the self-directed film is named in this page's context as a
@@ -1073,11 +1053,11 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moments.
-      relatedIds: [
-        'moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party',
-        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
-      ],
+      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moment.
+      // (issue #722, 2026-08-24: the Vanity Fair Oscar-party look was routed
+      // off the Speak Now timeline into the Runway thread, so that leg of
+      // the cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb'],
       year: 2021,
       month: 11,
       day: 11,
@@ -1254,7 +1234,7 @@ export default {
       snippet:
         "While Joe Alwyn wrapped filming in Belfast, she turned up at Shu Restaurant for staff selfies one night, then stayed for a local busker's entire three-hour set at The Tipsy Bird the next.",
       sourceUrl: 'https://www.rte.ie/entertainment/2021/0913/1246573-taylor-swift-thrills-fans-at-a-belfast-bar/',
-      thumbnailUrl: 'https://www.rte.ie/images/001825a9-500.jpg',
+      thumbnailUrl: 'https://www.rte.ie/images/001825a9-1000.jpg',
       moment: {
         context:
           'Taylor was in Belfast to support Joe Alwyn as he finished filming the BBC/Hulu adaptation of Sally Rooney\'s "Conversations with Friends." On Thursday, September 9, 2021, she dined at Shu Restaurant on the Lisburn Road and posed for selfies with staff, who posted that she "was so lovely and really is a beautiful person inside and out."\n\nThe next night, Friday September 10, she turned up at The Tipsy Bird cocktail bar in the city centre and stayed for musician Tiernán Heffron\'s full three-hour set, joining a singalong and tipping him afterward; Heffron said, "It\'s not everyday Taylor Swift walks into your gig and stays for your whole three hour set. She was the most lovely person!" The bar confirmed her visit and posed for a photo with its team.',
@@ -1265,7 +1245,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.rte.ie/images/001825a9-500.jpg',
+            url: 'https://www.rte.ie/images/001825a9-1000.jpg',
             credit: 'The Tipsy Bird via Facebook',
           },
         ],
@@ -1532,7 +1512,7 @@ export default {
         "Every re-recorded and vault track hit the Hot 100 at once — Billboard: \"the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100's history.\"",
       sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-26-songs-hot-100-red-taylors-version-1235001484/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+        'https://i.ytimg.com/vi/5UMCrq-bBCg/maxresdefault.jpg',
       moment: {
         context:
           'In the week ending Nov. 27, 2021, 26 tracks from Red (Taylor\'s Version) debuted on the Hot 100 simultaneously. Billboard: "Notably, with all the songs above new to the survey, the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100\'s history."\n\nThe same week, Taylor also extended her own record for the most simultaneously charted Hot 100 entries among women — a mark Summer Walker had tied just a week earlier. At the time, only Drake — with 27 total titles charted after Scorpion\'s 2018 release — had ever had more entries from one act on a single week\'s survey; Morgan Wallen has since surpassed both marks, with 36 songs in 2023 and 37 in 2025.',
@@ -1548,13 +1528,6 @@ export default {
           },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
-            credit: 'Republic Records',
-            // Focal point set by viewing: her face sits left of center under
-            // the burgundy cap, ringed hand raised to the right.
-            focalPoint: '42% 46%',
-          },
           // Photo pass #762 (2026-07-18): still from the official "I Bet You
           // Think About Me" video, released Nov. 15, 2021 — inside the very
           // chart week this page covers; it's one of the 26 debuting tracks.
@@ -1809,7 +1782,8 @@ export default {
       snippet:
         'The first From the Vault track ever released, out April 7, 2021 ahead of Fearless (Taylor\'s Version) — a 2008 castoff fans immediately read as a Joe Jonas song. Sophie Turner\'s Instagram verdict: "It\'s not NOT a bop."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mr._Perfectly_Fine',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-and-Sophie-Turner-billboard-1548-1617818770.jpg',
       moment: {
         context:
           'Written solo when she was 18 and left off the original Fearless, it introduced the vault-track format that became the re-recording project\'s signature: finished songs from each album\'s original sessions, released as new. Produced with Jack Antonoff for the 2021 release, it debuted at No. 90 on the Hot 100 and climbed to No. 30, reaching No. 2 on Hot Country Songs — remarkable mileage for a thirteen-year-old castoff.\n\nThen there was the subplot: fans immediately read the song as a Joe Jonas post-mortem, and Turner — married to Jonas at the time — posted it to her Instagram story with the now-famous verdict, "It\'s not NOT a bop." Taylor reposted her with a Game of Thrones bow, writing that she was "forever bending the knee" for the queen of the north.',
@@ -1846,13 +1820,6 @@ export default {
         // Stories, which have no permalink and expired within 24 hours;
         // nothing exists to embed.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',
-            focalPoint: '50% 30%',
-            credit: 'Republic Records (single cover art)',
-            caption: 'Cover artwork for "Mr. Perfectly Fine (Taylor\'s Version) (From the Vault)."',
-            kind: 'primary',
-          },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-and-Sophie-Turner-billboard-1548-1617818770.jpg',
             focalPoint: '50% 28%',
@@ -1943,9 +1910,6 @@ export default {
             reliability_score: 4,
           },
         ],
-        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
-        // upload.wikimedia.org copy (exact filename from the article HTML).
-        // URL verified HTTP 200 + image/png this session.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png',
@@ -2216,9 +2180,10 @@ export default {
     // them (the NSAI-speech item cites "ivy" as Taylor's flagship Quill lyric;
     // "'tis the damn season" names Dorothea as a character "whose namesake
     // track sits later on the album"). This pass authors ivy, dorothea and long
-    // story short so those hooks land somewhere. Sources: each song's Wikipedia
-    // page + Slate's evermore track-by-track (already trusted in this file, see
-    // gold rush). closure remains for a later run. Photos deferred to Photo
+    // story short so those hooks land somewhere. Sources: Wikipedia's evermore
+    // coverage (or the song page where one exists) + Slate's track-by-track
+    // (already trusted in this file, see gold rush). closure remains for a later
+    // run. Photos deferred to Photo
     // Enrichment: no lyric-video still could be id-verified in this headless env.
     {
       slug: 'ivy-clandestine-affair',
@@ -2229,7 +2194,7 @@ export default {
       title: "ivy, a clandestine affair that grows like the vine it's named for",
       snippet:
         'A married woman drawn into a secret affair that creeps from winter into spring like ivy — and the one song Taylor later named as her flagship "Quill" lyric, the most literary pen she owns.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
       thumbnailUrl: 'https://i.ytimg.com/vi/9nIOx-ezlzA/hqdefault.jpg',
       moment: {
         context:
@@ -2237,11 +2202,11 @@ export default {
         sources: [
           {
             outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
-            source_title: 'Ivy (Taylor Swift song)',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+            source_title: 'Evermore (album)',
             publisher: 'Wikipedia',
             source_type: 'wiki',
-            accessed_at: '2026-07-30',
+            accessed_at: '2026-08-24',
             reliability_score: 2,
           },
           {
@@ -2251,6 +2216,15 @@ export default {
             publisher: 'Slate',
             source_type: 'reputable_press',
             accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-nsai-songwriter-artist-decade-award-2022-speech-all-too-well-3314076',
+            source_title: "Taylor Swift wins NSAI's Songwriter-Artist of the Decade Award",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
             reliability_score: 4,
           },
         ],
@@ -2388,7 +2362,7 @@ export default {
       title: 'closure, the 5/4 kiss-off that turns down the tidy ending',
       snippet:
         'evermore\'s most experimental track: an off-kilter 5/4 song wrapped in clattering, industrial drums, where Taylor takes an olive branch from someone who wronged her and hands it straight back — "I don\'t need your closure."',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
       thumbnailUrl: 'https://i.ytimg.com/vi/AIFnKqIeEdY/hqdefault.jpg',
       moment: {
         context:
@@ -2396,11 +2370,11 @@ export default {
         sources: [
           {
             outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
-            source_title: 'Closure (Taylor Swift song)',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+            source_title: 'Evermore (album)',
             publisher: 'Wikipedia',
             source_type: 'wiki',
-            accessed_at: '2026-08-01',
+            accessed_at: '2026-08-24',
             reliability_score: 2,
           },
           {
@@ -2439,7 +2413,7 @@ export default {
       snippet:
         'Announced on Good Morning America on Feb. 11, 2021 and out that night — the first finished piece of the re-recording project, 13 years after the original, sounding almost eerily identical on purpose.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor%27s_Version)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/aXzVF3XeS8M/maxresdefault.jpg',
       moment: {
         context:
           'The announcement letter set the template the whole project would follow: a full album (Fearless) coming, vault tracks from the original sessions — and stray capital letters hiding the release date in plain sight for fans to decode.\n\nFans had technically heard the new recording already, via a snippet in a Match.com ad the previous December. The finished single debuted at No. 1 on Hot Country Songs, making her only the second artist ever — after Dolly Parton — to top a Billboard chart with both the original and re-recorded versions of the same song.',
@@ -2467,15 +2441,6 @@ export default {
         // upload.wikimedia.org copy (exact filename from the article HTML).
         // URL verified HTTP 200 + image/png this session.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png',
-            credit: 'Republic Records (single cover art)',
-            caption: 'Cover artwork for "Love Story (Taylor\'s Version)," the first re-recording released.',
-            kind: 'primary',
-            // Focal point set by viewing: she stands on the left in the white
-            // gown, face in the upper-left quarter, arm extended right.
-            focalPoint: '30% 25%',
-          },
           // Photo pass #762 (2026-07-18): still from the official "Love Story
           // (Taylor's Version)" lyric video — built from vintage fan-club
           // footage; this frame is a 2008-era clip of her making heart hands.
@@ -2512,6 +2477,10 @@ export default {
         'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
         // Cross-link (Stage 3, 2026-08-10): the vault-track format's debut.
         'moment:vault-evermore-mr-perfectly-fine-opens-the-vault',
+        // Cross-link (issue #719, item 3): back to the original 2008 release
+        // on a fearless surface — this era page is titled "Fearless
+        // (Taylor's Version)" but carried no link to the actual TV story.
+        'moment:vault-fearless-fearless-arrives-and-debuts-at-no-1-on-the-billboard-200',
       ],
       title: "Fearless (Taylor's Version): 26 songs, six from the vault",
       snippet:
@@ -2720,19 +2689,6 @@ export default {
             // dreamscape with the handwritten title dead center — genuinely
             // reads best centered; no face or subject to protect.
             focalPoint: '50% 50%',
-          },
-          // Photo pass #762 (2026-07-18): the single's own cover art — Swift
-          // in sunglasses and a striped shirt — from Wikipedia's stable
-          // upload.wikimedia.org copy (exact filename from the article HTML).
-          // curl 200 image/png 300x300, downloaded and vision-confirmed.
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/f/ff/Wildest_Dreams_%28Taylor%27s_Version%29_-_Taylor_Swift.png',
-            credit: 'Republic Records (single cover art)',
-            caption: 'The Wildest Dreams (Taylor\'s Version) cover — the artwork that appeared when the re-record surprise-dropped mid-TikTok trend.',
-            kind: 'primary',
-            // Focal point set by viewing: face in sunglasses upper-center-
-            // right, sunlit wall behind.
-            focalPoint: '55% 28%',
           },
         ],
       },
@@ -3200,96 +3156,6 @@ export default {
       },
     },
 
-    // Part B of #1141 (evermore↔folklore parity): the era had a Dec-11
-    // "willow leads / folklore's sister arrives" release-day card and the
-    // Dec-26 chart-double item, but no native beat for the *announcement
-    // itself* — the surprise-drop move that folklore's "Sixteen hours' notice"
-    // item gets in full. This is that beat. Dated Dec 10 (the announcement) to
-    // sit a day ahead of the Dec-11 release cluster, exactly as folklore's
-    // announcement beat sits a day ahead of its release. Verified this session
-    // (2026-08-02) against Wikipedia (Evermore album, fetched directly),
-    // Rolling Stone's announcement report, and Good Morning America (the
-    // birthday note + the simultaneous "willow" video premiere).
-    {
-      slug: 'evermore-surprise-announcement',
-      significance: 'defining', // the surprise drop repeated — proof folklore's no-rollout model was a method, not a one-off (mirrors folklore's Sixteen-hours beat)
-      year: 2020,
-      month: 12,
-      day: 10,
-      category: 'release',
-      title: "Doing the impossible twice: evermore's surprise announcement",
-      snippet:
-        '"To put it plainly, we just couldn\'t stop writing songs." Five months after folklore, a second surprise album — announced December 10, out at midnight eastern.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
-      thumbnailUrl: null,
-      relatedIds: [
-        'moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp',
-        'moment:vault-evermore-folklores-sister-arrives',
-      ],
-      moment: {
-        context:
-          'Five months after folklore appeared with barely a day\'s warning, Taylor did the thing that was supposed to be a one-time trick a second time. On December 10, 2020 she posted that "my 9th studio album, and folklore\'s sister record, will be out tonight at midnight eastern. It\'s called evermore." Hours later the record and the "willow" music video arrived together — no lead single, no countdown, no rollout, just the note, the cover art, the track list, and then the songs.\n\nThe note framed evermore not as leftover folklore material but as a deliberate walk further in: "To put it plainly, we just couldn\'t stop writing songs. To try and put it more poetically, it feels like we were standing on the edge of the folklorian woods and had a choice: to turn and go back or to travel further into the forest of this music. We chose to wander deeper in." The collaborators came with her — Aaron Dessner and Jack Antonoff producing, Bon Iver on the title-track duet, HAIM on "no body no crime," and the returning "William Bowery" (Joe Alwyn), with the National and Marcus Mumford in the credits.\n\nThe timing carried her own numerology. evermore landed two days before her 31st birthday, and she said so in the note: "Ever since I was 13, I\'ve been excited about turning 31 because it\'s my lucky number backwards, which is why I wanted to surprise you with this now. You\'ve all been so caring, supportive and thoughtful on my birthdays and so this time I thought I would give you something!" She added that she knew the holiday season "will be a lonely one for most of us," offering the album to anyone who, like her, turns to music to cope with missing people. What folklore had proved a surprise album *could* do, evermore proved she could do on purpose — and the double No. 1 debut that followed (told in this era\'s chart items) made it twice in a single year, a feat no artist had pulled off even once before.',
-        sources: [
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Evermore_(album)',
-            source_title: 'Evermore (album)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-08-02',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-evermore-album-surprise-1101630/',
-            source_title: "Taylor Swift Announces Ninth Album 'Evermore'",
-            publisher: 'Rolling Stone',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-02',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Good Morning America',
-            url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-announces-surprise-9th-studio-album-evermore-74646424',
-            source_title: "Taylor Swift announces surprise 9th studio album 'evermore' to be released at midnight",
-            publisher: 'ABC / Good Morning America',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-02',
-            reliability_score: 4,
-          },
-        ],
-        // Photo (Photo Enrichment, 2026-08-13): the announcement itself was a
-        // self-recorded video message (mid-COVID, no public appearance), aired
-        // on GMA the same morning — ABC's own CDN, vision-confirmed as this
-        // exact clip, not a red-carpet or studio shot.
-        photos: [
-          {
-            url: 'https://s.abcnews.com/images/GMA/201210_gma_pop1_hpMain_16x9_992.jpg?w=992',
-            focalPoint: '48% 28%',
-            credit: 'ABC / Good Morning America',
-            caption:
-              'Taylor, in a self-recorded video message that aired on Good Morning America the morning of Dec. 10, 2020, announcing evermore\'s surprise midnight release.',
-            kind: 'primary',
-          },
-          // Photo Enrichment (2026-08-15): second photo so the page clears the
-          // 2-photo floor. "willow" (the lead single/video) premiered alongside
-          // the album at the midnight the announcement promised — official video,
-          // id RsEZmictANA re-verified via YouTube oEmbed this session (author
-          // "Taylor Swift" / @TaylorSwift), i.ytimg.com maxres still downloaded
-          // and vision-confirmed: Taylor and the video's love interest face to
-          // face through glass, the video's central image.
-          {
-            url: 'https://i.ytimg.com/vi/RsEZmictANA/maxresdefault.jpg',
-            focalPoint: '17% 20%',
-            credit: 'YouTube / Taylor Swift',
-            caption:
-              'Still from the official "willow" music video — released alongside evermore at the midnight the Dec. 10 announcement promised.',
-            kind: 'reference',
-          },
-        ],
-      },
-    },
-
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
@@ -3298,7 +3164,7 @@ export default {
       // Cross-link (candidate #1400): the folklore surprise-drop template this
       // record reused five months later — this is literally "folklore's sister."
       relatedIds: [
-        "moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp",
+        "moment:vault-lover-sixteen-hours-notice-the-announcement-that-invented-the-surp",
       ],
       year: 2020,
       month: 12,
@@ -3345,6 +3211,13 @@ export default {
             caption: 'The "willow" video — released with the album at midnight — carried evermore\'s wintry, firelit look.',
             kind: 'archival',
             focalPoint: '60% 25%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/0a/Taylor_Swift_-_Evermore.png',
+            credit: 'Republic Records / Beth Garrabrant',
+            caption: 'Official evermore album cover art.',
+            kind: 'primary',
           },
         ],
       },
@@ -3393,6 +3266,15 @@ export default {
             caption: 'The glass-box scene from the self-directed "willow" video.',
             kind: 'archival',
             focalPoint: '45% 20%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): verified live via the
+            // content-engine's own probe() despite requiring no special
+            // headers in that check.
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2021214/rs_1200x1200-210314182056-1200.-taylor-swift-performance-2021-grammy-awards-red-carpet-fashion.jpg',
+            credit: 'E! News / Getty Images',
+            caption: '"willow" performed live for the first time at the 2021 Grammy Awards, March 14, 2021.',
+            kind: 'archival',
           },
         ],
       },
@@ -3453,6 +3335,13 @@ export default {
             kind: 'archival',
             focalPoint: '52% 55%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://consequence.net/wp-content/uploads/2021/01/streaming-taylor-swift-evermore-deluxe-bonus-tracks.jpg?quality=80',
+            credit: 'Beth Garrabrant / Consequence',
+            caption: 'Taylor Swift in an evermore-era promotional photo, used to announce the deluxe edition\'s two bonus tracks.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -3505,6 +3394,13 @@ export default {
             kind: 'archival',
             focalPoint: '40% 40%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/bac8a4aab69b-screenshot-2025-04-17-091133.png',
+            credit: 'HELLO! Magazine',
+            caption: 'A black-and-white studio portrait of Marjorie Finlay, Taylor Swift\'s grandmother and a professional opera singer, from the early 1950s.',
+            kind: 'archival',
+          },
         ],
       },
     },
@@ -3543,7 +3439,558 @@ export default {
           },
           { outlet: 'YouTube — Jimmy Kimmel Live', url: 'https://www.youtube.com/watch?v=ionfV_r8s40' },
         ],
-        photos: [],
+        // Photo pass (issue #1721, 2026-08-25).
+        photos: [
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2020/12/Kimmtaylor.jpg?w=1600&h=900&crop=1',
+            credit: 'Rolling Stone / ABC',
+            caption: 'Taylor Swift\'s December 14, 2020 remote appearance on Jimmy Kimmel Live discussing the folklore/evermore surprise albums.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+
+    {
+      year: 2021,
+      month: 3,
+      day: 14,
+      category: 'business',
+      significance: 'defining', // a historic Grammy record on its own, and the middle link in her eventual record 4 (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        'moment:vault-lover-sixteen-hours-notice-the-announcement-that-invented-the-surp',
+        'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
+        'moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi',
+        'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
+      ],
+      title: 'folklore makes her the first woman to win Album of the Year three times',
+      snippet:
+        'A third Grammy for Album of the Year — joining Frank Sinatra, Paul Simon, and Stevie Wonder as the only artists ever to do it three times.',
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/',
+      thumbnailUrl:
+        'https://assets3.cbsnewsstatic.com/hub/i/r/2021/03/15/e53c1cc2-5b66-4cc7-8ffe-4143fd3635cc/thumbnail/620x445g2/fc83de0ccaff91d78c6330439a42f406/gettyimages-1307122849.jpg',
+      moment: {
+        context:
+          'The March 14, 2021 win — after Fearless in 2010 and 1989 in 2016 — made her the first woman with three Album of the Year Grammys, in a field that included Dua Lipa, Post Malone, HAIM, and Coldplay.\n\nAccepting at the pandemic-limited ceremony, she thanked Jack Antonoff, Aaron Dessner, and engineers Laura Sisk and Jonathan Low ("I had the best time writing songs with you in quarantine"), told Justin Vernon — whom she still had never met in person — "I\'m so excited to meet you someday," and thanked fans for meeting her in "this imaginary world that we created." It was her only win of the night from six nominations, and the one that mattered.\n\nThe 63rd Grammys were a pandemic ceremony — staged part-indoors, part-outdoors around the Los Angeles Convention Center and hosted by Trevor Noah, with nominees seated at spaced tables rather than a packed arena. Earlier in the night Taylor gave one of the show\'s signature performances: a hushed folklore/evermore medley — "cardigan," "august," and "willow" — that opened with her perched atop a moss-covered cabin built in a fairy-lit indoor forest, then moved inside the cabin and out onto its lawn alongside the album\'s co-producers Antonoff and Dessner, the first time the three had performed the songs together before an audience. folklore had been recorded remotely during lockdown and finished 2020 as the best-selling album of the year in the United States, so its Album of the Year win doubled as the pandemic\'s defining critical statement. The three-time distinction placed her beside Frank Sinatra, Paul Simon, and Stevie Wonder — the only artists who had ever done it — and no woman before her; three years later she would pass all of them, taking a record-setting fourth with Midnights in 2024, the most Album of the Year wins by anyone in Grammy history.',
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-wins-album-of-the-year-2021-grammy-awards-folklore-9540496/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-performed-folklore-evermore-medley-2021-grammy-awards-1140876/',
+            source_title: "Watch Taylor Swift Perform a 'Folklore,' 'Evermore' Medley in the Shire at 2021 Grammy Awards",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
+          },
+        ],
+        // Photo-enrichment run 16 (2026-07-18, #762): focal points only — the
+        // page already carries two distinct verified photos. Both downloaded
+        // and viewed this session; values set per image, by eye.
+        // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 4 more real,
+        // verified photos of the people and performance the context text
+        // names directly. Stopped at 6, not 7+ — the folklore cover art
+        // (the obvious 7th) is already used on 4 other items in this file,
+        // at the image-overuse checker's limit; several other candidate
+        // outlet CDNs 404'd or resolved through an unrecognized mirror
+        // domain this pass declined to trust rather than hotlink blind.
+        photos: [
+          {
+            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2021/03/15/e53c1cc2-5b66-4cc7-8ffe-4143fd3635cc/thumbnail/620x445g2/fc83de0ccaff91d78c6330439a42f406/gettyimages-1307122849.jpg',
+            credit: 'Kevin Mazur/Getty Images for The Recording Academy',
+            caption: 'At the 63rd Grammy Awards, March 14, 2021, where folklore won Album of the Year.',
+            kind: 'primary',
+            focalPoint: '53% 22%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg?w=942&h=628&crop=1',
+            credit: 'Kevin Winter/Getty Images for The Recording Academy',
+            caption: 'Accepting the Album of the Year Grammy — her third, a first for any woman.',
+            kind: 'primary',
+            focalPoint: '45% 25%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg',
+            focalPoint: '57% 42%',
+            credit: 'Getty Images for The Recording Academy, via Billboard',
+            caption: 'Jack Antonoff, Taylor, and Aaron Dessner perform the folklore/evermore medley earlier the same night.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Jack_Antonoff_at_Electric_Lady_Studios_2023_%28cropped%29.jpg',
+            focalPoint: '48% 25%',
+            credit: 'Alex Lockett, Wikimedia Commons (CC BY-SA 4.0)',
+            caption: "Jack Antonoff, whom Taylor thanked first in her acceptance speech — folklore's co-producer.",
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Aaron_Dessner_at_Way_Out_West_2014.jpg',
+            focalPoint: '55% 22%',
+            credit: 'Kim Metso (Slackernrrd), Wikimedia Commons (CC BY-SA 4.0)',
+            caption: 'Aaron Dessner of The National, folklore\'s other co-producer, thanked in the same speech.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Primavera19_-6_%2848986116446%29_%28cropped%29.jpg',
+            focalPoint: '48% 33%',
+            credit: 'Raph_PH, Wikimedia Commons (CC BY 2.0)',
+            caption: 'Justin Vernon (Bon Iver), whom Taylor told "I\'m so excited to meet you someday" — the two had never met in person despite co-writing "exile."',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Guests_at_the_2026_Met_Gala_435_%28Blake_Lively%29.jpg',
+            focalPoint: '48% 20%',
+            credit: 'SWinxy, Wikimedia Commons (CC BY 4.0)',
+            caption: 'Blake Lively, whom Taylor thanked in the same speech alongside Ryan Reynolds and their children — James, Inez, and Betty each lend their names to folklore songs.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      year: 2021,
+      month: 3,
+      day: 14,
+      category: 'fashion',
+      title: 'A custom Etro gown for the folklore/evermore medley',
+      snippet:
+        'A blue-and-gold Etro gown for a Grammy-night medley of "cardigan," "august," and "willow" with Aaron Dessner and Jack Antonoff.',
+      sourceUrl: 'https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/',
+      // Image-fix pass (2026-07-10): ticket #227 — the shefinds.com image was
+      // the January 2020 Sundance red-carpet look (SUNDANCE step-and-repeat
+      // visible in frame), wrong event/year/outfit for this record. Replaced
+      // with Billboard's photo of the actual 2021 Grammys folklore/evermore
+      // medley performance (moss-covered cabin staging, Jack Antonoff on
+      // guitar, Swift in the gold/blue Etro gown) — verified HTTP 200 +
+      // image/jpeg, downloaded and confirmed by eye, credit line from the
+      // Billboard article caption.
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg?w=942&h=628&crop=1',
+      moment: {
+        context:
+          'The floor-length blue-and-gold Etro gown — high slit, seventies lines — was built for the night\'s most theatrical staging: a moss-covered cabin on a woodland hillside set, where she moved through "cardigan," "august," and "willow" with Aaron Dessner and Jack Antonoff. Etro posted a sketch of the design after the show.\n\nIt was one half of a two-look night: on the red carpet she wore a custom floral Oscar de la Renta mini with botanical appliqués tacked on individually — plus a matching mask — a look Oscar de la Renta itself billed as "Floral Folklore."',
+        sources: [
+          {
+            outlet: 'SheFinds',
+            url: 'https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/',
+          },
+        ],
+        photos: [
+          {
+            // Image-fix pass (2026-07-10): ticket #227 — same replacement as
+            // thumbnailUrl above (see comment there for verification detail).
+            url: 'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg?w=942&h=628&crop=1',
+            credit: 'TAS Rights Management 2021, via Getty Images / Billboard',
+            caption: 'The custom Etro gown during the folklore medley staging at the 2021 Grammys.',
+            kind: 'primary',
+            // Focal point set by viewing (photo pass #762, 2026-07-19): wide
+            // cabin-set stage shot, Swift standing in the lit doorway right
+            // of center, her face just above the vertical midline.
+            focalPoint: '59% 42%',
+          },
+          // Photo pass #762 (2026-07-19): stays at 1 photo — the cited
+          // Billboard article's only other asset is a "Billboard News"
+          // branded video still, and it shows the Oscar de la Renta
+          // red-carpet mini, not this page's Etro performance gown
+          // (downloaded and viewed to check). The SheFinds image was already
+          // rejected as wrong-event by ticket #227.
+        ],
+        // Shop pass (2026-07-20): the gown was custom-built for this
+        // performance — no product page exists — offering Etro's current
+        // long silk gown, verified live in-browser (curl/WebFetch are
+        // blocked on etro.com).
+        products: [
+          {
+            brand: 'Etro',
+            item: 'Peau D\'Ange Silk Maxi Dress with Flower and Bee Motif',
+            retailer: 'etro.com',
+            url: 'https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html',
+            price: '$2,880.00',
+            isAlternative: true,
+            altNote:
+              'The gown was custom-built for this performance — this is Etro\'s current long silk gown, same house, different print and colors.',
+          },
+        ],
+      },
+    },
+    // Three duplicate stubs removed here (issue #616, 2026-07-29):
+    // - "folklore-cardigan" told the same cardigan/cottagecore fashion story
+    //   as the richer, sourced "cardigan" video item above; its unique
+    //   shoppable product (the cardigan itself) was merged there.
+    // - "folklore-teenage-love-triangle" told the same fictional cardigan/
+    //   august/betty love triangle as the richer, sourced item at the top of
+    //   this file, in two sentences with no sources.
+    // - "folklore-william-bowery" told the same Nov. 25, 2020 William Bowery
+    //   reveal as the richer, sourced `william-bowery-is-joe` item — whose
+    //   sourcing also corrects this stub's "Bowery Hotel" origin claim
+    //   (it's the Bowery neighborhood; fans' hotel theory was wrong), so
+    //   removing it also removes a factual error.
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "folklore-aoty",
+      year: 2021,
+      month: 3,
+      day: 14,
+      category: "music",
+      // Cross-link (Stage 3, 2026-08-17): the richer telling of the same
+      // Grammy Album of the Year win.
+      relatedIds: [
+        "moment:vault-evermore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-",
+      ],
+      title: "A third Album of the Year",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
+      snippet: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
+      moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-wins-album-year-folklore-2021-grammys/',
+            source_title: 'Taylor Swift Wins Album Of The Year For \'Folklore\' | 2021 GRAMMY Awards Show',
+            publisher: 'The Recording Academy',
+            source_type: 'awards_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/',
+            source_title: 'Taylor Swift becomes first woman to win Album of the Year Grammy 3 times',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
+        context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Taylor's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",
+        // Photo pass #762 (2026-07-19): lead image of Billboard's own AOTY-win
+        // story (billboard.com/wp-content, EXIF copyright "2021 Recording
+        // Academy"); curl 200 image/jpeg 1548x1024; Read-viewed: Swift in the
+        // floral Oscar de la Renta dress accepting the award onstage with
+        // Laura Sisk, Jack Antonoff, and Aaron Dessner holding the gramophone.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg',
+            credit: 'Recording Academy, via Billboard',
+            caption: 'Accepting Album of the Year for folklore with Laura Sisk, Jack Antonoff, and Aaron Dessner — her record third win.',
+            focalPoint: '44% 18%',
+          },
+          {
+            // Salvaged 2026-07-19 from photo-enrichment PR #886 (otherwise
+            // superseded by a racing run): the press-room shot from NME's own
+            // report on this win — a distinct frame from the onstage
+            // acceptance above. Re-verified 200 image/jpeg (548KB,
+            // 2000x1270, unwatermarked); credit per the article.
+            url: 'https://www.nme.com/wp-content/uploads/2021/03/taylor-swift-grammys-2021-1.jpg',
+            credit: 'Kevin Mazur/Getty Images for The Recording Academy, via NME',
+            caption: 'Holding the Album of the Year Grammy for folklore in the press room, March 14, 2021 — her third, a first for any woman.',
+            kind: 'primary',
+            // Face upper right of center.
+            focalPoint: '57% 25%',
+          },
+        ],
+      },
+    },
+
+    // --- Music-backstory + chart-record depth pass (2026-07-05): the album's
+    // music backstories were thin (3 items) relative to its 13-plus track
+    // list, so this batch digs into song-by-song writing stories with
+    // on-record Taylor/collaborator quotes, plus two chart records verified
+    // with a working second source this session — including the entire-
+    // Hot-100-top-10 record flagged as parked in this file's header note
+    // (a second source, Wikipedia's Anti-Hero page, was reachable this time).
+    // Every claim below verified against its cited source(s) directly.
+    {
+      year: 2022,
+      month: 10,
+      day: 7,
+      category: 'music',
+      title: 'A Mad Men rerun gave Midnights its opening track',
+      snippet:
+        'She found "lavender haze" watching Mad Men, looked up its 1950s meaning — "an all-encompassing love glow" — and turned it into an opening track defending her relationship from tabloid noise.',
+      sourceUrl:
+        'https://www.rollingstone.com/music/music-news/taylor-swift-reveals-lavender-haze-midnights-inspiration-joe-alwyn-1234607000/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In an Instagram video explaining the song, Taylor said: "I happened upon the phrase \'lavender haze\' when I was watching Mad Men. And I looked it up because I thought it sounded cool, and it turns out that it\'s a common phrase used in the \'50s where they would just describe being in love... If you were in the lavender haze, then that meant that you were in that all-encompassing love glow."\n\nShe tied it directly to her own six-year relationship with Joe Alwyn: "My relationship for six years, we\'ve had to dodge weird rumors, tabloid stuff, and we just ignore it... this song is sort of about the act of ignoring that stuff to protect the real stuff."',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reveals-lavender-haze-midnights-inspiration-joe-alwyn-1234607000/',
+          },
+        ],
+        // Real-photo pass (2026-07-09): single artwork from Wikipedia's stable
+        // upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/a/af/Taylor_Swift_-_Lavender_Haze.png',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — her face
+            // sits lower-center of the purple-water artwork, below the title.
+            focalPoint: '48% 72%',
+            credit: 'Republic Records',
+            caption: 'Single artwork for "Lavender Haze," the Mad Men-inspired opening track.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+
+    // --- Deep timeline fill (2026-07-08, content/deep-d): rollout, records,
+    // Eras Tour milestones, and era-spanning moments the corpus was missing.
+    // Every claim verified against its cited source(s) this session; new items
+    // carry the audit's additive provenance fields (slug + publisher/
+    // source_type/accessed_at/reliability_score) alongside legacy {outlet,url}.
+    {
+      slug: 'midnights-mayhem-with-me',
+      // Cross-link (Stage 3, 2026-08-06) removed with its target (issue
+      // #616 dedup): the other Mayhem item told the same TikTok series this
+      // item already covers end to end, so the "cluster" was a duplicate pair.
+      year: 2022,
+      month: 10,
+      day: 7,
+      category: 'release',
+      title: 'Midnights Mayhem with Me: a bingo cage announces the tracklist',
+      snippet:
+        'No cryptic clues this time — a TikTok series where a bingo cage picked the order and she announced each track title into a vintage phone. Thirteen episodes, capped by a middle-of-the-night finale blitz.',
+      sourceUrl: 'https://www.elitedaily.com/entertainment/taylor-swift-midnights-mayhem-with-me-tracklist-tiktoks-explained',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The mechanic was pure chance theater: a spinning bingo cage held 13 ping-pong balls numbered 1-13, one per track. Taylor drew a ball, then read that track\'s title into a red rotary phone — held upside-down in episodes 2 and 6, a wink fans caught. The opener on Sept. 21, 2022 drew number 13: "Mastermind," the album\'s closer, revealed first.\n\nEpisodes dropped Monday, Wednesday and Friday — Meredith the cat cameoed in episode 2 — until the finale. On the night of Oct. 7, 2022 she blitzed the rest, releasing the last episodes an hour apart from midnight, and the full order landed: "Lavender Haze," "Maroon," "Anti-Hero," "Snow on the Beach" (with Lana Del Rey), "You\'re on Your Own, Kid," "Midnight Rain," "Question...?," "Vigilante Shit," "Bejeweled," "Labyrinth," "Karma," "Sweet Nothing," and "Mastermind."\n\nIt flipped her usual Easter-egg hunt on its head: instead of fans decoding clues, a bingo cage decided which title she revealed next — chance, not cryptography, running the rollout. Fans still suspected a mastermind behind the "random" draw — "Mastermind" itself surfacing first fueled the joke — though Taylor never confirmed it was staged; the golden cage later got an afterlife as an official-store "Bingo Roller" ornament.',
+        sources: [
+          {
+            outlet: 'Elite Daily',
+            url: 'https://www.elitedaily.com/entertainment/taylor-swift-midnights-mayhem-with-me-tracklist-tiktoks-explained',
+            source_title: "Taylor Swift's 'Midnights Mayhem With Me' Tracklist TikToks, Explained",
+            publisher: 'Elite Daily',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          // Depth pass (ledger #1293, 2026-07-24): the first-ball "Mastermind"
+          // reveal and the ping-pong-ball/rotary-phone mechanic; per-episode
+          // reveal order.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-midnights-song-title-track-13-mastermind-1235142141/',
+            source_title: "Taylor Swift Reveals First 'Midnights' Song Title: 'Mastermind'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://www.iheart.com/content/2022-09-26-every-midnights-track-taylor-swift-has-revealed-so-far/',
+            source_title: "Every 'Midnights' Track Taylor Swift Has Revealed So Far",
+            publisher: 'iHeartRadio',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Taylor Swift on TikTok',
+            url: 'https://www.tiktok.com/@taylorswift/video/7151677137337208110',
+            source_title: 'Our LAST EPISODE! The season finale of Midnights Mayhem with Me',
+            publisher: 'Taylor Swift (official TikTok)',
+            source_type: 'social',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          // Depth pass (ledger #1293, 2026-07-24): the draw mechanic (numbered
+          // balls + red phone, upside-down in eps 2/6), the Sept. 21 first reveal
+          // (track 13 "Mastermind"), the Mon/Wed/Fri cadence and Oct. 7 finale,
+          // and the full revealed track order.
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-midnights-tracklist-song-names-rcna50738',
+            source_title: "'Midnights' tracklist: Song names of Taylor Swift's new album",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Midnights',
+            source_title: 'Midnights',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Taylor Swift Official Store',
+            url: 'https://store.taylorswift.com/products/midnights-mayhem-with-me-bingo-roller-ornament',
+            source_title: 'Midnights Mayhem With Me Bingo Roller Ornament',
+            publisher: 'Taylor Swift Official Store',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+        ],
+        // Real-photo pass (2026-07-09): album artwork (the tracklist being
+        // announced); Wikipedia's stable copy, verified HTTP 200 + image/png.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
+            // Photo-enrichment pass #762 (2026-08-11): same cover art as other
+            // Midnights pages in this file — downloaded and viewed; her face
+            // sits upper-right of center.
+            focalPoint: '54% 45%',
+            credit: 'Republic Records',
+            caption: 'The Midnights cover — the 13-track list a bingo cage announced, one title at a time, on TikTok.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+
+    // --- Content Shift pass (2026-07-15, ticket #654): the era's cold open.
+    // Aug + Sep 2022 were the only empty months in the era's span — the VMAs
+    // announcement and Midnights Mayhem are the two beats that start the
+    // story. Sourcing note: direct page fetches were proxy-blocked this
+    // session (every outlet host returned 403), so each claim below was
+    // cross-confirmed across multiple independent web-search results instead
+    // of a single fetched page; source URLs are real and search-verified.
+    // No thumbnails/photos — hotlinks can't be liveness-checked this session
+    // (house rule: verify before hotlinking).
+    {
+      year: 2022,
+      month: 8,
+      day: 28,
+      category: 'release',
+      title: '"Meet me at midnight": a new album, announced mid-acceptance-speech',
+      snippet:
+        'Accepting Video of the Year at the VMAs — her record third — Taylor drops it almost as an aside: the brand-new album is out October 21, and she\'ll "tell you more at midnight." She did.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-new-album-announcement-vmas-speech-1235132031/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Aug. 28, 2022 VMAs at Newark\'s Prudential Center gave All Too Well: The Short Film the night\'s top prize — Taylor\'s third career Video of the Year win, a VMAs record — and she spent the speech\'s last beat on something else entirely: "I thought it might be a fun moment to tell you that my brand new album comes out October 21. I will tell you more at midnight."\n\nAt midnight the reveal landed on her socials: Midnights, "the stories of 13 sleepless nights scattered throughout my life" — pitched as "a collection of music written in the middle of the night, a journey through terrors and sweet dreams," her first all-new album since folklore and evermore in 2020. The announcement itself was staged as lore: the stroke-of-midnight timing was the album\'s concept, performed in real time.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-new-album-announcement-vmas-speech-1235132031/',
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2022/08/taylor-swift-new-album-release-date-mtv-vma-video-of-the-year-1235101906/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-announces-new-album-1234583475/',
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18): the section note above predates
+        // this session — these hotlinks WERE liveness-checked this run
+        // (curl 200 + image/jpeg) and vision-confirmed against the VMAs 2022
+        // set (MTV moonman backdrop visible in both). Both are from the page's
+        // own cited articles.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2022/08/01-taylor-swift-2022-mtv-vmas-rc-billboard-1548.jpg?w=1024',
+            credit: 'Getty Images via Billboard',
+            caption:
+              'The crystal-mesh Oscar de la Renta on the 2022 VMAs carpet — the night the Video of the Year speech turned into an album announcement.',
+            kind: 'primary',
+            focalPoint: '48% 15%',
+          },
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2022/08/taylor-swift-new-album.jpg?w=1600&h=900&crop=1',
+            credit: 'Getty Images via Rolling Stone',
+            caption:
+              'In the VMAs press room minutes later — jeweled eye makeup, and a brand-new album on the calendar for October 21.',
+            kind: 'primary',
+            focalPoint: '50% 40%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'red-taylors-version-number-one',
+      threadIds: ['taylors-version'],
+      year: 2021,
+      month: 11,
+      day: 21,
+      category: 'business',
+      significance: 'notable', // a real chart record (fastest to four #1s, breaking a 46-year-old Elton John mark), but one of four TV chart debuts rather than a career-wide top-40 event (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-red-3", label: "Red (TV) opens at #1", kind: "album" },
+      relatedIds: ['moment:vault-reputation-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he'],
+      title: 'Red gets its do-over: Red (Taylor\'s Version) opens at No. 1',
+      snippet:
+        "Nine years later, the re-recording debuted atop the Billboard 200 with 605,000 units — 2021's biggest sales week for any album to that point, her tenth No. 1, and the fastest run to four chart-toppers by a solo artist, breaking Elton John's 1975 record.",
+      sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-tenth-number-one-album-billboard-200-red-taylors-version-1235000860/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+      moment: {
+        context:
+          'Of the 605,000 first-week units (week ending Nov. 18, 2021), 369,000 were pure album sales — 2021\'s biggest sales week for any album to that point, a mark Adele\'s 30 topped a week later — including 114,000 on vinyl, at the time the largest vinyl sales week of the modern chart era. The 30-track set, including nine from-the-vault songs and the 10-minute "All Too Well," gave Taylor her tenth Billboard 200 No. 1 and made her the fastest solo artist ever to notch four chart-toppers, in under 16 months — breaking a 46-year-old Elton John record.\n\nThe streaming side told the same story: 303 million on-demand streams, the biggest streaming week ever recorded for a country album. The tenth No. 1 also put her in company only Barbra Streisand (with 11) had reached among women — a chart footnote that doubled as vindication for the re-recording project itself.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-tenth-number-one-album-billboard-200-red-taylors-version-1235000860/',
+            source_title: "Taylor Swift's 'Red (Taylor's Version)' Debuts at No. 1 on Billboard 200",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2021/11/21/taylor-swift-earns-her-milestone-tenth-no-1-album-with-red-taylors-version/',
+            source_title: "Taylor Swift Earns Her Milestone Tenth No. 1 Album With 'Red (Taylor's Version)'",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/adele-30-billboard-200-albums-chart-debut-1235003213/',
+            source_title: "Adele's '30' Debuts Atop the Billboard 200 With 2021's Biggest Sales Week",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18, #762): added the official All Too Well: The
+        // Short Film frame (Sadie Sink and Dylan O'Brien) — the campaign centerpiece of this
+        // exact chart week, released Nov 12, 2021, and the vehicle for the 10-minute track
+        // this page's context credits for the record. Official Taylor Swift channel
+        // thumbnail via i.ytimg.com (same pattern as the vault's other official-video
+        // stills), curl-verified 200 + image/jpeg, vision-confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            credit: 'Republic Records',
+            focalPoint: '45% 42%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/tollGa3S0o8/maxresdefault.jpg',
+            credit: 'Republic Records / Taylor Swift via YouTube',
+            caption: 'Sadie Sink and Dylan O\'Brien in All Too Well: The Short Film, released with Red (Taylor\'s Version) the same chart week.',
+            kind: 'archival',
+            focalPoint: '52% 40%',
+          },
+        ],
       },
     },
   ],

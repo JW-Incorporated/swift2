@@ -76,6 +76,8 @@ export function themeStyle(t: EraTheme): CSSProperties {
     ['--era-ink-soft' as string]: t.inkSoft,
     ['--era-line' as string]: t.line,
     ['--era-accent' as string]: t.accent,
+    ['--era-accent-text' as string]: t.accentText ?? t.accent,
+    ['--era-accent-fg' as string]: t.accentFg ?? '#000000',
     ['--era-accent-2' as string]: t.accent2,
     ['--era-glow' as string]: t.glow,
     ['--era-font' as string]: FONT_VAR[t.font],

@@ -153,63 +153,11 @@ export default {
             focalPoint: '50% 60%',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Taylorswiftphoenixchecker500111206.JPG',
-            credit: 'Wikimedia Commons (public domain)',
-            caption: 'A real 2006 appearance — curly hair and printed dress, months into her first year as a signed artist.',
-            kind: 'archival',
-            focalPoint: '68% 35%',
-          },
-          {
             url: 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Taylor_Swift_at_Yahoo_2007.jpg',
             credit: 'Brian Cantoni / Wikimedia Commons, CC BY 2.0',
             caption: 'Holding a certified-sales plaque for the debut album at a Yahoo event, May 16, 2007.',
             kind: 'archival',
             focalPoint: '48% 30%',
-          },
-        ],
-      },
-    },
-    {
-      year: 2007,
-      month: 4,
-      day: 16,
-      category: 'fashion',
-      title: 'A strapless BCBG gown for her first CMT win',
-      snippet:
-        'A strapless BCBG Max Azria gown, all tulle skirt and neutral tones, the night "Tim McGraw" won Breakthrough Video of the Year.',
-      sourceUrl:
-        'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
-      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/de4e0b4b6195-gettyimages-107486334.jpg',
-      moment: {
-        context:
-          'The dress was the frame; the night was the milestone. "Tim McGraw" took Breakthrough Video of the Year at the 2007 CMT Music Awards — per Hello!, the first award of her career — for the Trey Fanjoy-directed video shot at a Hendersonville, Tennessee cabin once owned by Johnny Cash.\n\nHello!\'s retrospective logs the winning look in full (strapless neckline, neutral tones, tulle skirt) and notes she changed into a shimmery sea-green gown with a long train to present another award later that evening.',
-        sources: [
-          {
-            outlet: 'Hello!',
-            url: 'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
-          },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)' },
-        ],
-        photos: [
-          {
-            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/de4e0b4b6195-gettyimages-107486334.jpg',
-            credit: 'Michael Loccisano/Getty Images',
-          },
-        ],
-        // Shop pass (2026-07-20): the 2007 BCBG Max Azria gown itself is
-        // long discontinued (verified no product page exists) — offering
-        // BCBG's current strapless tulle gown, curl-verified live.
-        products: [
-          {
-            brand: 'BCBGMAXAZRIA',
-            item: 'Oly Tiered Ruffle Tulle Evening Gown',
-            retailer: 'bcbg.com',
-            url: 'https://bcbg.com/products/oly-tiered-ruffle-tulle-evening-gown-in-black',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0424/6647/6192/files/79114281_199_1_48f305af-f491-4898-8510-4444931dbbdd.jpg?v=1786385502',
-            price: '$398.00',
-            isAlternative: true,
-            altNote:
-              "Her 2007 gown is discontinued — this is BCBG's current strapless tulle evening gown, in black rather than the original neutral tone.",
           },
         ],
       },
@@ -245,7 +193,7 @@ export default {
         // Entertainment Center/Sommet Center, renamed Bridgestone Arena in
         // 2010 — same building) plus other real, dated 2007 appearances. All
         // curl-verified 200 + image/jpeg, downloaded and visually confirmed.
-        // Kevin Stream 1 (#751, 2026-07-23): dropped the media.gettyimages.com
+        // Kevin Stream 1 (#751, 2026-07-23): dropped the Getty comp-image CDN's
         // watermarked press-room comp (banned host) — the moment keeps its 5
         // freely licensed photos; thumbnail repointed to the Aug. 2007 shot.
         photos: [
@@ -372,8 +320,7 @@ export default {
       title: 'A Place in This World, written at 13',
       snippet: 'Written years before the album came out, after watching a TV special about Faith Hill\'s move to Nashville.',
       sourceUrl: 'https://en.wikipedia.org/wiki/A_Place_in_This_World',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Swift%2C_Taylor_%282007%29.jpg',
       moment: {
         context:
           'She wrote it at 13 while still living in Pennsylvania and making regular trips to Nashville, working out whether a music career was even reachable:\n\n"It was tough trying to find out how I was going to get where I wanted to go... I\'m really happy this is on the album, because I feel like I finally figured it out."',
@@ -385,11 +332,6 @@ export default {
         // API-verified CC BY-SA 2.0, minds-eye; downloaded and visually confirmed debut-era
         // Taylor onstage). Focal points set per image by viewing.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
-            credit: 'Wikimedia Commons',
-            focalPoint: '70% 16%',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Swift%2C_Taylor_%282007%29.jpg',
             credit: 'minds-eye / Wikimedia Commons, CC BY-SA 2.0',
@@ -446,274 +388,6 @@ export default {
             // Focal point set 2026-07-18 by viewing (942x628): face top-center-left
             // at the mic, koa guitar across the frame below.
             focalPoint: '42% 16%',
-          },
-        ],
-      },
-    },
-
-    // --- Fashion/photo depth pass (2026-07-04)
-    {
-      year: 2006,
-      month: 10,
-      category: 'fashion',
-      title: 'The debut-era uniform: sundresses, cowboy boots, and curls',
-      snippet:
-        'Sundresses, cowboy boots, and a mane of curls — the "country girl meets boho" pairing that style retrospectives point to as her original signature look.',
-      sourceUrl: 'https://www.whowhatwear.com/taylor-swift-style-eras',
-      // Image-fix pass (2026-07-10): CIE #157 — thumbnail shared the same broken collage URL as
-      // the moment photo below; updated together.
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
-      moment: {
-        context:
-          'Retrospectives on her style evolution single out this pairing — frilly knee-length sundresses, cowboy boots, chokers, and a side-swept mane of curls — as the throughline of her 2006-2008 red carpets and album era, before "Fearless" brought in gold sequins and more polish.\n\nOne figure sums up the whole period, per W Magazine\'s style-evolution piece: "the curly-haired country girl of the Taylor Swift era." The look wasn\'t incidental — it was of a piece with the music, a teenager with an acoustic guitar singing confessional country, dressed like the girl-next-door those songs were narrated by. It read as authenticity first and fashion second, which is exactly why later eras could get so much mileage out of subverting it.',
-        sources: [
-          { outlet: 'Who What Wear', url: 'https://www.whowhatwear.com/taylor-swift-style-eras' },
-          { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
-        ],
-        photos: [
-          {
-            // Image-fix pass (2026-07-10): CIE #157 — old photo was a Who What Wear designed
-            // editorial mood-board collage (product cutouts, a red-carpet photo, illustrations,
-            // and "taylor swift" typeset), not a real photograph. Replaced with the era-correct
-            // sundress-and-curls performance photo already used elsewhere in this file (curl 200,
-            // image/jpeg; opened and viewed — matches "sundresses, cowboy boots, and curls";
-            // CC BY 2.0, Brian Cantoni via Wikimedia Commons).
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
-            credit: 'Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift performing, 2007 (era-correct sundress-and-curls look)',
-          },
-        ],
-        // Shop pass (2026-07-20): a general style pairing, not one specific
-        // outfit — offering a real cowboy boot as the throughline piece.
-        products: [
-          {
-            brand: 'Tecovas',
-            item: 'The Loretta Cowgirl Boot (Midnight)',
-            retailer: 'tecovas.com',
-            url: 'https://www.tecovas.com/products/the-loretta?color=midnight-goat',
-            price: '$445.00',
-            inStock: false, // Stylist re-check 2026-07-21: page live (200), Midnight colorway sold out.
-            isAlternative: true,
-            altNote: 'No single documented outfit — this captures the cowboy-boots half of the era\'s signature pairing.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2006,
-      month: 10,
-      category: 'fashion',
-      title: 'Her signature ringlet curls, from the start',
-      snippet:
-        'Tight, perfectly spiraled curls — the hairstyle that opens every retrospective of her look, dating to 2006 and carried through the "Teardrops on My Guitar" era.',
-      sourceUrl: 'https://www.marieclaire.com/beauty/hair/g12774421/taylor-swift-hair/',
-      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/MWvKEdsvu4S2unTkFGW5dZ.jpg',
-      moment: {
-        context:
-          'Hair retrospectives mark 2006 as the starting point of her signature curl — a mane of tight, spiraled ringlets she wore through her first album cycle before loosening the curl pattern in later eras.\n\nIt became shorthand for the whole era — literally its name in W Magazine\'s evolution piece: "the curly-haired country girl of the Taylor Swift era." The ringlets read as unstudied and homespun, matching the sundress-and-boots styling — and their eventual disappearance (loosened around 2011 and fully straightened by the Red era, long before reputation\'s sleeker looks) is one of the clearest visual markers fans use to date a photo to a given era. Even in 2008 she was joking about the upkeep, thanking her stylist at the CMT Awards "for straightening my hair, because that\'s not easy."',
-        sources: [
-          { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/beauty/hair/g12774421/taylor-swift-hair/' },
-          { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
-        ],
-        photos: [
-          {
-            url: 'https://cdn.mos.cms.futurecdn.net/MWvKEdsvu4S2unTkFGW5dZ.jpg',
-            credit: 'Getty Images',
-          },
-        ],
-        // Shop pass (2026-07-20): a hairstyle, not a garment — offering the
-        // styling tool rather than forcing a clothing link onto a hair item.
-        products: [
-          {
-            brand: 'Asani',
-            item: 'Curling Iron Hair Wand (3/8")',
-            retailer: 'amazon.com',
-            url: 'https://www.amazon.com/Curling-Creates-Clearly-Defined-Ringlets/dp/B0CMK36C4P',
-            price: '$16.99',
-            isAlternative: true,
-            altNote: 'Not her exact styling tool (undocumented) — a slim-barrel curling wand suited to tight, spiraled ringlets like hers.',
-          },
-        ],
-      },
-    },
-    {
-      // Cross-link (Stage 3, 2026-08-06): the "Sandi Spika" designer cluster.
-      relatedIds: ['moment:vault-debut-a-sandi-spika-drop-waist-gown-for-the-2007-acm-awards'],
-      year: 2008,
-      month: 2,
-      day: 10,
-      category: 'fashion',
-      title: 'A purple Sandi Spika gown for her first Grammys',
-      snippet:
-        'A strapless, corseted purple gown by Sandi Spika at the 50th Grammy Awards on Feb. 10, 2008 — her red carpet debut at music\'s biggest night, nominated for Best New Artist.',
-      sourceUrl: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective',
-      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg',
-      moment: {
-        context:
-          'She attended the 2008 Grammys as a Best New Artist nominee (the award went to Amy Winehouse) in a strapless, corseted purple gown by Sandi Spika, paired with her signature curls — a look fashion retrospectives still cite as her Grammys debut.\n\nAt 18 she wasn\'t yet a Grammy performer or winner, just a first-time nominee working the carpet at music\'s biggest night — the nomination itself the headline, arriving off a debut album that had refused to stop selling. Who What Wear and Femestella both treat this purple gown as the opening frame of a Grammys red-carpet history that would run for well over a decade; two years later, in a blue KaufmanFranco gown at the 2010 ceremony, she\'d leave the same carpet a four-time winner.',
-        sources: [
-          {
-            outlet: 'Who What Wear',
-            url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective',
-          },
-          {
-            outlet: 'Femestella',
-            url: 'https://www.femestella.com/taylor-swift-iconic-grammys-red-carpet-dress-look-outfit/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg',
-            credit: 'Getty Images',
-            focalPoint: '53% 11%',
-          },
-        ],
-        // Shop pass (2026-07-20): Sandi Spika designs custom pieces only —
-        // no retail line exists (her own site doesn't resolve) — offering a
-        // similar strapless corseted gown, curl-verified live.
-        products: [
-          {
-            brand: 'House of CB',
-            item: 'Persephone Strapless Corset Satin & Stretch Crepe Mermaid Gown',
-            retailer: 'nordstrom.com',
-            url: 'https://www.nordstrom.com/s/persephone-strapless-corset-satin-stretch-crepe-mermaid-gown/8011345',
-            price: '$329.00',
-            isAlternative: true,
-            altNote:
-              'Sandi Spika designs custom pieces only, with no retail line — this is a similar strapless corseted gown, in rose rather than the original purple.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2008,
-      month: 5,
-      day: 5,
-      category: 'fashion',
-      title: 'A gold sequined Badgley Mischka gown for her first Met Gala',
-      snippet:
-        'Her Met Gala debut in a gold sequined Badgley Mischka gown for the "Superheroes: Fashion and Fantasy" theme — worn with her signature curls in a side part.',
-      sourceUrl: 'https://www.eonline.com/news/1431066/taylor-swift-met-gala-looks-dress-photos',
-      thumbnailUrl: 'https://static.gofugyourself.com/uploads/2016/04/80995253-taylor-swift-met-ball-2008-510x736.jpg',
-      moment: {
-        context:
-          'At 18, she made her first Met Gala appearance in a gold sequined Badgley Mischka gown playing into that year\'s "Superheroes: Fashion and Fantasy" theme — kept simple with statement drop earrings, a smoky eye, and her curls in a side part.\n\nIt was a notably low-key debut for a night that trades on maximalism — no costume-y take on the theme, just column-gold glamour from a teenager still mainly known as a country act. Go Fug Yourself, revisiting her Met history years later, files it as the unassuming starting point of a red carpet she would eventually help define; E! frames the 2008 look the same way. Her Met appearances would grow steadily more conceptual as her fame did, which is exactly what makes this first one read, in hindsight, so restrained.',
-        sources: [
-          { outlet: 'E! News', url: 'https://www.eonline.com/news/1431066/taylor-swift-met-gala-looks-dress-photos' },
-          {
-            outlet: 'Go Fug Yourself',
-            url: 'https://www.gofugyourself.com/photos/fugtrospective-taylor-swifts-met-gala-gowns/80995253-taylor-swift-met-ball-2008-510x736',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://static.gofugyourself.com/uploads/2016/04/80995253-taylor-swift-met-ball-2008-510x736.jpg',
-            credit: 'Getty Images',
-          },
-        ],
-        // Shop pass (2026-07-20): the exact 2008 gown is retired — offering
-        // Badgley Mischka's current gold sequin gown (same brand), curl-
-        // verified live; it's a final-sale item and currently sold out.
-        products: [
-          {
-            brand: 'Badgley Mischka',
-            item: 'Golden Gown',
-            retailer: 'badgleymischka.com',
-            url: 'https://badgleymischka.com/products/golden-gown',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0655/3727/8018/files/EG3274-1__39296.1727707594.1280.1280.jpg?v=1768934871',
-            price: '$299.99',
-            inStock: false,
-            isAlternative: true,
-            altNote:
-              'The exact 2008 gown is retired — this is Badgley Mischka\'s current gold sequin gown, same brand and spirit, currently sold out (final sale).',
-          },
-        ],
-      },
-    },
-
-    // --- Fashion/photo depth pass 2 (2026-07-04)
-    {
-      year: 2006,
-      month: 11,
-      day: 6,
-      category: 'fashion',
-      title: 'A black satin Elvira mermaid gown for her first CMA Awards',
-      snippet:
-        'A black satin, mermaid-style gown by Elvira with matching long black gloves — her first CMA Awards red carpet, weeks after her debut album released.',
-      sourceUrl: 'https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp',
-      thumbnailUrl:
-        'https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces',
-      moment: {
-        context:
-          'Worn to the 40th Annual CMA Awards at Nashville\'s Gaylord Entertainment Center, just weeks after her self-titled debut album hit shelves — a more formal, Old-Hollywood-leaning look than the sundresses that otherwise defined her earliest red carpets.\n\nThe timing is what makes it notable: this was her first CMA Awards carpet, walked as a 16-year-old newcomer whose only single, "Tim McGraw," had barely cracked the country top 10. Nylon\'s retrospective singles the black satin gown out as an early, briefly-glimpsed grown-up register — matching long gloves and all — before she settled back into the boots-and-ruffles country-girl uniform that carried the rest of the era.',
-        sources: [
-          { outlet: 'Nylon', url: 'https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp' },
-        ],
-        photos: [
-          {
-            url: 'https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces',
-            credit: 'Stephen Lovekin/WireImage/Getty Images',
-            focalPoint: '47% 13%',
-          },
-        ],
-        // Shop pass (2026-07-20): the "Elvira" designer credit traces to a
-        // 2006 red-carpet gown with no traceable current retail line —
-        // offering a comparable black satin corset mermaid gown, curl-
-        // verified live.
-        products: [
-          {
-            brand: 'Moda Glam Boutique',
-            item: 'Delphine Strapless Mermaid Gown',
-            retailer: 'modaglamboutique.com',
-            url: 'https://modaglamboutique.com/products/delphine-strapless-corset-gown-black',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0282/6196/files/black-strapless-satin-mermaid-gown.jpg?v=1769568372',
-            price: '$295.00',
-            isAlternative: true,
-            altNote:
-              "Elvira doesn't sell current ready-to-wear — this is a comparable black satin corset mermaid gown in a similar silhouette.",
-          },
-        ],
-      },
-    },
-    {
-      // Cross-link (Stage 3, 2026-08-06): the "Sandi Spika" designer cluster.
-      relatedIds: ['moment:vault-debut-a-purple-sandi-spika-gown-for-her-first-grammys'],
-      year: 2007,
-      month: 5,
-      day: 15,
-      category: 'fashion',
-      title: 'A Sandi Spika drop-waist gown for the 2007 ACM Awards',
-      snippet:
-        'A custom drop-waist gown by Sandi Spika at the 42nd Academy of Country Music Awards — one of two Sandi Spika red-carpet gowns she wore that year (the other, a lavender cascading-floral piece, came at the following year\'s Grammys).',
-      sourceUrl: 'https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp',
-      thumbnailUrl:
-        'https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces',
-      moment: {
-        context:
-          'Worn on the red carpet at the MGM Grand Hotel and Casino for the 42nd ACM Awards in May 2007 — the same ceremony where she performed "Tim McGraw" to Tim McGraw\'s face and then introduced herself with "Hi, I\'m Taylor." One of two Sandi Spika red-carpet gowns she wore across 2006-2008, the designer who dressed most of her earliest big nights.\n\nThe retrospectives don\'t fully agree on the dress: one calls it a custom drop-waist Sandi Spika gown, another describes her 2007 ACM look as a pink corseted Sandi Spika gown. Either way it sits right at the hinge point in her early styling — the last stretch before the more structured, corseted silhouettes took over that year\'s CMAs and the 2008 Grammys.',
-        sources: [
-          { outlet: 'Nylon', url: 'https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp' },
-          { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
-        ],
-        photos: [
-          {
-            url: 'https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces',
-            credit: 'Denise Truscello/WireImage/Getty Images',
-            focalPoint: '48% 13%',
-          },
-        ],
-        // Shop pass (2026-07-20): Sandi Spika has no retail line — offering
-        // a pink corseted drop-waist mini, curl-verified live in-browser.
-        products: [
-          {
-            brand: 'Dazey Hill',
-            item: 'Light Pink Floral Satin Corset Bustier Drop Waist Mini Dress',
-            retailer: 'dazeyhill.com',
-            url: 'https://dazeyhill.com/products/light-pink-satin-silk-floral-patterned-bodycon-corset-bustier-strapless-sleeveless-drop-waist-ruffle-lace-trim-flowy-short-mini-dress-evening-gown-women-ladies-chic-spring-2024-summer-elegant-formal-classy-feminine-prom-party-date-night-cocktail-sundress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0646/3681/3549/files/4731D998-D7E8-4071-BECC-E46F00E29EC4.jpg?v=1705383996',
-            price: '$66.00',
-            isAlternative: true,
-            altNote: 'Sandi Spika designs custom pieces only, with no retail line — this echoes the pink corseted, drop-waist silhouette W Magazine described.',
           },
         ],
       },
@@ -838,56 +512,6 @@ export default {
           {
             url: 'https://media.nbcphiladelphia.com/2024/02/GettyImages-1315798658.jpg?quality=85&strip=all',
             credit: 'Krissy Krummenacker/MediaNews Group/Reading Eagle via Getty Images',
-          },
-        ],
-      },
-    },
-    {
-      year: 2007,
-      month: 11,
-      day: 18,
-      category: 'fashion',
-      title: 'A studded Catherine Malandrino dress and cowboy boots at the 2007 AMAs',
-      snippet:
-        "Her first American Music Awards red carpet, Nov. 18, 2007 — a jeweled Catherine Malandrino halter dress paired with black cowboy boots, the twangy country-meets-glam pairing that defined her earliest big red carpets.",
-      sourceUrl: 'https://www.eonline.com/photos/25719/taylor-swift-s-american-music-awards-looks',
-      thumbnailUrl:
-        'https://akns-images.eonline.com/eol_images/Entire_Site/201899/rs_634x1024-181009161140-634-taylor-swift-amas-2007.jpg?fit=around%7C776:1254&output-quality=90&crop=776:1254;center,top',
-      moment: {
-        context:
-          'At the 2007 American Music Awards in Los Angeles on Nov. 18, 2007, then still primarily a country artist performing with an acoustic guitar, she wore a studded Catherine Malandrino jeweled halter dress with black cowboy boots.\n\nRetrospectives on her AMAs style single out the boots-on-a-red-carpet pairing as of a piece with her early "Our Song"/"Tim McGraw" era.',
-        sources: [
-          { outlet: 'E! Online', url: 'https://www.eonline.com/photos/25719/taylor-swift-s-american-music-awards-looks' },
-          { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
-        ],
-        photos: [
-          {
-            url:
-              'https://akns-images.eonline.com/eol_images/Entire_Site/201899/rs_634x1024-181009161140-634-taylor-swift-amas-2007.jpg?fit=around%7C776:1254&output-quality=90&crop=776:1254;center,top',
-            credit: 'Steve Granitz/WireImage',
-          },
-        ],
-        // Shop pass (2026-07-20): Catherine Malandrino's current line is
-        // casual daywear, no jeweled halter gowns — offering a comparable
-        // beaded halter gown, plus the real cowboy boots half of the look.
-        products: [
-          {
-            brand: 'Aidan Mattox',
-            item: 'Sequin Beaded Leaf Halter Gown',
-            retailer: 'adriannapapell.com',
-            url: 'https://www.adriannapapell.com/products/sequin-beaded-leaf-halter-gown-in-rose-quartz-md1e209951',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0408/4583/6453/files/MD1E209951_AB695_Regular_Campaign.jpg?v=1776754967',
-            price: '$595.00',
-            isAlternative: true,
-            altNote: 'Catherine Malandrino\'s current line has moved to casual daywear — this is a comparable jeweled/sequined halter gown.',
-          },
-          {
-            brand: 'Tecovas',
-            item: 'The Loretta Cowgirl Boot (Midnight)',
-            retailer: 'tecovas.com',
-            url: 'https://www.tecovas.com/products/the-loretta?color=midnight-goat',
-            price: '$445.00',
-            inStock: false, // Stylist re-check 2026-07-21: page live (200), Midnight colorway sold out.
           },
         ],
       },
@@ -1113,56 +737,6 @@ export default {
           'At the 2008 CMT Music Awards on April 14, 2008 at Nashville\'s Curb Events Center, "Our Song" won both Video of the Year and Female Video of the Year, beating a field that included Carrie Underwood, LeAnn Rimes, Martina McBride, and Miranda Lambert.\n\nAccepting, 18-year-old Taylor joked: "I want to thank Sandy Spika for making all the dresses in that video and for straightening my hair, because that\'s not easy," before tearfully thanking the fans who\'d voted for her.',
         sources: [
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/' },
-        ],
-      },
-    },
-    {
-      year: 2008,
-      month: 4,
-      day: 14,
-      category: 'fashion',
-      // Image-fix pass (2026-07-10): CIE #159 — verified photo is her real 2008 CMT purple-carpet
-      // look (backdrop reads "CMT MUSIC AWARDS 08"); it's a plum V-neck gown with a draped,
-      // handkerchief hem to mid-calf, not a ruffled minidress. Reworded title/snippet/context to
-      // match what she actually wore; image is correct and unchanged.
-      title: 'A plum draped, handkerchief-hem dress for the 2008 CMT purple carpet',
-      snippet:
-        'A plum V-neck gown with a draped, handkerchief hem and metallic heels on the 2008 CMT purple carpet -- the same night "Our Song" won two trophies.',
-      sourceUrl: 'https://www.yahoo.com/entertainment/everything-taylor-swift-worn-cmt-112401779.html',
-      thumbnailUrl:
-        'https://s.yimg.com/ny/api/res/1.2/9fZWYO_g_cw7hKHKR1dJFw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE1Mjc7Y2Y9d2VicA--/https://media.zenfs.com/en/business_insider_articles_888/949b8af84d79dc9c4a91fd85b56f9674',
-      moment: {
-        context:
-          'On the purple carpet at the 2008 CMT Music Awards (April 14, 2008), she wore a plum V-neck gown, fitted through the bodice and falling into a draped, handkerchief hem to mid-calf, paired with metallic heels, a side-swept ponytail, and a sparkling headband.\n\nBefore changing into a black cutout minidress, cowboy boots, and a fedora to perform "Picture to Burn" onstage, throwing the hat across the stage mid-song.',
-        sources: [
-          {
-            outlet: 'Yahoo Entertainment',
-            url: 'https://www.yahoo.com/entertainment/everything-taylor-swift-worn-cmt-112401779.html',
-          },
-          {
-            outlet: 'Hello!',
-            url: 'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
-          },
-        ],
-        photos: [
-          {
-            url:
-              'https://s.yimg.com/ny/api/res/1.2/9fZWYO_g_cw7hKHKR1dJFw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE1Mjc7Y2Y9d2VicA--/https://media.zenfs.com/en/business_insider_articles_888/949b8af84d79dc9c4a91fd85b56f9674',
-            credit: 'Jon Kopaloff/Getty Images',
-          },
-        ],
-        // Shop pass (2026-07-20): no designer credit exists in any source
-        // for this dress — offering a plum V-neck maxi in the same silhouette.
-        products: [
-          {
-            brand: 'PrettyLittleThing',
-            item: 'Plum Devore V-Neck Maxi Dress',
-            retailer: 'prettylittlething.us',
-            url: 'https://www.prettylittlething.us/product/devore-v-neck-maxi-dress_plt08526?colour=plum',
-            price: '$32.85',
-            isAlternative: true,
-            altNote: 'No designer is credited anywhere for this dress — this echoes the plum V-neck maxi silhouette she wore.',
-          },
         ],
       },
     },
@@ -1491,15 +1065,9 @@ export default {
         ],
         photos: [
           {
-            // Image-fix pass (2026-07-10): CIE #156 — old songfacts.com cover was a 145x145
-            // low-res file. Swapped for Wikipedia's 500x500 non-free cover file (curl 200,
-            // image/png; opened and viewed — correct debut cover). For 'debut-deluxe-edition'
-            // kept the standard cover (no verified deluxe-specific cover art found this session).
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
             credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
             kind: 'primary',
-            // Focal point set 2026-07-18 by viewing (500x500): her face sits
-            // center-right of the square cover, hair filling the frame.
             focalPoint: '60% 35%',
           },
           // Photo pass #762 (2026-07-18): still from the official Teardrops on
@@ -2105,17 +1673,6 @@ export default {
           },
         ],
         photos: [
-          {
-            // Image-fix pass (2026-07-10): CIE #156 — old songfacts.com cover was a 145x145
-            // low-res file. Swapped for Wikipedia's 500x500 non-free cover file (curl 200,
-            // image/png; opened and viewed — correct debut cover).
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
-            credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
-            kind: 'primary',
-            // Focal point set 2026-07-18 by viewing (500x500): her face sits
-            // center-right of the square cover, hair filling the frame.
-            focalPoint: '60% 35%',
-          },
           // Photo pass #762 (2026-07-18): the song's story (written at 12,
           // about being the outsider) predates any public photography, so the
           // era-context add is the payoff shot instead — the girl from the
@@ -2681,9 +2238,15 @@ export default {
         'moment:vault-debut-our-song-becomes-her-first-no-1',
         'moment:vault-debut-our-song-wins-two-trophies-at-the-2008-cmt-music-awards',
       ],
+      // Date corrected (#720): was 2007-09-08, which predates even the
+      // single's Sept 10, 2007 radio release and conflicted with the
+      // sibling card's real chart date. Re-dated to match the No. 1 date
+      // (Billboard Hot Country Songs, Dec 22, 2007) so this card and
+      // vault-debut-our-song-becomes-her-first-no-1 agree, and the
+      // m-debut-2 milestone lands on the correct date.
       year: 2007,
-      month: 9,
-      day: 8,
+      month: 12,
+      day: 22,
       category: "music",
       title: "“Our Song” hits number one",
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
@@ -2729,6 +2292,134 @@ export default {
             kind: 'primary',
             // Face fills the center of the frame, eyes just above the midline.
             focalPoint: '53% 40%',
+          },
+          // Photo pass (issue #1721, 2026-08-25): a second photo of Taylor
+          // from the debut era was tried here, but combined with this pass's
+          // other additions it pushed that image's reuse past
+          // content.image-overuse's >3-moments threshold — reverted rather
+          // than force an overused image through.
+        ],
+      },
+    },
+
+    {
+      // Cross-link (Stage 3, 2026-07-30): the "Love Story" pair — the song's
+      // story, and the single's release two months ahead of the album — now
+      // interlink.
+      relatedIds: ['moment:vault-debut-love-story-arrives-two-months-before-the-album'],
+      year: 2008,
+      month: 9,
+      day: 15,
+      category: 'music',
+      title: "Love Story, and the boy her family didn't approve of",
+      snippet:
+        "Inspired by a boy she never actually dated — one her family and friends \"all said they didn't like.\"",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+      moment: {
+        context:
+          "She's said the disapproval reminded her of Romeo and Juliet — \"the only people who wanted them to be together were them\" — so she gave her version the happy ending Shakespeare didn't, swapping the double suicide for a marriage proposal she felt the characters deserved.\n\nThe whole thing came fast: she wrote it on her bedroom floor in about 20 minutes, then cut a rough demo in roughly 15 minutes the next day. The boy stayed anonymous — she's only ever said he was someone she never actually dated, and that when she brought him around, \"[they] all said they didn't like him. All of them!\"",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)' },
+          { outlet: 'Wide Open Country', url: 'https://www.wideopencountry.com/love-story-taylor-swift/' },
+        ],
+        // Photo-enrichment pass (2026-07-30): added the official "Love Story"
+        // music-video still (YouTube id 8xg3vE8Ie_E, oEmbed-verified channel
+        // "Taylor Swift" @TaylorSwift; curl 200 image/jpeg); downloaded and
+        // vision-confirmed.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+            focalPoint: '52% 45%',
+            credit: 'Big Machine Records / official Taylor Swift YouTube channel',
+            caption: 'Still from the official "Love Story" music video.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    // --- Music/business/tour depth pass (2026-07-05)
+    {
+      year: 2008,
+      month: 10,
+      day: 28,
+      category: 'music',
+      title: "You're Not Sorry, and the ex-boyfriend who felt like Prince Charming",
+      snippet: "He \"came across as Prince Charming\" — until Taylor found out how many secrets he'd been keeping from her.",
+      sourceUrl: "https://en.wikipedia.org/wiki/You%27re_Not_Sorry",
+      thumbnailUrl:
+        'https://i.ytimg.com/vi/hNiMWIwAr3k/hqdefault.jpg',
+      moment: {
+        context:
+          'She\'s said the inspiration was an ex-boyfriend whose lies took a while to surface: "He came across as Prince Charming [...] who had a lot of secrets that he didn\'t tell me about." The situation became a "breaking point" where she felt she had to walk away before getting hurt further.\n\nShe wrote the song alone and produced it with Nathan Chapman at Blackbird Studio in Nashville, releasing it Oct. 28, 2008 as a promotional single ahead of the album.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/You%27re_Not_Sorry' }],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hNiMWIwAr3k/hqdefault.jpg',
+            focalPoint: '50% 45%',
+            credit: "Fearless Tour performance still, via Taylor Swift's Tour Extras on YouTube",
+            caption: 'Performing the "You\'re Not Sorry" piano mashup on the Fearless Tour.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+
+
+    // --- Deep timeline fill (2026-07-08, content/deep-a): the era's singles
+    // and reissue (release was empty), song origin stories, tour lore, the
+    // 2009 CMA sweep, and her acting/SNL firsts. Every claim verified against
+    // its cited source this session; business items carry two independent
+    // sources per the framework.
+    {
+      slug: 'love-story-single-release',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Love Story" moment.
+      relatedIds: ['moment:vault-debut-love-story-and-the-boy-her-family-didnt-approve-of'],
+      year: 2008,
+      month: 9,
+      day: 15,
+      category: 'release',
+      title: 'Love Story arrives two months before the album',
+      snippet:
+        'Sept. 15, 2008: the lead single from Fearless goes out to country radio ahead of the album — and starts a climb that wouldn\'t stop until it had topped pop radio too.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+      moment: {
+        context:
+          'It peaked at No. 4 on the Hot 100, spent two weeks atop Hot Country Songs — and five months later became the first country song ever to hit No. 1 on Billboard\'s pop-radio chart (see February 2009).\n\nThe long tail is the real story: roughly 18 million copies sold worldwide make it one of the best-selling singles ever released, and its 6.2 million US copies still stand as her biggest-selling song at home — a lead single that outsold everything the superstar decade that followed produced.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
+            source_title: 'Love Story (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Wide Open Country',
+            url: 'https://www.wideopencountry.com/love-story-taylor-swift/',
+            source_title: "'Love Story': The Story Behind The Classic Taylor Swift Song",
+            publisher: 'Wide Open Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 3,
+          },
+        ],
+        // Photo-enrichment run 16 (2026-07-18, #762): added a still from the
+        // official "Love Story" music video, which premiered Sept. 12, 2008,
+        // days before the single's radio release — video id verified via
+        // YouTube oEmbed (title "Taylor Swift - Love Story", channel
+        // @TaylorSwift); thumbnail verified HTTP 200 + image/jpeg, downloaded
+        // and visually confirmed. Per-image focal points set by eye.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+            credit: 'Big Machine Records / YouTube (official music video still)',
+            caption: 'The sepia close-up from the official "Love Story" video, which premiered days before the single went to country radio.',
+            kind: 'archival',
+            focalPoint: '48% 40%',
           },
         ],
       },

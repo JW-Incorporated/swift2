@@ -40,7 +40,7 @@ export default {
       title: 'Sixty-five Polaroids, five albums deep',
       secret:
         'Every 1989 CD came with 13 Polaroids of Taylor, lyrics scrawled in marker along the bottom. What most fans never clocked: there were 65 different Polaroids in circulation, packed in five random sets of 13 — completing the collection meant buying the album five times over.',
-      deeperLink: 'moment:vault-1989-a-yahoo-livestream-announces-1989-her-first-documented-offic',
+      deeperLink: 'moment:vault-red-a-yahoo-livestream-announces-1989-her-first-documented-offic',
       provenance: 'sourced',
       sources: [
         {

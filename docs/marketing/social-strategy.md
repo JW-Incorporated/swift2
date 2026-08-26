@@ -421,6 +421,18 @@ relationship-existence speculation) applies to every draft, and nothing is ever
 invented — no stat, quote, or trend without a Vault item or a verifiable source
 behind it.
 
+**Register — a fan in love, out loud (Joey, 2026-08-25).** We are fans and we
+GUSH. Every caption is first-person fan reaction first, fact second: lead with
+the feeling ("OMG", "i can't stop thinking about", "this makes me so happy"),
+then the one concrete detail that earns it. If a caption could be read aloud
+by a documentary narrator without sounding wrong, it's in the old voice —
+rewrite it. Lowercase stays; detachment goes. Exclamation points and
+caps-for-emphasis are welcome; 1-2 emoji max, never strings. The specificity
+test still binds both ways: joy without a real detail is slop, and a detail
+without joy is a museum placard. Unchanged: sourcing is absolute — gush only
+over what's real, never invent a stat, quote, or event; the blocklist;
+Taylor, not "Swift"; no AI-tell phrases; never speak as Taylor or her team.
+
 ---
 
 ## 3. Metrics and the monthly review

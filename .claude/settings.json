@@ -106,7 +106,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "git fetch origin --quiet 2>nul & exit 0"
+            "command": "git fetch origin --quiet 2>/dev/null; exit 0"
           }
         ]
       }

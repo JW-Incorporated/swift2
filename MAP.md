@@ -91,11 +91,13 @@ read once on mount (`deepLink.ts`) and never written back.
 | Path (under `apps/web/`) | Responsibility |
 |---|---|
 | `lib/longlive/store.tsx` | The single state container: `mode`, `eraId`, `lensId`, overlays, era-scroll snapshot, `ReturnPoint` doorway back-to-position stack (`pushReturnPoint`/`popReturnPoint`) |
+| `lib/longlive/return-point-stack.ts` | Pure matching-consume rule for doorway return points; unrelated back restores leave the LIFO entry intact |
 | `lib/longlive/tags.ts` | `ContentTag` — the 5 authored topic tags. **Does not re-export the type; import `ContentTag` from `./types`** |
 | `lib/longlive/filters.ts` | `FilterId` (the 5 tags + `Videos`), `ALL_FILTERS`, `filterMatches`, `filtersForEntry`, `filterForThread` (LensId→FilterId, exhaustive) |
 | `lib/longlive/anchor-date.ts` | Sort-key resolution for undated items. `displayDate` is null unless `via === 'exact'`; `via: 'clamped'` is a real date pulled inside an era's window (P3 step 14a) |
 | `components/longlive/FilterBar.tsx` | The ONE global sticky filter row. Mounted once by `EraStream`, never per era |
 | `lib/longlive/era-feed.ts` | Pure feed logic: `EraFeedEntry` (5 kinds — Stage 5 added `current`), `mergeEraFeed`, `visibleFeed` — one signature each (P3 step 14b). Doorway construction in `doorways.ts`, spacing in `space-doorways.ts`, live-item construction in `current-feed.ts` |
+| `lib/longlive/era-feed-clusters.ts` | #696 release-day pileups: `clusterSameDayMoments`/`CLUSTER_MIN_SIZE` collapse a same-day `moment` run into one `ClusterEntry`, applied AFTER `visibleFeed` — render-only, never touches filtering/tiering |
 | `lib/longlive/doorways.ts` | Builds `thread`/`egg` doorway entries (`threadDoorwaysForEra` clamps out-of-window anchors, `eggDoorwaysForEra`); `theoryThreadId` — the R4 theory→thread mapping, shared with `TheoryCard.tsx` |
 | `lib/longlive/current-feed.ts` | Knowledge-engine Stage 5: `currentFeedEntries` (builds the `current` `EraFeedEntry` kind from `current_item` rows), `outletFor`, `CURRENT_ITEM_STATUS_COPY`, `summarizeCurrentActivity` (masthead line) |
 | `lib/longlive/use-current-items.ts` | Client hook: fetches the current era's live rows from `/vault/current/[eraId]`, fails soft to `[]` |
@@ -118,7 +120,8 @@ read once on mount (`deepLink.ts`) and never written back.
 | `lib/longlive/era-jump-landing.ts` | Pure: `jumpLandingScrollTop` (lands a jump target below the sticky chrome) and `shouldRunEraJump` (gates EraStream's mount-time jump so a fresh `/` load doesn't jump past the masthead) |
 | `lib/longlive/chrome-offset.ts` | `measureChromeHeight()` — the one place that measures live TopBar + FilterBar height; every jump/scroll/scrubber offset goes through it instead of a hardcoded constant |
 | `components/longlive/EraSection.tsx` | One era's wiring: hero, lyric, feed/doorway data, doorway tap → `pushReturnPoint`. Split (P3 step 15, was 826 lines) into the files below — none over 300 |
-| `components/longlive/EraFeedList.tsx` | Renders `EraSection`'s merged feed: dispatches each `EraFeedEntry` kind to the right card component |
+| `components/longlive/EraFeedList.tsx` | Renders `EraSection`'s merged feed: dispatches each `EraFeedEntry` kind (plus `era-feed-clusters.ts`'s `cluster`) to the right card component |
+| `components/longlive/ClusterCard.tsx` | #696 collapsible "release day, track by track" card — collapsed same-day `MomentCard` run, expands to the full normal-tiered grid |
 | `components/longlive/CurrentItemCard.tsx` | Live `current_item` feed card (kind: `'current'`) — dashed-unconfirmed border, "Live · reported by X" chip |
 | `components/longlive/CurrentItemDetail.tsx` | Live item's detail overlay — mandatory dashed rumor banner + "Help us verify" (POSTs `/api/intake`). State owned locally by `EraSection`, not the shared store |
 | `components/longlive/MomentCard.tsx` | Moment card wrapper: box + inline video play affordance (#2057) |
@@ -142,6 +145,9 @@ read once on mount (`deepLink.ts`) and never written back.
 - Build: `npm run build`
 - Content gates: `npm run check:generated`, `check:content-ownership`,
   `check:voice`, `validate:content`, `validate:social`
+- Era-date regression: `scripts/era-date-audit.test.ts` checks every authored
+  content/theory era file against `supabase/seed/eras-data.mjs` and snapshots
+  the documented no-range/campaign exceptions.
 
 ## Clown bot rebuild (build B) — new files this workstream
 
@@ -160,12 +166,18 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-fallback.ts` (+ `.test.ts`) | Zero-model card composer |
 | `apps/web/lib/longlive/clown-starters.ts` (+ `.test.ts`) | Column item → composer prefill string |
 | `apps/web/lib/longlive/clown-names.ts` (+ `.test.ts`) | Ported name registry |
+| `apps/web/lib/longlive/clown-explain.ts` (+ `.test.ts`) | Plain-language clowning/delulu/Easter-egg definitions; deterministic meta-question intercept before retrieval/model |
 | `apps/web/lib/longlive/clown-client.ts` (+ `-prompt.ts`, `.test.ts`) | The one model call; tier as a named constant; `CLOWN_MODEL_DISABLED` kill switch |
 | `apps/web/lib/longlive/clown-answer.ts` | `ClownAnswer` — the one client-facing shape |
 | `apps/web/lib/longlive/clown-gate.ts` (+ `.test.ts`) | Output re-screen |
 | `apps/web/lib/longlive/clown-usage.ts` (+ `.test.ts`) | Ported cap reservoir |
-| `apps/web/components/longlive/ClownChat.tsx` | App-panel chrome (titlebar, fullscreen toggle, docked composer) + transcript |
+| `apps/web/components/longlive/ClownChat.tsx` | App-panel shell — state, the `ask()` fetch/stream loop, layout — fullscreen toggle + docked composer split out below (300-line cap, HUMAN-ACTIONS.md #15 LOW finding) |
+| `apps/web/components/longlive/ClownChatTitlebar.tsx` | Titlebar (avatar/label/online dot/expand toggle), split out of ClownChat.tsx (300-line cap) |
+| `apps/web/components/longlive/ClownEmptyState.tsx` | Newcomer vocabulary guide + four composer-prefill starters; buttons never auto-send |
+| `apps/web/components/longlive/ClownChatComposer.tsx` | Docked composer pill (textarea/send), split out of ClownChat.tsx (300-line cap); textarea auto-grows via `useAutoResizeTextarea` |
+| `apps/web/lib/longlive/clown-chat-ui.ts` | `useAutoResizeTextarea` / `useStickToBottomScroll` — the composer's grow-to-fit and the stream's stick-to-bottom-unless-scrolled-up auto-scroll |
 | `apps/web/components/longlive/ClownMessageRow.tsx` | One transcript turn — user bubble + bot reply (split out of ClownChat.tsx, 300-line cap) |
+| `apps/web/lib/longlive/useChromeOffset.ts` | Live sticky-chrome height hook, split out of ClownChat.tsx (300-line cap) — wraps `chrome-offset.ts`'s `measureChromeHeight` |
 | `apps/web/components/longlive/ClownBoard.tsx` | The two columns. Knowledge-engine Stage 7: column 1 also renders `live_theory` rows (`lib/longlive/use-live-theories.ts`), sorted by heat, above the static list |
 | `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |
 | `scripts/check-clown-battery.mjs` | `clown:battery` CI script (deterministic, no API key) |
@@ -199,10 +211,11 @@ changing any existing call site's behaviour.
 | Path | What |
 |---|---|
 | `apps/web/lib/longlive/clown-agent.ts` (+ `.test.ts`) | The bounded loop's control flow (`runClownAgent`) — ≤6 tool calls / ≤20s / ≤2,500 tokens, all enforced BEFORE a call is requested, not after; forces `record_take` once any cap trips |
-| `apps/web/lib/longlive/clown-agent-prompt.ts` | Message-shape plumbing split out of `clown-agent.ts` (300-line cap): seed-prompt building, `tool_result` formatting, read-tool dispatch, `tool_use` block extraction — no cap/budget logic |
+| `apps/web/lib/longlive/clown-agent-prompt.ts` | Message-shape plumbing split out of `clown-agent.ts` (300-line cap): seed-prompt building, `tool_result` formatting, read-tool dispatch (`executeReadTool`, `dispatchReadBlocks`), `tool_use` block extraction — no cap/budget logic |
+| `apps/web/lib/longlive/clown-agent-caps.ts` (+ tested via `clown-agent.test.ts`) | Pure per-round cap arithmetic (tool-call budget / token headroom / wall clock → next `tool_choice`), split out of `clown-agent.ts` (300-line cap) |
 | `apps/web/lib/longlive/clown-agent-tools.ts` (+ `.test.ts`) | The 7 read tools' executors, DB-first with `clown-index.ts` as the no-DB-unreachable fallback (search only); `resolveScopeSignal` for the route's pre-loop scope check |
 | `apps/web/lib/longlive/clown-predictions.ts` (+ `.test.ts`) | PLAN.md Stage 11: `persistPrediction` writes `bot_prediction` for real when a memory session resolves; no-ops when it doesn't (today's real state) |
-| `apps/web/lib/longlive/clown-session.ts` (+ `.test.ts`) | PLAN.md Stage 11: Supabase anonymous-auth session resolution (raw `fetch()` over Auth/PostgREST, no SDK dep) — `resolveClownSession` degrades to `null` when the "Allow anonymous sign-ins" toggle is off (today's state, `HUMAN-ACTIONS.md` #15 item 2) |
+| `apps/web/lib/longlive/clown-session.ts` (+ `.test.ts`) | PLAN.md Stage 11: Supabase anonymous-auth session resolution (raw `fetch()` over Auth/PostgREST, no SDK dep) — `resolveClownSession` degrades to `null` when the "Allow anonymous sign-ins" toggle is off (today's state, `HUMAN-ACTIONS.md` #15 item 2); session persistence is an `HttpOnly; Secure; SameSite=Strict` cookie (`readSessionCookie`/`buildSessionCookieHeader`), not `localStorage` (round-4 architect redesign; the prior `clown-session-storage.ts` localStorage approach was deleted) |
 | `apps/web/lib/longlive/clown-memory.ts` (+ `.test.ts`) | PLAN.md Stage 11: conversation continuation, rolling summary (truncate-and-fold past 20 turns), per-user daily cap (`usage_daily(scope='clown-chat:<uid>')`, 200/day — same number as `clown-usage.ts`'s existing cap) |
 | `apps/web/lib/longlive/clown-pins.ts` (+ `.test.ts`) | PLAN.md Stage 11: `clown_pinned_theory` pin/unpin/list — library only, no route wired to it yet |
 | `apps/web/lib/longlive/clown-stream.ts` (+ `.test.ts`) | Client-side NDJSON stream reader, shared by `ClownChat.tsx` |
@@ -214,8 +227,14 @@ changing any existing call site's behaviour.
 
 `ClownChat.tsx`/`ClownMessageRow.tsx` were already over the 300-line
 guideline before this stage (350/153 lines); the stream-consumption and
-investigation-trail rendering added here pushed `ClownChat.tsx` to 365 —
-noted, not further split this PR (see the Stage 10 PR body for the call).
+investigation-trail rendering, plus two further Stage 11 fix rounds, pushed
+`ClownChat.tsx` to 387 and `clown-agent.ts` to 334 (HUMAN-ACTIONS.md #15 LOW
+finding). Split further in the #15 third-pass fix: `ClownChat.tsx` →
+`ClownChatTitlebar.tsx` + `ClownChatComposer.tsx` + `useChromeOffset.ts`
+(387 → 301 lines); `clown-agent.ts` → `clown-agent-caps.ts` +
+`clown-agent-prompt.ts`'s new `dispatchReadBlocks` (334 → 311 lines). Both
+land just above the 300-line guideline, not under it — noted honestly
+rather than fragmenting further at the cost of readability.
 
 ## Clownbot eval harness (PLAN.md Stage 12, proposal §7 eval bullet) — new files
 
@@ -255,6 +274,13 @@ file by mistake — the names are easy to confuse.
 | `apps/web/lib/longlive/mood-battery.ts` | The 10 acceptance cases as typed data, imported by the route tests |
 | `scripts/check-mood-battery.mjs` | **Live** battery against a real `POST /api/mood` + real key — the only thing that exercises model judgment. `npm run dev --workspace @swift2/web -- -p 3100` first. **Port 3100, never 3000** (an agent killed Joey's server there). Case list is mirrored from `mood-battery.ts`; edit both |
 | `MOODBOT.md` | How to add songs / re-score moods |
+| `apps/web/lib/longlive/mood-intents.ts` | Hand-checked preferred/excluded song policies for companionship, everyday work stress, and bare fatigue |
+
+Casual-language guardrails (#1985/#1986/#1988) live across
+`mood-keywords.ts` and `mood-match.ts`: the lexicon recognizes the ticket's
+literal phrases, while narrow companionship/work-stress/fatigue intents pin
+or exclude only the hand-checked issue examples. General axis scoring and the
+#1984 bereavement gate remain unchanged.
 
 ## Dead / do-not-touch
 

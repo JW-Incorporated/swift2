@@ -68,12 +68,21 @@ describe('persistPrediction — PLAN.md Stage 11, wired for real', () => {
     expect(body.symbols).toEqual([]);
   });
 
-  it('resolves cleanly (never throws) even when the write fails', async () => {
+  it('rejects when the network write fails', async () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('network down')));
     await expect(
       persistPrediction({ session: FIXTURE_SESSION, question: 'q', take: fixtureTake(), sources: [] }),
     ).rejects.toThrow();
+  });
+
+  it('rejects when PostgREST returns a non-success response', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(null, { status: 503 })));
+    await expect(
+      persistPrediction({ session: FIXTURE_SESSION, question: 'q', take: fixtureTake(), sources: [] }),
+    ).rejects.toThrow('clown prediction insert failed (503)');
   });
 });

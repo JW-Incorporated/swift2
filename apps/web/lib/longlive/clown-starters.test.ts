@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { promptForItem } from './clown-starters';
+import { CLOWN_STARTERS, promptForItem } from './clown-starters';
 
 // `clown-board.ts` (the real BoardItem source) is being built in parallel and
 // may not exist yet — PLAN.md's dependency note directs test files to define
@@ -70,5 +70,20 @@ describe('promptForItem', () => {
       date: '2026-04-01',
     };
     expect(promptForItem(item)).toBe(promptForItem(item));
+  });
+});
+
+describe('CLOWN_STARTERS (#1987)', () => {
+  it('keeps a compact four-prompt empty state instead of the retired nine-chip wall', () => {
+    expect(CLOWN_STARTERS).toHaveLength(4);
+  });
+
+  it('gives newcomers at least three prompts that require no prior lore', () => {
+    expect(CLOWN_STARTERS.filter((starter) => starter.newcomerFriendly)).toHaveLength(4);
+    expect(CLOWN_STARTERS.slice(0, 3).map((starter) => starter.prompt)).toEqual([
+      'What is clowning?',
+      'What is a Taylor Swift Easter egg?',
+      'How do you check a fan theory?',
+    ]);
   });
 });

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { CONTENT, MILESTONES, build, milestonesForEra, type RawItem } from './content';
 import { formatMonthYear } from './format';
 import {
+  focalPointOf,
   hasRealPrimaryImage,
   isEraArtFallback,
   primaryImage,
@@ -59,6 +60,11 @@ describe('build() image normalization', () => {
 });
 
 describe('primary image helpers', () => {
+  it('uses an authored focal point and otherwise preserves center-cropping', () => {
+    expect(focalPointOf({ focalPoint: '72% 24%' })).toBe('72% 24%');
+    expect(focalPointOf(undefined)).toBe('50% 50%');
+  });
+
   it('primaryImageRef prefers the primary entry regardless of order', () => {
     const [item] = build('red', [
       raw({
@@ -143,6 +149,32 @@ describe('CONTENT dataset invariants', () => {
       for (const img of item.images) {
         expect(img.url, item.id).toBeTruthy();
         expect(['primary', 'reference', 'archival'], item.id).toContain(img.kind);
+      }
+    }
+  });
+
+  it('Fearless moments avoid Getty comp previews and limit record artwork to documented exceptions (#743)', () => {
+    const fearless = CONTENT.filter((item) => item.eraId === 'fearless');
+    const recordArtworkAllowlist = new Set([
+      'love-story-single-release',
+      'white-horse-single-release',
+      'fearless-platinum-edition',
+      'today-was-a-fairytale-release',
+      'fearless-billboard-no-1-debut',
+      // Calendar-era placement (#3314): this Speak Now catalog story happened
+      // before that era began, and its existing primary image is single art.
+      'vault-fearless-back-to-december-her-first-apology-song',
+    ]);
+    expect(fearless.length).toBeGreaterThan(0);
+
+    for (const item of fearless) {
+      for (const image of item.images) {
+        expect(image.url, item.id).not.toContain('media.gettyimages.com');
+        if (!recordArtworkAllowlist.has(item.slug ?? item.id)) {
+          expect(image.url, item.id).not.toMatch(
+            /^https:\/\/upload\.wikimedia\.org\/wikipedia\/en\//,
+          );
+        }
       }
     }
   });

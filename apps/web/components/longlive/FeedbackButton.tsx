@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { MessageSquarePlus, X, Check, Loader2 } from 'lucide-react';
 import { useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
+import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 
 // A floating "report an issue" button, fixed to the bottom-right so it follows
 // the viewport as you scroll. Opens a small free-form panel; on submit it POSTs
@@ -61,6 +62,8 @@ export function FeedbackButton() {
   const [errorMsg, setErrorMsg] = useState('');
   const [dismissed, setDismissed] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const textareaId = useId();
 
   // Hydrate before paint, never during render — reading sessionStorage
   // during render would break SSR (no `window`), but a plain post-paint
@@ -79,6 +82,8 @@ export function FeedbackButton() {
     setDismissed(true);
     writeDismissed();
   }
+
+  useFocusTrap(open, dialogRef);
 
   useEffect(() => {
     if (!open) return;
@@ -173,7 +178,10 @@ export function FeedbackButton() {
     <>
       {open && (
         <div
+          ref={dialogRef}
+          tabIndex={-1}
           role="dialog"
+          aria-modal="true"
           aria-label="Send feedback"
           // Mobile: cleared of BottomNav (fixed, ~56px + safe-area-inset-bottom)
           // by sitting well above it; desktop is unchanged (no bottom nav there).
@@ -191,51 +199,67 @@ export function FeedbackButton() {
             </button>
           </div>
 
-          {status === 'sent' ? (
-            <p className="flex items-center gap-2 py-3 text-sm text-accent">
-              <Check size={16} /> Thanks — your report was filed.
-            </p>
-          ) : (
-            <>
-              <textarea
-                ref={textareaRef}
-                value={msg}
-                maxLength={MAX}
-                onChange={(e) => setMsg(e.target.value)}
-                onKeyDown={(e) => {
-                  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') submit();
-                }}
-                placeholder="Wrong date, bad photo, typo, broken link… tell us what you saw."
-                rows={4}
-                className="w-full resize-y rounded-lg border border-line bg-bg p-2.5 text-sm text-ink placeholder:text-ink-soft/70 focus:border-accent focus:outline-none"
-              />
-              {/* Honeypot — hidden from humans, catches bots. */}
-              <input
-                type="text"
-                tabIndex={-1}
-                autoComplete="off"
-                value={hp}
-                onChange={(e) => setHp(e.target.value)}
-                className="hidden"
-                aria-hidden="true"
-              />
-              {errorMsg && <p className="mt-2 text-xs text-red-400">{errorMsg}</p>}
-              <div className="mt-2 flex items-center justify-between">
-                <span className="text-[11px] text-ink-soft">
-                  Reporting from: {describeView()}
-                </span>
-                <button
-                  type="button"
-                  onClick={submit}
-                  disabled={!msg.trim() || status === 'sending'}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-bg transition-opacity disabled:opacity-40"
-                >
-                  {status === 'sending' ? <Loader2 size={14} className="animate-spin" /> : null}
-                  {status === 'sending' ? 'Sending…' : 'Send'}
-                </button>
-              </div>
-            </>
-          )}
+          {/* Persistent live region (#835) — this div itself never
+              unmounts, only the content inside it swaps, which is what makes
+              screen readers actually announce the change (a live region
+              added at the same moment as its content often isn't announced).
+              `polite` covers the success text; the error `<p>` additionally
+              carries `role="alert"` for its own assertive announcement. */}
+          <div role="status" aria-live="polite">
+            {status === 'sent' ? (
+              <p className="flex items-center gap-2 py-3 text-sm text-accent">
+                <Check size={16} /> Thanks — your report was filed.
+              </p>
+            ) : (
+              <>
+                <label htmlFor={textareaId} className="sr-only">
+                  Describe the issue
+                </label>
+                <textarea
+                  id={textareaId}
+                  ref={textareaRef}
+                  value={msg}
+                  maxLength={MAX}
+                  onChange={(e) => setMsg(e.target.value)}
+                  onKeyDown={(e) => {
+                    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') submit();
+                  }}
+                  placeholder="Wrong date, bad photo, typo, broken link… tell us what you saw."
+                  rows={4}
+                  className="w-full resize-y rounded-lg border border-line bg-bg p-2.5 text-sm text-ink placeholder:text-ink-soft/70 focus:border-accent focus:outline-none"
+                />
+                {/* Honeypot — hidden from humans, catches bots. */}
+                <input
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={hp}
+                  onChange={(e) => setHp(e.target.value)}
+                  className="hidden"
+                  aria-hidden="true"
+                />
+                {errorMsg && (
+                  <p role="alert" className="mt-2 text-xs text-red-400">
+                    {errorMsg}
+                  </p>
+                )}
+                <div className="mt-2 flex items-center justify-between">
+                  <span className="text-[11px] text-ink-soft">
+                    Reporting from: {describeView()}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={submit}
+                    disabled={!msg.trim() || status === 'sending'}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-bg transition-opacity disabled:opacity-40"
+                  >
+                    {status === 'sending' ? <Loader2 size={14} className="animate-spin" /> : null}
+                    {status === 'sending' ? 'Sending…' : 'Send'}
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       )}
 
@@ -247,7 +271,10 @@ export function FeedbackButton() {
           "Feedback" silently dismissed the widget instead of opening it
           (re-review finding D, 2026-08-13). Laid out side by side with a gap
           instead, so the two 44px targets never overlap. */}
-      <div className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex items-center gap-2 md:bottom-4">
+      <div
+        data-social-hide="feedback-button"
+        className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex items-center gap-2 md:bottom-4"
+      >
         {/* Dismisses the whole widget for the rest of the session (Joey: "it
             shouldn't keep coming back and annoying them"), distinct from just
             closing the compose panel. Only offered while idle; while

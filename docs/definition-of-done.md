@@ -29,13 +29,13 @@ unstaffed, not stuck, and it's the most actionable answer this table has).
 
 | # | Item | Status | Blocked on | Next action |
 |---|---|---|---|---|
-| 1 | Landing page rethink (scroll-first + obvious nav) | ⬜ not started | nobody | Design spec + mockups → founder approval |
-| 2 | End Game vs Blank Spaces cards differentiated | 🟡 built, awaiting Joey's device check ([#2053](https://github.com/JW-Incorporated/swift2/pull/2053)) | founder | Joey eyeballs both cards on his phone — the last acceptance criterion |
-| 3 | Clue Web vs Decode cards differentiated | 🟡 built, awaiting Joey's eyeball ([#2062](https://github.com/JW-Incorporated/swift2/pull/2062)) | founder | Joey checks the two cards side by side — the last acceptance criterion |
+| 1 | Landing page rethink (scroll-first + obvious nav) | 🟢 done — Joey ruled the current landing page is perfect as-is, no rethink needed (2026-08-25, see `docs/decisions.md`) | — | none — closed |
+| 2 | End Game vs Blank Spaces cards differentiated | 🟢 done — Joey checked both cards on his phone, confirmed distinguishable ([#2053](https://github.com/JW-Incorporated/swift2/pull/2053), confirmed 2026-08-25) | — | none |
+| 3 | Clue Web vs Decode cards differentiated | 🟢 done — Joey checked both cards side by side, confirmed distinguishable ([#2062](https://github.com/JW-Incorporated/swift2/pull/2062), confirmed 2026-08-25) | — | none |
 | 4 | Marketplace + Community sections | ⬜ not started | nobody | Product spec each → founder approval → build |
 | 5 | Every link on the site works | 🟡 engineering work not yet done — Karen's nightly link-liveness check (`scripts/check-link-liveness.mjs`) already covers source URLs; shop/product links aren't in that sweep yet and no single full-site pass has ever run | agent | Widen Karen's nightly to shop/product links + run one full-site pass |
 | 6 | Every video, chronological, + video filter | ⬜ not started | nobody | Sourcing spec → data model extension → build |
-| 7 | Clown bot | 🟡 chat feature live and shipped. Memory/session feature: architecture decided after a 3-round review stall (`DEBUG.md`), one bounded fix PR in progress — do NOT flip the Supabase anon-auth toggle until it lands ([`HUMAN-ACTIONS.md`](../HUMAN-ACTIONS.md) #15) | agent | Land the memory fix PR, then flip the Supabase toggle |
+| 7 | Clown bot | 🟢 chat feature live and shipped (agent loop, streaming, investigation trail). Memory/session feature: PR #2328 merged 2026-08-24 after a 5-round review (architecture escalation, redesign, 2 verification rounds) — code is genuinely ready, independently reviewed clean. Not turned on yet — that's a founder action, not an engineering gap: apply the pending migrations and flip the Supabase anon-auth toggle when ready ([`HUMAN-ACTIONS.md`](../HUMAN-ACTIONS.md) #14/#15) | founder | Apply migrations + flip the toggle whenever you're ready — nothing left blocking it |
 | 8 | Era/album capitalization audit | ⬜ not started | nobody | Audit + fix + add a checker so it can't regress |
 
 Legend: 🟢 done (criterion met, verified) · 🟡 moving · ⬜ not started ·
@@ -43,9 +43,14 @@ Legend: 🟢 done (criterion met, verified) · 🟡 moving · ⬜ not started ·
 
 ---
 
-## 1. Landing page rethink — land in content, make the nav unmissable
+## 1. Landing page rethink — CLOSED, no rework needed (2026-08-25)
 
-**The problem (Joey/Wyatt):** the landing experience is the eras, and a new
+**Resolution:** Joey reviewed the current landing page and ruled it's perfect
+as-is — no rethink, no new spec, no rework. This item is done; the problem
+statement and acceptance criteria below are kept as historical record of what
+was considered, not as an open spec. See `docs/decisions.md` 2026-08-25.
+
+**The problem (Joey/Wyatt), as originally framed:** the landing experience is the eras, and a new
 user may not "get it." Nobody arriving cold knows what a "thread" is. The main
 navigation (Eras, Threads, Mood — plus Marketplace and Community once item 4
 exists) isn't obvious.
@@ -260,9 +265,10 @@ checker live in `DET_CHECKERS`; a deliberately-miscased test fixture fails CI.
 ## Working notes
 
 - Items 2, 3, 8 are small and buildable immediately (specs above are
-  sufficient). Items 1, 4, 6 need founder-approved specs first. Item 5 is
-  runnable now on existing machinery. Item 7 is blocked on a founder decision
-  by design.
+  sufficient); 2 and 3 are now done, confirmed by Joey 2026-08-25. Item 1 is
+  closed (2026-08-25, landing page kept as-is). Items 4, 6 need
+  founder-approved specs first. Item 5 is runnable now on existing machinery.
+  Item 7 is blocked on a founder decision by design.
 - **2026-08-23:** Marjorie's brief now reads this file directly (see the
   relationship note above) — status changes here need a PR link like any
   gate file, same as before, but they now show up in the brief the next

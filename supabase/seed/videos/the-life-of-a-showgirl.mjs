@@ -126,6 +126,103 @@ export default {
       ],
     },
     {
+      // Not an album track — a standalone Walt Disney Records single written
+      // for Toy Story 5, with no album era of its own. Filed here because the
+      // era's own content file (supabase/seed/content/the-life-of-a-showgirl.mjs)
+      // already carries this song's extensive chart/timeline coverage under
+      // this era, as the contemporaneous release; see the same cross-reference
+      // note on 'icon-sessions-grammy-museum-medley' below. Distinct upload
+      // from that medley performance — this is the standalone official video.
+      slug: 'i-knew-it-i-knew-you-mv',
+      kind: 'music_video',
+      title: 'I Knew It, I Knew You',
+      director: null,
+      releasedOn: '2026-06-05',
+      relatedSongs: ['I Knew It, I Knew You'],
+      tags: ['Music'],
+      summary:
+        'The Toy Story 5 single\'s official video is built entirely from Toy Story franchise footage centered on Jessie — her meeting Woody, being abandoned by Emily, and finding a new home with Bonnie.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+          source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official upload on the verified Taylor Swift channel',
+        },
+        wiki('I_Knew_It,_I_Knew_You', 'I Knew It, I Knew You', 'confirms release date, Toy Story 5 tie-in, and video content'),
+        press(
+          'https://variety.com/2026/music/news/taylor-swift-wrote-recorded-toy-story-song-eight-hours-1236785352/',
+          "Taylor Swift Wrote and Recorded 'I Knew It, I Knew You' in 8 Hours Right After Watching 'Toy Story 5'",
+          'Variety',
+          'covers the song\'s origin and Jack Antonoff co-write',
+        ),
+      ],
+    },
+    {
+      // Filed here by the event's real-world date (2026-08-24, inside this
+      // era's range), NOT by the songs performed — none of the three songs
+      // in this medley ("I Knew It, I Knew You," "august," "All Too Well")
+      // is a tloas track. Era placement is decided solely by when a piece of
+      // content happened, never by the catalog era of what it references
+      // (docs/decisions.md 2026-08-25; this entry was the case that
+      // surfaced the gap — it previously sat in folklore.mjs because
+      // "august" is a folklore song). See the same cross-reference note on
+      // 'i-knew-it-i-knew-you-mv' above: distinct upload from that
+      // standalone music video — this is the live-performance recording.
+      slug: 'icon-sessions-grammy-museum-medley',
+      kind: 'performance',
+      title: 'The Icon Sessions at the Grammy Museum',
+      director: null,
+      releasedOn: '2026-08-24',
+      relatedSongs: ['I Knew It, I Knew You', 'August', 'All Too Well'],
+      tags: ['Music'],
+      summary:
+        'A medley of "I Knew It, I Knew You," "August" and "All Too Well" for The Recording Academy Songwriters & Composers Wing 20-Year Retrospective, live at the Grammy Museum — pairing her Toy Story 5 single with catalog favorites from folklore and Red.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=_9jaJtmraXA',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=_9jaJtmraXA',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=_9jaJtmraXA',
+          source_title: 'Taylor Swift Performance - The Icon Sessions at the Grammy Museum',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes:
+            'official upload on the verified Taylor Swift channel (63.3M subscribers) — verified via live browser navigation to the video and channel page 2026-08-25; description quoted verbatim.',
+        },
+      ],
+    },
+    {
       slug: 'the-official-release-party-of-a-showgirl',
       kind: 'performance',
       title: 'The Official Release Party of a Showgirl',

@@ -50,76 +50,7 @@ export const SEED_DIR = join(ROOT, 'supabase', 'seed');
 // EXACT allowlist of seed files exempt from the grammar. Keyed by repo-relative
 // POSIX path with a reason. Empty today — the whole corpus passes on its own.
 // Every entry must point at a real file (a stale entry fails the check).
-export const ALLOWLIST = {
-  // Assembles data at import via benign local `.map`/spread over its OWN arrays
-  // and its sibling `./the-life-of-a-showgirl.dossiers.mjs` import (attaches
-  // per-song dossiers by slug, #440 Phase 1), plus a dev-time integrity `throw`.
-  // Harmless, but uses member/element access — the same shapes the grammar bans
-  // wholesale to close the `.constructor` escape, so it can't be proven inert.
-  // MUST remain human-review-only (never auto-merged). Refactor to inline the
-  // dossiers so this can return to empty: tracked in #511.
-  'supabase/seed/tracks/the-life-of-a-showgirl.mjs':
-    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
-  // Same shape as the-life-of-a-showgirl.mjs (dossier side file attached by
-  // slug with an import-time integrity throw, #726) — same caveats, same
-  // tracked refactor.
-  'supabase/seed/tracks/red.mjs':
-    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
-  // Same shape as the-life-of-a-showgirl.mjs / red.mjs (dossier side file
-  // attached by slug with an import-time integrity throw) — added 2026-07-21
-  // when ledgers #1095/#1026 gave So Long, London and How Did It End? dossiers.
-  // Same caveats, same tracked refactor.
-  'supabase/seed/tracks/tortured-poets.mjs':
-    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
-  // Same shape as the-life-of-a-showgirl.mjs / red.mjs / tortured-poets.mjs
-  // (dossier side file attached by slug with an import-time integrity throw) —
-  // added 2026-07-21 when ledger #1098 gave Anti-Hero a Midnights dossier.
-  // Same caveats, same tracked refactor.
-  'supabase/seed/tracks/midnights.mjs':
-    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
-  // Same shape as the-life-of-a-showgirl.mjs / red.mjs / tortured-poets.mjs /
-  // midnights.mjs (dossier side file attached by slug with an import-time
-  // integrity throw) — added 2026-07-24 when ledger #1306 gave Our Song a debut
-  // dossier. Same caveats, same tracked refactor.
-  'supabase/seed/tracks/debut.mjs':
-    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
-  // Same shape as the-life-of-a-showgirl.mjs / red.mjs / tortured-poets.mjs /
-  // midnights.mjs / debut.mjs (dossier side file attached by slug with an
-  // import-time integrity throw) — added 2026-07-24 when ledgers #1351/#1410/
-  // #1415 gave Cruel Summer, Cornelia Street and Afterglow Lover dossiers.
-  // Same caveats, same tracked refactor.
-  'supabase/seed/tracks/lover.mjs':
-    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
-  // Same shape as the-life-of-a-showgirl.mjs / red.mjs / tortured-poets.mjs /
-  // midnights.mjs / debut.mjs / lover.mjs (dossier side file attached by slug
-  // with an import-time integrity throw) — added 2026-07-25 when ledger #1470
-  // gave the Fearless title track the era's first per-song dossier. Same
-  // caveats, same tracked refactor.
-  'supabase/seed/tracks/fearless.mjs':
-    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
-  // import-time integrity throw) — added 2026-07-24 when ledgers #1281 / #1385 /
-  // #1413 / #1417 gave the reputation era its first per-song dossiers (Delicate,
-  // End Game, New Year's Day, Look What You Made Me Do). Same caveats, same
-  // tracked refactor.
-  'supabase/seed/tracks/reputation.mjs':
-    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
-  // Same shape (dossier side file attached by slug with an import-time integrity
-  // throw) — added 2026-07-24 when ledgers #1390 / #1406 / #1412 / #1433 / #1446
-  // gave the evermore era per-song dossiers (willow, evermore, right where you
-  // left me, ivy, tolerate it). Same caveats, same tracked refactor.
-  'supabase/seed/tracks/evermore.mjs':
-    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
-  // Same shape — added 2026-07-25 when cross-link candidate #1391 gave the
-  // folklore era its first per-song dossier (cardigan), completing the
-  // cardigan ↔ willow sister-album link. Same caveats, same tracked refactor.
-  'supabase/seed/tracks/folklore.mjs':
-    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
-  // Same shape — added 2026-08-12 when the depth-audit batch gave speak-now
-  // its first 12 per-song dossiers (the era was the WORTHY gate's worst at
-  // 0/23). Same caveats, same tracked refactor.
-  'supabase/seed/tracks/speak-now.mjs':
-    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
-};
+export const ALLOWLIST = {};
 
 // The only free identifiers a value may reference (safe constants that cannot
 // be reassigned to a capability). Everything else must be locally bound.

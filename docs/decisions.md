@@ -7,6 +7,87 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-25 — Era placement is decided by real-world date, never by subject/catalog era
+
+**Decision:** for every content type and every content-authoring pipeline —
+worker extract stage (`current_item`/`live_theory`/`fan_signal`), rumor-desk,
+video seeds, moment seeds, theory seeds, all of it — the era a piece of
+content is filed under is determined SOLELY by the real-world date of the
+event/content itself. It is never determined by the subject matter, catalog,
+or songs being covered. A piece of content about an older era that happens
+IN a later era's window goes in the later era; the reverse never happens
+either.
+
+**Why:** "The Icon Sessions at the Grammy Museum" video — a real August 2026
+performance during The Life of a Showgirl era, of a medley of "I Knew It, I
+Knew You," "august," and "All Too Well" — was filed in
+`supabase/seed/videos/folklore.mjs` because "august" is a folklore song. That
+reasoning inverted the rule: the event happened 2026-08-24, inside
+`the-life-of-a-showgirl`'s date range, so it belongs in
+`the-life-of-a-showgirl.mjs` regardless of which eras the performed songs
+come from. This rule already existed in one place
+(`docs/agents/content-shift.md`'s YouTube-appearance-intake section, "place
+it by published date, not by vibe") but wasn't stated as a blanket rule
+covering every content type/pipeline, which is how this entry slipped
+through despite it. This decision makes the rule explicit and universal
+rather than scoped to one intake lane.
+
+**Alternatives considered:** none — this is a correction of an authoring
+error against an intended rule, not a new trade-off.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-25, ~10:20 PDT).
+
+---
+
+## 2026-08-25 — Landing page rethink closed: current landing page stays as-is
+
+**Decision:** DoD item 1 ("Landing page rethink — scroll-first + obvious
+nav") is closed with no rework. The current landing page (`#684`/`#740`,
+eyebrow + subtitle `#1225`, the ModeToggle) is the shipped landing
+experience going forward; no new design spec, mockups, or nav rebuild.
+
+**Why:** Joey reviewed the live site and judged the current landing page
+already meets the bar — "the landing page is perfect as is." The rethink's
+original problem statement (a new user may not immediately understand
+"threads," nav visibility) is superseded by this direct read of the shipped
+product, not by a design exercise.
+
+**Alternatives considered:** none — this is a founder call reversing planned
+scope, not a design trade-off; no rework was started, so there is nothing to
+unwind.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-25).
+
+---
+
+## 2026-08-25 — Social caption register: from lowercase-warm-detached to "a fan in love, out loud"
+
+**Decision:** the social voice's *register* changes — captions must read as
+first-person fan reaction first, fact second (lead with the feeling, then
+the one concrete detail that earns it), with exclamation points,
+caps-for-emphasis, and up to 1-2 emoji welcome. The test: if a caption could
+be read aloud by a documentary narrator without sounding wrong, it's in the
+old voice and needs a rewrite. Everything else about the voice is
+unchanged and stays binding: sourcing is absolute (never invent a stat,
+quote, or event), the `#36`/Clownbot blocklist, Taylor never bare "Swift",
+no AI-tell phrases, never speak as Taylor or her team. Landed in
+`docs/marketing/social-strategy.md` §Voice, `docs/agents/runner-prompts/growth-draft.md`
+§Voice, and `docs/agents/runner-prompts/tree-plan.md` step 3's caption-judgment
+check (added: "does every caption sound like a fan in love with Taylor, not
+a historian? Detached-clever is drift.").
+
+**Why:** the prior register ("lowercase-warm... a fan telling a fan, not a
+brand announcing") had drifted toward flat, detached-clever copy that reads
+closer to a museum placard than a fan account. Joey's direct call: fans gush,
+and the account should sound like it.
+
+**Alternatives considered:** none — this is a voice/tone correction, not a
+new mechanism; no sourcing, blocklist, or attribution rule changes.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-25).
+
+---
+
 ## 2026-08-24 — Single active decision-maker (Joey); authority line is reversibility, not seniority; every work request funnels to issues or HUMAN-ACTIONS.md
 
 **Decision.** (1) Joey is the sole active founder-level decision-maker for this
@@ -39,6 +120,74 @@ Tree's asks ad hoc in chat (rejected — that is exactly the lost-in-the-inbox
 failure being fixed).
 
 **Approved by:** Joey, in chat, 2026-08-24.
+
+---
+
+## 2026-08-24 — Retired the last 6 live `media.gettyimages.com` comp URLs from seed content; replaced with real, verified, non-Getty images
+
+**Decision:** the 6 remaining `media.gettyimages.com` comp-image URLs still
+live in `supabase/seed/**` (surfaced by issue #935 / `HUMAN-ACTIONS.md` #19)
+are retired and REPLACED with real, verified, non-Getty images — not
+stripped blank. This follows the same retire-and-replace direction as the
+2026-08-15 "No rehosted third-party press photos" entry above, extended
+here to seed-content hotlinks the earlier pass didn't reach (that entry
+closed the `apps/web/public/social/library/**` rehosting practice; this one
+closes the remaining `supabase/seed/content/**` hotlinks issue #935 flagged
+separately on 2026-07-20).
+
+**Scope:** issue #935 was filed against 17 distinct Getty URLs (33
+references) across `fearless.mjs`, `speak-now.mjs`, `debut.mjs`,
+`reputation.mjs`, plus 2 in `supabase/seed/candidates/00-orbit.mjs`. A fresh
+grep on 2026-08-24 found only 6 distinct URLs (11 live references) still
+present — the rest had already been retired by prior "Image-fix pass" /
+"Kevin Stream 1" work sessions referenced in this repo's own seed-file
+comments. This entry covers those final 6:
+
+1. **Fearless — Taylor Lautner, Dec. 3, 2009** (`fearless.mjs`): replaced
+   with the same People.com CDN photo already verified for this repo's
+   "Benihana and Menchie's" item, which documents the identical outing —
+   no new sourcing needed, avoided a redundant second image of the same day.
+2. **Fearless — John Mayer, Z100 Jingle Ball, Dec. 11, 2009** (`fearless.mjs`):
+   discovered mid-pass that `origin/main` had already retired this one
+   independently (a YouTube concert-footage still, `i.ytimg.com`, credited
+   to Samantha Faigen) — kept that existing fix rather than duplicate it.
+3. **Speak Now — 2011 Teen Choice Awards white halter dress** (`speak-now.mjs`):
+   replaced with People.com's own CDN copy of the same dress/event.
+4. **Speak Now — Wonderstruck fragrance launch, Macy's Herald Square, Oct.
+   13, 2011** (`speak-now.mjs`): replaced with WWD's own hotlink from its
+   contemporaneous launch-day coverage of the same event (allowlisted via
+   `PHOTO_HOST_LEGACY`).
+5. **Reputation — the "cotton candy" tinsel-fringe dress, Reputation Stadium
+   Tour** (`reputation.mjs`): no equivalent single, unwatermarked press
+   photo of this exact costume could be verified on an allowlisted host
+   after checking Wikimedia Commons' Reputation Stadium Tour categories
+   (including the MetLife date itself), Billboard, WWD, and People — those
+   turned up other costumes from the same "Delicate" segment, not this
+   rainbow take. Reused this item's own `thumbnailUrl`
+   (`tayswiftstyle.wordpress.com`, already an allowlisted host and the
+   correct dress) for the `photos[]` entry too, rather than force a
+   wrong-costume substitute. Left a TODO in the seed file for a cleaner
+   single-photo replacement if one turns up.
+6. **`00-orbit.mjs` — NYC street style, Aug. 2019** (unpublished candidates
+   file, `sourceUrl` was already `null`): no equivalent real photo of this
+   specific outfit could be verified on an allowlisted host after checking
+   People.com, E! News, Yahoo, and Wikimedia Commons. Set `thumbnailUrl:
+   null` / `photos: []` (an established pattern already used 200+ times in
+   this same file) with a TODO comment, rather than force a mismatched
+   image into an unpublished, never-sourced candidate entry.
+
+Every replacement was verified live via this repo's own `probe()`
+(`scripts/content-engine/checkers/image-liveness.mjs`) before use — all
+resolve HTTP 200/206, `image/jpeg`. `grep -r "gettyimages.com"
+supabase/seed/` returns nothing as of this entry.
+
+**Why:** the exposure this batch carried was the same class the 2026-08-15
+entry closed for the social library — unlicensed Getty comp thumbnails,
+hotlinked and shipped as the product's own asset on a site that carries
+affiliate links (commercial use). Tied to the #800 LEGAL launch gate.
+
+**Approved by:** Joey, in chat, 2026-08-24 (`HUMAN-ACTIONS.md` #19) —
+retire-and-replace, not license.
 
 ---
 
@@ -4910,3 +5059,122 @@ corpus.
 overnight, 2026-08-23 22:01 PDT); architecture calls within it made under
 existing Decision Authority (CLAUDE.md: AI may write code, refactor,
 document decisions for non-money, non-infra-credential calls without asking).
+
+---
+
+## 2026-08-24 — Watchdog alarm remediation: six alerts fixed at the architecture level
+
+Six watchdog/brief-mailer alerts fired at once (Joey forwarded them). Root-caused
+and fixed persistently so each stops re-firing, rather than muting:
+
+1. **Knowledge-engine current-tier "stale" (freshness check crashed).**
+   `scripts/knowledge-freshness.mjs` imported the worker's `@supabase/supabase-js`
+   client at module load, but `watchdog.yml` runs it with no `npm ci` (it is
+   deliberately dependency-free) → `ERR_MODULE_NOT_FOUND` crash reported as
+   exit 1 → false daily page. Rewrote it to query PostgREST via the built-in
+   `fetch` — zero third-party deps — and to exit 2 (skip, not alarm) when the
+   `knowledge_doc` table is absent (pre-migration) or creds are unset.
+
+2. **news-worker failing every 4h (email 6) + current tier genuinely empty
+   (email 1's real cause).** The worker crashed (exit 1) on schema-cache errors
+   for columns/tables from unapplied knowledge-engine migrations
+   (`resolved_tier`, `symbol_lexicon`, `news_story.extracted_at`). Applying
+   those needs `SUPABASE_DB_URL` (a direct Postgres connection), which is not a
+   repo secret and cannot be added by an agent (guard-denied) — it stays
+   HUMAN-ACTIONS #14 (Wyatt, `npm run db:migrate`). To stop the daily CI noise
+   while that is pending, `apps/worker/src/index.ts` now treats
+   `/schema cache|does not exist/` errors as a degraded no-op (job stays green,
+   matching the worker's "zero sources = no-op usefully" design) while genuine
+   errors still fail. Those PostgREST codes fire only when an object is truly
+   absent, so once migrated the same calls succeed and real failures resurface —
+   no masking.
+
+3. **Content Shift lane liveness alarm (email 3).** The standalone Content Shift
+   cloud routine was deleted when it was folded into the Vault Run
+   (HUMAN-ACTIONS #11 / PR #2289), so `content-shift/*` branches can no longer
+   appear and the `check_lane "content-shift/"` in watchdog.yml alarmed daily.
+   Deleted that one line — the exact migration the check's own comment
+   prescribed for this moment. The `vault/` lane check stays.
+
+4. **Karen / CIE stale 255h (email 4) — the architecture fix.** Karen ran only
+   as a Wyatt-account Claude routine and went dark 10+ days unseen. Per CLAUDE.md
+   "Freshness on Actions, judgment on routines," the deterministic half (detect
+   + file tickets) moved to a new GitHub Action `.github/workflows/cie-scan.yml`
+   (`run.mjs all --no-images --create`, twice weekly, zero LLM, `GITHUB_TOKEN` +
+   `SOCIAL_POSTER_PAT` to land the report PR on protected `main` — same pattern
+   as growth-snapshot.yml). CIE report freshness no longer depends on a founder's
+   Claude login; the routine is now needed only for the AI `Karen Deep` review.
+
+5. **PR #2175 stuck on `build` 8 days (email 5).** Its branch was 52 commits
+   behind with a stale generated vault (`check:generated` red). Re-applied its
+   four context-field trims cleanly on current `main` (#3160, green) and closed
+   #2175 as superseded.
+
+6. **"FB group export never closed" (email 2) — false positive.** watchdog.yml's
+   skip-guard `grep -q "slug:"` matched the `{ slug: 'example-group-slug' }`
+   EXAMPLE in a doc comment, so it never took the intended skip branch while
+   `FB_GROUPS_CHECKLIST` is `[]` (HUMAN-ACTIONS #16 still open). Replaced it with
+   a real array-length check via `node -e` (import the module), and the skip
+   branch now closes any standing alert so the pre-configuration state self-heals.
+
+Approved under existing Decision Authority (CLAUDE.md: AI may write code,
+refactor, fix CI/workflows, document decisions for non-money, non-credential
+calls). The one credential-gated piece — applying the DB migrations — remains
+HUMAN-ACTIONS #14 (Wyatt); the worker/freshness degrade above is what stops the
+alarms in the meantime without masking a real regression.
+
+## 2026-08-25 — Reversed: Reddit fan-source posture now includes comment bodies
+
+**Context:** the 2026-08-23 knowledge-engine kickoff entry (item 4, above)
+set Reddit-via-RSS to aggregate-only, hashed author, no comment bodies
+beyond what a public RSS already exposes — the most conservative posture
+available at build time, deliberately narrow pending a real product call.
+That call has now been made.
+
+**Decision:** Reddit comment bodies (not just post titles/selftext) are now
+in scope for the fan-signal/theory-detection pipeline. Joey's reasoning,
+verbatim: "that's public info, reddit people WANT their info public, that's
+the entire idea behind the site. I am an avid redditor and moderator, this
+is fact." Joey personally moderates Reddit communities and is speaking from
+direct standing in that community, not a guess — the prior posture's caution
+was appropriate given the alternative was pure speculation about Reddit
+users' expectations at build time.
+
+**Scope, still to be engineered:** comment threads (not just post bodies) on
+relevant subreddits become a real extract-stage input, specifically for
+detecting Easter-egg/theory/new-song discussion signal — the exact gap
+flagged in the 2026-08-25 architect (Fable) review dispatched this session.
+Hashed-author convention and every other privacy safeguard from the 2026-08-23
+entry stay in force (this reverses ONLY the no-comment-bodies clause, nothing
+else in item 4). Which subreddits, comment-depth/volume caps, and how this
+interacts with the parked Reddit Data API request (`HUMAN-ACTIONS.md` #12
+item... — see that file for current status) are engineering-scope questions
+for whoever implements this, not re-opened by this entry.
+
+**Approved by:** Joey, in chat, 2026-08-25 06:38 PDT.
+
+## 2026-08-25 — Detection-triggered social auto-post: confirmed live, not staged; email on every send
+
+**Context:** the "auto-stage social posts on official-upload detection"
+recommendation (2026-08-25 architect review + Joey's earlier "I want both,
+auto-stage and notify") ran into a real finding during implementation: this
+repo's social queue has had NO per-item founder-approval gate since
+2026-07-25 (`social/README.md`, `scripts/social/lib/queue.mjs`) — a file
+dropped in `social/queue/` with a near-term `scheduledAt` posts live on the
+next `social-poster.yml` cycle, no human review. "Auto-stage" as a
+safe-sounding middle ground doesn't exist in the current pipeline.
+
+**Decision:** Joey confirmed directly — no review gate wanted. Detection-
+triggered posts (official YouTube uploads, etc.) go straight into the
+existing queue mechanism exactly like every other social draft and post
+automatically on their scheduled time, same as today's Content Shift
+drafts. No new approval step, no new safety gate.
+
+**Also decided:** an email notification fires on every social post that
+actually goes out (not just failures — see the separate `social-poster.yml`
+failure-alert fix landing the same night), with a link to each platform the
+post reached. Joey's words: "I dont mind more emails for social" — this is
+an explicit, deliberate exception to the 2026-08-23 1-2/day founder-email
+cap, scoped only to social-post notifications.
+
+**Approved by:** Joey, in chat, 2026-08-25 06:49 PDT.

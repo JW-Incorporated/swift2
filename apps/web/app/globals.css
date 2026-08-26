@@ -109,15 +109,16 @@ body {
   font-family: var(--era-font);
 }
 
-/* Hidden clue glint. */
+/* Hidden clue glint. Scale-only pulse — an opacity dip here used to take the
+   badge's text/icon down to 0.35, which measured as low as 2.02:1 against
+   the era surface (WCAG 1.4.3, #659); the badge's text has to stay legible
+   for the whole animation, not just its peak frame. */
 @keyframes glint {
   0%,
   100% {
-    opacity: 0.35;
     transform: scale(1);
   }
   50% {
-    opacity: 1;
     transform: scale(1.35);
   }
 }

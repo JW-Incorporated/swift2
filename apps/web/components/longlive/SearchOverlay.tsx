@@ -2,10 +2,12 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
+import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import {
   Clapperboard,
   Compass,
   CornerDownLeft,
+  Layers,
   Lightbulb,
   Music2,
   Search,
@@ -50,6 +52,7 @@ import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 const TYPE_ICON: Record<SearchDocType, typeof Search> = {
   era: Compass,
+  thread: Layers,
   moment: Sparkles,
   egg: Waypoints,
   theory: Lightbulb,
@@ -85,6 +88,7 @@ export function SearchOverlay() {
   // Full results view: every match, no per-type cap.
   const [showAll, setShowAll] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   // Global shortcuts, mounted for the app's lifetime: `/` (and Ctrl/Cmd+K)
   // opens search — unless the user is typing somewhere else.
@@ -122,6 +126,7 @@ export function SearchOverlay() {
   }, [searchOpen, setSearchOpen]);
 
   useScrollLock(searchOpen);
+  useFocusTrap(searchOpen, dialogRef);
 
   // Let the mobile back-swipe gesture close search instead of leaving the app.
   useBackDismiss(searchOpen, () => setSearchOpen(false));
@@ -199,14 +204,20 @@ export function SearchOverlay() {
       case 'era':
         actions.openEra(target.eraId);
         break;
-      case 'track-guide':
-        actions.openTrackGuide(target.eraId);
+      case 'track':
+        actions.openSong(target.eraId, target.trackKey);
         break;
       case 'theory-guide':
         actions.openTheoryGuide(target.eraId);
         break;
       case 'trail':
         actions.openClueWebTrail(target.motifId);
+        break;
+      case 'thread':
+        actions.openThread(target.lensId);
+        break;
+      case 'video':
+        actions.openVideo(target.eraId, target.videoId);
         break;
     }
   }
@@ -239,6 +250,8 @@ export function SearchOverlay() {
 
   return (
     <div
+      ref={dialogRef}
+      tabIndex={-1}
       className="fixed inset-0 z-[80] flex flex-col items-center bg-black/60 p-4 pt-[max(4rem,10vh)] backdrop-blur-sm detail-enter sm:px-6"
       role="dialog"
       aria-modal="true"
@@ -256,7 +269,6 @@ export function SearchOverlay() {
           <Search className="h-4 w-4 shrink-0 text-[color:var(--era-accent)]" aria-hidden />
           <input
             ref={inputRef}
-            autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={onInputKeyDown}

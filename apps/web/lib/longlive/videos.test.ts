@@ -8,6 +8,7 @@ import {
   isAppearance,
   APPEARANCE_KINDS,
   VIDEO_KIND_LABEL,
+  findVideoEraId,
 } from './videos';
 import type { EraId, VideoNote } from './types';
 
@@ -277,5 +278,34 @@ describe('musicVideosForEra', () => {
   it('includes a dated music video (1989: shake-it-off-mv)', () => {
     const slugs = musicVideosForEra('1989').map((v) => v.slug);
     expect(slugs).toContain('shake-it-off-mv');
+  });
+});
+
+// #3312 — a `?item=` deep link that names a video's slug (rather than a
+// moment's id) needs to know which era owns it, since videos have no
+// standalone `?video=` param of their own.
+describe('findVideoEraId', () => {
+  it('finds the real era for a known video slug (the #3312 repro)', () => {
+    expect(findVideoEraId('icon-sessions-grammy-museum-medley')).toBe('tloas');
+  });
+
+  it.each([
+    ['the-best-day-taylors-version-mv', 'evermore'],
+    ['mr-perfectly-fine-taylors-version-lyric-video', 'evermore'],
+    ['i-can-see-you-mv', 'midnights'],
+  ] as const)('places %s by its Taylor\'s Version publish date', (slug, eraId) => {
+    expect(findVideoEraId(slug)).toBe(eraId);
+  });
+
+  it('returns null for a slug that matches no video anywhere', () => {
+    expect(findVideoEraId('not-a-real-video-slug')).toBeNull();
+  });
+
+  it('agrees with allVideoRecordsForEra for every real slug', () => {
+    for (const eraId of ALL_ERA_IDS) {
+      for (const v of allVideoRecordsForEra(eraId)) {
+        expect(findVideoEraId(v.slug)).toBe(eraId);
+      }
+    }
   });
 });

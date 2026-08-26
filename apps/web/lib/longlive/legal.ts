@@ -27,7 +27,9 @@
  *      button and the mood chat both shipped while the page still said "we
  *      collect nothing").
  *
- * Source inventory behind the factual claims (verified 2026-08-11):
+ * Source inventory behind the factual claims (verified 2026-08-11; Clownbot
+ * row added 2026-08-24, issue #3251 — the mood-chat/feedback/analytics/
+ * on-device/content rows above were not re-verified in that pass):
  *   - feedback:  apps/web/components/longlive/FeedbackButton.tsx
  *                apps/web/app/api/feedback/route.ts
  *   - mood chat: apps/web/components/longlive/MoodChat.tsx
@@ -37,6 +39,15 @@
  *   - on-device: apps/web/lib/longlive/progress.ts (`ll-progress-v1`)
  *                apps/web/components/longlive/TimelineScrubber.tsx
  *   - content:   supabase/migrations/** (14 editorial tables, zero personal)
+ *   - Clownbot:  apps/web/components/longlive/ClownChat.tsx
+ *                apps/web/app/api/clown/route.ts
+ *                apps/web/lib/longlive/clown-client.ts (Anthropic call, model)
+ *                apps/web/lib/longlive/clown-route-helpers.ts (IP rate limit)
+ *                apps/web/lib/longlive/clown-session.ts (anon identity, cookie)
+ *                apps/web/lib/longlive/clown-memory.ts (Supabase writes, 180-day
+ *                retention, rolling-summary fold)
+ *                PLAN.md Stage 11 (feature spec); docs/decisions.md 2026-08-23
+ *                item 6 (the 180-day retention figure)
  */
 
 /**
@@ -125,7 +136,7 @@ export const PRIVACY_POLICY: LegalDoc = {
   title: 'Privacy Policy',
   description: 'What Long Live collects, what it does not, and which third parties are involved.',
   summary:
-    'Long Live has no accounts, no logins, no passwords, and no payments, and it never asks you for your name or email. Two features do send something: the feedback button sends what you type to our private issue tracker, and the mood chat sends what you type to an AI service so it can read the feeling. Everything else on this page is detail.',
+    "Long Live has no accounts, no logins, no passwords, and no payments, and it never asks you for your name or email. Three features do send something: the feedback button sends what you type to our private issue tracker; the mood chat sends what you type to an AI service so it can read the feeling; and Clownbot sends your questions to an AI service to answer them, and — only once an identity system described below is switched on — remembers the conversation in our database for up to 180 days. Everything else on this page is detail.",
   sections: [
     {
       id: 'who-we-are',
@@ -151,7 +162,7 @@ export const PRIVACY_POLICY: LegalDoc = {
         },
         {
           kind: 'p',
-          text: 'Because there is no account, there is also no account to delete. The only information we ever hold that could be traced back to you is whatever you choose to type into the feedback box — see below.',
+          text: 'Because there is no account, there is also no account to delete. The only information we ever hold that could be traced back to you is whatever you choose to type into the feedback box, or — if its memory feature is switched on — into Clownbot. See below for both.',
         },
       ],
     },
@@ -229,6 +240,32 @@ export const PRIVACY_POLICY: LegalDoc = {
       ],
     },
     {
+      id: 'clownbot',
+      heading: 'Clownbot',
+      blocks: [
+        {
+          kind: 'p',
+          text: "Clownbot is a chat assistant, separate from the mood chat above, that answers questions about the site's content. Every question you send it — plus the recent turns of that conversation, so it has context — is sent to our server and, from there, to Anthropic's Claude API to generate the answer. Your IP address is read only to enforce a short-term rate limit (at most 15 messages per minute) and is not stored.",
+        },
+        {
+          kind: 'p',
+          text: "Unlike the mood chat, Clownbot's server can remember a conversation across visits, using an anonymous identity system built on Supabase (the same third party named in the table below). That system requires a setting (\"allow anonymous sign-ins\") to be switched on in a dashboard outside this codebase, and as of this policy's effective date it has not been switched on — while it is off, nothing else in this section happens: no cookie is set, no message is stored, and Clownbot answers from the current conversation only. We are describing the capability here, as it is built into our code, rather than only its moment-to-moment on/off state, because that switch can be flipped without a new release of the site and we do not want this page to fall out of date the moment it is.",
+        },
+        {
+          kind: 'p',
+          text: 'Once that identity system is switched on: sending Clownbot a message assigns your browser an anonymous id — no name, email, or other identifying detail, just a randomly generated identifier — held in a first-party cookie scoped to the chat feature, marked so it cannot be read by page scripts and only sent over HTTPS, and set to expire after 180 days. Every message you send and every reply Clownbot gives is then stored against that anonymous id in our Supabase database for up to 180 days since the conversation was last used. Once a stored conversation passes 20 messages, the oldest ones are folded into a short running summary (capped at a few thousand characters) and deleted individually; the summary and the most recent messages are what persists. There is also a limit of 200 messages per day per anonymous id, to control cost and abuse.',
+        },
+        {
+          kind: 'p',
+          text: "Because the identity behind a stored Clownbot conversation is anonymous, we generally have no way to match an email from you to a specific one, so we cannot offer the same manual delete-on-request process described for feedback below. A stored conversation is deleted automatically once it has gone unused for 180 days. Clearing your browser's cookies for this site starts you on a fresh anonymous identity going forward, but does not reach back and delete rows already stored under the old one — those still expire on their own schedule. If you have a concern about a specific conversation, write to us anyway; we will do what we can.",
+        },
+        {
+          kind: 'p',
+          text: 'As with the mood chat, please treat Clownbot as you would any message typed into a website: it is processed by us and by Anthropic, and, once the memory system above is active, may be held for a period of time.',
+        },
+      ],
+    },
+    {
       id: 'analytics',
       heading: 'Analytics',
       blocks: [
@@ -252,7 +289,7 @@ export const PRIVACY_POLICY: LegalDoc = {
       blocks: [
         {
           kind: 'p',
-          text: "The site sets no cookies. It does keep two small entries in your browser's local storage, which never leave your device and are never sent to us or to anyone else:",
+          text: "The site sets no cookies of its own, except the one described in the Clownbot section above, and only once that feature's memory system is switched on. It does keep two small entries in your browser's local storage, which never leave your device and are never sent to us or to anyone else:",
         },
         {
           kind: 'list',
@@ -287,8 +324,8 @@ export const PRIVACY_POLICY: LegalDoc = {
             ],
             [
               'Supabase',
-              'Content database',
-              "Effectively nothing. The site's content is baked in when the site is built, not fetched while you browse. One illustrative image, and a pair of machine-readable content endpoints that the site itself does not call, are the only paths that reach it.",
+              'Content database; Clownbot anonymous identity and conversation storage',
+              "Most site content is baked in when the site is built, not fetched while you browse — one illustrative image, and a pair of machine-readable content endpoints the site itself does not call, are the only content paths that reach it. Separately, and only once the anonymous-identity system described in the Clownbot section is switched on, your Clownbot messages, replies, and anonymous id are stored here for up to 180 days.",
             ],
             [
               'GitHub',
@@ -297,8 +334,8 @@ export const PRIVACY_POLICY: LegalDoc = {
             ],
             [
               'Anthropic (Claude API)',
-              'Reads the feeling in mood-chat text',
-              'Only the text you type into the mood chat, and only if you type instead of tapping a preset chip.',
+              'Reads the feeling in mood-chat text; answers Clownbot questions',
+              'The text you type into the mood chat, only if you type instead of tapping a preset chip; and every message (plus recent conversation turns) you send to Clownbot.',
             ],
             [
               'YouTube (via the privacy-enhanced youtube-nocookie.com domain)',
@@ -328,7 +365,7 @@ export const PRIVACY_POLICY: LegalDoc = {
         },
         {
           kind: 'p',
-          text: 'We set no cookies of our own. Spotify, YouTube and Instagram may set their own once one of their embeds loads, and we have no control over those — your browser settings do. Blocking third-party cookies, or using a content blocker, does not stop you reading the site.',
+          text: "We set one first-party cookie of our own — the anonymous Clownbot session id described in the Clownbot section above — and only once that feature's memory system is switched on; while it is off, we set none. Spotify, YouTube and Instagram may set their own cookies once one of their embeds loads, and we have no control over those — your browser settings do. Blocking third-party cookies, or using a content blocker, does not stop you reading the site.",
         },
       ],
     },
@@ -367,7 +404,7 @@ export const PRIVACY_POLICY: LegalDoc = {
       blocks: [
         {
           kind: 'p',
-          text: 'If you are in the UK, the EU, or another region with similar rules, our legal bases are: your consent, where you choose to send feedback or type into the mood chat; and our legitimate interest in running a secure, working, comprehensible website, for rate limiting, server logs, and aggregate analytics. We do not ask for or knowingly process special-category data.',
+          text: 'If you are in the UK, the EU, or another region with similar rules, our legal bases are: your consent, where you choose to send feedback, type into the mood chat, or use Clownbot; and our legitimate interest in running a secure, working, comprehensible website, for rate limiting, server logs, and aggregate analytics. We do not ask for or knowingly process special-category data.',
         },
       ],
     },
@@ -381,7 +418,7 @@ export const PRIVACY_POLICY: LegalDoc = {
         },
         {
           kind: 'p',
-          text: `In practice we hold almost nothing that could be tied to you. The realistic case is a feedback ticket you sent. Write to ${LEGAL_FACTS.privacyEmail} — quote roughly when you sent it and what it was about — and we will find it and delete it. We will not retaliate against you for exercising any of these rights.`,
+          text: `In practice we hold almost nothing that could be tied to you. The realistic case is a feedback ticket you sent. Write to ${LEGAL_FACTS.privacyEmail} — quote roughly when you sent it and what it was about — and we will find it and delete it. A Clownbot conversation, once its memory system is switched on, works differently: see the Clownbot section above for why we generally cannot match a request to a specific one, and how it expires on its own instead. We will not retaliate against you for exercising any of these rights.`,
         },
         {
           kind: 'p',
@@ -417,7 +454,7 @@ export const PRIVACY_POLICY: LegalDoc = {
       blocks: [
         {
           kind: 'p',
-          text: 'Our hosting, our issue tracker, and the AI service that reads mood text are all operated by companies based in the United States, and information sent to them may be processed there and in other countries. Each provides its own safeguards for international transfers under its terms.',
+          text: 'Our hosting, our issue tracker, our content and Clownbot database, and the AI service used by the mood chat and Clownbot are all operated by companies based in the United States, and information sent to them may be processed there and in other countries. Each provides its own safeguards for international transfers under its terms.',
         },
       ],
     },
@@ -589,7 +626,7 @@ export const TERMS_OF_USE: LegalDoc = {
           kind: 'list',
           items: [
             'Scrape, crawl, or bulk-download the site beyond what a normal reader does, or try to get around our rate limits.',
-            "Use the feedback box or the mood chat to send abusive, threatening, unlawful, or deliberately misleading messages, to send other people's personal information, or to try to make our systems misbehave.",
+            "Use the feedback box, the mood chat, or Clownbot to send abusive, threatening, unlawful, or deliberately misleading messages, to send other people's personal information, or to try to make our systems misbehave.",
             'Attempt to break into, disrupt, or probe the site or the services behind it.',
             "Republish the site's content as your own, or present anything from it as an official statement by Taylor Swift or her team.",
           ],

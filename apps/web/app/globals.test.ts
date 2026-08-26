@@ -12,6 +12,21 @@ function ruleBlock(selector: string): string {
   return css.slice(start + marker.length, end);
 }
 
+/** Same idea as ruleBlock, but brace-depth aware — @keyframes blocks nest
+ *  their own `{ }` per step, so a naive indexOf('}') stops at the first step. */
+function keyframesBlock(name: string): string {
+  const marker = `@keyframes ${name} {`;
+  const start = css.indexOf(marker);
+  if (start === -1) throw new Error(`keyframes not found in globals.css: ${name}`);
+  let depth = 1;
+  let i = start + marker.length;
+  for (; depth > 0 && i < css.length; i++) {
+    if (css[i] === '{') depth++;
+    else if (css[i] === '}') depth--;
+  }
+  return css.slice(start + marker.length, i - 1);
+}
+
 // #525: the shared close/icon-button class must stay an unmistakable
 // affordance — solid (never translucent/theme-blended) and at least the
 // 44px Apple/Material touch-target floor, enforced at the class level so
@@ -33,5 +48,19 @@ describe('.era-icon-btn (#525 close-affordance floor)', () => {
     const background = block.match(/background:\s*([^;]+);/)?.[1] ?? '';
     expect(background).not.toBe('');
     expect(background).not.toContain('transparent');
+  });
+});
+
+// #659: the "Hidden clue" badge's animation used to dip its own opacity to
+// 0.35 for most of the cycle, which measured as low as 2.02:1 against the
+// era surface (WCAG 1.4.3) — the badge's accessible text/icon has to stay
+// legible for the whole animation, not just its peak frame. Scale-only pulse
+// keeps the "glint" motion without ever dimming the text/icon color.
+describe('@keyframes glint (#659 clue-glint contrast)', () => {
+  it('no longer animates opacity, only transform', () => {
+    const block = keyframesBlock('glint');
+    expect(block).not.toContain('opacity');
+    expect(block).toContain('transform: scale(1)');
+    expect(block).toContain('transform: scale(1.35)');
   });
 });

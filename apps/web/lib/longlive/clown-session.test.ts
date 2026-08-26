@@ -1,8 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
+  buildSessionCookieHeader,
   decodeSessionToken,
   encodeSessionToken,
+  readSessionCookie,
   resetClownSessionWarningForTests,
   resolveClownSession,
 } from './clown-session';
@@ -118,5 +120,50 @@ describe('session token encode/decode', () => {
   it('decodes null/garbage to null without throwing', () => {
     expect(decodeSessionToken(null)).toBeNull();
     expect(decodeSessionToken('not-base64-json')).toBeNull();
+  });
+});
+
+// Architect-directed redesign, HUMAN-ACTIONS.md #15 round 4: the session
+// round-trips via an `HttpOnly` cookie, not a client-visible header.
+describe('readSessionCookie', () => {
+  it('extracts the clown_session value from a single-cookie header', () => {
+    expect(readSessionCookie('clown_session=abc123')).toBe('abc123');
+  });
+
+  it('extracts clown_session from among other cookies, in any position', () => {
+    expect(readSessionCookie('other=1; clown_session=abc123; another=2')).toBe('abc123');
+    expect(readSessionCookie('clown_session=abc123; other=1')).toBe('abc123');
+  });
+
+  it('returns null when the header is null or the cookie is absent', () => {
+    expect(readSessionCookie(null)).toBeNull();
+    expect(readSessionCookie('other=1; another=2')).toBeNull();
+    expect(readSessionCookie('')).toBeNull();
+  });
+});
+
+describe('buildSessionCookieHeader', () => {
+  it('produces an HttpOnly, Secure, SameSite=Strict cookie scoped to /api/clown with a 180-day Max-Age', () => {
+    const header = buildSessionCookieHeader('abc123');
+    expect(header).toContain('clown_session=abc123');
+    expect(header).toContain('HttpOnly');
+    expect(header).toContain('Secure');
+    expect(header).toContain('SameSite=Strict');
+    expect(header).toContain('Path=/api/clown');
+    expect(header).toContain('Max-Age=15552000');
+  });
+});
+
+describe('session cookie round-trip', () => {
+  it('encodeSessionToken -> buildSessionCookieHeader -> readSessionCookie -> decodeSessionToken recovers the original session token', () => {
+    const original = { accessToken: 'a', refreshToken: 'r' };
+    const encoded = encodeSessionToken(original);
+    const setCookieHeader = buildSessionCookieHeader(encoded);
+    // Simulate the browser sending back just the name=value pair on the
+    // NEXT request's Cookie header (attributes like HttpOnly/Path are never
+    // echoed back by the browser).
+    const cookieValue = setCookieHeader.split(';')[0];
+    const roundTripped = decodeSessionToken(readSessionCookie(cookieValue));
+    expect(roundTripped).toEqual(original);
   });
 });

@@ -144,10 +144,13 @@ export async function resolveClownSession(
   return null;
 }
 
-/** Opaque, base64-encoded round-trip token — carried on the `x-clown-session`
- * request/response header (see `route.ts`) so a future client can resend it
- * for continuity without this stage having to touch the chat widget/wire
- * contract (`ClownAnswer`/`ClownStreamEvent`) at all. */
+/** Opaque, base64-encoded round-trip token — carried in the `clown_session`
+ * `HttpOnly` cookie (see `route.ts`) so a returning browser resends it
+ * automatically without any client-side token handling at all (architect-
+ * directed redesign, HUMAN-ACTIONS.md #15 round 4: this used to be a
+ * client-visible `x-clown-session` header/localStorage value; a client-
+ * visible Supabase credential pair was the actual finding). Encoding logic
+ * itself is unchanged — only where it's read from/written to changed. */
 export function encodeSessionToken(session: ClownSessionToken): string {
   return Buffer.from(JSON.stringify({ a: session.accessToken, r: session.refreshToken }), 'utf8').toString('base64');
 }
@@ -161,4 +164,37 @@ export function decodeSessionToken(headerValue: string | null): ClownSessionToke
   } catch {
     return null;
   }
+}
+
+/** Cookie name for the session token — `HttpOnly`, so no client JS (this
+ * app's own or a future XSS) can ever read the Supabase credential pair
+ * directly; the browser's cookie jar handles persistence and same-origin
+ * resend with zero client code. */
+export const CLOWN_SESSION_COOKIE_NAME = 'clown_session';
+
+/** 180 days — matches the retention policy already decided for
+ * `clown_conversation`/`clown_turn` (docs/decisions.md 2026-08-23 item 6,
+ * `20260904000000_clown_sessions.sql`'s `expires_at` default). */
+const CLOWN_SESSION_COOKIE_MAX_AGE_S = 15_552_000;
+
+/** Extracts the raw (still-encoded) session token from a request's `Cookie`
+ * header — the same string `decodeSessionToken` already expects, just read
+ * from a cookie instead of a bespoke request header. */
+export function readSessionCookie(cookieHeader: string | null): string | null {
+  if (!cookieHeader) return null;
+  for (const part of cookieHeader.split(';')) {
+    const eq = part.indexOf('=');
+    if (eq === -1) continue;
+    if (part.slice(0, eq).trim() === CLOWN_SESSION_COOKIE_NAME) return part.slice(eq + 1).trim();
+  }
+  return null;
+}
+
+/** The `Set-Cookie` response header value carrying the round-tripped session.
+ * `HttpOnly` (no client JS access) + `Secure` (HTTPS only) + `SameSite=Strict`
+ * (never sent cross-site) + `Path=/api/clown` (scoped to this route only) —
+ * the browser handles persistence and resend automatically from here, no
+ * client-side storage code needed. */
+export function buildSessionCookieHeader(encodedToken: string): string {
+  return `${CLOWN_SESSION_COOKIE_NAME}=${encodedToken}; HttpOnly; Secure; SameSite=Strict; Path=/api/clown; Max-Age=${CLOWN_SESSION_COOKIE_MAX_AGE_S}`;
 }

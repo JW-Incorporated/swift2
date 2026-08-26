@@ -206,6 +206,16 @@ export interface EraTheme {
   accent2: string;
   glow: string;
   font: EraFont;
+  /** Accent color for small text (<18px), where `accent` alone can't reach
+   *  WCAG AA's 4.5:1 against `surface`/`bg` — set only on themes that need
+   *  it; falls back to `accent` (#659). */
+  accentText?: string;
+  /** Text/icon color for content painted *on top of* a solid `accent` fill
+   *  (e.g. a filled badge), where white text fails AA across every current
+   *  era's accent (#3318). Falls back to a fixed near-black (`#000000`),
+   *  which clears 4.5:1 against every current `accent` with margin — set
+   *  only if a future theme's accent needs a different on-fill color. */
+  accentFg?: string;
 }
 
 /**
@@ -904,6 +914,13 @@ export interface RelationshipImage {
   alt: string;
 }
 
+/** A song named by a relationship/solo chapter, optionally linked to its track-guide entry. */
+export interface LoveStorySong {
+  title: string;
+  /** Omitted when the song is not present in Long Live's track guide. */
+  relatedId?: `song:${string}`;
+}
+
 export interface Relationship {
   id: string;
   name: string;
@@ -914,7 +931,7 @@ export interface Relationship {
   /** null = ongoing / open-ended. */
   end: string | null;
   eraIds: EraId[];
-  songs: string[];
+  songs: LoveStorySong[];
   note: string;
   /** Cross-type links (see RelatedId for the id convention). */
   relatedIds?: RelatedId[];
@@ -933,8 +950,13 @@ export interface SinglePeriod {
   end: string | null;
   eraIds: EraId[];
   note: string;
+  /** Deeper sourced narrative for consequential solo chapters. Short gaps
+   * intentionally keep only the caption-like note. */
+  context?: string;
+  /** Citations backing every factual claim in `context`. */
+  sources?: EggSource[];
   /** Songs associated with what she was writing/releasing during this stretch. */
-  songs?: string[];
+  songs?: LoveStorySong[];
 }
 
 export interface RunwayLook {

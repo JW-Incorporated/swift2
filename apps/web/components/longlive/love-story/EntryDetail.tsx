@@ -2,10 +2,11 @@
 
 import { useEffect } from 'react';
 import { X, Heart, Star, Music, BookText } from 'lucide-react';
-import { useAppState } from '@/lib/longlive/store';
+import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { durationLabel, monthsBetween, soloLeadIn, type LoveStoryEntry } from '@/lib/longlive/love-story';
 import { contentForThreadInRange } from '@/lib/longlive/threads';
+import { songTargetOf, trackKey } from '@/lib/longlive/tracks';
 import { FromTheEras } from '../FromTheEras';
 
 function fmtYear(iso: string): string {
@@ -24,21 +25,35 @@ function entryColor(entry: LoveStoryEntry): string {
  * shown as an unfinished-looking gap in a shipped page.
  */
 export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntry; timeline: LoveStoryEntry[]; onClose: () => void }) {
-  const { share } = useAppState();
+  const { share, trackGuideEraId } = useAppState();
+  const { openSong } = useAppActions();
 
   // Escape collapses the expanded entry (#525), matching its X. Only mounted
-  // while an entry is expanded, so the listener exists only then; the share
-  // sheet owns Escape while it is open on top.
+  // while an entry is expanded, so the listener exists only then; higher
+  // overlays own Escape while they are open on top.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !share) onClose();
+      if (e.key === 'Escape' && !share && !trackGuideEraId) onClose();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [share, onClose]);
+  }, [share, trackGuideEraId, onClose]);
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') return;
+    for (const song of entry.songs ?? []) {
+      if (!song.relatedId) {
+        console.warn(`Love Story entry "${entry.id}" has no track-guide link for "${song.title}"`);
+      } else if (!songTargetOf(song.relatedId)) {
+        console.error(`Love Story entry "${entry.id}" has an unresolved song link: ${song.relatedId}`);
+      }
+    }
+  }, [entry]);
 
   const isRel = entry.kind === 'relationship';
   const color = entryColor(entry);
+  const soloContext = entry.kind === 'single' ? entry.context : undefined;
+  const soloSources = entry.kind === 'single' ? entry.sources : undefined;
   // Only relationships carry a portrait, and only when the subject is a public
   // figure. Most are CC BY-SA, so the credit line below is a licence condition,
   // not a nicety.
@@ -92,7 +107,7 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
           </div>
         </div>
 
-        {entry.id === 'kelce' && (
+        {entry.id === 'rel-kelce' && (
           <div className="mt-3 flex items-center gap-2 rounded px-3 py-2 text-xs font-medium" style={{ background: `${color}18`, color }}>
             <Heart size={12} className="fill-current" />
             Married July 2026 — the resolution.
@@ -114,6 +129,24 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
           <p className="text-sm leading-relaxed" style={{ color: isRel ? 'var(--era-ink)' : 'var(--era-ink-soft)' }}>
             {entry.note}
           </p>
+          {soloContext && (
+            <p className="mt-2 text-sm leading-relaxed" style={{ color: 'var(--era-ink)' }}>
+              {soloContext}
+            </p>
+          )}
+          {soloSources && soloSources.length > 0 && (
+            <p className="mt-3 text-[10px] leading-relaxed" style={{ color: 'var(--era-ink-soft)', opacity: 0.8 }}>
+              {soloSources.length > 1 ? 'Sources:' : 'Source:'}{' '}
+              {soloSources.map((source, index) => (
+                <span key={source.url}>
+                  {index > 0 && ', '}
+                  <a href={source.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-[color:var(--era-ink)]">
+                    {source.name}
+                  </a>
+                </span>
+              ))}
+            </p>
+          )}
         </section>
 
         {entry.songs && entry.songs.length > 0 && (
@@ -123,12 +156,36 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
               The Songs
             </h3>
             <div className="flex flex-wrap gap-1.5">
-              {entry.songs.map((song) => (
-                <span key={song} className="era-chip flex items-center gap-1 text-xs" style={{ borderColor: `${color}55` }}>
-                  <Music size={10} className="shrink-0" />
-                  {song}
-                </span>
-              ))}
+              {entry.songs.map((song) => {
+                const target = song.relatedId ? songTargetOf(song.relatedId) : null;
+                const contents = (
+                  <>
+                    <Music size={10} className="shrink-0" />
+                    {song.title}
+                  </>
+                );
+
+                return target ? (
+                  <button
+                    key={song.title}
+                    type="button"
+                    onClick={() => openSong(target.eraId, trackKey(target.eraId, target.track))}
+                    className="era-chip flex min-h-11 items-center gap-1 rounded-full px-2.5 text-xs transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
+                    style={{ borderColor: `${color}55` }}
+                    aria-label={`Open song: ${song.title}`}
+                  >
+                    {contents}
+                  </button>
+                ) : (
+                  <span
+                    key={song.title}
+                    className="era-chip flex items-center gap-1 text-xs"
+                    style={{ borderColor: `${color}55` }}
+                  >
+                    {contents}
+                  </span>
+                );
+              })}
             </div>
           </section>
         )}

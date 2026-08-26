@@ -109,5 +109,86 @@ export default {
         },
       ],
     },
+    {
+      // This video ID already appears as a photo credit (thumbnail-only) in
+      // supabase/seed/content/folklore.mjs — this is the first time it becomes
+      // an actual VideoWork record on the Videos rail.
+      slug: 'betty-live-acm-2020',
+      kind: 'performance',
+      title: 'betty (Live From The 2020 Academy of Country Music Awards)',
+      director: null,
+      releasedOn: '2020-09-16',
+      relatedSongs: ['betty'],
+      tags: ['Music'],
+      summary:
+        'A surprise, country-leaning live debut of "betty" at the pandemic-era ACMs, broadcast from Nashville venues including the Grand Ole Opry House.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=orXAg5dIMa8',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=orXAg5dIMa8',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=orXAg5dIMa8',
+          source_title: 'Taylor Swift - betty (Live from the 2020 Academy of Country Music Awards)',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official upload on the verified Taylor Swift channel',
+        },
+        wiki('55th_Academy_of_Country_Music_Awards', '55th Academy of Country Music Awards', 'confirms the date and pandemic-era Nashville broadcast'),
+      ],
+    },
+    {
+      // Cross-era medley: "willow" is an evermore song, not folklore. Filed
+      // under folklore because 2 of the 3 songs (cardigan, august) are
+      // folklore's, same precedent as 'icon-sessions-grammy-museum-medley'
+      // above — no cross-era video-track container exists.
+      slug: 'cardigan-august-willow-grammys-2021',
+      kind: 'performance',
+      title: 'cardigan / august / willow (Live From The 63rd GRAMMYs)',
+      director: null,
+      releasedOn: '2021-03-14',
+      relatedSongs: ['cardigan', 'august', 'willow'],
+      tags: ['Music'],
+      summary:
+        'A folklore/evermore medley performed with Jack Antonoff and Aaron Dessner at the pandemic-era 63rd Grammy Awards, staged outdoors at the LA Convention Center.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=Uzii44SDYFA',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=Uzii44SDYFA',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=Uzii44SDYFA',
+          source_title: 'Taylor Swift - cardigan / august / willow (Live From The 63rd GRAMMYs® / 2021)',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official upload on the verified Taylor Swift channel',
+        },
+        wiki('63rd_Annual_Grammy_Awards', '63rd Annual Grammy Awards', 'confirms the date, venue, and Antonoff/Dessner collaboration'),
+      ],
+    },
   ],
 };

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { normalizeTrackVideoTitle, trackVideoFor } from './track-video';
+import { normalizeTrackVideoTitle, resolvedTrackVideo, trackVideoFor } from './track-video';
 import { tracksForEra } from './tracks';
-import { allVideoRecordsForEra } from './videos';
+import { allVideoRecordsForEra, videosForEra } from './videos';
 import type { VideoNote, VideoNoteKind } from './types';
 
 function video(overrides: Partial<VideoNote> & { title: string }): VideoNote {
@@ -123,15 +123,13 @@ describe('trackVideoFor — real corpus', () => {
   });
 
   it('does not conflate the Fearless "The Best Day" with its Taylor\'s Version re-record video', () => {
-    // The fearless era carries BOTH a "The Best Day" video and a
-    // "The Best Day (Taylor's Version)" video (same era bucket) — proof this
-    // exact wrong-direction pairing is a real, not hypothetical, risk.
-    const videos = allVideoRecordsForEra('fearless');
-    const titles = videos.map((v) => v.title);
-    expect(titles).toContain('The Best Day');
-    expect(titles).toContain("The Best Day (Taylor's Version)");
+    const fearlessVideos = allVideoRecordsForEra('fearless');
+    const evermoreVideos = allVideoRecordsForEra('evermore');
+    expect(fearlessVideos.map((v) => v.title)).toContain('The Best Day');
+    expect(fearlessVideos.map((v) => v.title)).not.toContain("The Best Day (Taylor's Version)");
+    expect(evermoreVideos.map((v) => v.title)).toContain("The Best Day (Taylor's Version)");
 
-    const match = trackVideoFor('The Best Day', videos);
+    const match = trackVideoFor('The Best Day', [...fearlessVideos, ...evermoreVideos]);
     expect(match?.title).toBe('The Best Day');
   });
 
@@ -170,6 +168,41 @@ describe('trackVideoFor — real corpus', () => {
     // fails loudly if the matcher regresses to near-zero.
     expect(total).toBeGreaterThan(0);
     expect(paired).toBeGreaterThanOrEqual(40);
+  });
+
+  // Issue #771 ("missing youtube embeds on track pages"): TrackDetail resolves
+  // `resolvedTrackVideo` against the era's PLAYABLE videos (`videosForEra`,
+  // same call TrackDetail makes), never the unfiltered list above — this is
+  // the actual coverage a reader hits. Every track carries its own verified
+  // audio/lyric `youtubeId` as of 2026-07-20, so this is a floor of 100%, not
+  // just "greater than zero": a track resolving to null here is a real
+  // regression of #771's fix, not content the seed hasn't caught up on yet.
+  it('every track resolves a playable video via resolvedTrackVideo — none regress to no embed', () => {
+    const ERAS = [
+      'debut',
+      'fearless',
+      'speak-now',
+      'red',
+      '1989',
+      'reputation',
+      'lover',
+      'folklore',
+      'evermore',
+      'midnights',
+      'ttpd',
+      'tloas',
+    ] as const;
+    const unresolved: string[] = [];
+    let total = 0;
+    for (const eraId of ERAS) {
+      const videos = videosForEra(eraId);
+      for (const t of tracksForEra(eraId)) {
+        total++;
+        if (!resolvedTrackVideo(t, videos)) unresolved.push(`${eraId}: ${t.title}`);
+      }
+    }
+    expect(total).toBeGreaterThan(0);
+    expect(unresolved).toEqual([]);
   });
 
   // Re-review finding C (2026-08-13): "Fortnight (feat. Post Malone)" IS the

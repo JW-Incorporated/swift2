@@ -61,7 +61,7 @@ export function MomentMeta({
           </span>
         )}
         {hasClue && (
-          <span className="clue-glint inline-flex items-center gap-1 text-[11px] font-medium text-[color:var(--era-accent)]">
+          <span className="clue-glint inline-flex items-center gap-1 text-[11px] font-medium text-[color:var(--era-accent-text)]">
             <Sparkles className="h-3 w-3" />
             {size === 'default' && 'Hidden clue'}
           </span>

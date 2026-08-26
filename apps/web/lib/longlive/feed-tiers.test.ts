@@ -279,12 +279,12 @@ describe('assignFeedTiers over REAL vault content', () => {
   });
 
   it('earns the meaty unsigned ring piece a hero base tier on substance alone — no significance set', () => {
-    const id = 'vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already';
+    const id = 'vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already';
     const it = ALL_VAULT_ITEMS.find((c) => c.id === id)!;
     expect(it.significance).toBeUndefined();
     expect(substanceScore(it)).toBeGreaterThan(HERO_SCORE_THRESHOLD);
     expect(baseTierFor(it)).toBe('hero');
-    // In the live TLOAS feed it sits close behind the wedding hero, so hero
+    // In the live TTPD feed it sits close behind another hero, so hero
     // spacing steps it to media — the ONE demotion pacing is still allowed.
     expect(realTier(id)).toBe('media');
   });
@@ -369,7 +369,7 @@ describe('assignFeedTiers over REAL vault content', () => {
     }
   });
 
-  it('produces a genuinely mixed distribution over the real 698-item corpus', () => {
+  it('produces a genuinely mixed distribution over the real vault corpus', () => {
     const counts: Record<CardTier, number> = { hero: 0, media: 0, chip: 0, text: 0 };
     for (const tier of REAL_TIERS.values()) counts[tier] += 1;
     const total = REAL_TIERS.size;
@@ -398,8 +398,12 @@ describe('assignFeedTiers over REAL vault content', () => {
     expect(pct('hero')).toBeLessThanOrEqual(20);
     expect(pct('media')).toBeGreaterThan(30);
     expect(pct('media')).toBeLessThan(45);
-    // Chip must be a real tier now, not a rounding error.
-    expect(pct('chip')).toBeGreaterThan(20);
+    // Chip must be a real tier now, not a rounding error. Lowered 20 -> 18
+    // (issue #722, 2026-08-24): removing ~29 thin, single-source
+    // fashion/wardrobe "chip"-tier cards from the founding eras (routed to
+    // the Runway thread instead) nudged the population share down from
+    // ~19.7% — a real, intended composition shift, not a tiering bug.
+    expect(pct('chip')).toBeGreaterThan(18);
     expect(pct('text')).toBeGreaterThan(15);
     // No single silhouette may own the majority of the feed.
     for (const t of ['hero', 'media', 'chip', 'text'] as CardTier[]) {

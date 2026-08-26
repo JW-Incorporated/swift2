@@ -29,6 +29,13 @@
 // (never executing PR code) — same `pull_request_target`-safe pattern as
 // scripts/social/check-drafts.mjs. Pure functions are exported for the unit
 // test; `main()` reads a `--manifest` JSON array of repo-relative paths.
+//
+// WIDENED (#3180, found during the #1969 investigation): the original secret
+// detection only matched the literal substring `process.env.NAME` /
+// `process.env['NAME']`, so a destructuring read (`const { KEY } =
+// process.env`) or a read via an imported `env` alias (`import { env } from
+// 'node:process'; env.KEY`) evaded it entirely. Both are now flagged — see
+// DESTRUCTURES_PROCESS_ENV and processEnvImportAliases below.
 
 import { readFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
@@ -87,6 +94,31 @@ function envNamesRead(content) {
 }
 
 /**
+ * `const/let/var { ... } = process.env` — a destructuring read never appears
+ * as the literal substring `process.env.NAME`, so `envNamesRead` cannot see
+ * it. Flagged UNCONDITIONALLY (not filtered by destructured name): even
+ * naming a variable in a way that doesn't look like a secret is suspicious
+ * enough via this path to need a human look, since scanning individual
+ * destructured names is exactly the shape a disguised read would take.
+ */
+const DESTRUCTURES_PROCESS_ENV = /\b(?:const|let|var)\s*\{[^}]*\}\s*=\s*process\.env\b/;
+
+/**
+ * `process.env` imported under an alias — `import { env } from 'node:process'`
+ * or `import { env as foo } from 'process'` — never contains the literal
+ * substring `process.env` at all, so neither `envNamesRead` nor the
+ * destructure check above can see a subsequent `env.NAME` / `env['NAME']` /
+ * `const { NAME } = env` read. Returns every local alias bound to `env`.
+ */
+function processEnvImportAliases(content) {
+  const aliases = new Set();
+  const re = /import\s*\{[^}]*\benv\b(?:\s+as\s+([A-Za-z_$][A-Za-z0-9_$]*))?[^}]*\}\s*from\s*['"](?:node:)?process['"]/g;
+  let m;
+  while ((m = re.exec(content))) aliases.add(m[1] || 'env');
+  return [...aliases];
+}
+
+/**
  * Reasons a file's PATH/BASENAME alone makes it server-executing or
  * security/deploy config — no content needed.
  */
@@ -136,6 +168,35 @@ export function scanContent(content) {
   if (secretsHit.length) {
     reasons.push(`Reads secret env var(s): ${secretsHit.sort().join(', ')}.`);
   }
+
+  // Destructuring from `process.env` directly (#3180) — flagged regardless of
+  // which names are pulled out; see DESTRUCTURES_PROCESS_ENV above.
+  if (DESTRUCTURES_PROCESS_ENV.test(content)) {
+    reasons.push('Destructures from `process.env` (e.g. `const { ... } = process.env`) — not caught by this guard\'s exact-name matching, so flagged unconditionally.');
+  }
+
+  // `process.env` read via an imported alias (#3180) — e.g.
+  // `import { env } from 'node:process'; env.SOME_TOKEN`, which contains no
+  // literal `process.env` substring at all.
+  for (const alias of processEnvImportAliases(content)) {
+    const aliasDot = new RegExp(`\\b${alias}\\.([A-Za-z_][A-Za-z0-9_]*)`, 'g');
+    const aliasBracket = new RegExp(`\\b${alias}\\[\\s*['"]([A-Za-z_][A-Za-z0-9_]*)['"]\\s*\\]`, 'g');
+    const aliasDestructure = new RegExp(`\\b(?:const|let|var)\\s*\\{[^}]*\\}\\s*=\\s*${alias}\\b`);
+    const aliasNames = new Set();
+    let am;
+    while ((am = aliasDot.exec(content))) aliasNames.add(am[1]);
+    while ((am = aliasBracket.exec(content))) aliasNames.add(am[1]);
+    const aliasSecretsHit = [...aliasNames].filter(
+      (n) => !PUBLIC_PREFIX.test(n) && (SECRET_ENV_VARS.includes(n) || SECRET_NAME_SHAPE.test(n)),
+    );
+    if (aliasSecretsHit.length) {
+      reasons.push(`Reads secret env var(s) via aliased \`process.env\` import (\`${alias}\`): ${aliasSecretsHit.sort().join(', ')}.`);
+    }
+    if (aliasDestructure.test(content)) {
+      reasons.push(`Destructures from an aliased \`process.env\` import (\`${alias}\`) — flagged unconditionally, same as a direct \`process.env\` destructure.`);
+    }
+  }
+
   return reasons;
 }
 

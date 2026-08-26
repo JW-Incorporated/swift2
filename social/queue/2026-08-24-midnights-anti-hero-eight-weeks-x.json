@@ -1,7 +1,0 @@
-{
-  "platform": "x",
-  "body": "eight weeks at no. 1. that's how long \"anti-hero\" sat on top of the hot 100 — her longest-running solo #1 to that point, past even \"blank space.\" it opened with 17.4 million spotify streams in a single day.\n\nlonglivets.com/?item=vault-midnights-anti-hero-dominates&utm_source=x&utm_medium=social&utm_campaign=track-fact",
-  "scheduledAt": "2026-08-24T23:30:00Z",
-  "campaign": "track-fact:midnights-anti-hero-eight-weeks",
-  "why": "Calendar 2026-08-24 23:30Z X, heartbeat:track-fact from a midnights dossier, hook 'the number' — a different subject from the 23:00Z IG Runway hero. Source: supabase/seed/content/midnights.mjs id vault-midnights-anti-hero-dominates — 'Anti-Hero' held #1 on the Hot 100 for eight weeks, surpassing 'Blank Space' as her longest-running solo #1 to that point; 17.4M first-day Spotify streams. Source cited in seed: Billboard. Lead-with-a-number hook. Text-only: a sharp text-only tweet beats a decorative era-screen tile, and era-midnights-screen.png is a 780x1688 site-screen better suited to nothing here. Deep link /?item=<id> confirmed. Midnights is on the ledger's 'lean on' list; distinct era and hook from the same day's slot A (red / contradiction). Blocklist-safe (chart/craft). Campaign story-unique (findPostedDuplicate matches platform+campaign)."
-}

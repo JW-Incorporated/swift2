@@ -9,10 +9,15 @@
 # entire output was "still open, still green, re-arm in 1h". Auto-merge
 # deletes the thing they were waiting for, at zero token cost.
 #
-# The safety model is PATH-BASED, not branch-name-based. A bot can name its
-# branch anything; it cannot make app code look like a seed file. If a PR
-# touches even one file outside the allowlist, this job does nothing and
-# the PR waits for a human — that is the fail-safe direction.
+# The safety model is PATH-BASED first: if a PR touches even one file outside
+# the allowlist, this job does nothing and the PR waits for a human — that is
+# the fail-safe direction. AS OF #1969 (2026-08-24) it is ALSO branch/author-
+# gated: a PR is only even considered for auto-merge when its head branch
+# matches this repo's own content-lane routines' documented naming
+# conventions AND its author is a known routine identity (the BRANCH-
+# NAMESPACE + AUTHOR GATE in the `enable` job, mirroring
+# scripts/automerge-branch-author-gate.mjs) — a path allowlist alone cannot
+# express WHO is permitted to author content in the first place.
 #
 # The allowlist is NOT written here. It lives in
 # `.github/content-automerge-allowlist.txt` and is fetched from `main` at run
@@ -378,6 +383,7 @@ jobs:
           REPO: ${{ github.repository }}
           SHA: ${{ github.event.pull_request.head.sha }}
           BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
           FREEZE: ${{ vars.CONTENT_AUTOMERGE_FREEZE }}
           ALLOWLIST_PATH: .github/content-automerge-allowlist.txt
           OWNERSHIP_PATH: .github/content-ownership.json
@@ -416,6 +422,38 @@ jobs:
 
           if [ -n "${FREEZE:-}" ] && [ "$FREEZE" != "false" ] && [ "$FREEZE" != "0" ]; then
             verdict "frozen" "CONTENT_AUTOMERGE_FREEZE is set (\"$FREEZE\") — not enabling auto-merge. This is the kill switch, not a fault."
+            exit 0
+          fi
+
+          # ── BRANCH-NAMESPACE + AUTHOR GATE (#1969) ─────────────────────────
+          # Every other gate below judges WHAT this PR touches. None of them
+          # judge WHO opened it or FROM WHERE — the path allowlist alone lets a
+          # content-authoring identity (or an injected/compromised agent riding
+          # that identity) auto-merge app-code edits from a branch named
+          # anything, as long as the changed files happen to fall inside the
+          # allowlist. This is the hard structural boundary that closes that
+          # hole: a PR is only even considered for auto-merge when BOTH hold —
+          # its head branch matches one of this repo's own content-lane
+          # routines' DOCUMENTED naming conventions, AND its author is one of
+          # the known identities those routines actually run under. Mirrors
+          # scripts/automerge-branch-author-gate.mjs (unit-tested there,
+          # including a test that this workflow still contains every entry
+          # below) — keep the two lists in step, same "mirrors X; keep them in
+          # step" contract check-automerge-allowlist.mjs's deny-prefix logic
+          # already documents for itself.
+          branch_ok=0
+          case "${HEAD_REF:-}" in
+            content-shift/*|vault/*|growth/*|tree/*|depth/answerer-*|content/rumor-desk-*|content/stylist-*|social-poster/state-*|appearance-discovery/*|fix/karen-tickets|kevin/user-fixes)
+              branch_ok=1 ;;
+          esac
+          author_ok=0
+          case "${PR_AUTHOR:-}" in
+            sffan15-sys|wjduvall-cmd|"claude[bot]")
+              author_ok=1 ;;
+          esac
+          if [ "$branch_ok" -ne 1 ] || [ "$author_ok" -ne 1 ]; then
+            verdict "declined — not a recognized content-lane branch/author" \
+          "PR #$PR (author \`$PR_AUTHOR\`, branch \`$HEAD_REF\`) does not match this repo's known content-lane branch-naming conventions and/or known routine identities, so it is not even considered for auto-merge — regardless of what files it touches. This is the #1969 fix working as designed, not a failure. If this is genuinely a content-lane routine's PR, either its branch name or its author drifted from scripts/automerge-branch-author-gate.mjs's documented list; fix the drift (in a human-merged PR) rather than widening this gate to match it. A human can still merge this PR."
             exit 0
           fi
 

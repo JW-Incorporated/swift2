@@ -335,17 +335,37 @@ export function screenConversation(turns: readonly ConversationTurn[]): Redline 
   for (let i = 0; i < turns.length; i++) {
     const turn = turns[i];
     if (turn.role === 'assistant') {
-      if (REFUSAL_TEXTS.has(turn.text) || isFallbackAnswerText(turn.text)) continue;
-      const hit = screenOutput([turn.text]);
+      const hit = screenTurn(turn);
       if (hit) return hit;
       continue;
     }
     const next = turns[i + 1];
     if (next?.role === 'assistant' && REFUSAL_TEXTS.has(next.text)) continue;
-    const hit = screenInput(turn.text);
+    const hit = screenTurn(turn);
     if (hit) return hit;
   }
   return null;
+}
+
+/**
+ * Per-turn, role-aware dispatch — user turns run `screenInput`, assistant
+ * turns run `screenOutput`, with the same recognized-safe-copy exemptions
+ * `screenConversation` applies above (an exact `REFUSAL_TEXTS`/fallback-
+ * answer match is skipped, never re-punished). Extracted so a caller that
+ * needs per-TURN (not whole-conversation) screening doesn't have to
+ * reinvent this dispatch — e.g. `clown-memory.ts`'s fold-time screening
+ * (HUMAN-ACTIONS.md #15 round 4), which drops a turn that fails its own
+ * screen from what gets folded into the rolling summary rather than
+ * surfacing a refusal. `screenConversation` above uses this too, for every
+ * turn except the conversation-level adjacent-refusal pairing check (which
+ * is inherently about NEIGHBORING turns, not a single turn in isolation).
+ */
+export function screenTurn(turn: ConversationTurn): Redline | null {
+  if (turn.role === 'assistant') {
+    if (REFUSAL_TEXTS.has(turn.text) || isFallbackAnswerText(turn.text)) return null;
+    return screenOutput([turn.text]);
+  }
+  return screenInput(turn.text);
 }
 
 /**

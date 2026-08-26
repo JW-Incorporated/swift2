@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
+import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import Image from 'next/image';
 import { X, Check, Copy, Share2 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
@@ -24,7 +25,7 @@ import {
 } from '@/lib/longlive/share';
 import { eraStyle } from '@/lib/longlive/theme';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import { primaryImage, type Era } from '@/lib/longlive/types';
+import { focalPointOf, primaryImageRef, type Era, type ImageRef } from '@/lib/longlive/types';
 
 const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
 
@@ -32,8 +33,10 @@ export function ShareSheet() {
   const { share } = useAppState();
   const { closeShare } = useAppActions();
   const [copied, setCopied] = useState(false);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   useScrollLock(Boolean(share));
+  useFocusTrap(Boolean(share), dialogRef);
 
   useEffect(() => {
     setCopied(false);
@@ -60,7 +63,7 @@ export function ShareSheet() {
   /** Rich moment share copy (T12); null falls back to `${title} — ${subtitle}`. */
   let richCopy: ShareCopy | null = null;
   /** Card imagery — the moment's primary photo for item shares, era art otherwise. */
-  let cardImage: string | undefined;
+  let cardImage: ImageRef | undefined;
 
   if (share.kind === 'item') {
     const item = getContentItem(share.itemId);
@@ -70,7 +73,7 @@ export function ShareSheet() {
     subtitle = item?.summary ?? '';
     if (item) {
       richCopy = momentShareCopy(item, era);
-      cardImage = primaryImage(item);
+      cardImage = primaryImageRef(item);
     }
   } else if (share.kind === 'era') {
     era = getEra(share.eraId);
@@ -190,12 +193,19 @@ export function ShareSheet() {
       onClick={closeShare}
     >
       <div
+        ref={dialogRef}
+        tabIndex={-1}
         className="w-full max-w-sm"
         onClick={(e) => e.stopPropagation()}
         style={eraStyle(era)}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="share-sheet-title"
       >
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-sm font-medium text-white/80">Share card</span>
+          <span id="share-sheet-title" className="text-sm font-medium text-white/80">
+            Share card
+          </span>
           <button
             onClick={closeShare}
             className="era-icon-btn rounded-full p-1.5"
@@ -209,11 +219,12 @@ export function ShareSheet() {
         <div className="overflow-hidden rounded-3xl border border-[color:var(--era-line)] bg-[color:var(--era-bg)] shadow-2xl">
           <div className="relative aspect-[4/5]">
             <Image
-              src={cardImage || era.image || '/placeholder.svg'}
+              src={cardImage?.url || era.image || '/placeholder.svg'}
               alt=""
               fill
-              unoptimized={isRemoteUrl(cardImage || era.image || '')}
+              unoptimized={isRemoteUrl(cardImage?.url || era.image || '')}
               className="object-cover opacity-60"
+              style={{ objectPosition: focalPointOf(cardImage) }}
             />
             <div
               className="absolute inset-0"

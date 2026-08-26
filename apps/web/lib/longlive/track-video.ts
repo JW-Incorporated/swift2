@@ -1,4 +1,4 @@
-import type { VideoNote } from './types';
+import type { MomentVideo, VideoNote } from './types';
 
 /**
  * Pairs a track guide song to the official video that plays it, so
@@ -18,12 +18,13 @@ import type { VideoNote } from './types';
  * Normalization deliberately does NOT strip an edition qualifier like
  * "(Taylor's Version)" or "(From The Vault)": those change which recording is
  * being named, not how it's formatted, and the corpus proves the distinction
- * is live — the Fearless era carries both a "The Best Day" video and a
- * "The Best Day (Taylor's Version)" video, and collapsing that pair would
- * pair a track with the wrong recording's video. Only the format-only
- * decorations that never occur on a song's actual title are stripped:
- * "(Official Music Video)", "(Official Video)", "(Music Video)",
- * "(Official Lyric Video)", "(Lyric Video)".
+ * is live — the corpus carries both a "The Best Day" video and a "The Best
+ * Day (Taylor's Version)" video, and collapsing that pair would
+ * pair a track with the wrong recording's video even when calendar-era
+ * placement puts the original and Taylor's Version videos in different era
+ * buckets. Only the format-only decorations that never occur on a song's
+ * actual title are stripped: "(Official Music Video)", "(Official Video)",
+ * "(Music Video)", "(Official Lyric Video)", "(Lyric Video)".
  */
 const DECORATION_PATTERNS: RegExp[] = [
   /\(official music video\)/gi,
@@ -133,4 +134,29 @@ export function trackVideoFor(
     matches.find((v) => v.kind === 'lyric_video') ??
     matches[0]
   );
+}
+
+/**
+ * The video a track's own page actually plays (issue #771): the official
+ * music/lyric video when `trackVideoFor` finds one, else the track's own
+ * verified audio/lyric `youtubeId` — never nothing, when either exists.
+ *
+ * Without the fallback, a track page could only ever play the ~49 songs with
+ * a matched music video, while the remaining tracks each carry their own
+ * verified, playable id that reached the generated vault and rendered
+ * nowhere (found 2026-07-20 while browser-verifying playback). Extracted out
+ * of `TrackDetail` so this resolution — the actual behavior issue #771
+ * complains a track page is missing — is unit-testable, matching the same
+ * boundary `video-affordance.ts` draws for `MomentDetail` (vitest runs
+ * component-free, so a rule left inside a component is untestable by
+ * construction).
+ */
+export function resolvedTrackVideo(
+  track: { title: string; youtubeId?: string | null },
+  videos: readonly VideoNote[],
+): MomentVideo | null {
+  const matched = trackVideoFor(track.title, videos, track.youtubeId);
+  if (matched?.youtubeId) return { youtubeId: matched.youtubeId, title: matched.title };
+  if (track.youtubeId) return { youtubeId: track.youtubeId, title: track.title };
+  return null;
 }

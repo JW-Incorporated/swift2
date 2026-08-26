@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { allocateHitRanges, durationLabel, mergedTimeline, monthsBetween, previousRelationship, soloLeadIn } from './love-story';
 import { RELATIONSHIPS, SINGLE_PERIODS } from './lenses';
+import { songTargetOf } from './tracks';
 import type { Relationship, SinglePeriod } from './types';
 
 const rels: Relationship[] = [
@@ -139,5 +140,53 @@ describe('soloLeadIn', () => {
     const first: SinglePeriod = { id: 's0', start: '2006-01-01', end: '2008-01-01', eraIds: ['debut'], note: '' };
     const timeline = mergedTimeline(rels, [first, ...singles]);
     expect(soloLeadIn(first, timeline)).toMatch(/^She was 16/);
+  });
+});
+
+describe('solo-period editorial depth', () => {
+  const deepIds = ['single-early', 'single-2008', 'single-2011', 'single-2013', 'single-2023'];
+
+  it('gives every flagged solo chapter a 4-6 sentence sourced narrative', () => {
+    for (const id of deepIds) {
+      const period = SINGLE_PERIODS.find((entry) => entry.id === id);
+      expect(period, `${id} is missing`).toBeDefined();
+
+      const sentences = period!.context?.split(/(?<=[.!?])["']?\s+(?=[A-Z"])/) ?? [];
+      expect(sentences.length, `${id} should read as a 4-6 sentence story`).toBeGreaterThanOrEqual(4);
+      expect(sentences.length, `${id} should read as a 4-6 sentence story`).toBeLessThanOrEqual(6);
+
+      const sources = period!.sources ?? [];
+      expect(sources.length, `${id} needs at least two citations`).toBeGreaterThanOrEqual(2);
+      expect(new Set(sources.map((source) => new URL(source.url).hostname.replace(/^www\./, ''))).size, `${id} needs independent outlets`).toBeGreaterThanOrEqual(2);
+      for (const source of sources) {
+        expect(source.url).toMatch(/^https:\/\//);
+        expect(source.reliability, `${id}: ${source.name} needs a reliability score`).toBeGreaterThanOrEqual(3);
+        expect(source.type, `${id}: ${source.name} needs a source type`).toBeTruthy();
+      }
+    }
+  });
+
+  it('keeps the two short slivers as intentionally concise captions', () => {
+    for (const id of ['single-2012', 'single-2016']) {
+      const period = SINGLE_PERIODS.find((entry) => entry.id === id);
+      expect(period?.context).toBeUndefined();
+    }
+  });
+});
+
+describe('relationship song links', () => {
+  const songs = [...RELATIONSHIPS, ...SINGLE_PERIODS].flatMap((entry) => entry.songs ?? []);
+
+  it('resolves every authored song id to a real track-guide entry', () => {
+    for (const song of songs) {
+      if (!song.relatedId) continue;
+      expect(songTargetOf(song.relatedId), `${song.title} (${song.relatedId})`).not.toBeNull();
+    }
+  });
+
+  it('leaves only songs absent from the track guide non-interactive', () => {
+    expect(songs.filter((song) => !song.relatedId).map((song) => song.title)).toEqual([
+      'This Is What You Came For',
+    ]);
   });
 });

@@ -198,11 +198,11 @@ export default {
             "Taylor Swift Fans Spiral Over Tiny Spotify Change, Fueling New Album & 'Taylor's Version' Theories",
           publisher: 'Just Jared',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-20',
+          accessed_at: '2026-08-24',
           reliability_score: 3,
           excerpt: null,
           notes:
-            'Bradley Stern, 2026-07-20. Names the three tracks/colors and the two fan theories; UA-blocked to a raw fetch, corroborated via search + geo.tv.',
+            'Bradley Stern, 2026-07-20. Names the three tracks/colors and the two fan theories; UA-blocked to a raw fetch, corroborated via search + geo.tv. Re-checked 2026-08-24 (Vault Run rumor lifecycle): status verified still pending — no re-recording/new-era announcement or debunk has landed since; the fresher Aug 20 ESB "green TS" signal is the same open hunt, not a resolution.',
         },
         {
           source_url:
@@ -211,7 +211,7 @@ export default {
             'Taylor Swift sparks curiosity with new "Easter Eggs" on streaming platforms',
           publisher: 'Geo.tv',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-20',
+          accessed_at: '2026-08-24',
           reliability_score: 3,
           excerpt: null,
           notes:
@@ -239,7 +239,7 @@ export default {
         'When Gracie Abrams\'s "Death Wish" circulated, some Swifties read its lines about power, cruelty and a damaged relationship as a coded shot at Taylor — folding Abrams, one of Taylor\'s close friends and Eras Tour openers, into a supposed hidden feud.',
       evidence:
         'The song\'s co-writer and producer, Aaron Dessner — the same collaborator behind folklore and evermore — was asked about the theory head-on in a July 21, 2026 Billboard interview and shut it down flatly: "Yeah, definitely not." He said Abrams wrote it "at a time when [Gracie] was writing about a friend\'s ex, being in a bad relationship," and added that he did not even know the person\'s identity — so there is no hidden third party to expose, and nothing about Taylor in it. NME and E! News carried the same denial. The reading was always a fan inference stacked on a public friendship, never anything Abrams or Dessner had suggested; on the record from the man who helped write the song, it resolves debunked.',
-      confidence: 'reputable_reporting',
+      confidence: 'confirmed_interview',
       outcome: 'debunked',
       sources: [
         {
@@ -249,11 +249,11 @@ export default {
             "Aaron Dessner Sets the Record Straight on Gracie Abrams' 'Death Wish': It's 'Definitely Not' About Taylor Swift",
           publisher: 'Billboard',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-25',
+          accessed_at: '2026-08-24',
           reliability_score: 4,
           excerpt: null,
           notes:
-            'The July 21, 2026 interview carrying Dessner\'s "Yeah, definitely not" and the "friend\'s ex" origin. Billboard 307-redirects to a paywall proxy on a raw fetch; quote confirmed via the NME and E! reads below plus search.',
+            'The July 21, 2026 interview carrying Dessner\'s "Yeah, definitely not" and the "friend\'s ex" origin. Billboard 307-redirects to a paywall proxy on a raw fetch; quote confirmed via the NME and E! reads below plus search. Re-checked 2026-08-24 (Vault Run rumor lifecycle): the debunk stands unchanged — no reversal; Wikipedia\'s "Death Wish" article carries the same "about a friend\'s narcissist ex" origin.',
         },
         {
           source_url:
@@ -277,6 +277,67 @@ export default {
           reliability_score: 3,
           excerpt: null,
           notes: 'Second independent outlet carrying the same on-record denial.',
+        },
+      ],
+    },
+    {
+      // Authored 2026-08-24 (Vault Run, Rumor Desk lane) from intake #3153.
+      // REPORTED BUT UNSETTLED -> a theory-track entry, never confirmed
+      // narrative. The underlying FACTS are documented and sourced (the ESB
+      // green light + its official X account's "WhaTS happening?" post); the
+      // MEANING is an unresolved, adjudicable theory that resolves the moment
+      // an announcement or a debunk lands. Held open, not asserted — the entry
+      // carries the countervailing "not everything is an easter egg" read too.
+      // Redline-clean: the ESB is a public landmark (documented past display);
+      // the "TS" wall sites are explicitly UNDISCLOSED in the reporting and are
+      // kept that way here (no location beyond "multiple cities"). Distinct
+      // from the Jul 2026 Spotify-canvas hunt (cross-linked, not merged).
+      slug: 'showgirl-esb-green-ts-debut-era',
+      kind: 'theory',
+      title: 'The green Empire State Building and the "TS" logos that lit a new-era hunt',
+      claim:
+        'On Aug 20, 2026 the Empire State Building glowed green, its official X account captioning it "WhaTS happening?" — capitalized "TS" reading as Taylor\'s initials. The same day, a green "TS" logo turned up on a black wall at an undisclosed spot, with more spotted across several cities. Swifties read the convergence as an easter-egg cue for her next era.',
+      evidence:
+        'The facts are on the record and sourced (the ESB light change and the ESB official account\'s "WhaTS happening?" post); everything past them is fan decoding, and the reads openly diverge. The loudest ties green to her 2006 self-titled debut — whose 20th anniversary lands Oct 24, 2026 — and reads it as a debut "Taylor\'s Version" tease; others point instead to Reputation\'s black-and-green snake imagery, the other un-re-recorded title. Fans noted the font and layout match none of her past album branding. The pattern is real — the ESB lit orange in Aug 2025 for The Life of a Showgirl and blue in Jul 2026 for the wedding — but so is the countervailing coverage ("Swifties calm down, not everything is an Easter egg"). Nothing so far officially links the green display to any confirmed project. If an announcement or a debunk follows, this promotes with the citation; if it goes quiet, it fades.',
+      confidence: 'plausible',
+      outcome: 'pending',
+      relatedSlugs: ['the-life-of-a-showgirl:showgirl-spotify-canvas-color-swap'],
+      sources: [
+        {
+          source_url: 'https://www.ibtimes.co.uk/empire-state-building-green-taylor-swift-speculation-1815429',
+          source_title:
+            "Taylor Swift Fuels Album Theories as Empire State Building Flashes Green 'TS' Logo and Asks 'WhaTS Happening?'",
+          publisher: 'IBTimes UK',
+          source_type: 'reputable_press',
+          accessed_at: '2026-08-24',
+          reliability_score: 3,
+          excerpt: null,
+          notes:
+            'Anchors the documented facts: the ESB green display and its official X "WhaTS happening?" post, Aug 20 2026. Verified via web search this session (direct outlet fetch egress-blocked).',
+        },
+        {
+          source_url:
+            'https://www.contactmusic.com/story/467/3593838/empire-state-building-goes-green-as-mysterious-ts-symbols-spark-taylor-swift-fan-theories',
+          source_title:
+            'Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories',
+          publisher: 'Contactmusic',
+          source_type: 'reputable_press',
+          accessed_at: '2026-08-24',
+          reliability_score: 3,
+          excerpt: null,
+          notes:
+            'Independent corroboration of the green ESB + multi-city "TS" logo sightings and the split fan reads (debut vs. reputation). Verified via web search this session.',
+        },
+        {
+          source_url: 'https://uk.news.yahoo.com/empire-state-building-goes-green-090000104.html',
+          source_title:
+            'Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories',
+          publisher: 'Yahoo News UK',
+          source_type: 'reputable_press',
+          accessed_at: '2026-08-24',
+          reliability_score: 3,
+          excerpt: null,
+          notes: 'Third independent outlet carrying the same reporting, including the "not everything is an Easter egg" counter-take.',
         },
       ],
     },

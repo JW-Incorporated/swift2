@@ -21,6 +21,7 @@
 
 import { MOOD_AXES, type EraId, type MoodAxes, type MoodAxis, type SongMood } from './types';
 import { SONG_MOODS } from './song-moods.generated';
+import { moodIntentPolicy, type MoodIntent } from './mood-intents';
 
 /**
  * What the reader wants, as the classifier (Stage 4) derives it — never raw
@@ -37,6 +38,12 @@ export interface MoodQuery {
   /** Desired emotional valence, 0 (sad) .. 1 (happy). Optional. */
   valence?: number;
   /**
+   * Optional narrow keyword intent for cases where distinct conversational
+   * needs cannot be distinguished by the eight broad axes alone. Model and
+   * chip queries leave this unset and keep the normal catalogue ranking.
+   */
+  intent?: MoodIntent;
+  /**
    * Set ONLY when the reader's words carry an explicit bereavement/death signal
    * (a death, grief, a funeral, "lost my dad" — see `hasBereavementSignal` in
    * mood-keywords.ts). It gates the grief-canon songs ({@link BEREAVEMENT_SLUGS}):
@@ -47,7 +54,6 @@ export interface MoodQuery {
    */
   bereavement?: boolean;
 }
-
 /**
  * The grief canon (#1984): songs written from inside a real bereavement — a
  * death, a terminal illness, a loss to grieve. They are scored max-`heartbreak`
@@ -152,6 +158,24 @@ function unit(n: number): number {
 const ENERGY_VALENCE_WEIGHT = 0.5;
 
 /**
+ * Editorial energy/valence prototypes for an otherwise-unrefined single mood
+ * axis. The catalogue already authors these two secondary dimensions for every
+ * scored song; using them only when primary scores tie prevents a flat axis
+ * from falling through to alphabetical slug order (#2000). Explicit reader
+ * energy/valence always wins, and multi-axis queries need no inferred profile.
+ */
+const AXIS_TIE_PROFILES: Record<MoodAxis, { energy: number; valence: number }> = {
+  heartbreak: { energy: 0.35, valence: 0.15 },
+  anger: { energy: 0.8, valence: 0.15 },
+  nostalgia: { energy: 0.35, valence: 0.5 },
+  joy: { energy: 0.75, valence: 0.85 },
+  calm: { energy: 0.2, valence: 0.7 },
+  defiance: { energy: 0.75, valence: 0.65 },
+  longing: { energy: 0.4, valence: 0.3 },
+  catharsis: { energy: 0.65, valence: 0.35 },
+};
+
+/**
  * Floor applied to a song's axis score inside the geometric mean. A song that
  * scores an exact 0 on a weakly-wanted axis should be gently penalised, not
  * annihilated — without this, one 0 zeroes the whole product regardless of how
@@ -202,12 +226,23 @@ export function scoreSong(query: MoodQuery, song: ScoredSong): number {
   return denom === 0 ? 0 : total / denom;
 }
 
+/** Authored secondary fit used only to order exact primary-score ties. */
+function singleAxisTieScore(query: MoodQuery, song: ScoredSong): number {
+  if (query.energy !== undefined || query.valence !== undefined) return 0;
+  const asserted = MOOD_AXES.filter((axis) => unit(query.moods[axis] ?? 0) > 0);
+  if (asserted.length !== 1) return 0;
+  const profile = AXIS_TIE_PROFILES[asserted[0]];
+  const energyFit = 1 - Math.abs(song.energy - profile.energy);
+  const valenceFit = 1 - Math.abs(song.valence - profile.valence);
+  return (energyFit + valenceFit) / 2;
+}
+
 /**
  * Rank the catalogue against a mood query and return the top matches.
  *
- * Pure and synchronous. Ties in raw score are broken by slug so the output is
- * fully deterministic (the same query always yields the same order — a
- * property the unit tests rely on). The era-diversity pass runs greedily: each
+ * Pure and synchronous. Single-axis ties in raw score are broken by proximity
+ * to that axis's authored energy/valence profile, then by slug, so the output
+ * is meaningful and fully deterministic. The era-diversity pass runs greedily: each
  * round it re-scores remaining candidates with a penalty for eras already
  * picked and takes the current best, so a much-stronger song still wins its
  * slot while merely-comparable songs make room for other eras.
@@ -223,16 +258,45 @@ export function matchMoods(query: MoodQuery, options: MatchOptions = {}): MoodMa
   // scoring so a grief song can't win a slot for ordinary sadness no matter how
   // high its heartbreak score — the safety property is exclusion, not a nudge.
   const allowBereavement = query.bereavement === true;
+  const intentPolicy = moodIntentPolicy(query.intent);
 
   const ranked = scoredSongs(catalogue)
     .filter((song) => allowBereavement || !BEREAVEMENT_SLUGS.has(song.slug))
-    .map((song) => ({ song, score: scoreSong(query, song) }))
+    .filter((song) => !intentPolicy?.excluded.has(song.slug))
+    .map((song) => ({
+      song,
+      score: scoreSong(query, song),
+      tieScore: singleAxisTieScore(query, song),
+    }))
     .filter((entry) => entry.score > 0)
-    .sort((a, b) => b.score - a.score || a.song.slug.localeCompare(b.song.slug));
+    .sort(
+      (a, b) =>
+        b.score - a.score || b.tieScore - a.tieScore || a.song.slug.localeCompare(b.song.slug),
+    );
 
   const picks: MoodMatch[] = [];
   const perEra = new Map<EraId, number>();
-  const remaining = [...ranked];
+  const preferred = new Set(intentPolicy?.preferred ?? []);
+  const remaining = ranked.filter(({ song }) => !preferred.has(song.slug));
+
+  // The broad mood axes cannot encode "keep me company" versus romantic
+  // yearning. For the few explicit keyword intents above, begin with the
+  // hand-checked songs in editorial order, then resume the normal ranking.
+  for (const slug of intentPolicy?.preferred ?? []) {
+    if (picks.length >= limit) break;
+    const entry = ranked.find(({ song }) => song.slug === slug);
+    if (!entry) continue;
+    perEra.set(entry.song.eraId, (perEra.get(entry.song.eraId) ?? 0) + 1);
+    picks.push({
+      slug: entry.song.slug,
+      title: entry.song.title,
+      eraId: entry.song.eraId,
+      youtubeId: entry.song.youtubeId,
+      oneLiner: entry.song.oneLiner,
+      useCase: entry.song.useCase,
+      score: entry.score,
+    });
+  }
 
   while (picks.length < limit && remaining.length > 0) {
     let bestIndex = 0;

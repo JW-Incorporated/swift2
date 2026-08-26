@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import Image from 'next/image';
 import {
@@ -12,19 +12,51 @@ import {
   MessageCircle,
   Link2,
   ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { tracksForEra, keepExploring, releasedFactValue, trackKey } from '@/lib/longlive/tracks';
+import {
+  tracksForEra,
+  keepExploring,
+  releasedFactValue,
+  trackKey,
+  adjacentTrackOnAlbum,
+} from '@/lib/longlive/tracks';
 import { videosForEra } from '@/lib/longlive/videos';
-import { trackVideoFor } from '@/lib/longlive/track-video';
+import { resolvedTrackVideo } from '@/lib/longlive/track-video';
 import { MomentVideo } from './MomentVideo';
 import { OverlayNav } from './OverlayNav';
 import { TrackFiveCallout } from './TrackFivePill';
 import { eraStyle } from '@/lib/longlive/theme';
 import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
+import { useSwipeNav } from '@/lib/longlive/useSwipeNav';
 import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@/lib/longlive/types';
+
+/** Shown once, ever, the first time a song page has a swipe neighbor
+ * (#774 Option 2's "subtle one-time hint"). localStorage, not session —
+ * a returning user shouldn't see it again either. */
+const SWIPE_HINT_KEY = 'll-track-swipe-hint-seen-v1';
+
+function readSwipeHintSeen(): boolean {
+  try {
+    if (typeof window === 'undefined') return true;
+    return window.localStorage.getItem(SWIPE_HINT_KEY) === '1';
+  } catch {
+    return true;
+  }
+}
+
+function writeSwipeHintSeen(): void {
+  try {
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem(SWIPE_HINT_KEY, '1');
+  } catch {
+    /* private mode / quota — the hint just reappears next visit */
+  }
+}
 
 // The composite song key now lives in lib/longlive/tracks (so the store's
 // deep-link resolver and the ShareSheet can share it). Re-exported here so
@@ -42,7 +74,7 @@ export { trackKey };
  */
 export function TrackDetail() {
   const { openTrackKey, trackGuideEraId, share } = useAppState();
-  const { closeTrack } = useAppActions();
+  const { closeTrack, openTrack } = useAppActions();
 
   const era = trackGuideEraId ? getEra(trackGuideEraId) : undefined;
   const track =
@@ -50,48 +82,64 @@ export function TrackDetail() {
       ? tracksForEra(era.id).find((t) => trackKey(era.id, t) === openTrackKey)
       : undefined;
 
-  useScrollLock(track != null);
+  // Previous/Next (#774 Option 2): every sourced track in album order, not
+  // just tracks with a full dossier — see adjacentTrackOnAlbum's doc comment.
+  const prevTrack = era && track ? adjacentTrackOnAlbum(era.id, track, 'previous') : null;
+  const nextTrack = era && track ? adjacentTrackOnAlbum(era.id, track, 'next') : null;
+  const goToTrack = (t: TrackNote) => {
+    if (!era) return;
+    openTrack(trackKey(era.id, t));
+  };
+
+  const [showSwipeHint, setShowSwipeHint] = useState(false);
+  useEffect(() => {
+    if (!track) return;
+    if ((prevTrack || nextTrack) && !readSwipeHintSeen()) {
+      setShowSwipeHint(true);
+      writeSwipeHintSeen();
+      const t = setTimeout(() => setShowSwipeHint(false), 3000);
+      return () => clearTimeout(t);
+    }
+  }, [openTrackKey, track, prevTrack, nextTrack]);
+
+  useSwipeNav(
+    Boolean(track) && !share,
+    () => nextTrack && goToTrack(nextTrack),
+    () => prevTrack && goToTrack(prevTrack),
+  );
 
   useEffect(() => {
     if (!track) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !share) closeTrack();
+      if (e.key === 'Escape' && !share) {
+        closeTrack();
+        return;
+      }
+      if (share) return;
+      // Left/Right hop songs (#774 Option 2's additive desktop shortcut) —
+      // only when focus isn't in an interactive control, so it never steals
+      // arrow keys from a text field, a video's own controls, etc.
+      const target = e.target as HTMLElement | null;
+      const inControl = target?.closest('a, button, input, textarea, select, iframe, [contenteditable]');
+      if (inControl) return;
+      if (e.key === 'ArrowRight' && nextTrack) goToTrack(nextTrack);
+      else if (e.key === 'ArrowLeft' && prevTrack) goToTrack(prevTrack);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [track, closeTrack, share]);
+  }, [track, closeTrack, share, nextTrack, prevTrack]);
 
   useBackDismiss(Boolean(track), closeTrack);
 
   if (!era || !track) return null;
 
   const dossier = track.dossier;
-  // The song's official video, matched from the era's videos rail by title
-  // (#439/#440) so track pages actually embed the music video instead of
-  // hiding it in the era-level rail only. Same conservative matcher
-  // TrackGuide's inline playback uses (track-video.ts) — see its doc comment
-  // for the recording-separation rule. TrackDetail previously called a
-  // separate, looser matcher (videos.ts's `videoForTrack`) whose
-  // `normalizeTitle` stripped every parenthetical including "(Taylor's
-  // Version)", so the two disagreed on which recording to play (finding #2,
-  // adversarial review 2026-08-13). `videoForTrack` is gone — there is only
-  // one matcher now.
-  const matchedVideo = trackVideoFor(track.title, videosForEra(era.id), track.youtubeId);
-  // Prefer the official music video when one exists — it is the richer artifact
-  // and carries its own title. Otherwise fall back to the track's OWN verified
-  // youtubeId (the official audio / lyric video sourced by the Audio Curator,
-  // every one oEmbed-checked against an official channel).
-  //
-  // Without that fallback the page could only ever play the ~44 songs with a
-  // music video, while 213 tracks carried a verified, playable id that reached
-  // the generated vault and then rendered nowhere — the exact complaint that
-  // started the audio work ("only being able to link to a handful of songs is
-  // lame"). Found 2026-07-20 while browser-verifying playback.
-  const video = matchedVideo?.youtubeId
-    ? { youtubeId: matchedVideo.youtubeId, title: matchedVideo.title }
-    : track.youtubeId
-      ? { youtubeId: track.youtubeId, title: track.title }
-      : undefined;
+  // The song's playable video (issue #771): the official video matched from
+  // the era's videos rail by title (#439/#440), else the track's own
+  // verified audio/lyric `youtubeId` — see `resolvedTrackVideo`'s doc comment
+  // in track-video.ts for the fallback rationale and the matcher's
+  // recording-separation rule.
+  const video = resolvedTrackVideo(track, videosForEra(era.id)) ?? undefined;
   // The dossier backs whyItMatters/meaning/live/voices; the narrative
   // discussion keeps its own citation list. Merged (de-duped by url) into one
   // source line at the foot of the page.
@@ -108,11 +156,56 @@ export function TrackDetail() {
       aria-label={`${track.title} — song detail`}
     >
       <OverlayNav
+        era={era}
         onClose={closeTrack}
         // track resolved from openTrackKey above, so this rebuilds the same key
         // (typed string, unlike the nullable openTrackKey from the store).
         shareTarget={{ kind: 'track', eraId: era.id, trackKey: trackKey(era.id, track) }}
       />
+
+      {/* Desktop gutter arrows (#774 Option 2): fixed just outside the
+          max-w-2xl content column, not the far viewport edges. Hidden below
+          lg — mobile gets the compact Previous/Next row near the heading and
+          swipe instead. No wrap: absent at either end of the album. */}
+      {prevTrack && (
+        <div className="hidden lg:block">
+          <button
+            type="button"
+            onClick={() => goToTrack(prevTrack)}
+            aria-label={`Previous track: ${prevTrack.title}`}
+            title={`Previous: ${prevTrack.title}`}
+            className="era-icon-btn fixed top-1/2 z-40 -translate-y-1/2 rounded-full lg:left-[max(1rem,calc(50%-25rem))]"
+          >
+            <ChevronLeft className="size-5" aria-hidden />
+          </button>
+        </div>
+      )}
+      {nextTrack && (
+        <div className="hidden lg:block">
+          <button
+            type="button"
+            onClick={() => goToTrack(nextTrack)}
+            aria-label={`Next track: ${nextTrack.title}`}
+            title={`Next: ${nextTrack.title}`}
+            className="era-icon-btn fixed top-1/2 z-40 -translate-y-1/2 rounded-full lg:right-[max(1rem,calc(50%-25rem))]"
+          >
+            <ChevronRight className="size-5" aria-hidden />
+          </button>
+        </div>
+      )}
+
+      {/* One-time swipe hint (#774 Option 2), mobile only — desktop already
+          has the always-visible gutter arrows. */}
+      {showSwipeHint && (
+        <div
+          className="fixed inset-x-0 bottom-6 z-40 flex justify-center px-4 lg:hidden"
+          aria-live="polite"
+        >
+          <span className="era-card rounded-full border px-4 py-2 text-xs font-medium shadow-lg">
+            Swipe to move between songs
+          </span>
+        </div>
+      )}
 
       {/* Compact era-art hero (same treatment as TrackGuide/TheoryGuide). */}
       <div className="relative h-[24vh] min-h-36 w-full">
@@ -144,6 +237,39 @@ export function TrackDetail() {
         <p className="mt-3 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
           {track.note}
         </p>
+
+        {/* Compact mobile Previous/Next (#774 Option 2) — desktop uses the
+            fixed gutter arrows instead, so this row is lg-hidden. Swipe left/
+            right does the same thing; these stay as the always-discoverable,
+            accessible path. No wrap: an end track only shows its one side. */}
+        {(prevTrack || nextTrack) && (
+          <div className="mt-4 flex items-center justify-between gap-2 lg:hidden">
+            {prevTrack ? (
+              <button
+                type="button"
+                onClick={() => goToTrack(prevTrack)}
+                className="era-btn-ghost inline-flex min-w-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium"
+              >
+                <ChevronLeft className="size-4 shrink-0" aria-hidden />
+                <span className="truncate">{prevTrack.title}</span>
+              </button>
+            ) : (
+              <span />
+            )}
+            {nextTrack ? (
+              <button
+                type="button"
+                onClick={() => goToTrack(nextTrack)}
+                className="era-btn-ghost inline-flex min-w-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium"
+              >
+                <span className="truncate">{nextTrack.title}</span>
+                <ChevronRight className="size-4 shrink-0" aria-hidden />
+              </button>
+            ) : (
+              <span />
+            )}
+          </div>
+        )}
 
         {track.trackNumber === 5 && <TrackFiveCallout />}
 

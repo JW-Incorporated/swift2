@@ -252,7 +252,7 @@ export default {
       relatedIds: [
         'moment:vault-midnights-the-i-can-see-you-video-reunites-the-taylors',
         'moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville',
-        'moment:vault-speak-now-speak-now-taylors-version',
+        'moment:vault-midnights-speak-now-taylors-version',
       ],
       snippet:
         "716,000 units in week one, the biggest album week of 2023 to that point — her 12th No. 1 on the Billboard 200.",
@@ -308,7 +308,7 @@ export default {
         'moment:vault-midnights-billionaire-status-from-the-music-alone',
         // Cross-link (Stage 3, 2026-08-10): the SoFi Stadium announcement
         // this sales week followed.
-        'moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
+        'moment:vault-midnights-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
       ],
       title: "1989 (Taylor's Version) resets the vinyl record",
       snippet:
@@ -606,6 +606,12 @@ export default {
       },
     },
     {
+      // Cross-links (crosslink-opportunity, 2026-08-24): Cavalli's other
+      // opening-night Eras Tour looks for the Fearless and reputation sets.
+      relatedIds: [
+        'moment:vault-midnights-roberto-cavalli-gold-fringe-for-the-fearless-set',
+        'moment:vault-midnights-the-original-reputation-catsuit-cut-outs-and-all',
+      ],
       year: 2023,
       month: 3,
       day: 17,
@@ -668,16 +674,7 @@ export default {
           },
           { outlet: 'CBS News', url: 'https://www.cbsnews.com/news/taylor-swift-midnights-3am-anti-hero-video/' },
         ],
-        // Real-photo pass (2026-07-09): the album art the 3am tracks extended.
-        // Wikipedia's stable upload.wikimedia.org copy; verified HTTP 200 + image/png.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
-            credit: 'Republic Records',
-            caption: 'The standard-edition Midnights cover — the "complete concept album" of 13 songs the surprise 3am tracks were framed as outtakes from.',
-            kind: 'archival',
-            focalPoint: '40% 47%',
-          },
           {
             url: 'https://i.ytimg.com/vi/iFX6_9h7th0/maxresdefault.jpg',
             credit: 'Taylor Swift/YouTube',
@@ -685,6 +682,14 @@ export default {
               'The white-flag art of the official lyric video for "The Great War" — the opening 3am track, surrendering the fight the song spends its runtime surviving.',
             kind: 'archival',
             focalPoint: '55% 55%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/B-MfwP_RmHY/maxresdefault.jpg',
+            credit: 'Taylor Swift/YouTube',
+            caption:
+              'The official lyric video for "Would\'ve, Could\'ve, Should\'ve" — another of the seven songs released with the 3am Edition.',
+            kind: 'archival',
+            focalPoint: '50% 50%',
           },
         ],
       },
@@ -991,7 +996,7 @@ export default {
       significance: 'defining', // the crossover into mainstream/NFL culture that reshaped her public life (docs/decisions.md, 2026-07-19)
       threadIds: ['the-proposal'],
       relatedIds: [
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-ttpd-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years',
       ],
@@ -1003,12 +1008,20 @@ export default {
         'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
       moment: {
         context:
-          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. He had floated the invitation on that same show days earlier — "I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead" — and she took him up on it, watching Kansas City rout Chicago 41–10 from Travis\'s family suite beside his mother, Donna. When he caught a three-yard touchdown in the third quarter, Fox cameras found her jumping in the glass-enclosed box; Patrick Mahomes said afterward he\'d felt "a little pressure" to get Kelce into the end zone with her watching. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.\n\nThe cultural footprint was immediate. Fox\'s broadcast of the 41–10 game drew 24.3 million viewers — the most-watched program of the weekend and its strongest NFL Sunday-afternoon audience among female viewers all season — while Fanatics reported Travis\'s No. 87 jersey sales spiking nearly 400% that same day, vaulting him from 19th into the league\'s top five sellers. His Instagram following jumped by roughly 325,000 in a week, a bigger bump than his Super Bowl win the previous February had produced. A late-summer flirtation traceable to a viral friendship-bracelet aside had, in one afternoon, become the most-watched relationship in American sports.',
+          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. He had floated the invitation on that same show days earlier — "I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead" — and she took him up on it, watching Kansas City rout Chicago 41–10 from Travis\'s family suite beside his mother, Donna. When he caught a three-yard touchdown in the third quarter, Fox cameras found her jumping in the glass-enclosed box; Patrick Mahomes said afterward he\'d felt "a little pressure" to get Kelce into the end zone with her watching. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nThe full Sept. 24 look was a white Dôen tank, Ksubi denim shorts, New Balance 550 sneakers in Chiefs colors, and a red-and-white New Era Chiefs windbreaker. Marie Claire, ranking every game-day outfit she\'d worn since, put this one last at No. 23 — not as an insult, but because it was the baseline: "an outfit every NFL fan has worn to an early-season game at one time or another, with a few trendy additions."\n\nThat was also exactly why it landed. The pieces were fan-accessible and instantly shoppable rather than designer-flexing — a deliberate first impression for a debut in someone else\'s arena, before her game-day wardrobe leveled up into custom pieces, four-figure jewelry stacks, and the Kristin Juszczyk puffer that earned its own NFL deal.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.\n\nThe cultural footprint was immediate. Fox\'s broadcast of the 41–10 game drew 24.3 million viewers — the most-watched program of the weekend and its strongest NFL Sunday-afternoon audience among female viewers all season — while Fanatics reported Travis\'s No. 87 jersey sales spiking nearly 400% that same day, vaulting him from 19th into the league\'s top five sellers. His Instagram following jumped by roughly 325,000 in a week, a bigger bump than his Super Bowl win the previous February had produced. A late-summer flirtation traceable to a viral friendship-bracelet aside had, in one afternoon, become the most-watched relationship in American sports.',
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/lists/taylor-swift-travis-kelce-relationship-timeline/',
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/fashion-news/fashion-features/gallery/taylor-swift-chiefs-game-outfits-photos-1236673626/',
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/taylor-swift-chiefs-game-outfits-ranked/',
           },
           {
             outlet: 'Variety',
@@ -1033,6 +1046,7 @@ export default {
           {
             url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
             credit: 'CNN',
+            caption: 'Taylor watches from the Arrowhead suite in the white Dôen tank from her first Chiefs game, with the New Era windbreaker draped over her arm.',
             focalPoint: '36% 16%',
           },
           // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
@@ -1087,43 +1101,8 @@ export default {
             kind: 'primary',
           },
         ],
-      },
-    },
-    {
-      year: 2023,
-      month: 9,
-      day: 24,
-      category: 'fashion',
-      title: 'Game-day debut: a Doen tank, denim shorts, and a Chiefs windbreaker',
-      snippet:
-        'No designer red carpet moment — her first Arrowhead look was Doen, denim, New Balance sneakers, and a New Era Chiefs windbreaker.',
-      sourceUrl: 'https://wwd.com/fashion-news/fashion-features/gallery/taylor-swift-chiefs-game-outfits-photos-1236673626/',
-      thumbnailUrl:
-        'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
-      moment: {
-        context:
-          "The full Sept. 24, 2023 look: a white Dôen tank, Ksubi denim shorts, New Balance 550 sneakers in Chiefs colors, and a red-and-white New Era Chiefs windbreaker. Marie Claire, ranking every game-day outfit she'd worn since, put this one dead last at No. 23 — not as an insult, but because it was the baseline: \"an outfit every NFL fan has worn to an early-season game at one time or another, with a few trendy additions.\"\n\nThat was also exactly why it landed. The pieces were fan-accessible and instantly shoppable rather than designer-flexing — a deliberate first impression for a debut in someone else's arena, before her game-day wardrobe leveled up into custom pieces, four-figure jewelry stacks, and the Kristin Juszczyk puffer that earned its own NFL deal.",
-        sources: [
-          {
-            outlet: 'WWD',
-            url: 'https://wwd.com/fashion-news/fashion-features/gallery/taylor-swift-chiefs-game-outfits-photos-1236673626/',
-          },
-          {
-            outlet: 'Marie Claire',
-            url: 'https://www.marieclaire.com/fashion/taylor-swift-chiefs-game-outfits-ranked/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
-            credit: 'CNN',
-            caption: 'The white Dôen tank and Chiefs windbreaker draped over her arm, in the Arrowhead suite on Sept. 24, 2023.',
-            kind: 'fashion',
-          },
-        ],
-        // Shop pass (2026-07-22): the exact seasonal Dôen tank is
-        // discontinued -- a current same-brand tank, verified in stock,
-        // closest real match.
+        // The exact seasonal Dôen tank is discontinued; this is a current
+        // same-brand alternative verified in stock.
         products: [
           {
             brand: 'DÔEN',
@@ -1178,7 +1157,7 @@ export default {
       // Cross-link (Stage 3, 2026-07-30): sibling "Cruel Summer" moments.
       relatedIds: [
         'moment:vault-lover-cruel-summer-born-from-a-casual-jam-with-st-vincent-and-jack',
-        'moment:vault-lover-cruel-summer-takes-four-years-to-become-a-no-1',
+        'moment:vault-midnights-cruel-summer-takes-four-years-to-become-a-no-1',
       ],
       year: 2023,
       month: 10,
@@ -1570,7 +1549,7 @@ export default {
           'moment:vault-midnights-thirteen-sleepless-nights',
         'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
         'moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi',
-        'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+        'moment:vault-evermore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
       ],
       title: 'A record fourth Album of the Year Grammy, for Midnights',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
@@ -1658,7 +1637,7 @@ export default {
       // narrative thread — its own text discusses this sighting.
       relatedIds: [
         'moment:vault-midnights-the-game-the-world-decided-made-it-official',
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-ttpd-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
       ],
       title: 'Super Bowl LVIII: a sheer corset, Area jeans, and his number in rubies',
@@ -1891,6 +1870,12 @@ export default {
       month: 3,
       day: 17,
       category: 'fashion',
+      // Cross-links (crosslink-opportunity, 2026-08-24): Cavalli's reputation
+      // look from the same tour opener, and the house's Grammys look six weeks earlier.
+      relatedIds: [
+        'moment:vault-midnights-the-original-reputation-catsuit-cut-outs-and-all',
+        'moment:vault-midnights-a-midnight-blue-star-scattered-roberto-cavalli-look-at-the-2',
+      ],
       title: 'Roberto Cavalli gold fringe for the Fearless set',
       snippet:
         'A sparkling gold fringe mini-dress by Roberto Cavalli, paired again with knee-high Christian Louboutin boots, for the Fearless segment of Eras Tour night one.',
@@ -1975,6 +1960,9 @@ export default {
       month: 3,
       day: 17,
       category: 'fashion',
+      // Cross-link (crosslink-opportunity, 2026-08-24): the house's
+      // star-scattered Grammys look six weeks before this tour costume debuted.
+      relatedIds: ['moment:vault-midnights-a-midnight-blue-star-scattered-roberto-cavalli-look-at-the-2'],
       title: 'The original reputation catsuit, cut-outs and all',
       snippet:
         'A Roberto Cavalli catsuit with a leg and arm cut-out, plus matching Roberto Cavalli boots, for the reputation segment — the version she wore for the tour\'s first year-plus of shows.',
@@ -2269,6 +2257,9 @@ export default {
 
     // --- Fashion/photo depth pass 2 (2026-07-04)
     {
+      // Cross-link (crosslink-opportunity, 2026-08-24): Cavalli's 1989-set
+      // two-piece, which followed this red-carpet look six weeks later.
+      relatedIds: ['moment:vault-midnights-roberto-cavalli-and-louboutin-for-the-1989-set'],
       year: 2023,
       month: 2,
       day: 5,
@@ -2887,50 +2878,6 @@ export default {
         ],
       },
     },
-
-    // --- Music-backstory + chart-record depth pass (2026-07-05): the album's
-    // music backstories were thin (3 items) relative to its 13-plus track
-    // list, so this batch digs into song-by-song writing stories with
-    // on-record Taylor/collaborator quotes, plus two chart records verified
-    // with a working second source this session — including the entire-
-    // Hot-100-top-10 record flagged as parked in this file's header note
-    // (a second source, Wikipedia's Anti-Hero page, was reachable this time).
-    // Every claim below verified against its cited source(s) directly.
-    {
-      year: 2022,
-      month: 10,
-      day: 7,
-      category: 'music',
-      title: 'A Mad Men rerun gave Midnights its opening track',
-      snippet:
-        'She found "lavender haze" watching Mad Men, looked up its 1950s meaning — "an all-encompassing love glow" — and turned it into an opening track defending her relationship from tabloid noise.',
-      sourceUrl:
-        'https://www.rollingstone.com/music/music-news/taylor-swift-reveals-lavender-haze-midnights-inspiration-joe-alwyn-1234607000/',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'In an Instagram video explaining the song, Taylor said: "I happened upon the phrase \'lavender haze\' when I was watching Mad Men. And I looked it up because I thought it sounded cool, and it turns out that it\'s a common phrase used in the \'50s where they would just describe being in love... If you were in the lavender haze, then that meant that you were in that all-encompassing love glow."\n\nShe tied it directly to her own six-year relationship with Joe Alwyn: "My relationship for six years, we\'ve had to dodge weird rumors, tabloid stuff, and we just ignore it... this song is sort of about the act of ignoring that stuff to protect the real stuff."',
-        sources: [
-          {
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reveals-lavender-haze-midnights-inspiration-joe-alwyn-1234607000/',
-          },
-        ],
-        // Real-photo pass (2026-07-09): single artwork from Wikipedia's stable
-        // upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/a/af/Taylor_Swift_-_Lavender_Haze.png',
-            // Photo pass #762 (2026-08-08): downloaded and viewed — her face
-            // sits lower-center of the purple-water artwork, below the title.
-            focalPoint: '48% 72%',
-            credit: 'Republic Records',
-            caption: 'Single artwork for "Lavender Haze," the Mad Men-inspired opening track.',
-            kind: 'primary',
-          },
-        ],
-      },
-    },
     {
       // Cross-link (Stage 3, 2026-07-30): the folklore reveal this song's
       // pseudonym pays off. (Note: "William Bowery revealed" in folklore.mjs
@@ -3190,8 +3137,6 @@ export default {
             url: 'https://www.billboard.com/music/chart-beat/taylor-swift-midnights-back-number-one-billboard-200-til-dawn-late-nights-1235345655/',
           },
         ],
-        // Real-photo pass (2026-07-09): album artwork; Wikipedia's stable copy,
-        // verified HTTP 200 + image/png this session.
         // Photo-enrichment pass (2026-07-18): added a freely licensed frame of
         // the Midnights set (Lavender Haze clouds) at U.S. Bank Stadium,
         // June 24, 2023 — the same month the deluxe editions put the album back
@@ -3199,129 +3144,19 @@ export default {
         // stadium signage visible).
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
-            credit: 'Republic Records',
-            caption: 'Midnights — back at No. 1 in June 2023, eight months after release, on the strength of the Til Dawn and Late Night deluxe editions.',
-            kind: 'archival',
-            focalPoint: '50% 52%',
-          },
-          {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Eras_Tour_-_Minneapolis%2C_Minnesota_-_Midnights_act_1.jpg/960px-Eras_Tour_-_Minneapolis%2C_Minnesota_-_Midnights_act_1.jpg',
             credit: 'Michael Hicks, CC BY 2.0, via Wikimedia Commons',
             caption: 'The Midnights act at Minneapolis\' U.S. Bank Stadium in June 2023 — the album onstage the same month the deluxe drops sent it back to No. 1.',
             kind: 'archival',
             focalPoint: '53% 58%',
           },
-        ],
-      },
-    },
-
-    // --- Deep timeline fill (2026-07-08, content/deep-d): rollout, records,
-    // Eras Tour milestones, and era-spanning moments the corpus was missing.
-    // Every claim verified against its cited source(s) this session; new items
-    // carry the audit's additive provenance fields (slug + publisher/
-    // source_type/accessed_at/reliability_score) alongside legacy {outlet,url}.
-    {
-      slug: 'midnights-mayhem-with-me',
-      // Cross-link (Stage 3, 2026-08-06) removed with its target (issue
-      // #616 dedup): the other Mayhem item told the same TikTok series this
-      // item already covers end to end, so the "cluster" was a duplicate pair.
-      year: 2022,
-      month: 10,
-      day: 7,
-      category: 'release',
-      title: 'Midnights Mayhem with Me: a bingo cage announces the tracklist',
-      snippet:
-        'No cryptic clues this time — a TikTok series where a bingo cage picked the order and she announced each track title into a vintage phone. Thirteen episodes, capped by a middle-of-the-night finale blitz.',
-      sourceUrl: 'https://www.elitedaily.com/entertainment/taylor-swift-midnights-mayhem-with-me-tracklist-tiktoks-explained',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'The mechanic was pure chance theater: a spinning bingo cage held 13 ping-pong balls numbered 1-13, one per track. Taylor drew a ball, then read that track\'s title into a red rotary phone — held upside-down in episodes 2 and 6, a wink fans caught. The opener on Sept. 21, 2022 drew number 13: "Mastermind," the album\'s closer, revealed first.\n\nEpisodes dropped Monday, Wednesday and Friday — Meredith the cat cameoed in episode 2 — until the finale. On the night of Oct. 7, 2022 she blitzed the rest, releasing the last episodes an hour apart from midnight, and the full order landed: "Lavender Haze," "Maroon," "Anti-Hero," "Snow on the Beach" (with Lana Del Rey), "You\'re on Your Own, Kid," "Midnight Rain," "Question...?," "Vigilante Shit," "Bejeweled," "Labyrinth," "Karma," "Sweet Nothing," and "Mastermind."\n\nIt flipped her usual Easter-egg hunt on its head: instead of fans decoding clues, a bingo cage decided which title she revealed next — chance, not cryptography, running the rollout. Fans still suspected a mastermind behind the "random" draw — "Mastermind" itself surfacing first fueled the joke — though Taylor never confirmed it was staged; the golden cage later got an afterlife as an official-store "Bingo Roller" ornament.',
-        sources: [
           {
-            outlet: 'Elite Daily',
-            url: 'https://www.elitedaily.com/entertainment/taylor-swift-midnights-mayhem-with-me-tracklist-tiktoks-explained',
-            source_title: "Taylor Swift's 'Midnights Mayhem With Me' Tracklist TikToks, Explained",
-            publisher: 'Elite Daily',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 3,
-          },
-          // Depth pass (ledger #1293, 2026-07-24): the first-ball "Mastermind"
-          // reveal and the ping-pong-ball/rotary-phone mechanic; per-episode
-          // reveal order.
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/music-news/taylor-swift-midnights-song-title-track-13-mastermind-1235142141/',
-            source_title: "Taylor Swift Reveals First 'Midnights' Song Title: 'Mastermind'",
-            publisher: 'Billboard',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'iHeartRadio',
-            url: 'https://www.iheart.com/content/2022-09-26-every-midnights-track-taylor-swift-has-revealed-so-far/',
-            source_title: "Every 'Midnights' Track Taylor Swift Has Revealed So Far",
-            publisher: 'iHeartRadio',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Taylor Swift on TikTok',
-            url: 'https://www.tiktok.com/@taylorswift/video/7151677137337208110',
-            source_title: 'Our LAST EPISODE! The season finale of Midnights Mayhem with Me',
-            publisher: 'Taylor Swift (official TikTok)',
-            source_type: 'social',
-            accessed_at: '2026-07-08',
-            reliability_score: 3,
-          },
-          // Depth pass (ledger #1293, 2026-07-24): the draw mechanic (numbered
-          // balls + red phone, upside-down in eps 2/6), the Sept. 21 first reveal
-          // (track 13 "Mastermind"), the Mon/Wed/Fri cadence and Oct. 7 finale,
-          // and the full revealed track order.
-          {
-            outlet: 'TODAY',
-            url: 'https://www.today.com/popculture/music/taylor-swift-midnights-tracklist-song-names-rcna50738',
-            source_title: "'Midnights' tracklist: Song names of Taylor Swift's new album",
-            publisher: 'TODAY',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Midnights',
-            source_title: 'Midnights',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-24',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'Taylor Swift Official Store',
-            url: 'https://store.taylorswift.com/products/midnights-mayhem-with-me-bingo-roller-ornament',
-            source_title: 'Midnights Mayhem With Me Bingo Roller Ornament',
-            publisher: 'Taylor Swift Official Store',
-            source_type: 'official',
-            accessed_at: '2026-07-24',
-            reliability_score: 5,
-          },
-        ],
-        // Real-photo pass (2026-07-09): album artwork (the tracklist being
-        // announced); Wikipedia's stable copy, verified HTTP 200 + image/png.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
-            // Photo-enrichment pass #762 (2026-08-11): same cover art as other
-            // Midnights pages in this file — downloaded and viewed; her face
-            // sits upper-right of center.
-            focalPoint: '54% 45%',
-            credit: 'Republic Records',
-            caption: 'The Midnights cover — the 13-track list a bingo cage announced, one title at a time, on TikTok.',
+            url: 'https://i.ytimg.com/vi/XzOvgu3GPwY/maxresdefault.jpg',
+            credit: 'Taylor Swift/YouTube',
+            caption:
+              'Taylor and Ice Spice in the official "Karma" remix video — one of the May 2023 deluxe-release additions that sent Midnights back to No. 1.',
             kind: 'archival',
+            focalPoint: '50% 40%',
           },
         ],
       },
@@ -3797,7 +3632,7 @@ export default {
       relatedIds: [
         'moment:vault-midnights-bejeweled-arrives-with-a-psychotic-amount-of-easter-eggs',
         'moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th',
-        'moment:vault-speak-now-speak-now-taylors-version',
+        'moment:vault-midnights-speak-now-taylors-version',
       ],
       threadIds: ['taylors-version'],
       year: 2023,
@@ -4220,6 +4055,13 @@ export default {
             focalPoint: '50% 42%',
             kind: 'archival',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://www.inquirer.com/resizer/v2/Y5IH6SQ6VVD7JACZSYPDMZ5GW4.jpg?auth=0edda7cec059e02fce2e4d6ff7d1a5d1003350113244e27ee4c8ffe0fc7e28f6&width=760&height=507&smart=true',
+            credit: 'The Philadelphia Inquirer',
+            caption: 'Taylor Swift performing at the Eras Tour\'s Lincoln Financial Field opening night, Philadelphia, May 12, 2023 — the same three-show run credited in the Beige Book.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -4235,12 +4077,12 @@ export default {
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-mid-6", label: "1989 (TV) announced", kind: "album" },
       relatedIds: [
-        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        'moment:vault-reputation-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         // Announcement → payoff (ledger #1115, Q3): the Oct. 27, 2023 release outcome.
         'moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record',
         // Consolidation thread (ledger #1115, Q1): the 1989-era canonical copy of
         // this same Aug. 9 2023 SoFi announcement — threaded, not left duplicated.
-        'moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
+        'moment:vault-midnights-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
       ],
       title: "1989 (Taylor's Version) announced at the final US show — on the date fans predicted",
       snippet:
@@ -4359,7 +4201,7 @@ export default {
       relatedIds: [
         'moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record',
         'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
-        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        'moment:vault-reputation-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
       ],
       title: 'Billionaire status, from the music alone',
       snippet:
@@ -4699,7 +4541,7 @@ export default {
       // re-record that finally freed it from the vault.
       relatedIds: [
         'moment:vault-1989-blank-space-flips-the-narrative',
-        'moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
+        'moment:vault-midnights-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
       ],
       year: 2023,
       month: 10,
@@ -5098,68 +4940,6 @@ export default {
         ],
       },
     },
-
-    // --- Content Shift pass (2026-07-15, ticket #654): the era's cold open.
-    // Aug + Sep 2022 were the only empty months in the era's span — the VMAs
-    // announcement and Midnights Mayhem are the two beats that start the
-    // story. Sourcing note: direct page fetches were proxy-blocked this
-    // session (every outlet host returned 403), so each claim below was
-    // cross-confirmed across multiple independent web-search results instead
-    // of a single fetched page; source URLs are real and search-verified.
-    // No thumbnails/photos — hotlinks can't be liveness-checked this session
-    // (house rule: verify before hotlinking).
-    {
-      year: 2022,
-      month: 8,
-      day: 28,
-      category: 'release',
-      title: '"Meet me at midnight": a new album, announced mid-acceptance-speech',
-      snippet:
-        'Accepting Video of the Year at the VMAs — her record third — Taylor drops it almost as an aside: the brand-new album is out October 21, and she\'ll "tell you more at midnight." She did.',
-      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-new-album-announcement-vmas-speech-1235132031/',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'The Aug. 28, 2022 VMAs at Newark\'s Prudential Center gave All Too Well: The Short Film the night\'s top prize — Taylor\'s third career Video of the Year win, a VMAs record — and she spent the speech\'s last beat on something else entirely: "I thought it might be a fun moment to tell you that my brand new album comes out October 21. I will tell you more at midnight."\n\nAt midnight the reveal landed on her socials: Midnights, "the stories of 13 sleepless nights scattered throughout my life" — pitched as "a collection of music written in the middle of the night, a journey through terrors and sweet dreams," her first all-new album since folklore and evermore in 2020. The announcement itself was staged as lore: the stroke-of-midnight timing was the album\'s concept, performed in real time.',
-        sources: [
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/pop/taylor-swift-new-album-announcement-vmas-speech-1235132031/',
-          },
-          {
-            outlet: 'Deadline',
-            url: 'https://deadline.com/2022/08/taylor-swift-new-album-release-date-mtv-vma-video-of-the-year-1235101906/',
-          },
-          {
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-announces-new-album-1234583475/',
-          },
-        ],
-        // Photo-enrichment pass (2026-07-18): the section note above predates
-        // this session — these hotlinks WERE liveness-checked this run
-        // (curl 200 + image/jpeg) and vision-confirmed against the VMAs 2022
-        // set (MTV moonman backdrop visible in both). Both are from the page's
-        // own cited articles.
-        photos: [
-          {
-            url: 'https://www.billboard.com/wp-content/uploads/2022/08/01-taylor-swift-2022-mtv-vmas-rc-billboard-1548.jpg?w=1024',
-            credit: 'Getty Images via Billboard',
-            caption:
-              'The crystal-mesh Oscar de la Renta on the 2022 VMAs carpet — the night the Video of the Year speech turned into an album announcement.',
-            kind: 'primary',
-            focalPoint: '48% 15%',
-          },
-          {
-            url: 'https://www.rollingstone.com/wp-content/uploads/2022/08/taylor-swift-new-album.jpg?w=1600&h=900&crop=1',
-            credit: 'Getty Images via Rolling Stone',
-            caption:
-              'In the VMAs press room minutes later — jeweled eye makeup, and a brand-new album on the calendar for October 21.',
-            kind: 'primary',
-            focalPoint: '50% 40%',
-          },
-        ],
-      },
-    },
     // Duplicate removed (issue #616, 2026-07-29): this item told the exact
     // same Midnights Mayhem with Me TikTok series (Sep. 21 launch through
     // Oct. 7 finale, same "Mastermind" first-ball reveal) as the richer,
@@ -5187,7 +4967,7 @@ export default {
           'moment:vault-midnights-anti-hero-dominates',
         'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
         'moment:vault-midnights-the-3am-edition-surprise',
-        'moment:vault-midnights-midnights-mayhem-with-me-a-bingo-cage-announces-the-tracklis',
+        'moment:vault-evermore-midnights-mayhem-with-me-a-bingo-cage-announces-the-tracklis',
         'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
       ],
       snippet: "A return to pop as a diary of midnights across her life.",
@@ -5471,6 +5251,13 @@ export default {
             caption: 'The world premiere at The Grove, Oct. 11, 2023 — where she announced the film would open a day early.',
             focalPoint: '52% 22%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2023/10/Taylor-Swift-arrived-at-Taylor-Swift-The-Eras-Tour-getty-H-2023.jpg?w=1296&h=730&crop=1',
+            credit: 'Getty Images / The Hollywood Reporter',
+            caption: 'Taylor Swift on the red carpet at the "Taylor Swift: The Eras Tour" concert film world premiere, AMC The Grove 14, Los Angeles, October 11, 2023.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -5622,6 +5409,286 @@ export default {
             caption:
               'Two fans compare stacks of hand-beaded friendship bracelets at the Eras Tour\'s Mexico City shows, August 2023.',
             kind: 'reference',
+          },
+        ],
+      },
+    },
+
+    {
+      slug: '1989-taylors-version-announced',
+      year: 2023,
+      month: 8,
+      day: 9,
+      category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the record-breaking sales week the
+      // announcement led to.
+      relatedIds: ['moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record'],
+      title: '1989 (Taylor\'s Version) announced in head-to-toe blue at SoFi Stadium',
+      snippet:
+        'August 9, 2023, the final show of the Eras Tour\'s first U.S. leg: after a night of suspiciously blue outfit swaps, she announced the 1989 re-recording from the stage — due October 27, nine years to the day after the original.',
+      sourceUrl: 'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Fans clocked the Easter egg immediately: blue variants of the Speak Now, folklore, and 1989 act costumes across the night, capped by the reveal and a long-awaited "New Romantics" as a surprise song. The crowd of 70,000 at the sixth SoFi show turned the announcement into the loudest moment of the U.S. leg.\n\nThe date was its own Easter egg — Oct. 27, 2023, nine years to the day after the original album. "Instead of telling you about it, I think I\'ll just sort of show you," she said before the screens flipped 1989 blue. The surprise-song set doubled down: "New Romantics" on guitar (the last 1989 track she hadn\'t yet played on the tour) and "New Year\'s Day" on piano, plus an onstage thank-you to fans for making the re-recordings matter: "It was so generous of you to care about something that I cared about."',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/',
+            source_title: "Taylor Swift Reveals '1989 (Taylor's Version)' Is Coming at L.A. Tour Finale",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-eras-tour-la-recap-night-6-best-moments-sofi-stadium/',
+            source_title: "6 Best Moments From Night 6 of Taylor Swift's Eras Tour at LA's SoFi Stadium",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18, #762): added the 1989 act from the same
+        // Aug. 9, 2023 SoFi show (Commons API-verified CC BY 2.0, Paolo Villanueva,
+        // EXIF-dated 2023-08-09; downloaded and visually confirmed the blue sparkle
+        // 1989 set). Focal points set per image by viewing.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110098448%29.jpg/960px-Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110098448%29.jpg',
+            credit: 'Paolo V / Wikimedia Commons, CC BY 2.0',
+            kind: 'primary',
+            focalPoint: '62% 45%',
+            caption: 'Onstage at SoFi Stadium on Aug. 9, 2023 — the night of the 1989 (Taylor\'s Version) announcement — during the Midnights act.',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109741404%29.jpg/1280px-Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109741404%29.jpg',
+            credit: 'Paolo Villanueva / Wikimedia Commons, CC BY 2.0',
+            kind: 'primary',
+            focalPoint: '72% 56%',
+            caption: 'The 1989 act at SoFi that same night — one of the not-so-subtle blue hints dropped across the show before the screens flipped.',
+          },
+        ],
+      },
+    },
+    {
+      // Cross-link (Stage 3, 2026-07-30): the "Cruel Summer" cluster — the
+      // song's origin, the No. 1 milestone, and the four-years-later chart
+      // arc — now interlink.
+      relatedIds: [
+        'moment:vault-lover-cruel-summer-born-from-a-casual-jam-with-st-vincent-and-jack',
+        'moment:vault-midnights-cruel-summer-hits-no-1-four-years-after-it-came-out',
+      ],
+      year: 2023,
+      month: 10,
+      day: 28,
+      category: 'business',
+      title: 'Cruel Summer takes four years to become a No. 1',
+      snippet:
+        "Debuted at No. 29 in 2019, fell to No. 71 the next week — until the Eras Tour revived it in 2023 and finally pushed it to No. 1.",
+      sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'It topped the Hot 100 on the chart dated October 28, 2023 — four years, one month and three weeks after it debuted, the fifth-longest climb to No. 1 in the chart\'s history.\n\nFans had campaigned for it since 2019, and the Eras Tour\'s opening Lover set turned the campaign into a groundswell (roughly 2.3 million TikTok videos deep); a live version, a remix, and the concert film\'s October release finally pushed it over, with 18.6 million streams and a roughly 1,400% sales spike in its final chart week. It landed as her 10th career No. 1 and Lover\'s first — and, as she noted, "it\'s not even the summer anymore."',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-cruel-summer-tops-billboard-hot-100-1234860029/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png',
+            credit: 'Republic Records (single cover art)',
+            kind: 'primary',
+            focalPoint: '42% 32%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): license-verified
+          // Commons photo of the Eras Tour Lover act — the set "Cruel
+          // Summer" opened nightly during the song's chart revival (CC BY
+          // 2.0, Michael Hicks; extmetadata checked this session).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Eras_Tour_-_Minneapolis%2C_MN_-_Lover_act_-_4.jpg',
+            credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
+            caption: 'The Eras Tour Lover act in Minneapolis, June 2023 — the nightly "Cruel Summer" singalong that powered the song back up the chart.',
+            kind: 'archival',
+            focalPoint: '54% 45%',
+          },
+        ],
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "speak-now-taylors-version",
+      // Cross-link (Stage 3, 2026-08-06): the announcement and record-week
+      // moments for this same album, over in the midnights era.
+      relatedIds: [
+        "moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville",
+        "moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th",
+        'moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville',
+        'moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th',
+      ],
+      year: 2023,
+      month: 7,
+      day: 7,
+      category: "music",
+      title: "Speak Now (Taylor's Version)",
+      snippet: "The third re-recording arrives with six previously unreleased \"From the Vault\" tracks.",
+      moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-speak-now-taylors-version-vault-tracks-better-than-revenge-mattress-lyric/',
+            source_title: 'Taylor Swift releases "Speak Now: Taylor\'s Version" with previously unreleased tracks and a change to a lyric',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/taylor-swift-releases-re-recorded-version-of-speak-now-its-yours-its-mine-its-ours/',
+            source_title: 'Taylor Swift Releases Re-Recorded Version of \'Speak Now\': "It\'s Yours, It\'s Mine, It\'s Ours"',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
+        context: "Speak Now (Taylor's Version) released July 7, 2023, with six vault tracks, including \"Castles Crumbling\" featuring Hayley Williams of Paramore — reclaiming the only album in her catalog she's said was written entirely without a co-writer.",
+        // Photo pass #762 (2026-07-20): page had zero photos, and the July 2023
+        // re-recording release has no red-carpet event of its own. Used a freely
+        // licensed Commons shot of the Eras Tour's Speak Now set — the lilac
+        // Speak Now ballgown and koi-fish guitar were the era's live face that
+        // same summer. License (CC BY 2.0, Paolo V) verified via the Commons
+        // API; curl 200 image/jpeg 1300x1987; downloaded and Read-viewed.
+        // focalPoint written immediately after url per the field-order rule.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_%2853109468131%29.jpg',
+            focalPoint: '59% 51%',
+            credit: 'Paolo V via Wikimedia Commons, CC BY 2.0',
+            caption: 'The Eras Tour Speak Now set — the lilac ballgown and koi-fish guitar — the live embodiment of the era she reclaimed with the July 2023 re-recording.',
+            kind: 'archival',
+          },
+          // Photo pass (2026-07-20, #762): 2nd photo — the official album cover
+          // for the re-recording itself. Full-res en.wikipedia file curl-verified
+          // 200 image/png, downloaded and viewed; focal point set by eye.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Taylor_Swift_-_Speak_Now_%28Taylor%27s_Version%29.png',
+            focalPoint: '52% 30%',
+            credit: 'Republic Records',
+            caption: 'The Speak Now (Taylor\'s Version) album cover — the purple-tulle re-recording released July 7, 2023.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 2,
+      day: 4,
+      category: 'release',
+      title: 'TTPD announced live at the Grammys before her record fourth AOTY win',
+      snippet:
+        'She revealed the April 19 release date mid-speech while accepting Best Pop Vocal Album, then ended the night as the first artist to win Album of the Year four times.',
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-announces-new-album-the-tortured-poets-department-grammys-2024/',
+      thumbnailUrl:
+        'https://assets1.cbsnewsstatic.com/hub/i/r/2024/02/05/8edd48b7-d5d3-4f41-9abc-73224e5a7012/thumbnail/620x413/c9004cfb98e90e6a93cd1764340a1057/gettyimages-1986514177.jpg',
+      moment: {
+        context:
+          'Accepting Best Pop Vocal Album for Midnights — her 13th career Grammy — she told the room: "I want to say thank you to the fans by telling you a secret that I\'ve been keeping from you for the last two years, which is that my brand new album comes out April 19th."\n\nFans primed by her lucky number 13 had bet on a Reputation (Taylor\'s Version) reveal; instead, a black-and-white cover photo of her lying in bed hit Instagram minutes later, captioned with lines about muses and love bombs. By the end of the night she had Album of the Year for Midnights too, making her the first artist ever to win the category four times.',
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-announces-new-album-the-tortured-poets-department-grammys-2024/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-grammys-tortured-poets-department-1234960908/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2024/02/05/8edd48b7-d5d3-4f41-9abc-73224e5a7012/thumbnail/620x413/c9004cfb98e90e6a93cd1764340a1057/gettyimages-1986514177.jpg',
+            credit: 'Kevin Winter/Getty Images for The Recording Academy',
+            focalPoint: '42% 22%',
+          },
+          // Photo pass #762 run 4 (2026-07-18): the other half of the night —
+          // accepting the record fourth Album of the Year. CBS's own CDN;
+          // curl-verified 200 image/jpeg (620x443), vision-confirmed.
+          {
+            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2024/02/05/ab5beb9a-9706-4815-84aa-c61399cd2d4f/thumbnail/620x443g3/8ab5e40f2be348435c6a803e11b53a60/gettyimages-1986749514.jpg',
+            credit: 'John Shearer/Getty Images for The Recording Academy, via CBS News',
+            caption: 'Accepting Album of the Year for Midnights — the first artist to win the category four times.',
+            kind: 'primary',
+            focalPoint: '65% 22%',
+          },
+        ],
+      },
+    },
+    // NOTE: the wedding itself, the wedding-gown fashion angle, and everything
+    // else dated after 2025-10-03 now live in the-life-of-a-showgirl.mjs —
+    // this era ends 2025-10-02 (end-date trim, audit 2026-07-08 rollout PR 2).
+
+    // --- Fashion/photo depth pass 2 (2026-07-04)
+    {
+      year: 2024,
+      month: 2,
+      day: 4,
+      category: 'fashion',
+      title: 'A draped Schiaparelli gown the same night TTPD was announced',
+      snippet:
+        'A custom off-white Schiaparelli Haute Couture gown by Daniel Roseberry — draped silk crepe with corset-style lacing at the back and a thigh-high slit — worn on the 2024 Grammys red carpet hours before revealing the new album.',
+      sourceUrl: 'https://www.redcarpet-fashionawards.com/2024/02/05/taylor-swift-wore-schiaparelli-haute-couture-to-the-2024-grammy-awards/',
+      thumbnailUrl:
+        'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1978657268-H-2024.jpg?w=1296&h=730&crop=1',
+      moment: {
+        context:
+          'Adapted from a look in Schiaparelli\'s Fall 2023 ready-to-wear collection, the gown added a dramatic train and high leg slit for the Feb. 4, 2024 ceremony.\n\nTaylor paired it with opera-length gloves, black Giuseppe Zanotti sandals, and more than 300 carats of black-and-white diamonds from Lorraine Schwartz, including a choker built around a vintage watch face.',
+        sources: [
+          {
+            outlet: 'Red Carpet Fashion Awards',
+            url: 'https://www.redcarpet-fashionawards.com/2024/02/05/taylor-swift-wore-schiaparelli-haute-couture-to-the-2024-grammy-awards/',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-2024-grammys-dress-schiaparelli-1235815411/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1978657268-H-2024.jpg?w=1296&h=730&crop=1',
+            credit: 'Robyn Beck/AFP via Getty Images',
+            // Image-fix pass 2026-08-24: viewed the replacement from the cited
+            // Hollywood Reporter story; Swift is centered with her face high.
+            focalPoint: '44% 18%',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Schiaparelli Haute Couture
+        // gown was never sold at retail -- a current ivory strapless
+        // slinky gown, verified in stock, closest real match.
+        // Stylist re-check (2026-08-16): still a live PDP, now sold out in
+        // the ivory colorway across every size -- flipped to inStock: false.
+        products: [
+          {
+            brand: 'MESHKI',
+            item: 'Bex Strapless Slinky Maxi Dress With Split',
+            retailer: 'meshki.us',
+            url: 'https://www.meshki.us/products/bex-strapless-slinky-maxi-dress-with-split-ivory',
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0017/7920/4211/files/MESHKI_ECOM_LAMAISON_DROP0102_OCT23_DAY02_KATIE-S45_006.jpg?v=1784499680',
+            price: '$95.00',
+            isAlternative: true,
+            inStock: false,
+            altNote: 'The custom Schiaparelli gown was never sold at retail -- this is a current ivory strapless gown with a leg slit in a similar draped spirit, without the corset-style back lacing.',
           },
         ],
       },

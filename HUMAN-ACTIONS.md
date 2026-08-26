@@ -26,6 +26,59 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 22. [BLOCKING] Photo-Enrichment worker's scheduled environment has total network egress block — 3 consecutive no-op runs — ~5 min
+
+**Filed:** 2026-08-25
+
+**Why it matters:** the Photo-Enrichment worker (issue #762) needs to fetch
+press pages and Instagram embed HTML, and download/vision-confirm candidate
+images, before it can add anything — that's the whole verify-first design of
+the protocol. The scheduled environment this trigger runs in has **all
+outbound HTTPS blocked**, not just image-host CDNs: `curl`/`WebFetch` to a
+neutral control domain (`example.com`) and to `instagram.com` both fail
+(`WebFetch` → `EGRESS_BLOCKED`; the proxy status endpoint logs `gateway
+answered 403 to CONNECT`). Only `WebSearch` (server-side, bypasses this
+session's egress proxy) and `api.github.com` are reachable. This has now
+happened on **three separate firings** — 2026-08-24 ~06:40 UTC, 2026-08-24
+~20:55 UTC, and 2026-08-25 — each one a complete no-op (0 photos, 0 posts)
+because nothing could be verified. Every future firing will keep hitting the
+same wall until the environment's network policy changes.
+
+**Steps:**
+1. Find the scheduled trigger that fires the Photo-Enrichment worker prompt
+   (the one whose stored prompt starts "You are the Photo Enrichment worker
+   for the Long Live app..." and references issue #762) — likely in
+   `claude.ai/code` under this repo's triggers/schedules, or wherever
+   scheduled sessions for `JW-Incorporated/swift2` are managed.
+2. Open that trigger's environment configuration and change its **network
+   policy** from whatever fully-blocking setting it currently has to one
+   that permits general outbound web access (the level other manually-run
+   or differently-configured sessions in this repo already have — e.g. the
+   photo-sparsity work landing today via PR #3266 clearly had working
+   outbound fetch).
+3. Save, and let the next scheduled firing confirm the fix (a run that
+   posts an actual PR with photos/posts added, or at minimum a comment that
+   no longer reports `EGRESS_BLOCKED`, means it worked).
+
+Background/docs on how environments and their network policy are
+configured: `https://code.claude.com/docs/en/claude-code-on-the-web`.
+
+**Worked if:** the next Photo-Enrichment run's comment on issue #762 no
+longer reports an egress block, and actually adds/rejects real candidates
+instead of a 0/0/0 no-op.
+
+**Update (2026-08-25, later firing):** this run had working egress —
+`example.com`, `billboard.com`, and `instagram.com` all reachable — and
+shipped PR #3296 with real photo/focalPoint work (see the run's comment on
+#762). That matches the "worked if" signal above. Leaving Status as OPEN
+since one good run isn't proof the underlying policy was changed on purpose
+rather than being transiently available; a founder call is still the way to
+close this out for good.
+
+**Status:** OPEN
+
+---
+
 ### 21. [BLOCKING] Grant the Paul Blart runner read access to Dependabot alerts — ~5 min
 
 **Filed:** 2026-08-17
@@ -44,25 +97,59 @@ Endpoints confirmed 403 on 2026-08-17: `dependabot/alerts`,
 returns "Code Security must be enabled" — that's the separate CodeQL toggle, see
 issue #1894, not this item.)
 
-**Steps** (whichever backs the scheduled runner's `GITHUB_TOKEN` — likely the
-GitHub App installation, since the token is proxy-injected):
-1. GitHub → the org/repo **Settings** → **GitHub Apps** (or **Integrations**) →
-   open the app the Claude Code runner authenticates as for `JW-Incorporated/swift2`.
-2. In that app's **Permissions** → **Repository permissions**, set
-   **Dependabot alerts** to **Read-only**.
-3. Save. GitHub will ask you to **approve the new permission** for the
-   installation on this repo — approve it.
-4. If the runner instead uses a fine-grained personal access token, edit that
-   token and add repository permission **Dependabot alerts: Read-only** for
-   `JW-Incorporated/swift2`.
+**Correction, 2026-08-24 — the original steps below were wrong, sorry for the
+runaround.** You tried them and found none of your 4 installed GitHub Apps
+(Claude, Vercel, Slack, Supabase) show anything about Dependabot when opened.
+That's not you missing a menu — **it's genuinely not there to find.** Paul
+Blart is a Claude Code cloud routine, so its GitHub access runs through the
+`Claude` app itself (Anthropic's own GitHub App). A GitHub App's installer
+can only grant permissions the app's own manifest requests; you can't add a
+scope to someone else's app from the installed-apps screen, no matter which
+of the 4 you click. `X-Accepted-GitHub-Permissions: vulnerability_alerts=read`
+was real, but the fix isn't a checkbox anywhere in that UI.
 
-**Worked if:** next Monday's Paul Blart patrol report shows a real
-severity-ranked alert table (even "0 open alerts") instead of a
-"cannot read — permission gap" banner. Quick check any time: the runner calling
-`GET /repos/JW-Incorporated/swift2/dependabot/alerts?state=open` returns `200`
-with a JSON array, not `403`.
+**The actual fix, now built** (`.github/workflows/dependabot-alerts-snapshot.yml`
++ `scripts/dependabot-alerts-snapshot.mjs`, PR pending): a GitHub Actions
+workflow — which unlike a routine CAN use a dedicated repo secret — fetches
+the open alerts once a week and publishes them into one persistent tracking
+issue titled "Dependabot alerts — automated snapshot," which Paul Blart's
+routine now reads instead (`docs/agents/runner-prompts/paul-blart-run.md`
+updated). This needs one thing from you: a fine-grained PAT, scoped to just
+this repo, with exactly the one permission that was missing.
 
-**Status:** OPEN
+**Steps:**
+1. Go to `https://github.com/settings/personal-access-tokens/new`.
+2. **Token name**: something identifiable, e.g. `swift2-dependabot-alerts-read`.
+3. **Resource owner**: `JW-Incorporated`.
+4. **Repository access**: **Only select repositories** → `swift2`.
+5. **Permissions** → **Repository permissions** → find **Dependabot alerts**
+   → set to **Read-only**. (Nothing else needs a permission — leave every
+   other row at "No access.")
+6. **Generate token**, copy the value (starts `github_pat_...`).
+7. From a terminal, in the repo: `gh secret set DEPENDABOT_ALERTS_PAT --repo
+   JW-Incorporated/swift2` and paste the value when prompted (or `--body`
+   with the value piped in, never typed where it could land in shell
+   history) — same pattern as `HUMAN-ACTIONS.md` #13's `ANTHROPIC_API_KEY`
+   earlier. I can't run this myself — `gh secret set` is guard-denied,
+   human-only on purpose.
+
+**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows
+`DEPENDABOT_ALERTS_PAT` (value stays hidden either way), and the next Monday
+21:00 UTC run of `dependabot-alerts-snapshot.yml` updates the tracking issue
+with either a real severity-ranked table or "0 open alerts" — not the
+"PAT not configured yet" notice. You can also trigger it manually anytime via
+**Actions → dependabot-alerts-snapshot → Run workflow** (uncheck "dry run"
+to actually publish).
+
+**Done 2026-08-24 (Joey):** set `DEPENDABOT_ALERTS_PAT`, confirmed present
+via `gh secret list`. Verified end-to-end same day rather than waiting for
+Monday — triggered the workflow manually (`gh workflow run
+dependabot-alerts-snapshot.yml -f dry_run=false`), it completed
+successfully, and tracking issue #3185 updated with a real fetch (no more
+"PAT not configured" placeholder). Paul Blart can now actually see the CVE
+feed.
+
+**Status:** DONE
 
 ---
 
@@ -99,36 +186,7 @@ it for you.
 LLC / Long Live with a live registration, and `legal.ts`'s DMCA line is
 updated to say "is registered."
 
-**Status:** OPEN
-
----
-
-### 19. [BLOCKING] 17 Getty photos with unclear rights, still live in seed content — ~15 min to decide, lawyer's call
-
-**Filed:** 2026-08-24
-
-**Why it matters:** issue #935 (filed 2026-07-20, never surfaced to you — this
-is separate from the 2026-08-15 decision that retired 12 *social-library*
-JPGs; that decision didn't touch this batch). 17 `media.gettyimages.com`
-comp-image URLs are hotlinked 33 times across 4 era content files
-(`supabase/seed/content/fearless.mjs`, `speak-now.mjs`, `debut.mjs`,
-`reputation.mjs`), confirmed still present today, plus 2 more recently added
-in `supabase/seed/candidates/00-orbit.mjs`. This is the same class of rights
-exposure the 2026-08-15 decision was written to close — it just never
-reached this batch. Tied to the #800 LEGAL launch gate.
-
-**Steps:**
-1. Decide (with counsel, same lawyer who cleared #800's other items):
-   license these 17 for real use, or retire them the same way the 12
-   social-library images were retired 2026-08-15.
-2. Tell a session which — either path is mechanical once decided (swap for
-   licensed/CC images, or strip the hotlinks per the existing retirement
-   pattern).
-
-**Worked if:** `grep -r "gettyimages.com" supabase/seed/` returns nothing, or
-returns only licensed/counsel-approved uses.
-
-**Status:** OPEN
+**Status:** DONE
 
 ---
 
@@ -147,7 +205,7 @@ test (item #17 below), so bundle them.
 
 **Worked if:** production content matches the current seed files.
 
-**Status:** OPEN
+**Status:** DONE
 
 ---
 
@@ -170,7 +228,11 @@ live tracker is #530.
 
 **Worked if:** #530 closes with a real-device pass recorded.
 
-**Status:** OPEN
+**Done 2026-08-24 (Joey):** tested the EAS build on a real Android phone —
+works great. #530 closed with the pass recorded. Next step per #67's
+checklist: Play Store submission (separate, not blocking this item).
+
+**Status:** DONE
 
 ---
 
@@ -283,9 +345,121 @@ with it. Neither blocks tonight's build.
    genuinely isn't ready to flip yet. Full findings: PR #2325's review,
    Codex session `01a033dd-7645-7373-827e-c22739c7e943`.
 
-**Worked if:** you tell me the Reddit outcome in chat. Hold the Supabase
-toggle until a future session addresses the items above — tell me to
-prioritize it if you want it sooner, same as before.
+   **Update (2026-08-24, fix branch `fix/clown-sessions-final-hardening`) —
+   all 5 remaining findings from PR #2325's review are now fixed, third
+   pass:** loaded conversation history (rolling summary + recent turns) now
+   runs through `screenConversation`/`screenInput` in `route.ts` before ever
+   reaching the agent loop, the same gate the client-supplied transcript
+   already goes through — a stored turn/summary that would fail the screen
+   now gets the same fixed refusal, model never called (tested: a blocked
+   turn and a blocked summary each caught before `runClownAgent`).
+   `clown-memory.ts`'s `getConversation`/`loadClownHistory` now catch
+   rejected fetches and malformed JSON, degrading to `null` instead of
+   throwing into `route.ts`'s `POST` — same fails-closed discipline
+   `resolveClownSession` already follows, including a warn-once log (tested:
+   a rejected fetch and a malformed-JSON response on both the conversation
+   lookup and the recent-turns lookup all resolve to `null`, never throw).
+   The session token now persists via `clown-session-storage.ts`
+   (localStorage, mirroring `progress.ts`'s existing pattern) instead of
+   living only in a `ClownChat` component ref, so it survives a mode-switch
+   remount or a page reload (tested: write-then-independent-read round-trip,
+   simulating a fresh mount). A user-cap denial in `clown-agent.ts` now
+   calls a new `MoodUsage.release()` to give back the shared global
+   reservation it had already taken, so a cap-denied request no longer
+   wastes shared budget (tested: `usage.used()` is 0 after a denial, 1 after
+   a call that actually proceeds). `fold_clown_conversation` has a v2
+   migration (`20260907000000_clown_fold_conversation_v2.sql`) scoping its
+   delete by `conversation_id` too (not just the turn ids) and raising when
+   the update affects zero rows — verified against a real ephemeral local
+   Postgres: idempotent across all 26 migrations applied twice, a turn
+   genuinely owned by the caller but belonging to a DIFFERENT conversation
+   survives a fold scoped to the right one, and a fold against a
+   nonexistent/invisible conversation id raises instead of silently
+   succeeding. Also made a genuine attempt at the LOW file-length finding:
+   `ClownChat.tsx` 387→301 lines (`ClownChatTitlebar.tsx`/
+   `ClownChatComposer.tsx`/`useChromeOffset.ts` split out) and
+   `clown-agent.ts` 334→311 lines (`clown-agent-caps.ts` +
+   `clown-agent-prompt.ts`'s new `dispatchReadBlocks`) — both land just
+   above the 300-line guideline, not under it, noted honestly rather than
+   fragmenting further. **Still do NOT flip the toggle** until this branch's
+   `codex:rescue` review comes back clean (same category of risk as every
+   prior pass — schema + the live chat route's context-assembly logic).
+
+   **Update (2026-08-24, same branch `fix/clown-sessions-final-hardening`,
+   fourth pass) — architect (Fable) escalation after round 3's own
+   `codex:rescue` review found recurring trust-boundary gaps; implementing
+   Fable's decided design, not another incremental fix:**
+   1. **Session credential moved from a client-visible token to an
+      `HttpOnly; Secure; SameSite=Strict; Path=/api/clown` cookie**
+      (`clown_session`) — round 3's `x-clown-session` header/localStorage
+      approach handed the raw Supabase access+refresh token pair to client
+      JS; the client now never sees it at all, the browser's cookie jar
+      handles persistence and same-origin resend with zero client code.
+      `clown-session-storage.ts` (the round-3 localStorage module) is
+      deleted outright, along with its test and the now-dead
+      `withSessionHeader`/`nextSessionToken` helpers.
+   2. **The stored conversation summary is demoted into the first
+      user-role message** (wrapped in `<conversation_memory>` tags, with a
+      literal `</conversation_memory>` stripped from the stored text first
+      against a tag-breakout attempt), never promoted into a system block —
+      round 3's second system block is removed. Fold-time screening
+      (`clown-memory.ts`'s `maintainRollingSummary`) is now per-turn and
+      role-aware (mirrors `screenConversation`'s dispatch), silently
+      dropping a turn that fails its own screen from what gets folded
+      rather than surfacing a refusal (round 3's regression). The route's
+      own `screenInput` pass over the folded summary text is removed —
+      replaced by the fold-time screening above; the route's
+      `screenConversation` pass over loaded TURNS is unchanged.
+   3. **Schema fix:** `clown_conversation` now carries `unique (user_id)`
+      (`20260908000000_clown_conversation_unique.sql`, with a dedupe step
+      for any pre-existing duplicate rows) — one conversation per user is
+      the actual identity model. Conversation creation is now a PostgREST
+      upsert (`on_conflict=user_id`, `resolution=merge-duplicates`) with a
+      fresh `expires_at`, so an EXPIRED row (still physically present under
+      RLS) is recoverable instead of permanently blocking creation.
+      `getConversation` now distinguishes a confirmed-empty read from a
+      failed one; only confirmed-empty falls through to creation — a read
+      failure degrades to no-memory instead of risking a duplicate
+      conversation. Also fixed the day-keyed `MoodUsage.release()` bug
+      (a per-user cap reservation taken before midnight, released after,
+      could decrement the wrong day's counter).
+   Verified: `npm run typecheck --workspace=@swift2/web` clean, full suite
+   green (216 files / 3543 tests), and the new migration checked against a
+   real ephemeral Postgres — idempotent across all 27 migrations applied
+   twice, dedupe keeps the most-recently-active row, the unique constraint
+   is live, and the upsert recovers from an expired-row collision (reset
+   summary + fresh `expires_at`, no duplicate row).
+
+   **RESOLVED, 2026-08-24 12:10 PDT — PR #2328 merged, this whole thread is
+   closed out.** Two more `codex:rescue` rounds ran on the architect's
+   design (5 review rounds total across this item's history): round 4
+   confirmed the architecture itself is sound (both harder pieces — cookie
+   session, demoted summary — fully held) and found 3 small mechanical
+   gaps (one response path missing its cookie header, an over-loose
+   "confirmed empty" check that could wrongly reset real data, a stale doc
+   line); a narrow fix closed those; a final round 5 review confirmed both
+   real claims genuinely FIXED with real regression tests, no remaining
+   system-role summary path anywhere, no defect in either of the two
+   latest migrations. What's left is cosmetic, not functional, noted for
+   whoever's next through this file: a missing test assertion on the
+   cookie header for one specific response branch (the code is right, the
+   test just doesn't check it — `route.test.ts`'s loaded-history-refusal
+   case), one line of leftover historical wording in `MAP.md`, and a
+   non-blocking note that user/assistant turn-pair writes aren't
+   transactional (a partial failure could store one side of an exchange
+   without the other — flagged non-blocking by the reviewer itself).
+
+   **Anonymous-auth toggle: safe to flip whenever you're ready.** The
+   session credential the toggle would start minting is now
+   `HttpOnly`/never client-visible, stored conversation history can't
+   reach the model with elevated trust, and conversation identity/rate-
+   limit accounting are both correct. Nothing left blocking it — do this
+   at the same time as item #14's migration batch, since the schema this
+   depends on isn't live until those apply.
+
+**Worked if:** you tell me the Reddit outcome in chat. Once item #14's
+migrations are applied, flip the Supabase toggle whenever you like — the
+code is ready.
 
 **Status:** OPEN
 
@@ -328,6 +502,18 @@ same reason — two more migrations
 had no `apps/worker/.env`. All three migrations below need one
 `npm run db:migrate` run from a checkout that has the real env file — do
 them together, one command, once `main` has all three.
+
+**Update 2026-08-24 — no longer reddening CI, still BLOCKING the feature.**
+`news-worker.yml` had been crashing every 4h (exit 1) on the resulting
+schema-cache errors (`resolved_tier`, `symbol_lexicon`, `news_story.extracted_at`),
+which paged daily via watchdog.yml's cadence check. `apps/worker/src/index.ts`
+now classifies "schema not yet migrated" errors (`/schema cache|does not exist/`)
+as a degraded no-op that keeps the Action green — matching the worker's
+documented "zero sources = no-op usefully" posture — while any *genuine* error
+still fails the job. This removes the CI noise but does **not** substitute for
+this item: the Current tier stays empty and the knowledge engine cannot ingest
+until these migrations are applied. Once `npm run db:migrate` runs, the worker's
+same calls succeed and it resumes real work automatically.
 
 **Why it matters:** Stage 2 of the knowledge-engine build (`PLAN.md`) asked me
 to test `create extension vector` against the real Supabase project first,
@@ -463,7 +649,18 @@ above plus Stage 3's own `usage_daily.sql` /
 unapplied against production as of this merge, not 3 or 4 — same fix
 (step 1 above) closes all of them in one `npm run db:migrate` run.
 
-**Status:** OPEN
+**Done 2026-08-24 (Joey):** ran `npm run db:migrate` from a checkout with
+`apps/worker/.env` set up — all 27 migrations applied clean, then ran it a
+second time with zero errors (the script re-runs every file unconditionally
+by design, so a clean second pass IS the idempotency proof — no
+"relation already exists"-style failures). Production is caught up; the
+knowledge engine, clown-sessions, and the `increment_usage_daily`
+grant-scoping security fix are all live. `psql` wasn't available locally
+for the optional pgvector check, so a small script
+(`scripts/check-pgvector.mjs`, PR #3235) was added as a psql-free
+alternative — separate, non-blocking follow-up.
+
+**Status:** DONE
 
 ---
 
@@ -493,9 +690,16 @@ TikTok/Instagram view counts for accounts you do not own are **not obtainable**
 on any legitimate path, and Etsy listings carry **no review count**. Hype
 evidence will be Reddit score + comments + press mentions.
 
+**Progress (2026-08-24):** Etsy Open API done — `ETSY_KEYSTRING` and
+`ETSY_SHARED_SECRET` are saved (values never seen by any session, key names
+only). Awin (step 3, referral revenue) also done — `AWIN_API` saved, same
+way. Reddit script app (step 1) still needed before the marketplace-
+research work can start — no code exists yet to consume any of these
+credentials, this was just registering accounts/keys ahead of that build.
+
 **Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
 
-**Status:** OPEN
+**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
 
 ---
 
@@ -676,6 +880,21 @@ reflects it, and a test PR still merges once `build` is green.
 
 <!-- Finished items move here with a date. Numbers keep their original ID.
      Never delete — the history is how we stop re-asking. -->
+
+### 19. [BLOCKING] 17 Getty photos with unclear rights, still live in seed content — ~15 min to decide, lawyer's call
+
+**Status:** DONE — 2026-08-24, Joey, in chat: retire and replace with real,
+verified, non-Getty images (not license, not strip blank). A fresh grep the
+same session found only 6 distinct URLs (11 references) still live — the
+rest had already been retired in earlier work. All 6 replaced with verified
+live images on allowlisted hosts (People.com, WWD, tayswiftstyle.wordpress.com,
+one already-fixed YouTube still found on `origin/main`); one item
+(`00-orbit.mjs` NYC street style, an unpublished candidate) left with no
+photo and a TODO rather than a forced mismatch. `grep -r "gettyimages.com"
+supabase/seed/` returns nothing. Full writeup in `docs/decisions.md`
+(2026-08-24 entry). PR: see `fix/retire-getty-seed-images` branch.
+
+---
 
 ### 13. [UPGRADE] Add `ANTHROPIC_API_KEY` as a worker repo secret — ~2 min
 

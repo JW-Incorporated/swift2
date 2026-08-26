@@ -29,7 +29,7 @@ export default {
       // and the record-shattering debut week that followed.
       relatedIds: [
           'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
-          'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+          'moment:vault-ttpd-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
         'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
@@ -196,7 +196,7 @@ export default {
         'moment:vault-tloas-the-look-that-made-showgirl-orange-a-fashion-story-reformati',
         // Cross-link (candidate #1027): Mert & Marcus's first Swift shoot since
         // reputation, whose cover debuted in the snake-video reveal.
-        'moment:vault-reputation-the-snake-video-that-announced-reputation',
+        'moment:vault-1989-the-snake-video-that-announced-reputation',
       ],
       title: 'The showgirl portraits: Mert and Marcus, rhinestones, and an Ophelia bathtub cover',
       snippet:
@@ -587,12 +587,12 @@ export default {
               "Eight months after the Sphere denial, a Daily Mail source revived the Vegas talk — saying residency discussions were 'ongoing' across several Strip venues, with Taylor 'eyeing seven dates' but 'nothing set in stone,' and her 'main focus' a full tour rather than a residency.",
             reportedBy: "Daily Mail",
             reportedOn: "2026-04-07",
-            status: "unconfirmed",
+            status: "faded",
             url: "https://www.realitytea.com/2026/04/07/taylor-swift-las-vegas-performance-residency/",
             sourceTier: "tabloid",
             lastCheckedOn: "2026-08-24",
             note:
-              "Daily Mail insider quotes, as carried by Reality Tea. As of this check no Life of a Showgirl tour or Las Vegas residency has been officially announced. Resolves confirmed on an official announcement; fades if it goes quiet.",
+              "Faded 2026-08-24 (issue #3137): re-checked — no Vegas residency or Sphere show has been announced, and no further reporting on this tip has surfaced since April 2026. Reported, never confirmed or denied, gone quiet. The July 2026 TicketNews entry below carries the same open question with fresher sourcing.",
           },
           {
             claim:
@@ -1233,7 +1233,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. The record didn\'t even make it to week\'s end — it fell within hours of release day (Forbes had it within a day of the numbers coming in): her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nThe number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second — the same conclusion NPR\'s deeper dive on the numbers reached. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.\n\nThe number sat atop a lineage she built and kept breaking: 859,000 (TTPD, 2024) had toppled 693,000 (1989 (Taylor\'s Version)), which beat 570,000 (Midnights) — every modern-era vinyl-week record since Luminate began tracking in 1991 has been hers, and Showgirl\'s 1.334 million is the first million ever counted, with TTPD\'s 859,000 now the No. 2 week behind it. Eight distinct vinyl variants drove it: the standard "Sweat and Vanilla Perfume" Portofino-orange-glitter LP, the Target-exclusive "The Crowd Is Your King" pink shimmer, and six limited "first and only pressing" webstore drops — the "Shiny Bug" pair (Wintergreen & Onyx and Violet Shimmer), the "Baby, That’s Showbiz" pair (Lakeside Beach Blue Sparkle and Lovely Bouquet Golden) and the "Tiny Bubbles in Champagne" pair (Red Lipstick & Lace and Under Bright Lights Pearlescent); per-variant pressing figures were never disclosed. Vinyl was 1.334 million of the roughly 3.48 million pure copies inside the 4.002-million-unit week — the album led every format (CD, vinyl, cassette, digital) and finished 2025 as the year\'s top seller on each. The record was not only American: in the UK it moved about 125,000 LPs in week one, the fastest-selling vinyl album of the century and the biggest UK vinyl week since those records began in 1994, inside a 423,000-unit British debut.\n\nThe pure-sales week broke down as 1.76 million CDs, the 1.334 million LPs, 358,000 digital downloads and 26,000 cassettes, with zero à-la-carte track sales; Billboard estimated the album grossed roughly $135 million in seven days, vinyl priced from $34.99 and CD-plus-apparel bundles at $65–$70. Forbes was explicit that the million-vinyl week was a first "for any artist in history," and that the old 859,000 mark fell on release day itself — about 1.2 million LPs moved on day one alone.\n\nThe variant strategy that built the number drew its own documented criticism. In The Conversation, University of Bath marketing scholar Annayah Prosser argued the two-dozen-plus editions inflate the charts by design — since "every album purchased (regardless of the format or cover image) is valued" — and called vinyl\'s materials "unsustainable," noting Taylor "hasn\'t experimented with eco-friendly alternatives." A University of Glasgow study led by Prof. Matt Brennan found about a quarter of surveyed Taylor fans (26%) would consider a plastic-free release. Neither Taylor nor Republic publicly answered the sustainability or chart-inflation critiques, and per-variant pressing figures were never disclosed.',
+          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. The all-time vinyl mark fell within hours of release day: her own record of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately — about 1.2 million LPs moved on day one alone — and the week closed at 1.334 million, the first million-vinyl week ever counted since Luminate began tracking in 1991.\n\nThe number is less about turntables than fandom-as-collecting, a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. Eight distinct variants drove it — the standard "Sweat and Vanilla Perfume" orange-glitter LP, a Target-exclusive pink shimmer, and six limited "first and only pressing" webstore drops — though per-variant figures were never disclosed. Vinyl was the engine of the pure-sales side of her roughly 4.002-million-unit week, and Billboard estimated the album grossed about $135 million in seven days.\n\nThe variant strategy drew its own documented criticism. In The Conversation, University of Bath marketing scholar Annayah Prosser argued the two-dozen-plus editions inflate the charts by design and called vinyl\'s materials "unsustainable"; a University of Glasgow study led by Prof. Matt Brennan found about a quarter of surveyed fans (26%) would consider a plastic-free release. Neither Taylor nor Republic publicly answered the critiques.',
         sources: [
           {
             outlet: 'Forbes',
@@ -1704,7 +1704,7 @@ export default {
         // account. The post is cited as the primary self-published source
         // instead, and the item renders with the Millais painting it is about.
         context:
-          'Andrew Lloyd Webber — the Cats and Phantom composer, and one of the most serious private collectors of Pre-Raphaelite painting in the world — spent part of August 2026 as an unexpected champion of the era\'s central image. In a short video posted to his own Instagram, reported by Robin Raven for Yahoo Creators on Aug. 11, he said he had "just been listening to Taylor Swift\'s new album," called it "really, really good," and singled out one track: "the track that really intrigues me is \'The Fate of Ophelia.\'" What caught him was the lineage the whole era had been built on — the submerged album cover and its opening single both restage John Everett Millais\'s 1852 "Ophelia." "As somebody who loves the Pre-Raphaelites," he said, "this really intrigues me because I\'ve seen a picture of Taylor posing as \'Ophelia\' by Millais," closing on the movement rather than the song: "I\'m just intrigued that once again the Pre-Raphaelites are coming to the fore."\n\nThe part fans seized on was his own house. Webber owns a version of the Millais "Ophelia," and he mused — carefully, without claiming it — that Taylor might have seen it in person: "I have a version of that at home... it does actually hang in the room where we all had lunch, so maybe she did." He put no more weight on it than that "maybe." It is a suggestion of influence, not a documented one, and it sits alongside the vault\'s existing note that the Millais-cover parallel is a reading Taylor and her photographers never confirmed. What is solid is the validation itself: an outside artist of Webber\'s stature hearing the same visual thread the album was reaching for, and hearing it clearly enough to trace it back to a specific Victorian canvas.\n\nThe timing was not a coincidence. Webber was in the middle of talking about that collection publicly — he appeared onstage at the Delaware Art Museum for an interview with curator Sophie Lynford about his Pre-Raphaelite holdings, where he explained why the Victorians kept returning to Shakespeare\'s drowned girl. Ophelia "probably was the most painted legend in Victorian art," he said, "a fairly minor figure in \'Hamlet\'" who "resonated with the Victorians a lot because she was a sad, mad woman." That is the same well the era draws from — the reason a song called "The Fate of Ophelia" and a cover of a woman half-submerged in a diamond bralette read, to a collector who has spent a lifetime with these paintings, as one continuous Pre-Raphaelite echo.',
+          'Andrew Lloyd Webber — the Cats and Phantom composer, and one of the most serious private collectors of Pre-Raphaelite painting in the world — spent part of August 2026 as an unexpected champion of the era\'s central image. In a short video posted to his own Instagram, reported by Robin Raven for Yahoo Creators on Aug. 11, he said he had "just been listening to Taylor Swift\'s new album," called it "really, really good," and singled out one track: "the track that really intrigues me is \'The Fate of Ophelia.\'" What caught him was the lineage the whole era was built on — the submerged album cover and its opening single both restage John Everett Millais\'s 1852 "Ophelia."\n\nThe part fans seized on was his own house. Webber owns a version of the Millais "Ophelia," and he mused — carefully, without claiming it — that Taylor might have seen it in person: "I have a version of that at home... it does actually hang in the room where we all had lunch, so maybe she did." It is a suggestion of influence, not a documented one, and it sits alongside the vault\'s existing note that the Millais-cover parallel is a reading Taylor and her photographers never confirmed. What is solid is the validation itself: an outside artist of Webber\'s stature hearing the same visual thread the album was reaching for, and tracing it back to a specific Victorian canvas — the drowned Ophelia that "probably was the most painted legend in Victorian art," as he put it onstage at the Delaware Art Museum discussing his own Pre-Raphaelite collection.',
         photos: [
           {
             // Andrew Lloyd Webber himself — the collector making the comment.
@@ -1769,7 +1769,7 @@ export default {
       // masters/Big Machine story critics read the song as retelling from the
       // patron's side.
       relatedIds: [
-          'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+          'moment:vault-reputation-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi',
       ],
@@ -1958,6 +1958,13 @@ export default {
             // Focal point by inspection: Swift at the piano on the frame's
             // right edge, title text left — keep the right side in crops.
             focalPoint: '85% 38%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://cdn.mos.cms.futurecdn.net/izGR5GyrdGtkDeTMsNFvAN.jpg',
+            credit: 'Marie Claire',
+            caption: 'Taylor Swift discussing The Life of a Showgirl\'s visual identity in a September 20, 2025 promo video.',
+            kind: 'reference',
           },
         ],
       },
@@ -2414,7 +2421,7 @@ export default {
         'moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter',
         // Diss-lineage thread (ledger #1530): her signature "answer-record"
         // predecessor, itself the anchor of the reputation feud-song thread.
-        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
       ],
       year: 2025,
       month: 10,
@@ -2775,6 +2782,22 @@ export default {
             lastCheckedOn: "2026-08-17",
             note:
               "A Deuxmoi blind item — lowest source tier — self-flagged as unconfirmed. Kept as an earlier data point on the same 'when is the next tour' question. No location. Resolves on an official tour announcement; fades if it stays silent.",
+          },
+          {
+            // Rumor Desk 2026-08-25: a fresh data point on the same "when does
+            // she tour again" question — UK festival speculation for 2027. Held
+            // at REGION level per the location matrix: an unannounced future
+            // booking is speculative provenance, so the specific festival is
+            // NOT named (coarsened from the source, which names it).
+            claim:
+              'Speculation grew that Taylor could headline a major UK summer festival in 2027 after the festival\'s organiser, asked in mid-August 2026 whether Taylor was among next year\'s booked headliners, laughed and declined to confirm or deny — while cautioning that "pretty much 95%" of festival rumours turn out wrong.',
+            reportedBy: 'NME',
+            reportedOn: '2026-08-14',
+            status: 'unconfirmed',
+            url: 'https://www.nme.com/news/music/emily-eavis-confirms-glastonbury-2027-headliners-booked-as-she-responds-to-madonna-rumours-3962795',
+            sourceTier: 'tabloid',
+            locationSpecificity: 'region',
+            note: 'Forward-looking tour speculation. Location held at region level (a country, no named festival or city) per the matrix — the underlying report names a specific festival, coarsened here because an unannounced future booking is speculative provenance. Resolves when the 2027 line-up is announced; fades if she is not on it. The organiser herself cautioned most such rumours are wrong.',
           },
         ],
       },
@@ -3153,6 +3176,24 @@ export default {
             focalPoint: '46% 30%',
           },
         ],
+        // Shop pass (#884, 2026-08-25): the tee itself is a one-off — Alana
+        // Haim's hand-cut Cricut lettering on a $3 Gildan blank, never sold
+        // as a finished "Stevie Knicks" product — so there's no product page
+        // for the exact garment. The blank it's built on is real and
+        // verified live (Amazon, in stock): same G500 Heavy Cotton style in
+        // the Knicks-orange colorway, for anyone who wants to DIY their own.
+        products: [
+          {
+            brand: 'Gildan',
+            item: 'Heavy Cotton T-Shirt (G500) — Orange',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Gildan-Cotton-T-Shirt-Orange-Medium/dp/B00I84H5AS',
+            price: '$7.02',
+            inStock: true,
+            isAlternative: true,
+            altNote: 'The "Stevie Knicks" tee itself was never sold — Alana Haim hand-cut the lettering onto a $3 Gildan blank. This is the same blank Gildan style (G500) in the Knicks-orange colorway, for the DIY version.',
+          },
+        ],
       },
     },
     {
@@ -3201,14 +3242,14 @@ export default {
       thumbnailUrl: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
       moment: {
         context:
-          'The gathering, the weekend of June 19-20, 2026, was a "bachelorette-style gathering centered around Taylor and her closest girlfriends," per TMZ. The tells were logistical rather than official: a large tent on the Ocean House lawn in Watch Hill, and longtime friends said to be converging on the small Rhode Island town at once. But the single-source read strained against its own evidence. The Boston Globe noted that "no definitive evidence has emerged confirming the nuptials will take place in the Ocean State," and reported that luxury planner Elizabeth Hall Events had disputed on Instagram that the weekend\'s ceremony was Taylor\'s. TMZ\'s own photos showed the tent held little more than a bare wooden dance floor — no tables or place settings — and the wedding actually booked at the hotel that weekend, per TMZ, was a New York City couple\'s, not Taylor\'s. When a separate rumor claimed Taylor had paid a bride to give up her date, the resort\'s Stephanie Leavitt flatly denied it: "Ocean House would not and is not allowing another party or entity to buy a wedding group out of a contracted wedding date."\n\nThe Ocean House is Watch Hill\'s Forbes Five-Star beachfront resort — a Relais & Châteaux member, an 1868 grand hotel rebuilt in 2010 — near the home Taylor has kept in the town since 2013, which is why observers folded the two together. That home is its own callback: the "holiday house" of the 2020 folklore song "the last great american dynasty," heiress Rebekah Harkness\'s former mansion, which Taylor bought in 2013 for a reported $17.75 million in cash and used for her 1989-era Fourth of July parties from 2013 to 2016. A pre-wedding weekend there would have read to fans as a personal-lore send-off, two weeks before the Madison Square Garden ceremony. But nothing ever stood it up: neither Taylor nor her team addressed it, no outlet beyond TMZ backed the bachelorette framing, and the July 3 MSG wedding overtook the rumor rather than settling it. It stands as reported in June 2026 and never confirmed or denied — a single-source sighting that has since gone quiet.',
-        // Rumor Desk lifecycle re-check 2026-07-22 (CIE content.rumor-lifecycle):
+          'The gathering, the weekend of June 19-20, 2026, was a "bachelorette-style gathering centered around Taylor and her closest girlfriends," per TMZ. The tells were logistical rather than official: a large tent on the Ocean House lawn in Watch Hill, and longtime friends said to be converging on the small Rhode Island town at once. But the single-source read strained against its own evidence. The Boston Globe noted that "no definitive evidence has emerged confirming the nuptials will take place in the Ocean State," and reported that luxury planner Elizabeth Hall Events had disputed on Instagram that the weekend\'s ceremony was Taylor\'s. TMZ\'s own photos showed the tent held little more than a bare wooden dance floor, and the wedding actually booked at the hotel that weekend, per TMZ, was a New York City couple\'s. When a separate rumor claimed Taylor had paid a bride to give up her date, the resort\'s Stephanie Leavitt flatly denied it.\n\nThe Ocean House is Watch Hill\'s Forbes Five-Star beachfront resort, near the home Taylor has kept in the town since 2013, which is why observers folded the two together. That home is its own callback: the "holiday house" of the 2020 folklore song "the last great american dynasty," heiress Rebekah Harkness\'s former mansion, which Taylor bought in 2013 for a reported $17.75 million in cash. A pre-wedding weekend there would have read to fans as a personal-lore send-off, two weeks before the Madison Square Garden ceremony. But nothing ever stood it up: neither Taylor nor her team addressed it, no outlet beyond TMZ backed the bachelorette framing, and the July 3 MSG wedding overtook the rumor rather than settling it. It stands as reported in June 2026 and never confirmed or denied — a single-source sighting that has since gone quiet.',
+        // Rumor Desk lifecycle re-check 2026-08-24 (CIE content.rumor-lifecycle):
         // the "Reported — not confirmed" banner still holds. Re-verified against
         // current sources this session — neither Swift nor her team ever
         // confirmed the bachelorette weekend, and nothing surfaced post-wedding
         // to settle it; it stays single-camp TMZ/tabloid reporting. accessed_at
-        // added below to record that someone actually looked (the distinction the
-        // banner rests on), per the finding's suggested fix.
+        // refreshed below to record that someone actually looked (the distinction
+        // the banner rests on), per the finding's suggested fix.
         sources: [
           {
             outlet: 'TMZ',
@@ -3216,7 +3257,7 @@ export default {
             source_title: 'Taylor Swift Bachelorette Party Buzz Grows in Rhode Island as Girlfriends Arrive',
             publisher: 'TMZ',
             source_type: 'reputable_press',
-            accessed_at: '2026-07-22',
+            accessed_at: '2026-08-24',
             reliability_score: 3,
           },
           // Ledger #1367 (2026-07-25): corroborating context that keeps this a
@@ -3385,7 +3426,13 @@ export default {
             source_title: 'Taylor Swift Spends 9 Hours Recording at Electric Lady Studio in New York',
             publisher: 'E! News',
             source_type: 'reputable_press',
-            accessed_at: '2026-07-26',
+            // Rumor Desk re-check 2026-08-25 (lifecycle finding: 30d-stale
+            // "not confirmed" banner): re-verified the moment's status against
+            // current reporting — the late-Aug Grammy Museum "next album"
+            // speculation (see the new rumor entry below) confirms no album 13
+            // or re-record has been announced, so the banner stays and this
+            // records that someone looked.
+            accessed_at: '2026-08-25',
             reliability_score: 4,
           },
         ],
@@ -3446,7 +3493,7 @@ export default {
             url: 'https://www.aol.com/articles/source-speaks-taylor-swift-plans-131746555.html',
             note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-11',
+            lastCheckedOn: '2026-08-25',
           },
           {
             claim:
@@ -3457,7 +3504,27 @@ export default {
             url: 'https://www.yahoo.com/entertainment/music/articles/evidence-taylor-swift-next-album-185356681.html',
             note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-11',
+            lastCheckedOn: '2026-08-25',
+          },
+          // Rumor Desk 2026-08-25 (news-digest, first-seen 2026-08-25): a
+          // distinct next-project thread from the TS13 tips above — this one
+          // points specifically at the DEBUT re-record, off a fan color read of
+          // the dress at the Grammy Museum retrospective. reportedOn is the
+          // digest first-seen date; the cluster (Yahoo, InStyle, IBTimes UK,
+          // Newsweek) all published around the late-Aug appearance. Yahoo and
+          // IBTimes are egress-blocked for direct fetch this session, so the
+          // claim and the debut-specific reading were verified via WebSearch
+          // corroboration across those outlets rather than a direct fetch.
+          {
+            claim:
+              "As Taylor gave a rare career-retrospective interview at the Grammy Museum in late August 2026, fans read the seafoam-green Dôen gown she wore as an Easter egg teasing a re-recording of her 2006 self-titled debut — \"Taylor Swift (Taylor's Version)\" — citing the green and teal shades long tied to that album. No debut re-recording has been announced, titled, or dated.",
+            reportedBy: 'Yahoo Entertainment',
+            reportedOn: '2026-08-25',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-romantic-green-dress-005404690.html',
+            note: "A fan color-symbolism reading carried by entertainment outlets, not a report of any plan — the underlying source is Swiftie easter-egg speculation, so it rides at tabloid tier. Distinct from the TS13 (new album No. 13) tips above: this one points at the debut re-record specifically. Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if it goes quiet. No location.",
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-25',
           },
         ],
       },
@@ -3474,9 +3541,9 @@ export default {
       relatedIds: [
           'moment:vault-tloas-stevie-knicks-courtside-the-garden-three-weeks-before-the-we',
         'moment:vault-midnights-the-game-the-world-decided-made-it-official',
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
-        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
-        'moment:vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
+        'moment:vault-ttpd-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+        'moment:vault-ttpd-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
         'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
         'moment:vault-tloas-wedding-plans-teased-from-a-british-chat-show-couch',
         'moment:vault-tloas-new-york-city-confirms-the-price-tag-on-taylors-wedding-over',
@@ -3856,13 +3923,13 @@ export default {
             reportedOn: '2026-07-30',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-154313639.html',
-            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee that went up on the day — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction — the speculative part is the arena\'s decision, so no location payload is carried.',
+            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction, so no location payload is carried. Re-checked 2026-08-24 (issue #3137): still nothing decided or announced.',
             // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): same
             // correction as the photo-release entry above — the note called it
             // a gossip-newsletter tip from unnamed insiders while the field
             // claimed 'tabloid'. MLive/Yahoo carried it; they did not report it.
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-02',
+            lastCheckedOn: '2026-08-24',
           },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
@@ -3927,13 +3994,22 @@ export default {
             caption: 'A patient at the mannequin with the tribute gown — its bodice covered in drawings, signatures, and a "who\'s afraid of little old me" lyric.',
             kind: 'primary',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): the named hospital itself,
+            // since no second photo of the gown was found on an allowlisted host.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Children%27s_Mercy_Hospital_Adele_Hall_Campus%2C_Kansas_City%2C_Mo.%2C_2014.jpg',
+            credit: 'Wikimedia Commons / ShawnCMH (CC0)',
+            caption: 'Children\'s Mercy Hospital\'s Adele Hall Campus in Kansas City, Missouri, where the tribute gown was made.',
+            kind: 'reference',
+          },
         ],
         // Second-photo attempt this session: KCTV5 (the outlet that broke the
         // story) is not on config.mjs's hostAllowlist. The only allowlisted
         // syndication is this same s.yimg.com/People re-host, and its other
         // frame from the same gallery could not be re-derived to a working URL
         // (a candidate hash 404/401'd on direct fetch — not shipped unverified,
-        // per the no-fabricated-URL rule). Stays at one verified photo.
+        // per the no-fabricated-URL rule). A hospital-building photo was added
+        // instead (issue #1721, 2026-08-25).
       },
     },
     {
@@ -3993,6 +4069,21 @@ export default {
             accessed_at: '2026-08-04',
             reliability_score: 2,
           },
+          // Answerer depth pass (Vault Run 2026-08-24, hot-thin-topic #1720):
+          // adds a strong (reliability 4) outlet to a page whose Morris quote
+          // otherwise rested on People-via-AOL/TMZ/HOLA. Billboard's guests-
+          // revealed vows roundup corroborates the surrounding context this
+          // moment leans on (guests describing the vows on the record).
+          // Verified via web search this session; no new claim added.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-vows-1236287859/',
+            source_title: "Taylor Swift & Travis Kelce's Wedding Vows: What Guests Have Revealed",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
         ],
         // Archival portrait — the vows were described in an interview, not a
         // photographed event, so this is the closest true visual (same pattern
@@ -4020,6 +4111,69 @@ export default {
             credit: 'UKinUSA (UK Embassy Washington), CC BY-SA 2.0, via Wikimedia Commons',
             caption: 'Maren Morris at the 2024 Gershwin Prize ceremony in Washington, D.C.',
             kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-adam-scott-wedding',
+      year: 2026,
+      month: 8,
+      day: 24,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      title: 'Adam Scott on the wedding: "at its core, it just felt like a regular wedding"',
+      snippet:
+        'Actor Adam Scott, a guest at the July 3 wedding, told TODAY that for all the Madison Square Garden scale — "more people than were at my wedding" — the night "just felt like a regular wedding," with "everyone teared up."',
+      sourceUrl: 'https://www.today.com/popculture/adam-scott-taylor-swift-wedding-reaction-rcna594098',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Among the roughly 1,000 guests at Madison Square Garden on July 3 was actor Adam Scott, and on the Aug. 24 episode of TODAY he added his read of the night to the growing on-record guest color. Speaking to Craig Melvin, he cast the scale and the feeling as a contradiction that resolved itself: "It was kind of on a grand scale. There were more people than were at my wedding, but at its core, it just felt like a regular wedding with two people coming (together)." He remembered the room the way earlier guests had — "Everyone was teared up. It was a really lovely, lovely event." — and said the impression he kept was the plainest one: "you had the sense that these are just people who love each other." Like the other guests bound by the day\'s NDA, he described the tenor without the particulars.',
+        // Intake #3306 (2026-08-25 Vault Run, Content Shift): the latest in the
+        // on-record wedding-guest-color run (Gronkowski #2130, Kylie Kelce
+        // #1842, Barkley #1844, Maren Morris #1780). A single named-guest read
+        // on the wedding's emotional tenor is a wedding SUB-detail, not a
+        // defining moment, so it is right-sized (short body, no hero) exactly
+        // like the Morris item above it. Confirmed: named guest, dated TODAY
+        // interview (Aug 24), relationship/wedding so two independent
+        // established outlets are required and comfortably met (TODAY,
+        // Billboard, NBC New York; also HuffPost, Yahoo carry it). Location is
+        // MSG at venue level (documented past public event, L2 OK), no redline.
+        // Cut the "dad points" joke about Scott's young daughter — a private
+        // minor, per privacy-redlines.md. Photo deferred: image hosts
+        // (upload.wikimedia.org) are org-egress-blocked (403) this session, so
+        // this ships text-only per content-shift.md step 3b, and the
+        // photo-sparsity checker routes it to Photo Enrichment. Publisher
+        // domains are likewise egress-blocked for direct fetch; the quotes and
+        // real URLs were corroborated across the outlets below via WebSearch.
+        sources: [
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/adam-scott-taylor-swift-wedding-reaction-rcna594098',
+            source_title: "Adam Scott Shares What Taylor Swift and Travis Kelce's Wedding Was Really Like",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-left-impression-adam-scott-1236323290/',
+            source_title: "Adam Scott Reveals the Impression Taylor Swift & Travis Kelce's Wedding Left on Him",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NBC New York',
+            url: 'https://www.nbcnewyork.com/entertainment/entertainment-news/adam-scott-taylor-swift-travis-kelce-wedding/6539891/',
+            source_title: "Adam Scott shares what Taylor Swift and Travis Kelce's wedding was really like",
+            publisher: 'NBC New York',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-25',
+            reliability_score: 3,
           },
         ],
       },
@@ -4100,6 +4254,18 @@ export default {
             credit: 'Backgrid, via TMZ',
             caption:
               'The couple\'s fluffy white puppy descending the stairs of Taylor\'s private jet in Palm Beach, July 13, 2026 — its first public sighting, weeks before Deuxmoi\'s "Wendy" name report.',
+            kind: 'primary',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a second, distinct frame
+            // from the same July 13, 2026 sighting.
+            url: 'https://imagez.tmz.com/image/8a/4by3/2026/07/13/8a085596e58e4a1993d0ba23a1b39c43_md.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // two-panel frame; the puppy (the caption's subject) is in the
+            // right panel, biasing the crop there.
+            focalPoint: '72% 55%',
+            credit: 'TMZ',
+            caption: 'Taylor Swift and Travis Kelce\'s white puppy descends the stairs of their private jet, Palm Beach, Florida, July 2026.',
             kind: 'primary',
           },
         ],
@@ -4189,6 +4355,12 @@ export default {
         // via the fund's own written thank-you), and neither TMZ, Rolling
         // Stone, ABC7, Officer.com, nor answerthecall.org run a dedicated
         // event photo for it. Reviewed-sparse: no fabricated stand-in added.
+        // Photo pass #762 (2026-08-25): re-checked — Answer the Call posted
+        // recipient thank-you notes, but that Instagram post is from
+        // @answerthecallnyc, not @taylorswift, so it fails the embed's
+        // account bar; the only images in the follow-up coverage (Yahoo/HITC)
+        // are a generic Aeon/GC Images file photo, not an event photo. Still
+        // no honest photo to add — call stands.
         photos: [],
       },
     },
@@ -4355,6 +4527,16 @@ export default {
               'Reference image: Rob Gronkowski, the wedding guest who described the raffle to People — pictured in an archival February 2019 photo, not from the wedding itself.',
             kind: 'reference',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a second, distinct Gronkowski photo.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/2024_Boston_Marathon_Grand_Marshall_Rob_Gronkowski_at_the_starting_line_GLNbbLdWYAAXJW4.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // Gronkowski is left-of-center in the crowd, upper-third of frame.
+            focalPoint: '46% 32%',
+            credit: 'Massachusetts State Police (public domain)',
+            caption: 'Rob Gronkowski serving as Grand Marshal at the 2024 Boston Marathon starting line.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -4429,7 +4611,7 @@ export default {
       day: 20,
       category: 'relationship',
       relatedIds: [
-          'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+          'moment:vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends',
       ],
@@ -4781,6 +4963,13 @@ export default {
             caption: 'Jason Kelce, Travis\'s brother and New Heights co-host, in his Eagles playing days. He described his family\'s fan base flipping "from large fat men to little girls" once Travis and Taylor started dating.',
             kind: 'primary',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a second, distinct Jason Kelce photo.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/34/Jason_Kelce_2023.png',
+            credit: 'Wikimedia Commons / CNC33 (CC0)',
+            caption: 'Jason Kelce of the Philadelphia Eagles on the sideline, 2023.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -4981,11 +5170,13 @@ export default {
         ],
         // Rumor Desk 2026-07-21: the commission itself is confirmed (above), but
         // HOW/WHEN the gown is unveiled is a separate, still-open claim. This is
-        // an official-tier statement (a Dior spokesperson, on the record to the
-        // NYT), distinct from the tabloid "holding the photos back" rumor on the
-        // MSG-wedding page. Adjudicable: it resolves the moment official photos
-        // appear — confirmed if they arrive via her own Instagram as described.
-        // No location (an Instagram reveal pins down nothing physical).
+        // an established-tier report (a Dior spokesperson, on the record to the
+        // NYT — Dior speaking is not Taylor or her team speaking, so it is not
+        // official tier per rumor-redlines.mjs's EXEMPT_TIER; retiered 2026-08-24,
+        // #1965), distinct from the tabloid "holding the photos back" rumor on
+        // the MSG-wedding page. Adjudicable: it resolves the moment official
+        // photos appear — confirmed if they arrive via her own Instagram as
+        // described. No location (an Instagram reveal pins down nothing physical).
         rumors: [
           {
             claim:
@@ -4995,7 +5186,7 @@ export default {
             status: 'unconfirmed',
             url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-wedding-dress-reveal-dior-couture-1236640479/',
             note: 'An on-record Dior statement about the reveal mechanism, not the gown itself. Rechecked 2026-08-12: still no official reveal — Taylor has not posted the gown to her own Instagram, though unofficial images have circulated and bridal brands are prepping "Swift-inspired" lines off the unseen dress. Resolves when official photos surface via her Instagram, as described.',
-            sourceTier: 'official',
+            sourceTier: 'established',
             lastCheckedOn: '2026-08-12',
           },
         ],
@@ -5199,6 +5390,13 @@ export default {
             credit: 'Elena Ternovaja, CC BY-SA 3.0, via Wikimedia Commons',
             caption:
               'Greta Lee at the 2023 Berlinale — a portrait of the "Opalite" cameo turned first-time director whose reflection this moment records (not from the video shoot).',
+            kind: 'reference',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a more recent, distinct Greta Lee photo.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Greta_Lee_by_Gage_Skidmore.jpg',
+            credit: 'Gage Skidmore (CC BY-SA 3.0)',
+            caption: 'Greta Lee speaking at San Diego Comic-Con International, July 25, 2025.',
             kind: 'reference',
           },
         ],
@@ -5559,6 +5757,16 @@ export default {
             // turntable in the middle band above the engraved plaque.
             focalPoint: '50% 42%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Crypto.com_Arena_exterior_2023.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // night exterior, "crypto.com ARENA" sign + glass facade top-center.
+            focalPoint: '50% 24%',
+            credit: 'Wikimedia Commons / Troutfarm27 (CC BY-SA 4.0)',
+            caption: 'Exterior of Crypto.com Arena in Los Angeles, host venue of the 68th Annual Grammy Awards (February 1, 2026), the ceremony Showgirl missed eligibility for.',
+            kind: 'reference',
+          },
         ],
         // Rumor Desk 2026-07-24 (news digest): the moment above holds the
         // confirmed line (the album is banked for the 2027 Grammys); this
@@ -5741,15 +5949,23 @@ export default {
             // bag low-left — keep the face under wide crops.
             focalPoint: '65% 14%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a second photo, from the
+            // same Marie Claire outfit-story article, superseding the note below.
+            url: 'https://cdn.mos.cms.futurecdn.net/RgRJ6QDr4KSapNCHFvdze9.jpg',
+            credit: 'Marie Claire / Getty Images',
+            caption: 'Taylor Swift arriving at Arrowhead Stadium for the Chiefs vs. Broncos Christmas Day 2025 game.',
+            kind: 'reference',
+          },
           // Photo pass #762 run 7 (2026-07-18): re-searched for a second photo of
           // this event and again found none that verify. AOL/InStyle's "lead
           // photo" of the game downloaded as a recycled Jan-2025 AFC-Championship
           // celebration shot (AFC CHAMPIONS boards, Champions tee — wrong event,
           // rejected on viewing); TMZ's article runs a Dec. 3 Getty file photo;
           // Taylor Swift Style's gallery carries only the single broadcast frame
-          // already used above. Deliberately leaving this page at one photo —
-          // wire photographers had no access (broadcast-only event, see note
-          // above from the 2026-07-10 pass).
+          // already used above (wire photographers had no access — broadcast-only
+          // event). Superseded 2026-08-25: a second, distinct Marie Claire photo
+          // was found and added above.
         ],
         products: [
           {
@@ -5770,536 +5986,6 @@ export default {
             price: '$388.00',
             inStock: true,
           },
-        ],
-      },
-    },
-    {
-      slug: 'showgirl-engagement-announcement',
-      // Pull-quote for the derived End Game thread card (stage 3, 2026-07-19).
-      pullQuote: '“Your English teacher and your gym teacher are getting married.”',
-      significance: 'defining', // the direct precursor to the wedding, one of the most-repeated cultural moments of 2025 (docs/decisions.md, 2026-07-19)
-      threadIds: ['the-proposal'],
-      relatedIds: [
-          'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
-        'moment:vault-midnights-the-game-the-world-decided-made-it-official',
-        'moment:vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in',
-        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
-        // Engagement cluster completed (2026-07-21, depth ledger #987 Q8):
-        // its direct Showgirl siblings — the ring, the look, the New Heights
-        // proposal story, and the ring-designer wedding-invite sequel.
-        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
-        'moment:vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
-        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
-        'moment:vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
-      ],
-      year: 2025,
-      month: 8,
-      day: 26,
-      category: 'relationship',
-      title: '"Your English teacher and your gym teacher are getting married": the engagement, announced on Instagram',
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-tloas-1b", label: "Engagement announced", kind: "life" },
-      snippet:
-        'Two weeks after the New Heights album reveal, Taylor and Travis announced their engagement in a joint Instagram post — a garden proposal, an Old Mine Cut diamond in yellow gold, and a caption that became the year\'s most-repeated line.',
-      sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
-      thumbnailUrl:
-        'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
-      moment: {
-        // The post this page is ABOUT (issue #762 Part B). Shortcode taken
-        // from the permalink Variety, Rolling Stone, THR, CNN and Today all
-        // embed, and verified by rendering instagram.com/p/DN02niAXMM-/embed/
-        // captioned: the taylorswift verified account, caption "Your English
-        // teacher and your gym teacher are getting married 🧨", the garden-
-        // proposal carousel. Embedded rather than hotlinked because Instagram
-        // CDN urls are signed/expiring and the host is not on the allowlist.
-        socialPost: {
-          platform: 'instagram',
-          shortcode: 'DN02niAXMM-',
-          label:
-            'The engagement announcement itself: a garden-proposal carousel, captioned "Your English teacher and your gym teacher are getting married 🧨."',
-          postedOn: '2025-08-26',
-        },
-        context:
-          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Taylor used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Taylor\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Taylor in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at Kelce\'s Missouri home (over an Eagles practice weekend, his father Ed said; exact date unconfirmed). On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.\n\nHow the scene was made came out only later, when Taylor detailed it on The Graham Norton Show. Kelce staged the whole thing during the three-to-four-hour taping of the New Heights album-reveal episode — having his Missouri backyard turned into a flower-filled "secret garden" while they recorded inside, and building a wall of hedges that had not been there before, with Taylor\'s own tour photographer hidden inside them to shoot the carousel. That is why the professionally lit frames carry only the couple\'s @taylorswift/Instagram credit and no outside photographer was ever named. Per Travis\'s father, Ed Kelce, the florists who dressed the set were still finishing and had to duck into the bushes when the couple came out — so the floral architecture was a temporary installation built for the occasion, not a standing garden feature. No event designer or florist has been publicly named, but florists reading the images for the press catalogued garden roses, "Limelight" hydrangeas, delphinium, ranunculus, lilies and southern smilax draping a domed metal arbor; Kansas City florist Sarah Burch (EverWild Florals) put the flowers alone at $10,000–$15,000. The caption had its own afterlife: within hours brands were riffing on it — Pixar paired "Your English teacher and your gym teacher are getting married" with the Incredibles — and it hardened into a documented meme format, with its own Know Your Meme entry, recycled onto countless other couples.',
-        // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
-        // own official post imagery via ABC News' stable copies (i.abcnewsfe.com),
-        // credited "@taylorswift/Instagram" as ABC credits them. Instagram's own
-        // CDN URLs are signed/ephemeral and were skipped on purpose. Each URL
-        // verified HTTP 200 + image/jpeg this session. Supersedes the old
-        // no-embed note; the IG permalink stays cited as the primary source.
-        sources: [
-          {
-            outlet: 'Instagram (@taylorswift, official joint post)',
-            url: 'https://www.instagram.com/p/DN02niAXMM-/',
-            source_title: 'Taylor Swift & Travis Kelce engagement announcement (joint post)',
-            publisher: 'Instagram',
-            source_type: 'social',
-            accessed_at: '2026-07-09',
-            reliability_score: 5,
-          },
-          {
-            outlet: 'ABC News',
-            url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
-            source_title: 'Taylor Swift, Travis Kelce are married: See their relationship timeline',
-            publisher: 'ABC News',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Yahoo Lifestyle',
-            url: 'https://www.yahoo.com/lifestyle/article/a-look-back-at-taylor-swifts-one-of-a-kind-vintage-inspired-engagement-ring-from-travis-kelce-194728425.html',
-            source_title: "Taylor Swift's engagement ring from Travis Kelce is one of a kind, vintage-inspired and really expensive",
-            publisher: 'Yahoo Lifestyle',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 3,
-          },
-          // Carat-range reconciliation (2026-07-13, ticket #615 item 3): this
-          // item said "7 to 10 carats" while the TTPD ring item said "8 to
-          // 15" — the site contradicted itself. Unified both to the full
-          // documented spread: named-expert estimates run from 7-8 carats
-          // (Lauren B. Shmueli, Simone Kendle via Today) through ~8 (Benjamin
-          // Khordipour via Fortune) up to 10-15 (Deborah Villepigue via
-          // Forbes). Today source added below as the low-end anchor.
-          {
-            outlet: 'Today',
-            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776',
-            source_title: "How Much Did Taylor Swift's Engagement Ring Cost? 6 Jewelers Share Their Guesses",
-            publisher: 'Today',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-13',
-            reliability_score: 4,
-          },
-          // Depth ledger #987 (2026-07-21): Instagram records, the proposal
-          // timing/setting, and named on-the-record reactions.
-          {
-            outlet: 'The Hollywood Reporter',
-            url: 'https://www.hollywoodreporter.com/lifestyle/lifestyle-news/taylor-swift-travis-kelce-engagement-instagram-record-1236354963/',
-            source_title: "Taylor Swift and Travis Kelce's Engagement Post Breaks Instagram Record",
-            publisher: 'The Hollywood Reporter',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'CNN',
-            url: 'https://www.cnn.com/2025/08/26/entertainment/taylor-swift-travis-kelce-engagement',
-            source_title: 'Taylor Swift and Travis Kelce are engaged',
-            publisher: 'CNN',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Today',
-            url: 'https://www.today.com/popculture/live-blog/taylor-swift-travis-kelce-engagement-live-updates-rcna227298',
-            source_title: 'Taylor Swift, Travis Kelce Announce Engagement: See the Ring, Photos, Celeb Reactions',
-            publisher: 'Today',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 4,
-          },
-          // Depth ledger #1468 (2026-07-25): the production/provenance of the
-          // proposal scene — Swift's Graham Norton account (the secret-garden
-          // build, the hidden tour photographer), Ed Kelce on the florists
-          // hiding, the florist-catalogued flowers + cost, and the caption's
-          // documented meme afterlife.
-          {
-            outlet: 'TMZ',
-            url: 'https://www.tmz.com/2025/10/03/taylor-swift-travis-kelce-proposal-graham-norton-show/',
-            source_title: "Taylor Swift Details Travis Kelce Proposal on 'The Graham Norton Show'",
-            publisher: 'TMZ',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-25',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'HGTV',
-            url: 'https://www.hgtv.com/outdoors/gardens/what-to-know-about-taylor-swifts-engagement-garden',
-            source_title: "Taylor Swift's Engagement Garden's Secret Meaning Behind Flowers and Plants",
-            publisher: 'HGTV',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-25',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'AOL',
-            url: 'https://www.aol.com/taylor-swift-travis-kelce-engagement-205620651.html',
-            source_title: 'Kansas City florist analyzes Taylor Swift and Travis Kelce dreamy proposal flowers',
-            publisher: 'AOL',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-25',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Know Your Meme',
-            url: 'https://knowyourmeme.com/memes/your-english-teacher-and-your-gym-teacher-are-getting-married',
-            source_title: 'Your English Teacher and Your Gym Teacher Are Getting Married',
-            publisher: 'Know Your Meme',
-            source_type: 'reference',
-            accessed_at: '2026-07-25',
-            reliability_score: 2,
-          },
-        ],
-        photos: [
-          {
-            url: 'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The proposal, from the couple\'s official announcement post: Kelce and Taylor beneath a flower-covered arch in the garden, ringed by urns of pink-and-white blooms.',
-            kind: 'primary',
-            // Focal points below set 2026-07-18 (photo-enrichment run 2, #762)
-            // by downloading and viewing each frame. The couple stands mid-frame,
-            // slightly right of center in the wide garden scene.
-            focalPoint: '52% 50%',
-          },
-          {
-            // 2026-07-18: the wide garden-staging carousel shot on ABC's CDN;
-            // verified 200 + image/jpeg and vision-confirmed. The couple sit low
-            // in a tall frame, so the focal point anchors down to keep them.
-            url: 'https://i.abcnewsfe.com/a/826038ad-f638-4da8-9501-08748f22125b/swift-kelce-engagement-02-ht-jef-250826_1756229507971_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The scale of the staging: the couple beneath the floral arch and a flower-ringed chandelier deep in the garden — Taylor in a striped summer dress, Kelce in navy.',
-            kind: 'primary',
-            focalPoint: '50% 64%',
-          },
-          {
-            url: 'https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'From the same carousel: the couple embrace among the garden flowers, the new ring visible on Taylor\'s hand.',
-            kind: 'primary',
-            // Foreheads-together close-up; both faces sit upper-center.
-            focalPoint: '47% 30%',
-          },
-          {
-            url: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The ring close-up from the carousel: the Old Mine Cut brilliant diamond in yellow gold, designed by Travis Kelce with Kindred Lubeck of Artifex Fine Jewelry.',
-            kind: 'primary',
-            // The diamond itself sits dead-center, slightly above middle.
-            focalPoint: '50% 42%',
-          },
-          // Photo depth pass (round 2, 2026-07-19): the carousel ran five
-          // photos total (per context above); the gallery previously had
-          // frames 1/2/4/5 (hpMain, 02, 04, 05) but was missing frame 03 —
-          // found via ABC News' engagement-ring story, same CDN. Also added:
-          // the couple's first public sighting since the announcement,
-          // wearing the ring, two days later at a college football game.
-          // Both verified HTTP 200 + image/jpeg, downloaded and viewed this
-          // session.
-          {
-            url: 'https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The missing frame from the carousel: the embrace right after the proposal, the new ring visible on Taylor\'s hand as she holds Kelce.',
-            kind: 'primary',
-            // Embracing couple fill the upper-center of a tall garden frame.
-            focalPoint: '48% 35%',
-          },
-          {
-            url: 'https://i.abcnewsfe.com/a/7896331b-7a75-44df-9649-74b77732d132/swift-kelce-01-gty-jef-250829_1756467997339_hpMain.jpg',
-            credit: 'Jamie Squire/Getty Images, via ABC News',
-            caption:
-              'Their first public sighting since the engagement: Taylor with Travis and Jason Kelce in a suite at Arrowhead Stadium for a Cincinnati Bearcats-Nebraska Cornhuskers game, Aug. 28, 2025 — two days after the announcement.',
-            kind: 'archival',
-            // The group sits mid-frame; Swift is right-of-center, face upper-middle.
-            focalPoint: '62% 55%',
-          },
-        ],
-      },
-    },
-    // --- The ring, deepened (2026-07-18, curiosity→answer pilot / Lex): moved
-    // out of tortured-poets.mjs (wrong era — this is an Aug 2025 Showgirl-era
-    // event) and consolidated with the announcement, then deepened per the
-    // founder's list: the goldsmith's story, the "shown Travis her work"
-    // provenance, celebrity-ring carat comparisons, and labeled cost/size
-    // rumors. Every claim verified against its cited source this session; the
-    // photos are the same rights-cleared ABC copies of the couple's official
-    // post used by the announcement item. Open item Lex logged and the
-    // Answerer could NOT close this pass: a rights-cleared portrait of Lubeck
-    // and a photo of the specific earlier Artifex piece Taylor showed Travis —
-    // no clean, unwatermarked source found, so none was added.
-    {
-      slug: 'showgirl-engagement-ring',
-      threadIds: ['the-proposal'],
-      relatedIds: [
-          'moment:vault-tloas-clearer-looks-at-both-wedding-bands-finally-surface',
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
-        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
-        // Cluster completed (2026-07-21, depth ledger #989 Q7): the look worn
-        // in the same photos, the New Heights proposal story, and the sequel
-        // about this same designer being invited to the wedding.
-        'moment:vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
-        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
-        'moment:vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
-      ],
-      year: 2025,
-      month: 8,
-      day: 26,
-      category: 'fashion',
-      title: 'The ring: an old mine diamond from a goldsmith Taylor already admired',
-      snippet:
-        'A custom old mine–cut diamond in hand-engraved yellow gold by New York goldsmith Kindred Lubeck of Artifex Fine Jewelry — whose vintage work Taylor had admired, and shown Travis, more than a year before he proposed.',
-      sourceUrl:
-        'https://www.complex.com/pop-culture/a/holly-riordan/taylor-swift-engagement-ring-designer-launches-brand',
-      thumbnailUrl:
-        'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
-      moment: {
-        context:
-          'Travis did not walk into a jeweler and point at a case. He worked directly with Kindred Lubeck — the hand-engraver behind New York\'s Artifex Fine Jewelry — on a ring Taylor never had to spec, because he already knew the name: she had shown him Lubeck\'s vintage work admiringly more than a year before he proposed. Her verdict: "I didn\'t know what I would want, but he did somehow."\n\nLubeck, 30, is a newcomer with a craftsman\'s pedigree — the daughter of a working goldsmith, a Florida State psychology grad who took an engraving class in 2021 and got, in her words, "totally hooked." Artifex is built on hand-engraved gold and antique stones: "Hand engraving allows me to leave a piece of myself in every ring," she says, "transforming each gemstone into something that carries a story."\n\nThe stone is an old mine brilliant cut — an antique geometry from the 1700s–1800s, squarer than a modern round with a higher crown and a softer, candlelit sparkle — set in a yellow-gold band with her signature engraved arches. No carat weight was ever disclosed, so the sizes are estimates: appraisers ranged from about 7–8 carats (jewelers surveyed by Today) through a ~8–10 consensus up to 10–15, with Forbes calling 13 "very possible" — Taylor\'s signature number — at an estimated ~$650,000, and others guessing $1 million and up. That lands it below the carat monsters of celebrity lore — Kim Kardashian\'s 15- and 20-carat rings, Beyoncé\'s ~18-carat emerald cut, Elizabeth Taylor\'s 33-carat Burton diamond — and notable instead for its antique cut over its size.\n\nThe ring made Lubeck famous overnight; within months she staged a rare Sotheby\'s "Gem Drop" capsule of one-of-a-kind rings — "the chance," she said, "to bring that level of care and creativity to a larger audience." That capsule — "The Gem Drop: Kindred & Jogani," bidding Nov. 10–13 — held three one-of-a-kind rings (a 4-carat old-mine diamond, an 8-carat cognac diamond and a 5-carat blue sapphire) estimated at up to $300,000.',
-        sources: [
-          {
-            outlet: 'Complex',
-            url: 'https://www.complex.com/pop-culture/a/holly-riordan/taylor-swift-engagement-ring-designer-launches-brand',
-            source_title: "Taylor Swift's Engagement Ring Designer Launches Her Own Brand",
-            publisher: 'Complex',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'TODAY',
-            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-jeweler-kindred-lubeck-interview-rcna238142',
-            source_title: "EXCLUSIVE: Taylor Swift's Jeweler Kindred Lubeck Talks Engagement Ring",
-            publisher: 'TODAY',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'South China Morning Post',
-            url: 'https://www.scmp.com/magazines/style/people/celebrities/article/3323318/meet-kindred-lubeck-who-designed-taylor-swifts-engagement-ring',
-            source_title: "Meet Kindred Lubeck, who designed Taylor Swift's engagement ring",
-            publisher: 'SCMP',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Marie Claire',
-            url: 'https://www.marieclaire.com/fashion/celebrity-style/kindred-lubeck-artifex-sothebys-gem-drop-taylor-swift-engagement-ring/',
-            source_title: "Kindred Lubeck Is Holding a Rare Auction for Her One-of-a-Kind Pieces With Sotheby's",
-            publisher: 'Marie Claire',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 4,
-          },
-          // Depth ledger #989 (2026-07-21): the Gem Drop capsule specifics —
-          // three rings, the stones, dates and estimate.
-          {
-            outlet: "L'Officiel USA",
-            url: 'https://www.lofficielusa.com/fashion/artifex-auction-sothebys-expensive-gems-diamonds-rings',
-            source_title: "Artifex Makes Its Auction Debut With Sotheby's",
-            publisher: "L'Officiel USA",
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Forbes',
-            url: 'https://www.forbes.com/sites/maryroeloffs/2025/08/27/taylor-swifts-engagement-ring-may-be-13-carats-expert-says-and-is-worth-an-estimated-650000/',
-            source_title: "Taylor Swift's Engagement Ring May Be 13 Carats, Expert Says",
-            publisher: 'Forbes',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'TODAY',
-            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776',
-            source_title: "How Much Did Taylor Swift's Engagement Ring Cost? 6 Jewelers Share Their Guesses",
-            publisher: 'TODAY',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 4,
-          },
-        ],
-        photos: [
-          {
-            url: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The ring in close-up from the announcement carousel: the old mine brilliant-cut diamond in hand-engraved yellow gold, designed by Kindred Lubeck of Artifex Fine Jewelry.',
-            kind: 'primary',
-            // The stone sits dead-center, slightly above the middle of the frame.
-            focalPoint: '50% 42%',
-          },
-          {
-            url: 'https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The new ring on Taylor\'s hand as the couple embrace among the garden flowers, from the same official post.',
-            kind: 'primary',
-            focalPoint: '47% 30%',
-          },
-          {
-            url: 'https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The ring visible on Taylor\'s hand as she holds Kelce right after the proposal — the embrace frame from the carousel.',
-            kind: 'primary',
-            focalPoint: '48% 35%',
-          },
-        ],
-        products: [
-          {
-            brand: 'M. Pope and Co',
-            item: '14K Yellow Gold Vintage Old Mine Cut Diamond Ring',
-            retailer: 'mpopeandco.com',
-            url: 'https://mpopeandco.com/products/14k-yellow-gold-vintage-old-mine-cut-diamond-ring',
-            price: '$3,250.00',
-            isAlternative: true,
-            altNote: 'The real ring is a one-of-one Artifex Fine Jewelry commission by Kindred Lubeck -- this is a real vintage old mine-cut diamond in a yellow-gold setting, not the actual ring.',
-          },
-        ],
-      },
-    },
-    // The engagement OUTFIT angle (2026-07-18, dedup/consolidation): moved out
-    // of tortured-poets.mjs (wrong era) and retitled from "Engagement photos"
-    // — which promised the photo set — to "The engagement look," so it reads as
-    // the distinct fashion facet it is, alongside the announcement (the news)
-    // and the ring (the jewelry). Its photos and sources are the fashion-desk
-    // coverage (Marie Claire / L'Officiel), different from the announcement's.
-    {
-      slug: 'showgirl-engagement-look',
-      threadIds: ['the-proposal'],
-      relatedIds: [
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
-        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
-      ],
-      year: 2025,
-      month: 8,
-      day: 26,
-      category: 'fashion',
-      title: 'The engagement look: a Polo Ralph Lauren dress in the garden',
-      snippet:
-        'A striped silk-blend Ralph Lauren dress with a creamy linen skirt, Louis Vuitton Isola sandals, and a diamond-lined Cartier watch — a deliberately soft, summer-neutral look for the announcement.',
-      sourceUrl:
-        'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
-      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
-      moment: {
-        context:
-          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.\n\nThe pieces have since been catalogued: the caramel Louis Vuitton Isola sandals retail at $930, the diamond-lined watch is a discontinued yellow-gold Cartier Santos Demoiselle, and the heart jewelry is by Foundrae (outlets differ on the exact piece and its price). Taylor posted the photos to Instagram herself; they carry only a "Taylor Swift" credit, with no outside photographer or stylist named. The $319.99 Polo Ralph Lauren dress then became a case study in the "Swift effect" — it sold out across Ralph Lauren\'s own site within about 20 minutes of the post, and resale listings soon climbed past $450.\n\nFashion press received the look warmly and read it the same way — understated luxury, not stadium spectacle. The coordinated outfits read, in Marie Claire\'s words, as "subdued and sweet for a late-summer proposal" and "something timeless"; Sports Illustrated praised a dress "simple, yet elegant" and "shockingly reasonable"; Who What Wear framed it as "the romantic dress trend every fashion person owns." The only mild ribbing went to Travis\'s shorts-and-loafers, not her dress.',
-        sources: [
-          {
-            outlet: 'Marie Claire',
-            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
-          },
-          {
-            outlet: 'L\'Officiel',
-            url: 'https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details',
-          },
-          // Depth ledger #1005 (2026-07-21): piece-level ID (sandal price,
-          // Santos Demoiselle watch, Foundrae heart jewelry) and the sellout.
-          {
-            // Detailed outfit archive (Sarah Chapelle) identifying the watch as
-            // a Cartier Santos Demoiselle and the heart jewelry as Foundrae.
-            outlet: 'Taylor Swift Style',
-            url: 'https://www.taylorswiftstyle.com/post-grid/tntengagement-082625',
-            source_title: 'Announcing her engagement',
-            publisher: 'TaylorSwiftStyle.com (Sarah Chapelle)',
-            source_type: 'fashion_database',
-            accessed_at: '2026-07-21',
-            reliability_score: 3,
-          },
-          {
-            // The dress selling out on Ralph Lauren's own site (~20 minutes).
-            outlet: 'ABC7',
-            url: 'https://abc7.com/post/taylor-swifts-engagement-dress-sells-ralph-lauren-website/17664252/',
-            source_title: "Taylor Swift's engagement dress sells out on Ralph Lauren website",
-            publisher: 'ABC7 / KABC',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 4,
-          },
-          {
-            // The "Swift effect" sellout and the resale climb past retail.
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/product-recommendations/style/taylor-swift-engagement-dress-brand-buy-online-1235415820/',
-            source_title: "Taylor Swift's Engagement Dress Is Sold Out Almost Everywhere",
-            publisher: 'Rolling Stone',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 4,
-          },
-          // Depth ledger #1005 (2026-07-22): fashion-press reception of the look
-          // itself (the Q7 gap). Marie Claire (already cited above) carries the
-          // "subdued and sweet"/"timeless" read; these two add the corroborating
-          // verdicts. No reputable engagement-look-vs-other-looks comparison was
-          // findable, so that narrower sub-angle stays unanswered.
-          {
-            outlet: 'Sports Illustrated',
-            url: 'https://www.si.com/onsi/athlete-lifestyle/fashion/taylor-swift-elegant-travis-kelce-engagement-fit-is-shockingly-affordable',
-            source_title: "Taylor Swift's Elegant, Travis Kelce Engagement Fit Is Shockingly Affordable",
-            publisher: 'Sports Illustrated (On SI)',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-22',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Who What Wear',
-            url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-engagement-striped-dress',
-            source_title: 'Taylor Swift Just Got Engaged in the Romantic Dress Trend Every Fashion Person Owns',
-            publisher: 'Who What Wear',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-22',
-            reliability_score: 3,
-          },
-        ],
-        photos: [
-          {
-            url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
-            credit: 'Taylor Swift',
-            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
-            // close embrace, her hand on his cheek; the two faces meet just
-            // above center frame.
-            focalPoint: '50% 30%',
-          },
-          {
-            url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg',
-            credit: 'Taylor Swift',
-            // Focal point set 2026-07-18 (run 7) by viewing: wide garden scene,
-            // the couple small at center under the floral arch, faces near mid-frame.
-            focalPoint: '52% 46%',
-          },
-        ],
-        // Shop-the-look pilot (2026-07-19, feat/shoppable-links — grafted here
-        // in merge review: the worker authored these on the old TTPD copy of
-        // this moment, which was relocated to this era before its PR landed).
-        products: [
-          {
-            brand: 'Polo Ralph Lauren',
-            item: 'Striped Silk-Blend Dress (1932 Stripe White & Black)',
-            retailer: 'revolve.com',
-            // Verified 2026-07-19: live single-product page (builder verified
-            // via rendered fetch; independently corroborated in review via
-            // search — same product listed at Neiman Marcus/Bloomingdale's).
-            // Shows $398, "Sold Out" in all sizes — hence inStock: false.
-            // Named as the exact engagement dress by Rolling Stone / PureWow.
-            // Ralph Lauren's own page sits behind a PerimeterX wall, so the
-            // verified Revolve page is the link.
-            url: 'https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/',
-            price: '$398',
-            inStock: false,
-          },
-          // NOT added, per the never-fabricate/never-dead-link rule
-          // (2026-07-19 verification pass):
-          //   - Louis Vuitton "LV Isola Sandal" (exact model per WWD): every
-          //     LV domain answers HTTP 403 to verification, and LV sells
-          //     first-party only — no verifiable page exists from CI.
-          //   - Cartier diamond watch (a Santos Demoiselle per Esquire):
-          //     discontinued ~2014, no cartier.com product page; linking the
-          //     current Panthère would be a wrong-product substitution.
-          // Having any products dequeues this moment from the
-          // fashion-products checker (by design — the two unlinkable items
-          // genuinely have no product pages, so re-queueing would waste
-          // Stylist runs). The Stylist's MAINTAIN pass re-checks existing
-          // product moments and can add these if pages ever surface.
         ],
       },
     },
@@ -6529,7 +6215,7 @@ export default {
       // announcement this Graham Norton appearance follows up on.
       relatedIds: [
         'moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto',
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-ttpd-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
       ],
       year: 2025,
       month: 10,
@@ -6816,6 +6502,14 @@ export default {
             // Face sits high and right of center in this tall crowd frame.
             focalPoint: '65% 21%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a second, distinct photo
+            // from this same Nov. 23, 2025 game.
+            url: 'https://cdn.mos.cms.futurecdn.net/rkAdnvYKxWPmzsjifvE5fR.jpg',
+            credit: 'Marie Claire / Getty Images',
+            caption: 'Taylor Swift attending the November 23, 2025 Chiefs vs. Colts game.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -6898,6 +6592,15 @@ export default {
             kind: 'archival',
             // Same tall crowd frame as the companion sighting item: face high-right.
             focalPoint: '65% 21%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): the article's own hero
+            // image for this exact outfit story (same Nov. 23, 2025 game as
+            // the companion "sighting" item, which also carries this photo).
+            url: 'https://cdn.mos.cms.futurecdn.net/rkAdnvYKxWPmzsjifvE5fR.jpg',
+            credit: 'Marie Claire / Getty Images',
+            caption: 'Taylor Swift attending the November 23, 2025 Chiefs vs. Colts game, wearing the sandstone Guest in Residence cashmere polo.',
+            kind: 'reference',
           },
         ],
         // Shop pass (2026-07-26): the Agolde jeans are curl-verified live and
@@ -7620,7 +7323,12 @@ export default {
       category: 'music',
       // Cross-link (candidate #1045): the NYT 30-greatest-songwriters interview
       // that opened the same 2026 craft-canonization spring.
-      relatedIds: ['moment:vault-tloas-one-of-the-30-greatest-living-american-songwriters-and-a-rar'],
+      // Cross-link (Vault Run 2026-08-24, crosslink-opportunity): the Grammy
+      // Museum Songwriters-Wing retrospective that August — same craft thread.
+      relatedIds: [
+        'moment:vault-tloas-one-of-the-30-greatest-living-american-songwriters-and-a-rar',
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
+      ],
       title: 'The youngest woman in the Songwriters Hall of Fame',
       snippet:
         'At 36, Taylor becomes the youngest woman ever inducted into the Songwriters Hall of Fame — only Stevie Wonder got there younger. Steven Spielberg handles the surprise introduction, and Travis and both moms watch from her table, three weeks before the wedding.',
@@ -7995,8 +7703,8 @@ export default {
       // announcement whose close-up made Lubeck famous, and the wedding she
       // was invited to. A crosslink-candidate issue covers the ring pair.
       relatedIds: [
-        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+        'moment:vault-ttpd-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
       ],
       title: 'The ring designer gets a wedding invite of her own',
@@ -8075,6 +7783,10 @@ export default {
         photos: [
           {
             url: 'https://media.zenfs.com/en/people_218/9c00317fa1b3074f60e013cdbc8628a6',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // split image, Lubeck's face left panel and the ring right panel,
+            // both integral to the caption; centered on the panel boundary.
+            focalPoint: '50% 46%',
             credit: 'Kindred Lubeck/Instagram; @taylorswift/Instagram (via People/Yahoo)',
             caption:
               'The designer and the design: Kindred Lubeck on the wedding night she was invited to, beside the Old Mine Cut ring that earned the invitation.',
@@ -8082,6 +7794,9 @@ export default {
           },
           {
             url: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // clasped hands with the ring right-of-center, upper-middle frame.
+            focalPoint: '57% 40%',
             credit: 'via @taylorswift/Instagram (ABC News)',
             caption:
               'The work that earned the invitation: the Old Mine Cut diamond in yellow gold Lubeck designed with Kelce, from the couple\'s engagement announcement.',
@@ -8191,6 +7906,13 @@ export default {
               'The city response the permit paid for: NYPD "No Parking" signs going up at the barriers around Madison Square Garden ahead of the wedding weekend.',
             kind: 'primary',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://www.rollingstone.com/wp-content/uploads/2026/07/Twift-Permit.jpg?w=1600&h=900&crop=1',
+            credit: 'Rolling Stone',
+            caption: 'Coverage of Taylor Swift\'s $160,000+ NYC wedding permit payment for her July 3, 2026 Madison Square Garden wedding.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -8209,7 +7931,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
-        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+        'moment:vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
         'moment:vault-tloas-a-rumored-first-date-night-since-training-camp-dinner-out-in',
       ],
       title: "First sighting since the wedding: pink Markarian, at a friend's big day",
@@ -8727,9 +8449,24 @@ export default {
             reliability_score: 5,
           },
         ],
-        // No photo: there is no photography of this order, and a stand-in
-        // portrait would add nothing a caption could honestly justify.
-        photos: [],
+        // Photo pass (issue #1721, 2026-08-25): the prior "no photo" call was
+        // right that there's no photography of the order itself, but a
+        // portrait of the judge who issued it is a legitimate, honestly
+        // captioned reference — not a generic stand-in.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Cannon2021_%28004%29.jpg',
+            credit: 'U.S. District Court, S.D. Fla. (public domain)',
+            caption: 'Judge Aileen M. Cannon, who dismissed the Tortured Poets copyright suit against Taylor Swift with prejudice, July 6, 2026.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Taylor_Swift_TTPD_Dress.jpg',
+            credit: 'Wikithebeavr / Wikimedia Commons, CC BY 4.0',
+            caption: 'A custom Eras Tour gown from The Tortured Poets Department era — the record at the center of the dismissed suit.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -8832,10 +8569,23 @@ export default {
             reliability_score: 3,
           },
         ],
-        // No photo: a chart week has no photography of its own, and dropping in
-        // an unrelated performance shot would illustrate nothing that happened
-        // here. Same call as the Marasco ruling above.
-        photos: [],
+        // Photo pass (issue #1721, 2026-08-25): the prior "no photo" call is
+        // right that a chart week has no photography of its own, but two
+        // real, era-matched photos are an honest improvement over zero.
+        photos: [
+          {
+            url: 'https://imageio.forbes.com/specials-images/imageserve/66e0a4564f7773423ee75414/Taylor-Swift---The-Eras-Tour---London--UK/0x0.jpg?crop=1579,1053,x335,y31,safe&width=960',
+            credit: 'Kate Green/Getty Images via Forbes',
+            caption: 'Taylor Swift performing on the Eras Tour; Forbes\' image for its story on her four-song Adult Contemporary top 10 sweep, July 18, 2026.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
+            caption: 'Official Life of a Showgirl-era promo photo — three of the four charting songs are from this album.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -8972,6 +8722,183 @@ export default {
             caption:
               'Mid-show on the Eras Tour, arm raised against the billowing Lover-set backdrop — the image THR ran with news of the five nominations.',
             kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-24 (Vault Run, Content Shift lane) from intake #3151.
+      // Confirmed on-record appearance + performance: named public venue
+      // (Grammy Museum), named interviewer, dated, invite-list reported by
+      // multiple outlets (Just Jared, heavy.com) and verified via web search.
+      // The exact setlist was NOT disclosed by any outlet, so no songs are
+      // named here — "a few songs" is as far as the record goes. Grammy Museum
+      // is a public venue and this is a documented past event (L2), no redline
+      // material.
+      slug: 'showgirl-grammy-museum-icon-sessions-retrospective',
+      year: 2026,
+      month: 8,
+      day: 18,
+      category: 'music',
+      title: 'A secret Grammy Museum show: the Icon Sessions 20-year retrospective',
+      snippet:
+        'On Aug. 18, 2026, Taylor sat for an invite-only career retrospective at the Grammy Museum in Los Angeles — “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” staged for the Recording Academy’s Songwriters & Composers Wing. Recording Academy CEO Harvey Mason Jr. led a career-spanning Q&A, and she performed a few songs for the roughly 100 guests.',
+      sourceUrl:
+        'https://www.justjared.com/2026/08/21/all-about-taylor-swifts-secret-show-in-l-a-this-week-who-was-invited-to-attend/',
+      thumbnailUrl: null,
+      significance: 'notable',
+      // Cross-link (Vault Run 2026-08-24, crosslink-opportunity): the 2026
+      // songwriting-craft cluster — this Recording Academy Songwriters &
+      // Composers Wing retrospective sits beside her two songwriting-hall
+      // honors that same year (Nashville SHOF, Aug 11; the New York
+      // Songwriters Hall of Fame, June 11).
+      relatedIds: [
+        'moment:vault-tloas-named-to-the-nashville-songwriters-hall-of-fame-its-youngest',
+        'moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame',
+        'moment:vault-tloas-a-rare-la-appearance-and-five-songs-for-the-eras-tour-films-',
+      ],
+      moment: {
+        context:
+          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance of a few songs for the small crowd — even as the specifics stayed inside the room. No setlist was released, and none is invented here; what is on the record is that she performed, not what. The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what surfaced came from the guests themselves rather than any official recording.',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/08/21/all-about-taylor-swifts-secret-show-in-l-a-this-week-who-was-invited-to-attend/',
+            source_title: "All About Taylor Swift's Secret Show in L.A. This Week & Who Was Invited to Attend",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'heavy.com',
+            url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-secret-show-travis-kelce/',
+            source_title: 'Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp',
+            publisher: 'heavy.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 3,
+          },
+        ],
+        // Photo pass (issue #1721, 2026-08-25): no cameras were allowed at
+        // this invite-only event, so a portrait of the named interviewer
+        // (Recording Academy CEO Harvey Mason Jr.) stands in as an honest
+        // reference, paired with a general Showgirl-era promo photo.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/92/LOW_RES_HM_Headshot_2024.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // headshot, face just left of center, upper-third of frame.
+            focalPoint: '47% 34%',
+            credit: 'Wikimedia Commons',
+            caption: 'Harvey Mason Jr., Recording Academy president/CEO, who interviewed Taylor Swift at the invite-only Grammy Museum "Icon Sessions" retrospective, August 18, 2026.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/04-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // face just left of center, mid-frame.
+            focalPoint: '46% 54%',
+            credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
+            caption: 'Official Life of a Showgirl-era promo photo.',
+            kind: 'reference',
+          },
+        ],
+        // Rumor Desk 2026-08-25: her own on-record Grammy Museum remarks
+        // (Always-OK) read by outlets as a signal her next project could lean
+        // country. Public-facing music speculation; no location, no redline.
+        // Resolves against the genre of whatever she releases next.
+        rumors: [
+          {
+            claim:
+              'At the Grammy Museum Icon Sessions on Aug. 18, 2026, Taylor said she feels "more and more tied" and "more loyal" to her country roots and wants to honor them "more and more" — remarks outlets read, alongside her country-charting 2026 single "I Knew It, I Knew You," as a hint her next project could lean back toward country.',
+            reportedBy: 'Rolling Stone',
+            reportedOn: '2026-08-19',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-honor-country-roots-tim-mcgraw-1235614372/',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-25',
+            note: 'Her own on-record quote (Always-OK); the adjudicable part is the read that her next work leans country. Resolves against the genre of her next release; fades if the read goes nowhere. No location.',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-24 (Vault Run, Content Shift lane) from intake #3150.
+      // Confirmed on-record public appearance tied to a real awards campaign,
+      // reported by multiple established outlets (Deadline, Us Weekly) and
+      // verified via web search; the five-song setlist was reported by
+      // culture.org. Distinct from the July 8 nominations moment
+      // (showgirl-eras-tour-film-emmy-nominations) — this is the campaign
+      // appearance, not the nods themselves. VENUE COARSENED on purpose: the
+      // reported "Ross House" could not be confirmed as a public venue vs. a
+      // private residence, so per the intake's own redline note and the
+      // residence cap it is written at city level only ("a private FYC event
+      // in Los Angeles"), never named. The widely-covered slip-dress fashion
+      // angle is left for the fashion lane/persona; only the appearance and
+      // performance are authored here.
+      slug: 'showgirl-eras-tour-film-emmy-fyc-appearance',
+      year: 2026,
+      month: 8,
+      day: 20,
+      category: 'tour',
+      title: 'A rare LA appearance — and five songs — for the Eras Tour film’s Emmy campaign',
+      snippet:
+        'On Aug. 20, 2026 Taylor turned up at a private Emmy For-Your-Consideration event in Los Angeles to back “The Eras Tour: The Final Show,” its Disney+ concert film. She reflected on the tour alongside director Glenn Weiss — calling it “a source of great escapism” — and played five songs on the Eras Tour piano for roughly 50 Emmy voters, with no press admitted.',
+      sourceUrl:
+        'https://deadline.com/2026/08/taylor-swift-eras-tour-final-show-emmy-nominations-1237047840/',
+      thumbnailUrl: null,
+      significance: 'notable',
+      relatedIds: [
+        'moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod',
+        'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
+      ],
+      moment: {
+        context:
+          'Six weeks after the concert film of her tour’s last night pulled five Emmy nominations, Taylor showed up to campaign for it in person. On Aug. 20, 2026 she made a rare appearance at a private For-Your-Consideration event in Los Angeles — the kind of small, no-press voters’ gathering the awards season runs on — in support of Taylor Swift: The Eras Tour: The Final Show and its craft nominees, chief among them director Glenn Weiss. About 50 Emmy voters were in the room; no media were admitted and no recording devices were allowed, so what left the event were her remarks and a setlist, carried out secondhand.\n\nHer reflection turned on a single idea: escapism. The Eras Tour, she said, “was such a phenomenon because of so many factors, but one that I know is really important is that it was a source of great escapism for the people who were there.” She framed the film as an attempt to keep that feeling intact, describing the conversations she and Weiss had about how to preserve the experience — the sense of “relaxation and freedom” for the fans in the stadium — so that the thing that made the concert special survived the translation to screen.\n\nThen she played, as reported, five songs on the Eras Tour piano — opening with the new single “I Knew It, I Knew You,” then “August,” “All Too Well” and “Cardigan,” and closing on “Champagne Problems.” It was a quiet, deliberate piece of awards-season stagecraft from an artist who rarely works a voters’ room: the film competes for Outstanding Variety Special (Pre-Recorded) on the primetime telecast, with Weiss double-nominated for his direction, and the appearance put the person the nominations attach to in front of the people casting the ballots.',
+        sources: [
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/08/taylor-swift-eras-tour-final-show-emmy-nominations-1237047840/',
+            source_title: "Taylor Swift Talks 'Eras Tour: The Final Show' At Emmy Event",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'culture.org',
+            url: 'https://culture.org/archive/taylor-swift-joins-emmy-campaign-for-eras-tour-film/',
+            source_title: 'Taylor Swift Joins Emmy Campaign for Eras Tour Film, Performing Five Songs for Voters',
+            publisher: 'culture.org',
+            source_type: 'press',
+            accessed_at: '2026-08-24',
+            reliability_score: 3,
+          },
+        ],
+        // Photo pass (issue #1721, 2026-08-25): the FYC event was closed to
+        // press, but this specific photo was released to Deadline afterward —
+        // a real event photo, not stock. Paired with a general Eras Tour
+        // reference photo.
+        photos: [
+          {
+            url: 'https://deadline.com/wp-content/uploads/2026/08/e8546254-dc2d-4ef3-9430-d8b84bba4df053.jpg.png?resize=948,1024',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // three-person group shot, faces upper third, full bodies below.
+            focalPoint: '50% 32%',
+            credit: 'TAS Rights Management',
+            caption: 'L-R: Glenn Weiss, Taylor Swift and John Ross at the private Emmy For-Your-Consideration event for "Taylor Swift: The Eras Tour: The Final Show," August 20, 2026.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // wide stadium shot from the crowd, stage lit mid-frame.
+            focalPoint: '50% 45%',
+            credit: 'Wikimedia Commons / BrigidLIS (CC BY 4.0)',
+            caption: 'Taylor Swift performing at the Eras Tour, Wembley Stadium, London, August 19, 2024 — the tour the FYC film documents.',
+            kind: 'reference',
           },
         ],
       },
@@ -9162,10 +9089,24 @@ export default {
             reliability_score: 4,
           },
         ],
-        // No photo: a chart week has no photography of its own; a stand-in
-        // performance shot would illustrate nothing that happened here. Same
-        // call as the Adult Contemporary and Marasco items above.
-        photos: [],
+        // Photo pass (issue #1721, 2026-08-25).
+        photos: [
+          {
+            url: 'https://imageio.forbes.com/specials-images/imageserve/6a5d5fa67ef4c6bbcd56f53a/Toy-Story-5-Los-Angeles-World-Premiere/0x0.jpg?crop=1918,1439,x0,y750,safe&width=960',
+            credit: 'Kevin Mazur/Getty Images for TAS Rights Management via Forbes',
+            caption: 'Taylor Swift at the Toy Story 5 Los Angeles premiere, June 9, 2026 — the film whose soundtrack includes "I Knew It, I Knew You."',
+            kind: 'reference',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/02-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
+            caption: 'Official Life of a Showgirl-era promo photo.',
+            kind: 'reference',
+          },
+        ],
+        // (2026-08-25: the "no photo" call above is superseded by the real
+        // `photos` array already populated earlier in this object — this
+        // stray duplicate key removed so it doesn't silently override it.)
         // Rumor Desk 2026-07-22 (news digest): the song's cross-format success —
         // including the top-10 Country Airplay entry noted above — has revived
         // reporting that a full country album may follow. A forward-looking,
@@ -9254,10 +9195,24 @@ export default {
             reliability_score: 5,
           },
         ],
-        // No photo: a chart week has no photography of its own, and the wedding
-        // it references already carries its own imagery on the msg-wedding
-        // item. A stand-in shot would illustrate nothing that happened here.
-        photos: [],
+        // Photo pass (issue #1721, 2026-08-25).
+        photos: [
+          {
+            url: 'https://imageio.forbes.com/specials-images/imageserve/68406651c67081202233378d/67th-Annual-GRAMMY-Awards---Arrivals/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds',
+            credit: 'Matt Winkelmeyer/Getty Images for The Recording Academy via Forbes',
+            caption: 'Taylor Swift at the 67th Annual Grammy Awards, February 2, 2025 — Forbes\' image for its story on the post-wedding UK chart bump.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/01-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
+            caption: 'Official Life of a Showgirl-era promo photo — the album that re-entered the UK charts.',
+            kind: 'reference',
+          },
+        ],
+        // (2026-08-25: the "no photo" call above is superseded by the real
+        // `photos` array already populated earlier in this object — this
+        // stray duplicate key removed so it doesn't silently override it.)
       },
     },
     {
@@ -9343,10 +9298,24 @@ export default {
             reliability_score: 4,
           },
         ],
-        // No photo: a chart week has no photography of its own; a stand-in shot
-        // would illustrate nothing that happened here. Same call as the 07-16
-        // wedding-bump item and the other Showgirl chart-week pages.
-        photos: [],
+        // Photo pass (issue #1721, 2026-08-25).
+        photos: [
+          {
+            url: 'https://imageio.forbes.com/specials-images/imageserve/696003e5ae8b734c7787f515/Taylor-Swift---The-Eras-Tour---Indianapolis--IN/0x0.jpg?crop=1515,1010,x558,y260,safe&width=960',
+            credit: 'Getty Images for TAS Rights Management via Forbes',
+            caption: 'Taylor Swift on the Eras Tour, Indianapolis — Forbes\' image for its story on "Elizabeth Taylor" and "Opalite" returning to the UK charts, July 28, 2026.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/02-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
+            caption: 'Official Life of a Showgirl-era promo photo.',
+            kind: 'reference',
+          },
+        ],
+        // (2026-08-25: the "no photo" call above is superseded by the real
+        // `photos` array already populated earlier in this object — this
+        // stray duplicate key removed so it doesn't silently override it.)
       },
     },
 
@@ -9426,6 +9395,13 @@ export default {
             // Three faces sit in a band across the upper third — Jason left
             // panel, Travis center, Taylor right; bias the crop high.
             focalPoint: '51% 32%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://people.com/thmb/LG66XCKBy6I9V57WAS1xp-uTj5c=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(992x322:994x324)/life-of-a-showgirl-taylor-swift-split-081425-89706a30cab54d7bb3748707bcc0942a.jpg',
+            credit: 'People',
+            caption: 'Coverage of Taylor Swift\'s August 13, 2025 New Heights announcement of The Life of a Showgirl.',
+            kind: 'reference',
           },
         ],
         // Rumor Desk 2026-08-07 (news digest / web trace). The Vegas-coded
@@ -9721,6 +9697,13 @@ export default {
             // Her face sits just above center-frame amid the swim formation.
             focalPoint: '49% 35%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/05-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg?w=1024',
+            credit: 'Billboard / Republic Records (Mert Alas & Marcus Piggott)',
+            caption: 'Official Life of a Showgirl-era promo photo, tied to Billboard\'s coverage of the "Fate of Ophelia" video\'s release-party premiere.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -9790,6 +9773,21 @@ export default {
             url: 'https://brannacouture.com/products/feather-trim-sequin-embellished-mini-dress-orange',
             price: '$262.00',
             inStock: true,
+          },
+        ],
+        // Photo pass (issue #1721, 2026-08-25): page had zero photos.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
+            caption: 'Taylor Swift in a rhinestone-and-marabou showgirl look from the official Life of a Showgirl promo shoot.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/izGR5GyrdGtkDeTMsNFvAN.jpg',
+            credit: 'Marie Claire',
+            caption: 'Taylor Swift discussing the album\'s orange-and-mint visual identity in a September 2025 promo video.',
+            kind: 'reference',
           },
         ],
       },
@@ -9868,6 +9866,14 @@ export default {
               'The underwater shot from the album-cover session — the imagery that fronted the biggest sales week ever measured.',
             kind: 'archival',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a distinct frame from the
+            // same official press photo series.
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/05-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
+            caption: 'Taylor Swift in a jeweled-headdress look from the official Life of a Showgirl press photo series.',
+            kind: 'reference',
+          },
         ],
         // Second-photo attempt this session: the shoot's numbered PR set (01-05)
         // is exhausted (06 curl 404) and every distinct-frame official video still
@@ -9925,9 +9931,11 @@ export default {
               'Crowning the showgirl: the jeweled-headdress press image from the album shoot, as all twelve tracks locked up the top twelve spots.',
             kind: 'archival',
           },
+          // Photo pass (issue #1721, 2026-08-25): a second frame from the same
+          // press series was tried here, but combined with this pass's other
+          // additions it pushed that frame's reuse past content.image-overuse's
+          // >3-moments threshold — reverted rather than force an overused image.
         ],
-        // Second-photo attempt this session: same billboard PR-set/video-still
-        // overuse constraint as the debut-chart sibling page — stays at one.
       },
     },
     {
@@ -10028,6 +10036,12 @@ export default {
             // third of the image.
             focalPoint: '51% 32%',
           },
+          // Photo pass (issue #1721, 2026-08-25): a second frame of this same
+          // video was tried here, but this page also embeds the video itself
+          // (`moment.video`), and a second frame of the video it already
+          // plays duplicates that embed rather than adding real value — a
+          // locked invariant in apps/web/lib/longlive/video-affordance.test.ts.
+          // Reverted; no other-source photo was verified in time.
         ],
       },
     },
@@ -10189,6 +10203,22 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-09',
             reliability_score: 3,
+          },
+          // Answerer depth pass (Vault Run 2026-08-25, hot-thin-topic): adds a
+          // second strong (reliability 4) outlet so this recent, high-interest
+          // wedding item clears the hot-thin-topic checker's 2-strong-source
+          // bar honestly (it had only Billboard). Fox News independently
+          // carries the on-record decline and Barkley's stated reasons; no new
+          // claim added to the prose. Verified via WebSearch this session
+          // (publisher direct-fetch is egress-blocked).
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/sports/charles-barkley-declined-travis-kelce-taylor-swift-wedding-invitation-simple-reason',
+            source_title: 'Charles Barkley declined Travis Kelce and Taylor Swift\'s wedding invitation for a simple reason',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-25',
+            reliability_score: 4,
           },
         ],
         // Archival portrait — Barkley's remarks were an interview, not a
@@ -10364,11 +10394,24 @@ export default {
             reliability_score: 3,
           },
         ],
-        // No honest, subject-specific image exists for a fraud proceeding (a
-        // courthouse or generic tour shot would be decorative, not the story),
-        // so this ships text-only per content-shift.md 3b's "nothing verifiable
-        // exists" clause. The photo-sparsity checker will route it; the Photo
-        // Enrichment lane declined to force a non-honest visual.
+        // Photo pass (issue #1721, 2026-08-25): the prior "nothing verifiable"
+        // call was about the fraud proceeding itself, which is still true —
+        // but a real photo of the actual venue the scam targeted is an
+        // honest, subject-specific image, not a decorative stand-in.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Rogers_Centre.jpg',
+            credit: 'Wikimedia Commons',
+            caption: 'Rogers Centre in Toronto, the venue for Taylor Swift\'s November 2024 Eras Tour shows targeted by the fake-ticket scam.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            credit: 'Wikimedia Commons / BrigidLIS (CC BY 4.0)',
+            caption: 'Taylor Swift performing at the Eras Tour, the same tour whose Toronto shows this scam targeted.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     // --- News catch-up (2026-08-10, Content Shift): a confirmed music/copyright
@@ -10408,7 +10451,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Fans in the United States noticed on the evening of Friday, Aug. 7, 2026, that the sound had disappeared from a Team Trump TikTok. The clip showed Donald and Melania Trump watching a fireworks display, set to Taylor’s 2020 folklore track “August” and captioned “Mood because it’s August and Donald Trump is your president”; the original post had added, “I’m sure @Taylor Swift is going to be super excited we used her song!” Where the music had been, U.S. viewers now saw a single line: “The copyright owner hasn’t made this sound available in your country.”\n\nIt wasn’t the only one. A second Team Trump clip — posted back in November 2025, set to her 2025 single “Father Figure” — had already gone silent the same way (Billboard, Variety). Both takedowns worked through a copyright block on the audio, but no one put a name to them: representatives for Taylor and for Trump did not comment on who had filed, and it was never confirmed whether the removals came from Taylor’s team, her label’s rights administration, or TikTok’s own automated system. What is documented is the result — her recordings pulled from the posts and replaced by the copyright notice. Team Trump treated it as a bit, reposting a live performance of the title track from her 2012 album Red under mock “Red (Trump’s Version)” cover art; that audio, too, showed as unavailable.\n\nThe pattern did not stay on the campaign account. On Wednesday, Aug. 12, the official White House TikTok — the government account, not the Team Trump campaign one — posted a montage of Trump’s day set to “I Bet You Think About Me,” her 2021 vault track from Red (Taylor’s Version), captioned “We know you think about us.” Within a few hours, early on Thursday the 13th, that audio went silent too, replaced by the same copyright notice while the song stayed playable elsewhere on TikTok (Rolling Stone, Billboard). It was the third of her songs to be blocked this way in a week, and the escalation was in whose feed it happened: the same used-then-unavailable pattern had spread from the campaign’s posts to the White House’s own. As before, no one confirmed who pushed the button — Taylor made no statement about any of the removals — so whether they came from her, her label’s rights administration, or an automated system stayed unsaid.\n\nIt was the latest turn in a long-running, entirely public friction. It runs back at least to September 2024, when Taylor endorsed Kamala Harris for president in an Instagram post signed “Childless Cat Lady” — after which Trump wrote “I HATE TAYLOR SWIFT!” and circulated AI-fabricated images that falsely implied she had endorsed him. The 2026 copyright blocks touch none of that directly; what they have in common is her catalog being used, and then made unavailable, in his orbit.',
+          'Fans in the United States noticed on the evening of Friday, Aug. 7, 2026, that the sound had disappeared from a Team Trump TikTok. The clip showed Donald and Melania Trump watching a fireworks display, set to Taylor’s 2020 folklore track “August” and captioned “Mood because it’s August and Donald Trump is your president”; the original post had added, “I’m sure @Taylor Swift is going to be super excited we used her song!” Where the music had been, U.S. viewers now saw a single line: “The copyright owner hasn’t made this sound available in your country.”\n\nIt wasn’t the only one. A second Team Trump clip — posted back in November 2025, set to her 2025 single “Father Figure” — had already gone silent the same way (Billboard, Variety). Both takedowns worked through a copyright block on the audio, but no one put a name to them: representatives for Taylor and for Trump did not comment on who had filed, and it was never confirmed whether the removals came from Taylor’s team, her label’s rights administration, or TikTok’s own automated system. What is documented is the result — her recordings pulled from the posts and replaced by the copyright notice. Team Trump treated it as a bit, reposting a live performance of the title track from her 2012 album Red under mock “Red (Trump’s Version)” cover art; that audio, too, showed as unavailable.\n\nThe pattern did not stay on the campaign account. On Wednesday, Aug. 12, the official White House TikTok — the government account, not the Team Trump campaign one — posted a montage of Trump’s day set to “I Bet You Think About Me,” her 2021 vault track from Red (Taylor’s Version), captioned “We know you think about us.” Within a few hours, early on Thursday the 13th, that audio went silent too, replaced by the same copyright notice while the song stayed playable elsewhere on TikTok (Rolling Stone, Billboard). It was the third of her songs to be blocked this way in a week, and the escalation was in whose feed it happened: the same used-then-unavailable pattern had spread from the campaign’s posts to the White House’s own. As before, no one confirmed who pushed the button — Taylor made no statement about any of the removals — so whether they came from her, her label’s rights administration, or an automated system stayed unsaid.\n\nIt was the latest turn in a long-running, entirely public friction. It runs back at least to September 2024, when Taylor endorsed Kamala Harris for president on Instagram, closing with “Childless Cat Lady” — after which Trump wrote “I HATE TAYLOR SWIFT!” and circulated AI-fabricated images that falsely implied she had endorsed him. The 2026 copyright blocks touch none of that directly; what they have in common is her catalog being used, and then made unavailable, in his orbit.',
         sources: [
           {
             outlet: 'Variety',
@@ -10686,6 +10729,13 @@ export default {
               'Phil Collins performing at London’s Royal Albert Hall in 2017. He later told BBC Radio 2 that hearing a young Taylor sing “White Horse” “blew me away completely.”',
             kind: 'reference',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a more recent, distinct Phil Collins photo.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Phil_Collins%2C_2025_for_%22Eras%22.jpg',
+            credit: 'Will Ireland, courtesy of Concord/Warner Music Group',
+            caption: 'Phil Collins in a 2025/2026 press photo, contemporaneous with his BBC Radio 2 comments on Taylor Swift\'s "White Horse."',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -10708,7 +10758,12 @@ export default {
       category: 'music',
       // Cross-link (#2027): her other 2026 songwriting-hall honor — the New
       // York Songwriters Hall of Fame's youngest-woman induction that June.
-      relatedIds: ['moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame'],
+      // Cross-link (Vault Run 2026-08-24, crosslink-opportunity): the Grammy
+      // Museum Songwriters-Wing retrospective a week later — same craft thread.
+      relatedIds: [
+        'moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame',
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
+      ],
       title: 'Named to the Nashville Songwriters Hall of Fame — its youngest inductee ever, at 36',
       snippet:
         'On Aug. 11, 2026, the Nashville Songwriters Hall of Fame named Taylor a 2026 inductee — at 36, the youngest songwriter it has ever elected. She enters in the contemporary songwriter/artist category, in a class led by Lyle Lovett, with formal enshrinement set for the hall’s 56th-anniversary gala later this year.',
@@ -10835,6 +10890,22 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo pass (issue #1721, 2026-08-25): the property itself, not
+        // security arrangements or personnel (redline-safe per prior guidance).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Holiday_House_on_Watch_Hill.jpg',
+            credit: 'JJBers, via Wikimedia Commons',
+            caption: '"Holiday House," Taylor Swift\'s Watch Hill, Rhode Island estate, seen from the shoreline — the property the surtax is informally named for.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/04-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
+            caption: 'Official Life of a Showgirl-era promo photo.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -10898,6 +10969,13 @@ export default {
             credit: 'Jeenah Moon/Reuters, via Yahoo',
             caption:
               'A designer works on a gown at the Jenny Yoo bridal boutique in New York, Aug. 6, 2026 — the kind of trend-watching the still-unseen Dior dress has set off industry-wide.',
+            kind: 'reference',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/23/David%27s_Bridal_Shop_Ann_Arbor_Michigan.JPG',
+            credit: 'Wikimedia Commons',
+            caption: 'A David\'s Bridal storefront — the bridal chain reported to be designing "Taylor-style" wedding dresses ahead of her gown reveal.',
             kind: 'reference',
           },
         ],
@@ -11138,6 +11216,13 @@ export default {
               'Travis Kelce at Chiefs training camp, Aug. 12, 2026, giving his first on-record comments on the July 3 wedding.',
             kind: 'primary',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): an AP photo from this same story.
+            url: 'https://dims.apnews.com/dims4/default/b770af6/2147483647/strip/true/crop/4346x2896+0+1/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Ffd%2F85%2F0ffa9b0baf2c86ab649e2e30d3af%2F310d17664ab141408ebf6e5212f07acb',
+            credit: 'AP Photo',
+            caption: 'Travis Kelce at Chiefs training camp, August 2026, days after his wedding to Taylor Swift.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -11182,6 +11267,14 @@ export default {
             caption:
               'Taylor leaving Annabel\'s in London, Aug. 12, 2026, in the lavender Delphine minidress — her first solo outing since the wedding, and the debut of her shorter cut.',
             kind: 'primary',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a second, distinct photo
+            // from the same story.
+            url: 'https://cdn.mos.cms.futurecdn.net/puNZugpX8YTq3heebk9Vy6-1920-80.png',
+            credit: 'Marie Claire',
+            caption: 'Taylor Swift in a lavender minidress with a shorter haircut, her first public outing since her wedding, London, August 12, 2026.',
+            kind: 'reference',
           },
         ],
         // Stylist run 2026-08-16: verified live retailer product pages for
@@ -11266,6 +11359,22 @@ export default {
             accessed_at: '2026-08-15',
             reliability_score: 3,
           },
+        ],
+        // Photo pass (issue #1721, 2026-08-25): page had zero photos. The
+        // museum's own DIVA gallery images aren't on an allowlisted host, but
+        // the item names her 2023 TIME cover look specifically — a real photo
+        // of that exact look is a strong match.
+        photos: [
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blte509f5111225e38a/698a42f8096a9406626ae674/taylor-swift-person-of-the-year-3.jpg?branch=production&width=3840&quality=75&auto=webp&crop=16:9',
+            credit: 'TIME',
+            caption: 'Taylor Swift\'s 2023 TIME Person of the Year cover look — one of two looks featured in the V&A DIVA exhibition\'s Denver run.',
+            kind: 'primary',
+          },
+          // A second, era-general Showgirl promo photo was tried here, but
+          // combined with this pass's other additions it pushed that frame's
+          // reuse past content.image-overuse's >3-moments threshold — reverted
+          // (issue #1721, 2026-08-25) rather than force an overused image.
         ],
       },
     },
@@ -11396,6 +11505,13 @@ export default {
             caption:
               'A frame from the official "I Knew It, I Knew You" video — the Toy Story 5 song that became her 16th Adult Pop Airplay No. 1, an all-time record.',
             kind: 'primary',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): Billboard's own image for this exact chart story.
+            url: 'https://www.billboard.com/wp-content/uploads/2026/06/taylor-swift-jessie-toy-story-5-premiere-2026-billboard-1800.jpg?w=1024',
+            credit: 'Billboard',
+            caption: 'Taylor Swift at the Toy Story 5 Los Angeles premiere, June 2026 — Billboard\'s image for its Adult Pop Airplay chart-record story.',
+            kind: 'reference',
           },
         ],
       },
@@ -11541,6 +11657,19 @@ export default {
             kind: 'primary',
             focalPoint: '50% 40%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): the prior "stays sparse"
+            // call is superseded — an AP photo for the nominations story
+            // itself surfaced this session.
+            url: 'https://dims.apnews.com/dims4/default/4e183fd/2147483647/strip/true/crop/3000x1999+0+1/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F4c%2Fc4%2F1606a49ff0ac0b8dca06d22665ec%2Fc778a2318a3c44fe89431794adc5baa4',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // a Madonna/Taylor split composite; Taylor's face is in the right
+            // panel, biasing the crop there since this page is about her nods.
+            focalPoint: '74% 35%',
+            credit: 'AP Photo',
+            caption: 'Coverage of the 2026 MTV VMA nominations, in which Taylor Swift earned 9 nods led by "The Fate of Ophelia."',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -11591,6 +11720,13 @@ export default {
               'Phoebe Bridgers performing at the 2021 Shaky Knees Festival — a longtime friend and collaborator Taylor cheered on.',
             kind: 'primary',
             focalPoint: '50% 35%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): Variety's own image for this exact story.
+            url: 'https://variety.com/wp-content/uploads/2026/08/tayphoebe.jpg?w=1000&h=563&crop=1',
+            credit: 'Variety',
+            caption: 'Coverage image for Variety\'s story on Taylor Swift praising Phoebe Bridgers\' "Lost Weekend" album, August 17, 2026.',
+            kind: 'reference',
           },
         ],
       },
@@ -11656,6 +11792,70 @@ export default {
             source_type: 'social',
             accessed_at: '2026-08-19',
             reliability_score: 5,
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-24 (Vault Run, Content Shift lane) from intake #3152.
+      // Rumor container: a Deuxmoi blind item re-reported by named outlets but
+      // never independently confirmed and carrying no photo of either woman, so
+      // it lands as a low-confidence sighting, not confirmed narrative.
+      // Redlines: the members'-club venue Deuxmoi named is CUT and the claim is
+      // capped at region per the location matrix (unresolved rumor); the tip's
+      // reported glimpse of a security presence is omitted outright (security
+      // arrangements are never-OK). Two public figures on a public-facing friend
+      // outing — no private-individual, health, or relationship-prognosis content.
+      slug: 'showgirl-dakota-johnson-la-girls-night-rumored',
+      year: 2026,
+      month: 8,
+      day: 21,
+      category: 'sighting',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+      ],
+      confidence: 'plausible',
+      title: 'A rumored girls’ night out with Dakota Johnson in Los Angeles',
+      snippet:
+        'Gossip account Deuxmoi reported that Taylor spent a Friday night out with longtime friend Dakota Johnson in Los Angeles on Aug. 21, 2026 — read by fans as her first low-key girls’ night since the wedding, with Travis away at Chiefs training camp. Neither woman appears in a photo, and no established outlet or either camp has confirmed it.',
+      sourceUrl:
+        'https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'With Travis Kelce away at Chiefs training camp — about seven weeks after the couple’s July wedding — Taylor was reported to have slipped out for a Friday-night catch-up with Dakota Johnson, a friend of more than a decade, somewhere in Los Angeles on Aug. 21, 2026. Fans framed it as her first proper girls’ night since becoming a newlywed.\n\nThe sourcing is thin and worth naming plainly. The report originated with the gossip account Deuxmoi and was picked up as a “report” by outlets including Just Jared and InStyle — all of them tracing back to that single blind item rather than confirming it independently. Neither Taylor nor Dakota appears in any photograph from the night, and neither has said a word about it. It is an easy-to-believe item that fits what is already known — the two have been close for years, and Taylor’s husband is in-season and out of town — without any of that making it confirmed. If a named outlet or either camp verifies the outing, the Rumor Desk can promote it; if it stays a lone social tip, it fades.',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/',
+            source_title: 'Taylor Swift Keeps Low Profile for Night Out with Dakota Johnson at L.A. Hotspot (Report)',
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'InStyle via Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-enjoys-girls-night-224937070.html',
+            source_title: 'Taylor Swift Enjoys Girls’ Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding',
+            publisher: 'InStyle',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 2,
+          },
+        ],
+        rumors: [
+          {
+            claim:
+              'Gossip account Deuxmoi reported that Taylor had a girls’ night out with Dakota Johnson in Los Angeles on Friday, Aug. 21, 2026 — her first such reported outing since the wedding, with Travis Kelce away at Chiefs training camp.',
+            reportedBy: 'Deuxmoi / Just Jared',
+            reportedOn: '2026-08-21',
+            status: 'unconfirmed',
+            url: 'https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/',
+            note: 'Deuxmoi blind item, re-reported by outlets (Just Jared, InStyle) tracing to the same tip, not independent confirmation; no photo of either woman, no comment from either camp (social tier). Coarsened to region per the matrix; the members’-club venue named in the reports is dropped and the tip’s security detail omitted per the redlines. Resolves on confirmation; fades otherwise.',
+            sourceTier: 'social',
+            locationSpecificity: 'region',
+            lastCheckedOn: '2026-08-24',
           },
         ],
       },

@@ -545,25 +545,33 @@ jobs:
           STALE_HOURS=$(( STALE_DAYS * 24 ))
           ALERT_TITLE="Watchdog: Karen scanned but filed no tickets"
 
-          # Report filenames are YYYY-MM-DD-cie-run.md, so lexical sort is
-          # chronological. Newest wins. After the 2026-08-14 fix, only Karen's
-          # own `all` run writes here at all (a bare `scan` self-check now
-          # defaults to .scratch/), so "newest" reliably means "her newest".
-          NEWEST=$(ls docs/audits/engine/*-cie-run.md 2>/dev/null | sort | tail -1 || true)
-          if [ -z "$NEWEST" ]; then
-            echo "no CIE run reports in docs/audits/engine — nothing to check yet."
-            exit 0
-          fi
-          RUN_DATE=$(basename "$NEWEST" | cut -d- -f1-3)
-          AGE_H=$(( ( $(date -u +%s) - $(date -u -d "$RUN_DATE" +%s) ) / 3600 ))
-          RUN_MARKER=$(grep -o '<!-- cie-run:[^>]*-->' "$NEWEST" | tail -1 || true)
-          FILING_MARKER=$(grep -o '<!-- cie-filing:[^>]*-->' "$NEWEST" | tail -1 || true)
-          echo "newest report: $NEWEST (${AGE_H}h old) run-marker: ${RUN_MARKER:-<none>} filing-marker: ${FILING_MARKER:-<none>}"
-
+          # Reports use an unsuffixed name for the first run of a date and a
+          # time suffix for reruns. The shared selector normalizes those forms
+          # so a same-day rerun ranks after the first run (#3255).
+          NEWEST=$(node scripts/watchdog/karen-post-repair-check.mjs --print-newest docs/audits/engine)
           PROBLEM=""
+          RUN_DATE=""
+          AGE_H=""
+          RUN_MARKER=""
+          FILING_MARKER=""
+          if [ -z "$NEWEST" ]; then
+            TODAY=$(date -u +%F)
+            if [ "$TODAY" \< "$RUN_MARKER_EPOCH" ]; then
+              echo "no CIE run reports before provenance epoch $RUN_MARKER_EPOCH — nothing to check yet."
+              exit 0
+            fi
+            PROBLEM="No canonical CIE run reports were found in \`docs/audits/engine/\`. Karen has no auditable run at all, or her reports are not reaching \`main\`."
+            echo "no CIE run reports in docs/audits/engine — opening the persistent alert."
+          else
+            RUN_DATE=$(basename "$NEWEST" | cut -d- -f1-3)
+            AGE_H=$(( ( $(date -u +%s) - $(date -u -d "$RUN_DATE" +%s) ) / 3600 ))
+            RUN_MARKER=$(grep -o '<!-- cie-run:[^>]*-->' "$NEWEST" | tail -1 || true)
+            FILING_MARKER=$(grep -o '<!-- cie-filing:[^>]*-->' "$NEWEST" | tail -1 || true)
+            echo "newest report: $NEWEST (${AGE_H}h old) run-marker: ${RUN_MARKER:-<none>} filing-marker: ${FILING_MARKER:-<none>}"
+          fi
 
           # 1. Staleness — the real fix for the five-day outage.
-          if [ "$AGE_H" -gt "$STALE_HOURS" ]; then
+          if [ -z "$PROBLEM" ] && [ "$AGE_H" -gt "$STALE_HOURS" ]; then
             PROBLEM="Karen's newest run report is \`$(basename "$NEWEST")\` — **${AGE_H}h old** (expected within ${STALE_DAYS} days / ${STALE_HOURS}h). She has stopped producing reports, or her report isn't reaching \`main\`."
           fi
 
@@ -618,7 +626,11 @@ jobs:
             echo "**Why this matters more than it looks:** a stale or unreachable Karen looks identical to a healthy one from outside — same report file, same PR, same merge — unless something checks this. A five-day outage (2026-08-09 → 2026-08-14) and ~1,220 findings destroyed by two earlier filing failures (2026-07-26, 2026-08-09) both went unnoticed this way."
             echo ""
             echo "Check, in order:"
-            echo "1. The report itself: [\`${NEWEST}\`](https://github.com/${REPO}/blob/main/${NEWEST}) — its 'Ticket filing' section names the exact failure, if any."
+            if [ -n "$NEWEST" ]; then
+              echo "1. The report itself: [\`${NEWEST}\`](https://github.com/${REPO}/blob/main/${NEWEST}) — its 'Ticket filing' section names the exact failure, if any."
+            else
+              echo "1. Confirm why [\`docs/audits/engine/\`](https://github.com/${REPO}/tree/main/docs/audits/engine) contains no canonical CIE run report."
+            fi
             echo "2. Can the runner write to GitHub at all? \`node --use-env-proxy scripts/content-engine/run.mjs issues --create\` from a clean checkout does the label-upsert preflight first and says so in one second."
             echo "3. Karen is a Wyatt-account cloud routine (\`docs/agents/runners.md\`), not an Actions workflow — its logs live there, not in this repo's Actions tab. If she's stale, someone with access to the routine dashboard needs to confirm she's actually enabled and firing — this repo cannot see that."
             echo ""
@@ -881,12 +893,28 @@ jobs:
             local PREFIX="$1" WINDOW="$2" LANE="$3" CADENCE="$4"
             local CUTOFF RECENT ALERT_TITLE
             CUTOFF=$(date -u -d "-${WINDOW} hours" +%Y-%m-%dT%H:%M:%SZ)
-            # gh pr list sorts newest-first by default (confirmed empirically) —
-            # 100 comfortably covers this repo's real PR volume (~8/day) within
-            # any of these windows.
-            RECENT=$(gh pr list --repo "$REPO" --state all --limit 100 \
+            # FALSE ALARM 2026-08-25 (#3303): this used to be a plain
+            # `gh pr list --state all --limit 100` sorted newest-first, then
+            # filtered by date client-side in jq. The comment here used to say
+            # "100 comfortably covers this repo's real PR volume (~8/day)" —
+            # that assumption silently expired as PR volume grew. At alert
+            # time the newest 100 PRs (state:all) only reached back to
+            # 2026-08-24T21:54:34Z, under 18h — so a genuinely healthy
+            # `vault/2026-08-24-run2` PR from 16:44Z that same day (~22.6h
+            # old, comfortably inside the 36h window) was pushed out of the
+            # top-100 slice by ~100 OTHER PRs created after it, and never
+            # reached the jq date filter at all. RECENT came back 0 for a
+            # lane that was not actually down.
+            # Fix: filter by date SERVER-SIDE via the search API's `created:`
+            # qualifier, so no client-side count cap can silently truncate
+            # the window regardless of how busy the repo gets — verified
+            # 2026-08-25 to correctly return both 08-24 vault PRs. -L 1000 is
+            # the gh CLI's own pagination ceiling for search results, kept
+            # generous rather than re-picking another number that can expire.
+            RECENT=$(gh pr list --repo "$REPO" --state all -L 1000 \
+              --search "created:>=${CUTOFF}" \
               --json headRefName,createdAt \
-              --jq "[.[] | select(.headRefName | startswith(\"${PREFIX}\")) | select(.createdAt >= \"${CUTOFF}\")] | length")
+              --jq "[.[] | select(.headRefName | startswith(\"${PREFIX}\"))] | length")
 
             ALERT_TITLE="Watchdog: ${LANE} hasn't produced a PR in ${WINDOW}h"
 
@@ -910,7 +938,12 @@ jobs:
           }
 
           check_lane "vault/"         36 "The Vault Run"  "once daily at 16:07 UTC, carrying all six content lanes"
-          check_lane "content-shift/" 30 "Content Shift"  "twice daily at 17:00/23:00 UTC"
+          # content-shift/ lane REMOVED 2026-08-24: the standalone Content Shift
+          # cloud routine was deleted (HUMAN-ACTIONS.md #11, PR #2289 — "deleted
+          # all 6 via the routines UI") when it was consolidated into the Vault
+          # Run, so a `content-shift/*` branch can no longer appear and this
+          # check alarmed every single day. This is the one-line migration the
+          # 2026-08-11 comment above prescribed for exactly this moment.
 
       # Facebook export freshness (proposal §4.7, PLAN.md Stage 6).
       # fb-export-reminder.yml files a fresh "FB group export due — week of
@@ -934,8 +967,20 @@ jobs:
           STALE_DAYS=9
           ALERT_TITLE="Watchdog: no FB group export closed in 9 days"
 
-          if ! grep -q "slug:" scripts/knowledge/fb-groups-checklist.mjs 2>/dev/null; then
+          # Real array-length check, not a text grep (fixed 2026-08-24). The
+          # old `grep -q "slug:"` matched the EXAMPLE in this file's doc comment
+          # (`{ slug: 'example-group-slug', ... }`), so the skip branch never
+          # fired even though FB_GROUPS_CHECKLIST is `[]` — and the step then
+          # alarmed "none ever closed", the precise pre-configuration state it
+          # was built to stay quiet through while HUMAN-ACTIONS.md #16 is open.
+          # Importing the module and reading the real array length is immune to
+          # comments and reformatting. On skip we now also CLOSE any standing
+          # alert, so this state self-heals instead of stranding an open one.
+          GROUP_COUNT=$(node -e "import('./scripts/knowledge/fb-groups-checklist.mjs').then(m => process.stdout.write(String((m.FB_GROUPS_CHECKLIST || []).length))).catch(() => process.stdout.write('0'))" 2>/dev/null || echo 0)
+          if [ "${GROUP_COUNT:-0}" -eq 0 ]; then
             echo "no groups configured in fb-groups-checklist.mjs yet (HUMAN-ACTIONS.md #16) — nothing to check."
+            echo "No FB groups configured yet (HUMAN-ACTIONS.md #16) — nothing to export or close, so nothing to alarm on." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             exit 0
           fi
 

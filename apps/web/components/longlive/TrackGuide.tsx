@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
+import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import Image from 'next/image';
 import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
@@ -32,8 +33,10 @@ export function TrackGuide() {
   const tracks = trackGuideEraId ? tracksForEra(trackGuideEraId) : [];
   const videos = trackGuideEraId ? videosForEra(trackGuideEraId) : [];
   const open = Boolean(era && tracks.length > 0);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   useScrollLock(open);
+  useFocusTrap(open, dialogRef);
 
   // Close on Escape — unless the share sheet or a song's TrackDetail is
   // layered on top; the top-most overlay owns Escape until it closes itself
@@ -55,13 +58,19 @@ export function TrackGuide() {
 
   return (
     <div
+      ref={dialogRef}
+      tabIndex={-1}
       className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-[color:var(--era-bg)] detail-enter"
       style={eraStyle(era)}
       role="dialog"
       aria-modal="true"
       aria-label={`${era.album} track guide`}
     >
-      <OverlayNav onClose={closeTrackGuide} shareTarget={{ kind: 'trackGuide', eraId: era.id }} />
+      <OverlayNav
+        era={era}
+        onClose={closeTrackGuide}
+        shareTarget={{ kind: 'trackGuide', eraId: era.id }}
+      />
 
       {/* Compact era-art header */}
       <div className="relative h-[28vh] min-h-44 w-full">

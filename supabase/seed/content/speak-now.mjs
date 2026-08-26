@@ -25,7 +25,7 @@ export default {
         "1,047,000 copies in week one — the first album since Lil Wayne's Tha Carter III to cross a million in its opening week.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Taylor_Swift_-_Speak_Now_tour_2011.jpg/960px-Taylor_Swift_-_Speak_Now_tour_2011.jpg',
       moment: {
         context:
           "It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991.\n\nIt also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did.",
@@ -41,11 +41,6 @@ export default {
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-speak-now-sales-charts/' },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
-            credit: 'Big Machine Records',
-            focalPoint: '62% 18%',
-          },
           // Photo pass #762 run 25 (2026-07-18): no photographable "sales week"
           // event exists, so the second image is honest era context — the tour
           // production the million-copy week funded. Commons file page checked
@@ -183,15 +178,18 @@ export default {
     },
     {
       // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
-      relatedIds: [
-        "moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice",
-        'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
-        'moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice',
-      ],
+      // (issue #722, 2026-08-24: the sibling People's Choice look was routed
+      // off this timeline into the Runway thread, so that leg of the
+      // cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys'],
       year: 2011,
       month: 11,
       day: 9,
-      category: 'fashion',
+      // Recategorized fashion -> business (issue #722, 2026-08-24): the
+      // gown is incidental — the real content is the second CMA
+      // Entertainer of the Year win, a real milestone with no other
+      // dedicated timeline card.
+      category: 'business',
       title: 'A dove-grey J. Mendel gown for her second Entertainer of the Year win',
       snippet:
         'A dove-grey J. Mendel gown with a billowing train, held up the whole walk to the stage for her second CMA Entertainer of the Year award.',
@@ -230,50 +228,6 @@ export default {
             price: '$695.00',
             isAlternative: true,
             altNote: 'Her 2011 J. Mendel gown is long discontinued -- a current made-to-order dove-grey sequin gown in the same formal register.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 2,
-      day: 9,
-      category: 'fashion',
-      // Cross-link (Stage 3, 2026-08-10): another recurring Speak Now Tour
-      // costume, the white lace 'Mean' dress.
-      relatedIds: ['moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to'],
-      title: 'A gold Roberto Cavalli fringe dress for Sparks Fly, Mine, and The Story of Us',
-      snippet:
-        'A gold ombré sequin fringe mini and black knee-high boots — her go-to Speak Now Tour look for three of the album\'s songs.',
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg',
-      moment: {
-        context:
-          "One dress, three songs: Femestella logs the Roberto Cavalli gold ombré sequin fringe mini as the tour's recurring look for 'Sparks Fly,' 'Mine,' and 'The Story of Us,' always paired with the same Everybody Fargo black knee-high boots.\n\nThat made it the workhorse of a show built around nine costume changes — while Susan Hilferty's custom chiffon gowns carried the fairy-tale numbers, the fringe was the up-tempo uniform, cut to catch arena light and movement.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' },
-        ],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg',
-            // Singing at the mic; her face sits in the upper-left third.
-            focalPoint: '42% 20%',
-            credit: 'Eva Rinaldi / Wikimedia Commons',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact tour costume is undocumented --
-        // a current, verified in-stock gold fringe mini in the same spirit.
-        products: [
-          {
-            brand: '12th Tribe',
-            item: 'Ophelia Gold Fringe Mini Dress',
-            retailer: '12thtribe.com',
-            url: 'https://www.12thtribe.com/products/ophelia-gold-fringe-mini-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0747/5039/files/OpheliaGoldFringeMiniDress_BeauPearlStatementChainBelt_4.jpg?v=1773967205',
-            price: '$114.00',
-            isAlternative: true,
-            altNote: 'The exact Roberto Cavalli tour costume is undocumented beyond this description -- a current gold fringe mini in the same silhouette (Everybody Fargo boots not separately sourced).',
           },
         ],
       },
@@ -414,48 +368,6 @@ export default {
     {
       year: 2010,
       month: 11,
-      day: 10,
-      category: 'fashion',
-      title: 'A red Monique Lhuillier gown at the 2010 CMA Awards',
-      snippet:
-        'A strapless red sweetheart gown with waist ruching and a thigh-high slit — a bolder red-carpet turn the same month Speak Now took over the charts.',
-      sourceUrl: 'https://www.yahoo.com/entertainment/outfits-taylor-swift-worn-cma-174205706.html',
-      thumbnailUrl: 'https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859',
-      moment: {
-        context:
-          "Designed by Monique Lhuillier — strapless with a sweetheart neckline, ruching at the waist, and a floor-length skirt slit to the thigh — and paired with diamond earrings. A classic rather than a showstopper, per Insider's CMA retrospective, part of the same red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.\n\nThe night carried more weight than the dress: at that November 10, 2010 ceremony at Nashville's Bridgestone Arena, she performed 'Back to December' — the stripped-back staging the Los Angeles Times graded a B+, noting she 'kept it simple' and 'rose to the occasion.' Five days later, the apology ballad went to country radio as Speak Now's second single.",
-        sources: [
-          {
-            outlet: 'Yahoo Entertainment (Insider)',
-            url: 'https://www.yahoo.com/entertainment/outfits-taylor-swift-worn-cma-174205706.html',
-          },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Back_to_December' },
-        ],
-        photos: [
-          {
-            url: 'https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859',
-            credit: 'Larry Busacca/Getty Images',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2010 gown is discontinued -- a
-        // current Monique Lhuillier gown, verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Monique Lhuillier',
-            item: 'Poppy Jacquard Column Gown',
-            retailer: 'moniquelhuillier.com',
-            url: 'https://moniquelhuillier.com/products/poppy-jacquard-column-gown',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0020/4842/6035/files/26110-298-POPPY_00594.jpg?v=1763141815',
-            price: '$5,995.00',
-            isAlternative: true,
-            altNote: 'Her exact 2010 gown is long discontinued -- this is a current Monique Lhuillier gown in the same red-orange "Poppy" family, a column silhouette rather than a sweetheart slit gown.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2010,
-      month: 11,
       day: 21,
       category: 'fashion',
       title: 'Blunt bangs debut at the 2010 American Music Awards',
@@ -494,287 +406,19 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
-      relatedIds: [
-        'moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-',
-        'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
-      ],
-      year: 2011,
-      month: 1,
-      day: 5,
-      category: 'fashion',
-      title: "A curly updo and J. Mendel pink chiffon at the People's Choice Awards",
-      snippet:
-        "A loose curly updo with a J. Mendel pink chiffon dress, Prada heels, and Neil Lane jewels — peak Speak Now-era red carpet styling.",
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12961917_XL.jpg',
-      moment: {
-        context:
-          "The look was peak Speak Now-era red carpet: a pink J. Mendel chiffon dress with a loose, curly updo, Prada heels, and Neil Lane jewels — soft, romantic styling that matched the album's fairy-tale visual register.\n\nShe wore it to the 37th People's Choice Awards at the Nokia Theatre in Los Angeles on January 5, 2011, where she won Favorite Country Artist — a fan-voted trophy landing barely two months into the album's chart run. She was also nominated for Favorite Female Artist that night, a category that went to Katy Perry.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/37th_People%27s_Choice_Awards' },
-        ],
-        photos: [
-          {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12961917_XL.jpg',
-            credit: 'Femestella',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2011 J. Mendel dress is
-        // discontinued -- a current Monique Lhuillier pink chiffon gown,
-        // verified in stock, closest real match.
-        // Stylist re-check (2026-08-16): still a live PDP, but all sizes
-        // now show "Variant sold out or unavailable" -- flipped to
-        // inStock: false rather than removed, per the sold-out convention.
-        products: [
-          {
-            brand: 'Monique Lhuillier',
-            item: 'Sweetheart Strapless Chiffon Gown',
-            retailer: 'moniquelhuillier.com',
-            url: 'https://moniquelhuillier.com/products/pink-chiffon-sweetheart-strapless-gown',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0020/4842/6035/files/24343-24344-PINK-CARNATION_9.jpg?v=1716498166',
-            price: '$4,995.00',
-            isAlternative: true,
-            inStock: false,
-            altNote: 'Her exact J. Mendel dress is long discontinued -- this is a current pink chiffon gown in "Pink Carnation," same soft pink-chiffon spirit (Prada heels, Neil Lane jewels not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 2,
-      day: 9,
-      category: 'fashion',
-      // Cross-link (Stage 3, 2026-08-10): the same designer's red chiffon
-      // 'Haunted' dress, and another recurring tour costume.
-      relatedIds: [
-        'moment:vault-speak-now-a-red-chiffon-susan-hilferty-dress-closes-out-haunted',
-        'moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to',
-      ],
-      title: "Susan Hilferty's purple chiffon halter dress becomes the tour's signature",
-      snippet:
-        "A custom purple chiffon halter gown by costume designer Susan Hilferty — worn for the title track, 'Fearless,' 'Last Kiss,' and more across the Speak Now World Tour.",
-      sourceUrl: 'https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/',
-      thumbnailUrl:
-        'https://zpllkavmkkjnxpedhotv.supabase.co/storage/v1/render/image/public/images/shows/taylor-swift-speak-now-world-tour-57/Taylor-Swift-taylor-swift-newark-purple-04.webp',
-      moment: {
-        context:
-          "Hilferty is credited as costume designer on the Speak Now World Tour; the purple halter became one of the era's most recognizable looks, reused across multiple songs in the setlist.\n\nHer studio's own archive of the tour pairs the original costume sketches with performance photographs — a rare look at a stage wardrobe built by a theatrical costume designer rather than assembled by a stylist, which is exactly why the show's dresses read like characters. Femestella calls the purple chiffon halter 'perhaps one of her most iconic looks' from the tour.",
-        sources: [
-          { outlet: 'Susan Hilferty (official)', url: 'https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/' },
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-        ],
-        photos: [
-          {
-            url: 'https://zpllkavmkkjnxpedhotv.supabase.co/storage/v1/render/image/public/images/shows/taylor-swift-speak-now-world-tour-57/Taylor-Swift-taylor-swift-newark-purple-04.webp',
-            credit: 'Susan Hilferty (costume designer)',
-          },
-        ],
-        // Shop pass (2026-07-21): a one-of-a-kind custom stage costume has
-        // no retail equivalent -- a current purple gown, verified in
-        // stock, in the same color family.
-        products: [
-          {
-            brand: 'Sherri Hill',
-            item: '55304 One-Shoulder Ombre Sequin Gown',
-            retailer: 'formalapproach.com',
-            url: 'https://www.formalapproach.com/products/sherri-hill-55304-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0068/3507/7184/products/sherri-hill-55304-purple-ombre-50858-homecoming-dresses-images.jpg?v=1654541933',
-            price: '$698.00',
-            isAlternative: true,
-            altNote: 'Hilferty\'s halter gown was a one-of-a-kind custom stage costume, never sold -- this is a current gown in Purple Ombre, same color family, though sequined rather than plain chiffon.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 2,
-      day: 9,
-      category: 'fashion',
-      // Cross-link (Stage 3, 2026-08-10): two more recurring Speak Now Tour
-      // costumes — the Cavalli fringe dress and Hilferty's purple halter.
-      relatedIds: [
-        'moment:vault-speak-now-a-gold-roberto-cavalli-fringe-dress-for-sparks-fly-mine-and-',
-        'moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour',
-      ],
-      title: "A white lace Alice + Olivia dress for 'Mean' on the Speak Now Tour",
-      snippet:
-        "A custom white lace Alice + Olivia dress, worn during 'Mean' performances across the Speak Now World Tour.",
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/6966861157_2ca0cc3599_o.jpg',
-      moment: {
-        context:
-          "Femestella notes the custom white lace dress 'took the stage any time Taylor Swift sang' the song on tour.\n\nThe costume matched the number's register: 'Mean' was the banjo-led, fiddle-and-mandolin track critics tagged as the most country thing on Speak Now, and mid-tour the underdog single became a double Grammy winner — Best Country Song and Best Country Solo Performance, both won in February 2012 while the tour was still on the road.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mean_(song)' },
-        ],
-        photos: [
-          {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/6966861157_2ca0cc3599_o.jpg',
-            credit: 'Femestella',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact custom Alice + Olivia stage
-        // piece has no retail listing -- a current white lace mini,
-        // verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Princess Polly',
-            item: 'Hailees Lace Strapless Mini Dress',
-            retailer: 'us.princesspolly.com',
-            url: 'https://us.princesspolly.com/products/hendrie-lace-mini-dress-white',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0061/8627/0804/files/1_afe48ad8-1095-4b7c-a3e0-c85234438620.jpg?v=1753158491',
-            price: '$15.00',
-            isAlternative: true,
-            altNote: 'The exact custom Alice + Olivia stage piece was never sold at retail -- this is a current white lace mini dress in the same general spirit.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 2,
-      day: 9,
-      category: 'fashion',
-      title: "A red sequin Theia slip dress for 'Better Than Revenge'",
-      snippet:
-        "A Theia red sequin slip dress with black knee-high boots, worn for the tour's 'Better Than Revenge' performances.",
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg',
-      moment: {
-        context:
-          "Femestella IDs it as a Theia red sequin slip, worn with the same Everybody Fargo black knee-high boots she paired with the gold Cavalli fringe — the tour's up-tempo footwear of choice.\n\nIn a show of nine costume changes otherwise dominated by chiffon and fairy-tale ballgowns, the slinky red sequin for the album's angriest song was the deliberate exception.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' },
-        ],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg',
-            credit: 'Eva Rinaldi / Wikimedia Commons',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact Theia tour piece is undocumented
-        // beyond this description -- a current red sequin slip, verified
-        // in stock, closest real match.
-        products: [
-          {
-            brand: 'Showpo',
-            item: 'Finn Mini Dress (Plunge Neck Sheer Sequin Dress)',
-            retailer: 'showpo.com',
-            url: 'https://www.showpo.com/nights-in-vegas-dress-in-wine-sequin.html',
-            price: '$66.00',
-            isAlternative: true,
-            altNote: 'The exact Theia tour piece is undocumented beyond this description -- a current red sequin slip dress in the same silhouette (Everybody Fargo boots not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 2,
-      day: 9,
-      category: 'fashion',
-      // Cross-link (Stage 3, 2026-08-10): the same designer's purple chiffon
-      // halter, the tour's other signature Hilferty look.
-      relatedIds: ['moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour'],
-      title: "A red chiffon Susan Hilferty dress closes out 'Haunted'",
-      snippet:
-        "Another Susan Hilferty custom piece — a red chiffon midi-length dress worn for the tour's 'Haunted' performances.",
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl:
-        'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Haunted_-_Speak_Now_WORLD_Tour_in_Pittsburgh.jpg',
-      moment: {
-        context:
-          "Hilferty — the tour's credited costume designer, whose studio archive pairs her original sketches with performance shots — built 'Haunted' its own red chiffon midi, the darker counterpart to the purple halter gown she designed for the show's fairy-tale stretch.\n\nTwo custom pieces from the same hand doing opposite jobs: one dress for the era's romance, one for its ghosts.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          { outlet: 'Susan Hilferty (official)', url: 'https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/' },
-        ],
-        photos: [
-          {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Haunted_-_Speak_Now_WORLD_Tour_in_Pittsburgh.jpg',
-            credit: 'Femestella',
-          },
-        ],
-        // Shop pass (2026-07-21): a one-of-a-kind custom stage costume has
-        // no retail equivalent -- a current red-toned gown, verified in
-        // stock, in the same color family.
-        products: [
-          {
-            brand: 'Monique Lhuillier',
-            item: 'Poppy Jacquard Column Gown',
-            retailer: 'moniquelhuillier.com',
-            url: 'https://moniquelhuillier.com/products/poppy-jacquard-column-gown',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0020/4842/6035/files/26110-298-POPPY_00594.jpg?v=1763141815',
-            price: '$5,995.00',
-            isAlternative: true,
-            altNote: 'Hilferty\'s red chiffon midi was a one-of-a-kind custom stage costume, never sold -- this is a current red-orange gown in the same color family, a floor-length column rather than a midi.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 5,
-      day: 22,
-      category: 'fashion',
-      // Cross-link (Stage 3, 2026-08-10): the "Elie Saab" designer cluster.
-      relatedIds: ['moment:vault-red-a-wine-red-elie-saab-gown-for-a-historic-pinnacle-award'],
-      title: 'A pink Elie Saab sequin gown at the Billboard Music Awards',
-      snippet:
-        'A strapless Elie Saab gown covered top to bottom in pink sequins, with side-swept curls — a glamorous but still youthful red-carpet look.',
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg',
-      moment: {
-        context:
-          "Worn May 22, 2011 — a night she left with two trophies, including the country artist award, presented by Train's Pat Monahan, over a field of Lady Antebellum, Jason Aldean, Zac Brown Band, and Kenny Chesney.\n\nAccepting, she reached back to the ceremonies she grew up watching: 'I used to watch the Billboard Awards and see my heroes like Shania Twain and Faith Hill win these, and now... I'm just having the best time doing this.' Femestella logs the gown as Elie Saab, worn with Lorraine Schwartz jewelry.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          {
-            outlet: 'Taste of Country',
-            url: 'https://tasteofcountry.com/taylor-swift-billboard-music-awards-2011-country-artist-of-the-year/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg',
-            credit: 'Femestella',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2011 Elie Saab gown is
-        // discontinued and the brand's current site has no clean matching
-        // listing -- a current made-to-order pink sequin gown, closest
-        // verified in-stock match.
-        products: [
-          {
-            brand: 'WonderlandByLilian',
-            item: 'Elegant Pink Sequin Evening Gown',
-            retailer: 'wonderlandbylilian.com',
-            url: 'https://wonderlandbylilian.com/products/elegant-pink-sequin-evening-gown-and-embellished-gown-designer-sequin-gown-and-pink-sequin-dress-plus-size',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0550/3919/7262/files/elegant-pink-sequin-evening-gown-and-embellished-gown-designer-sequin-gown-and-pink-sequin-dress-plus-size-584732.webp?v=1717548573',
-            price: '$699.00',
-            isAlternative: true,
-            altNote: 'Her exact 2011 Elie Saab gown is discontinued -- this is a current made-to-order pink sequin gown in the same strapless, top-to-bottom sequin spirit (Lorraine Schwartz jewelry not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
-      relatedIds: [
-        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
-        'moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover',
-      ],
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moment.
+      // (issue #722, 2026-08-24: the sibling 2009 CMA-sweep look was routed
+      // off the Fearless timeline into the Runway thread, so that leg of
+      // the cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover'],
       year: 2011,
       month: 11,
       day: 20,
-      category: 'fashion',
+      // Recategorized fashion -> business (issue #722, 2026-08-24): the
+      // gown is incidental — the real content is the 2011 AMAs 3-category
+      // sweep (her second Artist of the Year), a real milestone with no
+      // other dedicated timeline card.
+      category: 'business',
       title: 'A gold Reem Acra gown and side ponytail at the American Music Awards',
       snippet:
         'A sparkly gold strapless Reem Acra beaded gown paired with a side ponytail at the 2011 AMAs, where she was up for Artist of the Year.',
@@ -816,11 +460,11 @@ export default {
 
     // --- Fashion/photo depth pass #2 (2026-07-04) ---
     {
-      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
-      relatedIds: [
-        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
-        'moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi',
-      ],
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moment.
+      // (issue #722, 2026-08-24: the sibling 2009 CMA-sweep look was routed
+      // off the Fearless timeline into the Runway thread, so that leg of
+      // the cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi'],
       year: 2010,
       month: 10,
       day: 25,
@@ -906,61 +550,6 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-07-30): the "Zuhair Murad" cluster — three
-      // looks by the same designer across three eras — now interlink.
-      relatedIds: [
-        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
-        'moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show',
-      ],
-      year: 2011,
-      month: 2,
-      day: 27,
-      category: 'fashion',
-      title: 'A gold Zuhair Murad minidress at the Vanity Fair Oscar party',
-      snippet:
-        'A beaded gold strapless Zuhair Murad minidress with a corset back, gold Jimmy Choo platform sandals and clutch, and pinned-back hair at the Vanity Fair Oscars after-party.',
-      sourceUrl: 'https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/',
-      // Image-fix pass (2026-07-10): townsquare.media URL now serves a dead 'Taste of Country' logo
-      // placeholder (curl-verified content-type image/jpeg but pixels show the logo, not Taylor).
-      // Replaced with a verified Getty Images photo (id 109489184, HTTP 200, image/jpeg, visually
-      // confirmed: Taylor in the gold beaded strapless Zuhair Murad minidress at the 2011 Vanity
-      // Fair Oscar Party, Sunset Tower, Feb 27 2011).
-      thumbnailUrl: 'https://media.gettyimages.com/id/109489184/photo/west-hollywood-ca-singer-taylor-swift-arrives-at-the-vanity-fair-oscar-party-at-sunset-tower.jpg?s=612x612&w=0&k=20&c=LYkicour3elj3xJhOZJvSJRNzd6pLXo7qpJM_9WWRM8=',
-      moment: {
-        context:
-          'Worn February 27, 2011 at the Sunset Tower Hotel party, one of her earliest red-carpet turns in Zuhair Murad — a designer she\'d return to repeatedly through 2012.\n\nShe skipped the Academy Awards ceremony itself and went straight to the after-party, where Taste of Country reported she spent the night catching up with friends Emma Stone and Selena Gomez. The beaded gold minidress — corset back, matching gold platforms and clutch — previewed a designer relationship with a payoff already scheduled: a year later she walked the 2012 Grammys red carpet in gold Zuhair Murad Couture on the night "Mean" won twice.',
-        sources: [
-          { outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/' },
-        ],
-        photos: [
-          {
-            // Image-fix pass (2026-07-10): old townsquare.media URL was a dead hotlink serving a
-            // 'Taste of Country' logo placeholder, not a photo. Replaced with Getty Images id
-            // 109489184 (curl-verified HTTP 200 image/jpeg; Read-viewed: matches caption exactly —
-            // gold beaded strapless Zuhair Murad minidress, Vanity Fair Oscar Party red carpet).
-            url: 'https://media.gettyimages.com/id/109489184/photo/west-hollywood-ca-singer-taylor-swift-arrives-at-the-vanity-fair-oscar-party-at-sunset-tower.jpg?s=612x612&w=0&k=20&c=LYkicour3elj3xJhOZJvSJRNzd6pLXo7qpJM_9WWRM8=',
-            credit: 'Jon Kopaloff/Getty Images',
-            caption: 'Arriving at the Vanity Fair Oscar Party at Sunset Tower, February 27, 2011, in the gold Zuhair Murad minidress.',
-            kind: 'primary',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2011 Zuhair Murad minidress is
-        // discontinued -- a current gold sequin mini, verified in stock,
-        // closest real match.
-        products: [
-          {
-            brand: 'Fashion Nova',
-            item: 'Staying Golden Sequin Mini Dress',
-            retailer: 'fashionnova.com',
-            url: 'https://www.fashionnova.com/products/staying-golden-sequin-mini-dress-gold',
-            price: '$42.99',
-            isAlternative: true,
-            altNote: 'Her exact Zuhair Murad minidress is long discontinued -- this is a current gold sequin mini in the same beaded-gold spirit (Jimmy Choo platforms not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
       year: 2011,
       month: 8,
       day: 7,
@@ -973,7 +562,12 @@ export default {
       // head-and-shoulders crop that barely showed the halter strap. Replaced with a verified Getty
       // Images full-length photo (id 139353810, HTTP 200, image/jpeg, visually confirmed: the white
       // halter dress with belted waist, full skirt, at the 2011 Teen Choice Awards red carpet).
-      thumbnailUrl: 'https://media.gettyimages.com/id/139353810/photo/universal-city-ca-taylor-swift-arrives-at-teen-choice-2011-at-the-gibson-amphitheatre-on.jpg?s=612x612&w=0&k=20&c=ikjub89NrsPL5br_63iqmNw_mXtseHJbQAYLDJEjpo8=',
+      // Getty retirement pass (issue #935, 2026-08-24): the Getty comp URL
+      // retired per the 2026-08-15 decision. Replaced with People.com's own
+      // CDN copy of the same white halter dress at the 2011 Teen Choice
+      // Awards (verified live via probe(), visually confirmed: same dress,
+      // belt, and blue/green Teen Choice backdrop).
+      thumbnailUrl: 'https://people.com/thmb/obc5e6qZmF1E_-THSfTJFiRY-a0=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(144x0:146x2)/taylor-swift-290-4d5ff902cd4c40eb8c498611e25c25dc.jpg',
       moment: {
         context:
           "The look was a deliberate Old-Hollywood homage: a white halterneck dress by Rafael Cennamo, styled with a Ranjana Khan belt, Neil Lane jewelry, and Fendi shoes — Marilyn Monroe by way of a 21-year-old country-pop star, worn with her hair pulled back in a ponytail.\n\nThe occasion earned the reference: at the August 7, 2011 show at Universal City's Gibson Amphitheatre she received the Ultimate Choice Award, the show's honorary top prize. She also won five voted categories outright that night — Choice Female Artist, both country awards ('Mean' took Country Track), Break-Up Song for 'Back to December,' and Red Carpet Fashion Icon ('Mine' was only a nominee for Choice Love Song, which went to Selena Gomez & the Scene) — plus the Ultimate Choice Award, a near-sweep powered by Speak Now's singles run.",
@@ -987,8 +581,14 @@ export default {
             // halter neckline at low res. Replaced with Getty Images id 139353810 (curl-verified
             // HTTP 200 image/jpeg; Read-viewed: full-length shot clearly showing the white halter
             // dress with jeweled belt at the 2011 Teen Choice Awards).
-            url: 'https://media.gettyimages.com/id/139353810/photo/universal-city-ca-taylor-swift-arrives-at-teen-choice-2011-at-the-gibson-amphitheatre-on.jpg?s=612x612&w=0&k=20&c=ikjub89NrsPL5br_63iqmNw_mXtseHJbQAYLDJEjpo8=',
-            credit: 'Gregg DeGuire/FilmMagic',
+            // Getty retirement pass (issue #935, 2026-08-24): the Getty comp
+            // URL retired per the 2026-08-15 decision. Replaced with
+            // People.com's own CDN copy of the same dress/event. Verified
+            // live via probe(); photographer credit not independently
+            // confirmed for this specific replacement, so credited to the
+            // hosting outlet.
+            url: 'https://people.com/thmb/obc5e6qZmF1E_-THSfTJFiRY-a0=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(144x0:146x2)/taylor-swift-290-4d5ff902cd4c40eb8c498611e25c25dc.jpg',
+            credit: 'Via People',
             caption: 'Arriving at the 2011 Teen Choice Awards in the Marilyn Monroe-inspired white halter dress.',
             kind: 'primary',
           },
@@ -1053,52 +653,6 @@ export default {
             price: '$1,695.00',
             isAlternative: true,
             altNote: 'The exact editorial pieces from this shoot are undocumented -- this is a current piece from Rodarte, one of the three houses (with Jil Sander and Rag & Bone) the shoot pulled from.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2012,
-      month: 2,
-      day: 12,
-      category: 'fashion',
-      title: 'A gold Zuhair Murad Couture gown on the 2012 Grammys red carpet',
-      snippet:
-        'A gold Zuhair Murad Couture gown with a Mandarin collar, heart-shaped cutout, and mermaid skirt with a short train — worn on the red carpet before her banjo-driven "Mean" performance.',
-      sourceUrl: 'https://styledarlingdaily.com/2012/02/15/red-carpet-review-the-best-wild-looks-from-the-2012-grammys-red-carpet/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown/',
-      thumbnailUrl:
-        'https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg',
-      moment: {
-        context:
-          'Pulled from Zuhair Murad\'s haute couture line — a gold gown with a Mandarin collar, heart-shaped cutout, and mermaid skirt trailing a short train — it was her second gold Murad inside a year, after the Vanity Fair Oscar-party minidress the previous February.\n\nThe night made the dress a footnote: "Mean" won Best Country Song and Best Country Solo Performance, and she performed it live at the ceremony, banjo in hand, altering a lyric mid-song to reference winning at the Grammys — closing the loop on a track written straight back at her critics.',
-        sources: [
-          {
-            outlet: 'Style Darling Daily',
-            url: 'https://styledarlingdaily.com/2012/02/15/red-carpet-review-the-best-wild-looks-from-the-2012-grammys-red-carpet/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown/',
-          },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mean_(song)' },
-        ],
-        photos: [
-          {
-            url: 'https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg',
-            // Full-length red-carpet portrait; face is high in frame.
-            focalPoint: '52% 13%',
-            credit: 'Style Darling Daily',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact haute couture gown was never
-        // sold at retail -- a current gold mermaid gown, verified in
-        // stock, closest real match.
-        products: [
-          {
-            brand: 'COLORS Dress',
-            item: 'Sequin Mermaid Evening Gown',
-            retailer: 'shop.simon.com',
-            url: 'https://shop.simon.com/products/sequin-mermaid-evening-gown-in-gold-turquoise',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0291/4536/6588/files/3808f67a690a4eb59f90c3800d2a6c67.jpg?v=1776389435',
-            price: '$170.00',
-            isAlternative: true,
-            altNote: 'Her Zuhair Murad Couture gown was a one-of-a-kind piece, never sold at retail -- this is a current gold mermaid sequin gown in the same silhouette.',
           },
         ],
       },
@@ -1359,35 +913,6 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster —
-      // the song, and its radio-single release.
-      // Cross-link (Stage 3, 2026-08-13): + the 2010 AMAs performance.
-      relatedIds: [
-        'moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two',
-        'moment:vault-speak-now-back-to-december-meets-apologize-at-the-2010-amas',
-      ],
-      year: 2010,
-      month: 10,
-      day: 12,
-      category: 'music',
-      title: 'Back to December, her first apology song',
-      snippet:
-        '"Guys get what they deserve in my songs, and if they deserve an apology, they should get one" — her first-ever apology track, later confirmed by Taylor Lautner as being about him.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Back_to_December',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png',
-      moment: {
-        context:
-          'In interviews before Speak Now\'s release, Taylor explained she\'d broken her own pattern: "Guys get what they deserve in my songs, and if they deserve an apology, they should get one. There was someone who was absolutely wonderful to me and I dropped the ball, and I needed to say all that."\n\nIt was the first time she wrote an apology to an ex rather than a critique of one. Actor Taylor Lautner, whom she\'d dated in late 2009, confirmed in a 2016 interview that he was the song\'s subject.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Back_to_December' }],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png',
-            credit: 'Big Machine Records',
-          },
-        ],
-      },
-    },
-    {
       year: 2010,
       month: 10,
       day: 25,
@@ -1420,17 +945,12 @@ export default {
         'All 14 standard-edition tracks credited to Taylor alone — a direct answer to critics who doubted a 20-year-old could really write her own songs.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
+        'https://upload.wikimedia.org/wikipedia/commons/2/22/Taylor_Swift_-_Speak_Now_tour_2011_01.jpg',
       moment: {
         context:
           'Taylor wrote every song on the standard 14-track edition by herself, gathering ideas during the Fearless Tour.\n\nShe\'s since described it as her answer to critics who doubted her songwriting was really her own. (The deluxe-edition bonus track "If This Was a Movie" is her only co-write on the record, with Martin Johnson.) It remains the only album in her catalog written without a single co-writer.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now' }],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
-            credit: 'Big Machine Records',
-            focalPoint: '62% 18%',
-          },
           // Photo pass #762 run 25 (2026-07-18): second image is the album's
           // songs on stage — an era-context tour frame, honestly captioned.
           // Commons file page checked (CC BY 2.0, author dephisticate); curl
@@ -1477,6 +997,17 @@ export default {
             credit: 'Big Machine Records (album cover art)',
             kind: 'primary',
             focalPoint: '62% 18%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a Getty photo from the 54th
+            // Grammys ceremony itself was tried here, but media.gettyimages.com
+            // only serves a watermarked preview ("comp") image, not a clean
+            // licensable asset — swapped for a real Speak Now World Tour photo
+            // from the same era instead.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg',
+            credit: 'Eva Rinaldi, CC BY-SA 2.0, via Wikimedia Commons',
+            caption: 'Taylor Swift performing on the Speak Now World Tour, the tour supporting the album nominated at the 54th Grammy Awards.',
+            kind: 'reference',
           },
         ],
       },
@@ -1571,8 +1102,14 @@ export default {
       // verified Getty Images photo (id 129173267, HTTP 200, image/jpeg, visually confirmed: the
       // 'Wonderstruck' step-and-repeat backdrop is visible behind her) taken at the actual launch
       // event at Macy's Herald Square, October 13, 2011.
+      // Getty retirement pass (issue #935, 2026-08-24): the Getty comp URL
+      // retired per the 2026-08-15 decision. Replaced with WWD's own hotlink
+      // (allowlisted host) from its own launch-day coverage — shows Taylor
+      // beside the giant Wonderstruck bottle prop with the Macy's/
+      // Wonderstruck step-and-repeat visible behind her. Verified live via
+      // probe(); no watermark.
       thumbnailUrl:
-        'https://media.gettyimages.com/id/129173267/photo/taylor-swifts-wonderstruck-fragrance-launch.jpg?s=594x594&w=0&k=20&c=ibJp3dK0NvxFinzatkJl7lOPCieM5xP3asbvei7IB8s=',
+        'https://wwd.com/wp-content/uploads/2011/10/taylor01.jpg',
       moment: {
         context:
           'Taylor partnered with Elizabeth Arden on Wonderstruck, her first fragrance, released in US stores in October 2011.\n\nShe named it directly after her own lyric: "I wrote the lyric, \'I\'m wonderstruck, blushing all the way home,\' for the song \'Enchanted\' about the first time you meet someone," adding that fragrance helps "shape someone\'s first impression and memory of you." It became her best-selling perfume, and alongside Justin Bieber\'s "Someday," helped drive a reported 57% jump in celebrity-fragrance sales that year.',
@@ -1589,8 +1126,14 @@ export default {
             // Getty Images id 129173267 (curl-verified HTTP 200 image/jpeg; Read-viewed: 'Wonderstruck'
             // logo visible on the step-and-repeat behind her), taken at the Macy's Herald Square
             // launch event, October 13, 2011.
-            url: 'https://media.gettyimages.com/id/129173267/photo/taylor-swifts-wonderstruck-fragrance-launch.jpg?s=594x594&w=0&k=20&c=ibJp3dK0NvxFinzatkJl7lOPCieM5xP3asbvei7IB8s=',
-            credit: 'Cindy Ord/Getty Images',
+            // Getty retirement pass (issue #935, 2026-08-24): the Getty comp
+            // URL retired per the 2026-08-15 decision. Replaced with WWD's
+            // own hotlink from its Oct. 2011 launch-day coverage of this
+            // same event. Verified live via probe(); photographer credit not
+            // independently confirmed for this replacement, so credited to
+            // the hosting outlet.
+            url: 'https://wwd.com/wp-content/uploads/2011/10/taylor01.jpg',
+            credit: 'Via WWD',
             caption: "At her Wonderstruck fragrance launch at Macy's Herald Square, October 13, 2011 in New York City.",
             kind: 'primary',
           },
@@ -1618,71 +1161,6 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/1280px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg',
             credit: 'Eva Rinaldi / Wikimedia Commons',
-          },
-        ],
-      },
-    },
-
-    // --- Deep timeline fill (2026-07-08, content/deep-a): the era's full
-    // singles run + live album + Hunger Games one-off (release was empty),
-    // tour depth, the awards year, and the relationships' documented starts.
-    // Every claim verified against its cited source this session; business
-    // and relationship items carry two independent sources per the framework.
-    {
-      slug: 'mine-rush-release',
-      year: 2010,
-      month: 8,
-      day: 4,
-      category: 'release',
-      title: 'Mine leaks, so the label ships it 12 days early',
-      snippet:
-        'An unauthorized MP3 of "Mine" hit the internet in early August 2010 — Big Machine answered by rushing the lead single to radio and iTunes on Aug. 4, twelve days ahead of schedule.',
-      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/5/56/Taylor_Swift_-_Mine.png',
-      moment: {
-        context:
-          'She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. "Mine" introduced Speak Now two and a half months before the album arrived.\n\nThe numbers vindicated the scramble: originally slated for August 16, the single debuted at No. 3 on the Hot 100 with 297,000 downloads — at the time the eighth-biggest sales debut ever for a digital song. The music video, co-directed by Taylor and Roman White and shot in Kennebunkport, Maine with British actor Toby Hemingway as the love interest (she cast him after seeing Feast of Love), premiered on CMT August 27 and went on to win Video of the Year at the 2011 CMT Music Awards.',
-        sources: [
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/',
-            source_title: "Taylor Swift's 'Mine' Single Leaks",
-            publisher: 'Billboard',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Mine_(Taylor_Swift_song)',
-            source_title: 'Mine (Taylor Swift song)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-09',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'CBS News',
-            url: 'https://www.cbsnews.com/news/taylor-swift-rush-releases-mine-to-radio-after-internet-leak-speak-now-album-in-october/',
-            source_title: 'Taylor Swift Rush Releases "Mine" to Radio After Internet Leak',
-            publisher: 'CBS News',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-        ],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/5/56/Taylor_Swift_-_Mine.png',
-            credit: 'Big Machine Records (single cover art)',
-            kind: 'primary',
-          },
-          {
-            url: 'https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg',
-            credit: 'Big Machine Records / YouTube (official music video still)',
-            caption: "Still from the official 'Mine' music video, via the video's YouTube thumbnail.",
-            kind: 'archival',
           },
         ],
       },
@@ -1815,7 +1293,7 @@ export default {
       // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster.
       // Cross-link (Stage 3, 2026-08-13): + the 2010 AMAs performance.
       relatedIds: [
-        'moment:vault-speak-now-back-to-december-her-first-apology-song',
+        'moment:vault-fearless-back-to-december-her-first-apology-song',
         'moment:vault-speak-now-back-to-december-meets-apologize-at-the-2010-amas',
       ],
       year: 2010,
@@ -1864,8 +1342,7 @@ export default {
       snippet:
         'March 2011: the album\'s bluegrass-leaning critic clapback becomes single three — the one that would end up with two Grammys and a live banjo on the Grammy stage.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mean_(song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/2/2d/Taylor_Swift_-_Mean.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/jYa1eI1hpDE/hqdefault.jpg',
       moment: {
         context:
           'Sending the most traditionally country track on Speak Now to radio mid-tour doubled as a statement about where she still lived musically; eleven months later it won Best Country Song and Best Country Solo Performance.\n\nIt had already debuted and peaked at No. 11 on the Hot 100 on album-week sales in 2010; released to country radio March 7, 2011, it passed a million digital copies by that August. The Declan Whitebloom video — shot over two days at Los Angeles\' Orpheum Theatre with young actors Joey King and Presley Cash — reframed the critic clapback as an anti-bullying story, and Grammy.com\'s retrospective still reads the song the way fans did in 2011: "a deliciously twangy clapback to critic Bob Lefsetz."',
@@ -1891,12 +1368,6 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/2/2d/Taylor_Swift_-_Mean.png',
-            credit: 'Big Machine Records (single cover art)',
-            kind: 'primary',
-            focalPoint: '25% 60%',
-          },
-          {
             url: 'https://i.ytimg.com/vi/jYa1eI1hpDE/hqdefault.jpg',
             credit: 'Big Machine Records / YouTube (official music video still)',
             caption: "Still from the official 'Mean' music video, via the video's YouTube thumbnail.",
@@ -1916,8 +1387,7 @@ export default {
       snippet:
         'July 18, 2011: a song written at 16 and bootlegged from 2007 bar shows becomes the album\'s fifth single — because fans simply would not stop asking for it.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Sparks_Fly_(song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/9/91/Sparks_Fly_-_Single.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/oKar-tF__ac/hqdefault.jpg',
       moment: {
         context:
           'A fan-filmed 2007 performance circulated online for years, and backstage requests at the 2010 CMA Music Festival pushed her to rework the song for Speak Now. The single just made official what tour setlists already knew.\n\nThe studio version kept the original arrangement while retouching lyrics she\'d written at 16. As the album\'s fifth single it reached No. 17 on the Hot 100 and went all the way to No. 1 on Hot Country Songs that November, eventually certified platinum — and, fittingly for a song the live shows kept alive, its Christian Lamb-directed video was cut entirely from Speak Now World Tour concert footage.',
@@ -1933,12 +1403,6 @@ export default {
           },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/9/91/Sparks_Fly_-_Single.png',
-            credit: 'Big Machine Records (single cover art)',
-            kind: 'primary',
-            focalPoint: '32% 14%',
-          },
           {
             url: 'https://i.ytimg.com/vi/oKar-tF__ac/hqdefault.jpg',
             credit: 'Big Machine Records / YouTube (official music video still)',
@@ -1961,7 +1425,7 @@ export default {
         'Nov. 21, 2011: a CD-plus-DVD of the North American leg arrives — the full show on film, plus tour covers of Train\'s "Drops of Jupiter," "Bette Davis Eyes," and the Jackson 5\'s "I Want You Back."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour_%E2%80%93_Live',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
+        'https://upload.wikimedia.org/wikipedia/commons/c/c8/Taylor_Swift_-_Long_Live_-_Speak_Now_Tour_in_Vancouver.jpg',
       moment: {
         context:
           'Her first live album, released through Big Machine while the era was still running; it debuted at No. 11 on the Billboard 200 with 77,000 first-week copies.\n\nThe package ran 79 minutes on CD and two hours on the DVD, directed by Ryan Polito from footage shot across the tour\'s North American leg. Beyond the Billboard 200 debut it climbed to No. 2 on Top Country Albums — and it preserved the tour\'s cover-song habit on record, from Train\'s "Drops of Jupiter" to the Jackson 5\'s "I Want You Back," years before surprise covers hardened into a formal nightly slot on her tours.',
@@ -1981,12 +1445,6 @@ export default {
         // American leg the DVD was cut from). curl-verified 200 image/jpeg,
         // downloaded and vision-confirmed (full band mid-song on the tour stage).
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
-            credit: 'Big Machine Records (album cover art)',
-            kind: 'primary',
-            focalPoint: '47% 29%',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Taylor_Swift_-_Long_Live_-_Speak_Now_Tour_in_Vancouver.jpg',
             credit: 'Andy (agroove) / Wikimedia Commons, CC BY-SA 2.0',
@@ -2561,73 +2019,12 @@ export default {
               'Taylor performing on the Speak Now World Tour (Sydney SuperDome, March 2012) — the tour where "Enchanted" became a fan-favorite live moment.',
             kind: 'reference',
           },
-        ],
-      },
-    },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "speak-now-taylors-version",
-      // Cross-link (Stage 3, 2026-08-06): the announcement and record-week
-      // moments for this same album, over in the midnights era.
-      relatedIds: [
-        "moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville",
-        "moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th",
-        'moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville',
-        'moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th',
-      ],
-      year: 2023,
-      month: 7,
-      day: 7,
-      category: "music",
-      title: "Speak Now (Taylor's Version)",
-      snippet: "The third re-recording arrives with six previously unreleased \"From the Vault\" tracks.",
-      moment: {
-        sources: [
           {
-            outlet: 'CBS News',
-            url: 'https://www.cbsnews.com/news/taylor-swift-speak-now-taylors-version-vault-tracks-better-than-revenge-mattress-lyric/',
-            source_title: 'Taylor Swift releases "Speak Now: Taylor\'s Version" with previously unreleased tracks and a change to a lyric',
-            publisher: 'CBS News',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'American Songwriter',
-            url: 'https://americansongwriter.com/taylor-swift-releases-re-recorded-version-of-speak-now-its-yours-its-mine-its-ours/',
-            source_title: 'Taylor Swift Releases Re-Recorded Version of \'Speak Now\': "It\'s Yours, It\'s Mine, It\'s Ours"',
-            publisher: 'American Songwriter',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "Speak Now (Taylor's Version) released July 7, 2023, with six vault tracks, including \"Castles Crumbling\" featuring Hayley Williams of Paramore — reclaiming the only album in her catalog she's said was written entirely without a co-writer.",
-        // Photo pass #762 (2026-07-20): page had zero photos, and the July 2023
-        // re-recording release has no red-carpet event of its own. Used a freely
-        // licensed Commons shot of the Eras Tour's Speak Now set — the lilac
-        // Speak Now ballgown and koi-fish guitar were the era's live face that
-        // same summer. License (CC BY 2.0, Paolo V) verified via the Commons
-        // API; curl 200 image/jpeg 1300x1987; downloaded and Read-viewed.
-        // focalPoint written immediately after url per the field-order rule.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_%2853109468131%29.jpg',
-            focalPoint: '59% 51%',
-            credit: 'Paolo V via Wikimedia Commons, CC BY 2.0',
-            caption: 'The Eras Tour Speak Now set — the lilac ballgown and koi-fish guitar — the live embodiment of the era she reclaimed with the July 2023 re-recording.',
-            kind: 'archival',
-          },
-          // Photo pass (2026-07-20, #762): 2nd photo — the official album cover
-          // for the re-recording itself. Full-res en.wikipedia file curl-verified
-          // 200 image/png, downloaded and viewed; focal point set by eye.
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Taylor_Swift_-_Speak_Now_%28Taylor%27s_Version%29.png',
-            focalPoint: '52% 30%',
-            credit: 'Republic Records',
-            caption: 'The Speak Now (Taylor\'s Version) album cover — the purple-tulle re-recording released July 7, 2023.',
-            kind: 'archival',
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/22/Taylor_Swift_-_Speak_Now_tour_2011_01.jpg',
+            credit: 'Wikimedia Commons / "dephisticate" (CC BY 2.0)',
+            caption: 'Taylor Swift performing live during the Speak Now World Tour, Prudential Center, Newark, July 20, 2011.',
+            kind: 'reference',
           },
         ],
       },
@@ -2663,7 +2060,7 @@ export default {
       // Cross-link (Stage 3, 2026-08-13): the "Back to December" cluster —
       // the song's origin and its radio-single release.
       relatedIds: [
-        'moment:vault-speak-now-back-to-december-her-first-apology-song',
+        'moment:vault-fearless-back-to-december-her-first-apology-song',
         'moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two',
       ],
       year: 2010,
@@ -2683,6 +2080,438 @@ export default {
           { outlet: 'YouTube — LadyStefani (fan archive)', url: 'https://www.youtube.com/watch?v=L8-HPbEemcY' },
         ],
         photos: [],
+      },
+    },
+
+    {
+      year: 2012,
+      month: 10,
+      day: 9,
+      category: 'music',
+      // Cross-link (Stage 3, 2026-07-27): the "I Knew You Were Trouble"
+      // cluster — the dubstep debut, its global chart run, and the video's
+      // birthday drop — now interlink.
+      relatedIds: [
+        'moment:vault-red-i-knew-you-were-trouble-goes-global',
+        'moment:vault-red-the-i-knew-you-were-trouble-video-drops-on-her-23rd-birthday',
+      ],
+      title: 'I Knew You Were Trouble brings dubstep to pop radio',
+      snippet: 'A wobble-bass drop in the middle of a breakup song — critics called it the moment mainstream pop stopped being "sonically conservative."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
+      moment: {
+        context:
+          'Produced with Max Martin and Shellback after Taylor sketched the melody on piano, the drop was there — by her account — to convey the chaotic emotions of the lyrics, not to chase a trend.\n\nCritics treated it as a hinge point anyway: the New York Times\' Jon Caramanica called the wobble a "wrecking ball" that shifted "the dynamic of not only the song but also of Ms. Swift\'s career," and the Los Angeles Times noted that while DJs like Skrillex and Zedd had popularized dubstep, this was the song that introduced it to a mainstream pop audience that had been "sonically conservative for the past half-decade." It sold 416,000 downloads in its first week — making her the first artist ever with two 400,000-download opening weeks — and peaked at No. 2 on the Hot 100.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 9,
+      category: 'fashion',
+      title: 'High-waisted shorts become a recurring signature',
+      snippet:
+        'Sparkling oxfords, Keds, and high-waisted shorts on nearly every red carpet and stage appearance — a 1950s-inflected throughline across the whole era, from the VMAs to the Grammys.',
+      sourceUrl: 'https://www.foxnews.com/lifestyle/photos-taylor-swift-and-her-signature-high-waisted-shorts',
+      thumbnailUrl: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1',
+      moment: {
+        context:
+          'Documented instances stack up across the whole album cycle: the 2012 MTV VMAs performance of "We Are Never Ever Getting Back Together," the iHeartRadio Music Festival that September, the MTV European Music Awards in November, both coasts\' Jingle Balls that December — KIIS FM in Los Angeles and Z100 at Madison Square Garden — and white high-waisted shorts at the February 2013 Grammys. The silhouette even followed her off duty, turning up in a retro black-and-white swimsuit while paddleboarding in Westerly, Rhode Island.\n\nFashion director Melissa Liebling-Goldberg told Fox News the retro high-waist look was a deliberate throughline: "Taylor Swift is really bringing back the retro look of a high waist." The appeal, she explained, was practical as much as nostalgic — "the trick to making it flattering is finding the right proportion to your torso" — and versatile enough to work "with everything from retro bikinis to flared skirts to short shorts."',
+        sources: [
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/lifestyle/photos-taylor-swift-and-her-signature-high-waisted-shorts',
+          },
+        ],
+        // T16 image-fix pass (2026-07-10): the original URL requested Fox's
+        // 96x96 thumbnail rendition (3 KB, unusable). Swapped to the same
+        // CDN asset's 1200x1200 rendition — same photo, same host, just a
+        // usable size. Verified HTTP 200 + image/jpeg + subject visually
+        // confirmed this session (Swift on stage in striped top and
+        // high-waisted black shorts, arm raised over the crowd).
+        photos: [
+          {
+            url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1',
+            // Face upper-center as she stands above the crowd; keep it framed under a wide crop.
+            focalPoint: '48% 30%',
+            credit: 'Fox News',
+          },
+        ],
+        // Shop pass (2026-07-21): no single pair was ever named -- a
+        // current retro high-waisted denim short, verified in stock, in
+        // the same recurring silhouette.
+        products: [
+          {
+            brand: 'GOLDSTITCH',
+            item: 'Vintage Denim High-Waisted Jean Shorts',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Womens-Juniors-Vintage-Waisted-Shorts/dp/B00KSYPWWO',
+            price: '$14.98',
+            isAlternative: true,
+            altNote: 'No single named pair -- she wore many high-waisted shorts across the era -- this is a current pair in the same retro-inflected silhouette.',
+          },
+        ],
+      },
+    },
+
+    // --- Business/chart + music + sightings depth pass (2026-07-05) ---
+    {
+      significance: 'notable', // her first-ever Hot 100 #1, the chart record that opened the era's whole commercial run (docs/decisions.md, 2026-07-19)
+      year: 2012,
+      month: 8,
+      day: 22,
+      category: 'business',
+      title: "'We Are Never Ever Getting Back Together' becomes her first-ever Hot 100 No. 1",
+      // Era-timeline milestone + video (issue #616, 2026-07-29): moved here
+      // from the now-deleted duplicate stub `red-wanegbt`, which told the
+      // same single's chart-topping story in two sentences with no sources.
+      milestone: { id: "m-red-0", label: "First #1 single", kind: "award" },
+      video: { youtubeId: "WA4iX5D9Z64", title: "Taylor Swift - We Are Never Ever Getting Back Together" },
+      snippet:
+        "Red's lead single leapt from No. 72 to No. 1 in a single week — her first career Hot 100 chart-topper on her 46th entry, after 'You Belong With Me' and 'Today Was a Fairytale' had both stalled at No. 2.",
+      sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/4/40/We_Are_Never_Ever_Getting_Back_Together.png',
+      moment: {
+        context:
+          "The song sold 623,000 downloads in its first week — the highest one-week digital sales total ever by a female artist at the time, and second all-time behind only Flo Rida's \"Right Round.\" It entered the Hot 100 Airplay chart at No. 25 before jumping to No. 14 the next week on a 29% surge in radio audience. The single led the rollout for Red's October 22 release, arriving as Taylor's first Hot 100 No. 1 after two previous singles had each peaked at No. 2.\n\nThe song itself was written almost by accident: a friend of an ex dropped by the studio while Taylor was working with Max Martin and Shellback and mentioned rumors the couple were reconciling — after the friend left, Taylor picked up an acoustic guitar, improvised the refrain on the spot, and the three finished the song in about 25 minutes. It went on to spend three non-consecutive weeks at No. 1 and pick up a Record of the Year nomination at the Grammys — even as country radio kept it out of the Country Airplay top ten, an early flashpoint in the was-she-still-country debate that shadowed the whole album.",
+        sources: [
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/We_Are_Never_Ever_Getting_Back_Together' },
+          // Merged (issue #616 dedup) from the now-deleted duplicate
+          // `red-wanegbt` stub, which a later vault pass had sourced.
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2247416/the-number-ones-taylor-swifts-we-are-never-ever-getting-back-together/columns/the-number-ones',
+            source_title: 'The Number Ones: Taylor Swift\'s "We Are Never Ever Getting Back Together"',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18, #762): single cover viewed — face sits top-left,
+        // so the focal point pulls up-left. Added the 2013 Grammys ringmaster performance of
+        // this song (the ceremony where it was up for Record of the Year, per context above);
+        // PopCrush's own article image, curl-verified 200 + image/webp, vision-confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/40/We_Are_Never_Ever_Getting_Back_Together.png',
+            credit: 'Big Machine Records',
+            focalPoint: '30% 20%',
+          },
+          {
+            url: 'https://townsquare.media/site/252/files/2013/02/TaylorSwift1.jpg?w=980&q=75',
+            credit: 'Getty Images / PopCrush',
+            focalPoint: '45% 28%',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 10,
+      day: 16,
+      category: 'music',
+      title: 'State of Grace opens Red with her first arena-rock swing',
+      snippet:
+        'A "howling, U2-style epic with reverb-drenched guitars," per Rolling Stone — Taylor\'s own description was simpler: "This sounds like the feeling of falling in love in an epic way."',
+      sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/state-of-grace',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/8/8a/Taylor_Swift_-_State_of_Grace.png',
+      moment: {
+        context:
+          'Previewing the song on Good Morning America, Taylor explained: "I wrote this song about when you first fall in love with someone. The possibilities. Kind of thinking about the different ways that it could go."\n\nOn the sound she added: "It\'s a really big sound. To me, this sounds like the feeling of falling in love in an epic way" — a deliberate departure into arena rock that opens the album before its country roots resurface. A stripped-down acoustic version included on the Target-exclusive edition was, in her words, "really acoustic and like emotional and sweet."',
+        sources: [{ outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/state-of-grace' }],
+        // Real-photo pass (2026-07-09): promotional single cover from Wikipedia's
+        // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/8a/Taylor_Swift_-_State_of_Grace.png',
+            credit: 'Big Machine Records',
+            caption: 'Promotional single cover for "State of Grace," released ahead of the album in October 2012.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+
+    // --- Deep timeline fill (2026-07-08): release/tour/business/relationship
+    // depth for an era that had 0 release items and 1 tour item. New items
+    // carry the audit's additive provenance fields (slug + publisher/
+    // source_type/accessed_at/reliability_score alongside legacy {outlet,url}),
+    // same convention as the-life-of-a-showgirl.mjs. Every claim verified
+    // against its cited source via search on 2026-07-08; no fabrication.
+    // Photos deliberately omitted where no already-verified image URL exists.
+    {
+      slug: 'red-announced-google-hangout',
+      year: 2012,
+      month: 8,
+      day: 13,
+      category: 'release',
+      title: 'Red announced live from her living room, on a Google+ Hangout',
+      snippet:
+        'A worldwide webcast from Nashville on August 13, 2012: the album title, the October 22 date, and — dropped the same night — a brand-new single called "We Are Never Ever Getting Back Together."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
+      moment: {
+        context:
+          'More than 70,000 fans were watching at the stream\'s peak as she laid out the whole plan: a 16-track album called Red, out October 22, with her first outside co-writers since she wrote all of Speak Now solo — Ed Sheeran and Max Martin among them.\n\nShe explained the title as an emotional color-code, saying the songs were "all pretty much about the kind of tumultuous, crazy, insane, intense, semi-toxic relationships that I\'ve experienced in the last two years." Then she premiered "We Are Never Ever Getting Back Together," which went on to become her first career Hot 100 No. 1 — a direct-to-fans rollout she\'s been elaborating on ever since.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
+            source_title: 'Red (Taylor Swift album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-to-release-new-red-album-in-october-191751/',
+            source_title: "Taylor Swift to Release New 'Red' Album in October",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
+            source_title: "Taylor Swift's New Single Hits No. 1 on Hot 100",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18, #762): added the webcast still itself — Taylor
+        // in the living room with fans, Red cover on the screen behind her — from Taste of
+        // Country's own announcement-day article. Curl-verified 200 + image/webp, vision-
+        // confirmed as the Aug 13, 2012 Google+ Hangout. Cover art focal matches the copy
+        // on the Grammys-noms page.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
+            credit: 'Big Machine Records',
+            focalPoint: '50% 32%',
+          },
+          {
+            url: 'https://townsquare.media/site/204/files/2012/08/TaylorSwiftRed.jpg?w=980&q=75',
+            credit: 'YouTube webcast still / Taste of Country',
+            focalPoint: '46% 42%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'red-ronan-stand-up-to-cancer',
+      year: 2012,
+      month: 9,
+      day: 8,
+      category: 'music',
+      title: 'Ronan, a charity single built from a grieving mother\'s blog',
+      snippet:
+        'Written from Maya Thompson\'s blog posts about her son Ronan, who died of neuroblastoma at three — Thompson gets a co-writing credit, and every dollar went to fighting cancer.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Ronan_(song)',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
+      moment: {
+        context:
+          'Taylor debuted the song live at the Stand Up to Cancer telethon on September 8, 2012, and released it as an iTunes-exclusive the same night, with all proceeds donated to cancer charities. She assembled the lyrics from direct quotes in Thompson\'s blog about her son, crediting her as co-writer — with Thompson\'s share of the proceeds going to her Ronan Thompson Foundation. The song reached No. 16 on the Hot 100 and was certified gold, and Thompson told MTV that Taylor "got it in a way that most people don\'t."\n\nSwift has treated the song as close to unperformable since: she has sung it live only twice, at the 2012 telethon and again on August 17, 2015 in Glendale, Arizona, when Thompson attended the 1989 World Tour. She re-recorded it for Red (Taylor\'s Version) in 2021 — after writing to Thompson for permission, explaining that Red was "an album of heartbreak and healing ... and of the loss of an imagined future alongside someone."',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Ronan_(song)',
+            source_title: 'Ronan (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-debuts-ronan-at-stand-up-to-cancer-benefit-122781/',
+            source_title: "Taylor Swift Debuts 'Ronan' at Stand Up To Cancer Benefit",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // Real-photo pass (2026-07-09): Wikimedia Commons hosts a public-domain
+        // vector replica of the text-only "Ronan" single cover (the artwork is
+        // below the threshold of originality). Faithful to the real cover but not
+        // the original raster file, so kind 'reference' with an honest caption.
+        // Verified HTTP 200 + image/png this session.
+        // Photo-enrichment audit (2026-07-18, #762): stays at one image. No reachable
+        // outlet-CDN photo depicts the SU2C telecast performance itself — Taste of Country's
+        // own article images are a dead placeholder (Ronan.jpg) and an off-hook 2012 VMAs
+        // red-carpet close-up (TaylorSwiftCP.jpg), both downloaded and viewed this run; the
+        // telecast stills live only on watermarked wire services. Cover viewed: text block
+        // sits in the upper-middle of the square, so the focal point rides slightly high.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
+            credit: 'Big Machine Records (vector replica via Wikimedia Commons)',
+            caption: 'The "Ronan" single cover — shown here as a faithful vector replica of the text-only artwork, hosted on Wikimedia Commons.',
+            kind: 'reference',
+            focalPoint: '50% 42%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'red-begin-again-single',
+      // Cross-link (Stage 3, 2026-08-06): the "Begin Again" cluster — the
+      // single, and its music-video companion piece.
+      relatedIds: ['moment:vault-speak-now-begin-again-as-the-soft-landing'],
+      year: 2012,
+      month: 10,
+      day: 1,
+      category: 'release',
+      title: 'Begin Again sends a country valentine ahead of the pop swerve',
+      snippet:
+        'Sent to country radio October 1 (after a Sept. 25 digital release), three weeks before the album — a soft, waltzing country ballad about a first date that heals, deliberately reassuring country radio before Red\'s dubstep drop landed.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/1/1e/Taylor_Swift_-_Begin_Again.png',
+      moment: {
+        context:
+          'The second track released from Red, sent to country radio as a counterweight to the pop-leaning lead single. Taylor described it as a song about "when you\'ve gotten through a really bad relationship and you finally dust yourself off and go on that first date after a horrible breakup."\n\nIt debuted and peaked at No. 7 on the Hot 100 on release-week downloads and earned a Grammy nomination for Best Country Song. The Philip Andelman video — a solitary, contemplative walk through Paris that ends at a café — was, in her words, a "love letter" to the city, about "somebody moving on and finding yourself again."',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)',
+            source_title: 'Begin Again (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
+        // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18, #762): added a Commons shot of her performing
+        // this exact song on the Red Tour B-stage (Tacoma Dome; uploader's description names
+        // "Begin Again"). CC BY-SA 2.0, curl-verified 200 + image/jpeg, vision-confirmed —
+        // solo under a spotlight on the riser, which is how the song was staged.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Taylor_Swift_-_Begin_Again.png',
+            credit: 'Big Machine Records',
+            caption: 'Single cover art for "Begin Again," released October 1, 2012.',
+            kind: 'primary',
+            focalPoint: '62% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_-_Red_Tour_-_Tacoma_Dome_-_Begin_Again_on_B-stage.jpg',
+            credit: 'Selbe Lynn / Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Performing "Begin Again" alone on the B-stage riser during the Red Tour at Tacoma Dome.',
+            kind: 'primary',
+            focalPoint: '50% 42%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'red-title-track-names-the-album',
+      year: 2012,
+      month: 10,
+      day: 2,
+      category: 'music',
+      title: 'Red, the song that named the record',
+      snippet:
+        'Loving him was like driving a new Maserati down a dead-end street — the title track\'s color-coded theory of a relationship whose emotions ran too hot to be anything but red.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/c/c0/Taylor_Swift_-_Red_%28Single%29.png',
+      moment: {
+        context:
+          'Taylor has explained that the album took its name from this song\'s central idea: the semi-toxic relationships she was writing about were defined by intense, burning emotion — red — rather than the blues and grays of ordinary heartbreak. The lyric maps feelings to colors directly: losing him was blue, missing him was dark gray, loving him was red. She wrote it on September 7, 2011, on the flight home to Nashville after a Tacoma, Washington show, homesick and still mid-tour.\n\nOn release week the track debuted at No. 6 on the Hot 100 on album-preview downloads, then became the album\'s fifth single in June 2013, peaking at No. 2 on Hot Country Songs across a 42-week run — at the time the longest-charting single of her career. Its biggest television moment came at the November 2013 CMA Awards, reworked acoustically with Alison Krauss on fiddle and Vince Gill on harmony.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)',
+            source_title: 'Red (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
+        // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18, #762): added a Red Tour live close-up (Jana
+        // Zills, St. Louis, March 2013 — CC BY 2.0, curl-verified 200 + image/jpeg, vision-
+        // confirmed): red gown at the red crystal mic, the album's signature color on stage.
+        // An era-performance shot, not a photo of the writing session — no photo of that
+        // exists; flagged here for honesty.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/c/c0/Taylor_Swift_-_Red_%28Single%29.png',
+            credit: 'Big Machine Records',
+            caption: 'Single cover art for "Red," the album\'s fifth single.',
+            kind: 'primary',
+            focalPoint: '28% 15%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Red_Tour_4%2C_2013.jpg',
+            credit: 'Jana Zills / Wikimedia Commons (CC BY 2.0)',
+            caption: 'On the Red Tour in St. Louis, March 2013 — red gown, red crystal mic.',
+            kind: 'archival',
+            focalPoint: '46% 24%',
+          },
+        ],
+      },
+    },
+    // Duplicate stub removed (issue #616, 2026-07-29): told the same "We Are
+    // Never Ever Getting Back Together" chart-topping story as the richer,
+    // sourced item above in two sentences with no sources; its milestone
+    // marker (m-red-0) and video field moved there.
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "red-begin-again",
+      year: 2012,
+      month: 10,
+      day: 1,
+      category: "music",
+      title: "“Begin Again” as the soft landing",
+      snippet: "A gentle promotional single about hope after heartbreak.",
+      video: { youtubeId: "cMPEd8m79Hw", title: "Taylor Swift - Begin Again" },
+      moment: {
+        sources: [
+          {
+            outlet: 'HuffPost',
+            url: 'https://www.huffpost.com/2012/09/24/taylor-swift-begin-again_n_1909027.html',
+            source_title: 'Taylor Swift\'s \'Begin Again\' Previewed On \'Good Morning America\'',
+            publisher: 'HuffPost',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-begin-again-preview/',
+            source_title: 'Taylor Swift Samples New Song \'Begin Again\' on \'Good Morning America\'',
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
+        context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
       },
     },
   ],

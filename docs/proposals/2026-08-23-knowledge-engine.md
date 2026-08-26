@@ -392,8 +392,10 @@ via layers 1–3. Then delete the `google_news` source row.
 | TikTok | — | no compliant route | — | never |
 
 Store per item: title, snippet ≤2,000 chars, permalink, published_at,
-author-handle **hash**, platform, source tier. Never full bodies, never
-media rehosted, never a private account.
+author-handle **hash**, platform, source tier. Never full post bodies, never
+media rehosted, never a private account. Reddit comment bodies are transient
+extract context under the 2026-08-25 decision reversal below; they are not
+persisted as raw items.
 
 ### 4.4 Reddit via RSS — the honest interim
 
@@ -406,21 +408,26 @@ week. Interim posture, to be logged in `decisions.md` as a founder call:
   per 4h run, with a `User-Agent` that names the site and a contact email.
   That is ~36 requests/day — a reader, not a scraper. Expect 429s; back off
   and skip, never retry-storm.
-- Store titles, permalinks, scores, and our-words summaries only. No
-  comment bodies (RSS doesn't carry them anyway), no usernames beyond a
-  hash. Aggregate-only in `fan_signal`, same as every fan source.
+- Store post titles, permalinks, scores, and our-words summaries only. For a
+  Reddit post that has already clustered into a story, its public post RSS
+  may supply up to 15 top comment bodies as transient extract context. No
+  usernames beyond a hash, and no commenter identity reaches the model.
+  Output stays aggregate-only in `fan_signal`, with no quotes or close
+  paraphrases of an individual comment.
 - **Say it in the meeting.** "We're reading your public RSS at 36
   requests a day while this is pending; we'd rather be on the API." That
   is the whole point of the interim being disclosed rather than quiet.
 - The adapter is a feature flag; the day the OAuth adapter lands,
-  `reddit-rss` is disabled in the same PR. Comment threads (where the real
-  clowning happens) only arrive with the API — RSS gives us the *topics*,
-  not the *arguments*. That's fine for the first two weeks.
+  `reddit-rss` is disabled in the same PR. Public post RSS supplies bounded
+  comment-thread context in the interim; OAuth remains the intended durable
+  adapter.
 
 ### 4.5 Extract (Haiku 4.5, forced tool, cached system prompt)
 
 One call per new cluster; input = cluster titles+snippets (≤6k chars),
-the `symbol_lexicon` keys, current era id, today. Output tool
+optional Reddit comment threads for already-clustered posts (≤6k chars,
+bodies only, no commenter identity), the `symbol_lexicon` keys, current era
+id, today. Output tool
 `record_knowledge`:
 
 ```ts

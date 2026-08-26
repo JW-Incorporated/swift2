@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { deepLinkTarget } from './deepLink';
+import { deepLinkTarget, resolveVideoDeepLink } from './deepLink';
 
 const LENSES = ['love-story', 'fashion', 'easter-eggs'];
 
@@ -103,5 +103,66 @@ describe('deepLinkTarget', () => {
       id: 'red',
     });
     expect(deepLinkTarget('?lens=not-a-thread', LENSES)).toBeNull();
+  });
+});
+
+// #3312 — a `?item=` id that isn't a moment may be a video's slug instead
+// (videos have no `?video=` param of their own). These fixtures stand in for
+// the real `getEra`/`allVideoRecordsForEra`/`findVideoEraId` lookups so the
+// resolution order is testable without importing content data.
+describe('resolveVideoDeepLink', () => {
+  const isValidEraId = (id: string) => id === 'folklore' || id === 'red';
+  const eraHasVideoSlug = (eraId: string, slug: string) =>
+    (eraId === 'folklore' && slug === 'icon-sessions-grammy-museum-medley') ||
+    (eraId === 'red' && slug === 'red-video');
+  const findEraForVideoSlug = (slug: string) =>
+    slug === 'icon-sessions-grammy-museum-medley'
+      ? 'folklore'
+      : slug === 'red-video'
+        ? 'red'
+        : null;
+
+  it('trusts a valid era hint that actually owns the slug', () => {
+    expect(
+      resolveVideoDeepLink(
+        'icon-sessions-grammy-museum-medley',
+        'folklore',
+        isValidEraId,
+        eraHasVideoSlug,
+        findEraForVideoSlug,
+      ),
+    ).toBe('folklore');
+  });
+
+  it('falls back to scanning every era when the hint is wrong', () => {
+    // Mangled/mismatched hint (e.g. a hand-typed URL) — the slug still
+    // resolves via the scan rather than failing outright.
+    expect(
+      resolveVideoDeepLink(
+        'icon-sessions-grammy-museum-medley',
+        'red',
+        isValidEraId,
+        eraHasVideoSlug,
+        findEraForVideoSlug,
+      ),
+    ).toBe('folklore');
+  });
+
+  it('falls back to scanning every era when no hint is present', () => {
+    expect(
+      resolveVideoDeepLink(
+        'icon-sessions-grammy-museum-medley',
+        null,
+        isValidEraId,
+        eraHasVideoSlug,
+        findEraForVideoSlug,
+      ),
+    ).toBe('folklore');
+  });
+
+  it('returns null for a slug that resolves nowhere', () => {
+    expect(
+      resolveVideoDeepLink('not-a-real-slug', 'folklore', isValidEraId, eraHasVideoSlug, findEraForVideoSlug),
+    ).toBeNull();
   });
 });

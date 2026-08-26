@@ -281,15 +281,24 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
   // and "cleared since the last brief" then lists everything the org closed.
   const askedNumbers = new Set();
   for (const b of briefs) for (const ask of asksInBrief(b.body)) for (const n of ask.issues) askedNumbers.add(n);
+  // These need real comments too, same as the founder-decision bank above —
+  // otherwise a founder answering directly on a non-`founder-decision`-labeled
+  // ticket (e.g. a `launch-gate` issue) can never resolve here: resolveAsk()
+  // only checks `issue.comments`, and a hardcoded `comments: []` makes that
+  // check permanently blind. This reproduced the exact #799 phantom-ask bug
+  // for #800 (2026-08-25) — Joey answered on the ticket, the brief kept
+  // asking anyway because this branch never fetched his comment.
   const recentlyAsked = await Promise.all([...askedNumbers]
     .filter((n) => !withComments.some((d) => d.number === n))
     .slice(0, 40)
     .map(async (n) => {
+      const cr = await ghApiSoft(`/repos/${repo}/issues/${n}/comments?per_page=100`, []);
+      const comments = (cr.data || []).map((c) => ({ author: { login: c.user?.login }, createdAt: c.created_at, body: c.body }));
       const known = have.get(n);
-      if (known) return { ...known, comments: [] };
+      if (known) return { ...known, comments };
       const r = await ghApiSoft(`/repos/${repo}/issues/${n}`);
       return r.ok && r.data && !r.data.pull_request
-        ? { number: r.data.number, title: r.data.title, state: r.data.state, body: r.data.body, createdAt: r.data.created_at, closedAt: r.data.closed_at, url: r.data.html_url, labels: (r.data.labels || []).map((l) => ({ name: l.name })), comments: [] }
+        ? { number: r.data.number, title: r.data.title, state: r.data.state, body: r.data.body, createdAt: r.data.created_at, closedAt: r.data.closed_at, url: r.data.html_url, labels: (r.data.labels || []).map((l) => ({ name: l.name })), comments }
         : null;
     }));
 
