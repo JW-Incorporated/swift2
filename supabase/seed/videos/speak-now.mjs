@@ -303,5 +303,193 @@ export default {
         ),
       ],
     },
-  ],
+    {
+      slug: 'youtube-presents-taylor-swift-2011',
+      kind: 'performance',
+      title: 'YouTube Presents Taylor Swift',
+      director: null,
+      releasedOn: '2011-09-01',
+      relatedSongs: [],
+      tags: ['Music'],
+      summary:
+        'A feature-length (42-minute) YouTube-exclusive special from September 2011, one of the platform\'s flagship "YouTube Presents" artist specials and among the longest single uploads on her official channel.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-25 (author_name "Taylor Swift", upload
+      // dated 2011-09-01, runtime 42:32). No secondary press coverage of
+      // this specific special was found — summary sticks to facts
+      // verifiable from the upload itself (title/date/runtime).
+      officialUrl: 'https://www.youtube.com/watch?v=OOPFMrF7v4Q',
+      media: [embed('OOPFMrF7v4Q', '2026-08-25')],
+      sources: [yt('OOPFMrF7v4Q', 'YouTube Presents Taylor Swift')],
+    },
+    {
+      slug: 'wonderstruck-in-store-appearances',
+      kind: 'press_event',
+      title: 'Wonderstruck In-Store Appearances',
+      director: null,
+      releasedOn: '2011-11-17',
+      relatedSongs: [],
+      tags: [],
+      summary:
+        "Highlights from Taylor's Wonderstruck fragrance launch appearances at Macy's in New York City, Sephora in Glendale, California, and Belk in Nashville, Tennessee.",
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-25 (author_name "Taylor Swift", upload
+      // dated 2011-11-17); summary lines drawn from the upload's own
+      // description.
+      officialUrl: 'https://www.youtube.com/watch?v=xIoApJgIw8U',
+      media: [embed('xIoApJgIw8U', '2026-08-25')],
+      sources: [yt('xIoApJgIw8U', 'Taylor Swift WONDERSTRUCK In-Store Appearances')],
+    },
+    {
+      // Real-world date (Feb 2012) places this in Speak Now's era window
+      // (2010-10-25–2012-10-21) per docs/decisions.md's "Era placement is
+      // decided by real-world date" entry — even though the companion
+      // official music video ('safe-and-sound-mv') is filed under
+      // supabase/seed/videos/red.mjs (that placement predates this rule
+      // and was not changed here; flagged in the PR body for follow-up).
+      slug: 'safe-and-sound-behind-the-scenes',
+      kind: 'documentary',
+      title: 'Safe & Sound (Behind The Scenes) ft. The Civil Wars',
+      director: null,
+      releasedOn: '2012-02-16',
+      relatedSongs: ['Safe & Sound'],
+      tags: ['Music'],
+      summary:
+        'Behind-the-scenes footage from the "Safe & Sound" video shoot — the Watertown, Tennessee forest and cemetery sequence with The Civil Wars performing by firelight, for The Hunger Games soundtrack.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-25 (author_name "Taylor Swift", upload
+      // dated 2012-02-16, runtime 4:04).
+      officialUrl: 'https://www.youtube.com/watch?v=xDJLsPd6NdY',
+      media: [embed('xDJLsPd6NdY', '2026-08-25')],
+      sources: [
+        yt('xDJLsPd6NdY', 'Taylor Swift - Safe & Sound (Behind The Scenes) ft. The Civil Wars'),
+        wiki('Safe_%26_Sound_(Taylor_Swift_song)', 'Safe & Sound (Taylor Swift song)'),
+      ],
+    },
+    {
+      // See era-placement note on the sibling 'safe-and-sound-behind-the-scenes'
+      // entry above — same reasoning applies here.
+      slug: 'safe-and-sound-the-collaboration',
+      kind: 'documentary',
+      title: 'Safe & Sound (The Hunger Games: Songs From District 12 And Beyond - The Collaboration)',
+      director: null,
+      releasedOn: '2012-02-29',
+      relatedSongs: ['Safe & Sound'],
+      tags: ['Music'],
+      summary:
+        'On the writing session at T Bone Burnett\'s house with The Civil Wars — Taylor brought the title "Safe & Sound" wanting the song\'s more sensitive, bittersweet side; the song was written and recorded in a single two-hour sitting.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-25 (author_name "Taylor Swift", upload
+      // dated 2012-02-29, runtime 4:16).
+      officialUrl: 'https://www.youtube.com/watch?v=dLfkQNnzh2o',
+      media: [embed('dLfkQNnzh2o', '2026-08-25')],
+      sources: [
+        yt(
+          'dLfkQNnzh2o',
+          'Safe & Sound (The Hunger Games: Songs From District 12 And Beyond - The Collaboration)',
+        ),
+        press(
+          'https://www.mtv.com/news/1679213/taylor-swift-safe-and-sound-civil-wars/',
+          "Taylor Swift's 'Safe & Sound' Came Together 'Organically'",
+          'MTV News',
+          'sources the T Bone Burnett writing-session account and the two-hour session detail',
+        ),
+      ],
+    },
+    {
+      slug: 'eyes-open-lyric-version',
+      kind: 'lyric_video',
+      title: 'Eyes Open (Lyric Version)',
+      director: null,
+      releasedOn: '2012-05-17',
+      relatedSongs: ['Eyes Open'],
+      tags: ['Music'],
+      summary:
+        'The lyric video for "Eyes Open," the song Taylor wrote solo for The Hunger Games: Songs From District 12 And Beyond soundtrack — about Katniss Everdeen\'s relationship with the Capitol.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-25 (author_name "Taylor Swift", upload
+      // dated 2012-05-17). Despite the "Lyric Version" title, this is the
+      // song's only official visual release, not a supplementary lyric
+      // video for an already-visualized single.
+      officialUrl: 'https://www.youtube.com/watch?v=8hsVICl7d8k',
+      media: [embed('8hsVICl7d8k', '2026-08-25')],
+      sources: [
+        yt('8hsVICl7d8k', 'Taylor Swift - Eyes Open (Lyric Version)'),
+        wiki('Eyes_Open_(song)', 'Eyes Open (song)'),
+      ],
+    },
+    {
+      slug: 'billboard-woman-of-the-year-2011',
+      kind: 'award_speech',
+      title: 'Taylor Swift — Billboard Woman of the Year',
+      director: null,
+      // Event date (Billboard's Women in Music ceremony); the upload
+      // itself is dated 2012-06-04, well after the December 2011 event —
+      // real-world event date used per the era-placement rule.
+      releasedOn: '2011-12-02',
+      relatedSongs: [],
+      tags: ['Music'],
+      summary:
+        "Accepting Billboard's Woman of the Year honor at the 2011 Women in Music ceremony — at 21, the youngest artist to receive it — and speaking about staying involved in every management and publicity decision on her career.",
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-25 (author_name "Taylor Swift"; upload
+      // dated 2012-06-04, documenting the Dec 2, 2011 ceremony).
+      officialUrl: 'https://www.youtube.com/watch?v=weQBrpLffrA',
+      media: [embed('weQBrpLffrA', '2026-08-25')],
+      sources: [
+        yt('weQBrpLffrA', 'Taylor Swift Billboard Woman of the Year'),
+        press(
+          'https://www.billboard.com/music/awards/taylor-swift-woman-year-honor-speech-6405600/',
+          'Taylor Swift Accepts Woman of the Year Honor, Talks Future of Music Industry',
+          'Billboard',
+          'confirms the December 2, 2011 ceremony, her age, and the acceptance-speech content',
+        ),
+      ],
+    },
+    {
+      // Consolidated record for the 13-part "Ours" behind-the-scenes
+      // micro-series (Dec 2011) rather than 13 separate near-duplicate
+      // entries — each individual clip runs well under a minute and covers
+      // one narrow facet (casting, locations, wardrobe) of the same video
+      // shoot; grouping keeps the rail from being dominated by thin
+      // fragments while still documenting the full series via `sources`.
+      slug: 'ours-behind-the-scenes-series',
+      kind: 'documentary',
+      title: '"Ours" — Behind the Scenes',
+      director: null,
+      releasedOn: '2011-12-07',
+      relatedSongs: ['Ours'],
+      tags: ['Music'],
+      summary:
+        'A 13-part making-of micro-series for the "Ours" video shoot — casting, locations, Taylor\'s look, home movies, and Zach Gilford\'s role — posted across December 2011.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-25 (author_name "Taylor Swift" on every
+      // clip). officialUrl/media point at "We're Making a Video," the
+      // earliest-posted, most general-framing clip in the series.
+      officialUrl: 'https://www.youtube.com/watch?v=beGv3NTnduo',
+      media: [embed('beGv3NTnduo', '2026-08-25')],
+      sources: [
+        yt('beGv3NTnduo', '"Ours" Behind-the-Scenes - We\'re Making a Video'),
+        yt('AtHsg4USz8g', '"Ours" Behind-the-Scenes - The Director'),
+        yt('_zyYtE9di9A', '"Ours" Behind-the-Scenes - "The Story of the Video"'),
+        yt('h6CRgcouLuU', '"Ours" Behind-the-Scenes - Zach'),
+        yt('Y89k5sfHBaw', '"Ours" Behind-the-Scenes - Locations'),
+        yt('gPJ8PFeq9Xw', '"Ours" Behind-the-Scenes - Taylor\'s Look'),
+        yt('HsLl-IL9c7E', '"Ours" Behind-the-Scenes - Home Movies'),
+        yt('0Ot5C6O-KfA', '"Ours" Behind-the-Scenes - Director Casting'),
+        yt('7D6-_twz7YE', '"Ours" Behind-the-Scenes - The Inspiration'),
+        yt('yHqjZUxaigo', '"Ours" Behind-the-Scenes - Message of Ours'),
+        yt('wIvJI6mF1ME', '"Ours" Behind-the-Scenes - Working with Taylor'),
+        yt('QvNW_z1Y7Ls', '"Ours" Behind-the-Scenes - That\'s a Wrap'),
+        yt('IdMI-HCO5QY', '"Ours" Behind-the-Scenes - The Office'),
+        wiki('Ours_(song)', 'Ours (song)'),
+      ],
+    },],
 };
