@@ -1007,7 +1007,7 @@ export default {
             kind: 'archival',
           },
           {
-            url: 'https://i0.wp.com/media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-6.jpg',
+            url: 'https://media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-6.jpg',
             focalPoint: '40% 25%',
             credit: "Dave Hogan, via HollywoodLife",
             caption:
@@ -1015,7 +1015,7 @@ export default {
             kind: 'primary',
           },
           {
-            url: 'https://i0.wp.com/media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-7.jpg',
+            url: 'https://media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-7.jpg',
             focalPoint: '50% 25%',
             credit: "Dave Hogan, via HollywoodLife",
             caption:

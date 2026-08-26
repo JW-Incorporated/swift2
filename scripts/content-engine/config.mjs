@@ -107,6 +107,47 @@ export const CONFIG = {
     // third-party hotlink, so it carries none of the "unvetted host" risk
     // this allowlist exists for (2026-08-24, issue #1968 hardening pass).
     'zpllkavmkkjnxpedhotv.supabase.co',
+    // Reviewed 2026-08-26 for #1723 (second pass): dedicated single-tenant
+    // hostnames (own subdomain/domain, not a shared multi-tenant CDN) for
+    // publishers and archival fashion-ID sites already relied on repeatedly
+    // elsewhere in this corpus as sourceUrl citations, not just images.
+    'ra-grammy-media.ncp.consulting', // The Recording Academy's own press-media subdomain (NCP Consulting hosts their release PDFs/media at this exact host — verified via web search).
+    'entertainmentnow.com', // Already cited corpus-wide with source_type: 'reputable_press'.
+    'www.femestella.com', // Established entertainment/pop-culture outlet (Femestella Media).
+    'www.shefinds.com', // SheFinds Media, founded 2004, established shopping/lifestyle outlet.
+    'www.blogilates.com', // Cassey Ho's own site — primary source for her Popflex brand's Taylor Swift tie-in, already cited elsewhere in this corpus.
+    'media.hollywoodlife.com', // hollywoodlife.com's own media subdomain — same publisher already trusted above.
+    'www.thewrap.com', // Established Hollywood trade publication.
+    'medias.spotern.com', // Spotern's own dedicated media subdomain (outfit/prop-ID catalog), already cited alongside Wikipedia in this corpus.
+    'tayswiftstyle.wordpress.com', // Dedicated single-blog WordPress.com subdomain (not the shared wordpress.com/i0.wp.com CDN); cited 18x corpus-wide as a fashion-ID source.
+    'taylorpictures.net', // Long-running, single-purpose Taylor Swift candid-photo archive; cited 8x corpus-wide.
+    'stealherstyle.net', // Dedicated style-ID blog; cited 5x corpus-wide.
+    'fashionsizzle.com', // Dedicated fashion-ID blog; cited 4x corpus-wide.
+  ],
+
+  // ── Scoped multi-tenant CDN allowlist (host + path prefix) ────────────────
+  // Some legitimate publishers/photographers sit on a generic multi-tenant
+  // CDN where the tenant identity lives in the URL PATH, not the hostname
+  // (Google Cloud Storage buckets, Squarespace/Prismic/Format customer
+  // sites). A bare hostname entry above would trust every other tenant on
+  // that shared domain too, which is exactly what the "keep generic CDNs
+  // off the allowlist" rule above exists to prevent. These entries scope
+  // trust to one specific bucket/site instead. Checked in addition to
+  // hostAllowlist, never a substitute for it. Reviewed 2026-08-26 for #1723.
+  scopedHostAllowlist: [
+    // Spotify Newsroom's own GCS-backed WordPress media bucket. Every image
+    // seen under this prefix in the corpus is credited "Spotify Newsroom"
+    // with a sourceUrl on newsroom.spotify.com.
+    { host: 'storage.googleapis.com', pathPrefix: '/pr-newsroom-wp/' },
+    // Beth Garrabrant's own Format portfolio — the credited photographer for
+    // the official folklore album art; this is her site's unique Format ID.
+    { host: 'format.creatorcdn.com', pathPrefix: '/9fcd0df5-9285-4916-8837-8946bbc00b90/' },
+    // "Taylor Swift Style" — a long-running, press-cited fashion-ID archive
+    // (see the-life-of-a-showgirl.mjs photo-pass note) — this is its unique
+    // Squarespace site ID.
+    { host: 'images.squarespace-cdn.com', pathPrefix: '/content/v1/6616cae0172b170a8dd0818d/' },
+    // Birchbox's own Prismic CMS bucket (birchbox.com/magazine).
+    { host: 'images.prismic.io', pathPrefix: '/birchbox/' },
   ],
 
   // ── Text safety pre-filters (deterministic screens that route to review) ──

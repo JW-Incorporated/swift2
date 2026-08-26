@@ -1127,7 +1127,7 @@ export default {
         "Nine Moonmen, tying a record untouched since Peter Gabriel's 1987 sweep — including all four top categories in one night.",
       sourceUrl: 'https://www.thewrap.com/taylor-swift-most-video-of-the-year-wins-vmas-2023/',
       thumbnailUrl:
-        'https://i0.wp.com/www.thewrap.com/wp-content/uploads/2023/09/taylor-swift-1.jpg?fit=1200%2C675&quality=89&ssl=1',
+        'https://www.thewrap.com/wp-content/uploads/2023/09/taylor-swift-1.jpg?fit=1200%2C675&quality=89&ssl=1',
       moment: {
         context:
           'Every one of the nine trophies traced back to Midnights: "Anti-Hero" alone swept Video of the Year, Song of the Year, Best Pop, Best Direction, Best Cinematography, Best Editing, and Best Visual Effects, with Artist of the Year and Album of the Year rounding out the night — nine wins from 11 nominations.\n\nThe Video of the Year trophy was the historic one: her fourth in the show\'s top category, after "Bad Blood" (2015), "You Need to Calm Down" (2019), and "All Too Well: The Short Film" (2022), in a category where no other artist — not Beyoncé, Rihanna, or Eminem — has more than two.',
@@ -1138,7 +1138,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://i0.wp.com/www.thewrap.com/wp-content/uploads/2023/09/taylor-swift-1.jpg?fit=1200%2C675&quality=89&ssl=1',
+            url: 'https://www.thewrap.com/wp-content/uploads/2023/09/taylor-swift-1.jpg?fit=1200%2C675&quality=89&ssl=1',
             credit: 'TheWrap',
             focalPoint: '50% 35%',
           },
