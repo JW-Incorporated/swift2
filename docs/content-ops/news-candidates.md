@@ -27,6 +27,46 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Honors Dolly Parton's Generosity
+
+- first seen: 2026-08-26 14:01 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has expressed her admiration for Dolly Parton, calling her 'eternally generous' in a heartfelt tribute. The acknowledgment highlights Swift's respect for Parton's contributions to music and philanthropy.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPOFpLYklQVlZIUXRJMkkwOWJEVWlyOUxPZ1JoZ2FyNXpmNXNlQ1hGOTBoVnM0ZXlMTWtKMTVWT3pjT1ZqZldTYjV2RFM4bDJFUkVuaUN2MkZTd0hlenhOTURfYTA2VC1zVlhyRW56a2otelhLam0wOWljekFlNjcyRHpVVGpLaFRCT21pUE1JVjJwOXI2d2pXRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Critics' Initial Misjudgments on Taylor Swift's Work Addressed
+
+- first seen: 2026-08-26 14:01 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses common misconceptions that early critics had regarding Taylor Swift's music. It highlights how these critiques failed to capture the true essence of her work.
+- sources:
+  - [unverified] Newser — https://news.google.com/rss/articles/CBMimAFBVV95cUxPM0pQMXpHVnJNWVZMNTVUOXp4WFF1bHEzTUJIYjlhckpxWDgwbHdsanNZU05Ic0RGbmYzVzM2c21xbXpIQUd6TE8yMHo4M3JLbk01Z0RnWmRURXRhaDN0MG9wQ1FRWkhrV1VRYlJlT0k2RnU5MEQtQURaWDNvdHIwcDluMkRpUHpNdkNCVVVtRWJvOE54QXdtMQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Jack White Revives ‘Jolene’ Cover in Tribute to Dolly Parton
+
+- first seen: 2026-08-26 14:01 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Jack White performed his cover of Dolly Parton's 'Jolene' live for the first time as a solo artist, reviving a song that was a staple in his previous band, the White Stripes. The cover was originally released as a B-side in 2000 and has been performed extensively by White in the past.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2509433/jack-white-revives-jolene-cover-in-tribute-to-dolly-parton/news/
+
+## Beyoncé and Taylor Swift Pay Tribute to Dolly Parton
+
+- first seen: 2026-08-26 14:01 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Beyoncé, Taylor Swift, and other artists come together to honor Dolly Parton in a heartfelt tribute. The piece highlights the significant impact Parton has had on the music industry.
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMibkFVX3lxTE5RckUwejhtLXZJb0tyZmtvbWZlYXc1aVhYaFRQbjFzczdEX0g3SEhEY0VxZzdSQmllM0RyOVV3b2F3MTh0STFlZTlsUk9rRjVNcWZVcF9RMXVkNkpTNGlNVnprdVZMcGdFTzlrbEpB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Among Stars Mourning Dolly Parton
+
+- first seen: 2026-08-26 14:01 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift joins fellow artists including Beyoncé and Reba McEntire in mourning the loss of Dolly Parton. The tribute highlights the impact Parton had on the music industry and her legacy.
+- sources:
+  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMiigFBVV95cUxOeXdJYUZVM3c2S3U1OWE4VnJlQW1MU3FMdmhFOHlVUldNRVpOc0NtY3U0U2kwWjdwaF9yMndZRGJIX1ZOajhnbmRIRlU0U3FxMGlhSlBrZ2tLcndScXVTa2NrYXZpazM2VzZxYUF2eFE3RFRySzVneHVEVmFWUEFBYVh3TExBMVFGZUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift shares origin of 'I Knew You Were Trouble' as sad ballad
 
 - first seen: 2026-08-26 05:47 UTC | category: music | importance: 5
@@ -69,14 +109,6 @@ Stories: 120
 - sources:
   - [unverified] JamBase — https://news.google.com/rss/articles/CBMihAFBVV95cUxPcW41WHY4QWxmMDNoazROZnhVVEFRTURwWGh1WV9hTXJZU3V2bzNXQW5rYWRVV1dtSjVjMEtrOU9CQ0xuajJReERrZlV3UkUxdERZeXI5U0JBbWVhemtXVHZBazhjYXRlTHljSXJ6a3pTdXVYajdZdF9aVEdFNFNlYXAzLXo?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Pays Tribute to Dolly Parton
-
-- first seen: 2026-08-26 05:47 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift honors Dolly Parton’s legacy, highlighting her compassion for others and her strength as an artist in a heartfelt tribute.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/taylor-swift-dolly-parton-tribute-1235615646/
-
 ## Taylor Swift's Floral Dress Sells Out Quickly
 
 - first seen: 2026-08-26 05:47 UTC | category: fashion | importance: 7
@@ -84,6 +116,15 @@ Stories: 120
 - summary: A floral dress worn by Taylor Swift has sold out within hours of release, as reported by The Zoe Report. Swift's influence continues to drive significant demand in the fashion world.
 - sources:
   - [unverified] The Zoe Report — https://news.google.com/rss/articles/CBMidEFVX3lxTE1nSGtqNjVkQVFQLVB1anFtbDFHNlJQWk5hUnQ2ZG9nQ2haQ296SGF1RThEU3FsVXl6eFFQX0lqVG44SU55UkR5aUFNaGljclJKUWRzS1pJY240RkpLYmxsUURsSzJfYjdxZG9GUm5hX1ZpNTd3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Pays Tribute to Dolly Parton
+
+- first seen: 2026-08-26 05:47 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift honors Dolly Parton’s legacy, highlighting her compassion for others and her strength as an artist in a heartfelt tribute.
+- sources:
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMimgFBVV95cUxQUFBiVHNBZlMzMTdFNm1hbnZ3MmNqMVZTdThJdkJHQmVoTC1XVUlKYWtkMmdqd1NyTi03aWJ0ajN1aEdPTC10c1BvdlJnWHBtbjlZNF9jc0R6X2MzNm5Ta3BsZlNQSlhpLW12X2pNd0Uzc050LUREVUQ4Wl92S3d5RFB4U3RPMXNZajJleXF4QTR6YURGU0ltbERn?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/taylor-swift-dolly-parton-tribute-1235615646/
 
 ## Taylor Swift's 10-Word Rule Highlights Her Career Work Ethic
 
@@ -113,9 +154,10 @@ Stories: 120
 ## Dolly Parton Acknowledges Gift from Taylor Swift and Travis Kelce
 
 - first seen: 2026-08-26 02:38 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 9
+- verification_status: corroborated | source_count: 10
 - summary: Dolly Parton expressed gratitude towards Taylor Swift and Travis Kelce for a significant $2 million donation shortly before her passing. This donation highlights the philanthropic efforts of the two stars.
 - sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinAFBVV95cUxQX1NTUEx5NFVuOWVJeEhVRm52ekxHNnoxcURuZl9EeUlJbDU4MndBNGJwbnh3eXNuM0t1Zmpvbzd5SG56RG8xNEdxMzNRblZoOUNKSm0xNEtXNTZNZVBETTh5bDFLbVFvWGhkSlZvVlp3S0hSSzNLWWVCMVQ1cV9wTXRNS1dwb1BQYncyZzdiU2gtWGVEZF9ITkpTWFU?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] KMBC — https://news.google.com/rss/articles/CBMitwFBVV95cUxON1ZzU01HREhsMWlMWnJaTzRVcWhUdVRCbXpBdDZfN3BwSmxDYTg1ajdqSzVWTVotdW9KZEt0ZlNVMnltc3hCYnZEaGlJdkJpU2lwUFY3YmdGejZaLXd4REY4cGpiemlUSlFXa1QxQk9NNGhVQkxpZXY4VXRka0JDSHVOWUo3eFBiWjVubGhwM3JSSHpVeWxrRXdHSmVYVmV4TlFhYWV6ZThZUmUzMEpYOEkzVVBEcUE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMinwFBVV95cUxOT25lR0ZsUkxwOXhWY0hKdHI1Q0tCb3o4WW9CS2hQYUplU19zM3V4NmFFM1ZmdHJMbE96RjBSVkxOd0hiTmx1QjRuMU1mcHgxTTZuVHpOS05KdHVfaGRkb1hyOE16U3lpdHpkb3BPM3ZuMFlvZjFSYjZLdjI5eU93Tks4ZmRCbWxzZGthWVctUzFQaXR2YWlpNU5yVEkzNEE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxNM19id0gzR1pTdk50MzAwQ012MnQ2OER5TFdrX2ZuUDc3UktYaGJYVE9qb2MwNXM4N2h6cmVVQW5HVGhQaUd0TjRpMGJJUFVBWFdIYlFfazZDVUNzaXcyVkVONVlFbTdaU183ZzhHU0xBeC01N25ySmhSdFl2ZW1MeQ?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -296,14 +338,6 @@ Stories: 120
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMizwFBVV95cUxQeW1YTTgxOEN6TDVVelRjUjBhOVppUzBZUWFBRlVYcnNHYmNEM1BSQ3N6Z2tKWXBQY1ZRM2UxZVdOa3hyNFFhb2lvUENHZ2R0c212WW5IRm9Fc1QwQ21XNWdnTnNNX2hvdER5WEYyQkFNUHdXSFpjR2I1NG9CQ2RPdWJnQWprY2k4aVAwdU9kOFU2ZF92NTNBdGZtMnlSRlVsclZmOGRrNnA3dDBRVDBfNGsweGlDSldGQy1QWjF2X3RoVDNrZVdCN3N6TTQtLXM?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift's 2023 Eras Tour, Ranked the 'Highest-Grossing' in History, Beat No. 2 by $631 Million 
-
-- first seen: 2026-08-25 09:48 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's 2023 Eras Tour, Ranked the 'Highest-Grossing' in History, Beat No. 2 by $631 Million  parade.com
-- sources:
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMiggFBVV95cUxPY0lqd0JtUEFnZ2RLSHZhOTE1Z0gxR2hFa2VjUDFuRE5VdHdhVFNhV293dmphbEVFaHpzclNPeFVLaEdGa0VENzZhcURqUi16NFZVMW1OYVd1V2RiSTlzZ0pLZE1yckl2V1dNbjZoZmxwTUdVWG9vTmFfOFdPV29Udk93?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## She’s an author from CT; her book on Taylor Swift is a bestseller. She’s returning to dish on being 
 
 - first seen: 2026-08-25 09:48 UTC | category: sighting | importance: 3
@@ -311,6 +345,15 @@ Stories: 120
 - summary: She’s an author from CT; her book on Taylor Swift is a bestseller. She’s returning to dish on being a Swiftie  Hartford Courant
 - sources:
   - [unverified] Hartford Courant — https://news.google.com/rss/articles/CBMi2AFBVV95cUxOOTlhTVJYRFdYSk1jWTVyZFh3N21yMDJ1b3JvSTFNamVTVElWSnVaaXFTZi1GQlhHWmtnV3UwTzFnR181UFh1eUlBTmtXWXJMZi1LSHRiWUcxVGlLU2Izb1JJRWEtU2tVTHZPc3pQOHJ6NXp6eXU1Vjl0clVCZ3JZOVZzY1ZNQW1ULW1KdWdGQi1QdGhERkRUTUViRjhvVUxjNExUQ082dkVMejRYYUdZTFBQWEdyRk94SWo0czdSX214Nk1XeGFzWGhOWGhwYjdEdGkwSW5xdDM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 2023 Eras Tour, Ranked the 'Highest-Grossing' in History, Beat No. 2 by $631 Million 
+
+- first seen: 2026-08-25 09:48 UTC | category: tour | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift's 2023 Eras Tour, Ranked the 'Highest-Grossing' in History, Beat No. 2 by $631 Million  parade.com
+- sources:
+  - [unverified] Currently.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPcVNlUGJIcUpHWUp5NERMV1dNSUdfREVydy16STZuY3E4c3BidVNXWk01TzFwM2VMYmtlSmxldTh6ZzU1M0RnS3RDbnY3dGxOUk5iYzJEMi1CV2tMRzN3bThPVGF5a2ZuRTltWThqbUZtRW1HRE5GY3NlR09odDNONzZLcXM1Nl9S?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMiggFBVV95cUxPY0lqd0JtUEFnZ2RLSHZhOTE1Z0gxR2hFa2VjUDFuRE5VdHdhVFNhV293dmphbEVFaHpzclNPeFVLaEdGa0VENzZhcURqUi16NFZVMW1OYVd1V2RiSTlzZ0pLZE1yckl2V1dNbjZoZmxwTUdVWG9vTmFfOFdPV29Udk93?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Kirk Cameron Criticizes Taylor Swift's Views on Morality
 
@@ -967,46 +1010,3 @@ Taylor Swift reveals her sneaky way of clapping back at critics  Page Six
 - summary: A new photo of Dakota Johnson as Marilyn Monroe has been released in anticipation of the film 'Flesh Impact'. The film, directed by Maggie Gyllenhaal, premieres at the Venice Film Festival to honor Monroe's 100th birthday and features Johnson portraying Monroe in her prime.
 - sources:
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/film/2026/jul/31/marilyn-monroe-dakota-johnson-related-ninth-cousin-three-times-removed
-
-## Phil Collins Discusses Health Struggles Related to Alcohol Abuse
-
-- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Phil Collins opens up about his severe health issues connected to alcohol abuse, revealing he was near death two years ago. The details were shared in a recent interview, shedding light on his challenging experiences in recent years.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2507139/phil-collins-reveals-he-nearly-died-from-alcohol-abuse-people-were-coming-to-say-goodbye/news/
-
-## Taylor Swift songs removed from Trump and White House’s social media posts
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Rage-baiting efforts of Trump accounts silenced after posts such as a video linking her Red album to Republicans
-Some of Taylor Swift’s songs have been removed from videos posted on social media by Donald Trump’s campaign and the White House, silencing efforts to mock the pop star.
-A video posted on
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/us-news/2026/aug/09/taylor-swift-songs-removed-trump-white-house-posts
-
-## Taylor Swift Gets Her Songs Muted On Donald Trump’s Troll TikToks
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The TikTok account Team Trump was launched by Donald Trump's campaign in late July 2024 and has used audio of Taylor Swift tracks, among other popular songs, since at least last year. Now Swift's team appears to have finally taken action.
-The post Taylor Swift Gets Her Songs Muted On Donald Trump’s 
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2507725/taylor-swift-gets-her-songs-muted-on-donald-trumps-troll-tiktoks/news/
-
-## Taylor Swift To Be Inducted Into Nashville Songwriters Hall Of Fame
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift will be inducted into the Nashville Songwriters Hall of Fame this year, the foundation announced today. Swift is one of the songwriters revealed today by the Hall of Fame as the class of ’26 inductees. She is being inducted in the Contemporary Songwriter/Artists category alongside Miran
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/08/taylor-swift-nashville-songwriters-hall-of-fame-1237031223/
-
-## Travis Kelce on How Marrying Taylor Swift at Madison Square Garden Fulfilled “Childhood Dream”: “Mec
-
-- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: “I can’t thank the owners of MSG enough for allowing us to get an opportunity to do that, knowing that we wanted a private event and everything,” Kelce said.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/travis-kelce-taylor-swift-msg-wedding-childhood-dream-1236672194/
