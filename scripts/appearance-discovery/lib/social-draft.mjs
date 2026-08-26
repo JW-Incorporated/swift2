@@ -167,6 +167,7 @@ export function buildSocialDraftPair(c, { now = new Date() } = {}) {
 /** Fetch the official YouTube thumbnail used by the Instagram sibling.
  * maxresdefault is preferred; hqdefault is a real 480px fallback when a video
  * has no max-resolution upload. Tiny YouTube placeholders are rejected. */
+/* global AbortSignal */ // a Node 18+ global; same pragma as check-link-liveness.mjs
 export async function fetchAppearanceThumbnail(c, { fetchImpl = fetch } = {}) {
   const urls = [
     `https://i.ytimg.com/vi/${c.videoId}/maxresdefault.jpg`,
