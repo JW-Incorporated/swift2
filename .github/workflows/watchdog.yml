@@ -1,0 +1,1059 @@
+# The watchdog — dumb code that watches the watchers (incl. Marjorie).
+# Operating model §4.2/§6: a non-LLM heartbeat, independent of every session
+# cron it monitors. Three jobs, deliberately zero AI:
+#   1. brief-heartbeat — if today's Founders' Brief hasn't appeared, open (or
+#      refresh) a loud watchdog-alert issue mentioning both founders.
+#   2. degraded-propagation — runs only when the brief is missing: founder
+#      comments on raw bank issues still reach the tickets they unblock
+#      (operating model §5.2: answers propagate with zero LLM in the loop).
+#   3. mailer retry (added 2026-07-18) — the brief can exist but never get
+#      emailed: GitHub Actions schedule triggers are documented to slip
+#      during high load *within a repo* (this one now runs two separate
+#      */30 workflows — social-poster.yml, marjorie-inbox.yml — plus several
+#      daily crons clustered at :00/:30, which is exactly that condition).
+#      Confirmed for real 2026-07-18: brief-mailer.yml's 12:45 UTC trigger
+#      didn't fire at all that day. If today's brief exists but no
+#      brief-mailer run today actually mailed it, this triggers
+#      brief-mailer.yml directly as a same-day catch-up.
+#
+# Cron is UTC; the brief deadline is 6:00 AM America/Los_Angeles.
+# 14:30 UTC = 7:30 AM PDT (90 min grace) / 6:30 AM PST (30 min grace) —
+# the uneven winter grace is intentional and preferred over DST-shifted
+# double schedules; 30 minutes is still comfortably past the deadline.
+# Minute offset to :35 (was :30, 2026-07-18): :30 is exactly when the repo's
+# two */30 workflows also fire — moving off it is the same fix as the mailer
+# retry's root cause, applied to this workflow's own trigger too.
+#
+# Second hourly trigger added (2026-07-29, ALARMS gate #799): the brief/
+# propagation/cadence jobs below only make sense once a day (they key off
+# "today's brief"), but the prod smoke check is the one job that should run
+# far more often than daily — L1's "frequent uptime paging" ask. Rather than
+# split the smoke check into its own workflow (more moving parts, more places
+# to look), every job below gates on `github.event.schedule` so the :35
+# daily-only jobs stay exactly as often as before, while the smoke check
+# alone (`if: always()`, no schedule gate) runs on every trigger, including
+# this hourly one. :05 avoids the :00/:30 cluster the header above already
+# flags as a mailer-slip risk.
+name: watchdog
+on:
+  schedule:
+    - cron: "35 14 * * *"
+    - cron: "5 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+  actions: write
+  contents: read
+  pull-requests: read
+  checks: read
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    steps:
+      # Added 2026-07-23: alert steps now call scripts/watchdog/upsert-alert.sh
+      # and send-mail.py, which need the repo checked out -- this workflow
+      # previously ran entirely on gh/curl and never needed it.
+      - uses: actions/checkout@v7
+
+      # Daily-only gate (ALARMS gate #799, 2026-07-29): this job now also
+      # fires hourly (see the `on.schedule` comment above) so the prod smoke
+      # check below can run far more often, but the brief/propagation/cadence
+      # jobs only make sense once a day. Skip them on the hourly trigger;
+      # still run on the daily cron and on a manual workflow_dispatch.
+      - name: Check today's Founders' Brief exists
+        id: brief
+        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TODAY=$(TZ=America/Los_Angeles date +%F)
+          TITLE="Founders' Brief — ${TODAY}"
+          FOUND=$(gh issue list --repo "$REPO" --label founders-brief \
+            --search "\"$TITLE\" in:title" --state all --json number --jq 'length')
+          echo "today=$TODAY" >> "$GITHUB_OUTPUT"
+          if [ "$FOUND" -gt 0 ]; then
+            echo "missing=false" >> "$GITHUB_OUTPUT"
+            echo "OK: brief for $TODAY exists."
+          else
+            echo "missing=true" >> "$GITHUB_OUTPUT"
+            echo "MISSING: no brief titled '$TITLE'"
+          fi
+
+      - name: Ensure today's brief was actually emailed (same-day catch-up)
+        if: steps.brief.outputs.missing == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TODAY_UTC=$(date -u +%F)
+          MAILED=false
+          for id in $(gh run list --repo "$REPO" --workflow brief-mailer.yml \
+              --created "${TODAY_UTC}" --limit 20 --json databaseId,conclusion \
+              --jq '.[] | select(.conclusion=="success") | .databaseId'); do
+            if gh run view "$id" --repo "$REPO" --log 2>/dev/null | grep -q "Mailed \[Founders' Brief"; then
+              MAILED=true
+              break
+            fi
+          done
+          if [ "$MAILED" = "true" ]; then
+            echo "Today's brief was already mailed."
+          else
+            echo "Brief exists but wasn't mailed today (scheduled trigger likely missed it) — retrying now."
+            gh workflow run brief-mailer.yml --repo "$REPO" -f mode=brief
+          fi
+
+      - name: Alert founders (brief missing)
+        if: steps.brief.outputs.missing == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          TODAY: ${{ steps.brief.outputs.today }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # Persistent title (no date) so a multi-day gap is one evolving
+          # issue, not a new disconnected one every day -- see
+          # scripts/watchdog/upsert-alert.sh header for why this changed.
+          ALERT_TITLE="Watchdog: no Founders' Brief"
+          cat > /tmp/alert-body.md <<EOF
+          @sffan15-sys — Marjorie's 6:00 AM brief for ${TODAY} has not been posted (as of $(date -u +'%H:%M UTC')).
+
+          Degraded mode (charter: docs/agents/marjorie.md): the decision bank still works —
+          read the open [founder-decision issues](https://github.com/${REPO}/issues?q=is%3Aissue+is%3Aopen+label%3Afounder-decision)
+          raw and answer by comment; your comments are authoritative on their own, and this
+          workflow's propagation job relays them to the tickets they unblock.
+
+          Likely cause: the Marjorie session/cron didn't run. Restart it, or run
+          \`node --use-env-proxy scripts/marjorie/assemble-brief.mjs\` for the skeleton.
+          EOF
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+
+      - name: Founders' Brief recovered (self-close)
+        if: steps.brief.outputs.missing == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          echo "Today's brief exists — closing any open alert." > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh close "Watchdog: no Founders' Brief" /tmp/alert-body.md
+
+      - name: Degraded-mode propagation (founder answers → Affects tickets)
+        if: steps.brief.outputs.missing == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # For each open bank issue: if a FOUNDER commented in the last 25h,
+          # cross-post a pointer to every ticket in its "### Affects" field.
+          # Idempotence: skip if we already pointed at that founder comment.
+          SINCE=$(date -u -d '25 hours ago' +%Y-%m-%dT%H:%M:%SZ)
+          for NUM in $(gh issue list --repo "$REPO" --label founder-decision \
+              --state open --limit 100 --json number --jq '.[].number'); do
+            COMMENT=$(gh api "repos/${REPO}/issues/${NUM}/comments" \
+              --jq "[.[] | select(.user.login == \"sffan15-sys\" or .user.login == \"wjduvall-cmd\")
+                     | select(.created_at > \"${SINCE}\")] | last // empty")
+            [ -z "$COMMENT" ] && continue
+            C_URL=$(echo "$COMMENT" | jq -r '.html_url')
+            C_BODY=$(echo "$COMMENT" | jq -r '.body' | head -c 400)
+            BODY_FIELD=$(gh issue view "$NUM" --repo "$REPO" --json body \
+              --jq '.body' | awk '/^###[[:space:]]*Affects/{f=1;next} /^###/{f=0} f' )
+            for T in $(echo "$BODY_FIELD" | grep -oE '#[0-9]+' | tr -d '#' | sort -u); do
+              ALREADY=$(gh api "repos/${REPO}/issues/${T}/comments" \
+                --jq "[.[] | select(.body | contains(\"${C_URL}\"))] | length")
+              [ "$ALREADY" -gt 0 ] && continue
+              gh issue comment "$T" --repo "$REPO" --body \
+                "Founder decision (degraded-mode relay → ${C_URL}) on bank item #${NUM}: ${C_BODY}"
+              echo "relayed #${NUM} founder comment to #${T}"
+            done
+          done
+
+      # Extended 2026-07-29 (ALARMS gate #799): was homepage-only, once a
+      # day. Now runs hourly (see the `on.schedule` comment above, and this
+      # step's own `if: always()` — deliberately ungated by the daily-only
+      # condition the jobs above just picked up) and probes a second route,
+      # the era deep-link `/?era=midnights`, so a regression scoped to the
+      # era/threads reader itself (not just "the server responds at all")
+      # doesn't stay invisible. Each route is checked and reported
+      # independently so a failing alert names which one broke.
+      - name: Prod smoke check (gap ALARMS sliver — zero AI)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          FAILURES=""
+          check_route () {
+            local URL="$1" EXPECT="$2"
+            local FILE
+            FILE=$(mktemp)
+            local CODE
+            CODE=$(curl -s -o "$FILE" -w '%{http_code}' --max-time 30 "$URL" || echo 000)
+            if [ "$CODE" != "200" ] || ! grep -qi "$EXPECT" "$FILE"; then
+              FAILURES="${FAILURES}- ${URL} returned HTTP ${CODE} or was missing expected content ('${EXPECT}')\n"
+            fi
+            rm -f "$FILE"
+          }
+          check_route "https://www.longlivets.com/" "taylor\|era\|swift"
+          check_route "https://www.longlivets.com/?era=midnights" "midnight"
+          # Persistent title (no date/code) so a multi-day outage is one
+          # evolving issue, and so it self-heals cleanly once fixed.
+          ALERT_TITLE="Watchdog: prod smoke check failing"
+          if [ -z "$FAILURES" ]; then
+            echo "smoke OK (both routes)"
+            echo "Both probed routes (homepage, /?era=midnights) returned HTTP 200 with expected content as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            exit 0
+          fi
+          {
+            echo "@sffan15-sys — one or more prod routes failed the smoke check at $(date -u +'%H:%M UTC'):"
+            echo ""
+            printf "%b" "$FAILURES"
+            echo ""
+            echo "Check the Vercel dashboard; last deploys are listed on merged PRs. This is the hourly zero-AI smoke check from watchdog.yml."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          exit 1
+
+      # Scheduled-workflow cadence check (2026-07-19, Wyatt). The news-worker
+      # red-looped hourly for a full day — every run crashing in ~1s on unset
+      # SUPABASE_* secrets — and nothing surfaced it, so the intake queue
+      # stayed empty and the site went stale (newest post Jul 10). A workflow
+      # that is scheduled but always failing is invisible without this: it
+      # produces no output to notice the absence of. Marjorie now sees it.
+      #
+      # `!cancelled()` added 2026-08-15 (P0): this step sits right after the
+      # "Prod smoke check" step above, which uses `if: always()` and `exit 1`
+      # on a real outage. A plain `if:` here is implicitly ANDed with
+      # success(), so a live prod outage was silently skipping this detection
+      # step too — the same idiom the "PRs stuck" step below already uses,
+      # applied here for the same reason.
+      - name: Scheduled workflows healthy (cadence view)
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # workflow:max-age-hours — a workflow with NO successful run inside
+          # its window is considered down. Windows are ~2x the schedule so a
+          # single miss doesn't page anyone.
+          WATCHED="news-worker.yml:10 social-poster.yml:6 marjorie-inbox.yml:6"
+          BROKEN=""
+          for ENTRY in $WATCHED; do
+            WF="${ENTRY%%:*}"; MAXAGE="${ENTRY##*:}"
+            # Skip a workflow that isn't in this repo (keeps the list portable).
+            gh workflow view "$WF" --repo "$REPO" >/dev/null 2>&1 || continue
+            LAST_OK=$(gh run list --repo "$REPO" --workflow "$WF" --status success \
+              --limit 1 --json createdAt --jq '.[0].createdAt // empty')
+            if [ -z "$LAST_OK" ]; then
+              BROKEN="${BROKEN}- \`${WF}\`: **no successful run on record**\n"
+              continue
+            fi
+            AGE_H=$(( ( $(date -u +%s) - $(date -u -d "$LAST_OK" +%s) ) / 3600 ))
+            if [ "$AGE_H" -gt "$MAXAGE" ]; then
+              BROKEN="${BROKEN}- \`${WF}\`: last success ${AGE_H}h ago (expected within ${MAXAGE}h)\n"
+            fi
+          done
+
+          ALERT_TITLE="Watchdog: scheduled workflow(s) not succeeding"
+
+          if [ -z "$BROKEN" ]; then
+            echo "All watched workflows are succeeding as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "cadence OK"
+            exit 0
+          fi
+
+          {
+            echo "@sffan15-sys — a scheduled workflow is running but never succeeding, which is silent by nature (a failing job produces no output to miss)."
+            echo ""
+            printf "%b" "$BROKEN"
+            echo "Check the run logs: https://github.com/${REPO}/actions"
+            echo ""
+            echo "Most common cause: a required repo secret is unset or misnamed. Note that **Vercel environment variables are NOT GitHub Actions secrets** — the news-worker reads repo-level Actions secrets (Settings → Secrets and variables → Actions), not Vercel's env store, and not *Environment*-scoped secrets (its job declares no \`environment:\`)."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+
+      # ── Stalled PRs: red too long, or a check that will never come back ──
+      # Added 2026-07-30 (PR #1629); rewritten 2026-08-11 after replaying the
+      # original against live data showed it caught nothing (see below).
+      #
+      # THE REGRESSION THIS EXISTS FOR. Before 2026-07-25 each content agent
+      # armed hourly self-check-ins that drove its own PR to green. Those loops
+      # were ~69% of all scheduled agent token spend and were killed, replaced
+      # by the promise in CLAUDE.md: "if a PR fails CI or hits a conflict, the
+      # next scheduled run of that agent picks it up." That promise is FALSE.
+      # The next run opens a BRAND NEW PR against `main` and never returns to
+      # the red one, so a stuck PR sits open forever: auto-merge correctly
+      # refuses to land it, no agent ever looks again, and nothing alerts.
+      #
+      # WHY THE FIRST VERSION OF THIS STEP DID NOT WORK. As written on 07-30 it
+      # keyed on `build == FAILURE` AND an allowlist of bot branch prefixes
+      # (`vault/ content-shift/ depth/answerer content/rumor-desk
+      # content/stylist claude/`). Replayed against the live repo on 08-11 that
+      # logic examined 2 of 27 open PRs and alerted on NEITHER — it missed every
+      # genuinely stuck PR in the repo, including ones its own PR body named:
+      #
+      #   #1642  `build` red since 07-31 (11 days), auto-merge armed. Branch is
+      #          `fix/ci-actions-v7-tags`, which is not in the prefix list, so
+      #          it was never even looked at. The prefix allowlist was the
+      #          single biggest miss: three of its six entries
+      #          (`depth/answerer`, `content/rumor-desk`, `content/stylist`)
+      #          match no branch that has ever existed, while `claude/` matches
+      #          every Claude session in the repo including ops work.
+      #   #1762  open since 08-03. `build` is SUCCESS; `enable` is FAILURE. The
+      #          auto-merge gate is what strands it, and only `build` was read.
+      #   #1585  open since 07-28 with NO `build` check at all on its head
+      #          commit — CI never fired for that push. The jq returned "NONE",
+      #          which is not "FAILURE", so it stayed silent. A check that never
+      #          runs is invisible here and auto-merge waits on it forever.
+      #
+      # So this version (1) looks at EVERY open non-draft PR and excludes only
+      # what is explicitly parked for a human, rather than enumerating bot
+      # branch prefixes that go stale the moment a lane is renamed; (2) treats
+      # ANY currently-failing check as stranding, not just `build`; (3) treats a
+      # MISSING `build` as its own alarm; (4) reads the LATEST result per check
+      # name rather than whichever the rollup happens to list first (#1580 has
+      # a CANCELLED `enable` superseded by a SUCCESS one — order is not
+      # documented and must not be trusted); and (5) re-triggers a stale red
+      # `build`, the case where CI died for an unrelated reason and nothing is
+      # left to nudge it (#1633 sat 5 days, #1565 sat 07-27 → 08-11).
+      #
+      # ACTIONS-MINUTES BUDGET. This repo hit 90% of included minutes on 07-27
+      # and a build freeze blocked every merge on 07-30, so a monitor that burns
+      # the budget it protects is self-defeating. Four guards:
+      #   * Daily only — gated to the 14:35 cron, not the hourly one. A 24h
+      #     threshold gains nothing from 24 looks a day.
+      #   * RERUN_BUDGET re-runs per pass, hard cap, counted before each call.
+      #   * A PR is re-run ONLY when its `build` is FAILING and that failure is
+      #     already STALE_H old. A green PR idling on human review is never
+      #     re-run — #1580 has been green and untouched for 15 days and
+      #     re-running it would be pure waste.
+      #   * Re-running makes the check fresh, so the same PR cannot be re-run
+      #     again for another STALE_H. The cap is self-limiting, not just
+      #     per-pass.
+      # Worst case 2 re-runs/day x ~2 billed min = ~4 min/day. Expected ~0/day.
+      #
+      # `!cancelled()` rather than the bare daily gate the steps above use: the
+      # prod smoke check exits 1 when the site is down, and a plain `if:` is
+      # implicitly ANDed with success(), so every later step is skipped. An
+      # outage should not also blind us to stranded PRs.
+      - name: PRs stuck on failing or missing checks
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          RED_AFTER_H=24        # a PR may be open and unhealthy this long before we shout
+          STALE_H=48            # a red `build` older than this earns one re-run
+          RERUN_BUDGET=2        # hard cap on CI re-runs per pass
+          # Same three labels auto-merge-content.yml treats as blocking. A PR
+          # deliberately held for a founder is not "stranded", it is parked.
+          PARKED_LABELS="hold cie:escalate founder-decision"
+
+          NOW=$(date -u +%s)
+          RED_CUTOFF=$(date -u -d "${RED_AFTER_H} hours ago" +%Y-%m-%dT%H:%M:%SZ)
+          ALERT_TITLE="Watchdog: PR(s) stuck on a failing or missing check"
+
+          # Accumulate into FILES, never shell variables. An embedded newline in
+          # a double-quoted assignment has to start at column 0, which dedents
+          # out of this YAML block scalar and makes the whole workflow
+          # unparseable — that is what broke the first version of this step.
+          : > /tmp/stuck.md
+          : > /tmp/retried.md
+          RERUNS=0
+
+          gh pr list --repo "$REPO" --state open --limit 100 \
+            --json number,headRefName,createdAt,isDraft,headRefOid,labels \
+            --jq '.[] | select(.isDraft | not)
+                  | [.number, .headRefName, .createdAt, .headRefOid,
+                     ([.labels[].name] | join(","))] | @tsv' > /tmp/open-prs.tsv
+
+          while IFS="$(printf '\t')" read -r N BR CREATED SHA LABELS; do
+            if [ -z "${N:-}" ]; then continue; fi
+            # Give every PR a fair chance to go green on its own first.
+            if [ "$CREATED" ">" "$RED_CUTOFF" ]; then continue; fi
+            PARKED=no
+            for L in $PARKED_LABELS; do
+              case ",${LABELS}," in *",${L},"*) PARKED=yes ;; esac
+            done
+            if [ "$PARKED" = yes ]; then continue; fi
+
+            # Latest result per check NAME, plus every name currently failing.
+            ROLL=$(gh pr view "$N" --repo "$REPO" --json statusCheckRollup --jq '
+                    [ .statusCheckRollup[]?
+                      | { name:  (.name // .context),
+                          concl: (.conclusion // .state),
+                          at:    (.startedAt // .completedAt // "1970-01-01T00:00:00Z"),
+                          url:   (.detailsUrl // "") } ]
+                    | group_by(.name) | map(max_by(.at))
+                    | ((map(select(.name == "build")) | first) as $b
+                       | [ ($b.concl // "MISSING"), ($b.at // ""), ($b.url // ""),
+                           (map(select(.concl == "FAILURE")) | map(.name) | join(",")) ]
+                       | @tsv)')
+            B_CONCL=$(printf '%s' "$ROLL" | cut -f1)
+            B_AT=$(printf '%s' "$ROLL" | cut -f2)
+            B_URL=$(printf '%s' "$ROLL" | cut -f3)
+            FAILING=$(printf '%s' "$ROLL" | cut -f4)
+
+            REASON=""
+            if [ "$B_CONCL" = "MISSING" ]; then
+              REASON="no \`build\` check on head \`$(printf '%s' "$SHA" | cut -c1-7)\` — CI never fired, so auto-merge waits on it forever"
+            elif [ -n "$FAILING" ]; then
+              REASON="failing: \`${FAILING}\`"
+            fi
+            if [ -z "$REASON" ]; then continue; fi
+
+            AGE_D=$(( ( NOW - $(date -u -d "$CREATED" +%s) ) / 86400 ))
+            printf -- '- #%s (`%s`, open %sd) — %s\n' "$N" "$BR" "$AGE_D" "$REASON" >> /tmp/stuck.md
+
+            # Re-trigger ONLY a stale red `build` — the documented case where CI
+            # died for a reason unrelated to the PR (freeze, billing, infra),
+            # auto-merge is armed, and nothing exists to nudge it.
+            if [ "$B_CONCL" = "FAILURE" ] && [ -n "$B_AT" ] && [ "$RERUNS" -lt "$RERUN_BUDGET" ]; then
+              B_AGE_H=$(( ( NOW - $(date -u -d "$B_AT" +%s) ) / 3600 ))
+              RUN_ID=$(printf '%s' "$B_URL" | sed -n 's#.*/actions/runs/\([0-9]*\)/.*#\1#p')
+              if [ "$B_AGE_H" -ge "$STALE_H" ] && [ -n "$RUN_ID" ]; then
+                # Only if that run is still the PR's head commit — re-running a
+                # superseded commit proves nothing and costs a full CI run.
+                RUN_SHA=$(gh run view "$RUN_ID" --repo "$REPO" --json headSha --jq '.headSha' 2>/dev/null || echo "")
+                if [ "$RUN_SHA" = "$SHA" ]; then
+                  if gh run rerun "$RUN_ID" --repo "$REPO" --failed 2>/dev/null; then
+                    RERUNS=$(( RERUNS + 1 ))
+                    printf -- '- #%s — `build` red %sh with no newer run; re-ran run %s\n' "$N" "$B_AGE_H" "$RUN_ID" >> /tmp/retried.md
+                  fi
+                fi
+              fi
+            fi
+          done < /tmp/open-prs.tsv
+
+          if [ ! -s /tmp/stuck.md ]; then
+            echo "No open PR has been stuck on a failing or missing check for more than ${RED_AFTER_H}h." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "no stuck PRs"
+            exit 0
+          fi
+
+          {
+            echo "@sffan15-sys — PR(s) open more than ${RED_AFTER_H}h are blocked on a check that nothing will retry. **This work is not shipping and no agent is coming back for it.**"
+            echo ""
+            cat /tmp/stuck.md
+            echo ""
+            if [ -s /tmp/retried.md ]; then
+              echo "Re-triggered this pass (cap ${RERUN_BUDGET}/day, only for a \`build\` already red ${STALE_H}h+ on the current head):"
+              echo ""
+              cat /tmp/retried.md
+              echo ""
+            fi
+            echo "Why these strand: auto-merge is armed and correctly refuses to land a PR whose checks are not green, and since 2026-07-25 agents no longer babysit their own PRs — the next scheduled run opens a NEW PR instead of fixing the old one. See docs/agents/vault-run-plan.md § Phase 3.5."
+            echo ""
+            echo "Triage: a **missing** \`build\` means CI never fired for that push (a push made with GITHUB_TOKEN does not trigger workflows) — push an empty commit to the branch. A failing \`enable\` is the auto-merge gate, not the content; read its job summary, which says whether it declined deliberately or the gate is misconfigured. A failing \`build\` on a *content-invariant* test (feed tiers, substance spread) usually means the corpus statistics moved, not that the content is bad — that was the cause on 2026-07-28 (#1628), and relaxing the threshold would have been the wrong fix."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+
+      # Karen filed-what-she-found check (2026-08-11; reworked 2026-08-14 after
+      # a five-day Karen outage went unnoticed — docs/decisions.md 2026-08-14).
+      # The cadence check above sees Actions workflows; the content-lane
+      # liveness checks below see "did a PR appear". Neither can see the two
+      # failure shapes Karen actually has:
+      #
+      #   (a) she runs, scans perfectly, commits a normal-looking report, her
+      #       PR merges — and the findings never reach a ticket. Happened
+      #       twice: 2026-07-26 (issue #528, `spawn gh ENOENT`, 623 findings)
+      #       and 2026-08-09 (PR #1850, `401 Bad credentials`, 597 findings).
+      #   (b) she doesn't run at all, for days, and nobody notices — because
+      #       OTHER content-authoring agents run `run.mjs scan` as their own
+      #       self-check and their PRs commit that report into the exact path
+      #       Karen owns (docs/audits/engine/). The old version of this check
+      #       picked "newest file by name" and greps a marker, which cannot
+      #       tell Karen's output from an unrelated agent's — so the file kept
+      #       looking fresh while Karen was dark for five days (08-09 → 08-14).
+      #
+      # Fix: `docs/audits/engine/` is now Karen-exclusive (`scan()` writes to
+      # `.scratch/content-engine/` by default; only `all()` — Karen's own
+      # pipeline — writes the canonical path), and every report is stamped
+      # with which command produced it (`lib/report.mjs` →
+      # `<!-- cie-run: source=all|scan ... -->`). This check now runs three
+      # independent, zero-AI, pure-grep tests against the newest canonical
+      # report, in order:
+      #   1. STALENESS — is the newest report recent enough to be a real Karen
+      #      run? This is the check whose absence hid the five-day outage.
+      #   2. PROVENANCE — does it actually carry `source=all`? Defense in
+      #      depth for the exact incident: catches a future `scan --canonical`
+      #      or bug that puts a non-Karen report back in her path.
+      #   3. FILED-WHAT-SHE-FOUND (unchanged from 2026-08-11) — did every
+      #      detected finding reach a ticket? Correct all along, but
+      #      unreachable while check 2 could be fooled by another agent's file.
+      #
+      # STALE_DAYS: docs/agents/runners.md documents a cadence CONTRADICTION —
+      # its main table still lists nightly `0 9 * * *`, but a 2026-07-25
+      # override to weekly `0 9 * * 0` (Sun) is recorded as "still in force".
+      # The evidence available from THIS repo (Karen PR dates, not the live
+      # trigger dashboard) is consistent with weekly: her last run, PR #1850,
+      # landed 2026-08-09, a Sunday. 9 days = 7-day cadence + a 2-day buffer
+      # for PR-merge lag or one slow week, without tolerating a second
+      # consecutive miss going unnoticed. If the routine is confirmed nightly
+      # instead, this should shrink back down — see runners.md for the
+      # confirmation this repo cannot give itself.
+      #
+      # No new cron: this rides the existing daily 35 14 trigger, gated the same
+      # way as the other daily-only jobs, and adds nothing to the :00/:30
+      # cluster the header warns about.
+      #
+      # `!cancelled()` added 2026-08-15 (P0): without it this step (and
+      # work-ownership/content-lane below) implicitly AND with success(), so
+      # the "PRs stuck" step above failing outright (permissions regression,
+      # #2119) silently skipped this alarm too — the exact false-negative
+      # that hid a five-day Karen outage a second time. Same idiom as that
+      # step already uses.
+      - name: Karen filed what she found (CIE ticket-filing check)
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          FILING_MARKER_EPOCH="2026-08-12"
+          RUN_MARKER_EPOCH="2026-08-14"
+          STALE_DAYS=9
+          STALE_HOURS=$(( STALE_DAYS * 24 ))
+          ALERT_TITLE="Watchdog: Karen scanned but filed no tickets"
+
+          # Reports use an unsuffixed name for the first run of a date and a
+          # time suffix for reruns. The shared selector normalizes those forms
+          # so a same-day rerun ranks after the first run (#3255).
+          NEWEST=$(node scripts/watchdog/karen-post-repair-check.mjs --print-newest docs/audits/engine)
+          PROBLEM=""
+          RUN_DATE=""
+          AGE_H=""
+          RUN_MARKER=""
+          FILING_MARKER=""
+          if [ -z "$NEWEST" ]; then
+            TODAY=$(date -u +%F)
+            if [ "$TODAY" \< "$RUN_MARKER_EPOCH" ]; then
+              echo "no CIE run reports before provenance epoch $RUN_MARKER_EPOCH — nothing to check yet."
+              exit 0
+            fi
+            PROBLEM="No canonical CIE run reports were found in \`docs/audits/engine/\`. Karen has no auditable run at all, or her reports are not reaching \`main\`."
+            echo "no CIE run reports in docs/audits/engine — opening the persistent alert."
+          else
+            RUN_DATE=$(basename "$NEWEST" | cut -d- -f1-3)
+            AGE_H=$(( ( $(date -u +%s) - $(date -u -d "$RUN_DATE" +%s) ) / 3600 ))
+            RUN_MARKER=$(grep -o '<!-- cie-run:[^>]*-->' "$NEWEST" | tail -1 || true)
+            FILING_MARKER=$(grep -o '<!-- cie-filing:[^>]*-->' "$NEWEST" | tail -1 || true)
+            echo "newest report: $NEWEST (${AGE_H}h old) run-marker: ${RUN_MARKER:-<none>} filing-marker: ${FILING_MARKER:-<none>}"
+          fi
+
+          # 1. Staleness — the real fix for the five-day outage.
+          if [ -z "$PROBLEM" ] && [ "$AGE_H" -gt "$STALE_HOURS" ]; then
+            PROBLEM="Karen's newest run report is \`$(basename "$NEWEST")\` — **${AGE_H}h old** (expected within ${STALE_DAYS} days / ${STALE_HOURS}h). She has stopped producing reports, or her report isn't reaching \`main\`."
+          fi
+
+          # 2. Provenance — only meaningful once the stamp exists; reports
+          # written before it shipped legitimately have no marker.
+          if [ -z "$PROBLEM" ] && { [ "$RUN_DATE" \> "$RUN_MARKER_EPOCH" ] || [ "$RUN_DATE" = "$RUN_MARKER_EPOCH" ]; }; then
+            if [ -z "$RUN_MARKER" ]; then
+              PROBLEM="\`$(basename "$NEWEST")\` carries **no \`cie-run\` provenance marker**, so it cannot be confirmed as a genuine Karen (\`all\`) run rather than some other command."
+            else
+              RUN_SOURCE=$(echo "$RUN_MARKER" | sed -n 's/.*[[:space:]]source=\([a-z]*\).*/\1/p')
+              if [ "$RUN_SOURCE" != "all" ]; then
+                PROBLEM="\`$(basename "$NEWEST")\` was produced by \`${RUN_SOURCE:-unknown}\`, not Karen's \`all\` run. Only \`all\` should ever write to docs/audits/engine/ — something bypassed that."
+              fi
+            fi
+          fi
+
+          # 3. Filed-what-she-found (unchanged logic from 2026-08-11) — was
+          # always correct, was just unreachable while check 2 above could be
+          # fooled by another agent's self-check report.
+          if [ -z "$PROBLEM" ]; then
+            if [ -z "$FILING_MARKER" ]; then
+              # Only meaningful once the stamp exists; older reports predate it.
+              if [ "$RUN_DATE" \> "$FILING_MARKER_EPOCH" ] || [ "$RUN_DATE" = "$FILING_MARKER_EPOCH" ]; then
+                PROBLEM="\`$(basename "$NEWEST")\` carries **no \`cie-filing\` verdict**, which means the run never reached the end of step 5 — it scanned, wrote this report, and then died before filing. That is the exact shape of the 2026-07-26 (623 findings) and 2026-08-09 (597 findings) losses."
+              else
+                echo "report predates FILING_MARKER_EPOCH ($FILING_MARKER_EPOCH) — no verdict expected."
+              fi
+            else
+              # Anchored on the leading space: a bare `grep -o 'filed=[0-9]*'`
+              # also matches the tail of `unfiled=597` and returns two values.
+              STATUS=$(echo "$FILING_MARKER" | sed -n 's/.*[[:space:]]status=\([a-z-]*\).*/\1/p')
+              UNFILED=$(echo "$FILING_MARKER" | sed -n 's/.*[[:space:]]unfiled=\([0-9]*\).*/\1/p')
+              FILED=$(echo "$FILING_MARKER" | sed -n 's/.*[[:space:]]filed=\([0-9]*\).*/\1/p')
+              if [ "$STATUS" != "ok" ] || [ "${UNFILED:-0}" -gt 0 ]; then
+                PROBLEM="\`$(basename "$NEWEST")\` reports filing status **\`${STATUS}\`** with **${UNFILED:-?} finding(s) detected and never filed** (${FILED:-0} filed). Those findings are on no ticket and in no queue."
+              fi
+            fi
+          fi
+
+          if [ -z "$PROBLEM" ]; then
+            echo "Karen's newest run report ($(basename "$NEWEST")) is fresh, genuinely hers, and confirms every detected finding reached the tracker, as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "karen filing OK"
+            exit 0
+          fi
+
+          {
+            echo "@sffan15-sys — the Content Integrity Engine (Karen) has a problem."
+            echo ""
+            printf '%b\n' "$PROBLEM"
+            echo ""
+            echo "**Why this matters more than it looks:** a stale or unreachable Karen looks identical to a healthy one from outside — same report file, same PR, same merge — unless something checks this. A five-day outage (2026-08-09 → 2026-08-14) and ~1,220 findings destroyed by two earlier filing failures (2026-07-26, 2026-08-09) both went unnoticed this way."
+            echo ""
+            echo "Check, in order:"
+            if [ -n "$NEWEST" ]; then
+              echo "1. The report itself: [\`${NEWEST}\`](https://github.com/${REPO}/blob/main/${NEWEST}) — its 'Ticket filing' section names the exact failure, if any."
+            else
+              echo "1. Confirm why [\`docs/audits/engine/\`](https://github.com/${REPO}/tree/main/docs/audits/engine) contains no canonical CIE run report."
+            fi
+            echo "2. Can the runner write to GitHub at all? \`node --use-env-proxy scripts/content-engine/run.mjs issues --create\` from a clean checkout does the label-upsert preflight first and says so in one second."
+            echo "3. Karen is a Wyatt-account cloud routine (\`docs/agents/runners.md\`), not an Actions workflow — its logs live there, not in this repo's Actions tab. If she's stale, someone with access to the routine dashboard needs to confirm she's actually enabled and firing — this repo cannot see that."
+            echo ""
+            echo "Nothing is lost by re-running: the engine is idempotent and fingerprint-deduped, so \`node --use-env-proxy scripts/content-engine/run.mjs all --create\` re-derives the same findings and files whatever is still missing."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+
+
+      # Work-ownership check (2026-08-11). Every other job in this file watches
+      # whether a RUNNER is alive. None of them watch whether the WORK has an
+      # owner, and that is the failure the 2026-08-11 audit actually found: on
+      # the day this shipped, 183 issues were open and 4 had an assignee, both
+      # red launch gates had been "routed" for weeks by comment to a desk whose
+      # own fence excludes their change type, and 9 non-draft PRs were more than
+      # a week old. Nothing anywhere alarmed, because routing is prose — a
+      # sentence in a thread that no runner queries.
+      #
+      # Zero AI, same shape as every other alert here: one persistent issue per
+      # condition via upsert-alert.sh, real email, self-closing when it recovers.
+      #
+      # Budgeted, not zero-thresholded. `.github/work-ownership-budget.json` is
+      # seeded at the backlog that existed when this shipped, so the alarm means
+      # "this got WORSE" rather than "the backlog still exists". An alarm that is
+      # red by construction is one nobody reads — which is the exact way #947 /
+      # #1177 / #1203 / #1224 were lost. The script's own header explains the
+      # rest, including which conditions are measured but not yet enforced.
+      #
+      # setup-node, but still no `npm ci`: the script imports only node builtins
+      # plus scripts/lib/gh.mjs (also builtins-only), so this stays a
+      # dependency-free step. Node is pinned anyway because the invocation below
+      # passes `--use-env-proxy`, which only exists on Node >= 24 (#2008). An
+      # unknown CLI flag is not ignored — Node exits 9 with `bad option` before
+      # running a line of the script — and this step's exit code is load-bearing
+      # (see below: 1 = alarm, anything else = "the check itself broke"). So
+      # relying on whatever Node the runner image happens to preinstall would
+      # turn an image bump into a broken watchdog. `24` matches package.json
+      # engines.
+      #
+      # `if: !cancelled()` on both this setup step and the check step below,
+      # added 2026-08-15 (P0): same reasoning as the Karen step's comment
+      # above — an unrelated earlier-step failure must not silently skip this
+      # detection step (or strand it without Node).
+      - uses: actions/setup-node@v7
+        if: "!cancelled()"
+        with:
+          node-version: '24'
+
+      - name: Work-ownership check (zero AI)
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: work is going unowned"
+          # GitHub Actions runs `run:` blocks as `bash -e {0}` — errexit is ON
+          # by default, and `set -uo pipefail` above does NOT clear it. A
+          # non-zero exit here IS the alarm signal, not a step failure, so a
+          # bare `cmd; STATUS=$?` would die on the `node` line before STATUS
+          # is ever assigned and this whole branch would be skipped. Putting
+          # the command on the left of `||` makes it a guarded context, so
+          # errexit does not fire and STATUS captures the real exit code.
+          STATUS=0
+          node --use-env-proxy scripts/check-work-ownership.mjs --repo "$REPO" --alert-body /tmp/alert-body.md || STATUS=$?
+          if [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "work-ownership OK"
+          elif [ "$STATUS" -eq 1 ]; then
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          else
+            # Any other exit code means the check itself broke (unreadable or
+            # invalid budget, a GitHub query returning fields it reasons about
+            # as null). That must not be reported as "no ownership problems".
+            echo "::error::check-work-ownership.mjs exited $STATUS — the check is broken, not clear."
+            exit "$STATUS"
+          fi
+
+      # Karen post-repair confirmation (2026-08-15, SELF-LIMITING — full
+      # design in scripts/watchdog/karen-post-repair-check.mjs's header). The
+      # standing "Karen filed what she found" step above answers "is Karen
+      # healthy" with a 9-day staleness tolerance, which is the right
+      # permanent alarm (the real cadence is still unconfirmed per
+      # docs/agents/runners.md) but too slack to answer THIS week's specific
+      # question: did the 2026-08-14/15 repair (6ec8d6ca, d51676ce) actually
+      # work? This is a clearly-scoped SIBLING rather than an edit to that
+      # step — tightening its 9-day tolerance would be wrong for the reason
+      # already documented there, and duplicating its staleness/provenance/
+      # filing ladder inline behind a second deadline is exactly the kind of
+      # bash growth CLAUDE.md's rule 8 says to pull into a tested script
+      # instead. Confirms via the strongest signal first (a merged Karen PR),
+      # falling back to the same `cie-run`/`cie-filing` markers the standing
+      # step reads, via the same parser (scripts/content-engine/lib/report.mjs)
+      # — no marker parsing is duplicated.
+      #
+      # HOW THE FOUNDER TURNS THIS OFF: it turns itself off. It only opens an
+      # alert while unconfirmed AND inside the window; it closes that alert
+      # the moment a genuine run is confirmed, and also closes it (standing
+      # down instead of nagging) once 2026-08-22 passes — at which point the
+      # standing 9-day check above is already covering the same question. To
+      # remove it immediately instead, delete this step and
+      # scripts/watchdog/karen-post-repair-check.mjs; nothing else references
+      # either.
+      #
+      # Placed after the setup-node step above (needs Node for the .mjs
+      # script) rather than next to the standing Karen step higher up, which
+      # is pure bash and runs before Node exists on this runner.
+      # `!cancelled()`, same reasoning as every step below setup-node: an
+      # unrelated earlier-step failure must not silently skip this too.
+      - name: Karen post-repair confirmation (self-limiting, remove after 2026-08-22)
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: Karen post-repair still unconfirmed"
+          # GitHub Actions runs `run:` blocks as `bash -e {0}` — errexit is ON
+          # by default, and `set -uo pipefail` above does NOT clear it. A
+          # non-zero exit here IS the alarm signal, not a step failure, so a
+          # bare `cmd; STATUS=$?` would die on the `node` line before STATUS
+          # is ever assigned and this whole branch would be skipped. Putting
+          # the command on the left of `||` makes it a guarded context, so
+          # errexit does not fire and STATUS captures the real exit code.
+          STATUS=0
+          node --use-env-proxy scripts/watchdog/karen-post-repair-check.mjs --repo "$REPO" --alert-body /tmp/alert-body.md || STATUS=$?
+          if [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "karen-post-repair OK (confirmed, or window expired)"
+          elif [ "$STATUS" -eq 1 ]; then
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          else
+            echo "::error::karen-post-repair-check.mjs exited $STATUS — the check is broken, not clear."
+            exit "$STATUS"
+          fi
+
+      # news-worker Supabase key rotation confirmation (2026-08-15,
+      # SELF-LIMITING — full design in
+      # scripts/watchdog/news-worker-rotation-check.mjs's header).
+      # SUPABASE_SERVICE_ROLE_KEY was rotated 2026-08-15T18:31:50Z; its only
+      # consumer is news-worker.yml. The standing "Scheduled workflows
+      # healthy" cadence check above only asks "has SOMETHING succeeded
+      # within 10h" — it cannot say whether the FIRST run after the rotation
+      # specifically authenticated, and cannot distinguish an
+      # authentication-shaped failure (the rotation broke it) from an
+      # ordinary one (something else broke, unrelated to the key — worth
+      # knowing separately since news-worker is a documented no-op with zero
+      # news_source rows seeded). Sibling, not an edit, for the same reason as
+      # the Karen check above: classifying WHY a specific run failed is a
+      # different question than "did something succeed recently".
+      #
+      # HOW THE FOUNDER TURNS THIS OFF: it only ever opens an alert for the
+      # one shape it exists to catch — a confirmed authentication failure. A
+      # confirmed success, a confirmed unrelated failure, still-pending, or a
+      # window expiry (2026-08-22) all close/no-op silently — those are either
+      # good news or the standing cadence check's alarm to raise, not this
+      # one's. To remove it immediately instead, delete this step and
+      # scripts/watchdog/news-worker-rotation-check.mjs.
+      - name: news-worker rotation confirmation (self-limiting, remove after 2026-08-22)
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: news-worker rotated key looks broken"
+          node --use-env-proxy scripts/watchdog/news-worker-rotation-check.mjs --repo "$REPO" --alert-body /tmp/alert-body.md
+          STATUS=$?
+          if [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "news-worker-rotation OK (confirmed, unrelated failure, pending, or window expired)"
+          elif [ "$STATUS" -eq 1 ]; then
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          else
+            echo "::error::news-worker-rotation-check.mjs exited $STATUS — the check is broken, not clear."
+            exit "$STATUS"
+          fi
+
+      # Content-lane liveness checks (2026-07-23; generalised 2026-08-11).
+      # These lanes are Wyatt-account cloud routines (docs/agents/runners.md),
+      # not GitHub Actions workflows, so they are invisible to the cadence
+      # check above. Confirmed 2026-07-23: Content Shift went silent for a
+      # full day+ with zero trace anywhere (no PR, no stranded branch, no
+      # ticket comment) despite its own charter's rule 8 ("never exit
+      # silently") — that rule is LLM-prompt-compliance-dependent and had
+      # already regressed once. These checks are independent of the agent's
+      # own behavior: they only trust objective gh history.
+      #
+      # Match on the PR HEAD BRANCH prefix, not the title or the shared
+      # `content-shift` LABEL. The label is shared with the photo-enrichment
+      # worker (`content/photo-enrichment-*`), so a label check
+      # false-positives on it. The TITLE prefix "content(shift): " was tried
+      # first (until 2026-07-25) but false-NEGATIVED: Content Shift titles its
+      # PRs inconsistently (`content:`, `content(showgirl):` …), so real
+      # output (#1240, #1494 on 07-24) went undetected and #1449 alarmed from
+      # 07-22 on. The branch prefix is the reliable discriminator.
+      #
+      # WHY THIS IS NOW A LOOP (2026-08-11, Vault Run phase 4 prep). The Vault
+      # Run orchestrator (`vault/<date>`) is being brought in to replace six
+      # standalone lanes including Content Shift. When those standalone
+      # triggers are finally disabled, `content-shift/` PRs stop appearing and
+      # a check hard-keyed to that prefix would alarm every single day. Rather
+      # than flip the prefix — which would leave the still-live standalone
+      # lane unmonitored in the meantime, and silently swap what is being
+      # watched — both prefixes are watched independently, each with its own
+      # window and its own alert title so they self-heal separately.
+      #
+      # **When the standalone lanes are disabled, DELETE the content-shift/
+      # row below.** That is the whole migration: one line, not a rewrite.
+      #
+      # Windows. A lane with NO PR inside its window is considered down.
+      #   content-shift/ = 30h — runs 17:00/23:00 UTC, worst-case gap between
+      #     two scheduled attempts is 18h, so 30h tolerates one missed slot.
+      #   vault/ = 36h — runs once daily at 16:07 UTC. This watchdog job runs
+      #     at 14:35 UTC, so a healthy newest-PR age at check time is ~22.5h;
+      #     36h clears that with ~13h of slop for a late run, while a genuinely
+      #     missed day (age ~46h) still alarms. A missed day is NOT a minor
+      #     event for this lane — the orchestrator carries all six content
+      #     lanes, so one missed run is a whole-day content outage, which is
+      #     precisely what must page. Do not widen this to 48h "to be safe";
+      #     that would hide exactly the failure it exists to catch.
+      #
+      # EXPECT THIS TO FIRE. As of 2026-08-11 the Vault Run has no PR on
+      # 08-01, 08-02 or 08-08 (verified: no PR and no stranded remote branch)
+      # — roughly a 25% miss rate that nobody noticed, because the standalone
+      # lanes were still covering those days. That gap is the finding, not a
+      # false positive.
+      #
+      # Known, accepted limitation: a genuinely idle run (queue empty) also
+      # leaves no PR, so this can fire on a real quiet stretch rather than a
+      # dead routine. Both charters treat an idle exit as itself worth
+      # surfacing, so "quiet day or actually dead?" is a reasonable low-cost
+      # outcome either way — not a bug to engineer around.
+      #
+      # `!cancelled()` added 2026-08-15 (P0), same reasoning as the Karen and
+      # work-ownership steps above.
+      - name: Content lane liveness checks
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          # check_lane <branch-prefix> <window-hours> <lane name> <cadence prose>
+          # Always returns 0: an alarming lane must not abort the step and take
+          # the other lane's check down with it. The alert issue is the signal.
+          check_lane () {
+            local PREFIX="$1" WINDOW="$2" LANE="$3" CADENCE="$4"
+            local CUTOFF RECENT ALERT_TITLE
+            CUTOFF=$(date -u -d "-${WINDOW} hours" +%Y-%m-%dT%H:%M:%SZ)
+            # FALSE ALARM 2026-08-25 (#3303): this used to be a plain
+            # `gh pr list --state all --limit 100` sorted newest-first, then
+            # filtered by date client-side in jq. The comment here used to say
+            # "100 comfortably covers this repo's real PR volume (~8/day)" —
+            # that assumption silently expired as PR volume grew. At alert
+            # time the newest 100 PRs (state:all) only reached back to
+            # 2026-08-24T21:54:34Z, under 18h — so a genuinely healthy
+            # `vault/2026-08-24-run2` PR from 16:44Z that same day (~22.6h
+            # old, comfortably inside the 36h window) was pushed out of the
+            # top-100 slice by ~100 OTHER PRs created after it, and never
+            # reached the jq date filter at all. RECENT came back 0 for a
+            # lane that was not actually down.
+            # Fix: filter by date SERVER-SIDE via the search API's `created:`
+            # qualifier, so no client-side count cap can silently truncate
+            # the window regardless of how busy the repo gets — verified
+            # 2026-08-25 to correctly return both 08-24 vault PRs. -L 1000 is
+            # the gh CLI's own pagination ceiling for search results, kept
+            # generous rather than re-picking another number that can expire.
+            RECENT=$(gh pr list --repo "$REPO" --state all -L 1000 \
+              --search "created:>=${CUTOFF}" \
+              --json headRefName,createdAt \
+              --jq "[.[] | select(.headRefName | startswith(\"${PREFIX}\"))] | length")
+
+            ALERT_TITLE="Watchdog: ${LANE} hasn't produced a PR in ${WINDOW}h"
+
+            if [ "$RECENT" -gt 0 ]; then
+              echo "${LANE} is active — ${RECENT} PR(s) from a '${PREFIX}*' branch in the last ${WINDOW}h." > /tmp/alert-body.md
+              scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+              echo "${LANE} OK (${RECENT} recent PRs)"
+              return 0
+            fi
+
+            {
+              echo "@sffan15-sys — no PR from a \`${PREFIX}*\` branch in the last ${WINDOW}h. ${LANE} runs ${CADENCE} (docs/agents/runners.md) — this either means a genuinely quiet queue (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
+              echo ""
+              echo "Check first: \`gh pr list --state all --json headRefName,createdAt --jq '.[]|select(.headRefName|startswith(\"${PREFIX}\"))'\` for the most recent one, and whether a \`${PREFIX}*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash)."
+              echo ""
+              echo "If the routine itself has stopped: that's a Wyatt-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
+            } > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "${LANE} ALARM (no PR in ${WINDOW}h)"
+            return 0
+          }
+
+          check_lane "vault/"         36 "The Vault Run"  "once daily at 16:07 UTC, carrying all six content lanes"
+          # content-shift/ lane REMOVED 2026-08-24: the standalone Content Shift
+          # cloud routine was deleted (HUMAN-ACTIONS.md #11, PR #2289 — "deleted
+          # all 6 via the routines UI") when it was consolidated into the Vault
+          # Run, so a `content-shift/*` branch can no longer appear and this
+          # check alarmed every single day. This is the one-line migration the
+          # 2026-08-11 comment above prescribed for exactly this moment.
+
+      # Facebook export freshness (proposal §4.7, PLAN.md Stage 6).
+      # fb-export-reminder.yml files a fresh "FB group export due — week of
+      # <date>" issue every Sunday; Joey closes it once he's run
+      # `npm run knowledge:fb-upload`. STALE_DAYS=9 mirrors the Karen
+      # staleness check above: 7-day cadence + a 2-day buffer, without
+      # tolerating a second consecutive miss going unnoticed. Skipped
+      # entirely (not an alarm) while HUMAN-ACTIONS.md #16 is still open —
+      # `fb-groups-checklist.mjs` ships empty until Joey adds real groups,
+      # so there is nothing yet for a real export to close.
+      - name: Facebook export freshness
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          STALE_DAYS=9
+          ALERT_TITLE="Watchdog: no FB group export closed in 9 days"
+
+          # Real array-length check, not a text grep (fixed 2026-08-24). The
+          # old `grep -q "slug:"` matched the EXAMPLE in this file's doc comment
+          # (`{ slug: 'example-group-slug', ... }`), so the skip branch never
+          # fired even though FB_GROUPS_CHECKLIST is `[]` — and the step then
+          # alarmed "none ever closed", the precise pre-configuration state it
+          # was built to stay quiet through while HUMAN-ACTIONS.md #16 is open.
+          # Importing the module and reading the real array length is immune to
+          # comments and reformatting. On skip we now also CLOSE any standing
+          # alert, so this state self-heals instead of stranding an open one.
+          GROUP_COUNT=$(node -e "import('./scripts/knowledge/fb-groups-checklist.mjs').then(m => process.stdout.write(String((m.FB_GROUPS_CHECKLIST || []).length))).catch(() => process.stdout.write('0'))" 2>/dev/null || echo 0)
+          if [ "${GROUP_COUNT:-0}" -eq 0 ]; then
+            echo "no groups configured in fb-groups-checklist.mjs yet (HUMAN-ACTIONS.md #16) — nothing to check."
+            echo "No FB groups configured yet (HUMAN-ACTIONS.md #16) — nothing to export or close, so nothing to alarm on." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            exit 0
+          fi
+
+          LATEST_CLOSED=$(gh issue list --repo "$REPO" --state closed --search "\"FB group export due\" in:title" \
+            --json title,closedAt --jq 'map(select(.title | startswith("FB group export due"))) | sort_by(.closedAt) | last // empty')
+
+          if [ -z "$LATEST_CLOSED" ]; then
+            echo "@sffan15-sys — no \"FB group export due\" issue has ever been closed. If fb-export-reminder.yml only started recently this is expected until the first one lands; if groups have been configured a while, the weekly export task (proposal §4.7) may have stalled." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "FB export ALARM (none ever closed)"
+            exit 0
+          fi
+
+          CLOSED_AT=$(echo "$LATEST_CLOSED" | jq -r '.closedAt')
+          AGE_DAYS=$(( ( $(date -u +%s) - $(date -u -d "$CLOSED_AT" +%s) ) / 86400 ))
+
+          if [ "$AGE_DAYS" -gt "$STALE_DAYS" ]; then
+            echo "@sffan15-sys — the last \"FB group export due\" issue closed ${AGE_DAYS} days ago (expected within ${STALE_DAYS}). The weekly export task (proposal §4.7) may have stalled — \`npm run knowledge:fb-upload\` is the last step once this week's pages are saved." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "FB export ALARM (${AGE_DAYS}d since last close)"
+          else
+            echo "FB export OK — closed ${AGE_DAYS}d ago." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "FB export OK (${AGE_DAYS}d)"
+          fi
+
+      # Knowledge engine freshness SLO (PLAN.md Stage 12, proposal §7 eval
+      # bullet item 2): `max(updated_at) where tier='current'` in
+      # `knowledge_doc` should be < 24h. REPORT, NOT A HARD FAIL — see
+      # scripts/knowledge-freshness.mjs's own header for why this is a
+      # watchdog alert (self-healing, non-blocking) rather than a `build`
+      # gate: a real ingestion cadence takes hours to prove itself, and the
+      # Current tier has zero rows until Stage 3's extract stage has a live
+      # ANTHROPIC_API_KEY (HUMAN-ACTIONS.md #13) — that pre-ingestion state
+      # is expected, not itself an alarm (exit code 2 below, treated the same
+      # as a healthy close, not an open). Reuses the SAME SUPABASE_URL/
+      # SUPABASE_SERVICE_ROLE_KEY secrets news-worker.yml already has — no
+      # new secret, no HUMAN-ACTIONS item.
+      - name: Knowledge engine freshness (current tier < 24h)
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: knowledge engine current-tier data is stale"
+          # See the work-ownership step above for why STATUS is captured this
+          # way rather than a bare `cmd; STATUS=$?` under errexit.
+          STATUS=0
+          OUTPUT=$(node scripts/knowledge-freshness.mjs 2>&1) || STATUS=$?
+          echo "$OUTPUT"
+          if [ "$STATUS" -eq 0 ]; then
+            echo "$OUTPUT" > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "knowledge-freshness OK"
+          elif [ "$STATUS" -eq 2 ]; then
+            # No secret configured, or genuinely zero current-tier rows yet
+            # (expected pre-ingestion) — informational, not an alarm.
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "knowledge-freshness SKIPPED (no secret or no data yet — not an alarm)"
+          else
+            {
+              echo "@sffan15-sys — the knowledge engine's Current tier hasn't refreshed within its 24h SLO:"
+              echo ""
+              echo "$OUTPUT"
+              echo ""
+              echo "This does not block any merge (report-only per PLAN.md Stage 12). Check \`knowledge-engine.yml\` / \`news-worker.yml\`'s last runs: https://github.com/${REPO}/actions"
+            } > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "knowledge-freshness ALARM (stale)"
+          fi

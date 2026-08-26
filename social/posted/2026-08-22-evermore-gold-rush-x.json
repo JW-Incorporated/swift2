@@ -1,0 +1,10 @@
+{
+  "platform": "x",
+  "body": "an honest question: which taylor song falls for someone everyone falls for — then talks itself out of it by the last chorus?\n\n\"gold rush\" — the only evermore track jack antonoff co-wrote and produced. a daydream she decides not to chase.\n\nlonglivets.com/?item=vault-evermore-gold-rush-a-jealousy-fantasy-that-dismisses-itself&utm_source=x&utm_medium=social&utm_campaign=track-fact",
+  "scheduledAt": "2026-08-22T23:30:00Z",
+  "campaign": "track-fact:evermore-gold-rush",
+  "why": "Calendar slot 2026-08-22 23:30Z X, heartbeat:track-fact from an evermore dossier, hook \"an honest question\" (opens with one). Source: supabase/seed/content/evermore.mjs:2056 (slug gold-rush-daydream): the only evermore track Jack Antonoff co-wrote and produced (pop shimmer amid the Dessner woodwork); its narrator falls for someone everyone falls for, spirals, then decides not to pursue the daydream at all. Sources cited in seed: Wikipedia + Slate. Deep link /?item=vault-evermore-gold-rush-a-jealousy-fantasy-that-dismisses-itself (moment id verified in content-vault.generated.ts:1925; deepLink.ts reads the bare item param). Text-only: X media is optional and no committed real photo fits — text is the correct fallback (never an era tile). Distinct subject from the 08-18 evermore \"willow\" post. Blocklist-safe (a song's fictional narrative). Trimmed to weighted <=280 (URL counts as 23). Campaign story-unique (findPostedDuplicate matches platform+campaign).",
+  "postedAt": "2026-08-22T23:45:57.960Z",
+  "platformPostId": "2091310959566479682",
+  "url": "https://x.com/longlivetscom/status/2091310959566479682"
+}

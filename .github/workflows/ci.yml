@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Actions-minutes control (2026-07-27). CI is ~77% of this repo's Actions
+# minutes — 352 runs / 474 min in the 7 days to 2026-07-27 — because every bot
+# PR costs two runs: one on the PR, one on `main` after it merges.
+#
+# Superseded PR runs are cancelled: agents routinely push a fix to an open PR,
+# and the older run then burns a full ~80s proving something about a commit
+# nobody will merge. `main` is deliberately NOT cancellable — it is the deploy
+# gate and the only place a semantic conflict between two separately-green PRs
+# shows up, which matters at this repo's merge rate.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run test
+      # Clownbot rebuild's red-team battery (J3, PLAN.md Step 12): the feature
+      # ships live on merge, gated on this check, so it runs on every PR, not
+      # on a cadence someone has to remember. Deterministic and keyless — it
+      # exercises clown-safety.ts/clown-blocklist.ts directly against the
+      # pinned corpus (53 attacks, 21 Tier B probes, 48 legit prompts) and
+      # fails loudly on any over-refusal or held-attack regression. The keyed,
+      # full-model battery stays a separate manual pre-flight.
+      - run: npm run clown:battery
+      - run: npm run validate:content
+      # Schema gate for social/queue/** (2026-08-11). validate:content only
+      # ever covered supabase/seed/**, so until now the first validator a
+      # queue item met was the live platform API — see
+      # scripts/social/lib/queue-schema.mjs for the eleven X posts that cost.
+      - run: npm run validate:social
+      - run: npm run check:generated
+      - run: npm run check:content-inert
+      - run: npm run check:automerge-allowlist
+      # Offline + ~50ms: proves docs/launch-readiness.md's cadence claims are
+      # backed by a real cron and that no gate is green on a cadence nothing
+      # provides. Throttling a runner now breaks `build` until the gates that
+      # depend on it are re-scored (2026-08-11 audit; see the script header).
+      - run: npm run check:launch-gates
+      # Content ownership lock (#1954): the manifest must parse and be
+      # well-formed. A malformed lock is caught HERE, at the PR, never at fleet
+      # runtime. An empty manifest (nothing claimed) always passes.
+      - run: npm run check:content-ownership
+      # Filter coverage (kit-v3 P1): every item that can appear on an era
+      # timeline must carry at least one of the six global filter ids, or
+      # R2's single sticky filter makes it permanently unreachable.
+      - run: npm run check:filter-coverage
+      # Dependency-downgrade guard (#1903): fail if any dep's highest resolved
+      # version dropped below `main`. The base lockfile is fetched from the LIVE
+      # base branch at build time (not the PR's stale base), so a lockfile
+      # regenerated from a stale tree can't silently revert a security bump the
+      # moment `build` goes green — the exact #1903 failure. `--depth=1` is
+      # enough: the script only reads `FETCH_HEAD:package-lock.json`.
+      - name: Guard against dependency downgrades vs main
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          npm run check:no-downgrade -- --base-ref FETCH_HEAD
+      # Voice gate (#461 / #1917 / #1918): house style is "Taylor," not "Swift."
+      # This gate used to be enforced only by Karen's scan — which went weekly
+      # on 2026-07-25 while still being described as nightly, so 19 findings
+      # landed on `main` before anyone looked. A cadence is not a gate; this is.
+      # Scans the seed files THIS PR changed (a corpus-wide block would freeze
+      # merges for authors who touched none of it, and a gate people route
+      # around enforces nothing). Editing the rule itself escalates to a
+      # full-corpus scan. Base fetched live, same idiom as check:no-downgrade.
+      - name: Voice gate on changed content
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          npm run check:voice -- --base-ref FETCH_HEAD
+      - run: npm run content:coverage
+      - run: npm run build
+      - run: npm run check:budget:seed

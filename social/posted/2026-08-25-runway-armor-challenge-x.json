@@ -1,0 +1,14 @@
+{
+  "platform": "x",
+  "body": "you already know which era dressed like armor. open The Runway and find it — the black snake-motif bodysuit, built defiant on purpose. reply with the era.\n\ntwelve closets, debut boots to showgirl sequins. longlivets.com/?lens=fashion&utm_source=x&utm_medium=social&utm_campaign=thread-fashion",
+  "media": [
+    "/social/library/thread-fashion-screen.png"
+  ],
+  "mediaKind": "site-screen",
+  "scheduledAt": "2026-08-25T15:00:00Z",
+  "campaign": "thread:fashion:interactive-challenge:2026-08-24",
+  "why": "Calendar 2026-08-25 15:00Z X, thread:fashion:interactive-challenge (The Runway X leg), hook 'direct address' — a different entry point into Monday's IG sister-eras challenge, not a truncation (subject is the reputation look, not the folklore/evermore pair, so it diverges well past >20%). Interactive-challenge: names one specific thing to find in The Runway and asks for the answer in replies. Source: apps/web/lib/longlive/lenses.ts RUNWAY_LOOKS look-reputation ('Armored Monochrome') — 'a black snake-motif bodysuit designed by Fausto Puglisi for Roberto Cavalli, built for the 2018 reputation Stadium Tour — armored, high-contrast, and defiant by design'; the twelve looks run debut ('curls & cowboy boots') to tloas ('orange sequins/showgirl'). The reputation look is genuinely present on the fashion lens, so the challenge is answerable on the live product. Media: /social/library/thread-fashion-screen.png (site-screen, product surface — fine on X, which has no aspect-ratio bar; NOT used on IG where its 780x1688 ratio would fail). Link /?lens=fashion (lens id confirmed at lenses.ts:102). Weighted length 228 (<=270). Shares Monday's IG campaign value per its stated intent (same Runway window = one IG + one X sibling story); idempotency is platform+campaign so an X post sharing an IG campaign never false-skips. Blocklist-safe (wardrobe/tour costume).",
+  "postedAt": "2026-08-25T15:41:51.540Z",
+  "platformPostId": "2092276284667691117",
+  "url": "https://x.com/longlivetscom/status/2092276284667691117"
+}

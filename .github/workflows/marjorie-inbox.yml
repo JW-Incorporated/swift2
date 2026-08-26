@@ -1,0 +1,147 @@
+# Marjorie's inbox — founders can REPLY to the brief emails (Joey, 2026-07-16).
+#
+# The brief-mailer sends From Marjorie's Gmail; this is the return path:
+# every 30 minutes, read that inbox over IMAP (same account + App Password
+# the mailer already uses), take unread mail from the founders' addresses,
+# and post each one as a comment on the brief issue its subject refers to.
+# Marjorie reads brief comments at her morning/delta runs and responds there
+# (and the delta gets mailed back — so a reply genuinely reaches her, and
+# her answer genuinely comes back to the founder's inbox).
+#
+# TREE ROUTING (2026-08-23): tree-mail.yml's `tree-pr-mail` job sends Tree's
+# weekly report with subject "Tree's weekly plan: <PR title>" — a reply to
+# that email is strategy feedback for TREE, not Marjorie, and posting it on
+# a brief issue would strand it somewhere Tree's Monday run never reads. A
+# reply whose subject carries that prefix is instead posted on Tree's own
+# PR (found by title search, open or closed — the PR may already be merged
+# by the time a founder replies), same DKIM/idempotency guarantees as the
+# brief path below.
+#
+# Deterministic, zero AI. Safety properties:
+#   - Only mail whose From is a founder address AND whose Gmail
+#     Authentication-Results carry dkim=pass is relayed; everything else is
+#     left unread and ignored (spoof resistance).
+#   - Relayed comments are posted by the Actions bot, NOT by a founder
+#     account — so per Marjorie's charter (Decision processing), they are
+#     founder CONVERSATION, never decision-authority artifacts. The comment
+#     footer says so. High-blast-radius decisions still require a
+#     founder-authored GitHub comment/checkbox.
+#   - Idempotent: each mail's Message-ID is embedded in its comment; a
+#     message is skipped if any comment on the target issue already carries
+#     its Message-ID, and marked \Seen only after a successful post.
+name: marjorie-inbox
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+
+jobs:
+  relay:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Relay founder replies to the brief thread
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${MARJORIE_EMAIL:-}" ] || [ -z "${GMAIL_APP_PASSWORD:-}" ]; then
+            echo "Mail credentials not configured — skipping."; exit 0
+          fi
+          python3 - << 'PY'
+          import email, email.policy, imaplib, json, os, re, subprocess
+
+          FOUNDERS = {
+              'sffan15@gmail.com': 'Joey',
+          }
+          REPO = os.environ['REPO']
+          user = os.environ['MARJORIE_EMAIL'].strip()
+          pw = os.environ['GMAIL_APP_PASSWORD'].replace(' ', '').strip()
+
+          def gh(*args, input=None):
+              return subprocess.run(['gh', *args], check=True, text=True,
+                                    input=input, capture_output=True).stdout
+
+          def strip_quotes(text):
+              # Keep only the founder's own words: cut at the standard
+              # "On <date>, <sender> wrote:" line or the first quoted block.
+              lines = []
+              for ln in text.splitlines():
+                  if re.match(r'^\s*On .{4,80} wrote:\s*$', ln): break
+                  if ln.startswith('>'): break
+                  lines.append(ln)
+              return '\n'.join(lines).strip()
+
+          TREE_PREFIX = "Tree's weekly plan: "
+
+          def target_issue(subject):
+              m = re.search(r'Founders. Brief — (\d{4}-\d{2}-\d{2})', subject)
+              q = f'"Founders\' Brief — {m.group(1)}" in:title' if m else ''
+              args = ['issue', 'list', '--repo', REPO, '--label', 'founders-brief',
+                      '--state', 'all', '--limit', '1', '--json', 'number']
+              if q: args += ['--search', q]
+              out = json.loads(gh(*args))
+              return out[0]['number'] if out else None
+
+          def target_tree_pr(pr_title):
+              # Open or closed — Tree's PR may already be merged by the time a
+              # founder replies days later. Title search, not branch name: the
+              # mail payload only ever carried the PR's title (tree-mail.yml).
+              args = ['pr', 'list', '--repo', REPO, '--state', 'all', '--limit', '1',
+                      '--search', f'"{pr_title}" in:title', '--json', 'number']
+              out = json.loads(gh(*args))
+              return out[0]['number'] if out else None
+
+          M = imaplib.IMAP4_SSL('imap.gmail.com')
+          M.login(user, pw)
+          M.select('INBOX')
+          _, data = M.search(None, 'UNSEEN')
+          for num in data[0].split():
+              _, msg_data = M.fetch(num, '(BODY.PEEK[])')
+              msg = email.message_from_bytes(msg_data[0][1], policy=email.policy.default)
+              from_addr = email.utils.parseaddr(msg.get('From', ''))[1].lower()
+              auth = ' '.join(msg.get_all('Authentication-Results', []) or [])
+              if from_addr not in FOUNDERS or 'dkim=pass' not in auth:
+                  print(f'ignored (not a verified founder): {from_addr}')
+                  continue
+              body_part = msg.get_body(preferencelist=('plain',))
+              body = strip_quotes(body_part.get_content() if body_part else '')
+              if not body:
+                  print('ignored (empty after quote-stripping)'); continue
+              subject = msg.get('Subject', '(no subject)')
+              msg_id = msg.get('Message-ID', '').strip() or f'no-id-{num.decode()}'
+
+              is_tree = subject.startswith(TREE_PREFIX)
+              if is_tree:
+                  target = target_tree_pr(subject[len(TREE_PREFIX):].strip())
+                  kind, cmd = 'PR', ['pr', 'comment']
+              else:
+                  target = target_issue(subject)
+                  kind, cmd = 'issue', ['issue', 'comment']
+              if not target:
+                  print(f'no {"Tree PR" if is_tree else "brief issue"} found for: {subject}'); continue
+
+              already = gh('api', f'repos/{REPO}/issues/{target}/comments',
+                           '--jq', f'[.[] | select(.body | contains("{msg_id}"))] | length')
+              if already.strip() != '0':
+                  M.store(num, '+FLAGS', '\\Seen'); continue
+              who = FOUNDERS[from_addr]
+              recipient = 'Tree (its next Monday run reads this)' if is_tree else "Marjorie's next run"
+              comment = (
+                  f'📧 **Reply from {who}** (relayed from email, DKIM-verified · re: {subject})\n\n'
+                  f'{body}\n\n'
+                  f'---\n_Relayed by marjorie-inbox.yml. Founder conversation for {recipient} — '
+                  f'per the charter, relayed email never carries decision authority for the '
+                  f'high-blast-radius set; those need a founder-authored comment/checkbox here on GitHub._\n'
+                  f'<!-- relay-id: {msg_id} -->'
+              )
+              gh(*cmd, str(target), '--repo', REPO, '--body-file', '-', input=comment)
+              M.store(num, '+FLAGS', '\\Seen')
+              print(f'relayed {who} → {kind} #{target}')
+          M.logout()
+          PY

@@ -1,0 +1,151 @@
+# Emails the founders when work needs a human, so it lands in real inboxes
+# rather than only as GitHub activity — @mentions of bot identities do not
+# reach the founders' actual email (see docs/agents/marjorie.md › Delivery).
+#
+# REWRITTEN 2026-08-11 after the four-email incident: the first version mailed
+# instantly on EVERY issue opened with the `founder-task` label, with a
+# "Tree needs ~15 min of founder time" subject. A Wyatt-side deconfliction
+# pass then opened four labelled issues (#1955–#1958) inside 30 seconds and
+# Joey got four near-duplicate emails at once — all attributed to Tree, an
+# agent that had never run. Two fixes:
+#
+#   1. Attribution: only Tree-authored artifacts wear Tree's name. Tree's
+#      weekly PR (head branch `tree/<date>`) keeps its instant "Tree's weekly
+#      plan" mail. Issues get a neutral "Founder action needed" subject, with
+#      the Tree subject reserved for Tree's own weekly issue (title convention
+#      `founder-task: social reach week of <date>`).
+#   2. Burst control: issues are no longer mailed per event. A scheduled sweep
+#      (every 3 hours) collects ALL open `founder-task` issues not yet carrying
+#      the `founder-mailed` bookkeeping label, sends ONE digest email, then
+#      marks them mailed. A burst of N issues becomes one email; ≤3 h latency
+#      is fine for "~15 min sometime this week" tasks, and exactly-once
+#      delivery lives in GitHub labels, not in fragile time-window math.
+#      (An author-allowlist was considered instead and rejected: the incident
+#      mail came from a legitimate identity — Wyatt's agent — so an allowlist
+#      would not have prevented it, and it breaks as more desks legitimately
+#      file founder tasks.)
+#
+# RETIRED (2026-08-23): the digest SWEEP's mail send is off. Joey capped
+# founder-facing report email at 1-2 total (morning brief + Tree's weekly
+# report) and this stand-alone digest was a third. Open `founder-task` issues
+# now surface in Marjorie's morning brief instead (next-morning latency,
+# Joey's call — these are "~15 min sometime this week" asks, not urgent).
+# The job below still RUNS on schedule so `founder-mailed` bookkeeping stays
+# current for any tooling that reads it, but its mail-send step is gated off.
+#
+# Delivery path unchanged: scripts/watchdog/send-mail.py — the exact mailer
+# the Founders' Brief and watchdog alerts already use; From Marjorie, To Joey,
+# CC Wyatt; skips quietly if the mail secrets are unset.
+#
+# What `founder-task` means (docs/agents/README.md › labels): a human founder
+# must personally act, and the body is written for a non-coder per
+# docs/agents/founder-comms.md — the body below goes out as the email,
+# verbatim. Agent-to-agent coordination belongs under `desk-coordination`,
+# which never mails anyone.
+#
+# Zero AI, no polling loops. The `founder-mailed` label is created by
+# scripts/marjorie/bootstrap-labels.mjs. `pull_request` on a same-repo branch
+# has normal secrets access; Tree cannot run code here (no PR-head checkout —
+# the mailer runs from the trusted base ref).
+name: tree-mail
+
+on:
+  pull_request:
+    types: [opened]
+  # Digest sweep's schedule removed 2026-08-23 — see the RETIRED note above.
+  # `workflow_dispatch` still runs the digest job manually for testing.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write # digest sweep applies the `founder-mailed` bookkeeping label
+
+jobs:
+  # Tree's weekly planning PR (head branch `tree/<date>`, per
+  # docs/agents/tree.md › Mutation rights) — the PR body IS Tree's weekly
+  # report to its manager, so it goes out instantly on `opened`. This is the
+  # only per-event mail left, and it is Tree-authored by construction.
+  tree-pr-mail:
+    if: >
+      github.event_name == 'pull_request' &&
+      startsWith(github.event.pull_request.head.ref, 'tree/')
+    runs-on: ubuntu-latest
+    concurrency:
+      group: tree-mail-pr-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+      # Trusted base-ref checkout only — never the PR head. The mailer script
+      # is the only thing we need from the tree.
+      - uses: actions/checkout@v7
+
+      - name: Build payload from the event
+        env:
+          # Event fields via env, never inline-interpolated into the script,
+          # so a crafted PR body cannot inject shell.
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os
+          payload = {
+              "subject": "Tree's weekly plan: " + os.environ["PR_TITLE"],
+              "body": os.environ.get("PR_BODY") or "(no PR body)",
+              "url": os.environ["PR_URL"],
+          }
+          with open("payload.json", "w", encoding="utf-8") as f:
+              json.dump(payload, f)
+          PY
+
+      - name: Send From Marjorie, To Joey, CC Wyatt
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python3 scripts/watchdog/send-mail.py payload.json
+
+  # The founder-task digest sweep: everything opened since the last sweep,
+  # batched into ONE email. Exactly-once via the `founder-mailed` label —
+  # applied only after the send step succeeds, so a failed send retries on
+  # the next sweep instead of going silent.
+  founder-task-digest:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: tree-mail-digest
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Collect open founder-task issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh issue list --label founder-task --state open --limit 100
+          --json number,title,body,url,labels > issues.json
+
+      - name: Build ONE digest payload
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/watchdog/build-founder-digest.mjs issues.json payload.json numbers.txt
+
+      - name: Send From Marjorie, To Joey, CC Wyatt
+        if: hashFiles('payload.json') != ''
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python3 scripts/watchdog/send-mail.py payload.json
+
+      - name: Mark the mailed issues so the next sweep skips them
+        if: hashFiles('numbers.txt') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          while read -r n; do
+            [ -n "$n" ] && gh issue edit "$n" --add-label founder-mailed
+          done < numbers.txt

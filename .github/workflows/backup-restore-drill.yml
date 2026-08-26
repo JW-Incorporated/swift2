@@ -1,0 +1,121 @@
+# Backup + restore drill — launch gate BACKUPS (#680).
+#
+# Proves, on a schedule, that the documented restore procedure in
+# docs/backup-restore.md still works: schema from `supabase/migrations`, data
+# from a logical backup, verified by row counts, per-table content checksums,
+# and named spot checks. A runbook nobody executes is a runbook that has
+# already rotted; this is the thing that stops it.
+#
+# NO PRODUCTION ACCESS. The drill builds its own source database from this
+# repo's migrations + seeds inside the job's Postgres service container, adds
+# synthetic runtime-only `news_*` rows, and restores into a second scratch
+# database in the same container. It has no Supabase credentials and cannot
+# reach production. The separate real-data drill is a human-run, credentialed
+# procedure documented in the runbook — deliberately not automated here.
+#
+# CADENCE — monthly, and why not more often. This repo hit 90% of its included
+# Actions minutes on 2026-07-27 and CI is already ~77% of the spend
+# (see ci.yml's header). One drill run is ~2–3 minutes, so monthly costs ~3
+# min/month. The thing the drill guards against — a migration or a column type
+# that quietly breaks the restore path — changes on the order of weeks, not
+# hours, and `supabase/migrations/**` edits trigger a run on the spot via the
+# `paths` filter below. Monthly + on-migration-change is the proportionate
+# answer; nightly would be ~90 min/month to re-prove an unchanged fact.
+name: backup-restore-drill
+
+on:
+  schedule:
+    # 06:20 UTC on the 1st. Offset off :00 — see watchdog.yml's 2026-07-18
+    # header note on this repo's scheduling contention.
+    - cron: '20 6 1 * *'
+  workflow_dispatch: {}
+  pull_request:
+    paths:
+      - 'supabase/migrations/**'
+      - 'scripts/backup-restore-test.mjs'
+      - 'scripts/lib/pg.mjs'
+      - '.github/workflows/backup-restore-drill.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: backup-restore-drill-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  drill:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        # Matches Supabase's major version. The drill exercises the same DDL
+        # and the same jsonb/timestamptz round-trip the real database does.
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Run the drill
+        id: drill
+        run: |
+          node scripts/backup-restore-test.mjs --drill \
+            --cluster "postgres://postgres:postgres@127.0.0.1:5432/postgres?sslmode=disable" \
+            | tee /tmp/drill.log
+
+      - name: Upload the drill report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: backup-restore-report
+          path: .backups/last-report.json
+          if-no-files-found: warn
+          retention-days: 90
+
+      # Same persistent-issue + email pattern every other alert in this repo
+      # uses (scripts/watchdog/upsert-alert.sh) — one evolving issue per
+      # condition, self-healing on recovery. Scheduled runs only: a PR-triggered
+      # failure is already visible as a red check on the PR.
+      - name: Page on failure
+        if: always() && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          OUTCOME: ${{ steps.drill.outcome }}
+        run: |
+          set -euo pipefail
+          ALERT_TITLE="Backup/restore drill failing"
+          if [ "$OUTCOME" = "success" ]; then
+            echo "Monthly backup/restore drill passed at $(date -u +'%Y-%m-%d %H:%M UTC'). Launch gate BACKUPS stays green." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            exit 0
+          fi
+          {
+            echo "@sffan15-sys — the monthly backup/restore drill FAILED at $(date -u +'%H:%M UTC')."
+            echo ""
+            echo "This means the documented restore path in \`docs/backup-restore.md\` no longer round-trips this database's own schema + data. Launch gate BACKUPS is no longer verifiable until it is fixed."
+            echo ""
+            echo "Run log: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo ""
+            echo "Reproduce locally: \`npm run test:backup-restore\` (needs a local Postgres, or \`--cluster ephemeral\`)."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          exit 1

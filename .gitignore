@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+
+# Environment & secrets — never commit
+.env
+.env.*
+# ...except the value-free templates that document required vars
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Build output
+dist/
+build/
+.next/
+.expo/
+.vercel/
+*.tsbuildinfo
+
+# Logs & OS noise
+*.log
+.DS_Store
+Thumbs.db
+
+# Local editor/tool state
+.claude/settings.local.json
+.vscode/
+.idea/
+
+# Playwright E2E artifacts
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+nul
+
+# News candidate digest — generated every cycle and published to the
+# news-digest branch, never tracked on main (see .github/workflows/news-worker.yml).
+docs/content-ops/news-candidates.md
+
+# Backup/restore drill artifacts (scripts/backup-restore-test.mjs) — dumps of
+# real data plus throwaway Postgres clusters. Never tracked.
+/.backups/
+
+# Keyed live-battery transcripts (npm run clownbot:battery -- --out=...). Run
+# artifacts: large, full of raw model output, and regenerated every run. The
+# runbook (docs/ops/clownbot-launch-gate.md) says attach them to the launch
+# thread, never commit them — this makes that the default rather than a rule
+# someone has to remember at 2am.
+clownbot-battery-*.json
+
+# Thread hero crop previews (scripts/images/thread-hero.mjs preview) — throwaway
+# renders used to choose a `heroPosition` by looking at it. The hero itself is
+# committed to apps/web/public/threads/; these are the working shots.
+/thread-hero-preview/
+
+# Agent scratch output (CLAUDE.md § Mechanics) — filtered command output and
+# throwaway working files. Never tracked.
+.scratch/
+
+# Repowise local index (repowise-setup skill) — rebuildable, never tracked.
+.repowise/
+codex-full-log.jsonl
+codex-stdout.log

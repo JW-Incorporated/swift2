@@ -1,0 +1,17 @@
+# Keep .mjs checkouts LF everywhere: vitest (esbuild) fails to parse CRLF
+# .mjs files on Windows ("SyntaxError: Invalid or unexpected token" when a
+# test imports a sync script), which core.autocrlf=true would otherwise
+# produce. Blobs are already LF, so this changes checkouts only, not history.
+*.mjs text eol=lf
+
+# The generated vault (*.generated.ts) is written LF by the sync scripts;
+# pin LF so the check:generated guard never sees spurious CRLF diffs.
+*.generated.ts text eol=lf
+
+# Shell scripts run directly via their shebang on GitHub Actions' Linux
+# runners (scripts/watchdog/upsert-alert.sh) — a CRLF checkout breaks the
+# shebang line ("bad interpreter") even though core.autocrlf only converts
+# working-tree checkouts, not the committed blob. Same risk class as the
+# .mjs fix above; pin explicitly rather than rely on autocrlf leaving it
+# alone by chance.
+*.sh text eol=lf

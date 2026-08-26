@@ -1,0 +1,78 @@
+# Growth snapshot — daily follower counts + posts-published, for the
+# Founders' Brief's Growth bullet (docs/agents/marjorie.md › Brief format).
+#
+# Runs BEFORE Marjorie's brief-assembly routine (12:00 UTC, on Wyatt's
+# account — docs/agents/runners.md), which reads social/metrics/*.json
+# directly off its own checkout. That routine has no access to the social
+# platform secrets below, which is why this exists as its own Action rather
+# than living inside her routine.
+#
+# Reuses the same secrets social-poster.yml already has (read-only calls
+# here — no new secrets, no new scopes):
+#   X_API_KEY, X_API_KEY_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET
+#   IG_ACCESS_TOKEN, IG_BUSINESS_ACCOUNT_ID, FB_PAGE_ID
+# Any secret that's unset simply yields `null` for that platform's follower
+# count (scripts/social/growth-snapshot.mjs) — nothing fails loudly for a
+# platform we haven't configured yet.
+#
+# main is branch-protected, so the commit goes through the same throwaway
+# branch + auto-merging PR as social-poster.yml, and for the same reason:
+# the built-in GITHUB_TOKEN can't trigger the "build" check on its own PRs,
+# so it can never merge. SOCIAL_POSTER_PAT (a real user's fine-grained PAT)
+# doesn't have that restriction — see social-poster.yml's header for the
+# full story of why.
+name: growth-snapshot
+on:
+  schedule:
+    # ~11:00 UTC — still >1.5h ahead of the 12:45 UTC brief. Offset off :00
+    # (2026-07-18) — see watchdog.yml's header note on repo scheduling
+    # contention from the two */30 workflows.
+    - cron: "5 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Take today's growth snapshot
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+        run: node scripts/social/growth-snapshot.mjs
+
+      - name: Commit snapshot (via PR — main is branch-protected)
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add social/metrics
+          if git diff --cached --quiet; then
+            echo "No metrics changes to commit."
+            exit 0
+          fi
+          BRANCH="growth-snapshot/$(date -u +%Y%m%d%H%M%S)"
+          git checkout -b "$BRANCH"
+          git commit -m "growth-snapshot: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push origin "$BRANCH"
+          gh pr create --title "growth-snapshot: $(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --body "Automated daily growth snapshot (follower counts + posts published). No content decisions are made here." \
+            --base main --head "$BRANCH"
+          gh pr merge "$BRANCH" --squash --auto --delete-branch

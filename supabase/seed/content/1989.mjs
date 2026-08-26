@@ -1,0 +1,3272 @@
+// Vault content — 1989 era (original 2014 release, not Taylor's Version —
+// the 2023 re-release is dated to the Midnights era per its actual release
+// date, see midnights.mjs).
+//
+// Two wavetop months: Oct 2014 (album release) and May 2015 (tour opens).
+// Every claim verified against its cited source directly. See
+// docs/marketing/content-framework-2026-07-03.md for the no-fabrication
+// rule and the light-touch (link-first) authoring model this follows.
+
+export default {
+  eraSlug: '1989',
+  items: [
+    {
+      year: 2014,
+      month: 11,
+      day: 15,
+      category: 'business',
+      title: '1989 becomes her third million-copy opening week',
+      snippet:
+        "1.287 million copies in week one — the biggest sales week for any album since Eminem's The Eminem Show in 2002, and her third album to cross a million copies in its first week.",
+      sourceUrl: 'https://www.forbes.com/sites/hughmcintyre/2014/11/05/taylor-swifts-1989-moves-1-287-million-copies-in-its-first-week/',
+      thumbnailUrl: 'https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg',
+      moment: {
+        context:
+          "The seven-day frame ending Nov. 2, 2014 produced the biggest sales week for any album since The Eminem Show in 2002, and made her the only woman with three albums to each clear a million copies in a week — Speak Now and Red had done it first.\n\nThe scale is almost absurd: 1989 outsold the Nos. 2 through 107 albums on that week's Billboard 200 combined, per Billboard's chart recap, in a year when no other album had even approached seven figures in a week. It debuted at No. 1 on the chart dated Nov. 15, 2014 and spent 11 nonconsecutive weeks at No. 1; only four albums have posted a bigger single week since — Adele's 25, The Tortured Poets Department, 1989 (Taylor's Version) itself, and The Life of a Showgirl.",
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2014/11/05/taylor-swifts-1989-moves-1-287-million-copies-in-its-first-week/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-1989-chart-rewind-2014-1235829365/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-life-of-a-showgirl-number-one-billboard-200/',
+          },
+        ],
+        // Photo-enrichment run 11 (2026-07-18, #762): focal point set by
+        // viewing — 1989-era press photo, face upper-left on the carpet shot.
+        photos: [{ url: 'https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg', credit: 'Big Machine Records', focalPoint: '39% 24%' }],
+      },
+    },
+    {
+      // Cross-link (Stage 3, 2026-07-27): the "Blank Space" cluster — the
+      // song's satire, its video/Emmy-winning companion app, and the short
+      // narrative-flip summary — now interlink.
+      relatedIds: [
+        'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
+        'moment:vault-1989-blank-space-flips-the-narrative',
+      ],
+      year: 2014,
+      month: 11,
+      day: 10,
+      category: 'music',
+      title: 'Blank Space, and the joke half the audience missed',
+      snippet:
+        "Satire aimed at her own tabloid image — \"a girl who's crazy but seductive but glamorous but nuts but manipulative.\"",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Blank_Space',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+      moment: {
+        context:
+          "She's said only about half of listeners caught it was a joke; the rest took the persona at face value — which was almost the point, since the song was written as a satirical, self-referential nod to a tabloid caricature she'd decided was \"kind of hilarious\" once she stopped feeling attacked by it.\n\nThe joke worked commercially either way: after debuting at No. 18, \"Blank Space\" knocked \"Shake It Off\" out of No. 1 in its third week, making her the first woman in the Hot 100's 56-year history to succeed herself at the top — only nine acts, from the Beatles to the Black Eyed Peas, had ever done it. It held No. 1 for seven straight weeks and was eventually certified 8x Platinum.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Blank_Space' },
+          { outlet: 'Billboard', url: 'https://www.billboard.com/pro/taylor-swift-blank-space-hot-100/' },
+        ],
+        // Photo pass (2026-07-20, #762): 2nd verified photo + focal points on
+        // both. Official "Blank Space" video id e-ORhEE9VVg confirmed via
+        // YouTube oEmbed (author "Taylor Swift"); maxresdefault curl-verified
+        // 200 image/jpeg, downloaded and viewed. Focal points set by eye.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+            focalPoint: '48% 35%',
+            credit: 'Big Machine Records',
+            caption: 'The "Blank Space" single cover — the satirical tabloid persona, rendered as a torn-up polaroid.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/e-ORhEE9VVg/maxresdefault.jpg',
+            focalPoint: '50% 40%',
+            credit: 'Taylor Swift / Big Machine Records, via YouTube',
+            caption: 'A close-up from the official "Blank Space" video — the mansion-and-mascara caricature played straight.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      // Fix (issue #1239): was dated 2014-09-08 — seven weeks before 1989
+      // (the album that introduced the song) and eight months before the
+      // single. Re-dated to the album's release day, the earliest date the
+      // song's own existence supports; the body/sources are about the
+      // single/feud and run through 2024 regardless of this date.
+      year: 2014,
+      month: 10,
+      day: 27,
+      category: 'music',
+      title: 'Bad Blood, and the friendship it ended',
+      snippet:
+        "Not about an ex — by her own account, about a friend who tried to sabotage an entire arena tour.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/QcIy9NiNbmo/maxresdefault.jpg',
+      moment: {
+        context:
+          "She told Rolling Stone the person had \"tried to hire a bunch of people out from under\" her; a year later she told GQ she'd \"never said anything that would point a finger in the specific direction of one specific person.\"\n\nKaty Perry, the widely speculated subject — the falling-out reportedly traced to a 2013 disagreement over backup dancers — made peace in stages, and largely in private first. Perry sent a literal olive branch as the reputation Stadium Tour opened in May 2018, and by June 2019 the two were sharing a screen, dressed as a burger and fries, in the \"You Need to Calm Down\" video; both have said they made sure the friendship was solid between them before letting the public in on it. By 2024 Perry was in the crowd at an Eras Tour show in Australia.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/the-reinvention-of-taylor-swift-116925/',
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/706891/taylor-swift-on-bad-blood-being-about-katy-perry-it-doesn-t-point-to-any-one-person',
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1423684/katy-perry-supports-taylor-swifts-the-life-of-a-showgirl',
+          },
+        ],
+        // Official "Bad Blood ft. Kendrick Lamar" video id QcIy9NiNbmo
+        // confirmed via YouTube oEmbed (author "Taylor Swift"); maxresdefault
+        // curl-verified 200 image/jpeg, downloaded and viewed. Focal by eye.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/maxresdefault.jpg',
+            focalPoint: '54% 42%',
+            credit: 'Taylor Swift / Big Machine Records, via YouTube',
+            caption: 'A frame from the star-studded official "Bad Blood" video, the Kendrick Lamar remix.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      year: 2015,
+      month: 5,
+      day: 5,
+      category: 'tour',
+      significance: 'notable', // a real tour-opening record, but not on the career-defining tier next to the Eras Tour opening or the Stadium Tour (docs/decisions.md, 2026-07-19)
+      title: 'The 1989 World Tour opens with two sold-out nights in Tokyo',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-2", label: "1989 World Tour", kind: "tour" },
+      snippet:
+        '100,320 fans across two shows at Tokyo Dome, $10.6 million combined — the start of what became 2015\'s highest-grossing tour.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_1989_World_Tour',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg',
+      moment: {
+        context:
+          'Opening night on May 5, 2015 packed the 55,000-seat Tokyo Dome, with a light-up wristband on every seat pulsing and changing color in sync with the show. She opened with "Welcome to New York" against a mock Manhattan skyline, ran at least ten costume changes across nearly two hours, and swapped an opening act for video testimonials from Selena Gomez, HAIM, and the rest of the friend group.\n\n"This year changed my life and I wanted to come here to say thank you," she told the crowd, before closing with "Shake It Off" on a rotating catwalk under falling confetti. The two Tokyo shows drew 100,320 fans and grossed $10.6 million — the start of an 85-show run that ended as 2015\'s highest-grossing tour worldwide.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour' },
+          { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-1989-tour-kickoff-tokyo-6553995/' },
+        ],
+        // Image-fix pass (2026-07-10): #168 — old photo was Commons-verified but shot in
+        // Glasgow, six weeks after this Tokyo Dome opener. Swapped for a Commons "own work"
+        // photo actually dated/described as Tokyo Dome, 6 May 2015 (CC BY-SA 4.0, photographer
+        // Johndavis2004); curl-verified 200/image-jpeg, downloaded and visually confirmed
+        // Taylor onstage with a guitar and a visible exit-sign pictogram consistent with Japan.
+        // Photo pass (2026-07-19, defining-events-31-50): 6 added, all Wikimedia
+        // Commons "The 1989 World Tour" uploads — curl-verified 200 + image/jpeg,
+        // downloaded and visually confirmed this session. All from other stops
+        // on the same 2015 tour (kept 'archival'/'reference', not 'primary').
+        photos: [
+          // Focal point 2026-07-20 (by eye): Tokyo Dome shot, her face upper-
+          // center-right holding the guitar; hold high to keep the face framed.
+          { url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg', credit: 'Johndavis2004 / Wikimedia Commons, CC BY-SA 4.0', kind: 'primary', caption: 'Onstage at the Tokyo Dome, May 6, 2015 — the second of the two sold-out opening nights.', focalPoint: '52% 28%' },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/17/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg',
+            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The silver sequined bomber jacket and blue skater skirt worn for the "Style"/"New York" opening stretch, Ford Field, Detroit, May 30, 2015.',
+            kind: 'archival',
+            focalPoint: '55% 22%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_004_%2818117171700%29.jpg',
+            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The same silver-jacket opening number, seen from behind with dancers, Ford Field, Detroit, May 30, 2015.',
+            kind: 'archival',
+            focalPoint: '50% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Taylor_Swift_-_1989_Tour_Singapore_-_Style_%2823409003734%29.jpg',
+            credit: 'Flower Black / Wikimedia Commons, CC BY 2.0',
+            caption: 'A jumbotron view of the purple sequined "Style" performance dress, Singapore Indoor Stadium, Dec. 28, 2015.',
+            kind: 'archival',
+            focalPoint: '38% 35%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Taylor_Swift_-_ANZ_Stadium_Concert_1989_World_Tour_%2823928940022%29.jpg',
+            credit: 'Flower Black / Wikimedia Commons, CC BY 2.0',
+            caption: 'The stadium bathed in the tour\'s signature light-up wristbands as she crosses a catwalk, ANZ Stadium, Sydney, Dec. 28, 2015.',
+            kind: 'reference',
+            focalPoint: '35% 55%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c6/Taylor_Swift_-_The_1989_World_Tour_-_LOS_ANGELES_-_Blank_Space.jpg',
+            credit: 'Denielle / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The black sequined romper worn for "Blank Space," walking the catwalk with a dancer, Los Angeles, Aug. 22, 2015.',
+            kind: 'archival',
+            focalPoint: '58% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Taylor_Swift_-_The_1989_World_Tour_-_Whole_view_of_the_stage_before_the_show.jpg',
+            credit: 'Daniel Park / Wikimedia Commons, CC BY 2.0',
+            caption: 'The "1989" stage and a full stadium bowl before showtime, Levi\'s Stadium, Santa Clara, Aug. 15, 2015.',
+            kind: 'reference',
+            focalPoint: '25% 55%',
+          },
+        ],
+      },
+    },
+    {
+      year: 2014,
+      month: 10,
+      day: 27,
+      category: 'music',
+      title: 'New Romantics, the deluxe-track Rolling Stone later called one of the decade\'s best',
+      snippet: '"Heartbreak is the national anthem" — a synth-pop rallying cry for coming back from it with your friends beside you.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/New_Romantics_(song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/wyK7YuwUWsU/maxresdefault.jpg',
+      moment: {
+        context:
+          "Recorded with Max Martin and Shellback, it was relegated to the deluxe edition in 2014, then finally released as 1989's seventh and last single in February 2016 — with a Jonas Åkerlund video stitched from 1989 World Tour footage that premiered exclusively on Apple Music.\n\nNo. 58 among the 100 best songs of the 2010s on Rolling Stone's 2019 decade-end list — \"the type of relieving dance floor soul purge that the best pop can be,\" and by the writer's own argument, the bonus track was the album's real thesis: a heartbroken hopeless romantic finding power in the pain. Critics keep ranking it among her best songs, usually with the same complaint attached: it never made the standard tracklist.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/New_Romantics_(song)' },
+          { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-lists/the-100-best-songs-of-the-2010s-917532/taylor-swift-new-romantics-917602/' },
+        ],
+        // Official "New Romantics" video (1989 World Tour footage) id
+        // wyK7YuwUWsU confirmed via YouTube oEmbed (author "Taylor Swift");
+        // maxresdefault curl-verified 200 image/jpeg, downloaded and viewed.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/wyK7YuwUWsU/maxresdefault.jpg',
+            focalPoint: '48% 28%',
+            credit: 'Taylor Swift / Big Machine Records, via YouTube',
+            caption: 'A frame from the official "New Romantics" video, cut from 1989 World Tour concert footage.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      year: 2014,
+      month: 10,
+      day: 27,
+      category: 'music',
+      title: 'Clean, and the storm that washes everything out',
+      snippet: 'The album\'s closing track, built entirely around one metaphor: heartbreak as addiction, and finally getting clean of it.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Clean_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "The idea arrived in London, when she realized she'd spent two weeks in the same city as an ex without once thinking of him — the moment you notice the hurt is gone. She finished the lyrics and melody alone, then recorded it with Imogen Heap in a single day at Heap's Hideaway Studio, done after two takes, with Heap layering mbira, vibraphone, drums, and keyboards under the vocal. Heap later admitted she'd \"assumed Taylor didn't write too much of her own music\" and came away insisting the lyrics were entirely Taylor's.\n\nOn the 1989 World Tour it became the show's confessional centerpiece, prefaced nightly by spoken reflections on mistakes and self-worth — and it kept resurfacing as an Eras Tour surprise song a decade later.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Clean_(song)' },
+          { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/imogen-heap-taylor-swift-write-music-1989-clean-6304250/' },
+        ],
+        // Photo-enrichment run 11 (2026-07-18, #762): added a clearly-labeled
+        // reference photo of co-writer/producer Imogen Heap from 2014, the
+        // year Clean was recorded at her Hideaway Studio (Commons, CC BY 3.0,
+        // license and date verified via the Commons API; downloaded and
+        // vision-confirmed). A studio track has no event imagery of its own.
+        // Focal points set per image by viewing.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png',
+            credit: 'tonyshek / Wikimedia Commons, CC BY-SA 2.0',
+            kind: 'archival',
+            caption: 'At the mic on the 1989 World Tour (Ford Field, Detroit, May 30, 2015) — the tour where Clean became the nightly spoken-word confessional. The song itself had no music video.',
+            // Portrait crop; smiling profile sits upper-left of center.
+            focalPoint: '45% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Imogen_Heap_keytar_2014.png',
+            credit: 'devastation jhayne / Wikimedia Commons, CC BY 3.0',
+            kind: 'reference',
+            caption: 'Reference image: Imogen Heap onstage in March 2014 — the co-writer and producer who recorded Clean with Taylor in a single day at her Hideaway Studio.',
+            // Tall frame; Heap's face is high, keytar diagonal through the middle.
+            focalPoint: '50% 16%',
+          },
+        ],
+      },
+    },
+    {
+      year: 2015,
+      month: 9,
+      day: 2,
+      category: 'music',
+      title: 'Wildest Dreams draws colonialism criticism for its overwhelmingly white 1950s Africa',
+      snippet:
+        'A romance set on a 1950s film shoot in Africa, with critics calling its overwhelmingly white cast a colonial-nostalgia fantasy.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swifts-wildest-dreams-video-accused-of-channeling-white-colonialism-6685110/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-wildest-dreams-video-3-billboard-650.jpg?w=650&h=430&crop=1',
+      moment: {
+        context:
+          "Joseph Kahn shot the video in Botswana and South Africa as a doomed romance between Taylor's old-Hollywood actress and Scott Eastwood's co-star on a 1950s film set. Critics at multiple outlets read the safari fantasy and its overwhelmingly white cast as colonial nostalgia — African-studies professor Matthew Carotenuto pointed to a genre of \"pith-helmet-and-khaki-clad men as civilizing heroes\" — while Kahn countered that the casting was historically accurate to the segregated 1950s productions it depicted, not a statement on colonialism.\n\nTaylor donated the video's proceeds to the African Parks Foundation of America for wildlife conservation. The controversy never dented the song's run: it became 1989's fifth consecutive top-10 hit, peaking at No. 5 on the Hot 100.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swifts-wildest-dreams-video-accused-of-channeling-white-colonialism-6685110/',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Wildest_Dreams_(Taylor_Swift_song)' },
+        ],
+        photos: [{ url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-wildest-dreams-video-3-billboard-650.jpg?w=650&h=430&crop=1', focalPoint: '52% 34%', credit: 'Big Machine Records' }],
+      },
+    },
+    {
+      year: 2016,
+      month: 8,
+      category: 'music',
+      relatedIds: [
+        'moment:vault-1989-wildest-dreams-draws-colonialism-criticism-for-its-overwhelm',
+      ],
+      title: 'Scott Eastwood on Wildest Dreams: his agents said no, he said "why the hell not"',
+      snippet:
+        'Taylor\'s "Wildest Dreams" co-star later revealed his own agents tried to talk him out of the role — "Why would you go be Taylor Swift\'s boy toy?" — and that he waved them off: "Why the hell not?"',
+      sourceUrl: 'https://www.etonline.com/news/195081_scott_eastwood_advised_not_to_star_taylor_swift_wildest_dreams_video',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/7/7a/Scott_Eastwood_%28November_2025%29_%28cropped%29.jpg',
+      moment: {
+        context:
+          'Scott Eastwood played the doomed-romance co-star in the "Wildest Dreams" video — the 1989 single\'s old-Hollywood safari fantasy, shot on location in 2014 — but by his own telling, the people paid to manage his career tried to talk him out of it. "None of my agents wanted me to do it, actually," he told People in 2016. "They said, \'Oh, we don\'t want you to do that! Why would you go be Taylor Swift\'s boy toy?\' And I said, \'Why the hell not?\'" He signed on anyway, and came away a fan: he later called Taylor "a rock star" and "someone I am proud to call a friend." It is a small backstory beat, but a telling one — a reminder that a marquee Taylor Swift video, inevitable-seeming now, once read to a rising actor\'s team as a risk worth vetoing.',
+        sources: [
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/news/195081_scott_eastwood_advised_not_to_star_taylor_swift_wildest_dreams_video',
+            source_title: 'Scott Eastwood Was Advised Not to Star in Taylor Swift\'s \'Wildest Dreams\' Video',
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/entertainment/scott-eastwood-reveals-he-was-advised-against-starring-in-taylor-swifts-wildest-dreams-video',
+            source_title: 'Scott Eastwood reveals he was advised against starring in Taylor Swift\'s \'Wildest Dreams\' video',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+        ],
+        photos: [
+          {
+            // Field-order fix #762 (2026-08-09): focalPoint moved to
+            // immediately after url per the field-order rule (docs/decisions.md
+            // 2026-07-20); no values changed.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Scott_Eastwood_%28November_2025%29_%28cropped%29.jpg',
+            focalPoint: '42% 30%',
+            credit: 'Web Summit / Wikimedia Commons, CC BY 4.0',
+            caption: 'Scott Eastwood in 2025. He played Taylor\'s love interest in the 2015 "Wildest Dreams" video — a role his agents advised him to turn down.',
+            kind: 'primary',
+          },
+          // Photo pass #762 (2026-08-09): 2nd verified photo — official video
+          // still. oEmbed-verified videoId IdneKLhsWOQ belongs to the
+          // official @TaylorSwift channel; i.ytimg.com is YouTube's own CDN;
+          // curl 200 image/jpeg 1280x720, downloaded and vision-confirmed.
+          // Shows Taylor only (in character), not Eastwood — no verifiable,
+          // sufficiently-large still of him from this video was found on any
+          // allowlisted host; storyboard frames are 120x90px, under the floor.
+          {
+            url: 'https://i.ytimg.com/vi/IdneKLhsWOQ/maxresdefault.jpg',
+            // Face right-of-center, upper third.
+            focalPoint: '63% 33%',
+            credit: 'Big Machine Records / YouTube (official "Wildest Dreams" music video still)',
+            caption: 'A close-up still from the "Wildest Dreams" music video — Taylor in character as the film-set-era actress, dark-haired for the role, reclining against patterned fabric.',
+            kind: 'archival',
+          },
+          // Photo pass #762 (2026-08-05): official "Wildest Dreams" video
+          // thumbnail — id verified via YouTube oEmbed (author "Taylor
+          // Swift"), downloaded and vision-confirmed: a tight close-up on
+          // Taylor's face, tilted, from the video Eastwood co-starred in.
+          {
+            url: 'https://i.ytimg.com/vi/IdneKLhsWOQ/hqdefault.jpg',
+            focalPoint: '58% 45%',
+            credit: 'Taylor Swift via YouTube (official video)',
+            caption: 'The official "Wildest Dreams" video — the 1950s-safari shoot Eastwood\'s own agents advised him to skip.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      year: 2015,
+      month: 3,
+      day: 29,
+      category: 'fashion',
+      title: 'A black cutout KaufmanFranco mini at the iHeartRadio Awards',
+      snippet: 'Bandeau cutouts and intricate beadwork — the night she also won Artist of the Year.',
+      sourceUrl: 'https://www.refinery29.com/en-us/2015/03/84671/taylor-swift-iheart-radio-awards',
+      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/d02f741a61d4-taylor-a.jpg',
+      moment: {
+        context:
+          "The black sequined KaufmanFranco minidress — bandeau cutouts at the sides, intricate beadwork, a neckline high enough to keep the whole thing polished rather than bare — put her on the best-dressed lists for the March 29, 2015 show, with Hello! calling her the night's best dressed and Refinery29 reading the look as part of a run of noticeably bolder choices that had started at that February's Elle Style Awards and BRIT Awards.\n\nThe dress was only half the night's story: she went home with three trophies, including Artist of the Year, the evening's biggest prize, plus Best Lyrics — a win Justin Timberlake, seated beside her, jokingly tried to accept for himself before hugging her on her way to the stage. She also joined Madonna onstage for a surprise performance mid-show.",
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2015/03/84671/taylor-swift-iheart-radio-awards',
+          },
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/fashion/news/2015033053845/taylor-swift-leads-best-dressed-at-i-heart-radio-music-awards/',
+          },
+        ],
+        photos: [{ url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/d02f741a61d4-taylor-a.jpg', credit: 'Getty Images' }],
+        // Shop pass (2026-07-21): KaufmanFranco has no e-commerce -- a
+        // current, verified in-stock black sequin mini in the same spirit.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Miss Me Sequin Mini Dress',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/bombshell-sequin-mini-dress-black',
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0061/8627/0804/files/1-modelinfo-ergi-us2_8ce226fe-4d11-4e60-87b2-7006a872db6c.jpg?v=1723608160',
+            price: '$85.00',
+            isAlternative: true,
+            altNote: 'Her KaufmanFranco mini has no e-commerce path -- this is a current black sequin mini in the same beaded, cutout-adjacent spirit.',
+          },
+        ],
+      },
+    },
+
+    // --- Active-tier batch (2026-07-04): real, extensively-documented
+    // relationship history from this era — the category the whole vault
+    // under-serves (0 items before this batch), per docs/decisions.md.
+    // Every item verified against its cited source(s) directly.
+    {
+      year: 2015,
+      month: 5,
+      day: 17,
+      category: 'relationship',
+      significance: 'defining', // the first major public relationship of the pop era, a full public arc from BBMAs to breakup (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-5", label: "Calvin Harris, public", kind: "life" },
+      // Cross-links (#1719 depth pass, 2026-08-12): the relationship's public arc —
+      // its 15-month endpoint and the secret "This Is What You Came For" co-write
+      // fans only decoded after the split.
+      relatedIds: [
+        'moment:vault-1989-taylor-and-calvin-harris-split-after-15-months',
+        'moment:vault-1989-nils-sj-berg-unmasked-she-secretly-wrote-calvin-harriss-bigg',
+      ],
+      title: 'Calvin Harris and Taylor go public at the Billboard Music Awards',
+      snippet: 'Introduced by Ellie Goulding that February, the DJ-and-pop-star pairing went fully public a month after a first, subtler social-media hint.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html',
+      thumbnailUrl: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef',
+      moment: {
+        context:
+          "Ellie Goulding played matchmaker at the February 2015 Elle Style Awards in London, and the two were spotted flirting at a BRIT Awards afterparty the very next night, followed by a trip to Nashville together. Harris dropped the first public hint himself that April — an Instagram post of Taylor's cats — before the paparazzi caught them holding hands leaving a HAIM show at the Troubadour.\n\nThe Billboard Music Awards that May made it unmistakable: they sat together all night, with cameras catching \"a smooch and plenty of hugs\" as she went up to collect her awards. By their one-year mark he was engraving the date — 3.6.15 — on a locket.\n\nThe night itself was a coronation with a witness. The ceremony, held May 17, 2015, at the MGM Grand Garden Arena in Las Vegas, was where the two chose to make the relationship public: Taylor swept eight awards — among them top Billboard 200 album for 1989 — premiered the star-packed \"Bad Blood\" music video, and kissed Harris in the crowd after collecting her album prize. Their pairing quickly became a business fact as much as a tabloid one: a combined $146 million made them the world's highest-paid celebrity couple, dethroning Beyoncé and Jay-Z — and had they stayed together, the projection ran to $233 million across 2016 (Forbes).\n\nThe arc it opened would run about fifteen months, to a public — and pointed — breakup in June 2016. Only afterward did fans learn that Taylor had secretly co-written Harris's 2016 dance smash \"This Is What You Came For\" under the pen name Nils Sjöberg, a reveal that turned the relationship's end into one of the era's sharpest twists.",
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/calvin-harris-taylor-swift-breakup-twitter-rant-british-gq-interview-7850101/',
+          },
+          {
+            // Depth pass #1719 (2026-08-12): third source for the highest-paid-
+            // couple / earnings facts added to the narrative.
+            outlet: 'Time',
+            url: 'https://time.com/3936952/taylor-swift-calvin-harris-highest-paid/',
+          },
+        ],
+        // Photo pass 2026-07-19 (defining-events-31-50): 3 more real,
+        // verified photos. Two are recent (2024) individual photos of each
+        // person, honestly captioned as such rather than implying they're
+        // from 2015; the third is Harris's own period-accurate 2015 press
+        // photo (Sony BMG, CC BY 3.0).
+        // Photo pass #762 (2026-08-21): no `socialPost` — the "Instagram post
+        // of Taylor's cats" the context mentions is on Calvin Harris's own
+        // account, not @taylorswift's, so it fails the embed-verification bar
+        // (same call already recorded on the Troubadour-sighting page for the
+        // same post).
+        photos: [
+          // Focal point (#762): the pair sit side-by-side laughing, both faces in the upper third.
+          { url: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef', credit: 'Kevin Mazur/BMA2015/WireImage', focalPoint: '50% 30%' },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Calvin_Harris_-_Press_Image_1.tif/lossy-page1-250px-Calvin_Harris_-_Press_Image_1.tif.jpg',
+            credit: 'Sony BMG, Wikimedia Commons (CC BY 3.0)',
+            caption: 'Calvin Harris\'s own 2015 press photo, from the same year the relationship went public.',
+            kind: 'reference',
+            // Studio portrait: his face sits just above center.
+            focalPoint: '52% 28%',
+          },
+          {
+            url: 'https://media.zenfs.com/en/us_magazine_896/5cdacd465b06109bab8c9239f156469e',
+            credit: 'Getty Images, via Us Weekly',
+            caption: 'Taylor at a 2024 event — a recent individual photo, not from the 2015 relationship.',
+            kind: 'reference',
+            // CDN now serves a side-by-side split (Swift left, Harris right); both faces sit high, so center-top holds them.
+            focalPoint: '50% 20%',
+          },
+          {
+            url: 'https://media.zenfs.com/en/us_magazine_896/e7d0e3df697d43aa93972af434ff348b',
+            credit: 'Getty Images, via Us Weekly',
+            caption: 'Harris at a 2024 event — a recent individual photo, not from the 2015 relationship.',
+            kind: 'reference',
+            // CDN now serves a side-by-side split (Swift left, Harris right); both faces sit high.
+            focalPoint: '50% 20%',
+          },
+        ],
+        // Photo pass #762 (2026-08-14): no `socialPost` — the one Instagram
+        // post in this story ("an Instagram post of Taylor's cats") is on
+        // Calvin Harris's own account, not @taylorswift's, so it fails the
+        // embed-verification bar. No taylorswift-account post tied to the
+        // BBMAs night itself was found (her earliest located couple post with
+        // Harris is a June 10, 2015 swan-raft photo — a different date/event,
+        // not honestly usable here).
+      },
+    },
+    {
+      year: 2015,
+      month: 5,
+      day: 17,
+      category: 'fashion',
+      title: 'A sparkling white Balmain jumpsuit for the Billboard Music Awards',
+      snippet: 'Waist cutouts, all-over sparkle, and a "Bad Blood" video premiere the same night.',
+      sourceUrl: 'https://www.eonline.com/photos/31611/taylor-swift-at-the-billboard-music-awards',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2015417/rs_634x1024-150517170511-634.Taylor-Swift-Billboard-Music-Awards.jl.051715.jpg',
+      moment: {
+        context:
+          'The sparkling white Balmain jumpsuit — low-cut, backless, beaded all over, with cutouts at the waist — was the look E! filed as her fashion game taken "to the next level," and she styled it against type: a smoky eye and pale, glossy nude lips instead of the signature red lipstick.\n\nThe accessory did the marketing: a black-and-red clutch that literally read "Bad Blood," teasing the video she would world-premiere on that very broadcast at the MGM Grand on May 17, 2015 — the Joseph Kahn revenge fantasy that opened the show and broke the Vevo 24-hour record within a day.',
+        sources: [
+          { outlet: 'E! Online', url: 'https://www.eonline.com/photos/31611/taylor-swift-at-the-billboard-music-awards' },
+          { outlet: 'Bustle', url: 'https://www.bustle.com/articles/83746-taylor-swift-attends-2015-billboard-awards-red-carpet-in-a-white-jumpsuit-bad-blood-clutch' },
+        ],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2015417/rs_634x1024-150517170511-634.Taylor-Swift-Billboard-Music-Awards.jl.051715.jpg', credit: 'Jason Merritt/Getty Images' }],
+        // Shop pass (2026-07-21): the exact 2015 beaded jumpsuit is
+        // discontinued -- a current Balmain white jumpsuit, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Balmain',
+            item: 'Sleeveless Lambskin Jumpsuit',
+            retailer: 'us.balmain.com',
+            url: 'https://us.balmain.com/en/p/sleeveless-lambskin-jumpsuit-FF0QO025LE040DA.html',
+            price: '$3,495.00',
+            isAlternative: true,
+            altNote: 'Her exact 2015 beaded jumpsuit is long discontinued -- this is a current Balmain white jumpsuit, same house, a sleek lambskin cut rather than all-over beading.',
+          },
+        ],
+      },
+    },
+    {
+      year: 2016,
+      month: 6,
+      day: 1,
+      category: 'relationship',
+      title: 'Taylor and Calvin Harris split after 15 months',
+      snippet: '"It just wasn\'t working anymore" — a breakup Harris addressed directly on social media, citing love and respect that remained.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/calvin-harris-taylor-swift-breakup-twitter-rant-british-gq-interview-7850101/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calvin-harris-sunglasses-2015-billboard-1548.jpg?w=942&h=628&crop=1',
+      moment: {
+        context:
+          "The June 2016 split arrived through an insider's shrug — \"it just wasn't working anymore\" — but Harris's real retrospective came later, in a British GQ interview after his tweets about the \"This Is What You Came For\" songwriting credit had blown up.\n\n\"It was completely the wrong instinct,\" he admitted, describing a stretch where \"it felt like things were piling on top of me and that was when I snapped,\" protecting \"what I see as my one talent in the world being belittled.\" His sharpest observation was about the coverage itself: the breakup, he noted, was \"way more heavily publicized than the relationship itself.\"",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/calvin-harris-taylor-swift-breakup-twitter-rant-british-gq-interview-7850101/',
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html',
+          },
+        ],
+        photos: [{ url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calvin-harris-sunglasses-2015-billboard-1548.jpg?w=942&h=628&crop=1', focalPoint: '48% 27%', credit: 'James Devaney/GC Images' }],
+      },
+    },
+    {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Calvin Harris" moment.
+      relatedIds: ['moment:vault-1989-hand-in-hand-after-a-haim-show-at-the-troubadour-the-first-c'],
+      year: 2016,
+      month: 7,
+      day: 14,
+      category: 'relationship',
+      title: 'Tom Hiddleston, weeks after the Calvin Harris split',
+      snippet: '"Taylor Swift and I are together, and we\'re very happy... it\'s not a publicity stunt" — his own words to The Hollywood Reporter.',
+      sourceUrl: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201643/rs_600x600-160503143431-600.Taylor-Swift-Tom-Hiddleston-Dancing.ms.050316.jpg',
+      moment: {
+        context:
+          "The two met at the 2016 Met Gala, where they danced together — he later recalled sitting next to her at dinner that night and finding her \"very charming.\" What followed ran at whirlwind speed: beach photos in Rhode Island, sightseeing in Rome, a stretch in England, then Australia's Gold Coast, where he was filming Thor: Ragnarok.\n\nEven the era's most memed image had a mundane explanation — the \"I ❤ T.S.\" tank top from her July 4th party, he told GQ, was a joke among friends after he'd hurt his back and needed to keep the sun off. His Hollywood Reporter confirmation was the rare mid-relationship on-record statement, and he never walked it back: \"Of course it was real,\" he said after the split.",
+        sources: [
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html',
+          },
+        ],
+        // Image-fix pass (2026-07-10): #167 — old photo was a hard-seamed two-panel
+        // collage (Taylor and Hiddleston photographed separately, pasted together), also
+        // reused on the "Hiddleswift ends" moment below. Swapped for E! Online's own single
+        // photo of the two dancing together at the 2016 Met Gala — "where it all began" per
+        // that outlet's own captioning; curl-verified 200/image-jpeg, downloaded and visually
+        // confirmed both of them together in one frame.
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201643/rs_600x600-160503143431-600.Taylor-Swift-Tom-Hiddleston-Dancing.ms.050316.jpg', focalPoint: '50% 40%', credit: 'E! Online', kind: 'archival', caption: 'Dancing together at the 2016 Met Gala afterparty, where the two met — the start of the relationship this moment covers.' }],
+      },
+    },
+    {
+      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster — the
+      // annual Rhode Island tradition and the year it moved to Turks and
+      // Caicos — now interlink.
+      relatedIds: [
+        'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
+        'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+      ],
+      year: 2016,
+      month: 7,
+      day: 3,
+      category: 'sighting',
+      title: 'A Fourth of July beach walk in Rhode Island',
+      snippet: "Spotted walking the shore at her Rhode Island house in matching \"I ❤ T.S.\" gear, part of a holiday party with her regular friend group.",
+      sourceUrl: 'https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201663/rs_634x1024-160703191428-634.Taylor-Swift-Tom-Hiddleston-4th-of-july.tt.070316.jpg',
+      moment: {
+        context:
+          "The walk came the day before the fireworks: on July 3, 2016, photographers caught the couple strolling the shore below her Rhode Island house, Hiddleston in the instantly memed \"I ❤ T.S.\" tank top with a temporary heart-and-\"T\" tattoo on his arm. The holiday party rolled on around them with Blake Lively, Karlie Kloss, and the rest of the regular squad in attendance; a friend's Instagram group shot of the couple, later deleted, became the weekend's defining image.\n\nThe tank top eventually got a mundane explanation — a joke among friends, Hiddleston told GQ, after he'd hurt his back and needed to keep the sun off — but in the moment it crystallized the public's disbelief at how fast \"Hiddleswift\" was moving: they'd met at the Met Gala in May, gone public in June, and were doing matching swimwear on her beach by the Fourth of July.",
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html',
+          },
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
+          },
+        ],
+        // Image-fix pass (2026-07-10): #166 — old photo (media.zenfs.com) actually showed
+        // the two kissing at the Colosseum in Rome (late June 2016), not a Rhode Island beach
+        // — a different moment already covers Rome separately elsewhere in this file. Swapped
+        // for E! Online's own photo captioned "PDA in the Ocean," dated July 3, 2016, matching
+        // this moment's Fourth-of-July Rhode Island beach party; curl-verified 200/image-jpeg,
+        // downloaded and visually confirmed the two embracing in ocean water.
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201663/rs_634x1024-160703191428-634.Taylor-Swift-Tom-Hiddleston-4th-of-july.tt.070316.jpg', credit: 'E! Online', kind: 'archival', caption: 'In the water at the July 3, 2016 Rhode Island Independence Day party — the same weekend as the memed "I ❤ T.S." tank top.' }],
+      },
+    },
+    {
+      year: 2016,
+      month: 9,
+      day: 6,
+      category: 'relationship',
+      title: 'Hiddleswift ends after three months',
+      snippet: 'A brief, intensely-covered romance that started at the Met Gala ended quietly by September.',
+      sourceUrl: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016628/rs_634x1024-160728100815-634.Taylor-Swift-Tom-Hiddleston-Exclusive-Dinner-Date-J4R-072816.jpg',
+      moment: {
+        context:
+          "The September 2016 ending was reported as amicable — and strikingly quiet for a romance that had been photographed on three continents in twelve weeks.\n\nHiddleston said little afterward, but what he did say pushed back on the theory that it had all been staged: \"Of course it was real,\" he told GQ, while acknowledging that a relationship lived that publicly takes real work — a nod to the media glare that, by most accounts, helped end it. \"Hiddleswift\" had become shorthand for celebrity-romance overexposure in a single summer.",
+        sources: [
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html',
+          },
+        ],
+        // Image-fix pass (2026-07-10): #167 — same two-panel collage flagged on the moment
+        // above (Taylor and Hiddleston shot separately, pasted together). Swapped for E!
+        // Online's own photo of their July 27, 2016 dinner-date exit — captioned by that
+        // outlet as their last sighting together before the September split; curl-verified
+        // 200/image-jpeg, downloaded and visually confirmed the two together hand-in-hand.
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016628/rs_634x1024-160728100815-634.Taylor-Swift-Tom-Hiddleston-Exclusive-Dinner-Date-J4R-072816.jpg', focalPoint: '48% 16%', credit: 'E! Online', kind: 'archival', caption: 'Leaving a dinner date hand-in-hand, July 27, 2016 — their last publicly photographed sighting together before the September split.' }],
+      },
+    },
+    {
+      significance: 'notable', // the origin point of a relationship that ran six years, already 'defining' at its end elsewhere in this corpus (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years'],
+      year: 2017,
+      month: 5,
+      day: 16,
+      category: 'relationship',
+      title: 'The Sun breaks the news: quietly dating Joe Alwyn since the fall',
+      snippet: "She'd kept it secret for months, renting a North London house and using scarves and hats to avoid being recognized.",
+      sourceUrl: 'https://www.today.com/popculture/music/taylor-swift-joe-alwyn-relationship-timeline-rcna51604',
+      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg',
+      moment: {
+        context:
+          'The two had quietly been a couple for months by the time The Sun\'s May 2017 scoop broke, with Taylor moving around London in disguises, "like scarves and hats," and renting a house in North London for her time in the city. The Daily Mail floated a claim that Emma Stone had made the introduction; fans have long preferred the 2016 Met Gala theory, pointing to the "Dress" lyric about his buzz cut and her bleached hair, though the two were also reportedly at the same Kings of Leon afterparty at the Bowery Hotel that October.\n\nTaylor later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: "We have been together and no one has found out for 3 months now" — placing the start around October 2016, more than half a year before The Sun\'s story landed.',
+        sources: [
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/music/taylor-swift-joe-alwyn-relationship-timeline-rcna51604',
+          },
+          { outlet: 'The Week', url: 'https://theweek.com/feature/briefing/1022534/taylor-swift-and-joe-alwyn-a-timeline-of-their-relationship' },
+        ],
+        // Image-fix pass (2026-07-10): #169 — image is genuinely Taylor and Joe Alwyn
+        // (verified subject correct) but the outfit/context (oversized blazer, SNL
+        // afterparty at Zuma, bodyguard, Chase sign) matches their October 5-6, 2019 NYC
+        // outing, not this May 2017 story — no public couple photos exist from 2017, which
+        // is the point of the "quietly dating" scoop. Caption corrected to the real date
+        // instead of replacing the URL, per protocol fallback for a real-but-mismatched-date
+        // photo; no other 2017-dated couple photo passed the sourcing gates.
+        // Focal point (#762): the couple walks center-frame, both faces in the upper quarter; a wide crop keeps both.
+        photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg', focalPoint: '52% 24%', credit: 'Robert Kamau/GC Images', kind: 'archival', caption: 'Taylor and Joe Alwyn hand-in-hand at the SNL afterparty, October 2019 — over two years after The Sun\'s scoop; no public photos of the couple exist from the May 2017 period this moment covers.' }],
+      },
+    },
+    {
+      // Depth audit 2026-08-12 (docs/audits/2026-08-12-depth-rows-per-month.md):
+      // the era's 14-month closing stretch carried one row and was missing this
+      // event entirely — the corpus's only prior mentions were a passing clause
+      // in a Midnights item and a candidates file. Every fact below verified
+      // against the three cited sources, fetched this session. 'notable', not
+      // 'defining': flagged as a defining-list candidate in the audit report,
+      // but that list is a founder decision (docs/decisions.md, 2026-07-19).
+      significance: 'notable',
+      relatedIds: ['moment:vault-1989-the-year-of-silence'],
+      year: 2017,
+      month: 8,
+      day: 14,
+      category: 'business',
+      title: 'The Denver trial ends with the single dollar she asked for',
+      snippet:
+        'Eight jurors needed less than four hours: David Mueller assaulted and battered her at a 2013 meet-and-greet — and owed her exactly the symbolic $1 she had requested.',
+      sourceUrl: 'https://abcnews.com/Entertainment/jury-finds-dj-groped-taylor-swift/story?id=49206323',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "It started at a pre-show meet-and-greet at Denver's Pepsi Center on June 2, 2013, when radio host David Mueller reached under her skirt and grabbed her during a photo. Her team reported it to his station, KYGO, which fired him. Two years later, in September 2015, Mueller sued her, blaming her for the loss of his $150,000-a-year job and seeking up to $3 million. A month after that she countersued for assault and battery — asking for exactly one dollar.\n\nThe trial ran August 7–14, 2017 in Denver's federal courthouse before Judge William J. Martínez, in the middle of the quietest public year of her life. Her testimony made headlines for refusing every reframing Mueller's lawyer offered: \"It was a definite grab. A very long grab,\" she said, and she was not going to be made to \"feel in any way that this is my fault.\" Mid-trial, the judge threw out Mueller's claims against her personally for lack of evidence; on August 14 the six-woman, two-man jury deliberated less than four hours, found that Mueller had assaulted and battered her, rejected his remaining claims against her mother Andrea and radio liaison Frank Bell, and awarded the dollar. Her attorney Douglas Baldridge called it \"a single symbolic dollar, the value of which is immeasurable to all women in this situation.\"\n\nIn her statement afterward she acknowledged \"the privilege that I benefit from in life, in society and in my ability to shoulder the enormous cost of defending myself,\" said her hope was \"to help those whose voices should also be heard,\" and pledged donations to organizations that help sexual assault survivors defend themselves. That December, TIME put her on its Person of the Year cover as one of the Silence Breakers — where she gave her first extended account of the case, in the year the #MeToo reckoning broke open.",
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/jury-finds-dj-groped-taylor-swift/story?id=49206323',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-awarded-1dollar-in-groping-trial/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift_sexual_assault_trial',
+          },
+        ],
+        // No photography exists from inside the courtroom (sketches only, and
+        // those are rights-encumbered), and she made no photographed public
+        // appearances around the trial — so the image is honest era context:
+        // the tour whose Denver stop's meet-and-greet this case came from.
+        // Commons file page checked this session (CC BY 2.0, author Jana
+        // Zills); curl 200 image/jpeg; downloaded + Read-viewed: she smiles
+        // mid-show in the black hat and white lace of the Red Tour staging.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_Red_Tour_2%2C_2013.jpg/960px-Taylor_Swift_Red_Tour_2%2C_2013.jpg',
+            credit: 'Jana Zills / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'On the Red Tour, March 2013 — the assault happened that June at a pre-show meet-and-greet on the same tour\'s Denver stop.',
+            kind: 'archival',
+            focalPoint: '45% 20%',
+          },
+          // Commons file page checked this session (CC BY 2.0, author Paul
+          // Sableman, Dec 2015); curl 200 image/jpeg; downloaded + Read-viewed:
+          // the courthouse name is legible on the facade. This is the actual
+          // trial venue — the U.S. District Court for the District of Colorado.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Alfred_A._Arraj_United_States_Courthouse_%2823387332304%29.jpg/960px-Alfred_A._Arraj_United_States_Courthouse_%2823387332304%29.jpg',
+            credit: 'Paul Sableman / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'The Alfred A. Arraj federal courthouse in Denver, where the trial ran August 7–14, 2017 (photographed in 2015).',
+            kind: 'archival',
+            focalPoint: '50% 30%',
+          },
+        ],
+      },
+    },
+
+    // --- Fashion/photo depth pass (2026-07-04): new fashion + hair/makeup
+    // items for this era, plus verified photos backfilled onto existing
+    // items above. Every photo URL hotlinked to the outlet's own CDN and
+    // checked for a 2xx image response before being added.
+    {
+      year: 2015,
+      month: 8,
+      day: 30,
+      category: 'fashion',
+      title: 'A houndstooth Ashish crop-top pantsuit leads the "Bad Blood" squad onto the VMAs carpet',
+      snippet: 'Sequined, metallic houndstooth crop top and trousers, dark cat-eye makeup, and an entire squad of models and actresses walking in formation behind her.',
+      sourceUrl: 'https://www.etonline.com/news/170949_taylor_swift_dominated_the_2015_vmas_red_carpet_with_her_entire_bad_blood_squad',
+      thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2015/08/Martha_Hunt_Hailee_Steinfeld_Cara_Delevingne_Selena_Gomez_Taylor_Swift_Serayah_Lily_Aldridge_Gigi_Hadid_Karlie_Kloss_VMAs.jpg?w=2000&h=1126&crop=1',
+      moment: {
+        context:
+          'The sequined, metallic houndstooth Ashish crop top and trousers — worn with dark cat-eye makeup — arrived on the night "Bad Blood" won Video of the Year. Taylor walked the red carpet flanked by Martha Hunt, Hailee Steinfeld, Cara Delevingne, Selena Gomez, Serayah, Lily Aldridge, Gigi Hadid, and Karlie Kloss — the "squad" era in its full, coordinated force.\n\nEntertainment Tonight counted ten of the video\'s women on the carpet, Mariska Hargitay — namesake of her cat Olivia Benson — among them, and noted Taylor came in as the night\'s most-nominated artist with nine nods. "I\'m so excited to be here with Taylor and all the \'Bad Blood\' girls," Steinfeld said on the carpet, which was roughly the whole thesis of the appearance: the video\'s casting trick restaged as a live formation.',
+        sources: [
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/news/170949_taylor_swift_dominated_the_2015_vmas_red_carpet_with_her_entire_bad_blood_squad',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/vmas-fashion-taylor-swift-bad-818775/',
+          },
+        ],
+        photos: [{ url: 'https://www.hollywoodreporter.com/wp-content/uploads/2015/08/Martha_Hunt_Hailee_Steinfeld_Cara_Delevingne_Selena_Gomez_Taylor_Swift_Serayah_Lily_Aldridge_Gigi_Hadid_Karlie_Kloss_VMAs.jpg?w=2000&h=1126&crop=1', credit: 'Getty Images' }],
+        // Shop pass (2026-07-21): the exact 2015 Ashish set is discontinued
+        // -- a current Ashish piece, verified in stock, same house and
+        // sequined-check spirit.
+        products: [
+          {
+            brand: 'Ashish',
+            item: 'Sequin Tartan Overshirt',
+            retailer: 'ashish.co.uk',
+            url: 'https://ashish.co.uk/products/sequin-tartan-overshirt-1',
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0865/9769/7873/files/ASHISHSequinTartanShirtMaroon1.jpg?v=1729856257',
+            price: '£1,690.00',
+            isAlternative: true,
+            altNote: 'Her exact 2015 Ashish houndstooth set is discontinued -- this is a current Ashish piece, same house, a tartan check rather than houndstooth.',
+          },
+        ],
+      },
+    },
+    {
+      year: 2015,
+      month: 5,
+      day: 5,
+      category: 'fashion',
+      title: 'The 1989 World Tour wardrobe: a rotating closet of sparkle',
+      snippet: 'Beaded fringe minidresses, a jeweled bodysuit, a Marilyn Monroe-style playsuit, a leather catsuit — a different sequined look for nearly every section of the show.',
+      sourceUrl: 'https://www.marieclaire.com/fashion/news/a14342/taylor-swift-1989-tour-costumes/',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png',
+      moment: {
+        context:
+          'Across the tour\'s stops, the wardrobe ranged from a powdery-pink beaded fringe minidress to a black beaded crop top with a flared skirt, a bejeweled bra top with high-waisted cigarette pants, and a white plunging halter playsuit with swinging fringe — costume changes built for a stadium show as much as for the songs themselves.\n\nMarie Claire\'s costume roundup ran to a dozen distinct stage looks: a jewel-toned sequined bomber it compared to rainbow fish scales, a light-up LED crop-top-and-skirt set matching her backup dancers, a second-skin black leather catsuit, a bright green beaded flapper romper, and glittery lace-up platform ankle boots grounding the lot — a deliberately rotating closet for a show whose Tokyo opening night alone had run at least ten costume changes.',
+        sources: [
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/news/a14342/taylor-swift-1989-tour-costumes/',
+          },
+        ],
+        // Image-fix pass (2026-07-10): #177 — old photo was a hard-seamed three-panel
+        // editorial collage, not a single photograph. Swapped for the Commons Ford Field
+        // sequin-jacket shot already verified elsewhere in this file (CC BY-SA 2.0,
+        // tonyshek); captioned here as one look from the rotating wardrobe rather than
+        // implying it's the only one.
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png', credit: 'tonyshek / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', caption: 'One of the tour\'s many sequined stage looks (Ford Field, Detroit, May 30, 2015) — the wardrobe rotated night to night.' }],
+        // Shop pass (2026-07-21): the exact tour costumes are custom,
+        // one-off pieces -- a current beaded fringe mini, verified in
+        // stock, in the same spirit as the pink fringe minidress described.
+        products: [
+          {
+            brand: 'Showpo',
+            item: 'Siofra Mini Dress (Zig Zag Fringe Dress)',
+            retailer: 'showpo.com',
+            // Liveness re-check 2026-07-22: old `/siofra-...html` path now 301s
+            // to Showpo's canonical `/us/products/` URL (still the live PDP);
+            // stored the canonical target directly so we don't lean on the redirect.
+            url: 'https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink',
+            price: '$22.00',
+            isAlternative: true,
+            altNote: 'The tour\'s custom costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same pink-fringe spirit as one of the rotating looks.',
+          },
+        ],
+      },
+    },
+    {
+      year: 2016,
+      month: 2,
+      day: 15,
+      category: 'fashion',
+      title: 'A red bandeau top and a thigh-slit magenta maxi skirt at the 2016 Grammys',
+      snippet: 'A strapless red crop top paired with a voluminous hot-pink satin skirt slit to the hip — worn the same night 1989 won Album of the Year.',
+      sourceUrl: 'https://www.eonline.com/news/740307/taylor-swift-s-grammys-2016-red-carpet-outfit-looks-very-familiar-and-this-is-why',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top',
+      moment: {
+        context:
+          'The two-piece was custom Atelier Versace — a coral-red bandeau over a floor-length hot-pink silk skirt slit high up the thigh — finished with roughly $900,000 of Lorraine Schwartz sapphires. Donatella Versace told Billboard that Taylor "wanted a look that was young, sexy and fresh, as she is, totally reflecting her character," with the drama coming from "the right colors, and then cut and fit."\n\nThe internet mostly saw other things: E! rounded up the lookalikes, from Bianca\'s prom dress in 10 Things I Hate About You to Emma Stone\'s pink-and-magenta 2014 Met Gala two-piece to Kimberly Schlapman in similar color-blocking on the same carpet. The night itself did the historic work — she left as the first woman ever to win Album of the Year twice.',
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/740307/taylor-swift-s-grammys-2016-red-carpet-outfit-looks-very-familiar-and-this-is-why',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/donatella-versace-taylor-swift-grammy-custom-look-6882411/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top',
+            credit: 'Jason Merritt/Getty Images for NARAS',
+            // Photo pass #762 (2026-07-19): viewed — full-length carpet shot, face high in the
+            // portrait frame.
+            focalPoint: '49% 12%',
+          },
+          // Photo pass #762 (2026-07-19): second frame from the cited Billboard (Donatella
+          // Versace) article's own CDN (billboard.com/wp-content). curl 200 image/jpeg 650x430;
+          // Read-viewed: three-quarter shot of the same look — red bandeau, pink skirt, choker,
+          // hand on hip against the Grammy step-and-repeat; EXIF copyright names Steve Granitz.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg',
+            credit: 'Steve Granitz/Getty Images (via Billboard)',
+            caption: 'The custom Atelier Versace two-piece in close-up on the 2016 Grammys carpet.',
+            focalPoint: '45% 18%',
+          },
+        ],
+        // Shop pass (2026-07-21): a one-of-a-kind custom Atelier Versace
+        // piece has no retail equivalent -- a current hot-pink satin skirt,
+        // verified in stock, in the same color and silhouette as the
+        // half of the look most remembered.
+        products: [
+          {
+            brand: 'Pink Attitude Boutique',
+            item: 'Happy To Know You Hot Pink Satin Maxi Skirt',
+            retailer: 'shoppinkattitude.com',
+            url: 'https://shoppinkattitude.com/products/happy-to-know-you-hot-pink-satin-maxi-skirt',
+            imageUrl: 'https://cdn.shopify.com/s/files/1/1195/9626/files/0E365157-D3CC-47C9-82B1-E9AC0C35213C.jpg?v=1737765048',
+            price: '$25.20',
+            isAlternative: true,
+            altNote: 'The custom Atelier Versace two-piece was one-of-a-kind couture, never sold -- this is a current hot-pink satin skirt in the same color and volume as the memorable half of the look.',
+          },
+        ],
+      },
+    },
+    {
+      year: 2016,
+      month: 2,
+      day: 15,
+      category: 'fashion',
+      title: 'A blunt bob with bangs replaces the signature curls at the 2016 Grammys',
+      snippet: 'A dramatically shorter, blunt-cut bob with heavy fringe — a sharp departure from the long waves she\'d worn through most of the 1989 era, debuted on one of the year\'s biggest red carpets.',
+      sourceUrl: 'https://www.eonline.com/news/740307/taylor-swift-s-grammys-2016-red-carpet-outfit-looks-very-familiar-and-this-is-why',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top',
+      moment: {
+        context:
+          "E! Online's red-carpet coverage that night singled out the new haircut alongside the outfit as the story of her look — a straight, blunt-cut bob with heavy fringe, debuted against custom Versace on the biggest carpet of the year, and a hard break from the long waves that had defined the era's first eighteen months.\n\nIt was also step one of a fast transformation: within three months the same blunt length had been bleached platinum and paired with dark burgundy lips for the \"Manus x Machina\" Met Gala, the sharper beauty pivot The Hollywood Reporter documented that May — a bob-with-bangs silhouette she'd keep returning to in the years after.",
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/740307/taylor-swift-s-grammys-2016-red-carpet-outfit-looks-very-familiar-and-this-is-why',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swifts-met-gala-2016-888011/',
+          },
+        ],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top', credit: 'Jason Merritt/Getty Images for NARAS', focalPoint: '48% 10%' }],
+        // Shop pass (2026-07-21): a haircut, not a garment -- offering the
+        // styling tool used to maintain a blunt, straight bob rather than
+        // forcing a clothing link onto a hair item.
+        products: [
+          {
+            brand: 'ghd',
+            item: 'Original Styler 1" Flat Iron Hair Straightener',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Ghd-Original-Styler-Straightener-Professional/dp/B09P4SVXK4',
+            price: '$191.00',
+            isAlternative: true,
+            altNote: 'Not her exact styling tool (undocumented) -- a professional flat iron suited to keeping a blunt, straight bob like this one sleek.',
+          },
+        ],
+      },
+    },
+    {
+      year: 2016,
+      month: 8,
+      category: 'fashion',
+      title: 'Denim overall-dress street style on a New York afternoon',
+      snippet: 'A cutoff denim overall dress over a coral tank, worn with white sneakers for a walk through the city — the off-duty, un-styled half of her public image.',
+      sourceUrl: 'https://www.eonline.com/photos/25013/taylor-swift-s-new-york-city-style',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201678/rs_634x1024-160808163309-634taylor-swift-nyc-demin-overalls.jpg',
+      moment: {
+        context:
+          'E!\'s long-running New York City style gallery filed the August 2016 look under "Denim Daredevil": a cutoff denim overall dress worn over a pink tank — "a fun summer outfit" in the gallery\'s words — with white sneakers keeping it fully off-duty.\n\nIt\'s one of a long run of paparazzi-caught New York street-style looks E! Online has tracked across the era — casual denim, sneakers, and minimal styling as the deliberate counterpoint to the much more constructed red-carpet image from the same period, when even a sidewalk errand got the full photo-gallery treatment.',
+        sources: [
+          { outlet: 'E! Online', url: 'https://www.eonline.com/photos/25013/taylor-swift-s-new-york-city-style' },
+        ],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201678/rs_634x1024-160808163309-634taylor-swift-nyc-demin-overalls.jpg', credit: 'Kristin Callahan/ACE/INFphoto.com' }],
+        // Shop pass (2026-07-21): the exact denim piece is undocumented
+        // past this street-style sighting -- a current denim overall
+        // dress, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Copper Union Apparel',
+            item: 'Denim Overall Dress',
+            retailer: 'copperunionapparel.com',
+            url: 'https://copperunionapparel.com/products/denim-overall-dress',
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0550/7458/6846/files/IMG_0966.heic?v=1706743029',
+            price: '$153.00',
+            isAlternative: true,
+            altNote: 'No designer was ever named for this street-style sighting -- this is a current denim overall dress in the same off-duty spirit.',
+          },
+        ],
+      },
+    },
+
+    // --- Fashion/photo depth pass 2 (2026-07-04)
+    {
+      year: 2016,
+      month: 5,
+      day: 2,
+      category: 'fashion',
+      title: 'A silver snakeskin Louis Vuitton mini co-chairing the 2016 Met Gala',
+      snippet:
+        'Co-chairing the "Manus x Machina" Met Gala alongside Idris Elba and Anna Wintour, she wore a sequined Louis Vuitton mini with a snakeskin pattern, leather panels, and a cutout waist, finished with a platinum bob and burgundy lipstick.',
+      sourceUrl: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swifts-met-gala-2016-888011/',
+      thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2016/05/gettyimages-527338016.jpg?w=2000&h=1126&crop=1',
+      moment: {
+        context:
+          'The May 2, 2016 gala\'s theme, "Manus x Machina: Fashion in an Age of Technology," was reflected in the dress\'s tiered ruffled skirt and space-age-leaning silver texture.\n\nShe paired it with strappy gladiator heels; her platinum-blonde bob and dark burgundy lip and nails marked a sharper, edgier beauty look than her usual red-carpet glam.',
+        sources: [
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swifts-met-gala-2016-888011/',
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/news/a20287/taylor-swift-met-gala-dress-2016/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2016/05/gettyimages-527338016.jpg?w=2000&h=1126&crop=1',
+            credit: 'Larry Busacca/Getty Images',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact 2016 Louis Vuitton mini is
+        // discontinued -- a current silver snake-print sequin mini,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'EDGEbyks',
+            item: 'Serene Snake Print Sequin Mini Dress',
+            retailer: 'edgebyks.com',
+            url: 'https://edgebyks.com/products/snake-print-sequin-mini-dress',
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0567/7597/products/43_4d12e6d8-caaf-4176-90c3-26e95c1f5a34.jpg?v=1684469127',
+            price: '$27.99',
+            isAlternative: true,
+            altNote: 'Her exact 2016 Louis Vuitton mini is discontinued -- this is a current silver snake-print sequin mini in the same reptile-texture spirit.',
+          },
+        ],
+      },
+    },
+    {
+      year: 2015,
+      month: 5,
+      day: 17,
+      category: 'fashion',
+      title: '"Bad Blood" video\'s warrior makeup: winged eyes and a red lip by Lorrie Turk',
+      snippet:
+        'For the video\'s final battle scene, longtime makeup artist Lorrie Turk built a dramatic smoky eye — black and midnight-blue shadow with exaggerated winged liner — paired with a bold red lip.',
+      sourceUrl: 'https://www.birchbox.com/magazine/article/taylor-swift-bad-blood-music-video-makeup',
+      thumbnailUrl:
+        'https://images.prismic.io/birchbox/MDFhZjY0OWUtZTM3MS00MDkxLThmOGQtMzAxNTU0MGZhMDc2_may-taylor-swift-bad-blood-700x400.jpg',
+      moment: {
+        context:
+          'Lorrie Turk, Taylor\'s regular makeup artist, is credited on the "Bad Blood" video (with Jemma Muradian on hair).\n\nThe finale look layered black and midnight-blue eyeshadow with gunpowder-grey liner smudged along both lash lines, multiple coats of mascara plus false lashes top and bottom, and a precisely applied red lip — the "warrior" beauty look tying together the video\'s ensemble cast of characters.',
+        sources: [
+          {
+            outlet: 'Birchbox',
+            url: 'https://www.birchbox.com/magazine/article/taylor-swift-bad-blood-music-video-makeup',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://images.prismic.io/birchbox/MDFhZjY0OWUtZTM3MS00MDkxLThmOGQtMzAxNTU0MGZhMDc2_may-taylor-swift-bad-blood-700x400.jpg',
+            credit: 'Birchbox',
+          },
+        ],
+        // Shop pass (2026-07-21): a makeup look, not a garment -- offering
+        // the iconic red lipstick shade rather than forcing a clothing
+        // link onto a beauty item.
+        products: [
+          {
+            brand: 'MAC',
+            item: 'Retro Matte Lipstick in Ruby Woo',
+            retailer: 'maccosmetics.com',
+            url: 'https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick',
+            price: '$23.00',
+            isAlternative: true,
+            altNote: 'The exact shade Lorrie Turk used is undocumented -- Ruby Woo is MAC\'s iconic blue-red matte, the same bold-red finish described for the video\'s warrior look.',
+          },
+        ],
+      },
+    },
+    {
+      // Cross-link (Stage 3, 2026-07-30): the "Calvin Harris" pair — the first
+      // sighting and the Hiddleston relationship that followed the split —
+      // now interlink.
+      relatedIds: ['moment:vault-1989-tom-hiddleston-weeks-after-the-calvin-harris-split'],
+      year: 2015,
+      month: 4,
+      day: 2,
+      category: 'sighting',
+      title: 'Hand in hand after a HAIM show at the Troubadour — the first Calvin Harris sighting',
+      snippet:
+        'Weeks before either confirmed it, paparazzi caught Taylor and Calvin Harris holding hands leaving a HAIM concert at West Hollywood\'s Troubadour — the sighting that kicked off the dating rumors.',
+      sourceUrl: 'https://www.eonline.com/photos/17305/taylor-swift-calvin-harris-romance-rewind',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201533/rs_634x1024-150403050319-634.Taylor-Swift-Calvin-Harris-JR-4315.jpg',
+      moment: {
+        context:
+          'In early April 2015, weeks after they met at the BRIT Awards, Taylor and Harris were photographed holding hands as they left a HAIM show at the Troubadour in West Hollywood — one of the first sightings that fueled dating rumors ahead of their public confirmation at the Billboard Music Awards that May.\n\nThe Troubadour photos fit a courtship that had been running just below the surface for weeks: Ellie Goulding had played matchmaker at the Elle Style Awards in London that February, the two were spotted flirting at a BRITs afterparty the next night, and Harris had posted a photo of Taylor\'s cats to Instagram days before the concert — the kind of breadcrumb fans were already reading as confirmation.',
+        sources: [
+          { outlet: 'E! Online', url: 'https://www.eonline.com/photos/17305/taylor-swift-calvin-harris-romance-rewind' },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html',
+          },
+        ],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201533/rs_634x1024-150403050319-634.Taylor-Swift-Calvin-Harris-JR-4315.jpg', credit: 'MEP/Splash News' }],
+        // Photo pass #762 (2026-08-14): no `socialPost` — same "Instagram post
+        // of Taylor's cats" referenced here is on Calvin Harris's own account,
+        // not @taylorswift's, so it fails the embed-verification bar. This
+        // sighting is paparazzi photography, not a social post, in any case.
+      },
+    },
+    {
+      year: 2015,
+      month: 5,
+      day: 28,
+      category: 'sighting',
+      title: "Gigi Hadid and Karlie Kloss stop by the NYC apartment for a night in",
+      snippet:
+        "Gigi Hadid, Karlie Kloss, Lena Dunham, and Jack Antonoff swing by Taylor's New York apartment on a Thursday night — the low-key, at-home counterpart to the era's red-carpet squad appearances.",
+      sourceUrl: 'https://www.justjaredjr.com/2015/05/29/gigi-hadid-karlie-kloss-stop-by-taylor-swifts-nyc-party/',
+      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2015/05/taylor-studded/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-02.JPG',
+      moment: {
+        context:
+          "Gigi Hadid and Karlie Kloss were photographed arriving at Taylor's Manhattan apartment on Thursday night, May 28, 2015, along with Lena Dunham and Jack Antonoff — a quieter, at-home counterpart to the era's red-carpet squad appearances.\n\nThe paparazzi shots outside caught the details anyway: Gigi in Blue Life FIT leggings, Karlie carrying a Dolce & Gabbana handbag — enough for Just Jared to run the arrivals as a photo set of their own, which was the era's squad culture in miniature: even a Thursday night in was coverage.",
+        sources: [
+          {
+            outlet: 'Just Jared Jr.',
+            url: 'https://www.justjaredjr.com/2015/05/29/gigi-hadid-karlie-kloss-stop-by-taylor-swifts-nyc-party/',
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/photo-gallery/3380957/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-04/',
+          },
+        ],
+        // Image-fix pass (2026-07-10): #160 — old URL was an 80x120px /thumbs/ crop that,
+        // at full size, actually shows Lena Dunham, not Gigi Hadid or Karlie Kloss. Checked
+        // the full-res sibling images in the same Just Jared set (dropping /thumbs/ from the
+        // path) and found -02.JPG actually shows Gigi Hadid arriving; curl-verified 200/
+        // image-jpeg at full resolution, downloaded and visually confirmed her face/outfit.
+        photos: [{ url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2015/05/taylor-studded/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-02.JPG', credit: 'Just Jared Jr.', kind: 'archival', caption: 'Gigi Hadid arriving at the party, May 28, 2015.' }],
+      },
+    },
+    {
+      year: 2015,
+      month: 7,
+      day: 4,
+      category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the Rhode Island beach kiss weeks
+      // later — the same summer, Calvin Harris to Hiddleswift.
+      relatedIds: ['moment:vault-1989-caught-kissing-on-a-rhode-island-beach-the-first-hiddleswift'],
+      title: 'Matching flag onesies for the Fourth of July, Calvin Harris included',
+      snippet:
+        'Gigi Hadid and Joe Jonas brought American-flag onesies for the whole group; Ed Sheeran, the HAIM sisters, and boyfriend Calvin Harris rounded out the guest list at the Rhode Island beach house.',
+      sourceUrl: 'https://www.eonline.com/news/673098/10-reasons-why-taylor-swift-s-fourth-of-july-celebration-was-better-than-anyone-else-s-party',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201563/rs_600x600-150703170056-600.Taylor-Swift-Calvin-Harris-Instagram.ms.070315.JPG',
+      moment: {
+        context:
+          "The 2015 edition of Taylor's Rhode Island Independence Day tradition drew Calvin Harris (her boyfriend at the time), Ed Sheeran, Joe Jonas, Nick Jonas, Gigi Hadid, brother Austin Swift, and the HAIM sisters.\n\nHadid and Jonas brought matching American-flag onesies for the group, and the party featured what E! called \"the biggest inflatable slide,\" piggyback rides, and Taylor doing the cooking, under sunny East Coast weather ahead of that evening's fireworks.",
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/673098/10-reasons-why-taylor-swift-s-fourth-of-july-celebration-was-better-than-anyone-else-s-party',
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/864384/taylor-swift-s-4th-of-july-party-squad-a-visual-guide',
+          },
+        ],
+        // Image-fix pass (2026-07-10): #170 — old photo was the famous towel-jump shot,
+        // which shows neither onesies nor Calvin Harris. The onesie Polaroids Taylor posted
+        // that weekend have since been deleted from Instagram and aren't recoverable on an
+        // allowlisted host, so swapped for E! Online's own photo of Calvin Harris giving her
+        // a piggyback ride, dated July 3, 2015 (the same party) — curl-verified 200/image-
+        // jpeg, downloaded and visually confirmed both of them together; caption corrected
+        // to describe what's actually shown rather than implying onesies.
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201563/rs_600x600-150703170056-600.Taylor-Swift-Calvin-Harris-Instagram.ms.070315.JPG', credit: 'E! Online / Instagram', kind: 'archival', caption: 'Calvin Harris giving Taylor a piggyback ride at the July 3, 2015 Rhode Island Independence Day party — the same weekend as the group\'s flag-onesie photos.' }],
+      },
+    },
+    {
+      year: 2016,
+      month: 6,
+      day: 15,
+      category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the Fourth of July party weeks
+      // before (still with Calvin Harris) and the Colosseum sightseeing two
+      // weeks after — the Hiddleswift relationship's opening timeline.
+      relatedIds: [
+        'moment:vault-1989-matching-flag-onesies-for-the-fourth-of-july-calvin-harris-i',
+        'moment:vault-1989-sightseeing-at-the-colosseum-hand-in-hand-in-matching-outfit',
+      ],
+      title: 'Caught kissing on a Rhode Island beach — the first Hiddleswift sighting',
+      snippet:
+        'Weeks after the Calvin Harris breakup, paparazzi photographed Taylor and Tom Hiddleston kissing on a beach in Westerly, Rhode Island — the candid that broke the story before either side said a word.',
+      sourceUrl: 'https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016518/rs_634x1024-160618144035-634.Tom-Hiddleston-Taylor-Swift-Beach-kiss.tt.061816.jpg',
+      moment: {
+        context:
+          'On June 15, 2016, Taylor and Hiddleston were photographed kissing on a beach in Westerly, Rhode Island — the first public sighting of their relationship, surfacing just weeks after her split from Calvin Harris and shortly after she and Hiddleston met at the 2016 Met Gala.\n\nThe pictures broke the story before either Taylor or Hiddleston commented publicly — a rarity for a relationship this photographed, where nearly every later beat, from Rome to the Gold Coast, played out with the two visibly unbothered by the cameras.',
+        sources: [
+          { outlet: 'E! Online', url: 'https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind' },
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
+          },
+        ],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016518/rs_634x1024-160618144035-634.Tom-Hiddleston-Taylor-Swift-Beach-kiss.tt.061816.jpg', credit: 'TheImageDirect.com' }],
+      },
+    },
+    {
+      year: 2016,
+      month: 6,
+      day: 27,
+      category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the Rhode Island beach kiss two
+      // weeks before — the relationship's first sighting.
+      relatedIds: ['moment:vault-1989-caught-kissing-on-a-rhode-island-beach-the-first-hiddleswift'],
+      title: 'Sightseeing at the Colosseum, hand in hand, in matching outfits',
+      snippet:
+        "Two weeks into the relationship, Taylor and Tom Hiddleston toured Rome's Colosseum in coordinated ensembles, photographed holding hands through the cobblestone streets.",
+      sourceUrl: 'https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016528/rs_634x1024-160628080313-634.Taylor-Swift-Tom-Hiddleston-Rome-JR-062816.jpg',
+      moment: {
+        context:
+          "On June 27, 2016, Taylor and Hiddleston were photographed sightseeing at Rome's Colosseum, wearing matching ensembles and holding hands throughout.\n\nIt was part of a European stretch of the relationship that also took them to Hiddleston's family home in Suffolk, England, before they returned to the U.S. for her Fourth of July party in Rhode Island.",
+        sources: [{ outlet: 'E! Online', url: 'https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind' }],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016528/rs_634x1024-160628080313-634.Taylor-Swift-Tom-Hiddleston-Rome-JR-062816.jpg', credit: 'INFphoto.com' }],
+      },
+    },
+    {
+      year: 2016,
+      month: 7,
+      day: 6,
+      category: 'sighting',
+      title: 'Matching outfits in Los Angeles before flying to Australia',
+      snippet:
+        'Navy jackets for both of them — Taylor in a blue plaid skirt, Tom in a white v-neck tee — photographed together in Los Angeles before leaving for Australia.',
+      sourceUrl: 'https://www.hellomagazine.com/celebrities/2016070732300/taylor-swift-tom-hiddleston-matching-outfits-airport/',
+      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/a6f6cfa25b82-taylor-a.jpg',
+      moment: {
+        context:
+          'On July 6, 2016, Taylor and Hiddleston were photographed together in Los Angeles in coordinating navy jackets — she in a blue plaid skirt with flats, he in a white v-neck T-shirt — with his arm around her, before leaving for Australia.\n\nThey were bound for Australia, where Hiddleston was filming, and touched down still wearing the same matching looks the next day.',
+        sources: [
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/2016070732300/taylor-swift-tom-hiddleston-matching-outfits-airport/',
+          },
+        ],
+        photos: [{ url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/a6f6cfa25b82-taylor-a.jpg', credit: 'Rex' }],
+      },
+    },
+
+    // --- Business/chart/music depth pass (2026-07-05): the era's business
+    // category was thin (1 item) for the decade's biggest-selling album, so
+    // this batch digs into its Grammy, RIAA, streaming-economics, and tour
+    // milestones, plus one more on-record songwriting backstory. Every claim
+    // verified against its cited source directly; every photo URL checked
+    // for a 2xx image response before being added.
+    {
+      year: 2016,
+      month: 2,
+      day: 15,
+      category: 'business',
+      significance: 'defining', // first woman to win AOTY twice — a historic record (docs/decisions.md, 2026-07-19)
+      title: '1989 wins Album of the Year — making her the first woman to win it twice',
+      snippet:
+        '"There are going to be people along the way who will try to undercut your success or take credit for your accomplishments or your fame" — her message to young women, accepting music\'s top prize for the second time.',
+      sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-album-of-the-year-speech-credit-for-fame-6875390/',
+      thumbnailUrl: 'https://ra-grammy-media.ncp.consulting/uploads/2026/05/Grammy-Rewind_Taylor-Swift_Hero_1920x1080.avif',
+      relatedIds: [
+        'moment:vault-1989-the-night-famous-premiered-and-she-said-no',
+        'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
+        'moment:vault-evermore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+        'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
+      ],
+      moment: {
+        context:
+          'At the Feb. 15, 2016 ceremony, 1989 won Album of the Year at the 58th Grammy Awards (also winning Best Pop Vocal Album), making Taylor the first woman in Grammy history to win Album of the Year twice — her first was for Fearless in 2010. She thanked the fans for "the last 10 years" and producer Max Martin in the same speech.\n\nThe speech\'s pointed center — the warning to young women about people who "will try to undercut your success or take credit for your accomplishments or your fame" — was widely read as her answer to Kanye West\'s "Famous," released days earlier, in which he rapped about having made her famous. She never said his name; the room, and Billboard\'s coverage that night, understood exactly who she meant.\n\nThe night was hers front to back. She opened the ceremony — held at Los Angeles\'s Staples Center and broadcast on CBS — with a performance of "Out of the Woods," the 1989 single then up for consideration, and left with three golden gramophones: Album of the Year, Best Pop Vocal Album, and Best Music Video for "Bad Blood" (featuring Kendrick Lamar). 1989 had already been the best-selling album of 2014 and the biggest first-week debut of her career to that point; the Grammy sealed a critical standing to match the commercial one. The Album of the Year win was the historic beat: only a small circle of artists had ever taken music\'s top prize twice, and no woman ever had. It was the second rung of a ladder she would keep climbing — to an unmatched third with folklore in 2021, then a record-setting fourth with Midnights in 2024, the most Album of the Year wins by any artist in Grammy history.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-album-of-the-year-speech-credit-for-fame-6875390/',
+          },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/taylor-swift-1989-album-of-the-year-win-2016-grammys-acceptance-speech-video-rewind/',
+          },
+          // The full acceptance speech on the Recording Academy's own channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — GRAMMYS',
+            url: 'https://www.youtube.com/watch?v=dMCAEUb0h34',
+          },
+        ],
+        // Photo-enrichment run 11 (2026-07-18, #762): focal point set by
+        // viewing — press-room shot, three gramophones at chest height,
+        // face centered high.
+        photos: [
+          {
+            url: 'https://ra-grammy-media.ncp.consulting/uploads/2026/05/Grammy-Rewind_Taylor-Swift_Hero_1920x1080.avif',
+            credit: 'The Recording Academy',
+            focalPoint: '50% 22%',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // every real, verified photo found from the Feb. 15, 2016 ceremony.
+          {
+            url: 'https://i.guim.co.uk/img/media/338849e33c7e6b53df14a7f5a00183b2a31d1203/0_48_2640_1584/master/2640.jpg?crop=none&dpr=1&s=none&width=1000',
+            focalPoint: '55% 42%',
+            credit: 'Stringer/Reuters, via The Guardian',
+            caption: 'Taylor stands on the Grammy stage during the ceremony where 1989 won Album of the Year.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt4200ccf647ed3548/69888f30428a9ed09ecd23bd/taylor-swift-success-double-standard-women.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            focalPoint: '50% 30%',
+            credit: 'Mark Ralston/AFP/Getty Images, via TIME',
+            caption: 'Taylor holds her three trophies in the press room after the 58th Grammy Awards.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt5ccf62fadac5fa4d/69887dac8e0601bf454649de/grammys-red-carpet-lead.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            focalPoint: '42% 50%',
+            credit: 'Steve Granitz/Getty Images, via TIME',
+            caption: 'Selena Gomez and Taylor pose together on the red carpet before the 58th Grammy Awards.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blta95b1ab48ade842b/69887da62dce016f4f9e7d02/taylor-swift-grammys-performance.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            focalPoint: '50% 30%',
+            credit: 'Robyn Beck/AFP/Getty Images, via TIME',
+            caption: 'Taylor opens the 58th Grammy Awards with "Out of the Woods."',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/56c278c5a76c406e241cfa0e/master/w_2560%2Cc_limit/a-taylor-swift-grammys-2016-performance.jpg',
+            focalPoint: '48% 30%',
+            credit: 'WireImage/Getty Images, via Vanity Fair',
+            caption: 'Taylor accepts Album of the Year for 1989 on the Grammy stage with her collaborators behind her.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/6973c38b8d6b50621a0c2414/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2016.jpg',
+            focalPoint: '50% 12%',
+            credit: 'Jason Merritt/Getty Images, via Vanity Fair',
+            caption: 'Taylor poses on the Grammy red carpet in her orange-and-pink Versace ensemble.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56c2618a92a7d1d17a722124/master/w_1024%2Cc_limit/GettyImages-510439952.jpg',
+            focalPoint: '51% 15%',
+            credit: 'AFP/Getty Images, via Teen Vogue',
+            caption: 'A second full-length red-carpet angle shows Taylor\'s Versace crop top and split ball skirt.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56c2618992a7d1d17a722120/master/w_1024%2Cc_limit/GettyImages-510439902.jpg',
+            focalPoint: '56% 16%',
+            credit: 'AFP/Getty Images, via Teen Vogue',
+            caption: 'A separate red-carpet close-up shows Taylor\'s bob haircut and jeweled choker at the 2016 Grammys.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56c2618ae9ea465e7cf5b563/master/w_1024%2Cc_limit/GettyImages-510439964.jpg',
+            focalPoint: '38% 52%',
+            credit: 'Getty Images for NARAS, via Teen Vogue',
+            caption: 'A Grammy red-carpet detail frame shows Taylor\'s metallic manicure and matching cocktail ring.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56c2618ce9ea465e7cf5b567/master/w_1024%2Cc_limit/GettyImages-510439972.jpg',
+            focalPoint: '54% 60%',
+            credit: 'Getty Images for NARAS, via Teen Vogue',
+            caption: 'A separate detail frame shows the metallic platform sandals worn with Taylor\'s 2016 Grammy look.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    {
+      significance: 'notable', // a genuinely bold, industry-shaping stand on artist compensation, years ahead of the wider streaming-payout conversation (docs/decisions.md, 2026-07-19)
+      year: 2014,
+      month: 11,
+      day: 3,
+      category: 'business',
+      title: 'Pulls her entire catalog from Spotify',
+      snippet:
+        "Days after 1989's record-breaking opening week, her label withdrew everything — arguing free, ad-supported streaming undermined the paid tier that pays songwriters and artists more.",
+      sourceUrl: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg',
+      moment: {
+        context:
+          'On Nov. 3, 2014, Big Machine Records pulled Taylor\'s full back catalog from Spotify, a week after 1989 released without ever appearing on the service. It followed a July 2014 Wall Street Journal op-ed in which she argued that "music should not be free"; she spelled out her objection to Spotify\'s ad-supported free tier in interviews that November.\n\nDays later, Big Machine\'s Scott Borchetta told radio host Nikki Sixx the label didn\'t want to disrespect fans who\'d paid for the album while friends streamed it free: "We\'re being completely disrespectful to that superfan who wants to invest."',
+        sources: [
+          { outlet: 'CNN Money', url: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html' },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/big-machines-scott-borchetta-explains-747781/',
+          },
+        ],
+        // Image-fix pass (2026-07-10): #162 / #146 — old photo (Forbes-hosted, filename says
+        // "swift_taylor_2007") was a 7-years-off debut-era shot: curly hair, acoustic guitar,
+        // country styling — nothing like 1989-era Taylor. Swapped for a Commons "own work"
+        // photo of her onstage on the 1989 World Tour, short bob included (CC BY-SA 2.0,
+        // GabboT); curl-verified 200/image-jpeg, downloaded and visually confirmed the
+        // correct 1989-era look.
+        // Photo-enrichment pass (2026-07-18, #762): deliberately kept at one photo — the
+        // moment is a label decision with no photographable event; era-correct archival
+        // tour shot already covers it, and the only Nov-2014 news art is agency/watermarked.
+        // Re-reviewed 2026-08-01 (#762): searched again (Daniel Ek / Spotify news photos
+        // from the same week, other 1989-era press) — nothing more on-topic than the
+        // existing archival tour shot on an allowed host. Stays reviewed-sparse.
+        // Photo pass #762 (2026-08-16): a second image found on an outlet CDN —
+        // Rolling Stone's own hero image for its Nov. 3, 2014 story on this exact
+        // event, not on Wikimedia Commons so the earlier Commons-only passes missed it.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg',
+            focalPoint: '42% 24%',
+            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
+            kind: 'archival',
+            caption: 'Onstage on the 1989 World Tour, 2015 — the short-bob 1989 era, not the 2007 photo this story previously used.',
+          },
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2018/06/rs-173469-457813554.jpg?w=1600&h=900&crop=1',
+            focalPoint: '62% 10%',
+            credit: 'Kevin Winter/Getty Images, via Rolling Stone',
+            caption: "Performing at CBS Radio's We Can Survive concert in Los Angeles, Oct. 24, 2014 — nine days before her label pulled her catalog from Spotify.",
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      significance: 'notable', // one artist's open letter changed a trillion-dollar company's policy in under 24 hours — a real, outsized moment of industry leverage (docs/decisions.md, 2026-07-19)
+      year: 2015,
+      month: 6,
+      day: 21,
+      category: 'business',
+      title: '"To Apple, Love, Taylor" — an open letter reverses Apple Music\'s royalty policy in under a day',
+      snippet:
+        '"We don\'t ask you for free iPhones. Please don\'t ask us to provide you with our music for no compensation" — a Tumblr post that got Apple to pay artists during its free trial period.',
+      sourceUrl: 'https://stereogum.com/1810310/read-taylor-swifts-open-letter-to-apple-music/news',
+      thumbnailUrl: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg',
+      moment: {
+        context:
+          'Taylor published the letter on Tumblr on Sunday, June 21, 2015, announcing she was withholding 1989 from Apple Music and objecting to the plan not to pay royalties during the three-month free trial. She insisted it wasn\'t about her: "This is about the new artist or band that has just released their first single and will not be paid for its success."\n\nApple\'s Eddy Cue later described reading the letter that morning — "it solidified quickly that we needed a change" — and by that night he had announced the reversal on Twitter, conceding the trial structure "was clearly something that was not working." Less than 24 hours from Tumblr post to policy change; 1989 subsequently went up on the service.',
+        sources: [
+          { outlet: 'Stereogum', url: 'https://stereogum.com/1810310/read-taylor-swifts-open-letter-to-apple-music/news' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/apple-exec-eddy-cue-why-taylor-swift-was-right-39608/',
+          },
+        ],
+        // Focal point (#762): tight 'Shake It Off' frame, her face fills the upper-center of the shot.
+        // Photo-enrichment pass (2026-07-27, #762): searched for a second, genuinely
+        // on-topic image (Apple Music/WWDC 2015 launch, Eddy Cue at a contemporaneous
+        // event) — nothing verifiable turned up. No free-licensed period photo of Eddy
+        // Cue exists (Wikipedia/Commons' only photo of him is SXSW 2025, a decade removed
+        // from this story, so it was rejected as unrelated filler rather than added).
+        // Kept at one photo; reviewed-sparse.
+        photos: [{ url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg', credit: 'Stereogum', focalPoint: '48% 30%' }],
+      },
+    },
+    {
+      year: 2015,
+      month: 12,
+      day: 12,
+      category: 'tour',
+      title: 'The 1989 World Tour closes in Melbourne: 85 shows, $250.7 million, 2.28 million tickets',
+      snippet:
+        '"This has been the most incredible adventure" — eight months, 53 cities, 78 guest cameos, and the highest-grossing tour in the world for 2015.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_1989_World_Tour',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/1280px-Taylor_Swift_AAMI_Park_20151212_01.jpg',
+      moment: {
+        context:
+          'The tour wrapped its third Melbourne show at AAMI Park on Dec. 12, 2015, having run 85 shows across 53 cities in 10 countries since opening in Tokyo that May.\n\nFinal tallies: $250.7 million grossed and 2,278,647 tickets sold (100% of capacity) — Pollstar\'s highest-grossing tour worldwide for 2015. Taylor posted a farewell photo with her tour crew: "Farewell, 1989 World Tour."',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-1989-tour-ends-6805721/',
+          },
+        ],
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/1280px-Taylor_Swift_AAMI_Park_20151212_01.jpg', focalPoint: '50% 12%', credit: 'Wikimedia Commons' }],
+      },
+    },
+    {
+      slug: '1989-secret-sessions',
+      // Cross-link (vault-run 2026-08-06): the reputation Secret Sessions — the
+      // same fan-hosting tradition carried into the next era.
+      relatedIds: ['moment:vault-1989-the-reputation-secret-sessions-500-fans-four-houses-zero-lea'],
+      year: 2014,
+      month: 10,
+      category: 'release',
+      title: 'The Secret Sessions: 89 fans at a time, in her living rooms',
+      snippet:
+        'Through September and October she hand-picked fans off the internet and played them 1989 early — at her homes in New York, LA, Rhode Island, her mom\'s place in Nashville, and a London hotel — baking the cookies herself. Nobody leaked a note.',
+      sourceUrl: 'https://www.nylon.com/entertainment/oral-history-of-taylor-swifts-1989-secret-sessions',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Each session hosted 89 fans, selected by Taylor herself from social media. She previewed the full album weeks before release, talked through the songs, posed for photos, and served homemade chocolate chip and toasted coconut cookies. Despite hundreds of fans hearing it early, the album never leaked — a loyalty story the fandom still retells, and a rollout ritual she repeated for reputation.\n\nNYLON\'s oral history laid out the logistics: invitees — contacted by Taylor Nation via DM, phone call, or email — met at parking lots and were bused to undisclosed addresses, phones locked away and NDAs signed, before Taylor played the album from her iPhone with track-by-track commentary. Five sessions ran in barely three weeks: Los Angeles on Sept. 20, her mom\'s house in Nashville on Sept. 28, her New York apartment in early October, Rhode Island on Oct. 4, and a London hotel room on Oct. 10, with individual Polaroid-and-hug meet-and-greets closing every night.',
+        sources: [
+          {
+            outlet: 'NYLON',
+            url: 'https://www.nylon.com/entertainment/oral-history-of-taylor-swifts-1989-secret-sessions',
+            source_title: "An Oral History Of Taylor Swift's '1989' Secret Sessions",
+            publisher: 'NYLON',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2014/09/22/taylor-swift-invites-fans-to-her-home-for-1989-secret-sessions/',
+            source_title: "Taylor Swift Invites Fans to Her Home for '1989' Secret Sessions",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/EKnl7STzSMU/hqdefault.jpg',
+            focalPoint: '62% 34%',
+            credit: 'Taylor Swift via YouTube',
+            kind: 'archival',
+            caption: "Hugging a fan at a session — a still from the official '1989 Secret Sessions, Behind The Scenes!' video on Taylor's own channel (Oct. 2014).",
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-nyc-welcome-ambassador',
+      year: 2014,
+      month: 10,
+      day: 27,
+      category: 'business',
+      title: 'New York names her its Global Welcome Ambassador',
+      snippet:
+        'Release-day promotion, city-scale: on October 27, 2014, NYC & Company made the Pennsylvania-born, Nashville-raised new Manhattanite the face of New York tourism — unpaid, announced live on Good Morning America.',
+      sourceUrl: 'https://www.business.nyctourism.com/press-media/press-releases/nyc-company-announces-taylor-swift-as-new-york-citys-global-welcome-ambassa',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The city\'s tourism arm built its global "Welcome to New York" campaign around the 1989 opener, with Taylor fronting videos explaining New York slang and landmarks. NYC & Company confirmed she wasn\'t paid for the role; the appointment drew both delight and eye-rolls from lifelong New Yorkers, which only fed the coverage.\n\nThe rollout was total: the announcement went out live on Good Morning America the morning of the album\'s release, and nycgo.com\'s homepage turned into a 1989 billboard the same day — a photo of Taylor on a Manhattan pier under the hand-lettered slogan "welcome to new york — it\'s been waiting for you," her signature underneath. For a Pennsylvania-born, Nashville-raised transplant seven months into actually living there, it was a remarkable civic embrace — and precision-timed marketing for both parties.',
+        sources: [
+          {
+            outlet: 'NYC & Company',
+            url: 'https://www.business.nyctourism.com/press-media/press-releases/nyc-company-announces-taylor-swift-as-new-york-citys-global-welcome-ambassa',
+            source_title: "NYC & Company Announces Taylor Swift as New York City's Global Welcome Ambassador",
+            publisher: 'NYC Tourism + Conventions',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Skift',
+            url: 'https://skift.com/2014/10/27/new-york-city-taps-taylor-swift-as-its-global-welcome-ambassador/',
+            source_title: 'New York City Taps Taylor Swift As Its Global Welcome Ambassador',
+            publisher: 'Skift',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://skift.com/wp-content/uploads/2014/10/taylor.jpg',
+            focalPoint: '50% 45%',
+            credit: 'NYC & Company / nycgo.com, via Skift',
+            kind: 'primary',
+            caption: "nycgo.com's homepage on launch day: Taylor fronting the 'Welcome to New York' campaign as the city's Global Welcome Ambassador, Oct. 27, 2014.",
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-blank-space-interactive-video',
+      // Cross-link (Stage 3, 2026-07-27): sibling "Blank Space" moments.
+      relatedIds: [
+        'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
+        'moment:vault-1989-blank-space-flips-the-narrative',
+      ],
+      year: 2014,
+      month: 11,
+      day: 10,
+      category: 'release',
+      title: 'The Blank Space video arrives with its own interactive app',
+      snippet:
+        'November 10, 2014: Joseph Kahn\'s mansion-meltdown video drops alongside American Express Unstaged — an explorable 360° app version of the video that went on to win an Emmy.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Blank_Space',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+      moment: {
+        context:
+          'Joseph Kahn shot the mansion meltdown at Oheka Castle on Long Island, borrowing Stanley Kubrick\'s symmetrical framing while Taylor played the tabloids\' "crazy ex" caricature to the hilt — golf clubs to the sports car included. The companion "AMEX Unstaged: Taylor Swift Experience" app let viewers roam the mansion in interactive 360° mid-video, discovering easter eggs and side characters outside the linear cut.\n\nIt won the 2015 Emmy for Outstanding Creative Achievement in Interactive Media — Original Interactive Program, with Taylor credited as artist and executive producer: her first Emmy, earned for a music video\'s companion app.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Blank_Space',
+            source_title: 'Blank Space',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Television Academy',
+            url: 'https://www.televisionacademy.com/shows/amex-unstaged-taylor-swift-experience',
+            source_title: 'AMEX Unstaged: Taylor Swift Experience | Emmy Awards and Nominations',
+            publisher: 'Television Academy',
+            source_type: 'official',
+            accessed_at: '2026-07-09',
+            reliability_score: 5,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+            focalPoint: '42% 28%',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-swiftmas',
+      year: 2014,
+      month: 12,
+      category: 'sighting',
+      title: 'Swiftmas: hand-wrapped packages, one hand-delivered to Connecticut',
+      snippet:
+        'She stalked her own fans\' Tumblrs, picked out personalized gifts, wrapped them herself, and shipped "SwiftEx" boxes across the country — then drove to Connecticut to hand one mom and son their presents in person.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-swiftmas-6415161/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The December 2014 gift blitz — fans dubbed it "Swiftmas" — was documented in a behind-the-scenes YouTube video on her own channel, posted Dec. 31, showing the wrapping marathon complete with cats asleep on the wrapping paper. The fan reaction videos became a holiday news cycle of their own.\n\nBillboard traced the packages to 32 hand-picked Tumblr followers, shipped by FedEx starting in mid-November after Taylor Nation quietly collected addresses. The most famous box — 31 pounds, to 16-year-old Rebecca Cox of West Bloomfield, Michigan — held a Victoria\'s Secret Fashion Show duffel, a Fujifilm Instax camera with film, blankets, candles, $200 in gift cards, and a handwritten note on nearly every item ("She uses a ridiculous amount of tape," Cox reported). The one delivery she wouldn\'t outsource closed the video: she drove to Connecticut herself to surprise a fan\'s young son with his presents, including a mini motorized car.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-swiftmas-6415161/',
+            source_title: "Taylor Swift's 'Swiftmas': Fans Talk Receiving Gifts",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/3651775/behind-the-scenes-of-taylor-swifts-swiftmas-christmas-gift-extravaganza/',
+            source_title: "Behind the Scenes of Taylor Swift's 'Swiftmas' Christmas Gift Extravaganza",
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/j3yyF31jbKo/hqdefault.jpg',
+            credit: 'Taylor Swift via YouTube',
+            kind: 'archival',
+            caption: "Mid-wrap in a NEW YORK sweatshirt — a still from 'Taylor Swift's Gift Giving of 2014 | SWIFTMAS' on her official channel (Dec. 31, 2014).",
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-this-sick-beat-trademarks',
+      significance: 'notable', // a genuinely notable, widely-covered business precedent — one of the first mainstream artist trademark filings of its kind (docs/decisions.md, 2026-07-19)
+      year: 2015,
+      month: 1,
+      day: 29,
+      category: 'business',
+      title: 'She trademarks "This Sick Beat" (and "Party Like It\'s 1989")',
+      snippet:
+        'Filings with the U.S. Patent and Trademark Office locked down lyric phrases from 1989 — "This Sick Beat," "Nice to Meet You. Where You Been?," "Could Show You Incredible Things" — before bootleg merch could.',
+      sourceUrl: 'https://abcnews.com/Entertainment/taylor-swift-files-trademark-sick-beat-1989-phrases/story?id=28575143',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The filings — made with the USPTO in October 2014 and surfacing in the press that January — covered "This Sick Beat," "Party Like It\'s 1989," "Cause We Never Go Out of Style," "Could Show You Incredible Things," and "Nice to Meet You. Where You Been?" — plus her name, signature, and initials — across product categories running from T-shirts and guitar straps to paper products and handbags. Forbes framed it as pre-tour housekeeping ahead of the May kickoff: locking down the 1989 merch economy before bootleggers could, with the round described as only the first.\n\nThe move — mocked by some, studied by others — became a case study in how aggressively her team protected the era\'s business; the applications were still pending as of early 2015, with registrations granted later.',
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/taylor-swift-files-trademark-sick-beat-1989-phrases/story?id=28575143',
+            source_title: "Taylor Swift Files to Trademark 'This Sick Beat' and Other 1989 Phrases",
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2015/02/04/taylor-swift-has-trademarked-the-phrase-this-sick-beat/',
+            source_title: "Taylor Swift Has Trademarked The Phrase 'This Sick Beat'",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg',
+            credit: 'Big Machine Records',
+            kind: 'reference',
+            caption: "Reference image: the 'Shake It Off' video — the song 'This Sick Beat' comes from. The trademark filings themselves are paperwork; no event photography exists.",
+            // Tall full-body frame; her face is near the very top, slightly left of center.
+            focalPoint: '42% 16%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): candid press photo from the
+            // week the trademark filings broke in the press.
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt00a69b3da57cafb8/69877c73e53aba00174d7480/taylorswift1.jpg?branch=production&width=1200&quality=75&auto=webp&crop=16:9',
+            credit: 'Alessio Botticelli—GC Images/Getty Images',
+            kind: 'reference',
+            caption: 'Taylor Swift in New York City, January 2015, around the week the "This Sick Beat" trademark filings became public.',
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-style-video',
+      year: 2015,
+      month: 2,
+      day: 13,
+      category: 'release',
+      title: 'The Style video trades plot for pure atmosphere',
+      snippet:
+        'Released February 13, 2015: shattered mirrors, projected faces, a fog-drenched forest — a moody, near-abstract video that looked like nothing she\'d put out before.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Style_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Director Kyle Newman\'s treatment abandoned narrative for double-exposure imagery — Taylor and English actor Dominic Sherwood projected onto each other, the relationship replayed in shards of broken mirror and hazy flashbacks by the sea, in the woods, and behind the wheel. "Gorgeously shot," per Billboard — the plot thinner than "Blank Space," sure, but the atmosphere alone could carry a perfume ad; other critics caught echoes of True Detective\'s title sequence, Mulholland Drive, and Chris Isaak\'s "Wicked Game" video.\n\nThe art-film styling extended the pop reinvention to her videos — and the song underneath, a No. 6 Hot 100 peak at the time, has only climbed in critical standing since, routinely ranked among the finest pure pop songs in her catalog.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Style_(Taylor_Swift_song)',
+            source_title: 'Style (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-style-video-6472752/',
+            source_title: "Taylor Swift 'Style': Watch the Dreamy Music Video Here",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/-CmadmM5cOk/hqdefault.jpg',
+            focalPoint: '38% 40%',
+            credit: 'Big Machine Records / Taylor Swift via YouTube',
+            kind: 'archival',
+            caption: "The double-exposure profile shot from the official 'Style' video — Kyle Newman's atmosphere-over-plot treatment in a single frame.",
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-bad-blood-video-vevo-record',
+      significance: 'notable', // a real streaming/premiere record, and the biggest visual statement of the era's star-studded "squad" phase (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-1989-calvin-harris-and-taylor-go-public-at-the-billboard-music-aw'],
+      year: 2015,
+      month: 5,
+      day: 17,
+      category: 'release',
+      title: 'Bad Blood premieres at the BBMAs and breaks the Vevo record',
+      snippet:
+        'The star-packed revenge fantasy — Selena Gomez, Kendrick Lamar, Mariska Hargitay, half the squad in neon codenames — opened the May 17, 2015 Billboard Music Awards and pulled 20.1 million views in 24 hours.',
+      sourceUrl: 'https://time.com/3892980/bad-blood-music-video-record/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 24-hour total broke Nicki Minaj\'s "Anaconda" record of 19.6 million Vevo views. Joseph Kahn\'s sci-fi action treatment gave each cast member a comic-book alias — Selena Gomez as Arsyn, Karlie Kloss as Knockout, Lena Dunham as Lucky Fiori — turning the squad itself into the video\'s marketing engine.\n\nThe premiere literally opened the Billboard Music Awards broadcast from the MGM Grand. The momentum didn\'t stop at the record: nearly 38 million total views within four days, per Forbes, and by August the video had won Video of the Year at the VMAs.',
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/3892980/bad-blood-music-video-record/',
+            source_title: "Taylor Swift's 'Bad Blood' Music Video Breaks Vevo World Record",
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2015/05/21/taylor-swifts-bad-blood-video-breaks-a-record-with-20-million-views-in-its-first-24-hours/',
+            source_title: "Taylor Swift's 'Bad Blood' Video Breaks A Record With 20 Million Views In Its First 24 Hours",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18, #762): added the Kendrick/Catastrophe
+        // split-screen frame from the same official video (id oEmbed-verified against
+        // @TaylorSwift; distinct scene from the existing close-up, downloaded and
+        // visually confirmed). Focal points set per image by viewing.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/hqdefault.jpg',
+            credit: 'Big Machine Records / Taylor Swift via YouTube',
+            kind: 'archival',
+            focalPoint: '48% 45%',
+            caption: "Catastrophe mid-transformation — a still from the official 'Bad Blood' video that premiered at the 2015 BBMAs and broke the Vevo 24-hour record.",
+          },
+          {
+            url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/hq1.jpg',
+            credit: 'Big Machine Records / Taylor Swift via YouTube',
+            kind: 'archival',
+            focalPoint: '50% 34%',
+            caption: 'Kendrick Lamar as Welvin da Great opposite Catastrophe — the featured verse that shared the record-breaking premiere.',
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-hyde-park-runway',
+      year: 2015,
+      month: 6,
+      day: 27,
+      category: 'tour',
+      title: 'Hyde Park, 65,000 people, and a literal squad runway',
+      snippet:
+        'At British Summer Time on June 27, 2015, she turned the "Style" bridge into a catwalk — Cara Delevingne, Kendall Jenner, Karlie Kloss, Gigi Hadid, Martha Hunt, and Serena Williams strutting the stage in front of 65,000.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-1989-tour-kendall-jenner-cara-delevingne-style-london-6612932/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Hyde Park festival date was the UK centerpiece of the 1989 World Tour, with Ellie Goulding, Vance Joy, John Newman and Rae Morris supporting.\n\nThe nightly celebrity-walk segment reached its peak form here — a tennis legend and half the world\'s top models strutting the catwalk mid-"Style," with Cara Delevingne carrying the U.K. flag down the stage. Billboard framed it as the live extension of the "Bad Blood" casting trick: the famous-friends roster deployed as part of the show itself.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-1989-tour-kendall-jenner-cara-delevingne-style-london-6612932/',
+            source_title: "Taylor Swift's '1989' Tour: Kendall Jenner, Cara Delevingne & More Join Her for 'Style' in London",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-189-1230492',
+            source_title: "Taylor Swift announces trio of UK live dates as part of '1989' world tour",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Taylor_Swift_-_The_1989_World_Tour_-_Crowd_at_HYDE_Park_during_Wildest_Dream_%26_Enchanted_performance.jpg/960px-Taylor_Swift_-_The_1989_World_Tour_-_Crowd_at_HYDE_Park_during_Wildest_Dream_%26_Enchanted_performance.jpg',
+            focalPoint: '50% 55%',
+            credit: 'James Honeyball / Wikimedia Commons, CC BY-SA 2.0',
+            kind: 'primary',
+            caption: 'The Hyde Park crowd — light-up wristbands glowing at dusk — during the British Summer Time show, June 27, 2015.',
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-kobe-staples-banner',
+      year: 2015,
+      month: 8,
+      day: 21,
+      category: 'tour',
+      title: 'Kobe Bryant raises a banner for her at Staples Center',
+      snippet:
+        'August 21, 2015: mid-show, Kobe walked out and unveiled a banner in the rafters — 16 sold-out Staples Center shows, the most of any artist, hanging alongside the Lakers\' 16 championships.',
+      sourceUrl: 'https://www.billboard.com/music/pop/kobe-bryant-surprise-taylor-swift-banner-staples-center-ryan-tedder-6671158/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The banner — "Taylor Swift, Most Sold Out Performances" — was unveiled on Friday, Aug. 21, 2015, as she opened a five-night Staples Center stand; completing the run would put her at 16 sold-out shows at the arena, the most by any artist. "16 is a very special number here in Los Angeles," Bryant told the crowd, "because 16 is the same number of championships we have as the Lakers franchise," adding of the banner: "It\'s going to hang here forever."\n\nRyan Tedder joined her onstage the same night — one stop in a five-night LA guest run that also produced the Mary J. Blige and Justin Timberlake cameos fans still trade clips of. Bryant kept cheering from a distance afterward, tweeting "Keep breaking records and changing lives #1989TourLA."',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/kobe-bryant-surprise-taylor-swift-banner-staples-center-ryan-tedder-6671158/',
+            source_title: "Kobe Bryant Surprises Taylor Swift With Championship Banner at L.A.'s Staples Center",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS Sports',
+            url: 'https://www.cbssports.com/nba/news/video-kobe-bryant-gives-staples-center-banner-to-taylor-swift/',
+            source_title: 'VIDEO: Kobe Bryant gives Staples Center banner to Taylor Swift',
+            publisher: 'CBS Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Taylor_Swift_-_The_1989_World_Tour_-_Los_Angeles_-_record_at_STAPLES_Center_%28crop%29.jpg/960px-Taylor_Swift_-_The_1989_World_Tour_-_Los_Angeles_-_record_at_STAPLES_Center_%28crop%29.jpg',
+            focalPoint: '48% 40%',
+            credit: 'Denielle / Wikimedia Commons, CC BY-SA 2.0',
+            kind: 'primary',
+            caption: "The 'Taylor Swift, Most Sold Out Performances' banner in the Staples Center rafters, photographed at the Aug. 22, 2015 show — the night after Kobe Bryant unveiled it.",
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-world-tour-live-film',
+      year: 2015,
+      month: 12,
+      day: 20,
+      category: 'release',
+      title: 'The 1989 World Tour Live lands as an Apple Music exclusive',
+      snippet:
+        'Released December 20, 2015: Jonas Åkerlund\'s film of the Sydney show — 76,000 fans at ANZ Stadium — stitched with backstage footage and the tour\'s parade of surprise guests.',
+      sourceUrl: 'https://www.billboard.com/pro/taylor-swift-1989-world-tour-live-concert-film-apple-music-dec-20/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Six months after her open letter got Apple to reverse its trial-period royalty policy, the concert film arrived as an Apple Music exclusive — the reconciliation made product, released December 20 as pre-Christmas ammunition for the streaming service.\n\nJonas Åkerlund\'s cut captured the full November 28 show before 76,000 at Sydney\'s ANZ Stadium, stitched with never-before-seen backstage and rehearsal footage plus guest moments from across the tour, from Mick Jagger to Imagine Dragons. Her own pitch, in the announcement: "I wondered what would happen if I invited the most amazing artists in the world to come out with me and perform on my stage — would they do it?"',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-1989-world-tour-live-concert-film-apple-music-dec-20/',
+            source_title: "Taylor Swift '1989 World Tour Live' Concert Film Coming to Apple Music",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-1989-world-tour-848317/',
+            source_title: "Taylor Swift '1989 World Tour Live' Concert Film Coming to Apple Music",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/6d/The_1989_World_Tour.png',
+            focalPoint: '50% 48%',
+            credit: 'Big Machine Records',
+            kind: 'archival',
+            caption: 'The official 1989 World Tour poster art — the tour the Apple Music film documents, shot at the Nov. 28, 2015 Sydney show.',
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-out-of-the-woods-video-nye',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Out of the Woods" moment.
+      // Cross-link (Stage 3, 2026-08-17): the NYE Times Square kiss with
+      // Harry Styles that started the relationship this video is widely
+      // read as chronicling the end of.
+      relatedIds: [
+        'moment:vault-red-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac',
+        'moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square',
+      ],
+      year: 2015,
+      month: 12,
+      day: 31,
+      category: 'release',
+      title: 'The Out of the Woods video closes the era on New Year\'s Eve',
+      snippet:
+        'Premiered December 31, 2015 on Dick Clark\'s New Year\'s Rockin\' Eve: Taylor pursued through forests, blizzards, and mudslides by the woods themselves — ending back on the beach where she started.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-out-of-the-woods-premiere-new-years-rockin-eve-6820708/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The sixth 1989 single\'s video, shot in New Zealand, rendered the song\'s anxiety as literal wilderness — grasping branches, frozen lakes, a wall of fire. Its closing title card, "She lost him. But she found herself. And somehow that was everything," reads as the era\'s thesis statement, dropped as the year turned.\n\nABC treated the premiere as event television: the network announced it on Good Morning America on Dec. 22, then slotted the debut into Dick Clark\'s New Year\'s Rockin\' Eve with Ryan Seacrest — the same broadcast rhythm as a ball drop. Timing-wise it bookended the campaign almost exactly: "Shake It Off" had opened the era in August 2014, and this closed the original album\'s video run fourteen months after release, with one deluxe-track single still to come.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-out-of-the-woods-premiere-new-years-rockin-eve-6820708/',
+            source_title: "Taylor Swift 'Out of the Woods' Video Premiere Will Hit New Year's Rockin' Eve",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.go.com/Entertainment/taylor-swift-debut-woods-music-video-years-rockin/story?id=35897285',
+            source_title: "Taylor Swift to Debut 'Out of the Woods' Music Video During 'New Year's Rockin' Eve' on ABC",
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxresdefault.jpg',
+            focalPoint: '50% 42%',
+            credit: 'Big Machine Records / Taylor Swift via YouTube',
+            kind: 'archival',
+            caption: "Mud-caked and mid-pursuit — a still from the official 'Out of the Woods' video, premiered on New Year's Rockin' Eve, Dec. 31, 2015.",
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-taylor-vs-treadmill',
+      year: 2016,
+      month: 4,
+      day: 1,
+      category: 'business',
+      title: 'Taylor vs. Treadmill: the Apple Music ad that sold a Drake song',
+      snippet:
+        'April 1, 2016: an Apple Music spot of Taylor rapping Drake and Future\'s "Jumpman" on a treadmill — then eating the floor — went so viral that "Jumpman" iTunes sales jumped 431%.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-apple-music-ad-campaign-7318684/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The gag ad — captioned #TaylorvsTreadmill — racked up more than 20 million views on Facebook and Instagram within days, boosted Apple\'s #gymflow playlist plays 325%, and put a rap song that had been out for six months back up the charts. It marked how completely the Apple relationship had flipped since the 2015 royalty standoff.\n\nIt was the first of a planned series of Apple Music spots leaning on her self-deprecating side, per Billboard, and Forbes did the receipts on the "Jumpman" bump: a 431% jump in iTunes sales — likely tens of thousands of downloads — for a track that had peaked at No. 12 on the Hot 100 half a year earlier, with a fresh chart climb predicted off the exposure. Not bad for sixty seconds of face-planting in athleisure.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-apple-music-ad-campaign-7318684/',
+            source_title: "Taylor Swift Raps Drake & Future's 'Jumpman,' Falls Off Treadmill in Apple Music Ad",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2016/04/07/taylor-swifts-apple-music-commercial-spurred-a-431-jump-in-sales-for-drake/',
+            source_title: "Taylor Swift's Apple Music Commercial Spurred A 431% Jump In Sales For Drake",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/9R2Fux_af6k/hqdefault.jpg',
+            focalPoint: '40% 38%',
+            credit: 'Apple Music, via ABC News on YouTube',
+            kind: 'archival',
+            caption: 'The face-plant itself: Taylor comes off the treadmill mid-"Jumpman" in the April 1, 2016 Apple Music spot.',
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-nils-sjoberg-reveal',
+      year: 2016,
+      month: 7,
+      day: 13,
+      category: 'relationship',
+      title: 'Nils Sjöberg unmasked: she secretly wrote Calvin Harris\'s biggest hit of the year',
+      snippet:
+        'July 13, 2016: her team confirmed the pseudonymous songwriter behind "This Is What You Came For" was Taylor herself — and her ex responded with a now-infamous string of tweets.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-calvin-harris-co-wrote-this-is-what-you-came-for-pseudonym-7438158/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor had written the Rihanna-fronted hit — released April 29, 2016 — under the name Nils Sjöberg while she and Harris were still together, keeping it secret so the relationship wouldn\'t overshadow the song. She picked the pseudonym because those are two of the most common Swedish male names, and she even sings uncredited backing vocals on the track.\n\nAfter the credit surfaced post-breakup, Harris confirmed it on Twitter — she "wrote the lyrics and contributed some background vocals" while he wrote, produced, and arranged it — but added it was "hurtful" that her team let the story out, turning a songwriting footnote into the summer\'s defining pop feud.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-calvin-harris-co-wrote-this-is-what-you-came-for-pseudonym-7438158/',
+            source_title: "Taylor Swift Co-Wrote Calvin Harris' 'This is What You Came For' Under Pseudonym",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2016/music/news/calvin-harris-blasts-taylor-swift-songwriting-credit-this-is-what-you-came-for-1201813531/',
+            source_title: 'Calvin Harris Blasts Taylor Swift Over Songwriting Credit',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/This_Is_What_You_Came_For',
+            source_title: 'This Is What You Came For',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/a/a8/This_Is_What_You_Came_For_cover.png',
+            // Symmetric circular cover art (lightning over mountains); genuinely reads best centered.
+            focalPoint: '50% 50%',
+            credit: 'Westbury Road / Sony Music',
+            kind: 'primary',
+            caption: 'The single art for "This Is What You Came For" — credited on release to Calvin Harris featuring Rihanna, with "Nils Sjöberg" in the songwriting credits.',
+          },
+        ],
+      },
+    },
+
+    // --- The July 2016 rupture arc (2026-07-16, #695): the era's actual
+    // ending — "Famous," the Snapchat receipts, and the 2020 full-call
+    // vindication — was untold anywhere on the site while three other items
+    // already referenced it. The 2020 payoff item follows this file's
+    // existing convention of post-era payoff items (see the 2020-03-13
+    // Diamond certification above). Every claim verified against its cited
+    // sources directly; quotes are verbatim from the cited coverage.
+    {
+      year: 2016,
+      month: 2,
+      day: 11,
+      category: 'music',
+      significance: 'defining', // the inciting incident of the whole Kimye saga and reputation era (docs/decisions.md, 2026-07-19)
+      title: 'The night "Famous" premiered, and she said no',
+      snippet:
+        'Kanye West debuts "Famous" at Madison Square Garden — "I made that bitch famous" — and says she approved it. Her team answers the same day: she was never told that line, and she "cautioned him about releasing a song with such a strong misogynistic message."',
+      sourceUrl: 'https://time.com/4411055/kanye-west-taylor-swift-kim-kardashian-feud/',
+      thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi',
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+      ],
+      moment: {
+        context:
+'At the Yeezy Season 3 event at Madison Square Garden on Feb. 11, 2016 — part fashion show, part listening party for The Life of Pablo, staged with performance artist Vanessa Beecroft in front of roughly 20,000 people — West premiered "Famous" and its line about Taylor: "I feel like me and Taylor might still have sex / Why? I made that bitch famous." He insisted she had approved it in a phone call.\n\nHer spokesperson\'s statement said otherwise: "Kanye did not call for approval, but to ask Taylor to release his single \'Famous\' on her Twitter account. She declined and cautioned him about releasing a song with such a strong misogynistic message. Taylor was never made aware of the actual lyric, \'I made that bitch famous.\'"\n\nFour days later she accepted Album of the Year at the Grammys with the "there are going to be people along the way who will try to undercut your success" speech — the whole room knew who she meant. The question of what was actually said on that call would hang over the next four years.\n\n"Famous" arrived as track four on The Life of Pablo, which West released on Tidal on Feb. 14. He spent Feb. 12 defending the line in a fifteen-tweet run — "I did not diss Taylor Swift and I\'ve never dissed her" — and claimed he had "called Taylor and had a hour long convo with her about the line and she thought it was funny and gave her blessings," even asserting the idea was "actually something Taylor came up with." That June he escalated it visually, premiering the song\'s video with a bed of nude wax likenesses of a dozen public figures — Taylor among them — that her camp again said she had never approved.',
+        sources: [
+          { outlet: 'Time', url: 'https://time.com/4411055/kanye-west-taylor-swift-kim-kardashian-feud/' },
+          { outlet: 'CBS News', url: 'https://www.cbsnews.com/media/kanye-west-vs-taylor-swift-timeline/' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Taylor_Swift%E2%80%93Kanye_West_feud' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/rb-hip-hop/kanye-yeezy-season-3-show-madison-square-garden-6874812/',
+            source_title: "Kanye West's Yeezy Season 3 Event: A Fashion Show All Its Own",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The FADER',
+            url: 'https://www.thefader.com/2016/02/12/taylor-swift-kanye-west-pablo-famous-sex-lyric',
+            source_title: 'Kanye West And A Rep For Taylor Swift Tell Different Stories About Controversial Lyric',
+            publisher: 'The FADER',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/entertainment/kanye-west-premieres-new-music-video-featuring-apparently-nude-celebrities',
+            source_title: 'Kanye West premieres new music video featuring apparently nude celebrities',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-15',
+            reliability_score: 4,
+          },
+        ],
+        // Photo pass 2026-07-19 (defining-events-31-50): 6 real, verified
+        // photos — 4 from the actual Yeezy Season 3 / Life of Pablo event
+        // where "Famous" premiered, and 2 reused (already verified, ≤3-use
+        // safe) from the 1989-AOTY item for the "four days later" speech
+        // this item's own text references.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-09-billboard-650.jpg?w=650&h=430&crop=1',
+            focalPoint: '48% 38%',
+            credit: 'Getty Images, via Billboard',
+            caption: 'Kanye West at the Yeezy Season 3 / The Life of Pablo listening event, Madison Square Garden, Feb. 11, 2016 — where "Famous" premiered.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-01-billboard-650.jpg?w=650&h=430&crop=1',
+            focalPoint: '50% 45%',
+            credit: 'Getty Images, via Billboard',
+            caption: 'The event\'s staging inside Madison Square Garden, built for an audience of roughly 20,000.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-07-billboard-650.jpg?w=650&h=430&crop=1',
+            focalPoint: '50% 22%',
+            credit: 'Getty Images, via Billboard',
+            caption: 'Models on the Yeezy Season 3 runway during the same event.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-08-billboard-650.jpg?w=650&h=430&crop=1',
+            focalPoint: '50% 20%',
+            credit: 'Getty Images, via Billboard',
+            caption: 'More of the roughly 1,000 models styled for the Yeezy Season 3 runway.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/6973c38b8d6b50621a0c2414/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2016.jpg',
+            focalPoint: '50% 12%',
+            credit: 'Getty Images, via Vanity Fair',
+            caption: 'Taylor at the Grammys red carpet, Feb. 15, 2016 — four days after "Famous" premiered, hours before her Album of the Year speech.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56c2618a92a7d1d17a722124/master/w_1024%2Cc_limit/GettyImages-510439952.jpg',
+            focalPoint: '51% 15%',
+            credit: 'Getty Images, via Teen Vogue',
+            caption: 'On the Grammys red carpet that night, Feb. 15, 2016 — hours before accepting Album of the Year with the "undercut your success" line the room understood as her answer.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/Vanessa-Beecroft-portrait-bw-billboard-1548.jpg?w=942&h=628&crop=1',
+            focalPoint: '40% 28%',
+            credit: 'Pier Marco Tacca/Getty Images, via Billboard',
+            caption: 'Vanessa Beecroft, the performance artist who staged the Yeezy Season 3 presentation West premiered "Famous" inside.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      year: 2016,
+      month: 7,
+      day: 17,
+      category: 'music',
+      significance: 'defining', // the defining controversy of her career, direct catalyst for reputation (docs/decisions.md, 2026-07-19)
+      title: 'Snakes, Snapchat, and "excluded from this narrative"',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-4", label: "The call leaks", kind: "life" },
+      snippet:
+        'Kim Kardashian posts an edited cut of the "Famous" call to Snapchat, snake emojis flood every comment section, and #TaylorSwiftIsOverParty trends worldwide. Her answer — "I would very much like to be excluded from this narrative" — is the era\'s last word before the lights go out.',
+      sourceUrl:
+        'https://www.washingtonpost.com/news/arts-and-entertainment/wp/2016/07/18/read-the-secret-kanye-westtaylor-swift-phone-call-that-kim-kardashian-posted-on-snapchat/',
+      // thumbnailUrl set 2026-07-19 (10-defining-events photo pass): her own
+      // posted statement screenshot — curl 200 image/png, verified live.
+      thumbnailUrl: 'https://assets.teenvogue.com/photos/578d040a6e85f8db434d47c6/master/w_1600%2Cc_limit/IMG_1374.PNG',
+      relatedIds: [
+        'moment:vault-1989-the-night-famous-premiered-and-she-said-no',
+        'moment:vault-lover-the-full-call-leaks-and-she-was-telling-the-truth',
+        'moment:vault-1989-the-snake-video-that-announced-reputation',
+        'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        'moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic',
+        'moment:vault-lover-miss-americana-opens-sundance-then-hits-netflix',
+      ],
+      moment: {
+        context:
+          'A month after telling GQ that video of the "Famous" call existed, Kim Kardashian posted it — edited into Snapchat-length clips, on the night of July 17, 2016 — showing Taylor responding warmly as West read her parts of the song. The clips did not include the "I made that bitch famous" line, but the internet\'s verdict was instant: #TaylorSwiftIsOverParty trended worldwide and snake emojis flooded her every post.\n\nHer response drew the line she would hold for four years: "Where is the video of Kanye telling me he was going to call me \'that bitch\' in his song? It doesn\'t exist because it never happened... I would very much like to be excluded from this narrative, one that I have never asked to be a part of, since 2009."\n\nThen she withdrew from the spotlight — no red carpets, no interviews, no album cycle — for the longest stretch of her career, broken only by a handful of exceptions: a rare public sighting later that month, a previously announced headline concert at the Formula 1 U.S. Grand Prix in Austin that October — her only full show of 2016 — and a Zayn duet, "I Don\'t Wanna Live Forever," released that December for the Fifty Shades Darker soundtrack. "Nobody physically saw me for a year," she said later in Miss Americana — a characterization of how absent she felt, not a literal account. What came back in full a year later, snake-first, was reputation — announced on Aug. 21, 2017 with a single cryptic clip of a snake\'s tail, posted after she wiped her social accounts clean, that reclaimed the very emoji the internet had buried her under.',
+        sources: [
+          {
+            outlet: 'The Washington Post',
+            url: 'https://www.washingtonpost.com/news/arts-and-entertainment/wp/2016/07/18/read-the-secret-kanye-westtaylor-swift-phone-call-that-kim-kardashian-posted-on-snapchat/',
+          },
+          { outlet: 'Time', url: 'https://time.com/4410370/taylor-swift-kim-kardashian-kanye-west/' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+          },
+          // Backs the corrected withdrawal claim (found in review, 2026-07-19)
+          // — she wasn't in absolute silence: a surprise F1 after-party set
+          // and the Zayn duet both happened during this stretch.
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/amp/news/taylor-swift-performs-at-formula-one-her-only-concert-of-the-year/',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-and-zayn-release-surprise-duet-single-for-fifty-shades-darker/',
+          },
+          {
+            // Depth pass (Answerer, 2026-08-19): sources the Aug. 21, 2017
+            // snake-tail reveal that reclaimed the emoji, added to the close.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-the-snake-history-kim-kanye-instagram-7934297/',
+          },
+        ],
+        // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+        // this item had zero photos before this pass. Every URL below
+        // curl-verified live (HTTP 200 + real image content-type).
+        photos: [
+          {
+            url: 'https://assets.teenvogue.com/photos/578d040a6e85f8db434d47c6/master/w_1600%2Cc_limit/IMG_1374.PNG',
+            focalPoint: '50% 12%',
+            credit: 'Taylor Swift/Instagram, via Teen Vogue',
+            // FLAG (photo-enrichment 2026-07-20): downloaded + vision-checked —
+            // this asset is a BLANK Apple Notes screen, not the statement text
+            // the prior caption claimed. Caption corrected to match the image;
+            // recommend a verified replacement showing the actual statement.
+            caption: 'The Apple Notes format Taylor used to post her July 18, 2016 reply — the statement that asked where West had told her about the "that bitch" lyric and ended, "I would very much like to be excluded from this narrative."',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/83c4993d8e8ad4dde6c653daff10b74e537e6aea/0_0_620_372/master/620.jpg?crop=none&dpr=1&s=none&width=1000',
+            focalPoint: '50% 22%',
+            credit: 'Rex Features, via The Guardian',
+            // FLAG (photo-enrichment 2026-07-20): downloaded + vision-checked —
+            // this asset is a Guardian side-by-side of Kim Kardashian and Taylor
+            // Swift, NOT a Snapchat still of West on the phone. Caption corrected
+            // to match the image; recommend a verified replacement if a Snapchat
+            // still is wanted here.
+            caption: 'A Guardian side-by-side of Kim Kardashian and Taylor Swift, published as Kardashian\'s Snapchat clips reignited the feud in July 2016.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/5792599af9039e5f13c9db9f/master/w_2560%2Cc_limit/taylor-swift-tom-hiddleston.jpg',
+            focalPoint: '50% 33%',
+            credit: 'Cameron Richardson/Newspix/Rex/Shutterstock, via Vanity Fair',
+            caption: 'Taylor walks with Tom Hiddleston in Los Angeles on July 21, her first public sighting after the Snapchat clips appeared.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/578c4ca16e85f8db434d478f/16%3A9/w_2560%2Cc_limit/GettyImages-463036782.jpg',
+            focalPoint: '50% 25%',
+            credit: 'Larry Busacca/Getty Images for NARAS, via Teen Vogue',
+            caption: 'For context, Taylor, Kardashian, and West pose together at the 2015 Grammys, before the "Famous" dispute reopened the VMA feud.',
+            kind: 'reference',
+          },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 3 more
+          // real, verified photos anchoring the withdrawal-year exceptions
+          // named in the context text. Every URL curl-verified live.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-perform-austin-oct-2016-billboard-1548.jpg?w=942&h=628&crop=1',
+            focalPoint: '50% 14%',
+            credit: 'Gary Miller/FilmMagic, via Billboard',
+            caption: 'Taylor headlines the Formula 1 U.S. Grand Prix concert in Austin on Oct. 22, 2016 — her only full show of the year, announced months ahead of the Grand Prix weekend.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/82/Zayn_%26_Taylor_Swift_-_I_Don%27t_Wanna_Live_Forever_%28Official_Single_Cover%29.png',
+            focalPoint: '50% 50%',
+            credit: 'RCA Records / Republic Records (official single cover)',
+            caption: 'The cover for "I Don\'t Wanna Live Forever," her December 2016 duet with Zayn for the Fifty Shades Darker soundtrack — one of two music releases during the withdrawal year.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/a/ae/Taylor_Swift_-_Miss_Americana.jpg',
+            focalPoint: '50% 50%',
+            credit: 'Netflix (official poster)',
+            caption: 'The poster for "Miss Americana" (2020), the Netflix documentary where she later characterized this year as one where "nobody physically saw me."',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-album",
+      // Cross-link (candidate #1405): The Life of a Showgirl — the return of the
+      // Max Martin/Shellback pop machinery first built on 1989.
+      relatedIds: ["moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel"],
+      year: 2014,
+      month: 10,
+      day: 27,
+      category: "music",
+      title: "The pop reinvention",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-1", label: "1989 released", kind: "album" },
+      snippet: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
+      moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/texas/news/new-taylor-swift-album-coming-in-october',
+            source_title: 'New Taylor Swift Album Coming In October',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-1989-first-official-pop-album-country-music-departure-130004184.html',
+            source_title: 'Taylor Swift called \'1989\' her 1st \'official pop album.\' Why experts say it was the right time for her to leave country music.',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          // Depth pass 2026-08-12 (rows-per-month audit): first-week figure,
+          // three-million-week record, 11-week Billboard 200 run, and the
+          // Martin/Shellback/Antonoff/Tedder producer roster verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/1989_(album)',
+            source_title: '1989 (album) — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
+        ],
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 131-char
+        // caption). Every figure verified against the sources above.
+        context:
+          "Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world. She named it for her birth year and built it as a deliberate rebirth in the image of the decade's synthesizer records, making Max Martin her co-executive producer and cutting it with him, Shellback, Jack Antonoff, and Ryan Tedder — the country instrumentation gone entirely, on purpose.\n\nAny doubt about the gamble was settled in a week. 1989 opened at No. 1 on the Billboard 200 with 1.287 million copies — the first album released in 2014 to sell a million at all — and made her the first artist ever with three albums each selling a million copies in their first week, after Speak Now and Red. It went on to spend 11 weeks at No. 1, and the era it opened ran a full three years: back-to-back No. 1 singles, the highest-grossing tour of 2015, and a second Album of the Year Grammy.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-blank-space",
+      year: 2014,
+      month: 11,
+      day: 10,
+      category: "music",
+      tags: ["Lore"],
+      // Cross-link (candidate #1342, 2026-07-25): the vault song Swift chose between
+      // with "Blank Space" for the original 1989 tracklist.
+      // Cross-link (Stage 3, 2026-07-27): sibling "Blank Space" moments.
+      relatedIds: [
+        'moment:vault-midnights-slut-turns-out-to-be-a-love-song',
+        'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
+        'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
+      ],
+      title: "“Blank Space” flips the narrative",
+      snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
+      video: { youtubeId: "e-ORhEE9VVg", title: "Taylor Swift - Blank Space" },
+      moment: {
+        sources: [
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2014/12/taylor-swift-blank-space-is-back-to-back-number-1-hit-with-shake-it-off-is-this-her-imperial-moment.html',
+            source_title: 'Taylor Swift: Blank Space is back-to-back number 1 hit with Shake It Off. Is this her "Imperial Moment"?',
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          // Depth pass 2026-08-12 (rows-per-month audit): the succeed-herself
+          // Hot 100 record, seven-week run, Kahn video, and the AMEX
+          // interactive app's Emmy verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Blank_Space',
+            source_title: 'Blank Space — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
+        ],
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 112-char
+        // caption). Every figure verified against the sources above.
+        context:
+          "She has been direct about where it came from: the tabloid slideshow of her boyfriends, the serial-dater caricature she said she could either be hurt by or write from. Blank Space plays that caricature completely straight — a flirtatious woman running through lovers in a lonely mansion — and trusts the audience to hear the joke, which half of them famously didn't. Joseph Kahn's video leaned in with mascara tears, a stabbed cake, and a golf club through a vintage car, while an American Express interactive app let fans wander the mansion in 360 degrees hunting easter eggs; the app went on to win a Creative Arts Emmy.\n\nThe joke also set a record. When Blank Space took over the Hot 100's top spot that November, the song it replaced was Shake It Off — making her the first woman in the chart's history to succeed herself at No. 1. It stayed there seven straight weeks.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-polaroids",
+      year: 2014,
+      month: 11,
+      dateLabel: "Late 2014",
+      category: "fashion",
+      title: "Polaroids and pastel",
+      snippet: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
+      moment: {
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/meaning-cover-taylor-swifts-album-1989/story?id=25028609',
+            source_title: 'Taylor Swift Explains Meaning Behind Cover of New Album \'1989\'',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Line of Best Fit',
+            url: 'https://www.thelineofbestfit.com/features/articles/beyond-1989-taylor-swift-and-polaroids',
+            source_title: 'Beyond 1989: Taylor Swift and Polaroids',
+            publisher: 'The Line of Best Fit',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          // Depth pass 2026-08-12 (rows-per-month audit): the 13-of-65
+          // polaroid packaging detail and the Lowfield credit verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/1989_(album)',
+            source_title: '1989 (album) — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
+        ],
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 77-char
+        // caption). Packaging figures verified against the sources above.
+        context:
+          "The cover said it first: an actual polaroid, cropped mid-face — lips and seagull sweater, no eyes — digitally fitted to the CD square. \"It was kind of an accident and I decided why not make that the album cover,\" she said of the shot. The instant-photo language ran through the whole package: every copy came with 13 real polaroid prints, drawn from five sets covering 65 different photos, many carrying sharpie-penned lines from the album's tracks in her handwriting — which turned the physical edition into a collectible and sent fans trading to complete the set.\n\nAround it she built the era's whole visual grammar: seagull sweaters, two-piece pastel sets, a crisp sky-blue minimalism styled after the decade in the title. The commitment ran deeper than an aesthetic filter — Polaroid had stopped making instant analogue film back in 2008, so the shots used revival film from the old factory's successor project. The look held so completely that a decade later the Taylor's Version rerelease could quote it from memory.",
+        // Shop pass (2026-07-22): no single named dress -- a current
+        // sky-blue mini in the era's pastel-minimalist palette.
+        products: [
+          {
+            brand: 'Fashion Nova',
+            item: 'Simona Satin Mini Dress',
+            retailer: 'fashionnova.com',
+            url: 'https://www.fashionnova.com/products/simona-satin-mini-dress-light-blue',
+            price: '$23.98',
+            isAlternative: true,
+            altNote: 'No single named dress -- this is the era\'s visual palette, not one outfit -- a current light-blue mini in the same sky-blue minimalist spirit.',
+          },
+        ],
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-squad",
+      year: 2015,
+      month: 1,
+      dateLabel: "Early 2015",
+      category: "sighting",
+      title: "The “squad” era",
+      snippet: "A rotating cast of famous friends becomes its own cultural storyline.",
+      moment: {
+        sources: [
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/human-interest/2015/07/taylor-swift-waka-flocka-and-squadgoals-how-squad-went-from-underdogs-to-queen-bees.html',
+            source_title: 'Taylor Swift, Waka Flocka, and #squadgoals: How squad went from underdogs to queen bees.',
+            publisher: 'Slate (Lexicon Valley)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          // Depth pass 2026-08-12 (rows-per-month audit): the 1989 World
+          // Tour's guest tradition and the Hyde Park lineup verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour',
+            source_title: 'The 1989 World Tour — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
+        ],
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 109-char
+        // caption). Guest and lexicon facts verified against the sources above.
+        context:
+          "Group appearances and very public friendships turned her social circle into its own 1989-era storyline. The 1989 World Tour institutionalized it: night after night she walked unannounced guests down the catwalk — singers, models, actors, and athletes from, as she put it, every type of field — dozens of them across the tour, from Ed Sheeran and Mick Jagger to Serena Williams. When Martha Hunt, Kendall Jenner, Karlie Kloss, Gigi Hadid, and Cara Delevingne appeared together at the London Hyde Park show in the summer of 2015, the media shorthand became permanent: the squad.\n\nThe word itself tells the story of how big it got. Slate's language column traced how #squadgoals — a term with roots in hip-hop and Black internet culture — was rebranded in 2015 around her circle of models and actresses, the caption under a thousand group photos. The squad became shorthand for the era's whole social spectacle: Fourth of July slides, VMA red-carpet formations, and eventually the backlash that helped push the next era underground.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-bad-blood",
+      year: 2015,
+      month: 5,
+      day: 17,
+      category: "music",
+      title: "“Bad Blood” short film",
+      snippet: "A star-studded cinematic music video doubles as an event premiere.",
+      video: { youtubeId: "QcIy9NiNbmo", title: "Taylor Swift - Bad Blood ft. Kendrick Lamar" },
+      moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/3854282/taylor-swift-bad-blood-video-billboard-music-awards/',
+            source_title: 'Taylor Swift "Bad Blood" Music Video: Billboard Awards',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/billboard-music-awards-2015-taylor-swift-dominates-bad/story?id=31114958',
+            source_title: 'Billboard Music Awards 2015: Taylor Swift Dominates With \'Bad Blood\' Video Premiere, 8 Wins',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          // Depth pass 2026-08-12 (rows-per-month audit): cast, Vevo record,
+          // the remix's Hot 100 No. 1, and the Grammy/VMA wins verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)',
+            source_title: 'Bad Blood (Taylor Swift song) — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
+        ],
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 115-char
+        // caption). Every figure verified against the sources above.
+        context:
+          "Reworked with a new Kendrick Lamar verse, the album track arrived as a single by way of a four-minute action movie: a Joseph Kahn-directed, neon-noir revenge fantasy that gave nearly every famous woman in her orbit a code name and a weapon — Selena Gomez, Zendaya, Hailee Steinfeld, Gigi Hadid, Cara Delevingne, Karlie Kloss, Hayley Williams, Cindy Crawford, Ellen Pompeo, and Mariska Hargitay among them. It premiered as the opening of the 2015 Billboard Music Awards on May 17 — a night she left with eight trophies — then broke Vevo's 24-hour viewing record with 20.1 million plays in its first day.\n\nThe remix became her fourth Hot 100 No. 1 and Kendrick Lamar's first. The video kept collecting: Video of the Year and Best Collaboration at the 2015 VMAs — her first Video of the Year win — and Best Music Video at the 58th Grammys, the same night 1989 took Album of the Year.",
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/hqdefault.jpg',
+            focalPoint: '52% 48%',
+            credit: 'Big Machine Records / YouTube (official video still)',
+            caption: 'A close-up from the "Bad Blood" video — the star-studded action-movie premiere that doubled as an awards-show event.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-aoty",
+      // Cross-link (depth pass 2026-08-12): the "Famous" premiere the speech
+      // was heard against.
+      relatedIds: ['moment:vault-1989-the-night-famous-premiered-and-she-said-no'],
+      year: 2016,
+      month: 2,
+      day: 15,
+      category: "sighting",
+      title: "Second Album of the Year",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-3", label: "Album of the Year", kind: "award" },
+      snippet: "She becomes the first woman to win the top Grammy twice.",
+      // Photo added 2026-07-20 (photo-enrichment #762): page had zero photos.
+      // Billboard/wp-content red-carpet frame from the same ceremony —
+      // verified HTTP 200, image/jpeg, 650x430 (above the 400px floor),
+      // downloaded + Read-viewed: Swift solo at the "GRAMMY AWARDS"
+      // step-and-repeat in the orange crop top and magenta skirt she wore
+      // the night 1989 won Album of the Year. Non-watermarked outlet CDN.
+      thumbnailUrl:
+        "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg",
+      moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-1989-album-of-the-year-win-2016-grammys-acceptance-speech-video-rewind/',
+            source_title: 'GRAMMY Rewind: Watch Taylor Swift Become The First Woman To Win Album Of The Year Twice',
+            publisher: 'The Recording Academy',
+            source_type: 'awards_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          // Depth pass 2026-08-12 (rows-per-month audit): the night's other
+          // wins (Best Pop Vocal Album; Bad Blood's Best Music Video)
+          // verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/1989_(album)',
+            source_title: '1989 (album) — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
+        ],
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 105-char
+        // caption). Speech wording verified against the Grammy.com source.
+        context:
+          "Seven years after Fearless took the top Grammy, 1989 won Album of the Year at the 58th Grammy Awards on February 15, 2016 — making her the first woman ever to win the category twice. The night was a sweep in miniature: Best Pop Vocal Album for 1989 and Best Music Video for \"Bad Blood\" landed alongside it.\n\nThe acceptance speech became the story. \"To all the young women, there are going to be people along the way who try to undercut your success or take credit for your accomplishments or your fame,\" she said — words the room heard, in the same season a certain rap lyric was claiming credit for making her famous, as very pointed advice about staying focused on the work. She shared the moment with Max Martin, the album's co-executive producer, telling the crowd he had deserved to be up there for 25 years.",
+        photos: [
+          {
+            url: "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg",
+            focalPoint: "48% 20%",
+            credit: "Getty Images, via Billboard",
+            caption:
+              "On the 58th Grammy Awards red carpet, February 15, 2016 — the night 1989 won Album of the Year, making Taylor the first woman to win the top Grammy twice.",
+            kind: "primary",
+          },
+        ],
+      },
+    },
+
+    {
+      year: 2017,
+      month: 8,
+      day: 24,
+      category: 'music',
+      title: 'Look What You Made Me Do, and the phone call it started with',
+      snippet: 'By her own account, it began as a poem about deciding who she could trust.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+      relatedIds: [
+          'moment:vault-ttpd-thank-you-aimee-the-capitalization-does-the-talking',
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+        'moment:vault-lover-the-full-call-leaks-and-she-was-telling-the-truth',
+        // Diss-lineage thread (ledger #1530): the Showgirl "answer-record" that
+        // reviewers read as her latest entry in this same feud-song tradition.
+        'moment:vault-tloas-actually-romantic-the-diss-track-she-frames-as-a-compliment',
+      ],
+      moment: {
+        context:
+          "Released August 24, 2017 — one day after the album announcement — it began, by her account, as a poem about realizing she could only trust a few people. Jack Antonoff co-wrote and co-produced, and Right Said Fred earned writing credits for the \"I'm Too Sexy\" interpolation carrying the chorus.\n\nThe bridge stages a phone call announcing that the old Taylor \"can't come to the phone right now\" because she's dead — and she later told Rolling Stone the device played on \"a stupid phone call I shouldn't have picked up\": the 2016 Kanye West call at the center of the Kim Kardashian \"Famous\" fallout. The single ended Despacito's 16-week run at No. 1 on the Hot 100 with the largest sales-and-streaming week of 2017.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2017,
+      month: 8,
+      day: 17,
+      category: 'music',
+      significance: 'defining', // reputation's pivot: the deliberate year-long disappearance the album answers, anchored on the eve of the Aug-18 blackout that ended it (#1238)
+      relatedIds: [
+        // The re-emergence that ended the silence…
+        'moment:vault-1989-the-snake-video-that-announced-reputation',
+        // …and the July 2016 pile-on (told in the 1989 era) that caused it.
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+      ],
+      title: 'The year of silence',
+      snippet:
+        'After the summer 2016 pile-on, the most-watched woman in pop did the one thing no one expected — she vanished, and stayed gone for roughly a year.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "After the summer 2016 fallout — the leaked \"Famous\" call, Kim Kardashian's \"National Snake Day,\" the snake emojis flooding every post until Instagram tested a comment filter on her page — Taylor did the one thing nobody expected of the most-watched pop star alive: she stopped showing up. Through late 2016 and into 2017 there were no interviews, no magazine covers, no award-show appearances, no new music. The most documented woman in pop simply went quiet and let the noise run itself out without her in the frame.\n\nShe later framed the withdrawal as deliberate. \"Nobody physically saw me for a year,\" she says in the 2020 documentary Miss Americana, \"and I thought that that was what they wanted\" — a retreat that, in her telling, woke her up from \"constantly feeling that I was fighting for people's respect.\" The silence was not empty: out of view she was building the record that would answer it, reputation, which arrived November 10, 2017. The disappearance is the setup the whole era pays off — the reason the snake, when it finally slithered back onscreen that August, read as armor instead of apology.\n\nThe withdrawal was near-total, but not absolute. She skipped the 2017 award-show circuit, sat for no interviews and mounted no promotion, yet the machine kept running without her at the front of it: in December 2016 she surfaced on \"I Don't Wanna Live Forever,\" a Fifty Shades Darker duet with Zayn Malik that climbed the Hot 100, and her back catalogue kept charting on its own. The point was the absence itself. With no fresh statements to react to, the narrative that had consumed her summer had nothing left to feed on — and by the time the snake slithered back that August, the terms of the conversation had quietly reset in her favor.",
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Reputation_(album)',
+          },
+          {
+            // Depth pass #1719 (2026-08-12): third source for the 2016–17
+            // withdrawal details (skipped awards, the Zayn duet) added above.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-2017-timeline-8070261/',
+          },
+        ],
+        // Photo pass (#1238, this run): a year defined by her *not* being
+        // photographed has no honest representative image — the same reasoning
+        // the snake-teaser item below records for its social-only window. Ship
+        // text; let the photo-sparsity checker route it to Photo Enrichment
+        // rather than force an off-subject or misrepresenting crop (charter 3b).
+        photos: [],
+      },
+    },
+    {
+      year: 2017,
+      month: 8,
+      day: 21,
+      category: 'release',
+      significance: 'defining', // the visual rebirth after the Kimye-leak silence; reputation's whole aesthetic starts here (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        // The year-long silence this reveal ended (#1238).
+        'moment:vault-1989-the-year-of-silence',
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+        'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        // Cross-link (candidate #1027): the Showgirl portraits — Mert & Marcus's
+        // first Swift shoot since this reputation cover reveal.
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
+      ],
+      title: 'The snake video that announced reputation',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-rep-0", label: "Snake video drops", kind: "life" },
+      snippet:
+        'She wiped her social media clean, then reappeared three days later with a slithering snake video — a reclaimed symbol before the album title and Nov. 10 release date dropped.',
+      sourceUrl: 'https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "The blackout began August 18, 2017, when her Instagram, Twitter, Tumblr, and official website all went blank at once. At noon on August 21 came the first post-wipe post: a glitchy, fuzzy clip of what was eventually recognizable as a slithering snake tail, with more fragments following over the next two days — until August 23 brought the album title, the Mert & Marcus cover, and the November 10 release date.\n\nThe symbol was a pointed reclamation: after the July 2016 \"Famous\" fallout, when Kim Kardashian's \"National Snake Day\" tweet sent snake emojis flooding her accounts so heavily that Instagram tested a comment-filtering tool on her page, she made the snake the era's opening image.\n\nThe teaser's mechanics were as deliberate as its symbol. The August 18 wipe hit every platform at once — Instagram, Twitter, Facebook, Tumblr and her website — and she unfollowed everyone she had been following, stripping the accounts bare. The snake then arrived in three installments: the tail first, then a squirming middle, and finally a red-eyed, open-fanged head lunging at the camera, so the full animal only assembled across the three posts. The August 23 announcement kept the same three-part cadence, adding that the lead single, \"Look What You Made Me Do,\" would land the following night. What a year earlier had been an insult hurled at her — Kim Kardashian's snake emojis — she had turned into a mark she owned outright, opening the era on her own terms. Commentators read the reclamation as a textbook act of narrative control: rather than deny the meme, she absorbed it, so the symbol used to shame her became the era's logo, the tour's animatronic set pieces, and the visual signature of a best-selling comeback.",
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-reputation-new-album-7941019/',
+          },
+          {
+            // Depth pass #1719 (2026-08-12): third source for the three-part
+            // teaser / blackout mechanics added to the narrative.
+            outlet: 'Fortune',
+            url: 'https://fortune.com/2017/08/21/taylor-swift-instagram-new-album',
+          },
+        ],
+        // T16 photo pass (2026-07-09): the Instagram teaser frames themselves are
+        // unhostable-quality glitch fragments; the Mert & Marcus cover revealed on
+        // August 23 is the artifact the teasers built to. Wikipedia's stable
+        // upload.wikimedia.org copy, verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18, #762): re-checked — the snake
+        // clip still lives only in Instagram embeds (UPI 403s, CBS/Billboard
+        // embed rather than host a frame), so the T16 judgment stands and the
+        // page stays at one image. Focal point set by eye this run.
+        // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): re-challenged
+        // a third time — CBS News and Billboard's own teaser-story pages
+        // still only embed the Instagram clips rather than host a frame
+        // (confirmed again this pass). Genuinely no photographable content
+        // exists for this specific 3-day, social-only teaser window: no
+        // press photography, no hostable video frame. Added the tour's later
+        // full-size snake payoff (already verified for the Stadium Tour
+        // item, reused here under the checker's 3-use limit) rather than
+        // leave this at one image, but did not force fabricated or
+        // low-confidence sourcing to hit a photo count on a story this thin.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
+            credit: 'Big Machine Records',
+            caption: 'The Mert & Marcus album cover revealed on August 23, 2017 — the payoff of the three-day snake-video teaser rollout.',
+            kind: 'archival',
+            focalPoint: '42% 35%',
+          },
+          {
+            url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956288820-1.jpg',
+            // Photo pass #762 (2026-08-01): same frame as the Stadium Tour
+            // page above — matching that page's focal point for consistency.
+            focalPoint: '55% 35%',
+            credit: 'Kevin Mazur/Getty Images for TAS, via NME',
+            caption: 'The reclaimed snake\'s full-size payoff, a year later: the reputation Stadium Tour\'s animatronic mascot, fans nicknamed her Karyn.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
+            // Photo pass #762 (2026-08-01): same frame as the Stadium Tour
+            // page above — matching that page's focal point for consistency.
+            focalPoint: '68% 55%',
+            credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Golden snake set pieces on the reputation Stadium Tour, Seattle, May 2018 — the visual language this teaser opened.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      year: 2017,
+      month: 11,
+      day: 9,
+      category: 'music',
+      title: "New Year's Day closes reputation on a quiet, acoustic note",
+      snippet: 'After an album about scandal and revenge, the final track is a piano ballad about who does the dishes the morning after.',
+      sourceUrl: "https://en.wikipedia.org/wiki/New_Year's_Day_(Taylor_Swift_song)",
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Written and produced with Jack Antonoff, it got the era\'s first televised moment: a living-room performance taped at her Rhode Island home during a secret session, fans swaying around the piano, aired mid-episode during ABC\'s Scandal on November 9, 2017 — hours before the album dropped at midnight.\n\nSent to country radio weeks later, it became her first entry on a Billboard country chart since 2013. Her reasoning for the song itself: "I think there\'s something even more romantic about who\'s gonna deal with you on New Year\'s Day. Who\'s willing to give you Advil and clean up the house? I think that states more of a permanence."',
+        sources: [
+          { outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/New_Year's_Day_(Taylor_Swift_song)" },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-new-years-day-video-live-scandal-8031153/',
+          },
+        ],
+        // T16 photo pass (2026-07-09): Wikimedia Commons, CC BY-SA 2.0, author
+        // Ronald Woan — license verified on the file page this session; the song
+        // lived on the tour as the piano mashup this photo captures.
+        // Photo-enrichment pass (2026-07-18, #762): added two ABC stills of the
+        // actual televised moment this item describes — the candlelit Rhode
+        // Island living-room performance aired during Scandal — from ABC News's
+        // own article on the premiere (s.abcnews.com, allowed CDN). Both
+        // curl-verified 200 + image/jpeg, downloaded and vision-confirmed
+        // (grand piano, candles, ABC bug, ring of fans) this run.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Long_Live-New_Years_Day_%28cropped%29.jpg',
+            credit: 'Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)',
+            caption: "At the reputation piano in Seattle, May 22, 2018 — on tour the song was performed as a “Long Live / New Year's Day” piano mashup.",
+            kind: 'archival',
+            focalPoint: '48% 20%',
+          },
+          {
+            url: 'https://s.abcnews.com/images/Entertainment/gma-tay-swift-piano-abc-hb-171109_16x9_992.jpg',
+            credit: 'ABC',
+            caption:
+              'The candlelit living-room performance taped at her Rhode Island home, aired during Scandal on November 9, 2017 — 100 hand-picked fans around the piano.',
+            kind: 'primary',
+            focalPoint: '72% 35%',
+          },
+          {
+            url: 'https://s.abcnews.com/images/Entertainment/gma-tay-swift-piano03-abc-hb-171109_16x9_992.jpg',
+            credit: 'ABC',
+            caption: 'At the piano mid-performance in the ABC broadcast, the night before reputation dropped.',
+            kind: 'primary',
+            focalPoint: '40% 42%',
+          },
+        ],
+      },
+    },
+    {
+      year: 2017,
+      month: 8,
+      day: 27,
+      category: 'fashion',
+      // Cross-link (Stage 3, 2026-07-27): sibling "Look What You Made Me Do"
+      // moments. ("...and the phone call it started with" already sits at
+      // the 4-link rail cap with other curated links, so this points only
+      // at the video-record moment; not modifying that page's existing set.)
+      relatedIds: [
+        'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        'moment:vault-1989-the-look-what-you-made-me-do-video-shatters-youtubes-24-hour',
+      ],
+      title: 'Zombie makeup for Look What You Made Me Do',
+      snippet:
+        'The grave-crawling zombie look that opens the video was created by Bill Corso — the makeup artist behind Deadpool\'s scarred face — confirmed on record by director Joseph Kahn.',
+      sourceUrl: 'https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1',
+      moment: {
+        context:
+          'Director Joseph Kahn confirmed via Twitter that special-makeup artist Bill Corso — who did Ryan Reynolds\' scarred prosthetic look in "Deadpool" — created zombie Taylor for the opening graveyard scene, a look deliberately pitched as the antithesis of her earlier, more polished eras.\n\nThe video was a seven-month build overall, conceived in January and shot over five days in Los Angeles that May, and the practical effects didn\'t stop at the makeup: the diamonds she bathes in were real, supplied by jeweler Neil Lane and valued at over $12 million.',
+        sources: [
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing',
+          },
+        ],
+        // T-img pass (2026-07-10): swapped the video's bathtub-scene YouTube
+        // thumbnail for Billboard's behind-the-scenes zombie-transformation
+        // photo — verified HTTP 200 + image/jpeg and eyeballed this session;
+        // it actually shows the graveyard zombie makeup the moment is about.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1',
+            // Face left-of-center at mid-height in this landscape frame.
+            focalPoint: '42% 40%',
+            credit: 'Billboard',
+            caption: "Behind the scenes on the zombie makeup for \"Look What You Made Me Do\"'s graveyard opening.",
+            kind: 'archival',
+          },
+        ],
+        // Shop pass (2026-07-22): a makeup/SFX look, not a garment --
+        // offering a real zombie SFX kit rather than forcing a clothing
+        // link onto a beauty item.
+        products: [
+          {
+            brand: 'Mehron',
+            item: 'Zombie Professional Makeup Kit',
+            retailer: 'jestpaint.com',
+            url: 'https://jestpaint.com/products/mehron-premium-makeup-kit-new-zombie-professional-makeup-kit-kmp-ez',
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0030/9316/8186/products/KMP-Z-2__82482.1644251720-NewProfessioalZombiemakeupkit.jpg?v=1654884380',
+            price: '$20.19',
+            isAlternative: true,
+            altNote: 'Bill Corso\'s bespoke film prosthetics were never sold at retail -- this is a current zombie SFX kit (creme colors, blood gel, latex, wax) for a similar undead effect.',
+          },
+        ],
+      },
+    },
+    {
+      year: 2017,
+      month: 11,
+      day: 3,
+      category: 'music',
+      title: 'Call It What You Want closes the arc: rebellion, then falling in love',
+      snippet:
+        "\"It starts with...rebellion, or anger, or angst...and then falling in love, and realizing you settle into what your priorities are\" — her own map of reputation, with this song as the landing point.",
+      sourceUrl:
+        'https://www.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'At the same iHeartRadio release-party special, Taylor described how Call It What You Want — track 14, and the one most fans read as being about Joe Alwyn — completes reputation\'s arc: "It starts with just getting out any kind of rebellion, or anger, or angst, or whatever. And then, like, falling in love, and realizing that you kind of settle into what your priorities are."\n\nFans got it a week before the album: released November 3, 2017 as the rollout\'s final promotional single, it debuted at No. 27 on the Hot 100 and arrived with a deliberately homemade lyric video — Taylor in minimal makeup with an acoustic guitar, a bonfire, a horse, a dog — the first unguarded look at the domestic life the album\'s back half describes.',
+        sources: [
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://www.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Call_It_What_You_Want_(Taylor_Swift_song)',
+          },
+        ],
+        // T16 photo pass (2026-07-09): single art via Wikimedia Commons (file
+        // page license: Public domain — text-only artwork below the threshold
+        // of originality). Verified HTTP 200 + image/jpeg and visually checked.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Taylor_Swift_-_Call_It_What_You_Want.jpg',
+            credit: 'Big Machine Records, via Wikimedia Commons',
+            caption: 'Single art for "Call It What You Want," released November 3, 2017 — the handwritten title on kraft paper.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+
+    // --- Deep timeline fill (2026-07-08): rollout, tour, business, and
+    // relationship depth — the era's biggest business stories (the political
+    // post, the UMG deal) were missing entirely. New items carry the audit's
+    // additive provenance fields (slug + publisher/source_type/accessed_at/
+    // reliability_score alongside legacy {outlet,url}), same convention as
+    // the-life-of-a-showgirl.mjs. Every claim verified against its cited
+    // source via search on 2026-07-08; no fabrication. Photos deliberately
+    // omitted where no already-verified image URL exists.
+    {
+      slug: 'rep-lwymmd-video-youtube-record',
+      significance: 'notable', // a real streaming record and the era's single most-discussed visual statement (docs/decisions.md, 2026-07-19)
+      // Cross-link (Stage 3, 2026-07-27): sibling "Look What You Made Me Do"
+      // moment. One-directional to the song-backstory moment (2026-08-03):
+      // that moment is already at the ~4-link cap, so this side carries the
+      // pointer instead of bumping a curated link there.
+      relatedIds: [
+        'moment:vault-1989-the-snake-video-that-announced-reputation',
+        'moment:vault-1989-zombie-makeup-for-look-what-you-made-me-do',
+        'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+      ],
+      year: 2017,
+      month: 8,
+      day: 27,
+      category: 'release',
+      title: 'The Look What You Made Me Do video shatters YouTube\'s 24-hour record',
+      snippet:
+        'Premiered at the VMAs on August 27, 2017, then racked up 43.2 million views in a day — past Psy, past Adele — averaging 30,000 views a minute.',
+      sourceUrl: 'https://variety.com/2017/digital/news/taylor-swifts-look-what-you-made-me-do-smashes-youtubes-24-hour-record-crushing-psy-1202541558/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+      moment: {
+        context:
+          'Joseph Kahn\'s video — zombie Taylor, snake throne, and a closing lineup of her past selves bickering with each other — beat Psy\'s "Gentleman" (36 million YouTube views) and Adele\'s "Hello" (27.7 million Vevo views) for the biggest 24-hour debut ever at the time. The song later collected Guinness World Records for first-day Spotify streams and fastest-selling digital single.\n\nThe records stacked up across platforms at once: hourly viewing peaked above 3 million, the lyric video set YouTube\'s first-day record for that format, and the single took Spotify\'s global first-24-hours streaming mark too. The stage for all of it was pointed — the video premiered at the MTV Video Music Awards, the same show where the 2009 interruption that opens this whole story had happened eight years earlier.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2017/digital/news/taylor-swifts-look-what-you-made-me-do-smashes-youtubes-24-hour-record-crushing-psy-1202541558/',
+            source_title: "Taylor Swift's 'Look What You Made Me Do' Smashes YouTube's 24-Hour Record",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-psy-youtube-24-hour-streams-record/',
+            source_title: "Taylor Swift's 'Look What You Made Me Do' Sets YouTube 24-Hour Streams Record",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18, #762): added a frame of the video
+        // this record is about — the bathtub-of-diamonds scene from Joseph
+        // Kahn's LWYMMD video. Video id 3tmd-ClpJxA verified via YouTube
+        // oEmbed this run: title "Taylor Swift - Look What You Made Me Do",
+        // channel @TaylorSwift (official); maxresdefault 404s so this uses
+        // hqdefault, same pattern as the vault's other official stills.
+        // Downloaded and vision-confirmed this run.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+            credit: 'Big Machine Records',
+            focalPoint: '65% 42%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption:
+              "The bathtub-of-diamonds scene from Joseph Kahn's video — the clip that pulled 43.2 million views in its first 24 hours.",
+            kind: 'archival',
+            focalPoint: '64% 40%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'rep-ready-for-it-college-football',
+      year: 2017,
+      month: 9,
+      day: 2,
+      category: 'release',
+      title: '...Ready for It? debuts inside a college football broadcast',
+      snippet:
+        'The album\'s opener premiered September 2, 2017, soundtracking a hype promo for Alabama vs. Florida State on ABC — reputation\'s second single, delivered to a stadium audience before pop radio got it.',
+      sourceUrl: 'https://variety.com/2017/music/news/taylor-swift-teases-ready-for-it-espn-football-1202546044/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The minute-long clip scored footage of the teams taking the field during the ABC/ESPN broadcast, with the full song hitting streaming that night and radio the next morning.\n\nThe album\'s opening track became its second single officially on October 24, 2017, peaking at No. 4 on the Hot 100, and Joseph Kahn\'s video — a human Taylor dueling her own cyborg double inside a neon compound — followed on October 26. Dropping a pop single through a football telecast read very differently six years later, once the NFL became part of her story.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2017/music/news/taylor-swift-teases-ready-for-it-espn-football-1202546044/',
+            source_title: "Taylor Swift Teases New Song 'Ready For It' on ESPN College Football",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/ca/news/877508/taylor-swift-teases-brand-new-song-ready-for-it-during-college-football-game',
+            source_title: 'Taylor Swift Releases New Song "...Ready For It?" After Teasing It During College Football Game',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/...Ready_for_It%3F',
+            source_title: '...Ready for It?',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
+            reliability_score: 2,
+          },
+        ],
+        // T16 photo pass (2026-07-09): official music-video still. Video id
+        // wIft-t-MQuE verified via YouTube oEmbed this session — title "Taylor
+        // Swift - ...Ready For It?", channel @TaylorSwift (official). The
+        // Wikipedia single art for this track is the BloodPop Remix cover, so
+        // the video still is the more honest image for the original song.
+        // Photo-enrichment pass (2026-07-18, #762): no still of the ABC
+        // broadcast promo itself exists outside the telecast, so the second
+        // image is the song's other life — opening every reputation Stadium
+        // Tour show. Commons CC BY-SA 2.0 (Ronald Woan, Seattle, May 22,
+        // 2018), license verified on the file page; downloaded and
+        // vision-confirmed this run.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/wIft-t-MQuE/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: "From Joseph Kahn's \"...Ready for It?\" video, released October 26, 2017 — human Taylor eye to eye with her cyborg double.",
+            kind: 'archival',
+            focalPoint: '54% 50%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Ready_for_It.jpg',
+            credit: 'Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)',
+            caption:
+              'Performing "...Ready for It?" — the show opener on the reputation Stadium Tour — in Seattle, May 22, 2018.',
+            kind: 'archival',
+            focalPoint: '48% 14%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'rep-gorgeous-baby-voice',
+      year: 2017,
+      month: 10,
+      day: 20,
+      category: 'music',
+      title: 'Gorgeous opens with a baby saying the title — Blake and Ryan\'s daughter',
+      snippet:
+        'Released October 20, 2017: the giddy track five preview of the album\'s softer side, with a liner-notes credit fans obsessed over — "baby intro voice" by James Reynolds, Blake Lively and Ryan Reynolds\' daughter.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Gorgeous_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The third track released ahead of reputation swapped the vengeful lead-single mode for flustered crush comedy, and it debuted at No. 13 on the Hot 100 — proof the rollout\'s pull didn\'t depend on a revenge narrative.\n\nThe one-word cameo came about after Taylor played a demo for Lively and Reynolds and their toddler kept repeating "gorgeous" — the credit made her the youngest name in the album\'s liner notes, and the kind of decodable detail (which friend? whose baby?) that kept fans treating every liner-note line of this era as a puzzle.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Gorgeous_(Taylor_Swift_song)',
+            source_title: 'Gorgeous (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2017/10/20/taylor-swift-drops-new-single-gorgeous-from-upcoming-album-reputation/',
+            source_title: "Taylor Swift Drops New Single 'Gorgeous' From Upcoming Album 'Reputation'",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // T16 photo pass (2026-07-09): single cover art from Wikipedia's stable
+        // upload.wikimedia.org copy (exact filename from the article HTML).
+        // Verified HTTP 200 + image/png and visually checked this session.
+        // Photo-enrichment pass (2026-07-18, #762): added the official lyric
+        // video's frame — the reputation-era newsprint portrait with the
+        // handwritten "Gorgeous" scrawl. Video id EUoe7cf0HYw verified via
+        // YouTube oEmbed this run: title "Taylor Swift - Gorgeous (Lyric
+        // Video)", channel @TaylorSwift (official). Downloaded and
+        // vision-confirmed this run. Cover-art focal genuinely centered
+        // (text-only wordmark) — looked, not defaulted.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/71/Gorgeous_Taylor.png',
+            credit: 'Big Machine Records',
+            caption: 'Single cover art for "Gorgeous," released October 20, 2017.',
+            kind: 'primary',
+            focalPoint: '50% 50%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/EUoe7cf0HYw/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'From the official "Gorgeous" lyric video — the album\'s newsprint visual language, released with the single on October 20, 2017.',
+            kind: 'archival',
+            focalPoint: '63% 38%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'rep-secret-sessions',
+      // Cross-link (vault-run 2026-08-06): the 1989 Secret Sessions — where the
+      // living-room-listening-party tradition began.
+      relatedIds: ['moment:vault-1989-the-secret-sessions-89-fans-at-a-time-in-her-living-rooms'],
+      year: 2017,
+      month: 10,
+      day: 13,
+      category: 'release',
+      title: 'The reputation Secret Sessions: 500 fans, four houses, zero leaks',
+      snippet:
+        'London on October 13, Rhode Island on the 18th and 19th, LA on the 22nd, Nashville on the 25th — she played reputation to 500 hand-picked fans in her own homes, and not one song leaked.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-reputation-secret-sessions-london-7998688/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Reviving the 1989 rollout ritual, Taylor selected fans from social media herself and talked through each track before playing it. For an album rolled out with almost no press interviews, the living-room listening parties were the promotional strategy.\n\nABC\'s cameras got the only outside look: behind-the-scenes footage that aired on Good Morning America on November 7, 2017, three days before release, showing her dancing through a candle-lit living room of fans. The secrecy ran both ways — one attendee told ABC News they\'d "left the country in secret" to fly in from Ireland without telling friends, and a Rhode Island guest summed up the pitch of the whole exercise: "she just felt like my best friend."',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-reputation-secret-sessions-london-7998688/',
+            source_title: "Taylor Swift 'Reputation' Secret Sessions: Fans Listen to Album in London",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.go.com/Entertainment/exclusive-1st-inside-taylor-swifts-secret-sessions-reputation/story?id=50973344',
+            source_title: "Exclusive 1st look inside Taylor Swift's secret sessions for 'Reputation'",
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // T16 photo pass (2026-07-09): frame from the cited ABC News exclusive
+        // (their behind-the-scenes footage of a session). Verified HTTP 200 +
+        // image/jpeg and visually confirmed (Swift dancing in a living room of
+        // fans) this session.
+        photos: [
+          {
+            url: 'https://s.abcnews.com/images/Entertainment/taylor-swift-2-ht-mem-171107_16x9_992.jpg',
+            credit: 'ABC News',
+            caption: "Inside a reputation Secret Session, from the behind-the-scenes footage ABC aired on November 7, 2017.",
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+  ],
+};

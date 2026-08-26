@@ -1,0 +1,46 @@
+{
+  "_readme": [
+    "Machine-readable cadence expectations for the standing 'are the bots alive?' check.",
+    "",
+    "docs/agents/runners.md is the human registry and stays the source of truth for",
+    "WHAT each runner does. This file is only the observable-artifact contract used by",
+    "scripts/marjorie/standing-checks.mjs: for each runner, what does GitHub see, and",
+    "how often should it see it. Keeping it separate from runners.md means the check",
+    "can be updated without touching a doc another agent owns.",
+    "",
+    "'perDay' is the artifact rate the registry claims. 'maxAgeHours' is how long",
+    "silence is tolerated before the runner is called dark — deliberately ~1.25x the",
+    "nominal period, so one skipped run is not an alert but two are.",
+    "",
+    "'checkable: false' entries are the honest gap: these runners produce PRs against",
+    "supabase/seed/** with no branch prefix and no distinguishing label, so no query",
+    "can separate them from any other content PR. They are listed anyway, because a",
+    "monitoring blind spot that is written down is a ticket and one that isn't is a",
+    "surprise. Fix = give each a branch prefix; noted in the PR body."
+  ],
+  "runners": [
+    { "name": "Marjorie — morning brief", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "issue-label", "value": "founders-brief" } },
+    { "name": "Growth — daily draft", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "pr-branch", "value": "growth/" } },
+    { "name": "Austin — build runs", "perDay": 2, "maxAgeHours": 72, "match": { "kind": "pr-branch", "value": "austin/issue-" } },
+    { "name": "Content Shift", "perDay": 2, "maxAgeHours": 30, "match": { "kind": "pr-branch", "value": "content-shift/" } },
+    { "name": "Vault Run", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "pr-branch", "value": "vault/" } },
+    { "name": "Photo Enrichment", "perDay": 1, "maxAgeHours": 48, "match": { "kind": "pr-branch", "value": "content/photo-enrichment" } },
+    { "name": "Kevin — S2 user digest", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "issue-label", "value": "kevin-digest" } },
+    { "name": "Kevin — S3 eng triage", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "issue-label", "value": "kevin-triage" } },
+    { "name": "Kevin — S1 Karen solver", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "pr-branch", "value": "fix/karen-tickets" } },
+    { "name": "Karen — nightly scan", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "pr-title", "value": "karen: nightly run report" } },
+    { "name": "Paul Blart — security patrol", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "issue-title", "value": "Paul Blart — Security Patrol" } },
+    { "name": "Nils — walk", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "issue-label", "value": "experience" } },
+    { "name": "Laura — a11y walk", "perDay": 1, "maxAgeHours": 72, "match": { "kind": "issue-label", "value": "a11y" } },
+    { "name": "Routine Auditor", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "issue-label", "value": "routine-audit" } },
+
+    { "name": "Answerer", "checkable": false, "why": "PRs touch supabase/seed/** with no branch prefix or label" },
+    { "name": "Rumor Desk", "checkable": false, "why": "PRs touch supabase/seed/** with no branch prefix or label" },
+    { "name": "Stylist", "checkable": false, "why": "PRs touch supabase/seed/** with no branch prefix or label" },
+    { "name": "Cross-Link builder", "checkable": false, "why": "PRs touch supabase/seed/** with no branch prefix or label" },
+    { "name": "Audio Curator", "checkable": false, "why": "no documented artifact; prompt exists only inline in the trigger" },
+    { "name": "Mood Chat builder", "checkable": false, "why": "no documented artifact; prompt exists only inline in the trigger" },
+    { "name": "News Triage", "checkable": false, "why": "no documented artifact; prompt exists only inline in the trigger" },
+    { "name": "Kevin — S3 comment radar", "checkable": false, "why": "an empty poll emits no GitHub artifact by design" }
+  ]
+}

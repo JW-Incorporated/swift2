@@ -1,0 +1,149 @@
+# News/Current pipeline (V2, #468) — one-shot worker, hourly. See
+# apps/worker/README.md and docs/decisions.md's 2026-07-18 entry for the
+# cadence/cost-cap reasoning. DRAFT status: this workflow will run and no-op
+# usefully (zero news_source rows seeded yet, per apps/worker/README.md) — it
+# doesn't do anything live until a founder inserts at least one source row
+# and the SUPABASE_SERVICE_ROLE_KEY secret below exists.
+#
+# Secrets needed (repo Settings -> Secrets, all founder TX items):
+#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY — see apps/worker/.env.example
+#     for exactly where in the Supabase dashboard each comes from.
+#   OPENAI_API_KEY — optional; unset means the worker runs entirely on the
+#     deterministic rule-based classifier (the designed degraded-but-
+#     functional path, not a broken state).
+#   GNEWS_API_KEY, TUMBLR_CONSUMER_API_KEY — optional per-source; unset means
+#     that source adapter no-ops (see apps/worker/src/sources/{gnews,tumblr}.ts).
+#
+# Offset off :00/:35 (not :00/:30) — this repo already runs two separate
+# */30 workflows (social-poster.yml, marjorie-inbox.yml); see watchdog.yml's
+# 2026-07-18 header note on the scheduling-contention this avoids.
+#
+# CADENCE (2026-07-19, Wyatt): every 4h, not hourly. Polling feeds Content
+# Shift, which authors only twice a day (17:00 / 23:00 UTC, max 2 items per
+# run) — so authoring, not polling, is the real throughput ceiling and 24
+# polls/day was 18 wasted cycles. Deliberately NOT matched 1:1 to authoring
+# either: staying somewhat ahead means each Content Shift run finds a warm,
+# already-triaged queue instead of only whatever landed that minute. Of the
+# six, 13:10 and 21:10 land a few hours before each authoring run; the other
+# four spread across the day so breaking news is captured near when it
+# happens. Also cuts any OpenAI classifier spend by 75%.
+name: news-worker
+on:
+  schedule:
+    - cron: "10 1,5,9,13,17,21 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: news-worker
+  cancel-in-progress: false
+
+# Needed to publish the candidate digest to the news-digest branch. The repo
+# default is already write, but stating it here keeps this workflow working if
+# the org default is ever tightened — and scopes it to contents only.
+permissions:
+  contents: write
+
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - run: npm ci
+
+      - name: Run one pipeline cycle
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
+          TUMBLR_CONSUMER_API_KEY: ${{ secrets.TUMBLR_CONSUMER_API_KEY }}
+        run: npm run news --workspace @swift2/worker
+
+      # Publish a credential-free digest of what was ingested, for the News
+      # Triage routine. `news_story` needs SUPABASE_SERVICE_ROLE_KEY, which
+      # only exists here in Actions — the triage agent runs elsewhere and
+      # could never read the table, so it filed nothing on every run while the
+      # Vault sat stale. Handing that key to a cloud agent is not the fix (it
+      # bypasses every RLS policy in the project), so we publish public facts
+      # — headlines, outlets, article URLs — and triage reads a plain file.
+      # The script never exits non-zero: the ingest above already succeeded
+      # and a digest problem must not redden the job.
+      - name: Emit news candidate digest
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/news/emit-candidate-digest.mjs
+
+      # Published to the `news-digest` branch, NOT main. The `protect-main`
+      # ruleset (id 18819106) is active over refs/heads/main with pull_request
+      # + required_status_checks and ZERO bypass actors, so the Actions bot
+      # cannot push there — an earlier draft of this step would have had its
+      # push rejected on every run and, because the failure was swallowed,
+      # left a green job and no digest indefinitely. The ruleset covers only
+      # main, so a dedicated branch is writable. Keeping it off main also
+      # spares main's history a regenerated file every 4h.
+      #
+      # This step DOES fail the job if publishing genuinely fails — a digest
+      # nobody can read is the whole bug we are fixing, so it must not fail
+      # quietly. But it retries first: GitHub's API returned intermittent 503s
+      # throughout 2026-07-19/20 (this step hit one on run 29710604748, after
+      # the ingest above had already succeeded), and reddening a good run over
+      # a transient blip is its own kind of noise. Retry, then fail loudly.
+      - name: Publish digest to news-digest branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          FILE=docs/content-ops/news-candidates.md
+          if [ ! -f "$FILE" ]; then
+            echo "no digest produced (missing credentials or empty window) — nothing to publish"
+            exit 0
+          fi
+
+          # Retry transient GitHub failures (503/502/504, rate limits, network
+          # resets). Deliberately retries ANY non-zero exit rather than parsing
+          # error text: a real, persistent problem still fails after the last
+          # attempt, so the cost of retrying a genuine error is delay, while
+          # the cost of NOT retrying a blip is a red job and a stale digest.
+          retry() {
+            local n=1 max=4 delay=5
+            until "$@"; do
+              if [ $n -ge $max ]; then
+                echo "FAILED after $max attempts: $*" >&2
+                return 1
+              fi
+              echo "attempt $n/$max failed, retrying in ${delay}s..." >&2
+              sleep $delay
+              n=$((n + 1))
+              delay=$((delay * 3))
+            done
+          }
+
+          # Create the branch from the current commit if it does not exist yet.
+          if ! gh api "repos/$REPO/git/ref/heads/news-digest" >/dev/null 2>&1; then
+            retry gh api -X POST "repos/$REPO/git/refs" \
+              -f ref=refs/heads/news-digest \
+              -f sha="${{ github.sha }}"
+            echo "created news-digest branch"
+          fi
+
+          SHA=$(gh api "repos/$REPO/contents/$FILE?ref=news-digest" --jq .sha 2>/dev/null || true)
+          if [ -n "$SHA" ]; then
+            retry gh api -X PUT "repos/$REPO/contents/$FILE" \
+              -f message="chore(news): refresh candidate digest" \
+              -f branch=news-digest \
+              -f sha="$SHA" \
+              -f content="$(base64 -w0 "$FILE")" >/dev/null
+          else
+            retry gh api -X PUT "repos/$REPO/contents/$FILE" \
+              -f message="chore(news): seed candidate digest" \
+              -f branch=news-digest \
+              -f content="$(base64 -w0 "$FILE")" >/dev/null
+          fi
+          echo "published digest to news-digest ($(grep -c '^## ' "$FILE") stories)"

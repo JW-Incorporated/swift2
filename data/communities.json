@@ -1,0 +1,787 @@
+{
+  "generated_at": "2026-08-14",
+  "entry_count": 30,
+  "method": "Four parallel platform researchers, then orchestrator merge, dedupe, niche normalisation, single-scale rescoring and independent spot-check. See communities-report.md for per-platform reliability.",
+  "verification_legend": {
+    "verified-live": "Fetched directly this session; counts are real.",
+    "third-party-cited": "Named with detail by a fetchable third-party source (news article, thread). Counts are as reported, not independently confirmed.",
+    "listed-only": "Name and URL only, from a directory or search listing. Lowest confidence.",
+    "blocked-unverified": "Platform blocks automated access from this environment. Existence corroborated by 2+ independent fetched sources; NO member count or activity data."
+  },
+  "communities": [
+    {
+      "name": "r/TaylorSwift (official Discord)",
+      "platform": "Discord",
+      "url": "https://discord.gg/taylorswift",
+      "member_count": 99146,
+      "member_count_as_of": "2026-08-14",
+      "online_count": 9465,
+      "activity_level": "Medium",
+      "activity_evidence": "approximate_presence_count 9465 of 99146 members (9.5%) via invite API",
+      "description": "The companion Discord to r/TaylorSwift, and the biggest, most established Swiftie server out there. It is Discord-partnered and verified, with the scale to feel like a real town square during album drops and Eras Tour nights.",
+      "backstory": "Built as the official Discord home for the r/TaylorSwift subreddit community. It carries Discord's PARTNERED and DISCOVERABLE features and a member-verification screening gate (rules acceptance required to enter), which is unusually formal for a fan server and points to active, sustained moderation at scale.",
+      "niche": "general",
+      "join_requirements": "rules screening (Discord MEMBER_VERIFICATION_GATE_ENABLED feature confirmed via invite API; verification_level 3/high)",
+      "hype_score": 9,
+      "verification": {
+        "status": "verified-live",
+        "method": "invite API returned guild + counts; vanity_url_code confirmed as taylorswift",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
+      },
+      "flags": [],
+      "recommended_in": [
+        "https://discord.com/invite/taylorswift",
+        "https://disboard.org/servers/tag/taylor-swift"
+      ]
+    },
+    {
+      "name": "r/TaylorSwift (subreddit)",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/TaylorSwift/",
+      "member_count": null,
+      "member_count_as_of": null,
+      "activity_level": "unknown",
+      "activity_evidence": "No new.json access; secondary sources describe it as extremely high-traffic (a moderator interview says it grew from 14,000 to nearly 2 million members) but that is not a live post-frequency read.",
+      "description": "The main hub of the fandom on Reddit: news, photos, video, theory threads, and the megathreads that form the moment Taylor drops anything. If you only join one Swiftie subreddit, this is the one everyone assumes you are already in.",
+      "backstory": "A moderator named Lydia took it over around 2017 and described the community before her as a very toxic environment. She did a full rules rehaul and hand-picked new moderators, and the sub grew from roughly 14,000 members to nearly 2 million under that stewardship. It has also become an unlikely home for NFL discussion since Taylor started dating Travis Kelce. Posting in support of Gaylor theories or discussing Taylor's sexuality is reportedly a bannable offense here, which is the likely reason spaces like r/SwiftlyNeutral and r/GaylorSwift exist as separate communities.",
+      "niche": "general",
+      "join_requirements": "Open per secondary sources; not independently confirmed",
+      "hype_score": 9,
+      "hype_basis": "Named and described in 3 independently fetched sources (thehiveindex.com, Rolling Stone AU, a Yahoo/NBC syndicated mod interview) and treated as the default hub across nearly every other search performed for this task.",
+      "verification": {
+        "status": "blocked-unverified",
+        "method": "about.json and new.json both returned HTTP 403 Blocked from Reddit's edge on every attempt. See sources-reddit.md for the full blocker log. All facts here come from secondary sources fetched and quoted directly, not from Reddit's own API.",
+        "evidence_url": [
+          "https://thehiveindex.com/communities/r-taylorswift/",
+          "https://au.rollingstone.com/music/music-news/taylor-swift-fandom-gaylor-report-exclusive-46481/",
+          "https://www.yahoo.com/entertainment/taylor-swift-subreddit-became-crash-053108842.html"
+        ],
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "Reported member counts vary wildly by source and date (200k, 460k, 1.8M and 3.8M all appeared across different secondary sites during this research); none recorded as fact.",
+        "Reportedly bans pro-Gaylor and sexuality-discussion posts per Rolling Stone AU."
+      ],
+      "recommended_in": [
+        "https://thehiveindex.com/communities/r-taylorswift/",
+        "https://au.rollingstone.com/music/music-news/taylor-swift-fandom-gaylor-report-exclusive-46481/",
+        "https://www.yahoo.com/entertainment/taylor-swift-subreddit-became-crash-053108842.html"
+      ]
+    },
+    {
+      "name": "ATRL — Taylor Swift megathread",
+      "platform": "Forum",
+      "url": "https://atrl.net/forums/topic/502599-taylor-swift/",
+      "member_count": null,
+      "member_count_as_of": null,
+      "activity_level": "High",
+      "activity_evidence": "Fetched the threads last page (of 2,335 total): posts ranging from 2 days ago to about 50 minutes before fetch. Thread stats shown on-page: 58.4k replies, 3M views, created April 11, 2022.",
+      "description": "ATRL is a long-running pop-culture forum, and its single Taylor Swift megathread has become one of the internets most durable running rooms for her fandom, one continuous conversation since 2022, thousands of pages deep. Fans drop in for real-time reactions to everything from haircuts to award-show news.",
+      "backstory": "ATRL began in 1999 as Absolute TRL, a fansite for MTVs Total Request Live, renamed PopFusion in 2006 and ATRL in 2007 after TRL was cancelled, and it kept going as a general pop-culture debate forum. In 2017 ATRL members were the ones who dug up unreleased Reputation-era artwork and an incomplete tracklist ahead of Taylors own announcement, a genuine scoop that made outside press. The current Taylor megathread (started April 2022) is the direct descendant of that culture: obsessive, stats-driven, and unafraid to call itself out for clowning when a theory does not pan out.",
+      "niche": "general",
+      "join_requirements": "account required to post; readable without an account",
+      "hype_score": 8,
+      "verification": {
+        "status": "verified-live",
+        "method": "Fetched https://atrl.net/forums/topic/502599-taylor-swift (thread overview) and page 2335 (last page) directly; confirmed live posting activity and thread metadata.",
+        "evidence_url": null,
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "ATRL is a general pop-culture forum, not Swift-exclusive, this is one very large thread within it, and forum-wide tone is blunter and snarkier than fan-only spaces"
+      ],
+      "recommended_in": []
+    },
+    {
+      "name": "Taylor Swift Fan Club (Discord)",
+      "platform": "Discord",
+      "url": "https://discord.gg/taylor-swift-fan-club-1311387776893321337",
+      "member_count": 144217,
+      "member_count_as_of": "2026-08-14",
+      "online_count": 15867,
+      "activity_level": "High",
+      "activity_evidence": "approximate_presence_count 15867 of 144217 members (11.0%) via invite API",
+      "description": "The single biggest Taylor Swift server we could verify, and it is upfront that it is fan-run, not official. High raw numbers and a healthy presence ratio, so this is not just a dead number farm.",
+      "backstory": "Guild description literally reads 'WE ARE NOT AFFILIATED WITH TAYLOR SWIFT' -- a good sign of an honest, non-scammy fan operation rather than an impersonation server. Its long-form vanity URL confirms an active, stable community rather than a throwaway.",
+      "niche": "general",
+      "join_requirements": "Unknown (not visible via invite API without joining)",
+      "hype_score": 8,
+      "verification": {
+        "status": "verified-live",
+        "method": "invite API returned guild + counts; long-form vanity_url_code confirmed",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
+      },
+      "flags": [
+        "Invite code found in search (qfxP85uSYb) is a random, non-vanity code and could be rotated or revoked -- use the vanity URL above instead, which we confirmed is stable."
+      ],
+      "recommended_in": [
+        "https://discord.com/invite/qfxP85uSYb"
+      ]
+    },
+    {
+      "name": "Taylor Swift's Vault",
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/groups/2254218764714763/",
+      "member_count": 480000,
+      "member_count_as_of": "reported as over 480,000 members by Bustle, published 2024-12-13 -- not independently verified, group has likely grown or shrunk since",
+      "activity_level": "High",
+      "activity_evidence": "Bustle (2024-12-13) profiles a member who used the group to vet ticket sellers and reunite fans stranded by the Vienna show cancellation; separate Google-indexed post snippets from the group (not independently fetchable past the login wall) show live threads on vinyl variants, Easter-egg theories, and Any Australian Swifties meetups -- consistent with a large, general-purpose, internationally active group",
+      "description": "The closest thing this fandom has to a town square on Facebook -- a huge, general Swiftie group where fans trade vinyl variant intel, swap ticket-selling tips, theorize about Easter eggs, and check in on each other during tour chaos. If you only join one Facebook group, third-party coverage suggests this is the one people actually mean when they say the Swiftie Facebook group.",
+      "backstory": "Came into wider public notice during the Eras Tour era (2023-2024) as a hub for mutual aid among fans -- Bustle reported a 24-year-old member, Olivia Levin, used the group to vet ticket sellers and prevent scams, and to connect fans stranded overseas when the Vienna, Austria shows were cancelled in August 2024 over a terror plot. Members have also used it to make digital Eras yearbooks for each other post-tour.",
+      "niche": "general",
+      "join_requirements": "unknown -- could not confirm past the login wall; Facebook search results show member posts referencing an admin verification process, suggesting request-to-join with some vetting, but this is not confirmed",
+      "hype_score": 8,
+      "verification": {
+        "status": "third-party-cited",
+        "method": "Named with member count and detailed activity in a Bustle feature article; group URL and name additionally confirmed live via direct WebFetch (title tag resolved before the login wall, full content blocked)",
+        "evidence_url": "https://www.bustle.com/entertainment/taylor-swift-eras-tour-helped-us-heal",
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "A second group calling itself Taylor Swifts Vault 2.0 also exists on Facebook (facebook.com/groups/taylorswiftsvault2/); a post in the original group titled a lot of confusion over whose verified and whose not suggests fans have had trouble telling legitimate admins/spinoffs from impersonators. Unconfirmed beyond that snippet -- flagging so fans double-check they have joined the group they intend to."
+      ],
+      "recommended_in": [
+        "https://www.bustle.com/entertainment/taylor-swift-eras-tour-helped-us-heal"
+      ]
+    },
+    {
+      "name": "New Taylor Connect",
+      "platform": "Forum",
+      "url": "https://newtaylorconnect.freeforums.net/",
+      "member_count": null,
+      "member_count_as_of": null,
+      "activity_level": "Medium",
+      "activity_evidence": "Fetched the forum homepage directly: newest visible post dated August 13, 2026 21:29 GMT-5 in General Discussions; Off Topic board alone shows 447 threads.",
+      "description": "A fan-rebuilt version of Taylors own official fan forum, still running discussion boards on albums, news and off-topic chat in the exact format the original had.",
+      "backstory": "Taylor Connect was Taylor Swifts own official fan forum, built into taylorswift.com from December 2009, complete with member profiles and perks. Taylors team shut it down on December 1, 2017 to make room for the short-lived Swift Life app. When that closed too, fans stood up New Taylor Connect as an unofficial revival of the format Swift herself had once given them, one of the clearer examples in this fandom of fans rebuilding infrastructure the artists own team abandoned.",
+      "niche": "history",
+      "join_requirements": "account required to post",
+      "hype_score": 7,
+      "verification": {
+        "status": "verified-live",
+        "method": "Fetched https://newtaylorconnect.freeforums.net/ directly; corroborated Taylor Connects official history and 2017 closure via web search (theswiftagency.com archive post, Taylor Swift Switzerland wiki).",
+        "evidence_url": "https://taylorswiftswitzerland.ch/index.php/wiki/taylor-conncect/",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "HTTP 406 (bot-block signature, not 404) — exists but could not be independently re-confirmed 2026-08-14"
+      },
+      "flags": [],
+      "recommended_in": [
+        "https://forums.feedspot.com/taylor_swift_forums/"
+      ]
+    },
+    {
+      "name": "r/SwiftlyNeutral",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/SwiftlyNeutral/",
+      "member_count": null,
+      "member_count_as_of": null,
+      "activity_level": "unknown",
+      "activity_evidence": "A third-party stats aggregator (gummysearch.com, fetched directly, not Reddit's own data) described it as active with daily discussion threads and named topics like Showgirl, Lyrics and Album as trending, but this is not a verified post-frequency count.",
+      "description": "The take-a-breath sub, for fans and skeptics who want to talk about Taylor without the main hub's stricter rules. A music critic covering her documentary called it an invaluable tool for gauging measured fan reaction to her career, which is about the best description there is: this is where you go for the temperature check, not the hype train.",
+      "backstory": "Positions itself explicitly as neutral ground, a refreshingly normal neutral sub for fans and non-fans to discuss topics about or involving Taylor Swift, where both praise and criticism are allowed. That framing reads as a direct response to the tighter moderation on r/TaylorSwift (see that entry). Could not independently confirm an exact founding story or a formal split event; that framing is inferred from how the two subs are described relative to each other, not stated outright by either source.",
+      "niche": "neutral-critical",
+      "join_requirements": "Unknown",
+      "hype_score": 7,
+      "hype_basis": "Named and described in 2 independently fetched sources (gummysearch.com, theneedledrop.com), one of them a music-criticism outlet treating it as a genuine barometer of fan opinion.",
+      "verification": {
+        "status": "blocked-unverified",
+        "method": "about.json/new.json blocked identically to every other entry; see sources-reddit.md. Facts here from 2 fetched secondary sources only.",
+        "evidence_url": [
+          "https://gummysearch.com/r/SwiftlyNeutral/",
+          "https://theneedledrop.com/opinion/miniseries-review-taylor-swifts-the-end-of-an-era/"
+        ],
+        "checked_at": "2026-08-14"
+      },
+      "flags": [],
+      "recommended_in": [
+        "https://gummysearch.com/r/SwiftlyNeutral/",
+        "https://theneedledrop.com/opinion/miniseries-review-taylor-swifts-the-end-of-an-era/"
+      ]
+    },
+    {
+      "name": "Swifties Want Tickets",
+      "platform": "Discord",
+      "url": "https://discord.gg/swiftieswanttickets",
+      "member_count": 65838,
+      "member_count_as_of": "2026-08-14",
+      "online_count": 1322,
+      "activity_level": "Low",
+      "activity_evidence": "approximate_presence_count 1322 of 65838 members (2.0%) via invite API -- low idle presence is expected for a utility server people join for ticket drops, not day-to-day chat",
+      "description": "Not a hangout server, a mutual-aid ticket desk. Fans here help each other snag face-value Eras Tour (and other pop-tour) tickets and have a volunteer team that checks screenshots around the clock to catch fake listings before someone gets scammed.",
+      "backstory": "Covers ticket coordination beyond just Taylor (also Olivia Rodrigo, Adele, etc.), but Swift shows are its bread and butter. The low online-to-member ratio fits its use case: most members are lurking, waiting for a drop alert, not chatting.",
+      "niche": "tickets",
+      "join_requirements": "Unknown (not visible via invite API without joining)",
+      "hype_score": 7,
+      "verification": {
+        "status": "verified-live",
+        "method": "invite API returned guild + counts; vanity_url_code confirmed as swiftieswanttickets",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
+      },
+      "flags": [
+        "High verification_level (4) on the guild suggests phone-verification is required to join -- worth knowing before recommending to a casual fan."
+      ],
+      "recommended_in": [
+        "https://discord.com/invite/swiftieswanttickets"
+      ]
+    },
+    {
+      "name": "Taylor Swift (discord.gg/taylor)",
+      "platform": "Discord",
+      "url": "https://discord.gg/taylor",
+      "member_count": 37792,
+      "member_count_as_of": "2026-08-14",
+      "online_count": 4201,
+      "activity_level": "High",
+      "activity_evidence": "approximate_presence_count 4201 of 37792 members (11.1%) via invite API",
+      "description": "A general-purpose Taylor Swift fan hub that punches above its member count on activity -- one of the highest presence ratios of any server we verified. Good middle-ground pick if the biggest servers feel too chaotic.",
+      "backstory": "Holds the short, one-word vanity 'taylor' -- Discord only grants that to servers with sustained boost levels, so this has been actively maintained and funded by its community for a while. No specific founding date could be verified.",
+      "niche": "general",
+      "join_requirements": "Unknown (not visible via invite API without joining)",
+      "hype_score": 7,
+      "verification": {
+        "status": "verified-live",
+        "method": "invite API returned guild + counts; vanity_url_code confirmed as taylor",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
+      },
+      "flags": [],
+      "recommended_in": [
+        "https://discord.com/invite/taylor",
+        "https://disboard.org/servers/tag/taylor"
+      ]
+    },
+    {
+      "name": "BuzzJack — Taylor Swift forum",
+      "platform": "Forum",
+      "url": "https://buzzjack.com/forums/Taylor-Swift-f177.html",
+      "member_count": null,
+      "member_count_as_of": null,
+      "activity_level": "High",
+      "activity_evidence": "Fetched the subforum directly: posts visible from 3-5 hours before fetch; 1,010 topics across 41 pages; top threads showing 911 replies and 303.2k views, and 500 replies and 32k views; active threads on The Life of a Showgirl and certification milestones.",
+      "description": "BuzzJack is a UK chart-and-pop-music forum (the wider site has 1.6M-plus posts in its chart-tracking sections), and its Taylor subforum is one of the busiest artist boards on the site, daily new posts, deep chart-nerd analysis alongside plain fan chat.",
+      "backstory": "BuzzJack grew out of the UKs obsessive singles-chart-watching culture, the kind of forum where posters track first-week sales projections the way sports fans track box scores. Taylors subforum inherited that intensity: threads mix pure fan enthusiasm with hardcore chart and certification tracking, a different flavor of superfan than most US-centric spaces.",
+      "niche": "general",
+      "join_requirements": "account required to post; readable without an account",
+      "hype_score": 6,
+      "verification": {
+        "status": "verified-live",
+        "method": "Fetched https://buzzjack.com/forums/Taylor-Swift-f177.html directly.",
+        "evidence_url": null,
+        "checked_at": "2026-08-14"
+      },
+      "flags": [],
+      "recommended_in": [
+        "https://forums.feedspot.com/taylor_swift_forums/"
+      ]
+    },
+    {
+      "name": "Tales of Kaylor",
+      "platform": "Tumblr",
+      "url": "https://www.tumblr.com/tales-of-kaylor",
+      "member_count": null,
+      "member_count_as_of": null,
+      "activity_level": "High",
+      "activity_evidence": "Fetched the blog directly: most recent post dated August 8, 2026; multiple posts per week visible, mostly reblogged news plus original analysis.",
+      "description": "A Kaylor and Gaylor blog run by a fan with a self-described PR background, picking apart celebrity-media strategy and reading Taylors public choices through a this-industry-defaults-to-straight-until-proven-otherwise lens. Bio: Fighting to burst this heteronormative bubble.",
+      "backstory": "Part of Tumblrs Gaylor tradition, the theory that Taylor has signaled queerness throughout her work, which traces back to blogs in the early 2010s speculating about Dianna Agron (sparked by a Red liner-note thank-you) and grew into the much larger Kaylor (Karlie Kloss) shipping culture from 2014 on, documented in detail by Tumblr user thoughts-reasons in a 2017 timeline post. It is one of the fandoms most persistent theory subcultures, openly acknowledged and often mocked even as Taylors public relationships have continued.",
+      "niche": "theories",
+      "join_requirements": "Open",
+      "hype_score": 6,
+      "verification": {
+        "status": "verified-live",
+        "method": "Fetched https://www.tumblr.com/tales-of-kaylor directly.",
+        "evidence_url": null,
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "Gaylor and Kaylor content speculates about Taylor Swifts real-life sexuality without her confirmation, some fans find this genre invasive, flag before recommending"
+      ],
+      "recommended_in": []
+    },
+    {
+      "name": "Based on a Taylor Swift Song",
+      "platform": "AO3",
+      "url": "https://archiveofourown.org/tags/Based%20on%20a%20Taylor%20Swift%20Song/works",
+      "member_count": null,
+      "member_count_as_of": null,
+      "activity_level": "Medium",
+      "activity_evidence": "Could not fetch AO3 directly (site returns 403 to automated fetches). Confirmed the tag is real and indexed via search engine (exact-title match: Based on a Taylor Swift Song - Works - Archive of Our Own) and via a secondary summary citing Fanlores count of 8,000-plus works under this tag as of March 2025.",
+      "description": "AO3s freeform tag for fic explicitly built around a specific Taylor Swift song, an entire wing of the archives transformative-fic culture organized by album era and lyric rather than by fandom pairing.",
+      "backstory": "This is the songfic tradition at fandom scale: instead of writing about Taylor herself, writers use her songs as prompts for completely unrelated fandoms and originals, a distinct and under-noticed way her music has seeded other creative communities.",
+      "niche": "fanfic",
+      "join_requirements": "Open (account required to post or comment, not to read)",
+      "hype_score": 5,
+      "verification": {
+        "status": "third-party-cited",
+        "method": "Direct WebFetch to archiveofourown.org returned HTTP 403 (bot-blocked). Verified the tags existence via web search engine indexing of the exact page title, and cited a source referencing Fanlores 8,000-plus-works figure.",
+        "evidence_url": "https://fanlore.org/wiki/Taylor_Swift",
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "Work count (8,000-plus) is from March 2025 per the citing source, not independently re-verified live"
+      ],
+      "recommended_in": []
+    },
+    {
+      "name": "Kulto ni TAYLOR SWIFT",
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/groups/557483725146375/",
+      "member_count": null,
+      "member_count_as_of": "not reported by any source found",
+      "activity_level": "Medium",
+      "activity_evidence": "Philippine Star (philstar.com, 2023-04-28) describes it as a group where Filipino Swifties post Taylor-related content and organized around lobbying for a Philippine stop on the Eras Tour; not independently verifiable past the login wall",
+      "description": "A Filipino Swiftie group built on inside jokes and local flavor -- expect memes that only make sense if you are Pinoy, plus organizing energy (this group was part of the push to bring the Eras Tour to the Philippines).",
+      "backstory": "Covered by Philippine Star (The Freeman) in April 2023 in a piece on how a Pinoy Swiftie lobbied for a Philippine stop on the Eras Tour; the group was described as a space for Filipino fans to post Taylor content with inside jokes related to Filipino memes that other non-Filipino Swifties might not understand.",
+      "niche": "regional",
+      "join_requirements": "unknown -- could not confirm past the login wall",
+      "hype_score": 5,
+      "verification": {
+        "status": "third-party-cited",
+        "method": "Named and described (without URL) in a Philippine Star news article; matching group name and URL located via web search of Googles index of the groups public post titles",
+        "evidence_url": "https://www.philstar.com/the-freeman/cebu-entertainment/2023/04/28/2262265/how-pinoy-swiftie-lobbied-ph-stop-taylor-swifts-eras-tour",
+        "checked_at": "2026-08-14"
+      },
+      "flags": [],
+      "recommended_in": [
+        "https://www.philstar.com/the-freeman/cebu-entertainment/2023/04/28/2262265/how-pinoy-swiftie-lobbied-ph-stop-taylor-swifts-eras-tour"
+      ]
+    },
+    {
+      "name": "r/GaylorSwift",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/GaylorSwift/",
+      "member_count": null,
+      "member_count_as_of": null,
+      "activity_level": "unknown",
+      "activity_evidence": "Not independently checkable. Secondary sources describe strong historical growth, under 1,000 members to over 50,000 since 2020, but that is not a current activity read.",
+      "description": "The home of Gaylor theorizing: fans who read Taylor's lyrics, videos and public appearances for what they interpret as hints about her sexuality. Per the sources found, it has grown into more than theory-crafting; it is described as functioning as a genuine support and connection space for queer women in the fandom, not only a speculation board.",
+      "backstory": "Gaylor theory itself reportedly predates the subreddit by close to 20 years, but the subreddit's own growth accelerated hard alongside the Eras Tour, going from under 1,000 to over 50,000 members since 2020. Important: per Wikipedia's Gaylor conspiracy theory article, moderators set the subreddit to private in August 2025, around Taylor's engagement announcement, specifically to avoid trolling from outsiders. That means this entry may currently be closed to new members; its status could not be re-checked given the network blocker, so treat open versus private as unresolved rather than assume either way.",
+      "niche": "theories",
+      "join_requirements": "Unclear; reported to have gone private at least once in Aug 2025, current status unconfirmed",
+      "hype_score": 5,
+      "hype_basis": "Named and described in 2 independently fetched sources (spitfirenews.com, Wikipedia's Gaylor conspiracy theory article). Held below r/SwiftlyNeutral because of the unresolved private-access flag; a sub fans cannot currently join scores lower on a discovery basis even if historically well-recommended.",
+      "verification": {
+        "status": "blocked-unverified",
+        "method": "about.json/new.json blocked identically to every other entry; see sources-reddit.md. Facts here from 2 fetched secondary sources only.",
+        "evidence_url": [
+          "https://spitfirenews.com/p/gaylor-subreddit-taylor-swift-gay",
+          "https://en.wikipedia.org/wiki/Gaylor_conspiracy_theory"
+        ],
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "Reported to have gone private in Aug 2025 per Wikipedia; could not confirm current open/closed status. Do not present as guaranteed-joinable without re-checking."
+      ],
+      "recommended_in": [
+        "https://spitfirenews.com/p/gaylor-subreddit-taylor-swift-gay",
+        "https://en.wikipedia.org/wiki/Gaylor_conspiracy_theory"
+      ]
+    },
+    {
+      "name": "Swifties",
+      "platform": "Discord",
+      "url": "https://discord.gg/swifties",
+      "member_count": 16565,
+      "member_count_as_of": "2026-08-14",
+      "online_count": 1115,
+      "activity_level": "Medium",
+      "activity_evidence": "approximate_presence_count 1115 of 16565 members (6.7%) via invite API",
+      "description": "A solid mid-size general Swiftie hangout holding the short 'swifties' vanity. Good option for fans who want something smaller than the mega-servers but still consistently active.",
+      "backstory": "No public founding story surfaced in search results -- we could not verify when it started or any notable moments, only that it is live, moderately active, and has held its vanity long enough to keep it.",
+      "niche": "general",
+      "join_requirements": "Unknown (not visible via invite API without joining)",
+      "hype_score": 5,
+      "verification": {
+        "status": "verified-live",
+        "method": "invite API returned guild + counts; vanity_url_code confirmed as swifties",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
+      },
+      "flags": [
+        "Name is generic -- easy to confuse with the separate server Swifties Heart also in this list; these are two different guilds."
+      ],
+      "recommended_in": [
+        "https://discord.com/invite/swifties"
+      ]
+    },
+    {
+      "name": "Taylor Swift Fan Club (Steam)",
+      "platform": "Steam",
+      "url": "https://steamcommunity.com/groups/tswiftfans",
+      "member_count": 5374,
+      "member_count_as_of": "2026-08-14",
+      "activity_level": "Medium",
+      "activity_evidence": "Fetched directly: 5,374 members, self-described largest Taylor Swift group on Steam; 1,096 members online and 530 in the group chat room at fetch time; most recent formal announcement post dated November 18, 2025; member comments visible through mid-2025.",
+      "description": "A Taylor Swift fan group living inside the gaming platform Steam, of all places, with a genuinely large membership and a live chat room where gamers who are also Swifties hang out.",
+      "backstory": "One of the more surprising discoveries here: Swiftie community does not only live on fan platforms, it colonizes wherever fans already gather, including a PC gaming storefronts group-chat feature. It is its own little corner of the fandom that general Swiftie-community lists never mention.",
+      "niche": "general",
+      "join_requirements": "Open (Steam account required)",
+      "hype_score": 5,
+      "verification": {
+        "status": "verified-live",
+        "method": "Fetched https://steamcommunity.com/groups/tswiftfans directly.",
+        "evidence_url": null,
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "Formal announcement posts are dated (Nov 2025); ongoing life of the group is mainly visible through its live chat room and online member count rather than fresh discussion posts"
+      ],
+      "recommended_in": []
+    },
+    {
+      "name": "Taylor Swift Friendship Bracelet Making and Trading (NO SALES)",
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/groups/959997728506267/",
+      "member_count": null,
+      "member_count_as_of": "not reported by any source found",
+      "activity_level": "unknown",
+      "activity_evidence": "not verifiable -- login wall; the groups own name (confirmed live via direct fetch) states it is strictly for making/trading bracelets and explicitly bans sales",
+      "description": "Exactly what it sounds like: a crafting-and-swapping space for the You are On Your Own, Kid beaded-bracelet tradition that took over the Eras Tour, with a hard no-sales rule to keep it about trading, not reselling.",
+      "backstory": "Part of the wider friendship-bracelet-trading wave documented by Today.com, Capital FM and others as an Eras Tour phenomenon inspired by the Midnights lyric so make the friendship bracelets; this particular group formalizes the no-commerce norm that many bracelet traders informally follow.",
+      "niche": "bracelets",
+      "join_requirements": "unknown -- could not confirm past the login wall",
+      "hype_score": 5,
+      "verification": {
+        "status": "verified-live",
+        "method": "Direct WebFetch on the group URL returned the groups full name/title before hitting the login wall (member count and post content blocked)",
+        "evidence_url": "https://www.facebook.com/groups/959997728506267/",
+        "checked_at": "2026-08-14"
+      },
+      "flags": [],
+      "recommended_in": []
+    },
+    {
+      "name": "Taylor Swift Store Updates",
+      "platform": "Discord",
+      "url": "https://discord.gg/merchbot",
+      "member_count": 43532,
+      "member_count_as_of": "2026-08-14",
+      "online_count": 2770,
+      "activity_level": "Medium",
+      "activity_evidence": "approximate_presence_count 2770 of 43532 members (6.4%) via invite API",
+      "description": "Less a hangout, more a restock alarm: a server dedicated to flagging changes on the official Taylor Swift store the moment they happen -- new merch drops, price changes, sellouts. Genuinely useful, not a scam front.",
+      "backstory": "Description is explicit and narrow: 'providing updates about changes in merchandise.' We checked this carefully against the exclude-merch-scam rule -- it reads as a legitimate alert/bot server, not a front selling anything itself, so we kept it but flagged the distinction below.",
+      "niche": "merch",
+      "join_requirements": "Unknown (not visible via invite API without joining)",
+      "hype_score": 5,
+      "verification": {
+        "status": "verified-live",
+        "method": "invite API returned guild + counts; vanity_url_code confirmed as merchbot",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
+      },
+      "flags": [
+        "Utility/alert server, not really a discussion community -- flag this distinction to users expecting a hangout."
+      ],
+      "recommended_in": [
+        "https://discord.com/invite/merchbot"
+      ]
+    },
+    {
+      "name": "taylorswift (story tag)",
+      "platform": "Wattpad",
+      "url": "https://www.wattpad.com/stories/taylorswift/hot?locale=en_US",
+      "member_count": null,
+      "member_count_as_of": null,
+      "activity_level": "High",
+      "activity_evidence": "Fetched directly: 1.2K stories tagged taylorswift; several stories show start dates in 2025-2026; top story (Taylor Swift Imagines, book seven, gxg) at 38,663 reads, with newer entries and only a handful of chapters posted so far.",
+      "description": "Wattpads living hub of Taylor Swift fanfiction, imagines, celebrity AUs, and relationship fic (Tayvis especially) updated continuously by a large, mostly teen and young-adult writer base.",
+      "backstory": "Wattpad fanfic culture around Taylor has run continuously since the 1989 era, evolving with whatever real-life relationship is current (Joe Alwyn-era fic gave way to Tayvis fic almost overnight after the Kelce relationship went public), a good barometer of what the fandoms collective imagination is doing with her life in real time.",
+      "niche": "fanfic",
+      "join_requirements": "Open",
+      "hype_score": 5,
+      "verification": {
+        "status": "verified-live",
+        "method": "Fetched https://www.wattpad.com/stories/taylorswift/hot?locale=en_US directly.",
+        "evidence_url": null,
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "Some stories contain mature and adult themes and warnings; not curated or age-gated by fandom moderators"
+      ],
+      "recommended_in": []
+    },
+    {
+      "name": "The Swift Hub",
+      "platform": "Discord",
+      "url": "https://discord.gg/swiftie",
+      "member_count": 2706,
+      "member_count_as_of": "2026-08-14",
+      "online_count": 341,
+      "activity_level": "High",
+      "activity_evidence": "approximate_presence_count 341 of 2706 members (12.6%) via invite API",
+      "description": "A smaller, tight-knit server built around collectible era and aesthetic tags and Easter-egg theorizing -- its own description name-checks both lyric theories and era obsession. The guild's self-description is in Portuguese, so it leans toward a Brazilian and Portuguese-speaking crowd, though it welcomes English speakers.",
+      "backstory": "Holds the short, highly-contested 'swiftie' vanity, which takes sustained community investment to keep -- a decent signal of an actively engaged, not-dormant server despite its smaller size.",
+      "niche": "theories",
+      "join_requirements": "High verification_level (4) on the guild -- likely phone-verification required",
+      "hype_score": 5,
+      "verification": {
+        "status": "verified-live",
+        "method": "invite API returned guild + counts; vanity_url_code confirmed as swiftie",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
+      },
+      "flags": [
+        "Primary language in the server's own description is Portuguese -- flag for English-only users."
+      ],
+      "recommended_in": [
+        "https://top.gg/discord/servers/721089405000564736"
+      ]
+    },
+    {
+      "name": "ｓｗｉｆｔｃｏｒｄ",
+      "platform": "Discord",
+      "url": "https://discord.gg/swiftcord",
+      "member_count": 4555,
+      "member_count_as_of": "2026-08-14",
+      "online_count": 375,
+      "activity_level": "Medium",
+      "activity_evidence": "approximate_presence_count 375 of 4555 members (8.2%) via invite API",
+      "description": "A cozy, close-knit Swiftie server that describes itself as exactly that -- a close community rather than a mega-hangout. Good pick for fans who find the huge servers impersonal.",
+      "backstory": "No specific founding story verified. Holds the short 'swiftcord' vanity, indicating an established, community-funded server rather than a fresh startup.",
+      "niche": "general",
+      "join_requirements": "Unknown (not visible via invite API without joining)",
+      "hype_score": 4,
+      "verification": {
+        "status": "verified-live",
+        "method": "invite API returned guild + counts; vanity_url_code confirmed as swiftcord",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
+      },
+      "flags": [],
+      "recommended_in": [
+        "https://discord.com/invite/swiftcord"
+      ]
+    },
+    {
+      "name": "Swiftie Super Worldwide Friendship Bracelet Trade",
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/groups/1404884973507150/",
+      "member_count": null,
+      "member_count_as_of": "not reported by any source found",
+      "activity_level": "unknown",
+      "activity_evidence": "not verifiable -- login wall",
+      "description": "A worldwide-facing bracelet-trading group -- for Swifties who want to trade beaded bracelets with fans outside their own country/region, not just at a local show.",
+      "backstory": "Part of the same Eras Tour friendship-bracelet trend as the other trading groups; the worldwide framing in the name points to international mail-trading rather than in-person swaps only, per general coverage of the trend (Today.com, Capital FM) but this specific groups founding story is not documented anywhere found.",
+      "niche": "bracelets",
+      "join_requirements": "unknown -- could not confirm past the login wall",
+      "hype_score": 4,
+      "verification": {
+        "status": "verified-live",
+        "method": "Direct WebFetch on the group URL returned the groups full name/title before hitting the login wall (member count and post content blocked)",
+        "evidence_url": "https://www.facebook.com/groups/1404884973507150/",
+        "checked_at": "2026-08-14"
+      },
+      "flags": [],
+      "recommended_in": []
+    },
+    {
+      "name": "Swifties ♡",
+      "platform": "Discord",
+      "url": "https://discord.gg/swifties-805215468734382111",
+      "member_count": 4807,
+      "member_count_as_of": "2026-08-14",
+      "online_count": 306,
+      "activity_level": "Medium",
+      "activity_evidence": "approximate_presence_count 306 of 4807 members (6.4%) via invite API",
+      "description": "A friendly, mid-size general Swiftie server that describes itself plainly as a place for fun times and great conversation. No frills, just a steady hangout.",
+      "backstory": "No public founding story verified. Confirmed live via its long-form vanity URL, which is more durable than the short random invite code found in search results.",
+      "niche": "general",
+      "join_requirements": "Unknown (not visible via invite API without joining)",
+      "hype_score": 4,
+      "verification": {
+        "status": "verified-live",
+        "method": "invite API returned guild + counts; long-form vanity_url_code confirmed as swifties-805215468734382111",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
+      },
+      "flags": [
+        "Invite code originally found in search (nVmJbsFEsn) is a random, non-vanity code -- use the vanity URL above, which we confirmed is stable."
+      ],
+      "recommended_in": [
+        "https://discord.com/invite/nVmJbsFEsn"
+      ]
+    },
+    {
+      "name": "Taylor Swift Daily",
+      "platform": "Tumblr",
+      "url": "https://www.tumblr.com/taylorswiftdaily",
+      "member_count": null,
+      "member_count_as_of": null,
+      "activity_level": "Medium",
+      "activity_evidence": "Fetched the blog directly and confirmed it is a live, populated fan blog with an active reblog culture (contributors tag edits with usertaylorswiftdaily for consideration) and recent-era content (Eras Tour finale material visible); could not pin an exact latest post date and timestamp from the fetch, so activity level here is a conservative estimate rather than a confirmed daily cadence.",
+      "description": "A classic Tumblr fan-blog-as-news-hub: news, photos, video and fan edits, explicitly unofficial (we are NOT taylor swift), built around a submission and reblog culture rather than original writing.",
+      "backstory": "Represents the still-alive Tumblr tradition of the daily fanblog, curators who reblog and credit fan edits rather than post original content, keeping the old edit-and-reblog culture from Tumblrs 2012-2016 Swiftie peak going.",
+      "niche": "general",
+      "join_requirements": "Open",
+      "hype_score": 4,
+      "verification": {
+        "status": "verified-live",
+        "method": "Fetched https://www.tumblr.com/taylorswiftdaily directly; could not confirm an exact recent timestamp within the fetched view.",
+        "evidence_url": null,
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "Exact posting recency could not be pinned down precisely, treat activity_level here as a lower-confidence estimate"
+      ],
+      "recommended_in": []
+    },
+    {
+      "name": "Taylor Swift Updates",
+      "platform": "Discord",
+      "url": "https://discord.gg/tsnotifs",
+      "member_count": 12998,
+      "member_count_as_of": "2026-08-14",
+      "online_count": 715,
+      "activity_level": "Medium",
+      "activity_evidence": "approximate_presence_count 715 of 12998 members (5.5%) via invite API",
+      "description": "A news-first server: think of it as a Taylor Swift newsroom with a chat attached. Good for fans who mainly want fast, reliable updates without wading through general chat noise.",
+      "backstory": "No public founding story verified. Holds the 'tsnotifs' vanity, matching its update-focused identity.",
+      "niche": "merch",
+      "join_requirements": "Unknown (not visible via invite API without joining)",
+      "hype_score": 4,
+      "verification": {
+        "status": "verified-live",
+        "method": "invite API returned guild + counts; vanity_url_code confirmed as tsnotifs",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
+      },
+      "flags": [],
+      "recommended_in": [
+        "https://discord.com/invite/xfw4mAJR6j",
+        "https://discord.com/invite/tsnotifs"
+      ]
+    },
+    {
+      "name": "Karlie Kloss/Taylor Swift",
+      "platform": "AO3",
+      "url": "https://archiveofourown.org/tags/Karlie%20Kloss*s*Taylor%20Swift/works",
+      "member_count": null,
+      "member_count_as_of": null,
+      "activity_level": "Low",
+      "activity_evidence": "Could not fetch AO3 directly (403 to automated fetches). Confirmed the tag is real via search engine indexing (exact-title match). Related fic hubs on Wattpad (fic lists such as Maybe the biggest Kaylor fic list, and Kaylor Fanfics) and a dedicated Tumblr archive (kaylorfanfiction.tumblr.com) corroborate an ongoing, if niche, writing community, though the Tumblr archive itself shows no recent update dates and appears dormant.",
+      "description": "The relationship tag for Kaylor fic, fans writing Taylor Swift and Karlie Kloss into romantic fiction, independent of whether the real-life relationship theory is true.",
+      "backstory": "Kaylor is the shipping name that gave rise to the broader Gaylor theory culture (see Tales of Kaylor above); the fanfic side of it persisted even after Klosss 2018 marriage, including Kaylor: The Timeline, a Wattpad fic that got real media coverage (Cosmopolitan, BuzzFeed) and a Wattpad Star distinction, a rare case of shipping fanfic crossing into mainstream press coverage.",
+      "niche": "fanfic",
+      "join_requirements": "Open (account required to post or comment, not to read)",
+      "hype_score": 3,
+      "verification": {
+        "status": "third-party-cited",
+        "method": "Direct WebFetch to archiveofourown.org returned HTTP 403. Verified tag existence via search engine indexing of the exact page title, and corroborated the surrounding Kaylor-fic ecosystem via Wattpad list pages and kaylorfanfiction.tumblr.com (fetched directly, confirmed real but currently showing no recent activity).",
+        "evidence_url": "https://kaylorfanfiction.tumblr.com/timeline",
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "Same real-person-shipping sensitivity as the Kaylor and Gaylor theory community above",
+        "Could not confirm current (last-60-day) posting activity on the AO3 tag itself"
+      ],
+      "recommended_in": []
+    },
+    {
+      "name": "SimilarWorlds — Taylor Swift group",
+      "platform": "Forum",
+      "url": "https://similarworlds.com/music/taylor-swift",
+      "member_count": 309,
+      "member_count_as_of": "2026-08-14",
+      "activity_level": "High",
+      "activity_evidence": "Fetched directly: 309 people following; newest visible post 16 hours before fetch (Ready For It discussion), others at 2 days and 6 days, steady daily-ish posting.",
+      "description": "A small but genuinely lively discussion group inside SimilarWorlds (a general interpersonal-topics site), where fans post open questions and short takes on Taylors music, her relationship with Travis Kelce, and general fandom chatter.",
+      "backstory": "Less a dedicated fansite than a topic-room inside a much bigger general discussion platform, an example of Swiftie conversation surfacing organically inside spaces that are not built for fandom at all.",
+      "niche": "general",
+      "join_requirements": "account required to post",
+      "hype_score": 3,
+      "verification": {
+        "status": "verified-live",
+        "method": "Fetched https://similarworlds.com/music/taylor-swift directly.",
+        "evidence_url": null,
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "Hosted on a general discussion and relationships site, not a Swift-specific platform, expect non-fandom content nearby"
+      ],
+      "recommended_in": []
+    },
+    {
+      "name": "Taylor Swift Friendship Bracelets: (Buy / Sell / Trade)",
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/groups/1220925938596348/",
+      "member_count": null,
+      "member_count_as_of": "not reported by any source found",
+      "activity_level": "unknown",
+      "activity_evidence": "not verifiable -- login wall; WebFetch on this specific URL did not return even a title, so evidence rests on the search listing alone",
+      "description": "A bracelet-trading group that, unlike some others in this niche, explicitly allows buying and selling as well as trading -- worth knowing going in, since some bracelet groups ban sales outright.",
+      "backstory": "Surfaced in the same search cluster as the other Eras Tour friendship-bracelet trading groups; no independent article or forum post was found describing this specific groups history.",
+      "niche": "bracelets",
+      "join_requirements": "unknown",
+      "hype_score": 3,
+      "verification": {
+        "status": "listed-only",
+        "method": "Group name and URL appeared in Facebooks own indexed search results for friendship-bracelet trading groups; direct WebFetch of the URL did not return usable content (login wall gave no title this time), so this rests on the search listing only -- weakest tier of evidence in this file",
+        "evidence_url": "https://m.facebook.com/groups/1220925938596348/",
+        "checked_at": "2026-08-14"
+      },
+      "flags": [
+        "Weakest-evidence entry in this file -- could not confirm the group is live/active beyond its appearance in a search result listing"
+      ],
+      "recommended_in": []
+    },
+    {
+      "name": "TBN (Taylor Boards)",
+      "platform": "Forum",
+      "url": "https://taylor.boards.net/",
+      "member_count": 600,
+      "member_count_as_of": "2026-08-14",
+      "activity_level": "Low",
+      "activity_evidence": "Fetched the forum directly: 600 total members, 4,076 threads, 67,303 posts; latest post dated August 7, 2026. Shoutbox shows members asking is anyone still alive on here, and admins citing personal circumstances for reduced updates.",
+      "description": "A small, self-described moderated safe haven for swifties, protected by unicorns and the itty bitty pretty kitty committee, organized around per-album boards, merch and CD-collector trading, and forum games. Once busier, now a quieter core of regulars still checking in.",
+      "backstory": "The kind of mid-2010s-era Swiftie forum that had its own in-jokes and a dedicated CD-collector culture (some boards are restricted to verified collectors). It is visibly past its peak, but it has not gone dark, there is still a real, small, named community keeping the lights on rather than a dead shell.",
+      "niche": "history",
+      "join_requirements": "account required to post",
+      "hype_score": 3,
+      "verification": {
+        "status": "verified-live",
+        "method": "Fetched https://taylor.boards.net/ directly.",
+        "evidence_url": null,
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "HTTP 406 (bot-block signature, not 404) — exists but could not be independently re-confirmed 2026-08-14"
+      },
+      "flags": [
+        "Activity has visibly declined; admins have noted personal circumstances limiting updates, worth knowing before pointing fans somewhere quiet"
+      ],
+      "recommended_in": [
+        "https://forums.feedspot.com/taylor_swift_forums/"
+      ]
+    },
+    {
+      "name": "twitter swifties",
+      "platform": "Discord",
+      "url": "https://discord.gg/zaSXCfpzcF",
+      "member_count": 2577,
+      "member_count_as_of": "2026-08-14",
+      "online_count": 96,
+      "activity_level": "Low",
+      "activity_evidence": "approximate_presence_count 96 of 2577 members (3.7%) via invite API",
+      "description": "A small crossover community for Swifties who mainly hang out on X/Twitter, built as a Discord extension of that scene. Its own description also mentions it runs a Minecraft SMP on the side, so expect a more casual, tangent-friendly vibe than the news-focused servers.",
+      "backstory": "Self-described as a Discord server for swifties, by swifties, positioning itself as community-run rather than a directory placeholder.",
+      "niche": "general",
+      "join_requirements": "Unknown (not visible via invite API without joining)",
+      "hype_score": 3,
+      "verification": {
+        "status": "verified-live",
+        "method": "invite API returned guild + counts; guild has no vanity_url_code (null) -- this is a plain, non-vanity invite",
+        "checked_at": "2026-08-14",
+        "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
+      },
+      "flags": [
+        "No vanity URL on this guild -- the invite code is a plain random string and carries real risk of expiring or being regenerated. Check before publishing and re-verify periodically.",
+        "Lowest presence ratio of the verified set (3.7%) -- treat activity_level as a soft signal, not a guarantee."
+      ],
+      "recommended_in": [
+        "https://discord.com/invite/zaSXCfpzcF"
+      ]
+    }
+  ]
+}

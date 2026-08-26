@@ -1,0 +1,141 @@
+# Brief mailer — emails Marjorie's updates to the founders' real inboxes.
+# From Marjorie's own Gmail, To Joey, CC Wyatt (Joey's calls, 2026-07-11).
+# Deterministic, zero AI. One send per day:
+#   - 12:45 UTC (~5:45 AM PDT): the Founders' Brief (issue body). Joey's
+#     requirement (2026-07-16): the email is IN HIS INBOX BY 6:00 AM. The
+#     send is anchored at 5:45 PDT for margin; Marjorie's brief trigger must
+#     fire at 12:00 UTC (registry: docs/agents/runners.md) so the brief
+#     exists ~12:25. If it doesn't exist yet the mailer skips quietly — but
+#     see the correction below, that's no longer the whole safety net.
+#     UTC-anchored on purpose (org precedent): winter sends land an hour
+#     earlier in PST — still in the inbox by 6:00, never after.
+#
+# EVENING DELTA (2026-08-23): retired as an email — Joey capped founder-facing
+# report email to 1-2 total (the morning brief + Tree's weekly report), and a
+# second daily Marjorie email blew that cap. Marjorie's 8 PM routine still
+# POSTS the delta as a GitHub comment (the journal trail is unchanged); this
+# workflow simply no longer mails it. The `delta` mode still exists behind
+# `workflow_dispatch` for manual testing — it is just not on a schedule.
+#
+# CORRECTION (2026-07-18): "cron can slip 5-15 min" above was optimistic —
+# confirmed for real that a scheduled trigger in this repo can miss its slot
+# by hours or not fire at all some days. Root cause: this repo now runs two
+# separate */30 workflows (social-poster.yml, marjorie-inbox.yml) plus
+# several daily crons, clustering scheduled-trigger requests right at the
+# :00/:30 minutes GitHub's own docs flag as highest-contention. Two
+# mitigations landed the same day: every cron in this repo got nudged off
+# :00/:30 (this file included), and watchdog.yml's 14:30 UTC run now checks
+# whether today's brief was actually mailed — not just whether the brief
+# issue exists — and retriggers this workflow same-day if not. Neither
+# guarantees exact timing; the retry is the real backstop.
+#
+# This Action is THE real email channel. The brief's `cc @mention` line is only a
+# GitHub notification aid, NOT email delivery: Marjorie posts as a founder account
+# (self-mentions don't email), and @sffan15-sys / @wjduvall-cmd are bot identities,
+# not the founders' monitored inboxes. See docs/agents/marjorie.md › Delivery.
+#
+# Founder setup (issue #484): a Gmail account for Marjorie with 2-Step Verification
+# ON, then:
+#   - repo VARIABLE  MARJORIE_EMAIL      = that address
+#   - repo SECRET    GMAIL_APP_PASSWORD  = a 16-char App Password on THAT account
+# Gmail shows App Passwords as "xxxx xxxx xxxx xxxx"; SMTP AUTH needs them with NO
+# spaces. This workflow strips spaces defensively and, on auth failure, prints
+# exactly what to re-check. Until both var+secret exist, it skips quietly.
+name: brief-mailer
+on:
+  schedule:
+    - cron: "45 12 * * *"  # morning brief only (inbox by 6:00 AM PT; see header note)
+    # Evening-delta cron removed 2026-08-23 — see header note. `workflow_dispatch`
+    # with mode=delta still works for manual testing.
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "What to send: auto (pick by clock, like the schedule), brief, or delta"
+        required: false
+        default: auto
+        type: choice
+        options: [auto, brief, delta]
+
+permissions:
+  # `contents: read` is REQUIRED and its absence broke this workflow for four
+  # days (2026-07-24 → 2026-07-27, every run). Declaring ANY `permissions`
+  # block sets every unlisted scope to `none`, so `contents` was none and
+  # `actions/checkout` failed with a misleading "Repository not found" — the
+  # repo is private, and a token with no contents scope genuinely cannot see it.
+  #
+  # It was latent until 2026-07-23, when the send step moved to
+  # scripts/watchdog/send-mail.py and this workflow needed a checkout for the
+  # first time (see the header note). Adding a checkout to a workflow with a
+  # narrowed permissions block is the whole bug.
+  #
+  # Consequence: the Founders' Brief has not been emailed since 2026-07-23.
+  contents: read
+  issues: read
+
+jobs:
+  mail:
+    runs-on: ubuntu-latest
+    steps:
+      # Added 2026-07-23: the send step now calls scripts/watchdog/send-mail.py
+      # (shared with watchdog.yml), which needs the repo checked out — this
+      # workflow previously ran entirely on gh/inline Python and never needed it.
+      - uses: actions/checkout@v7
+
+      - name: Pick the brief or delta to send
+        id: pick
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          MODE="${{ github.event.inputs.mode || 'auto' }}"
+          if [ "$MODE" = "auto" ]; then
+            HOUR=$(date -u +%H)
+            # Early-UTC runs are the evening delta; later runs are the morning brief.
+            # (10# forces base-10 so leading-zero hours like 08/09 don't parse as octal.)
+            if [ "$((10#$HOUR))" -lt 12 ]; then MODE=delta; else MODE=brief; fi
+          fi
+          # America/Los_Angeles date selects the right brief for both: the morning
+          # run -> today's brief; the evening run (early UTC = PT evening of the same
+          # LA day) -> the brief the delta was commented on.
+          TODAY=$(TZ=America/Los_Angeles date +%F)
+          TITLE="Founders' Brief — ${TODAY}"
+          NUM=$(gh issue list --repo "$REPO" --label founders-brief \
+            --search "\"$TITLE\" in:title" --state all --json number --jq '.[0].number // empty')
+          if [ -z "$NUM" ]; then
+            echo "No brief for $TODAY ($MODE) — nothing to mail (watchdog owns alerting)."
+            echo "found=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if [ "$MODE" = "brief" ]; then
+            gh issue view "$NUM" --repo "$REPO" --json title,body,url \
+              | jq '{subject: .title, body: .body, url: .url}' > payload.json
+          else
+            gh issue view "$NUM" --repo "$REPO" --json title,url,comments > raw.json
+            # The Evening Delta is the newest comment whose first line is the cc line
+            # (journal/processing comments don't start with "cc @").
+            DELTA=$(jq -c '[.comments[] | select((.body|split("\n")[0]) | startswith("cc @"))] | last // empty' raw.json)
+            if [ -z "$DELTA" ] || [ "$DELTA" = "null" ]; then
+              echo "No Evening Delta comment on #$NUM yet — nothing to mail."
+              echo "found=false" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            jq -n --argjson d "$DELTA" --slurpfile r raw.json \
+              '{subject: ("Evening Delta — " + $r[0].title), body: $d.body, url: ($d.url // $r[0].url)}' > payload.json
+          fi
+          # Markdown -> HTML rendering now happens inside send-mail.py.
+          echo "found=true" >> "$GITHUB_OUTPUT"
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+
+      - name: Send From Marjorie, To Joey, CC Wyatt
+        if: steps.pick.outputs.found == 'true'
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # Shared with watchdog.yml (2026-07-23) — same delivery path for
+          # watchdog-alert issues, which previously relied only on GitHub
+          # @mentions that don't reach the founders' real inboxes. payload.json
+          # already has the {subject, body, url} shape send-mail.py expects.
+          python3 scripts/watchdog/send-mail.py payload.json

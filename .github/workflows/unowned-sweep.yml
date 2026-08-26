@@ -1,0 +1,73 @@
+# The unowned-work sweep — dumb code that watches the gaps between the scanners.
+#
+# Every agent queue in this repo is a FILTER (Kevin S1 = `label:cie`, Kevin S3 =
+# `author != wjduvall-cmd`, Austin = Kevin's buckets or `a11y` P2/P3). Nobody
+# owns the complement of that union, so work outside all of them is invisible
+# rather than merely deprioritised. The 2026-08-11 audit found 39 unlabeled
+# issues, 16 of them reachable by no scanner at all, plus a `cie:safety` ticket
+# parked since July by a hardcoded number list.
+#
+# Two triggers, one script, zero AI:
+#
+#   1. ON ISSUE EVENTS — the moment an issue is opened (or stripped of its last
+#      label) with nothing on it, stamp `needs-triage`. That single label makes
+#      it visible to Kevin S3 regardless of author, which is what closes the
+#      hole at the source. This is the important half: it is preventive, it runs
+#      in seconds, and it cannot fall behind.
+#
+#   2. DAILY — refresh one standing ledger issue with everything still unowned,
+#      plus the three queues that have owners on paper but no throughput in
+#      practice (parked `kevin-skip`, `needs-manual-a11y`, `social/failed/`).
+#      Drift catcher, not the primary mechanism.
+#
+# Deliberately NOT a `build` gate: a human opening an unlabeled issue must never
+# turn main red. The sweep reports and labels; it never blocks a merge.
+#
+# :20 avoids the :00/:30 cluster that watchdog.yml documents as a schedule-slip
+# risk in this repo.
+name: unowned-sweep
+
+on:
+  issues:
+    types: [opened, reopened, unlabeled, transferred]
+  schedule:
+    - cron: '20 15 * * *' # 08:20 PT / 15:20 UTC — after Kevin's daily triage
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+  contents: read
+
+concurrency:
+  group: unowned-sweep
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # 24, not 22: the steps below pass `--use-env-proxy` (#2008), which only
+      # exists on Node >= 24. Node does not ignore an unknown CLI flag — it
+      # exits 9 with `bad option` before running the script — so on 22 both
+      # steps below would fail outright. 24 also matches package.json engines.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      # Issue events: label-only, no ledger churn. One issue changing state
+      # should not rewrite the daily report.
+      - name: Label unlabeled issues
+        if: github.event_name == 'issues'
+        run: node --use-env-proxy scripts/ops/unowned-sweep.mjs --autolabel
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Scheduled/manual: label anything that slipped through, then refresh the
+      # standing ledger so the remaining queues stay visible.
+      - name: Sweep and refresh the standing ledger
+        if: github.event_name != 'issues'
+        run: node --use-env-proxy scripts/ops/unowned-sweep.mjs --autolabel --file-issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

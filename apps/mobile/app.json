@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "LongLive",
+    "slug": "swift2-vault",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "longlive",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0b0b0f",
+    "icon": "./assets/icon.png",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ai.jwlabs.longlive",
+      "buildNumber": "1",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "ai.jwlabs.longlive",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1e1b4b"
+      }
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#0b0b0f"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 36,
+            "targetSdkVersion": 36,
+            "minSdkVersion": 24
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "a4ff0e9b-ad3e-48a4-a765-ffc19a8b3209"
+      }
+    },
+    "owner": "wjduvall"
+  }
+}

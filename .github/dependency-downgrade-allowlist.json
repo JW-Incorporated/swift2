@@ -1,0 +1,287 @@
+{
+  "//": "Documented, INTENTIONAL dependency downgrades. scripts/check-no-downgrade.mjs fails the build if any dependency's highest resolved version in package-lock.json drops below what is on `main` — the #1903 failure class, where a lockfile regenerated from a stale base silently reverted brace-expansion 5.0.9 -> 5.0.7 and re-opened a CVE. Almost every downgrade is a mistake. The rare legitimate one (e.g. reverting a bad major that broke the build) goes here so it is never silent.",
+  "//exception-shape": "Each entry: { name, from, to, reason, approvedBy, date }. An entry only wavies a downgrade whose landing version equals `to` exactly, so a stale exception cannot mask a DIFFERENT downgrade of the same package.",
+  "//why-this-file-needs-a-human": "This file lives under .github/, which check-automerge-allowlist.mjs bars from content auto-merge (NEVER_ALLOWLIST). So adding a downgrade exception always requires a founder-reviewed PR — you cannot self-approve a version reversion.",
+  "exceptions": [
+    {
+      "name": "@react-native/babel-plugin-codegen",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/babel-preset",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/codegen",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/community-cli-plugin",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/debugger-frontend",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/debugger-shell",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/dev-middleware",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/gradle-plugin",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/js-polyfills",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/metro-babel-transformer",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/metro-config",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/normalize-colors",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "@react-native/virtualized-lists",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; the 0.87.0 tree removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "babel-plugin-syntax-hermes-parser",
+      "from": "0.36.1",
+      "to": "0.36.0",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is part of its compatible Hermes/Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "hermes-estree",
+      "from": "0.36.1",
+      "to": "0.36.0",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is part of its compatible Hermes/Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "hermes-parser",
+      "from": "0.36.1",
+      "to": "0.36.0",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is part of its compatible Hermes/Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-babel-transformer",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-cache",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-cache-key",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-config",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-core",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-file-map",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-minify-terser",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-resolver",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-runtime",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-source-map",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-symbolicate",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-transform-plugins",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "metro-transform-worker",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "ob1",
+      "from": "0.87.0",
+      "to": "0.84.5",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; this is its compatible Metro dependency tree (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "react-native",
+      "from": "0.87.0",
+      "to": "0.86.2",
+      "reason": "Expo SDK 57 requires React Native 0.86.2; 0.87.0 removes rn-get-polyfills and breaks Android bundling (PR #3291).",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-25"
+    },
+    {
+      "name": "react-native-gesture-handler",
+      "from": "3.2.1",
+      "to": "2.32.0",
+      "reason": "Expo SDK 57 pins these native modules (expo/bundledNativeModules.json). Versions above the pin break the Android Gradle build - gesture-handler was a full major ahead. Verified: expo export --platform android succeeds at these versions.",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-26"
+    },
+    {
+      "name": "react-native-reanimated",
+      "from": "4.6.0",
+      "to": "4.5.1",
+      "reason": "Expo SDK 57 pins these native modules (expo/bundledNativeModules.json). Versions above the pin break the Android Gradle build - gesture-handler was a full major ahead. Verified: expo export --platform android succeeds at these versions.",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-26"
+    },
+    {
+      "name": "react-native-worklets",
+      "from": "0.12.1",
+      "to": "0.10.1",
+      "reason": "Expo SDK 57 pins these native modules (expo/bundledNativeModules.json). Versions above the pin break the Android Gradle build - gesture-handler was a full major ahead. Verified: expo export --platform android succeeds at these versions.",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-26"
+    }
+  ]
+}
