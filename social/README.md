@@ -5,6 +5,15 @@ Feeds `.github/workflows/social-poster.yml` (runs every 30 min). Full context: `
 - **`queue/`** — drafts waiting to ship. One JSON file per post. **Every draft added or changed here is checked by `scripts/social/check-drafts.mjs` before it can auto-merge** — see "Draft-time checks" below. That script is the main quality gate now; the guards in `scripts/social/lib/queue.mjs` at post time exist to stop a bad draft from actually posting wrong, not to be the first line of defense.
 - **`posted/`** — the log of everything sent, moved here automatically on success.
 
+**No human review gate (2026-07-25, reaffirmed 2026-08-25 — see
+`docs/decisions.md`):** `queue/` is also on
+`.github/content-automerge-allowlist.txt` and auto-merges on green exactly
+like `posted/`/`failed/` below — a draft PR is never held open for a founder
+to read. The only gate on a queue item before it ships is automated:
+`scripts/social/check-drafts.mjs` at PR time (schema, voice, sourcing,
+length, media). The founder's only checkpoint is the notification email the
+poster sends on every post, success or failure, after the fact.
+
 **State recording (2026-08-25, issue #2040, supersedes the 2026-08-12/issue
 #2031 mechanism):** every run pushes its queue/posted/failed changes
 straight to an unprotected branch, `social-ledger` — a plain `git push`,

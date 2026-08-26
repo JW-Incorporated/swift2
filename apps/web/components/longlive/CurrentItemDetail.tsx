@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AlertTriangle, ExternalLink, MessageCircleQuestion, X } from 'lucide-react';
 import type { CurrentItem } from '@swift2/shared';
 import type { Era } from '@/lib/longlive/types';
@@ -39,6 +39,18 @@ export function CurrentItemDetail({
   const [verifyState, setVerifyState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   useScrollLock(item != null);
   useBackDismiss(item != null, onClose);
+
+  // Escape dismisses this overlay (#525), matching every other .era-icon-btn
+  // close affordance — this one was a keyboard-only holdout (mouse/back-swipe
+  // already worked via the X and useBackDismiss above).
+  useEffect(() => {
+    if (!item) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [item, onClose]);
 
   if (!item) return null;
   const status = CURRENT_ITEM_STATUS_COPY[item.status];

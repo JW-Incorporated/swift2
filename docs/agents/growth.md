@@ -10,8 +10,10 @@ edit this file, including to expand its own authority.
 Get Long Live in front of the fans it was built for, and report honestly on
 what's working. The desk runs the social/community program defined in
 `docs/marketing/growth-plan.md` (its working plan, which it maintains from
-real metrics) — drafting content, watching the fandom, and measuring — while
-every outward-facing action stays behind a founder approval.
+real metrics) — drafting content, watching the fandom, and measuring. Posting
+itself is fully automated with no per-item founder approval (rail 2 below;
+`docs/decisions.md` 2026-07-25, reaffirmed 2026-08-25) — a founder-
+notification email on every post, success or failure, is the only checkpoint.
 
 ## Planning moved to Tree (2026-08-11) — what this desk still owns
 
@@ -187,9 +189,10 @@ from the X API, not a bug: the account really does have ~0 followers.
 
 ## Founder-notification buckets (reuse the existing system — never invent a new channel)
 
-- **Draft post approvals** → the Founders' Brief (6 AM / 8 PM delta) under a
-  "Social queue" section; urgent/timely drafts may additionally land as a
-  `founder-decision` issue so they're answerable the moment a founder looks.
+- **Social queue status** → the Founders' Brief (6 AM / 8 PM delta) under a
+  "Social queue" section, for visibility only — since 2026-07-25 posting
+  needs no founder reply; the brief just reports what's queued and what
+  shipped.
 - **New account creation / logins / paid tools** → **TX items**, written for
   a non-software human per Marjorie's charter §2.
 - **Channel autopost grants, strategy changes, anything reputational** →
