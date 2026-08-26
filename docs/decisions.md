@@ -5222,3 +5222,66 @@ an explicit, deliberate exception to the 2026-08-23 1-2/day founder-email
 cap, scoped only to social-post notifications.
 
 **Approved by:** Joey, in chat, 2026-08-25 06:49 PDT.
+
+## 2026-08-25 — social-ledger unprotected branch: dedupe correctness no longer depends on a PR merging (issue #2040)
+
+**Context:** two incidents (2026-07-17, 2026-08-11/12, issue #2031) shared
+one structural cause — the poster's source of truth for "what already
+posted" is `social/posted/` on `main`, and writing to it required a
+throwaway-branch PR to merge. Any failure of that merge (allowlist gap,
+disarm guard, a conflicting state PR, a required check that never ran) left
+the ledger silently stale, and posting on a stale ledger manufactures live
+duplicates Instagram/Facebook cannot delete after the fact. PR #2039
+mitigated this (state PRs auto-merge again; the poster fails closed while
+one is open) but did not remove the dependency itself. The stakes rose the
+same night this fix landed: Joey confirmed social posting has NO human
+review gate at all any more (see the entry immediately above) — this ledger
+is now the last real safety net against a live duplicate, with a
+post-notification email the only other signal.
+
+**Decision:** implemented Option A from issue #2040 — a dedicated
+UNPROTECTED branch, `social-ledger`, that `social-poster.yml` pushes to
+directly with a plain `git push` (no PR, no required check; confirmed via
+the repo's rulesets API that `protect-main` scopes to `refs/heads/main`
+only, so this branch is untouched by it). Each run:
+
+1. Overlays `social-ledger`'s `social/queue|posted|failed` onto the main
+   checkout ADDITIVELY (`git archive | tar -x` — writes files the ledger
+   has, never deletes a file main already has), so post-queue.mjs always
+   sees the union of what main knows and what this job has ever posted.
+2. Posts as before, then immediately pushes the updated ledger straight to
+   `social-ledger` — a plain fast-forward, each commit parented on the
+   branch's own previous tip, no `--force`. If this push fails, the run
+   goes red in THAT run, not silently three runs later.
+3. Still opens the existing throwaway-branch auto-merge PR into `main`
+   (issue #2031's mechanism, unchanged), but that PR is now VISIBILITY-only
+   — folding the ledger back into `main` for humans and for
+   check-drafts.mjs's recent-history heuristics, not a correctness
+   dependency. A stuck fold-back PR is a staleness-on-main problem now, not
+   a duplicate-post risk.
+
+Rejected Option B (treat platform APIs as the dedupe source of truth at
+post time) per the issue's own recommendation: it adds a network call and
+X's lookup limits on every run for a check the repo-side ledger already
+does deterministically and offline; Option A also let the existing
+fold-back-PR/allowlist/append-only mechanics from PR #2039 be reused almost
+unchanged instead of replaced.
+
+**Why this is the durable fix, not another mitigation:** every prior fix in
+this class (the PAT fix, the allowlist fix, PR #2039's fail-closed guard)
+still had "did the merge into `main` succeed" somewhere on the critical
+path. This one doesn't — the write that correctness depends on is a direct,
+unprotected `git push`, and the PR path left in the workflow is provably
+non-load-bearing (verified locally: a simulated stuck/unmerged fold-back PR
+still let a second run correctly detect the duplicate via the ledger
+branch alone).
+
+**Approved by:** Joey directed this fix directly in the same session that
+confirmed no human review gate remains on social posting (context above),
+explicitly as a design task with engineering judgment on the approach. The
+issue itself flagged "needs a small spec + Wyatt's call" at filing time;
+that predates both the no-review-gate confirmation and the 2026-08-22
+loosening of AI decision authority to include merge/push. This entry is
+that spec, filed with the implementing PR per CLAUDE.md rule 6 — Wyatt has
+not separately reviewed the design; flag for his attention if he wants to
+revisit the Option A vs. B call.

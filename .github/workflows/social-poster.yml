@@ -22,23 +22,45 @@
 # fails the Instagram post it rode in on — see crosspostToFacebook in
 # scripts/social/post-queue.mjs.
 #
-# main is branch-protected (PR + a passing "build" check required), so the
-# state commit below (which items posted/failed/retried) can't push to main
-# directly — found the hard way on the 2026-07-17 test run, whose two items
-# posted-vs-not correctly but then couldn't persist that fact, which would
-# have silently reposted them on the next scheduled run. It goes through a
-# throwaway branch + auto-merging PR instead, satisfying both rules.
+# main is branch-protected (PR + a passing "build" check required). That is
+# still true, but as of 2026-08-25 (issue #2040, see below) it no longer sits
+# on the path duplicate-post safety depends on — read on.
 #
-# That PR is opened and merged as Joey (via repo secret SOCIAL_POSTER_PAT, a
-# fine-grained personal access token scoped to just this repo, Contents +
-# Pull requests: read/write, ~1yr expiry — created 2026-07-17), not the
-# built-in GITHUB_TOKEN. Necessary, not optional: GitHub deliberately does
-# not let the built-in token trigger other workflows on what it pushes, so
-# a PR it opens can never get the required "build" check to run and could
-# never merge — discovered when the very first real content post's PR
-# (#783) sat permanently un-mergeable. A real user's token doesn't have
-# that restriction. Rotate SOCIAL_POSTER_PAT before it expires or this
-# silently reverts to that same stuck state.
+# The 2026-07-17 test run first exposed the problem: the state commit (which
+# items posted/failed/retried) couldn't push to main directly, so it went
+# through a throwaway branch + auto-merging PR instead. That PR can itself
+# fail to land — allowlist gap, disarm guard, a conflicting state PR, a
+# required check that never ran — and when it does, main keeps saying an
+# item is "still queued" after it already posted live. Two incidents shipped
+# real duplicates this way (2026-07-17; 2026-08-11/12, issue #2031), because
+# Instagram/Facebook have no dedup wall and the Graph API cannot delete
+# published media after the fact.
+#
+# THE FIX (2026-08-25, issue #2040, follow-up to PR #2039's mitigation):
+# dedupe correctness no longer depends on any PR merging. `social-ledger` is
+# a second, UNPROTECTED branch (outside the `protect-main` ruleset, which is
+# scoped to `refs/heads/main` only) that this job pushes straight to with a
+# plain `git push` — no PR, no required check, nothing that can silently
+# strand it. The "Read the posted/failed ledger" step below overlays that
+# branch's `social/queue|posted|failed` onto this run's checkout (additive —
+# it can only ADD records main doesn't have yet, never remove one), so
+# post-queue.mjs's idempotency check always sees the union of what main
+# knows and what this job itself has ever posted, regardless of whether any
+# fold-back PR into main has landed. The "Push ledger update directly to
+# social-ledger" step is the one that now actually matters for correctness:
+# if IT fails, the job goes red immediately, in THIS run, not silently three
+# runs later. That push is a plain fast-forward (each commit is parented on
+# the branch's own previous tip), not a `--force` — `concurrency: group:
+# social-poster` below serializes every run of this workflow, so nothing
+# else is ever racing that branch, and a genuine non-fast-forward there
+# fails loudly instead of silently overwriting whatever caused it.
+#
+# The old "refuse to post while a queue-state PR is open" guard (issue
+# #2031/PR #2039) is retired: it existed only because main's copy of
+# `social/posted/` could be stale while a state PR was stuck, and that is no
+# longer the thing dedupe reads. A stuck fold-back PR into main is now a
+# VISIBILITY problem (main's own copy lags), not a correctness one — see the
+# "Fold ledger back into main" step's comment below.
 #
 # Failure surfacing (2026-08-11). This workflow used to finish GREEN even when
 # a post permanently failed — the only trace was a console.error in the log
@@ -92,12 +114,16 @@ concurrency:
   group: social-poster
   cancel-in-progress: false
 
-# ONE definition of the state-branch naming scheme, used by BOTH the
-# stale-ledger guard and the state-commit step below. A rename that touches
-# only one of the two would make the guard silently match nothing (fail-open) —
-# scripts/social/social-poster-workflow.test.ts asserts the literal appears
+# ONE definition of each branch-naming scheme, shared by every step that
+# needs it, so a rename can't silently desync a reader from a writer:
+#   - LEDGER_BRANCH is the unprotected branch dedupe correctness now reads
+#     from and pushes to directly (issue #2040) — no PR, no merge gate.
+#   - STATE_BRANCH_PREFIX names the throwaway branches behind the fold-back
+#     PR into main, kept for visibility/audit only (see that step's comment).
+# scripts/social/social-poster-workflow.test.ts asserts each literal appears
 # exactly once, here.
 env:
+  LEDGER_BRANCH: social-ledger
   STATE_BRANCH_PREFIX: social-poster/state-
 
 jobs:
@@ -133,62 +159,60 @@ jobs:
         with:
           node-version: "24"
 
-      # Fail CLOSED on a stale ledger (issue #2031, 2026-08-12): every dedupe /
-      # idempotency check in post-queue.mjs reads social/posted/ from this
-      # checkout of main. If a previous run's queue-state PR is still open, the
-      # ledger on main is KNOWN stale — a post recorded on that branch looks
-      # "still queued" here, and posting anyway is exactly how the 2026-08-11/12
-      # Instagram triple-post happened. Refusing normally costs one 30-minute
-      # slot (state PRs auto-merge in ~2-3 min); a SUSTAINED strand halts
-      # posting entirely, loudly, until a human merges the stuck PR — that is
-      # the intended trade, because posting on a stale ledger costs live
-      # duplicates the IG API cannot even delete.
-      #
-      # Mechanics (hardened per PR #2039's reviews):
-      #   - `gh api --paginate` over open base:main PRs — a `gh pr list
-      #     --limit N` window could truncate away exactly the OLD stranded PR
-      #     that matters (same class as auto-merge-content.yml's pagination
-      #     note). One length per page is emitted; awk sums them.
-      #   - `github.token`, not the PAT: read-only listing must not fail when
-      #     the PAT expires, and an API failure prints a DISTINCT error so
-      #     nobody hunts for a stale ledger that isn't there. Both paths still
-      #     fail closed.
-      #   - Branch existence is deliberately NOT the signal: 43 merged/stale
-      #     state branches currently survive on origin, so a branch check
-      #     would false-positive forever.
-      #   - KNOWN GAP (accepted, see issue #2040): a state PR CLOSED without
-      #     merging, or a pushed branch whose `gh pr create` failed, leaves a
-      #     stale ledger with no open PR — undetectable here. Never close a
-      #     state PR; merge it.
-      - name: Refuse to post while a queue-state PR is still open (stale ledger)
-        if: steps.freeze.outputs.frozen != 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-        run: |
-          set -euo pipefail
-          if ! per_page_counts=$(gh api --paginate "repos/$REPO/pulls?state=open&base=main&per_page=100" \
-              --jq "[.[] | select(.head.ref | startswith(\"$STATE_BRANCH_PREFIX\"))] | length"); then
-            echo "::error::social-poster: could not enumerate open PRs (API/auth problem — NOT a stale ledger). Failing closed; nothing was posted this run."
-            exit 1
-          fi
-          open_state=$(printf '%s\n' "$per_page_counts" | awk '{s+=$1} END {print s+0}')
-          if [ "$open_state" -gt 0 ]; then
-            echo "::error::social-poster: $open_state open queue-state PR(s) (branch ${STATE_BRANCH_PREFIX}*) — the social/posted/ ledger on main is stale, so dedupe cannot be trusted. Refusing to post this run. State PRs auto-merge when green; if one is stuck, MERGE it — never close it, its diff is the only record those posts went out. See issue #2031."
-            exit 1
-          fi
-          echo "No open queue-state PRs — ledger current."
-
-      # Close the checkout→guard race (PR #2039 review): a state PR that
-      # merged between the checkout above and the guard just now would leave
-      # this tree stale even though the guard truthfully saw zero open PRs.
-      # Fast-forwarding AFTER the guard makes the tree at least as new as the
-      # state the guard verified, in every interleaving.
-      - name: Fast-forward to current main (post-guard)
+      # Freshness for social/queue/ (2026-08-12 originally; re-justified
+      # 2026-08-25 — this used to also close a race with the now-retired
+      # stale-ledger guard). main can advance in the few seconds between the
+      # checkout above and here (a founder's own queue edit, a content PR
+      # landing); this picks that up before post-queue.mjs runs. Not
+      # correctness-critical for dedupe any more — see the ledger sync step
+      # right below, which IS.
+      - name: Fast-forward to current main
         if: steps.freeze.outputs.frozen != 'true'
         run: |
           git fetch origin main
           git merge --ff-only FETCH_HEAD
+
+      # THE dedupe read path (issue #2040). Overlays $LEDGER_BRANCH's
+      # social/queue|posted|failed onto this checkout — ADDITIVELY: `git
+      # archive | tar -x` only ever writes files the ledger branch has, it
+      # never deletes anything, so a brand-new queue draft that only exists
+      # on main (not yet reflected in the ledger) survives untouched, and any
+      # posted/failed record the ledger knows about that main's own copy
+      # doesn't (because a fold-back PR is stuck) gets added in. The result is
+      # the literal union post-queue.mjs's idempotency check needs — reading
+      # main alone, or the ledger branch alone, could each individually be
+      # incomplete; reading both can't be, because neither side's writer ever
+      # deletes a record.
+      #
+      # Skips cleanly on a cold start: the branch doesn't exist until the
+      # first run that has an actual queue/posted/failed diff pushes it (see
+      # the "Push ledger update" step below) — until then main's own copy is
+      # the only copy, exactly like before this fix.
+      - name: Read the posted/failed ledger from social-ledger (union with main)
+        if: steps.freeze.outputs.frozen != 'true'
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin "$LEDGER_BRANCH" >/dev/null 2>&1; then
+            git fetch origin "$LEDGER_BRANCH"
+            # `git archive` errors on a pathspec absent from the tree — true
+            # today only if `.gitkeep` ever went away, but don't depend on
+            # that: build the archive list from paths that actually exist on
+            # the ledger tip, so a fully-emptied dir degrades to "nothing to
+            # overlay from the ledger for this dir this run" instead of
+            # failing the whole step (and the run) closed.
+            PATHS=""
+            for d in social/queue social/posted social/failed; do
+              if git cat-file -e "FETCH_HEAD:$d" 2>/dev/null; then
+                PATHS="$PATHS $d"
+              fi
+            done
+            if [ -n "$PATHS" ]; then
+              git archive FETCH_HEAD $PATHS | tar -x
+            fi
+            echo "social-ledger: overlaid onto this checkout."
+          else
+            echo "social-ledger: branch does not exist yet — main's own social/posted|failed is the seed."
+          fi
 
       # Exits non-zero when a post permanently failed (2026-08-11) — see the
       # "Failure surfacing" note in the header. Writes its run report to
@@ -209,6 +233,46 @@ jobs:
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
         run: node scripts/social/post-queue.mjs
 
+      # THE dedupe WRITE path (issue #2040) — the step correctness now
+      # actually depends on. Runs immediately after posting, before any
+      # email step, to shrink the window between "a post went live" and
+      # "that fact is durably recorded somewhere no PR merge can strand."
+      #
+      # Deliberately does NOT run a normal `git commit` on this checkout's
+      # own branch: that would consume the working-tree diff the fold-back
+      # PR step below still needs to build its own commit. Instead it stages
+      # the same three dirs (`git add`, same as that step) and builds the
+      # ledger commit directly from the index with `commit-tree`, which
+      # touches neither HEAD nor the branch pointer — so the index is left
+      # exactly as-is for the next step, whether this push succeeds or fails.
+      #
+      # Parented onto the branch's own previous tip (not onto `main`), so
+      # social-ledger keeps a real, continuous commit history of its own even
+      # though main's commit under it changes every run — first push creates
+      # the branch outright (no parent). Every push is therefore a genuine
+      # fast-forward and needs no `--force`: `concurrency: group:
+      # social-poster` (top of this file) already serializes every run of
+      # this workflow so nothing else can be racing this branch, and a plain
+      # push fails loudly (not silently) in the one case that would matter —
+      # some out-of-band, non-fast-forward edit to social-ledger itself.
+      - name: Push ledger update directly to social-ledger (no PR, no merge gate)
+        if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
+        run: |
+          set -euo pipefail
+          git add social/queue social/posted social/failed
+          if git diff --cached --quiet; then
+            echo "No queue/ledger changes this run — social-ledger unchanged."
+            exit 0
+          fi
+          NEW_TREE=$(git write-tree)
+          if git rev-parse --verify --quiet "origin/$LEDGER_BRANCH" >/dev/null 2>&1; then
+            NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "origin/$LEDGER_BRANCH" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ)")
+          else
+            NEW_COMMIT=$(git commit-tree "$NEW_TREE" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ) (first push)")
+          fi
+          git push origin "$NEW_COMMIT:refs/heads/$LEDGER_BRANCH"
+          echo "social-ledger updated -> $NEW_COMMIT"
+
       # Founder success email (2026-08-25, docs/decisions.md same date):
       # Joey wants an email on every post that actually goes live, not just
       # failures — explicit exception to the founder-email cap, scoped to
@@ -217,8 +281,8 @@ jobs:
       # run, so a "nothing due"/all-failed run sends no mail — this step just
       # forwards whatever's there through the same mailer watchdog.yml uses
       # (scripts/watchdog/send-mail.py), never a new send path. Runs whenever
-      # the poster actually ran, same condition as the state-commit step
-      # below, so a post that landed still gets its email even if a
+      # the poster actually ran, same condition as the ledger-push step
+      # above, so a post that landed still gets its email even if a
       # different item in the same run permanently failed.
       - name: Notify founder of successful posts
         if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
@@ -241,14 +305,27 @@ jobs:
             echo "No successful posts this run — nothing to email."
           fi
 
-      # `if: always()` is load-bearing, not defensive: the step above now
-      # fails the job when an item permanently failed, and that is exactly the
-      # run whose state MUST be recorded — the item's move into social/failed/
-      # only exists on this runner's disk. Skip this and the item stays in
-      # social/queue/ on main and retries against the same wall forever.
-      - name: Commit queue state changes (via PR — main is branch-protected)
-        # Runs whether the poster succeeded or failed, but not if it never ran
-        # (a checkout/setup failure has no state to commit).
+      # Fold-back PR into main (VISIBILITY ONLY as of issue #2040 — see the
+      # header note). Dedupe correctness no longer depends on this PR landing
+      # — the "Push ledger update" step above already made the posted/failed
+      # record durable on $LEDGER_BRANCH with no PR involved. This step keeps
+      # main's own copy of social/queue|posted|failed current for humans
+      # (browsing the repo, check-drafts.mjs's recent-history heuristics on
+      # future queue PRs) and for the audit trail main's history provides.
+      #
+      # `if: always()` is still deliberate: the ledger-push step above and
+      # this one both read the SAME staged diff (see that step's comment on
+      # why `commit-tree` leaves the index untouched), so this fires and
+      # commits it to main's history regardless of whether the direct push
+      # above succeeded — belt and suspenders, not the primary safety net.
+      #
+      # A stuck fold-back PR is now a staleness-on-main problem, not a
+      # duplicate-post risk: never CLOSE it (that erases main's record of
+      # what happened, same append-only reasoning as before #2040), but a
+      # human does not need to drop everything to merge it — watchdog.yml's
+      # generic stuck-PR check already surfaces a PR wedged on a failing or
+      # missing check.
+      - name: Fold ledger back into main (via PR — visibility only, not correctness-critical)
         if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
         env:
           GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
@@ -259,7 +336,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add social/queue social/posted social/failed
           if git diff --cached --quiet; then
-            echo "No queue changes to commit."
+            echo "No queue changes to fold back into main."
             exit 0
           fi
           TITLE_SUFFIX=""
@@ -272,7 +349,7 @@ jobs:
           else
             echo "social-poster produced no report (the poster step itself crashed before reporting)." > "$BODY_FILE"
           fi
-          printf '\n---\n\nAutomated queue state update (posted/failed/retry attempts) from this scheduled run. No content decisions are made here.\n\n⚠️ **Never CLOSE this PR — merge it.** Its diff is the only record that these posts went out; closing it leaves `main` claiming they are still queued, and the poster will refuse to run (stale-ledger guard) or, worse, repost them (issue #2031).\n' >> "$BODY_FILE"
+          printf '\n---\n\nAutomated queue state update (posted/failed/retry attempts) from this scheduled run, folding social-ledger back into main for visibility. No content decisions are made here, and this PR is no longer what dedupe correctness depends on (issue #2040) — the posted/failed record already landed durably on the unprotected `social-ledger` branch in this same run.\n\n⚠️ Please still merge, not close — closing leaves main claiming these items are still queued, which is a staleness/visibility problem even though it can no longer cause a live duplicate post.\n' >> "$BODY_FILE"
           BRANCH="${STATE_BRANCH_PREFIX}$(date -u +%Y%m%d%H%M%S)"
           git checkout -b "$BRANCH"
           git commit -m "social-poster: queue run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
@@ -283,13 +360,13 @@ jobs:
           gh pr merge "$BRANCH" --squash --auto --delete-branch
 
       # See the "Failure EMAIL" header note above. `if: always()` — this must
-      # fire even if the commit step above fails to push/open its PR; email
-      # delivery must not depend on git succeeding. `steps.post.outcome` is
-      # the exact same signal the commit step already uses for POST_OUTCOME /
-      # the PR's "⛔ A POST FAILED" title suffix, so there is no second
-      # definition of "did this run fail" to keep in sync. send-mail.py
-      # skips quietly (exit 0) if GMAIL_APP_PASSWORD/MARJORIE_EMAIL are ever
-      # unset — never blocks the run either way.
+      # fire even if the fold-back step above fails to push/open its PR;
+      # email delivery must not depend on git succeeding. `steps.post.outcome`
+      # is the exact same signal the fold-back step already uses for
+      # POST_OUTCOME / the PR's "⛔ A POST FAILED" title suffix, so there is
+      # no second definition of "did this run fail" to keep in sync.
+      # send-mail.py skips quietly (exit 0) if GMAIL_APP_PASSWORD/
+      # MARJORIE_EMAIL are ever unset — never blocks the run either way.
       - name: Email Joey on a permanent post failure
         if: always() && steps.post.outcome == 'failure'
         env:
