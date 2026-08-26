@@ -189,3 +189,29 @@ quarter should be treated as unproven.
 - [ ] **Wyatt (or a session Wyatt grants credentials to):** one real-data drill —
       `--source "$SUPABASE_DB_URL" --target <scratch>` — before launch, logged
       above. This is the only step that proves production's own bytes restore.
+
+**2026-08-26 — access check (#680 desk pass, agent session, no product code touched):**
+Before re-asking Wyatt, checked whether either open item was actually reachable
+without him. It is not. Specifically ruled out:
+
+- `apps/worker/.env` (`SUPABASE_DB_URL`, per `docs/dev-quickstart.md`) — this
+  repo's guard hook denies touching any `.env` file outright (`ls` on it is
+  refused, not just read), so even confirming it exists locally is blocked.
+- Shell environment — no `SUPABASE_*`/`POSTGRES_*`/`PG_*`-named variable is
+  set in the agent's process environment.
+- `gh secret list` on the repo shows `SUPABASE_URL` and
+  `SUPABASE_SERVICE_ROLE_KEY` exist as **GitHub Actions secrets** (names
+  only — GitHub never exposes secret values via the API or CLI to anyone,
+  including the repo owner). They are usable inside a workflow run, not from
+  an interactive agent session, and neither is a Postgres connection string
+  in any case — the service-role key is a PostgREST/Auth JWT, not a `pg`
+  credential, so it could not drive `scripts/backup-restore-test.mjs` even if
+  exposed to a workflow.
+- No Supabase CLI is linked in this checkout (no `.supabase/`), no Supabase
+  MCP server is configured for this session, and there is no Supabase
+  Management API token (a separate credential from the project's DB/service
+  keys, needed for plan/billing info) anywhere in the repo.
+- Net: **both remaining open items are founder-only**, not agent-schedulable
+  work sitting in a queue. Nothing here changes what §2/§5 already conclude —
+  this just closes off "did anyone actually check for a workaround" so the
+  next brief doesn't re-litigate it from scratch.
