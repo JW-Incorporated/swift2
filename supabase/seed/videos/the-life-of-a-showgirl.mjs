@@ -262,7 +262,7 @@ export default {
       relatedSongs: [],
       tags: ['Tour'],
       summary:
-        'The first trailer for the 6-episode "End of an Era" docuseries, released the same day Swift announced the project on Good Morning America — real backstage, rehearsal, and tour-ending footage.',
+        'The first trailer for the 6-episode "End of an Era" docuseries, released the same day Taylor announced the project on Good Morning America — real backstage, rehearsal, and tour-ending footage.',
       symbolism: null,
       easterEggs: [],
       officialUrl: 'https://www.youtube.com/watch?v=YF6jaBeBMIk',
