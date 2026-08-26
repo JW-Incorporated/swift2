@@ -614,6 +614,33 @@ reflects it, and a test PR still merges once `build` is green.
 
 ## DONE
 
+### 25. [BLOCKING] Two PRs stuck with zero GitHub Actions check-suite — one is the live IG/X posting bug fix — ~5-15 min, needs your GitHub UI access
+
+**Filed:** 2026-08-26
+
+**Why it matters:** you asked why Instagram posts have been silent while X
+posts keep firing, and why 4 posts went out at once instead of ~daily.
+**Both are fully diagnosed and fixed** (see the writeup below/in chat), but
+the fix — **PR #3372** — cannot merge: GitHub Actions never creates a
+`build`/`CodeQL`/`tree-pr-mail` check-suite for this branch at all, so the
+required `build` status check (branch protection, `bypass_actors: []` —
+nobody can bypass it, not even you as admin) never appears and the merge
+stays blocked. A second, unrelated PR (**#3371**, a routine content batch)
+hit the identical symptom, as did its predecessor **#3369** before it. Two
+separate agent investigations ruled out: workflow files disabled, repo
+Actions permissions, path filters, draft-PR suppression, an org-wide
+outage (other same-window PRs got full check-suites fine), and fork-PR
+restrictions (both are same-repo branches, not forks). Pushing an empty
+commit and closing/reopening the PR did not trigger anything either.
+
+**Status:** DONE — 2026-08-26 ~10:04 PDT. Both #3372 and #3371 merged on
+their own not long after Joey checked the Settings/Actions UI (root cause
+of the missing check-suite never conclusively identified, but it resolved
+itself rather than needing a workaround branch). Confirmed on `main`:
+`scripts/social/lib/queue.mjs`'s `MAX_POSTS_PER_RUN = 1` (was 5).
+
+---
+
 ### 21. [BLOCKING] Grant the Paul Blart runner read access to Dependabot alerts — ~5 min
 
 **Filed:** 2026-08-17
