@@ -2170,7 +2170,7 @@ export default {
       // cited source below); curl-verified HTTP 200 image/png and vision-confirmed single-frame,
       // no watermark/collage, matching the "plum Popflex Active skort" described in the context.
       thumbnailUrl:
-        'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?ssl=1',
+        'https://www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?ssl=1',
       moment: {
         context:
           'The video, styled around Eras Tour rehearsal footage, mixed pieces from small activewear brands (Popflex Active, WISKII Active) with Golden Goose sneakers and an Awe Inspired gold pendant necklace — a deliberately unglamorous, backstage counterpoint to the tour\'s stage costuming.\n\nFor Popflex founder Cassey Ho — the Blogilates creator who designs the line — the placement was surreal: she wrote that her heart pounded and her team\'s Slack "blew up" as she stood frozen in front of the TV counting her own designs onscreen, with Popflex pieces (including the viral lavender Pirouette skort and the Twirl skort) appearing four separate times in the video.',
@@ -2188,7 +2188,7 @@ export default {
           {
             // Image-fix pass (2026-07-10): #346 — replaced the Eras Tour stage-costume photo (see
             // thumbnailUrl note above) with the same verified Blogilates video screenshot.
-            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?ssl=1',
+            url: 'https://www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?ssl=1',
             credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
             caption: 'The plum Popflex Active skort from the video\'s backstage rehearsal footage.',
             // Photo pass #762 (2026-07-19): viewed — mid-dance on the marked rehearsal floor,
@@ -2200,7 +2200,7 @@ export default {
           // snippet names. curl 200 image/png 2302x1500; Read-viewed: single video frame, no
           // watermark or collage, distinct from the plum-skort frame above.
           {
-            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.16.26-AM.png',
+            url: 'https://www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.16.26-AM.png',
             credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
             caption: 'The lavender Popflex tulle skirt and matching corset bra, mid-rehearsal in the video.',
             focalPoint: '41% 25%',

@@ -374,7 +374,7 @@ export default {
       snippet:
         'She chopped her hair into blunt, eyelash-skimming bangs at the AMAs — a look that would become a recurring signature over the next decade.',
       sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_79322072_XL.jpg',
+      thumbnailUrl: 'https://www.femestella.com/wp-content/uploads/2022/11/Depositphotos_79322072_XL.jpg',
       moment: {
         context:
           'Paired that night with a beaded Collette Dinnigan mini dress. A departure from the loose curls she\'d worn since 2006 — Bustle marks it as the moment she "chopped her blonde strands into blunt, eyelash-skimming bangs that would evolve over time — and eventually become her new signature," officially trading the Fearless-era voluminous curls for a sleeker look.\n\nThe fringe stuck, evolving over the following years into the look she\'s now known for — arguably the most durable style decision of her career.',
@@ -384,7 +384,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_79322072_XL.jpg',
+            url: 'https://www.femestella.com/wp-content/uploads/2022/11/Depositphotos_79322072_XL.jpg',
             credit: 'Femestella',
           },
         ],
@@ -423,7 +423,7 @@ export default {
       snippet:
         'A sparkly gold strapless Reem Acra beaded gown paired with a side ponytail at the 2011 AMAs, where she was up for Artist of the Year.',
       sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_13015212_XL.jpg',
+      thumbnailUrl: 'https://www.femestella.com/wp-content/uploads/2022/11/Depositphotos_13015212_XL.jpg',
       moment: {
         context:
           'She didn\'t just show up nominated — she swept all three of her categories that night: Favorite Country Female Artist, Favorite Country Album for Speak Now, and Artist of the Year, her second time taking the show\'s top prize, over a field that included Adele, Lady Gaga, and Katy Perry.\n\nHer reaction onstage: "This is so crazy!" The gold beaded Reem Acra and side ponytail made it one of the era\'s most remembered award-show looks.',
@@ -436,7 +436,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_13015212_XL.jpg',
+            url: 'https://www.femestella.com/wp-content/uploads/2022/11/Depositphotos_13015212_XL.jpg',
             credit: 'Femestella',
           },
         ],
@@ -473,7 +473,7 @@ export default {
       snippet:
         'The album cover itself is a fashion moment: a strapless purple ombre chiffon gown by Reem Acra, fading from deep violet to pale lilac.',
       sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg',
+      thumbnailUrl: 'https://www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg',
       moment: {
         context:
           'The Reem Acra gown for the Speak Now cover shoot set the visual identity for the whole era: strapless purple ombre chiffon fading from deep violet to pale lilac, photographed mid-twirl with curled hair and red lipstick.\n\nThe purple was less a dress choice than a thesis — it became the era\'s color outright. The Speak Now World Tour picked the thread straight up, with costume designer Susan Hilferty building a custom purple chiffon halter gown that became the show\'s signature look. The image she twirled in on the cover was, in effect, the version of the era every arena later got.',
@@ -483,7 +483,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg',
+            url: 'https://www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg',
             // Album cover: her face is in the upper-right quadrant.
             focalPoint: '54% 16%',
             credit: 'Reem Acra / Big Machine Records',
@@ -526,6 +526,15 @@ export default {
           },
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-glamour-magazine-interview/' },
         ],
+        // TODO (image.host-reputation, issue #1723, 2026-08-26): cdn.shopify.com
+        // is a generic multi-tenant e-commerce CDN (any Shopify store shares
+        // this hostname) and catherineangiel.com — a small jewelry designer's
+        // blog, not a press/archival outlet — is a one-off citation elsewhere
+        // in this corpus, so it doesn't clear the "already relied on
+        // repeatedly" bar used to allowlist similar archive sites in this
+        // pass. Searched for an equivalent Nov 2010 Glamour-cover image on an
+        // already-allowlisted host (Wikimedia, Getty, People, WWD) and found
+        // none — leaving flagged rather than fabricating a replacement.
         photos: [
           {
             url: 'https://cdn.shopify.com/s/files/1/0234/1539/files/Glamour_November_2010_-_Cover_-Taylor_Swift_large.JPG',

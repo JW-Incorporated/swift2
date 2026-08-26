@@ -80,6 +80,17 @@ export function imageMeta(buf) {
 
 function hostOf(url) { try { return new URL(url).hostname.toLowerCase(); } catch { return null; } }
 
+// Scoped-CDN check: is this URL under one of the trusted (host, pathPrefix)
+// pairs in CONFIG.scopedHostAllowlist? See config.mjs for why this exists
+// (generic multi-tenant CDNs where the tenant lives in the path, not host).
+function isScopedAllowed(url, host) {
+  const scoped = CONFIG.scopedHostAllowlist || [];
+  if (!scoped.length) return false;
+  let pathname;
+  try { pathname = new URL(url).pathname; } catch { return false; }
+  return scoped.some((s) => s.host === host && pathname.startsWith(s.pathPrefix));
+}
+
 // SSRF guard: seed data is repo-controlled but probed unattended, so never let
 // a URL point the probe at loopback/RFC1918/link-local/metadata targets.
 // Hostname-level check (applied to the original URL and the post-redirect one).
@@ -222,7 +233,7 @@ export async function check(items, ctx = {}) {
   for (const { im, r } of probes) {
     const host = hostOf(im.url);
     // Host reputation (also the safety net).
-    if (host && !CONFIG.hostAllowlist.includes(host)) {
+    if (host && !CONFIG.hostAllowlist.includes(host) && !isScopedAllowed(im.url, host)) {
       findings.push(makeFinding({
         checker: 'image.host-reputation', severity: 'P2',
         title: `Image from unvetted host: ${host}`,

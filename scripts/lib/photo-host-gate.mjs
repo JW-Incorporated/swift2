@@ -29,21 +29,22 @@
 //     validate-content.mjs errors on a stale entry, so the list can only
 //     shrink, never rot into a permanent exemption nobody rechecks.
 export const PHOTO_HOST_LEGACY = new Set([
+  // 2026-08-26 (issue #1723 second pass): entertainmentnow.com,
+  // fashionsizzle.com, medias.spotern.com, ra-grammy-media.ncp.consulting,
+  // stealherstyle.net, taylorpictures.net, tayswiftstyle.wordpress.com,
+  // www.femestella.com, and www.shefinds.com were reviewed and promoted to
+  // CONFIG.hostAllowlist (dedicated single-tenant hosts, several already
+  // relied on repeatedly elsewhere in the corpus as citations) — removed
+  // from here since they no longer need grandfathering. i0.wp.com's every
+  // use in the corpus was re-pointed at its (now-trusted) origin host, so
+  // it's removed as genuinely unused. cdn.shopify.com stays below — the one
+  // remaining review candidate from that pass, left flagged with a TODO
+  // rather than a fabricated replacement.
   'cdn.shopify.com',
-  'entertainmentnow.com',
-  'fashionsizzle.com',
   'format.creatorcdn.com',
-  'i0.wp.com',
   'images.prismic.io',
   'images.squarespace-cdn.com',
-  'medias.spotern.com',
-  'ra-grammy-media.ncp.consulting',
-  'stealherstyle.net',
   'storage.googleapis.com',
-  'taylorpictures.net',
-  'tayswiftstyle.wordpress.com',
-  'www.femestella.com',
-  'www.shefinds.com',
 ]);
 
 /** Same host-extraction rule everywhere: lowercase hostname, or null. */
