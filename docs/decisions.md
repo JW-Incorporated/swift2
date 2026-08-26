@@ -7,6 +7,50 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-25 — Social posting stays fully automated; no human review gate before publish (closes #2316)
+
+**Decision:** social posting has no human-review/approval step before a post
+goes live, and none is being added. `social/queue/` drafts auto-merge on
+green (`.github/content-automerge-allowlist.txt`, per the 2026-07-25
+decision below) and ship automatically at their `scheduledAt` via
+`social-poster.yml` — no founder reads a caption before it posts. The only
+safeguard is the existing founder-notification email the poster already
+sends on every post, success and failure, so a founder can check what went
+out after the fact. This closes issue #2316's open question ("should the
+human-merge gate stand?") — the answer is no, there was never meant to be
+one going forward, and the docs conflict that issue flagged is fixed by this
+entry plus the companion doc sweep in the same PR.
+
+**Why:** Joey's exact words, in chat: "there is no human review required for
+social... social is fully automated, I consider social reversible. all I
+want is an email whenever social goes out so I can check it. that email is
+working, so we don't need any human overview on social besides that." This
+reaffirms and makes explicit what the 2026-07-25 decision already did in
+mechanics (`isDue` no longer checks `approvedBy`/`approvedAt`; autoposting
+turned on for X and Instagram) but left ambiguous in prose — `social/README.
+md` and `docs/agents/growth.md` both still carried language a reasonable
+reader could take as "the PR merge is the human gate," which is exactly the
+conflict issue #2316 reported when an auto-merge fired on a `growth`-labeled
+queue PR nobody had read. Per Joey's authority as sole active decision-maker
+for this repo (2026-08-25 governance decision, PR #3154) and his stated
+reversibility judgment (a bad post can be deleted/corrected; the account is
+not the product), the appropriate control is detection-after-the-fact (the
+notification email), not prevention-before-publish.
+
+**Alternatives considered:** (1) keep a discretionary "hold" escape valve
+where the drafting run can flag a genuinely alarming item for a human look
+before it ships (`docs/agents/runner-prompts/growth-draft.md` step 6) —
+kept, since it's the desk's own judgment call on rare content, not a default
+review requirement, and doesn't contradict "no review required by default";
+(2) require human merge on `social/queue/` PRs specifically while
+auto-merging everything else — rejected, this is the exact gate Joey just
+said isn't needed, and it would leave `social/README.md`'s "the content gate
+stays on `queue/`" language actively misleading again.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-25).
+
+---
+
 ## 2026-08-25 — Era placement is decided by real-world date, never by subject/catalog era
 
 **Decision:** for every content type and every content-authoring pipeline —
@@ -5178,3 +5222,66 @@ an explicit, deliberate exception to the 2026-08-23 1-2/day founder-email
 cap, scoped only to social-post notifications.
 
 **Approved by:** Joey, in chat, 2026-08-25 06:49 PDT.
+
+## 2026-08-25 — social-ledger unprotected branch: dedupe correctness no longer depends on a PR merging (issue #2040)
+
+**Context:** two incidents (2026-07-17, 2026-08-11/12, issue #2031) shared
+one structural cause — the poster's source of truth for "what already
+posted" is `social/posted/` on `main`, and writing to it required a
+throwaway-branch PR to merge. Any failure of that merge (allowlist gap,
+disarm guard, a conflicting state PR, a required check that never ran) left
+the ledger silently stale, and posting on a stale ledger manufactures live
+duplicates Instagram/Facebook cannot delete after the fact. PR #2039
+mitigated this (state PRs auto-merge again; the poster fails closed while
+one is open) but did not remove the dependency itself. The stakes rose the
+same night this fix landed: Joey confirmed social posting has NO human
+review gate at all any more (see the entry immediately above) — this ledger
+is now the last real safety net against a live duplicate, with a
+post-notification email the only other signal.
+
+**Decision:** implemented Option A from issue #2040 — a dedicated
+UNPROTECTED branch, `social-ledger`, that `social-poster.yml` pushes to
+directly with a plain `git push` (no PR, no required check; confirmed via
+the repo's rulesets API that `protect-main` scopes to `refs/heads/main`
+only, so this branch is untouched by it). Each run:
+
+1. Overlays `social-ledger`'s `social/queue|posted|failed` onto the main
+   checkout ADDITIVELY (`git archive | tar -x` — writes files the ledger
+   has, never deletes a file main already has), so post-queue.mjs always
+   sees the union of what main knows and what this job has ever posted.
+2. Posts as before, then immediately pushes the updated ledger straight to
+   `social-ledger` — a plain fast-forward, each commit parented on the
+   branch's own previous tip, no `--force`. If this push fails, the run
+   goes red in THAT run, not silently three runs later.
+3. Still opens the existing throwaway-branch auto-merge PR into `main`
+   (issue #2031's mechanism, unchanged), but that PR is now VISIBILITY-only
+   — folding the ledger back into `main` for humans and for
+   check-drafts.mjs's recent-history heuristics, not a correctness
+   dependency. A stuck fold-back PR is a staleness-on-main problem now, not
+   a duplicate-post risk.
+
+Rejected Option B (treat platform APIs as the dedupe source of truth at
+post time) per the issue's own recommendation: it adds a network call and
+X's lookup limits on every run for a check the repo-side ledger already
+does deterministically and offline; Option A also let the existing
+fold-back-PR/allowlist/append-only mechanics from PR #2039 be reused almost
+unchanged instead of replaced.
+
+**Why this is the durable fix, not another mitigation:** every prior fix in
+this class (the PAT fix, the allowlist fix, PR #2039's fail-closed guard)
+still had "did the merge into `main` succeed" somewhere on the critical
+path. This one doesn't — the write that correctness depends on is a direct,
+unprotected `git push`, and the PR path left in the workflow is provably
+non-load-bearing (verified locally: a simulated stuck/unmerged fold-back PR
+still let a second run correctly detect the duplicate via the ledger
+branch alone).
+
+**Approved by:** Joey directed this fix directly in the same session that
+confirmed no human review gate remains on social posting (context above),
+explicitly as a design task with engineering judgment on the approach. The
+issue itself flagged "needs a small spec + Wyatt's call" at filing time;
+that predates both the no-review-gate confirmation and the 2026-08-22
+loosening of AI decision authority to include merge/push. This entry is
+that spec, filed with the implementing PR per CLAUDE.md rule 6 — Wyatt has
+not separately reviewed the design; flag for his attention if he wants to
+revisit the Option A vs. B call.
