@@ -161,7 +161,7 @@ jobs:
           GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
         run: |
           set -euo pipefail
-          git add social/queue
+          git add social/queue apps/web/public/social/library/photos
           if git diff --cached --quiet; then
             echo "No new social drafts staged this run."
             exit 0

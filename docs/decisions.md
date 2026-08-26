@@ -5271,6 +5271,31 @@ cap, scoped only to social-post notifications.
 
 **Approved by:** Joey, in chat, 2026-08-25 06:49 PDT.
 
+## 2026-08-25 — X + Instagram pairing is mandatory for every social campaign
+
+**Context:** the Grammy Museum Icon Sessions campaign surfaced the actual
+delivery gap: its queue item targeted X only, even though Joey expected the
+campaign to reach X, Instagram, and Facebook together. The poster has no
+single “post everywhere” item type. An `x` item reaches only X; an
+`instagram` item reaches Instagram and then uses the existing
+`FB_PAGE_ID`/`IG_ACCESS_TOKEN` cross-post path to reach Facebook. The posted
+history confirmed this was not an isolated miss: most campaigns had been
+authored for only one platform, with an Instagram sibling added only when a
+drafter happened to remember.
+
+**Decision:** every real social campaign is authored as a pair in the same
+change: one queue item with `platform: "x"` and one with
+`platform: "instagram"`, both carrying the same story-unique `campaign`
+value. The two bodies remain platform-native rather than copies. Facebook is
+covered by the Instagram item’s existing automatic cross-post, so no separate
+Facebook queue item is drafted. A genuinely unsuitable format may be
+single-platform only when its `why` contains an explicit
+`Single-platform exception: <specific human-readable reason>` note; omission,
+missing media, or convenience is not an exception. Historical gaps are
+reported, not automatically backfilled.
+
+**Approved by:** Joey, in chat, 2026-08-25.
+
 ## 2026-08-25 — social-ledger unprotected branch: dedupe correctness no longer depends on a PR merging (issue #2040)
 
 **Context:** two incidents (2026-07-17, 2026-08-11/12, issue #2031) shared

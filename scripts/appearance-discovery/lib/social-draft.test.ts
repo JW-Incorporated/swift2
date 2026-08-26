@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { buildSocialDraft } from './social-draft.mjs';
+import { buildSocialDraftPair } from './social-draft.mjs';
 import { validateQueueItem } from '../../social/lib/queue-schema.mjs';
-import { checkSchema, checkOpeners, checkLength } from '../../social/check-drafts.mjs';
+import { checkSchema, checkOpeners, checkCrossPostCopy, checkLength } from '../../social/check-drafts.mjs';
 import { weightedTweetLength } from '../../social/lib/x-length.mjs';
 
 const NOW = new Date('2026-08-25T13:40:00Z');
@@ -17,16 +17,38 @@ const candidate = (overrides = {}) => ({
   ...overrides,
 });
 
+const buildSocialDraft = (...args: Parameters<typeof buildSocialDraftPair>) => {
+  const pair = buildSocialDraftPair(...args);
+  const x = pair.drafts.find(({ item }) => item.platform === 'x');
+  if (!x) throw new Error('pair missing X item');
+  return x;
+};
+
 describe('buildSocialDraft', () => {
-  it('produces an item that passes the real queue schema gate with zero findings', () => {
-    const { item } = buildSocialDraft(candidate(), { now: NOW });
-    expect(validateQueueItem(item)).toEqual([]);
+  it('authors X and Instagram together with one campaign and schedule', () => {
+    const { drafts, media } = buildSocialDraftPair(candidate(), { now: NOW });
+    expect(drafts.map(({ item }) => item.platform).sort()).toEqual(['instagram', 'x']);
+    expect(new Set(drafts.map(({ item }) => item.campaign))).toEqual(new Set(['appearance:dQw4w9WgXcQ']));
+    expect(new Set(drafts.map(({ item }) => item.scheduledAt)).size).toBe(1);
+    expect(drafts.find(({ item }) => item.platform === 'instagram')?.item.media).toEqual([media.sitePath]);
   });
 
-  it('produces an item that passes check-drafts.mjs schema + length rules with zero findings', () => {
-    const { item } = buildSocialDraft(candidate(), { now: NOW });
-    expect(checkSchema(item)).toEqual([]);
-    expect(checkLength(item)).toEqual([]);
+  it('produces two items that both pass the real queue schema gate', () => {
+    const { drafts } = buildSocialDraftPair(candidate(), { now: NOW });
+    expect(drafts.flatMap(({ item }) => validateQueueItem(item))).toEqual([]);
+    expect(drafts.flatMap(({ item }) => [...checkSchema(item), ...checkLength(item)])).toEqual([]);
+  });
+
+  it('keeps the pair platform-native and gives each sibling a distinct opener', () => {
+    const { drafts } = buildSocialDraftPair(candidate(), { now: NOW });
+    const queue = drafts.map(({ filename, item }) => ({ file: filename, data: item }));
+    const x = queue.find(({ data }) => data.platform === 'x');
+    if (!x) throw new Error('pair missing X item');
+
+    expect(checkCrossPostCopy(x.file, x.data, queue)).toEqual([]);
+    for (const draft of queue) {
+      expect(checkOpeners(draft.file, draft.data, queue.map(({ file, data }) => ({ file, body: data.body })))).toEqual([]);
+    }
   });
 
   it('names the file <scheduledDay>-appearance-<videoId>-x.json', () => {

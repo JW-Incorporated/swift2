@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs checker, no types
-import { check } from './social-post-missing.mjs';
+import { check as checkWithSocial, checkCampaignPairs, hasSinglePlatformException } from './social-post-missing.mjs';
+
+const check = (items: object[]) => checkWithSocial(items, { socialRecords: [] });
 
 const moment = (context: string, socialPost?: object) => ({
   type: 'moment',
@@ -39,4 +41,53 @@ describe('social-post-missing check', () => {
 
     expect(await check([item])).toEqual([]);
   });
+});
+
+const social = (file: string, platform: string, campaign: string, why = 'why this, why now') => ({
+  file,
+  item: { platform, campaign, why },
+});
+
+describe('social campaign pairing check', () => {
+  it('accepts a campaign represented by X and Instagram across queue and posted', () => {
+    const findings = checkCampaignPairs([
+      social('social/posted/story-x.json', 'x', 'story:paired'),
+      social('social/queue/story-ig.json', 'instagram', 'story:paired'),
+    ]);
+
+    expect(findings).toEqual([]);
+  });
+
+  it('reports one P2 finding for a campaign with only one platform', () => {
+    const findings = checkCampaignPairs([
+      social('social/posted/story-x.json', 'x', 'story:single'),
+      social('social/posted/story-x-retry.json', 'x', 'story:single'),
+    ]);
+
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toMatchObject({
+      checker: 'content.social-post-missing',
+      severity: 'P2',
+      itemRef: { key: 'story:single', field: 'platform' },
+    });
+    expect(findings[0].title).toContain('instagram');
+  });
+
+  it('accepts only the explicit human-readable exception marker', () => {
+    expect(hasSinglePlatformException('Single-platform exception: no verified visual exists for Instagram.')).toBe(true);
+    expect(hasSinglePlatformException('This format works best on X.')).toBe(false);
+    expect(hasSinglePlatformException('Single-platform exception: n/a')).toBe(false);
+
+    expect(
+      checkCampaignPairs([
+        social(
+          'social/posted/story-x.json',
+          'x',
+          'story:excepted',
+          'Why now. Single-platform exception: the interactive X poll has no Instagram equivalent.',
+        ),
+      ]),
+    ).toEqual([]);
+  });
+
 });
