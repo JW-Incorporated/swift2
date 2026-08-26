@@ -29,9 +29,27 @@ import { createHash } from 'node:crypto';
  * of how items got scheduled. It is a pacing floor, NOT the daily volume
  * policy: MAX_POSTS_PER_PLATFORM_PER_DAY below is still what bounds
  * how much ships in a day.
+ *
+ * 10 -> 1 on 2026-08-26 (Joey, issue #3373: "roughly once a day" is the
+ * real target, and 10/platform/day left the daily volume essentially
+ * uncapped — nothing before this stopped a drained backlog from posting up
+ * to 10 X items and 10 Instagram items in one calendar day). Combined with
+ * mandatory X+Instagram pairing (checkCampaignPair, no exceptions as of
+ * 2026-08-26) and MAX_POSTS_PER_RUN=1 above, the real ceiling is now one
+ * campaign — one X post plus its mandatory Instagram sibling — per platform
+ * per calendar day.
+ *
+ * "Day" here is a **UTC calendar day** (`utcDateOnly`, `YYYY-MM-DD` in UTC),
+ * NOT a rolling 24h window — see `countPostedToday` below, which buckets
+ * `social/posted/*.json` records by the UTC date of their `postedAt`. The
+ * budget therefore resets at 00:00 UTC regardless of when the day's post(s)
+ * actually went out, so two posts on the same platform can legally land as
+ * close together as a few minutes (one at 23:58 UTC, the next at 00:02 UTC)
+ * without violating the cap — this is a per-UTC-day ceiling, not a spacing
+ * guarantee (that's MAX_POSTS_PER_RUN's job).
  */
 export const MAX_POSTS_PER_RUN = 1;
-export const MAX_POSTS_PER_PLATFORM_PER_DAY = 10;
+export const MAX_POSTS_PER_PLATFORM_PER_DAY = 1;
 
 /**
  * True if `item.scheduledAt` parses to an actual point in time. Added

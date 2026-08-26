@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs checker, no types
-import { check as checkWithSocial, checkCampaignPairs, hasSinglePlatformException } from './social-post-missing.mjs';
+import { check as checkWithSocial, checkCampaignPairs } from './social-post-missing.mjs';
 
 const check = (items: object[]) => checkWithSocial(items, { socialRecords: [] });
 
@@ -73,21 +73,20 @@ describe('social campaign pairing check', () => {
     expect(findings[0].title).toContain('instagram');
   });
 
-  it('accepts only the explicit human-readable exception marker', () => {
-    expect(hasSinglePlatformException('Single-platform exception: no verified visual exists for Instagram.')).toBe(true);
-    expect(hasSinglePlatformException('This format works best on X.')).toBe(false);
-    expect(hasSinglePlatformException('Single-platform exception: n/a')).toBe(false);
+  // The exception mechanism was removed entirely 2026-08-26 (Joey: "Always
+  // an IG copy. Always.") — a `Single-platform exception:` marker, however
+  // genuinely worded, no longer suppresses this finding.
+  it('still reports a finding even with a Single-platform exception marker present', () => {
+    const findings = checkCampaignPairs([
+      social(
+        'social/posted/story-x.json',
+        'x',
+        'story:excepted',
+        'Why now. Single-platform exception: the interactive X poll has no Instagram equivalent.',
+      ),
+    ]);
 
-    expect(
-      checkCampaignPairs([
-        social(
-          'social/posted/story-x.json',
-          'x',
-          'story:excepted',
-          'Why now. Single-platform exception: the interactive X poll has no Instagram equivalent.',
-        ),
-      ]),
-    ).toEqual([]);
+    expect(findings).toHaveLength(1);
+    expect(findings[0].title).toContain('instagram');
   });
-
 });

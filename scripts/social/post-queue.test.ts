@@ -765,10 +765,17 @@ describe('post-queue: refuses to post on a ledger it cannot trust (issue #2031)'
     const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
     const item = xItem();
     await seedQueueItem('a-x.json', item);
+    // postedAt is deliberately a past date (not "now"), not today's real
+    // date — MAX_POSTS_PER_PLATFORM_PER_DAY is 1 as of 2026-08-26, so a
+    // "posted today" record for this platform would consume the entire
+    // daily budget and get the due item filtered out by selectDuePosts's
+    // budget check before it ever reaches the idempotency check this test
+    // is actually exercising. findPostedDuplicate matches by body hash (or
+    // campaign) regardless of date, so this still proves the same thing.
     await writeFile(
       path.join(root, 'social', 'posted', '2026-08-12-already-x.json'),
       JSON.stringify(
-        { ...item, postedAt: new Date().toISOString(), url: 'https://x.com/i/status/1' },
+        { ...item, postedAt: '2026-08-12T12:00:00.000Z', url: 'https://x.com/i/status/1' },
         null,
         2,
       ) + '\n',

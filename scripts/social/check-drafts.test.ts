@@ -234,28 +234,35 @@ describe('checkCampaignPair', () => {
     expect(checkCampaignPair('x.json', x.data, [x], posted)).toEqual([]);
   });
 
-  it('honours an explicit single-platform exception on the draft itself', () => {
+  // The exception mechanism was removed entirely 2026-08-26 (Joey: "Always
+  // an IG copy. Always.") — no marker, however genuinely worded, suppresses
+  // the pairing finding any more. These used to pass under the (now-gone)
+  // format-incompatibility carve-out; they must now fail like any other
+  // unpaired draft.
+  it('rejects a well-worded format-incompatibility marker — no exception exists any more', () => {
     const x = { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', why: 'Single-platform exception: this is a reply in a live X thread and has no standalone IG form.' } };
-    expect(checkCampaignPair('x.json', x.data, [x], [])).toEqual([]);
+    const findings = checkCampaignPair('x.json', x.data, [x], []);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('no instagram sibling');
   });
 
-  it('honours an exception declared on the campaign sibling rather than this file', () => {
+  it('rejects a marker declared on the campaign sibling rather than this file', () => {
     const all = [
       { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b' } },
       { file: 'x2.json', data: { platform: 'x', campaign: 'c1', body: 'b2', why: 'Single-platform exception: a two-tweet thread with no IG analogue.' } },
     ];
-    expect(checkCampaignPair('x.json', all[0].data, all, [])).toEqual([]);
+    expect(checkCampaignPair('x.json', all[0].data, all, [])).toHaveLength(1);
   });
 
   // Verbatim from the two drafts that shipped X-only on 2026-08-26 while
-  // Instagram got nothing all day.
+  // Instagram got nothing all day — still fails, same as any other marker.
   it('rejects the calendar/dropped-slot pretext that was actually used', () => {
     const why =
       "Campaign story-unique (findPostedDuplicate matches platform+campaign). Single-platform exception: heartbeat track-fact slot — the calendar assigns this subject to X only; today's IG slot is a different, dropped subject, so there is deliberately no IG sibling for this story.";
     const x = { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', why } };
     const findings = checkCampaignPair('x.json', x.data, [x], []);
     expect(findings).toHaveLength(1);
-    expect(findings[0]).toContain('not a valid one');
+    expect(findings[0]).toContain('no instagram sibling');
   });
 
   it('rejects a missing-media pretext', () => {

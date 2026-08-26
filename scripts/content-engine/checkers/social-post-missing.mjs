@@ -28,15 +28,6 @@ export const id = 'content.social-post-missing';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const REQUIRED_CAMPAIGN_PLATFORMS = ['x', 'instagram'];
-const SINGLE_PLATFORM_EXCEPTION = /\bsingle-platform exception:\s*(\S.{9,})/i;
-
-/** An exception must be deliberate, named, and explain why this campaign is
- * intentionally unsuitable for one platform. Ordinary `why this, why now`
- * prose never suppresses the pairing finding. */
-export function hasSinglePlatformException(why) {
-  const reason = typeof why === 'string' ? why.match(SINGLE_PLATFORM_EXCEPTION)?.[1]?.trim() : '';
-  return Boolean(reason && /[a-z]{3}/i.test(reason));
-}
 
 /** Load the two authoritative social states. `failed/` is intentionally out:
  * a failed sibling did not reach the audience and is no longer queued to do
@@ -69,7 +60,6 @@ export function checkCampaignPairs(records) {
 
   const findings = [];
   for (const [campaign, group] of [...campaigns].sort(([a], [b]) => a.localeCompare(b))) {
-    if (group.some(({ item }) => hasSinglePlatformException(item?.why))) continue;
     const present = new Set(group.map(({ item }) => item?.platform));
     const missing = REQUIRED_CAMPAIGN_PLATFORMS.filter((platform) => !present.has(platform));
     if (!missing.length) continue;
@@ -84,12 +74,12 @@ export function checkCampaignPairs(records) {
         excerpt: campaign,
         evidence:
           `Across social/queue/ and social/posted/, this campaign has ${[...present].filter(Boolean).sort().join(' + ') || 'no recognized platform'} ` +
-          `but no ${missing.join(' or ')} item. Every campaign must be authored as an X + Instagram pair; ` +
+          `but no ${missing.join(' or ')} item. Every campaign must be authored as an X + Instagram pair, unconditionally — ` +
+          'there is no single-platform exception (Joey, 2026-08-26: "Always an IG copy. Always."); ' +
           'the Instagram item already cross-posts to Facebook, so no Facebook queue item is needed.',
         suggestedFix:
-          `For a new campaign, author the missing ${missing.join(' and ')} item in the same change with the exact same campaign value. ` +
-          'If this specific content genuinely cannot fit one platform, add `Single-platform exception: <specific human-readable reason>` ' +
-          "to the existing item's `why`; convenience or forgotten media is not an exception. Do not blindly backfill historical campaigns.",
+          `Author the missing ${missing.join(' and ')} item in the same change with the exact same campaign value. ` +
+          'Do not blindly backfill historical campaigns.',
         confidence: 1,
       }),
     );
