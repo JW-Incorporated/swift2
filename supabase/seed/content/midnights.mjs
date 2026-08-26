@@ -4348,8 +4348,10 @@ export default {
       day: 13,
       category: 'release',
       significance: 'defining', // bypassed the entire studio system and still set the concert-film opening record — a new distribution playbook, not just a box-office number (docs/decisions.md, 2026-07-19)
-      // No new MILESTONES entry: "m-mid-3" (this same era file) already marks
-      // Oct. 13, 2023 on the scrubber via the "midnights-film" stub item.
+      // Era-timeline milestone (issue #1976, 2026-08-26): moved here from the
+      // now-deleted duplicate stub `midnights-film`, which told this same
+      // Oct. 13, 2023 cinema opening in one sentence with no sources.
+      milestone: { id: "m-mid-3", label: "Eras Tour film", kind: "tour" },
       // Cross-links (ledger #1476 Q5, 2026-07-24): the tour this film documents,
       // the docuseries about its making, and the 2025 concert film it set the
       // template for. All three moment ids verified against the generated vault.
@@ -4966,7 +4968,7 @@ export default {
       relatedIds: [
           'moment:vault-midnights-anti-hero-dominates',
         'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
-        'moment:vault-midnights-the-3am-edition-surprise',
+        'moment:vault-midnights-midnights-3am-edition-surprises-fans-with-7-more-songs',
         'moment:vault-evermore-midnights-mayhem-with-me-a-bingo-cage-announces-the-tracklis',
         'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
       ],
@@ -5043,42 +5045,10 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "midnights-3am",
-      // Cross-link (candidate #1336): the standard Midnights whose 3am edition this extends.
-      relatedIds: ['moment:vault-midnights-thirteen-sleepless-nights'],
-      year: 2022,
-      month: 10,
-      day: 22,
-      category: "music",
-      title: "The 3am edition surprise",
-      snippet: "Seven extra tracks land three hours after release, a now-signature move.",
-      moment: {
-        sources: [
-          {
-            outlet: 'NME',
-            url: 'https://www.nme.com/news/music/taylor-swift-adds-seven-bonus-tracks-to-midnights-on-surprise-3am-edition-3333345',
-            source_title: 'Taylor Swift adds seven bonus tracks to \'Midnights\' on surprise \'3am\' edition',
-            publisher: 'NME',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Stereogum',
-            url: 'https://stereogum.com/2203564/taylor-swift-releases-seven-more-songs-on-midnights-3am-edition-parties-with-her-evil-twin-in-anti-hero-video/music',
-            source_title: 'Taylor Swift Releases Seven More Songs On Midnights (3am Edition)',
-            publisher: 'Stereogum',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "Hours after midnight, a “3am Edition” expanded the album — rewarding the fans who stayed up.",
-      },
-    },
+    // Duplicate stub removed (issue #1976, 2026-08-26): `midnights-3am` told
+    // the same Oct. 21, 2022 3am Edition surprise as the richer, sourced
+    // "Midnights (3am Edition) surprises fans with 7 more songs" item
+    // elsewhere in this file, in one sentence with no milestone to migrate.
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
@@ -5094,13 +5064,12 @@ export default {
       // Spotify record it helped set, and the top-ten sweep it anchored.
       // Candidate #1356 (2026-07-25): the self-directed video for the same song.
       // Cross-link (candidate #1536, 2026-07-26): the bidirectional partner to the
-      // richer, sourced "Every spot in the Hot 100 top 10, all at once" moment.
-      // NOTE: 'every-top-ten-slot-at-once' below is a legacy stub of the SAME feat
-      // (a duplicate flagged for a human, not resolved here).
+      // richer, sourced "Every spot in the Hot 100 top 10, all at once" moment
+      // (issue #1976, 2026-08-26: the stale note about a duplicate stub here is
+      // moot — that stub was removed and its milestone migrated, issue #616).
       relatedIds: [
         'moment:vault-midnights-thirteen-sleepless-nights',
         'moment:vault-midnights-midnights-breaks-spotify-in-a-single-day',
-        'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
         'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
         'moment:vault-midnights-the-anti-hero-video-and-the-scale-scene-that-got-cut',
       ],
@@ -5169,98 +5138,14 @@ export default {
     // 2022 all-top-10 sweep as the richer, sourced "Every spot in the Hot
     // 100 top 10, all at once" item above in one sentence with no sources;
     // its milestone marker (m-mid-1b) moved there.
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "midnights-ticket-chaos",
-      year: 2022,
-      month: 11,
-      day: 15,
-      category: "sighting",
-      title: "The ticket frenzy",
-      snippet: "Unprecedented demand for the Eras Tour crashes the sales system and reaches Washington.",
-      moment: {
-        sources: [
-          {
-            outlet: 'ABC News',
-            url: 'https://abcnews.com/Politics/ticketmasters-taylor-swift-ticket-fiasco-spurs-new-senate/story?id=96609996',
-            source_title: 'Ticketmaster\'s Taylor Swift ticket fiasco spurs new Senate hearing',
-            publisher: 'ABC News',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'CBS News',
-            url: 'https://www.cbsnews.com/news/taylor-swift-fans-battle-ticket-bots-and-ticketmaster/',
-            source_title: 'Frustrated Taylor Swift fans battle ticket bots and Ticketmaster',
-            publisher: 'CBS News',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-        ],
-        context: "The scramble for tickets became a national news story — and eventually a subject of political hearings.",
-      },
-    },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "midnights-film",
-      year: 2023,
-      month: 10,
-      day: 13,
-      category: "tour",
-      title: "The Eras Tour hits cinemas",
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-mid-3", label: "Eras Tour film", kind: "tour" },
-      snippet: "A concert film breaks box-office records for the format.",
-      moment: {
-        sources: [
-          {
-            outlet: 'AMC Theatres',
-            url: 'https://investor.amctheatres.com/news-events/press-releases/detail/348/taylor-swift-the-eras-tour-concert-film-is-now-the-highest-grossing-theatrical-release-in-history-among-concert-and-documentary-films',
-            source_title: 'TAYLOR SWIFT | THE ERAS TOUR Concert Film Is Now the Highest Grossing Theatrical Release in History Among Concert and Documentary Films',
-            publisher: 'AMC Entertainment Holdings',
-            source_type: 'official',
-            accessed_at: '2026-08-11',
-            reliability_score: 5,
-            notes: 'Distributor newsroom — primary for the distribution structure and the box-office record it announces.',
-          },
-          {
-            outlet: 'Music Business Worldwide',
-            url: 'https://www.musicbusinessworldwide.com/taylor-swifts-eras-tour-becomes-highest-grossing-concert-documentary-film-in-history/',
-            source_title: 'Taylor Swift\'s \'Eras Tour\' becomes highest grossing concert & documentary film in history',
-            publisher: 'Music Business Worldwide',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide.",
-        // Photo pass #762 (2026-07-19): ABC News' own CDN (i.abcnewsfe.com,
-        // from GMA's world-premiere story); curl 200 image/jpeg 3072x3071;
-        // Read-viewed: Swift in the tanzanite Oscar de la Renta gown on the
-        // premiere carpet, "Taylor Swift: The Eras Tour" step-and-repeat
-        // behind her (The Grove, Los Angeles, Oct. 11, 2023).
-        photos: [
-          {
-            url: 'https://i.abcnewsfe.com/a/64e8b004-20de-4b7b-9296-b1f46aac00ee/taylor-swift-01-ss-jt-231011_1697075963440_hpEmbed_1x1.jpg',
-            credit: 'Via ABC News',
-            caption: 'The world premiere at The Grove, Oct. 11, 2023 — where she announced the film would open a day early.',
-            focalPoint: '52% 22%',
-          },
-          {
-            // Photo pass (issue #1721, 2026-08-25).
-            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2023/10/Taylor-Swift-arrived-at-Taylor-Swift-The-Eras-Tour-getty-H-2023.jpg?w=1296&h=730&crop=1',
-            credit: 'Getty Images / The Hollywood Reporter',
-            caption: 'Taylor Swift on the red carpet at the "Taylor Swift: The Eras Tour" concert film world premiere, AMC The Grove 14, Los Angeles, October 11, 2023.',
-            kind: 'reference',
-          },
-        ],
-      },
-    },
+    // Duplicate stub removed (issue #1976, 2026-08-26): `midnights-ticket-chaos`
+    // told the same Nov. 15, 2022 Ticketmaster presale meltdown as the richer,
+    // sourced "The presale that broke Ticketmaster" item above, in one
+    // sentence with no sources; m-mid-1c already lives on the canonical item.
+    // Duplicate stub removed (issue #1976, 2026-08-26): `midnights-film` told
+    // the same Oct. 13, 2023 cinema opening as the richer, sourced "The Eras
+    // Tour film opens to $92.8 million" item above; its milestone marker
+    // (m-mid-3) moved there.
 
     // ── Migrated from the End Game thread's hand-authored beat list (stage 3,
     // 2026-07-19): the WSJ confirmation was a beat with no vault moment — the
