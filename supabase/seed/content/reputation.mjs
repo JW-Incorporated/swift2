@@ -1402,21 +1402,15 @@ export default {
             reliability_score: 4,
           },
         ],
-        // T16 photo pass (2026-07-09): single cover from Wikipedia's stable
-        // upload.wikimedia.org copy (exact filename from the article HTML),
-        // plus an official MV still — video id dfnCAmr569k verified via YouTube
-        // oEmbed this session ("Taylor Swift - End Game ft. Ed Sheeran, Future",
-        // channel @TaylorSwift). Both HTTP 200 + image/*.
+        // T16 photo pass (2026-07-09): official MV still — video id
+        // dfnCAmr569k verified via YouTube oEmbed this session ("Taylor
+        // Swift - End Game ft. Ed Sheeran, Future", channel @TaylorSwift).
+        // Low-res single-cover retired (issue #1715, 2026-08-26): upgraded
+        // the still to maxresdefault (curl-verified 200 image/jpeg,
+        // downloaded and viewed), removed the redundant low-res cover.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/1/1d/End_Game_%28Official_Single_Cover%29_by_Taylor_Swift.png',
-            credit: 'Big Machine Records',
-            caption: 'Official single cover for "End Game" featuring Ed Sheeran and Future.',
-            kind: 'primary',
-            focalPoint: '42% 35%',
-          },
-          {
-            url: 'https://i.ytimg.com/vi/dfnCAmr569k/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/dfnCAmr569k/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'The Tokyo stretch of Joseph Kahn\'s "End Game" video, released January 12, 2018.',
             kind: 'archival',

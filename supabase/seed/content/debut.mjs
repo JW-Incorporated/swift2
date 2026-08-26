@@ -285,7 +285,7 @@ export default {
       title: "Should've Said No, written in 20 minutes",
       snippet: "Written the same week the album was mastered — the whole song took her 20 minutes, the chorus just five.",
       sourceUrl: "https://en.wikipedia.org/wiki/Should've_Said_No",
-      thumbnailUrl: "https://upload.wikimedia.org/wikipedia/en/6/6b/Taylor_Swift_-_Should%27ve_Said_No_artwork.png",
+      thumbnailUrl: "https://i.ytimg.com/vi/v9bxXO9fj98/maxresdefault.jpg",
       moment: {
         context:
           "Written alone, two days before the album was mastered, and finished overnight with producer Nathan Chapman: \"It literally took me just 20 minutes to write,\" by her own account — about a boyfriend who'd cheated, with many lyrics lifted from the actual confrontation (\"I was living every line in this song at the time\"). She drew a line between it and her other kiss-off: where \"Picture to Burn\" was pure anger, this one was \"more of a moral statement.\"\n\nReleased as the album's fifth and final single in May 2008, it became her second Hot Country Songs No. 1 — and when it hit the country top 10 that July, she became the first solo female artist in the chart's history (dating to 1964) with five top-10 country hits from a debut album.",
@@ -296,11 +296,15 @@ export default {
         // Photo-enrichment pass (2026-07-18, #762): added Brian Cantoni's debut-era photo
         // (Commons API-verified CC BY 2.0, EXIF-dated May 16, 2007; downloaded and visually
         // confirmed). Focal points set per image by viewing.
+        // Low-res single-cover retired (issue #1715, 2026-08-26): official
+        // video id v9bxXO9fj98 confirmed via YouTube oEmbed (author "Taylor
+        // Swift"); maxresdefault curl-verified 200 image/jpeg, downloaded and viewed.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/6/6b/Taylor_Swift_-_Should%27ve_Said_No_artwork.png',
-            credit: 'Big Machine Records (single cover art)',
-            focalPoint: '42% 48%',
+            url: 'https://i.ytimg.com/vi/v9bxXO9fj98/maxresdefault.jpg',
+            credit: 'Taylor Swift / Big Machine Records, via YouTube',
+            caption: 'A still from the official "Should\'ve Said No" video.',
+            focalPoint: '50% 30%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/960px-Taylor_Swift_%282007%29_retouched.jpg',
@@ -609,20 +613,15 @@ export default {
       snippet:
         "Born from an after-school outburst -- \"I hate his stupid truck that he doesn't let me drive. He's such a redneck!\" -- that became the chorus of her only anger-driven song on the debut album.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Picture_to_Burn',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/yCMqcFAigRg/sddefault.jpg',
       moment: {
         context:
           'Written with Liz Rose about a Hendersonville High classmate she\'d almost dated, who preferred another girl. Mid-session, she blurted out in frustration: "I hate his stupid truck that he doesn\'t let me drive. He\'s such a redneck! Oh my God!" -- and the line became the chorus.\n\nShe later told The Washington Post: "It\'s about a guy who didn\'t like me back, and I got really mad, you know?" The original album lyric -- "That\'s fine; I\'ll tell mine you\'re gay" -- was softened to "That\'s fine; you won\'t mind if I say" for the Feb. 4, 2008 country-radio single.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Picture_to_Burn' }],
+        // Low-res single-cover retired (issue #1715, 2026-08-26): the 300x300
+        // Wikipedia cover was below the quality floor; the video still below
+        // (already verified) is now the sole/thumbnail image.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
-            credit: 'Big Machine Records (single cover art)',
-            // Focal point set 2026-07-18 by viewing (300x300): she sits against
-            // the door with her face upper-center-right, match in hand.
-            focalPoint: '58% 22%',
-          },
           // Photo pass #762 (2026-07-18): still from the official Picture to
           // Burn video (Trey Fanjoy) — Taylor fronting the band against the
           // amp wall. oEmbed-verified the video (yCMqcFAigRg) belongs to the
@@ -1524,8 +1523,7 @@ export default {
       snippet:
         'The fourth single from the debut goes to country radio in February 2008 — with the original\'s sharpest line rewritten for airplay.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Picture_to_Burn',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/yCMqcFAigRg/hqdefault.jpg',
       moment: {
         context:
           'Sent to country radio on Feb. 4, 2008, it peaked at No. 3 on Hot Country Songs and No. 28 on the Hot 100 — the fourth straight top-10 country single from an album that still hadn\'t stopped selling, with "Should\'ve Said No" still to come as the fifth that May.\n\nThe Trey Fanjoy video, premiered March 14, staged the revenge fantasy with real pyrotechnics at Nashville\'s Sommet Center and cast her actual high-school best friend, Abigail Anderson, in her backup band. It\'s the founding document of her "woman-scorned" mode, per Billboard\'s anniversary retrospective; the RIAA eventually certified it double platinum.',
@@ -1549,16 +1547,11 @@ export default {
             reliability_score: 4,
           },
         ],
-        // Photo-enrichment pass (2026-07-29): added the official music-video
-        // still (YouTube channel "Taylor Swift", oEmbed-verified) alongside
-        // the single cover; both downloaded and vision-confirmed.
+        // Low-res single-cover retired (issue #1715, 2026-08-26): the 300x300
+        // Wikipedia cover was below the quality floor; the official
+        // music-video still below (already verified) is now the sole/
+        // thumbnail image.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
-            focalPoint: '45% 18%',
-            credit: 'Big Machine Records (single cover art)',
-            kind: 'primary',
-          },
           {
             url: 'https://i.ytimg.com/vi/yCMqcFAigRg/hqdefault.jpg',
             focalPoint: '48% 32%',
