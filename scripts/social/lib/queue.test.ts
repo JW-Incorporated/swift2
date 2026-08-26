@@ -77,21 +77,35 @@ describe('isDue', () => {
 });
 
 describe('selectDuePosts', () => {
+  // These two exercise due-ness filtering and ordering, so they pass
+  // Infinity: the default cap is a pacing floor (see MAX_POSTS_PER_RUN) and
+  // would otherwise truncate the very thing being asserted.
   it('excludes not-yet-due items but keeps unapproved ones', () => {
     const items = [item({ approvedBy: undefined }), item({ scheduledAt: '2099-01-01T00:00:00Z' }), item()];
-    expect(selectDuePosts(items, now, new Map())).toHaveLength(2);
+    expect(selectDuePosts(items, now, new Map(), Infinity)).toHaveLength(2);
   });
 
   it('orders by scheduledAt ascending', () => {
     const later = item({ scheduledAt: '2026-07-17T19:00:00Z', body: 'later' });
     const earlier = item({ scheduledAt: '2026-07-17T10:00:00Z', body: 'earlier' });
-    const selected = selectDuePosts([later, earlier], now, new Map());
+    const selected = selectDuePosts([later, earlier], now, new Map(), Infinity);
     expect(selected.map((i) => i.body)).toEqual(['earlier', 'later']);
   });
 
   it('caps at MAX_POSTS_PER_RUN', () => {
     const items = Array.from({ length: MAX_POSTS_PER_RUN + 3 }, (_, i) => item({ body: `${i}` }));
     expect(selectDuePosts(items, now, new Map())).toHaveLength(MAX_POSTS_PER_RUN);
+  });
+
+  // Regression: 2026-08-26, four appearance-discovery X drafts scheduled
+  // within 3.6 seconds of each other all published in the SAME run, 1.2s
+  // apart on the live timeline. The per-run cap is the only thing that
+  // paces a batch that lands already-overdue, so it must stay at 1 — the
+  // 30-minute run interval is then the floor on spacing between two posts.
+  it('never selects more than one post in a single run by default', () => {
+    expect(MAX_POSTS_PER_RUN).toBe(1);
+    const burst = Array.from({ length: 4 }, (_, i) => item({ platform: 'x', body: `${i}`, scheduledAt: `2026-07-17T09:07:4${i}.000Z` }));
+    expect(selectDuePosts(burst, now, new Map())).toHaveLength(1);
   });
 
   it('respects the per-platform daily budget already used', () => {

@@ -52,9 +52,10 @@ const DEAD = new Set(['ERROR', 'EXPIRED']);
 
 /**
  * Bounded poll defaults. 90s is the ceiling because the poster runs every 30
- * minutes and posts at most MAX_POSTS_PER_RUN (5) items: even the worst case
- * (5 carousels of 3, each child + parent polled) cannot approach the job
- * timeout. 3s between polls keeps a normal single photo — which is typically
+ * minutes and posts at most MAX_POSTS_PER_RUN (1 since 2026-08-26, 5 before)
+ * items: even the old worst case (5 carousels of 3, each child + parent
+ * polled) could not approach the job timeout, and the current cap has far
+ * more headroom still. 3s between polls keeps a normal single photo — which is typically
  * ready on the first or second poll — fast, without hammering the Graph API.
  */
 export const CONTAINER_POLL_DEFAULTS = { timeoutMs: 90_000, intervalMs: 3_000 };

@@ -2,7 +2,7 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkDraft } from './check-drafts.mjs';
+import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCampaignPair, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkDraft } from './check-drafts.mjs';
 
 // checkMedia reads real files under apps/web/public/ (PUBLIC_DIR in
 // check-drafts.mjs), so the aspect-ratio-rejection test below needs an actual
@@ -197,6 +197,85 @@ describe('checkOpeners', () => {
     const others = [{ file: 'b.json', body: 'on this day in 2010 something else happened here' }];
     const findings = checkOpeners('a.json', { body: '🎶 on this day in 2010 something totally different' }, others);
     expect(findings.some((f) => f.includes('b.json'))).toBe(true);
+  });
+});
+
+describe('checkCampaignPair', () => {
+  // The exact shape that broke on 2026-08-26: PR #3356 added two X-only
+  // drafts, nothing on the merge path objected, and the day shipped five X
+  // posts and zero Instagram ones.
+  it('fails an X draft whose campaign has no Instagram sibling', () => {
+    const x = { file: 'x.json', data: { platform: 'x', campaign: 'track-fact:red-22-favorite-year', body: 'b' } };
+    const findings = checkCampaignPair('x.json', x.data, [x], []);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('no instagram sibling');
+  });
+
+  it('fails an Instagram draft whose campaign has no X sibling', () => {
+    const ig = { file: 'ig.json', data: { platform: 'instagram', campaign: 'c1', body: 'b' } };
+    const findings = checkCampaignPair('ig.json', ig.data, [ig], []);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('no x sibling');
+  });
+
+  it('passes when the sibling is in the same queue', () => {
+    const all = [
+      { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b' } },
+      { file: 'ig.json', data: { platform: 'instagram', campaign: 'c1', body: 'b' } },
+    ];
+    expect(checkCampaignPair('x.json', all[0].data, all, [])).toEqual([]);
+    expect(checkCampaignPair('ig.json', all[1].data, all, [])).toEqual([]);
+  });
+
+  // A sibling that already went live weeks ago still satisfies the rule.
+  it('passes when the sibling already posted', () => {
+    const x = { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b' } };
+    const posted = [{ file: 'ig.json', data: { platform: 'instagram', campaign: 'c1', body: 'b' } }];
+    expect(checkCampaignPair('x.json', x.data, [x], posted)).toEqual([]);
+  });
+
+  it('honours an explicit single-platform exception on the draft itself', () => {
+    const x = { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', why: 'Single-platform exception: this is a reply in a live X thread and has no standalone IG form.' } };
+    expect(checkCampaignPair('x.json', x.data, [x], [])).toEqual([]);
+  });
+
+  it('honours an exception declared on the campaign sibling rather than this file', () => {
+    const all = [
+      { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b' } },
+      { file: 'x2.json', data: { platform: 'x', campaign: 'c1', body: 'b2', why: 'Single-platform exception: a two-tweet thread with no IG analogue.' } },
+    ];
+    expect(checkCampaignPair('x.json', all[0].data, all, [])).toEqual([]);
+  });
+
+  // Verbatim from the two drafts that shipped X-only on 2026-08-26 while
+  // Instagram got nothing all day.
+  it('rejects the calendar/dropped-slot pretext that was actually used', () => {
+    const why =
+      "Campaign story-unique (findPostedDuplicate matches platform+campaign). Single-platform exception: heartbeat track-fact slot — the calendar assigns this subject to X only; today's IG slot is a different, dropped subject, so there is deliberately no IG sibling for this story.";
+    const x = { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', why } };
+    const findings = checkCampaignPair('x.json', x.data, [x], []);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('not a valid one');
+  });
+
+  it('rejects a missing-media pretext', () => {
+    const x = { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', why: 'Single-platform exception: no cleared photo could be sourced for the Instagram half today.' } };
+    expect(checkCampaignPair('x.json', x.data, [x], [])).toHaveLength(1);
+  });
+
+  it('rejects vague prose as an exception', () => {
+    const x = { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', why: 'this one works better on X' } };
+    expect(checkCampaignPair('x.json', x.data, [x], [])).toHaveLength(1);
+  });
+
+  it('flags a draft with no campaign at all — nothing can be paired to it', () => {
+    const findings = checkCampaignPair('x.json', { platform: 'x', body: 'b' }, [], []);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('no `campaign` value');
+  });
+
+  it('defers to checkSchema for an unrecognized platform', () => {
+    expect(checkCampaignPair('x.json', { platform: 'tiktok', campaign: 'c1', body: 'b' }, [], [])).toEqual([]);
   });
 });
 
