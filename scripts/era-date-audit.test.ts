@@ -53,7 +53,6 @@ const DELIBERATE_SHOWGIRL_CAMPAIGN_EXCEPTIONS = [
   'showgirl-david-koma-graham-norton',
   'showgirl-orange-reformation-versace',
   'showgirl-graham-norton-destination-wedding',
-  'tloas-announce',
 ].sort();
 
 describe('era-by-date seed audit (#3314)', () => {

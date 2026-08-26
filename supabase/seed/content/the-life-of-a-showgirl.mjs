@@ -37,6 +37,11 @@ export default {
         'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
       ],
       title: 'A mint-green briefcase on New Heights: album No. 12, announced on her first-ever podcast',
+      // Era-timeline milestone + hiddenClue (issue #1976, 2026-08-26): moved here
+      // from the now-deleted duplicate stub `tloas-announce`, which told this
+      // same Aug. 13, 2025 announcement in one sentence with no sources.
+      milestone: { id: "m-tloas-1", label: "Era announced", kind: "life" },
+      hiddenClue: { clue: "The announcement leaned hard on the color orange — a shade barely used before.", payoff: "Orange became the era’s signature, blanketing every teaser and cover in warm footlight glow." },
       snippet:
         'Teased by a 12:12 a.m. countdown, revealed on Travis and Jason Kelce\'s New Heights: a briefcase with an orange "TS," a title, and an Oct. 3 date. The episode set a Guinness World Record with 1.3 million concurrent YouTube viewers — the most ever for a podcast.',
       sourceUrl: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-sets-guinness-world-record-new-heights-podcast-appearance-rcna227245',
@@ -9365,126 +9370,12 @@ export default {
       },
     },
 
-    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "tloas-announce",
-      year: 2025,
-      month: 8,
-      day: 13,
-      category: "music",
-      title: "A new era is announced",
-      // Consolidation + sourcing (ledger #1067, 2026-07-21): this is the thin
-      // legacy-migrated duplicate of the canonical New Heights announcement
-      // (the "mint-green briefcase" item), same date and event (2025-08-13).
-      // It is deliberately NOT deleted here: it uniquely carries the
-      // era-timeline `milestone` marker (m-tloas-1) and the orange-signature
-      // `hiddenClue`, and the canonical sibling carries neither — so removing
-      // or redirecting this page is a structural change that would drop a
-      // timeline milestone, surfaced to the founders in the PR + on ledger
-      // #1067 rather than done unilaterally by a content run. Pending that
-      // call, this pass makes the page honest: it cross-links to its canonical
-      // sibling and the album it announced, and adds the minimum sourcing it
-      // previously lacked entirely.
-      relatedIds: [
-        'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
-        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
-      ],
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-tloas-1", label: "Era announced", kind: "life" },
-      snippet: "The Life of a Showgirl is revealed live on Travis Kelce’s \"New Heights\" podcast — a hard turn from ink into glitter.",
-      hiddenClue: { clue: "The announcement leaned hard on the color orange — a shade barely used before.", payoff: "Orange became the era’s signature, blanketing every teaser and cover in warm footlight glow." },
-      moment: {
-        context: "After the monochrome hush of the last era, the reveal comes not from a stage or a cryptic post but from a guest chair on her fiancé’s football podcast — itself a sign of how public the era would be.\n\nThe announcement lands in warm orange and gold: a showgirl era, all sparkle and spectacle, reframing everything that came before as the build-up to a curtain call.",
-        // Minimum sourcing added per ledger #1067 Q4 (2026-07-21): the page
-        // asserted facts (the New Heights reveal, the orange-signature read)
-        // with zero sources. These are the same verified sources the canonical
-        // sibling carries for this exact event — the episode itself plus a
-        // reputable-press writeup of the announcement.
-        sources: [
-          {
-            outlet: 'New Heights with Jason & Travis Kelce',
-            url: 'https://www.youtube.com/watch?v=M2lX9XESvDE',
-            source_title:
-              'Taylor Swift on Reclaiming Her Masters, Wrapping The Eras Tour, and The Life of a Showgirl | NHTV',
-            publisher: 'New Heights (Wondery)',
-            source_type: 'social',
-            accessed_at: '2026-07-21',
-            reliability_score: 5,
-          },
-          {
-            outlet: 'NBC News',
-            url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-sets-guinness-world-record-new-heights-podcast-appearance-rcna227245',
-            source_title: "Taylor Swift sets Guinness World Record with 'New Heights' podcast appearance",
-            publisher: 'NBC News',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 4,
-          },
-        ],
-        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Full New
-        // Heights episode id M2lX9XESvDE verified via YouTube oEmbed this
-        // session ("Taylor Swift on Reclaiming Her Masters, Wrapping The Eras
-        // Tour, and The Life of a Showgirl | NHTV", author @newheightshow);
-        // maxres1 frame (1280x720) curl-verified 200 image/jpeg, downloaded
-        // and viewed — distinct frame from the hqdefault already used on the
-        // showgirl-announced-on-new-heights page.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/M2lX9XESvDE/maxres1.jpg',
-            credit: 'New Heights (official episode frame, YouTube)',
-            caption:
-              'In the guest chair on New Heights: Taylor and Travis laughing mid-episode, with Jason on the split screen, the night the album was announced.',
-            kind: 'primary',
-            // Three faces sit in a band across the upper third — Jason left
-            // panel, Travis center, Taylor right; bias the crop high.
-            focalPoint: '51% 32%',
-          },
-          {
-            // Photo pass (issue #1721, 2026-08-25).
-            url: 'https://people.com/thmb/LG66XCKBy6I9V57WAS1xp-uTj5c=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(992x322:994x324)/life-of-a-showgirl-taylor-swift-split-081425-89706a30cab54d7bb3748707bcc0942a.jpg',
-            credit: 'People',
-            caption: 'Coverage of Taylor Swift\'s August 13, 2025 New Heights announcement of The Life of a Showgirl.',
-            kind: 'reference',
-          },
-        ],
-        // Rumor Desk 2026-08-07 (news digest / web trace). The Vegas-coded
-        // orange rollout that opened here immediately spawned a tour rumor: an
-        // insider claim, reported by The US Sun days after this Aug 13 reveal,
-        // that Taylor's team was eyeing a Las Vegas Sphere residency. It is a
-        // clean adjudicable claim — tour/residency speculation is explicitly
-        // admissible (privacy-redlines.md, "Always OK"), and it was DEBUNKED on
-        // the record within days by the venue itself, so it ships as a resolved
-        // rumor. The venue is named only as the entity that issued the denial
-        // (same pattern as the shipped Ocean House wedding-rumor entry), and the
-        // subject is a public performance venue, not her whereabouts — no
-        // redline, no live security/doxxing risk (she is not, per the venue,
-        // going to be there). This anchors on the announcement page the rumor
-        // grew out of, not the wedding page, per the breadth directive.
-        rumors: [
-          {
-            claim:
-              'Days after the Showgirl reveal, as the era\'s Vegas-coded rollout took off, The US Sun reported an insider claim that Taylor\'s team had privately discussed Las Vegas gigs and was specifically eyeing a residency at the Sphere.',
-            reportedBy: 'The US Sun',
-            reportedOn: '2025-08-14',
-            status: 'debunked',
-            url: 'https://www.the-sun.com/entertainment/14966683/taylor-swift-las-vegas-venues-sphere-album-reveal/',
-            note: 'Debunked on the record within days: a Sphere rep told Puck\'s Matt Belloni (Aug 18, 2025) they "are not in conversations with her team about a residency at Sphere"; NME, Consequence and Just Jared carried the denial. Rigor: the denial addresses the Sphere-specific claim; the vaguer "Vegas gigs" ambition was never resolved. Tour speculation, admissible; venue named only as the denial\'s source.',
-            sourceTier: 'tabloid',
-            locationSpecificity: 'venue',
-            lastCheckedOn: '2026-08-07',
-            resolution: {
-              on: '2025-08-18',
-              url: 'https://consequence.net/2025/08/tayor-swift-vegas-sphere-not-happening/',
-              outlet: 'Consequence (quoting the Sphere rep via Puck\'s Matt Belloni)',
-              note: 'A Sphere representative told Puck\'s Matt Belloni: "While we love and respect Taylor Swift, we are not in conversations with her team about a residency at Sphere." Reported Aug 18, 2025; the Sphere-residency version of the rumor did not hold.',
-            },
-          },
-        ],
-      },
-    },
+    // Duplicate stub removed (issue #1976, 2026-08-26): `tloas-announce` told
+    // the same Aug. 13, 2025 New Heights announcement as the richer, sourced
+    // `showgirl-announced-on-new-heights` item above in one sentence with no
+    // sources; its milestone marker (m-tloas-1) and hiddenClue moved there.
+    // The stub's Sphere-residency rumor is already covered, more fully, on the
+    // `showgirl-release-day` item's rumor-desk entry.
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
