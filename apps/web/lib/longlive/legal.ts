@@ -98,8 +98,6 @@ export const LEGAL_FACTS = {
     "not published at this project's stage, per counsel's advice — write to the email addresses above instead",
   /** The date these pages take effect. Founder-set 2026-08-24 (Joey): today, counsel already signed off. */
   effectiveDate: 'August 24, 2026',
-  /** Feedback destination, verified: apps/web/app/api/feedback/route.ts:155. */
-  feedbackRepo: 'JW-Incorporated/swift2',
 } as const;
 
 /** Blocks a legal document is built from. Deliberately small — prose, lists, tables. */
@@ -197,7 +195,7 @@ export const PRIVACY_POLICY: LegalDoc = {
         },
         {
           kind: 'p',
-          text: `A submission is filed as a ticket in our private source-code repository on GitHub (${LEGAL_FACTS.feedbackRepo}). That repository is private: it is readable by the project's founders, by the automated agents that triage tickets, and by GitHub as the service provider. It is not published, and feedback is not displayed anywhere on this site.`,
+          text: `A submission is filed as a ticket in our private source-code repository on GitHub. That repository is private: it is readable by the project's founders, by the automated agents that triage tickets, and by GitHub as the service provider. It is not published, and feedback is not displayed anywhere on this site.`,
         },
         {
           kind: 'p',

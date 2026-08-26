@@ -4,9 +4,9 @@ Copy for both stores, written to their field limits. Voice: concise, fan-aware,
 no hype-bombing, and the UNOFFICIAL disclaimer stays prominent (2026-07-08
 media-policy decision — the disclaimer is non-negotiable in every listing).
 
-App name note: "Swift2 Vault" is the working name; the final name is Joey's
-call and must not imply endorsement (don't lead with "Taylor Swift" as the app
-name — both stores flag that, and so would her lawyers).
+App name: "LongLive" (decided 2026-08-25). Package/bundle id `ai.jwlabs.longlive`.
+Must not imply endorsement — never lead with "Taylor Swift" as the app name;
+both stores flag that, and so would her lawyers.
 
 ---
 
@@ -14,7 +14,7 @@ name — both stores flag that, and so would her lawyers).
 
 **App name** (30 chars max)
 
-> Swift2 Vault
+> LongLive
 
 **Subtitle** (30 chars max)
 
@@ -45,7 +45,7 @@ name — both stores flag that, and so would her lawyers).
 >
 > No account. No ads. No tracking. Open the app, pick a year, fall in.
 >
-> UNOFFICIAL: Swift2 Vault is an independent fan project. It is not
+> UNOFFICIAL: LongLive is an independent fan project. It is not
 > affiliated with, endorsed by, sponsored by, or officially connected to
 > Taylor Swift, her management, or her record labels. Names and titles are
 > used only to identify and describe the subject matter.
@@ -79,7 +79,7 @@ unrestricted web, no UGC) → expect 4+ / Everyone.
 
 **App name** (30 chars max)
 
-> Swift2 Vault
+> LongLive
 
 **Short description** (80 chars max)
 
@@ -110,7 +110,7 @@ unrestricted web, no UGC) → expect 4+ / Everyone.
 >
 > No account. No ads. No tracking. Open the app, pick a year, fall in.
 >
-> UNOFFICIAL: Swift2 Vault is an independent fan project. It is not
+> UNOFFICIAL: LongLive is an independent fan project. It is not
 > affiliated with, endorsed by, sponsored by, or officially connected to
 > Taylor Swift, her management, or her record labels. Names and titles are
 > used only to identify and describe the subject matter.
