@@ -79,15 +79,22 @@ describe('isDue', () => {
 describe('selectDuePosts', () => {
   // These two exercise due-ness filtering and ordering, so they pass
   // Infinity: the default cap is a pacing floor (see MAX_POSTS_PER_RUN) and
-  // would otherwise truncate the very thing being asserted.
+  // would otherwise truncate the very thing being asserted. Each due item
+  // gets its own platform label so the (now much lower, since 2026-08-26)
+  // per-platform daily budget doesn't ALSO truncate them — that cap is
+  // covered separately below and isn't what these two are testing.
   it('excludes not-yet-due items but keeps unapproved ones', () => {
-    const items = [item({ approvedBy: undefined }), item({ scheduledAt: '2099-01-01T00:00:00Z' }), item()];
+    const items = [
+      item({ approvedBy: undefined, platform: 'p1' }),
+      item({ scheduledAt: '2099-01-01T00:00:00Z' }),
+      item({ platform: 'p2' }),
+    ];
     expect(selectDuePosts(items, now, new Map(), Infinity)).toHaveLength(2);
   });
 
   it('orders by scheduledAt ascending', () => {
-    const later = item({ scheduledAt: '2026-07-17T19:00:00Z', body: 'later' });
-    const earlier = item({ scheduledAt: '2026-07-17T10:00:00Z', body: 'earlier' });
+    const later = item({ scheduledAt: '2026-07-17T19:00:00Z', body: 'later', platform: 'p1' });
+    const earlier = item({ scheduledAt: '2026-07-17T10:00:00Z', body: 'earlier', platform: 'p2' });
     const selected = selectDuePosts([later, earlier], now, new Map(), Infinity);
     expect(selected.map((i) => i.body)).toEqual(['earlier', 'later']);
   });
@@ -116,8 +123,22 @@ describe('selectDuePosts', () => {
     expect(selected[0].platform).toBe('instagram');
   });
 
+  // Regression: 10 -> 1 on 2026-08-26 (Joey, issue #3373: "roughly once a
+  // day" is the real target). Combined with mandatory pairing and
+  // MAX_POSTS_PER_RUN=1, this is what actually bounds a calendar day to one
+  // campaign (one X post + its mandatory Instagram sibling) per platform.
+  it('caps the daily per-platform budget at 1', () => {
+    expect(MAX_POSTS_PER_PLATFORM_PER_DAY).toBe(1);
+    const items = [item({ platform: 'x', body: 'a' }), item({ platform: 'x', body: 'b' })];
+    const postedToday = new Map([['x', 1]]);
+    expect(selectDuePosts(items, now, postedToday)).toHaveLength(0);
+  });
+
   it('an explicit maxPerRun overrides the default cap (post-queue.mjs passes Infinity)', () => {
-    const items = Array.from({ length: MAX_POSTS_PER_RUN + 3 }, (_, i) => item({ body: `${i}` }));
+    // Distinct platform per item so the per-platform daily budget (1, since
+    // 2026-08-26) doesn't also cap selection — this test is isolating
+    // maxPerRun's override behavior, not the daily budget (covered above).
+    const items = Array.from({ length: MAX_POSTS_PER_RUN + 3 }, (_, i) => item({ body: `${i}`, platform: `p${i}` }));
     expect(selectDuePosts(items, now, new Map(), Infinity)).toHaveLength(items.length);
     expect(selectDuePosts(items, now, new Map(), 1)).toHaveLength(1);
   });

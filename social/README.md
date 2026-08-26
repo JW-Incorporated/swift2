@@ -5,14 +5,18 @@ Feeds `.github/workflows/social-poster.yml` (runs every 30 min). Full context: `
 - **`queue/`** — drafts waiting to ship. One JSON file per post. **Every draft added or changed here is checked by `scripts/social/check-drafts.mjs` before it can auto-merge** — see "Draft-time checks" below. That script is the main quality gate now; the guards in `scripts/social/lib/queue.mjs` at post time exist to stop a bad draft from actually posting wrong, not to be the first line of defense.
 - **`posted/`** — the log of everything sent, moved here automatically on success.
 
-**Hard pairing rule (Joey, 2026-08-25): every real campaign is two queue
-items authored together** — one `platform: "x"`, one
-`platform: "instagram"`, with the exact same story-unique `campaign` value.
-The Instagram item already auto-cross-posts to Facebook, so never draft a
-third Facebook item. A campaign may be intentionally single-platform only
-when the existing item's `why` includes
-`Single-platform exception: <specific human-readable reason>`; missing media,
-forgetting the sibling, or convenience is not a reason.
+**Hard pairing rule (Joey, 2026-08-25, made UNCONDITIONAL 2026-08-26): every
+real campaign is two queue items authored together** — one `platform: "x"`,
+one `platform: "instagram"`, with the exact same story-unique `campaign`
+value. The Instagram item already auto-cross-posts to Facebook, so never
+draft a third Facebook item. **There is no single-platform exception of any
+kind, for any reason** ("Always an IG copy. Always." — Joey, 2026-08-26). A
+single-platform exception marker existed briefly for content whose FORMAT
+genuinely could not work on the other platform; it was removed the same day
+it shipped, because it was immediately used as a scheduling pretext instead
+(the two 2026-08-26 campaigns that shipped X-only, issue #3373) — missing
+media, forgetting the sibling, convenience, or a scheduling/calendar reason
+was never valid, and now no reason is.
 
 **No human review gate (2026-07-25, reaffirmed 2026-08-25 — see
 `docs/decisions.md`):** `queue/` is also on
@@ -85,18 +89,17 @@ UTC three attempts later. Rules live in `scripts/social/lib/queue-schema.mjs`.
 - `approvedBy` + `approvedAt`: **optional provenance only** — a record of who signed off and when, for the cases where a human did. They no longer gate anything; the poster does not check them. (They were a hard gate until 2026-07-25.)
 - `campaign`: **story-unique** (e.g. `on-this-day:red-announcement-wanegbt`), shared ONLY between the IG/X siblings covering the same story. Used by `check-drafts.mjs`'s cross-post-copy check to find an X draft's IG sibling — and by the poster's idempotency check (`findPostedDuplicate`), which treats same platform + same campaign as an already-posted duplicate. A thematic bucket value reused across stories (`heartbeat:on-this-day` on five different posts) therefore false-skips every post in the bucket after its first one lands, and the 48h rule then retires them to `failed/` — found and fixed queue-wide on 2026-08-12.
 - `why`: the human-readable "why this, why now" audit trail. It does not
-  normally change routing. The only pairing escape hatch is the exact marker
-  `Single-platform exception: <specific human-readable reason>` in this field;
-  the campaign-pair checker deliberately ignores vague prose such as "works
-  better on X."
+  change routing — there is no pairing escape hatch of any kind (removed
+  2026-08-26; a `Single-platform exception:` marker here does nothing now).
 - `failureReason`: written by the poster (never by a drafter) when an item lands in `failed/` — a human-readable explanation, distinct from `lastError` (the raw API error text), covering the 48h-stale case too where there may never have been an API error at all.
 
 The deterministic `content.social-post-missing` checker scans every unique
 `campaign` across both `social/queue/` and `social/posted/`. A campaign without
-both X and Instagram produces a P2 finding unless it carries the explicit
-exception marker above. `social/failed/` does not satisfy the rule: a failed
-item neither reached the audience nor remains queued to do so. Historical
-findings are surfaced for review rather than backfilled automatically.
+both X and Instagram produces a P2 finding, unconditionally — there is no
+exception marker that suppresses it. `social/failed/` does not satisfy the
+rule: a failed item neither reached the audience nor remains queued to do so.
+Historical findings are surfaced for review rather than backfilled
+automatically.
 
 ## Draft-time checks (`scripts/social/check-drafts.mjs`)
 
@@ -107,19 +110,19 @@ Six rule families, in order (later ones assume earlier ones passed):
 - **Voice** — reuses `scripts/content-engine/checkers/voice.mjs`'s surname-overuse, ai-tell, and wire-attribution rules against the draft's `body`.
 - **Openers** — bans a body that opens with "did you know" (case-insensitive, word-boundary matched, and normalized past any leading emoji/quote/punctuation) outright, and flags a draft whose first 6 words match the opening of anything posted in the last 14 days or any other current queue item (formula detection).
 - **Campaign pair** — enforces the hard pairing rule above on the merge
-  path (added 2026-08-26). A draft whose `campaign` has no sibling on the
-  other platform in `social/queue/` or `social/posted/` fails, so its PR does
-  not auto-merge. A draft with no `campaign` at all fails too — nothing can
-  be paired to it. The `Single-platform exception:` escape hatch is honoured,
-  but its REASON is now judged: a scheduling pretext ("the calendar assigns
-  this subject to X only", "the IG slot was dropped", missing media,
-  convenience, running out of the per-run cap) is rejected, because an
-  exception is only for content whose FORMAT genuinely cannot work on the
-  other platform. This gate exists because the rule spent its first day as
-  prose plus an advisory `content.social-post-missing` P2 finding and nothing
-  on the merge path enforced it: on 2026-08-26 all five posts that shipped
-  were `platform: "x"`, Instagram got nothing, and both of that day's drafts
-  carried a `Single-platform exception:` citing a dropped IG slot.
+  path (added 2026-08-26, made unconditional later the same day). A draft
+  whose `campaign` has no sibling on the other platform in `social/queue/`
+  or `social/posted/` fails, so its PR does not auto-merge — no exception,
+  however genuinely worded. A draft with no `campaign` at all fails too —
+  nothing can be paired to it. This gate exists because the rule spent its
+  first day as prose plus an advisory `content.social-post-missing` P2
+  finding and nothing on the merge path enforced it: on 2026-08-26 all five
+  posts that shipped were `platform: "x"`, Instagram got nothing, and both of
+  that day's drafts carried a `Single-platform exception:` citing a dropped
+  IG slot. The gate briefly honored a well-worded format-incompatibility
+  exception while rejecting scheduling pretexts; Joey closed that carve-out
+  the same day too ("Always an IG copy. Always.") once it became clear the
+  marker itself was the drafting lane's escape hatch of choice.
 - **Cross-post copy** — an X draft whose `body` is more than 80% similar (word-overlap coefficient, not Jaccard — see the script for why) to its Instagram sibling's `body` fails. Siblings are matched by shared `campaign`; when an X draft has no `campaign`, this falls back to the closest same-day Instagram item — a near-duplicate still fails, and even a merely-plausible-looking pair gets a "you probably meant to tag these" nudge. Near-identical siblings are what triggers X's duplicate-content 403s.
 - **Media** — Instagram drafts need `media`; every media path must be a `.png`/`.jpg`/`.jpeg` (the only formats this pipeline produces or uploads to X) and exist under `apps/web/public/`; every draft carrying media must declare a `mediaKind`, and `"photo"` additionally requires `mediaCredit` + `mediaSource` and a tile under `/social/library/photos/`; era tiles fail outright; and no media may repeat one of the last 10 posted Instagram items.
 
@@ -142,7 +145,12 @@ drafts (all scheduled within 3.6 seconds of each other, all ~11h overdue by
 the time their PR merged) published in a single run, 1.2 seconds apart on the
 live timeline. A cap of 1 drains a backlog at one post per half hour instead
 of as a burst. It is a pacing floor, not the volume policy —
-`MAX_POSTS_PER_PLATFORM_PER_DAY` (10) is still what bounds a day.
+`MAX_POSTS_PER_PLATFORM_PER_DAY` (**1**, since 2026-08-26, issue #3373 — was
+10) is what bounds a day. "Day" is a UTC calendar day, measured from the
+`postedAt` of `social/posted/` records (`countPostedToday`/`utcDateOnly`),
+not a rolling 24h window. Combined with mandatory X+Instagram pairing above,
+the real ceiling is one campaign — one X post plus its Instagram sibling —
+per platform per UTC calendar day.
 
 Two more failure-time behaviors: a platform missing required credentials aborts the **entire run** before touching any item (no attempts burned on a problem no retry fixes), and a transport-level failure at the actual publish moment (request sent, response never received) is recorded as `lastError: "ambiguous"` and is **never auto-retried** — retrying one is indistinguishable from manufacturing a duplicate, which is exactly the 2026-07-17 incident's mechanism.
 
