@@ -32,7 +32,8 @@ this repo's duplicate-post defense actually depends on can't go stale just
 because a PR failed to land. A throwaway `social-poster/state-*` PR into
 `main` still runs afterward (same allowlist mechanics as before — `.github/
 content-automerge-allowlist.txt` covers `social/posted/`/`social/failed/`
-as machine bookkeeping, content gate stays on `queue/`), but it's
+as machine bookkeeping — `queue/` auto-merges too, per the no-human-review
+note above), but it's
 VISIBILITY-only now: it keeps `main`'s own copy current for humans and for
 `check-drafts.mjs`'s recent-history heuristics, and a stuck one is a
 staleness-on-`main` problem, not a live-duplicate risk. Full mechanics:
