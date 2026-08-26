@@ -236,6 +236,48 @@ export default {
         ),
       ],
     },
+    {
+      slug: 'im-only-me-when-im-with-you-mv',
+      kind: 'music_video',
+      title: "I'm Only Me When I'm With You",
+      director: null,
+      releasedOn: '2009-06-16',
+      relatedSongs: ["I'm Only Me When I'm with You"],
+      tags: ['Music'],
+      summary:
+        'The official video for the Taylor Swift (Deluxe Edition) bonus cut, uploaded to her channel during the Fearless era rather than around the debut album\'s 2006 release — YouTube\'s own "Music video by Taylor Swift performing..." credit line confirms the official upload.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=AlTfYj7q5gQ',
+      media: [embed('AlTfYj7q5gQ', '2026-08-25')],
+      sources: [
+        yt('AlTfYj7q5gQ', "Taylor Swift - I'm Only Me When I'm With You"),
+        wiki(
+          'Taylor_Swift_(album)',
+          'Taylor Swift (album)',
+          'confirms "I\'m Only Me When I\'m with You" as a Taylor Swift (Deluxe Edition) bonus track',
+        ),
+      ],
+    },
+    {
+      slug: 'change-live-2009',
+      kind: 'performance',
+      title: 'Change (Live)',
+      director: null,
+      releasedOn: '2009-06-16',
+      relatedSongs: ['Change'],
+      tags: ['Music'],
+      summary:
+        'A full-length live performance video of the Fearless-era anthem, posted to her official channel the same week as the deluxe-cut video for "I\'m Only Me When I\'m With You."',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=FMDVWSqALRs',
+      media: [embed('FMDVWSqALRs', '2026-08-25')],
+      sources: [
+        yt('FMDVWSqALRs', 'Taylor Swift - Change (Live)'),
+        wiki('Change_(Taylor_Swift_song)', 'Change (Taylor Swift song)'),
+      ],
+    },
     // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
     appearance({
       slug: 'grammys-album-of-the-year-2010',
