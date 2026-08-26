@@ -7,6 +7,7 @@ import { getEra, eraIndex } from '@/lib/longlive/eras';
 import { CLUE_PAIRS } from '@/lib/longlive/lenses';
 import { gapYears } from '@/lib/longlive/decode';
 import type { CluePair } from '@/lib/longlive/types';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { DecodeCard } from './DecodeCard';
 import { PatternRail } from './PatternRail';
 import { StatBar } from './StatBar';
@@ -63,6 +64,12 @@ export function DecodeThread({ clues = CLUE_PAIRS }: { clues?: CluePair[] }) {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [showFilters, activeHighlight, share]);
+
+  // Let the mobile back-swipe gesture dismiss the same two layers as Escape
+  // above instead of leaving the app — same shared-stack pattern DecodeCard
+  // uses for revealed payoffs, most-recently-opened layer closes first.
+  useBackDismiss(showFilters, () => setShowFilters(false));
+  useBackDismiss(activeHighlight !== null, () => setActiveHighlight(null));
 
   const allErasInData = useMemo(() => {
     const ids = new Set<string>();

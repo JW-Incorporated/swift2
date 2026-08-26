@@ -5,6 +5,7 @@ import { MessageSquarePlus, X, Check, Loader2 } from 'lucide-react';
 import { useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 // A floating "report an issue" button, fixed to the bottom-right so it follows
 // the viewport as you scroll. Opens a small free-form panel; on submit it POSTs
@@ -84,6 +85,10 @@ export function FeedbackButton() {
   }
 
   useFocusTrap(open, dialogRef);
+
+  // Let the mobile back-swipe gesture close the compose panel instead of
+  // leaving the app, matching the Escape handler below.
+  useBackDismiss(open, () => setOpen(false));
 
   useEffect(() => {
     if (!open) return;

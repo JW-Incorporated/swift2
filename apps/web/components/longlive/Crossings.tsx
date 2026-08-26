@@ -13,6 +13,7 @@ import {
 } from '@/lib/longlive/lenses';
 import type { LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { resolveCrossingMarkerTops } from './crossingMarkerLayout';
 
 const THREAD_ICONS: Partial<Record<LensId, typeof Heart>> = {
@@ -61,6 +62,13 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [selected, share, closeCrossing]);
+
+  // Let the mobile back-swipe gesture dismiss the same two layers as Escape
+  // above, in the same order (open crossing detail first, then the view
+  // itself): this component is only ever mounted while the crossing view is
+  // open, so it owns its own always-active entry for that layer.
+  useBackDismiss(true, closeCrossing);
+  useBackDismiss(selected !== null, () => setSelected(null));
 
   const start = CAREER_START_MS;
   const end = useMemo(() => careerEndMs(), []);
