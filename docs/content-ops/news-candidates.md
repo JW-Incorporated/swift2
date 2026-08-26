@@ -27,6 +27,38 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Feels Betrayed by Wedding Guest's Actions
+
+- first seen: 2026-08-26 02:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest that Taylor Swift felt completely betrayed after an incident involving a wedding guest. The specifics of the situation remain unclear.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxPekFOVHZ5ZDhfQkM1NU12MzBRNW5OTEI3bkdrN0ZZLU44RmpIM0lCQVVSNkkxc3prYThBUUFTV1NaU1g1NHhIMFlodDRMZ3UxNjh0V3pfaVdjZElud185Uk1pcGZNUFRQcXl6V2d2QXJFZkxyaUp5cUU2U3VoNUV1TVA2U05lVFdqaFVOSzF3MDR0aWZpOTdqWjBqODFVemxjUjkxZnFtUE9zZUVoZ2c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 10-Word Rule Highlights Her Career Work Ethic
+
+- first seen: 2026-08-26 02:38 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An article discusses Taylor Swift's '10-Word Rule' as a key aspect of her work ethic that has contributed to her successful 20-year career in the music industry.
+- sources:
+  - [unverified] inc.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOU3podXh6aEppTFg3a3kyUVY4MnFURFU0aE56WDlxcF8zdk9IdjllMldZdzhELUcxTWpRMVk5dS1RVDdNUGo3OTIzOHdxTzRCS1QtZkFkY1lkNUw4Wi16ODRkZDNKVXdsbWVxTDY5MVpwaEhwM0hrSnhDVHBfaGxhRmZXS1dHb3NmSERTQ3ViNmtEcGVVeXlySkZzX08xdVNuTWo1WDlWT3R3NGo5SW14ZGFLNHVlbmdGMTY0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dolly Parton Acknowledges Gift from Taylor Swift and Travis Kelce
+
+- first seen: 2026-08-26 02:38 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Dolly Parton expressed gratitude towards Taylor Swift and Travis Kelce for a significant $2 million donation shortly before her passing. This donation highlights the philanthropic efforts of the two stars.
+- sources:
+  - [unverified] KMBC — https://news.google.com/rss/articles/CBMitwFBVV95cUxON1ZzU01HREhsMWlMWnJaTzRVcWhUdVRCbXpBdDZfN3BwSmxDYTg1ajdqSzVWTVotdW9KZEt0ZlNVMnltc3hCYnZEaGlJdkJpU2lwUFY3YmdGejZaLXd4REY4cGpiemlUSlFXa1QxQk9NNGhVQkxpZXY4VXRka0JDSHVOWUo3eFBiWjVubGhwM3JSSHpVeWxrRXdHSmVYVmV4TlFhYWV6ZThZUmUzMEpYOEkzVVBEcUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Participate in Dolly Parton Tribute
+
+- first seen: 2026-08-26 02:38 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is preparing to take part in a tribute for Dolly Parton. There is speculation about whether Travis Kelce will join her for the event.
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxNRHdwOHhkbWZnRDlPNWFIRm9LVWpDcVh3enExdnduanp6Qld1dWdYdXJWOFZpYVNsQWxuaUpEMkJfYi12eFl3cFRBeGpxWmlxSUlNLWtJN0pBNXR3cl8tZUtCaDlvZ3ZZMU8zMlJKMVkzSmxIZUVnUW1MMTNyaFY4TTgxMnN3ZV9HLXNMVHNrTzFGYnBwQm9HdFRxZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift’s Grammy Museum Performance Features HQ Footage of Her New Diamond Wedding Band - Cosmo
 
 - first seen: 2026-08-25 21:39 UTC | category: relationship | importance: 5
@@ -972,35 +1004,3 @@ The singer, who has the most top 10 singles in UK chart history of any female ar
 - summary: Taylor Swift is set to be inducted into the Nashville Songwriters Hall of Fame this fall, making her the youngest-ever inductee. She will join fellow honorees Lyle Lovett, Shawn Camp, and Bruce Channel.
 - sources:
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-tapped-for-nashville-songwriters-hall-of-fame-1236670984/
-
-## Taylor Swift Nominated for 9 VMAs Alongside Madonna's 11
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: At the 2026 VMA nominations, Madonna leads with 11 nominations while Taylor Swift follows with nine. Sabrina Carpenter and Ariana Grande are both tied for third with seven nominations each.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/2026-vmas-nominations-madonna-taylor-swift-lead-1236675785/
-
-## New York heat prompts discussion of Taylor Swift’s low-key wedding
-
-- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: A recent article discusses the extreme heat in New York and briefly mentions Taylor Swift's wedding in the context of the conversation. The piece highlights the unusual weather conditions causing locals to reflect on their experiences.
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/uk-news/2026/aug/14/digested-week-humid-new-york-london-oven-blast-heat
-
-## Taylor Swift Shows Off Short New Haircut in Black Floral Empire Waist Slip Dress at L.A. Event - Yah
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Shows Off Short New Haircut in Black Floral Empire Waist Slip Dress at L.A. Event  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOQ0NsXzNSaFo0ZTVWQWlicm56aXJSQkFGLVhqcFh1WTFtclVsNVRaTFJ4TTBtTTR4NkItanQxZml2NURZdm5NdUhfdXl5am8td21namVYUnFxSUFRMUFNZ0JmNTFDRlZEUGdCejBGMjYwazIyS3BRZ21ZTXIwa3V3MVBvLXc2TFJSUDZjeDk2SlVRblU0b0toQjNFLWdPSms?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## The Icon Sessions with Taylor Swift — Presented by Recording Academy's Songwriters & Composers Wing 
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Icon Sessions with Taylor Swift — Presented by Recording Academy's Songwriters & Composers Wing  YouTube
-- sources:
-  - [unverified] YouTube — https://news.google.com/rss/articles/CBMiXEFVX3lxTFB0VFNFaGktTXVIR3hWYXo2UUc2WXNZZUd3WURtS08yM2l5NlpvN2RldHZXdEVFQk1YUzJtQU9LNXRXVFkzeVZGYU9GX3p5ZjFyZDcwdG5IeENYcjZQ?oc=5&hl=en-US&gl=US&ceid=US:en
