@@ -2943,6 +2943,54 @@ costs static generation for XSS protection the threat model doesn't need yet;
 
 ---
 
+## 2026-08-26 — Resource CSP flipped from Report-Only to enforcing (#1975)
+
+**Decision.** `apps/web/next.config.mjs` now calls `securityHeaders({ ...,
+enforceResourcePolicy: true })`. The resource directives
+(`script-src`/`style-src`/`img-src`/`font-src`/`media-src`/`connect-src`/
+`frame-src`/`worker-src`/`manifest-src`) that shipped as
+`Content-Security-Policy-Report-Only` since #1935 (merged 2026-08-12) are now
+sent as the single enforcing `Content-Security-Policy` header, merged with the
+four directives (`frame-ancestors`/`base-uri`/`form-action`/`object-src`) that
+were already enforcing.
+
+**Why now.** The 2026-08-11 entry above set the bar: a quiet
+`/api/csp-report` window plus every legitimate host folded in.
+- Vercel production runtime logs (`swift2-web`, `prj_sn7u2Wn8TCFpVMGhVoBCpC6ImmsL`)
+  for the trailing 24h (the plan's full retention window) show real traffic
+  across `/`, `/vault/tier0`, `/vault/current/tloas`, `/vault/live-theories`,
+  `/privacy`, `/terms`, `/opengraph-image`, `/_next/image`, `/api/mood`,
+  `/api/clown` — 471 requests total — and **zero** hits to `/api/csp-report`
+  and zero `warning`/`error`-level log lines. The report sink has been live
+  14 days (since #1935); only the last day is queryable on the Pro log-
+  retention plan, but a full day of real embed/image/API traffic reporting no
+  violations is direct evidence, not an absence of instrumentation.
+- Static check (`apps/web/lib/no-html-sink.test.ts`, added in #3174) asserts
+  the only `dangerouslySetInnerHTML` in `app/`+`components/` is the static,
+  hardcoded JSON-LD block in `app/layout.tsx` — the invariant the 2026-08-11
+  entry's `script-src` reasoning depends on.
+- No host-list changes were needed: `FRAME_SRC`, `VERCEL_ANALYTICS`, and the
+  `'self'`-scoped `connect-src`/`img-src https:` policy already covered
+  everything a manual pass over the embed components and `next/image` config
+  found.
+
+**What did not change.** `script-src` still carries `'unsafe-inline'` and is
+still a host allowlist, not an XSS control, per the 2026-08-11 entry's
+reasoning — enforcing it does not add nonce-based script protection. If the
+app ever renders user-supplied HTML, that entry's nonce/middleware trade-off
+needs revisiting.
+
+**Verification:** `next build && next start`, loaded `/`, a moment/era
+detail page and `/privacy` with Chrome devtools open — zero console CSP
+errors, all embeds/images/fonts loaded. `npm test --workspace=@swift2/web
+-- security-headers` and `npm run typecheck --workspace=@swift2/web` both
+green.
+
+**Approved by:** the owner (Decision Authority — non-product, technical
+change, no new secrets/infra/spend).
+
+---
+
 ## 2026-08-11 — Third-party embeds are click-to-load, without exception
 
 **Decision (PENDING Wyatt's approval).** Every third-party embed on the site
