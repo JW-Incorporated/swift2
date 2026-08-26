@@ -3998,6 +3998,9 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): the named hospital itself,
             // since no second photo of the gown was found on an allowlisted host.
             url: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Children%27s_Mercy_Hospital_Adele_Hall_Campus%2C_Kansas_City%2C_Mo.%2C_2014.jpg',
+            // Photo pass #762 (2026-08-26): downloaded and vision-confirmed —
+            // brick hospital building with entrance sign, roughly centered.
+            focalPoint: '45% 55%',
             credit: 'Wikimedia Commons / ShawnCMH (CC0)',
             caption: 'Children\'s Mercy Hospital\'s Adele Hall Campus in Kansas City, Missouri, where the tribute gown was made.',
             kind: 'reference',
@@ -4174,6 +4177,22 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-25',
             reliability_score: 3,
+          },
+        ],
+        // Photo pass #762 (2026-08-26): network egress is back this session
+        // (wikimedia reachable, unlike the 2026-08-25 attempt). No allowlisted
+        // photo of Scott at the wedding itself exists — an archival reference
+        // photo of him stands in, same pattern as the Gronkowski wedding-guest
+        // pages. curl-verified 200 image/jpeg on Wikimedia Commons, downloaded
+        // and vision-confirmed: Adam Scott, dark hair and beard, at an FYC
+        // panel.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Adam_Scott_-_Severance.jpg',
+            focalPoint: '48% 42%',
+            credit: 'Kevin Paul, via Wikimedia Commons (CC BY 4.0)',
+            caption: 'Reference image: Adam Scott, the wedding guest who described the night to TODAY — pictured at a March 2025 Severance FYC panel, not from the wedding itself.',
+            kind: 'reference',
           },
         ],
       },
@@ -9302,12 +9321,18 @@ export default {
         photos: [
           {
             url: 'https://imageio.forbes.com/specials-images/imageserve/696003e5ae8b734c7787f515/Taylor-Swift---The-Eras-Tour---Indianapolis--IN/0x0.jpg?crop=1515,1010,x558,y260,safe&width=960',
+            // Photo pass #762 (2026-08-26): downloaded and vision-confirmed —
+            // face turned back over the shoulder, upper right of frame.
+            focalPoint: '68% 20%',
             credit: 'Getty Images for TAS Rights Management via Forbes',
             caption: 'Taylor Swift on the Eras Tour, Indianapolis — Forbes\' image for its story on "Elizabeth Taylor" and "Opalite" returning to the UK charts, July 28, 2026.',
             kind: 'reference',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/02-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Photo pass #762 (2026-08-26): downloaded and vision-confirmed —
+            // reclining editorial pose, face tilted back, upper right of frame.
+            focalPoint: '80% 18%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo.',
             kind: 'reference',
@@ -9870,6 +9895,9 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): a distinct frame from the
             // same official press photo series.
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/05-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Photo pass #762 (2026-08-26): downloaded and vision-confirmed —
+            // arms raised overhead push the face to lower-center of frame.
+            focalPoint: '45% 58%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Taylor Swift in a jeweled-headdress look from the official Life of a Showgirl press photo series.',
             kind: 'reference',
@@ -11009,6 +11037,8 @@ export default {
         // confirmed: Taylor in the silver dress, guest chair opposite Fallon's
         // desk, the show's NYC-skyline set. Rehosted by an entertainment-news
         // site rather than served from NBC's own CDN — flagged for review.
+        // Photo pass #762 (2026-08-26): re-checked for a second photo — still
+        // none found on an allowlisted host; stays at editorial max (1).
         photos: [
           {
             url: 'https://headlineplanet.com/home/wp-content/uploads/2025/10/Taylor-Swift-Fallon-2.jpg',
@@ -11069,6 +11099,8 @@ export default {
         // mid-conversation on the Late Night set, studio audience visible.
         // It carries a permanent "TAYLOR SWIFT FULL INTERVIEW" text overlay,
         // so it's a reference image, not a clean primary still.
+        // Photo pass #762 (2026-08-26): re-checked for a second photo — still
+        // none found on an allowlisted host; stays at editorial max (1).
         photos: [
           {
             url: 'https://img.youtube.com/vi/Wd7S1wZqkbI/maxresdefault.jpg',
@@ -11509,6 +11541,9 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): Billboard's own image for this exact chart story.
             url: 'https://www.billboard.com/wp-content/uploads/2026/06/taylor-swift-jessie-toy-story-5-premiere-2026-billboard-1800.jpg?w=1024',
+            // Photo pass #762 (2026-08-26): downloaded and vision-confirmed —
+            // red-carpet pose with Jessie plush, face upper right of frame.
+            focalPoint: '78% 28%',
             credit: 'Billboard',
             caption: 'Taylor Swift at the Toy Story 5 Los Angeles premiere, June 2026 — Billboard\'s image for its Adult Pop Airplay chart-record story.',
             kind: 'reference',
@@ -11724,6 +11759,9 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): Variety's own image for this exact story.
             url: 'https://variety.com/wp-content/uploads/2026/08/tayphoebe.jpg?w=1000&h=563&crop=1',
+            // Photo pass #762 (2026-08-26): downloaded and vision-confirmed —
+            // side-by-side split portraits, both faces in the upper third.
+            focalPoint: '50% 25%',
             credit: 'Variety',
             caption: 'Coverage image for Variety\'s story on Taylor Swift praising Phoebe Bridgers\' "Lost Weekend" album, August 17, 2026.',
             kind: 'reference',
