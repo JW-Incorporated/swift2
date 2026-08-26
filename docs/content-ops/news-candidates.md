@@ -27,13 +27,63 @@ so far".
 
 Stories: 120
 
-## Taylor Swift Feels Betrayed by Wedding Guest's Actions
+## Taylor Swift shares origin of 'I Knew You Were Trouble' as sad ballad
 
-- first seen: 2026-08-26 02:38 UTC | category: relationship | importance: 5
+- first seen: 2026-08-26 05:47 UTC | category: music | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Reports suggest that Taylor Swift felt completely betrayed after an incident involving a wedding guest. The specifics of the situation remain unclear.
+- summary: Taylor Swift discusses the songwriting process of 'I Knew You Were Trouble', revealing it was initially conceived as a 'really sad ballad'.
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxPekFOVHZ5ZDhfQkM1NU12MzBRNW5OTEI3bkdrN0ZZLU44RmpIM0lCQVVSNkkxc3prYThBUUFTV1NaU1g1NHhIMFlodDRMZ3UxNjh0V3pfaVdjZElud185Uk1pcGZNUFRQcXl6V2d2QXJFZkxyaUp5cUU2U3VoNUV1TVA2U05lVFdqaFVOSzF3MDR0aWZpOTdqWjBqODFVemxjUjkxZnFtUE9zZUVoZ2c?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] NBC Los Angeles — https://news.google.com/rss/articles/CBMitwFBVV95cUxPTm13d3R1Z1hXbFl5aGVtZ3ZDa0V1MndRODNOQnhsRGE5ckhyWFVab2ttdVdlV214UzJkY0FDR2hCSjRnQ3AxMW5kdmxTbm82S0xXNThzV29qWnFlbVJfWjZHSGFxT1lrUzVlaWFaUURRR3Q5N3ZqOEpMQ1gwTWJHQVRLLXBaRjRRdXFZOVpua19UT1dfbEJqS0V0UmtRSm9pb1VFZ0VJV2MyMFhPYWJZeExqSnlvMGvSAb8BQVVfeXFMUGkwVmk0YnNicFJNZlJOT3hNZFY2WGNfejNKTThCYW1XNjZEWEpyM0ZrWjBDMjBOQjFTS0xBMlcxY1FXQUJRZ3FTYmFlTFVlbjU2TEJkSGxNcDItOVQ5cHpqTjB5TlczRGpGckU5dkpWUHJaYkRWeFZRaU4zWnRCMGlMeG0zdlhFd1Jia0ZvN3hxeFlRX1JzUXhyTGxGRGN1dXJpRDhSVnY0aHZOajZnUVR5LWc3ZVltbF9XZFVZTU0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Honors Dolly Parton's Life and Legacy
+
+- first seen: 2026-08-26 05:47 UTC | category: music | importance: 8
+- verification_status: corroborated | source_count: 2
+- summary: In a heartfelt tribute, Taylor Swift reflects on her friendship with the late Dolly Parton, who recently passed away at age 80. Swift highlighted Parton's generous spirit and impact on the music world.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/08/dolly-parton-taylor-swift-death-reaction-1237050617/
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPQXB2WVptQWNLc1lkTHEyMVhmRjlxUG9pcmJ0Mll4SjRjaEV2Z3dBaVQ3bVgybnZsT0oyczlsb1RzVFRvdThHRS04YktwYkZVTXNtRW5FMU41anBJbVpmRFZXTTloYkltOXJFY0p6TUhoSGVNaHozelRkdWppWnZKaFlfRlpzZjZp?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Denied No. 1 Spot On Charts By Another Artist
+
+- first seen: 2026-08-26 05:47 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift faced competition on the music charts as another artist's hit prevented her from reaching a new number one position. This development highlights the competitive nature of the current music scene.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxOLU1vakVwYWNNbHVPb0htOWZvMHNRWXQybU5mVEluVUpxd2NabERrd0dhUWQ3dllKZE85QjlFTzhsa1JtLUpwYlBIYXZHdHVXWWtyYUE3OTNuVUxkOVJQRXY2UVJPQ2VLYU56bk9XUTRwSldEWXV4QWJpUzI4SWMwU1lDZVZkWHNndWRBWDZxeUxFVjljLUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Honors Dolly Parton’s Legacy in Recent Statement
+
+- first seen: 2026-08-26 05:47 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift recently spoke about Dolly Parton's significant impact on the music industry, calling her a 'force of evolution and transformation.' Swift emphasized the everlasting nature of Parton's legacy in an interview with The Hollywood Reporter.
+- sources:
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiowFBVV95cUxQT0xYUk5iemIwVHNHUUUtcVBuWGlHUUpYRFo1YW10MmNOdTVCQnpTRTdXVGVSM2xSSHhVdVEwLVhsVkpjZmxzM09IWGktX0swUWt1bUU4QVFRaVB0V1VkVlpSd2M2Mi1pUElPZlpIcVplVlZWdEd5eHlzLVJDOW5lcHRaSU9FbUhfNm5TM1p1Uk9FV2R1RVJ1WjAtYjlZVktXZm9B?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-dolly-parton-dead-tribute-1236681122/
+
+## Taylor Swift Performs Piano Mashup at Grammy Museum's Icon Sessions
+
+- first seen: 2026-08-26 05:47 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased a piano mashup from her Eras Tour during the Grammy Museum's Icon Sessions event. The performance highlights her musical versatility and celebrates her extensive catalog.
+- sources:
+  - [unverified] JamBase — https://news.google.com/rss/articles/CBMihAFBVV95cUxPcW41WHY4QWxmMDNoazROZnhVVEFRTURwWGh1WV9hTXJZU3V2bzNXQW5rYWRVV1dtSjVjMEtrOU9CQ0xuajJReERrZlV3UkUxdERZeXI5U0JBbWVhemtXVHZBazhjYXRlTHljSXJ6a3pTdXVYajdZdF9aVEdFNFNlYXAzLXo?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Pays Tribute to Dolly Parton
+
+- first seen: 2026-08-26 05:47 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift honors Dolly Parton’s legacy, highlighting her compassion for others and her strength as an artist in a heartfelt tribute.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/taylor-swift-dolly-parton-tribute-1235615646/
+
+## Taylor Swift's Floral Dress Sells Out Quickly
+
+- first seen: 2026-08-26 05:47 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A floral dress worn by Taylor Swift has sold out within hours of release, as reported by The Zoe Report. Swift's influence continues to drive significant demand in the fashion world.
+- sources:
+  - [unverified] The Zoe Report — https://news.google.com/rss/articles/CBMidEFVX3lxTE1nSGtqNjVkQVFQLVB1anFtbDFHNlJQWk5hUnQ2ZG9nQ2haQ296SGF1RThEU3FsVXl6eFFQX0lqVG44SU55UkR5aUFNaGljclJKUWRzS1pJY240RkpLYmxsUURsSzJfYjdxZG9GUm5hX1ZpNTd3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 10-Word Rule Highlights Her Career Work Ethic
 
@@ -43,13 +93,14 @@ Stories: 120
 - sources:
   - [unverified] inc.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOU3podXh6aEppTFg3a3kyUVY4MnFURFU0aE56WDlxcF8zdk9IdjllMldZdzhELUcxTWpRMVk5dS1RVDdNUGo3OTIzOHdxTzRCS1QtZkFkY1lkNUw4Wi16ODRkZDNKVXdsbWVxTDY5MVpwaEhwM0hrSnhDVHBfaGxhRmZXS1dHb3NmSERTQ3ViNmtEcGVVeXlySkZzX08xdVNuTWo1WDlWT3R3NGo5SW14ZGFLNHVlbmdGMTY0?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Dolly Parton Acknowledges Gift from Taylor Swift and Travis Kelce
+## Taylor Swift Feels Betrayed by Wedding Guest's Actions
 
-- first seen: 2026-08-26 02:38 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Dolly Parton expressed gratitude towards Taylor Swift and Travis Kelce for a significant $2 million donation shortly before her passing. This donation highlights the philanthropic efforts of the two stars.
+- first seen: 2026-08-26 02:38 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Reports suggest that Taylor Swift felt completely betrayed after an incident involving a wedding guest. The specifics of the situation remain unclear.
 - sources:
-  - [unverified] KMBC — https://news.google.com/rss/articles/CBMitwFBVV95cUxON1ZzU01HREhsMWlMWnJaTzRVcWhUdVRCbXpBdDZfN3BwSmxDYTg1ajdqSzVWTVotdW9KZEt0ZlNVMnltc3hCYnZEaGlJdkJpU2lwUFY3YmdGejZaLXd4REY4cGpiemlUSlFXa1QxQk9NNGhVQkxpZXY4VXRka0JDSHVOWUo3eFBiWjVubGhwM3JSSHpVeWxrRXdHSmVYVmV4TlFhYWV6ZThZUmUzMEpYOEkzVVBEcUE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxPekFOVHZ5ZDhfQkM1NU12MzBRNW5OTEI3bkdrN0ZZLU44RmpIM0lCQVVSNkkxc3prYThBUUFTV1NaU1g1NHhIMFlodDRMZ3UxNjh0V3pfaVdjZElud185Uk1pcGZNUFRQcXl6V2d2QXJFZkxyaUp5cUU2U3VoNUV1TVA2U05lVFdqaFVOSzF3MDR0aWZpOTdqWjBqODFVemxjUjkxZnFtUE9zZUVoZ2c?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOQW11cF9xYXBkQVloTWhORkVkVFBNWWxjYzdfRThnc25CU1pBN2poRGdEY3JXaEFpMTllM2lRWlpRNnZjNVVJSnowWm4yRHpJcWFwM0J6MGM4dHdtWVloRlNGcTlRLWkyMjFUNHdsUWwwSldwVXEwMlF2c2pEdUtDZUR1M3dKRWlkNk9NUnRMOEV4TlpMZUdfVWV5MXVxVm1mdHpBU0UzZ0w?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift to Participate in Dolly Parton Tribute
 
@@ -58,6 +109,22 @@ Stories: 120
 - summary: Taylor Swift is preparing to take part in a tribute for Dolly Parton. There is speculation about whether Travis Kelce will join her for the event.
 - sources:
   - [unverified] heavy.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxNRHdwOHhkbWZnRDlPNWFIRm9LVWpDcVh3enExdnduanp6Qld1dWdYdXJWOFZpYVNsQWxuaUpEMkJfYi12eFl3cFRBeGpxWmlxSUlNLWtJN0pBNXR3cl8tZUtCaDlvZ3ZZMU8zMlJKMVkzSmxIZUVnUW1MMTNyaFY4TTgxMnN3ZV9HLXNMVHNrTzFGYnBwQm9HdFRxZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dolly Parton Acknowledges Gift from Taylor Swift and Travis Kelce
+
+- first seen: 2026-08-26 02:38 UTC | category: business | importance: 7
+- verification_status: corroborated | source_count: 9
+- summary: Dolly Parton expressed gratitude towards Taylor Swift and Travis Kelce for a significant $2 million donation shortly before her passing. This donation highlights the philanthropic efforts of the two stars.
+- sources:
+  - [unverified] KMBC — https://news.google.com/rss/articles/CBMitwFBVV95cUxON1ZzU01HREhsMWlMWnJaTzRVcWhUdVRCbXpBdDZfN3BwSmxDYTg1ajdqSzVWTVotdW9KZEt0ZlNVMnltc3hCYnZEaGlJdkJpU2lwUFY3YmdGejZaLXd4REY4cGpiemlUSlFXa1QxQk9NNGhVQkxpZXY4VXRka0JDSHVOWUo3eFBiWjVubGhwM3JSSHpVeWxrRXdHSmVYVmV4TlFhYWV6ZThZUmUzMEpYOEkzVVBEcUE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMinwFBVV95cUxOT25lR0ZsUkxwOXhWY0hKdHI1Q0tCb3o4WW9CS2hQYUplU19zM3V4NmFFM1ZmdHJMbE96RjBSVkxOd0hiTmx1QjRuMU1mcHgxTTZuVHpOS05KdHVfaGRkb1hyOE16U3lpdHpkb3BPM3ZuMFlvZjFSYjZLdjI5eU93Tks4ZmRCbWxzZGthWVctUzFQaXR2YWlpNU5yVEkzNEE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxNM19id0gzR1pTdk50MzAwQ012MnQ2OER5TFdrX2ZuUDc3UktYaGJYVE9qb2MwNXM4N2h6cmVVQW5HVGhQaUd0TjRpMGJJUFVBWFdIYlFfazZDVUNzaXcyVkVONVlFbTdaU183ZzhHU0xBeC01N25ySmhSdFl2ZW1MeQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQSjZsc1A4X1dZRGstLTFmTkViU2dLX2hOQmV5Y3NIQnFubnZHbGpPOXFveGhXLWVHNW1icXl3aHB3R2F0UDRGN2daV28yT1RhYnN5ak5MaXNnOXlYNUNXbmE1c2tUNU01V3hzclNGOUpjV1QtSERBWF93cnRrSmJvUVRMQnBTeHJWcWxJbEwwZ09XVHBvNktlOW9odjZQeHd2V3RsNjl0UkNuMjhvS3pvbEgtTEZ1dm9LdW1n?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety Australia — https://news.google.com/rss/articles/CBMijAFBVV95cUxPMnRiZGtqNTlwdWFEUlJ4c2JwSTM1VURMS2NLaDAxb3ZPTGY0N1Z0UEprTkp4TEFRSFBOZkp5WGV2eEJvNm45Sm90dDBvZnFwRWtOS0F4YWdSUUhiY0hEVHk3enNDZGtoUlhNVFJ1S3Q4dmhQMU5ZUmJoZWtyc3lNNjJFSE55cVFsWVNRdg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMijwFBVV95cUxPWGowUGd6UVMwSHZ1cnZIX0RRQlJGMTdLYm0zckhMbFFMS3pCWW01Rk0tUnphc2J4NmpCWm1ZbGhudXE1aVY1ZnRkZDVMOEoyd2wwc2pKdUFHS3hlMHF1Z3hhWk83dzZRU0xETVpOWEhvUFJfZGpWR0NwelpZajdzbGFKZVlENVdZWkF1bFNBNA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WBTV — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQZUFNSVZjQWVwWTIyYzRxT1l4MlZSM1J1Z0lUU05LbFJOQU5rUkZkVF9qeWVhb29vcXVWYVVxazl6Zll6OHpWcUlCWnZ4VEdwaGxaSTNfLXc0OXlRdzZoUGtTNlVoN09vX0pCdVNHS2ZlcGloaGduQThjWElndEdETkdIWWJ3MFV4MmszUDJuNFhUTFoxSS0tSXhVY2EzTzY5TWpvZ1BuMzhzcG1iMlFoWGQ5ejJTRUJtV09V?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-dolly-parton-tribute-dead-1236842794/
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitAFBVV95cUxPV2pTLU4wMXhQNEZXQklPdWF4UEJBUW12ZzNJa2VqcDhWcTZ0SmxpLXlUQjUzLV9oeTZQdjVLNlAzVk1CX0JTa2xxa3NlNWI2VnQydmswWUd6aWtDbk9jZWdYbmFxbV9EeWFBUFo1a1BJOU5CZGg4a1pqd0ExVEpXeXRWQ1JoSnR5aGVieFJrd1djbHkyVGRfSW1TQ1g2Ykx5dVh3QlYxVjRkRDRibzZDMThpenc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift’s Grammy Museum Performance Features HQ Footage of Her New Diamond Wedding Band - Cosmo
 
@@ -99,14 +166,6 @@ Stories: 120
 - sources:
   - [unverified] Axios — https://news.google.com/rss/articles/CBMikwFBVV95cUxONVI1M3hMTVJUZXI0dTZRQmoxN00xZVozUmI0VHVybFNpYzF6aDFOU0FfUVNMX3l6elpDOFU3X09RcE9QanliLTcyOXdOOVJoQy1rRFdKOFZ3SXB4M0FLdEx1Ni1wQTZaWmphUmhnNGhCOGptaDRJaTJYelI1ZUFOUjlZX19mS0x0QURQUWFFX3JNQUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Gives a Closer Look at Her Wedding Band and Ring Stack During Recent Performance - inst
-
-- first seen: 2026-08-25 21:39 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Gives a Closer Look at Her Wedding Band and Ring Stack During Recent Performance  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNWR6bFg2ZzBJYjk5bEFyYUM0b296cWl0WG9vNXgxZGJ2NF9zLXViU3YxaEFhQ09vWG9jeTl6c3ppWWtIX1hFVlRqTHpZcTlia1pMTGxaRXVPLU5VNld2SjQ2SW1JdHZ3Y2t0LXVGYUNuYmJXb0Z2MThCU2J2dTl4Mk1WQ1FRNTd2?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift’s ‘Confessional Songwriter’ Dig Has Fans Naming Olivia Rodrigo - Yahoo
 
 - first seen: 2026-08-25 21:39 UTC | category: music | importance: 5
@@ -122,6 +181,15 @@ Stories: 120
 - summary: Taylor Swift & Travis Kelce Made a Major Move For Dolly Parton Before Her Death  Men's Journal
 - sources:
   - [unverified] Men's Journal — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNa0E5eG81Qk5mdGlwMjhzakxsSE90OEJlRlFyS1djUnlxVXJqaHJ6Nk92Z3d1eHRzVEM4MFl4RTd1bzBVTDB4Z0lxcFgxVThqX1hiVjlRbkxlX3V5cXA0c3dDTG12NWpwVHJJendTT2MxelhYLWR6MDdlVjZIRVMtdVNiRVNYb05BVHJvcUNPQ3c1SlBpTEJsajdGS1k4N2prSUlVa25QNTc1M0NBTWtKbEpxRUdIbXhVeWVj?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Gives a Closer Look at Her Wedding Band and Ring Stack During Recent Performance - inst
+
+- first seen: 2026-08-25 21:39 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Gives a Closer Look at Her Wedding Band and Ring Stack During Recent Performance  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNWR6bFg2ZzBJYjk5bEFyYUM0b296cWl0WG9vNXgxZGJ2NF9zLXViU3YxaEFhQ09vWG9jeTl6c3ppWWtIX1hFVlRqTHpZcTlia1pMTGxaRXVPLU5VNld2SjQ2SW1JdHZ3Y2t0LXVGYUNuYmJXb0Z2MThCU2J2dTl4Mk1WQ1FRNTd2?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOY0lNNEtMM2Jyb0VKX0c5WDV6a3JseDNRUXhVZ3Vkcy15dzFYOXMwWlJHeUhibjlYLXp6MXhOTUtyN2lmYlhYbV9FTDE2OFNXRkt0QXBUdW1Sa3FRc3E1eWJzcUJyQjI4S1F0TGxyR1ZKZEE4c29zTDdkeFRiTXRTSnFVNlhjeUliNjRfOFRBSmF0T3ZJR21MNnJTRFZFS1NZbEdYV3VjMkMwNHZSckhQQ0NXS1ZHTS05SDN3WXlPU0hVN2NhYTlGdk9xUnpkb05E?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Proves Taylor Swift Isn’t the Only Singer in the Family with His Mic’d Up Songs at Chie
 
@@ -942,65 +1010,3 @@ The post Taylor Swift Gets Her Songs Muted On Donald Trump’s
 - summary: “I can’t thank the owners of MSG enough for allowing us to get an opportunity to do that, knowing that we wanted a private event and everything,” Kelce said.
 - sources:
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/travis-kelce-taylor-swift-msg-wedding-childhood-dream-1236672194/
-
-## Travis Kelce says wedding to Taylor Swift was 'the best night of my life' in first official comments
-
-- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Kelce’s remarks on his marriage to Swift at Madison Square Garden comes weeks after the event, which remains shrouded in mystery
-American football star Travis Kelce has described his secretive early July wedding to pop sensation Taylor Swift as “the best night of my life.”
-“I appreciate everybody wh
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/aug/13/travis-kelce-comments-taylor-swift-wedding-best-night-of-my-life
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cx2r179e232o?at_medium=RSS&at_campaign=rss
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/article/taylor-swift-travis-kelce-msg-wedding-details.html
-
-## Madonna will not be playing Glastonbury in 2027, Emily Eavis says
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Festival organiser says she has booked next year’s headliners but would not say if Taylor Swift is among them
-Madonna will not be performing at next year’s Glastonbury, the festival’s organiser, Emily Eavis, has said.
-The singer, who has the most top 10 singles in UK chart history of any female arti
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/aug/14/madonna-will-not-be-playing-glastonbury-2027-emily-eavis-says
-
-## Taylor Swift Praises Phoebe Bridgers’ ‘Lost Weekend’ as “An Absolute Triumph in Every Way”
-
-- first seen: 2026-08-25 02:22 UTC | category: sighting | importance: 3
-- verification_status: single_source | source_count: 1
-- summary: It's her birthday but she gave us a gift," Swift wrote on Instagram on Monday.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-praises-phoebe-bridgers-lost-weekend-1236675382/
-
-## MTV Video Music Awards 2026 Nominations: Madonna & Taylor Swift Top List At The VMAs
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Madonna reigns supreme with the most mentions at the 2026 MTV Video Music Awards nominations. The Queen of Pop received 11 nominations, including Video of the Year for “Confessions II — The Film,” Artist of the Year, and Song of the Year for “Bring Your Love.” Following Madonna with nine nominations
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/mtv-video-music-awards-2026-nominations-vma/
-
-## Kylie Kelce Shares Taylor Swift's Family Nickname
-
-- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce has disclosed a surprising family nickname for Taylor Swift, shedding light on a personal aspect of the singer's life. The revelation highlights Swift's connections and relationships.
-- sources:
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxNYU1rRkJwd1Bta3RFdjdQbTdBbDFRZW04MUpPWmtSdDhwcUpyRkM5RzV5c05GRW9ZdG5laUN5YnNxQmpxcXdDdkFZQXBuTGcydkdLVHhNLXBCb29kWGRyY1BHYnNWUURpY0owR3A2OTBQUGlOZnVtM1Jzc1hVc3UtRGxzNA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'All Too Well (10 Minute Version)' Reviewed
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Stereogum has published a piece reviewing Taylor Swift’s 'All Too Well (10 Minute Version) (Taylor’s Version) [From The Vault].' The article provides insights into the track's significance in her discography.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2507854/the-number-ones-taylor-swifts-all-too-well-10-minute-version-taylors-version-from-the-vault/columns/the-number-ones/
-
-## Taylor Swift to be Inducted into Nashville Songwriters Hall of Fame
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift is set to be inducted into the Nashville Songwriters Hall of Fame this fall, making her the youngest-ever inductee. She will join fellow honorees Lyle Lovett, Shawn Camp, and Bruce Channel.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-tapped-for-nashville-songwriters-hall-of-fame-1236670984/
