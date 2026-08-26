@@ -554,5 +554,94 @@ export default {
         ),
       ],
     },
-  ],
+    {
+      slug: 'begin-again-live-from-new-york-city',
+      kind: 'performance',
+      title: 'Begin Again (Live from New York City)',
+      director: null,
+      releasedOn: null,
+      relatedSongs: ['Begin Again'],
+      tags: ['Music'],
+      summary:
+        'A stripped-down New York City performance of "Begin Again," part of the same release-week live series as the "Red," "We Are Never Ever Getting Back Together," "Love Story," "You Belong With Me" and "Mean" NYC videos on this channel.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-25 (author_name "Taylor Swift", upload
+      // dated 2012-11-05 — part of the same NYC live-series batch as the
+      // sibling entries above).
+      officialUrl: 'https://www.youtube.com/watch?v=cQ5tlnGg4wc',
+      media: [embed('cQ5tlnGg4wc', '2026-08-25')],
+      sources: [
+        yt('cQ5tlnGg4wc', 'Taylor Swift - Begin Again (Live from New York City)'),
+        wiki('Begin_Again_(song)', 'Begin Again (song)'),
+      ],
+    },
+    {
+      slug: 'acoustic-performances-from-red-album',
+      kind: 'performance',
+      title: 'Acoustic Performances from RED Album',
+      director: null,
+      releasedOn: '2012-12-17',
+      relatedSongs: [],
+      tags: ['Music'],
+      summary:
+        'A 15-minute compilation of stripped-down acoustic performances of songs from Red, uploaded to the official channel in the album\'s release window.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-25 (author_name "Taylor Swift", upload
+      // dated 2012-12-17, runtime 15:26).
+      officialUrl: 'https://www.youtube.com/watch?v=2obMo7y-rvA',
+      media: [embed('2obMo7y-rvA', '2026-08-25')],
+      sources: [
+        yt('2obMo7y-rvA', 'Taylor Swift - Acoustic Performances from RED Album'),
+        wiki('Red_(Taylor_Swift_album)', 'Red (Taylor Swift album)'),
+      ],
+    },
+    {
+      slug: 'i-knew-you-were-trouble-behind-the-scenes-2',
+      kind: 'documentary',
+      title: '"I Knew You Were Trouble." Behind-The-Scenes #2',
+      director: null,
+      releasedOn: '2013-02-05',
+      relatedSongs: ['I Knew You Were Trouble'],
+      tags: ['Music'],
+      summary:
+        'The second behind-the-scenes installment documenting the making of the "I Knew You Were Trouble" music video, released as a follow-up companion to the official video.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-25 (author_name "Taylor Swift", upload
+      // dated 2013-02-05, runtime 3:53).
+      officialUrl: 'https://www.youtube.com/watch?v=sIjKXPXjVxU',
+      media: [embed('sIjKXPXjVxU', '2026-08-25')],
+      sources: [
+        yt('sIjKXPXjVxU', '"I Knew You Were Trouble." Behind-The-Scenes #2'),
+        wiki('I_Knew_You_Were_Trouble', 'I Knew You Were Trouble'),
+      ],
+    },
+    {
+      slug: 'red-tour-announcement-2012',
+      kind: 'speech',
+      title: "Taylor Swift's RED Tour Announcement!",
+      director: null,
+      releasedOn: '2012-10-26',
+      relatedSongs: [],
+      tags: ['Tour'],
+      summary:
+        'A direct-to-camera clip announcing The Red Tour, posted the day after Taylor revealed the 2013 stadium/arena run — 58 shows across North America kicking off March 13, 2013 in Omaha — during her "Red" release-week press blitz.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-25 (author_name "Taylor Swift", upload
+      // dated 2012-10-26).
+      officialUrl: 'https://www.youtube.com/watch?v=YoJj-5nAGpM',
+      media: [embed('YoJj-5nAGpM', '2026-08-25')],
+      sources: [
+        yt('YoJj-5nAGpM', "Taylor Swift's RED Tour Announcement!"),
+        press(
+          'https://www.hollywoodreporter.com/news/general-news/taylor-swift-red-tour-announcement-383654/',
+          'Taylor Swift Red Tour Announcement',
+          'The Hollywood Reporter',
+          'confirms the October 2012 announcement and the March 13, 2013 Omaha tour opener',
+        ),
+      ],
+    },],
 };
