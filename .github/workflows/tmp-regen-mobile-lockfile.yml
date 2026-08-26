@@ -29,9 +29,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Install from the existing lockfile first (expo must exist on disk)
+        run: npm ci --no-audit --no-fund
       - name: Align apps/mobile to the Expo SDK pins
         working-directory: apps/mobile
-        run: npx --yes expo install --fix
+        run: npx --no-install expo install --fix
       - name: Regenerate lockfile (full install - honours root uuid override)
         run: npm install --no-audit --no-fund
       - name: Show what moved
