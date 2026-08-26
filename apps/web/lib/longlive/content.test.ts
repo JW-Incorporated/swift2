@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { CONTENT, MILESTONES, build, milestonesForEra, type RawItem } from './content';
 import { formatMonthYear } from './format';
 import {
+  autoFocalPoint,
   focalPointOf,
   hasRealPrimaryImage,
   isEraArtFallback,
@@ -63,6 +64,33 @@ describe('primary image helpers', () => {
   it('uses an authored focal point and otherwise preserves center-cropping', () => {
     expect(focalPointOf({ focalPoint: '72% 24%' })).toBe('72% 24%');
     expect(focalPointOf(undefined)).toBe('50% 50%');
+  });
+
+  describe('autoFocalPoint (#744)', () => {
+    const fakeImg = (naturalWidth: number, naturalHeight: number) =>
+      ({ naturalWidth, naturalHeight, style: {} }) as HTMLImageElement;
+
+    it('nudges the crop up once a portrait image reports its real pixels', () => {
+      const el = fakeImg(400, 600);
+      autoFocalPoint(undefined)({ currentTarget: el });
+      expect(el.style.objectPosition).toBe('50% 20%');
+    });
+
+    it('leaves a landscape or near-square image alone', () => {
+      const landscape = fakeImg(600, 400);
+      autoFocalPoint(undefined)({ currentTarget: landscape });
+      expect(landscape.style.objectPosition).toBeUndefined();
+
+      const square = fakeImg(500, 520);
+      autoFocalPoint(undefined)({ currentTarget: square });
+      expect(square.style.objectPosition).toBeUndefined();
+    });
+
+    it('never overrides an authored focal point, portrait or not', () => {
+      const el = fakeImg(400, 600);
+      autoFocalPoint({ focalPoint: '72% 24%' })({ currentTarget: el });
+      expect(el.style.objectPosition).toBeUndefined();
+    });
   });
 
   it('primaryImageRef prefers the primary entry regardless of order', () => {

@@ -278,6 +278,32 @@ export function focalPointOf(img: Pick<ImageRef, 'focalPoint'> | undefined): str
 }
 
 /**
+ * Fallback crop-anchor for images with no authored focalPoint yet (#744):
+ * a portrait-oriented photo center-cropped into a wide/landscape card slices
+ * off the subject's head. Hand back an `<img>` onLoad handler that nudges
+ * the crop up ONLY once the browser reports real pixels confirming portrait
+ * orientation — never a guess, and never touching an image that already has
+ * an authored focalPoint (that judgment call always wins; this is strictly a
+ * fallback for the ones nobody has looked at yet).
+ *
+ * This is deliberately NOT the blanket upward bias the #746 commit dropped
+ * for "real intelligence" instead — that applied to every image regardless
+ * of shape. This only fires for images actually measured as portrait, so a
+ * landscape or square photo is untouched. 20% down from the top splits the
+ * difference of the y-values editors have hand-picked for portrait subjects
+ * across the vault (mostly 13%-25%) without needing per-photo review.
+ */
+export function autoFocalPoint(img: Pick<ImageRef, 'focalPoint'> | undefined) {
+  return (e: { currentTarget: HTMLImageElement }) => {
+    if (img?.focalPoint) return;
+    const el = e.currentTarget;
+    if (el.naturalHeight > el.naturalWidth * 1.15) {
+      el.style.objectPosition = '50% 20%';
+    }
+  };
+}
+
+/**
  * One shoppable product worn in a (typically fashion-category) moment — the
  * exact garment/accessory, pointing at the retailer's own product detail page
  * (never a search page, never a fabricated URL; authoring rule: verify the

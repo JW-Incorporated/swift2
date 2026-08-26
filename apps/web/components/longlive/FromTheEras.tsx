@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { ArrowRight, Compass } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { focalPointOf, primaryImageRef, type ContentItem } from '@/lib/longlive/types';
+import { autoFocalPoint, focalPointOf, primaryImageRef, type ContentItem } from '@/lib/longlive/types';
 
 // Hotlinked photo URLs bypass Next's image optimizer (whose remotePatterns
 // allowlist covers only YouTube posters) — same pattern as MomentDetail.
@@ -64,6 +64,7 @@ export function FromTheEras({
                   unoptimized={isRemoteUrl(imgUrl)}
                   className="object-cover"
                   style={{ objectPosition: focalPointOf(img) }}
+                  onLoad={autoFocalPoint(img)}
                 />
               </span>
               <span className="min-w-0 flex-1">

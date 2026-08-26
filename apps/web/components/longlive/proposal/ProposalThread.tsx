@@ -5,7 +5,7 @@ import { Quote } from 'lucide-react';
 import { getEra } from '@/lib/longlive/eras';
 import { useAppActions } from '@/lib/longlive/store';
 import { contentForThread } from '@/lib/longlive/threads';
-import { focalPointOf, hasRealPrimaryImage, primaryImageRef } from '@/lib/longlive/types';
+import { autoFocalPoint, focalPointOf, hasRealPrimaryImage, primaryImageRef } from '@/lib/longlive/types';
 import type { ImageKind } from '@/lib/longlive/types';
 
 // Same rule as MomentDetail: a stand-in image must never read as the real
@@ -65,6 +65,7 @@ export function ProposalThread() {
                       objectPosition: focalPointOf(image),
                       ...(image.kind !== 'primary' ? { filter: 'grayscale(35%)' } : undefined),
                     }}
+                    onLoad={autoFocalPoint(image)}
                   />
                   <div
                     className="absolute inset-x-0 bottom-0 h-24"

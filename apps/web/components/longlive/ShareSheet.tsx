@@ -25,7 +25,7 @@ import {
 } from '@/lib/longlive/share';
 import { eraStyle } from '@/lib/longlive/theme';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import { focalPointOf, primaryImageRef, type Era, type ImageRef } from '@/lib/longlive/types';
+import { autoFocalPoint, focalPointOf, primaryImageRef, type Era, type ImageRef } from '@/lib/longlive/types';
 
 const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
 
@@ -225,6 +225,7 @@ export function ShareSheet() {
               unoptimized={isRemoteUrl(cardImage?.url || era.image || '')}
               className="object-cover opacity-60"
               style={{ objectPosition: focalPointOf(cardImage) }}
+              onLoad={autoFocalPoint(cardImage)}
             />
             <div
               className="absolute inset-0"
