@@ -31,7 +31,7 @@ export default {
       },
       energy: 0.75,
       valence: 0.85,
-      useCase: ['choosing your own sunny outlook', 'happiness you built for yourself', 'a bright track-three high', 'forgiving yourself for something that did not pan out'],
+      useCase: ['choosing a sunny outlook and building your own happiness', 'a bright track-three high', 'forgiving yourself for something that did not pan out'],
       oneLiner: 'Contentment engineered on purpose, joy manufactured like the man-made stone in its title, not left to luck.',
     },
     {
@@ -42,7 +42,7 @@ export default {
       },
       energy: 0.60,
       valence: 0.35,
-      useCase: ['outgrowing someone who once had power over you', 'seeing through industry mentorship', 'the moment mentorship stops being leverage', 'trading vulnerability for cold, controlled power'],
+      useCase: ['outgrowing someone who once held power over you', 'seeing industry mentorship for the leverage it was', 'trading old vulnerability for cold, controlled power'],
       oneLiner: 'A George Michael interpolation turned cold and calculating, the protegee outgrowing her patron and taking his power for herself.',
     },
     {
@@ -119,7 +119,7 @@ export default {
       },
       energy: 0.45,
       valence: 0.70,
-      useCase: ['tenderness as the whole point', 'trusting someone with the soft version of you', 'a warm R&B-leaning slow burn', 'reclaiming a word once used to put you down'],
+      useCase: ['trusting someone with the soft, tender version of you', 'a warm R&B-leaning slow burn', 'reclaiming a condescending word as something soft'],
       oneLiner: 'A condescending pet name reclaimed as tenderness, warm horns and R&B restraint turning an old put-down soft.',
     },
     {

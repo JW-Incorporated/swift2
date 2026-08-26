@@ -2590,7 +2590,7 @@ export const SONG_MOODS: SongMood[] = [
     moods: { heartbreak: 0.1, anger: 0.02, nostalgia: 0.1, joy: 0.85, calm: 0.3, defiance: 0.3, longing: 0.1, catharsis: 0.5 },
     energy: 0.75,
     valence: 0.85,
-    useCase: ["choosing your own sunny outlook", "happiness you built for yourself", "a bright track-three high", "forgiving yourself for something that did not pan out"],
+    useCase: ["choosing a sunny outlook and building your own happiness", "a bright track-three high", "forgiving yourself for something that did not pan out"],
     oneLiner: "Contentment engineered on purpose, joy manufactured like the man-made stone in its title, not left to luck.",
   },
   {
@@ -2601,7 +2601,7 @@ export const SONG_MOODS: SongMood[] = [
     moods: { heartbreak: 0.1, anger: 0.45, nostalgia: 0.2, joy: 0.08, calm: 0.15, defiance: 0.65, longing: 0.08, catharsis: 0.65 },
     energy: 0.6,
     valence: 0.35,
-    useCase: ["outgrowing someone who once had power over you", "seeing through industry mentorship", "the moment mentorship stops being leverage", "trading vulnerability for cold, controlled power"],
+    useCase: ["outgrowing someone who once held power over you", "seeing industry mentorship for the leverage it was", "trading old vulnerability for cold, controlled power"],
     oneLiner: "A George Michael interpolation turned cold and calculating, the protegee outgrowing her patron and taking his power for herself.",
   },
   {
@@ -2678,7 +2678,7 @@ export const SONG_MOODS: SongMood[] = [
     moods: { heartbreak: 0.15, anger: 0.02, nostalgia: 0.1, joy: 0.55, calm: 0.55, defiance: 0.05, longing: 0.35, catharsis: 0.4 },
     energy: 0.45,
     valence: 0.7,
-    useCase: ["tenderness as the whole point", "trusting someone with the soft version of you", "a warm R&B-leaning slow burn", "reclaiming a word once used to put you down"],
+    useCase: ["trusting someone with the soft, tender version of you", "a warm R&B-leaning slow burn", "reclaiming a condescending word as something soft"],
     oneLiner: "A condescending pet name reclaimed as tenderness, warm horns and R&B restraint turning an old put-down soft.",
   },
   {
