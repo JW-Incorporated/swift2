@@ -49,7 +49,12 @@ import {
   independentOutlets,
   momentKey,
 } from './lib/sourcing-gate.mjs';
-import { blockingRumorRedlineViolations } from './lib/rumor-redlines.mjs';
+import {
+  blockingRumorRedlineViolations,
+  blockingProseRedlineViolations,
+  hasOfficialCitation,
+  PROSE_REDLINE_LEGACY,
+} from './lib/rumor-redlines.mjs';
 import { PHOTO_HOST_LEGACY, hostOf as photoHostOf } from './lib/photo-host-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
 
@@ -241,6 +246,33 @@ for (const { file, data } of loaded) {
     // tighter, and authors are blocked by a limit that no longer exists.)
     if ((it.moment?.context ?? '').length > DB_CAPS['moment.context'])
       err(`moment.context ${it.moment.context.length} > ${DB_CAPS['moment.context']} (DB CHECK)`);
+
+    // --- redline scan on prose fields (2026-08-26, #1967) -------------------
+    // blockingRumorRedlineViolations below only ever sees moment.rumors[] — a
+    // redline claim smuggled into moment.context or snippet (an authoring
+    // mistake, or an indirect prompt injection off a fetched page, #1966) had
+    // NO merge gate at all. Scan both prose fields the same way, item-level
+    // fail-closed: an official-domain citation is required to clear a hit,
+    // because prose carries no per-claim sourceTier for RR4's logic to test.
+    {
+      const citeUrls = [
+        it.sourceUrl,
+        ...(Array.isArray(it.moment?.sources) ? it.moment.sources.map((s) => s?.url) : []),
+      ].filter(Boolean);
+      const officialCited = hasOfficialCitation(citeUrls);
+      const proseKey = momentKey(file, it);
+      const grandfathered = PROSE_REDLINE_LEGACY.has(proseKey);
+      for (const [field, text] of [
+        ['snippet', it.snippet],
+        ['moment.context', it.moment?.context],
+      ]) {
+        for (const v of blockingProseRedlineViolations(text, { hasOfficialSource: officialCited })) {
+          const msg = `${field} [${v.rule}] ${v.title} — ${v.evidence} FIX: ${v.fix}`;
+          if (grandfathered) warn(`${msg} (grandfathered as ${proseKey} — fix or dispute, then delete that entry from PROSE_REDLINE_LEGACY in scripts/lib/rumor-redlines.mjs)`);
+          else err(msg);
+        }
+      }
+    }
 
     // --- sourcing (2026-08-11) --------------------------------------------
     // Typed records have hard-failed with no sources since the audit; moments
