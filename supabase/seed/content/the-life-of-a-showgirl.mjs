@@ -4526,6 +4526,21 @@ export default {
             accessed_at: '2026-08-15',
             reliability_score: 3,
           },
+          // Answerer depth pass (Vault Run 2026-08-26, hot-thin-topic #1720):
+          // adds a second strong (reliability 4) confirmed outlet — the page's
+          // raffle mechanics otherwise rested on Billboard alone at that tier.
+          // Sports Illustrated independently covered the reception's play-for-
+          // prizes raffle (designer bags, watches, the vintage Chevelle).
+          // Verified via web search this session; no new claim added.
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/taylor-swift-and-travis-kelce-gave-this-lavish-gift-to-wedding-guests',
+            source_title: 'Taylor Swift and Travis Kelce Gave This Lavish Gift to Wedding Guests',
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-26',
+            reliability_score: 4,
+          },
         ],
         // Photo pass #762 (2026-08-14): the raffle itself has no dedicated
         // photo (the one winning-ticket photo that surfaced is Jackie
@@ -11471,6 +11486,22 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-15',
             reliability_score: 3,
+          },
+          // Answerer depth pass (Vault Run 2026-08-26, hot-thin-topic #1720):
+          // strengthens the page's confirmed sourcing — the 2026 Greenfield
+          // interview otherwise rested on one strong outlet (TheWrap) plus
+          // Yahoo. Billboard's contemporaneous 2013 report confirms the
+          // underlying cameo the page is built on (her guest turn in the New
+          // Girl Season 2 finale). Verified via web search this session; no new
+          // claim added to the prose.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-to-guest-star-on-new-girl-season-finale-1554928',
+            source_title: 'Taylor Swift to Guest Star on New Girl Season Finale',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-26',
+            reliability_score: 4,
           },
         ],
       },
