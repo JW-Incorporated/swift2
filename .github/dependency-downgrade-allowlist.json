@@ -258,6 +258,30 @@
       "reason": "Expo SDK 57 requires React Native 0.86.2; 0.87.0 removes rn-get-polyfills and breaks Android bundling (PR #3291).",
       "approvedBy": "Wyatt",
       "date": "2026-08-25"
+    },
+    {
+      "name": "react-native-gesture-handler",
+      "from": "3.2.1",
+      "to": "2.32.0",
+      "reason": "Expo SDK 57 pins these native modules (expo/bundledNativeModules.json). Versions above the pin break the Android Gradle build - gesture-handler was a full major ahead. Verified: expo export --platform android succeeds at these versions.",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-26"
+    },
+    {
+      "name": "react-native-reanimated",
+      "from": "4.6.0",
+      "to": "4.5.1",
+      "reason": "Expo SDK 57 pins these native modules (expo/bundledNativeModules.json). Versions above the pin break the Android Gradle build - gesture-handler was a full major ahead. Verified: expo export --platform android succeeds at these versions.",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-26"
+    },
+    {
+      "name": "react-native-worklets",
+      "from": "0.12.1",
+      "to": "0.10.1",
+      "reason": "Expo SDK 57 pins these native modules (expo/bundledNativeModules.json). Versions above the pin break the Android Gradle build - gesture-handler was a full major ahead. Verified: expo export --platform android succeeds at these versions.",
+      "approvedBy": "Wyatt",
+      "date": "2026-08-26"
     }
   ]
 }

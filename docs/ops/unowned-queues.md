@@ -1,6 +1,6 @@
 # Unowned queues — who picks up what, and what catches the gaps
 
-Owner: Wyatt (CTO). Created 2026-08-11 after an audit found four separate work
+Owner: Joey. Created 2026-08-11 after an audit found four separate work
 queues with zero throughput **by construction, not by capacity**.
 
 ## The shape of the bug

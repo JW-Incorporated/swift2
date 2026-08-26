@@ -1,24 +1,24 @@
 {
   "expo": {
-    "name": "Swift2 Vault",
+    "name": "LongLive",
     "slug": "swift2-vault",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "swift2",
+    "scheme": "longlive",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#0b0b0f",
     "icon": "./assets/icon.png",
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.jwincorporated.swift2",
+      "bundleIdentifier": "ai.jwlabs.longlive",
       "buildNumber": "1",
       "config": {
         "usesNonExemptEncryption": false
       }
     },
     "android": {
-      "package": "com.jwincorporated.swift2",
+      "package": "ai.jwlabs.longlive",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1e1b4b"

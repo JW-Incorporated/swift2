@@ -230,5 +230,94 @@ export default {
         wiki('I_Can_See_You_(song)', 'I Can See You (song)'),
       ],
     },
+    {
+      // Catalog pass 2026-08-25 (issue #3286). Filed here by upload date
+      // (2023-03-03), not by the Lavender Haze MV's own Jan 2023 release —
+      // both land in this era's window regardless.
+      slug: 'lavender-haze-bts',
+      kind: 'documentary',
+      title: 'Taylor Swift - Lavender Haze (Behind The Scenes)',
+      director: null,
+      releasedOn: '2023-03-03',
+      relatedSongs: ['Lavender Haze'],
+      tags: ['Music'],
+      summary:
+        'A making-of look at the "Lavender Haze" video\'s purple-fog apartment set and flower-field ending.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=pCH19_8E4Hw',
+      media: [embed('pCH19_8E4Hw', '2026-08-25')],
+      sources: [
+        yt('pCH19_8E4Hw', 'Taylor Swift - Lavender Haze (Behind The Scenes)'),
+        press(
+          'https://www.udiscovermusic.com/news/taylor-swift-lavender-haze-behind-the-scenes-video/',
+          'Watch Taylor Swift\'s Behind-The-Scenes Video For "Lavender Haze"',
+          'uDiscoverMusic',
+          'supports the March 2023 behind-the-scenes release, separate from the January 2023 video itself',
+        ),
+      ],
+    },
+    {
+      // Filed here by upload date (2023-10-19), not by the All Too Well Short
+      // Film's own Nov 2021 release — the era-by-real-date rule.
+      slug: 'all-too-well-short-film-bts',
+      kind: 'documentary',
+      title: 'Taylor Swift - All Too Well: The Short Film (Behind The Scenes)',
+      director: null,
+      releasedOn: '2022-12-08',
+      relatedSongs: ['All Too Well (10 Minute Version)'],
+      tags: ['Music'],
+      summary:
+        'A making-of look at "All Too Well: The Short Film," released roughly a year after the film itself, with Sadie Sink and Dylan O\'Brien.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=M0Ku_op-LXI',
+      media: [embed('M0Ku_op-LXI', '2026-08-25')],
+      sources: [
+        yt('M0Ku_op-LXI', 'Taylor Swift - All Too Well: The Short Film (Behind The Scenes)'),
+        wiki('All_Too_Well:_The_Short_Film', 'All Too Well: The Short Film', 'anchors the short film this featurette documents'),
+      ],
+    },
+    {
+      slug: 'cruel-summer-live-eras-tour-film',
+      kind: 'performance',
+      title: 'Taylor Swift - Cruel Summer (Live from Taylor Swift | The Eras Tour)',
+      director: null,
+      releasedOn: '2023-10-19',
+      relatedSongs: ['Cruel Summer'],
+      tags: ['Music', 'Tour'],
+      summary:
+        'A standalone live clip of "Cruel Summer" cut from the Eras Tour concert film, released about a week after the film\'s Oct 13 theatrical opening.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=xB-RZqcoIgo',
+      media: [embed('xB-RZqcoIgo', '2026-08-25')],
+      sources: [
+        yt('xB-RZqcoIgo', 'Taylor Swift - Cruel Summer (Live from Taylor Swift | The Eras Tour)'),
+        wiki('Taylor_Swift:_The_Eras_Tour', 'Taylor Swift: The Eras Tour', 'anchors the concert film this clip is drawn from'),
+      ],
+    },
+    {
+      // The concert film itself ('taylor-swift-the-eras-tour-film' above) has
+      // no official upload and is hidden per the playable-first rule — this
+      // trailer is the only piece of it with a real YouTube embed.
+      slug: 'eras-tour-concert-film-trailer',
+      kind: 'performance',
+      title: 'TAYLOR SWIFT | THE ERAS TOUR Concert Film Official Trailer',
+      director: null,
+      releasedOn: '2023-08-31',
+      relatedSongs: [],
+      tags: ['Music', 'Tour'],
+      summary:
+        'The official trailer for the Eras Tour concert film, built from real SoFi Stadium performance footage ahead of the October 13, 2023 theatrical release.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=KudedLV0tP0',
+      media: [embed('KudedLV0tP0', '2026-08-25')],
+      sources: [
+        yt('KudedLV0tP0', 'TAYLOR SWIFT | THE ERAS TOUR Concert Film Official Trailer'),
+        wiki('Taylor_Swift:_The_Eras_Tour', 'Taylor Swift: The Eras Tour', 'anchors the Oct 13, 2023 theatrical release the trailer promotes'),
+      ],
+    },
   ],
 };

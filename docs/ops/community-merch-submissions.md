@@ -40,8 +40,8 @@ so you can sort/filter/mark things reviewed.
 2. Menu bar → **Extensions → Apps Script**. This opens a code editor tied to
    this specific sheet.
 3. Delete anything in the editor and paste in the contents of
-   `scripts/apps-script/submissions-doPost.gs` from this repo (ask Claude/
-   Wyatt to hand you that file's contents, or open it on GitHub and copy it).
+   `scripts/apps-script/submissions-doPost.gs` from this repo (ask Claude to
+   hand you that file's contents, or open it on GitHub and copy it).
 4. On the left, click the gear icon (**Project Settings**). Scroll to
    **Script Properties** → **Add script property**.
    - Property: `SUBMISSIONS_SHARED_SECRET`
@@ -68,7 +68,7 @@ addition to the GitHub issue.
 3. Resend shows you 2-3 DNS records to add (they'll look like `TXT` and
    `CNAME` entries). Add those in whatever service manages the
    `longlivets.com` domain's DNS (likely the same place the site itself is
-   configured — ask Wyatt if unsure which one).
+   configured — ask Joey if unsure which one).
 4. Wait for Resend to show the domain as **Verified** (can take a few
    minutes to a few hours after adding the DNS records).
 5. Once verified, you can send email *from* any address `@longlivets.com` —

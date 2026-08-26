@@ -1,6 +1,6 @@
 # Meta-constraints — standing measurement for the limits that bite
 
-**Owner: Wyatt (CTO).** Implementation:
+**Owner: Joey.** Implementation:
 `scripts/marjorie/meta-constraints.mjs`. Surfaced as one line in section 2 of
 the daily Founders' Brief.
 
@@ -60,7 +60,7 @@ you are at 90%.
 **Thresholds:** `warn` at 70% consumed or a projection ≥90%; `alarm` at 90%
 consumed or a projection >100% **and** GitHub has actually charged something.
 
-### ⚠ One thing Wyatt does need to settle
+### ⚠ One thing Joey needs to settle
 
 Two signals currently disagree, and the collector reports the disagreement
 rather than picking the comfortable one:
@@ -75,7 +75,7 @@ Actions minutes are not free and the 3,000 figure should apply. Either the
 org has a larger allowance than the published tier, or the API's
 discount fields do not mean what they appear to.
 
-**Ask: Wyatt opens org → Settings → Billing → Actions once and reads off the
+**Ask: Joey opens org → Settings → Billing → Actions once and reads off the
 real included-minutes figure.** That is a two-minute lookup, it needs no new
 token scope, and it converts a "the numbers disagree" line into a hard
 threshold. If the true allowance is not 3,000, change
@@ -104,7 +104,7 @@ Expectations live in `scripts/marjorie/runner-cadence.json`, deliberately
 separate from `docs/agents/runners.md` so the check can be updated without
 editing a doc another agent owns.
 
-**Access Wyatt could grant to close the gap properly:** a periodic export of
+**Access Joey could grant to close the gap properly:** a periodic export of
 the live routine list (name, schedule, enabled, model) into the repo — even a
 weekly paste into a JSON file. That single artifact would make the registry
 checkable against reality instead of against itself, and it is the root cause
