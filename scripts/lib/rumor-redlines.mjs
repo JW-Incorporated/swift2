@@ -250,6 +250,12 @@ export const RUMOR_REDLINE_RULES = {
   RR3: { id: 'RR3', blocking: true, severity: 'P1', label: 'sourceTier absent' },
   RR4: { id: 'RR4', blocking: true, severity: 'P0', label: 'redline category asserted at speculative provenance' },
   RR5: { id: 'RR5', blocking: true, severity: 'P1', label: 'sourceTier not backed by a reputable-source allowlist' },
+  RR6: {
+    id: 'RR6',
+    blocking: true,
+    severity: 'P0',
+    label: 'redline category asserted in prose (context/snippet) with no official-tier citation',
+  },
 };
 
 /**
@@ -466,3 +472,112 @@ export function rumorRedlineViolations(rumor, ctx = {}) {
 export function blockingRumorRedlineViolations(rumor, ctx) {
   return rumorRedlineViolations(rumor, ctx).filter((v) => v.blocking);
 }
+
+// ── RR6 — redline category asserted in free-text prose ─────────────────────
+//
+// #1967. blockingRumorRedlineViolations above only ever sees `moment.rumors[]`
+// — a structured entry with its own `status`/`sourceTier`, which is what lets
+// RR4 test provenance claim-by-claim. `moment.context` and `snippet` are the
+// Answerer's and Content Shift's PRIMARY output (narrative fact prose, not a
+// rumor), and until this rule they had no redline gate at all: a claim
+// smuggled into "fact" prose — by an authoring mistake or by an indirect
+// prompt injection off a fetched page (#1966) — routed around the one field
+// RR4 watches and auto-merged with nothing to catch it.
+//
+// Prose has no per-claim `sourceTier`/`status` for a checker to test, so this
+// cannot reuse RR4's per-claim exemption logic. The fail-closed rule for
+// narrative is therefore STRICTER, mirroring RR4's Always-OK exemption at the
+// item level instead of the claim level: a redline-category term anywhere in
+// the prose is blocking UNLESS the moment carries at least one citation that
+// resolves to Taylor's own verified domain (the same bar RR4/RR5 use for
+// `official` tier). No sourceTier self-declaration can satisfy this — prose
+// has no such field — only a real official-domain URL can.
+
+/**
+ * True when at least one of the given citation URLs resolves to Taylor's own
+ * verified domain (scripts/lib/reputable-sources.mjs OFFICIAL_DOMAINS). This
+ * is the item-level analog of RR4/RR5's per-claim `domainSupportsOfficial`,
+ * used by the prose scan below, which has no per-claim tier field to test.
+ *
+ * @param {(string|null|undefined)[]} urls
+ */
+export function hasOfficialCitation(urls) {
+  return (urls ?? []).some((u) => isOfficialDomain(u));
+}
+
+/**
+ * Evaluate one block of free-text prose (`moment.context` or `snippet`) for
+ * redline-category terms.
+ *
+ * @param {string} text
+ * @param {{hasOfficialSource?: boolean}} ctx
+ * @returns {{rule:string, severity:string, blocking:boolean, title:string,
+ *            excerpt:string, evidence:string, fix:string}[]}
+ */
+export function proseRedlineViolations(text, ctx = {}) {
+  const out = [];
+  if (typeof text !== 'string' || !text) return out;
+  if (ctx.hasOfficialSource) return out;
+
+  for (const [category, terms] of Object.entries(COMPILED)) {
+    const hit = terms.find(({ re }) => re.test(text));
+    if (!hit) continue;
+    out.push({
+      rule: 'RR6',
+      severity: RUMOR_REDLINE_RULES.RR6.severity,
+      blocking: true,
+      title: `Redline category "${category}" asserted in prose with no official-tier citation`,
+      excerpt: text.slice(0, 300),
+      evidence:
+        `The text asserts ${category} material (matched "${hit.t}") and this item carries no citation to an ` +
+        'official domain (Taylor or her team\'s own channel). privacy-redlines.md Never-OK covers this category ' +
+        'absolutely. Unlike a structured `rumors[]` entry, prose has no sourceTier/status field a checker can ' +
+        'test claim-by-claim, so the rule here is fail-closed: any redline term in narrative is blocking unless ' +
+        'official provenance backs the whole item.',
+      fix:
+        'Remove this claim from the prose, move it into `moment.rumors` as a properly tiered and sourced entry ' +
+        'instead (RR4 will then judge it on its own provenance), or cite a source on an official domain if ' +
+        'Taylor or her team stated it themselves.',
+    });
+  }
+
+  return out;
+}
+
+/** The blocking subset — what validate-content.mjs hard-fails on. */
+export function blockingProseRedlineViolations(text, ctx) {
+  return proseRedlineViolations(text, ctx).filter((v) => v.blocking);
+}
+
+/**
+ * Grandfather list for RR6 (#1967), same convention as UNSOURCED_LEGACY /
+ * SINGLE_OUTLET_LEGACY in scripts/lib/sourcing-gate.mjs: a NEW gate cannot
+ * retroactively hard-fail CI on records that predate it, so the corpus as it
+ * stood the day RR6 shipped (2026-08-26) is listed here once, by
+ * `${file}#${slug}` (scripts/lib/sourcing-gate.mjs momentKey), rather than
+ * silencing the rule.
+ *
+ * Every one of these is a term-list false positive on inspection — a public
+ * court case (Denver), Taylor's own documentary disclosure (Miss Americana),
+ * a third party's relative (Phil Collins's daughter, the "Childless Cat
+ * Lady" political controversy), or "bodyguards"/"her son" describing someone
+ * other than Taylor — not an actual redline violation. RR6 has no way to
+ * tell any of that apart from a real violation (that is exactly the
+ * structural gap RR4 has and RR6, on unstructured prose, cannot replicate),
+ * so validate-content.mjs WARNs on a listed key instead of hard-failing, and
+ * still hard-fails a genuinely NEW hit. This list must only ever shrink —
+ * fixing a false positive (rephrase, or cite an official source) deletes its
+ * entry; adding one to make a build green defeats the point of RR6 and
+ * reopens the exact hole #1967 closed.
+ */
+export const PROSE_REDLINE_LEGACY = new Set([
+  '1989.mjs#the-denver-trial-ends-with-the-single-dollar-she-asked-for',
+  'lover.mjs#miss-americana-premiere',
+  'lover.mjs#the-full-call-leaks-and-she-was-telling-the-truth',
+  'red.mjs#a-virgin-islands-getaway-spotted-at-dinner-at-cocomaya',
+  'red.mjs#a-british-virgin-islands-trip-ends-the-relationship',
+  'reputation.mjs#a-johanna-ortiz-tiered-dress-for-the-lover-music-video',
+  'speak-now.mjs#red-ronan-stand-up-to-cancer',
+  'the-life-of-a-showgirl.mjs#phil-collins-white-horse-blown-away',
+  'tortured-poets.mjs#harris-endorsement-cat-lady',
+]);
