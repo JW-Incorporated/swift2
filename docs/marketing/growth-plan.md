@@ -337,8 +337,7 @@ peer-to-peer — it must look great); optional `/follow` page later.
 | Approve draft batch 1; post launch announcement | Today | Slack / brief |
 | Personal-network shares | Today | — |
 | Tier-2 accounts (Tumblr, Threads) | This week | TX |
-| Daily: approve queued drafts (~5 min) | Ongoing | Brief social-queue section |
-| Post approved drafts (~10 min/day) | Until a channel grant | TX-ish routine |
+| ~~Daily: approve queued drafts~~ / ~~post approved drafts~~ — **superseded 2026-07-25:** the per-channel autopost grant landed, `isDue` stopped checking approval fields, and posting is now fully automated with no per-item founder step; the brief's social-queue section is FYI only (`docs/decisions.md` 2026-07-25, reaffirmed 2026-08-25) | — | — |
 | Reddit/Tumblr promo posts + modmail | Weeks 2-4 | TX + desk-drafted copy |
 | Per-channel autopost grant (optional) | When manual posting annoys | `founder-decision` issue + decision entry |
 | Any paid tool / ad spend | If ever | TX + decision entry |

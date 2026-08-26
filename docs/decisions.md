@@ -7,6 +7,50 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-25 — Social posting stays fully automated; no human review gate before publish (closes #2316)
+
+**Decision:** social posting has no human-review/approval step before a post
+goes live, and none is being added. `social/queue/` drafts auto-merge on
+green (`.github/content-automerge-allowlist.txt`, per the 2026-07-25
+decision below) and ship automatically at their `scheduledAt` via
+`social-poster.yml` — no founder reads a caption before it posts. The only
+safeguard is the existing founder-notification email the poster already
+sends on every post, success and failure, so a founder can check what went
+out after the fact. This closes issue #2316's open question ("should the
+human-merge gate stand?") — the answer is no, there was never meant to be
+one going forward, and the docs conflict that issue flagged is fixed by this
+entry plus the companion doc sweep in the same PR.
+
+**Why:** Joey's exact words, in chat: "there is no human review required for
+social... social is fully automated, I consider social reversible. all I
+want is an email whenever social goes out so I can check it. that email is
+working, so we don't need any human overview on social besides that." This
+reaffirms and makes explicit what the 2026-07-25 decision already did in
+mechanics (`isDue` no longer checks `approvedBy`/`approvedAt`; autoposting
+turned on for X and Instagram) but left ambiguous in prose — `social/README.
+md` and `docs/agents/growth.md` both still carried language a reasonable
+reader could take as "the PR merge is the human gate," which is exactly the
+conflict issue #2316 reported when an auto-merge fired on a `growth`-labeled
+queue PR nobody had read. Per Joey's authority as sole active decision-maker
+for this repo (2026-08-25 governance decision, PR #3154) and his stated
+reversibility judgment (a bad post can be deleted/corrected; the account is
+not the product), the appropriate control is detection-after-the-fact (the
+notification email), not prevention-before-publish.
+
+**Alternatives considered:** (1) keep a discretionary "hold" escape valve
+where the drafting run can flag a genuinely alarming item for a human look
+before it ships (`docs/agents/runner-prompts/growth-draft.md` step 6) —
+kept, since it's the desk's own judgment call on rare content, not a default
+review requirement, and doesn't contradict "no review required by default";
+(2) require human merge on `social/queue/` PRs specifically while
+auto-merging everything else — rejected, this is the exact gate Joey just
+said isn't needed, and it would leave `social/README.md`'s "the content gate
+stays on `queue/`" language actively misleading again.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-25).
+
+---
+
 ## 2026-08-25 — Era placement is decided by real-world date, never by subject/catalog era
 
 **Decision:** for every content type and every content-authoring pipeline —
