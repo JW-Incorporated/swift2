@@ -1,7 +1,0 @@
-{
-  "platform": "x",
-  "body": "grammys just posted \"the icon sessions with Taylor Swift — presented by recording academy's songwriters & composers wing\" — running to go watch this right now!! https://www.youtube.com/watch?v=VJ0LV0T8C1E",
-  "scheduledAt": "2026-08-25T22:07:43.817Z",
-  "campaign": "appearance:VJ0LV0T8C1E",
-  "why": "Auto-drafted by appearance-discovery (fast lane) from a genuinely new, deterministically-matched official upload — rule \"taylor-swift\", channel GRAMMYs. Unverified beyond RSS metadata (title/channel/URL only; nobody has watched the video) — see docs/decisions.md 2026-08-25 (\"Detection-triggered social auto-post\"). The slower Vault-authoring lane still gets its own intake issue for the same video."
-}
