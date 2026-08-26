@@ -49,6 +49,7 @@ import { ZoomableImage } from './ZoomableImage';
 import { SignificanceBadge } from './SignificanceBadge';
 import {
   isSubConfirmed,
+  autoFocalPoint,
   focalPointOf,
   primaryImageRef,
   type Confidence,
@@ -301,6 +302,7 @@ function MomentFigure({ img, onOpen }: { img: ImageRef; onOpen: () => void }) {
           unoptimized={isRemoteUrl(img.url)}
           className="object-cover"
           style={{ objectPosition: focalPointOf(img) }}
+          onLoad={autoFocalPoint(img)}
         />
       </button>
       <figcaption className="space-y-1.5 p-3">
@@ -708,6 +710,7 @@ export function MomentDetail() {
             unoptimized={isRemoteUrl(heroUrl)}
             className="object-cover"
             style={{ objectPosition: focalPointOf(hero) }}
+            onLoad={autoFocalPoint(hero)}
           />
           <div
             className="absolute inset-0"
@@ -1100,6 +1103,7 @@ function RelatedMomentsRail({
                     unoptimized={isRemoteUrl(thumb.url)}
                     className="h-14 w-14 shrink-0 rounded-lg object-cover"
                     style={{ objectPosition: focalPointOf(thumb) }}
+                    onLoad={autoFocalPoint(thumb)}
                   />
                 )}
                 <span className="min-w-0 flex-1">

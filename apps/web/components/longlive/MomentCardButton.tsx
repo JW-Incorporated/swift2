@@ -9,7 +9,13 @@ import { useProgress } from '@/lib/longlive/store';
 import { SignificanceBadge } from './SignificanceBadge';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS } from '@/lib/longlive/tagBadges';
-import { focalPointOf, hasRealPrimaryImage, isSubConfirmed, primaryImageRef } from '@/lib/longlive/types';
+import {
+  autoFocalPoint,
+  focalPointOf,
+  hasRealPrimaryImage,
+  isSubConfirmed,
+  primaryImageRef,
+} from '@/lib/longlive/types';
 import type { ContentItem, ContentTag } from '@/lib/longlive/types';
 import type { CardTier } from '@/lib/longlive/feed-tiers';
 import { TIER_BODY } from '@/lib/longlive/card-chrome';
@@ -176,6 +182,7 @@ export function MomentCardButton({
               unoptimized={/^https?:\/\//.test(hero.url)}
               className="object-cover transition duration-300 group-hover:scale-[1.03]"
               style={{ objectPosition: focalPointOf(hero) }}
+              onLoad={autoFocalPoint(hero)}
             />
             <div
               aria-hidden
@@ -216,6 +223,7 @@ export function MomentCardButton({
               unoptimized={/^https?:\/\//.test(hero.url)}
               className="object-cover"
               style={{ objectPosition: focalPointOf(hero) }}
+              onLoad={autoFocalPoint(hero)}
             />
           </div>
         )}
@@ -261,6 +269,7 @@ export function MomentCardButton({
             unoptimized={/^https?:\/\//.test(hero.url)}
             className="object-cover transition duration-300 group-hover:scale-[1.03]"
             style={{ objectPosition: focalPointOf(hero) }}
+            onLoad={autoFocalPoint(hero)}
           />
           <div
             aria-hidden
