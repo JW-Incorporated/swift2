@@ -11919,5 +11919,160 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-08-26 (Vault Run, Content Shift) from intake #3361.
+      // Taylor's own published tribute to Dolly Parton — Always-OK "what
+      // Taylor published herself." Verified independently via search against
+      // multiple established outlets (NBC News, Variety, TODAY carry both the
+      // death announcement and the tribute; the "world without Dolly" line and
+      // the "look up to / be who we are" line are quoted verbatim across them).
+      // Companion to the Imagination Library gift below. No redline issues:
+      // no location, no security, no health speculation about Taylor; Parton's
+      // cause of death is peripheral and family-disclosed.
+      slug: 'showgirl-dolly-parton-tribute',
+      year: 2026,
+      month: 8,
+      day: 26,
+      category: 'music',
+      relatedIds: [
+        'moment:vault-tloas-blown-away-and-overjoyed-dolly-parton-thanks-taylor-and-trav',
+      ],
+      title: '"A world without Dolly doesn\'t feel possible": Taylor\'s tribute to Dolly Parton',
+      snippet:
+        'Hours after Dolly Parton\'s family announced her death at 80, Taylor posted a public tribute to the country legend — "A world without Dolly doesn\'t feel possible, real, or right" — thanking her for her songs, her lessons, and for paving the way for women in music.',
+      sourceUrl: 'https://www.today.com/popculture/music/taylor-swift-dolly-parton-tribute-rcna594486',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Dolly Parton died on Aug. 25, 2026, at 80, after a short battle with cancer, her publicist confirmed — a loss the music world met with an outpouring of tributes. Taylor, who had long named Parton among her heroes and whose own path from country to pop follows the road Parton cut decades earlier, was among them.\n\nHer tribute, posted the night the news broke, opened plainly: "A world without Dolly doesn\'t feel possible, real, or right." She thanked Parton for her songs and her example, wrote that Parton "gave us someone to look up to while encouraging us to be who we are as individuals," and credited her with paving the way for women in the music industry — praising the generosity, humor, and honesty fans had come to expect of her. The piece is Taylor\'s own published words about a fellow artist; Parton\'s cause of death is noted here only as her family disclosed it.',
+        sources: [
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-dolly-parton-tribute-rcna594486',
+            source_title: "Read Taylor Swift's Tribute to Dolly Parton After Her Death",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-26',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-dolly-parton-tribute-dead-1236842794/',
+            source_title: 'Taylor Swift Shares Dolly Parton Tribute After Death at Age 80',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-26',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/news/us-news/dolly-parton-county-music-icon-dies-80-rcna236277',
+            source_title: 'Dolly Parton, country music icon, dies at 80',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-26',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/country/taylor-swift-dolly-parton-tribute-full-message-1236324716/',
+            source_title: 'Taylor Swift Dolly Parton Tribute: Read Her Full Message',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-26',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-dolly-parton-dead-tribute-1236681122/',
+            source_title: 'Dolly Parton Dead: Taylor Swift Pays Tribute',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-26',
+            reliability_score: 4,
+          },
+        ],
+        // Tribute posts of this kind are text cards on her own feed/story;
+        // no reusable, embeddable, account-verified image was available at
+        // authoring time. Shipped text-first per the charter — the
+        // photo-sparsity/social-post checkers will route it to Photo Enrichment
+        // if a verifiable visual (an embeddable @taylorswift post) surfaces.
+        photos: [],
+      },
+    },
+    {
+      // Authored 2026-08-26 (Vault Run, Content Shift) from intake #3362.
+      // The couple's $2M gift to Dolly Parton's Imagination Library — a public
+      // philanthropy fact, distinct from the Answer the Call $2M already in the
+      // corpus (that moment lists Imagination Library only in passing among ~20
+      // recipients, with no per-gift figure and no Parton acknowledgement).
+      // Verified independently via search: Billboard, Rolling Stone, WBIR, TMZ
+      // all carry the $2M figure and Parton's "blown away and overjoyed" video
+      // thank-you (~July 3, 2026). Location is L2 (documented public MSG
+      // wedding) — within the matrix. Resurfaced after Parton's death but
+      // predates it.
+      slug: 'showgirl-imagination-library-donation',
+      year: 2026,
+      month: 7,
+      day: 3,
+      category: 'business',
+      relatedIds: [
+        'moment:vault-tloas-a-2-million-gift-to-the-families-of-new-yorks-fallen-first-r',
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-a-world-without-dolly-doesnt-feel-possible-taylors-tribute-t',
+      ],
+      title: '"Blown away and overjoyed": Dolly Parton thanks Taylor and Travis for a $2 million Imagination Library gift',
+      snippet:
+        'Ahead of their July wedding, Taylor and Travis gave $2 million to Dolly Parton\'s Imagination Library — one slice of a reported $26 million in wedding-week giving. Parton thanked them herself in a video: "I\'m blown away and overjoyed."',
+      sourceUrl: 'https://www.rollingstone.com/music/music-country/dolly-parton-thanks-taylor-swift-travis-kelce-donation-1235588909/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The gift predated the news that made it resurface. Ahead of their Fourth of July-weekend wedding at Madison Square Garden, Taylor and Travis Kelce gave $2 million to Dolly Parton\'s Imagination Library — the literacy program Parton founded in 1995 that mails free books each month to enrolled children. It was one piece of the couple\'s reported $26 million in wedding-week giving, spread across roughly 20 organizations (the same tranche that sent $2 million to New York\'s Answer the Call).\n\nParton announced and thanked the couple herself, in a video posted around July 3, 2026: "Thank you, thank you, thank you. I\'m blown away and overjoyed with that gratitude," she said, adding that "it\'s evident that you two have made giving back a key part of your lives." The gift drew fresh attention after Parton\'s death on Aug. 25, 2026, but it belongs to the summer — a documented, public act of philanthropy, not a posthumous one.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/dolly-parton-thanks-taylor-swift-travis-kelce-donation-1236287412/',
+            source_title: 'Dolly Parton Thanks Taylor Swift & Travis Kelce for $2 Million Donation to Imagination Library',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-26',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-country/dolly-parton-thanks-taylor-swift-travis-kelce-donation-1235588909/',
+            source_title: 'Dolly Parton Thanks Taylor Swift and Travis Kelce for $2 Million Donation to Her Imagination Library',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-26',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'WBIR (Knoxville)',
+            url: 'https://www.wbir.com/article/news/local/knoxville/taylor-swift-travis-kelce-donate-2m-imagination-library/51-6c24a4a1-4f20-4fa0-a180-278d94dce85c',
+            source_title: "'I'm blown away' | Dolly Parton thanks Taylor Swift, Travis Kelce for $2M donation to Imagination Library",
+            publisher: 'WBIR-TV',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-26',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/07/03/dolly-parton-thanks-taylor-swift-travis-kelce-for-charity-donation/',
+            source_title: 'Taylor Swift, Travis Kelce Get Special Thanks from Dolly Parton for Charitable Donation',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-26',
+            reliability_score: 3,
+          },
+        ],
+        // The only visual is Parton's own thank-you video, posted from her
+        // account (not @taylorswift), so it fails the socialPost embed bar; no
+        // reusable, event-specific still is available. Shipped text-first, same
+        // as the sibling Answer the Call gift.
+        photos: [],
+      },
+    },
   ],
 };
