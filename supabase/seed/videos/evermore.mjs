@@ -262,5 +262,92 @@ export default {
         wiki('Mr._Perfectly_Fine', 'Mr. Perfectly Fine'),
       ],
     },
+    {
+      // Catalog pass 2026-08-25 (issue #3286). Filed here by upload date
+      // (2022-06-24), which falls inside this era's window (ends 2022-10-20)
+      // even though Carolina is unrelated to evermore-album subject matter.
+      slug: 'carolina',
+      kind: 'music_video',
+      title: 'Carolina',
+      director: null,
+      releasedOn: '2022-06-24',
+      relatedSongs: ['Carolina'],
+      tags: ['Music'],
+      summary:
+        'A grainy, black-and-white visual for the "Where the Crawdads Sing" theme song — a lone figure moving through marsh grass, styled to match the film it was written for.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=3Q94kA7llGw',
+      media: [embed('3Q94kA7llGw', '2026-08-25')],
+      sources: [
+        yt('3Q94kA7llGw', 'Taylor Swift - Carolina (From The Motion Picture "Where The Crawdads Sing" / Audio)'),
+        press(
+          'https://variety.com/2022/music/news/taylor-swift-carolina-release-theme-song-where-crawdads-sing-1235301468/',
+          "Taylor Swift Releases 'Carolina' From 'Where the Crawdads Sing'",
+          'Variety',
+          'supports the June 24, 2022 release date and film-soundtrack context',
+        ),
+      ],
+    },
+    {
+      slug: 'all-too-well-sad-girl-autumn-long-pond',
+      kind: 'performance',
+      title: 'All Too Well (Sad Girl Autumn Version) - Recorded at Long Pond Studios',
+      director: null,
+      releasedOn: '2021-11-18',
+      relatedSongs: ['All Too Well'],
+      tags: ['Music'],
+      summary:
+        'A stripped-down studio performance of "All Too Well," filmed at Long Pond during the Red (Taylor\'s Version) promotional run.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=r0yq_yXFQhg',
+      media: [embed('r0yq_yXFQhg', '2026-08-25')],
+      sources: [
+        yt('r0yq_yXFQhg', "Taylor Swift - All Too Well (Sad Girl Autumn Version) - Recorded at Long Pond Studios"),
+        wiki('All_Too_Well', 'All Too Well', 'anchors the Red (Taylor\'s Version) promotional context this performance was released in'),
+      ],
+    },
+    {
+      // Willow yule-log loop videos (ambient fireplace footage, no real
+      // content) skipped per issue #3286 scope. These two are genuine
+      // making-of content, distinct from the ambient loops.
+      slug: 'willow-storyboards',
+      kind: 'documentary',
+      title: 'Taylor Swift - willow (dancing witch version) - storyboards from the willow music video',
+      director: null,
+      releasedOn: '2020-12-15',
+      relatedSongs: ['willow'],
+      tags: ['Music'],
+      summary:
+        'A side-by-side of the "willow" video\'s hand-drawn storyboards against the finished forest-ritual footage.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=3CUM7Z3TSmY',
+      media: [embed('3CUM7Z3TSmY', '2026-08-25')],
+      sources: [
+        yt('3CUM7Z3TSmY', 'Taylor Swift - willow (dancing witch version) - storyboards from the willow music video'),
+        wiki('Willow_(song)', 'willow (song)', 'anchors the Dec 11, 2020 video this storyboard content documents'),
+      ],
+    },
+    {
+      slug: 'willow-lonely-witch-bts',
+      kind: 'documentary',
+      title: 'Taylor Swift - willow (lonely witch version) - music video behind the scenes',
+      director: null,
+      releasedOn: '2020-12-15',
+      relatedSongs: ['willow'],
+      tags: ['Music'],
+      summary:
+        'A making-of look at the "willow" video\'s winter-woods and carnival-tent sets.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=CYHt7_RANiY',
+      media: [embed('CYHt7_RANiY', '2026-08-25')],
+      sources: [
+        yt('CYHt7_RANiY', 'Taylor Swift - willow (lonely witch version) - music video behind the scenes'),
+        wiki('Willow_(song)', 'willow (song)', 'anchors the Dec 11, 2020 video this BTS content documents'),
+      ],
+    },
   ],
 };

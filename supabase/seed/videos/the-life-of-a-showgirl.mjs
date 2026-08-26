@@ -251,6 +251,124 @@ export default {
         ),
       ],
     },
+    {
+      // Catalog pass 2026-08-25 (issue #3286). Announced alongside "The Eras
+      // Tour: The Final Show" concert film on Good Morning America 2025-10-13.
+      slug: 'end-of-an-era-announcement-trailer',
+      kind: 'documentary',
+      title: 'Taylor Swift: The End of an Era — Announcement Trailer',
+      director: null,
+      releasedOn: '2025-10-13',
+      relatedSongs: [],
+      tags: ['Tour'],
+      summary:
+        'The first trailer for the 6-episode "End of an Era" docuseries, released the same day Swift announced the project on Good Morning America — real backstage, rehearsal, and tour-ending footage.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=YF6jaBeBMIk',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=YF6jaBeBMIk',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=YF6jaBeBMIk',
+          source_title: 'December 12th on @DisneyPlus',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official upload on the verified Taylor Swift channel — oEmbed-verified 2026-08-25',
+        },
+        wiki('Taylor_Swift:_The_End_of_an_Era', 'Taylor Swift: The End of an Era', 'anchors the Oct 13, 2025 GMA announcement and trailer release'),
+      ],
+    },
+    {
+      slug: 'end-of-an-era-official-trailer',
+      kind: 'documentary',
+      title: 'Taylor Swift: The End of an Era — Official Trailer',
+      director: null,
+      releasedOn: '2025-11-13',
+      relatedSongs: [],
+      tags: ['Tour'],
+      summary:
+        'A second, fuller trailer for "The End of an Era" docuseries released about a month before the Dec 12 Disney+ premiere.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=dSSqCoCiQVs',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=dSSqCoCiQVs',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=dSSqCoCiQVs',
+          source_title: '"The End of an Era", a 6-episode docuseries, streams on @Disneyplus beginning Dec 12',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official upload on the verified Taylor Swift channel — oEmbed-verified 2026-08-25',
+        },
+        press(
+          'https://press.disneyplus.com/news/the-end-of-an-era-streaming',
+          'The End of an Era streaming announcement',
+          'Disney+ Press',
+          'confirms the brand-new trailer release ahead of the Dec 12, 2025 premiere',
+        ),
+      ],
+    },
+    {
+      slug: 'eras-tour-final-show-countdown',
+      kind: 'performance',
+      title: 'Just 11 days until the final show of The Eras Tour is all yours',
+      director: null,
+      releasedOn: '2025-12-01',
+      relatedSongs: [],
+      tags: ['Tour'],
+      summary:
+        'A short promotional clip counting down to the Dec 12, 2025 Disney+ premiere of "The Eras Tour: The Final Show" — the concert film of the Vancouver closing night.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=fHjxp-rpUGw',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=fHjxp-rpUGw',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=fHjxp-rpUGw',
+          source_title: 'Just 11 days until the final show of The Eras Tour is all yours',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official upload on the verified Taylor Swift channel — oEmbed-verified 2026-08-25',
+        },
+        wiki('Taylor_Swift:_The_End_of_an_Era', 'Taylor Swift: The End of an Era', 'anchors the Dec 12, 2025 concert-film premiere this clip counts down to'),
+      ],
+    },
     // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
     // Era placement follows the era files, not the calendar: the New Heights
     // and Graham Norton moments both live in this era's content even though
