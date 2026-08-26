@@ -8798,6 +8798,27 @@ export default {
             accessed_at: '2026-08-24',
             reliability_score: 3,
           },
+          // Official-channel video coverage of the same event — added from
+          // appearance-discovery intake #3321/#3324 (GRAMMYs channel) and
+          // #3322/#3323 (Good Morning America channel), all oEmbed-verified
+          // 2026-08-26. Evidence, not additional independent outlets (music
+          // category doesn't require the two-outlet bar anyway).
+          {
+            outlet: 'YouTube — GRAMMYs',
+            url: 'https://www.youtube.com/watch?v=VJ0LV0T8C1E',
+          },
+          {
+            outlet: 'YouTube — GRAMMYs',
+            url: 'https://www.youtube.com/watch?v=Ltp3loDvEPo',
+          },
+          {
+            outlet: 'YouTube — Good Morning America',
+            url: 'https://www.youtube.com/watch?v=zhV1Xggop00',
+          },
+          {
+            outlet: 'YouTube — Good Morning America',
+            url: 'https://www.youtube.com/watch?v=MIl_HilQz8M',
+          },
         ],
         // Photo pass (issue #1721, 2026-08-25): no cameras were allowed at
         // this invite-only event, so a portrait of the named interviewer
