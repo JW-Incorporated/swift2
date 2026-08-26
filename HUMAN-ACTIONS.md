@@ -26,6 +26,50 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 24. [UPGRADE] Unblock the video seed — code fix is in, just re-run the command — ~2 min
+
+**Filed:** 2026-08-26
+
+**Why it matters:** issue #725. Running the four seed commands today,
+`db:seed:content` (718 items) and `db:seed:theories` (74) succeeded;
+`db:seed:videos` failed:
+
+```
+VIDEO SEED FAILED: duplicate key value violates unique constraint "video_work_slug_key"
+```
+
+**Root cause (diagnosed from the repo, no DB access needed):**
+`video_work.slug` is globally unique, but `scripts/seed-videos.mjs` used to
+delete-then-insert per era file only. Commit 46a88202 (2026-08-25, "Classify
+dated content by calendar era", #3317) correctly moved 3 videos to a
+different era file each (real-world-date rule, #3315). Production was last
+seeded *before* that move (2026-08-24, item #18), so the old-era row for
+each moved slug was still sitting in prod when the new-era insert tried to
+claim the same slug — the global unique constraint rejected it.
+
+**Fixed in code, this session:** `scripts/seed-videos.mjs` now upserts every
+video by `slug` (`on conflict (slug) do update ...`) instead of
+delete-then-insert scoped to one era, and deletes only slugs that no longer
+appear in ANY seed file (genuine removals). Verified for real against a
+fresh ephemeral local Postgres (all 27 migrations applied, `embedded-postgres`
+— same mechanism as items #14/#18's own verifications): reproduced the exact
+#725 scenario (inserted a video under its old, pre-move era_slug, then ran
+the real script), confirmed it relocates cleanly with no duplicate-key error,
+and confirmed a second run is a clean no-op (215 rows both times). PR:
+`docs/2026-08-26-decisions-and-seed-fix` branch.
+
+**Steps:**
+1. Once that PR merges to `main`, from a checkout with `apps/worker/.env`,
+   just run: `npm run db:seed:videos`. Nothing else needed — content and
+   theories are already caught up.
+
+**Worked if:** the command prints `seeded videos: N from 12 file(s)` with no
+error, and production's `video_work` table matches `supabase/seed/videos/**`.
+
+**Status:** OPEN
+
+---
+
 ### 23. [BLOCKING] BACKUPS launch gate (#680) — read Supabase plan/backup status off the dashboard, run one restore drill against production's own bytes — ~10 min
 
 **Filed:** 2026-08-26
@@ -124,163 +168,6 @@ rather than being transiently available; a founder call is still the way to
 close this out for good.
 
 **Status:** OPEN
-
----
-
-### 21. [BLOCKING] Grant the Paul Blart runner read access to Dependabot alerts — ~5 min
-
-**Filed:** 2026-08-17
-
-**Why it matters:** Paul Blart's whole job is "zero CVEs sitting unseen." Right
-now he **cannot see them at all.** The token the scheduled runner uses returns
-`403 Resource not accessible by integration` on every Dependabot security-alert
-endpoint, and the 403 response literally names the missing scope:
-`X-Accepted-GitHub-Permissions: vulnerability_alerts=read`. So the weekly patrol
-can review version-bump PRs but is **blind to the actual CVE feed** — a critical
-alert could be open today and no report would show it. This is the one thing that
-makes the whole desk trustworthy, and it is off.
-
-Endpoints confirmed 403 on 2026-08-17: `dependabot/alerts`,
-`vulnerability-alerts`, `automated-security-fixes`. (`code-scanning/alerts`
-returns "Code Security must be enabled" — that's the separate CodeQL toggle, see
-issue #1894, not this item.)
-
-**Correction, 2026-08-24 — the original steps below were wrong, sorry for the
-runaround.** You tried them and found none of your 4 installed GitHub Apps
-(Claude, Vercel, Slack, Supabase) show anything about Dependabot when opened.
-That's not you missing a menu — **it's genuinely not there to find.** Paul
-Blart is a Claude Code cloud routine, so its GitHub access runs through the
-`Claude` app itself (Anthropic's own GitHub App). A GitHub App's installer
-can only grant permissions the app's own manifest requests; you can't add a
-scope to someone else's app from the installed-apps screen, no matter which
-of the 4 you click. `X-Accepted-GitHub-Permissions: vulnerability_alerts=read`
-was real, but the fix isn't a checkbox anywhere in that UI.
-
-**The actual fix, now built** (`.github/workflows/dependabot-alerts-snapshot.yml`
-+ `scripts/dependabot-alerts-snapshot.mjs`, PR pending): a GitHub Actions
-workflow — which unlike a routine CAN use a dedicated repo secret — fetches
-the open alerts once a week and publishes them into one persistent tracking
-issue titled "Dependabot alerts — automated snapshot," which Paul Blart's
-routine now reads instead (`docs/agents/runner-prompts/paul-blart-run.md`
-updated). This needs one thing from you: a fine-grained PAT, scoped to just
-this repo, with exactly the one permission that was missing.
-
-**Steps:**
-1. Go to `https://github.com/settings/personal-access-tokens/new`.
-2. **Token name**: something identifiable, e.g. `swift2-dependabot-alerts-read`.
-3. **Resource owner**: `JW-Incorporated`.
-4. **Repository access**: **Only select repositories** → `swift2`.
-5. **Permissions** → **Repository permissions** → find **Dependabot alerts**
-   → set to **Read-only**. (Nothing else needs a permission — leave every
-   other row at "No access.")
-6. **Generate token**, copy the value (starts `github_pat_...`).
-7. From a terminal, in the repo: `gh secret set DEPENDABOT_ALERTS_PAT --repo
-   JW-Incorporated/swift2` and paste the value when prompted (or `--body`
-   with the value piped in, never typed where it could land in shell
-   history) — same pattern as `HUMAN-ACTIONS.md` #13's `ANTHROPIC_API_KEY`
-   earlier. I can't run this myself — `gh secret set` is guard-denied,
-   human-only on purpose.
-
-**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows
-`DEPENDABOT_ALERTS_PAT` (value stays hidden either way), and the next Monday
-21:00 UTC run of `dependabot-alerts-snapshot.yml` updates the tracking issue
-with either a real severity-ranked table or "0 open alerts" — not the
-"PAT not configured yet" notice. You can also trigger it manually anytime via
-**Actions → dependabot-alerts-snapshot → Run workflow** (uncheck "dry run"
-to actually publish).
-
-**Done 2026-08-24 (Joey):** set `DEPENDABOT_ALERTS_PAT`, confirmed present
-via `gh secret list`. Verified end-to-end same day rather than waiting for
-Monday — triggered the workflow manually (`gh workflow run
-dependabot-alerts-snapshot.yml -f dry_run=false`), it completed
-successfully, and tracking issue #3185 updated with a real fetch (no more
-"PAT not configured" placeholder). Paul Blart can now actually see the CVE
-feed.
-
-**Status:** DONE
-
----
-
-### 20. [UPGRADE] Register a DMCA agent with the U.S. Copyright Office — ~15 min + a small filing fee
-
-**Filed:** 2026-08-24
-
-**Why it matters:** Joey decided (2026-08-24, in chat) to register a DMCA
-agent. `apps/web/lib/longlive/legal.ts`'s takedown-notice section (PR #2332)
-now says "we are in the process of registering" — that line needs to become
-"is registered" once this is actually done, so don't leave this open long.
-This needs your own identity/account and a payment method — no agent can do
-it for you.
-
-**Steps:**
-1. Go to `https://dmca.copyright.gov` and create/sign in to a U.S. Copyright
-   Office account.
-2. Start a new **"Designation of Agent to Receive Notification of Claimed
-   Infringement"** filing.
-3. Fill in: Service Provider Name → `JW Labs LLC` (also list `Long Live` /
-   `longlivets.com` as an alternate name if the form asks for one). Agent
-   name/title → whoever should actually receive DMCA notices (you, or a
-   role). Agent contact → use `legal@longlivets.com` (PR #2332) so it
-   matches the published policy. Public contact address → same
-   postal-address call as item #19/legal.ts (currently omitted per counsel;
-   the Copyright Office may require a real one for this specific filing —
-   check the form).
-4. Pay the filing fee (check the current amount on the site — it's changed
-   before, don't trust a number from an old source) and submit.
-5. Tell a session once it's filed — the confirmation gives you the agent's
-   registration number, which is worth recording in `docs/decisions.md`.
-
-**Worked if:** `dmca.copyright.gov`'s public agent directory shows JW Labs
-LLC / Long Live with a live registration, and `legal.ts`'s DMCA line is
-updated to say "is registered."
-
-**Status:** DONE
-
----
-
-### 18. [UPGRADE] Refresh the production database — content seed has drifted, not urgent — ~15 min, needs Wyatt
-
-**Filed:** 2026-08-24
-
-**Why it matters:** issue #725 — production `month_item`/`track_note`/
-`theory`/`video_work` tables are stale against `supabase/seed/**`. The issue
-itself says this isn't urgent — it only matters before the Android device
-test (item #17 below), so bundle them.
-
-**Steps:**
-1. Whoever has `apps/worker/.env` (`SUPABASE_DB_URL` — Wyatt) runs `npm run
-   db:seed:content`, `db:seed:tracks`, `db:seed:theories`, `db:seed:videos`.
-
-**Worked if:** production content matches the current seed files.
-
-**Status:** DONE
-
----
-
-### 17. [UPGRADE] Android — real-device test is the only thing left before Play Store — ~15 min, needs Wyatt
-
-**Filed:** 2026-08-24
-
-**Why it matters:** issue #530. Engineering is done — two draft PRs (#42,
-#67) hold a working Expo/EAS build plus the shipping checklist. The only
-remaining blocker is running it on a real Android phone, which needs
-Wyatt's account/hardware. `docs/definition-of-done.md` row 8's "#1815 —
-unshipped" note is stale; #1815 is a merged PR, not the actual tracker — the
-live tracker is #530.
-
-**Steps:**
-1. Wyatt installs the EAS build from #67's checklist on a real Android
-   phone and runs through it.
-2. Report back pass/fail; if it passes, the Play Store submission steps are
-   already written in #67.
-
-**Worked if:** #530 closes with a real-device pass recorded.
-
-**Done 2026-08-24 (Joey):** tested the EAS build on a real Android phone —
-works great. #530 closed with the pass recorded. Next step per #67's
-checklist: Play Store submission (separate, not blocking this item).
-
-**Status:** DONE
 
 ---
 
@@ -513,205 +400,6 @@ code is ready.
 
 ---
 
-### 14. [BLOCKING] No `apps/worker/.env` in knowledge-engine worktrees — 10 migrations unapplied against prod, pgvector untested, one real security gap to close first
-
-**Filed:** 2026-08-23
-
-**Security finding — FIXED IN CODE (2026-08-24, fix branch
-`fix/clown-sessions-codex-findings`), still needs applying like every other
-migration below:** `increment_usage_daily` (from
-`20260902000000_usage_daily.sql`, used by Stage 3/6/11's daily caps) is a
-`SECURITY DEFINER` function that takes a caller-controlled scope string
-and, once applied, would have been callable by anyone holding the site's
-public anon key (embedded client-side by design) via Supabase's
-auto-generated REST RPC endpoint — nothing in the original migration
-revoked its default `PUBLIC` execute grant. A new migration,
-`supabase/migrations/20260905000000_usage_daily_grants.sql`, closes this:
-`revoke execute ... from public` + explicit grants to only the two roles
-that actually call it (`authenticated` — the web app's anonymous-auth
-sessions; `service_role` — the worker). It also re-creates the function to
-check, for an `authenticated` caller specifically, that the scope it's
-asking to touch is its OWN `clown-chat:<uid>` scope — granting to
-`authenticated` alone would otherwise reopen nearly the same hole, since
-Supabase hands that role to every anonymous sign-in (i.e. every site
-visitor, once the toggle below is on). Verified for real: applied
-alongside every other migration twice against a real ephemeral local
-Postgres, confirmed `PUBLIC` has no execute grant, `authenticated`/
-`service_role` do, an authenticated caller can increment its own
-`clown-chat:` scope but is rejected touching `extract`, and `service_role`
-can still touch any scope. Same fix (step 1 below) applies it — nothing
-extra needed.
-
-**Update:** Stage 1 (worker fixes, PR #2300) hit the identical gap for the
-same reason — two more migrations
-(`20260823010000_news_sources_seed_wave2.sql`,
-`20260823020000_news_raw_item_resolved_tier.sql`) are written and merged to
-`main` but not yet applied against production, because that worktree also
-had no `apps/worker/.env`. All three migrations below need one
-`npm run db:migrate` run from a checkout that has the real env file — do
-them together, one command, once `main` has all three.
-
-**Update 2026-08-24 — no longer reddening CI, still BLOCKING the feature.**
-`news-worker.yml` had been crashing every 4h (exit 1) on the resulting
-schema-cache errors (`resolved_tier`, `symbol_lexicon`, `news_story.extracted_at`),
-which paged daily via watchdog.yml's cadence check. `apps/worker/src/index.ts`
-now classifies "schema not yet migrated" errors (`/schema cache|does not exist/`)
-as a degraded no-op that keeps the Action green — matching the worker's
-documented "zero sources = no-op usefully" posture — while any *genuine* error
-still fails the job. This removes the CI noise but does **not** substitute for
-this item: the Current tier stays empty and the knowledge engine cannot ingest
-until these migrations are applied. Once `npm run db:migrate` runs, the worker's
-same calls succeed and it resumes real work automatically.
-
-**Why it matters:** Stage 2 of the knowledge-engine build (`PLAN.md`) asked me
-to test `create extension vector` against the real Supabase project first,
-then apply `supabase/migrations/20260901000000_knowledge_engine.sql` with
-`npm run db:migrate` and verify it's idempotent by running it twice — against
-production. `apps/worker/.env` (the file holding `SUPABASE_DB_URL`) does not
-exist anywhere in this worktree (`%TEMP%\claude-worktrees\
-knowledge-engine-02-migration`), and `SUPABASE_DB_URL` isn't set as an
-ambient environment variable either — I checked both. `git worktree add`
-only copies git-tracked files; `apps/worker/.env` is gitignored, so it never
-existed here even though it's presumably present in your main checkout. The
-guard also correctly denies me from reading/copying a real `.env` file
-directly, so I can't self-serve this even if the file were reachable.
-
-**What I did instead, so this doesn't block the whole stage (per my
-instructions):** wrote the full migration SQL, WITHOUT the proposal's
-`embedding vector(1024)` column / `hnsw` index (safe default — matches the
-already-ratified stance in `docs/decisions.md` 2026-08-23 that the embedding
-column stays effectively unused until a vendor is picked anyway). Verified
-the migration's SQL is syntactically correct and genuinely idempotent by
-running it twice against a real (ephemeral, local, NOT production)
-Postgres via the `embedded-postgres` package — same mechanism
-`scripts/backup-restore-test.mjs --cluster ephemeral` already uses in this
-repo. Both passes applied clean. I also probed `create extension vector` on
-that same local Postgres: **not available** there (the embedded distribution
-doesn't ship the extension's binary) — this does NOT tell us whether
-pgvector is available on the actual Supabase project; Supabase almost always
-ships it, but per `PLAN.md`'s own ground-truth note this was explicitly
-supposed to be verified, not assumed, and I have no way to verify it without
-the real credential.
-
-**Steps:**
-1. Either run `npm run db:migrate` yourself from a checkout that has
-   `apps/worker/.env` (this PR's branch, once merged, or checked out
-   locally) — the migration is ready to apply as-is — or hand a session
-   `apps/worker/.env` in a worktree that needs DB access (copying a
-   gitignored env file between your own checkouts isn't a secret leak, just
-   a step no session can do to itself under the current guard).
-2. While you're at it: `psql "$SUPABASE_DB_URL" -c "create extension if not
-   exists vector;"` (or let a session with the env file run it) tells us
-   definitively whether pgvector is available on this project's plan tier.
-   If it works, a fast-follow migration can add `knowledge_doc.embedding
-   vector(1024)` + the `hnsw` index — retrieval stays FTS-only until then,
-   which was already the plan pending an embedding vendor pick anyway
-   (`HUMAN-ACTIONS.md` #12 item 2).
-
-**Worked if:** `npm run db:migrate` (with `apps/worker/.env` present) applies
-`20260901000000_knowledge_engine.sql` cleanly against production, and running
-it a second time is a clean no-op (no errors, no duplicate objects).
-
-**Addendum (Stage 4, canonical sync):** same root cause hits
-`scripts/sync-clown-knowledge.mjs`/`scripts/knowledge-coverage.mjs`, which
-also need `SUPABASE_DB_URL` to write/read `knowledge_doc`/`egg_ledger`/
-`symbol_lexicon`/`technique`. Both degrade gracefully instead of crashing
-`npm run sync:content` (build every row from real seed data, log a clear
-skip message, exit 0) when the credential isn't reachable — same as this
-item's Stage 2 note. Verified for real anyway: applied all 17 migrations +
-ran the sync script twice against a real ephemeral local Postgres
-(`embedded-postgres`, same mechanism as this item's Stage 2 verification) —
-1061 `knowledge_doc` / 37 `egg_ledger` / 52 `symbol_lexicon` rows, identical
-row counts and ids on both runs (genuine upsert idempotency), `technique`
-stayed at 0 rows throughout. Not a new item — same fix (step 1 above) closes
-this too.
-
-**Addendum (Stage 6, fan adapters):** another migration,
-`20260901010000_knowledge_engine_fan_adapters.sql`, widens
-`news_source.source_type` to admit `reddit_rss`/`tumblr`/`gnews`
-(`bluesky` was already allowed) and adds `api_usage_daily` (a generic
-scoped daily-call counter — first consumer: `gnews.ts`'s free-tier cap).
-Same root cause, same fix: verified idempotent (applied twice) against a
-real ephemeral local Postgres, not yet applied to production. Run it
-together with the rest when you run step 1 above.
-
-**Addendum (2A, live_theory redline fast-follow):** a retroactive Codex
-review of `20260901000000_knowledge_engine.sql` (task-mt6t7akh-a22733) found
-`live_theory` had no `redline_ok` column/RLS gate, unlike `current_item`/
-`fan_signal`. Fixed in a new migration,
-`supabase/migrations/20260903000000_live_theory_redline.sql` — same root
-cause hits this worktree too (guard denies reading `apps/worker/.env` here
-as well, confirmed directly). Verified for real: applied all 21 migrations
-twice against a real ephemeral local Postgres (`embedded-postgres`, same
-mechanism as this item's other verifications) — clean idempotent re-apply
-both times — then, still on that local cluster, confirmed the RLS gate
-itself works: inserted one `redline_ok=true` and one `redline_ok=false`
-`live_theory` row, granted `SELECT` to a non-owner role (simulating
-Supabase's `anon`/`authenticated` default grant), and confirmed only the
-`redline_ok=true` row was visible under RLS.
-
-**Addendum (Stage 11, sessions/memory):** one more migration,
-`supabase/migrations/20260904000000_clown_sessions.sql`
-(`clown_conversation`/`clown_turn`/`bot_prediction`/`clown_pinned_theory` —
-`usage_daily` reused with a new scope, not a new table). Same root cause,
-same fix. Verified for real: applied all 23 migrations twice against a real
-ephemeral local Postgres, clean idempotent re-apply both times — but this
-one needed one extra step the others didn't: vanilla Postgres has no `auth`
-schema (that's Supabase's own GoTrue service, not anything a migration in
-this repo creates), so I stubbed a minimal `auth.users(id uuid)` table and
-an `auth.uid() returns uuid` function locally just to prove the DDL/FK/RLS-
-policy SQL itself is valid Postgres syntax against a real FK target. That
-stub is NOT a substitute for testing against the actual Supabase project —
-the real `auth.uid()` returning a genuine anonymous-auth JWT's user id, and
-therefore whether the RLS policies actually scope reads/writes correctly for
-a real anonymous session, can only be verified once both this migration is
-applied AND the toggle in item #15/2 is flipped. Flag this for a look once
-both are true, not just the migration alone.
-
-**Addendum (2026-08-24, Codex review fix pass on PR #2319, fix branch
-`fix/clown-sessions-codex-findings`):** two more migrations closing the
-findings this item and item #15/2 documented —
-`supabase/migrations/20260905000000_usage_daily_grants.sql` (the
-`increment_usage_daily` grant-scoping fix, see this item's top section) and
-`supabase/migrations/20260906000000_clown_fold_conversation.sql` (a new
-`fold_clown_conversation` RPC so the rolling-summary fold's delete + summary
-patch happen as one atomic transaction instead of two independent
-requests — item #15/2's third finding). Same root cause, same fix. Verified
-for real: applied all 25 migrations twice against a real ephemeral local
-Postgres (same `auth.users`/`auth.uid()` stub as the Stage 11 addendum
-above), clean idempotent re-apply both times; then, on that same local
-cluster, exercised both new functions directly under simulated
-`authenticated`/`service_role` sessions (real `SET LOCAL role` + a stubbed
-JWT claim inside an explicit transaction, mirroring how PostgREST actually
-scopes a request) — confirmed the grant scoping (item #14 top) and, for the
-fold RPC, confirmed a call wrapped in a transaction that's then rolled back
-leaves BOTH the summary patch and the turn deletion undone together (proof
-the two writes are genuinely one atomic unit), and that a forced mid-call
-error (a malformed delete-target id) aborts the whole call rather than
-leaving the summary patch to land on its own.
-
-**Running total (reconciled across stages):** counting every addendum
-above plus Stage 3's own `usage_daily.sql` /
-`news_story_extracted_at.sql` / `refresh_symbol_activity.sql` (landed on
-`main` but never logged here by that stage), **11 migrations** are
-unapplied against production as of this merge, not 3 or 4 — same fix
-(step 1 above) closes all of them in one `npm run db:migrate` run.
-
-**Done 2026-08-24 (Joey):** ran `npm run db:migrate` from a checkout with
-`apps/worker/.env` set up — all 27 migrations applied clean, then ran it a
-second time with zero errors (the script re-runs every file unconditionally
-by design, so a clean second pass IS the idempotency proof — no
-"relation already exists"-style failures). Production is caught up; the
-knowledge engine, clown-sessions, and the `increment_usage_daily`
-grant-scoping security fix are all live. `psql` wasn't available locally
-for the optional pgvector check, so a small script
-(`scripts/check-pgvector.mjs`, PR #3235) was added as a psql-free
-alternative — separate, non-blocking follow-up.
-
-**Status:** DONE
-
----
-
 ### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
 
 **Filed:** 2026-08-15
@@ -926,8 +614,364 @@ reflects it, and a test PR still merges once `build` is green.
 
 ## DONE
 
-<!-- Finished items move here with a date. Numbers keep their original ID.
-     Never delete — the history is how we stop re-asking. -->
+### 21. [BLOCKING] Grant the Paul Blart runner read access to Dependabot alerts — ~5 min
+
+**Filed:** 2026-08-17
+
+**Why it matters:** Paul Blart's whole job is "zero CVEs sitting unseen." Right
+now he **cannot see them at all.** The token the scheduled runner uses returns
+`403 Resource not accessible by integration` on every Dependabot security-alert
+endpoint, and the 403 response literally names the missing scope:
+`X-Accepted-GitHub-Permissions: vulnerability_alerts=read`. So the weekly patrol
+can review version-bump PRs but is **blind to the actual CVE feed** — a critical
+alert could be open today and no report would show it. This is the one thing that
+makes the whole desk trustworthy, and it is off.
+
+Endpoints confirmed 403 on 2026-08-17: `dependabot/alerts`,
+`vulnerability-alerts`, `automated-security-fixes`. (`code-scanning/alerts`
+returns "Code Security must be enabled" — that's the separate CodeQL toggle, see
+issue #1894, not this item.)
+
+**Correction, 2026-08-24 — the original steps below were wrong, sorry for the
+runaround.** You tried them and found none of your 4 installed GitHub Apps
+(Claude, Vercel, Slack, Supabase) show anything about Dependabot when opened.
+That's not you missing a menu — **it's genuinely not there to find.** Paul
+Blart is a Claude Code cloud routine, so its GitHub access runs through the
+`Claude` app itself (Anthropic's own GitHub App). A GitHub App's installer
+can only grant permissions the app's own manifest requests; you can't add a
+scope to someone else's app from the installed-apps screen, no matter which
+of the 4 you click. `X-Accepted-GitHub-Permissions: vulnerability_alerts=read`
+was real, but the fix isn't a checkbox anywhere in that UI.
+
+**The actual fix, now built** (`.github/workflows/dependabot-alerts-snapshot.yml`
++ `scripts/dependabot-alerts-snapshot.mjs`, PR pending): a GitHub Actions
+workflow — which unlike a routine CAN use a dedicated repo secret — fetches
+the open alerts once a week and publishes them into one persistent tracking
+issue titled "Dependabot alerts — automated snapshot," which Paul Blart's
+routine now reads instead (`docs/agents/runner-prompts/paul-blart-run.md`
+updated). This needs one thing from you: a fine-grained PAT, scoped to just
+this repo, with exactly the one permission that was missing.
+
+**Steps:**
+1. Go to `https://github.com/settings/personal-access-tokens/new`.
+2. **Token name**: something identifiable, e.g. `swift2-dependabot-alerts-read`.
+3. **Resource owner**: `JW-Incorporated`.
+4. **Repository access**: **Only select repositories** → `swift2`.
+5. **Permissions** → **Repository permissions** → find **Dependabot alerts**
+   → set to **Read-only**. (Nothing else needs a permission — leave every
+   other row at "No access.")
+6. **Generate token**, copy the value (starts `github_pat_...`).
+7. From a terminal, in the repo: `gh secret set DEPENDABOT_ALERTS_PAT --repo
+   JW-Incorporated/swift2` and paste the value when prompted (or `--body`
+   with the value piped in, never typed where it could land in shell
+   history) — same pattern as `HUMAN-ACTIONS.md` #13's `ANTHROPIC_API_KEY`
+   earlier. I can't run this myself — `gh secret set` is guard-denied,
+   human-only on purpose.
+
+**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows
+`DEPENDABOT_ALERTS_PAT` (value stays hidden either way), and the next Monday
+21:00 UTC run of `dependabot-alerts-snapshot.yml` updates the tracking issue
+with either a real severity-ranked table or "0 open alerts" — not the
+"PAT not configured yet" notice. You can also trigger it manually anytime via
+**Actions → dependabot-alerts-snapshot → Run workflow** (uncheck "dry run"
+to actually publish).
+
+**Done 2026-08-24 (Joey):** set `DEPENDABOT_ALERTS_PAT`, confirmed present
+via `gh secret list`. Verified end-to-end same day rather than waiting for
+Monday — triggered the workflow manually (`gh workflow run
+dependabot-alerts-snapshot.yml -f dry_run=false`), it completed
+successfully, and tracking issue #3185 updated with a real fetch (no more
+"PAT not configured" placeholder). Paul Blart can now actually see the CVE
+feed.
+
+**Status:** DONE
+
+---
+
+### 20. [UPGRADE] Register a DMCA agent with the U.S. Copyright Office — ~15 min + a small filing fee
+
+**Filed:** 2026-08-24
+
+**Why it matters:** Joey decided (2026-08-24, in chat) to register a DMCA
+agent. `apps/web/lib/longlive/legal.ts`'s takedown-notice section (PR #2332)
+now says "we are in the process of registering" — that line needs to become
+"is registered" once this is actually done, so don't leave this open long.
+This needs your own identity/account and a payment method — no agent can do
+it for you.
+
+**Steps:**
+1. Go to `https://dmca.copyright.gov` and create/sign in to a U.S. Copyright
+   Office account.
+2. Start a new **"Designation of Agent to Receive Notification of Claimed
+   Infringement"** filing.
+3. Fill in: Service Provider Name → `JW Labs LLC` (also list `Long Live` /
+   `longlivets.com` as an alternate name if the form asks for one). Agent
+   name/title → whoever should actually receive DMCA notices (you, or a
+   role). Agent contact → use `legal@longlivets.com` (PR #2332) so it
+   matches the published policy. Public contact address → same
+   postal-address call as item #19/legal.ts (currently omitted per counsel;
+   the Copyright Office may require a real one for this specific filing —
+   check the form).
+4. Pay the filing fee (check the current amount on the site — it's changed
+   before, don't trust a number from an old source) and submit.
+5. Tell a session once it's filed — the confirmation gives you the agent's
+   registration number, which is worth recording in `docs/decisions.md`.
+
+**Worked if:** `dmca.copyright.gov`'s public agent directory shows JW Labs
+LLC / Long Live with a live registration, and `legal.ts`'s DMCA line is
+updated to say "is registered."
+
+**Status:** DONE
+
+---
+
+### 18. [UPGRADE] Refresh the production database — content seed has drifted, not urgent — ~15 min, needs Wyatt
+
+**Filed:** 2026-08-24
+
+**Why it matters:** issue #725 — production `month_item`/`track_note`/
+`theory`/`video_work` tables are stale against `supabase/seed/**`. The issue
+itself says this isn't urgent — it only matters before the Android device
+test (item #17 below), so bundle them.
+
+**Steps:**
+1. Whoever has `apps/worker/.env` (`SUPABASE_DB_URL` — Wyatt) runs `npm run
+   db:seed:content`, `db:seed:tracks`, `db:seed:theories`, `db:seed:videos`.
+
+**Worked if:** production content matches the current seed files.
+
+**Status:** DONE — content/tracks/theories seeded clean. Videos seed
+failed on a real bug (`video_work_slug_key` collision); root cause,
+code fix, and the one command to unblock it are filed separately as
+item #24.
+
+---
+
+### 17. [UPGRADE] Android — real-device test is the only thing left before Play Store — ~15 min, needs Wyatt
+
+**Filed:** 2026-08-24
+
+**Why it matters:** issue #530. Engineering is done — two draft PRs (#42,
+#67) hold a working Expo/EAS build plus the shipping checklist. The only
+remaining blocker is running it on a real Android phone, which needs
+Wyatt's account/hardware. `docs/definition-of-done.md` row 8's "#1815 —
+unshipped" note is stale; #1815 is a merged PR, not the actual tracker — the
+live tracker is #530.
+
+**Steps:**
+1. Wyatt installs the EAS build from #67's checklist on a real Android
+   phone and runs through it.
+2. Report back pass/fail; if it passes, the Play Store submission steps are
+   already written in #67.
+
+**Worked if:** #530 closes with a real-device pass recorded.
+
+**Done 2026-08-24 (Joey):** tested the EAS build on a real Android phone —
+works great. #530 closed with the pass recorded. Next step per #67's
+checklist: Play Store submission (separate, not blocking this item).
+
+**Status:** DONE
+
+---
+
+### 14. [BLOCKING] No `apps/worker/.env` in knowledge-engine worktrees — 10 migrations unapplied against prod, pgvector untested, one real security gap to close first
+
+**Filed:** 2026-08-23
+
+**Security finding — FIXED IN CODE (2026-08-24, fix branch
+`fix/clown-sessions-codex-findings`), still needs applying like every other
+migration below:** `increment_usage_daily` (from
+`20260902000000_usage_daily.sql`, used by Stage 3/6/11's daily caps) is a
+`SECURITY DEFINER` function that takes a caller-controlled scope string
+and, once applied, would have been callable by anyone holding the site's
+public anon key (embedded client-side by design) via Supabase's
+auto-generated REST RPC endpoint — nothing in the original migration
+revoked its default `PUBLIC` execute grant. A new migration,
+`supabase/migrations/20260905000000_usage_daily_grants.sql`, closes this:
+`revoke execute ... from public` + explicit grants to only the two roles
+that actually call it (`authenticated` — the web app's anonymous-auth
+sessions; `service_role` — the worker). It also re-creates the function to
+check, for an `authenticated` caller specifically, that the scope it's
+asking to touch is its OWN `clown-chat:<uid>` scope — granting to
+`authenticated` alone would otherwise reopen nearly the same hole, since
+Supabase hands that role to every anonymous sign-in (i.e. every site
+visitor, once the toggle below is on). Verified for real: applied
+alongside every other migration twice against a real ephemeral local
+Postgres, confirmed `PUBLIC` has no execute grant, `authenticated`/
+`service_role` do, an authenticated caller can increment its own
+`clown-chat:` scope but is rejected touching `extract`, and `service_role`
+can still touch any scope. Same fix (step 1 below) applies it — nothing
+extra needed.
+
+**Update:** Stage 1 (worker fixes, PR #2300) hit the identical gap for the
+same reason — two more migrations
+(`20260823010000_news_sources_seed_wave2.sql`,
+`20260823020000_news_raw_item_resolved_tier.sql`) are written and merged to
+`main` but not yet applied against production, because that worktree also
+had no `apps/worker/.env`. All three migrations below need one
+`npm run db:migrate` run from a checkout that has the real env file — do
+them together, one command, once `main` has all three.
+
+**Update 2026-08-24 — no longer reddening CI, still BLOCKING the feature.**
+`news-worker.yml` had been crashing every 4h (exit 1) on the resulting
+schema-cache errors (`resolved_tier`, `symbol_lexicon`, `news_story.extracted_at`),
+which paged daily via watchdog.yml's cadence check. `apps/worker/src/index.ts`
+now classifies "schema not yet migrated" errors (`/schema cache|does not exist/`)
+as a degraded no-op that keeps the Action green — matching the worker's
+documented "zero sources = no-op usefully" posture — while any *genuine* error
+still fails the job. This removes the CI noise but does **not** substitute for
+this item: the Current tier stays empty and the knowledge engine cannot ingest
+until these migrations are applied. Once `npm run db:migrate` runs, the worker's
+same calls succeed and it resumes real work automatically.
+
+**Why it matters:** Stage 2 of the knowledge-engine build (`PLAN.md`) asked me
+to test `create extension vector` against the real Supabase project first,
+then apply `supabase/migrations/20260901000000_knowledge_engine.sql` with
+`npm run db:migrate` and verify it's idempotent by running it twice — against
+production. `apps/worker/.env` (the file holding `SUPABASE_DB_URL`) does not
+exist anywhere in this worktree (`%TEMP%\claude-worktrees\
+knowledge-engine-02-migration`), and `SUPABASE_DB_URL` isn't set as an
+ambient environment variable either — I checked both. `git worktree add`
+only copies git-tracked files; `apps/worker/.env` is gitignored, so it never
+existed here even though it's presumably present in your main checkout. The
+guard also correctly denies me from reading/copying a real `.env` file
+directly, so I can't self-serve this even if the file were reachable.
+
+**What I did instead, so this doesn't block the whole stage (per my
+instructions):** wrote the full migration SQL, WITHOUT the proposal's
+`embedding vector(1024)` column / `hnsw` index (safe default — matches the
+already-ratified stance in `docs/decisions.md` 2026-08-23 that the embedding
+column stays effectively unused until a vendor is picked anyway). Verified
+the migration's SQL is syntactically correct and genuinely idempotent by
+running it twice against a real (ephemeral, local, NOT production)
+Postgres via the `embedded-postgres` package — same mechanism
+`scripts/backup-restore-test.mjs --cluster ephemeral` already uses in this
+repo. Both passes applied clean. I also probed `create extension vector` on
+that same local Postgres: **not available** there (the embedded distribution
+doesn't ship the extension's binary) — this does NOT tell us whether
+pgvector is available on the actual Supabase project; Supabase almost always
+ships it, but per `PLAN.md`'s own ground-truth note this was explicitly
+supposed to be verified, not assumed, and I have no way to verify it without
+the real credential.
+
+**Steps:**
+1. Either run `npm run db:migrate` yourself from a checkout that has
+   `apps/worker/.env` (this PR's branch, once merged, or checked out
+   locally) — the migration is ready to apply as-is — or hand a session
+   `apps/worker/.env` in a worktree that needs DB access (copying a
+   gitignored env file between your own checkouts isn't a secret leak, just
+   a step no session can do to itself under the current guard).
+2. While you're at it: `psql "$SUPABASE_DB_URL" -c "create extension if not
+   exists vector;"` (or let a session with the env file run it) tells us
+   definitively whether pgvector is available on this project's plan tier.
+   If it works, a fast-follow migration can add `knowledge_doc.embedding
+   vector(1024)` + the `hnsw` index — retrieval stays FTS-only until then,
+   which was already the plan pending an embedding vendor pick anyway
+   (`HUMAN-ACTIONS.md` #12 item 2).
+
+**Worked if:** `npm run db:migrate` (with `apps/worker/.env` present) applies
+`20260901000000_knowledge_engine.sql` cleanly against production, and running
+it a second time is a clean no-op (no errors, no duplicate objects).
+
+**Addendum (Stage 4, canonical sync):** same root cause hits
+`scripts/sync-clown-knowledge.mjs`/`scripts/knowledge-coverage.mjs`, which
+also need `SUPABASE_DB_URL` to write/read `knowledge_doc`/`egg_ledger`/
+`symbol_lexicon`/`technique`. Both degrade gracefully instead of crashing
+`npm run sync:content` (build every row from real seed data, log a clear
+skip message, exit 0) when the credential isn't reachable — same as this
+item's Stage 2 note. Verified for real anyway: applied all 17 migrations +
+ran the sync script twice against a real ephemeral local Postgres
+(`embedded-postgres`, same mechanism as this item's Stage 2 verification) —
+1061 `knowledge_doc` / 37 `egg_ledger` / 52 `symbol_lexicon` rows, identical
+row counts and ids on both runs (genuine upsert idempotency), `technique`
+stayed at 0 rows throughout. Not a new item — same fix (step 1 above) closes
+this too.
+
+**Addendum (Stage 6, fan adapters):** another migration,
+`20260901010000_knowledge_engine_fan_adapters.sql`, widens
+`news_source.source_type` to admit `reddit_rss`/`tumblr`/`gnews`
+(`bluesky` was already allowed) and adds `api_usage_daily` (a generic
+scoped daily-call counter — first consumer: `gnews.ts`'s free-tier cap).
+Same root cause, same fix: verified idempotent (applied twice) against a
+real ephemeral local Postgres, not yet applied to production. Run it
+together with the rest when you run step 1 above.
+
+**Addendum (2A, live_theory redline fast-follow):** a retroactive Codex
+review of `20260901000000_knowledge_engine.sql` (task-mt6t7akh-a22733) found
+`live_theory` had no `redline_ok` column/RLS gate, unlike `current_item`/
+`fan_signal`. Fixed in a new migration,
+`supabase/migrations/20260903000000_live_theory_redline.sql` — same root
+cause hits this worktree too (guard denies reading `apps/worker/.env` here
+as well, confirmed directly). Verified for real: applied all 21 migrations
+twice against a real ephemeral local Postgres (`embedded-postgres`, same
+mechanism as this item's other verifications) — clean idempotent re-apply
+both times — then, still on that local cluster, confirmed the RLS gate
+itself works: inserted one `redline_ok=true` and one `redline_ok=false`
+`live_theory` row, granted `SELECT` to a non-owner role (simulating
+Supabase's `anon`/`authenticated` default grant), and confirmed only the
+`redline_ok=true` row was visible under RLS.
+
+**Addendum (Stage 11, sessions/memory):** one more migration,
+`supabase/migrations/20260904000000_clown_sessions.sql`
+(`clown_conversation`/`clown_turn`/`bot_prediction`/`clown_pinned_theory` —
+`usage_daily` reused with a new scope, not a new table). Same root cause,
+same fix. Verified for real: applied all 23 migrations twice against a real
+ephemeral local Postgres, clean idempotent re-apply both times — but this
+one needed one extra step the others didn't: vanilla Postgres has no `auth`
+schema (that's Supabase's own GoTrue service, not anything a migration in
+this repo creates), so I stubbed a minimal `auth.users(id uuid)` table and
+an `auth.uid() returns uuid` function locally just to prove the DDL/FK/RLS-
+policy SQL itself is valid Postgres syntax against a real FK target. That
+stub is NOT a substitute for testing against the actual Supabase project —
+the real `auth.uid()` returning a genuine anonymous-auth JWT's user id, and
+therefore whether the RLS policies actually scope reads/writes correctly for
+a real anonymous session, can only be verified once both this migration is
+applied AND the toggle in item #15/2 is flipped. Flag this for a look once
+both are true, not just the migration alone.
+
+**Addendum (2026-08-24, Codex review fix pass on PR #2319, fix branch
+`fix/clown-sessions-codex-findings`):** two more migrations closing the
+findings this item and item #15/2 documented —
+`supabase/migrations/20260905000000_usage_daily_grants.sql` (the
+`increment_usage_daily` grant-scoping fix, see this item's top section) and
+`supabase/migrations/20260906000000_clown_fold_conversation.sql` (a new
+`fold_clown_conversation` RPC so the rolling-summary fold's delete + summary
+patch happen as one atomic transaction instead of two independent
+requests — item #15/2's third finding). Same root cause, same fix. Verified
+for real: applied all 25 migrations twice against a real ephemeral local
+Postgres (same `auth.users`/`auth.uid()` stub as the Stage 11 addendum
+above), clean idempotent re-apply both times; then, on that same local
+cluster, exercised both new functions directly under simulated
+`authenticated`/`service_role` sessions (real `SET LOCAL role` + a stubbed
+JWT claim inside an explicit transaction, mirroring how PostgREST actually
+scopes a request) — confirmed the grant scoping (item #14 top) and, for the
+fold RPC, confirmed a call wrapped in a transaction that's then rolled back
+leaves BOTH the summary patch and the turn deletion undone together (proof
+the two writes are genuinely one atomic unit), and that a forced mid-call
+error (a malformed delete-target id) aborts the whole call rather than
+leaving the summary patch to land on its own.
+
+**Running total (reconciled across stages):** counting every addendum
+above plus Stage 3's own `usage_daily.sql` /
+`news_story_extracted_at.sql` / `refresh_symbol_activity.sql` (landed on
+`main` but never logged here by that stage), **11 migrations** are
+unapplied against production as of this merge, not 3 or 4 — same fix
+(step 1 above) closes all of them in one `npm run db:migrate` run.
+
+**Done 2026-08-24 (Joey):** ran `npm run db:migrate` from a checkout with
+`apps/worker/.env` set up — all 27 migrations applied clean, then ran it a
+second time with zero errors (the script re-runs every file unconditionally
+by design, so a clean second pass IS the idempotency proof — no
+"relation already exists"-style failures). Production is caught up; the
+knowledge engine, clown-sessions, and the `increment_usage_daily`
+grant-scoping security fix are all live. `psql` wasn't available locally
+for the optional pgvector check, so a small script
+(`scripts/check-pgvector.mjs`, PR #3235) was added as a psql-free
+alternative — separate, non-blocking follow-up.
+
+**Status:** DONE
+
+---
 
 ### 19. [BLOCKING] 17 Getty photos with unclear rights, still live in seed content — ~15 min to decide, lawyer's call
 
