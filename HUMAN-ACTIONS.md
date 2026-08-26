@@ -26,6 +26,54 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 23. [BLOCKING] BACKUPS launch gate (#680) — read Supabase plan/backup status off the dashboard, run one restore drill against production's own bytes — ~10 min
+
+**Filed:** 2026-08-26
+
+**Why it matters:** the BACKUPS launch gate has been 🟡 since 2026-08-12. The
+restore mechanism itself is built, tested, and green in CI (#1890) — a drill
+that backs up, restores into a scratch database, and verifies by checksum.
+What's left needs your own Supabase login, not more engineering: (1) nobody
+has confirmed whether this project actually has automated daily backups or
+PITR — on the free plan the answer is "none," which needs to be a recorded
+accepted risk, not an assumption; (2) the drill has only ever run against a
+fixture built from repo seeds, never against production's real bytes.
+Checked today for any agent-side workaround (env vars, `gh secret list`,
+Supabase CLI/MCP/management-API token) — none exists; this is genuinely
+founder-only. Full detail: `docs/backup-restore.md` §2 and §6.
+
+**Steps:**
+1. Open the Supabase dashboard for the Long Live project → **Settings** →
+   **Billing** (or **Database** → **Backups**). Note: (a) the plan tier,
+   (b) whether **Database → Backups** lists automated daily backups, (c) the
+   retention window, and whether **PITR** is enabled/available.
+2. Record those three answers in `docs/backup-restore.md` §6 (there's a
+   table row format already there to follow), or tell a session the answers
+   in chat and it will write them in.
+3. From a machine/checkout that has `apps/worker/.env` (`SUPABASE_DB_URL`),
+   run one real drill, read-only against production:
+   ```bash
+   node scripts/backup-restore-test.mjs \
+     --source "$SUPABASE_DB_URL" \
+     --target "postgres://postgres:postgres@127.0.0.1:5432/scratch?sslmode=disable" \
+     --keep
+   ```
+   (Needs a local scratch Postgres reachable at that target — `npm i
+   --no-save embedded-postgres` then point `--target` at a local instance,
+   or any throwaway Postgres you already have. The script refuses to write
+   to production or to any `*.supabase.co` host, by design.)
+4. Paste the pass/fail output (or tell a session) and it'll log it as a new
+   row in `docs/backup-restore.md` §6's drill log and flip the BACKUPS gate
+   in `docs/launch-readiness.md` once both items are done.
+
+**Worked if:** `docs/backup-restore.md` §6 has a drill-log row sourced from
+production (not the fixture) marked **PASS**, and §2's plan/backup-status
+table is filled in instead of "UNVERIFIED."
+
+**Status:** OPEN
+
+---
+
 ### 22. [BLOCKING] Photo-Enrichment worker's scheduled environment has total network egress block — 3 consecutive no-op runs — ~5 min
 
 **Filed:** 2026-08-25
