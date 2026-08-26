@@ -102,10 +102,24 @@ findings are surfaced for review rather than backfilled automatically.
 
 Run automatically by `.github/workflows/auto-merge-content.yml` whenever a PR changes `social/queue/**.json` — a failing draft just leaves the PR for a human (same fail-safe direction as the rest of that workflow), it doesn't block anything else. Run by hand any time with `node scripts/social/check-drafts.mjs` (checks every file currently in `queue/`) or `node scripts/social/check-drafts.mjs <file>...` (just those files — same idea CI uses via `--manifest <path>`, a JSON array file, so a filename with a space never gets silently split by the shell). **A file explicitly requested but not found under `queue/` is a hard failure (exit 1), not a warning** — this never silently reports "all clear" on a possibly-broken file list.
 
-Five rule families, in order (later ones assume earlier ones passed):
+Six rule families, in order (later ones assume earlier ones passed):
 - **Schema** — `body` must be a non-empty string, `platform` must be `x`/`instagram`, `scheduledAt` must parse to a real date. A schema failure skips every other rule for that item (they all assume well-formed input) and reports only the schema finding.
 - **Voice** — reuses `scripts/content-engine/checkers/voice.mjs`'s surname-overuse, ai-tell, and wire-attribution rules against the draft's `body`.
 - **Openers** — bans a body that opens with "did you know" (case-insensitive, word-boundary matched, and normalized past any leading emoji/quote/punctuation) outright, and flags a draft whose first 6 words match the opening of anything posted in the last 14 days or any other current queue item (formula detection).
+- **Campaign pair** — enforces the hard pairing rule above on the merge
+  path (added 2026-08-26). A draft whose `campaign` has no sibling on the
+  other platform in `social/queue/` or `social/posted/` fails, so its PR does
+  not auto-merge. A draft with no `campaign` at all fails too — nothing can
+  be paired to it. The `Single-platform exception:` escape hatch is honoured,
+  but its REASON is now judged: a scheduling pretext ("the calendar assigns
+  this subject to X only", "the IG slot was dropped", missing media,
+  convenience, running out of the per-run cap) is rejected, because an
+  exception is only for content whose FORMAT genuinely cannot work on the
+  other platform. This gate exists because the rule spent its first day as
+  prose plus an advisory `content.social-post-missing` P2 finding and nothing
+  on the merge path enforced it: on 2026-08-26 all five posts that shipped
+  were `platform: "x"`, Instagram got nothing, and both of that day's drafts
+  carried a `Single-platform exception:` citing a dropped IG slot.
 - **Cross-post copy** — an X draft whose `body` is more than 80% similar (word-overlap coefficient, not Jaccard — see the script for why) to its Instagram sibling's `body` fails. Siblings are matched by shared `campaign`; when an X draft has no `campaign`, this falls back to the closest same-day Instagram item — a near-duplicate still fails, and even a merely-plausible-looking pair gets a "you probably meant to tag these" nudge. Near-identical siblings are what triggers X's duplicate-content 403s.
 - **Media** — Instagram drafts need `media`; every media path must be a `.png`/`.jpg`/`.jpeg` (the only formats this pipeline produces or uploads to X) and exist under `apps/web/public/`; every draft carrying media must declare a `mediaKind`, and `"photo"` additionally requires `mediaCredit` + `mediaSource` and a tile under `/social/library/photos/`; era tiles fail outright; and no media may repeat one of the last 10 posted Instagram items.
 
@@ -117,7 +131,18 @@ Per due item, in this order:
 3. **Era-art guard** (`eraArtGuardReason`) — undeclared or recently-repeated era art (see `mediaKind` above) — plus a same-run media dedupe, so two items posting in the same run can't reuse each other's media before `social/posted/` would even reflect it.
 4. **Deploy-lag preflight** — HEAD-checks (falling back to a ranged GET if a host rejects HEAD, and requiring an image content-type) every media URL before an IG or X-with-media publish; unreachable media records the item as **`waiting`** (reported as "waiting on deploy", no attempt spent) rather than wasting a retry on a 404 — it ships itself on the first run after the deploy lands. For Instagram, the publish itself also polls each media container to `FINISHED` before calling `/media_publish` (`lib/ig-container.mjs`, issue #1897) — publishing a container Meta hasn't finished processing is what produced the 9007/2207027 "media not ready" failure, and retries can't fix it because every attempt rebuilds a fresh container and re-loses the same race.
 
-None of 2-4 burn one of the item's 3 retry attempts, and none of them consume a per-run posting slot — **only an item that clears all four checks and is actually attempted counts against `MAX_POSTS_PER_RUN` (5)**, so a run that selects several due-but-blocked items can't starve a later, immediately-postable item of its turn.
+None of 2-4 burn one of the item's 3 retry attempts, and none of them consume a per-run posting slot — **only an item that clears all four checks and is actually attempted counts against `MAX_POSTS_PER_RUN` (1 since 2026-08-26, was 5)**, so a run that selects several due-but-blocked items can't starve a later, immediately-postable item of its turn.
+
+**Pacing (2026-08-26).** `MAX_POSTS_PER_RUN` is **1**, which makes the
+30-minute run interval itself the floor on spacing between two live posts.
+`scheduledAt` is the only other spacing signal in this pipeline and it stops
+meaning anything the moment a batch of items lands already overdue — which is
+exactly what happened on 2026-08-26T09:41Z, when four appearance-discovery X
+drafts (all scheduled within 3.6 seconds of each other, all ~11h overdue by
+the time their PR merged) published in a single run, 1.2 seconds apart on the
+live timeline. A cap of 1 drains a backlog at one post per half hour instead
+of as a burst. It is a pacing floor, not the volume policy —
+`MAX_POSTS_PER_PLATFORM_PER_DAY` (10) is still what bounds a day.
 
 Two more failure-time behaviors: a platform missing required credentials aborts the **entire run** before touching any item (no attempts burned on a problem no retry fixes), and a transport-level failure at the actual publish moment (request sent, response never received) is recorded as `lastError: "ambiguous"` and is **never auto-retried** — retrying one is indistinguishable from manufacturing a duplicate, which is exactly the 2026-07-17 incident's mechanism.
 

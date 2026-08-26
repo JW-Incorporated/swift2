@@ -14,30 +14,42 @@ is pre-covered).
 
 ---
 
-## ⛔ OPEN INCIDENT — Instagram has been failing for 9 days. Read before drafting.
+## ✅ CLOSED INCIDENT — the 9-day Instagram aspect-ratio failure (2026-08-15 → 08-23)
 
-**Every Instagram post whose media is a `*-screen.png` fails.** Six lost since
-2026-08-15: 08-15, 08-16, 08-18, 08-21, 08-22, 08-23. Instagram returns
+**Resolved. Instagram is a live lane again — draft for it normally.**
+
+What happened: every Instagram post whose media was a `*-screen.png` failed,
+six lost between 2026-08-15 and 08-23, with
 `code 36003 / error_subcode 2207009 — "The aspect ratio is not supported."`
+The nine `*-screen.png` captures were 780 × 1688 (ratio 0.462) against
+Instagram's required 0.80–1.91, and nothing inspected image shape.
 
-Root cause, measured this run from the files themselves:
+Both halves are fixed, verified 2026-08-26 from the files and the ledger:
 
 | Asset family | Dimensions | Ratio | Instagram (needs 0.80–1.91) |
 |---|---|---|---|
-| `*-screen.png` (all 8) | 780 × 1688 | **0.462** | **REJECTED, always** |
-| `*-intro.png` (all 6), `mood-feature.png`, `thread-the-proposal-photo.png`, `feature-quote-demo-*.png` | 1080 × 1350 | 0.800 | OK — these have shipped |
+| `*-screen.png` (all 9) | **1080 × 1350** (re-captured, issue #3157) | **0.800** | **OK** |
+| `*-intro.png` (all 6), `mood-feature.png`, `thread-the-proposal-photo.png`, `feature-quote-demo-*.png` | 1080 × 1350 | 0.800 | OK |
 | `photos/taylor-lover-eras-minneapolis-2023.jpg` | 1280 × 964 | 1.328 | OK |
 
-**Drafter rule until an engineer re-captures the set: never put a
-`*-screen.png` on an Instagram slot.** It is not a style call — the post cannot
-physically publish. `*-screen.png` on **X** is fine (X has no such ratio bar)
-and every slot below that wants a full-page capture is an X slot.
+`scripts/social/check-drafts.mjs` **now has the aspect-ratio gate** it lacked
+(`IG_MIN_ASPECT_RATIO` / `IG_MAX_ASPECT_RATIO`), so an out-of-range Instagram
+draft fails on its own PR instead of dying six times at the Graph API.
 
-`scripts/social/check-drafts.mjs` has **no aspect-ratio gate** — it validates
-path, kind and credit but never dimensions, which is why six posts failed
-one after another with nothing catching it. Adding that gate is the durable
-fix and is proposed to the founders in this run's PR. Tree cannot write it
-(scripts are outside its mutation rights).
+Proof the lane is live, not merely believed-fixed: `2026-08-24-runway-sister-
+eras-challenge-ig.json` published 2026-08-24T23:23Z and `2026-08-25-icon-
+sessions-grammy-museum-ig.json` published 2026-08-25T22:57Z.
+
+**The old "never put a `*-screen.png` on an Instagram slot" drafter rule is
+retired** — it was correct for the 780 × 1688 assets and is wrong for the
+re-captured ones.
+
+⚠️ **This section outlived its truth by three days and that had a cost.**
+While it still read as an open incident, the ledger below stopped scheduling
+Instagram campaign legs ("the IG half of every announce sibling cannot
+publish"), and on 2026-08-26 the day shipped five X posts and zero Instagram
+ones. When an incident here closes, close it in the same change that fixes
+it — a stale ⛔ banner silently starves a whole platform.
 
 **Second constraint, from `docs/decisions.md` 2026-08-15 (Joey):** rehosted
 third-party press photos are retired, and the 12 Getty preview comps were
@@ -69,9 +81,22 @@ sourcing note in the ledger.
   may be repeated as a claim.
 - **On-this-day slots carry a fallback** — a date may have no Vault match.
   Check first, fall back second, say which you used in the `why`.
-- **Heartbeat days never sibling-pair.** Where B and C fall on the same day and
-  both are heartbeat, they are deliberately different subjects. Only campaign
-  posts run true IG+X siblings, and those must still differ by >20%.
+- **Every beat sibling-pairs, heartbeat included** (corrected 2026-08-26 —
+  this bullet used to read "heartbeat days never sibling-pair," which
+  contradicted Joey's later hard pairing rule of 2026-08-25 in
+  `social/README.md`: *every real campaign is two queue items authored
+  together, one `x` and one `instagram`, sharing the campaign value*). The
+  stale version is what actually broke Instagram: on 2026-08-26 both drafted
+  beats were heartbeat, so the drafter authored them X-only and wrote a
+  `Single-platform exception:` citing this very bullet — five X posts shipped
+  that day and Instagram got nothing. Two heartbeat beats on the same day are
+  still **different subjects from each other**, and an IG/X pair must still
+  differ by >20% in copy; neither of those licenses shipping one platform.
+  `scripts/social/check-drafts.mjs`'s `campaign pair` rule now enforces this
+  on the merge path, and it rejects a scheduling-flavoured exception
+  ("the calendar assigns this to X only", "the IG slot was dropped") — an
+  exception is only for content whose FORMAT cannot work on the other
+  platform.
 - **X length is weighted, not raw** — an autolinked URL always counts 23. Target
   ≤270; the checker hard-fails at 280.
 - **An empty IG slot beats a failed one.** Where a slot below says *droppable*,
@@ -89,7 +114,7 @@ sourcing note in the ledger.
 | Dropped in August | Taylor's Version + End Game — August's cycle started on the 12th and partial months don't carry over. |
 | **September windows + angles** (`angle = ANGLES[(1 + threadIndex) % 5]`) | Decode 09-01→05 `single-best-item` · Clue Web 09-06→10 `interactive-challenge` · Runway 09-11→15 `behind-the-data` · Blank Spaces 09-16→20 `quiz-poll` · Taylor's Version 09-21→25 `origin-story` · End Game 09-26→30 `single-best-item` |
 | Launch arc in flight | **None.** `launch:mood-chat` is closed out — its X legs shipped, its 08-16 announce and 08-20 example-output IG legs are in `social/failed/`. |
-| New launch arc this fortnight | **None, deliberately.** No user-visible ship merged since the last run (the 08-16→08-24 merges are knowledge-engine staging, reporting, docs and infra — none is something a fan could notice, and the engine is mid-build, so invariant 6 bars teasing it). Starting an arc while the IG half of every announce sibling cannot publish would burn the backlog's best story on a dead lane. |
+| New launch arc this fortnight | **None, deliberately.** No user-visible ship merged since the last run (the 08-16→08-24 merges are knowledge-engine staging, reporting, docs and infra — none is something a fan could notice, and the engine is mid-build, so invariant 6 bars teasing it). The old second reason — "starting an arc while the IG half of every announce sibling cannot publish would burn the backlog's best story on a dead lane" — **no longer applies** (2026-08-26): Instagram publishes again, see the closed incident above. Only the no-user-visible-ship reason still holds, and it is a content judgement, not a platform constraint. |
 | Launch backlog (unchanged, in order) | pinch-zoom photo viewer (#831) → photos + focal program (#762) → shoppable Runway looks → rumor tier. **Not** the Android app (#1815 — unshipped). |
 | Mood beat | 2026-08 was absorbed into `launch:mood-chat`. **2026-09 = first standalone beat, format `mood:chip-poll`** — 3 slots, 09-01 / 09-04 / 09-05. Chip-poll is X-native, which suits the current IG constraint. |
 | Openers burned (last 14 days) | **27 distinct patterns across 28 posts** — target is ≥12, so this is comfortably clear and the "did you know" formula is dead (last seen 08-10, pre-fix). Do not reuse, verbatim or near: `august <date>, <year>:` as a bare date-stamp (used 08-12/13/16/20/23), `an honest question` / `genuine question` (08-17, 08-22), `she was twenty`, `three taps and it knows`, `ten starter chips`, `no. 6 on hot country songs`. |

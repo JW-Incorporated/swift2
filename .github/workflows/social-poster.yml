@@ -194,6 +194,15 @@ jobs:
           set -euo pipefail
           if git ls-remote --exit-code --heads origin "$LEDGER_BRANCH" >/dev/null 2>&1; then
             git fetch origin "$LEDGER_BRANCH"
+            # actions/checkout pins remote.origin.fetch to a single main
+            # refspec, so the fetch above sets FETCH_HEAD but does NOT create
+            # refs/remotes/origin/$LEDGER_BRANCH. The push step below parents
+            # its commit on exactly that ref; without this line its
+            # `git rev-parse --verify origin/$LEDGER_BRANCH` always missed,
+            # it always took the parentless "first push" path, and the push
+            # would be rejected as a non-fast-forward on every run after the
+            # branch's first. Materialize the ref the writer expects.
+            git update-ref "refs/remotes/origin/$LEDGER_BRANCH" FETCH_HEAD
             # `git archive` errors on a pathspec absent from the tree — true
             # today only if `.gitkeep` ever went away, but don't depend on
             # that: build the archive list from paths that actually exist on
@@ -259,6 +268,18 @@ jobs:
         if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
         run: |
           set -euo pipefail
+          # `git commit-tree` needs a committer identity like any other commit
+          # builder. The runner has none, and the only `git config user.*` in
+          # this workflow used to live in the FOLD-BACK step further down —
+          # which runs AFTER this one. Result: from the day this step landed
+          # (2026-08-25, issue #2040) every single run died here with
+          # `fatal: empty ident name ... not allowed`, exit 128. social-ledger
+          # was therefore never created, the read step above logged "branch
+          # does not exist yet" forever, and the duplicate-post defense this
+          # step IS was inert while every posting run went red for a reason
+          # that had nothing to do with a post failing. Set it here, first.
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add social/queue social/posted social/failed
           if git diff --cached --quiet; then
             echo "No queue/ledger changes this run — social-ledger unchanged."

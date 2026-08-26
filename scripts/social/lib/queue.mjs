@@ -13,7 +13,24 @@ import { createHash } from 'node:crypto';
 /** Hard per-run and per-platform-per-day backstops (charter rail 3: caps are
  * code, never trust-based). Overridable only by editing this file — a PR,
  * same as any other rail change. */
-export const MAX_POSTS_PER_RUN = 5;
+/**
+ * 5 -> 1 on 2026-08-26 (Joey: "the intended cadence is roughly once a day;
+ * recently 4 posts went out at once"). On 2026-08-26T09:41Z four
+ * appearance-discovery X drafts — all with a `scheduledAt` within 3.6
+ * seconds of each other, all already ~11h overdue by the time their PR
+ * merged — became due simultaneously and this cap let all four publish
+ * inside the SAME run, 1.2 seconds apart on the live timeline. Nothing else
+ * in this pipeline paces posting: `scheduledAt` is the only spacing signal,
+ * and it stops meaning anything the moment a batch of items lands overdue.
+ *
+ * A cap of 1 makes the 30-minute run interval itself the floor on spacing,
+ * so a backlog drains at one post per half hour instead of as a burst — the
+ * pipeline never publishes two things at the same instant again regardless
+ * of how items got scheduled. It is a pacing floor, NOT the daily volume
+ * policy: MAX_POSTS_PER_PLATFORM_PER_DAY below is still what bounds
+ * how much ships in a day.
+ */
+export const MAX_POSTS_PER_RUN = 1;
 export const MAX_POSTS_PER_PLATFORM_PER_DAY = 10;
 
 /**

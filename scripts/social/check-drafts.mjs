@@ -16,6 +16,14 @@
 //   - openers       — bans the "did you know" formula opener outright, and
 //                     flags a draft whose first 6 words match the opening of
 //                     any post from the last 14 days or any other queue item.
+//   - campaign pair — the hard pairing rule (Joey, 2026-08-25): a draft
+//                     whose `campaign` has no sibling on the OTHER platform
+//                     in social/queue/ or social/posted/ fails, unless its
+//                     `why` carries an explicit `Single-platform exception:`.
+//                     Added 2026-08-26 after a full day shipped five X posts
+//                     and zero Instagram ones — the rule existed in prose and
+//                     as an advisory P2 finding, but nothing on the merge
+//                     path enforced it. See checkCampaignPair.
 //   - cross-post copy — an X draft that reads as a near-clone of its IG
 //                     sibling (same `campaign`, or the closest same-day IG
 //                     item when no campaign is set) reads as spam and risks
@@ -69,6 +77,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { checkSurnameOveruse, checkAiTells, checkWireAttribution } from '../content-engine/checkers/voice.mjs';
 import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
+import { hasSinglePlatformException } from '../content-engine/checkers/social-post-missing.mjs';
 import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
 import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
@@ -248,6 +257,124 @@ export function checkOpeners(file, item, others) {
     }
   }
   return findings;
+}
+
+/**
+ * The hard pairing rule (Joey, 2026-08-25, social/README.md): every real
+ * campaign is authored as TWO queue items with the same story-unique
+ * `campaign` — one `x`, one `instagram` — unless the item carries an
+ * explicit `Single-platform exception: <reason>` in its `why`.
+ *
+ * Until 2026-08-26 that rule had no gate anywhere on the path that actually
+ * merges a draft. It was prose in social/README.md and the runner prompts,
+ * plus an advisory P2 finding in the content-engine's
+ * `content.social-post-missing` scan — a report nobody has to act on before
+ * a queue PR auto-merges. Predictably, drafting lanes kept shipping X-only:
+ * on 2026-08-26 every one of the five items that posted was `platform: "x"`
+ * and Instagram got nothing at all, which is what the founder noticed.
+ * This is the missing gate. It fails a draft that has no Instagram (or no
+ * X) counterpart, so the PR does not auto-merge and a human sees it.
+ *
+ * `hasSinglePlatformException` is imported from the existing checker rather
+ * than reimplemented — one definition of what counts as a real exception.
+ *
+ * Scoped deliberately to the campaign of the draft being checked, not to the
+ * whole corpus: legacy unpaired campaigns already in `social/posted/` are the
+ * advisory checker's business, and must not retroactively fail every future
+ * PR that merely touches social/queue/ (same reasoning as the targets-only
+ * design in main()).
+ */
+/**
+ * Reasons that are NOT a single-platform exception, however confidently
+ * they're phrased. The rule's own words (social/README.md, growth-draft.md):
+ * an exception is for content whose FORMAT genuinely cannot work on the
+ * other platform — "missing media, forgetting the sibling, or convenience is
+ * not a reason."
+ *
+ * This list exists because on 2026-08-26 both X drafts of the day carried a
+ * marker reading, verbatim, "the calendar assigns this subject to X only;
+ * today's IG slot is a different, dropped subject, so there is deliberately
+ * no IG sibling for this story." That is a scheduling decision, not a format
+ * incompatibility — and it is self-fulfilling: the sibling is absent because
+ * the drafter dropped it, then the drop is cited as the reason it may be
+ * absent. `hasSinglePlatformException` (the shared marker primitive) cannot
+ * tell those apart; it only asks whether a marker with some prose exists.
+ * Judging the prose is this gate's job.
+ *
+ * Kept deliberately narrow — it names the specific pretexts actually
+ * observed, not every phrase that could conceivably be a bad reason. A
+ * drafter with a real format reason ("this is the second tweet of a thread
+ * and has no standalone IG form") is unaffected.
+ */
+const EXCEPTION_PRETEXTS = [
+  [/\bcalendar\b/i, 'the calendar assigning a subject to one platform'],
+  [/\bslot\b/i, 'which slot the item landed in'],
+  [/\bdropped\b/i, 'the sibling having been dropped'],
+  [/\bdifferent subject\b/i, 'the other platform running a different subject that day'],
+  [/\bno (?:cleared |suitable |usable )?(?:media|photo|image)\b/i, 'missing media'],
+  [/\bran out of\b|\bitem cap\b|\bfour-item cap\b/i, 'running out of the per-run item cap'],
+  [/\bconvenien\w+/i, 'convenience'],
+];
+
+/** The exception marker is present — is the REASON one the rule accepts?
+ * Returns the disqualifying description, or null when the reason stands. */
+export function exceptionPretextReason(why) {
+  if (typeof why !== 'string') return null;
+  const marker = why.match(/\bsingle-platform exception:\s*(.*)$/is);
+  if (!marker) return null;
+  const reason = marker[1];
+  for (const [pattern, description] of EXCEPTION_PRETEXTS) {
+    if (pattern.test(reason)) return description;
+  }
+  return null;
+}
+
+export function checkCampaignPair(file, item, allQueueItems, allPostedItems) {
+  if (!RECOGNIZED_PLATFORMS.has(item.platform)) return []; // checkSchema already flags this
+
+  const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+  if (!campaign) {
+    return [
+      'campaign pair: no `campaign` value, so this draft has no story-unique key to pair an ' +
+        `${item.platform === 'x' ? 'Instagram' : 'X'} sibling to — and the poster's idempotency check falls back to ` +
+        'matching raw body text. Add a story-unique `campaign` (e.g. "on-this-day:red-announcement-wanegbt") ' +
+        'shared with this story\'s sibling item.',
+    ];
+  }
+
+  const wanted = item.platform === 'x' ? 'instagram' : 'x';
+  const group = [...allQueueItems, ...allPostedItems].filter(
+    (o) => o.file !== file && (typeof o.data.campaign === 'string' ? o.data.campaign.trim() : '') === campaign,
+  );
+
+  if (group.some((o) => o.data.platform === wanted)) return [];
+
+  // An exception declared on either side of the campaign counts — the marker
+  // describes the campaign, not one file. But a marker whose reason is a
+  // scheduling pretext rather than a format incompatibility does not excuse
+  // anything; say so specifically, so the drafter fixes the draft rather
+  // than rewording the marker.
+  const claimants = [{ file, data: item }, ...group].filter((o) => hasSinglePlatformException(o.data.why));
+  if (claimants.length) {
+    const pretexts = claimants.map((o) => [o, exceptionPretextReason(o.data.why)]);
+    if (pretexts.some(([, pretext]) => !pretext)) return [];
+    const [, pretext] = pretexts[0];
+    return [
+      `campaign pair: campaign "${campaign}" has no ${wanted} sibling, and its \`Single-platform exception:\` is not a valid one — ` +
+        `it rests on ${pretext}. An exception is only for content whose FORMAT genuinely cannot work on ${wanted} ` +
+        '(social/README.md; growth-draft.md: "missing media, convenience, or running out of the four-item cap is not an exception"). ' +
+        `Author the ${wanted} sibling with the same \`campaign\` value instead of rewording this marker.`,
+    ];
+  }
+
+  return [
+    `campaign pair: campaign "${campaign}" has this ${item.platform} item but no ${wanted} sibling in social/queue/ or ` +
+      'social/posted/. Every real campaign ships to BOTH platforms (social/README.md, Joey 2026-08-25) — author the ' +
+      `${wanted} item in this same change with the exact same \`campaign\` value. The Instagram item already ` +
+      'cross-posts to Facebook, so never add a third Facebook item. If this specific story genuinely cannot work on ' +
+      `${wanted}, put \`Single-platform exception: <specific human-readable reason>\` in this item's \`why\` — ` +
+      'missing media, a forgotten sibling, or convenience is not a reason.',
+  ];
 }
 
 export function checkCrossPostCopy(file, item, allQueueItems) {
@@ -489,13 +616,14 @@ async function resolveTargets(argv) {
   return { targetPaths: rawPaths.map((a) => (path.isAbsolute(a) ? a : path.resolve(ROOT, a))) };
 }
 
-export async function checkDraft(target, { allQueue, openerContext, recentIg }) {
+export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg }) {
   const schemaFindings = checkSchema(target.data);
   if (schemaFindings.length) return schemaFindings; // other rules assume a valid shape — don't risk a confusing crash/misfire
 
   return [
     ...(await checkVoice(target.file, target.data.body)),
     ...checkOpeners(target.file, target.data, openerContext),
+    ...checkCampaignPair(target.file, target.data, allQueue, allPosted),
     ...checkCrossPostCopy(target.file, target.data, allQueue),
     ...checkLength(target.data),
     ...(await checkMedia(target.file, target.data, recentIg, allQueue)),
@@ -550,11 +678,15 @@ async function main() {
   const recentIg = await recentInstagramPosted();
   const recentPosted = await recentPostedOpeners();
   const openerContext = [...recentPosted, ...allQueue.map((q) => ({ file: q.file, body: q.data.body }))];
+  // Full posted history, not the 14-day opener window: a campaign's sibling
+  // legitimately posted weeks before its partner is drafted, and treating
+  // that as "no sibling" would fail an already-satisfied pairing.
+  const allPosted = await readJsonDir(POSTED_DIR);
 
   let hadFindings = false;
   let hadWarnings = false;
   for (const target of targets) {
-    const findings = await checkDraft(target, { allQueue, openerContext, recentIg });
+    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg });
     // A warning (currently only checkLength's over-270-but-within-280 case)
     // is advisory: it prints, but never flips the exit code on its own — see
     // WARNING_PREFIX/isWarningFinding. Any non-warning finding is a hard
