@@ -512,38 +512,28 @@ export default {
       category: 'fashion',
       title: 'Glamour puts her on its November 2010 cover',
       snippet:
-        "A Glamour magazine cover timed to Speak Now's release, part of the press run that reintroduced her post-bangs, post-breakout look to a wider readership.",
-      sourceUrl: 'https://catherineangiel.com/blogs/editorial/glamour-magazine-cover-november-2010-taylor-swift',
+        "A Glamour magazine cover timed to Speak Now's release, part of the press run that brought her post-breakout look to a wider readership.",
+      sourceUrl: 'https://www.glamour.com/story/shop-taylor-swifts-super-cute',
       thumbnailUrl:
-        'https://cdn.shopify.com/s/files/1/0234/1539/files/Glamour_November_2010_-_Cover_-Taylor_Swift_large.JPG',
+        'https://media.glamour.com/photos/5696433dd9dab9ff41b57d3c/master/w_1600%2Cc_limit/fashion-blogs-slaves-to-fashion-2010-09-30-1001taylor-swift-cover_fa.jpg',
       moment: {
         context:
-          "The November 2010 issue put her on the cover in a shimmery light-blue sequined look, and it hit newsstands October 12 — thirteen days before Speak Now itself arrived — making it one of the first big glossy covers of the album's press cycle.\n\nInside, the interview ran through the new album, her songwriting reflex — 'everything that happens to me gets put into a song' — and what she said she actually looked for in a relationship: 'character and honesty and trust' over status. She also confirmed she'd stayed friends with Taylor Lautner, the ex that Speak Now's 'Back to December' would soon be traced back to.",
+          "The November 2010 issue put her on the cover in a black lace Tadashi Shoji dress, and it hit newsstands October 12 — thirteen days before Speak Now itself arrived — making it one of the first big glossy covers of the album's press cycle.\n\nInside, the interview ran through the new album, her songwriting reflex — 'everything that happens to me gets put into a song' — and what she said she actually looked for in a relationship: 'character and honesty and trust' over status. She also confirmed she'd stayed friends with Taylor Lautner, the ex that Speak Now's 'Back to December' would soon be traced back to.",
         sources: [
           {
-            outlet: 'Catherine Angiel (archival)',
-            url: 'https://catherineangiel.com/blogs/editorial/glamour-magazine-cover-november-2010-taylor-swift',
+            outlet: 'Glamour',
+            url: 'https://www.glamour.com/story/shop-taylor-swifts-super-cute',
           },
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-glamour-magazine-interview/' },
         ],
-        // TODO (image.host-reputation, issue #1723, 2026-08-26): cdn.shopify.com
-        // is a generic multi-tenant e-commerce CDN (any Shopify store shares
-        // this hostname) and catherineangiel.com — a small jewelry designer's
-        // blog, not a press/archival outlet — is a one-off citation elsewhere
-        // in this corpus, so it doesn't clear the "already relied on
-        // repeatedly" bar used to allowlist similar archive sites in this
-        // pass. Searched for an equivalent Nov 2010 Glamour-cover image on an
-        // already-allowlisted host (Wikimedia, Getty, People, WWD) and found
-        // none — leaving flagged rather than fabricating a replacement.
         photos: [
           {
-            url: 'https://cdn.shopify.com/s/files/1/0234/1539/files/Glamour_November_2010_-_Cover_-Taylor_Swift_large.JPG',
-            credit: 'Glamour',
+            url: 'https://media.glamour.com/photos/5696433dd9dab9ff41b57d3c/master/w_1600%2Cc_limit/fashion-blogs-slaves-to-fashion-2010-09-30-1001taylor-swift-cover_fa.jpg',
+            credit: 'Matthias Vriens-McGrath / Glamour',
           },
         ],
-        // Shop pass (2026-07-21): no designer is named for this cover look
-        // -- a current, verified in-stock light-blue sequin dress in the
-        // same spirit.
+        // Shop pass (2026-07-21): retained as an era-inspired alternative,
+        // not a visual match for the now-verified black-lace cover dress.
         products: [
           {
             brand: 'WonderlandByLilian',
@@ -553,7 +543,7 @@ export default {
             imageUrl: 'https://cdn.shopify.com/s/files/1/0550/3919/7262/files/light-blue-halter-neck-glitter-dress-elegant-sequin-a-line-evening-gown-plus-size-133110.png?v=1716597964',
             price: '$659.00',
             isAlternative: true,
-            altNote: 'No designer was ever named for this cover look -- this is a current made-to-order light-blue sequin dress in the same shimmery spirit.',
+            altNote: 'An era-inspired alternative, not a visual match for the black lace Tadashi Shoji cover dress.',
           },
         ],
       },
