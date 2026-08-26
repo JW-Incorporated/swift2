@@ -238,5 +238,70 @@ export default {
         wiki('Mine_(Taylor_Swift_song)', 'Mine (Taylor Swift song)'),
       ],
     },
+    {
+      slug: 'you-belong-with-me-live-letterman',
+      kind: 'performance',
+      title: 'You Belong With Me (Live on Letterman)',
+      director: null,
+      releasedOn: '2010-12-07',
+      relatedSongs: ['You Belong with Me'],
+      tags: ['Music'],
+      // Filed here by real-world upload date (2010-12-07, inside Speak Now's
+      // window) rather than by the song's Fearless catalog era — see
+      // docs/decisions.md 2026-08-25 "Era placement is decided by real-world date."
+      summary:
+        'A solo TV performance of the Fearless-era hit on the Late Show with David Letterman, uploaded during the Speak Now promotional cycle alongside the era\'s other Letterman performance videos.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=zudLJdajX5Y',
+      media: [embed('zudLJdajX5Y', '2026-08-25')],
+      sources: [
+        yt('zudLJdajX5Y', 'Taylor Swift - You Belong With Me (Live on Letterman)'),
+        wiki('You_Belong_with_Me', 'You Belong with Me'),
+      ],
+    },
+    {
+      slug: 'mine-live-bbc-radio-2',
+      kind: 'performance',
+      title: 'Mine (Live, BBC Radio 2 Session)',
+      director: null,
+      releasedOn: '2011-08-24',
+      relatedSongs: ['Mine'],
+      tags: ['Music'],
+      summary:
+        'An acoustic session performance of "Mine" recorded for BBC Radio 2, posted to her official channel the same day as her Coldplay "Viva La Vida" cover from the same session.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=_9RWI5JBew0',
+      media: [embed('_9RWI5JBew0', '2026-08-25')],
+      sources: [
+        yt('_9RWI5JBew0', 'Taylor Swift - Mine (Live, BBC Radio 2 Session)'),
+        wiki('Mine_(Taylor_Swift_song)', 'Mine (Taylor Swift song)'),
+      ],
+    },
+    {
+      slug: 'viva-la-vida-cover-bbc-radio-2',
+      kind: 'performance',
+      title: 'Viva La Vida',
+      director: null,
+      releasedOn: '2011-08-24',
+      relatedSongs: [],
+      tags: ['Music'],
+      summary:
+        'A three-guitar acoustic cover of Coldplay\'s "Viva La Vida," recorded in a BBC Radio 2 studio during the Speak Now era and posted the same day as her BBC session performance of "Mine."',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=AcGbuveDwTg',
+      media: [embed('AcGbuveDwTg', '2026-08-25')],
+      sources: [
+        yt('AcGbuveDwTg', 'Taylor Swift - Viva La Vida'),
+        press(
+          'https://www.themusicman.uk/rare-taylor-swift-coldplay-cover/',
+          "Taylor Swift's roots unearthed as young star's rare, old-school Coldplay cover is rediscovered online",
+          'The Music Man',
+          'confirms the BBC Radio 2 studio setting, 2011 upload, and acoustic three-guitar arrangement',
+        ),
+      ],
+    },
   ],
 };
