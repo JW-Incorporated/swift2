@@ -252,6 +252,58 @@ export default {
         ),
       ],
     },
+    // ── GRAMMY Museum sessions (2015-09-30) — YouTube-catalog pass (#3286,
+    // run 3, 2026-08-25). Taylor stopped by the GRAMMY Museum's Clive Davis
+    // Theater for her record-breaking 1989 exhibit, discussing the album's
+    // songwriting and performing acoustic cuts. Both oEmbed-verified 2026-08-25.
+    {
+      slug: 'blank-space-live-grammy-museum-2015',
+      kind: 'performance',
+      title: 'Blank Space (Live at The GRAMMY Museum)',
+      director: null,
+      releasedOn: '2015-09-30',
+      relatedSongs: ['Blank Space'],
+      tags: ['Music'],
+      summary:
+        "An acoustic 'Blank Space' from Taylor's stop at the GRAMMY Museum's Clive Davis Theater, taped alongside a songwriting Q&A for her record-breaking 1989 exhibit.",
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=p1Zt47V3pPw',
+      media: [embed('p1Zt47V3pPw', '2026-08-25')],
+      sources: [
+        yt('p1Zt47V3pPw', 'Taylor performs "Blank Space" at The GRAMMY Museum'),
+        press(
+          'https://www.billboard.com/music/pop/taylor-swift-blank-space-performance-grammy-museum-6836066/',
+          "Taylor Swift Stuns with 'Blank Space' Grammy Museum Performance",
+          'Billboard',
+          'confirms the Sept 30 2015 GRAMMY Museum taping',
+        ),
+      ],
+    },
+    {
+      slug: 'wildest-dreams-live-grammy-museum-2015',
+      kind: 'performance',
+      title: 'Wildest Dreams (Live at The GRAMMY Museum)',
+      director: null,
+      releasedOn: '2015-09-30',
+      relatedSongs: ['Wildest Dreams'],
+      tags: ['Music'],
+      summary:
+        "An acoustic 'Wildest Dreams' from the same GRAMMY Museum stop as the 'Blank Space' session — part of a run of intimate 1989 performances for the museum's exhibit.",
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=OGDkg3QiJmk',
+      media: [embed('OGDkg3QiJmk', '2026-08-25')],
+      sources: [
+        yt('OGDkg3QiJmk', 'Taylor Performs "Wildest Dreams" at The GRAMMY Museum'),
+        press(
+          'https://www.billboard.com/music/pop/taylor-swift-wildest-dreams-grammy-museum-6828983/',
+          "Taylor Swift Shares Stunning 'Wildest Dreams' Performance from Grammy Museum",
+          'Billboard',
+          'confirms the Sept 30 2015 GRAMMY Museum taping',
+        ),
+      ],
+    },
     // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
     appearance({
       slug: 'grammys-album-of-the-year-2016',
