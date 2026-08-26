@@ -62,3 +62,34 @@ describe('SignificanceBadge colors — WCAG AA 4.5:1 (#3318)', () => {
     expect(contrastRatio(fg, theme.surface)).toBeGreaterThanOrEqual(4.5);
   });
 });
+
+// #525: the shared close/dismiss affordance (`.era-icon-btn`, globals.css)
+// is a solid `background: var(--era-ink)` circle with the glyph painted
+// `color: var(--era-bg)` — the theme's own maximum-contrast inversion, so it
+// reads as a solid dark/light circle regardless of what's behind it. That
+// claim was previously only checked structurally ("not transparent") — this
+// computes the real ratio per theme, both the resting state and the
+// `:hover` mix (`color-mix(in srgb, var(--era-ink) 82%, var(--era-bg))`,
+// glyph color unchanged), same rigor as #3318's SignificanceBadge table, so
+// a future ink/bg tweak that quietly breaks contrast fails CI instead of
+// shipping unnoticed.
+function mixSrgb(hex1: string, weight1: number, hex2: string): string {
+  const [c1, c2] = [hex1, hex2].map((h) => h.replace('#', ''));
+  const [r1, g1, b1] = [0, 2, 4].map((i) => parseInt(c1.slice(i, i + 2), 16));
+  const [r2, g2, b2] = [0, 2, 4].map((i) => parseInt(c2.slice(i, i + 2), 16));
+  const mix = (a: number, b: number) => Math.round(a * weight1 + b * (1 - weight1));
+  return [mix(r1, r2), mix(g1, g2), mix(b1, b2)].map((v) => v.toString(16).padStart(2, '0')).join('');
+}
+
+describe('.era-icon-btn (#525 close-affordance contrast) — WCAG AA 4.5:1', () => {
+  const themes = [...ERAS.map((e) => ({ id: e.id, theme: e.theme })), { id: 'vault', theme: VAULT_THEME }, { id: 'merch', theme: MERCH_THEME }];
+
+  it.each(themes)('$id: resting state (glyph era-bg on fill era-ink) clears 4.5:1', ({ theme }) => {
+    expect(contrastRatio(theme.bg, theme.ink)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it.each(themes)('$id: hover state (glyph era-bg on 82/18 ink/bg fill) clears 4.5:1', ({ theme }) => {
+    const hoverFill = `#${mixSrgb(theme.ink, 0.82, theme.bg)}`;
+    expect(contrastRatio(theme.bg, hoverFill)).toBeGreaterThanOrEqual(4.5);
+  });
+});

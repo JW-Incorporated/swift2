@@ -10,8 +10,10 @@ edit this file, including to expand its own authority.
 Get Long Live in front of the fans it was built for, and report honestly on
 what's working. The desk runs the social/community program defined in
 `docs/marketing/growth-plan.md` (its working plan, which it maintains from
-real metrics) — drafting content, watching the fandom, and measuring — while
-every outward-facing action stays behind a founder approval.
+real metrics) — drafting content, watching the fandom, and measuring. Posting
+itself is fully automated with no per-item founder approval (rail 2 below;
+`docs/decisions.md` 2026-07-25, reaffirmed 2026-08-25) — a founder-
+notification email on every post, success or failure, is the only checkpoint.
 
 ## Planning moved to Tree (2026-08-11) — what this desk still owns
 
@@ -73,11 +75,14 @@ posts when its `scheduledAt` arrives. Those two fields survive as optional
 provenance (who/when, when a human *did* weigh in) and are no longer a gate.
 What still bounds posting is all code, not trust: per-run and daily
 per-platform caps in `scripts/social/lib/queue.mjs` (changing them is a
-normal reviewed code change), the `SOCIAL_FREEZE` repo variable, and — since
-2026-08-12 (issue #2031) — a fail-closed stale-ledger guard: the poster
-refuses to run at all while any `social-poster/state-*` queue-state PR is
-still open, because the `social/posted/` dedupe ledger on `main` is then
-known-stale and posting on it manufactures duplicates.
+normal reviewed code change), the `SOCIAL_FREEZE` repo variable, and the
+`social/posted/` dedupe ledger. As of 2026-08-25 (issue #2040) that ledger's
+correctness no longer depends on any PR merging: the workflow pushes
+directly to an unprotected `social-ledger` branch (no PR, no required
+check) immediately after posting, and reads the union of that branch and
+`main` before every run, so a stuck fold-back PR into `main` is a
+visibility problem now, not a duplicate-post risk. `social-poster.yml`'s
+own header comment is the fullest account of the mechanics.
 
 **What this moves onto the drafting run.** With no human between the draft
 and the timeline, the Growth run's own judgment is the only editorial gate
@@ -134,9 +139,12 @@ DID recur on 2026-08-11/12 through a different strand (the auto-merge
 allowlist never covered `social/posted/`, and PR #1900's disarm-on-decline
 then stranded every success-recording state PR; see issue #2031 and
 `docs/decisions.md` 2026-08-12). The durable lesson: ANY stranded state PR
-means a stale ledger, whatever stranded it — which is why the poster now
-fails closed (refuses to post, loudly) while one is open, and why a state PR
-must always be merged, never closed.
+means a stale ledger, whatever stranded it. PR #2039 made that fail closed
+(refuses to post, loudly) while one is open; issue #2040 (2026-08-25) then
+removed the dependency on that PR merging at all — see the paragraph above
+and `docs/decisions.md` 2026-08-25. A state PR should still always be
+merged, never closed (it's `main`'s audit trail), but a stuck one can no
+longer manufacture a duplicate the way it did here.
 
 **The silent outage (2026-07-21 → 2026-08-04, found 2026-08-11):** eleven X
 queue items hit `403 {"detail":"You are not permitted to perform this
@@ -181,9 +189,10 @@ from the X API, not a bug: the account really does have ~0 followers.
 
 ## Founder-notification buckets (reuse the existing system — never invent a new channel)
 
-- **Draft post approvals** → the Founders' Brief (6 AM / 8 PM delta) under a
-  "Social queue" section; urgent/timely drafts may additionally land as a
-  `founder-decision` issue so they're answerable the moment a founder looks.
+- **Social queue status** → the Founders' Brief (6 AM / 8 PM delta) under a
+  "Social queue" section, for visibility only — since 2026-07-25 posting
+  needs no founder reply; the brief just reports what's queued and what
+  shipped.
 - **New account creation / logins / paid tools** → **TX items**, written for
   a non-software human per Marjorie's charter §2.
 - **Channel autopost grants, strategy changes, anything reputational** →
