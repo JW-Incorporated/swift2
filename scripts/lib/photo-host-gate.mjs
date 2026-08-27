@@ -37,10 +37,8 @@ export const PHOTO_HOST_LEGACY = new Set([
   // relied on repeatedly elsewhere in the corpus as citations) — removed
   // from here since they no longer need grandfathering. i0.wp.com's every
   // use in the corpus was re-pointed at its (now-trusted) origin host, so
-  // it's removed as genuinely unused. cdn.shopify.com stays below — the one
-  // remaining review candidate from that pass, left flagged with a TODO
-  // rather than a fabricated replacement.
-  'cdn.shopify.com',
+  // it's removed as genuinely unused. The final cdn.shopify.com photo was
+  // re-sourced from Glamour's official image host in issue #1723.
   'format.creatorcdn.com',
   'images.prismic.io',
   'images.squarespace-cdn.com',
