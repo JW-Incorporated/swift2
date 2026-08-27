@@ -28,26 +28,26 @@ drifts).
 
 | Routine | Trigger ID | Cadence (UTC) | Enabled | Model |
 |---|---|---|---|---|
-| Photo Enrichment worker | `trig_01Srp9aSCWFAtt7AtL4avpLY` | `21 6 * * *` | ✅ | — |
-| News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ✅ | — |
-| Cross-Link builder | `trig_01FxMuDtwScPFvSgvhFCxdfP` | `51 9 * * 1,4` | ✅ | — |
-| Stylist — shop-link sourcing & upkeep | `trig_011BiHZqLEVHAJ4chfaYfGZH` | `33 16 * * 0` | ✅ | — |
-| Rumor Desk — sourcing & lifecycle | `trig_01GS6bcMsEQjXwmyxGr7S1js` | `47 14 */2 * *` | ✅ | — |
-| Lex depth (sole instance) | `trig_01BoVCT67VbeLE8sRiaYPju4` | `20 */2 * * *` | ⛔ **disabled** (warm spare, intentional) | — |
-| Answerer (sole instance) | `trig_016hygyYPEV9T7BunnTHAWbZ` | `50 13 * * *` | ✅ | — |
-| Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `0 10 * * 1` | ✅ | Opus |
-| Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `0 11 * * *` | ✅ | — |
-| Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `20 22 * * 1` | ✅ | — |
-| Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `20 18 * * *` | ✅ | — |
-| Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ✅ | — |
-| Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `0 14 * * 0` | ✅ | — |
-| Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `23 1,13 * * *` | ✅ | — |
-| Kevin — S3 eng triage (cloud) | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | `43 15 * * *` | ✅ | — |
-| Kevin — S2 user-feedback digest (cloud) | `trig_0136mXcpmzn6mYtYoUQC3eGP` | `13 15 * * *` | ✅ | — |
-| Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ | — |
-| Karen — nightly scan | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | — |
-| The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | — |
-| Content Shift — authoring runs | `trig_01PonDFeQCL4iRNzceGyAYrm` | `0 17 * * *` | ✅ | — |
+| Photo Enrichment worker | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | `21 6 * * *` | ✅ | `claude-sonnet-5` |
+| News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ✅ | `claude-opus-4-8` |
+| Cross-Link builder | `trig_01FxMuDtwScPFvSgvhFCxdfP` | `51 9 * * 1,4` | ✅ | `claude-sonnet-5` |
+| Stylist — shop-link sourcing & upkeep | `trig_011BiHZqLEVHAJ4chfaYfGZH` | `33 16 * * 0` | ✅ | `claude-sonnet-5` |
+| Rumor Desk — sourcing & lifecycle | `trig_01GS6bcMsEQjXwmyxGr7S1js` | `47 14 */2 * *` | ✅ | `claude-opus-4-8` |
+| Lex depth (sole instance) | `trig_01BoVCT67VbeLE8sRiaYPju4` | `20 */2 * * *` | ⛔ **disabled** (warm spare, intentional) | `claude-opus-4-8` |
+| Answerer (sole instance) | `trig_016hygyYPEV9T7BunnTHAWbZ` | `50 13 * * *` | ✅ | `claude-opus-4-8` |
+| Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `0 10 * * 1` | ✅ | `claude-opus-5` |
+| Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `0 11 * * *` | ✅ | `claude-opus-4-8` |
+| Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `20 22 * * 1` | ✅ | `claude-opus-4-8` |
+| Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `20 18 * * *` | ✅ | `claude-sonnet-5` |
+| Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ✅ | `claude-fable-5` |
+| Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `0 14 * * 0` | ✅ | `claude-opus-4-8` |
+| Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `23 1,13 * * *` | ✅ | `claude-haiku-4-5-20251001` |
+| Kevin — S3 eng triage (cloud) | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | `43 15 * * *` | ✅ | `claude-sonnet-5` |
+| Kevin — S2 user-feedback digest (cloud) | `trig_0136mXcpmzn6mYtYoUQC3eGP` | `13 15 * * *` | ✅ | `claude-sonnet-5` |
+| Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ | `claude-opus-4-8` |
+| Karen — nightly scan | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
+| The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | `claude-opus-4-8` |
+| Content Shift — authoring runs | `trig_01PonDFeQCL4iRNzceGyAYrm` | `0 17 * * *` | ✅ | `claude-opus-4-8` |
 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ✅ | `claude-opus-4-8` |
 | Marjorie — 8 PM Evening Delta | `trig_01L2EG5veWBQwMowaykXAi6B` | `0 3 * * *` | ✅ (comment-only since 2026-08-23, not mailed — `docs/agents/marjorie.md` § Delivery) | `claude-fable-5` |
 | Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | `11 16 * * 0` | ✅ | `claude-haiku-4-5-20251001` |
@@ -57,6 +57,15 @@ drifts).
 `bedrock nightly audit` also lives in this account's routine list but is a
 different project (per `~/Projects/CLAUDE.md`'s ownership table) — excluded
 here on purpose, not missed.
+
+### 2026-08-27 — Live fleet audit (Joey's account)
+
+- All 24 triggers verified live via the routines API, fetched directly from Joey's account.
+- Nothing remains on the other founder's account — fleet fully consolidated.
+- Marjorie — 6 AM Founders' Brief ran successfully today, 2026-08-27 12:02 UTC.
+- The list endpoint caps at 20/page and its cursor is broken (same page repeats) — consistent with the Routine Auditor's own prompt.
+- The 4 triggers beyond page 1 (both Marjorie runs, Routine Auditor, Getty purge GC watch) were verified by direct per-trigger fetch instead.
+- Table above updated to match: Photo Enrichment's trigger ID refreshed; Model column completed for every row.
 
 ## Token-burn audit + cost mode (2026-07-25, Wyatt — supersedes the sustainment table below)
 
@@ -412,7 +421,7 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
   text is currently the only lever against self-armed check-ins; if they recur,
   remove the connector from the routines UI instead.
 
-### Cadence contradiction — Karen (found 2026-08-14, unresolved)
+### Cadence contradiction — Karen (found 2026-08-14, resolved 2026-08-27)
 
 This doc contradicts itself on Karen's cadence and has for a while:
 
@@ -453,6 +462,12 @@ the findings the Action produces. Follow-up for the routine dashboard: trim the
 to run the deterministic scan the Action now owns). The `STALE_DAYS=9` check
 stays as the backstop for the Action itself.
 
+**Resolved 2026-08-27 — live audit.** The live trigger confirms **weekly**,
+Sundays `0 9 * * 0` UTC, matching the overrides table below and the PR-date
+evidence already gathered in this section. The word "nightly" in the
+routine's name/title is historical — the cadence itself has been weekly since
+the 2026-07-25 override.
+
 ### Cadence overrides still in force (from the 2026-07-25 sustainment pass)
 
 | Runner | Cadence | Trigger ID |
@@ -468,7 +483,7 @@ stays as the backstop for the Action itself.
 
 | Runner | Cadence (UTC) | Model | Prompt file | Account | Why this side |
 |---|---|---|---|---|---|
-| Marjorie — morning brief | `0 12 * * *` (was `0 13` — moved 2026-07-16 so the emailed brief is in founder inboxes **by 6:00 AM PT**, Joey's requirement; the 12:45 UTC mailer needs the brief posted by ~12:40) | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Wyatt** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account |
+| Marjorie — morning brief | `0 12 * * *` (was `0 13` — moved 2026-07-16 so the emailed brief is in founder inboxes **by 6:00 AM PT**, Joey's requirement; the 12:45 UTC mailer needs the brief posted by ~12:40) | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Joey** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account (fleet consolidated to Joey's account ~2026-08-23; verified live 2026-08-27) |
 | ~~Marjorie — 8 PM delta~~ **(DISABLED 2026-07-25, Wyatt)** | ~~`0 3 * * *`~~ | Fable | [`runner-prompts/marjorie-delta.md`](runner-prompts/marjorie-delta.md) | **Wyatt** | Cut to once-daily for sustainment mode — the morning brief stands alone. Trigger `trig_01G4GsUsphyz9LycqKjDEdi4` set `enabled:false` (not deleted; re-enable to restore). NOTE: the delta also ran an evening merge-sweep + founder-email-reply pass — those now happen only at the 6 AM brief (autonomous merge cycles cover the gap). |
 | Growth — daily draft | `0 11 * * *` (1h before Marjorie's morning brief, so its Growth line reflects a fresh queue) | Fable | [`runner-prompts/growth-draft.md`](runner-prompts/growth-draft.md) | **Wyatt** | Added 2026-07-21: the charter (`docs/agents/growth.md`) and the shipping pipeline (`social-poster.yml`) existed, but nothing was ever scheduled to run the *drafting* half — issue #864 (empty queue) sat unactioned 3 days for exactly this reason. **Since 2026-08-11 it drafts Tree's calendar rather than inventing content** |
 | Tree — weekly social plan | `0 10 * * 1` (Mondays, an hour before that day's Growth draft, so the fresh calendar is readable the same morning) | **Opus** — genuine strategy judgment; a script-and-summarize tier would restore the formula loop it exists to break | [`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md) | **Wyatt** | Added 2026-08-11 (Joey): posting was strategically random — 12 of 14 captions opened "did you know", every IG image a generic era tile, and feature launches / the six threads / Mood had never been posted about. Tree plans `social/calendar.md`; Growth executes it. Charter: [`tree.md`](tree.md) |
