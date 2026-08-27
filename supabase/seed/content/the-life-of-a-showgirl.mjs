@@ -11978,6 +11978,29 @@ export default {
         // itself, which is a text post. Rejected as off-subject stock rather
         // than added; stays text-first.
         photos: [],
+        // Rumor Desk / Content Shift (2026-08-27, from intake #3393): in the
+        // days after Parton's death, tabloid/sports coverage floated Taylor as
+        // "lining up" for a hypothetical Dolly tribute concert. Adjudicable and
+        // attributable, so it lands as an honestly-labeled unconfirmed rumor —
+        // not woven into the confirmed tribute narrative above. Region-capped
+        // (forward-looking/speculative provenance = L0; no venue is announced),
+        // and the sports-blog "will Travis join her?" angle is dropped as
+        // third-party attendance speculation about a hypothetical event.
+        rumors: [
+          {
+            claim:
+              "In the days after Dolly Parton's death, heavy.com reported that Taylor was among the music stars said to be \"lining up\" to perform at a possible Dolly Parton tribute concert — coverage floated it as potentially one of the biggest memorial concerts in music history. As of late August 2026 no such concert has been scheduled and no performer lineup has been officially confirmed.",
+            reportedBy: 'heavy.com',
+            reportedOn: '2026-08-26',
+            status: 'unconfirmed',
+            url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-dolly-parton-tribute-travis-kelce/',
+            sourceTier: 'tabloid',
+            locationSpecificity: 'region',
+            lastCheckedOn: '2026-08-27',
+            note:
+              "Forward-looking speculation about an unscheduled event, carried by a single low-tier outlet, so it enters as an unconfirmed rumor, not authored narrative. Held at region: no venue is announced. The sports-blog \"will Travis join her?\" angle is dropped as third-party attendance speculation. Resolves confirmed if a concert is announced with Taylor on the bill; fades if it never materializes.",
+          },
+        ],
       },
     },
     {
