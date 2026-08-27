@@ -58,7 +58,7 @@ export default {
       snippet:
         "Satire aimed at her own tabloid image — \"a girl who's crazy but seductive but glamorous but nuts but manipulative.\"",
       sourceUrl: 'https://en.wikipedia.org/wiki/Blank_Space',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/e-ORhEE9VVg/maxresdefault.jpg',
       moment: {
         context:
           "She's said only about half of listeners caught it was a joke; the rest took the persona at face value — which was almost the point, since the song was written as a satirical, self-referential nod to a tabloid caricature she'd decided was \"kind of hilarious\" once she stopped feeling attacked by it.\n\nThe joke worked commercially either way: after debuting at No. 18, \"Blank Space\" knocked \"Shake It Off\" out of No. 1 in its third week, making her the first woman in the Hot 100's 56-year history to succeed herself at the top — only nine acts, from the Beatles to the Black Eyed Peas, had ever done it. It held No. 1 for seven straight weeks and was eventually certified 8x Platinum.",
@@ -66,18 +66,11 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Blank_Space' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/pro/taylor-swift-blank-space-hot-100/' },
         ],
-        // Photo pass (2026-07-20, #762): 2nd verified photo + focal points on
-        // both. Official "Blank Space" video id e-ORhEE9VVg confirmed via
-        // YouTube oEmbed (author "Taylor Swift"); maxresdefault curl-verified
-        // 200 image/jpeg, downloaded and viewed. Focal points set by eye.
+        // Low-res single-cover photo retired (issue #1715, 2026-08-26): the
+        // 300x300 Wikipedia cover was below the quality floor; the official
+        // video still (already verified in the second photo below) is now
+        // the sole/thumbnail image.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
-            focalPoint: '48% 35%',
-            credit: 'Big Machine Records',
-            caption: 'The "Blank Space" single cover — the satirical tabloid persona, rendered as a torn-up polaroid.',
-            kind: 'archival',
-          },
           {
             url: 'https://i.ytimg.com/vi/e-ORhEE9VVg/maxresdefault.jpg',
             focalPoint: '50% 40%',
@@ -1593,8 +1586,7 @@ export default {
       snippet:
         'November 10, 2014: Joseph Kahn\'s mansion-meltdown video drops alongside American Express Unstaged — an explorable 360° app version of the video that went on to win an Emmy.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Blank_Space',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/e-ORhEE9VVg/maxresdefault.jpg',
       moment: {
         context:
           'Joseph Kahn shot the mansion meltdown at Oheka Castle on Long Island, borrowing Stanley Kubrick\'s symmetrical framing while Taylor played the tabloids\' "crazy ex" caricature to the hilt — golf clubs to the sports car included. The companion "AMEX Unstaged: Taylor Swift Experience" app let viewers roam the mansion in interactive 360° mid-video, discovering easter eggs and side characters outside the linear cut.\n\nIt won the 2015 Emmy for Outstanding Creative Achievement in Interactive Media — Original Interactive Program, with Taylor credited as artist and executive producer: her first Emmy, earned for a music video\'s companion app.',
@@ -1620,9 +1612,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
-            focalPoint: '42% 28%',
-            credit: 'Big Machine Records',
+            url: 'https://i.ytimg.com/vi/e-ORhEE9VVg/maxresdefault.jpg',
+            focalPoint: '50% 40%',
+            credit: 'Taylor Swift / Big Machine Records, via YouTube',
+            caption: 'A still from the Emmy-winning "Blank Space" video and its interactive companion app.',
           },
         ],
       },
@@ -2340,10 +2333,14 @@ export default {
             kind: 'archival',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/82/Zayn_%26_Taylor_Swift_-_I_Don%27t_Wanna_Live_Forever_%28Official_Single_Cover%29.png',
-            focalPoint: '50% 50%',
-            credit: 'RCA Records / Republic Records (official single cover)',
-            caption: 'The cover for "I Don\'t Wanna Live Forever," her December 2016 duet with Zayn for the Fifty Shades Darker soundtrack — one of two music releases during the withdrawal year.',
+            // Low-res single-cover retired (issue #1715, 2026-08-26):
+            // official video id 7F37r50VUTQ confirmed via YouTube oEmbed
+            // (author "Taylor Swift"); maxresdefault curl-verified 200
+            // image/jpeg, downloaded and viewed.
+            url: 'https://i.ytimg.com/vi/7F37r50VUTQ/maxresdefault.jpg',
+            focalPoint: '50% 45%',
+            credit: 'RCA Records / Republic Records, via YouTube',
+            caption: 'A still from "I Don\'t Wanna Live Forever," her December 2016 duet with Zayn for the Fifty Shades Darker soundtrack — one of two music releases during the withdrawal year.',
             kind: 'archival',
           },
           {

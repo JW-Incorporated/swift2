@@ -1212,8 +1212,7 @@ export default {
       snippet:
         'A duet with Snow Patrol\'s Gary Lightbody, born from a relationship where "you never know when he\'s going to leave... but he always does come back" — Ed Sheeran made the introduction.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Last_Time_(Taylor_Swift_song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/8/8d/Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/QuijXg8wm28/maxresdefault.jpg',
       moment: {
         context:
           'Taylor told NPR the song was inspired by an unreliable partner: "You never know when he\'s going to leave, you never know when he\'s going to come back, but he always does come back."\n\nShe described picturing a boyfriend on his knees outside a door, promising "this is the last time," while his girlfriend waits inside, torn on whether to let him back in: "It\'s a really fragile emotion you\'re dealing with when you want to love someone, but you don\'t know if it\'s smart to." The collaboration came together after her friend Ed Sheeran introduced her to Lightbody in spring 2012; the track was produced by Jacknife Lee, known for his work with Snow Patrol and U2.',
@@ -1221,13 +1220,15 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Last_Time_(Taylor_Swift_song)' },
           { outlet: 'NPR', url: 'https://www.npr.org/2012/11/03/164186569/taylor-swift-my-confidence-is-easy-to-shake' },
         ],
-        // Real-photo pass (2026-07-09): official single cover from Wikipedia's
-        // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
+        // Low-res single-cover retired (issue #1715, 2026-08-26): official
+        // video id QuijXg8wm28 confirmed via YouTube oEmbed (author "Taylor
+        // Swift"); maxresdefault curl-verified 200 image/jpeg, downloaded and
+        // viewed (shows both Taylor and Gary Lightbody, matching the duet).
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/8d/Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png',
-            credit: 'Big Machine Records',
-            caption: 'Official single cover for "The Last Time" featuring Gary Lightbody of Snow Patrol.',
+            url: 'https://i.ytimg.com/vi/QuijXg8wm28/maxresdefault.jpg',
+            credit: 'Taylor Swift / Big Machine Records, via YouTube',
+            caption: 'A still from the official "The Last Time" video, featuring Gary Lightbody of Snow Patrol.',
             kind: 'primary',
           },
         ],
