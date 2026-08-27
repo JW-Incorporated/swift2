@@ -1,0 +1,19 @@
+{
+  "date": "2026-08-27",
+  "followers": {
+    "x": 0,
+    "instagram": 3,
+    "facebook": 8
+  },
+  "postsToday": 2,
+  "postsLast24h": {
+    "total": 3,
+    "x": 1,
+    "instagram": 1,
+    "facebook": 1
+  },
+  "seriesGaps": [
+    "2026-07-30",
+    "2026-07-31"
+  ]
+}
