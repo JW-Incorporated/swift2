@@ -63,3 +63,19 @@ clownbot-battery-*.json
 .repowise/
 codex-full-log.jsonl
 codex-stdout.log
+
+# Stale PLAN.md snapshots renamed off the live filename (machine-retirement
+# audit, 2026-08-27) — superseded plan backups, never tracked.
+PLAN.md.bak-*
+
+# Local portable Python runtime install (machine-retirement audit,
+# 2026-08-27) — not project source, never tracked.
+/Python/
+
+# Scratch product-link export, deliberately left local since 2026-08-19
+# (docs/handoff/2026-08-19-paused-work.md) — never tracked.
+.scratch-products.json
+
+# Stale pre-#2040 draft of the tracked test file, left local since
+# 2026-08-19 (docs/handoff/2026-08-19-paused-work.md) — never tracked.
+scripts/social/social-poster-workflow.test.ts.tmp
