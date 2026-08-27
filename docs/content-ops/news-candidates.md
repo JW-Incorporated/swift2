@@ -27,6 +27,38 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Pays Tribute to Dolly Parton's Legacy
+
+- first seen: 2026-08-27 00:45 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has honored the legacy of Dolly Parton following her recent passing, acknowledging Parton's significant impact on the music industry. This tribute reflects Swift's respect for legendary artists.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMijwFBVV95cUxOX1NsVnkxMElEd01mMmJkNnBlT05rN3JBU0ZsbVlmRDZzYm5NMk92ekVzOFg3S01Wc09wM084VUp1RjNvYzkwZG1zUlRTdWRzWkg5Q1FDb2xSMllyMTZHTmRaQVpYcmNaX2FXc0xvbV96aHc2d1JKQXZkRDVVUjFsSWZjeWhHRTU0ekktRUVoMA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Caitlin Clark Compared to Taylor Swift in New Feature
+
+- first seen: 2026-08-27 00:45 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: IndyStar highlights Caitlin Clark's mindset and style, likening her to Michael Jordan and calling her 'Taylor Swift in tennis shoes'. This comparison underscores her impact in sports and fashion.
+- sources:
+  - [unverified] IndyStar — https://news.google.com/rss/articles/CBMi_AFBVV95cUxNa3c2RnRhUVRadmxtQmIyQTZqVnF0LU5HcFh5VXlCdUpETEpYQXpYZzhyUy1XalNMNzlyVUtFVUpJQzJUNk5XRW9zOW9xOG5aUy1oRVBpYk5wc1hTT3BWVWlpajQzVHZWZ0pnNFVqWmh6dm0yT3Rtc1VzMnRsMkFJSWFjTkwzb2taT0otaGNvX2djaHJERmI0bnpRWGotYUN0LUZFVmZ3SmNXR2I1dFoyUU9CempOcHkxdTRJX29qZFR3YThYT2RHaWxKSm5YUG5zdWxGNzNCT3hKOElKWUduTVVlc1FjRHpfalh6RWFmc1JORkNLRmc4YVh1d2Q?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Ruffle Dress Sells Out; Inspired Styles Available Now
+
+- first seen: 2026-08-27 00:45 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s popular ruffle dress is currently sold out. However, fans can find inspired styles starting at $36 to emulate her showgirl look.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE5PSVUwUlN0dzlCZXNQOUliRUJ2M2d1Zy1GaG5KM1NqTmxvVVhNSmYzZVhXMmNUdjlIQzdndWFzTnV3LUpZRW5OWktYeFRPRG9DTWo4NGY2SGRPZnV3TE9ueW9BajFuUEgwQ0N6dGFtNlJTTHdf?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Discusses Word Choice When Addressing Critics
+
+- first seen: 2026-08-27 00:45 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: In a recent statement, Taylor Swift revealed that she is careful with her words when addressing her critics, reflecting on her approach to criticism in the public eye.
+- sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxPUWlZWjZBWE9Ka19pM3lPRUxNcWFaay1majRXQnR3UGlHelJDdWktVkhZc25QSElJYTNWU2dqVUlqV1BrRGkyWTVtM2lYeEExRnZaQ1JKWkhxTmdQTDVwOV9CeDJBd1lKUTBHMjdHRExSYVhuc2lMcnI3SUVBLTV6WQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Discusses Her Coping Mantra in Time Magazine
 
 - first seen: 2026-08-26 19:17 UTC | category: music | importance: 5
@@ -62,10 +94,11 @@ Stories: 120
 ## Taylor Swift Reflects on 20 Years Since 'Tim McGraw' Debut
 
 - first seen: 2026-08-26 19:17 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: In a recent interview with the Recording Academy, Taylor Swift reminisced about the 20th anniversary of her debut single 'Tim McGraw'. She discussed the impact of her early career and the journey it has taken her on over the years.
 - sources:
   - [unverified] 102.7 Coyote Country — https://news.google.com/rss/articles/CBMixgFBVV95cUxQT2VwY25FbkRlbUZDMjdNbC15TzZ6UUNOY01PcjFfazBWWEc0bzJjUG45RTFtZkZPOWVaMmk5dHBtZWVIZHNFcUhnSUJOU3BsdWNvQ3l0UHAzcmxJTm1HZHBfWUk3dlJWeUFyOVNBalJ5dzFtZFhkc1dQLTZuN2NDOXA4dXZIdTJkY2dQWFd3MGRvQTFpSjZPc1BYeVd2TDlQWFZkb0VtV1I5SXRNVUdtZDBNVGFYUXgzOEdYYkpyYjdnemlPcVE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] 92.5 XTU — https://news.google.com/rss/articles/CBMiugFBVV95cUxNaUhKVlkwdXRoeTJjSXg3d2ZNbVZ6SzQzMmhMazhKRlFlRjJkVHU0UmtBekI4NzhyeFhMbjBYcWdFRWE2Qi1mdUFtMkFvV1d0Q2hiLVJGMTZDSEZPbzdGYmk2YUotSTNLNTNtSFBXMUlKdmctZ01YNkhTZmMyWlRzeEZ0d2p4OVBkbE9TVElfU1loYkRDb2k4Q1ExRXQ3S1RzcjhTUmNqTGZCVDBpX18xWUptd3YxYkd3T3c?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Honors Dolly Parton's Generosity
 
@@ -194,7 +227,7 @@ Stories: 120
 ## Dolly Parton Acknowledges Gift from Taylor Swift and Travis Kelce
 
 - first seen: 2026-08-26 02:38 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 14
+- verification_status: corroborated | source_count: 15
 - summary: Dolly Parton expressed gratitude towards Taylor Swift and Travis Kelce for a significant $2 million donation shortly before her passing. This donation highlights the philanthropic efforts of the two stars.
 - sources:
   - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinAFBVV95cUxQX1NTUEx5NFVuOWVJeEhVRm52ekxHNnoxcURuZl9EeUlJbDU4MndBNGJwbnh3eXNuM0t1Zmpvbzd5SG56RG8xNEdxMzNRblZoOUNKSm0xNEtXNTZNZVBETTh5bDFLbVFvWGhkSlZvVlp3S0hSSzNLWWVCMVQ1cV9wTXRNS1dwb1BQYncyZzdiU2gtWGVEZF9ITkpTWFU?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -202,6 +235,7 @@ Stories: 120
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/aug/25/dolly-parton-death-celebrity-reactions
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQT0Q0Q2k5bUNDaFhRaFdkSnd3ck9BMXU2Rkl6c0ZmcnpsZkdGeGtKOFl0aUZOejY4U0sxMGdTVTRMU00wVkJkazMtUEdNdTdxbGEzbUpEQ19zNTY3RkljSGljNGR5SXZkekRCYjdHRnpfeFhXTW5seWZmVXl4VHJnZEtFamx4TlVkZE1B?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMifkFVX3lxTFBVMzg1NTM1R3FxWjJOY1JZZ3FWT3pTZnExd0ZhWHhwM01uVWFDWlVRSF91RUtUX1o0ZU80ZXhwWjRheC1xM2FJanhlX2I0QXlaVlNsR2gzLVBNT0dYQ05QS3VmMFExWDVBSEQzQllrWllJX0lGNnUxaldJbDJ3UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQM2VPcEw2UThKR0NuS24yczczRkFkMTcyamMzVFIxSnRnX1NpVjBiQndMVExFd0lweGtPSnpuQk1naWNHaVhlTG15cks4NzZWOE8zUlVjWDRuejZJSGthVFFBc2ppdmIyQkFsQ2ZYWS0ySXVZNHpRTlZ1d0ZOaDRGQkFhS0VTMkZBVEdfMk9TaVV3cGRBTXRpR3dzbHBOdw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] KMBC — https://news.google.com/rss/articles/CBMitwFBVV95cUxON1ZzU01HREhsMWlMWnJaTzRVcWhUdVRCbXpBdDZfN3BwSmxDYTg1ajdqSzVWTVotdW9KZEt0ZlNVMnltc3hCYnZEaGlJdkJpU2lwUFY3YmdGejZaLXd4REY4cGpiemlUSlFXa1QxQk9NNGhVQkxpZXY4VXRka0JDSHVOWUo3eFBiWjVubGhwM3JSSHpVeWxrRXdHSmVYVmV4TlFhYWV6ZThZUmUzMEpYOEkzVVBEcUE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMinwFBVV95cUxOT25lR0ZsUkxwOXhWY0hKdHI1Q0tCb3o4WW9CS2hQYUplU19zM3V4NmFFM1ZmdHJMbE96RjBSVkxOd0hiTmx1QjRuMU1mcHgxTTZuVHpOS05KdHVfaGRkb1hyOE16U3lpdHpkb3BPM3ZuMFlvZjFSYjZLdjI5eU93Tks4ZmRCbWxzZGthWVctUzFQaXR2YWlpNU5yVEkzNEE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxNM19id0gzR1pTdk50MzAwQ012MnQ2OER5TFdrX2ZuUDc3UktYaGJYVE9qb2MwNXM4N2h6cmVVQW5HVGhQaUd0TjRpMGJJUFVBWFdIYlFfazZDVUNzaXcyVkVONVlFbTdaU183ZzhHU0xBeC01N25ySmhSdFl2ZW1MeQ?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -271,10 +305,11 @@ Stories: 120
 ## Taylor Swift Gives a Closer Look at Her Wedding Band and Ring Stack During Recent Performance - inst
 
 - first seen: 2026-08-25 21:39 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift Gives a Closer Look at Her Wedding Band and Ring Stack During Recent Performance  instyle.com
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNX2lCQm1XazVKTU81MnZpRk43cFJIbTBqWU9zT20zTnV5VUt5N3VPZ1IwenlBZXd6enpvMHhmWVNHbEpuNGdvUTQwQlZRb1UwUWlOVXNDengxS05STWxhLWduZWt3NzR4WHFWRmZSc1gtbkx4bEM5NXV6akxrWEZmMC05UHlFaUVCd0xJTjJKUGRrb0VTLS1rYVFvOWZwNVg0X2c?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBMSFlUYmxCUlpqcGUwU2FrT0tIZjRPbTBXM3o0eUlYNzY5d0xBS1ltV3NVbExzMGVZb0ZUbGRWQlhsczF0RS05RVdOazBDOTdTVFpIWUZtSlZSdmFSYWdjang4Slkycnc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNWR6bFg2ZzBJYjk5bEFyYUM0b296cWl0WG9vNXgxZGJ2NF9zLXViU3YxaEFhQ09vWG9jeTl6c3ppWWtIX1hFVlRqTHpZcTlia1pMTGxaRXVPLU5VNld2SjQ2SW1JdHZ3Y2t0LXVGYUNuYmJXb0Z2MThCU2J2dTl4Mk1WQ1FRNTd2?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOY0lNNEtMM2Jyb0VKX0c5WDV6a3JseDNRUXhVZ3Vkcy15dzFYOXMwWlJHeUhibjlYLXp6MXhOTUtyN2lmYlhYbV9FTDE2OFNXRkt0QXBUdW1Sa3FRc3E1eWJzcUJyQjI4S1F0TGxyR1ZKZEE4c29zTDdkeFRiTXRTSnFVNlhjeUliNjRfOFRBSmF0T3ZJR21MNnJTRFZFS1NZbEdYV3VjMkMwNHZSckhQQ0NXS1ZHTS05SDN3WXlPU0hVN2NhYTlGdk9xUnpkb05E?oc=5&hl=en-US&gl=US&ceid=US:en
 
@@ -983,35 +1018,3 @@ Taylor Swift reveals her sneaky way of clapping back at critics  Page Six
 - summary: Midtown Manhattan, known for its high-rise offices and tourist accommodations, has become a center for various dramatic spectacles this summer. The area is gaining attention despite not being traditionally regarded as hip.
 - sources:
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/09/nyregion/midtown-manhattan-nyc-taylor-swift-knicks.html
-
-## Taylor Swift Fans Listed in Madison Square Garden Security Database
-
-- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift's wedding guests were included in a secret security database at Madison Square Garden alongside other celebrity Knicks fans. The reasons for this classification have not been disclosed in the report.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/09/podcasts/madison-square-garden-wedding-travis-kelce-taylor-swift.html
-
-## Greg James Shares Story Involving Graham Norton Related to Taylor Swift's Wedding
-
-- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Greg James recounts a moment involving Graham Norton connected to Taylor Swift's wedding plans, sharing insights from their conversation. The story provides a glimpse into the interactions surrounding the event.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cvgdywxd2rlo?at_medium=RSS&at_campaign=rss
-
-## Taylor Swift and 'Summer House' Nominated for Emmy Awards
-
-- first seen: 2026-08-25 02:22 UTC | category: business | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift's involvement in unscripted programs has led to recognition, as she receives an Emmy nomination alongside 'Summer House', a popular reality TV show. The nominations highlight notable figures in the realm of reality television.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/08/arts/television/taylor-swift-reality-tv-emmys.html
-
-## Dior Couture Show Discusses Possible Clues for Swift's Wedding Dress
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The latest couture collection by Jonathan Anderson may offer hints regarding Taylor Swift's wedding dress. Fashion critic Vanessa Friedman shares insights on the standout looks from the show.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/video/style/100000010990396/diors-couture-show-in-paris.html
