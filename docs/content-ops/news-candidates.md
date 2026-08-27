@@ -27,6 +27,51 @@ so far".
 
 Stories: 120
 
+## Taylor Swift and Travis Kelce Report Marriage Challenge Reports
+
+- first seen: 2026-08-27 22:56 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest Taylor Swift and Travis Kelce are facing a significant challenge in their marriage due to claims that wedding guests are unhappy with his behavior, highlighting differences between the couple.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQYkRiSmdiU1JObGhhaTJOdEVIRGZpeHRIWUNJWXhDTmMwRWh5dHgxUFR2ZVFMckI1U3NvdFBZUGsyZDFnaU04TUVsRTNXNldoN3JlWjVoZ2dvTkw0cUJIWnlvanFsMzJmN0ZZRnJWVjFReXhTRnJxMnIyVG9FMmhWOGEyUkNad1Q1T20xb2ZxTnFlZkV4ejB5aFR2QmJXSEk3dnpEbjlTdEVTUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Releases Animated Music Video for 'Toy Story 5'
+
+- first seen: 2026-08-27 22:56 UTC | category: release | importance: 7
+- verification_status: corroborated | source_count: 6
+- summary: Taylor Swift has released an animated music video coinciding with the upcoming streaming of 'Toy Story 5'. The video adds a visual element to the song, enhancing its connection to the beloved film franchise.
+- sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiogFBVV95cUxNc2QxRzVlZnFfYVc1eEFMWDRhNjVVWXBCeHdqTFdEbGRZMDBBaE02UDQ2c21mRFpUWFlvYUhKeXRHOGQ1MTdUTzltU1ZZcEFiQXR4Z1ZKTmVJcjVBWGEwWjRLY1F4T1hqWEQwY1VCekFRMkRvMVlqa3J3TXJ4a0FaQXZYR2UyMDEtRlNEUmFtYzdqQmZGbGV1T3g3Tm94aHRaeXfSAacBQVVfeXFMTmd4X2ZfY2lzOHZVZ3lYYm1OLTRLUGE2dF9xVjUtTWhaeG5ILXhEM0I0Rjl3UlNERHdINzR3QUxuSGU4dktMU0djem1CbUJiS3BTaFZFdEJmbG1FYW9UM1FEQk1BVnVJMW9qb1dIMnhYQ0cwRGo1c3dHb3N2Z3RHNUJZeHFyQk1MNEs3QWxfZU1TUThleGp3dGNEWEtVNk9Ya1BIQ0JYdnc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/news/toy-story-5-disney-plus-release-date-streaming-how-to-watch-1236844965/
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi3AFBVV95cUxNUW9XSmd0b1psekRQSE9SMGM2emJiWmlJbnN0OGF6Wk1VVDByeTYzUGtWMDlHT3BOQVdTQkk4cDM3YmI4VnhKaHJ6aUVUdldSbk9SRVE3UTJOQ043a283UFlUMlUzTEFoZEFuTXM3UWxlczA1VTBibjljYlk3Tk1lWlFzVWZDWHUySDJ2RHVaanpoNC0tNlB6bUowcXllUGdLd0lnaEd2XzdyLUdDMTJkYzNCS3RQWlFIQUtkZVlwcE1MRnE2QWZtS3BoUzJWdHJLU1BXOXdYN2NuVFNK?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxOaVprYjZUNzZNSVluMl83VGp6OU13OHp2SXp2cEl5bWQ2SE9LZzZxMDg3b1BOQVh0OGE2azAzbkxhR1pteVQ0WkZOZ3hxd2U3X1JlSUdpS2NlWFJnZDVYeU9tZURPajAxRXk0S1dsSjNqbmlfY3NISjUwWG5LT3FrWHJFa1BLbUliTW0tUlFWQ2hjQl8yVFJmTVF1cnRfeDFlaUlNa2p0NlFGLWl3Y0pnTw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ABC7 Chicago — https://news.google.com/rss/articles/CBMivgFBVV95cUxOaGpVeUl5NnJJSWpuVEtzcGpMd2hhSmZESWs2RzB4cHlJdmtRU0FxSTduTU5vQk0zZzk4Rk5qOTlMa2FBYnhZQUVxTlZFQUw4ck5EaVRaUWhhalZhLWg5dFhlVjZSWDhJWVZVNm5OOWQ0Q2M1SEhTWm9uNzlURWF6SEJKVTlWM1pIakRmakdVX0FpMzFDRzIxT1ZPX0NGdUVSOVVkeUV0TjhyWVY1OXFMcWdBMm5qRUF2ZVBkODZ30gHDAUFVX3lxTFBnXzFfY1J4cEN1RVhvRVZwNjhWck9lTldUOTh2T1pFcnZsbnNhZHdOaUJZczhVZTM5dkxCY3habVJZWFh1XzNqSU56TThVbk01QTlBcDBkNWhESlhiazVWdlpFYlRuTDF1dTBZN0tmVkFGcFFnVjNubjJJOVg4bnprZmF1MV9kcFZNSHVIZWFyU1lYcHo3alFMMUdhNHZqQTVScG9pQkhLX0VyamI1U3puSVk5X0gzVW9lZDhxNU1Yb2x3bw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ABC7 Eyewitness News — https://news.google.com/rss/articles/CBMitwFBVV95cUxNTTVFajQyVVZkWjhxTnJPM3NNWWNXcHRrb0JwZ294dUxFNWNSc3JvVEtaeVEwcDZseFIxT0xjSEVhbnFrQWNBbHhMM0VVSmVCUUVzbjdyT3JkeU1YLUU2U2dSanpiako4ajMyNnRKMmpHVERSMjlkc2ZSN05uYm5VUFJsOEhuQ3B1czl5WkFNQ3pYaVFuRmMwVlRnUU1oa2dhVjkwX1NLUGFFZnZDVG9HSWJWckpCMDDSAbwBQVVfeXFMTTRPUXJKUTNHbC1ISXY2a0k5T0g1OXp5SUNmOG5MeUNmLTNuRlYyVlhTWVVObGlFdHRtaW1sM3hZdGoyaUhPOFhHMUtkS2V5WTFETFVMRWNjY0QyY3BtYzJKbzBELU1NeXpmMFdhMjFid1hXaG5YRnU0OThkVDFSbzNYa05GU21tNlBKT2lzRTUxZEFXUGFzY0g5NnhBdVdLOTRTZHdIeFZqVEFZR1hyUnNSZlpxcXNyMGEwSTY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Defector Music Club Reunites for Taylor Swift’s ‘Red’
+
+- first seen: 2026-08-27 22:56 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Defector Music Club has come together once again to celebrate Taylor Swift’s album ‘Red’. This gathering highlights the ongoing impact of Swift's music on fans and communities.
+- sources:
+  - [unverified] Defector — https://news.google.com/rss/articles/CBMifEFVX3lxTFAtcDJJZm95eVRvTVFjU1NSUUdGSnVHTXJVYTluZUZoV0JwNy1HSnktMHVOakRwOHNmSEZ3OFM2SjBYczNMRndubjhfV1hqX2M1RUtIU3RLWWItWU56YVh2blZUbkc3bURpSG94QlVrVHRVZDBHeW15aHlXYnI?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reportedly Working on New Music
+
+- first seen: 2026-08-27 22:56 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: There are reports that Taylor Swift is currently working on new music. This news comes as fans eagerly anticipate her next project.
+- sources:
+  - [unverified] Bustle — https://news.google.com/rss/articles/CBMidkFVX3lxTE9RQTNBekx0R1BIcXBBaEsybWc2Ui1GSFFzMUw5c1NJcHFacUsxeXItcGhXQ3F2bEt1bnlzN1RSQmNDMlE2QlNoR211d3dobE9VTTlUT1hsaUdFdldaT2dvcXZtem13UlBncXFHZ0xXd1FqcG9WTnc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Returns to No. 1 After Recent Singles
+
+- first seen: 2026-08-27 22:56 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has achieved the No. 1 position after previously missing it with several of her recent singles. The article discusses her comeback in the charts.
+- sources:
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiyAFBVV95cUxONVpJRXZwb0RlaE9veV9TaE8xTXQ2QjNlUFIwYnV6TXY4T3JZbU5uSF9KcUxXb2tJMkFUSFQ5YUZQd3pReW5DVVRKcWlwTjlmNTZVVDhHT2hsNkliZGR4ZG9EVlZBYWdrQ1poQnk3VTVwUXpkRW9aRzkySGY4OG12NW1wQ2dmZTBSMy1OaXc0bFBndTV1LUVqWHdrdEE4OXBIS2gxR29qVEE1WGI4TUdNMmZrWF9SaUJwczFRekhDVmxlSndsRDhhbA?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Shares Insights from The Icon Sessions
 
 - first seen: 2026-08-27 11:10 UTC | category: music | importance: 7
@@ -78,10 +123,14 @@ Stories: 120
 ## Taylor Swift's note to Caitlin Clark revisited by Yahoo Sports
 
 - first seen: 2026-08-27 11:10 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 5
 - summary: Yahoo Sports discusses a note previously written by Taylor Swift to Indiana Fever star Caitlin Clark. The article highlights the content of the note and its significance.
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNT1lDR1hpeDhSMWp5NzV5M2FjeVNqb2dENG4xR25MV0h2UVpTQzVXYXhBU3VENWdQWE1sZkNuY0NQS1dlR1U1R2xJZGZjYUpoRWdBTlNieTZpNjhIX25YMmlYZnJpRnZRQzB6bkNidEdyOWthXzVNTWlhclNqUVVLTHZjUFJNUG90Qkhv?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxORHVMU2t1cEdOa0d4SFF4ZG5sRDlGQk8zdUpWT3YxeTVGS0dieF82c3lHcUVyMzdlYjAzZkxCR2ZKREJKMW5YVXFKQWl2SjRld2NsMHFEMERGb1dDQ1hvVV9fZXlWZS1zaWphUW42YUdZM2VIVmtDa1VwbFR6TWIwdlNPS1o1WS1pYWt2UjlNTUFsMXdURUE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] IndyStar — https://news.google.com/rss/articles/CBMihwJBVV95cUxNenhNWWczdVBqWndPVkVYUmhub2J0ZC1xdjltX1JPZTVNbDFKdDBYY3pOSmV1RlNGdmVQWWJST1VGNnE0SWswWWFuYlV1VlVqNGZxRmVPVDhrdndDT0RnUzViMml4eFlza1lnQTJJLTFIdFBScERJWmQtc3BSdHA0cDB6Um5UV0lMalZRSGdBcFZQS2lTZWVuN2ZLOGl6aURjSGtsMS1sXzNMckN6VXZKbjJ5MGJuSzhPRUZZTzlqVjdSX010eDZaWWtqQWwtd0Fienp0MWpLNndlWmdmVHEtZjRFT1NqaGthOG45MVdSQllsMENjRFVjWmNsSWRIRENzcjJZNjdLRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ESPN — https://news.google.com/rss/articles/CBMixAFBVV95cUxOMjM3VWl1eUtSY3RhWDgzSlF1NjJuNDUyMUVyZVpNU2NqcWNNTUVFMWx5NmZ6dHg0ZnJwZ2RCdmloeDZCOE1LTy1pT1BGVG1lNnkwWjg5STMwcXlwbW5Nb2FwLTlnNVZfaG9DeEtSSW1WaFc4UUR3M0lpQVVKU0ZfOFpLQVNiSXoxd3JKN3FCS3lLTVp5ekFiVXJVbW1VSnNxQ3UtVTh0RDlkczVuMjV6dnd0Y0h5RHpoMzlOS2F2WnVnOG1v?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0AFBVV95cUxQZFNIZFh6S3ltSENoczFKNUxUclNvNElOczVyNFhvWTVTSXo3bG5PWnRNX1RWT0FPMHRwOHdhSk54Q1BLOE9UazNqdU42eVYzM0NqVjJORTNYR3p0dkN2WUx4VzRnaWlrNmZNMEdSWWg2dno2Ui0tM2RVd0VhNFUtbFpuNHhWck1YUFUyMk11V09tb1VWYmdtUFpTbjdvRmxUazB3NzNZUmN3U1lmY1NLeGg5MGFBeGNxcUd2M0tobzMxN2VSeVJramozeGhBbUZk?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Pays Tribute to Dolly Parton's Legacy
 
@@ -981,43 +1030,3 @@ Taylor Swift reveals her sneaky way of clapping back at critics  Page Six
 - summary: Recent images circulating of Taylor Swift in a wedding dress have been identified as either AI-generated or from a different wedding event. Fans are urged to verify the authenticity of such pictures before sharing.
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cjwggg31jgyo?at_medium=RSS&at_campaign=rss
-
-## Readers Discuss Trump's Financial Gains Amidst Wider Losses
-
-- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The article highlights readers' reactions to President Trump's financial success, along with his involvement in the World Cup and mentions of Taylor Swift. It touches on the impact of wealthy political donors during this time.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/06/opinion/trump-windfall.html
-
-## Dior's Creative Director Discusses Taylor Swift's Wedding Dress
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Jonathan Anderson, Dior's creative director, shared insights about the emotional process behind creating Taylor Swift's wedding dress during an interview at the fall 2026 couture show.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-dior-wedding-dress-jonathan-anderson-1239054304/
-
-## Dior Couture Collection Inspired by Lynda Benglis
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Jonathan Anderson's Dior Fall 2026 Couture collection was influenced by U.S. artist Lynda Benglis and follows his recent work dressing Taylor Swift and Travis Kelce for their wedding.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/runway/fall-couture-2026/paris/christian-dior/review/
-
-## Taylor Swift and Travis Kelce's Wedding Attire Generates $26.7 Million in Media Impact
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift and Travis Kelce's wedding outfits, featured in their July 3 ceremony at Madison Square Garden, generated an estimated $26.7 million in media impact value within 48 hours of the event, despite no official photos or videos being released.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-scoops/taylor-swift-travis-kelce-wedding-fashion-mvi-million-dior-1239054869/
-
-## Emerging Trends from Swift-Kelce Celebration at Madison Square Garden
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: The recent celebration at Madison Square Garden is expected to inspire new trends, particularly in wedding themes and fashion. The event is being referred to as the 'Swift-Kelce Effect' and may influence upcoming weddings.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/07/style/swift-kelce-wedding-effect.html
