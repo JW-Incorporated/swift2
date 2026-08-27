@@ -79,3 +79,10 @@ PLAN.md.bak-*
 # Stale pre-#2040 draft of the tracked test file, left local since
 # 2026-08-19 (docs/handoff/2026-08-19-paused-work.md) — never tracked.
 scripts/social/social-poster-workflow.test.ts.tmp
+
+# Owner decision 2026-08-27 (machine-retirement audit): these three stay
+# local-only — routine export carries account-bound connector UUIDs;
+# orphaned draft; personal screenshot. Never tracked.
+/swift2-routine-export-*.md
+/evermore_block.txt
+social/joey/Screenshot*.png
