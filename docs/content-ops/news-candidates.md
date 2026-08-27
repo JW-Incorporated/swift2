@@ -27,21 +27,79 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Shares Insights from The Icon Sessions
+
+- first seen: 2026-08-27 11:10 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift disclosed 10 key insights during The Icon Sessions, discussing her creative process, including the role of fans in shaping her set list choices.
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMikgJBVV95cUxORGFHdzRGcUh1UFMxbHF4Q3M0dmdSWlhYWndReE1ETEJMTFVQV0cwRVZBNHNGY3ZPUU1fVlRXaUpIR1EycG9rSjFVdDBBNjd4MGtLMm9yX1U1M1hyeFNXS2FBdWdGek91LWNUell3R2gtc1JKN2gzWGdnV2c2bjF3REJ2bUxVZmRuZXhkX3V5VW5uNW5fWk5CQVBMdHctdFhEbmVRMmVJQjlaQXZtYkZOd1JmRmRBNlFrSldrUEl6ejV3NktpX0JyYUdfVHA2ajVCc1dCTFRnU2tvZ0VTeHEwUUxYRzkzc0lpZGZrZGYycFNFczR1RDNhVDlwN3d4c1RaX3RUTEwzYkZTQnFReGJvSFdn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Debuts Outfit for First Post-Wedding Performance
+
+- first seen: 2026-08-27 11:10 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In her first performance after the wedding, Taylor Swift chose to wear an outfit that reflects a West Village style. Vogue highlights the fashion statement made during this appearance.
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMigAFBVV95cUxOOGFYZ3VvWHVrdFpudWt3cS04QzlVNlN3em9lckpvX1Znam9Kd3Qzcmg3TVFYZ2xQT2NPTXh3X2hyNkZKdG43dWVUUzk3YTE1d1VINEZ6RUwwZUc3emFiRnZqSGdPQkRJYk1wMkY2LUg2dU0xNkhhOEFUREMxWkIzNw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's New Manicure Hinting at 'Reputation'
+
+- first seen: 2026-08-27 11:10 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcases a new manicure that may serve as a beauty Easter egg related to her album 'Reputation'. The design draws attention and speculation among fans.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMikwFBVV95cUxPVUQ0V0pHa0diQnZYdzRSN3ozOGFaTi05ZDRnV09CMlAwTXNKcDU1QjRWSk1jdHY2Y1cwY1FpQTNiaHR2UDNqc292d1dmbmM2dGdZVlBHWkJfRVlhR21JTUVGQjJXMVJyWTUxTzNEQVR4d3hMQUlLdGFFMkk1MlY3Wm52aTZkMUt5NV8xelpwVTZyemM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Adjust to New Routines
+
+- first seen: 2026-08-27 11:10 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are reportedly navigating their new life together as they adapt to their demanding work schedules. The couple is in the process of finding a balance in their relationship as newlyweds.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi5wFBVV95cUxPU2xRdU5rRFhfdWZsZ2JmSERTQVduTTVRM1FJSllYUXNNaXp6WHdqVVRmNWYwdmVSVWUyZm1fMkZObnlCd04yTkh3WUNGTU1TREhPUm1UQzRrQ3dkMUYxWFVGazYwcVEtR0VGa21lRC02aDlVZk5GWmRYRm9mc0FyN3FZanB2QmQ1MXY4a2NqSnBEcXdkQUhXbFZ0b1I5MDFvY1hmQ3JIem1hWWx1dW9QeTJzNUJXS0NwanZnQ3lHTTZuVkZEZmFHTU11QzYzZU53Y0J4ODJxMnpDLUJrX01mLWNfRm1QbVU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Expresses Fondness for 'Reputation'
+
+- first seen: 2026-08-27 11:10 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent discussion, Taylor Swift shared her appreciation for her album 'Reputation', highlighting her positive feelings toward the work. The insights were covered in an article by Vulture.
+- sources:
+  - [unverified] Vulture — https://news.google.com/rss/articles/CBMikgFBVV95cUxQcGhwRVpqcWhpa3NZaEZVeVg2TjJ0bmhMZVRsQnBqR3lRODZvME9DVjU5QWJPbWZGRXllY2l0TTVBWmhWOTh2OHNVZlFXVzB0Zm91ZDVEeVBqOVZlcFVIWjlmZ1lPSkdzR3NQV2Z6bFBCaFV6N2RGdkptRVBONmo0TTRhRzZ5RVZTV0RsXzNDei1kdw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Trader Joe's Linked to 'Cult' Culture
+
+- first seen: 2026-08-27 11:10 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A New York Times article discusses the term 'cult' as it relates to Taylor Swift and Trader Joe's, exploring how the concept has evolved in contemporary culture.
+- sources:
+  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMihwFBVV95cUxPdEdpUGRoVkZMV2ctR0w1TjAtdXZPX1RQYjEwM1Y5aXNLRlVaM1o4RS1EYjFuT2xQNjVfYVB4QWNiY3VhUDQzY0pmWUxZNC1NcUxrTUxHMDllRl9MRWVwQXQxY3cwdGlPUEpyM2w5MGp1YktnRGZ6S1hEUXd1ZzRuWTZDYkVYUFE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's note to Caitlin Clark revisited by Yahoo Sports
+
+- first seen: 2026-08-27 11:10 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Yahoo Sports discusses a note previously written by Taylor Swift to Indiana Fever star Caitlin Clark. The article highlights the content of the note and its significance.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNT1lDR1hpeDhSMWp5NzV5M2FjeVNqb2dENG4xR25MV0h2UVpTQzVXYXhBU3VENWdQWE1sZkNuY0NQS1dlR1U1R2xJZGZjYUpoRWdBTlNieTZpNjhIX25YMmlYZnJpRnZRQzB6bkNidEdyOWthXzVNTWlhclNqUVVLTHZjUFJNUG90Qkhv?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Pays Tribute to Dolly Parton's Legacy
 
 - first seen: 2026-08-27 00:45 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift has honored the legacy of Dolly Parton following her recent passing, acknowledging Parton's significant impact on the music industry. This tribute reflects Swift's respect for legendary artists.
 - sources:
   - [unverified] E! News — https://news.google.com/rss/articles/CBMijwFBVV95cUxOX1NsVnkxMElEd01mMmJkNnBlT05rN3JBU0ZsbVlmRDZzYm5NMk92ekVzOFg3S01Wc09wM084VUp1RjNvYzkwZG1zUlRTdWRzWkg5Q1FDb2xSMllyMTZHTmRaQVpYcmNaX2FXc0xvbV96aHc2d1JKQXZkRDVVUjFsSWZjeWhHRTU0ekktRUVoMA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxPc3kzWERFUVVCcEh2YmpJWE14MGJ0bXFHZ2xGYWdROW5IV0JDTWFGZkl3THJfYkx2aURTZ0thdVJmM0tNV1hFVzVrX1ZPMjJaY1ppMldXRDlsbkNWSzcxeTFUQUk4R05jdnRrcHpPRUhyYTljeERNUnM4OGU5U2NIbG9Nbw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Caitlin Clark Compared to Taylor Swift in New Feature
 
 - first seen: 2026-08-27 00:45 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: IndyStar highlights Caitlin Clark's mindset and style, likening her to Michael Jordan and calling her 'Taylor Swift in tennis shoes'. This comparison underscores her impact in sports and fashion.
 - sources:
   - [unverified] IndyStar — https://news.google.com/rss/articles/CBMi_AFBVV95cUxNa3c2RnRhUVRadmxtQmIyQTZqVnF0LU5HcFh5VXlCdUpETEpYQXpYZzhyUy1XalNMNzlyVUtFVUpJQzJUNk5XRW9zOW9xOG5aUy1oRVBpYk5wc1hTT3BWVWlpajQzVHZWZ0pnNFVqWmh6dm0yT3Rtc1VzMnRsMkFJSWFjTkwzb2taT0otaGNvX2djaHJERmI0bnpRWGotYUN0LUZFVmZ3SmNXR2I1dFoyUU9CempOcHkxdTRJX29qZFR3YThYT2RHaWxKSm5YUG5zdWxGNzNCT3hKOElKWUduTVVlc1FjRHpfalh6RWFmc1JORkNLRmc4YVh1d2Q?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihgFBVV95cUxQd1lIazRTNFlveWVmMmwtdTlsWHFXMWR2ZUVuRm9SZGt2aUxUQ010UlFsNVZJbDhkT0RabGxxTkF1aWYyYTRRXzJpZk4zSkxqallmTDZDTHVQWHNQcjl6NG1EMXc2UjRsTTBMMUZLZ2JiSE4xMUdyNU1BcTZSeHp2d3hPa3FWQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Ruffle Dress Sells Out; Inspired Styles Available Now
 
@@ -227,7 +285,7 @@ Stories: 120
 ## Dolly Parton Acknowledges Gift from Taylor Swift and Travis Kelce
 
 - first seen: 2026-08-26 02:38 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 15
+- verification_status: corroborated | source_count: 17
 - summary: Dolly Parton expressed gratitude towards Taylor Swift and Travis Kelce for a significant $2 million donation shortly before her passing. This donation highlights the philanthropic efforts of the two stars.
 - sources:
   - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinAFBVV95cUxQX1NTUEx5NFVuOWVJeEhVRm52ekxHNnoxcURuZl9EeUlJbDU4MndBNGJwbnh3eXNuM0t1Zmpvbzd5SG56RG8xNEdxMzNRblZoOUNKSm0xNEtXNTZNZVBETTh5bDFLbVFvWGhkSlZvVlp3S0hSSzNLWWVCMVQ1cV9wTXRNS1dwb1BQYncyZzdiU2gtWGVEZF9ITkpTWFU?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -236,6 +294,8 @@ Stories: 120
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQT0Q0Q2k5bUNDaFhRaFdkSnd3ck9BMXU2Rkl6c0ZmcnpsZkdGeGtKOFl0aUZOejY4U0sxMGdTVTRMU00wVkJkazMtUEdNdTdxbGEzbUpEQ19zNTY3RkljSGljNGR5SXZkekRCYjdHRnpfeFhXTW5seWZmVXl4VHJnZEtFamx4TlVkZE1B?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMifkFVX3lxTFBVMzg1NTM1R3FxWjJOY1JZZ3FWT3pTZnExd0ZhWHhwM01uVWFDWlVRSF91RUtUX1o0ZU80ZXhwWjRheC1xM2FJanhlX2I0QXlaVlNsR2gzLVBNT0dYQ05QS3VmMFExWDVBSEQzQllrWllJX0lGNnUxaldJbDJ3UQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQM2VPcEw2UThKR0NuS24yczczRkFkMTcyamMzVFIxSnRnX1NpVjBiQndMVExFd0lweGtPSnpuQk1naWNHaVhlTG15cks4NzZWOE8zUlVjWDRuejZJSGthVFFBc2ppdmIyQkFsQ2ZYWS0ySXVZNHpRTlZ1d0ZOaDRGQkFhS0VTMkZBVEdfMk9TaVV3cGRBTXRpR3dzbHBOdw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMihAFBVV95cUxNcG9tcFFqcW8zMnBMZUdpYUpPRC1tVmk0SXJkZDJWaFF3cVd0dEZHS1BVRTRaV0g3OXpXMTVvTFUtZFVQUFllajlYdU1DY2J5ZUlwVG9NbWJjQ29OY1kyYjJkdC1Ma3NfTU5ZdEtCNzMxb3AtaHhCQ3VROVBFUUFnbVgyUTk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQcmhiQVoyQVVlMl84U2dQZEloUzFqSFF5UlhjZ1RSMkE3QVJtT3F1eURCUEU4ZnlzNFZjWlJZUjdLNTJXQkJaaTctemR4b3RZSi1XbGV1cGtYQWJtTnZFQkRvZWpkZDdkazJrUzRkcXlYZnhvajV4ZDJmelNVUl9GN2Z0dHRNR2w2WkFjd1BoQjNnak1EelUwa1NQMGlmcldFMXc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] KMBC — https://news.google.com/rss/articles/CBMitwFBVV95cUxON1ZzU01HREhsMWlMWnJaTzRVcWhUdVRCbXpBdDZfN3BwSmxDYTg1ajdqSzVWTVotdW9KZEt0ZlNVMnltc3hCYnZEaGlJdkJpU2lwUFY3YmdGejZaLXd4REY4cGpiemlUSlFXa1QxQk9NNGhVQkxpZXY4VXRka0JDSHVOWUo3eFBiWjVubGhwM3JSSHpVeWxrRXdHSmVYVmV4TlFhYWV6ZThZUmUzMEpYOEkzVVBEcUE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMinwFBVV95cUxOT25lR0ZsUkxwOXhWY0hKdHI1Q0tCb3o4WW9CS2hQYUplU19zM3V4NmFFM1ZmdHJMbE96RjBSVkxOd0hiTmx1QjRuMU1mcHgxTTZuVHpOS05KdHVfaGRkb1hyOE16U3lpdHpkb3BPM3ZuMFlvZjFSYjZLdjI5eU93Tks4ZmRCbWxzZGthWVctUzFQaXR2YWlpNU5yVEkzNEE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxNM19id0gzR1pTdk50MzAwQ012MnQ2OER5TFdrX2ZuUDc3UktYaGJYVE9qb2MwNXM4N2h6cmVVQW5HVGhQaUd0TjRpMGJJUFVBWFdIYlFfazZDVUNzaXcyVkVONVlFbTdaU183ZzhHU0xBeC01N25ySmhSdFl2ZW1MeQ?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -961,60 +1021,3 @@ Taylor Swift reveals her sneaky way of clapping back at critics  Page Six
 - summary: The recent celebration at Madison Square Garden is expected to inspire new trends, particularly in wedding themes and fashion. The event is being referred to as the 'Swift-Kelce Effect' and may influence upcoming weddings.
 - sources:
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/07/style/swift-kelce-wedding-effect.html
-
-## Fans Honor Swift and Kelce's Wedding with Charitable Donations
-
-- first seen: 2026-08-25 02:22 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: In celebration of Taylor Swift and Travis Kelce's upcoming wedding, fans are making donations to charitable causes supported by the couple, inspired by their own significant contributions of $26 million.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/ryan-seacrest-canceled-rsvp-taylor-swift-travis-kelce-wedding-1236639908/
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/07/style/taylor-swift-travis-kelce-wedding-fans-charity-donations.html
-
-## Jewelry Worn by Guests at Taylor Swift's Wedding Revealed
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Guests at Taylor Swift's wedding showcased a variety of jewelry, ranging from a $96,090 diamond necklace to a $55 ring, featuring brands like Tacori and Chopard.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-wedding-guest-jewelry-1239056627/
-
-## Fans Anticipate Taylor Swift's Wedding Dress Reveal
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Swift fans are excited as they await the first look at her wedding dress, designed by Dior. While details are emerging, the actual image of the ensemble has yet to be revealed.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-wedding-dress-reveal-dior-couture-1236640479/
-
-## Celebrity Brides Keep Wedding Details Private Amid Trend
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Celebrities like Taylor Swift, Dua Lipa, and Zendaya are opting for privacy regarding their weddings, moving away from sharing extensive photos on social media. This trend highlights a more reserved approach to capturing and revealing personal moments.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/culture-news/celebrity-wedding-dresses-taylor-swift-1239059820/
-
-## Adéla, Ariana Grande, Sabrina Carpenter and More Pop Stars Are Taking Custom Christian Louboutin Sho
-
-- first seen: 2026-08-25 02:22 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The designer creates looks to match the aesthetic of each artist.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/musicians-custom-christian-louboutin-concert-shoes-1239093094/
-
-## Cyclists Raise £61,000 in Ride for Rori
-
-- first seen: 2026-08-25 02:22 UTC | category: business | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Participants in the Ride for Rori cycled from Paris to London, successfully raising £61,000 for the Oxford Hospitals Charity. The event highlights community effort in supporting healthcare initiatives.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cj3gdz1vpmvo?at_medium=RSS&at_campaign=rss
-
-## Midtown Manhattan Hosts Dramatic Summer Events
-
-- first seen: 2026-08-25 02:22 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Midtown Manhattan, known for its high-rise offices and tourist accommodations, has become a center for various dramatic spectacles this summer. The area is gaining attention despite not being traditionally regarded as hip.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/07/09/nyregion/midtown-manhattan-nyc-taylor-swift-knicks.html
