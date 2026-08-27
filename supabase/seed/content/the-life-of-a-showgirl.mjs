@@ -8793,10 +8793,15 @@ export default {
       // Confirmed on-record appearance + performance: named public venue
       // (Grammy Museum), named interviewer, dated, invite-list reported by
       // multiple outlets (Just Jared, heavy.com) and verified via web search.
-      // The exact setlist was NOT disclosed by any outlet, so no songs are
-      // named here — "a few songs" is as far as the record goes. Grammy Museum
-      // is a public venue and this is a documented past event (L2), no redline
-      // material.
+      // SETLIST UPDATE (Vault Run 2026-08-27, enrich from appearance intake
+      // #3382): the Recording Academy released a recording of the performance
+      // on Aug. 24, 2026, so the setlist is now on the record — an Eras
+      // Tour-style piano mashup of "I Knew It, I Knew You," "August," and
+      // "All Too Well," corroborated across UPI, JamBase and regional wires.
+      // (Intake #3382's machine-detected "reflected on The Best Day" framing
+      // was NOT independently corroborated and is not authored here.) Grammy
+      // Museum is a public venue and this is a documented past event (L2), no
+      // redline material.
       slug: 'showgirl-grammy-museum-icon-sessions-retrospective',
       year: 2026,
       month: 8,
@@ -8804,7 +8809,7 @@ export default {
       category: 'music',
       title: 'A secret Grammy Museum show: the Icon Sessions 20-year retrospective',
       snippet:
-        'On Aug. 18, 2026, Taylor sat for an invite-only career retrospective at the Grammy Museum in Los Angeles — “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” staged for the Recording Academy’s Songwriters & Composers Wing. Recording Academy CEO Harvey Mason Jr. led a career-spanning Q&A, and she performed a few songs for the roughly 100 guests.',
+        'On Aug. 18, 2026, Taylor sat for an invite-only career retrospective at the Grammy Museum in Los Angeles — “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” staged for the Recording Academy’s Songwriters & Composers Wing. Recording Academy CEO Harvey Mason Jr. led a career-spanning Q&A, and she performed an Eras Tour-style piano mashup for the roughly 100 guests.',
       sourceUrl:
         'https://www.justjared.com/2026/08/21/all-about-taylor-swifts-secret-show-in-l-a-this-week-who-was-invited-to-attend/',
       thumbnailUrl: null,
@@ -8821,7 +8826,7 @@ export default {
       ],
       moment: {
         context:
-          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance of a few songs for the small crowd — even as the specifics stayed inside the room. No setlist was released, and none is invented here; what is on the record is that she performed, not what. The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what surfaced came from the guests themselves rather than any official recording.',
+          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance for the small crowd — though at first the specifics stayed inside the room. On Aug. 24, 2026 the Recording Academy released a recording of the performance, and the setlist came with it: an Eras Tour-style piano mashup of three songs she tied together by the theme of memory — her 2026 single “I Knew It, I Knew You,” “August,” and “All Too Well.” The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what first surfaced came from the guests themselves, before the Academy’s own recording put the performance on the record.',
         sources: [
           {
             outlet: 'Just Jared',
@@ -8839,6 +8844,27 @@ export default {
             publisher: 'heavy.com',
             source_type: 'reputable_press',
             accessed_at: '2026-08-24',
+            reliability_score: 3,
+          },
+          // Setlist reveal — the Recording Academy released a recording of the
+          // performance on Aug. 24, 2026; the three-song mashup is corroborated
+          // across these two outlets (Vault Run 2026-08-27, enrich from #3382).
+          {
+            outlet: 'UPI',
+            url: 'https://www.upi.com/Entertainment_News/Music/2026/08/25/taylor-swift-performs-grammy-museum-icons-session/4891787660864/',
+            source_title: 'Watch: Taylor Swift performs mashup at Grammy Museum Icon Sessions gala',
+            publisher: 'UPI',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-27',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'JamBase',
+            url: 'https://www.jambase.com/article/taylor-swift-grammy-museum-icon-sessions-video',
+            source_title: "Taylor Swift Performs Eras Tour Piano Mashup For Grammy Museum 'Icon Sessions'",
+            publisher: 'JamBase',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-27',
             reliability_score: 3,
           },
           // Official-channel video coverage of the same event — added from
