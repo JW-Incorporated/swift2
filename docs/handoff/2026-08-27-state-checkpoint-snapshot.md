@@ -1,3 +1,11 @@
+> **HISTORICAL SNAPSHOT — 2026-08-27 (machine-retirement audit).** Final
+> per-session STATE.md checkpoint from the owner's Windows machine,
+> preserved as a dated handoff record. NOT live operational state —
+> CLAUDE.md's convention (STATE.md = per-session working memory, 150-line
+> cap) is unchanged by this file. Known staleness at capture: at least one
+> assertion below (that Hermes lacks a pre-tool-call hook mechanism) was
+> already disproven on the Hostinger gateway (`hermes hooks --help`).
+
 # STATE.md — per-session working memory (not team-shared)
 
 Checkpointed 2026-08-26 ~12:52 PDT.

@@ -2,9 +2,9 @@ Clownbot
 
 
 
-1\. The text box where a user types needs an improvement. It should size to the text the user types, up to cap at a certain # of lines tall, just like chatgpt's UI does. Chat gPT's goes to 11 lines tall - that's probably too many for our UI. But figure it out. Make sure it's sized right for both mobile and desktop, as they may be different. 
+1\. The text box where a user types needs an improvement. It should size to the text the user types, up to cap at a certain # of lines tall, just like chatgpt's UI does. Chat gPT's goes to 11 lines tall - that's probably too many for our UI. But figure it out. Make sure it's sized right for both mobile and desktop, as they may be different.
 
-2\. Let's get rid of the "example conversation" and instead leave mostly black space, with a tiny "Try our chat bot - ask a question below" text or something like that. 
+2\. Let's get rid of the "example conversation" and instead leave mostly black space, with a tiny "Try our chat bot - ask a question below" text or something like that.
 
 3\. When the chat bot answers, the box doesn't scroll down to the answer. It stays up. The output box should auto scroll to the bottom when a new answer comes
 
@@ -31,9 +31,9 @@ Tree's email
 1. End Game vs Blank Spaces cards differentiated - checked, good, done
 2. Clue Web vs Decode cards differentiated  - checked, good, done
 3. Every Link on the site works - blocked by agent. What does that mean? Please fix this issue
-4. Clown bot - We are working on that this morning, it's almost done. But I dont know what Marjorie's email is actually tracking, I'm not sure what she means by "blocked by agent". Let's update this so it understands the true status of clowbot, which is almost done, just waiting on the subabase unlock. 
+4. Clown bot - We are working on that this morning, it's almost done. But I dont know what Marjorie's email is actually tracking, I'm not sure what she means by "blocked by agent". Let's update this so it understands the true status of clowbot, which is almost done, just waiting on the subabase unlock.
 5. Social strategy - I tried merging (PR #2197) but it has conflicts. Please resolve it and merge it. I reviewed it, good.
-6. Please fix this: 11 PRs stuck >7 days · 9 launch tickets unowned · 5 watchdog alerts open · backlog growing (\~4 opened vs \~1 closed per day).  
+6. Please fix this: 11 PRs stuck >7 days · 9 launch tickets unowned · 5 watchdog alerts open · backlog growing (\~4 opened vs \~1 closed per day).
 7. Fill the 9 legal blanks + line up a lawyer — asked 9×, the #1 launch blocker  Give our X/Twitter poster a fresh login — X silent 34 days; \~3 min  Theme pills look clickable but do nothing · Android on the Play Store · Feedback chatbot pilot · Refresh the production database · 17 Getty photos, rights unclear — banked 35–43 days, never once put in front of youfill in the 9 legal blanks best you can. Lawyer already reviewed what exists and gave it the green light. This action should be done today. X posting is live - is this a real issue? Close it out. Please check all the rest and see if they are real. I think alot of this is old and no longer relevant but I'm not sure.
 
 ---
