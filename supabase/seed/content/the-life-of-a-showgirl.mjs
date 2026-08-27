@@ -10930,6 +10930,9 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/23/David%27s_Bridal_Shop_Ann_Arbor_Michigan.JPG',
+            // Focal point set (photo pass #762): storefront sign band sits
+            // just below center, with a wide band of blank sky above it.
+            focalPoint: '50% 58%',
             credit: 'Wikimedia Commons',
             caption: 'A David\'s Bridal storefront — the bridal chain reported to be designing "Taylor-style" wedding dresses ahead of her gown reveal.',
             kind: 'reference',
@@ -11228,14 +11231,14 @@ export default {
               'Taylor leaving Annabel\'s in London, Aug. 12, 2026, in the lavender Delphine minidress — her first solo outing since the wedding, and the debut of her shorter cut.',
             kind: 'primary',
           },
-          {
-            // Photo pass (issue #1721, 2026-08-25): a second, distinct photo
-            // from the same story.
-            url: 'https://cdn.mos.cms.futurecdn.net/puNZugpX8YTq3heebk9Vy6-1920-80.png',
-            credit: 'Marie Claire',
-            caption: 'Taylor Swift in a lavender minidress with a shorter haircut, her first public outing since her wedding, London, August 12, 2026.',
-            kind: 'reference',
-          },
+          // Photo pass #762 (2026-08-27): the second photo previously here
+          // (cdn.mos.cms.futurecdn.net/puNZugpX8YTq3heebk9Vy6-1920-80.png,
+          // credited "Marie Claire") was downloaded and vision-checked —
+          // it is a live-performance photo (long hair, mic stand, guitar,
+          // concert stage lighting), not the London night-out described in
+          // the caption (short hair, lavender minidress, off-stage). Removed
+          // as a verify-first failure rather than kept or focal-pointed;
+          // flagged for follow-up if a genuine second photo surfaces.
         ],
         // Stylist run 2026-08-16: verified live retailer product pages for
         // the dress and sandals (both currently purchasable) and the clutch
@@ -11920,6 +11923,12 @@ export default {
         // authoring time. Shipped text-first per the charter — the
         // photo-sparsity/social-post checkers will route it to Photo Enrichment
         // if a verifiable visual (an embeddable @taylorswift post) surfaces.
+        // Photo pass #762 (2026-08-27): re-checked. TODAY/Variety/Hollywood
+        // Reporter all illustrate this story with editorial red-carpet
+        // composites (a Songwriters Hall of Fame pairing, or unrelated
+        // performance shots of each woman) — not photos of the tribute
+        // itself, which is a text post. Rejected as off-subject stock rather
+        // than added; stays text-first.
         photos: [],
       },
     },
@@ -11990,11 +11999,26 @@ export default {
             reliability_score: 3,
           },
         ],
-        // The only visual is Parton's own thank-you video, posted from her
-        // account (not @taylorswift), so it fails the socialPost embed bar; no
-        // reusable, event-specific still is available. Shipped text-first, same
-        // as the sibling Answer the Call gift.
-        photos: [],
+        // Photo pass #762 (2026-08-27): TMZ's own hero image for this exact
+        // story (imagez.tmz.com, TMZ's own CDN), curl-verified 200 image/png,
+        // downloaded and vision-confirmed — a still from Parton's thank-you
+        // video (home setting, white cardigan) with an inset photo of Taylor
+        // and Travis. Supersedes the prior "no reusable still" call: the
+        // article's own og:image is TMZ's editorial composite of the actual
+        // video, not a generic stock photo of either party.
+        photos: [
+          {
+            url: 'https://imagez.tmz.com/image/01/16by9/2026/07/03/013454ea9da94fababeafb76a850bbc5_xl.png',
+            // Dolly's face (the thank-you video itself) is the primary
+            // subject, upper-left-of-center in the frame; the Taylor/Travis
+            // inset sits lower-right and stays in view under a wide crop.
+            focalPoint: '48% 24%',
+            credit: 'TMZ',
+            caption:
+              'Dolly Parton records her thank-you video to Taylor and Travis for the $2 million Imagination Library gift, with a photo of the couple inset.',
+            kind: 'primary',
+          },
+        ],
       },
     },
   ],

@@ -167,6 +167,17 @@ since one good run isn't proof the underlying policy was changed on purpose
 rather than being transiently available; a founder call is still the way to
 close this out for good.
 
+**Update (2026-08-26):** egress reachable again (wikimedia, billboard,
+forbes, variety, yahoo all 200) — PR #3343 shipped with real photo work.
+Third good firing in a row.
+
+**Update (2026-08-27):** egress reachable again (`api.github.com` +
+outlet CDNs all 200) — see this run's PR and #762 comment. Fourth
+consecutive good firing since the 08-25 fix. Still leaving Status as OPEN
+per the above — a founder call remains the way to confirm the policy
+change was intentional and close this for good, but at this point the
+egress block looks resolved.
+
 **Status:** OPEN
 
 ---
