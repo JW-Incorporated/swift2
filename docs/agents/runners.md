@@ -13,6 +13,12 @@ its owner; the prompt each runner executes is versioned in
 `runner-prompts/` — **the repo file is the source of truth**, and a trigger
 whose inline prompt drifts from its file is a bug.
 
+**SUPERSEDED 2026-08-27** — the "Wyatt's account" assignment above is
+historical. The entire fleet (24 triggers) was consolidated to Joey's
+account ~2026-08-23 and verified live 2026-08-27; every scheduled runner
+today runs on Joey's account. See the "Live trigger IDs" table below for
+the current, live configuration.
+
 ## Live trigger IDs (verified 2026-08-23, post-migration #2258)
 
 **This table supersedes every trigger ID quoted elsewhere in this file.**
@@ -460,7 +466,10 @@ review` (fabricated events/quotes, wrong-subject images, safety) — which reads
 the findings the Action produces. Follow-up for the routine dashboard: trim the
 `Karen — nightly scan` routine to the Deep-review pass only (it no longer needs
 to run the deterministic scan the Action now owns). The `STALE_DAYS=9` check
-stays as the backstop for the Action itself.
+stays as the backstop for the Action itself. **(SUPERSEDED 2026-08-27 —
+the fleet was consolidated to Joey's account ~2026-08-23, verified live
+2026-08-27; "the Wyatt routine" above is historical phrasing, and any
+routine running today, including Karen's, runs on Joey's account.)**
 
 **Resolved 2026-08-27 — live audit.** The live trigger confirms **weekly**,
 Sundays `0 9 * * 0` UTC, matching the overrides table below and the PR-date
@@ -479,11 +488,17 @@ the 2026-07-25 override.
 | Rumor Desk | every other day `47 14 */2 * *` | `trig_01QqbHr7dyttr7qijGKmCn7n` |
 | Marjorie — 8 PM delta | DISABLED | `trig_01G4GsUsphyz9LycqKjDEdi4` |
 
-## The split
+## The split (historical — superseded 2026-08-27)
+
+> **SUPERSEDED 2026-08-27** — the account split below is historical. The
+> entire fleet (24 triggers) was consolidated to Joey's account ~2026-08-23
+> and verified live 2026-08-27; current trigger IDs are the ones in the main
+> fleet table at the top of this file. The `trig_` IDs in this table are the
+> retired pre-consolidation triggers and no longer exist as live schedules.
 
 | Runner | Cadence (UTC) | Model | Prompt file | Account | Why this side |
 |---|---|---|---|---|---|
-| Marjorie — morning brief | `0 12 * * *` (was `0 13` — moved 2026-07-16 so the emailed brief is in founder inboxes **by 6:00 AM PT**, Joey's requirement; the 12:45 UTC mailer needs the brief posted by ~12:40) | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Joey** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account (fleet consolidated to Joey's account ~2026-08-23; verified live 2026-08-27) |
+| Marjorie — morning brief | `0 12 * * *` (was `0 13` — moved 2026-07-16 so the emailed brief is in founder inboxes **by 6:00 AM PT**, Joey's requirement; the 12:45 UTC mailer needs the brief posted by ~12:40) | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Wyatt** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account |
 | ~~Marjorie — 8 PM delta~~ **(DISABLED 2026-07-25, Wyatt)** | ~~`0 3 * * *`~~ | Fable | [`runner-prompts/marjorie-delta.md`](runner-prompts/marjorie-delta.md) | **Wyatt** | Cut to once-daily for sustainment mode — the morning brief stands alone. Trigger `trig_01G4GsUsphyz9LycqKjDEdi4` set `enabled:false` (not deleted; re-enable to restore). NOTE: the delta also ran an evening merge-sweep + founder-email-reply pass — those now happen only at the 6 AM brief (autonomous merge cycles cover the gap). |
 | Growth — daily draft | `0 11 * * *` (1h before Marjorie's morning brief, so its Growth line reflects a fresh queue) | Fable | [`runner-prompts/growth-draft.md`](runner-prompts/growth-draft.md) | **Wyatt** | Added 2026-07-21: the charter (`docs/agents/growth.md`) and the shipping pipeline (`social-poster.yml`) existed, but nothing was ever scheduled to run the *drafting* half — issue #864 (empty queue) sat unactioned 3 days for exactly this reason. **Since 2026-08-11 it drafts Tree's calendar rather than inventing content** |
 | Tree — weekly social plan | `0 10 * * 1` (Mondays, an hour before that day's Growth draft, so the fresh calendar is readable the same morning) | **Opus** — genuine strategy judgment; a script-and-summarize tier would restore the formula loop it exists to break | [`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md) | **Wyatt** | Added 2026-08-11 (Joey): posting was strategically random — 12 of 14 captions opened "did you know", every IG image a generic era tile, and feature launches / the six threads / Mood had never been posted about. Tree plans `social/calendar.md`; Growth executes it. Charter: [`tree.md`](tree.md) |
