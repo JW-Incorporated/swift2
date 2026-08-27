@@ -1,0 +1,7 @@
+{
+  "platform": "x",
+  "body": "quick — where do you picture the \"love story\" video getting filmed? somewhere overseas, a storybook castle across the ocean? nope. it's castle gwynn, sitting in middle tennessee, a short drive from her own backyard.\n\nthe fearless era: longlivets.com/?era=fearless&utm_source=x&utm_medium=social&utm_campaign=era-deep-cut",
+  "scheduledAt": "2026-08-27T15:00:00Z",
+  "campaign": "era-deep-cut:fearless-love-story-castle-gwynn",
+  "why": "Why this: X sibling of the fearless 'Love Story' Castle Gwynn deep cut (social/queue/2026-08-27-fearless-love-story-castle-ig.json), same story-unique campaign so the campaign-pair gate passes. Rewritten distinctly from the IG caption as a direct-address guess-the-location tweet with its own vocabulary (overseas/storybook/backyard/picture) to clear the <80% cross-post-copy threshold, not a truncation of the IG. Why now: the 15:00Z half of 2026-08-27's paired heartbeat beat. Text-only per the calendar's X slot guidance. Source: supabase/seed/era-secrets/fearless.mjs:80-104, Castle Gwynn / 'Love Story' filming location per WKRN + WSMV Nashville. Deep link eraId=fearless (Era Secrets have no momentId). Blocklist-safe; no lyrics; no bare 'Swift'. Weighted length verified under 280 by scripts/social/check-drafts.mjs."
+}
