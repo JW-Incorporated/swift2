@@ -8764,6 +8764,28 @@ export default {
             kind: 'archival',
           },
         ],
+        // Rumor Desk 2026-08-27: the five nominations are confirmed fact and
+        // stay in the narrative above; what is still unsettled is the OUTCOME —
+        // how many, if any, she converts to wins. Labeled here as a lifecycle-
+        // tracked award-chances item (same pattern as the 2026 VMAs entry on
+        // fate-of-ophelia-lead-single), so it resolves on ceremony night
+        // rather than sitting as an open question buried in prose. Award-/
+        // recognition-chances is an explicitly Always-OK public-facing category
+        // (privacy-redlines.md § Always OK); no location, whereabouts, or any
+        // other redline material — the ceremonies are televised public events.
+        rumors: [
+          {
+            claim:
+              'Taylor Swift heads into the 78th Emmy Awards with five nominations for Taylor Swift: The Eras Tour: The Final Show — including Outstanding Variety Special (Pre-Recorded), the category she is personally credited in as performer and producer — leaving open how many, if any, she converts to wins across the Creative Arts ceremony (Sept. 5-6, 2026) and the primetime telecast (Sept. 14, 2026).',
+            reportedBy: 'Rolling Stone',
+            reportedOn: '2026-07-08',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-2026-emmy-nominations-eras-tour-final-show-1235590955/',
+            note: 'Award-chances speculation — an Always-OK public-facing category. The five nominations and both ceremony dates are announced fact; only the outcome is unsettled. Resolves at the Creative Arts ceremony (Sept. 5-6) and the primetime telecast (Sept. 14, 2026). Distinct from this moment\'s confirmed-nominations narrative; labels the unsettled outcome. No redline material.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-27',
+          },
+        ],
       },
     },
     {
