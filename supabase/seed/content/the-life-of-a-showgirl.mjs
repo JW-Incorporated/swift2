@@ -8103,6 +8103,50 @@ export default {
       },
     },
     {
+      slug: 'toy-story-5-disney-plus-piano-version-video',
+      // Cross-links: the same song's main story/Oscar page and its Pop Airplay
+      // chart run — the two richest existing "I Knew It, I Knew You" pages.
+      relatedIds: [
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+      ],
+      year: 2026,
+      month: 8,
+      day: 27,
+      category: 'music',
+      title: 'Toy Story 5 heads to Disney+ — and a second, piano-version "I Knew It, I Knew You" video arrives with it',
+      snippet:
+        'As Pixar\'s Toy Story 5 headed to Disney+ on Sept. 23, 2026, Taylor released a second official video for "I Knew It, I Knew You" — an animated clip for the song\'s piano version, again cut from the film\'s Jessie footage.',
+      sourceUrl: 'https://variety.com/2026/film/news/toy-story-5-disney-plus-release-date-streaming-how-to-watch-1236844965/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In late August 2026 Taylor\'s Toy Story 5 song "I Knew It, I Knew You" got a second life timed to the film\'s move from theaters to streaming. Disney set Sept. 23, 2026 as the date Pixar\'s Toy Story 5 — the fifth film in the franchise, which had opened in theaters that June — begins streaming on Disney+, while it stayed in theaters and available to buy digitally in the interim. Alongside that streaming send-off, Taylor put out a new animated music video, this one built around the song\'s stripped-back piano version. Like the original it is cut from Toy Story 5 footage centered on Jessie the cowgirl, and it went up across Disney+, Spotify and Apple Music, first teased as a short first-look before the full clip arrived.\n\nIt is the second official video for the song rather than a replacement. The first, released the same day as the single on June 5, 2026, told Jessie\'s story through the franchise\'s own animation — her meeting Woody, being outgrown by her original owner Emily, and finding a new home with Bonnie. The piano-version clip reframes that same material around the quieter recording, giving the country-leaning ballad a softer companion visual just as the movie reaches the far larger at-home audience.\n\nThe timing extends a song that had already outrun its soundtrack origin. "I Knew It, I Knew You" — written and produced with Jack Antonoff — opened at No. 1 on the Billboard Hot 100, set records across adult-pop and adult-contemporary radio through the summer, and turned up live in the Grammy Museum "Icon Sessions" medley in August. The Disney+ arrival hands it a fresh on-ramp to listeners meeting the film at home for the first time, months after its theatrical debut.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/film/news/toy-story-5-disney-plus-release-date-streaming-how-to-watch-1236844965/',
+            source_title: "'Toy Story 5' Sets Disney+ Streaming Release Date: How to Watch Online",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-28',
+            reliability_score: 4,
+            notes: 'confirms the Sept. 23, 2026 Disney+ streaming date; resolved to the publisher URL via web search — this session\'s egress proxy blocks direct fetches to news domains, so the article was not fetched here.',
+          },
+          {
+            outlet: 'ABC7',
+            url: 'https://abc7.com/post/taylor-swift-releasesnew-versionoftoy-story-5song-disney-streaming-date-approaches/19745595/',
+            source_title: "Taylor Swift releases new version of 'Toy Story 5' song as Disney+ streaming date approaches",
+            publisher: 'ABC7 / ABC Owned Television Stations',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-28',
+            reliability_score: 4,
+            notes: 'confirms the new piano-version animated video timed to the streaming date; resolved via web search, not fetched (news-domain egress blocked this run).',
+          },
+        ],
+      },
+    },
+    {
       slug: 'i-knew-it-i-knew-you-oscar-buzz',
       // Cross-links (candidates #1059/#1290): the same song's other pages — the
       // Adult Contemporary four-in-the-top-10 record it co-holds, and its Pop
