@@ -163,6 +163,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/M2lX9XESvDE/hqdefault.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // three-across episode thumbnail, Taylor centered holding the
+            // album art, Travis and Jason flanking.
+            focalPoint: '50% 35%',
             credit: 'New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)',
             caption:
               'The thumbnail of the record-breaking New Heights episode itself — Taylor between Travis and Jason Kelce, holding The Life of a Showgirl artwork on the set where album No. 12 was announced.',
@@ -174,6 +178,10 @@ export default {
           // side by side at the New Heights desk mid-episode.
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2025-08/250814-travis-kelce-taylor-swift-16x9-mn-1200-675781.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // Travis left / Taylor right at the podcast desk, both faces in
+            // the upper half.
+            focalPoint: '48% 28%',
             credit: 'New Heights, via NBC News',
             caption:
               'Mid-episode at the New Heights desk, Aug. 13, 2025 — her first-ever podcast appearance, on the show where the album was announced.',
@@ -1967,6 +1975,9 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://cdn.mos.cms.futurecdn.net/izGR5GyrdGtkDeTMsNFvAN.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // Taylor centered, face in the upper third of the letterboxed frame.
+            focalPoint: '50% 30%',
             credit: 'Marie Claire',
             caption: 'Taylor Swift discussing The Life of a Showgirl\'s visual identity in a September 20, 2025 promo video.',
             kind: 'reference',
@@ -7941,6 +7952,10 @@ export default {
         photos: [
           {
             url: 'https://cdn.abcotvs.com/dip/images/19437803_070226-wabc-msg-no-parking-ap-img.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // barriers/street scene, the "No Parking" signs held in the
+            // lower-right foreground.
+            focalPoint: '50% 60%',
             credit: 'AP, via ABC7 New York',
             caption:
               'The city response the permit paid for: NYPD "No Parking" signs going up at the barriers around Madison Square Garden ahead of the wedding weekend.',
@@ -7949,6 +7964,10 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://www.rollingstone.com/wp-content/uploads/2026/07/Twift-Permit.jpg?w=1600&h=900&crop=1',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // split-frame diptych, Taylor left / Mayor Mamdani right, both
+            // faces in the upper half.
+            focalPoint: '50% 35%',
             credit: 'Rolling Stone',
             caption: 'Coverage of Taylor Swift\'s $160,000+ NYC wedding permit payment for her July 3, 2026 Madison Square Garden wedding.',
             kind: 'reference',
@@ -8496,12 +8515,19 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Cannon2021_%28004%29.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // centered studio portrait, face dead-center.
+            focalPoint: '50% 28%',
             credit: 'U.S. District Court, S.D. Fla. (public domain)',
             caption: 'Judge Aileen M. Cannon, who dismissed the Tortured Poets copyright suit against Taylor Swift with prejudice, July 6, 2026.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Taylor_Swift_TTPD_Dress.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // Eras Tour performance shot, the gown's lyric print spans the
+            // lower two-thirds of the frame, figure left-of-center.
+            focalPoint: '45% 55%',
             credit: 'Wikithebeavr / Wikimedia Commons, CC BY 4.0',
             caption: 'A custom Eras Tour gown from The Tortured Poets Department era — the record at the center of the dismissed suit.',
             kind: 'reference',
@@ -9202,12 +9228,18 @@ export default {
         photos: [
           {
             url: 'https://imageio.forbes.com/specials-images/imageserve/6a5d5fa67ef4c6bbcd56f53a/Toy-Story-5-Los-Angeles-World-Premiere/0x0.jpg?crop=1918,1439,x0,y750,safe&width=960',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // full-length premiere portrait, face/upper body right-of-center.
+            focalPoint: '58% 25%',
             credit: 'Kevin Mazur/Getty Images for TAS Rights Management via Forbes',
             caption: 'Taylor Swift at the Toy Story 5 Los Angeles premiere, June 9, 2026 — the film whose soundtrack includes "I Knew It, I Knew You."',
             kind: 'reference',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/02-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // reclined portrait, face in the upper-right quadrant.
+            focalPoint: '78% 25%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo.',
             kind: 'reference',
@@ -9308,12 +9340,18 @@ export default {
         photos: [
           {
             url: 'https://imageio.forbes.com/specials-images/imageserve/68406651c67081202233378d/67th-Annual-GRAMMY-Awards---Arrivals/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // red-carpet portrait, face left-of-center in the upper half.
+            focalPoint: '42% 30%',
             credit: 'Matt Winkelmeyer/Getty Images for The Recording Academy via Forbes',
             caption: 'Taylor Swift at the 67th Annual Grammy Awards, February 2, 2025 — Forbes\' image for its story on the post-wedding UK chart bump.',
             kind: 'reference',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/01-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // seated showgirl portrait amid feathers, face right-of-center.
+            focalPoint: '55% 35%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo — the album that re-entered the UK charts.',
             kind: 'reference',
@@ -11230,6 +11268,10 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): an AP photo from this same story.
             url: 'https://dims.apnews.com/dims4/default/b770af6/2147483647/strip/true/crop/4346x2896+0+1/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Ffd%2F85%2F0ffa9b0baf2c86ab649e2e30d3af%2F310d17664ab141408ebf6e5212f07acb',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // Kelce (left, #87) and a teammate (#4) mid-conversation at
+            // training camp, both faces in the upper third.
+            focalPoint: '48% 30%',
             credit: 'AP Photo',
             caption: 'Travis Kelce at Chiefs training camp, August 2026, days after his wedding to Taylor Swift.',
             kind: 'reference',
