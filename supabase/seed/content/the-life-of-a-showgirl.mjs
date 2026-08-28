@@ -163,6 +163,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/M2lX9XESvDE/hqdefault.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // three-across episode thumbnail, Taylor centered holding the
+            // album art, Travis and Jason flanking.
+            focalPoint: '50% 35%',
             credit: 'New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)',
             caption:
               'The thumbnail of the record-breaking New Heights episode itself — Taylor between Travis and Jason Kelce, holding The Life of a Showgirl artwork on the set where album No. 12 was announced.',
@@ -174,6 +178,10 @@ export default {
           // side by side at the New Heights desk mid-episode.
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2025-08/250814-travis-kelce-taylor-swift-16x9-mn-1200-675781.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // Travis left / Taylor right at the podcast desk, both faces in
+            // the upper half.
+            focalPoint: '48% 28%',
             credit: 'New Heights, via NBC News',
             caption:
               'Mid-episode at the New Heights desk, Aug. 13, 2025 — her first-ever podcast appearance, on the show where the album was announced.',
@@ -1967,6 +1975,9 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://cdn.mos.cms.futurecdn.net/izGR5GyrdGtkDeTMsNFvAN.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // Taylor centered, face in the upper third of the letterboxed frame.
+            focalPoint: '50% 30%',
             credit: 'Marie Claire',
             caption: 'Taylor Swift discussing The Life of a Showgirl\'s visual identity in a September 20, 2025 promo video.',
             kind: 'reference',
@@ -7941,6 +7952,10 @@ export default {
         photos: [
           {
             url: 'https://cdn.abcotvs.com/dip/images/19437803_070226-wabc-msg-no-parking-ap-img.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // barriers/street scene, the "No Parking" signs held in the
+            // lower-right foreground.
+            focalPoint: '50% 60%',
             credit: 'AP, via ABC7 New York',
             caption:
               'The city response the permit paid for: NYPD "No Parking" signs going up at the barriers around Madison Square Garden ahead of the wedding weekend.',
@@ -7949,6 +7964,10 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://www.rollingstone.com/wp-content/uploads/2026/07/Twift-Permit.jpg?w=1600&h=900&crop=1',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // split-frame diptych, Taylor left / Mayor Mamdani right, both
+            // faces in the upper half.
+            focalPoint: '50% 35%',
             credit: 'Rolling Stone',
             caption: 'Coverage of Taylor Swift\'s $160,000+ NYC wedding permit payment for her July 3, 2026 Madison Square Garden wedding.',
             kind: 'reference',
@@ -8079,6 +8098,50 @@ export default {
             inStock: false,
             isAlternative: true,
             altNote: 'The pink floral-brocade "Laila" she wore (~$4,115) is past-season, off the brand site. This is the same Markarian "Laila" style in white beaded organza, what it lists now — different color, sold out.',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'toy-story-5-disney-plus-piano-version-video',
+      // Cross-links: the same song's main story/Oscar page and its Pop Airplay
+      // chart run — the two richest existing "I Knew It, I Knew You" pages.
+      relatedIds: [
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+      ],
+      year: 2026,
+      month: 8,
+      day: 27,
+      category: 'music',
+      title: 'Toy Story 5 heads to Disney+ — and a second, piano-version "I Knew It, I Knew You" video arrives with it',
+      snippet:
+        'As Pixar\'s Toy Story 5 headed to Disney+ on Sept. 23, 2026, Taylor released a second official video for "I Knew It, I Knew You" — an animated clip for the song\'s piano version, again cut from the film\'s Jessie footage.',
+      sourceUrl: 'https://variety.com/2026/film/news/toy-story-5-disney-plus-release-date-streaming-how-to-watch-1236844965/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In late August 2026 Taylor\'s Toy Story 5 song "I Knew It, I Knew You" got a second life timed to the film\'s move from theaters to streaming. Disney set Sept. 23, 2026 as the date Pixar\'s Toy Story 5 — the fifth film in the franchise, which had opened in theaters that June — begins streaming on Disney+, while it stayed in theaters and available to buy digitally in the interim. Alongside that streaming send-off, Taylor put out a new animated music video, this one built around the song\'s stripped-back piano version. Like the original it is cut from Toy Story 5 footage centered on Jessie the cowgirl, and it went up across Disney+, Spotify and Apple Music, first teased as a short first-look before the full clip arrived.\n\nIt is the second official video for the song rather than a replacement. The first, released the same day as the single on June 5, 2026, told Jessie\'s story through the franchise\'s own animation — her meeting Woody, being outgrown by her original owner Emily, and finding a new home with Bonnie. The piano-version clip reframes that same material around the quieter recording, giving the country-leaning ballad a softer companion visual just as the movie reaches the far larger at-home audience.\n\nThe timing extends a song that had already outrun its soundtrack origin. "I Knew It, I Knew You" — written and produced with Jack Antonoff — opened at No. 1 on the Billboard Hot 100, set records across adult-pop and adult-contemporary radio through the summer, and turned up live in the Grammy Museum "Icon Sessions" medley in August. The Disney+ arrival hands it a fresh on-ramp to listeners meeting the film at home for the first time, months after its theatrical debut.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/film/news/toy-story-5-disney-plus-release-date-streaming-how-to-watch-1236844965/',
+            source_title: "'Toy Story 5' Sets Disney+ Streaming Release Date: How to Watch Online",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-28',
+            reliability_score: 4,
+            notes: 'confirms the Sept. 23, 2026 Disney+ streaming date; resolved to the publisher URL via web search — this session\'s egress proxy blocks direct fetches to news domains, so the article was not fetched here.',
+          },
+          {
+            outlet: 'ABC7',
+            url: 'https://abc7.com/post/taylor-swift-releasesnew-versionoftoy-story-5song-disney-streaming-date-approaches/19745595/',
+            source_title: "Taylor Swift releases new version of 'Toy Story 5' song as Disney+ streaming date approaches",
+            publisher: 'ABC7 / ABC Owned Television Stations',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-28',
+            reliability_score: 4,
+            notes: 'confirms the new piano-version animated video timed to the streaming date; resolved via web search, not fetched (news-domain egress blocked this run).',
           },
         ],
       },
@@ -8496,12 +8559,19 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Cannon2021_%28004%29.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // centered studio portrait, face dead-center.
+            focalPoint: '50% 28%',
             credit: 'U.S. District Court, S.D. Fla. (public domain)',
             caption: 'Judge Aileen M. Cannon, who dismissed the Tortured Poets copyright suit against Taylor Swift with prejudice, July 6, 2026.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Taylor_Swift_TTPD_Dress.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // Eras Tour performance shot, the gown's lyric print spans the
+            // lower two-thirds of the frame, figure left-of-center.
+            focalPoint: '45% 55%',
             credit: 'Wikithebeavr / Wikimedia Commons, CC BY 4.0',
             caption: 'A custom Eras Tour gown from The Tortured Poets Department era — the record at the center of the dismissed suit.',
             kind: 'reference',
@@ -9202,12 +9272,18 @@ export default {
         photos: [
           {
             url: 'https://imageio.forbes.com/specials-images/imageserve/6a5d5fa67ef4c6bbcd56f53a/Toy-Story-5-Los-Angeles-World-Premiere/0x0.jpg?crop=1918,1439,x0,y750,safe&width=960',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // full-length premiere portrait, face/upper body right-of-center.
+            focalPoint: '58% 25%',
             credit: 'Kevin Mazur/Getty Images for TAS Rights Management via Forbes',
             caption: 'Taylor Swift at the Toy Story 5 Los Angeles premiere, June 9, 2026 — the film whose soundtrack includes "I Knew It, I Knew You."',
             kind: 'reference',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/02-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // reclined portrait, face in the upper-right quadrant.
+            focalPoint: '78% 25%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo.',
             kind: 'reference',
@@ -9308,12 +9384,18 @@ export default {
         photos: [
           {
             url: 'https://imageio.forbes.com/specials-images/imageserve/68406651c67081202233378d/67th-Annual-GRAMMY-Awards---Arrivals/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // red-carpet portrait, face left-of-center in the upper half.
+            focalPoint: '42% 30%',
             credit: 'Matt Winkelmeyer/Getty Images for The Recording Academy via Forbes',
             caption: 'Taylor Swift at the 67th Annual Grammy Awards, February 2, 2025 — Forbes\' image for its story on the post-wedding UK chart bump.',
             kind: 'reference',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/01-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // seated showgirl portrait amid feathers, face right-of-center.
+            focalPoint: '55% 35%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo — the album that re-entered the UK charts.',
             kind: 'reference',
@@ -11230,6 +11312,10 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): an AP photo from this same story.
             url: 'https://dims.apnews.com/dims4/default/b770af6/2147483647/strip/true/crop/4346x2896+0+1/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Ffd%2F85%2F0ffa9b0baf2c86ab649e2e30d3af%2F310d17664ab141408ebf6e5212f07acb',
+            // Photo pass #762 (2026-08-28): downloaded and vision-confirmed —
+            // Kelce (left, #87) and a teammate (#4) mid-conversation at
+            // training camp, both faces in the upper third.
+            focalPoint: '48% 30%',
             credit: 'AP Photo',
             caption: 'Travis Kelce at Chiefs training camp, August 2026, days after his wedding to Taylor Swift.',
             kind: 'reference',
