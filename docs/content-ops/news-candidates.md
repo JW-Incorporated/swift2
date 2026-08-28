@@ -25,7 +25,119 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 62
+Stories: 56
+
+## Taylor Swift Donates $50K to Assist Injured Mother
+
+- first seen: 2026-08-28 23:00 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated $50,000 to support a mother who was seriously injured in an act of kindness. This charitable act highlights her commitment to helping those in need.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxQb3RkSzBHd09UV3haV1ZVS0s4dUI3UDlUeWVEbExjVWd5UzlHZHFOZHF6N2tlQkhVNFU0ZVNxSWx6VTJQWWFRRjBjendPRjRVUFNIZEg4WmxSdE8wN3hXTE5wTGVncThtSThqYjRYRWQwNzZ2N19RQ3MwMTllcDdGOUdsT2VUX3NfNDRvQ0xCMHFXWURPQW41LTJiRGtSVV9TeXVDT190YTl1TjFPTUE1Vi1Sbw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Don Spencer Comments on Taylor Swift's Influence in Music
+
+- first seen: 2026-08-28 23:00 UTC | category: business | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: Don Spencer discussed his lengthy music career and acknowledged that Taylor Swift, a notable figure in the industry, is not concerned about him, highlighting her prominence in the music world.
+- sources:
+  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMikAFBVV95cUxPVXJ1WHV5aW5jYVFqOHlQNTNOTWpKalZvd3hocG5oaHlqMEVjS0U1ZU5wREg1NGNVaWN5WEtoVmRpaV9KbTlmZi1vdk5ZQUo5WEwtMXNkVTN6U2Z6LThTVENoWlg2dE95M2tZcTMzeGt4Vm9JUGpJUlRjNHhvRDNJRFdPbTFvajc4emhVMEw5SGo?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Ice Spice and Riot Praise Taylor Swift's Party
+
+- first seen: 2026-08-28 23:00 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Ice Spice and Riot have publicly declared Taylor Swift's recent party as the greatest of all time (GOAT). Their endorsement showcases the positive vibe surrounding the event.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPaHZlc0xXRTF4OE45ajBET0lFOFpSOUROaXNkUXBLWU8tRHRFUjB3S3o4ZVJSX0stcHZMOVVRZjJnZzN4TEhtTXh0N2hhOEZ5U2lCSGJRcXIxX3dwcng2TzJiV3FaNk13dEcxNzdkc29xZ05wSHMwdTJXTXYyR1BGTkh2LXY4THJDLTlB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Grammy-Winning Album Achieves Chart Milestone
+
+- first seen: 2026-08-28 23:00 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's album, which won Album Of The Year at the Grammys, has reached a significant milestone on the charts, indicating its continued popularity and impact.
+- sources:
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMivwFBVV95cUxPUUpYUGJQTW4zSzExazdndnkzUTB4Vnl2c3M3WjFfU0hjMUduNm9wVjBCc0pZUTFyLTE3Tnh0WHdySFVzc3BOWUxTQ2R0WW16UEFJMWNoUVNYU01sRHpsYmJfZ2ZJdVNKWmVyY0twdURuY2loQjUtSWlMTEMxZngwQ1lWQ3pBTDR4WFl2SzRXS1RoSVo5dFdEdEdEckJhUENIZ1pGZXhnME56VXhidjNwdE8wbmxoc200U2dvVExrMA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reportedly Writing New Music Following Marriage
+
+- first seen: 2026-08-28 23:00 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly working on new music while navigating her new married life with Travis Kelce, amidst recent sightings of teasers related to her work.
+- sources:
+  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMi7gFBVV95cUxPY0ZpSzhFRHFxS2wtQUJWYXlOOWE5VmJ6Q01QZjlsUmtuaElrT2owWWxYMmlCVUQtY3FHRk5lMURhUmZNT2w1NXlFak9BVWhDWXdhNkQ2Q2lvZ29NcVVIYkQ0UU04UVJrRTBQUG9lU1pidUp5a284LVZOSWV2YkJLX3UyZzktUlBwYm50V3hGSEhGRTUxeDhaSWJucUJaellRay1GSlhtS2dwaFlzZkJ6eEgyNGlwcVdoNzBZZ1E3LXNXdHZNWEZhaWRYb2puMkFLY0JHcTBMSlJGSUotdjVhRW5VZHZZSG84T05uRG1B?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Caitlin Clark unveils Taylor Swift-inspired Nikes
+
+- first seen: 2026-08-28 23:00 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark has revealed her new Nikes inspired by Taylor Swift, showcasing a unique design that pays homage to the singer.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQREdmVTZZYlYzakZFTkNfS1BnbEEzWDNEVGxabXdhYXN0NUhyUmNCSXJXX1FmTHdQdFlQaDNuQm13d2x4UUZQQ3A3SEt2dWxVQVNyZ0p1TDI5dldURDlETUt3S0FVTTNMcjdoTUpld2M0MHRnN25lUWRjYlRjOElneE1tdTgzbzU1cFdF?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Caitlin Clark Unveils Taylor Swift-Inspired Nike Shoes
+
+- first seen: 2026-08-28 23:00 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark has introduced a new pair of Nike shoes inspired by Taylor Swift's friendship bracelets. The launch highlights the intersection of sports and pop culture influence.
+- sources:
+  - [unverified] Just Women's Sports — https://news.google.com/rss/articles/CBMipwFBVV95cUxQYkFBLTZla0llQ0FHZjFfSk44cWxGTVpBUUVSdTRFX0NJTHFuYW82X3VLZjZQN28xVmtUQTFVWWpxZng4Z3VwWEpOUERSV1V4VlQ2SUJJUVhvTmRPbkljaXFlYm9GcGl4NGpaS2p6OGdVdHZfcWlNWHVCSm5ORTAwYzhmR0pLa0tQNTF3TUxPTmlOa0RLbGxPQ01nTk96eHdkWFJ4eXFCOA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares Dislike for Aspect of Swift Marriage
+
+- first seen: 2026-08-28 23:00 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has reportedly expressed a dislike for a particular aspect of his marriage to Taylor Swift, noting that it 'hits differently now'. The comment highlights his feelings regarding their relationship dynamics.
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMirgFBVV95cUxQZmstZHF1RmRIcFV1MjNHU2VGNFp4cHplR0VDMXQxUlJSYzZVTFhnM3AyN25mUUhKYXQ1SDJXaU9EXzgzX3c3WlNWN3BIZ1hzQVNVRGo3MEN2YjR5QWdXRk85alZpZ2hneTM1MEFmYkhBbVNwN292ZWFUOEh1OGdRMXQ1bFpTVm1Nc2tBbkoxVm1kMDE5bTNpYmNfUEU0QU0xY3FKNnFGVTRkMjdGZ1E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Examining the Impact of Taylor Swift's Popularity
+
+- first seen: 2026-08-28 23:00 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An article from the Washington Times explores the implications of Taylor Swift's significant popularity. It discusses various factors contributing to her widespread acclaim and the challenges associated with it.
+- sources:
+  - [unverified] Washington Times — https://news.google.com/rss/articles/CBMigAFBVV95cUxNbHlldFN3WERWdXhwcnBtRmFFcEtkV0I2Y2Y4TU54YkFobFVkNHBCbF95aDU0cHRvdzFLNWVkTVg4bnhKcmhBSzBRaVpJWE4xeU9UVE13dzQ0emxPTTBDb29uX0lKdmc3ZlhncllXbzlnMlFWc3hKQ2NtVEoxdVdJWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Overcame Record Label Doubts in Her Music Career
+
+- first seen: 2026-08-28 23:00 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The article discusses how Taylor Swift faced skepticism from record labels but persevered to establish her successful music career. It highlights her determination in overcoming challenges.
+- sources:
+  - [unverified] Deseret News — https://news.google.com/rss/articles/CBMilwFBVV95cUxOV2Z4aHRwcnpCUzZ0MUIzTEdKLWQwMk9fZ3RXU0t5aUh5MV8wbTJ1dGw1OHZORGR2N0ZrVTY0aFVKQ1ZLM3FUT00zY2tXRkhMYV9NTG90bDlraTdNYWN5bGU3N0wycHdyQlAwZkFoUGxwbUQxLURCRnJ4NjJCZGpncEt3dGpPbGRiaTM4TU5XZEFYcGFxWWQ4?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce's Dislike About Marrying Taylor Swift Revealed
+
+- first seen: 2026-08-28 23:00 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has expressed a particular dislike regarding his marriage to Taylor Swift, as reported by Yahoo. The details of this sentiment have not been elaborated in the article.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOWDhHZHFSRnkwZ2pvSW5KclF2czAyS2p0bER1ZzJQRHdKYkNLdGlHM2dBUGtoTUhJOE1DNVc2MHQ1WXBGRklYNzZfQmFpSkVvSDctRjJvb3piOS11c1ZTYXZ3UzhBSTQ3dVBjUmZxU1E4bEdRVTJoeXRtLURpeWRlaHRtcnFUMzR5Qld0MkEwVGpJQjl0bmtCNUduakRpQTA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Showcases Fall Floral Fashion Trends
+
+- first seen: 2026-08-28 23:00 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift demonstrates how to stylishly incorporate florals into fall attire, ensuring they remain trendy beyond the spring season.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi1gFBVV95cUxQaGd2Z2ptcUVHd0VCeGFBTUgxOGppLUhWYzJYM0tnY01icEM2WlhXWXJSWVBIdjRFMUZXQm0ydEF5OVpJMFVQdnBuQmx2Z0Y1V2xnbDFzU1l1R3dSMEZMaE5WM0ZSMEhXVjZCd0Ryd0dFbVVNemtRQk03OWRtaW9zV2h2SmtGUklZRjg5QjBxN3ZXZVdjbE9xdzdpRC1pV1VPbTlVMDc0azljRzVUS3dsZWhBSkdZUHNmQ3lJanR6NXVjbG9Hb0NJWHlSQTV0dVU1U2wySDB3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Caitlin Clark Incorporates Taylor Swift Influence into WNBA
+
+- first seen: 2026-08-28 23:00 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark has drawn inspiration from Taylor Swift, resonating with fans and creating excitement among the Swifties in the WNBA context. This connection showcases the crossover between sports and pop culture.
+- sources:
+  - [unverified] HOLA — https://news.google.com/rss/articles/CBMilwFBVV95cUxQU3A1U2IwbzJpMW9oZldsaGRhSTNIVnpOdE12MThpczFXTG55dUtzUVk4YXoyLTJVU01PaUQzRzZEN3VXeVktY2VfcmFKaHMtYS1LeDk4RV9ubWppMEVvWVg3cG9yekE1SXBmSG1xVDZPUUktZjB6eGxEdVIwUk1wbVJkdldkZUhxZ195cDllUHJseHV1cWZN?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Little Big Town Discusses New Album Without AI Collaboration
+
+- first seen: 2026-08-28 23:00 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Karen Fairchild of Little Big Town emphasizes their new album, It's a Dying Art, and their commitment to traditional songwriting without the use of AI. She also highlights the band's significant role in Nashville's music scene.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/little-big-town-its-a-dying-art-album-interview-1235617159/
 
 ## Taylor Swift Remembers Last Interaction with Dolly Parton
 
@@ -394,167 +506,3 @@ Stories: 62
   - [unverified] WBTV — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQZUFNSVZjQWVwWTIyYzRxT1l4MlZSM1J1Z0lUU05LbFJOQU5rUkZkVF9qeWVhb29vcXVWYVVxazl6Zll6OHpWcUlCWnZ4VEdwaGxaSTNfLXc0OXlRdzZoUGtTNlVoN09vX0pCdVNHS2ZlcGloaGduQThjWElndEdETkdIWWJ3MFV4MmszUDJuNFhUTFoxSS0tSXhVY2EzTzY5TWpvZ1BuMzhzcG1iMlFoWGQ5ejJTRUJtV09V?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-dolly-parton-tribute-dead-1236842794/
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMitAFBVV95cUxPV2pTLU4wMXhQNEZXQklPdWF4UEJBUW12ZzNJa2VqcDhWcTZ0SmxpLXlUQjUzLV9oeTZQdjVLNlAzVk1CX0JTa2xxa3NlNWI2VnQydmswWUd6aWtDbk9jZWdYbmFxbV9EeWFBUFo1a1BJOU5CZGg4a1pqd0ExVEpXeXRWQ1JoSnR5aGVieFJrd1djbHkyVGRfSW1TQ1g2Ykx5dVh3QlYxVjRkRDRibzZDMThpenc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift’s Grammy Museum Performance Features HQ Footage of Her New Diamond Wedding Band - Cosmo
-
-- first seen: 2026-08-25 21:39 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Grammy Museum Performance Features HQ Footage of Her New Diamond Wedding Band  Cosmopolitan
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMipAFBVV95cUxPSmRHV0hYMm5xY2tkZHdwbWp3LW1ab3B5LWxYM0RfTDNFZUJ1YXhFS0VBRjJEXy1Lc1ZsVXBEVEZhNlRHMEVDYlRMOWhMRnBFVFJNNFdkdW5DYU01Ymh5cm9Pa0kzUnROdjFZWGdIWUpaN3Y1YWFQVnhMQXJXQm1iVmEwbFNSc3dsWS15WkxtOEhTaXQ4NzY5eTRmUF9YNkgxUVVINA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift’s Wedding Invitation Officially Leaks Amid Claims Guests Are Angry at Her Over Travis K
-
-- first seen: 2026-08-25 21:39 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Wedding Invitation Officially Leaks Amid Claims Guests Are Angry at Her Over Travis Kelce’s Behavior—‘Completely Betrayed’  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisgFBVV95cUxPSW4wLWlYR2JHZ2VmRkl2RlBfNFBNVzViZHMycXFHX05BbFJXcy1lclNjWUlpUDk5RlFmSjVQd2FiOWpaQWE3bzM4enA2dldsRV9WOTJMUnVqT0gySTMyOE5BUXhCc21EUlJsTUJiQ3Y5U05hbUlPNGRSQVJDSEJ5dTdJSDBpSDVndXFybzVQYUZSRkNDVEMxNmtveUVxU1NFMU1CZFpua3ZxWk5oMmNxNFFB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Puts Her Wedding Ring On Full Display During First Performance Since Marrying Travis Ke
-
-- first seen: 2026-08-25 21:39 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Puts Her Wedding Ring On Full Display During First Performance Since Marrying Travis Kelce  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPLU91bmlUVHQ4UXpGVWRqY1BxT0NlUVFDZWQ5bFdJY2dfQTY1eTlDVWVFbzdYSDdMVXhndUpEV2xFNXZnWDI3WHlLdWVuUDNnNmRUOXdjeWsyNFBHMVlzcS1aR2RuOXg4NGk4TTgwS3RwRm9JWkRVMURTZjl6NTYwMWZObGV6a19BMHNWVFRRRkxJWHBHVko2YmdYaUlTTnRJ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## What Is Taylor Swift Cooking Up Now? - The Cut
-
-- first seen: 2026-08-25 21:39 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: What Is Taylor Swift Cooking Up Now?  The Cut
-- sources:
-  - [unverified] The Cut — https://news.google.com/rss/articles/CBMigwFBVV95cUxOYi1oUGgwLURWNTg3Y3VPaEJaM200UnVpQ0s1aHN6NFlnWlNHdUE4QTJyTXhvR3lRUXJZVV82cFE0ZTU0RVNKejNHOF9KNFJaYndWX0dTVVVnM3hETGZDcHBRYUlWc0M3MjcyZjltYjNpd2xGSmFjT2dhWThXcjQzTkJqQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift says she cherishes her Nashville songwriting roots - Axios
-
-- first seen: 2026-08-25 21:39 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift says she cherishes her Nashville songwriting roots  Axios
-- sources:
-  - [unverified] Axios — https://news.google.com/rss/articles/CBMikwFBVV95cUxONVI1M3hMTVJUZXI0dTZRQmoxN00xZVozUmI0VHVybFNpYzF6aDFOU0FfUVNMX3l6elpDOFU3X09RcE9QanliLTcyOXdOOVJoQy1rRFdKOFZ3SXB4M0FLdEx1Ni1wQTZaWmphUmhnNGhCOGptaDRJaTJYelI1ZUFOUjlZX19mS0x0QURQUWFFX3JNQUE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift’s ‘Confessional Songwriter’ Dig Has Fans Naming Olivia Rodrigo - Yahoo
-
-- first seen: 2026-08-25 21:39 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s ‘Confessional Songwriter’ Dig Has Fans Naming Olivia Rodrigo  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNdUV4cE5IQVdZZGhxWTNNWGNscDFjOGhIcmh3Tk16NllueHYzUGx4TE55dU5LZ29GWXNHV2NIOXhaRzRHcm9LX0NhQUhfbjFSUy1LQW5lN1NRQVpPeGFKaG1fNjZIZWdyeDdFanhKTlZURVRjOEtOaDAyX1B0NEZ2ZjdTcUNVMDRlU1VKSER2VUVBd3BVUFotRGljekRrWW9PNklGV0R2b2NOZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift & Travis Kelce Made a Major Move For Dolly Parton Before Her Death - Men's Journal
-
-- first seen: 2026-08-25 21:39 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce Made a Major Move For Dolly Parton Before Her Death  Men's Journal
-- sources:
-  - [unverified] Men's Journal — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNa0E5eG81Qk5mdGlwMjhzakxsSE90OEJlRlFyS1djUnlxVXJqaHJ6Nk92Z3d1eHRzVEM4MFl4RTd1bzBVTDB4Z0lxcFgxVThqX1hiVjlRbkxlX3V5cXA0c3dDTG12NWpwVHJJendTT2MxelhYLWR6MDdlVjZIRVMtdVNiRVNYb05BVHJvcUNPQ3c1SlBpTEJsajdGS1k4N2prSUlVa25QNTc1M0NBTWtKbEpxRUdIbXhVeWVj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Gives a Closer Look at Her Wedding Band and Ring Stack During Recent Performance - inst
-
-- first seen: 2026-08-25 21:39 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift Gives a Closer Look at Her Wedding Band and Ring Stack During Recent Performance  instyle.com
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNX2lCQm1XazVKTU81MnZpRk43cFJIbTBqWU9zT20zTnV5VUt5N3VPZ1IwenlBZXd6enpvMHhmWVNHbEpuNGdvUTQwQlZRb1UwUWlOVXNDengxS05STWxhLWduZWt3NzR4WHFWRmZSc1gtbkx4bEM5NXV6akxrWEZmMC05UHlFaUVCd0xJTjJKUGRrb0VTLS1rYVFvOWZwNVg0X2c?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBMSFlUYmxCUlpqcGUwU2FrT0tIZjRPbTBXM3o0eUlYNzY5d0xBS1ltV3NVbExzMGVZb0ZUbGRWQlhsczF0RS05RVdOazBDOTdTVFpIWUZtSlZSdmFSYWdjang4Slkycnc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNWR6bFg2ZzBJYjk5bEFyYUM0b296cWl0WG9vNXgxZGJ2NF9zLXViU3YxaEFhQ09vWG9jeTl6c3ppWWtIX1hFVlRqTHpZcTlia1pMTGxaRXVPLU5VNld2SjQ2SW1JdHZ3Y2t0LXVGYUNuYmJXb0Z2MThCU2J2dTl4Mk1WQ1FRNTd2?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOY0lNNEtMM2Jyb0VKX0c5WDV6a3JseDNRUXhVZ3Vkcy15dzFYOXMwWlJHeUhibjlYLXp6MXhOTUtyN2lmYlhYbV9FTDE2OFNXRkt0QXBUdW1Sa3FRc3E1eWJzcUJyQjI4S1F0TGxyR1ZKZEE4c29zTDdkeFRiTXRTSnFVNlhjeUliNjRfOFRBSmF0T3ZJR21MNnJTRFZFS1NZbEdYV3VjMkMwNHZSckhQQ0NXS1ZHTS05SDN3WXlPU0hVN2NhYTlGdk9xUnpkb05E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Proves Taylor Swift Isn’t the Only Singer in the Family with His Mic’d Up Songs at Chie
-
-- first seen: 2026-08-25 21:39 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Proves Taylor Swift Isn’t the Only Singer in the Family with His Mic’d Up Songs at Chiefs Practice  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxNNlMxTkNJd084Z3UtbTg5YXRwOWlNaEV1QTdpekt3dkdkVVdKa1pOYjFlbEdaYVFsbEVpT1BaWXNESnVSeklqd2VuU2pQVDF1Yy1lZHNfVUVwWmhjVC1pMW40RWI1TXk4cmFiWUgtdFJKSi1qNUxlQzFfMW56ajhIeTg2cFJjZXM4MzBiNnZTb3FiWVBqQjZONm1GMXNxQ1E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Talks With Recording Academy - chorus.fm
-
-- first seen: 2026-08-25 17:42 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Talks With Recording Academy  chorus.fm
-- sources:
-  - [unverified] chorus.fm — https://news.google.com/rss/articles/CBMic0FVX3lxTE43RVYwQmVvSDJELTVmSjAzV1c2aFg1M1lIUGFBM3dxcmhiNVc4N1BCQm5MWGk1cmhaZFoxVmdLY3FWMFdsckFRVmlVbFdwVjBhSkhNV2J1OUh2czdnQ3NKeTVFYzZCQ3NRdXd3TlRsMDI4Y2s?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift‘s Seafoam-Green Streak Is Trying to Tell Us Something - Harper's BAZAAR
-
-- first seen: 2026-08-25 17:42 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift‘s Seafoam-Green Streak Is Trying to Tell Us Something  Harper's BAZAAR
-- sources:
-  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMizgFBVV95cUxObDNuQlhNOFBGQ1RWVHV3Y3hoaVZUVkY5aEVpZkVZcXlEUENlVFVoRnR6ZmpyNjZwRE05UFdyUkRqcFRUcU9JNXpVZnhpMVVacy03cUNxUVd4R1RvMmd1OWR6UEtnNEpZVUxvNkNiSl9VS2lXeTdhcV9pTG84TDIxeUhrbk9Lb3FBaDRROVYyZ2VWdjh6R24tcmw2b3NGcHAxenhlbHZEdVVHb29YUExNVXZET1hRcVV5UGV4S2VGQWVpaEhSV0lNd2ZHNWx6Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift’s Engagement Ring and New Wedding Band Are on Full Display During First Post-Wedding Pe
-
-- first seen: 2026-08-25 17:42 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Engagement Ring and New Wedding Band Are on Full Display During First Post-Wedding Performance  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxPZkRXdnBtWDNrdHFmUmpvbkRZb0RJT2NKa2VGMnB4dW9TdzVSRU8zVDgtWjdQUEZvTE9ESTh4Zy1fcnlYcUNZQlJ2dzEyR3pNRW5tamNMN0wtcDZUVlpkWURGaUpneGlZMzZhbF9IeEUxNnZXcl9pN296SmYzcVY2MmtjRkU1d3V0TDBiSmtjNU5CWGxoTktqRFRoZ0MyRS1ldmw0Sg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Looks Back on Her Country Beginnings and Admits Her Loyalty Has Grown - American Songwr
-
-- first seen: 2026-08-25 17:42 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Looks Back on Her Country Beginnings and Admits Her Loyalty Has Grown  American Songwriter
-- sources:
-  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMitAFBVV95cUxPcTNvZnZDV3kxREYtdHJ4R2NfYlNaZUFCa1FKWk1SM04xOGc2dHdaWWJnVVhkV2hHRTVFT2hyLXFNZWh6YzRpejBBVjBSY19welRseDE0aUI5QWJ1WmM2bEJfZkFkbUo4R1IyWTBzS3NBOXk5VExPMjhYUml6eFhud0Q5dnZpclBkRFR4RWhnYkxLVmsxODBLR0F3V1BLbWpvclcyXzFmTmhNRlFoVFZXVm1jQ3k?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## The Jason Show: Taylor Swift's Grammy Museum interview, Fast Food Field Trip - FOX 9 Minneapolis-St.
-
-- first seen: 2026-08-25 17:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Jason Show: Taylor Swift's Grammy Museum interview, Fast Food Field Trip  FOX 9 Minneapolis-St. Paul
-- sources:
-  - [unverified] FOX 9 Minneapolis-St. Paul — https://news.google.com/rss/articles/CBMiW0FVX3lxTE1iWndPeGVoM2lNaDFlbDRyQU5JMkx6Ui14eEFJdk5Qd2VVbzNEcEFaSWV5YWhxLUh3M2tta1VGUTBXa1BaS3VjbjFiZ0Z3Yl9Ea2x5Y3VOamV6RkXSAWBBVV95cUxOTjhxVURWTy1MXzItZG5uYVptZWgtZFh1dmlXVjZoa09RdUMtWTgtN3ZJak9TY200TGdBTjZQUmhLODFQUVA4Zk1YZ25tLXRTTUptYzdEbVR4Q3lTdU5rcFM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift impersonator finds joy, fulfillment in bringing icon to region - journal-news.net
-
-- first seen: 2026-08-25 17:42 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift impersonator finds joy, fulfillment in bringing icon to region  journal-news.net
-- sources:
-  - [unverified] journal-news.net — https://news.google.com/rss/articles/CBMijgJBVV95cUxNNkh3ZzRGdlAxVVFrdVNsTFpyVy1KdjU1ZmNEODdPMXVQWm00NjdlcUpXd05sVDRSUHdncTlLYXpueTFCVGtSOTFuMUtyclh2RjE4eVJVWWU0RWJuR0ZoWTJmSUZNNFJ0a0x2SVNIZTVFaEhFMm1BMG5qVWE0YnZIY3RVMmVUMjBNRGV6S19OSVlCLWc1VjNBSHRpTEhkZU5EajBwSE5jR3FyMkozVkFPNkdPcGNWWVNreFFXUTJnSTQwWVNUbUY3VlEtUFlPQlhadFlYNFkwT2tRcTBLUUpPaVN4M05hVGpDRF9QbGFwVkFmVGdjUHI1UHJ5cmZfa04zNWd3WE4wendVT2pXa2c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Is Taylor Swift's Floral Updo a Hint About Her Next Era?—See the Video - Allure
-
-- first seen: 2026-08-25 17:42 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Is Taylor Swift's Floral Updo a Hint About Her Next Era?—See the Video  Allure
-- sources:
-  - [unverified] Allure — https://news.google.com/rss/articles/CBMiY0FVX3lxTE4yeFR1cTNwcUFVZHVoQk44MlNaakYtN01ya3BBOTRDRDYxVW5IOGVfVHBqZ2JKVWFHUkZwNHBLSWRlYzUtdGNPa2pSd243aFdpRzk1VWE3ZzIyVldEZVJjaDRkQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift’s Light Green Outfits Have Fans Predicting Her Next Album - ELLE
-
-- first seen: 2026-08-25 17:42 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift’s Light Green Outfits Have Fans Predicting Her Next Album  ELLE
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMitwFBVV95cUxQZE5vSlJELXc4TU5laEkyUGUwVEtQdGJMc1JsQ3VWeFBkWnNDQ0lvZjNfOGZDOEhuTzlFR3hJMk14R2lDZTA0TU93b3BkWnRkQWRlZ0c2ZUJnWmRfZEx2UV9ydnVLczBaOUVZOGJla1liV0pYM1JMdXFyTXg0NmNpRmp5YWFrN243Y0NoRlpXUFMwT29qMDFsbHZkVW5SUmtMd1RRTERFTThoWXBCdGdvdzlpNXBEXzg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQbHh5LUhUZkNNY2dsaW1JZmZ2VHl2YjdPNm5nc05Rb1A3MmhRLVp1eU5ZMm5HTTA5clZ4Qzg4M3FGZ0NoSE5tUkZFZWdYYklIVG9YSTBBdDNnMWFVbUpoWlVVQXZ4dzZGbDQ3RXpkbEI0eXJjNHlqckx0SF9OYngzdnpTcmtRZlBjaEJwaU5oNURpM0FGbU1VWlhZajNFam8?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Why Everyone Thinks Taylor Swift’s Dôen Dress Is a DebutTV Easter Egg - Yahoo
-
-- first seen: 2026-08-25 14:00 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Why Everyone Thinks Taylor Swift’s Dôen Dress Is a DebutTV Easter Egg  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQVUVZQ2N1aDc0MVFDUnlVVGx2RWpiOWZwNWlwWU1haGppRzdrV1hWVExucXBkc0lGTGtxR29mWE5JNDkyUG84ZXN5bENSLWZHNlVkUVRLNGY2MXFaZEJuN3NsSUNZYkdpaVFBTERFbklsWEIyMnZCN0FvTG1OSmlBcXBWMTlzYXlKeUdOc3pWYjdlaEVjcWltdDFKMlRybDg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Candid Confession About Fame in First Interview Since Her Wedding - instyle.com
-
-- first seen: 2026-08-25 14:00 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Makes Candid Confession About Fame in First Interview Since Her Wedding  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPdE4xSEdSb00ya0JJclJiSUZvSE5uSnVPYkktNGt3MUJmRndYNjNzMjI3T2pfQ1FWOGo5bFlmc2FuWlZueFN3aFppeW5ZV1lrNWk0eWRGNmRHMERFZ2xnWlJrWWVGRXI1Z1U5b2FES3o0SlphOE5xLUNVbzNQQTdwMVBueVVaSlhDbXpmeWdRcEhFdTFEeFpwZnJzSGRLUlhsQWhWNmN3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift performs mashup at Grammy Museum Icon Sessions gala - upi.com
-
-- first seen: 2026-08-25 14:00 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift performs mashup at Grammy Museum Icon Sessions gala  upi.com
-- sources:
-  - [unverified] upi.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxQdGlrQjh0cFRzWWhCTmJZOWxkMzNVTDZFZ19seE1lNG5GQ0ZyczBWTDBFTUNZem9mTXhQX1M5SG5wdEQ1ejRxb2NYYzduRlZRZ3B0ZGZqSDJuZ2NXLTRJYnp2M3YxT3pKVmxzOXNoYmJtTWNxMmk2ZjZkMlBvZkZQVEs2RnZyaENXX0NSdXhrZFRFcVl4VEFBTTQxZmttVFVwUWVhNFNIQ0Y2aG1qMUVUSVJNOXBBX3I1S1h3bNIBwgFBVV95cUxOVkRNOWJjQkQ1UE1NbjFaSFNmMHk2bWxfNHlYSl9tTm10OUZ2QmZITU5EaFpiSFVvdFo1VE5VX01sRTFkejBMWjZZZjZEbnJBV1J5UHVZQWlOZ1FFSXlGamFwX0R6QmhtV01aWGxnNEZJWUhCQmd5WUdkemNnQVJHRXAyMVM5OEh6T3hIbTdhc0paTnFsQUFHcnAtcWhsUDlZYkYycE1xbHNnT0pxWUhPcXZGSzhPZHJ0N0RkSVBKSmR0dw?oc=5&hl=en-US&gl=US&ceid=US:en
