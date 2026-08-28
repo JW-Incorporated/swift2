@@ -8764,6 +8764,28 @@ export default {
             kind: 'archival',
           },
         ],
+        // Rumor Desk 2026-08-27: the five nominations are confirmed fact and
+        // stay in the narrative above; what is still unsettled is the OUTCOME —
+        // how many, if any, she converts to wins. Labeled here as a lifecycle-
+        // tracked award-chances item (same pattern as the 2026 VMAs entry on
+        // fate-of-ophelia-lead-single), so it resolves on ceremony night
+        // rather than sitting as an open question buried in prose. Award-/
+        // recognition-chances is an explicitly Always-OK public-facing category
+        // (privacy-redlines.md § Always OK); no location, whereabouts, or any
+        // other redline material — the ceremonies are televised public events.
+        rumors: [
+          {
+            claim:
+              'Taylor Swift heads into the 78th Emmy Awards with five nominations for Taylor Swift: The Eras Tour: The Final Show — including Outstanding Variety Special (Pre-Recorded), the category she is personally credited in as performer and producer — leaving open how many, if any, she converts to wins across the Creative Arts ceremony (Sept. 5-6, 2026) and the primetime telecast (Sept. 14, 2026).',
+            reportedBy: 'Rolling Stone',
+            reportedOn: '2026-07-08',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-2026-emmy-nominations-eras-tour-final-show-1235590955/',
+            note: 'Award-chances speculation — an Always-OK public-facing category. The five nominations and both ceremony dates are announced fact; only the outcome is unsettled. Resolves at the Creative Arts ceremony (Sept. 5-6) and the primetime telecast (Sept. 14, 2026). Distinct from this moment\'s confirmed-nominations narrative; labels the unsettled outcome. No redline material.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-27',
+          },
+        ],
       },
     },
     {
@@ -8771,10 +8793,15 @@ export default {
       // Confirmed on-record appearance + performance: named public venue
       // (Grammy Museum), named interviewer, dated, invite-list reported by
       // multiple outlets (Just Jared, heavy.com) and verified via web search.
-      // The exact setlist was NOT disclosed by any outlet, so no songs are
-      // named here — "a few songs" is as far as the record goes. Grammy Museum
-      // is a public venue and this is a documented past event (L2), no redline
-      // material.
+      // SETLIST UPDATE (Vault Run 2026-08-27, enrich from appearance intake
+      // #3382): the Recording Academy released a recording of the performance
+      // on Aug. 24, 2026, so the setlist is now on the record — an Eras
+      // Tour-style piano mashup of "I Knew It, I Knew You," "August," and
+      // "All Too Well," corroborated across UPI, JamBase and regional wires.
+      // (Intake #3382's machine-detected "reflected on The Best Day" framing
+      // was NOT independently corroborated and is not authored here.) Grammy
+      // Museum is a public venue and this is a documented past event (L2), no
+      // redline material.
       slug: 'showgirl-grammy-museum-icon-sessions-retrospective',
       year: 2026,
       month: 8,
@@ -8782,7 +8809,7 @@ export default {
       category: 'music',
       title: 'A secret Grammy Museum show: the Icon Sessions 20-year retrospective',
       snippet:
-        'On Aug. 18, 2026, Taylor sat for an invite-only career retrospective at the Grammy Museum in Los Angeles — “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” staged for the Recording Academy’s Songwriters & Composers Wing. Recording Academy CEO Harvey Mason Jr. led a career-spanning Q&A, and she performed a few songs for the roughly 100 guests.',
+        'On Aug. 18, 2026, Taylor sat for an invite-only career retrospective at the Grammy Museum in Los Angeles — “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” staged for the Recording Academy’s Songwriters & Composers Wing. Recording Academy CEO Harvey Mason Jr. led a career-spanning Q&A, and she performed an Eras Tour-style piano mashup for the roughly 100 guests.',
       sourceUrl:
         'https://www.justjared.com/2026/08/21/all-about-taylor-swifts-secret-show-in-l-a-this-week-who-was-invited-to-attend/',
       thumbnailUrl: null,
@@ -8799,7 +8826,7 @@ export default {
       ],
       moment: {
         context:
-          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance of a few songs for the small crowd — even as the specifics stayed inside the room. No setlist was released, and none is invented here; what is on the record is that she performed, not what. The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what surfaced came from the guests themselves rather than any official recording.',
+          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance for the small crowd — though at first the specifics stayed inside the room. On Aug. 24, 2026 the Recording Academy released a recording of the performance, and the setlist came with it: an Eras Tour-style piano mashup of three songs she tied together by the theme of memory — her 2026 single “I Knew It, I Knew You,” “August,” and “All Too Well.” The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what first surfaced came from the guests themselves, before the Academy’s own recording put the performance on the record.',
         sources: [
           {
             outlet: 'Just Jared',
@@ -8817,6 +8844,27 @@ export default {
             publisher: 'heavy.com',
             source_type: 'reputable_press',
             accessed_at: '2026-08-24',
+            reliability_score: 3,
+          },
+          // Setlist reveal — the Recording Academy released a recording of the
+          // performance on Aug. 24, 2026; the three-song mashup is corroborated
+          // across these two outlets (Vault Run 2026-08-27, enrich from #3382).
+          {
+            outlet: 'UPI',
+            url: 'https://www.upi.com/Entertainment_News/Music/2026/08/25/taylor-swift-performs-grammy-museum-icons-session/4891787660864/',
+            source_title: 'Watch: Taylor Swift performs mashup at Grammy Museum Icon Sessions gala',
+            publisher: 'UPI',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-27',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'JamBase',
+            url: 'https://www.jambase.com/article/taylor-swift-grammy-museum-icon-sessions-video',
+            source_title: "Taylor Swift Performs Eras Tour Piano Mashup For Grammy Museum 'Icon Sessions'",
+            publisher: 'JamBase',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-27',
             reliability_score: 3,
           },
           // Official-channel video coverage of the same event — added from
@@ -10930,6 +10978,9 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/23/David%27s_Bridal_Shop_Ann_Arbor_Michigan.JPG',
+            // Focal point set (photo pass #762): storefront sign band sits
+            // just below center, with a wide band of blank sky above it.
+            focalPoint: '50% 58%',
             credit: 'Wikimedia Commons',
             caption: 'A David\'s Bridal storefront — the bridal chain reported to be designing "Taylor-style" wedding dresses ahead of her gown reveal.',
             kind: 'reference',
@@ -11228,14 +11279,14 @@ export default {
               'Taylor leaving Annabel\'s in London, Aug. 12, 2026, in the lavender Delphine minidress — her first solo outing since the wedding, and the debut of her shorter cut.',
             kind: 'primary',
           },
-          {
-            // Photo pass (issue #1721, 2026-08-25): a second, distinct photo
-            // from the same story.
-            url: 'https://cdn.mos.cms.futurecdn.net/puNZugpX8YTq3heebk9Vy6-1920-80.png',
-            credit: 'Marie Claire',
-            caption: 'Taylor Swift in a lavender minidress with a shorter haircut, her first public outing since her wedding, London, August 12, 2026.',
-            kind: 'reference',
-          },
+          // Photo pass #762 (2026-08-27): the second photo previously here
+          // (cdn.mos.cms.futurecdn.net/puNZugpX8YTq3heebk9Vy6-1920-80.png,
+          // credited "Marie Claire") was downloaded and vision-checked —
+          // it is a live-performance photo (long hair, mic stand, guitar,
+          // concert stage lighting), not the London night-out described in
+          // the caption (short hair, lavender minidress, off-stage). Removed
+          // as a verify-first failure rather than kept or focal-pointed;
+          // flagged for follow-up if a genuine second photo surfaces.
         ],
         // Stylist run 2026-08-16: verified live retailer product pages for
         // the dress and sandals (both currently purchasable) and the clutch
@@ -11920,7 +11971,36 @@ export default {
         // authoring time. Shipped text-first per the charter — the
         // photo-sparsity/social-post checkers will route it to Photo Enrichment
         // if a verifiable visual (an embeddable @taylorswift post) surfaces.
+        // Photo pass #762 (2026-08-27): re-checked. TODAY/Variety/Hollywood
+        // Reporter all illustrate this story with editorial red-carpet
+        // composites (a Songwriters Hall of Fame pairing, or unrelated
+        // performance shots of each woman) — not photos of the tribute
+        // itself, which is a text post. Rejected as off-subject stock rather
+        // than added; stays text-first.
         photos: [],
+        // Rumor Desk / Content Shift (2026-08-27, from intake #3393): in the
+        // days after Parton's death, tabloid/sports coverage floated Taylor as
+        // "lining up" for a hypothetical Dolly tribute concert. Adjudicable and
+        // attributable, so it lands as an honestly-labeled unconfirmed rumor —
+        // not woven into the confirmed tribute narrative above. Region-capped
+        // (forward-looking/speculative provenance = L0; no venue is announced),
+        // and the sports-blog "will Travis join her?" angle is dropped as
+        // third-party attendance speculation about a hypothetical event.
+        rumors: [
+          {
+            claim:
+              "In the days after Dolly Parton's death, heavy.com reported that Taylor was among the music stars said to be \"lining up\" to perform at a possible Dolly Parton tribute concert — coverage floated it as potentially one of the biggest memorial concerts in music history. As of late August 2026 no such concert has been scheduled and no performer lineup has been officially confirmed.",
+            reportedBy: 'heavy.com',
+            reportedOn: '2026-08-26',
+            status: 'unconfirmed',
+            url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-dolly-parton-tribute-travis-kelce/',
+            sourceTier: 'tabloid',
+            locationSpecificity: 'region',
+            lastCheckedOn: '2026-08-27',
+            note:
+              "Forward-looking speculation about an unscheduled event, carried by a single low-tier outlet, so it enters as an unconfirmed rumor, not authored narrative. Held at region: no venue is announced. The sports-blog \"will Travis join her?\" angle is dropped as third-party attendance speculation. Resolves confirmed if a concert is announced with Taylor on the bill; fades if it never materializes.",
+          },
+        ],
       },
     },
     {
@@ -11990,11 +12070,26 @@ export default {
             reliability_score: 3,
           },
         ],
-        // The only visual is Parton's own thank-you video, posted from her
-        // account (not @taylorswift), so it fails the socialPost embed bar; no
-        // reusable, event-specific still is available. Shipped text-first, same
-        // as the sibling Answer the Call gift.
-        photos: [],
+        // Photo pass #762 (2026-08-27): TMZ's own hero image for this exact
+        // story (imagez.tmz.com, TMZ's own CDN), curl-verified 200 image/png,
+        // downloaded and vision-confirmed — a still from Parton's thank-you
+        // video (home setting, white cardigan) with an inset photo of Taylor
+        // and Travis. Supersedes the prior "no reusable still" call: the
+        // article's own og:image is TMZ's editorial composite of the actual
+        // video, not a generic stock photo of either party.
+        photos: [
+          {
+            url: 'https://imagez.tmz.com/image/01/16by9/2026/07/03/013454ea9da94fababeafb76a850bbc5_xl.png',
+            // Dolly's face (the thank-you video itself) is the primary
+            // subject, upper-left-of-center in the frame; the Taylor/Travis
+            // inset sits lower-right and stays in view under a wide crop.
+            focalPoint: '48% 24%',
+            credit: 'TMZ',
+            caption:
+              'Dolly Parton records her thank-you video to Taylor and Travis for the $2 million Imagination Library gift, with a photo of the couple inset.',
+            kind: 'primary',
+          },
+        ],
       },
     },
   ],
