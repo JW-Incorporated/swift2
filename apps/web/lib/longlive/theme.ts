@@ -66,6 +66,17 @@ export function merchStyle(): CSSProperties {
   return themeStyle(MERCH_THEME);
 }
 
+/**
+ * The on-fill foreground for a theme's solid `accent` (#3318): the theme's
+ * `accentFg` override, else the fixed near-black every current accent clears
+ * 4.5:1 against (theme.test.ts sweeps all themes). Use wherever an accent is
+ * painted as a fill outside the CSS-variable pipeline — e.g. chips colored by
+ * a *different* era than the surrounding page (#3397).
+ */
+export function accentFgFor(t: EraTheme): string {
+  return t.accentFg ?? '#000000';
+}
+
 /** Shared: turn any EraTheme into the runtime CSS custom properties. */
 export function themeStyle(t: EraTheme): CSSProperties {
   return {
@@ -77,7 +88,7 @@ export function themeStyle(t: EraTheme): CSSProperties {
     ['--era-line' as string]: t.line,
     ['--era-accent' as string]: t.accent,
     ['--era-accent-text' as string]: t.accentText ?? t.accent,
-    ['--era-accent-fg' as string]: t.accentFg ?? '#000000',
+    ['--era-accent-fg' as string]: accentFgFor(t),
     ['--era-accent-2' as string]: t.accent2,
     ['--era-glow' as string]: t.glow,
     ['--era-font' as string]: FONT_VAR[t.font],

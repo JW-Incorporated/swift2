@@ -12,6 +12,7 @@ import {
   type Crossing,
 } from '@/lib/longlive/lenses';
 import type { LensId } from '@/lib/longlive/types';
+import { accentFgFor } from '@/lib/longlive/theme';
 import { cn } from '@/lib/utils';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { resolveCrossingMarkerTops } from './crossingMarkerLayout';
@@ -426,8 +427,10 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
                 <span
                   className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold tabular-nums"
                   style={{
-                    background: `color-mix(in srgb, ${getEra(c.eraId).theme.accent} 18%, transparent)`,
-                    color: getEra(c.eraId).theme.accent,
+                    // #3397: accent-as-text on its own tint fails WCAG 1.4.3 on
+                    // several eras; a solid fill + accentFgFor is AA on all of them.
+                    background: getEra(c.eraId).theme.accent,
+                    color: accentFgFor(getEra(c.eraId).theme),
                   }}
                 >
                   {fmtYear(c.date)}
@@ -515,8 +518,9 @@ function CrossingDetail({
         <span
           className="rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
           style={{
-            backgroundColor: `color-mix(in srgb, ${era.theme.accent} 16%, transparent)`,
-            color: era.theme.accent,
+            // #3397: same text-on-self-tint failure as the year badge above.
+            backgroundColor: era.theme.accent,
+            color: accentFgFor(era.theme),
           }}
         >
           {era.shortName} · {gapLabel(crossing.gapDays)}
