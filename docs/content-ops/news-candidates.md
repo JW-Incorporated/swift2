@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 52
+Stories: 51
+
+## Caitlin Clark Debuts Taylor Swift-Inspired Nike Sneakers
+
+- first seen: 2026-08-29 14:25 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark showcases her new Nike sneakers inspired by Taylor Swift, blending fandom with fashion. The design reflects her admiration for the artist while appealing to sneaker enthusiasts.
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMiigFBVV95cUxQRXZtclB1NFc4SVZmRFF5TG96ejAxUDZsQ0ExMVBldEJhZjhOZ09QbXd2SFV2b2hsaVQ5OUkxclIxajRCbkp1NWo0RzhQc2NhZkoxa0twRDhHSHFoSkpJaW9qS2tHNVdIenV3Q0pIUmtLUlhRY3NPcG44RXF1emEzVm16YWQySk12LXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Exes Share Their Insights on Taylor Swift
+
+- first seen: 2026-08-29 14:25 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report discusses various revelations made by Taylor Swift's former partners about her. The insights provide a glimpse into her personal life as conveyed by those who have been close to her.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxPU2xSZEpOSGpXZTBPbEtqWUU4SDN3bkVVZlo2eHpwYzd2QlVMZ3d2R09kc09Ld3d0eVdRYkVCNnM5aDM0blFDOTZaYktvMkNVY3hZRXJfRXVqc3k1LU5kQTFVSkVoWWFTbXBSOWl5WFBsTFhCa0E0cnVBV09XOHVSaXYycWVpTjc0MkJ3YWJTY3p0anpDUmc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Wedding Band Enhances Her Bridal Ring Collection
+
+- first seen: 2026-08-29 14:25 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An article discussing the details of Taylor Swift's wedding band and how it complements her existing bridal ring stack. The piece highlights the design and significance of the new addition.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNN3JVaVJ4aHE4Zlp4cDc2OW1Ea2hQZzVrV1A4djA4VW9jSUZkU0hBa2d5YUIwU1E4TjEtRmxPMEh6cUpNTDYwSzEzOHVIZG1hLV9hdGoxd0JubW80MGJQa0YyMWtoM3UwbFBsYjd5VjhsUXFxMWdiU1lnVFdnaXpId1AxU0hFQmprSWx3NndyNVBVbjAyMmlTUWNiYk9Cby0xekE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's First Major Career Decision Post-Travis Kelce Wedding
+
+- first seen: 2026-08-29 14:25 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Following her wedding to Travis Kelce, Taylor Swift has made significant career choices. Details on these decisions are currently limited.
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMitgFBVV95cUxNUHYzbGpPaGJIQU5FZkQ3LTlUc1FmY1ZyckVobXI4OWc3OVBlOVozVlo4NVVOTld6ZmdjSkFIVV94VkZIanBvNjh6ckx5OXpLOWIzQlVGUi1JQ0g3cWtnbjNndk9UaENlUFpQWklvUldhQUlmUEI2eHVhU2pQSjNXQlNVRzlWWS05LS1kbms4bTFXYTZJV2ZVS1lFS2xOTm0yYklMbGFOci16MmZkZllfaFNZd1I1Zw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Caitlin Clark Shares Taylor Swift's Take on New Nike Friendship Bracelet Shoe
 
@@ -67,17 +99,6 @@ Stories: 52
 - sources:
   - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNZWZQV2tZcjJaSnFTWUo0SUh5c1JQcElFVndWWkhJVF9pQ1p2VzBzZEw2b1VfS0lWQV95N2YzR2sxaVVZZ2JvbnBOcFp2TmNhcWZVWjNRaVZPV0l6RXJTOEVHUEdFcUw5MGcxRHdKcERnX2sxOWhELXlvQzR0S3lXRUFZODUyQW16XzFr?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Donates $50K to Support Recovery of Car Accident Victim
-
-- first seen: 2026-08-29 07:50 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift has donated $50,000 to a mother who was injured in a car accident, expressing her support with a heartfelt message wishing for her best recovery.
-- sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipwFBVV95cUxQOUlueXBxSENrSkdlU0tiZFc5cnhZQmszckVzM1ktdVlqOTRNRVpmbVVaeUI4aFpUTl9hUFVudUtuUWk5WkJZRkFzRGtQS1BfelZBNEZ3SGE4UnExZ0lhc2pTTU5TUlF1ekNxZW5VUVdaaUJwN01QSGdVckFUZnRBQ1hjWlg0anJUbTJhT3hHSVdaOHdUR2t3NGJMRzFGMEd1T2haeHJqZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiogFBVV95cUxOaUx5bzlSZlhPUTdQM2NKbFNrZFJLTTVFTGpkNVRJY1hVU1VpOVg1VWhTSFZFMm0wQ0p3ekhEbWJJc3JaWFhQM3U1eGxUaFQzN0pjUHQxaHR4ZHlQd193RHFfajZTNU5MaEh5YUs3SVJWSjBjRFZUTm9VeHA2cFZEeUhMbEtqZlhBR0NDSGJYVkpIN0UtUTYtY0pkWUp2NTNCbGc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQU2U3VDhwRFRxVjF5VGFkT3NXWDRlWGhlbHJIUkRCM2NTRGdPQnRYV2VOU1JkdkFaZjZidXZUaG9TYW5hZmtReTkxMEJ0MDZvS2s2OHAyQkZmVU1Fd3E0YmhTUjR2RHU2akNZcXM1Z193LU1aYzQybHdyQ1VRdmNpbXRRNVRDa292YXNXMnpBcXNMakZmTWJjV0ExZWNPX3BCU2F1bk8zYUFYamc?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Makes $50,000 Donation with Personal Message
 
 - first seen: 2026-08-29 07:50 UTC | category: business | importance: 8
@@ -85,6 +106,18 @@ Stories: 52
 - summary: Taylor Swift has made a surprise donation of $50,000, along with a heartfelt message, showcasing her philanthropic efforts. The news highlights her commitment to giving back to the community.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPUkZXRzE2eE52MXJsMHZSRk5UbGpDQ2dIdzBtTmVid2FkWktHNFpMWll0UE5JRElnZUVmSWhXNUYzYTMwSjBScVVJQzBvMVExdWNMU2kwMFg2bWhOQ2EybjhMQVZQSlBhSG4talNKT0NGejF2X0xVaDA3U1Z6aXFfdTBRckdNMGZkQjZnS2pzcFZiM25OSHhTY3hJNnRWaFdFZ0RqMFdNRnpxZmM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Donates $50K to Support Recovery of Car Accident Victim
+
+- first seen: 2026-08-29 07:50 UTC | category: business | importance: 8
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift has donated $50,000 to a mother who was injured in a car accident, expressing her support with a heartfelt message wishing for her best recovery.
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipwFBVV95cUxQOUlueXBxSENrSkdlU0tiZFc5cnhZQmszckVzM1ktdVlqOTRNRVpmbVVaeUI4aFpUTl9hUFVudUtuUWk5WkJZRkFzRGtQS1BfelZBNEZ3SGE4UnExZ0lhc2pTTU5TUlF1ekNxZW5VUVdaaUJwN01QSGdVckFUZnRBQ1hjWlg0anJUbTJhT3hHSVdaOHdUR2t3NGJMRzFGMEd1T2haeHJqZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiogFBVV95cUxOaUx5bzlSZlhPUTdQM2NKbFNrZFJLTTVFTGpkNVRJY1hVU1VpOVg1VWhTSFZFMm0wQ0p3ekhEbWJJc3JaWFhQM3U1eGxUaFQzN0pjUHQxaHR4ZHlQd193RHFfajZTNU5MaEh5YUs3SVJWSjBjRFZUTm9VeHA2cFZEeUhMbEtqZlhBR0NDSGJYVkpIN0UtUTYtY0pkWUp2NTNCbGc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQU2U3VDhwRFRxVjF5VGFkT3NXWDRlWGhlbHJIUkRCM2NTRGdPQnRYV2VOU1JkdkFaZjZidXZUaG9TYW5hZmtReTkxMEJ0MDZvS2s2OHAyQkZmVU1Fd3E0YmhTUjR2RHU2akNZcXM1Z193LU1aYzQybHdyQ1VRdmNpbXRRNVRDa292YXNXMnpBcXNMakZmTWJjV0ExZWNPX3BCU2F1bk8zYUFYamc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Go Local Prov — https://news.google.com/rss/articles/CBMipwFBVV95cUxNVGN1NW5VaS01RXNjVGR3azhMOXNCRUZlMm5QR012MlJ1OGFCb3BuQVMySWhMal9XT25xcWNHSk9yNFhGWjV2ZlpRdXEybjM5azFaQnhFSlBhbUd2V0dFdXF5azRyVktmcmh0UWZhc0hyZUpWcjlZU1FTT3pvOHg1aUItUF9zOEdqcEo3M05nRjFuYjlZeWM0QmZfeXE1TmlRQktXdlVwTQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Donates $50K to Assist Injured Mother
 
@@ -418,43 +451,3 @@ Stories: 52
 - sources:
   - [unverified] 102.7 Coyote Country — https://news.google.com/rss/articles/CBMixgFBVV95cUxQT2VwY25FbkRlbUZDMjdNbC15TzZ6UUNOY01PcjFfazBWWEc0bzJjUG45RTFtZkZPOWVaMmk5dHBtZWVIZHNFcUhnSUJOU3BsdWNvQ3l0UHAzcmxJTm1HZHBfWUk3dlJWeUFyOVNBalJ5dzFtZFhkc1dQLTZuN2NDOXA4dXZIdTJkY2dQWFd3MGRvQTFpSjZPc1BYeVd2TDlQWFZkb0VtV1I5SXRNVUdtZDBNVGFYUXgzOEdYYkpyYjdnemlPcVE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] 92.5 XTU — https://news.google.com/rss/articles/CBMiugFBVV95cUxNaUhKVlkwdXRoeTJjSXg3d2ZNbVZ6SzQzMmhMazhKRlFlRjJkVHU0UmtBekI4NzhyeFhMbjBYcWdFRWE2Qi1mdUFtMkFvV1d0Q2hiLVJGMTZDSEZPbzdGYmk2YUotSTNLNTNtSFBXMUlKdmctZ01YNkhTZmMyWlRzeEZ0d2p4OVBkbE9TVElfU1loYkRDb2k4Q1ExRXQ3S1RzcjhTUmNqTGZCVDBpX18xWUptd3YxYkd3T3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Honors Dolly Parton's Generosity
-
-- first seen: 2026-08-26 14:01 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has expressed her admiration for Dolly Parton, calling her 'eternally generous' in a heartfelt tribute. The acknowledgment highlights Swift's respect for Parton's contributions to music and philanthropy.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPOFpLYklQVlZIUXRJMkkwOWJEVWlyOUxPZ1JoZ2FyNXpmNXNlQ1hGOTBoVnM0ZXlMTWtKMTVWT3pjT1ZqZldTYjV2RFM4bDJFUkVuaUN2MkZTd0hlenhOTURfYTA2VC1zVlhyRW56a2otelhLam0wOWljekFlNjcyRHpVVGpLaFRCT21pUE1JVjJwOXI2d2pXRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Critics' Initial Misjudgments on Taylor Swift's Work Addressed
-
-- first seen: 2026-08-26 14:01 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses common misconceptions that early critics had regarding Taylor Swift's music. It highlights how these critiques failed to capture the true essence of her work.
-- sources:
-  - [unverified] Newser — https://news.google.com/rss/articles/CBMimAFBVV95cUxPM0pQMXpHVnJNWVZMNTVUOXp4WFF1bHEzTUJIYjlhckpxWDgwbHdsanNZU05Ic0RGbmYzVzM2c21xbXpIQUd6TE8yMHo4M3JLbk01Z0RnWmRURXRhaDN0MG9wQ1FRWkhrV1VRYlJlT0k2RnU5MEQtQURaWDNvdHIwcDluMkRpUHpNdkNCVVVtRWJvOE54QXdtMQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Jack White Revives ‘Jolene’ Cover in Tribute to Dolly Parton
-
-- first seen: 2026-08-26 14:01 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Jack White performed his cover of Dolly Parton's 'Jolene' live for the first time as a solo artist, reviving a song that was a staple in his previous band, the White Stripes. The cover was originally released as a B-side in 2000 and has been performed extensively by White in the past.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2509433/jack-white-revives-jolene-cover-in-tribute-to-dolly-parton/news/
-
-## Beyoncé and Taylor Swift Pay Tribute to Dolly Parton
-
-- first seen: 2026-08-26 14:01 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Beyoncé, Taylor Swift, and other artists come together to honor Dolly Parton in a heartfelt tribute. The piece highlights the significant impact Parton has had on the music industry.
-- sources:
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMibkFVX3lxTE5RckUwejhtLXZJb0tyZmtvbWZlYXc1aVhYaFRQbjFzczdEX0g3SEhEY0VxZzdSQmllM0RyOVV3b2F3MTh0STFlZTlsUk9rRjVNcWZVcF9RMXVkNkpTNGlNVnprdVZMcGdFTzlrbEpB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Among Stars Mourning Dolly Parton
-
-- first seen: 2026-08-26 14:01 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift joins fellow artists including Beyoncé and Reba McEntire in mourning the loss of Dolly Parton. The tribute highlights the impact Parton had on the music industry and her legacy.
-- sources:
-  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMiigFBVV95cUxOeXdJYUZVM3c2S3U1OWE4VnJlQW1MU3FMdmhFOHlVUldNRVpOc0NtY3U0U2kwWjdwaF9yMndZRGJIX1ZOajhnbmRIRlU0U3FxMGlhSlBrZ2tLcndScXVTa2NrYXZpazM2VzZxYUF2eFE3RFRySzVneHVEVmFWUEFBYVh3TExBMVFGZUE?oc=5&hl=en-US&gl=US&ceid=US:en
