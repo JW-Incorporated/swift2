@@ -1,9 +1,0 @@
-{
-  "platform": "x",
-  "body": "\"Taylor Swift reflected on “the best day” from 'fearless' | the icon sessions\" just dropped from grammys — running to go watch this right now!! https://www.youtube.com/watch?v=T6iTnTV-Rgw",
-  "scheduledAt": "2026-08-27T01:12:26.509Z",
-  "campaign": "appearance:T6iTnTV-Rgw",
-  "why": "Auto-drafted as an X + Instagram pair by appearance-discovery (fast lane) from a genuinely new, deterministically-matched official upload — rule \"taylor-swift\", channel GRAMMYs. Unverified beyond RSS metadata (title/channel/URL only; nobody has watched the video) — see docs/decisions.md 2026-08-25 (\"Detection-triggered social auto-post\" and \"X + Instagram pairing\"). The slower Vault-authoring lane still gets its own intake issue for the same video.",
-  "failureReason": "Still unposted more than 48h after scheduledAt — moved to social/failed/ regardless of current guard/preflight state (see social/README.md's 48h rule).",
-  "lastAttemptAt": "2026-08-29T08:16:24.301Z"
-}
