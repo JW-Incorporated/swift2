@@ -61,8 +61,8 @@ Extend `Product` — all fields optional, all backward compatible:
 
 ```ts
 /** Graded match quality, written ONLY by the E3 auditor or E6 matcher. */
-matchTier?: 'exact' | 'close' | 'similar' | 'inspired';
-/** 0–100 auditor confidence backing matchTier. */
+matchTier?: 'exact' | 'close' | 'similar' | 'inspired' | 'unscored';
+/** 0–100 auditor confidence backing matchTier; absent when matchTier is 'unscored'. */
 matchScore?: number;
 /** ISO date the link/stock/image were last machine-verified. */
 verifiedAt?: string;
@@ -73,7 +73,8 @@ kind?: 'dress' | 'top' | 'bottom' | 'outerwear' | 'knitwear' | 'shoes'
      | 'jewelry' | 'bag' | 'hat' | 'eyewear' | 'beauty' | 'accessory'
      | 'music' | 'collectible' | 'home' | 'other';
 /** E4 only — a secondary affiliate-able listing of the same item
- *  (e.g. the Amazon twin of an official-store product). */
+ *  (e.g. the Amazon twin of an official-store product); routed
+ *  through the same listing-scoped seam (section 2), disclosure included. */
 altListing?: { retailer: string; url: string };
 ```
 
@@ -104,7 +105,9 @@ export type Network = 'awin' | 'amazon' | 'catchall' | 'none';
 export function networkFor(retailer: string): Network;
 ```
 
-`buildShopUrl()` branches on `networkFor(product.retailer)`:
+`buildShopUrl(listing)` accepts any listing (a product's primary
+`{retailer, url}` pair or its `altListing`) and branches on
+`networkFor(listing.retailer)`:
 
 - **awin** — Awin deeplink format
   `https://www.awin1.com/cread.php?awinmid=<mid-from-map>&awinaffid=<AWIN_ID>&clickref=<subid>&ued=<encodeURIComponent(url)>`.
@@ -117,17 +120,19 @@ export function networkFor(retailer: string): Network;
   preserve existing params).
 - **catchall** — dormant until D2's residue case is proven; wrap format
   specified at signup, `xcust`-style param carrying `<subid>`.
-- **none** — return `product.url` unchanged (official bucket under D1-a,
+- **none** — return `listing.url` unchanged (official bucket under D1-a,
   unmapped long-tail pending an Awin join, or an explicit exemption).
 
 `<subid>` = `${eraId}.${momentId}` (or `official`/`fanmade` bucket ids) —
 this is the analytics spine: network dashboards then report clicks/revenue
 per era and per moment with zero client-side tracking added.
 
-`isAffiliate()` returns `networkFor(retailer) !== 'none'` **and** the
+`isAffiliate(listing)` returns `networkFor(listing.retailer) !== 'none'` **and** the
 corresponding credential env var is present — so the disclosure and the
 wrapping appear atomically per network as each signup completes, and the
-site never renders a broken half-wrapped link while Phase 0 is in flight.
+site never renders a broken half-wrapped link while Phase 0 is in flight. The disclosure
+line renders whenever ANY link in a shop block (primary or `altListing`)
+is affiliate-wrapped, so alternate listings carry disclosure identically.
 Credentials: `NEXT_PUBLIC_AWIN_ID` (affiliate id, in the wrap),
 `NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG`, `NEXT_PUBLIC_CATCHALL_ID` (dormant),
 plus server-side `AWIN_API_TOKEN` (Publisher API), `AWIN_FEED_API_KEY`
@@ -228,7 +233,7 @@ The core quality fix. `scripts/merch-engine/audit-matches.mjs`:
    **<25 = mismatch → demoted**: removed from the moment's products and
    filed as a re-source ticket for E6 with the auditor's reasons attached.
 4. Products with no comparable image pair (beauty items, no moment photo)
-   are marked `tier: null` and skip scoring — the UI shows no tier badge
+   are marked `matchTier: 'unscored'` (no `matchScore`) and skip scoring — the UI shows no tier badge
    rather than a guessed one (R2).
 
 Output: migration PR(s) writing `matchTier`/`matchScore`/`kind` across the
@@ -381,7 +386,8 @@ D2's residue case is ever proven). No other new credentials.
 
 **Phase 1:** every product carries `verifiedAt` ≤ 7 days old; zero `dead`
 links rendered as purchasable; zero broken `imageUrl`s (failures fell back
-honestly); all 134 existing products carry `matchTier`+`matchScore`+`kind`;
+honestly); all 134 existing products carry `matchTier`+`kind` (with `matchScore` present except where
+`matchTier` is `'unscored'`);
 sub-25 mismatches removed with re-source tickets filed; typecheck + full
 suite green; no horizontal overflow at 360px on the updated cards.
 
