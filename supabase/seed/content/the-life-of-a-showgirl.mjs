@@ -8128,11 +8128,15 @@ export default {
     },
     {
       slug: 'toy-story-5-disney-plus-piano-version-video',
-      // Cross-links: the same song's main story/Oscar page and its Pop Airplay
-      // chart run — the two richest existing "I Knew It, I Knew You" pages.
+      // Cross-links (extended 2026-08-29, crosslink-opportunity): the same
+      // song's main story/Oscar page and its Pop Airplay chart run, plus its
+      // sibling chart milestones and the music-video debut it followed.
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+        'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
       ],
       year: 2026,
       month: 8,
@@ -8359,13 +8363,16 @@ export default {
     // show it is "Choosin' Texas" (its 16th week at No. 1) — corrected here.
     {
       slug: 'showgirl-country-sweeps-hot-100-top-five',
-      // Cross-link (crosslink-opportunity, 2026-08-24): + its Adult Pop Airplay
-      // No. 1 record, the same song's other chart milestone.
+      // Cross-link (crosslink-opportunity, 2026-08-24; extended 2026-08-29): + its
+      // Adult Pop Airplay No. 1 record and the other same-song milestones — the
+      // music-video debut and the Disney+ piano-version video.
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c',
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+        'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
       ],
       year: 2026,
       month: 8,
@@ -11574,12 +11581,15 @@ export default {
       // detail. Text-first: a chart week has no photography of its own — same
       // call as the sibling chart moments — so no photo.
       slug: 'i-knew-it-i-knew-you-adult-pop-airplay-record',
-      // Cross-link (crosslink-opportunity, 2026-08-24): the same song's other
-      // chart-milestone pages, plus its music video debut four days later.
+      // Cross-link (crosslink-opportunity, 2026-08-24; extended 2026-08-29): the
+      // same song's other chart-milestone pages, its music video debut, the
+      // Disney+ piano-version video, and the Hot 100 country sweep it anchored.
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+        'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
+        'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
       ],
       year: 2026,
       month: 8,
@@ -11896,13 +11906,15 @@ export default {
       // Redline-clean: a product release and a published video, no location,
       // security, health, or private-individual detail.
       slug: 'i-knew-it-i-knew-you-toy-story-5-mv-debut',
-      // Cross-link (crosslink-opportunity, 2026-08-24): the chart record it
-      // follows, the piece that started the song's press narrative, and the
-      // Hot 100 country sweep the same single anchored.
+      // Cross-link (crosslink-opportunity, 2026-08-24; extended 2026-08-29): the
+      // chart record it follows, the piece that started the song's press
+      // narrative, the Hot 100 country sweep the same single anchored, and the
+      // Disney+ piano-version video that followed it.
       relatedIds: [
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
+        'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
       ],
       year: 2026,
       month: 8,
@@ -12200,6 +12212,63 @@ export default {
             kind: 'primary',
           },
         ],
+      },
+    },
+    {
+      slug: 'showgirl-ashley-taunton-donation',
+      year: 2026,
+      month: 8,
+      day: 28,
+      category: 'business',
+      // Nearest philanthropy sibling in this era's giving thread; Cross-Link
+      // can widen this later.
+      relatedIds: [
+        'moment:vault-tloas-a-2-million-gift-to-the-families-of-new-yorks-fallen-first-r',
+      ],
+      title: 'A $50,000 gift to the mother who was hit shielding a stranger on I-95',
+      snippet:
+        'Taylor gave $50,000 — the single largest donation to the fund — to Ashley Taunton, a Connecticut nurse and mother of three who was struck by a hydroplaning car in July while pushing a teenager clear of its path. Her note read: "Wishing you the best recovery possible and sending love to your family!"',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The story that reached Taylor began on I-95. In July 2026, Ashley Taunton — a 42-year-old certified nursing assistant, wife and mother of three from Connecticut — was driving south through Rhode Island in a heavy rainstorm when she stopped to help at a crash where a car of teenagers had hydroplaned off the road. While moving them to safety, she pushed one teen clear of a second vehicle that hydroplaned toward the scene, and was struck herself. A GoFundMe opened to support her recovery.\n\nLate in August, Taylor donated $50,000 to that fund — its single largest gift — and left a message on the page: "Wishing you the best recovery possible and sending love to your family!" It was the kind of quiet, reactive giving she has folded into her year: no announcement and no press release, just a name on a stranger\'s fundraiser and a note. Outlets from Rolling Stone to NME picked it up from the fund itself. What is on the record is the gift, the message, and the everyday act of courage it answered — Taunton appears here only as the widely-reported beneficiary of that public fundraiser, nothing beyond what the coverage carried.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/',
+            source_title: 'Taylor Swift Donates $50k to Help Mother of Three Hit by Car',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-29',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-donates-to-help-mother-hit-by-car-3965433',
+            source_title: 'Taylor Swift donates $50,000 to help mother hit by car',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-29',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-donates-50k-help-220729556.html',
+            source_title: 'Taylor Swift Donates $50K to Help a Mom Who Was Seriously Injured in Random Act of Kindness',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-29',
+            reliability_score: 3,
+          },
+        ],
+        // No reusable photo attached at author time: the item centers on a
+        // private GoFundMe and a recipient who appears only in her
+        // public-facing role, with no allowlisted, non-expiring image of the
+        // donation itself — and hotlinking a news og:image of a private
+        // individual is exactly what the redlines guard against. Left for the
+        // social-post-missing / photo-sparsity checkers to route to Photo
+        // Enrichment rather than force a picture here.
       },
     },
   ],
