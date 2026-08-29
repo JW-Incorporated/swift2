@@ -30,11 +30,15 @@ const X_MAX_WEIGHTED = 280;
 // more under X's real 280 hard limit) so a normal-length YouTube title never
 // even risks the length gate.
 const SAFETY_MARGIN_WEIGHTED = 10;
-// Posted a few minutes out — long enough for this run's own commit/PR/
-// auto-merge cycle to land before the poster's next due-check, without
-// adding an artificial review window (docs/decisions.md 2026-08-25: no
-// approval gate wanted here, same as every other queue item).
-const SCHEDULE_DELAY_MS = 10 * 60 * 1000;
+// 10 minutes -> 72 hours (2026-08-29: two fast-lane pairs, appearance:
+// T6iTnTV-Rgw and appearance:ldBrFonU8NA, had their staging PR sit unmerged
+// long enough that scheduledAt was already past queue.mjs's 48h isStaleDue
+// cutoff the instant they reached main — both retired to social/failed/
+// without ever getting a post attempt). 72h exceeds that 48h stale cutoff on
+// its own, so it comfortably covers ordinary PR/CI landing delay before a
+// fast-lane draft ever reaches main, without touching the no-approval-gate
+// posting model (docs/decisions.md 2026-08-25).
+const SCHEDULE_DELAY_MS = 72 * 60 * 60 * 1000;
 
 /**
  * Lowercases everything except "Taylor Swift"/"Taylor" — matches the shipped

@@ -56,11 +56,10 @@ describe('buildSocialDraft', () => {
     expect(filename).toBe(`${item.scheduledAt.slice(0, 10)}-appearance-dQw4w9WgXcQ-x.json`);
   });
 
-  it('schedules ~10 minutes out from `now`, never immediately/in the past', () => {
+  it('schedules exactly 72 hours out from `now`', () => {
     const { item } = buildSocialDraft(candidate(), { now: NOW });
     const deltaMs = new Date(item.scheduledAt).getTime() - NOW.getTime();
-    expect(deltaMs).toBeGreaterThan(0);
-    expect(deltaMs).toBeLessThanOrEqual(15 * 60 * 1000);
+    expect(deltaMs).toBe(72 * 60 * 60 * 1000);
   });
 
   it('tags the campaign with the video id, for dedupe/idempotency', () => {
