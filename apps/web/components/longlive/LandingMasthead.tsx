@@ -66,7 +66,7 @@ export function LandingMasthead({
       <button
         type="button"
         onClick={() => onNavigate(gloss.mode)}
-        className="era-btn-ghost mt-1 inline-flex min-h-14 items-center gap-1.5 rounded-full px-4 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
+        className="era-btn-ghost mt-1 inline-flex min-h-14 items-start gap-1.5 rounded-full px-4 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)] sm:items-center"
       >
         <span className="font-semibold text-[color:var(--era-ink)]">{gloss.label}</span>
         <span className="text-[color:var(--era-ink-soft)]">— {gloss.gloss}</span>
