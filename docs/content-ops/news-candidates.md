@@ -25,7 +25,56 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 51
+Stories: 52
+
+## Taylor Swift Discusses Coping Mechanism for Overwhelm
+
+- first seen: 2026-08-29 19:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shares insights on her coping mechanism for dealing with feelings of overwhelm, emphasizing its potential positive impact on life. The discussion is featured in Brit + Co.
+- sources:
+  - [unverified] Brit + Co — https://news.google.com/rss/articles/CBMiaEFVX3lxTE5WaE9vcXNiYjcyZEx2WTZ1TTN5THpPcV95LWljb1h0eXd0VWp3TEs5b1FNZmdUcGVnd0g2VEFQM3g4dkNncEcwbWE1cnVtVXMxa0hsLWR4aVc3YUMtcUlIeFppTWZNQjlp?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Donates $50K to Mother Who Saved Teens in Car Crash
+
+- first seen: 2026-08-29 19:42 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a notable donation of $50,000 to a mother who heroically intervened during a serious car crash to save teenagers. The contribution highlights Swift's support for acts of bravery and community involvement.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNTTI2dlBXTGRGcEFZV0VvQ0VxZTNfZ0lVY3dxdFo4bGVfQklaYzJKejhncFZ3b3l6c3Z6S0pWbUtrR1EzU0FYblFRY1h3VC1IRUJPVlFDYk1hME1qb0l4V3paM0JkUk9nNnJlS1ZUSGV2VEpJR3R3d1pDYm1LYzNNaXhfd2VGYkd4SjJ5Q3RnUUVHcV9IVV9EeWRjNWt2V0ZmNTZwUkhvcWNYLS1rXzZzYmx4M2duZEVzaFFwbHJ5RHl6OGIxZTJyNDZuVlFvOVVl?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift donates $50,000 to mother injured while saving teens
+
+- first seen: 2026-08-29 19:42 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a $50,000 donation to a mother who was injured while attempting to save teenagers on I-95. This charitable act highlights Swift's commitment to supporting others in need.
+- sources:
+  - [unverified] Northeast Times — https://news.google.com/rss/articles/CBMipwFBVV95cUxOWkN0c0VIRkJQekNSeDR6WkoyN0l2MFNPcmNVR1ZwNnRqSWtBbDFOaml6cU9FaWNvVU1GaFlEQlA2OUlMWEdFc3NLclRrS3NzclQ4UG9sZXpmVkp4Q1BMb2pwUUdZQnQ5QTNQTUU0QkUwcVdwU3V4QXVVSjNoWXdxdC1RYWc5ZXp1MHVjRkI0alREaDk2X2xlZHdJQjZUa21NMzNtbnYzVQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift donates $50,000 to crash victim
+
+- first seen: 2026-08-29 19:42 UTC | category: business | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has reportedly donated $50,000 to support a woman who was seriously injured in a crash. This contribution highlights her philanthropic efforts in response to community challenges.
+- sources:
+  - [unverified] KBAK — https://news.google.com/rss/articles/CBMitgJBVV95cUxNMk5oSllaa0xocmw4REZFQ1d6d2Zzd2xJb09fcG9XWW9rdUpUeUh0eUFRTkM3YlVIQmhKNmdnbVA3YXpBaklBRVpQNHExcDhMam9ONnRveVcxT0llcm4yMXdlSWlKZG9oaEU0d2lxYUJRNzY1SkZmVDVjTFhsNi1zTkYtUmh6UVA1Vk9QUFVCOHNYTlVEX0paN2tPdjFoRHhLeFNxVTVOd3JDUWZBd1E2S09UbzJSeXZhWThiUlZpd0lGendpZzB5X0VHQ0pNaGVvbkpNb0IwUXVJTVlpUTlBQnoyMVBqVDlQRWI2R1BFQVhWbTcxUy1vN090UVUzUFdocXVSUlpRR09nb2J0OVFKUzlpX1dFZ2E2djI3SFNDa0YtSjR5NFA3MTRlcUpBbUN1WEVQb0V3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WSMH — https://news.google.com/rss/articles/CBMipAJBVV95cUxQVEJYaGdTOGZJVmswZmdtYkY1eGJMZk1GN0U5T19nLWZ2Nll0elo5Vjl0RFlyN3A0UUpIS2ZMODdzX0hRaDZlMlhEbjJwSTFFVGNlODhQWC1sd25OVkZSQTAxeExoUHM4RXFWMnZiREMwODg1dzZMUjVLUXVyckZVdW83M1I3ZjBIX3l3enhEc21ILUdBZjdMSk1POW1XdG5XVl9DcUZUNlotdXpRakNLWjJzeThrc0JyelBrdmZucGh3YzA3N1BKalp4WnhheWtlXzRtZW1kOWdIa2hsNnFnYzZna0l4MXhmaS1vb0N5bjFKSXJmRUVCNWZ3ZU1rUTVIUkYwZnEzSG54TTlzSmVUR3FrMkgxNzd5ZFZsdVYzS3Q2czZB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## WNBA Fans Share Reactions to Caitlin Clark's Taylor Swift-Inspired Sneakers
+
+- first seen: 2026-08-29 19:42 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: WNBA fans express their thoughts as Caitlin Clark showcases Taylor Swift-themed sneakers, the Caitlin 1s. Fans known as 'Swifties' are particularly vocal about their excitement and the popularity of the footwear.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMif0FVX3lxTE1MdFEyOFZmR1RtazFFdnAwRF9neWFGOXhRZHh0QXVuYncyY2s5QU5Wd3RkNVFLXzFzWTl0UEExV2w0QWRsS1RmLWw5SzgtSTdRREZicDlWQ0d2eUU2c0h1aDdWYnFJZUstVUpVVFBYU0J5S0hacUh2cThNVnA4WDA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift makes $50,000 donation to mother who assisted teens
+
+- first seen: 2026-08-29 19:42 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated $50,000 to a mother who was seriously injured while helping teenagers in need. The donation highlights Swift's commitment to supporting individuals who perform heroic acts.
+- sources:
+  - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMilgFBVV95cUxNN19mWWVibjJTS01obXJvYjlxWlMxZDdNWFlSd2thbkQyZjYzRi1QN0I4cGV4ajBwWTVtOHo3cUNiY0M3Z1NjTmg1NTd5aHVKaVRhVHBCY19sWFlBcEgzdTBFaWZra3FKMnNDQVpqUWFUSVBYQ0dxcjFsaTJyb0VWajFoMWY4ZGVhVjJqR19yVXVTZHpxQkE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Caitlin Clark Debuts Taylor Swift-Inspired Nike Sneakers
 
@@ -43,14 +92,6 @@ Stories: 51
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxPU2xSZEpOSGpXZTBPbEtqWUU4SDN3bkVVZlo2eHpwYzd2QlVMZ3d2R09kc09Ld3d0eVdRYkVCNnM5aDM0blFDOTZaYktvMkNVY3hZRXJfRXVqc3k1LU5kQTFVSkVoWWFTbXBSOWl5WFBsTFhCa0E0cnVBV09XOHVSaXYycWVpTjc0MkJ3YWJTY3p0anpDUmc?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift's Wedding Band Enhances Her Bridal Ring Collection
-
-- first seen: 2026-08-29 14:25 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An article discussing the details of Taylor Swift's wedding band and how it complements her existing bridal ring stack. The piece highlights the design and significance of the new addition.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNN3JVaVJ4aHE4Zlp4cDc2OW1Ea2hQZzVrV1A4djA4VW9jSUZkU0hBa2d5YUIwU1E4TjEtRmxPMEh6cUpNTDYwSzEzOHVIZG1hLV9hdGoxd0JubW80MGJQa0YyMWtoM3UwbFBsYjd5VjhsUXFxMWdiU1lnVFdnaXpId1AxU0hFQmprSWx3NndyNVBVbjAyMmlTUWNiYk9Cby0xekE?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift's First Major Career Decision Post-Travis Kelce Wedding
 
 - first seen: 2026-08-29 14:25 UTC | category: business | importance: 5
@@ -58,6 +99,15 @@ Stories: 51
 - summary: Following her wedding to Travis Kelce, Taylor Swift has made significant career choices. Details on these decisions are currently limited.
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMitgFBVV95cUxNUHYzbGpPaGJIQU5FZkQ3LTlUc1FmY1ZyckVobXI4OWc3OVBlOVozVlo4NVVOTld6ZmdjSkFIVV94VkZIanBvNjh6ckx5OXpLOWIzQlVGUi1JQ0g3cWtnbjNndk9UaENlUFpQWklvUldhQUlmUEI2eHVhU2pQSjNXQlNVRzlWWS05LS1kbms4bTFXYTZJV2ZVS1lFS2xOTm0yYklMbGFOci16MmZkZllfaFNZd1I1Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Wedding Band Enhances Her Bridal Ring Collection
+
+- first seen: 2026-08-29 14:25 UTC | category: fashion | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: An article discussing the details of Taylor Swift's wedding band and how it complements her existing bridal ring stack. The piece highlights the design and significance of the new addition.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNN3JVaVJ4aHE4Zlp4cDc2OW1Ea2hQZzVrV1A4djA4VW9jSUZkU0hBa2d5YUIwU1E4TjEtRmxPMEh6cUpNTDYwSzEzOHVIZG1hLV9hdGoxd0JubW80MGJQa0YyMWtoM3UwbFBsYjd5VjhsUXFxMWdiU1lnVFdnaXpId1AxU0hFQmprSWx3NndyNVBVbjAyMmlTUWNiYk9Cby0xekE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE9yMDZiRHR3dGktMXBZUTI0ZERVQlBaUllKU0J6Rm5mTFZGd1pVek9QQ2R5ZkNaS0p0a3F0RzdGWk41cVZHMHozMDduR2J2Qm51SFFNY2J2VUFIbER0dHBaVzJLbXp5N0d6T3hZUDJ0WDJGZXZj?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Caitlin Clark Shares Taylor Swift's Take on New Nike Friendship Bracelet Shoe
 
@@ -110,7 +160,7 @@ Stories: 51
 ## Taylor Swift Donates $50K to Support Recovery of Car Accident Victim
 
 - first seen: 2026-08-29 07:50 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 7
 - summary: Taylor Swift has donated $50,000 to a mother who was injured in a car accident, expressing her support with a heartfelt message wishing for her best recovery.
 - sources:
   - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipwFBVV95cUxQOUlueXBxSENrSkdlU0tiZFc5cnhZQmszckVzM1ktdVlqOTRNRVpmbVVaeUI4aFpUTl9hUFVudUtuUWk5WkJZRkFzRGtQS1BfelZBNEZ3SGE4UnExZ0lhc2pTTU5TUlF1ekNxZW5VUVdaaUJwN01QSGdVckFUZnRBQ1hjWlg0anJUbTJhT3hHSVdaOHdUR2t3NGJMRzFGMEd1T2haeHJqZw?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -118,6 +168,8 @@ Stories: 51
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiogFBVV95cUxOaUx5bzlSZlhPUTdQM2NKbFNrZFJLTTVFTGpkNVRJY1hVU1VpOVg1VWhTSFZFMm0wQ0p3ekhEbWJJc3JaWFhQM3U1eGxUaFQzN0pjUHQxaHR4ZHlQd193RHFfajZTNU5MaEh5YUs3SVJWSjBjRFZUTm9VeHA2cFZEeUhMbEtqZlhBR0NDSGJYVkpIN0UtUTYtY0pkWUp2NTNCbGc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQU2U3VDhwRFRxVjF5VGFkT3NXWDRlWGhlbHJIUkRCM2NTRGdPQnRYV2VOU1JkdkFaZjZidXZUaG9TYW5hZmtReTkxMEJ0MDZvS2s2OHAyQkZmVU1Fd3E0YmhTUjR2RHU2akNZcXM1Z193LU1aYzQybHdyQ1VRdmNpbXRRNVRDa292YXNXMnpBcXNMakZmTWJjV0ExZWNPX3BCU2F1bk8zYUFYamc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Go Local Prov — https://news.google.com/rss/articles/CBMipwFBVV95cUxNVGN1NW5VaS01RXNjVGR3azhMOXNCRUZlMm5QR012MlJ1OGFCb3BuQVMySWhMal9XT25xcWNHSk9yNFhGWjV2ZlpRdXEybjM5azFaQnhFSlBhbUd2V0dFdXF5azRyVktmcmh0UWZhc0hyZUpWcjlZU1FTT3pvOHg1aUItUF9zOEdqcEo3M05nRjFuYjlZeWM0QmZfeXE1TmlRQktXdlVwTQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQT0pqaHdDWExwU19uM3h2OXJfaDJkdEc5LW9UTURuUEE4Y283WEMwTFAwQjJ6aV9OTUExNTdnN29pMVdYeUlVM1FvUnU2ZEtsOVFhN19GUENFQUNCLU8zNmJiVzZxb2puSW1sRlJqcVpyd3V6N3pOano4TUc3bEpJV2pDWXBQZ0Y0QUprNVI4T3M2U3VBV01nRnJxbi0yb1FJZHlyVUdIbExSUHc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMinAFBVV95cUxPT2FyRnp5SUZBSU51TFo2VGlrUmc5N1RCaUpQa3I2VkNJZFU0Tjc2SlVpNjg0MDBhMTRldXcyQVJIYktxNWM5emhvcFIzeUVtRExLSzRKRXFqMjVRcmF1OERCSVpQQjIxX1ZaVl90bXV3Q20tdFRWRl9RRXpiZ0I3M05KNXJIZk1JUEJ4SnZqVjBCY3lTMFdFeGlhYm0?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Donates $50K to Assist Injured Mother
 
@@ -216,14 +268,6 @@ Stories: 51
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi1gFBVV95cUxQaGd2Z2ptcUVHd0VCeGFBTUgxOGppLUhWYzJYM0tnY01icEM2WlhXWXJSWVBIdjRFMUZXQm0ydEF5OVpJMFVQdnBuQmx2Z0Y1V2xnbDFzU1l1R3dSMEZMaE5WM0ZSMEhXVjZCd0Ryd0dFbVVNemtRQk03OWRtaW9zV2h2SmtGUklZRjg5QjBxN3ZXZVdjbE9xdzdpRC1pV1VPbTlVMDc0azljRzVUS3dsZWhBSkdZUHNmQ3lJanR6NXVjbG9Hb0NJWHlSQTV0dVU1U2wySDB3?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Caitlin Clark Incorporates Taylor Swift Influence into WNBA
-
-- first seen: 2026-08-28 23:00 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark has drawn inspiration from Taylor Swift, resonating with fans and creating excitement among the Swifties in the WNBA context. This connection showcases the crossover between sports and pop culture.
-- sources:
-  - [unverified] HOLA — https://news.google.com/rss/articles/CBMilwFBVV95cUxQU3A1U2IwbzJpMW9oZldsaGRhSTNIVnpOdE12MThpczFXTG55dUtzUVk4YXoyLTJVU01PaUQzRzZEN3VXeVktY2VfcmFKaHMtYS1LeDk4RV9ubWppMEVvWVg3cG9yekE1SXBmSG1xVDZPUUktZjB6eGxEdVIwUk1wbVJkdldkZUhxZ195cDllUHJseHV1cWZN?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Little Big Town Discusses New Album Without AI Collaboration
 
 - first seen: 2026-08-28 23:00 UTC | category: music | importance: 6
@@ -231,6 +275,15 @@ Stories: 51
 - summary: Karen Fairchild of Little Big Town emphasizes their new album, It's a Dying Art, and their commitment to traditional songwriting without the use of AI. She also highlights the band's significant role in Nashville's music scene.
 - sources:
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/little-big-town-its-a-dying-art-album-interview-1235617159/
+
+## Caitlin Clark Incorporates Taylor Swift Influence into WNBA
+
+- first seen: 2026-08-28 23:00 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Caitlin Clark has drawn inspiration from Taylor Swift, resonating with fans and creating excitement among the Swifties in the WNBA context. This connection showcases the crossover between sports and pop culture.
+- sources:
+  - [unverified] HOLA — https://news.google.com/rss/articles/CBMilwFBVV95cUxQU3A1U2IwbzJpMW9oZldsaGRhSTNIVnpOdE12MThpczFXTG55dUtzUVk4YXoyLTJVU01PaUQzRzZEN3VXeVktY2VfcmFKaHMtYS1LeDk4RV9ubWppMEVvWVg3cG9yekE1SXBmSG1xVDZPUUktZjB6eGxEdVIwUk1wbVJkdldkZUhxZ195cDllUHJseHV1cWZN?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] IndyStar — https://news.google.com/rss/articles/CBMi7gFBVV95cUxNNklwWGYyVXdidklhQlJ4b1FDUGZLblhEX2NZU1JHVkplN0lMN0dSZU5yd2VTeU12M1NlcTRyUk9ocVVjWVlhdzY5Q0NyRVdJem53NHdWOHlhdGZPRUcwUmV3M2hZeEdyT2Vja2h0SzY5d2xFQ3UyUGFBSEZsT053MkxJMVZ1cVdoZm1DWWxLZDFnWWtuVTc5ZzZGMVRKME9DY2FnYWlUSGhlUDJFWlpQeHRVam9nWmdacVM4NENQMGlsRUlURlB4c29KWVpLZkFTRXB6dWVUa0pJemQ5cDRVelU1b21LNVg4MWhpbUxR?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Remembers Last Interaction with Dolly Parton
 
@@ -410,44 +463,3 @@ Stories: 51
 - summary: In a recent statement, Taylor Swift revealed that she is careful with her words when addressing her critics, reflecting on her approach to criticism in the public eye.
 - sources:
   - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxPUWlZWjZBWE9Ka19pM3lPRUxNcWFaay1majRXQnR3UGlHelJDdWktVkhZc25QSElJYTNWU2dqVUlqV1BrRGkyWTVtM2lYeEExRnZaQ1JKWkhxTmdQTDVwOV9CeDJBd1lKUTBHMjdHRExSYVhuc2lMcnI3SUVBLTV6WQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Discusses Her Coping Mantra in Time Magazine
-
-- first seen: 2026-08-26 19:17 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent interview with Time Magazine, Taylor Swift shared insights into her coping mantra and offered advice on how others can discover their own. This discussion highlights her approach to mental wellness and personal growth.
-- sources:
-  - [unverified] Time Magazine — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQODF0VjFiRDg4Qm9aNU9Zd0hKZ0NiZloyOVZBcGpaWFdBNmFxUEFfa0dvM09TLUVVX2JHWG1nNnFSeUFVOEFDX0h4Z19GZmVBbVF2MnIxajEyZVNCYUZuLUJHalVYZFVlOGdYWEM5Z3UwM0dkR2I3WHQ2WERDc2JvQVgwWTQxZlB2?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Owen Thiele Talks About Taylor Swift Cooking for Him
-
-- first seen: 2026-08-26 19:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Owen Thiele shared that Taylor Swift cooked for him, while others received what he referred to as 'scam' wedding invites, drawing attention to their unique connection. This lighthearted revelation adds a personal touch to his friendship with the artist.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPYmVUS3VMWUJYVHNuOG5kR0V2QVA4MTlrc3Q5Qmp1MUtpU2M5Ui1OaVplaDdBU296WmlzMzNKRG1GVTB2SzZLeGFSdjlmaUJqazkzZU1lM1lxX2F0bExuZWVhUUMxTTlUdjhTM2Q4c1RGLWhOTU9naFZkOTRlOVBza1V0dFZGSmhEMlZMUXhGQkdzaktQNHhRXzgtc3kwa2t0MGc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift TikTok Creator @Gregory.NYC Gains Popularity
-
-- first seen: 2026-08-26 19:17 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: TikTok creator @Gregory.NYC is making waves in the online community with content centered around Taylor Swift. Their rise to fame has caught the attention of social media platforms and fans alike.
-- sources:
-  - [unverified] Her Campus — https://news.google.com/rss/articles/CBMihAFBVV95cUxPbHlJUHR0X2VCeHZsclpfeVgzVzFwMjJWejlBYmMxVTVYYUZ1Y2x1MFBRMnlnSTdVa1VzMmFlTnltaUxNYlFCZWZUbGttSTJWaDBseUplcEpMUVc2TFpNWGJGN3c2MkJfZl9PRHc2SUhTUS1Bd2RXd1dsNUhVLUFkaUVNZlI?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears $50,000 in Diamond Jewelry for First Post-Wedding Show
-
-- first seen: 2026-08-26 19:17 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased stunning diamond jewelry valued at over $50,000 during her first performance after getting married.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPMVlBRzRCN0tPVm1TNTBtVldDZ0V2RHdVZER4bW5DcDdOUnNOa2lrbG4yaXpzdUVzNFM4RmpyaDlOTk5ZMUc0VVk0Uldxd3ZlaC1wTlBiMkZOUWRrVnBvNmd0SlNMY2t5OG1OLUJVRGpvNDkxR05EcV96bDJ6NENOOW92RzFVNGh6R2c3SVNSZXg5MFBaSXRBT0Y5SDVoUnVuMDRZcWhzSFc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reflects on 20 Years Since 'Tim McGraw' Debut
-
-- first seen: 2026-08-26 19:17 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 2
-- summary: In a recent interview with the Recording Academy, Taylor Swift reminisced about the 20th anniversary of her debut single 'Tim McGraw'. She discussed the impact of her early career and the journey it has taken her on over the years.
-- sources:
-  - [unverified] 102.7 Coyote Country — https://news.google.com/rss/articles/CBMixgFBVV95cUxQT2VwY25FbkRlbUZDMjdNbC15TzZ6UUNOY01PcjFfazBWWEc0bzJjUG45RTFtZkZPOWVaMmk5dHBtZWVIZHNFcUhnSUJOU3BsdWNvQ3l0UHAzcmxJTm1HZHBfWUk3dlJWeUFyOVNBalJ5dzFtZFhkc1dQLTZuN2NDOXA4dXZIdTJkY2dQWFd3MGRvQTFpSjZPc1BYeVd2TDlQWFZkb0VtV1I5SXRNVUdtZDBNVGFYUXgzOEdYYkpyYjdnemlPcVE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] 92.5 XTU — https://news.google.com/rss/articles/CBMiugFBVV95cUxNaUhKVlkwdXRoeTJjSXg3d2ZNbVZ6SzQzMmhMazhKRlFlRjJkVHU0UmtBekI4NzhyeFhMbjBYcWdFRWE2Qi1mdUFtMkFvV1d0Q2hiLVJGMTZDSEZPbzdGYmk2YUotSTNLNTNtSFBXMUlKdmctZ01YNkhTZmMyWlRzeEZ0d2p4OVBkbE9TVElfU1loYkRDb2k4Q1ExRXQ3S1RzcjhTUmNqTGZCVDBpX18xWUptd3YxYkd3T3c?oc=5&hl=en-US&gl=US&ceid=US:en
