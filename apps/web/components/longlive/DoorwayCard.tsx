@@ -75,7 +75,7 @@ export function ThreadDoorwayCard({
         onClick={onOpen}
         className="era-card group block w-full rounded-2xl border p-5 text-left transition"
       >
-        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-[color:var(--era-accent)]">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-[color:var(--era-accent-text)]">
           <Icon className="h-3.5 w-3.5" aria-hidden />
           {doorway.kicker}
         </span>
@@ -90,7 +90,7 @@ export function ThreadDoorwayCard({
         <p className="mt-1.5 text-sm italic leading-relaxed text-[color:var(--era-ink-soft)]">
           &ldquo;{doorway.example}&rdquo;
         </p>
-        <span className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-[color:var(--era-accent)]">
+        <span className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-[color:var(--era-accent-text)]">
           Follow this thread
           <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" aria-hidden />
         </span>
@@ -128,14 +128,14 @@ export function EggDoorwayCard({
         onClick={onOpen}
         className="era-card group block w-full rounded-2xl border p-5 text-left transition"
       >
-        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-[color:var(--era-accent)]">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-[color:var(--era-accent-text)]">
           <Icon className="h-3.5 w-3.5" aria-hidden />
           {doorway.kicker}
         </span>
         <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
           {doorway.title}
         </h3>
-        <span className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-[color:var(--era-accent)]">
+        <span className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-[color:var(--era-accent-text)]">
           See this in Theories &amp; eggs
           <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" aria-hidden />
         </span>

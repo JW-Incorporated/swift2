@@ -77,7 +77,7 @@ export function VideoMomentCard({
           <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
             {displayDate ? formatMonthYear(displayDate) : 'Date unknown'}
           </span>
-          <span className="flex shrink-0 items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-[color:var(--era-accent)]">
+          <span className="flex shrink-0 items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-[color:var(--era-accent-text)]">
             <Clapperboard className="h-3.5 w-3.5" aria-hidden />
             {kindLabel}
           </span>

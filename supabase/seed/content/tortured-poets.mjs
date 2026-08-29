@@ -2710,6 +2710,11 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            // Photo pass #762 (2026-08-29): downloaded + vision-confirmed — a
+            // wide, distant crowd shot of Wembley; the stage and screens
+            // showing Taylor sit left-of-center, a little above the frame's
+            // midline.
+            focalPoint: '28% 52%',
             credit: 'Wikimedia Commons / BrigidLIS (CC BY 4.0)',
             caption: 'Taylor Swift performing at the Eras Tour, Wembley Stadium, London, August 19, 2024.',
             kind: 'reference',
