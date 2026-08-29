@@ -1,0 +1,15 @@
+{
+  "platform": "instagram",
+  "body": "my whole day is now about Taylor Swift, beyonce and more pay tribute to dolly parton!!\n\na fresh official Taylor upload just landed from good morning america. i haven't watched yet — come watch with me!!\n\nhttps://www.youtube.com/watch?v=ldBrFonU8NA\n\nvideo thumbnail: good morning america",
+  "media": [
+    "/social/library/photos/appearance-ldBrFonU8NA.jpg"
+  ],
+  "mediaKind": "photo",
+  "mediaCredit": "Video thumbnail: Good Morning America",
+  "mediaSource": "https://www.youtube.com/watch?v=ldBrFonU8NA",
+  "scheduledAt": "2026-08-27T01:12:25.316Z",
+  "campaign": "appearance:ldBrFonU8NA",
+  "why": "Auto-drafted as an X + Instagram pair by appearance-discovery (fast lane) from a genuinely new, deterministically-matched official upload — rule \"taylor-swift\", channel Good Morning America. Unverified beyond RSS metadata (title/channel/URL only; nobody has watched the video) — see docs/decisions.md 2026-08-25 (\"Detection-triggered social auto-post\" and \"X + Instagram pairing\"). The slower Vault-authoring lane still gets its own intake issue for the same video.",
+  "failureReason": "Still unposted more than 48h after scheduledAt — moved to social/failed/ regardless of current guard/preflight state (see social/README.md's 48h rule).",
+  "lastAttemptAt": "2026-08-29T01:29:30.793Z"
+}
