@@ -12202,5 +12202,62 @@ export default {
         ],
       },
     },
+    {
+      slug: 'showgirl-ashley-taunton-donation',
+      year: 2026,
+      month: 8,
+      day: 28,
+      category: 'business',
+      // Nearest philanthropy sibling in this era's giving thread; Cross-Link
+      // can widen this later.
+      relatedIds: [
+        'moment:vault-tloas-a-2-million-gift-to-the-families-of-new-yorks-fallen-first-r',
+      ],
+      title: 'A $50,000 gift to the mother who was hit shielding a stranger on I-95',
+      snippet:
+        'Taylor gave $50,000 — the single largest donation to the fund — to Ashley Taunton, a Connecticut nurse and mother of three who was struck by a hydroplaning car in July while pushing a teenager clear of its path. Her note read: "Wishing you the best recovery possible and sending love to your family!"',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The story that reached Taylor began on I-95. In July 2026, Ashley Taunton — a 42-year-old certified nursing assistant, wife and mother of three from Connecticut — was driving south through Rhode Island in a heavy rainstorm when she stopped to help at a crash where a car of teenagers had hydroplaned off the road. While moving them to safety, she pushed one teen clear of a second vehicle that hydroplaned toward the scene, and was struck herself. A GoFundMe opened to support her recovery.\n\nLate in August, Taylor donated $50,000 to that fund — its single largest gift — and left a message on the page: "Wishing you the best recovery possible and sending love to your family!" It was the kind of quiet, reactive giving she has folded into her year: no announcement and no press release, just a name on a stranger\'s fundraiser and a note. Outlets from Rolling Stone to NME picked it up from the fund itself. What is on the record is the gift, the message, and the everyday act of courage it answered — Taunton appears here only as the widely-reported beneficiary of that public fundraiser, nothing beyond what the coverage carried.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/',
+            source_title: 'Taylor Swift Donates $50k to Help Mother of Three Hit by Car',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-29',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-donates-to-help-mother-hit-by-car-3965433',
+            source_title: 'Taylor Swift donates $50,000 to help mother hit by car',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-29',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-donates-50k-help-220729556.html',
+            source_title: 'Taylor Swift Donates $50K to Help a Mom Who Was Seriously Injured in Random Act of Kindness',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-29',
+            reliability_score: 3,
+          },
+        ],
+        // No reusable photo attached at author time: the item centers on a
+        // private GoFundMe and a recipient who appears only in her
+        // public-facing role, with no allowlisted, non-expiring image of the
+        // donation itself — and hotlinking a news og:image of a private
+        // individual is exactly what the redlines guard against. Left for the
+        // social-post-missing / photo-sparsity checkers to route to Photo
+        // Enrichment rather than force a picture here.
+      },
+    },
   ],
 };
