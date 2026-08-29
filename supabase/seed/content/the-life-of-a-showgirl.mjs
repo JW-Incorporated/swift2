@@ -8128,11 +8128,15 @@ export default {
     },
     {
       slug: 'toy-story-5-disney-plus-piano-version-video',
-      // Cross-links: the same song's main story/Oscar page and its Pop Airplay
-      // chart run — the two richest existing "I Knew It, I Knew You" pages.
+      // Cross-links (extended 2026-08-29, crosslink-opportunity): the same
+      // song's main story/Oscar page and its Pop Airplay chart run, plus its
+      // sibling chart milestones and the music-video debut it followed.
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+        'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
       ],
       year: 2026,
       month: 8,
@@ -8359,13 +8363,16 @@ export default {
     // show it is "Choosin' Texas" (its 16th week at No. 1) — corrected here.
     {
       slug: 'showgirl-country-sweeps-hot-100-top-five',
-      // Cross-link (crosslink-opportunity, 2026-08-24): + its Adult Pop Airplay
-      // No. 1 record, the same song's other chart milestone.
+      // Cross-link (crosslink-opportunity, 2026-08-24; extended 2026-08-29): + its
+      // Adult Pop Airplay No. 1 record and the other same-song milestones — the
+      // music-video debut and the Disney+ piano-version video.
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c',
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+        'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
       ],
       year: 2026,
       month: 8,
@@ -11574,12 +11581,15 @@ export default {
       // detail. Text-first: a chart week has no photography of its own — same
       // call as the sibling chart moments — so no photo.
       slug: 'i-knew-it-i-knew-you-adult-pop-airplay-record',
-      // Cross-link (crosslink-opportunity, 2026-08-24): the same song's other
-      // chart-milestone pages, plus its music video debut four days later.
+      // Cross-link (crosslink-opportunity, 2026-08-24; extended 2026-08-29): the
+      // same song's other chart-milestone pages, its music video debut, the
+      // Disney+ piano-version video, and the Hot 100 country sweep it anchored.
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+        'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
+        'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
       ],
       year: 2026,
       month: 8,
@@ -11896,13 +11906,15 @@ export default {
       // Redline-clean: a product release and a published video, no location,
       // security, health, or private-individual detail.
       slug: 'i-knew-it-i-knew-you-toy-story-5-mv-debut',
-      // Cross-link (crosslink-opportunity, 2026-08-24): the chart record it
-      // follows, the piece that started the song's press narrative, and the
-      // Hot 100 country sweep the same single anchored.
+      // Cross-link (crosslink-opportunity, 2026-08-24; extended 2026-08-29): the
+      // chart record it follows, the piece that started the song's press
+      // narrative, the Hot 100 country sweep the same single anchored, and the
+      // Disney+ piano-version video that followed it.
       relatedIds: [
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
+        'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
       ],
       year: 2026,
       month: 8,
