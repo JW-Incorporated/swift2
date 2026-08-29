@@ -1,7 +1,0 @@
-{
-  "platform": "x",
-  "body": "NEW: Good Morning America just posted \"Taylor Swift, beyonce and more pay tribute to dolly parton.\" Haven't watched it — going off the title alone. Link's live: https://www.youtube.com/watch?v=ldBrFonU8NA",
-  "scheduledAt": "2026-08-27T01:12:25.316Z",
-  "campaign": "appearance:ldBrFonU8NA",
-  "why": "Auto-drafted as an X + Instagram pair by appearance-discovery (fast lane) from a genuinely new, deterministically-matched official upload — rule \"taylor-swift\", channel Good Morning America. Unverified beyond RSS metadata (title/channel/URL only; nobody has watched the video) — see docs/decisions.md 2026-08-25 (\"Detection-triggered social auto-post\" and \"X + Instagram pairing\"). The slower Vault-authoring lane still gets its own intake issue for the same video."
-}
