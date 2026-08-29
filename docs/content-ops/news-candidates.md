@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 52
+Stories: 56
+
+## Taylor Swift shares original concept for 'I Knew You Were Trouble'
+
+- first seen: 2026-08-29 23:15 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has disclosed that her hit song 'I Knew You Were Trouble' was initially composed as a piano ballad. The revelation offers insight into the creative process behind one of her popular tracks.
+- sources:
+  - [unverified] ABS-CBN — https://news.google.com/rss/articles/CBMi5wFBVV95cUxPclFOSmtCWmw5enNaeHNZM3pHcjRORElWY3drZ0JmUWc5N3owZGxqb2xDUnU0eFFMNVMzYXFuelZtYlpENzEzWVpYNzFHaTFUc0JHNG5CZ3FXZ1hzZ0plTTBZZXVvR0s2RUU1ZVFDSVc3c0t3alE1bmppWUJ6QmNZM1JkWnBiTmZydGxUTVV2WGp4MzNHdFVTdDlTbFIxb01HZUF0U0hUWHBwSlBOcFN6c1lfZnlLdml2WWlBeVpHcTFRQ0dNY0pTdTlpa0tVNEkwUmVNLU9LbWxOZjI1M3NvbVRRQVZFUlE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shows Off Chunky Gold Wedding Band During NFL Season
+
+- first seen: 2026-08-29 23:15 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: NFL player Travis Kelce is seen wearing an oversized chunky gold wedding band as he begins the new season. The accessory has attracted attention in the fashion sphere.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxORTNTbWVWTnF3dW81ZzJzRjJCRDlTa0pmZl9mdkRCUTlRQXN2MnRidlBTVHRwOWtoWGJXSkpiR1lUdWlWV1J3aUhlVC1NSmV1RzJYTDYyb3oxTkZ1bjVubDFPdW5jdi1BRXVkYUtvOFZNeTU4M1c2V01EWFZRd1kwZUhTVmdTakM5OHBZ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift makes $50K donation to a mom injured while saving a teen
+
+- first seen: 2026-08-29 23:15 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated $50,000 to a mother who was injured after being struck by a car while she was saving a teenager. The donation highlights Swift's ongoing philanthropic efforts and support for those in need.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwAFBVV95cUxOSW9HUmhqZGo5c2FNNnFuZjhmSHlyazRDVVVvWVVpeDZTdlFwdjFSMVFUVWhuTVZZYlVPY01QR0Z4eDdVV08yYVBSSjlCSXpPdDZEaXk3eVRIbTNqRHA1aXAwYnE2My0tZkdJZlVNLU9RM3dCTzlZZU5vaGYxaDUxMFM2T21EQWRURnpHMVJSSjhpTDZnME1xWnBjOVZvNjd4NWdkRVRaVEVjT25ybUVGVHczb2d2LW5DTl9XMFF3d2M?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Donates $50,000 to Support Injured Mother
+
+- first seen: 2026-08-29 23:15 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a donation of $50,000 to a mother who was severely injured after rescuing teenagers from a highway crash. The donation aims to assist her recovery following a collapsed lung and ruptured organs.
+- sources:
+  - [unverified] NBC News — https://news.google.com/rss/articles/CBMijwFBVV95cUxNNlFkS2I2VHA3OG5LY04zZHlQdmtrMi0tOFJvTlRjYVJhRkM5a1F3bDl4MURkLWEweE1NNlVjSElJTEpRMF9ZcTNUSzJ1bElEalZJSHdybmdHYmV6REJkU2Y0S2lfM2N5dFRtQ293RzQ1dWw4VDRXaGp2bnlZUUN5ZzZ4TW5seHVUaElHV1REaw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Discusses Coping Mechanism for Overwhelm
 
@@ -51,15 +83,6 @@ Stories: 52
 - sources:
   - [unverified] Northeast Times — https://news.google.com/rss/articles/CBMipwFBVV95cUxOWkN0c0VIRkJQekNSeDR6WkoyN0l2MFNPcmNVR1ZwNnRqSWtBbDFOaml6cU9FaWNvVU1GaFlEQlA2OUlMWEdFc3NLclRrS3NzclQ4UG9sZXpmVkp4Q1BMb2pwUUdZQnQ5QTNQTUU0QkUwcVdwU3V4QXVVSjNoWXdxdC1RYWc5ZXp1MHVjRkI0alREaDk2X2xlZHdJQjZUa21NMzNtbnYzVQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift donates $50,000 to crash victim
-
-- first seen: 2026-08-29 19:42 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has reportedly donated $50,000 to support a woman who was seriously injured in a crash. This contribution highlights her philanthropic efforts in response to community challenges.
-- sources:
-  - [unverified] KBAK — https://news.google.com/rss/articles/CBMitgJBVV95cUxNMk5oSllaa0xocmw4REZFQ1d6d2Zzd2xJb09fcG9XWW9rdUpUeUh0eUFRTkM3YlVIQmhKNmdnbVA3YXpBaklBRVpQNHExcDhMam9ONnRveVcxT0llcm4yMXdlSWlKZG9oaEU0d2lxYUJRNzY1SkZmVDVjTFhsNi1zTkYtUmh6UVA1Vk9QUFVCOHNYTlVEX0paN2tPdjFoRHhLeFNxVTVOd3JDUWZBd1E2S09UbzJSeXZhWThiUlZpd0lGendpZzB5X0VHQ0pNaGVvbkpNb0IwUXVJTVlpUTlBQnoyMVBqVDlQRWI2R1BFQVhWbTcxUy1vN090UVUzUFdocXVSUlpRR09nb2J0OVFKUzlpX1dFZ2E2djI3SFNDa0YtSjR5NFA3MTRlcUpBbUN1WEVQb0V3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WSMH — https://news.google.com/rss/articles/CBMipAJBVV95cUxQVEJYaGdTOGZJVmswZmdtYkY1eGJMZk1GN0U5T19nLWZ2Nll0elo5Vjl0RFlyN3A0UUpIS2ZMODdzX0hRaDZlMlhEbjJwSTFFVGNlODhQWC1sd25OVkZSQTAxeExoUHM4RXFWMnZiREMwODg1dzZMUjVLUXVyckZVdW83M1I3ZjBIX3l3enhEc21ILUdBZjdMSk1POW1XdG5XVl9DcUZUNlotdXpRakNLWjJzeThrc0JyelBrdmZucGh3YzA3N1BKalp4WnhheWtlXzRtZW1kOWdIa2hsNnFnYzZna0l4MXhmaS1vb0N5bjFKSXJmRUVCNWZ3ZU1rUTVIUkYwZnEzSG54TTlzSmVUR3FrMkgxNzd5ZFZsdVYzS3Q2czZB?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## WNBA Fans Share Reactions to Caitlin Clark's Taylor Swift-Inspired Sneakers
 
 - first seen: 2026-08-29 19:42 UTC | category: fashion | importance: 5
@@ -75,6 +98,16 @@ Stories: 52
 - summary: Taylor Swift has donated $50,000 to a mother who was seriously injured while helping teenagers in need. The donation highlights Swift's commitment to supporting individuals who perform heroic acts.
 - sources:
   - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMilgFBVV95cUxNN19mWWVibjJTS01obXJvYjlxWlMxZDdNWFlSd2thbkQyZjYzRi1QN0I4cGV4ajBwWTVtOHo3cUNiY0M3Z1NjTmg1NTd5aHVKaVRhVHBCY19sWFlBcEgzdTBFaWZra3FKMnNDQVpqUWFUSVBYQ0dxcjFsaTJyb0VWajFoMWY4ZGVhVjJqR19yVXVTZHpxQkE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift donates $50,000 to crash victim
+
+- first seen: 2026-08-29 19:42 UTC | category: business | importance: 6
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift has reportedly donated $50,000 to support a woman who was seriously injured in a crash. This contribution highlights her philanthropic efforts in response to community challenges.
+- sources:
+  - [unverified] KBAK — https://news.google.com/rss/articles/CBMitgJBVV95cUxNMk5oSllaa0xocmw4REZFQ1d6d2Zzd2xJb09fcG9XWW9rdUpUeUh0eUFRTkM3YlVIQmhKNmdnbVA3YXpBaklBRVpQNHExcDhMam9ONnRveVcxT0llcm4yMXdlSWlKZG9oaEU0d2lxYUJRNzY1SkZmVDVjTFhsNi1zTkYtUmh6UVA1Vk9QUFVCOHNYTlVEX0paN2tPdjFoRHhLeFNxVTVOd3JDUWZBd1E2S09UbzJSeXZhWThiUlZpd0lGendpZzB5X0VHQ0pNaGVvbkpNb0IwUXVJTVlpUTlBQnoyMVBqVDlQRWI2R1BFQVhWbTcxUy1vN090UVUzUFdocXVSUlpRR09nb2J0OVFKUzlpX1dFZ2E2djI3SFNDa0YtSjR5NFA3MTRlcUpBbUN1WEVQb0V3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WSMH — https://news.google.com/rss/articles/CBMipAJBVV95cUxQVEJYaGdTOGZJVmswZmdtYkY1eGJMZk1GN0U5T19nLWZ2Nll0elo5Vjl0RFlyN3A0UUpIS2ZMODdzX0hRaDZlMlhEbjJwSTFFVGNlODhQWC1sd25OVkZSQTAxeExoUHM4RXFWMnZiREMwODg1dzZMUjVLUXVyckZVdW83M1I3ZjBIX3l3enhEc21ILUdBZjdMSk1POW1XdG5XVl9DcUZUNlotdXpRakNLWjJzeThrc0JyelBrdmZucGh3YzA3N1BKalp4WnhheWtlXzRtZW1kOWdIa2hsNnFnYzZna0l4MXhmaS1vb0N5bjFKSXJmRUVCNWZ3ZU1rUTVIUkYwZnEzSG54TTlzSmVUR3FrMkgxNzd5ZFZsdVYzS3Q2czZB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WCHS — https://news.google.com/rss/articles/CBMioAJBVV95cUxNaUZUdkh3MjJoaGRZcHZJYm9NOWs1NGgtN2Rvb0htTXp5MkJ3bVJXd2w2WVFkRUpqOEc3alhrS3k3Wjd2dVhKLXRsQUlibU50X19oSkF3Z0hheTU2a0psVF8tMFRJaldyUXZES0JEVFFxalNzemd2UHVsM1JRenVmcDI1bWRwUGphQnBDMThJdG53OXlkWnlRTzd4Mm1RYjdydFkxRFdhcXNTUVpsLXpGQkZJdlFTYkZybFk4Vm4xOXZLbC1Tcm5kSlAwNi14cmozT25JZ0hWMGktTDkyU05yWTBCbERWa0VpTGw0ejVTTVJ4QXRLVlhGcExKUG5KSUpjZWt4R2FyaG51N29RaW5DWWt1Q2I5Uko2TWU1a3R6ZUU?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Caitlin Clark Debuts Taylor Swift-Inspired Nike Sneakers
 
