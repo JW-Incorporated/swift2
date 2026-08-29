@@ -3543,6 +3543,30 @@ export default {
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-08-25',
           },
+          // Rumor Desk 2026-08-29 (news-digest, first-seen 2026-08-28): a fresh,
+          // post-wedding data point on the same next-record thread as the TS13
+          // tips above — this cluster reads the newlywed period itself as the
+          // creative trigger, keeping the thread live rather than fading. The
+          // claim and its corroborating cluster (Contactmusic, IBTimes UK,
+          // Yardbarker, Perez Hilton — all sourcing an anonymous "insider" tip)
+          // were verified via WebSearch; publisher domains are egress-blocked
+          // for direct fetch this session, so the URL is the digest's own named
+          // Contactmusic source, confirmed as a real search result, not a
+          // Google-News redirect. The date in some aggregator summaries garbled
+          // the wedding as "June 13" — a long-debunked Page Six rumor; the
+          // confirmed date is July 3, used here. Forward-looking unannounced-
+          // music speculation (allowed by the redlines); no location.
+          {
+            claim:
+              'A late-August 2026 report cluster said Taylor has made songwriting "her main focus" since the July 3 wedding — an anonymous insider describing her as "incredibly inspired creatively" and drawing on married life as source material, framed alongside fresh fan-spotted "TS" teaser sightings. No new album No. 13 has been announced, titled, or dated.',
+            reportedBy: 'Contactmusic',
+            reportedOn: '2026-08-28',
+            status: 'unconfirmed',
+            url: 'https://www.contactmusic.com/story/467/3598464/taylor-swift-writing-new-music-as-she-and-travis-kelce-settle-into-married-life-amid-fresh-ts-teaser-sightings',
+            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous insider tip aggregated across Contactmusic/IBTimes UK/Yardbarker/Perez Hilton — tabloid tier. Distinct from the April 2026 Us Weekly and July 2026 Electric Lady tips by its post-wedding date. Resolves when a new album is announced, fades if it goes quiet. No location.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-29',
+          },
         ],
       },
     },
