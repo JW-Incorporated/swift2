@@ -1,0 +1,13 @@
+{
+  "platform": "instagram",
+  "body": "drop everything because Taylor Swift - i knew it, i knew you (piano version) (official music video) is here!!\n\na fresh official Taylor upload just landed from Taylor Swift. i haven't watched yet — come watch with me!!\n\nhttps://www.youtube.com/watch?v=XwCWKSO0F8s\n\nvideo thumbnail: Taylor Swift",
+  "media": [
+    "/social/library/photos/appearance-XwCWKSO0F8s.jpg"
+  ],
+  "mediaKind": "photo",
+  "mediaCredit": "Video thumbnail: Taylor Swift",
+  "mediaSource": "https://www.youtube.com/watch?v=XwCWKSO0F8s",
+  "scheduledAt": "2026-09-01T17:21:49.846Z",
+  "campaign": "appearance:XwCWKSO0F8s",
+  "why": "Auto-drafted as an X + Instagram pair by appearance-discovery (fast lane) from a genuinely new, deterministically-matched official upload — rule \"all-uploads\", channel Taylor Swift. Unverified beyond RSS metadata (title/channel/URL only; nobody has watched the video) — see docs/decisions.md 2026-08-25 (\"Detection-triggered social auto-post\" and \"X + Instagram pairing\"). The slower Vault-authoring lane still gets its own intake issue for the same video."
+}
