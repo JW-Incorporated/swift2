@@ -25,7 +25,66 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 56
+Stories: 52
+
+## Caitlin Clark Shares Taylor Swift's Take on New Nike Friendship Bracelet Shoe
+
+- first seen: 2026-08-29 07:50 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark has revealed what Taylor Swift thinks about the Nike Friendship Bracelet Caitlin 1 Signature Shoe. The statement highlights Swift's engagement with contemporary fashion trends.
+- sources:
+  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPa1FXUlJOaHliWTcwekQwbjZyVTJ4NzhWS1dkQkhNLXpJcjQ4N1ZtMC0ycE94X3VkelM0X3oyTmgtZHFkdmhEdEpHeWVBQUtST1JGeHFpZUNQTWxHR2cxelYyTkJDVENyOUdwek9ja1Y5TkNJNjlLQVBfV1FCR2dxcFBHcVdmMUJiLTAyUnUtdzNHbU85dnhLMkx1RGFoN3lFSWNTRGx0alBuV2JmTUlBd3pleUpMdTM1UW1YdlNnVXgyR1ozWVRsejQ2aGJMdi1YLUlZcA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Tributes Pour In for Dolly Parton Amid Public Mourning
+
+- first seen: 2026-08-29 07:50 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Numerous tributes have emerged for Dolly Parton as millions express their sorrow and admiration. The heartfelt messages highlight her impact on music and culture.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMivgFBVV95cUxPT0dXNWJYNVNYUlJzTThqV3liS1c1Z2I3YmxhNXRTNDBiM1lYMWJSNnYzWm0zOWE1WGt5Y1ZqOG1BWEkwTjd4QmE4TnZibDdHdkpLTWtqd0gwYkROdzBIR052MV9iLWJHSlR0cFdmVGRZSUk0QVJjOUtfb1lwaU0xSjNzQlpXUV93eTFRbnRKYW1yNi1iWFkzTzE2NlVSNEkzUTFVSnAwbkpyRUt3OHdXUXlrVUNWRnF3VGx1NE1n?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Mentioned as Part of NFL's Big Stories
+
+- first seen: 2026-08-29 07:50 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent article highlights Patrick Mahomes and Taylor Swift as significant figures in the NFL narrative. The mention showcases the intersection of sports and celebrity culture in current media.
+- sources:
+  - [unverified] Jay Mariotti | Substack — https://news.google.com/rss/articles/CBMieEFVX3lxTE9DRGdrYzJkbHBRVl83R2tEOHJQY21yVDVKQ3FPMmQ1WnVuWHVuNEVDYnJ3ai15aGMzdnNfQy1RblRCWmgzMTEtOXZwZ05VUnowRmI1NU5ISmpiRmFiSjA5bVNjSXJaTWtJSnRoMlZod1FWb1VWT1J3Xw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Update Before Chiefs-Seahawks Preseason Game
+
+- first seen: 2026-08-29 07:50 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: News about Taylor Swift surfaces in connection with the upcoming Chiefs-Seahawks preseason game. No specific details about her attendance or involvement are provided in the report.
+- sources:
+  - [unverified] Athlon Sports — https://news.google.com/rss/articles/CBMijwFBVV95cUxOTkM2QkRYdWt2U3BWeHA5d0pLcDFTTVcybk1qQ1ZISFltTVg4Nm9mQXM4SXhPY0pxOVo4TVY0UjJDeWhpVVhzY2k5RGlSRDBQb0hGM1lYNlE3YnJ1U0x4VG8tUi1VdmtKVU0wVTVTTkFRUzRUVUhYcHpab0JFU3NkSml1dmRVM21STW9Kc1BwQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Expresses Discontent About Time Away from Taylor Swift
+
+- first seen: 2026-08-29 07:50 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A report indicates that Travis Kelce has expressed feelings of dislike for being away from Taylor Swift while playing with the Chiefs. His sentiments highlight the challenges of maintaining a relationship during a busy sports season.
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNZWZQV2tZcjJaSnFTWUo0SUh5c1JQcElFVndWWkhJVF9pQ1p2VzBzZEw2b1VfS0lWQV95N2YzR2sxaVVZZ2JvbnBOcFp2TmNhcWZVWjNRaVZPV0l6RXJTOEVHUEdFcUw5MGcxRHdKcERnX2sxOWhELXlvQzR0S3lXRUFZODUyQW16XzFr?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Donates $50K to Support Recovery of Car Accident Victim
+
+- first seen: 2026-08-29 07:50 UTC | category: business | importance: 8
+- verification_status: corroborated | source_count: 4
+- summary: Taylor Swift has donated $50,000 to a mother who was injured in a car accident, expressing her support with a heartfelt message wishing for her best recovery.
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipwFBVV95cUxQOUlueXBxSENrSkdlU0tiZFc5cnhZQmszckVzM1ktdVlqOTRNRVpmbVVaeUI4aFpUTl9hUFVudUtuUWk5WkJZRkFzRGtQS1BfelZBNEZ3SGE4UnExZ0lhc2pTTU5TUlF1ekNxZW5VUVdaaUJwN01QSGdVckFUZnRBQ1hjWlg0anJUbTJhT3hHSVdaOHdUR2t3NGJMRzFGMEd1T2haeHJqZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiogFBVV95cUxOaUx5bzlSZlhPUTdQM2NKbFNrZFJLTTVFTGpkNVRJY1hVU1VpOVg1VWhTSFZFMm0wQ0p3ekhEbWJJc3JaWFhQM3U1eGxUaFQzN0pjUHQxaHR4ZHlQd193RHFfajZTNU5MaEh5YUs3SVJWSjBjRFZUTm9VeHA2cFZEeUhMbEtqZlhBR0NDSGJYVkpIN0UtUTYtY0pkWUp2NTNCbGc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQU2U3VDhwRFRxVjF5VGFkT3NXWDRlWGhlbHJIUkRCM2NTRGdPQnRYV2VOU1JkdkFaZjZidXZUaG9TYW5hZmtReTkxMEJ0MDZvS2s2OHAyQkZmVU1Fd3E0YmhTUjR2RHU2akNZcXM1Z193LU1aYzQybHdyQ1VRdmNpbXRRNVRDa292YXNXMnpBcXNMakZmTWJjV0ExZWNPX3BCU2F1bk8zYUFYamc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes $50,000 Donation with Personal Message
+
+- first seen: 2026-08-29 07:50 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a surprise donation of $50,000, along with a heartfelt message, showcasing her philanthropic efforts. The news highlights her commitment to giving back to the community.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPUkZXRzE2eE52MXJsMHZSRk5UbGpDQ2dIdzBtTmVid2FkWktHNFpMWll0UE5JRElnZUVmSWhXNUYzYTMwSjBScVVJQzBvMVExdWNMU2kwMFg2bWhOQ2EybjhMQVZQSlBhSG4talNKT0NGejF2X0xVaDA3U1Z6aXFfdTBRckdNMGZkQjZnS2pzcFZiM25OSHhTY3hJNnRWaFdFZ0RqMFdNRnpxZmM?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Donates $50K to Assist Injured Mother
 
@@ -59,14 +118,6 @@ Stories: 56
 - sources:
   - [unverified] Forbes — https://news.google.com/rss/articles/CBMivwFBVV95cUxPUUpYUGJQTW4zSzExazdndnkzUTB4Vnl2c3M3WjFfU0hjMUduNm9wVjBCc0pZUTFyLTE3Tnh0WHdySFVzc3BOWUxTQ2R0WW16UEFJMWNoUVNYU01sRHpsYmJfZ2ZJdVNKWmVyY0twdURuY2loQjUtSWlMTEMxZngwQ1lWQ3pBTDR4WFl2SzRXS1RoSVo5dFdEdEdEckJhUENIZ1pGZXhnME56VXhidjNwdE8wbmxoc200U2dvVExrMA?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Reportedly Writing New Music Following Marriage
-
-- first seen: 2026-08-28 23:00 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly working on new music while navigating her new married life with Travis Kelce, amidst recent sightings of teasers related to her work.
-- sources:
-  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMi7gFBVV95cUxPY0ZpSzhFRHFxS2wtQUJWYXlOOWE5VmJ6Q01QZjlsUmtuaElrT2owWWxYMmlCVUQtY3FHRk5lMURhUmZNT2w1NXlFak9BVWhDWXdhNkQ2Q2lvZ29NcVVIYkQ0UU04UVJrRTBQUG9lU1pidUp5a284LVZOSWV2YkJLX3UyZzktUlBwYm50V3hGSEhGRTUxeDhaSWJucUJaellRay1GSlhtS2dwaFlzZkJ6eEgyNGlwcVdoNzBZZ1E3LXNXdHZNWEZhaWRYb2puMkFLY0JHcTBMSlJGSUotdjVhRW5VZHZZSG84T05uRG1B?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Caitlin Clark unveils Taylor Swift-inspired Nikes
 
 - first seen: 2026-08-28 23:00 UTC | category: fashion | importance: 5
@@ -74,6 +125,15 @@ Stories: 56
 - summary: Caitlin Clark has revealed her new Nikes inspired by Taylor Swift, showcasing a unique design that pays homage to the singer.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQREdmVTZZYlYzakZFTkNfS1BnbEEzWDNEVGxabXdhYXN0NUhyUmNCSXJXX1FmTHdQdFlQaDNuQm13d2x4UUZQQ3A3SEt2dWxVQVNyZ0p1TDI5dldURDlETUt3S0FVTTNMcjdoTUpld2M0MHRnN25lUWRjYlRjOElneE1tdTgzbzU1cFdF?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reportedly Writing New Music Following Marriage
+
+- first seen: 2026-08-28 23:00 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift is reportedly working on new music while navigating her new married life with Travis Kelce, amidst recent sightings of teasers related to her work.
+- sources:
+  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMi7gFBVV95cUxPY0ZpSzhFRHFxS2wtQUJWYXlOOWE5VmJ6Q01QZjlsUmtuaElrT2owWWxYMmlCVUQtY3FHRk5lMURhUmZNT2w1NXlFak9BVWhDWXdhNkQ2Q2lvZ29NcVVIYkQ0UU04UVJrRTBQUG9lU1pidUp5a284LVZOSWV2YkJLX3UyZzktUlBwYm50V3hGSEhGRTUxeDhaSWJucUJaellRay1GSlhtS2dwaFlzZkJ6eEgyNGlwcVdoNzBZZ1E3LXNXdHZNWEZhaWRYb2puMkFLY0JHcTBMSlJGSUotdjVhRW5VZHZZSG84T05uRG1B?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMi-gFBVV95cUxNMWRLTHRwRlJtTF9jb2k0ZllLb09rbXc2TXdnRERXQUlQZlkyQjdBajBqTU5CWFNueUJPakdxSENjRUdzc0RNS0ozbkphUGpEQ2loVDNJUlNpbDllT2ViNzRxQWZQNmN0ZUZtNkJtOV9nallVT3hzcFNubUhTTGhpTlN3dERwZnZKb3VJRmtmcW82N2I2VHE0LWs5cUg4MVlKUjUzRVJ6UnJQNlY3LTNwZmI5bTNKVTNuWjBtRmxjaGVRTmt6VVJ1dWhMUEt5b3pwRjVteHI3Mms2bmJrZXJkVDVlOGdsenNZdks1Y3hYUndiOXN0NUFPa3ln0gH_AUFVX3lxTE1Od1RKNzkxYnhMbUwwX3Zna0Z3TGs3enJiSllTd19RU0E1dnNMcnJOb2k2MUZQTTlwdUZnbWs2SWZhSC0yOTdnOUlQaXlQSFM0VTQtamZYMmpvRjFDRUN3NTA4TkU3eGJEUDB2WF9fa3pMZ3M4UmFwTjhzMVNpYkZJQjJhWEVhV0F2c3NXNlgyV3ZvZGk4STZwVGNXU2VqY2dvUENIWmNjd0RoVzBQeEVXZ1llTmtQX1NXODFRakhVMFMwYnRIbl9hU2VidDhhaEExVnVyTjNQTnBnTWtyRVRfdVNUOURGM052bk1VVzBqOS0wVUZoUURBN2wxSzBfZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Caitlin Clark Unveils Taylor Swift-Inspired Nike Shoes
 
@@ -398,111 +458,3 @@ Stories: 56
 - summary: Taylor Swift joins fellow artists including Beyoncé and Reba McEntire in mourning the loss of Dolly Parton. The tribute highlights the impact Parton had on the music industry and her legacy.
 - sources:
   - [unverified] The New York Times — https://news.google.com/rss/articles/CBMiigFBVV95cUxOeXdJYUZVM3c2S3U1OWE4VnJlQW1MU3FMdmhFOHlVUldNRVpOc0NtY3U0U2kwWjdwaF9yMndZRGJIX1ZOajhnbmRIRlU0U3FxMGlhSlBrZ2tLcndScXVTa2NrYXZpazM2VzZxYUF2eFE3RFRySzVneHVEVmFWUEFBYVh3TExBMVFGZUE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift shares origin of 'I Knew You Were Trouble' as sad ballad
-
-- first seen: 2026-08-26 05:47 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift discusses the songwriting process of 'I Knew You Were Trouble', revealing it was initially conceived as a 'really sad ballad'.
-- sources:
-  - [unverified] NBC Los Angeles — https://news.google.com/rss/articles/CBMitwFBVV95cUxPTm13d3R1Z1hXbFl5aGVtZ3ZDa0V1MndRODNOQnhsRGE5ckhyWFVab2ttdVdlV214UzJkY0FDR2hCSjRnQ3AxMW5kdmxTbm82S0xXNThzV29qWnFlbVJfWjZHSGFxT1lrUzVlaWFaUURRR3Q5N3ZqOEpMQ1gwTWJHQVRLLXBaRjRRdXFZOVpua19UT1dfbEJqS0V0UmtRSm9pb1VFZ0VJV2MyMFhPYWJZeExqSnlvMGvSAb8BQVVfeXFMUGkwVmk0YnNicFJNZlJOT3hNZFY2WGNfejNKTThCYW1XNjZEWEpyM0ZrWjBDMjBOQjFTS0xBMlcxY1FXQUJRZ3FTYmFlTFVlbjU2TEJkSGxNcDItOVQ5cHpqTjB5TlczRGpGckU5dkpWUHJaYkRWeFZRaU4zWnRCMGlMeG0zdlhFd1Jia0ZvN3hxeFlRX1JzUXhyTGxGRGN1dXJpRDhSVnY0aHZOajZnUVR5LWc3ZVltbF9XZFVZTU0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Honors Dolly Parton's Life and Legacy
-
-- first seen: 2026-08-26 05:47 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 2
-- summary: In a heartfelt tribute, Taylor Swift reflects on her friendship with the late Dolly Parton, who recently passed away at age 80. Swift highlighted Parton's generous spirit and impact on the music world.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/08/dolly-parton-taylor-swift-death-reaction-1237050617/
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPQXB2WVptQWNLc1lkTHEyMVhmRjlxUG9pcmJ0Mll4SjRjaEV2Z3dBaVQ3bVgybnZsT0oyczlsb1RzVFRvdThHRS04YktwYkZVTXNtRW5FMU41anBJbVpmRFZXTTloYkltOXJFY0p6TUhoSGVNaHozelRkdWppWnZKaFlfRlpzZjZp?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Denied No. 1 Spot On Charts By Another Artist
-
-- first seen: 2026-08-26 05:47 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift faced competition on the music charts as another artist's hit prevented her from reaching a new number one position. This development highlights the competitive nature of the current music scene.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxOLU1vakVwYWNNbHVPb0htOWZvMHNRWXQybU5mVEluVUpxd2NabERrd0dhUWQ3dllKZE85QjlFTzhsa1JtLUpwYlBIYXZHdHVXWWtyYUE3OTNuVUxkOVJQRXY2UVJPQ2VLYU56bk9XUTRwSldEWXV4QWJpUzI4SWMwU1lDZVZkWHNndWRBWDZxeUxFVjljLUE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Honors Dolly Parton’s Legacy in Recent Statement
-
-- first seen: 2026-08-26 05:47 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift recently spoke about Dolly Parton's significant impact on the music industry, calling her a 'force of evolution and transformation.' Swift emphasized the everlasting nature of Parton's legacy in an interview with The Hollywood Reporter.
-- sources:
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiowFBVV95cUxQT0xYUk5iemIwVHNHUUUtcVBuWGlHUUpYRFo1YW10MmNOdTVCQnpTRTdXVGVSM2xSSHhVdVEwLVhsVkpjZmxzM09IWGktX0swUWt1bUU4QVFRaVB0V1VkVlpSd2M2Mi1pUElPZlpIcVplVlZWdEd5eHlzLVJDOW5lcHRaSU9FbUhfNm5TM1p1Uk9FV2R1RVJ1WjAtYjlZVktXZm9B?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-dolly-parton-dead-tribute-1236681122/
-
-## Taylor Swift Performs Piano Mashup at Grammy Museum's Icon Sessions
-
-- first seen: 2026-08-26 05:47 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased a piano mashup from her Eras Tour during the Grammy Museum's Icon Sessions event. The performance highlights her musical versatility and celebrates her extensive catalog.
-- sources:
-  - [unverified] JamBase — https://news.google.com/rss/articles/CBMihAFBVV95cUxPcW41WHY4QWxmMDNoazROZnhVVEFRTURwWGh1WV9hTXJZU3V2bzNXQW5rYWRVV1dtSjVjMEtrOU9CQ0xuajJReERrZlV3UkUxdERZeXI5U0JBbWVhemtXVHZBazhjYXRlTHljSXJ6a3pTdXVYajdZdF9aVEdFNFNlYXAzLXo?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Floral Dress Sells Out Quickly
-
-- first seen: 2026-08-26 05:47 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A floral dress worn by Taylor Swift has sold out within hours of release, as reported by The Zoe Report. Swift's influence continues to drive significant demand in the fashion world.
-- sources:
-  - [unverified] The Zoe Report — https://news.google.com/rss/articles/CBMidEFVX3lxTE1nSGtqNjVkQVFQLVB1anFtbDFHNlJQWk5hUnQ2ZG9nQ2haQ296SGF1RThEU3FsVXl6eFFQX0lqVG44SU55UkR5aUFNaGljclJKUWRzS1pJY240RkpLYmxsUURsSzJfYjdxZG9GUm5hX1ZpNTd3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Pays Tribute to Dolly Parton
-
-- first seen: 2026-08-26 05:47 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift honors Dolly Parton’s legacy, highlighting her compassion for others and her strength as an artist in a heartfelt tribute.
-- sources:
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMimgFBVV95cUxQUFBiVHNBZlMzMTdFNm1hbnZ3MmNqMVZTdThJdkJHQmVoTC1XVUlKYWtkMmdqd1NyTi03aWJ0ajN1aEdPTC10c1BvdlJnWHBtbjlZNF9jc0R6X2MzNm5Ta3BsZlNQSlhpLW12X2pNd0Uzc050LUREVUQ4Wl92S3d5RFB4U3RPMXNZajJleXF4QTR6YURGU0ltbERn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/taylor-swift-dolly-parton-tribute-1235615646/
-
-## Taylor Swift's 10-Word Rule Highlights Her Career Work Ethic
-
-- first seen: 2026-08-26 02:38 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An article discusses Taylor Swift's '10-Word Rule' as a key aspect of her work ethic that has contributed to her successful 20-year career in the music industry.
-- sources:
-  - [unverified] inc.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOU3podXh6aEppTFg3a3kyUVY4MnFURFU0aE56WDlxcF8zdk9IdjllMldZdzhELUcxTWpRMVk5dS1RVDdNUGo3OTIzOHdxTzRCS1QtZkFkY1lkNUw4Wi16ODRkZDNKVXdsbWVxTDY5MVpwaEhwM0hrSnhDVHBfaGxhRmZXS1dHb3NmSERTQ3ViNmtEcGVVeXlySkZzX08xdVNuTWo1WDlWT3R3NGo5SW14ZGFLNHVlbmdGMTY0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Feels Betrayed by Wedding Guest's Actions
-
-- first seen: 2026-08-26 02:38 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Reports suggest that Taylor Swift felt completely betrayed after an incident involving a wedding guest. The specifics of the situation remain unclear.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxPekFOVHZ5ZDhfQkM1NU12MzBRNW5OTEI3bkdrN0ZZLU44RmpIM0lCQVVSNkkxc3prYThBUUFTV1NaU1g1NHhIMFlodDRMZ3UxNjh0V3pfaVdjZElud185Uk1pcGZNUFRQcXl6V2d2QXJFZkxyaUp5cUU2U3VoNUV1TVA2U05lVFdqaFVOSzF3MDR0aWZpOTdqWjBqODFVemxjUjkxZnFtUE9zZUVoZ2c?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOQW11cF9xYXBkQVloTWhORkVkVFBNWWxjYzdfRThnc25CU1pBN2poRGdEY3JXaEFpMTllM2lRWlpRNnZjNVVJSnowWm4yRHpJcWFwM0J6MGM4dHdtWVloRlNGcTlRLWkyMjFUNHdsUWwwSldwVXEwMlF2c2pEdUtDZUR1M3dKRWlkNk9NUnRMOEV4TlpMZUdfVWV5MXVxVm1mdHpBU0UzZ0w?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Participate in Dolly Parton Tribute
-
-- first seen: 2026-08-26 02:38 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is preparing to take part in a tribute for Dolly Parton. There is speculation about whether Travis Kelce will join her for the event.
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxNRHdwOHhkbWZnRDlPNWFIRm9LVWpDcVh3enExdnduanp6Qld1dWdYdXJWOFZpYVNsQWxuaUpEMkJfYi12eFl3cFRBeGpxWmlxSUlNLWtJN0pBNXR3cl8tZUtCaDlvZ3ZZMU8zMlJKMVkzSmxIZUVnUW1MMTNyaFY4TTgxMnN3ZV9HLXNMVHNrTzFGYnBwQm9HdFRxZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dolly Parton Acknowledges Gift from Taylor Swift and Travis Kelce
-
-- first seen: 2026-08-26 02:38 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 17
-- summary: Dolly Parton expressed gratitude towards Taylor Swift and Travis Kelce for a significant $2 million donation shortly before her passing. This donation highlights the philanthropic efforts of the two stars.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinAFBVV95cUxQX1NTUEx5NFVuOWVJeEhVRm52ekxHNnoxcURuZl9EeUlJbDU4MndBNGJwbnh3eXNuM0t1Zmpvbzd5SG56RG8xNEdxMzNRblZoOUNKSm0xNEtXNTZNZVBETTh5bDFLbVFvWGhkSlZvVlp3S0hSSzNLWWVCMVQ1cV9wTXRNS1dwb1BQYncyZzdiU2gtWGVEZF9ITkpTWFU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KY3 — https://news.google.com/rss/articles/CBMiugFBVV95cUxNYXd4VmVVelFJUUxaeUZrSnI1MUgzNWFGMWJLcWtQWElpN2NCdW9zS0xrZkNOM1RXVW5WMWYzZ284NndvR05DeldLRjdQUmMtZEFRczNJMjdwbUhZbnZMNXY0ZmhvLWdxV19vQ1J0c2EwbFpySG5CVDVTcVU5REVzeVVCSEFROHgwY1VCZy15bUdPSk44NUZjaGx6eU1mWTR2TDlhUlJPcWJWMDdDVmhyeDlkTWtTZUF6V1E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/aug/25/dolly-parton-death-celebrity-reactions
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQT0Q0Q2k5bUNDaFhRaFdkSnd3ck9BMXU2Rkl6c0ZmcnpsZkdGeGtKOFl0aUZOejY4U0sxMGdTVTRMU00wVkJkazMtUEdNdTdxbGEzbUpEQ19zNTY3RkljSGljNGR5SXZkekRCYjdHRnpfeFhXTW5seWZmVXl4VHJnZEtFamx4TlVkZE1B?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMifkFVX3lxTFBVMzg1NTM1R3FxWjJOY1JZZ3FWT3pTZnExd0ZhWHhwM01uVWFDWlVRSF91RUtUX1o0ZU80ZXhwWjRheC1xM2FJanhlX2I0QXlaVlNsR2gzLVBNT0dYQ05QS3VmMFExWDVBSEQzQllrWllJX0lGNnUxaldJbDJ3UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQM2VPcEw2UThKR0NuS24yczczRkFkMTcyamMzVFIxSnRnX1NpVjBiQndMVExFd0lweGtPSnpuQk1naWNHaVhlTG15cks4NzZWOE8zUlVjWDRuejZJSGthVFFBc2ppdmIyQkFsQ2ZYWS0ySXVZNHpRTlZ1d0ZOaDRGQkFhS0VTMkZBVEdfMk9TaVV3cGRBTXRpR3dzbHBOdw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMihAFBVV95cUxNcG9tcFFqcW8zMnBMZUdpYUpPRC1tVmk0SXJkZDJWaFF3cVd0dEZHS1BVRTRaV0g3OXpXMTVvTFUtZFVQUFllajlYdU1DY2J5ZUlwVG9NbWJjQ29OY1kyYjJkdC1Ma3NfTU5ZdEtCNzMxb3AtaHhCQ3VROVBFUUFnbVgyUTk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQcmhiQVoyQVVlMl84U2dQZEloUzFqSFF5UlhjZ1RSMkE3QVJtT3F1eURCUEU4ZnlzNFZjWlJZUjdLNTJXQkJaaTctemR4b3RZSi1XbGV1cGtYQWJtTnZFQkRvZWpkZDdkazJrUzRkcXlYZnhvajV4ZDJmelNVUl9GN2Z0dHRNR2w2WkFjd1BoQjNnak1EelUwa1NQMGlmcldFMXc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KMBC — https://news.google.com/rss/articles/CBMitwFBVV95cUxON1ZzU01HREhsMWlMWnJaTzRVcWhUdVRCbXpBdDZfN3BwSmxDYTg1ajdqSzVWTVotdW9KZEt0ZlNVMnltc3hCYnZEaGlJdkJpU2lwUFY3YmdGejZaLXd4REY4cGpiemlUSlFXa1QxQk9NNGhVQkxpZXY4VXRka0JDSHVOWUo3eFBiWjVubGhwM3JSSHpVeWxrRXdHSmVYVmV4TlFhYWV6ZThZUmUzMEpYOEkzVVBEcUE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMinwFBVV95cUxOT25lR0ZsUkxwOXhWY0hKdHI1Q0tCb3o4WW9CS2hQYUplU19zM3V4NmFFM1ZmdHJMbE96RjBSVkxOd0hiTmx1QjRuMU1mcHgxTTZuVHpOS05KdHVfaGRkb1hyOE16U3lpdHpkb3BPM3ZuMFlvZjFSYjZLdjI5eU93Tks4ZmRCbWxzZGthWVctUzFQaXR2YWlpNU5yVEkzNEE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxNM19id0gzR1pTdk50MzAwQ012MnQ2OER5TFdrX2ZuUDc3UktYaGJYVE9qb2MwNXM4N2h6cmVVQW5HVGhQaUd0TjRpMGJJUFVBWFdIYlFfazZDVUNzaXcyVkVONVlFbTdaU183ZzhHU0xBeC01N25ySmhSdFl2ZW1MeQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQSjZsc1A4X1dZRGstLTFmTkViU2dLX2hOQmV5Y3NIQnFubnZHbGpPOXFveGhXLWVHNW1icXl3aHB3R2F0UDRGN2daV28yT1RhYnN5ak5MaXNnOXlYNUNXbmE1c2tUNU01V3hzclNGOUpjV1QtSERBWF93cnRrSmJvUVRMQnBTeHJWcWxJbEwwZ09XVHBvNktlOW9odjZQeHd2V3RsNjl0UkNuMjhvS3pvbEgtTEZ1dm9LdW1n?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety Australia — https://news.google.com/rss/articles/CBMijAFBVV95cUxPMnRiZGtqNTlwdWFEUlJ4c2JwSTM1VURMS2NLaDAxb3ZPTGY0N1Z0UEprTkp4TEFRSFBOZkp5WGV2eEJvNm45Sm90dDBvZnFwRWtOS0F4YWdSUUhiY0hEVHk3enNDZGtoUlhNVFJ1S3Q4dmhQMU5ZUmJoZWtyc3lNNjJFSE55cVFsWVNRdg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMijwFBVV95cUxPWGowUGd6UVMwSHZ1cnZIX0RRQlJGMTdLYm0zckhMbFFMS3pCWW01Rk0tUnphc2J4NmpCWm1ZbGhudXE1aVY1ZnRkZDVMOEoyd2wwc2pKdUFHS3hlMHF1Z3hhWk83dzZRU0xETVpOWEhvUFJfZGpWR0NwelpZajdzbGFKZVlENVdZWkF1bFNBNA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WBTV — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQZUFNSVZjQWVwWTIyYzRxT1l4MlZSM1J1Z0lUU05LbFJOQU5rUkZkVF9qeWVhb29vcXVWYVVxazl6Zll6OHpWcUlCWnZ4VEdwaGxaSTNfLXc0OXlRdzZoUGtTNlVoN09vX0pCdVNHS2ZlcGloaGduQThjWElndEdETkdIWWJ3MFV4MmszUDJuNFhUTFoxSS0tSXhVY2EzTzY5TWpvZ1BuMzhzcG1iMlFoWGQ5ejJTRUJtV09V?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-dolly-parton-tribute-dead-1236842794/
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitAFBVV95cUxPV2pTLU4wMXhQNEZXQklPdWF4UEJBUW12ZzNJa2VqcDhWcTZ0SmxpLXlUQjUzLV9oeTZQdjVLNlAzVk1CX0JTa2xxa3NlNWI2VnQydmswWUd6aWtDbk9jZWdYbmFxbV9EeWFBUFo1a1BJOU5CZGg4a1pqd0ExVEpXeXRWQ1JoSnR5aGVieFJrd1djbHkyVGRfSW1TQ1g2Ykx5dVh3QlYxVjRkRDRibzZDMThpenc?oc=5&hl=en-US&gl=US&ceid=US:en
