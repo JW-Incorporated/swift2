@@ -36,6 +36,7 @@
     "check:generated": "node scripts/check-generated-in-sync.mjs",
     "check:automerge-allowlist": "node scripts/check-automerge-allowlist.mjs",
     "check:launch-gates": "node --use-env-proxy scripts/check-launch-gates.mjs",
+    "check:content-safety-nightly": "node scripts/content-engine/run.mjs all --no-images",
     "check:content-ownership": "node scripts/check-content-ownership.mjs",
     "check:filter-coverage": "tsx scripts/check-filter-coverage.mjs",
     "check:work-ownership": "node --use-env-proxy scripts/check-work-ownership.mjs",

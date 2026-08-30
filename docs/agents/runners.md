@@ -51,7 +51,7 @@ drifts).
 | Kevin — S3 eng triage (cloud) | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | `43 15 * * *` | ✅ | `claude-sonnet-5` |
 | Kevin — S2 user-feedback digest (cloud) | `trig_0136mXcpmzn6mYtYoUQC3eGP` | `13 15 * * *` | ✅ | `claude-sonnet-5` |
 | Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ | `claude-opus-4-8` |
-| Karen — nightly scan | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
+| Karen — nightly scan (registered name; bounded weekly judgment slice — see `runner-prompts/karen-nightly.md`) | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | `claude-opus-4-8` |
 | Content Shift — authoring runs | `trig_01PonDFeQCL4iRNzceGyAYrm` | `0 17 * * *` | ✅ | `claude-opus-4-8` |
 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ✅ | `claude-opus-4-8` |
@@ -457,14 +457,13 @@ Karen's routine went dark ~2026-08-14 → 08-24 (10+ days, no reports) and the
 staleness check paged. Per CLAUDE.md's "Freshness on Actions, judgment on
 routines" rule, the **deterministic** half of Karen — detect findings from the
 seed corpus and file/dedupe the GitHub tickets — is now a GitHub Action,
-`.github/workflows/cie-scan.yml` (`run.mjs all --no-images --create`, twice
-weekly Sun+Wed, zero LLM, only `GITHUB_TOKEN` + the existing `SOCIAL_POSTER_PAT`
+`.github/workflows/cie-scan.yml` (`run.mjs all --no-images --create`, nightly at `9 9 * * *`, zero LLM, only `GITHUB_TOKEN` + the existing `SOCIAL_POSTER_PAT`
 to land the report PR on protected `main`). That makes CIE report freshness
 independent of Wyatt's Claude login and of this cadence question entirely. The
 Wyatt routine is now only needed for the **judgment** half — `Karen Deep — agent
 review` (fabricated events/quotes, wrong-subject images, safety) — which reads
 the findings the Action produces. Follow-up for the routine dashboard: trim the
-`Karen — nightly scan` routine to the Deep-review pass only (it no longer needs
+`Karen — nightly scan` routine to the Deep-review pass only (despite the registered name, it runs a bounded weekly judgment slice; see `runner-prompts/karen-nightly.md`; it no longer needs
 to run the deterministic scan the Action now owns). The `STALE_DAYS=9` check
 stays as the backstop for the Action itself. **(SUPERSEDED 2026-08-27 —
 the fleet was consolidated to Joey's account ~2026-08-23, verified live
@@ -481,7 +480,7 @@ the 2026-07-25 override.
 
 | Runner | Cadence | Trigger ID |
 |---|---|---|
-| Karen — nightly scan | weekly `0 9 * * 0` (Sun) — **see cadence contradiction above** | `trig_014HWuRmT2MFveDkPGwVDiQX` |
+| Karen — nightly scan | weekly `0 9 * * 0` (Sun) — registered name; bounded weekly judgment slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
 | Kevin — S1 Karen solver *(cloud copy only)* | weekly `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` |
 | Nils — daily walk | weekly `0 14 * * 0` | `trig_013xb8Stm7m2sB6dqGePKRtr` |
 | Stylist | weekly `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` |
