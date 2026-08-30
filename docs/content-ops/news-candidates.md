@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 58
+Stories: 53
+
+## Harry Styles Makes Joke About Taylor Swift at Madison Square Garden
+
+- first seen: 2026-08-30 14:24 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During an event at Madison Square Garden, Harry Styles made a joke referencing Taylor Swift. The comment was reported by The Independent.
+- sources:
+  - [unverified] The Independent — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQMURrMXVMa2tzZWZWWlZ4MnhvUFIwWk5TRm1VcFJ5Z2RPZ0tEcjZCRVNOUDU2NzRETmFTak9vNEdLUGF1dWNQeUpjejQ4S2NyRDc5cWJmV0VfR2hNbHJpRmZRSjJwcEJvT3I3Tkc3WGI5cHozVlM3SDE0WUxCYXd4WXAyQm94QkJHeEx2UTdrU3A1TTBPZEVhc3V5SERhWHF3akE5NTBnekZGYUoyVzBEdndaZ3VnNW9xMlRERTVGNjhFUDZ1aWRxWg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Harry Styles Comments on Taylor Swift's Wedding at Concert
+
+- first seen: 2026-08-30 14:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During a concert at Madison Square Garden, Harry Styles made a playful remark regarding his ex, Taylor Swift's wedding. The incident drew attention from fans and media.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNaTZlc1RYVEtwWnZwQWtfVGJFY0loTjl4QXBJcUZKamZtQXhVTmpfRXRBWURCWUZKVVlpT2hBd1VwR2FxREY5MGZCTUtodVktcWJMS2pxYmloNVRMWHBkd0FIbkVHRkxFUS1rV2dkd2NfTUxid2g4emc1Zk9QbGNDRkFzaHRmSGI2TENEWnVUdEp2ODZXTC1icnlVM2JDNnJZYmRkcEJDX25faF9Y?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Jokes About Taylor Swift's Wedding at MSG Concert
 
@@ -43,15 +59,6 @@ Stories: 58
 - summary: During a performance at the venue where Taylor Swift married Travis Kelce, Harry Styles made a reference to his ex, Taylor Swift. This occurrence garnered attention due to the location's significance to Swift's recent personal life.
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMixAFBVV95cUxNTWtKbl84SktNbV83alpib05aTVJfOEZBaUl2ZVFaRVZRLWFNSXc4VHZFMDE1ZnBwU3RyVHg0WjYtYnVuQWQwZHlLZDBIaDhXNkpTZ2xXQmpub3NsVnBISVpwQXZhbTVGSDRLTUZiVUZ1SG5zaEhWMS04SVp3MFJMMlZFRGp6Wl91NlJabTQxanhOazJZX0dKSnlBTkhBLXREZlh6ZXlGV2NEaVU3OUU0bVJiVXJVYzdQTkJacU9HMHN3TnAw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Makes Jokes About Taylor Swift at Concert
-
-- first seen: 2026-08-30 06:36 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: During his concert at Madison Square Garden, Harry Styles joked about the venue's history, referencing that it is home to the New York Knicks and also hosts weddings. The comments were made in a light-hearted manner amid his performance.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/harry-styles-taylor-swift-wedding-madison-square-garden-1236685019/
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiugFBVV95cUxOX3czTGZIZThOaU1mWkVKUlRMVnNaRUNwWkpja2EzX0FiTUo3dmc0ZG9sZmxIQzlrbnV1LVZVSHg3ZndEd2ZldjVIMGZGbU84UU56UFUxQkxFZTNtekFZVlRCWDZEeGFPN0trejRrZWVUcEwwamJuRm5MRGRPTnFBejhyalpqMDMzZXZmeFRUVFZYUVJVVlEwbjZPdlBoQ2NqRW1pbG5aZm9kLXlfWVVIRS1nSm5iaEh2OUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Acknowledges Taylor Swift's Wedding During MSG Performance
 
@@ -76,6 +83,16 @@ Stories: 58
 - summary: This fall, Taylor Swift's style is inspiring a romantic fairytale aesthetic in fashion, encouraging fans to embrace whimsical outfits. Her influence is set to shape autumn wardrobe choices this season.
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE9KSXZnN29CNEFYZElWMk4wLTNUeGRVNEtKdGhUVS11TWhrRUQ0Yjdzb21GVEY3bC12Sk5XVTkwdWdQQnh3azZyVXczTWEtRWJ0OEU0RGV4dVpRekJnYTZjVHI0eUFWVXEtNzFGRFZYb1d1bnhPemNwQzViTzNyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Harry Styles Makes Jokes About Taylor Swift at Concert
+
+- first seen: 2026-08-30 06:36 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: During his concert at Madison Square Garden, Harry Styles joked about the venue's history, referencing that it is home to the New York Knicks and also hosts weddings. The comments were made in a light-hearted manner amid his performance.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/harry-styles-taylor-swift-wedding-madison-square-garden-1236685019/
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiogFBVV95cUxNSm9ucU1kaTR4bHQzOXhyaXFRVWhzWWFzN2YwRGFkMUxKVEZnSmVOSmI1Q2lLYUZzRVVVLWMybUtnYUJ1Zm9UXzMySl9TMmxfQmlvZU5NbERRVFhMMVNOTl9vYlBTWktTN1dBZEVrNEV4TG5GWGI3M1Y2eEp4MHZQSW45bTBWOHZPdmlBMlAxbEFZc1BHbmhITHU1SDhpc2dSMVE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiugFBVV95cUxOX3czTGZIZThOaU1mWkVKUlRMVnNaRUNwWkpja2EzX0FiTUo3dmc0ZG9sZmxIQzlrbnV1LVZVSHg3ZndEd2ZldjVIMGZGbU84UU56UFUxQkxFZTNtekFZVlRCWDZEeGFPN0trejRrZWVUcEwwamJuRm5MRGRPTnFBejhyalpqMDMzZXZmeFRUVFZYUVJVVlEwbjZPdlBoQ2NqRW1pbG5aZm9kLXlfWVVIRS1nSm5iaEh2OUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift shares original concept for 'I Knew You Were Trouble'
 
@@ -453,63 +470,3 @@ Stories: 58
 - summary: Taylor Swift has achieved the No. 1 position after previously missing it with several of her recent singles. The article discusses her comeback in the charts.
 - sources:
   - [unverified] Forbes — https://news.google.com/rss/articles/CBMiyAFBVV95cUxONVpJRXZwb0RlaE9veV9TaE8xTXQ2QjNlUFIwYnV6TXY4T3JZbU5uSF9KcUxXb2tJMkFUSFQ5YUZQd3pReW5DVVRKcWlwTjlmNTZVVDhHT2hsNkliZGR4ZG9EVlZBYWdrQ1poQnk3VTVwUXpkRW9aRzkySGY4OG12NW1wQ2dmZTBSMy1OaXc0bFBndTV1LUVqWHdrdEE4OXBIS2gxR29qVEE1WGI4TUdNMmZrWF9SaUJwczFRekhDVmxlSndsRDhhbA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shares Insights from The Icon Sessions
-
-- first seen: 2026-08-27 11:10 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift disclosed 10 key insights during The Icon Sessions, discussing her creative process, including the role of fans in shaping her set list choices.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMikgJBVV95cUxORGFHdzRGcUh1UFMxbHF4Q3M0dmdSWlhYWndReE1ETEJMTFVQV0cwRVZBNHNGY3ZPUU1fVlRXaUpIR1EycG9rSjFVdDBBNjd4MGtLMm9yX1U1M1hyeFNXS2FBdWdGek91LWNUell3R2gtc1JKN2gzWGdnV2c2bjF3REJ2bUxVZmRuZXhkX3V5VW5uNW5fWk5CQVBMdHctdFhEbmVRMmVJQjlaQXZtYkZOd1JmRmRBNlFrSldrUEl6ejV3NktpX0JyYUdfVHA2ajVCc1dCTFRnU2tvZ0VTeHEwUUxYRzkzc0lpZGZrZGYycFNFczR1RDNhVDlwN3d4c1RaX3RUTEwzYkZTQnFReGJvSFdn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Debuts Outfit for First Post-Wedding Performance
-
-- first seen: 2026-08-27 11:10 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In her first performance after the wedding, Taylor Swift chose to wear an outfit that reflects a West Village style. Vogue highlights the fashion statement made during this appearance.
-- sources:
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMigAFBVV95cUxOOGFYZ3VvWHVrdFpudWt3cS04QzlVNlN3em9lckpvX1Znam9Kd3Qzcmg3TVFYZ2xQT2NPTXh3X2hyNkZKdG43dWVUUzk3YTE1d1VINEZ6RUwwZUc3emFiRnZqSGdPQkRJYk1wMkY2LUg2dU0xNkhhOEFUREMxWkIzNw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's New Manicure Hinting at 'Reputation'
-
-- first seen: 2026-08-27 11:10 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcases a new manicure that may serve as a beauty Easter egg related to her album 'Reputation'. The design draws attention and speculation among fans.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMikwFBVV95cUxPVUQ0V0pHa0diQnZYdzRSN3ozOGFaTi05ZDRnV09CMlAwTXNKcDU1QjRWSk1jdHY2Y1cwY1FpQTNiaHR2UDNqc292d1dmbmM2dGdZVlBHWkJfRVlhR21JTUVGQjJXMVJyWTUxTzNEQVR4d3hMQUlLdGFFMkk1MlY3Wm52aTZkMUt5NV8xelpwVTZyemM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Adjust to New Routines
-
-- first seen: 2026-08-27 11:10 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly navigating their new life together as they adapt to their demanding work schedules. The couple is in the process of finding a balance in their relationship as newlyweds.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi5wFBVV95cUxPU2xRdU5rRFhfdWZsZ2JmSERTQVduTTVRM1FJSllYUXNNaXp6WHdqVVRmNWYwdmVSVWUyZm1fMkZObnlCd04yTkh3WUNGTU1TREhPUm1UQzRrQ3dkMUYxWFVGazYwcVEtR0VGa21lRC02aDlVZk5GWmRYRm9mc0FyN3FZanB2QmQ1MXY4a2NqSnBEcXdkQUhXbFZ0b1I5MDFvY1hmQ3JIem1hWWx1dW9QeTJzNUJXS0NwanZnQ3lHTTZuVkZEZmFHTU11QzYzZU53Y0J4ODJxMnpDLUJrX01mLWNfRm1QbVU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Expresses Fondness for 'Reputation'
-
-- first seen: 2026-08-27 11:10 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent discussion, Taylor Swift shared her appreciation for her album 'Reputation', highlighting her positive feelings toward the work. The insights were covered in an article by Vulture.
-- sources:
-  - [unverified] Vulture — https://news.google.com/rss/articles/CBMikgFBVV95cUxQcGhwRVpqcWhpa3NZaEZVeVg2TjJ0bmhMZVRsQnBqR3lRODZvME9DVjU5QWJPbWZGRXllY2l0TTVBWmhWOTh2OHNVZlFXVzB0Zm91ZDVEeVBqOVZlcFVIWjlmZ1lPSkdzR3NQV2Z6bFBCaFV6N2RGdkptRVBONmo0TTRhRzZ5RVZTV0RsXzNDei1kdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Trader Joe's Linked to 'Cult' Culture
-
-- first seen: 2026-08-27 11:10 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A New York Times article discusses the term 'cult' as it relates to Taylor Swift and Trader Joe's, exploring how the concept has evolved in contemporary culture.
-- sources:
-  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMihwFBVV95cUxPdEdpUGRoVkZMV2ctR0w1TjAtdXZPX1RQYjEwM1Y5aXNLRlVaM1o4RS1EYjFuT2xQNjVfYVB4QWNiY3VhUDQzY0pmWUxZNC1NcUxrTUxHMDllRl9MRWVwQXQxY3cwdGlPUEpyM2w5MGp1YktnRGZ6S1hEUXd1ZzRuWTZDYkVYUFE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's note to Caitlin Clark revisited by Yahoo Sports
-
-- first seen: 2026-08-27 11:10 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 5
-- summary: Yahoo Sports discusses a note previously written by Taylor Swift to Indiana Fever star Caitlin Clark. The article highlights the content of the note and its significance.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNT1lDR1hpeDhSMWp5NzV5M2FjeVNqb2dENG4xR25MV0h2UVpTQzVXYXhBU3VENWdQWE1sZkNuY0NQS1dlR1U1R2xJZGZjYUpoRWdBTlNieTZpNjhIX25YMmlYZnJpRnZRQzB6bkNidEdyOWthXzVNTWlhclNqUVVLTHZjUFJNUG90Qkhv?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxORHVMU2t1cEdOa0d4SFF4ZG5sRDlGQk8zdUpWT3YxeTVGS0dieF82c3lHcUVyMzdlYjAzZkxCR2ZKREJKMW5YVXFKQWl2SjRld2NsMHFEMERGb1dDQ1hvVV9fZXlWZS1zaWphUW42YUdZM2VIVmtDa1VwbFR6TWIwdlNPS1o1WS1pYWt2UjlNTUFsMXdURUE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] IndyStar — https://news.google.com/rss/articles/CBMihwJBVV95cUxNenhNWWczdVBqWndPVkVYUmhub2J0ZC1xdjltX1JPZTVNbDFKdDBYY3pOSmV1RlNGdmVQWWJST1VGNnE0SWswWWFuYlV1VlVqNGZxRmVPVDhrdndDT0RnUzViMml4eFlza1lnQTJJLTFIdFBScERJWmQtc3BSdHA0cDB6Um5UV0lMalZRSGdBcFZQS2lTZWVuN2ZLOGl6aURjSGtsMS1sXzNMckN6VXZKbjJ5MGJuSzhPRUZZTzlqVjdSX010eDZaWWtqQWwtd0Fienp0MWpLNndlWmdmVHEtZjRFT1NqaGthOG45MVdSQllsMENjRFVjWmNsSWRIRENzcjJZNjdLRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ESPN — https://news.google.com/rss/articles/CBMixAFBVV95cUxOMjM3VWl1eUtSY3RhWDgzSlF1NjJuNDUyMUVyZVpNU2NqcWNNTUVFMWx5NmZ6dHg0ZnJwZ2RCdmloeDZCOE1LTy1pT1BGVG1lNnkwWjg5STMwcXlwbW5Nb2FwLTlnNVZfaG9DeEtSSW1WaFc4UUR3M0lpQVVKU0ZfOFpLQVNiSXoxd3JKN3FCS3lLTVp5ekFiVXJVbW1VSnNxQ3UtVTh0RDlkczVuMjV6dnd0Y0h5RHpoMzlOS2F2WnVnOG1v?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0AFBVV95cUxQZFNIZFh6S3ltSENoczFKNUxUclNvNElOczVyNFhvWTVTSXo3bG5PWnRNX1RWT0FPMHRwOHdhSk54Q1BLOE9UazNqdU42eVYzM0NqVjJORTNYR3p0dkN2WUx4VzRnaWlrNmZNMEdSWWg2dno2Ui0tM2RVd0VhNFUtbFpuNHhWck1YUFUyMk11V09tb1VWYmdtUFpTbjdvRmxUazB3NzNZUmN3U1lmY1NLeGg5MGFBeGNxcUd2M0tobzMxN2VSeVJramozeGhBbUZk?oc=5&hl=en-US&gl=US&ceid=US:en
