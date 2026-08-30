@@ -511,7 +511,11 @@ they ship unratified by default. None is urgent; all are cheap to answer.
 **Worked if:** you answer in chat. A session writes the answers into
 `docs/decisions.md`.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey said, “I'm good with these as is.” The five
+dispositions are recorded in `docs/decisions.md` under
+“Clownbot/Mood/era-reader ratification.”
+
+**Status:** DONE
 
 ---
 

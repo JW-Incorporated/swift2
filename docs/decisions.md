@@ -7,6 +7,25 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-30 — Clownbot/Mood/era-reader ratification (closes HUMAN-ACTIONS #5)
+
+**Decision:** Joey's direct statement, “I'm good with these as is,” ratifies
+all five dispositions in HUMAN-ACTIONS #5: (1) retain Clownbot's
+`claude-sonnet-5` model tier; (2) retain its 200/day/instance cap; (3) retain
+the existing Mood route pattern; (4) approve and retain the existing
+2026-08-13 Clownbot rebuild decisions entry; and (5) ratify the shipped era
+reader bottom navigation as the authoritative override of
+`docs/specs/2026-08-13-landing-page-brief.md` §3.2/D3.
+
+**Why:** The listed dispositions were already shipped or documented and had
+lost their former owner. Joey's direct acceptance closes the remaining
+ratification record without changing their implementation, model/provider
+configuration, cap, routing, or the superseded specification text.
+
+**Approved by:** Joey (direct instruction, 2026-08-30).
+
+---
+
 ## 2026-08-30 — FR-MERCH-6: E5 fan-made discovery round-2 repair ruling (t_fe545cfd) — four bounded repairs, no third Codex review
 
 **Context:** Fable arbiter ruling for Kanban task t_fe545cfd (E5 fan-made
