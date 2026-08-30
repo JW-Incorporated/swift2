@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
@@ -19,8 +19,24 @@ import {
   parseFeedList,
   removedFeedIds,
   rowsFromCsv,
+  syncAwinFeeds,
   writeSqlite,
 } from './sync-awin-feeds.mjs';
+
+const EMPTY_DIRECTORY = 'feed id,last imported,url,advertiser id\n';
+const CURRENT_DIRECTORY = 'feed id,last imported,url,advertiser id\ncurrent,2026-08-30,https://feeds.example/current.csv,100';
+
+async function withCache(cache: object, run: (cachePath: string, indexPath: string) => Promise<void>) {
+  const directory = await mkdtemp(join(tmpdir(), 'awin-feed-cache-'));
+  const cachePath = join(directory, 'cache.json');
+  const indexPath = join(directory, 'index.sqlite');
+  await writeFile(cachePath, `${JSON.stringify(cache)}\n`);
+  try {
+    await run(cachePath, indexPath);
+  } finally {
+    await rm(directory, { force: true, recursive: true });
+  }
+}
 
 describe('E0 Awin sync', () => {
   it('generates a hostname map only for joined programmes and retains unmatched advertisers as apply candidates', () => {
@@ -174,9 +190,54 @@ describe('E0 Awin sync', () => {
     });
   });
 
-  it('updates the cached feed directory only after the index update succeeds', () => {
-    const script = readFileSync('scripts/merch-engine/sync-awin-feeds.mjs', 'utf8');
-    expect(script.indexOf('await writeSqlite')).toBeLessThan(script.lastIndexOf('await writeFile(cacheTarget'));
+  it('clears a prior empty marker before a valid nonempty download failure, making the next empty response a first observation', async () => {
+    await withCache({ feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 }, async (cachePath, indexPath) => {
+      const fetchImpl = vi
+        .fn()
+        .mockResolvedValueOnce(new Response(CURRENT_DIRECTORY))
+        .mockResolvedValueOnce(new Response('', { status: 500 }))
+        .mockResolvedValueOnce(new Response(EMPTY_DIRECTORY));
+
+      await expect(syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn() })).rejects.toThrow('download failed');
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: { retained: '2026-08-29' } });
+
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn() });
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 });
+    });
+  });
+
+  it('clears a prior empty marker before a valid nonempty index failure without advancing feed timestamps', async () => {
+    await withCache({ feeds: { current: '2026-08-30', retained: '2026-08-29' }, emptyDirectoryStreak: 1 }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn().mockResolvedValue(new Response(CURRENT_DIRECTORY));
+      const writeSqliteImpl = vi.fn().mockRejectedValue(new Error('index write failed'));
+
+      await expect(syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl })).rejects.toThrow('index write failed');
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: { current: '2026-08-30', retained: '2026-08-29' } });
+      expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained']);
+    });
+  });
+
+  it('preserves an empty marker after malformed input because malformed directories are non-observations', async () => {
+    await withCache({ feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn().mockResolvedValue(new Response('<html>temporary upstream error</html>'));
+
+      await expect(syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn() })).rejects.toThrow('directory response is incomplete');
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 });
+    });
+  });
+
+  it('persists a valid empty cache marker and removes feeds only after the next valid empty directory', async () => {
+    await withCache({ feeds: { retained: '2026-08-29' } }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn(() => Promise.resolve(new Response(EMPTY_DIRECTORY)));
+      const writeSqliteImpl = vi.fn();
+
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl });
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 });
+
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl });
+      expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained']);
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: {} });
+    });
   });
 
   const sqliteSupported = Number(process.versions.node.split('.')[0]) >= 22;

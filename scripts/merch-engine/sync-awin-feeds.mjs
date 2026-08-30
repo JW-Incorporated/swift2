@@ -189,16 +189,17 @@ export async function writeSqlite(path, rows, replacedFeedIds) {
   database.close();
 }
 
-async function main() {
-  const args = process.argv.slice(2);
-  const option = (name) => args.includes(name) ? args[args.indexOf(name) + 1] : null;
-  const cachePath = option('--cache') || 'awin-feed-cache.json';
-  const indexPath = option('--index') || 'awin-product-index.sqlite';
-  const apiKey = process.env.AWIN_FEED_API_KEY;
+export async function syncAwinFeeds({
+  cachePath = 'awin-feed-cache.json',
+  indexPath = 'awin-product-index.sqlite',
+  apiKey,
+  fetchImpl = fetch,
+  writeSqliteImpl = writeSqlite,
+} = {}) {
   if (!apiKey) throw new Error('AWIN_FEED_API_KEY is required');
   const cache = await jsonFrom(resolve(ROOT, cachePath), { feeds: {} });
   const cacheTarget = resolve(ROOT, cachePath);
-  const list = await fetch(`https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(apiKey)}`);
+  const list = await fetchImpl(`https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(apiKey)}`);
   if (!list.ok) throw new Error(`Awin feed list request failed (${list.status})`);
   const { complete, feeds, changed, removed, deferredRemoval } = buildFeedDirectorySyncPlan({ csv: await list.text(), cache });
   if (!complete) throw new Error('Awin feed directory response is incomplete; leaving local index untouched');
@@ -208,13 +209,29 @@ async function main() {
     console.warn('Awin feed directory is empty; deferring all-feed removal until the next consecutive response');
     return;
   }
+  if (feeds.length > 0 && cache.emptyDirectoryStreak) {
+    const cacheWithoutEmptyDirectoryStreak = { ...cache };
+    delete cacheWithoutEmptyDirectoryStreak.emptyDirectoryStreak;
+    await mkdir(dirname(cacheTarget), { recursive: true });
+    await writeFile(cacheTarget, `${JSON.stringify(cacheWithoutEmptyDirectoryStreak, null, 2)}\n`);
+  }
   if (changed.some((feed) => !feed.advertiserMid)) throw new Error('Awin feed list must identify each changed advertiser');
-  const downloaded = await fetchChangedFeeds({ feeds: changed });
+  const downloaded = await fetchChangedFeeds({ feeds: changed, fetchImpl });
   const rows = downloaded.flatMap((feed) => rowsFromCsv(feed, feed.csv));
   await mkdir(dirname(cacheTarget), { recursive: true });
-  if (changed.length > 0 || removed.length > 0) await writeSqlite(resolve(ROOT, indexPath), rows, [...changed.map((feed) => feed.feedId), ...removed]);
+  if (changed.length > 0 || removed.length > 0) await writeSqliteImpl(resolve(ROOT, indexPath), rows, [...changed.map((feed) => feed.feedId), ...removed]);
   await writeFile(cacheTarget, `${JSON.stringify({ feeds: Object.fromEntries(feeds.map((feed) => [feed.feedId, feed.updatedAt])) }, null, 2)}\n`);
   console.log(JSON.stringify({ changedFeeds: changed.length, removedFeeds: removed.length, indexedProducts: rows.length }));
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  const option = (name) => args.includes(name) ? args[args.indexOf(name) + 1] : null;
+  await syncAwinFeeds({
+    cachePath: option('--cache') || 'awin-feed-cache.json',
+    indexPath: option('--index') || 'awin-product-index.sqlite',
+    apiKey: process.env.AWIN_FEED_API_KEY,
+  });
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch((error) => { console.error(`merch-awin-feeds: ${error.message}`); process.exitCode = 1; });
