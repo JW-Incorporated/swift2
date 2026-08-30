@@ -10,6 +10,10 @@ interface GdeltArticle {
   seendate?: unknown;
 }
 
+function isGdeltArticle(value: unknown): value is GdeltArticle {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 function toIsoDate(value: unknown): string | undefined {
   if (typeof value !== 'string' || !/^\d{8}T\d{6}Z$/.test(value)) return undefined;
 
@@ -46,9 +50,11 @@ export async function fetchGdeltTaylorSwift(
     throw new Error(`GDELT document query failed (${response.status})`);
   }
 
-  const body = (await response.json()) as { articles?: GdeltArticle[] };
-  return (body.articles ?? [])
+  const body = (await response.json()) as { articles?: unknown };
+  const articles = Array.isArray(body.articles) ? body.articles : [];
+  return articles
     .slice(0, MAX_ITEMS)
+    .filter(isGdeltArticle)
     .map(normalizeArticle)
     .filter((article): article is NormalizedNewsItem => article !== undefined);
 }

@@ -57,6 +57,14 @@ describe('fetchGdeltTaylorSwift', () => {
     ]);
   });
 
+  it('treats malformed article payload shapes as empty results', async () => {
+    const nonArrayFetch = vi.fn().mockResolvedValue(jsonResponse({ articles: {} }));
+    const nullEntryFetch = vi.fn().mockResolvedValue(jsonResponse({ articles: [null] }));
+
+    await expect(fetchGdeltTaylorSwift(nonArrayFetch)).resolves.toEqual([]);
+    await expect(fetchGdeltTaylorSwift(nullEntryFetch)).resolves.toEqual([]);
+  });
+
   it('throws on a non-OK response', async () => {
     const fetchImpl = vi.fn().mockResolvedValue(jsonResponse({}, false, 503));
 
