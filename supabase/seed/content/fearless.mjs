@@ -473,6 +473,7 @@ export default {
             item: 'Miss Me Sequin Mini Dress',
             retailer: 'us.princesspolly.com',
             url: 'https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver',
+            matchTier: 'unscored',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0061/8627/0804/files/1-modelinfo-anna-us2_50d8d45d-d7e9-436c-8612-a72cbd106a3e.jpg?v=1757460707',
             price: '$85.00',
             isAlternative: true,

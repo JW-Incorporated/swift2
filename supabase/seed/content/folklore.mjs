@@ -441,6 +441,7 @@ export default {
             item: 'Oversized Plaid Blazer',
             retailer: 'oakandfort.com',
             url: 'https://oakandfort.com/products/oversized-plaid-blazer_5',
+            matchTier: 'unscored',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0697/9102/3343/files/Jacket-9470_Oatmeal_20Brown_20Plaid-1.jpg?v=1721961051',
             price: '$42.00',
             inStock: false,

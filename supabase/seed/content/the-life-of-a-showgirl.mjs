@@ -8127,6 +8127,7 @@ export default {
             item: 'Laila Floral Beaded Organza Strapless Gown',
             retailer: 'markarian-nyc.com',
             url: 'https://markarian-nyc.com/products/laila-white-floral-beaded-organza-strapless-gown-with-pink-and-yellow-applique-flowers',
+            matchTier: 'unscored',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0024/7195/2443/files/MS2620AD1029_OFW_1.jpg?v=1757606125',
             price: '$7,895.00',
             inStock: false,

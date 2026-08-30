@@ -357,6 +357,7 @@ export default {
             item: 'Isabel Open Plunge With Thigh Slit Sequins Gown',
             retailer: 'alamourthelabel.com',
             url: 'https://www.alamourthelabel.com/products/isabel-gown?country=US',
+            matchTier: 'unscored',
             imageUrl: 'https://cdn.shopify.com/s/files/1/1084/7742/files/82_9903abc4-009b-4834-addb-a8cfe477c863.jpg?v=1745537231',
             price: '$357.21',
             isAlternative: true,
