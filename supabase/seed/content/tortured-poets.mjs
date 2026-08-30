@@ -4554,7 +4554,7 @@ export default {
             url: 'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
             note: 'The muting is documented across outlets (Variety, Rolling Stone, Deadline, EW); what is unconfirmed is who issued the copyright block. Continues the Taylor-vs-Trump thread here — a "Father Figure" clip was similarly muted in Nov 2025. Resolves if Taylor, her team, or her label confirms it acted (or it is shown to be TikTok\'s automated system); fades if no one claims it. No location.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-09',
+            lastCheckedOn: '2026-08-30',
           },
         ],
       },
