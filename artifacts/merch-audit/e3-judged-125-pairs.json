@@ -1,0 +1,1693 @@
+{
+  "schemaVersion": 1,
+  "providerModel": "claude-sonnet-5",
+  "thinking": "disabled",
+  "status": "partial",
+  "detectorReceipt": {
+    "records": 133,
+    "queued": 125,
+    "reused": 0,
+    "unscored": 8
+  },
+  "run": {
+    "capUsd": 5,
+    "observedCostUsd": 5.0562825,
+    "stopReason": "run cap reached before a valid judged response was produced",
+    "completedJudgments": 0
+  },
+  "judgments": [
+    {
+      "productId": "vault-1989-a-black-cutout-kaufmanfranco-mini-at-the-iheartradio-awards:0:https://us.princesspolly.com/products/bombshell-sequin-mini-dress-black",
+      "cacheKey": "e4fac1f846b1490ec4ca4de4bc333ff84f76464a161a18e314a8bbd2b0913c6b",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0061/8627/0804/files/1-modelinfo-ergi-us2_8ce226fe-4d11-4e60-87b2-7006a872db6c.jpg?v=1723608160",
+      "momentImageUrl": "https://images.hellomagazine.com/horizon/original_aspect_ratio/d02f741a61d4-taylor-a.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-1989-a-sparkling-white-balmain-jumpsuit-for-the-billboard-music-a:0:https://us.balmain.com/en/p/sleeveless-lambskin-jumpsuit-FF0QO025LE040DA.html",
+      "cacheKey": null,
+      "productUrl": "https://us.balmain.com/en/p/sleeveless-lambskin-jumpsuit-FF0QO025LE040DA.html",
+      "productImageUrl": null,
+      "momentImageUrl": "https://akns-images.eonline.com/eol_images/Entire_Site/2015417/rs_634x1024-150517170511-634.Taylor-Swift-Billboard-Music-Awards.jl.051715.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-1989-a-houndstooth-ashish-crop-top-pantsuit-leads-the-bad-blood-s:0:https://ashish.co.uk/products/sequin-tartan-overshirt-1",
+      "cacheKey": "6e02627518e51f31259e62c8ff640f4984c92ab850254937860a3734cd399bb7",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0865/9769/7873/files/ASHISHSequinTartanShirtMaroon1.jpg?v=1729856257",
+      "momentImageUrl": "https://www.hollywoodreporter.com/wp-content/uploads/2015/08/Martha_Hunt_Hailee_Steinfeld_Cara_Delevingne_Selena_Gomez_Taylor_Swift_Serayah_Lily_Aldridge_Gigi_Hadid_Karlie_Kloss_VMAs.jpg?w=2000&h=1126&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-1989-the-1989-world-tour-wardrobe-a-rotating-closet-of-sparkle:0:https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink",
+      "cacheKey": null,
+      "productUrl": "https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink",
+      "productImageUrl": null,
+      "momentImageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-1989-a-red-bandeau-top-and-a-thigh-slit-magenta-maxi-skirt-at-the:0:https://shoppinkattitude.com/products/happy-to-know-you-hot-pink-satin-maxi-skirt",
+      "cacheKey": "09c9d1100f77c3f288b634d25229baa78dc2fd9021478608b735a76f4463000d",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/1195/9626/files/0E365157-D3CC-47C9-82B1-E9AC0C35213C.jpg?v=1737765048",
+      "momentImageUrl": "https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-1989-a-blunt-bob-with-bangs-replaces-the-signature-curls-at-the-2:0:https://www.amazon.com/Ghd-Original-Styler-Straightener-Professional/dp/B09P4SVXK4",
+      "cacheKey": null,
+      "productUrl": "https://www.amazon.com/Ghd-Original-Styler-Straightener-Professional/dp/B09P4SVXK4",
+      "productImageUrl": null,
+      "momentImageUrl": "https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-1989-denim-overall-dress-street-style-on-a-new-york-afternoon:0:https://copperunionapparel.com/products/denim-overall-dress",
+      "cacheKey": "e9adc8a38c0262cb7bcae5adf83257d8c8ba1c5011e2e77bdb4dd16b09836c31",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0550/7458/6846/files/IMG_0966.heic?v=1706743029",
+      "momentImageUrl": "https://akns-images.eonline.com/eol_images/Entire_Site/201678/rs_634x1024-160808163309-634taylor-swift-nyc-demin-overalls.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-1989-a-silver-snakeskin-louis-vuitton-mini-co-chairing-the-2016-m:0:https://edgebyks.com/products/snake-print-sequin-mini-dress",
+      "cacheKey": "0c7837e425bc68b05564e0ea6cde8ae56874007cc7f6ed364f2483427efce22e",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0567/7597/products/43_4d12e6d8-caaf-4176-90c3-26e95c1f5a34.jpg?v=1684469127",
+      "momentImageUrl": "https://www.hollywoodreporter.com/wp-content/uploads/2016/05/gettyimages-527338016.jpg?w=2000&h=1126&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-1989-bad-blood-videos-warrior-makeup-winged-eyes-and-a-red-lip-by:0:https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick",
+      "cacheKey": null,
+      "productUrl": "https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick",
+      "productImageUrl": null,
+      "momentImageUrl": "https://images.prismic.io/birchbox/MDFhZjY0OWUtZTM3MS00MDkxLThmOGQtMzAxNTU0MGZhMDc2_may-taylor-swift-bad-blood-700x400.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-1989-zombie-makeup-for-look-what-you-made-me-do:0:https://jestpaint.com/products/mehron-premium-makeup-kit-new-zombie-professional-makeup-kit-kmp-ez",
+      "cacheKey": "fc5bd8b5a904bc71f0012349aaff4dc5202690d2f72bc8260c10a07931420ab7",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0030/9316/8186/products/KMP-Z-2__82482.1644251720-NewProfessioalZombiemakeupkit.jpg?v=1654884380",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-folklore-medley-staged-like-a-cabin-in-an-enchanted-forest:0:https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html",
+      "cacheKey": null,
+      "productUrl": "https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html",
+      "productImageUrl": null,
+      "momentImageUrl": "https://i.ytimg.com/vi/Uzii44SDYFA/hqdefault.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-evermore-the-ivory-zimmermann-gown-from-the-willow-video:0:https://www.jenniferbehr.com/products/priscilla-tiara-champagne",
+      "cacheKey": "97dc73475ff208ef44b204dd3f23c10852de811b5091798883b18dfe4f0f975c",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0431/9543/3119/files/115UD5-champagne-web-1_3c228763-eaf8-4906-88fc-55d817a9932b.jpg?v=1697757765",
+      "momentImageUrl": "https://www.redcarpet-fashionawards.com/wp-content/uploads/2020/12/Taylor-Swift-Wore-Zimmermann-For-Her-Willow-Music-Video-819x1024.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas:0:https://www.garmentory.com/sale/ulla-johnson/tops-blouses/976294-fernanda-blouse",
+      "cacheKey": null,
+      "productUrl": "https://www.garmentory.com/sale/ulla-johnson/tops-blouses/976294-fernanda-blouse",
+      "productImageUrl": "https://images.garmentory.com/images/3984947/large/Ulla-Johnson-Fernanda-Blouse-20200713175800.jpg?1594663082",
+      "momentImageUrl": "https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-vintage-chevrolet-a-burgundy-cap-and-the-red-taylors-versi:0:https://www.revolve.com/janessa-leone-mattie-fisherman-cap-in-rust/dp/JNES-WA15/",
+      "cacheKey": null,
+      "productUrl": "https://www.revolve.com/janessa-leone-mattie-fisherman-cap-in-rust/dp/JNES-WA15/",
+      "productImageUrl": "https://is4.revolveassets.com/images/p4/n/c/JNES-WA15_V1.jpg",
+      "momentImageUrl": "https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-evermore-the-siren-red-lip-and-cat-eye-that-came-to-define-the-red-tv:0:https://www.amazon.com/Lipstick-Ravishing-Matte-3-5g-0-12oz/dp/B082P4X6FV",
+      "cacheKey": null,
+      "productUrl": "https://www.amazon.com/Lipstick-Ravishing-Matte-3-5g-0-12oz/dp/B082P4X6FV",
+      "productImageUrl": null,
+      "momentImageUrl": "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-skin-tight-ala-a-jumpsuit-for-all-too-well-on-snl-then-a-h:0:https://www.ssense.com/en-us/women/product/alaia/brown-second-skin-knit-off-shoulder-bodysuit/17916981",
+      "cacheKey": null,
+      "productUrl": "https://www.ssense.com/en-us/women/product/alaia/brown-second-skin-knit-off-shoulder-bodysuit/17916981",
+      "productImageUrl": "https://img.ssensemedia.com/images/w_640/252483F358001_1/alaia-brown-second-skin-knit-off-shoulder-bodysuit.jpg",
+      "momentImageUrl": "https://www.shefinds.com/files/2021/11/taylor-swift-snl-performance.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MTUtdmF1bHQtZXZlcm1vcmUtYS1za2luLXRpZ2h0LWFsYS1hLWp1bXBzdWl0LWZvci1hbGwtdG9vLXdlbGwtb24tc25sLXRoZW4tYS1oOjA6aHR0cHM6Ly93d3cuc3NlbnNlLmNvbS9lbi11cy93b21lbi9wcm9kdWN0L2FsYWlhL2Jyb3duLXNlY29uZC1za2luLWtuaXQtb2ZmLXNob3VsZGVyLWJvZHlzdWl0LzE3OTE2OTgx-product.jpg'; moment image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MTUtdmF1bHQtZXZlcm1vcmUtYS1za2luLXRpZ2h0LWFsYS1hLWp1bXBzdWl0LWZvci1hbGwtdG9vLXdlbGwtb24tc25sLXRoZW4tYS1oOjA6aHR0cHM6Ly93d3cuc3NlbnNlLmNvbS9lbi11cy93b21lbi9wcm9kdWN0L2FsYWlhL2Jyb3duLXNlY29uZC1za2luLWtuaXQtb2ZmLXNob3VsZGVyLWJvZHlzdWl0LzE3OTE2OTgx-moment.webp'"
+      ]
+    },
+    {
+      "productId": "vault-evermore-the-willow-videos-final-scene-a-gucci-liberty-print-floral-m:0:https://www.runwaycatalog.com/products/gucci-silk-floral-print-dress",
+      "cacheKey": "1f6fd71d061a036d80e3dccc02648a7b130aaaf49d73f06f0715dbbba790feb9",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/2432/8403/files/gucci-silk-crepe-de-chine-floral-print-dress-runway-catalog-5817227.jpg?v=1772562529",
+      "momentImageUrl": "https://stealherstyle.net/wp-content/uploads/2020/12/taylorswift_w3-500x350.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-3d-floral-oscar-de-la-renta-mini-dress-for-the-2021-grammy:0:https://www.modaoperandi.com/women/p/oscar-de-la-renta/floral-embroidered-tulle-mini-dress/493975",
+      "cacheKey": null,
+      "productUrl": "https://www.modaoperandi.com/women/p/oscar-de-la-renta/floral-embroidered-tulle-mini-dress/493975",
+      "productImageUrl": "https://cdn.modaoperandi.com/assets/images/products/865319/493975/medium_oscar-de-la-renta-floral-floral-embroidered-tulle-mini-dress.jpg?_v=0",
+      "momentImageUrl": "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-purple-velvet-etro-pantsuit-for-the-all-too-well-short-fil:0:https://www.etro.com/us-en/single-breasted-velvet-jacket-WRCA008199TUEI1B0904.html",
+      "cacheKey": null,
+      "productUrl": "https://www.etro.com/us-en/single-breasted-velvet-jacket-WRCA008199TUEI1B0904.html",
+      "productImageUrl": null,
+      "momentImageUrl": "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Etro-To-The-All-Too-Well-New-York-Premiere.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show:0:https://wonderlandbylilian.com/products/ivory-short-wedding-party-dresses-with-beaded-lace-wedding-gown-long-sleeve-with-cowl-neckline-plus-size",
+      "cacheKey": "8e94c6c3b440515685f056bc39c164ba36a259cf2f215851ea68e1e7bc743c13",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0550/3919/7262/files/001-ND-002__1.png?v=1744188400",
+      "momentImageUrl": "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MTktdmF1bHQtZXZlcm1vcmUtYS1nb2xkLWJlYWRlZC16dWhhaXItbXVyYWQtc2hpZnQtZHJlc3MtZm9yLXRoZS10b25pZ2h0LXNob3c6MDpodHRwczovL3dvbmRlcmxhbmRieWxpbGlhbi5jb20vcHJvZHVjdHMvaXZvcnktc2hvcnQtd2VkZGluZy1wYXJ0eS1kcmVzc2VzLXdpdGgtYmVhZGVkLWxhY2Utd2VkZGluZy1nb3duLWxvbmctc2xlZXZlLXdpdGgtY293bC1uZWNrbGluZS1wbHVzLXNpemU-product.webp'; moment image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MTktdmF1bHQtZXZlcm1vcmUtYS1nb2xkLWJlYWRlZC16dWhhaXItbXVyYWQtc2hpZnQtZHJlc3MtZm9yLXRoZS10b25pZ2h0LXNob3c6MDpodHRwczovL3dvbmRlcmxhbmRieWxpbGlhbi5jb20vcHJvZHVjdHMvaXZvcnktc2hvcnQtd2VkZGluZy1wYXJ0eS1kcmVzc2VzLXdpdGgtYmVhZGVkLWxhY2Utd2VkZGluZy1nb3duLWxvbmctc2xlZXZlLXdpdGgtY293bC1uZWNrbGluZS1wbHVzLXNpemU-moment.webp'"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s:0:https://www.runwaycatalog.com/products/crystal-embellished-cady-mini-dress",
+      "cacheKey": "e0b3655fe4909efe04fbdd70eaffbf63f93e47f80376218ceec952fb6472eea4",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/2432/8403/files/david-koma-crystal-embellished-cady-mini-dress-runway-catalog-7123370.jpg?v=1773156012",
+      "momentImageUrl": "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/latenightseth-254951110_1087887028417877_8037280291044973019_n.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi:0:https://www.fwrd.com/product-david-koma-flounce-one-sleeve-sequin-mini-dress-in-blue/DAVF-WD195/",
+      "cacheKey": null,
+      "productUrl": "https://www.fwrd.com/product-david-koma-flounce-one-sleeve-sequin-mini-dress-in-blue/DAVF-WD195/",
+      "productImageUrl": null,
+      "momentImageUrl": "https://i.ytimg.com/vi/21Ki96Lsxhc/hqdefault.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-custom-etro-gown-for-the-folklore-evermore-medley:0:https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html",
+      "cacheKey": null,
+      "productUrl": "https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html",
+      "productImageUrl": null,
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg?w=942&h=628&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-fearless-a-marching-band-reveal-to-open-the-fearless-tour:0:https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver",
+      "cacheKey": "3d3a6f1deae7f4bb0c027b2d63a91e4d1f95452a23dfc1dffd3d6747a448fa3f",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0061/8627/0804/files/1-modelinfo-anna-us2_50d8d45d-d7e9-436c-8612-a72cbd106a3e.jpg?v=1757460707",
+      "momentImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-fearless-a-silver-sequined-gown-worn-into-an-interruption-no-one-saw-:0:https://wonderlandbylilian.com/products/silver-sequin-evening-gown-with-off-shoulder-sleeves-elegant-sequined-dress-with-draped-skirt-plus-size",
+      "cacheKey": "e092e255c5deb14443247d735f72d05f62c9e636cf0ebb1cbdb76750a6bfc2bb",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0550/3919/7262/files/b2b9ca237ee2e9d0031ad3655088b7c0.png?v=1785294642",
+      "momentImageUrl": "https://cdn.mos.cms.futurecdn.net/DQ3KoxNSJgDDtCrzfjpf83.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MjQtdmF1bHQtZmVhcmxlc3MtYS1zaWx2ZXItc2VxdWluZWQtZ293bi13b3JuLWludG8tYW4taW50ZXJydXB0aW9uLW5vLW9uZS1zYXctOjA6aHR0cHM6Ly93b25kZXJsYW5kYnlsaWxpYW4uY29tL3Byb2R1Y3RzL3NpbHZlci1zZXF1aW4tZXZlbmluZy1nb3duLXdpdGgtb2ZmLXNob3VsZGVyLXNsZWV2ZXMtZWxlZ2FudC1zZXF1aW5lZC1kcmVzcy13aXRoLWRyYXBlZC1za2lydC1wbHVzLXNpemU-product.webp'; moment image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MjQtdmF1bHQtZmVhcmxlc3MtYS1zaWx2ZXItc2VxdWluZWQtZ293bi13b3JuLWludG8tYW4taW50ZXJydXB0aW9uLW5vLW9uZS1zYXctOjA6aHR0cHM6Ly93b25kZXJsYW5kYnlsaWxpYW4uY29tL3Byb2R1Y3RzL3NpbHZlci1zZXF1aW4tZXZlbmluZy1nb3duLXdpdGgtb2ZmLXNob3VsZGVyLXNsZWV2ZXMtZWxlZ2FudC1zZXF1aW5lZC1kcmVzcy13aXRoLWRyYXBlZC1za2lydC1wbHVzLXNpemU-moment.jpg'"
+      ]
+    },
+    {
+      "productId": "vault-folklore-the-cardigan-video-a-nap-dress-and-the-cottagecore-uniform:0:https://www.hillhousehome.com/collections/nap-dress-shop/products/the-ashlyn-nap-dress-white",
+      "cacheKey": null,
+      "productUrl": "https://www.hillhousehome.com/collections/nap-dress-shop/products/the-ashlyn-nap-dress-white",
+      "productImageUrl": "https://www.hillhousehome.com/cdn/shop/files/The_Ashlyn_Nap_Dress_White_Broderie3450_1.jpg?v=1777922577&width=1024",
+      "momentImageUrl": "https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/taylor-swifts-nap-dress-pays-homage-to-whimsy-1595575441.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-folklore-the-cardigan-video-a-nap-dress-and-the-cottagecore-uniform:1:https://us.princesspolly.com/products/abner-cable-cardigan-cream",
+      "cacheKey": "a10bb0e0fec1b480d753b62545bc4ca11fd6f5a5ae49f879f1d3086cbd5b9c79",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0061/8627/0804/files/1-modelinfo-josephine-us2_d4669798-8963-4ec7-91f6-4a549317cc89.jpg?v=1722383819",
+      "momentImageUrl": "https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/taylor-swifts-nap-dress-pays-homage-to-whimsy-1595575441.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-folklore-no-glam-team-self-styled-hair-and-makeup-for-the-folklore-er:0:https://www.lauramercier.com/products/tinted-moisturizer-light-revealer-natural-skin-illuminator",
+      "cacheKey": "08db75e724470f045ba534b079a74a7f7f9db6a0ad7fccaaa37de19bf8cd8090",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0615/5265/6623/files/LM_SP22_TMLR_US_50ml_0N1_PETAL_R150_3000x3000_5ca1aaeb-b889-4334-a9d7-891b507a68eb.png?v=1782838677",
+      "momentImageUrl": "https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/intro-1595575441.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-folklore-the-folklore-album-cover-a-self-directed-black-and-white-pho:0:https://oakandfort.com/products/oversized-plaid-blazer_5",
+      "cacheKey": "a9a1ae420a59d6f1a7b84701c1f301340b96f6b70d7263a11f9031db02805383",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0697/9102/3343/files/Jacket-9470_Oatmeal_20Brown_20Plaid-1.jpg?v=1721961051",
+      "momentImageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se:0:https://www.revolve.com/free-people-lux-velvet-shirt-dress-in-fairytale/dp/FREE-WD1888/",
+      "cacheKey": null,
+      "productUrl": "https://www.revolve.com/free-people-lux-velvet-shirt-dress-in-fairytale/dp/FREE-WD1888/",
+      "productImageUrl": "https://is4.revolveassets.com/images/p4/n/c/FREE-WD1888_V1.jpg",
+      "momentImageUrl": "https://fashionsizzle.com/wp-content/uploads/2020/11/462213.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se:1:https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html",
+      "cacheKey": null,
+      "productUrl": "https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html",
+      "productImageUrl": "https://media.tiffany.com/is/image/tco/60143732_BLT_MAIN1X1",
+      "momentImageUrl": "https://fashionsizzle.com/wp-content/uploads/2020/11/462213.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se:2:https://www.melindamaria.com/products/perfect-pearl-stacked-ring-gold",
+      "cacheKey": "37a30184d73647e6c30f1f4dc66fde38821bf2c3ba31c93ec8a245971ea933b4",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0019/7135/5694/files/PerfectPearlStackedRing_R6142_G_PRL_P_V1.jpg?v=1782836011",
+      "momentImageUrl": "https://fashionsizzle.com/wp-content/uploads/2020/11/462213.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-folklore-the-original-folklore-cardigan-sells-out-and-becomes-a-piece:0:https://www.amazon.com/Womens-Cardigan-Embroidery-Sweater-Outwear/dp/B0BGXK89F2/",
+      "cacheKey": null,
+      "productUrl": "https://www.amazon.com/Womens-Cardigan-Embroidery-Sweater-Outwear/dp/B0BGXK89F2/",
+      "productImageUrl": null,
+      "momentImageUrl": "https://cdn.hercampus.com/SH6M70M3/as/c3hfjtcwgp4ffqj8pc59g3/taylor_swift_folklore_cardigan?width=1024&height=1024&fit=cover&auto=webp&dpr=4",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-lover-a-rainbow-versace-blazer-for-the-2019-vmas:0:https://www.semsem.com/products/multicolor-sequined-satin-blazer-dress",
+      "cacheKey": "a372bb36ce9a6f9e6633006f8f7c1dd6c9ebda6a1e00c087917cc2e6e08aac17",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0480/8166/6211/products/Multicolor_Sequin_Crystal_Blazer_Dress_1.jpg?v=1741186091",
+      "momentImageUrl": "https://imgix.bustle.com/uploads/getty/2019/8/26/1a50b4b9-6a40-4a82-a40a-66e602f41cf5-getty-1170384770.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-lover-a-shimmering-green-julien-macdonald-gown-at-the-2019-amas:0:https://www.alamourthelabel.com/products/isabel-gown?country=US",
+      "cacheKey": "30d038217f366953f61530eac841d81f813374aab450d32e73fb116cc7d33bdf",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/1084/7742/files/82_9903abc4-009b-4834-addb-a8cfe477c863.jpg?v=1745537231",
+      "momentImageUrl": "https://akns-images.eonline.com/eol_images/Entire_Site/20191024/rs_634x1024-191124163526-634-taylor-swift-2019-AMAs-red-carpet-fashion.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-lover-a-floral-oscar-de-la-renta-gown-by-laura-kim-and-fernando-ga:0:https://www.adriannapapell.com/products/strapless-floral-beaded-embroidery-gown-in-taupe-pink-ap1e212673",
+      "cacheKey": "c0999dde074fa457c99d2f3354101c42363f7b854a98f1dd01f1b4817557aeec",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0408/4583/6453/files/AP1E212673_AC273_Regular_Side.jpg?v=1776754967",
+      "momentImageUrl": "https://graziamagazine.com/wp-content/uploads/2019/12/taylor-swift-attends-the-world-premiere-of-cats-at-alice-news-photo-1576544616.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MzUtdmF1bHQtbG92ZXItYS1mbG9yYWwtb3NjYXItZGUtbGEtcmVudGEtZ293bi1ieS1sYXVyYS1raW0tYW5kLWZlcm5hbmRvLWdhOjA6aHR0cHM6Ly93d3cuYWRyaWFubmFwYXBlbGwuY29tL3Byb2R1Y3RzL3N0cmFwbGVzcy1mbG9yYWwtYmVhZGVkLWVtYnJvaWRlcnktZ293bi1pbi10YXVwZS1waW5rLWFwMWUyMTI2NzM-product.webp'"
+      ]
+    },
+    {
+      "productId": "vault-lover-bill-corsos-six-person-prosthetic-transformation-for-the-man:0:https://www.mehron.com/synwax/",
+      "cacheKey": null,
+      "productUrl": "https://www.mehron.com/synwax/",
+      "productImageUrl": "https://cdn11.bigcommerce.com/s-0d47ho/products/635/images/10187/147-1__18214.1692981122.386.513.jpg?c=2",
+      "momentImageUrl": "https://www.nme.com/wp-content/uploads/2020/02/tay-696x442.png",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-lover-head-to-toe-plaid-at-the-miss-americana-sundance-premiere:0:https://www.shopcider.com/goods/tweed-plaid-button-up-wide-leg-jumpsuit",
+      "cacheKey": null,
+      "productUrl": "https://www.shopcider.com/goods/tweed-plaid-button-up-wide-leg-jumpsuit",
+      "productImageUrl": "https://img1.shopcider.com/product/1669608459000-XnJb8S.jpg",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/media/taylor-swift-sundance-2020-billboard-1548.jpg?w=942&h=628&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-lover-a-custom-etro-floral-gown-a-lover-coded-look-for-the-2020-go:0:https://www.couturecandy.com/products/ladivine-cm323-floral-glitter-prom-gown",
+      "cacheKey": "93e9a6fbdf4a79c44c7d0f1a81908de5ecdd9f19f8e35658e047c034e6427277",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0144/7018/5017/products/ladivine-cm323-floral-glitter-prom-gown-prom-dresses-6-navy-gold-31830908797011.jpg?v=1756147007",
+      "momentImageUrl": "https://imgix.bustle.com/uploads/getty/2020/1/6/36da59a0-670b-451b-bd63-4ef9b0134e59-getty-1197739056.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-roberto-cavalli-and-louboutin-for-the-1989-set:0:https://www.showpo.com/us/products/kai-two-piece-top-and-skirt-set-sequin-strappy-crop-top-and-wrap-tie-side-mini-skirt-in-sc2605000502",
+      "cacheKey": null,
+      "productUrl": "https://www.showpo.com/us/products/kai-two-piece-top-and-skirt-set-sequin-strappy-crop-top-and-wrap-tie-side-mini-skirt-in-sc2605000502",
+      "productImageUrl": null,
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable; moment image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MzktdmF1bHQtbWlkbmlnaHRzLXJvYmVydG8tY2F2YWxsaS1hbmQtbG91Ym91dGluLWZvci10aGUtMTk4OS1zZXQ6MDpodHRwczovL3d3dy5zaG93cG8uY29tL3VzL3Byb2R1Y3RzL2thaS10d28tcGllY2UtdG9wLWFuZC1za2lydC1zZXQtc2VxdWluLXN0cmFwcHktY3JvcC10b3AtYW5kLXdyYXAtdGllLXNpZGUtbWluaS1za2lydC1pbi1zYzI2MDUwMDA1MDI-moment.webp'"
+      ]
+    },
+    {
+      "productId": "vault-midnights-the-game-the-world-decided-made-it-official:0:https://www.shopdoen.com/products/lois-tank-salt-quelle-jolie-pointelle",
+      "cacheKey": "af285114622d2a7664cd85e1acd23eab2658a3d1277d61975bcced166d9ef71f",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0950/9820/files/DOEN2026VALENTINE_SPICKUP_LOIS-TANK_SALT_05.jpg?v=1771873081",
+      "momentImageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-blue-floral-gown-and-a-surprise-beyonc-reunion:0:https://macduggal.com/products/11921-blue-multi",
+      "cacheKey": "21066436378a40ab56d5c4eaebab80122bfe61a82d7368be37d24bf3dbcd5944",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/11921-BlueMulti-AB.jpg?v=1773440487",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/10/beyonce-taylor-swift-eras-film-premiere-2023-billboard-1548.jpg?w=1000",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-high-low-styling-for-the-bills-game-khaite-vintage-and-mejur:0:https://khaite.com/products/jett-skirt-in-black-leather",
+      "cacheKey": "66c34bf58933b8e3e3e49be9d1baf7a679fabe8507a16b29e84fe6087cc2f382",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/1519/7996/files/JETT_BLACK-LEATHER_GHOST_7320032a-f212-4b42-b7e0-7a09407e9d76.jpg?v=1725442992",
+      "momentImageUrl": "https://cdn.mos.cms.futurecdn.net/RdZNsvNDCZtsUCwJmMbUv7.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-times-person-of-the-year-cover-shoot-in-three-looks:0:https://area.nyc/products/crystal-hotfix-mini-dress",
+      "cacheKey": "66f72effd50aa4119215d9d86e5fb1263b344785de099b3aafdca1f10f6f368b",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/1747/6229/files/RS26AWDR0216FA01.jpg?v=1764719184",
+      "momentImageUrl": "https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER3_-600x800.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-custom-schiaparelli-with-a-midnights-clock-hidden-in-the-cho:0:https://macduggal.com/products/56248-black-ivory",
+      "cacheKey": "8d7bbbd459b4cdbd0f7dd8538d0c0c607b5c1026310ce5eb60975f57eaaa82e2",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/56248-BlackIvory-AB.jpg?v=1773440361",
+      "momentImageUrl": "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1986392520-EMBED-2024.jpg?w=408",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in:0:https://area.nyc/products/crystal-slit-jean-3",
+      "cacheKey": "f9fc6f45bf1bba00342de9270caf239a27a655231bfeb20867e8cef269804306",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/1747/6229/files/0000P013331_Black_FRONT.jpg?v=1699753216",
+      "momentImageUrl": "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-pink-toned-versace-bodysuit-opens-the-lover-set:0:https://www.fashionnova.com/products/natalie-rhinestone-fishnet-mini-dress-fncolorname-pink",
+      "cacheKey": null,
+      "productUrl": "https://www.fashionnova.com/products/natalie-rhinestone-fishnet-mini-dress-fncolorname-pink",
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0293/9277/files/07-18-25_S8_53_KBBD4053024_Pink_JG_MC_15-11-45_11984-Adia_CM_PXF.jpg?v=1754591992&amp;width=1200&amp;height=627",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/03/Taylor-Swift-outfit-gallery-night-1-billboard-1240.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-roberto-cavalli-gold-fringe-for-the-fearless-set:0:https://macduggal.com/products/6212",
+      "cacheKey": "8541e9640ee15d6ccf7389383b021c2623137820c8ef4916134bf1358c9aa02e",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/6212-GoldSilverOmbre-AB.jpg?v=1766609094",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-mustard-etro-gown-and-cape-for-evermore:0:https://macduggal.com/products/48856-marigold",
+      "cacheKey": "a737b3769d5ad71e9258c95561fe1963c5454f2a84db577b06c1e393cf4a2c3a",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/48856-Marigold-AB.jpg?v=1773441026",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/03/03-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-the-original-reputation-catsuit-cut-outs-and-all:0:https://www.fashionnova.com/products/lara-cut-out-jumpsuit-fncolorname-black",
+      "cacheKey": null,
+      "productUrl": "https://www.fashionnova.com/products/lara-cut-out-jumpsuit-fncolorname-black",
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0293/9277/files/01-13-25_S6_23_JP3189PD_Red_HY_AC_15-55-21_62353_BH_KP_Black.jpg?v=1746126033&amp;width=1200&amp;height=627",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-the-ashish-22-outfit-recreated-for-red:0:https://www.upper90studio.com/store/p/not-a-lot-going-on-at-the-moment-unisex-t-shirt",
+      "cacheKey": null,
+      "productUrl": "https://www.upper90studio.com/store/p/not-a-lot-going-on-at-the-moment-unisex-t-shirt",
+      "productImageUrl": "http://static1.squarespace.com/static/63b729d4171af66ccea2414b/63c0deeeecc669179e075571/64397b6b70ada81b868d877a/1681488751624/unisex-staple-t-shirt-white-front-64397b6437281.jpg?format=1500w",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/03/05-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-nicole-felicia-princess-gown-for-speak-now:0:https://macduggal.com/products/56425-periwinkle",
+      "cacheKey": "e20ac804dca84aa8c48084f16f5a8033ad82da90774ca53c8c0ee641e12ff32d",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/56425-Periwinkle-AB.jpg?v=1766610238",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/03/06-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-flowing-purple-alberta-ferretti-dress-for-folklore:0:https://macduggal.com/products/49938",
+      "cacheKey": "549635c8a44aee3d4bec3f827305b467877ed084e7d5e11dec5e9ce1146b2b6a",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/49938-VintageLilac-AB.jpg?v=1753126400",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-magenta-jessica-jones-gown-for-the-surprise-song-set:0:https://macduggal.com/products/49898-magenta",
+      "cacheKey": "395bacde29ffd11c95c4b85034bf433e87a47ff2f73c3372863ea47268f3ef4b",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/49898-Magenta-AB.jpg?v=1773438407",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-acoustic-guitar-march-17-2023-billboard-1548.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-oscar-de-la-renta-closes-the-night-for-midnights:0:https://www.beginningboutique.com/products/penny-lane-navy-sequin-mini-dress",
+      "cacheKey": "eeefd265f65016f1821964e07227a151f3dfce0dd08d82d0a45932349d089c0c",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0077/9327/9033/files/Penny-Lane-Navy-sequin-mini-dress-1_d86dee70-2410-4969-a011-b6be8adae36b.jpg?v=1776587748",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/03/07-Taylor-Swift-outfit-gallery-night-1-billboard-1548-1.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-sparkling-green-gucci-gown-at-the-golden-globes:0:https://macduggal.com/products/26331_emerald",
+      "cacheKey": "9322be0477905f7ab0f1b7181d223eed55c6d201e1e478a3954f8bb4a7c7cb6f",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/26331-EmeraldGreen-AB.jpg?v=1773437851",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2024/01/taylor-swift-02-golden-globes-2024-billboard-1548.jpg?w=1024",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-midnight-blue-star-scattered-roberto-cavalli-look-at-the-2:0:https://www.showpo.com/us/products/aurora-two-piece-top-and-skirt-set-floral-sequin-cowl-neck-top-and-maxi-skirt-in-baby-blue",
+      "cacheKey": null,
+      "productUrl": "https://www.showpo.com/us/products/aurora-two-piece-top-and-skirt-set-floral-sequin-cowl-neck-top-and-maxi-skirt-in-baby-blue",
+      "productImageUrl": null,
+      "momentImageUrl": "https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable; moment image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/NTYtdmF1bHQtbWlkbmlnaHRzLWEtbWlkbmlnaHQtYmx1ZS1zdGFyLXNjYXR0ZXJlZC1yb2JlcnRvLWNhdmFsbGktbG9vay1hdC10aGUtMjowOmh0dHBzOi8vd3d3LnNob3dwby5jb20vdXMvcHJvZHVjdHMvYXVyb3JhLXR3by1waWVjZS10b3AtYW5kLXNraXJ0LXNldC1mbG9yYWwtc2VxdWluLWNvd2wtbmVjay10b3AtYW5kLW1heGktc2tpcnQtaW4tYmFieS1ibHVl-moment.jpg'"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-dita-von-teese-styled-burlesque-scene-and-pat-mcgraths-30-:0:https://www.patmcgrath.com/products/liquilust-legendary-wear-matte-lipstick",
+      "cacheKey": "ebf1ec6d2180fb5e19604ccc6fa372c2aa0d4849dd19be25ed481ff64a72247d",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/1463/9662/products/PMG_LIPS_LIQUILUST_ELSON4_OPEN_898cccd8-29a2-4d1b-addc-64cd98736c7c.jpg?v=1764707981",
+      "momentImageUrl": "https://cdn01.justjared.com/wp-content/uploads/headlines/2022/10/bejeweled-cameos.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-black-versace-gown-with-gold-buttons-at-the-2023-vmas:0:https://macduggal.com/products/5540",
+      "cacheKey": "5510c4e17fbe521359bf92eda4797823002770ad5f3c0fc455f9686dbe70f52d",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0511/3783/9283/products/5540-BlackGold-AB.jpg?v=1753836953",
+      "momentImageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-the-signature-eras-tour-red-lip-decoded-mac-ruby-true-and-a-:0:https://www.maccosmetics.com/product/13854/119065/products/makeup/lips/lipstick/mac-locked-kiss-24hr-lipstick?shade=RUBY+TRUE",
+      "cacheKey": null,
+      "productUrl": "https://www.maccosmetics.com/product/13854/119065/products/makeup/lips/lipstick/mac-locked-kiss-24hr-lipstick?shade=RUBY+TRUE",
+      "productImageUrl": null,
+      "momentImageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Taylor_Swift_The_Eras_Tour_The_Red_Era_Set_%2853109971409%29.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable; moment image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/NTktdmF1bHQtbWlkbmlnaHRzLXRoZS1zaWduYXR1cmUtZXJhcy10b3VyLXJlZC1saXAtZGVjb2RlZC1tYWMtcnVieS10cnVlLWFuZC1hLTowOmh0dHBzOi8vd3d3Lm1hY2Nvc21ldGljcy5jb20vcHJvZHVjdC8xMzg1NC8xMTkwNjUvcHJvZHVjdHMvbWFrZXVwL2xpcHMvbGlwc3RpY2svbWFjLWxvY2tlZC1raXNzLTI0aHItbGlwc3RpY2s_c2hhZGU9UlVCWStUUlVF-moment.jpg'"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-70s-lace-slip-dress-and-free-people-fur-coat-for-lavender-:0:https://www.beginningboutique.com/products/all-mine-white-lace-mini-dress",
+      "cacheKey": "1f7837a522401ca57e3d7abfe5fca91c68e5febe08b6f38ade2f92b6e15e9d4b",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0077/9327/9033/files/All-Mine-White-Lace-Mini-Dress-1.webp?v=1782774138",
+      "momentImageUrl": "https://images.hellomagazine.com/horizon/original_aspect_ratio/cdb2d2b2b516-tcoatz-z.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-coach-gingham-minidress-for-the-karma-surprise-video:0:https://www.unique-vintage.com/products/unique-vintage-red-gingham-cherries-sweetheart-swing-dress",
+      "cacheKey": "27c74ef3f10c0e50cd87005a485f95ae334d3f636cd0287d9b33a96a2ba37fb3",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/2714/9310/files/unique-vintage-red-gingham-cherries-sweetheart-swing-dress-7909696.jpg?v=1775146223",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2023/05/coach-gingham-dress-edited.jpeg?w=1000",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-draped-schiaparelli-gown-the-same-night-ttpd-was-announced:0:https://www.meshki.us/products/bex-strapless-slinky-maxi-dress-with-split-ivory",
+      "cacheKey": "9f139f10b3b2f6504bae9a9a338cfbffdf00da2585d98def41954930e6d0cf1f",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0017/7920/4211/files/MESHKI_ECOM_LAMAISON_DROP0102_OCT23_DAY02_KATIE-S45_006.jpg?v=1784499680",
+      "momentImageUrl": "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1978657268-H-2024.jpg?w=1296&h=730&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-red-a-wine-red-elie-saab-gown-for-a-historic-pinnacle-award:0:https://macduggal.com/products/56188",
+      "cacheKey": "0cbab5a2421b740cee0b8d36ba8f8cd63d824c93996db9cee4cf456275268571",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/56188-Wine-Lifestyle-Main.jpg?v=1766608465",
+      "momentImageUrl": "https://static3.refinery29.com/bin/entry/218/1155x/1120498/rexusa-1815036m.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-red-an-ankle-length-red-dress-with-a-thigh-high-slit-for-red-at-:0:https://www.showpo.com/nitha-asymmetrical-frill-thigh-slit-maxi-dress-in-red.html",
+      "cacheKey": null,
+      "productUrl": "https://www.showpo.com/nitha-asymmetrical-frill-thigh-slit-maxi-dress-in-red.html",
+      "productImageUrl": null,
+      "momentImageUrl": "https://townsquare.media/site/623/files/2013/06/taylor-swift-1370483022.jpg?w=980&q=75",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-red-the-red-lip-becomes-the-era-defining-signature:0:https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick",
+      "cacheKey": null,
+      "productUrl": "https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick",
+      "productImageUrl": null,
+      "momentImageUrl": "https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys:0:https://moniquelhuillier.com/products/pearl-strap-ivory-a-line-gown",
+      "cacheKey": "6f9bdef71422d5d95da5992401994694ad9f0eb94fcb330fe5a917410843b73f",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0020/4842/6035/files/T26180-331-IVORY_02199.jpg?v=1773696583",
+      "momentImageUrl": "https://assets3.cbsnewsstatic.com/hub/i/r/2013/02/10/51455457-a645-11e2-a3f0-029118418759/thumbnail/620x1005/cf494e8cba2e12a4982a8d12d080d3f7/161394430.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-red-128-costumes-for-the-red-tour-hand-built-in-three-weeks:0:https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink",
+      "cacheKey": null,
+      "productUrl": "https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink",
+      "productImageUrl": null,
+      "momentImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg/500px-Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-red-a-rhinestone-cat-ear-headband-defines-the-22-video-look:0:https://www.amazon.com/Rhinestone-Headbands-Decoration-Headdress-Accessories/dp/B075STRZCY",
+      "cacheKey": null,
+      "productUrl": "https://www.amazon.com/Rhinestone-Headbands-Decoration-Headdress-Accessories/dp/B075STRZCY",
+      "productImageUrl": null,
+      "momentImageUrl": "https://townsquare.media/site/182/files/2013/03/taylorswift22.jpg?w=980&q=75",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-red-a-jenny-packham-lace-gown-blooms-with-red-at-the-2012-cmas:0:https://www.jennypackham.com/products/sirocco",
+      "cacheKey": "6cd535f3c1d3708b9f68921594467038ceb91c720aca63c93f715f4243b96436",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0749/1410/3586/files/ZED104LSIROCCOBordeaux_0.jpg?v=1782401119",
+      "momentImageUrl": "https://www.hollywoodreporter.com/wp-content/uploads/2012/11/46th_CMA_Awards_12.jpg?w=1500",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb:0:https://us.princesspolly.com/products/moonrising-sheer-blouson-dress-blue",
+      "cacheKey": "de011cd8e81acccd113f9f1c880f52e33d920990bb272256ffa9dfd7af4ca1c1",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0061/8627/0804/files/0-modelinfo-ergi-us2_bfd70a9f-8eb0-4f15-a780-5702c9c104a4.jpg?v=1759814536",
+      "momentImageUrl": "https://akns-images.eonline.com/eol_images/Entire_Site/2013420/rs_634x1024-130520071003-634.gomez.swift.ls.52013_copy.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-red-retro-pin-curls-and-a-crimson-crystal-herv-l-ger-gown-at-the:0:https://herveleger.com/products/the-reina-gown-black-001",
+      "cacheKey": "80b477bc7547ddbeee8f69c562ced16b74ed86593d35e2d10bffc1c8281f89ff",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0449/6139/8952/files/HLC8549906-001-1.jpg?v=1759859583",
+      "momentImageUrl": "https://akns-images.eonline.com/eol_images/Entire_Site/2013725/rs_634x1024-130825184000-634.tay.cm.82513.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-red-a-gold-julien-macdonald-gown-altered-with-a-hidden-message:0:https://www.windsorstore.com/products/nicki-beaded-fringe-mermaid-formal-dress-05002001093625",
+      "cacheKey": "0f9301be48e1fa9fb17f20223d67fbdb12f36505aea28e992d7213a210622ee4",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0070/8853/7651/files/05002-001093_1_WINE_NickiBeadedFringeMermaidFormalDress_26d6d664-d0b3-44b5-9271-5838f0927681.jpg?v=1772217296",
+      "momentImageUrl": "https://townsquare.media/site/252/files/2013/11/taylor-swift5.jpg?w=980&q=75",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-red-a-crystal-mesh-gucci-premi-re-gown-for-the-2014-grammys:0:https://moniquelhuillier.com/products/gold-sequin-scoop-neck-gown",
+      "cacheKey": "2c74c8156632cd16bdede8d1046b9141756d109a691235bef21d753f018ab6c7",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0020/4842/6035/files/25454-80-GOLD_01135.jpg?v=1750963279",
+      "momentImageUrl": "https://akns-images.eonline.com/eol_images/Entire_Site/2014026/rs_634x1024-140126164619-634-taylor-swift-grammy.ls.12614_copy_2.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-red-a-mary-katrantzou-romper-signals-the-turn-toward-1989:0:https://plushfashionhub.us/products/cutout-front-printed-long-sleeve-romper",
+      "cacheKey": "e60d83f5fc318b21ade16318267b11c4d48c9b4cf8ba33a1a71899f6dce29315",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0650/9776/1027/files/9a338a03ce494b5dab5db1c872ec7c02-Max-Origin.webp?v=1784227069",
+      "momentImageUrl": "https://akns-images.eonline.com/eol_images/Entire_Site/2014724/rs_634x1024-140824172545-634-taylor-swift-mtv-vma.ls.82414.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-the-reputation-stadium-tours-snake-bodysuit:0:https://www.rhapso-designs.com/product-page/snake-print-silver-sequined-bodysuit-leo32",
+      "cacheKey": null,
+      "productUrl": "https://www.rhapso-designs.com/product-page/snake-print-silver-sequined-bodysuit-leo32",
+      "productImageUrl": "https://static.wixstatic.com/media/a88653_79a149a90cff4fb787e246b77424f847~mv2.jpg/v1/fit/w_500,h_500,q_90/file.jpg",
+      "momentImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg/1280px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-the-teal-fringe-dress-in-the-second-delicate-video:0:https://www.promgirl.com/products/alyce-al-40022-dress",
+      "cacheKey": "587be999cdb50344810088e35114614ef1824d54de332dbe96753a1a1168f67c",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0617/6414/1261/files/40022_AD_315_01.jpg?v=1762553101",
+      "momentImageUrl": "https://imgix.bustle.com/uploads/image/2018/3/12/c5dd79b9-3dd6-48fb-be2c-6b565fc5fe09-screen-shot-2018-03-12-at-61855-am.png?w=248&h=218&fit=crop&crop=faces&dpr=2",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-a-disco-ball-balmain-look-for-the-2018-amas:0:https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver",
+      "cacheKey": "0ba4b0a3078111cd48e8ee6b54098eed91462add63193e9d6330f8051318f6d4",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0061/8627/0804/files/1-modelinfo-anna-us2_50d8d45d-d7e9-436c-8612-a72cbd106a3e.jpg?v=1757460707",
+      "momentImageUrl": "https://www.hollywoodreporter.com/wp-content/uploads/2018/10/gettyimages-1048368054_copy.jpg?w=1296&h=730&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-an-800-hour-atelier-versace-gown-for-her-first-red-carpet-in:0:https://clubllondon.us/products/armina-blush-pink-one-shoulder-feather-trim-maxi-dress-cl135995081",
+      "cacheKey": "1b55b9e6c3d9ae24ea8a78ac1f01531d12b0b9d5fcf51853a6b86701227e324e",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0249/0413/8798/files/uploaded_image_2_otlx1.jpg?v=1741965571",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/media/02-taylor-swift-bbmas-arrivals-2018-billboard-1548.jpg?w=942&h=628&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-the-reputation-tour-opening-number-gets-a-glitter-cutout-upg:0:https://casadefashion.com/products/glam-me-up-black-cutout-sequin-bodysuit",
+      "cacheKey": "2aad4a026a5f83528c7dc1d5f05e2429dd1cba77da17144cfceb365de1568072",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/2417/1737/files/BlackOneShoulderSleevelessBodysuit10375.jpg?v=1701660135",
+      "momentImageUrl": "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/06/tumblr_p9wqzvce8h1r4fk4fo1_r1_1280.jpg?w=1100",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-a-sparkling-green-bodysuit-for-the-dress-segment:0:https://shopakira.com/products/shining-down-on-your-sequin-bodysuit",
+      "cacheKey": "bd164e5da692bc80578800d68f9580421538f3e9331cd6dd8ae60119f009da90",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0850/1329/9515/files/SS805GREEN1_48459f6d-1783-438a-89be-f95cde24c59a.jpg?v=1779287895",
+      "momentImageUrl": "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pc9uwg06kq1r4fk4fo1_1280.jpg?w=1100",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-the-cotton-candy-dress-for-delicate-shake-it-off:0:https://mewmews.com/products/indy-v-neck-rainbow-crystal-fringe-mini-dress",
+      "cacheKey": "b9e69bd3813b66a58c583f432eebfd7ce238e1e24214ee4681aaa80a3e8cd597",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0620/2716/9852/files/IndyVNeckRainbowCrystalFringeMiniDress_1.jpg?v=1723186112",
+      "momentImageUrl": "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pcati7kyz11r4fk4fo1_r1_1280.jpg?w=1100",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-a-snake-bodysuit-and-red-camo-jacket-for-the-shawn-mendes-du:0:https://skims.com/products/fits-everybody-zip-front-bodysuit-shadow-snake-print",
+      "cacheKey": null,
+      "productUrl": "https://skims.com/products/fits-everybody-zip-front-bodysuit-shadow-snake-print",
+      "productImageUrl": null,
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/media/taylor-swift-shawn-mendes-live-2018-u-billboard-1548.jpg?w=942&h=628&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-reputation-the-call-it-what-you-want-nice-things-closer-dress:0:https://formaldressshops.com/products/sequin-fitted-long-sleeve-slit-gown-by-elizabeth-k-gl3159",
+      "cacheKey": "d017227a0212fe39ff545ff676650eeda2247cc415cfe2db099df45f61c061c3",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0022/0132/1547/files/sequin-fitted-long-sleeve-slit-gown-by-elizabeth-k-gl3159-s-black-2x-large-3x-large-4x-large-black-champagne-formal-dresses-formaldressshops-464.jpg?v=1759460142",
+      "momentImageUrl": "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p8jr4cwjzw1r4fk4fo1_1280.jpg?w=1100",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-seven-pastel-outfit-changes-in-the-me-video:0:https://www.lulus.com/products/tea-party-chic-pink-floral-print-tie-strap-tiered-midi-dress/1712196.html",
+      "cacheKey": null,
+      "productUrl": "https://www.lulus.com/products/tea-party-chic-pink-floral-print-tie-strap-tiered-midi-dress/1712196.html",
+      "productImageUrl": "https://www.lulus.com/images/product/xlarge/8511541_1712196.jpg",
+      "momentImageUrl": "https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-04/taylor-swift-me-music-video-1280.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-rainbow-wig-western-shirt-and-a-french-fries-costume-in-you-:0:https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/",
+      "cacheKey": null,
+      "productUrl": "https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/",
+      "productImageUrl": null,
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/media/taylor-swift-calm-down-vid-2019-billboard-1548.jpg?w=875&h=583&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-reputation-the-glitter-heart-eye-that-became-the-lover-eras-signature:0:https://www.ulta.com/p/disco-crush-high-shine-glitter-eye-face-sparkle-pimprod2046472?sku=2627323",
+      "cacheKey": null,
+      "productUrl": "https://www.ulta.com/p/disco-crush-high-shine-glitter-eye-face-sparkle-pimprod2046472?sku=2627323",
+      "productImageUrl": "https://media.ulta.com/i/ulta/2627324?w=500&amp;h=500",
+      "momentImageUrl": "https://upload.wikimedia.org/wikipedia/en/c/cd/Taylor_Swift_-_Lover.png",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-jessica-jones-sequin-shorts-and-ren-caovilla-boots-for-the-p:0:https://mardigrasapparel.us/products/mardi-gras-sequin-high-waist-shorts-purple-gold-green",
+      "cacheKey": "a0e2084e0b65293daf65ea9f70686a572cdab97e1d87aaa3e6a30a0d42f1e74c",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0696/5457/7459/files/mardi-gras-sequin-high-waist-shorts-purple-gold-greenbeauty-hub-5743705.png?v=1767469696",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/media/taylor-swift-gma-aug-2019-billboard-1548.jpg?w=942&h=628&crop=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-a-johanna-ortiz-tiered-dress-for-the-lover-music-video:0:https://us.princesspolly.com/products/nellie-midi-dress-yellow-floral",
+      "cacheKey": "737e073262636a07484892b82d0e1260ebced6459593541553bd658fc2f5da86",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0061/8627/0804/products/1-modelinfo-Elise-us2_dbc4c6ea-e3f6-4369-be3f-28a17c6794ec.jpg?v=1660000325",
+      "momentImageUrl": "https://medias.spotern.com/spots/w640/226/226542-1566837979.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-reputation-a-sequined-romper-and-kat-maconie-heels-at-the-amazon-prime-:0:https://julianchang.com/products/eres-romper",
+      "cacheKey": "6eceb01337f62f8f46e19e0a1683bbe2ffca9a36944354dae60624c7fd84cb63",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/2100/2615/files/3135BlackSequinJulianChang.jpg?v=1758735654",
+      "momentImageUrl": "https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-:0:https://wonderlandbylilian.com/products/silver-grey-elegance-sequin-evening-gown-convertible-grey-evening-dress-plus-size",
+      "cacheKey": "7f23fc1ec26260854dd81850531f8cd981c05bdb961e30149ac0a33142d94da1",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0550/3919/7262/files/Silver_Grey_Elegance_Sequin_Evening_Gown_-_Convertible_Grey_Evening_Dress_Plus_Size_186d1f84-a938-448f-8c04-c20f094cdfd6.png?v=1780606373",
+      "momentImageUrl": "https://s.yimg.com/ny/api/res/1.2/ickryvH9sKcF7tDFtwxxbw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE0NDA7Y2Y9d2VicA--/https://media.zenfs.com/en/insider_articles_922/7a2cc8fb3dc0f6c58c259f9ddd4d244f",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/OTAtdmF1bHQtc3BlYWstbm93LWEtZG92ZS1ncmV5LWotbWVuZGVsLWdvd24tZm9yLWhlci1zZWNvbmQtZW50ZXJ0YWluZXItb2YtdGhlLTowOmh0dHBzOi8vd29uZGVybGFuZGJ5bGlsaWFuLmNvbS9wcm9kdWN0cy9zaWx2ZXItZ3JleS1lbGVnYW5jZS1zZXF1aW4tZXZlbmluZy1nb3duLWNvbnZlcnRpYmxlLWdyZXktZXZlbmluZy1kcmVzcy1wbHVzLXNpemU-product.webp'; moment image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/OTAtdmF1bHQtc3BlYWstbm93LWEtZG92ZS1ncmV5LWotbWVuZGVsLWdvd24tZm9yLWhlci1zZWNvbmQtZW50ZXJ0YWluZXItb2YtdGhlLTowOmh0dHBzOi8vd29uZGVybGFuZGJ5bGlsaWFuLmNvbS9wcm9kdWN0cy9zaWx2ZXItZ3JleS1lbGVnYW5jZS1zZXF1aW4tZXZlbmluZy1nb3duLWNvbnZlcnRpYmxlLWdyZXktZXZlbmluZy1kcmVzcy1wbHVzLXNpemU-moment.webp'"
+      ]
+    },
+    {
+      "productId": "vault-speak-now-blunt-bangs-debut-at-the-2010-american-music-awards:0:https://us.princesspolly.com/products/jesenia-beaded-mini-dress-brown",
+      "cacheKey": "a39a5ca0dccd05a8f8b4341e44288919a3fc711093ecf901e55fdad4b5c9ad76",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0061/8627/0804/files/0-modelinfo-saskia-us2_cf061704-9864-48ca-9879-15856bac0f13.jpg?v=1756202499",
+      "momentImageUrl": "https://www.femestella.com/wp-content/uploads/2022/11/Depositphotos_79322072_XL.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "moment image unavailable: HTTP 403"
+      ]
+    },
+    {
+      "productId": "vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi:0:https://moniquelhuillier.com/products/gold-sequin-scoop-neck-gown",
+      "cacheKey": "cbb1a0ada5bcd4ad5df66bae93d6967218ca09beb9bb8d7484695f655b98af52",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0020/4842/6035/files/25454-80-GOLD_01135.jpg?v=1750963279",
+      "momentImageUrl": "https://www.femestella.com/wp-content/uploads/2022/11/Depositphotos_13015212_XL.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "moment image unavailable: HTTP 403"
+      ]
+    },
+    {
+      "productId": "vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover:0:https://www.formalapproach.com/products/sherri-hill-55304-dress",
+      "cacheKey": "c47f063ef0906491ce12a9ff7a1ad3142fde28c4a16237fbe4c8c0bf785fa521",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0068/3507/7184/products/sherri-hill-55304-purple-ombre-50858-homecoming-dresses-images.jpg?v=1654541933",
+      "momentImageUrl": "https://www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "moment image unavailable: HTTP 403"
+      ]
+    },
+    {
+      "productId": "vault-speak-now-glamour-puts-her-on-its-november-2010-cover:0:https://wonderlandbylilian.com/products/light-blue-halter-neck-glitter-dress-elegant-sequin-a-line-evening-gown-plus-size",
+      "cacheKey": "8321b2e2bba46357c0a14e483d5b05b44f7f26990c341293dcabe1bf213c7fab",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0550/3919/7262/files/light-blue-halter-neck-glitter-dress-elegant-sequin-a-line-evening-gown-plus-size-133110.png?v=1716597964",
+      "momentImageUrl": "https://media.glamour.com/photos/5696433dd9dab9ff41b57d3c/master/w_1600%2Cc_limit/fashion-blogs-slaves-to-fashion-2010-09-30-1001taylor-swift-cover_fa.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/OTQtdmF1bHQtc3BlYWstbm93LWdsYW1vdXItcHV0cy1oZXItb24taXRzLW5vdmVtYmVyLTIwMTAtY292ZXI6MDpodHRwczovL3dvbmRlcmxhbmRieWxpbGlhbi5jb20vcHJvZHVjdHMvbGlnaHQtYmx1ZS1oYWx0ZXItbmVjay1nbGl0dGVyLWRyZXNzLWVsZWdhbnQtc2VxdWluLWEtbGluZS1ldmVuaW5nLWdvd24tcGx1cy1zaXpl-product.webp'; moment image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/OTQtdmF1bHQtc3BlYWstbm93LWdsYW1vdXItcHV0cy1oZXItb24taXRzLW5vdmVtYmVyLTIwMTAtY292ZXI6MDpodHRwczovL3dvbmRlcmxhbmRieWxpbGlhbi5jb20vcHJvZHVjdHMvbGlnaHQtYmx1ZS1oYWx0ZXItbmVjay1nbGl0dGVyLWRyZXNzLWVsZWdhbnQtc2VxdWluLWEtbGluZS1ldmVuaW5nLWdvd24tcGx1cy1zaXpl-moment.webp'"
+      ]
+    },
+    {
+      "productId": "vault-speak-now-a-marilyn-monroe-inspired-white-halter-dress-at-the-teen-cho:0:https://us.princesspolly.com/products/alyn-halter-mini-dress-white",
+      "cacheKey": "19ff92b39d51aee63bed62c612e53bab9a0f512f455cc606b9a1e60105a792b9",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0061/8627/0804/files/0-modelinfo-elise-us2_d13de659-fb69-430f-a08c-2cb5e53e474e.jpg?v=1738637301",
+      "momentImageUrl": "https://people.com/thmb/obc5e6qZmF1E_-THSfTJFiRY-a0=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(144x0:146x2)/taylor-swift-290-4d5ff902cd4c40eb8c498611e25c25dc.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-speak-now-her-first-vogue-cover-shot-by-mario-testino:0:https://shoprodarte.com/products/lavender-daisy-silk-twill-mini-dress-with-broderie-anglais-ruffle-and-belt",
+      "cacheKey": "808fbe154b1b620e9e5922d4086e40df434883e323f62da9ae8be0b148267827",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0286/1121/5408/files/RDT_PF26_C_Dress_2601-A_c.jpg?v=1775416608",
+      "momentImageUrl": "https://fashiongonerogue.com/wp-content/uploads/igr/preview/01/taylor_swift1.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "moment image unavailable: HTTP 403"
+      ]
+    },
+    {
+      "productId": "vault-speak-now-high-waisted-shorts-become-a-recurring-signature:0:https://www.amazon.com/Womens-Juniors-Vintage-Waisted-Shorts/dp/B00KSYPWWO",
+      "cacheKey": null,
+      "productUrl": "https://www.amazon.com/Womens-Juniors-Vintage-Waisted-Shorts/dp/B00KSYPWWO",
+      "productImageUrl": null,
+      "momentImageUrl": "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op:0:https://www.shopakira.com/products/drippy-rhinestone-chain-top",
+      "cacheKey": "5e4cf9d0b71481fa13a608a5702e02fe7a5207a59f703ebb6b89728424a9a39e",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0850/1329/9515/files/SA623-TSILVER1.jpg?v=1778072838",
+      "momentImageUrl": "https://cdn.mos.cms.futurecdn.net/vHBrRbZzrfetu5KQQR2VBZ.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb:0:https://us.louisvuitton.com/eng-us/products/louise-pm-earrings-s00-nvprod2950037v/M00396",
+      "cacheKey": null,
+      "productUrl": "https://us.louisvuitton.com/eng-us/products/louise-pm-earrings-s00-nvprod2950037v/M00396",
+      "productImageUrl": null,
+      "momentImageUrl": "https://a1.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F1013%2Fr1559433_1179x663_16%2D9.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-tloas-stevie-knicks-courtside-the-garden-three-weeks-before-the-we:0:https://www.amazon.com/Gildan-Cotton-T-Shirt-Orange-Medium/dp/B00I84H5AS",
+      "cacheKey": null,
+      "productUrl": "https://www.amazon.com/Gildan-Cotton-T-Shirt-Orange-Medium/dp/B00I84H5AS",
+      "productImageUrl": null,
+      "momentImageUrl": "https://cdn.nba.com/manage/2026/06/GettyImages_TSwift.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto:0:https://davidkoma.com/collections/dresses/products/crystal-embroidered-neckline-and-strap-mini-dress-black-silver",
+      "cacheKey": null,
+      "productUrl": "https://davidkoma.com/collections/dresses/products/crystal-embroidered-neckline-and-strap-mini-dress-black-silver",
+      "productImageUrl": null,
+      "momentImageUrl": "https://cdn.mos.cms.futurecdn.net/PJsDTgPm4oKabghVVGKLNM-1920-80.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable; moment image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MTAxLXZhdWx0LXRsb2FzLWEtamV3ZWxlZC1kYXZpZC1rb21hLWxiZC1vcGVucy10aGUtcHJlc3MtcnVuLW9uLWdyYWhhbS1ub3J0bzowOmh0dHBzOi8vZGF2aWRrb21hLmNvbS9jb2xsZWN0aW9ucy9kcmVzc2VzL3Byb2R1Y3RzL2NyeXN0YWwtZW1icm9pZGVyZWQtbmVja2xpbmUtYW5kLXN0cmFwLW1pbmktZHJlc3MtYmxhY2stc2lsdmVy-moment.jpg'"
+      ]
+    },
+    {
+      "productId": "vault-tloas-the-look-that-made-showgirl-orange-a-fashion-story-reformati:0:https://www.thereformation.com/products/teo-cashmere-short-sleeve-sweater/1313290.html",
+      "cacheKey": null,
+      "productUrl": "https://www.thereformation.com/products/teo-cashmere-short-sleeve-sweater/1313290.html",
+      "productImageUrl": "https://media.thereformation.com/image/upload/f_auto,q_auto,dpr_1.0/w_800,c_scale//PRD-SFCC/1313290/BLACK/1313290.1.BLACK?_s=RAABAB0",
+      "momentImageUrl": "https://cdn.mos.cms.futurecdn.net/izGR5GyrdGtkDeTMsNFvAN-1920-80.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable: HTTP 404"
+      ]
+    },
+    {
+      "productId": "vault-tloas-taylor-and-selena-gomez-coordinate-opulent-winter-coats-at-a:0:https://www.bergdorfgoodman.com/p/miu-miu-check-oversized-zip-up-wool-bomber-jacket-prod189900058",
+      "cacheKey": null,
+      "productUrl": "https://www.bergdorfgoodman.com/p/miu-miu-check-oversized-zip-up-wool-bomber-jacket-prod189900058",
+      "productImageUrl": null,
+      "momentImageUrl": "https://s.yimg.com/lo/mysterio/api/51607632d8b138ca2eb5ef4309f5f62efba2de679c41c5aa011b6eea7ffc78ff/lightyear_networkapi/resizefill_w976;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpeople_218%2F6f5cc6c4b72bc346bb5078ba6b322161",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-tloas-a-christmas-day-game-at-arrowhead-arriving-with-her-parents:0:https://thefrankieshop.com/products/zion-bomber-jacket-red",
+      "cacheKey": "82f4c577fc6e246fa9089aa3b28d9367ccbfe1118fa5b520d38c2186063702b7",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/1527/0993/files/ZION-BOMBER-JACKET-RED-MARYEL-1841jpg.jpg?v=1771005054",
+      "momentImageUrl": "https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/30ea9668-3908-4972-a828-f97ff5fdbcf4/1225+Taylor+Swift+Chiefs+vs+Broncos+Feature.png",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-tloas-the-ophelia-video-wardrobe-versace-crystals-cavalli-chainmai:0:https://www.manifestie.com/products/xena-crystal-fringe-bodysuit",
+      "cacheKey": null,
+      "productUrl": "https://www.manifestie.com/products/xena-crystal-fringe-bodysuit",
+      "productImageUrl": null,
+      "momentImageUrl": "https://cdn.mos.cms.futurecdn.net/mRuaC9xbvVQHQFewM7GoGY.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends:0:https://markarian-nyc.com/products/laila-white-floral-beaded-organza-strapless-gown-with-pink-and-yellow-applique-flowers",
+      "cacheKey": "dd1ee7b07191f637655a9f1bc05c9a8f8c991af72d3e7c3584c5b21bd1545a8b",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0024/7195/2443/files/MS2620AD1029_OFW_1.jpg?v=1757606125",
+      "momentImageUrl": "https://imagez.tmz.com/image/43/16by9/2026/07/11/435b7e695e334893923e269c987b46f6_xl.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MTA2LXZhdWx0LXRsb2FzLWZpcnN0LXNpZ2h0aW5nLXNpbmNlLXRoZS13ZWRkaW5nLXBpbmstbWFya2FyaWFuLWF0LWEtZnJpZW5kczowOmh0dHBzOi8vbWFya2FyaWFuLW55Yy5jb20vcHJvZHVjdHMvbGFpbGEtd2hpdGUtZmxvcmFsLWJlYWRlZC1vcmdhbnphLXN0cmFwbGVzcy1nb3duLXdpdGgtcGluay1hbmQteWVsbG93LWFwcGxpcXVlLWZsb3dlcnM-product.webp'; moment image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MTA2LXZhdWx0LXRsb2FzLWZpcnN0LXNpZ2h0aW5nLXNpbmNlLXRoZS13ZWRkaW5nLXBpbmstbWFya2FyaWFuLWF0LWEtZnJpZW5kczowOmh0dHBzOi8vbWFya2FyaWFuLW55Yy5jb20vcHJvZHVjdHMvbGFpbGEtd2hpdGUtZmxvcmFsLWJlYWRlZC1vcmdhbnphLXN0cmFwbGVzcy1nb3duLXdpdGgtcGluay1hbmQteWVsbG93LWFwcGxpcXVlLWZsb3dlcnM-moment.webp'"
+      ]
+    },
+    {
+      "productId": "vault-tloas-orange-sequins-and-feathers:0:https://brannacouture.com/products/feather-trim-sequin-embellished-mini-dress-orange",
+      "cacheKey": null,
+      "productUrl": "https://brannacouture.com/products/feather-trim-sequin-embellished-mini-dress-orange",
+      "productImageUrl": null,
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-tloas-her-first-night-out-as-a-newlywed-a-lavender-minidress-and-a:0:https://www.delphinenyc.com/products/mini-isabelle-dress-lilac-multi",
+      "cacheKey": null,
+      "productUrl": "https://www.delphinenyc.com/products/mini-isabelle-dress-lilac-multi",
+      "productImageUrl": "http://www.delphinenyc.com/cdn/shop/files/MINI_ISABELLE_DRESS_LILAC_048_copia_copy.jpg?v=1773154614&width=2048",
+      "momentImageUrl": "https://s.yimg.com/lo/mysterio/api/5cd08d923da5e9fc7ecc92c5aef97cca9ce51c890ab090605e3510634a153f1d/lightyear_networkapi/resizefill_w976%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2Fe2c30699edcf6deecd13fe00d14ce7a4.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-tloas-her-first-night-out-as-a-newlywed-a-lavender-minidress-and-a:1:https://www.aquazzura.com/us_en/love-struck-sandal-85-light-copper-lskmids0-npl-lco",
+      "cacheKey": null,
+      "productUrl": "https://www.aquazzura.com/us_en/love-struck-sandal-85-light-copper-lskmids0-npl-lco",
+      "productImageUrl": "https://media.aquazzura.com/media/catalog/product/L/S/LSKMIDS0-NPL-LCO_01.jpg?auto=compress",
+      "momentImageUrl": "https://s.yimg.com/lo/mysterio/api/5cd08d923da5e9fc7ecc92c5aef97cca9ce51c890ab090605e3510634a153f1d/lightyear_networkapi/resizefill_w976%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2Fe2c30699edcf6deecd13fe00d14ce7a4.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-tloas-her-first-night-out-as-a-newlywed-a-lavender-minidress-and-a:2:https://www.nordstrom.com/s/loubi54-ombr-crystal-embellished-clutch/7693914",
+      "cacheKey": null,
+      "productUrl": "https://www.nordstrom.com/s/loubi54-ombr-crystal-embellished-clutch/7693914",
+      "productImageUrl": null,
+      "momentImageUrl": "https://s.yimg.com/lo/mysterio/api/5cd08d923da5e9fc7ecc92c5aef97cca9ce51c890ab090605e3510634a153f1d/lightyear_networkapi/resizefill_w976%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2Fe2c30699edcf6deecd13fe00d14ce7a4.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-a-new-crystal-bodysuit-and-a-dress-covered-in-lyrics:0:https://www.meshki.us/products/seraphine-corset-satin-maxi-dress-ivory",
+      "cacheKey": "9d09ab0fe2d1e782251322cd115acbab8d364a9fd8998355ce4584482b59f9bd",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0017/7920/4211/files/250324_MESHKI_HertiageFinal_09_412.jpg?v=1785700012",
+      "momentImageUrl": "https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=942",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-super-bowl-lix-an-oversized-white-blazer-in-chiefs-colors:0:https://shop.simon.com/products/st-john-double-breasted-knit-blazer",
+      "cacheKey": "96db86ba02305492d629db7123e64f2cde1208493b13ad9a8cd792ca5f6cd75a",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0291/4536/6588/files/0be92bc7dc894eb88b1b9b7353c0e898.jpg?v=1774388033",
+      "momentImageUrl": "https://cdn.mos.cms.futurecdn.net/P5J7PGVYFxPyyTdzTVpya3.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-ttpds-grunge-tea-stained-aesthetic-the-album-photography:0:https://us.princesspolly.com/products/ashlinn-off-shoulder-drapey-top-grey",
+      "cacheKey": "f3969319f2ed10bee18847929cb4a9a3f11d05b2871d5d518b6bc7c935e19bf9",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0061/8627/0804/files/0-modelinfo-sasha-us2_13f6bb7b-90b8-4cf6-aec5-76fc74475349.jpg?v=1773791821",
+      "momentImageUrl": "https://cdn.mos.cms.futurecdn.net/iLujwgsEwXSAYA4yN98NKS.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-fortnight-video-costuming-an-elena-velez-gothic-gown:0:https://darefashionglobe.com/products/renaissance-corset-dress-black",
+      "cacheKey": "31025548ce7fca26e629c1685e29fa344ee025371e1ecad04713aec6b8a886cd",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0866/5676/products/D01-Black-Renaissance-Gothic-Witch-Dress-Gown-W_e13fec9f-e5d3-411e-ae79-7a1c8d156efb.jpg?v=1660526065",
+      "momentImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg/500px-Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-2024-vmas-red-carpet-a-tartan-dior-corset-and-cape:0:https://shopakira.com/products/look-at-me-baby-tweed-corset",
+      "cacheKey": "b44dd681b7b491d3819465aee1905825358e78e3d7f00d22e6c12fb94bf89375",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0850/1329/9515/files/JLM9302516-TPINK-MULTI1.jpg?v=1780426843",
+      "momentImageUrl": "https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a-1200-80.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-2025-grammys-red-carpet-sequined-vivienne-westwood-in-chiefs:0:https://shop.simon.com/products/sequin-one-shoulder-mini-dress-in-red",
+      "cacheKey": "41ba0d6c0791740b9947e59132a17829c54fd6739fcfda04949c47b03618285f",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0291/4536/6588/files/badf2e58973b41ccb0182cc09fb32e34.jpg?v=1761084178",
+      "momentImageUrl": "https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/1240x1860/4ae6b2706602461f95e8f081252d5450/gettyimages-2197310399.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-a-sculptural-white-toni-mati-evski-gown-opens-the-fortnight-:0:https://www.meshki.us/products/aphrodite-off-shoulder-crepe-gown-ivory",
+      "cacheKey": "c3811bc29538498109f8c7db18baf7eff3def9a8418a275f807038dd54d8de25",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/0017/7920/4211/files/250708_MESHKI_BRIDAL_7430x2_1b45b4c3-d2a8-4f16-b5b0-fdf02ff45f4d.jpg?v=1785365370",
+      "momentImageUrl": "https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-popflex-and-wiskii-athleisure-for-i-can-do-it-with-a-broken-:0:https://www.popflexactive.com/products/twirl-skort-plum",
+      "cacheKey": "d7969790aa353eadd5953b629bad8a84fa3b116e9ed647bbb9f6ce060b832975",
+      "productUrl": null,
+      "productImageUrl": "https://cdn.shopify.com/s/files/1/1089/2102/files/SupersculptTwirlSkort-plum_02716.jpg?v=1771881333",
+      "momentImageUrl": "https://www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?ssl=1",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-a-pink-mini-dress-for-a-saturday-night-dinner-date:0:https://www.nordstrom.com/s/strappy-houndstooth-tweed-a-line-dress/8377396",
+      "cacheKey": null,
+      "productUrl": "https://www.nordstrom.com/s/strappy-houndstooth-tweed-a-line-dress/8377396",
+      "productImageUrl": null,
+      "momentImageUrl": "https://media.zenfs.com/en/page_six_articles_559/89c5d1c1ef03b7418b67a546d78fe729",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-a-pink-mini-dress-for-a-saturday-night-dinner-date:1:https://www.nordstrom.com/s/christian-louboutin-miss-jane-sandal-women/7544624",
+      "cacheKey": null,
+      "productUrl": "https://www.nordstrom.com/s/christian-louboutin-miss-jane-sandal-women/7544624",
+      "productImageUrl": null,
+      "momentImageUrl": "https://media.zenfs.com/en/page_six_articles_559/89c5d1c1ef03b7418b67a546d78fe729",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-box-seats-at-arthur-ashe-for-the-us-open-mens-final:0:https://www.thereformation.com/products/sora-linen-dress/1314992.html",
+      "cacheKey": null,
+      "productUrl": "https://www.thereformation.com/products/sora-linen-dress/1314992.html",
+      "productImageUrl": "https://media.thereformation.com/image/upload/f_auto,q_auto,dpr_1.0/w_800,c_scale//PRD-SFCC/1314992/BLACK/1314992.1.BLACK?_s=RAABAB0",
+      "momentImageUrl": "https://cdn01.justjared.com/wp-content/uploads/2024/09/taylor-travis-us-open1/taylor-swift-travis-kelce-us-open-mahomes-2024-10.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "not judged before run cap"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-seven-more-vmas-and-a-tie-with-beyonc-at-30:0:https://www.amazon.com/MONSE-Harness-Tapestry-Dress-Alien/dp/B0FB9MHTDS",
+      "cacheKey": null,
+      "productUrl": "https://www.amazon.com/MONSE-Harness-Tapestry-Dress-Alien/dp/B0FB9MHTDS",
+      "productImageUrl": null,
+      "momentImageUrl": "https://i.ytimg.com/vi/OpK6oFpUxg4/maxresdefault.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already:0:https://mpopeandco.com/products/14k-yellow-gold-vintage-old-mine-cut-diamond-ring",
+      "cacheKey": null,
+      "productUrl": "https://mpopeandco.com/products/14k-yellow-gold-vintage-old-mine-cut-diamond-ring",
+      "productImageUrl": null,
+      "momentImageUrl": "https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden:0:https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/",
+      "cacheKey": null,
+      "productUrl": "https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/",
+      "productImageUrl": "https://is4.revolveassets.com/images/p4/n/c/PLOR-WD21_V1.jpg",
+      "momentImageUrl": "https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg",
+      "score": null,
+      "tier": "unresolved",
+      "kind": null,
+      "reasons": [
+        "product image unavailable: ENAMETOOLONG: name too long, open '/workspace/projects/Swift2/.worktrees/t_6c7b159c/.scratch/e3-images/MTI0LXZhdWx0LXR0cGQtdGhlLWVuZ2FnZW1lbnQtbG9vay1hLXBvbG8tcmFscGgtbGF1cmVuLWRyZXNzLWluLXRoZS1nYXJkZW46MDpodHRwczovL3d3dy5yZXZvbHZlLmNvbS9wb2xvLXJhbHBoLWxhdXJlbi1zdHJpcGVkLXNpbGtibGVuZC1kcmVzcy1pbi0xOTMyLXN0cmlwZS13aGl0ZS1ibGFjay9kcC9QTE9SLVdEMjEv-product.avif'"
+      ]
+    }
+  ],
+  "unscored": [
+    {
+      "productId": "vault-1989-polaroids-and-pastel:0:https://www.fashionnova.com/products/simona-satin-mini-dress-light-blue",
+      "matchTier": "unscored"
+    },
+    {
+      "productId": "vault-debut-curls-sundresses-and-cowboy-boots:0:https://www.amazon.com/IUV-Cowboy-Western-Cowgirl-Pointy/dp/B0BFQRZPRH",
+      "matchTier": "unscored"
+    },
+    {
+      "productId": "vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep:0:https://www.moniquelhuillier.com/products/viola-dress",
+      "matchTier": "unscored"
+    },
+    {
+      "productId": "vault-tloas-a-low-key-game-day-layer-for-the-colts-game:0:https://agolde.com/products/low-slung-baggy-reset",
+      "matchTier": "unscored"
+    },
+    {
+      "productId": "vault-ttpd-unseen-at-the-eagles-rematch-then-photographed-at-mahomes-bi:0:https://www.revolve.com/simkhai-poppy-vest-in-sand-plaid/dp/JSKI-WO47/",
+      "matchTier": "unscored"
+    },
+    {
+      "productId": "vault-ttpd-unseen-at-the-eagles-rematch-then-photographed-at-mahomes-bi:1:https://www.revolve.com/simkhai-payton-wrap-mini-skirt-in-sand-plaid/dp/JSKI-WQ100/",
+      "matchTier": "unscored"
+    },
+    {
+      "productId": "vault-ttpd-unseen-at-the-eagles-rematch-then-photographed-at-mahomes-bi:2:https://www.neimanmarcus.com/p/gucci-ottavia-leather-platform-loafer-pumps-prod274440624",
+      "matchTier": "unscored"
+    },
+    {
+      "productId": "vault-ttpd-ink-typewriters-and-monochrome:0:https://shopakira.com/products/extra-extra-printed-mesh-tee",
+      "matchTier": "unscored"
+    }
+  ],
+  "summary": {
+    "total": 133,
+    "queued": 125,
+    "resolved": 0,
+    "unresolved": 125,
+    "unscored": 8,
+    "scoreDistribution": {
+      "exact": 0,
+      "close": 0,
+      "similar": 0,
+      "inspired": 0,
+      "mismatch": 0
+    }
+  }
+}
