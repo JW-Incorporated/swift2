@@ -140,6 +140,15 @@ later-phase signups already recorded in the PLAN's human-surface list
 (Amazon Associates, the deferred D2 catch-all, `vercel env` saves) file as
 their phases open, each behind the #27 gate where monetized.
 
+**Addendum — superseded attachment sources.** Per Fable ruling task
+`t_b765e7fb`, the PLAN attachment SHA-256
+`97e90c682de3d0f69d7d0c9b6801623846aa07298038002463c56b0d11467938`
+and SPEC v2 attachment SHA-256
+`2c06dd48e8bea781714c1c24170cf4b85fa44dfeaeb98216d165b528a4d989b4`
+are superseded by the amended `docs/PLAN.merch-autonomy.md` and
+`docs/SPEC.merch-autonomy.md` merged on `origin/main` after #3442. Any
+mandate for byte identity to those old attachment hashes is void.
+
 ---
 
 ## 2026-08-30 — Merch autonomy: full official catalog with verified Amazon alternatives; fan-made line is inspired-by, never bootleg

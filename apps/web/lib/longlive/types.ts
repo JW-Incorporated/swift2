@@ -363,6 +363,30 @@ export interface Product {
    * neither present renders a monogram tile.
    */
   imageUrl?: string;
+  /** Graded match quality, written only by the E3 auditor or E6 matcher. */
+  matchTier?: 'exact' | 'close' | 'similar' | 'inspired' | 'unscored';
+  /** 0–100 auditor confidence; absent when matchTier is 'unscored'. */
+  matchScore?: number;
+  /** ISO date the listing was last machine-verified. */
+  verifiedAt?: string;
+  /** Fixed product category, supplied by the E3 auditor or E6 matcher. */
+  kind?:
+    | 'dress'
+    | 'top'
+    | 'bottom'
+    | 'outerwear'
+    | 'knitwear'
+    | 'shoes'
+    | 'jewelry'
+    | 'bag'
+    | 'hat'
+    | 'eyewear'
+    | 'beauty'
+    | 'accessory'
+    | 'music'
+    | 'collectible'
+    | 'home'
+    | 'other';
 }
 
 export interface ContentItem {
