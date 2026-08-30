@@ -259,6 +259,11 @@ function isRetryableVisionError(error) {
   return !status || status === '429' || status.startsWith('5');
 }
 
+function visionFailureReason(error) {
+  const status = error instanceof Error ? /\((\d{3})\)$/.exec(error.message)?.[1] : null;
+  return status ? `vision request failed (HTTP ${status})` : 'vision request failed';
+}
+
 async function judgeWithRetry(pair, judge, sleep, reserveAttempt) {
   let lastError;
   for (let attempt = 1; attempt <= TRANSIENT_RETRY_ATTEMPTS; attempt += 1) {
@@ -372,7 +377,7 @@ export async function runAuthoring({
       continue;
     }
     if (result.error) {
-      judgments.push(unresolved(pair, 'vision request failed'));
+      judgments.push(unresolved(pair, visionFailureReason(result.error)));
       continue;
     }
     const normalized = normalizeJudgment(pair, result.response);
