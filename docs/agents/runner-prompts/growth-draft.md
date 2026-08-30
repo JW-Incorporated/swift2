@@ -66,7 +66,7 @@ Taylor, not "Swift"; no AI-tell phrases; never speak as Taylor or her team.
 The account's grid must show Taylor. The standard is defined in `docs/marketing/social-strategy.md` §2 ("the Taylor-photo standard"); `social/README.md`'s `mediaKind` section is the field-level schema that implements it. The short version:
 
 1. **A real photograph of Taylor** (`mediaKind: "photo"`) — the default for every post. Pull it from the repo's own credited corpus (`supabase/seed/content/**` `moment.photos`, `apps/web/lib/longlive/lenses.ts`), rehost under `apps/web/public/social/library/photos/` (≤1.5MB jpeg/png), set `mediaCredit` + `mediaSource`, and put the credit in the caption when length allows. Match the photo's era to the story. Verify the downloaded file is the real image by looking at it — a CDN can serve a placeholder to a bare fetch — and that Taylor is actually in the frame.
-2. **Site screenshot** (`mediaKind: "site-screen"`, committed under `/social/library/`) — only when the post's subject IS a product surface. On Instagram prefer a carousel: Taylor photo tile, screenshot slide 2.
+2. **Site screenshot** (`mediaKind: "site-screen"`, committed under `/social/library/`) — **Instagram only**, and only when the post's subject IS a product surface. On Instagram prefer a carousel: Taylor photo tile, screenshot slide 2. **X site-screen posts are permanently prohibited**: use a real credited photo or a text-only X post instead.
 3. **Text-only** (X only). A sharp tweet beats a decorative tile.
 
 **Gone:** era tiles hard-fail the checker outright (declared or not), and designed cards are retired from the feed — a typography tile is still not a picture of Taylor.

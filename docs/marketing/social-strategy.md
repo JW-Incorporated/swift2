@@ -85,13 +85,15 @@ borderline, the test is "could a fan notice this without being told?"
 **The arc — 4 posts over 8 days** (a 5th optional at +14):
 
 A launch arc is the one place where the subject genuinely *is* a product
-surface, so `site-screen` is legitimate here — but §2's ladder still governs:
-on Instagram the screenshot rides slide 2 of a carousel behind a Taylor photo
-tile, because the grid is what a visiting fan sees.
+surface, so an **Instagram** `site-screen` is legitimate here — but §2's ladder
+still governs: on Instagram the screenshot rides slide 2 of a carousel behind a
+Taylor photo tile, because the grid is what a visiting fan sees. **X
+site-screen posts are permanently prohibited**; use a real credited photo or
+text-only X copy for the X sibling instead.
 
 | Day | Post | Platform | Job | Media |
 |---|---|---|---|---|
-| 0 | **Announce** | IG + X sibling | One line on what it does. Not "we shipped" — "here's the thing you can now do." | IG: photo tile + the feature mid-use as slide 2. X: the screenshot, or the photo |
+| 0 | **Announce** | IG + X sibling | One line on what it does. Not "we shipped" — "here's the thing you can now do." | IG: photo tile + the feature mid-use as slide 2. X: a real credited photo or text-only |
 | +2 | **How-to** | IG | Literally where to tap. Assume the reader never found it. | Photo tile + the tap-path screens as later slides |
 | +4 | **Example output** | IG + X sibling | One real result the feature produced. The proof it's good. | Photo tile + a screenshot of that actual result |
 | +8 | **Callback** | X | Tie it to a fan use-case; invite a reply ("what did yours give you?"). | A photo, or text-only |
@@ -377,11 +379,12 @@ the code is what actually ships and this file is the bug.
    the credit line in the caption whenever the platform's length budget
    allows. Verify the download is the real image (view it — a CDN can serve a
    placeholder to curl), and that Taylor is actually in the frame.
-2. **Site screenshot** — `mediaKind: "site-screen"`, only for posts whose
-   subject IS a product surface (a launch, a how-to). Must be a committed
-   `/social/library/` asset. On Instagram, prefer a carousel: Taylor photo as
-   the grid tile, the screenshot as slide 2 — the grid shows Taylor either
-   way.
+2. **Site screenshot** — `mediaKind: "site-screen"`, **Instagram only**, for
+   posts whose subject IS a product surface (a launch, a how-to). Must be a
+   committed `/social/library/` asset. On Instagram, prefer a carousel: Taylor
+   photo as the grid tile, the screenshot as slide 2 — the grid shows Taylor
+   either way. **X site-screen posts are permanently prohibited**; the X
+   sibling uses a real credited photo or text-only copy.
 3. **No image at all** (X only — Instagram always requires media). A sharp
    text-only tweet beats a decorative tile every time.
 
