@@ -7,6 +7,54 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-30 — FR-MERCH-6: E5 fan-made discovery round-2 repair ruling (t_fe545cfd) — four bounded repairs, no third Codex review
+
+**Context:** Fable arbiter ruling for Kanban task t_fe545cfd (E5 fan-made
+discovery lane). Both Codex review rounds are spent; per workflow rule 3 the
+escalation path is this ruling, not a round 3. Four round-2 findings were
+verified against the code before disposition. The E5 hold recorded in
+FR-MERCH-5 ("held on the canonical Etsy key save and the commercial gate")
+is settled and is not weakened here.
+
+**Finding 1 — scheduled runs file live while E5 is held.** On the cron
+trigger `inputs.dry_run` is empty, so `merch-fanmade.yml` falls through to
+`--file`. **Disposition: fail-closed dry-run.** The run step defaults to
+dry-run whenever `DRY_RUN` is unset or empty (`${DRY_RUN:-true}` semantics,
+compared against an explicit `"false"`); live filing is reachable only via
+manual `workflow_dispatch` with `dry_run=false`, which stays behind
+HUMAN-ACTIONS #27/#28. The daily schedule may remain as a dry-run freshness
+probe (no filing, no spend; Etsy is skipped while the key is absent).
+
+**Finding 2 — `fanmade-candidate` label may not exist (422 on filing).**
+**Disposition: idempotent ensure-label.** The filing path creates the label
+via the REST API before first use, tolerating already-exists; covered by
+`issues: write`, no human step.
+
+**Finding 3 — Reddit intake admits non-shop links.** Any `post.url`
+(self-posts, i.redd.it images) becomes a candidate. **Disposition:
+deterministic shop-domain allowlist.** A checked-in
+`SHOP_DOMAIN_ALLOWLIST` in `fanmade-sources.mjs` gates Reddit-sourced
+candidates; reddit-internal and non-allowlisted domains are dropped at
+normalization. Zero-LLM; the judged curation lane (D3) is unchanged.
+
+**Finding 4 — dedupe checks only open issues, first page.** Curated-then-
+closed candidates would re-file daily. **Disposition: `state=all` with full
+pagination** in the dedupe query (same function, same correctness surface).
+
+**Completion:** the four repairs above, plus unit tests for each, are the
+exact permitted change set. After local verification (suite green + a
+dry-run execution of the script), the task may be declared complete
+**without a third Codex review** — these are point defects, not an approach
+defect. Any repair outside this set re-opens escalation. Human-only
+remainder unchanged: #28 (Etsy key save) and #27 (commercial/counsel gate)
+must both clear before anyone dispatches a live filing run.
+
+**Approved by:** Fable arbiter, under Decision Authority's reversibility
+line (all four repairs revertible by follow-up PR; the hold and D3 are
+untouched).
+
+---
+
 ## 2026-08-30 — X site-screen posts are permanently prohibited; remove the two already live
 
 **Decision:** Delete exactly the two owner-identified live X posts
