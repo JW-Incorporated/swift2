@@ -220,7 +220,19 @@ per the above — a founder call remains the way to confirm the policy
 change was intentional and close this for good, but at this point the
 egress block looks resolved.
 
-**Status:** OPEN
+**Update (2026-08-30, Stylist run):** same root cause, different worker —
+the Stylist's scheduled firing today hit a **total** outbound block again:
+`curl`/`WebFetch`/Node `fetch` to `en.wikipedia.org`, `www.gucci.com`,
+`www.nordstrom.com`, and `www.therealreal.com` all failed (`EGRESS_BLOCKED` /
+proxy status `gateway answered 403 to CONNECT`; Node's own fetch returned
+`403 Host not in allowlist`). Only `WebSearch` worked. Since curl-verifying
+a real retailer product page (never a search-results page, never fabricated)
+is the Stylist's whole SOURCE step, and re-checking existing product URLs
+for liveness is its whole MAINTAIN step, this run could do neither — it
+exited with no changes and no PR rather than fabricate an unverified link.
+This is the same intermittent policy, now confirmed to hit more than one
+scheduled trigger in this repo, so the "looks resolved" note above was
+premature — leaving Status as OPEN.
 
 ---
 
