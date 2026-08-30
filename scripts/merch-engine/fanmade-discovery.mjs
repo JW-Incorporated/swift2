@@ -6,6 +6,8 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import {
+  ETSY_FAILURE_ISSUE_PREFIX,
+  ETSY_FAILURE_LABEL,
   ETSY_QUERIES,
   FANMADE_CANDIDATE_LABEL,
   FANMADE_ISSUE_PREFIX,
@@ -185,10 +187,11 @@ function isEligibleEtsyListing(listing, query, now) {
 export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now = new Date().toISOString(), queries = ETSY_QUERIES, requireCredentials = false, sleep = wait } = {}) {
   if (!etsyApiKey) {
     if (requireCredentials) throw new Error('Etsy API credentials are required');
-    return { rawQueries: [], candidates: [] };
+    return { rawQueries: [], candidates: [], queryErrors: [] };
   }
   const candidates = [];
   const rawQueries = [];
+  const queryErrors = [];
   const listingDetailsById = new Map();
   const missingListingIds = new Set();
   for (const query of queries) {
@@ -197,7 +200,15 @@ export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now =
     url.searchParams.set('sort_on', 'created');
     url.searchParams.set('sort_order', 'desc');
     url.searchParams.set('limit', '10');
-    const payload = await etsyJson(fetchImpl, url, { headers: { 'x-api-key': etsyApiKey } }, sleep);
+    let payload;
+    try {
+      payload = await etsyJson(fetchImpl, url, { headers: { 'x-api-key': etsyApiKey } }, sleep);
+    } catch (error) {
+      // Non-fatal: a single query's search request failing (403, 5xx) must not
+      // abort the whole discovery run. Record it and move on to the next query.
+      queryErrors.push({ query, status: error?.status ?? null, message: error?.message || String(error) });
+      continue;
+    }
     rawQueries.push({ query, payload });
     for (const searchResult of (payload.results || []).slice(0, 10)) {
       if (!searchResult?.listing_id) continue;
@@ -214,7 +225,10 @@ export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now =
             missingListingIds.add(listingId);
             continue;
           }
-          throw error;
+          // Non-fatal: a single listing detail failure (403, 5xx) must not
+          // abort this query's remaining listings or the rest of the run.
+          queryErrors.push({ query, listingId, status: error?.status ?? null, message: error?.message || String(error) });
+          continue;
         }
         listingDetailsById.set(listingId, listing);
       }
@@ -227,12 +241,18 @@ export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now =
     rawQueries,
     listingDetails: [...listingDetailsById].map(([listingId, detail]) => ({ listingId, detail })),
     candidates: mergeCandidates(candidates),
+    queryErrors,
   };
 }
 
-async function discoverEtsy({ etsyApiKey, fetchImpl, now }) {
-  const evidence = await collectEtsyEvidence({ etsyApiKey, fetchImpl, now });
-  return evidence.candidates;
+async function discoverEtsy({ etsyApiKey, fetchImpl, now, queries = ETSY_QUERIES }) {
+  const evidence = await collectEtsyEvidence({ etsyApiKey, fetchImpl, now, queries });
+  // A query-level failure (search request itself failed, no listingId) means
+  // that whole query contributed zero results. If every configured query
+  // failed that way, Etsy is down or credentials are bad for this whole run.
+  const searchLevelFailures = evidence.queryErrors.filter((error) => !error.listingId);
+  const totalFailure = Boolean(etsyApiKey) && queries.length > 0 && searchLevelFailures.length >= queries.length;
+  return { candidates: evidence.candidates, queryErrors: evidence.queryErrors, totalFailure };
 }
 
 async function discoverReddit({ fetchImpl }) {
@@ -255,12 +275,16 @@ async function discoverReddit({ fetchImpl }) {
   return candidates;
 }
 
-export async function discoverCandidates({ etsyApiKey, fetchImpl = fetch, submissions = [], now = new Date().toISOString() } = {}) {
+export async function discoverCandidates({ etsyApiKey, fetchImpl = fetch, submissions = [], now = new Date().toISOString(), queries = ETSY_QUERIES } = {}) {
   const [etsy, reddit] = await Promise.all([
-    discoverEtsy({ etsyApiKey, fetchImpl, now }),
+    discoverEtsy({ etsyApiKey, fetchImpl, now, queries }),
     discoverReddit({ fetchImpl }),
   ]);
-  return { candidates: mergeCandidates([...etsy, ...reddit, ...submissions.filter(isMerchSubmission).map(normalizeSubmission)]) };
+  return {
+    candidates: mergeCandidates([...etsy.candidates, ...reddit, ...submissions.filter(isMerchSubmission).map(normalizeSubmission)]),
+    etsyQueryErrors: etsy.queryErrors,
+    etsyTotalFailure: etsy.totalFailure,
+  };
 }
 
 function etsyListingId(value) {
@@ -451,6 +475,45 @@ async function fileCandidateIssues({ repository, token, candidates, fetchImpl, d
   return { filed, skipped: candidates.filter((candidate) => titles.has(issueTitle(candidate))).map((candidate) => candidate.url) };
 }
 
+function etsyOutageTitle(now) {
+  // One outage ticket per UTC day so a sustained failure doesn't spam issues.
+  return `${ETSY_FAILURE_ISSUE_PREFIX}${now.slice(0, 10)}`;
+}
+
+function etsyOutageBody({ queryErrors, now }) {
+  return [
+    'Automated E5 detection could not reach the Etsy API for any configured query on this run.',
+    'Etsy and Reddit/submission intake are independent; this outage only affects Etsy-sourced candidates.',
+    '',
+    `Detected at: ${now}`,
+    '',
+    'Errors observed:',
+    ...queryErrors.map((error) => `- query "${error.query}"${error.listingId ? ` (listing ${error.listingId})` : ''}: status ${error.status ?? 'unknown'} — ${error.message}`),
+    '',
+    'Check Etsy API credentials/quota and sustained rate-limiting or outage status before assuming this is a code defect.',
+  ].join('\n');
+}
+
+export async function fileEtsyOutageIssue({ repository, token, queryErrors, now = new Date().toISOString(), fetchImpl, dryRun }) {
+  if (!queryErrors?.length) return { filed: false, skipped: false };
+  if (!repository || !token || dryRun) return { filed: false, skipped: true };
+  const label = await fetchImpl(`https://api.github.com/repos/${repository}/labels`, {
+    method: 'POST', headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'content-type': 'application/json' },
+    body: JSON.stringify({ name: ETSY_FAILURE_LABEL, color: 'd93f0b' }),
+  });
+  if (!label.ok && label.status !== 422) throw new Error(`Could not ensure Etsy outage label (${label.status})`);
+  const existing = await githubIssues({ repository, token, label: ETSY_FAILURE_LABEL, fetchImpl });
+  const title = etsyOutageTitle(now);
+  if (existing.some((issue) => issue.title === title)) return { filed: false, skipped: true };
+  const response = await fetchImpl(`https://api.github.com/repos/${repository}/issues`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'content-type': 'application/json' },
+    body: JSON.stringify({ title, body: etsyOutageBody({ queryErrors, now }), labels: [ETSY_FAILURE_LABEL] }),
+  });
+  if (!response.ok) throw new Error(`Could not file Etsy outage issue (${response.status})`);
+  return { filed: true, skipped: false };
+}
+
 // Etsy v3 requires x-api-key to hold the keystring and shared secret joined by a colon.
 function etsyApiKeyFromEnv() {
   const { ETSY_API_KEY, ETSY_SHARED_SECRET } = process.env;
@@ -483,7 +546,10 @@ async function main() {
   const revalidation = await reverifyFanmadeListings({ etsyApiKey });
   const revalidationFiling = await fileReverificationIssues({ repository, token, reverified: revalidation.reverified, fetchImpl: fetch, dryRun });
   const filing = await fileCandidateIssues({ repository, token, candidates: discovery.candidates, fetchImpl: fetch, dryRun });
-  console.log(JSON.stringify({ ...discovery, ...revalidation, revalidationFiling, ...filing, dryRun }, null, 2));
+  const etsyOutageFiling = discovery.etsyTotalFailure
+    ? await fileEtsyOutageIssue({ repository, token, queryErrors: discovery.etsyQueryErrors, fetchImpl: fetch, dryRun })
+    : { filed: false, skipped: false };
+  console.log(JSON.stringify({ ...discovery, ...revalidation, revalidationFiling, ...filing, etsyOutageFiling, dryRun }, null, 2));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
