@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { shopifyJsonUrl } from './product-liveness.mjs';
-import { productTargets } from '../check-link-liveness.mjs';
+import { classifyAcknowledgedUnavailable, productTargets } from '../check-link-liveness.mjs';
 
 describe('shopifyJsonUrl', () => {
   it('maps a /products/<handle> url to its Shopify JSON companion', () => {
@@ -31,12 +31,21 @@ describe('shopifyJsonUrl', () => {
 });
 
 describe('productTargets', () => {
-  it('omits an explicitly unavailable product so a known 404 is not reported as a new dead link', () => {
+  it('keeps an explicitly unavailable product in the liveness sweep', () => {
     expect(productTargets({
       products: [
         { url: 'https://example.com/available', category: 'shop-the-look' },
         { url: 'https://example.com/unavailable', category: 'shop-the-look', inStock: false },
       ],
-    }).map((target) => target.url)).toEqual(['https://example.com/available']);
+    }).map((target) => target.url)).toEqual([
+      'https://example.com/available',
+      'https://example.com/unavailable',
+    ]);
+  });
+
+  it('labels only an acknowledged unavailable URL without masking other dead links', () => {
+    const acknowledged = new Set(['https://example.com/acknowledged']);
+    expect(classifyAcknowledgedUnavailable({ url: 'https://example.com/acknowledged', verdict: 'dead' }, acknowledged).verdict).toBe('known-unavailable');
+    expect(classifyAcknowledgedUnavailable({ url: 'https://example.com/other', verdict: 'dead' }, acknowledged).verdict).toBe('dead');
   });
 });

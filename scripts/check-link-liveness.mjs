@@ -35,7 +35,6 @@ export function productTargets(catalogue) {
   const targets = [];
   for (const products of Object.values(catalogue)) {
     for (const [index, product] of products.entries()) {
-      if (product.inStock === false) continue;
       const productId = product.source
         ? `${product.source.eraId}:${product.source.momentId}:${index}`
         : `${product.category ?? 'merch'}:${index}`;
@@ -59,7 +58,6 @@ async function productTargetsFromSeed() {
     for (const [itemIndex, item] of items.entries()) {
       const itemId = `${eraId}:${item.id ?? itemIndex}`;
       for (const [productIndex, product] of (item.moment?.products ?? []).entries()) {
-        if (product.inStock === false) continue;
         const productId = `${itemId}:${productIndex}`;
         targets.push({ productId, url: product.url, imageUrl: product.imageUrl ?? null, listing: 'primary' });
         if (product.altListing?.url) targets.push({ productId, url: product.altListing.url, listing: 'alternative' });
@@ -75,6 +73,21 @@ async function productTargetsFromSeed() {
     }
   } catch { /* the E4 catalogue may not exist until its dedicated lane authors it */ }
   return targets;
+}
+
+async function acknowledgedUnavailableUrls() {
+  try {
+    const artifact = JSON.parse(await readFile(join(ROOT, 'artifacts', 'merch-audit', 'e1-re-source-2026-08-30.json'), 'utf8'));
+    return new Set((artifact.reSource ?? []).map((entry) => entry.url));
+  } catch {
+    return new Set();
+  }
+}
+
+export function classifyAcknowledgedUnavailable(result, urls) {
+  return result.verdict === 'dead' && urls.has(result.url)
+    ? { ...result, verdict: 'known-unavailable' }
+    : result;
 }
 
 async function walk(dir) {
@@ -149,8 +162,10 @@ async function pool(items, worker, n) {
 async function main() {
   let files = [];
   let targets;
+  let knownUnavailableUrls = new Set();
   if (args.includes('--products')) {
     targets = await productTargetsFromSeed();
+    knownUnavailableUrls = await acknowledgedUnavailableUrls();
   } else {
     files = await walk(SEED_DIR);
     const urlSet = new Set();
@@ -161,10 +176,10 @@ async function main() {
     targets = [...urlSet].map((url) => ({ url }));
   }
   if (Number.isFinite(LIMIT)) targets = targets.slice(0, LIMIT);
-  const results = await pool(targets, async (target) => ({
+  const results = await pool(targets, async (target) => classifyAcknowledgedUnavailable({
     ...target,
     ...(await check(target.url, { inspectProductPage: args.includes('--products') })),
-  }), CONCURRENCY);
+  }, knownUnavailableUrls), CONCURRENCY);
   const bad = results.filter((result) => result.verdict !== 'ok');
   const byVerdict = bad.reduce((map, result) => ((map[result.verdict] = (map[result.verdict] || 0) + 1), map), {});
 
