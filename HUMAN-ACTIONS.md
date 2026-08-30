@@ -136,6 +136,12 @@ error, and production's `video_work` table matches `supabase/seed/videos/**`.
 
 **Filed:** 2026-08-26
 
+**Update (2026-08-30, Joey report):** The current project is on the Supabase
+Free plan, which has no available backup options. No backup was made and no
+production restore drill was performed. This records the current status only;
+it does not accept the associated launch risk. The BACKUPS gate remains
+unresolved until the required evidence is recorded.
+
 **Why it matters:** the BACKUPS launch gate has been 🟡 since 2026-08-12. The
 restore mechanism itself is built, tested, and green in CI (#1890) — a drill
 that backs up, restores into a scratch database, and verifies by checksum.
