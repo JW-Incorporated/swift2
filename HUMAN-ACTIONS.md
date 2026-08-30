@@ -26,34 +26,39 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
+### 32. [BLOCKING] Etsy API returns 403 to the E5 evidence workflow — check app approval, ~10 min
 
 **Filed:** 2026-08-30
 
-**Status:** DONE
+**Status:** OPEN
 
-**Why it matters:** `docs/decisions.md` 2026-07-08 §3 is the standing rule:
-**nothing monetized ships without external IP-counsel review**
-(right-of-publicity, false endorsement, FTC affiliate disclosure), and
-FR-MERCH-4/5 hold that no affiliate/commercial implementation (the
-`shop.ts` seam flip, engine E0, coverage-report wiring) starts before that
-sign-off. The merch plan's Phase 1 trust fixes (E1/E2/E3) proceed without
-you; every money phase waits here. Engaging counsel is also a spend
-decision, which is yours alone.
+**Why it matters:** the fan-made catalogue task (t_13d961e9, 25 D3-curated
+rows) can only be authored from the `merch-e5-evidence` artifact, and the
+workflow's single run (33318469717, 2026-08-30) failed: Etsy answered
+HTTP 403 on `/v3/application/listings/active`. The request itself was
+well-formed and the `ETSY_API_KEY` secret was present and non-empty in the
+run, so the block is on the Etsy account side — most likely the personal
+app (registered 2026-08-24, items #4/#28) is still in Etsy's **pending**
+approval state (Etsy 403s pending apps on every endpoint), or the value
+saved as `ETSY_API_KEY` isn't the keystring. Credentials are founder-only,
+so no agent can check or fix either.
 
 **Steps:**
-1. Engage an IP attorney (right-of-publicity / false-endorsement / FTC
-   affiliate-disclosure scope). Bring: the live site `longlivets.com`, the
-   plan `docs/PLAN.merch-autonomy.md`, the UNOFFICIAL fan-project
-   disclaimer, and the fact that content stores plain retailer URLs with
-   wrapping at one seam (`apps/web/lib/longlive/shop.ts`).
-2. Report the outcome in chat (sign-off, or the changes counsel requires);
-   a session records it in `docs/decisions.md` and unblocks Phase 2.
+1. Open `https://www.etsy.com/developers/your-apps` and check the app's
+   state. If it shows **Pending approval**, that is the whole problem —
+   await/request activation (Etsy support if it's been stuck).
+2. While there, confirm the app's **Keystring** is the exact value saved as
+   the repo Actions secret `ETSY_API_KEY` (not the shared secret). If it's
+   wrong, re-save it: `gh secret set ETSY_API_KEY --repo
+   JW-Incorporated/swift2` (founder-only on purpose; key names in chat,
+   never values).
+3. Once active/corrected, re-run the collection: GitHub → **Actions** →
+   **merch-e5-evidence** → **Run workflow** → type `COLLECT_E5_EVIDENCE`
+   in the confirmation box — or just say "32 is done" and a session will
+   dispatch it.
 
-**Worked if:** counsel's written sign-off (or required-changes list) is
-recorded in `docs/decisions.md` and this item is DONE.
-
-**Outcome (2026-08-30):** Counsel sign-off recorded from Joey's direct chat instruction.
+**Worked if:** a `merch-e5-evidence` run completes green and lists an
+artifact named `merch-e5-evidence-artifact`.
 
 ---
 
@@ -661,6 +666,37 @@ reflects it, and a test PR still merges once `build` is green.
 ---
 
 ## DONE
+
+### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
+
+**Filed:** 2026-08-30
+
+**Status:** DONE (2026-08-30)
+
+**Why it matters:** `docs/decisions.md` 2026-07-08 §3 is the standing rule:
+**nothing monetized ships without external IP-counsel review**
+(right-of-publicity, false endorsement, FTC affiliate disclosure), and
+FR-MERCH-4/5 hold that no affiliate/commercial implementation (the
+`shop.ts` seam flip, engine E0, coverage-report wiring) starts before that
+sign-off. The merch plan's Phase 1 trust fixes (E1/E2/E3) proceed without
+you; every money phase waits here. Engaging counsel is also a spend
+decision, which is yours alone.
+
+**Steps:**
+1. Engage an IP attorney (right-of-publicity / false-endorsement / FTC
+   affiliate-disclosure scope). Bring: the live site `longlivets.com`, the
+   plan `docs/PLAN.merch-autonomy.md`, the UNOFFICIAL fan-project
+   disclaimer, and the fact that content stores plain retailer URLs with
+   wrapping at one seam (`apps/web/lib/longlive/shop.ts`).
+2. Report the outcome in chat (sign-off, or the changes counsel requires);
+   a session records it in `docs/decisions.md` and unblocks Phase 2.
+
+**Worked if:** counsel's written sign-off (or required-changes list) is
+recorded in `docs/decisions.md` and this item is DONE.
+
+**Outcome (2026-08-30):** Counsel sign-off recorded from Joey's direct chat instruction.
+
+---
 
 ### 29. [UPGRADE] Search-API account for merch engine E6 — payment card, ~10 min
 
