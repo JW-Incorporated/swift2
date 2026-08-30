@@ -441,6 +441,8 @@ export default {
             item: 'Oversized Plaid Blazer',
             retailer: 'oakandfort.com',
             url: 'https://oakandfort.com/products/oversized-plaid-blazer_5',
+            matchTier: 'unscored',
+            kind: 'outerwear',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0697/9102/3343/files/Jacket-9470_Oatmeal_20Brown_20Plaid-1.jpg?v=1721961051',
             price: '$42.00',
             inStock: false,
@@ -524,6 +526,7 @@ export default {
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/free-people-lux-velvet-shirt-dress-in-fairytale/dp/FREE-WD1888/',
             matchTier: 'unscored',
+            kind: 'dress',
             price: '$139.00',
             inStock: false,
             verifiedAt: '2026-08-30T19:22:10.691Z'
@@ -534,6 +537,7 @@ export default {
             retailer: 'tiffany.com',
             url: 'https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html',
             matchTier: 'unscored',
+            kind: 'jewelry',
             price: '$350.00',
             verifiedAt: '2026-08-30T19:22:10.691Z'
           },
@@ -597,6 +601,7 @@ export default {
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Womens-Cardigan-Embroidery-Sweater-Outwear/dp/B0BGXK89F2/',
             matchTier: 'unscored',
+            kind: 'knitwear',
             price: '$34.58',
             isAlternative: true,
             altNote: 'Both the original 2020 run and the 2024 restock are long gone from her own store — this is a comparable cream cable-knit cardigan with embroidery detail.',

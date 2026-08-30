@@ -2214,6 +2214,7 @@ export default {
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/IUV-Cowboy-Western-Cowgirl-Pointy/dp/B0BFQRZPRH',
             matchTier: 'unscored',
+            kind: 'shoes',
             price: '$54.99',
             isAlternative: true,
             altNote: 'No single named pair -- this era-defining look was built from many worn-in boots and sundresses -- a current cowboy boot in the same recurring spirit.',
