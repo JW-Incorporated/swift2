@@ -523,16 +523,6 @@ export default {
         // current, verified in-stock alternative in the same silver
         // one-shoulder sequin silhouette.
         products: [
-          {
-            brand: 'WonderlandByLilian',
-            item: 'Silver Sequin Evening Gown with Off-Shoulder Sleeves',
-            retailer: 'wonderlandbylilian.com',
-            url: 'https://wonderlandbylilian.com/products/silver-sequin-evening-gown-with-off-shoulder-sleeves-elegant-sequined-dress-with-draped-skirt-plus-size',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0550/3919/7262/files/b2b9ca237ee2e9d0031ad3655088b7c0.png?v=1785294642',
-            price: '$589.00',
-            isAlternative: true,
-            altNote: 'Her exact KaufmanFranco gown has no e-commerce path (brand has no current online store) -- this is a current made-to-order silver sequin off-shoulder gown in the same one-shoulder silhouette.',
-          },
         ],
       },
     },

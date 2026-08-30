@@ -382,13 +382,20 @@ async function fileCandidateIssues({ repository, token, candidates, fetchImpl, d
   return { filed, skipped: candidates.filter((candidate) => titles.has(issueTitle(candidate))).map((candidate) => candidate.url) };
 }
 
+// Etsy v3 requires x-api-key to hold the keystring and shared secret joined by a colon.
+function etsyApiKeyFromEnv() {
+  const { ETSY_API_KEY, ETSY_SHARED_SECRET } = process.env;
+  return ETSY_API_KEY && ETSY_SHARED_SECRET ? `${ETSY_API_KEY}:${ETSY_SHARED_SECRET}` : null;
+}
+
 async function main() {
   const dryRun = !process.argv.includes('--file');
   const repository = process.env.GITHUB_REPOSITORY;
   const token = process.env.GH_TOKEN;
+  const etsyApiKey = etsyApiKeyFromEnv();
   const submissions = await githubIssues({ repository, token, label: SUBMISSION_LABEL, fetchImpl: fetch });
-  const discovery = await discoverCandidates({ etsyApiKey: process.env.ETSY_API_KEY, submissions });
-  const revalidation = await reverifyFanmadeListings({ etsyApiKey: process.env.ETSY_API_KEY });
+  const discovery = await discoverCandidates({ etsyApiKey, submissions });
+  const revalidation = await reverifyFanmadeListings({ etsyApiKey });
   const revalidationFiling = await fileReverificationIssues({ repository, token, reverified: revalidation.reverified, fetchImpl: fetch, dryRun });
   const filing = await fileCandidateIssues({ repository, token, candidates: discovery.candidates, fetchImpl: fetch, dryRun });
   console.log(JSON.stringify({ ...discovery, ...revalidation, revalidationFiling, ...filing, dryRun }, null, 2));

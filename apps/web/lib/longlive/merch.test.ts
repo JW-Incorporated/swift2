@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CONTENT } from './content';
-import { MERCH_CATALOGUE } from './merch';
+import { MERCH_CATALOGUE, merchProductJsonLd, newDrops, type MerchItem } from './merch';
 
 describe('MERCH_CATALOGUE.shopTheLook', () => {
   it('has the real product count from CONTENT — asserted exactly so drift fails loudly', () => {
@@ -40,9 +40,57 @@ describe('MERCH_CATALOGUE.shopTheLook', () => {
   });
 });
 
-describe('MERCH_CATALOGUE.officialStore / fanMade', () => {
-  it('are genuinely empty — no curated data exists yet, never placeholders', () => {
-    expect(MERCH_CATALOGUE.officialStore).toEqual([]);
-    expect(MERCH_CATALOGUE.fanMade).toEqual([]);
+describe('MERCH_CATALOGUE buckets', () => {
+  it('reads official and fan-made buckets from their authored engine output', () => {
+    expect(MERCH_CATALOGUE.officialStore.length).toBeGreaterThan(0);
+    for (const item of MERCH_CATALOGUE.officialStore) expect(item.category).toBe('official-store');
+    for (const item of MERCH_CATALOGUE.fanMade) expect(item.category).toBe('fan-made');
+  });
+});
+
+describe('newDrops', () => {
+  const base: MerchItem = {
+    brand: 'Test',
+    item: 'Test Item',
+    retailer: 'test.com',
+    url: 'https://test.com/item',
+    category: 'official-store',
+  };
+  const now = new Date('2026-08-30T12:00:00Z');
+
+  it('includes only authored discoveries from the prior 14 days, newest first', () => {
+    const items = [
+      { ...base, item: 'Old', discoveredAt: '2026-08-15T11:59:59Z' },
+      { ...base, item: 'Earlier', discoveredAt: '2026-08-20T12:00:00Z' },
+      { ...base, item: 'Newest', discoveredAt: '2026-08-29T12:00:00Z' },
+      { ...base, item: 'Future', discoveredAt: '2026-09-01T12:00:00Z' },
+    ];
+    expect(newDrops(items, now).map((item) => item.item)).toEqual(['Newest', 'Earlier']);
+  });
+});
+
+describe('merchProductJsonLd', () => {
+  const base: MerchItem = {
+    brand: 'Test',
+    item: 'Test Item',
+    retailer: 'test.com',
+    url: 'https://test.com/item',
+    category: 'official-store',
+    price: '$20.00',
+    inStock: true,
+  };
+  const now = new Date('2026-08-30T12:00:00Z');
+
+  it('adds a schema.org offer only for a fresh, machine-verified price and stock', () => {
+    expect(merchProductJsonLd({ ...base, verifiedAt: '2026-08-29T12:00:00Z' }, now)).toMatchObject({
+      '@type': 'Product',
+      offers: { '@type': 'Offer', price: '20.00', availability: 'https://schema.org/InStock' },
+    });
+    expect(
+      merchProductJsonLd({ ...base, verifiedAt: '2026-08-20T12:00:00Z' }, now),
+    ).not.toHaveProperty('offers');
+    expect(
+      merchProductJsonLd({ ...base, verifiedAt: '2026-09-01T12:00:00Z' }, now),
+    ).not.toHaveProperty('offers');
   });
 });

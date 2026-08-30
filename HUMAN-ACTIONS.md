@@ -26,82 +26,23 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 30. [BLOCKING] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key, ~5 min
-
-**Filed:** 2026-08-30
-
-**Status:** OPEN
-
-**Why it matters:** the manually confirmed E5 evidence collection ran in GitHub Actions and the first Etsy v3 active-listings request returned HTTP 403. The action kept the existing `ETSY_API_KEY` inside GitHub Actions and made no seed or product changes. Fable ruling `RUL-t_aec44307-E5-403-1` found no request-construction defect and certified this as credential/account work: without a successful Etsy response, E5 cannot retain the raw listing and image artifacts required to verify any fan-made item.
-
-**Steps:**
-1. In the Etsy developer portal, verify the existing app/key is active and authorized for Etsy Open API v3 listing reads. Renew or create a replacement only if Etsy requires it.
-2. Save the working value as the existing repository Actions secret named `ETSY_API_KEY` for `JW-Incorporated/swift2`. Do not paste the value into chat or a repository file.
-3. Reply `E5 Etsy key updated` in chat. A session will re-run the manual evidence collection and curate only rows backed by its retained raw artifacts.
-
-**Worked if:** the `merch-e5-evidence` Action completes its raw-artifact upload without HTTP 403. No production data is changed; this is reversible and has no new cost unless Etsy itself presents one, in which case stop before accepting it.
-
----
-
-### 29. [UPGRADE] Search-API account for merch engine E6 — payment card, ~10 min
-
-**Filed:** 2026-08-30
-
-**Status:** OPEN
-
-**Why it matters:** engine E6 (Moment→Product Matcher, merch plan Phase 4)
-needs a Google Shopping-class search API for the matches the free Awin
-product index can't answer. This is a spend decision (paid account), so
-only you can open it. Nothing is halted today — E1/E2/E3 run without it —
-but E6 cannot start until this key exists (FR-MERCH-5 gate ruling,
-`docs/decisions.md` 2026-08-30). Expect light usage: the Awin index takes
-the first pass on every match for free, so a low tier (~$10–30/mo) likely
-suffices; start small, upgrade only if E6's ticket volume shows it.
-
-**Steps:**
-1. Sign up at `https://serpapi.com` (or an equivalent Google
-   Shopping-results API you prefer) on its cheapest paid tier; add the
-   payment card.
-2. Copy the API key and save it as a repo Actions secret named
-   `SEARCH_API_KEY`: from a terminal in the repo, run
-   `gh secret set SEARCH_API_KEY --repo JW-Incorporated/swift2` and paste
-   the value when prompted (`gh secret set` is guard-denied for agents —
-   founder-only on purpose). Key **name** only in chat, never the value.
-
-**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows
-`SEARCH_API_KEY`, and E6's first run reports real search results instead
-of a missing-credential skip.
-
----
-
-### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
+### 30. [DONE] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key
 
 **Filed:** 2026-08-30
 
 **Status:** DONE
 
-**Why it matters:** `docs/decisions.md` 2026-07-08 §3 is the standing rule:
-**nothing monetized ships without external IP-counsel review**
-(right-of-publicity, false endorsement, FTC affiliate disclosure), and
-FR-MERCH-4/5 hold that no affiliate/commercial implementation (the
-`shop.ts` seam flip, engine E0, coverage-report wiring) starts before that
-sign-off. The merch plan's Phase 1 trust fixes (E1/E2/E3) proceed without
-you; every money phase waits here. Engaging counsel is also a spend
-decision, which is yours alone.
+**Resolved:** 2026-08-30. Joey verified the existing Etsy app and repository secrets. PR #3519 corrected the Etsy v3 authorization construction and the manual workflow completed successfully with its evidence artifact. This entry records the resolved credential/access prerequisite only; any later evidence-quality repair remains an agent-owned task.
 
-**Steps:**
-1. Engage an IP attorney (right-of-publicity / false-endorsement / FTC
-   affiliate-disclosure scope). Bring: the live site `longlivets.com`, the
-   plan `docs/PLAN.merch-autonomy.md`, the UNOFFICIAL fan-project
-   disclaimer, and the fact that content stores plain retailer URLs with
-   wrapping at one seam (`apps/web/lib/longlive/shop.ts`).
-2. Report the outcome in chat (sign-off, or the changes counsel requires);
-   a session records it in `docs/decisions.md` and unblocks Phase 2.
+---
 
-**Worked if:** counsel's written sign-off (or required-changes list) is
-recorded in `docs/decisions.md` and this item is DONE.
+### 32. [DONE] Etsy API returns 403 to the E5 evidence workflow — check app approval
 
-**Outcome (2026-08-30):** Counsel sign-off recorded from Joey's direct chat instruction.
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Resolved:** 2026-08-30. The Etsy v3 API access issue was resolved by the verified authorization-format correction in PR #3519. The evidence workflow thereafter completed successfully and uploaded `merch-e5-evidence-artifact`.
 
 ---
 
@@ -263,7 +204,19 @@ per the above — a founder call remains the way to confirm the policy
 change was intentional and close this for good, but at this point the
 egress block looks resolved.
 
-**Status:** OPEN
+**Update (2026-08-30, Stylist run):** same root cause, different worker —
+the Stylist's scheduled firing today hit a **total** outbound block again:
+`curl`/`WebFetch`/Node `fetch` to `en.wikipedia.org`, `www.gucci.com`,
+`www.nordstrom.com`, and `www.therealreal.com` all failed (`EGRESS_BLOCKED` /
+proxy status `gateway answered 403 to CONNECT`; Node's own fetch returned
+`403 Host not in allowlist`). Only `WebSearch` worked. Since curl-verifying
+a real retailer product page (never a search-results page, never fabricated)
+is the Stylist's whole SOURCE step, and re-checking existing product URLs
+for liveness is its whole MAINTAIN step, this run could do neither — it
+exited with no changes and no PR rather than fabricate an unverified link.
+This is the same intermittent policy, now confirmed to hit more than one
+scheduled trigger in this repo, so the "looks resolved" note above was
+premature — leaving Status as OPEN.
 
 ---
 
@@ -294,6 +247,117 @@ export has been parsed without silently returning 0 posts.
 **Status:** OPEN
 
 ---
+
+### 9. [UPGRADE] Decide whether `main` should keep requiring PRs — ~2 min
+
+**Filed:** 2026-08-19
+
+**CORRECTION, 2026-08-19.** An earlier version of this item said "`main` is
+completely unprotected" and gave steps to add protection. **That was wrong.**
+`main` has been protected the whole time by an active repository **ruleset**
+named `protect-main`. The check that produced the false reading was:
+
+```
+gh api repos/JW-Incorporated/swift2/branches/main/protection
+-> 404 {"message":"Branch not protected"}
+```
+
+That endpoint only reports **classic branch protection**. Protection
+implemented as a **ruleset** does not appear there and returns 404 anyway. The
+correct check is:
+
+```
+gh api repos/JW-Incorporated/swift2/rulesets
+gh api repos/JW-Incorporated/swift2/rulesets/18819106
+```
+
+The corroborating evidence that was in plain sight: **every commit on `main`
+carries a `(#NNNN)` PR number.** Nothing has been pushed directly to `main` in
+this repo for a long time, because nothing can be.
+
+**What `protect-main` (id `18819106`, enforcement `active`) actually enforces:**
+
+| Rule | Effect |
+|---|---|
+| `pull_request` (0 approvals required) | **A PR is required. Direct push to `main` is blocked** |
+| `required_status_checks` → `build` | `build` must be green before merge |
+| `non_fast_forward` | No force-pushes |
+| `deletion` | `main` cannot be deleted |
+| `bypass_actors: []` | **Nobody bypasses — not admins, not Actions** |
+
+There is also a second ruleset named `main` (id `21070803`) with enforcement
+**`disabled`**, so it currently does nothing.
+
+**So there is no gap to fix, and nothing here is blocking.** This item is now a
+decision, not a repair.
+
+**The decision.** Joey said he likes Claude Code pushing straight to `main` on
+low-risk projects. In *this* repo that has never been possible, and turning it
+on means editing `protect-main`:
+
+- **To keep things as they are (recommended):** do nothing. Work lands by
+  branch → PR → `build` green → merge, which is what every runner and
+  `auto-merge-content.yml` already do.
+- **To allow direct pushes:** open the ruleset, remove the **Require a pull
+  request before merging** rule and the **Require status checks to pass** rule,
+  and keep **Block force pushes** + **Restrict deletions**. Ruleset UI:
+  `https://github.com/JW-Incorporated/swift2/settings/rules`
+
+**Recommendation: leave it alone.** longlivets.com is live, `auto-merge-content.yml`
+lands PRs unattended, and `build` is the only thing standing between a bad
+generated-file drift and production. The PR requirement costs one extra command
+and is the reason `main` has stayed green.
+
+**Worked if:** whichever you choose, `gh api repos/JW-Incorporated/swift2/rulesets/18819106`
+reflects it, and a test PR still merges once `build` is green.
+
+**Status:** OPEN
+
+---
+
+
+### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
+
+**Filed:** 2026-08-15
+
+**Why it matters:** you asked for a curated dataset of official + viral fan-made
+merch. Tier 1 (the official store) is already solved and needs nothing from you.
+Everything else in the brief is unreachable from an agent environment —
+Etsy/Redbubble/TeePublic return 403, Reddit is refused at the tool level, TikTok
+returns an empty shell. You chose "get proper API access first" over browser
+automation. Until these exist, agents pointed at those sources would invent
+numbers, so the work is deliberately parked.
+
+**Steps:**
+1. Reddit script app: `https://www.reddit.com/prefs/apps` → **create another
+   app** → type **script**. Save the client id and secret.
+2. Etsy Open API Personal App: `https://www.etsy.com/developers/register` (or
+   `https://developer.etsy.com`). Save the keystring.
+3. Optional, only for referral revenue later: Awin and Amazon Associates.
+4. Put the values in the project `.env` yourself — never paste a key into chat.
+   Tell a session the key NAMES only, and it will wire them up.
+
+**Known ceiling, so you do not sign up for more than you need:** per-video
+TikTok/Instagram view counts for accounts you do not own are **not obtainable**
+on any legitimate path, and Etsy listings carry **no review count**. Hype
+evidence will be Reddit score + comments + press mentions.
+
+**Progress (2026-08-24):** Etsy Open API done — `ETSY_KEYSTRING` and
+`ETSY_SHARED_SECRET` are saved (values never seen by any session, key names
+only). Awin (step 3, referral revenue) also done — `AWIN_API` saved, same
+way. Reddit script app (step 1) still needed before the marketplace-
+research work can start — no code exists yet to consume any of these
+credentials, this was just registering accounts/keys ahead of that build.
+
+**Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
+
+**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
+
+---
+
+
+## DONE
+
 
 ### 15. [UPGRADE] Two knowledge-engine calls still open after #12 — Reddit Data API status, Supabase anonymous-auth toggle
 
@@ -492,46 +556,14 @@ with it. Neither blocks tonight's build.
 migrations are applied, flip the Supabase toggle whenever you like — the
 code is ready.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Reddit denied the knowledge engine's Data API
+request. The disclosed RSS-only interim remains in place today while a
+separate sustainable-source research lane investigates alternatives. Joey also
+accepted Clownbot's current stateless operation until it has users; do not
+enable Supabase anonymous sign-ins or server-side conversation memory. See
+`docs/decisions.md` 2026-08-30 decision record.
 
----
-
-### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
-
-**Filed:** 2026-08-15
-
-**Why it matters:** you asked for a curated dataset of official + viral fan-made
-merch. Tier 1 (the official store) is already solved and needs nothing from you.
-Everything else in the brief is unreachable from an agent environment —
-Etsy/Redbubble/TeePublic return 403, Reddit is refused at the tool level, TikTok
-returns an empty shell. You chose "get proper API access first" over browser
-automation. Until these exist, agents pointed at those sources would invent
-numbers, so the work is deliberately parked.
-
-**Steps:**
-1. Reddit script app: `https://www.reddit.com/prefs/apps` → **create another
-   app** → type **script**. Save the client id and secret.
-2. Etsy Open API Personal App: `https://www.etsy.com/developers/register` (or
-   `https://developer.etsy.com`). Save the keystring.
-3. Optional, only for referral revenue later: Awin and Amazon Associates.
-4. Put the values in the project `.env` yourself — never paste a key into chat.
-   Tell a session the key NAMES only, and it will wire them up.
-
-**Known ceiling, so you do not sign up for more than you need:** per-video
-TikTok/Instagram view counts for accounts you do not own are **not obtainable**
-on any legitimate path, and Etsy listings carry **no review count**. Hype
-evidence will be Reddit score + comments + press mentions.
-
-**Progress (2026-08-24):** Etsy Open API done — `ETSY_KEYSTRING` and
-`ETSY_SHARED_SECRET` are saved (values never seen by any session, key names
-only). Awin (step 3, referral revenue) also done — `AWIN_API` saved, same
-way. Reddit script app (step 1) still needed before the marketplace-
-research work can start — no code exists yet to consume any of these
-credentials, this was just registering accounts/keys ahead of that build.
-
-**Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
-
-**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
+**Status:** DONE (2026-08-30)
 
 ---
 
@@ -554,9 +586,14 @@ they ship unratified by default. None is urgent; all are cheap to answer.
 **Worked if:** you answer in chat. A session writes the answers into
 `docs/decisions.md`.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey said, “I'm good with these as is.” The five
+dispositions are recorded in `docs/decisions.md` under
+“Clownbot/Mood/era-reader ratification.”
+
+**Status:** DONE
 
 ---
+
 
 ### 6. [UPGRADE] Should `auto-merge-content` keep auto-landing UI code? — ~2 min
 
@@ -574,9 +611,14 @@ surprising.
 
 **Worked if:** you pick one in chat.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey retained the current CI-gated
+`auto-merge-content` behavior, including eligible UI/client-code changes; see
+the 2026-08-30 decision entry in `docs/decisions.md`.
+
+**Status:** DONE
 
 ---
+
 
 ### 7. [UPGRADE] Three questions left open when #2110 merged — ~5 min
 
@@ -595,9 +637,18 @@ answer them, and the dataset ages from here.
 
 **Worked if:** you answer in chat; a session records it on the issue.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey decided that Instagram and TikTok creator-account
+coverage is in scope and must have an automated solution. Group and invite
+refresh must also be automated; only if full automation is not feasible may it
+use automated human-action reminders with specific instructions. Retain the
+exclusion of `r/TravisAndTaylor` and also exclude `r/GaylorSwift`. The decision
+is recorded in `docs/decisions.md` (2026-08-30); the automation-design work is
+tracked separately.
+
+**Status:** DONE
 
 ---
+
 
 ### 8. [UPGRADE] Turn on the spam gate for link submissions — ~10 min
 
@@ -637,78 +688,102 @@ Full write-up: `docs/ops/community-merch-submissions.md`, Part 4.
 looks different (the widget passes invisibly). Submit a test link and
 confirm it still works and still shows up as a GitHub issue.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey decided: “Close this; we can worry about it if
+it becomes an issue.” Turnstile remains disabled/inert; the existing honeypot
+and rate limiter remain the active protections.
+
+**Status:** SKIP
 
 ---
 
-### 9. [UPGRADE] Decide whether `main` should keep requiring PRs — ~2 min
 
-**Filed:** 2026-08-19
 
-**CORRECTION, 2026-08-19.** An earlier version of this item said "`main` is
-completely unprotected" and gave steps to add protection. **That was wrong.**
-`main` has been protected the whole time by an active repository **ruleset**
-named `protect-main`. The check that produced the false reading was:
+### 30. [UPGRADE] Confirm the two owner-authorized X post deletions
 
-```
-gh api repos/JW-Incorporated/swift2/branches/main/protection
--> 404 {"message":"Branch not protected"}
-```
+**Status:** DONE (2026-08-30)
 
-That endpoint only reports **classic branch protection**. Protection
-implemented as a **ruleset** does not appear there and returns 404 anyway. The
-correct check is:
-
-```
-gh api repos/JW-Incorporated/swift2/rulesets
-gh api repos/JW-Incorporated/swift2/rulesets/18819106
-```
-
-The corroborating evidence that was in plain sight: **every commit on `main`
-carries a `(#NNNN)` PR number.** Nothing has been pushed directly to `main` in
-this repo for a long time, because nothing can be.
-
-**What `protect-main` (id `18819106`, enforcement `active`) actually enforces:**
-
-| Rule | Effect |
-|---|---|
-| `pull_request` (0 approvals required) | **A PR is required. Direct push to `main` is blocked** |
-| `required_status_checks` → `build` | `build` must be green before merge |
-| `non_fast_forward` | No force-pushes |
-| `deletion` | `main` cannot be deleted |
-| `bypass_actors: []` | **Nobody bypasses — not admins, not Actions** |
-
-There is also a second ruleset named `main` (id `21070803`) with enforcement
-**`disabled`**, so it currently does nothing.
-
-**So there is no gap to fix, and nothing here is blocking.** This item is now a
-decision, not a repair.
-
-**The decision.** Joey said he likes Claude Code pushing straight to `main` on
-low-risk projects. In *this* repo that has never been possible, and turning it
-on means editing `protect-main`:
-
-- **To keep things as they are (recommended):** do nothing. Work lands by
-  branch → PR → `build` green → merge, which is what every runner and
-  `auto-merge-content.yml` already do.
-- **To allow direct pushes:** open the ruleset, remove the **Require a pull
-  request before merging** rule and the **Require status checks to pass** rule,
-  and keep **Block force pushes** + **Restrict deletions**. Ruleset UI:
-  `https://github.com/JW-Incorporated/swift2/settings/rules`
-
-**Recommendation: leave it alone.** longlivets.com is live, `auto-merge-content.yml`
-lands PRs unattended, and `build` is the only thing standing between a bad
-generated-file drift and production. The PR requirement costs one extra command
-and is the reason `main` has stayed green.
-
-**Worked if:** whichever you choose, `gh api repos/JW-Incorporated/swift2/rulesets/18819106`
-reflects it, and a test PR still merges once `build` is green.
-
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey confirmed both specified posts are gone/unavailable.
 
 ---
 
-## DONE
+### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
+
+**Filed:** 2026-08-30
+
+**Status:** DONE (2026-08-30)
+
+**Why it matters:** `docs/decisions.md` 2026-07-08 §3 is the standing rule:
+**nothing monetized ships without external IP-counsel review**
+(right-of-publicity, false endorsement, FTC affiliate disclosure), and
+FR-MERCH-4/5 hold that no affiliate/commercial implementation (the
+`shop.ts` seam flip, engine E0, coverage-report wiring) starts before that
+sign-off. The merch plan's Phase 1 trust fixes (E1/E2/E3) proceed without
+you; every money phase waits here. Engaging counsel is also a spend
+decision, which is yours alone.
+
+**Steps:**
+1. Engage an IP attorney (right-of-publicity / false-endorsement / FTC
+   affiliate-disclosure scope). Bring: the live site `longlivets.com`, the
+   plan `docs/PLAN.merch-autonomy.md`, the UNOFFICIAL fan-project
+   disclaimer, and the fact that content stores plain retailer URLs with
+   wrapping at one seam (`apps/web/lib/longlive/shop.ts`).
+2. Report the outcome in chat (sign-off, or the changes counsel requires);
+   a session records it in `docs/decisions.md` and unblocks Phase 2.
+
+**Worked if:** counsel's written sign-off (or required-changes list) is
+recorded in `docs/decisions.md` and this item is DONE.
+
+**Outcome (2026-08-30):** Counsel sign-off recorded from Joey's direct chat instruction.
+
+---
+
+### 29. [UPGRADE] Search-API account for merch engine E6 — payment card, ~10 min
+
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Why it matters:** engine E6 (Moment→Product Matcher, merch plan Phase 4)
+needs a Google Shopping-class search API for the matches the free Awin
+product index can't answer. This is a spend decision (paid account), so
+only you can open it. Nothing is halted today — E1/E2/E3 run without it —
+but E6 cannot start until this key exists (FR-MERCH-5 gate ruling,
+`docs/decisions.md` 2026-08-30). Expect light usage: the Awin index takes
+the first pass on every match for free, so a low tier (~$10–30/mo) likely
+suffices; start small, upgrade only if E6's ticket volume shows it.
+
+**Steps:**
+1. Sign up at `https://serpapi.com` (or an equivalent Google
+   Shopping-results API you prefer) on its cheapest paid tier; add the
+   payment card.
+2. Copy the API key and save it as a repo Actions secret named
+   `SEARCH_API_KEY`: from a terminal in the repo, run
+   `gh secret set SEARCH_API_KEY --repo JW-Incorporated/swift2` and paste
+   the value when prompted (`gh secret set` is guard-denied for agents —
+   founder-only on purpose). Key **name** only in chat, never the value.
+
+**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows
+`SEARCH_API_KEY`, and E6's first run reports real search results instead
+of a missing-credential skip.
+
+**Outcome (2026-08-30):** Joey saved `SEARCH_API_KEY` in GitHub Actions
+secrets and set a $25/month cap ($300/year maximum). The closing signal for
+this founder action is the first "Worked if" clause (secret present), per
+Joey's report; the E6 first-run clause transfers to E6's own acceptance check
+when Phase 4 builds it — it is not a founder action and does not hold this item
+open.
+
+---
+
+### 31. [UPGRADE] Higher-cap paid-search request — superseded, ~0 min (no action needed)
+
+**Status:** DONE — no longer needed; superseded by #29's completed, lower-cap disposition.
+
+**Outcome (2026-08-30):** The prior $75/month action request is no longer
+active. #29 records the completed `SEARCH_API_KEY` setup with a $25/month cap
+($300/year maximum).
+
+---
 
 ### 28. [UPGRADE] Merch plan: save credentials under canonical names — ~10 min
 

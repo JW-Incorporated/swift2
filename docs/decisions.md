@@ -7,6 +7,92 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-30 — HUMAN-ACTIONS section structure
+
+**Decision:** `HUMAN-ACTIONS.md` contains exactly one `## OPEN` heading and one `## DONE` heading, with OPEN before DONE. Every numbered item lives in the section matching its status; closing an item moves its complete block into the existing DONE section rather than adding another heading.
+
+**Why:** Marjorie reads the first matching section and stops at the next heading. Duplicate OPEN/DONE headings silently omit real pending work or surface closed work in the founder brief.
+
+**Approved by:** Fable arbitration, 2026-08-30 (FABLE-CONSULT-01a0535c), preserving Joey's already-recorded decisions for #15.
+
+---
+
+## 2026-08-30 — Retain CI-gated auto-merge for eligible UI and client-code changes (closes HUMAN-ACTIONS #6)
+
+**Decision:** Retain the existing `auto-merge-content` behavior, including
+automatic landing of eligible UI and client-code changes when the current CI
+checks pass.
+
+**Why:** The existing workflow already excludes server-executing and
+secret-reading paths while preserving a fast, CI-gated delivery route for
+eligible client-side work. Joey chose to retain that scope rather than restrict
+it to content files or rename the workflow.
+
+**Approved by:** Joey (direct instruction, 2026-08-30).
+
+---
+
+## 2026-08-30 — Clownbot/Mood/era-reader ratification (closes HUMAN-ACTIONS #5)
+
+**Decision:** Joey's direct statement, “I'm good with these as is,” ratifies
+all five dispositions in HUMAN-ACTIONS #5: (1) retain Clownbot's
+`claude-sonnet-5` model tier; (2) retain its 200/day/instance cap; (3) retain
+the existing Mood route pattern; (4) approve and retain the existing
+2026-08-13 Clownbot rebuild decisions entry; and (5) ratify the shipped era
+reader bottom navigation as the authoritative override of
+`docs/specs/2026-08-13-landing-page-brief.md` §3.2/D3.
+
+**Why:** The listed dispositions were already shipped or documented and had
+lost their former owner. Joey's direct acceptance closes the remaining
+ratification record without changing their implementation, model/provider
+configuration, cap, routing, or the superseded specification text.
+
+**Approved by:** Joey (direct instruction, 2026-08-30).
+
+## 2026-08-30 — Knowledge-engine source and Clownbot state decisions
+
+**Decision:** Reddit denied the knowledge engine's Data API request. Retain
+the disclosed RSS-only interim today while a separate sustainable-source
+research lane investigates alternatives. Clownbot's current stateless operation
+is accepted until it has users; do not enable Supabase anonymous sign-ins or
+its server-side conversation-memory feature.
+
+**Why:** Joey directly supplied both dispositions. The RSS interim remains
+transparent while a sustainable replacement is evaluated, and there is no
+current user need to enable anonymous identities or stored conversation data.
+
+**Scope:** This records only the current source and Clownbot-operation posture.
+It does not change Reddit access, Supabase settings, authentication, database
+schema, server-side memory, or application behavior.
+
+**Approved by:** Joey (direct instruction, 2026-08-30). Closes
+HUMAN-ACTIONS #15.
+
+---
+
+## 2026-08-30 — Community coverage includes creator accounts; refresh is automation-first
+
+**Decision:** Instagram and TikTok creator-account coverage is in scope and
+requires an automated solution. Group and invite refresh must be automated. If
+full automation is not feasible, the fallback is automated human-action
+reminders containing specific instructions. Retain the exclusion of
+`r/TravisAndTaylor` and additionally exclude `r/GaylorSwift`.
+
+**Why:** Joey resolved the three open questions recorded in HUMAN-ACTIONS #7
+after the community-map research landed. Creator accounts are distinct from
+joinable communities, and invites and group availability decay; automation is
+therefore the required operating posture rather than a founder-owned manual
+cadence.
+
+**Scope:** This records the product-direction and operating posture only. It
+does not activate a source, alter `data/communities.json`, configure social or
+API access, create schedules, use credentials, or implement the separate
+automation-design work.
+
+**Approved by:** Joey (direct decision, 2026-08-30).
+
+---
+
 ## 2026-08-30 — FR-MERCH-6: E5 fan-made discovery round-2 repair ruling (t_fe545cfd) — four bounded repairs, no third Codex review
 
 **Context:** Fable arbiter ruling for Kanban task t_fe545cfd (E5 fan-made

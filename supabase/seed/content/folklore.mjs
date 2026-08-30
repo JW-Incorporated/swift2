@@ -323,6 +323,7 @@ export default {
             item: 'The Ashlyn Nap Dress',
             retailer: 'hillhousehome.com',
             url: 'https://www.hillhousehome.com/collections/nap-dress-shop/products/the-ashlyn-nap-dress-white',
+            matchTier: 'unscored',
             price: '$228.00',
             isAlternative: true,
             altNote:
@@ -331,16 +332,6 @@ export default {
           // Merged (issue #616, 2026-07-29) from the now-deleted duplicate
           // `folklore-cardigan` stub — the cardigan itself, complementary
           // to the dress above rather than a repeat of it.
-          {
-            brand: 'Princess Polly',
-            item: 'Abner Cable Cardigan',
-            retailer: 'us.princesspolly.com',
-            url: 'https://us.princesspolly.com/products/abner-cable-cardigan-cream',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0061/8627/0804/files/1-modelinfo-josephine-us2_d4669798-8963-4ec7-91f6-4a549317cc89.jpg?v=1722383819',
-            price: '$75.00',
-            isAlternative: true,
-            altNote: 'The official star-embroidered merch cardigan is discontinued from Taylor\'s own store -- this is a current cream cable-knit cardigan in the same cozy silhouette.',
-          },
         ],
       },
     },
@@ -403,16 +394,6 @@ export default {
         // — offering the real "no-makeup makeup" tinted moisturizer this
         // look is built around, curl-verified live.
         products: [
-          {
-            brand: 'Laura Mercier',
-            item: 'Tinted Moisturizer Light Revealer Natural Skin Illuminator SPF 25',
-            retailer: 'lauramercier.com',
-            url: 'https://www.lauramercier.com/products/tinted-moisturizer-light-revealer-natural-skin-illuminator',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0615/5265/6623/files/LM_SP22_TMLR_US_50ml_0N1_PETAL_R150_3000x3000_5ca1aaeb-b889-4334-a9d7-891b507a68eb.png?v=1782838677',
-            price: '$54.00',
-            isAlternative: true,
-            altNote: 'Her exact routine is undocumented — this is a real "no makeup, makeup" product matching the bare-faced look described.',
-          },
         ],
       },
     },
@@ -556,6 +537,7 @@ export default {
             item: 'Lux Velvet Shirt Dress',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/free-people-lux-velvet-shirt-dress-in-fairytale/dp/FREE-WD1888/',
+            matchTier: 'unscored',
             price: '$139.00',
             inStock: false,
           },
@@ -564,18 +546,8 @@ export default {
             item: 'Tiffany Infinity Bracelet',
             retailer: 'tiffany.com',
             url: 'https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html',
+            matchTier: 'unscored',
             price: '$350.00',
-          },
-          {
-            brand: 'Melinda Maria',
-            item: 'Perfect Pearl Stacked Ring',
-            retailer: 'melindamaria.com',
-            url: 'https://www.melindamaria.com/products/perfect-pearl-stacked-ring-gold',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0019/7135/5694/files/PerfectPearlStackedRing_R6142_G_PRL_P_V1.jpg?v=1782836011',
-            price: '$75.00',
-            isAlternative: true,
-            altNote:
-              'The exact Soleil stacking set is discontinued — this is a current Melinda Maria stacked ring, same brand and spirit.',
           },
         ],
       },
@@ -636,6 +608,7 @@ export default {
             item: 'Cable Knit Open Front Cardigan with Embroidery',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Womens-Cardigan-Embroidery-Sweater-Outwear/dp/B0BGXK89F2/',
+            matchTier: 'unscored',
             price: '$34.58',
             isAlternative: true,
             altNote: 'Both the original 2020 run and the 2024 restock are long gone from her own store — this is a comparable cream cable-knit cardigan with embroidery detail.',

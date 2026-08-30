@@ -1700,16 +1700,6 @@ export default {
         // discontinued -- a current white double-breasted blazer,
         // verified in stock, closest real match.
         products: [
-          {
-            brand: 'St. John',
-            item: 'Double-Breasted Knit Blazer',
-            retailer: 'shop.simon.com',
-            url: 'https://shop.simon.com/products/st-john-double-breasted-knit-blazer',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0291/4536/6588/files/0be92bc7dc894eb88b1b9b7353c0e898.jpg?v=1774388033',
-            price: '$599.98',
-            isAlternative: true,
-            altNote: 'Her exact Saint Laurent blazer is discontinued -- this is a current white double-breasted blazer with padded shoulders in a similar longline cut, in knit rather than tailored fabric.',
-          },
         ],
         // Rumor Desk 2026-08-03: a clean DEBUNKED lifecycle entry, seeding the
         // recurring "will Taylor headline a Super Bowl halftime?" question onto
@@ -1891,16 +1881,6 @@ export default {
         // identified -- a current off-shoulder grey top, verified in
         // stock, in the same greige, undone spirit.
         products: [
-          {
-            brand: 'Princess Polly',
-            item: 'Ashlinn Off Shoulder Drapey Top',
-            retailer: 'us.princesspolly.com',
-            url: 'https://us.princesspolly.com/products/ashlinn-off-shoulder-drapey-top-grey',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0061/8627/0804/files/0-modelinfo-sasha-us2_13f6bb7b-90b8-4cf6-aec5-76fc74475349.jpg?v=1773791821',
-            price: '$45.00',
-            isAlternative: true,
-            altNote: 'No single piece from the shoot is identified -- this is a current grey off-shoulder top in the same greige, undone-styling spirit as the album photography.',
-          },
         ],
       },
     },
@@ -2084,16 +2064,6 @@ export default {
         // never sold at retail -- a current red sequined one-shoulder
         // mini, verified in stock, closest real match.
         products: [
-          {
-            brand: 'Armani Exchange',
-            item: 'Sequin One Shoulder Mini Dress',
-            retailer: 'shop.simon.com',
-            url: 'https://shop.simon.com/products/sequin-one-shoulder-mini-dress-in-red',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0291/4536/6588/files/badf2e58973b41ccb0182cc09fb32e34.jpg?v=1761084178',
-            price: '$111.00',
-            isAlternative: true,
-            altNote: 'The custom Vivienne Westwood mini was never sold at retail -- this is a current red sequined one-shoulder mini in the same color and asymmetric silhouette (thigh chain not separately sourced).',
-          },
         ],
       },
     },
@@ -2489,6 +2459,7 @@ export default {
             item: 'Strappy Houndstooth Tweed A-Line Dress',
             retailer: 'nordstrom.com',
             url: 'https://www.nordstrom.com/s/strappy-houndstooth-tweed-a-line-dress/8377396',
+            matchTier: 'unscored',
             price: '$3,500.00',
             inStock: false,
           },
@@ -2502,6 +2473,7 @@ export default {
             item: 'Miss Jane Sandal',
             retailer: 'nordstrom.com',
             url: 'https://www.nordstrom.com/s/christian-louboutin-miss-jane-sandal-women/7544624',
+            matchTier: 'unscored',
             price: '$945.00',
             isAlternative: true,
             altNote: 'Same Miss Jane sandal she wore; the exact taupe ("Leche") colorway sells only on Louboutin\'s own site — this Nordstrom listing is Blush/Black.',
@@ -2595,6 +2567,7 @@ export default {
             item: 'Poppy Vest in Sand Plaid',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/simkhai-poppy-vest-in-sand-plaid/dp/JSKI-WO47/',
+            matchTier: 'unscored',
             price: '$222.00',
             inStock: false,
           },
@@ -2603,6 +2576,7 @@ export default {
             item: 'Payton Wrap Mini Skirt in Sand Plaid',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/simkhai-payton-wrap-mini-skirt-in-sand-plaid/dp/JSKI-WQ100/',
+            matchTier: 'unscored',
             price: '$241.00',
             inStock: false,
           },
@@ -2611,6 +2585,7 @@ export default {
             item: 'Ottavia Leather Platform Loafer Pumps',
             retailer: 'neimanmarcus.com',
             url: 'https://www.neimanmarcus.com/p/gucci-ottavia-leather-platform-loafer-pumps-prod274440624',
+            matchTier: 'unscored',
             price: '$1,560.00',
             inStock: true,
             isAlternative: true,
@@ -4579,7 +4554,7 @@ export default {
             url: 'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
             note: 'The muting is documented across outlets (Variety, Rolling Stone, Deadline, EW); what is unconfirmed is who issued the copyright block. Continues the Taylor-vs-Trump thread here — a "Father Figure" clip was similarly muted in Nov 2025. Resolves if Taylor, her team, or her label confirms it acted (or it is shown to be TikTok\'s automated system); fades if no one claims it. No location.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-09',
+            lastCheckedOn: '2026-08-30',
           },
         ],
       },
@@ -4698,6 +4673,7 @@ export default {
             item: 'Sora Linen Dress',
             retailer: 'thereformation.com',
             url: 'https://www.thereformation.com/products/sora-linen-dress/1314992.html',
+            matchTier: 'unscored',
             price: '$248.00',
             inStock: false,
           },
@@ -4839,6 +4815,7 @@ export default {
             item: 'Harness Tapestry Dress — Alien Multi Print',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/MONSE-Harness-Tapestry-Dress-Alien/dp/B0FB9MHTDS',
+            matchTier: 'unscored',
             inStock: false,
           },
         ],
@@ -5514,6 +5491,7 @@ export default {
             item: 'Extra Extra Printed Mesh Tee',
             retailer: 'shopakira.com',
             url: 'https://shopakira.com/products/extra-extra-printed-mesh-tee',
+            matchTier: 'unscored',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0850/1329/9515/files/JLM2601154BEIGE-MULTI1.jpg?v=1783950392',
             price: '$25.90',
             isAlternative: true,
@@ -5966,6 +5944,7 @@ export default {
             item: '14K Yellow Gold Vintage Old Mine Cut Diamond Ring',
             retailer: 'mpopeandco.com',
             url: 'https://mpopeandco.com/products/14k-yellow-gold-vintage-old-mine-cut-diamond-ring',
+            matchTier: 'unscored',
             price: '$3,250.00',
             isAlternative: true,
             altNote: 'The real ring is a one-of-one Artifex Fine Jewelry commission by Kindred Lubeck -- this is a real vintage old mine-cut diamond in a yellow-gold setting, not the actual ring.',
@@ -6098,6 +6077,7 @@ export default {
             // Ralph Lauren's own page sits behind a PerimeterX wall, so the
             // verified Revolve page is the link.
             url: 'https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/',
+            matchTier: 'unscored',
             price: '$398',
             inStock: false,
           },

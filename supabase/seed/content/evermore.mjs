@@ -642,6 +642,7 @@ export default {
             item: 'Peau D\'Ange Silk Maxi Dress with Flower and Bee Motif',
             retailer: 'etro.com',
             url: 'https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html',
+            matchTier: 'unscored',
             price: '$2,880.00',
             isAlternative: true,
             altNote:
@@ -694,6 +695,9 @@ export default {
             item: 'Priscilla Tiara',
             retailer: 'jenniferbehr.com',
             url: 'https://www.jenniferbehr.com/products/priscilla-tiara-champagne',
+            matchTier: 'close',
+            matchScore: 72,
+            kind: 'accessory',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0431/9543/3119/files/115UD5-champagne-web-1_3c228763-eaf8-4906-88fc-55d817a9932b.jpg?v=1697757765',
             price: '$1,225.00',
           },
@@ -741,6 +745,7 @@ export default {
             item: 'Fernanda Blouse',
             retailer: 'garmentory.com',
             url: 'https://www.garmentory.com/sale/ulla-johnson/tops-blouses/976294-fernanda-blouse',
+            matchTier: 'unscored',
             price: '$237.00',
           },
         ],
@@ -782,6 +787,7 @@ export default {
             item: 'Mattie Fisherman Cap',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/janessa-leone-mattie-fisherman-cap-in-rust/dp/JNES-WA15/',
+            matchTier: 'unscored',
             price: '$260.00',
             inStock: false,
             isAlternative: true,
@@ -837,6 +843,7 @@ export default {
             item: 'Lipstick in Ravishing Red (Matte)',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Lipstick-Ravishing-Matte-3-5g-0-12oz/dp/B082P4X6FV',
+            matchTier: 'unscored',
             isAlternative: true,
             altNote: 'No exact shade is named for this look — a real matte red lipstick matching the overlined "siren red" mouth described.',
           },
@@ -893,6 +900,7 @@ export default {
             item: 'Second Skin Knit Off-Shoulder Bodysuit',
             retailer: 'ssense.com',
             url: 'https://www.ssense.com/en-us/women/product/alaia/brown-second-skin-knit-off-shoulder-bodysuit/17916981',
+            matchTier: 'unscored',
             price: '$1,900.00',
             isAlternative: true,
             altNote: 'Her exact jumpsuit hit dead links everywhere checked -- this is a current Alaïa off-the-shoulder stretch-knit bodysuit, same house and silhouette, though not a full jumpsuit.',
@@ -945,16 +953,6 @@ export default {
         // piece is long gone from resale and official channels — offering
         // a current real Gucci floral silk dress, verified live in-browser.
         products: [
-          {
-            brand: 'Gucci',
-            item: 'Crepe de Chine Floral Silk Dress',
-            retailer: 'runwaycatalog.com',
-            url: 'https://www.runwaycatalog.com/products/gucci-silk-floral-print-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/2432/8403/files/gucci-silk-crepe-de-chine-floral-print-dress-runway-catalog-5817227.jpg?v=1772562529',
-            price: '$2,640.00',
-            isAlternative: true,
-            altNote: 'The exact 2020 Gucci x Liberty London collaboration piece is long gone from every channel checked — this is a current Gucci floral silk dress in the same spirit.',
-          },
         ],
       },
     },
@@ -998,6 +996,7 @@ export default {
             item: 'Floral-Embroidered Tulle Mini Dress',
             retailer: 'modaoperandi.com',
             url: 'https://www.modaoperandi.com/women/p/oscar-de-la-renta/floral-embroidered-tulle-mini-dress/493975',
+            matchTier: 'unscored',
             price: '$8,990.00',
             inStock: false,
             isAlternative: true,
@@ -1045,6 +1044,7 @@ export default {
             item: 'Single-Breasted Velvet Jacket',
             retailer: 'etro.com',
             url: 'https://www.etro.com/us-en/single-breasted-velvet-jacket-WRCA008199TUEI1B0904.html',
+            matchTier: 'unscored',
             price: '$1,350.00',
             isAlternative: true,
             altNote: 'Her exact purple suit was custom — this is Etro\'s current velvet blazer (shown styled as a pantsuit), in blue rather than purple.',
@@ -1092,16 +1092,6 @@ export default {
         // e-commerce -- a current made-to-order ivory beaded dress,
         // closest verified match.
         products: [
-          {
-            brand: 'WonderlandByLilian',
-            item: 'Ivory Short Beaded Lace Dress with Cowl Neckline',
-            retailer: 'wonderlandbylilian.com',
-            url: 'https://wonderlandbylilian.com/products/ivory-short-wedding-party-dresses-with-beaded-lace-wedding-gown-long-sleeve-with-cowl-neckline-plus-size',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0550/3919/7262/files/001-ND-002__1.png?v=1744188400',
-            price: '$2,999.00',
-            isAlternative: true,
-            altNote: 'Zuhair Murad has no accessible direct retail -- this is a current made-to-order ivory beaded mini, framed as bridal rather than press-event wear, closest real match.',
-          },
         ],
       },
     },
@@ -1144,16 +1134,6 @@ export default {
         // and official channels — offering a real current David Koma
         // crystal-embellished mini in the same spirit, curl-verified live.
         products: [
-          {
-            brand: 'David Koma',
-            item: 'Crystal-Embellished Cady Mini Dress',
-            retailer: 'runwaycatalog.com',
-            url: 'https://www.runwaycatalog.com/products/crystal-embellished-cady-mini-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/2432/8403/files/david-koma-crystal-embellished-cady-mini-dress-runway-catalog-7123370.jpg?v=1773156012',
-            price: '$1,210.00',
-            isAlternative: true,
-            altNote: 'Her exact 2021 dress isn\'t currently listed anywhere verifiable — this is a current David Koma crystal-embellished mini in the same signature style.',
-          },
         ],
       },
     },
@@ -1215,6 +1195,7 @@ export default {
             item: 'Flounce One Sleeve Sequin Mini Dress',
             retailer: 'fwrd.com',
             url: 'https://www.fwrd.com/product-david-koma-flounce-one-sleeve-sequin-mini-dress-in-blue/DAVF-WD195/',
+            matchTier: 'unscored',
             price: '$998.00',
             inStock: false,
             isAlternative: true,
@@ -3616,6 +3597,7 @@ export default {
             item: 'Peau D\'Ange Silk Maxi Dress with Flower and Bee Motif',
             retailer: 'etro.com',
             url: 'https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html',
+            matchTier: 'unscored',
             price: '$2,880.00',
             isAlternative: true,
             altNote:
