@@ -14,6 +14,7 @@ describe('E5 manual evidence workflow', () => {
     expect(workflow).toContain("inputs.confirmation == 'COLLECT_E5_EVIDENCE'");
     expect(workflow).toContain('ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}');
     expect(workflow).toContain('fanmade-discovery.mjs');
+    expect(workflow).toMatch(/mkdir -p \.artifacts\/merch-e5-evidence\s+E5_EVIDENCE_DIR=[\s\S]+> \.artifacts\/merch-e5-evidence\/candidates\.json/);
     expect(workflow).toContain('actions/upload-artifact');
     expect(workflow).toContain('merch-e5-evidence-artifact');
     expect(workflow).toContain('retention-days: 7');

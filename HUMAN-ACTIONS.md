@@ -28,75 +28,21 @@ only matters while something is still pending.
 
 ### 33. [REVIEW] Confirm the Phase 2 merch catalog on mobile and desktop — ~2 min
 
-**Filed:** 2026-08-30
-
-**Status:** OPEN
+**Status:** DONE
 
 **Why it matters:** Phase 2's deterministic acceptance checks are green on
 merged `main`: generated coverage is current for 463 products, every uncovered
 row has an explanation, `awin-apply` is empty, the listing-scoped affiliate
 resolver/disclosure tests pass, and lint/typecheck pass. The remaining
 acceptance item is a real browser check of the merch surface at both viewports.
-The agent sandbox could not obtain that evidence: isolated-browser launch
-permission timed out and its local Node 24/Playwright provisioning was
-guard-denied because package threat intelligence was incomplete. The deployed
-home-page HTML also does not server-render the client-selected merch mode.
 
-**Steps:**
-1. On a desktop browser, open `https://longlivets.com`, choose the merch/shop
-   surface, and confirm the three catalog sections appear: **Official Shop**,
-   **Fan Made**, and **Seen on Taylor**. Confirm a visible card has a **Shop
-   it** button. Do not buy anything or open an external retailer link.
-2. Repeat on a phone-sized browser. Confirm the merch/shop navigation is
-   reachable, the same three sections render, and cards are readable without
-   overlapping the navigation.
-3. If any commission disclosure appears next to a shop link, confirm it says
-   that some links may earn Long Live a commission at no extra cost. If no
-   disclosure appears, that is expected for the current credential-free,
-   fail-closed affiliate configuration.
-4. Reply in chat with `33 done` if all three checks pass, or `33 blocked:`
-   followed by the affected viewport and what appeared wrong. A session will
-   record the result; no screenshots, credentials, purchase, or account action
-   are required.
+**Outcome (2026-08-30, founder confirmation):** Joey confirmed in Discord
+that the desktop and mobile merch-catalog viewport check is complete (`HA33
+complete`). The confirmation covered the catalog surface only: no purchase and
+no external retailer link was opened.
 
-**Worked if:** the merch catalog is usable on both desktop and mobile, and any
-commission disclosure that renders is adjacent to the relevant shop link.
-
----
-
-### 32. [BLOCKING] Etsy API returns 403 to the E5 evidence workflow — check app approval, ~10 min
-
-**Filed:** 2026-08-30
-
-**Status:** OPEN
-
-**Why it matters:** the fan-made catalogue task (t_13d961e9, 25 D3-curated
-rows) can only be authored from the `merch-e5-evidence` artifact, and the
-workflow's single run (33318469717, 2026-08-30) failed: Etsy answered
-HTTP 403 on `/v3/application/listings/active`. The request itself was
-well-formed and the `ETSY_API_KEY` secret was present and non-empty in the
-run, so the block is on the Etsy account side — most likely the personal
-app (registered 2026-08-24, items #4/#28) is still in Etsy's **pending**
-approval state (Etsy 403s pending apps on every endpoint), or the value
-saved as `ETSY_API_KEY` isn't the keystring. Credentials are founder-only,
-so no agent can check or fix either.
-
-**Steps:**
-1. Open `https://www.etsy.com/developers/your-apps` and check the app's
-   state. If it shows **Pending approval**, that is the whole problem —
-   await/request activation (Etsy support if it's been stuck).
-2. While there, confirm the app's **Keystring** is the exact value saved as
-   the repo Actions secret `ETSY_API_KEY` (not the shared secret). If it's
-   wrong, re-save it: `gh secret set ETSY_API_KEY --repo
-   JW-Incorporated/swift2` (founder-only on purpose; key names in chat,
-   never values).
-3. Once active/corrected, re-run the collection: GitHub → **Actions** →
-   **merch-e5-evidence** → **Run workflow** → type `COLLECT_E5_EVIDENCE`
-   in the confirmation box — or just say "32 is done" and a session will
-   dispatch it.
-
-**Worked if:** a `merch-e5-evidence` run completes green and lists an
-artifact named `merch-e5-evidence-artifact`.
+**Worked:** the merch catalog was usable on both desktop and mobile; no
+purchase or external retailer click was part of this confirmation.
 
 ---
 
@@ -258,7 +204,19 @@ per the above — a founder call remains the way to confirm the policy
 change was intentional and close this for good, but at this point the
 egress block looks resolved.
 
-**Status:** OPEN
+**Update (2026-08-30, Stylist run):** same root cause, different worker —
+the Stylist's scheduled firing today hit a **total** outbound block again:
+`curl`/`WebFetch`/Node `fetch` to `en.wikipedia.org`, `www.gucci.com`,
+`www.nordstrom.com`, and `www.therealreal.com` all failed (`EGRESS_BLOCKED` /
+proxy status `gateway answered 403 to CONNECT`; Node's own fetch returned
+`403 Host not in allowlist`). Only `WebSearch` worked. Since curl-verifying
+a real retailer product page (never a search-results page, never fabricated)
+is the Stylist's whole SOURCE step, and re-checking existing product URLs
+for liveness is its whole MAINTAIN step, this run could do neither — it
+exited with no changes and no PR rather than fabricate an unverified link.
+This is the same intermittent policy, now confirmed to hit more than one
+scheduled trigger in this repo, so the "looks resolved" note above was
+premature — leaving Status as OPEN.
 
 ---
 
@@ -400,6 +358,28 @@ credentials, this was just registering accounts/keys ahead of that build.
 
 ## DONE
 
+
+### 32. [BLOCKING] Etsy API returns 403 to the E5 evidence workflow — check app approval, ~10 min
+
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Outcome (2026-08-30):** no human action was needed after all — Joey
+verified the app is activated (Etsy confirmation email) and both secrets
+correct, and the real cause was on the code side: Etsy changed v3 auth so
+`x-api-key` must hold `keystring:shared_secret` joined by a colon; the
+keystring alone now 403s. PR #3519 fixed both call sites
+(`merch-e5-evidence.yml`, `fanmade-discovery.mjs`). The "worked if" is
+satisfied: run 33323629432 completed green and uploaded
+`merch-e5-evidence-artifact`. Cards t_aec44307 / t_13d961e9 unblocked.
+
+Original ask (kept for the record): check the app's approval state at
+`https://www.etsy.com/developers/your-apps`, confirm `ETSY_API_KEY` holds
+the Keystring (not the shared secret), then rerun **merch-e5-evidence**
+with `COLLECT_E5_EVIDENCE`.
+
+---
 
 ### 15. [UPGRADE] Two knowledge-engine calls still open after #12 — Reddit Data API status, Supabase anonymous-auth toggle
 
