@@ -41,7 +41,8 @@ function withoutTitleAttrs(html: string): string {
 
 describe('MerchCard alt-piece clarity', () => {
   it('renders the altNote as visible DOM text, not only in a title attribute', () => {
-    const altNote = 'The exact custom Etro gown was a one-off runway piece — this is the closest current silhouette.';
+    const altNote =
+      'The exact custom Etro gown was a one-off runway piece — this is the closest current silhouette.';
     const item: MerchItem = { ...baseItem, isAlternative: true, altNote };
     const html = renderToStaticMarkup(createElement(MerchCard, { item }));
 
@@ -55,5 +56,21 @@ describe('MerchCard alt-piece clarity', () => {
 
     expect(html).toContain('The exact piece');
     expect(html).not.toContain('We found something similar');
+  });
+
+  it('uses the scored match tier for the visible badge and alternative disclosure', () => {
+    const item: MerchItem = { ...baseItem, matchTier: 'close', altNote: 'A close verified match.' };
+    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+
+    expect(html).toContain('close match');
+    expect(html).toContain('We found something similar');
+  });
+
+  it('labels standalone official items as official, not as an exact look match', () => {
+    const item: MerchItem = { ...baseItem, category: 'official-store' };
+    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+
+    expect(html).toContain('Official item');
+    expect(html).not.toContain('The exact piece');
   });
 });

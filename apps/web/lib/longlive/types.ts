@@ -387,6 +387,8 @@ export interface Product {
     | 'collectible'
     | 'home'
     | 'other';
+  /** A separately verified secondary retailer for this exact listing. */
+  altListing?: { retailer: string; url: string };
 }
 
 export interface ContentItem {

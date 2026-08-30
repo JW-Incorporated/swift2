@@ -11,7 +11,7 @@
 
 import { ERAS } from './eras';
 import { getContentItem } from './content';
-import { hasRealPrimaryImage, primaryImage, type EraId } from './types';
+import { hasRealPrimaryImage, primaryImage, type EraId, type Product } from './types';
 import { MERCH_CATALOGUE, type MerchItem } from './merch';
 
 export interface MerchEraGroup {
@@ -74,6 +74,29 @@ export const MERCH_FILTER_LABEL: Record<MerchFilterId, string> = {
   '50to200': '$50–200',
   '200plus': '$200+',
 };
+
+export const MERCH_KIND_LABEL: Record<NonNullable<Product['kind']>, string> = {
+  dress: 'Dresses',
+  top: 'Tops',
+  bottom: 'Bottoms',
+  outerwear: 'Outerwear',
+  knitwear: 'Knitwear',
+  shoes: 'Shoes',
+  jewelry: 'Jewelry',
+  bag: 'Bags',
+  hat: 'Hats',
+  eyewear: 'Eyewear',
+  beauty: 'Beauty',
+  accessory: 'Accessories',
+  music: 'Music',
+  collectible: 'Collectibles',
+  home: 'Home',
+  other: 'Other',
+};
+
+export function merchKinds(items: readonly MerchItem[]): readonly NonNullable<Product['kind']>[] {
+  return [...new Set(items.flatMap((item) => (item.kind ? [item.kind] : [])))];
+}
 
 type MerchFilterDimension = 'stock' | 'exact' | 'price';
 

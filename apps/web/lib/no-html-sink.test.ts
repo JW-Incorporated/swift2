@@ -43,8 +43,13 @@ describe('no user/content HTML sink (issue #1975)', () => {
     }
   }
 
-  it('has exactly the one known, static, hardcoded JSON-LD sink', () => {
-    expect(hits).toHaveLength(1);
-    expect(hits[0]!.file.replace(/\\/g, '/')).toMatch(/\/app\/layout\.tsx$/);
+  it('has only the reviewed JSON-LD sinks', () => {
+    expect(hits).toHaveLength(2);
+    expect(hits.map((hit) => hit.file.replace(/\\/g, '/'))).toEqual(
+      expect.arrayContaining([
+        expect.stringMatching(/\/app\/layout\.tsx$/),
+        expect.stringMatching(/\/components\/longlive\/merch\/MerchJsonLd\.tsx$/),
+      ]),
+    );
   });
 });
