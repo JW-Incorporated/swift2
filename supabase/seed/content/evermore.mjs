@@ -647,6 +647,7 @@ export default {
             isAlternative: true,
             altNote:
               'The gown was custom-built for this performance — this is Etro\'s current long silk gown, same house, different print and colors.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -700,6 +701,7 @@ export default {
             kind: 'accessory',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0431/9543/3119/files/115UD5-champagne-web-1_3c228763-eaf8-4906-88fc-55d817a9932b.jpg?v=1697757765',
             price: '$1,225.00',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -747,6 +749,7 @@ export default {
             url: 'https://www.garmentory.com/sale/ulla-johnson/tops-blouses/976294-fernanda-blouse',
             matchTier: 'unscored',
             price: '$237.00',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -793,6 +796,7 @@ export default {
             isAlternative: true,
             altNote:
               'The burgundy colorway from the cover sold out in 2021 and never restocked — this is the same Mattie cap in Rust.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -846,6 +850,7 @@ export default {
             matchTier: 'unscored',
             isAlternative: true,
             altNote: 'No exact shade is named for this look — a real matte red lipstick matching the overlined "siren red" mouth described.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -904,6 +909,7 @@ export default {
             price: '$1,900.00',
             isAlternative: true,
             altNote: 'Her exact jumpsuit hit dead links everywhere checked -- this is a current Alaïa off-the-shoulder stretch-knit bodysuit, same house and silhouette, though not a full jumpsuit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1001,6 +1007,7 @@ export default {
             inStock: false,
             isAlternative: true,
             altNote: 'Her exact Spring \'21 mini is long sold out — this is a comparable current Oscar de la Renta floral-appliquéd mini dress.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1048,6 +1055,7 @@ export default {
             price: '$1,350.00',
             isAlternative: true,
             altNote: 'Her exact purple suit was custom — this is Etro\'s current velvet blazer (shown styled as a pantsuit), in blue rather than purple.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1200,6 +1208,7 @@ export default {
             inStock: false,
             isAlternative: true,
             altNote: 'Her exact navy dress isn\'t currently listed anywhere verifiable — this is a comparable David Koma one-shoulder sequin mini, in blue.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -3602,6 +3611,7 @@ export default {
             isAlternative: true,
             altNote:
               'The gown was custom-built for this performance — this is Etro\'s current long silk gown, same house, different print and colors.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

@@ -317,22 +317,7 @@ export default {
         // Shop pass (2026-07-20): the video's exact dress isn't attributed
         // to a brand in any source — offering a current Hill House Home
         // nap dress, the label most associated with the trend itself.
-        products: [
-          {
-            brand: 'Hill House Home',
-            item: 'The Ashlyn Nap Dress',
-            retailer: 'hillhousehome.com',
-            url: 'https://www.hillhousehome.com/collections/nap-dress-shop/products/the-ashlyn-nap-dress-white',
-            matchTier: 'unscored',
-            price: '$228.00',
-            isAlternative: true,
-            altNote:
-              'Her exact video dress is undocumented — this is a white Nap Dress from Hill House Home, the brand that popularized the style.',
-          },
-          // Merged (issue #616, 2026-07-29) from the now-deleted duplicate
-          // `folklore-cardigan` stub — the cardigan itself, complementary
-          // to the dress above rather than a repeat of it.
-        ],
+        products: [],
       },
     },
     {
@@ -461,6 +446,7 @@ export default {
             inStock: false,
             isAlternative: true,
             altNote: 'No brand is documented for the shoot wardrobe — this is a real oversized plaid blazer in the same spirit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
         // Rumor Desk 2026-07-29: a clean, fully-resolved music-symbolism rumor
@@ -540,6 +526,7 @@ export default {
             matchTier: 'unscored',
             price: '$139.00',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
             brand: 'Tiffany & Co.',
@@ -548,6 +535,7 @@ export default {
             url: 'https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html',
             matchTier: 'unscored',
             price: '$350.00',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -612,6 +600,7 @@ export default {
             price: '$34.58',
             isAlternative: true,
             altNote: 'Both the original 2020 run and the 2024 restock are long gone from her own store — this is a comparable cream cable-knit cardigan with embroidery detail.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

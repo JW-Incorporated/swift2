@@ -2217,6 +2217,7 @@ export default {
             price: '$54.99',
             isAlternative: true,
             altNote: 'No single named pair -- this era-defining look was built from many worn-in boots and sundresses -- a current cowboy boot in the same recurring spirit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

@@ -477,6 +477,7 @@ export default {
             price: '$85.00',
             isAlternative: true,
             altNote: 'The exact tour costume is undocumented beyond this description -- a current silver sequin mini dress in the same sparkling-cocktail-dress spirit as the reveal underneath the uniform.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

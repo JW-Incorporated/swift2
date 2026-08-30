@@ -651,6 +651,7 @@ export default {
             price: '$105.00',
             isAlternative: true,
             altNote: 'The custom Cavalli look was never sold at retail -- this light-blue sequin two-piece matches its color, sparkle, and silhouette (boots not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1266,6 +1267,7 @@ export default {
             price: '$798.00',
             isAlternative: true,
             altNote: 'Her exact Oscar de la Renta gown is discontinued -- this is a current blue floral brocade ball gown in the same full-skirted silhouette, without the original\'s cutouts.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1506,6 +1508,7 @@ export default {
             isAlternative: true,
             inStock: false,
             altNote: 'The custom Schiaparelli ensemble was never sold at retail -- this is a current strapless slit gown in a similar high-contrast shape, polka dots instead of crystals (choker not included).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1720,6 +1723,7 @@ export default {
             price: '$298.00',
             isAlternative: false,
             altNote: 'The exact AREA Crystal Slit Jean named in the look, currently marked down -- sourcing the jeans only (corset, jacket, boots, and jewelry not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1833,6 +1837,7 @@ export default {
             price: '$27.98',
             isAlternative: true,
             altNote: 'The custom Versace stage bodysuit was never sold at retail -- this pink rhinestone fishnet mini offers a similar color and sparkle, as a dress rather than a bodysuit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1881,6 +1886,7 @@ export default {
             price: '$698.00',
             isAlternative: true,
             altNote: 'The custom Cavalli stage dress was never sold at retail -- this gold-silver ombre sequin fringe dress recreates its shimmer and movement (boots not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1923,6 +1929,7 @@ export default {
             price: '$458.00',
             isAlternative: true,
             altNote: 'The custom Etro stage gown is not retail merchandise -- this marigold chiffon gown matches its warm, flowing character with ruffled shoulders rather than the original\'s cape.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1968,6 +1975,7 @@ export default {
             price: '$39.99',
             isAlternative: true,
             altNote: 'The asymmetrical Cavalli catsuit was custom-made -- this black one-shoulder cutout jumpsuit echoes its one-piece shape with flared pants (boots not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2010,6 +2018,7 @@ export default {
             price: '$19.95+',
             isAlternative: true,
             altNote: 'The Ashish stage recreation was custom and never sold at retail -- this made-to-order shirt reproduces the "22" video\'s phrase, not the designer construction.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2051,6 +2060,7 @@ export default {
             price: '$398.00',
             isAlternative: true,
             altNote: 'The Nicole + Felicia tour gown was custom-made -- this periwinkle strapless ball gown recreates the purple princess volume in satin, with draping rather than the original embellishment.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2093,6 +2103,7 @@ export default {
             price: '$498.00',
             isAlternative: true,
             altNote: 'The Alberta Ferretti tour dress was custom-made -- this vintage-lilac layered chiffon gown offers comparable soft movement, with a different neckline and floral detail.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2135,6 +2146,7 @@ export default {
             price: '$498.00',
             isAlternative: true,
             altNote: 'The Jessica Jones stage gown was custom-made -- this magenta kaftan gown preserves the saturated color and flowing movement, with cutouts and fringe instead of the original silhouette.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2182,6 +2194,7 @@ export default {
             price: '$89.99',
             isAlternative: true,
             altNote: 'The Oscar de la Renta bodysuit, shirt, and coat were custom -- this navy sequin mini captures the closing look\'s color and shine in one dress, the primary piece only.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2224,6 +2237,7 @@ export default {
             price: '$398.00',
             isAlternative: true,
             altNote: 'The custom Gucci gown was not released for retail -- this emerald sequin gown shares its saturated sparkle, with a boat neck and cowl back instead of the original column shape.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2272,18 +2286,7 @@ export default {
         // Shop pass (2026-07-22): the custom Cavalli Grammys set was
         // never sold at retail -- a current sequin two-piece set,
         // verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Showpo',
-            item: 'Aurora Two Piece Top and Skirt Set',
-            retailer: 'showpo.com',
-            url: 'https://www.showpo.com/us/products/aurora-two-piece-top-and-skirt-set-floral-sequin-cowl-neck-top-and-maxi-skirt-in-baby-blue',
-            matchTier: 'unscored',
-            price: '$45.00',
-            isAlternative: true,
-            altNote: 'The custom Cavalli Grammys set was never sold at retail -- this blue sequin two-piece keeps the cropped-top-and-skirt formula, in pale blue with floral sequins and a cowl neck.',
-          },
-        ],
+        products: [],
       },
     },
 
@@ -2407,6 +2410,7 @@ export default {
             price: '$34.00',
             isAlternative: false,
             altNote: 'The exact Elson 4 shade used for the red ombre lip -- the primary makeup item only, not the full 30-look kit or the jeweled cat-eye.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2485,6 +2489,7 @@ export default {
             price: '$34.00',
             isAlternative: false,
             altNote: 'The exact MAC lipstick and shade identified in the backstage footage -- the primary lip color only, without the liner, setting powder, or full application routine.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2525,18 +2530,7 @@ export default {
         // Shop pass (2026-07-22): the original Free People slip and coat
         // are discontinued -- a current white lace mini, verified in
         // stock, closest real match.
-        products: [
-          {
-            brand: 'Beginning Boutique',
-            item: 'All Mine White Lace Mini Dress',
-            retailer: 'beginningboutique.com',
-            url: 'https://www.beginningboutique.com/products/all-mine-white-lace-mini-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0077/9327/9033/files/All-Mine-White-Lace-Mini-Dress-1.webp?v=1782774138',
-            price: '$99.99',
-            isAlternative: true,
-            altNote: 'The original Free People slip and coat are discontinued -- this white lace mini is a current stand-in for the dress only, with a different lace construction (the fur coat not included).',
-          },
-        ],
+        products: [],
       },
     },
     {
@@ -2581,6 +2575,7 @@ export default {
             price: '$98.00',
             isAlternative: true,
             altNote: 'The exact Coach black-and-white Peter Pan-collar mini is discontinued -- this current dress carries the gingham-and-cherry motif in red, with a sweetheart neckline and swing skirt.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -5543,6 +5538,7 @@ export default {
             isAlternative: true,
             inStock: false,
             altNote: 'The custom Schiaparelli gown was never sold at retail -- this is a current ivory strapless gown with a leg slit in a similar draped spirit, without the corset-style back lacing.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
