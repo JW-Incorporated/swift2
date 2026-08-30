@@ -163,7 +163,10 @@ export function MerchStyleSection() {
             <FilterPill
               active={activeFilters.size === 0 && activeKind === null}
               accent="var(--merch-lilac)"
-              onClick={clearFilters}
+              onClick={() => {
+                clearFilters();
+                setActiveKind(null);
+              }}
             >
               All items
             </FilterPill>
