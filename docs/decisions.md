@@ -7,6 +7,16 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-30 — HUMAN-ACTIONS section structure
+
+**Decision:** `HUMAN-ACTIONS.md` contains exactly one `## OPEN` heading and one `## DONE` heading, with OPEN before DONE. Every numbered item lives in the section matching its status; closing an item moves its complete block into the existing DONE section rather than adding another heading.
+
+**Why:** Marjorie reads the first matching section and stops at the next heading. Duplicate OPEN/DONE headings silently omit real pending work or surface closed work in the founder brief.
+
+**Approved by:** Fable arbitration, 2026-08-30 (FABLE-CONSULT-01a0535c), preserving Joey's already-recorded decisions for #15.
+
+---
+
 ## 2026-08-30 — Retain CI-gated auto-merge for eligible UI and client-code changes (closes HUMAN-ACTIONS #6)
 
 **Decision:** Retain the existing `auto-merge-content` behavior, including
