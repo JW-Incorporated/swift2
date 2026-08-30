@@ -105,7 +105,7 @@ Do not seed real handles in the implementation without the already-approved sour
 
 ### Community refresh output
 
-The auditor writes one generated Markdown receipt from the checked-in community data to the caller-supplied output path. For scheduled runs, that exact path is `${RUNNER_TEMP}/community-refresh.md`; it is a same-run artifact, is never written under `docs/audits/`, and is never committed or published to `main` or another branch. The receipt must list only:
+The auditor writes one generated Markdown receipt from the checked-in community data to the caller-supplied output path. For scheduled runs, that exact path is `${RUNNER_TEMP}/community-refresh-audit.md`; it is a same-run artifact, is never written under `docs/audits/`, and is never committed or published to `main` or another branch. The receipt must list only:
 
 - checked timestamp;
 - each Discord entry’s published URL, normalized invite code, reachability result, and approximate counts only when returned;
@@ -113,7 +113,7 @@ The auditor writes one generated Markdown receipt from the checked-in community 
 - failures grouped as invalid URL, 404/expired, 429/deferred, provider error, or parse error;
 - the two Reddit exclusions and an assertion that neither was read.
 
-The artifact is evidence, not a self-updating production data source. A successful automatic Discord check may propose a data refresh, but updating the checked-in community dataset must happen only in a normal reviewed PR. A failed or rate-limited run must not erase the prior verified value, downgrade it to zero, or delete an entry.
+The temporary receipt is evidence, not a self-updating production data source. The authoritative health source is the latest scheduled `social-source-refresh` GitHub Actions run: a successful run with no reminder write is healthy; a successful run with a dated machine-written issue marker is degraded; a failed or overdue run is unhealthy. The issue marker links a degraded run to its maintenance issue but is not an alternative audit artifact. A successful automatic Discord check may propose a data refresh, but updating the checked-in community dataset must happen only in a normal reviewed PR. A failed or rate-limited run must not erase the prior verified value, downgrade it to zero, or delete an entry.
 
 ### Cross-workflow creator-lead status receipt
 
@@ -122,7 +122,7 @@ The `news-worker` is the only workflow that may read the worker database, becaus
 Task 2 reserves the exact source-name format `social-watch:<platform>:<handle>`, where `<platform>` is `instagram` or `tiktok` and `<handle>` is the lowercase configured handle matching `[a-z0-9._-]+`. The receipt generator queries only rows whose names match that full format and their `news_raw_item` counts within the declared lookback; it must reject a malformed watchlist-derived name and must not include any unrelated `news_source` row. A source polled in that window with one or more rows is `lead`; one polled with none is `no_lead`; a missing row, missing/old poll timestamp, or unreadable result is `unavailable`. The existing `news-worker` publication step must publish this receipt beside `docs/content-ops/news-candidates.md` to `news-digest`; it must fail the job if publication fails, just as the existing digest does. The reminder workflow reads the receipt using GitHub's contents API at `ref=news-digest` with its existing `contents: read` permission. It never receives a database credential or queries `news_raw_item` directly.
 ### Health conditions
 
-- **Healthy:** all configured Discord invites resolve, the audit is newer than 14 days, and the last creator-signal run completed without configuration errors.
+- **Healthy:** all configured Discord invites resolve, the latest scheduled `social-source-refresh` run is no more than 14 days old and succeeds without a reminder write, and the last creator-signal run completed without configuration errors.
 - **Degraded:** one or more Discord invites fail or rate-limit, a creator query has no results, or a manual social check is due. Preserve last known data and create/update the maintenance issue.
 - **Fail closed:** invalid configuration, a response outside the allowed schema, an unsupported platform request, an attempted excluded subreddit, or an HTTP authentication requirement. Do not retry around access restrictions or substitute scraped data.
 
@@ -190,13 +190,13 @@ Do not run `npm run db:migrate` against production from this task unless the pro
 2. Normalize invite URLs to invite codes without accepting arbitrary Discord API endpoints.
 3. Call the documented public invite endpoint with `with_counts=true`, one request at a time and a bounded timeout.
 4. On `429`, stop remaining live calls, record deferred status, and allow the next scheduled run to try again. Do not retry in a loop.
-5. Emit deterministic Markdown only, with no personal/member-level data, to the caller-provided output path. The scheduled workflow passes the exact `${RUNNER_TEMP}/community-refresh.md` receipt to the reminder script as its same-run issue body/comment input; it does not commit or publish generated audit data.
+5. Emit deterministic Markdown only, with no personal/member-level data, to the caller-provided output path. The scheduled workflow passes the exact `${RUNNER_TEMP}/community-refresh-audit.md` receipt to the reminder script as its same-run issue body/comment input; it does not commit or publish generated audit data.
 6. Assert the audit never reads or lists either excluded subreddit and that a missing count remains `null` rather than zero.
 
 **Verification**
 ```sh
 npm run test -- scripts/community-refresh.test.mjs
-node scripts/community-refresh.mjs --fixture test/fixtures/community-refresh.json --output /tmp/community-refresh.md
+node scripts/community-refresh.mjs --fixture test/fixtures/community-refresh.json --output /tmp/community-refresh-audit.md
 git diff --check
 ```
 
@@ -209,7 +209,7 @@ git diff --check
 
 **Work**
 1. Follow `scripts/knowledge-fb-export-reminder.mjs`’s exact-title/idempotency pattern: one open issue per calendar week, updated on re-run instead of duplicated.
-2. Schedule a weekly run and offer `workflow_dispatch` with `dry_run: true` by default. In each run, invoke `scripts/community-refresh.mjs --output "${RUNNER_TEMP}/community-refresh.md"`, fetch only `docs/content-ops/social-source-status.json` from `news-digest` through GitHub's contents API, validate its strict schema and freshness, then pass those two exact bounded receipts to `scripts/social-source-manual-reminder.mjs`. No workflow input may query the worker database or contain a worker secret.
+2. Schedule a weekly run and offer `workflow_dispatch` with `dry_run: true` by default. In each run, invoke `scripts/community-refresh.mjs --output "${RUNNER_TEMP}/community-refresh-audit.md"`, fetch only `docs/content-ops/social-source-status.json` from `news-digest` through GitHub's contents API, validate its strict schema and freshness, then pass those two exact bounded receipts to `scripts/social-source-manual-reminder.mjs`. No workflow input may query the worker database or contain a worker secret.
 3. Make reminder behavior deterministic from the two receipts. If every creator source is `no_lead` and the Discord audit is healthy, make no GitHub write. If a creator source is `lead` or `unavailable` (including a missing, malformed, or stale status receipt), create/update that calendar week's exact-title issue; for `lead`, list only the matching configured account URL(s), and for `unavailable`, list all configured account URL(s) and state that automated lead collection could not complete. If the Discord audit reports an invalid/expired invite, provider error, or `429/deferred`, include that audit result in the same issue; `429/deferred` states that the next weekly run will retry once and does not ask a human to evade the rate limit. On a same-week re-run with an already-open issue, comment the current deterministic status rather than create a duplicate; never close a lead-triggered issue merely because a later receipt is `no_lead`.
 4. Include only the exact approved account URLs, the receipt timestamp/status (`lead`, `no_lead`, or `unavailable`), the current Discord audit status, and these manual instructions when a creator check is required:
    - open the listed public creator profile in a normal browser without using developer tools or automation;
@@ -237,7 +237,7 @@ DRY_RUN=true node scripts/social-source-manual-reminder.mjs
 **Work**
 1. Remove `r/GaylorSwift` from both research and shipped typed copies; confirm `r/TravisAndTaylor` remains absent.
 2. Replace brittle exact-count community tests with assertions that preserve required exclusions and the canonical/shipped data agreement, updating expected counts only from the verified source file.
-3. Report stale Discord audit or overdue manual check as a maintenance issue/update, not as an automatic data rewrite. The issue body/comment from Task 4 is the durable health receipt; watchdog reads only its dated, machine-written status marker rather than a generated file on `main`.
+3. Report a failed/overdue scheduled `social-source-refresh` run or a degraded Discord audit as a maintenance issue/update, not as an automatic data rewrite. Watchdog reads the latest scheduled `social-source-refresh` run state and completion time as the single health source; it may read the dated machine-written issue marker only to link a degraded run to its maintenance issue, never as a substitute for a missing workflow run or generated file on `main`.
 4. Make health reporting distinguish “no account/no direct platform API by policy” from an infrastructure failure. A lack of Instagram/TikTok collection is expected and must not page as a broken job.
 
 **Verification**
