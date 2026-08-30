@@ -712,6 +712,21 @@ reflects it, and a test PR still merges once `build` is green.
 
 ## DONE
 
+### 26. [MERCH] Record owner decisions D1 and D3 for the autonomous marketplace
+
+**Filed:** 2026-08-29
+
+**Decision received (2026-08-30):** Joey chose D1-a: list the full official
+store catalog without affiliate links to the official store, with a secondary
+Amazon affiliate alternative only where the same item is verified there. Joey
+also approved D3: "inspired-by" yes, bootleg no — reject fan-made items that
+reprint official art, tour graphics, or photos of Taylor.
+
+**Status:** DONE — choices recorded in `docs/decisions.md` and
+`docs/PLAN.merch-autonomy.md`; downstream E4 and E5 work must follow them.
+
+---
+
 ### 25. [BLOCKING] Two PRs stuck with zero GitHub Actions check-suite — one is the live IG/X posting bug fix — ~5-15 min, needs your GitHub UI access
 
 **Filed:** 2026-08-26

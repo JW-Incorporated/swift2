@@ -139,31 +139,28 @@ product → its resolved network → link format → status
 done for issue #4 is that report showing zero `uncovered` rows (or each one
 carrying an explicit policy reason).
 
-## The official store problem (issue #5) — and decision D1
+## The official store posture (issue #5) — D1 decided
 
 Verified: **store.taylorswift.com has no affiliate program.** It's a UMG
 (Taylor Nation LLC) Shopify store; no network lists it; nothing in its terms
-offers one. Your "every product MUST have an affiliate link" rule therefore
-collides with "fill the official bucket." Options:
+offers one. Your "every product MUST have an affiliate link" rule therefore collides with
+"fill the official bucket." **D1-a is approved:** exempt the official bucket
+from the affiliate rule. List the full official catalog unmonetized for
+completeness, SEO, and drops coverage (drops feed the social poster — that's
+audience growth, which is the asset). Where the same official item verifiably
+sells on Amazon (Amazon hosts an official Taylor Swift artist merch page —
+vinyl, CDs, some merch), E4 attaches a *secondary* "Also on Amazon" affiliate
+link. Partial monetization, full catalog. D1-b (listing only official items
+with an Amazon twin) is rejected because it would omit official-store
+exclusives.
 
-- **D1-a (recommended): exempt the official bucket from the affiliate rule.**
-  List the full official catalog unmonetized for completeness, SEO, and drops
-  coverage (drops feed the social poster — that's audience growth, which is
-  the asset). Where the same official item verifiably sells on Amazon
-  (Amazon hosts an official Taylor Swift artist merch page — vinyl, CDs, some
-  merch), E4 attaches a *secondary* "Also on Amazon" affiliate link. Partial
-  monetization, full catalog.
-- **D1-b: strict rule.** Only official items with an Amazon twin get listed.
-  The bucket stays thin and misses store exclusives — most of the catalog.
+## Fan-made posture — D3 approved
 
-## Fan-made posture — decision D3
-
-Fan merch is inherently an IP gray zone. The curation gate should hold a
-line that protects both the Etsy/Awin account and the site:
+Fan merch is inherently an IP gray zone. **D3 approves** the curation line
+that protects both the Etsy/Awin account and the site:
 **"inspired-by" yes, bootleg no** — skip items that reprint official artwork,
 tour graphics, or photos of Taylor; favor lyric-reference, era-color, and
-original-design items. E5 encodes this as a hard curation rule. (D3 is
-approving that line or drawing your own.)
+original-design items. E5 encodes this as a hard curation rule.
 
 ## Decision D2 — the catch-all network
 
@@ -244,8 +241,10 @@ deserve re-matching.
    absorbs a share of E6's searches for free.
 7. **`vercel env add` / repo secrets** for the credentials above — one
    terminal session; exact commands in the spec. ~10 min.
-8. **Decisions D1 / D3** — recorded in `docs/decisions.md`. D2 is no longer
-   a launch decision; it re-opens only if the residue report justifies it.
+8. **Decisions D1 / D3 — DONE.** Joey approved D1-a and the D3 hard curation
+   line on 2026-08-30; `docs/decisions.md` is the durable record. D2 is no
+   longer a launch decision; it re-opens only if the residue report justifies
+   it.
 
 After these: the system's ongoing demand on you is reading a line in
 Marjorie's brief, if you feel like it.
