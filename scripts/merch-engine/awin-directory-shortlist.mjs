@@ -102,18 +102,22 @@ function programmeSectors(programme) {
   return [...new Set(values)];
 }
 
+const SOURCE_FIELD_PRECEDENCE = ['displayUrl', 'primaryDomain', 'validDomains', 'domains'];
+
 function sourceHostnames(programme) {
   const info = programmeInfo(programme);
-  return [
-    ...new Set(
-      [info.displayUrl, info.primaryDomain, ...(info.validDomains ?? info.domains ?? [])]
-        .flatMap((value) =>
-          typeof value === 'object' && value ? [value.domain, value.url, value.name] : [value],
-        )
-        .map(hostname)
-        .filter(Boolean),
-    ),
-  ];
+  const byHost = new Map();
+  for (const field of SOURCE_FIELD_PRECEDENCE) {
+    const raw = info[field];
+    const values = Array.isArray(raw) ? raw : [raw];
+    for (const value of values) {
+      const host = hostname(
+        typeof value === 'object' && value ? (value.domain ?? value.url ?? value.name) : value,
+      );
+      if (host && !byHost.has(host)) byHost.set(host, field);
+    }
+  }
+  return [...byHost.entries()].map(([host, sourceField]) => ({ host, sourceField }));
 }
 
 function eligibleProgrammes(programmes) {
@@ -145,13 +149,23 @@ function retailerRows(catalogue) {
     .sort((left, right) => left.currentRetailer.localeCompare(right.currentRetailer));
 }
 
-function candidateRow(retailer, programme, sourceHostname, matchType, feedAdvertiserIds) {
+function candidateRow(
+  retailer,
+  programme,
+  sourceHostname,
+  sourceField,
+  matchType,
+  matchEvidence,
+  feedAdvertiserIds,
+) {
   return {
     currentRetailer: retailer.currentRetailer,
     productCount: retailer.productCount,
     awinAdvertiserName: programme?.name ?? null,
     awinAdvertiserId: programme?.id ?? null,
     sourceHostname: sourceHostname ?? null,
+    sourceField: sourceField ?? null,
+    matchEvidence,
     matchType,
     usProgrammeStatus: programme?.status ?? 'not found',
     feedAvailable: programme ? feedAdvertiserIds.has(programme.id) : false,
@@ -170,8 +184,8 @@ export function buildShortlist({
   for (const retailer of retailers) {
     const matches = eligible.flatMap((programme) =>
       programme.hosts
-        .filter((host) => host === retailer.currentRetailer)
-        .map((host) => ({ programme, host })),
+        .filter((entry) => entry.host === retailer.currentRetailer)
+        .map((entry) => ({ programme, entry })),
     );
     if (matches.length === 1) exactByRetailer.set(retailer.currentRetailer, matches[0]);
   }
@@ -182,8 +196,8 @@ export function buildShortlist({
       .filter((programme) => !usedIds.has(programme.id))
       .flatMap((programme) =>
         programme.hosts
-          .filter((host) => isDomainSuffixMatch(host, retailer.currentRetailer))
-          .map((host) => ({ programme, host })),
+          .filter((entry) => isDomainSuffixMatch(entry.host, retailer.currentRetailer))
+          .map((entry) => ({ programme, entry })),
       );
     if (matches.length === 1) domainSuffixByRetailer.set(retailer.currentRetailer, matches[0]);
   }
@@ -195,8 +209,10 @@ export function buildShortlist({
         return candidateRow(
           retailer,
           match.programme,
-          match.host,
+          match.entry.host,
+          match.entry.sourceField,
           'exact-hostname',
+          'Awin programme domain hostname exactly matches retailer',
           feedAdvertiserIds,
         );
       }),
@@ -207,8 +223,10 @@ export function buildShortlist({
         return candidateRow(
           retailer,
           match.programme,
-          match.host,
+          match.entry.host,
+          match.entry.sourceField,
           'domain-suffix',
+          'Awin programme domain is a unique suffix match for retailer',
           feedAdvertiserIds,
         );
       }),
@@ -223,20 +241,28 @@ export function buildShortlist({
           (programme) =>
             brandKey(programme.name) === retailerBrand ||
             programme.hosts.some(
-              (host) =>
-                domainKey(host) === retailerBrand ||
-                isDomainSuffixMatch(host, retailer.currentRetailer),
+              (entry) =>
+                domainKey(entry.host) === retailerBrand ||
+                isDomainSuffixMatch(entry.host, retailer.currentRetailer),
             ),
         )
-        .map((programme) =>
-          candidateRow(
+        .map((programme) => {
+          const nameMatches = brandKey(programme.name) === retailerBrand;
+          const domainTrigger = programme.hosts.find(
+            (entry) =>
+              domainKey(entry.host) === retailerBrand ||
+              isDomainSuffixMatch(entry.host, retailer.currentRetailer),
+          );
+          return candidateRow(
             retailer,
             programme,
-            programme.hosts[0] ?? null,
+            nameMatches ? null : domainTrigger ? domainTrigger.host : null,
+            nameMatches ? 'name' : domainTrigger ? domainTrigger.sourceField : 'name',
             'manual-review',
+            'Awin programme name or domain shares a normalized key or suffix with retailer',
             feedAdvertiserIds,
-          ),
-        );
+          );
+        });
     })
     .sort(
       (left, right) =>
@@ -250,7 +276,17 @@ export function buildShortlist({
         !matchedRetailers.has(retailer.currentRetailer) &&
         !reviewRetailers.has(retailer.currentRetailer),
     )
-    .map((retailer) => candidateRow(retailer, null, null, 'unmatched', feedAdvertiserIds));
+    .map((retailer) =>
+      candidateRow(
+        retailer,
+        null,
+        null,
+        null,
+        'unmatched',
+        'no supported Awin name or domain signal',
+        feedAdvertiserIds,
+      ),
+    );
   return {
     version: 1,
     generatedAt,
@@ -274,6 +310,8 @@ const COLUMNS = [
   'awinAdvertiserName',
   'awinAdvertiserId',
   'sourceHostname',
+  'sourceField',
+  'matchEvidence',
   'matchType',
   'usProgrammeStatus',
   'feedAvailable',
@@ -284,6 +322,8 @@ const CSV_COLUMNS = [
   'awin_advertiser_name',
   'awin_advertiser_id',
   'source_hostname',
+  'source_field',
+  'match_evidence',
   'match_type',
   'us_programme_status',
   'product_feed_available',
@@ -310,12 +350,12 @@ function table(rows) {
             `| ${COLUMNS.map((column) => String(row[column] ?? '').replaceAll('|', '\\|')).join(' | ')} |`,
         )
         .join('\n')
-    : '| — | — | — | — | — | — | — | — |';
+    : '| — | — | — | — | — | — | — | — | — | — |';
 }
 
 export function formatMarkdown(report) {
   const heading =
-    '| current retailer | product count | Awin advertiser name | Awin advertiser id | source hostname | match type | US/programme status | product feed available |\n| --- | ---: | --- | --- | --- | --- | --- | --- |';
+    '| current retailer | product count | Awin advertiser name | Awin advertiser id | source hostname | source field | match evidence | match type | US/programme status | product feed available |\n| --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- |';
   return `# Awin US advertiser directory shortlist\n\nGenerated: ${report.generatedAt}\n\nTarget sectors: ${report.targetSectors.join(', ')}. This artifact is derived from the Awin Publisher API and does not contain affiliate links, product URLs, credentials, or feed contents.\n\n## Summary\n\n- Exact hostname matches: ${report.summary.exact}\n- Domain-suffix matches: ${report.summary.domainSuffix}\n- Manual-review candidates: ${report.summary.manualReview}\n- Unmatched retailers: ${report.summary.unmatched}\n\n## Exact hostname and domain-suffix matches\n\n${heading}\n${table(report.matches)}\n\n## Manual-review candidates\n\nThese records share only a normalized name or domain signal. They are not join recommendations.\n\n${heading}\n${table(report.manualReview)}\n\n## Unmatched retailers\n\n${heading}\n${table(report.unmatched)}\n`;
 }
 
@@ -335,18 +375,46 @@ function parseFeedAdvertiserIds(csv) {
   );
 }
 
-async function requestProgrammes({ publisherId, token, relationship }) {
-  const url = new URL(PROGRAMMES_URL.replace('{publisherId}', encodeURIComponent(publisherId)));
-  url.searchParams.set('countryCode', 'US');
-  url.searchParams.set('relationship', relationship);
-  url.searchParams.set('accessToken', token);
-  const response = await fetch(url, { headers: { accept: 'application/json' } });
-  if (!response.ok) throw new Error(`Awin programmes request failed (${response.status})`);
-  const payload = await response.json();
-  const programmes = Array.isArray(payload)
-    ? payload
-    : (payload?.programmes ?? payload?.data ?? []);
-  return programmes.map((programme) => ({ ...programme, relationship }));
+function nextPageUrl(link) {
+  const next = link?.split(',').find((part) => /\brel="?next"?/i.test(part));
+  return next?.match(/<([^>]+)>/)?.[1] ?? null;
+}
+
+function validatedPageUrl(value, base) {
+  const url = new URL(value, base);
+  if (url.protocol !== 'https:' || url.origin !== 'https://api.awin.com') {
+    throw new Error('Awin programme pagination must remain on the Awin API origin');
+  }
+  return url;
+}
+
+export async function requestProgrammes({ publisherId, token, relationship, fetchImpl = fetch }) {
+  const programmes = [];
+  const seen = new Set();
+  let pageUrl = new URL(PROGRAMMES_URL.replace('{publisherId}', encodeURIComponent(publisherId)));
+  pageUrl.searchParams.set('countryCode', 'US');
+  pageUrl.searchParams.set('relationship', relationship);
+  do {
+    pageUrl.searchParams.set('countryCode', 'US');
+    pageUrl.searchParams.set('relationship', relationship);
+    pageUrl.searchParams.set('accessToken', token);
+    const response = await fetchImpl(pageUrl, { headers: { accept: 'application/json' } });
+    if (!response.ok) throw new Error(`Awin programmes request failed (${response.status})`);
+    const payload = await response.json();
+    const page = Array.isArray(payload) ? payload : (payload?.programmes ?? payload?.data ?? []);
+    programmes.push(...page.map((programme) => ({ ...programme, relationship })));
+    const next = nextPageUrl(response.headers.get('link'));
+    pageUrl = next ? validatedPageUrl(next, pageUrl) : null;
+    if (pageUrl) {
+      pageUrl.searchParams.set('countryCode', 'US');
+      pageUrl.searchParams.set('relationship', relationship);
+    }
+    if (pageUrl && seen.has(pageUrl.toString())) {
+      throw new Error('Awin programme pagination repeated a page URL');
+    }
+    if (pageUrl) seen.add(pageUrl.toString());
+  } while (pageUrl);
+  return programmes;
 }
 
 async function requestFeedAdvertiserIds(apiKey) {
