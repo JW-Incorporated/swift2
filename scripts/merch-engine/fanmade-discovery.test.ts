@@ -4,12 +4,17 @@ import { describe, expect, it, vi } from 'vitest';
 import { collectEtsyEvidence, curateCandidate, discoverCandidates, fileReverificationIssues, normalizeEtsyListing, normalizeRedditPost, normalizeSubmission, reverifyFanmadeListings } from './fanmade-discovery.mjs';
 
 describe('fan-made discovery', () => {
-  it('collects bounded Etsy searches then enriches each listing with shop and image evidence', async () => {
+  it('keeps the original bounded search payload and waits one second before retrying a detail 429 without Retry-After', async () => {
+    const searchPayload = { results: [{ listing_id: 42, title: 'Search-only title', search_marker: 'retain-me' }] };
+    let detailAttempts = 0;
+    const sleep = vi.fn(async () => {});
     const fetchImpl = vi.fn(async (url: string) => {
       if (url.includes('/listings/active')) {
-        return new Response(JSON.stringify({ results: [{ listing_id: 42 }] }), { status: 200 });
+        return new Response(JSON.stringify(searchPayload), { status: 200 });
       }
       if (url.includes('/listings/42')) {
+        detailAttempts += 1;
+        if (detailAttempts === 1) return new Response('', { status: 429 });
         return new Response(JSON.stringify({
           listing_id: 42,
           title: 'Original lavender lyric bracelet',
@@ -23,15 +28,18 @@ describe('fan-made discovery', () => {
     });
 
     await expect(collectEtsyEvidence({
-      etsyApiKey: 'test-key', fetchImpl, queries: ['Taylor Swift inspired'], now: '2026-08-30T00:00:00Z',
+      etsyApiKey: 'test-key', fetchImpl, queries: ['Taylor Swift inspired'], now: '2026-08-30T00:00:00Z', sleep,
     })).resolves.toEqual(expect.objectContaining({
       candidates: [expect.objectContaining({ brand: 'LavenderMaker', imageUrl: 'https://images.example.test/bracelet.jpg' })],
-      rawQueries: [expect.objectContaining({ query: 'Taylor Swift inspired', results: [expect.objectContaining({ shop: expect.any(Object), images: expect.any(Array) })] })],
+      rawQueries: [expect.objectContaining({ query: 'Taylor Swift inspired', payload: searchPayload })],
+      listingDetails: [expect.objectContaining({ listingId: '42', detail: expect.objectContaining({ shop: expect.any(Object), images: expect.any(Array) }) })],
     }));
+    expect(sleep).toHaveBeenCalledTimes(1);
+    expect(sleep).toHaveBeenCalledWith(1_000);
     const [searchUrl, detailUrl] = fetchImpl.mock.calls.map(([url]) => new URL(url));
     expect(searchUrl.pathname).toBe('/v3/application/listings/active');
     expect(searchUrl.searchParams.has('includes')).toBe(false);
-    expect(searchUrl.searchParams.get('limit')).toBe('25');
+    expect(searchUrl.searchParams.get('limit')).toBe('10');
     expect(detailUrl.pathname).toBe('/v3/application/listings/42');
     expect(detailUrl.searchParams.get('includes')).toBe('Images,Shop');
   });
@@ -43,7 +51,22 @@ describe('fan-made discovery', () => {
     });
 
     await expect(collectEtsyEvidence({ etsyApiKey: 'test-key', fetchImpl, queries: ['Taylor Swift inspired'] })).resolves.toMatchObject({
-      candidates: [], rawQueries: [{ results: [expect.objectContaining({ listing_id: 42, title: 'Incomplete listing' })] }],
+      candidates: [],
+      rawQueries: [{ payload: { results: [expect.objectContaining({ listing_id: 42 })] } }],
+      listingDetails: [{ listingId: '42', detail: expect.objectContaining({ title: 'Incomplete listing' }) }],
+    });
+  });
+
+  it('keeps the raw search evidence when a listing disappears before detail retrieval', async () => {
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('/listings/active')) return new Response(JSON.stringify({ results: [{ listing_id: 42 }] }), { status: 200 });
+      return new Response('', { status: 404 });
+    });
+
+    await expect(collectEtsyEvidence({ etsyApiKey: 'test-key', fetchImpl, queries: ['Taylor Swift inspired'] })).resolves.toEqual({
+      rawQueries: [{ query: 'Taylor Swift inspired', payload: { results: [{ listing_id: 42 }] } }],
+      listingDetails: [],
+      candidates: [],
     });
   });
 

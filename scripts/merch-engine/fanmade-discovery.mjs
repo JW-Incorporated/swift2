@@ -128,12 +128,40 @@ function mergeCandidates(candidates) {
 async function json(fetchImpl, url, options) {
   const requestUrl = String(url);
   const response = await fetchImpl(requestUrl, options);
+  return jsonResponse(response, requestUrl);
+}
+
+async function jsonResponse(response, requestUrl) {
   if (!response.ok) {
     const error = new Error(`Request failed (${response.status}) for ${requestUrl}`);
     error.status = response.status;
     throw error;
   }
   return response.json();
+}
+
+function retryAfterDelay(response) {
+  const retryAfter = response.headers.get('Retry-After');
+  if (!retryAfter?.trim()) return 1_000;
+  const seconds = Number(retryAfter);
+  return Number.isFinite(seconds) && seconds >= 0 ? Math.ceil(seconds * 1_000) : 1_000;
+}
+
+function wait(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+async function etsyJson(fetchImpl, url, options, sleep) {
+  const requestUrl = String(url);
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const response = await fetchImpl(requestUrl, options);
+    if (response.status === 429 && attempt === 0) {
+      await sleep(retryAfterDelay(response));
+      continue;
+    }
+    return jsonResponse(response, requestUrl);
+  }
+  throw new Error(`Request retry limit reached for ${requestUrl}`);
 }
 
 function isEligibleEtsyListing(listing, query, now) {
@@ -154,34 +182,44 @@ function isEligibleEtsyListing(listing, query, now) {
     : null;
 }
 
-export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now = new Date().toISOString(), queries = ETSY_QUERIES, requireCredentials = false } = {}) {
+export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now = new Date().toISOString(), queries = ETSY_QUERIES, requireCredentials = false, sleep = wait } = {}) {
   if (!etsyApiKey) {
     if (requireCredentials) throw new Error('Etsy API credentials are required');
     return { rawQueries: [], candidates: [] };
   }
   const candidates = [];
   const rawQueries = [];
+  const listingDetailsById = new Map();
   for (const query of queries) {
     const url = new URL('https://openapi.etsy.com/v3/application/listings/active');
     url.searchParams.set('keywords', query);
     url.searchParams.set('sort_on', 'created');
     url.searchParams.set('sort_order', 'desc');
-    url.searchParams.set('limit', '25');
-    const payload = await json(fetchImpl, url, { headers: { 'x-api-key': etsyApiKey } });
-    const listings = [];
-    for (const searchResult of (payload.results || []).slice(0, 25)) {
+    url.searchParams.set('limit', '10');
+    const payload = await etsyJson(fetchImpl, url, { headers: { 'x-api-key': etsyApiKey } }, sleep);
+    rawQueries.push({ query, payload });
+    for (const searchResult of (payload.results || []).slice(0, 10)) {
       if (!searchResult?.listing_id) continue;
       const detailUrl = new URL(`https://openapi.etsy.com/v3/application/listings/${searchResult.listing_id}`);
       detailUrl.searchParams.set('includes', 'Images,Shop');
-      const listing = await json(fetchImpl, detailUrl, { headers: { 'x-api-key': etsyApiKey } });
-      listings.push(listing);
+      let listing;
+      try {
+        listing = await etsyJson(fetchImpl, detailUrl, { headers: { 'x-api-key': etsyApiKey } }, sleep);
+      } catch (error) {
+        if (error?.status === 404) continue;
+        throw error;
+      }
+      listingDetailsById.set(String(searchResult.listing_id), listing);
       const candidate = isEligibleEtsyListing(listing, query, now);
       if (!candidate) continue;
       candidates.push(candidate);
     }
-    rawQueries.push({ query, results: listings });
   }
-  return { rawQueries, candidates };
+  return {
+    rawQueries,
+    listingDetails: [...listingDetailsById].map(([listingId, detail]) => ({ listingId, detail })),
+    candidates,
+  };
 }
 
 async function discoverEtsy({ etsyApiKey, fetchImpl, now }) {
@@ -420,10 +458,14 @@ async function main() {
     const outputDir = process.env.E5_EVIDENCE_DIR;
     if (!outputDir) throw new Error('E5_EVIDENCE_DIR is required when collecting manual E5 evidence');
     const evidence = await collectEtsyEvidence({ etsyApiKey, requireCredentials: true });
-    await mkdir(outputDir, { recursive: true });
+    await mkdir(join(outputDir, 'listings'), { recursive: true });
     await Promise.all(evidence.rawQueries.map((rawQuery, index) => writeFile(
       join(outputDir, `query-${index}.json`),
-      `${JSON.stringify(rawQuery, null, 2)}\n`,
+      `${JSON.stringify(rawQuery.payload, null, 2)}\n`,
+    )));
+    await Promise.all(evidence.listingDetails.map(({ listingId, detail }) => writeFile(
+      join(outputDir, 'listings', `${listingId}.json`),
+      `${JSON.stringify(detail, null, 2)}\n`,
     )));
     console.log(JSON.stringify({ candidates: evidence.candidates }, null, 2));
     return;
