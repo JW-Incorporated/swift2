@@ -2228,9 +2228,6 @@ export default {
             caption: "Taylor in the closing French fries costume, next to Katy Perry's burger costume.",
           },
         ],
-        // Shop pass (2026-07-22): the exact Marina Hoermanseder shirt is
-        // discontinued -- a current rainbow western snap shirt, verified
-        // in stock, closest real match.
         products: [
           {
             brand: 'Wrangler',
@@ -2239,6 +2236,8 @@ export default {
             url: 'https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/',
             matchTier: 'unscored',
             price: '$55.00',
+            inStock: false,
+            verifiedAt: '2026-08-30',
             isAlternative: true,
             altNote: 'Her exact Marina Hoermanseder shirt is discontinued -- this sources the western shirt only, matching its rainbow palette (not the wig, shorts, boots, or fries costume).',
           },
