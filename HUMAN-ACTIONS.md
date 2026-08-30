@@ -26,6 +26,93 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 29. [UPGRADE] Search-API account for merch engine E6 — payment card, ~10 min
+
+**Filed:** 2026-08-30
+
+**Status:** OPEN
+
+**Why it matters:** engine E6 (Moment→Product Matcher, merch plan Phase 4)
+needs a Google Shopping-class search API for the matches the free Awin
+product index can't answer. This is a spend decision (paid account), so
+only you can open it. Nothing is halted today — E1/E2/E3 run without it —
+but E6 cannot start until this key exists (FR-MERCH-5 gate ruling,
+`docs/decisions.md` 2026-08-30). Expect light usage: the Awin index takes
+the first pass on every match for free, so a low tier (~$10–30/mo) likely
+suffices; start small, upgrade only if E6's ticket volume shows it.
+
+**Steps:**
+1. Sign up at `https://serpapi.com` (or an equivalent Google
+   Shopping-results API you prefer) on its cheapest paid tier; add the
+   payment card.
+2. Copy the API key and save it as a repo Actions secret named
+   `SEARCH_API_KEY`: from a terminal in the repo, run
+   `gh secret set SEARCH_API_KEY --repo JW-Incorporated/swift2` and paste
+   the value when prompted (`gh secret set` is guard-denied for agents —
+   founder-only on purpose). Key **name** only in chat, never the value.
+
+**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows
+`SEARCH_API_KEY`, and E6's first run reports real search results instead
+of a missing-credential skip.
+
+---
+
+### 28. [UPGRADE] Merch plan: save credentials under canonical names — ~10 min
+
+**Filed:** 2026-08-30
+
+**Status:** OPEN
+
+**Why it matters:** Joey's D1/D3 product decisions are complete under
+HUMAN-ACTIONS #26. The remaining owner action is the credential-naming cleanup:
+the Awin/Etsy engines read the canonical secret names below (FR-MERCH-5,
+`docs/decisions.md` 2026-08-30). No code reads the old names, so this is a
+save-under-the-right-name step, not a migration.
+
+**Steps:**
+1. In the **Awin dashboard**: generate the **Publisher API token** and the
+   **Create-a-Feed API key**. Save them in the project `.env` / secret
+   store as `AWIN_API_TOKEN` and `AWIN_FEED_API_KEY`, and save your Awin
+   publisher ID as `AWIN_PUBLISHER_ID`. Delete the old `AWIN_API` entry
+   (ambiguous name, retired by FR-MERCH-5).
+2. Re-save the Etsy keystring value under the name `ETSY_API_KEY` (it
+   currently sits as `ETSY_KEYSTRING`; keep `ETSY_SHARED_SECRET` as-is).
+   As always: key **names** only in chat, never values.
+
+**Worked if:** the secret store holds `AWIN_API_TOKEN`, `AWIN_FEED_API_KEY`,
+`AWIN_PUBLISHER_ID`, and `ETSY_API_KEY` with no `AWIN_API` entry left.
+
+---
+
+### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
+
+**Filed:** 2026-08-30
+
+**Status:** OPEN
+
+**Why it matters:** `docs/decisions.md` 2026-07-08 §3 is the standing rule:
+**nothing monetized ships without external IP-counsel review**
+(right-of-publicity, false endorsement, FTC affiliate disclosure), and
+FR-MERCH-4/5 hold that no affiliate/commercial implementation (the
+`shop.ts` seam flip, engine E0, coverage-report wiring) starts before that
+sign-off. The merch plan's Phase 1 trust fixes (E1/E2/E3) proceed without
+you; every money phase waits here. Engaging counsel is also a spend
+decision, which is yours alone.
+
+**Steps:**
+1. Engage an IP attorney (right-of-publicity / false-endorsement / FTC
+   affiliate-disclosure scope). Bring: the live site `longlivets.com`, the
+   plan `docs/PLAN.merch-autonomy.md`, the UNOFFICIAL fan-project
+   disclaimer, and the fact that content stores plain retailer URLs with
+   wrapping at one seam (`apps/web/lib/longlive/shop.ts`).
+2. Report the outcome in chat (sign-off, or the changes counsel requires);
+   a session records it in `docs/decisions.md` and unblocks Phase 2.
+
+**Worked if:** counsel's written sign-off (or required-changes list) is
+recorded in `docs/decisions.md` and this item is DONE.
+
+---
+
 ### 24. [UPGRADE] Unblock the video seed — code fix is in, just re-run the command — ~2 min
 
 **Filed:** 2026-08-26
@@ -624,6 +711,21 @@ reflects it, and a test PR still merges once `build` is green.
 ---
 
 ## DONE
+
+### 26. [MERCH] Record owner decisions D1 and D3 for the autonomous marketplace
+
+**Filed:** 2026-08-29
+
+**Decision received (2026-08-30):** Joey chose D1-a: list the full official
+store catalog without affiliate links to the official store, with a secondary
+Amazon affiliate alternative only where the same item is verified there. Joey
+also approved D3: "inspired-by" yes, bootleg no — reject fan-made items that
+reprint official art, tour graphics, or photos of Taylor.
+
+**Status:** DONE — choices recorded in `docs/decisions.md` and
+`docs/PLAN.merch-autonomy.md`; downstream E4 and E5 work must follow them.
+
+---
 
 ### 25. [BLOCKING] Two PRs stuck with zero GitHub Actions check-suite — one is the live IG/X posting bug fix — ~5-15 min, needs your GitHub UI access
 
