@@ -73,6 +73,23 @@ before a new AI feature ships; State: cost_model_recorded.
 
 ---
 
+## 2026-08-30 — External IP-counsel sign-off recorded for the merch affiliate layer
+
+**Decision:** Record external IP-counsel sign-off for the merch affiliate layer,
+covering the right-of-publicity, false-endorsement, and FTC affiliate-disclosure
+gate in HUMAN-ACTIONS #27.
+
+**Why:** Joey directly instructed in chat, “Counsel signed off.” This records the
+approval without naming counsel, disclosing advice, or inferring conditions.
+
+**Scope:** This removes only the HUMAN-ACTIONS #27 counsel gate. Credential,
+spend, CI, independent-review, and all other phase gates remain binding.
+
+**Approved by:** External IP counsel, as reported by Joey in direct chat,
+2026-08-30.
+
+---
+
 ## 2026-08-30 — X site-screen posts are permanently prohibited; remove the two already live
 
 **Decision:** Delete exactly the two owner-identified live X posts

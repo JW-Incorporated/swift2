@@ -88,7 +88,7 @@ save-under-the-right-name step, not a migration.
 
 **Filed:** 2026-08-30
 
-**Status:** OPEN
+**Status:** DONE
 
 **Why it matters:** `docs/decisions.md` 2026-07-08 §3 is the standing rule:
 **nothing monetized ships without external IP-counsel review**
@@ -110,6 +110,8 @@ decision, which is yours alone.
 
 **Worked if:** counsel's written sign-off (or required-changes list) is
 recorded in `docs/decisions.md` and this item is DONE.
+
+**Outcome (2026-08-30):** Counsel sign-off recorded from Joey's direct chat instruction.
 
 ---
 
