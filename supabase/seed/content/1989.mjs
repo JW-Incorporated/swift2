@@ -416,6 +416,7 @@ export default {
             price: '$85.00',
             isAlternative: true,
             altNote: 'Her KaufmanFranco mini has no e-commerce path -- this is a current black sequin mini in the same beaded, cutout-adjacent spirit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -541,6 +542,7 @@ export default {
             price: '$3,495.00',
             isAlternative: true,
             altNote: 'Her exact 2015 beaded jumpsuit is long discontinued -- this is a current Balmain white jumpsuit, same house, a sleek lambskin cut rather than all-over beading.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -811,6 +813,7 @@ export default {
             price: '£1,690.00',
             isAlternative: true,
             altNote: 'Her exact 2015 Ashish houndstooth set is discontinued -- this is a current Ashish piece, same house, a tartan check rather than houndstooth.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -855,6 +858,7 @@ export default {
             price: '$22.00',
             isAlternative: true,
             altNote: 'The tour\'s custom costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same pink-fringe spirit as one of the rotating looks.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -914,6 +918,7 @@ export default {
             price: '$25.20',
             isAlternative: true,
             altNote: 'The custom Atelier Versace two-piece was one-of-a-kind couture, never sold -- this is a current hot-pink satin skirt in the same color and volume as the memorable half of the look.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -954,6 +959,7 @@ export default {
             price: '$191.00',
             isAlternative: true,
             altNote: 'Not her exact styling tool (undocumented) -- a professional flat iron suited to keeping a blunt, straight bob like this one sleek.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -986,6 +992,7 @@ export default {
             price: '$153.00',
             isAlternative: true,
             altNote: 'No designer was ever named for this street-style sighting -- this is a current denim overall dress in the same off-duty spirit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1034,6 +1041,7 @@ export default {
             price: '$27.99',
             isAlternative: true,
             altNote: 'Her exact 2016 Louis Vuitton mini is discontinued -- this is a current silver snake-print sequin mini in the same reptile-texture spirit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1077,6 +1085,7 @@ export default {
             price: '$23.00',
             isAlternative: true,
             altNote: 'The exact shade Lorrie Turk used is undocumented -- Ruby Woo is MAC\'s iconic blue-red matte, the same bold-red finish described for the video\'s warrior look.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2528,6 +2537,7 @@ export default {
             price: '$23.98',
             isAlternative: true,
             altNote: 'No single named dress -- this is the era\'s visual palette, not one outfit -- a current light-blue mini in the same sky-blue minimalist spirit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2974,6 +2984,7 @@ export default {
             price: '$20.19',
             isAlternative: true,
             altNote: 'Bill Corso\'s bespoke film prosthetics were never sold at retail -- this is a current zombie SFX kit (creme colors, blood gel, latex, wax) for a similar undead effect.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

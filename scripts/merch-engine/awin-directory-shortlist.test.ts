@@ -2,7 +2,12 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
-import { buildShortlist, formatCsv, formatMarkdown } from './awin-directory-shortlist.mjs';
+import {
+  buildShortlist,
+  formatCsv,
+  formatMarkdown,
+  requestProgrammes,
+} from './awin-directory-shortlist.mjs';
 
 const catalogue = [
   { retailer: 'exact-shop.com', item: 'Exact dress' },
@@ -94,6 +99,12 @@ describe('Awin directory shortlist', () => {
         feedAvailable: true,
       }),
     ]);
+    expect(report.manualReview[0]).toMatchObject({
+      sourceField: 'name',
+      sourceHostname: null,
+      matchEvidence:
+        'Awin programme name or domain shares a normalized key or suffix with retailer',
+    });
     expect(report.unmatched).toEqual([
       expect.objectContaining({
         currentRetailer: 'unmatched-shop.com',
@@ -170,6 +181,68 @@ describe('Awin directory shortlist', () => {
     );
   });
 
+  it('records the precise Awin field that supplied each matching signal', () => {
+    const report = buildShortlist({
+      catalogue: [
+        { retailer: 'exact-source.com', item: 'Exact' },
+        { retailer: 'us.suffix-source.com', item: 'Suffix' },
+        { retailer: 'name-source.com', item: 'Name' },
+      ],
+      programmes: [
+        {
+          id: 10,
+          name: 'Different Name',
+          displayUrl: 'https://exact-source.com',
+          primaryDomain: 'primary-source.com',
+          validDomains: [{ domain: 'valid-source.com' }],
+          domains: [{ domain: 'domain-source.com' }],
+          primaryRegion: { countryCode: 'US' },
+          primarySector: 'Fashion/Clothing',
+          relationship: 'notjoined',
+        },
+        {
+          id: 11,
+          name: 'Another Name',
+          displayUrl: 'https://unrelated-source.com',
+          primaryDomain: 'suffix-source.com',
+          primaryRegion: { countryCode: 'US' },
+          primarySector: 'Beauty',
+          relationship: 'notjoined',
+        },
+        {
+          id: 12,
+          name: 'Name Source',
+          displayUrl: 'https://unrelated-name-source.com',
+          primaryRegion: { countryCode: 'US' },
+          primarySector: 'Accessories/Jewelry',
+          relationship: 'notjoined',
+        },
+      ],
+      feedAdvertiserIds: new Set(),
+      generatedAt: '2026-08-30T00:00:00.000Z',
+    });
+
+    expect(report.matches).toEqual([
+      expect.objectContaining({
+        currentRetailer: 'exact-source.com',
+        sourceField: 'displayUrl',
+        sourceHostname: 'exact-source.com',
+      }),
+      expect.objectContaining({
+        currentRetailer: 'us.suffix-source.com',
+        sourceField: 'primaryDomain',
+        sourceHostname: 'suffix-source.com',
+      }),
+    ]);
+    expect(report.manualReview).toEqual([
+      expect.objectContaining({
+        currentRetailer: 'name-source.com',
+        sourceField: 'name',
+        sourceHostname: null,
+      }),
+    ]);
+  });
+
   it('renders durable CSV and Markdown with the requested provenance fields', () => {
     const report = buildShortlist({
       catalogue,
@@ -179,11 +252,51 @@ describe('Awin directory shortlist', () => {
     });
 
     expect(formatCsv(report)).toContain(
-      'current_retailer,product_count,awin_advertiser_name,awin_advertiser_id,source_hostname,match_type,us_programme_status,product_feed_available',
+      'current_retailer,product_count,awin_advertiser_name,awin_advertiser_id,source_hostname,source_field,match_evidence,match_type,us_programme_status,product_feed_available',
     );
     expect(formatMarkdown(report)).toContain('## Exact hostname and domain-suffix matches');
     expect(formatMarkdown(report)).toContain('## Manual-review candidates');
     expect(formatMarkdown(report)).toContain('## Unmatched retailers');
+    expect(formatMarkdown(report)).toContain('match evidence');
+  });
+
+  it('collects every Awin programme page', async () => {
+    const calls: string[] = [];
+    const fetchImpl = async (url: URL) => {
+      calls.push(url.toString());
+      const second = calls.length === 2;
+      return {
+        ok: true,
+        json: async () => ({ programmes: [{ id: second ? 2 : 1 }] }),
+        headers: {
+          get: () => (second ? null : '<?page=2>; rel="next"'),
+        },
+      };
+    };
+
+    await expect(
+      requestProgrammes({
+        publisherId: '99',
+        token: 'test-token',
+        relationship: 'notjoined',
+        fetchImpl,
+      }),
+    ).resolves.toEqual([
+      { id: 1, relationship: 'notjoined' },
+      { id: 2, relationship: 'notjoined' },
+    ]);
+    expect(calls).toHaveLength(2);
+    expect(new URL(calls[1]).pathname).toBe('/publishers/99/programmes');
+    expect(
+      calls.every((url) => {
+        const query = new URL(url).searchParams;
+        return (
+          query.get('accessToken') === 'test-token' &&
+          query.get('countryCode') === 'US' &&
+          query.get('relationship') === 'notjoined'
+        );
+      }),
+    ).toBe(true);
   });
 
   it('keeps the execution lane manual, secret-bound, and artifact-only', () => {

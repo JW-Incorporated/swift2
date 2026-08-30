@@ -389,7 +389,12 @@ describe('E3 authoring runner cost reservation', () => {
     let request: Request | undefined;
     const response = await judgePairWithClaude(source, {
       apiKey: 'test-key',
-      fetchImpl: async (_url: string, init: RequestInit) => {
+      fetchImpl: async (url: string, init: RequestInit) => {
+        if (url === source.productImageUrl || url === source.momentImageUrl) {
+          return new Response(Uint8Array.from([137, 80, 78, 71]), {
+            headers: { 'content-type': 'image/png' },
+          });
+        }
         request = new Request('https://api.anthropic.com/v1/messages', init);
         return new Response(
           JSON.stringify({
@@ -408,6 +413,86 @@ describe('E3 authoring runner cost reservation', () => {
     });
     expect((payload.messages as Array<{ content: unknown[] }>)[0].content).toHaveLength(3);
     expect(response).toEqual(validJudgment);
+  });
+
+  it('encodes supported source images before sending a Claude judgment request', async () => {
+    let request: Request | undefined;
+    const imageBytes = Uint8Array.from([137, 80, 78, 71]);
+    const calls: string[] = [];
+    const response = await judgePairWithClaude(source, {
+      apiKey: 'test-key',
+      fetchImpl: async (url: string, init: RequestInit) => {
+        calls.push(url);
+        if (url === source.productImageUrl || url === source.momentImageUrl) {
+          expect(init).toMatchObject({ method: 'GET', redirect: 'follow' });
+          return new Response(imageBytes, { headers: { 'content-type': 'image/png' } });
+        }
+        request = new Request('https://api.anthropic.com/v1/messages', init);
+        return new Response(
+          JSON.stringify({
+            content: [{ type: 'tool_use', name: 'record_match_judgment', input: validJudgment }],
+          }),
+          { status: 200 },
+        );
+      },
+    });
+
+    const payload = (await request?.json()) as {
+      messages: Array<{ content: Array<{ source?: Record<string, string> }> }>;
+    };
+    expect(calls).toEqual([
+      source.productImageUrl,
+      source.momentImageUrl,
+      'https://api.anthropic.com/v1/messages',
+    ]);
+    expect(payload.messages[0].content.slice(0, 2)).toEqual([
+      {
+        type: 'image',
+        source: {
+          type: 'base64',
+          media_type: 'image/png',
+          data: 'iVBORw==',
+        },
+      },
+      {
+        type: 'image',
+        source: {
+          type: 'base64',
+          media_type: 'image/png',
+          data: 'iVBORw==',
+        },
+      },
+    ]);
+    expect(response).toEqual(validJudgment);
+  });
+
+  it('preserves an unsupported image as unresolved evidence without submitting a provider request', async () => {
+    let providerRequests = 0;
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      judge: (pair: Record<string, unknown>) =>
+        judgePairWithClaude(pair, {
+          apiKey: 'test-key',
+          fetchImpl: async (url: string) => {
+            if (url === source.productImageUrl) {
+              return new Response(Uint8Array.from([0]), {
+                headers: { 'content-type': 'image/heic' },
+              });
+            }
+            if (url === source.momentImageUrl) {
+              return new Response(Uint8Array.from([137, 80, 78, 71]), {
+                headers: { 'content-type': 'image/png' },
+              });
+            }
+            providerRequests += 1;
+            return new Response(JSON.stringify({ content: [] }), { status: 200 });
+          },
+        }),
+    });
+
+    expect(providerRequests).toBe(0);
+    expect(result.judgments[0].reasons).toEqual(['image source unsupported']);
   });
 
   it('creates one exact-title follow-up issue when a cap stop leaves pairs unresolved', async () => {

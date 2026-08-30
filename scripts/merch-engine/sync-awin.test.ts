@@ -24,9 +24,13 @@ import {
 } from './sync-awin-feeds.mjs';
 
 const EMPTY_DIRECTORY = 'feed id,last imported,url,advertiser id\n';
-const CURRENT_DIRECTORY = 'feed id,last imported,url,advertiser id\ncurrent,2026-08-30,https://feeds.example/current.csv,100';
+const CURRENT_DIRECTORY =
+  'feed id,last imported,url,advertiser id\ncurrent,2026-08-30,https://feeds.example/current.csv,100';
 
-async function withCache(cache: object, run: (cachePath: string, indexPath: string) => Promise<void>) {
+async function withCache(
+  cache: object,
+  run: (cachePath: string, indexPath: string) => Promise<void>,
+) {
   const directory = await mkdtemp(join(tmpdir(), 'awin-feed-cache-'));
   const cachePath = join(directory, 'cache.json');
   const indexPath = join(directory, 'index.sqlite');
@@ -71,7 +75,9 @@ describe('E0 Awin sync', () => {
           { feedId: 'unchanged', updatedAt: '2026-08-29T00:00:00.000Z' },
           { feedId: 'changed', updatedAt: '2026-08-30T00:00:00.000Z' },
         ],
-        cache: { feeds: { unchanged: '2026-08-29T00:00:00.000Z', changed: '2026-08-29T00:00:00.000Z' } },
+        cache: {
+          feeds: { unchanged: '2026-08-29T00:00:00.000Z', changed: '2026-08-29T00:00:00.000Z' },
+        },
       }),
     ).toEqual([{ feedId: 'changed', updatedAt: '2026-08-30T00:00:00.000Z' }]);
   });
@@ -79,25 +85,42 @@ describe('E0 Awin sync', () => {
   it('follows each documented next-page link while reading the programme directory', async () => {
     const fetchImpl = vi
       .fn()
-      .mockResolvedValueOnce(new Response(JSON.stringify([{ id: 1 }]), { headers: { link: '<https://api.awin.com/programmes?page=2>; rel="next"' } }))
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify([{ id: 1 }]), { headers: { link: '<?page=2>; rel="next"' } }),
+      )
       .mockResolvedValueOnce(new Response(JSON.stringify([{ id: 2 }])));
 
-    await expect(requestProgrammes({ publisherId: '123', token: 'test-token', fetchImpl })).resolves.toEqual([{ id: 1 }, { id: 2 }]);
+    await expect(
+      requestProgrammes({ publisherId: '123', token: 'test-token', fetchImpl }),
+    ).resolves.toEqual([{ id: 1 }, { id: 2 }]);
     expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(new URL(fetchImpl.mock.calls[1][0]).pathname).toBe('/publishers/123/programmes');
     expect(new URL(fetchImpl.mock.calls[1][0]).searchParams.get('page')).toBe('2');
   });
 
   it('rejects programme pagination links outside the Awin API origin', async () => {
-    const fetchImpl = vi.fn().mockResolvedValue(new Response(JSON.stringify([{ id: 1 }]), { headers: { link: '<https://outside.example/programmes?page=2>; rel="next"' } }));
+    const fetchImpl = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify([{ id: 1 }]), {
+        headers: { link: '<https://outside.example/programmes?page=2>; rel="next"' },
+      }),
+    );
 
-    await expect(requestProgrammes({ publisherId: '123', token: 'test-token', fetchImpl })).rejects.toThrow('Awin programme pagination must remain on the Awin API origin');
+    await expect(
+      requestProgrammes({ publisherId: '123', token: 'test-token', fetchImpl }),
+    ).rejects.toThrow('Awin programme pagination must remain on the Awin API origin');
     expect(fetchImpl).toHaveBeenCalledTimes(1);
   });
 
   it('identifies feeds removed from the latest directory', () => {
     expect(
       removedFeedIds({
-        feeds: [{ feedId: 'still-here', updatedAt: '2026-08-30', downloadUrl: 'https://feeds.example/still-here.csv' }],
+        feeds: [
+          {
+            feedId: 'still-here',
+            updatedAt: '2026-08-30',
+            downloadUrl: 'https://feeds.example/still-here.csv',
+          },
+        ],
         cache: { feeds: { 'still-here': '2026-08-30', removed: '2026-08-29' } },
       }),
     ).toEqual(['removed']);
@@ -147,7 +170,14 @@ describe('E0 Awin sync', () => {
       }),
     ).toEqual({
       complete: true,
-      feeds: [{ feedId: 'current', updatedAt: '2026-08-30', downloadUrl: 'https://feeds.example/current.csv', advertiserMid: '100' }],
+      feeds: [
+        {
+          feedId: 'current',
+          updatedAt: '2026-08-30',
+          downloadUrl: 'https://feeds.example/current.csv',
+          advertiserMid: '100',
+        },
+      ],
       changed: [],
       removed: [],
     });
@@ -170,7 +200,14 @@ describe('E0 Awin sync', () => {
       }),
     ).toEqual({
       complete: false,
-      feeds: [{ feedId: 'current', updatedAt: '2026-08-30', downloadUrl: 'https://feeds.example/current.csv', advertiserMid: '100' }],
+      feeds: [
+        {
+          feedId: 'current',
+          updatedAt: '2026-08-30',
+          downloadUrl: 'https://feeds.example/current.csv',
+          advertiserMid: '100',
+        },
+      ],
       changed: [],
       removed: [],
     });
@@ -184,46 +221,105 @@ describe('E0 Awin sync', () => {
       }),
     ).toEqual({
       complete: true,
-      feeds: [{ feedId: 'current', updatedAt: '2026-08-31', downloadUrl: 'https://feeds.example/current.csv', advertiserMid: '100' }],
-      changed: [{ feedId: 'current', updatedAt: '2026-08-31', downloadUrl: 'https://feeds.example/current.csv', advertiserMid: '100' }],
+      feeds: [
+        {
+          feedId: 'current',
+          updatedAt: '2026-08-31',
+          downloadUrl: 'https://feeds.example/current.csv',
+          advertiserMid: '100',
+        },
+      ],
+      changed: [
+        {
+          feedId: 'current',
+          updatedAt: '2026-08-31',
+          downloadUrl: 'https://feeds.example/current.csv',
+          advertiserMid: '100',
+        },
+      ],
       removed: ['removed'],
     });
   });
 
   it('clears a prior empty marker before a valid nonempty download failure, making the next empty response a first observation', async () => {
-    await withCache({ feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 }, async (cachePath, indexPath) => {
-      const fetchImpl = vi
-        .fn()
-        .mockResolvedValueOnce(new Response(CURRENT_DIRECTORY))
-        .mockResolvedValueOnce(new Response('', { status: 500 }))
-        .mockResolvedValueOnce(new Response(EMPTY_DIRECTORY));
+    await withCache(
+      { feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 },
+      async (cachePath, indexPath) => {
+        const fetchImpl = vi
+          .fn()
+          .mockResolvedValueOnce(new Response(CURRENT_DIRECTORY))
+          .mockResolvedValueOnce(new Response('', { status: 500 }))
+          .mockResolvedValueOnce(new Response(EMPTY_DIRECTORY));
 
-      await expect(syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn() })).rejects.toThrow('download failed');
-      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: { retained: '2026-08-29' } });
+        await expect(
+          syncAwinFeeds({
+            cachePath,
+            indexPath,
+            apiKey: 'test',
+            fetchImpl,
+            writeSqliteImpl: vi.fn(),
+          }),
+        ).rejects.toThrow('download failed');
+        expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
+          feeds: { retained: '2026-08-29' },
+        });
 
-      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn() });
-      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 });
-    });
+        await syncAwinFeeds({
+          cachePath,
+          indexPath,
+          apiKey: 'test',
+          fetchImpl,
+          writeSqliteImpl: vi.fn(),
+        });
+        expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
+          feeds: { retained: '2026-08-29' },
+          emptyDirectoryStreak: 1,
+        });
+      },
+    );
   });
 
   it('clears a prior empty marker before a valid nonempty index failure without advancing feed timestamps', async () => {
-    await withCache({ feeds: { current: '2026-08-30', retained: '2026-08-29' }, emptyDirectoryStreak: 1 }, async (cachePath, indexPath) => {
-      const fetchImpl = vi.fn().mockResolvedValue(new Response(CURRENT_DIRECTORY));
-      const writeSqliteImpl = vi.fn().mockRejectedValue(new Error('index write failed'));
+    await withCache(
+      { feeds: { current: '2026-08-30', retained: '2026-08-29' }, emptyDirectoryStreak: 1 },
+      async (cachePath, indexPath) => {
+        const fetchImpl = vi.fn().mockResolvedValue(new Response(CURRENT_DIRECTORY));
+        const writeSqliteImpl = vi.fn().mockRejectedValue(new Error('index write failed'));
 
-      await expect(syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl })).rejects.toThrow('index write failed');
-      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: { current: '2026-08-30', retained: '2026-08-29' } });
-      expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained']);
-    });
+        await expect(
+          syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl }),
+        ).rejects.toThrow('index write failed');
+        expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
+          feeds: { current: '2026-08-30', retained: '2026-08-29' },
+        });
+        expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained']);
+      },
+    );
   });
 
   it('preserves an empty marker after malformed input because malformed directories are non-observations', async () => {
-    await withCache({ feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 }, async (cachePath, indexPath) => {
-      const fetchImpl = vi.fn().mockResolvedValue(new Response('<html>temporary upstream error</html>'));
+    await withCache(
+      { feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 },
+      async (cachePath, indexPath) => {
+        const fetchImpl = vi
+          .fn()
+          .mockResolvedValue(new Response('<html>temporary upstream error</html>'));
 
-      await expect(syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn() })).rejects.toThrow('directory response is incomplete');
-      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 });
-    });
+        await expect(
+          syncAwinFeeds({
+            cachePath,
+            indexPath,
+            apiKey: 'test',
+            fetchImpl,
+            writeSqliteImpl: vi.fn(),
+          }),
+        ).rejects.toThrow('directory response is incomplete');
+        expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
+          feeds: { retained: '2026-08-29' },
+          emptyDirectoryStreak: 1,
+        });
+      },
+    );
   });
 
   it('persists a valid empty cache marker and removes feeds only after the next valid empty directory', async () => {
@@ -232,7 +328,10 @@ describe('E0 Awin sync', () => {
       const writeSqliteImpl = vi.fn();
 
       await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl });
-      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 });
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
+        feeds: { retained: '2026-08-29' },
+        emptyDirectoryStreak: 1,
+      });
 
       await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl });
       expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained']);
@@ -241,27 +340,70 @@ describe('E0 Awin sync', () => {
   });
 
   const sqliteSupported = Number(process.versions.node.split('.')[0]) >= 22;
-  (sqliteSupported ? it : it.skip)('removes absent feeds and keeps FTS lookups linked to refreshed products', async () => {
-    const directory = await mkdtemp(join(tmpdir(), 'awin-feed-index-'));
-    const indexPath = join(directory, 'index.sqlite');
-    try {
-      await writeSqlite(indexPath, [
-        { feedId: 'current', advertiserMid: '100', productId: 'dress', title: 'Original Dress', description: '', brand: '', updatedAt: '2026-08-30' },
-        { feedId: 'removed', advertiserMid: '200', productId: 'gone', title: 'Gone Product', description: '', brand: '', updatedAt: '2026-08-30' },
-      ], ['current', 'removed']);
-      await writeSqlite(indexPath, [
-        { feedId: 'current', advertiserMid: '100', productId: 'dress', title: 'Updated Dress', description: '', brand: '', updatedAt: '2026-08-31' },
-      ], ['current', 'removed']);
+  (sqliteSupported ? it : it.skip)(
+    'removes absent feeds and keeps FTS lookups linked to refreshed products',
+    async () => {
+      const directory = await mkdtemp(join(tmpdir(), 'awin-feed-index-'));
+      const indexPath = join(directory, 'index.sqlite');
+      try {
+        await writeSqlite(
+          indexPath,
+          [
+            {
+              feedId: 'current',
+              advertiserMid: '100',
+              productId: 'dress',
+              title: 'Original Dress',
+              description: '',
+              brand: '',
+              updatedAt: '2026-08-30',
+            },
+            {
+              feedId: 'removed',
+              advertiserMid: '200',
+              productId: 'gone',
+              title: 'Gone Product',
+              description: '',
+              brand: '',
+              updatedAt: '2026-08-30',
+            },
+          ],
+          ['current', 'removed'],
+        );
+        await writeSqlite(
+          indexPath,
+          [
+            {
+              feedId: 'current',
+              advertiserMid: '100',
+              productId: 'dress',
+              title: 'Updated Dress',
+              description: '',
+              brand: '',
+              updatedAt: '2026-08-31',
+            },
+          ],
+          ['current', 'removed'],
+        );
 
-      const { DatabaseSync } = await import('node:sqlite');
-      const database = new DatabaseSync(indexPath);
-      expect(database.prepare("SELECT product_key FROM products_fts WHERE products_fts MATCH 'Updated'").all()).toEqual([{ product_key: 'current:dress' }]);
-      expect(database.prepare("SELECT product_key FROM products_fts WHERE products_fts MATCH 'Gone'").all()).toEqual([]);
-      database.close();
-    } finally {
-      await rm(directory, { force: true, recursive: true });
-    }
-  });
+        const { DatabaseSync } = await import('node:sqlite');
+        const database = new DatabaseSync(indexPath);
+        expect(
+          database
+            .prepare("SELECT product_key FROM products_fts WHERE products_fts MATCH 'Updated'")
+            .all(),
+        ).toEqual([{ product_key: 'current:dress' }]);
+        expect(
+          database
+            .prepare("SELECT product_key FROM products_fts WHERE products_fts MATCH 'Gone'")
+            .all(),
+        ).toEqual([]);
+        database.close();
+      } finally {
+        await rm(directory, { force: true, recursive: true });
+      }
+    },
+  );
 
   it('keeps quoted multiline CSV fields inside their original product record', () => {
     expect(
@@ -270,17 +412,26 @@ describe('E0 Awin sync', () => {
         'merchant_id,aw_product_id,product_name,description\n123,p1,Dress,"First line\nSecond line"',
       ),
     ).toEqual([
-      expect.objectContaining({ feedId: 'feed-1', advertiserMid: '123', productId: 'p1', description: 'First line\nSecond line' }),
+      expect.objectContaining({
+        feedId: 'feed-1',
+        advertiserMid: '123',
+        productId: 'p1',
+        description: 'First line\nSecond line',
+      }),
     ]);
   });
 
   it('treats an empty changed feed as zero rows', () => {
-    expect(rowsFromCsv({ feedId: 'feed-1', updatedAt: '2026-08-30T00:00:00.000Z' }, '')).toEqual([]);
+    expect(rowsFromCsv({ feedId: 'feed-1', updatedAt: '2026-08-30T00:00:00.000Z' }, '')).toEqual(
+      [],
+    );
   });
 
   it('reads the feed advertiser ID so a changed empty feed can remove its stale rows', () => {
     expect(
-      parseFeedList('feed id,last imported,url,advertiser id\nfeed-1,2026-08-30,https://feeds.example/one.csv,123'),
+      parseFeedList(
+        'feed id,last imported,url,advertiser id\nfeed-1,2026-08-30,https://feeds.example/one.csv,123',
+      ),
     ).toEqual([
       {
         feedId: 'feed-1',
@@ -292,13 +443,23 @@ describe('E0 Awin sync', () => {
   });
 
   it('limits feed requests to five per minute and never runs two downloads concurrently', async () => {
-    const fetchImpl = vi.fn(async (url: string) => new Response(`id,title\n${url},Dress`, { status: 200 }));
+    const fetchImpl = vi.fn(
+      async (url: string) => new Response(`id,title\n${url},Dress`, { status: 200 }),
+    );
     const sleep = vi.fn(async () => undefined);
 
     await fetchChangedFeeds({
       feeds: [
-        { feedId: 'one', downloadUrl: 'https://feeds.example/one.csv', updatedAt: '2026-08-30T00:00:00.000Z' },
-        { feedId: 'two', downloadUrl: 'https://feeds.example/two.csv', updatedAt: '2026-08-30T00:00:00.000Z' },
+        {
+          feedId: 'one',
+          downloadUrl: 'https://feeds.example/one.csv',
+          updatedAt: '2026-08-30T00:00:00.000Z',
+        },
+        {
+          feedId: 'two',
+          downloadUrl: 'https://feeds.example/two.csv',
+          updatedAt: '2026-08-30T00:00:00.000Z',
+        },
       ],
       fetchImpl,
       sleep,
@@ -329,6 +490,8 @@ describe('E0 Awin sync', () => {
     expect(workflow).toContain('token: ${{ secrets.SOCIAL_POSTER_PAT }}');
     expect(workflow).toContain('apps/web/lib/longlive/awin-advertisers.json');
     expect(workflow).toContain('docs/ops/AFFILIATE-COVERAGE.md');
-    expect(readFileSync('scripts/merch-engine/sync-awin-programmes.mjs', 'utf8')).not.toContain("relationship: 'any'");
+    expect(readFileSync('scripts/merch-engine/sync-awin-programmes.mjs', 'utf8')).not.toContain(
+      "relationship: 'any'",
+    );
   });
 });

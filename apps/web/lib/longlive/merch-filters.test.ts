@@ -20,7 +20,9 @@ describe('merchByEra', () => {
     // their `products` entries — a real, intended composition shift.
     // 133 -> 108 (E3, 2026-08-30): vision audit removed 25 mismatches and
     // recorded each one for re-sourcing instead of presenting a false match.
-    expect(total).toBe(108);
+    // 108 -> 100 (E3, 2026-08-30): the subsequent authoring receipt removed
+    // eight further sub-25 mismatches and preserved their re-source evidence.
+    expect(total).toBe(100);
     // count is precomputed as items.length, per the contract
     for (const g of groups) expect(g.count).toBe(g.items.length);
   });
@@ -99,11 +101,11 @@ describe('merchItemImage', () => {
     // its first real photo, so its shop-the-look product's image now
     // resolves via the moment fallback instead of the blank monogram
     // placeholder.
-    expect(split).toBe(49);
+    expect(split).toBe(46);
     expect(product).toBe(2);
-    expect(moment).toBe(51);
+    expect(moment).toBe(46);
     expect(monogram).toBe(6);
-    expect(split + product + moment + monogram).toBe(108);
+    expect(split + product + moment + monogram).toBe(100);
   });
 
   it('never returns the era-art fallback path for a product or moment photo', () => {
