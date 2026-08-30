@@ -8,7 +8,8 @@ on:
   workflow_dispatch: {}
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 concurrency:
   group: merch-awin-sync
@@ -35,7 +36,15 @@ jobs:
         env:
           AWIN_API_TOKEN: ${{ secrets.AWIN_API_TOKEN }}
           AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}
-        run: node scripts/merch-engine/sync-awin-programmes.mjs --output awin-advertisers.next.json
+        run: npx tsx scripts/merch-engine/sync-awin-programmes.mjs
+      - name: Open gated advertiser-map update
+        uses: peter-evans/create-pull-request@v7
+        with:
+          add-paths: apps/web/lib/longlive/awin-advertisers.json
+          branch: merch-awin/advertiser-map
+          commit-message: 'chore(merch): refresh Awin advertiser map'
+          title: 'chore(merch): refresh Awin advertiser map'
+          body: 'Automated E0 detector result. This PR updates only the joined-programme Awin advertiser map.'
       - name: Refresh changed product feeds into cached index
         env:
           AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}
@@ -43,7 +52,7 @@ jobs:
       - uses: actions/upload-artifact@v6
         with:
           name: merch-awin-sync-handoff
-          path: awin-advertisers.next.json
+          path: apps/web/lib/longlive/awin-advertisers.json
           if-no-files-found: error
       - name: Save Awin feed index cache
         uses: actions/cache/save@v4

@@ -30,8 +30,26 @@ function parseCsvRow(line) {
   return values;
 }
 
+function parseCsvRecords(csv) {
+  const records = [];
+  let start = 0;
+  let quoted = false;
+  for (let index = 0; index < csv.length; index += 1) {
+    if (csv[index] === '"') {
+      if (quoted && csv[index + 1] === '"') index += 1;
+      else quoted = !quoted;
+    }
+    if (csv[index] === '\n' && !quoted) {
+      records.push(csv.slice(start, index).replace(/\r$/, ''));
+      start = index + 1;
+    }
+  }
+  if (start < csv.length) records.push(csv.slice(start).replace(/\r$/, ''));
+  return records;
+}
+
 export function parseFeedList(csv) {
-  const [header, ...lines] = String(csv).trim().split(/\r?\n/);
+  const [header, ...lines] = parseCsvRecords(String(csv).trim());
   const names = parseCsvRow(header).map((name) => name.trim().toLowerCase());
   const field = (row, ...candidates) => {
     const index = candidates.map((candidate) => names.indexOf(candidate)).find((candidate) => candidate >= 0);
@@ -44,6 +62,7 @@ export function parseFeedList(csv) {
       feedId: field(row, 'feed id', 'feed_id', 'fid'),
       updatedAt: field(row, 'last imported', 'last update', 'last_updated'),
       downloadUrl: field(row, 'url', 'download url', 'download_url'),
+      advertiserMid: field(row, 'advertiser id', 'advertiser_id', 'merchant id', 'merchant_id'),
     }))
     .filter((feed) => feed.feedId && feed.updatedAt && feed.downloadUrl);
 }
@@ -65,14 +84,17 @@ export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms)
   return downloaded;
 }
 
-function rowsFromCsv(feed, csv) {
-  const [header, ...lines] = String(csv).trim().split(/\r?\n/);
+export function rowsFromCsv(feed, csv) {
+  const records = parseCsvRecords(String(csv).trim());
+  if (records.length === 0) return [];
+  const [header, ...lines] = records;
   const names = parseCsvRow(header).map((name) => name.trim().toLowerCase());
   const value = (row, ...candidates) => {
     const index = candidates.map((candidate) => names.indexOf(candidate)).find((candidate) => candidate >= 0);
     return index === undefined ? null : text(row[index]);
   };
   return lines.filter(Boolean).map(parseCsvRow).map((row) => ({
+    feedId: feed.feedId,
     advertiserMid: value(row, 'merchant_id', 'advertiser id'),
     productId: value(row, 'aw_product_id', 'product id'),
     title: value(row, 'product_name', 'title'),
@@ -97,16 +119,21 @@ async function jsonFrom(path, fallback) {
   }
 }
 
-async function writeSqlite(path, rows) {
+async function writeSqlite(path, rows, changedFeeds) {
   const { DatabaseSync } = await import('node:sqlite');
   const database = new DatabaseSync(path);
-  database.exec('CREATE TABLE IF NOT EXISTS products (advertiser_mid TEXT, product_id TEXT, title TEXT, description TEXT, brand TEXT, price TEXT, stock TEXT, image_url TEXT, destination_url TEXT, deeplink TEXT, category TEXT, updated_at TEXT, PRIMARY KEY(advertiser_mid, product_id)); CREATE VIRTUAL TABLE IF NOT EXISTS products_fts USING fts5(title, description, brand); DELETE FROM products; DELETE FROM products_fts;');
-  const insert = database.prepare('INSERT INTO products VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+  database.exec('CREATE TABLE IF NOT EXISTS products (feed_id TEXT NOT NULL, advertiser_mid TEXT, product_id TEXT, title TEXT, description TEXT, brand TEXT, price TEXT, stock TEXT, image_url TEXT, destination_url TEXT, deeplink TEXT, category TEXT, updated_at TEXT, PRIMARY KEY(advertiser_mid, product_id)); CREATE VIRTUAL TABLE IF NOT EXISTS products_fts USING fts5(title, description, brand);');
+  const columns = database.prepare('PRAGMA table_info(products)').all();
+  if (!columns.some((column) => column.name === 'feed_id')) database.exec("ALTER TABLE products ADD COLUMN feed_id TEXT NOT NULL DEFAULT ''");
+  const removeFeed = database.prepare('DELETE FROM products WHERE feed_id = ?');
+  const insert = database.prepare('INSERT OR REPLACE INTO products (feed_id, advertiser_mid, product_id, title, description, brand, price, stock, image_url, destination_url, deeplink, category, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+  for (const feed of changedFeeds) removeFeed.run(feed.feedId);
   const insertFts = database.prepare('INSERT INTO products_fts VALUES (?, ?, ?)');
   for (const row of rows) {
-    insert.run(row.advertiserMid, row.productId, row.title, row.description, row.brand, row.price, row.stock, row.imageUrl, row.destinationUrl, row.deeplink, row.category, row.updatedAt);
-    insertFts.run(row.title, row.description, row.brand);
+    insert.run(row.feedId, row.advertiserMid, row.productId, row.title, row.description, row.brand, row.price, row.stock, row.imageUrl, row.destinationUrl, row.deeplink, row.category, row.updatedAt);
   }
+  database.exec('DELETE FROM products_fts;');
+  for (const row of database.prepare('SELECT title, description, brand FROM products').all()) insertFts.run(row.title, row.description, row.brand);
   database.close();
 }
 
@@ -121,12 +148,13 @@ async function main() {
   const list = await fetch(`https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(apiKey)}`);
   if (!list.ok) throw new Error(`Awin feed list request failed (${list.status})`);
   const changed = buildFeedSyncPlan({ feeds: parseFeedList(await list.text()), cache });
+  if (changed.some((feed) => !feed.advertiserMid)) throw new Error('Awin feed list must identify each changed advertiser');
   const downloaded = await fetchChangedFeeds({ feeds: changed });
   const rows = downloaded.flatMap((feed) => rowsFromCsv(feed, feed.csv));
   const cacheTarget = resolve(ROOT, cachePath);
   await mkdir(dirname(cacheTarget), { recursive: true });
   await writeFile(cacheTarget, `${JSON.stringify({ feeds: Object.fromEntries([...Object.entries(cache.feeds ?? {}), ...changed.map((feed) => [feed.feedId, feed.updatedAt])]) }, null, 2)}\n`);
-  if (rows.length > 0) await writeSqlite(resolve(ROOT, indexPath), rows);
+  if (changed.length > 0) await writeSqlite(resolve(ROOT, indexPath), rows, changed);
   console.log(JSON.stringify({ changedFeeds: changed.length, indexedProducts: rows.length }));
 }
 

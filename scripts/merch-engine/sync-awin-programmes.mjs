@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // E0 detector: generates checked-in programme metadata only; it never wraps links.
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 

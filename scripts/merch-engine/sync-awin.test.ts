@@ -8,7 +8,7 @@ import {
 } from './sync-awin-programmes.mjs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
-import { buildFeedSyncPlan, fetchChangedFeeds } from './sync-awin-feeds.mjs';
+import { buildFeedSyncPlan, fetchChangedFeeds, parseFeedList, rowsFromCsv } from './sync-awin-feeds.mjs';
 
 describe('E0 Awin sync', () => {
   it('generates a hostname map only for joined programmes and retains unmatched advertisers as apply candidates', () => {
@@ -48,6 +48,34 @@ describe('E0 Awin sync', () => {
     ).toEqual([{ feedId: 'changed', updatedAt: '2026-08-30T00:00:00.000Z' }]);
   });
 
+  it('keeps quoted multiline CSV fields inside their original product record', () => {
+    expect(
+      rowsFromCsv(
+        { feedId: 'feed-1', updatedAt: '2026-08-30T00:00:00.000Z' },
+        'merchant_id,aw_product_id,product_name,description\n123,p1,Dress,"First line\nSecond line"',
+      ),
+    ).toEqual([
+      expect.objectContaining({ feedId: 'feed-1', advertiserMid: '123', productId: 'p1', description: 'First line\nSecond line' }),
+    ]);
+  });
+
+  it('treats an empty changed feed as zero rows', () => {
+    expect(rowsFromCsv({ feedId: 'feed-1', updatedAt: '2026-08-30T00:00:00.000Z' }, '')).toEqual([]);
+  });
+
+  it('reads the feed advertiser ID so a changed empty feed can remove its stale rows', () => {
+    expect(
+      parseFeedList('feed id,last imported,url,advertiser id\nfeed-1,2026-08-30,https://feeds.example/one.csv,123'),
+    ).toEqual([
+      {
+        feedId: 'feed-1',
+        updatedAt: '2026-08-30',
+        downloadUrl: 'https://feeds.example/one.csv',
+        advertiserMid: '123',
+      },
+    ]);
+  });
+
   it('limits feed requests to five per minute and never runs two downloads concurrently', async () => {
     const fetchImpl = vi.fn(async (url: string) => new Response(`id,title\n${url},Dress`, { status: 200 }));
     const sleep = vi.fn(async () => undefined);
@@ -74,10 +102,13 @@ describe('E0 Awin sync', () => {
     expect(workflow).toContain('actions/cache/restore@v4');
     expect(workflow).toContain('actions/cache/save@v4');
     expect(workflow).toContain('sync-awin-programmes.mjs');
+    expect(workflow).toContain('npx tsx scripts/merch-engine/sync-awin-programmes.mjs');
     expect(workflow).toContain('sync-awin-feeds.mjs');
     expect(workflow).toContain('AWIN_API_TOKEN: ${{ secrets.AWIN_API_TOKEN }}');
     expect(workflow).toContain('AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}');
     expect(workflow).toContain('AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}');
     expect(workflow).not.toMatch(/git (add|commit|push)/i);
+    expect(workflow).toContain('peter-evans/create-pull-request');
+    expect(workflow).toContain('apps/web/lib/longlive/awin-advertisers.json');
   });
 });
