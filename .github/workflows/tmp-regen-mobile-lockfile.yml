@@ -1,0 +1,50 @@
+# TEMPORARY. Removed in this same PR once it has produced the lockfile.
+#
+# Same idiom as #3342: the author's Windows machine cannot complete an `npm
+# install` (8-10 min timeouts), so the lockfile for a new mobile dependency is
+# generated and PROVEN on Linux CI instead. Differences from #3342: this PR
+# ADDS a dependency, so `npm ci` cannot be the first step (package.json and the
+# lockfile are legitimately out of sync until this job runs) -- a full
+# `npm install` is used, which is also the only form that honours the root
+# `overrides: { "uuid": "^11.1.1" }`. `--package-lock-only` must never be used
+# here: it silently drops the override and reopens GHSA-w5hq-g745-h8pq.
+name: tmp regen mobile lockfile
+on:
+  push:
+    branches: [fix/mobile-android-safe-area-scrubber]
+permissions:
+  contents: write
+jobs:
+  regen:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: '${{ github.ref_name }}', fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: '24' }
+      - name: Full install (adds the new dep, honours the root uuid override)
+        run: npm install --no-audit --no-fund
+      - name: Show what Expo SDK 57 actually pins
+        run: node -e "const m=require('expo/bundledNativeModules.json');console.log('expo',require('expo/package.json').version);console.log('react-native-safe-area-context pin:',m['react-native-safe-area-context'])"
+      - name: Align apps/mobile to the Expo SDK pins
+        working-directory: apps/mobile
+        run: npx --no-install expo install --fix
+      - name: Re-normalise the lockfile after any --fix change
+        run: npm install --no-audit --no-fund
+      - name: Downgrade guard (report only - the PR's CI enforces it)
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          node scripts/check-no-downgrade.mjs --base-ref FETCH_HEAD || true
+      - name: Prove the Android bundle still builds
+        working-directory: apps/mobile
+        run: npx --no-install expo export --platform android --output-dir /tmp/dist-verify
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apps/mobile/package.json package-lock.json
+          if git diff --staged --quiet; then echo "nothing to commit"; else
+            git commit -m "chore(mobile): pin react-native-safe-area-context to the SDK 57 version + regenerate lockfile [skip ci]"
+            git push
+          fi

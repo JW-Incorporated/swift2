@@ -9,6 +9,17 @@
 //
 // v1 scope (per spec): snap to era boundaries only; milestones are passive
 // markers. The peek-strip → full-navigator morph is the next milestone.
+//
+// KNOWN, UNFIXED (Android, measured on a Pixel 6 / Android 14 emulator): a
+// horizontal DRAG that starts at x >= 954 (of 1080) is claimed by the system
+// back gesture and backgrounds the app, so the last era is awkward to scrub.
+// There is no clean RN-level fix — the OS decides before the app sees the
+// touch, and the only real remedy (View.setSystemGestureExclusionRects) is not
+// exposed by React Native. Insetting the right edge instead would shrink the
+// track and change the scrubber's hit geometry, which is load-bearing. The
+// practical mitigation is that TAPPING the last era segment now works at all
+// (it did not before the safe-area fix in App.tsx), so the era is reachable
+// without a drag from the edge.
 import { useCallback, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
