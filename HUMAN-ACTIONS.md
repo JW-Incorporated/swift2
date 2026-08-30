@@ -589,7 +589,11 @@ Full write-up: `docs/ops/community-merch-submissions.md`, Part 4.
 looks different (the widget passes invisibly). Submit a test link and
 confirm it still works and still shows up as a GitHub issue.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey decided: “Close this; we can worry about it if
+it becomes an issue.” Turnstile remains disabled/inert; the existing honeypot
+and rate limiter remain the active protections.
+
+**Status:** SKIP
 
 ---
 
