@@ -647,6 +647,7 @@ export default {
             item: 'Kai Two Piece Top and Skirt Set',
             retailer: 'showpo.com',
             url: 'https://www.showpo.com/us/products/kai-two-piece-top-and-skirt-set-sequin-strappy-crop-top-and-wrap-tie-side-mini-skirt-in-sc2605000502',
+            matchTier: 'unscored',
             price: '$105.00',
             isAlternative: true,
             altNote: 'The custom Cavalli look was never sold at retail -- this light-blue sequin two-piece matches its color, sparkle, and silhouette (boots not separately sourced).',
@@ -1104,16 +1105,6 @@ export default {
         // The exact seasonal Dôen tank is discontinued; this is a current
         // same-brand alternative verified in stock.
         products: [
-          {
-            brand: 'DÔEN',
-            item: 'Lois Tank',
-            retailer: 'shopdoen.com',
-            url: 'https://www.shopdoen.com/products/lois-tank-salt-quelle-jolie-pointelle',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0950/9820/files/DOEN2026VALENTINE_SPICKUP_LOIS-TANK_SALT_05.jpg?v=1771873081',
-            price: '$138.00',
-            isAlternative: true,
-            altNote: 'The exact game-day tank is discontinued -- this is a current Dôen white pointelle tank, same brand (shorts, windbreaker, and shoes not separately sourced).',
-          },
         ],
       },
     },
@@ -1334,16 +1325,6 @@ export default {
         // is undocumented beyond the brand name -- a current same-brand
         // leather skirt, verified in stock, closest real match.
         products: [
-          {
-            brand: 'KHAITE',
-            item: 'Jett Skirt in Black Leather',
-            retailer: 'khaite.com',
-            url: 'https://khaite.com/products/jett-skirt-in-black-leather',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/1519/7996/files/JETT_BLACK-LEATHER_GHOST_7320032a-f212-4b42-b7e0-7a09407e9d76.jpg?v=1725442992',
-            price: '$1,680.00',
-            isAlternative: true,
-            altNote: 'The exact Khaite mini worn to the game is undocumented -- this is a current same-brand black leather skirt (vintage top, jewelry, and boots not separately sourced).',
-          },
         ],
       },
     },
@@ -1416,16 +1397,6 @@ export default {
         // dress isn't currently sold -- a current same-brand black
         // crystal mini, verified in stock, closest real match.
         products: [
-          {
-            brand: 'AREA',
-            item: 'Crystal Hotfix Mini Dress',
-            retailer: 'area.nyc',
-            url: 'https://area.nyc/products/crystal-hotfix-mini-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/1747/6229/files/RS26AWDR0216FA01.jpg?v=1764719184',
-            price: '$398.00',
-            isAlternative: true,
-            altNote: 'The cover\'s grey AREA crystal dress isn\'t currently sold -- this is a current same-brand black crystal mini, one of the shoot\'s three looks.',
-          },
         ],
       },
     },
@@ -1858,6 +1829,7 @@ export default {
             item: 'Natalie Rhinestone Fishnet Mini Dress',
             retailer: 'fashionnova.com',
             url: 'https://www.fashionnova.com/products/natalie-rhinestone-fishnet-mini-dress-fncolorname-pink',
+            matchTier: 'unscored',
             price: '$27.98',
             isAlternative: true,
             altNote: 'The custom Versace stage bodysuit was never sold at retail -- this pink rhinestone fishnet mini offers a similar color and sparkle, as a dress rather than a bodysuit.',
@@ -1992,6 +1964,7 @@ export default {
             item: 'Lara Cut Out Jumpsuit',
             retailer: 'fashionnova.com',
             url: 'https://www.fashionnova.com/products/lara-cut-out-jumpsuit-fncolorname-black',
+            matchTier: 'unscored',
             price: '$39.99',
             isAlternative: true,
             altNote: 'The asymmetrical Cavalli catsuit was custom-made -- this black one-shoulder cutout jumpsuit echoes its one-piece shape with flared pants (boots not separately sourced).',
@@ -2033,6 +2006,7 @@ export default {
             item: '"Not a Lot Going on at the Moment" Unisex T-Shirt',
             retailer: 'upper90studio.com',
             url: 'https://www.upper90studio.com/store/p/not-a-lot-going-on-at-the-moment-unisex-t-shirt',
+            matchTier: 'unscored',
             price: '$19.95+',
             isAlternative: true,
             altNote: 'The Ashish stage recreation was custom and never sold at retail -- this made-to-order shirt reproduces the "22" video\'s phrase, not the designer construction.',
@@ -2304,6 +2278,7 @@ export default {
             item: 'Aurora Two Piece Top and Skirt Set',
             retailer: 'showpo.com',
             url: 'https://www.showpo.com/us/products/aurora-two-piece-top-and-skirt-set-floral-sequin-cowl-neck-top-and-maxi-skirt-in-baby-blue',
+            matchTier: 'unscored',
             price: '$45.00',
             isAlternative: true,
             altNote: 'The custom Cavalli Grammys set was never sold at retail -- this blue sequin two-piece keeps the cropped-top-and-skirt formula, in pale blue with floral sequins and a cowl neck.',
@@ -2425,6 +2400,9 @@ export default {
             item: 'LiquiLUST: Legendary Wear Lipstick in Elson 4',
             retailer: 'patmcgrath.com',
             url: 'https://www.patmcgrath.com/products/liquilust-legendary-wear-matte-lipstick',
+            matchTier: 'inspired',
+            matchScore: 30,
+            kind: 'beauty',
             imageUrl: 'https://cdn.shopify.com/s/files/1/1463/9662/products/PMG_LIPS_LIQUILUST_ELSON4_OPEN_898cccd8-29a2-4d1b-addc-64cd98736c7c.jpg?v=1764707981',
             price: '$34.00',
             isAlternative: false,
@@ -2465,16 +2443,6 @@ export default {
         // sold -- a current black-and-gold sequin gown, verified in
         // stock, closest real match.
         products: [
-          {
-            brand: 'Mac Duggal',
-            item: 'Black and Gold Sequined Wrap Over Butterfly Sleeve Draped Gown',
-            retailer: 'macduggal.com',
-            url: 'https://macduggal.com/products/5540',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/products/5540-BlackGold-AB.jpg?v=1753836953',
-            price: '$199.00',
-            isAlternative: true,
-            altNote: 'The original Versace gown is no longer sold -- this black-and-gold sequin gown matches the palette and shine, with a wrap front and butterfly sleeves instead of gold buttons.',
-          },
         ],
       },
     },
@@ -2513,6 +2481,7 @@ export default {
             item: 'Locked Kiss 24HR Lipstick in Ruby True',
             retailer: 'maccosmetics.com',
             url: 'https://www.maccosmetics.com/product/13854/119065/products/makeup/lips/lipstick/mac-locked-kiss-24hr-lipstick?shade=RUBY+TRUE',
+            matchTier: 'unscored',
             price: '$34.00',
             isAlternative: false,
             altNote: 'The exact MAC lipstick and shade identified in the backstage footage -- the primary lip color only, without the liner, setting powder, or full application routine.',
