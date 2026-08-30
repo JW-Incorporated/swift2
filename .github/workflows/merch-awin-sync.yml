@@ -1,0 +1,54 @@
+# E0 Awin detection is zero-LLM. :53 avoids the repository cron cluster and the
+# scripts add Awin's required 10–120 second start jitter before network calls.
+name: merch-awin-sync
+
+on:
+  schedule:
+    - cron: '53 7 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: merch-awin-sync
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Restore Awin feed index cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            awin-feed-cache.json
+            awin-product-index.sqlite
+          key: merch-awin-sync-${{ github.run_id }}
+          restore-keys: merch-awin-sync-
+      - name: Generate joined-programme directory handoff
+        env:
+          AWIN_API_TOKEN: ${{ secrets.AWIN_API_TOKEN }}
+          AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}
+        run: node scripts/merch-engine/sync-awin-programmes.mjs --output awin-advertisers.next.json
+      - name: Refresh changed product feeds into cached index
+        env:
+          AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}
+        run: node scripts/merch-engine/sync-awin-feeds.mjs --cache awin-feed-cache.json --index awin-product-index.sqlite
+      - uses: actions/upload-artifact@v6
+        with:
+          name: merch-awin-sync-handoff
+          path: awin-advertisers.next.json
+          if-no-files-found: error
+      - name: Save Awin feed index cache
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            awin-feed-cache.json
+            awin-product-index.sqlite
+          key: merch-awin-sync-${{ github.run_id }}
