@@ -328,18 +328,7 @@ export default {
             focalPoint: '38% 22%',
           },
         ],
-        products: [
-          {
-            brand: 'AKIRA',
-            item: 'Drippy Rhinestone Chain Top',
-            retailer: 'shopakira.com',
-            url: 'https://www.shopakira.com/products/drippy-rhinestone-chain-top',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0850/1329/9515/files/SA623-TSILVER1.jpg?v=1778072838',
-            price: '$62.93',
-            isAlternative: true,
-            altNote: 'The shoot used vintage Bob Mackie originals from his Vegas "Jubilee!" revue, not made for Swift and not sold at retail -- this is a current rhinestone-chain top in the same showgirl register.',
-          },
-        ],
+        products: [],
       },
     },
 
@@ -2922,6 +2911,7 @@ export default {
             matchTier: 'unscored',
             price: '$590.00',
             inStock: true,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -3211,6 +3201,7 @@ export default {
             inStock: true,
             isAlternative: true,
             altNote: 'The "Stevie Knicks" tee itself was never sold — Alana Haim hand-cut the lettering onto a $3 Gildan blank. This is the same blank Gildan style (G500) in the Knicks-orange colorway, for the DIY version.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -5276,7 +5267,7 @@ export default {
             matchTier: 'unscored',
             price: '$4,990.00',
             inStock: false,
-            verifiedAt: '2026-08-30',
+            verifiedAt: '2026-08-30T19:22:10.691Z',
             isAlternative: true,
             altNote: 'The real gown is a one-of-one Dior Haute Couture commission with no retail equivalent -- this is a real silk-white bridal gown in a comparable register, not the actual dress.',
           },
@@ -5396,7 +5387,7 @@ export default {
             matchTier: 'unscored',
             price: '$1,200.00',
             inStock: false,
-            verifiedAt: '2026-08-30',
+            verifiedAt: '2026-08-30T19:22:10.691Z',
           },
         ],
       },
@@ -5598,6 +5589,7 @@ export default {
             isAlternative: true,
             altNote:
               'Her exact "Cashmere Short Sleeve Crew" in Showgirl orange is sold out and delisted — this is Reformation\'s current cashmere short-sleeve crew (the "Teo"), same brand and silhouette, also sold out.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -5691,6 +5683,7 @@ export default {
             matchTier: 'unscored',
             price: '$4,600.00',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -6067,8 +6060,12 @@ export default {
             retailer: 'thefrankieshop.com',
             url: 'https://thefrankieshop.com/products/zion-bomber-jacket-red',
             imageUrl: 'https://cdn.shopify.com/s/files/1/1527/0993/files/ZION-BOMBER-JACKET-RED-MARYEL-1841jpg.jpg?v=1771005054',
+            matchTier: 'similar',
+            matchScore: 55,
+            kind: 'outerwear',
             price: '$388.00',
             inStock: true,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -6284,7 +6281,7 @@ export default {
             url: 'https://www.manifestie.com/products/xena-crystal-fringe-bodysuit-rhinestone-tassel-festival-outfit',
             matchTier: 'unscored',
             price: '$190.00',
-            verifiedAt: '2026-08-30',
+            verifiedAt: '2026-08-30T19:22:10.691Z',
             isAlternative: true,
             altNote: 'The video wardrobe was custom Versace, Cavalli and Ferretti built for the shoot -- this is a real red crystal-fringe bodysuit in the same showgirl register, not the actual costume piece.',
           },
@@ -6710,6 +6707,7 @@ export default {
             imageUrl: 'https://cdn.shopify.com/s/files/1/0269/4076/8349/files/A9079-1556_LOW_SLUNG_BAGGY_RESET_0011.jpg?v=1774553487',
             price: '$248.00',
             inStock: true,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -8134,6 +8132,7 @@ export default {
             inStock: false,
             isAlternative: true,
             altNote: 'The pink floral-brocade "Laila" she wore (~$4,115) is past-season, off the brand site. This is the same Markarian "Laila" style in white beaded organza, what it lists now — different color, sold out.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -9941,7 +9940,7 @@ export default {
             matchTier: 'unscored',
             price: '$262.00',
             inStock: true,
-            verifiedAt: '2026-08-30',
+            verifiedAt: '2026-08-30T19:22:10.691Z',
           },
         ],
         // Photo pass (issue #1721, 2026-08-25): page had zero photos.
@@ -11478,6 +11477,7 @@ export default {
             matchTier: 'unscored',
             price: '$995.00',
             inStock: true,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
             brand: 'Aquazzura',
@@ -11487,6 +11487,7 @@ export default {
             matchTier: 'unscored',
             price: '$1,710.00',
             inStock: true,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
             brand: 'Christian Louboutin',
@@ -11496,6 +11497,7 @@ export default {
             matchTier: 'unscored',
             // No price shown on the sold-out PDP — omitted rather than guessed.
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

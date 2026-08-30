@@ -26,6 +26,26 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 33. [REVIEW] Confirm the Phase 2 merch catalog on mobile and desktop — ~2 min
+
+**Status:** DONE
+
+**Why it matters:** Phase 2's deterministic acceptance checks are green on
+merged `main`: generated coverage is current for 463 products, every uncovered
+row has an explanation, `awin-apply` is empty, the listing-scoped affiliate
+resolver/disclosure tests pass, and lint/typecheck pass. The remaining
+acceptance item is a real browser check of the merch surface at both viewports.
+
+**Outcome (2026-08-30, founder confirmation):** Joey confirmed in Discord
+that the desktop and mobile merch-catalog viewport check is complete (`HA33
+complete`). The confirmation covered the catalog surface only: no purchase and
+no external retailer link was opened.
+
+**Worked:** the merch catalog was usable on both desktop and mobile; no
+purchase or external retailer click was part of this confirmation.
+
+---
+
 ### 24. [UPGRADE] Unblock the video seed — code fix is in, just re-run the command — ~2 min
 
 **Filed:** 2026-08-26

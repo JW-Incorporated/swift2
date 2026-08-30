@@ -361,6 +361,7 @@ export default {
             price: '$357.21',
             isAlternative: true,
             altNote: 'Her custom Julien Macdonald gown was never sold at retail -- this is a current made-to-order emerald sequin gown, a one-shoulder plunge rather than a draped silhouette.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -434,18 +435,7 @@ export default {
         // Shop pass (2026-07-22): bespoke film prosthetics, not a garment
         // -- offering a real SFX product rather than forcing a clothing
         // link onto a makeup item.
-        products: [
-          {
-            brand: 'Mehron',
-            item: 'SynWax',
-            retailer: 'mehron.com',
-            url: 'https://www.mehron.com/synwax/',
-            matchTier: 'unscored',
-            price: '$7.95',
-            isAlternative: true,
-            altNote: 'Bill Corso used bespoke film prosthetics, not retail wax -- this is a real SFX molding wax for a similar effect, not the exact six-person process.',
-          },
-        ],
+        products: [],
       },
     },
     {
@@ -489,6 +479,7 @@ export default {
             price: '$44.90',
             isAlternative: true,
             altNote: 'Carmen March\'s Fall 2019 ensemble is discontinued -- this is a current grey plaid wide-leg jumpsuit in the same spirit (trenchcoat and checked heels not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
