@@ -1,0 +1,41 @@
+# E1/E2 deterministic detection only. This scheduled lane uses no model and
+# never edits content; its artifacts are inputs to the separately gated mender.
+# :46 avoids the repository's :00/:05/:10/:23/:24/:25/:30/:40/:47 clusters.
+name: merch-verify
+
+on:
+  schedule:
+    - cron: '46 9 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: merch-verify
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Check product and alternative listing URLs
+        run: |
+          mkdir -p .artifacts
+          node scripts/check-link-liveness.mjs --products --json > .artifacts/merch-links.json
+      - name: Check product images and propose honest fallbacks
+        run: node scripts/merch-engine/verify-images.mjs --input .artifacts/merch-links.json --write .artifacts/merch-images.json
+      - name: Build bounded mender plan
+        run: node scripts/merch-engine/mend-links.mjs --input .artifacts/merch-links.json --write .artifacts/merch-mend.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: merch-verify-report
+          path: .artifacts/merch-*.json
+          if-no-files-found: error
