@@ -39,6 +39,25 @@ configuration, cap, routing, or the superseded specification text.
 
 **Approved by:** Joey (direct instruction, 2026-08-30).
 
+## 2026-08-30 — Knowledge-engine source and Clownbot state decisions
+
+**Decision:** Reddit denied the knowledge engine's Data API request. Retain
+the disclosed RSS-only interim today while a separate sustainable-source
+research lane investigates alternatives. Clownbot's current stateless operation
+is accepted until it has users; do not enable Supabase anonymous sign-ins or
+its server-side conversation-memory feature.
+
+**Why:** Joey directly supplied both dispositions. The RSS interim remains
+transparent while a sustainable replacement is evaluated, and there is no
+current user need to enable anonymous identities or stored conversation data.
+
+**Scope:** This records only the current source and Clownbot-operation posture.
+It does not change Reddit access, Supabase settings, authentication, database
+schema, server-side memory, or application behavior.
+
+**Approved by:** Joey (direct instruction, 2026-08-30). Closes
+HUMAN-ACTIONS #15.
+
 ---
 
 ## 2026-08-30 — FR-MERCH-6: E5 fan-made discovery round-2 repair ruling (t_fe545cfd) — four bounded repairs, no third Codex review
