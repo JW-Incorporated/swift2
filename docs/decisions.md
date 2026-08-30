@@ -7,6 +7,32 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-30 — Merch autonomy: full official catalog with verified Amazon alternatives; fan-made line is inspired-by, never bootleg
+
+**Decision:** D1 is **D1-a**. E4 lists the full `store.taylorswift.com`
+official-store catalog without affiliate links to the official store. When the
+same official item is verifiably available on Amazon, E4 adds a secondary
+Amazon affiliate alternative; no Amazon twin means the official item remains
+listed with only its direct official-store link. D3 is approved as the hard
+fan-made curation rule: **"inspired-by" yes, bootleg no.** E5 must reject
+items that reprint official artwork, tour graphics, or photos of Taylor, and
+may curate original lyric-reference, era-color, and original-design items.
+
+**Why:** the official-store affiliate posture preserves a complete, useful
+official catalog and drop coverage without inventing an unavailable programme,
+while verified Amazon alternatives recover monetization where it is real. The
+fan-made line keeps the marketplace useful without promoting obvious
+reproductions of protected official material.
+
+**Alternatives considered:** D1-b (list only official products with a verified
+Amazon twin) was rejected because it would omit official-store exclusives. A
+more permissive fan-made line was rejected; it would admit reprints of
+official artwork, tour graphics, or Taylor photos.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-30).
+
+---
+
 ## 2026-08-25 — Social posting stays fully automated; no human review gate before publish (closes #2316)
 
 **Decision:** social posting has no human-review/approval step before a post
