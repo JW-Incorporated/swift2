@@ -159,9 +159,12 @@ export function MerchStyleSection() {
           </span>
           <div className="flex flex-wrap gap-px">
             <FilterPill
-              active={activeFilters.size === 0}
+              active={activeFilters.size === 0 && activeKind === null}
               accent="var(--merch-lilac)"
-              onClick={clearFilters}
+              onClick={() => {
+                clearFilters();
+                setActiveKind(null);
+              }}
             >
               All items
             </FilterPill>

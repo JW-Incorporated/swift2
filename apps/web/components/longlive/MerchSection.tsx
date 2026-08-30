@@ -32,7 +32,7 @@
  * need to clear the rail's stuck height.
  */
 
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import { hasAffiliateMerch, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
 import { MERCH_CATALOGUE, newDrops, type MerchItem } from '@/lib/longlive/merch';
 import { suggestLinkSectionId } from '@/lib/longlive/section-jump';
@@ -135,7 +135,10 @@ function MerchGrid({
 }
 
 export function MerchSection() {
-  const drops = newDrops([...MERCH_CATALOGUE.officialStore, ...MERCH_CATALOGUE.fanMade]);
+  const [drops, setDrops] = useState<readonly MerchItem[]>([]);
+  useEffect(() => {
+    setDrops(newDrops([...MERCH_CATALOGUE.officialStore, ...MERCH_CATALOGUE.fanMade]));
+  }, []);
   const anyAffiliate = hasAffiliateMerch([
     ...MERCH_CATALOGUE.officialStore,
     ...MERCH_CATALOGUE.fanMade,
