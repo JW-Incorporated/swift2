@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 58
+Stories: 57
+
+## Dolly Parton Shares Thoughts on Taylor Swift and Travis Kelce's Romance
+
+- first seen: 2026-08-30 23:27 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Dolly Parton has expressed her opinions regarding the relationship between Taylor Swift and Travis Kelce, describing it as a 'little love affair.'
+- sources:
+  - [unverified] thelist.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxONmJFVG5MbC0wMXl5QklLWW14Tl83VTRlNVZUdlVTY0h2ZllyWEZScXlaVGd1Y29NRVBIcC0tdGFFc1huUFNxLXh1LXJwUnlHbm0xV0ZxZjVVN29NNnpyRHhpLWlOc0ZQc21NZy1jUU1jN3lrZHVvYlcwV2xUOTYwU3lESHNjMzVqZGxvMExEN3c5V3RtS19Xa0FZaUt3SVZOVVZtN0hfcHpxNmFqYVYyWDVUTlY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Harry Styles Comments on Taylor Swift's Wedding During Performance
+
+- first seen: 2026-08-30 23:27 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Harry Styles made a light-hearted remark about his ex-girlfriend Taylor Swift's wedding while on stage. The comment has generated buzz among fans and the media.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxQUW9TRHRHc1pWMElwZjlOelA3R3lVV0VKM1V5R0tTRnVlWjlrdmpGc0t0bklqbUUwM0ZHMTJsQXVlTVpFRjM5aEI1YzNEMFI4ZFNIdjl1UmRZdXJlVnRneHJjWS1icXBaTU5EUllnaGZCV1Rpa09YaExNMmRuSzU0bTJtaHp4VGJBX2gyb2xIVkVpeFExaUtzRlZQSUI4RHUta3ZsR0FWLVJ6Y1VEVjNmYQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Harry Styles Jokes About Taylor Swift's Wedding at MSG Performance
+
+- first seen: 2026-08-30 23:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During his concert at Madison Square Garden, Harry Styles made a humorous comment regarding Taylor Swift's wedding. The remark added a playful touch to his performance, drawing attention from fans.
+- sources:
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxPUUZSQjNnMUh6X0FlZHlhQlJxUzZLSlV6T1JvelJ3TTYtWkl5RTRhSEFxQk5qeGROM0lYdE5hd25saVE3eHQ2TG5nWEZoNmZ2YnY3ZjBwdDZ2TVJhVDdmLWkteGtZUmdWeVN6VkZibnlkdjhSUkFGYUpUVnI1OVNtRU9tdjI2NmY3X1ZHTWRpVVVBS1k?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Player Linked to Taylor Swift Faces Job Loss
+
+- first seen: 2026-08-30 23:27 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A player who drew attention from Taylor Swift during a recent event is officially unemployed following a series of layoffs. The situation highlights the intersection of sports and celebrity culture.
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMijgJBVV95cUxNZUoxQmw3SFFzUkdnUEdSUm14S05fVGpQWFR2M3VrNzhGT0Zuc2dqbGZ6YjZGci1GMThZZy1CbG5tQWF0WUhEaUJIWWxLWDhubkdpaW1ZQnJTVEhhaG1WSWhCbHFMc2lTVzFXWGNhdG5wSHBHS3FTanlCWVVKc1dhZzBad2xncWgxQ1UtdjlHWC1jbzdFMVdxN1gybXhNR1lack5HSkdtUkZuR1d6RmtPd0hoQXJqSXMwZjRLQ09IWEItLVZmemd5eFJmVTQxNzhzYW56U010NHpaSFZpRE01cGtXdHFYUkYxR2pmYVg0M0dWZkhzZXJsbzk3OFVvWkRKaXJUOW5oLVBvUWFCWUHSAY4CQVVfeXFMTXVZcHItWC1sWkVLVi0zaXFtYWg4bjJpMGxsdzRRRHBrOGJMX2c5TTZHTlBoV0pmMWhfN2hnWHdXZ3pUMGJNcnhaQWZzZ3N1a0NnOEhmeUJ0N2dIenh1bXozZnhHblhtci1ab2Uwa3pndjJQT1pqYkxlRGRqbmZpSTRGNlcySXlZYWJ3bVRQcGdaZENKM2FBMXdRZGpMdDdGR3Q0Q1hSYWE3cV9fZWRzU0FyUWQzUGZPQVhOdXRYV1BKa0xDRjQ5WjlfaURtVUJCUXNqY2M1MUdNbnlyS2NVUGplMndIRS1RcnRoV3lWQTkzNVlrTmFybXE1aTZTbndKN3pLWTZMNU9mQzN3cVBB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Nike Caitlin 1 Sneakers to Feature Taylor Swift-Inspired Friendship Bracelet Style
 
@@ -71,7 +103,7 @@ Stories: 58
 ## Harry Styles Makes Joke About Taylor Swift at Madison Square Garden
 
 - first seen: 2026-08-30 14:24 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: During an event at Madison Square Garden, Harry Styles made a joke referencing Taylor Swift. The comment was reported by The Independent.
 - sources:
   - [unverified] The Independent — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQMURrMXVMa2tzZWZWWlZ4MnhvUFIwWk5TRm1VcFJ5Z2RPZ0tEcjZCRVNOUDU2NzRETmFTak9vNEdLUGF1dWNQeUpjejQ4S2NyRDc5cWJmV0VfR2hNbHJpRmZRSjJwcEJvT3I3Tkc3WGI5cHozVlM3SDE0WUxCYXd4WXAyQm94QkJHeEx2UTdrU3A1TTBPZEVhc3V5SERhWHF3akE5NTBnekZGYUoyVzBEdndaZ3VnNW9xMlRERTVGNjhFUDZ1aWRxWg?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -79,14 +111,16 @@ Stories: 58
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOR3NCV1pmTnFOZk0xaUo0c3J3TWlWWFM5RV92aUhZWTk0UmRCc2JHNHBVODFtc3Q2MU4wcThETDlGMG5ESUpCak1fWFZXc2Zic3doWmVLRGg2WUxXYXdMSGFWRVpBd1dGd2hHUW81blg4QmZIb3F2NmRhQzZOS05FRDdqRGJvc3pPSDZ4aGZhbmdzdTRrZGp5Zl9RcnRCVXVpZE1ocDQyczhDOU9fbjJmbGE5UW1iT0t3WU5FYjg5MEc2OFE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi8wFBVV95cUxNMl9BTmdjTnQ5ZHRiMXB6dVZMRHFWOXdOT0ExZU5LSFJQdUJfSnlpTjc1UU00eFgtTVoxV3g1eDQ0Tjhmdmx2T2ZMcklyM0RrUFMzNm5Ec2lCSzFtbkdoNm1PQUdvNTlWMTFPZ0VZOVRkSlFRaTNoMERpVzJ0czVCR0lHR0JJN2twVFFqakFuUkxGMkdZSnVrcnNwMVhfZzB6NGtXbWE1ZUZpdS1WdVEtaDdhTG1pM3VyOTZhWFduc3RBaUxHWkJrX1FSY0JYUnFkSXRoV19aYkQzQ2doMllEeF9MdmJjcU5WdENKZVN2OU1FYknSAfMBQVVfeXFMTklWVXBRenh0SUZRN19BTVdTc2ZsNTBuNllUREZaME9WbDJjZER6eC1yTGlHczdYbFhOenJ0MG93MUVSNlZuaWVVZXFiUF9qYUN1RlYxRndjZXZza3hvQjdDVjdJTGNsVk1WaUZsTERqWmV2ZkhqM044eW51Y1NDMDEwYkdtNGZBZ1BYaVJPVnJ2Ul9FbnBHSkJTRFE5QjdlVDhnWmZLZ3lHOVFVcVZzQnRqaXljRjNfUTFqak4wV3dscXZqYTZydlJJN0xQMnhQSFI4U2RZSlRON1lIZTdTM2dVbW5vS1ZSVUJiLUR0VzAydms4?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPMmhuMHUzQUsyejN1X0N5RDdvVng1aHRzNUZTcG5vUm1ENlBtX0UzVlN1cTVTald1NDZ1ZUlpRVIzWk8teldvamhubzBERWltak0zY0FHVS1ocjhQOGNnSllFR3FvY19RS09FaUtFOTJidVBLeG9lX1dacXppZTBKN3U2RU5RNG4zeklMSGxwVmpnYUgtX25Qay0wWkNYaDhYRXJ5dXlhc2tfUnRkbjJnNHBGRkM4d3I0NzBqaVRCV1RKSzZjcldSeTNzY3VxZHB2NzdPbQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikAFBVV95cUxOTnl2UFRfSm5YdHIwYmxmQXZtVXo1bHdpd0cwckdqRE9uaFZjc0swR3FQRVdSbDB5aVdNRDlsS3dtU2pTR1VrV3lTejVLWFloZ1dMMlVDNkJwM29EYjVPSXA1NExlOWNuV2w1MV9NdXZjdGY2ZlBsNDJwdmtFYy15cGQwNGJzNmNpaTBqOG5QLTk?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Comments on Taylor Swift's Wedding at Concert
 
 - first seen: 2026-08-30 14:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: During a concert at Madison Square Garden, Harry Styles made a playful remark regarding his ex, Taylor Swift's wedding. The incident drew attention from fans and media.
 - sources:
   - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNaTZlc1RYVEtwWnZwQWtfVGJFY0loTjl4QXBJcUZKamZtQXhVTmpfRXRBWURCWUZKVVlpT2hBd1VwR2FxREY5MGZCTUtodVktcWJMS2pxYmloNVRMWHBkd0FIbkVHRkxFUS1rV2dkd2NfTUxid2g4emc1Zk9QbGNDRkFzaHRmSGI2TENEWnVUdEp2ODZXTC1icnlVM2JDNnJZYmRkcEJDX25faF9Y?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNM29QY1FCeGMzd2VJdXdzRHBxVW1zZGw4cnJncmRYZjY1WVJFZm1vLUlVREgybm5MZ3ZneE1RZWpYSmN3bmZucHROY0FMa0NFai1VM0s0azUzelFNTE9lZlRGVkZ2Um4zR0xBaHlFZXd2S25TS3FhT25SbUdOZVZZTWNMR3NCMjJrNmxUZGpoV2QyNkhkakMzdW9NYU0xYU0?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Jokes About Taylor Swift's Wedding at MSG Concert
 
@@ -431,6 +465,15 @@ Stories: 58
   - [unverified] HOLA — https://news.google.com/rss/articles/CBMilwFBVV95cUxQU3A1U2IwbzJpMW9oZldsaGRhSTNIVnpOdE12MThpczFXTG55dUtzUVk4YXoyLTJVU01PaUQzRzZEN3VXeVktY2VfcmFKaHMtYS1LeDk4RV9ubWppMEVvWVg3cG9yekE1SXBmSG1xVDZPUUktZjB6eGxEdVIwUk1wbVJkdldkZUhxZ195cDllUHJseHV1cWZN?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] IndyStar — https://news.google.com/rss/articles/CBMi7gFBVV95cUxNNklwWGYyVXdidklhQlJ4b1FDUGZLblhEX2NZU1JHVkplN0lMN0dSZU5yd2VTeU12M1NlcTRyUk9ocVVjWVlhdzY5Q0NyRVdJem53NHdWOHlhdGZPRUcwUmV3M2hZeEdyT2Vja2h0SzY5d2xFQ3UyUGFBSEZsT053MkxJMVZ1cVdoZm1DWWxLZDFnWWtuVTc5ZzZGMVRKME9DY2FnYWlUSGhlUDJFWlpQeHRVam9nWmdacVM4NENQMGlsRUlURlB4c29KWVpLZkFTRXB6dWVUa0pJemQ5cDRVelU1b21LNVg4MWhpbUxR?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift Enthusiastically Engaged in Writing New Music
+
+- first seen: 2026-08-28 12:43 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift is actively dedicating herself to writing new music and expresses excitement about her current work. Her commitment to the creative process suggests significant upcoming projects.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiiwFBVV95cUxON0JjZ3ZqLW5FNzlJZXhuS0tXcUI3SGZZYndlUXdmNzYxd2kxb2JFVVdTdThydmRXbFhYQ2liUjBrRkZNeTJwM3JvSGw1WnFmUWtVV2VuTDRUbTM5QjdvelFfQ1p3UDNucE1INUtSdmRhU3YxS1NUS05sNzJ0WlBqY2I3RmhXeVB2cTRF?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNX01HZlpvOGZweDlwTU93M1NLNWthazFWb3VqUHNUdHpSTjZHVVljVXB1R3NYYzZiOUQzNDNKUVM0OHE3M1hPdm8yajVyaXFoUWlocnpHZHY5NkJpaTJxSXN5Nlg2Q293NFZ3NDdsR3dnamg4UUloRGMzZ1R1NUVKUUJLTEl5RE90d2xCSTNHT0JjSlctOE80eHdEYTM1eHZubW43OA?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Remembers Last Interaction with Dolly Parton
 
 - first seen: 2026-08-28 12:43 UTC | category: relationship | importance: 6
@@ -462,56 +505,3 @@ Stories: 58
 - summary: An insider reveals that Taylor Swift and Travis Kelce are working on establishing their new routine following their wedding while their respective careers remain a priority. The couple is navigating this transition together.
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQaGFxSm5vN0FuQ0FlMlQtTEVPbW0wcHMwdURrbEZkZFVMUEN0c19xOXZwV3NtN1ZUUEV1SUhZMDBQZ0s0TmpfZjBHbV9PdzlLNkZ6RE11QWFRaWlzSVlwZEdnVEw4bUFNdjk2N0hZTm9Mb0ZGamt4bkN4bW95NWxqX2ZNa3czdFN6?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Enthusiastically Engaged in Writing New Music
-
-- first seen: 2026-08-28 12:43 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is actively dedicating herself to writing new music and expresses excitement about her current work. Her commitment to the creative process suggests significant upcoming projects.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiiwFBVV95cUxON0JjZ3ZqLW5FNzlJZXhuS0tXcUI3SGZZYndlUXdmNzYxd2kxb2JFVVdTdThydmRXbFhYQ2liUjBrRkZNeTJwM3JvSGw1WnFmUWtVV2VuTDRUbTM5QjdvelFfQ1p3UDNucE1INUtSdmRhU3YxS1NUS05sNzJ0WlBqY2I3RmhXeVB2cTRF?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Report Marriage Challenge Reports
-
-- first seen: 2026-08-27 22:56 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Reports suggest Taylor Swift and Travis Kelce are facing a significant challenge in their marriage due to claims that wedding guests are unhappy with his behavior, highlighting differences between the couple.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQYkRiSmdiU1JObGhhaTJOdEVIRGZpeHRIWUNJWXhDTmMwRWh5dHgxUFR2ZVFMckI1U3NvdFBZUGsyZDFnaU04TUVsRTNXNldoN3JlWjVoZ2dvTkw0cUJIWnlvanFsMzJmN0ZZRnJWVjFReXhTRnJxMnIyVG9FMmhWOGEyUkNad1Q1T20xb2ZxTnFlZkV4ejB5aFR2QmJXSEk3dnpEbjlTdEVTUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Releases Animated Music Video for 'Toy Story 5'
-
-- first seen: 2026-08-27 22:56 UTC | category: release | importance: 7
-- verification_status: corroborated | source_count: 6
-- summary: Taylor Swift has released an animated music video coinciding with the upcoming streaming of 'Toy Story 5'. The video adds a visual element to the song, enhancing its connection to the beloved film franchise.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiogFBVV95cUxNc2QxRzVlZnFfYVc1eEFMWDRhNjVVWXBCeHdqTFdEbGRZMDBBaE02UDQ2c21mRFpUWFlvYUhKeXRHOGQ1MTdUTzltU1ZZcEFiQXR4Z1ZKTmVJcjVBWGEwWjRLY1F4T1hqWEQwY1VCekFRMkRvMVlqa3J3TXJ4a0FaQXZYR2UyMDEtRlNEUmFtYzdqQmZGbGV1T3g3Tm94aHRaeXfSAacBQVVfeXFMTmd4X2ZfY2lzOHZVZ3lYYm1OLTRLUGE2dF9xVjUtTWhaeG5ILXhEM0I0Rjl3UlNERHdINzR3QUxuSGU4dktMU0djem1CbUJiS3BTaFZFdEJmbG1FYW9UM1FEQk1BVnVJMW9qb1dIMnhYQ0cwRGo1c3dHb3N2Z3RHNUJZeHFyQk1MNEs3QWxfZU1TUThleGp3dGNEWEtVNk9Ya1BIQ0JYdnc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/news/toy-story-5-disney-plus-release-date-streaming-how-to-watch-1236844965/
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi3AFBVV95cUxNUW9XSmd0b1psekRQSE9SMGM2emJiWmlJbnN0OGF6Wk1VVDByeTYzUGtWMDlHT3BOQVdTQkk4cDM3YmI4VnhKaHJ6aUVUdldSbk9SRVE3UTJOQ043a283UFlUMlUzTEFoZEFuTXM3UWxlczA1VTBibjljYlk3Tk1lWlFzVWZDWHUySDJ2RHVaanpoNC0tNlB6bUowcXllUGdLd0lnaEd2XzdyLUdDMTJkYzNCS3RQWlFIQUtkZVlwcE1MRnE2QWZtS3BoUzJWdHJLU1BXOXdYN2NuVFNK?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxOaVprYjZUNzZNSVluMl83VGp6OU13OHp2SXp2cEl5bWQ2SE9LZzZxMDg3b1BOQVh0OGE2azAzbkxhR1pteVQ0WkZOZ3hxd2U3X1JlSUdpS2NlWFJnZDVYeU9tZURPajAxRXk0S1dsSjNqbmlfY3NISjUwWG5LT3FrWHJFa1BLbUliTW0tUlFWQ2hjQl8yVFJmTVF1cnRfeDFlaUlNa2p0NlFGLWl3Y0pnTw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ABC7 Chicago — https://news.google.com/rss/articles/CBMivgFBVV95cUxOaGpVeUl5NnJJSWpuVEtzcGpMd2hhSmZESWs2RzB4cHlJdmtRU0FxSTduTU5vQk0zZzk4Rk5qOTlMa2FBYnhZQUVxTlZFQUw4ck5EaVRaUWhhalZhLWg5dFhlVjZSWDhJWVZVNm5OOWQ0Q2M1SEhTWm9uNzlURWF6SEJKVTlWM1pIakRmakdVX0FpMzFDRzIxT1ZPX0NGdUVSOVVkeUV0TjhyWVY1OXFMcWdBMm5qRUF2ZVBkODZ30gHDAUFVX3lxTFBnXzFfY1J4cEN1RVhvRVZwNjhWck9lTldUOTh2T1pFcnZsbnNhZHdOaUJZczhVZTM5dkxCY3habVJZWFh1XzNqSU56TThVbk01QTlBcDBkNWhESlhiazVWdlpFYlRuTDF1dTBZN0tmVkFGcFFnVjNubjJJOVg4bnprZmF1MV9kcFZNSHVIZWFyU1lYcHo3alFMMUdhNHZqQTVScG9pQkhLX0VyamI1U3puSVk5X0gzVW9lZDhxNU1Yb2x3bw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ABC7 Eyewitness News — https://news.google.com/rss/articles/CBMitwFBVV95cUxNTTVFajQyVVZkWjhxTnJPM3NNWWNXcHRrb0JwZ294dUxFNWNSc3JvVEtaeVEwcDZseFIxT0xjSEVhbnFrQWNBbHhMM0VVSmVCUUVzbjdyT3JkeU1YLUU2U2dSanpiako4ajMyNnRKMmpHVERSMjlkc2ZSN05uYm5VUFJsOEhuQ3B1czl5WkFNQ3pYaVFuRmMwVlRnUU1oa2dhVjkwX1NLUGFFZnZDVG9HSWJWckpCMDDSAbwBQVVfeXFMTTRPUXJKUTNHbC1ISXY2a0k5T0g1OXp5SUNmOG5MeUNmLTNuRlYyVlhTWVVObGlFdHRtaW1sM3hZdGoyaUhPOFhHMUtkS2V5WTFETFVMRWNjY0QyY3BtYzJKbzBELU1NeXpmMFdhMjFid1hXaG5YRnU0OThkVDFSbzNYa05GU21tNlBKT2lzRTUxZEFXUGFzY0g5NnhBdVdLOTRTZHdIeFZqVEFZR1hyUnNSZlpxcXNyMGEwSTY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Defector Music Club Reunites for Taylor Swift’s ‘Red’
-
-- first seen: 2026-08-27 22:56 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Defector Music Club has come together once again to celebrate Taylor Swift’s album ‘Red’. This gathering highlights the ongoing impact of Swift's music on fans and communities.
-- sources:
-  - [unverified] Defector — https://news.google.com/rss/articles/CBMifEFVX3lxTFAtcDJJZm95eVRvTVFjU1NSUUdGSnVHTXJVYTluZUZoV0JwNy1HSnktMHVOakRwOHNmSEZ3OFM2SjBYczNMRndubjhfV1hqX2M1RUtIU3RLWWItWU56YVh2blZUbkc3bURpSG94QlVrVHRVZDBHeW15aHlXYnI?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reportedly Working on New Music
-
-- first seen: 2026-08-27 22:56 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: There are reports that Taylor Swift is currently working on new music. This news comes as fans eagerly anticipate her next project.
-- sources:
-  - [unverified] Bustle — https://news.google.com/rss/articles/CBMidkFVX3lxTE9RQTNBekx0R1BIcXBBaEsybWc2Ui1GSFFzMUw5c1NJcHFacUsxeXItcGhXQ3F2bEt1bnlzN1RSQmNDMlE2QlNoR211d3dobE9VTTlUT1hsaUdFdldaT2dvcXZtem13UlBncXFHZ0xXd1FqcG9WTnc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Returns to No. 1 After Recent Singles
-
-- first seen: 2026-08-27 22:56 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has achieved the No. 1 position after previously missing it with several of her recent singles. The article discusses her comeback in the charts.
-- sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiyAFBVV95cUxONVpJRXZwb0RlaE9veV9TaE8xTXQ2QjNlUFIwYnV6TXY4T3JZbU5uSF9KcUxXb2tJMkFUSFQ5YUZQd3pReW5DVVRKcWlwTjlmNTZVVDhHT2hsNkliZGR4ZG9EVlZBYWdrQ1poQnk3VTVwUXpkRW9aRzkySGY4OG12NW1wQ2dmZTBSMy1OaXc0bFBndTV1LUVqWHdrdEE4OXBIS2gxR29qVEE1WGI4TUdNMmZrWF9SaUJwczFRekhDVmxlSndsRDhhbA?oc=5&hl=en-US&gl=US&ceid=US:en
