@@ -43,12 +43,11 @@ describe('no user/content HTML sink (issue #1975)', () => {
     }
   }
 
-  it('has only the reviewed JSON-LD sinks', () => {
-    expect(hits).toHaveLength(2);
+  it('has only the reviewed JSON-LD sink', () => {
+    expect(hits).toHaveLength(1);
     expect(hits.map((hit) => hit.file.replace(/\\/g, '/'))).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/\/app\/layout\.tsx$/),
-        expect.stringMatching(/\/components\/longlive\/merch\/MerchJsonLd\.tsx$/),
       ]),
     );
   });
