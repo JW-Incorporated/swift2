@@ -26,6 +26,26 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 30. [DONE] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key
+
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Resolved:** 2026-08-30. Joey verified the existing Etsy app and repository secrets. PR #3519 corrected the Etsy v3 authorization construction and the manual workflow completed successfully with its evidence artifact. This entry records the resolved credential/access prerequisite only; any later evidence-quality repair remains an agent-owned task.
+
+---
+
+### 32. [DONE] Etsy API returns 403 to the E5 evidence workflow — check app approval
+
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Resolved:** 2026-08-30. The Etsy v3 API access issue was resolved by the verified authorization-format correction in PR #3519. The evidence workflow thereafter completed successfully and uploaded `merch-e5-evidence-artifact`.
+
+---
+
 ### 33. [REVIEW] Confirm the Phase 2 merch catalog on mobile and desktop — ~2 min
 
 **Status:** DONE
