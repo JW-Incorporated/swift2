@@ -25,15 +25,60 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 53
+Stories: 58
+
+## Nike Caitlin 1 Sneakers to Feature Taylor Swift-Inspired Friendship Bracelet Style
+
+- first seen: 2026-08-30 19:48 UTC | category: fashion | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: The latest colorway of Caitlin Clark’s Nike Caitlin 1 sneakers will include customized bead and charm details inspired by Taylor Swift's friendship bracelets.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/sneaker-news/nike-caitlin-1-friendship-bracelet-release-date-ih7423-300-1239175022/
+
+## Taylor Swift Donates to Injured Good Samaritan
+
+- first seen: 2026-08-30 19:48 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a donation to support a good Samaritan who was injured in a crash. This gesture highlights her philanthropic efforts in helping those in need.
+- sources:
+  - [unverified] WPRI.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQYTliWlpaZXAyc3g1NlRfNzFkMkxmMEVCakdRUnEzWDJnWHJScnpXWDF3SHdzTlZXTTd3LUFKbGRQcTVOUVFhVmVFeG9LbW9tQ0ZqRXJkaExFZGVBYWVBQVdVbWU5MmdZRjJfLUhjQ3Z6Z2IwUkdjUXJCV0hhWjk2ZlVVQmtPbFVBQm5senFsVy1SYTlSLWtz?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Donates $50K to Injured Mother's Fundraising Effort
+
+- first seen: 2026-08-30 19:48 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has contributed $50,000 to a fundraising effort for a mother who was seriously injured while saving teenagers on the roadside. This donation highlights her charitable efforts and support for individuals in need.
+- sources:
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxNTEw0dW81d0RkZl9SQnBVVTRoLTdYT2REX0xoVk9pMkhXb2xOb29YSFdBY3N0MHA1WFhmZktoWVd3VGJuNE40ZWJ2bWI2RTB3MWpya3NwVkdvUVM4dlNkUFZzUEM4azd2X092Z2NYaVplNFBvdDcwaFVGVTdfbG5ScEcwdTZmUEgxdmFvaVQ4b1ZkdDFoZlVxM1dGMm9mQU0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Fans Theorize About Taylor Swift's Next Move Based on Color Meanings
+
+- first seen: 2026-08-30 19:48 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: A discussion among fans is underway, aiming to decode the meaning behind various colors associated with Taylor Swift and what they might signify for her future moves. Theories are circulating widely within the fan community.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-color-theory-explained-new-music-1235617057/
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMipgFBVV95cUxNNUhjV0JZdDk2U1NzSlh3WkdETExVcjFRQlQ0ZlBKaDZBWW5OWHpNTFFVeFF3bmo4bTZFRHlDa2lLbFhodmV3X01IaUFCT2UwRlREMnZqVUl2Vi1ENnd1OTVicktmNlo3SW9wLURVNTVHS1BYc1lSRGY0elVSOHNjdk83YmhmWmVHODZEcVI3cjhQc29GOFBWXzdyUU1TTklRVklPZXdB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Harry Styles Mentions Taylor Swift and Travis Kelce's Wedding at MSG Show
+
+- first seen: 2026-08-30 19:48 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: During his performance at Madison Square Garden, Harry Styles made a reference to Taylor Swift and Travis Kelce’s wedding. The mention occurred as part of his set, drawing attention from fans and media alike.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOSEM4ZUVUNW02YXRDeWYxTHM5amQ3d1RNLUQ1UFNlQmpERUFDd3VSb3RKME5DVnBxbEtTU3JSc0J3VzZDSzZKSHQyNVV4dWxXY0xoQnpIaVdXVThUbFhDTVNCYmw2Q0d6Q1ZIc0h4REozMXZXLUFhRmtFM2w4N0Z5RTNqbGFaWHFTazJUTnc1ckZEaXljeENib1B6Tmx4SDlLRTY1aTNKbDFfTms1ZENDcl9KVWlHSVJXOEJF?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Makes Joke About Taylor Swift at Madison Square Garden
 
 - first seen: 2026-08-30 14:24 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 5
 - summary: During an event at Madison Square Garden, Harry Styles made a joke referencing Taylor Swift. The comment was reported by The Independent.
 - sources:
   - [unverified] The Independent — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQMURrMXVMa2tzZWZWWlZ4MnhvUFIwWk5TRm1VcFJ5Z2RPZ0tEcjZCRVNOUDU2NzRETmFTak9vNEdLUGF1dWNQeUpjejQ4S2NyRDc5cWJmV0VfR2hNbHJpRmZRSjJwcEJvT3I3Tkc3WGI5cHozVlM3SDE0WUxCYXd4WXAyQm94QkJHeEx2UTdrU3A1TTBPZEVhc3V5SERhWHF3akE5NTBnekZGYUoyVzBEdndaZ3VnNW9xMlRERTVGNjhFUDZ1aWRxWg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Northeast Times — https://news.google.com/rss/articles/CBMipgFBVV95cUxQdkgzb2J5MGJrT0NUejB4VkZrbnBvMDEwZXZaa3QzdVdRVWJuYVZhQUx2OFZieWYxX0NHU1Ftc3JiYjE2WkFVWVdIbXF6WUxQa05DYTM4RF9oOW5NYXZXbm5JcC1ETWptdVdyZTJoRUU4VjNDMWxTSkdBN2FhWWNwZGgySl9ZaEJlWl93TXNjNnFhbUU0UmF2c29SMWJqQllRT1U1Yk1n?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOR3NCV1pmTnFOZk0xaUo0c3J3TWlWWFM5RV92aUhZWTk0UmRCc2JHNHBVODFtc3Q2MU4wcThETDlGMG5ESUpCak1fWFZXc2Zic3doWmVLRGg2WUxXYXdMSGFWRVpBd1dGd2hHUW81blg4QmZIb3F2NmRhQzZOS05FRDdqRGJvc3pPSDZ4aGZhbmdzdTRrZGp5Zl9RcnRCVXVpZE1ocDQyczhDOU9fbjJmbGE5UW1iT0t3WU5FYjg5MEc2OFE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi8wFBVV95cUxNMl9BTmdjTnQ5ZHRiMXB6dVZMRHFWOXdOT0ExZU5LSFJQdUJfSnlpTjc1UU00eFgtTVoxV3g1eDQ0Tjhmdmx2T2ZMcklyM0RrUFMzNm5Ec2lCSzFtbkdoNm1PQUdvNTlWMTFPZ0VZOVRkSlFRaTNoMERpVzJ0czVCR0lHR0JJN2twVFFqakFuUkxGMkdZSnVrcnNwMVhfZzB6NGtXbWE1ZUZpdS1WdVEtaDdhTG1pM3VyOTZhWFduc3RBaUxHWkJrX1FSY0JYUnFkSXRoV19aYkQzQ2doMllEeF9MdmJjcU5WdENKZVN2OU1FYknSAfMBQVVfeXFMTklWVXBRenh0SUZRN19BTVdTc2ZsNTBuNllUREZaME9WbDJjZER6eC1yTGlHczdYbFhOenJ0MG93MUVSNlZuaWVVZXFiUF9qYUN1RlYxRndjZXZza3hvQjdDVjdJTGNsVk1WaUZsTERqWmV2ZkhqM044eW51Y1NDMDEwYkdtNGZBZ1BYaVJPVnJ2Ul9FbnBHSkJTRFE5QjdlVDhnWmZLZ3lHOVFVcVZzQnRqaXljRjNfUTFqak4wV3dscXZqYTZydlJJN0xQMnhQSFI4U2RZSlRON1lIZTdTM2dVbW5vS1ZSVUJiLUR0VzAydms4?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPMmhuMHUzQUsyejN1X0N5RDdvVng1aHRzNUZTcG5vUm1ENlBtX0UzVlN1cTVTald1NDZ1ZUlpRVIzWk8teldvamhubzBERWltak0zY0FHVS1ocjhQOGNnSllFR3FvY19RS09FaUtFOTJidVBLeG9lX1dacXppZTBKN3U2RU5RNG4zeklMSGxwVmpnYUgtX25Qay0wWkNYaDhYRXJ5dXlhc2tfUnRkbjJnNHBGRkM4d3I0NzBqaVRCV1RKSzZjcldSeTNzY3VxZHB2NzdPbQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Comments on Taylor Swift's Wedding at Concert
 
