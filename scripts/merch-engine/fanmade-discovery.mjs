@@ -190,6 +190,7 @@ export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now =
   const candidates = [];
   const rawQueries = [];
   const listingDetailsById = new Map();
+  const missingListingIds = new Set();
   for (const query of queries) {
     const url = new URL('https://openapi.etsy.com/v3/application/listings/active');
     url.searchParams.set('keywords', query);
@@ -200,16 +201,23 @@ export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now =
     rawQueries.push({ query, payload });
     for (const searchResult of (payload.results || []).slice(0, 10)) {
       if (!searchResult?.listing_id) continue;
-      const detailUrl = new URL(`https://openapi.etsy.com/v3/application/listings/${searchResult.listing_id}`);
-      detailUrl.searchParams.set('includes', 'Images,Shop');
-      let listing;
-      try {
-        listing = await etsyJson(fetchImpl, detailUrl, { headers: { 'x-api-key': etsyApiKey } }, sleep);
-      } catch (error) {
-        if (error?.status === 404) continue;
-        throw error;
+      const listingId = String(searchResult.listing_id);
+      if (missingListingIds.has(listingId)) continue;
+      let listing = listingDetailsById.get(listingId);
+      if (!listing) {
+        const detailUrl = new URL(`https://openapi.etsy.com/v3/application/listings/${listingId}`);
+        detailUrl.searchParams.set('includes', 'Images,Shop');
+        try {
+          listing = await etsyJson(fetchImpl, detailUrl, { headers: { 'x-api-key': etsyApiKey } }, sleep);
+        } catch (error) {
+          if (error?.status === 404) {
+            missingListingIds.add(listingId);
+            continue;
+          }
+          throw error;
+        }
+        listingDetailsById.set(listingId, listing);
       }
-      listingDetailsById.set(String(searchResult.listing_id), listing);
       const candidate = isEligibleEtsyListing(listing, query, now);
       if (!candidate) continue;
       candidates.push(candidate);
@@ -218,7 +226,7 @@ export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now =
   return {
     rawQueries,
     listingDetails: [...listingDetailsById].map(([listingId, detail]) => ({ listingId, detail })),
-    candidates,
+    candidates: mergeCandidates(candidates),
   };
 }
 

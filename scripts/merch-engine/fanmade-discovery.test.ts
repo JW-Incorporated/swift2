@@ -70,6 +70,25 @@ describe('fan-made discovery', () => {
     });
   });
 
+  it('hydrates an overlapping Etsy listing once while retaining provenance from every search query', async () => {
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('/listings/active')) return new Response(JSON.stringify({ results: [{ listing_id: 42 }] }), { status: 200 });
+      return new Response(JSON.stringify({
+        listing_id: 42,
+        title: 'Original lavender lyric bracelet',
+        url: 'https://www.etsy.com/listing/42/original-bracelet',
+        price: { amount: 2800, divisor: 100, currency_code: 'USD' },
+        shop: { shop_name: 'LavenderMaker', is_vacation: false, review_count: 12 },
+        images: [{ url_fullxfull: 'https://images.example.test/bracelet.jpg' }],
+      }), { status: 200 });
+    });
+
+    await expect(collectEtsyEvidence({ etsyApiKey: 'test-key', fetchImpl, queries: ['first query', 'second query'] })).resolves.toMatchObject({
+      candidates: [expect.objectContaining({ provenance: [expect.objectContaining({ query: 'first query' }), expect.objectContaining({ query: 'second query' })] })],
+    });
+    expect(fetchImpl.mock.calls.filter(([url]) => url.includes('/listings/42'))).toHaveLength(1);
+  });
+
   it('requires Etsy credentials when collecting the manual E5 artifact', async () => {
     await expect(collectEtsyEvidence({ requireCredentials: true })).rejects.toThrow('Etsy API credentials are required');
   });
