@@ -26,37 +26,6 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 29. [UPGRADE] Search-API account for merch engine E6 — payment card, ~10 min
-
-**Filed:** 2026-08-30
-
-**Status:** OPEN
-
-**Why it matters:** engine E6 (Moment→Product Matcher, merch plan Phase 4)
-needs a Google Shopping-class search API for the matches the free Awin
-product index can't answer. This is a spend decision (paid account), so
-only you can open it. Nothing is halted today — E1/E2/E3 run without it —
-but E6 cannot start until this key exists (FR-MERCH-5 gate ruling,
-`docs/decisions.md` 2026-08-30). Expect light usage: the Awin index takes
-the first pass on every match for free, so a low tier (~$10–30/mo) likely
-suffices; start small, upgrade only if E6's ticket volume shows it.
-
-**Steps:**
-1. Sign up at `https://serpapi.com` (or an equivalent Google
-   Shopping-results API you prefer) on its cheapest paid tier; add the
-   payment card.
-2. Copy the API key and save it as a repo Actions secret named
-   `SEARCH_API_KEY`: from a terminal in the repo, run
-   `gh secret set SEARCH_API_KEY --repo JW-Incorporated/swift2` and paste
-   the value when prompted (`gh secret set` is guard-denied for agents —
-   founder-only on purpose). Key **name** only in chat, never the value.
-
-**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows
-`SEARCH_API_KEY`, and E6's first run reports real search results instead
-of a missing-credential skip.
-
----
-
 ### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
 
 **Filed:** 2026-08-30
@@ -135,6 +104,12 @@ error, and production's `video_work` table matches `supabase/seed/videos/**`.
 ### 23. [BLOCKING] BACKUPS launch gate (#680) — read Supabase plan/backup status off the dashboard, run one restore drill against production's own bytes — ~10 min
 
 **Filed:** 2026-08-26
+
+**Update (2026-08-30, Joey report):** The current project is on the Supabase
+Free plan, which has no available backup options. No backup was made and no
+production restore drill was performed. This records the current status only;
+it does not accept the associated launch risk. The BACKUPS gate remains
+unresolved until the required evidence is recorded.
 
 **Why it matters:** the BACKUPS launch gate has been 🟡 since 2026-08-12. The
 restore mechanism itself is built, tested, and green in CI (#1890) — a drill
@@ -686,6 +661,54 @@ reflects it, and a test PR still merges once `build` is green.
 ---
 
 ## DONE
+
+### 29. [UPGRADE] Search-API account for merch engine E6 — payment card, ~10 min
+
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Why it matters:** engine E6 (Moment→Product Matcher, merch plan Phase 4)
+needs a Google Shopping-class search API for the matches the free Awin
+product index can't answer. This is a spend decision (paid account), so
+only you can open it. Nothing is halted today — E1/E2/E3 run without it —
+but E6 cannot start until this key exists (FR-MERCH-5 gate ruling,
+`docs/decisions.md` 2026-08-30). Expect light usage: the Awin index takes
+the first pass on every match for free, so a low tier (~$10–30/mo) likely
+suffices; start small, upgrade only if E6's ticket volume shows it.
+
+**Steps:**
+1. Sign up at `https://serpapi.com` (or an equivalent Google
+   Shopping-results API you prefer) on its cheapest paid tier; add the
+   payment card.
+2. Copy the API key and save it as a repo Actions secret named
+   `SEARCH_API_KEY`: from a terminal in the repo, run
+   `gh secret set SEARCH_API_KEY --repo JW-Incorporated/swift2` and paste
+   the value when prompted (`gh secret set` is guard-denied for agents —
+   founder-only on purpose). Key **name** only in chat, never the value.
+
+**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows
+`SEARCH_API_KEY`, and E6's first run reports real search results instead
+of a missing-credential skip.
+
+**Outcome (2026-08-30):** Joey saved `SEARCH_API_KEY` in GitHub Actions
+secrets and set a $25/month cap ($300/year maximum). The closing signal for
+this founder action is the first "Worked if" clause (secret present), per
+Joey's report; the E6 first-run clause transfers to E6's own acceptance check
+when Phase 4 builds it — it is not a founder action and does not hold this item
+open.
+
+---
+
+### 31. [UPGRADE] Higher-cap paid-search request — superseded, ~0 min (no action needed)
+
+**Status:** DONE — no longer needed; superseded by #29's completed, lower-cap disposition.
+
+**Outcome (2026-08-30):** The prior $75/month action request is no longer
+active. #29 records the completed `SEARCH_API_KEY` setup with a $25/month cap
+($300/year maximum).
+
+---
 
 ### 28. [UPGRADE] Merch plan: save credentials under canonical names — ~10 min
 
