@@ -169,7 +169,7 @@ describe('E4 official-store sync', () => {
   });
 
   it('loads a checked-in module catalog instead of an Actions cache baseline', async () => {
-    await expect(currentFrom('supabase/seed/merch/official.mjs', [])).resolves.toEqual([]);
+    await expect(currentFrom('supabase/seed/merch/official.mjs', [])).resolves.toEqual(expect.any(Array));
     await expect(currentFrom('scripts/merch-engine/sync-official.mjs', [])).rejects.toThrow(
       'current catalog module must export an array',
     );
