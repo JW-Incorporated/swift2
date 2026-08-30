@@ -10,8 +10,12 @@ interface GdeltArticle {
   seendate?: unknown;
 }
 
-function isGdeltArticle(value: unknown): value is GdeltArticle {
+function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isGdeltArticle(value: unknown): value is GdeltArticle {
+  return isRecord(value);
 }
 
 function toIsoDate(value: unknown): string | undefined {
@@ -50,8 +54,8 @@ export async function fetchGdeltTaylorSwift(
     throw new Error(`GDELT document query failed (${response.status})`);
   }
 
-  const body = (await response.json()) as { articles?: unknown };
-  const articles = Array.isArray(body.articles) ? body.articles : [];
+  const body = await response.json();
+  const articles = isRecord(body) && Array.isArray(body.articles) ? body.articles : [];
   return articles
     .slice(0, MAX_ITEMS)
     .filter(isGdeltArticle)

@@ -65,6 +65,14 @@ describe('fetchGdeltTaylorSwift', () => {
     await expect(fetchGdeltTaylorSwift(nullEntryFetch)).resolves.toEqual([]);
   });
 
+  it('treats malformed JSON roots as empty results', async () => {
+    const nullRootFetch = vi.fn().mockResolvedValue(jsonResponse(null));
+    const primitiveRootFetch = vi.fn().mockResolvedValue(jsonResponse('unexpected'));
+
+    await expect(fetchGdeltTaylorSwift(nullRootFetch)).resolves.toEqual([]);
+    await expect(fetchGdeltTaylorSwift(primitiveRootFetch)).resolves.toEqual([]);
+  });
+
   it('throws on a non-OK response', async () => {
     const fetchImpl = vi.fn().mockResolvedValue(jsonResponse({}, false, 503));
 
