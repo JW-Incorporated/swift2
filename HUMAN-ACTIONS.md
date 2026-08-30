@@ -1431,3 +1431,23 @@ was closed unmerged.
 
 ---
 
+### 34. [BLOCKING] Codex review quota lock on merge-ready merch PR #3549 — pick one, ~2 min
+
+**Filed:** 2026-08-30
+**Status:** DONE (2026-08-30) — Founder decision D5: substitute Claude-model
+review instead of waiting or paying. PR #3549 independently re-reviewed by
+Claude (fresh checkout, all tests/typecheck/lint re-run), then merged
+2026-08-30T22:07:58Z. This is now the standing precedent for any future card
+blocked only by the fleet-wide Codex quota outage.
+
+**Why it mattered:** PR #3549 (test-only, 69 lines added to
+`apps/web/lib/longlive/merch.test.ts`) was independently reviewed twice with
+every check green (12/12 focused tests, 1983 full-suite tests, typecheck,
+lint, live 1440px/360px browser check). It could not merge because the
+project's `codex_governed=true` gate requires `sh ~/.codex/review.sh`, and
+the OpenAI Codex account had hit its usage limit — a non-transient lock that
+resets 2026-09-05 21:26.
+
+---
+
+
