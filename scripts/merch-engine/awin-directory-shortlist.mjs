@@ -5,7 +5,14 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PROGRAMMES_URL = 'https://api.awin.com/publishers/{publisherId}/programmes';
-const TARGET_SECTORS = ['Fashion/Clothing', 'Accessories/Jewelry', 'Beauty'];
+// Real Awin API sector taxonomy strings (UK English spelling), confirmed against a
+// live unfiltered directory probe of this publisher's account (t_a57b0362, 2026-08-30):
+// "Clothing", "Clothing Accessories", "Jewellery", "Health & Beauty" are the actual
+// sector values Awin returns for US fashion/accessories/beauty programmes. The
+// previous strings ('Fashion/Clothing', 'Accessories/Jewelry', 'Beauty' — US spelling)
+// never matched any real programme, so eligibleProgrammes() silently filtered out
+// the entire directory. Do not rename these without re-verifying against a live probe.
+const TARGET_SECTORS = ['Clothing', 'Clothing Accessories', 'Jewellery', 'Health & Beauty'];
 const RELATIONSHIPS = ['joined', 'pending', 'suspended', 'rejected', 'notjoined'];
 
 function text(value) {
