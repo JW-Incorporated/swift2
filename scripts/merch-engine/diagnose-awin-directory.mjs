@@ -53,7 +53,7 @@ async function requestRaw({ publisherId, token, relationship }) {
   try {
     payload = JSON.parse(text);
   } catch {
-    payload = null;
+    // leave payload null on parse failure
   }
   const programmes = Array.isArray(payload)
     ? payload
