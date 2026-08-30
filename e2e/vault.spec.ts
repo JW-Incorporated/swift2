@@ -81,6 +81,27 @@ function scrollTop(page: Page): Promise<number> {
 }
 
 test.describe('Vault smoke', () => {
+  test('All items clears a selected product kind and reflects the cleared state', async ({
+    page,
+  }) => {
+    await page.goto('/');
+
+    const merch = page.locator('[aria-label="Merch"]:visible');
+    await merch.click();
+
+    const allItems = page.getByRole('button', { name: 'All items' });
+    const dresses = page.getByRole('button', { name: 'Dresses' });
+    await expect(allItems).toHaveAttribute('aria-pressed', 'true');
+
+    await dresses.click();
+    await expect(dresses).toHaveAttribute('aria-pressed', 'true');
+    await expect(allItems).toHaveAttribute('aria-pressed', 'false');
+
+    await allItems.click();
+    await expect(dresses).toHaveAttribute('aria-pressed', 'false');
+    await expect(allItems).toHaveAttribute('aria-pressed', 'true');
+  });
+
   test('homepage renders multiple eras with known titles', async ({ page }) => {
     await gotoVault(page);
 

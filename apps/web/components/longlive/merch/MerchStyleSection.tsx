@@ -70,11 +70,13 @@ export function MerchStyleSection() {
       return next;
     });
   };
-  const clearFilters = () => setActiveFilters(new Set());
+  const clearFilters = () => {
+    setActiveFilters(new Set());
+    setActiveKind(null);
+  };
   const resetAll = () => {
     setActiveEraKey('all');
     clearFilters();
-    setActiveKind(null);
   };
 
   // Counts respond to the active price/stock/exact filters, same as the
@@ -159,7 +161,7 @@ export function MerchStyleSection() {
           </span>
           <div className="flex flex-wrap gap-px">
             <FilterPill
-              active={activeFilters.size === 0}
+              active={activeFilters.size === 0 && activeKind === null}
               accent="var(--merch-lilac)"
               onClick={clearFilters}
             >
