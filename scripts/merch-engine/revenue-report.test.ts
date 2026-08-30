@@ -67,11 +67,11 @@ describe('revenue reporting', () => {
     expect(() => parseNetworkReport({ network: 'awin', rows: [{ subid: 'folklore.cardigan', clicks: -1, revenue: 0 }] })).toThrow('clicks');
   });
 
-  it('parses the generated coverage report schema without losing its row fields', () => {
+  it('parses the generated seven-column coverage schema and joins retailer click evidence', () => {
     const coverage = parseCoverage([
-      '| item | retailer | network | status | link-format | source |',
-      '| --- | --- | --- | --- | --- | --- |',
-      '| Cardigan | indie.example | none | uncovered | direct retailer URL | folklore.cardigan |',
+      '| item | retailer | network | status | link-format | source | explanation |',
+      '| --- | --- | --- | --- | --- | --- | --- |',
+      '| Cardigan | indie.example | none | uncovered | direct retailer URL | folklore.cardigan | not listed in checked-in E0 directory |',
     ].join('\n'));
 
     expect(coverage.rows).toEqual([{
@@ -82,6 +82,14 @@ describe('revenue reporting', () => {
       linkFormat: 'direct retailer URL',
       source: 'folklore.cardigan',
     }]);
+    expect(buildRevenueReport({
+      coverage,
+      reports: [{
+        network: 'site-clicks',
+        available: true,
+        rows: [{ subid: 'folklore.cardigan', retailer: 'indie.example', clicks: 9, revenue: 0 }],
+      }],
+    }).uncoveredRetailers).toEqual([{ retailer: 'indie.example', clicks: 9 }]);
   });
 
   it('accepts the checked-in multi-network input manifest', () => {

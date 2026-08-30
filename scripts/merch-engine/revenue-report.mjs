@@ -143,7 +143,7 @@ export function formatRevenueSection(report) {
 }
 
 export function parseCoverage(markdown) {
-  const rows = [...String(markdown).matchAll(/^\| (?!item \||--- \|)(.+?) \| (.+?) \| (.+?) \| (.+?) \| (.+?) \| (.+?) \|$/gm)]
+  const rows = [...String(markdown).matchAll(/^\| (?!item \||--- \|)(.+?) \| (.+?) \| (.+?) \| (.+?) \| (.+?) \| (.+?) \| (.+?) \|$/gm)]
     .map((match) => ({
       item: match[1],
       retailer: match[2],
