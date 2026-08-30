@@ -26,7 +26,14 @@ jobs:
       - name: Full install (adds the new dep, honours the root uuid override)
         run: npm install --no-audit --no-fund
       - name: Show what Expo SDK 57 actually pins
-        run: node -e "const m=require('expo/bundledNativeModules.json');console.log('expo',require('expo/package.json').version);console.log('react-native-safe-area-context pin:',m['react-native-safe-area-context'])"
+        working-directory: apps/mobile
+        run: |
+          node -e "
+            const p = require.resolve('expo/bundledNativeModules.json', { paths: [process.cwd()] });
+            console.log('bundledNativeModules.json:', p);
+            console.log('expo:', require(require.resolve('expo/package.json', { paths: [process.cwd()] })).version);
+            console.log('react-native-safe-area-context pin:', require(p)['react-native-safe-area-context']);
+          "
       - name: Align apps/mobile to the Expo SDK pins
         working-directory: apps/mobile
         run: npx --no-install expo install --fix
