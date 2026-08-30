@@ -96,6 +96,56 @@ describe('E0 Awin sync', () => {
     ).toEqual({ complete: false, feeds: [], changed: [], removed: [] });
   });
 
+  it('defers empty-directory removals until a second consecutive response', () => {
+    expect(
+      buildFeedDirectorySyncPlan({
+        csv: 'feed id,last imported,url,advertiser id\n',
+        cache: { feeds: { retained: '2026-08-29' } },
+      }),
+    ).toEqual({ complete: true, feeds: [], changed: [], removed: [], deferredRemoval: true });
+  });
+
+  it('removes cached feeds after a second consecutive empty directory response', () => {
+    expect(
+      buildFeedDirectorySyncPlan({
+        csv: 'feed id,last imported,url,advertiser id\n',
+        cache: { feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 },
+      }),
+    ).toEqual({ complete: true, feeds: [], changed: [], removed: ['retained'] });
+  });
+
+  it('accepts an empty directory when no cached feeds need protection', () => {
+    expect(
+      buildFeedDirectorySyncPlan({
+        csv: 'feed id,last imported,url,advertiser id\n',
+        cache: { feeds: {} },
+      }),
+    ).toEqual({ complete: true, feeds: [], changed: [], removed: [] });
+  });
+
+  it('clears an empty-directory confirmation streak after a complete nonempty response', () => {
+    expect(
+      buildFeedDirectorySyncPlan({
+        csv: 'feed id,last imported,url,advertiser id\ncurrent,2026-08-30,https://feeds.example/current.csv,100',
+        cache: { feeds: { current: '2026-08-30' }, emptyDirectoryStreak: 1 },
+      }),
+    ).toEqual({
+      complete: true,
+      feeds: [{ feedId: 'current', updatedAt: '2026-08-30', downloadUrl: 'https://feeds.example/current.csv', advertiserMid: '100' }],
+      changed: [],
+      removed: [],
+    });
+  });
+
+  it('does not confirm an empty-directory streak with malformed input', () => {
+    expect(
+      buildFeedDirectorySyncPlan({
+        csv: '<html>temporary upstream error</html>',
+        cache: { feeds: { retained: '2026-08-29' }, emptyDirectoryStreak: 1 },
+      }),
+    ).toEqual({ complete: false, feeds: [], changed: [], removed: [] });
+  });
+
   it('does not treat an incomplete directory row as a feed removal', () => {
     expect(
       buildFeedDirectorySyncPlan({
@@ -126,7 +176,7 @@ describe('E0 Awin sync', () => {
 
   it('updates the cached feed directory only after the index update succeeds', () => {
     const script = readFileSync('scripts/merch-engine/sync-awin-feeds.mjs', 'utf8');
-    expect(script.indexOf('await writeSqlite')).toBeLessThan(script.indexOf('await writeFile(cacheTarget'));
+    expect(script.indexOf('await writeSqlite')).toBeLessThan(script.lastIndexOf('await writeFile(cacheTarget'));
   });
 
   const sqliteSupported = Number(process.versions.node.split('.')[0]) >= 22;

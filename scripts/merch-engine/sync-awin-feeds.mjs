@@ -94,7 +94,12 @@ export function removedFeedIds({ feeds = [], cache = {} }) {
 
 export function buildFeedDirectorySyncPlan({ csv, cache = {} }) {
   const { complete, feeds } = parseFeedDirectory(csv);
-  if (!complete) return { complete, feeds, changed: [], removed: [] };
+  if (!complete) {
+    return { complete: false, feeds, changed: [], removed: [] };
+  }
+  if (feeds.length === 0 && Object.keys(cache.feeds ?? {}).length > 0 && !cache.emptyDirectoryStreak) {
+    return { complete: true, feeds, changed: [], removed: [], deferredRemoval: true };
+  }
   return {
     complete,
     feeds,
@@ -192,14 +197,20 @@ async function main() {
   const apiKey = process.env.AWIN_FEED_API_KEY;
   if (!apiKey) throw new Error('AWIN_FEED_API_KEY is required');
   const cache = await jsonFrom(resolve(ROOT, cachePath), { feeds: {} });
+  const cacheTarget = resolve(ROOT, cachePath);
   const list = await fetch(`https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(apiKey)}`);
   if (!list.ok) throw new Error(`Awin feed list request failed (${list.status})`);
-  const { complete, feeds, changed, removed } = buildFeedDirectorySyncPlan({ csv: await list.text(), cache });
+  const { complete, feeds, changed, removed, deferredRemoval } = buildFeedDirectorySyncPlan({ csv: await list.text(), cache });
   if (!complete) throw new Error('Awin feed directory response is incomplete; leaving local index untouched');
+  if (deferredRemoval) {
+    await mkdir(dirname(cacheTarget), { recursive: true });
+    await writeFile(cacheTarget, `${JSON.stringify({ ...cache, feeds: cache.feeds ?? {}, emptyDirectoryStreak: 1 }, null, 2)}\n`);
+    console.warn('Awin feed directory is empty; deferring all-feed removal until the next consecutive response');
+    return;
+  }
   if (changed.some((feed) => !feed.advertiserMid)) throw new Error('Awin feed list must identify each changed advertiser');
   const downloaded = await fetchChangedFeeds({ feeds: changed });
   const rows = downloaded.flatMap((feed) => rowsFromCsv(feed, feed.csv));
-  const cacheTarget = resolve(ROOT, cachePath);
   await mkdir(dirname(cacheTarget), { recursive: true });
   if (changed.length > 0 || removed.length > 0) await writeSqlite(resolve(ROOT, indexPath), rows, [...changed.map((feed) => feed.feedId), ...removed]);
   await writeFile(cacheTarget, `${JSON.stringify({ feeds: Object.fromEntries(feeds.map((feed) => [feed.feedId, feed.updatedAt])) }, null, 2)}\n`);
