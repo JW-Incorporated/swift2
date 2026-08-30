@@ -577,6 +577,24 @@ describe('checkMedia', () => {
     expect(findings).toEqual([]);
   });
 
+  it('rejects an X draft that declares a site-screen tile', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'x', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' },
+      [],
+    );
+    expect(findings.some((f) => f.includes('X drafts may not use mediaKind "site-screen"'))).toBe(true);
+  });
+
+  it('continues to allow an Instagram site-screen tile', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' },
+      [],
+    );
+    expect(findings).toEqual([]);
+  });
+
   it('rejects a .gif/.webp media path — only png/jpg/jpeg are produced/uploaded today', async () => {
     const gifFindings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/thing.gif'] }, []);
     expect(gifFindings.some((f) => f.includes('unsupported extension'))).toBe(true);

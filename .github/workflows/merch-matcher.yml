@@ -1,0 +1,53 @@
+# E6 Moment-to-Product Matcher — zero-LLM handoff only.
+#
+# This staged, dispatch-only workflow builds a bounded plan from candidates
+# already collected by E0 (Awin), brand-direct research, or the metered-search
+# authoring lane. The plan's `authoring` object is the bounded
+# `merch-re-source-authoring` queue interface for no-candidate and cap-reached
+# cases. This workflow never calls a model, retailer, or paid search API; those
+# judgment and spend actions stay in the separate content-authoring lane.
+#
+# :25 avoids this repository's :00/:05/:10/:30/:40 schedule clusters.
+name: merch-matcher
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_file:
+        description: 'Checked-in JSON candidate plan for a deterministic dry handoff'
+        required: true
+        default: 'scripts/merch-engine/fixtures/matcher-candidates.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: merch-matcher
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Build deterministic matcher handoff
+        env:
+          CANDIDATE_FILE: ${{ inputs.candidate_file }}
+        run: |
+          set -euo pipefail
+          input="${CANDIDATE_FILE:-scripts/merch-engine/fixtures/matcher-candidates.json}"
+          case "$input" in
+            scripts/merch-engine/*) ;;
+            *) echo 'candidate_file must stay under scripts/merch-engine/' >&2; exit 1 ;;
+          esac
+          node scripts/merch-engine/match-moments.mjs --input "$input" --output merch-matcher-plan.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: merch-matcher-plan
+          path: |
+            merch-matcher-plan.json
+          if-no-files-found: error

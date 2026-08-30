@@ -1,0 +1,55 @@
+# E3 Match Auditor detection. This scheduled lane is deliberately zero-LLM:
+# it only creates a scoring-queue artifact for merch-audit-authoring, the
+# separate judged lane that owns model calls and content-writing PRs (R1).
+# :24 avoids the repo's :00/:05/:10/:30/:40 contention cluster.
+name: merch-audit-detect
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/web/lib/longlive/content.ts'
+      - 'apps/web/lib/longlive/content-vault.generated.ts'
+      - 'supabase/seed/content/**'
+  schedule:
+    - cron: '24 15 * * 1'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Create a queue artifact without retaining it'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: merch-audit-detect
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      # Authoring owns writes to this cache after a scored pair is accepted.
+      # Detection only restores and reads it, so it cannot manufacture a score.
+      - uses: actions/cache/restore@v5
+        with:
+          path: .cache/merch-audit-scores.json
+          key: merch-audit-scores-v1-${{ github.ref_name }}
+      - name: Detect changed image pairs
+        run: npx tsx scripts/merch-engine/audit-matches.mjs --detect --cache .cache/merch-audit-scores.json --write-queue .artifacts/merch-audit-queue.json
+      - name: Upload scoring queue
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: merch-audit-queue
+          path: .artifacts/merch-audit-queue.json
+          if-no-files-found: error

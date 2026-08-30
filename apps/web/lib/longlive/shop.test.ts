@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildShopUrl, isAffiliate, SHOP_DISCLOSURE } from './shop';
+import { createShopLinkBuilder, SHOP_DISCLOSURE } from './shop';
 import type { Product } from './types';
 
 const product = (over: Partial<Product> = {}): Product => ({
@@ -12,41 +12,80 @@ const product = (over: Partial<Product> = {}): Product => ({
   ...over,
 });
 
-describe('buildShopUrl', () => {
-  it('returns the direct product URL unchanged while affiliate is off', () => {
-    expect(buildShopUrl(product())).toBe('https://www.ralphlauren.com/some-dress');
+const context = { eraId: 'midnights', momentId: 'bejeweled-video' };
+
+describe('listing-scoped affiliate wrapping', () => {
+  it('wraps an Awin-mapped primary listing with the listing subid', () => {
+    const shop = createShopLinkBuilder({
+      awinAdvertisers: { 'ralphlauren.com': '1234' },
+      awinId: 'affiliate-42',
+    });
+
+    expect(shop.buildUrl(product(), context)).toBe(
+      'https://www.awin1.com/cread.php?awinmid=1234&awinaffid=affiliate-42&clickref=midnights.bejeweled-video&ued=https%3A%2F%2Fwww.ralphlauren.com%2Fsome-dress',
+    );
+    expect(shop.isAffiliate(product(), context)).toBe(true);
   });
 
-  it('is keyed only by the product — same product, same URL (pure/static)', () => {
-    const p = product();
-    expect(buildShopUrl(p)).toBe(buildShopUrl(p));
+  it('adds Amazon attribution without dropping pre-existing destination parameters', () => {
+    const shop = createShopLinkBuilder({ amazonAssociatesTag: 'longlive-20' });
+    const listing = product({
+      retailer: 'amazon.com',
+      url: 'https://www.amazon.com/dp/B123?color=blue&tag=old-tag',
+    });
+
+    expect(shop.buildUrl(listing, context)).toBe(
+      'https://www.amazon.com/dp/B123?color=blue&tag=longlive-20&ascsubtag=midnights.bejeweled-video',
+    );
   });
 
-  it('passes any retailer through untouched today — the seam is inert until the affiliate flip', () => {
-    // When affiliate goes live these become wrapped per-retailer (LTK /
-    // Amazon Associates / Skimlinks) and THIS test is the one that gets
-    // updated — content never does.
-    for (const retailer of [
-      'louisvuitton.com',
-      'amazon.com',
-      'cartier.com',
-      'tiny-boutique.example',
-    ]) {
-      const url = `https://${retailer}/product/123`;
-      expect(buildShopUrl(product({ retailer, url }))).toBe(url);
+  it('keeps the dormant catch-all and unmapped hosts direct', () => {
+    const shop = createShopLinkBuilder({
+      catchallId: 'unused-until-approved',
+      awinAdvertisers: {},
+    });
+
+    for (const retailer of ['cartier.com', 'tiny-boutique.example']) {
+      const listing = product({ retailer, url: `https://${retailer}/product/123` });
+      expect(shop.buildUrl(listing, context)).toBe(listing.url);
+      expect(shop.isAffiliate(listing, context)).toBe(false);
     }
   });
 
-  it('never returns an empty or non-http href for a well-formed product', () => {
-    expect(buildShopUrl(product())).toMatch(/^https?:\/\//);
-  });
-});
+  it('keeps a catch-all resolution inert until its wrapping format is approved', () => {
+    const shop = createShopLinkBuilder({
+      catchallId: 'unused-until-approved',
+      resolveNetwork: () => ({ network: 'catchall' }),
+    });
 
-describe('isAffiliate', () => {
-  it('is false for every retailer while the seam is inert — so SHOP_DISCLOSURE renders nowhere', () => {
-    for (const retailer of ['revolve.com', 'amazon.com', 'louisvuitton.com']) {
-      expect(isAffiliate(product({ retailer }))).toBe(false);
-    }
+    expect(shop.buildUrl(product(), context)).toBe(product().url);
+    expect(shop.isAffiliate(product(), context)).toBe(false);
+  });
+
+  it('routes an alternate listing independently of its direct primary listing', () => {
+    const shop = createShopLinkBuilder({ amazonAssociatesTag: 'longlive-20' });
+    const primary = product({ retailer: 'store.taylorswift.com' });
+    const altListing = { retailer: 'amazon.com', url: 'https://www.amazon.com/dp/B123' };
+
+    expect(shop.buildUrl(primary, { bucket: 'official' })).toBe(primary.url);
+    expect(shop.isAffiliate(primary, { bucket: 'official' })).toBe(false);
+    expect(shop.buildUrl(altListing, { bucket: 'official' })).toBe(
+      'https://www.amazon.com/dp/B123?tag=longlive-20&ascsubtag=official',
+    );
+    expect(shop.isAffiliate(altListing, { bucket: 'official' })).toBe(true);
+  });
+
+  it('fails closed without the credential or listing context, so wrapping and disclosure stay atomic', () => {
+    const credentialless = createShopLinkBuilder({ awinAdvertisers: { 'ralphlauren.com': '1234' } });
+    const contextual = createShopLinkBuilder({
+      awinAdvertisers: { 'ralphlauren.com': '1234' },
+      awinId: 'affiliate-42',
+    });
+
+    expect(credentialless.buildUrl(product(), context)).toBe(product().url);
+    expect(credentialless.isAffiliate(product(), context)).toBe(false);
+    expect(contextual.buildUrl(product())).toBe(product().url);
+    expect(contextual.isAffiliate(product())).toBe(false);
   });
 });
 

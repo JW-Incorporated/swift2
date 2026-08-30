@@ -152,6 +152,9 @@ export function validateQueueItem(item) {
       `mediaKind: ${JSON.stringify(item.mediaKind)} is not recognized — defined values are ${MEDIA_KINDS.map((k) => `"${k}"`).join(', ')}.`,
     );
   }
+  if (item.platform === 'x' && item.mediaKind === 'site-screen') {
+    findings.push('mediaKind: X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
+  }
   for (const field of ['mediaCredit', 'mediaSource']) {
     if (item[field] !== undefined && (typeof item[field] !== 'string' || item[field].trim() === '')) {
       findings.push(`${field}: must be a non-empty string when present.`);

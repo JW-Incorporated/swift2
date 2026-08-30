@@ -408,6 +408,9 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     findings.push('media: Instagram drafts require at least one image in `media`.');
     return findings; // nothing else to check without media
   }
+  if (item.platform === 'x' && item.mediaKind === 'site-screen') {
+    findings.push('media: X drafts may not use mediaKind "site-screen" — X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
+  }
   if (item.platform === 'x' && (item.media?.length ?? 0) > MAX_X_IMAGES) {
     findings.push(`media: X posts support at most ${MAX_X_IMAGES} images (this draft has ${item.media.length}).`);
   }
