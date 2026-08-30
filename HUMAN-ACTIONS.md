@@ -359,6 +359,28 @@ credentials, this was just registering accounts/keys ahead of that build.
 ## DONE
 
 
+### 32. [BLOCKING] Etsy API returns 403 to the E5 evidence workflow — check app approval, ~10 min
+
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Outcome (2026-08-30):** no human action was needed after all — Joey
+verified the app is activated (Etsy confirmation email) and both secrets
+correct, and the real cause was on the code side: Etsy changed v3 auth so
+`x-api-key` must hold `keystring:shared_secret` joined by a colon; the
+keystring alone now 403s. PR #3519 fixed both call sites
+(`merch-e5-evidence.yml`, `fanmade-discovery.mjs`). The "worked if" is
+satisfied: run 33323629432 completed green and uploaded
+`merch-e5-evidence-artifact`. Cards t_aec44307 / t_13d961e9 unblocked.
+
+Original ask (kept for the record): check the app's approval state at
+`https://www.etsy.com/developers/your-apps`, confirm `ETSY_API_KEY` holds
+the Keystring (not the shared secret), then rerun **merch-e5-evidence**
+with `COLLECT_E5_EVIDENCE`.
+
+---
+
 ### 15. [UPGRADE] Two knowledge-engine calls still open after #12 — Reddit Data API status, Supabase anonymous-auth toggle
 
 **Filed:** 2026-08-23
