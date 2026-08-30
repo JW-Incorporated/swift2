@@ -252,7 +252,116 @@ export has been parsed without silently returning 0 posts.
 
 ---
 
+### 9. [UPGRADE] Decide whether `main` should keep requiring PRs — ~2 min
+
+**Filed:** 2026-08-19
+
+**CORRECTION, 2026-08-19.** An earlier version of this item said "`main` is
+completely unprotected" and gave steps to add protection. **That was wrong.**
+`main` has been protected the whole time by an active repository **ruleset**
+named `protect-main`. The check that produced the false reading was:
+
+```
+gh api repos/JW-Incorporated/swift2/branches/main/protection
+-> 404 {"message":"Branch not protected"}
+```
+
+That endpoint only reports **classic branch protection**. Protection
+implemented as a **ruleset** does not appear there and returns 404 anyway. The
+correct check is:
+
+```
+gh api repos/JW-Incorporated/swift2/rulesets
+gh api repos/JW-Incorporated/swift2/rulesets/18819106
+```
+
+The corroborating evidence that was in plain sight: **every commit on `main`
+carries a `(#NNNN)` PR number.** Nothing has been pushed directly to `main` in
+this repo for a long time, because nothing can be.
+
+**What `protect-main` (id `18819106`, enforcement `active`) actually enforces:**
+
+| Rule | Effect |
+|---|---|
+| `pull_request` (0 approvals required) | **A PR is required. Direct push to `main` is blocked** |
+| `required_status_checks` → `build` | `build` must be green before merge |
+| `non_fast_forward` | No force-pushes |
+| `deletion` | `main` cannot be deleted |
+| `bypass_actors: []` | **Nobody bypasses — not admins, not Actions** |
+
+There is also a second ruleset named `main` (id `21070803`) with enforcement
+**`disabled`**, so it currently does nothing.
+
+**So there is no gap to fix, and nothing here is blocking.** This item is now a
+decision, not a repair.
+
+**The decision.** Joey said he likes Claude Code pushing straight to `main` on
+low-risk projects. In *this* repo that has never been possible, and turning it
+on means editing `protect-main`:
+
+- **To keep things as they are (recommended):** do nothing. Work lands by
+  branch → PR → `build` green → merge, which is what every runner and
+  `auto-merge-content.yml` already do.
+- **To allow direct pushes:** open the ruleset, remove the **Require a pull
+  request before merging** rule and the **Require status checks to pass** rule,
+  and keep **Block force pushes** + **Restrict deletions**. Ruleset UI:
+  `https://github.com/JW-Incorporated/swift2/settings/rules`
+
+**Recommendation: leave it alone.** longlivets.com is live, `auto-merge-content.yml`
+lands PRs unattended, and `build` is the only thing standing between a bad
+generated-file drift and production. The PR requirement costs one extra command
+and is the reason `main` has stayed green.
+
+**Worked if:** whichever you choose, `gh api repos/JW-Incorporated/swift2/rulesets/18819106`
+reflects it, and a test PR still merges once `build` is green.
+
+**Status:** OPEN
+
+---
+
+
+### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
+
+**Filed:** 2026-08-15
+
+**Why it matters:** you asked for a curated dataset of official + viral fan-made
+merch. Tier 1 (the official store) is already solved and needs nothing from you.
+Everything else in the brief is unreachable from an agent environment —
+Etsy/Redbubble/TeePublic return 403, Reddit is refused at the tool level, TikTok
+returns an empty shell. You chose "get proper API access first" over browser
+automation. Until these exist, agents pointed at those sources would invent
+numbers, so the work is deliberately parked.
+
+**Steps:**
+1. Reddit script app: `https://www.reddit.com/prefs/apps` → **create another
+   app** → type **script**. Save the client id and secret.
+2. Etsy Open API Personal App: `https://www.etsy.com/developers/register` (or
+   `https://developer.etsy.com`). Save the keystring.
+3. Optional, only for referral revenue later: Awin and Amazon Associates.
+4. Put the values in the project `.env` yourself — never paste a key into chat.
+   Tell a session the key NAMES only, and it will wire them up.
+
+**Known ceiling, so you do not sign up for more than you need:** per-video
+TikTok/Instagram view counts for accounts you do not own are **not obtainable**
+on any legitimate path, and Etsy listings carry **no review count**. Hype
+evidence will be Reddit score + comments + press mentions.
+
+**Progress (2026-08-24):** Etsy Open API done — `ETSY_KEYSTRING` and
+`ETSY_SHARED_SECRET` are saved (values never seen by any session, key names
+only). Awin (step 3, referral revenue) also done — `AWIN_API` saved, same
+way. Reddit script app (step 1) still needed before the marketplace-
+research work can start — no code exists yet to consume any of these
+credentials, this was just registering accounts/keys ahead of that build.
+
+**Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
+
+**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
+
+---
+
+
 ## DONE
+
 
 ### 15. [UPGRADE] Two knowledge-engine calls still open after #12 — Reddit Data API status, Supabase anonymous-auth toggle
 
@@ -462,47 +571,6 @@ enable Supabase anonymous sign-ins or server-side conversation memory. See
 
 ---
 
-## OPEN
-
-### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
-
-**Filed:** 2026-08-15
-
-**Why it matters:** you asked for a curated dataset of official + viral fan-made
-merch. Tier 1 (the official store) is already solved and needs nothing from you.
-Everything else in the brief is unreachable from an agent environment —
-Etsy/Redbubble/TeePublic return 403, Reddit is refused at the tool level, TikTok
-returns an empty shell. You chose "get proper API access first" over browser
-automation. Until these exist, agents pointed at those sources would invent
-numbers, so the work is deliberately parked.
-
-**Steps:**
-1. Reddit script app: `https://www.reddit.com/prefs/apps` → **create another
-   app** → type **script**. Save the client id and secret.
-2. Etsy Open API Personal App: `https://www.etsy.com/developers/register` (or
-   `https://developer.etsy.com`). Save the keystring.
-3. Optional, only for referral revenue later: Awin and Amazon Associates.
-4. Put the values in the project `.env` yourself — never paste a key into chat.
-   Tell a session the key NAMES only, and it will wire them up.
-
-**Known ceiling, so you do not sign up for more than you need:** per-video
-TikTok/Instagram view counts for accounts you do not own are **not obtainable**
-on any legitimate path, and Etsy listings carry **no review count**. Hype
-evidence will be Reddit score + comments + press mentions.
-
-**Progress (2026-08-24):** Etsy Open API done — `ETSY_KEYSTRING` and
-`ETSY_SHARED_SECRET` are saved (values never seen by any session, key names
-only). Awin (step 3, referral revenue) also done — `AWIN_API` saved, same
-way. Reddit script app (step 1) still needed before the marketplace-
-research work can start — no code exists yet to consume any of these
-credentials, this was just registering accounts/keys ahead of that build.
-
-**Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
-
-**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
-
----
-
 ### 5. [UPGRADE] Five product/tech decisions that lost their owner — ~10 min
 
 **Filed:** 2026-08-15
@@ -530,6 +598,7 @@ dispositions are recorded in `docs/decisions.md` under
 
 ---
 
+
 ### 6. [UPGRADE] Should `auto-merge-content` keep auto-landing UI code? — ~2 min
 
 **Filed:** 2026-08-15
@@ -553,6 +622,7 @@ the 2026-08-30 decision entry in `docs/decisions.md`.
 **Status:** DONE
 
 ---
+
 
 ### 7. [UPGRADE] Three questions left open when #2110 merged — ~5 min
 
@@ -582,6 +652,7 @@ tracked separately.
 **Status:** DONE
 
 ---
+
 
 ### 8. [UPGRADE] Turn on the spam gate for link submissions — ~10 min
 
@@ -629,74 +700,7 @@ and rate limiter remain the active protections.
 
 ---
 
-### 9. [UPGRADE] Decide whether `main` should keep requiring PRs — ~2 min
 
-**Filed:** 2026-08-19
-
-**CORRECTION, 2026-08-19.** An earlier version of this item said "`main` is
-completely unprotected" and gave steps to add protection. **That was wrong.**
-`main` has been protected the whole time by an active repository **ruleset**
-named `protect-main`. The check that produced the false reading was:
-
-```
-gh api repos/JW-Incorporated/swift2/branches/main/protection
--> 404 {"message":"Branch not protected"}
-```
-
-That endpoint only reports **classic branch protection**. Protection
-implemented as a **ruleset** does not appear there and returns 404 anyway. The
-correct check is:
-
-```
-gh api repos/JW-Incorporated/swift2/rulesets
-gh api repos/JW-Incorporated/swift2/rulesets/18819106
-```
-
-The corroborating evidence that was in plain sight: **every commit on `main`
-carries a `(#NNNN)` PR number.** Nothing has been pushed directly to `main` in
-this repo for a long time, because nothing can be.
-
-**What `protect-main` (id `18819106`, enforcement `active`) actually enforces:**
-
-| Rule | Effect |
-|---|---|
-| `pull_request` (0 approvals required) | **A PR is required. Direct push to `main` is blocked** |
-| `required_status_checks` → `build` | `build` must be green before merge |
-| `non_fast_forward` | No force-pushes |
-| `deletion` | `main` cannot be deleted |
-| `bypass_actors: []` | **Nobody bypasses — not admins, not Actions** |
-
-There is also a second ruleset named `main` (id `21070803`) with enforcement
-**`disabled`**, so it currently does nothing.
-
-**So there is no gap to fix, and nothing here is blocking.** This item is now a
-decision, not a repair.
-
-**The decision.** Joey said he likes Claude Code pushing straight to `main` on
-low-risk projects. In *this* repo that has never been possible, and turning it
-on means editing `protect-main`:
-
-- **To keep things as they are (recommended):** do nothing. Work lands by
-  branch → PR → `build` green → merge, which is what every runner and
-  `auto-merge-content.yml` already do.
-- **To allow direct pushes:** open the ruleset, remove the **Require a pull
-  request before merging** rule and the **Require status checks to pass** rule,
-  and keep **Block force pushes** + **Restrict deletions**. Ruleset UI:
-  `https://github.com/JW-Incorporated/swift2/settings/rules`
-
-**Recommendation: leave it alone.** longlivets.com is live, `auto-merge-content.yml`
-lands PRs unattended, and `build` is the only thing standing between a bad
-generated-file drift and production. The PR requirement costs one extra command
-and is the reason `main` has stayed green.
-
-**Worked if:** whichever you choose, `gh api repos/JW-Incorporated/swift2/rulesets/18819106`
-reflects it, and a test PR still merges once `build` is green.
-
-**Status:** OPEN
-
----
-
-## DONE
 
 ### 30. [UPGRADE] Confirm the two owner-authorized X post deletions
 
