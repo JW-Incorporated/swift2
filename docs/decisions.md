@@ -7,6 +7,33 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-30 — E3 reserves the full vision cost before each authoring request
+
+**Decision:** The unscheduled E3 authoring runner
+`scripts/merch-engine/audit-matches-authoring.mjs` reserves **$0.03408** before
+each Claude Sonnet 5 request: two 4,784-token images plus 512 prompt tokens at
+$3/MTok, and 256 output tokens at $15/MTok. If the next reservation would
+reach the $5.00 run cap, it does not call the model. The runner records the
+reservation total separately from any provider-observed usage and leaves the
+remaining pairs unresolved.
+
+**Why:** The prior CLI run only detected its cap after provider usage reached
+$5.0562825, before it produced a valid score. A pre-call reservation makes the
+documented $5.00 circuit breaker enforceable rather than retrospective. The
+125-pair zero-cache maximum remains $4.260, so this cap does not require a
+change in approved spend.
+
+**Guardrails:** Thinking remains explicitly disabled; exactly one request is
+made per eligible detector cache key; pairs without both image URLs and a
+detector cache key are never judged; malformed or failed responses remain
+unresolved rather than gaining a fabricated score. The scheduled detector is
+unchanged and remains zero-LLM.
+
+**Approved by:** Binding Fable arbiter ruling `FBL-ARB-t_6c7b159c-E3-01`
+(2026-08-30), under the existing E3 cost-model decision.
+
+---
+
 ## 2026-08-30 — E3 vision judgment uses Claude Sonnet 5 with a $5.00 per-run circuit breaker
 
 **Decision:** The E3 Match Auditor's separate, unscheduled authoring lane uses
