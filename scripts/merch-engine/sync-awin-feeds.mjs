@@ -11,6 +11,10 @@ function text(value) {
   return typeof value === 'string' && value.trim() ? value.trim() : null;
 }
 
+function sqliteText(value) {
+  return value == null ? null : String(value);
+}
+
 function parseCsvRow(line) {
   const values = [];
   let value = '';
@@ -48,16 +52,16 @@ function parseCsvRecords(csv) {
   return records;
 }
 
-export function parseFeedList(csv) {
+export function parseFeedDirectory(csv) {
   const [header, ...lines] = parseCsvRecords(String(csv).trim());
   const names = parseCsvRow(header).map((name) => name.trim().toLowerCase());
+  const hasColumn = (...candidates) => candidates.some((candidate) => names.includes(candidate));
   const field = (row, ...candidates) => {
     const index = candidates.map((candidate) => names.indexOf(candidate)).find((candidate) => candidate >= 0);
     return index === undefined ? null : text(row[index]);
   };
-  return lines
-    .filter(Boolean)
-    .map(parseCsvRow)
+  const rows = lines.filter(Boolean).map(parseCsvRow);
+  const feeds = rows
     .map((row) => ({
       feedId: field(row, 'feed id', 'feed_id', 'fid'),
       updatedAt: field(row, 'last imported', 'last update', 'last_updated'),
@@ -65,11 +69,43 @@ export function parseFeedList(csv) {
       advertiserMid: field(row, 'advertiser id', 'advertiser_id', 'merchant id', 'merchant_id'),
     }))
     .filter((feed) => feed.feedId && feed.updatedAt && feed.downloadUrl);
+  return {
+    complete: hasColumn('feed id', 'feed_id', 'fid')
+      && hasColumn('last imported', 'last update', 'last_updated')
+      && hasColumn('url', 'download url', 'download_url')
+      && feeds.length === rows.length,
+    feeds,
+  };
+}
+
+export function parseFeedList(csv) {
+  return parseFeedDirectory(csv).feeds;
 }
 
 export function buildFeedSyncPlan({ feeds = [], cache = {} }) {
   const previous = cache.feeds ?? {};
   return feeds.filter((feed) => previous[feed.feedId] !== feed.updatedAt);
+}
+
+export function removedFeedIds({ feeds = [], cache = {} }) {
+  const current = new Set(feeds.map((feed) => feed.feedId));
+  return Object.keys(cache.feeds ?? {}).filter((feedId) => !current.has(feedId));
+}
+
+export function buildFeedDirectorySyncPlan({ csv, cache = {} }) {
+  const { complete, feeds } = parseFeedDirectory(csv);
+  if (!complete) {
+    return { complete: false, feeds, changed: [], removed: [] };
+  }
+  if (feeds.length === 0 && Object.keys(cache.feeds ?? {}).length > 0 && !cache.emptyDirectoryStreak) {
+    return { complete: true, feeds, changed: [], removed: [], deferredRemoval: true };
+  }
+  return {
+    complete,
+    feeds,
+    changed: buildFeedSyncPlan({ feeds, cache }),
+    removed: removedFeedIds({ feeds, cache }),
+  };
 }
 
 export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms) => new Promise((done) => setTimeout(done, ms)), requestIntervalMs = MIN_REQUEST_INTERVAL_MS }) {
@@ -119,43 +155,83 @@ async function jsonFrom(path, fallback) {
   }
 }
 
-async function writeSqlite(path, rows, changedFeeds) {
+export async function writeSqlite(path, rows, replacedFeedIds) {
   const { DatabaseSync } = await import('node:sqlite');
   const database = new DatabaseSync(path);
-  database.exec('CREATE TABLE IF NOT EXISTS products (feed_id TEXT NOT NULL, advertiser_mid TEXT, product_id TEXT, title TEXT, description TEXT, brand TEXT, price TEXT, stock TEXT, image_url TEXT, destination_url TEXT, deeplink TEXT, category TEXT, updated_at TEXT, PRIMARY KEY(advertiser_mid, product_id)); CREATE VIRTUAL TABLE IF NOT EXISTS products_fts USING fts5(title, description, brand);');
+  database.exec('CREATE TABLE IF NOT EXISTS products (feed_id TEXT NOT NULL, advertiser_mid TEXT, product_id TEXT, title TEXT, description TEXT, brand TEXT, price TEXT, stock TEXT, image_url TEXT, destination_url TEXT, deeplink TEXT, category TEXT, updated_at TEXT, PRIMARY KEY(advertiser_mid, product_id));');
   const columns = database.prepare('PRAGMA table_info(products)').all();
   if (!columns.some((column) => column.name === 'feed_id')) database.exec("ALTER TABLE products ADD COLUMN feed_id TEXT NOT NULL DEFAULT ''");
   const removeFeed = database.prepare('DELETE FROM products WHERE feed_id = ?');
   const insert = database.prepare('INSERT OR REPLACE INTO products (feed_id, advertiser_mid, product_id, title, description, brand, price, stock, image_url, destination_url, deeplink, category, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-  for (const feed of changedFeeds) removeFeed.run(feed.feedId);
-  const insertFts = database.prepare('INSERT INTO products_fts VALUES (?, ?, ?)');
+  for (const feedId of replacedFeedIds) removeFeed.run(feedId);
   for (const row of rows) {
-    insert.run(row.feedId, row.advertiserMid, row.productId, row.title, row.description, row.brand, row.price, row.stock, row.imageUrl, row.destinationUrl, row.deeplink, row.category, row.updatedAt);
+    insert.run(...[
+      row.feedId,
+      row.advertiserMid,
+      row.productId,
+      row.title,
+      row.description,
+      row.brand,
+      row.price,
+      row.stock,
+      row.imageUrl,
+      row.destinationUrl,
+      row.deeplink,
+      row.category,
+      row.updatedAt,
+    ].map(sqliteText));
   }
-  database.exec('DELETE FROM products_fts;');
-  for (const row of database.prepare('SELECT title, description, brand FROM products').all()) insertFts.run(row.title, row.description, row.brand);
+  database.exec('DROP TABLE IF EXISTS products_fts; CREATE VIRTUAL TABLE products_fts USING fts5(product_key UNINDEXED, title, description, brand);');
+  const insertFts = database.prepare('INSERT INTO products_fts (product_key, title, description, brand) VALUES (?, ?, ?, ?)');
+  for (const row of database.prepare('SELECT feed_id, product_id, title, description, brand FROM products').all()) {
+    insertFts.run(`${row.feed_id}:${row.product_id}`, row.title, row.description, row.brand);
+  }
   database.close();
+}
+
+export async function syncAwinFeeds({
+  cachePath = 'awin-feed-cache.json',
+  indexPath = 'awin-product-index.sqlite',
+  apiKey,
+  fetchImpl = fetch,
+  writeSqliteImpl = writeSqlite,
+} = {}) {
+  if (!apiKey) throw new Error('AWIN_FEED_API_KEY is required');
+  const cache = await jsonFrom(resolve(ROOT, cachePath), { feeds: {} });
+  const cacheTarget = resolve(ROOT, cachePath);
+  const list = await fetchImpl(`https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(apiKey)}`);
+  if (!list.ok) throw new Error(`Awin feed list request failed (${list.status})`);
+  const { complete, feeds, changed, removed, deferredRemoval } = buildFeedDirectorySyncPlan({ csv: await list.text(), cache });
+  if (!complete) throw new Error('Awin feed directory response is incomplete; leaving local index untouched');
+  if (deferredRemoval) {
+    await mkdir(dirname(cacheTarget), { recursive: true });
+    await writeFile(cacheTarget, `${JSON.stringify({ ...cache, feeds: cache.feeds ?? {}, emptyDirectoryStreak: 1 }, null, 2)}\n`);
+    console.warn('Awin feed directory is empty; deferring all-feed removal until the next consecutive response');
+    return;
+  }
+  if (feeds.length > 0 && cache.emptyDirectoryStreak) {
+    const cacheWithoutEmptyDirectoryStreak = { ...cache };
+    delete cacheWithoutEmptyDirectoryStreak.emptyDirectoryStreak;
+    await mkdir(dirname(cacheTarget), { recursive: true });
+    await writeFile(cacheTarget, `${JSON.stringify(cacheWithoutEmptyDirectoryStreak, null, 2)}\n`);
+  }
+  if (changed.some((feed) => !feed.advertiserMid)) throw new Error('Awin feed list must identify each changed advertiser');
+  const downloaded = await fetchChangedFeeds({ feeds: changed, fetchImpl });
+  const rows = downloaded.flatMap((feed) => rowsFromCsv(feed, feed.csv));
+  await mkdir(dirname(cacheTarget), { recursive: true });
+  if (changed.length > 0 || removed.length > 0) await writeSqliteImpl(resolve(ROOT, indexPath), rows, [...changed.map((feed) => feed.feedId), ...removed]);
+  await writeFile(cacheTarget, `${JSON.stringify({ feeds: Object.fromEntries(feeds.map((feed) => [feed.feedId, feed.updatedAt])) }, null, 2)}\n`);
+  console.log(JSON.stringify({ changedFeeds: changed.length, removedFeeds: removed.length, indexedProducts: rows.length }));
 }
 
 async function main() {
   const args = process.argv.slice(2);
   const option = (name) => args.includes(name) ? args[args.indexOf(name) + 1] : null;
-  const cachePath = option('--cache') || 'awin-feed-cache.json';
-  const indexPath = option('--index') || 'awin-product-index.sqlite';
-  const apiKey = process.env.AWIN_FEED_API_KEY;
-  if (!apiKey) throw new Error('AWIN_FEED_API_KEY is required');
-  const cache = await jsonFrom(resolve(ROOT, cachePath), { feeds: {} });
-  const list = await fetch(`https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(apiKey)}`);
-  if (!list.ok) throw new Error(`Awin feed list request failed (${list.status})`);
-  const changed = buildFeedSyncPlan({ feeds: parseFeedList(await list.text()), cache });
-  if (changed.some((feed) => !feed.advertiserMid)) throw new Error('Awin feed list must identify each changed advertiser');
-  const downloaded = await fetchChangedFeeds({ feeds: changed });
-  const rows = downloaded.flatMap((feed) => rowsFromCsv(feed, feed.csv));
-  const cacheTarget = resolve(ROOT, cachePath);
-  await mkdir(dirname(cacheTarget), { recursive: true });
-  await writeFile(cacheTarget, `${JSON.stringify({ feeds: Object.fromEntries([...Object.entries(cache.feeds ?? {}), ...changed.map((feed) => [feed.feedId, feed.updatedAt])]) }, null, 2)}\n`);
-  if (changed.length > 0) await writeSqlite(resolve(ROOT, indexPath), rows, changed);
-  console.log(JSON.stringify({ changedFeeds: changed.length, indexedProducts: rows.length }));
+  await syncAwinFeeds({
+    cachePath: option('--cache') || 'awin-feed-cache.json',
+    indexPath: option('--index') || 'awin-product-index.sqlite',
+    apiKey: process.env.AWIN_FEED_API_KEY,
+  });
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch((error) => { console.error(`merch-awin-feeds: ${error.message}`); process.exitCode = 1; });

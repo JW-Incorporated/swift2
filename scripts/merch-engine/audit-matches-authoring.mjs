@@ -3,10 +3,12 @@
 // permitted to call the vision model; the scheduled detector remains zero-LLM.
 import { execFile } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { performance } from 'node:perf_hooks';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
-import { tierForScore } from './audit-matches.mjs';
+import { auditCacheKey, tierForScore } from './audit-matches.mjs';
+import { extractReplacementImage } from './verify-images.mjs';
 
 export const MODEL = 'claude-sonnet-5';
 export const MAX_RUN_COST_USD = 5;
@@ -14,6 +16,8 @@ export const TRANSIENT_RETRY_ATTEMPTS = 3;
 export const RESERVATION_PER_REQUEST_USD = ((2 * 4_784 + 512) * 3 + 256 * 15) / 1_000_000;
 export const RESERVATION_PER_PAIR_USD = RESERVATION_PER_REQUEST_USD * TRANSIENT_RETRY_ATTEMPTS;
 export const CAP_STOP_REASON = 'run cap would be reached before next request';
+export const RETAILER_FETCH_TIMEOUT_MS = 10_000;
+export const HYDRATION_BUDGET_MS = 5 * 60_000;
 
 const ANTHROPIC_VERSION = '2023-06-01';
 const execFileAsync = promisify(execFile);
@@ -129,9 +133,10 @@ export function requiresApiKey(receipt, queue) {
       judgment,
     ]),
   );
-  return (Array.isArray(queue?.queue) ? queue.queue : []).some((queued) =>
-    eligible({ ...receiptByProduct.get(queued.productId), ...queued }),
-  );
+  return (Array.isArray(queue?.queue) ? queue.queue : []).some((queued) => {
+    const pair = { ...receiptByProduct.get(queued.productId), ...queued };
+    return eligible(pair) || (typeof pair.productUrl === 'string' && !!pair.momentImageUrl);
+  });
 }
 
 export function capIssueContent(artifact) {
@@ -192,6 +197,21 @@ function unavailableReason(pair) {
   return 'detector pair cache key unavailable';
 }
 
+export async function retailerOgImage(
+  productUrl,
+  { fetchImpl = fetch, timeoutMs = RETAILER_FETCH_TIMEOUT_MS } = {},
+) {
+  if (typeof productUrl !== 'string' || !productUrl) return null;
+  const response = await fetchImpl(productUrl, {
+    method: 'GET',
+    redirect: 'follow',
+    signal: globalThis.AbortSignal.timeout(timeoutMs),
+  });
+  if (!response.ok) return null;
+  const imageUrl = extractReplacementImage(await response.text());
+  return typeof imageUrl === 'string' && imageUrl.startsWith('https://') ? imageUrl : null;
+}
+
 function toolInput(body) {
   const content = body?.content;
   if (!Array.isArray(content)) return null;
@@ -239,6 +259,11 @@ function isRetryableVisionError(error) {
   return !status || status === '429' || status.startsWith('5');
 }
 
+function visionFailureReason(error) {
+  const status = error instanceof Error ? /\((\d{3})\)$/.exec(error.message)?.[1] : null;
+  return status ? `vision request failed (HTTP ${status})` : 'vision request failed';
+}
+
 async function judgeWithRetry(pair, judge, sleep, reserveAttempt) {
   let lastError;
   for (let attempt = 1; attempt <= TRANSIENT_RETRY_ATTEMPTS; attempt += 1) {
@@ -258,7 +283,9 @@ export async function runAuthoring({
   receipt,
   queue,
   judge,
+  resolveProductImage = (pair) => retailerOgImage(pair.productUrl),
   capUsd = MAX_RUN_COST_USD,
+  hydrationBudgetMs = HYDRATION_BUDGET_MS,
   sleep = (milliseconds) => new Promise((resolveSleep) => setTimeout(resolveSleep, milliseconds)),
 }) {
   if (!receipt || typeof receipt !== 'object') throw new Error('receipt must be an object');
@@ -266,6 +293,8 @@ export async function runAuthoring({
     throw new Error('detector queue must contain a queue array');
   if (!Number.isFinite(capUsd) || capUsd <= 0 || capUsd > MAX_RUN_COST_USD)
     throw new Error(`capUsd must be greater than zero and at most ${MAX_RUN_COST_USD}`);
+  if (!Number.isFinite(hydrationBudgetMs) || hydrationBudgetMs < 0)
+    throw new Error('hydrationBudgetMs must be zero or greater');
 
   const receiptJudgments = Array.isArray(receipt.judgments) ? receipt.judgments : [];
   const receiptByProduct = new Map(
@@ -282,9 +311,37 @@ export async function runAuthoring({
   let eligibleCount = 0;
   let stoppedAtCap = false;
   const judgments = [];
+  const hydrationStartedAt = performance.now();
 
   for (const queued of queue.queue) {
-    const pair = { ...receiptByProduct.get(queued.productId), ...queued };
+    const prior = receiptByProduct.get(queued.productId);
+    let pair = { ...prior, ...queued };
+    if (!pair.productImageUrl && prior?.productImageUrl) {
+      const productImageUrl = prior.productImageUrl;
+      pair = {
+        ...pair,
+        productImageUrl,
+        cacheKey: auditCacheKey({ ...pair, productImageUrl }),
+      };
+    }
+    if (
+      !pair.productImageUrl &&
+      pair.productUrl &&
+      performance.now() - hydrationStartedAt < hydrationBudgetMs
+    ) {
+      try {
+        const productImageUrl = await resolveProductImage(pair);
+        if (productImageUrl) {
+          pair = {
+            ...pair,
+            productImageUrl,
+            cacheKey: auditCacheKey({ ...pair, productImageUrl }),
+          };
+        }
+      } catch {
+        // Keep the pair as unresolved evidence when a retailer page is unavailable.
+      }
+    }
     if (!eligible(pair)) {
       judgments.push(unresolved(pair, unavailableReason(pair)));
       continue;
@@ -320,7 +377,7 @@ export async function runAuthoring({
       continue;
     }
     if (result.error) {
-      judgments.push(unresolved(pair, 'vision request failed'));
+      judgments.push(unresolved(pair, visionFailureReason(result.error)));
       continue;
     }
     const normalized = normalizeJudgment(pair, result.response);

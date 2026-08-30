@@ -7,6 +7,29 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-30 — Standing authorization: E3 vision-scoring runs at the $5/run cap
+
+**Decision:** `merch-audit-authoring` runs are standing-authorized by Joey at
+the existing $5.00/run reservation cap, existing model (`claude-sonnet-5`)
+and pre-call reservation policy. Agents dispatch runs whenever new eligible
+image pairs exist (for example after product-image re-sourcing) without a
+fresh founder ask. Anything beyond this lane — a higher cap, a model or
+policy change, or vision spend outside E3 authoring — still requires Joey's
+approval, requested with a concrete reason.
+
+**Why:** The first two capped runs proved the lane safe and cheap (~$5.06
+and ~$1.47 reserved) while per-run founder asks added latency without adding
+control: the cap, not the ask, is the real safety mechanism. Joey set the
+standing approach on 2026-08-30 after authorizing the second run.
+
+**Alternatives considered:** per-run approval (rejected: redundant with the
+circuit breaker); unlimited authorization (rejected: cap changes and new
+lanes stay founder-gated).
+
+**Approved by:** Joey, 2026-08-30 (recorded on kanban card t_6faf515d).
+
+---
+
 ## 2026-08-30 — HUMAN-ACTIONS section structure
 
 **Decision:** `HUMAN-ACTIONS.md` contains exactly one `## OPEN` heading and one `## DONE` heading, with OPEN before DONE. Every numbered item lives in the section matching its status; closing an item moves its complete block into the existing DONE section rather than adding another heading.
