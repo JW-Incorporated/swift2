@@ -449,7 +449,14 @@ with it. Neither blocks tonight's build.
 migrations are applied, flip the Supabase toggle whenever you like — the
 code is ready.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Reddit denied the knowledge engine's Data API
+request. The disclosed RSS-only interim remains in place today while a
+separate sustainable-source research lane investigates alternatives. Joey also
+accepted Clownbot's current stateless operation until it has users; do not
+enable Supabase anonymous sign-ins or server-side conversation memory. See
+`docs/decisions.md` 2026-08-30 decision record.
+
+**Status:** DONE
 
 ---
 
