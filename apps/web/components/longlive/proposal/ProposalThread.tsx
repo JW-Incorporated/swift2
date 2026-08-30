@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Quote } from 'lucide-react';
 import { getEra } from '@/lib/longlive/eras';
+import { accentFgFor } from '@/lib/longlive/theme';
 import { useAppActions } from '@/lib/longlive/store';
 import { contentForThread } from '@/lib/longlive/threads';
 import { autoFocalPoint, focalPointOf, hasRealPrimaryImage, primaryImageRef } from '@/lib/longlive/types';
@@ -87,7 +88,12 @@ export function ProposalThread() {
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span
                     className="rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
-                    style={{ backgroundColor: `color-mix(in srgb, ${era.theme.accent} 14%, transparent)`, color: era.theme.accent }}
+                    // #3411: solid fill + on-fill foreground (the #3397 shape).
+                    // This pill is colored by the *beat's* era while the page
+                    // runs the vault theme, so `--era-accent-text` would resolve
+                    // to the vault's value, not this era's — accentFgFor is the
+                    // documented pairing for exactly that case (theme.ts #3318).
+                    style={{ backgroundColor: era.theme.accent, color: accentFgFor(era.theme) }}
                   >
                     {era.shortName} · {item.dateLabel}
                   </span>
