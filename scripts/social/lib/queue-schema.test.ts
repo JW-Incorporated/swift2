@@ -99,9 +99,18 @@ ${url}`;
       expect(findingFor({ ...validIg, media: undefined }, 'media:')).toBeDefined();
     });
 
-    it('allows media on X up to the 4-image tweet cap', () => {
+    it('allows photo media on X up to the 4-image tweet cap but rejects site screens', () => {
       expect(PLATFORM_RULES.x.media).toBe('optional');
-      expect(validateQueueItem({ ...validX, media: ['/social/library/a.png'], mediaKind: 'site-screen' })).toEqual([]);
+      expect(
+        validateQueueItem({
+          ...validX,
+          media: ['/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg'],
+          mediaKind: 'photo',
+          mediaCredit: 'Someone/Getty Images',
+          mediaSource: 'https://example.com/photo',
+        }),
+      ).toEqual([]);
+      expect(findingFor({ ...validX, media: ['/social/library/a.png'], mediaKind: 'site-screen' }, 'X site-screen posts are permanently prohibited')).toBeDefined();
       const five = Array.from({ length: 5 }, (_, i) => `/social/${i}.png`);
       expect(findingFor({ ...validX, media: five }, 'media:')).toContain("exceeds x's limit of 4");
     });

@@ -7,6 +7,29 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-30 — X site-screen posts are permanently prohibited; remove the two already live
+
+**Decision:** Delete exactly the two owner-identified live X posts
+`2092348505243160881` and `2092276284667691117`, which use product site
+screenshots. New X drafts with `mediaKind: "site-screen"` must fail both the
+draft-time and queue-schema validation gates. This rule changes neither
+Instagram's permitted product screenshots nor X text-only and real credited
+photo posts.
+
+**Why:** Joey identified the two live site-screen posts as unwanted and directed
+that future X site-screen posts must be impossible. A documented, tested
+validator rule prevents a queue path from recreating them; the separate,
+parameter-free manual workflow can delete only the two explicitly approved IDs.
+
+**Alternatives considered:** Leaving this as drafting guidance was rejected:
+prose alone cannot stop a future queue item. Banning all X media was rejected:
+real credited photos remain allowed. Changing Instagram was rejected: its
+site-screen use remains allowed for product surfaces.
+
+**Approved by:** Joey (direct instruction, 2026-08-30).
+
+---
+
 ## 2026-08-30 — FR-MERCH-5: merch-autonomy source-gate ruling (#3440) — counsel gate binds the PLAN, canonical credential names, R1 lane split for E3
 
 **Context:** Fable arbiter ruling for task t_45978f0b / issue #3440, on the
