@@ -2,7 +2,12 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
-import { buildShortlist, formatCsv, formatMarkdown } from './awin-directory-shortlist.mjs';
+import {
+  buildShortlist,
+  formatCsv,
+  formatMarkdown,
+  requestProgrammes,
+} from './awin-directory-shortlist.mjs';
 
 const catalogue = [
   { retailer: 'exact-shop.com', item: 'Exact dress' },
@@ -94,6 +99,11 @@ describe('Awin directory shortlist', () => {
         feedAvailable: true,
       }),
     ]);
+    expect(report.manualReview[0]).toMatchObject({
+      sourceField: 'programmeInfo.name/displayUrl/primaryDomain/validDomains/domains',
+      matchEvidence:
+        'Awin programme name or domain shares a normalized key or suffix with retailer',
+    });
     expect(report.unmatched).toEqual([
       expect.objectContaining({
         currentRetailer: 'unmatched-shop.com',
@@ -179,11 +189,44 @@ describe('Awin directory shortlist', () => {
     });
 
     expect(formatCsv(report)).toContain(
-      'current_retailer,product_count,awin_advertiser_name,awin_advertiser_id,source_hostname,match_type,us_programme_status,product_feed_available',
+      'current_retailer,product_count,awin_advertiser_name,awin_advertiser_id,source_hostname,source_field,match_evidence,match_type,us_programme_status,product_feed_available',
     );
     expect(formatMarkdown(report)).toContain('## Exact hostname and domain-suffix matches');
     expect(formatMarkdown(report)).toContain('## Manual-review candidates');
     expect(formatMarkdown(report)).toContain('## Unmatched retailers');
+    expect(formatMarkdown(report)).toContain('match evidence');
+  });
+
+  it('collects every Awin programme page', async () => {
+    const calls: string[] = [];
+    const fetchImpl = async (url: URL) => {
+      calls.push(url.toString());
+      const second = calls.length === 2;
+      return {
+        ok: true,
+        json: async () => ({ programmes: [{ id: second ? 2 : 1 }] }),
+        headers: {
+          get: () =>
+            second ? null : '<https://api.awin.com/publishers/99/programmes?page=2>; rel="next"',
+        },
+      };
+    };
+
+    await expect(
+      requestProgrammes({
+        publisherId: '99',
+        token: 'test-token',
+        relationship: 'notjoined',
+        fetchImpl,
+      }),
+    ).resolves.toEqual([
+      { id: 1, relationship: 'notjoined' },
+      { id: 2, relationship: 'notjoined' },
+    ]);
+    expect(calls).toHaveLength(2);
+    expect(
+      calls.every((url) => new URL(url).searchParams.get('accessToken') === 'test-token'),
+    ).toBe(true);
   });
 
   it('keeps the execution lane manual, secret-bound, and artifact-only', () => {
