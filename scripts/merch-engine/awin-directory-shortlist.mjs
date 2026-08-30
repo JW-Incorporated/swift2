@@ -382,6 +382,8 @@ export async function requestProgrammes({ publisherId, token, relationship, fetc
   pageUrl.searchParams.set('countryCode', 'US');
   pageUrl.searchParams.set('relationship', relationship);
   do {
+    pageUrl.searchParams.set('countryCode', 'US');
+    pageUrl.searchParams.set('relationship', relationship);
     pageUrl.searchParams.set('accessToken', token);
     const response = await fetchImpl(pageUrl, { headers: { accept: 'application/json' } });
     if (!response.ok) throw new Error(`Awin programmes request failed (${response.status})`);
@@ -390,6 +392,10 @@ export async function requestProgrammes({ publisherId, token, relationship, fetc
     programmes.push(...page.map((programme) => ({ ...programme, relationship })));
     const next = nextPageUrl(response.headers.get('link'));
     pageUrl = next ? validatedPageUrl(next) : null;
+    if (pageUrl) {
+      pageUrl.searchParams.set('countryCode', 'US');
+      pageUrl.searchParams.set('relationship', relationship);
+    }
     if (pageUrl && seen.has(pageUrl.toString())) {
       throw new Error('Awin programme pagination repeated a page URL');
     }

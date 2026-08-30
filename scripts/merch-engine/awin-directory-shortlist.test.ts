@@ -225,7 +225,14 @@ describe('Awin directory shortlist', () => {
     ]);
     expect(calls).toHaveLength(2);
     expect(
-      calls.every((url) => new URL(url).searchParams.get('accessToken') === 'test-token'),
+      calls.every((url) => {
+        const query = new URL(url).searchParams;
+        return (
+          query.get('accessToken') === 'test-token' &&
+          query.get('countryCode') === 'US' &&
+          query.get('relationship') === 'notjoined'
+        );
+      }),
     ).toBe(true);
   });
 
