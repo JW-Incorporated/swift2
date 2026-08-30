@@ -18,10 +18,13 @@ export const RESERVATION_PER_PAIR_USD = RESERVATION_PER_REQUEST_USD * TRANSIENT_
 export const CAP_STOP_REASON = 'run cap would be reached before next request';
 export const RETAILER_FETCH_TIMEOUT_MS = 10_000;
 export const HYDRATION_BUDGET_MS = 5 * 60_000;
+export const IMAGE_FETCH_TIMEOUT_MS = 10_000;
+export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
 const ANTHROPIC_VERSION = '2023-06-01';
 const execFileAsync = promisify(execFile);
 const THINKING = { type: 'disabled' };
+const SUPPORTED_IMAGE_MEDIA_TYPES = new Set(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
 const KINDS = new Set([
   'dress',
   'top',
@@ -221,7 +224,40 @@ function toolInput(body) {
   );
 }
 
+function imageFailure(message, status = null) {
+  return new Error(status ? `image source ${message} (HTTP ${status})` : `image source ${message}`);
+}
+
+async function imageContent(url, fetchImpl) {
+  let response;
+  try {
+    response = await fetchImpl(url, {
+      method: 'GET',
+      redirect: 'follow',
+      signal: globalThis.AbortSignal.timeout(IMAGE_FETCH_TIMEOUT_MS),
+    });
+  } catch {
+    throw imageFailure('unavailable');
+  }
+  if (!response.ok) throw imageFailure('unavailable', response.status);
+  const mediaType = response.headers.get('content-type')?.split(';', 1)[0].trim().toLowerCase();
+  if (!SUPPORTED_IMAGE_MEDIA_TYPES.has(mediaType)) throw imageFailure('unsupported');
+  const declaredSize = Number(response.headers.get('content-length'));
+  if (Number.isFinite(declaredSize) && declaredSize > MAX_IMAGE_BYTES)
+    throw imageFailure('too large');
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  if (bytes.byteLength > MAX_IMAGE_BYTES) throw imageFailure('too large');
+  return {
+    type: 'image',
+    source: { type: 'base64', media_type: mediaType, data: Buffer.from(bytes).toString('base64') },
+  };
+}
+
 export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
+  const [productImage, momentImage] = await Promise.all([
+    imageContent(pair.productImageUrl, fetchImpl),
+    imageContent(pair.momentImageUrl, fetchImpl),
+  ]);
   const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -239,8 +275,8 @@ export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
         {
           role: 'user',
           content: [
-            { type: 'image', source: { type: 'url', url: pair.productImageUrl } },
-            { type: 'image', source: { type: 'url', url: pair.momentImageUrl } },
+            productImage,
+            momentImage,
             {
               type: 'text',
               text: 'Compare the product image first with the source-moment photo second. Score visual match from 0 to 100 using silhouette, color or pattern, garment type, and notable details. Return only the required judgment tool input; do not infer details not visible in the images.',
@@ -255,11 +291,13 @@ export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
 }
 
 function isRetryableVisionError(error) {
+  if (error instanceof Error && error.message.startsWith('image source ')) return false;
   const status = error instanceof Error ? /\((\d{3})\)$/.exec(error.message)?.[1] : null;
   return !status || status === '429' || status.startsWith('5');
 }
 
 function visionFailureReason(error) {
+  if (error instanceof Error && error.message.startsWith('image source ')) return error.message;
   const status = error instanceof Error ? /\((\d{3})\)$/.exec(error.message)?.[1] : null;
   return status ? `vision request failed (HTTP ${status})` : 'vision request failed';
 }
