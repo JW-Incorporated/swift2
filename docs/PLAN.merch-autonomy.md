@@ -31,9 +31,6 @@ require an account with a payment card. No agent can (or should) sign those.
 That 5% is **one batch of ~6 one-time signups, roughly 2–4 hours total**, then
 a steady state of approximately zero — annual tax forms and the occasional
 compliance email. Everything downstream of the credentials is automated.
-One human gate sits outside the signup batch and is not a signup at all:
-the standing **external IP-counsel review** (`docs/decisions.md` 2026-07-08
-§3) before anything monetized ships — see Phase 2 and FR-MERCH-5.
 
 The honest caveats, so nothing here oversells:
 
@@ -89,7 +86,7 @@ The honest caveats, so nothing here oversells:
 | 1 | Products don't look like what Taylor wears | **E3 Match Auditor** — vision model scores every product image against its moment photo; graded tiers replace the binary flag; mismatches auto-demoted and re-sourced | Full |
 | 2 | Dead / "not found" links | **E1 Link & Stock Verifier** — Karen's detector grows an acting lane: re-resolve, replace, or mark `inStock:false` via gated PR | Full |
 | 3 | Images don't load | **E2 Image Verifier** — HEAD-check every `imageUrl`, re-scrape `og:image` from the product page on failure | Full |
-| 4 | Affiliate on every product | **Seam flip + resolver** — 3–4 network signups cover all 77 retailers; a generated coverage report tells you per-product how it monetizes | Full after signups + IP-counsel gate |
+| 4 | Affiliate on every product | **Seam flip + resolver** — 3–4 network signups cover all 77 retailers; a generated coverage report tells you per-product how it monetizes | Full after signups |
 | 5 | Official bucket empty | **E4 Official Store Sync** — Shopify JSON crawl of the full catalog, diffed on a schedule (drops detection falls out for free) | Full |
 | 6 | Fan-made bucket empty | **E5 Fan-Made Discovery** — Etsy API search + Reddit polling + the existing submission form; all items monetize via the one Etsy/Awin membership | Full after signups |
 | 7 | Engine for newly released merch | E4 + E5 *are* that engine — both run on schedules and file only what's new | Full |
@@ -139,28 +136,31 @@ product → its resolved network → link format → status
 done for issue #4 is that report showing zero `uncovered` rows (or each one
 carrying an explicit policy reason).
 
-## The official store posture (issue #5) — D1 decided
+## The official store problem (issue #5) — and decision D1
 
 Verified: **store.taylorswift.com has no affiliate program.** It's a UMG
 (Taylor Nation LLC) Shopify store; no network lists it; nothing in its terms
-offers one. Your "every product MUST have an affiliate link" rule therefore collides with
-"fill the official bucket." **D1-a is approved:** exempt the official bucket
-from the affiliate rule. List the full official catalog unmonetized for
-completeness, SEO, and drops coverage (drops feed the social poster — that's
-audience growth, which is the asset). Where the same official item verifiably
-sells on Amazon (Amazon hosts an official Taylor Swift artist merch page —
-vinyl, CDs, some merch), E4 attaches a *secondary* "Also on Amazon" affiliate
-link. Partial monetization, full catalog. D1-b (listing only official items
-with an Amazon twin) is rejected because it would omit official-store
-exclusives.
+offers one. Your "every product MUST have an affiliate link" rule therefore
+collides with "fill the official bucket." Options:
 
-## Fan-made posture — D3 approved
+- **D1-a (recommended): exempt the official bucket from the affiliate rule.**
+  List the full official catalog unmonetized for completeness, SEO, and drops
+  coverage (drops feed the social poster — that's audience growth, which is
+  the asset). Where the same official item verifiably sells on Amazon
+  (Amazon hosts an official Taylor Swift artist merch page — vinyl, CDs, some
+  merch), E4 attaches a *secondary* "Also on Amazon" affiliate link. Partial
+  monetization, full catalog.
+- **D1-b: strict rule.** Only official items with an Amazon twin get listed.
+  The bucket stays thin and misses store exclusives — most of the catalog.
 
-Fan merch is inherently an IP gray zone. **D3 approves** the curation line
-that protects both the Etsy/Awin account and the site:
+## Fan-made posture — decision D3
+
+Fan merch is inherently an IP gray zone. The curation gate should hold a
+line that protects both the Etsy/Awin account and the site:
 **"inspired-by" yes, bootleg no** — skip items that reprint official artwork,
 tour graphics, or photos of Taylor; favor lyric-reference, era-color, and
-original-design items. E5 encodes this as a hard curation rule.
+original-design items. E5 encodes this as a hard curation rule. (D3 is
+approving that line or drawing your own.)
 
 ## Decision D2 — the catch-all network
 
@@ -172,25 +172,18 @@ apply to one first, the other as fallback. Do not run both on the same links.
 ## Phases — trust first, then money, then growth
 
 **Phase 0 — Signups (Joey, the only human phase).** File the HUMAN-ACTIONS
-items below; agents proceed with everything not blocked on credentials —
-or on the FR-MERCH-5 counsel gate, which credentials never open (Phase 2).
+items below; agents proceed with everything not blocked on credentials.
 
 **Phase 1 — Fix what exists (E1, E2, E3).** Dead links, broken images, and
 mismatched products destroy buyer trust and would get an affiliate
 application rejected on review. Runs credential-free — starts immediately.
 
 **Phase 2 — Turn on money.** The seam flip (small diff to `shop.ts` +
-resolver config), disclosure auto-appears, coverage report goes live.
-**Hard gate first (FR-MERCH-5):** per `docs/decisions.md` 2026-07-08 §3
-nothing monetized ships, and per FR-MERCH-4/5 no affiliate/commercial
-implementation (seam flip, E0, coverage wiring) even starts, until external
-IP counsel has reviewed the affiliate layer (right-of-publicity, false
-endorsement, FTC disclosure — HUMAN-ACTIONS #27). Credentials landing in
-env does **not** open this phase; counsel sign-off does. Once counsel
-clears it, the Awin branch goes first — Etsy links and every
-joined-advertiser link wrap live, per network, without waiting on Amazon
-(`isAffiliate()` is per-network by design). E0's programme audit belongs to
-this phase (it is affiliate infrastructure, so it waits with it) and
+resolver config), disclosure auto-appears, coverage report goes live. **The
+Awin branch is unblocked today** — the moment the API token and affiliate ID
+land in env, Etsy links and every joined-advertiser link wrap live, per
+network, without waiting on Amazon or anything else (`isAffiliate()` is
+per-network by design). E0's programme audit also runs in this phase and
 produces your first apply shortlist.
 
 **Phase 3 — Fill the buckets (E4, E5).** Official catalog sync; fan-made
@@ -217,10 +210,6 @@ deserve re-matching.
 
 ## HUMAN-ACTIONS items to file (the whole human surface)
 
-0. **External IP-counsel review — the Phase 2+ hard gate** (filed:
-   HUMAN-ACTIONS #27). Engage counsel on the affiliate/commercial layer;
-   nothing monetized ships, and no affiliate/commercial engine work starts,
-   before sign-off (`docs/decisions.md` 2026-07-08 §3, FR-MERCH-4/5).
 1. **Amazon Associates signup** — identity, tax, payout; note the tag ID.
    ~20 min + probation caveat above.
 2. **Awin — DONE** (account live). Two small follow-ups remain: in the
@@ -235,16 +224,13 @@ deserve re-matching.
    the coverage report shows non-Awin retailers earning real clicks.
 5. **Etsy Open API key request** — developer app on your Etsy account, for
    E5 search. ~15 min + approval wait.
-6. **Search-API account** (SerpAPI or equivalent) — payment card. ~10 min
-   (filed: HUMAN-ACTIONS #29).
+6. **Search-API account** (SerpAPI or equivalent) — payment card. ~10 min.
    Expect lighter usage than originally scoped: the Awin product index
    absorbs a share of E6's searches for free.
 7. **`vercel env add` / repo secrets** for the credentials above — one
    terminal session; exact commands in the spec. ~10 min.
-8. **Decisions D1 / D3 — DONE.** Joey approved D1-a and the D3 hard curation
-   line on 2026-08-30; `docs/decisions.md` is the durable record. D2 is no
-   longer a launch decision; it re-opens only if the residue report justifies
-   it.
+8. **Decisions D1 / D3** — recorded in `docs/decisions.md`. D2 is no longer
+   a launch decision; it re-opens only if the residue report justifies it.
 
 After these: the system's ongoing demand on you is reading a line in
 Marjorie's brief, if you feel like it.

@@ -142,6 +142,17 @@ describe('affiliate coverage', () => {
     expect(parseCoverage(rendered).summary['awin-apply']).toBe(1);
   });
 
+  it('uses caller-supplied configured-status booleans without reading credentials', () => {
+    const withConfiguredAwin = parseCoverage(
+      generateCoverage(products, { resolveNetwork, credentials: { awin: true } }),
+    );
+    const withoutConfiguredNetworks = parseCoverage(generateCoverage(products, { resolveNetwork }));
+
+    expect(withConfiguredAwin.rows.find((row) => row.retailer === 'awin.example')?.status).toBe('wrapped');
+    expect(withConfiguredAwin.rows.find((row) => row.retailer === 'amazon.com')?.status).toBe('pending-signup');
+    expect(withoutConfiguredNetworks.rows.filter((row) => ['awin', 'amazon', 'catchall'].includes(row.network)).every((row) => row.status === 'pending-signup')).toBe(true);
+  });
+
   it('keeps coverage output independent of public affiliate credentials', () => {
     const original = {
       awin: process.env.NEXT_PUBLIC_AWIN_ID,

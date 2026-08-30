@@ -35,7 +35,6 @@ function escapeTableCell(value) {
 function unescapeTableCell(value) {
   return value.replace(/<br>/g, '\n').replace(/&#124;/g, '|');
 }
-
 /** Builds a complete, deterministic coverage report from a catalogue snapshot. */
 export function buildCoverage(products, options = {}) {
   const resolveNetwork = options.resolveNetwork ?? (() => ({ network: 'none' }));
@@ -97,6 +96,7 @@ export function generateCoverage(products, options = {}) {
   return formatCoverage(
     buildCoverage(products, {
       resolveNetwork: options.resolveNetwork,
+      credentials: options.credentials,
       awinApplyRetailers: loadAwinApplyRetailers(options.directoryPath),
     }),
   );
