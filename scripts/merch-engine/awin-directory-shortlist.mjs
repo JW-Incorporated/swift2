@@ -16,7 +16,9 @@ function hostname(value) {
   const candidate = text(value);
   if (!candidate) return null;
   try {
-    return new URL(candidate.includes('://') ? candidate : `https://${candidate}`).hostname.toLowerCase().replace(/^www\./, '');
+    return new URL(candidate.includes('://') ? candidate : `https://${candidate}`).hostname
+      .toLowerCase()
+      .replace(/^www\./, '');
   } catch {
     return null;
   }
@@ -37,7 +39,11 @@ function domainKey(value) {
 }
 
 function brandKey(value) {
-  return text(value)?.toLowerCase().replace(/[^a-z0-9]/g, '') || null;
+  return (
+    text(value)
+      ?.toLowerCase()
+      .replace(/[^a-z0-9]/g, '') || null
+  );
 }
 
 function programmeInfo(programme) {
@@ -54,19 +60,43 @@ function advertiserName(programme) {
 }
 
 function programmeCountry(programme) {
-  return text(programmeInfo(programme).primaryRegion?.countryCode) ?? text(programme?.primaryRegion?.countryCode) ?? null;
+  return (
+    text(programmeInfo(programme).primaryRegion?.countryCode) ??
+    text(programme?.primaryRegion?.countryCode) ??
+    null
+  );
 }
 
 function programmeStatus(programme) {
   const info = programmeInfo(programme);
-  return text(programme.relationship) ?? text(info.membershipStatus) ?? text(programme.membershipStatus) ?? 'unknown';
+  return (
+    text(programme.relationship) ??
+    text(info.membershipStatus) ??
+    text(programme.membershipStatus) ??
+    'unknown'
+  );
 }
 
 function programmeSectors(programme) {
   const info = programmeInfo(programme);
-  const values = [info.sectors, info.sector, info.categories, info.category, programme.sectors, programme.sector, programme.categories, programme.category]
-    .flatMap((value) => Array.isArray(value) ? value : [value])
-    .flatMap((value) => typeof value === 'object' && value ? [value.name, value.label, value.category, value.sector] : [value])
+  const values = [
+    info.primarySector,
+    info.sectors,
+    info.sector,
+    info.categories,
+    info.category,
+    programme.primarySector,
+    programme.sectors,
+    programme.sector,
+    programme.categories,
+    programme.category,
+  ]
+    .flatMap((value) => (Array.isArray(value) ? value : [value]))
+    .flatMap((value) =>
+      typeof value === 'object' && value
+        ? [value.name, value.label, value.category, value.sector]
+        : [value],
+    )
     .map(text)
     .filter(Boolean);
   return [...new Set(values)];
@@ -74,10 +104,16 @@ function programmeSectors(programme) {
 
 function sourceHostnames(programme) {
   const info = programmeInfo(programme);
-  return [...new Set([info.displayUrl, info.primaryDomain, ...(info.validDomains ?? info.domains ?? [])]
-    .flatMap((value) => typeof value === 'object' && value ? [value.domain, value.url, value.name] : [value])
-    .map(hostname)
-    .filter(Boolean))];
+  return [
+    ...new Set(
+      [info.displayUrl, info.primaryDomain, ...(info.validDomains ?? info.domains ?? [])]
+        .flatMap((value) =>
+          typeof value === 'object' && value ? [value.domain, value.url, value.name] : [value],
+        )
+        .map(hostname)
+        .filter(Boolean),
+    ),
+  ];
 }
 
 function eligibleProgrammes(programmes) {
@@ -92,7 +128,9 @@ function eligibleProgrammes(programmes) {
       hosts: sourceHostnames(programme),
     }))
     .filter((programme) => programme.id && programme.name && programme.country === 'US')
-    .filter((programme) => programme.sectors.some((sector) => targetSectors.has(sector.toLowerCase())))
+    .filter((programme) =>
+      programme.sectors.some((sector) => targetSectors.has(sector.toLowerCase())),
+    )
     .sort((left, right) => left.id.localeCompare(right.id));
 }
 
@@ -102,7 +140,9 @@ function retailerRows(catalogue) {
     const retailer = hostname(product?.retailer);
     if (retailer) counts.set(retailer, (counts.get(retailer) ?? 0) + 1);
   }
-  return [...counts.entries()].map(([currentRetailer, productCount]) => ({ currentRetailer, productCount })).sort((left, right) => left.currentRetailer.localeCompare(right.currentRetailer));
+  return [...counts.entries()]
+    .map(([currentRetailer, productCount]) => ({ currentRetailer, productCount }))
+    .sort((left, right) => left.currentRetailer.localeCompare(right.currentRetailer));
 }
 
 function candidateRow(retailer, programme, sourceHostname, matchType, feedAdvertiserIds) {
@@ -118,12 +158,21 @@ function candidateRow(retailer, programme, sourceHostname, matchType, feedAdvert
   };
 }
 
-export function buildShortlist({ catalogue = [], programmes = [], feedAdvertiserIds = new Set(), generatedAt = new Date().toISOString() } = {}) {
+export function buildShortlist({
+  catalogue = [],
+  programmes = [],
+  feedAdvertiserIds = new Set(),
+  generatedAt = new Date().toISOString(),
+} = {}) {
   const eligible = eligibleProgrammes(programmes);
   const retailers = retailerRows(catalogue);
   const exactByRetailer = new Map();
   for (const retailer of retailers) {
-    const matches = eligible.flatMap((programme) => programme.hosts.filter((host) => host === retailer.currentRetailer).map((host) => ({ programme, host })));
+    const matches = eligible.flatMap((programme) =>
+      programme.hosts
+        .filter((host) => host === retailer.currentRetailer)
+        .map((host) => ({ programme, host })),
+    );
     if (matches.length === 1) exactByRetailer.set(retailer.currentRetailer, matches[0]);
   }
   const usedIds = new Set([...exactByRetailer.values()].map(({ programme }) => programme.id));
@@ -131,18 +180,38 @@ export function buildShortlist({ catalogue = [], programmes = [], feedAdvertiser
   for (const retailer of retailers.filter((row) => !exactByRetailer.has(row.currentRetailer))) {
     const matches = eligible
       .filter((programme) => !usedIds.has(programme.id))
-      .flatMap((programme) => programme.hosts.filter((host) => isDomainSuffixMatch(host, retailer.currentRetailer)).map((host) => ({ programme, host })));
+      .flatMap((programme) =>
+        programme.hosts
+          .filter((host) => isDomainSuffixMatch(host, retailer.currentRetailer))
+          .map((host) => ({ programme, host })),
+      );
     if (matches.length === 1) domainSuffixByRetailer.set(retailer.currentRetailer, matches[0]);
   }
   const matches = [
-    ...retailers.filter((row) => exactByRetailer.has(row.currentRetailer)).map((retailer) => {
-      const match = exactByRetailer.get(retailer.currentRetailer);
-      return candidateRow(retailer, match.programme, match.host, 'exact-hostname', feedAdvertiserIds);
-    }),
-    ...retailers.filter((row) => domainSuffixByRetailer.has(row.currentRetailer)).map((retailer) => {
-      const match = domainSuffixByRetailer.get(retailer.currentRetailer);
-      return candidateRow(retailer, match.programme, match.host, 'domain-suffix', feedAdvertiserIds);
-    }),
+    ...retailers
+      .filter((row) => exactByRetailer.has(row.currentRetailer))
+      .map((retailer) => {
+        const match = exactByRetailer.get(retailer.currentRetailer);
+        return candidateRow(
+          retailer,
+          match.programme,
+          match.host,
+          'exact-hostname',
+          feedAdvertiserIds,
+        );
+      }),
+    ...retailers
+      .filter((row) => domainSuffixByRetailer.has(row.currentRetailer))
+      .map((retailer) => {
+        const match = domainSuffixByRetailer.get(retailer.currentRetailer);
+        return candidateRow(
+          retailer,
+          match.programme,
+          match.host,
+          'domain-suffix',
+          feedAdvertiserIds,
+        );
+      }),
   ];
   const matchedRetailers = new Set(matches.map((row) => row.currentRetailer));
   const manualReview = retailers
@@ -150,27 +219,75 @@ export function buildShortlist({ catalogue = [], programmes = [], feedAdvertiser
     .flatMap((retailer) => {
       const retailerBrand = domainKey(retailer.currentRetailer);
       return eligible
-        .filter((programme) => brandKey(programme.name) === retailerBrand || programme.hosts.some((host) => domainKey(host) === retailerBrand || isDomainSuffixMatch(host, retailer.currentRetailer)))
-        .map((programme) => candidateRow(retailer, programme, programme.hosts[0] ?? null, 'manual-review', feedAdvertiserIds));
+        .filter(
+          (programme) =>
+            brandKey(programme.name) === retailerBrand ||
+            programme.hosts.some(
+              (host) =>
+                domainKey(host) === retailerBrand ||
+                isDomainSuffixMatch(host, retailer.currentRetailer),
+            ),
+        )
+        .map((programme) =>
+          candidateRow(
+            retailer,
+            programme,
+            programme.hosts[0] ?? null,
+            'manual-review',
+            feedAdvertiserIds,
+          ),
+        );
     })
-    .sort((left, right) => left.currentRetailer.localeCompare(right.currentRetailer) || left.awinAdvertiserId.localeCompare(right.awinAdvertiserId));
+    .sort(
+      (left, right) =>
+        left.currentRetailer.localeCompare(right.currentRetailer) ||
+        left.awinAdvertiserId.localeCompare(right.awinAdvertiserId),
+    );
   const reviewRetailers = new Set(manualReview.map((row) => row.currentRetailer));
-  const unmatched = retailers.filter((retailer) => !matchedRetailers.has(retailer.currentRetailer) && !reviewRetailers.has(retailer.currentRetailer))
+  const unmatched = retailers
+    .filter(
+      (retailer) =>
+        !matchedRetailers.has(retailer.currentRetailer) &&
+        !reviewRetailers.has(retailer.currentRetailer),
+    )
     .map((retailer) => candidateRow(retailer, null, null, 'unmatched', feedAdvertiserIds));
   return {
     version: 1,
     generatedAt,
     source: 'Awin Publisher API GET programmes filtered by countryCode=US and target sectors',
     targetSectors: TARGET_SECTORS,
-    summary: { exact: matches.filter((row) => row.matchType === 'exact-hostname').length, domainSuffix: matches.filter((row) => row.matchType === 'domain-suffix').length, manualReview: manualReview.length, unmatched: unmatched.length },
+    summary: {
+      exact: matches.filter((row) => row.matchType === 'exact-hostname').length,
+      domainSuffix: matches.filter((row) => row.matchType === 'domain-suffix').length,
+      manualReview: manualReview.length,
+      unmatched: unmatched.length,
+    },
     matches,
     manualReview,
     unmatched,
   };
 }
 
-const COLUMNS = ['currentRetailer', 'productCount', 'awinAdvertiserName', 'awinAdvertiserId', 'sourceHostname', 'matchType', 'usProgrammeStatus', 'feedAvailable'];
-const CSV_COLUMNS = ['current_retailer', 'product_count', 'awin_advertiser_name', 'awin_advertiser_id', 'source_hostname', 'match_type', 'us_programme_status', 'product_feed_available'];
+const COLUMNS = [
+  'currentRetailer',
+  'productCount',
+  'awinAdvertiserName',
+  'awinAdvertiserId',
+  'sourceHostname',
+  'matchType',
+  'usProgrammeStatus',
+  'feedAvailable',
+];
+const CSV_COLUMNS = [
+  'current_retailer',
+  'product_count',
+  'awin_advertiser_name',
+  'awin_advertiser_id',
+  'source_hostname',
+  'match_type',
+  'us_programme_status',
+  'product_feed_available',
+];
 
 function csvCell(value) {
   const textValue = value == null ? '' : String(value);
@@ -186,19 +303,36 @@ export function formatCsv(report) {
 }
 
 function table(rows) {
-  return rows.length ? rows.map((row) => `| ${COLUMNS.map((column) => String(row[column] ?? '').replaceAll('|', '\\|')).join(' | ')} |`).join('\n') : '| — | — | — | — | — | — | — | — |';
+  return rows.length
+    ? rows
+        .map(
+          (row) =>
+            `| ${COLUMNS.map((column) => String(row[column] ?? '').replaceAll('|', '\\|')).join(' | ')} |`,
+        )
+        .join('\n')
+    : '| — | — | — | — | — | — | — | — |';
 }
 
 export function formatMarkdown(report) {
-  const heading = '| current retailer | product count | Awin advertiser name | Awin advertiser id | source hostname | match type | US/programme status | product feed available |\n| --- | ---: | --- | --- | --- | --- | --- | --- |';
+  const heading =
+    '| current retailer | product count | Awin advertiser name | Awin advertiser id | source hostname | match type | US/programme status | product feed available |\n| --- | ---: | --- | --- | --- | --- | --- | --- |';
   return `# Awin US advertiser directory shortlist\n\nGenerated: ${report.generatedAt}\n\nTarget sectors: ${report.targetSectors.join(', ')}. This artifact is derived from the Awin Publisher API and does not contain affiliate links, product URLs, credentials, or feed contents.\n\n## Summary\n\n- Exact hostname matches: ${report.summary.exact}\n- Domain-suffix matches: ${report.summary.domainSuffix}\n- Manual-review candidates: ${report.summary.manualReview}\n- Unmatched retailers: ${report.summary.unmatched}\n\n## Exact hostname and domain-suffix matches\n\n${heading}\n${table(report.matches)}\n\n## Manual-review candidates\n\nThese records share only a normalized name or domain signal. They are not join recommendations.\n\n${heading}\n${table(report.manualReview)}\n\n## Unmatched retailers\n\n${heading}\n${table(report.unmatched)}\n`;
 }
 
 function parseFeedAdvertiserIds(csv) {
   const [header = '', ...lines] = String(csv).trim().split(/\r?\n/);
   const names = header.split(',').map((value) => value.trim().toLowerCase());
-  const index = ['merchant id', 'merchant_id', 'advertiser id', 'advertiser_id', 'mid'].map((name) => names.indexOf(name)).find((value) => value >= 0);
-  return new Set(index == null ? [] : lines.filter(Boolean).map((line) => line.split(',')[index]?.trim()).filter(Boolean));
+  const index = ['merchant id', 'merchant_id', 'advertiser id', 'advertiser_id', 'mid']
+    .map((name) => names.indexOf(name))
+    .find((value) => value >= 0);
+  return new Set(
+    index == null
+      ? []
+      : lines
+          .filter(Boolean)
+          .map((line) => line.split(',')[index]?.trim())
+          .filter(Boolean),
+  );
 }
 
 async function requestProgrammes({ publisherId, token, relationship }) {
@@ -209,12 +343,16 @@ async function requestProgrammes({ publisherId, token, relationship }) {
   const response = await fetch(url, { headers: { accept: 'application/json' } });
   if (!response.ok) throw new Error(`Awin programmes request failed (${response.status})`);
   const payload = await response.json();
-  const programmes = Array.isArray(payload) ? payload : payload?.programmes ?? payload?.data ?? [];
+  const programmes = Array.isArray(payload)
+    ? payload
+    : (payload?.programmes ?? payload?.data ?? []);
   return programmes.map((programme) => ({ ...programme, relationship }));
 }
 
 async function requestFeedAdvertiserIds(apiKey) {
-  const response = await fetch(`https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(apiKey)}`);
+  const response = await fetch(
+    `https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(apiKey)}`,
+  );
   if (!response.ok) throw new Error(`Awin feed-list request failed (${response.status})`);
   return parseFeedAdvertiserIds(await response.text());
 }
@@ -230,21 +368,32 @@ async function catalogue() {
 }
 
 async function main() {
-  const output = process.argv.includes('--output') ? process.argv[process.argv.indexOf('--output') + 1] : '.artifacts/merch-awin-directory-shortlist';
+  const output = process.argv.includes('--output')
+    ? process.argv[process.argv.indexOf('--output') + 1]
+    : '.artifacts/merch-awin-directory-shortlist';
   if (!output || output.startsWith('--')) throw new Error('--output requires a directory path');
   const token = required(process.env.AWIN_API_TOKEN, 'AWIN_API_TOKEN');
   const publisherId = required(process.env.AWIN_PUBLISHER_ID, 'AWIN_PUBLISHER_ID');
   const feedApiKey = required(process.env.AWIN_FEED_API_KEY, 'AWIN_FEED_API_KEY');
   const [programmeResponses, feedAdvertiserIds, products] = await Promise.all([
-    Promise.all(RELATIONSHIPS.map((relationship) => requestProgrammes({ publisherId, token, relationship }))),
+    Promise.all(
+      RELATIONSHIPS.map((relationship) => requestProgrammes({ publisherId, token, relationship })),
+    ),
     requestFeedAdvertiserIds(feedApiKey),
     catalogue(),
   ]);
-  const report = buildShortlist({ catalogue: products, programmes: programmeResponses.flat(), feedAdvertiserIds });
+  const report = buildShortlist({
+    catalogue: products,
+    programmes: programmeResponses.flat(),
+    feedAdvertiserIds,
+  });
   const target = resolve(ROOT, output);
   await mkdir(target, { recursive: true });
   await Promise.all([
-    writeFile(resolve(target, 'awin-directory-shortlist.json'), `${JSON.stringify(report, null, 2)}\n`),
+    writeFile(
+      resolve(target, 'awin-directory-shortlist.json'),
+      `${JSON.stringify(report, null, 2)}\n`,
+    ),
     writeFile(resolve(target, 'awin-directory-shortlist.csv'), formatCsv(report)),
     writeFile(resolve(target, 'awin-directory-shortlist.md'), formatMarkdown(report)),
   ]);

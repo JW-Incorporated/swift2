@@ -67,16 +67,69 @@ describe('Awin directory shortlist', () => {
     });
 
     expect(report.summary).toEqual({ exact: 1, domainSuffix: 1, manualReview: 2, unmatched: 1 });
-    expect(report.matches.map((row: { currentRetailer: string; matchType: string; productCount: number; feedAvailable: boolean }) => [row.currentRetailer, row.matchType, row.productCount, row.feedAvailable])).toEqual([
+    expect(
+      report.matches.map(
+        (row: {
+          currentRetailer: string;
+          matchType: string;
+          productCount: number;
+          feedAvailable: boolean;
+        }) => [row.currentRetailer, row.matchType, row.productCount, row.feedAvailable],
+      ),
+    ).toEqual([
       ['exact-shop.com', 'exact-hostname', 2, true],
       ['us.suffix-shop.com', 'domain-suffix', 1, false],
     ]);
     expect(report.manualReview).toEqual([
-      expect.objectContaining({ currentRetailer: 'free-people.com', awinAdvertiserId: '2', matchType: 'manual-review', feedAvailable: false }),
-      expect.objectContaining({ currentRetailer: 'review-shop.com', awinAdvertiserId: '3', matchType: 'manual-review', feedAvailable: true }),
+      expect.objectContaining({
+        currentRetailer: 'free-people.com',
+        awinAdvertiserId: '2',
+        matchType: 'manual-review',
+        feedAvailable: false,
+      }),
+      expect.objectContaining({
+        currentRetailer: 'review-shop.com',
+        awinAdvertiserId: '3',
+        matchType: 'manual-review',
+        feedAvailable: true,
+      }),
     ]);
     expect(report.unmatched).toEqual([
-      expect.objectContaining({ currentRetailer: 'unmatched-shop.com', productCount: 1, matchType: 'unmatched' }),
+      expect.objectContaining({
+        currentRetailer: 'unmatched-shop.com',
+        productCount: 1,
+        matchType: 'unmatched',
+      }),
+    ]);
+  });
+
+  it('admits the documented Awin programme shape when primarySector is a target sector', () => {
+    const report = buildShortlist({
+      catalogue: [{ retailer: 'live-shape-shop.com', item: 'Dress' }],
+      programmes: [
+        {
+          id: 42,
+          name: 'Live Shape Shop',
+          displayUrl: 'https://www.live-shape-shop.com',
+          primaryRegion: { countryCode: 'US' },
+          primarySector: 'Fashion/Clothing',
+          relationship: 'joined',
+        },
+      ],
+      feedAdvertiserIds: new Set(['42']),
+      generatedAt: '2026-08-30T00:00:00.000Z',
+    });
+
+    expect(report.summary).toEqual({ exact: 1, domainSuffix: 0, manualReview: 0, unmatched: 0 });
+    expect(report.matches).toEqual([
+      expect.objectContaining({
+        currentRetailer: 'live-shape-shop.com',
+        awinAdvertiserId: '42',
+        sourceHostname: 'live-shape-shop.com',
+        matchType: 'exact-hostname',
+        usProgrammeStatus: 'joined',
+        feedAvailable: true,
+      }),
     ]);
   });
 
@@ -92,26 +145,42 @@ describe('Awin directory shortlist', () => {
     });
 
     expect(report.matches).toHaveLength(0);
-    expect(report.manualReview.map((row: { awinAdvertiserId: string }) => row.awinAdvertiserId)).toEqual(['2', '5']);
+    expect(
+      report.manualReview.map((row: { awinAdvertiserId: string }) => row.awinAdvertiserId),
+    ).toEqual(['2', '5']);
   });
 
   it('does not treat cross-TLD or prefix-adjacent domains as automatic matches', () => {
     const report = buildShortlist({
-      catalogue: [{ retailer: 'brand.com', item: 'Top' }, { retailer: 'notbrand.com', item: 'Bag' }],
+      catalogue: [
+        { retailer: 'brand.com', item: 'Top' },
+        { retailer: 'notbrand.com', item: 'Bag' },
+      ],
       programmes: [{ ...programmes[1], id: 7, name: 'Brand', displayUrl: 'https://brand.co' }],
       feedAdvertiserIds: new Set(),
       generatedAt: '2026-08-30T00:00:00.000Z',
     });
 
     expect(report.matches).toHaveLength(0);
-    expect(report.manualReview.map((row: { currentRetailer: string }) => row.currentRetailer)).toEqual(['brand.com']);
-    expect(report.unmatched.map((row: { currentRetailer: string }) => row.currentRetailer)).toEqual(['notbrand.com']);
+    expect(
+      report.manualReview.map((row: { currentRetailer: string }) => row.currentRetailer),
+    ).toEqual(['brand.com']);
+    expect(report.unmatched.map((row: { currentRetailer: string }) => row.currentRetailer)).toEqual(
+      ['notbrand.com'],
+    );
   });
 
   it('renders durable CSV and Markdown with the requested provenance fields', () => {
-    const report = buildShortlist({ catalogue, programmes, feedAdvertiserIds: new Set(['1']), generatedAt: '2026-08-30T00:00:00.000Z' });
+    const report = buildShortlist({
+      catalogue,
+      programmes,
+      feedAdvertiserIds: new Set(['1']),
+      generatedAt: '2026-08-30T00:00:00.000Z',
+    });
 
-    expect(formatCsv(report)).toContain('current_retailer,product_count,awin_advertiser_name,awin_advertiser_id,source_hostname,match_type,us_programme_status,product_feed_available');
+    expect(formatCsv(report)).toContain(
+      'current_retailer,product_count,awin_advertiser_name,awin_advertiser_id,source_hostname,match_type,us_programme_status,product_feed_available',
+    );
     expect(formatMarkdown(report)).toContain('## Exact hostname and domain-suffix matches');
     expect(formatMarkdown(report)).toContain('## Manual-review candidates');
     expect(formatMarkdown(report)).toContain('## Unmatched retailers');
