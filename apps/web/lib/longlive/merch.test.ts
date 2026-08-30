@@ -1,6 +1,31 @@
 import { describe, expect, it } from 'vitest';
 import { CONTENT } from './content';
 import { MERCH_CATALOGUE, merchProductJsonLd, newDrops, type MerchItem } from './merch';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore — Seed modules intentionally remain plain ESM.
+import { FAN_MADE } from '../../../../supabase/seed/merch/fanmade.mjs';
+
+// Mirrors merch.ts's private MERCH_KINDS set (the normalization target for
+// every catalogue item's `kind`) — kept in sync deliberately rather than
+// exported, since it's an implementation detail of catalogueItems().
+const VALID_MERCH_KINDS = [
+  'dress',
+  'top',
+  'bottom',
+  'outerwear',
+  'knitwear',
+  'shoes',
+  'jewelry',
+  'bag',
+  'hat',
+  'eyewear',
+  'beauty',
+  'accessory',
+  'music',
+  'collectible',
+  'home',
+  'other',
+];
 
 describe('MERCH_CATALOGUE.shopTheLook', () => {
   it('has the real product count from CONTENT — asserted exactly so drift fails loudly', () => {
@@ -45,6 +70,50 @@ describe('MERCH_CATALOGUE buckets', () => {
     expect(MERCH_CATALOGUE.officialStore.length).toBeGreaterThan(0);
     for (const item of MERCH_CATALOGUE.officialStore) expect(item.category).toBe('official-store');
     for (const item of MERCH_CATALOGUE.fanMade) expect(item.category).toBe('fan-made');
+  });
+});
+
+describe('MERCH_CATALOGUE.fanMade', () => {
+  it('has the real curated count from the seed — asserted exactly so drift fails loudly', () => {
+    expect(MERCH_CATALOGUE.fanMade.length).toBe(FAN_MADE.length);
+    expect(MERCH_CATALOGUE.fanMade.length).toBeGreaterThan(0);
+  });
+
+  it('never invents an item — every fan-made item traces back to a real seed row by url', () => {
+    const seedUrls = new Set(FAN_MADE.map((row: { url: string }) => row.url));
+    for (const item of MERCH_CATALOGUE.fanMade) {
+      expect(seedUrls.has(item.url)).toBe(true);
+    }
+  });
+
+  it('maps every required MerchItem field from the curated seed row, with no placeholders', () => {
+    expect(MERCH_CATALOGUE.fanMade.length).toBe(FAN_MADE.length);
+    for (const item of MERCH_CATALOGUE.fanMade) {
+      expect(item.category).toBe('fan-made');
+      expect(item.brand).toEqual(expect.any(String));
+      expect(item.brand.length).toBeGreaterThan(0);
+      expect(item.item).toEqual(expect.any(String));
+      expect(item.item.length).toBeGreaterThan(0);
+      expect(item.retailer).toEqual(expect.any(String));
+      expect(item.retailer.length).toBeGreaterThan(0);
+      expect(item.url).toMatch(/^https:\/\//);
+      expect(item.price).toMatch(/^\$/);
+      expect(item.inStock).toBe(true);
+      expect(item.imageUrl).toMatch(/^https:\/\//);
+      expect(item.discoveredAt).toEqual(expect.any(String));
+      // kind is always normalized to a valid MerchItem kind (never the raw,
+      // unvalidated seed string, e.g. fanmade.mjs's 'print'/'home-decor') —
+      // see catalogueItems()'s MERCH_KINDS guard.
+      expect(VALID_MERCH_KINDS).toContain(item.kind);
+    }
+  });
+
+  it('preserves the affiliate render-context seam — url stays the raw destination, never pre-wrapped', () => {
+    // buildShopUrl() (lib/longlive/shop.ts) is the single seam that injects
+    // affiliate wrapping; catalogueItems() must never bake it in here.
+    for (const item of MERCH_CATALOGUE.fanMade) {
+      expect(item.url).not.toMatch(/utm_|affiliate|awin|skimlinks|rewardstyle/i);
+    }
   });
 });
 
