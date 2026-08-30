@@ -86,17 +86,27 @@ describe('E4 official-store sync', () => {
   it('enriches a successful catalog response with proven collection membership', async () => {
     const fetchImpl = vi
       .fn()
-      .mockResolvedValueOnce(new Response(JSON.stringify({ products: [{ id: 1, title: 'Evermore Vinyl' }] }), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ collections: [{ handle: 'evermore' }] }), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ products: [{ id: 1 }] }), { status: 200 }));
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ products: [{ id: 1, title: 'Evermore Vinyl' }] }), {
+          status: 200,
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ collections: [{ handle: 'evermore' }] }), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ products: [{ id: 1 }] }), { status: 200 }),
+      );
 
-    await expect(fetchOfficialProducts({ fetchImpl, sleep: async () => undefined })).resolves.toMatchObject({
+    await expect(
+      fetchOfficialProducts({ fetchImpl, sleep: async () => undefined }),
+    ).resolves.toMatchObject({
       source: 'catalog',
       products: [{ id: 1, collectionHandles: ['evermore'] }],
     });
   });
 
-  it('honors a conditional not-modified response without treating it as an empty catalog', async () => {
+  it('treats a conditional response without cached membership evidence as changed', async () => {
     const fetchImpl = vi.fn(async () => ({
       status: 304,
       ok: false,
@@ -107,7 +117,8 @@ describe('E4 official-store sync', () => {
       fetchOfficialProducts({ fetchImpl, cacheHeaders: { etag: '"catalog-v1"' } }),
     ).resolves.toMatchObject({
       products: [],
-      notModified: true,
+      notModified: false,
+      membershipComplete: false,
       cacheHeaders: { etag: '"catalog-v1"', lastModified: null },
     });
     expect(fetchImpl).toHaveBeenCalledWith(
@@ -126,8 +137,204 @@ describe('E4 official-store sync', () => {
     };
 
     expect(
-      outputForFetch({ products: [], notModified: true }, { current: [], fetchedAt: 'now', pendingPlan }),
+      outputForFetch(
+        { products: [], notModified: true },
+        { current: [], fetchedAt: 'now', pendingPlan },
+      ),
     ).toMatchObject({ notModified: true, plan: pendingPlan });
+  });
+
+  it('keeps a 304 catalog not modified when its enriched collection membership matches the prior catalog', async () => {
+    const cachedProduct = {
+      id: 1,
+      title: 'Evermore Vinyl',
+      handle: 'evermore-vinyl',
+      variants: [],
+    };
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce({ status: 304, ok: false, headers: new Headers() })
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ collections: [{ handle: 'evermore' }] }), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ products: [{ id: 1 }] }), { status: 200 }),
+      );
+
+    await expect(
+      fetchOfficialProducts({
+        fetchImpl,
+        sleep: async () => undefined,
+        cache: {
+          pages: {
+            'https://store.taylorswift.com/products.json?limit=250&page=1': {
+              etag: '"catalog-v1"',
+              products: [cachedProduct],
+            },
+          },
+          catalog: [
+            normalizeOfficialProduct(
+              { ...cachedProduct, collectionHandles: ['evermore'] },
+              '2026-08-29T00:00:00.000Z',
+            ),
+          ],
+        },
+      }),
+    ).resolves.toMatchObject({
+      notModified: true,
+      products: [{ id: 1, collectionHandles: ['evermore'] }],
+    });
+  });
+
+  it('preserves prior membership when a 304 catalog has incomplete collection evidence', async () => {
+    const cachedProduct = {
+      id: 1,
+      title: 'Evermore Vinyl',
+      handle: 'evermore-vinyl',
+      variants: [],
+    };
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce({ status: 304, ok: false, headers: new Headers() })
+      .mockResolvedValueOnce(new Response(JSON.stringify({ collections: [] }), { status: 200 }));
+
+    await expect(
+      fetchOfficialProducts({
+        fetchImpl,
+        sleep: async () => undefined,
+        cache: {
+          pages: {
+            'https://store.taylorswift.com/products.json?limit=250&page=1': {
+              etag: '"catalog-v1"',
+              products: [cachedProduct],
+            },
+          },
+          catalog: [
+            normalizeOfficialProduct(
+              { ...cachedProduct, collectionHandles: ['evermore'] },
+              '2026-08-29T00:00:00.000Z',
+            ),
+          ],
+        },
+      }),
+    ).resolves.toMatchObject({
+      notModified: false,
+      membershipComplete: false,
+      products: [{ id: 1, collectionHandles: ['evermore'] }],
+    });
+  });
+
+  it('treats a complete collection-membership removal on a 304 catalog as an update', async () => {
+    const cachedProduct = {
+      id: 1,
+      title: 'Evermore Vinyl',
+      handle: 'evermore-vinyl',
+      variants: [],
+    };
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce({ status: 304, ok: false, headers: new Headers() })
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ collections: [{ handle: 'evermore' }] }), { status: 200 }),
+      )
+      .mockResolvedValueOnce(new Response(JSON.stringify({ products: [] }), { status: 200 }));
+
+    await expect(
+      fetchOfficialProducts({
+        fetchImpl,
+        sleep: async () => undefined,
+        cache: {
+          pages: {
+            'https://store.taylorswift.com/products.json?limit=250&page=1': {
+              etag: '"catalog-v1"',
+              products: [cachedProduct],
+            },
+          },
+          catalog: [
+            normalizeOfficialProduct(
+              { ...cachedProduct, collectionHandles: ['evermore'] },
+              '2026-08-29T00:00:00.000Z',
+            ),
+          ],
+        },
+      }),
+    ).resolves.toMatchObject({
+      notModified: false,
+      membershipComplete: true,
+      products: [{ id: 1 }],
+    });
+  });
+
+  it('preserves verified membership and rejects new attribution when the collection index is unavailable', async () => {
+    const prior = { id: 1, title: 'Evermore Vinyl', handle: 'evermore-vinyl', variants: [] };
+    const cacheCatalog = [
+      normalizeOfficialProduct(
+        { ...prior, collectionHandles: ['evermore'] },
+        '2026-08-29T00:00:00.000Z',
+      ),
+    ];
+    const fetched = await fetchOfficialProducts({
+      fetchImpl: vi
+        .fn()
+        .mockResolvedValueOnce(
+          new Response(
+            JSON.stringify({
+              products: [prior, { id: 2, title: 'New drop', handle: 'new-drop', variants: [] }],
+            }),
+            { status: 200 },
+          ),
+        )
+        .mockResolvedValueOnce(new Response('', { status: 503 })),
+      sleep: async () => undefined,
+      cache: { catalog: cacheCatalog },
+    });
+
+    expect(fetched).toMatchObject({
+      membershipComplete: false,
+      products: [{ id: 1, collectionHandles: ['evermore'] }, { id: 2 }],
+    });
+    expect(
+      outputForFetch(fetched, {
+        current: cacheCatalog,
+        membershipCatalog: cacheCatalog,
+        fetchedAt: '2026-08-30T00:00:00.000Z',
+      }).plan,
+    ).toEqual({
+      added: [expect.objectContaining({ sourceId: '2' })],
+      updated: [],
+      discontinued: [],
+    });
+  });
+
+  it('preserves verified membership when a collection page is unavailable', async () => {
+    const prior = { id: 1, title: 'Evermore Vinyl', handle: 'evermore-vinyl', variants: [] };
+    const cacheCatalog = [
+      normalizeOfficialProduct(
+        { ...prior, collectionHandles: ['evermore'] },
+        '2026-08-29T00:00:00.000Z',
+      ),
+    ];
+
+    await expect(
+      fetchOfficialProducts({
+        fetchImpl: vi
+          .fn()
+          .mockResolvedValueOnce(
+            new Response(JSON.stringify({ products: [prior] }), { status: 200 }),
+          )
+          .mockResolvedValueOnce(
+            new Response(JSON.stringify({ collections: [{ handle: 'evermore' }] }), {
+              status: 200,
+            }),
+          )
+          .mockResolvedValueOnce(new Response('', { status: 503 })),
+        sleep: async () => undefined,
+        cache: { catalog: cacheCatalog },
+      }),
+    ).resolves.toMatchObject({
+      membershipComplete: false,
+      products: [{ id: 1, collectionHandles: ['evermore'] }],
+    });
   });
 
   it('splices a 304 page from its own cached listing without losing changed earlier pages', async () => {
@@ -199,14 +406,24 @@ describe('E4 official-store sync', () => {
       complete: false,
       degraded: true,
     });
-    await expect(fetchOfficialProducts({
-      fetchImpl: vi
-        .fn()
-        .mockResolvedValueOnce(new Response('', { status: 403 }))
-        .mockResolvedValueOnce(new Response(JSON.stringify({ collections: [{ handle: 'evermore' }] }), { status: 200 }))
-        .mockResolvedValueOnce(new Response(JSON.stringify({ products: [{ id: 1, title: 'Evermore Vinyl' }] }), { status: 200 })),
-      sleep: async () => undefined,
-    })).resolves.toMatchObject({ products: [{ id: 1, collectionHandles: ['evermore'] }] });
+    await expect(
+      fetchOfficialProducts({
+        fetchImpl: vi
+          .fn()
+          .mockResolvedValueOnce(new Response('', { status: 403 }))
+          .mockResolvedValueOnce(
+            new Response(JSON.stringify({ collections: [{ handle: 'evermore' }] }), {
+              status: 200,
+            }),
+          )
+          .mockResolvedValueOnce(
+            new Response(JSON.stringify({ products: [{ id: 1, title: 'Evermore Vinyl' }] }), {
+              status: 200,
+            }),
+          ),
+        sleep: async () => undefined,
+      }),
+    ).resolves.toMatchObject({ products: [{ id: 1, collectionHandles: ['evermore'] }] });
     expect(fetchImpl).toHaveBeenLastCalledWith(
       'https://store.taylorswift.com/collections/albums/products.json?limit=250&page=2',
       expect.any(Object),
@@ -214,7 +431,9 @@ describe('E4 official-store sync', () => {
   });
 
   it('loads a checked-in module catalog instead of an Actions cache baseline', async () => {
-    await expect(currentFrom('supabase/seed/merch/official.mjs', [])).resolves.toEqual(expect.any(Array));
+    await expect(currentFrom('supabase/seed/merch/official.mjs', [])).resolves.toEqual(
+      expect.any(Array),
+    );
     await expect(currentFrom('scripts/merch-engine/sync-official.mjs', [])).rejects.toThrow(
       'current catalog module must export an array',
     );

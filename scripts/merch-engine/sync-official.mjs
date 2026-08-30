@@ -113,8 +113,8 @@ function productUrlsFromSitemap(xml) {
 }
 
 function productSitemapUrlsFromIndex(xml) {
-  return [...String(xml).matchAll(/<loc>([^<]*\/sitemap_products_[^<]+)<\/loc>/g)].map(
-    (match) => decodeXmlEntities(match[1]),
+  return [...String(xml).matchAll(/<loc>([^<]*\/sitemap_products_[^<]+)<\/loc>/g)].map((match) =>
+    decodeXmlEntities(match[1]),
   );
 }
 
@@ -124,7 +124,9 @@ function productFromAjax(product) {
     variants: Array.isArray(product?.variants)
       ? product.variants.map((variant) => ({
           ...variant,
-          ...(Number.isFinite(Number(variant?.price)) ? { price: Number(variant.price) / 100 } : {}),
+          ...(Number.isFinite(Number(variant?.price))
+            ? { price: Number(variant.price) / 100 }
+            : {}),
         }))
       : product?.variants,
   };
@@ -133,6 +135,51 @@ function productFromAjax(product) {
 function withCollectionHandle(product, handle) {
   const handles = collectionHandles([...collectionHandles(product?.collectionHandles), handle]);
   return handles.length ? { ...product, collectionHandles: handles } : product;
+}
+
+function collectionMembershipMatchesPriorCatalog(products, priorCatalog) {
+  if (!Array.isArray(priorCatalog)) return false;
+  const memberships = new Map(
+    products
+      .filter((product) => product?.id !== undefined && product?.id !== null)
+      .map((product) => [String(product.id), collectionHandles(product.collectionHandles).sort()]),
+  );
+  const priorMemberships = new Map(
+    priorCatalog
+      .filter((product) => text(product?.sourceId))
+      .map((product) => [product.sourceId, collectionHandles(product.collectionHandles).sort()]),
+  );
+  if (memberships.size !== priorMemberships.size) return false;
+  return [...memberships].every(
+    ([sourceId, handles]) =>
+      JSON.stringify(handles) === JSON.stringify(priorMemberships.get(sourceId)),
+  );
+}
+
+function inheritPriorCollectionMembership(products, priorCatalog, membershipComplete) {
+  if (membershipComplete || !Array.isArray(priorCatalog)) return products;
+  const priorMemberships = new Map(
+    priorCatalog
+      .filter((product) => text(product?.sourceId))
+      .map((product) => [product.sourceId, collectionHandles(product.collectionHandles)]),
+  );
+  return products.map((product) => {
+    const handles = priorMemberships.get(String(product?.id));
+    return handles?.length ? { ...product, collectionHandles: handles } : product;
+  });
+}
+
+function currentWithCachedMembership(current, cachedCatalog) {
+  if (!Array.isArray(cachedCatalog)) return current;
+  const memberships = new Map(
+    cachedCatalog
+      .filter((product) => text(product?.sourceId))
+      .map((product) => [product.sourceId, collectionHandles(product.collectionHandles)]),
+  );
+  return current.map((product) => {
+    const handles = memberships.get(product?.sourceId);
+    return handles?.length ? { ...product, collectionHandles: handles } : product;
+  });
 }
 
 export async function fetchOfficialProducts({
@@ -164,26 +211,34 @@ export async function fetchOfficialProducts({
   const collectionUrl = `${baseUrl}/collections.json?limit=${MAX_COLLECTIONS}&page=1`;
   const enrichWithCollectionMembership = async (products) => {
     const collectionsResponse = await request(collectionUrl);
-    if (!collectionsResponse?.ok) return products;
+    if (!collectionsResponse?.ok) return { products, membershipComplete: false };
     const collections = (await collectionsResponse.json())?.collections ?? [];
-    if (!Array.isArray(collections) || collections.length === 0 || collections.length >= MAX_COLLECTIONS)
-      return products;
+    if (
+      !Array.isArray(collections) ||
+      collections.length === 0 ||
+      collections.length >= MAX_COLLECTIONS
+    )
+      return { products, membershipComplete: false };
     const byId = new Map(products.map((product) => [String(product.id), product]));
     for (const collection of collections) {
       if (!text(collection?.handle)) continue;
       for (let page = 1; page <= MAX_CATALOG_PAGES; page += 1) {
         const url = `${baseUrl}/collections/${encodeURIComponent(collection.handle)}/products.json?limit=250&page=${page}`;
         const response = await request(url);
-        if (!response?.ok) return products;
+        if (!response?.ok) return { products, membershipComplete: false };
         const batch = (await response.json())?.products ?? [];
         for (const product of batch) {
           const existing = byId.get(String(product.id));
-          if (existing) byId.set(String(product.id), withCollectionHandle(existing, collection.handle));
+          if (existing)
+            byId.set(String(product.id), withCollectionHandle(existing, collection.handle));
         }
         if (batch.length < 250) break;
       }
     }
-    return products.map((product) => byId.get(String(product.id)) ?? product);
+    return {
+      products: products.map((product) => byId.get(String(product.id)) ?? product),
+      membershipComplete: true,
+    };
   };
 
   try {
@@ -196,13 +251,14 @@ export async function fetchOfficialProducts({
           if (page === 1)
             return {
               products: [],
-              notModified: true,
+              notModified: false,
               cacheHeaders: {
                 etag: cached.etag ?? null,
                 lastModified: cached.lastModified ?? null,
               },
               cache: { pages },
               complete: false,
+              membershipComplete: false,
               degraded: true,
               source: 'catalog',
             };
@@ -210,13 +266,22 @@ export async function fetchOfficialProducts({
         }
         catalog.push(...cached.products);
         if (cached.products.length < 250) {
-          const products = await enrichWithCollectionMembership(catalog);
+          const enriched = await enrichWithCollectionMembership(catalog);
+          const products = inheritPriorCollectionMembership(
+            enriched.products,
+            cache?.catalog,
+            enriched.membershipComplete,
+          );
           return {
             products,
-            notModified: !changed && JSON.stringify(products) === JSON.stringify(catalog),
+            notModified:
+              !changed &&
+              enriched.membershipComplete &&
+              collectionMembershipMatchesPriorCatalog(products, cache?.catalog),
             cacheHeaders: cached,
             cache: { pages },
             complete: true,
+            membershipComplete: enriched.membershipComplete,
             degraded: false,
             source: 'catalog',
           };
@@ -229,16 +294,23 @@ export async function fetchOfficialProducts({
       pages[url] = cacheEntry(response, batch, cached);
       catalog.push(...batch);
       changed = true;
-      if (batch.length < 250)
+      if (batch.length < 250) {
+        const enriched = await enrichWithCollectionMembership(catalog);
         return {
-          products: await enrichWithCollectionMembership(catalog),
+          products: inheritPriorCollectionMembership(
+            enriched.products,
+            cache?.catalog,
+            enriched.membershipComplete,
+          ),
           notModified: false,
           cacheHeaders: pages[url],
           cache: { pages },
           complete: true,
+          membershipComplete: enriched.membershipComplete,
           degraded: false,
           source: 'catalog',
         };
+      }
     }
     throw new Error(`Shopify catalog exceeded ${MAX_CATALOG_PAGES} pages`);
   } catch (catalogError) {
@@ -289,6 +361,7 @@ export async function fetchOfficialProducts({
         cacheHeaders: {},
         cache: { pages },
         complete: false,
+        membershipComplete: true,
         degraded: true,
         source: 'collections',
         error: catalogError.message,
@@ -333,6 +406,7 @@ export async function fetchOfficialProducts({
         cacheHeaders: {},
         cache: { pages },
         complete: true,
+        membershipComplete: false,
         degraded: true,
         source: 'sitemap',
         error: `${catalogError.message}; ${collectionError.message}`,
@@ -348,9 +422,16 @@ function equalListing(left, right) {
   );
 }
 
-export function buildOfficialSyncPlan({ products, current = [], fetchedAt, complete = true }) {
+export function buildOfficialSyncPlan({
+  products,
+  current = [],
+  fetchedAt,
+  complete = true,
+  membershipComplete = true,
+  membershipCatalog = current,
+}) {
   const observed = new Map(
-    (products ?? [])
+    inheritPriorCollectionMembership(products ?? [], membershipCatalog, membershipComplete)
       .map((product) => normalizeOfficialProduct(product, fetchedAt))
       .filter(Boolean)
       .map((product) => [product.sourceId, product]),
@@ -380,8 +461,19 @@ export function buildOfficialSyncPlan({ products, current = [], fetchedAt, compl
   return { added, updated, discontinued };
 }
 
-export function catalogForCache({ products, current = [], fetchedAt, complete = true }) {
-  const observed = (products ?? [])
+export function catalogForCache({
+  products,
+  current = [],
+  fetchedAt,
+  complete = true,
+  membershipComplete = true,
+  membershipCatalog = current,
+}) {
+  const observed = inheritPriorCollectionMembership(
+    products ?? [],
+    membershipCatalog,
+    membershipComplete,
+  )
     .map((product) => normalizeOfficialProduct(product, fetchedAt))
     .filter(Boolean);
   if (complete) return observed;
@@ -397,7 +489,10 @@ export function catalogForCache({ products, current = [], fetchedAt, complete = 
   return [...merged.values()];
 }
 
-export function outputForFetch(fetched, { current, fetchedAt, pendingPlan = null }) {
+export function outputForFetch(
+  fetched,
+  { current, fetchedAt, pendingPlan = null, membershipCatalog = current },
+) {
   return fetched.notModified
     ? { ...fetched, plan: pendingPlan }
     : {
@@ -407,6 +502,8 @@ export function outputForFetch(fetched, { current, fetchedAt, pendingPlan = null
           current,
           fetchedAt,
           complete: fetched.complete,
+          membershipComplete: fetched.membershipComplete,
+          membershipCatalog,
         }),
       };
 }
@@ -453,10 +550,16 @@ async function main() {
     throw new Error('cache input must be an object');
   const current = await currentFrom(currentPath, currentPath ? [] : (cache.catalog ?? []));
   if (!Array.isArray(current)) throw new Error('current catalog input must be an array');
+  const cachedCurrent = currentWithCachedMembership(current, cache.catalog);
   const cacheHeaders = cache.headers ?? cache;
   const fetched = await fetchOfficialProducts({ cache, cacheHeaders });
   const fetchedAt = new Date().toISOString();
-  const output = outputForFetch(fetched, { current, fetchedAt, pendingPlan: cache.plan ?? null });
+  const output = outputForFetch(fetched, {
+    current: cachedCurrent,
+    fetchedAt,
+    pendingPlan: cache.plan ?? null,
+    membershipCatalog: cache.catalog,
+  });
   const target = resolve(outputPath);
   await mkdir(dirname(target), { recursive: true });
   await writeFile(target, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
@@ -464,12 +567,16 @@ async function main() {
     const cacheTarget = resolve(cachePath);
     await mkdir(dirname(cacheTarget), { recursive: true });
     const catalog = fetched.notModified
-      ? current
+      ? Array.isArray(cache.catalog)
+        ? cache.catalog
+        : cachedCurrent
       : catalogForCache({
           products: fetched.products,
-          current,
+          current: cachedCurrent,
           fetchedAt,
           complete: fetched.complete,
+          membershipComplete: fetched.membershipComplete,
+          membershipCatalog: cache.catalog,
         });
     await writeFile(
       cacheTarget,
