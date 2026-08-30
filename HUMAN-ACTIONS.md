@@ -319,7 +319,6 @@ reflects it, and a test PR still merges once `build` is green.
 
 ---
 
-
 ### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
 
 **Filed:** 2026-08-15
@@ -359,9 +358,7 @@ credentials, this was just registering accounts/keys ahead of that build.
 
 ---
 
-
 ## DONE
-
 
 ### 15. [UPGRADE] Two knowledge-engine calls still open after #12 — Reddit Data API status, Supabase anonymous-auth toggle
 
@@ -598,7 +595,6 @@ dispositions are recorded in `docs/decisions.md` under
 
 ---
 
-
 ### 6. [UPGRADE] Should `auto-merge-content` keep auto-landing UI code? — ~2 min
 
 **Filed:** 2026-08-15
@@ -622,7 +618,6 @@ the 2026-08-30 decision entry in `docs/decisions.md`.
 **Status:** DONE
 
 ---
-
 
 ### 7. [UPGRADE] Three questions left open when #2110 merged — ~5 min
 
@@ -652,7 +647,6 @@ tracked separately.
 **Status:** DONE
 
 ---
-
 
 ### 8. [UPGRADE] Turn on the spam gate for link submissions — ~10 min
 
@@ -699,8 +693,6 @@ and rate limiter remain the active protections.
 **Status:** SKIP
 
 ---
-
-
 
 ### 30. [UPGRADE] Confirm the two owner-authorized X post deletions
 
@@ -1390,6 +1382,3 @@ tabs should now show **words under the icons**.
 now all have text, and honestly it looks really good with 6." This also settled
 the nav question permanently — six separate tabs, and PR #2116's merge-to-five
 was closed unmerged.
-
----
-
