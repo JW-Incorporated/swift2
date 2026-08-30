@@ -35,6 +35,7 @@ export function productTargets(catalogue) {
   const targets = [];
   for (const products of Object.values(catalogue)) {
     for (const [index, product] of products.entries()) {
+      if (product.inStock === false) continue;
       const productId = product.source
         ? `${product.source.eraId}:${product.source.momentId}:${index}`
         : `${product.category ?? 'merch'}:${index}`;
@@ -58,6 +59,7 @@ async function productTargetsFromSeed() {
     for (const [itemIndex, item] of items.entries()) {
       const itemId = `${eraId}:${item.id ?? itemIndex}`;
       for (const [productIndex, product] of (item.moment?.products ?? []).entries()) {
+        if (product.inStock === false) continue;
         const productId = `${itemId}:${productIndex}`;
         targets.push({ productId, url: product.url, imageUrl: product.imageUrl ?? null, listing: 'primary' });
         if (product.altListing?.url) targets.push({ productId, url: product.altListing.url, listing: 'alternative' });

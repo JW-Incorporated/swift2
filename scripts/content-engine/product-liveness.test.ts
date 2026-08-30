@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { shopifyJsonUrl } from './product-liveness.mjs';
+import { productTargets } from '../check-link-liveness.mjs';
 
 describe('shopifyJsonUrl', () => {
   it('maps a /products/<handle> url to its Shopify JSON companion', () => {
@@ -26,5 +27,16 @@ describe('shopifyJsonUrl', () => {
 
   it('returns null for an unparseable url', () => {
     expect(shopifyJsonUrl('not a url')).toBeNull();
+  });
+});
+
+describe('productTargets', () => {
+  it('omits an explicitly unavailable product so a known 404 is not reported as a new dead link', () => {
+    expect(productTargets({
+      products: [
+        { url: 'https://example.com/available', category: 'shop-the-look' },
+        { url: 'https://example.com/unavailable', category: 'shop-the-look', inStock: false },
+      ],
+    }).map((target) => target.url)).toEqual(['https://example.com/available']);
   });
 });
