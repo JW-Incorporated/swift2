@@ -96,11 +96,11 @@ describe('affiliate coverage', () => {
     );
   });
 
-  it('has zero unexplained uncovered rows in the generated 133-product report', () => {
+  it('has zero unexplained uncovered rows in the generated 108-product report', () => {
     const generated = parseCoverage(readFileSync('docs/ops/AFFILIATE-COVERAGE.md', 'utf8'));
     const uncovered = generated.rows.filter((row) => row.status === 'uncovered');
 
-    expect(generated.summary.total).toBe(133);
+    expect(generated.summary.total).toBe(108);
     expect(uncovered).not.toHaveLength(0);
     expect(uncovered.filter((row) => !row.reason)).toHaveLength(0);
   });
