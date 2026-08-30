@@ -320,6 +320,15 @@ describe('buildBrief — five sections (v3, 2026-08-23)', () => {
     );
   });
 
+  it('includes the deterministic merch revenue section when a weekly report is available', () => {
+    const brief = buildBrief(
+      { ...withGates, revenueSection: '## Merch revenue and clicks\n\n- Total reported: 6 clicks · $4.75' },
+      { date: '2026-07-12', now: NOW },
+    );
+    expect(brief).toContain('## Merch revenue and clicks');
+    expect(brief).toContain('6 clicks · $4.75');
+  });
+
   it('reports what landed in the last 24h from real timestamps', () => {
     const brief = buildBrief({
       ...withGates,

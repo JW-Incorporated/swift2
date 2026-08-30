@@ -68,6 +68,7 @@ import { collectConstraints } from './meta-constraints.mjs';
 import { readCurrentDone, readDoneHistory, changeSinceAnchor, sinceLastBrief, STATUS_ICONS } from './done-history.mjs';
 import { readOpenActions, sortForBrief, renderActionLine } from './human-actions.mjs';
 import { fetchContentShipped, renderContentShippedSection } from './content-shipped.mjs';
+import { loadRevenueSection } from '../merch-engine/revenue-report.mjs';
 
 const REPO = 'JW-Incorporated/swift2';
 const ORG = REPO.split('/')[0];
@@ -318,6 +319,7 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     doneSeries: readDoneHistory(),
     openActions: readOpenActions({ now }),
     contentShipped,
+    revenueSection: loadRevenueSection(),
     postedSince: fetchPostedSince(now - DAY_MS),
     ciRuns: ciRuns.data?.workflow_runs ?? [],
     growth: fetchGrowthSnapshot(),
@@ -453,6 +455,7 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     }
   }
   out.push('');
+  if (state.revenueSection) out.push(state.revenueSection, '');
 
   // ── SECTION 3 · GATES (product Definition of Done) ───────────────────
   out.push('## 3 · Gates — product Definition of Done', '');

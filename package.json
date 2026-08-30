@@ -49,6 +49,7 @@
     "check:voice": "node scripts/check-voice.mjs",
     "content:coverage": "node scripts/content-coverage.mjs",
     "knowledge:coverage": "node scripts/knowledge-coverage.mjs",
+    "merch:revenue": "node scripts/merch-engine/revenue-report.mjs",
     "knowledge:fb-upload": "node --env-file=apps/worker/.env scripts/knowledge-fb-upload.mjs",
     "knowledge:freshness": "node scripts/knowledge-freshness.mjs",
     "clown:eval": "tsx scripts/knowledge-engine/clown-eval.mjs",
