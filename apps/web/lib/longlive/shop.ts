@@ -1,3 +1,4 @@
+import type { MerchItem } from './merch';
 import type { Product } from './types';
 import { createNetworkResolver, networkFor, type AwinAdvertisers, type NetworkResolution } from './shop-networks';
 
@@ -83,11 +84,58 @@ export function createShopLinkBuilder(config: ShopLinkBuilderConfig = {}) {
   return { buildUrl, isAffiliate };
 }
 
+export function createShopLinkRenderer(shopLinks: ReturnType<typeof createShopLinkBuilder>) {
+  const render = (listing: ShopListing, context?: ShopLinkContext) => ({
+    href: shopLinks.buildUrl(listing, context),
+    isAffiliate: shopLinks.isAffiliate(listing, context),
+  });
+
+  return {
+    forMoment: (listing: ShopListing, context: Extract<ShopLinkContext, { eraId: string }>) => render(listing, context),
+    forMerch: (listing: ShopListing, bucket: Extract<ShopLinkContext, { bucket: string }>['bucket']) =>
+      render(listing, { bucket }),
+    forMerchItem: (listing: MerchItem) => {
+      if (listing.category === 'official-store') return render(listing);
+      if (listing.category === 'fan-made') return render(listing, { bucket: 'fanmade' });
+      return listing.source ? render(listing, listing.source) : render(listing);
+    },
+    hasAffiliateMerch: (listings: readonly MerchItem[]) =>
+      listings.some((listing) =>
+        listing.category !== 'official-store' &&
+        (listing.category === 'fan-made'
+          ? render(listing, { bucket: 'fanmade' }).isAffiliate
+          : listing.source
+            ? render(listing, listing.source).isAffiliate
+            : false),
+      ),
+    direct: (listing: ShopListing) => render(listing),
+  };
+}
+
 const productionShopLinks = createShopLinkBuilder({
   awinId: process.env.NEXT_PUBLIC_AWIN_ID,
   amazonAssociatesTag: process.env.NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG,
   catchallId: process.env.NEXT_PUBLIC_CATCHALL_ID,
 });
+const productionShopLinkRenderer = createShopLinkRenderer(productionShopLinks);
+
+/** Resolves a moment product's href and disclosure predicate from one context. */
+export function renderMomentShopLink(
+  listing: ShopListing,
+  context: Extract<ShopLinkContext, { eraId: string }>,
+) {
+  return productionShopLinkRenderer.forMoment(listing, context);
+}
+
+/** Resolves a merch card's href and disclosure predicate from its source or bucket. */
+export function renderMerchShopLink(listing: MerchItem) {
+  return productionShopLinkRenderer.forMerchItem(listing);
+}
+
+/** Whether a rendered non-exempt merch listing requires the FTC disclosure. */
+export function hasAffiliateMerch(listings: readonly MerchItem[]) {
+  return productionShopLinkRenderer.hasAffiliateMerch(listings);
+}
 
 /**
  * The ONE place a product's stored URL becomes the href the UI renders.

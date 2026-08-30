@@ -33,7 +33,7 @@
  */
 
 import type { ReactNode } from 'react';
-import { isAffiliate, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
+import { hasAffiliateMerch, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
 import { MERCH_CATALOGUE } from '@/lib/longlive/merch';
 import { suggestLinkSectionId } from '@/lib/longlive/section-jump';
 import { SubmitLinkForm } from './SubmitLinkForm';
@@ -83,7 +83,7 @@ function MerchSectionHead({
 }
 
 export function MerchSection() {
-  const anyAffiliate = MERCH_CATALOGUE.shopTheLook.some(isAffiliate);
+  const anyAffiliate = hasAffiliateMerch([...MERCH_CATALOGUE.shopTheLook, ...MERCH_CATALOGUE.fanMade]);
 
   return (
     <div className="merch-shell">
