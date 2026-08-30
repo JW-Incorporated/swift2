@@ -13,7 +13,14 @@ describe('E5 manual evidence workflow', () => {
     expect(workflow).toContain('COLLECT_E5_EVIDENCE');
     expect(workflow).toContain("inputs.confirmation == 'COLLECT_E5_EVIDENCE'");
     expect(workflow).toContain('ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}');
-    expect(workflow).toContain('fanmade-discovery.mjs');
+    expect(workflow).toContain('e5-evidence-artifact.mjs listing-ids');
+    expect(workflow).toContain('e5-evidence-artifact.mjs receipt');
+    expect(workflow).toContain('> .artifacts/merch-e5-evidence/raw/listing-ids.txt');
+    expect(workflow).toContain('< .artifacts/merch-e5-evidence/raw/listing-ids.txt');
+    expect(workflow).toContain('raw/listings/${listing_id}.json');
+    expect(workflow).toContain("--data-urlencode 'includes=Images,Shop'");
+    expect(workflow).toContain('[[ "$detail_status" == "404" ]]');
+    expect(workflow).not.toContain('fanmade-discovery.mjs');
     expect(workflow).toContain('actions/upload-artifact');
     expect(workflow).toContain('merch-e5-evidence-artifact');
     expect(workflow).toContain('retention-days: 7');
