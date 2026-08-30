@@ -26,7 +26,7 @@ import { ExternalLink } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { getContentItem } from '@/lib/longlive/content';
 import { merchItemImage } from '@/lib/longlive/merch-filters';
-import { buildShopUrl } from '@/lib/longlive/shop';
+import { renderMerchShopLink } from '@/lib/longlive/shop';
 import type { MerchItem } from '@/lib/longlive/merch';
 
 function isRemoteUrl(url: string): boolean {
@@ -71,6 +71,7 @@ export function MerchCard({ item }: { item: MerchItem }) {
   const moment = item.source ? getContentItem(item.source.momentId) : undefined;
   const image = merchItemImage(item);
   const productLabel = exactPiece ? 'The exact piece' : 'We found something similar';
+  const shopLink = renderMerchShopLink(item);
 
   return (
     <li className={`border border-[color:var(--merch-line)] bg-[color:var(--merch-ink-2)]${soldOut ? ' opacity-50' : ''}`}>
@@ -109,7 +110,7 @@ export function MerchCard({ item }: { item: MerchItem }) {
         )}
 
         <a
-          href={buildShopUrl(item)}
+          href={shopLink.href}
           target="_blank"
           rel="nofollow sponsored noopener noreferrer"
           aria-label={`Shop ${item.brand} ${item.item}${soldOut ? ' (sold out)' : ''}${!exactPiece ? ' (similar style, not the exact piece)' : ''}`}
