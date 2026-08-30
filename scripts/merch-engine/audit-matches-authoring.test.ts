@@ -122,6 +122,28 @@ describe('E3 authoring runner cost reservation', () => {
     expect(result.status).toBe('complete');
   });
 
+  it('leaves a provider response with more than four reasons unresolved', async () => {
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      judge: async () => ({ ...validJudgment, reasons: ['one', 'two', 'three', 'four', 'five'] }),
+    });
+
+    expect(result.judgments[0]).toMatchObject({ score: null, tier: 'unresolved', kind: null });
+    expect(result.judgments[0].reasons).toEqual(['invalid judgment response']);
+  });
+
+  it('leaves a provider response with an overlong reason unresolved', async () => {
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      judge: async () => ({ ...validJudgment, reasons: ['x'.repeat(241)] }),
+    });
+
+    expect(result.judgments[0]).toMatchObject({ score: null, tier: 'unresolved', kind: null });
+    expect(result.judgments[0].reasons).toEqual(['invalid judgment response']);
+  });
+
   it('uses a newly detected queue pair even when the earlier receipt has no judgment for it', async () => {
     const result = await runAuthoring({
       receipt: receipt([]),

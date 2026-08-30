@@ -89,8 +89,11 @@ function normalizeJudgment(pair, response) {
   if (typeof response.kind !== 'string' || !KINDS.has(response.kind)) return null;
   if (
     !Array.isArray(response.reasons) ||
-    response.reasons.length === 0 ||
-    response.reasons.some((reason) => typeof reason !== 'string' || !reason.trim())
+    response.reasons.length < 1 ||
+    response.reasons.length > 4 ||
+    response.reasons.some(
+      (reason) => typeof reason !== 'string' || !reason.trim() || reason.trim().length > 240,
+    )
   )
     return null;
   return {
