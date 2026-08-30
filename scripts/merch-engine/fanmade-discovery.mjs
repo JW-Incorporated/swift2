@@ -88,7 +88,7 @@ export function normalizeRedditPost(post) {
 }
 
 export function normalizeSubmission(issue) {
-  const bodyUrl = text(issue?.body)?.match(/https?:\/\/[^\s)>]+/i)?.[0] || null;
+  const bodyUrl = text(issue?.body)?.match(/https?:\/\/[^\s)>`]+/i)?.[0] || null;
   const url = canonicalUrl(bodyUrl);
   return {
     id: issue?.number ? `submission:${issue.number}` : null,

@@ -98,7 +98,7 @@ describe('fan-made discovery', () => {
       provenance: [expect.objectContaining({ discoveredVia: 'reddit' })],
     });
     expect(normalizeSubmission({
-      number: 7, title: 'Merch submission', body: 'Try https://www.etsy.com/listing/7', html_url: 'https://github.com/example/repo/issues/7', created_at: '2026-08-30T00:00:00Z',
+      number: 7, title: 'Merch submission', body: '- **URL:** `https://www.etsy.com/listing/7`', html_url: 'https://github.com/example/repo/issues/7', created_at: '2026-08-30T00:00:00Z',
     })).toMatchObject({
       url: 'https://www.etsy.com/listing/7',
       provenance: [expect.objectContaining({ discoveredVia: 'submission' })],
