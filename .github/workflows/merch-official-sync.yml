@@ -1,0 +1,44 @@
+# E4 official-store detection is zero-LLM and writes an artifact only.
+# :17 avoids this repository's :00/:05/:10/:23/:30/:40 cron contention cluster.
+# A separate authoring lane must verify and gate any seed or social-queue change.
+name: merch-official-sync
+
+on:
+  schedule:
+    - cron: '17 8,20 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: merch-official-sync
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Restore conditional-request validators
+        uses: actions/cache/restore@v4
+        with:
+          path: official-sync-cache.json
+          key: merch-official-sync-${{ github.run_id }}
+          restore-keys: merch-official-sync-
+      - name: Fetch official-store change handoff
+        run: node scripts/merch-engine/sync-official.mjs --detect --write-plan official-sync-plan.json --cache official-sync-cache.json --current supabase/seed/merch/official.mjs
+      - uses: actions/upload-artifact@v6
+        with:
+          name: merch-official-sync-plan
+          path: official-sync-plan.json
+          if-no-files-found: error
+      - name: Save conditional-request validators
+        uses: actions/cache/save@v4
+        with:
+          path: official-sync-cache.json
+          key: merch-official-sync-${{ github.run_id }}
