@@ -26,34 +26,34 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 30. [BLOCKING] Approve one repaired re-run of the E3 vision-scoring workflow — same $5 cap — ~1 min
+### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
 
 **Filed:** 2026-08-30
 
-**Status:** OPEN
+**Status:** DONE
 
-**Why it matters:** E3 acceptance requires every retained product to carry a
-vision score unless no comparable image pair exists. The one run you
-authorized (`merch-audit-authoring.yml` run `33319263802`) reserved only
-$1.67 of its $5 cap but scored just 5 of 48 eligible pairs — the other 43
-died on transient vision-request errors because the script has no
-retry/backoff (a code defect, now being fixed). Your card wording allowed
-exactly one run, so a second run is a spend call that is yours even though
-the amount is tiny. The 43 pairs stay unscored — and E3 stays unaccepted —
-until a repaired run executes.
+**Why it matters:** `docs/decisions.md` 2026-07-08 §3 is the standing rule:
+**nothing monetized ships without external IP-counsel review**
+(right-of-publicity, false endorsement, FTC affiliate disclosure), and
+FR-MERCH-4/5 hold that no affiliate/commercial implementation (the
+`shop.ts` seam flip, engine E0, coverage-report wiring) starts before that
+sign-off. The merch plan's Phase 1 trust fixes (E1/E2/E3) proceed without
+you; every money phase waits here. Engaging counsel is also a spend
+decision, which is yours alone.
 
 **Steps:**
-1. Wait for the retry-fix PR (filed as a GitHub issue titled
-   "merch-audit-authoring: no retry/backoff on transient vision failures")
-   to land — the fleet handles that part.
-2. Reply in chat: "approved, run it" (or edit this Status line to DONE with
-   that meaning). A session will then dispatch
-   `merch-audit-authoring.yml` once, same $5 cap, no further runs without
-   coming back here.
+1. Engage an IP attorney (right-of-publicity / false-endorsement / FTC
+   affiliate-disclosure scope). Bring: the live site `longlivets.com`, the
+   plan `docs/PLAN.merch-autonomy.md`, the UNOFFICIAL fan-project
+   disclaimer, and the fact that content stores plain retailer URLs with
+   wrapping at one seam (`apps/web/lib/longlive/shop.ts`).
+2. Report the outcome in chat (sign-off, or the changes counsel requires);
+   a session records it in `docs/decisions.md` and unblocks Phase 2.
 
-**Worked if:** a new workflow run's artifact shows the ~43 previously
-transient pairs resolved (scored or a documented terminal reason), and E3
-acceptance math closes on PR #3486.
+**Worked if:** counsel's written sign-off (or required-changes list) is
+recorded in `docs/decisions.md` and this item is DONE.
+
+**Outcome (2026-08-30):** Counsel sign-off recorded from Joey's direct chat instruction.
 
 ---
 
@@ -661,35 +661,6 @@ reflects it, and a test PR still merges once `build` is green.
 ---
 
 ## DONE
-
-### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
-
-**Status:** DONE (2026-08-30)
-
-**Why it matters:** `docs/decisions.md` 2026-07-08 §3 is the standing rule:
-**nothing monetized ships without external IP-counsel review**
-(right-of-publicity, false endorsement, FTC affiliate disclosure), and
-FR-MERCH-4/5 hold that no affiliate/commercial implementation (the
-`shop.ts` seam flip, engine E0, coverage-report wiring) starts before that
-sign-off. The merch plan's Phase 1 trust fixes (E1/E2/E3) proceed without
-you; every money phase waits here. Engaging counsel is also a spend
-decision, which is yours alone.
-
-**Steps:**
-1. Engage an IP attorney (right-of-publicity / false-endorsement / FTC
-   affiliate-disclosure scope). Bring: the live site `longlivets.com`, the
-   plan `docs/PLAN.merch-autonomy.md`, the UNOFFICIAL fan-project
-   disclaimer, and the fact that content stores plain retailer URLs with
-   wrapping at one seam (`apps/web/lib/longlive/shop.ts`).
-2. Report the outcome in chat (sign-off, or the changes counsel requires);
-   a session records it in `docs/decisions.md` and unblocks Phase 2.
-
-**Worked if:** counsel's written sign-off (or required-changes list) is
-recorded in `docs/decisions.md` and this item is DONE.
-
-**Outcome (2026-08-30):** Counsel sign-off recorded from Joey's direct chat instruction.
-
----
 
 ### 29. [UPGRADE] Search-API account for merch engine E6 — payment card, ~10 min
 
