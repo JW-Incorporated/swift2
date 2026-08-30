@@ -26,7 +26,12 @@ import { ExternalLink } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { getContentItem } from '@/lib/longlive/content';
 import { merchItemImage } from '@/lib/longlive/merch-filters';
-import { renderMerchShopLink, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
+import {
+  buildShopUrl,
+  isAffiliateListing,
+  renderMerchShopLink,
+  SHOP_DISCLOSURE,
+} from '@/lib/longlive/shop';
 import type { MerchItem } from '@/lib/longlive/merch';
 
 function isRemoteUrl(url: string): boolean {
@@ -88,7 +93,12 @@ export function MerchCard({ item }: { item: MerchItem }) {
       : 'Fan-made item';
   const shopLink = renderMerchShopLink(item);
   const alternateLink = item.altListing
-    ? renderMerchShopLink({ ...item, ...item.altListing })
+    ? item.category === 'official-store'
+      ? {
+          href: buildShopUrl(item.altListing, { bucket: 'official' }),
+          isAffiliate: isAffiliateListing(item.altListing, { bucket: 'official' }),
+        }
+      : renderMerchShopLink({ ...item, ...item.altListing })
     : undefined;
 
   return (

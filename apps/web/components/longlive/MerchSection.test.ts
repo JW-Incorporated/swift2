@@ -9,6 +9,13 @@ import { describe, expect, it, vi } from 'vitest';
 import type { MerchItem } from '@/lib/longlive/merch';
 import { MerchCard } from './merch/MerchCard';
 
+const { buildShopUrl, isAffiliateListing } = vi.hoisted(() => ({
+  buildShopUrl: vi.fn((listing: { url: string }, context: { bucket: string }) =>
+    `${listing.url}?tag=longlive-20&ascsubtag=${context.bucket}`,
+  ),
+  isAffiliateListing: vi.fn(() => true),
+}));
+
 vi.mock('@/lib/longlive/store', () => ({
   useAppActions: () => ({ openItem: vi.fn() }),
 }));
@@ -22,6 +29,13 @@ vi.mock('next/image', () => ({
 // its elements as "not valid as a React child". Not under test here — stub it.
 vi.mock('lucide-react', () => ({
   ExternalLink: () => createElement('svg', { 'aria-hidden': 'true' }),
+}));
+
+vi.mock('@/lib/longlive/shop', () => ({
+  renderMerchShopLink: (listing: MerchItem) => ({ href: listing.url, isAffiliate: false }),
+  buildShopUrl,
+  isAffiliateListing,
+  SHOP_DISCLOSURE: 'Some links may earn Long Live a commission at no extra cost to you.',
 }));
 
 const baseItem: MerchItem = {
@@ -72,5 +86,19 @@ describe('MerchCard alt-piece clarity', () => {
 
     expect(html).toContain('Official item');
     expect(html).not.toContain('The exact piece');
+  });
+
+  it('uses the official affiliate bucket for an Amazon alternate listing', () => {
+    const item: MerchItem = {
+      ...baseItem,
+      category: 'official-store',
+      altListing: { retailer: 'amazon.com', url: 'https://www.amazon.com/dp/B123' },
+    };
+    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+
+    expect(buildShopUrl).toHaveBeenCalledWith(item.altListing, { bucket: 'official' });
+    expect(isAffiliateListing).toHaveBeenCalledWith(item.altListing, { bucket: 'official' });
+    expect(html).toContain('https://www.amazon.com/dp/B123?tag=longlive-20&amp;ascsubtag=official');
+    expect(html).toContain('Some links may earn Long Live a commission at no extra cost to you.');
   });
 });
