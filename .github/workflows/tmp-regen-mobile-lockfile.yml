@@ -1,4 +1,5 @@
-# TEMPORARY. Removed in this same PR once it has produced the lockfile.
+# TEMPORARY. Removed in this same PR once it has produced the lockfile and the
+# verification APK.
 #
 # Same idiom as #3342: the author's Windows machine cannot complete an `npm
 # install` (8-10 min timeouts), so the lockfile for a new mobile dependency is
@@ -8,6 +9,12 @@
 # `npm install` is used, which is also the only form that honours the root
 # `overrides: { "uuid": "^11.1.1" }`. `--package-lock-only` must never be used
 # here: it silently drops the override and reopens GHSA-w5hq-g745-h8pq.
+#
+# `expo install --fix` is deliberately NOT run: on this tree it also proposes
+# four unrelated patch bumps (expo, expo-build-properties, expo-system-ui,
+# react-native), and a targeted Android touch-target fix is the wrong PR to
+# carry a react-native bump in. Instead the pin is ASSERTED against the real
+# bundledNativeModules.json, which is the guarantee that actually matters.
 name: tmp regen mobile lockfile
 on:
   push:
@@ -25,20 +32,24 @@ jobs:
         with: { node-version: '24' }
       - name: Full install (adds the new dep, honours the root uuid override)
         run: npm install --no-audit --no-fund
-      - name: Show what Expo SDK 57 actually pins
+      - name: Assert the dep matches what Expo SDK 57 pins
         working-directory: apps/mobile
         run: |
           node -e "
-            const p = require.resolve('expo/bundledNativeModules.json', { paths: [process.cwd()] });
-            console.log('bundledNativeModules.json:', p);
-            console.log('expo:', require(require.resolve('expo/package.json', { paths: [process.cwd()] })).version);
-            console.log('react-native-safe-area-context pin:', require(p)['react-native-safe-area-context']);
+            const dep = 'react-native-safe-area-context';
+            const at = { paths: [process.cwd()] };
+            const bnm = require.resolve('expo/bundledNativeModules.json', at);
+            const pinned = require(bnm)[dep];
+            const declared = require('./package.json').dependencies[dep];
+            console.log('bundledNativeModules.json:', bnm);
+            console.log('expo:', require(require.resolve('expo/package.json', at)).version);
+            console.log('SDK pin:', pinned, '| package.json:', declared);
+            if (pinned !== declared) {
+              console.error('MISMATCH - pin apps/mobile to ' + pinned);
+              process.exit(1);
+            }
+            console.log('installed:', require(require.resolve(dep + '/package.json', at)).version);
           "
-      - name: Align apps/mobile to the Expo SDK pins
-        working-directory: apps/mobile
-        run: npx --no-install expo install --fix
-      - name: Re-normalise the lockfile after any --fix change
-        run: npm install --no-audit --no-fund
       - name: Downgrade guard (report only - the PR's CI enforces it)
         run: |
           git fetch --no-tags --depth=1 origin main
@@ -52,6 +63,35 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add apps/mobile/package.json package-lock.json
           if git diff --staged --quiet; then echo "nothing to commit"; else
-            git commit -m "chore(mobile): pin react-native-safe-area-context to the SDK 57 version + regenerate lockfile [skip ci]"
+            git commit -m "chore(mobile): regenerate lockfile for react-native-safe-area-context [skip ci]"
             git push
           fi
+
+  # Builds an installable APK so the fix can be checked on a real Pixel 6
+  # emulator instead of reasoned about. The Expo Android template signs the
+  # release variant with the debug keystore when no release credentials are
+  # configured, so this needs no secrets and produces a self-contained APK
+  # with the JS bundle baked in -- the same shape as the shipped build.
+  apk:
+    needs: regen
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: '${{ github.ref_name }}', fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: '24' }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - run: npm ci --no-audit --no-fund
+      - name: Prebuild the native Android project
+        working-directory: apps/mobile
+        run: npx --no-install expo prebuild --platform android --no-install
+      - name: Assemble release APK
+        working-directory: apps/mobile/android
+        run: ./gradlew :app:assembleRelease --no-daemon -x lint
+      - uses: actions/upload-artifact@v4
+        with:
+          name: longlive-verify-apk
+          path: apps/mobile/android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
