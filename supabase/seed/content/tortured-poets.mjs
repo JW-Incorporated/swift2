@@ -2577,6 +2577,10 @@ export default {
             // (not a raw Instagram hotlink) clears the outlet-own-CDN bar the
             // prior note above required.
             url: 'https://imagez.tmz.com/image/6c/4by3/2025/09/16/6c7d014afbfa48a9a60b29d86fbc092d_md.jpg',
+            // Focal point set 2026-08-30 (#762) by viewing: six-person group
+            // shot on a staircase; Taylor and Travis are the rightmost two,
+            // faces in the upper-fifth of the frame — bias right and high.
+            focalPoint: '68% 22%',
             credit: 'Kane Brown / Instagram, via TMZ',
             caption: 'Kane Brown\'s Instagram photo of himself with Taylor Swift and Travis Kelce at Patrick Mahomes\' 30th birthday party, September 2025.',
             kind: 'reference',

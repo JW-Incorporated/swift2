@@ -6024,14 +6024,6 @@ export default {
             // bag low-left — keep the face under wide crops.
             focalPoint: '65% 14%',
           },
-          {
-            // Photo pass (issue #1721, 2026-08-25): a second photo, from the
-            // same Marie Claire outfit-story article, superseding the note below.
-            url: 'https://cdn.mos.cms.futurecdn.net/RgRJ6QDr4KSapNCHFvdze9.jpg',
-            credit: 'Marie Claire / Getty Images',
-            caption: 'Taylor Swift arriving at Arrowhead Stadium for the Chiefs vs. Broncos Christmas Day 2025 game.',
-            kind: 'reference',
-          },
           // Photo pass #762 run 7 (2026-07-18): re-searched for a second photo of
           // this event and again found none that verify. AOL/InStyle's "lead
           // photo" of the game downloaded as a recycled Jan-2025 AFC-Championship
@@ -6039,8 +6031,20 @@ export default {
           // rejected on viewing); TMZ's article runs a Dec. 3 Getty file photo;
           // Taylor Swift Style's gallery carries only the single broadcast frame
           // already used above (wire photographers had no access — broadcast-only
-          // event). Superseded 2026-08-25: a second, distinct Marie Claire photo
-          // was found and added above.
+          // event).
+          // Photo pass #762 (2026-08-30): the 2026-08-25 pass's "second Marie
+          // Claire photo" (RgRJ6QDr4KSapNCHFvdze9.jpg) is WRONG — Marie Claire's
+          // own og:image:alt on that article reads "Taylor Swift at the Kansas
+          // City Chiefs Christmas day game in 2023 wearing a red sweater and
+          // plaid skirt with a santa hat." Downloaded and viewed: it shows her
+          // in a Santa hat next to a person in a full Santa costume, not the red
+          // Frankie Shop bomber this moment describes — a recycled 2023 file
+          // photo the article used as its speculative-outfit-piece lead image,
+          // mislabeled here as the Dec. 25 2025 game. Removed rather than kept
+          // mislabeled. Re-searched (AOL's original piece now 404s; Just Jared's
+          // Dec. 25 2025 recap is Cloudflare-blocked; TMZ's Dec. 25 2025 article
+          // still runs the same Dec. 3 file photo as run 7 found) — no genuine
+          // second photo of this broadcast-only event verifies. Back to one.
         ],
         products: [
           {
