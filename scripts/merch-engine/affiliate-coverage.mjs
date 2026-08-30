@@ -84,6 +84,7 @@ export function generateCoverage(products, options = {}) {
   return formatCoverage(
     buildCoverage(products, {
       resolveNetwork: options.resolveNetwork,
+      credentials: options.credentials,
       awinApplyRetailers: loadAwinApplyRetailers(options.directoryPath),
     }),
   );
