@@ -56,10 +56,10 @@ the amended lane split). **E0 remains blocked** (affiliate infrastructure —
 counsel gate + Awin tokens not yet generated). Joey's D1-a/D3 owner decisions
 are recorded separately in the 2026-08-30 decision immediately below: E4 and
 E5 are no longer source-blocked by those decisions. **E5 remains held** on the
-canonical Etsy key save and the commercial gate. **E6 remains blocked** on the
-search-API account (spend, human-only — HUMAN-ACTIONS **#29**); once that
-lands it may run degraded (brand-direct + paid search, skipping the Awin-index
-first pass) until E0 unblocks post-counsel.
+canonical Etsy key save and the commercial gate. **E6 remains blocked** until
+both the search-API account (spend, human-only — HUMAN-ACTIONS **#29**) and
+the counsel gate are complete; only then may it run degraded (brand-direct +
+paid search, skipping the Awin-index first pass) until E0 unblocks.
 
 **Approved by:** Fable arbiter, under Decision Authority's reversibility
 line (doc coherence, naming, lane split — all revertible by follow-up PR).
