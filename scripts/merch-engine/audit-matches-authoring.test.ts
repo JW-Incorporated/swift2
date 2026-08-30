@@ -144,6 +144,23 @@ describe('E3 authoring runner cost reservation', () => {
     expect(result.judgments[0].reasons).toEqual(['invalid judgment response']);
   });
 
+  it('retries a transient judgment failure before recording the pair unresolved', async () => {
+    let attempts = 0;
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      judge: async () => {
+        attempts += 1;
+        if (attempts < 3) throw new Error('anthropic vision request failed (429)');
+        return validJudgment;
+      },
+      sleep: async () => {},
+    });
+
+    expect(attempts).toBe(3);
+    expect(result.judgments[0]).toMatchObject({ score: 92, tier: 'exact', kind: 'dress' });
+  });
+
   it('uses a newly detected queue pair even when the earlier receipt has no judgment for it', async () => {
     const result = await runAuthoring({
       receipt: receipt([]),
