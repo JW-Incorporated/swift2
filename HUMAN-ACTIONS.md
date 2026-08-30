@@ -560,7 +560,15 @@ answer them, and the dataset ages from here.
 
 **Worked if:** you answer in chat; a session records it on the issue.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey decided that Instagram and TikTok creator-account
+coverage is in scope and must have an automated solution. Group and invite
+refresh must also be automated; only if full automation is not feasible may it
+use automated human-action reminders with specific instructions. Retain the
+exclusion of `r/TravisAndTaylor` and also exclude `r/GaylorSwift`. The decision
+is recorded in `docs/decisions.md` (2026-08-30); the automation-design work is
+tracked separately.
+
+**Status:** DONE
 
 ---
 

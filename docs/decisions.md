@@ -41,6 +41,29 @@ configuration, cap, routing, or the superseded specification text.
 
 ---
 
+## 2026-08-30 — Community coverage includes creator accounts; refresh is automation-first
+
+**Decision:** Instagram and TikTok creator-account coverage is in scope and
+requires an automated solution. Group and invite refresh must be automated. If
+full automation is not feasible, the fallback is automated human-action
+reminders containing specific instructions. Retain the exclusion of
+`r/TravisAndTaylor` and additionally exclude `r/GaylorSwift`.
+
+**Why:** Joey resolved the three open questions recorded in HUMAN-ACTIONS #7
+after the community-map research landed. Creator accounts are distinct from
+joinable communities, and invites and group availability decay; automation is
+therefore the required operating posture rather than a founder-owned manual
+cadence.
+
+**Scope:** This records the product-direction and operating posture only. It
+does not activate a source, alter `data/communities.json`, configure social or
+API access, create schedules, use credentials, or implement the separate
+automation-design work.
+
+**Approved by:** Joey (direct decision, 2026-08-30).
+
+---
+
 ## 2026-08-30 — FR-MERCH-6: E5 fan-made discovery round-2 repair ruling (t_fe545cfd) — four bounded repairs, no third Codex review
 
 **Context:** Fable arbiter ruling for Kanban task t_fe545cfd (E5 fan-made
