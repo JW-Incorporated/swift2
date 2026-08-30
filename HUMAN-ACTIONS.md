@@ -535,7 +535,11 @@ surprising.
 
 **Worked if:** you pick one in chat.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey retained the current CI-gated
+`auto-merge-content` behavior, including eligible UI/client-code changes; see
+the 2026-08-30 decision entry in `docs/decisions.md`.
+
+**Status:** DONE
 
 ---
 
