@@ -25,7 +25,57 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 56
+Stories: 58
+
+## Harry Styles Jokes About Taylor Swift's Wedding at MSG Concert
+
+- first seen: 2026-08-30 06:36 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: During a concert at Madison Square Garden, Harry Styles made a humorous remark regarding his ex, Taylor Swift's wedding. The comment added a playful element to his performance, drawing attention from the audience.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/harry-styles-shout-out-taylor-swift-wedding-travis-kelce-madison-square-garden-show-1236846748/
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMiywFBVV95cUxPMk1VbDlPTmVtVU5aZjFJaG5QMG45cmgzT2RHZk5yeFlXYkVyNzBaQ21zbkRnRTNVaFpUWDJ3RUxneWh0U1BiSFl6Tk5sRVJLZlJINXctcG4wcmtZQk1nMXpzUEhhS2lQU0JuVkZQb21VVTV1S29adklaQ0xrbHFwQ0RTZ3RneGdKbFMyaTZjTmlINDVQM0ZXeTdvSzQxTlkxRDlEaE5jeEVwRnE1UzluTzM1bzYwVDN4NGd1UndBS19vNmRZY1dEczBuaw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Harry Styles Mentions Taylor Swift at Venue of Her Recent Marriage
+
+- first seen: 2026-08-30 06:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During a performance at the venue where Taylor Swift married Travis Kelce, Harry Styles made a reference to his ex, Taylor Swift. This occurrence garnered attention due to the location's significance to Swift's recent personal life.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMixAFBVV95cUxNTWtKbl84SktNbV83alpib05aTVJfOEZBaUl2ZVFaRVZRLWFNSXc4VHZFMDE1ZnBwU3RyVHg0WjYtYnVuQWQwZHlLZDBIaDhXNkpTZ2xXQmpub3NsVnBISVpwQXZhbTVGSDRLTUZiVUZ1SG5zaEhWMS04SVp3MFJMMlZFRGp6Wl91NlJabTQxanhOazJZX0dKSnlBTkhBLXREZlh6ZXlGV2NEaVU3OUU0bVJiVXJVYzdQTkJacU9HMHN3TnAw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Harry Styles Makes Jokes About Taylor Swift at Concert
+
+- first seen: 2026-08-30 06:36 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: During his concert at Madison Square Garden, Harry Styles joked about the venue's history, referencing that it is home to the New York Knicks and also hosts weddings. The comments were made in a light-hearted manner amid his performance.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/harry-styles-taylor-swift-wedding-madison-square-garden-1236685019/
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiugFBVV95cUxOX3czTGZIZThOaU1mWkVKUlRMVnNaRUNwWkpja2EzX0FiTUo3dmc0ZG9sZmxIQzlrbnV1LVZVSHg3ZndEd2ZldjVIMGZGbU84UU56UFUxQkxFZTNtekFZVlRCWDZEeGFPN0trejRrZWVUcEwwamJuRm5MRGRPTnFBejhyalpqMDMzZXZmeFRUVFZYUVJVVlEwbjZPdlBoQ2NqRW1pbG5aZm9kLXlfWVVIRS1nSm5iaEh2OUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Harry Styles Acknowledges Taylor Swift's Wedding During MSG Performance
+
+- first seen: 2026-08-30 06:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During a recent concert at Madison Square Garden, Harry Styles mentioned Taylor Swift's wedding, drawing attention from fans. The shout-out highlighted their friendship in the music industry.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikAFBVV95cUxNQkdNRG1HWDBLSms0by16NjlvZzI3akw0RS1YeElsSDBhbEI2WFhydVJ4Nzg0cUpyU00yR2ZvY2dPOVlFUU9abUdpLVUxQkxpZVhmaEpOalhxMnJYbWl5akNTQ1dyY3pjbEVkeW5uYWpoaVdKOE1PTWR1aE55azZhV2syRDF3b1NITE9OV3JuMU0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift contributes $50,000 to GoFundMe for injured woman
+
+- first seen: 2026-08-30 06:36 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a donation of $50,000 to a GoFundMe campaign supporting a woman from Connecticut who was injured in a crash. The contribution highlights Swift's philanthropic efforts in response to community needs.
+- sources:
+  - [unverified] WJAR — https://news.google.com/rss/articles/CBMiowFBVV95cUxOZmpUenVfYWNPZFRqQ1NzOFVoMnhkRlFzQ18yZ3JIZ2FQTGtwZnlXdGNISS1wUWRwcVJSRlJuVE4xNXZfMGFNMTVTUEI0OVdQQWYxbncxaVByLV9fcm95c1plYjlvcDFuSlhjbUtDYS14Q3JZSmtFdnpTZ0ZSc01QZnpEbmxyX0JObHplWUZVV3lLamxLMnR0cFhJdl9hMUNfaFNV?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Influences Fall Fashion Trends
+
+- first seen: 2026-08-30 06:36 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: This fall, Taylor Swift's style is inspiring a romantic fairytale aesthetic in fashion, encouraging fans to embrace whimsical outfits. Her influence is set to shape autumn wardrobe choices this season.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE9KSXZnN29CNEFYZElWMk4wLTNUeGRVNEtKdGhUVS11TWhrRUQ0Yjdzb21GVEY3bC12Sk5XVTkwdWdQQnh3azZyVXczTWEtRWJ0OEU0RGV4dVpRekJnYTZjVHI0eUFWVXEtNzFGRFZYb1d1bnhPemNwQzViTzNyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift shares original concept for 'I Knew You Were Trouble'
 
@@ -193,7 +243,7 @@ Stories: 56
 ## Taylor Swift Donates $50K to Support Recovery of Car Accident Victim
 
 - first seen: 2026-08-29 07:50 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: Taylor Swift has donated $50,000 to a mother who was injured in a car accident, expressing her support with a heartfelt message wishing for her best recovery.
 - sources:
   - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipwFBVV95cUxQOUlueXBxSENrSkdlU0tiZFc5cnhZQmszckVzM1ktdVlqOTRNRVpmbVVaeUI4aFpUTl9hUFVudUtuUWk5WkJZRkFzRGtQS1BfelZBNEZ3SGE4UnExZ0lhc2pTTU5TUlF1ekNxZW5VUVdaaUJwN01QSGdVckFUZnRBQ1hjWlg0anJUbTJhT3hHSVdaOHdUR2t3NGJMRzFGMEd1T2haeHJqZw?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -203,6 +253,7 @@ Stories: 56
   - [unverified] Go Local Prov — https://news.google.com/rss/articles/CBMipwFBVV95cUxNVGN1NW5VaS01RXNjVGR3azhMOXNCRUZlMm5QR012MlJ1OGFCb3BuQVMySWhMal9XT25xcWNHSk9yNFhGWjV2ZlpRdXEybjM5azFaQnhFSlBhbUd2V0dFdXF5azRyVktmcmh0UWZhc0hyZUpWcjlZU1FTT3pvOHg1aUItUF9zOEdqcEo3M05nRjFuYjlZeWM0QmZfeXE1TmlRQktXdlVwTQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQT0pqaHdDWExwU19uM3h2OXJfaDJkdEc5LW9UTURuUEE4Y283WEMwTFAwQjJ6aV9OTUExNTdnN29pMVdYeUlVM1FvUnU2ZEtsOVFhN19GUENFQUNCLU8zNmJiVzZxb2puSW1sRlJqcVpyd3V6N3pOano4TUc3bEpJV2pDWXBQZ0Y0QUprNVI4T3M2U3VBV01nRnJxbi0yb1FJZHlyVUdIbExSUHc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMinAFBVV95cUxPT2FyRnp5SUZBSU51TFo2VGlrUmc5N1RCaUpQa3I2VkNJZFU0Tjc2SlVpNjg0MDBhMTRldXcyQVJIYktxNWM5emhvcFIzeUVtRExLSzRKRXFqMjVRcmF1OERCSVpQQjIxX1ZaVl90bXV3Q20tdFRWRl9RRXpiZ0I3M05KNXJIZk1JUEJ4SnZqVjBCY3lTMFdFeGlhYm0?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMikgFBVV95cUxQdFY2blJGYlpJbDdZZzE1UzRyeXcteXk3dHZ4Z2tHakxpdzZYcmNfM01SeFluRWlPbVJjQkZzcVMyRU1oTWdWMTBJWEg0T05DX01iSU4wcWNkQ1dQYmhrNHFiRGhlQS01cUhYMGFUNUpxRGlyWTZRZWk2QzF0T3NOa3pEQTNWd0t6a2xVS3dpMjUxdw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Donates $50K to Assist Injured Mother
 
@@ -462,37 +513,3 @@ Stories: 56
   - [unverified] IndyStar — https://news.google.com/rss/articles/CBMihwJBVV95cUxNenhNWWczdVBqWndPVkVYUmhub2J0ZC1xdjltX1JPZTVNbDFKdDBYY3pOSmV1RlNGdmVQWWJST1VGNnE0SWswWWFuYlV1VlVqNGZxRmVPVDhrdndDT0RnUzViMml4eFlza1lnQTJJLTFIdFBScERJWmQtc3BSdHA0cDB6Um5UV0lMalZRSGdBcFZQS2lTZWVuN2ZLOGl6aURjSGtsMS1sXzNMckN6VXZKbjJ5MGJuSzhPRUZZTzlqVjdSX010eDZaWWtqQWwtd0Fienp0MWpLNndlWmdmVHEtZjRFT1NqaGthOG45MVdSQllsMENjRFVjWmNsSWRIRENzcjJZNjdLRQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] ESPN — https://news.google.com/rss/articles/CBMixAFBVV95cUxOMjM3VWl1eUtSY3RhWDgzSlF1NjJuNDUyMUVyZVpNU2NqcWNNTUVFMWx5NmZ6dHg0ZnJwZ2RCdmloeDZCOE1LTy1pT1BGVG1lNnkwWjg5STMwcXlwbW5Nb2FwLTlnNVZfaG9DeEtSSW1WaFc4UUR3M0lpQVVKU0ZfOFpLQVNiSXoxd3JKN3FCS3lLTVp5ekFiVXJVbW1VSnNxQ3UtVTh0RDlkczVuMjV6dnd0Y0h5RHpoMzlOS2F2WnVnOG1v?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0AFBVV95cUxQZFNIZFh6S3ltSENoczFKNUxUclNvNElOczVyNFhvWTVTSXo3bG5PWnRNX1RWT0FPMHRwOHdhSk54Q1BLOE9UazNqdU42eVYzM0NqVjJORTNYR3p0dkN2WUx4VzRnaWlrNmZNMEdSWWg2dno2Ui0tM2RVd0VhNFUtbFpuNHhWck1YUFUyMk11V09tb1VWYmdtUFpTbjdvRmxUazB3NzNZUmN3U1lmY1NLeGg5MGFBeGNxcUd2M0tobzMxN2VSeVJramozeGhBbUZk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Pays Tribute to Dolly Parton's Legacy
-
-- first seen: 2026-08-27 00:45 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has honored the legacy of Dolly Parton following her recent passing, acknowledging Parton's significant impact on the music industry. This tribute reflects Swift's respect for legendary artists.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMijwFBVV95cUxOX1NsVnkxMElEd01mMmJkNnBlT05rN3JBU0ZsbVlmRDZzYm5NMk92ekVzOFg3S01Wc09wM084VUp1RjNvYzkwZG1zUlRTdWRzWkg5Q1FDb2xSMllyMTZHTmRaQVpYcmNaX2FXc0xvbV96aHc2d1JKQXZkRDVVUjFsSWZjeWhHRTU0ekktRUVoMA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxPc3kzWERFUVVCcEh2YmpJWE14MGJ0bXFHZ2xGYWdROW5IV0JDTWFGZkl3THJfYkx2aURTZ0thdVJmM0tNV1hFVzVrX1ZPMjJaY1ppMldXRDlsbkNWSzcxeTFUQUk4R05jdnRrcHpPRUhyYTljeERNUnM4OGU5U2NIbG9Nbw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Caitlin Clark Compared to Taylor Swift in New Feature
-
-- first seen: 2026-08-27 00:45 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: IndyStar highlights Caitlin Clark's mindset and style, likening her to Michael Jordan and calling her 'Taylor Swift in tennis shoes'. This comparison underscores her impact in sports and fashion.
-- sources:
-  - [unverified] IndyStar — https://news.google.com/rss/articles/CBMi_AFBVV95cUxNa3c2RnRhUVRadmxtQmIyQTZqVnF0LU5HcFh5VXlCdUpETEpYQXpYZzhyUy1XalNMNzlyVUtFVUpJQzJUNk5XRW9zOW9xOG5aUy1oRVBpYk5wc1hTT3BWVWlpajQzVHZWZ0pnNFVqWmh6dm0yT3Rtc1VzMnRsMkFJSWFjTkwzb2taT0otaGNvX2djaHJERmI0bnpRWGotYUN0LUZFVmZ3SmNXR2I1dFoyUU9CempOcHkxdTRJX29qZFR3YThYT2RHaWxKSm5YUG5zdWxGNzNCT3hKOElKWUduTVVlc1FjRHpfalh6RWFmc1JORkNLRmc4YVh1d2Q?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihgFBVV95cUxQd1lIazRTNFlveWVmMmwtdTlsWHFXMWR2ZUVuRm9SZGt2aUxUQ010UlFsNVZJbDhkT0RabGxxTkF1aWYyYTRRXzJpZk4zSkxqallmTDZDTHVQWHNQcjl6NG1EMXc2UjRsTTBMMUZLZ2JiSE4xMUdyNU1BcTZSeHp2d3hPa3FWQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Ruffle Dress Sells Out; Inspired Styles Available Now
-
-- first seen: 2026-08-27 00:45 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s popular ruffle dress is currently sold out. However, fans can find inspired styles starting at $36 to emulate her showgirl look.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE5PSVUwUlN0dzlCZXNQOUliRUJ2M2d1Zy1GaG5KM1NqTmxvVVhNSmYzZVhXMmNUdjlIQzdndWFzTnV3LUpZRW5OWktYeFRPRG9DTWo4NGY2SGRPZnV3TE9ueW9BajFuUEgwQ0N6dGFtNlJTTHdf?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Discusses Word Choice When Addressing Critics
-
-- first seen: 2026-08-27 00:45 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: In a recent statement, Taylor Swift revealed that she is careful with her words when addressing her critics, reflecting on her approach to criticism in the public eye.
-- sources:
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxPUWlZWjZBWE9Ka19pM3lPRUxNcWFaay1majRXQnR3UGlHelJDdWktVkhZc25QSElJYTNWU2dqVUlqV1BrRGkyWTVtM2lYeEExRnZaQ1JKWkhxTmdQTDVwOV9CeDJBd1lKUTBHMjdHRExSYVhuc2lMcnI3SUVBLTV6WQ?oc=5&hl=en-US&gl=US&ceid=US:en
