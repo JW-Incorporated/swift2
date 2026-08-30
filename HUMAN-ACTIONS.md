@@ -57,33 +57,6 @@ of a missing-credential skip.
 
 ---
 
-### 28. [UPGRADE] Merch plan: save credentials under canonical names — ~10 min
-
-**Filed:** 2026-08-30
-
-**Status:** OPEN
-
-**Why it matters:** Joey's D1/D3 product decisions are complete under
-HUMAN-ACTIONS #26. The remaining owner action is the credential-naming cleanup:
-the Awin/Etsy engines read the canonical secret names below (FR-MERCH-5,
-`docs/decisions.md` 2026-08-30). No code reads the old names, so this is a
-save-under-the-right-name step, not a migration.
-
-**Steps:**
-1. In the **Awin dashboard**: generate the **Publisher API token** and the
-   **Create-a-Feed API key**. Save them in the project `.env` / secret
-   store as `AWIN_API_TOKEN` and `AWIN_FEED_API_KEY`, and save your Awin
-   publisher ID as `AWIN_PUBLISHER_ID`. Delete the old `AWIN_API` entry
-   (ambiguous name, retired by FR-MERCH-5).
-2. Re-save the Etsy keystring value under the name `ETSY_API_KEY` (it
-   currently sits as `ETSY_KEYSTRING`; keep `ETSY_SHARED_SECRET` as-is).
-   As always: key **names** only in chat, never values.
-
-**Worked if:** the secret store holds `AWIN_API_TOKEN`, `AWIN_FEED_API_KEY`,
-`AWIN_PUBLISHER_ID`, and `ETSY_API_KEY` with no `AWIN_API` entry left.
-
----
-
 ### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
 
 **Filed:** 2026-08-30
@@ -713,6 +686,37 @@ reflects it, and a test PR still merges once `build` is green.
 ---
 
 ## DONE
+
+### 28. [UPGRADE] Merch plan: save credentials under canonical names — ~10 min
+
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Why it matters:** Joey's D1/D3 product decisions are complete under
+HUMAN-ACTIONS #26. The remaining owner action is the credential-naming cleanup:
+the Awin/Etsy engines read the canonical secret names below (FR-MERCH-5,
+`docs/decisions.md` 2026-08-30). No code reads the old names, so this is a
+save-under-the-right-name step, not a migration.
+
+**Steps:**
+1. In the **Awin dashboard**: generate the **Publisher API token** and the
+   **Create-a-Feed API key**. Save them in the project `.env` / secret
+   store as `AWIN_API_TOKEN` and `AWIN_FEED_API_KEY`, and save your Awin
+   publisher ID as `AWIN_PUBLISHER_ID`. Delete the old `AWIN_API` entry
+   (ambiguous name, retired by FR-MERCH-5).
+2. Re-save the Etsy keystring value under the name `ETSY_API_KEY` (it
+   currently sits as `ETSY_KEYSTRING`; keep `ETSY_SHARED_SECRET` as-is).
+   As always: key **names** only in chat, never values.
+
+**Worked if:** the secret store holds `AWIN_API_TOKEN`, `AWIN_FEED_API_KEY`,
+`AWIN_PUBLISHER_ID`, and `ETSY_API_KEY` with no `AWIN_API` entry left.
+
+**Outcome (2026-08-30):** Joey completed canonical GitHub repository-secret
+provisioning: `AWIN_API_TOKEN`, `AWIN_FEED_API_KEY`, `AWIN_PUBLISHER_ID`,
+`ETSY_API_KEY`, and `ETSY_SHARED_SECRET`; retired `AWIN_API` is absent.
+
+---
 
 ### 26. [MERCH] Record owner decisions D1 and D3 for the autonomous marketplace
 
