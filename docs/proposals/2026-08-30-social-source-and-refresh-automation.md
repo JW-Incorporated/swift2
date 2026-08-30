@@ -115,6 +115,12 @@ Create a generated audit artifact under `docs/audits/` (for example, `docs/audit
 
 The artifact is evidence, not a self-updating production data source. A successful automatic Discord check may propose a data refresh, but updating the checked-in community dataset must happen only in a normal reviewed PR. A failed or rate-limited run must not erase the prior verified value, downgrade it to zero, or delete an entry.
 
+### Cross-workflow creator-lead status receipt
+
+The `news-worker` is the only workflow that may read the worker database, because its existing secret-backed execution already performs the Google News RSS cycle. Extend that workflow to emit a separate credential-free JSON receipt at `docs/content-ops/social-source-status.json` on the existing `news-digest` branch. It is a bounded cross-workflow interface, not a new database or source row. Its strict schema contains only `schema_version`, `generated_at`, `lookback_start`, and one status record per configured social source: deterministic source name, `last_polled_at`, `status` (`lead`, `no_lead`, or `unavailable`), and `lead_count`. It must contain no headline, URL, snippet, publisher, handle beyond the configured source name, database identifier, or secret.
+
+The receipt generator queries only social-source rows selected by the deterministic source-name prefix created in Task 2 and their `news_raw_item` counts within the declared lookback. A source polled in that window with one or more rows is `lead`; one polled with none is `no_lead`; a missing row, missing/old poll timestamp, or unreadable result is `unavailable`. The existing `news-worker` publication step must publish this receipt beside `docs/content-ops/news-candidates.md` to `news-digest`; it must fail the job if publication fails, just as the existing digest does. The reminder workflow reads the receipt using GitHub's contents API at `ref=news-digest` with its existing `contents: read` permission. It never receives a database credential or queries `news_raw_item` directly.
+
 ### Health conditions
 
 - **Healthy:** all configured Discord invites resolve, the audit is newer than 14 days, and the last creator-signal run completed without configuration errors.
@@ -152,6 +158,8 @@ npm run test -- scripts/social-source-watchlist.test.mjs
 - Create: `supabase/migrations/<timestamp>_social_source_watchlist.sql`
 - Modify: `package.json`
 - Modify only if required by testable source type reuse: `apps/worker/src/sources/rss.ts`
+- Modify: `scripts/news/emit-candidate-digest.mjs`
+- Modify: `.github/workflows/news-worker.yml`
 
 **Work**
 1. Generate deterministic Google News RSS query URLs from each enabled configuration entry, without requesting Instagram or TikTok.
@@ -159,6 +167,7 @@ npm run test -- scripts/social-source-watchlist.test.mjs
 3. Use `google_news`/RSS only as a lead source. Its tier remains `unverified`; no source row may imply official-platform verification. The existing `news_raw_item` schema remains unchanged: a source row identifies a manual-only platform lead by its deterministic configured source name and URL, not by a new per-item marker.
 4. Reject duplicates during validation; allow disabled accounts to validate but produce no source row. Never delete existing rows in this task.
 5. Include the permanent exclusion assertion in the seeder test suite.
+6. Extend the existing secret-backed digest emitter to write the strict, non-secret `docs/content-ops/social-source-status.json` receipt defined above. Update the existing `news-digest` publication step to publish both generated files, and test `lead`, `no_lead`, and `unavailable` status derivation without retaining raw items. The receipt is the only permitted creator-lead input to Task 4.
 
 **Verification**
 ```sh
@@ -201,13 +210,14 @@ git diff --check
 
 **Work**
 1. Follow `scripts/knowledge-fb-export-reminder.mjs`’s exact-title/idempotency pattern: one open issue per calendar week, updated on re-run instead of duplicated.
-2. Schedule a weekly run and offer `workflow_dispatch` with `dry_run: true` by default. In each scheduled run, invoke `scripts/community-refresh.mjs` first, save its Markdown to the runner’s temporary directory, then pass that audit to `scripts/social-source-manual-reminder.mjs` so the one issue contains the current Discord result and any human-only creator-account checklist.
-3. Include only the exact approved account URLs, last automated lead/audit status, and these manual instructions:
+2. Schedule a weekly run and offer `workflow_dispatch` with `dry_run: true` by default. In each run, invoke `scripts/community-refresh.mjs`, save its Markdown to the runner’s temporary directory, fetch only `docs/content-ops/social-source-status.json` from `news-digest` through GitHub's contents API, validate its strict schema and freshness, then pass both bounded receipts to `scripts/social-source-manual-reminder.mjs`. No workflow input may query the worker database or contain a worker secret.
+3. Make reminder behavior deterministic from the two receipts. If every creator source is `no_lead` and the Discord audit is healthy, make no GitHub write. If a creator source is `lead` or `unavailable` (including a missing, malformed, or stale status receipt), create/update that calendar week's exact-title issue; for `lead`, list only the matching configured account URL(s), and for `unavailable`, list all configured account URL(s) and state that automated lead collection could not complete. If the Discord audit reports an invalid/expired invite, provider error, or `429/deferred`, include that audit result in the same issue; `429/deferred` states that the next weekly run will retry once and does not ask a human to evade the rate limit. On a same-week re-run with an already-open issue, comment the current deterministic status rather than create a duplicate; never close a lead-triggered issue merely because a later receipt is `no_lead`.
+4. Include only the exact approved account URLs, the receipt timestamp/status (`lead`, `no_lead`, or `unavailable`), the current Discord audit status, and these manual instructions when a creator check is required:
    - open the listed public creator profile in a normal browser without using developer tools or automation;
    - record only whether the profile/post is publicly reachable and the public URL/date needed to verify an existing lead;
    - do not copy captions, comments, private content, follower lists, media files, or account credentials;
    - if the item is real and relevant, file it through the existing content-intake path; otherwise close the issue as “no verified public lead.”
-4. The workflow may use only built-in `GITHUB_TOKEN` with `contents: read` and `issues: write`. It must not receive Instagram/TikTok credentials. Its `429` result is a normal deferred check: the next weekly schedule retries once, with no in-run retry loop.
+5. The workflow may use only built-in `GITHUB_TOKEN` with `contents: read` and `issues: write`. It must not receive Instagram/TikTok credentials. Its `429` result is a normal deferred check: the next weekly schedule retries once, with no in-run retry loop.
 
 **Verification**
 ```sh
@@ -277,7 +287,7 @@ npm run build
 | Non-Discord community | No network request; reported as not automatically checked. |
 | Instagram/TikTok enabled configuration item | Only a Google News RSS lead source is generated; no direct platform request occurs. |
 | Unsupported platform or non-HTTPS URL | Validation fails before any source sync/network action. |
-| `r/TravisAndTaylor` or `r/GaylorSwift` appears anywhere | Validation/test fails; no source row, audit entry, or UI entry is emitted. |
+| `r/TravisAndTaylor` or `r/GaylorSwift` appears in an operational input/output | Validation/test fails; no source row, fetched target, UI/community entry, generated lead/audit data, or reminder item is emitted. The required policy configuration and its exclusion assertion may name both values. |
 | Manual reminder re-run in same week | Existing exact-title issue is updated, not duplicated. |
 | Manual workflow dispatch | Defaults to dry-run and makes no GitHub write. |
 | No source lead or no manual verification | Report an honest “no verified public lead”; never invent freshness, activity, or a post. |
