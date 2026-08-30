@@ -119,7 +119,7 @@ The temporary receipt is evidence, not a self-updating production data source. T
 
 The `news-worker` is the only workflow that may read the worker database, because its existing secret-backed execution already performs the Google News RSS cycle. Extend that workflow to emit a separate credential-free JSON receipt at `docs/content-ops/social-source-status.json` on the existing `news-digest` branch. It is a bounded cross-workflow interface, not a new database or source row. Its strict schema contains only `schema_version`, `generated_at`, `lookback_start`, and one status record per configured social source: deterministic source name, `last_polled_at`, `status` (`lead`, `no_lead`, or `unavailable`), and `lead_count`. It must contain no headline, URL, snippet, publisher, handle beyond the configured source name, database identifier, or secret.
 
-Task 2 reserves the exact source-name format `social-watch:<platform>:<handle>`, where `<platform>` is `instagram` or `tiktok` and `<handle>` is the lowercase configured handle matching `[a-z0-9._-]+`. The receipt generator queries only rows whose names match that full format and their `news_raw_item` counts within the declared lookback; it must reject a malformed watchlist-derived name and must not include any unrelated `news_source` row. A source polled in that window with one or more rows is `lead`; one polled with none is `no_lead`; a missing row, missing/old poll timestamp, or unreadable result is `unavailable`. The existing `news-worker` publication step must publish this receipt beside `docs/content-ops/news-candidates.md` to `news-digest`; it must fail the job if publication fails, just as the existing digest does. The reminder workflow reads the receipt using GitHub's contents API at `ref=news-digest` with its existing `contents: read` permission. It never receives a database credential or queries `news_raw_item` directly.
+Task 2 reserves the exact source-name format `social-watch:<platform>:<handle>`, where `<platform>` is `instagram` or `tiktok` and `<handle>` is the lowercase configured handle matching `[a-z0-9._-]+`. Before deriving the receipt, Task 2 persists `last_poll_outcome` (`success` or `error`) and `last_poll_outcome_at` on each source row: `apps/worker/src/pipeline/run-cycle.ts` writes `success` only after the adapter result and any `news_raw_item` upsert complete, and writes `error` for an adapter or upsert failure without advancing the source’s successful poll timestamp. The receipt generator queries only rows whose names match that full format and their `news_raw_item` counts within the declared lookback; it must reject a malformed watchlist-derived name and must not include any unrelated `news_source` row. A source is `lead` only when its outcome is fresh `success` and it has one or more rows in the window; it is `no_lead` only when its outcome is fresh `success` and it has none; a missing, old, or `error` outcome, missing/old successful poll timestamp, or unreadable result is `unavailable`. The existing `news-worker` publication step must publish this receipt beside `docs/content-ops/news-candidates.md` to `news-digest`; it must fail the job if publication fails, just as the existing digest does. The reminder workflow reads the receipt using GitHub's contents API at `ref=news-digest` with its existing `contents: read` permission. It never receives a database credential or queries `news_raw_item` directly.
 ### Health conditions
 
 - **Healthy:** all configured Discord invites resolve, the latest scheduled `social-source-refresh` run is no more than 14 days old and succeeds without a reminder write, and the last creator-signal run completed without configuration errors.
@@ -133,15 +133,17 @@ Task 2 reserves the exact source-name format `social-watch:<platform>:<handle>`,
 ### Task 1 — Establish the social-source policy and configuration contract
 
 **Files**
+- Modify: `docs/decisions.md`
 - Create: `data/social-source-watchlist.json`
 - Create: `scripts/social-source-watchlist.test.mjs`
 - Modify: `package.json`
 
 **Work**
-1. Define the JSON schema and validate it with a dependency-free Node script.
-2. Hard-code the exclusions `TravisAndTaylor` and `GaylorSwift` as required values, not optional prose.
-3. Add `npm run validate:social-sources` to run the schema, uniqueness, HTTPS, allowed-platform, and exclusion checks.
-4. Do not add a creator handle or a schedule in this task unless it is present in the approved source scope.
+1. Before creating configuration or source rows, record the provider-compliance, no-account mechanism, retention, exclusion, health, and rollback decision in `docs/decisions.md`, with the primary-source links and access date from this plan.
+2. Define the JSON schema and validate it with a dependency-free Node script.
+3. Hard-code the exclusions `TravisAndTaylor` and `GaylorSwift` as required values, not optional prose.
+4. Add `npm run validate:social-sources` to run the schema, uniqueness, HTTPS, allowed-platform, and exclusion checks.
+5. Do not add a creator handle or a schedule in this task unless it is present in the approved source scope.
 
 **Verification**
 ```sh
@@ -157,6 +159,7 @@ npm run test -- scripts/social-source-watchlist.test.mjs
 - Create: `supabase/migrations/<timestamp>_social_source_watchlist.sql`
 - Modify: `package.json`
 - Modify only if required by testable source type reuse: `apps/worker/src/sources/rss.ts`
+- Modify: `apps/worker/src/pipeline/run-cycle.ts`
 - Modify: `scripts/news/emit-candidate-digest.mjs`
 - Modify: `.github/workflows/news-worker.yml`
 
@@ -166,7 +169,8 @@ npm run test -- scripts/social-source-watchlist.test.mjs
 3. Use `google_news`/RSS only as a lead source. Its tier remains `unverified`; no source row may imply official-platform verification. The existing `news_raw_item` schema remains unchanged: a source row identifies a manual-only platform lead by its deterministic configured source name and URL, not by a new per-item marker.
 4. Reject duplicates during validation. On every successful sync, idempotently set `is_enabled=false` for any existing `social-watch:<platform>:<handle>` row whose account is disabled or absent from the validated watchlist; enabled accounts are the only rows kept or set to `is_enabled=true`. Never delete existing rows in this task.
 5. Include the permanent exclusion assertion in the seeder test suite.
-6. Extend the existing secret-backed digest emitter to write the strict, non-secret `docs/content-ops/social-source-status.json` receipt defined above. Update the existing `news-digest` publication step to publish both generated files, and test `lead`, `no_lead`, and `unavailable` status derivation without retaining raw items; include an unrelated `news_source` fixture that proves it cannot enter the receipt and disabled/removed watchlist fixtures that prove their rows are inactive and omitted. The receipt is the only permitted creator-lead input to Task 4.
+6. Add the idempotent migration fields `last_poll_outcome` and `last_poll_outcome_at`, then change `run-cycle.ts` to persist `success` only after ingestion/upsert succeeds and `error` for every adapter or upsert failure. A zero-item successful poll must persist `success`; an error must not be reclassified as a zero-item poll.
+7. Extend the existing secret-backed digest emitter to write the strict, non-secret `docs/content-ops/social-source-status.json` receipt defined above. Update the existing `news-digest` publication step to publish both generated files, and test `lead`, `no_lead`, and `unavailable` status derivation without retaining raw items; include an adapter failure and raw-item upsert failure fixture that both yield `unavailable`, an unrelated `news_source` fixture that proves it cannot enter the receipt, and disabled/removed watchlist fixtures that prove their rows are inactive and omitted. The receipt is the only permitted creator-lead input to Task 4.
 
 **Verification**
 ```sh
@@ -251,19 +255,17 @@ npm run format
 npm run build
 ```
 
-### Task 6 — Documentation and operational receipt
+### Task 6 — Operational documentation and rollback receipt
 
 **Files**
-- Modify: `docs/decisions.md`
 - Modify: `docs/marketing/social-strategy.md` only if it names source-collection rules
 - Modify: `apps/worker/README.md`
 - Modify: `docs/ops/community-merch-submissions.md` only if it needs to point to the new community-maintenance issue
 
 **Work**
-1. Record the provider-compliance decision, no-account mechanisms, retained-data limits, source exclusions, and health/fallback behavior.
-2. State that the new workflow is lead detection and Community link audit—not a social scraper or automatic publishing system.
-3. Link the exact primary terms below and record the access date in the decision entry.
-4. Document the emergency rollback: disable the workflow, leave existing Community data untouched, and close the reminder issue. No destructive data action is required.
+1. State that the new workflow is lead detection and Community link audit—not a social scraper or automatic publishing system.
+2. Link the decision record created in Task 1 where relevant.
+3. Document the emergency rollback: disable the workflow, leave existing Community data untouched, and close the reminder issue. No destructive data action is required.
 
 **Verification**
 ```sh
