@@ -3340,12 +3340,30 @@ export default {
         photos: [
           {
             url: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
+            // Tent peaks and the walking couple sit center-right, just above and below the midline.
+            // Field-order fix (2026-08-30, #762): moved up to sit immediately
+            // after `url`, per the field-order rule — value unchanged.
+            focalPoint: '52% 45%',
             credit: 'AP Photo/Robert F. Bukaty, via Fortune',
             caption:
               'A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the tent that fueled bachelorette-weekend speculation, though the resort said that weekend\'s booked wedding was an unrelated couple\'s.',
             kind: 'primary',
-            // Tent peaks and the walking couple sit center-right, just above and below the midline.
-            focalPoint: '52% 45%',
+          },
+          {
+            // Photo pass #762 (2026-08-30): a second, unrelated-outlet photo of
+            // the public resort itself (not her home, not security) — the
+            // Boston Globe's own NYT-credited exterior shot, curl-verified 200
+            // image/jpeg on the outlet's own Arc Publishing CDN, downloaded and
+            // vision-confirmed: just the Ocean House facade and unrelated
+            // passersby, no connection to the privacy-redline photo removed
+            // 2026-07-22. Predates the bachelorette weekend by six days, so
+            // captioned honestly as a reference shot of the venue, not the event.
+            url: 'https://bostonglobe-prod.cdn.arcpublishing.com/resizer/v2/2U473J3FQNEC7OCN3PJ7UVWBJM.jpg?auth=b54ee3c066fb2d358665d1864babca74f3b3684470a628f16593dc80d1245912&width=1440',
+            // Full hotel facade fills the upper two-thirds, centered.
+            focalPoint: '50% 35%',
+            credit: 'Sarah Meftah/NYT, via The Boston Globe',
+            caption: 'Reference image: the Ocean House in Watch Hill, June 13, 2026 — six days before the tented-lawn weekend, not the event itself.',
+            kind: 'reference',
           },
         ],
         // Rumor Desk 2026-07-27: formalizes the wedding-DATE rumor this moment's
@@ -5552,12 +5570,12 @@ export default {
         photos: [
           {
             url: 'https://cdn.mos.cms.futurecdn.net/izGR5GyrdGtkDeTMsNFvAN-1920-80.jpg',
+            // Talking-head frame with her face centered high; eyes in the upper third.
+            focalPoint: '50% 32%',
             credit: 'Instagram/@taylornation, via Marie Claire',
             caption:
               'From the Sept. 20 behind-the-scenes video: Taylor in the pumpkin-orange Reformation knit, explaining the album\'s visual identity on camera.',
             kind: 'primary',
-            // Talking-head frame with her face centered high; eyes in the upper third.
-            focalPoint: '50% 32%',
           },
           // Photo pass (#762 run 6, 2026-07-18): deliberately left at one
           // photo. The Sept. 20 Taylor Nation video yielded a single credited
@@ -5565,6 +5583,20 @@ export default {
           // different sightings (the $70 merch cardigan in a later teaser
           // trailer), and the album-cover render would duplicate the
           // showgirl-release-day page's art.
+          {
+            // Photo pass #762 (2026-08-30): superseded the note above — Taylor
+            // Swift Style's own Squarespace CDN carries a wider frame from the
+            // SAME Sept. 20 BTS setup (same director's chair, same painted
+            // backdrop), curl-verified 200 image/png, downloaded and
+            // vision-confirmed: shows the Versace leather mini skirt half of
+            // the outfit the existing head-and-shoulders crop cuts off.
+            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/445c8b30-9ae0-463a-a533-cf2ee094c7fc/0920+Taylor+Swift+Style+The+Life+of+a+Showgirl+13+Days+Feature.png',
+            // Full-body seated frame; face sits high and centered.
+            focalPoint: '46% 13%',
+            credit: 'Instagram/@taylornation, via Taylor Swift Style',
+            caption: 'From the same Sept. 20 video: the full look — the Reformation crew over the Versace leather mini, with the gold Versace watch and "T" pendant.',
+            kind: 'reference',
+          },
         ],
         // Shop pass (Stylist 2026-07-20): the exact Reformation piece she
         // wore — the "Cashmere Short Sleeve Crew" in Showgirl orange — was
@@ -8091,14 +8123,28 @@ export default {
         photos: [
           {
             url: 'https://imagez.tmz.com/image/43/16by9/2026/07/11/435b7e695e334893923e269c987b46f6_xl.jpg',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // TMZ two-panel frame — Travis's face upper-left panel, Taylor's face
+            // upper-right panel; both sit in the top quarter, so bias the crop high.
+            // Field-order fix (2026-08-30, #762): moved up to sit immediately
+            // after `url`, per the field-order rule — value unchanged.
+            focalPoint: '50% 22%',
             credit: 'TMZ.com',
             caption:
               "Taylor in the pink Markarian gown and Travis in a black suit, arriving at JuJu Smith-Schuster's wedding.",
             kind: 'primary',
-            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
-            // TMZ two-panel frame — Travis's face upper-left panel, Taylor's face
-            // upper-right panel; both sit in the top quarter, so bias the crop high.
-            focalPoint: '50% 22%',
+          },
+          {
+            // Photo pass #762 (2026-08-30): a second TMZ gallery frame from the
+            // same event/article, curl-verified 200 image/jpeg, downloaded and
+            // vision-confirmed — Taylor and Travis seated among guests during
+            // the reception, a distinct moment from the arrival photo above.
+            url: 'https://imagez.tmz.com/image/66/16by9/2026/07/11/66235653fbbb4643883469aadf9fc9a9_xl.jpg',
+            // Both faces sit left-of-center, upper third (Taylor lower, Travis just above her).
+            focalPoint: '38% 30%',
+            credit: 'TMZ.com',
+            caption: "Taylor and Travis seated among guests at JuJu Smith-Schuster's wedding reception, both still in sunglasses.",
+            kind: 'reference',
           },
         ],
         // Stylist lane (Vault Run, 2026-08-09): sourcing the named garments.
@@ -10053,9 +10099,25 @@ export default {
             kind: 'archival',
           },
           // Photo pass (issue #1721, 2026-08-25): a second frame from the same
-          // press series was tried here, but combined with this pass's other
-          // additions it pushed that frame's reuse past content.image-overuse's
-          // >3-moments threshold — reverted rather than force an overused image.
+          // numbered press series (05-...) was tried here, but combined with
+          // this pass's other additions it pushed that frame's reuse past
+          // content.image-overuse's >3-moments threshold — reverted rather
+          // than force an overused image.
+          {
+            // Photo pass #762 (2026-08-30): a DIFFERENT press photo — separate
+            // file, separate October shoot/folder (not the exhausted August
+            // 05-... series above) — from the same Billboard article already
+            // cited as this moment's source. Curl-verified 200 image/jpeg,
+            // EXIF-dated 2025-10-09 (matches this chart week), downloaded and
+            // vision-confirmed. Used once elsewhere in the corpus; this is its
+            // 2nd use, well under the overuse threshold.
+            url: 'https://www.billboard.com/wp-content/uploads/2025/10/taylor-swift-2025-cr-Mert-Alas-Marcus-Piggot-billboard-1800.jpg',
+            // Low-angle shot looking back over her shoulder; face sits high, just left of center.
+            focalPoint: '46% 13%',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
+            caption: 'A Showgirl-era portrait, run by Billboard alongside its coverage of the week the tracklist swept the top 12.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -11406,8 +11468,21 @@ export default {
           // it is a live-performance photo (long hair, mic stand, guitar,
           // concert stage lighting), not the London night-out described in
           // the caption (short hair, lavender minidress, off-stage). Removed
-          // as a verify-first failure rather than kept or focal-pointed;
-          // flagged for follow-up if a genuine second photo surfaces.
+          // as a verify-first failure rather than kept or focal-pointed.
+          {
+            // Photo pass #762 (2026-08-30): a different image from the same
+            // Marie Claire article (not the rejected performance photo
+            // above), curl-verified 200 image/jpeg, downloaded and
+            // vision-confirmed — shoulder-length hair with bangs, lavender
+            // floral minidress, sequined clutch, exiting via a fire-exit
+            // door at night (a club side exit), matching the caption.
+            url: 'https://cdn.mos.cms.futurecdn.net/2PmqhdvzG6xnDhn85qivX3.jpg',
+            // Full-body paparazzi shot; she's left-of-center, dress/hair fill the upper-middle.
+            focalPoint: '45% 35%',
+            credit: 'Splash News, via Marie Claire',
+            caption: 'Taylor Swift snuck out of a London members\' club in the lavender Delphine minidress, Aug. 12, 2026.',
+            kind: 'reference',
+          },
         ],
         // Stylist run 2026-08-16: verified live retailer product pages for
         // the dress and sandals (both currently purchasable) and the clutch
@@ -11747,6 +11822,20 @@ export default {
               'Taylor at Laura Sisk and Oli Jacobs\' Aug. 15, 2026 wedding in Gloucestershire, England, in the navy Costarellos "Arcangela" gown.',
             kind: 'primary',
           },
+          {
+            // Photo pass #762 (2026-08-30): a second TMZ frame from the same
+            // gallery, curl-verified 200 image/jpeg, downloaded and
+            // vision-confirmed — a two-panel crop of the same reception,
+            // Taylor's face and the gown's gold appliqué clearly visible in
+            // both panels; a distinct moment from the photo above.
+            url: 'https://imagez.tmz.com/image/33/4by3/2026/08/16/3371a9a6afba4453afb1ec589225192a_md.jpg',
+            // Two-panel split image; her face sits in the upper half of both panels.
+            focalPoint: '58% 20%',
+            credit: 'SplashNews.com, via TMZ',
+            caption:
+              'Taylor mid-conversation with wedding guests at Laura Sisk and Oli Jacobs\' Aug. 15, 2026 wedding, in the navy Costarellos gown.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -12015,6 +12104,24 @@ export default {
             sourceTier: 'social',
             locationSpecificity: 'region',
             lastCheckedOn: '2026-08-24',
+          },
+        ],
+        // Photo pass #762 (2026-08-30): no photo of the rumored night exists —
+        // the context above says so explicitly, and no combined Taylor/Dakota
+        // photo verifies on any allowlisted host (checked Wikimedia Commons;
+        // their documented outings are gated behind watermarked Getty/Backgrid
+        // comps only). Added one honest reference photo of Dakota Johnson
+        // herself, the other named person in this rumor — curl-verified 200
+        // image/jpeg on Wikimedia Commons, downloaded and vision-confirmed,
+        // same pattern as the Gronkowski reference photos elsewhere in this file.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Dakota_Johnson_at_the_2025_Cannes_Film_Festival.jpg',
+            // Red-carpet portrait, looking back over her shoulder; face sits upper-center-right.
+            focalPoint: '62% 32%',
+            credit: 'Gabriel Hutchinson / WikiPortraits, via Wikimedia Commons (CC BY-SA 4.0)',
+            caption: 'Reference image: Dakota Johnson, the friend named in the rumored Aug. 21, 2026 night out — pictured at the May 2025 Cannes Film Festival, not from the rumored night itself.',
+            kind: 'reference',
           },
         ],
       },

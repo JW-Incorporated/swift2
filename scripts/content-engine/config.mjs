@@ -123,6 +123,7 @@ export const CONFIG = {
     'taylorpictures.net', // Long-running, single-purpose Taylor Swift candid-photo archive; cited 8x corpus-wide.
     'stealherstyle.net', // Dedicated style-ID blog; cited 5x corpus-wide.
     'fashionsizzle.com', // Dedicated fashion-ID blog; cited 4x corpus-wide.
+    'bostonglobe-prod.cdn.arcpublishing.com', // The Boston Globe's own dedicated Arc Publishing tenant subdomain (not the shared cloudfront-us-east-1 host above) — bostonglobe.com is already cited corpus-wide with source_type: 'reputable_press' (2026-08-30, #762 photo pass).
   ],
 
   // ── Scoped multi-tenant CDN allowlist (host + path prefix) ────────────────
