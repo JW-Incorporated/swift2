@@ -41,22 +41,17 @@ Two things follow, and they are the whole reason this runbook is short:
 
 Two independent layers. **Layer A is Supabase's; layer B is ours.**
 
-### Layer A — Supabase's platform backups ⚠️ UNVERIFIED
+### Layer A — Supabase's platform backups ⚠️ CURRENTLY UNAVAILABLE
 
 Whether this project has automated daily backups, and with what retention,
 depends on the plan the project is on. On the free plan Supabase provides **no
 automated backups and no point-in-time recovery**; daily backups begin on Pro,
 and PITR is a paid add-on on top of that.
 
-**This has not been confirmed for our project.** Doing so requires the Supabase
-dashboard, which is founder-held. It is the one open item on the BACKUPS gate:
-
-> **ASK FOR WYATT.** In the Supabase dashboard for the Long Live project, read
-> off (a) the plan, (b) whether Database → Backups lists automated daily
-> backups, and (c) the retention window / whether PITR is enabled. Record the
-> three answers in §6 of this file. If the answer is "free plan, no backups",
-> that is a *decision*, not a bug — either accept layer B alone as the backup
-> story for launch, or approve the upgrade.
+**Current status (Joey report, 2026-08-30):** the project is on the Supabase
+Free plan and has no available backup options. No platform backup was made.
+This report does not accept the resulting risk or resolve the BACKUPS launch
+gate. A production-data restore drill also has not been performed; see §6.
 
 ### Layer B — our own logical backup (works on any plan, no dashboard needed)
 
@@ -181,12 +176,15 @@ quarter should be treated as unproven.
 | Date | Mode | Source | Result | Notes |
 |---|---|---|---|---|
 | 2026-08-11 | drill (fixture source, ephemeral Postgres 18.4, Windows) | repo migrations + 7 seed scripts + synthetic `news_*` | **PASS** | 14 tables, 1901 rows, 3.24 MB. backup 216 ms · restore 590 ms · verify 97 ms · 15.2 s end-to-end including booting and tearing down the cluster. Schema fingerprint match (156 columns); all 14 per-table checksums match; 8/8 spot checks byte-identical. Negative control run the same day: deliberately dropping one `theory` row and altering one `news_story` title made the drill exit 1 and name both tables plus two spot checks — the verification is not a rubber stamp. |
+| 2026-08-30 | status report (Joey) | Supabase dashboard report | **OPEN** | Current plan is Supabase Free; no backup options are available and no backup was made. No production-data restore drill was performed. This records status only and does not accept the BACKUPS launch risk. |
 
 **Open items to close the gate fully:**
 
-- [ ] **Wyatt:** confirm the Supabase plan + backup/PITR status (§2 layer A) and
-      record it here.
-- [ ] **Wyatt (or a session Wyatt grants credentials to):** one real-data drill —
+- [ ] **Joey:** decide and record the backup-risk posture after the confirmed
+      absence of Supabase Free-plan backup options; the BACKUPS launch gate
+      remains unresolved unless that risk is explicitly accepted or another
+      backup path is evidenced.
+- [ ] **Joey (or a session Joey grants credentials to):** one real-data drill —
       `--source "$SUPABASE_DB_URL" --target <scratch>` — before launch, logged
       above. This is the only step that proves production's own bytes restore.
 
