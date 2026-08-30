@@ -1,0 +1,107 @@
+import { readFileSync } from 'node:fs';
+import { describe, expect, it } from 'vitest';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore — plain .mjs script, no declaration file
+import { buildShortlist, formatCsv, formatMarkdown } from './awin-directory-shortlist.mjs';
+
+const catalogue = [
+  { retailer: 'exact-shop.com', item: 'Exact dress' },
+  { retailer: 'exact-shop.com', item: 'Exact skirt' },
+  { retailer: 'free-people.com', item: 'Normalized top' },
+  { retailer: 'review-shop.com', item: 'Review bag' },
+  { retailer: 'unmatched-shop.com', item: 'Unmatched shoes' },
+];
+
+const programmes = [
+  {
+    id: 1,
+    name: 'Exact Shop',
+    displayUrl: 'https://www.exact-shop.com',
+    validDomains: [{ domain: 'exact-shop.com' }],
+    primaryRegion: { countryCode: 'US' },
+    relationship: 'joined',
+    sectors: ['Fashion/Clothing'],
+  },
+  {
+    id: 2,
+    name: 'Free People',
+    displayUrl: 'https://freepeople.com',
+    primaryRegion: { countryCode: 'US' },
+    relationship: 'pending',
+    sectors: ['Accessories/Jewelry'],
+  },
+  {
+    id: 3,
+    name: 'Review Shop',
+    displayUrl: 'https://different-host.com',
+    primaryRegion: { countryCode: 'US' },
+    relationship: 'not joined',
+    sectors: ['Beauty'],
+  },
+  {
+    id: 4,
+    name: 'Outside sector',
+    displayUrl: 'https://unmatched-shop.com',
+    primaryRegion: { countryCode: 'US' },
+    relationship: 'joined',
+    sectors: ['Home'],
+  },
+];
+
+describe('Awin directory shortlist', () => {
+  it('ranks exact matches before unique normalized matches, then keeps name-only candidates for review', () => {
+    const report = buildShortlist({
+      catalogue,
+      programmes,
+      feedAdvertiserIds: new Set(['1', '3']),
+      generatedAt: '2026-08-30T00:00:00.000Z',
+    });
+
+    expect(report.summary).toEqual({ exact: 1, normalized: 1, manualReview: 1, unmatched: 1 });
+    expect(report.matches.map((row: { currentRetailer: string; matchType: string; productCount: number; feedAvailable: boolean }) => [row.currentRetailer, row.matchType, row.productCount, row.feedAvailable])).toEqual([
+      ['exact-shop.com', 'exact-hostname', 2, true],
+      ['free-people.com', 'normalized-domain', 1, false],
+    ]);
+    expect(report.manualReview).toEqual([
+      expect.objectContaining({ currentRetailer: 'review-shop.com', awinAdvertiserId: '3', matchType: 'manual-review', feedAvailable: true }),
+    ]);
+    expect(report.unmatched).toEqual([
+      expect.objectContaining({ currentRetailer: 'unmatched-shop.com', productCount: 1, matchType: 'unmatched' }),
+    ]);
+  });
+
+  it('does not invent a normalized match when multiple eligible advertisers share the same normalized domain', () => {
+    const report = buildShortlist({
+      catalogue: [{ retailer: 'free-people.com', item: 'Top' }],
+      programmes: [programmes[1], { ...programmes[1], id: 5, name: 'Free People', displayUrl: 'https://free--people.com' }],
+      feedAdvertiserIds: new Set(),
+      generatedAt: '2026-08-30T00:00:00.000Z',
+    });
+
+    expect(report.matches).toHaveLength(0);
+    expect(report.manualReview.map((row: { awinAdvertiserId: string }) => row.awinAdvertiserId)).toEqual(['2', '5']);
+  });
+
+  it('renders durable CSV and Markdown with the requested provenance fields', () => {
+    const report = buildShortlist({ catalogue, programmes, feedAdvertiserIds: new Set(['1']), generatedAt: '2026-08-30T00:00:00.000Z' });
+
+    expect(formatCsv(report)).toContain('current_retailer,product_count,awin_advertiser_name,awin_advertiser_id,source_hostname,match_type,us_programme_status,product_feed_available');
+    expect(formatMarkdown(report)).toContain('## Exact hostname and normalized-domain matches');
+    expect(formatMarkdown(report)).toContain('## Manual-review candidates');
+    expect(formatMarkdown(report)).toContain('## Unmatched retailers');
+  });
+
+  it('keeps the execution lane manual, secret-bound, and artifact-only', () => {
+    const workflow = readFileSync('.github/workflows/merch-awin-directory-shortlist.yml', 'utf8');
+
+    expect(workflow).toMatch(/^on:\n\x20{2}workflow_dispatch:/m);
+    expect(workflow).not.toMatch(/^\x20{2}(push|schedule):/m);
+    expect(workflow).toContain("inputs.confirmation == 'RUN_AWIN_DIRECTORY_SHORTLIST'");
+    expect(workflow).toContain('AWIN_API_TOKEN: ${{ secrets.AWIN_API_TOKEN }}');
+    expect(workflow).toContain('AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}');
+    expect(workflow).toContain('AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}');
+    expect(workflow).toContain('actions/upload-artifact');
+    expect(workflow).toContain('merch-awin-directory-shortlist');
+    expect(workflow).not.toMatch(/git (add|commit|push)|gh pr|supabase\/seed|social\//i);
+  });
+});

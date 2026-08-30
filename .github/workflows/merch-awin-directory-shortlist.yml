@@ -1,0 +1,41 @@
+# E0 Awin directory join: deliberately manual, read-only, and artifact-only.
+name: merch-awin-directory-shortlist
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type RUN_AWIN_DIRECTORY_SHORTLIST to collect the US Awin directory shortlist'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: merch-awin-directory-shortlist
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    if: ${{ inputs.confirmation == 'RUN_AWIN_DIRECTORY_SHORTLIST' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Build US Fashion, Accessories, and Beauty join shortlist
+        env:
+          AWIN_API_TOKEN: ${{ secrets.AWIN_API_TOKEN }}
+          AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}
+          AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}
+        run: node scripts/merch-engine/awin-directory-shortlist.mjs --output .artifacts/merch-awin-directory-shortlist
+      - name: Upload Awin directory shortlist
+        uses: actions/upload-artifact@v6
+        with:
+          name: merch-awin-directory-shortlist
+          path: .artifacts/merch-awin-directory-shortlist
+          if-no-files-found: error
+          retention-days: 30
