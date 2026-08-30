@@ -35,7 +35,7 @@ describe('E4/E5 catalog authoring', () => {
         ],
       },
       collectionEraMap: { 'the-tortured-poets-department': 'the-tortured-poets-department' },
-      verifiedAmazonTwins: new Set(['101']),
+      verifiedAmazonTwins: new Map([['101', 'https://www.amazon.com/dp/B0TEST']]),
     });
 
     expect(result.catalog).toEqual([{ ...official, eraId: 'the-tortured-poets-department', altListing: { retailer: 'amazon.com', url: 'https://www.amazon.com/dp/B0TEST' } }]);
@@ -43,6 +43,7 @@ describe('E4/E5 catalog authoring', () => {
       { sourceId: 'unverified', reason: 'official-verification-required' },
       { sourceId: 'redirected', reason: 'direct-official-url-required' },
     ]);
+    expect(result.summary).toEqual({ eraAttributed: 1, verifiedAlternate: 1 });
     expect(result.socialDraft).toEqual({ type: 'merch-drop-draft', products: [{ sourceId: '101', item: official.item, url: official.url }] });
   });
 
@@ -54,6 +55,23 @@ describe('E4/E5 catalog authoring', () => {
     });
 
     expect(result.catalog).toEqual([official]);
+  });
+
+  it('rejects a claimed Amazon twin unless its exact direct URL appears in the verification artifact', () => {
+    const candidate = {
+      ...official,
+      altListing: { retailer: 'amazon.com', url: 'https://www.amazon.com/dp/B0TEST' },
+    };
+
+    expect(
+      authorOfficialCatalog({
+        plan: { products: [candidate] },
+        verifiedAmazonTwins: new Map([['101', 'https://www.amazon.com/dp/DIFFERENT']]),
+      }).catalog,
+    ).toEqual([official]);
+    expect(
+      authorOfficialCatalog({ plan: { products: [candidate] }, verifiedAmazonTwins: new Set(['101']) }).catalog,
+    ).toEqual([official]);
   });
 
   it('consumes the detector plan rather than its raw Shopify payload', () => {

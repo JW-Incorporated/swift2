@@ -23,6 +23,10 @@ function price(value) {
     : null;
 }
 
+function collectionHandles(value) {
+  return [...new Set((Array.isArray(value) ? value : []).map(text).filter(Boolean))];
+}
+
 export function kindFor(productType) {
   const value = String(productType ?? '').toLowerCase();
   if (/(vinyl|cd|cassette|music|album)/.test(value)) return 'music';
@@ -56,6 +60,9 @@ export function normalizeOfficialProduct(product, fetchedAt) {
     ...(price(selectedVariant?.price) ? { price: price(selectedVariant.price) } : {}),
     inStock: variants.some((variant) => variant?.available === true),
     ...(text(product?.images?.[0]?.src) ? { imageUrl: text(product.images[0].src) } : {}),
+    ...(collectionHandles(product?.collectionHandles).length
+      ? { collectionHandles: collectionHandles(product.collectionHandles) }
+      : {}),
     kind: kindFor(product?.product_type),
     discoveredVia: 'shopify-sync',
     discoveredAt: fetchedAt,
@@ -123,6 +130,11 @@ function productFromAjax(product) {
   };
 }
 
+function withCollectionHandle(product, handle) {
+  const handles = collectionHandles([...collectionHandles(product?.collectionHandles), handle]);
+  return handles.length ? { ...product, collectionHandles: handles } : product;
+}
+
 export async function fetchOfficialProducts({
   fetchImpl = fetch,
   sleep = (milliseconds) => new Promise((resolveSleep) => setTimeout(resolveSleep, milliseconds)),
@@ -139,6 +151,7 @@ export async function fetchOfficialProducts({
       if (elapsed < REQUEST_INTERVAL_MS) await sleep(REQUEST_INTERVAL_MS - elapsed);
       lastRequestAt = Date.now();
       response = await fetchImpl(url, { headers: requestHeaders(cached) });
+      if (!response) return null;
       if (response.status !== 429) break;
       if (attempt === MAX_THROTTLE_RETRIES)
         throw new Error(`Shopify throttled ${MAX_THROTTLE_RETRIES + 1} consecutive requests`);
@@ -148,6 +161,30 @@ export async function fetchOfficialProducts({
   };
   const catalog = [];
   let changed = false;
+  const collectionUrl = `${baseUrl}/collections.json?limit=${MAX_COLLECTIONS}&page=1`;
+  const enrichWithCollectionMembership = async (products) => {
+    const collectionsResponse = await request(collectionUrl);
+    if (!collectionsResponse?.ok) return products;
+    const collections = (await collectionsResponse.json())?.collections ?? [];
+    if (!Array.isArray(collections) || collections.length === 0 || collections.length >= MAX_COLLECTIONS)
+      return products;
+    const byId = new Map(products.map((product) => [String(product.id), product]));
+    for (const collection of collections) {
+      if (!text(collection?.handle)) continue;
+      for (let page = 1; page <= MAX_CATALOG_PAGES; page += 1) {
+        const url = `${baseUrl}/collections/${encodeURIComponent(collection.handle)}/products.json?limit=250&page=${page}`;
+        const response = await request(url);
+        if (!response?.ok) return products;
+        const batch = (await response.json())?.products ?? [];
+        for (const product of batch) {
+          const existing = byId.get(String(product.id));
+          if (existing) byId.set(String(product.id), withCollectionHandle(existing, collection.handle));
+        }
+        if (batch.length < 250) break;
+      }
+    }
+    return products.map((product) => byId.get(String(product.id)) ?? product);
+  };
 
   try {
     for (let page = 1; page <= MAX_CATALOG_PAGES; page += 1) {
@@ -172,16 +209,18 @@ export async function fetchOfficialProducts({
           throw new Error(`Shopify returned 304 without a cached page listing for ${url}`);
         }
         catalog.push(...cached.products);
-        if (cached.products.length < 250)
+        if (cached.products.length < 250) {
+          const products = await enrichWithCollectionMembership(catalog);
           return {
-            products: catalog,
-            notModified: !changed,
+            products,
+            notModified: !changed && JSON.stringify(products) === JSON.stringify(catalog),
             cacheHeaders: cached,
             cache: { pages },
             complete: true,
             degraded: false,
             source: 'catalog',
           };
+        }
         continue;
       }
       if (!response.ok) throw new Error(`Shopify request failed (${response.status}) for ${url}`);
@@ -192,7 +231,7 @@ export async function fetchOfficialProducts({
       changed = true;
       if (batch.length < 250)
         return {
-          products: catalog,
+          products: await enrichWithCollectionMembership(catalog),
           notModified: false,
           cacheHeaders: pages[url],
           cache: { pages },
@@ -203,7 +242,6 @@ export async function fetchOfficialProducts({
     }
     throw new Error(`Shopify catalog exceeded ${MAX_CATALOG_PAGES} pages`);
   } catch (catalogError) {
-    const collectionUrl = `${baseUrl}/collections.json?limit=${MAX_COLLECTIONS}&page=1`;
     try {
       const collectionsResponse = await request(collectionUrl);
       if (!collectionsResponse.ok)
@@ -228,7 +266,16 @@ export async function fetchOfficialProducts({
               cause: catalogError,
             });
           const batch = (await response.json())?.products ?? [];
-          for (const product of batch) byId.set(String(product.id), product);
+          for (const product of batch) {
+            const previous = byId.get(String(product.id));
+            byId.set(
+              String(product.id),
+              withCollectionHandle(
+                { ...previous, ...product, collectionHandles: previous?.collectionHandles },
+                collection.handle,
+              ),
+            );
+          }
           if (batch.length < 250) break;
           if (page === MAX_CATALOG_PAGES)
             throw new Error(`Shopify collection exceeded ${MAX_CATALOG_PAGES} pages`, {

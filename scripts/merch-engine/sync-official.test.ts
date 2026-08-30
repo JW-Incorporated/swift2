@@ -44,6 +44,30 @@ describe('E4 official-store sync', () => {
     });
   });
 
+  it('preserves only explicit Shopify collection membership for deterministic era attribution', () => {
+    expect(
+      normalizeOfficialProduct(
+        {
+          id: 102,
+          title: 'Evermore Vinyl',
+          handle: 'evermore-vinyl',
+          variants: [],
+          collectionHandles: ['evermore', '', 'evermore', 42],
+        },
+        '2026-08-30T00:00:00.000Z',
+      ),
+    ).toMatchObject({
+      sourceId: '102',
+      collectionHandles: ['evermore'],
+    });
+    expect(
+      normalizeOfficialProduct(
+        { id: 103, title: 'Unknown product', handle: 'unknown-product', variants: [] },
+        '2026-08-30T00:00:00.000Z',
+      ),
+    ).not.toHaveProperty('collectionHandles');
+  });
+
   it('retries Shopify throttling with Retry-After and spaces requests', async () => {
     const fetchImpl = vi
       .fn()
@@ -55,8 +79,21 @@ describe('E4 official-store sync', () => {
       products: [],
       notModified: false,
     });
-    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(fetchImpl).toHaveBeenCalledTimes(3);
     expect(sleep).toHaveBeenCalledWith(2000);
+  });
+
+  it('enriches a successful catalog response with proven collection membership', async () => {
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify({ products: [{ id: 1, title: 'Evermore Vinyl' }] }), { status: 200 }))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ collections: [{ handle: 'evermore' }] }), { status: 200 }))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ products: [{ id: 1 }] }), { status: 200 }));
+
+    await expect(fetchOfficialProducts({ fetchImpl, sleep: async () => undefined })).resolves.toMatchObject({
+      source: 'catalog',
+      products: [{ id: 1, collectionHandles: ['evermore'] }],
+    });
   });
 
   it('honors a conditional not-modified response without treating it as an empty catalog', async () => {
@@ -162,6 +199,14 @@ describe('E4 official-store sync', () => {
       complete: false,
       degraded: true,
     });
+    await expect(fetchOfficialProducts({
+      fetchImpl: vi
+        .fn()
+        .mockResolvedValueOnce(new Response('', { status: 403 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify({ collections: [{ handle: 'evermore' }] }), { status: 200 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify({ products: [{ id: 1, title: 'Evermore Vinyl' }] }), { status: 200 })),
+      sleep: async () => undefined,
+    })).resolves.toMatchObject({ products: [{ id: 1, collectionHandles: ['evermore'] }] });
     expect(fetchImpl).toHaveBeenLastCalledWith(
       'https://store.taylorswift.com/collections/albums/products.json?limit=250&page=2',
       expect.any(Object),
