@@ -26,7 +26,7 @@ const programmes = [
     validDomains: [{ domain: 'exact-shop.com' }],
     primaryRegion: { countryCode: 'US' },
     relationship: 'joined',
-    sectors: ['Fashion/Clothing'],
+    sectors: ['Clothing'],
   },
   {
     id: 2,
@@ -34,7 +34,7 @@ const programmes = [
     displayUrl: 'https://freepeople.com',
     primaryRegion: { countryCode: 'US' },
     relationship: 'pending',
-    sectors: ['Accessories/Jewelry'],
+    sectors: ['Jewellery'],
   },
   {
     id: 3,
@@ -42,7 +42,7 @@ const programmes = [
     displayUrl: 'https://different-host.com',
     primaryRegion: { countryCode: 'US' },
     relationship: 'notjoined',
-    sectors: ['Beauty'],
+    sectors: ['Health & Beauty'],
   },
   {
     id: 4,
@@ -58,11 +58,49 @@ const programmes = [
     validDomains: [{ domain: 'suffix-shop.com' }],
     primaryRegion: { countryCode: 'US' },
     relationship: 'joined',
-    sectors: ['Fashion/Clothing'],
+    sectors: ['Clothing'],
   },
 ];
 
 describe('Awin directory shortlist', () => {
+  it('TARGET_SECTORS matches real Awin API sector strings, not fabricated ones (regression for t_4562240d)', () => {
+    const collector = readFileSync('scripts/merch-engine/awin-directory-shortlist.mjs', 'utf8');
+    const match = collector.match(/const TARGET_SECTORS = (\[[^\]]*\]);/);
+    expect(match, 'TARGET_SECTORS declaration must exist and be a simple array literal').toBeTruthy();
+    // eslint-disable-next-line no-eval
+    const targetSectors: string[] = eval(match![1]);
+
+    // Sector strings actually observed from a live, unfiltered Awin Publisher API
+    // directory probe for this account (t_a57b0362, 2026-08-30). Awin uses UK
+    // English spelling. If Awin ever renames a sector, update this sample AND
+    // TARGET_SECTORS together — never let TARGET_SECTORS drift back to invented
+    // US-spelling strings ('Fashion/Clothing', 'Accessories/Jewelry', 'Beauty')
+    // that silently match zero live programmes.
+    const liveObservedSectors = [
+      'Clothing',
+      'Clothing Accessories',
+      'Jewellery',
+      'Health & Beauty',
+      'Womenswear',
+      'Menswear',
+      'Childrenswear',
+      'Home',
+      'Electronics',
+    ];
+
+    expect(targetSectors.length).toBeGreaterThan(0);
+    for (const sector of targetSectors) {
+      expect(
+        liveObservedSectors.map((s) => s.toLowerCase()),
+        `TARGET_SECTORS entry "${sector}" must match a real, live-observed Awin sector string`,
+      ).toContain(sector.toLowerCase());
+    }
+    // Guard against regressing to the old fabricated (US-spelling, slash-joined) strings.
+    expect(targetSectors).not.toEqual(
+      expect.arrayContaining(['Fashion/Clothing', 'Accessories/Jewelry', 'Beauty']),
+    );
+  });
+
   it('ranks exact matches before unique domain-suffix matches, then keeps weaker signals for review', () => {
     const report = buildShortlist({
       catalogue,
@@ -123,7 +161,7 @@ describe('Awin directory shortlist', () => {
           name: 'Live Shape Shop',
           displayUrl: 'https://www.live-shape-shop.com',
           primaryRegion: { countryCode: 'US' },
-          primarySector: 'Fashion/Clothing',
+          primarySector: 'Clothing',
           relationship: 'joined',
         },
       ],
@@ -197,7 +235,7 @@ describe('Awin directory shortlist', () => {
           validDomains: [{ domain: 'valid-source.com' }],
           domains: [{ domain: 'domain-source.com' }],
           primaryRegion: { countryCode: 'US' },
-          primarySector: 'Fashion/Clothing',
+          primarySector: 'Clothing',
           relationship: 'notjoined',
         },
         {
@@ -206,7 +244,7 @@ describe('Awin directory shortlist', () => {
           displayUrl: 'https://unrelated-source.com',
           primaryDomain: 'suffix-source.com',
           primaryRegion: { countryCode: 'US' },
-          primarySector: 'Beauty',
+          primarySector: 'Health & Beauty',
           relationship: 'notjoined',
         },
         {
@@ -214,7 +252,7 @@ describe('Awin directory shortlist', () => {
           name: 'Name Source',
           displayUrl: 'https://unrelated-name-source.com',
           primaryRegion: { countryCode: 'US' },
-          primarySector: 'Accessories/Jewelry',
+          primarySector: 'Jewellery',
           relationship: 'notjoined',
         },
       ],

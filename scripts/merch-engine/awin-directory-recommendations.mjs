@@ -8,7 +8,10 @@ import { fileURLToPath } from 'node:url';
 import { requestProgrammes } from './awin-directory-shortlist.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
-const TARGET_SECTORS = ['Fashion/Clothing', 'Accessories/Jewelry', 'Beauty'];
+// Real Awin API sector taxonomy strings (UK English spelling), confirmed against a
+// live unfiltered directory probe of this publisher's account (t_a57b0362, 2026-08-30).
+// See awin-directory-shortlist.mjs for full rationale — must stay in sync with that file.
+const TARGET_SECTORS = ['Clothing', 'Clothing Accessories', 'Jewellery', 'Health & Beauty'];
 const RELATIONSHIPS = ['joined', 'pending', 'suspended', 'rejected', 'notjoined'];
 
 function text(value) {

@@ -10,14 +10,14 @@ const programmes = [
     name: 'Already Joined Shop',
     primaryRegion: { countryCode: 'US' },
     relationship: 'joined',
-    sectors: ['Fashion/Clothing'],
+    sectors: ['Clothing'],
   },
   {
     id: 2,
     name: 'Notjoined Fashion Shop',
     primaryRegion: { countryCode: 'US' },
     relationship: 'notjoined',
-    sectors: ['Fashion/Clothing'],
+    sectors: ['Clothing'],
     joinUrl: 'https://ui.awin.com/programmes/2/join',
     commissionStatus: '10% per sale',
     validationStatus: '30 days',
@@ -27,14 +27,14 @@ const programmes = [
     name: 'Pending Beauty Shop',
     primaryRegion: { countryCode: 'US' },
     relationship: 'pending',
-    primarySector: 'Beauty',
+    primarySector: 'Health & Beauty',
   },
   {
     id: 4,
     name: 'Rejected Jewelry Shop',
     primaryRegion: { countryCode: 'US' },
     relationship: 'rejected',
-    sectors: ['Accessories/Jewelry'],
+    sectors: ['Jewellery'],
   },
   {
     id: 5,
@@ -48,11 +48,47 @@ const programmes = [
     name: 'Non US Fashion Shop',
     primaryRegion: { countryCode: 'GB' },
     relationship: 'notjoined',
-    sectors: ['Fashion/Clothing'],
+    sectors: ['Clothing'],
   },
 ];
 
 describe('Awin directory join-recommendation list', () => {
+  it('TARGET_SECTORS matches real Awin API sector strings, not fabricated ones (regression for t_4562240d)', () => {
+    const collector = readFileSync('scripts/merch-engine/awin-directory-recommendations.mjs', 'utf8');
+    const match = collector.match(/const TARGET_SECTORS = (\[[^\]]*\]);/);
+    expect(match, 'TARGET_SECTORS declaration must exist and be a simple array literal').toBeTruthy();
+    // eslint-disable-next-line no-eval
+    const targetSectors: string[] = eval(match![1]);
+
+    // Sector strings actually observed from a live, unfiltered Awin Publisher API
+    // directory probe for this account (t_a57b0362, 2026-08-30). Awin uses UK
+    // English spelling. Never let TARGET_SECTORS drift back to invented
+    // US-spelling strings ('Fashion/Clothing', 'Accessories/Jewelry', 'Beauty')
+    // that silently match zero live programmes.
+    const liveObservedSectors = [
+      'Clothing',
+      'Clothing Accessories',
+      'Jewellery',
+      'Health & Beauty',
+      'Womenswear',
+      'Menswear',
+      'Childrenswear',
+      'Home',
+      'Electronics',
+    ];
+
+    expect(targetSectors.length).toBeGreaterThan(0);
+    for (const sector of targetSectors) {
+      expect(
+        liveObservedSectors.map((s) => s.toLowerCase()),
+        `TARGET_SECTORS entry "${sector}" must match a real, live-observed Awin sector string`,
+      ).toContain(sector.toLowerCase());
+    }
+    expect(targetSectors).not.toEqual(
+      expect.arrayContaining(['Fashion/Clothing', 'Accessories/Jewelry', 'Beauty']),
+    );
+  });
+
   it('excludes already-joined programmes, non-US programmes, and out-of-sector programmes', () => {
     const report = buildRecommendations({
       programmes,
@@ -63,9 +99,9 @@ describe('Awin directory join-recommendation list', () => {
     expect(report.label).toBe('candidates to evaluate and join manually — not automatic joins');
     expect(report.summary.total).toBe(3);
     expect(report.candidates.map((row: { advertiserId: string }) => row.advertiserId)).toEqual([
-      '4',
-      '3',
       '2',
+      '3',
+      '4',
     ]);
   });
 
@@ -80,7 +116,7 @@ describe('Awin directory join-recommendation list', () => {
     );
     expect(pending).toMatchObject({
       advertiserName: 'Pending Beauty Shop',
-      primarySector: 'Beauty',
+      primarySector: 'Health & Beauty',
       joinUrl: null,
       commissionStatus: null,
       validationStatus: null,
@@ -99,7 +135,7 @@ describe('Awin directory join-recommendation list', () => {
     );
     expect(notjoined).toMatchObject({
       advertiserName: 'Notjoined Fashion Shop',
-      primarySector: 'Fashion/Clothing',
+      primarySector: 'Clothing',
       relationshipStatus: 'notjoined',
       joinUrl: 'https://ui.awin.com/programmes/2/join',
       productFeedAvailable: true,
@@ -115,9 +151,9 @@ describe('Awin directory join-recommendation list', () => {
       generatedAt: '2026-08-30T00:00:00.000Z',
     });
     expect(report.candidates.map((row: { primarySector: string }) => row.primarySector)).toEqual([
-      'Accessories/Jewelry',
-      'Beauty',
-      'Fashion/Clothing',
+      'Clothing',
+      'Health & Beauty',
+      'Jewellery',
     ]);
   });
 
