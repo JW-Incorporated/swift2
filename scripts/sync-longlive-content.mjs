@@ -175,10 +175,7 @@ export function productsFrom(products) {
         ? p.matchScore
         : undefined;
     const kind = productKinds.has(p.kind) ? p.kind : undefined;
-    const verifiedAt =
-      typeof p.verifiedAt === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(p.verifiedAt)
-        ? p.verifiedAt
-        : undefined;
+    const verifiedAt = verifiedAtFrom(p.verifiedAt);
     out.push({
       brand: p.brand,
       item: p.item,
@@ -196,6 +193,17 @@ export function productsFrom(products) {
     });
   }
   return out.length ? out : undefined;
+}
+
+function verifiedAtFrom(value) {
+  if (typeof value !== 'string') return undefined;
+  const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(value);
+  const utcTimestamp = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(value);
+  if (!dateOnly && !utcTimestamp) return undefined;
+
+  const timestamp = Date.parse(value);
+  if (Number.isNaN(timestamp) || timestamp > Date.now()) return undefined;
+  return new Date(timestamp).toISOString().slice(0, 10) === value.slice(0, 10) ? value : undefined;
 }
 
 /**

@@ -70,23 +70,6 @@ error, and production's `video_work` table matches `supabase/seed/videos/**`.
 
 ---
 
-### 33. [UPGRADE] Decide whether to authorize one additional capped E3 vision-scoring run — up to $5
-
-**Filed:** 2026-08-30
-
-**Why it matters:** Phase 1 merch trust repair `t_6faf515d` has completed the non-spend work: the two confirmed dead listings are now non-purchasable, three evidence-backed replacement URLs are live, and generated vault content preserves verification dates. The first authorized E3 scoring run cost $1.47 within its $5 cap and resolved nine pairs, but 40 comparable product/moment image pairs remain unresolved after provider failures or invalid responses. They cannot honestly receive a score, tier, or kind, and they are not valid `unscored` exceptions because comparable pairs exist.
-
-**Decision:** approve or decline one additional capped vision-scoring run of up to $5 for those 40 pairs.
-
-- **Approve:** the automated E3 lane retries the unresolved pairs within the $5 cap; it may finish the remaining Phase 1 coverage if the provider accepts the image inputs.
-- **Decline:** no additional spend occurs; E3 Phase 1 acceptance remains gated until the scope is explicitly revised, while the independently reviewed E1 repair may still merge.
-
-**Worked if:** a new scored receipt is attached to the E3 acceptance record, or this item is marked `SKIP` with the chosen scope change recorded.
-
-**Status:** OPEN
-
----
-
 ### 23. [BLOCKING] BACKUPS launch gate (#680) — read Supabase plan/backup status off the dashboard, run one restore drill against production's own bytes — ~10 min
 
 **Filed:** 2026-08-26
