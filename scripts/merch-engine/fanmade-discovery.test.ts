@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
-import { curateCandidate, discoverCandidates, normalizeEtsyListing, normalizeRedditPost, normalizeSubmission } from './fanmade-discovery.mjs';
+import { curateCandidate, discoverCandidates, fileReverificationIssues, normalizeEtsyListing, normalizeRedditPost, normalizeSubmission, reverifyFanmadeListings } from './fanmade-discovery.mjs';
 
 describe('fan-made discovery', () => {
   it('collects Etsy, Reddit, and submission candidates with durable provenance and URL dedupe', async () => {
@@ -49,6 +49,97 @@ describe('fan-made discovery', () => {
         expect.objectContaining({ discoveredVia: 'reddit' }),
         expect.objectContaining({ discoveredVia: 'submission' }),
       ]),
+    });
+  });
+
+  it('deduplicates Etsy listings when a non-UTM tracking parameter is present', async () => {
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('openapi.etsy.com')) {
+        return new Response(JSON.stringify({ results: [{
+          listing_id: 42,
+          title: 'Original lavender lyric bracelet',
+          url: 'https://www.etsy.com/listing/42/original-bracelet?click_key=campaign',
+          price: { amount: 2800, divisor: 100, currency_code: 'USD' },
+          shop: { shop_name: 'LavenderMaker', is_vacation: false, review_count: 12 },
+          images: [{ url_fullxfull: 'https://images.example.test/bracelet.jpg' }],
+        }] }), { status: 200 });
+      }
+      return new Response(JSON.stringify({ data: { children: [{ data: {
+        id: 'reddit-1', title: 'Found it', url: 'https://www.etsy.com/listing/42/original-bracelet',
+        permalink: '/r/TaylorSwiftMerch/comments/reddit-1', created_utc: 1_700_000_000,
+      } }] } }), { status: 200 });
+    });
+
+    const result = await discoverCandidates({ etsyApiKey: 'test-key', fetchImpl });
+
+    expect(result.candidates).toHaveLength(1);
+    expect(result.candidates[0].url).toBe('https://www.etsy.com/listing/42/original-bracelet');
+  });
+
+  it('re-verifies existing Etsy fan-made listings with live and price status without mutating seed data', async () => {
+    const entries = [
+      { url: 'https://www.etsy.com/listing/42/original-bracelet', price: '$28.00' },
+      { url: 'https://www.etsy.com/listing/99/sold-out', price: '$30.00' },
+      { url: 'https://maker.example.test/bracelet', price: '$20.00' },
+    ];
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('/42?')) {
+        return new Response(JSON.stringify({ state: 'active', price: { amount: 3200, divisor: 100, currency_code: 'USD' } }), { status: 200 });
+      }
+      return new Response('', { status: 404 });
+    });
+
+    await expect(reverifyFanmadeListings({ entries, etsyApiKey: 'test-key', fetchImpl, verifiedAt: '2026-08-30T00:00:00Z' })).resolves.toEqual({
+      reverified: [
+        { url: 'https://www.etsy.com/listing/42/original-bracelet', status: 'live', price: '$32.00', seedPrice: '$28.00', verifiedAt: '2026-08-30T00:00:00Z' },
+        { url: 'https://www.etsy.com/listing/99/sold-out', status: 'dead', price: null, seedPrice: '$30.00', verifiedAt: '2026-08-30T00:00:00Z' },
+        { url: 'https://maker.example.test/bracelet', status: 'unsupported-retailer', price: null, seedPrice: '$20.00', verifiedAt: '2026-08-30T00:00:00Z' },
+      ],
+    });
+    expect(entries).toEqual([
+      { url: 'https://www.etsy.com/listing/42/original-bracelet', price: '$28.00' },
+      { url: 'https://www.etsy.com/listing/99/sold-out', price: '$30.00' },
+      { url: 'https://maker.example.test/bracelet', price: '$20.00' },
+    ]);
+  });
+
+  it('files stale liveness and price results for the mending lane instead of only logging them', async () => {
+    const fetchImpl = vi.fn(async (url: string, options?: RequestInit) => {
+      if (url.endsWith('/labels')) return new Response(JSON.stringify({}), { status: 201 });
+      if (url.includes('/issues?')) return new Response(JSON.stringify([]), { status: 200 });
+      if (url.endsWith('/issues') && options?.method === 'POST') return new Response(JSON.stringify({}), { status: 201 });
+      throw new Error(`unexpected URL: ${url}`);
+    });
+    const reverified = [
+      { url: 'https://www.etsy.com/listing/42/original-bracelet', status: 'live', price: '$32.00', seedPrice: '$28.00', verifiedAt: '2026-08-30T00:00:00Z' },
+      { url: 'https://www.etsy.com/listing/43/same-price', status: 'live', price: '$32.00', seedPrice: '$32.00', verifiedAt: '2026-08-30T00:00:00Z' },
+      { url: 'https://www.etsy.com/listing/44/no-price', status: 'live', price: null, seedPrice: '$32.00', verifiedAt: '2026-08-30T00:00:00Z' },
+      { url: 'https://www.etsy.com/listing/99/sold-out', status: 'dead', price: null, seedPrice: '$30.00', verifiedAt: '2026-08-30T00:00:00Z' },
+      { url: 'https://www.etsy.com/listing/100/transient', status: 'unknown', price: null, seedPrice: '$20.00', verifiedAt: '2026-08-30T00:00:00Z' },
+    ];
+
+    await expect(fileReverificationIssues({ repository: 'example/repo', token: 'test-token', reverified, fetchImpl, dryRun: false })).resolves.toEqual({
+      filed: ['https://www.etsy.com/listing/42/original-bracelet', 'https://www.etsy.com/listing/44/no-price', 'https://www.etsy.com/listing/99/sold-out'],
+      skipped: [],
+    });
+    expect(fetchImpl).toHaveBeenCalledTimes(5);
+  });
+
+  it('continues re-verifying later listings when one Etsy request fails', async () => {
+    const entries = [
+      { url: 'https://www.etsy.com/listing/42/transient', price: '$28.00' },
+      { url: 'https://www.etsy.com/listing/43/live', price: '$30.00' },
+    ];
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('/42?')) throw new Error('network reset');
+      return new Response(JSON.stringify({ state: 'active', price: { amount: 3000, divisor: 100, currency_code: 'USD' } }), { status: 200 });
+    });
+
+    await expect(reverifyFanmadeListings({ entries, etsyApiKey: 'test-key', fetchImpl, verifiedAt: '2026-08-30T00:00:00Z' })).resolves.toEqual({
+      reverified: [
+        { url: 'https://www.etsy.com/listing/42/transient', status: 'unknown', price: null, seedPrice: '$28.00', verifiedAt: '2026-08-30T00:00:00Z' },
+        { url: 'https://www.etsy.com/listing/43/live', status: 'live', price: '$30.00', seedPrice: '$30.00', verifiedAt: '2026-08-30T00:00:00Z' },
+      ],
     });
   });
 
