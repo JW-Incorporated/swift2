@@ -26,6 +26,44 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 33. [REVIEW] Confirm the Phase 2 merch catalog on mobile and desktop — ~2 min
+
+**Filed:** 2026-08-30
+
+**Status:** OPEN
+
+**Why it matters:** Phase 2's deterministic acceptance checks are green on
+merged `main`: generated coverage is current for 463 products, every uncovered
+row has an explanation, `awin-apply` is empty, the listing-scoped affiliate
+resolver/disclosure tests pass, and lint/typecheck pass. The remaining
+acceptance item is a real browser check of the merch surface at both viewports.
+The agent sandbox could not obtain that evidence: isolated-browser launch
+permission timed out and its local Node 24/Playwright provisioning was
+guard-denied because package threat intelligence was incomplete. The deployed
+home-page HTML also does not server-render the client-selected merch mode.
+
+**Steps:**
+1. On a desktop browser, open `https://longlivets.com`, choose the merch/shop
+   surface, and confirm the three catalog sections appear: **Official Shop**,
+   **Fan Made**, and **Seen on Taylor**. Confirm a visible card has a **Shop
+   it** button. Do not buy anything or open an external retailer link.
+2. Repeat on a phone-sized browser. Confirm the merch/shop navigation is
+   reachable, the same three sections render, and cards are readable without
+   overlapping the navigation.
+3. If any commission disclosure appears next to a shop link, confirm it says
+   that some links may earn Long Live a commission at no extra cost. If no
+   disclosure appears, that is expected for the current credential-free,
+   fail-closed affiliate configuration.
+4. Reply in chat with `33 done` if all three checks pass, or `33 blocked:`
+   followed by the affected viewport and what appeared wrong. A session will
+   record the result; no screenshots, credentials, purchase, or account action
+   are required.
+
+**Worked if:** the merch catalog is usable on both desktop and mobile, and any
+commission disclosure that renders is adjacent to the relevant shop link.
+
+---
+
 ### 32. [BLOCKING] Etsy API returns 403 to the E5 evidence workflow — check app approval, ~10 min
 
 **Filed:** 2026-08-30
