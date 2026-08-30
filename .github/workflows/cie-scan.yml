@@ -22,12 +22,11 @@
 # same trade-off watchdog.yml already makes when it runs `scan --no-images`.
 # Broken-image findings remain the Deep routine's concern.
 #
-# CADENCE: twice weekly (Sun + Wed). watchdog.yml's Karen staleness check
-# tolerates 9 days (7-day design + 2-day buffer); a single weekly cron is one
-# point of failure inside that window if GitHub drops or delays a scheduled run
-# under load, so a ~3-4-day spacing keeps a fresh report well inside 9 days even
-# when one run slips. Offset off :00/:30 per watchdog.yml's scheduling-
-# contention note.
+# CADENCE: nightly at 09:09 UTC. This is the zero-LLM protection lane for the
+# SCAN gate: it runs the complete deterministic checker set over the committed
+# corpus, files/dedupes findings, and commits the dated report. Karen's full
+# judgment review remains weekly; this job deliberately does not replace it.
+# Offset off :00/:30 per watchdog.yml's scheduling-contention note.
 #
 # WRITING THE REPORT TO PROTECTED main. `main` is branch-protected (PR + a
 # required `build` check), so this commits the report the same way
@@ -40,7 +39,7 @@
 name: cie-scan
 on:
   schedule:
-    - cron: "9 9 * * 0,3"
+    - cron: "9 9 * * *"
   workflow_dispatch:
 
 concurrency:

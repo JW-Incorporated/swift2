@@ -204,6 +204,21 @@ describe('scoreboard hygiene', () => {
 describe('the real docs/launch-readiness.md', () => {
   const docText = read(DOC_FILE);
 
+  it('anchors SCAN nightly protection to the deterministic GitHub Action', () => {
+    expect(read('.github/workflows/cie-scan.yml')).toContain('cron: "9 9 * * *"');
+    expect(extractBlock(docText, 'gates:cadence')).toContain('`.github/workflows/cie-scan.yml`');
+  });
+
+  it('keeps the weekly Karen routine in the judgment lane', () => {
+    const prompt = read('docs/agents/runner-prompts/karen-nightly.md');
+    expect(prompt).toContain('run.mjs review-slice');
+    expect(prompt).toContain('run.mjs issues --create');
+    expect(prompt).not.toContain('run.mjs all --create');
+    const meanings = extractBlock(docText, 'gates:meaning');
+    expect(meanings).toContain('bounded rotating judgment slice');
+    expect(meanings).not.toContain('full review runs weekly');
+  });
+
   it('passes the offline rules as committed', () => {
     const sources: Record<string, string | null> = {};
     for (const p of citedSources(docText)) sources[p] = read(p);

@@ -48,7 +48,9 @@ evidence does that.
 "Launch-ready" for content = **Karen-clean under her FULL criteria** — which
 per VOICE and WORTHY below means the voice + depth checks (now built) *and*
 the agent factual/image passes (still never run). Her deterministic checks
-are necessary, not sufficient.
+are necessary, not sufficient. Full-criteria judgment coverage accumulates in
+`docs/audits/engine/agent-review-ledger.json`; a single weekly slice cannot
+evidence full-corpus coverage.
 
 ## What each gate means (plain English) + what the colors mean
 
@@ -66,7 +68,7 @@ meaning, never a bare legacy code.
 | VOICE | G-B | **It sounds like a fan wrote it** (says "Taylor," never "Swift" — enforced by a checker, not vibes) |
 | WORTHY | G-C | **No thin or empty pages** (song pages, threads, and story arcs are worthy of her) |
 | SONGS | G-D | **Songs open when you tap them** (the track-guide click bug Joey found) |
-| SCAN | G-E | **The content-safety scan actually runs every night** |
+| SCAN | G-E | **Deterministic content-safety checks run every night; Karen's bounded rotating judgment slice runs weekly** |
 | ERRORS | G-F | **Zero serious content errors open** (facts, images, sourcing) |
 | ALARMS | G-G | **We find out when the site breaks** (uptime alarms + visitor analytics) |
 | LEGAL | G-H | **Privacy policy + terms of service exist** |
@@ -114,8 +116,8 @@ history" below.
 | VOICE | 🟢 | nobody | Nothing — the corpus is back to **0 `content.voice` findings** (fresh run over 1,148 items, 2026-08-12), and enforcement no longer rides on a scan schedule: `npm run check:voice` is a blocking step in CI's `build` job and scans the seed files each PR changes, so surname drift cannot reach `main` at all (#1917, #1918) | — |
 | WORTHY | 🟡 | nobody | **Dossier lane moving again after 14 flat days:** 101/244 song dossiers as of 2026-08-12 (the 08-11 row's "83" was stale; 89 at the 08-12 merge base) — speak-now went 0/23 → 12/23 in the depth-batch PR, first dossier PR since #1589 on 07-28. Remaining: 143 dossiers (fearless 2/25, debut 1/14, midnights 4/22 worst), 59 photo-sparse pages, 5 hot-thin topics | #440, #441, #615 |
 | SONGS | 🟢 | nobody | Nothing — founder-verified on device; the E2E synthetic monitor is the standing regression signal and is green | — |
-| SCAN | 🔴 | founder | **The criterion is unsatisfiable as written.** It requires a scan every night; a 2026-07-25 cost decision throttled the runner to weekly. Either the criterion drops to weekly or the runner goes back to nightly and the repo pays for it — a cost call, not an engineering one | — |
-| ERRORS | 🟡 | agent | `unverified` — the ticketed P0 queue is 0 and the filable P1 queue is 4 tickets, but a fresh scan at merge 2026-08-12 finds **1 unticketed P0** (the new `safety.rumor-redline` checker from #1930, merged today, flags a venue-level whereabouts rumor), the agent factual + image passes have never run, and the nightly scan that is meant to keep this queue current runs weekly. Ticket filing produced nothing 2026-08-02 → 08-12; its root cause closed at merge (#1869 fixed by PR #1887, merged 2026-08-12) but no scheduled run has yet proven filing works again. The queue can neither be drained nor trusted | #552 |
+| SCAN | 🟡 | nobody | **Option C is configured but not yet proven by three consecutive scheduled runs.** The nightly GitHub Action executes the full deterministic checker set over the committed corpus, files/dedupes findings, and commits a dated report with no LLM; Karen's weekly judgment review runs a bounded rotating slice (`review-slice --factual-batches 2 --image-batches 1`) whose full-corpus coverage accrues in `docs/audits/engine/agent-review-ledger.json`. The deterministic lane intentionally skips network image probes, so its evidence is deterministic findings and dated reports, not image-liveness claims | — |
+| ERRORS | 🟡 | agent | `unverified` — the ticketed P0 queue is 0 and the filable P1 queue is 4 tickets, but a fresh scan at merge 2026-08-12 finds **1 unticketed P0** (the new `safety.rumor-redline` checker from #1930, merged today, flags a venue-level whereabouts rumor), the agent factual + image passes have never run, and the nightly deterministic scan that keeps the queue current has not yet produced its first scheduled report. Ticket filing produced nothing 2026-08-02 → 08-12; its root cause closed at merge (#1869 fixed by PR #1887, merged 2026-08-12) but no scheduled run has yet proven filing works again. The queue can neither be drained nor trusted | #552 |
 | ALARMS | 🟢 | nobody | Nothing — founder confirmed Analytics 2026-08-01; the hourly prod smoke check has been clean far past the 3 consecutive runs the criterion asked for | — |
 | LEGAL | 🟢 | nobody | Nothing — all nine `[FOUNDERS: …]` blanks filled (#2332, merged 2026-08-24), minors/COPPA settled (not directed to children under 13), counsel reviewed and Joey confirmed "proceed" (issue #800, 2026-08-18; issue closed 2026-08-25). `LEGAL_STATUS` stays `'draft'` (banner + noindex) until a separate founder call flips it to `'approved'` — a forward decision, not a blocker on this gate | — |
 | BACKUPS | 🟡 | founder | Joey must read the Supabase plan + automated-backup/PITR status off the dashboard, then run one drill against production's own bytes. The drill itself is built and passing. **Re-checked 2026-08-26: an agent session confirmed it has no path to either — no `SUPABASE_DB_URL`/service-role value reachable (guard blocks even touching `.env`), no Supabase MCP/CLI/management-API access. Genuinely founder-only** | #680 |
@@ -125,10 +127,10 @@ history" below.
 
 <!-- gates:scoreboard:end -->
 
-**Count: 🟢 7 · 🟡 4 · 🔴 1.** Of the 5 non-green: **2 blocked on a founder**
-(SCAN, BACKUPS), **1 on an agent** (ERRORS), **2 on nobody** (DEPTH,
-WORTHY). Only the two founder rows are genuinely scarce; the other three
-are unclaimed work.
+**Count: 🟢 7 · 🟡 5 · 🔴 0.** Of the 5 non-green: **1 blocked on a founder**
+(BACKUPS), **1 on an agent** (ERRORS), **3 on nobody** (DEPTH, WORTHY,
+SCAN). Only the BACKUPS row is genuinely scarce; the other four are agent work
+or awaiting scheduled evidence.
 
 ## Cadence provenance
 
@@ -146,19 +148,23 @@ is documentation, not a claim.
 
 | Gate | Cadence the criterion claims | Runner that provides it | Registered cadence | Where that cadence is registered |
 |---|---|---|---|---|
-| SCAN | nightly | Karen — content-safety scan (`trig_014HWuRmT2MFveDkPGwVDiQX`) | `0 9 * * 0` ⚠️ weekly, below the claim since 2026-07-25 | `docs/agents/runners.md` |
-| ERRORS | nightly | Karen — content-safety scan (fills and drains the `cie` queue) | `0 9 * * 0` ⚠️ weekly, below the claim since 2026-07-25 | `docs/agents/runners.md` |
+| SCAN | nightly | CIE deterministic nightly check (full checker set, ticket filing, dated report; zero LLM) | `9 9 * * *` | `.github/workflows/cie-scan.yml` |
+| ERRORS | nightly | CIE deterministic nightly check (fills and drains the `cie` queue) | `9 9 * * *` | `.github/workflows/cie-scan.yml` |
 | ALARMS | hourly | watchdog → "Prod smoke check" step | `5 * * * *` | `.github/workflows/watchdog.yml` |
 | PLUMBING | daily | E2E synthetic monitor | `5 13 * * *` | `.github/workflows/e2e.yml` |
 
 <!-- gates:cadence:end -->
 
-**Two gates still rest on a nightly scan that has been weekly for 18 days**
-(SCAN and ERRORS; it was three until 2026-08-12). That is the single most
-important line in this file. It is not a bug in the throttle — the cost
-decision was deliberate and approved — it is that nothing propagated it to the
-criteria that depended on it. Rule 4 and the checker exist so this cannot
-recur silently.
+**The nightly claim is now backed by a zero-LLM GitHub Action** for SCAN and
+ERRORS. The Action runs the deterministic checker set over the committed corpus,
+files/dedupes findings, and commits a dated report every night at 09:09 UTC.
+Karen's weekly judgment review is a bounded rotating slice; its accumulated
+full-corpus coverage is recorded in `docs/audits/engine/agent-review-ledger.json`.
+It is additive, not a substitute for the deterministic evidence lane.
+`npm run check:content-safety-nightly`
+replays the same local checker set, while the committed Action report is the
+cadence evidence. Rule 4 and the checker make a future cadence drift fail
+mechanically.
 
 **VOICE left this table on 2026-08-12, and how it left is the template for
 the other two.** It did not get its cadence back; it stopped needing one. The
@@ -213,12 +219,11 @@ Four failure modes, all of which the rules above now guard:
    is not enforcement, it is a hope with a cron attached. Where a criterion
    can be decided mechanically from the repo, decide it at the merge.
 
-**Open questions for Wyatt / Joey** (none actionable by an agent):
+**Open questions for Joey** (none actionable by an agent):
 
-- **SCAN's criterion vs Karen's cost.** Relax to weekly, restore nightly, or
-  split cheap-nightly / full-weekly? Until this is answered SCAN stays 🔴 and
-  ERRORS cannot be trusted to self-report. (VOICE no longer depends on this
-  answer as of 2026-08-12 — its rule moved into CI's `build` job.)
+- **SCAN cadence:** resolved 2026-08-30 as Option C — a zero-LLM GitHub Action
+  runs the deterministic checker set nightly, while Karen runs a bounded weekly
+  judgment slice. SCAN stays 🟡 only until three consecutive dated Action reports exist.
 - **LEGAL:** nine blanks + counsel + the minors/COPPA call (see the row).
 - **BACKUPS:** the Supabase plan/PITR answer + one production-bytes drill.
 - **`docs/agents/runners.md` contradicts itself** on Karen's cadence — the
