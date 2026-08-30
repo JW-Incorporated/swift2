@@ -10,7 +10,9 @@ import { tierForScore } from './audit-matches.mjs';
 
 export const MODEL = 'claude-sonnet-5';
 export const MAX_RUN_COST_USD = 5;
-export const RESERVATION_PER_PAIR_USD = ((2 * 4_784 + 512) * 3 + 256 * 15) / 1_000_000;
+export const TRANSIENT_RETRY_ATTEMPTS = 3;
+export const RESERVATION_PER_REQUEST_USD = ((2 * 4_784 + 512) * 3 + 256 * 15) / 1_000_000;
+export const RESERVATION_PER_PAIR_USD = RESERVATION_PER_REQUEST_USD * TRANSIENT_RETRY_ATTEMPTS;
 export const CAP_STOP_REASON = 'run cap would be reached before next request';
 
 const ANTHROPIC_VERSION = '2023-06-01';
@@ -232,19 +234,24 @@ export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
   return toolInput(await response.json());
 }
 
-const TRANSIENT_RETRY_ATTEMPTS = 3;
+function isRetryableVisionError(error) {
+  const status = error instanceof Error ? /\((\d{3})\)$/.exec(error.message)?.[1] : null;
+  return !status || status === '429' || status.startsWith('5');
+}
 
-async function judgeWithRetry(pair, judge, sleep) {
+async function judgeWithRetry(pair, judge, sleep, reserveAttempt) {
   let lastError;
   for (let attempt = 1; attempt <= TRANSIENT_RETRY_ATTEMPTS; attempt += 1) {
+    if (!reserveAttempt()) return { capReached: true };
     try {
-      return await judge(pair);
+      return { response: await judge(pair) };
     } catch (error) {
       lastError = error;
-      if (attempt < TRANSIENT_RETRY_ATTEMPTS) await sleep(250 * 2 ** (attempt - 1));
+      if (!isRetryableVisionError(error) || attempt === TRANSIENT_RETRY_ATTEMPTS) break;
+      await sleep(250 * 2 ** (attempt - 1));
     }
   }
-  throw lastError;
+  return { error: lastError };
 }
 
 export async function runAuthoring({
@@ -299,27 +306,31 @@ export async function runAuthoring({
       judgments.push(unresolved(pair, 'same detector pair was unresolved'));
       continue;
     }
-    // Reserve before invoking the network. Equality stops too: the cap is a
-    // circuit breaker, not a target to fill.
-    if (reservedCostUsd + RESERVATION_PER_PAIR_USD >= capUsd) {
+    attempted.add(pair.cacheKey);
+    const result = await judgeWithRetry(pair, judge, sleep, () => {
+      // Reserve each network attempt immediately before dispatching it.
+      // Equality stops too: the cap is a circuit breaker, not a target to fill.
+      if (reservedCostUsd + RESERVATION_PER_REQUEST_USD >= capUsd) return false;
+      reservedCostUsd += RESERVATION_PER_REQUEST_USD;
+      return true;
+    });
+    if (result.capReached) {
       stoppedAtCap = true;
       judgments.push(unresolved(pair, 'not judged before run cap'));
       continue;
     }
-    reservedCostUsd += RESERVATION_PER_PAIR_USD;
-    attempted.add(pair.cacheKey);
-    try {
-      const normalized = normalizeJudgment(pair, await judgeWithRetry(pair, judge, sleep));
-      if (!normalized) {
-        judgments.push(unresolved(pair, 'invalid judgment response'));
-        continue;
-      }
-      cached.set(pair.cacheKey, normalized);
-      judgments.push(normalized);
-      completedJudgments += 1;
-    } catch {
+    if (result.error) {
       judgments.push(unresolved(pair, 'vision request failed'));
+      continue;
     }
+    const normalized = normalizeJudgment(pair, result.response);
+    if (!normalized) {
+      judgments.push(unresolved(pair, 'invalid judgment response'));
+      continue;
+    }
+    cached.set(pair.cacheKey, normalized);
+    judgments.push(normalized);
+    completedJudgments += 1;
   }
 
   const unresolvedCount = judgments.filter((judgment) => judgment.tier === 'unresolved').length;
