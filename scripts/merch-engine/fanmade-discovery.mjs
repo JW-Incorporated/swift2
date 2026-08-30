@@ -12,6 +12,7 @@ import {
   SHOP_DOMAIN_SUFFIX_ALLOWLIST,
   SUBMISSION_LABEL,
 } from './fanmade-sources.mjs';
+import { FAN_MADE } from '../../supabase/seed/merch/fanmade.mjs';
 
 function text(value) {
   return typeof value === 'string' && value.trim() ? value.trim() : null;
@@ -20,6 +21,7 @@ function text(value) {
 function canonicalUrl(value) {
   try {
     const url = new URL(value);
+    if (url.hostname === 'etsy.com' || url.hostname === 'www.etsy.com') url.search = '';
     for (const key of [...url.searchParams.keys()]) {
       if (key.startsWith('utm_')) url.searchParams.delete(key);
     }
@@ -28,6 +30,15 @@ function canonicalUrl(value) {
   } catch {
     return null;
   }
+}
+
+function formatEtsyPrice(price) {
+  const amount = Number(price?.amount);
+  const divisor = Number(price?.divisor);
+  const currency = text(price?.currency_code);
+  return Number.isFinite(amount) && Number.isFinite(divisor) && divisor > 0 && currency
+    ? new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount / divisor)
+    : null;
 }
 
 function isAllowedShopUrl(value) {
@@ -50,13 +61,7 @@ function provenance(discoveredVia, discoveredAt, sourceUrl, query) {
 }
 
 export function normalizeEtsyListing(listing, query, discoveredAt = null) {
-  const price = listing?.price;
-  const amount = Number(price?.amount);
-  const divisor = Number(price?.divisor);
-  const currency = text(price?.currency_code);
-  const renderedPrice = Number.isFinite(amount) && Number.isFinite(divisor) && divisor > 0 && currency
-    ? new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount / divisor)
-    : null;
+  const renderedPrice = formatEtsyPrice(listing?.price);
   const url = canonicalUrl(listing?.url);
   return {
     id: listing?.listing_id ? `etsy:${listing.listing_id}` : null,
@@ -189,6 +194,55 @@ export async function discoverCandidates({ etsyApiKey, fetchImpl = fetch, submis
   return { candidates: mergeCandidates([...etsy, ...reddit, ...submissions.filter(isMerchSubmission).map(normalizeSubmission)]) };
 }
 
+function etsyListingId(value) {
+  const url = canonicalUrl(value);
+  if (!url) return null;
+  const { hostname, pathname } = new URL(url);
+  if (hostname !== 'etsy.com' && hostname !== 'www.etsy.com') return null;
+  return pathname.match(/^\/listing\/(\d+)(?:\/|$)/)?.[1] || null;
+}
+
+export async function reverifyFanmadeListings({ entries = FAN_MADE, etsyApiKey, fetchImpl = fetch, verifiedAt = new Date().toISOString() } = {}) {
+  const reverified = [];
+  for (const entry of entries) {
+    const url = canonicalUrl(entry?.url);
+    const seedPrice = text(entry?.price);
+    const listingId = etsyListingId(url);
+    if (!listingId) {
+      reverified.push({ url, status: 'unsupported-retailer', price: null, seedPrice, verifiedAt });
+      continue;
+    }
+    if (!etsyApiKey) {
+      reverified.push({ url, status: 'not-checked', price: null, seedPrice, verifiedAt });
+      continue;
+    }
+    const endpoint = new URL(`https://openapi.etsy.com/v3/application/listings/${listingId}`);
+    endpoint.searchParams.set('includes', 'Images,Shop');
+    try {
+      const response = await fetchImpl(String(endpoint), { headers: { 'x-api-key': etsyApiKey } });
+      if (response.status === 404) {
+        reverified.push({ url, status: 'dead', price: null, seedPrice, verifiedAt });
+        continue;
+      }
+      if (!response.ok) {
+        reverified.push({ url, status: 'unknown', price: null, seedPrice, verifiedAt });
+        continue;
+      }
+      const listing = await response.json();
+      reverified.push({
+        url,
+        status: listing.state && listing.state !== 'active' ? 'dead' : 'live',
+        price: formatEtsyPrice(listing.price),
+        seedPrice,
+        verifiedAt,
+      });
+    } catch {
+      reverified.push({ url, status: 'unknown', price: null, seedPrice, verifiedAt });
+    }
+  }
+  return { reverified };
+}
+
 const PROHIBITED_MATERIAL = new Set(['official-artwork', 'tour-graphic', 'taylor-photo']);
 
 /**
@@ -262,6 +316,49 @@ function issueBody(candidate) {
   ].join('\n');
 }
 
+const FANMADE_REVERIFICATION_LABEL = 'fanmade-reverification';
+const FANMADE_REVERIFICATION_PREFIX = 'fanmade-reverification:';
+
+function revalidationTitle(result) {
+  return `${FANMADE_REVERIFICATION_PREFIX}${result.url}`;
+}
+
+function revalidationBody(result) {
+  return [
+    'Automated E5 re-verification requires the mending lane to review this listing before it remains purchasable.',
+    '',
+    `Listing URL: ${result.url}`,
+    `Liveness status: ${result.status}`,
+    `Seed price: ${result.seedPrice || 'unavailable'}`,
+    `Observed price: ${result.price || 'unavailable'}`,
+    `Verified at: ${result.verifiedAt}`,
+  ].join('\n');
+}
+
+export async function fileReverificationIssues({ repository, token, reverified, fetchImpl, dryRun }) {
+  const actionable = reverified.filter((result) => result.status === 'dead' || (result.status === 'live' && (result.price === null || result.price !== result.seedPrice)));
+  if (!repository || !token || dryRun) return { filed: [], skipped: actionable.map((result) => result.url) };
+  const label = await fetchImpl(`https://api.github.com/repos/${repository}/labels`, {
+    method: 'POST', headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'content-type': 'application/json' },
+    body: JSON.stringify({ name: FANMADE_REVERIFICATION_LABEL, color: 'b60205' }),
+  });
+  if (!label.ok && label.status !== 422) throw new Error(`Could not ensure re-verification label (${label.status})`);
+  const existing = await githubIssues({ repository, token, label: FANMADE_REVERIFICATION_LABEL, fetchImpl });
+  const titles = new Set(existing.map((issue) => issue.title));
+  const filed = [];
+  for (const result of actionable) {
+    if (titles.has(revalidationTitle(result))) continue;
+    const response = await fetchImpl(`https://api.github.com/repos/${repository}/issues`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'content-type': 'application/json' },
+      body: JSON.stringify({ title: revalidationTitle(result), body: revalidationBody(result), labels: [FANMADE_REVERIFICATION_LABEL] }),
+    });
+    if (!response.ok) throw new Error(`Could not file re-verification issue for ${result.url} (${response.status})`);
+    filed.push(result.url);
+  }
+  return { filed, skipped: actionable.filter((result) => titles.has(revalidationTitle(result))).map((result) => result.url) };
+}
+
 async function fileCandidateIssues({ repository, token, candidates, fetchImpl, dryRun }) {
   if (!repository || !token || dryRun) return { filed: [], skipped: candidates.map((candidate) => candidate.url) };
   const label = await fetchImpl(`https://api.github.com/repos/${repository}/labels`, {
@@ -291,8 +388,10 @@ async function main() {
   const token = process.env.GH_TOKEN;
   const submissions = await githubIssues({ repository, token, label: SUBMISSION_LABEL, fetchImpl: fetch });
   const discovery = await discoverCandidates({ etsyApiKey: process.env.ETSY_API_KEY, submissions });
+  const revalidation = await reverifyFanmadeListings({ etsyApiKey: process.env.ETSY_API_KEY });
+  const revalidationFiling = await fileReverificationIssues({ repository, token, reverified: revalidation.reverified, fetchImpl: fetch, dryRun });
   const filing = await fileCandidateIssues({ repository, token, candidates: discovery.candidates, fetchImpl: fetch, dryRun });
-  console.log(JSON.stringify({ ...discovery, ...filing, dryRun }, null, 2));
+  console.log(JSON.stringify({ ...discovery, ...revalidation, revalidationFiling, ...filing, dryRun }, null, 2));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
