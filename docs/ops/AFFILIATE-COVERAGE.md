@@ -73,6 +73,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Cable Knit Open Front Cardigan with Embroidery | amazon.com | amazon | pending-signup | amazon tag + ascsubtag | folklore.vault-folklore-the-original-folklore-cardigan-sells-out-and-becomes-a-piece |  |
 | Cause I Don't Know How It Gets Better Than This Black T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Check Oversized Zip Up Wool Bomber Jacket | bergdorfgoodman.com | none | uncovered | direct retailer URL | tloas.vault-tloas-taylor-and-selena-gomez-coordinate-opulent-winter-coats-at-a | not listed in checked-in E0 Awin advertiser directory |
+| Cornelia Street Embroidery File- Taylor Inspired - Lover Album Patch Design - Instant Download, Era - Machine Embroidery | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Cowboy Boots for Women, Mid-Calf Cowgirl Boots | amazon.com | amazon | pending-signup | amazon tag + ascsubtag | debut.vault-debut-curls-sundresses-and-cowboy-boots |  |
 | Cowboy Like Me Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Cowboy Like Me Hat | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -83,13 +84,17 @@ The explanation column is required for every uncovered row. It reports only the 
 | Cry My Eyes Violet Tee | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Crystal Embroidered Neckline and Strap Mini Dress | davidkoma.com | none | uncovered | direct retailer URL | tloas.vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto | not listed in checked-in E0 Awin advertiser directory |
 | Crystal Slit Jean | area.nyc | none | uncovered | direct retailer URL | midnights.vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in | not listed in checked-in E0 Awin advertiser directory |
+| Custom Graduation Lei &#124; Giant Friendship Bracelet Necklace &#124; Senior 2027 &#124; Class of 2027 Gift &#124; '27 Grad &#124; Bid day Gift &#124; Rush Gift | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Cutout Front Printed Long Sleeve Romper | plushfashionhub.us | none | uncovered | direct retailer URL | red.vault-red-a-mary-katrantzou-romper-signals-the-turn-toward-1989 | not listed in checked-in E0 Awin advertiser directory |
 | Debut Album Skirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Debut Album Tank | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Denim Overall Dress | copperunionapparel.com | none | uncovered | direct retailer URL | 1989.vault-1989-denim-overall-dress-street-style-on-a-new-york-afternoon | not listed in checked-in E0 Awin advertiser directory |
+| Denver Broncos Friendship Bracelets – Stackable Team Colors – Fan Gift – Taylor Swift Inspired | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Disco Crush High Shine Glitter Eye + Face Sparkle in Heart Eyes | ulta.com | none | uncovered | direct retailer URL | reputation.vault-reputation-the-glitter-heart-eye-that-became-the-lover-eras-signature | not listed in checked-in E0 Awin advertiser directory |
+| DIY Friendship Bracelet Kit &#124; Birthday Party Favor Custom Letter Bracelets &#124; Make Your Own Friendship Bracelets &#124; Personalized Name Bracelet | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Down Bad Crying At The Gym Sweatpants | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Drippy Rhinestone Chain Top | shopakira.com | none | uncovered | direct retailer URL | tloas.vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op | not listed in checked-in E0 Awin advertiser directory |
+| Eras Tour Piano Inspired Art Digital Downloadable Print, Eras Tour Flower Piano, The Eras Tour Poster | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Eres Long-Sleeve V Neck Sequin Romper | julianchang.com | none | uncovered | direct retailer URL | reputation.vault-reputation-a-sequined-romper-and-kat-maconie-heels-at-the-amazon-prime- | not listed in checked-in E0 Awin advertiser directory |
 | evermore album deluxe edition CD (clean version) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | evermore album deluxe edition vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -120,6 +125,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Got A Wi$hli$t Bomber Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Got Lovestruck Went Straight To My Head Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Green Cowl Back Boat Neck Sequined Evening Gown | macduggal.com | none | uncovered | direct retailer URL | midnights.vault-midnights-a-sparkling-green-gucci-gown-at-the-golden-globes | not listed in checked-in E0 Awin advertiser directory |
+| Greeting Card &#124; I Got You A Card Again &#124; Taylor Folklore Inspired | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Happy To Know You Hot Pink Satin Maxi Skirt | shoppinkattitude.com | none | uncovered | direct retailer URL | 1989.vault-1989-a-red-bandeau-top-and-a-thigh-slit-magenta-maxi-skirt-at-the | not listed in checked-in E0 Awin advertiser directory |
 | Harness Tapestry Dress — Alien Multi Print | amazon.com | amazon | pending-signup | amazon tag + ascsubtag | ttpd.vault-ttpd-seven-more-vmas-and-a-tie-with-beyonc-at-30 |  |
 | Heavy Cotton T-Shirt (G500) — Orange | amazon.com | amazon | pending-signup | amazon tag + ascsubtag | tloas.vault-tloas-stevie-knicks-courtside-the-garden-three-weeks-before-the-we |  |
@@ -135,12 +141,17 @@ The explanation column is required for every uncovered row. It reports only the 
 | I Love You It's Ruining My Life Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Love You It's Ruining My Life Sweatpants | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Love You, It's Ruining My Life Loose Baby T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| I Protect the Family - Father Figure Inspired Sticker - Eras | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | I Think I Am Finally Clean Umbrella | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Was Midnight Rain Sweat Shorts | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Was Midnight Rain Zip Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I'm Immortal Now Baby Dolls Baby T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I'm Not A Princess, This Ain't A Fairytale T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| I'm The Problem Wood Sign, Taylor Office Sign, Eras Tour Theme, Gift for a Swiftie, Swiftie Decor, Taylor Theme Party, Taylor Swift Inspired | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
+| In My Maine Era Coffee Mug &#124; Swiftie Aesthetic Maine Souvenir &#124; Color Inside Ceramic Cup &#124; New England Gift Idea | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
+| In My Maine Era Tank Top &#124; Swiftie Inspired Maine Shirt &#124; Unisex Adult Sleeveless Tee &#124; Coastal Summer Vacation Gift | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Indy V Neck Rainbow Crystal Fringe Mini Dress | mewmews.com | none | uncovered | direct retailer URL | reputation.vault-reputation-the-cotton-candy-dress-for-delicate-shake-it-off | not listed in checked-in E0 Awin advertiser directory |
+| Invisible String, Folklore-inspired Sweatshirt | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Isabel Open Plunge With Thigh Slit Sequins Gown | alamourthelabel.com | none | uncovered | direct retailer URL | lover.vault-lover-a-shimmering-green-julien-macdonald-gown-at-the-2019-amas | not listed in checked-in E0 Awin advertiser directory |
 | Island Breeze & Lights Down Low Crochet Snake Tee | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | It's a Cruel Summer with You Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -149,6 +160,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Jack Leopards Notebook | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Jesenia Beaded Mini Dress | us.princesspolly.com | none | uncovered | direct retailer URL | speak-now.vault-speak-now-blunt-bangs-debut-at-the-2010-american-music-awards | not listed in checked-in E0 Awin advertiser directory |
 | Kai Two Piece Top and Skirt Set | showpo.com | none | uncovered | direct retailer URL | midnights.vault-midnights-roberto-cavalli-and-louboutin-for-the-1989-set | not listed in checked-in E0 Awin advertiser directory |
+| Karma Cat T-Shirt, Lyric Inspired Tee, Minimalist Concert Shirt | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Karma is a Cat Cropped T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Laila Floral Beaded Organza Strapless Gown | markarian-nyc.com | none | uncovered | direct retailer URL | tloas.vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends | not listed in checked-in E0 Awin advertiser directory |
 | Lara Cut Out Jumpsuit | fashionnova.com | none | uncovered | direct retailer URL | midnights.vault-midnights-the-original-reputation-catsuit-cut-outs-and-all | not listed in checked-in E0 Awin advertiser directory |
@@ -177,6 +189,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Lux Velvet Shirt Dress | revolve.com | none | uncovered | direct retailer URL | folklore.vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se | not listed in checked-in E0 Awin advertiser directory |
 | LYRIC ILLUSTRATION PHONE CASE | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Magic, Madness, Heaven, Sin Baby T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Make the Friendship Bracelets Taylor Swift A5 Art Print &#124; You're On Your Own Kid Midnights Swifties Poster Eras Tour Artwork Postcard Gift | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Mardi Gras Sequin High-Waist Shorts | mardigrasapparel.us | none | uncovered | direct retailer URL | reputation.vault-reputation-jessica-jones-sequin-shorts-and-ren-caovilla-boots-for-the-p | not listed in checked-in E0 Awin advertiser directory |
 | Marvelous Time Ruining Everything Tote | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Mattie Fisherman Cap | revolve.com | none | uncovered | direct retailer URL | evermore.vault-evermore-a-vintage-chevrolet-a-burgundy-cap-and-the-red-taylors-versi | not listed in checked-in E0 Awin advertiser directory |
@@ -238,6 +251,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Retro Matte Lipstick in Ruby Woo | maccosmetics.com | none | uncovered | direct retailer URL | red.vault-red-the-red-lip-becomes-the-era-defining-signature | not listed in checked-in E0 Awin advertiser directory |
 | Rhinestone Boot Earrings | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Rhinestone Cat Ears Headband (3-Pack) | amazon.com | amazon | pending-signup | amazon tag + ascsubtag | red.vault-red-a-rhinestone-cat-ear-headband-defines-the-22-video-look |  |
+| ROOM SPRAY {Fearless} – Lemon Neroli Oud Scent &#124; Clean Citrus Home Fragrance &#124; Inspired by Taylor Swift Swiftie Gift Christmas Music Lover | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Rooting For The Anti-Hero Knit Polo Dress | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Rooting For The Anti-Hero Knit Polo Top | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Rooting for the Anti-Hero T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -252,6 +266,10 @@ The explanation column is required for every uncovered row. It reports only the 
 | Sequin Tartan Overshirt | ashish.co.uk | none | uncovered | direct retailer URL | 1989.vault-1989-a-houndstooth-ashish-crop-top-pantsuit-leads-the-bad-blood-s | not listed in checked-in E0 Awin advertiser directory |
 | Seraphine Corset Satin Maxi Dress | meshki.us | none | uncovered | direct retailer URL | ttpd.vault-ttpd-a-new-crystal-bodysuit-and-a-dress-covered-in-lyrics | not listed in checked-in E0 Awin advertiser directory |
 | Serene Snake Print Sequin Mini Dress | edgebyks.com | none | uncovered | direct retailer URL | 1989.vault-1989-a-silver-snakeskin-louis-vuitton-mini-co-chairing-the-2016-m | not listed in checked-in E0 Awin advertiser directory |
+| Set of 12! Cute little Fall Pumpkins fanmade Swiftie Inspired! OOAK Handmade V1 | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
+| Set of 12! Cute Tall Pumpkins fanmade Swiftie Inspired! OOAK Handmade V1 | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
+| Set of 12! Cute Tall Pumpkins fanmade Swiftie Inspired! OOAK Handmade V2 | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
+| Showgirl Inspired Sourdough Accessories Set: Cotton Jar Cover & Friendship Bracelet | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Simona Satin Mini Dress | fashionnova.com | none | uncovered | direct retailer URL | 1989.vault-1989-polaroids-and-pastel | not listed in checked-in E0 Awin advertiser directory |
 | Single-Breasted Velvet Jacket | etro.com | none | uncovered | direct retailer URL | evermore.vault-evermore-a-purple-velvet-etro-pantsuit-for-the-all-too-well-short-fil | not listed in checked-in E0 Awin advertiser directory |
 | Siofra Mini Dress (Zig Zag Fringe Dress) | showpo.com | none | uncovered | direct retailer URL | 1989.vault-1989-the-1989-world-tour-wardrobe-a-rotating-closet-of-sparkle | not listed in checked-in E0 Awin advertiser directory |
@@ -287,8 +305,12 @@ The explanation column is required for every uncovered row. It reports only the 
 | Speak Now (Taylor's Version) Vintage T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Speak Now Cherry Blossom Hair Clip | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Strappy Houndstooth Tweed A-Line Dress | nordstrom.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-a-pink-mini-dress-for-a-saturday-night-dinner-date | not listed in checked-in E0 Awin advertiser directory |
+| stretchy friendship bracelet • "all too well" • charm bracelet | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
+| stretchy friendship bracelet • "fuck the patriarchy" • charm bracelet | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Striped Silk-Blend Dress (1932 Stripe White & Black) | revolve.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden | not listed in checked-in E0 Awin advertiser directory |
+| Swiftie Definition Sign, Taylor Swift Fan Decor, Eras Tour Inspired Gift | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | SynWax | mehron.com | none | uncovered | direct retailer URL | lover.vault-lover-bill-corsos-six-person-prosthetic-transformation-for-the-man | not listed in checked-in E0 Awin advertiser directory |
+| Taylor Inspired Bookmarks&#124;Life of a Bookgirl&#124;Tour&#124;Gifts&#124;Readers&#124;Holographic&#124;Laminated | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Taylor Swift &#124; The Eras International Tour Beige T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras International Tour Mineral Wash Gray T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour 1989 (Taylor's Version) Live Photo Oversized T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -350,9 +372,13 @@ The explanation column is required for every uncovered row. It reports only the 
 | Taylor Swift Checker Game Towel | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Eras Car Decals | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Eras Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift Eras Tour Inspired Chubby Pumpkins! Set of 12, Variation 1 | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
+| Taylor Swift Eras Tour Inspired Chubby Pumpkins! Set of 12, Variation 2 | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Taylor Swift Fearless Paisley Hair Scarf | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Hair Tie Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift Lover Inspired Acrylic Ornament | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Taylor Swift Navy Dad Hat | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift Themed Birthday Party Friendship Bracelets, Personalized Swiftie Gifts, Custom Bracelet Party Favors, For Kids and Adults | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Tea Party Chic Pink Floral Print Tie-Strap Tiered Midi Dress | lulus.com | none | uncovered | direct retailer URL | reputation.vault-reputation-seven-pastel-outfit-changes-in-the-me-video | not listed in checked-in E0 Awin advertiser directory |
 | Teo Cashmere Short Sleeve Sweater | thereformation.com | none | uncovered | direct retailer URL | tloas.vault-tloas-the-look-that-made-showgirl-orange-a-fashion-story-reformati | not listed in checked-in E0 Awin advertiser directory |
 | Thank You For The Lovely Bouquet Cropped T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -477,9 +503,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 463 |
+| total | 489 |
 | wrapped | 0 |
 | awin-apply | 0 |
 | pending-signup | 8 |
-| uncovered | 100 |
+| uncovered | 126 |
 | direct-by-policy | 355 |
