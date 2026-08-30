@@ -53,6 +53,114 @@ must both clear before anyone dispatches a live filing run.
 line (all four repairs revertible by follow-up PR; the hold and D3 are
 untouched).
 
+## 2026-08-30 — E3 reserves the full vision cost before each authoring request
+
+**Decision:** The unscheduled E3 authoring runner
+`scripts/merch-engine/audit-matches-authoring.mjs` reserves **$0.03408** before
+each Claude Sonnet 5 request: two 4,784-token images plus 512 prompt tokens at
+$3/MTok, and 256 output tokens at $15/MTok. If the next reservation would
+reach the $5.00 run cap, it does not call the model. The runner records the
+reservation total separately from any provider-observed usage and leaves the
+remaining pairs unresolved.
+
+**Why:** The prior CLI run only detected its cap after provider usage reached
+$5.0562825, before it produced a valid score. A pre-call reservation makes the
+documented $5.00 circuit breaker enforceable rather than retrospective. The
+125-pair zero-cache maximum remains $4.260, so this cap does not require a
+change in approved spend.
+
+**Guardrails:** Thinking remains explicitly disabled; exactly one request is
+made per eligible detector cache key; pairs without both image URLs and a
+detector cache key are never judged; malformed or failed responses remain
+unresolved rather than gaining a fabricated score. The scheduled detector is
+unchanged and remains zero-LLM.
+
+**Approved by:** Binding Fable arbiter ruling `FBL-ARB-t_6c7b159c-E3-01`
+(2026-08-30), under the existing E3 cost-model decision.
+
+---
+
+## 2026-08-30 — E3 vision judgment uses Claude Sonnet 5 with a $5.00 per-run circuit breaker
+
+**Decision:** The E3 Match Auditor's separate, unscheduled authoring lane uses
+Claude Sonnet 5 (`claude-sonnet-5`) for each product-image/moment-image pair.
+It sends one call per pair, with two images, `max_tokens: 256`, and thinking
+explicitly disabled (`thinking: { type: "disabled" }`). The runner
+has a hard **$5.00 USD** estimated-cost cap per run. This is a documentation
+policy only: it neither invokes scoring nor changes the zero-LLM scheduled
+detector.
+
+**Thinking must be explicitly disabled.** On `claude-sonnet-5`, adaptive
+thinking is ON when the `thinking` field is omitted, and `max_tokens` caps
+thinking and the structured response together.
+`apps/web/lib/longlive/mood-client.ts` records a production truncation from
+exactly this interaction at `max_tokens: 400` — the model spent the budget
+thinking and was cut off before emitting its structured output — and 256 is
+lower still. Disabling thinking keeps the full 256-token budget for the
+structured score and is required for the cost reservation below to be exact.
+This does not change the reservation itself: with thinking disabled, 256
+output tokens per call remains the correct worst-case bound, so the
+32,000-output-token ($0.480) figure, the $4.260 total, and the $5.00 cap all
+stand unchanged.
+
+**Cost model:** The estimate deliberately uses Claude Sonnet 5's normal,
+post-intro pricing: $3.00 per million input tokens and $15.00 per million
+output tokens (the $2.00/$10.00 introductory rate expires 2026-08-31).
+Anthropic documents a 4,784 visual-token maximum for each high-resolution
+image. Each request reserves at most 512 input tokens for the fixed prompt.
+At the worst case for the current 125-pair queue: `125 × (2 × 4,784 + 512) =
+1,260,000` input tokens, costing $3.780; `125 × 256 = 32,000` output tokens,
+costing $0.480; total **$4.260**. The $5.00 cap therefore covers the fully
+bounded run with $0.740 headroom while remaining a circuit breaker rather than
+a budget to fill.
+
+**Cache and cap behavior:** Results are cached by `(product-image hash,
+moment-image hash)` as required by SPEC R5, and a pair is re-scored only when
+either image changes. An unchanged steady-state queue costs $0; incremental
+runs should cost pennies, while the $4.260 bound applies to a zero-cache-hit
+125-pair run. The runner must estimate cumulative cost before each call using
+these normal rates and its actual token reservation; if
+the next call would reach the $5.00 cap, it stops without retrying or raising
+the cap, preserves completed cached results, marks the run partial, and
+files or updates a GitHub issue for the remaining pairs. A cap increase needs
+a new decision-log entry.
+
+**Evidence:** Anthropic's official [vision documentation](https://docs.claude.com/en/docs/build-with-claude/vision)
+sets the high-resolution 4,784-token image ceiling for Claude 4.7 and later;
+its official [pricing documentation](https://docs.claude.com/en/docs/about-claude/pricing)
+lists Claude Sonnet 5 pricing. The checked-in 2026-07-16 assessment records
+the normal $3.00/$15.00 rates and the $2.00/$10.00 introductory rates' stated
+2026-08-31 expiry.
+
+**Approved by:** Binding Fable arbiter ruling for `t_475ffa1d` (2026-08-30),
+under the reversible documentation-policy authority. The existing approved
+Claude access is used; no new provider, account, credential, or spend channel
+is created.
+
+**Routing receipt:** Policy revision: dcce3a6; Mode: active; Project: swift2;
+Owner: Hermes1; Route: risk-lane; Risk: T3 paid vision-judgment enablement;
+Budget: implementation max turns 8; review max turns 3; one writer/worktree;
+Gate: R1/R2/R5/R6; cost model before E3 judge calls; Reason: SPEC §5 requires
+one vision judgment per comparable pair and CLAUDE.md requires a cost model
+before a new AI feature ships; State: cost_model_recorded.
+
+---
+
+## 2026-08-30 — External IP-counsel sign-off recorded for the merch affiliate layer
+
+**Decision:** Record external IP-counsel sign-off for the merch affiliate layer,
+covering the right-of-publicity, false-endorsement, and FTC affiliate-disclosure
+gate in HUMAN-ACTIONS #27.
+
+**Why:** Joey directly instructed in chat, “Counsel signed off.” This records the
+approval without naming counsel, disclosing advice, or inferring conditions.
+
+**Scope:** This removes only the HUMAN-ACTIONS #27 counsel gate. Credential,
+spend, CI, independent-review, and all other phase gates remain binding.
+
+**Approved by:** External IP counsel, as reported by Joey in direct chat,
+2026-08-30.
+
 ---
 
 ## 2026-08-30 — X site-screen posts are permanently prohibited; remove the two already live
