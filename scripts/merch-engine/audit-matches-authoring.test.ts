@@ -289,7 +289,7 @@ describe('E3 authoring runner cost reservation', () => {
     expect(result.judgments[0]).toMatchObject({ score: 92, tier: 'exact', kind: 'dress' });
   });
 
-  it('does not retry a permanent vision request failure', async () => {
+  it('records the permanent vision HTTP status as unresolved evidence without retrying', async () => {
     let attempts = 0;
     const result = await runAuthoring({
       receipt: receipt(),
@@ -304,7 +304,7 @@ describe('E3 authoring runner cost reservation', () => {
     expect(attempts).toBe(1);
     expect(result.run.reservedCostUsd).toBeCloseTo(RESERVATION_PER_REQUEST_USD, 8);
     expect(result.run.stopReason).toBeNull();
-    expect(result.judgments[0].reasons).toEqual(['vision request failed']);
+    expect(result.judgments[0].reasons).toEqual(['vision request failed (HTTP 401)']);
   });
 
   it('reserves each retry attempt before dispatching it', async () => {
