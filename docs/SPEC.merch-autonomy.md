@@ -53,6 +53,15 @@ it pays is the exact dishonesty R2 exists to prevent. Where the best match
 is unmonetized and an Awin candidate clears the same tier, both may be
 listed with the Awin item preferred in card order.
 
+**R7. The IP-counsel gate binds every monetized surface (FR-MERCH-5,
+2026-08-30).** Per `docs/decisions.md` 2026-07-08 §3, nothing monetized
+ships without external IP-counsel review; per FR-MERCH-4/5, no
+affiliate/commercial implementation — the seam flip, E0, coverage-report
+wiring, any wrap going live — starts before counsel sign-off
+(HUMAN-ACTIONS #27). Credentials present ≠ gate open: `isAffiliate()`'s
+env-var check is a mechanism, not the gate. Phase 1 engines (E1, E2, E3)
+are editorial trust fixes and run regardless.
+
 ---
 
 ## 1. Data model changes (`apps/web/lib/longlive/types.ts`)
@@ -220,7 +229,21 @@ merge (a gate check, `check-merch-images.mjs`, wired into the content CI).
 
 ## 5. Engine E3 — Match Auditor (issue #1)
 
-The core quality fix. `scripts/merch-engine/audit-matches.mjs`:
+The core quality fix. Split per R1 — the schedule never runs the model
+(FR-MERCH-5 lane split):
+
+- **Detect (scheduled, zero-LLM):** `merch-audit-detect.yml` runs
+  `scripts/merch-engine/audit-matches.mjs --detect` — enumerate products
+  whose product-image/moment-image hash pair is new or changed (or whose
+  `matchTier` is missing), gather the pairs, and file/refresh the scoring
+  queue (issue/artifact, the appearance-discovery detect pattern). No
+  model call, no judged writes, no PR authoring of scores.
+- **Judge + write (authoring lane):** a separate authoring lane consumes
+  the queue, makes the vision calls, writes `matchTier`/`matchScore`/
+  `kind`, and opens the gated PR on a registered branch prefix, landing
+  via the R1 gates.
+
+The judged half scores each pair as follows:
 
 1. For each product with a source moment: gather product image (from
    `imageUrl` or scraped og:image) + the moment's real primary photo
@@ -369,11 +392,18 @@ moment; the R5 cap makes the worst case a ticket, not a bill.
 | `merch-awin-sync.yml` (E0) | daily, jittered | no | gated PR (advertiser map) + Actions cache (index) |
 | `merch-verify.yml` (E1+E2 detect) | daily | no | report → mender |
 | `merch-mend` (E1/E2 act) | daily, after verify | small | gated PR |
-| `merch-audit.yml` (E3) | weekly + on new items | vision | gated PR |
+| `merch-audit-detect.yml` (E3 detect) | weekly + on new items | no | scoring queue → authoring lane |
+| E3 judge (authoring lane, not scheduled) | on queue | vision | gated PR |
 | `merch-official-sync.yml` (E4) | 2×/day | authoring lane for new items | gated PR + social queue |
 | `merch-fanmade.yml` (E5) | daily | curation lane | gated PR |
 | `merch-matcher.yml` (E6) | on fashion-moment merge | yes | gated PR |
 | `merch-revenue.yml` | weekly | no | Marjorie brief |
+
+Reading the LLM column per R1: every *scheduled* trigger is zero-LLM
+detection; a non-"no" entry marks the judgment half that runs in the
+separate authoring lane the schedule hands off to (E3's split above is the
+pattern; E5's curation lane and E6's matcher lane are the same shape) —
+never inside the scheduled workflow itself.
 
 All schedule minutes chosen clear of existing cron clusters; each workflow
 header documents its offset and its secrets per house style. New secrets:
@@ -381,6 +411,17 @@ header documents its offset and its secrets per house style. New secrets:
 `SEARCH_API_KEY` (Actions); `NEXT_PUBLIC_AWIN_ID` +
 `NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG` (Vercel env; the catch-all ID only if
 D2's residue case is ever proven). No other new credentials.
+
+**Canonical names (FR-MERCH-5):** the names above are authoritative.
+`HUMAN-ACTIONS.md` #4 recorded earlier saves under legacy names —
+`ETSY_KEYSTRING` (the Etsy keystring; its canonical home is
+`ETSY_API_KEY`), `ETSY_SHARED_SECRET` (kept as-is; OAuth-only, unused by
+E5), and `AWIN_API` (ambiguous — retired; the Publisher API token and
+Create-a-Feed key get saved fresh as `AWIN_API_TOKEN` /
+`AWIN_FEED_API_KEY`). No code reads any legacy name today, so there is no
+alias shim and no code migration: at provisioning time (HUMAN-ACTIONS
+#28) values are saved under the canonical names and the legacy entries
+retire. Names are non-secret; values never appear in chat or the repo.
 
 ## 11. Acceptance criteria (definition of done, per phase)
 
