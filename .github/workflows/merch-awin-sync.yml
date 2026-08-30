@@ -41,10 +41,11 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           add-paths: apps/web/lib/longlive/awin-advertisers.json
-          branch: merch-awin/advertiser-map
+          branch: merch-revenue/awin-advertiser-map
           commit-message: 'chore(merch): refresh Awin advertiser map'
           title: 'chore(merch): refresh Awin advertiser map'
           body: 'Automated E0 detector result. This PR updates only the joined-programme Awin advertiser map.'
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
       - name: Refresh changed product feeds into cached index
         env:
           AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}

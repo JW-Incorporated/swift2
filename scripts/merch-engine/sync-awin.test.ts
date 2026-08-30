@@ -109,6 +109,9 @@ describe('E0 Awin sync', () => {
     expect(workflow).toContain('AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}');
     expect(workflow).not.toMatch(/git (add|commit|push)/i);
     expect(workflow).toContain('peter-evans/create-pull-request');
+    expect(workflow).toContain('merch-revenue/awin-advertiser-map');
+    expect(workflow).toContain('token: ${{ secrets.SOCIAL_POSTER_PAT }}');
     expect(workflow).toContain('apps/web/lib/longlive/awin-advertisers.json');
+    expect(readFileSync('scripts/merch-engine/sync-awin-programmes.mjs', 'utf8')).not.toContain("relationship: 'any'");
   });
 });

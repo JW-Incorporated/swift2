@@ -72,7 +72,7 @@ async function retailersFromCatalogue() {
 
 async function requestProgrammes({ publisherId, token, relationship, fetchImpl = fetch }) {
   const url = new URL(PROGRAMMES_URL.replace('{publisherId}', encodeURIComponent(publisherId)));
-  url.searchParams.set('relationship', relationship);
+  if (relationship) url.searchParams.set('relationship', relationship);
   const response = await fetchImpl(url, { headers: { authorization: `Bearer ${token}`, accept: 'application/json' } });
   if (!response.ok) throw new Error(`Awin programme request failed (${response.status})`);
   const payload = await response.json();
@@ -93,7 +93,7 @@ async function main() {
   await new Promise((done) => setTimeout(done, jitterDelay()));
   const [joined, directory, retailerHosts] = await Promise.all([
     requestProgrammes({ publisherId, token, relationship: 'joined' }),
-    requestProgrammes({ publisherId, token, relationship: 'any' }),
+    requestProgrammes({ publisherId, token }),
     retailersFromCatalogue(),
   ]);
   const generated = buildAdvertiserDirectory({ joined, directory, retailerHosts, generatedAt: new Date().toISOString() });
