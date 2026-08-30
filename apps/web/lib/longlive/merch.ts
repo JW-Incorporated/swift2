@@ -24,6 +24,9 @@
 
 import { CONTENT } from './content';
 import type { EraId, Product } from './types';
+// Authored engine output remains JavaScript so sync scripts can write it directly.
+import { OFFICIAL } from '../../../../supabase/seed/merch/official.mjs';
+import { FAN_MADE } from '../../../../supabase/seed/merch/fanmade.mjs';
 
 export type MerchCategory = 'shop-the-look' | 'official-store' | 'fan-made';
 
@@ -41,6 +44,8 @@ export interface MerchItem extends Product {
   category: MerchCategory;
   /** Back-reference to the era/moment this item shops, when known. */
   source?: MerchSource;
+  /** Provenance supplied by the catalogue engines for fresh-drop ordering. */
+  discoveredAt?: string;
 }
 
 export interface MerchCatalogue {
@@ -68,13 +73,87 @@ function shopTheLookItems(): MerchItem[] {
   return items;
 }
 
+const MERCH_KINDS: ReadonlySet<NonNullable<Product['kind']>> = new Set([
+  'dress',
+  'top',
+  'bottom',
+  'outerwear',
+  'knitwear',
+  'shoes',
+  'jewelry',
+  'bag',
+  'hat',
+  'eyewear',
+  'beauty',
+  'accessory',
+  'music',
+  'collectible',
+  'home',
+  'other',
+]);
+
+type SeedProduct = Omit<Product, 'kind'> & { kind?: string; discoveredAt?: string };
+
+function catalogueItems(items: readonly SeedProduct[], category: MerchCategory): MerchItem[] {
+  return items.map(({ kind, ...item }) => ({
+    ...item,
+    category,
+    ...(kind
+      ? {
+          kind: MERCH_KINDS.has(kind as NonNullable<Product['kind']>)
+            ? (kind as NonNullable<Product['kind']>)
+            : 'other',
+        }
+      : {}),
+  }));
+}
+
+/** A listing is new only while its authored discovery timestamp is within 14 days. */
+export function newDrops(items: readonly MerchItem[], now = new Date()): readonly MerchItem[] {
+  const cutoff = now.getTime() - 14 * 24 * 60 * 60 * 1000;
+  return items
+    .filter((item) => {
+      if (!item.discoveredAt) return false;
+      const discoveredAt = Date.parse(item.discoveredAt);
+      return (
+        Number.isFinite(discoveredAt) && discoveredAt >= cutoff && discoveredAt <= now.getTime()
+      );
+    })
+    .sort((a, b) => Date.parse(b.discoveredAt!) - Date.parse(a.discoveredAt!));
+}
+
+/** Product schema is emitted only for facts available in the static catalogue. */
+export function merchProductJsonLd(item: MerchItem, now = new Date()): Record<string, unknown> {
+  const verifiedAt = item.verifiedAt ? Date.parse(item.verifiedAt) : Number.NaN;
+  const freshVerification =
+    Number.isFinite(verifiedAt) &&
+    verifiedAt <= now.getTime() &&
+    now.getTime() - verifiedAt <= 7 * 24 * 60 * 60 * 1000;
+  const offer =
+    freshVerification && item.price && item.inStock !== undefined
+      ? {
+          '@type': 'Offer',
+          price: item.price.replace(/[^0-9.]/g, ''),
+          priceCurrency: 'USD',
+          availability: `https://schema.org/${item.inStock ? 'InStock' : 'OutOfStock'}`,
+          url: item.url,
+        }
+      : undefined;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: item.item,
+    brand: { '@type': 'Brand', name: item.brand },
+    ...(item.imageUrl ? { image: item.imageUrl } : {}),
+    ...(offer ? { offers: offer } : {}),
+  };
+}
+
 /**
- * The full Marketplace catalogue. `officialStore` and `fanMade` are
- * genuinely empty until real curated data exists for them — never filled
- * with placeholders.
+ * The full Marketplace catalogue, assembled only from authored engine output.
  */
 export const MERCH_CATALOGUE: MerchCatalogue = {
   shopTheLook: shopTheLookItems(),
-  officialStore: [],
-  fanMade: [],
+  officialStore: catalogueItems(OFFICIAL, 'official-store'),
+  fanMade: catalogueItems(FAN_MADE, 'fan-made'),
 };

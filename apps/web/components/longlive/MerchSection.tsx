@@ -32,24 +32,40 @@
  * need to clear the rail's stuck height.
  */
 
-import type { ReactNode } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import { hasAffiliateMerch, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
-import { MERCH_CATALOGUE } from '@/lib/longlive/merch';
+import { MERCH_CATALOGUE, newDrops, type MerchItem } from '@/lib/longlive/merch';
 import { suggestLinkSectionId } from '@/lib/longlive/section-jump';
 import { SubmitLinkForm } from './SubmitLinkForm';
 import { MerchMarquee } from './merch/MerchMarquee';
 import { MerchSectionRail, type MerchRailSection } from './merch/MerchSectionRail';
 import { MerchStyleSection } from './merch/MerchStyleSection';
 import { MerchEmptyPanel } from './merch/MerchEmptyPanel';
+import { MerchCard } from './merch/MerchCard';
 
 const SECTION_OFFICIAL = 'merch-official';
 const SECTION_FANMADE = 'merch-fanmade';
 const SECTION_STYLE = 'merch-style';
 
 const RAIL_SECTIONS: readonly MerchRailSection[] = [
-  { id: SECTION_OFFICIAL, label: 'Official Shop', count: MERCH_CATALOGUE.officialStore.length, accent: 'var(--merch-gold)' },
-  { id: SECTION_FANMADE, label: 'Fan Made', count: MERCH_CATALOGUE.fanMade.length, accent: 'var(--merch-rose)' },
-  { id: SECTION_STYLE, label: 'Her Style', count: MERCH_CATALOGUE.shopTheLook.length, accent: 'var(--merch-lilac)' },
+  {
+    id: SECTION_OFFICIAL,
+    label: 'Official Shop',
+    count: MERCH_CATALOGUE.officialStore.length,
+    accent: 'var(--merch-gold)',
+  },
+  {
+    id: SECTION_FANMADE,
+    label: 'Fan Made',
+    count: MERCH_CATALOGUE.fanMade.length,
+    accent: 'var(--merch-rose)',
+  },
+  {
+    id: SECTION_STYLE,
+    label: 'Her Style',
+    count: MERCH_CATALOGUE.shopTheLook.length,
+    accent: 'var(--merch-lilac)',
+  },
 ];
 
 function MerchSectionHead({
@@ -76,14 +92,58 @@ function MerchSectionHead({
           {badge}
         </span>
       </div>
-      <p className="mt-3.5 max-w-[64ch] text-[15px] leading-relaxed text-[color:var(--merch-muted)]">{subtitle}</p>
+      <p className="mt-3.5 max-w-[64ch] text-[15px] leading-relaxed text-[color:var(--merch-muted)]">
+        {subtitle}
+      </p>
       <div className="my-[26px] h-px bg-[color:var(--merch-line)]" aria-hidden="true" />
     </div>
   );
 }
 
+function MerchGrid({
+  items,
+  emptyMessage,
+  pageSize,
+}: {
+  items: readonly MerchItem[];
+  emptyMessage: string;
+  pageSize?: number;
+}) {
+  const [visibleCount, setVisibleCount] = useState(pageSize ?? items.length);
+  if (items.length === 0) return <MerchEmptyPanel message={emptyMessage} />;
+  const visibleItems = items.slice(0, visibleCount);
+  const remaining = items.length - visibleItems.length;
+  return (
+    <>
+      <ul className="grid grid-cols-1 items-start gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+        {visibleItems.map((item, index) => (
+          <MerchCard key={`${item.url}-${index}`} item={item} />
+        ))}
+      </ul>
+      {remaining > 0 && (
+        <button
+          type="button"
+          onClick={() => setVisibleCount((count) => count + pageSize!)}
+          className="mx-auto mt-8 block min-h-[44px] border px-7 text-[11px] font-medium uppercase tracking-[0.2em] text-[color:var(--merch-muted)]"
+          style={{ borderColor: 'var(--merch-line)' }}
+        >
+          Load {Math.min(pageSize!, remaining)} more
+        </button>
+      )}
+    </>
+  );
+}
+
 export function MerchSection() {
-  const anyAffiliate = hasAffiliateMerch([...MERCH_CATALOGUE.shopTheLook, ...MERCH_CATALOGUE.fanMade]);
+  const [drops, setDrops] = useState<readonly MerchItem[]>([]);
+  useEffect(() => {
+    setDrops(newDrops([...MERCH_CATALOGUE.officialStore, ...MERCH_CATALOGUE.fanMade]));
+  }, []);
+  const anyAffiliate = hasAffiliateMerch([
+    ...MERCH_CATALOGUE.officialStore,
+    ...MERCH_CATALOGUE.fanMade,
+    ...MERCH_CATALOGUE.shopTheLook,
+  ]);
 
   return (
     <div className="merch-shell">
@@ -106,6 +166,17 @@ export function MerchSection() {
       </div>
 
       <main className="mx-auto max-w-[1180px] px-4 sm:px-6">
+        {drops.length > 0 && (
+          <section aria-labelledby="merch-new-drops" className="pt-[50px]">
+            <MerchSectionHead
+              accent="var(--merch-gold)"
+              badge="New drops"
+              title={<span id="merch-new-drops">Just landed</span>}
+              subtitle="Recently verified listings from the official shop and our fan-made curation."
+            />
+            <MerchGrid items={drops.slice(0, 6)} emptyMessage="" />
+          </section>
+        )}
         <section id={SECTION_OFFICIAL} className="pt-[74px] pb-3">
           <MerchSectionHead
             accent="var(--merch-gold)"
@@ -117,7 +188,11 @@ export function MerchSection() {
             }
             subtitle="Pulled straight from the official store — when we have a vetted feed for it. We don't sell anything ourselves; every card here will link straight to taylorswift.com."
           />
-          <MerchEmptyPanel message="Nothing curated here yet — we don't have a vetted feed from the official store. Check back soon." />
+          <MerchGrid
+            items={MERCH_CATALOGUE.officialStore}
+            emptyMessage="Nothing curated here yet — we don't have a vetted feed from the official store."
+            pageSize={12}
+          />
         </section>
 
         <section id={SECTION_FANMADE} className="pt-[74px] pb-3">
@@ -131,7 +206,10 @@ export function MerchSection() {
             }
             subtitle="One maker per listing, hand-checked before it's added. Nothing's been vetted yet — this is where those listings will live."
           />
-          <MerchEmptyPanel message="We haven't vetted any fan-made shops yet — each one gets hand-checked before it's listed here." />
+          <MerchGrid
+            items={MERCH_CATALOGUE.fanMade}
+            emptyMessage="We haven't vetted any fan-made shops yet — each one gets hand-checked before it's listed here."
+          />
         </section>
 
         <section id={SECTION_STYLE} className="pt-[74px] pb-3">
@@ -149,7 +227,9 @@ export function MerchSection() {
         </section>
 
         {anyAffiliate && (
-          <p className="mt-6 text-[11px] leading-relaxed text-[color:var(--merch-muted)] opacity-80">{SHOP_DISCLOSURE}</p>
+          <p className="mt-6 text-[11px] leading-relaxed text-[color:var(--merch-muted)] opacity-80">
+            {SHOP_DISCLOSURE}
+          </p>
         )}
 
         <div id={suggestLinkSectionId('merch')} className="pb-10">
