@@ -5,11 +5,15 @@ import {
   capIssueContent,
   judgePairWithClaude,
   MAX_RUN_COST_USD,
+  retailerOgImage,
+  RETAILER_FETCH_TIMEOUT_MS,
   RESERVATION_PER_REQUEST_USD,
   requiresApiKey,
   runAuthoring,
   upsertCapIssue,
 } from './audit-matches-authoring.mjs';
+// @ts-expect-error The deterministic cache helper is intentionally plain ESM.
+import { auditCacheKey } from './audit-matches.mjs';
 
 const source: Record<string, unknown> = {
   productId: 'moment-1:0:https://shop.example/dress',
@@ -95,6 +99,130 @@ describe('E3 authoring runner cost reservation', () => {
     expect(result.run.stopReason).toBe('no eligible image pairs');
     expect(result.judgments[0]).toMatchObject({ score: null, tier: 'unresolved', kind: null });
     expect(result.judgments[0].reasons).toEqual(['product image unavailable']);
+  });
+
+  it('hydrates an otherwise comparable retailer listing before judging it', async () => {
+    const withoutImage = {
+      ...source,
+      cacheKey: null,
+      productImageUrl: null,
+      productUrl: 'https://shop.example/dress',
+    };
+    const result = await runAuthoring({
+      receipt: receipt([withoutImage]),
+      queue: { queue: [withoutImage] },
+      resolveProductImage: async () => 'https://images.example/recovered-product.jpg',
+      judge: async () => validJudgment,
+    });
+
+    expect(result.judgments[0]).toMatchObject({
+      productImageUrl: 'https://images.example/recovered-product.jpg',
+      score: 92,
+      tier: 'exact',
+      kind: 'dress',
+    });
+  });
+
+  it('reuses a recovered receipt image without refetching a transiently unavailable retailer', async () => {
+    const productImageUrl = 'https://images.example/recovered-product.jpg';
+    const prior = {
+      ...source,
+      productImageUrl,
+      cacheKey: auditCacheKey({ ...source, productImageUrl }),
+      score: 92,
+      tier: 'exact',
+      kind: 'dress',
+      reasons: validJudgment.reasons,
+    };
+    let hydrations = 0;
+    const result = await runAuthoring({
+      receipt: receipt([prior]),
+      queue: { queue: [{ ...source, productImageUrl: null, cacheKey: null }] },
+      resolveProductImage: async () => {
+        hydrations += 1;
+        throw new Error('retailer temporarily unavailable');
+      },
+      judge: async () => {
+        throw new Error('cached judgment must be reused');
+      },
+    });
+
+    expect(hydrations).toBe(0);
+    expect(result.run.reservedCostUsd).toBe(0);
+    expect(result.status).toBe('complete');
+    expect(result.judgments[0]).toMatchObject({ productImageUrl, score: 92, tier: 'exact' });
+  });
+
+  it('rejudges a recovered product when the moment image changes', async () => {
+    const productImageUrl = 'https://images.example/recovered-product.jpg';
+    const prior = {
+      ...source,
+      productImageUrl,
+      cacheKey: auditCacheKey({ ...source, productImageUrl }),
+      score: 92,
+      tier: 'exact',
+      kind: 'dress',
+      reasons: validJudgment.reasons,
+    };
+    let judged = false;
+    await runAuthoring({
+      receipt: receipt([prior]),
+      queue: {
+        queue: [
+          {
+            ...source,
+            productImageUrl: null,
+            cacheKey: null,
+            momentImageUrl: 'https://images.example/new-moment.jpg',
+          },
+        ],
+      },
+      resolveProductImage: async () => {
+        throw new Error('retailer must not be fetched');
+      },
+      judge: async (pair) => {
+        judged = pair.productImageUrl === productImageUrl;
+        return validJudgment;
+      },
+    });
+
+    expect(judged).toBe(true);
+  });
+
+  it('bounds retailer image fetches with an abort signal', async () => {
+    let init: RequestInit | undefined;
+    await retailerOgImage('https://shop.example/dress', {
+      fetchImpl: async (_url, options) => {
+        init = options;
+        return new Response(
+          '<meta property="og:image" content="https://images.example/dress.jpg">',
+        );
+      },
+    });
+
+    expect(RETAILER_FETCH_TIMEOUT_MS).toBeGreaterThan(0);
+    expect(init?.signal).toBeInstanceOf(AbortSignal);
+  });
+
+  it('stops hydrating after its run-level budget is exhausted', async () => {
+    let hydrations = 0;
+    const missingImage = { ...source, productImageUrl: null, cacheKey: null };
+    const result = await runAuthoring({
+      receipt: receipt([missingImage]),
+      queue: { queue: [missingImage, { ...missingImage, productId: 'another-product' }] },
+      hydrationBudgetMs: 0,
+      resolveProductImage: async () => {
+        hydrations += 1;
+        return 'https://images.example/recovered-product.jpg';
+      },
+      judge: async () => validJudgment,
+    });
+
+    expect(hydrations).toBe(0);
+    expect(result.judgments.map((judgment) => judgment.reasons)).toEqual([
+      ['product image unavailable'],
+      ['product image unavailable'],
+    ]);
   });
 
   it('writes a schema-valid scored judgment from an available fixture pair without fabricating fields', async () => {
@@ -219,7 +347,7 @@ describe('E3 authoring runner cost reservation', () => {
       requiresApiKey(receipt([]), {
         queue: [{ ...source, productImageUrl: null, cacheKey: null }],
       }),
-    ).toBe(false);
+    ).toBe(true);
     expect(requiresApiKey(receipt(), { queue: [] })).toBe(false);
   });
 
