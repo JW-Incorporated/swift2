@@ -102,18 +102,22 @@ function programmeSectors(programme) {
   return [...new Set(values)];
 }
 
+const SOURCE_FIELD_PRECEDENCE = ['displayUrl', 'primaryDomain', 'validDomains', 'domains'];
+
 function sourceHostnames(programme) {
   const info = programmeInfo(programme);
-  return [
-    ...new Set(
-      [info.displayUrl, info.primaryDomain, ...(info.validDomains ?? info.domains ?? [])]
-        .flatMap((value) =>
-          typeof value === 'object' && value ? [value.domain, value.url, value.name] : [value],
-        )
-        .map(hostname)
-        .filter(Boolean),
-    ),
-  ];
+  const byHost = new Map();
+  for (const field of SOURCE_FIELD_PRECEDENCE) {
+    const raw = info[field];
+    const values = Array.isArray(raw) ? raw : [raw];
+    for (const value of values) {
+      const host = hostname(
+        typeof value === 'object' && value ? (value.domain ?? value.url ?? value.name) : value,
+      );
+      if (host && !byHost.has(host)) byHost.set(host, field);
+    }
+  }
+  return [...byHost.entries()].map(([host, sourceField]) => ({ host, sourceField }));
 }
 
 function eligibleProgrammes(programmes) {
@@ -149,6 +153,7 @@ function candidateRow(
   retailer,
   programme,
   sourceHostname,
+  sourceField,
   matchType,
   matchEvidence,
   feedAdvertiserIds,
@@ -159,9 +164,7 @@ function candidateRow(
     awinAdvertiserName: programme?.name ?? null,
     awinAdvertiserId: programme?.id ?? null,
     sourceHostname: sourceHostname ?? null,
-    sourceField: programme
-      ? 'programmeInfo.name/displayUrl/primaryDomain/validDomains/domains'
-      : null,
+    sourceField: sourceField ?? null,
     matchEvidence,
     matchType,
     usProgrammeStatus: programme?.status ?? 'not found',
@@ -181,8 +184,8 @@ export function buildShortlist({
   for (const retailer of retailers) {
     const matches = eligible.flatMap((programme) =>
       programme.hosts
-        .filter((host) => host === retailer.currentRetailer)
-        .map((host) => ({ programme, host })),
+        .filter((entry) => entry.host === retailer.currentRetailer)
+        .map((entry) => ({ programme, entry })),
     );
     if (matches.length === 1) exactByRetailer.set(retailer.currentRetailer, matches[0]);
   }
@@ -193,8 +196,8 @@ export function buildShortlist({
       .filter((programme) => !usedIds.has(programme.id))
       .flatMap((programme) =>
         programme.hosts
-          .filter((host) => isDomainSuffixMatch(host, retailer.currentRetailer))
-          .map((host) => ({ programme, host })),
+          .filter((entry) => isDomainSuffixMatch(entry.host, retailer.currentRetailer))
+          .map((entry) => ({ programme, entry })),
       );
     if (matches.length === 1) domainSuffixByRetailer.set(retailer.currentRetailer, matches[0]);
   }
@@ -206,7 +209,8 @@ export function buildShortlist({
         return candidateRow(
           retailer,
           match.programme,
-          match.host,
+          match.entry.host,
+          match.entry.sourceField,
           'exact-hostname',
           'Awin programme domain hostname exactly matches retailer',
           feedAdvertiserIds,
@@ -219,7 +223,8 @@ export function buildShortlist({
         return candidateRow(
           retailer,
           match.programme,
-          match.host,
+          match.entry.host,
+          match.entry.sourceField,
           'domain-suffix',
           'Awin programme domain is a unique suffix match for retailer',
           feedAdvertiserIds,
@@ -236,21 +241,28 @@ export function buildShortlist({
           (programme) =>
             brandKey(programme.name) === retailerBrand ||
             programme.hosts.some(
-              (host) =>
-                domainKey(host) === retailerBrand ||
-                isDomainSuffixMatch(host, retailer.currentRetailer),
+              (entry) =>
+                domainKey(entry.host) === retailerBrand ||
+                isDomainSuffixMatch(entry.host, retailer.currentRetailer),
             ),
         )
-        .map((programme) =>
-          candidateRow(
+        .map((programme) => {
+          const nameMatches = brandKey(programme.name) === retailerBrand;
+          const domainTrigger = programme.hosts.find(
+            (entry) =>
+              domainKey(entry.host) === retailerBrand ||
+              isDomainSuffixMatch(entry.host, retailer.currentRetailer),
+          );
+          return candidateRow(
             retailer,
             programme,
-            programme.hosts[0] ?? null,
+            nameMatches ? null : domainTrigger ? domainTrigger.host : null,
+            nameMatches ? 'name' : domainTrigger ? domainTrigger.sourceField : 'name',
             'manual-review',
             'Awin programme name or domain shares a normalized key or suffix with retailer',
             feedAdvertiserIds,
-          ),
-        );
+          );
+        });
     })
     .sort(
       (left, right) =>
@@ -267,6 +279,7 @@ export function buildShortlist({
     .map((retailer) =>
       candidateRow(
         retailer,
+        null,
         null,
         null,
         'unmatched',
@@ -367,8 +380,8 @@ function nextPageUrl(link) {
   return next?.match(/<([^>]+)>/)?.[1] ?? null;
 }
 
-function validatedPageUrl(value) {
-  const url = new URL(value, PROGRAMMES_URL);
+function validatedPageUrl(value, base) {
+  const url = new URL(value, base);
   if (url.protocol !== 'https:' || url.origin !== 'https://api.awin.com') {
     throw new Error('Awin programme pagination must remain on the Awin API origin');
   }
@@ -391,7 +404,7 @@ export async function requestProgrammes({ publisherId, token, relationship, fetc
     const page = Array.isArray(payload) ? payload : (payload?.programmes ?? payload?.data ?? []);
     programmes.push(...page.map((programme) => ({ ...programme, relationship })));
     const next = nextPageUrl(response.headers.get('link'));
-    pageUrl = next ? validatedPageUrl(next) : null;
+    pageUrl = next ? validatedPageUrl(next, pageUrl) : null;
     if (pageUrl) {
       pageUrl.searchParams.set('countryCode', 'US');
       pageUrl.searchParams.set('relationship', relationship);

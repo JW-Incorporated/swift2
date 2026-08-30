@@ -31,16 +31,25 @@ function advertiserId(programme) {
 function domains(programme) {
   const info = programmeInfo(programme);
   return [info.displayUrl, info.primaryDomain, ...(info.validDomains ?? info.domains ?? [])]
-    .flatMap((value) => (typeof value === 'object' ? [value?.domain ?? value?.url ?? value?.name] : [value]))
+    .flatMap((value) =>
+      typeof value === 'object' ? [value?.domain ?? value?.url ?? value?.name] : [value],
+    )
     .map(hostname)
     .filter(Boolean);
 }
 
 function status(programme) {
-  return String(programmeInfo(programme).membershipStatus ?? programme?.membershipStatus ?? '').toLowerCase();
+  return String(
+    programmeInfo(programme).membershipStatus ?? programme?.membershipStatus ?? '',
+  ).toLowerCase();
 }
 
-export function buildAdvertiserDirectory({ joined = [], directory = [], retailerHosts = new Set(), generatedAt }) {
+export function buildAdvertiserDirectory({
+  joined = [],
+  directory = [],
+  retailerHosts = new Set(),
+  generatedAt,
+}) {
   const joinedIds = new Set(joined.map(advertiserId).filter(Boolean));
   const retailers = new Set([...retailerHosts].map(hostname).filter(Boolean));
   const entries = new Map();
@@ -51,13 +60,16 @@ export function buildAdvertiserDirectory({ joined = [], directory = [], retailer
     for (const retailer of domains(programme)) {
       if (!retailers.has(retailer)) continue;
       const existing = entries.get(retailer);
-      if (!existing || joinedProgramme) entries.set(retailer, { retailer, awinmid, joined: joinedProgramme });
+      if (!existing || joinedProgramme)
+        entries.set(retailer, { retailer, awinmid, joined: joinedProgramme });
     }
   }
   return {
     source: 'E0 Awin Publisher API cross-reference',
     generatedAt,
-    advertisers: [...entries.values()].sort((left, right) => left.retailer.localeCompare(right.retailer)),
+    advertisers: [...entries.values()].sort((left, right) =>
+      left.retailer.localeCompare(right.retailer),
+    ),
   };
 }
 
@@ -70,8 +82,8 @@ function nextPageUrl(link) {
   return next?.match(/<([^>]+)>/)?.[1] ?? null;
 }
 
-function validatedPageUrl(value) {
-  const url = new URL(value, PROGRAMMES_URL);
+function validatedPageUrl(value, base) {
+  const url = new URL(value, base);
   if (url.protocol !== 'https:' || url.origin !== 'https://api.awin.com') {
     throw new Error('Awin programme pagination must remain on the Awin API origin');
   }
@@ -80,18 +92,33 @@ function validatedPageUrl(value) {
 
 async function retailersFromCatalogue() {
   const { MERCH_CATALOGUE } = await import('../../apps/web/lib/longlive/merch.ts');
-  return new Set(Object.values(MERCH_CATALOGUE).flat().map((product) => product.retailer));
+  return new Set(
+    Object.values(MERCH_CATALOGUE)
+      .flat()
+      .map((product) => product.retailer),
+  );
 }
 
-async function requestProgrammePage({ publisherId, token, relationship, pageUrl, fetchImpl = fetch }) {
-  const url = pageUrl ? new URL(pageUrl) : new URL(PROGRAMMES_URL.replace('{publisherId}', encodeURIComponent(publisherId)));
+async function requestProgrammePage({
+  publisherId,
+  token,
+  relationship,
+  pageUrl,
+  fetchImpl = fetch,
+}) {
+  const url = pageUrl
+    ? new URL(pageUrl)
+    : new URL(PROGRAMMES_URL.replace('{publisherId}', encodeURIComponent(publisherId)));
   if (relationship) url.searchParams.set('relationship', relationship);
-  const response = await fetchImpl(url, { headers: { authorization: `Bearer ${token}`, accept: 'application/json' } });
+  const response = await fetchImpl(url, {
+    headers: { authorization: `Bearer ${token}`, accept: 'application/json' },
+  });
   if (!response.ok) throw new Error(`Awin programme request failed (${response.status})`);
   const payload = await response.json();
   return {
-    programmes: Array.isArray(payload) ? payload : payload?.programmes ?? payload?.data ?? [],
+    programmes: Array.isArray(payload) ? payload : (payload?.programmes ?? payload?.data ?? []),
     next: nextPageUrl(response.headers.get('link')),
+    requestedUrl: url.toString(),
   };
 }
 
@@ -102,8 +129,9 @@ export async function requestProgrammes(options) {
   do {
     const page = await requestProgrammePage({ ...options, pageUrl });
     programmes.push(...page.programmes);
-    pageUrl = page.next ? validatedPageUrl(page.next) : null;
-    if (pageUrl && seen.has(pageUrl)) throw new Error('Awin programme pagination repeated a page URL');
+    pageUrl = page.next ? validatedPageUrl(page.next, page.requestedUrl) : null;
+    if (pageUrl && seen.has(pageUrl))
+      throw new Error('Awin programme pagination repeated a page URL');
     if (pageUrl) seen.add(pageUrl);
   } while (pageUrl);
   return programmes;
@@ -126,11 +154,21 @@ async function main() {
     requestProgrammes({ publisherId, token }),
     retailersFromCatalogue(),
   ]);
-  const generated = buildAdvertiserDirectory({ joined, directory, retailerHosts, generatedAt: new Date().toISOString() });
+  const generated = buildAdvertiserDirectory({
+    joined,
+    directory,
+    retailerHosts,
+    generatedAt: new Date().toISOString(),
+  });
   const target = resolve(ROOT, output);
   await mkdir(dirname(target), { recursive: true });
   await writeFile(target, `${JSON.stringify(generated, null, 2)}\n`, 'utf8');
-  console.log(JSON.stringify({ advertisers: generated.advertisers.length, joined: generated.advertisers.filter((entry) => entry.joined).length }));
+  console.log(
+    JSON.stringify({
+      advertisers: generated.advertisers.length,
+      joined: generated.advertisers.filter((entry) => entry.joined).length,
+    }),
+  );
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

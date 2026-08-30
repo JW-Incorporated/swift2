@@ -1,16 +1,24 @@
-# E3 authoring workflow review escalation
+# Awin shortlist review-round 2
 
-## Review rounds
+## Trigger
 
-1. The first independent review found missing GitHub issue authentication and a generated freshness timestamp. Both were repaired before the second review.
-2. The second independent review found two workflow defects: a failed cap-follow-up issue could discard the completed paid artifact, and restored receipts could retain stale detector metadata.
+Independent review of PR #3538 identified that `sourceField` claims every possible Awin source field for each candidate rather than the specific field that supplied the matching signal.
 
-## Binding ruling
+## Reproduction
 
-`ARB-t_1b8847f3-E3-01` authorizes only these repairs:
+`npx vitest run scripts/merch-engine/awin-directory-shortlist.test.ts`
 
-- Preserve an emitted authoring artifact, cache receipt, and upload when the authoring step fails after writing its artifact; do not mask the authoring failure.
-- On every run, merge the fresh detector metadata and unscored values into the receipt while retaining cached judgments.
-- Keep the manual confirmation, Actions-only secret use, $5 cap, and no-product-write constraints unchanged.
+The focused suite passes (7/7), but it only verifies the generic provenance string. It does not construct programme records with competing display URL, primary domain, valid-domain, and name signals, so it cannot prove the emitted field is factual.
 
-The reviewer-round cap forbids a third Codex review. Required verification is the focused E3 tests, workflow YAML validation, and the full suite once. The PR body must cite both review objections and this ruling.
+## Root cause
+
+`scripts/merch-engine/awin-directory-shortlist.mjs` collapses candidate domain values to bare hostnames in `sourceHostnames()`. Once a hostname is returned, the later exact/suffix/manual-review code retains no metadata about whether it originated in `displayUrl`, `primaryDomain`, `validDomains`, `domains`, or an advertiser name. `candidateRow()` therefore emits a static union of possible fields, including `name`, for every programme.
+
+## Scope-preserving repair direction
+
+Represent each supported candidate signal as `{ value, sourceField, kind }`; retain that record through exact and suffix matching; for manual review emit the concrete name or domain field that triggered the normalized-key/suffix candidate. Add fixtures with conflicting supported fields and assert precise output provenance. Preserve manual-review-only classification, US-sector eligibility, feed status, and the Awin-origin/pagination protections.
+
+## Review history
+
+- Round 1: pagination dropped `countryCode=US` and `relationship` after an Awin next-page URL. Fixed and covered by page-two query assertions.
+- Round 2: provenance source field is ambiguous. Per `CLAUDE.md`, no third review attempt proceeds without the debug ladder/Fable ruling.

@@ -100,7 +100,8 @@ describe('Awin directory shortlist', () => {
       }),
     ]);
     expect(report.manualReview[0]).toMatchObject({
-      sourceField: 'programmeInfo.name/displayUrl/primaryDomain/validDomains/domains',
+      sourceField: 'name',
+      sourceHostname: null,
       matchEvidence:
         'Awin programme name or domain shares a normalized key or suffix with retailer',
     });
@@ -180,6 +181,68 @@ describe('Awin directory shortlist', () => {
     );
   });
 
+  it('records the precise Awin field that supplied each matching signal', () => {
+    const report = buildShortlist({
+      catalogue: [
+        { retailer: 'exact-source.com', item: 'Exact' },
+        { retailer: 'us.suffix-source.com', item: 'Suffix' },
+        { retailer: 'name-source.com', item: 'Name' },
+      ],
+      programmes: [
+        {
+          id: 10,
+          name: 'Different Name',
+          displayUrl: 'https://exact-source.com',
+          primaryDomain: 'primary-source.com',
+          validDomains: [{ domain: 'valid-source.com' }],
+          domains: [{ domain: 'domain-source.com' }],
+          primaryRegion: { countryCode: 'US' },
+          primarySector: 'Fashion/Clothing',
+          relationship: 'notjoined',
+        },
+        {
+          id: 11,
+          name: 'Another Name',
+          displayUrl: 'https://unrelated-source.com',
+          primaryDomain: 'suffix-source.com',
+          primaryRegion: { countryCode: 'US' },
+          primarySector: 'Beauty',
+          relationship: 'notjoined',
+        },
+        {
+          id: 12,
+          name: 'Name Source',
+          displayUrl: 'https://unrelated-name-source.com',
+          primaryRegion: { countryCode: 'US' },
+          primarySector: 'Accessories/Jewelry',
+          relationship: 'notjoined',
+        },
+      ],
+      feedAdvertiserIds: new Set(),
+      generatedAt: '2026-08-30T00:00:00.000Z',
+    });
+
+    expect(report.matches).toEqual([
+      expect.objectContaining({
+        currentRetailer: 'exact-source.com',
+        sourceField: 'displayUrl',
+        sourceHostname: 'exact-source.com',
+      }),
+      expect.objectContaining({
+        currentRetailer: 'us.suffix-source.com',
+        sourceField: 'primaryDomain',
+        sourceHostname: 'suffix-source.com',
+      }),
+    ]);
+    expect(report.manualReview).toEqual([
+      expect.objectContaining({
+        currentRetailer: 'name-source.com',
+        sourceField: 'name',
+        sourceHostname: null,
+      }),
+    ]);
+  });
+
   it('renders durable CSV and Markdown with the requested provenance fields', () => {
     const report = buildShortlist({
       catalogue,
@@ -206,8 +269,7 @@ describe('Awin directory shortlist', () => {
         ok: true,
         json: async () => ({ programmes: [{ id: second ? 2 : 1 }] }),
         headers: {
-          get: () =>
-            second ? null : '<https://api.awin.com/publishers/99/programmes?page=2>; rel="next"',
+          get: () => (second ? null : '<?page=2>; rel="next"'),
         },
       };
     };
@@ -224,6 +286,7 @@ describe('Awin directory shortlist', () => {
       { id: 2, relationship: 'notjoined' },
     ]);
     expect(calls).toHaveLength(2);
+    expect(new URL(calls[1]).pathname).toBe('/publishers/99/programmes');
     expect(
       calls.every((url) => {
         const query = new URL(url).searchParams;
