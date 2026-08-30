@@ -1,0 +1,92 @@
+# E3 vision authoring is deliberately a manually confirmed, artifact-only lane.
+# The runner's committed pre-call reservation cap is $5; it never writes product data.
+name: merch-audit-authoring
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type RUN_AUTHORED_VISION_AUDIT to allow this capped vision audit'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: merch-audit-authoring
+  cancel-in-progress: false
+
+jobs:
+  author:
+    if: ${{ inputs.confirmation == 'RUN_AUTHORED_VISION_AUDIT' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      # Restore the newest completed receipt so previously judged pairs remain cached.
+      - uses: actions/cache/restore@v5
+        with:
+          path: .cache/merch-audit-authoring.json
+          key: merch-audit-authoring-v1-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            merch-audit-authoring-v1-${{ github.ref_name }}-
+      - name: Build the deterministic detector queue
+        run: npx tsx scripts/merch-engine/audit-matches.mjs --detect --write-queue .artifacts/merch-audit-queue.json
+      - name: Initialize or refresh the authoring receipt
+        run: |
+          node --input-type=module <<'NODE'
+          import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+
+          const queue = JSON.parse(readFileSync('.artifacts/merch-audit-queue.json', 'utf8'));
+          const cachePath = '.cache/merch-audit-authoring.json';
+          const previous = existsSync(cachePath)
+            ? JSON.parse(readFileSync(cachePath, 'utf8'))
+            : { judgments: [] };
+          const detectorReceipt = {
+            records: queue.queue.length + queue.reused.length + queue.unscored.length,
+            queued: queue.queue.length,
+            reused: queue.reused.length,
+            unscored: queue.unscored.length,
+          };
+          const receipt = {
+            ...previous,
+            schemaVersion: 1,
+            providerModel: 'claude-sonnet-5',
+            thinking: 'disabled',
+            detectorReceipt, unscored: queue.unscored,
+            judgments: Array.isArray(previous.judgments) ? previous.judgments : [],
+          };
+          mkdirSync('.cache', { recursive: true });
+          writeFileSync(cachePath, `${JSON.stringify(receipt, null, 2)}\n`);
+          NODE
+      - name: Run capped vision authoring
+        id: author
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/merch-engine/audit-matches-authoring.mjs --receipt .cache/merch-audit-authoring.json --queue .artifacts/merch-audit-queue.json --write .artifacts/merch-audit-authoring.json
+      - name: Update the reusable authoring receipt
+        if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.artifacts/merch-audit-authoring.json') != '' }}
+        run: cp .artifacts/merch-audit-authoring.json .cache/merch-audit-authoring.json
+      - uses: actions/cache/save@v5
+        if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.cache/merch-audit-authoring.json') != '' }}
+        with:
+          path: .cache/merch-audit-authoring.json
+          key: merch-audit-authoring-v1-${{ github.ref_name }}-${{ github.run_id }}
+      - name: Upload auditable authoring artifact
+        if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.artifacts/merch-audit-authoring.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: merch-audit-authoring-artifact
+          path: |
+            .artifacts/merch-audit-queue.json
+            .artifacts/merch-audit-authoring.json
+          if-no-files-found: error
+          retention-days: 90
