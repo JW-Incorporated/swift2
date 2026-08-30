@@ -37,10 +37,14 @@ jobs:
           AWIN_API_TOKEN: ${{ secrets.AWIN_API_TOKEN }}
           AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}
         run: npx tsx scripts/merch-engine/sync-awin-programmes.mjs
+      - name: Regenerate affiliate coverage
+        run: npx tsx scripts/merch-engine/affiliate-coverage.mjs
       - name: Open gated advertiser-map update
         uses: peter-evans/create-pull-request@v7
         with:
-          add-paths: apps/web/lib/longlive/awin-advertisers.json
+          add-paths: |
+            apps/web/lib/longlive/awin-advertisers.json
+            docs/ops/AFFILIATE-COVERAGE.md
           branch: merch-revenue/awin-advertiser-map
           commit-message: 'chore(merch): refresh Awin advertiser map'
           title: 'chore(merch): refresh Awin advertiser map'

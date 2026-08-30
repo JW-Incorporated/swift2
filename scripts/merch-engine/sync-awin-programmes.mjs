@@ -65,18 +65,48 @@ export function jitterDelay(random = Math.random) {
   return 10_000 + Math.floor(Math.max(0, Math.min(0.999999, random())) * 110_001);
 }
 
+function nextPageUrl(link) {
+  const next = link?.split(',').find((part) => /\brel="?next"?/i.test(part));
+  return next?.match(/<([^>]+)>/)?.[1] ?? null;
+}
+
+function validatedPageUrl(value) {
+  const url = new URL(value, PROGRAMMES_URL);
+  if (url.protocol !== 'https:' || url.origin !== 'https://api.awin.com') {
+    throw new Error('Awin programme pagination must remain on the Awin API origin');
+  }
+  return url.toString();
+}
+
 async function retailersFromCatalogue() {
   const { MERCH_CATALOGUE } = await import('../../apps/web/lib/longlive/merch.ts');
   return new Set(Object.values(MERCH_CATALOGUE).flat().map((product) => product.retailer));
 }
 
-async function requestProgrammes({ publisherId, token, relationship, fetchImpl = fetch }) {
-  const url = new URL(PROGRAMMES_URL.replace('{publisherId}', encodeURIComponent(publisherId)));
+async function requestProgrammePage({ publisherId, token, relationship, pageUrl, fetchImpl = fetch }) {
+  const url = pageUrl ? new URL(pageUrl) : new URL(PROGRAMMES_URL.replace('{publisherId}', encodeURIComponent(publisherId)));
   if (relationship) url.searchParams.set('relationship', relationship);
   const response = await fetchImpl(url, { headers: { authorization: `Bearer ${token}`, accept: 'application/json' } });
   if (!response.ok) throw new Error(`Awin programme request failed (${response.status})`);
   const payload = await response.json();
-  return Array.isArray(payload) ? payload : payload?.programmes ?? payload?.data ?? [];
+  return {
+    programmes: Array.isArray(payload) ? payload : payload?.programmes ?? payload?.data ?? [],
+    next: nextPageUrl(response.headers.get('link')),
+  };
+}
+
+export async function requestProgrammes(options) {
+  const programmes = [];
+  const seen = new Set();
+  let pageUrl = null;
+  do {
+    const page = await requestProgrammePage({ ...options, pageUrl });
+    programmes.push(...page.programmes);
+    pageUrl = page.next ? validatedPageUrl(page.next) : null;
+    if (pageUrl && seen.has(pageUrl)) throw new Error('Awin programme pagination repeated a page URL');
+    if (pageUrl) seen.add(pageUrl);
+  } while (pageUrl);
+  return programmes;
 }
 
 function required(value, name) {

@@ -1,14 +1,26 @@
 import { readFileSync } from 'node:fs';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
 import {
   buildAdvertiserDirectory,
   jitterDelay,
+  requestProgrammes,
 } from './sync-awin-programmes.mjs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
-import { buildFeedSyncPlan, fetchChangedFeeds, parseFeedList, rowsFromCsv } from './sync-awin-feeds.mjs';
+import {
+  buildFeedDirectorySyncPlan,
+  buildFeedSyncPlan,
+  fetchChangedFeeds,
+  parseFeedList,
+  removedFeedIds,
+  rowsFromCsv,
+  writeSqlite,
+} from './sync-awin-feeds.mjs';
 
 describe('E0 Awin sync', () => {
   it('generates a hostname map only for joined programmes and retains unmatched advertisers as apply candidates', () => {
@@ -46,6 +58,98 @@ describe('E0 Awin sync', () => {
         cache: { feeds: { unchanged: '2026-08-29T00:00:00.000Z', changed: '2026-08-29T00:00:00.000Z' } },
       }),
     ).toEqual([{ feedId: 'changed', updatedAt: '2026-08-30T00:00:00.000Z' }]);
+  });
+
+  it('follows each documented next-page link while reading the programme directory', async () => {
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify([{ id: 1 }]), { headers: { link: '<https://api.awin.com/programmes?page=2>; rel="next"' } }))
+      .mockResolvedValueOnce(new Response(JSON.stringify([{ id: 2 }])));
+
+    await expect(requestProgrammes({ publisherId: '123', token: 'test-token', fetchImpl })).resolves.toEqual([{ id: 1 }, { id: 2 }]);
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(new URL(fetchImpl.mock.calls[1][0]).searchParams.get('page')).toBe('2');
+  });
+
+  it('rejects programme pagination links outside the Awin API origin', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(new Response(JSON.stringify([{ id: 1 }]), { headers: { link: '<https://outside.example/programmes?page=2>; rel="next"' } }));
+
+    await expect(requestProgrammes({ publisherId: '123', token: 'test-token', fetchImpl })).rejects.toThrow('Awin programme pagination must remain on the Awin API origin');
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+  });
+
+  it('identifies feeds removed from the latest directory', () => {
+    expect(
+      removedFeedIds({
+        feeds: [{ feedId: 'still-here', updatedAt: '2026-08-30', downloadUrl: 'https://feeds.example/still-here.csv' }],
+        cache: { feeds: { 'still-here': '2026-08-30', removed: '2026-08-29' } },
+      }),
+    ).toEqual(['removed']);
+  });
+
+  it('does not treat a malformed successful directory response as feed removals', () => {
+    expect(
+      buildFeedDirectorySyncPlan({
+        csv: '<html>temporary upstream error</html>',
+        cache: { feeds: { current: '2026-08-30', retained: '2026-08-29' } },
+      }),
+    ).toEqual({ complete: false, feeds: [], changed: [], removed: [] });
+  });
+
+  it('does not treat an incomplete directory row as a feed removal', () => {
+    expect(
+      buildFeedDirectorySyncPlan({
+        csv: 'feed id,last imported,url,advertiser id\ncurrent,2026-08-30,https://feeds.example/current.csv,100\nretained,2026-08-29',
+        cache: { feeds: { current: '2026-08-30', retained: '2026-08-29' } },
+      }),
+    ).toEqual({
+      complete: false,
+      feeds: [{ feedId: 'current', updatedAt: '2026-08-30', downloadUrl: 'https://feeds.example/current.csv', advertiserMid: '100' }],
+      changed: [],
+      removed: [],
+    });
+  });
+
+  it('removes cached feeds absent from a complete directory response', () => {
+    expect(
+      buildFeedDirectorySyncPlan({
+        csv: 'feed id,last imported,url,advertiser id\ncurrent,2026-08-31,https://feeds.example/current.csv,100',
+        cache: { feeds: { current: '2026-08-30', removed: '2026-08-29' } },
+      }),
+    ).toEqual({
+      complete: true,
+      feeds: [{ feedId: 'current', updatedAt: '2026-08-31', downloadUrl: 'https://feeds.example/current.csv', advertiserMid: '100' }],
+      changed: [{ feedId: 'current', updatedAt: '2026-08-31', downloadUrl: 'https://feeds.example/current.csv', advertiserMid: '100' }],
+      removed: ['removed'],
+    });
+  });
+
+  it('updates the cached feed directory only after the index update succeeds', () => {
+    const script = readFileSync('scripts/merch-engine/sync-awin-feeds.mjs', 'utf8');
+    expect(script.indexOf('await writeSqlite')).toBeLessThan(script.indexOf('await writeFile(cacheTarget'));
+  });
+
+  const sqliteSupported = Number(process.versions.node.split('.')[0]) >= 22;
+  (sqliteSupported ? it : it.skip)('removes absent feeds and keeps FTS lookups linked to refreshed products', async () => {
+    const directory = await mkdtemp(join(tmpdir(), 'awin-feed-index-'));
+    const indexPath = join(directory, 'index.sqlite');
+    try {
+      await writeSqlite(indexPath, [
+        { feedId: 'current', advertiserMid: '100', productId: 'dress', title: 'Original Dress', description: '', brand: '', updatedAt: '2026-08-30' },
+        { feedId: 'removed', advertiserMid: '200', productId: 'gone', title: 'Gone Product', description: '', brand: '', updatedAt: '2026-08-30' },
+      ], ['current', 'removed']);
+      await writeSqlite(indexPath, [
+        { feedId: 'current', advertiserMid: '100', productId: 'dress', title: 'Updated Dress', description: '', brand: '', updatedAt: '2026-08-31' },
+      ], ['current', 'removed']);
+
+      const { DatabaseSync } = await import('node:sqlite');
+      const database = new DatabaseSync(indexPath);
+      expect(database.prepare("SELECT product_key FROM products_fts WHERE products_fts MATCH 'Updated'").all()).toEqual([{ product_key: 'current:dress' }]);
+      expect(database.prepare("SELECT product_key FROM products_fts WHERE products_fts MATCH 'Gone'").all()).toEqual([]);
+      database.close();
+    } finally {
+      await rm(directory, { force: true, recursive: true });
+    }
   });
 
   it('keeps quoted multiline CSV fields inside their original product record', () => {
@@ -103,6 +207,7 @@ describe('E0 Awin sync', () => {
     expect(workflow).toContain('actions/cache/save@v4');
     expect(workflow).toContain('sync-awin-programmes.mjs');
     expect(workflow).toContain('npx tsx scripts/merch-engine/sync-awin-programmes.mjs');
+    expect(workflow).toContain('npx tsx scripts/merch-engine/affiliate-coverage.mjs');
     expect(workflow).toContain('sync-awin-feeds.mjs');
     expect(workflow).toContain('AWIN_API_TOKEN: ${{ secrets.AWIN_API_TOKEN }}');
     expect(workflow).toContain('AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}');
@@ -112,6 +217,7 @@ describe('E0 Awin sync', () => {
     expect(workflow).toContain('merch-revenue/awin-advertiser-map');
     expect(workflow).toContain('token: ${{ secrets.SOCIAL_POSTER_PAT }}');
     expect(workflow).toContain('apps/web/lib/longlive/awin-advertisers.json');
+    expect(workflow).toContain('docs/ops/AFFILIATE-COVERAGE.md');
     expect(readFileSync('scripts/merch-engine/sync-awin-programmes.mjs', 'utf8')).not.toContain("relationship: 'any'");
   });
 });
