@@ -2,6 +2,8 @@
 // E5 detection is deliberately zero-LLM: it gathers candidates and files issues.
 // The separate judged curation lane calls curateCandidate before any seed authoring.
 
+import { mkdir, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import {
   ETSY_QUERIES,
@@ -134,36 +136,57 @@ async function json(fetchImpl, url, options) {
   return response.json();
 }
 
-async function discoverEtsy({ etsyApiKey, fetchImpl, now }) {
-  if (!etsyApiKey) return [];
+function isEligibleEtsyListing(listing, query, now) {
+  const candidate = normalizeEtsyListing(listing, query, now);
+  const amount = Number(listing?.price?.amount);
+  const divisor = Number(listing?.price?.divisor);
+  const dollars = divisor > 0 ? amount / divisor : NaN;
+  const reviewSignal = Number(listing?.shop?.review_count ?? listing?.shop?.transaction_count);
+  return candidate.url &&
+    candidate.item &&
+    candidate.brand &&
+    candidate.price &&
+    candidate.imageUrl &&
+    listing?.shop?.is_vacation === false &&
+    Number.isFinite(reviewSignal) && reviewSignal > 0 &&
+    Number.isFinite(dollars) && dollars >= 2 && dollars <= 500
+    ? candidate
+    : null;
+}
+
+export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now = new Date().toISOString(), queries = ETSY_QUERIES, requireCredentials = false } = {}) {
+  if (!etsyApiKey) {
+    if (requireCredentials) throw new Error('Etsy API credentials are required');
+    return { rawQueries: [], candidates: [] };
+  }
   const candidates = [];
-  for (const query of ETSY_QUERIES) {
+  const rawQueries = [];
+  for (const query of queries) {
     const url = new URL('https://openapi.etsy.com/v3/application/listings/active');
     url.searchParams.set('keywords', query);
     url.searchParams.set('sort_on', 'created');
     url.searchParams.set('sort_order', 'desc');
     url.searchParams.set('limit', '25');
-    url.searchParams.set('includes', 'Images,Shop');
     const payload = await json(fetchImpl, url, { headers: { 'x-api-key': etsyApiKey } });
-    for (const listing of payload.results || []) {
-      const candidate = normalizeEtsyListing(listing, query, now);
-      const amount = Number(listing?.price?.amount);
-      const divisor = Number(listing?.price?.divisor);
-      const dollars = divisor > 0 ? amount / divisor : NaN;
-      const reviewSignal = Number(listing?.shop?.review_count ?? listing?.shop?.transaction_count);
-      if (
-        candidate.url &&
-        candidate.item &&
-        candidate.brand &&
-        candidate.price &&
-        candidate.imageUrl &&
-        listing?.shop?.is_vacation === false &&
-        Number.isFinite(reviewSignal) && reviewSignal > 0 &&
-        Number.isFinite(dollars) && dollars >= 2 && dollars <= 500
-      ) candidates.push(candidate);
+    const listings = [];
+    for (const searchResult of (payload.results || []).slice(0, 25)) {
+      if (!searchResult?.listing_id) continue;
+      const detailUrl = new URL(`https://openapi.etsy.com/v3/application/listings/${searchResult.listing_id}`);
+      detailUrl.searchParams.set('includes', 'Images,Shop');
+      const listing = await json(fetchImpl, detailUrl, { headers: { 'x-api-key': etsyApiKey } });
+      listings.push(listing);
+      const candidate = isEligibleEtsyListing(listing, query, now);
+      if (!candidate) continue;
+      candidates.push(candidate);
     }
+    rawQueries.push({ query, results: listings });
   }
-  return candidates;
+  return { rawQueries, candidates };
+}
+
+async function discoverEtsy({ etsyApiKey, fetchImpl, now }) {
+  const evidence = await collectEtsyEvidence({ etsyApiKey, fetchImpl, now });
+  return evidence.candidates;
 }
 
 async function discoverReddit({ fetchImpl }) {
@@ -393,6 +416,18 @@ async function main() {
   const repository = process.env.GITHUB_REPOSITORY;
   const token = process.env.GH_TOKEN;
   const etsyApiKey = etsyApiKeyFromEnv();
+  if (process.argv.includes('--e5-evidence')) {
+    const outputDir = process.env.E5_EVIDENCE_DIR;
+    if (!outputDir) throw new Error('E5_EVIDENCE_DIR is required when collecting manual E5 evidence');
+    const evidence = await collectEtsyEvidence({ etsyApiKey, requireCredentials: true });
+    await mkdir(outputDir, { recursive: true });
+    await Promise.all(evidence.rawQueries.map((rawQuery, index) => writeFile(
+      join(outputDir, `query-${index}.json`),
+      `${JSON.stringify(rawQuery, null, 2)}\n`,
+    )));
+    console.log(JSON.stringify({ candidates: evidence.candidates }, null, 2));
+    return;
+  }
   const submissions = await githubIssues({ repository, token, label: SUBMISSION_LABEL, fetchImpl: fetch });
   const discovery = await discoverCandidates({ etsyApiKey, submissions });
   const revalidation = await reverifyFanmadeListings({ etsyApiKey });

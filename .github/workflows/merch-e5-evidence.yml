@@ -32,30 +32,10 @@ jobs:
           ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
           ETSY_SHARED_SECRET: ${{ secrets.ETSY_SHARED_SECRET }}
         run: |
-          set -euo pipefail
-          mkdir -p .artifacts/merch-e5-evidence/raw
-          queries=(
-            'Taylor Swift inspired'
-            'Swiftie bracelet'
-            'Eras Tour inspired'
-            'folklore inspired'
-            'Midnights inspired'
-          )
-          for index in "${!queries[@]}"; do
-            curl --fail --silent --show-error --get 'https://openapi.etsy.com/v3/application/listings/active' \
-              --data-urlencode "keywords=${queries[$index]}" \
-              --data-urlencode 'sort_on=created' \
-              --data-urlencode 'sort_order=desc' \
-              --data-urlencode 'limit=100' \
-              --data-urlencode 'includes=Images,Shop' \
-              --header "x-api-key: ${ETSY_API_KEY}:${ETSY_SHARED_SECRET}" \
-              --output ".artifacts/merch-e5-evidence/raw/query-${index}.json"
-          done
-      - name: Build the deterministic candidate receipt
-        env:
-          ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
-          ETSY_SHARED_SECRET: ${{ secrets.ETSY_SHARED_SECRET }}
-        run: node scripts/merch-engine/fanmade-discovery.mjs > .artifacts/merch-e5-evidence/candidates.json
+          mkdir -p .artifacts/merch-e5-evidence
+          E5_EVIDENCE_DIR=.artifacts/merch-e5-evidence/raw \
+            node scripts/merch-engine/fanmade-discovery.mjs --e5-evidence \
+            > .artifacts/merch-e5-evidence/candidates.json
       - name: Upload auditable E5 evidence artifact
         uses: actions/upload-artifact@v4
         with:

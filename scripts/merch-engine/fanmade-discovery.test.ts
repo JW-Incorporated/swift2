@@ -1,20 +1,68 @@
 import { describe, expect, it, vi } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
-import { curateCandidate, discoverCandidates, fileReverificationIssues, normalizeEtsyListing, normalizeRedditPost, normalizeSubmission, reverifyFanmadeListings } from './fanmade-discovery.mjs';
+import { collectEtsyEvidence, curateCandidate, discoverCandidates, fileReverificationIssues, normalizeEtsyListing, normalizeRedditPost, normalizeSubmission, reverifyFanmadeListings } from './fanmade-discovery.mjs';
 
 describe('fan-made discovery', () => {
+  it('collects bounded Etsy searches then enriches each listing with shop and image evidence', async () => {
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('/listings/active')) {
+        return new Response(JSON.stringify({ results: [{ listing_id: 42 }] }), { status: 200 });
+      }
+      if (url.includes('/listings/42')) {
+        return new Response(JSON.stringify({
+          listing_id: 42,
+          title: 'Original lavender lyric bracelet',
+          url: 'https://www.etsy.com/listing/42/original-bracelet',
+          price: { amount: 2800, divisor: 100, currency_code: 'USD' },
+          shop: { shop_name: 'LavenderMaker', is_vacation: false, review_count: 12 },
+          images: [{ url_fullxfull: 'https://images.example.test/bracelet.jpg' }],
+        }), { status: 200 });
+      }
+      throw new Error(`unexpected URL: ${url}`);
+    });
+
+    await expect(collectEtsyEvidence({
+      etsyApiKey: 'test-key', fetchImpl, queries: ['Taylor Swift inspired'], now: '2026-08-30T00:00:00Z',
+    })).resolves.toEqual(expect.objectContaining({
+      candidates: [expect.objectContaining({ brand: 'LavenderMaker', imageUrl: 'https://images.example.test/bracelet.jpg' })],
+      rawQueries: [expect.objectContaining({ query: 'Taylor Swift inspired', results: [expect.objectContaining({ shop: expect.any(Object), images: expect.any(Array) })] })],
+    }));
+    const [searchUrl, detailUrl] = fetchImpl.mock.calls.map(([url]) => new URL(url));
+    expect(searchUrl.pathname).toBe('/v3/application/listings/active');
+    expect(searchUrl.searchParams.has('includes')).toBe(false);
+    expect(searchUrl.searchParams.get('limit')).toBe('25');
+    expect(detailUrl.pathname).toBe('/v3/application/listings/42');
+    expect(detailUrl.searchParams.get('includes')).toBe('Images,Shop');
+  });
+
+  it('preserves incomplete Etsy detail evidence while failing it closed for candidates', async () => {
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('/listings/active')) return new Response(JSON.stringify({ results: [{ listing_id: 42 }] }), { status: 200 });
+      return new Response(JSON.stringify({ listing_id: 42, title: 'Incomplete listing', url: 'https://www.etsy.com/listing/42/incomplete' }), { status: 200 });
+    });
+
+    await expect(collectEtsyEvidence({ etsyApiKey: 'test-key', fetchImpl, queries: ['Taylor Swift inspired'] })).resolves.toMatchObject({
+      candidates: [], rawQueries: [{ results: [expect.objectContaining({ listing_id: 42, title: 'Incomplete listing' })] }],
+    });
+  });
+
+  it('requires Etsy credentials when collecting the manual E5 artifact', async () => {
+    await expect(collectEtsyEvidence({ requireCredentials: true })).rejects.toThrow('Etsy API credentials are required');
+  });
+
   it('collects Etsy, Reddit, and submission candidates with durable provenance and URL dedupe', async () => {
     const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('/listings/active')) return new Response(JSON.stringify({ results: [{ listing_id: 42 }] }), { status: 200 });
       if (url.includes('openapi.etsy.com')) {
-        return new Response(JSON.stringify({ results: [{
+        return new Response(JSON.stringify({
           listing_id: 42,
           title: 'Original lavender lyric bracelet',
           url: 'https://www.etsy.com/listing/42/original-bracelet?utm_source=etsy',
           price: { amount: 2800, divisor: 100, currency_code: 'USD' },
           shop: { shop_name: 'LavenderMaker', is_vacation: false, review_count: 12 },
           images: [{ url_fullxfull: 'https://images.example.test/bracelet.jpg' }],
-        }] }), { status: 200 });
+        }), { status: 200 });
       }
       if (url.includes('reddit.com')) {
         return new Response(JSON.stringify({ data: { children: [{ data: {
@@ -54,15 +102,16 @@ describe('fan-made discovery', () => {
 
   it('deduplicates Etsy listings when a non-UTM tracking parameter is present', async () => {
     const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('/listings/active')) return new Response(JSON.stringify({ results: [{ listing_id: 42 }] }), { status: 200 });
       if (url.includes('openapi.etsy.com')) {
-        return new Response(JSON.stringify({ results: [{
+        return new Response(JSON.stringify({
           listing_id: 42,
           title: 'Original lavender lyric bracelet',
           url: 'https://www.etsy.com/listing/42/original-bracelet?click_key=campaign',
           price: { amount: 2800, divisor: 100, currency_code: 'USD' },
           shop: { shop_name: 'LavenderMaker', is_vacation: false, review_count: 12 },
           images: [{ url_fullxfull: 'https://images.example.test/bracelet.jpg' }],
-        }] }), { status: 200 });
+        }), { status: 200 });
       }
       return new Response(JSON.stringify({ data: { children: [{ data: {
         id: 'reddit-1', title: 'Found it', url: 'https://www.etsy.com/listing/42/original-bracelet',
