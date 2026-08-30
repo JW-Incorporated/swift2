@@ -7,7 +7,8 @@ import { buildShortlist, formatCsv, formatMarkdown } from './awin-directory-shor
 const catalogue = [
   { retailer: 'exact-shop.com', item: 'Exact dress' },
   { retailer: 'exact-shop.com', item: 'Exact skirt' },
-  { retailer: 'free-people.com', item: 'Normalized top' },
+  { retailer: 'free-people.com', item: 'Manual-review top' },
+  { retailer: 'us.suffix-shop.com', item: 'Suffix dress' },
   { retailer: 'review-shop.com', item: 'Review bag' },
   { retailer: 'unmatched-shop.com', item: 'Unmatched shoes' },
 ];
@@ -35,7 +36,7 @@ const programmes = [
     name: 'Review Shop',
     displayUrl: 'https://different-host.com',
     primaryRegion: { countryCode: 'US' },
-    relationship: 'not joined',
+    relationship: 'notjoined',
     sectors: ['Beauty'],
   },
   {
@@ -46,10 +47,18 @@ const programmes = [
     relationship: 'joined',
     sectors: ['Home'],
   },
+  {
+    id: 6,
+    name: 'Suffix Shop',
+    validDomains: [{ domain: 'suffix-shop.com' }],
+    primaryRegion: { countryCode: 'US' },
+    relationship: 'joined',
+    sectors: ['Fashion/Clothing'],
+  },
 ];
 
 describe('Awin directory shortlist', () => {
-  it('ranks exact matches before unique normalized matches, then keeps name-only candidates for review', () => {
+  it('ranks exact matches before unique domain-suffix matches, then keeps weaker signals for review', () => {
     const report = buildShortlist({
       catalogue,
       programmes,
@@ -57,12 +66,13 @@ describe('Awin directory shortlist', () => {
       generatedAt: '2026-08-30T00:00:00.000Z',
     });
 
-    expect(report.summary).toEqual({ exact: 1, normalized: 1, manualReview: 1, unmatched: 1 });
+    expect(report.summary).toEqual({ exact: 1, domainSuffix: 1, manualReview: 2, unmatched: 1 });
     expect(report.matches.map((row: { currentRetailer: string; matchType: string; productCount: number; feedAvailable: boolean }) => [row.currentRetailer, row.matchType, row.productCount, row.feedAvailable])).toEqual([
       ['exact-shop.com', 'exact-hostname', 2, true],
-      ['free-people.com', 'normalized-domain', 1, false],
+      ['us.suffix-shop.com', 'domain-suffix', 1, false],
     ]);
     expect(report.manualReview).toEqual([
+      expect.objectContaining({ currentRetailer: 'free-people.com', awinAdvertiserId: '2', matchType: 'manual-review', feedAvailable: false }),
       expect.objectContaining({ currentRetailer: 'review-shop.com', awinAdvertiserId: '3', matchType: 'manual-review', feedAvailable: true }),
     ]);
     expect(report.unmatched).toEqual([
@@ -70,10 +80,13 @@ describe('Awin directory shortlist', () => {
     ]);
   });
 
-  it('does not invent a normalized match when multiple eligible advertisers share the same normalized domain', () => {
+  it('does not invent a domain-suffix match when multiple eligible advertisers share the same suffix', () => {
     const report = buildShortlist({
-      catalogue: [{ retailer: 'free-people.com', item: 'Top' }],
-      programmes: [programmes[1], { ...programmes[1], id: 5, name: 'Free People', displayUrl: 'https://free--people.com' }],
+      catalogue: [{ retailer: 'shop.brand.com', item: 'Top' }],
+      programmes: [
+        { ...programmes[1], id: 2, name: 'Brand', displayUrl: 'https://brand.com' },
+        { ...programmes[1], id: 5, name: 'Brand Shop', displayUrl: 'https://sub.shop.brand.com' },
+      ],
       feedAdvertiserIds: new Set(),
       generatedAt: '2026-08-30T00:00:00.000Z',
     });
@@ -82,17 +95,31 @@ describe('Awin directory shortlist', () => {
     expect(report.manualReview.map((row: { awinAdvertiserId: string }) => row.awinAdvertiserId)).toEqual(['2', '5']);
   });
 
+  it('does not treat cross-TLD or prefix-adjacent domains as automatic matches', () => {
+    const report = buildShortlist({
+      catalogue: [{ retailer: 'brand.com', item: 'Top' }, { retailer: 'notbrand.com', item: 'Bag' }],
+      programmes: [{ ...programmes[1], id: 7, name: 'Brand', displayUrl: 'https://brand.co' }],
+      feedAdvertiserIds: new Set(),
+      generatedAt: '2026-08-30T00:00:00.000Z',
+    });
+
+    expect(report.matches).toHaveLength(0);
+    expect(report.manualReview.map((row: { currentRetailer: string }) => row.currentRetailer)).toEqual(['brand.com']);
+    expect(report.unmatched.map((row: { currentRetailer: string }) => row.currentRetailer)).toEqual(['notbrand.com']);
+  });
+
   it('renders durable CSV and Markdown with the requested provenance fields', () => {
     const report = buildShortlist({ catalogue, programmes, feedAdvertiserIds: new Set(['1']), generatedAt: '2026-08-30T00:00:00.000Z' });
 
     expect(formatCsv(report)).toContain('current_retailer,product_count,awin_advertiser_name,awin_advertiser_id,source_hostname,match_type,us_programme_status,product_feed_available');
-    expect(formatMarkdown(report)).toContain('## Exact hostname and normalized-domain matches');
+    expect(formatMarkdown(report)).toContain('## Exact hostname and domain-suffix matches');
     expect(formatMarkdown(report)).toContain('## Manual-review candidates');
     expect(formatMarkdown(report)).toContain('## Unmatched retailers');
   });
 
   it('keeps the execution lane manual, secret-bound, and artifact-only', () => {
     const workflow = readFileSync('.github/workflows/merch-awin-directory-shortlist.yml', 'utf8');
+    const collector = readFileSync('scripts/merch-engine/awin-directory-shortlist.mjs', 'utf8');
 
     expect(workflow).toMatch(/^on:\n\x20{2}workflow_dispatch:/m);
     expect(workflow).not.toMatch(/^\x20{2}(push|schedule):/m);
@@ -100,6 +127,8 @@ describe('Awin directory shortlist', () => {
     expect(workflow).toContain('AWIN_API_TOKEN: ${{ secrets.AWIN_API_TOKEN }}');
     expect(workflow).toContain('AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}');
     expect(workflow).toContain('AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}');
+    expect(workflow).toContain('npx tsx scripts/merch-engine/awin-directory-shortlist.mjs');
+    expect(collector).toContain("'notjoined'");
     expect(workflow).toContain('actions/upload-artifact');
     expect(workflow).toContain('merch-awin-directory-shortlist');
     expect(workflow).not.toMatch(/git (add|commit|push)|gh pr|supabase\/seed|social\//i);

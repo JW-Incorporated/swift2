@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PROGRAMMES_URL = 'https://api.awin.com/publishers/{publisherId}/programmes';
 const TARGET_SECTORS = ['Fashion/Clothing', 'Accessories/Jewelry', 'Beauty'];
-const RELATIONSHIPS = ['joined', 'pending', 'suspended', 'rejected', 'not joined'];
+const RELATIONSHIPS = ['joined', 'pending', 'suspended', 'rejected', 'notjoined'];
 
 function text(value) {
   return typeof value === 'string' && value.trim() ? value.trim() : null;
@@ -20,6 +20,12 @@ function hostname(value) {
   } catch {
     return null;
   }
+}
+
+function isDomainSuffixMatch(left, right) {
+  if (!left || !right || left === right) return false;
+  const [shorter, longer] = left.length <= right.length ? [left, right] : [right, left];
+  return shorter.includes('.') && longer.endsWith(`.${shorter}`);
 }
 
 function domainKey(value) {
@@ -121,23 +127,21 @@ export function buildShortlist({ catalogue = [], programmes = [], feedAdvertiser
     if (matches.length === 1) exactByRetailer.set(retailer.currentRetailer, matches[0]);
   }
   const usedIds = new Set([...exactByRetailer.values()].map(({ programme }) => programme.id));
-  const normalizedByRetailer = new Map();
+  const domainSuffixByRetailer = new Map();
   for (const retailer of retailers.filter((row) => !exactByRetailer.has(row.currentRetailer))) {
-    const key = domainKey(retailer.currentRetailer);
-    if (!key) continue;
     const matches = eligible
       .filter((programme) => !usedIds.has(programme.id))
-      .flatMap((programme) => programme.hosts.filter((host) => domainKey(host) === key).map((host) => ({ programme, host })));
-    if (matches.length === 1) normalizedByRetailer.set(retailer.currentRetailer, matches[0]);
+      .flatMap((programme) => programme.hosts.filter((host) => isDomainSuffixMatch(host, retailer.currentRetailer)).map((host) => ({ programme, host })));
+    if (matches.length === 1) domainSuffixByRetailer.set(retailer.currentRetailer, matches[0]);
   }
   const matches = [
     ...retailers.filter((row) => exactByRetailer.has(row.currentRetailer)).map((retailer) => {
       const match = exactByRetailer.get(retailer.currentRetailer);
       return candidateRow(retailer, match.programme, match.host, 'exact-hostname', feedAdvertiserIds);
     }),
-    ...retailers.filter((row) => normalizedByRetailer.has(row.currentRetailer)).map((retailer) => {
-      const match = normalizedByRetailer.get(retailer.currentRetailer);
-      return candidateRow(retailer, match.programme, match.host, 'normalized-domain', feedAdvertiserIds);
+    ...retailers.filter((row) => domainSuffixByRetailer.has(row.currentRetailer)).map((retailer) => {
+      const match = domainSuffixByRetailer.get(retailer.currentRetailer);
+      return candidateRow(retailer, match.programme, match.host, 'domain-suffix', feedAdvertiserIds);
     }),
   ];
   const matchedRetailers = new Set(matches.map((row) => row.currentRetailer));
@@ -146,7 +150,7 @@ export function buildShortlist({ catalogue = [], programmes = [], feedAdvertiser
     .flatMap((retailer) => {
       const retailerBrand = domainKey(retailer.currentRetailer);
       return eligible
-        .filter((programme) => brandKey(programme.name) === retailerBrand || programme.hosts.some((host) => domainKey(host) === retailerBrand))
+        .filter((programme) => brandKey(programme.name) === retailerBrand || programme.hosts.some((host) => domainKey(host) === retailerBrand || isDomainSuffixMatch(host, retailer.currentRetailer)))
         .map((programme) => candidateRow(retailer, programme, programme.hosts[0] ?? null, 'manual-review', feedAdvertiserIds));
     })
     .sort((left, right) => left.currentRetailer.localeCompare(right.currentRetailer) || left.awinAdvertiserId.localeCompare(right.awinAdvertiserId));
@@ -158,7 +162,7 @@ export function buildShortlist({ catalogue = [], programmes = [], feedAdvertiser
     generatedAt,
     source: 'Awin Publisher API GET programmes filtered by countryCode=US and target sectors',
     targetSectors: TARGET_SECTORS,
-    summary: { exact: matches.filter((row) => row.matchType === 'exact-hostname').length, normalized: matches.filter((row) => row.matchType === 'normalized-domain').length, manualReview: manualReview.length, unmatched: unmatched.length },
+    summary: { exact: matches.filter((row) => row.matchType === 'exact-hostname').length, domainSuffix: matches.filter((row) => row.matchType === 'domain-suffix').length, manualReview: manualReview.length, unmatched: unmatched.length },
     matches,
     manualReview,
     unmatched,
@@ -187,7 +191,7 @@ function table(rows) {
 
 export function formatMarkdown(report) {
   const heading = '| current retailer | product count | Awin advertiser name | Awin advertiser id | source hostname | match type | US/programme status | product feed available |\n| --- | ---: | --- | --- | --- | --- | --- | --- |';
-  return `# Awin US advertiser directory shortlist\n\nGenerated: ${report.generatedAt}\n\nTarget sectors: ${report.targetSectors.join(', ')}. This artifact is derived from the Awin Publisher API and does not contain affiliate links, product URLs, credentials, or feed contents.\n\n## Summary\n\n- Exact hostname matches: ${report.summary.exact}\n- Normalized-domain matches: ${report.summary.normalized}\n- Manual-review candidates: ${report.summary.manualReview}\n- Unmatched retailers: ${report.summary.unmatched}\n\n## Exact hostname and normalized-domain matches\n\n${heading}\n${table(report.matches)}\n\n## Manual-review candidates\n\nThese records share only a normalized name or domain signal. They are not join recommendations.\n\n${heading}\n${table(report.manualReview)}\n\n## Unmatched retailers\n\n${heading}\n${table(report.unmatched)}\n`;
+  return `# Awin US advertiser directory shortlist\n\nGenerated: ${report.generatedAt}\n\nTarget sectors: ${report.targetSectors.join(', ')}. This artifact is derived from the Awin Publisher API and does not contain affiliate links, product URLs, credentials, or feed contents.\n\n## Summary\n\n- Exact hostname matches: ${report.summary.exact}\n- Domain-suffix matches: ${report.summary.domainSuffix}\n- Manual-review candidates: ${report.summary.manualReview}\n- Unmatched retailers: ${report.summary.unmatched}\n\n## Exact hostname and domain-suffix matches\n\n${heading}\n${table(report.matches)}\n\n## Manual-review candidates\n\nThese records share only a normalized name or domain signal. They are not join recommendations.\n\n${heading}\n${table(report.manualReview)}\n\n## Unmatched retailers\n\n${heading}\n${table(report.unmatched)}\n`;
 }
 
 function parseFeedAdvertiserIds(csv) {

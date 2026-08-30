@@ -31,7 +31,7 @@ jobs:
           AWIN_API_TOKEN: ${{ secrets.AWIN_API_TOKEN }}
           AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}
           AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}
-        run: node scripts/merch-engine/awin-directory-shortlist.mjs --output .artifacts/merch-awin-directory-shortlist
+        run: npx tsx scripts/merch-engine/awin-directory-shortlist.mjs --output .artifacts/merch-awin-directory-shortlist
       - name: Upload Awin directory shortlist
         uses: actions/upload-artifact@v6
         with:
