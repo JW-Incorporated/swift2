@@ -33,6 +33,10 @@ function verifiedAmazonUrl(value) {
   }
 }
 
+function verifiedTwinUrl(verifiedAmazonTwins, sourceId) {
+  return verifiedAmazonTwins instanceof Map ? verifiedAmazonTwins.get(sourceId) : null;
+}
+
 function productsFromPlan(plan) {
   if (plan?.plan && typeof plan.plan === 'object') {
     return ['added', 'updated', 'discontinued'].flatMap((key) =>
@@ -49,7 +53,7 @@ function eraFor(collectionHandles, collectionEraMap) {
   return null;
 }
 
-export function authorOfficialCatalog({ plan, collectionEraMap = {}, verifiedAmazonTwins = new Set() } = {}) {
+export function authorOfficialCatalog({ plan, collectionEraMap = {}, verifiedAmazonTwins = new Map() } = {}) {
   const catalog = [];
   const rejected = [];
   for (const candidate of productsFromPlan(plan)) {
@@ -70,9 +74,9 @@ export function authorOfficialCatalog({ plan, collectionEraMap = {}, verifiedAma
     if (eraId) row.eraId = eraId;
     const twin = candidate?.altListing;
     if (
-      verifiedAmazonTwins.has(sourceId) &&
       twin?.retailer === 'amazon.com' &&
-      verifiedAmazonUrl(twin.url)
+      verifiedAmazonUrl(twin.url) &&
+      verifiedTwinUrl(verifiedAmazonTwins, sourceId) === twin.url
     ) row.altListing = { retailer: 'amazon.com', url: twin.url };
     catalog.push(row);
   }
@@ -80,6 +84,10 @@ export function authorOfficialCatalog({ plan, collectionEraMap = {}, verifiedAma
   return {
     catalog,
     rejected,
+    summary: {
+      eraAttributed: catalog.filter((row) => row.eraId).length,
+      verifiedAlternate: catalog.filter((row) => row.altListing).length,
+    },
     socialDraft: {
       type: 'merch-drop-draft',
       products: catalog.map(({ sourceId, item, url }) => ({ sourceId, item, url })),
@@ -112,6 +120,13 @@ async function readJson(path) {
   return JSON.parse(await readFile(resolve(path), 'utf8'));
 }
 
+function verifiedAmazonTwinsFrom(value) {
+  if (!value || Array.isArray(value) || typeof value !== 'object') return new Map();
+  return new Map(
+    Object.entries(value).filter(([sourceId, url]) => text(sourceId) && verifiedAmazonUrl(url)),
+  );
+}
+
 function option(args, name) {
   const index = args.indexOf(name);
   if (index < 0) return null;
@@ -129,17 +144,28 @@ async function writeModule(path, exportName, catalog) {
 async function main() {
   const args = process.argv.slice(2);
   const officialPlan = option(args, '--official-plan');
+  const collectionEraMapPath = option(args, '--collection-era-map');
+  const verifiedAmazonTwinsPath = option(args, '--verified-amazon-twins');
   const fanmadeCuration = option(args, '--fanmade-curation');
   const officialOut = option(args, '--write-official');
   const fanmadeOut = option(args, '--write-fanmade');
   if ((officialPlan && !officialOut) || (fanmadeCuration && !fanmadeOut) || (!officialPlan && !fanmadeCuration)) {
-    throw new Error('usage: author-catalogs.mjs [--official-plan plan.json --write-official official.mjs] [--fanmade-curation curation.json --write-fanmade fanmade.mjs]');
+    throw new Error('usage: author-catalogs.mjs [--official-plan plan.json --write-official official.mjs [--collection-era-map map.json] [--verified-amazon-twins twins.json]] [--fanmade-curation curation.json --write-fanmade fanmade.mjs]');
   }
   const summary = {};
   if (officialPlan) {
-    const result = authorOfficialCatalog({ plan: await readJson(officialPlan) });
+    const collectionEraMap = collectionEraMapPath ? await readJson(collectionEraMapPath) : {};
+    const verifiedAmazonTwins = verifiedAmazonTwinsFrom(
+      verifiedAmazonTwinsPath ? await readJson(verifiedAmazonTwinsPath) : {},
+    );
+    const result = authorOfficialCatalog({ plan: await readJson(officialPlan), collectionEraMap, verifiedAmazonTwins });
     await writeModule(officialOut, 'OFFICIAL', result.catalog);
-    summary.official = { authored: result.catalog.length, rejected: result.rejected.length, socialDraft: result.socialDraft };
+    summary.official = {
+      authored: result.catalog.length,
+      rejected: result.rejected.length,
+      ...result.summary,
+      socialDraft: result.socialDraft,
+    };
   }
   if (fanmadeCuration) {
     const artifact = await readJson(fanmadeCuration);
