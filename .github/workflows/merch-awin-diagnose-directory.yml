@@ -1,0 +1,36 @@
+# E0 Awin diagnostic (t_a57b0362): one-off, read-only, manual only. Prints
+# non-secret counts/metadata about the Awin Publisher API programme directory
+# for this publisher account. Never prints token/publisherId values. Not part
+# of the product pipeline — delete this workflow file after the diagnostic run.
+name: merch-awin-diagnose-directory
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type RUN_AWIN_DIAGNOSE to probe the Awin programme directory (read-only)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: merch-awin-diagnose-directory
+  cancel-in-progress: false
+
+jobs:
+  diagnose:
+    if: ${{ inputs.confirmation == 'RUN_AWIN_DIAGNOSE' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Probe Awin programme directory (unfiltered, non-secret output only)
+        env:
+          AWIN_API_TOKEN: ${{ secrets.AWIN_API_TOKEN }}
+          AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}
+        run: node scripts/merch-engine/diagnose-awin-directory.mjs
