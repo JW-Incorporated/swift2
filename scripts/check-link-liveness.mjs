@@ -27,8 +27,10 @@ const LIMIT = (() => {
 })();
 const CONCURRENCY = 10;
 const TIMEOUT_MS = 15000;
-const SOFT_404 = /\b(page|file)?\s*not\s*found\b|\bhttp\s*410\b|\bno longer (?:available|exists)\b/i;
-const SOLD_OUT = /\bout of stock\b|\bsold out\b|https?:\/\/schema\.org\/OutOfStock|["']OutOfStock["']/i;
+const SOFT_404 =
+  /\b(page|file)?\s*not\s*found\b|\bhttp\s*410\b|\bno longer (?:available|exists)\b/i;
+const SOLD_OUT =
+  /\bout of stock\b|\bsold out\b|https?:\/\/schema\.org\/OutOfStock|["']OutOfStock["']/i;
 
 /** Flattens product and alt-listing URLs without changing their destination. */
 export function productTargets(catalogue) {
@@ -38,7 +40,12 @@ export function productTargets(catalogue) {
       const productId = product.source
         ? `${product.source.eraId}:${product.source.momentId}:${index}`
         : `${product.category ?? 'merch'}:${index}`;
-      targets.push({ productId, url: product.url, imageUrl: product.imageUrl ?? null, listing: 'primary' });
+      targets.push({
+        productId,
+        url: product.url,
+        imageUrl: product.imageUrl ?? null,
+        listing: 'primary',
+      });
       if (product.altListing?.url) {
         targets.push({ productId, url: product.altListing.url, listing: 'alternative' });
       }
@@ -53,35 +60,63 @@ async function productTargetsFromSeed() {
   for (const file of files.filter((name) => name.endsWith('.mjs') && !name.startsWith('_'))) {
     const data = await import(pathToFileURL(join(SEED_DIR, 'content', file)).href);
     const payload = data.default ?? data.items ?? Object.values(data)[0];
-    const items = Array.isArray(payload) ? payload : payload?.items ?? [];
+    const items = Array.isArray(payload) ? payload : (payload?.items ?? []);
     const eraId = payload?.era ?? file.replace('.mjs', '');
     for (const [itemIndex, item] of items.entries()) {
       const itemId = `${eraId}:${item.id ?? itemIndex}`;
       for (const [productIndex, product] of (item.moment?.products ?? []).entries()) {
         const productId = `${itemId}:${productIndex}`;
-        targets.push({ productId, url: product.url, imageUrl: product.imageUrl ?? null, listing: 'primary' });
-        if (product.altListing?.url) targets.push({ productId, url: product.altListing.url, listing: 'alternative' });
+        targets.push({
+          productId,
+          url: product.url,
+          imageUrl: product.imageUrl ?? null,
+          listing: 'primary',
+        });
+        if (product.altListing?.url)
+          targets.push({ productId, url: product.altListing.url, listing: 'alternative' });
       }
     }
   }
   try {
     const merchFiles = await readdir(join(SEED_DIR, 'merch'));
-    for (const file of merchFiles.filter((name) => name.endsWith('.mjs') && !name.startsWith('_'))) {
+    for (const file of merchFiles.filter(
+      (name) => name.endsWith('.mjs') && !name.startsWith('_'),
+    )) {
       const data = await import(pathToFileURL(join(SEED_DIR, 'merch', file)).href);
       const products = data.default ?? Object.values(data).find(Array.isArray) ?? [];
       targets.push(...productTargets({ [file.replace('.mjs', '')]: products }));
     }
-  } catch { /* the E4 catalogue may not exist until its dedicated lane authors it */ }
+  } catch {
+    /* the E4 catalogue may not exist until its dedicated lane authors it */
+  }
   return targets;
 }
 
-async function acknowledgedUnavailableUrls() {
+async function acknowledgedUnavailableEntries() {
   try {
-    const artifact = JSON.parse(await readFile(join(ROOT, 'artifacts', 'merch-audit', 'e1-re-source-2026-08-30.json'), 'utf8'));
-    return new Set((artifact.reSource ?? []).map((entry) => entry.url));
+    const auditDir = join(ROOT, 'artifacts', 'merch-audit');
+    const artifacts = (await readdir(auditDir)).filter((name) =>
+      /^e1-re-source-.*\.json$/.test(name),
+    );
+    const entries = await Promise.all(
+      artifacts.map(async (name) => {
+        const artifact = JSON.parse(await readFile(join(auditDir, name), 'utf8'));
+        return artifact.reSource ?? [];
+      }),
+    );
+    return entries.flat();
   } catch {
-    return new Set();
+    return [];
   }
+}
+
+export function acknowledgedUnavailableUrlSet(targets, entries) {
+  const targetCounts = new Map();
+  for (const target of targets)
+    targetCounts.set(target.url, (targetCounts.get(target.url) ?? 0) + 1);
+  return new Set(
+    entries.filter((entry) => targetCounts.get(entry.url) === 1).map((entry) => entry.url),
+  );
 }
 
 export function classifyAcknowledgedUnavailable(result, urls) {
@@ -93,8 +128,11 @@ export function classifyAcknowledgedUnavailable(result, urls) {
 async function walk(dir) {
   const out = [];
   let entries;
-  try { entries = await readdir(dir, { withFileTypes: true }); }
-  catch { return out; }
+  try {
+    entries = await readdir(dir, { withFileTypes: true });
+  } catch {
+    return out;
+  }
   for (const e of entries) {
     const p = join(dir, e.name);
     if (e.isDirectory()) out.push(...(await walk(p)));
@@ -116,10 +154,20 @@ async function check(url, { inspectProductPage = false } = {}) {
     let res = await fetch(url, { method: 'HEAD', redirect: 'follow', signal: ac });
     // Some hosts reject HEAD — retry with a ranged GET.
     if (res.status === 405 || res.status === 403 || res.status === 501) {
-      res = await fetch(url, { method: 'GET', redirect: 'follow', signal: ac, headers: { Range: 'bytes=0-2048' } });
+      res = await fetch(url, {
+        method: 'GET',
+        redirect: 'follow',
+        signal: ac,
+        headers: { Range: 'bytes=0-2048' },
+      });
     }
     if (inspectProductPage && res.status >= 200 && res.status < 300) {
-      res = await fetch(url, { method: 'GET', redirect: 'follow', signal: ac, headers: { Range: 'bytes=0-4095' } });
+      res = await fetch(url, {
+        method: 'GET',
+        redirect: 'follow',
+        signal: ac,
+        headers: { Range: 'bytes=0-4095' },
+      });
     }
     const status = res.status;
     if (status >= 200 && status < 300) {
@@ -130,7 +178,9 @@ async function check(url, { inspectProductPage = false } = {}) {
           const body = (await res.text()).slice(0, 4000);
           if (SOLD_OUT.test(body)) return { url, status, verdict: 'sold-out' };
           if (SOFT_404.test(body)) return { url, status, verdict: 'soft-404' };
-        } catch { /* body read failed — treat as OK by status */ }
+        } catch {
+          /* body read failed — treat as OK by status */
+        }
       }
       return { url, status, verdict: 'ok' };
     }
@@ -138,10 +188,12 @@ async function check(url, { inspectProductPage = false } = {}) {
     if (status === 403 || status === 401) return { url, status, verdict: 'blocked' };
     return { url, status, verdict: 'suspect' };
   } catch (err) {
-    const msg = String(err && err.message || err);
-    const kind = /certificate|SSL|TLS/i.test(msg) ? 'ssl'
-      : /timed out|timeout|abort/i.test(msg) ? 'timeout'
-      : 'connection';
+    const msg = String((err && err.message) || err);
+    const kind = /certificate|SSL|TLS/i.test(msg)
+      ? 'ssl'
+      : /timed out|timeout|abort/i.test(msg)
+        ? 'timeout'
+        : 'connection';
     return { url, status: 0, verdict: kind };
   }
 }
@@ -165,30 +217,62 @@ async function main() {
   let knownUnavailableUrls = new Set();
   if (args.includes('--products')) {
     targets = await productTargetsFromSeed();
-    knownUnavailableUrls = await acknowledgedUnavailableUrls();
+    knownUnavailableUrls = acknowledgedUnavailableUrlSet(
+      targets,
+      await acknowledgedUnavailableEntries(),
+    );
   } else {
     files = await walk(SEED_DIR);
     const urlSet = new Set();
     for (const file of files) {
-      try { for (const url of extractUrls(await readFile(file, 'utf8'))) urlSet.add(url); }
-      catch { /* skip unreadable */ }
+      try {
+        for (const url of extractUrls(await readFile(file, 'utf8'))) urlSet.add(url);
+      } catch {
+        /* skip unreadable */
+      }
     }
     targets = [...urlSet].map((url) => ({ url }));
   }
   if (Number.isFinite(LIMIT)) targets = targets.slice(0, LIMIT);
-  const results = await pool(targets, async (target) => classifyAcknowledgedUnavailable({
-    ...target,
-    ...(await check(target.url, { inspectProductPage: args.includes('--products') })),
-  }, knownUnavailableUrls), CONCURRENCY);
+  const results = await pool(
+    targets,
+    async (target) =>
+      classifyAcknowledgedUnavailable(
+        {
+          ...target,
+          ...(await check(target.url, { inspectProductPage: args.includes('--products') })),
+        },
+        knownUnavailableUrls,
+      ),
+    CONCURRENCY,
+  );
   const bad = results.filter((result) => result.verdict !== 'ok');
-  const byVerdict = bad.reduce((map, result) => ((map[result.verdict] = (map[result.verdict] || 0) + 1), map), {});
+  const byVerdict = bad.reduce(
+    (map, result) => ((map[result.verdict] = (map[result.verdict] || 0) + 1), map),
+    {},
+  );
 
   if (JSON_OUT) {
-    console.log(JSON.stringify({ scanned: targets.length, files: files.length, byVerdict, results: args.includes('--products') ? results : undefined, bad }, null, 2));
+    console.log(
+      JSON.stringify(
+        {
+          scanned: targets.length,
+          files: files.length,
+          byVerdict,
+          results: args.includes('--products') ? results : undefined,
+          bad,
+        },
+        null,
+        2,
+      ),
+    );
   } else {
-    console.log(`link-liveness: scanned ${targets.length} ${args.includes('--products') ? 'product' : 'unique'} URLs across ${files.length} seed files`);
+    console.log(
+      `link-liveness: scanned ${targets.length} ${args.includes('--products') ? 'product' : 'unique'} URLs across ${files.length} seed files`,
+    );
     console.log('summary:', byVerdict);
-    for (const result of bad) console.log(`  [${result.verdict}] ${result.status || '-'}  ${result.url}`);
+    for (const result of bad)
+      console.log(`  [${result.verdict}] ${result.status || '-'}  ${result.url}`);
     console.log(bad.length ? `\n${bad.length} link(s) need review.` : '\nall links live.');
   }
 }
