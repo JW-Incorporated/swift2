@@ -99,13 +99,11 @@ describe('E0 Awin sync', () => {
   });
 
   it('rejects programme pagination links outside the Awin API origin', async () => {
-    const fetchImpl = vi
-      .fn()
-      .mockResolvedValue(
-        new Response(JSON.stringify([{ id: 1 }]), {
-          headers: { link: '<https://outside.example/programmes?page=2>; rel="next"' },
-        }),
-      );
+    const fetchImpl = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify([{ id: 1 }]), {
+        headers: { link: '<https://outside.example/programmes?page=2>; rel="next"' },
+      }),
+    );
 
     await expect(
       requestProgrammes({ publisherId: '123', token: 'test-token', fetchImpl }),
