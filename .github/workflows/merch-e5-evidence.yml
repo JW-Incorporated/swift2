@@ -1,0 +1,63 @@
+# E5 evidence collection is deliberately manual and artifact-only.
+# It preserves raw Etsy responses for judged D3/E1/E2 curation; it never writes seed data.
+name: merch-e5-evidence
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type COLLECT_E5_EVIDENCE to collect raw Etsy evidence for manual curation'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: merch-e5-evidence
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    if: ${{ inputs.confirmation == 'COLLECT_E5_EVIDENCE' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Collect raw Etsy listing evidence
+        env:
+          ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p .artifacts/merch-e5-evidence/raw
+          queries=(
+            'Taylor Swift inspired'
+            'Swiftie bracelet'
+            'Eras Tour inspired'
+            'folklore inspired'
+            'Midnights inspired'
+          )
+          for index in "${!queries[@]}"; do
+            curl --fail --silent --show-error --get 'https://openapi.etsy.com/v3/application/listings/active' \
+              --data-urlencode "keywords=${queries[$index]}" \
+              --data-urlencode 'sort_on=created' \
+              --data-urlencode 'sort_order=desc' \
+              --data-urlencode 'limit=100' \
+              --data-urlencode 'includes=Images,Shop' \
+              --header "x-api-key: ${ETSY_API_KEY}" \
+              --output ".artifacts/merch-e5-evidence/raw/query-${index}.json"
+          done
+      - name: Build the deterministic candidate receipt
+        env:
+          ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
+        run: node scripts/merch-engine/fanmade-discovery.mjs > .artifacts/merch-e5-evidence/candidates.json
+      - name: Upload auditable E5 evidence artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: merch-e5-evidence-artifact
+          path: .artifacts/merch-e5-evidence
+          if-no-files-found: error
+          retention-days: 7
