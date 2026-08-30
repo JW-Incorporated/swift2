@@ -26,6 +26,23 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 30. [BLOCKING] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key, ~5 min
+
+**Filed:** 2026-08-30
+
+**Status:** OPEN
+
+**Why it matters:** the manually confirmed E5 evidence collection ran in GitHub Actions and the first Etsy v3 active-listings request returned HTTP 403. The action kept the existing `ETSY_API_KEY` inside GitHub Actions and made no seed or product changes. Fable ruling `RUL-t_aec44307-E5-403-1` found no request-construction defect and certified this as credential/account work: without a successful Etsy response, E5 cannot retain the raw listing and image artifacts required to verify any fan-made item.
+
+**Steps:**
+1. In the Etsy developer portal, verify the existing app/key is active and authorized for Etsy Open API v3 listing reads. Renew or create a replacement only if Etsy requires it.
+2. Save the working value as the existing repository Actions secret named `ETSY_API_KEY` for `JW-Incorporated/swift2`. Do not paste the value into chat or a repository file.
+3. Reply `E5 Etsy key updated` in chat. A session will re-run the manual evidence collection and curate only rows backed by its retained raw artifacts.
+
+**Worked if:** the `merch-e5-evidence` Action completes its raw-artifact upload without HTTP 403. No production data is changed; this is reversible and has no new cost unless Etsy itself presents one, in which case stop before accepting it.
+
+---
+
 ### 29. [UPGRADE] Search-API account for merch engine E6 — payment card, ~10 min
 
 **Filed:** 2026-08-30
