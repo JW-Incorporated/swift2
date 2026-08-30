@@ -62,6 +62,25 @@ describe('revenue reporting', () => {
     expect(report.uncoveredRetailers).toEqual([]);
   });
 
+  it('counts a retailer report row once when multiple coverage products share its source', () => {
+    const report = buildRevenueReport({
+      coverage: {
+        rows: [
+          { source: 'folklore.cardigan', retailer: 'indie.example', status: 'uncovered' },
+          { source: 'folklore.cardigan', retailer: 'indie.example', status: 'uncovered' },
+          { source: 'folklore.cardigan', retailer: 'other.example', status: 'uncovered' },
+        ],
+      },
+      reports: [{
+        network: 'site-clicks',
+        available: true,
+        rows: [{ subid: 'folklore.cardigan', retailer: 'indie.example', clicks: 5, revenue: 0 }],
+      }],
+    });
+
+    expect(report.uncoveredRetailers).toEqual([{ retailer: 'indie.example', clicks: 5 }]);
+  });
+
   it('rejects malformed report rows instead of guessing identifiers or values', () => {
     expect(() => parseNetworkReport({ network: 'awin', rows: [{ subid: '', clicks: 1, revenue: 0 }] })).toThrow('subid');
     expect(() => parseNetworkReport({ network: 'awin', rows: [{ subid: 'folklore.cardigan', clicks: -1, revenue: 0 }] })).toThrow('clicks');

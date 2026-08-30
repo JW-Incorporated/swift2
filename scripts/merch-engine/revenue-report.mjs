@@ -86,12 +86,13 @@ export function buildRevenueReport({ coverage = { rows: [] }, reports = [] } = {
         addMetric(byBucket, row.subid, row);
       }
       const matchingCoverage = coverageSources.get(row.subid) ?? [];
-      const retailerRows = row.retailer
-        ? matchingCoverage.filter((coverageRow) => coverageRow.retailer === row.retailer)
-        : [];
-      for (const coverageRow of retailerRows) {
-        if (coverageRow.status !== 'uncovered') continue;
-        uncovered.set(coverageRow.retailer, (uncovered.get(coverageRow.retailer) ?? 0) + row.clicks);
+      const uncoveredRetailers = new Set(row.retailer
+        ? matchingCoverage
+          .filter((coverageRow) => coverageRow.retailer === row.retailer && coverageRow.status === 'uncovered')
+          .map((coverageRow) => coverageRow.retailer)
+        : []);
+      for (const retailer of uncoveredRetailers) {
+        uncovered.set(retailer, (uncovered.get(retailer) ?? 0) + row.clicks);
       }
     }
   }
