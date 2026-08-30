@@ -219,16 +219,6 @@ export default {
         // discontinued -- a current made-to-order grey gown, closest
         // verified in-stock match.
         products: [
-          {
-            brand: 'WonderlandByLilian',
-            item: 'Silver Grey Elegance Sequin Evening Gown',
-            retailer: 'wonderlandbylilian.com',
-            url: 'https://wonderlandbylilian.com/products/silver-grey-elegance-sequin-evening-gown-convertible-grey-evening-dress-plus-size',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0550/3919/7262/files/Silver_Grey_Elegance_Sequin_Evening_Gown_-_Convertible_Grey_Evening_Dress_Plus_Size_186d1f84-a938-448f-8c04-c20f094cdfd6.png?v=1780606373',
-            price: '$695.00',
-            isAlternative: true,
-            altNote: 'Her 2011 J. Mendel gown is long discontinued -- a current made-to-order dove-grey sequin gown in the same formal register.',
-          },
         ],
       },
     },
@@ -449,6 +439,9 @@ export default {
             item: 'Gold Sequin Scoop Neck Gown',
             retailer: 'moniquelhuillier.com',
             url: 'https://moniquelhuillier.com/products/gold-sequin-scoop-neck-gown',
+            matchTier: 'inspired',
+            matchScore: 30,
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0020/4842/6035/files/25454-80-GOLD_01135.jpg?v=1750963279',
             price: '$5,495.00',
             isAlternative: true,
@@ -493,16 +486,6 @@ export default {
         // -- a current Sherri Hill purple ombre gown, verified in stock,
         // closest real match.
         products: [
-          {
-            brand: 'Sherri Hill',
-            item: '55304 One-Shoulder Ombre Sequin Gown',
-            retailer: 'formalapproach.com',
-            url: 'https://www.formalapproach.com/products/sherri-hill-55304-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0068/3507/7184/products/sherri-hill-55304-purple-ombre-50858-homecoming-dresses-images.jpg?v=1654541933',
-            price: '$698.00',
-            isAlternative: true,
-            altNote: 'Her exact Reem Acra cover gown is long discontinued -- this is a current gown in Purple Ombre, the same fading-purple color story, though sequined rather than plain chiffon.',
-          },
         ],
       },
     },
@@ -535,16 +518,6 @@ export default {
         // Shop pass (2026-07-21): retained as an era-inspired alternative,
         // not a visual match for the now-verified black-lace cover dress.
         products: [
-          {
-            brand: 'WonderlandByLilian',
-            item: 'Light Blue Halter Neck Glitter Dress',
-            retailer: 'wonderlandbylilian.com',
-            url: 'https://wonderlandbylilian.com/products/light-blue-halter-neck-glitter-dress-elegant-sequin-a-line-evening-gown-plus-size',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0550/3919/7262/files/light-blue-halter-neck-glitter-dress-elegant-sequin-a-line-evening-gown-plus-size-133110.png?v=1716597964',
-            price: '$659.00',
-            isAlternative: true,
-            altNote: 'An era-inspired alternative, not a visual match for the black lace Tadashi Shoji cover dress.',
-          },
         ],
       },
     },
@@ -2151,6 +2124,7 @@ export default {
             item: 'Vintage Denim High-Waisted Jean Shorts',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Womens-Juniors-Vintage-Waisted-Shorts/dp/B00KSYPWWO',
+            matchTier: 'unscored',
             price: '$14.98',
             isAlternative: true,
             altNote: 'No single named pair -- she wore many high-waisted shorts across the era -- this is a current pair in the same retro-inflected silhouette.',

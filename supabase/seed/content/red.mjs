@@ -355,6 +355,9 @@ export default {
             item: 'Burgundy Satin Off-the-Shoulder Twist Evening Ball Gown',
             retailer: 'macduggal.com',
             url: 'https://macduggal.com/products/56188',
+            matchTier: 'inspired',
+            matchScore: 28,
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/files/56188-Wine-Lifestyle-Main.jpg?v=1766608465',
             price: '$598.00',
             isAlternative: true,
@@ -395,6 +398,7 @@ export default {
             item: 'Nitha Maxi Dress (Asymmetrical Frill Thigh Slit)',
             retailer: 'showpo.com',
             url: 'https://www.showpo.com/nitha-asymmetrical-frill-thigh-slit-maxi-dress-in-red.html',
+            matchTier: 'unscored',
             price: '$30.00',
             isAlternative: true,
             altNote: 'The exact CMT stage dress is undocumented beyond this description -- this is a current red maxi dress with a thigh-high slit in the same monochrome-red spirit.',
@@ -438,6 +442,7 @@ export default {
             item: 'Retro Matte Lipstick in Ruby Woo',
             retailer: 'maccosmetics.com',
             url: 'https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick',
+            matchTier: 'unscored',
             price: '$23.00',
             isAlternative: true,
             altNote: 'Westman\'s exact shade for Swift is undocumented -- Ruby Woo is MAC\'s iconic blue-red matte, the same bold-red family this era\'s signature lip belongs to.',
@@ -545,6 +550,7 @@ export default {
             // to Showpo's canonical `/us/products/` URL (still the live PDP);
             // stored the canonical target directly so we don't lean on the redirect.
             url: 'https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink',
+            matchTier: 'unscored',
             price: '$22.00',
             isAlternative: true,
             altNote: 'Toybina\'s 128 costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same rotating-sparkle spirit as the tour wardrobe.',
@@ -584,6 +590,7 @@ export default {
             item: 'Rhinestone Cat Ears Headband (3-Pack)',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Rhinestone-Headbands-Decoration-Headdress-Accessories/dp/B075STRZCY',
+            matchTier: 'unscored',
             price: '$9.99',
             isAlternative: true,
             altNote: 'The exact Urban Outfitters headband from the video is discontinued -- this is a current rhinestone cat-ear headband, the same accessory fans still recreate.',
@@ -779,16 +786,6 @@ export default {
         // discontinued -- a current gold beaded gown, verified in stock,
         // closest real match.
         products: [
-          {
-            brand: 'Windsor',
-            item: 'Nicki Beaded Fringe Mermaid Formal Dress',
-            retailer: 'windsorstore.com',
-            url: 'https://www.windsorstore.com/products/nicki-beaded-fringe-mermaid-formal-dress-05002001093625',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0070/8853/7651/files/05002-001093_1_WINE_NickiBeadedFringeMermaidFormalDress_26d6d664-d0b3-44b5-9271-5838f0927681.jpg?v=1772217296',
-            price: '$99.90',
-            isAlternative: true,
-            altNote: 'Her exact altered runway gown is one-of-a-kind and long gone -- this is a current gold beaded gown in the same spangled-gold spirit.',
-          },
         ],
       },
     },

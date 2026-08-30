@@ -346,6 +346,9 @@ describe('buildOutputSource', () => {
           price: '$319.99',
           inStock: false,
           imageUrl: 'https://cdn.shopify.com/some-dress.jpg',
+          matchTier: 'close',
+          matchScore: 72,
+          kind: 'dress',
         },
       ],
       confidence: 'reputable_reporting',
@@ -369,7 +372,7 @@ describe('buildOutputSource', () => {
     expect(source).toContain('video: { youtubeId: "abc123", title: "A video" }');
     expect(source).toContain('relatedIds: ["moment:some-other-item"]');
     expect(source).toContain(
-      'products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Day Dress", retailer: "ralphlauren.com", url: "https://www.ralphlauren.com/some-dress", price: "$319.99", inStock: false, imageUrl: "https://cdn.shopify.com/some-dress.jpg" }]',
+      'products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Day Dress", retailer: "ralphlauren.com", url: "https://www.ralphlauren.com/some-dress", price: "$319.99", inStock: false, imageUrl: "https://cdn.shopify.com/some-dress.jpg", matchTier: "close", matchScore: 72, kind: "dress" }]',
     );
     expect(source).toContain('confidence: "reputable_reporting"');
     expect(source).toContain(

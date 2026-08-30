@@ -435,6 +435,7 @@ export default {
             item: 'Snake Print Silver Sequined Bodysuit',
             retailer: 'rhapso-designs.com',
             url: 'https://www.rhapso-designs.com/product-page/snake-print-silver-sequined-bodysuit-leo32',
+            matchTier: 'unscored',
             price: 'AU$90.00',
             isAlternative: true,
             altNote: 'The original tour bodysuit was custom, never sold at retail -- this is a current snake-print sequined bodysuit in the same silhouette (price in Australian dollars).',
@@ -638,16 +639,6 @@ export default {
         // sold at retail -- a current black cutout sequin bodysuit,
         // verified in stock, closest real match.
         products: [
-          {
-            brand: 'Casa de Fashion',
-            item: 'Party Vibes Black One-Shoulder Cutout Sequin Bodysuit',
-            retailer: 'casadefashion.com',
-            url: 'https://casadefashion.com/products/glam-me-up-black-cutout-sequin-bodysuit',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/2417/1737/files/BlackOneShoulderSleevelessBodysuit10375.jpg?v=1701660135',
-            price: '$46.00',
-            isAlternative: true,
-            altNote: 'Jessica Jones\'s custom bodysuit-and-jacket set was never sold at retail -- this sources the bodysuit only, matching black sequins and asymmetry (no matching jacket).',
-          },
         ],
       },
     },
@@ -692,16 +683,6 @@ export default {
         // never sold at retail -- a current sparkling green bodysuit,
         // verified in stock, closest real match.
         products: [
-          {
-            brand: 'AKIRA',
-            item: 'Shining Down On You Rhinestone Bodysuit',
-            retailer: 'shopakira.com',
-            url: 'https://shopakira.com/products/shining-down-on-your-sequin-bodysuit',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0850/1329/9515/files/SS805GREEN1_48459f6d-1783-438a-89be-f95cde24c59a.jpg?v=1779287895',
-            price: '$15.57',
-            isAlternative: true,
-            altNote: 'Jessica Jones\'s custom sparkling green bodysuit was never sold at retail -- this is a current rhinestone-embellished green bodysuit in the same sparkling spirit.',
-          },
         ],
       },
     },
@@ -819,6 +800,7 @@ export default {
             item: 'Fits Everybody Zip Front Bodysuit in Shadow Snake Print',
             retailer: 'skims.com',
             url: 'https://skims.com/products/fits-everybody-zip-front-bodysuit-shadow-snake-print',
+            matchTier: 'unscored',
             price: '$46.00',
             isAlternative: true,
             altNote: 'Jessica Jones\'s custom snake-print set was never sold at retail -- this sources the bodysuit only, matching the serpent motif (no sequins, red camo jacket, or boots).',
@@ -867,16 +849,6 @@ export default {
         // never sold at retail -- a current black sequin long-sleeve
         // slit gown, verified in stock, closest real match.
         products: [
-          {
-            brand: 'Elizabeth K',
-            item: 'GL3159 Sequin Long Sleeve Slit Gown',
-            retailer: 'formaldressshops.com',
-            url: 'https://formaldressshops.com/products/sequin-fitted-long-sleeve-slit-gown-by-elizabeth-k-gl3159',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0022/0132/1547/files/sequin-fitted-long-sleeve-slit-gown-by-elizabeth-k-gl3159-s-black-2x-large-3x-large-4x-large-black-champagne-formal-dresses-formaldressshops-464.jpg?v=1759460142',
-            price: '$151.00',
-            isAlternative: true,
-            altNote: 'Jessica Jones\'s custom closer gown was never sold at retail -- this is a current black sequin long-sleeve slit gown in the same fitted, floor-length spirit (no boots).',
-          },
         ],
       },
     },
@@ -2211,6 +2183,7 @@ export default {
             item: 'Tea Party Chic Pink Floral Print Tie-Strap Tiered Midi Dress',
             retailer: 'lulus.com',
             url: 'https://www.lulus.com/products/tea-party-chic-pink-floral-print-tie-strap-tiered-midi-dress/1712196.html',
+            matchTier: 'unscored',
             price: '$30.00',
             isAlternative: true,
             altNote: 'Her exact Monique Lhuillier tea-length dress is long discontinued -- this is a current pink floral tiered midi in the same tea-party, pastel-floral spirit.',
@@ -2264,6 +2237,7 @@ export default {
             item: "Women's Multicolor Rainbow Bandana Western Snap Shirt",
             retailer: 'jacksonswestern.com',
             url: 'https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/',
+            matchTier: 'unscored',
             price: '$55.00',
             isAlternative: true,
             altNote: 'Her exact Marina Hoermanseder shirt is discontinued -- this sources the western shirt only, matching its rainbow palette (not the wig, shorts, boots, or fries costume).',
@@ -2323,6 +2297,7 @@ export default {
             item: 'Disco Crush High Shine Glitter Eye + Face Sparkle in Heart Eyes',
             retailer: 'ulta.com',
             url: 'https://www.ulta.com/p/disco-crush-high-shine-glitter-eye-face-sparkle-pimprod2046472?sku=2627323',
+            matchTier: 'unscored',
             price: '$18.00',
             isAlternative: true,
             altNote: 'The exact cover makeup was custom -- this rose-gold glitter is a real eye-and-face cosmetic for recreating the sparkle, not the exact product used.',
@@ -2418,16 +2393,6 @@ export default {
         // discontinued -- a current yellow floral midi, verified in
         // stock, closest real match.
         products: [
-          {
-            brand: 'Princess Polly',
-            item: 'Nellie Midi Dress',
-            retailer: 'us.princesspolly.com',
-            url: 'https://us.princesspolly.com/products/nellie-midi-dress-yellow-floral',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0061/8627/0804/products/1-modelinfo-Elise-us2_dbc4c6ea-e3f6-4369-be3f-28a17c6794ec.jpg?v=1660000325',
-            price: '$19.00',
-            isAlternative: true,
-            altNote: 'Her exact Johanna Ortiz "Ladies Who Lunch" dress is discontinued -- this is a current yellow floral midi in the same sunshine-yellow spirit, not literally tiered.',
-          },
         ],
       },
     },
@@ -2470,6 +2435,9 @@ export default {
             item: 'Eres Long-Sleeve V Neck Sequin Romper',
             retailer: 'julianchang.com',
             url: 'https://julianchang.com/products/eres-romper',
+            matchTier: 'inspired',
+            matchScore: 25,
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/2100/2615/files/3135BlackSequinJulianChang.jpg?v=1758735654',
             price: '$315.00',
             isAlternative: true,

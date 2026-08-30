@@ -172,16 +172,6 @@ export default {
         // discontinued -- a current multicolor sequin blazer dress,
         // verified in stock, closest real match.
         products: [
-          {
-            brand: 'SemSem',
-            item: 'Multicolor Sequin & Crystal Blazer Dress',
-            retailer: 'semsem.com',
-            url: 'https://www.semsem.com/products/multicolor-sequined-satin-blazer-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0480/8166/6211/products/Multicolor_Sequin_Crystal_Blazer_Dress_1.jpg?v=1741186091',
-            price: '$1,595.00',
-            isAlternative: true,
-            altNote: 'Her exact custom Versace blazer dress is discontinued -- this is a current multicolor sequin blazer dress in the same mini-length, shoulder-padded spirit.',
-          },
         ],
       },
     },
@@ -409,16 +399,6 @@ export default {
         // discontinued -- a current strapless floral beaded gown,
         // verified in stock, closest real match.
         products: [
-          {
-            brand: 'Adrianna Papell',
-            item: 'Strapless Floral Beaded Embroidery Gown',
-            retailer: 'adriannapapell.com',
-            url: 'https://www.adriannapapell.com/products/strapless-floral-beaded-embroidery-gown-in-taupe-pink-ap1e212673',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0408/4583/6453/files/AP1E212673_AC273_Regular_Side.jpg?v=1776754967',
-            price: '$278.99',
-            isAlternative: true,
-            altNote: 'Her exact Oscar de la Renta gown is long discontinued -- this is a current strapless floral beaded gown in taupe-pink, lacking the original\'s 3D appliqués and train.',
-          },
         ],
       },
     },
@@ -460,6 +440,7 @@ export default {
             item: 'SynWax',
             retailer: 'mehron.com',
             url: 'https://www.mehron.com/synwax/',
+            matchTier: 'unscored',
             price: '$7.95',
             isAlternative: true,
             altNote: 'Bill Corso used bespoke film prosthetics, not retail wax -- this is a real SFX molding wax for a similar effect, not the exact six-person process.',
@@ -504,6 +485,7 @@ export default {
             item: 'Tweed Plaid Button Up Wide Leg Jumpsuit',
             retailer: 'shopcider.com',
             url: 'https://www.shopcider.com/goods/tweed-plaid-button-up-wide-leg-jumpsuit',
+            matchTier: 'unscored',
             price: '$44.90',
             isAlternative: true,
             altNote: 'Carmen March\'s Fall 2019 ensemble is discontinued -- this is a current grey plaid wide-leg jumpsuit in the same spirit (trenchcoat and checked heels not separately sourced).',
@@ -924,16 +906,6 @@ export default {
         // retail -- a current navy-gold floral glitter gown, verified in
         // stock, closest real match.
         products: [
-          {
-            brand: 'Ladivine',
-            item: 'CM323 Floral Glitter Prom Gown',
-            retailer: 'couturecandy.com',
-            url: 'https://www.couturecandy.com/products/ladivine-cm323-floral-glitter-prom-gown',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0144/7018/5017/products/ladivine-cm323-floral-glitter-prom-gown-prom-dresses-6-navy-gold-31830908797011.jpg?v=1756147007',
-            price: '$100.00',
-            isAlternative: true,
-            altNote: 'Her custom Etro gown was never sold at retail -- this is a current navy-gold floral glitter gown echoing the palette, without the keyhole, open back, or train.',
-          },
         ],
       },
     },
