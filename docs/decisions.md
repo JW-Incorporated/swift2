@@ -7,6 +7,68 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-30 — FR-MERCH-5: merch-autonomy source-gate ruling (#3440) — counsel gate binds the PLAN, canonical credential names, R1 lane split for E3
+
+**Context:** Fable arbiter ruling for task t_45978f0b / issue #3440, on the
+adopted merch-autonomy PLAN/SPEC (#3439). Successor to FR-MERCH-4. Three
+defects; three dispositions; the amendments land in the same PR as this
+entry. Scope was authoritative-source amendment only — no engines, wiring,
+or schedules were built.
+
+**Defect 1 — PLAN vs the IP-counsel gate.** PLAN Phase 2 claimed the Awin
+affiliate branch was "unblocked today" the moment credentials land. That
+contradicted the standing 2026-07-08 §3 rule ("nothing monetized ships
+without external IP-counsel review") and FR-MERCH-4 (counsel before
+affiliate/commercial *implementation*). **Disposition: the PLAN is
+subordinate and is amended, the gate is not weakened.** Credentials landing
+does not open Phase 2; counsel sign-off does. New SPEC ruling R7 encodes
+it; PLAN Phase 2 and the automation table now say so; HUMAN-ACTIONS **#27**
+files the counsel engagement (also a spend call, Joey-only). The counsel
+gate itself remains human-only — nothing in this ruling substitutes for it.
+
+**Defect 2 — credential-name split.** SPEC uses `AWIN_API_TOKEN` /
+`ETSY_API_KEY`; HUMAN-ACTIONS #4 recorded saves as `AWIN_API` /
+`ETSY_KEYSTRING` (+ `ETSY_SHARED_SECRET`). **Disposition: the SPEC's
+descriptive set is canonical** (`AWIN_API_TOKEN`, `AWIN_FEED_API_KEY`,
+`AWIN_PUBLISHER_ID`, `ETSY_API_KEY`, `SEARCH_API_KEY`, plus the two
+`NEXT_PUBLIC_*` ids); `ETSY_API_KEY` holds the Etsy keystring value;
+`ETSY_SHARED_SECRET` keeps its name (OAuth-only, unused by E5); `AWIN_API`
+is retired as ambiguous — the Publisher API token was still pending
+generation anyway. **No alias shim and no code migration**: no code reads
+any legacy name today, so aliases would be pure standing debt to avoid a
+two-minute save Joey performs at provisioning time (HUMAN-ACTIONS **#28**).
+Names are non-secret metadata — deciding them is a reversible AI call;
+saving values stays human-only.
+
+**Defect 3 — E3 scheduled an LLM.** SPEC's workflow table put vision
+scoring + PR output inside scheduled `merch-audit.yml`, violating its own
+R1 and the CLAUDE.md freshness-vs-judgment rule. **Disposition: E3 splits
+into `merch-audit-detect.yml` (scheduled, zero-LLM — enumerates
+new/changed image pairs, files a scoring queue) and a separate authoring
+lane (vision judgment, writes tiers, gated PR).** SPEC §5 and §10 amended;
+a §10 footnote clarifies that every scheduled trigger is zero-LLM and the
+LLM column marks the authoring-lane half (same shape governs E5's curation
+and E6's matcher).
+
+**Gate disposition for #3440: PASS with these amendments applied.** Engine
+starts: **E1, E2, E3 may start now** (editorial, credential-free, E3 under
+the amended lane split). **E0 remains blocked** (affiliate infrastructure —
+counsel gate + Awin tokens not yet generated). Joey's D1-a/D3 owner decisions
+are recorded separately in the 2026-08-30 decision immediately below: E4 and
+E5 are no longer source-blocked by those decisions. **E5 remains held** on the
+canonical Etsy key save and the commercial gate. **E6 remains blocked** on the
+search-API account (spend, human-only — HUMAN-ACTIONS **#29**); once that
+lands it may run degraded (brand-direct + paid search, skipping the Awin-index
+first pass) until E0 unblocks post-counsel.
+
+**Approved by:** Fable arbiter, under Decision Authority's reversibility
+line (doc coherence, naming, lane split — all revertible by follow-up PR).
+The human-only remainder is exactly HUMAN-ACTIONS #27 (counsel), #28
+(canonical credential saves), and #29 (E6's search-API spend);
+later-phase signups already recorded in the PLAN's human-surface list
+(Amazon Associates, the deferred D2 catch-all, `vercel env` saves) file as
+their phases open, each behind the #27 gate where monetized.
+
 ## 2026-08-25 — Social posting stays fully automated; no human review gate before publish (closes #2316)
 
 **Decision:** social posting has no human-review/approval step before a post
