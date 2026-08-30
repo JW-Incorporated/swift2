@@ -7,6 +7,21 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-30 — Retain CI-gated auto-merge for eligible UI and client-code changes (closes HUMAN-ACTIONS #6)
+
+**Decision:** Retain the existing `auto-merge-content` behavior, including
+automatic landing of eligible UI and client-code changes when the current CI
+checks pass.
+
+**Why:** The existing workflow already excludes server-executing and
+secret-reading paths while preserving a fast, CI-gated delivery route for
+eligible client-side work. Joey chose to retain that scope rather than restrict
+it to content files or rename the workflow.
+
+**Approved by:** Joey (direct instruction, 2026-08-30).
+
+---
+
 ## 2026-08-30 — Clownbot/Mood/era-reader ratification (closes HUMAN-ACTIONS #5)
 
 **Decision:** Joey's direct statement, “I'm good with these as is,” ratifies
