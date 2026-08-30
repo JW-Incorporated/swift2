@@ -5,7 +5,7 @@ import {
   capIssueContent,
   judgePairWithClaude,
   MAX_RUN_COST_USD,
-  RESERVATION_PER_PAIR_USD,
+  RESERVATION_PER_REQUEST_USD,
   requiresApiKey,
   runAuthoring,
   upsertCapIssue,
@@ -61,16 +61,16 @@ describe('E3 authoring runner cost reservation', () => {
           { ...source, productId: 'moment-2:0:https://shop.example/top', cacheKey: 'pair-2' },
         ],
       },
-      capUsd: RESERVATION_PER_PAIR_USD * 2,
+      capUsd: RESERVATION_PER_REQUEST_USD * 2,
       judge: async (pair: { cacheKey: string }) => {
         requests.push(pair.cacheKey);
         return validJudgment;
       },
     });
 
-    expect(RESERVATION_PER_PAIR_USD).toBeCloseTo(0.03408, 8);
+    expect(RESERVATION_PER_REQUEST_USD).toBeCloseTo(0.03408, 8);
     expect(requests).toEqual(['pair-1']);
-    expect(result.run.reservedCostUsd).toBeCloseTo(RESERVATION_PER_PAIR_USD, 8);
+    expect(result.run.reservedCostUsd).toBeCloseTo(RESERVATION_PER_REQUEST_USD, 8);
     expect(result.run.reservedCostUsd).toBeLessThan(MAX_RUN_COST_USD);
     expect(result.run.stopReason).toBe('run cap would be reached before next request');
     expect(result.judgments.map((judgment: { tier: string }) => judgment.tier)).toEqual([
@@ -142,6 +142,60 @@ describe('E3 authoring runner cost reservation', () => {
 
     expect(result.judgments[0]).toMatchObject({ score: null, tier: 'unresolved', kind: null });
     expect(result.judgments[0].reasons).toEqual(['invalid judgment response']);
+  });
+
+  it('retries a transient judgment failure before recording the pair unresolved', async () => {
+    let attempts = 0;
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      judge: async () => {
+        attempts += 1;
+        if (attempts < 3) throw new Error('anthropic vision request failed (429)');
+        return validJudgment;
+      },
+      sleep: async () => {},
+    });
+
+    expect(attempts).toBe(3);
+    expect(result.judgments[0]).toMatchObject({ score: 92, tier: 'exact', kind: 'dress' });
+  });
+
+  it('does not retry a permanent vision request failure', async () => {
+    let attempts = 0;
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      judge: async () => {
+        attempts += 1;
+        throw new Error('anthropic vision request failed (401)');
+      },
+      sleep: async () => {},
+    });
+
+    expect(attempts).toBe(1);
+    expect(result.run.reservedCostUsd).toBeCloseTo(RESERVATION_PER_REQUEST_USD, 8);
+    expect(result.run.stopReason).toBeNull();
+    expect(result.judgments[0].reasons).toEqual(['vision request failed']);
+  });
+
+  it('reserves each retry attempt before dispatching it', async () => {
+    let attempts = 0;
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      capUsd: RESERVATION_PER_REQUEST_USD * 2,
+      judge: async () => {
+        attempts += 1;
+        throw new Error('anthropic vision request failed (429)');
+      },
+      sleep: async () => {},
+    });
+
+    expect(attempts).toBe(1);
+    expect(result.run.reservedCostUsd).toBeCloseTo(RESERVATION_PER_REQUEST_USD, 8);
+    expect(result.run.stopReason).toBe(CAP_STOP_REASON);
+    expect(result.judgments[0].reasons).toEqual(['not judged before run cap']);
   });
 
   it('uses a newly detected queue pair even when the earlier receipt has no judgment for it', async () => {
