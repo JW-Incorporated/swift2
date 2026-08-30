@@ -1,0 +1,48 @@
+# E5 fan-made discovery. Scheduled detection is zero-LLM; a separate judged
+# curation lane applies D3 and E1/E2 before it authors supabase/seed/merch/fanmade.mjs.
+# :47 avoids this repository's :00/:05/:10/:23/:30/:40 cron contention cluster.
+name: merch-fanmade
+
+on:
+  schedule:
+    - cron: '47 9 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Read Etsy, Reddit, and submissions without filing candidate issues'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: merch-fanmade
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Detect fan-made candidates
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          if [ "${DRY_RUN:-true}" = "true" ]; then
+            node scripts/merch-engine/fanmade-discovery.mjs
+          else
+            node scripts/merch-engine/fanmade-discovery.mjs --file
+          fi
+      - name: Explain curation gate
+        run: |
+          echo 'Detection only: the judged curation lane must reject official artwork, tour graphics, and Taylor-photo reproductions, then run E1 listing and E2 image verification before opening its gated PR.'
