@@ -31,7 +31,7 @@ describe('fan-made discovery', () => {
     const [searchUrl, detailUrl] = fetchImpl.mock.calls.map(([url]) => new URL(url));
     expect(searchUrl.pathname).toBe('/v3/application/listings/active');
     expect(searchUrl.searchParams.has('includes')).toBe(false);
-    expect(searchUrl.searchParams.get('limit')).toBe('25');
+    expect(searchUrl.searchParams.get('limit')).toBe('10');
     expect(detailUrl.pathname).toBe('/v3/application/listings/42');
     expect(detailUrl.searchParams.get('includes')).toBe('Images,Shop');
   });
@@ -49,6 +49,54 @@ describe('fan-made discovery', () => {
 
   it('requires Etsy credentials when collecting the manual E5 artifact', async () => {
     await expect(collectEtsyEvidence({ requireCredentials: true })).rejects.toThrow('Etsy API credentials are required');
+  });
+
+  it('caps detail retrieval and paces each bounded Etsy detail request', async () => {
+    const wait = vi.fn(async () => {});
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('/listings/active')) return new Response(JSON.stringify({ results: Array.from({ length: 11 }, (_, index) => ({ listing_id: index + 1 })) }), { status: 200 });
+      const listingId = url.match(/listings\/(\d+)/)?.[1];
+      return new Response(JSON.stringify({
+        listing_id: Number(listingId), title: `Original item ${listingId}`, url: `https://www.etsy.com/listing/${listingId}/original`,
+        price: { amount: 2000, divisor: 100, currency_code: 'USD' },
+        shop: { shop_name: 'Maker', is_vacation: false, review_count: 1 }, images: [{ url_fullxfull: `https://images.example.test/${listingId}.jpg` }],
+      }), { status: 200 });
+    });
+
+    const evidence = await collectEtsyEvidence({ etsyApiKey: 'test-key', fetchImpl, wait, queries: ['Taylor Swift inspired'] });
+
+    expect(evidence.candidates).toHaveLength(10);
+    expect(fetchImpl.mock.calls.filter(([url]) => url.includes('/listings/') && !url.includes('/active'))).toHaveLength(10);
+    expect(wait).toHaveBeenCalledTimes(10);
+  });
+
+  it('retries one rate-limited Etsy detail request after its Retry-After delay', async () => {
+    const wait = vi.fn(async () => {});
+    let detailAttempts = 0;
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('/listings/active')) return new Response(JSON.stringify({ results: [{ listing_id: 42 }] }), { status: 200 });
+      detailAttempts += 1;
+      if (detailAttempts === 1) return new Response('', { status: 429, headers: { 'retry-after': '2' } });
+      return new Response(JSON.stringify({
+        listing_id: 42, title: 'Original item', url: 'https://www.etsy.com/listing/42/original',
+        price: { amount: 2000, divisor: 100, currency_code: 'USD' },
+        shop: { shop_name: 'Maker', is_vacation: false, review_count: 1 }, images: [{ url_fullxfull: 'https://images.example.test/42.jpg' }],
+      }), { status: 200 });
+    });
+
+    await expect(collectEtsyEvidence({ etsyApiKey: 'test-key', fetchImpl, wait, queries: ['Taylor Swift inspired'] })).resolves.toMatchObject({ candidates: [expect.any(Object)] });
+    expect(detailAttempts).toBe(2);
+    expect(wait).toHaveBeenCalledWith(2000);
+  });
+
+  it('fails after a second Etsy 429 instead of retrying indefinitely', async () => {
+    const wait = vi.fn(async () => {});
+    const fetchImpl = vi.fn(async (url: string) => url.includes('/listings/active')
+      ? new Response(JSON.stringify({ results: [{ listing_id: 42 }] }), { status: 200 })
+      : new Response('', { status: 429, headers: { 'retry-after': '1' } }));
+
+    await expect(collectEtsyEvidence({ etsyApiKey: 'test-key', fetchImpl, wait, queries: ['Taylor Swift inspired'] })).rejects.toThrow('Request failed (429)');
+    expect(fetchImpl).toHaveBeenCalledTimes(3);
   });
 
   it('collects Etsy, Reddit, and submission candidates with durable provenance and URL dedupe', async () => {

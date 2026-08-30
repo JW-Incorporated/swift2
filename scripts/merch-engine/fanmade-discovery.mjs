@@ -16,6 +16,11 @@ import {
 } from './fanmade-sources.mjs';
 import { FAN_MADE } from '../../supabase/seed/merch/fanmade.mjs';
 
+const ETSY_DETAIL_LIMIT = 10;
+const ETSY_DETAIL_DELAY_MS = 250;
+const ETSY_RETRY_DELAY_MS = 1000;
+const ETSY_MAX_RETRY_DELAY_MS = 5000;
+
 function text(value) {
   return typeof value === 'string' && value.trim() ? value.trim() : null;
 }
@@ -125,9 +130,24 @@ function mergeCandidates(candidates) {
   return [...byUrl.values()].sort((a, b) => a.url.localeCompare(b.url));
 }
 
-async function json(fetchImpl, url, options) {
+function sleep(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+function retryAfterMilliseconds(response) {
+  const seconds = Number(response.headers.get('retry-after'));
+  return Number.isFinite(seconds) && seconds >= 0
+    ? Math.min(seconds * 1000, ETSY_MAX_RETRY_DELAY_MS)
+    : ETSY_RETRY_DELAY_MS;
+}
+
+async function json(fetchImpl, url, options, { wait = sleep } = {}) {
   const requestUrl = String(url);
-  const response = await fetchImpl(requestUrl, options);
+  let response = await fetchImpl(requestUrl, options);
+  if (response.status === 429) {
+    await wait(retryAfterMilliseconds(response));
+    response = await fetchImpl(requestUrl, options);
+  }
   if (!response.ok) {
     const error = new Error(`Request failed (${response.status}) for ${requestUrl}`);
     error.status = response.status;
@@ -154,7 +174,7 @@ function isEligibleEtsyListing(listing, query, now) {
     : null;
 }
 
-export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now = new Date().toISOString(), queries = ETSY_QUERIES, requireCredentials = false } = {}) {
+export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now = new Date().toISOString(), queries = ETSY_QUERIES, requireCredentials = false, wait = sleep } = {}) {
   if (!etsyApiKey) {
     if (requireCredentials) throw new Error('Etsy API credentials are required');
     return { rawQueries: [], candidates: [] };
@@ -166,14 +186,15 @@ export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now =
     url.searchParams.set('keywords', query);
     url.searchParams.set('sort_on', 'created');
     url.searchParams.set('sort_order', 'desc');
-    url.searchParams.set('limit', '25');
-    const payload = await json(fetchImpl, url, { headers: { 'x-api-key': etsyApiKey } });
+    url.searchParams.set('limit', String(ETSY_DETAIL_LIMIT));
+    const payload = await json(fetchImpl, url, { headers: { 'x-api-key': etsyApiKey } }, { wait });
     const listings = [];
-    for (const searchResult of (payload.results || []).slice(0, 25)) {
+    for (const searchResult of (payload.results || []).slice(0, ETSY_DETAIL_LIMIT)) {
       if (!searchResult?.listing_id) continue;
       const detailUrl = new URL(`https://openapi.etsy.com/v3/application/listings/${searchResult.listing_id}`);
       detailUrl.searchParams.set('includes', 'Images,Shop');
-      const listing = await json(fetchImpl, detailUrl, { headers: { 'x-api-key': etsyApiKey } });
+      await wait(ETSY_DETAIL_DELAY_MS);
+      const listing = await json(fetchImpl, detailUrl, { headers: { 'x-api-key': etsyApiKey } }, { wait });
       listings.push(listing);
       const candidate = isEligibleEtsyListing(listing, query, now);
       if (!candidate) continue;
