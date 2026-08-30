@@ -1,7 +1,9 @@
 import { LongLive } from '@/components/longlive/LongLive';
 
-// The experience is fully client-driven over static mock data; no revalidation
-// needed. A real API would hydrate the datasets in lib/longlive/*.
+// Product JSON-LD offers are only eligible for seven days after verification.
+// Render per request so a static page never continues advertising a stale offer.
+export const revalidate = 0;
+
 export default function Page() {
   return (
     <LongLive />
