@@ -252,6 +252,8 @@ export has been parsed without silently returning 0 posts.
 
 ---
 
+## DONE
+
 ### 15. [UPGRADE] Two knowledge-engine calls still open after #12 — Reddit Data API status, Supabase anonymous-auth toggle
 
 **Filed:** 2026-08-23
@@ -456,9 +458,11 @@ accepted Clownbot's current stateless operation until it has users; do not
 enable Supabase anonymous sign-ins or server-side conversation memory. See
 `docs/decisions.md` 2026-08-30 decision record.
 
-**Status:** DONE
+**Status:** DONE (2026-08-30)
 
 ---
+
+## OPEN
 
 ### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
 
