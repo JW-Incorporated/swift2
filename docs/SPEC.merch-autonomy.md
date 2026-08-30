@@ -53,15 +53,6 @@ it pays is the exact dishonesty R2 exists to prevent. Where the best match
 is unmonetized and an Awin candidate clears the same tier, both may be
 listed with the Awin item preferred in card order.
 
-**R7. The IP-counsel gate binds every monetized surface (FR-MERCH-5,
-2026-08-30).** Per `docs/decisions.md` 2026-07-08 §3, nothing monetized
-ships without external IP-counsel review; per FR-MERCH-4/5, no
-affiliate/commercial implementation — the seam flip, E0, coverage-report
-wiring, any wrap going live — starts before counsel sign-off
-(HUMAN-ACTIONS #27). Credentials present ≠ gate open: `isAffiliate()`'s
-env-var check is a mechanism, not the gate. Phase 1 engines (E1, E2, E3)
-are editorial trust fixes and run regardless.
-
 ---
 
 ## 1. Data model changes (`apps/web/lib/longlive/types.ts`)
@@ -70,8 +61,8 @@ Extend `Product` — all fields optional, all backward compatible:
 
 ```ts
 /** Graded match quality, written ONLY by the E3 auditor or E6 matcher. */
-matchTier?: 'exact' | 'close' | 'similar' | 'inspired' | 'unscored';
-/** 0–100 auditor confidence backing matchTier; absent when matchTier is 'unscored'. */
+matchTier?: 'exact' | 'close' | 'similar' | 'inspired';
+/** 0–100 auditor confidence backing matchTier. */
 matchScore?: number;
 /** ISO date the link/stock/image were last machine-verified. */
 verifiedAt?: string;
@@ -82,8 +73,7 @@ kind?: 'dress' | 'top' | 'bottom' | 'outerwear' | 'knitwear' | 'shoes'
      | 'jewelry' | 'bag' | 'hat' | 'eyewear' | 'beauty' | 'accessory'
      | 'music' | 'collectible' | 'home' | 'other';
 /** E4 only — a secondary affiliate-able listing of the same item
- *  (e.g. the Amazon twin of an official-store product); routed
- *  through the same listing-scoped seam (section 2), disclosure included. */
+ *  (e.g. the Amazon twin of an official-store product). */
 altListing?: { retailer: string; url: string };
 ```
 
@@ -114,9 +104,7 @@ export type Network = 'awin' | 'amazon' | 'catchall' | 'none';
 export function networkFor(retailer: string): Network;
 ```
 
-`buildShopUrl(listing)` accepts any listing (a product's primary
-`{retailer, url}` pair or its `altListing`) and branches on
-`networkFor(listing.retailer)`:
+`buildShopUrl()` branches on `networkFor(product.retailer)`:
 
 - **awin** — Awin deeplink format
   `https://www.awin1.com/cread.php?awinmid=<mid-from-map>&awinaffid=<AWIN_ID>&clickref=<subid>&ued=<encodeURIComponent(url)>`.
@@ -129,19 +117,17 @@ export function networkFor(retailer: string): Network;
   preserve existing params).
 - **catchall** — dormant until D2's residue case is proven; wrap format
   specified at signup, `xcust`-style param carrying `<subid>`.
-- **none** — return `listing.url` unchanged (official bucket under D1-a,
+- **none** — return `product.url` unchanged (official bucket under D1-a,
   unmapped long-tail pending an Awin join, or an explicit exemption).
 
 `<subid>` = `${eraId}.${momentId}` (or `official`/`fanmade` bucket ids) —
 this is the analytics spine: network dashboards then report clicks/revenue
 per era and per moment with zero client-side tracking added.
 
-`isAffiliate(listing)` returns `networkFor(listing.retailer) !== 'none'` **and** the
+`isAffiliate()` returns `networkFor(retailer) !== 'none'` **and** the
 corresponding credential env var is present — so the disclosure and the
 wrapping appear atomically per network as each signup completes, and the
-site never renders a broken half-wrapped link while Phase 0 is in flight. The disclosure
-line renders whenever ANY link in a shop block (primary or `altListing`)
-is affiliate-wrapped, so alternate listings carry disclosure identically.
+site never renders a broken half-wrapped link while Phase 0 is in flight.
 Credentials: `NEXT_PUBLIC_AWIN_ID` (affiliate id, in the wrap),
 `NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG`, `NEXT_PUBLIC_CATCHALL_ID` (dormant),
 plus server-side `AWIN_API_TOKEN` (Publisher API), `AWIN_FEED_API_KEY`
@@ -229,21 +215,7 @@ merge (a gate check, `check-merch-images.mjs`, wired into the content CI).
 
 ## 5. Engine E3 — Match Auditor (issue #1)
 
-The core quality fix. Split per R1 — the schedule never runs the model
-(FR-MERCH-5 lane split):
-
-- **Detect (scheduled, zero-LLM):** `merch-audit-detect.yml` runs
-  `scripts/merch-engine/audit-matches.mjs --detect` — enumerate products
-  whose product-image/moment-image hash pair is new or changed (or whose
-  `matchTier` is missing), gather the pairs, and file/refresh the scoring
-  queue (issue/artifact, the appearance-discovery detect pattern). No
-  model call, no judged writes, no PR authoring of scores.
-- **Judge + write (authoring lane):** a separate authoring lane consumes
-  the queue, makes the vision calls, writes `matchTier`/`matchScore`/
-  `kind`, and opens the gated PR on a registered branch prefix, landing
-  via the R1 gates.
-
-The judged half scores each pair as follows:
+The core quality fix. `scripts/merch-engine/audit-matches.mjs`:
 
 1. For each product with a source moment: gather product image (from
    `imageUrl` or scraped og:image) + the moment's real primary photo
@@ -256,7 +228,7 @@ The judged half scores each pair as follows:
    **<25 = mismatch → demoted**: removed from the moment's products and
    filed as a re-source ticket for E6 with the auditor's reasons attached.
 4. Products with no comparable image pair (beauty items, no moment photo)
-   are marked `matchTier: 'unscored'` (no `matchScore`) and skip scoring — the UI shows no tier badge
+   are marked `tier: null` and skip scoring — the UI shows no tier badge
    rather than a guessed one (R2).
 
 Output: migration PR(s) writing `matchTier`/`matchScore`/`kind` across the
@@ -392,18 +364,11 @@ moment; the R5 cap makes the worst case a ticket, not a bill.
 | `merch-awin-sync.yml` (E0) | daily, jittered | no | gated PR (advertiser map) + Actions cache (index) |
 | `merch-verify.yml` (E1+E2 detect) | daily | no | report → mender |
 | `merch-mend` (E1/E2 act) | daily, after verify | small | gated PR |
-| `merch-audit-detect.yml` (E3 detect) | weekly + on new items | no | scoring queue → authoring lane |
-| E3 judge (authoring lane, not scheduled) | on queue | vision | gated PR |
+| `merch-audit.yml` (E3) | weekly + on new items | vision | gated PR |
 | `merch-official-sync.yml` (E4) | 2×/day | authoring lane for new items | gated PR + social queue |
 | `merch-fanmade.yml` (E5) | daily | curation lane | gated PR |
 | `merch-matcher.yml` (E6) | on fashion-moment merge | yes | gated PR |
 | `merch-revenue.yml` | weekly | no | Marjorie brief |
-
-Reading the LLM column per R1: every *scheduled* trigger is zero-LLM
-detection; a non-"no" entry marks the judgment half that runs in the
-separate authoring lane the schedule hands off to (E3's split above is the
-pattern; E5's curation lane and E6's matcher lane are the same shape) —
-never inside the scheduled workflow itself.
 
 All schedule minutes chosen clear of existing cron clusters; each workflow
 header documents its offset and its secrets per house style. New secrets:
@@ -412,23 +377,11 @@ header documents its offset and its secrets per house style. New secrets:
 `NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG` (Vercel env; the catch-all ID only if
 D2's residue case is ever proven). No other new credentials.
 
-**Canonical names (FR-MERCH-5):** the names above are authoritative.
-`HUMAN-ACTIONS.md` #4 recorded earlier saves under legacy names —
-`ETSY_KEYSTRING` (the Etsy keystring; its canonical home is
-`ETSY_API_KEY`), `ETSY_SHARED_SECRET` (kept as-is; OAuth-only, unused by
-E5), and `AWIN_API` (ambiguous — retired; the Publisher API token and
-Create-a-Feed key get saved fresh as `AWIN_API_TOKEN` /
-`AWIN_FEED_API_KEY`). No code reads any legacy name today, so there is no
-alias shim and no code migration: at provisioning time (HUMAN-ACTIONS
-#28) values are saved under the canonical names and the legacy entries
-retire. Names are non-secret; values never appear in chat or the repo.
-
 ## 11. Acceptance criteria (definition of done, per phase)
 
 **Phase 1:** every product carries `verifiedAt` ≤ 7 days old; zero `dead`
 links rendered as purchasable; zero broken `imageUrl`s (failures fell back
-honestly); all 134 existing products carry `matchTier`+`kind` (with `matchScore` present except where
-`matchTier` is `'unscored'`);
+honestly); all 134 existing products carry `matchTier`+`matchScore`+`kind`;
 sub-25 mismatches removed with re-source tickets filed; typecheck + full
 suite green; no horizontal overflow at 360px on the updated cards.
 
