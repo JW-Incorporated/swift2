@@ -2,9 +2,27 @@
 // Loads the Tier 0 skeleton through @swift2/core (the SAME data layer the web
 // app uses) and hands it to the era navigator. View code only lives here; all
 // domain logic is in @swift2/shared (architecture.md hard boundary).
+//
+// SAFE AREA (2026-08-30). This file used to import `SafeAreaView` from
+// `react-native`. That component is iOS-only — on Android it renders as a plain
+// View and insets NOTHING. Since SDK 54 Expo draws Android edge-to-edge, so the
+// app's first row of chrome (the EraTimeline scrubber strip) rendered UNDER the
+// status bar: its era segments sat at y=71–97 while the status-bar window
+// swallowed every touch down to y=128, making tap-to-jump completely dead on
+// Android. Dragging still worked, so screenshots looked fine.
+//
+// The fix is the standard Expo one: `react-native-safe-area-context`, whose
+// SafeAreaView reads the real window insets on both platforms. The provider
+// must wrap everything that consumes insets; `initialWindowMetrics` seeds it
+// synchronously so the first frame is already inset (no visible reflow).
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView, StyleSheet, Text } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+  initialWindowMetrics,
+} from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import type { VaultSkeleton } from '@swift2/core';
 import { loadSkeleton } from './lib/vault';
@@ -26,22 +44,27 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={styles.fill}>
-      <SafeAreaView style={styles.fill}>
-        <StatusBar style="light" />
-        {error ? (
-          <SafeAreaView style={[styles.fill, styles.center]}>
-            <Text style={styles.errTitle}>Couldn’t load the Vault</Text>
-            <Text style={styles.errBody}>{error}</Text>
-          </SafeAreaView>
-        ) : !skeleton ? (
-          <SafeAreaView style={[styles.fill, styles.center]}>
-            <ActivityIndicator />
-            <Text style={styles.loading}>Loading the Vault…</Text>
-          </SafeAreaView>
-        ) : (
-          <VaultNavigator skeleton={skeleton} />
-        )}
-      </SafeAreaView>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        {/* The one and only inset boundary. The status/loading states below are
+            plain Views on purpose: a nested SafeAreaView would apply the same
+            padding a second time. */}
+        <SafeAreaView style={styles.fill}>
+          <StatusBar style="light" />
+          {error ? (
+            <View style={[styles.fill, styles.center]}>
+              <Text style={styles.errTitle}>Couldn’t load the Vault</Text>
+              <Text style={styles.errBody}>{error}</Text>
+            </View>
+          ) : !skeleton ? (
+            <View style={[styles.fill, styles.center]}>
+              <ActivityIndicator />
+              <Text style={styles.loading}>Loading the Vault…</Text>
+            </View>
+          ) : (
+            <VaultNavigator skeleton={skeleton} />
+          )}
+        </SafeAreaView>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }
