@@ -391,6 +391,7 @@ export default {
             price: '$89.00',
             isAlternative: true,
             altNote: 'Her exact Collette Dinnigan mini is long discontinued -- this is a current beaded mini dress in the same general spirit (the item here is really about the bangs, not the dress).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -446,6 +447,7 @@ export default {
             price: '$5,495.00',
             isAlternative: true,
             altNote: 'Her exact 2011 Reem Acra gown is long discontinued -- this is a current gold sequin column gown, same shimmering gold-beaded spirit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -578,6 +580,7 @@ export default {
             price: '$79.00',
             isAlternative: true,
             altNote: 'Her Rafael Cennamo dress is undocumented beyond this styling credit -- a current white halter dress, same silhouette (Ranjana Khan belt, Neil Lane jewelry, Fendi shoes not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -625,6 +628,7 @@ export default {
             price: '$1,695.00',
             isAlternative: true,
             altNote: 'The exact editorial pieces from this shoot are undocumented -- this is a current piece from Rodarte, one of the three houses (with Jil Sander and Rag & Bone) the shoot pulled from.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2128,6 +2132,7 @@ export default {
             price: '$14.98',
             isAlternative: true,
             altNote: 'No single named pair -- she wore many high-waisted shorts across the era -- this is a current pair in the same retro-inflected silhouette.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

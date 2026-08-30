@@ -439,6 +439,7 @@ export default {
             price: 'AU$90.00',
             isAlternative: true,
             altNote: 'The original tour bodysuit was custom, never sold at retail -- this is a current snake-print sequined bodysuit in the same silhouette (price in Australian dollars).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -479,9 +480,13 @@ export default {
             retailer: 'promgirl.com',
             url: 'https://www.promgirl.com/products/alyce-al-40022-dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0617/6414/1261/files/40022_AD_315_01.jpg?v=1762553101',
+            matchTier: 'inspired',
+            matchScore: 32,
+            kind: 'dress',
             price: '$373.00',
             isAlternative: true,
             altNote: 'Her exact custom Naeem Khan piece is discontinued -- this is a current Tiffany-blue tiered-fringe dress in the same spirit, a fitted mini rather than the floor-to-mini reveal.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -532,6 +537,7 @@ export default {
             price: '$85.00',
             isAlternative: true,
             altNote: 'Her exact Balmain mirrored mini is long discontinued -- this is a current silver sequin mini in the same disco-ball spirit (thigh-high boots not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -587,6 +593,7 @@ export default {
             price: '$320.00',
             isAlternative: true,
             altNote: 'The 800-hour Atelier Versace gown was custom couture, never sold at retail -- this is a current blush-pink one-shoulder feather-trim gown in the same color and spirit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -751,6 +758,7 @@ export default {
             price: '$319.90',
             isAlternative: true,
             altNote: 'Jessica Jones\'s custom "cotton candy" mini was never sold at retail -- this is a current rainbow crystal fringe mini in the same multicolor, movement-driven spirit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -804,6 +812,7 @@ export default {
             price: '$46.00',
             isAlternative: true,
             altNote: 'Jessica Jones\'s custom snake-print set was never sold at retail -- this sources the bodysuit only, matching the serpent motif (no sequins, red camo jacket, or boots).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2187,6 +2196,7 @@ export default {
             price: '$30.00',
             isAlternative: true,
             altNote: 'Her exact Monique Lhuillier tea-length dress is long discontinued -- this is a current pink floral tiered midi in the same tea-party, pastel-floral spirit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2237,7 +2247,7 @@ export default {
             matchTier: 'unscored',
             price: '$55.00',
             inStock: false,
-            verifiedAt: '2026-08-30',
+            verifiedAt: '2026-08-30T19:22:10.691Z',
             isAlternative: true,
             altNote: 'Her exact Marina Hoermanseder shirt is discontinued -- this sources the western shirt only, matching its rainbow palette (not the wig, shorts, boots, or fries costume).',
           },
@@ -2300,6 +2310,7 @@ export default {
             price: '$18.00',
             isAlternative: true,
             altNote: 'The exact cover makeup was custom -- this rose-gold glitter is a real eye-and-face cosmetic for recreating the sparkle, not the exact product used.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2351,6 +2362,7 @@ export default {
             price: '$24.95',
             isAlternative: true,
             altNote: 'Jessica Jones\'s shorts are discontinued -- this sources the shorts only, matching high waist and multicolor sequins (not the blouse, bodysuit, or boots).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2441,6 +2453,7 @@ export default {
             price: '$315.00',
             isAlternative: true,
             altNote: 'The custom striped romper is discontinued -- this is a current black sequin romper in the same short one-piece silhouette, without purple striping (heels not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

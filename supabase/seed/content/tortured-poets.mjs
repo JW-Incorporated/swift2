@@ -535,6 +535,7 @@ export default {
             price: '$229.00',
             isAlternative: true,
             altNote: 'The custom Vivienne Westwood lyric gown was never sold at retail -- this sources the gown only, matching its corseted, draped feel (no printed text; the bodysuit not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1942,6 +1943,7 @@ export default {
             price: '$69.99',
             isAlternative: true,
             altNote: 'The Elena Velez runway gown is not sold at mainstream retail -- this is a current black Victorian-gothic corset gown in the same silhouette family (top by UNTTLD not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1997,6 +1999,7 @@ export default {
             price: '$45.90',
             isAlternative: true,
             altNote: 'The custom Dior runway look was never sold at retail -- this sources the corset only, a pink-and-black plaid rather than the exact tartan, without the cape.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2120,6 +2123,7 @@ export default {
             price: '$339.00',
             isAlternative: true,
             altNote: 'The "Candescence" gown is no longer sold -- this ivory crepe gown keeps the sculptural gathering and dramatic white silhouette, off-shoulder with a fishtail hem rather than high-low cotton.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2188,6 +2192,7 @@ export default {
             price: '$54.00',
             isAlternative: false,
             altNote: 'The exact Popflex Twirl Skort in Plum shown in the video -- sourcing the skort only, not the lavender set, WISKII skirt, or boots.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2462,6 +2467,7 @@ export default {
             matchTier: 'unscored',
             price: '$3,500.00',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
             // The Louboutin "Miss Jane" sandal she wore was the taupe/"Leche"
@@ -2477,6 +2483,7 @@ export default {
             price: '$945.00',
             isAlternative: true,
             altNote: 'Same Miss Jane sandal she wore; the exact taupe ("Leche") colorway sells only on Louboutin\'s own site — this Nordstrom listing is Blush/Black.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2570,6 +2577,7 @@ export default {
             matchTier: 'unscored',
             price: '$222.00',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
             brand: 'SIMKHAI',
@@ -2579,6 +2587,7 @@ export default {
             matchTier: 'unscored',
             price: '$241.00',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
             brand: 'Gucci',
@@ -2590,6 +2599,7 @@ export default {
             inStock: true,
             isAlternative: true,
             altNote: 'Same Ottavia style; she wore it in "dark red" (Rosso Ancora) — that colorway\'s listings are blocked by bot protection everywhere checked, so this is the verified-live Black colorway.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -4667,17 +4677,7 @@ export default {
         //   specific style; gucci.com / louisvuitton.com hard-block automated
         //   requests, so no PDP can be identified or curl-verified without
         //   guessing — better no link than a fabricated one.
-        products: [
-          {
-            brand: 'Reformation',
-            item: 'Sora Linen Dress',
-            retailer: 'thereformation.com',
-            url: 'https://www.thereformation.com/products/sora-linen-dress/1314992.html',
-            matchTier: 'unscored',
-            price: '$248.00',
-            inStock: false,
-          },
-        ],
+        products: [],
         // CIE image-liveness repair (2026-08-24): Getty frames from Just
         // Jared's event gallery, verified live and visually confirmed.
         photos: [
@@ -4817,6 +4817,7 @@ export default {
             url: 'https://www.amazon.com/MONSE-Harness-Tapestry-Dress-Alien/dp/B0FB9MHTDS',
             matchTier: 'unscored',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -5496,6 +5497,7 @@ export default {
             price: '$25.90',
             isAlternative: true,
             altNote: 'No single retail original is named -- this newspaper-print tee turns the typewritten motif into clothing, though its beige-multicolor print isn\'t the restrained monochrome styling.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
         // Photo pass (issue #1721, 2026-08-25): page had zero photos.
@@ -5948,6 +5950,7 @@ export default {
             price: '$3,250.00',
             isAlternative: true,
             altNote: 'The real ring is a one-of-one Artifex Fine Jewelry commission by Kindred Lubeck -- this is a real vintage old mine-cut diamond in a yellow-gold setting, not the actual ring.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -6080,6 +6083,7 @@ export default {
             matchTier: 'unscored',
             price: '$398',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           // NOT added, per the never-fabricate/never-dead-link rule
           // (2026-07-19 verification pass):
