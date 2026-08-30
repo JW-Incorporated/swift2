@@ -232,7 +232,28 @@ export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
   return toolInput(await response.json());
 }
 
-export async function runAuthoring({ receipt, queue, judge, capUsd = MAX_RUN_COST_USD }) {
+const TRANSIENT_RETRY_ATTEMPTS = 3;
+
+async function judgeWithRetry(pair, judge, sleep) {
+  let lastError;
+  for (let attempt = 1; attempt <= TRANSIENT_RETRY_ATTEMPTS; attempt += 1) {
+    try {
+      return await judge(pair);
+    } catch (error) {
+      lastError = error;
+      if (attempt < TRANSIENT_RETRY_ATTEMPTS) await sleep(250 * 2 ** (attempt - 1));
+    }
+  }
+  throw lastError;
+}
+
+export async function runAuthoring({
+  receipt,
+  queue,
+  judge,
+  capUsd = MAX_RUN_COST_USD,
+  sleep = (milliseconds) => new Promise((resolveSleep) => setTimeout(resolveSleep, milliseconds)),
+}) {
   if (!receipt || typeof receipt !== 'object') throw new Error('receipt must be an object');
   if (!queue || !Array.isArray(queue.queue))
     throw new Error('detector queue must contain a queue array');
@@ -288,7 +309,7 @@ export async function runAuthoring({ receipt, queue, judge, capUsd = MAX_RUN_COS
     reservedCostUsd += RESERVATION_PER_PAIR_USD;
     attempted.add(pair.cacheKey);
     try {
-      const normalized = normalizeJudgment(pair, await judge(pair));
+      const normalized = normalizeJudgment(pair, await judgeWithRetry(pair, judge, sleep));
       if (!normalized) {
         judgments.push(unresolved(pair, 'invalid judgment response'));
         continue;
