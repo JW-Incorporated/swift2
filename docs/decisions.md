@@ -259,6 +259,21 @@ mandate for byte identity to those old attachment hashes is void.
 
 ---
 
+## 2026-08-30 — E6 matcher is staged dispatch-only pending its existing gate
+
+**Decision:** Per binding Fable ruling `FABLE-E6-t_0b6b4d6a-2026-08-30-01`,
+the E6 matcher may ship as a zero-network, `workflow_dispatch`-only artifact
+builder. Its automatic fashion-content trigger remains absent until Joey has
+recorded completion of the existing counsel and Search API account gates.
+
+**Why:** This preserves the deterministic matcher and re-source handoff for
+review without activating the paid-search-dependent engine contrary to the
+existing FR-MERCH-5 decision.
+
+**Approved by:** Fable arbiter under the reversible decision-authority line.
+
+---
+
 ## 2026-08-30 — Merch autonomy: full official catalog with verified Amazon alternatives; fan-made line is inspired-by, never bootleg
 
 **Decision:** D1 is **D1-a**. E4 lists the full `store.taylorswift.com`
