@@ -101,4 +101,22 @@ describe('MerchCard alt-piece clarity', () => {
     expect(html).toContain('https://www.amazon.com/dp/B123?tag=longlive-20&amp;ascsubtag=official');
     expect(html).toContain('Some links may earn Long Live a commission at no extra cost to you.');
   });
+
+  it('emits schema.org Product JSON-LD for every card (SPEC.merch-autonomy.md §9)', () => {
+    const item: MerchItem = { ...baseItem, imageUrl: 'https://www.etro.com/img/gown.jpg' };
+    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+
+    expect(html).toContain('"@type":"Product"');
+    expect(html).toContain('"name":"Silk Gown"');
+    expect(html).toContain('"brand":{"@type":"Brand","name":"Etro"}');
+    expect(html).toContain('"image":"https://www.etro.com/img/gown.jpg"');
+  });
+
+  it('omits the offers block when the item has no fresh machine-verified price/stock', () => {
+    const item: MerchItem = { ...baseItem };
+    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+
+    expect(html).toContain('"@type":"Product"');
+    expect(html).not.toContain('"offers"');
+  });
 });
