@@ -679,6 +679,14 @@ reflects it, and a test PR still merges once `build` is green.
 
 ## DONE
 
+### 30. [UPGRADE] Confirm the two owner-authorized X post deletions
+
+**Status:** DONE (2026-08-30)
+
+**Outcome (2026-08-30):** Joey confirmed both specified posts are gone/unavailable.
+
+---
+
 ### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
 
 **Filed:** 2026-08-30
