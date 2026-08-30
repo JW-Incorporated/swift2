@@ -11,7 +11,7 @@ import {
 } from './merch-filters';
 
 describe('merchByEra', () => {
-  it('groups every retained shopTheLook product exactly once after the E3 audit', () => {
+  it('groups every retained shopTheLook product exactly once after E3 and E1 audits', () => {
     const groups = merchByEra();
     const total = groups.reduce((sum, g) => sum + g.items.length, 0);
     expect(total).toBe(MERCH_CATALOGUE.shopTheLook.length);
@@ -20,6 +20,9 @@ describe('merchByEra', () => {
     // their `products` entries — a real, intended composition shift.
     // 133 -> 108 (E3, 2026-08-30): vision audit removed 25 mismatches and
     // recorded each one for re-sourcing instead of presenting a false match.
+    // 108 retained after E1 (2026-08-30): two 404 products without exact
+    // same-origin replacements remain discoverable as unavailable while their
+    // re-source tickets preserve the next action.
     expect(total).toBe(108);
     // count is precomputed as items.length, per the contract
     for (const g of groups) expect(g.count).toBe(g.items.length);

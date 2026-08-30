@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "sourceRun": "E1 link-liveness repair 2026-08-30",
+  "reSource": [
+    {
+      "productId": "vault-reputation-you-need-to-calm-down-turns-a-music-video-into-an-equality-a:0",
+      "url": "https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/",
+      "action": "marked-out-of-stock",
+      "reason": "dead-404-no-exact-same-origin-replacement",
+      "retailerSearchEvidence": "The Jackson's Western women-shirt catalog did not surface the exact Wrangler rainbow-bandana snap shirt."
+    },
+    {
+      "productId": "vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto:0",
+      "url": "https://davidkoma.com/collections/dresses/products/crystal-embroidered-neckline-and-strap-mini-dress-black-silver",
+      "action": "marked-out-of-stock",
+      "reason": "dead-404-no-exact-same-origin-replacement",
+      "retailerSearchEvidence": "David Koma returned current crystal-star mini dresses, but none verified as the cited crystal-embroidered neckline-and-strap dress in black/silver."
+    }
+  ]
+}
