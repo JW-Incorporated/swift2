@@ -101,7 +101,7 @@ Create `data/social-source-watchlist.json` as the sole source of truth for allow
 }
 ```
 
-Do not seed real handles in the implementation without the already-approved source list. A malformed, duplicate, non-HTTPS, unsupported-platform, or excluded entry must fail validation. A disabled entry is valid but produces no source row or reminder item. No raw post content, usernames other than the configured creator handle, follower counts, media URLs, comments, or credentials belong in this file.
+Do not seed real handles in the implementation without the already-approved source list. A malformed, duplicate, non-HTTPS, unsupported-platform, or excluded entry must fail validation. A disabled entry is valid but produces no enabled source row or reminder item. No raw post content, usernames other than the configured creator handle, follower counts, media URLs, comments, or credentials belong in this file.
 
 ### Community refresh output
 
@@ -111,7 +111,7 @@ The auditor writes one generated Markdown receipt from the checked-in community 
 - each Discord entry’s published URL, normalized invite code, reachability result, and approximate counts only when returned;
 - a non-Discord “not automatically checked” count;
 - failures grouped as invalid URL, 404/expired, 429/deferred, provider error, or parse error;
-- the two Reddit exclusions and an assertion that neither was read.
+- the generic assertion `excluded_reddit_communities_not_read: true`, without emitting either excluded community name.
 
 The temporary receipt is evidence, not a self-updating production data source. The authoritative health source is the latest scheduled `social-source-refresh` GitHub Actions run: a successful run with no reminder write is healthy; a successful run with a dated machine-written issue marker is degraded; a failed or overdue run is unhealthy. The issue marker links a degraded run to its maintenance issue but is not an alternative audit artifact. A successful automatic Discord check may propose a data refresh, but updating the checked-in community dataset must happen only in a normal reviewed PR. A failed or rate-limited run must not erase the prior verified value, downgrade it to zero, or delete an entry.
 
@@ -123,7 +123,7 @@ Task 2 reserves the exact source-name format `social-watch:<platform>:<handle>`,
 ### Health conditions
 
 - **Healthy:** all configured Discord invites resolve, the latest scheduled `social-source-refresh` run is no more than 14 days old and succeeds without a reminder write, and the last creator-signal run completed without configuration errors.
-- **Degraded:** one or more Discord invites fail or rate-limit, a creator query has no results, or a manual social check is due. Preserve last known data and create/update the maintenance issue.
+- **Degraded:** one or more Discord invites fail or rate-limit, a creator source is `lead` or `unavailable`, or a manual social check is due. A `no_lead` source with a fresh valid receipt is healthy and produces no reminder by itself. Preserve last known data and create/update the maintenance issue.
 - **Fail closed:** invalid configuration, a response outside the allowed schema, an unsupported platform request, an attempted excluded subreddit, or an HTTP authentication requirement. Do not retry around access restrictions or substitute scraped data.
 
 ---
@@ -164,9 +164,9 @@ npm run test -- scripts/social-source-watchlist.test.mjs
 1. Generate deterministic Google News RSS query URLs from each enabled configuration entry, without requesting Instagram or TikTok.
 2. Insert only idempotent `news_source` rows using the existing source-seed migration pattern. Name every row exactly `social-watch:<platform>:<handle>`, using the lowercase configured handle and allowing only `[a-z0-9._-]+`; reject a watchlist item that cannot produce that name. This is the sole selector for the status receipt, so the seeder and emitter must share the same format and no unrelated source type or row may match it.
 3. Use `google_news`/RSS only as a lead source. Its tier remains `unverified`; no source row may imply official-platform verification. The existing `news_raw_item` schema remains unchanged: a source row identifies a manual-only platform lead by its deterministic configured source name and URL, not by a new per-item marker.
-4. Reject duplicates during validation; allow disabled accounts to validate but produce no source row. Never delete existing rows in this task.
+4. Reject duplicates during validation. On every successful sync, idempotently set `is_enabled=false` for any existing `social-watch:<platform>:<handle>` row whose account is disabled or absent from the validated watchlist; enabled accounts are the only rows kept or set to `is_enabled=true`. Never delete existing rows in this task.
 5. Include the permanent exclusion assertion in the seeder test suite.
-6. Extend the existing secret-backed digest emitter to write the strict, non-secret `docs/content-ops/social-source-status.json` receipt defined above. Update the existing `news-digest` publication step to publish both generated files, and test `lead`, `no_lead`, and `unavailable` status derivation without retaining raw items; include an unrelated `news_source` fixture that proves it cannot enter the receipt. The receipt is the only permitted creator-lead input to Task 4.
+6. Extend the existing secret-backed digest emitter to write the strict, non-secret `docs/content-ops/social-source-status.json` receipt defined above. Update the existing `news-digest` publication step to publish both generated files, and test `lead`, `no_lead`, and `unavailable` status derivation without retaining raw items; include an unrelated `news_source` fixture that proves it cannot enter the receipt and disabled/removed watchlist fixtures that prove their rows are inactive and omitted. The receipt is the only permitted creator-lead input to Task 4.
 
 **Verification**
 ```sh
