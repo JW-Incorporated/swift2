@@ -96,6 +96,20 @@ describe('E0 Awin sync', () => {
     ).toEqual({ complete: false, feeds: [], changed: [], removed: [] });
   });
 
+  it('does not treat an incomplete directory row as a feed removal', () => {
+    expect(
+      buildFeedDirectorySyncPlan({
+        csv: 'feed id,last imported,url,advertiser id\ncurrent,2026-08-30,https://feeds.example/current.csv,100\nretained,2026-08-29',
+        cache: { feeds: { current: '2026-08-30', retained: '2026-08-29' } },
+      }),
+    ).toEqual({
+      complete: false,
+      feeds: [{ feedId: 'current', updatedAt: '2026-08-30', downloadUrl: 'https://feeds.example/current.csv', advertiserMid: '100' }],
+      changed: [],
+      removed: [],
+    });
+  });
+
   it('removes cached feeds absent from a complete directory response', () => {
     expect(
       buildFeedDirectorySyncPlan({

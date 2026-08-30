@@ -11,6 +11,10 @@ function text(value) {
   return typeof value === 'string' && value.trim() ? value.trim() : null;
 }
 
+function sqliteText(value) {
+  return value == null ? null : String(value);
+}
+
 function parseCsvRow(line) {
   const values = [];
   let value = '';
@@ -56,9 +60,8 @@ export function parseFeedDirectory(csv) {
     const index = candidates.map((candidate) => names.indexOf(candidate)).find((candidate) => candidate >= 0);
     return index === undefined ? null : text(row[index]);
   };
-  const feeds = lines
-    .filter(Boolean)
-    .map(parseCsvRow)
+  const rows = lines.filter(Boolean).map(parseCsvRow);
+  const feeds = rows
     .map((row) => ({
       feedId: field(row, 'feed id', 'feed_id', 'fid'),
       updatedAt: field(row, 'last imported', 'last update', 'last_updated'),
@@ -69,7 +72,8 @@ export function parseFeedDirectory(csv) {
   return {
     complete: hasColumn('feed id', 'feed_id', 'fid')
       && hasColumn('last imported', 'last update', 'last_updated')
-      && hasColumn('url', 'download url', 'download_url'),
+      && hasColumn('url', 'download url', 'download_url')
+      && feeds.length === rows.length,
     feeds,
   };
 }
@@ -156,7 +160,21 @@ export async function writeSqlite(path, rows, replacedFeedIds) {
   const insert = database.prepare('INSERT OR REPLACE INTO products (feed_id, advertiser_mid, product_id, title, description, brand, price, stock, image_url, destination_url, deeplink, category, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
   for (const feedId of replacedFeedIds) removeFeed.run(feedId);
   for (const row of rows) {
-    insert.run(row.feedId, row.advertiserMid, row.productId, row.title, row.description, row.brand, row.price, row.stock, row.imageUrl, row.destinationUrl, row.deeplink, row.category, row.updatedAt);
+    insert.run(...[
+      row.feedId,
+      row.advertiserMid,
+      row.productId,
+      row.title,
+      row.description,
+      row.brand,
+      row.price,
+      row.stock,
+      row.imageUrl,
+      row.destinationUrl,
+      row.deeplink,
+      row.category,
+      row.updatedAt,
+    ].map(sqliteText));
   }
   database.exec('DROP TABLE IF EXISTS products_fts; CREATE VIRTUAL TABLE products_fts USING fts5(product_key UNINDEXED, title, description, brand);');
   const insertFts = database.prepare('INSERT INTO products_fts (product_key, title, description, brand) VALUES (?, ?, ?, ?)');
