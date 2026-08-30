@@ -14,7 +14,8 @@ function toIsoDate(value: unknown): string | undefined {
   if (typeof value !== 'string' || !/^\d{8}T\d{6}Z$/.test(value)) return undefined;
 
   const isoDate = `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}T${value.slice(9, 11)}:${value.slice(11, 13)}:${value.slice(13, 15)}.000Z`;
-  return Number.isNaN(Date.parse(isoDate)) ? undefined : isoDate;
+  const parsed = new Date(isoDate);
+  return Number.isNaN(parsed.getTime()) || parsed.toISOString() !== isoDate ? undefined : isoDate;
 }
 
 function normalizeArticle(article: GdeltArticle): NormalizedNewsItem | undefined {

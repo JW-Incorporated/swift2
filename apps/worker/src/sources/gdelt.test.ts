@@ -42,6 +42,11 @@ describe('fetchGdeltTaylorSwift', () => {
           { title: 'Missing link', seendate: '20260830T120000Z' },
           { url: 'https://example.com/missing-title', seendate: '20260830T120000Z' },
           { title: 'Bad date', url: 'https://example.com/bad-date', seendate: 'not-a-date' },
+          {
+            title: 'Impossible date',
+            url: 'https://example.com/impossible-date',
+            seendate: '20260230T120000Z',
+          },
           { title: 'Valid', url: 'https://example.com/valid', seendate: '20260830T120000Z' },
         ],
       }),
