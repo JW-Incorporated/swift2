@@ -404,31 +404,43 @@ freshness* step: a small `scripts/notifications-freshness.mjs` that exits
 0 / 2 / 1 for healthy / not-applicable / stale, with the alert routed through
 `scripts/watchdog/upsert-alert.sh`.
 
-**Read `max(sent_at)` from `public.deliveries`** — that is the delivery
-timestamp column the schema actually defines
-([`20260911000000_notifications_events.sql`](../supabase/migrations/20260911000000_notifications_events.sql));
-there is no `created_at` on that table, and querying one would fail on every
-run instead of detecting a stall.
+**Use an explicit per-run heartbeat, not inferred activity.** The tempting
+cheap signal — "is `max(sent_at)` on `public.deliveries` recent?" — does not
+work, and the reason is worth writing down so nobody re-derives it: a healthy
+dispatcher legitimately writes **no rows at all** on a quiet cycle, and pairing
+it with "is there a pending event waiting?" does not rescue it either.
+`dispatchOneEvent` returns early without writing any delivery when an event has
+no eligible devices (`allDeviceIds.length === 0` in
+[`notification-router.ts`](../packages/core/src/notification-router.ts)), and
+the governor can likewise suppress every send — so a perfectly-processed event
+stays indistinguishable from an unprocessed one, and the check would alarm
+forever on an event nobody was ever going to receive.
 
-**A quiet queue is not a dead cron, and the check must not confuse them** — a
-period with genuinely nothing to send produces no `deliveries` row at all, so
-`sent_at` alone cannot distinguish "healthy and idle" from "cron dead". Gate
-the staleness verdict on there being pending work the dispatcher *should*
-already have picked up, using the router's own definition of pending
-([`notification-router.ts`](../packages/core/src/notification-router.ts)):
-an `events` row with `available_at <= now`, `killed_at is null`, no matching
-`deliveries.event_id`, and `expires_at` either null or still in the future.
-Alarm only when such a row has been waiting longer than one dispatch interval
-**and** `max(sent_at)` is older than the SLO. That reads the same two tables
-the route already reads, needs no new run marker, and cannot cry wolf on a
-quiet night.
+So have the dispatcher say so itself: on each run, after the pass completes,
+write one row to a small `dispatch_runs` table (`ran_at`, plus the counters the
+route already computes — events considered, sent, skipped, failed). The
+watchdog then asks one unambiguous question — *is `max(ran_at)` older than a
+few dispatch intervals?* — which is true only if the cron genuinely stopped,
+regardless of how quiet the queue is. The counters make the same row useful for
+"running but failing everything", which the freshness check alone would miss.
+
+Note for whoever implements it: `public.deliveries` records its timestamp as
+**`sent_at`**, not `created_at`
+([`20260911000000_notifications_events.sql`](../supabase/migrations/20260911000000_notifications_events.sql)) —
+worth knowing when wiring the counters, and a reason the naive query above
+would have failed outright rather than merely misfired.
 
 **No new secret is required** — `watchdog.yml` already has `SUPABASE_URL` and
 `SUPABASE_SERVICE_ROLE_KEY` for the knowledge check. Run it on the **hourly**
 `:05` trigger, not the daily one: a 15-minute job that has been dead for 23
 hours is not an acceptable detection window for the product's headline feature.
 
-**Cost:** zero new spend, ~5 seconds per hourly watchdog run.
+**Cost:** zero new spend and no new secret. Scope is slightly larger than a
+watchdog step alone — one small migration (`dispatch_runs`), a few lines at the
+end of the dispatch route to write the heartbeat row, and the watchdog step
+itself — but all three are deterministic, and it is the cheapest honest signal
+available: every inference-based alternative was tried above and each one
+either false-alarms or fails silently.
 
 <a id="rec-2"></a>
 ### REC-2 — Finish or abandon the Vault Run consolidation; the half-done state has a real correctness cost
