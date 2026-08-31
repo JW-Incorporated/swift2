@@ -70,7 +70,7 @@ drifts).
 | Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `0 10 * * 1` | ✅ | `claude-opus-5` |
 | Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `0 11 * * *` | ✅ | `claude-opus-4-8` |
 | Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `20 22 * * 1` | ✅ | `claude-opus-4-8` |
-| Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `20 18 * * *` | ✅ | `claude-sonnet-5` |
+| Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `20 18 * * 2,5` | ✅ | `claude-sonnet-5` |
 | Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ✅ | `claude-opus-4-8` — 2-week trial 2026-08-31→2026-09-14 (was `claude-fable-5`; Joey D5=A, `decisions.md`) |
 | Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `0 14 * * 1,5` | ✅ | `claude-opus-4-8` |
 | Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `23 1,13 * * *` | ✅ | `claude-haiku-4-5-20251001` |
