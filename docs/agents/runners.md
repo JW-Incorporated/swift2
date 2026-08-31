@@ -617,19 +617,20 @@ agent-reviewed would stay at zero forever, which is today's bug with extra steps
 (c) *`--claims-only` focusing* — RUNBOOK.md already records that this caused a
 real miss: claim-free narrative records are exactly where fabricated events hide.
 
-### Tree's routine does not exist yet — it is a Wyatt-side paste (2026-08-11)
+### Tree's routine does not exist yet — needs creating on Joey's account (2026-08-11, account corrected 2026-08-31 D1=B)
 
 The row above is the *specification*. **No routine was created by the session
-that wrote it**, deliberately: creating it requires a session authenticated to
-Wyatt's account, which the session that wrote this spec was not.
+that wrote it**, deliberately: creating it requires a session authenticated
+to a Claude account. This spec originally named Wyatt's account per the
+2026-07-12 policy; per Joey's 2026-08-31 decision (D1=B) the fleet's account
+is now **Joey's**, so Tree should be created there like every other runner.
 **Correction (2026-08-22): this is not a "humans only" limitation** —
 `RemoteTrigger` create/update/run works fine same-account, confirmed against
 Joey's account the same day. The one step that genuinely is UI-only is
 `routine-invariants.md`'s connector removal (detaching `Claude_Code_Remote` —
 the API silently no-ops `mcp_connections: []`).
 
-To bring Tree live, from Wyatt's side (his account, not this repo's checkout):
-create a routine named
+To bring Tree live, from Joey's account: create a routine named
 `Tree — weekly social plan`, cron `0 10 * * 1`, model `claude-opus-5` (or the
 fleet's current Opus), prompt = the **exact contents** of
 [`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md), then run the
