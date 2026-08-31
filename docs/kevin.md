@@ -149,11 +149,15 @@ date — Marjorie posts by ~12:40 UTC / 6:00 AM PT, before Kevin's S2 run at
   standalone issue below, unchanged from today's behavior.
 
 Either way the content is the same compact **review list** — one block per
-pending user ticket. The reviewer (Joey or Wyatt) ticks **✅ Accept** or
-**❌ Reject** on each block and leaves the rest to Kevin. (It is a list of
-blocks, not a table, because GitHub only renders clickable checkboxes for
-top-level list items, not inside table cells — true in both an issue body
-and a comment.)
+pending user ticket. **The reviewer is Joey (`sffan15-sys`)** — per
+`CLAUDE.md` § "The company" (2026-08-31), Joey is the sole active
+decision-maker on this project; Wyatt remains an owner but no longer takes
+actions or makes decisions here, so a `wjduvall-cmd` tick is not
+authoritative and must be left pending, not acted on. Joey ticks
+**✅ Accept** or **❌ Reject** on each block and leaves the rest to Kevin.
+(It is a list of blocks, not a table, because GitHub only renders clickable
+checkboxes for top-level list items, not inside table cells — true in both
+an issue body and a comment.)
 
 **Standalone/degraded mode:** Kevin posts/updates a single GitHub issue
 titled **`Kevin Daily Review — YYYY-MM-DD`** (labels `kevin-digest`) with the
