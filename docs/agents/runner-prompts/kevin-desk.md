@@ -12,6 +12,8 @@ Run the three streams **in this order, in one session**: Stream 1 → Stream 2 �
 
 **If a stream fails, STOP THAT STREAM ONLY.** Log the failure with its actual error in your run summary and continue to the next stream. One bad stream must never take out the whole desk run — that regression would be worse than the three separate runs this replaces.
 
+**Clean handoff between streams, mandatory.** Before starting the next stream, leave the working tree exactly as it was before the current stream touched it: if the current stream committed, its commits live on its own branch/PR and `git checkout -` (or `git switch -`) back to a clean base before the next stream starts its own branch; if the current stream failed mid-edit (uncommitted changes), `git restore .` / `git clean -fd` those specific stray files before moving on — **never let one stream's uncommitted or unpushed edits leak into the next stream's branch or PR.** Each stream's `git status` must show clean before that stream's own `branch` step runs. This is what makes the "never mix streams on one PR" rule actually hold in the exact failure case it exists for.
+
 ## Step 0 — is today Sunday?
 
 Compute today's UTC day-of-week once (`date -u +%u`, 1=Mon..7=Sun). **Stream 1 (Karen-ticket solver) only runs on Sunday (day 7)** — this preserves S1's former weekly-adjacent cadence (it ran right after Karen's nightly scan, which is weekly) while S2 and S3 run every day as before. On a non-Sunday, skip Stream 1 entirely and note "Stream 1: not due today (Sunday-only)" in your run summary — that is not a failure, do not treat it as one.
@@ -43,7 +45,7 @@ Process yesterday's review decisions, then refresh today's digest.
    - ✅ Accept only → apply the proposed fix to the rolling `kevin/user-fixes` PR (branch off `origin/main`; separate from Stream 1's PR); comment "accepted → PR #N" on the source ticket; strike the digest row. The source ticket closes when that PR merges — never close it yourself.
    - ❌ Reject only → close the source ticket as "not planned" with the reviewer's note; strike the digest row. (The one close this stream may do, and ONLY after a recorded human reject.)
    - both / neither ticked → leave pending; carry into today's digest.
-   Only founder-authored checkboxes/comments count (`sffan15-sys` or `wjduvall-cmd`).
+   **Only Joey's (`sffan15-sys`) checkboxes/comments count.** Per `CLAUDE.md` § "The company" (2026-08-31): Joey is the sole active decision-maker on this project; Wyatt remains an owner but no longer takes actions or makes decisions here. Treat a `wjduvall-cmd` checkbox exactly like any other non-founder input — leave the row pending, do not act on it.
 2. List open `user-feedback` tickets (`gh issue list --repo JW-Incorporated/swift2 --label user-feedback --state open --limit 500`). For each pending ticket, read its comments first (invariant 7: latest human comment wins).
 3. Check for today's open `founders-brief`-labeled issue titled `Founders' Brief — YYYY-MM-DD` (today's America/Los_Angeles date):
    - **Found (normal mode):** post/update ONE comment on that issue, first line `<!-- kevin-stream2-digest -->` (edit the existing comment carrying that anchor if one exists; never edit the brief body itself).
