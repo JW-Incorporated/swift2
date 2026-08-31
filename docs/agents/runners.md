@@ -563,7 +563,7 @@ inventory drifting ahead of reality.
 
 | Runner | Cadence | Trigger ID |
 |---|---|---|
-| Karen — nightly scan | weekly `0 9 * * 0` (Sun) — registered name; bounded weekly judgment slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
+| Karen — nightly scan ⚠️ **trigger ID likely stale (predates the 2026-08-23 account migration, issue #2258) — see § T-5 above; use `trig_01TmYaZgnecrEp9mkeV3Gq6X` from the live table for any real action** | weekly `0 9 * * 0` (Sun) — registered name; bounded weekly judgment slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
 | Kevin — S1 Karen solver *(cloud copy only)* | weekly `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` |
 | ~~Nils — daily walk~~ **SUPERSEDED 2026-08-31 (Joey, D4=B)** — now twice weekly `0 14 * * 1,5` (Mon+Fri), see `nils.md` § Cadence and `decisions.md` § D3=A…D6=A | `trig_013xb8Stm7m2sB6dqGePKRtr` |
 | Stylist | weekly `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` |
