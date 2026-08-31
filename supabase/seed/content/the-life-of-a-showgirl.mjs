@@ -5266,6 +5266,9 @@ export default {
             item: 'Viola Dress',
             retailer: 'moniquelhuillier.com',
             url: 'https://moniquelhuillier.com/products/viola-bridal-dress',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://moniquelhuillier.com/cdn/shop/files/ViolaDress-SILKWHITE_00248.png?height=630&pad_color=fff&v=1745622059&width=1200',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$4,990.00',
@@ -6285,6 +6288,9 @@ export default {
             item: 'Xena Crystal Fringe Bodysuit',
             retailer: 'manifestie.com',
             url: 'https://www.manifestie.com/products/xena-crystal-fringe-bodysuit-rhinestone-tassel-festival-outfit',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://www.manifestie.com/cdn/shop/products/il_fullxfull.4875464952_pc5o.jpg?v=1761351917',
             matchTier: 'unscored',
             kind: 'top',
             price: '$190.00',
@@ -9947,6 +9953,9 @@ export default {
             item: 'Feather-Trim Sequin-Embellished Mini Dress',
             retailer: 'brannacouture.com',
             url: 'https://brannacouture.com/products/feather-trim-sequin-embellished-mini-dress-in-orange',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://brannacouture.com/cdn/shop/files/Feather-Trim_Sequin-Embellished_Mini_Dress_in_Orange.webp?v=1773723519',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$262.00',
@@ -11485,6 +11494,10 @@ export default {
             item: 'Mini Isabelle Dress',
             retailer: 'delphinenyc.com',
             url: 'https://www.delphinenyc.com/products/mini-isabelle-dress-lilac-multi',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP og:image,
+            // curl-verified 200 image/jpeg (233113 bytes).
+            imageUrl:
+              'https://www.delphinenyc.com/cdn/shop/files/MINI_ISABELLE_DRESS_LILAC_048_copia_copy.jpg?v=1773154614&width=1920',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$995.00',
@@ -11496,6 +11509,11 @@ export default {
             item: 'Love Struck Sandal 85',
             retailer: 'aquazzura.com',
             url: 'https://www.aquazzura.com/us_en/love-struck-sandal-85-light-copper-lskmids0-npl-lco',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP og:image
+            // (media.aquazzura.com CDN, not the site logo), curl-verified
+            // 200 image/jpeg (184586 bytes).
+            imageUrl:
+              'https://media.aquazzura.com/media/catalog/product/L/S/LSKMIDS0-NPL-LCO_01.jpg?auto=compress',
             matchTier: 'unscored',
             kind: 'shoes',
             price: '$1,710.00',
@@ -11507,6 +11525,11 @@ export default {
             item: 'Loubi54 Ombré Crystal Embellished Clutch',
             retailer: 'nordstrom.com',
             url: 'https://www.nordstrom.com/s/loubi54-ombr-crystal-embellished-clutch/7693914',
+            // Photo pass (t_fa7bfb57, 2026-08-31): Nordstrom blocks generic
+            // fetchers, but a Googlebot UA reaches the real PDP og:image
+            // (n.nordstrommedia.com CDN), curl-verified 200 image/jpeg
+            // (674677 bytes).
+            imageUrl: 'https://n.nordstrommedia.com/it/0a7308e2-0986-4009-986e-da12d69b5b49.jpeg',
             matchTier: 'unscored',
             kind: 'bag',
             // No price shown on the sold-out PDP — omitted rather than guessed.

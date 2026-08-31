@@ -126,10 +126,20 @@ describe('merchItemImage', () => {
     // moment), and a split card's moment half counts as a claim too (it
     // puts the same pixels on screen); the haircut product demotes to the
     // honest monogram tile instead of repeating them.
-    expect(split).toBe(46);
-    expect(product).toBe(2);
-    expect(moment).toBe(41);
-    expect(monogram).toBe(11);
+    // 41/11 -> 63/4/26/7 (kanban task t_fa7bfb57, 2026-08-31): sourced real
+    // retailer imageUrls (curl-verified, fetched from each retailer's own
+    // PDP og:image/schema tag) for the London-newlywed-outing three plus a
+    // full-catalogue audit of every other content-vault-authored product
+    // missing imageUrl — 17 products total gained a real photo. Each one
+    // that previously fell back to the monogram tile or its moment's shared
+    // photo now renders its own product photo (split when the moment also
+    // has a real photo, product-only otherwise), which is why split/product
+    // rose sharply and moment/monogram fell — a real, intended composition
+    // shift, not a regression.
+    expect(split).toBe(63);
+    expect(product).toBe(4);
+    expect(moment).toBe(26);
+    expect(monogram).toBe(7);
     expect(split + product + moment + monogram).toBe(100);
   });
 

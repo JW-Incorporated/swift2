@@ -531,6 +531,9 @@ export default {
             // to Showpo's canonical `/us/products/` URL (still the live PDP);
             // stored the canonical target directly so we don't lean on the redirect.
             url: 'https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0904/3371/6589/files/1-Siofra_Beaded_Fringe_Mini_Dress_in_Hot_Pink_40.jpg?v=1744807739',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$22.00',

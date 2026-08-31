@@ -748,6 +748,9 @@ export default {
             item: 'Fernanda Blouse',
             retailer: 'garmentory.com',
             url: 'https://www.garmentory.com/sale/ulla-johnson/tops-blouses/976294-fernanda-blouse',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://images.garmentory.com/images/3984947/large/Ulla-Johnson-Fernanda-Blouse-20200713175800.jpg?1594663082',
             matchTier: 'unscored',
             kind: 'top',
             price: '$237.00',
@@ -909,6 +912,9 @@ export default {
             item: 'Second Skin Knit Off-Shoulder Bodysuit',
             retailer: 'ssense.com',
             url: 'https://www.ssense.com/en-us/women/product/alaia/brown-second-skin-knit-off-shoulder-bodysuit/17916981',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://img.ssensemedia.com/images/w_640/252483F358001_1/alaia-brown-second-skin-knit-off-shoulder-bodysuit.jpg',
             matchTier: 'unscored',
             kind: 'top',
             price: '$1,900.00',

@@ -857,6 +857,9 @@ export default {
             // to Showpo's canonical `/us/products/` URL (still the live PDP);
             // stored the canonical target directly so we don't lean on the redirect.
             url: 'https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0904/3371/6589/files/1-Siofra_Beaded_Fringe_Mini_Dress_in_Hot_Pink_40.jpg?v=1744807739',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$22.00',
@@ -2545,6 +2548,9 @@ export default {
             item: 'Simona Satin Mini Dress',
             retailer: 'fashionnova.com',
             url: 'https://www.fashionnova.com/products/simona-satin-mini-dress-light-blue',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0293/9277/products/01-06-22Studio3_ME_MJ_10-19-40_16_73792_LightBlue_0528_EH.jpg?v=1643755094&width=1200&height=627',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$23.98',
