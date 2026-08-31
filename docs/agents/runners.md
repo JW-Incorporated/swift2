@@ -808,16 +808,24 @@ model change).
 | MCP connectors | none |
 | Start / end | create alongside the News Triage model flip; disable (never delete — reversible record) once the trial concludes (2 weeks from the model-flip date) with a PASS or a revert |
 
-**Trial window and disposition:** starts the day the model-flip PR merges
-and this trigger is created; runs for 2 weeks. On the first FAIL (any
-counted false negative), revert News Triage's model back to
-`claude-opus-4-8` immediately (full `job_config` round-trip) and disable
-this recall-check trigger. On a clean 2-week PASS, disable this recall-check
-trigger (its job is done — News Triage stays on `claude-sonnet-5`
-permanently) and remove the `docs/content-ops/news-triage-trial-active`
-marker in the same PR, which also turns off the now-unneeded digest-archive
-step in `news-worker.yml`. Record the outcome in `docs/decisions.md`
-either way.
+**Trial window and disposition:** starts the day the model-flip is applied
+and this trigger is created; runs for 2 weeks. **Revert is NOT automatic —
+it needs the same account-authenticated RemoteTrigger access as every step
+above, so a FAIL cannot fix itself.** On the first FAIL (any counted false
+negative), the recall-check issue IS the trigger for action, but action
+still requires a human-account session: whoever reads the FAIL issue (Kevin
+S3's comment radar/eng triage, Marjorie's brief, or a founder scanning
+`intake`-adjacent issues) must escalate it as a new `HUMAN-ACTIONS.md` item
+(same shape as #36) requesting an urgent revert of News Triage's model back
+to `claude-opus-4-8` (full `job_config` round-trip) and disabling of this
+recall-check trigger — do not assume the revert happens without that
+explicit new item, and do not let the routine's own "any FAIL reverts"
+framing above read as "reverts itself." On a clean 2-week PASS, disable
+this recall-check trigger (its job is done — News Triage stays on
+`claude-sonnet-5` permanently) and remove the
+`docs/content-ops/news-triage-trial-active` marker in the same PR, which
+also turns off the now-unneeded digest-archive step in `news-worker.yml`.
+Record the outcome in `docs/decisions.md` either way.
 
 ## Maintenance fleet (2026-07-12)
 
