@@ -121,7 +121,25 @@ dropdown — no checkout, no `.env`, no laptop command, ever again.
 **Worked if:** both workflow runs above show green in the Actions tab, and
 production's `video_work` table matches `supabase/seed/videos/**`.
 
-**Status:** OPEN
+**Status:** DONE
+
+**Resolved (2026-08-31):** `SUPABASE_DB_URL` was already configured as a
+repo Actions secret. Found and fixed a real workflow-authoring bug blocking
+both actions: an `EXIT` trap inside the "Materialize ephemeral
+apps/worker/.env" step deleted the file the instant that step's own shell
+exited, before the next step ("Run migrations (pass 1)") could read it
+(`node: apps/worker/.env: not found`) — each GH Actions `run:` block is a
+separate shell process. Fixed in `db-migrate.yml`/`db-seed.yml` by moving
+the cleanup trap into the steps that actually consume the file. Confirmed
+both fixed workflows green with fresh `workflow_dispatch` runs directly on
+`main`:
+- `db-migrate` run 33351892355 — success, includes the pass-2 idempotency
+  check.
+- `db-seed` (target=videos) run 33351966250 — success.
+
+Production `video_work` now matches `supabase/seed/videos/**`. All future
+migrations run automatically on merge to `main`; every seed target is a
+one-click Actions dispatch.
 
 ---
 
