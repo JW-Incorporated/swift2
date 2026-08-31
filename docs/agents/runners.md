@@ -64,7 +64,13 @@ drifts).
 | Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | `11 16 * * 0` | ✅ | `claude-haiku-4-5-20251001` |
 | swift2 Getty purge — GitHub GC watch | `trig_018QuJozjMr1bYMPcqgKUmvL` | `0 3,15 * * *` | ✅ (self-retiring one-shot watchdog, not part of the standing fleet — created 2026-08-15, unrelated to #2258) | `claude-sonnet-5` |
 
-**23 Swift2 routines total, 22 enabled** (Lex depth intentionally paused).
+**23 Swift2 routines total, 22 enabled** in the **standing fleet** (Lex depth
+intentionally paused). The table above has 24 rows because it also carries
+`swift2 Getty purge — GitHub GC watch`, a self-retiring one-shot deliberately
+outside the fleet — which is why the 2026-08-27 audit note below says "all 24
+triggers verified live" and why [`../AUTOMATION.md`](../AUTOMATION.md), which
+counts every live trigger regardless of fleet membership, says 24/23. Both
+scopes are correct; quote whichever one your question is about.
 `bedrock nightly audit` also lives in this account's routine list but is a
 different project (per `~/Projects/CLAUDE.md`'s ownership table) — excluded
 here on purpose, not missed.

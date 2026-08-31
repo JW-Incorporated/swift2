@@ -9,8 +9,19 @@ routine.
 - Owner: the repo (any desk may propose changes by PR; no routine may edit
   this file's Efficiency Review section about itself).
 - Last full audit: **2026-08-31**.
-- Counted here: **37 GitHub Actions workflows**, **24 Claude desk routines**,
-  **1 Vercel Cron job**, **1 Dependabot schedule** = **63 automated routines**.
+- Counted here: **37 GitHub Actions workflows**, **24 Claude desk routine
+  triggers**, **1 Vercel Cron job**, **1 Dependabot schedule** = **63
+  automated routines**.
+
+> **On the routine count.** [`agents/runners.md`](agents/runners.md)'s summary
+> line reads "23 Swift2 routines total, 22 enabled" while its own table has 24
+> rows and its 2026-08-27 audit note says "all 24 triggers verified live". Both
+> are right about different things: the 23/22 figure counts the **standing
+> fleet** and excludes `swift2 Getty purge — GitHub GC watch`, which that same
+> table flags as a self-retiring one-shot outside the fleet. This file counts
+> **every live trigger**, so it says 24 (23 enabled — Lex depth is
+> intentionally paused). Same underlying reality, two scopes; the registry's
+> summary line has been annotated to say so.
 
 ---
 
@@ -240,10 +251,14 @@ Specs: [`NOTIFICATIONS_SPEC.md`](../NOTIFICATIONS_SPEC.md) §10 ·
 [`NOTIFICATIONS_PLAN.md`](../NOTIFICATIONS_PLAN.md) ·
 setup: [`SETUP_NOTIFICATIONS.md`](../SETUP_NOTIFICATIONS.md).
 
-This is the **only** automated routine that touches users directly on every
-run, and per [`vision.md`](vision.md) notifications are the product's stated
-differentiator ("user notifications are presented as an integral part of the
-experience"). It has no watchdog. See [REC-1](#rec-1).
+This is the only automated routine that **delivers directly to a user's own
+device** on every run, and per [`vision.md`](vision.md) notifications are the
+product's stated differentiator ("user notifications are presented as an
+integral part of the experience"). `social-poster.yml` is the other routine
+that acts irreversibly in public every run — but a bad or missing social post
+is visible to the founders in the queue and the timeline, whereas a
+notification that never fires is invisible to everyone. This job has no
+watchdog. See [REC-1](#rec-1).
 
 ---
 
@@ -343,11 +358,13 @@ executed** — each is a proposal for founder or desk action.
 
 **Finding.** `vercel.json`'s `*/15` cron on `/api/notifications/dispatch` is
 the delivery path for the feature `vision.md` names as the product's
-differentiator, and **nothing checks that it ran.** If Vercel Cron stops, the
-`CRON_SECRET` rotates, or the route starts 500-ing, the first signal is a fan
-noticing they stopped getting notified. Every other critical path in this repo
-has a freshness check; this one does not — and it is the newest and least
-battle-tested of them.
+differentiator, and **nothing checks that it ran** (verified: `watchdog.yml`
+contains no reference to notifications or to the dispatch route). If Vercel
+Cron stops, the `CRON_SECRET` rotates, or the route starts 500-ing, the first
+signal is a fan noticing they stopped getting notified — there is no queue, no
+branch, and no PR to inspect, unlike every other lane in this repo. Every other
+critical path here has a freshness check; this one does not, and it is the
+newest and least battle-tested of them.
 
 **Recommendation.** Add a `Notifications dispatch freshness` step to
 `watchdog.yml`, modelled byte-for-byte on the existing *Knowledge engine
