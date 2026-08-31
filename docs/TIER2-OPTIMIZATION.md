@@ -262,6 +262,12 @@ the end.
   nightly/weekly contradiction. Token impact: down slightly (shorter
   sessions); quality neutral (the Action covers detection daily, better than
   the routine's weekly slice ever did). Trivial-to-moderate; agent call.
+- **Status update (2026-08-31, T-5 execution).** The prompt-file trim landed
+  earlier than this analysis — PR #3445 (2026-08-29) already removed the
+  duplicated deterministic scan from `runner-prompts/karen-nightly.md` and
+  made it judgment-only. Only the trigger rename remains, tracked as
+  [issue #3616](https://github.com/JW-Incorporated/swift2/issues/3616); see
+  `runners.md` § T-5 for the exact round-trip steps.
 
 #### B2. Nils — site walk (Sun 14:00, Opus 4.8)
 
