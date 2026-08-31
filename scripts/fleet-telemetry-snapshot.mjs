@@ -112,8 +112,20 @@ async function fetchRunCounts(sinceIso) {
 }
 
 async function fetchOpenPrCount() {
-  const { stdout } = await gh(['pr', 'list', '--state', 'open', '--limit', '200', '--json', 'number']);
-  return JSON.parse(stdout).length;
+  // `gh pr list` truncates at its --limit even with a large value; this repo
+  // is nowhere near 200 open PRs today but the count must stay correct as it
+  // grows. The search API's total_count is exact regardless of result size —
+  // it's a single-number aggregate, not a paged list, so it isn't subject to
+  // the pagination cap that bit the workflow-run count above.
+  const { stdout } = await gh([
+    'api',
+    `search/issues?q=${encodeURIComponent(`repo:${REPO} is:pr is:open`)}`,
+    '-X',
+    'GET',
+    '--jq',
+    '.total_count',
+  ]);
+  return parseInt(stdout.trim(), 10) || 0;
 }
 
 /**
