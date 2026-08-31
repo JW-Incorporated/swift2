@@ -77,7 +77,7 @@ drifts).
 | Kevin — S3 eng triage (cloud) | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | `43 15 * * *` | ✅ | `claude-sonnet-5` |
 | Kevin — S2 user-feedback digest (cloud) | `trig_0136mXcpmzn6mYtYoUQC3eGP` | `13 15 * * *` | ✅ | `claude-sonnet-5` |
 | Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ | `claude-opus-4-8` |
-| Karen — nightly scan (registered name; bounded weekly judgment slice — see `runner-prompts/karen-nightly.md`) | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
+| Karen — nightly scan ⚠️ **RENAME PENDING (T-5, 2026-08-31)** — registered name not yet resynced to `Karen — weekly judgment slice`; prompt already judgment-only, see `runner-prompts/karen-nightly.md` and § T-5 below | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | `claude-opus-4-8` |
 | Content Shift — authoring runs | `trig_01PonDFeQCL4iRNzceGyAYrm` | `0 17 * * *` | ✅ | `claude-opus-4-8` |
 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ✅ | `claude-opus-4-8` |
@@ -512,11 +512,58 @@ evidence already gathered in this section. The word "nightly" in the
 routine's name/title is historical — the cadence itself has been weekly since
 the 2026-07-25 override.
 
+### T-5 — trim routine + rename trigger (2026-08-31, `docs/TIER2-OPTIMIZATION.md`)
+
+**Prompt file: already judgment-only.** `runner-prompts/karen-nightly.md` was
+trimmed to the bounded judgment slice (review-slice + subagent dispatch +
+ingest/issues/record-review + link-rot sweep) by PR #3445 (2026-08-29), which
+also struck the old deterministic `run.mjs all --create` step now owned by
+`.github/workflows/cie-scan.yml`. **Not accidentally bundled into #3601** —
+that PR only touched Karen Deep (T-6, a separate not-yet-created routine),
+Nils cadence, Austin's model trial, and the notification-quality desk; it
+never edited this prompt file or this trigger.
+
+**Remaining scope: rename the live trigger to match.** Tracked as
+[#3616](https://github.com/JW-Incorporated/swift2/issues/3616) so this
+doesn't strand as an untracked "whoever has access" note. The registered
+name is still `Karen — nightly scan`, contradicting its own judgment-only
+content and weekly cadence (documented above). Whoever next has account
+access to <https://claude.ai/code/routines> should, in one `job_config`
+round-trip (get → edit only `name` in the returned object → PUT the whole
+thing back — **never a partial PUT**, per the RemoteTrigger footgun above):
+
+| Field | Current | New |
+|---|---|---|
+| Name | `Karen — nightly scan` | `Karen — weekly judgment slice` |
+| Trigger ID | `trig_01TmYaZgnecrEp9mkeV3Gq6X` — the live table above; recreated on Joey's account 2026-08-23 per `HUMAN-ACTIONS.md` #2, current and correct | unchanged |
+| Prompt (`events`) | already judgment-only (PR #3445) | unchanged — do not re-paste, just preserve on the round-trip |
+| Cadence, model, repo, connectors | `0 9 * * 0` UTC, `claude-sonnet-5`, `JW-Incorporated/swift2`@main | unchanged |
+
+**Do not use `trig_014HWuRmT2MFveDkPGwVDiQX`** (the "Cadence overrides still
+in force" table below and the historical split table further down) — that ID
+predates the 2026-08-23 account migration (issue #2258), when Wyatt's entire
+fleet was disabled and Karen was recreated fresh on Joey's account under
+`trig_01TmYaZgnecrEp9mkeV3Gq6X`. It is very likely stale/orphaned rather than
+the same routine under a second ID; whoever applies the rename should `get`
+`trig_014HW...` first to confirm it no longer exists live before touching
+anything, and if it turns out to still be live and enabled, flag that here as
+a separate finding (a live duplicate), don't fold it into this rename.
+
+Cross-checked against `runner-prompts/karen-nightly.md`: the file's own
+opening line already reads "weekly content-safety judgment review," so a
+rename to `Karen — weekly judgment slice` is a pure resync, not a new
+decision — no founder call needed (T-5 is pre-approved,
+standing-agent-authority per its Tier-2 entry). **This doc's live table
+(above) still shows the current registered name with a RENAME PENDING flag,
+not the new name** — the tables get updated to `Karen — weekly judgment
+slice` outright only once the live rename actually lands, to avoid the
+inventory drifting ahead of reality.
+
 ### Cadence overrides still in force (from the 2026-07-25 sustainment pass)
 
 | Runner | Cadence | Trigger ID |
 |---|---|---|
-| Karen — nightly scan | weekly `0 9 * * 0` (Sun) — registered name; bounded weekly judgment slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
+| Karen — nightly scan ⚠️ **trigger ID likely stale (predates the 2026-08-23 account migration, issue #2258) — see § T-5 above; use `trig_01TmYaZgnecrEp9mkeV3Gq6X` from the live table for any real action** | weekly `0 9 * * 0` (Sun) — registered name; bounded weekly judgment slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
 | Kevin — S1 Karen solver *(cloud copy only)* | weekly `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` |
 | ~~Nils — daily walk~~ **SUPERSEDED 2026-08-31 (Joey, D4=B)** — now twice weekly `0 14 * * 1,5` (Mon+Fri), see `nils.md` § Cadence and `decisions.md` § D3=A…D6=A | `trig_013xb8Stm7m2sB6dqGePKRtr` |
 | Stylist | weekly `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` |
