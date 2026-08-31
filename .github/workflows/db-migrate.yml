@@ -48,7 +48,6 @@ jobs:
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
         run: |
-          trap 'rm -f apps/worker/.env' EXIT
           mkdir -p apps/worker
           umask 077
           printf 'SUPABASE_DB_URL=%s\n' "$SUPABASE_DB_URL" > apps/worker/.env
@@ -61,7 +60,6 @@ jobs:
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
         run: |
-          trap 'rm -f apps/worker/.env' EXIT
           mkdir -p apps/worker
           umask 077
           printf 'SUPABASE_DB_URL=%s\n' "$SUPABASE_DB_URL" > apps/worker/.env
