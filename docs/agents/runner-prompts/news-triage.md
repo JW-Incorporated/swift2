@@ -48,8 +48,12 @@ Do NOT query the `news_story` table -- it needs a service-role key you are delib
 
   gh api repos/JW-Incorporated/swift2/contents/docs/content-ops/news-candidates.md?ref=news-digest --jq .content | base64 -d
 
-=== T-3 TRIAL ONLY: RECORD THE EXACT SNAPSHOT YOU CONSUMED ===
-Present only while docs/content-ops/news-triage-trial-active exists on main (the Opus-to-Sonnet-5 trial, docs/TIER2-OPTIMIZATION.md T-3). Before triaging, also list the archive: `gh api repos/JW-Incorporated/swift2/contents/docs/content-ops/archive?ref=news-digest --jq '.[].name'` and note the filename of the MOST RECENT archived snapshot as of your run (its timestamp will be at or just before your own run time, since the worker's every-4h publish step always archives before you run). Put that exact filename in your run-log comment (see NEVER EXIT SILENTLY below) as `consumed-snapshot: <filename>` on its own line -- this is what lets the weekly recall-check runner diff against the precise digest you actually triaged, instead of inferring it from cron timing (which can be wrong if either schedule runs late).
+=== T-3 TRIAL ONLY: TRIAGE THE ARCHIVED SNAPSHOT, NOT THE LIVE FILE ===
+Present only while docs/content-ops/news-triage-trial-active exists on main (the Opus-to-Sonnet-5 trial, docs/TIER2-OPTIMIZATION.md T-3). The live `news-candidates.md` above can be overwritten mid-run by the worker's every-4h publish (delayed schedule, manual dispatch, or a run that starts right at a publish boundary) -- fetching it AND separately listing the archive for "the latest" is racy and can silently mismatch. So during the trial, use the archive as your actual source of truth instead of the live file: list `gh api repos/JW-Incorporated/swift2/contents/docs/content-ops/archive?ref=news-digest --jq '.[].name'`, take the single most recent filename, and fetch and triage THAT exact file:
+
+  gh api repos/JW-Incorporated/swift2/contents/docs/content-ops/archive/<filename>?ref=news-digest --jq .content | base64 -d
+
+Put that exact filename in your run-log comment (see NEVER EXIT SILENTLY below) as `consumed-snapshot: <filename>` on its own line -- since you triaged this file directly rather than inferring it after the fact, this line is now an exact, race-free record of your input, which is what lets the weekly recall-check runner diff against precisely what you saw.
 
 === THREE KNOWN DATA DEFECTS ===
 (A) Clustering is broken: source_count is 1 almost everywhere, so 'rumor' there mostly means 'one outlet so far'. Group the digest yourself -- your grouping IS the corroboration signal.
