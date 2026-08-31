@@ -2323,8 +2323,12 @@ export default {
             retailer: 'ulta.com',
             url: 'https://www.ulta.com/p/disco-crush-high-shine-glitter-eye-face-sparkle-pimprod2046472?sku=2627323',
             // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
-            // 200 image/* response.
-            imageUrl: 'https://media.ultainc.com/i/ulta/2627324?w=500&h=500',
+            // 200 image/* response. Uses the SKU-specific media.ulta.com
+            // path (not the page's server-rendered og:image, which
+            // defaulted to the Mystic Pink variant regardless of
+            // ?sku= — codex review flagged the mismatch) so the photo
+            // matches the named Heart Eyes shade (SKU 2627323).
+            imageUrl: 'https://media.ultainc.com/i/ulta/2627323?w=500&h=500',
             matchTier: 'unscored',
             kind: 'beauty',
             price: '$18.00',
