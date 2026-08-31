@@ -287,6 +287,56 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The song where Fearless turns on itself. Two tracks after \"Love Story\" rewrites Romeo and Juliet with a proposal, \"White Horse\" is the morning-after rebuttal — no prince, no rescue, just a narrator realizing the fairy tale was never coming and choosing to leave the small town and the boy who was never going to change. Written with Liz Rose, it is the album's clearest admission that Swift knew the difference between the fantasy she was selling and the disappointment underneath it.",
+          "It became one of the era's most decorated songs: at the 2010 Grammys it won Best Country Song and Best Female Country Vocal Performance, part of the night Fearless made Swift the youngest Album of the Year winner to that point. An early sync placement on the season-five premiere of Grey's Anatomy — a show she adored — was an accelerant she publicly called a life goal, and the song's understated, finger-picked restraint became a template for the more adult heartbreak she would keep writing."
+        ],
+        meaning: {
+          confirmed: [
+            "Co-written by Swift and Liz Rose and produced by Nathan Chapman and Swift, it was released as the second single from Fearless — sent to US country radio on Dec. 8, 2008 — and peaked at No. 13 on the Billboard Hot 100 and No. 2 on Hot Country Songs.",
+            "It won two awards at the 52nd Annual Grammy Awards (2010): Best Country Song (the songwriter's award, to Swift and Rose) and Best Female Country Vocal Performance.",
+            "The song was featured in the Grey's Anatomy season-five premiere, which aired Sept. 25, 2008. Swift has said getting a song onto the show was a \"life goal\" and played \"White Horse\" alone on guitar for showrunner Shonda Rhimes and producer Betsy Beers before the placement.",
+            "Swift and Rose have described it as the disillusioned counterpart to the album's fairy-tale singles — the point where the narrator stops waiting to be rescued and walks away instead."
+          ],
+          supported: [
+            "Critics have often held \"White Horse\" up as the moment Fearless earns its emotional credibility — the restraint of the arrangement, a finger-picked guitar with piano and cello accents, letting the letdown land without melodrama.",
+            "It reads as an early hinge between the country-radio Swift of the debut and the sharper breakup writing of Speak Now and Red — the same clear-eyed \"I see it now\" voice, still in a country register."
+          ],
+          fanTheories: [
+            "Fans frequently pair it with \"Love Story\" as an argument the album makes with itself: one song wants the fairy tale, a couple of tracks later another admits it was fiction — the sequencing read as deliberate."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:love-story",
+            label: "Love Story",
+            why: "The fairy tale and its rebuttal on the same album — \"Love Story\" rewrites the myth with a happy ending, \"White Horse\" is the song that admits the myth was never real."
+          },
+          {
+            relatedId: "song:fifteen",
+            label: "Fifteen",
+            why: "Both trade the era's romance for its comedown — \"Fifteen\" warning a younger girl what heartbreak is coming, \"White Horse\" living through it."
+          },
+          {
+            relatedId: "song:youre-not-sorry",
+            label: "You're Not Sorry",
+            why: "Fearless's other clear-eyed breakup — the apology that doesn't fix anything and the decision to stop waiting on it."
+          }
+        ],
+        sources: [
+          {
+            name: "White Horse (Taylor Swift song) — Wikipedia",
+            url: "https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)",
+            reliability_score: 2
+          },
+          {
+            name: "White Horse by Taylor Swift — Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/white-horse",
+            reliability_score: 3
+          }
+        ]
+      },
     },
     {
       slug: 'you-belong-with-me',
@@ -600,6 +650,56 @@ const TRACKS = [
           notes: 'chart peaks, RIAA certification, live-performance dates, and critical reception',
         },
       ],
+      dossier: {
+        whyItMatters: [
+          "Fearless's quietest and most disarming song: a thank-you letter to Andrea Swift that Swift wrote and recorded in secret, then revealed on Christmas synced to a home-video montage she had edited herself. Where the album's singles chase romance, \"The Best Day\" drops the fairy tale entirely to name the actual people who raised her — a mother who once drove her to another town to outrun a run of mean girls, an \"excellent father,\" a little brother — and it has become her de facto Mother's Day standard ever since.",
+          "It is the clearest early proof that Swift's gift was never only for heartbreak. Written from a child's vantage — \"the way that I used to talk when I was 5\" — it treats plain gratitude as a subject worth a whole song, and the fact that she kept it hidden until it was finished, so her mother wouldn't see it coming, is exactly the kind of gesture fans point to when they describe the family at the center of her story."
+        ],
+        meaning: {
+          confirmed: [
+            "Written solo by Swift and produced by Nathan Chapman and Swift, it is an autobiographical tribute to her mother, Andrea Swift, with a verse thanking her father and a memory of her younger brother, Austin.",
+            "Swift kept the song a secret until it was finished and revealed it to Andrea on Christmas, playing it over a home-video montage she had edited; by her account Andrea did not realize at first that it was Taylor singing, then broke down crying.",
+            "A self-edited music video using the same childhood home footage went out May 1, 2009 as a Mother's Day promotion; the original recording reached No. 3 on Bubbling Under Hot 100 Singles and No. 56 on Hot Country Songs without ever going to country radio, and was later certified Gold by the RIAA.",
+            "Swift re-recorded it for Fearless (Taylor's Version) in 2021 with a new, longer family-footage video, and has returned to it live — including a surprise-song appearance on the Eras Tour in Philadelphia over Mother's Day weekend 2023."
+          ],
+          supported: [
+            "Critics have repeatedly singled it out among Fearless's deep cuts — The Boston Globe once called it the best song on the album — citing it as evidence Swift could write a plainly stated love song for a parent as convincingly as she wrote about teenage romance.",
+            "Swift has said she eventually rested the song live because Andrea kept breaking down backstage on hearing it, which is part of why its occasional returns register as events."
+          ],
+          fanTheories: [
+            "Fans tend to read \"The Best Day\" as the emotional anchor of Fearless — the song that explains where the album's fearlessness comes from, and the reason its confidence never reads as arrogance."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:fifteen",
+            label: "Fifteen",
+            why: "The album's two unguarded autobiographies — \"The Best Day\" for her mother, \"Fifteen\" for her best friend; the two songs where Fearless drops the fairy tale and names real people."
+          },
+          {
+            relatedId: "song:never-grow-up",
+            label: "Never Grow Up",
+            why: "The Speak Now companion from the other side — \"The Best Day\" thanks the parent who guarded a childhood, \"Never Grow Up\" is the one pleading with a child not to leave it."
+          },
+          {
+            relatedId: "song:marjorie",
+            label: "Marjorie",
+            why: "The grown-up echo years later — the evermore tribute to her grandmother that turns the same family gratitude toward grief and memory."
+          }
+        ],
+        sources: [
+          {
+            name: "The Best Day (Taylor Swift song) — Wikipedia",
+            url: "https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)",
+            reliability_score: 2
+          },
+          {
+            name: "The Best Day by Taylor Swift — Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/the-best-day",
+            reliability_score: 3
+          }
+        ]
+      },
     },
     {
       slug: 'change',
@@ -626,6 +726,56 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The song Swift wrote about her own underdog fight — being signed to Big Machine, a brand-new label with no money going up against the majors — and it doubles as the album's most improbable origin story. It was released early, in August 2008, as part of the AT&T Team USA soundtrack for the Beijing Olympics, months before Fearless itself arrived. A private label anthem became, briefly, a national one, playing under NBC's Olympic highlight reels with its proceeds going to the U.S. Olympic team.",
+          "As the closing track of Fearless, \"Change\" is where the album stops narrating romance and makes a promise instead: that the scrappy operation you belong to will win, that these walls will come down. It is the earliest example of a mode Swift returns to for the rest of her career — the defiant, we-were-doubted-and-we-won anthem — and hearing it as track thirteen recasts the whole record as a bet that paid off."
+        ],
+        meaning: {
+          confirmed: [
+            "Written solo by Swift and produced by Nathan Chapman and Swift; she has said it was inspired by being signed to Big Machine Records when it was a fledgling startup competing against far larger labels.",
+            "It was released on Aug. 8, 2008 to promote the AT&T Team USA Soundtrack for the U.S. team at the 2008 Beijing Olympics, and was used in NBC's Olympic highlight coverage that month — an advance release ahead of Fearless (Nov. 11, 2008).",
+            "The song peaked at No. 10 on the Billboard Hot 100, No. 21 on the Pop 100 and No. 57 on Hot Country Songs; proceeds from the Olympic soundtrack were donated to the U.S. Olympic team.",
+            "It closes the standard edition of Fearless as its thirteenth track; the music video, directed by Shawn Robbins, shows Swift performing with a band, with an alternate cut incorporating footage of the U.S. Olympic team."
+          ],
+          supported: [
+            "The lyric's fight-song register — belief, perseverance, an inevitable victory — reads as autobiography aimed at a label's long odds rather than at a romance, which sets it apart from everything around it on the album.",
+            "Its Olympic placement gave Swift an early taste of a song functioning as a national-event soundtrack, a scale she would later reach routinely."
+          ],
+          fanTheories: [
+            "Fans often hear \"Change\" retroactively as a mission statement for the whole Big Machine era — and, after the 2019 masters dispute and the Taylor's Version re-recordings, as an unintentionally ironic one, given how that underdog story with the label ended."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:long-live",
+            label: "Long Live",
+            why: "The Speak Now victory lap to this song's opening bet — \"Change\" promises the walls will come down, \"Long Live\" celebrates the night they did."
+          },
+          {
+            relatedId: "song:mean",
+            label: "Mean",
+            why: "The other early underdog-answers-the-doubters song — \"Change\" against the majors, \"Mean\" against a specific critic, both certain the giants don't get the last word."
+          },
+          {
+            relatedId: "song:love-story",
+            label: "Love Story",
+            why: "Fearless's two advance singles that broke the album before it arrived — \"Love Story\" the crossover smash, \"Change\" the Olympic-soundtrack curveball."
+          }
+        ],
+        sources: [
+          {
+            name: "Change (Taylor Swift song) — Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Change_(Taylor_Swift_song)",
+            reliability_score: 2
+          },
+          {
+            name: "Change by Taylor Swift — Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/change",
+            reliability_score: 3
+          }
+        ]
+      },
     },
     {
       slug: 'jump-then-fall',
