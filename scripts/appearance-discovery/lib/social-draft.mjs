@@ -232,6 +232,15 @@ const TAYLOR_VERIFY_TOOL = {
 // Below this, treat a "yes" as too uncertain to ship unattended — same
 // judgment-call posture as requiring a clean tool response at all.
 const TAYLOR_PRESENCE_MIN_CONFIDENCE = 0.6;
+// Same 30s ceiling as the thumbnail fetches in this file (AbortSignal.timeout
+// below) — Codex review round 1 (kanban t_ac1281ef): this request originally
+// had no abort signal, so a connection that accepts but never completes
+// could consume the whole 20-minute workflow timeout. Because the intake
+// issue is already filed before this call runs, and later runs dedupe
+// against that issue, a hung call would silently and PERMANENTLY drop that
+// video's social pair (never retried) instead of failing loud within the
+// run.
+const TAYLOR_VERIFY_TIMEOUT_MS = 30_000;
 
 function taylorVerifyToolInput(body) {
   const content = body?.content;
@@ -246,6 +255,7 @@ function taylorVerifyToolInput(body) {
  * CLOSED (no verification credential = no unverified "photo" ships), never
  * open.
  */
+/* global AbortSignal */ // a Node 18+ global; same pragma as check-link-liveness.mjs
 export async function verifyTaylorPresence(bytes, mediaType, { apiKey, fetchImpl = fetch } = {}) {
   if (!apiKey) {
     throw new Error(
@@ -259,6 +269,7 @@ export async function verifyTaylorPresence(bytes, mediaType, { apiKey, fetchImpl
       'anthropic-version': ANTHROPIC_VERSION,
       'content-type': 'application/json',
     },
+    signal: AbortSignal.timeout(TAYLOR_VERIFY_TIMEOUT_MS),
     body: JSON.stringify({
       model: TAYLOR_VERIFY_MODEL,
       max_tokens: 128,
@@ -287,7 +298,14 @@ export async function verifyTaylorPresence(bytes, mediaType, { apiKey, fetchImpl
   if (
     !input ||
     typeof input.taylor_present !== 'boolean' ||
+    // Tool input is model-generated and must not be trusted to obey the
+    // supplied JSON-schema bounds (Codex review round 1, kanban
+    // t_ac1281ef) — a schema-invalid `confidence: 2` would otherwise sail
+    // past the later `>= 0.6` check and defeat the fail-closed gate.
     typeof input.confidence !== 'number' ||
+    !Number.isFinite(input.confidence) ||
+    input.confidence < 0 ||
+    input.confidence > 1 ||
     typeof input.reason !== 'string' ||
     !input.reason.trim()
   ) {
@@ -305,7 +323,6 @@ export async function verifyTaylorPresence(bytes, mediaType, { apiKey, fetchImpl
  * shape check but fails verification is skipped, not returned — the caller
  * (discover.mjs) treats a thrown error here as a loud, non-fatal
  * draftFailure, same as any other staging failure. */
-/* global AbortSignal */ // a Node 18+ global; same pragma as check-link-liveness.mjs
 export async function fetchAppearanceThumbnail(
   c,
   { fetchImpl = fetch, apiKey = process.env.ANTHROPIC_API_KEY, verify = verifyTaylorPresence } = {},

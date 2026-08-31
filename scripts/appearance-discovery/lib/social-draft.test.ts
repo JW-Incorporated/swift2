@@ -166,6 +166,28 @@ describe('verifyTaylorPresence', () => {
     await expect(verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: 'k', fetchImpl })).rejects.toThrow(/malformed/);
   });
 
+  it('throws on a schema-invalid confidence value (model-generated tool input is not trusted)', async () => {
+    const fetchImpl = vi.fn(async () => ({
+      ok: true,
+      json: async () => ({
+        content: [{ type: 'tool_use', name: 'record_taylor_presence', input: { taylor_present: true, confidence: 2, reason: 'looks right' } }],
+      }),
+    }));
+    await expect(verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: 'k', fetchImpl })).rejects.toThrow(/malformed/);
+  });
+
+  it('passes an abort signal so a hung Anthropic request cannot consume the whole run', async () => {
+    const fetchImpl = vi.fn(async () => ({
+      ok: true,
+      json: async () => ({
+        content: [{ type: 'tool_use', name: 'record_taylor_presence', input: { taylor_present: true, confidence: 0.9, reason: 'ok' } }],
+      }),
+    }));
+    await verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: 'k', fetchImpl });
+    const init = fetchImpl.mock.calls[0][1];
+    expect(init.signal).toBeInstanceOf(AbortSignal);
+  });
+
   it('returns the parsed judgment on a well-formed tool response', async () => {
     const fetchImpl = vi.fn(async () => ({
       ok: true,
