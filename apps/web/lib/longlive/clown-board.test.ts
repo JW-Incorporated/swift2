@@ -4,7 +4,7 @@ import { confirmedEggs, currentTheories, relativeDate } from './clown-board';
 import { LORE } from './clownbot-lore';
 import { THEORIES_RAW } from './theories.generated';
 
-const NOW = new Date('2026-08-24T12:00:00Z');
+const NOW = new Date('2026-08-31T12:00:00Z');
 
 describe('currentTheories — column 1', () => {
   it('never pads: fewer than 10 in the corpus means fewer than 10 returned', () => {

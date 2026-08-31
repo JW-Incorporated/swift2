@@ -3821,13 +3821,15 @@ export default {
               'Reports put the cost of hiring Madison Square Garden at roughly $3 million for three days — one to set up, one to marry, one to break it all down.',
             reportedBy: 'Hello!',
             reportedOn: '2026-07-02',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
-            note: 'An estimate aggregated from unnamed reports — neither the couple nor the venue has confirmed any figure. (Distinct from the separately confirmed $160K+ NYC permit fee — a city-services figure, not the cost of hiring the arena.)',
+            note: 'An estimate aggregated from unnamed reports — neither the couple nor the venue has confirmed any figure. (Distinct from the separately confirmed $160K+ NYC permit fee, a city-services figure, not the cost of hiring the arena.) Faded 2026-08-31: reported early July, never confirmed or denied — two months on, still an unattributed estimate that resolved by going quiet, not by being settled.',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-08-10: still no outlet has confirmed the
-            // venue-hire figure; still an unattributed estimate.
-            lastCheckedOn: '2026-08-10',
+            // Lifecycle re-checks: 2026-08-10 still an unattributed estimate;
+            // 2026-08-31 re-checked again (news digest + web search) — still no
+            // confirmation or denial 60d on, so retired to `faded` per the
+            // 45d-quiet rule rather than left implying it is still live.
+            lastCheckedOn: '2026-08-31',
           },
           {
             claim:
@@ -3855,10 +3857,14 @@ export default {
             url: 'https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party',
             note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published.',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-08-10: no complete guest list has been
-            // published; stays partially confirmed — some names verified by
-            // arrival photos, the roster as a whole never confirmed.
-            lastCheckedOn: '2026-08-10',
+            // Lifecycle re-checks: 2026-08-10 no complete guest list published;
+            // 2026-08-31 re-checked (news digest + web search) — still none.
+            // Stays partially_confirmed, NOT faded: unlike a claim that only
+            // ever went quiet, this one carries real partial confirmation
+            // (several rumored names verified by arrival photos), so a `faded`
+            // terminal state would understate what is actually on the record.
+            // The roster as a whole was never published.
+            lastCheckedOn: '2026-08-31',
           },
           {
             claim:
@@ -3892,15 +3898,17 @@ export default {
               'Ed Sheeran was widely rumored to perform at the reception, fueled by Taylor\'s own October 2025 radio quip that "it would be hard to keep him from it."',
             reportedBy: 'Hello!',
             reportedOn: '2026-07-02',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
-            note: 'The only reception performance confirmed by post-wedding reporting was Stevie Nicks, per CBS News. No outlet has confirmed or denied that Sheeran — who was photographed arriving as a guest — actually performed.',
+            note: 'Sheeran was photographed arriving as a guest, but no outlet ever confirmed or denied that he performed. Faded 2026-08-31: reported early July, gone quiet for two months. The performers who did surface point elsewhere — Stevie Nicks confirmed (CBS News), Paul McCartney separately reported (NME) — so a Sheeran set is the piece that never materialised, retired to `faded` over `unconfirmed`.',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-08-10: still no confirmation or denial of
-            // a Sheeran performance; post-wedding reporting names Stevie Nicks
-            // (and, reportedly, Tim McGraw) as performers, but nothing on
-            // whether Sheeran — photographed arriving as a guest — played.
-            lastCheckedOn: '2026-08-10',
+            // Lifecycle re-checks: 2026-08-10 no confirmation or denial;
+            // 2026-08-31 re-checked (news digest + web search) — post-wedding
+            // reporting names Stevie Nicks (confirmed) and Paul McCartney
+            // (reported) as reception performers, still nothing on Sheeran 60d
+            // on. Retired to `faded` per the 45d-quiet rule. (McCartney's own
+            // reported set is carried as its own entry below.)
+            lastCheckedOn: '2026-08-31',
           },
           {
             claim:
@@ -3974,6 +3982,25 @@ export default {
             // claimed 'tabloid'. MLive/Yahoo carried it; they did not report it.
             sourceTier: 'social',
             lastCheckedOn: '2026-08-24',
+          },
+          {
+            // Added 2026-08-31 (Rumor Desk, news digest + web search): a newly
+            // surfaced reception performance, distinct from — and the likely
+            // reason nothing ever backed — the Ed Sheeran set faded above.
+            // Public-facing entertainment fact at the wedding's documented venue
+            // (MSG); no location payload, no redline. Sourcing confirmed via web
+            // search this session (HollywoodLife, E! News, NME); direct article
+            // fetches were egress-blocked in this environment, so the outlet
+            // attribution rests on the search index — flagged here for the reader.
+            claim:
+              'Paul McCartney is reported to have given a surprise performance at the July 3 reception, playing The Beatles\' "I Want to Hold Your Hand" — by several accounts his first live rendition of the song in decades — alongside the separately reported Stevie Nicks set.',
+            reportedBy: 'HollywoodLife',
+            reportedOn: '2026-07-05',
+            status: 'unconfirmed',
+            url: 'https://hollywoodlife.com/2026/07/05/who-performed-at-taylor-swift-wedding/',
+            note: 'Reported across established outlets days after the wedding — E! News flatly ("Paul McCartney Performs Beatles Classic"), NME and HollywoodLife with the same "I Want to Hold Your Hand" detail — but never confirmed by the couple, who released no photos or video. Adjudicable: resolves if the couple, McCartney or guests confirm the set, or a fuller account rules it out. No location beyond MSG.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-31',
           },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
@@ -8380,9 +8407,9 @@ export default {
             reportedOn: '2026-06-10',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/taylor-swift-jack-antonoff-toy-story-5-song-grammy-oscar-1236268865/',
-            note: 'A forward-looking prediction, not a nomination. Resolves with the shortlist and the January 2027 nominations. Lifecycle re-check 2026-08-10: still pending, not faded — a prediction awaiting scheduled Academy dates (Original Song submission deadline Oct. 14, 2026; shortlist Dec. 15, 2026), so no eligibility ruling or shortlist exists yet. Still live.',
+            note: 'A forward-looking prediction, not a nomination. Resolves with the shortlist and the January 2027 nominations. Re-checks 2026-08-10 and 2026-08-31: still pending, not faded — awaiting scheduled Academy dates (Original Song submission deadline Oct. 14, 2026; shortlist Dec. 15, 2026), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is still ahead. Still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-10',
+            lastCheckedOn: '2026-08-31',
           },
           {
             // Rumor Desk 2026-07-22 (news digest, The Tennessean via Yahoo): the
@@ -9116,6 +9143,26 @@ export default {
             sourceTier: 'established',
             lastCheckedOn: '2026-08-25',
             note: 'Her own on-record quote (Always-OK); the adjudicable part is the read that her next work leans country. Resolves against the genre of her next release; fades if the read goes nowhere. No location.',
+          },
+          {
+            // Added 2026-08-31 (Rumor Desk, news digest + web search): the
+            // "is a new record actually in the works" question, complementary to
+            // the country-direction read above — that one is about the GENRE of
+            // the next project, this is about whether there IS one. Distinct
+            // reporting (a Page Six insider, late August), not the Grammy Museum
+            // event itself; filed here as the era's what-comes-next hub. Public-
+            // facing music speculation, no location, no redline. Sourcing
+            // confirmed via web search (Just Jared carrying Page Six, plus
+            // SheKnows/IBTimes); direct fetches were egress-blocked this session.
+            claim:
+              'A Page Six insider said Taylor has been "pouring herself into writing new music" and is "incredibly inspired creatively" in the weeks since her July wedding — with songwriting described as "her main focus" — read across outlets as the first stirring of a next album, unannounced.',
+            reportedBy: 'Page Six (via Just Jared)',
+            reportedOn: '2026-08-27',
+            status: 'unconfirmed',
+            url: 'https://www.justjared.com/2026/08/27/taylor-swift-is-reportedly-working-on-new-music/',
+            note: 'An unnamed-insider report, not an announcement — no new album, title or timeline confirmed. Corroborated as a claim (SheKnows, IBTimes and others all trace to the same Page Six sourcing), which is why it is admitted, but it stays a rumor until she says so herself. Adjudicable: resolves if she announces or releases new original music, fades if the "writing" reports go nowhere. No location.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-31',
           },
         ],
       },
