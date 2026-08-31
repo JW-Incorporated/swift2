@@ -295,6 +295,29 @@ or exclude only the hand-checked issue examples. General axis scoring and the
 - `data/communities-report.md` — landscape narrative, top 10, niches, and what is deliberately absent.
 - `sources.md` — every directory/thread/article mined, plus the platform blockers, so this is re-runnable.
 
+## Notifications Phase 0 (2026-08-31, NOTIFICATIONS_PLAN.md) — new files
+
+Device registry only — foundation for the full notification system.
+`NOTIFICATIONS_SPEC.md`/`NOTIFICATIONS_PLAN.md`/`NOTIFICATIONS_PROMPTS.md`
+at the repo root are the durable spec/plan; `SETUP_NOTIFICATIONS.md` is the
+founder-facing checklist for the Firebase/APNs pieces no agent can do.
+
+| Path | What |
+|---|---|
+| `supabase/migrations/20260909000000_notifications_devices.sql` | The `devices` table (spec §9). RLS on, no `anon`/`authenticated` policies — `service_role` only |
+| `packages/shared/src/notifications-types.ts` | Portable category catalogue (spec §4, minus Fun categories — Phase 4), `DeviceRegistrationInput` |
+| `packages/core/src/devices.ts` | `upsertDevice()` — the one write path, service-role only, called from the register route |
+| `apps/web/app/api/devices/register/route.ts` (+ `.test.ts`) | `POST /api/devices/register` — upsert-by-`device_id`, same call for first registration and token refresh |
+| `apps/mobile/lib/device-id.ts` | Anonymous `device_id` generation + SecureStore persistence (spec §2) |
+| `apps/mobile/lib/notification-channels.ts` | Android notification channels, 1:1 with spec §4 categories (Android-only, no-ops on iOS) |
+| `apps/mobile/lib/push-registration.ts` | `registerDevice()` (cold-start safe, no permission prompt) vs `requestPushRegistration()` (asks permission — Phase 2's onboarding screen calls this, not App.tsx) |
+| `scripts/send-test-push.ts` | Manual FCM HTTP v1 send to one device_id. Fails closed with a named-missing-env-var message until Firebase setup lands (`SETUP_NOTIFICATIONS.md`) |
+
+`apps/mobile/App.tsx` calls `registerDevice()` on every cold start — this
+alone satisfies Phase 0's "fresh install registers a devices row"
+acceptance criterion without ever firing the OS permission dialog (spec §7:
+that's gated behind Phase 2's pre-permission onboarding screen).
+
 ## Community + Merch (2026-08-14, PR pending)
 
 - `apps/web/lib/longlive/communities.ts` — types + `COMMUNITIES` + grouping helpers. Re-exports the three data files below.
