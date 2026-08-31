@@ -194,16 +194,24 @@ the end.
   re-verifies sources before authoring), but a wrongly-*rejected or
   overlooked* story is simply never filed — intake issues are the ONLY thing
   Content Shift reads, so nothing downstream can recover a miss. Two
-  mitigations, both required: (a) a **labeled-sample recall check**, not a
-  volume comparison — filed-fraction varies legitimately with the news cycle,
-  so it cannot distinguish a Sonnet miss from a quiet week. Instead, during a
-  2-week trial, have one weekly Opus pass re-triage the *same* `news_story`
-  rows Sonnet already processed (including its refusals) and diff the
-  decisions; any story Opus would have filed that Sonnet refused or
-  overlooked is a counted false negative, and more than ~1-2 across the trial
-  reverts the change. That is 2 extra Opus sessions total against ~14 Opus
-  sessions saved — the trial pays for itself even before the standing
-  saving; (b) the prompt already requires stating what was
+  mitigations, both required: (a) a **labeled-sample recall check against a
+  replayable corpus**, not a volume comparison — filed-fraction varies
+  legitimately with the news cycle, so it cannot distinguish a Sonnet miss
+  from a quiet week. And a replay needs a snapshot, because the routine does
+  not read `news_story` directly (it is deliberately denied the service-role
+  key): it reads `docs/content-ops/news-candidates.md` on the `news-digest`
+  branch, which `scripts/news/emit-candidate-digest.mjs` regenerates after
+  every ingest, and the run log only *summarizes* refusals — the routine's
+  exact inputs are not preserved anywhere today. So the trial design is:
+  during the 2-week trial, archive each day's digest as consumed (a dated
+  copy on the `news-digest` branch or an Actions artifact — a few lines in
+  the digest-emit step, deterministic, zero LLM), then run one weekly Opus
+  pass that re-triages the archived digests (including refusals) and diffs
+  decisions. Any story Opus would have filed that Sonnet refused or
+  overlooked is a counted false negative; more than ~1-2 across the trial
+  reverts the change. That is 2 extra Opus sessions plus a trivial archive
+  step, against ~14 Opus sessions saved — the trial pays for itself even
+  before the standing saving; (b) the prompt already requires stating what was
   reviewed-and-refused per run, which makes silent-drop auditable. Revert is
   one field. Update the tiering table's Haiku row to Sonnet in the same PR so
   the doc and the decision match (the table's original Haiku call predates
@@ -262,8 +270,9 @@ the end.
   (Marjorie charter, amendment 6). At weekly cadence, auto-merged content can
   be live for up to 7 days before any judgment desk sees it.
 - **Recommendation (T-7) — reconcile the charter to the live weekly cadence
-  (doc fix), and put the cadence question itself to the founders as a cheap,
-  explicit dial**: weekly (status quo, ~4 Opus sessions/month) vs. twice
+  (doc fix), and put the cadence question itself to Joey as a cheap,
+  explicit dial** (Joey is the sole active decision-maker per `CLAUDE.md`;
+  no call routes to Wyatt): weekly (status quo, ~4 Opus sessions/month) vs. twice
   weekly (~9/month) vs. restore daily (~30/month). This is a
   quality-vs-token tradeoff on the site's core experience — **product-
   direction-adjacent, so the dial setting is flagged for a founder pick**, but
@@ -356,8 +365,9 @@ the end.
   recurring spend with a written price tag**, and the checklist in
   `AUTOMATION.md` § Adding-a-routine says new recurring spend is a founder
   decision.
-- **Recommendation (T-6, founder-gated: spend) — put Karen Deep to the
-  founders as a yes/no with the recorded dials**: full spec exists; ≈$114/mo
+- **Recommendation (T-6, founder-gated: spend) — put Karen Deep to Joey
+  as a yes/no with the recorded dials** (all founder decisions route to Joey
+  per `CLAUDE.md`): full spec exists; ≈$114/mo
   (or ≈$66/mo at half-batch) on Sonnet; ~20-27 nights to first full corpus
   pass, then a 3-4-week standing refresh. If approved, creation is mechanical
   (config table in `runners.md` § Karen Deep). If declined, record the
