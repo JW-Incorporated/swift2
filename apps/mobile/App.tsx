@@ -27,8 +27,11 @@ import { StatusBar } from 'expo-status-bar';
 import type { VaultSkeleton } from '@swift2/core';
 import { loadSkeleton } from './lib/vault';
 import { registerDevice } from './lib/push-registration';
+import { registerNotificationActions } from './lib/notification-actions';
+import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
 import { VaultNavigator } from './components/VaultNavigator';
 import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
+import { OnboardingScreen } from './components/OnboardingScreen';
 
 export default function App() {
   const [skeleton, setSkeleton] = useState<VaultSkeleton | null>(null);
@@ -40,6 +43,12 @@ export default function App() {
   // than a route — same reachability guarantee (≤1 tap from anywhere), no
   // new dependency.
   const [notificationSettingsOpen, setNotificationSettingsOpen] = useState(false);
+  // Notifications Phase 2 (spec §7): the pre-permission onboarding screen,
+  // shown at the VALUE MOMENT of the user first tapping the bell — that tap
+  // already signals "I care about notifications", and it's the same
+  // reachability point Phase 1 built, so no new UI surface is needed to
+  // find the trigger. Shown at most once per install (onboarding-state.ts).
+  const [onboardingOpen, setOnboardingOpen] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -61,6 +70,14 @@ export default function App() {
     registerDevice().catch((e) => {
       console.warn('device registration failed', e instanceof Error ? e.message : e);
     });
+    // Notifications Phase 2 (spec §8): "Mute this type" + "Settings" on
+    // every notification. Registering the action set is independent of
+    // permission state (Expo lets you define categories before permission
+    // is granted) and idempotent, so it's safe alongside the cold-start
+    // device registration above.
+    registerNotificationActions().catch((e) => {
+      console.warn('notification action registration failed', e instanceof Error ? e.message : e);
+    });
   }, []);
 
   return (
@@ -73,6 +90,16 @@ export default function App() {
           <StatusBar style="light" />
           {notificationSettingsOpen ? (
             <NotificationSettingsScreen onClose={() => setNotificationSettingsOpen(false)} />
+          ) : onboardingOpen ? (
+            <OnboardingScreen
+              onDone={(outcome) => {
+                setOnboardingOpen(false);
+                markOnboardingOffered().catch(() => {
+                  /* best-effort — a re-offer on the next bell tap is harmless */
+                });
+                if (outcome.kind === 'customize') setNotificationSettingsOpen(true);
+              }}
+            />
           ) : error ? (
             <View style={[styles.fill, styles.center]}>
               <Text style={styles.errTitle}>Couldn’t load the Vault</Text>
@@ -87,7 +114,14 @@ export default function App() {
             <>
               <VaultNavigator skeleton={skeleton} />
               <Pressable
-                onPress={() => setNotificationSettingsOpen(true)}
+                onPress={() => {
+                  hasOnboardingBeenOffered()
+                    .then((offered) => {
+                      if (offered) setNotificationSettingsOpen(true);
+                      else setOnboardingOpen(true);
+                    })
+                    .catch(() => setNotificationSettingsOpen(true));
+                }}
                 accessibilityLabel="Notification settings"
                 accessibilityRole="button"
                 style={styles.bellButton}

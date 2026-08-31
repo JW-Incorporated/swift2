@@ -8,19 +8,13 @@ export * from './moment-load';
 export * from './youtube';
 export * from './current-types';
 export * from './notifications-types';
+export * from './notification-deep-links';
 
 /**
  * The aspects of Taylor's life the Vault classifies content into.
  * Kept here (shared, no I/O) so seed content, web, and mobile agree on the set.
  */
-export const ASPECTS = [
-  'music',
-  'fashion',
-  'travel',
-  'tours',
-  'relationship',
-  'business',
-] as const;
+export const ASPECTS = ['music', 'fashion', 'travel', 'tours', 'relationship', 'business'] as const;
 
 export type Aspect = (typeof ASPECTS)[number];
 
