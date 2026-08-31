@@ -116,12 +116,26 @@ it is why desk routines can open a PR and exit instead of babysitting it
 | [`unowned-sweep.yml`](../.github/workflows/unowned-sweep.yml) | issue events + daily 15:20 | no | applies `needs-triage`, refreshes one ledger issue | [`ops/unowned-queues.md`](ops/unowned-queues.md) |
 | [`backup-restore-drill.yml`](../.github/workflows/backup-restore-drill.yml) | monthly 1st 06:20 + PR touching `supabase/migrations/**` | no | nothing (scratch DBs only, no prod access) | [`backup-restore.md`](backup-restore.md) |
 
-`watchdog.yml` is not one check but ten, and it is the only thing watching
-Tier 2. Its current jobs: brief exists → brief was actually mailed → degraded
+`watchdog.yml` is not one check but **fifteen steps**, and it is the only thing
+watching Tier 2. In file order: brief exists → brief was actually mailed →
+alert founders (brief missing) → brief recovered (self-close) → degraded
 answer propagation → **hourly prod smoke check** → scheduled-workflow cadence
 view → PRs stuck on failing/missing checks → Karen CIE ticket-filing freshness
-(`STALE_DAYS=9`) → work-ownership → content-lane liveness (`vault/` branch, 36h
-window) → Facebook export freshness → knowledge-engine current-tier freshness.
+(`STALE_DAYS=9`) → work-ownership → **Karen post-repair confirmation** →
+**news-worker rotation confirmation** → content-lane liveness (`vault/` branch,
+36h window) → Facebook export freshness → knowledge-engine current-tier
+freshness.
+
+⚠️ The two bolded steps are labelled in the workflow itself as *"self-limiting,
+remove after 2026-08-22"* and are **still running daily, nine days past their
+own expiry.** Each was a temporary confirmation added after a specific repair.
+Neither is dangerous — both are read-only checks that self-close — but they
+cost a step per run and, more importantly, they are exactly the kind of
+temporary scaffolding that becomes permanent because nobody wrote down who
+removes it. Their headers state the removal is safe and that nothing else
+references their helper scripts. Recommended: delete both steps plus
+`scripts/watchdog/karen-post-repair-check.mjs` and
+`scripts/watchdog/news-worker-rotation-check.mjs` (reversible, agent call).
 
 ### Founder communications (3)
 
@@ -560,8 +574,9 @@ one-line allowlist entry instead of a fourth copy-pasted file.
 | `Marjorie — 8 PM Evening Delta` routine | Email retired 2026-08-23 under the 1–2-email cap. It still burns a Claude session every day at 03:00 UTC to post a GitHub comment with no established reader. | Disable the trigger (reversible — it stays a warm spare) and let the next morning's brief carry the delta. Worth telling Joey it happened, since he set the email cap; not worth waiting on him. |
 | `Lex depth` routine | Disabled warm spare since 2026-07-25, five weeks, with no thaw condition recorded. | Either write the one-line condition that would revive it into `runners.md`, or delete it. |
 | `swift2 Getty purge — GitHub GC watch` routine | Created 2026-08-15 as a self-retiring one-shot for a completed purge; still listed as enabled at 2×/day with no prompt file and no retirement receipt. | Read the trigger; if the purge is complete, delete it and record the receipt. |
+| `watchdog.yml`'s two expired confirmation steps | "Karen post-repair confirmation" and "news-worker rotation confirmation" are both labelled *"self-limiting, remove after 2026-08-22"* in the workflow and are still running daily, nine days late. Their own headers say removal is safe and that nothing else references their helper scripts. | Delete both steps and `scripts/watchdog/{karen-post-repair-check,news-worker-rotation-check}.mjs`. Reversible, agent call — the standing 9-day Karen check already covers the same question. |
 
-None of these five is expensive. They are recommended for retirement because
+None of these six is expensive. They are recommended for retirement because
 **an undocumented live routine is a liability regardless of its cost** — it is
 a thing that can fire, that nobody owns, and that the next auditor will have to
 re-derive from scratch.
