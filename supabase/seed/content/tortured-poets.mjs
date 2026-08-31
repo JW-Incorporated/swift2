@@ -2474,6 +2474,9 @@ export default {
             item: 'Strappy Houndstooth Tweed A-Line Dress',
             retailer: 'nordstrom.com',
             url: 'https://www.nordstrom.com/s/strappy-houndstooth-tweed-a-line-dress/8377396',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://n.nordstrommedia.com/it/bfde4241-4a38-404d-9559-d2ce70df4ab3.jpeg?w=780&h=1170&crop=pad',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$3,500.00',
@@ -2490,6 +2493,9 @@ export default {
             item: 'Miss Jane Sandal',
             retailer: 'nordstrom.com',
             url: 'https://www.nordstrom.com/s/christian-louboutin-miss-jane-sandal-women/7544624',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://n.nordstrommedia.com/it/b8ab11ff-1819-4758-b627-9bbe348271dc.jpeg?w=780&h=1170&crop=pad&trim=color',
             matchTier: 'unscored',
             kind: 'shoes',
             price: '$945.00',
@@ -2586,6 +2592,9 @@ export default {
             item: 'Poppy Vest in Sand Plaid',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/simkhai-poppy-vest-in-sand-plaid/dp/JSKI-WO47/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://is4.revolveassets.com/images/p4/n/d/JSKI-WO47_V1.jpg',
             matchTier: 'unscored',
             kind: 'outerwear',
             price: '$222.00',
@@ -2597,6 +2606,9 @@ export default {
             item: 'Payton Wrap Mini Skirt in Sand Plaid',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/simkhai-payton-wrap-mini-skirt-in-sand-plaid/dp/JSKI-WQ100/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://is4.revolveassets.com/images/p4/n/d/JSKI-WQ100_V1.jpg',
             matchTier: 'unscored',
             kind: 'bottom',
             price: '$241.00',
@@ -6098,6 +6110,9 @@ export default {
             // Ralph Lauren's own page sits behind a PerimeterX wall, so the
             // verified Revolve page is the link.
             url: 'https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://is4.revolveassets.com/images/p4/n/d/PLOR-WD21_V1.jpg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$398',

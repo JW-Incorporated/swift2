@@ -642,6 +642,9 @@ export default {
             item: 'Peau D\'Ange Silk Maxi Dress with Flower and Bee Motif',
             retailer: 'etro.com',
             url: 'https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://content.etro.com/Adaptations/900/WRHA056599SP1L7X0808_WF_01.jpg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$2,880.00',
@@ -795,6 +798,9 @@ export default {
             item: 'Mattie Fisherman Cap',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/janessa-leone-mattie-fisherman-cap-in-rust/dp/JNES-WA15/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://is4.revolveassets.com/images/p4/n/d/JNES-WA15_V1.jpg',
             matchTier: 'unscored',
             kind: 'hat',
             price: '$260.00',
@@ -853,6 +859,9 @@ export default {
             item: 'Lipstick in Ravishing Red (Matte)',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Lipstick-Ravishing-Matte-3-5g-0-12oz/dp/B082P4X6FV',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://m.media-amazon.com/images/I/5142r+0MfkL._SL1024_.jpg',
             matchTier: 'unscored',
             kind: 'beauty',
             isAlternative: true,
@@ -1013,6 +1022,9 @@ export default {
             item: 'Floral-Embroidered Tulle Mini Dress',
             retailer: 'modaoperandi.com',
             url: 'https://www.modaoperandi.com/women/p/oscar-de-la-renta/floral-embroidered-tulle-mini-dress/493975',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://cdn.modaoperandi.com/assets/images/products/865319/493975/large_oscar-de-la-renta-floral-floral-embroidered-tulle-mini-dress.jpg?_v=0',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$8,990.00',
@@ -1063,6 +1075,9 @@ export default {
             item: 'Single-Breasted Velvet Jacket',
             retailer: 'etro.com',
             url: 'https://www.etro.com/us-en/single-breasted-velvet-jacket-WRCA008199TUEI1B0904.html',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://content.etro.com/Adaptations/900/WRCA008199TUEI1B0904_WF_01.jpg',
             matchTier: 'unscored',
             kind: 'outerwear',
             price: '$1,350.00',
@@ -3620,6 +3635,9 @@ export default {
             item: 'Peau D\'Ange Silk Maxi Dress with Flower and Bee Motif',
             retailer: 'etro.com',
             url: 'https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://content.etro.com/Adaptations/900/WRHA056599SP1L7X0808_WF_01.jpg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$2,880.00',
