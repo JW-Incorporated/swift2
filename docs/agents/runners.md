@@ -656,7 +656,10 @@ trigger is not, and should not be, until REC-1 lands.
 `/api/notifications/metrics` (open rates, mute rates, flagged categories)
 and the `deliveries` table pattern already established by that route; files
 ≤5 tickets/run on over-firing or under-performing categories, one log
-issue, per the standard desk pattern.
+issue, per the standard desk pattern. **Labels provisioned 2026-08-31** (PR
+that adds this section) so issue filing does not fail on first run:
+`notifications`, `notif:P1`, `notif:P2`, `notif:P3` — same pattern as the
+`experience`/`exp:P*` and `cie`/`cie:P*` label sets Nils and Karen use.
 
 **Why it is the one new-spend Tier-2 item besides Karen Deep.** Per
 `TIER2-OPTIMIZATION.md` § T-16 / REC-7.3 and `vision.md`'s core promise
