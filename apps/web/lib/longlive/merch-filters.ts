@@ -172,13 +172,17 @@ export function merchMatchesFilter(item: MerchItem, active: ReadonlySet<MerchFil
  *    moment's real primary photo exist. The card renders both side by side;
  *    the moment half must be visibly labelled (2026-08-15, docs/decisions.md)
  *    since it's a picture of Taylor wearing the look, not the product itself.
+ *    Per D7=C (2026-08-31, kanban t_28e3ad2a/t_c71f0eea), MerchCard.tsx now
+ *    makes this half a buy link too — that's a rendering decision made by
+ *    the caller, not this function; this type only says which photo(s) exist.
  * 2. `product` — only the product photo exists. Never labelled — this is the
  *    honest single-image case.
  * 3. `moment` — only the moment's photo exists. This is a picture of Taylor
  *    wearing the look, NOT the product, so the UI must visibly label it
  *    (2026-08-15, docs/decisions.md) rather than let it pass as a product
  *    shot. A split card with an empty half reads as broken, so this is a
- *    single full-width image, not a half card next to a monogram.
+ *    single full-width image, not a half card next to a monogram. Per D7=C,
+ *    MerchCard.tsx now also makes this tile a buy link (label stays visible).
  * 4. `monogram` — neither exists.
  * The moment photo is resolved via `hasRealPrimaryImage()` — never by
  * checking `images.length`, which is always non-empty and proves nothing

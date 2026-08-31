@@ -9,10 +9,19 @@
  * the layout itself is now chosen by `merchItemImage()` in merch-filters.ts:
  * both photos → split, one photo → a single full-width image, neither → a
  * monogram tile). The moment half/image is always labelled "Her look, not
- * the product" (2026-08-15, docs/decisions.md — never let a photo of Taylor
- * pass as the product shot); the product half/image never falls back to the
- * moment photo, which would recreate the exact mislabeling that rule exists
- * to stop.
+ * the product" (2026-08-15, docs/decisions.md); the product half/image
+ * never falls back to the moment photo, which would recreate the exact
+ * mislabeling that label exists to flag.
+ *
+ * D7=C (kanban t_28e3ad2a / t_c71f0eea, 2026-08-31, founder decision):
+ * SUPERSEDES the 2026-08-15 anti-mislabeling design's non-clickable moment
+ * photo. Every "Seen on Taylor" tile is now a buy link — including a
+ * `moment`-kind tile (Taylor's photo only, no product photo) and the
+ * moment half of a `split` tile — full consistency with "tap the picture
+ * to buy," accepting the founder's explicit tradeoff that a photo of
+ * Taylor herself can now be clicked to purchase the matched product. The
+ * "Her look, not the product" label is kept precisely so the tile never
+ * literally claims the photo depicts the item.
  *
  * Keeps: real product images, "The exact piece" vs "We found something
  * similar" with the authored `altNote` rendered as visible DOM text (not a
@@ -39,17 +48,22 @@ function isRemoteUrl(url: string): boolean {
 }
 
 /**
- * `shopHref` is only ever passed for a photo that actually depicts the
- * PRODUCT being sold (the 'product' image kind, or the product half of a
- * 'split' card) — never for the moment/"Her look, not the product" photo,
- * which stays a plain (non-shop-linking) image so it can't be mistaken for
- * a buy affordance on a photo that explicitly isn't the item (fix/merch-
- * image-buy-link, kanban task t_49a63ae1: "most users tap the picture
- * first"). When present, the whole tile becomes the same buy link as the
+ * `shopHref`, when present, makes the whole tile the same buy link as the
  * card's "Shop it" button — reusing `renderMerchShopLink`/`buildShopUrl`
  * via the caller, so it carries the identical affiliate URL and triggers
  * the same FTC disclosure the "Shop it" click does; never a second,
  * independently-built link.
+ *
+ * SUPERSEDES the 2026-08-15 anti-mislabeling design and the t_49a63ae1 fix,
+ * which deliberately withheld `shopHref` from the moment/"Her look, not the
+ * product" photo (a photo of Taylor, not the item) to avoid it reading as a
+ * buy affordance on a photo that isn't the product. Founder decision D7=C
+ * (kanban task t_28e3ad2a / t_c71f0eea, 2026-08-31) explicitly overrides
+ * that call: "make the whole tile a buy link even when it's Taylor's photo"
+ * — full consistency with "tap the picture to buy," accepting the known
+ * mislabeling tradeoff. The "Her look, not the product" label stays visible
+ * so the tile never claims the photo literally depicts the item — only that
+ * clicking it buys the matched product.
  */
 function MerchCardHalf({
   label,
@@ -159,10 +173,16 @@ export function MerchCard({ item }: { item: MerchItem }) {
       >
         {image.kind === 'split' && (
           <>
+            {/* D7=C (t_28e3ad2a / t_c71f0eea): full-consistency reading —
+                the moment half is now also a buy link, same as the product
+                half, so no non-clickable Taylor photo remains anywhere in
+                shop-the-look. */}
             <MerchCardHalf
               label="Her look, not the product"
               imageUrl={image.momentUrl}
               monogram={monogram}
+              shopHref={shopLink.href}
+              shopAriaLabel={shopAriaLabel}
             />
             <MerchCardHalf
               label={productLabel}
@@ -183,10 +203,17 @@ export function MerchCard({ item }: { item: MerchItem }) {
           />
         )}
         {image.kind === 'moment' && (
+          // D7=C (t_28e3ad2a / t_c71f0eea): supersedes the 2026-08-15
+          // anti-mislabeling design — the whole tile is now a buy link even
+          // though the only photo available is Taylor's own (moment-kind,
+          // no separate product photo). The label stays visible so the
+          // tile never claims the photo literally depicts the item.
           <MerchCardHalf
             label="Her look, not the product"
             imageUrl={image.url}
             monogram={monogram}
+            shopHref={shopLink.href}
+            shopAriaLabel={shopAriaLabel}
           />
         )}
         {image.kind === 'monogram' && <MerchCardHalf label={productLabel} monogram={monogram} />}
