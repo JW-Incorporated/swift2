@@ -195,8 +195,9 @@ bug. Fleet invariants (what must always be true of every routine) are in
 
 ⚠️ **The six standalone lanes above (Content Shift, Answerer, Photo
 Enrichment, Rumor Desk, Cross-Link, Stylist) run *in addition to* the Vault Run
-that was built to replace them.** Phase 4 of the consolidation never landed.
-See [REC-2](#rec-2).
+that was built to replace them.** Phase 4 of the consolidation never landed, so
+Rumor Desk content lands every day from two alternating schedulers rather than
+on its designed every-other-day cadence. See [REC-2](#rec-2).
 
 ### Quality and integrity desks
 
@@ -385,13 +386,16 @@ window for the product's headline feature.
 **Finding.** The Vault Run orchestrator has been running daily since 07-30
 **in addition to** the six standalone lane routines it was built to replace.
 `vault-run-plan.md` documents this honestly, and the consequence is concrete
-and still live: **Rumor Desk effectively runs daily.** Its standalone cron is
+and still live: **Rumor Desk content now lands every day, from two independent
+schedulers.** Neither runs twice in a day — the standalone cron is
 `47 14 */2 * *` (odd days of month) and the orchestrator's lane 4 is due on
-even days — they interleave into daily coverage of *the highest
+even days, so they *alternate* into continuous daily coverage of *the highest
 privacy-liability lane in the system*, which auto-merges with no human read.
 Confirmed on `main` this week: standalone `content(rumor-desk):` commits on
 08-25, 08-29 and 08-31, and `lane(rumor-desk)` commits inside `vault:` PRs on
-even days. **Nobody designed this.** It is an artifact of Phase 4 not landing.
+even days. **Nobody designed a daily cadence for this lane.** It is an
+artifact of Phase 4 not landing, and it doubles the lane's throughput against
+a cadence that was deliberately set to every-other-day.
 
 Everything Phase 4 was blocked on in August has since cleared: Phase 3.5 is on
 `main` (the stuck-red-PR check and the `check_lane` liveness helper are both
@@ -408,11 +412,14 @@ watch one full cycle, then move to the next. Honour the RemoteTrigger
 full-replacement footgun documented in `runners.md` — a partial `job_config`
 PUT silently destroys the prompt and returns 200.
 
-**Value:** removes a duplicated privacy-sensitive content lane, ~6 cold-boot
-Claude sessions/day, and the cross-lane conflict bug class the consolidation
-was designed to delete. **Flagged for founder awareness** — the daily
-rumor-desk double-run is a `product_direction`-adjacent fact even though the
-fix itself is reversible.
+**Value:** ends the two-scheduler daily coverage of a privacy-sensitive lane,
+removes the cross-lane conflict bug class the consolidation was designed to
+delete, and saves **~3.9 cold-boot Claude sessions/day** on average — three
+daily lanes (Content Shift, Answerer, Photo Enrichment) plus Rumor Desk at
+0.5/day, Cross-Link at 2/week, and Stylist at 1/week. **Flagged for founder
+awareness** — Rumor Desk content landing every day from two independent
+schedulers is a `product_direction`-adjacent fact even though the fix itself
+is reversible.
 
 <a id="rec-3"></a>
 ### REC-3 — Make the automation index self-checking (deterministic, zero tokens)
