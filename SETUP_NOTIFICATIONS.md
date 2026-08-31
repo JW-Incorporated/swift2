@@ -203,3 +203,29 @@ nothing new to configure. Two things worth knowing:
   so nothing is silently lost; the next dispatch tick retries the same
   merged group.
 
+## Phase 4 addendum (fun notifications)
+
+Rides on the same env vars items 1-7 already describe — nothing new to
+configure. One thing that DOES need founder action:
+
+- **The lyric pool is a DRAFT.** `supabase/seed/lyrics/starter-pool.mjs`
+  has 224 single-line lyric excerpts, one per released track, written from
+  general knowledge — NOT verified against a licensed lyrics source
+  line-by-line. Every row's `verified` column defaults to `false`; the
+  dispatch job (`notification-fun.ts`'s `selectLyricForDevice`) never
+  sends an unverified row. **Before running `npm run db:seed:lyrics`
+  against production, review the pool and flip `verified: true` on rows
+  you've confirmed** (or wait for a future pass that does this in bulk
+  against a real lyrics API/license). Until any row is verified,
+  `lyric_of_day` sends nothing — it degrades cleanly, same pattern as
+  every other unconfigured-dependency path in this system.
+- `on_this_day` content (`supabase/seed/on-this-day/starter-pool.mjs`) is
+  NOT a review item — it's derived directly from the site's own shipped
+  `MILESTONES` timeline, so no new fact-checking is needed before seeding
+  it with `npm run db:seed:on-this-day`.
+- The countdown scheduler needs a producer to actually set `events.
+  drop_at` before it does anything — no producer sets it yet in this
+  repo (that's a future/Phase 5+ concern), so `countdown_sends` will stay
+  empty and `countdowns`-opted-in devices will simply never receive a
+  countdown until one does. This is expected, not a bug.
+

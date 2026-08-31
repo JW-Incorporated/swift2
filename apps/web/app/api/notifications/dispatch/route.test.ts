@@ -53,6 +53,11 @@ describe('GET /api/notifications/dispatch', () => {
       dispatchPendingEvents: vi.fn().mockResolvedValue({ sent: 3, held: 1, errors: [] }),
       dispatchDueDigests: vi.fn().mockResolvedValue({ digestsSent: 2, errors: [] }),
       dispatchClownReports: vi.fn().mockResolvedValue({ clownReportsSent: 1, errors: [] }),
+      dispatchFunNotifications: vi
+        .fn()
+        .mockResolvedValue({ lyricsSent: 1, onThisDaySent: 1, errors: [] }),
+      scheduleCountdownsForPendingEvents: vi.fn().mockResolvedValue({ scheduled: 2, errors: [] }),
+      dispatchDueCountdowns: vi.fn().mockResolvedValue({ sent: 1, sendFailures: 0, errors: [] }),
     }));
     vi.resetModules();
 
@@ -68,6 +73,9 @@ describe('GET /api/notifications/dispatch', () => {
       router: { sent: 3, held: 1, errors: [] },
       digests: { digestsSent: 2, errors: [] },
       clownReports: { clownReportsSent: 1, errors: [] },
+      fun: { lyricsSent: 1, onThisDaySent: 1, errors: [] },
+      countdownSchedule: { scheduled: 2, errors: [] },
+      countdownDispatch: { sent: 1, sendFailures: 0, errors: [] },
     });
     vi.doUnmock('@supabase/supabase-js');
   });

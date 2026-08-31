@@ -96,29 +96,51 @@ export function isFunNotificationCategory(value: string): value is FunNotificati
   return (FUN_NOTIFICATION_CATEGORIES as readonly string[]).includes(value);
 }
 
-/** Every settings-row category, steady + fun, in one set — used to validate
- * a prefs PUT body regardless of which pill variant a row uses. */
+/** spec §4's `countdowns` row (Phase 4 scope): "Event-driven, not
+ * scheduled: T-7d, T-1d, and release-hour reminders for *announced* drops
+ * only." Its own cadence variant — `On · Off` only, no Daily/Weekly/
+ * Monthly (there's nothing to schedule; the countdown scheduler itself
+ * decides when to fire based on the source event's `drop_at`, see
+ * packages/core/src/notification-fun.ts). Kept as a separate category set
+ * (not folded into FUN_NOTIFICATION_CATEGORIES) because its cadence values
+ * are a genuinely different set, not a variant of the fun pill. */
+export const EVENT_NOTIFICATION_CATEGORIES = ['countdowns'] as const;
+export type EventNotificationCategory = (typeof EVENT_NOTIFICATION_CATEGORIES)[number];
+
+export function isEventNotificationCategory(value: string): value is EventNotificationCategory {
+  return (EVENT_NOTIFICATION_CATEGORIES as readonly string[]).includes(value);
+}
+
+/** Every settings-row category, steady + fun + event-driven, in one set —
+ * used to validate a prefs PUT body regardless of which pill variant a row
+ * uses. */
 export const ALL_NOTIFICATION_CATEGORIES = [
   ...NOTIFICATION_CATEGORIES,
   ...FUN_NOTIFICATION_CATEGORIES,
+  ...EVENT_NOTIFICATION_CATEGORIES,
 ] as const;
 
-export type AnyNotificationCategory = NotificationCategory | FunNotificationCategory;
+export type AnyNotificationCategory =
+  NotificationCategory | FunNotificationCategory | EventNotificationCategory;
 
 export function isAnyNotificationCategory(value: string): value is AnyNotificationCategory {
   return (ALL_NOTIFICATION_CATEGORIES as readonly string[]).includes(value);
 }
 
-/** spec §5 — the two cadence-pill variants. Steady categories:
+/** spec §5 — the three cadence-pill variants. Steady categories:
  * Instant · Daily · Weekly · Off. Fun categories swap Instant for Monthly:
- * Daily · Weekly · Monthly · Off. One pill *component*, two value sets —
- * built here so Phase 1 ships both variants even though only the steady one
- * sends anything until later phases wire the governor/fun cron. */
+ * Daily · Weekly · Monthly · Off. Event-driven categories (`countdowns`):
+ * On · Off — there's no frequency to pick, just opt in or don't. Three
+ * pill *components* sharing one visual language — built here so the UI
+ * layer never hand-rolls a fourth cadence set. */
 export const STEADY_CADENCES = ['instant', 'daily', 'weekly', 'off'] as const;
 export type SteadyCadence = (typeof STEADY_CADENCES)[number];
 
 export const FUN_CADENCES = ['daily', 'weekly', 'monthly', 'off'] as const;
 export type FunCadence = (typeof FUN_CADENCES)[number];
+
+export const EVENT_CADENCES = ['on', 'off'] as const;
+export type EventCadence = (typeof EVENT_CADENCES)[number];
 
 /** Union of every cadence value the `notification_prefs.cadence` CHECK
  * constraint accepts (spec §9's table, migration
@@ -138,9 +160,11 @@ export function isNotificationCadence(value: string): value is NotificationCaden
 }
 
 /** Which pill variant a category uses — steady categories never accept
- * `monthly`; fun categories never accept `instant`. Used by both the prefs
- * API (validation) and the settings screen (which pill row to render). */
-export function cadenceVariantFor(category: AnyNotificationCategory): 'steady' | 'fun' {
+ * `monthly`/`on`; fun categories never accept `instant`/`on`; event
+ * categories only ever accept `on`/`off`. Used by both the prefs API
+ * (validation) and the settings screen (which pill row to render). */
+export function cadenceVariantFor(category: AnyNotificationCategory): 'steady' | 'fun' | 'event' {
+  if (isEventNotificationCategory(category)) return 'event';
   return isFunNotificationCategory(category) ? 'fun' : 'steady';
 }
 
@@ -153,7 +177,10 @@ export function isValidCadenceForCategory(
   if (variant === 'steady') {
     return (STEADY_CADENCES as readonly string[]).includes(cadence);
   }
-  return (FUN_CADENCES as readonly string[]).includes(cadence);
+  if (variant === 'fun') {
+    return (FUN_CADENCES as readonly string[]).includes(cadence);
+  }
+  return (EVENT_CADENCES as readonly string[]).includes(cadence);
 }
 
 /** spec §8's settings-screen grouping: "category list (grouped: News /
@@ -179,6 +206,7 @@ export const DEFAULT_CADENCE: Record<AnyNotificationCategory, NotificationCadenc
   lyric_of_day: 'off',
   on_this_day: 'off',
   swiftie_trivia: 'off',
+  countdowns: 'off',
 };
 
 export interface SettingsCategoryDef {
@@ -291,6 +319,13 @@ export const SETTINGS_CATEGORY_DEFS: readonly SettingsCategoryDef[] = [
     group: 'Fun',
     description: 'A question in the push, tap to reveal the answer in-app.',
     previewText: 'Trivia: which era hit #1 in 21 countries? Tap to answer →',
+  },
+  {
+    id: 'countdowns',
+    name: 'Drop countdowns',
+    group: 'Fun',
+    description: 'T-7 day, T-1 day, and release-hour reminders for announced drops only.',
+    previewText: '1 week until the new album — mark your calendar →',
   },
 ];
 
