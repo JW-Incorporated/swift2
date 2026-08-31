@@ -146,7 +146,9 @@ describe('runCooldownPass', () => {
         { device_id: 'stale-device', sent_at: '2026-08-15T00:00:00Z', opened_at: null },
       ],
     });
-    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([{ ok: true, deviceId: 'stale-device' }]);
+    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
+      { ok: true, deviceId: 'stale-device', deliveryToken: 'test-token-1' },
+    ]);
 
     const result = await runCooldownPass(db, now);
 
@@ -163,7 +165,11 @@ describe('runCooldownPass', () => {
       prefs: [{ device_id: 'engaged-device', category: 'song_drop', cadence: 'instant' }],
       devices: [{ id: 'engaged-device', push_token: 'token-2', master_enabled: true }],
       deliveries: [
-        { device_id: 'engaged-device', sent_at: '2026-09-25T00:00:00Z', opened_at: '2026-09-25T00:05:00Z' },
+        {
+          device_id: 'engaged-device',
+          sent_at: '2026-09-25T00:00:00Z',
+          opened_at: '2026-09-25T00:05:00Z',
+        },
       ],
     });
     const spy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([]);

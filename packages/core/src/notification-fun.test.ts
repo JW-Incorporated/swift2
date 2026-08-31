@@ -249,10 +249,11 @@ function makeFakeDb(fixture: {
   const insertedDeliveries: Array<Record<string, unknown>> = [];
 
   function queryBuilder(table: string) {
-    const state: { filters: Array<(row: Record<string, unknown>) => boolean>; countOnly: boolean } = {
-      filters: [],
-      countOnly: false,
-    };
+    const state: { filters: Array<(row: Record<string, unknown>) => boolean>; countOnly: boolean } =
+      {
+        filters: [],
+        countOnly: false,
+      };
 
     const api: Record<string, (...args: unknown[]) => unknown> = {};
     api.select = ((_cols: string, opts?: { count?: string; head?: boolean }) => {
@@ -282,8 +283,10 @@ function makeFakeDb(fixture: {
       if (table === 'devices') return fixture.devices;
       if (table === 'lyrics') return fixture.lyrics as unknown as Array<Record<string, unknown>>;
       if (table === 'on_this_day') return fixture.onThisDay;
-      if (table === 'deliveries') return (fixture.deliveries ?? []) as Array<Record<string, unknown>>;
-      if (table === 'lyric_history') return (fixture.lyricHistory ?? []) as Array<Record<string, unknown>>;
+      if (table === 'deliveries')
+        return (fixture.deliveries ?? []) as Array<Record<string, unknown>>;
+      if (table === 'lyric_history')
+        return (fixture.lyricHistory ?? []) as Array<Record<string, unknown>>;
       throw new Error(`unexpected table ${table}`);
     }
 
@@ -356,7 +359,9 @@ describe('dispatchFunNotifications — gate 6 (hard ceiling)', () => {
       onThisDay: [],
       deliveries: [],
     });
-    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([{ ok: true, deviceId: 'device-1' }]);
+    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
+      { ok: true, deviceId: 'device-1', deliveryToken: 'test-token-1' },
+    ]);
 
     const result = await dispatchFunNotifications(db, now);
     expect(result.lyricsSent).toBe(1);

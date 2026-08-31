@@ -10,7 +10,13 @@ afterEach(() => {
 // Same minimal fluent Supabase fake pattern as notification-router.test.ts,
 // extended with `upsert`/`delete` since the digest engine needs both.
 function makeFakeDb(fixture: {
-  digestQueue: Array<{ device_id: string; event_id: string; cadence: string; category: string; scheduled_for: string }>;
+  digestQueue: Array<{
+    device_id: string;
+    event_id: string;
+    cadence: string;
+    category: string;
+    scheduled_for: string;
+  }>;
   devices: Array<Record<string, unknown>>;
   events: Array<{ id: string; title: string }>;
   deliveries?: Array<Record<string, unknown>>;
@@ -58,10 +64,12 @@ function makeFakeDb(fixture: {
     }) as (...args: unknown[]) => unknown;
 
     function source(): Array<Record<string, unknown>> {
-      if (table === 'digest_queue') return fixture.digestQueue as unknown as Array<Record<string, unknown>>;
+      if (table === 'digest_queue')
+        return fixture.digestQueue as unknown as Array<Record<string, unknown>>;
       if (table === 'devices') return fixture.devices;
       if (table === 'events') return fixture.events as unknown as Array<Record<string, unknown>>;
-      if (table === 'deliveries') return (fixture.deliveries ?? []) as Array<Record<string, unknown>>;
+      if (table === 'deliveries')
+        return (fixture.deliveries ?? []) as Array<Record<string, unknown>>;
       throw new Error(`unexpected table ${table}`);
     }
 
@@ -90,7 +98,8 @@ function makeFakeDb(fixture: {
       };
       delApi.in = (col: string, vals: unknown[]) => {
         if (table === 'digest_queue' && col === 'event_id' && state.deleteDeviceId) {
-          for (const eventId of vals) deletedDigestQueueKeys.push(`${state.deleteDeviceId}:${eventId}`);
+          for (const eventId of vals)
+            deletedDigestQueueKeys.push(`${state.deleteDeviceId}:${eventId}`);
         }
         return Promise.resolve({ data: null, error: null });
       };
@@ -128,10 +137,34 @@ describe('dispatchDueDigests', () => {
     const now = new Date('2026-01-15T20:00:00Z'); // 12:00 PST — within send window
     const db = makeFakeDb({
       digestQueue: [
-        { device_id: 'device-1', event_id: 'evt-1', cadence: 'daily', category: 'song_drop', scheduled_for: '2026-01-15T17:00:00Z' },
-        { device_id: 'device-1', event_id: 'evt-2', cadence: 'daily', category: 'official_merch', scheduled_for: '2026-01-15T17:00:00Z' },
-        { device_id: 'device-1', event_id: 'evt-3', cadence: 'daily', category: 'relationship_news', scheduled_for: '2026-01-15T17:00:00Z' },
-        { device_id: 'device-1', event_id: 'evt-4', cadence: 'daily', category: 'award_news', scheduled_for: '2026-01-15T17:00:00Z' },
+        {
+          device_id: 'device-1',
+          event_id: 'evt-1',
+          cadence: 'daily',
+          category: 'song_drop',
+          scheduled_for: '2026-01-15T17:00:00Z',
+        },
+        {
+          device_id: 'device-1',
+          event_id: 'evt-2',
+          cadence: 'daily',
+          category: 'official_merch',
+          scheduled_for: '2026-01-15T17:00:00Z',
+        },
+        {
+          device_id: 'device-1',
+          event_id: 'evt-3',
+          cadence: 'daily',
+          category: 'relationship_news',
+          scheduled_for: '2026-01-15T17:00:00Z',
+        },
+        {
+          device_id: 'device-1',
+          event_id: 'evt-4',
+          cadence: 'daily',
+          category: 'award_news',
+          scheduled_for: '2026-01-15T17:00:00Z',
+        },
       ],
       devices: [device()],
       events: [
@@ -142,7 +175,9 @@ describe('dispatchDueDigests', () => {
       ],
     });
 
-    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([{ ok: true, deviceId: 'device-1' }]);
+    const sendSpy = vi
+      .spyOn(sender, 'sendPushBatch')
+      .mockResolvedValue([{ ok: true, deviceId: 'device-1', deliveryToken: 'test-token-1' }]);
 
     const result = await dispatchDueDigests(db, now);
 
@@ -167,8 +202,20 @@ describe('dispatchDueDigests', () => {
     const now = new Date('2026-01-16T20:00:00Z'); // Friday, 12:00 PST
     const db = makeFakeDb({
       digestQueue: [
-        { device_id: 'device-1', event_id: 'evt-1', cadence: 'daily', category: 'song_drop', scheduled_for: '2026-01-16T17:00:00Z' },
-        { device_id: 'device-1', event_id: 'evt-2', cadence: 'weekly', category: 'fan_merch', scheduled_for: '2026-01-16T17:00:00Z' },
+        {
+          device_id: 'device-1',
+          event_id: 'evt-1',
+          cadence: 'daily',
+          category: 'song_drop',
+          scheduled_for: '2026-01-16T17:00:00Z',
+        },
+        {
+          device_id: 'device-1',
+          event_id: 'evt-2',
+          cadence: 'weekly',
+          category: 'fan_merch',
+          scheduled_for: '2026-01-16T17:00:00Z',
+        },
       ],
       devices: [device()],
       events: [
@@ -176,7 +223,9 @@ describe('dispatchDueDigests', () => {
         { id: 'evt-2', title: 'Fan merch' },
       ],
     });
-    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([{ ok: true, deviceId: 'device-1' }]);
+    const sendSpy = vi
+      .spyOn(sender, 'sendPushBatch')
+      .mockResolvedValue([{ ok: true, deviceId: 'device-1', deliveryToken: 'test-token-1' }]);
 
     const result = await dispatchDueDigests(db, now);
     expect(result.digestsSent).toBe(2);
@@ -187,7 +236,13 @@ describe('dispatchDueDigests', () => {
     const now = new Date('2026-01-15T10:00:00Z'); // 02:00 PST — before send window
     const db = makeFakeDb({
       digestQueue: [
-        { device_id: 'device-1', event_id: 'evt-1', cadence: 'daily', category: 'song_drop', scheduled_for: '2026-01-15T08:00:00Z' },
+        {
+          device_id: 'device-1',
+          event_id: 'evt-1',
+          cadence: 'daily',
+          category: 'song_drop',
+          scheduled_for: '2026-01-15T08:00:00Z',
+        },
       ],
       devices: [device()],
       events: [{ id: 'evt-1', title: 'New song' }],
@@ -206,7 +261,13 @@ describe('dispatchDueDigests', () => {
     const now = new Date('2026-01-15T20:00:00Z');
     const db = makeFakeDb({
       digestQueue: [
-        { device_id: 'device-1', event_id: 'evt-1', cadence: 'daily', category: 'song_drop', scheduled_for: '2026-01-15T17:00:00Z' },
+        {
+          device_id: 'device-1',
+          event_id: 'evt-1',
+          cadence: 'daily',
+          category: 'song_drop',
+          scheduled_for: '2026-01-15T17:00:00Z',
+        },
       ],
       devices: [device({ master_enabled: false })],
       events: [{ id: 'evt-1', title: 'New song' }],
@@ -229,7 +290,13 @@ describe('dispatchDueDigests', () => {
     }));
     const db = makeFakeDb({
       digestQueue: [
-        { device_id: 'device-1', event_id: 'evt-1', cadence: 'daily', category: 'song_drop', scheduled_for: '2026-01-15T17:00:00Z' },
+        {
+          device_id: 'device-1',
+          event_id: 'evt-1',
+          cadence: 'daily',
+          category: 'song_drop',
+          scheduled_for: '2026-01-15T17:00:00Z',
+        },
       ],
       devices: [device()],
       events: [{ id: 'evt-1', title: 'New song' }],

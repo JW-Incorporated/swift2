@@ -16,7 +16,11 @@ import {
   startOfLocalPeriod,
   type FunCadence,
 } from './notification-fun-schedule';
-import { HARD_CEILING_PER_DAY, startOfLocalDay, totalDeliveriesToday } from './notification-governor';
+import {
+  HARD_CEILING_PER_DAY,
+  startOfLocalDay,
+  totalDeliveriesToday,
+} from './notification-governor';
 
 export interface LyricCandidate {
   id: number;
@@ -142,6 +146,8 @@ interface FunDeviceRow {
   tz: string;
   digest_hour: number;
   master_enabled: boolean;
+  /** Phase 6: which wire sendPushBatch should use. */
+  platform?: string;
 }
 
 export interface FunDispatchResult {
@@ -203,7 +209,10 @@ export async function dispatchFunNotifications(
     { data: lyricRows, error: lyricError },
     { data: otdRows, error: otdError },
   ] = await Promise.all([
-    db.from('devices').select('id,push_token,tz,digest_hour,master_enabled').in('id', deviceIds),
+    db
+      .from('devices')
+      .select('id,push_token,tz,digest_hour,master_enabled,platform')
+      .in('id', deviceIds),
     db.from('lyrics').select('id,slug,song,album,lyric,verified').order('id', { ascending: true }),
     db.from('on_this_day').select('id,month,day,year,text,deep_link'),
   ]);
@@ -313,6 +322,7 @@ async function sendLyricOfDay(
       title: "Today's lyric",
       body: `\u201c${lyric.lyric}\u201d \u2014 ${lyric.song} \u2192`,
       deepLink: `https://www.longlivets.com/?song=${encodeURIComponent(lyric.slug)}`,
+      platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     },
   ]);
   const sendResult = sendResults[0];
@@ -325,6 +335,7 @@ async function sendLyricOfDay(
         kind: 'fun',
         category: 'lyric_of_day',
         sent_at: now.toISOString(),
+        delivery_token: sendResult.deliveryToken,
       }),
       db
         .from('lyric_history')
@@ -362,6 +373,7 @@ async function sendOnThisDay(
       title: 'On this day',
       body: entry.text,
       deepLink: entry.deepLink ?? 'https://www.longlivets.com/',
+      platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     },
   ]);
   const sendResult = sendResults[0];
@@ -373,6 +385,7 @@ async function sendOnThisDay(
       kind: 'fun',
       category: 'on_this_day',
       sent_at: now.toISOString(),
+      delivery_token: sendResult.deliveryToken,
     });
   } else {
     result.sendFailures++;
@@ -510,7 +523,7 @@ export async function dispatchDueCountdowns(
   const eventIds = [...new Set(rows.map((r) => r.event_id))];
   const [{ data: deviceRows, error: deviceError }, { data: eventRows, error: eventError }] =
     await Promise.all([
-      db.from('devices').select('id,push_token,master_enabled,tz').in('id', deviceIds),
+      db.from('devices').select('id,push_token,master_enabled,tz,platform').in('id', deviceIds),
       db.from('events').select('id,title').in('id', eventIds),
     ]);
   if (deviceError) {
@@ -528,6 +541,7 @@ export async function dispatchDueCountdowns(
         push_token: string | null;
         master_enabled: boolean;
         tz: string;
+        platform?: string;
       }[]
     ).map((d) => [d.id, d]),
   );
@@ -558,6 +572,7 @@ export async function dispatchDueCountdowns(
         title,
         body,
         deepLink: 'https://www.longlivets.com/?current=countdowns',
+        platform: device.platform as 'ios' | 'android' | 'web' | undefined,
       },
     ]);
     const sendResult = sendResults[0];
@@ -576,6 +591,7 @@ export async function dispatchDueCountdowns(
           kind: 'fun',
           category: 'countdowns',
           sent_at: now.toISOString(),
+          delivery_token: sendResult.deliveryToken,
         }),
       ]);
     } else {

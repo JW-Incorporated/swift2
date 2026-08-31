@@ -29,6 +29,8 @@ export interface CooldownDeviceRow {
   id: string;
   push_token: string | null;
   master_enabled: boolean;
+  /** Phase 6: which wire sendPushBatch should use. */
+  platform?: string;
 }
 
 export interface CooldownResult {
@@ -118,7 +120,7 @@ export async function runCooldownPass(
     await Promise.all([
       db
         .from('devices')
-        .select('id,push_token,master_enabled')
+        .select('id,push_token,master_enabled,platform')
         .in('id', candidateDeviceIds),
       // Only need deliveries up to "now" and only for candidate devices —
       // no upper time bound needed since we're checking for recency, not
@@ -180,6 +182,7 @@ export async function runCooldownPass(
         title: "We've quieted things down",
         body: "You hadn't opened a notification in a while, so we moved your Instant alerts to a daily digest \u2014 tap to adjust \u2192",
         deepLink: 'https://www.longlivets.com/?screen=settings',
+        platform: device.platform as 'ios' | 'android' | 'web' | undefined,
       },
     ]);
     const sendResult = sendResults[0];
@@ -191,9 +194,12 @@ export async function runCooldownPass(
         kind: 'fun',
         category: null,
         sent_at: now.toISOString(),
+        delivery_token: sendResult.deliveryToken,
       });
       if (deliveryLogError) {
-        result.errors.push(`cooldown notice log failed for ${deviceId}: ${deliveryLogError.message}`);
+        result.errors.push(
+          `cooldown notice log failed for ${deviceId}: ${deliveryLogError.message}`,
+        );
       }
     } else {
       result.sendFailures++;

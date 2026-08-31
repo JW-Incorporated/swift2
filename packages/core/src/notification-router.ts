@@ -64,6 +64,11 @@ interface DeviceRow {
   quiet_start: number;
   quiet_end: number;
   tz: string;
+  /** Phase 6: which wire sendPushBatch should use — see
+   * notification-sender.ts's `PushSendInput.platform`. Optional on the
+   * type only because a couple of test fixtures predate this column
+   * existing on the query; production rows always have it. */
+  platform?: string;
 }
 
 const PENDING_EVENT_LIMIT = 200;
@@ -146,18 +151,24 @@ async function dispatchOneEvent(
   if (prefsError) throw new Error(`prefs lookup: ${prefsError.message}`);
 
   const prefRowsArr = (prefRows ?? []) as { device_id: string; cadence: string }[];
-  const instantDeviceIds = prefRowsArr.filter((r) => r.cadence === 'instant').map((r) => r.device_id);
+  const instantDeviceIds = prefRowsArr
+    .filter((r) => r.cadence === 'instant')
+    .map((r) => r.device_id);
   const digestDeviceIds = prefRowsArr.filter((r) => r.cadence !== 'instant');
   const allDeviceIds = [...new Set(prefRowsArr.map((r) => r.device_id))];
   if (allDeviceIds.length === 0) return;
 
   const { data: devices, error: devicesError } = await db
     .from('devices')
-    .select('id,push_token,master_enabled,snooze_until,daily_cap,quiet_start,quiet_end,tz,digest_hour')
+    .select(
+      'id,push_token,master_enabled,snooze_until,daily_cap,quiet_start,quiet_end,tz,digest_hour,platform',
+    )
     .in('id', allDeviceIds);
   if (devicesError) throw new Error(`device lookup: ${devicesError.message}`);
 
-  const devicesById = new Map(((devices ?? []) as (DeviceRow & { digest_hour: number })[]).map((d) => [d.id, d]));
+  const devicesById = new Map(
+    ((devices ?? []) as (DeviceRow & { digest_hour: number })[]).map((d) => [d.id, d]),
+  );
 
   // --- Daily/weekly devices: enqueue, never send from this path. ---
   for (const { device_id, cadence } of digestDeviceIds) {
@@ -176,7 +187,9 @@ async function dispatchOneEvent(
       });
       result.enqueuedToDigest++;
     } catch (err) {
-      result.errors.push(`digest enqueue failed for device ${device_id}: ${(err as Error).message}`);
+      result.errors.push(
+        `digest enqueue failed for device ${device_id}: ${(err as Error).message}`,
+      );
     }
   }
 
@@ -264,6 +277,7 @@ async function dispatchOneEvent(
       title: event.title,
       body: event.body,
       deepLink: event.deep_link,
+      platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     })),
   );
 
@@ -323,8 +337,13 @@ async function logDeliveriesAndPrune(
   sendResults: readonly PushSendResult[],
   result: RouterDispatchResult,
 ): Promise<void> {
-  const deliveryRows: { device_id: string; event_id: string; kind: string; category: string }[] =
-    [];
+  const deliveryRows: {
+    device_id: string;
+    event_id: string;
+    kind: string;
+    category: string;
+    delivery_token: string;
+  }[] = [];
   const tokensToClear: string[] = [];
 
   for (const r of sendResults) {
@@ -335,6 +354,7 @@ async function logDeliveriesAndPrune(
         event_id: event.id,
         kind: 'instant',
         category: event.category,
+        delivery_token: r.deliveryToken,
       });
     } else {
       result.sendFailures++;

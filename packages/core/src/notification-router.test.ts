@@ -144,7 +144,9 @@ describe('dispatchPendingEvents', () => {
       deliveries: [],
     });
 
-    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([{ ok: true, deviceId: 'device-1' }]);
+    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
+      { ok: true, deviceId: 'device-1', deliveryToken: 'test-token-1' },
+    ]);
 
     const result = await dispatchPendingEvents(db, now);
     expect(result.sent).toBe(1);
@@ -154,6 +156,51 @@ describe('dispatchPendingEvents', () => {
       event_id: 'evt-1',
       kind: 'instant',
       category: 'song_drop',
+    });
+  });
+
+  it('ACCEPTANCE (Phase 6): a platform=web device is routed through sendPushBatch with platform=web, same pipeline as ios/android', async () => {
+    const now = new Date('2026-01-15T20:00:00Z');
+    const db = makeFakeDb({
+      events: [
+        {
+          id: 'evt-1',
+          category: 'song_drop',
+          tier: 1,
+          title: 'New song',
+          body: 'Out now',
+          deep_link: 'https://x',
+          available_at: new Date(now.getTime() - 1000).toISOString(),
+          expires_at: null,
+          killed_at: null,
+        },
+      ],
+      notificationPrefs: [{ device_id: 'web-device-1', category: 'song_drop', cadence: 'instant' }],
+      devices: [
+        device({
+          id: 'web-device-1',
+          push_token: JSON.stringify({
+            endpoint: 'https://fcm.googleapis.com/fcm/send/xyz',
+            keys: { p256dh: 'p', auth: 'a' },
+          }),
+          platform: 'web',
+        }),
+      ],
+      deliveries: [],
+    });
+
+    const spy = vi
+      .spyOn(sender, 'sendPushBatch')
+      .mockResolvedValue([{ ok: true, deviceId: 'web-device-1', deliveryToken: 'test-token-web' }]);
+
+    const result = await dispatchPendingEvents(db, now);
+    expect(result.sent).toBe(1);
+    expect(spy.mock.calls[0]?.[0]).toEqual([
+      expect.objectContaining({ deviceId: 'web-device-1', platform: 'web' }),
+    ]);
+    expect(db._insertedDeliveries[0]).toMatchObject({
+      device_id: 'web-device-1',
+      delivery_token: 'test-token-web',
     });
   });
 
@@ -247,7 +294,9 @@ describe('dispatchPendingEvents', () => {
     // delivery row logged) delivers it — "queue and deliver at quiet-hours
     // end" without a separate digest_queue table (Phase 3 scope).
     const afterQuietHours = new Date('2026-01-15T20:00:00Z'); // noon PST
-    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([{ ok: true, deviceId: 'device-1' }]);
+    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
+      { ok: true, deviceId: 'device-1', deliveryToken: 'test-token-1' },
+    ]);
     const delivered = await dispatchPendingEvents(db, afterQuietHours);
     expect(delivered.sent).toBe(1);
   });
