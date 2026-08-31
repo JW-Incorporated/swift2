@@ -523,12 +523,14 @@ that PR only touched Karen Deep (T-6, a separate not-yet-created routine),
 Nils cadence, Austin's model trial, and the notification-quality desk; it
 never edited this prompt file or this trigger.
 
-**Remaining scope: rename the live trigger to match.** The registered name is
-still `Karen — nightly scan`, contradicting its own judgment-only content and
-weekly cadence (documented above). Whoever next has account access to
-<https://claude.ai/code/routines> should, in one `job_config` round-trip
-(get → edit only `name` in the returned object → PUT the whole thing back —
-**never a partial PUT**, per the RemoteTrigger footgun above):
+**Remaining scope: rename the live trigger to match.** Tracked as
+[#3616](https://github.com/JW-Incorporated/swift2/issues/3616) so this
+doesn't strand as an untracked "whoever has access" note. The registered
+name is still `Karen — nightly scan`, contradicting its own judgment-only
+content and weekly cadence (documented above). Whoever next has account
+access to <https://claude.ai/code/routines> should, in one `job_config`
+round-trip (get → edit only `name` in the returned object → PUT the whole
+thing back — **never a partial PUT**, per the RemoteTrigger footgun above):
 
 | Field | Current | New |
 |---|---|---|
