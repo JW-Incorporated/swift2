@@ -1,7 +1,0 @@
-{
-  "platform": "x",
-  "body": "\"Taylor Swift - i knew it, i knew you (piano version) (official music video)\" — official upload, no caption yet, link below. https://www.youtube.com/watch?v=XwCWKSO0F8s",
-  "scheduledAt": "2026-09-01T17:21:49.846Z",
-  "campaign": "appearance:XwCWKSO0F8s",
-  "why": "Auto-drafted as an X + Instagram pair by appearance-discovery (fast lane) from a genuinely new, deterministically-matched official upload — rule \"all-uploads\", channel Taylor Swift. Unverified beyond RSS metadata (title/channel/URL only; nobody has watched the video) — see docs/decisions.md 2026-08-25 (\"Detection-triggered social auto-post\" and \"X + Instagram pairing\"). The slower Vault-authoring lane still gets its own intake issue for the same video."
-}

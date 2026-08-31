@@ -379,6 +379,31 @@ the code is what actually ships and this file is the bug.
    the credit line in the caption whenever the platform's length budget
    allows. Verify the download is the real image (view it — a CDN can serve a
    placeholder to curl), and that Taylor is actually in the frame.
+
+   **Real content verification, not just path/credit (2026-08-31, Joey —
+   kanban t_ac1281ef).** A path-bound + credited-string check is a SHAPE
+   check, not a content check — `appearance-XwCWKSO0F8s`'s thumbnail was a
+   Pixar-style animated tree/tire-swing illustration with zero Taylor in the
+   frame, declared `mediaKind: "photo"`, and it passed every gate that
+   existed at the time (`docs/decisions.md` 2026-08-31). For the
+   **appearance-discovery fast lane** specifically — the one lane with no
+   other judgment gate between "detect an upload" and "post it live" —
+   `scripts/appearance-discovery/lib/social-draft.mjs`'s
+   `fetchAppearanceThumbnail` now spends one `claude-sonnet-5` vision call
+   per candidate YouTube thumbnail (`verifyTaylorPresence`, reusing the SAME
+   existing Anthropic credential/account already standing-authorized for E3
+   match auditing — `docs/decisions.md` 2026-08-30 — no new provider,
+   account, or spend channel) before the thumbnail can be staged as
+   `mediaKind: "photo"`. A thumbnail the model does not confidently (≥0.6)
+   confirm shows Taylor as a real photographed person is never written to
+   `social/queue/` at all — the run logs a loud, non-fatal `draftFailures`
+   entry and simply produces no post for that video, same shape as any other
+   staging failure. This stays inside the fast lane's existing auto-posting
+   flow: the lane still ships with **no human review step** (Joey's ruling,
+   same task — the lane does not become review-first/draft-only), the gate
+   is just now a real content check instead of a shape check. Every other
+   sourcing path (Content Shift, Growth, Tree — the slower, already-judged
+   lanes) is unaffected; a human already looks at those before they land.
 2. **Site screenshot** — `mediaKind: "site-screen"`, **Instagram only**, for
    posts whose subject IS a product surface (a launch, a how-to). Must be a
    committed `/social/library/` asset. On Instagram, prefer a carousel: Taylor

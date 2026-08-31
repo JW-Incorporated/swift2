@@ -7,7 +7,81 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-08-31 — Root cause + fixes: bad appearance-discovery captions and site-screenshot media drift (SOCIAL_FREEZE incident, kanban t_895c2ba8)
+## 2026-08-31 — Real photo-content verification for the appearance-discovery fast lane (kanban t_ac1281ef)
+
+**Founder decision (t_19f99249):** Joey ruled build REAL photo content
+verification — not just filename/credit-string checks — for the
+`appearance-discovery` fast lane, and explicitly ruled the lane **stays
+auto-posting** (no downgrade to review-first/draft-only). Trigger finding:
+`appearance-XwCWKSO0F8s`'s thumbnail was a Pixar-style animated tree/tire-
+swing illustration with zero Taylor in it, declared `mediaKind: "photo"`,
+and passed every existing gate (path prefix, credit string, aspect ratio) —
+none of which is a content check — see the 2026-08-31 SOCIAL_FREEZE entry
+above.
+
+**Design chosen (of the two options weighed):** a vision-model verification
+step inside `scripts/appearance-discovery/lib/social-draft.mjs`, not a
+human-confirm step. A human-confirm step would have amounted to converting
+the fast lane to review-first, which Joey explicitly ruled out; a vision
+check fits inside the existing zero-approval auto-posting flow.
+
+**Implementation:**
+1. `scripts/appearance-discovery/lib/social-draft.mjs` — new
+   `verifyTaylorPresence(bytes, mediaType, { apiKey, fetchImpl })`: one
+   `claude-sonnet-5` tool-call vision request (`thinking: disabled`,
+   `max_tokens: 128`) asking whether Taylor Swift is visibly, photographically
+   present (explicitly false for animation/illustration/a different
+   person/text-graphics). Fails CLOSED — throws if `ANTHROPIC_API_KEY` is
+   unset or the response is malformed, never silently treats "unknown" as
+   "yes."
+2. `fetchAppearanceThumbnail` now calls `verifyTaylorPresence` on every
+   shape-valid candidate thumbnail (after the existing size/aspect-ratio
+   check, so a junk-shaped image never reaches the paid vision call) and
+   only returns a thumbnail when `taylor_present === true` at confidence
+   ≥ 0.6. A thumbnail that fails verification is never written to
+   `social/queue/`; `discover.mjs`'s existing `draftFailures` path (loud,
+   non-fatal — logged and counted, does not stop the run or the intake
+   issue) reports it, unchanged code path, no new failure mode class.
+3. `.github/workflows/appearance-discovery.yml` — passes
+   `ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}` to the "Discover new
+   appearances" step (the only step that calls `fetchAppearanceThumbnail`,
+   FILE mode only — a dry run never reaches the network call, so the key is
+   inert on manual dry-run dispatches). No new secret: this is the same
+   Anthropic credential/account already standing-authorized for E3 match
+   auditing (`docs/decisions.md` 2026-08-30 "E3 vision judgment uses Claude
+   Sonnet 5…") — a second authorized use of an existing one, not a new spend
+   channel.
+4. `docs/marketing/social-strategy.md` §2 — documents the gate under "the
+   source ladder" as a subsection of the existing `mediaKind: "photo"` rung.
+5. `social/queue/2026-09-01-appearance-XwCWKSO0F8s-{x,ig}.json` and
+   `apps/web/public/social/library/photos/appearance-XwCWKSO0F8s.jpg` —
+   removed. The now-known-bad instance cannot be re-verified after the fact
+   (the fast lane's job is a fresh detection, and this video's own queue
+   slot has already slipped its 72h `SCHEDULE_DELAY_MS` window once); simplest
+   correct fix is deleting it rather than inventing a replacement photo by
+   hand. If the video still merits a post, the slower Content Shift intake
+   lane already has its own issue for the same video (unaffected by this
+   change) and can author one with a human-sourced photo.
+6. Test coverage: `scripts/appearance-discovery/lib/social-draft.test.ts`
+   gained `verifyTaylorPresence` (fails closed without a key, throws on a
+   non-ok/malformed response, returns a well-formed judgment) and
+   `fetchAppearanceThumbnail` cases covering the XwCWKSO0F8s scenario
+   directly (a shape-valid thumbnail rejected by content verification),
+   low-confidence "yes," and confirming verification is never called for a
+   shape-invalid candidate (no wasted spend).
+
+**Why the confidence floor (0.6) and not a bare boolean:** the tool schema
+already lets the model express uncertainty; treating a low-confidence "yes"
+as a pass would reintroduce exactly the "looks plausible, wasn't checked"
+failure mode this fix exists to close.
+
+**Approved by:** Joey, 2026-08-31 (kanban t_19f99249 → t_ac1281ef). Registry:
+`merch_authority: agent`, self-merge once CI green; human_gates already
+satisfied for this scope.
+
+---
+
+
 
 **Founder complaint (verbatim):** "Please stop this social media post from
 going out. Also please figure out why our social media is so bad that it

@@ -137,6 +137,17 @@ jobs:
           MAX_AGE_DAYS: ${{ inputs.max_age_days }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          # Real photo-content verification (2026-08-31, kanban t_ac1281ef,
+          # docs/decisions.md): lib/social-draft.mjs's fetchAppearanceThumbnail
+          # spends one claude-sonnet-5 vision call per candidate thumbnail to
+          # confirm Taylor is actually IN the frame before it can be declared
+          # `mediaKind: "photo"` — reuses the SAME existing Anthropic
+          # credential/account E3 match-auditing already has standing
+          # authorization for (docs/decisions.md 2026-08-30), no new secret.
+          # A dry run never reaches the network call (buildSocialDraftPair is
+          # pure; fetchAppearanceThumbnail is only called in FILE mode), so
+          # this key is inert on a manual dry-run dispatch.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           set -euo pipefail
           set -- --max "${MAX:-10}" --max-age-days "${MAX_AGE_DAYS:-30}"
