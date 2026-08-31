@@ -25,7 +25,96 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 76
+
+## Taylor Swift contributes $50,000 to GoFundMe campaign
+
+- first seen: 2026-08-31 21:53 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a significant donation of $50,000 to a woman's GoFundMe campaign. This contribution highlights her continued support for charitable causes.
+- sources:
+  - [unverified] KPLC 7 News — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPRE4wMDlEc09LdWRENFRVMEZVclFyOVhpd2JOM21xc0xOSUp4MVJxZ2lZUFBiakw3RjY4Y0p2bnJTcWdYWFFFWktseVNxOFdCV0Y3ZG1DMDFKcTFibUw4S3dDaXJkVGZKSDUzcjVmUE9FakFNdmdNOXljTHBoV0lLWjAxeWlBTG16Rmtv?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes $50,000 Donation to Help Mother with Medical Bills
+
+- first seen: 2026-08-31 21:53 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated $50,000 to a mother who incurred significant medical bills after being hit by a car while saving teenagers on I-95. This act of generosity highlights Swift's philanthropic efforts.
+- sources:
+  - [unverified] Yahoo Finance — https://news.google.com/rss/articles/CBMikgFBVV95cUxNYkQySGphd3U1U3A4b1pKRHZOWUFiTzloYWU1VkRXSEtUT0VzbUdQVEg5aXNkNWpKRWhvRkZYSE5uZk9oVDIzVTV1NzE5V3c3WkZWRm4wdWFKTENMSUs3RV8wSWNGQ3MzbE1EREpiR0l3MUJYenRaZko2OHk3M0dvUHpxcUppU1BEUkR0d3BPc3Z2UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears Popular End-of-Summer Transition Top
+
+- first seen: 2026-08-31 21:53 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, along with Kate Hudson and Meghan Markle, has been spotted in a stylish end-of-summer transition top, highlighting a trendy fashion choice for the season.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiggJBVV95cUxNYjdISUVMYnFhVjJXNzNXTWNkdHJyTnpzY1NoYlFkMTN5b1NlVHhUc1phSG91RXVDSVduaHhlSGlySklIWF8waTlXeXV4dDNHOG9ZMjgwcWkyS0VKc3hLbzM2RkdOUUNNNTM5R2lRX1hURV90a2tHXzJSbC1ULWhSOVpDQW9TZ1JpNDVodW1FbmtHUTN0MDRpY0x6UE5Xa1hhRm95S3BIMlhUSTNsRlR1REZQMkp6VzhWSVVHZ2ZBMFVsTk1TMXZUVDMyYVJrVkp4YS1zQkpXYWFOYWVHWllLMWFBYmtZVGZaSmhtbTkzUllSS3hjc1hCSk5KZERIX1NnT1E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Harry Styles Mentions Taylor Swift During MSG Performance
+
+- first seen: 2026-08-31 21:53 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During his concert at Madison Square Garden, Harry Styles made a reference to Taylor Swift, capturing the attention of fans. The mention adds to the ongoing dialogue between the artists' fanbases.
+- sources:
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxNd1pvNll3WnVGNzRLYXJhcW4ycFJZUHZqNlJaQ1N4R3VsUDNLZHlacVIya3pzTG5aTG5oMVlGY0h2dDVKRXN5WThjcjloQlBqdlBtQUNCSG11Sm1EMW15akdrLW9MbUl2NFZSdkxTbUFYcTAzd0lDLTZ6ZGpreElWYUZab1hWZm1WWWNFVE9xWGlYdFUxUElrOVBB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reportedly Frustrated with Travis Kelce's Marriage
+
+- first seen: 2026-08-31 21:53 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report indicates that Taylor Swift is feeling frustrated regarding Travis Kelce's marriage. Details on the nature of this frustration have not been disclosed.
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMisAFBVV95cUxPSEF5MzI2ZlJBM0V1Q0xSdEhjaHlLbnF3YUl3U0lIcXFqR2h6ZHRIczk1YVEtN3U4MmU0Yy05SlRGV3hKME9Qa2RBdDVTQW5yQmFlYjRSWUs1OF85YXFqaXdsUDZtSEN0cXJkRnY3ZEEwUWZxeFZFcG1CWVMwQUZISU52NmVQdGRhY2FTQ3pjNnNLZU13aThjdVdHR0RBVDBXejFVREFlT0Z2cmJXZkQtYQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes $50,000 Donation to Woman's GoFundMe
+
+- first seen: 2026-08-31 21:53 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has contributed $50,000 to a woman's GoFundMe campaign, showcasing her philanthropic efforts. This donation reflects Swift's commitment to supporting individual causes and charitable endeavors.
+- sources:
+  - [unverified] KOTA Territory News — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOU2RvSUsxNEM0M2pNRmtzamY0ajV0UkczaXpFZTlfaF9ZTUNKajV2d3hZVndzZjBWeEZmS0xhZ1ZfRi1RZjdscWdxUFZnYmFXMkVscDlnQnNORDd6a2duVUw4X2RIVE1YMXpoT08yLVhkYnBCaGd2TXdzbFVUbGw4ZFpTUlRzcENRSkxJ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes $50,000 Donation to GoFundMe Campaign
+
+- first seen: 2026-08-31 21:53 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated $50,000 to a woman's GoFundMe campaign, supporting her cause. This contribution demonstrates Swift's philanthropic efforts.
+- sources:
+  - [unverified] WWNY — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPenNMRUhNUmlZTDNiNnpjaU5YeVdhNktNWlZJbzBjaE83SlJYQlpRTmY3QnVLYmRUUHFGcU5xaEJxZnhITnlMSUJnMkdzQ2hQTlZZS3FTcEhaeVlDSDR6Yi1PVkYyaEFVOWZKWW9uUFU4a2lDcDR1NnJzN0RyWjVjLThURDBhWHFSNUFZ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift makes $50,000 donation to GoFundMe campaign
+
+- first seen: 2026-08-31 21:53 UTC | category: business | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has donated $50,000 to a woman's GoFundMe campaign, showing her support for the cause. The donation highlights Swift's philanthropic contributions and engagement with her fans' initiatives.
+- sources:
+  - [unverified] foxcarolina.com — https://news.google.com/rss/articles/CBMikgFBVV95cUxOYWN6a0xnd2hGb2NUMnNjTzhDcmRHQWU4bjk5ZXpHVFZfaHVFZV9qaGlvYl9KSllJUVhXSXBkQU5ReUd2b0U2U2ZKaHNFTklaWjUtdFpITnNuWGxCdGY3Ylg3ejIyUTZ2U3AyV3lER2xFREpaUXl2T2Q5TmVPRXRCUlZUckJhdVpjYWl3Mm90YjQ3Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] wdbj7.com — https://news.google.com/rss/articles/CBMiigFBVV95cUxOd3VzWFAxdm9YOGVrWGRMY1hRVU4zTnNlZXNlR2hRaFZLWnBSRHVyWlFWcEQxRkZJaGU2NVFsLVBlM1lQNXphS2huT2RCMHVXRUw2TlQxaGN1UENQcmJCY3d6d3VrOUd3MzdaakUwM3VmWGZuYThPaVY2TnhzY1VDS3EycmcwUGJHYnc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Efforts for a Song of the Year Grammy
+
+- first seen: 2026-08-31 21:53 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is currently making efforts to secure a Song of the Year Grammy, as detailed by Gold Derby. Her proactive approach suggests a strategic plan in place to enhance her chances of winning this prestigious award.
+- sources:
+  - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMioAFBVV95cUxOTTBkaG1VTk1XUGMzUnVCQVZ3dXpGUTRLYjJnVWxyZ1BHRFNBWC1abXlGMFo1dXd3cVpxLWJLc0lEbUxIOEtxNk9ObDlrQktEbm0wOWstS3I5T2NsZGdyX1VEQnVwN1djcXpoT1BfWV9zdHg1LVpDZnVHOFA0TEd1ZVNia3dMX0RyZkUxN294ZVFOU0t6WlJsVUZXQ1MwZTRY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift makes $50,000 donation to injured woman
+
+- first seen: 2026-08-31 21:53 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated $50,000 to a woman who was injured while assisting teens on the side of the road. The contribution highlights her philanthropic efforts in supporting those in need.
+- sources:
+  - [unverified] KTIV — https://news.google.com/rss/articles/CBMipgFBVV95cUxPOUZOdkFTNjhSTFZXdkl3WVhHb3lUTFh0OGdZOXh4MV94RlltLUwtRHM3ZjBwdzZIWHJNS0NwME5NQnhGdzZRMFE2a3RmVGw3dlRLY1h3OW5TVTZ1SHpWTC1NQ2hWQ1EwZXVIam5vcDIybk9scnhqU0NISmJHV2hIdXBudWxFdjhLUWczX3BmZmFjTG5DXzl6NWM4ZEVQLXk2blgxNnJ3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes $50,000 Donation to GoFundMe Campaign
+
+- first seen: 2026-08-31 21:53 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has contributed $50,000 to a woman's GoFundMe campaign, supporting her cause. This act of generosity highlights Swift's continued involvement in charitable endeavors.
+- sources:
+  - [unverified] WDTV 5 — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQRmt4d3RPbUFnR0NoSHRQRG8yME1QWkRXRHhGM0pZRmhRdXBRRmJpVEhfcF9OY0k4ZTRCWm01S0h5cGdtRDlmZ3BRakNZQVlPazZTQklPZTdTZ1pjYzZWcnE3SFNDaUxnLW9BSmRpNm12LWt0RHM2RE1SRnBYT1RpZERsTEY1R3Br?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce face challenges with football involvement
 
@@ -43,14 +132,6 @@ Stories: 65
 - summary: Taylor Swift has contributed $50,000 to assist a Connecticut mother who was injured in a car accident while acting as a good Samaritan. This donation aims to provide significant support to her during recovery.
 - sources:
   - [unverified] wtnh.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPeGVPNVB1WGdtV2xwRGk0VEFmbVhNck1UQlZVVmhKMW5sc0w5Q1d2RlpVSEk3aTJVaHp6R0N6RlFmdmh5V1RVUFI3b2RobktSWEtHbUticko4cEw1UEFrWktyQS1Qb1hEend1YnZZLUJFM3VHSUlBdm9XMmk0b3NLSnVrakVZSGpTMC1Ta0o0TkxTZWNpZm9JZGRzZkxJSUMyOTNWWFNlV0wzZXpXMFhqaW9QUjlvZEMwSzNsS0dGQUd6akXSAcgBQVVfeXFMT2d3ZlJSRURVT1JuQTQ5Vy12Ylc2eU1aQWJBdHI3ekZHRnpzTXJ5eFdYSzlGMFNkYzIxYzg2bWtSX0tfelNNa3RSMXN6d0c4ZmsyaTVGNll2MzhGQkhmQnRNTmNwVWdsN0gxV0t4aUdzOE1tYkVKbzNjb2dYbEZwNThURzBSSFNHZ25ZM1MzRzlNaEVrZXFQRGZ3b0NKWlhuN1dQekVkY2dIN25fWlEzcEIwSUYtRHc1cHUteHZTWlJTcE8tekt0YnU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Gifts Life-Changing Item to Woman Who Helped Teens
-
-- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A woman who was injured after helping teens on the interstate received a significant gift from Taylor Swift, described as 'life-changing.' The incident highlights Swift's generosity towards those in need.
-- sources:
-  - [unverified] WXII — https://news.google.com/rss/articles/CBMiggFBVV95cUxQbDduZmdkcWFJSnZ0LUpMdE1ENlAwMUtxb0NlMUsycXctSkpoSmxSOUs5ZHV1YXAwRTZyOWVaVEtzRlp3V3pkSUp5LUduUGZMRGZkYjQtQkdMblZRUGVyMU11NU5MaDhORTVaZzkwOFlNREVUUFk2MkZXRTNWeVlSb0hn?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Makes $50,000 Donation to Crash Victim
 
@@ -107,6 +188,15 @@ Stories: 65
 - summary: Taylor Swift is on track to potentially make Grammy history, with rumors suggesting Ariana Grande may also be involved in the achievement. This development is garnering significant attention in the music industry.
 - sources:
   - [unverified] Forbes — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOdGUydFZqYkZFc0ZJOUMwNmdybmhrS0xfZWsyWnFsbTdFcFR5elE5aVRfMkVuT3p6Zm5DdzR4QVhKaGNtTVEyLTN5RkNEaWV1WDM0UnYzQXQ2c1M3eVBXOXVkU1NGSGZwYVBKYlA0SU5lRmFmMjhpOU1zREdpMXh5LTNTc1F3VDkzdF9lbkt0bzBHZ3Vvckl0cTBvQUVleUh2RmZHOXYwV09MaUNvakt4UE0yc0twalFEYU80bmlkY2xiVWc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Gifts Life-Changing Item to Woman Who Helped Teens
+
+- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: A woman who was injured after helping teens on the interstate received a significant gift from Taylor Swift, described as 'life-changing.' The incident highlights Swift's generosity towards those in need.
+- sources:
+  - [unverified] WBAL-TV — https://news.google.com/rss/articles/CBMiggFBVV95cUxQLXU3TkVHbzUyUjhqS1BsZl9PWndNa0ZBNWlCZTkyR2VVT0pjVDA5dE14Q2VTUlNsb2JxajlYa0tobmJTcE9JZUswbkIzYjhoYnBTRWZhT0tBRnpOQUFQNUJyMF83OXpFR29TZmtjSGZqQ2ZHaTUzazNjUGNxTmhqNTRn?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WXII — https://news.google.com/rss/articles/CBMiggFBVV95cUxQbDduZmdkcWFJSnZ0LUpMdE1ENlAwMUtxb0NlMUsycXctSkpoSmxSOUs5ZHV1YXAwRTZyOWVaVEtzRlp3V3pkSUp5LUduUGZMRGZkYjQtQkdMblZRUGVyMU11NU5MaDhORTVaZzkwOFlNREVUUFk2MkZXRTNWeVlSb0hn?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift donates $50K to Connecticut mother recovering from injury
 
@@ -231,10 +321,11 @@ Stories: 65
 ## Harry Styles Jokes About Taylor Swift's Wedding at MSG Concert
 
 - first seen: 2026-08-30 06:36 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: During a concert at Madison Square Garden, Harry Styles made a humorous remark regarding his ex, Taylor Swift's wedding. The comment added a playful element to his performance, drawing attention from the audience.
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/harry-styles-shout-out-taylor-swift-wedding-travis-kelce-madison-square-garden-show-1236846748/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxQSDQ1ajA5LXhwSmx1YmFRYldIMk5YeURlRGpJY1hqcy1fRWpHWTU3dGFOdkx1SWFtcG9mZDYtcG85cjhmSjc3dWZ6S2JKNGFtSFh3TTJWRGFrbEsxZ0phOGhZSEJoSWNtNTlrd1BpUFRwX2lqUmhaVmJzYlRGMm1fcWRVbkJXNW9jSWJiMWR0MFAyM0wzOGduc29BSWtfQQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Variety — https://news.google.com/rss/articles/CBMiywFBVV95cUxPMk1VbDlPTmVtVU5aZjFJaG5QMG45cmgzT2RHZk5yeFlXYkVyNzBaQ21zbkRnRTNVaFpUWDJ3RUxneWh0U1BiSFl6Tk5sRVJLZlJINXctcG4wcmtZQk1nMXpzUEhhS2lQU0JuVkZQb21VVTV1S29adklaQ0xrbHFwQ0RTZ3RneGdKbFMyaTZjTmlINDVQM0ZXeTdvSzQxTlkxRDlEaE5jeEVwRnE1UzluTzM1bzYwVDN4NGd1UndBS19vNmRZY1dEczBuaw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Mentions Taylor Swift at Venue of Her Recent Marriage
