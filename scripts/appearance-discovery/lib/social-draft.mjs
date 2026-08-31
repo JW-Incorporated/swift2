@@ -64,29 +64,41 @@ function sanitize(text) {
 }
 
 function bodyTemplate(title, channel, url) {
-  return `"${title}" just dropped from ${channel} — running to go watch this right now!! ${url}`;
+  return `"${title}" — official upload, no caption yet, link below. ${url}`;
 }
 
+// Rewritten 2026-08-31 (Joey, kanban t_895c2ba8): the previous hooks ("i hit
+// play SO fast", "drop everything") plus the fixed line "i haven't watched
+// yet — come watch with me!!" read as generic breathless fan-account spam
+// and, worse, disclosed in the caption itself that nobody had watched the
+// video — exactly the low-quality output that triggered the founder
+// complaint and the SOCIAL_FREEZE. This lane is still, deliberately,
+// title/channel/URL-only (see this file's header) — it must never claim
+// anything about the video's CONTENT — but it no longer needs to perform
+// enthusiasm about a video it hasn't seen. Calm and factual beats gushing
+// about the unknown. Each hook opens on its OWN fixed words (not the title)
+// so the Instagram body doesn't collide with the X sibling's title-first
+// opener (checkOpeners compares first-6-words across every item in the same
+// PR, including a pair's own two halves). Deliberately does NOT repeat the
+// channel name in the hook (it already appears in the "video thumbnail:"
+// credit line below) — a channel whose NAME is itself Taylor's own name
+// (e.g. the "Taylor Swift" YouTube channel) would otherwise double the
+// shared-token count against the X sibling's title and push a short title
+// over checkCrossPostCopy's 80% overlap threshold (hit for real on
+// XwCWKSO0F8s, 2026-08-31 during this fix).
 const INSTAGRAM_HOOKS = [
-  (title) => `${title} has me dropping everything!!`,
-  (title) => `i am RUNNING to watch ${title}!!`,
-  (title) => `new obsession unlocked: ${title}!!`,
-  (title) => `Taylor really just gave us ${title}!!`,
-  (title) => `the way ${title} just appeared on my screen!!`,
-  (title) => `please tell me everyone else saw ${title}!!`,
-  (title) => `my whole day is now about ${title}!!`,
-  (title) => `i hit play SO fast on ${title}!!`,
-  (title) => `drop everything because ${title} is here!!`,
-  (title) => `nothing prepared me for ${title} showing up today!!`,
+  (title) => `just seen: ${title}.`,
+  (title) => `catching up on ${title}.`,
+  (title) => `worth a look — ${title}.`,
+  (title) => `on the radar today: ${title}.`,
+  (title) => `saving this one: ${title}.`,
 ];
 
 function instagramBodyTemplate(title, channel, url, videoId) {
   let hash = 2166136261;
   for (const char of String(videoId)) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
   const hookIndex = hash % INSTAGRAM_HOOKS.length;
-  return `${INSTAGRAM_HOOKS[hookIndex](title)}\n\n` +
-    `a fresh official Taylor upload just landed from ${channel}. i haven't watched yet — come watch with me!!\n\n` +
-    `${url}\n\nvideo thumbnail: ${channel}`;
+  return `${INSTAGRAM_HOOKS[hookIndex](title)}\n\n${url}\n\nvideo thumbnail: ${channel}`;
 }
 
 /** Trims `title` to fit whatever's left of X's weighted budget after the

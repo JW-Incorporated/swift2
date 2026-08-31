@@ -553,10 +553,11 @@ describe('checkMedia', () => {
     // Use an in-range 1080x1350 asset: as of 2026-08-24 the checker also gates
     // Instagram aspect ratio, and the tall *-screen.png captures (780x1688)
     // now fail that gate — so they can't double as the "valid path" fixture.
-    const ok = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' }, []);
+    // campaign: launch:test — site-screen is launch-only as of 2026-08-31.
+    const ok = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', campaign: 'launch:test' }, []);
     expect(ok).toEqual([]);
     for (const tile of ['/social/2026-07-17-electric-lady-1.png', CORPUS_PHOTO]) {
-      const bad = await checkMedia('a.json', { platform: 'instagram', media: [tile], mediaKind: 'site-screen' }, []);
+      const bad = await checkMedia('a.json', { platform: 'instagram', media: [tile], mediaKind: 'site-screen', campaign: 'launch:test' }, []);
       expect(bad.some((f) => f.includes('must be a committed product screenshot')), tile).toBe(true);
     }
   });
@@ -586,13 +587,36 @@ describe('checkMedia', () => {
     expect(findings.some((f) => f.includes('X drafts may not use mediaKind "site-screen"'))).toBe(true);
   });
 
-  it('continues to allow an Instagram site-screen tile', async () => {
+  it('continues to allow an Instagram site-screen tile on a launch campaign', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', campaign: 'launch:shop-the-look' },
+      [],
+    );
+    expect(findings).toEqual([]);
+  });
+
+  // 2026-08-31 (Joey, kanban t_895c2ba8): a site-screen used to be legal on
+  // ANY campaign, which is how the grid drifted to mostly website
+  // screenshots instead of Taylor photos. Strategy §2 always said a
+  // screenshot is only legitimate for a launch/how-to post — this is the
+  // gate that actually enforces it.
+  it('rejects an Instagram site-screen tile on a non-launch campaign', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', campaign: 'heartbeat:on-this-day' },
+      [],
+    );
+    expect(findings.some((f) => f.includes('only allowed on a `launch:`-family campaign'))).toBe(true);
+  });
+
+  it('rejects an Instagram site-screen tile with no campaign at all', async () => {
     const findings = await checkMedia(
       'a.json',
       { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' },
       [],
     );
-    expect(findings).toEqual([]);
+    expect(findings.some((f) => f.includes('only allowed on a `launch:`-family campaign'))).toBe(true);
   });
 
   it('rejects a .gif/.webp media path — only png/jpg/jpeg are produced/uploaded today', async () => {
@@ -618,7 +642,7 @@ describe('checkMedia', () => {
   it('accepts a real, existing screenshot file under the declared standard', async () => {
     // 1080x1350 in-range asset (see the aspect-ratio note above; the tall
     // *-screen.png captures now correctly fail the Instagram aspect gate).
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' }, []);
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', campaign: 'launch:test' }, []);
     expect(findings).toEqual([]);
   });
 
@@ -637,13 +661,13 @@ describe('checkMedia', () => {
     });
 
     it('flags an Instagram image outside the accepted aspect-ratio range', async () => {
-      const findings = await checkMedia('a.json', { platform: 'instagram', media: [TALL_FIXTURE_REL], mediaKind: 'site-screen' }, []);
+      const findings = await checkMedia('a.json', { platform: 'instagram', media: [TALL_FIXTURE_REL], mediaKind: 'site-screen', campaign: 'launch:test' }, []);
       expect(findings.some((f) => f.includes("outside Instagram's accepted") && f.includes('780x1688'))).toBe(true);
     });
   });
 
   it('accepts an in-range 1080x1350 Instagram image (aspect gate passes)', async () => {
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' }, []);
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', campaign: 'launch:test' }, []);
     expect(findings.some((f) => f.includes('aspect'))).toBe(false);
   });
 
