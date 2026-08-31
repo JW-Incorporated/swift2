@@ -210,8 +210,10 @@ the end.
   the digest-emit step, deterministic, zero LLM), then run one weekly Opus
   pass that re-triages the archived digests (including refusals) and diffs
   decisions. Any story Opus would have filed that Sonnet refused or
-  overlooked is a counted false negative; more than ~1-2 across the trial
-  reverts the change. That is 2 extra Opus sessions plus a trivial archive
+  overlooked is a counted false negative; **any counted false negative
+  reverts the change** (missed stories are unrecoverable downstream, so the
+  rollback bar is zero tolerance, not a budget). That is 2 extra Opus
+  sessions plus a trivial archive
   step, against ~14 Opus sessions saved — the trial pays for itself even
   before the standing saving; (b) the prompt already requires stating what was
   reviewed-and-refused per run, which makes silent-drop auditable. Revert is
@@ -727,8 +729,12 @@ notification quality.
 
 *Every routine named in this document traces to a row in
 [`AUTOMATION.md`](AUTOMATION.md) § Tier 2, a trigger in
-[`agents/runners.md`](agents/runners.md)'s live table, and a file under
+[`agents/runners.md`](agents/runners.md)'s live table, and — with one
+exception — a file under
 [`agents/`](agents/) or [`agents/runner-prompts/`](agents/runner-prompts/).
+The exception is E1, the Getty purge watch, which has **no prompt file**
+(that gap is itself part of finding T-14, which requires archiving its
+config in-repo before any action).
 Nothing was executed. Recommendations marked founder-gated require a founder
 decision per the JW Labs policy registry's human_gates (see the note above
 the summary table); everything else is
