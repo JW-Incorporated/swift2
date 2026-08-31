@@ -85,7 +85,8 @@ closed with every one of the five found by a probe or a named axe rule.
 ## Cadence & account
 
 Daily, **~08:00 AM PT** (`0 15 * * *` UTC), right after Nils's 7 AM walk so the
-two critiques land together. Model **Fable**. Account **Wyatt**. Tools:
+two critiques land together. Model **Fable**. Account **Joey** (policy
+corrected 2026-08-31, D1=B). Tools:
 Bash/Read/Write/Edit/Glob/Grep + WebSearch/WebFetch (fetch live pages; run the
 engines via `npx`; check current WCAG guidance).
 

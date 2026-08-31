@@ -5,53 +5,45 @@
 > file does not cover. This file remains the authoritative **cadence and
 > trigger-ID registry** for the Claude desk routines.
 
-## Which account the routines actually run on — verified state vs stated policy
+## Which account the routines actually run on — current policy
 
-**These two disagree, and the gap is a live finding rather than something this
-file resolves.** Read both before touching a routine.
+**Resolved 2026-08-31 (Joey, D1=B, in response to the 2026-08-31 automation
+audit — PR #3593):** the automated routine fleet correctly runs on **Joey's**
+account. Do not migrate it to Wyatt's account; the lines below that used to
+state a conflicting "Wyatt's account" policy were the stale half of this gap
+and are corrected to match the live, verified state.
 
-**Stated policy (below, and `CLAUDE.md` § Operating habits):** all scheduled
-agent spend runs on **Wyatt's** account, to keep Joey's weekly limit free.
-
-**Observed state (this file's own audits, 2026-08-23 and 2026-08-27):** the
+**Current state (this file's own audits, 2026-08-23 and 2026-08-27):** the
 fleet was recreated on **Joey's** account after issue #2258 (the prior
 account's routines were lost), and a live read of the routines API on
 2026-08-27 found "All 24 triggers verified live … Nothing remains on the other
 founder's account." Every trigger ID in the table below was fetched from
 Joey's account.
 
-So the live fleet is not where the spend policy says it should be. That is a
-**recurring-spend question and therefore Joey's call**, not an agent's:
+**Requirement (Joey, corrected 2026-08-31 — supersedes the 2026-07-12 form
+below): ALL scheduled agent spend runs on Joey's account.** The founder split
+of labor: **Joey = vision, monitoring, and site QA** (10× Wyatt's testing
+bandwidth), feeding the org through zero-token paths — the intake form,
+experience reports, brief checkboxes; **Joey's account = every runner.**
+Every scheduled runner is registered here with its owner; the prompt each
+runner executes is versioned in `runner-prompts/` — **the repo file is the
+source of truth**, and a trigger whose inline prompt drifts from its file is
+a bug.
 
-- If the policy still holds, the fleet needs migrating back — a real piece of
-  work, not a doc edit.
-- If the consolidation was intended (it followed a routine-loss incident), the
-  policy line in `CLAUDE.md` and the requirement below are stale and should be
-  corrected to match.
+**Historical note — 2026-07-12 original requirement (superseded 2026-08-31):**
+the original policy said all scheduled agent spend ran on **Wyatt's**
+account, to keep Joey's weekly limit free, with the standing operational
+assumption (Joey, 2026-07-11) that we had effective command-line access to
+Wyatt's machine via Joey→Wyatt chat. The fleet was consolidated onto Joey's
+account ~2026-08-23 after issue #2258 (the prior account's routines were
+lost) and verified live 2026-08-27; Joey's 2026-08-31 decision (D1=B) makes
+that the permanent, intended policy rather than a temporary gap.
 
-Until Joey settles it, **report the live account as Joey's** — that is what the
-trigger IDs resolve against, and acting on the stale assumption is what makes a
-maintenance run fail. Flagged by the 2026-08-31 automation audit; not
-actioned there, and `CLAUDE.md` deliberately left untouched.
-
-**Requirement (Joey, final form 2026-07-12): ALL scheduled agent spend runs
-on Wyatt's account** — Joey is near his weekly limit; his side spends zero
-scheduled tokens. The founder split of labor: **Joey = vision, monitoring,
-and site QA** (10× Wyatt's testing bandwidth), feeding the org through
-zero-token paths — the intake form, experience reports, brief checkboxes;
-**Wyatt's account = every runner.** Standing operational assumption (Joey,
-2026-07-11): we have effective command-line access to Wyatt's machine via
-Joey→Wyatt chat — any prompt/command Joey relays gets run there, so
-Wyatt-side setup is a paste away, never a blocker. Every scheduled runner is registered here with
-its owner; the prompt each runner executes is versioned in
-`runner-prompts/` — **the repo file is the source of truth**, and a trigger
-whose inline prompt drifts from its file is a bug.
-
-**SUPERSEDED 2026-08-27** — the "Wyatt's account" assignment above is
-historical. The entire fleet (24 triggers) was consolidated to Joey's
-account ~2026-08-23 and verified live 2026-08-27; every scheduled runner
-today runs on Joey's account. See the "Live trigger IDs" table below for
-the current, live configuration.
+**SUPERSEDED 2026-08-27, confirmed policy 2026-08-31** — the entire fleet (24
+triggers) was consolidated to Joey's account ~2026-08-23 and verified live
+2026-08-27; every scheduled runner today runs on Joey's account, and that is
+now the stated policy, not just the observed state. See the "Live trigger
+IDs" table below for the current, live configuration.
 
 ## Live trigger IDs (verified 2026-08-23, post-migration #2258)
 
@@ -567,7 +559,7 @@ account access creates it.
 | Field | Value |
 |---|---|
 | Name | `Karen Deep — agent review` |
-| Account | **Wyatt** |
+| Account | **Joey** (corrected 2026-08-31, D1=B — the fleet's account policy; was Wyatt when this spec was first drafted 2026-08-11, not yet created) |
 | Model | `claude-sonnet-5` |
 | Cron (UTC) | `40 9 * * *` — 40 min after Karen's nightly `0 9`, so the deterministic scan and its report have landed first; off the `:00`/`:30` cluster |
 | Repo | `JW-Incorporated/swift2`, branch `main` |
@@ -625,19 +617,20 @@ agent-reviewed would stay at zero forever, which is today's bug with extra steps
 (c) *`--claims-only` focusing* — RUNBOOK.md already records that this caused a
 real miss: claim-free narrative records are exactly where fabricated events hide.
 
-### Tree's routine does not exist yet — it is a Wyatt-side paste (2026-08-11)
+### Tree's routine does not exist yet — needs creating on Joey's account (2026-08-11, account corrected 2026-08-31 D1=B)
 
 The row above is the *specification*. **No routine was created by the session
-that wrote it**, deliberately: creating it requires a session authenticated to
-Wyatt's account, which the session that wrote this spec was not.
+that wrote it**, deliberately: creating it requires a session authenticated
+to a Claude account. This spec originally named Wyatt's account per the
+2026-07-12 policy; per Joey's 2026-08-31 decision (D1=B) the fleet's account
+is now **Joey's**, so Tree should be created there like every other runner.
 **Correction (2026-08-22): this is not a "humans only" limitation** —
 `RemoteTrigger` create/update/run works fine same-account, confirmed against
 Joey's account the same day. The one step that genuinely is UI-only is
 `routine-invariants.md`'s connector removal (detaching `Claude_Code_Remote` —
 the API silently no-ops `mcp_connections: []`).
 
-To bring Tree live, from Wyatt's side (his account, not this repo's checkout):
-create a routine named
+To bring Tree live, from Joey's account: create a routine named
 `Tree — weekly social plan`, cron `0 10 * * 1`, model `claude-opus-5` (or the
 fleet's current Opus), prompt = the **exact contents** of
 [`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md), then run the
