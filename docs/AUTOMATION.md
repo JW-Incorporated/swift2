@@ -198,6 +198,11 @@ workflow files.
 
 ## Tier 2 — Claude desk routines (24 triggers, 23 enabled)
 
+Cost/benefit optimization analysis (2026-08-31, Fable):
+**[`TIER2-OPTIMIZATION.md`](TIER2-OPTIMIZATION.md)** — per-routine assessment
+of all 24 triggers with 19 ranked recommendations (T-1…T-19), split into
+pre-approved-reversible agent actions and founder-gated spend decisions.
+
 Cadence registry and live trigger IDs: **[`agents/runners.md`](agents/runners.md)**
 — that table supersedes any trigger ID quoted elsewhere. Prompts live in
 [`agents/runner-prompts/`](agents/runner-prompts/); **the repo file is the
