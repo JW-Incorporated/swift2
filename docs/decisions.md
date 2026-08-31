@@ -7,7 +7,48 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-08-30 — Standing authorization: E3 vision-scoring runs at the $5/run cap
+## 2026-08-31 — D1=B: scheduled routine fleet correctly runs on Joey's account
+
+**Decision:** the automated routine fleet (~24 Claude desk triggers) stays on
+**Joey's** account, permanently. Do not migrate any routine to Wyatt's
+account. This makes explicit, as the intended standing policy, what has been
+the live reality since the fleet was consolidated onto Joey's account
+~2026-08-23 (after issue #2258, the prior account's routine loss) and
+verified live 2026-08-27 ("Nothing remains on the other founder's account").
+
+**Why:** the 2026-08-31 automation audit (PR #3593, `docs/AUTOMATION.md` +
+its companion `docs/automation/review-2026-08-31.md` and
+`docs/automation/doc-quality-2026-08-31.md`) flagged that the written policy
+in `CLAUDE.md` and `docs/agents/runners.md` still said Wyatt's account while
+the live fleet had been on Joey's for weeks — an unresolved, Joey-only
+recurring-spend call. Joey's ruling: the consolidation was a reasonable
+outcome of the #2258 incident and should stand; migrating ~24 triggers back
+to Wyatt's account (each needing a full `job_config` round-trip per the
+RemoteTrigger footgun in `runners.md`) is real, error-prone work with no
+offsetting benefit. Correct the docs to match reality instead.
+
+**Alternatives considered:** (a) migrate the fleet back to Wyatt's account to
+match the original 2026-07-12 policy — rejected, real work with no benefit
+and the original policy's premise (freeing Joey's weekly token limit) no
+longer needs a dedicated second account now that spend is Sonnet/Haiku-tiered
+and metered. (b) leave the gap flagged but unresolved — rejected, it's a
+standing invitation for a future agent to "fix" the fleet by migrating it
+somewhere worse.
+
+**Approved by:** Joey, 2026-08-31, D1=B.
+
+**Implementation:** `docs/agents/runners.md`, `docs/AUTOMATION.md`,
+`docs/automation/doc-quality-2026-08-31.md`, `MAP.md`, `docs/agents/tree.md`,
+`docs/agents/paul-blart.md`, `docs/agents/laura.md`, and
+`.github/workflows/watchdog.yml`'s alert text corrected in PR #3598.
+`CLAUDE.md`'s two references (§ Operating habits, § Parallel fleets) remain
+stale pending a separate protected-file write — that file's write tool
+hard-blocked the edit with an unresolved approval prompt.
+
+---
+
+## 2026-08-30 — Standing authorization: E3 *** runs at the $5/run cap
+
 
 **Decision:** `merch-audit-authoring` runs are standing-authorized by Joey at
 the existing $5.00/run reservation cap, existing model (`claude-sonnet-5`)
