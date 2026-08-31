@@ -42,17 +42,20 @@ For each category with enough delivery volume to be meaningful (never
 flag a category on a handful of sends — name the sample size and skip
 judgment on ones too thin to trust):
 
-1. **Over-firing.** Mute rate above the flagged threshold, or — once the
-   desk has at least one prior run's logged snapshot to compare against
-   (`runner-prompts/notification-quality-run.md` step 0/5; the metrics
-   endpoint itself is a single rolling-30-day aggregate with no
-   week-over-week data of its own, so the desk's own log is the only source
-   of trend history) — a category's send volume trending sharply up
-   week-over-week without a matching open-rate story (more pushes, same or
-   falling engagement). On the very first run, with no prior snapshot yet,
-   judge over-firing on the mute-rate threshold and cross-category
-   comparison alone and say so explicitly — the trend criterion is not
-   fabricable from a single snapshot.
+1. **Over-firing.** Mute rate above the flagged threshold — the one sound
+   signal the current endpoint supports, since it's computed within a
+   single snapshot rather than across two. **Do not attempt a
+   week-over-week send-volume trend from this endpoint**: `metrics` reports
+   a rolling 30-day total, so subtracting last run's `sent` from this run's
+   `sent` does not isolate the newest week — it mixes this week's real
+   change with whatever aged out of the 30-day window on the other end, and
+   can manufacture or hide a trend that never happened. Comparing two
+   rolling-30-day snapshots is not a substitute for weekly-bucketed data;
+   flagging a category as "trending up" on that basis would be a false
+   signal, not a judgment call, so don't make it. If a genuine
+   week-over-week trend view is ever needed, that's a metrics-endpoint
+   change (weekly time-bucketed counts), not something this desk should
+   approximate from the aggregate it already has.
 2. **Under-performing.** Open rate persistently low relative to the
    category's peers, or a category present in `metrics` with near-zero
    opens across the whole lookback window (a category firing into the void

@@ -8,15 +8,6 @@ config.**
 
 Steps:
 
-0. **Read last week's snapshot before fetching a new one.** Find the
-   standing `Notification quality — weekly desk log` issue (label
-   `notifications`) and read its most recent comment. If it exists, extract
-   the per-category `sent`/`openRate`/`muteRate` table it recorded (step 5
-   below defines this exact table) — this is your week-over-week baseline.
-   If the issue doesn't exist yet (first run) or its last comment predates
-   this format, note **"no prior snapshot — trend judgment skipped this
-   run"** and proceed without one; do not guess at a baseline.
-
 1. Fetch the metrics payload with the HTTP status captured (never bare
    `curl -s`, which swallows non-2xx and transport failures silently):
    `curl -s -w '\n%{http_code}' "https://www.longlivets.com/api/notifications/metrics?secret=$NOTIFICATIONS_DASHBOARD_SECRET"`
@@ -48,16 +39,14 @@ Steps:
      trustworthy sample), record it as **skipped — thin sample (N=<sent>)**
      in the log and do not file a ticket for it.
    - Otherwise apply the charter's judgment: over-firing (mute rate over
-     `MUTE_RATE_FLAG_THRESHOLD`, **or**, only when step 0 found a usable
-     prior snapshot, send volume trending up without a matching open-rate
-     story vs. that snapshot) or under-performing (open rate low relative
-     to peer categories, or near-zero opens on real volume). **If step 0
-     found no usable prior snapshot, the trend half of the over-firing
-     criterion is not assessable this run — judge only on the mute-rate
-     threshold and cross-category comparison, and say so explicitly in the
-     log rather than silently skipping the caveat.** Because this desk logs
-     every run's numbers (step 5), a usable baseline exists from the second
-     run onward — the gap is real only on the very first run.
+     `MUTE_RATE_FLAG_THRESHOLD` — this is the only sound over-firing signal
+     the endpoint supports; **do not compare `sent` across runs to infer a
+     week-over-week volume trend** — `metrics` is a rolling 30-day
+     aggregate, not weekly-bucketed data, so subtracting one run's `sent`
+     from another's does not isolate a week and can manufacture or hide a
+     trend that never happened, per the charter's judgment section) or
+     under-performing (open rate low relative to peer categories, or
+     near-zero opens on real volume).
    - Respect the null-vs-zero rule: a category with `sent: 0` has
      `openRate: null`/`muteRate: null` — that is "no data," never report it
      as a 0% rate.
@@ -78,12 +67,15 @@ Steps:
    run — same pattern every other desk in this fleet uses after the
    disconnected-alert lesson from #947/#1177/#1203/#1224): the metrics
    snapshot's `generatedAt`, every category's verdict (clean / flagged+ticket
-   / skipped-thin-sample), tickets filed this run, any data-quality caveat
-   (e.g. `hasData: false`, or a caveat inherited from the metrics route
-   itself), **and a per-category snapshot table** (`category | sent |
-   openRate | muteRate`) formatted exactly the same way every run — this
-   table is what step 0 of the *next* run reads back as its baseline, so
-   keep the format stable rather than restyling it.
+   / skipped-thin-sample), tickets filed this run, and any data-quality
+   caveat (e.g. `hasData: false`, or a caveat inherited from the metrics
+   route itself). A per-category `sent | openRate | muteRate` table is
+   useful here as a **historical record for a human reading the log**, but
+   it is NOT a basis for this or any future run's judgment — see step 3's
+   note on why comparing rolling-30-day snapshots doesn't measure a
+   week-over-week trend. If Joey ever wants that trend view, the fix is a
+   weekly-bucketed metrics endpoint, not this desk approximating one from
+   its own log.
 
 Hard limits: read-only on notification code/prefs/config; never merges
 anything (nothing to merge — this desk files tickets only); never closes
