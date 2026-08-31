@@ -188,12 +188,20 @@ the end.
   prompt warns), but Opus is over-tiered for it.
 - **Recommendation (T-3) — move News Triage to Sonnet 5.** One trigger-model
   change (full `job_config` round-trip per the RemoteTrigger footgun). Saves
-  one Opus session/day at Sonnet quality risk only; the downstream Content
-  Shift re-verifies sources before authoring, so a marginal triage miss is
-  caught at the next gate. Update the tiering table's Haiku row to Sonnet in
-  the same PR so the doc and the decision match (the table's original Haiku
-  call predates the 2026-07-20 redline tightening that made this a judgment
-  job). Reversible; agent call.
+  one Opus session/day. The risk is **asymmetric and lands on false
+  negatives**: a wrongly-*filed* story is caught downstream (Content Shift
+  re-verifies sources before authoring), but a wrongly-*rejected or
+  overlooked* story is simply never filed — intake issues are the ONLY thing
+  Content Shift reads, so nothing downstream can recover a miss. Two
+  mitigations, both required: (a) run it as a **2-week trial with a recall
+  check** — compare `news_story` rows admitted by `news-worker.yml` against
+  intake issues filed, and revert if the filed-fraction drops materially from
+  the Opus baseline week; (b) the prompt already requires stating what was
+  reviewed-and-refused per run, which makes silent-drop auditable. Revert is
+  one field. Update the tiering table's Haiku row to Sonnet in the same PR so
+  the doc and the decision match (the table's original Haiku call predates
+  the 2026-07-20 redline tightening that made this a judgment job).
+  Reversible; agent call.
 
 #### A9. Lex depth (disabled warm spare, Opus 4.8)
 
@@ -576,7 +584,7 @@ data, with prompts preserved in-repo).
 |---|---|---|---|---|---|---|
 | T-1 | Finish Vault Phase 4: retire 6 standalone lanes, Rumor first | **▼▼ ~3.9 sd** (mixed Opus/Sonnet) + ~260 Actions min/mo | **▲** ends undesigned daily rumor cadence; removes conflict bug class | Moderate (6 careful trigger cycles) | A masked Vault-Run miss becomes a real content gap — mitigated by one-lane-at-a-time + 36h watchdog | none (reversible) |
 | T-2 | Attach the "Sonnet-drafts/Opus-reviews if a redline ever ships" note to the Rumor lane file | neutral | ▲ preserves a liability decision where it's needed | Trivial | none | none |
-| T-3 | News Triage Opus → Sonnet | **▼ 1 Opus→Sonnet sd** | neutral (Content Shift re-verifies downstream) | Trivial | marginal triage misses; revert on evidence | none |
+| T-3 | News Triage Opus → Sonnet (2-week recall-checked trial) | **▼ 1 Opus→Sonnet sd** | ≈neutral if recall holds (false negatives are unrecoverable downstream — hence the recall check) | Trivial | a missed story is never filed; revert on recall drop | none |
 | T-4 | Lex depth: write thaw condition or delete | neutral (already disabled) | ▲ audit hygiene | Trivial | none (prompt preserved in-repo) | none |
 | T-5 | Trim Karen weekly to judgment-only; rename | ▼ slight (shorter sessions) | neutral (Action owns detection daily) | Trivial-moderate | none | none |
 | T-6 | Karen Deep: founder yes/no on the costed spec | **▲ ≈$66–114/mo NEW** if yes | **▲▲** only fabrication-depth review of the merged corpus ("stories are real" is the vision) | Trivial to decide; creation mechanical | spend without measured yield — mitigated by the documented re-baseline after week 1 | **spend** |
