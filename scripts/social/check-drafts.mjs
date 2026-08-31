@@ -423,7 +423,14 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
   // one place strategy §2(a) actually calls it out — "an Instagram
   // site-screen is legitimate here"). Every other campaign family
   // (heartbeat, thread, mood) must use a real Taylor photo or go text-only
-  // on X.
+  // on X. Strategy §2(a) is more specific than "launch campaigns may use
+  // site-screen" though: "on Instagram the screenshot rides slide 2 of a
+  // carousel behind a Taylor photo tile — the grid shows Taylor either
+  // way." So even on a launch campaign, media[0] (the grid tile) must be a
+  // real Taylor photo and the screenshot(s) must ride slide 2+ — a
+  // single-image site-screen post (no carousel) is not allowed even on a
+  // launch campaign (Codex review round 1, kanban t_895c2ba8).
+  let launchCarouselRequired = false;
   if (item.platform === 'instagram' && item.mediaKind === 'site-screen') {
     const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
     if (!campaign.startsWith('launch:')) {
@@ -432,6 +439,16 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
           'per docs/marketing/social-strategy.md §2, a website screenshot is only legitimate for a feature-launch/how-to post. Every other post must use a real credited Taylor photo ' +
           '(mediaKind "photo") or go text-only on X. (Joey, 2026-08-31: "no more pictures of our website.")',
       );
+    } else {
+      launchCarouselRequired = true;
+      const media = item.media ?? [];
+      if (media.length < 2 || !String(media[0]).startsWith(PHOTO_PREFIX)) {
+        findings.push(
+          `media: mediaKind "site-screen" on a launch campaign must be a carousel — media[0] a real Taylor photo under ${PHOTO_PREFIX} (the grid tile), the screenshot(s) as slide 2+ ` +
+            '— per docs/marketing/social-strategy.md §2(a): "the screenshot rides slide 2 of a carousel behind a Taylor photo tile — the grid shows Taylor either way." ' +
+            `Got media: ${JSON.stringify(media)}.`,
+        );
+      }
     }
   }
   if (item.platform === 'x' && (item.media?.length ?? 0) > MAX_X_IMAGES) {
@@ -508,7 +525,36 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
   // prefix (PR #2043 review: without the path binding, any committed image
   // could be laundered as a "photo" with a fabricated credit string, and a
   // real photo declared "site-screen" would ship uncredited).
-  if (item.media?.length && !isGenericEraArt(item.media[0])) {
+  //
+  // Launch carousel exception (2026-08-31, Codex review round 1, kanban
+  // t_895c2ba8): a launch-campaign site-screen post's media[0] is
+  // deliberately a real Taylor PHOTO (the grid tile, validated above) with
+  // the screenshot(s) riding slide 2+ — so for that shape, validate media[0]
+  // against the photo-prefix rule and every remaining slide against the
+  // site-screen prefix rule, instead of applying `item.mediaKind` uniformly
+  // to media[0] alone.
+  if (launchCarouselRequired && item.media?.length >= 2) {
+    const grid = String(item.media[0]);
+    if (!grid.startsWith(PHOTO_PREFIX)) {
+      findings.push(
+        `media: launch-campaign site-screen carousel's grid tile "${grid}" must live under ${PHOTO_PREFIX} — a real credited Taylor photo, not the screenshot.`,
+      );
+    }
+    if (typeof item.mediaCredit !== 'string' || item.mediaCredit.trim() === '') {
+      findings.push('media: launch-campaign site-screen carousel requires `mediaCredit` for its Taylor-photo grid tile.');
+    }
+    if (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '') {
+      findings.push('media: launch-campaign site-screen carousel requires `mediaSource` for its Taylor-photo grid tile.');
+    }
+    for (const slide of item.media.slice(1)) {
+      const s = String(slide);
+      if (!s.startsWith('/social/library/') || s.startsWith(PHOTO_PREFIX)) {
+        findings.push(
+          `media: launch-campaign carousel slide "${s}" must be a committed product screenshot under /social/library/ (and NOT under ${PHOTO_PREFIX}).`,
+        );
+      }
+    }
+  } else if (item.media?.length && !isGenericEraArt(item.media[0])) {
     const tile = String(item.media[0]);
     if (item.mediaKind === 'photo') {
       if (!tile.startsWith(PHOTO_PREFIX)) {

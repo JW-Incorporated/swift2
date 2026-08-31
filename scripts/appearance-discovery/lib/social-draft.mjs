@@ -63,8 +63,18 @@ function sanitize(text) {
   return String(text ?? '').replace(/\s+/g, ' ').trim().replace(/"/g, "'");
 }
 
-function bodyTemplate(title, channel, url) {
-  return `"${title}" — official upload, no caption yet, link below. ${url}`;
+// Wording is conditioned on `c.rule`: 'all-uploads' means the video came
+// from Taylor's OWN channel (channels.mjs's allUploads:true entry) — a
+// genuine official upload. 'taylor-swift'/'swift-title' mean her NAME
+// appeared in a THIRD PARTY channel's title (a talk-show clip, a fan
+// reaction, a news channel) — calling that an "official upload" is a false
+// claim (Codex review round 1, kanban t_895c2ba8: `emit-official-youtube-
+// event.mjs` already draws exactly this distinction for the notifications
+// pipeline; the social copy must match it).
+function bodyTemplate(title, channel, url, isOfficial) {
+  return isOfficial
+    ? `"${title}" — official upload, no caption yet, link below. ${url}`
+    : `"${title}" — new from ${channel}, no caption yet, link below. ${url}`;
 }
 
 // Rewritten 2026-08-31 (Joey, kanban t_895c2ba8): the previous hooks ("i hit
@@ -104,10 +114,15 @@ function instagramBodyTemplate(title, channel, url, videoId) {
 /** Trims `title` to fit whatever's left of X's weighted budget after the
  * template's own fixed words + channel + url, measured the same weighted
  * way X itself will measure the final post (so an emoji/CJK-heavy title, or
- * an unusually long channel name, can't quietly blow the total). */
+ * an unusually long channel name, can't quietly blow the total). Budgets
+ * against the LONGER of the two isOfficial branches so a swap between them
+ * (see bodyTemplate) never surprises the caller with a truncation change. */
 function truncateTitle(title, channel, url) {
   const t = sanitize(title);
-  const overhead = weightedTweetLength(bodyTemplate('', channel, url));
+  const overhead = Math.max(
+    weightedTweetLength(bodyTemplate('', channel, url, true)),
+    weightedTweetLength(bodyTemplate('', channel, url, false)),
+  );
   const budget = X_MAX_WEIGHTED - overhead - SAFETY_MARGIN_WEIGHTED;
   if (weightedTweetLength(t) <= budget) return t;
   let out = t;
@@ -131,9 +146,10 @@ function truncateTitle(title, channel, url) {
  * dedupe/videoId unique in the first place.
  */
 export function buildSocialDraftPair(c, { now = new Date() } = {}) {
+  const isOfficial = c.rule === 'all-uploads';
   const channel = toHouseStyle(sanitize(c.channelName));
   const title = toHouseStyle(truncateTitle(c.title, channel, c.url));
-  const xBody = bodyTemplate(title, channel, c.url);
+  const xBody = bodyTemplate(title, channel, c.url, isOfficial);
   const measured = weightedTweetLength(xBody);
   if (measured > X_MAX_WEIGHTED) {
     // Not expected to trip given truncateTitle's own budget math — fail loud
