@@ -274,7 +274,9 @@ schedule needs an explicit cap. The stuck-PR watchdog check carries one.
       demonstrate the trigger is reliable when the evidence above shows the
       miss is real and recurring. Do not disable any of the six standalone
       triggers until the root cause is identified and fixed, not merely
-      until it stops reproducing for a while.
+      until it stops reproducing for a while. Filed as `HUMAN-ACTIONS.md`
+      item 35 (2026-08-31) — this needs a founder-authenticated
+      RemoteTrigger session, which no automated docs/CI worker can be.
 
 ## Rollback
 

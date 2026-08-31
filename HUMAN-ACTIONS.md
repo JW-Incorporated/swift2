@@ -26,6 +26,56 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 35. [BLOCKING] Vault Phase 4 needs a RemoteTrigger-capable session on your account — the disable step can't run from a docs/CI sandbox — ~10-20 min
+
+**Filed:** 2026-08-31
+
+**Why it matters:** `docs/agents/vault-run-plan.md` Phase 4 (retiring the six
+standalone content-lane triggers now duplicated by the Vault Run — worth
+~3.9 fewer cold-boot sessions/day per `docs/TIER2-OPTIMIZATION.md` T-1) is
+pre-approved, standing-agent-authority work — no founder decision needed on
+the *what*. But two things stop an agent from finishing it today:
+
+1. **The actual disable step needs the RemoteTrigger tool, on your
+   account.** This repo's own docs (`docs/agents/runners.md` § RemoteTrigger
+   footgun) describe reading a trigger's `job_config` and PUTting the whole
+   thing back to change `enabled: false` — that requires a Claude Code
+   session with the RemoteTrigger tool attached and authenticated to the
+   account the routines run on (yours, per `runners.md` § Live trigger IDs,
+   confirmed 2026-08-31 D1=B). A docs/CI worktree sandbox (used for PR work
+   like this one) has no such tool available at all — confirmed by listing
+   its tool set directly. So even once the item below clears, someone needs
+   to run this from a session that actually has RemoteTrigger — either you
+   directly in `claude.ai/code`, or a session you explicitly point at that
+   surface.
+2. **A live, reproducing miss as of today (2026-08-31), not yet
+   root-caused.** No `vault/2026-08-31` branch or PR exists as of 21:11 UTC
+   (5h after the 16:07 UTC cron), while both standalone lanes it's meant to
+   replace fired normally the same day. Retiring the standalones before this
+   is root-caused and fixed would risk a real content outage on days the
+   Vault Run silently no-ops. See `vault-run-plan.md`'s Phase 4 section for
+   the full evidence trail.
+
+**Steps:**
+1. When you (or a session you point at `claude.ai/code`'s routines UI) have
+   a spare few minutes, look at what happened to today's 16:07 UTC Vault Run
+   firing specifically — did it fire and fail, or not fire at all? That
+   answer is what root-causes item 2 above.
+2. Once that's fixed and a session confirms several subsequent clean days,
+   a RemoteTrigger-capable session (yours, or one you explicitly authorize)
+   can do the actual Phase 4 disable — reading back and disabling each of
+   the six standalone triggers one at a time, per the plan's own ordering
+   (Rumor Desk first).
+
+**Worked if:** the six standalone triggers listed in
+`docs/agents/vault-run-plan.md` are disabled (not deleted) and
+`docs/decisions.md` records the actual before/after PR-count and
+Actions-minutes delta, per the plan's own Phase 4 instructions.
+
+**Status:** OPEN
+
+---
+
 ### 30. [DONE] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key
 
 **Filed:** 2026-08-30
