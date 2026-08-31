@@ -658,10 +658,14 @@ because no prompt file exists for it).
 this table's own figures: T-1 ~3.9 + T-8 ~0.7 + T-10 ~1 + T-13 ~1 + T-14 ~2
 ≈ **8.5-9 fewer LLM sessions/day**, plus T-3's daily and T-11's ~30/month
 model-tier downgrades and T-5's slightly shorter sessions. The honest
-baseline: the 2026-07-26 recount measured ~15 Swift2 runs/day, *before* the
-Vault Run (+1/day) and the Getty purge watch (+2/day) existed — so today's
-fleet is ~18 sessions/day and the pre-approved set cuts roughly **half of
-Tier-2 session count**. About a third of that cut is retiring stale/dead
+baseline: the 2026-07-26 recount measured ~15 Swift2 runs/day, *before* three
+post-recount additions: the Vault Run (+1/day), the Getty purge watch
+(+2/day), and the re-enabled Marjorie 8 PM delta (+1/day — disabled in the
+2026-07-25 sustainment pass the day before the recount, later re-enabled
+under a new trigger id, `runners.md` live table vs. overrides table). So
+today's fleet is **~19 sessions/day** (plus weekly cadences), and the
+pre-approved set cuts roughly **45-47% of Tier-2 session count**. About a
+third of that cut is retiring stale/dead
 weight (T-13's reader-less delta, T-14's completed one-shot); the rest is the
 Vault consolidation and cadence/structure fixes. Quality-relevant coverage
 (Rumor cadence, detection layers, review gates, Laura's whole-site week)
