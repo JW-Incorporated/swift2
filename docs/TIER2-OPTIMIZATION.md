@@ -5,9 +5,9 @@ Scope: **Tier 2 only** — the 24 Claude desk routine triggers indexed in
 [`AUTOMATION.md`](AUTOMATION.md) § Tier 2 and registered in
 [`agents/runners.md`](agents/runners.md). This is an **analysis document**:
 nothing here has been executed, disabled, or edited. Each recommendation names
-who may act on it — most are reversible agent calls; **three are founder
-decisions** (T-6, T-7, T-16) and one more (T-12) needs a routine
-founder-approved charter PR, and each says so inline. (A fourth, T-15, was
+who may act on it — most are reversible agent calls; **four are founder
+decisions** (T-6, T-7, T-11, T-16) and one more (T-12) needs a routine
+founder-approved charter PR, and each says so inline. (Another, T-15, was
 an open founder decision when this analysis began and was resolved by Joey
 the same day — it is kept below for the record.)
 
@@ -441,12 +441,20 @@ the end.
   wherever it now works. That incident is 6 weeks old and Austin has run on
   Fable since — the reliability question is settled; the price question
   isn't, and no telemetry exists to quantify it (see T-17).
-- **Recommendation (T-11) — trial Austin on Opus 4.8 for two weeks**, judged
+- **Recommendation (T-11, founder-gated: model pin in charter) — propose a
+  two-week Austin trial on Opus 4.8 to Joey**, judged
   by the metrics his charter already names (Codex findings-per-PR, rework
   rate) against the Fable baseline weeks. If findings-per-PR degrades,
-  revert — a one-field trigger change either way. Also fix the charter's
-  stale ×2 cadence line to match the live single daily run (doc fix, rides
-  along). Reversible; agent call. Token impact: down (Fable→Opus delta ×
+  revert — a one-field trigger change either way. This cannot be a bare
+  agent call: the charter pins the lane to Fable "unless founders say
+  otherwise" (`austin.md` § Cadence), so the trial starts only on a recorded
+  founder yes (a one-line Joey approval satisfies it; the charter text
+  itself already anticipates the override). Also fix the stale ×2/day
+  `0 16, 0 21` entry — which lives in `runners.md`'s historical split
+  table, *not* the charter (the charter's Cadence section correctly
+  describes the event/hourly poll with a 2-starts/day cap) — to match the
+  live single daily run (registry doc fix, rides along with T-19).
+  Reversible; token impact: down (Fable→Opus delta ×
   ~30 sessions/month); quality risk: bounded by the mandatory Codex review
   gate that already exists.
 
@@ -619,7 +627,9 @@ changes are honest-trivial only one at a time.
 
 #### T-19 — Fix the known charter/registry drift in one docs pass
 
-Collected above: Nils daily-vs-weekly (T-7), Austin ×2-vs-×1 (T-11),
+Collected above: Nils daily-vs-weekly (T-7), Austin's stale ×2/day entry in
+`runners.md`'s historical split table (T-11 — the charter's Cadence section
+is already correct),
 Marjorie Fable-vs-Opus (T-12), Karen "nightly" naming (T-5), the superseded
 "Vault Filler" still-to-do row (A4), Laura's charter cadence if T-8 lands,
 and the two `CLAUDE.md` Wyatt's-account lines that PR #3598 missed (T-15's
@@ -659,7 +669,7 @@ in-repo first because no prompt file exists for it).
 | T-8 | Laura daily → 2×/week with widened slices (Action stays daily) | **▼ ~5 Sonnet s/wk** | ≈neutral (whole-site-weekly preserved via re-slicing; non-marquee detection window +≤3d) | Trivial-moderate (cadence + slice redesign together) | slower a11y detection/spec turnaround on non-marquee pages | none |
 | T-9 | Routine Auditor: +2 checklist items (unregistered triggers; passed retirement conditions) | neutral (same Haiku session) | ▲ closes the drift class behind past incidents | Trivial | none | none |
 | T-10 | Kevin S1+S2+S3 → one daily session | **▼ ~1 sd** + 1 Opus→Sonnet/wk | neutral (streams disjoint; per-stream isolation) | Moderate | one stream's failure noise obscuring another — mitigated by Vault-style isolation | none |
-| T-11 | Austin: 2-week Fable → Opus trial, judged by existing metrics | **▼ ~30 Fable→Opus sm** if it sticks | neutral if metrics hold (Codex gate unchanged) | Trivial | findings-per-PR degrades → revert | none (reversible trial) |
+| T-11 | Austin: propose 2-week Fable → Opus trial to Joey, judged by existing metrics | **▼ ~30 Fable→Opus sm** if approved and it sticks | neutral if metrics hold (Codex gate unchanged) | Trivial | findings-per-PR degrades → revert | **charter model pin** — founder yes required (austin.md § Cadence) |
 | T-12 | Marjorie brief: ratify Opus 4.8 in charter | neutral | ▲ charter/reality coherence | Trivial | none | founder-approved charter PR |
 | T-13 | Disable Marjorie 8 PM delta | **▼▼ ~30 Fable sm** | ≈neutral (no established reader; brief carries delta) | Trivial | someone was reading it — re-enable in 2 min | none (tell Joey after) |
 | T-14 | Getty purge: verify complete, archive config in-repo, disable, receipt (optional later deletion = founder-gated) | **▼ ~60 Sonnet sm** | ▲ hygiene | Trivial | purge not actually complete → check first; no prompt file exists → archive before touching | none for disable; **data_deletion** for optional permanent delete |
@@ -671,8 +681,8 @@ in-repo first because no prompt file exists for it).
 
 **Net direction if the pre-approved set (T-1,3,5,8,10,13,14) all lands**, in
 this table's own figures: T-1 ~3.9 + T-8 ~0.7 + T-10 ~1 + T-13 ~1 + T-14 ~2
-≈ **8.5-9 fewer LLM sessions/day**, plus T-3's daily and T-11's ~30/month
-model-tier downgrades and T-5's slightly shorter sessions. The honest
+≈ **8.5-9 fewer LLM sessions/day**, plus T-3's daily model-tier downgrade,
+T-11's ~30/month if Joey approves the trial, and T-5's slightly shorter sessions. The honest
 baseline: the 2026-07-26 recount measured ~15 Swift2 runs/day, *before* three
 post-recount additions: the Vault Run (+1/day), the Getty purge watch
 (+2/day), and the re-enabled Marjorie 8 PM delta (+1/day — disabled in the
@@ -709,8 +719,9 @@ notification quality.
 8. **T-5** — trim + rename Karen's weekly slice. *(agent)*
 9. **T-17** — land the telemetry Action so everything above becomes
    measurable. *(agent)*
-10. **T-11** — start the Austin Fable→Opus trial once telemetry exists (the
-    trial needs the baseline). *(agent)*
+10. **T-11** — put the Austin Fable→Opus trial to Joey once telemetry exists
+    (the trial needs the baseline; the charter's Fable pin makes this a
+    founder yes/no). *(founder — charter model pin)*
 11. **T-6** — founder decision: Karen Deep, yes at which dial, or recorded
     no. *(founder — spend)*
 12. **T-16** — founder decision: notification-quality desk. *(founder —
