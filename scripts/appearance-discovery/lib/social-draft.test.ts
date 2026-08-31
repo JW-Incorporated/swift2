@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { buildSocialDraftPair } from './social-draft.mjs';
+import { describe, expect, it, vi } from 'vitest';
+import { buildSocialDraftPair, fetchAppearanceThumbnail, verifyTaylorPresence } from './social-draft.mjs';
 import { validateQueueItem } from '../../social/lib/queue-schema.mjs';
 import { checkSchema, checkOpeners, checkCrossPostCopy, checkLength } from '../../social/check-drafts.mjs';
 import { weightedTweetLength } from '../../social/lib/x-length.mjs';
@@ -126,5 +126,108 @@ describe('buildSocialDraft', () => {
     );
     expect(item.body).toContain('Taylor Swift');
     expect(item.body).not.toContain('Taylor swift');
+  });
+});
+
+// Real photo-content verification (2026-08-31, kanban t_ac1281ef) — a
+// thumbnail must pass a vision-model check that Taylor is actually IN the
+// frame before it can ship as `mediaKind: "photo"`. This is the gate that
+// would have caught `appearance-XwCWKSO0F8s`'s Taylor-free animated
+// thumbnail before it ever reached the queue.
+function pngBytes(width, height) {
+  const buf = Buffer.alloc(24);
+  buf.write('\x89PNG\r\n\x1a\n', 0, 'binary');
+  buf.writeUInt32BE(width, 16);
+  buf.writeUInt32BE(height, 20);
+  return buf;
+}
+
+function fakeThumbnailFetch({ status = 200, width = 1280, height = 720, contentType = 'image/jpeg' } = {}) {
+  return vi.fn(async () => ({
+    ok: status === 200,
+    status,
+    headers: { get: (name) => (name.toLowerCase() === 'content-type' ? contentType : null) },
+    arrayBuffer: async () => pngBytes(width, height).buffer,
+  }));
+}
+
+describe('verifyTaylorPresence', () => {
+  it('throws (fails closed) when no API key is configured', async () => {
+    await expect(verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: undefined })).rejects.toThrow(/ANTHROPIC_API_KEY/);
+  });
+
+  it('throws on a non-ok response', async () => {
+    const fetchImpl = vi.fn(async () => ({ ok: false, status: 500 }));
+    await expect(verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: 'k', fetchImpl })).rejects.toThrow(/vision request failed/);
+  });
+
+  it('throws on a malformed tool response', async () => {
+    const fetchImpl = vi.fn(async () => ({ ok: true, json: async () => ({ content: [] }) }));
+    await expect(verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: 'k', fetchImpl })).rejects.toThrow(/malformed/);
+  });
+
+  it('throws on a schema-invalid confidence value (model-generated tool input is not trusted)', async () => {
+    const fetchImpl = vi.fn(async () => ({
+      ok: true,
+      json: async () => ({
+        content: [{ type: 'tool_use', name: 'record_taylor_presence', input: { taylor_present: true, confidence: 2, reason: 'looks right' } }],
+      }),
+    }));
+    await expect(verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: 'k', fetchImpl })).rejects.toThrow(/malformed/);
+  });
+
+  it('passes an abort signal so a hung Anthropic request cannot consume the whole run', async () => {
+    const fetchImpl = vi.fn(async () => ({
+      ok: true,
+      json: async () => ({
+        content: [{ type: 'tool_use', name: 'record_taylor_presence', input: { taylor_present: true, confidence: 0.9, reason: 'ok' } }],
+      }),
+    }));
+    await verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: 'k', fetchImpl });
+    const init = fetchImpl.mock.calls[0][1];
+    expect(init.signal).toBeInstanceOf(AbortSignal);
+  });
+
+  it('returns the parsed judgment on a well-formed tool response', async () => {
+    const fetchImpl = vi.fn(async () => ({
+      ok: true,
+      json: async () => ({
+        content: [{ type: 'tool_use', name: 'record_taylor_presence', input: { taylor_present: true, confidence: 0.92, reason: 'clear photo' } }],
+      }),
+    }));
+    const result = await verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: 'k', fetchImpl });
+    expect(result).toEqual({ taylor_present: true, confidence: 0.92, reason: 'clear photo' });
+  });
+});
+
+describe('fetchAppearanceThumbnail (with content verification)', () => {
+  const c = { videoId: 'abc123' };
+
+  it('returns the maxresdefault thumbnail when verification confirms Taylor is present', async () => {
+    const fetchImpl = fakeThumbnailFetch();
+    const verify = vi.fn(async () => ({ taylor_present: true, confidence: 0.95, reason: 'ok' }));
+    const result = await fetchAppearanceThumbnail(c, { fetchImpl, apiKey: 'k', verify });
+    expect(result.sourceUrl).toContain('maxresdefault.jpg');
+    expect(verify).toHaveBeenCalledTimes(1);
+  });
+
+  it('rejects a shape-valid thumbnail that verification says has no Taylor in it (the XwCWKSO0F8s case)', async () => {
+    const fetchImpl = fakeThumbnailFetch();
+    const verify = vi.fn(async () => ({ taylor_present: false, confidence: 0.9, reason: 'animated tree/tire-swing illustration, no person' }));
+    await expect(fetchAppearanceThumbnail(c, { fetchImpl, apiKey: 'k', verify })).rejects.toThrow(/verifiably contains Taylor/);
+    expect(verify).toHaveBeenCalled();
+  });
+
+  it('rejects a low-confidence "yes" rather than shipping an uncertain match', async () => {
+    const fetchImpl = fakeThumbnailFetch();
+    const verify = vi.fn(async () => ({ taylor_present: true, confidence: 0.3, reason: 'partially obscured, unsure' }));
+    await expect(fetchAppearanceThumbnail(c, { fetchImpl, apiKey: 'k', verify })).rejects.toThrow(/low confidence/);
+  });
+
+  it('never calls verify for a thumbnail that fails the shape check first', async () => {
+    const fetchImpl = fakeThumbnailFetch({ width: 10, height: 10 });
+    const verify = vi.fn(async () => ({ taylor_present: true, confidence: 0.95, reason: 'ok' }));
+    await expect(fetchAppearanceThumbnail(c, { fetchImpl, apiKey: 'k', verify })).rejects.toThrow(/no Instagram-safe YouTube thumbnail/);
+    expect(verify).not.toHaveBeenCalled();
   });
 });

@@ -196,24 +196,162 @@ export function buildSocialDraftPair(c, { now = new Date() } = {}) {
   };
 }
 
-/** Fetch the official YouTube thumbnail used by the Instagram sibling.
- * maxresdefault is preferred; hqdefault is a real 480px fallback when a video
- * has no max-resolution upload. Tiny YouTube placeholders are rejected. */
+// ── Real photo-content verification (2026-08-31, Joey — kanban t_ac1281ef,
+// docs/decisions.md 2026-08-31) ─────────────────────────────────────────
+// Before this fix, a thumbnail only had to pass a SHAPE check (size + aspect
+// ratio) to be declared `mediaKind: "photo"` — nothing ever looked at the
+// actual pixels. `appearance-XwCWKSO0F8s`'s thumbnail is a Pixar-style
+// animated tree/tire-swing illustration with no Taylor in it at all, and it
+// sailed through every gate check-drafts.mjs has (path prefix, credit
+// string, aspect ratio) because none of them are a CONTENT check. This adds
+// exactly that: one claude-sonnet-5 vision call per candidate thumbnail,
+// using the SAME model/account/credential already standing-authorized for
+// E3 match auditing (docs/decisions.md 2026-08-30 "E3 vision judgment uses
+// Claude Sonnet 5…") — no new provider, account, or spend channel, just a
+// second authorized use of the existing one. It stays inside the fast
+// lane's auto-posting flow (Joey's ruling, this same task: the lane keeps
+// auto-posting, it does not become review-first) — a thumbnail that fails
+// verification is simply never staged, the same "loud, not fatal" shape
+// draftFailures already has for a fetch/build failure.
+const TAYLOR_VERIFY_MODEL = 'claude-sonnet-5';
+const ANTHROPIC_VERSION = '2023-06-01';
+const TAYLOR_VERIFY_TOOL = {
+  name: 'record_taylor_presence',
+  description: 'Record whether Taylor Swift is visibly, photographically present in the supplied image.',
+  input_schema: {
+    type: 'object',
+    additionalProperties: false,
+    properties: {
+      taylor_present: { type: 'boolean' },
+      confidence: { type: 'number', minimum: 0, maximum: 1 },
+      reason: { type: 'string', minLength: 1, maxLength: 240 },
+    },
+    required: ['taylor_present', 'confidence', 'reason'],
+  },
+};
+// Below this, treat a "yes" as too uncertain to ship unattended — same
+// judgment-call posture as requiring a clean tool response at all.
+const TAYLOR_PRESENCE_MIN_CONFIDENCE = 0.6;
+// Same 30s ceiling as the thumbnail fetches in this file (AbortSignal.timeout
+// below) — Codex review round 1 (kanban t_ac1281ef): this request originally
+// had no abort signal, so a connection that accepts but never completes
+// could consume the whole 20-minute workflow timeout. Because the intake
+// issue is already filed before this call runs, and later runs dedupe
+// against that issue, a hung call would silently and PERMANENTLY drop that
+// video's social pair (never retried) instead of failing loud within the
+// run.
+const TAYLOR_VERIFY_TIMEOUT_MS = 30_000;
+
+function taylorVerifyToolInput(body) {
+  const content = body?.content;
+  if (!Array.isArray(content)) return null;
+  return content.find((block) => block?.type === 'tool_use' && block.name === TAYLOR_VERIFY_TOOL.name)?.input ?? null;
+}
+
+/**
+ * One vision call: does this image show Taylor Swift as a real photographed
+ * person (not an illustration, not someone else, not text/graphics)? Throws
+ * on a missing API key or a malformed/failed response — this gate fails
+ * CLOSED (no verification credential = no unverified "photo" ships), never
+ * open.
+ */
 /* global AbortSignal */ // a Node 18+ global; same pragma as check-link-liveness.mjs
-export async function fetchAppearanceThumbnail(c, { fetchImpl = fetch } = {}) {
+export async function verifyTaylorPresence(bytes, mediaType, { apiKey, fetchImpl = fetch } = {}) {
+  if (!apiKey) {
+    throw new Error(
+      'ANTHROPIC_API_KEY not set — cannot verify Taylor is actually in this thumbnail, refusing to stage it unverified',
+    );
+  }
+  const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey,
+      'anthropic-version': ANTHROPIC_VERSION,
+      'content-type': 'application/json',
+    },
+    signal: AbortSignal.timeout(TAYLOR_VERIFY_TIMEOUT_MS),
+    body: JSON.stringify({
+      model: TAYLOR_VERIFY_MODEL,
+      max_tokens: 128,
+      thinking: { type: 'disabled' },
+      tools: [TAYLOR_VERIFY_TOOL],
+      tool_choice: { type: 'tool', name: TAYLOR_VERIFY_TOOL.name },
+      messages: [
+        {
+          role: 'user',
+          content: [
+            { type: 'image', source: { type: 'base64', media_type: mediaType, data: bytes.toString('base64') } },
+            {
+              type: 'text',
+              text:
+                'Is Taylor Swift (the musician) visibly and recognizably present in this image as a real photographed ' +
+                'person? Answer false for animated/illustrated/cartoon art, a different person, a text/graphic card, ' +
+                'or any image where she is not clearly recognizable. Return only the required tool input.',
+            },
+          ],
+        },
+      ],
+    }),
+  });
+  if (!response.ok) throw new Error(`taylor-presence vision request failed (${response.status})`);
+  const input = taylorVerifyToolInput(await response.json());
+  if (
+    !input ||
+    typeof input.taylor_present !== 'boolean' ||
+    // Tool input is model-generated and must not be trusted to obey the
+    // supplied JSON-schema bounds (Codex review round 1, kanban
+    // t_ac1281ef) — a schema-invalid `confidence: 2` would otherwise sail
+    // past the later `>= 0.6` check and defeat the fail-closed gate.
+    typeof input.confidence !== 'number' ||
+    !Number.isFinite(input.confidence) ||
+    input.confidence < 0 ||
+    input.confidence > 1 ||
+    typeof input.reason !== 'string' ||
+    !input.reason.trim()
+  ) {
+    throw new Error('taylor-presence vision response was malformed');
+  }
+  return input;
+}
+
+/** Fetch the official YouTube thumbnail used by the Instagram sibling, and
+ * verify with `verify` (real vision call by default) that Taylor is actually
+ * in it before returning it — see the block comment above. maxresdefault is
+ * preferred; hqdefault is a real 480px fallback when a video has no
+ * max-resolution upload. Tiny YouTube placeholders are rejected by shape
+ * before ever reaching the (paid) content check. A candidate that passes the
+ * shape check but fails verification is skipped, not returned — the caller
+ * (discover.mjs) treats a thrown error here as a loud, non-fatal
+ * draftFailure, same as any other staging failure. */
+export async function fetchAppearanceThumbnail(
+  c,
+  { fetchImpl = fetch, apiKey = process.env.ANTHROPIC_API_KEY, verify = verifyTaylorPresence } = {},
+) {
   const urls = [
     `https://i.ytimg.com/vi/${c.videoId}/maxresdefault.jpg`,
     `https://i.ytimg.com/vi/${c.videoId}/hqdefault.jpg`,
   ];
+  const rejections = [];
   for (const url of urls) {
     const response = await fetchImpl(url, { signal: AbortSignal.timeout(30_000) });
     if (!response.ok || !String(response.headers.get('content-type')).toLowerCase().startsWith('image/')) continue;
     const bytes = Buffer.from(await response.arrayBuffer());
     const meta = imageMeta(bytes);
     const ratio = meta?.width && meta?.height ? meta.width / meta.height : 0;
-    if (meta?.width >= 400 && meta?.height >= 300 && ratio >= 0.8 && ratio <= 1.91) {
+    if (!(meta?.width >= 400 && meta?.height >= 300 && ratio >= 0.8 && ratio <= 1.91)) continue;
+    const mediaType = meta.format === 'png' ? 'image/png' : meta.format === 'webp' ? 'image/webp' : 'image/jpeg';
+    const judgment = await verify(bytes, mediaType, { apiKey, fetchImpl });
+    if (judgment.taylor_present && judgment.confidence >= TAYLOR_PRESENCE_MIN_CONFIDENCE) {
       return { bytes, sourceUrl: url };
     }
+    rejections.push(
+      `${url}: ${judgment.taylor_present ? `low confidence (${judgment.confidence.toFixed(2)})` : 'Taylor not present'} — ${judgment.reason}`,
+    );
+  }
+  if (rejections.length) {
+    throw new Error(
+      `no Instagram-safe YouTube thumbnail found for ${c.videoId} that verifiably contains Taylor: ${rejections.join('; ')}`,
+    );
   }
   throw new Error(`no Instagram-safe YouTube thumbnail found for ${c.videoId}`);
 }
