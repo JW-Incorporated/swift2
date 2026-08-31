@@ -2206,6 +2206,10 @@ export default {
             item: 'Tea Party Chic Pink Floral Print Tie-Strap Tiered Midi Dress',
             retailer: 'lulus.com',
             url: 'https://www.lulus.com/products/tea-party-chic-pink-floral-print-tie-strap-tiered-midi-dress/1712196.html',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer photo via
+            // Poshmark listing of the same Lulus style (lulus.com itself blocks
+            // non-browser fetches), curl-verified 200 image/jpeg.
+            imageUrl: 'https://di2ponv0v5otw.cloudfront.net/posts/2026/07/10/6a51c55a9e4f74cf70811414/m_6a51c5cd2981af99c3b77248.jpeg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$30.00',
@@ -2259,6 +2263,11 @@ export default {
             item: "Women's Multicolor Rainbow Bandana Western Snap Shirt",
             retailer: 'jacksonswestern.com',
             url: 'https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): the jacksonswestern.com
+            // PDP is now 404 (delisted); this is the same real Wrangler x Lainey
+            // Wilson Rainbow Bandana Western Snap Shirt product photo from another
+            // in-stock retailer, curl-verified 200 image/png.
+            imageUrl: 'https://bootjack.com/cdn/shop/files/SHIRTLONGG-2024-10-31T142255.702.png?v=1730406459',
             matchTier: 'unscored',
             kind: 'top',
             price: '$55.00',
