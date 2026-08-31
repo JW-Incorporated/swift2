@@ -43,6 +43,18 @@ this: `RemoteTrigger` create/update/run needs a session authenticated to
 the account the fleet runs on (Joey's), which a headless repo session
 cannot reach.
 
+**Time-sensitive sub-item:** while this cutover is pending, the still-live
+`kevin-stream2-digest.md` trigger's inline prompt is stale on a real
+authority question — it was corrected in-repo (2026-08-31, restricting
+Accept/Reject digest decisions to Joey only, per `CLAUDE.md`'s sole-
+decision-maker rule) but the LIVE trigger's inline prompt has not been
+re-synced from the file yet (same `RemoteTrigger` access gap). Until either
+this re-sync or the full desk cutover happens, a `wjduvall-cmd` checkbox on
+the live Stream 2 digest could still be actioned by the old inline prompt.
+Re-sync `kevin-stream2-digest.md`'s current content to the live trigger
+(`trig_0136mXcpmzn6mYtYoUQC3eGP`) as a priority first step, even ahead of
+the full T-10 cutover if that takes longer to schedule.
+
 **What to do:** either run this yourself in a Claude session logged into
 your account, or tell a session in chat to do it and it will follow the
 cutover sequence in `runners.md` § "Kevin — daily desk consolidation"
