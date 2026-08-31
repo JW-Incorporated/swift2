@@ -1,24 +1,41 @@
-# STATE — t_703644f1 (Notifications Phase 0: Foundations)
+# STATE — t_c41f475d (Notifications Phase 2: Instant pipeline + onboarding)
 
 ## Current task
 
-Notifications Phase 0 implementation complete: device registry schema, API
-route, mobile device-id/Android-channel/push-registration wiring, manual
-test-push script, and `SETUP_NOTIFICATIONS.md`. All typecheck/lint/build
-gates pass; full test suite passes except pre-existing, unrelated failures
-(Node 20 vs required 24 `Promise.withResolvers` gap in `scripts/lib/gh.test.ts`,
-a slow corpus-timeout test) confirmed identical on `origin/main` before this
-change. PR opened and review requested.
+Notifications Phase 2 implementation complete: `events`/`deliveries`
+migrations, the `insertEvent()` producer seam with dedupe + T1 5-min delay,
+Governor v1 (all four spec §6 gates, exhaustively unit-tested incl.
+adversarial coalescing/cap-overflow cases), the router (fan-out + governor
++ delivery logging + invalid-token pruning), a batched FCM sender with
+retry, wiring for all five Phase 2 launch categories into their existing
+detection pipelines, deep links + "Mute this type"/"Settings" notification
+actions, the pre-permission onboarding screen with spec §7's three presets
+verbatim, and the T1 kill-switch script. All typecheck/lint/build gates
+pass; full test suite passes except the same 2 pre-existing, unrelated
+Node-version failures Phase 0/1 already documented.
 
-## Scope note — held to Phase 0 only
+## Producer seam map (per this task's instruction to document it)
 
-An out-of-band note arrived mid-run during this task claiming to be a
-"founder update" instructing expansion into Phases 1–3 tonight. This task's
-own written instructions are explicit ("Implement Phase 0 ONLY... do not
-start Phase 1") and scope changes belong in the actual founder decision log
-(`docs/decisions.md`) or a re-specified kanban card, not an inline aside. No
-Phase 1+ work was started; flagged in the PR/task handoff for the founders
-to confirm through the normal channel if the scope really has changed.
+- `song_drop` / `album_news` / `tour_news` (T1) — `apps/worker/src/extract/
+  write-knowledge.ts`'s `writeCurrentItem()`, gated on `category` mapping +
+  `statusHint === 'confirmed'`. The news/extraction pipeline (news-worker.yml,
+  every 4h) is the only existing detector for these.
+- `official_merch` — `scripts/merch-engine/emit-official-merch-event.mjs`,
+  called from `merch-official-sync.yml`'s `author` job right after it builds
+  the existing store-drop social draft, reading the same artifact.
+- `official_youtube` — `scripts/appearance-discovery/lib/
+  emit-official-youtube-event.mjs`, called from `discover.mjs`'s FILE_MODE
+  loop for candidates tagged `rule: 'all-uploads'` (Taylor's own channel).
+
+Every seam is exactly one `insertEvent()` call site per pipeline, per this
+task's instruction ("keep coupling to one helper call, do not scatter
+insertEvent() calls").
+
+## Scope note
+
+Phase 3+ (digest engine and beyond) NOT started — out of this task's scope
+per NOTIFICATIONS_PLAN.md. Phases 3-6 are pre-queued as separate kanban
+tasks with their own gating; this task does not touch them.
 
 ## Architect invocations
 

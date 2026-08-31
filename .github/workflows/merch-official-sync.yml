@@ -146,6 +146,12 @@ jobs:
             --social-draft .official-social-draft.json \
             --media-path "/social/library/merch-drop-${GITHUB_RUN_ID}.png" \
             --out-dir social/queue
+      - name: Emit official_merch notification event
+        if: ${{ steps.drop.outputs.count != '0' }}
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/merch-engine/emit-official-merch-event.mjs --social-draft .official-social-draft.json
       - name: Open gated catalog + social-draft PR
         if: ${{ steps.diff.outputs.changed == 'true' || steps.drop.outputs.count != '0' }}
         env:

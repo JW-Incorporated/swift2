@@ -8,10 +8,76 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { screenTopic } from '@swift2/shared/redline';
 import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
-import type { CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
+import type { CurrentItemCategory, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
+import { insertEvent } from '@swift2/core';
 import type { ExtractedCurrentItem, ExtractedFanSignal, ExtractedTheory } from './types';
-import { expiresAt, CURRENT_ITEM_EXPIRY_DAYS, FAN_SIGNAL_EXPIRY_DAYS, LIVE_THEORY_EXPIRY_DAYS } from './expiry';
+import {
+  expiresAt,
+  CURRENT_ITEM_EXPIRY_DAYS,
+  FAN_SIGNAL_EXPIRY_DAYS,
+  LIVE_THEORY_EXPIRY_DAYS,
+} from './expiry';
 import { findTheoryMatch } from './theory-match';
+
+// Notifications Phase 2 producer seam (NOTIFICATIONS_PLAN.md, this task's
+// instruction to "map where each existing pipeline currently emits its
+// detections and document the exact seam"). SEAM: the news/extraction
+// pipeline (apps/worker, scheduled every 4h by .github/workflows/
+// news-worker.yml) is the only existing automated detector for
+// song_drop/album_news/tour_news — there is no separate scraper for these;
+// `current_item.category` 'release'/'music'/'tour' rows ARE the detection.
+// This module's `writeCurrentItem()` is the exact point every such row
+// passes through on its way to the DB, so it is the one insertEvent() call
+// site for these three categories — no other file in this pipeline calls
+// insertEvent() for them (keeps coupling to one helper call per pipeline,
+// per this task's instruction).
+//
+// Gated on `statusHint === 'confirmed'`: T1 events are the highest-blast,
+// highest-harm-from-false-positive category in the whole system (spec §12
+// Q2's "false-positive T1 events" risk, this task's own recorded founder
+// decision about the 5-min kill window existing precisely for this
+// reason). A 'rumor'/'reported' current_item is real content for the site's
+// feed, but firing an instant push to every T1-subscribed device on an
+// unconfirmed report is a materially different, higher-stakes action than
+// writing a row — so only 'confirmed' items produce a notification event.
+const NOTIFICATION_CATEGORY_BY_CURRENT_ITEM: Partial<
+  Record<CurrentItemCategory, 'song_drop' | 'album_news' | 'tour_news'>
+> = {
+  release: 'album_news',
+  music: 'song_drop',
+  tour: 'tour_news',
+};
+
+const SITE_URL = 'https://www.longlivets.com';
+
+async function emitLaunchCategoryEvent(
+  db: SupabaseClient,
+  currentItemId: string,
+  item: ExtractedCurrentItem,
+): Promise<void> {
+  const category = NOTIFICATION_CATEGORY_BY_CURRENT_ITEM[item.category];
+  if (!category || item.statusHint !== 'confirmed') return;
+  try {
+    await insertEvent(db, {
+      category,
+      title: item.headline,
+      body: item.summary,
+      deepLink: `${SITE_URL}/?current=${encodeURIComponent(currentItemId)}`,
+      // Deterministic on the SAME underlying detection so a re-extraction
+      // of the same story cluster (news-worker.yml re-running against a
+      // still-open story) never double-fires — dedupe_key's whole point
+      // (spec §9, §10).
+      dedupeKey: `${category}:current_item:${currentItemId}`,
+    });
+  } catch (err) {
+    // A notification-event failure must never fail the knowledge write —
+    // same stage-isolation discipline as every other producer in this
+    // repo (run-cycle.ts's per-stage try/catch). Logged, not thrown.
+    console.error(
+      `emitLaunchCategoryEvent failed for current_item ${currentItemId}: ${(err as Error).message}`,
+    );
+  }
+}
 
 /** current_item.status has no confidence score of its own; the model reports
  * status_hint only. This is a deliberate, documented one-way mapping onto
@@ -74,7 +140,13 @@ export async function writeCurrentItem(
   item: ExtractedCurrentItem,
   sources: readonly ClusterSource[],
 ): Promise<WriteCurrentItemResult> {
-  const screen = screenAll([item.headline, item.summary, item.detail, ...item.tags, ...item.entities]);
+  const screen = screenAll([
+    item.headline,
+    item.summary,
+    item.detail,
+    ...item.tags,
+    ...item.entities,
+  ]);
   const itemExpiresAt = expiresAt(CURRENT_ITEM_EXPIRY_DAYS);
   const row = {
     story_id: storyId,
@@ -99,7 +171,9 @@ export async function writeCurrentItem(
   };
   const { data, error } = await db.from('current_item').insert(row).select('id').single();
   if (error) throw new Error(`current_item insert failed: ${error.message}`);
-  return { id: data.id as string, redlineOk: screen.ok, expiresAt: itemExpiresAt };
+  const id = data.id as string;
+  await emitLaunchCategoryEvent(db, id, item);
+  return { id, redlineOk: screen.ok, expiresAt: itemExpiresAt };
 }
 
 export interface WriteFanSignalResult {

@@ -98,26 +98,48 @@ this now exists — Wyatt has it).
    configuration → APNs Authentication Key → Upload**. Provide the `.p8`
    file, Key ID, and Team ID.
 
-## 6. Where these env vars actually live (Supabase Edge Function env)
+## 6. Where these env vars actually live
 
-Phase 0 doesn't yet call FCM from an Edge Function (that starts Phase 2's
-router) — but `send-test-push.ts` and future phases both expect
-`FCM_PROJECT_ID`/`FCM_SERVICE_ACCOUNT_JSON` to live in Supabase's Edge
-Function secret store, not committed anywhere:
+Phase 2's router (`POST-turned-GET /api/notifications/dispatch`,
+`packages/core/src/notification-sender.ts`) runs as a **Vercel** API route,
+not a Supabase Edge Function — same stack every other route in `apps/web`
+already uses (Phase 0/1's routes), so no separate Supabase Edge Function
+deploy is needed. Set these as **Vercel project env vars** (Project
+Settings → Environment Variables), never prefixed `NEXT_PUBLIC_*`:
 
 ```
-supabase secrets set FCM_PROJECT_ID=<project-id>
-supabase secrets set FCM_SERVICE_ACCOUNT_JSON='<paste full JSON>'
+FCM_PROJECT_ID=<project-id>
+FCM_SERVICE_ACCOUNT_JSON=<paste full JSON, one line>
+CRON_SECRET=<a random 32+ char string you generate — e.g. `openssl rand -hex 32`>
 ```
 
-(via the Supabase CLI, logged in and linked to this project) or the
-Supabase dashboard → **Edge Functions → Manage secrets**. This keeps the
-service-account credential out of the Next.js client bundle entirely — it
-is never read by any `apps/web` code path that ships to a browser.
+`send-test-push.ts` (run locally, not on Vercel) reads the same two FCM
+vars from `apps/worker/.env` (gitignored) — see item 4 above for exactly
+where to add them there too. `CRON_SECRET` is Vercel-only: setting a
+project env var with that EXACT name makes Vercel Cron automatically send
+`Authorization: Bearer $CRON_SECRET` on every scheduled call to
+`/api/notifications/dispatch` (configured every 15 min in
+`apps/web/vercel.json`'s `crons` array) — the route checks that header and
+returns 401/503 without it, so nothing sends until this is set.
 
-## 7. Verifying it worked
+## 7. Notifications event-producer secrets (GitHub Actions)
 
-Once items 1–6 are done:
+Three workflows call `insertEvent()` (the producer seam,
+`packages/core/src/notification-events.ts`) and need the SAME
+`SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` pair `news-worker.yml`
+already uses, added as repo secrets if not already present (Settings →
+Secrets and variables → Actions):
+
+- `news-worker.yml` — already has these secrets (song_drop/album_news/tour_news).
+- `merch-official-sync.yml` — needs them added (official_merch).
+- `appearance-discovery.yml` — needs them added (official_youtube).
+
+Each degrades to a silent skip (never a workflow failure) when unset — see
+each script's own log line for confirmation once added.
+
+## 8. Verifying it worked
+
+Once items 1–7 are done:
 
 ```
 # register a real device from the app first (grants push permission),
@@ -131,11 +153,33 @@ receive "LongLive test push" within seconds. If it fails, the error message
 names exactly which env var or step is missing — work back up this
 checklist from there.
 
-## What's still open after this (out of Phase 0 scope)
+For the real end-to-end pipeline (not the manual test script): opt the
+device into `song_drop` at `instant`, wait for a real T1 event to land (or
+manually insert one via Supabase's SQL editor with a 5-min-past
+`available_at` to skip the T1 delay), then either wait up to 15 minutes for
+Vercel Cron or manually `curl -H "Authorization: Bearer $CRON_SECRET"
+https://<your-vercel-domain>/api/notifications/dispatch`.
+
+## 9. T1 kill switch (founder safety net)
+
+If a `song_drop`/`album_news`/`tour_news` event looks like a false
+positive, you have up to 5 minutes to stop it:
+
+```
+node --env-file=apps/worker/.env scripts/notifications-kill-t1.mjs --list
+node --env-file=apps/worker/.env scripts/notifications-kill-t1.mjs --kill <event-id>
+```
+
+`--list` shows every pending T1 event and a countdown to when it sends;
+`--kill` withdraws one permanently (the router will never send it, even if
+the 5-minute window has nearly elapsed).
+
+## What's still open after this (out of Phase 2 scope)
 
 - Play Store service-account access — needed for store submission, not for
   push delivery; tracked separately from this notifications work.
-- Preference/settings UI (Phase 1), the real send pipeline + governor
-  (Phase 2), digests (Phase 3) — all read `NOTIFICATIONS_PLAN.md` for scope
-  and pick up automatically once their own phase starts; none of them need
-  anything beyond what's already documented here.
+- Digests (Phase 3), fun notifications (Phase 4), the remaining categories
+  + governor polish (Phase 5), web push + analytics (Phase 6) — all read
+  `NOTIFICATIONS_PLAN.md` for scope and pick up automatically once their
+  own phase starts; none of them need anything beyond what's already
+  documented here.

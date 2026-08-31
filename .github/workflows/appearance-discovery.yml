@@ -135,6 +135,8 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run }}
           MAX: ${{ inputs.max }}
           MAX_AGE_DAYS: ${{ inputs.max_age_days }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           set -euo pipefail
           set -- --max "${MAX:-10}" --max-age-days "${MAX_AGE_DAYS:-30}"

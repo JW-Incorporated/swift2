@@ -331,3 +331,88 @@ export interface DevicePrefsUpdateInput {
   settings?: Partial<DeviceNotificationSettings>;
   prefs?: NotificationPref[];
 }
+
+// ---------------------------------------------------------------------------
+// Phase 2 (NOTIFICATIONS_SPEC.md §7, NOTIFICATIONS_PLAN.md Phase 2) —
+// onboarding presets. Portable so the pre-permission screen (mobile) and
+// any future web equivalent read from exactly one definition.
+// ---------------------------------------------------------------------------
+
+export const ONBOARDING_PRESET_IDS = ['big_stuff', 'daily_swiftie', 'full_clown'] as const;
+export type OnboardingPresetId = (typeof ONBOARDING_PRESET_IDS)[number];
+
+export interface OnboardingPreset {
+  id: OnboardingPresetId;
+  /** Verbatim from spec §7. */
+  title: string;
+  description: string;
+  prefs: readonly NotificationPref[];
+}
+
+const T1_CATEGORIES: readonly NotificationCategory[] = ['song_drop', 'album_news', 'tour_news'];
+const T2_CATEGORIES: readonly NotificationCategory[] = [
+  'official_youtube',
+  'official_merch',
+  'relationship_news',
+  'public_appearance',
+];
+const T3_CATEGORIES: readonly NotificationCategory[] = ['award_news', 'fan_merch', 'easter_egg'];
+
+function prefsFor(
+  cadenceByCategory: Partial<Record<AnyNotificationCategory, NotificationCadence>>,
+): NotificationPref[] {
+  return ALL_NOTIFICATION_CATEGORIES.map((category) => ({
+    category,
+    cadence: cadenceByCategory[category] ?? 'off',
+  }));
+}
+
+/** spec §7's three presets, verbatim titles:
+ * "Just the big stuff" — T1 instant, everything else off
+ * "Daily Swiftie" — T1 instant, T2 daily digest, weekly Clown Report
+ * "Full Clown 🤡" — everything on at defaults + lyric of the day
+ * plus "Customize" → full settings screen (handled by the caller, not a
+ * preset row — see the onboarding screen component). */
+export const ONBOARDING_PRESETS: readonly OnboardingPreset[] = [
+  {
+    id: 'big_stuff',
+    title: 'Just the big stuff',
+    description: 'New songs, albums, and tour news the instant they happen. Nothing else.',
+    prefs: prefsFor(
+      Object.fromEntries(T1_CATEGORIES.map((c) => [c, 'instant'])) as Record<
+        AnyNotificationCategory,
+        NotificationCadence
+      >,
+    ),
+  },
+  {
+    id: 'daily_swiftie',
+    title: 'Daily Swiftie',
+    description:
+      'T1 news instantly, everything else (merch, appearances, awards) once a day, plus the weekly Clown Report.',
+    prefs: prefsFor({
+      ...Object.fromEntries(T1_CATEGORIES.map((c) => [c, 'instant'])),
+      ...Object.fromEntries(T2_CATEGORIES.map((c) => [c, 'daily'])),
+      award_news: 'weekly',
+      fan_merch: 'weekly',
+      easter_egg: 'weekly',
+    } as Record<AnyNotificationCategory, NotificationCadence>),
+  },
+  {
+    id: 'full_clown',
+    title: 'Full Clown \ud83e\udd21',
+    description: 'Everything on at its default cadence, plus a lyric of the day.',
+    prefs: prefsFor({
+      ...Object.fromEntries(T1_CATEGORIES.map((c) => [c, DEFAULT_CADENCE[c]])),
+      ...Object.fromEntries(T2_CATEGORIES.map((c) => [c, DEFAULT_CADENCE[c]])),
+      ...Object.fromEntries(T3_CATEGORIES.map((c) => [c, DEFAULT_CADENCE[c]])),
+      lyric_of_day: 'daily',
+    } as Record<AnyNotificationCategory, NotificationCadence>),
+  },
+];
+
+export function onboardingPresetById(id: OnboardingPresetId): OnboardingPreset {
+  const preset = ONBOARDING_PRESETS.find((p) => p.id === id);
+  if (!preset) throw new Error(`unknown onboarding preset: ${id}`);
+  return preset;
+}
