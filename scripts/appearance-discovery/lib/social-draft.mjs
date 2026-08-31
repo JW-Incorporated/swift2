@@ -241,6 +241,31 @@ const TAYLOR_PRESENCE_MIN_CONFIDENCE = 0.6;
 // video's social pair (never retried) instead of failing loud within the
 // run.
 const TAYLOR_VERIFY_TIMEOUT_MS = 30_000;
+// Hard cap on total paid vision calls per discover.mjs run (Codex review
+// round 2, kanban t_ac1281ef): fetchAppearanceThumbnail can spend up to 2
+// calls per candidate (one per thumbnail URL tried), and the candidate
+// count is driven entirely by discover.mjs's `--max` / workflow_dispatch
+// `max` input, which accepts any positive integer with no upper bound
+// (appearance-discovery.yml). CLAUDE.md requires any product LLM call be
+// "worker-side, hard-capped" independent of caller-supplied inputs — this
+// is that independent ceiling. Once exhausted, remaining candidates in the
+// SAME run fail the verification step closed (no thumbnail returned, same
+// non-fatal draftFailures path discover.mjs already has for any other
+// staging failure) rather than placing unbounded spend. Deliberately a
+// flat constant, not derived from `--max`, so a large manual dispatch
+// cannot raise it.
+export const MAX_VERIFY_CALLS_PER_RUN = 20;
+
+/**
+ * A per-run budget for paid `verifyTaylorPresence` calls, shared across
+ * every `fetchAppearanceThumbnail` call in one discover.mjs invocation.
+ * Callers create exactly one of these before their candidate loop and pass
+ * it through; `fetchAppearanceThumbnail` decrements it per attempted
+ * vision call and refuses (fails closed) once it hits zero.
+ */
+export function createVerifyBudget(max = MAX_VERIFY_CALLS_PER_RUN) {
+  return { remaining: max, max };
+}
 
 function taylorVerifyToolInput(body) {
   const content = body?.content;
@@ -322,11 +347,23 @@ export async function verifyTaylorPresence(bytes, mediaType, { apiKey, fetchImpl
  * before ever reaching the (paid) content check. A candidate that passes the
  * shape check but fails verification is skipped, not returned — the caller
  * (discover.mjs) treats a thrown error here as a loud, non-fatal
- * draftFailure, same as any other staging failure. */
+ * draftFailure, same as any other staging failure.
+ *
+ * `verifyBudget` (Codex review round 2, kanban t_ac1281ef) is an optional
+ * shared per-run cap object from `createVerifyBudget()` — pass the SAME
+ * object to every `fetchAppearanceThumbnail` call within one discover.mjs
+ * run so the total paid vision spend for the run stays under
+ * MAX_VERIFY_CALLS_PER_RUN regardless of how many candidates the
+ * caller-supplied `--max` allows. Omitted, a fresh single-call budget is
+ * created per call (safe default for direct/test callers, but NOT what
+ * discover.mjs should do — it must share one budget across its whole
+ * candidate loop). Once the budget is exhausted, this throws (fails closed)
+ * before spending any further vision calls. */
 export async function fetchAppearanceThumbnail(
   c,
-  { fetchImpl = fetch, apiKey = process.env.ANTHROPIC_API_KEY, verify = verifyTaylorPresence } = {},
+  { fetchImpl = fetch, apiKey = process.env.ANTHROPIC_API_KEY, verify = verifyTaylorPresence, verifyBudget } = {},
 ) {
+  const budget = verifyBudget ?? createVerifyBudget();
   const urls = [
     `https://i.ytimg.com/vi/${c.videoId}/maxresdefault.jpg`,
     `https://i.ytimg.com/vi/${c.videoId}/hqdefault.jpg`,
@@ -339,6 +376,13 @@ export async function fetchAppearanceThumbnail(
     const meta = imageMeta(bytes);
     const ratio = meta?.width && meta?.height ? meta.width / meta.height : 0;
     if (!(meta?.width >= 400 && meta?.height >= 300 && ratio >= 0.8 && ratio <= 1.91)) continue;
+    if (budget.remaining <= 0) {
+      throw new Error(
+        `no Instagram-safe YouTube thumbnail found for ${c.videoId}: per-run vision verification budget ` +
+          `(${budget.max}) is exhausted — refusing to stage an unverified thumbnail rather than exceed the cap.`,
+      );
+    }
+    budget.remaining -= 1;
     const mediaType = meta.format === 'png' ? 'image/png' : meta.format === 'webp' ? 'image/webp' : 'image/jpeg';
     const judgment = await verify(bytes, mediaType, { apiKey, fetchImpl });
     if (judgment.taylor_present && judgment.confidence >= TAYLOR_PRESENCE_MIN_CONFIDENCE) {

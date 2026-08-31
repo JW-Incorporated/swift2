@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { buildSocialDraftPair, fetchAppearanceThumbnail, verifyTaylorPresence } from './social-draft.mjs';
+import { buildSocialDraftPair, fetchAppearanceThumbnail, verifyTaylorPresence, createVerifyBudget } from './social-draft.mjs';
 import { validateQueueItem } from '../../social/lib/queue-schema.mjs';
 import { checkSchema, checkOpeners, checkCrossPostCopy, checkLength } from '../../social/check-drafts.mjs';
 import { weightedTweetLength } from '../../social/lib/x-length.mjs';
@@ -202,6 +202,7 @@ describe('verifyTaylorPresence', () => {
 
 describe('fetchAppearanceThumbnail (with content verification)', () => {
   const c = { videoId: 'abc123' };
+  const c2 = { videoId: 'def456' };
 
   it('returns the maxresdefault thumbnail when verification confirms Taylor is present', async () => {
     const fetchImpl = fakeThumbnailFetch();
@@ -229,5 +230,33 @@ describe('fetchAppearanceThumbnail (with content verification)', () => {
     const verify = vi.fn(async () => ({ taylor_present: true, confidence: 0.95, reason: 'ok' }));
     await expect(fetchAppearanceThumbnail(c, { fetchImpl, apiKey: 'k', verify })).rejects.toThrow(/no Instagram-safe YouTube thumbnail/);
     expect(verify).not.toHaveBeenCalled();
+  });
+
+  it('refuses to spend a verify call once the run-wide budget is exhausted (fails closed, does not fall open)', async () => {
+    const fetchImpl = fakeThumbnailFetch();
+    const verify = vi.fn(async () => ({ taylor_present: true, confidence: 0.95, reason: 'ok' }));
+    const verifyBudget = createVerifyBudget(0);
+    await expect(fetchAppearanceThumbnail(c, { fetchImpl, apiKey: 'k', verify, verifyBudget })).rejects.toThrow(/budget/);
+    expect(verify).not.toHaveBeenCalled();
+  });
+
+  it('shares one budget across multiple candidates in the same run and stops spending once it is spent', async () => {
+    const fetchImpl = fakeThumbnailFetch();
+    const verify = vi.fn(async () => ({ taylor_present: true, confidence: 0.95, reason: 'ok' }));
+    const verifyBudget = createVerifyBudget(1);
+    const first = await fetchAppearanceThumbnail(c, { fetchImpl, apiKey: 'k', verify, verifyBudget });
+    expect(first.sourceUrl).toContain('maxresdefault.jpg');
+    expect(verifyBudget.remaining).toBe(0);
+    await expect(fetchAppearanceThumbnail(c2, { fetchImpl, apiKey: 'k', verify, verifyBudget })).rejects.toThrow(/budget/);
+    expect(verify).toHaveBeenCalledTimes(1);
+  });
+
+  it('createVerifyBudget defaults to MAX_VERIFY_CALLS_PER_RUN and each instance is independent', () => {
+    const a = createVerifyBudget();
+    const b = createVerifyBudget();
+    expect(a.remaining).toBe(a.max);
+    expect(a).not.toBe(b);
+    a.remaining -= 1;
+    expect(b.remaining).toBe(b.max);
   });
 });

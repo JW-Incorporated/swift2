@@ -44,7 +44,7 @@ import { CHANNELS, feedUrl } from './channels.mjs';
 import { parseFeed, looksLikeFeed } from './lib/feed.mjs';
 import { matchRule, isFresh } from './lib/filter.mjs';
 import { videoIdsIn, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
-import { buildSocialDraftPair, fetchAppearanceThumbnail } from './lib/social-draft.mjs';
+import { buildSocialDraftPair, fetchAppearanceThumbnail, createVerifyBudget } from './lib/social-draft.mjs';
 import { emitOfficialYoutubeEvent } from './lib/emit-official-youtube-event.mjs';
 
 const INTAKE_LABEL = 'intake';
@@ -397,6 +397,11 @@ async function main() {
   let staged = 0;
   const createFailures = [];
   const draftFailures = [];
+  // Shared run-wide ceiling on paid verifyTaylorPresence vision calls,
+  // independent of MAX_PER_RUN (--max) — see MAX_VERIFY_CALLS_PER_RUN in
+  // lib/social-draft.mjs. One budget object for the whole fast-lane loop
+  // below, not per candidate.
+  const verifyBudget = createVerifyBudget();
   if (plan.refuse) {
     console.error(`REFUSED to file: ${plan.refuse}`);
   } else if (FILE_MODE && plan.toFile.length) {
@@ -439,7 +444,7 @@ async function main() {
       // content gate before it can ever post.
       try {
         const { drafts, media } = buildSocialDraftPair(c);
-        const thumbnail = await fetchAppearanceThumbnail(c);
+        const thumbnail = await fetchAppearanceThumbnail(c, { verifyBudget });
         writeFileSync(join(root, media.repoPath), thumbnail.bytes);
         for (const { filename, item } of drafts) {
           writeFileSync(
