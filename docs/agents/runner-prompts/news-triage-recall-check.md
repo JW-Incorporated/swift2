@@ -34,11 +34,20 @@ every 4-hourly ingest cycle and would otherwise be gone by the time you run.
 1. List `docs/content-ops/archive/` on the `news-digest` branch:
    `gh api repos/JW-Incorporated/swift2/contents/docs/content-ops/archive?ref=news-digest --jq '.[].name'`
 2. For each day in the trial window so far (since the last recall-check run,
-   or since trial start on the first run), pick the archived snapshot whose
-   timestamp is closest to *before* News Triage's own cron (`40 15 * * *`
-   UTC) — that is the digest News Triage actually triaged that day. Fetch its
-   content:
-   `gh api repos/JW-Incorporated/swift2/contents/<path>?ref=news-digest --jq .content | base64 -d`
+   or since trial start on the first run), do NOT infer which snapshot News
+   Triage consumed from cron timing — either schedule can run late, and a
+   timing guess can silently pick the wrong digest. Instead read the exact
+   filename News Triage itself recorded: find that day's News Triage run-log
+   comment on the standing Nils walk log issue (#502) and read its
+   `consumed-snapshot: <filename>` line (News Triage's prompt records this on
+   every run during the trial, per its own T-3 addendum). Fetch that exact
+   file:
+   `gh api repos/JW-Incorporated/swift2/contents/docs/content-ops/archive/<filename>?ref=news-digest --jq .content | base64 -d`
+   If a day's run-log comment is missing the `consumed-snapshot:` line (a run
+   from before this addendum was live, or a genuine gap), fall back to the
+   snapshot with the timestamp closest to *before* that day's `40 15 * * *`
+   cron and flag the fallback explicitly in your output — a cron-time guess
+   is a known-weaker signal, not silent equivalent to the recorded one.
 3. Read what Sonnet actually filed that day: search closed+open `intake`
    issues created within a few hours after each day's `40 15 * * *` run
    (`gh issue list --label intake --state all --limit 500 --search
