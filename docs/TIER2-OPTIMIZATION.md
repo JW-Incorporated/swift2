@@ -425,8 +425,11 @@ the end.
 
 #### C5. Austin — build runs (daily 21:00, Fable 5)
 
-- **Current state.** Charter [`austin.md`](agents/austin.md) (which still
-  says "×2/day `0 16, 0 21`" — live registry shows one daily trigger at
+- **Current state.** Charter [`austin.md`](agents/austin.md) (its Cadence
+  section correctly describes an event/hourly deterministic poll with a
+  2-starts/day cap; the stale "×2/day `0 16, 0 21`" entry lives in
+  `runners.md`'s historical split table — live registry shows one daily
+  trigger at
   21:00). Implements small pre-triaged eng tickets + P2/P3 a11y specs;
   WIP-capped; never merges. The one routine on Fable 5.
 - **Assessment.** The most expensive model in the fleet on a daily cadence is
