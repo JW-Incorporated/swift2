@@ -1,0 +1,74 @@
+# Automates production DB migrations (retires manual HUMAN-ACTIONS #14 runs).
+#
+# Applies every supabase/migrations/*.sql file in filename order via
+# `npm run db:migrate`, using scripts.SUPABASE_DB_URL. Runs it a SECOND time
+# in the same job and asserts it reports no additional changes — the same
+# idempotency proof HUMAN-ACTIONS #14 recorded by hand.
+#
+# Triggers: workflow_dispatch (manual) and push to main filtered to the
+# migrations directory, so new migration files land automatically on merge.
+name: db-migrate
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "supabase/migrations/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: db-migrate
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Preflight — confirm SUPABASE_DB_URL is configured
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if [ -z "$SUPABASE_DB_URL" ]; then
+            echo "FAIL: SUPABASE_DB_URL secret is not configured in repo Actions secrets. Nothing was run."
+            exit 1
+          fi
+          echo "SUPABASE_DB_URL is configured."
+      - name: Materialize ephemeral apps/worker/.env
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          trap 'rm -f apps/worker/.env' EXIT
+          mkdir -p apps/worker
+          umask 077
+          printf 'SUPABASE_DB_URL=%s\n' "$SUPABASE_DB_URL" > apps/worker/.env
+          echo "apps/worker/.env materialized (contents not printed)."
+      - name: Run migrations (pass 1)
+        run: |
+          trap 'rm -f apps/worker/.env' EXIT
+          npm run db:migrate
+      - name: Materialize ephemeral apps/worker/.env (pass 2)
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          trap 'rm -f apps/worker/.env' EXIT
+          mkdir -p apps/worker
+          umask 077
+          printf 'SUPABASE_DB_URL=%s\n' "$SUPABASE_DB_URL" > apps/worker/.env
+      - name: Run migrations (pass 2 — idempotency proof)
+        run: |
+          trap 'rm -f apps/worker/.env' EXIT
+          npm run db:migrate
+      - name: Clean up ephemeral env file
+        if: always()
+        run: rm -f apps/worker/.env
