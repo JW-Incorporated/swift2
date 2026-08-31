@@ -756,27 +756,38 @@ notification-quality desk below). **The kanban worker sandbox that authored
 this change does not carry that account credential; tracked as
 `HUMAN-ACTIONS.md` item #36.**
 
-To apply, from a session authenticated to Joey's account:
+To apply, from a session authenticated to Joey's account — **in this exact
+order**, so a Sonnet run is never live before the archive/audit
+instrumentation exists (an unarchived, unaudited Sonnet run would violate
+the trial's own zero-tolerance bar, since there would be nothing to check
+it against):
 
-1. `get` the live trigger (`trig_019NuR7EpN7TA28yfmzKPAC7`) — per the
-   RemoteTrigger footgun above, this is mandatory before any edit.
-2. In the returned `job_config`, change only
+1. Merge `docs/content-ops/news-triage-trial-active` (empty file is fine —
+   its presence is the only thing checked) to `main` FIRST, on its own
+   small PR, before touching the live trigger. This turns on the
+   `news-worker.yml` digest-archive step so the archive starts filling
+   ahead of the trial.
+2. Create the recall-check trigger per the config below and confirm it
+   ran once successfully (an early manual dispatch is fine even before
+   News Triage flips — it just audits an empty/near-empty archive that
+   first time). Record its returned trigger ID and today's date as the
+   trial start in this file's "Live trigger IDs" table (new row) — the
+   recall-check prompt and this file's own closeout procedure both need
+   that ID to disable the correct trigger when the trial ends.
+3. Only once 1 and 2 are confirmed live: `get` the News Triage trigger
+   (`trig_019NuR7EpN7TA28yfmzKPAC7`) — per the RemoteTrigger footgun above,
+   this is mandatory before any edit.
+4. In the returned `job_config`, change only
    `ccr.session_context.model` from `claude-opus-4-8` to `claude-sonnet-5`.
    Leave `events` (the prompt) and `sources` (the repo binding) untouched —
    they must already match `docs/agents/runner-prompts/news-triage.md`
    verbatim (the T-3 trial addendum landed on PR #3608; re-sync from the
    file if the live trigger's inline prompt has drifted).
-3. PUT the **whole modified `job_config` back**, never a partial object.
-4. Create `docs/content-ops/news-triage-trial-active` (empty file is fine —
-   its presence is the only thing checked) on `main` and merge that as part
-   of the same PR that flips the model. This is the gate the
-   `news-worker.yml` archive step and News Triage's own prompt addendum both
-   check — without it, the digest-archive step will not run and the recall
-   check will have nothing to audit.
-5. Create the recall-check trigger per the config below.
-6. Update this table's News Triage row to `claude-sonnet-5` and remove the
-   "pending account access" note, in the same PR. Mark `HUMAN-ACTIONS.md`
-   item #36 `DONE`.
+5. PUT the **whole modified `job_config` back**, never a partial object.
+6. Update this table's News Triage row to `claude-sonnet-5`, remove the
+   "pending account access" note, and record the trial's exact 2-week
+   end date (start date + 14 days) next to the recall-check row added in
+   step 2. Mark `HUMAN-ACTIONS.md` item #36 `DONE`.
 
 ### News Triage recall check — trigger config to create (2-week trial, T-3)
 

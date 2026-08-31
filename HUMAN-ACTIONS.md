@@ -42,14 +42,19 @@ recorded in item #35 above — a docs/CI worktree sandbox has no such tool at
 all.
 
 **What to do, from a `claude.ai/code` session on your account (or one you
-explicitly point at that surface):**
-1. Flip News Triage's trigger (`trig_019NuR7EpN7TA28yfmzKPAC7`) from
-   `claude-opus-4-8` to `claude-sonnet-5` — `get`, edit only the model
-   field, PUT the whole `job_config` back (never a partial PUT).
-2. Add `docs/content-ops/news-triage-trial-active` (empty file) to `main` —
-   this turns on the digest-archive step the trial depends on.
-3. Create the "News Triage recall check — T-3 trial" trigger per the exact
-   config in `runners.md`.
+explicitly point at that surface)** — exact order matters, see
+`runners.md` § "News Triage — model trial config to apply" for the full
+reasoning (archive/audit instrumentation must be live before Sonnet is,
+so no trial run goes unaudited):
+1. Merge `docs/content-ops/news-triage-trial-active` (empty file) to
+   `main` first — turns on the digest-archive step.
+2. Create the "News Triage recall check — T-3 trial" trigger per the exact
+   config in `runners.md`; record its trigger ID + trial start date in
+   `runners.md`'s live-trigger table.
+3. Only then flip News Triage's trigger
+   (`trig_019NuR7EpN7TA28yfmzKPAC7`) from `claude-opus-4-8` to
+   `claude-sonnet-5` — `get`, edit only the model field, PUT the whole
+   `job_config` back (never a partial PUT).
 4. Update `runners.md`'s live-trigger table + this item to `DONE` once
    confirmed working (a real run, not just "created").
 
