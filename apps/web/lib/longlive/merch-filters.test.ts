@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { ERAS } from './eras';
 import { getContentItem } from './content';
 import { MERCH_CATALOGUE, type MerchItem } from './merch';
+import { renderMerchShopLink } from './shop';
 import {
   merchByEra,
   merchItemImage,
@@ -148,10 +149,23 @@ describe('merchItemImage', () => {
     // luxury PDPs, discontinued items, resolvable-but-not-found domains) or
     // single-product moments with no moment photo either — a real,
     // intended composition shift, not a regression.
-    expect(split).toBe(80);
-    expect(product).toBe(7);
-    expect(moment).toBe(12);
-    expect(monogram).toBe(1);
+    // 80/7/12/1 -> 91/8/1/0 (kanban task t_fa7bfb57 round 3, 2026-08-31):
+    // completed the imageUrl audit — 99/100 content-vault products now have a
+    // real, curl-verified retailer photo (up from 87/100); only the David
+    // Koma "Flounce One Sleeve Sequin Mini Dress" (evermore.mjs) remains
+    // without one, as no retailer page or reseller listing with a fetchable
+    // product image could be located for that exact FWRD SKU after
+    // exhaustive search. Every moment that previously fell back to a shared
+    // moment photo or the monogram tile now renders its own product photo
+    // (split when the moment also has a real photo, product-only otherwise)
+    // — a real, intended composition shift, not a regression. The single
+    // remaining monogram->moment case is that one unfixable David Koma
+    // product, which correctly falls back to its moment's real photo since
+    // it's the only product in that moment.
+    expect(split).toBe(91);
+    expect(product).toBe(8);
+    expect(moment).toBe(1);
+    expect(monogram).toBe(0);
     expect(split + product + moment + monogram).toBe(100);
   });
 
@@ -194,6 +208,17 @@ describe('merchItemImage', () => {
     expect(withProductPhoto).toBeDefined();
     const flagged: MerchItem = { ...withProductPhoto!, demoteSharedMomentPhoto: true };
     expect(merchItemImage(flagged)).toEqual(merchItemImage(withProductPhoto!));
+  });
+
+  it('D7=C (kanban t_28e3ad2a/t_c71f0eea, 2026-08-31): every moment-kind and split-kind item has a valid renderMerchShopLink().href, since MerchCard.tsx now makes the moment photo a buy link too (not just product/split-product)', () => {
+    for (const item of MERCH_CATALOGUE.shopTheLook) {
+      const image = merchItemImage(item);
+      if (image.kind === 'moment' || image.kind === 'split') {
+        const href = renderMerchShopLink(item).href;
+        expect(typeof href).toBe('string');
+        expect(href.length).toBeGreaterThan(0);
+      }
+    }
   });
 });
 
