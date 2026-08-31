@@ -26,6 +26,46 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 36. [BLOCKING] T-3 News Triage model trial needs a RemoteTrigger-capable session on your account — ~15 min
+
+**Filed:** 2026-08-31
+
+**Why it matters:** `docs/TIER2-OPTIMIZATION.md` T-3 (move News Triage from
+Opus to Sonnet 5, with a mandatory 2-week labeled-recall-check trial) is
+pre-approved, standing-agent-authority work — no founder decision needed on
+the *what*. The prep (recall-check trial prompt, digest-archive workflow
+step) already landed on PR #3608, and the exact application steps + recall-
+check trigger config are written out in full in `docs/agents/runners.md`
+§ "News Triage — model trial config to apply". But applying it needs the
+RemoteTrigger tool, authenticated to your account, the same limitation
+recorded in item #35 above — a docs/CI worktree sandbox has no such tool at
+all.
+
+**What to do, from a `claude.ai/code` session on your account (or one you
+explicitly point at that surface)** — exact order matters, see
+`runners.md` § "News Triage — model trial config to apply" for the full
+reasoning (archive/audit instrumentation must be live before Sonnet is,
+so no trial run goes unaudited):
+1. Merge `docs/content-ops/news-triage-trial-active` (empty file) to
+   `main` first — turns on the digest-archive step.
+2. Create the "News Triage recall check — T-3 trial" trigger per the exact
+   config in `runners.md`; record its trigger ID (not a start date yet —
+   the clock starts at step 3) in `runners.md`'s live-trigger table.
+3. Only then flip News Triage's trigger
+   (`trig_019NuR7EpN7TA28yfmzKPAC7`) from `claude-opus-4-8` to
+   `claude-sonnet-5` — `get`, edit only the model field, PUT the whole
+   `job_config` back (never a partial PUT). This PUT succeeding is the
+   trial's actual start — record that date in `runners.md`.
+4. Update `runners.md`'s live-trigger table + this item to `DONE` once
+   confirmed working (a real run, not just "created").
+
+The trial then runs 2 weeks unattended; a follow-up PR closes it out
+(revert on any FAIL, or make the Sonnet change permanent + remove the
+trial-active marker on a clean PASS) — no further human action needed
+until that verdict.
+
+**Status:** OPEN
+
 ### 35. [BLOCKING] Vault Phase 4 needs a RemoteTrigger-capable session on your account — the disable step can't run from a docs/CI sandbox — ~10-20 min
 
 **Filed:** 2026-08-31

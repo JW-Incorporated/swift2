@@ -222,7 +222,7 @@ Fleet invariants: [`agents/routine-invariants.md`](agents/routine-invariants.md)
 | Rumor Desk | 14:47 on **odd days of the month** (`47 14 */2 * *`) | Opus 4.8 | *none* | [`rumor-desk.md`](agents/runner-prompts/rumor-desk.md) |
 | Cross-Link builder | Mon+Thu 09:51 | Sonnet 5 | *none* | [`cross-link-builder.md`](agents/runner-prompts/cross-link-builder.md) |
 | Stylist | Sun 16:33 | Sonnet 5 | *none* | [`stylist.md`](agents/runner-prompts/stylist.md) |
-| News Triage | daily 15:40 | Opus 4.8 | *none* | [`news-triage.md`](agents/runner-prompts/news-triage.md) |
+| News Triage | daily 15:40 | Opus 4.8 (T-3 trial: Sonnet 5, pending account access — `docs/agents/runners.md` § News Triage) | *none* | [`news-triage.md`](agents/runner-prompts/news-triage.md) |
 | Lex depth | **disabled** (warm spare) | Opus 4.8 | *none* | [`lex-depth.md`](agents/runner-prompts/lex-depth.md) |
 
 ⚠️ **The six standalone lanes above run *in addition to* the Vault Run built

@@ -94,8 +94,16 @@ top: **PASS** (zero false negatives, trial continues / concludes
 successfully) or **FAIL** (one or more false negatives — recommend
 immediate revert of the News Triage trigger's model field back to
 `claude-opus-4-8`, full `job_config` round-trip per the RemoteTrigger
-footgun in `runners.md`, never a partial PUT).
+footgun in `runners.md`, never a partial PUT). **On a FAIL, you cannot
+execute the revert yourself** — you have no MCP connectors and are
+explicitly read-only. Also add a `HUMAN-ACTIONS.md` entry (same shape as
+item #36) titled `[BLOCKING] News Triage trial FAILED — revert to Opus
+needed` linking this issue, so the revert doesn't depend on someone
+noticing the GitHub issue on their own; label it urgent (a missed story is
+unrecoverable downstream for every day the revert is delayed).
 
 Never file, edit, or close an `intake` issue from this routine. Never
-author Vault content. Never merge anything. This routine only reads and
-reports.
+author Vault content. Never merge anything. Read-only on Vault content and
+the `intake` pipeline; the one exception is the FAIL escalation above
+(opening a plain `automation-review` issue plus a small `HUMAN-ACTIONS.md`-only
+PR is in scope — it is how you report, not an editorial action on content).

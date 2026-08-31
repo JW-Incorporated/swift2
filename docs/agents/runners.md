@@ -61,7 +61,7 @@ drifts).
 | Routine | Trigger ID | Cadence (UTC) | Enabled | Model |
 |---|---|---|---|---|
 | Photo Enrichment worker | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | `21 6 * * *` | ✅ | `claude-sonnet-5` |
-| News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ✅ | `claude-opus-4-8` |
+| News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ✅ | `claude-opus-4-8` — **T-3 trigger update pending account access, see § News Triage below; not yet flipped by this PR** |
 | Cross-Link builder | `trig_01FxMuDtwScPFvSgvhFCxdfP` | `51 9 * * 1,4` | ✅ | `claude-sonnet-5` |
 | Stylist — shop-link sourcing & upkeep | `trig_011BiHZqLEVHAJ4chfaYfGZH` | `33 16 * * 0` | ✅ | `claude-sonnet-5` |
 | Rumor Desk — sourcing & lifecycle | `trig_01GS6bcMsEQjXwmyxGr7S1js` | `47 14 */2 * *` | ✅ | `claude-opus-4-8` |
@@ -167,8 +167,8 @@ Fixes applied (see `docs/decisions.md` 2026-07-25 and PR #1539):
 
 | Tier | Runners | Rationale |
 |---|---|---|
-| **Haiku 4.5** | Kevin comment radar, News Triage | Cheap poll / bucketing; the radar is already a lazy `gh` poll |
-| **Sonnet 5** | Karen ✅, Stylist, Photo Enrichment, Audio Curator, Cross-Link, Mood Chat, Laura, Kevin S2/S3 | Deterministic script + summarize, or mechanical field-filling |
+| **Haiku 4.5** | Kevin comment radar | Cheap poll / bucketing; the radar is already a lazy `gh` poll |
+| **Sonnet 5** | Karen ✅, Stylist, Photo Enrichment, Audio Curator, Cross-Link, Mood Chat, Laura, Kevin S2/S3, News Triage (T-3 trial, pending account access — see § News Triage) | Deterministic script + summarize, or mechanical field-filling; News Triage is a bounded classify/redline-check/file job, not authoring |
 | **Opus** | Content Shift, Answerer, Rumor Desk, Nils, Marjorie brief, Austin, Paul Blart, Growth | Genuine authoring, adjudication, or security judgment |
 
 Deliberately NOT adopted: a "Sonnet drafts, Opus reviews" two-pass on the content
@@ -739,6 +739,107 @@ Until that paste happens, `social/calendar.md` is a static seed covering
 2026-08-12 → 08-25 and the Growth daily run will fall back to heartbeat pillars
 once it runs out — which it reports in its PR body, so the gap is visible rather
 than silent.
+
+## News Triage — model trial config to apply (2026-08-31, T-3, standing-agent-authority)
+
+**Not applied by this PR.** `docs/TIER2-OPTIMIZATION.md` § T-3 recommends
+moving News Triage's live trigger from `claude-opus-4-8` to
+`claude-sonnet-5`. Two mitigations are required alongside the model change
+(both landed in prompt-file form on PR #3608, ahead of this update, per T-18
+prompt-file-first): the labeled-recall-check trial design and the digest
+archive step (`.github/workflows/news-worker.yml`). Applying the change
+itself — editing the live `job_config` — requires a session (or human)
+authenticated to Joey's Claude account, the same account-access mechanic
+every other not-yet-created/not-yet-updated routine in this file shares (see
+"Tree's routine does not exist yet" above, Karen Deep and the
+notification-quality desk below). **The kanban worker sandbox that authored
+this change does not carry that account credential; tracked as
+`HUMAN-ACTIONS.md` item #36.**
+
+To apply, from a session authenticated to Joey's account — **in this exact
+order**, so a Sonnet run is never live before the archive/audit
+instrumentation exists (an unarchived, unaudited Sonnet run would violate
+the trial's own zero-tolerance bar, since there would be nothing to check
+it against):
+
+1. Merge `docs/content-ops/news-triage-trial-active` (empty file is fine —
+   its presence is the only thing checked) to `main` FIRST, on its own
+   small PR, before touching the live trigger. This turns on the
+   `news-worker.yml` digest-archive step so the archive starts filling
+   ahead of the trial.
+2. Create the recall-check trigger per the config below and confirm it
+   ran once successfully (an early manual dispatch is fine even before
+   News Triage flips — it just audits an empty/near-empty archive that
+   first time). Record its returned trigger ID in this file's "Live
+   trigger IDs" table (new row) — the recall-check prompt and this file's
+   own closeout procedure both need that ID to disable the correct trigger
+   when the trial ends. Do NOT record a trial start date yet — the trial
+   clock starts at the model flip (step 6), not at trigger creation.
+3. Only once 1 and 2 are confirmed live: `get` the News Triage trigger
+   (`trig_019NuR7EpN7TA28yfmzKPAC7`) — per the RemoteTrigger footgun above,
+   this is mandatory before any edit.
+4. In the returned `job_config`, change only
+   `ccr.session_context.model` from `claude-opus-4-8` to `claude-sonnet-5`.
+   Leave `events` (the prompt) and `sources` (the repo binding) untouched —
+   they must already match `docs/agents/runner-prompts/news-triage.md`
+   verbatim (the T-3 trial addendum landed on PR #3608; re-sync from the
+   file if the live trigger's inline prompt has drifted).
+5. PUT the **whole modified `job_config` back**, never a partial object.
+   The moment this PUT succeeds is the trial's actual start — record
+   TODAY's date as the trial start date now (not earlier), since that is
+   when Sonnet output actually begins.
+6. Update this table's News Triage row to `claude-sonnet-5`, remove the
+   "pending account access" note, and record the trial start date (from
+   step 5) plus its exact 2-week end date (start + 14 days) next to the
+   recall-check row added in step 2. Mark `HUMAN-ACTIONS.md` item #36
+   `DONE`.
+
+### News Triage recall check — trigger config to create (2-week trial, T-3)
+
+**Also not created by this PR** — same account-access mechanic. Weekly
+Opus audit; see `docs/agents/runner-prompts/news-triage-recall-check.md`
+for the full trial design (labeled recall check against the archived
+digests, zero-tolerance false-negative bar — any counted miss reverts the
+model change).
+
+| Field | Value |
+|---|---|
+| Name | `News Triage recall check — T-3 trial` |
+| Account | **Joey** (fleet policy, D1=B) |
+| Model | `claude-opus-4-8` |
+| Cron (UTC) | `0 17 * * 2` — weekly, Tuesday, well clear of News Triage's own `40 15 * * *` daily run and the Sunday/Monday judgment-desk cluster |
+| Repo | `JW-Incorporated/swift2`, branch `main` |
+| Prompt | the **full text** of `docs/agents/runner-prompts/news-triage-recall-check.md`, verbatim |
+| MCP connectors | none |
+| Start / end | create alongside the News Triage model flip; disable (never delete — reversible record) once the trial concludes (2 weeks from the model-flip date) with a PASS or a revert |
+
+**Trial window and disposition:** starts the day the model-flip is applied
+and this trigger is created; runs for 2 weeks (14 days), audited by the
+weekly Tuesday cadence above. **A clean PASS requires an audit that covers
+every day through and including day 14 — not just the most recent weekly
+run before day 14.** Because the fixed Tuesday cadence can land up to 6
+days before the 14-day mark (e.g. a Wednesday start's day-13 audit leaves
+day 14 itself unchecked), do NOT disable the trigger or declare PASS off
+that near-final run alone: after day 14 passes, dispatch the recall-check
+routine one more time (manual `workflow_dispatch`/trigger `run`, off its
+normal cadence) covering the remaining unaudited days, and only close out
+the trial once THAT run's verdict is in. Revert is NOT automatic —
+it needs the same account-authenticated RemoteTrigger access as every step
+above, so a FAIL cannot fix itself.** On the first FAIL (any counted false
+negative), the recall-check issue IS the trigger for action, but action
+still requires a human-account session: whoever reads the FAIL issue (Kevin
+S3's comment radar/eng triage, Marjorie's brief, or a founder scanning
+`intake`-adjacent issues) must escalate it as a new `HUMAN-ACTIONS.md` item
+(same shape as #36) requesting an urgent revert of News Triage's model back
+to `claude-opus-4-8` (full `job_config` round-trip) and disabling of this
+recall-check trigger — do not assume the revert happens without that
+explicit new item, and do not let the routine's own "any FAIL reverts"
+framing above read as "reverts itself." On a clean 2-week PASS, disable
+this recall-check trigger (its job is done — News Triage stays on
+`claude-sonnet-5` permanently) and remove the
+`docs/content-ops/news-triage-trial-active` marker in the same PR, which
+also turns off the now-unneeded digest-archive step in `news-worker.yml`.
+Record the outcome in `docs/decisions.md` either way.
 
 ## Maintenance fleet (2026-07-12)
 
