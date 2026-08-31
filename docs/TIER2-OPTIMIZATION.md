@@ -672,6 +672,40 @@ One documentation PR, founder-approved where charters require it. The
 doc-quality companion grades these files; stale governance text is how the
 last two audits found their worst surprises. Trivial-to-moderate.
 
+#### T-20 — Per-Tier-2-routine daily output telemetry in Marjorie's brief (founder-requested, 2026-08-31)
+
+T-17 (above, Fleet-level items) landed the fleet-wide half of routine
+telemetry — `scripts/fleet-telemetry-snapshot.mjs` (Actions-workflow run
+counts) and the Routine Auditor's weekly enabled-trigger-count/cadence-sum
+comment — but explicitly could not attribute an individual PR or issue back
+to which of the ~15 Tier-2 desks produced it: Claude Code cloud routines
+have no repo-visible run-history API (same gap T-17 documents for token
+spend). Joey asked mid-run on the T-9/T-17 card for daily visibility into
+Tier-2 desk activity in Marjorie's morning brief. Two phases, seasoned
+sequentially — Phase 2 has nothing to count until Phase 1 PRs exist:
+
+- **Phase 1 (this PR) — attribution convention.** Every Tier-2 routine's
+  prompt file in `docs/agents/runner-prompts/` now carries a one-line
+  instruction: any PR (and its commit message) the routine opens must
+  include the exact trailer `Tier-2: <routine name>` in the PR body. This is
+  the cheapest option — no branch-naming churn, no trigger edits (T-18
+  prompt-file-first honored), greppable via `gh pr list --search`. It must
+  season for a few real days of PRs before Phase 2 has data to aggregate.
+- **Phase 2 (follow-up card, after seasoning) — daily rollup + brief
+  section.** Extend `scripts/fleet-telemetry-snapshot.mjs` (or add a sibling
+  daily script — the existing snapshot is monthly, `assemble-brief.mjs`
+  needs daily granularity) to count, per Tier-2 routine per day:
+  ran-or-skipped (inferred from ≥1 attributed PR/issue that day — a proxy,
+  not a direct "did the routine boot" signal, since a routine can run and
+  legitimately produce zero output), output count (PRs/issues carrying that
+  routine's trailer), and the routine's live model tier from `runners.md`.
+  Wired into `scripts/marjorie/assemble-brief.mjs`'s deterministic skeleton
+  as a new section (one line per Tier-2 desk: name / ran-or-skipped / output
+  count / model tier), per the founder's explicit instruction that this be
+  assembled deterministically, not computed by Marjorie's judgment pass.
+  `docs/agents/marjorie.md`'s brief-format spec gets updated to document the
+  new section. Tracked on Kanban card t_017c1e5b.
+
 ---
 
 ## Cost/benefit summary table

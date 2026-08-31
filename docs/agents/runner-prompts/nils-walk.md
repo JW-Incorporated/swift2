@@ -39,13 +39,15 @@ comment and exit. Never poll for the answer.
 
 ## Attribution trailer (T-20 Phase 1 -- per-routine output telemetry)
 
-Every PR (and its commit message) this routine opens MUST include this
-exact line in the PR body:
+Every PR body (and its commit message) AND every GitHub issue body this
+routine opens MUST include this exact line:
 
     Tier-2: Nils — site walk
 
-Use this identifier verbatim -- do not paraphrase or abbreviate it. This
-powers daily per-Tier-2-routine output counts in Marjorie's Founders'
-Brief (`docs/agents/runners.md`, `docs/TIER2-OPTIMIZATION.md` section T-20).
-If this run produces no PR/issue, there is nothing to tag -- that's
-expected, not an error.
+Use this identifier verbatim -- do not paraphrase or abbreviate it, and
+include it even on a routine that normally files issues rather than PRs
+(e.g. intake/ticket-filing desks) -- issues count exactly like PRs for
+this telemetry. This powers daily per-Tier-2-routine output counts in
+Marjorie's Founders' Brief (`docs/agents/runners.md`,
+`docs/TIER2-OPTIMIZATION.md` section T-20). If this run produces no
+PR/issue at all, there is nothing to tag -- that's expected, not an error.
