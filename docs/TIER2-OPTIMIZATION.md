@@ -355,6 +355,8 @@ the end.
   routine" gap at the layer that already runs weekly. Respecting invariants:
   this *adds* checks, changes none; the auditor's own operating limits
   (list/get only, no create/update) are untouched. Trivial; agent call.
+  **Landed 2026-08-31** — checklist in
+  [`routine-invariants.md`](agents/routine-invariants.md#additional-checks-t-9-2026-08-31--docstier2-optimizationmd--b5).
 
 #### B6. Karen Deep — agent review (SPECIFIED, NEVER CREATED)
 
@@ -635,7 +637,11 @@ line**: have the Routine Auditor's weekly issue comment include the enabled
 trigger count and per-routine cadence sum (it already lists triggers — this is
 arithmetic, not new capability). This is what turns the next optimization
 pass from archaeology into a diff. Trivial-to-moderate; zero tokens for the
-Action; agent call.
+Action; agent call. **Landed 2026-08-31** — Actions half:
+[`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml)
++ [`fleet-telemetry-snapshot.mjs`](../scripts/fleet-telemetry-snapshot.mjs),
+monthly, writing `docs/audits/fleet-telemetry/`. Auditor-arithmetic half:
+[`routine-invariants.md`](agents/routine-invariants.md#auditor-arithmetic-t-17-2026-08-31--docstier2-optimizationmd--t-17).
 
 #### T-18 — Re-sync prompts and registry after the changes land
 

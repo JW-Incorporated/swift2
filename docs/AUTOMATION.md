@@ -70,7 +70,7 @@ Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
 
 ---
 
-## Tier 1 — GitHub Actions (27 automatic + 10 manual)
+## Tier 1 — GitHub Actions (28 automatic + 10 manual)
 
 Cadences are UTC. "LLM" = does this workflow itself call a model. Minute
 offsets are deliberately non-`:00`/`:30` — see `watchdog.yml`'s header on this
@@ -178,12 +178,13 @@ call a model are separate **manually confirmed** workflows.
 | [`db-seed.yml`](../.github/workflows/db-seed.yml) | **MANUAL** — `target` from a fixed allowlist | **yes** — operator-triggered seeds |
 | [`db-connectivity-check.yml`](../.github/workflows/db-connectivity-check.yml) | dispatch + PR touching itself | no — `SELECT 1` |
 
-### Security and standing reminders (2)
+### Security and standing reminders (3)
 
 | Workflow | Trigger | Docs |
 |---|---|---|
 | [`dependabot-alerts-snapshot.yml`](../.github/workflows/dependabot-alerts-snapshot.yml) | Mon 21:00 (one hour before Paul Blart's patrol) | header — exists because the routine's own token 403s on the alerts API |
 | [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | header — Facebook has no API for non-administered groups, so this stays a human task |
+| [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:00 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The Claude-routine half is the Routine Auditor's weekly comment, see below |
 
 ### Dependabot update schedules (2) — config, not workflows
 
@@ -238,7 +239,7 @@ designed every-other-day cadence. See
 | Nils — site walk | Mon+Fri 14:00 | Opus 4.8 | [`agents/nils.md`](agents/nils.md) | live site |
 | Laura — a11y walk | daily 18:20 | Sonnet 5 | [`agents/laura.md`](agents/laura.md) | `a11y.yml` artifacts |
 | Paul Blart — security patrol | Mon 22:20 | Opus 4.8 | [`agents/paul-blart.md`](agents/paul-blart.md) | `dependabot-alerts-snapshot.yml` + `codeql.yml` |
-| Routine Auditor — fleet invariants | Sun 16:11 | Haiku 4.5 | [`agents/routine-invariants.md`](agents/routine-invariants.md) | the routine fleet itself |
+| Routine Auditor — fleet invariants | Sun 16:11 | Haiku 4.5 | [`agents/routine-invariants.md`](agents/routine-invariants.md) — checklist extended 2026-08-31 (T-9): drift + retirement checks; weekly comment now also states enabled-trigger count + cadence sum (T-17) | the routine fleet itself |
 
 ### Ticket operations and build
 
