@@ -63,7 +63,7 @@ sections says every scheduled agent must close.
 
 | Reference | Where | Reality |
 |---|---|---|
-| **"Scheduled runners live on Wyatt's account"** | [`CLAUDE.md`](../../CLAUDE.md) § Operating habits + § Parallel fleets | Stale phrasing. `CLAUDE.md` § The team already resolves it ("where older docs say 'ask Wyatt' … that means Joey now") and the registry records the live-verified move to Joey's account. Worth a one-line cleanup so it stops resurfacing; see the account note above. |
+| **Stated policy vs live fleet: whose account runs the routines** | [`CLAUDE.md`](../../CLAUDE.md) § Operating habits + § Parallel fleets and [`runners.md`](../agents/runners.md)'s standing requirement all say Wyatt's | The live fleet is on **Joey's** account — recreated there after the #2258 routine loss and verified against the routines API 2026-08-27 ("Nothing remains on the other founder's account"). Either the fleet needs migrating back or the policy is stale; that is a recurring-spend call for Joey, flagged not actioned. See [`runners.md` § Which account the routines actually run on](../agents/runners.md#which-account-the-routines-actually-run-on--verified-state-vs-stated-policy). |
 | `knowledge-engine.yml` | [`watchdog.yml`](../../.github/workflows/watchdog.yml) alert text; knowledge-engine proposal + handoff | never created — `news-worker.yml` was never renamed. The alert tells a founder to check a file that isn't there. |
 | `merch-audit.yml` | [`SPEC.merch-autonomy.md`](../SPEC.merch-autonomy.md) § Cadence | split into `merch-audit-detect.yml` + `merch-audit-authoring.yml` |
 | `appearance-discovery` at `40 13 * * *` | [`agents/runners.md`](../agents/runners.md) | actual cron is `40 13,21 * * *` — twice daily |

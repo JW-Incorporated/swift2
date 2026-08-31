@@ -5,31 +5,34 @@
 > file does not cover. This file remains the authoritative **cadence and
 > trigger-ID registry** for the Claude desk routines.
 
-## Which account owns the routines
+## Which account the routines actually run on — verified state vs stated policy
 
-**Joey's.** Recorded here because two docs disagree and anyone provisioning,
-auditing, disabling, or kill-switching a routine needs one answer:
+**These two disagree, and the gap is a live finding rather than something this
+file resolves.** Read both before touching a routine.
 
-- [`../../CLAUDE.md`](../../CLAUDE.md) § Operating habits says *"Scheduled
-  runners live on Wyatt's account so Joey's weekly limit stays free"*, and
-  § Parallel fleets repeats it.
-- But `CLAUDE.md` § The team — the authoritative statement of who does what —
-  says Wyatt *"no longer takes actions or makes decisions on this project"* and
-  that **"where older docs say 'ask Wyatt' or 'Wyatt decides,' that means Joey
-  now."** Those two runner lines are exactly that kind of older reference.
-- This file's own live audit agrees: the fleet consolidated to **Joey's
-  account ~2026-08-23**, re-verified against the routines API on
-  **2026-08-27** ("All 24 triggers verified live … Nothing remains on the
-  other founder's account"), with the per-trigger IDs in the table below.
+**Stated policy (below, and `CLAUDE.md` § Operating habits):** all scheduled
+agent spend runs on **Wyatt's** account, to keep Joey's weekly limit free.
 
-So operate routines on Joey's account using the trigger IDs below. All of
-those operations are reversible, so per `CLAUDE.md` § Decision authority they
-are agent calls — act, don't wait for a founder.
+**Observed state (this file's own audits, 2026-08-23 and 2026-08-27):** the
+fleet was recreated on **Joey's** account after issue #2258 (the prior
+account's routines were lost), and a live read of the routines API on
+2026-08-27 found "All 24 triggers verified live … Nothing remains on the other
+founder's account." Every trigger ID in the table below was fetched from
+Joey's account.
 
-**Recommended cleanup:** a one-line edit to those two `CLAUDE.md` sentences
-pointing here, so the stale phrasing stops resurfacing. Not done as part of
-the 2026-08-31 automation audit — `CLAUDE.md` is a protected
-agent-instruction file and that card's scope was a docs audit.
+So the live fleet is not where the spend policy says it should be. That is a
+**recurring-spend question and therefore Joey's call**, not an agent's:
+
+- If the policy still holds, the fleet needs migrating back — a real piece of
+  work, not a doc edit.
+- If the consolidation was intended (it followed a routine-loss incident), the
+  policy line in `CLAUDE.md` and the requirement below are stale and should be
+  corrected to match.
+
+Until Joey settles it, **report the live account as Joey's** — that is what the
+trigger IDs resolve against, and acting on the stale assumption is what makes a
+maintenance run fail. Flagged by the 2026-08-31 automation audit; not
+actioned there, and `CLAUDE.md` deliberately left untouched.
 
 **Requirement (Joey, final form 2026-07-12): ALL scheduled agent spend runs
 on Wyatt's account** — Joey is near his weekly limit; his side spends zero

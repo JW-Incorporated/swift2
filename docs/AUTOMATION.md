@@ -59,12 +59,11 @@ deterministic half became `cie-scan.yml` for exactly that reason. Put the
 Instant per-tier stops also exist: repo variable `SOCIAL_FREEZE` halts all
 posting; `CONTENT_AUTOMERGE_FREEZE` halts all content auto-merge.
 
-> **Which account owns the routines: Joey's.** Two `CLAUDE.md` lines still say
-> Wyatt's; `CLAUDE.md` § The team resolves that itself ("where older docs say
-> 'ask Wyatt' … that means Joey now") and the registry records the
-> live-verified move. Reasoning + cleanup:
-> [`agents/runners.md` § Which account owns the routines](agents/runners.md#which-account-owns-the-routines).
-> These operations are reversible, so they are agent calls — act, don't wait.
+> **Account note.** The live fleet runs on Joey's account (verified
+> 2026-08-27), while the stated spend policy says Wyatt's. That gap is
+> unresolved and is Joey's call — see
+> [`agents/runners.md` § Which account the routines actually run on](agents/runners.md#which-account-the-routines-actually-run-on--verified-state-vs-stated-policy).
+> Trigger IDs in the registry resolve against the live account.
 
 ---
 
