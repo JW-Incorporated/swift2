@@ -51,9 +51,15 @@ closed with every one of the five found by a probe or a named axe rule.
 
 ## The walk
 
-- Rotating slice like Nils (marquee surfaces every run; whole site weekly),
-  against the **deployed production URL** (see docs/deploy.md for the canonical
-  host).
+- Rotating slice like Nils, **widened ~3.5×** per run (T-8, `docs/TIER2-OPTIMIZATION.md`
+  § B3) so that whole-site-per-week coverage is preserved at the reduced
+  run cadence — marquee surfaces (current era the-life-of-a-showgirl, home,
+  top threads) every run; whole site at least weekly. The engines are
+  engine-driven (axe/pa11y), so scanning a wider page set per run is minutes
+  of runtime, not a proportional token increase — the judgment pass still
+  only reads violation lists, not pages.
+- Run against the **deployed production URL** (see docs/deploy.md for the
+  canonical host).
 - Run the engines on the slice; read the raw violations; de-dupe against open
   `a11y` tickets; prioritize by **severity × reach** (a contrast failure on every
   era header outranks one deep page).
@@ -85,7 +91,13 @@ closed with every one of the five found by a probe or a named axe rule.
 ## Cadence & account
 
 Daily, **~08:00 AM PT** (`0 15 * * *` UTC), right after Nils's 7 AM walk so the
-two critiques land together. Model **Fable**. Account **Joey** (policy
+two critiques land together. **Cadence pending a follow-up PR (T-8,
+`docs/TIER2-OPTIMIZATION.md` § B3): cutting to twice weekly (Tue+Fri) once
+this widened-slice redesign has landed** — per T-18 process discipline, the
+cadence flip and the live trigger/registry update land together in that
+next PR, never cadence alone. Model **Sonnet 5**, per the live trigger and
+the model tiering table in `runners.md` (this file previously said "Model
+Fable" — stale; the live trigger has run Sonnet 5). Account **Joey** (policy
 corrected 2026-08-31, D1=B). Tools:
 Bash/Read/Write/Edit/Glob/Grep + WebSearch/WebFetch (fetch live pages; run the
 engines via `npx`; check current WCAG guidance).
