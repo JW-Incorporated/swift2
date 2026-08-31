@@ -1,99 +1,130 @@
-# STATE — t_bc017313 (Notifications Phase 4: Fun notifications)
+# STATE — t_cc9863cb (Notifications Phase 5: Remaining categories + governor polish)
 
 ## Current task
 
-Notifications Phase 4 implementation complete, scoped strictly to
-NOTIFICATIONS_PLAN.md's Phase 4 line item: `lyrics`/`lyric_history`/
-`on_this_day` migrations (`supabase/migrations/20260913000000_
-notifications_fun.sql`, also adding `countdown_sends` + `events.drop_at`
-for the countdown scheduler in the same table family); a starter lyric
-pool (`supabase/seed/lyrics/starter-pool.mjs`, 224 entries across all 12
-eras in the repo's track catalogue) explicitly marked DRAFT / pending
-founder review, with a `verified` flag defaulting false that the
-production dispatch job gates on; `on_this_day` seed content
-(`supabase/seed/on-this-day/starter-pool.mjs`, 37 entries) derived
-directly from the repo's real `MILESTONES` timeline data (`apps/web/lib/
-longlive/content.ts`), not invented; the fun-notification scheduling math
-(`notification-fun-schedule.ts`, DST-safe, mirrors
-`notification-digest-schedule.ts`'s technique) and dispatch orchestration
-(`notification-fun.ts`) for lyric_of_day/on_this_day at Daily/Weekly/
-Monthly cadence; the 12-month per-device lyric no-repeat rule
-(`lyric_history` + `selectLyricForDevice`); `on_this_day` silently skipping
-dates with no entry (`selectOnThisDayEntry` returns null, no filler ever
-sent); the countdown scheduler (`scheduleCountdowns`/
-`scheduleCountdownsForPendingEvents`/`dispatchDueCountdowns`) creating
-T-7d/T-1d/release-hour sends from `events.drop_at` for opted-in devices,
-self-limiting for short-notice drops; a new `countdowns` category (On/Off
-cadence variant, spec §4) with its own `EVENT_CADENCES` pill set
-(`CadencePills.tsx` now supports 'steady'/'fun'/'event' variants) and Fun
-section settings row. All wired into the existing `/api/notifications/
-dispatch` cron route alongside Phases 2/3's router/digest/clown-report
-passes. Typecheck/lint/build/tests all pass (see Verification below).
+Notifications Phase 5 implementation complete, scoped strictly to
+NOTIFICATIONS_PLAN.md's Phase 5 line item: producer wiring for
+`relationship_news`, `public_appearance`, `award_news`, `fan_merch`, and
+instant-tier `easter_egg`; the auto-cooldown job (30-day non-openers
+downgraded Instant→Daily plus one notice push, spec §6); and enforcement of
+the 6/day hard ceiling (instant + scheduled combined) with tests. Phases
+0-4 (foundations, prefs, instant pipeline, digests, fun notifications) were
+already merged to `origin/main`.
+
+## Producer wiring (spec §4 categories)
+
+- **`relationship_news`, `public_appearance`, `award_news`** — extended the
+  SAME Phase 2 seam (`apps/worker/src/extract/write-knowledge.ts`'s
+  `writeCurrentItem()` → `emitLaunchCategoryEvent()`). The
+  news/extraction pipeline already classifies `current_item.category` as
+  `relationship`/`award`, and `sighting`/`statement` both map to
+  `public_appearance` per spec §4 ("public_appearance intentionally
+  absorbs TV/interview appearances"). No new detector — this is the "map
+  each to whatever existing detection pipeline is closest" case, gated on
+  `statusHint === 'confirmed'` exactly like the Phase 2 launch categories
+  (T1/T2/T3 tier doesn't change the confirmed-only discipline; a false
+  "confirmed" push on relationship news is the highest-harm case in the
+  whole taxonomy).
+- **`easter_egg` instant tier** — wired into `upsertLiveTheory()`'s
+  fresh-insert branch only (never on a heat/last-seen bump), so a theory
+  that gets re-mentioned notifies once per theory lifetime, not on every
+  re-observation. The Weekly Clown Report digest (Phase 3) is unaffected —
+  this only adds the Instant cadence option spec §4 lists for `easter_egg`.
+- **`fan_merch`** — new producer script
+  (`scripts/merch-engine/emit-fanmade-event.mjs`), mirroring
+  `emit-official-merch-event.mjs`'s Phase 2 seam one level up:
+  `authorFanmadeCatalog()` (`scripts/merch-engine/author-catalogs.mjs`) now
+  returns a `socialDraft` and calls the emitter from its CLI `main()`.
+  **FLAGGED**: unlike `official_merch`, there is no scheduled GitHub
+  Actions workflow that invokes the fanmade authoring lane today (grep of
+  `.github/workflows/*.yml` confirms `merch-fanmade.yml` only files
+  candidate issues and `merch-e5-evidence.yml` only collects raw evidence;
+  neither calls `author-catalogs.mjs --fanmade-curation`). The producer
+  code is real (not a fake stub) and fires correctly whenever a founder or
+  a future workflow runs the authoring CLI — it just isn't on a cron yet.
+  Flagged here and in the PR body per this task's instruction to flag
+  rather than invent a fake automated detector.
+
+## Auto-cooldown job (spec §6)
+
+New module `packages/core/src/notification-cooldown.ts`:
+`isCooldownEligible()` is a pure decision function (device has >=1
+`instant` pref, has delivery history older than 30 days, and zero
+`opened_at` within the last 30 days); `runCooldownPass()` is the DB
+orchestration — downgrades every `instant` pref to `daily` and sends the
+one required "We've quieted things down" notice push. Wired into
+`/api/notifications/dispatch` alongside every other pass.
+
+**FLAGGED**: `deliveries.opened_at` (the column this job reads) already
+exists in the schema (Phase 2 migration) but the client callback that
+SETS it on a real notification open is Phase 6 scope
+(NOTIFICATIONS_PLAN.md Phase 6: "notification-open callback →
+deliveries.opened_at") and is not wired yet. This job is written against
+the correct spec §6 semantic (not a last-seen-at proxy) so it needs no
+rework once Phase 6 lands the callback; until then every delivery's
+`opened_at` is null, so any device with an `instant` pref and 30+ days of
+delivery history is cooldown-eligible in production today. Flagged here,
+in the module's own header comment, and in the PR body.
+
+## Hard ceiling (spec §6.4, "combined instant+scheduled can never exceed
+6/day, hard ceiling")
+
+New Governor gate 6 (`packages/core/src/notification-governor.ts`):
+`gateHardCeiling()` + `HARD_CEILING_PER_DAY = 6`, run last in
+`evaluateGovernor()` (after master/snooze, quiet hours, coalescing, and
+the existing per-category daily cap). Counts EVERY delivery kind (instant
++ digest + fun), not just instant — `totalDeliveriesToday()` (also in
+notification-governor.ts, to avoid a router↔digest circular import) is the
+shared counter, called by the router's instant-send path, the digest
+dispatch loop, the Weekly Clown Report send, the fun-notification
+dispatch loop, and the countdown dispatch loop. A ceiling-blocked digest's
+queued rows stay queued (same "wait, don't drop" posture as the existing
+send-window hold) rather than being lost.
 
 ## Non-negotiable acceptance test
 
-`notification-fun.test.ts`'s "30-day simulation" describe blocks
-(NOTIFICATIONS_PLAN.md Phase 4 acceptance): a 30-day simulated daily/
-weekly/monthly run produces the correct send count per cadence with ZERO
-lyric repeats (asserted via `Set` size == array length across the whole
-window, including the small-pool-exhaustion case where sends correctly
-stop rather than repeat), and on_this_day sends nothing on dates with no
-entry while still sending on dates that do have one — including an
-entirely-empty-pool case that sends nothing across all 30 days.
+`notification-cooldown.test.ts`'s "ACCEPTANCE: a seeded stale device (old
+deliveries, zero opens in 30d) is eligible" / "ACCEPTANCE: downgrades a
+seeded stale device and sends exactly one notice push" tests are the
+plan's stated Phase 5 acceptance criterion ("cooldown job verified against
+a seeded stale device"), plus adversarial cases: an engaged device
+(recent open) is never downgraded, a fresh device (no delivery history
+yet) is never downgraded, and an open exactly at the 30-day cutoff still
+counts as recent.
 
-## DRAFT content flags — do not treat as final
-
-- **Lyrics** (`supabase/seed/lyrics/starter-pool.mjs`): 224 single-line
-  excerpts, one per released track in this repo's catalogue, written from
-  general knowledge of the discography — NOT verified against a licensed
-  lyrics source line-by-line. Every row's `verified` field is `false`
-  until a human confirms the exact wording; the dispatch job
-  (`selectLyricForDevice(..., requireVerified: true)`) never sends an
-  unverified row in production. **Founder must review before any real
-  device receives lyric_of_day content** — flag repeated in the PR body.
-- **Legal position** (recorded, not re-litigated): short lyric excerpts
-  may proceed per the 2026-08-31 founder decision on this task
-  (NOTIFICATIONS_SPEC.md §12 Q3 is resolved, not open).
-- **on_this_day**: derived directly from the shipped `MILESTONES` timeline
-  (real, already-published site content) — no separate founder review
-  gate needed the way the lyric pool has one, since nothing here is new
-  content, just a repackaging of what's already live on the site.
-
-## Countdown scheduler design note
-
-`events.drop_at` (new nullable column) is only ever set by a producer that
-knows a firm announced date — Phase 4 does NOT wire any new producer to
-set it (that's a Phase 5+/future concern); the scheduler and its tests
-prove the MATH is correct (`scheduleCountdowns`) and the DB orchestration
-runs safely with zero eligible events today (empty result, no error).
+**Hard ceiling (round 2 addition, per review feedback):**
+`notification-governor.test.ts` now covers `gateHardCeiling()` directly
+(under/at/over the ceiling, `undefined` skips the gate) plus
+`evaluateGovernor()` precedence (a snoozed-and-over-ceiling device reports
+`snoozed`, never `hard_ceiling`; a device under its per-category
+`daily_cap` but at the device-wide ceiling correctly reports
+`hard_ceiling`). Call-site coverage: `notification-router.test.ts` proves
+a device at 6 total deliveries today gets nothing further even with 0
+song_drop instant sends so far; `notification-digest.test.ts` proves a
+ceiling-blocked digest's queue rows stay queued, not dropped;
+`notification-fun.test.ts` proves the same for lyric/on-this-day/countdown
+dispatch.
 
 ## Scope note
 
-Phase 5+ (remaining categories, governor polish, web push) NOT started —
-out of this task's scope per NOTIFICATIONS_PLAN.md. `swiftie_trivia` (also
-a Fun-group category in spec §4) was NOT wired to send this phase — Phase
-4's scope per NOTIFICATIONS_PROMPTS.md is explicitly `lyric_of_day` +
-`on_this_day` + the countdown scheduler; `swiftie_trivia`'s settings row
-already existed (Phase 1) and continues to accept prefs with no send path
-yet, same as before this task.
+Phase 6 (web push + analytics) NOT started — out of this task's scope per
+NOTIFICATIONS_PLAN.md. The `deliveries.opened_at` write path (notification-
+open callback) and web push registration remain Phase 6 work; the
+auto-cooldown job above is correctly written against that eventual state
+but degrades gracefully (never throws, never fabricates opens) until then.
 
 ## Verification
 
 - `npm run typecheck` — clean across all 5 workspaces.
 - `npm run lint` — 0 errors (2 pre-existing unrelated warnings in
   scripts/merch-engine/*.test.ts, untouched by this PR).
-- `npm test` (`vitest run`) — 4347 passed, 2 skipped, 2 failed — the 2
-  failures are the same pre-existing `scripts/lib/gh.test.ts`
-  `Promise.withResolvers` Node-version issue Phases 0-3 already
-  documented as unrelated to notifications work.
+- `npm test` (`vitest run`) — 4377 passed, 2 skipped, 2 pre-existing
+  failures in `scripts/lib/gh.test.ts` (`Promise.withResolvers`, the same
+  Node-version/sandbox issue Phases 0-4 already documented as unrelated to
+  notifications work).
 - `npm run build --workspace=@swift2/web` — production build succeeds;
   `/api/notifications/dispatch` route unchanged in shape, now also runs
-  the fun + countdown passes.
-- Three existing tests' hardcoded category counts (13 → 14) updated for
-  the new `countdowns` category:
-  `apps/mobile/lib/notification-actions.test.ts`,
-  `packages/core/src/notification-prefs.test.ts`,
-  `packages/shared/src/notifications-onboarding.test.ts`.
+  the cooldown pass.
 
 ## Architect invocations
 

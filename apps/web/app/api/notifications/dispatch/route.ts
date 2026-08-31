@@ -7,6 +7,7 @@ import {
   dispatchFunNotifications,
   scheduleCountdownsForPendingEvents,
   dispatchDueCountdowns,
+  runCooldownPass,
 } from '@swift2/core/notifications-server';
 
 // Notifications Phase 2 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §10) —
@@ -84,6 +85,12 @@ export async function GET(req: Request): Promise<Response> {
     const funResult = await dispatchFunNotifications(db);
     const countdownScheduleResult = await scheduleCountdownsForPendingEvents(db);
     const countdownDispatchResult = await dispatchDueCountdowns(db);
+    // Phase 5: cooldown is a once-a-day-effective check (isCooldownEligible
+    // only fires once a device's instant prefs are already gone), run every
+    // tick alongside the other passes — cheap no-op for already-downgraded
+    // devices, same "run on every 15-min tick" cadence as everything else
+    // in this route.
+    const cooldownResult = await runCooldownPass(db);
     return NextResponse.json(
       {
         router: result,
@@ -92,6 +99,7 @@ export async function GET(req: Request): Promise<Response> {
         fun: funResult,
         countdownSchedule: countdownScheduleResult,
         countdownDispatch: countdownDispatchResult,
+        cooldown: cooldownResult,
       },
       { status: 200 },
     );

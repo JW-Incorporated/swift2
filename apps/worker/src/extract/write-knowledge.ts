@@ -32,6 +32,15 @@ import { findTheoryMatch } from './theory-match';
 // insertEvent() for them (keeps coupling to one helper call per pipeline,
 // per this task's instruction).
 //
+// Phase 5 (NOTIFICATIONS_PLAN.md) extends this SAME seam to
+// relationship_news, award_news, and public_appearance: the same
+// news/extraction pipeline already classifies `current_item.category` as
+// 'relationship' and 'award', and 'sighting'/'statement' cover public
+// appearances and interviews per spec §4 ("public_appearance intentionally
+// absorbs TV/interview appearances"). No new detector — this is the exact
+// "map each to whatever existing detection pipeline is closest" case the
+// Phase 5 task describes, not a stub.
+//
 // Gated on `statusHint === 'confirmed'`: T1 events are the highest-blast,
 // highest-harm-from-false-positive category in the whole system (spec §12
 // Q2's "false-positive T1 events" risk, this task's own recorded founder
@@ -40,12 +49,24 @@ import { findTheoryMatch } from './theory-match';
 // feed, but firing an instant push to every T1-subscribed device on an
 // unconfirmed report is a materially different, higher-stakes action than
 // writing a row — so only 'confirmed' items produce a notification event.
+// Phase 5 keeps this same discipline for the newly-wired T2/T3 categories:
+// relationship/appearance/award news is exactly the kind of content where a
+// false "confirmed" push would be the most damaging (spec's privacy-redline
+// concerns apply hardest to `relationship`), so there's no reason to relax
+// the gate just because the tier is lower.
 const NOTIFICATION_CATEGORY_BY_CURRENT_ITEM: Partial<
-  Record<CurrentItemCategory, 'song_drop' | 'album_news' | 'tour_news'>
+  Record<
+    CurrentItemCategory,
+    'song_drop' | 'album_news' | 'tour_news' | 'relationship_news' | 'public_appearance' | 'award_news'
+  >
 > = {
   release: 'album_news',
   music: 'song_drop',
   tour: 'tour_news',
+  relationship: 'relationship_news',
+  sighting: 'public_appearance',
+  statement: 'public_appearance',
+  award: 'award_news',
 };
 
 const SITE_URL = 'https://www.longlivets.com';
@@ -229,7 +250,19 @@ export interface UpsertLiveTheoryResult {
 /** Upserts one theory: bumps last_seen_on/heat on a matching existing row
  * (name similarity + symbol overlap >= 0.5, theory-match.ts), else inserts.
  * Caller must screen with theoryPassesScreen() first — this function trusts
- * the theory is already safe to store. */
+ * the theory is already safe to store.
+ *
+ * Phase 5 producer seam for `easter_egg`'s instant tier (spec §4:
+ * `easter_egg` supports Instant · Daily · Weekly · Off, not just the
+ * Phase 3 Weekly Clown Report digest). SEAM: this is the only existing
+ * pipeline that detects a NEW theory (as opposed to a re-observation of one
+ * already tracked) — theory-match.ts's findTheoryMatch() is the detector.
+ * insertEvent() fires only on the fresh-insert branch below, never on a
+ * bump, so a theory that keeps getting re-mentioned notifies once, not on
+ * every re-observation (same "insert = detection, not resend" discipline
+ * every other producer in this pipeline follows). A notification-event
+ * failure never fails the theory write (try/catch, logged not thrown) —
+ * same stage-isolation posture as emitLaunchCategoryEvent above. */
 export async function upsertLiveTheory(
   db: SupabaseClient,
   theory: ExtractedTheory,
@@ -279,7 +312,32 @@ export async function upsertLiveTheory(
     .select('id')
     .single();
   if (error) throw new Error(`live_theory insert failed: ${error.message}`);
-  return { id: data.id as string, expiresAt: theoryExpiresAt };
+  const id = data.id as string;
+  await emitEasterEggEvent(db, id, theory);
+  return { id, expiresAt: theoryExpiresAt };
+}
+
+async function emitEasterEggEvent(
+  db: SupabaseClient,
+  theoryId: string,
+  theory: ExtractedTheory,
+): Promise<void> {
+  try {
+    await insertEvent(db, {
+      category: 'easter_egg',
+      title: 'New theory in play',
+      body: theory.name || theory.claim,
+      deepLink: `${SITE_URL}/?current=theories`,
+      // One event per theory id — a re-observation of the SAME theory never
+      // reaches this function (it takes the update/bump branch above), so
+      // this key is only ever inserted once per theory's lifetime.
+      dedupeKey: `easter_egg:live_theory:${theoryId}`,
+    });
+  } catch (err) {
+    console.error(
+      `emitEasterEggEvent failed for live_theory ${theoryId}: ${(err as Error).message}`,
+    );
+  }
 }
 
 /** Flips any live_theory quiet >=45d to `abandoned` (proposal §4.6) — run

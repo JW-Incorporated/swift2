@@ -12,6 +12,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import {
   evaluateGovernor,
   startOfLocalDay,
+  totalDeliveriesToday,
   type GovernorDeviceSettings,
 } from './notification-governor';
 import { sendPushBatch, type PushSendResult } from './notification-sender';
@@ -41,6 +42,11 @@ export interface RouterDispatchResult {
   skippedSnoozed: number;
   skippedCoalesced: number;
   skippedDailyCap: number;
+  /** spec §6.4 hard ceiling (Phase 5): combined instant+scheduled sends
+   * blocked outright once the device's device-wide 6/day floor is hit —
+   * unlike daily_cap overflow, never rolled into a digest (see gate 6's
+   * docstring in notification-governor.ts). */
+  skippedHardCeiling: number;
   sendFailures: number;
   /** Phase 3: daily/weekly-pref devices fanned into `digest_queue` instead
    * of sent, PLUS any instant-tier cap-overflow rollovers (spec §6 gate 4:
@@ -85,6 +91,7 @@ export async function dispatchPendingEvents(
     skippedSnoozed: 0,
     skippedCoalesced: 0,
     skippedDailyCap: 0,
+    skippedHardCeiling: 0,
     sendFailures: 0,
     enqueuedToDigest: 0,
     errors: [],
@@ -191,9 +198,10 @@ async function dispatchOneEvent(
       tz: device.tz,
     };
 
-    const [recentDeliveries, instantToday] = await Promise.all([
+    const [recentDeliveries, instantToday, totalToday] = await Promise.all([
       recentSameCategoryDeliveries(db, device.id, event.category, now),
       instantDeliveriesToday(db, device.id, device.tz, now),
+      totalDeliveriesToday(db, device.id, device.tz, now),
     ]);
 
     const decision = evaluateGovernor({
@@ -202,6 +210,7 @@ async function dispatchOneEvent(
       event: { category: event.category, tier: event.tier },
       recentSameCategoryDeliveries: recentDeliveries,
       instantDeliveriesToday: instantToday,
+      totalDeliveriesToday: totalToday,
     });
 
     switch (decision.action) {
@@ -215,6 +224,7 @@ async function dispatchOneEvent(
         if (decision.reason === 'master_off') result.skippedMasterOff++;
         else if (decision.reason === 'snoozed') result.skippedSnoozed++;
         else if (decision.reason === 'coalesced') result.skippedCoalesced++;
+        else if (decision.reason === 'hard_ceiling') result.skippedHardCeiling++;
         else if (decision.reason === 'daily_cap') {
           result.skippedDailyCap++;
           // spec §6 gate 4: "Overflow rolls into the next digest" — an
@@ -293,6 +303,12 @@ async function instantDeliveriesToday(
   if (error) throw new Error(`daily-cap count: ${error.message}`);
   return count ?? 0;
 }
+
+/** Gate 6's (Phase 5 hard ceiling) counter now lives in
+ * notification-governor.ts's totalDeliveriesToday() so it can be shared
+ * with notification-digest.ts / notification-fun.ts without a circular
+ * import — re-exported here for any existing external importer. */
+export { totalDeliveriesToday } from './notification-governor';
 
 /**
  * Logs one `deliveries` row per successful send and prunes any device whose

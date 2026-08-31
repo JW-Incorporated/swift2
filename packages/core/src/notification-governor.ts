@@ -11,8 +11,18 @@
 //
 // Gate order matches spec §6 exactly: 1 master/snooze, 2 quiet hours,
 // 3 coalescing, 4 daily cap. Gate 5 (send-time sanity, digests/fun only)
-// and the 6/day hard ceiling are out of Phase 2 scope (digest/fun categories
-// don't exist yet; the hard ceiling is Phase 5's "governor polish").
+// lives in notification-digest-schedule.ts / notification-fun-schedule.ts's
+// isWithinSendWindow(). Gate 6 (Phase 5, this module) is the 6/day hard
+// ceiling: spec §6.4's last sentence — "combined instant+scheduled can
+// never exceed 6/day, hard ceiling." Distinct from gate 4's `dailyCap`
+// (instant-only, user-adjustable 1-5, overflow rolls into the next
+// digest): the hard ceiling counts EVERY kind of send (instant + digest +
+// fun + cooldown-notice) against one device-wide floor that no user
+// setting can raise, and a ceiling-blocked send is dropped outright, not
+// rolled anywhere — spec never describes a 7th send appearing later, and
+// rolling it into a digest that itself counts toward the same ceiling
+// would just move the same problem, not solve it.
+import type { SupabaseClient } from '@supabase/supabase-js';
 
 export interface GovernorDeviceSettings {
   masterEnabled: boolean;
@@ -34,7 +44,12 @@ export type GovernorDecision =
   | { action: 'skip'; reason: 'snoozed'; until: string }
   | { action: 'hold'; reason: 'quiet_hours'; resumeAtLocalHour: number }
   | { action: 'skip'; reason: 'coalesced'; withinMinutes: number }
-  | { action: 'skip'; reason: 'daily_cap'; dailyCap: number };
+  | { action: 'skip'; reason: 'daily_cap'; dailyCap: number }
+  | { action: 'skip'; reason: 'hard_ceiling'; ceiling: number };
+
+/** spec §6.4's last sentence: "combined instant+scheduled can never exceed
+ * 6/day, hard ceiling." Not user-adjustable (unlike `dailyCap`). */
+export const HARD_CEILING_PER_DAY = 6;
 
 export interface GovernorContext {
   now: Date;
@@ -48,6 +63,13 @@ export interface GovernorContext {
   /** Count of this device's `kind='instant'` deliveries already sent since
    * the start of the device's current local day. */
   instantDeliveriesToday: number;
+  /** Count of EVERY delivery kind (instant + digest + fun) already sent
+   * since the start of the device's current local day — what gate 6 (the
+   * hard ceiling) counts against. Optional: callers that only care about
+   * gates 1-4 (e.g. existing Phase 2 call sites/tests) can omit it, in
+   * which case gate 6 is skipped entirely (never blocks a send it wasn't
+   * given the data to evaluate). */
+  totalDeliveriesToday?: number;
 }
 
 const COALESCE_WINDOW_MS = 30 * 60 * 1000;
@@ -142,17 +164,37 @@ export function gateDailyCap(
   return null;
 }
 
+/** Gate 6 — the 6/day hard ceiling (Phase 5, spec §6.4). Counts EVERY send
+ * kind (instant + digest + fun), not just instant — a device that already
+ * received its 3 instant pushes plus a merged digest plus a lyric-of-day
+ * (5 total) can still take one more send before this gate fires, but a 6th
+ * of ANY kind is blocked outright. This is the last gate: a device already
+ * skipped/held by an earlier gate never reaches it, so "hard_ceiling" is
+ * only ever reported when every earlier gate would otherwise have said
+ * send. `totalDeliveriesToday` is optional on the context — omitting it
+ * (existing Phase 2/3/4 call sites that don't load the count) simply skips
+ * this gate rather than blocking a send it has no data for. */
+export function gateHardCeiling(totalDeliveriesToday: number | undefined): GovernorDecision | null {
+  if (totalDeliveriesToday === undefined) return null;
+  if (totalDeliveriesToday >= HARD_CEILING_PER_DAY) {
+    return { action: 'skip', reason: 'hard_ceiling', ceiling: HARD_CEILING_PER_DAY };
+  }
+  return null;
+}
+
 /** Runs every gate in spec §6 order, returning the FIRST gate's decision
  * that isn't a pass-through (`null`), or `{ action: 'send' }` if every gate
  * clears. Order matters: master/snooze before quiet hours before
- * coalescing before the cap — a snoozed device should report "snoozed",
- * never "daily_cap", even if it happens to also be over cap. */
+ * coalescing before the cap before the hard ceiling — a snoozed device
+ * should report "snoozed", never "daily_cap"/"hard_ceiling", even if it
+ * happens to also be over cap/ceiling. */
 export function evaluateGovernor(ctx: GovernorContext): GovernorDecision {
   return (
     gateMasterAndSnooze(ctx.device, ctx.now) ??
     gateQuietHours(ctx.device, ctx.now) ??
     gateCoalescing(ctx.recentSameCategoryDeliveries, ctx.now) ??
-    gateDailyCap(ctx.device, ctx.instantDeliveriesToday) ?? { action: 'send' }
+    gateDailyCap(ctx.device, ctx.instantDeliveriesToday) ??
+    gateHardCeiling(ctx.totalDeliveriesToday) ?? { action: 'send' }
   );
 }
 
@@ -186,6 +228,29 @@ export function startOfLocalDay(tz: string, now: Date): Date {
     d.setUTCHours(0, 0, 0, 0);
     return d;
   }
+}
+
+/** Gate 6's (Phase 5 hard ceiling) counter — EVERY delivery kind (instant +
+ * digest + fun) already sent since the start of the device's current local
+ * day, unlike the router's instant-only daily-cap count. Lives here (not
+ * notification-router.ts) so notification-digest.ts and
+ * notification-fun.ts can both import it without a router<->digest
+ * circular import (the router already imports notification-digest.ts for
+ * enqueueForDigest). */
+export async function totalDeliveriesToday(
+  db: SupabaseClient,
+  deviceId: string,
+  tz: string,
+  now: Date,
+): Promise<number> {
+  const since = startOfLocalDay(tz, now).toISOString();
+  const { count, error } = await db
+    .from('deliveries')
+    .select('id', { count: 'exact', head: true })
+    .eq('device_id', deviceId)
+    .gte('sent_at', since);
+  if (error) throw new Error(`hard-ceiling count: ${error.message}`);
+  return count ?? 0;
 }
 
 /** Minutes to ADD to local time to get UTC, at the given instant (handles
