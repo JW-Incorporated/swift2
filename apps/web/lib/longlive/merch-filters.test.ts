@@ -148,10 +148,23 @@ describe('merchItemImage', () => {
     // luxury PDPs, discontinued items, resolvable-but-not-found domains) or
     // single-product moments with no moment photo either — a real,
     // intended composition shift, not a regression.
-    expect(split).toBe(80);
-    expect(product).toBe(7);
-    expect(moment).toBe(12);
-    expect(monogram).toBe(1);
+    // 80/7/12/1 -> 91/8/1/0 (kanban task t_fa7bfb57 round 3, 2026-08-31):
+    // completed the imageUrl audit — 99/100 content-vault products now have a
+    // real, curl-verified retailer photo (up from 87/100); only the David
+    // Koma "Flounce One Sleeve Sequin Mini Dress" (evermore.mjs) remains
+    // without one, as no retailer page or reseller listing with a fetchable
+    // product image could be located for that exact FWRD SKU after
+    // exhaustive search. Every moment that previously fell back to a shared
+    // moment photo or the monogram tile now renders its own product photo
+    // (split when the moment also has a real photo, product-only otherwise)
+    // — a real, intended composition shift, not a regression. The single
+    // remaining monogram->moment case is that one unfixable David Koma
+    // product, which correctly falls back to its moment's real photo since
+    // it's the only product in that moment.
+    expect(split).toBe(91);
+    expect(product).toBe(8);
+    expect(moment).toBe(1);
+    expect(monogram).toBe(0);
     expect(split + product + moment + monogram).toBe(100);
   });
 

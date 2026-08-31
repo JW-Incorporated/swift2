@@ -2908,6 +2908,11 @@ export default {
             item: 'Louise PM Earrings',
             retailer: 'louisvuitton.com',
             url: 'https://us.louisvuitton.com/eng-us/products/louise-pm-earrings-s00-nvprod2950037v/M00396',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer photo via
+            // Poshmark listing of the same authenticated LV product
+            // (louisvuitton.com itself blocks non-browser fetches), curl-verified
+            // 200 image/jpeg.
+            imageUrl: 'https://di2ponv0v5otw.cloudfront.net/posts/2023/03/16/6412e007e6b37b6c6c5dd435/m_6412e007e6b37b6c6c5dd436.jpg',
             matchTier: 'unscored',
             kind: 'jewelry',
             price: '$590.00',
@@ -3197,6 +3202,9 @@ export default {
             item: 'Heavy Cotton T-Shirt (G500) — Orange',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Gildan-Cotton-T-Shirt-Orange-Medium/dp/B00I84H5AS',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer PDP image
+            // (m.media-amazon.com hiRes), curl-verified 200 image/jpeg.
+            imageUrl: 'https://m.media-amazon.com/images/I/71IeXjOJzHL._AC_UL1500_.jpg',
             matchTier: 'unscored',
             kind: 'top',
             price: '$7.02',
@@ -5390,6 +5398,10 @@ export default {
             item: 'Crystal Embroidered Neckline and Strap Mini Dress',
             retailer: 'davidkoma.com',
             url: 'https://davidkoma.com/collections/dresses/products/crystal-embroidered-neckline-and-strap-mini-dress-black-silver',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer photo via
+            // Lyst listing (davidkoma.com own PDP is JS-rendered), curl-verified
+            // 200 image/jpeg.
+            imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/forwardforward/70f8b4ea/967x1450/david-koma-Black-Silver-Crystal-Embroidered-Strap-Mini-Dress.jpeg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$1,200.00',
@@ -5590,6 +5602,9 @@ export default {
             item: 'Teo Cashmere Short Sleeve Sweater',
             retailer: 'thereformation.com',
             url: 'https://www.thereformation.com/products/teo-cashmere-short-sleeve-sweater/1313290.html',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer PDP image
+            // (media.thereformation.com), curl-verified 200 image/jpeg.
+            imageUrl: 'https://media.thereformation.com/image/upload/f_auto,q_auto,dpr_1.0/w_800,c_scale//PRD-SFCC/1313290/CHARCOAL/1313290.1.CHARCOAL?_s=RAABAB0',
             matchTier: 'unscored',
             kind: 'knitwear',
             price: '$64.00',
@@ -5688,6 +5703,10 @@ export default {
             item: 'Check Oversized Zip Up Wool Bomber Jacket',
             retailer: 'bergdorfgoodman.com',
             url: 'https://www.bergdorfgoodman.com/p/miu-miu-check-oversized-zip-up-wool-bomber-jacket-prod189900058',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer PDP image
+            // from miumiu.com (this exact checked blouson style), curl-verified
+            // 200 image/jpeg.
+            imageUrl: 'https://www.miumiu.com/content/dam/miumiubkg_products/M/ML1/ML1398/181NF0XX7/ML1398_181N_F0XX7_S_OOO_SLF.jpg',
             matchTier: 'unscored',
             kind: 'outerwear',
             price: '$4,600.00',
