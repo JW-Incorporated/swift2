@@ -90,15 +90,18 @@ closed with every one of the five found by a probe or a named axe rule.
 
 ## Cadence & account
 
-Daily, **~08:00 AM PT** (`0 15 * * *` UTC), right after Nils's 7 AM walk so the
-two critiques land together. **Cadence pending a follow-up PR (T-8,
-`docs/TIER2-OPTIMIZATION.md` § B3): cutting to twice weekly (Tue+Fri) once
-this widened-slice redesign has landed** — per T-18 process discipline, the
-cadence flip and the live trigger/registry update land together in that
-next PR, never cadence alone. Model **Sonnet 5**, per the live trigger and
-the model tiering table in `runners.md` (this file previously said "Model
-Fable" — stale; the live trigger has run Sonnet 5). Account **Joey** (policy
-corrected 2026-08-31, D1=B). Tools:
+**Twice weekly, Tuesday + Friday, `20 18 * * 2,5` UTC** (Joey, standing agent
+authority — T-8, `docs/TIER2-OPTIMIZATION.md` § B3). Originally chartered
+daily, `0 15 * * *` UTC (~08:00 AM PT); cut to 2×/week alongside the
+widened-slice redesign (landed in #3606) so the whole-site-per-week
+coverage guarantee is preserved despite fewer runs — this is the second of
+two PRs per T-18 process discipline (prompt-file-first, never cadence
+alone; the widened slice landed first). The live trigger and this file's
+"Live trigger IDs" table in `runners.md` are updated together in this PR.
+Model **Sonnet 5**, per the live trigger and the model tiering table in
+`runners.md` (this file previously said "Model Fable" — stale; the live
+trigger has run Sonnet 5). Account **Joey** (policy corrected 2026-08-31,
+D1=B). Tools:
 Bash/Read/Write/Edit/Glob/Grep + WebSearch/WebFetch (fetch live pages; run the
 engines via `npx`; check current WCAG guidance).
 
