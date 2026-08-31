@@ -5,6 +5,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { curateCandidate } from './fanmade-discovery.mjs';
+import { currentFrom } from './sync-official.mjs';
 
 const OFFICIAL_HOST = 'store.taylorswift.com';
 const AMAZON_HOSTS = new Set(['amazon.com', 'www.amazon.com']);
@@ -37,12 +38,24 @@ function verifiedTwinUrl(verifiedAmazonTwins, sourceId) {
   return verifiedAmazonTwins instanceof Map ? verifiedAmazonTwins.get(sourceId) : null;
 }
 
+// When a scheduled sync detects a change, `plan.plan` carries only the
+// added/updated/discontinued DELTA rows — never the full catalog. Returning
+// non-null here signals authorOfficialCatalog() to merge those deltas into
+// the already-authored catalog by sourceId instead of treating them as the
+// complete product list (otherwise a single price/stock update would wipe
+// every unchanged product from the live storefront — see PR #3555 postmortem).
+function deltaRowsFromPlan(plan) {
+  if (!plan?.plan || typeof plan.plan !== 'object') return null;
+  return {
+    added: Array.isArray(plan.plan.added) ? plan.plan.added : [],
+    updated: Array.isArray(plan.plan.updated) ? plan.plan.updated : [],
+    discontinued: Array.isArray(plan.plan.discontinued) ? plan.plan.discontinued : [],
+  };
+}
+
 function productsFromPlan(plan) {
-  if (plan?.plan && typeof plan.plan === 'object') {
-    return ['added', 'updated', 'discontinued'].flatMap((key) =>
-      Array.isArray(plan.plan[key]) ? plan.plan[key] : [],
-    );
-  }
+  const deltas = deltaRowsFromPlan(plan);
+  if (deltas) return [...deltas.added, ...deltas.updated, ...deltas.discontinued];
   return Array.isArray(plan?.products) ? plan.products : [];
 }
 
@@ -53,8 +66,14 @@ function eraFor(collectionHandles, collectionEraMap) {
   return null;
 }
 
-export function authorOfficialCatalog({ plan, collectionEraMap = {}, verifiedAmazonTwins = new Map() } = {}) {
-  const catalog = [];
+export function authorOfficialCatalog({
+  plan,
+  collectionEraMap = {},
+  verifiedAmazonTwins = new Map(),
+  currentCatalog = [],
+} = {}) {
+  const deltas = deltaRowsFromPlan(plan);
+  const authored = [];
   const rejected = [];
   for (const candidate of productsFromPlan(plan)) {
     const sourceId = text(candidate?.sourceId);
@@ -78,9 +97,29 @@ export function authorOfficialCatalog({ plan, collectionEraMap = {}, verifiedAma
       verifiedAmazonUrl(twin.url) &&
       verifiedTwinUrl(verifiedAmazonTwins, sourceId) === twin.url
     ) row.altListing = { retailer: 'amazon.com', url: twin.url };
-    catalog.push(row);
+    authored.push(row);
   }
-  catalog.sort((left, right) => left.sourceId.localeCompare(right.sourceId));
+
+  let catalog;
+  let newProducts;
+  if (deltas) {
+    // Delta-sync mode: merge added/updated rows into the existing catalog by
+    // sourceId (upsert) and mark discontinued rows out-of-stock rather than
+    // dropping every unchanged product from the live storefront.
+    const merged = new Map(
+      (currentCatalog ?? [])
+        .filter((product) => text(product?.sourceId))
+        .map((product) => [product.sourceId, product]),
+    );
+    for (const row of authored) merged.set(row.sourceId, row);
+    catalog = [...merged.values()].sort((left, right) => left.sourceId.localeCompare(right.sourceId));
+    const addedIds = new Set(deltas.added.map((product) => text(product?.sourceId)).filter(Boolean));
+    newProducts = authored.filter((row) => addedIds.has(row.sourceId));
+  } else {
+    catalog = authored.sort((left, right) => left.sourceId.localeCompare(right.sourceId));
+    newProducts = catalog;
+  }
+
   return {
     catalog,
     rejected,
@@ -90,7 +129,7 @@ export function authorOfficialCatalog({ plan, collectionEraMap = {}, verifiedAma
     },
     socialDraft: {
       type: 'merch-drop-draft',
-      products: catalog.map(({ sourceId, item, url }) => ({ sourceId, item, url })),
+      products: newProducts.map(({ sourceId, item, url }) => ({ sourceId, item, url })),
     },
   };
 }
@@ -158,7 +197,16 @@ async function main() {
     const verifiedAmazonTwins = verifiedAmazonTwinsFrom(
       verifiedAmazonTwinsPath ? await readJson(verifiedAmazonTwinsPath) : {},
     );
-    const result = authorOfficialCatalog({ plan: await readJson(officialPlan), collectionEraMap, verifiedAmazonTwins });
+    // Load the catalog already checked into --write-official (if any) so a
+    // delta-only sync plan (added/updated/discontinued rows) can be merged
+    // in rather than treated as the complete catalog.
+    const currentCatalog = await currentFrom(officialOut, []);
+    const result = authorOfficialCatalog({
+      plan: await readJson(officialPlan),
+      collectionEraMap,
+      verifiedAmazonTwins,
+      currentCatalog,
+    });
     await writeModule(officialOut, 'OFFICIAL', result.catalog);
     summary.official = {
       authored: result.catalog.length,
