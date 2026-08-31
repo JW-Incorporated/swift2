@@ -45,6 +45,7 @@ import { parseFeed, looksLikeFeed } from './lib/feed.mjs';
 import { matchRule, isFresh } from './lib/filter.mjs';
 import { videoIdsIn, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
 import { buildSocialDraftPair, fetchAppearanceThumbnail } from './lib/social-draft.mjs';
+import { clampMaxPerRun } from './lib/spend-limits.mjs';
 import { emitOfficialYoutubeEvent } from './lib/emit-official-youtube-event.mjs';
 
 const INTAKE_LABEL = 'intake';
@@ -76,8 +77,11 @@ function intArg(name, fallback) {
   }
   return n;
 }
+// Hard ceiling on `--max`, independent of the dispatch input — see
+// lib/spend-limits.mjs for the full rationale (codex review, kanban
+// t_ac1281ef rounds 2-3).
 const FILE_MODE = process.argv.includes('--file');
-const MAX_PER_RUN = intArg('--max', 10);
+const MAX_PER_RUN = clampMaxPerRun(intArg('--max', 10));
 const MAX_AGE_DAYS = intArg('--max-age-days', 30);
 
 function withTimeout(promise, ms, what) {

@@ -26,6 +26,46 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 36. [BLOCKING] T-3 News Triage model trial needs a RemoteTrigger-capable session on your account — ~15 min
+
+**Filed:** 2026-08-31
+
+**Why it matters:** `docs/TIER2-OPTIMIZATION.md` T-3 (move News Triage from
+Opus to Sonnet 5, with a mandatory 2-week labeled-recall-check trial) is
+pre-approved, standing-agent-authority work — no founder decision needed on
+the *what*. The prep (recall-check trial prompt, digest-archive workflow
+step) already landed on PR #3608, and the exact application steps + recall-
+check trigger config are written out in full in `docs/agents/runners.md`
+§ "News Triage — model trial config to apply". But applying it needs the
+RemoteTrigger tool, authenticated to your account, the same limitation
+recorded in item #35 above — a docs/CI worktree sandbox has no such tool at
+all.
+
+**What to do, from a `claude.ai/code` session on your account (or one you
+explicitly point at that surface)** — exact order matters, see
+`runners.md` § "News Triage — model trial config to apply" for the full
+reasoning (archive/audit instrumentation must be live before Sonnet is,
+so no trial run goes unaudited):
+1. Merge `docs/content-ops/news-triage-trial-active` (empty file) to
+   `main` first — turns on the digest-archive step.
+2. Create the "News Triage recall check — T-3 trial" trigger per the exact
+   config in `runners.md`; record its trigger ID (not a start date yet —
+   the clock starts at step 3) in `runners.md`'s live-trigger table.
+3. Only then flip News Triage's trigger
+   (`trig_019NuR7EpN7TA28yfmzKPAC7`) from `claude-opus-4-8` to
+   `claude-sonnet-5` — `get`, edit only the model field, PUT the whole
+   `job_config` back (never a partial PUT). This PUT succeeding is the
+   trial's actual start — record that date in `runners.md`.
+4. Update `runners.md`'s live-trigger table + this item to `DONE` once
+   confirmed working (a real run, not just "created").
+
+The trial then runs 2 weeks unattended; a follow-up PR closes it out
+(revert on any FAIL, or make the Sonnet change permanent + remove the
+trial-active marker on a clean PASS) — no further human action needed
+until that verdict.
+
+**Status:** OPEN
+
 ### 35. [BLOCKING] Vault Phase 4 needs a RemoteTrigger-capable session on your account — the disable step can't run from a docs/CI sandbox — ~10-20 min
 
 **Filed:** 2026-08-31
@@ -73,6 +113,47 @@ the *what*. But two things stop an agent from finishing it today:
 Actions-minutes delta, per the plan's own Phase 4 instructions.
 
 **Status:** OPEN
+
+---
+
+### 36. Apply the Kevin daily-desk trigger cutover (T-10) — needs Joey's Claude account
+
+**Filed:** 2026-08-31
+
+**Status:** OPEN
+
+**Why it matters:** Tier-2 T-10 consolidates Kevin's three separate cloud
+routines (S1 Karen solver, S2 user digest, S3 eng triage) into one daily
+"Kevin — daily desk" session, saving ~1 cold-boot session/day plus a weekly
+Opus→Sonnet substitution. The prompt file
+(`docs/agents/runner-prompts/kevin-desk.md`) and the exact trigger spec +
+cutover sequence (`docs/agents/runners.md` § "Kevin — daily desk
+consolidation") are both landed and ready. No agent session can finish
+this: `RemoteTrigger` create/update/run needs a session authenticated to
+the account the fleet runs on (Joey's), which a headless repo session
+cannot reach.
+
+**Time-sensitive sub-item:** while this cutover is pending, the still-live
+`kevin-stream2-digest.md` trigger's inline prompt is stale on a real
+authority question — it was corrected in-repo (2026-08-31, restricting
+Accept/Reject digest decisions to Joey only, per `CLAUDE.md`'s sole-
+decision-maker rule) but the LIVE trigger's inline prompt has not been
+re-synced from the file yet (same `RemoteTrigger` access gap). Until either
+this re-sync or the full desk cutover happens, a `wjduvall-cmd` checkbox on
+the live Stream 2 digest could still be actioned by the old inline prompt.
+Re-sync `kevin-stream2-digest.md`'s current content to the live trigger
+(`trig_0136mXcpmzn6mYtYoUQC3eGP`) as a priority first step, even ahead of
+the full T-10 cutover if that takes longer to schedule.
+
+**What to do:** either run this yourself in a Claude session logged into
+your account, or tell a session in chat to do it and it will follow the
+cutover sequence in `runners.md` § "Kevin — daily desk consolidation"
+exactly (create the new trigger → test-run once → disable S2/S3's
+superseded triggers as soon as verified → **wait for a Sunday run to
+verify Stream 1 before disabling its old trigger** → record the new
+trigger ID → update the Live trigger IDs table). Takes one `job_config`
+round-trip per step; ~10–15 minutes for S2/S3, plus one follow-up Sunday
+check for S1 if today isn't Sunday.
 
 ---
 

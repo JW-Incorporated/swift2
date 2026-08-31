@@ -1,5 +1,11 @@
 import { describe, expect, it, vi } from 'vitest';
-import { buildSocialDraftPair, fetchAppearanceThumbnail, verifyTaylorPresence } from './social-draft.mjs';
+import {
+  buildSocialDraftPair,
+  fetchAppearanceThumbnail,
+  verifyTaylorPresence,
+  MAX_VERIFY_CALLS_PER_PROCESS,
+  _resetVerifyCallCountForTests,
+} from './social-draft.mjs';
 import { validateQueueItem } from '../../social/lib/queue-schema.mjs';
 import { checkSchema, checkOpeners, checkCrossPostCopy, checkLength } from '../../social/check-drafts.mjs';
 import { weightedTweetLength } from '../../social/lib/x-length.mjs';
@@ -197,6 +203,27 @@ describe('verifyTaylorPresence', () => {
     }));
     const result = await verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: 'k', fetchImpl });
     expect(result).toEqual({ taylor_present: true, confidence: 0.92, reason: 'clear photo' });
+  });
+
+  it('hard-caps total calls per process, independent of caller input (codex review round 2)', async () => {
+    _resetVerifyCallCountForTests();
+    const fetchImpl = vi.fn(async () => ({
+      ok: true,
+      json: async () => ({
+        content: [{ type: 'tool_use', name: 'record_taylor_presence', input: { taylor_present: true, confidence: 0.9, reason: 'ok' } }],
+      }),
+    }));
+    for (let i = 0; i < MAX_VERIFY_CALLS_PER_PROCESS; i += 1) {
+      await verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: 'k', fetchImpl });
+    }
+    expect(fetchImpl).toHaveBeenCalledTimes(MAX_VERIFY_CALLS_PER_PROCESS);
+    await expect(verifyTaylorPresence(Buffer.from('x'), 'image/jpeg', { apiKey: 'k', fetchImpl })).rejects.toThrow(
+      /vision call cap/,
+    );
+    // The (MAX_VERIFY_CALLS_PER_PROCESS + 1)th attempt must fail closed WITHOUT
+    // spending a call — the network mock's call count must not have advanced.
+    expect(fetchImpl).toHaveBeenCalledTimes(MAX_VERIFY_CALLS_PER_PROCESS);
+    _resetVerifyCallCountForTests();
   });
 });
 
