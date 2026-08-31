@@ -32,7 +32,7 @@ import {
   renderMerchShopLink,
   SHOP_DISCLOSURE,
 } from '@/lib/longlive/shop';
-import type { MerchItem } from '@/lib/longlive/merch';
+import { merchProductJsonLd, type MerchItem } from '@/lib/longlive/merch';
 
 function isRemoteUrl(url: string): boolean {
   return /^https?:\/\//.test(url);
@@ -100,11 +100,24 @@ export function MerchCard({ item }: { item: MerchItem }) {
         }
       : renderMerchShopLink({ ...item, ...item.altListing })
     : undefined;
+  // SEO (SPEC.merch-autonomy.md §9): schema.org Product JSON-LD, `offers`
+  // included only when merchProductJsonLd() itself finds a fresh,
+  // machine-verified price+stock pair — never asserted here.
+  const productJsonLd = merchProductJsonLd(item);
 
   return (
     <li
       className={`border border-[color:var(--merch-line)] bg-[color:var(--merch-ink-2)]${soldOut ? ' opacity-50' : ''}`}
     >
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        // Derived from authored/verified catalogue data, not user input —
+        // the `<` strip matches app/layout.tsx's existing JSON-LD script.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <div
         className={
           image.kind === 'split'
