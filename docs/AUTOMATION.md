@@ -184,7 +184,7 @@ call a model are separate **manually confirmed** workflows.
 |---|---|---|
 | [`dependabot-alerts-snapshot.yml`](../.github/workflows/dependabot-alerts-snapshot.yml) | Mon 21:00 (one hour before Paul Blart's patrol) | header — exists because the routine's own token 403s on the alerts API |
 | [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | header — Facebook has no API for non-administered groups, so this stays a human task |
-| [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:00 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The Claude-routine half is the Routine Auditor's weekly comment, see below |
+| [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The Claude-routine half is the Routine Auditor's weekly comment, see below |
 
 ### Dependabot update schedules (2) — config, not workflows
 
