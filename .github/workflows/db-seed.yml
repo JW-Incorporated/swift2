@@ -1,0 +1,97 @@
+# Generic production DB seed runner (retires manual HUMAN-ACTIONS #24 runs
+# and any future db:seed:* command).
+#
+# workflow_dispatch ONLY — seeds are operator-triggered, never automatic.
+# Pick a `target`; this maps 1:1 to one of the db:seed* npm scripts via a
+# fixed allowlist (no interpolation), materializes an ephemeral
+# apps/worker/.env from scripts.SUPABASE_DB_URL for the run, and removes it
+# afterwards. The step summary reports target/success only — never a URL,
+# credential, or raw command error.
+name: db-seed
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Which seed to run"
+        required: true
+        type: choice
+        options:
+          - eras
+          - content
+          - tracks
+          - releases
+          - tours
+          - theories
+          - videos
+
+permissions:
+  contents: read
+
+concurrency:
+  group: db-seed
+  cancel-in-progress: false
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Preflight — confirm SUPABASE_DB_URL is configured
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if [ -z "$SUPABASE_DB_URL" ]; then
+            echo "FAIL: SUPABASE_DB_URL secret is not configured in repo Actions secrets. Nothing was run."
+            exit 1
+          fi
+          echo "SUPABASE_DB_URL is configured."
+      - name: Materialize ephemeral apps/worker/.env
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          trap 'rm -f apps/worker/.env' EXIT
+          mkdir -p apps/worker
+          umask 077
+          printf 'SUPABASE_DB_URL=%s\n' "$SUPABASE_DB_URL" > apps/worker/.env
+          echo "apps/worker/.env materialized (contents not printed)."
+      - name: Run selected seed
+        id: seed
+        env:
+          TARGET: ${{ inputs.target }}
+        run: |
+          trap 'rm -f apps/worker/.env' EXIT
+          case "$TARGET" in
+            eras)     npm run db:seed ;;
+            content)  npm run db:seed:content ;;
+            tracks)   npm run db:seed:tracks ;;
+            releases) npm run db:seed:releases ;;
+            tours)    npm run db:seed:tours ;;
+            theories) npm run db:seed:theories ;;
+            videos)   npm run db:seed:videos ;;
+            *)
+              echo "FAIL: unrecognized target '$TARGET'"
+              exit 1
+              ;;
+          esac
+      - name: Clean up ephemeral env file
+        if: always()
+        run: rm -f apps/worker/.env
+      - name: Step summary
+        if: always()
+        run: |
+          {
+            echo "### db-seed"
+            echo "- target: \`${{ inputs.target }}\`"
+            if [ "${{ steps.seed.outcome }}" = "success" ]; then
+              echo "- result: success"
+            else
+              echo "- result: failed (see job log for the script's own error message)"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

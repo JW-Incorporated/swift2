@@ -98,13 +98,28 @@ the real script), confirmed it relocates cleanly with no duplicate-key error,
 and confirmed a second run is a clean no-op (215 rows both times). PR:
 `docs/2026-08-26-decisions-and-seed-fix` branch.
 
-**Steps:**
-1. Once that PR merges to `main`, from a checkout with `apps/worker/.env`,
-   just run: `npm run db:seed:videos`. Nothing else needed — content and
-   theories are already caught up.
+**Update (2026-08-31):** DB migrate/seed operations are now automated via
+GitHub Actions instead of a laptop command. This item's residual form:
 
-**Worked if:** the command prints `seeded videos: N from 12 file(s)` with no
-error, and production's `video_work` table matches `supabase/seed/videos/**`.
+**One-time setup (founder-only, do once):**
+1. Set the repo Actions secret (nobody else can — `gh secret set` is
+   guard-denied for agents):
+   `gh secret set SUPABASE_DB_URL --repo JW-Incorporated/swift2`
+2. Trigger `db-migrate` once from the Actions tab and confirm it's green:
+   `https://github.com/JW-Incorporated/swift2/actions/workflows/db-migrate.yml`
+   (Run workflow → main)
+3. Trigger `db-seed` once with `target: videos` and confirm it's green:
+   `https://github.com/JW-Incorporated/swift2/actions/workflows/db-seed.yml`
+   (Run workflow → target = videos)
+
+**After that:** all future migrations run automatically on merge to `main`
+(any change under `supabase/migrations/**` triggers `db-migrate`), and every
+seed (`eras`, `content`, `tracks`, `releases`, `tours`, `theories`, `videos`)
+is a one-click dispatch from the `db-seed` Actions tab with a `target`
+dropdown — no checkout, no `.env`, no laptop command, ever again.
+
+**Worked if:** both workflow runs above show green in the Actions tab, and
+production's `video_work` table matches `supabase/seed/videos/**`.
 
 **Status:** OPEN
 
