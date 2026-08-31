@@ -576,12 +576,19 @@ describe('E4 official-store sync', () => {
     ).toEqual({ added: [], updated: [], discontinued: [] });
   });
 
-  it('keeps the twice-daily workflow zero-LLM and detector-only', () => {
+  it('keeps the twice-daily detect job zero-LLM and detector-only', () => {
     const workflow = readFileSync('.github/workflows/merch-official-sync.yml', 'utf8');
 
     expect(workflow).toContain("cron: '17 8,20 * * *'");
     expect(workflow).toContain('sync-official.mjs --detect --write-plan official-sync-plan.json');
     expect(workflow).toContain('actions/upload-artifact@v6');
-    expect(workflow).not.toMatch(/(ask-|openai|anthropic|gemini|social\/post-queue|git push)/i);
+    // No model/paid-search calls anywhere in this workflow (detect OR the
+    // deterministic `author` follow-on job) — authorOfficialCatalog() is a
+    // pure function, so the authoring job legitimately writes the catalog
+    // and pushes a gated PR branch (git push), unlike merch-matcher-
+    // authoring.yml/merch-audit-authoring.yml, which spend against a model
+    // or paid API and are therefore separate, manually-confirmed workflows
+    // instead of a same-workflow follow-on job.
+    expect(workflow).not.toMatch(/(ask-|openai|anthropic|gemini|social\/post-queue)/i);
   });
 });

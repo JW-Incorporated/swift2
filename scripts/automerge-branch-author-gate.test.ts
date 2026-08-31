@@ -24,6 +24,7 @@ describe('isContentLaneBranch', () => {
       'social-poster/state-': 'social-poster/state-20260824153850',
       'appearance-discovery/': 'appearance-discovery/123456789',
       'merch-revenue/': 'merch-revenue/123456789',
+      'merch-official-sync/': 'merch-official-sync/123456789',
     };
     for (const [prefix, example] of Object.entries(examples)) {
       expect(isContentLaneBranch(example), example).toBe(true);

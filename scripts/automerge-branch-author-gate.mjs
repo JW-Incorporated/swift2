@@ -57,6 +57,7 @@ export const CONTENT_LANE_BRANCH_PREFIXES = [
   'social-poster/state-', // docs/agents/growth.md + docs/decisions.md 2026-08-12 (#2031 ledger PRs)
   'appearance-discovery/', // .github/workflows/appearance-discovery.yml + docs/decisions.md 2026-08-25 (fast-lane social drafts)
   'merch-revenue/', // .github/workflows/merch-revenue.yml (weekly generated report PRs)
+  'merch-official-sync/', // .github/workflows/merch-official-sync.yml's `author` job (E4 catalog + store-drop social draft PRs)
 ];
 
 /**
