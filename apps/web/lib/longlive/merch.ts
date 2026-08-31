@@ -71,7 +71,36 @@ export interface MerchCatalogue {
   fanMade: readonly MerchItem[];
 }
 
-function shopTheLookItems(): MerchItem[] {
+/**
+ * Minimal shape shopTheLookItemsFrom() needs from a moment — deliberately
+ * NOT the full ContentItem, so this can be exercised directly with tiny
+ * fixtures in tests (no need to fabricate a whole real moment's worth of
+ * required fields, and no risk of the fixture accidentally matching a real
+ * production moment's shape).
+ */
+export interface MomentPhotoInput {
+  id: string;
+  eraId: EraId;
+  slug?: string;
+  title: string;
+  /** The moment's real primary photo URL, or undefined if it has none
+   *  (mirrors `hasRealPrimaryImage(moment) ? primaryImage(moment) : undefined`). */
+  momentPhotoUrl: string | undefined;
+  products: readonly Product[];
+}
+
+/**
+ * The claim-and-demote core of shopTheLookItems(), extracted so it can be
+ * unit-tested directly against small fixtures rather than only indirectly
+ * through the real (718-moment) production CONTENT vault — see
+ * merch.test.ts's "demotes a product whose moment photo is claimed by an
+ * EARLIER SPLIT CARD from a different moment" test, which exercises the
+ * exact split-card-claims-first scenario that caused kanban task
+ * t_cfd48d66: a product's own imageUrl produces a 'split' card
+ * (merchItemImage()) whose moment half still renders the shared photo, so
+ * it must count as a claim even though the product itself is never demoted.
+ */
+export function shopTheLookItemsFrom(moments: readonly MomentPhotoInput[]): MerchItem[] {
   const items: MerchItem[] = [];
   // Claimed moment-photo URLs, tracked GLOBALLY across every moment in this
   // one pass — not reset per moment. A per-moment scope only caught 2+
@@ -86,12 +115,8 @@ function shopTheLookItems(): MerchItem[] {
   // still renders normally as that moment's hero everywhere else; only its
   // reuse as a SECOND shop-the-look product card image is demoted.
   const claimedMomentPhotoUrls = new Set<string>();
-  for (const moment of CONTENT) {
-    // Whether this moment even HAS a real (non-era-art) photo to share in
-    // the first place — only relevant when deciding whether a later
-    // product without its own imageUrl would otherwise repeat it.
-    const momentHasRealPhoto = hasRealPrimaryImage(moment);
-    const momentPhotoUrl = momentHasRealPhoto ? primaryImage(moment) : undefined;
+  for (const moment of moments) {
+    const momentPhotoUrl = moment.momentPhotoUrl;
     for (const product of moment.products ?? []) {
       // Whether THIS product's card would put the moment photo on screen at
       // all — either alone (merchItemImage()'s 'moment' kind, no product
@@ -129,6 +154,19 @@ function shopTheLookItems(): MerchItem[] {
     }
   }
   return items;
+}
+
+function shopTheLookItems(): MerchItem[] {
+  return shopTheLookItemsFrom(
+    CONTENT.map((moment) => ({
+      id: moment.id,
+      eraId: moment.eraId,
+      slug: moment.slug,
+      title: moment.title,
+      momentPhotoUrl: hasRealPrimaryImage(moment) ? primaryImage(moment) : undefined,
+      products: moment.products ?? [],
+    })),
+  );
 }
 
 const MERCH_KINDS: ReadonlySet<NonNullable<Product['kind']>> = new Set([
