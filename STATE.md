@@ -1,130 +1,167 @@
-# STATE — t_cc9863cb (Notifications Phase 5: Remaining categories + governor polish)
+# STATE — t_edb92b70 (Notifications Phase 6: Web push + analytics, final phase)
 
 ## Current task
 
-Notifications Phase 5 implementation complete, scoped strictly to
-NOTIFICATIONS_PLAN.md's Phase 5 line item: producer wiring for
-`relationship_news`, `public_appearance`, `award_news`, `fan_merch`, and
-instant-tier `easter_egg`; the auto-cooldown job (30-day non-openers
-downgraded Instant→Daily plus one notice push, spec §6); and enforcement of
-the 6/day hard ceiling (instant + scheduled combined) with tests. Phases
-0-4 (foundations, prefs, instant pipeline, digests, fun notifications) were
-already merged to `origin/main`.
+Notifications Phase 6 implementation complete, scoped strictly to
+NOTIFICATIONS_PLAN.md's Phase 6 line item: Web Push (VAPID) + service
+worker on longlivets.com registering `platform='web'` devices through the
+existing pipeline unchanged; notification-open tracking writing
+`deliveries.opened_at`; an internal metrics dashboard (opt-in rate, open
+rate by category, mute-within-1h rate, master-off rate); and a flag/report
+for any category exceeding the 2% mute-after-push threshold (spec §11).
+Phases 0-5 were already merged to `origin/main`; this task also merged the
+open Phase 5 PR (#3581, reviewed/approved) since it was the last gate
+blocking this final phase.
 
-## Producer wiring (spec §4 categories)
+**This is the final phase of the plan — the full notification system is
+now code-complete across all 7 phases (0-6).**
 
-- **`relationship_news`, `public_appearance`, `award_news`** — extended the
-  SAME Phase 2 seam (`apps/worker/src/extract/write-knowledge.ts`'s
-  `writeCurrentItem()` → `emitLaunchCategoryEvent()`). The
-  news/extraction pipeline already classifies `current_item.category` as
-  `relationship`/`award`, and `sighting`/`statement` both map to
-  `public_appearance` per spec §4 ("public_appearance intentionally
-  absorbs TV/interview appearances"). No new detector — this is the "map
-  each to whatever existing detection pipeline is closest" case, gated on
-  `statusHint === 'confirmed'` exactly like the Phase 2 launch categories
-  (T1/T2/T3 tier doesn't change the confirmed-only discipline; a false
-  "confirmed" push on relationship news is the highest-harm case in the
-  whole taxonomy).
-- **`easter_egg` instant tier** — wired into `upsertLiveTheory()`'s
-  fresh-insert branch only (never on a heat/last-seen bump), so a theory
-  that gets re-mentioned notifies once per theory lifetime, not on every
-  re-observation. The Weekly Clown Report digest (Phase 3) is unaffected —
-  this only adds the Instant cadence option spec §4 lists for `easter_egg`.
-- **`fan_merch`** — new producer script
-  (`scripts/merch-engine/emit-fanmade-event.mjs`), mirroring
-  `emit-official-merch-event.mjs`'s Phase 2 seam one level up:
-  `authorFanmadeCatalog()` (`scripts/merch-engine/author-catalogs.mjs`) now
-  returns a `socialDraft` and calls the emitter from its CLI `main()`.
-  **FLAGGED**: unlike `official_merch`, there is no scheduled GitHub
-  Actions workflow that invokes the fanmade authoring lane today (grep of
-  `.github/workflows/*.yml` confirms `merch-fanmade.yml` only files
-  candidate issues and `merch-e5-evidence.yml` only collects raw evidence;
-  neither calls `author-catalogs.mjs --fanmade-curation`). The producer
-  code is real (not a fake stub) and fires correctly whenever a founder or
-  a future workflow runs the authoring CLI — it just isn't on a cron yet.
-  Flagged here and in the PR body per this task's instruction to flag
-  rather than invent a fake automated detector.
+## Web Push implementation (spec §3/§10)
 
-## Auto-cooldown job (spec §6)
+- **No new device-identity schema.** `devices.platform` already accepted
+  `'web'` (Phase 0's original check constraint) and `devices.push_token`
+  already accepted an arbitrary string — a web device's "token" is its
+  serialized `PushSubscription` JSON (`{endpoint, keys:{p256dh,auth}}`).
+  `POST /api/devices/register` needed ZERO code changes — this is the
+  literal meaning of the scope line "registering platform='web' devices
+  through the existing pipeline unchanged."
+- `packages/core/src/notification-web-push.ts` — the VAPID sender
+  (`sendWebPushBatch`), same contract as the FCM sender: one result per
+  input, degrades to a clear per-item failure (never throws) when
+  `VAPID_PUBLIC_KEY`/`VAPID_PRIVATE_KEY`/`VAPID_SUBJECT` are unset, marks
+  404/410 responses as invalid/prunable tokens (mirrors FCM's
+  UNREGISTERED/NOT_FOUND bucket).
+- `packages/core/src/notification-sender.ts`'s `sendPushBatch` now
+  partitions inputs by `platform` — `web` routes to the VAPID sender,
+  everything else (the default, every pre-Phase-6 call site) keeps using
+  FCM unchanged. Every router/digest/fun/cooldown call site now passes
+  `platform: device.platform` through; verified with a new router
+  acceptance test proving a `platform='web'` device is routed through
+  `sendPushBatch` with `platform: 'web'` and its delivery gets logged with
+  the resulting `delivery_token` — same pipeline, same governor, same
+  dedupe, same cap logic as iOS/Android.
+- `apps/web/public/sw.js` — the service worker: renders the push
+  notification from the JSON payload (`{title, body, deepLink,
+  deliveryToken}`), and on tap reports the open via `fetch(...,
+  {keepalive:true})` to `POST /api/notifications/open` before
+  focusing/opening the right page.
+- `apps/web/lib/web-push-client.ts` — `subscribeToWebPush()` /
+  `unsubscribeFromWebPush()`: persistent localStorage device_id (web's
+  equivalent of SecureStore — same accepted-tradeoff posture as
+  `apps/mobile/lib/device-id.ts`), permission request, Push subscribe,
+  registration through the existing `/api/devices/register` route.
+- `apps/web/components/longlive/WebNotificationSettings.tsx` +
+  `/settings/notifications` — was a static "get the app" page through
+  Phase 1-5 (spec §3: "no anonymous device identity on web yet"); now
+  renders the real subscribe flow and, once subscribed, the full settings
+  screen against the SAME `/api/devices/:id/prefs` route + `@swift2/shared`
+  types the mobile apps already use.
 
-New module `packages/core/src/notification-cooldown.ts`:
-`isCooldownEligible()` is a pure decision function (device has >=1
-`instant` pref, has delivery history older than 30 days, and zero
-`opened_at` within the last 30 days); `runCooldownPass()` is the DB
-orchestration — downgrades every `instant` pref to `daily` and sends the
-one required "We've quieted things down" notice push. Wired into
-`/api/notifications/dispatch` alongside every other pass.
+## Open tracking (spec: "notification-open tracking writing deliveries.opened_at")
 
-**FLAGGED**: `deliveries.opened_at` (the column this job reads) already
-exists in the schema (Phase 2 migration) but the client callback that
-SETS it on a real notification open is Phase 6 scope
-(NOTIFICATIONS_PLAN.md Phase 6: "notification-open callback →
-deliveries.opened_at") and is not wired yet. This job is written against
-the correct spec §6 semantic (not a last-seen-at proxy) so it needs no
-rework once Phase 6 lands the callback; until then every delivery's
-`opened_at` is null, so any device with an `instant` pref and 30+ days of
-delivery history is cooldown-eligible in production today. Flagged here,
-in the module's own header comment, and in the PR body.
+- New migration `supabase/migrations/20260914000000_notifications_web_push.sql`
+  adds `deliveries.delivery_token` (opaque UUID, unique, backfilled on
+  every existing row) — a pre-generated per-send correlation id embedded in
+  the push payload at send time (both FCM's `data.deliveryToken` and web
+  push's JSON body) and stored on the `deliveries` row at insert time. Every
+  delivery-insert call site across router/digest/fun/cooldown now writes
+  this column.
+- `packages/core/src/notification-metrics.ts`'s `markDeliveryOpened()` —
+  idempotent lookup-by-token write to `opened_at`; a second call for an
+  already-opened delivery reports `alreadyOpened: true` without
+  overwriting the first timestamp (both the mobile deep-link handler and
+  the web service worker's `notificationclick` can fire this on the same
+  tap without double-processing).
+- `POST /api/notifications/open` (`apps/web/app/api/notifications/open/route.ts`)
+  — the HTTP entry point the service worker calls. Deliberately
+  unauthenticated beyond the token itself (a random UUID scoped to exactly
+  one delivery); degrades to a soft 200 (`tracked:false`) on any failure
+  mode (unconfigured env, unknown token, db error) since this call has no
+  UI to show an error in and must never block the user reaching the
+  notification's destination.
 
-## Hard ceiling (spec §6.4, "combined instant+scheduled can never exceed
-6/day, hard ceiling")
+## Metrics dashboard (spec §11)
 
-New Governor gate 6 (`packages/core/src/notification-governor.ts`):
-`gateHardCeiling()` + `HARD_CEILING_PER_DAY = 6`, run last in
-`evaluateGovernor()` (after master/snooze, quiet hours, coalescing, and
-the existing per-category daily cap). Counts EVERY delivery kind (instant
-+ digest + fun), not just instant — `totalDeliveriesToday()` (also in
-notification-governor.ts, to avoid a router↔digest circular import) is the
-shared counter, called by the router's instant-send path, the digest
-dispatch loop, the Weekly Clown Report send, the fun-notification
-dispatch loop, and the countdown dispatch loop. A ceiling-blocked digest's
-queued rows stay queued (same "wait, don't drop" posture as the existing
-send-window hold) rather than being lost.
+- `packages/core/src/notification-metrics.ts` — pure compute functions
+  (`computeOpenRateByCategory`, `computeMuteRateByCategory`,
+  `computeMetrics`) over already-loaded rows, unit-tested directly with
+  hand-built fixtures (adversarial cases: mute AFTER the 1h window doesn't
+  count, mute BEFORE the send doesn't count, a mute for a different device
+  never counts against this one); `loadMetrics()` is the thin 30-day-window
+  DB orchestration layer.
+- `MUTE_RATE_FLAG_THRESHOLD = 0.02` (spec §11: "Any push type whose mute
+  rate exceeds ~2% gets reviewed") — `computeMetrics().flaggedCategories`
+  is the flag/report this phase's scope line asks for.
+- `GET /api/notifications/metrics` + `/internal/notifications` (server-
+  rendered page) — both gated by a single shared `NOTIFICATIONS_DASHBOARD_SECRET`
+  query param rather than a login system (an openable link, not a public
+  page or a curl target) — see SETUP_NOTIFICATIONS.md for the tradeoff
+  reasoning and setup.
+- `optInRate` is honestly labeled a PROXY (devices-with-a-push-token ÷ all
+  devices) for spec §11's true metric (opt-in ÷ pre-permission-screen
+  viewers) — this app has no event for "viewed the screen but declined,"
+  so the dashboard reports what it CAN measure rather than fabricating the
+  denominator. Documented in the module, the route, and the page itself.
 
-## Non-negotiable acceptance test
+## Non-negotiable acceptance criteria (per this task's own instructions)
 
-`notification-cooldown.test.ts`'s "ACCEPTANCE: a seeded stale device (old
-deliveries, zero opens in 30d) is eligible" / "ACCEPTANCE: downgrades a
-seeded stale device and sends exactly one notice push" tests are the
-plan's stated Phase 5 acceptance criterion ("cooldown job verified against
-a seeded stale device"), plus adversarial cases: an engaged device
-(recent open) is never downgraded, a fresh device (no delivery history
-yet) is never downgraded, and an open exactly at the 30-day cutoff still
-counts as recent.
+- "A web device receives a digest through the same pipeline" —
+  `notification-router.test.ts`'s new ACCEPTANCE test proves a
+  `platform='web'` device opted into `song_drop` instant gets routed
+  through `sendPushBatch` with `platform: 'web'`, and its delivery is
+  logged with the returned `delivery_token` — same governor, same dedupe,
+  same everything as iOS/Android, just a different wire at the very last
+  step.
+- "The dashboard renders real delivery data (use test/seeded data since
+  there's no real traffic yet — clearly label it as such)" — the
+  dashboard's `hasData: false` state (zero devices) renders an explicit
+  "No devices registered yet... every number below is seeded/test data"
+  banner rather than misleading zeros; `computeMetrics`'s test suite
+  proves the real math against hand-seeded fixtures matching the shape
+  real traffic will eventually produce.
 
-**Hard ceiling (round 2 addition, per review feedback):**
-`notification-governor.test.ts` now covers `gateHardCeiling()` directly
-(under/at/over the ceiling, `undefined` skips the gate) plus
-`evaluateGovernor()` precedence (a snoozed-and-over-ceiling device reports
-`snoozed`, never `hard_ceiling`; a device under its per-category
-`daily_cap` but at the device-wide ceiling correctly reports
-`hard_ceiling`). Call-site coverage: `notification-router.test.ts` proves
-a device at 6 total deliveries today gets nothing further even with 0
-song_drop instant sends so far; `notification-digest.test.ts` proves a
-ceiling-blocked digest's queue rows stay queued, not dropped;
-`notification-fun.test.ts` proves the same for lyric/on-this-day/countdown
-dispatch.
+## Founder-only remaining (see SETUP_NOTIFICATIONS.md Phase 6 addendum)
 
-## Scope note
+1. **VAPID production keypair** — `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY`
+   / `VAPID_SUBJECT` + `NEXT_PUBLIC_VAPID_PUBLIC_KEY` as Vercel env vars. A
+   **dev/local keypair was generated tonight** (`node
+   scripts/generate-vapid-keys.mjs`, safe within agent authority — this is
+   just asymmetric key material, no account/billing, same posture as the
+   task's own explicit authorization) purely to prove the send path
+   end-to-end in this sandbox; it is NOT committed anywhere and NOT wired
+   into any deployed environment, so nothing sends in staging/production
+   until this step is done.
+2. **NOTIFICATIONS_DASHBOARD_SECRET** — a random 32+ char string as a
+   Vercel env var, gating `/internal/notifications`.
+3. Everything else from Phases 0-5's founder-only items (Firebase/APNs
+   real credentials, Play Store/App Store access) remains as previously
+   documented — no new founder-only items beyond 1-2 above.
 
-Phase 6 (web push + analytics) NOT started — out of this task's scope per
-NOTIFICATIONS_PLAN.md. The `deliveries.opened_at` write path (notification-
-open callback) and web push registration remain Phase 6 work; the
-auto-cooldown job above is correctly written against that eventual state
-but degrades gracefully (never throws, never fabricates opens) until then.
+## Also carried from prior phases (unchanged, restated for completeness)
+
+- **Phase 4 lyric content pool is a DRAFT** (`supabase/seed/lyrics/starter-pool.mjs`,
+  224 entries, `verified: false` until founder review) awaiting founder
+  review before going live — `lyric_of_day` sends nothing until any row is
+  flipped `verified: true`.
+- No phase in this initiative has had human eyes on the actual on-device
+  UX. **Recommend a full manual walkthrough of the onboarding flow and
+  settings screen (both mobile and the new web flow) on a real
+  device/browser before this goes to production** — every acceptance
+  criterion in this plan has been proven with automated tests and source
+  inspection, never a human tapping through the actual experience.
 
 ## Verification
 
 - `npm run typecheck` — clean across all 5 workspaces.
 - `npm run lint` — 0 errors (2 pre-existing unrelated warnings in
-  scripts/merch-engine/*.test.ts, untouched by this PR).
-- `npm test` (`vitest run`) — 4377 passed, 2 skipped, 2 pre-existing
+  `scripts/merch-engine/*.test.ts`, untouched by this PR).
+- `npx vitest run` (full suite) — 4413 passed, 2 skipped, 2 pre-existing
   failures in `scripts/lib/gh.test.ts` (`Promise.withResolvers`, the same
-  Node-version/sandbox issue Phases 0-4 already documented as unrelated to
-  notifications work).
+  Node-version/sandbox issue every prior phase (0-5) documented as
+  unrelated to notifications work).
 - `npm run build --workspace=@swift2/web` — production build succeeds;
-  `/api/notifications/dispatch` route unchanged in shape, now also runs
-  the cooldown pass.
+  `/api/notifications/open`, `/api/notifications/metrics`, and
+  `/internal/notifications` all present in the route manifest.
 
 ## Architect invocations
 

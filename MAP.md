@@ -359,3 +359,27 @@ infrastructure — no new send path, reuses `sendPushBatch` and the same
 | `apps/web/app/api/notifications/dispatch/route.ts` | Now also runs `dispatchFunNotifications`, `scheduleCountdownsForPendingEvents`, `dispatchDueCountdowns` every tick |
 
 
+## Notifications Phase 6 (2026-08-31, NOTIFICATIONS_PLAN.md) — final phase, new files
+
+Web Push (VAPID) + open tracking + internal metrics dashboard. No new
+device-identity schema — `platform='web'` devices reuse the entire Phase
+0-5 pipeline unchanged (see notification-web-push.ts's header comment).
+**The full notification system is now code-complete across all 7 phases.**
+
+| Path | What |
+|---|---|
+| `supabase/migrations/20260914000000_notifications_web_push.sql` | `deliveries.delivery_token` (opaque per-send correlation id, backfilled) + a covering index for the dashboard's prefs-update queries |
+| `packages/core/src/notification-web-push.ts` | VAPID sender (`sendWebPushBatch`) — same contract/degrade-on-unconfigured posture as the FCM sender |
+| `packages/core/src/notification-sender.ts` | `sendPushBatch` now partitions by `platform`; web routes to the VAPID sender, everything else keeps using FCM. Every successful send gets a fresh `deliveryToken` |
+| `packages/core/src/notification-metrics.ts` | `markDeliveryOpened()` (open-tracking write), `computeMetrics`/`computeOpenRateByCategory`/`computeMuteRateByCategory` (pure), `loadMetrics()` (DB orchestration), `MUTE_RATE_FLAG_THRESHOLD = 0.02` |
+| `apps/web/public/sw.js` | Service worker: renders the push, reports the open on tap, focuses/opens the right page |
+| `apps/web/lib/web-push-client.ts` | `subscribeToWebPush()`/`unsubscribeFromWebPush()` — localStorage device_id, permission request, Push subscribe, registers through the existing `/api/devices/register` |
+| `apps/web/components/longlive/WebNotificationSettings.tsx` | The real settings screen once subscribed — reuses `@swift2/shared` types + the existing prefs API, same instant-apply contract as mobile |
+| `apps/web/app/settings/notifications/page.tsx` | Was a static "get the app" page (Phase 1-5); now renders `WebNotificationSettings` |
+| `apps/web/app/api/notifications/open/route.ts` (+ `.test.ts`) | `POST /api/notifications/open` — the open-tracking HTTP entry point, unauthenticated beyond the unguessable per-delivery token, degrades to a soft 200 on every failure mode |
+| `apps/web/app/api/notifications/metrics/route.ts` (+ `.test.ts`) | `GET /api/notifications/metrics` — `?secret=`-gated (`NOTIFICATIONS_DASHBOARD_SECRET`), backs the dashboard page |
+| `apps/web/app/internal/notifications/page.tsx` | The internal metrics dashboard — server-rendered, same `?secret=` gate, shows an honest "no data yet" state before real traffic |
+| `scripts/generate-vapid-keys.mjs` | `node scripts/generate-vapid-keys.mjs` — thin wrapper around `web-push`'s own VAPID keypair generator |
+
+
+

@@ -229,3 +229,118 @@ configure. One thing that DOES need founder action:
   empty and `countdowns`-opted-in devices will simply never receive a
   countdown until one does. This is expected, not a bug.
 
+## Phase 6 addendum (web push + analytics)
+
+Web Push, open tracking, and the internal metrics dashboard. Three new
+things need founder action; everything else (the service worker, the
+subscribe flow, the pipeline reuse) is already built and needs no further
+code changes once these are set.
+
+### 1. VAPID keypair — required for real web push to send
+
+VAPID (Voluntary Application Server Identification) is Web Push's
+equivalent of the FCM service-account key: it proves to the browser's push
+service (Chrome uses FCM under the hood for web too; Firefox uses Mozilla's
+autopush) that pushes are coming from this app, with no separate account
+or billing to set up — it's just a keypair.
+
+1. Generate one: `node scripts/generate-vapid-keys.mjs` (wraps the
+   `web-push` package's own generator — the SAME package
+   `packages/core/src/notification-web-push.ts` uses to send, so the keys
+   it prints are guaranteed compatible). **A dev/local keypair was already
+   generated for staging use tonight** — see item 4 below; this step is
+   for founder to generate the PRODUCTION pair (or explicitly decide to
+   keep the dev one — see that note).
+2. Set as **Vercel project env vars** (Project Settings → Environment
+   Variables), same posture as every other secret in this doc:
+   ```
+   VAPID_PUBLIC_KEY=<public half>
+   VAPID_PRIVATE_KEY=<private half — never NEXT_PUBLIC_*>
+   NEXT_PUBLIC_VAPID_PUBLIC_KEY=<same public half — this ONE IS meant to be public>
+   VAPID_SUBJECT=mailto:ops@longlivets.com
+   ```
+   `NEXT_PUBLIC_VAPID_PUBLIC_KEY` is genuinely safe to expose — it's the
+   public half of an asymmetric keypair, the same way a TLS certificate's
+   public key ships to every visitor. Only `VAPID_PRIVATE_KEY` is secret.
+3. That's it — no Firebase/Apple/Google account needed for web push
+   specifically (Chrome/Firefox handle their own push infrastructure
+   transparently once VAPID identifies the sender).
+
+### 2. Metrics dashboard secret
+
+The internal dashboard (`/internal/notifications?secret=...`, backed by
+`GET /api/notifications/metrics`) is gated by a single shared secret
+rather than a login system — it's meant to be an openable link, not a
+public page.
+
+```
+NOTIFICATIONS_DASHBOARD_SECRET=<a random 32+ char string — e.g. `openssl rand -hex 32`>
+```
+
+Set as a Vercel project env var. Once set, the dashboard is reachable at
+`https://<your-vercel-domain>/internal/notifications?secret=<that value>`
+— bookmark that full URL, don't share the bare `/internal/notifications`
+path.
+
+### 3. Nothing else — the pipeline is unchanged
+
+`platform: 'web'` devices register through the SAME
+`POST /api/devices/register` route Phase 0 built (no schema change — a web
+device's "push token" is its serialized `PushSubscription` JSON stored in
+the exact same `devices.push_token` column an FCM token uses), get the
+same prefs API, and get sent through the same
+`packages/core/src/notification-sender.ts` `sendPushBatch()` every other
+phase already calls — it just now branches on `platform` to route `web`
+devices to `notification-web-push.ts`'s VAPID sender instead of FCM. No
+env vars beyond items 1-2 above are needed for the send path itself.
+
+### 4. What's already built, waiting on VAPID_PUBLIC_KEY/VAPID_PRIVATE_KEY
+
+- `apps/web/public/sw.js` — the service worker: renders the push
+  notification, and on tap reports the open to
+  `POST /api/notifications/open` then focuses/opens the right page.
+- `apps/web/lib/web-push-client.ts` — `subscribeToWebPush()` /
+  `unsubscribeFromWebPush()`: registers the service worker, asks
+  permission, subscribes to Push, registers the device.
+- `apps/web/components/longlive/WebNotificationSettings.tsx` +
+  `/settings/notifications` — the real settings screen once subscribed
+  (was a static "get the app" page through Phase 1-5).
+- `packages/core/src/notification-web-push.ts` — the VAPID sender,
+  degrades to a clear per-item failure (not a throw) exactly like the FCM
+  sender does when its env vars are unset — **a dev/local VAPID keypair
+  was generated tonight** (not committed anywhere in this repo or its
+  history) purely to prove the send path end-to-end in this sandbox; it is
+  NOT wired into any deployed environment's Vercel env, so nothing sends
+  in staging/production until a founder completes item 1 above with either
+  that same pair (fine for continued dev/staging use) or a fresh one.
+- `packages/core/src/notification-metrics.ts` — the dashboard's query +
+  compute layer (open rate, mute-within-1h rate, master-off rate,
+  opt-in-rate proxy, and the >2% mute-rate flag from spec §11).
+- `supabase/migrations/20260914000000_notifications_web_push.sql` — adds
+  `deliveries.delivery_token` (the opaque per-send id the service worker
+  reports back on open) and a covering index for the dashboard's queries.
+  No new device-identity table — see notification-web-push.ts's header
+  comment for why.
+
+### 5. Verifying it worked
+
+Once VAPID + the dashboard secret are set:
+
+```
+# 1. Visit https://<domain>/settings/notifications, click "Enable
+#    notifications", accept the browser's permission prompt.
+# 2. Confirm a devices row landed with platform='web' and a push_token
+#    (Supabase SQL editor, or check the network tab's
+#    /api/devices/register response).
+# 3. Send it a real event through the normal pipeline (opt into song_drop
+#    at instant, insert/await a real event) OR run scripts/send-test-push.ts
+#    against that device_id — the router already treats platform='web'
+#    devices identically, no separate test script needed.
+# 4. Click the resulting browser notification — deliveries.opened_at
+#    should be set within a few seconds (Supabase SQL editor).
+# 5. Visit /internal/notifications?secret=<your secret> — should render
+#    real numbers once there's delivery history (seeded/test data is
+#    clearly labeled "no data yet" before that).
+```
+
+

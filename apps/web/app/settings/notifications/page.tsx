@@ -1,39 +1,45 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { WebNotificationSettings } from '@/components/longlive/WebNotificationSettings';
 
 // Notifications Phase 1 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §8) —
-// `/settings/notifications` on web. Per Phase 1's actual scope ("same API;
-// manages web push later, for now shows 'get the app'") and spec §3 ("Web
-// push: Phase 6, post-launch"): there is no anonymous device identity on
-// web yet (no device_id equivalent, no push token flow), so this page is
-// intentionally static — no fetch, no client component, nothing to wire to
-// the prefs API until Phase 6 ships Web Push + `platform='web'` device
-// registration. The mobile apps are the only place settings are live today.
+// `/settings/notifications` on web. Phase 1 shipped this as a static "get
+// the app" page (no anonymous device identity existed on web yet). Phase 6
+// (NOTIFICATIONS_PLAN.md: "Web Push with VAPID keys... registering
+// platform='web' devices through the existing pipeline unchanged") gives
+// web that identity, so this page now renders the real settings UI —
+// `WebNotificationSettings` handles the subscribe flow and, once
+// subscribed, the exact same prefs API the mobile apps already use.
 export const metadata: Metadata = {
   title: 'Notification settings — Long Live',
-  description: 'Manage Long Live notifications from the app. Web push is coming in a later update.',
+  description: 'Manage Long Live notifications, including web push for longlivets.com.',
   alternates: { canonical: '/settings/notifications' },
 };
 
 export default function NotificationSettingsPage() {
+  // VAPID_PUBLIC_KEY is safe to ship to the client — it's the PUBLIC half
+  // of the keypair, the same way a TLS certificate's public key is public;
+  // only VAPID_PRIVATE_KEY (server-only, never NEXT_PUBLIC_*) can actually
+  // sign push messages. See SETUP_NOTIFICATIONS.md for the full posture.
+  const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? null;
+
   return (
-    <main className="mx-auto flex min-h-[70vh] max-w-xl flex-col items-center justify-center gap-6 px-6 py-24 text-center">
+    <main className="mx-auto flex min-h-[70vh] max-w-xl flex-col items-center gap-6 px-6 py-16 text-center">
       <span className="text-4xl" aria-hidden>
         🔔
       </span>
       <h1 className="font-era text-2xl font-semibold text-ink">Notification settings</h1>
-      <p className="leading-relaxed text-ink-soft">
-        Notification settings live in the Long Live app — the master switch, quiet hours, daily
-        limit, and every category&rsquo;s cadence, all in one place, with changes applying
-        instantly.
+      <p className="max-w-md leading-relaxed text-ink-soft">
+        Get Long Live notifications right here in your browser, or in the app — the master switch,
+        quiet hours, daily limit, and every category&rsquo;s cadence, all in one place, with changes
+        applying instantly.
       </p>
-      <p className="leading-relaxed text-ink-soft">
-        Web push notifications for longlivets.com are coming in a later update. For now, get the app
-        to turn notifications on.
-      </p>
+
+      <WebNotificationSettings vapidPublicKey={vapidPublicKey} />
+
       <Link
         href="/"
-        className="mt-2 inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-bg transition-opacity hover:opacity-90"
+        className="mt-2 inline-flex items-center rounded-full border border-white/20 px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-white/40"
       >
         Back to Long Live
       </Link>
