@@ -1,5 +1,11 @@
 # The desks — agent charters
 
+**Looking for "what runs automatically and why"?** Start at
+[`../AUTOMATION.md`](../AUTOMATION.md) — the canonical index of every scheduled
+routine across all three tiers (GitHub Actions, the desk routines chartered
+here, and the product's own cron). This directory is the detail layer beneath
+it: one charter per desk.
+
 Operating model: `docs/proposals/2026-07-11-agentic-operating-model.md`
 (approved 2026-07-11, decision entry in `docs/decisions.md`). Executive
 overview lives with the founders; this directory is the runtime truth.

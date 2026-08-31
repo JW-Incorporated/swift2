@@ -1,5 +1,10 @@
 # Runner registry — who runs where, on whose tokens
 
+> **Index:** [`../AUTOMATION.md`](../AUTOMATION.md) is the one-page view of
+> every automated routine in the project, including the GitHub Actions this
+> file does not cover. This file remains the authoritative **cadence and
+> trigger-ID registry** for the Claude desk routines.
+
 **Requirement (Joey, final form 2026-07-12): ALL scheduled agent spend runs
 on Wyatt's account** — Joey is near his weekly limit; his side spends zero
 scheduled tokens. The founder split of labor: **Joey = vision, monitoring,
