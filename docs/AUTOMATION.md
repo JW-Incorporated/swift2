@@ -235,7 +235,7 @@ designed every-other-day cadence. See
 | Routine | Cadence (UTC) | Model | Charter | Reads what Tier 1 produced |
 |---|---|---|---|---|
 | Karen — scan (registered name; weekly judgment slice) | Sun 09:00 | Sonnet 5 | [`scripts/content-engine/README.md`](../scripts/content-engine/README.md) | `cie-scan.yml`'s findings |
-| Nils — site walk | Sun 14:00 | Opus 4.8 | [`agents/nils.md`](agents/nils.md) | live site |
+| Nils — site walk | Mon+Fri 14:00 | Opus 4.8 | [`agents/nils.md`](agents/nils.md) | live site |
 | Laura — a11y walk | daily 18:20 | Sonnet 5 | [`agents/laura.md`](agents/laura.md) | `a11y.yml` artifacts |
 | Paul Blart — security patrol | Mon 22:20 | Opus 4.8 | [`agents/paul-blart.md`](agents/paul-blart.md) | `dependabot-alerts-snapshot.yml` + `codeql.yml` |
 | Routine Auditor — fleet invariants | Sun 16:11 | Haiku 4.5 | [`agents/routine-invariants.md`](agents/routine-invariants.md) | the routine fleet itself |
@@ -248,7 +248,7 @@ designed every-other-day cadence. See
 | Kevin — S2 user-feedback digest | daily 15:13 | Sonnet 5 | [`kevin.md`](kevin.md) |
 | Kevin — S3 eng triage | daily 15:43 | Sonnet 5 | [`kevin.md`](kevin.md) |
 | Kevin — S3 comment radar | 01:23 + 13:23 | Haiku 4.5 | [`kevin.md`](kevin.md) |
-| Austin — build runs | daily 21:00 | Fable 5 | [`agents/austin.md`](agents/austin.md) |
+| Austin — build runs | daily 21:00 | Opus 4.8 (2-week trial 2026-08-31→2026-09-14; was Fable 5) | [`agents/austin.md`](agents/austin.md) |
 
 ### Founder-facing and social planning
 
@@ -269,7 +269,8 @@ designed every-other-day cadence. See
 
 | Routine | State | Docs |
 |---|---|---|
-| Karen Deep — agent review | ⚠️ **NOT CREATED** since it was specified 2026-08-11 | [`agents/runners.md`](agents/runners.md) § "Karen Deep — trigger config to create" + [`karen-deep-review.md`](agents/runner-prompts/karen-deep-review.md) |
+| Karen Deep — agent review | ⚠️ **APPROVED (D3=A, 2026-08-31), NOT CREATED** — spend question resolved; only the account-access mechanic remains | [`agents/runners.md`](agents/runners.md) § "Karen Deep — trigger config to create" + [`karen-deep-review.md`](agents/runner-prompts/karen-deep-review.md) |
+| Notification quality — weekly desk | ⚠️ **APPROVED (D6=A, 2026-08-31), NOT CREATED** — sequence after REC-1's dispatch heartbeat lands ([REC-1](automation/review-2026-08-31.md#rec-1) not yet landed) | [`agents/runners.md`](agents/runners.md) § "Notification-quality desk — trigger config to create" + [`agents/notification-quality.md`](agents/notification-quality.md) + [`notification-quality-run.md`](agents/runner-prompts/notification-quality-run.md) |
 
 ---
 

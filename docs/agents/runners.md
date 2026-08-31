@@ -71,8 +71,8 @@ drifts).
 | Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `0 11 * * *` | ✅ | `claude-opus-4-8` |
 | Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `20 22 * * 1` | ✅ | `claude-opus-4-8` |
 | Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `20 18 * * *` | ✅ | `claude-sonnet-5` |
-| Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ✅ | `claude-fable-5` |
-| Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `0 14 * * 0` | ✅ | `claude-opus-4-8` |
+| Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ✅ | `claude-opus-4-8` — 2-week trial 2026-08-31→2026-09-14 (was `claude-fable-5`; Joey D5=A, `decisions.md`) |
+| Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `0 14 * * 1,5` | ✅ | `claude-opus-4-8` |
 | Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `23 1,13 * * *` | ✅ | `claude-haiku-4-5-20251001` |
 | Kevin — S3 eng triage (cloud) | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | `43 15 * * *` | ✅ | `claude-sonnet-5` |
 | Kevin — S2 user-feedback digest (cloud) | `trig_0136mXcpmzn6mYtYoUQC3eGP` | `13 15 * * *` | ✅ | `claude-sonnet-5` |
@@ -94,7 +94,11 @@ counts every live trigger regardless of fleet membership, says 24/23. Both
 scopes are correct; quote whichever one your question is about.
 `bedrock nightly audit` also lives in this account's routine list but is a
 different project (per `~/Projects/CLAUDE.md`'s ownership table) — excluded
-here on purpose, not missed.
+here on purpose, not missed. **This table is live trigger IDs only** — Karen
+Deep and the new Notification-quality desk are both approved-but-not-yet-
+created (D3=A, D6=A), so neither has a row here; each is tracked in its own
+"trigger config to create" section below with full config, consistent with
+how Karen Deep has always been handled in this file.
 
 ### 2026-08-27 — Live fleet audit (Joey's account)
 
@@ -514,7 +518,7 @@ the 2026-07-25 override.
 |---|---|---|
 | Karen — nightly scan | weekly `0 9 * * 0` (Sun) — registered name; bounded weekly judgment slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
 | Kevin — S1 Karen solver *(cloud copy only)* | weekly `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` |
-| Nils — daily walk | weekly `0 14 * * 0` | `trig_013xb8Stm7m2sB6dqGePKRtr` |
+| ~~Nils — daily walk~~ **SUPERSEDED 2026-08-31 (Joey, D4=B)** — now twice weekly `0 14 * * 1,5` (Mon+Fri), see `nils.md` § Cadence and `decisions.md` § D3=A…D6=A | `trig_013xb8Stm7m2sB6dqGePKRtr` |
 | Stylist | weekly `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` |
 | Rumor Desk | every other day `47 14 */2 * *` | `trig_01QqbHr7dyttr7qijGKmCn7n` |
 | Marjorie — 8 PM delta | DISABLED | `trig_01G4GsUsphyz9LycqKjDEdi4` |
@@ -533,7 +537,7 @@ the 2026-07-25 override.
 | ~~Marjorie — 8 PM delta~~ **(DISABLED 2026-07-25, Wyatt)** | ~~`0 3 * * *`~~ | Fable | [`runner-prompts/marjorie-delta.md`](runner-prompts/marjorie-delta.md) | **Wyatt** | Cut to once-daily for sustainment mode — the morning brief stands alone. Trigger `trig_01G4GsUsphyz9LycqKjDEdi4` set `enabled:false` (not deleted; re-enable to restore). NOTE: the delta also ran an evening merge-sweep + founder-email-reply pass — those now happen only at the 6 AM brief (autonomous merge cycles cover the gap). |
 | Growth — daily draft | `0 11 * * *` (1h before Marjorie's morning brief, so its Growth line reflects a fresh queue) | Fable | [`runner-prompts/growth-draft.md`](runner-prompts/growth-draft.md) | **Wyatt** | Added 2026-07-21: the charter (`docs/agents/growth.md`) and the shipping pipeline (`social-poster.yml`) existed, but nothing was ever scheduled to run the *drafting* half — issue #864 (empty queue) sat unactioned 3 days for exactly this reason. **Since 2026-08-11 it drafts Tree's calendar rather than inventing content** |
 | Tree — weekly social plan | `0 10 * * 1` (Mondays, an hour before that day's Growth draft, so the fresh calendar is readable the same morning) | **Opus** — genuine strategy judgment; a script-and-summarize tier would restore the formula loop it exists to break | [`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md) | **Wyatt** | Added 2026-08-11 (Joey): posting was strategically random — 12 of 14 captions opened "did you know", every IG image a generic era tile, and feature launches / the six threads / Mood had never been posted about. Tree plans `social/calendar.md`; Growth executes it. Charter: [`tree.md`](tree.md) |
-| Austin — build runs ×2 | `0 16 * * *`, `0 21 * * *` | Fable | [`runner-prompts/austin-run.md`](runner-prompts/austin-run.md) | **Wyatt** | Solves work (code) |
+| Austin — build runs (historical ×2/day entry — **stale, fixed 2026-08-31 per T-19/T-11**; the charter's Cadence section correctly described the event/hourly poll all along, and the live registry above shows one daily trigger at `0 21 * * *`, now on `claude-opus-4-8` for the D5=A trial) | ~~`0 16 * * *`, `0 21 * * *`~~ superseded — see live table above | Fable (superseded — see live table above) | [`runner-prompts/austin-run.md`](runner-prompts/austin-run.md) | **Wyatt** (superseded — Joey per D1=B) | Solves work (code) |
 | Nils — daily walk | `0 14 * * *` | Fable | [`runner-prompts/nils-walk.md`](runner-prompts/nils-walk.md) — needs WebFetch tool (live-site walks) | **Wyatt** | Heavy judgment over the whole site + SEO/discoverability lens |
 | Content Shift ×2 | `0 17,23 * * *` | Fable | [`runner-prompts/content-shift-run.md`](runner-prompts/content-shift-run.md) | **Wyatt** | Heaviest: research + writing |
 | Kevin — S1 Karen solver | `17 11 * * *` | Fable | [`runner-prompts/kevin-stream1-karen.md`](runner-prompts/kevin-stream1-karen.md) | **Wyatt** | Fixes cie tickets; runs after Karen, before the brief |
@@ -541,20 +545,24 @@ the 2026-07-25 override.
 | Kevin — S3 eng triage | `43 15 * * *` | Fable | [`runner-prompts/kevin-stream3-triage.md`](runner-prompts/kevin-stream3-triage.md) | **Wyatt** | Buckets Joey's eng tickets → Austin intake |
 | Kevin — S3 comment radar | `23 1,13 * * *` | Fable | [`runner-prompts/kevin-stream3-radar.md`](runner-prompts/kevin-stream3-radar.md) — lazy: cheap poll, loads charter only on a hit | **Wyatt** | Twice daily (~6am + 6pm PT); surfaces cross-session comments — cut from hourly 2026-07-24 to reduce token burn (Wyatt) |
 | Karen — nightly scan | `0 9 * * *` — **contradicted, see "Cadence contradiction — Karen" above; evidence supports weekly** | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
-| **Karen Deep — agent review** ⚠️ **NOT YET CREATED** — config below | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
+| **Karen Deep — agent review** ⚠️ **APPROVED, NOT YET CREATED** (Joey, D3=A, 2026-08-31 — full dial; config below) | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
 | watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
 | appearance-discovery | `40 13 * * *` (GitHub Actions) | none | `.github/workflows/appearance-discovery.yml` + `scripts/appearance-discovery/` | repo | **Zero LLM (detection layer).** Polls 14 curated YouTube channel RSS feeds and files `intake` issues for new Taylor appearances; the Content Shift is the judge. No new secrets (channel RSS is keyless; only `GITHUB_TOKEN`). Runs 06:40 PT, ahead of the 10:00 PT Content Shift so fresh intake is queued. Stateless dedupe — no state file, no state PR (#2031), repo-scoped issue list only, never `/search` (#2008) |
 
-## Karen Deep — trigger config to create (2026-08-11)
+## Karen Deep — trigger config to create (2026-08-11; spend approved 2026-08-31, Joey, D3=A)
 
 **Not created by this change.** Creating it requires a session (or human)
 authenticated to the target Claude account — `RemoteTrigger` create/update/run
 works fine same-account (confirmed 2026-08-22); the only genuinely UI-only step
 is detaching the `Claude_Code_Remote` connector, which the API silently
 no-ops. This is the exact config to use; nothing runs until someone with
-account access creates it.
+account access creates it. **The spend question that gated creation is now
+resolved** — Joey approved the full dial (D3=A, 2026-08-31,
+`docs/decisions.md`) — so the only remaining blocker is the account-access
+mechanic every other not-yet-created routine in this file shares (see "Tree's
+routine does not exist yet" below), not a founder decision.
 
 | Field | Value |
 |---|---|
@@ -616,6 +624,44 @@ both a rate-limit-window problem and an all-or-nothing failure. (b)
 agent-reviewed would stay at zero forever, which is today's bug with extra steps.
 (c) *`--claims-only` focusing* — RUNBOOK.md already records that this caused a
 real miss: claim-free narrative records are exactly where fabricated events hide.
+
+## Notification-quality desk — trigger config to create (2026-08-31, T-16, D6=A)
+
+**Not created by this change** — same account-access mechanic as Karen Deep
+and Tree above. **Sequencing precondition NOT yet met**: the analysis
+(`TIER2-OPTIMIZATION.md` § T-16) says this desk should launch *after*
+REC-1's notifications-dispatch watchdog heartbeat lands
+(`docs/automation/review-2026-08-31.md#rec-1` — a `dispatch_runs` table +
+a `watchdog.yml` freshness step), so it judges data a watchdog vouches for
+rather than data from a dispatcher that could itself be silently dead.
+Verified this pass: no `dispatch_runs` table exists in
+`supabase/migrations/`, no notifications step exists in
+`.github/workflows/watchdog.yml`, no `scripts/notifications-freshness.mjs`
+exists. **Per the founder instruction not to block indefinitely**, the
+charter, prompt file, and this registry row are created now; the live
+trigger is not, and should not be, until REC-1 lands.
+
+| Field | Value |
+|---|---|
+| Name | `Notification quality — weekly desk` |
+| Account | **Joey** (fleet policy, D1=B) |
+| Model | `claude-sonnet-5` |
+| Cron (UTC) | `0 16 * * 2` — weekly, Tuesday, after a full week of Monday-anchored data is available and clear of the Sunday/Monday judgment-desk cluster (Karen, Nils, Kevin S1) |
+| Repo | `JW-Incorporated/swift2`, branch `main` |
+| Prompt | the **full text** of `docs/agents/runner-prompts/notification-quality-run.md`, verbatim |
+| MCP connectors | none |
+
+**Charter:** [`notification-quality.md`](notification-quality.md). Reads
+`/api/notifications/metrics` (open rates, mute rates, flagged categories)
+and the `deliveries` table pattern already established by that route; files
+≤5 tickets/run on over-firing or under-performing categories, one log
+issue, per the standard desk pattern.
+
+**Why it is the one new-spend Tier-2 item besides Karen Deep.** Per
+`TIER2-OPTIMIZATION.md` § T-16 / REC-7.3 and `vision.md`'s core promise
+(never over-notify), the copy that reaches a user's lock screen is the only
+user-facing surface with no judgment desk — Karen/Nils/Laura cover every
+other one. ~4 Sonnet sessions/month.
 
 ### Tree's routine does not exist yet — needs creating on Joey's account (2026-08-11, account corrected 2026-08-31 D1=B)
 
