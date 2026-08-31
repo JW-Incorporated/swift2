@@ -5,3 +5,4 @@ export * from './vault';
 export * from './map';
 export * from './current-map';
 export * from './knowledge';
+export * from './devices';

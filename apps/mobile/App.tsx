@@ -26,6 +26,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import type { VaultSkeleton } from '@swift2/core';
 import { loadSkeleton } from './lib/vault';
+import { registerDevice } from './lib/push-registration';
 import { VaultNavigator } from './components/VaultNavigator';
 
 export default function App() {
@@ -40,6 +41,18 @@ export default function App() {
     return () => {
       alive = false;
     };
+  }, []);
+
+  useEffect(() => {
+    // Notifications Phase 0: register (or refresh) this device's row on
+    // every cold start — WITHOUT ever asking for notification permission
+    // here (spec §7: never fire the OS dialog cold on first launch; that ask
+    // is Phase 2's pre-permission onboarding screen, gated on a value
+    // moment). Failures here are non-fatal to the app — logged, never
+    // surfaced as a blocking error.
+    registerDevice().catch((e) => {
+      console.warn('device registration failed', e instanceof Error ? e.message : e);
+    });
   }, []);
 
   return (
