@@ -561,7 +561,7 @@ inventory drifting ahead of reality.
 
 | Runner | Cadence | Trigger ID |
 |---|---|---|
-| Karen — nightly scan ⚠️ **stale entry, likely superseded 2026-08-23 account migration — see § T-5** | weekly `0 9 * * 0` (Sun); bounded judgment-only slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` (pre-migration ID — do not use for the T-5 rename, use `trig_01TmYaZgnecrEp9mkeV3Gq6X` from the live table instead) |
+| Karen — nightly scan | weekly `0 9 * * 0` (Sun) — registered name; bounded weekly judgment slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
 | Kevin — S1 Karen solver *(cloud copy only)* | weekly `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` |
 | ~~Nils — daily walk~~ **SUPERSEDED 2026-08-31 (Joey, D4=B)** — now twice weekly `0 14 * * 1,5` (Mon+Fri), see `nils.md` § Cadence and `decisions.md` § D3=A…D6=A | `trig_013xb8Stm7m2sB6dqGePKRtr` |
 | Stylist | weekly `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` |
@@ -589,7 +589,7 @@ inventory drifting ahead of reality.
 | Kevin — S2 user digest | `13 15 * * *` | Fable | [`runner-prompts/kevin-stream2-digest.md`](runner-prompts/kevin-stream2-digest.md) | **Wyatt** | Daily feedback digest for human accept/reject |
 | Kevin — S3 eng triage | `43 15 * * *` | Fable | [`runner-prompts/kevin-stream3-triage.md`](runner-prompts/kevin-stream3-triage.md) | **Wyatt** | Buckets Joey's eng tickets → Austin intake |
 | Kevin — S3 comment radar | `23 1,13 * * *` | Fable | [`runner-prompts/kevin-stream3-radar.md`](runner-prompts/kevin-stream3-radar.md) — lazy: cheap poll, loads charter only on a hit | **Wyatt** | Twice daily (~6am + 6pm PT); surfaces cross-session comments — cut from hourly 2026-07-24 to reduce token burn (Wyatt) |
-| Karen — weekly judgment slice (formerly "Karen — nightly scan"; T-5, 2026-08-31 — rename to apply on next trigger round-trip, see § T-5 above) | `0 9 * * 0` | Sonnet 5 | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Judgment-only pass (integrity + link-rot sweep); deterministic scan now owned by `cie-scan.yml` |
+| Karen — nightly scan | `0 9 * * *` — **contradicted, see "Cadence contradiction — Karen" above; evidence supports weekly** | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
 | **Karen Deep — agent review** ⚠️ **APPROVED, NOT YET CREATED** (Joey, D3=A, 2026-08-31 — full dial; config below) | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
