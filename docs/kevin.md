@@ -5,19 +5,30 @@ by design: [Karen](../scripts/content-engine/README.md) (the Content Integrity
 Engine) is **read-only** and never edits content; **Kevin** proposes/applies
 fixes but never files Karen's tickets and never runs or modifies Karen's engine.
 
-As of 2026-07-12 Kevin runs as **four scheduled cloud routines** on Wyatt's
-account (registered in [`docs/agents/runners.md`](agents/runners.md), prompts in
-`agents/runner-prompts/kevin-*.md`): S1 Karen solver (daily, after Karen), S2
-user digest (daily), S3 eng triage (daily), and the S3 comment radar (hourly
-06:00–22:00 PT, skipping the overnight dead hours). This replaced the earlier
-**session-scoped Claude Code cron** — it is more durable (survives session death)
-but is still an interim: the comment radar polls hourly where the eventual
-**API-backed service** target below uses webhooks (zero-LLM until an event
-fires). The radar's cloud prompt is deliberately lazy — a cheap deterministic
-comment check runs first and Kevin's full context loads only on a real hit — so
-the frequent empty runs stay cheap. This document remains the contract that both
-the cloud routines and any future service port must honor, so it is deliberately
-explicit.
+As of 2026-08-31 (Tier-2 T-10) Kevin runs as **two scheduled cloud routines**
+on Joey's account (fleet policy D1=B; registered in
+[`docs/agents/runners.md`](agents/runners.md)):
+
+- **Kevin — daily desk** (`agents/runner-prompts/kevin-desk.md`), once daily:
+  runs Stream 2 (user digest) and Stream 3 (eng triage) every day, plus
+  Stream 1 (Karen solver) on Sundays only — one clone, one charter read, per-
+  stream failure isolation (a failing stream is logged; the run continues to
+  the next). This replaced the three separate S1/S2/S3 cold boots that ran
+  2026-07-12 → 2026-08-31 (Stream 1 was daily in that era; the desk's Step 0
+  narrowed it to Sunday-only to preserve its weekly-adjacent cadence after
+  Karen's own nightly scan, without costing an extra daily boot).
+- **Kevin — S3 comment radar** (`agents/runner-prompts/kevin-stream3-radar.md`),
+  hourly 06:00–22:00 PT, skipping the overnight dead hours — unchanged by the
+  T-10 consolidation; it stays a separate, faster-cadence trigger.
+
+Before 2026-07-12 this ran as a **session-scoped Claude Code cron** — the
+cloud routines are more durable (survive session death). The radar still
+polls hourly where the eventual **API-backed service** target below uses
+webhooks (zero-LLM until an event fires); its prompt is deliberately lazy — a
+cheap deterministic comment check runs first and Kevin's full context loads
+only on a real hit — so the frequent empty runs stay cheap. This document
+remains the contract that both the cloud routines and any future service
+port must honor, so it is deliberately explicit.
 
 ---
 
@@ -60,7 +71,8 @@ Karen tickets are trusted and structured — each carries file · record ·
 field · exact excerpt · a sourced **Suggested fix** · sources. Kevin may fix them
 directly on a PR.
 
-**Hourly** Kevin:
+**Weekly, on Sundays** (as of T-10's Kevin daily-desk consolidation, folded
+into the desk's Step 0 — see the top of this document), Kevin:
 1. Lists open `cie` issues (`--limit 500`; the gh default caps at 30).
 2. Computes NEW = open `cie` minus (numbers already in any open fix PR's `Closes`
    list) minus every ticket carrying an **exclusion label** (below).
