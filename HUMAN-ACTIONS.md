@@ -45,10 +45,13 @@ cannot reach.
 
 **What to do:** either run this yourself in a Claude session logged into
 your account, or tell a session in chat to do it and it will follow the
-cutover sequence in `runners.md` exactly (create the new trigger → test-run
-once → verify real output → disable the three superseded triggers →
-record the new trigger ID → update the Live trigger IDs table). Takes one
-`job_config` round-trip per step; ~10–15 minutes.
+cutover sequence in `runners.md` § "Kevin — daily desk consolidation"
+exactly (create the new trigger → test-run once → disable S2/S3's
+superseded triggers as soon as verified → **wait for a Sunday run to
+verify Stream 1 before disabling its old trigger** → record the new
+trigger ID → update the Live trigger IDs table). Takes one `job_config`
+round-trip per step; ~10–15 minutes for S2/S3, plus one follow-up Sunday
+check for S1 if today isn't Sunday.
 
 ---
 

@@ -649,10 +649,11 @@ a partial PUT, per the RemoteTrigger footgun above).
 
 **Cutover sequence (apply in this order, do not skip steps):**
 1. `RemoteTrigger create` the new `Kevin — daily desk (S1+S2+S3)` trigger per the config above.
-2. Manually test-run it once; verify all due streams (S2 + S3 every day, S1 only landing on the next Sunday) actually post their digest/triage output and, on Sunday, open a real PR.
-3. Once verified working, **disable** (never delete — reversible safety net) the three superseded triggers: `Kevin — S1 Karen-ticket solver (cloud)` (`trig_01QEvYmKcpyDJJ8ec81aBjCV`), `Kevin — S2 user-feedback digest (cloud)` (`trig_0136mXcpmzn6mYtYoUQC3eGP`), `Kevin — S3 eng triage (cloud)` (`trig_01BRmPqZkLEcYKZhYPjypGMJ`).
-4. **Do not touch** `Kevin — S3 comment radar (cloud)` (`trig_01LaSLx4qzbsz68E6uRLkyDd`) — the radar stays its own, separate, faster-cadence trigger; T-10 only consolidates the three daily/weekly streams.
-5. Record the new trigger's ID in the "Live trigger IDs" table above, and mark the three disabled rows `⛔ disabled — superseded by Kevin daily desk, T-10` (do not delete the rows; disabled history stays visible per this file's own convention, see Lex depth).
+2. Manually test-run it once immediately; verify the streams due that day (S2 + S3 every day) actually post their digest/triage output.
+3. **Disable S2's and S3's superseded triggers as soon as step 2 verifies them** — `Kevin — S2 user-feedback digest (cloud)` (`trig_0136mXcpmzn6mYtYoUQC3eGP`) and `Kevin — S3 eng triage (cloud)` (`trig_01BRmPqZkLEcYKZhYPjypGMJ`). Do not wait on Stream 1's own verification to cut these two over — they run daily and are independently testable now.
+4. **Stream 1 needs its own separate verification before its old trigger is touched.** If the cutover happens on a Sunday, step 2's test-run already exercises Stream 1 — confirm it actually opened/updated a real `fix/karen-tickets` PR (or correctly no-opped on "no new Karen tickets"), then disable `Kevin — S1 Karen-ticket solver (cloud)` (`trig_01QEvYmKcpyDJJ8ec81aBjCV`) immediately. If the cutover happens on any OTHER day, **leave S1's old trigger enabled** until the next Sunday, manually test-run the new desk trigger again that Sunday, verify Stream 1's real output, and only then disable S1's old trigger. Never disable S1's trigger on the strength of a non-Sunday test run — that run never exercised Stream 1 at all.
+5. **Do not touch** `Kevin — S3 comment radar (cloud)` (`trig_01LaSLx4qzbsz68E6uRLkyDd`) — the radar stays its own, separate, faster-cadence trigger; T-10 only consolidates the three daily/weekly streams.
+6. Record the new trigger's ID in the "Live trigger IDs" table above, and mark each disabled row `⛔ disabled — superseded by Kevin daily desk, T-10` as it is disabled (S2/S3 immediately, S1 only after its Sunday verification) — do not delete the rows; disabled history stays visible per this file's own convention, see Lex depth.
 
 ## Notification-quality desk — trigger config to create (2026-08-31, T-16, D6=A)
 
