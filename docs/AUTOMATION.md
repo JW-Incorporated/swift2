@@ -62,9 +62,10 @@ Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
 `CONTENT_AUTOMERGE_FREEZE` halts all content auto-merge.
 
 > **Account note.** The live fleet runs on Joey's account (verified
-> 2026-08-27), while the stated spend policy says Wyatt's. That gap is
-> unresolved and is Joey's call — see
-> [`agents/runners.md` § Which account the routines actually run on](agents/runners.md#which-account-the-routines-actually-run-on--verified-state-vs-stated-policy).
+> 2026-08-27), and Joey's 2026-08-31 decision (D1=B) confirms that as the
+> permanent, intended policy — the prior stated policy naming Wyatt's account
+> was the stale half of the gap and has been corrected. See
+> [`agents/runners.md` § Which account the routines actually run on](agents/runners.md#which-account-the-routines-actually-run-on--current-policy).
 > Trigger IDs in the registry resolve against the live account.
 
 ---
