@@ -65,6 +65,50 @@ describe('MERCH_CATALOGUE.shopTheLook', () => {
   });
 });
 
+describe('MERCH_CATALOGUE.shopTheLook demoteSharedMomentPhoto', () => {
+  // fix/merch-image-buy-link + dedupe (2026-08-31, kanban task t_49a63ae1):
+  // when 2+ products from the same moment have no imageUrl of their own,
+  // only the first (matcher's best-first order) should render that
+  // moment's real photo — every later one is flagged so the UI falls back
+  // to the honest monogram tile instead of repeating the identical photo
+  // across different product cards.
+  it('never flags the first same-moment product missing an imageUrl, only later ones', () => {
+    const byMoment = new Map<string, typeof MERCH_CATALOGUE.shopTheLook[number][]>();
+    for (const item of MERCH_CATALOGUE.shopTheLook) {
+      const list = byMoment.get(item.source!.momentId) ?? [];
+      list.push(item);
+      byMoment.set(item.source!.momentId, list);
+    }
+    for (const items of byMoment.values()) {
+      // Only relevant when the moment actually has SOME real photo to
+      // duplicate — a moment with no real photo at all never flags
+      // anything (every no-imageUrl product there already falls to the
+      // honest monogram tile, nothing to dedupe).
+      const anyFlagged = items.some((item) => item.demoteSharedMomentPhoto);
+      if (!anyFlagged) continue;
+      let seenUnflaggedNoImage = false;
+      for (const item of items) {
+        if (item.imageUrl) {
+          expect(item.demoteSharedMomentPhoto).toBeFalsy();
+          continue;
+        }
+        if (!item.demoteSharedMomentPhoto) {
+          // At most one product per moment may be the un-flagged "first"
+          // claimant of that moment's shared photo.
+          expect(seenUnflaggedNoImage).toBe(false);
+          seenUnflaggedNoImage = true;
+        }
+      }
+    }
+  });
+
+  it('a product with its own imageUrl is never flagged, regardless of position', () => {
+    for (const item of MERCH_CATALOGUE.shopTheLook) {
+      if (item.imageUrl) expect(item.demoteSharedMomentPhoto).toBeFalsy();
+    }
+  });
+});
+
 describe('MERCH_CATALOGUE buckets', () => {
   it('reads official and fan-made buckets from their authored engine output', () => {
     expect(MERCH_CATALOGUE.officialStore.length).toBeGreaterThan(0);

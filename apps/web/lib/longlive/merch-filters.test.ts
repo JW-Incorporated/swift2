@@ -101,10 +101,19 @@ describe('merchItemImage', () => {
     // its first real photo, so its shop-the-look product's image now
     // resolves via the moment fallback instead of the blank monogram
     // placeholder.
+    // 51/6 -> 42/10 (fix/merch-image-buy-link + dedupe, 2026-08-31, kanban
+    // task t_49a63ae1): when 2+ products from the same moment would all
+    // fall back to that moment's one real photo (no imageUrl of their own),
+    // only the first (matcher's best-first order) actually gets it —
+    // merch.ts's shopTheLookItems() marks every later same-moment product
+    // demoteSharedMomentPhoto, and merchItemImage() falls back to the honest
+    // monogram tile for those rather than repeat the identical Taylor photo
+    // across different product cards (no per-item "as-worn" photo exists in
+    // the E6 matcher output to substitute instead).
     expect(split).toBe(46);
     expect(product).toBe(2);
-    expect(moment).toBe(46);
-    expect(monogram).toBe(6);
+    expect(moment).toBe(42);
+    expect(monogram).toBe(10);
     expect(split + product + moment + monogram).toBe(100);
   });
 
@@ -129,6 +138,20 @@ describe('merchItemImage', () => {
       expect(image.productUrl.length).toBeGreaterThan(0);
       expect(image.momentUrl.length).toBeGreaterThan(0);
     }
+  });
+
+  it('falls back to monogram (not the shared moment photo) when demoteSharedMomentPhoto is set (fix/merch-image-buy-link dedupe, t_49a63ae1)', () => {
+    const withMomentPhoto = MERCH_CATALOGUE.shopTheLook.find((i) => merchItemImage(i).kind === 'moment');
+    expect(withMomentPhoto).toBeDefined();
+    const demoted: MerchItem = { ...withMomentPhoto!, demoteSharedMomentPhoto: true };
+    expect(merchItemImage(demoted)).toEqual({ kind: 'monogram' });
+  });
+
+  it('demoteSharedMomentPhoto has no effect on an item with its own product photo', () => {
+    const withProductPhoto = MERCH_CATALOGUE.shopTheLook.find((i) => merchItemImage(i).kind === 'product');
+    expect(withProductPhoto).toBeDefined();
+    const flagged: MerchItem = { ...withProductPhoto!, demoteSharedMomentPhoto: true };
+    expect(merchItemImage(flagged)).toEqual(merchItemImage(withProductPhoto!));
   });
 });
 
