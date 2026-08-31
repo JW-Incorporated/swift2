@@ -5,9 +5,11 @@ Scope: **Tier 2 only** — the 24 Claude desk routine triggers indexed in
 [`AUTOMATION.md`](AUTOMATION.md) § Tier 2 and registered in
 [`agents/runners.md`](agents/runners.md). This is an **analysis document**:
 nothing here has been executed, disabled, or edited. Each recommendation names
-who may act on it — most are reversible agent calls; **four are founder
-decisions** (T-6, T-7, T-15, T-16) and one more (T-12) needs a routine
-founder-approved charter PR, and each says so inline.
+who may act on it — most are reversible agent calls; **three are founder
+decisions** (T-6, T-7, T-16) and one more (T-12) needs a routine
+founder-approved charter PR, and each says so inline. (A fourth, T-15, was
+an open founder decision when this analysis began and was resolved by Joey
+the same day — it is kept below for the record.)
 
 Companions: the 2026-08-31 audit
 ([`automation/review-2026-08-31.md`](automation/review-2026-08-31.md), REC-1…7,
@@ -539,15 +541,16 @@ the end.
 
 ## Fleet-level items (not per-routine)
 
-#### T-15 — Account placement is an open founder decision (founder-gated: spend)
+#### T-15 — Account placement: RESOLVED 2026-08-31 (Joey, D1=B, PR #3598)
 
-The live fleet runs on **Joey's** account; the stated spend policy
-(`CLAUDE.md`, `runners.md`) says **Wyatt's**. This fell out of the #2258
-incident, not a decision (REC-7.5). Every token recommendation in this file
-changes *whose* limit it hits. **Decision for Joey:** migrate back (~24
-full-`job_config` round-trips of real work) or amend the policy lines to
-match reality. Until decided, this file follows the registry's rule and
-treats Joey's account as live truth.
+When this analysis began, the live fleet ran on **Joey's** account while the
+stated spend policy (`CLAUDE.md`, `runners.md`) said **Wyatt's** — a drift
+from the #2258 incident, not a decision (REC-7.5). Joey resolved it the same
+day: **D1=B, amend the docs to match reality** (PR #3598, merged to `main`
+2026-08-31). `runners.md` now states plainly that ALL scheduled agent spend
+runs on Joey's account and is not to be migrated. No founder gate remains;
+kept here for the record because every token recommendation in this file
+counts against that (now-canonical) account limit.
 
 #### T-16 — Notification-quality desk: the one justified NEW routine (founder-gated: spend)
 
@@ -626,7 +629,7 @@ in-repo).
 | T-12 | Marjorie brief: ratify Opus 4.8 in charter | neutral | ▲ charter/reality coherence | Trivial | none | founder-approved charter PR |
 | T-13 | Disable Marjorie 8 PM delta | **▼▼ ~30 Fable sm** | ≈neutral (no established reader; brief carries delta) | Trivial | someone was reading it — re-enable in 2 min | none (tell Joey after) |
 | T-14 | Getty purge: verify complete, delete, receipt | **▼ ~60 Sonnet sm** | ▲ hygiene | Trivial | purge not actually complete → check first | none |
-| T-15 | Account placement decision | neutral (moves whose limit) | ▲ policy coherence | Migrate: substantial; amend docs: trivial | acting on stale policy keeps breaking maintenance runs | **spend** |
+| T-15 | Account placement — RESOLVED (D1=B, PR #3598: docs amended to Joey's account) | neutral | ▲ policy coherence (done) | — (landed) | — | ~~spend~~ resolved 2026-08-31 |
 | T-16 | NEW weekly notification-quality desk (Sonnet) | **▲ ~4 Sonnet sm NEW** | **▲▲** guards the product's stated differentiator | Moderate (new desk, full checklist) | ticket noise if analytics too thin — start after REC-1 heartbeat | **spend** |
 | T-17 | Token/run telemetry (Tier-1 Action + auditor arithmetic) | ▼ enables future cuts; 0 tokens itself | ▲ next audit is a diff, not archaeology | Trivial-moderate | none | none |
 | T-18 | Honor prompt-file-first + full-PUT discipline on all trigger edits | n/a (process) | protects against the documented config-destruction footgun | — | — | none |
@@ -674,7 +677,8 @@ notification quality.
     spend; sequence after REC-1's dispatch heartbeat)*
 13. **T-7** — founder pick on the Nils cadence dial; fix the charter either
     way. *(founder — product quality dial)*
-14. **T-15** — founder decision: fleet account placement. *(founder — spend)*
+14. ~~**T-15** — fleet account placement~~ — **already resolved** (Joey,
+    D1=B, PR #3598, 2026-08-31). Nothing to do.
 15. **T-19 + T-12 + T-2 + T-4** — the consolidated docs/governance drift
     pass, batched into one PR (charter lines founder-approved). *(agent +
     founder sign-off)*
