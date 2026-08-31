@@ -3,32 +3,34 @@
 **Read this first for anything scheduled.** The index of every automated
 routine keeping longlivets.com running: *what runs, when, why, and where its
 real documentation lives*. It duplicates none of that documentation and
-overrides none of it — [`CLAUDE.md`](../CLAUDE.md) remains the authoritative
+overrides none of it — [`CLAUDE.md`](../CLAUDE.md) is the authoritative
 operating manual, and where two docs conflict this file says so rather than
 picking a winner.
 
 - Owner: the repo (any desk may propose changes by PR).
 - Last full audit: **2026-08-31**, written up in two companion files so this
   index stays a reference rather than a report:
-  - [`automation/doc-quality-2026-08-31.md`](automation/doc-quality-2026-08-31.md)
-    — per-routine documentation quality, plus every doc reference pointing at
-    a routine or cadence that no longer exists.
-  - [`automation/review-2026-08-31.md`](automation/review-2026-08-31.md)
-    — efficiency and quality review: overlaps, retirement candidates, gaps,
-    and seven concrete recommendations.
-- Counted here: **37 GitHub Actions workflows**, **24 Claude desk routine
-  triggers**, **1 Vercel Cron job**, **2 Dependabot update schedules** = **64
-  automated routines**. The counting unit is *one independently-scheduled
-  thing*, not one file — which is why `.github/dependabot.yml` contributes two
-  (npm and github-actions are separate `updates:` entries with their own
-  cadences) and why `watchdog.yml`'s two crons still count as one workflow.
-
-> **On the routine count.** [`agents/runners.md`](agents/runners.md)'s summary
-> line says "23 total, 22 enabled" while its table has 24 rows: the 23/22
-> figure counts the **standing fleet** and excludes `swift2 Getty purge`, a
-> self-retiring one-shot that table flags as outside the fleet. This file
-> counts **every live trigger**, so 24 (23 enabled — Lex depth is paused).
-> Two scopes, same reality; the registry is annotated to say so.
+  [`doc-quality`](automation/doc-quality-2026-08-31.md) (per-routine
+  documentation quality + every doc reference pointing at a routine or cadence
+  that no longer exists) and [`review`](automation/review-2026-08-31.md)
+  (overlaps, retirement candidates, gaps, seven recommendations).
+- **Fires on its own: 54 routines** — 27 GitHub Actions workflows (cron, PR,
+  push, or issue triggered), 24 Claude desk routine triggers, the product's
+  Vercel Cron job, 2 Dependabot update schedules. These run whether or not
+  anyone is watching.
+- **Manual-only: 10 workflows**, `workflow_dispatch` and nothing else, badged
+  **MANUAL** below. They never fire by themselves and are **not** counted as
+  scheduled routines; most sit behind a typed confirmation because they spend
+  money, call a vision model, or delete something live. Indexed anyway,
+  because what *can* run matters when auditing blast radius.
+- Counting unit is *one independently-triggered thing*, not one file: the 37
+  workflow files split 27 automatic / 10 manual, `.github/dependabot.yml`
+  contributes two (separate `updates:` entries, own cadences), and
+  `watchdog.yml`'s two crons are one workflow. On the desk-routine side,
+  [`agents/runners.md`](agents/runners.md)'s "23 total, 22 enabled" counts the
+  **standing fleet** and excludes `swift2 Getty purge`, a self-retiring
+  one-shot; this file counts every live trigger, hence 24 (23 enabled — Lex
+  depth is paused). Two scopes, same reality.
 
 ---
 
@@ -50,14 +52,14 @@ The repo runs on a deliberate split, stated as a standing rule in
 | **3 — Product runtime** | Cron built into the deployed product, not into CI. Today: exactly one, the notifications dispatcher. | Vercel Cron | Vercel plan | Silently, and **currently unwatched** — see [REC-1](automation/review-2026-08-31.md#rec-1) |
 
 **Why Tier 1 exists even where Tier 2 could do the job:** Karen (the content
-integrity engine) went dark for 10+ days in August 2026 and nobody noticed —
-a Claude routine leaves no trace here when it doesn't run. Karen's
-deterministic half became `cie-scan.yml` for exactly that reason. Put the
-*freshness* half on Actions, the *judgment* half on a routine.
+integrity engine) went dark for 10+ days in August 2026 and nobody noticed — a
+Claude routine leaves no trace here when it doesn't run. Karen's deterministic
+half became `cie-scan.yml` for that reason. Put the *freshness* half on
+Actions, the *judgment* half on a routine.
 
 **Kill switch:** [`agents/README.md` § The kill switch](agents/README.md#the-kill-switch--pausing-the-org-gap-analysis-g10).
-Instant per-tier stops also exist: repo variable `SOCIAL_FREEZE` halts all
-posting; `CONTENT_AUTOMERGE_FREEZE` halts all content auto-merge.
+Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
+`CONTENT_AUTOMERGE_FREEZE` halts all content auto-merge.
 
 > **Account note.** The live fleet runs on Joey's account (verified
 > 2026-08-27), while the stated spend policy says Wyatt's. That gap is
@@ -67,11 +69,12 @@ posting; `CONTENT_AUTOMERGE_FREEZE` halts all content auto-merge.
 
 ---
 
-## Tier 1 — GitHub Actions (37)
+## Tier 1 — GitHub Actions (27 automatic + 10 manual)
 
 Cadences are UTC. "LLM" = does this workflow itself call a model. Minute
 offsets are deliberately non-`:00`/`:30` — see `watchdog.yml`'s header on this
-repo's scheduling contention.
+repo's scheduling contention. **MANUAL** = `workflow_dispatch`-only; section
+counts are `automatic + manual`.
 
 ### Gates and merge machinery (3)
 
@@ -97,14 +100,13 @@ why desk routines can open a PR and exit instead of babysitting it (which was
 
 `watchdog.yml` is not one check but **fifteen steps**, and it is the only
 thing watching Tier 2. In file order: brief exists → brief was mailed → alert
-founders → brief recovered (self-close) → degraded answer propagation →
-**hourly prod smoke check** → scheduled-workflow cadence view → PRs stuck on
-failing/missing checks → Karen CIE ticket-filing freshness (`STALE_DAYS=9`) →
-work-ownership → Karen post-repair confirmation → news-worker rotation
-confirmation → content-lane liveness (`vault/`, 36h) → Facebook export
-freshness → knowledge-engine current-tier freshness. Those two confirmations
-are expired scaffolding still firing daily —
-see [the review](automation/review-2026-08-31.md#rec-5).
+founders → brief recovered → degraded answer propagation → **hourly prod smoke
+check** → scheduled-workflow cadence view → PRs stuck on failing/missing
+checks → Karen CIE ticket-filing freshness (`STALE_DAYS=9`) → work-ownership →
+Karen post-repair confirmation → news-worker rotation confirmation →
+content-lane liveness (`vault/`, 36h) → Facebook export freshness →
+knowledge-engine freshness. Those two confirmations are expired scaffolding
+still firing daily — see [the review](automation/review-2026-08-31.md#rec-5).
 
 ### Founder communications (3)
 
@@ -129,27 +131,27 @@ displace one of those, not add a third.
 These three are the clearest illustration of the two-tier model: each is the
 deterministic detector for a desk that supplies the judgment.
 
-### Social (5)
+### Social (2 automatic + 3 manual)
 
 | Workflow | Trigger | LLM | Mutates | Docs |
 |---|---|---|---|---|
 | [`social-poster.yml`](../.github/workflows/social-poster.yml) | **every 30 min** | no | **posts live to X, Instagram, Facebook**; commits queue state | header (the `social-ledger` dedupe design) + [`agents/growth.md`](agents/growth.md) |
 | [`growth-snapshot.yml`](../.github/workflows/growth-snapshot.yml) | daily 11:05 | no | commits `social/metrics/*.json` for the brief's Growth bullet | header |
-| [`social-audit.yml`](../.github/workflows/social-audit.yml) | dispatch only | no | opens/refreshes one "IG media audit" issue (recommends, cannot delete) | header |
-| [`social-delete-media.yml`](../.github/workflows/social-delete-media.yml) | dispatch only | no | **deletes live IG/FB posts** | header — ⚠️ agents are forbidden to run this |
-| [`remove-x-site-screens.yml`](../.github/workflows/remove-x-site-screens.yml) | dispatch only | no | deletes two specific X posts | header — one-time cleanup, see [REC-5](automation/review-2026-08-31.md#rec-5) |
+| [`social-audit.yml`](../.github/workflows/social-audit.yml) | **MANUAL** | no | opens/refreshes one "IG media audit" issue (recommends, cannot delete) | header |
+| [`social-delete-media.yml`](../.github/workflows/social-delete-media.yml) | **MANUAL** | no | **deletes live IG/FB posts** | header — ⚠️ agents are forbidden to run this |
+| [`remove-x-site-screens.yml`](../.github/workflows/remove-x-site-screens.yml) | **MANUAL** | no | deletes two specific X posts | header — one-time cleanup, see [REC-5](automation/review-2026-08-31.md#rec-5) |
 
 `social-poster.yml` is the only workflow that takes an irreversible public
-action on every scheduled run. Its safety model is the `social-ledger` branch
-(dedupe correctness does not depend on any PR merging) plus `SOCIAL_FREEZE`.
+action on a schedule. Its safety model is the `social-ledger` branch (dedupe
+correctness does not depend on any PR merging) plus `SOCIAL_FREEZE`.
 
-### Merch autonomy engine (13)
+### Merch autonomy engine (7 automatic + 6 manual)
 
 Spec: [`SPEC.merch-autonomy.md`](SPEC.merch-autonomy.md) · plan:
 [`PLAN.merch-autonomy.md`](PLAN.merch-autonomy.md) · receipt:
 [`ops/MERCH-PHASE-4-ACCEPTANCE.md`](ops/MERCH-PHASE-4-ACCEPTANCE.md). Every
-scheduled merch lane is zero-LLM by design (R1); every lane that spends money
-or calls a model is a separate **manually confirmed** workflow.
+scheduled merch lane is zero-LLM by design (R1); lanes that spend money or
+call a model are separate **manually confirmed** workflows.
 
 | Workflow | Engine | Trigger | LLM / spend | Mutates |
 |---|---|---|---|---|
@@ -158,21 +160,21 @@ or calls a model is a separate **manually confirmed** workflow.
 | [`merch-fanmade.yml`](../.github/workflows/merch-fanmade.yml) | E5 | daily 09:47 | no | files candidate issues |
 | [`merch-official-sync.yml`](../.github/workflows/merch-official-sync.yml) | E4 | 08:17 + 20:17 | no | gated PR: catalog + store-drop `social/queue` pair |
 | [`merch-audit-detect.yml`](../.github/workflows/merch-audit-detect.yml) | E3 detect | Mon 15:24 + push to content paths | no | scoring-queue artifact |
-| [`merch-audit-authoring.yml`](../.github/workflows/merch-audit-authoring.yml) | E3 author | dispatch + typed `RUN_AUTHORED_VISION_AUDIT` | **vision model, $5/run cap** | artifacts + issues |
-| [`merch-matcher.yml`](../.github/workflows/merch-matcher.yml) | E6 detect | dispatch | no | deterministic handoff plan |
-| [`merch-matcher-authoring.yml`](../.github/workflows/merch-matcher-authoring.yml) | E6 author | dispatch + typed `RUN_MATCHER_AUTHORING` | **vision + paid search, per-run cap** | artifacts only |
+| [`merch-audit-authoring.yml`](../.github/workflows/merch-audit-authoring.yml) | E3 author | **MANUAL** + typed `RUN_AUTHORED_VISION_AUDIT` | **vision model, $5/run cap** | artifacts + issues |
+| [`merch-matcher.yml`](../.github/workflows/merch-matcher.yml) | E6 detect | **MANUAL** | no | deterministic handoff plan |
+| [`merch-matcher-authoring.yml`](../.github/workflows/merch-matcher-authoring.yml) | E6 author | **MANUAL** + typed `RUN_MATCHER_AUTHORING` | **vision + paid search, per-run cap** | artifacts only |
 | [`merch-revenue.yml`](../.github/workflows/merch-revenue.yml) | reporting | Mon 15:23 | no | gated PR (`docs/ops/MERCH-REVENUE.json`) |
 | [`merch-terms-recheck.yml`](../.github/workflows/merch-terms-recheck.yml) | compliance | quarterly, 1st of Jan/Apr/Jul/Oct 15:17 | no | one review ticket per quarter |
-| [`merch-e5-evidence.yml`](../.github/workflows/merch-e5-evidence.yml) | E5 evidence | dispatch + typed `COLLECT_E5_EVIDENCE` | no (Etsy API) | artifacts only |
-| [`merch-awin-directory-shortlist.yml`](../.github/workflows/merch-awin-directory-shortlist.yml) | E0 join | dispatch + typed confirmation | no | artifacts only |
-| [`merch-awin-directory-recommendations.yml`](../.github/workflows/merch-awin-directory-recommendations.yml) | E0 join | dispatch + typed confirmation | no | artifacts only |
+| [`merch-e5-evidence.yml`](../.github/workflows/merch-e5-evidence.yml) | E5 evidence | **MANUAL** + typed `COLLECT_E5_EVIDENCE` | no (Etsy API) | artifacts only |
+| [`merch-awin-directory-shortlist.yml`](../.github/workflows/merch-awin-directory-shortlist.yml) | E0 join | **MANUAL** + typed confirmation | no | artifacts only |
+| [`merch-awin-directory-recommendations.yml`](../.github/workflows/merch-awin-directory-recommendations.yml) | E0 join | **MANUAL** + typed confirmation | no | artifacts only |
 
-### Database operations (3)
+### Database operations (2 automatic + 1 manual)
 
 | Workflow | Trigger | Mutates production |
 |---|---|---|
 | [`db-migrate.yml`](../.github/workflows/db-migrate.yml) | dispatch + push to `main` touching `supabase/migrations/**` | **yes** — applies migrations, then re-runs to prove idempotency |
-| [`db-seed.yml`](../.github/workflows/db-seed.yml) | dispatch only, `target` chosen from a fixed allowlist | **yes** — operator-triggered seeds |
+| [`db-seed.yml`](../.github/workflows/db-seed.yml) | **MANUAL** — `target` from a fixed allowlist | **yes** — operator-triggered seeds |
 | [`db-connectivity-check.yml`](../.github/workflows/db-connectivity-check.yml) | dispatch + PR touching itself | no — `SELECT 1` |
 
 ### Security and standing reminders (2)
@@ -184,13 +186,13 @@ or calls a model is a separate **manually confirmed** workflow.
 
 ### Dependabot update schedules (2) — config, not workflows
 
-Counted apart from the 37 workflows: `updates:` entries scheduled by GitHub
-itself, not by a workflow.
+`updates:` entries scheduled by GitHub itself, counted apart from the 37
+workflow files.
 
 | Schedule | Cadence | Docs |
 |---|---|---|
-| [`.github/dependabot.yml`](../.github/dependabot.yml) → **npm** | weekly Mon 05:00 America/Los_Angeles | [`agents/paul-blart.md`](agents/paul-blart.md) — grouped dev + production patch/minor bumps, max 5 open PRs; security updates ride their own immediate lane, deliberately un-batched |
-| [`.github/dependabot.yml`](../.github/dependabot.yml) → **github-actions** | weekly Mon (no explicit time — GitHub picks) | [`agents/paul-blart.md`](agents/paul-blart.md) — one grouped PR for all Action version bumps, keeping the CI/security workflows current |
+| [`.github/dependabot.yml`](../.github/dependabot.yml) → **npm** | weekly Mon 05:00 America/Los_Angeles | [`agents/paul-blart.md`](agents/paul-blart.md) — grouped dev + production patch/minor bumps, max 5 open PRs; security updates ride their own immediate lane |
+| [`.github/dependabot.yml`](../.github/dependabot.yml) → **github-actions** | weekly Mon (no explicit time) | [`agents/paul-blart.md`](agents/paul-blart.md) — one grouped PR for all Action version bumps |
 
 ---
 
@@ -199,8 +201,8 @@ itself, not by a workflow.
 Cadence registry and live trigger IDs: **[`agents/runners.md`](agents/runners.md)**
 — that table supersedes any trigger ID quoted elsewhere. Prompts live in
 [`agents/runner-prompts/`](agents/runner-prompts/); **the repo file is the
-source of truth**, and a trigger whose inline prompt drifts from its file is a
-bug. Fleet invariants: [`agents/routine-invariants.md`](agents/routine-invariants.md).
+source of truth**, and a trigger whose inline prompt drifts from it is a bug.
+Fleet invariants: [`agents/routine-invariants.md`](agents/routine-invariants.md).
 
 ### Content lanes
 
@@ -219,8 +221,8 @@ bug. Fleet invariants: [`agents/routine-invariants.md`](agents/routine-invariant
 ⚠️ **The six standalone lanes above run *in addition to* the Vault Run built
 to replace them** — Phase 4 never landed, so Rumor Desk content lands daily
 (standalone on odd days of the month, Vault lane on even) rather than on its
-designed every-other-day cadence.
-See [REC-2](automation/review-2026-08-31.md#rec-2).
+designed every-other-day cadence. See
+[REC-2](automation/review-2026-08-31.md#rec-2).
 
 ### Quality and integrity desks
 
@@ -273,27 +275,26 @@ See [REC-2](automation/review-2026-08-31.md#rec-2).
 
 Specs: [`NOTIFICATIONS_SPEC.md`](../NOTIFICATIONS_SPEC.md) §10 ·
 [`NOTIFICATIONS_PLAN.md`](../NOTIFICATIONS_PLAN.md) · setup:
-[`SETUP_NOTIFICATIONS.md`](../SETUP_NOTIFICATIONS.md). This is the only
-routine that **delivers directly to a user's own device** on every run, and
-per [`vision.md`](vision.md) notifications are the product's stated
-differentiator. It has **no watchdog** — the top recommendation of the
-2026-08-31 review ([REC-1](automation/review-2026-08-31.md#rec-1)).
+[`SETUP_NOTIFICATIONS.md`](../SETUP_NOTIFICATIONS.md). The only routine that
+**delivers to a user's own device** on every run, and per
+[`vision.md`](vision.md) notifications are the product's stated differentiator.
+It has **no watchdog** — top recommendation of the 2026-08-31 review
+([REC-1](automation/review-2026-08-31.md#rec-1)).
 
 ---
 
 ## Adding a new routine — the checklist
 
-1. **Which tier?** If it can be done deterministically, it goes on Actions.
-   Put a routine on it only for the judgment half, on top of data an Action
+1. **Which tier?** If it can be done deterministically it goes on Actions; put
+   a routine on it only for the judgment half, on top of data an Action
    already produced.
 2. **Add the row here** in the same PR.
 3. **Tier 1:** write a header saying *why it exists*, what incident caused it,
-   and what was rejected. That house style is the reason this audit was
-   possible at all.
+   and what was rejected — that house style is why this audit was possible.
 4. **Tier 2:** a charter in `docs/agents/`, a prompt file in
    `docs/agents/runner-prompts/`, and a row in `agents/runners.md`, in the PR
    that creates the trigger. Then run the
    [`routine-invariants.md`](agents/routine-invariants.md) checklist on it.
 5. **New recurring spend is a founder decision**, not an agent one.
 6. **Give it a retirement condition** — every undocumented routine the audit
-   found outlived its reason because nobody wrote that reason down.
+   found outlived its reason because nobody wrote it down.
