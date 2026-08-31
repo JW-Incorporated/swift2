@@ -1,5 +1,39 @@
 # Runner registry — who runs where, on whose tokens
 
+> **Index:** [`../AUTOMATION.md`](../AUTOMATION.md) is the one-page view of
+> every automated routine in the project, including the GitHub Actions this
+> file does not cover. This file remains the authoritative **cadence and
+> trigger-ID registry** for the Claude desk routines.
+
+## Which account the routines actually run on — verified state vs stated policy
+
+**These two disagree, and the gap is a live finding rather than something this
+file resolves.** Read both before touching a routine.
+
+**Stated policy (below, and `CLAUDE.md` § Operating habits):** all scheduled
+agent spend runs on **Wyatt's** account, to keep Joey's weekly limit free.
+
+**Observed state (this file's own audits, 2026-08-23 and 2026-08-27):** the
+fleet was recreated on **Joey's** account after issue #2258 (the prior
+account's routines were lost), and a live read of the routines API on
+2026-08-27 found "All 24 triggers verified live … Nothing remains on the other
+founder's account." Every trigger ID in the table below was fetched from
+Joey's account.
+
+So the live fleet is not where the spend policy says it should be. That is a
+**recurring-spend question and therefore Joey's call**, not an agent's:
+
+- If the policy still holds, the fleet needs migrating back — a real piece of
+  work, not a doc edit.
+- If the consolidation was intended (it followed a routine-loss incident), the
+  policy line in `CLAUDE.md` and the requirement below are stale and should be
+  corrected to match.
+
+Until Joey settles it, **report the live account as Joey's** — that is what the
+trigger IDs resolve against, and acting on the stale assumption is what makes a
+maintenance run fail. Flagged by the 2026-08-31 automation audit; not
+actioned there, and `CLAUDE.md` deliberately left untouched.
+
 **Requirement (Joey, final form 2026-07-12): ALL scheduled agent spend runs
 on Wyatt's account** — Joey is near his weekly limit; his side spends zero
 scheduled tokens. The founder split of labor: **Joey = vision, monitoring,
@@ -59,7 +93,13 @@ drifts).
 | Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | `11 16 * * 0` | ✅ | `claude-haiku-4-5-20251001` |
 | swift2 Getty purge — GitHub GC watch | `trig_018QuJozjMr1bYMPcqgKUmvL` | `0 3,15 * * *` | ✅ (self-retiring one-shot watchdog, not part of the standing fleet — created 2026-08-15, unrelated to #2258) | `claude-sonnet-5` |
 
-**23 Swift2 routines total, 22 enabled** (Lex depth intentionally paused).
+**23 Swift2 routines total, 22 enabled** in the **standing fleet** (Lex depth
+intentionally paused). The table above has 24 rows because it also carries
+`swift2 Getty purge — GitHub GC watch`, a self-retiring one-shot deliberately
+outside the fleet — which is why the 2026-08-27 audit note below says "all 24
+triggers verified live" and why [`../AUTOMATION.md`](../AUTOMATION.md), which
+counts every live trigger regardless of fleet membership, says 24/23. Both
+scopes are correct; quote whichever one your question is about.
 `bedrock nightly audit` also lives in this account's routine list but is a
 different project (per `~/Projects/CLAUDE.md`'s ownership table) — excluded
 here on purpose, not missed.

@@ -26,7 +26,8 @@ docs `CLAUDE.md` points at:
 | `docs/roadmap.md` | Roadmap and who owns what |
 | `docs/decisions.md` | Anything expensive to reverse. Append BEFORE implementing |
 | `docs/definition-of-done.md` | The long form of CLAUDE.md § Definition of done |
-| `docs/agents/runners.md` | Scheduled runners — all on Wyatt's account |
+| `docs/AUTOMATION.md` | **What runs automatically and why** — index of all 54 self-firing routines (27 GitHub Actions workflows, 24 Claude desk routines, the product's Vercel cron, 2 Dependabot schedules) plus the 10 manual-dispatch workflows. Read before touching anything scheduled. Its 2026-08-31 audit is split into `docs/automation/doc-quality-2026-08-31.md` (per-routine doc quality + stale references) and `docs/automation/review-2026-08-31.md` (efficiency review + recommendations) |
+| `docs/agents/runners.md` | Scheduled runners — cadences + live trigger IDs; flags the unresolved gap between the stated spend policy (Wyatt's account) and the live fleet (Joey's) |
 | `docs/agents/codex.md` | How a session actually runs a Codex review (`--background`, `result <job-id>`) |
 
 ## Conventions
