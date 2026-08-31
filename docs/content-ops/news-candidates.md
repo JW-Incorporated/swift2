@@ -25,7 +25,88 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 60
+Stories: 65
+
+## Taylor Swift and Travis Kelce face challenges with football involvement
+
+- first seen: 2026-08-31 17:02 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift's newly married life is reportedly facing some difficulties due to tensions arising from football commitments involving Travis Kelce.
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi5gFBVV95cUxNMFJIVDdqY0FyTGRFOXVJcEY3OW00WDF2dTZqTVRyWWRTU3dpQWRPXzdLdk51MlFtT0lKTVR1TDZqZEZsNlVadDRJbmo4VFo3YVpuS1Z6OHNjSzR0MkUyZXBVV2pieFFQcTVad0pqcVZyTS01Ykh6VVVMX3Z5UTRURHc0dEQ1cS1XQ1Z5TmhxMUIyNFdveFplQS01QnRBN0RLQV9xY0ZYRm5ZaGF5Z0RKano3UXd2Z09BdmJGUGt1cXdxOHZmZGVxeWY2SGdEMVlFSUdyQVFXVmFRbkZsMExfYzZRalFVd9IB5gFBVV95cUxQZUEyTGxaVDYzV21xenFGdmtyOTRnenJuTWV4ZTFnVkVWM1ZlelpBWHpBMUhROWNzSGQzUGlrZXlLUlVKdWt5UEdMSHo2aWZxendLZVp6a204MmVxN282VWlhZE5paExoYzhZQ1FKQmhLNDhIUkhKZDdQYUFWcC1BSUxEejROclZiRnNIREk2ZEY2VW9YT2pwVE1XRkMyd3pwTGoyME9lRmJ4R1M5WDk1T0dFRlAtSE85TVBWQnRKSm1hOVRSQXNnXzR2aUdUWjhmTENJNmFabktkajIwbUJtZkdxUDNzUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisAFBVV95cUxNZDBZTy05OTNNVGl6dXctSXRJQi11QU8tUUdMUHhHbjg3QVFhbk9aZDREMzJUQ3JDZXZxWFY2NnRoY0NXN05oQS1yTHRQd1VYUTJTcDRsVU9BMHZnUG1zU29jdHB2bVFPOHRYWko3eFBtVDNSc3VqSHNtX1lCWXMxaFJMbElGMEdsVzl2WXBPSlNDY3RkQWhKU0N5OXBkaml5bHpOemxvb3lLcTNJbDlfZA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift donates $50k to support injured Connecticut mother
+
+- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has contributed $50,000 to assist a Connecticut mother who was injured in a car accident while acting as a good Samaritan. This donation aims to provide significant support to her during recovery.
+- sources:
+  - [unverified] wtnh.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPeGVPNVB1WGdtV2xwRGk0VEFmbVhNck1UQlZVVmhKMW5sc0w5Q1d2RlpVSEk3aTJVaHp6R0N6RlFmdmh5V1RVUFI3b2RobktSWEtHbUticko4cEw1UEFrWktyQS1Qb1hEend1YnZZLUJFM3VHSUlBdm9XMmk0b3NLSnVrakVZSGpTMC1Ta0o0TkxTZWNpZm9JZGRzZkxJSUMyOTNWWFNlV0wzZXpXMFhqaW9QUjlvZEMwSzNsS0dGQUd6akXSAcgBQVVfeXFMT2d3ZlJSRURVT1JuQTQ5Vy12Ylc2eU1aQWJBdHI3ekZHRnpzTXJ5eFdYSzlGMFNkYzIxYzg2bWtSX0tfelNNa3RSMXN6d0c4ZmsyaTVGNll2MzhGQkhmQnRNTmNwVWdsN0gxV0t4aUdzOE1tYkVKbzNjb2dYbEZwNThURzBSSFNHZ25ZM1MzRzlNaEVrZXFQRGZ3b0NKWlhuN1dQekVkY2dIN25fWlEzcEIwSUYtRHc1cHUteHZTWlJTcE8tekt0YnU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Gifts Life-Changing Item to Woman Who Helped Teens
+
+- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A woman who was injured after helping teens on the interstate received a significant gift from Taylor Swift, described as 'life-changing.' The incident highlights Swift's generosity towards those in need.
+- sources:
+  - [unverified] WXII — https://news.google.com/rss/articles/CBMiggFBVV95cUxQbDduZmdkcWFJSnZ0LUpMdE1ENlAwMUtxb0NlMUsycXctSkpoSmxSOUs5ZHV1YXAwRTZyOWVaVEtzRlp3V3pkSUp5LUduUGZMRGZkYjQtQkdMblZRUGVyMU11NU5MaDhORTVaZzkwOFlNREVUUFk2MkZXRTNWeVlSb0hn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes $50,000 Donation to Crash Victim
+
+- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated $50,000 to assist a woman who was injured in a crash on I-95. The donation highlights her philanthropic efforts in supporting individuals in need during difficult times.
+- sources:
+  - [unverified] The Providence Journal — https://news.google.com/rss/articles/CBMizAFBVV95cUxPaGtwRjZZTVNTTDJFSGdfbTdKWWJaMlhhUVFBaWlsbHo0WlV6SU9LQVFMN2pVUk8xZnVoejBVRlNlN1RfRkMzcmh5NGpVNTRYeFBza2JQelBBc1dkekJDZGhzZGNXaGdwT0RjcHlxUVdpNDd2QjhTZ3ZtV1p5Q2JGdFdaeW5TcHRNM1pBbU1lY056R3pFbzh4andhWVJQbHlPMmp1cnVCZXRnWFB4NFBPWWJ4VXRoekM1ZExyekVqdUFVMmRJUlhsREJMZU0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Reader Questions if Red Lipstick is Out of Style
+
+- first seen: 2026-08-31 17:02 UTC | category: fashion | importance: 4
+- verification_status: single_source | source_count: 1
+- summary: A reader seeks advice on whether her choice of red lipstick is still in fashion and if she should consider a makeover.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/08/31/fashion/red-lipstick-fashion-identity.html
+
+## Taylor Swift Donates Generously to Hero Mom After Rescue
+
+- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Reports indicate that Taylor Swift has made a substantial donation in response to a hero mom's near-fatal rescue, highlighting her philanthropic efforts. The donation reflects Swift's engagement in charitable initiatives.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNRFg5MUZiaklGVVdzTUJCTlVvLWFmeWphTjZ3bTVNVmdsMUdhNnIxOEJXVDRRZWVTeGVnbE51c1Yzbl9kZVNGd016ek5YZXpDWWMyTHd0OUNINkUyVnFXWXVUSkNZOW9jWmE3cDJyMFYyTmNRVXZpSVJqMG1fdGxOVDF3LUZKQXlmWVd4YWxIN1FsdjhSUEF3bGNPVUk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes $50k Donation to Aid Recovery Efforts
+
+- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated $50,000 to support a good Samaritan in recovery. This generous act highlights her ongoing charity work and commitment to helping individuals in need.
+- sources:
+  - [unverified] WRAL — https://news.google.com/rss/articles/CBMinAFBVV95cUxPWXhXTXNNd3dpS2JwaF9qckxyMFNyMGEzR201cE9hYUk3NE1GUmVqZkh1LWxxaFR5S3BnUkpLSTU4eC1LRGZIZDNJUkFUZElRbTZOYVMwREU0ZGdmQjgxcFFFeTBfRUJ4bG1LdEV2YXVWLUJ5dmh3Y1ZMbU50MWo2cG9rQjJnSFJfQ2FPTWF5bGJROG93aVIyclc4UG8?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Harry Styles Mentions Taylor Swift During Madison Square Garden Event
+
+- first seen: 2026-08-31 17:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Harry Styles recognizes his ex, Taylor Swift, during an event at Madison Square Garden. The mention highlights their past relationship amidst a public setting.
+- sources:
+  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMijgFBVV95cUxQd3ZEOHM0THNTYkotRVhUaUpCYnlyTlJRSWlWMko3Q1pXN3BOUTFiejcxY3NxcUJsa1RvWnFnNUhyeVQwU2RrMzVPZzVEMUlwajYtQmtWYTlUVzVaamliN0xXLVZxX3hJQkdIa0JNWGRxZkQ2YmE5N2RJTVdfU2dORkVMQ1hoRXl5dFY2dldR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Hints at Upcoming Album With Easter Egg
+
+- first seen: 2026-08-31 17:02 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift may have teased details about her next album, sparking interest and speculation among fans. The news comes from a recent article discussing potential clues she has shared.
+- sources:
+  - [unverified] PureWow — https://news.google.com/rss/articles/CBMidEFVX3lxTFBuRHdnbm1ody1WVU9tSXJHZUUyRVlBNVZGLUhvNjRLQmQwTlBXZTBMTjBGTWhoeVJCdUtPSlVfV0kzRDdUR1k3M0pkaDltakNvQlhjdVlmY29qbGtma21scEd3V3kwS1QtVWhYUnZ1OTlhUmNa?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Could Make Grammy History Alongside Ariana Grande
+
+- first seen: 2026-08-31 17:02 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is on track to potentially make Grammy history, with rumors suggesting Ariana Grande may also be involved in the achievement. This development is garnering significant attention in the music industry.
+- sources:
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOdGUydFZqYkZFc0ZJOUMwNmdybmhrS0xfZWsyWnFsbTdFcFR5elE5aVRfMkVuT3p6Zm5DdzR4QVhKaGNtTVEyLTN5RkNEaWV1WDM0UnYzQXQ2c1M3eVBXOXVkU1NGSGZwYVBKYlA0SU5lRmFmMjhpOU1zREdpMXh5LTNTc1F3VDkzdF9lbkt0bzBHZ3Vvckl0cTBvQUVleUh2RmZHOXYwV09MaUNvakt4UE0yc0twalFEYU80bmlkY2xiVWc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift donates $50K to Connecticut mother recovering from injury
 
@@ -230,6 +311,17 @@ Stories: 60
 - sources:
   - [unverified] NBC News — https://news.google.com/rss/articles/CBMijwFBVV95cUxNNlFkS2I2VHA3OG5LY04zZHlQdmtrMi0tOFJvTlRjYVJhRkM5a1F3bDl4MURkLWEweE1NNlVjSElJTEpRMF9ZcTNUSzJ1bElEalZJSHdybmdHYmV6REJkU2Y0S2lfM2N5dFRtQ293RzQ1dWw4VDRXaGp2bnlZUUN5ZzZ4TW5seHVUaElHV1REaw?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift donates $50,000 to crash victim
+
+- first seen: 2026-08-29 19:42 UTC | category: business | importance: 6
+- verification_status: corroborated | source_count: 4
+- summary: Taylor Swift has reportedly donated $50,000 to support a woman who was seriously injured in a crash. This contribution highlights her philanthropic efforts in response to community challenges.
+- sources:
+  - [unverified] WJAR — https://news.google.com/rss/articles/CBMirgJBVV95cUxNQ0dubzB1TndCUm03bkJDbmVVV2pRRC1GZWpwZGEwdS1ySzZGZ2pLUDJrQ0dIN1NidE1hVVlVNUZmTDNxTURGcXFTMGZ6YjZuY0puRWx4LVdOY2Q0bWIzV0RiTUNQTFh4a3pSMmFSS25NSkVFQ1FPS0s3Wm85eWZSV25nZFYzbjhqMkl1Q2tmY2tPOW1XNHM1VG5sUFk1MHZUalBjZlFJU2t5RVdzUEdWS2k5WS10ZjZlbUNROGR5bFV0d0VPLS1NU29HMzRQQlY5cWFxY2hGM2M0cnQwY0FpLXFfcXZweHBpWXhrWU9MS04zSEl4cmxWQ2VLWjhwOUZiN295MXpGZlpKZTJORGhkUl9iMlgtem1SZkQ1bkMwN1JWT3VJWUUyYXo4NERaQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KBAK — https://news.google.com/rss/articles/CBMitgJBVV95cUxNMk5oSllaa0xocmw4REZFQ1d6d2Zzd2xJb09fcG9XWW9rdUpUeUh0eUFRTkM3YlVIQmhKNmdnbVA3YXpBaklBRVpQNHExcDhMam9ONnRveVcxT0llcm4yMXdlSWlKZG9oaEU0d2lxYUJRNzY1SkZmVDVjTFhsNi1zTkYtUmh6UVA1Vk9QUFVCOHNYTlVEX0paN2tPdjFoRHhLeFNxVTVOd3JDUWZBd1E2S09UbzJSeXZhWThiUlZpd0lGendpZzB5X0VHQ0pNaGVvbkpNb0IwUXVJTVlpUTlBQnoyMVBqVDlQRWI2R1BFQVhWbTcxUy1vN090UVUzUFdocXVSUlpRR09nb2J0OVFKUzlpX1dFZ2E2djI3SFNDa0YtSjR5NFA3MTRlcUpBbUN1WEVQb0V3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WSMH — https://news.google.com/rss/articles/CBMipAJBVV95cUxQVEJYaGdTOGZJVmswZmdtYkY1eGJMZk1GN0U5T19nLWZ2Nll0elo5Vjl0RFlyN3A0UUpIS2ZMODdzX0hRaDZlMlhEbjJwSTFFVGNlODhQWC1sd25OVkZSQTAxeExoUHM4RXFWMnZiREMwODg1dzZMUjVLUXVyckZVdW83M1I3ZjBIX3l3enhEc21ILUdBZjdMSk1POW1XdG5XVl9DcUZUNlotdXpRakNLWjJzeThrc0JyelBrdmZucGh3YzA3N1BKalp4WnhheWtlXzRtZW1kOWdIa2hsNnFnYzZna0l4MXhmaS1vb0N5bjFKSXJmRUVCNWZ3ZU1rUTVIUkYwZnEzSG54TTlzSmVUR3FrMkgxNzd5ZFZsdVYzS3Q2czZB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WCHS — https://news.google.com/rss/articles/CBMioAJBVV95cUxNaUZUdkh3MjJoaGRZcHZJYm9NOWs1NGgtN2Rvb0htTXp5MkJ3bVJXd2w2WVFkRUpqOEc3alhrS3k3Wjd2dVhKLXRsQUlibU50X19oSkF3Z0hheTU2a0psVF8tMFRJaldyUXZES0JEVFFxalNzemd2UHVsM1JRenVmcDI1bWRwUGphQnBDMThJdG53OXlkWnlRTzd4Mm1RYjdydFkxRFdhcXNTUVpsLXpGQkZJdlFTYkZybFk4Vm4xOXZLbC1Tcm5kSlAwNi14cmozT25JZ0hWMGktTDkyU05yWTBCbERWa0VpTGw0ejVTTVJ4QXRLVlhGcExKUG5KSUpjZWt4R2FyaG51N29RaW5DWWt1Q2I5Uko2TWU1a3R6ZUU?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Discusses Coping Mechanism for Overwhelm
 
 - first seen: 2026-08-29 19:42 UTC | category: music | importance: 5
@@ -269,16 +361,6 @@ Stories: 60
 - summary: Taylor Swift has donated $50,000 to a mother who was seriously injured while helping teenagers in need. The donation highlights Swift's commitment to supporting individuals who perform heroic acts.
 - sources:
   - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMilgFBVV95cUxNN19mWWVibjJTS01obXJvYjlxWlMxZDdNWFlSd2thbkQyZjYzRi1QN0I4cGV4ajBwWTVtOHo3cUNiY0M3Z1NjTmg1NTd5aHVKaVRhVHBCY19sWFlBcEgzdTBFaWZra3FKMnNDQVpqUWFUSVBYQ0dxcjFsaTJyb0VWajFoMWY4ZGVhVjJqR19yVXVTZHpxQkE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift donates $50,000 to crash victim
-
-- first seen: 2026-08-29 19:42 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift has reportedly donated $50,000 to support a woman who was seriously injured in a crash. This contribution highlights her philanthropic efforts in response to community challenges.
-- sources:
-  - [unverified] KBAK — https://news.google.com/rss/articles/CBMitgJBVV95cUxNMk5oSllaa0xocmw4REZFQ1d6d2Zzd2xJb09fcG9XWW9rdUpUeUh0eUFRTkM3YlVIQmhKNmdnbVA3YXpBaklBRVpQNHExcDhMam9ONnRveVcxT0llcm4yMXdlSWlKZG9oaEU0d2lxYUJRNzY1SkZmVDVjTFhsNi1zTkYtUmh6UVA1Vk9QUFVCOHNYTlVEX0paN2tPdjFoRHhLeFNxVTVOd3JDUWZBd1E2S09UbzJSeXZhWThiUlZpd0lGendpZzB5X0VHQ0pNaGVvbkpNb0IwUXVJTVlpUTlBQnoyMVBqVDlQRWI2R1BFQVhWbTcxUy1vN090UVUzUFdocXVSUlpRR09nb2J0OVFKUzlpX1dFZ2E2djI3SFNDa0YtSjR5NFA3MTRlcUpBbUN1WEVQb0V3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WSMH — https://news.google.com/rss/articles/CBMipAJBVV95cUxQVEJYaGdTOGZJVmswZmdtYkY1eGJMZk1GN0U5T19nLWZ2Nll0elo5Vjl0RFlyN3A0UUpIS2ZMODdzX0hRaDZlMlhEbjJwSTFFVGNlODhQWC1sd25OVkZSQTAxeExoUHM4RXFWMnZiREMwODg1dzZMUjVLUXVyckZVdW83M1I3ZjBIX3l3enhEc21ILUdBZjdMSk1POW1XdG5XVl9DcUZUNlotdXpRakNLWjJzeThrc0JyelBrdmZucGh3YzA3N1BKalp4WnhheWtlXzRtZW1kOWdIa2hsNnFnYzZna0l4MXhmaS1vb0N5bjFKSXJmRUVCNWZ3ZU1rUTVIUkYwZnEzSG54TTlzSmVUR3FrMkgxNzd5ZFZsdVYzS3Q2czZB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WCHS — https://news.google.com/rss/articles/CBMioAJBVV95cUxNaUZUdkh3MjJoaGRZcHZJYm9NOWs1NGgtN2Rvb0htTXp5MkJ3bVJXd2w2WVFkRUpqOEc3alhrS3k3Wjd2dVhKLXRsQUlibU50X19oSkF3Z0hheTU2a0psVF8tMFRJaldyUXZES0JEVFFxalNzemd2UHVsM1JRenVmcDI1bWRwUGphQnBDMThJdG53OXlkWnlRTzd4Mm1RYjdydFkxRFdhcXNTUVpsLXpGQkZJdlFTYkZybFk4Vm4xOXZLbC1Tcm5kSlAwNi14cmozT25JZ0hWMGktTDkyU05yWTBCbERWa0VpTGw0ejVTTVJ4QXRLVlhGcExKUG5KSUpjZWt4R2FyaG51N29RaW5DWWt1Q2I5Uko2TWU1a3R6ZUU?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Caitlin Clark Debuts Taylor Swift-Inspired Nike Sneakers
 
@@ -489,44 +571,3 @@ Stories: 60
 - sources:
   - [unverified] HOLA — https://news.google.com/rss/articles/CBMilwFBVV95cUxQU3A1U2IwbzJpMW9oZldsaGRhSTNIVnpOdE12MThpczFXTG55dUtzUVk4YXoyLTJVU01PaUQzRzZEN3VXeVktY2VfcmFKaHMtYS1LeDk4RV9ubWppMEVvWVg3cG9yekE1SXBmSG1xVDZPUUktZjB6eGxEdVIwUk1wbVJkdldkZUhxZ195cDllUHJseHV1cWZN?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] IndyStar — https://news.google.com/rss/articles/CBMi7gFBVV95cUxNNklwWGYyVXdidklhQlJ4b1FDUGZLblhEX2NZU1JHVkplN0lMN0dSZU5yd2VTeU12M1NlcTRyUk9ocVVjWVlhdzY5Q0NyRVdJem53NHdWOHlhdGZPRUcwUmV3M2hZeEdyT2Vja2h0SzY5d2xFQ3UyUGFBSEZsT053MkxJMVZ1cVdoZm1DWWxLZDFnWWtuVTc5ZzZGMVRKME9DY2FnYWlUSGhlUDJFWlpQeHRVam9nWmdacVM4NENQMGlsRUlURlB4c29KWVpLZkFTRXB6dWVUa0pJemQ5cDRVelU1b21LNVg4MWhpbUxR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Enthusiastically Engaged in Writing New Music
-
-- first seen: 2026-08-28 12:43 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is actively dedicating herself to writing new music and expresses excitement about her current work. Her commitment to the creative process suggests significant upcoming projects.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiiwFBVV95cUxON0JjZ3ZqLW5FNzlJZXhuS0tXcUI3SGZZYndlUXdmNzYxd2kxb2JFVVdTdThydmRXbFhYQ2liUjBrRkZNeTJwM3JvSGw1WnFmUWtVV2VuTDRUbTM5QjdvelFfQ1p3UDNucE1INUtSdmRhU3YxS1NUS05sNzJ0WlBqY2I3RmhXeVB2cTRF?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNX01HZlpvOGZweDlwTU93M1NLNWthazFWb3VqUHNUdHpSTjZHVVljVXB1R3NYYzZiOUQzNDNKUVM0OHE3M1hPdm8yajVyaXFoUWlocnpHZHY5NkJpaTJxSXN5Nlg2Q293NFZ3NDdsR3dnamg4UUloRGMzZ1R1NUVKUUJLTEl5RE90d2xCSTNHT0JjSlctOE80eHdEYTM1eHZubW43OA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Remembers Last Interaction with Dolly Parton
-
-- first seen: 2026-08-28 12:43 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift shared her emotional last interaction with Dolly Parton, reflecting on the impact of Parton's recent passing, which she stated 'doesn't feel possible.'
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxNU3laNTdJZU5qY01kVHJmTF85Y3dHVUJtQUtCM3N6emxzWHd2dnUtTzRDTnpHSHN0SDdIWWxpRm5uek1lWUZlMS1NVklJSjVjdUw2VzZWQWR2RDFfcEwxX3VLUnc4UWJ4dXhyOFQ5U0RmemdlMVRpLTBQTUpEdXk5WUtBZWZEZ0tidmp0MFFzbk11UnJCSzdWcFNoVE15Y1lCSG1NaENFZnlhaFFudWc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Pays Tribute to Dolly Parton
-
-- first seen: 2026-08-28 12:43 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has honored Dolly Parton with a heartfelt tribute, celebrating her impact as the 'Book Lady.' This gesture highlights Swift's admiration for Parton and her contributions to music and culture.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMixAFBVV95cUxQRVJhd2VEV0ZWQW14V2hER3hsdTM4SV82RHNGbGFURzE4VkkwWk8wN0w3V2RBZE9Gck0zelhsOFRhakVnSkM0cjhsWU80bTdCVGZkWXZ0dHhreGtIc084YVVQM2FnbF96VGFBQ3hKZ2E2N21pdXhOUmJnNFh1RDhNS2VCUFFTNWRWRjlmdllIUUFhVzVWcjdOc0ZIZHVRYWVjeEtuX2dxOE0yRzEwdExnUFZTZTRQOFQtNjhNRjNUTW0xbVM4?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Celebrities, Including Taylor Swift, Spotlight Loafer Shoe Trend
-
-- first seen: 2026-08-28 12:43 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift joins Natalie Portman and other celebrities in showcasing the latest trend of loafer shoes. The article features photos of various stars embracing this stylish footwear choice.
-- sources:
-  - [unverified] WWD — https://news.google.com/rss/articles/CBMipAFBVV95cUxNM2VVdzFIYzJaUUxPdEw5NkRaZE1GQUJ1SU5GTXdJZ0ZvVlpRV1FsR3RKWlJEWEM2b19VMHNhSTh0Qk5USEQ3VGJnNHJaUlROX01JQlU2NkNLSURsYlFuVUpZMUtoeDc5LVlHT2EzQzV1ejZvbHJiN1VRa1R0QjhyUXJIWlVNdko3MmFQRV96enJaTjFYSDJMREFUOHhUZS1HTG9ESg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Adjusting to Life After Wedding
-
-- first seen: 2026-08-28 12:43 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An insider reveals that Taylor Swift and Travis Kelce are working on establishing their new routine following their wedding while their respective careers remain a priority. The couple is navigating this transition together.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQaGFxSm5vN0FuQ0FlMlQtTEVPbW0wcHMwdURrbEZkZFVMUEN0c19xOXZwV3NtN1ZUUEV1SUhZMDBQZ0s0TmpfZjBHbV9PdzlLNkZ6RE11QWFRaWlzSVlwZEdnVEw4bUFNdjk2N0hZTm9Mb0ZGamt4bkN4bW95NWxqX2ZNa3czdFN6?oc=5&hl=en-US&gl=US&ceid=US:en
