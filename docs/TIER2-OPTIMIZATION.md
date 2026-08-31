@@ -533,9 +533,14 @@ the end.
   expensive *stale* item in the fleet — a watchdog for an event that has
   passed, running more often than most live desks.
 - **Recommendation (T-14) — read the trigger; if the purge is confirmed
-  complete, delete it and record the receipt in `decisions.md`**, per REC-5.
-  If somehow still pending, register a prompt file + retirement condition on
-  the spot. Trivial; agent call.
+  complete, archive its full configuration in-repo, then delete it and
+  record the receipt in `decisions.md`**, per REC-5. Because this trigger
+  has **no prompt file**, its live `job_config` is the *only* record of what
+  it does — copy the full config (prompt text, schedule, model) into the
+  receipt or a `docs/agents/runner-prompts/` archive entry *before* deletion,
+  so the action stays auditable and reversible per `CLAUDE.md`'s
+  knowledge-lives-in-the-repo rule. If somehow still pending, register a
+  prompt file + retirement condition on the spot. Trivial; agent call.
 
 ---
 
@@ -610,8 +615,9 @@ under it, and its gate set is consistent with `CLAUDE.md`'s standing rules on
 spend, product direction, and destructive actions). **None of the
 recommendations below touches secrets_or_prod_infra or
 data_deletion_or_force_push** (Phase 4 disables, never deletes; T-4/T-14
-delete only disabled/stale *triggers*, not data, with prompts preserved
-in-repo).
+delete only disabled/stale *triggers*, not data — T-4's prompts are already
+preserved in-repo, and T-14 requires archiving its config in-repo first
+because no prompt file exists for it).
 
 | ID | Recommendation | Token/cost impact | Quality/goal impact | Effort | Risk if wrong | Human gate |
 |---|---|---|---|---|---|---|
@@ -628,7 +634,7 @@ in-repo).
 | T-11 | Austin: 2-week Fable → Opus trial, judged by existing metrics | **▼ ~30 Fable→Opus sm** if it sticks | neutral if metrics hold (Codex gate unchanged) | Trivial | findings-per-PR degrades → revert | none (reversible trial) |
 | T-12 | Marjorie brief: ratify Opus 4.8 in charter | neutral | ▲ charter/reality coherence | Trivial | none | founder-approved charter PR |
 | T-13 | Disable Marjorie 8 PM delta | **▼▼ ~30 Fable sm** | ≈neutral (no established reader; brief carries delta) | Trivial | someone was reading it — re-enable in 2 min | none (tell Joey after) |
-| T-14 | Getty purge: verify complete, delete, receipt | **▼ ~60 Sonnet sm** | ▲ hygiene | Trivial | purge not actually complete → check first | none |
+| T-14 | Getty purge: verify complete, archive config in-repo, delete, receipt | **▼ ~60 Sonnet sm** | ▲ hygiene | Trivial | purge not actually complete → check first; no prompt file exists → archive before delete | none |
 | T-15 | Account placement — RESOLVED (D1=B, PR #3598: docs amended to Joey's account) | neutral | ▲ policy coherence (done) | — (landed) | — | ~~spend~~ resolved 2026-08-31 |
 | T-16 | NEW weekly notification-quality desk (Sonnet) | **▲ ~4 Sonnet sm NEW** | **▲▲** guards the product's stated differentiator | Moderate (new desk, full checklist) | ticket noise if analytics too thin — start after REC-1 heartbeat | **spend** |
 | T-17 | Token/run telemetry (Tier-1 Action + auditor arithmetic) | ▼ enables future cuts; 0 tokens itself | ▲ next audit is a diff, not archaeology | Trivial-moderate | none | none |
@@ -657,7 +663,8 @@ notification quality.
 
 1. **T-13** — disable the Marjorie 8 PM delta. Biggest single premium-model
    saving available for one trigger flip. *(agent)*
-2. **T-14** — verify + delete the Getty purge one-shot, with receipt. *(agent)*
+2. **T-14** — verify + archive config in-repo + delete the Getty purge
+   one-shot, with receipt. *(agent)*
 3. **T-1** — execute Vault Phase 4, Rumor Desk first, one lane per cycle. The
    structurally largest win in Tier 2; do it before any other content-lane
    tuning so later measurements reflect the consolidated fleet. *(agent, tell
