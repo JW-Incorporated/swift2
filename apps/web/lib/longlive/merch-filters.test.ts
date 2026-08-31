@@ -73,7 +73,10 @@ describe('merchItemImage', () => {
       category: 'shop-the-look',
       imageUrl: 'https://cdn.shopify.com/test.jpg',
     };
-    expect(merchItemImage(withImage)).toEqual({ kind: 'product', url: 'https://cdn.shopify.com/test.jpg' });
+    expect(merchItemImage(withImage)).toEqual({
+      kind: 'product',
+      url: 'https://cdn.shopify.com/test.jpg',
+    });
   });
 
   it('resolves the real catalogue split by execution — every item is split, product, moment, or monogram', () => {
@@ -110,10 +113,23 @@ describe('merchItemImage', () => {
     // monogram tile for those rather than repeat the identical Taylor photo
     // across different product cards (no per-item "as-worn" photo exists in
     // the E6 matcher output to substitute instead).
+    // 42/10 -> 41/11 (kanban task t_cfd48d66, 2026-08-31): the #3569 fix
+    // above only tracked claims PER MOMENT (keyed by momentId), so it never
+    // caught two DIFFERENT moments whose images cite the identical
+    // underlying photo URL — the real 2016-Grammys case: a wardrobe moment
+    // and a separate haircut moment both cite the same wire photo. The
+    // wardrobe product has its own imageUrl (renders split, moment half
+    // labelled), the haircut product has none, so it fell back to that same
+    // photo full-width right next to the split card — the exact adjacent
+    // duplicate the founder screenshotted. shopTheLookItems() now tracks
+    // claimed photo URLs globally across the whole pass (not reset per
+    // moment), and a split card's moment half counts as a claim too (it
+    // puts the same pixels on screen); the haircut product demotes to the
+    // honest monogram tile instead of repeating them.
     expect(split).toBe(46);
     expect(product).toBe(2);
-    expect(moment).toBe(42);
-    expect(monogram).toBe(10);
+    expect(moment).toBe(41);
+    expect(monogram).toBe(11);
     expect(split + product + moment + monogram).toBe(100);
   });
 
@@ -141,14 +157,18 @@ describe('merchItemImage', () => {
   });
 
   it('falls back to monogram (not the shared moment photo) when demoteSharedMomentPhoto is set (fix/merch-image-buy-link dedupe, t_49a63ae1)', () => {
-    const withMomentPhoto = MERCH_CATALOGUE.shopTheLook.find((i) => merchItemImage(i).kind === 'moment');
+    const withMomentPhoto = MERCH_CATALOGUE.shopTheLook.find(
+      (i) => merchItemImage(i).kind === 'moment',
+    );
     expect(withMomentPhoto).toBeDefined();
     const demoted: MerchItem = { ...withMomentPhoto!, demoteSharedMomentPhoto: true };
     expect(merchItemImage(demoted)).toEqual({ kind: 'monogram' });
   });
 
   it('demoteSharedMomentPhoto has no effect on an item with its own product photo', () => {
-    const withProductPhoto = MERCH_CATALOGUE.shopTheLook.find((i) => merchItemImage(i).kind === 'product');
+    const withProductPhoto = MERCH_CATALOGUE.shopTheLook.find(
+      (i) => merchItemImage(i).kind === 'product',
+    );
     expect(withProductPhoto).toBeDefined();
     const flagged: MerchItem = { ...withProductPhoto!, demoteSharedMomentPhoto: true };
     expect(merchItemImage(flagged)).toEqual(merchItemImage(withProductPhoto!));
