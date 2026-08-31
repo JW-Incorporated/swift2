@@ -527,13 +527,7 @@ export async function currentFrom(path, fallback) {
       if (error?.code === 'ENOENT') return fallback;
       throw error;
     }
-    let catalog;
-    try {
-      catalog = (await import(pathToFileURL(resolve(path)).href)).default;
-    } catch (error) {
-      if (error?.code === 'ERR_MODULE_NOT_FOUND') return fallback;
-      throw error;
-    }
+    const catalog = (await import(pathToFileURL(resolve(path)).href)).default;
     if (!Array.isArray(catalog)) throw new Error('current catalog module must export an array');
     return catalog;
   }
