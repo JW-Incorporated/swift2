@@ -647,6 +647,9 @@ export default {
             item: 'Kai Two Piece Top and Skirt Set',
             retailer: 'showpo.com',
             url: 'https://www.showpo.com/us/products/kai-two-piece-top-and-skirt-set-sequin-strappy-crop-top-and-wrap-tie-side-mini-skirt-in-sc2605000502',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0904/3371/6589/files/Kai_Two_Piece_Top_and_Skirt_Set_-_Sequin_Crop_Top_and_Wrap_Tie_Side_Mini_Skirt_in_Light_Blue_1.jpg?v=1778810829',
             matchTier: 'unscored',
             kind: 'top',
             price: '$105.00',
@@ -1840,6 +1843,9 @@ export default {
             item: 'Natalie Rhinestone Fishnet Mini Dress',
             retailer: 'fashionnova.com',
             url: 'https://www.fashionnova.com/products/natalie-rhinestone-fishnet-mini-dress-fncolorname-pink',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0293/9277/files/07-18-25_S8_53_KBBD4053024_Pink_JG_MC_15-11-45_11984-Adia_CM_PXF.jpg?v=1754591992&width=1200&height=627',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$27.98',
@@ -1983,6 +1989,9 @@ export default {
             item: 'Lara Cut Out Jumpsuit',
             retailer: 'fashionnova.com',
             url: 'https://www.fashionnova.com/products/lara-cut-out-jumpsuit-fncolorname-black',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0293/9277/files/01-13-25_S6_23_JP3189PD_Red_HY_AC_15-55-21_62353_BH_KP_Black.jpg?v=1746126033&width=1200&height=627',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$39.99',
@@ -2027,6 +2036,9 @@ export default {
             item: '"Not a Lot Going on at the Moment" Unisex T-Shirt',
             retailer: 'upper90studio.com',
             url: 'https://www.upper90studio.com/store/p/not-a-lot-going-on-at-the-moment-unisex-t-shirt',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'http://static1.squarespace.com/static/63b729d4171af66ccea2414b/63c0deeeecc669179e075571/64397b6b70ada81b868d877a/1681488751624/unisex-staple-t-shirt-white-front-64397b6437281.jpg?format=1500w',
             matchTier: 'unscored',
             kind: 'top',
             price: '$19.95+',

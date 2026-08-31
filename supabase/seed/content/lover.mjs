@@ -477,6 +477,9 @@ export default {
             item: 'Tweed Plaid Button Up Wide Leg Jumpsuit',
             retailer: 'shopcider.com',
             url: 'https://www.shopcider.com/goods/tweed-plaid-button-up-wide-leg-jumpsuit',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://img1.shopcider.com/product/1669608459000-XnJb8S.jpg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$44.90',
