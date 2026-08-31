@@ -478,15 +478,15 @@ on a cheap schedule rather than burning a session's tokens").
 **Cost:** a few seconds on every CI run; no tokens, no new secret.
 
 <a id="rec-4"></a>
-### REC-4 — Combine the four manually-confirmed merch evidence workflows into one
+### REC-4 — Combine the three manually-confirmed merch evidence collectors into one
 
-**Finding.** `merch-e5-evidence.yml`, `merch-awin-directory-shortlist.yml`,
-`merch-awin-directory-recommendations.yml` and `merch-matcher.yml` are four
-near-identical files: checkout → setup-node 24 → run one script → upload one
-artifact, gated on a typed confirmation string. They differ only in the script
-path and the confirmation word. Four files means four headers to keep honest,
-and two of them are already in the "effectively undocumented" bucket precisely
-because nothing explains how they differ.
+**Finding.** `merch-e5-evidence.yml`, `merch-awin-directory-shortlist.yml` and
+`merch-awin-directory-recommendations.yml` are three near-identical files:
+checkout → setup-node 24 → run one script → upload one artifact, gated on a
+typed confirmation string. They differ only in the script path and the
+confirmation word. Three files means three headers to keep honest, and two of
+them are in the "effectively undocumented" bucket precisely because nothing
+explains how they differ.
 
 **Recommendation.** Collapse them into one `merch-evidence.yml` with a
 `target` **choice** input mapped 1:1 to a fixed script allowlist — the exact
@@ -494,12 +494,20 @@ pattern [`db-seed.yml`](../.github/workflows/db-seed.yml) already uses for its
 seven seed targets, including its "no interpolation, fixed allowlist" safety
 property. Keep the typed confirmation. The safety posture is unchanged
 (artifact-only, no writes, no auto-trigger); the surface to document drops from
-four headers to one, and adding the *next* evidence collector becomes a
-one-line allowlist entry instead of a fifth copy-pasted file.
+three headers to one, and adding the *next* evidence collector becomes a
+one-line allowlist entry instead of a fourth copy-pasted file.
 
-**Do not** fold in `merch-audit-authoring.yml` or `merch-matcher-authoring.yml`
-— those spend money and call vision models, and their separateness is a
-deliberate rule (SPEC §8, R1). Keep them distinct files.
+**Deliberately excluded, and why each stays its own file:**
+
+- `merch-matcher.yml` — despite looking similar, it is **not** an evidence
+  collector: it has no typed confirmation, and its dispatch takes a
+  caller-supplied `candidate_file` path to build a deterministic matcher
+  handoff plan. A fixed target→script allowlist would either drop that input
+  or misrepresent the workflow, so folding it in would change behaviour rather
+  than just deduplicate boilerplate.
+- `merch-audit-authoring.yml` and `merch-matcher-authoring.yml` — these spend
+  money and call vision models. Their separateness is a deliberate rule
+  (SPEC §8, R1), not incidental duplication.
 
 <a id="rec-5"></a>
 ### REC-5 — Named retirement candidates (recommendations only, nothing retired here)
