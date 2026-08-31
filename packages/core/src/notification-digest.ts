@@ -32,7 +32,7 @@ import {
 } from '@swift2/shared';
 import { getTopTheories } from './notification-clownbot-source';
 import { isWithinSendWindow, nextDigestOccurrence, type DigestCadence } from './notification-digest-schedule';
-import { startOfLocalDay } from './notification-governor';
+import { HARD_CEILING_PER_DAY, startOfLocalDay, totalDeliveriesToday } from './notification-governor';
 import { sendPushBatch } from './notification-sender';
 
 export interface DigestDeviceRow {
@@ -82,6 +82,7 @@ export interface DigestDispatchResult {
   digestsSent: number;
   digestsHeldOutsideSendWindow: number;
   digestsSkippedMasterOff: number;
+  digestsSkippedHardCeiling: number;
   sendFailures: number;
   clownReportsSent: number;
   errors: string[];
@@ -120,6 +121,7 @@ export async function dispatchDueDigests(
     digestsSent: 0,
     digestsHeldOutsideSendWindow: 0,
     digestsSkippedMasterOff: 0,
+    digestsSkippedHardCeiling: 0,
     sendFailures: 0,
     clownReportsSent: 0,
     errors: [],
@@ -182,6 +184,18 @@ export async function dispatchDueDigests(
       // spec §6 gate 5: digests only fire 8am-9pm local. Rows stay queued
       // (untouched) for the next tick rather than being dropped.
       result.digestsHeldOutsideSendWindow++;
+      continue;
+    }
+
+    // spec §6.4 hard ceiling (Phase 5): combined instant+scheduled sends
+    // can never exceed 6/day. A ceiling-blocked digest's queued rows stay
+    // queued (same "wait, don't drop" posture as the send-window hold) —
+    // they'll be reconsidered, and re-merged with anything new, on the
+    // next tick once the device's local day rolls over and the count
+    // resets.
+    const sentSoFarToday = await totalDeliveriesToday(db, device.id, device.tz, now);
+    if (sentSoFarToday >= HARD_CEILING_PER_DAY) {
+      result.digestsSkippedHardCeiling++;
       continue;
     }
 
@@ -293,6 +307,12 @@ export async function dispatchClownReports(
       continue;
     }
     if ((count ?? 0) > 0) continue; // already sent today
+
+    // spec §6.4 hard ceiling (Phase 5) — the Clown Report is a 'fun'-kind
+    // send just like lyric_of_day/on_this_day; it counts against the same
+    // device-wide 6/day floor.
+    const sentSoFarToday = await totalDeliveriesToday(db, device.id, device.tz, now);
+    if (sentSoFarToday >= HARD_CEILING_PER_DAY) continue;
 
     if (theories === null) theories = await getTopTheories(db);
     const body = buildEasterEggDigestBody(theories);

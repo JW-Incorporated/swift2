@@ -17,7 +17,7 @@ function chain(result: { data?: unknown; error?: unknown }) {
   const obj: Record<string, unknown> = {
     then: (resolve: (r: typeof result) => void) => resolve(result),
   };
-  for (const method of ['insert', 'select', 'single', 'eq', 'neq', 'lt', 'update', 'upsert']) {
+  for (const method of ['insert', 'select', 'single', 'maybeSingle', 'eq', 'neq', 'lt', 'update', 'upsert']) {
     obj[method] = () => obj;
   }
   return obj;
@@ -138,15 +138,21 @@ describe('upsertLiveTheory', () => {
     const db = fakeDb(() => chain({ data: [], error: null }));
     let call = 0;
     let insertedRow: Record<string, unknown> | undefined;
-    (db.from as unknown as ReturnType<typeof vi.fn>).mockImplementation(() => {
+    (db.from as unknown as ReturnType<typeof vi.fn>).mockImplementation((table: string) => {
       call++;
       if (call === 1) return chain({ data: [], error: null }); // select: no existing rows
-      const c = chain({ data: { id: 'theory-new' }, error: null }) as Record<string, unknown>;
-      c.insert = (row: Record<string, unknown>) => {
-        insertedRow = row;
+      if (call === 2) {
+        // live_theory insert
+        const c = chain({ data: { id: 'theory-new' }, error: null }) as Record<string, unknown>;
+        c.insert = (row: Record<string, unknown>) => {
+          insertedRow = row;
+          return c;
+        };
         return c;
-      };
-      return c;
+      }
+      // call 3: the Phase 5 easter_egg insertEvent() side-effect against 'events'
+      expect(table).toBe('events');
+      return chain({ data: { id: 'evt-1' }, error: null });
     });
     await upsertLiveTheory(db, { name: 'Brand New Theory', claim: 'Something new' }, ['owl'], '2026-08-23');
     expect(insertedRow?.redline_ok).toBe(true);

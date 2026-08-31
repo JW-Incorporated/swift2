@@ -58,6 +58,9 @@ describe('GET /api/notifications/dispatch', () => {
         .mockResolvedValue({ lyricsSent: 1, onThisDaySent: 1, errors: [] }),
       scheduleCountdownsForPendingEvents: vi.fn().mockResolvedValue({ scheduled: 2, errors: [] }),
       dispatchDueCountdowns: vi.fn().mockResolvedValue({ sent: 1, sendFailures: 0, errors: [] }),
+      runCooldownPass: vi
+        .fn()
+        .mockResolvedValue({ devicesDowngraded: 1, noticesSent: 1, errors: [] }),
     }));
     vi.resetModules();
 
@@ -76,6 +79,7 @@ describe('GET /api/notifications/dispatch', () => {
       fun: { lyricsSent: 1, onThisDaySent: 1, errors: [] },
       countdownSchedule: { scheduled: 2, errors: [] },
       countdownDispatch: { sent: 1, sendFailures: 0, errors: [] },
+      cooldown: { devicesDowngraded: 1, noticesSent: 1, errors: [] },
     });
     vi.doUnmock('@supabase/supabase-js');
   });

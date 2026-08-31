@@ -16,7 +16,7 @@ import {
   startOfLocalPeriod,
   type FunCadence,
 } from './notification-fun-schedule';
-import { startOfLocalDay } from './notification-governor';
+import { HARD_CEILING_PER_DAY, startOfLocalDay, totalDeliveriesToday } from './notification-governor';
 
 export interface LyricCandidate {
   id: number;
@@ -151,6 +151,7 @@ export interface FunDispatchResult {
   countdownsSent: number;
   devicesConsidered: number;
   sendFailures: number;
+  skippedHardCeiling: number;
   errors: string[];
 }
 
@@ -176,6 +177,7 @@ export async function dispatchFunNotifications(
     countdownsSent: 0,
     devicesConsidered: 0,
     sendFailures: 0,
+    skippedHardCeiling: 0,
     errors: [],
   };
 
@@ -261,6 +263,14 @@ export async function dispatchFunNotifications(
       continue;
     }
     if ((alreadySentCount ?? 0) > 0) continue; // already sent this period
+
+    // spec §6.4 hard ceiling (Phase 5): fun sends count against the same
+    // device-wide 6/day floor as instant + digest sends.
+    const sentSoFarToday = await totalDeliveriesToday(db, device.id, device.tz, now);
+    if (sentSoFarToday >= HARD_CEILING_PER_DAY) {
+      result.skippedHardCeiling++;
+      continue;
+    }
 
     if (pref.category === 'lyric_of_day') {
       await sendLyricOfDay(db, device, lyricPool, now, result);
@@ -481,8 +491,8 @@ interface CountdownSendRow {
 export async function dispatchDueCountdowns(
   db: SupabaseClient,
   now: Date = new Date(),
-): Promise<{ sent: number; sendFailures: number; errors: string[] }> {
-  const out = { sent: 0, sendFailures: 0, errors: [] as string[] };
+): Promise<{ sent: number; sendFailures: number; skippedHardCeiling: number; errors: string[] }> {
+  const out = { sent: 0, sendFailures: 0, skippedHardCeiling: 0, errors: [] as string[] };
 
   const { data: dueRows, error: dueError } = await db
     .from('countdown_sends')
@@ -500,7 +510,7 @@ export async function dispatchDueCountdowns(
   const eventIds = [...new Set(rows.map((r) => r.event_id))];
   const [{ data: deviceRows, error: deviceError }, { data: eventRows, error: eventError }] =
     await Promise.all([
-      db.from('devices').select('id,push_token,master_enabled').in('id', deviceIds),
+      db.from('devices').select('id,push_token,master_enabled,tz').in('id', deviceIds),
       db.from('events').select('id,title').in('id', eventIds),
     ]);
   if (deviceError) {
@@ -513,7 +523,12 @@ export async function dispatchDueCountdowns(
   }
   const devicesById = new Map(
     (
-      (deviceRows ?? []) as { id: string; push_token: string | null; master_enabled: boolean }[]
+      (deviceRows ?? []) as {
+        id: string;
+        push_token: string | null;
+        master_enabled: boolean;
+        tz: string;
+      }[]
     ).map((d) => [d.id, d]),
   );
   const titleByEventId = new Map(
@@ -523,6 +538,15 @@ export async function dispatchDueCountdowns(
   for (const row of rows) {
     const device = devicesById.get(row.device_id);
     if (!device || !device.master_enabled || !device.push_token) continue;
+
+    // spec §6.4 hard ceiling (Phase 5): countdown sends are kind='fun'
+    // just like lyric_of_day/on_this_day — same device-wide 6/day floor.
+    const sentSoFarToday = await totalDeliveriesToday(db, device.id, device.tz, now);
+    if (sentSoFarToday >= HARD_CEILING_PER_DAY) {
+      out.skippedHardCeiling++;
+      continue;
+    }
+
     const { title, body } = countdownCopy(
       row.milestone,
       titleByEventId.get(row.event_id) ?? 'A new drop',

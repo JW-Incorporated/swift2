@@ -12,6 +12,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import {
   evaluateGovernor,
   startOfLocalDay,
+  totalDeliveriesToday,
   type GovernorDeviceSettings,
 } from './notification-governor';
 import { sendPushBatch, type PushSendResult } from './notification-sender';
@@ -191,9 +192,10 @@ async function dispatchOneEvent(
       tz: device.tz,
     };
 
-    const [recentDeliveries, instantToday] = await Promise.all([
+    const [recentDeliveries, instantToday, totalToday] = await Promise.all([
       recentSameCategoryDeliveries(db, device.id, event.category, now),
       instantDeliveriesToday(db, device.id, device.tz, now),
+      totalDeliveriesToday(db, device.id, device.tz, now),
     ]);
 
     const decision = evaluateGovernor({
@@ -202,6 +204,7 @@ async function dispatchOneEvent(
       event: { category: event.category, tier: event.tier },
       recentSameCategoryDeliveries: recentDeliveries,
       instantDeliveriesToday: instantToday,
+      totalDeliveriesToday: totalToday,
     });
 
     switch (decision.action) {
@@ -293,6 +296,12 @@ async function instantDeliveriesToday(
   if (error) throw new Error(`daily-cap count: ${error.message}`);
   return count ?? 0;
 }
+
+/** Gate 6's (Phase 5 hard ceiling) counter now lives in
+ * notification-governor.ts's totalDeliveriesToday() so it can be shared
+ * with notification-digest.ts / notification-fun.ts without a circular
+ * import — re-exported here for any existing external importer. */
+export { totalDeliveriesToday } from './notification-governor';
 
 /**
  * Logs one `deliveries` row per successful send and prunes any device whose
