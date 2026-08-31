@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 57
+Stories: 60
+
+## Taylor Swift donates $50K to Connecticut mother recovering from injury
+
+- first seen: 2026-08-31 07:00 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated $50,000 to a mother from Connecticut who has been injured. This charitable act highlights her support for individuals in need.
+- sources:
+  - [unverified] NBC News — https://news.google.com/rss/articles/CBMipwFBVV95cUxPOGllNUxGT2VUSWhvekhKUHVWal8yVjFveWs5ZFVTWWxrRFVSU09iMDBCczhQeG4ycmctakpueXppV01EdXQtZnhYZHVEanczOWV3d1B1TGRTdzNkbURaUW9Qd0J0TVcwTWJLU3ZlMVBzMy1xdS1tUmJ2cURDRDkxMXltb0RTYXExU3BzX3FEcjFCUmpIUjRYeGFqdzJjeXRNOTlLVUw0dw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Harry Styles Jokes About Weddings After Swift and Kelce's Marriage
+
+- first seen: 2026-08-31 07:00 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: At Madison Square Garden, Harry Styles made jokes about weddings, referencing the recent marriage of Taylor Swift and Travis Kelce. The comment comes months after their announcement, highlighting the ongoing public interest in their relationship.
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMinAFBVV95cUxNT1VscnZSTzVHRUg5ZU9Id083LTB3elhRdDFxeTVYd0dfeFdlLU9yYUtkQXQxazVac3M4Y0VuRm0xeFZ3YlVIM2xITzZPbU1aNGpFUmk1cFBWU19aNFNxZkVfR1AzWUs2QXI5ZFNDVmUwOG5ZVWNha19ZQmpPNHoyT0o1V19wZHJtQUd1ZmJYclBoRjBfVDM3NFZkWk8?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift donates $50K to Connecticut mom injured in crash rescue attempt
+
+- first seen: 2026-08-31 07:00 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated $50,000 to a Connecticut mother who was injured while assisting victims of a car crash. The donation aims to support her recovery and help with medical expenses.
+- sources:
+  - [unverified] CT Insider — https://news.google.com/rss/articles/CBMimwFBVV95cUxPVnNCeDRKZGwwOXF2TEdkRXZPUGR0QTVsaWd1MHZ0aWd0aTBvZGxXcjZWWm92RzIwYmpISEhRT21GZm95VGFJck95QmJ1MFpwWVhTTG9xeXFKMW9TRTQ4eWtSeFJGQVZtdDZoRUhqWnA1R3pRbkcybl9qSUY2T0RaUG0wQlpsUGZxZkl6WDFJSWppTGtDQ1ppdEYzRQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Dolly Parton Shares Thoughts on Taylor Swift and Travis Kelce's Romance
 
@@ -103,7 +127,7 @@ Stories: 57
 ## Harry Styles Makes Joke About Taylor Swift at Madison Square Garden
 
 - first seen: 2026-08-30 14:24 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: During an event at Madison Square Garden, Harry Styles made a joke referencing Taylor Swift. The comment was reported by The Independent.
 - sources:
   - [unverified] The Independent — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQMURrMXVMa2tzZWZWWlZ4MnhvUFIwWk5TRm1VcFJ5Z2RPZ0tEcjZCRVNOUDU2NzRETmFTak9vNEdLUGF1dWNQeUpjejQ4S2NyRDc5cWJmV0VfR2hNbHJpRmZRSjJwcEJvT3I3Tkc3WGI5cHozVlM3SDE0WUxCYXd4WXAyQm94QkJHeEx2UTdrU3A1TTBPZEVhc3V5SERhWHF3akE5NTBnekZGYUoyVzBEdndaZ3VnNW9xMlRERTVGNjhFUDZ1aWRxWg?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -112,6 +136,7 @@ Stories: 57
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi8wFBVV95cUxNMl9BTmdjTnQ5ZHRiMXB6dVZMRHFWOXdOT0ExZU5LSFJQdUJfSnlpTjc1UU00eFgtTVoxV3g1eDQ0Tjhmdmx2T2ZMcklyM0RrUFMzNm5Ec2lCSzFtbkdoNm1PQUdvNTlWMTFPZ0VZOVRkSlFRaTNoMERpVzJ0czVCR0lHR0JJN2twVFFqakFuUkxGMkdZSnVrcnNwMVhfZzB6NGtXbWE1ZUZpdS1WdVEtaDdhTG1pM3VyOTZhWFduc3RBaUxHWkJrX1FSY0JYUnFkSXRoV19aYkQzQ2doMllEeF9MdmJjcU5WdENKZVN2OU1FYknSAfMBQVVfeXFMTklWVXBRenh0SUZRN19BTVdTc2ZsNTBuNllUREZaME9WbDJjZER6eC1yTGlHczdYbFhOenJ0MG93MUVSNlZuaWVVZXFiUF9qYUN1RlYxRndjZXZza3hvQjdDVjdJTGNsVk1WaUZsTERqWmV2ZkhqM044eW51Y1NDMDEwYkdtNGZBZ1BYaVJPVnJ2Ul9FbnBHSkJTRFE5QjdlVDhnWmZLZ3lHOVFVcVZzQnRqaXljRjNfUTFqak4wV3dscXZqYTZydlJJN0xQMnhQSFI4U2RZSlRON1lIZTdTM2dVbW5vS1ZSVUJiLUR0VzAydms4?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPMmhuMHUzQUsyejN1X0N5RDdvVng1aHRzNUZTcG5vUm1ENlBtX0UzVlN1cTVTald1NDZ1ZUlpRVIzWk8teldvamhubzBERWltak0zY0FHVS1ocjhQOGNnSllFR3FvY19RS09FaUtFOTJidVBLeG9lX1dacXppZTBKN3U2RU5RNG4zeklMSGxwVmpnYUgtX25Qay0wWkNYaDhYRXJ5dXlhc2tfUnRkbjJnNHBGRkM4d3I0NzBqaVRCV1RKSzZjcldSeTNzY3VxZHB2NzdPbQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikAFBVV95cUxOTnl2UFRfSm5YdHIwYmxmQXZtVXo1bHdpd0cwckdqRE9uaFZjc0swR3FQRVdSbDB5aVdNRDlsS3dtU2pTR1VrV3lTejVLWFloZ1dMMlVDNkJwM29EYjVPSXA1NExlOWNuV2w1MV9NdXZjdGY2ZlBsNDJwdmtFYy15cGQwNGJzNmNpaTBqOG5QLTk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WWD — https://news.google.com/rss/articles/CBMiswFBVV95cUxPZHpya2FFdnlHaExibWI0MmtfdXBuY211UEstWnFSQjZYLTZhR19jZ05abERmeHJqQ2hsVjU1Rnk0M21TMWtkYVUxbnRsaTlobk5laWFIMGY5SDY0UXk4VXFCVTI3YVZMOFFmd2ZpQlB4RjdaVUV4OXNXZ1FOdkVha2p4anNjaEt2VXJ3eGxZOWkyby1pZnFZWFFXOFhib194QXZNQkNjRWRQUFBrN1J0VWllYw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Comments on Taylor Swift's Wedding at Concert
 
