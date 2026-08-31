@@ -557,6 +557,17 @@ runs on Joey's account and is not to be migrated. No founder gate remains;
 kept here for the record because every token recommendation in this file
 counts against that (now-canonical) account limit.
 
+**Residual drift #3598 missed:** `CLAUDE.md` still carries the old rule in
+two places ("Scheduled runners live on Wyatt's account so Joey's weekly
+limit stays free", lines 76–77, and the Wyatt's-account fleet line near
+line 164). Until those lines are amended, the root operating manual
+contradicts `runners.md`'s now-canonical statement. The decision itself is
+made and recorded — this is purely a docs-completion follow-up, and it is
+folded into **T-19**'s consolidated drift-fix pass below (the CLAUDE.md
+lines are governance text, so that PR takes the routine founder sign-off
+T-19 already requires). Operators in the interim: `runners.md` +
+`decisions.md` (D1=B, 2026-08-31) are the fresher, controlling record.
+
 #### T-16 — Notification-quality desk: the one justified NEW routine (founder-gated: spend)
 
 Per REC-7.3 and `vision.md`'s core promise (never over-notify), the copy that
@@ -596,7 +607,9 @@ changes are honest-trivial only one at a time.
 
 Collected above: Nils daily-vs-weekly (T-7), Austin ×2-vs-×1 (T-11),
 Marjorie Fable-vs-Opus (T-12), Karen "nightly" naming (T-5), the superseded
-"Vault Filler" still-to-do row (A4), Laura's charter cadence if T-8 lands.
+"Vault Filler" still-to-do row (A4), Laura's charter cadence if T-8 lands,
+and the two `CLAUDE.md` Wyatt's-account lines that PR #3598 missed (T-15's
+residual drift — amend to Joey's account per the recorded D1=B decision).
 One documentation PR, founder-approved where charters require it. The
 doc-quality companion grades these files; stale governance text is how the
 last two audits found their worst surprises. Trivial-to-moderate.
@@ -635,7 +648,7 @@ because no prompt file exists for it).
 | T-12 | Marjorie brief: ratify Opus 4.8 in charter | neutral | ▲ charter/reality coherence | Trivial | none | founder-approved charter PR |
 | T-13 | Disable Marjorie 8 PM delta | **▼▼ ~30 Fable sm** | ≈neutral (no established reader; brief carries delta) | Trivial | someone was reading it — re-enable in 2 min | none (tell Joey after) |
 | T-14 | Getty purge: verify complete, archive config in-repo, delete, receipt | **▼ ~60 Sonnet sm** | ▲ hygiene | Trivial | purge not actually complete → check first; no prompt file exists → archive before delete | none |
-| T-15 | Account placement — RESOLVED (D1=B, PR #3598: docs amended to Joey's account) | neutral | ▲ policy coherence (done) | — (landed) | — | ~~spend~~ resolved 2026-08-31 |
+| T-15 | Account placement — RESOLVED (D1=B, PR #3598: docs amended to Joey's account); residual `CLAUDE.md` drift folded into T-19 | neutral | ▲ policy coherence (decision done; CLAUDE.md lines pending in T-19) | — (decision landed) | interim readers of CLAUDE.md see the stale rule until T-19 lands | ~~spend~~ resolved 2026-08-31 |
 | T-16 | NEW weekly notification-quality desk (Sonnet) | **▲ ~4 Sonnet sm NEW** | **▲▲** guards the product's stated differentiator | Moderate (new desk, full checklist) | ticket noise if analytics too thin — start after REC-1 heartbeat | **spend** |
 | T-17 | Token/run telemetry (Tier-1 Action + auditor arithmetic) | ▼ enables future cuts; 0 tokens itself | ▲ next audit is a diff, not archaeology | Trivial-moderate | none | none |
 | T-18 | Honor prompt-file-first + full-PUT discipline on all trigger edits | n/a (process) | protects against the documented config-destruction footgun | — | — | none |
