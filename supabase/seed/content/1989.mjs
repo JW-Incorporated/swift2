@@ -538,6 +538,10 @@ export default {
             item: 'Sleeveless Lambskin Jumpsuit',
             retailer: 'us.balmain.com',
             url: 'https://us.balmain.com/en/p/sleeveless-lambskin-jumpsuit-FF0QO025LE040DA.html',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer product photo
+            // via Lyst (Balmain's own PDP is JS-rendered, no server-side image),
+            // curl-verified 200 image/jpeg.
+            imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/balmain/80087fee/2220x3000/balmain-white-Sleeveless-Lambskin-Jumpsuit.jpeg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$3,495.00',

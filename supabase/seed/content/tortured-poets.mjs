@@ -2620,6 +2620,10 @@ export default {
             item: 'Ottavia Leather Platform Loafer Pumps',
             retailer: 'neimanmarcus.com',
             url: 'https://www.neimanmarcus.com/p/gucci-ottavia-leather-platform-loafer-pumps-prod274440624',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer photo via
+            // Lyst listing (neimanmarcus.com blocks non-browser fetches),
+            // curl-verified 200 image/jpeg.
+            imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/runwaycatalog/0b933c02/1278x2048/gucci--Ottavia-Horsebit-Loafer-145mm-Platform-Slingback-Pumps.jpeg',
             matchTier: 'unscored',
             kind: 'shoes',
             price: '$1,560.00',
@@ -4842,6 +4846,9 @@ export default {
             item: 'Harness Tapestry Dress — Alien Multi Print',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/MONSE-Harness-Tapestry-Dress-Alien/dp/B0FB9MHTDS',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer PDP image
+            // (m.media-amazon.com), curl-verified 200 image/jpeg.
+            imageUrl: 'https://m.media-amazon.com/images/I/31eFYA7mwUL.jpg',
             matchTier: 'unscored',
             kind: 'dress',
             inStock: false,
@@ -5975,6 +5982,10 @@ export default {
             item: '14K Yellow Gold Vintage Old Mine Cut Diamond Ring',
             retailer: 'mpopeandco.com',
             url: 'https://mpopeandco.com/products/14k-yellow-gold-vintage-old-mine-cut-diamond-ring',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): mpopeandco.com does not
+            // resolve; same real ring (M. Pope & Co estate jewelry) sourced from
+            // the jeweler's own shop platform, curl-verified 200 image/jpeg.
+            imageUrl: 'https://cdn.shoplightspeed.com/shops/641941/files/75979408/14k-yellow-gold-vintage-old-mine-cut-diamond-ring.jpg',
             matchTier: 'unscored',
             kind: 'jewelry',
             price: '$3,250.00',

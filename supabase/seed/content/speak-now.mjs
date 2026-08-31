@@ -2134,6 +2134,9 @@ export default {
             item: 'Vintage Denim High-Waisted Jean Shorts',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Womens-Juniors-Vintage-Waisted-Shorts/dp/B00KSYPWWO',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer PDP image
+            // (m.media-amazon.com hiRes), curl-verified 200 image/jpeg.
+            imageUrl: 'https://m.media-amazon.com/images/I/81-gAZ4jdgL._AC_SL1500_.jpg',
             matchTier: 'unscored',
             kind: 'bottom',
             price: '$14.98',
