@@ -5,21 +5,32 @@ by design: [Karen](../scripts/content-engine/README.md) (the Content Integrity
 Engine) is **read-only** and never edits content; **Kevin** proposes/applies
 fixes but never files Karen's tickets and never runs or modifies Karen's engine.
 
-As of 2026-08-31 (Tier-2 T-10) Kevin runs as **two scheduled cloud routines**
-on Joey's account (fleet policy D1=B; registered in
-[`docs/agents/runners.md`](agents/runners.md)):
+**Target topology (Tier-2 T-10, prompt-file landed 2026-08-31 — cutover
+pending, see below):** Kevin is consolidating from **four scheduled cloud
+routines** down to **two**, both on Joey's account (fleet policy D1=B;
+registered in [`docs/agents/runners.md`](agents/runners.md)):
 
 - **Kevin — daily desk** (`agents/runner-prompts/kevin-desk.md`), once daily:
   runs Stream 2 (user digest) and Stream 3 (eng triage) every day, plus
   Stream 1 (Karen solver) on Sundays only — one clone, one charter read, per-
   stream failure isolation (a failing stream is logged; the run continues to
-  the next). This replaced the three separate S1/S2/S3 cold boots that ran
-  2026-07-12 → 2026-08-31 (Stream 1 was daily in that era; the desk's Step 0
-  narrowed it to Sunday-only to preserve its weekly-adjacent cadence after
-  Karen's own nightly scan, without costing an extra daily boot).
+  the next).
 - **Kevin — S3 comment radar** (`agents/runner-prompts/kevin-stream3-radar.md`),
   hourly 06:00–22:00 PT, skipping the overnight dead hours — unchanged by the
   T-10 consolidation; it stays a separate, faster-cadence trigger.
+
+**As of this writing the cutover has NOT happened.** The prompt file above
+exists and is correct, but applying it requires `RemoteTrigger` access
+authenticated to the target account, which a headless repo session cannot
+reach (`docs/agents/runners.md` § "Kevin — daily desk consolidation" has the
+exact config + cutover sequence for whoever has that access). **Until that
+cutover runs, the live fleet is still the four separate routines described
+below** — S1 (weekly, Sundays, per the sustainment throttle already in
+force), S2 (daily), S3 (daily), and the radar (hourly) — all on Joey's
+account, and this section's "target topology" is aspirational, not current
+fact. Once the cutover lands, update this paragraph to drop
+"target"/"pending" and record the date, per this doc's own rule that stale
+governance text is a bug.
 
 Before 2026-07-12 this ran as a **session-scoped Claude Code cron** — the
 cloud routines are more durable (survive session death). The radar still
@@ -71,8 +82,9 @@ Karen tickets are trusted and structured — each carries file · record ·
 field · exact excerpt · a sourced **Suggested fix** · sources. Kevin may fix them
 directly on a PR.
 
-**Weekly, on Sundays** (as of T-10's Kevin daily-desk consolidation, folded
-into the desk's Step 0 — see the top of this document), Kevin:
+**Weekly, on Sundays, once the T-10 cutover lands** (folded into the desk's
+Step 0 — see the top of this document; until cutover, this stream still runs
+on its own separate weekly trigger, unchanged), Kevin:
 1. Lists open `cie` issues (`--limit 500`; the gh default caps at 30).
 2. Computes NEW = open `cie` minus (numbers already in any open fix PR's `Closes`
    list) minus every ticket carrying an **exclusion label** (below).
