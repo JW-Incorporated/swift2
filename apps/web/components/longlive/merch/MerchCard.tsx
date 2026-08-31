@@ -38,34 +38,65 @@ function isRemoteUrl(url: string): boolean {
   return /^https?:\/\//.test(url);
 }
 
+/**
+ * `shopHref` is only ever passed for a photo that actually depicts the
+ * PRODUCT being sold (the 'product' image kind, or the product half of a
+ * 'split' card) — never for the moment/"Her look, not the product" photo,
+ * which stays a plain (non-shop-linking) image so it can't be mistaken for
+ * a buy affordance on a photo that explicitly isn't the item (fix/merch-
+ * image-buy-link, kanban task t_49a63ae1: "most users tap the picture
+ * first"). When present, the whole tile becomes the same buy link as the
+ * card's "Shop it" button — reusing `renderMerchShopLink`/`buildShopUrl`
+ * via the caller, so it carries the identical affiliate URL and triggers
+ * the same FTC disclosure the "Shop it" click does; never a second,
+ * independently-built link.
+ */
 function MerchCardHalf({
   label,
   imageUrl,
   monogram,
+  shopHref,
+  shopAriaLabel,
 }: {
   label?: string;
   imageUrl?: string;
   monogram: string;
+  shopHref?: string;
+  shopAriaLabel?: string;
 }) {
+  const photo = imageUrl ? (
+    <Image
+      src={imageUrl}
+      alt=""
+      fill
+      unoptimized={isRemoteUrl(imageUrl)}
+      loading="lazy"
+      sizes="(min-width: 1024px) 220px, (min-width: 640px) 45vw, 50vw"
+      className="object-cover"
+    />
+  ) : (
+    <span
+      aria-hidden="true"
+      className="flex h-full w-full items-center justify-center font-[family-name:var(--font-bodoni)] text-[28px] text-[color:var(--merch-lilac)]"
+    >
+      {monogram}
+    </span>
+  );
+
   return (
     <div className="relative aspect-square overflow-hidden bg-[color:var(--merch-ink)]">
-      {imageUrl ? (
-        <Image
-          src={imageUrl}
-          alt=""
-          fill
-          unoptimized={isRemoteUrl(imageUrl)}
-          loading="lazy"
-          sizes="(min-width: 1024px) 220px, (min-width: 640px) 45vw, 50vw"
-          className="object-cover"
-        />
-      ) : (
-        <span
-          aria-hidden="true"
-          className="flex h-full w-full items-center justify-center font-[family-name:var(--font-bodoni)] text-[28px] text-[color:var(--merch-lilac)]"
+      {imageUrl && shopHref ? (
+        <a
+          href={shopHref}
+          target="_blank"
+          rel="nofollow sponsored noopener noreferrer"
+          aria-label={shopAriaLabel}
+          className="absolute inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[color:var(--merch-lilac)]"
         >
-          {monogram}
-        </span>
+          {photo}
+        </a>
+      ) : (
+        photo
       )}
       {label && (
         <span className="absolute left-2 top-2 border border-[rgba(246,239,228,.2)] bg-[rgba(23,16,43,.8)] px-2 py-1 text-[9px] font-medium uppercase tracking-[0.18em] text-[color:var(--merch-cream)]">
@@ -92,6 +123,7 @@ export function MerchCard({ item }: { item: MerchItem }) {
       ? 'Official item'
       : 'Fan-made item';
   const shopLink = renderMerchShopLink(item);
+  const shopAriaLabel = `Shop ${item.brand} ${item.item}${soldOut ? ' (sold out)' : ''}${showsMatch && !exactPiece ? ' (similar style, not the exact piece)' : ''}`;
   const alternateLink = item.altListing
     ? item.category === 'official-store'
       ? {
@@ -132,11 +164,23 @@ export function MerchCard({ item }: { item: MerchItem }) {
               imageUrl={image.momentUrl}
               monogram={monogram}
             />
-            <MerchCardHalf label={productLabel} imageUrl={image.productUrl} monogram={monogram} />
+            <MerchCardHalf
+              label={productLabel}
+              imageUrl={image.productUrl}
+              monogram={monogram}
+              shopHref={shopLink.href}
+              shopAriaLabel={shopAriaLabel}
+            />
           </>
         )}
         {image.kind === 'product' && (
-          <MerchCardHalf label={productLabel} imageUrl={image.url} monogram={monogram} />
+          <MerchCardHalf
+            label={productLabel}
+            imageUrl={image.url}
+            monogram={monogram}
+            shopHref={shopLink.href}
+            shopAriaLabel={shopAriaLabel}
+          />
         )}
         {image.kind === 'moment' && (
           <MerchCardHalf
@@ -184,7 +228,7 @@ export function MerchCard({ item }: { item: MerchItem }) {
           href={shopLink.href}
           target="_blank"
           rel="nofollow sponsored noopener noreferrer"
-          aria-label={`Shop ${item.brand} ${item.item}${soldOut ? ' (sold out)' : ''}${showsMatch && !exactPiece ? ' (similar style, not the exact piece)' : ''}`}
+          aria-label={shopAriaLabel}
           className="mt-3 flex min-h-[44px] items-center justify-between gap-2 border border-[color:var(--merch-line)] px-3 text-[11px] font-medium uppercase tracking-[0.14em] text-[color:var(--merch-cream)] transition-colors hover:border-[color:var(--merch-lilac)]"
         >
           <span>Shop it{item.price ? ` · ${item.price}` : ''}</span>

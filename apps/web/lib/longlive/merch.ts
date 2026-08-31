@@ -23,7 +23,7 @@
  */
 
 import { CONTENT } from './content';
-import type { EraId, Product } from './types';
+import { hasRealPrimaryImage, type EraId, type Product } from './types';
 // Authored engine output remains JavaScript so sync scripts can write it directly.
 import { OFFICIAL } from '../../../../supabase/seed/merch/official.mjs';
 import { FAN_MADE } from '../../../../supabase/seed/merch/fanmade.mjs';
@@ -46,6 +46,23 @@ export interface MerchItem extends Product {
   source?: MerchSource;
   /** Provenance supplied by the catalogue engines for fresh-drop ordering. */
   discoveredAt?: string;
+  /**
+   * True when this item has no product photo of its own (`imageUrl` unset)
+   * AND an earlier product from the SAME source moment already claimed that
+   * moment's real photo as its card image. Without this flag, 2+ different
+   * products matched to one moment (e.g. dress/shoes/clutch all "seen on"
+   * the same photo of Taylor) would each independently render that
+   * identical photo — reading as duplicate cards of the same item (founder
+   * feedback, kanban task t_49a63ae1). The E6 matcher output carries no
+   * per-item "as-worn" photo today (`scripts/merch-engine/match-moments.mjs`
+   * has no such field), so there is no real alternate photo to substitute —
+   * `merchItemImage()` (merch-filters.ts) falls back to the honest monogram
+   * tile for every item after the first, rather than repeat the photo or
+   * fabricate a substitute. Set once, deterministically, in
+   * `shopTheLookItems()` below, in the matcher's own best-first product
+   * order — never recomputed per-view, so it stays stable across filters.
+   */
+  demoteSharedMomentPhoto?: boolean;
 }
 
 export interface MerchCatalogue {
@@ -57,7 +74,17 @@ export interface MerchCatalogue {
 function shopTheLookItems(): MerchItem[] {
   const items: MerchItem[] = [];
   for (const moment of CONTENT) {
+    // Whether this moment even HAS a real (non-era-art) photo to share in
+    // the first place — only relevant when deciding whether a later
+    // product without its own imageUrl would otherwise repeat it.
+    const momentHasRealPhoto = hasRealPrimaryImage(moment);
+    let momentPhotoClaimed = false;
     for (const product of moment.products ?? []) {
+      // Matches merchItemImage()'s own condition for the 'moment' image
+      // kind: no product photo of its own, but the moment has a real one.
+      const wouldUseSharedMomentPhoto = !product.imageUrl && momentHasRealPhoto;
+      const demoteSharedMomentPhoto = wouldUseSharedMomentPhoto && momentPhotoClaimed;
+      if (wouldUseSharedMomentPhoto && !momentPhotoClaimed) momentPhotoClaimed = true;
       items.push({
         ...product,
         category: 'shop-the-look',
@@ -67,6 +94,7 @@ function shopTheLookItems(): MerchItem[] {
           momentSlug: moment.slug,
           momentTitle: moment.title,
         },
+        ...(demoteSharedMomentPhoto ? { demoteSharedMomentPhoto: true } : {}),
       });
     }
   }

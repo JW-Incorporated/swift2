@@ -195,6 +195,14 @@ export function merchItemImage(item: MerchItem): MerchImage {
   const momentUrl = moment && hasRealPrimaryImage(moment) ? primaryImage(moment) : undefined;
   if (item.imageUrl && momentUrl) return { kind: 'split', productUrl: item.imageUrl, momentUrl };
   if (item.imageUrl) return { kind: 'product', url: item.imageUrl };
-  if (momentUrl) return { kind: 'moment', url: momentUrl };
+  // demoteSharedMomentPhoto (set in merch.ts's shopTheLookItems()) means an
+  // earlier product from this same moment already claimed momentUrl as its
+  // card photo — rendering it again here would be the exact "3 identical
+  // Taylor photos" bug this flag exists to stop (2026-08-31, kanban task
+  // t_49a63ae1). No per-item "as-worn" alternate photo exists in the E6
+  // matcher output today and this item has no imageUrl of its own, so the
+  // only honest fallback is the monogram tile, not a repeated or fabricated
+  // photo.
+  if (momentUrl && !item.demoteSharedMomentPhoto) return { kind: 'moment', url: momentUrl };
   return { kind: 'monogram' };
 }
