@@ -77,7 +77,7 @@ drifts).
 | Kevin — S3 eng triage (cloud) | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | `43 15 * * *` | ✅ | `claude-sonnet-5` |
 | Kevin — S2 user-feedback digest (cloud) | `trig_0136mXcpmzn6mYtYoUQC3eGP` | `13 15 * * *` | ✅ | `claude-sonnet-5` |
 | Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ | `claude-opus-4-8` |
-| Karen — weekly judgment slice (renamed from "Karen — nightly scan" per T-5, 2026-08-31 — the live trigger's registered name has not been resynced to this yet, see § T-5 rename below; prompt already judgment-only, see `runner-prompts/karen-nightly.md`) | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
+| Karen — nightly scan ⚠️ **RENAME PENDING (T-5, 2026-08-31)** — registered name not yet resynced to `Karen — weekly judgment slice`; prompt already judgment-only, see `runner-prompts/karen-nightly.md` and § T-5 below | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | `claude-opus-4-8` |
 | Content Shift — authoring runs | `trig_01PonDFeQCL4iRNzceGyAYrm` | `0 17 * * *` | ✅ | `claude-opus-4-8` |
 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ✅ | `claude-opus-4-8` |
@@ -533,26 +533,35 @@ weekly cadence (documented above). Whoever next has account access to
 | Field | Current | New |
 |---|---|---|
 | Name | `Karen — nightly scan` | `Karen — weekly judgment slice` |
-| Trigger ID | `trig_01TmYaZgnecrEp9mkeV3Gq6X` (live IDs table) / `trig_014HWuRmT2MFveDkPGwVDiQX` (overrides table — same routine, see note below) | unchanged |
+| Trigger ID | `trig_01TmYaZgnecrEp9mkeV3Gq6X` — the live table above; recreated on Joey's account 2026-08-23 per `HUMAN-ACTIONS.md` #2, current and correct | unchanged |
 | Prompt (`events`) | already judgment-only (PR #3445) | unchanged — do not re-paste, just preserve on the round-trip |
 | Cadence, model, repo, connectors | `0 9 * * 0` UTC, `claude-sonnet-5`, `JW-Incorporated/swift2`@main | unchanged |
+
+**Do not use `trig_014HWuRmT2MFveDkPGwVDiQX`** (the "Cadence overrides still
+in force" table below and the historical split table further down) — that ID
+predates the 2026-08-23 account migration (issue #2258), when Wyatt's entire
+fleet was disabled and Karen was recreated fresh on Joey's account under
+`trig_01TmYaZgnecrEp9mkeV3Gq6X`. It is very likely stale/orphaned rather than
+the same routine under a second ID; whoever applies the rename should `get`
+`trig_014HW...` first to confirm it no longer exists live before touching
+anything, and if it turns out to still be live and enabled, flag that here as
+a separate finding (a live duplicate), don't fold it into this rename.
 
 Cross-checked against `runner-prompts/karen-nightly.md`: the file's own
 opening line already reads "weekly content-safety judgment review," so a
 rename to `Karen — weekly judgment slice` is a pure resync, not a new
 decision — no founder call needed (T-5 is pre-approved,
-standing-agent-authority per its Tier-2 entry). This doc's tables above are
-updated to the new name; the two trigger-ID references above are believed to
-be the same routine under two IDs recorded at different audit passes (the
-live table's `...eV3Gq6X` is the most recently verified, 2026-08-23) — the
-account-holding session applying the rename should confirm via `get` before
-the round-trip and flag here if they in fact diverge.
+standing-agent-authority per its Tier-2 entry). **This doc's live table
+(above) still shows the current registered name with a RENAME PENDING flag,
+not the new name** — the tables get updated to `Karen — weekly judgment
+slice` outright only once the live rename actually lands, to avoid the
+inventory drifting ahead of reality.
 
 ### Cadence overrides still in force (from the 2026-07-25 sustainment pass)
 
 | Runner | Cadence | Trigger ID |
 |---|---|---|
-| Karen — weekly judgment slice (formerly "Karen — nightly scan") | weekly `0 9 * * 0` (Sun); bounded judgment-only slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
+| Karen — nightly scan ⚠️ **stale entry, likely superseded 2026-08-23 account migration — see § T-5** | weekly `0 9 * * 0` (Sun); bounded judgment-only slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` (pre-migration ID — do not use for the T-5 rename, use `trig_01TmYaZgnecrEp9mkeV3Gq6X` from the live table instead) |
 | Kevin — S1 Karen solver *(cloud copy only)* | weekly `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` |
 | ~~Nils — daily walk~~ **SUPERSEDED 2026-08-31 (Joey, D4=B)** — now twice weekly `0 14 * * 1,5` (Mon+Fri), see `nils.md` § Cadence and `decisions.md` § D3=A…D6=A | `trig_013xb8Stm7m2sB6dqGePKRtr` |
 | Stylist | weekly `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` |
