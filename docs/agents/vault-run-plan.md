@@ -266,10 +266,15 @@ schedule needs an explicit cap. The stuck-PR watchdog check carries one.
       independent reasons — a live reproduction of the precondition-2 miss
       pattern, and no execution capability for the actual disable step in
       this environment. Next session picking this up needs BOTH: (a) a
-      RemoteTrigger-capable session on the routines account, and (b) either
-      root-cause of today's specific Vault Run miss or several more clean
-      consecutive days observed before disabling anything. Do not disable
-      any of the six standalone triggers until both are satisfied.
+      RemoteTrigger-capable session on the routines account, and (b) the
+      missed-day cause root-caused and fixed — per this doc's own existing
+      requirement above ("root-cause the misses first"). An intermittent
+      failure that silently drops a day's content cannot be waved through by
+      a run of clean days alone: a short successful streak does not
+      demonstrate the trigger is reliable when the evidence above shows the
+      miss is real and recurring. Do not disable any of the six standalone
+      triggers until the root cause is identified and fixed, not merely
+      until it stops reproducing for a while.
 
 ## Rollback
 
