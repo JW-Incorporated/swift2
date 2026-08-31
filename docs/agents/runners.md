@@ -809,7 +809,16 @@ model change).
 | Start / end | create alongside the News Triage model flip; disable (never delete — reversible record) once the trial concludes (2 weeks from the model-flip date) with a PASS or a revert |
 
 **Trial window and disposition:** starts the day the model-flip is applied
-and this trigger is created; runs for 2 weeks. **Revert is NOT automatic —
+and this trigger is created; runs for 2 weeks (14 days), audited by the
+weekly Tuesday cadence above. **A clean PASS requires an audit that covers
+every day through and including day 14 — not just the most recent weekly
+run before day 14.** Because the fixed Tuesday cadence can land up to 6
+days before the 14-day mark (e.g. a Wednesday start's day-13 audit leaves
+day 14 itself unchecked), do NOT disable the trigger or declare PASS off
+that near-final run alone: after day 14 passes, dispatch the recall-check
+routine one more time (manual `workflow_dispatch`/trigger `run`, off its
+normal cadence) covering the remaining unaudited days, and only close out
+the trial once THAT run's verdict is in. Revert is NOT automatic —
 it needs the same account-authenticated RemoteTrigger access as every step
 above, so a FAIL cannot fix itself.** On the first FAIL (any counted false
 negative), the recall-check issue IS the trigger for action, but action
