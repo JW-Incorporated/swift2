@@ -249,8 +249,17 @@ const TAYLOR_VERIFY_TIMEOUT_MS = 30_000;
 // 60 covers the worst case of discover.mjs's 25-candidate hard ceiling (2
 // thumbnail URLs each = 50 calls) with headroom, so it never fires in
 // normal operation.
-const MAX_VERIFY_CALLS_PER_PROCESS = 60;
+export const MAX_VERIFY_CALLS_PER_PROCESS = 60;
 let verifyCallCount = 0;
+
+// Test-only escape hatch (Codex review round 3, kanban t_ac1281ef): the
+// counter above is deliberately module-level, persistent state — that's
+// what makes it a real per-process cap instead of a per-call parameter a
+// caller could omit. Tests need to reset it between cases without reaching
+// into module internals; production code never calls this.
+export function _resetVerifyCallCountForTests() {
+  verifyCallCount = 0;
+}
 
 function taylorVerifyToolInput(body) {
   const content = body?.content;

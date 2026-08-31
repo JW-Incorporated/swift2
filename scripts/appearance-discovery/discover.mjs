@@ -45,6 +45,7 @@ import { parseFeed, looksLikeFeed } from './lib/feed.mjs';
 import { matchRule, isFresh } from './lib/filter.mjs';
 import { videoIdsIn, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
 import { buildSocialDraftPair, fetchAppearanceThumbnail } from './lib/social-draft.mjs';
+import { clampMaxPerRun } from './lib/spend-limits.mjs';
 import { emitOfficialYoutubeEvent } from './lib/emit-official-youtube-event.mjs';
 
 const INTAKE_LABEL = 'intake';
@@ -76,20 +77,11 @@ function intArg(name, fallback) {
   }
   return n;
 }
+// Hard ceiling on `--max`, independent of the dispatch input — see
+// lib/spend-limits.mjs for the full rationale (codex review, kanban
+// t_ac1281ef rounds 2-3).
 const FILE_MODE = process.argv.includes('--file');
-// Hard ceiling on `--max`, independent of the dispatch input (codex review,
-// kanban t_ac1281ef round 2): `--max` is a `workflow_dispatch` input a human
-// can set to any positive integer, and every candidate this run files now
-// also spends up to 2 paid claude-sonnet-5 vision calls (one per thumbnail
-// URL — see fetchAppearanceThumbnail in lib/social-draft.mjs). CLAUDE.md
-// ("Cost discipline") requires any product LLM call to be worker-side and
-// HARD-capped, not bounded only by an operator-settable input. 25 is well
-// above the scheduled-run default (10) and the observed realistic daily
-// volume (14 channels, twice a day), so it never constrains normal
-// operation — it only stops an accidental/malicious huge manual dispatch
-// from turning into an unbounded vision-call bill.
-const HARD_MAX_PER_RUN = 25;
-const MAX_PER_RUN = Math.min(intArg('--max', 10), HARD_MAX_PER_RUN);
+const MAX_PER_RUN = clampMaxPerRun(intArg('--max', 10));
 const MAX_AGE_DAYS = intArg('--max-age-days', 30);
 
 function withTimeout(promise, ms, what) {
