@@ -228,15 +228,17 @@ the end.
   liability by the audit's own standard. Its job (generate depth questions as
   issues) is subsumed by Karen's CIE depth rollups feeding the Answerer.
 - **Recommendation (T-4) — write the one-line thaw condition into
-  `runners.md`, or delete the trigger.** Suggested condition, grounded in
+  `runners.md`, or propose deleting the trigger (founder-gated).** Suggested condition, grounded in
   what actually replaced it: "revive only if the Answerer's queue
   (curiosity-ledger + CIE depth rollups) is empty for 14+ consecutive days
-  while DEPTH gates remain unmet." If nobody will sign that line, delete the
-  trigger — its prompt is preserved verbatim in
+  while DEPTH gates remain unmet." If nobody will sign that line, propose
+  deleting the trigger to Joey with the other founder items — its prompt is
+  preserved verbatim in
   [`lex-depth.md`](agents/runner-prompts/lex-depth.md), so deletion loses
-  nothing. Trivial; agent call (deletion of a disabled trigger with a
-  repo-preserved prompt is reversible in effect: it can be recreated from the
-  file).
+  nothing and it can be recreated from the file, but removing the persistent
+  trigger record still sits under `CLAUDE.md`'s data-deletion gate (same
+  ruling as T-14). Writing the thaw condition is trivial and agent-callable;
+  it already resolves the audit finding on its own.
 
 ### B. Quality and integrity desks (5 triggers)
 
@@ -533,14 +535,21 @@ the end.
   expensive *stale* item in the fleet — a watchdog for an event that has
   passed, running more often than most live desks.
 - **Recommendation (T-14) — read the trigger; if the purge is confirmed
-  complete, archive its full configuration in-repo, then delete it and
-  record the receipt in `decisions.md`**, per REC-5. Because this trigger
+  complete, archive its full configuration in-repo, then DISABLE it
+  (`enabled:false`, the same reversible mechanism the sustainment pass used)
+  and record the receipt in `decisions.md`**, per REC-5. Because this trigger
   has **no prompt file**, its live `job_config` is the *only* record of what
   it does — copy the full config (prompt text, schedule, model) into the
-  receipt or a `docs/agents/runner-prompts/` archive entry *before* deletion,
-  so the action stays auditable and reversible per `CLAUDE.md`'s
-  knowledge-lives-in-the-repo rule. If somehow still pending, register a
-  prompt file + retirement condition on the spot. Trivial; agent call.
+  receipt or a `docs/agents/runner-prompts/` archive entry *before* touching
+  it, so the action stays auditable per `CLAUDE.md`'s
+  knowledge-lives-in-the-repo rule. Disabling captures the full ~60
+  sessions/month saving and is inside standing agent authority; *permanent
+  deletion* of the trigger record is a separate, optional hygiene step that
+  falls under `CLAUDE.md`'s data-deletion gate and needs Joey's sign-off —
+  batch it with the other founder items rather than blocking the saving on
+  it. If the purge is somehow still pending, register a prompt file +
+  retirement condition on the spot. Trivial; agent call (disable) +
+  optional founder item (delete).
 
 ---
 
@@ -627,17 +636,18 @@ JW Labs project registry (`policy/project-registry.yaml` in the JW Labs
 under it, and its gate set is consistent with `CLAUDE.md`'s standing rules on
 spend, product direction, and destructive actions). **None of the
 recommendations below touches secrets_or_prod_infra or
-data_deletion_or_force_push** (Phase 4 disables, never deletes; T-4/T-14
-delete only disabled/stale *triggers*, not data — T-4's prompts are already
-preserved in-repo, and T-14 requires archiving its config in-repo first
-because no prompt file exists for it).
+data_deletion_or_force_push** (Phase 4 disables, never deletes; T-4/T-14's
+*agent-authorized* actions likewise only disable stale triggers — T-14's
+optional permanent deletion of the trigger record is explicitly
+founder-gated under that category, and T-14 requires archiving its config
+in-repo first because no prompt file exists for it).
 
 | ID | Recommendation | Token/cost impact | Quality/goal impact | Effort | Risk if wrong | Human gate |
 |---|---|---|---|---|---|---|
 | T-1 | Finish Vault Phase 4: retire 6 standalone lanes, Rumor first | **▼▼ ~3.9 sd** (mixed Opus/Sonnet) + ~260 Actions min/mo | **▲** ends undesigned daily rumor cadence; removes conflict bug class | Moderate (6 careful trigger cycles) | A masked Vault-Run miss becomes a real content gap — mitigated by one-lane-at-a-time + 36h watchdog | none (reversible) |
 | T-2 | Attach the "Sonnet-drafts/Opus-reviews if a redline ever ships" note to the Rumor lane file | neutral | ▲ preserves a liability decision where it's needed | Trivial | none | none |
 | T-3 | News Triage Opus → Sonnet (2-week trial, labeled-sample recall check via weekly Opus re-triage diff) | **▼ 1 Opus→Sonnet sd** | ≈neutral if recall holds (false negatives are unrecoverable downstream — hence the labeled check) | Trivial | a missed story is never filed; revert on any counted false negatives | none |
-| T-4 | Lex depth: write thaw condition or delete | neutral (already disabled) | ▲ audit hygiene | Trivial | none (prompt preserved in-repo) | none |
+| T-4 | Lex depth: write thaw condition (agent) or propose deletion (founder-gated) | neutral (already disabled) | ▲ audit hygiene | Trivial | none (prompt preserved in-repo) | none for thaw line; **data_deletion** for optional delete |
 | T-5 | Trim Karen weekly to judgment-only; rename | ▼ slight (shorter sessions) | neutral (Action owns detection daily) | Trivial-moderate | none | none |
 | T-6 | Karen Deep: founder yes/no on the costed spec | **▲ ≈$66–114/mo NEW** if yes | **▲▲** only fabrication-depth review of the merged corpus ("stories are real" is the vision) | Trivial to decide; creation mechanical | spend without measured yield — mitigated by the documented re-baseline after week 1 | **spend** |
 | T-7 | Nils: fix charter; founder picks weekly / 2×wk / daily dial (rec: 2×wk) | ▲ ~1 Opus sm/wk at rec setting | ▲ halves worst-case unreviewed-content window | Trivial | slightly more spend | **product_direction** (quality dial) |
@@ -647,7 +657,7 @@ because no prompt file exists for it).
 | T-11 | Austin: 2-week Fable → Opus trial, judged by existing metrics | **▼ ~30 Fable→Opus sm** if it sticks | neutral if metrics hold (Codex gate unchanged) | Trivial | findings-per-PR degrades → revert | none (reversible trial) |
 | T-12 | Marjorie brief: ratify Opus 4.8 in charter | neutral | ▲ charter/reality coherence | Trivial | none | founder-approved charter PR |
 | T-13 | Disable Marjorie 8 PM delta | **▼▼ ~30 Fable sm** | ≈neutral (no established reader; brief carries delta) | Trivial | someone was reading it — re-enable in 2 min | none (tell Joey after) |
-| T-14 | Getty purge: verify complete, archive config in-repo, delete, receipt | **▼ ~60 Sonnet sm** | ▲ hygiene | Trivial | purge not actually complete → check first; no prompt file exists → archive before delete | none |
+| T-14 | Getty purge: verify complete, archive config in-repo, disable, receipt (optional later deletion = founder-gated) | **▼ ~60 Sonnet sm** | ▲ hygiene | Trivial | purge not actually complete → check first; no prompt file exists → archive before touching | none for disable; **data_deletion** for optional permanent delete |
 | T-15 | Account placement — RESOLVED (D1=B, PR #3598: docs amended to Joey's account); residual `CLAUDE.md` drift folded into T-19 | neutral | ▲ policy coherence (decision done; CLAUDE.md lines pending in T-19) | — (decision landed) | interim readers of CLAUDE.md see the stale rule until T-19 lands | ~~spend~~ resolved 2026-08-31 |
 | T-16 | NEW weekly notification-quality desk (Sonnet) | **▲ ~4 Sonnet sm NEW** | **▲▲** guards the product's stated differentiator | Moderate (new desk, full checklist) | ticket noise if analytics too thin — start after REC-1 heartbeat | **spend** |
 | T-17 | Token/run telemetry (Tier-1 Action + auditor arithmetic) | ▼ enables future cuts; 0 tokens itself | ▲ next audit is a diff, not archaeology | Trivial-moderate | none | none |
@@ -680,8 +690,9 @@ notification quality.
 
 1. **T-13** — disable the Marjorie 8 PM delta. Biggest single premium-model
    saving available for one trigger flip. *(agent)*
-2. **T-14** — verify + archive config in-repo + delete the Getty purge
-   one-shot, with receipt. *(agent)*
+2. **T-14** — verify + archive config in-repo + disable the Getty purge
+   one-shot, with receipt (optional permanent deletion goes to Joey with
+   the other founder items). *(agent)*
 3. **T-1** — execute Vault Phase 4, Rumor Desk first, one lane per cycle. The
    structurally largest win in Tier 2; do it before any other content-lane
    tuning so later measurements reflect the consolidated fleet. *(agent, tell
