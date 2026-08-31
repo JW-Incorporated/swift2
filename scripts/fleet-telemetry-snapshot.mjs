@@ -30,21 +30,21 @@ const OUT_DIR = path.join(ROOT, 'docs', 'audits', 'fleet-telemetry');
 const REPO = process.env.GITHUB_REPOSITORY || 'JW-Incorporated/swift2';
 const LOOKBACK_DAYS = 30;
 
-/** YYYY-MM-DD this many days before `now`. Exported for tests. */
+/** ISO timestamp this many days before `now`. Exported for tests. */
 export function isoDaysAgo(now, days) {
-  const d = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
-  return d.toISOString().slice(0, 10);
+  return new Date(now.getTime() - days * 24 * 60 * 60 * 1000).toISOString();
 }
 
 /**
  * Buckets a list of workflow runs by workflow name, counting only runs
- * created on/after `sinceIso`. Exported and pure so the counting logic is
- * unit-testable without a network call.
+ * created on/after `sinceIso` (a full ISO timestamp — compared as strings,
+ * which works because ISO-8601 timestamps sort lexicographically). Exported
+ * and pure so the counting logic is unit-testable without a network call.
  */
 export function bucketRunsByWorkflow(runs, sinceIso) {
   const counts = {};
   for (const run of runs) {
-    if (!run.created_at || run.created_at.slice(0, 10) < sinceIso) continue;
+    if (!run.created_at || run.created_at < sinceIso) continue;
     const name = run.name || run.path || 'unknown';
     counts[name] = (counts[name] || 0) + 1;
   }

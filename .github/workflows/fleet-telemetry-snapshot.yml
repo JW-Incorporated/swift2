@@ -16,7 +16,7 @@ name: fleet-telemetry-snapshot
 
 on:
   schedule:
-    - cron: "0 8 1 * *" # 08:00 UTC on the 1st of the month
+    - cron: "17 8 1 * *" # 08:17 UTC on the 1st — off :00/:30 per watchdog.yml's scheduling-contention note
   workflow_dispatch:
     inputs:
       dry_run:
