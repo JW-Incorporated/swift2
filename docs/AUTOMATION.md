@@ -39,7 +39,7 @@ The repo runs on a deliberate split, stated as a standing rule in
 | Tier | What it is | Runs on | Costs | Fails how |
 |---|---|---|---|---|
 | **1 — Actions (deterministic)** | `.github/workflows/*.yml`. Zero or near-zero LLM. Detects, files tickets, ships queued work, commits state, alerts. | GitHub's scheduler | Actions minutes | Loudly — a red run is visible in the Actions tab |
-| **2 — Desk routines (judgment)** | Scheduled Claude sessions, one per "desk". They read what Tier 1 produced and make calls a script cannot: is this rumor sourced, is this page thin, is this alert real. Charters in [`docs/agents/`](agents/), prompts in [`docs/agents/runner-prompts/`](agents/runner-prompts/), cadence registry in [`agents/runners.md`](agents/runners.md). | Joey's Claude account (consolidated 2026-08-23, verified 2026-08-27) | Claude tokens | **Silently** — this repo cannot see a routine's dashboard, which is why Tier 1 carries liveness checks for them |
+| **2 — Desk routines (judgment)** | Scheduled Claude sessions, one per "desk". They read what Tier 1 produced and make calls a script cannot: is this rumor sourced, is this page thin, is this alert real. Charters in [`docs/agents/`](agents/), prompts in [`docs/agents/runner-prompts/`](agents/runner-prompts/), cadence registry in [`agents/runners.md`](agents/runners.md). | **Joey's account** — see the account note below | Claude tokens | **Silently** — this repo cannot see a routine's dashboard, which is why Tier 1 carries liveness checks for them |
 | **3 — Product runtime** | Cron built into the deployed product, not into CI. Today: exactly one, the notifications dispatcher. | Vercel Cron | Vercel plan | Silently, and **currently unwatched** — see [REC-1](#rec-1) |
 
 **Why Tier 1 exists even where Tier 2 could do the job:** Karen (the content
@@ -52,6 +52,32 @@ the *judgment* half on a routine.
 **Kill switch:** [`agents/README.md` § The kill switch](agents/README.md#the-kill-switch--pausing-the-org-gap-analysis-g10).
 Instant per-tier stops also exist: repo variable `SOCIAL_FREEZE` halts all
 posting; `CONTENT_AUTOMERGE_FREEZE` halts all content auto-merge.
+
+> ### ⚠️ Which account owns the routines — a live contradiction in the docs
+>
+> **Answer: Joey's account. Do not act on `CLAUDE.md`'s line 76.**
+>
+> Two files disagree, and anyone provisioning, auditing, or disabling a
+> routine needs to know which to believe:
+>
+> - [`CLAUDE.md`](../CLAUDE.md) § Operating habits still says *"Scheduled
+>   runners live on Wyatt's account so Joey's weekly limit stays free"*, and
+>   § Parallel fleets repeats it.
+> - [`agents/runners.md`](agents/runners.md) says that assignment is
+>   **historical**: the entire fleet was consolidated to **Joey's account
+>   ~2026-08-23** and verified against the live routines API on **2026-08-27**
+>   ("All 24 triggers verified live … Nothing remains on the other founder's
+>   account"), with every current trigger ID recorded in its live table.
+>
+> The registry wins: it carries a dated, live-verified audit with per-trigger
+> IDs, while `CLAUDE.md`'s line predates the migration and was not updated
+> with it. Every trigger ID in this file resolves on Joey's account.
+>
+> **`CLAUDE.md` is not corrected in this PR** — it is a protected
+> agent-instruction file and editing it needs explicit founder approval, which
+> is outside this card's docs-audit scope. Recommended follow-up: a one-line
+> founder-approved edit replacing that sentence with a pointer to the registry.
+> Until then, treat this note as the reconciliation.
 
 ---
 
@@ -321,6 +347,7 @@ sections says every scheduled agent must close.
 
 | Reference | Where | Reality |
 |---|---|---|
+| **"Scheduled runners live on Wyatt's account"** | [`CLAUDE.md`](../CLAUDE.md) § Operating habits + § Parallel fleets | **The whole fleet moved to Joey's account ~2026-08-23, verified live 2026-08-27.** Highest-consequence stale line in the docs — it sends anyone provisioning or disabling a routine to the wrong account. Not fixable in this PR (protected file); see the account note above. |
 | `knowledge-engine.yml` | [`watchdog.yml`](../.github/workflows/watchdog.yml) alert text; knowledge-engine proposal + handoff | never created — `news-worker.yml` was never renamed. The alert tells a founder to check a file that isn't there. |
 | `merch-audit.yml` | [`SPEC.merch-autonomy.md`](SPEC.merch-autonomy.md) § Cadence | split into `merch-audit-detect.yml` + `merch-audit-authoring.yml` |
 | `appearance-discovery` at `40 13 * * *` | [`agents/runners.md`](agents/runners.md) | actual cron is `40 13,21 * * *` — twice daily |
