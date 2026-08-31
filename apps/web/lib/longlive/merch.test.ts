@@ -1,6 +1,31 @@
 import { describe, expect, it } from 'vitest';
 import { CONTENT } from './content';
-import { MERCH_CATALOGUE } from './merch';
+import { MERCH_CATALOGUE, merchProductJsonLd, newDrops, type MerchItem } from './merch';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore — Seed modules intentionally remain plain ESM.
+import { FAN_MADE } from '../../../../supabase/seed/merch/fanmade.mjs';
+
+// Mirrors merch.ts's private MERCH_KINDS set (the normalization target for
+// every catalogue item's `kind`) — kept in sync deliberately rather than
+// exported, since it's an implementation detail of catalogueItems().
+const VALID_MERCH_KINDS = [
+  'dress',
+  'top',
+  'bottom',
+  'outerwear',
+  'knitwear',
+  'shoes',
+  'jewelry',
+  'bag',
+  'hat',
+  'eyewear',
+  'beauty',
+  'accessory',
+  'music',
+  'collectible',
+  'home',
+  'other',
+];
 
 describe('MERCH_CATALOGUE.shopTheLook', () => {
   it('has the real product count from CONTENT — asserted exactly so drift fails loudly', () => {
@@ -40,9 +65,101 @@ describe('MERCH_CATALOGUE.shopTheLook', () => {
   });
 });
 
-describe('MERCH_CATALOGUE.officialStore / fanMade', () => {
-  it('are genuinely empty — no curated data exists yet, never placeholders', () => {
-    expect(MERCH_CATALOGUE.officialStore).toEqual([]);
-    expect(MERCH_CATALOGUE.fanMade).toEqual([]);
+describe('MERCH_CATALOGUE buckets', () => {
+  it('reads official and fan-made buckets from their authored engine output', () => {
+    expect(MERCH_CATALOGUE.officialStore.length).toBeGreaterThan(0);
+    for (const item of MERCH_CATALOGUE.officialStore) expect(item.category).toBe('official-store');
+    for (const item of MERCH_CATALOGUE.fanMade) expect(item.category).toBe('fan-made');
+  });
+});
+
+describe('MERCH_CATALOGUE.fanMade', () => {
+  it('has the real curated count from the seed — asserted exactly so drift fails loudly', () => {
+    expect(MERCH_CATALOGUE.fanMade.length).toBe(FAN_MADE.length);
+    expect(MERCH_CATALOGUE.fanMade.length).toBeGreaterThan(0);
+  });
+
+  it('never invents an item — every fan-made item traces back to a real seed row by url', () => {
+    const seedUrls = new Set(FAN_MADE.map((row: { url: string }) => row.url));
+    for (const item of MERCH_CATALOGUE.fanMade) {
+      expect(seedUrls.has(item.url)).toBe(true);
+    }
+  });
+
+  it('maps every required MerchItem field from the curated seed row, with no placeholders', () => {
+    expect(MERCH_CATALOGUE.fanMade.length).toBe(FAN_MADE.length);
+    for (const item of MERCH_CATALOGUE.fanMade) {
+      expect(item.category).toBe('fan-made');
+      expect(item.brand).toEqual(expect.any(String));
+      expect(item.brand.length).toBeGreaterThan(0);
+      expect(item.item).toEqual(expect.any(String));
+      expect(item.item.length).toBeGreaterThan(0);
+      expect(item.retailer).toEqual(expect.any(String));
+      expect(item.retailer.length).toBeGreaterThan(0);
+      expect(item.url).toMatch(/^https:\/\//);
+      expect(item.price).toMatch(/^\$/);
+      expect(item.inStock).toBe(true);
+      expect(item.imageUrl).toMatch(/^https:\/\//);
+      expect(item.discoveredAt).toEqual(expect.any(String));
+      // kind is always normalized to a valid MerchItem kind (never the raw,
+      // unvalidated seed string, e.g. fanmade.mjs's 'print'/'home-decor') —
+      // see catalogueItems()'s MERCH_KINDS guard.
+      expect(VALID_MERCH_KINDS).toContain(item.kind);
+    }
+  });
+
+  it('preserves the affiliate render-context seam — url stays the raw destination, never pre-wrapped', () => {
+    // buildShopUrl() (lib/longlive/shop.ts) is the single seam that injects
+    // affiliate wrapping; catalogueItems() must never bake it in here.
+    for (const item of MERCH_CATALOGUE.fanMade) {
+      expect(item.url).not.toMatch(/utm_|affiliate|awin|skimlinks|rewardstyle/i);
+    }
+  });
+});
+
+describe('newDrops', () => {
+  const base: MerchItem = {
+    brand: 'Test',
+    item: 'Test Item',
+    retailer: 'test.com',
+    url: 'https://test.com/item',
+    category: 'official-store',
+  };
+  const now = new Date('2026-08-30T12:00:00Z');
+
+  it('includes only authored discoveries from the prior 14 days, newest first', () => {
+    const items = [
+      { ...base, item: 'Old', discoveredAt: '2026-08-15T11:59:59Z' },
+      { ...base, item: 'Earlier', discoveredAt: '2026-08-20T12:00:00Z' },
+      { ...base, item: 'Newest', discoveredAt: '2026-08-29T12:00:00Z' },
+      { ...base, item: 'Future', discoveredAt: '2026-09-01T12:00:00Z' },
+    ];
+    expect(newDrops(items, now).map((item) => item.item)).toEqual(['Newest', 'Earlier']);
+  });
+});
+
+describe('merchProductJsonLd', () => {
+  const base: MerchItem = {
+    brand: 'Test',
+    item: 'Test Item',
+    retailer: 'test.com',
+    url: 'https://test.com/item',
+    category: 'official-store',
+    price: '$20.00',
+    inStock: true,
+  };
+  const now = new Date('2026-08-30T12:00:00Z');
+
+  it('adds a schema.org offer only for a fresh, machine-verified price and stock', () => {
+    expect(merchProductJsonLd({ ...base, verifiedAt: '2026-08-29T12:00:00Z' }, now)).toMatchObject({
+      '@type': 'Product',
+      offers: { '@type': 'Offer', price: '20.00', availability: 'https://schema.org/InStock' },
+    });
+    expect(
+      merchProductJsonLd({ ...base, verifiedAt: '2026-08-20T12:00:00Z' }, now),
+    ).not.toHaveProperty('offers');
+    expect(
+      merchProductJsonLd({ ...base, verifiedAt: '2026-09-01T12:00:00Z' }, now),
+    ).not.toHaveProperty('offers');
   });
 });

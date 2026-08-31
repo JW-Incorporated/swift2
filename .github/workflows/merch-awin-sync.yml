@@ -1,0 +1,68 @@
+# E0 Awin detection is zero-LLM. :53 avoids the repository cron cluster and the
+# scripts add Awin's required 10–120 second start jitter before network calls.
+name: merch-awin-sync
+
+on:
+  schedule:
+    - cron: '53 7 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: merch-awin-sync
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Restore Awin feed index cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            awin-feed-cache.json
+            awin-product-index.sqlite
+          key: merch-awin-sync-${{ github.run_id }}
+          restore-keys: merch-awin-sync-
+      - name: Generate joined-programme directory handoff
+        env:
+          AWIN_API_TOKEN: ${{ secrets.AWIN_API_TOKEN }}
+          AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}
+        run: npx tsx scripts/merch-engine/sync-awin-programmes.mjs
+      - name: Regenerate affiliate coverage
+        run: npx tsx scripts/merch-engine/affiliate-coverage.mjs
+      - name: Open gated advertiser-map update
+        uses: peter-evans/create-pull-request@v7
+        with:
+          add-paths: |
+            apps/web/lib/longlive/awin-advertisers.json
+            docs/ops/AFFILIATE-COVERAGE.md
+          branch: merch-revenue/awin-advertiser-map
+          commit-message: 'chore(merch): refresh Awin advertiser map'
+          title: 'chore(merch): refresh Awin advertiser map'
+          body: 'Automated E0 detector result. This PR updates only the joined-programme Awin advertiser map.'
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - name: Refresh changed product feeds into cached index
+        env:
+          AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}
+        run: node scripts/merch-engine/sync-awin-feeds.mjs --cache awin-feed-cache.json --index awin-product-index.sqlite
+      - uses: actions/upload-artifact@v6
+        with:
+          name: merch-awin-sync-handoff
+          path: apps/web/lib/longlive/awin-advertisers.json
+          if-no-files-found: error
+      - name: Save Awin feed index cache
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            awin-feed-cache.json
+            awin-product-index.sqlite
+          key: merch-awin-sync-${{ github.run_id }}

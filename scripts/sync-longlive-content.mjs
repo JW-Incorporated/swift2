@@ -153,6 +153,11 @@ export function significanceFrom(significance) {
  */
 export function productsFrom(products) {
   if (!Array.isArray(products)) return undefined;
+  const matchTiers = new Set(['exact', 'close', 'similar', 'inspired', 'unscored']);
+  const productKinds = new Set([
+    'dress', 'top', 'bottom', 'outerwear', 'knitwear', 'shoes', 'jewelry', 'bag', 'hat',
+    'eyewear', 'beauty', 'accessory', 'music', 'collectible', 'home', 'other',
+  ]);
   const out = [];
   for (const p of products) {
     if (!p) continue;
@@ -164,6 +169,13 @@ export function productsFrom(products) {
     // style" pill would be worse than none (2026-07-20, docs/decisions.md).
     const hasAltNote = typeof p.altNote === 'string' && p.altNote.trim();
     const isAlternative = p.isAlternative === true && hasAltNote;
+    const matchTier = matchTiers.has(p.matchTier) ? p.matchTier : undefined;
+    const matchScore =
+      matchTier && matchTier !== 'unscored' && Number.isFinite(p.matchScore) && p.matchScore >= 0 && p.matchScore <= 100
+        ? p.matchScore
+        : undefined;
+    const kind = productKinds.has(p.kind) ? p.kind : undefined;
+    const verifiedAt = verifiedAtFrom(p.verifiedAt);
     out.push({
       brand: p.brand,
       item: p.item,
@@ -174,9 +186,24 @@ export function productsFrom(products) {
       isAlternative: isAlternative ? true : undefined,
       altNote: isAlternative ? p.altNote : undefined,
       imageUrl: typeof p.imageUrl === 'string' && p.imageUrl.trim() ? p.imageUrl : undefined,
+      matchTier,
+      matchScore,
+      kind,
+      verifiedAt,
     });
   }
   return out.length ? out : undefined;
+}
+
+function verifiedAtFrom(value) {
+  if (typeof value !== 'string') return undefined;
+  const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(value);
+  const utcTimestamp = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(value);
+  if (!dateOnly && !utcTimestamp) return undefined;
+
+  const timestamp = Date.parse(value);
+  if (Number.isNaN(timestamp) || timestamp > Date.now()) return undefined;
+  return new Date(timestamp).toISOString().slice(0, 10) === value.slice(0, 10) ? value : undefined;
 }
 
 /**
@@ -821,6 +848,10 @@ export function buildOutputSource(byEra) {
             if (p.isAlternative) parts.push('isAlternative: true');
             if (p.altNote) parts.push(`altNote: ${esc(p.altNote)}`);
             if (p.imageUrl) parts.push(`imageUrl: ${esc(p.imageUrl)}`);
+            if (p.matchTier) parts.push(`matchTier: ${esc(p.matchTier)}`);
+            if (p.matchScore !== undefined) parts.push(`matchScore: ${p.matchScore}`);
+            if (p.kind) parts.push(`kind: ${esc(p.kind)}`);
+            if (p.verifiedAt) parts.push(`verifiedAt: ${esc(p.verifiedAt)}`);
             return `{ ${parts.join(', ')} }`;
           })
           .join(', ');

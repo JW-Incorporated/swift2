@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { AppProvider, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { eraStyle, vaultStyle, merchStyle, VAULT_THEME, MERCH_THEME } from '@/lib/longlive/theme';
@@ -20,7 +21,7 @@ import { SiteFooter } from './SiteFooter';
 import { FeedbackButton } from './FeedbackButton';
 import { BottomNav } from './BottomNav';
 import { CommunitySection } from './CommunitySection';
-import { MerchSection } from './MerchSection';
+const MerchSection = dynamic(() => import('./MerchSection').then((module) => module.MerchSection));
 
 function Shell() {
   const { mode, eraId } = useAppState();

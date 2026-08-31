@@ -21,7 +21,7 @@
       "package": "ai.jwlabs.longlive",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#1e1b4b"
+        "backgroundColor": "#5B2DC2"
       }
     },
     "plugins": [

@@ -5,11 +5,15 @@ import {
   capIssueContent,
   judgePairWithClaude,
   MAX_RUN_COST_USD,
-  RESERVATION_PER_PAIR_USD,
+  retailerOgImage,
+  RETAILER_FETCH_TIMEOUT_MS,
+  RESERVATION_PER_REQUEST_USD,
   requiresApiKey,
   runAuthoring,
   upsertCapIssue,
 } from './audit-matches-authoring.mjs';
+// @ts-expect-error The deterministic cache helper is intentionally plain ESM.
+import { auditCacheKey } from './audit-matches.mjs';
 
 const source: Record<string, unknown> = {
   productId: 'moment-1:0:https://shop.example/dress',
@@ -61,16 +65,16 @@ describe('E3 authoring runner cost reservation', () => {
           { ...source, productId: 'moment-2:0:https://shop.example/top', cacheKey: 'pair-2' },
         ],
       },
-      capUsd: RESERVATION_PER_PAIR_USD * 2,
+      capUsd: RESERVATION_PER_REQUEST_USD * 2,
       judge: async (pair: { cacheKey: string }) => {
         requests.push(pair.cacheKey);
         return validJudgment;
       },
     });
 
-    expect(RESERVATION_PER_PAIR_USD).toBeCloseTo(0.03408, 8);
+    expect(RESERVATION_PER_REQUEST_USD).toBeCloseTo(0.03408, 8);
     expect(requests).toEqual(['pair-1']);
-    expect(result.run.reservedCostUsd).toBeCloseTo(RESERVATION_PER_PAIR_USD, 8);
+    expect(result.run.reservedCostUsd).toBeCloseTo(RESERVATION_PER_REQUEST_USD, 8);
     expect(result.run.reservedCostUsd).toBeLessThan(MAX_RUN_COST_USD);
     expect(result.run.stopReason).toBe('run cap would be reached before next request');
     expect(result.judgments.map((judgment: { tier: string }) => judgment.tier)).toEqual([
@@ -95,6 +99,130 @@ describe('E3 authoring runner cost reservation', () => {
     expect(result.run.stopReason).toBe('no eligible image pairs');
     expect(result.judgments[0]).toMatchObject({ score: null, tier: 'unresolved', kind: null });
     expect(result.judgments[0].reasons).toEqual(['product image unavailable']);
+  });
+
+  it('hydrates an otherwise comparable retailer listing before judging it', async () => {
+    const withoutImage = {
+      ...source,
+      cacheKey: null,
+      productImageUrl: null,
+      productUrl: 'https://shop.example/dress',
+    };
+    const result = await runAuthoring({
+      receipt: receipt([withoutImage]),
+      queue: { queue: [withoutImage] },
+      resolveProductImage: async () => 'https://images.example/recovered-product.jpg',
+      judge: async () => validJudgment,
+    });
+
+    expect(result.judgments[0]).toMatchObject({
+      productImageUrl: 'https://images.example/recovered-product.jpg',
+      score: 92,
+      tier: 'exact',
+      kind: 'dress',
+    });
+  });
+
+  it('reuses a recovered receipt image without refetching a transiently unavailable retailer', async () => {
+    const productImageUrl = 'https://images.example/recovered-product.jpg';
+    const prior = {
+      ...source,
+      productImageUrl,
+      cacheKey: auditCacheKey({ ...source, productImageUrl }),
+      score: 92,
+      tier: 'exact',
+      kind: 'dress',
+      reasons: validJudgment.reasons,
+    };
+    let hydrations = 0;
+    const result = await runAuthoring({
+      receipt: receipt([prior]),
+      queue: { queue: [{ ...source, productImageUrl: null, cacheKey: null }] },
+      resolveProductImage: async () => {
+        hydrations += 1;
+        throw new Error('retailer temporarily unavailable');
+      },
+      judge: async () => {
+        throw new Error('cached judgment must be reused');
+      },
+    });
+
+    expect(hydrations).toBe(0);
+    expect(result.run.reservedCostUsd).toBe(0);
+    expect(result.status).toBe('complete');
+    expect(result.judgments[0]).toMatchObject({ productImageUrl, score: 92, tier: 'exact' });
+  });
+
+  it('rejudges a recovered product when the moment image changes', async () => {
+    const productImageUrl = 'https://images.example/recovered-product.jpg';
+    const prior = {
+      ...source,
+      productImageUrl,
+      cacheKey: auditCacheKey({ ...source, productImageUrl }),
+      score: 92,
+      tier: 'exact',
+      kind: 'dress',
+      reasons: validJudgment.reasons,
+    };
+    let judged = false;
+    await runAuthoring({
+      receipt: receipt([prior]),
+      queue: {
+        queue: [
+          {
+            ...source,
+            productImageUrl: null,
+            cacheKey: null,
+            momentImageUrl: 'https://images.example/new-moment.jpg',
+          },
+        ],
+      },
+      resolveProductImage: async () => {
+        throw new Error('retailer must not be fetched');
+      },
+      judge: async (pair) => {
+        judged = pair.productImageUrl === productImageUrl;
+        return validJudgment;
+      },
+    });
+
+    expect(judged).toBe(true);
+  });
+
+  it('bounds retailer image fetches with an abort signal', async () => {
+    let init: RequestInit | undefined;
+    await retailerOgImage('https://shop.example/dress', {
+      fetchImpl: async (_url, options) => {
+        init = options;
+        return new Response(
+          '<meta property="og:image" content="https://images.example/dress.jpg">',
+        );
+      },
+    });
+
+    expect(RETAILER_FETCH_TIMEOUT_MS).toBeGreaterThan(0);
+    expect(init?.signal).toBeInstanceOf(AbortSignal);
+  });
+
+  it('stops hydrating after its run-level budget is exhausted', async () => {
+    let hydrations = 0;
+    const missingImage = { ...source, productImageUrl: null, cacheKey: null };
+    const result = await runAuthoring({
+      receipt: receipt([missingImage]),
+      queue: { queue: [missingImage, { ...missingImage, productId: 'another-product' }] },
+      hydrationBudgetMs: 0,
+      resolveProductImage: async () => {
+        hydrations += 1;
+        return 'https://images.example/recovered-product.jpg';
+      },
+      judge: async () => validJudgment,
+    });
+
+    expect(hydrations).toBe(0);
+    expect(result.judgments.map((judgment) => judgment.reasons)).toEqual([
+      ['product image unavailable'],
+      ['product image unavailable'],
+    ]);
   });
 
   it('writes a schema-valid scored judgment from an available fixture pair without fabricating fields', async () => {
@@ -144,6 +272,60 @@ describe('E3 authoring runner cost reservation', () => {
     expect(result.judgments[0].reasons).toEqual(['invalid judgment response']);
   });
 
+  it('retries a transient judgment failure before recording the pair unresolved', async () => {
+    let attempts = 0;
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      judge: async () => {
+        attempts += 1;
+        if (attempts < 3) throw new Error('anthropic vision request failed (429)');
+        return validJudgment;
+      },
+      sleep: async () => {},
+    });
+
+    expect(attempts).toBe(3);
+    expect(result.judgments[0]).toMatchObject({ score: 92, tier: 'exact', kind: 'dress' });
+  });
+
+  it('records the permanent vision HTTP status as unresolved evidence without retrying', async () => {
+    let attempts = 0;
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      judge: async () => {
+        attempts += 1;
+        throw new Error('anthropic vision request failed (401)');
+      },
+      sleep: async () => {},
+    });
+
+    expect(attempts).toBe(1);
+    expect(result.run.reservedCostUsd).toBeCloseTo(RESERVATION_PER_REQUEST_USD, 8);
+    expect(result.run.stopReason).toBeNull();
+    expect(result.judgments[0].reasons).toEqual(['vision request failed (HTTP 401)']);
+  });
+
+  it('reserves each retry attempt before dispatching it', async () => {
+    let attempts = 0;
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      capUsd: RESERVATION_PER_REQUEST_USD * 2,
+      judge: async () => {
+        attempts += 1;
+        throw new Error('anthropic vision request failed (429)');
+      },
+      sleep: async () => {},
+    });
+
+    expect(attempts).toBe(1);
+    expect(result.run.reservedCostUsd).toBeCloseTo(RESERVATION_PER_REQUEST_USD, 8);
+    expect(result.run.stopReason).toBe(CAP_STOP_REASON);
+    expect(result.judgments[0].reasons).toEqual(['not judged before run cap']);
+  });
+
   it('uses a newly detected queue pair even when the earlier receipt has no judgment for it', async () => {
     const result = await runAuthoring({
       receipt: receipt([]),
@@ -165,7 +347,7 @@ describe('E3 authoring runner cost reservation', () => {
       requiresApiKey(receipt([]), {
         queue: [{ ...source, productImageUrl: null, cacheKey: null }],
       }),
-    ).toBe(false);
+    ).toBe(true);
     expect(requiresApiKey(receipt(), { queue: [] })).toBe(false);
   });
 
@@ -207,7 +389,12 @@ describe('E3 authoring runner cost reservation', () => {
     let request: Request | undefined;
     const response = await judgePairWithClaude(source, {
       apiKey: 'test-key',
-      fetchImpl: async (_url: string, init: RequestInit) => {
+      fetchImpl: async (url: string, init: RequestInit) => {
+        if (url === source.productImageUrl || url === source.momentImageUrl) {
+          return new Response(Uint8Array.from([137, 80, 78, 71]), {
+            headers: { 'content-type': 'image/png' },
+          });
+        }
         request = new Request('https://api.anthropic.com/v1/messages', init);
         return new Response(
           JSON.stringify({
@@ -226,6 +413,86 @@ describe('E3 authoring runner cost reservation', () => {
     });
     expect((payload.messages as Array<{ content: unknown[] }>)[0].content).toHaveLength(3);
     expect(response).toEqual(validJudgment);
+  });
+
+  it('encodes supported source images before sending a Claude judgment request', async () => {
+    let request: Request | undefined;
+    const imageBytes = Uint8Array.from([137, 80, 78, 71]);
+    const calls: string[] = [];
+    const response = await judgePairWithClaude(source, {
+      apiKey: 'test-key',
+      fetchImpl: async (url: string, init: RequestInit) => {
+        calls.push(url);
+        if (url === source.productImageUrl || url === source.momentImageUrl) {
+          expect(init).toMatchObject({ method: 'GET', redirect: 'follow' });
+          return new Response(imageBytes, { headers: { 'content-type': 'image/png' } });
+        }
+        request = new Request('https://api.anthropic.com/v1/messages', init);
+        return new Response(
+          JSON.stringify({
+            content: [{ type: 'tool_use', name: 'record_match_judgment', input: validJudgment }],
+          }),
+          { status: 200 },
+        );
+      },
+    });
+
+    const payload = (await request?.json()) as {
+      messages: Array<{ content: Array<{ source?: Record<string, string> }> }>;
+    };
+    expect(calls).toEqual([
+      source.productImageUrl,
+      source.momentImageUrl,
+      'https://api.anthropic.com/v1/messages',
+    ]);
+    expect(payload.messages[0].content.slice(0, 2)).toEqual([
+      {
+        type: 'image',
+        source: {
+          type: 'base64',
+          media_type: 'image/png',
+          data: 'iVBORw==',
+        },
+      },
+      {
+        type: 'image',
+        source: {
+          type: 'base64',
+          media_type: 'image/png',
+          data: 'iVBORw==',
+        },
+      },
+    ]);
+    expect(response).toEqual(validJudgment);
+  });
+
+  it('preserves an unsupported image as unresolved evidence without submitting a provider request', async () => {
+    let providerRequests = 0;
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      judge: (pair: Record<string, unknown>) =>
+        judgePairWithClaude(pair, {
+          apiKey: 'test-key',
+          fetchImpl: async (url: string) => {
+            if (url === source.productImageUrl) {
+              return new Response(Uint8Array.from([0]), {
+                headers: { 'content-type': 'image/heic' },
+              });
+            }
+            if (url === source.momentImageUrl) {
+              return new Response(Uint8Array.from([137, 80, 78, 71]), {
+                headers: { 'content-type': 'image/png' },
+              });
+            }
+            providerRequests += 1;
+            return new Response(JSON.stringify({ content: [] }), { status: 200 });
+          },
+        }),
+    });
+
+    expect(providerRequests).toBe(0);
+    expect(result.judgments[0].reasons).toEqual(['image source unsupported']);
   });
 
   it('creates one exact-title follow-up issue when a cap stop leaves pairs unresolved', async () => {

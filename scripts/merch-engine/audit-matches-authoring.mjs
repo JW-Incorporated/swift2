@@ -3,19 +3,28 @@
 // permitted to call the vision model; the scheduled detector remains zero-LLM.
 import { execFile } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { performance } from 'node:perf_hooks';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
-import { tierForScore } from './audit-matches.mjs';
+import { auditCacheKey, tierForScore } from './audit-matches.mjs';
+import { extractReplacementImage } from './verify-images.mjs';
 
 export const MODEL = 'claude-sonnet-5';
 export const MAX_RUN_COST_USD = 5;
-export const RESERVATION_PER_PAIR_USD = ((2 * 4_784 + 512) * 3 + 256 * 15) / 1_000_000;
+export const TRANSIENT_RETRY_ATTEMPTS = 3;
+export const RESERVATION_PER_REQUEST_USD = ((2 * 4_784 + 512) * 3 + 256 * 15) / 1_000_000;
+export const RESERVATION_PER_PAIR_USD = RESERVATION_PER_REQUEST_USD * TRANSIENT_RETRY_ATTEMPTS;
 export const CAP_STOP_REASON = 'run cap would be reached before next request';
+export const RETAILER_FETCH_TIMEOUT_MS = 10_000;
+export const HYDRATION_BUDGET_MS = 5 * 60_000;
+export const IMAGE_FETCH_TIMEOUT_MS = 10_000;
+export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
 const ANTHROPIC_VERSION = '2023-06-01';
 const execFileAsync = promisify(execFile);
 const THINKING = { type: 'disabled' };
+const SUPPORTED_IMAGE_MEDIA_TYPES = new Set(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
 const KINDS = new Set([
   'dress',
   'top',
@@ -127,9 +136,10 @@ export function requiresApiKey(receipt, queue) {
       judgment,
     ]),
   );
-  return (Array.isArray(queue?.queue) ? queue.queue : []).some((queued) =>
-    eligible({ ...receiptByProduct.get(queued.productId), ...queued }),
-  );
+  return (Array.isArray(queue?.queue) ? queue.queue : []).some((queued) => {
+    const pair = { ...receiptByProduct.get(queued.productId), ...queued };
+    return eligible(pair) || (typeof pair.productUrl === 'string' && !!pair.momentImageUrl);
+  });
 }
 
 export function capIssueContent(artifact) {
@@ -190,6 +200,21 @@ function unavailableReason(pair) {
   return 'detector pair cache key unavailable';
 }
 
+export async function retailerOgImage(
+  productUrl,
+  { fetchImpl = fetch, timeoutMs = RETAILER_FETCH_TIMEOUT_MS } = {},
+) {
+  if (typeof productUrl !== 'string' || !productUrl) return null;
+  const response = await fetchImpl(productUrl, {
+    method: 'GET',
+    redirect: 'follow',
+    signal: globalThis.AbortSignal.timeout(timeoutMs),
+  });
+  if (!response.ok) return null;
+  const imageUrl = extractReplacementImage(await response.text());
+  return typeof imageUrl === 'string' && imageUrl.startsWith('https://') ? imageUrl : null;
+}
+
 function toolInput(body) {
   const content = body?.content;
   if (!Array.isArray(content)) return null;
@@ -199,7 +224,40 @@ function toolInput(body) {
   );
 }
 
+function imageFailure(message, status = null) {
+  return new Error(status ? `image source ${message} (HTTP ${status})` : `image source ${message}`);
+}
+
+async function imageContent(url, fetchImpl) {
+  let response;
+  try {
+    response = await fetchImpl(url, {
+      method: 'GET',
+      redirect: 'follow',
+      signal: globalThis.AbortSignal.timeout(IMAGE_FETCH_TIMEOUT_MS),
+    });
+  } catch {
+    throw imageFailure('unavailable');
+  }
+  if (!response.ok) throw imageFailure('unavailable', response.status);
+  const mediaType = response.headers.get('content-type')?.split(';', 1)[0].trim().toLowerCase();
+  if (!SUPPORTED_IMAGE_MEDIA_TYPES.has(mediaType)) throw imageFailure('unsupported');
+  const declaredSize = Number(response.headers.get('content-length'));
+  if (Number.isFinite(declaredSize) && declaredSize > MAX_IMAGE_BYTES)
+    throw imageFailure('too large');
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  if (bytes.byteLength > MAX_IMAGE_BYTES) throw imageFailure('too large');
+  return {
+    type: 'image',
+    source: { type: 'base64', media_type: mediaType, data: Buffer.from(bytes).toString('base64') },
+  };
+}
+
 export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
+  const [productImage, momentImage] = await Promise.all([
+    imageContent(pair.productImageUrl, fetchImpl),
+    imageContent(pair.momentImageUrl, fetchImpl),
+  ]);
   const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -217,8 +275,8 @@ export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
         {
           role: 'user',
           content: [
-            { type: 'image', source: { type: 'url', url: pair.productImageUrl } },
-            { type: 'image', source: { type: 'url', url: pair.momentImageUrl } },
+            productImage,
+            momentImage,
             {
               type: 'text',
               text: 'Compare the product image first with the source-moment photo second. Score visual match from 0 to 100 using silhouette, color or pattern, garment type, and notable details. Return only the required judgment tool input; do not infer details not visible in the images.',
@@ -232,12 +290,49 @@ export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
   return toolInput(await response.json());
 }
 
-export async function runAuthoring({ receipt, queue, judge, capUsd = MAX_RUN_COST_USD }) {
+function isRetryableVisionError(error) {
+  if (error instanceof Error && error.message.startsWith('image source ')) return false;
+  const status = error instanceof Error ? /\((\d{3})\)$/.exec(error.message)?.[1] : null;
+  return !status || status === '429' || status.startsWith('5');
+}
+
+function visionFailureReason(error) {
+  if (error instanceof Error && error.message.startsWith('image source ')) return error.message;
+  const status = error instanceof Error ? /\((\d{3})\)$/.exec(error.message)?.[1] : null;
+  return status ? `vision request failed (HTTP ${status})` : 'vision request failed';
+}
+
+async function judgeWithRetry(pair, judge, sleep, reserveAttempt) {
+  let lastError;
+  for (let attempt = 1; attempt <= TRANSIENT_RETRY_ATTEMPTS; attempt += 1) {
+    if (!reserveAttempt()) return { capReached: true };
+    try {
+      return { response: await judge(pair) };
+    } catch (error) {
+      lastError = error;
+      if (!isRetryableVisionError(error) || attempt === TRANSIENT_RETRY_ATTEMPTS) break;
+      await sleep(250 * 2 ** (attempt - 1));
+    }
+  }
+  return { error: lastError };
+}
+
+export async function runAuthoring({
+  receipt,
+  queue,
+  judge,
+  resolveProductImage = (pair) => retailerOgImage(pair.productUrl),
+  capUsd = MAX_RUN_COST_USD,
+  hydrationBudgetMs = HYDRATION_BUDGET_MS,
+  sleep = (milliseconds) => new Promise((resolveSleep) => setTimeout(resolveSleep, milliseconds)),
+}) {
   if (!receipt || typeof receipt !== 'object') throw new Error('receipt must be an object');
   if (!queue || !Array.isArray(queue.queue))
     throw new Error('detector queue must contain a queue array');
   if (!Number.isFinite(capUsd) || capUsd <= 0 || capUsd > MAX_RUN_COST_USD)
     throw new Error(`capUsd must be greater than zero and at most ${MAX_RUN_COST_USD}`);
+  if (!Number.isFinite(hydrationBudgetMs) || hydrationBudgetMs < 0)
+    throw new Error('hydrationBudgetMs must be zero or greater');
 
   const receiptJudgments = Array.isArray(receipt.judgments) ? receipt.judgments : [];
   const receiptByProduct = new Map(
@@ -254,9 +349,37 @@ export async function runAuthoring({ receipt, queue, judge, capUsd = MAX_RUN_COS
   let eligibleCount = 0;
   let stoppedAtCap = false;
   const judgments = [];
+  const hydrationStartedAt = performance.now();
 
   for (const queued of queue.queue) {
-    const pair = { ...receiptByProduct.get(queued.productId), ...queued };
+    const prior = receiptByProduct.get(queued.productId);
+    let pair = { ...prior, ...queued };
+    if (!pair.productImageUrl && prior?.productImageUrl) {
+      const productImageUrl = prior.productImageUrl;
+      pair = {
+        ...pair,
+        productImageUrl,
+        cacheKey: auditCacheKey({ ...pair, productImageUrl }),
+      };
+    }
+    if (
+      !pair.productImageUrl &&
+      pair.productUrl &&
+      performance.now() - hydrationStartedAt < hydrationBudgetMs
+    ) {
+      try {
+        const productImageUrl = await resolveProductImage(pair);
+        if (productImageUrl) {
+          pair = {
+            ...pair,
+            productImageUrl,
+            cacheKey: auditCacheKey({ ...pair, productImageUrl }),
+          };
+        }
+      } catch {
+        // Keep the pair as unresolved evidence when a retailer page is unavailable.
+      }
+    }
     if (!eligible(pair)) {
       judgments.push(unresolved(pair, unavailableReason(pair)));
       continue;
@@ -278,27 +401,31 @@ export async function runAuthoring({ receipt, queue, judge, capUsd = MAX_RUN_COS
       judgments.push(unresolved(pair, 'same detector pair was unresolved'));
       continue;
     }
-    // Reserve before invoking the network. Equality stops too: the cap is a
-    // circuit breaker, not a target to fill.
-    if (reservedCostUsd + RESERVATION_PER_PAIR_USD >= capUsd) {
+    attempted.add(pair.cacheKey);
+    const result = await judgeWithRetry(pair, judge, sleep, () => {
+      // Reserve each network attempt immediately before dispatching it.
+      // Equality stops too: the cap is a circuit breaker, not a target to fill.
+      if (reservedCostUsd + RESERVATION_PER_REQUEST_USD >= capUsd) return false;
+      reservedCostUsd += RESERVATION_PER_REQUEST_USD;
+      return true;
+    });
+    if (result.capReached) {
       stoppedAtCap = true;
       judgments.push(unresolved(pair, 'not judged before run cap'));
       continue;
     }
-    reservedCostUsd += RESERVATION_PER_PAIR_USD;
-    attempted.add(pair.cacheKey);
-    try {
-      const normalized = normalizeJudgment(pair, await judge(pair));
-      if (!normalized) {
-        judgments.push(unresolved(pair, 'invalid judgment response'));
-        continue;
-      }
-      cached.set(pair.cacheKey, normalized);
-      judgments.push(normalized);
-      completedJudgments += 1;
-    } catch {
-      judgments.push(unresolved(pair, 'vision request failed'));
+    if (result.error) {
+      judgments.push(unresolved(pair, visionFailureReason(result.error)));
+      continue;
     }
+    const normalized = normalizeJudgment(pair, result.response);
+    if (!normalized) {
+      judgments.push(unresolved(pair, 'invalid judgment response'));
+      continue;
+    }
+    cached.set(pair.cacheKey, normalized);
+    judgments.push(normalized);
+    completedJudgments += 1;
   }
 
   const unresolvedCount = judgments.filter((judgment) => judgment.tier === 'unresolved').length;

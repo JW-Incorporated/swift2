@@ -1,0 +1,57 @@
+# Weekly deterministic reporting only. Network input configuration records
+# unavailable sources explicitly until credentialed reporting is separately
+# approved; this workflow never reads or changes credentials or affiliate links.
+name: merch-revenue
+
+on:
+  schedule:
+    - cron: "23 15 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: merch-revenue
+  cancel-in-progress: false
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+    steps:
+      # Reuse the existing branch-and-PR token so this report goes through the
+      # repository's required checks instead of attempting a protected main push.
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Generate configured network revenue report
+        run: npm run merch:revenue -- --input scripts/merch-engine/data/revenue-report-inputs.json
+      - name: Retain the report with this run
+        uses: actions/upload-artifact@v6
+        with:
+          name: merch-revenue-report
+          path: docs/ops/MERCH-REVENUE.json
+          retention-days: 90
+      - name: Submit the current report for Marjorie's next brief
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+        run: |
+          git add docs/ops/MERCH-REVENUE.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BRANCH="merch-revenue/${GITHUB_RUN_ID}"
+          git checkout -b "$BRANCH"
+          git commit -m "chore(merch): refresh weekly revenue report"
+          git push origin "$BRANCH"
+          gh pr create --title "chore(merch): refresh weekly revenue report" \
+            --body "Automated weekly merchant revenue report. It records unavailable reporting sources explicitly and contains no commercial configuration changes." \
+            --base main --head "$BRANCH"

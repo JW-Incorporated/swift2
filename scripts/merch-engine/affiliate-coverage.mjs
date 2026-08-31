@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const OUTPUT = 'docs/ops/AFFILIATE-COVERAGE.md';
-export const AWIN_DIRECTORY = 'scripts/merch-engine/data/awin-advertiser-directory.json';
+export const AWIN_DIRECTORY = 'apps/web/lib/longlive/awin-advertisers.json';
 
 const STATUSES = ['wrapped', 'awin-apply', 'pending-signup', 'uncovered', 'direct-by-policy'];
 
@@ -89,7 +89,7 @@ export function parseCoverage(markdown) {
 
 export function loadAwinApplyRetailers(directoryPath = resolve(ROOT, AWIN_DIRECTORY)) {
   const directory = JSON.parse(readFileSync(directoryPath, 'utf8'));
-  return new Set(directory.advertisers.map(({ retailer }) => retailer));
+  return new Set(directory.advertisers.filter(({ joined }) => !joined).map(({ retailer }) => retailer));
 }
 
 export function generateCoverage(products, options = {}) {

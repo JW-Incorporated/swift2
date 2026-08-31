@@ -328,18 +328,7 @@ export default {
             focalPoint: '38% 22%',
           },
         ],
-        products: [
-          {
-            brand: 'AKIRA',
-            item: 'Drippy Rhinestone Chain Top',
-            retailer: 'shopakira.com',
-            url: 'https://www.shopakira.com/products/drippy-rhinestone-chain-top',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0850/1329/9515/files/SA623-TSILVER1.jpg?v=1778072838',
-            price: '$62.93',
-            isAlternative: true,
-            altNote: 'The shoot used vintage Bob Mackie originals from his Vegas "Jubilee!" revue, not made for Swift and not sold at retail -- this is a current rhinestone-chain top in the same showgirl register.',
-          },
-        ],
+        products: [],
       },
     },
 
@@ -2919,8 +2908,11 @@ export default {
             item: 'Louise PM Earrings',
             retailer: 'louisvuitton.com',
             url: 'https://us.louisvuitton.com/eng-us/products/louise-pm-earrings-s00-nvprod2950037v/M00396',
+            matchTier: 'unscored',
+            kind: 'jewelry',
             price: '$590.00',
             inStock: true,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -3205,10 +3197,13 @@ export default {
             item: 'Heavy Cotton T-Shirt (G500) — Orange',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Gildan-Cotton-T-Shirt-Orange-Medium/dp/B00I84H5AS',
+            matchTier: 'unscored',
+            kind: 'top',
             price: '$7.02',
             inStock: true,
             isAlternative: true,
             altNote: 'The "Stevie Knicks" tee itself was never sold — Alana Haim hand-cut the lettering onto a $3 Gildan blank. This is the same blank Gildan style (G500) in the Knicks-orange colorway, for the DIY version.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -3563,9 +3558,9 @@ export default {
             reportedOn: '2026-08-28',
             status: 'unconfirmed',
             url: 'https://www.contactmusic.com/story/467/3598464/taylor-swift-writing-new-music-as-she-and-travis-kelce-settle-into-married-life-amid-fresh-ts-teaser-sightings',
-            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous insider tip aggregated across Contactmusic/IBTimes UK/Yardbarker/Perez Hilton — tabloid tier. Distinct from the April 2026 Us Weekly and July 2026 Electric Lady tips by its post-wedding date. Resolves when a new album is announced, fades if it goes quiet. No location.',
+            note: 'Forward-looking unannounced-music speculation (allowed by the redlines). Cluster originates with a Page Six item (Aug 27, 2026) calling Taylor "incredibly inspired creatively," picked up by Bustle, Cosmopolitan and others. Post-wedding thread, distinct from the April Us Weekly and July Electric Lady tips. Tabloid tier; no album No. 13 announced. Fades if quiet. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-29',
+            lastCheckedOn: '2026-08-30',
           },
         ],
       },
@@ -5270,8 +5265,12 @@ export default {
             brand: 'Monique Lhuillier',
             item: 'Viola Dress',
             retailer: 'moniquelhuillier.com',
-            url: 'https://www.moniquelhuillier.com/products/viola-dress',
+            url: 'https://moniquelhuillier.com/products/viola-bridal-dress',
+            matchTier: 'unscored',
+            kind: 'dress',
             price: '$4,990.00',
+            inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z',
             isAlternative: true,
             altNote: 'The real gown is a one-of-one Dior Haute Couture commission with no retail equivalent -- this is a real silk-white bridal gown in a comparable register, not the actual dress.',
           },
@@ -5388,8 +5387,11 @@ export default {
             item: 'Crystal Embroidered Neckline and Strap Mini Dress',
             retailer: 'davidkoma.com',
             url: 'https://davidkoma.com/collections/dresses/products/crystal-embroidered-neckline-and-strap-mini-dress-black-silver',
+            matchTier: 'unscored',
+            kind: 'dress',
             price: '$1,200.00',
-            inStock: true,
+            inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z',
           },
         ],
       },
@@ -5585,11 +5587,14 @@ export default {
             item: 'Teo Cashmere Short Sleeve Sweater',
             retailer: 'thereformation.com',
             url: 'https://www.thereformation.com/products/teo-cashmere-short-sleeve-sweater/1313290.html',
+            matchTier: 'unscored',
+            kind: 'knitwear',
             price: '$64.00',
             inStock: false,
             isAlternative: true,
             altNote:
               'Her exact "Cashmere Short Sleeve Crew" in Showgirl orange is sold out and delisted — this is Reformation\'s current cashmere short-sleeve crew (the "Teo"), same brand and silhouette, also sold out.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -5680,8 +5685,11 @@ export default {
             item: 'Check Oversized Zip Up Wool Bomber Jacket',
             retailer: 'bergdorfgoodman.com',
             url: 'https://www.bergdorfgoodman.com/p/miu-miu-check-oversized-zip-up-wool-bomber-jacket-prod189900058',
+            matchTier: 'unscored',
+            kind: 'outerwear',
             price: '$4,600.00',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -6058,8 +6066,12 @@ export default {
             retailer: 'thefrankieshop.com',
             url: 'https://thefrankieshop.com/products/zion-bomber-jacket-red',
             imageUrl: 'https://cdn.shopify.com/s/files/1/1527/0993/files/ZION-BOMBER-JACKET-RED-MARYEL-1841jpg.jpg?v=1771005054',
+            matchTier: 'similar',
+            matchScore: 55,
+            kind: 'outerwear',
             price: '$388.00',
             inStock: true,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -6272,8 +6284,11 @@ export default {
             brand: 'Manifestie',
             item: 'Xena Crystal Fringe Bodysuit',
             retailer: 'manifestie.com',
-            url: 'https://www.manifestie.com/products/xena-crystal-fringe-bodysuit',
+            url: 'https://www.manifestie.com/products/xena-crystal-fringe-bodysuit-rhinestone-tassel-festival-outfit',
+            matchTier: 'unscored',
+            kind: 'top',
             price: '$190.00',
+            verifiedAt: '2026-08-30T19:22:10.691Z',
             isAlternative: true,
             altNote: 'The video wardrobe was custom Versace, Cavalli and Ferretti built for the shoot -- this is a real red crystal-fringe bodysuit in the same showgirl register, not the actual costume piece.',
           },
@@ -6695,9 +6710,12 @@ export default {
             item: 'Low Slung Baggy Jean',
             retailer: 'agolde.com',
             url: 'https://agolde.com/products/low-slung-baggy-reset',
+            matchTier: 'unscored',
+            kind: 'bottom',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0269/4076/8349/files/A9079-1556_LOW_SLUNG_BAGGY_RESET_0011.jpg?v=1774553487',
             price: '$248.00',
             inStock: true,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -8117,11 +8135,14 @@ export default {
             item: 'Laila Floral Beaded Organza Strapless Gown',
             retailer: 'markarian-nyc.com',
             url: 'https://markarian-nyc.com/products/laila-white-floral-beaded-organza-strapless-gown-with-pink-and-yellow-applique-flowers',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0024/7195/2443/files/MS2620AD1029_OFW_1.jpg?v=1757606125',
             price: '$7,895.00',
             inStock: false,
             isAlternative: true,
             altNote: 'The pink floral-brocade "Laila" she wore (~$4,115) is past-season, off the brand site. This is the same Markarian "Laila" style in white beaded organza, what it lists now — different color, sold out.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -8903,6 +8924,11 @@ export default {
       // was NOT independently corroborated and is not authored here.) Grammy
       // Museum is a public venue and this is a documented past event (L2), no
       // redline material.
+      // SONGWRITING UPDATE (Vault Run 2026-08-30, enrich from intake #3503):
+      // the Aug. 24 conversation clip added the ballad→dubstep origin of "I
+      // Knew You Were Trouble" and her country-roots remarks. A Red-era song
+      // discussed at an Aug. 2026 event — authored here by the event's date,
+      // not the song's era. No location, no redline material.
       slug: 'showgirl-grammy-museum-icon-sessions-retrospective',
       year: 2026,
       month: 8,
@@ -8927,7 +8953,7 @@ export default {
       ],
       moment: {
         context:
-          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance for the small crowd — though at first the specifics stayed inside the room. On Aug. 24, 2026 the Recording Academy released a recording of the performance, and the setlist came with it: an Eras Tour-style piano mashup of three songs she tied together by the theme of memory — her 2026 single “I Knew It, I Knew You,” “August,” and “All Too Well.” The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what first surfaced came from the guests themselves, before the Academy’s own recording put the performance on the record.',
+          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance for the small crowd — though at first the specifics stayed inside the room. On Aug. 24, 2026 the Recording Academy released a recording of the performance, and the setlist came with it: an Eras Tour-style piano mashup of three songs she tied together by the theme of memory — her 2026 single “I Knew It, I Knew You,” “August,” and “All Too Well.” The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what first surfaced came from the guests themselves, before the Academy’s own recording put the performance on the record.\n\nWhen the Recording Academy released a conversation clip on Aug. 24, the songwriting Q&A produced the night’s most-quoted anecdote. Taylor said “I Knew You Were Trouble,” her 2012 Red single, started life as a “really, really sad” ballad with no drums — until she brought it to Max Martin and Shellback, who asked, “What if it’s dubstep?” She was unsure in the moment but came to call the pivot the best thing that could have happened to the song, adding that the collaborators she loves are the “‘Yes, and?’ people.” The same conversation had her circling back toward her country beginnings — revisiting “Tim McGraw,” her 2006 debut single — and saying she wants to honor those roots “the further along this path I get.”',
         sources: [
           {
             outlet: 'Just Jared',
@@ -8988,6 +9014,42 @@ export default {
           {
             outlet: 'YouTube — Good Morning America',
             url: 'https://www.youtube.com/watch?v=MIl_HilQz8M',
+          },
+          // Songwriting anecdote — the ballad→dubstep origin of "I Knew You
+          // Were Trouble" and the country-roots remarks, from the conversation
+          // clip the Recording Academy released Aug. 24, 2026 (Vault Run
+          // 2026-08-30, enrich from intake #3503). Variety and Deadline are
+          // blocked by this session's network egress policy (403 CONNECT); their
+          // real publisher URLs were confirmed via web search and the quotes
+          // corroborated across Variety, Deadline and iHeart syndications.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-i-knew-you-were-trouble-grammy-museum-clip-1236841957/',
+            source_title:
+              "Taylor Swift Recalls How 'I Knew You Were Trouble' Was Written as a 'Really Sad Ballad' in Grammy Museum Conversation Video",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-30',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/08/taylor-swift-i-knew-you-were-trouble-country-roots-1237049519/',
+            source_title:
+              "Taylor Swift On Writing 'I Knew You Were Trouble' As A 'Really Sad Ballad' & Why She Wants To Honor Her Country Roots",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-30',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'iHeartRadio (Z100)',
+            url: 'https://z100.iheart.com/content/2026-08-24-taylor-swift-reveals-i-knew-you-were-trouble-was-nearly-a-sad-ballad/',
+            source_title: "Taylor Swift Says 'I Knew You Were Trouble' Began as a Sad Ballad, No Drums",
+            publisher: 'iHeartRadio',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-30',
+            reliability_score: 3,
           },
         ],
         // Photo pass (issue #1721, 2026-08-25): no cameras were allowed at
@@ -9884,9 +9946,12 @@ export default {
             brand: 'Branna Couture',
             item: 'Feather-Trim Sequin-Embellished Mini Dress',
             retailer: 'brannacouture.com',
-            url: 'https://brannacouture.com/products/feather-trim-sequin-embellished-mini-dress-orange',
+            url: 'https://brannacouture.com/products/feather-trim-sequin-embellished-mini-dress-in-orange',
+            matchTier: 'unscored',
+            kind: 'dress',
             price: '$262.00',
             inStock: true,
+            verifiedAt: '2026-08-30T19:22:10.691Z',
           },
         ],
         // Photo pass (issue #1721, 2026-08-25): page had zero photos.
@@ -11420,24 +11485,33 @@ export default {
             item: 'Mini Isabelle Dress',
             retailer: 'delphinenyc.com',
             url: 'https://www.delphinenyc.com/products/mini-isabelle-dress-lilac-multi',
+            matchTier: 'unscored',
+            kind: 'dress',
             price: '$995.00',
             inStock: true,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
             brand: 'Aquazzura',
             item: 'Love Struck Sandal 85',
             retailer: 'aquazzura.com',
             url: 'https://www.aquazzura.com/us_en/love-struck-sandal-85-light-copper-lskmids0-npl-lco',
+            matchTier: 'unscored',
+            kind: 'shoes',
             price: '$1,710.00',
             inStock: true,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
             brand: 'Christian Louboutin',
             item: 'Loubi54 Ombré Crystal Embellished Clutch',
             retailer: 'nordstrom.com',
             url: 'https://www.nordstrom.com/s/loubi54-ombr-crystal-embellished-clutch/7693914',
+            matchTier: 'unscored',
+            kind: 'bag',
             // No price shown on the sold-out PDP — omitted rather than guessed.
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -11603,7 +11677,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Billboard\'s Adult Pop Airplay chart — the Adult Top 40 tally, tracking spins at adult-leaning pop radio — is a separate list from the Pop Airplay chart where the same song had already been chasing a record weeks earlier. On the ranking dated Aug. 22, 2026, "I Knew It, I Knew You" climbed three spots to No. 1, and the story was the count behind it: Taylor\'s 16th No. 1 on the chart, the most any artist has collected since it debuted in March 1996, breaking a tie with Maroon 5 at the top. Behind her, P!nk sits third all-time with 10, and Katy Perry and Ed Sheeran fourth with eight apiece.\n\nIt was one more format claimed by a song that keeps outrunning its origin — her original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff, which had already logged a No. 1 Hot 100 debut and a Country Airplay top 10, and reached No. 3 on the Hot 100 the week country songs swept that chart\'s entire top five. Adult pop radio was one of the last major formats it had yet to lead. Around the same week it also reached No. 1 on a different tally — Mediabase\'s Hot AC (Hot Adult Contemporary) chart, run by a competing airplay-tracking service, topping the Aug. 9–15 period on about 5,467 spins. (The two are separate charts: on Billboard\'s own Adult Contemporary list the song peaked lower, at No. 9.)',
+          'Billboard\'s Adult Pop Airplay chart — the Adult Top 40 tally, tracking spins at adult-leaning pop radio — is a separate list from the Pop Airplay chart where the same song had already been chasing a record weeks earlier. On the ranking dated Aug. 22, 2026, "I Knew It, I Knew You" climbed three spots to No. 1, and the story was the count behind it: Taylor\'s 16th No. 1 on the chart, the most any artist has collected since it debuted in March 1996, breaking a tie with Maroon 5 at the top. Behind her, P!nk sits third all-time with 10, and Katy Perry and Ed Sheeran fourth with eight apiece.\n\nIt was one more format claimed by a song that keeps outrunning its origin — her original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff, which had already logged a No. 1 Hot 100 debut and a Country Airplay top 10, and reached No. 3 on the Hot 100 the week country songs swept that chart\'s entire top five. Adult pop radio was one of the last major formats it had yet to lead. Around the same week it also reached No. 1 on a different tally — Mediabase\'s Hot AC (Hot Adult Contemporary) chart, run by a competing airplay-tracking service, topping the Aug. 9–15 period on about 5,467 spins. (The two are separate charts: on Billboard\'s own Adult Contemporary list the song peaked lower, at No. 9.)\n\nTwo weeks on, it topped a broader list still — the all-format Radio Songs chart, which ranks the most-heard songs across every radio format by total audience impressions rather than one genre\'s spins. On the ranking dated Aug. 29, 2026, "I Knew It, I Knew You" reached No. 1, Taylor\'s ninth career Radio Songs leader, on 64.7 million airplay audience impressions over the Aug. 14–20 tracking week (per Billboard). Where the Adult Pop Airplay crown was a format record, the all-format Radio Songs No. 1 measured the song\'s pull across every radio format at once.',
         sources: [
           {
             outlet: 'Billboard',
@@ -11624,6 +11698,21 @@ export default {
             publisher: 'Billboard',
             source_type: 'official',
             accessed_at: '2026-08-16',
+            reliability_score: 5,
+          },
+          {
+            // Radio Songs No. 1 folded in above (Vault Run 2026-08-30, enrich
+            // from intake #3502). Distinct all-format chart from the Adult Pop
+            // Airplay record this moment leads with; Billboard is the chart
+            // authority and directly names it her 9th career Radio Songs leader.
+            // (The ticket cited Forbes' write-up of the same milestone; the
+            // Billboard chart-beat piece is the stronger primary and is used.)
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-radio-songs-number-one-1236324466/',
+            source_title: "Taylor Swift's 'I Knew It, I Knew You' Hits No. 1 on Radio Songs Chart",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-30',
             reliability_score: 5,
           },
           {

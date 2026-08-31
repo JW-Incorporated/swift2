@@ -473,10 +473,13 @@ export default {
             item: 'Miss Me Sequin Mini Dress',
             retailer: 'us.princesspolly.com',
             url: 'https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0061/8627/0804/files/1-modelinfo-anna-us2_50d8d45d-d7e9-436c-8612-a72cbd106a3e.jpg?v=1757460707',
             price: '$85.00',
             isAlternative: true,
             altNote: 'The exact tour costume is undocumented beyond this description -- a current silver sequin mini dress in the same sparkling-cocktail-dress spirit as the reveal underneath the uniform.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -523,16 +526,6 @@ export default {
         // current, verified in-stock alternative in the same silver
         // one-shoulder sequin silhouette.
         products: [
-          {
-            brand: 'WonderlandByLilian',
-            item: 'Silver Sequin Evening Gown with Off-Shoulder Sleeves',
-            retailer: 'wonderlandbylilian.com',
-            url: 'https://wonderlandbylilian.com/products/silver-sequin-evening-gown-with-off-shoulder-sleeves-elegant-sequined-dress-with-draped-skirt-plus-size',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0550/3919/7262/files/b2b9ca237ee2e9d0031ad3655088b7c0.png?v=1785294642',
-            price: '$589.00',
-            isAlternative: true,
-            altNote: 'Her exact KaufmanFranco gown has no e-commerce path (brand has no current online store) -- this is a current made-to-order silver sequin off-shoulder gown in the same one-shoulder silhouette.',
-          },
         ],
       },
     },

@@ -1434,7 +1434,7 @@ export default {
             url: 'https://www.aol.com/articles/taylor-swift-allegedly-restocks-250-200000000.html',
             note: 'A more concrete signal than the easter-egg reads above, but sourced to a fan-bot and a tabloid write-up — Taylor and her team have said nothing. The re-recording is on record as finished (her May 2025 letter: "already completely re-recorded my entire debut album"); only the release is unannounced. Resolves on a debut Taylor\'s Version announcement, fades if anniversary passes empty. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-09',
+            lastCheckedOn: '2026-08-30',
           },
           {
             // Rumor Desk 2026-08-19: a different KIND of signal than the
@@ -2213,9 +2213,12 @@ export default {
             item: 'Cowboy Boots for Women, Mid-Calf Cowgirl Boots',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/IUV-Cowboy-Western-Cowgirl-Pointy/dp/B0BFQRZPRH',
+            matchTier: 'unscored',
+            kind: 'shoes',
             price: '$54.99',
             isAlternative: true,
             altNote: 'No single named pair -- this era-defining look was built from many worn-in boots and sundresses -- a current cowboy boot in the same recurring spirit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

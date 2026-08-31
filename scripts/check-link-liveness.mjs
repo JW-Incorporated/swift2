@@ -15,6 +15,7 @@
 
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const ROOT = process.cwd();
 const SEED_DIR = join(ROOT, 'supabase', 'seed');
@@ -27,6 +28,52 @@ const LIMIT = (() => {
 const CONCURRENCY = 10;
 const TIMEOUT_MS = 15000;
 const SOFT_404 = /\b(page|file)?\s*not\s*found\b|\bhttp\s*410\b|\bno longer (?:available|exists)\b/i;
+const SOLD_OUT = /\bout of stock\b|\bsold out\b|https?:\/\/schema\.org\/OutOfStock|["']OutOfStock["']/i;
+
+/** Flattens product and alt-listing URLs without changing their destination. */
+export function productTargets(catalogue) {
+  const targets = [];
+  for (const products of Object.values(catalogue)) {
+    for (const [index, product] of products.entries()) {
+      const productId = product.source
+        ? `${product.source.eraId}:${product.source.momentId}:${index}`
+        : `${product.category ?? 'merch'}:${index}`;
+      targets.push({ productId, url: product.url, imageUrl: product.imageUrl ?? null, listing: 'primary' });
+      if (product.altListing?.url) {
+        targets.push({ productId, url: product.altListing.url, listing: 'alternative' });
+      }
+    }
+  }
+  return targets;
+}
+
+async function productTargetsFromSeed() {
+  const targets = [];
+  const files = await readdir(join(SEED_DIR, 'content'));
+  for (const file of files.filter((name) => name.endsWith('.mjs') && !name.startsWith('_'))) {
+    const data = await import(pathToFileURL(join(SEED_DIR, 'content', file)).href);
+    const payload = data.default ?? data.items ?? Object.values(data)[0];
+    const items = Array.isArray(payload) ? payload : payload?.items ?? [];
+    const eraId = payload?.era ?? file.replace('.mjs', '');
+    for (const [itemIndex, item] of items.entries()) {
+      const itemId = `${eraId}:${item.id ?? itemIndex}`;
+      for (const [productIndex, product] of (item.moment?.products ?? []).entries()) {
+        const productId = `${itemId}:${productIndex}`;
+        targets.push({ productId, url: product.url, imageUrl: product.imageUrl ?? null, listing: 'primary' });
+        if (product.altListing?.url) targets.push({ productId, url: product.altListing.url, listing: 'alternative' });
+      }
+    }
+  }
+  try {
+    const merchFiles = await readdir(join(SEED_DIR, 'merch'));
+    for (const file of merchFiles.filter((name) => name.endsWith('.mjs') && !name.startsWith('_'))) {
+      const data = await import(pathToFileURL(join(SEED_DIR, 'merch', file)).href);
+      const products = data.default ?? Object.values(data).find(Array.isArray) ?? [];
+      targets.push(...productTargets({ [file.replace('.mjs', '')]: products }));
+    }
+  } catch { /* the E4 catalogue may not exist until its dedicated lane authors it */ }
+  return targets;
+}
 
 async function walk(dir) {
   const out = [];
@@ -48,13 +95,16 @@ function extractUrls(text) {
 
 // AbortSignal is a Node 18+ / browser global; declare it for eslint's no-undef.
 /* global AbortSignal */
-async function check(url) {
+async function check(url, { inspectProductPage = false } = {}) {
   const ac = AbortSignal.timeout(TIMEOUT_MS);
   try {
     let res = await fetch(url, { method: 'HEAD', redirect: 'follow', signal: ac });
     // Some hosts reject HEAD — retry with a ranged GET.
     if (res.status === 405 || res.status === 403 || res.status === 501) {
       res = await fetch(url, { method: 'GET', redirect: 'follow', signal: ac, headers: { Range: 'bytes=0-2048' } });
+    }
+    if (inspectProductPage && res.status >= 200 && res.status < 300) {
+      res = await fetch(url, { method: 'GET', redirect: 'follow', signal: ac, headers: { Range: 'bytes=0-4095' } });
     }
     const status = res.status;
     if (status >= 200 && status < 300) {
@@ -63,6 +113,7 @@ async function check(url) {
       if (ct.includes('text/html')) {
         try {
           const body = (await res.text()).slice(0, 4000);
+          if (SOLD_OUT.test(body)) return { url, status, verdict: 'sold-out' };
           if (SOFT_404.test(body)) return { url, status, verdict: 'soft-404' };
         } catch { /* body read failed — treat as OK by status */ }
       }
@@ -93,27 +144,41 @@ async function pool(items, worker, n) {
   return results;
 }
 
-const files = await walk(SEED_DIR);
-const urlSet = new Set();
-for (const f of files) {
-  try { for (const u of extractUrls(await readFile(f, 'utf8'))) urlSet.add(u); }
-  catch { /* skip unreadable */ }
-}
-let urls = [...urlSet];
-if (Number.isFinite(LIMIT)) urls = urls.slice(0, LIMIT);
+async function main() {
+  let files = [];
+  let targets;
+  if (args.includes('--products')) {
+    targets = await productTargetsFromSeed();
+  } else {
+    files = await walk(SEED_DIR);
+    const urlSet = new Set();
+    for (const file of files) {
+      try { for (const url of extractUrls(await readFile(file, 'utf8'))) urlSet.add(url); }
+      catch { /* skip unreadable */ }
+    }
+    targets = [...urlSet].map((url) => ({ url }));
+  }
+  if (Number.isFinite(LIMIT)) targets = targets.slice(0, LIMIT);
+  const results = await pool(targets, async (target) => ({
+    ...target,
+    ...(await check(target.url, { inspectProductPage: args.includes('--products') })),
+  }), CONCURRENCY);
+  const bad = results.filter((result) => result.verdict !== 'ok');
+  const byVerdict = bad.reduce((map, result) => ((map[result.verdict] = (map[result.verdict] || 0) + 1), map), {});
 
-const results = await pool(urls, check, CONCURRENCY);
-const bad = results.filter((r) => r.verdict !== 'ok');
-const byVerdict = bad.reduce((m, r) => ((m[r.verdict] = (m[r.verdict] || 0) + 1), m), {});
-
-if (JSON_OUT) {
-  console.log(JSON.stringify({ scanned: urls.length, files: files.length, byVerdict, bad }, null, 2));
-} else {
-  console.log(`link-liveness: scanned ${urls.length} unique URLs across ${files.length} seed files`);
-  console.log(`summary:`, byVerdict);
-  for (const r of bad) console.log(`  [${r.verdict}] ${r.status || '-'}  ${r.url}`);
-  console.log(bad.length
-    ? `\n${bad.length} link(s) need review. For dead/soft-404 sources, prefer the archive.org/Wayback snapshot of the original.`
-    : `\nall links live.`);
+  if (JSON_OUT) {
+    console.log(JSON.stringify({ scanned: targets.length, files: files.length, byVerdict, results: args.includes('--products') ? results : undefined, bad }, null, 2));
+  } else {
+    console.log(`link-liveness: scanned ${targets.length} ${args.includes('--products') ? 'product' : 'unique'} URLs across ${files.length} seed files`);
+    console.log('summary:', byVerdict);
+    for (const result of bad) console.log(`  [${result.verdict}] ${result.status || '-'}  ${result.url}`);
+    console.log(bad.length ? `\n${bad.length} link(s) need review.` : '\nall links live.');
+  }
 }
-process.exit(0); // never gate — reporting only
+
+if (process.argv[1] && process.argv[1].endsWith('check-link-liveness.mjs')) {
+  main().catch((error) => {
+    console.error(`link-liveness: ${error.message}`);
+    process.exitCode = 1;
+  });
+}

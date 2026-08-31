@@ -61,7 +61,7 @@ import {
   type RumorStatus,
   type SubConfirmed,
 } from '@/lib/longlive/types';
-import { buildShopUrl, isAffiliate, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
+import { renderMomentShopLink, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
 import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
@@ -834,7 +834,7 @@ export function MomentDetail() {
 
         {hasRumors && item.rumors && <RumorSection rumors={item.rumors} />}
 
-        <ShopTheLook products={item.products} />
+        <ShopTheLook products={item.products} context={{ eraId: item.eraId, momentId: item.id }} />
 
         {item.sources && item.sources.length > 0 && (
           <div className="mt-8 border-t pt-4" style={{ borderColor: 'var(--era-line)' }}>
@@ -965,7 +965,13 @@ export function MomentDetail() {
  * real one is custom/couture/discontinued) gets an explicit "Similar style"
  * label plus its altNote, never presented as the literal garment.
  */
-function ShopTheLook({ products }: { products: Product[] | undefined }) {
+function ShopTheLook({
+  products,
+  context,
+}: {
+  products: Product[] | undefined;
+  context: { eraId: string; momentId: string };
+}) {
   if (!products || products.length === 0) return null;
   return (
     <div className="era-card mt-8 rounded-2xl border p-5">
@@ -976,6 +982,7 @@ function ShopTheLook({ products }: { products: Product[] | undefined }) {
       <ul className="mt-3">
         {products.map((p, i) => {
           const soldOut = p.inStock === false;
+          const shopLink = renderMomentShopLink(p, context);
           return (
             // border-t on the li itself (not divide-y on the ul): the era-line
             // color must sit on the element that owns the border, since
@@ -986,7 +993,7 @@ function ShopTheLook({ products }: { products: Product[] | undefined }) {
               style={{ borderColor: 'var(--era-line)' }}
             >
               <a
-                href={buildShopUrl(p)}
+                href={shopLink.href}
                 target="_blank"
                 rel="nofollow sponsored noopener noreferrer"
                 className="group flex items-center justify-between gap-3 py-3"
@@ -1037,7 +1044,7 @@ function ShopTheLook({ products }: { products: Product[] | undefined }) {
       </ul>
       {/* Renders only once buildShopUrl actually returns affiliate links —
           wiring it now is what makes the affiliate flip a shop.ts-only change. */}
-      {products.some(isAffiliate) && (
+      {products.some((product) => renderMomentShopLink(product, context).isAffiliate) && (
         <p className="mt-3 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
           {SHOP_DISCLOSURE}
         </p>

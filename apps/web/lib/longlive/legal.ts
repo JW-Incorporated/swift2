@@ -48,6 +48,17 @@
  *                retention, rolling-summary fold)
  *                PLAN.md Stage 11 (feature spec); docs/decisions.md 2026-08-23
  *                item 6 (the 180-day retention figure)
+ *   - Android app (verified 2026-08-30, ahead of the Google Play release):
+ *                apps/mobile/app.json (name "LongLive", package
+ *                ai.jwlabs.longlive, no `android.permissions` declared)
+ *                apps/mobile/App.tsx (the only data call is one loadSkeleton()
+ *                on mount; no TextInput anywhere in apps/mobile)
+ *                apps/mobile/lib/vault.ts → packages/core/src/vault.ts
+ *                (three anon SELECTs — era, milestone, month_item — and
+ *                `auth: { persistSession: false, autoRefreshToken: false }`)
+ *                apps/mobile/package.json (runtime deps are Expo, React
+ *                Native, gesture-handler, reanimated, url-polyfill and the
+ *                workspace packages — no ad, analytics, or crash SDK)
  */
 
 /**
@@ -372,17 +383,44 @@ export const PRIVACY_POLICY: LegalDoc = {
       heading: 'The mobile app',
       blocks: [
         {
+          // Rewritten for the Google Play release. The previous copy said the
+          // app "has not been released in any app store" and promised its data
+          // handling would be described "if and when" it was — both go false
+          // the moment the listing goes live, so this section now describes
+          // the shipped app instead of promising to. Verified against
+          // apps/mobile/** on 2026-08-30; see the source inventory at the top
+          // of this file. Whoever changes the app changes this section in the
+          // same release, and the Play Data safety form with it.
           kind: 'p',
-          text: 'This policy describes the Long Live website. A companion mobile app exists in development but has not been released in any app store. If and when it is, its data handling will be described here — or in its own policy — before it ships, and its store data-safety disclosures will be made to match.',
+          text: 'The sections above describe the Long Live website. There is also a Long Live Android app — listed as "LongLive", package ai.jwlabs.longlive — and it is a different piece of software with a much shorter story. This section is that story.',
         },
         {
-          // Founder call 2026-08-24 (Joey): "fill it in with something
-          // standard" rather than leave the internal engineering reminder
-          // as reader-facing prose. Before either store submission, whoever
-          // ships the app must still re-verify this against
-          // apps/mobile/docs/privacy-and-data-safety.md's current claims.
           kind: 'p',
-          text: "Before this app is submitted to either app store, its data-safety disclosures will be re-verified against the website's current data handling described above and updated to match.",
+          text: 'When you open the app it makes three requests, all over HTTPS, to our content database at Supabase: one for the eras, one for the milestones, and one for the items on the timeline. They are anonymous reads of published content, made with the same public key the website uses against the same public tables, and they say nothing about you. Nothing is sent back the other way.',
+        },
+        {
+          kind: 'p',
+          text: 'The app holds no session and no token. Its database client is configured not to keep a session and not to refresh one, so there is nothing to log in to and nothing kept signed in, and the app neither generates nor sends any device identifier.',
+        },
+        {
+          kind: 'p',
+          text: 'There is nowhere in the app to type. No form, no search box, no upload, no camera, no microphone, no location. The whole interface is a drag gesture and a scrolling view of the timeline. Nothing you tell us can leave your device, because there is nothing to tell us.',
+        },
+        {
+          kind: 'p',
+          text: 'The app carries no advertising, analytics, or crash-reporting software, no notifications, no in-app purchases, no account, and no sign-in. Its only libraries are the Expo and React Native runtime it is built on and the code it shares with this website. Apart from the internet access it needs to fetch the three tables above, it asks for no Android permissions — not your camera, your microphone, your location, your contacts, your photos, your storage, or permission to notify you.',
+        },
+        {
+          kind: 'p',
+          text: "One thing does reach a third party, and it cannot be avoided: fetching anything over the internet tells the other end where the request came from. So Supabase, which hosts that database for us, sees your device's IP address and the user-agent string your device sends, and both appear in its request logs, which exist for security and reliability. That is the same kind of log described under Server logs below, and the same limits apply: we do not use it to build a profile of you and we do not combine it with anything else.",
+        },
+        {
+          kind: 'p',
+          text: 'The features of this website that do collect something are not in the app. There is no feedback button, no mood chat, and no Clownbot in the Android app, so nothing described in those sections above happens there. The app sets no cookies and keeps nothing about you on your device.',
+        },
+        {
+          kind: 'p',
+          text: "Our Google Play Data safety declaration says the app collects no user data. That declaration and this section describe the same app and are kept in step: if the app ever starts collecting something, both change in the release that ships it. If the app is ever released on another store, its data handling will be described here before it ships, and that store's disclosures will be made to match.",
         },
       ],
     },
