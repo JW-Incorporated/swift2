@@ -632,7 +632,7 @@ jobs:
               echo "1. Confirm why [\`docs/audits/engine/\`](https://github.com/${REPO}/tree/main/docs/audits/engine) contains no canonical CIE run report."
             fi
             echo "2. Can the runner write to GitHub at all? \`node --use-env-proxy scripts/content-engine/run.mjs issues --create\` from a clean checkout does the label-upsert preflight first and says so in one second."
-            echo "3. Karen is a Wyatt-account cloud routine (\`docs/agents/runners.md\`), not an Actions workflow — its logs live there, not in this repo's Actions tab. If she's stale, someone with access to the routine dashboard needs to confirm she's actually enabled and firing — this repo cannot see that."
+            echo "3. Karen is a Joey-account cloud routine (\`docs/agents/runners.md\`), not an Actions workflow — its logs live there, not in this repo's Actions tab. If she's stale, someone with access to the routine dashboard needs to confirm she's actually enabled and firing — this repo cannot see that."
             echo ""
             echo "Nothing is lost by re-running: the engine is idempotent and fingerprint-deduped, so \`node --use-env-proxy scripts/content-engine/run.mjs all --create\` re-derives the same findings and files whatever is still missing."
           } > /tmp/alert-body.md
@@ -818,7 +818,7 @@ jobs:
           fi
 
       # Content-lane liveness checks (2026-07-23; generalised 2026-08-11).
-      # These lanes are Wyatt-account cloud routines (docs/agents/runners.md),
+      # These lanes are Joey-account cloud routines (docs/agents/runners.md),
       # not GitHub Actions workflows, so they are invisible to the cadence
       # check above. Confirmed 2026-07-23: Content Shift went silent for a
       # full day+ with zero trace anywhere (no PR, no stranded branch, no
@@ -930,7 +930,7 @@ jobs:
               echo ""
               echo "Check first: \`gh pr list --state all --json headRefName,createdAt --jq '.[]|select(.headRefName|startswith(\"${PREFIX}\"))'\` for the most recent one, and whether a \`${PREFIX}*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash)."
               echo ""
-              echo "If the routine itself has stopped: that's a Wyatt-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
+              echo "If the routine itself has stopped: that's a Joey-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
             } > /tmp/alert-body.md
             scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
             echo "${LANE} ALARM (no PR in ${WINDOW}h)"

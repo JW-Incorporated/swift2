@@ -38,8 +38,9 @@ content desks), video (nothing here can post video).
 
 ## Cadence
 
-**One run per week.** Mondays `0 10 * * 1` UTC, on **Wyatt's account** (every
-scheduled runner is, per `docs/agents/runners.md`). Model: **Opus** — this is
+**One run per week.** Mondays `0 10 * * 1` UTC, on **Joey's account** (every
+scheduled runner is, per `docs/agents/runners.md` — policy corrected
+2026-08-31, D1=B). Model: **Opus** — this is
 the one job in the fleet that is genuinely strategy judgment; a
 script-and-summarize tier would restore exactly the formula loop it exists to
 break. Prompt: `docs/agents/runner-prompts/tree-plan.md`.
