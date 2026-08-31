@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { ERAS } from './eras';
 import { getContentItem } from './content';
 import { MERCH_CATALOGUE, type MerchItem } from './merch';
+import { renderMerchShopLink } from './shop';
 import {
   merchByEra,
   merchItemImage,
@@ -194,6 +195,17 @@ describe('merchItemImage', () => {
     expect(withProductPhoto).toBeDefined();
     const flagged: MerchItem = { ...withProductPhoto!, demoteSharedMomentPhoto: true };
     expect(merchItemImage(flagged)).toEqual(merchItemImage(withProductPhoto!));
+  });
+
+  it('D7=C (kanban t_28e3ad2a/t_c71f0eea, 2026-08-31): every moment-kind and split-kind item has a valid renderMerchShopLink().href, since MerchCard.tsx now makes the moment photo a buy link too (not just product/split-product)', () => {
+    for (const item of MERCH_CATALOGUE.shopTheLook) {
+      const image = merchItemImage(item);
+      if (image.kind === 'moment' || image.kind === 'split') {
+        const href = renderMerchShopLink(item).href;
+        expect(typeof href).toBe('string');
+        expect(href.length).toBeGreaterThan(0);
+      }
+    }
   });
 });
 
