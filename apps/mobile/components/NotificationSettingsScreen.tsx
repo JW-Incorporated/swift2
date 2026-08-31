@@ -60,7 +60,18 @@ function groupedCategories(): Record<NotificationGroup, (typeof SETTINGS_CATEGOR
   return groups;
 }
 
-export function NotificationSettingsScreen({ onClose }: { onClose: () => void }) {
+export function NotificationSettingsScreen({
+  onClose,
+  onOpenInbox,
+}: {
+  onClose: () => void;
+  /** Notifications Phase 3 (spec §8): the inbox is reachable from here too
+   * — not just its own entry point — so "Off" categories are never a dead
+   * end from the screen where a user just muted something. Optional so
+   * this component still renders standalone (e.g. future tests) without a
+   * wired-up inbox route. */
+  onOpenInbox?: () => void;
+}) {
   const [state, setState] = useState<DevicePrefsResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pendingKeys, setPendingKeys] = useState<Set<string>>(new Set());
@@ -119,9 +130,16 @@ export function NotificationSettingsScreen({ onClose }: { onClose: () => void })
     <View style={styles.fill}>
       <View style={styles.header}>
         <Text style={styles.title}>Notifications</Text>
-        <Pressable onPress={onClose} accessibilityLabel="Close notification settings" hitSlop={12}>
-          <Text style={styles.close}>Done</Text>
-        </Pressable>
+        <View style={styles.headerActions}>
+          {onOpenInbox && (
+            <Pressable onPress={onOpenInbox} accessibilityLabel="Open inbox" hitSlop={12}>
+              <Text style={styles.inboxLink}>Inbox</Text>
+            </Pressable>
+          )}
+          <Pressable onPress={onClose} accessibilityLabel="Close notification settings" hitSlop={12}>
+            <Text style={styles.close}>Done</Text>
+          </Pressable>
+        </View>
       </View>
 
       {permissionDenied && (
@@ -364,6 +382,8 @@ const styles = StyleSheet.create({
   },
   title: { color: '#fff', fontSize: 20, fontWeight: '800' },
   close: { color: '#f2c744', fontSize: 15, fontWeight: '700' },
+  headerActions: { flexDirection: 'row', gap: 16 },
+  inboxLink: { color: '#999', fontSize: 15, fontWeight: '600' },
   banner: {
     backgroundColor: '#3a2a10',
     gap: 4,

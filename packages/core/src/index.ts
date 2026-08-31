@@ -9,6 +9,7 @@ export * from './devices';
 export * from './notification-prefs';
 export * from './notification-governor';
 export * from './notification-events';
+export * from './notification-inbox';
 // notification-router.ts / notification-sender.ts are deliberately NOT
 // re-exported here: they use Node-only globals (Buffer, node:crypto) that
 // apps/mobile's Expo/RN typecheck can't resolve, and this barrel is
