@@ -234,7 +234,7 @@ designed every-other-day cadence. See
 
 | Routine | Cadence (UTC) | Model | Charter | Reads what Tier 1 produced |
 |---|---|---|---|---|
-| Karen — scan (registered name; weekly judgment slice) | Sun 09:00 | Sonnet 5 | [`scripts/content-engine/README.md`](../scripts/content-engine/README.md) | `cie-scan.yml`'s findings |
+| Karen — weekly judgment slice (registered name still "Karen — nightly scan" pending T-5 trigger resync, `agents/runners.md` § T-5) | Sun 09:00 | Sonnet 5 | [`scripts/content-engine/README.md`](../scripts/content-engine/README.md) | `cie-scan.yml`'s findings |
 | Nils — site walk | Mon+Fri 14:00 | Opus 4.8 | [`agents/nils.md`](agents/nils.md) | live site |
 | Laura — a11y walk | daily 18:20 | Sonnet 5 | [`agents/laura.md`](agents/laura.md) | `a11y.yml` artifacts |
 | Paul Blart — security patrol | Mon 22:20 | Opus 4.8 | [`agents/paul-blart.md`](agents/paul-blart.md) | `dependabot-alerts-snapshot.yml` + `codeql.yml` |

@@ -77,7 +77,7 @@ drifts).
 | Kevin — S3 eng triage (cloud) | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | `43 15 * * *` | ✅ | `claude-sonnet-5` |
 | Kevin — S2 user-feedback digest (cloud) | `trig_0136mXcpmzn6mYtYoUQC3eGP` | `13 15 * * *` | ✅ | `claude-sonnet-5` |
 | Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ | `claude-opus-4-8` |
-| Karen — nightly scan (registered name; bounded weekly judgment slice — see `runner-prompts/karen-nightly.md`) | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
+| Karen — weekly judgment slice (renamed from "Karen — nightly scan" per T-5, 2026-08-31 — the live trigger's registered name has not been resynced to this yet, see § T-5 rename below; prompt already judgment-only, see `runner-prompts/karen-nightly.md`) | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | `claude-opus-4-8` |
 | Content Shift — authoring runs | `trig_01PonDFeQCL4iRNzceGyAYrm` | `0 17 * * *` | ✅ | `claude-opus-4-8` |
 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ✅ | `claude-opus-4-8` |
@@ -512,11 +512,47 @@ evidence already gathered in this section. The word "nightly" in the
 routine's name/title is historical — the cadence itself has been weekly since
 the 2026-07-25 override.
 
+### T-5 — trim routine + rename trigger (2026-08-31, `docs/TIER2-OPTIMIZATION.md`)
+
+**Prompt file: already judgment-only.** `runner-prompts/karen-nightly.md` was
+trimmed to the bounded judgment slice (review-slice + subagent dispatch +
+ingest/issues/record-review + link-rot sweep) by PR #3445 (2026-08-29), which
+also struck the old deterministic `run.mjs all --create` step now owned by
+`.github/workflows/cie-scan.yml`. **Not accidentally bundled into #3601** —
+that PR only touched Karen Deep (T-6, a separate not-yet-created routine),
+Nils cadence, Austin's model trial, and the notification-quality desk; it
+never edited this prompt file or this trigger.
+
+**Remaining scope: rename the live trigger to match.** The registered name is
+still `Karen — nightly scan`, contradicting its own judgment-only content and
+weekly cadence (documented above). Whoever next has account access to
+<https://claude.ai/code/routines> should, in one `job_config` round-trip
+(get → edit only `name` in the returned object → PUT the whole thing back —
+**never a partial PUT**, per the RemoteTrigger footgun above):
+
+| Field | Current | New |
+|---|---|---|
+| Name | `Karen — nightly scan` | `Karen — weekly judgment slice` |
+| Trigger ID | `trig_01TmYaZgnecrEp9mkeV3Gq6X` (live IDs table) / `trig_014HWuRmT2MFveDkPGwVDiQX` (overrides table — same routine, see note below) | unchanged |
+| Prompt (`events`) | already judgment-only (PR #3445) | unchanged — do not re-paste, just preserve on the round-trip |
+| Cadence, model, repo, connectors | `0 9 * * 0` UTC, `claude-sonnet-5`, `JW-Incorporated/swift2`@main | unchanged |
+
+Cross-checked against `runner-prompts/karen-nightly.md`: the file's own
+opening line already reads "weekly content-safety judgment review," so a
+rename to `Karen — weekly judgment slice` is a pure resync, not a new
+decision — no founder call needed (T-5 is pre-approved,
+standing-agent-authority per its Tier-2 entry). This doc's tables above are
+updated to the new name; the two trigger-ID references above are believed to
+be the same routine under two IDs recorded at different audit passes (the
+live table's `...eV3Gq6X` is the most recently verified, 2026-08-23) — the
+account-holding session applying the rename should confirm via `get` before
+the round-trip and flag here if they in fact diverge.
+
 ### Cadence overrides still in force (from the 2026-07-25 sustainment pass)
 
 | Runner | Cadence | Trigger ID |
 |---|---|---|
-| Karen — nightly scan | weekly `0 9 * * 0` (Sun) — registered name; bounded weekly judgment slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
+| Karen — weekly judgment slice (formerly "Karen — nightly scan") | weekly `0 9 * * 0` (Sun); bounded judgment-only slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
 | Kevin — S1 Karen solver *(cloud copy only)* | weekly `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` |
 | ~~Nils — daily walk~~ **SUPERSEDED 2026-08-31 (Joey, D4=B)** — now twice weekly `0 14 * * 1,5` (Mon+Fri), see `nils.md` § Cadence and `decisions.md` § D3=A…D6=A | `trig_013xb8Stm7m2sB6dqGePKRtr` |
 | Stylist | weekly `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` |
@@ -544,7 +580,7 @@ the 2026-07-25 override.
 | Kevin — S2 user digest | `13 15 * * *` | Fable | [`runner-prompts/kevin-stream2-digest.md`](runner-prompts/kevin-stream2-digest.md) | **Wyatt** | Daily feedback digest for human accept/reject |
 | Kevin — S3 eng triage | `43 15 * * *` | Fable | [`runner-prompts/kevin-stream3-triage.md`](runner-prompts/kevin-stream3-triage.md) | **Wyatt** | Buckets Joey's eng tickets → Austin intake |
 | Kevin — S3 comment radar | `23 1,13 * * *` | Fable | [`runner-prompts/kevin-stream3-radar.md`](runner-prompts/kevin-stream3-radar.md) — lazy: cheap poll, loads charter only on a hit | **Wyatt** | Twice daily (~6am + 6pm PT); surfaces cross-session comments — cut from hourly 2026-07-24 to reduce token burn (Wyatt) |
-| Karen — nightly scan | `0 9 * * *` — **contradicted, see "Cadence contradiction — Karen" above; evidence supports weekly** | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
+| Karen — weekly judgment slice (formerly "Karen — nightly scan"; T-5, 2026-08-31 — rename to apply on next trigger round-trip, see § T-5 above) | `0 9 * * 0` | Sonnet 5 | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Judgment-only pass (integrity + link-rot sweep); deterministic scan now owned by `cie-scan.yml` |
 | **Karen Deep — agent review** ⚠️ **APPROVED, NOT YET CREATED** (Joey, D3=A, 2026-08-31 — full dial; config below) | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
