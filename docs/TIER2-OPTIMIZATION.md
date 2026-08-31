@@ -5,8 +5,9 @@ Scope: **Tier 2 only** — the 24 Claude desk routine triggers indexed in
 [`AUTOMATION.md`](AUTOMATION.md) § Tier 2 and registered in
 [`agents/runners.md`](agents/runners.md). This is an **analysis document**:
 nothing here has been executed, disabled, or edited. Each recommendation names
-who may act on it — most are reversible agent calls; four are explicitly
-**founder-gated** and say so.
+who may act on it — most are reversible agent calls; **four are founder
+decisions** (T-6, T-7, T-15, T-16) and one more (T-12) needs a routine
+founder-approved charter PR, and each says so inline.
 
 Companions: the 2026-08-31 audit
 ([`automation/review-2026-08-31.md`](automation/review-2026-08-31.md), REC-1…7,
@@ -573,12 +574,16 @@ last two audits found their worst surprises. Trivial-to-moderate.
 
 Token impact is in sessions/day (sd) or sessions/month (sm) on the named
 tier — the only unit the repo's evidence supports. "—" = no cost telemetry
-exists for a finer number (see T-17). Gate categories per
-`policy/project-registry.yaml`: product_direction / secrets_or_prod_infra /
-spend / data_deletion_or_force_push; **none of the recommendations below
-touches secrets_or_prod_infra or data_deletion_or_force_push** (Phase 4
-disables, never deletes; T-4/T-14 delete only disabled/stale *triggers*, not
-data, with prompts preserved in-repo).
+exists for a finer number (see T-17). Gate categories — product_direction /
+secrets_or_prod_infra / spend / data_deletion_or_force_push — come from the
+JW Labs project registry (`policy/project-registry.yaml` in the JW Labs
+**policy repository**, not a file in this repo; this task was commissioned
+under it, and its gate set is consistent with `CLAUDE.md`'s standing rules on
+spend, product direction, and destructive actions). **None of the
+recommendations below touches secrets_or_prod_infra or
+data_deletion_or_force_push** (Phase 4 disables, never deletes; T-4/T-14
+delete only disabled/stale *triggers*, not data, with prompts preserved
+in-repo).
 
 | ID | Recommendation | Token/cost impact | Quality/goal impact | Effort | Risk if wrong | Human gate |
 |---|---|---|---|---|---|---|
@@ -651,5 +656,6 @@ notification quality.
 [`agents/runners.md`](agents/runners.md)'s live table, and a file under
 [`agents/`](agents/) or [`agents/runner-prompts/`](agents/runner-prompts/).
 Nothing was executed. Recommendations marked founder-gated require a founder
-decision per `policy/project-registry.yaml` human_gates; everything else is
+decision per the JW Labs policy registry's human_gates (see the note above
+the summary table); everything else is
 reversible and inside standing agent authority.*
