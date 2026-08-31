@@ -241,6 +241,25 @@ const TAYLOR_PRESENCE_MIN_CONFIDENCE = 0.6;
 // video's social pair (never retried) instead of failing loud within the
 // run.
 const TAYLOR_VERIFY_TIMEOUT_MS = 30_000;
+// Hard cap on total paid vision calls per process, independent of caller
+// input (Codex review round 2, kanban t_ac1281ef): discover.mjs's own
+// `--max` clamp is the primary control, but this counter is the safety net
+// at the actual spend site — any future caller of fetchAppearanceThumbnail
+// inherits the cap for free instead of having to remember to reapply it.
+// 60 covers the worst case of discover.mjs's 25-candidate hard ceiling (2
+// thumbnail URLs each = 50 calls) with headroom, so it never fires in
+// normal operation.
+export const MAX_VERIFY_CALLS_PER_PROCESS = 60;
+let verifyCallCount = 0;
+
+// Test-only escape hatch (Codex review round 3, kanban t_ac1281ef): the
+// counter above is deliberately module-level, persistent state — that's
+// what makes it a real per-process cap instead of a per-call parameter a
+// caller could omit. Tests need to reset it between cases without reaching
+// into module internals; production code never calls this.
+export function _resetVerifyCallCountForTests() {
+  verifyCallCount = 0;
+}
 
 function taylorVerifyToolInput(body) {
   const content = body?.content;
@@ -262,6 +281,13 @@ export async function verifyTaylorPresence(bytes, mediaType, { apiKey, fetchImpl
       'ANTHROPIC_API_KEY not set — cannot verify Taylor is actually in this thumbnail, refusing to stage it unverified',
     );
   }
+  if (verifyCallCount >= MAX_VERIFY_CALLS_PER_PROCESS) {
+    throw new Error(
+      `taylor-presence vision call cap (${MAX_VERIFY_CALLS_PER_PROCESS}/run) reached — refusing to spend further, ` +
+        'same fail-closed posture as a missing API key',
+    );
+  }
+  verifyCallCount += 1;
   const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {

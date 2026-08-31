@@ -79,6 +79,16 @@ failure mode this fix exists to close.
 `merch_authority: agent`, self-merge once CI green; human_gates already
 satisfied for this scope.
 
+**Follow-up (2026-08-31, same task, review round 2):** codex review flagged
+that the vision spend had no ceiling independent of `discover.mjs`'s
+operator-settable `--max` dispatch input, contrary to CLAUDE.md's "Cost
+discipline" rule that any product LLM call be worker-side and hard-capped.
+Fixed with two independent caps: `discover.mjs` now clamps `--max` to a
+`HARD_MAX_PER_RUN` of 25 regardless of the dispatch input, and
+`verifyTaylorPresence` itself enforces a process-local
+`MAX_VERIFY_CALLS_PER_PROCESS` of 60 (fails closed, same posture as a
+missing API key) as a safety net at the actual spend site.
+
 ---
 
 
