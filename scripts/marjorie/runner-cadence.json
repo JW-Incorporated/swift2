@@ -31,7 +31,7 @@
     { "name": "Karen — nightly scan", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "pr-title", "value": "karen: nightly run report" } },
     { "name": "Paul Blart — security patrol", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "issue-title", "value": "Paul Blart — Security Patrol" } },
     { "name": "Nils — walk", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "issue-label", "value": "experience" } },
-    { "name": "Laura — a11y walk", "perDay": 0.2857, "maxAgeHours": 105, "match": { "kind": "issue-label", "value": "a11y" } },
+    { "name": "Laura — a11y walk", "perDay": 0.2857, "maxAgeHours": 210, "match": { "kind": "issue-label", "value": "a11y" } },
     { "name": "Routine Auditor", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "issue-label", "value": "routine-audit" } },
 
     { "name": "Answerer", "checkable": false, "why": "PRs touch supabase/seed/** with no branch prefix or label" },
