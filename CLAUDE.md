@@ -73,8 +73,8 @@ content PRs automatically, `watchdog.yml` scans daily and alerts founders on
 anything red >24h — that's detection, not a substitute for landing your own
 work. Flag a human need once in the PR body when something genuinely needs a
 founder's eyes before it merges, then exit without merging that one. Fix
-what you can see is red before you exit. Scheduled runners live on Wyatt's
-account so Joey's weekly limit stays free.
+what you can see is red before you exit. Scheduled runners live on Joey's
+account per the automation-account-ownership policy (D1=B, 2026-08-31).
 
 ## Definition of done
 
@@ -161,7 +161,7 @@ see:
   Batch multiple ready PRs into one pass rather than merging piecemeal
   mid-task.
 - Parallel local fleets multiply prompts — keep commands allowlist-shaped, or
-  run large fleets as cloud sessions on Wyatt's account. No hard concurrency cap.
+  run large fleets as cloud sessions on Joey's account. No hard concurrency cap.
 - One working dir, one branch-writing session — any branch/commit agent runs
   in its own `git worktree` outside `Documents\Claude\Projects\`
   (`docs/agents/README.md`). Never two branch-writing agents in one checkout;
