@@ -5,19 +5,41 @@ by design: [Karen](../scripts/content-engine/README.md) (the Content Integrity
 Engine) is **read-only** and never edits content; **Kevin** proposes/applies
 fixes but never files Karen's tickets and never runs or modifies Karen's engine.
 
-As of 2026-07-12 Kevin runs as **four scheduled cloud routines** on Wyatt's
-account (registered in [`docs/agents/runners.md`](agents/runners.md), prompts in
-`agents/runner-prompts/kevin-*.md`): S1 Karen solver (daily, after Karen), S2
-user digest (daily), S3 eng triage (daily), and the S3 comment radar (hourly
-06:00–22:00 PT, skipping the overnight dead hours). This replaced the earlier
-**session-scoped Claude Code cron** — it is more durable (survives session death)
-but is still an interim: the comment radar polls hourly where the eventual
-**API-backed service** target below uses webhooks (zero-LLM until an event
-fires). The radar's cloud prompt is deliberately lazy — a cheap deterministic
-comment check runs first and Kevin's full context loads only on a real hit — so
-the frequent empty runs stay cheap. This document remains the contract that both
-the cloud routines and any future service port must honor, so it is deliberately
-explicit.
+**Target topology (Tier-2 T-10, prompt-file landed 2026-08-31 — cutover
+pending, see below):** Kevin is consolidating from **four scheduled cloud
+routines** down to **two**, both on Joey's account (fleet policy D1=B;
+registered in [`docs/agents/runners.md`](agents/runners.md)):
+
+- **Kevin — daily desk** (`agents/runner-prompts/kevin-desk.md`), once daily:
+  runs Stream 2 (user digest) and Stream 3 (eng triage) every day, plus
+  Stream 1 (Karen solver) on Sundays only — one clone, one charter read, per-
+  stream failure isolation (a failing stream is logged; the run continues to
+  the next).
+- **Kevin — S3 comment radar** (`agents/runner-prompts/kevin-stream3-radar.md`),
+  hourly 06:00–22:00 PT, skipping the overnight dead hours — unchanged by the
+  T-10 consolidation; it stays a separate, faster-cadence trigger.
+
+**As of this writing the cutover has NOT happened.** The prompt file above
+exists and is correct, but applying it requires `RemoteTrigger` access
+authenticated to the target account, which a headless repo session cannot
+reach (`docs/agents/runners.md` § "Kevin — daily desk consolidation" has the
+exact config + cutover sequence for whoever has that access). **Until that
+cutover runs, the live fleet is still the four separate routines described
+below** — S1 (weekly, Sundays, per the sustainment throttle already in
+force), S2 (daily), S3 (daily), and the radar (hourly) — all on Joey's
+account, and this section's "target topology" is aspirational, not current
+fact. Once the cutover lands, update this paragraph to drop
+"target"/"pending" and record the date, per this doc's own rule that stale
+governance text is a bug.
+
+Before 2026-07-12 this ran as a **session-scoped Claude Code cron** — the
+cloud routines are more durable (survive session death). The radar still
+polls hourly where the eventual **API-backed service** target below uses
+webhooks (zero-LLM until an event fires); its prompt is deliberately lazy — a
+cheap deterministic comment check runs first and Kevin's full context loads
+only on a real hit — so the frequent empty runs stay cheap. This document
+remains the contract that both the cloud routines and any future service
+port must honor, so it is deliberately explicit.
 
 ---
 
@@ -60,7 +82,9 @@ Karen tickets are trusted and structured — each carries file · record ·
 field · exact excerpt · a sourced **Suggested fix** · sources. Kevin may fix them
 directly on a PR.
 
-**Hourly** Kevin:
+**Weekly, on Sundays, once the T-10 cutover lands** (folded into the desk's
+Step 0 — see the top of this document; until cutover, this stream still runs
+on its own separate weekly trigger, unchanged), Kevin:
 1. Lists open `cie` issues (`--limit 500`; the gh default caps at 30).
 2. Computes NEW = open `cie` minus (numbers already in any open fix PR's `Closes`
    list) minus every ticket carrying an **exclusion label** (below).
@@ -125,11 +149,15 @@ date — Marjorie posts by ~12:40 UTC / 6:00 AM PT, before Kevin's S2 run at
   standalone issue below, unchanged from today's behavior.
 
 Either way the content is the same compact **review list** — one block per
-pending user ticket. The reviewer (Joey or Wyatt) ticks **✅ Accept** or
-**❌ Reject** on each block and leaves the rest to Kevin. (It is a list of
-blocks, not a table, because GitHub only renders clickable checkboxes for
-top-level list items, not inside table cells — true in both an issue body
-and a comment.)
+pending user ticket. **The reviewer is Joey (`sffan15-sys`)** — per
+`CLAUDE.md` § "The company" (2026-08-31), Joey is the sole active
+decision-maker on this project; Wyatt remains an owner but no longer takes
+actions or makes decisions here, so a `wjduvall-cmd` tick is not
+authoritative and must be left pending, not acted on. Joey ticks
+**✅ Accept** or **❌ Reject** on each block and leaves the rest to Kevin.
+(It is a list of blocks, not a table, because GitHub only renders clickable
+checkboxes for top-level list items, not inside table cells — true in both
+an issue body and a comment.)
 
 **Standalone/degraded mode:** Kevin posts/updates a single GitHub issue
 titled **`Kevin Daily Review — YYYY-MM-DD`** (labels `kevin-digest`) with the

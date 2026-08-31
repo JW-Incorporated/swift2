@@ -116,6 +116,47 @@ Actions-minutes delta, per the plan's own Phase 4 instructions.
 
 ---
 
+### 36. Apply the Kevin daily-desk trigger cutover (T-10) — needs Joey's Claude account
+
+**Filed:** 2026-08-31
+
+**Status:** OPEN
+
+**Why it matters:** Tier-2 T-10 consolidates Kevin's three separate cloud
+routines (S1 Karen solver, S2 user digest, S3 eng triage) into one daily
+"Kevin — daily desk" session, saving ~1 cold-boot session/day plus a weekly
+Opus→Sonnet substitution. The prompt file
+(`docs/agents/runner-prompts/kevin-desk.md`) and the exact trigger spec +
+cutover sequence (`docs/agents/runners.md` § "Kevin — daily desk
+consolidation") are both landed and ready. No agent session can finish
+this: `RemoteTrigger` create/update/run needs a session authenticated to
+the account the fleet runs on (Joey's), which a headless repo session
+cannot reach.
+
+**Time-sensitive sub-item:** while this cutover is pending, the still-live
+`kevin-stream2-digest.md` trigger's inline prompt is stale on a real
+authority question — it was corrected in-repo (2026-08-31, restricting
+Accept/Reject digest decisions to Joey only, per `CLAUDE.md`'s sole-
+decision-maker rule) but the LIVE trigger's inline prompt has not been
+re-synced from the file yet (same `RemoteTrigger` access gap). Until either
+this re-sync or the full desk cutover happens, a `wjduvall-cmd` checkbox on
+the live Stream 2 digest could still be actioned by the old inline prompt.
+Re-sync `kevin-stream2-digest.md`'s current content to the live trigger
+(`trig_0136mXcpmzn6mYtYoUQC3eGP`) as a priority first step, even ahead of
+the full T-10 cutover if that takes longer to schedule.
+
+**What to do:** either run this yourself in a Claude session logged into
+your account, or tell a session in chat to do it and it will follow the
+cutover sequence in `runners.md` § "Kevin — daily desk consolidation"
+exactly (create the new trigger → test-run once → disable S2/S3's
+superseded triggers as soon as verified → **wait for a Sunday run to
+verify Stream 1 before disabling its old trigger** → record the new
+trigger ID → update the Live trigger IDs table). Takes one `job_config`
+round-trip per step; ~10–15 minutes for S2/S3, plus one follow-up Sunday
+check for S1 if today isn't Sunday.
+
+---
+
 ### 30. [DONE] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key
 
 **Filed:** 2026-08-30
