@@ -622,11 +622,18 @@ in-repo).
 | T-18 | Honor prompt-file-first + full-PUT discipline on all trigger edits | n/a (process) | protects against the documented config-destruction footgun | — | — | none |
 | T-19 | One drift-fix docs pass (charters/registry) | neutral | ▲ governance accuracy | Trivial-moderate | none | charter lines need founder-approved PR |
 
-**Net direction if the pre-approved set (T-1,3,5,8,10,13,14) all land:**
-roughly **5-6 fewer LLM sessions/day** — against a fleet of ~15/day, a ~35-40%
-reduction in Tier-2 session count — plus ~30 Fable and ~60 Sonnet stale
-sessions/month retired, with the quality-relevant coverage (Rumor cadence,
-detection layers, review gates) *improved or unchanged*, not traded away. The
+**Net direction if the pre-approved set (T-1,3,5,8,10,13,14) all lands**, in
+this table's own figures: T-1 ~3.9 + T-8 ~0.7 + T-10 ~1 + T-13 ~1 + T-14 ~2
+≈ **8.5-9 fewer LLM sessions/day**, plus T-3's daily and T-11's ~30/month
+model-tier downgrades and T-5's slightly shorter sessions. The honest
+baseline: the 2026-07-26 recount measured ~15 Swift2 runs/day, *before* the
+Vault Run (+1/day) and the Getty purge watch (+2/day) existed — so today's
+fleet is ~18 sessions/day and the pre-approved set cuts roughly **half of
+Tier-2 session count**. About a third of that cut is retiring stale/dead
+weight (T-13's reader-less delta, T-14's completed one-shot); the rest is the
+Vault consolidation and cadence/structure fixes. Quality-relevant coverage
+(Rumor cadence, detection layers, review gates, Laura's whole-site week)
+is *improved or preserved* throughout, not traded away. The
 two founder-gated spend adds (T-6, T-16) would reinvest a fraction of that in
 the two places `vision.md` actually stakes its identity: content truth and
 notification quality.
