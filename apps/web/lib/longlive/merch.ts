@@ -8,13 +8,15 @@
  *      the same products rendered as "Shop the look" in MomentDetail. Never
  *      re-authored here — read straight off `CONTENT`, so this file cannot
  *      drift from the moment data.
- *   2. officialStore — Taylor's official store (store.taylorswift.com). No
- *      curated product catalogue exists yet: the only mentions of the store
- *      in the content vault are single citation URLs on individual sourced
- *      products, not a real product list. Genuinely empty until that data
- *      exists — see the report in the Step 1 PR/handoff notes.
- *   3. fanMade — curated fan-made items. No data exists yet (item 4a's own
- *      "fan-made curation bar" open question is unresolved). Genuinely empty.
+ *   2. officialStore — Taylor's official store (store.taylorswift.com),
+ *      sourced from the checked-in, engine-authored
+ *      `supabase/seed/merch/official.mjs` (`OFFICIAL`). Direct official-store
+ *      URLs and verified Amazon secondary listings only (D1-a) — see
+ *      merch.test.ts for the source proof.
+ *   3. fanMade — curated fan-made items, sourced from the checked-in,
+ *      evidence-backed `supabase/seed/merch/fanmade.mjs` (`FAN_MADE`). Each
+ *      row is independently evidenced per the E5 evidence workflow; see
+ *      merch.test.ts for the source proof.
  *
  * Cross-navigation (item 4a): every shopTheLook item carries a `source`
  * back-reference to the era/moment it came from, because `CONTENT` has that
