@@ -2521,6 +2521,9 @@ export default {
             item: 'Locked Kiss 24HR Lipstick in Ruby True',
             retailer: 'maccosmetics.com',
             url: 'https://www.maccosmetics.com/product/13854/119065/products/makeup/lips/lipstick/mac-locked-kiss-24hr-lipstick?shade=RUBY+TRUE',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://www.maccosmetics.com/cdn/shop/files/mac_sku_NXPW01_1x1_0.png?format=webp&v=1787865399&width=2000',
             matchTier: 'unscored',
             kind: 'beauty',
             price: '$34.00',

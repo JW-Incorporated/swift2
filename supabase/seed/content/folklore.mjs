@@ -525,6 +525,9 @@ export default {
             item: 'Lux Velvet Shirt Dress',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/free-people-lux-velvet-shirt-dress-in-fairytale/dp/FREE-WD1888/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://is4.revolveassets.com/images/p4/n/d/FREE-WD1888_V1.jpg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$139.00',
@@ -536,6 +539,9 @@ export default {
             item: 'Tiffany Infinity Bracelet',
             retailer: 'tiffany.com',
             url: 'https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/webp response.
+            imageUrl: 'https://media.tiffany.com/is/image/tco/60143730_BLT_MAIN1X1?hei=2000&wid=2000&fmt=webp',
             matchTier: 'unscored',
             kind: 'jewelry',
             price: '$350.00',
@@ -600,6 +606,9 @@ export default {
             item: 'Cable Knit Open Front Cardigan with Embroidery',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Womens-Cardigan-Embroidery-Sweater-Outwear/dp/B0BGXK89F2/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://m.media-amazon.com/images/I/719vgXNFDML._AC_SL1500_.jpg',
             matchTier: 'unscored',
             kind: 'knitwear',
             price: '$34.58',
