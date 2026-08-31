@@ -52,3 +52,17 @@ Open ONE PR (branch content/rumor-desk-<date>) listing every claim added with it
 
 NEVER EXIT SILENTLY: if you end without a PR for any reason -- empty queue, rate limits, a tool failure -- say so in a comment on the Nils walk log #502 before exiting.
 ```
+
+
+## Attribution trailer (T-20 Phase 1 -- per-routine output telemetry)
+
+Every PR (and its commit message) this routine opens MUST include this
+exact line in the PR body:
+
+    Tier-2: Rumor Desk
+
+Use this identifier verbatim -- do not paraphrase or abbreviate it. This
+powers daily per-Tier-2-routine output counts in Marjorie's Founders'
+Brief (`docs/agents/runners.md`, `docs/TIER2-OPTIMIZATION.md` section T-20).
+If this run produces no PR/issue, there is nothing to tag -- that's
+expected, not an error.

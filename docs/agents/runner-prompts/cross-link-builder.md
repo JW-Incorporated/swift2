@@ -31,3 +31,17 @@ NEVER EXIT SILENTLY: if a run ends without a PR - rate limits, a tool failure, a
 
 RUN DISCIPLINE (2026-07-25, token burn): do the work, open the PR, and EXIT. Do not arm a self-check-in, a `send_later`, a Monitor, or any "come back and look at this PR again" follow-up, and do not subscribe to PR activity — those loops were ~69% of all scheduled agent token spend. `auto-merge-content.yml` lands your PR automatically once `build` is green if it touches only seed/generated content paths. If CI fails, the next scheduled run picks it up.
 ```
+
+
+## Attribution trailer (T-20 Phase 1 -- per-routine output telemetry)
+
+Every PR (and its commit message) this routine opens MUST include this
+exact line in the PR body:
+
+    Tier-2: Cross-Link builder
+
+Use this identifier verbatim -- do not paraphrase or abbreviate it. This
+powers daily per-Tier-2-routine output counts in Marjorie's Founders'
+Brief (`docs/agents/runners.md`, `docs/TIER2-OPTIMIZATION.md` section T-20).
+If this run produces no PR/issue, there is nothing to tag -- that's
+expected, not an error.

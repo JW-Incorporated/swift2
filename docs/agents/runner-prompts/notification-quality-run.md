@@ -97,3 +97,17 @@ the per-agent liveness table.
 
 If something genuinely needs a human, say so once in the log issue and
 exit. Never poll for the answer.
+
+
+## Attribution trailer (T-20 Phase 1 -- per-routine output telemetry)
+
+Every PR (and its commit message) this routine opens MUST include this
+exact line in the PR body:
+
+    Tier-2: Notification quality — weekly desk
+
+Use this identifier verbatim -- do not paraphrase or abbreviate it. This
+powers daily per-Tier-2-routine output counts in Marjorie's Founders'
+Brief (`docs/agents/runners.md`, `docs/TIER2-OPTIMIZATION.md` section T-20).
+If this run produces no PR/issue, there is nothing to tag -- that's
+expected, not an error.

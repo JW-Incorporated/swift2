@@ -20,3 +20,17 @@ CADENCE CHANGED: this runner is now ONCE DAILY (was every 2h). The backlog is do
 
 **Do your work, open the PR, and EXIT.** Do not arm a self-check-in, a `send_later`, a Monitor, or any "come back and look at this PR again" follow-up, and do not subscribe to PR activity. Those self-armed check-ins were ~69% of all scheduled agent token spend (~144 cloud sessions/day whose entire output was "still open, still green, re-arm in 1h"). You no longer need them: `auto-merge-content.yml` lands your PR automatically once `build` is green, because it touches only content paths. If your PR fails CI or hits a conflict, TOMORROW'S run picks it up — rebase onto main first, as you already do. If something genuinely needs a human, say so once in the PR body and exit. Never poll for the answer.
 ```
+
+
+## Attribution trailer (T-20 Phase 1 -- per-routine output telemetry)
+
+Every PR (and its commit message) this routine opens MUST include this
+exact line in the PR body:
+
+    Tier-2: Answerer
+
+Use this identifier verbatim -- do not paraphrase or abbreviate it. This
+powers daily per-Tier-2-routine output counts in Marjorie's Founders'
+Brief (`docs/agents/runners.md`, `docs/TIER2-OPTIMIZATION.md` section T-20).
+If this run produces no PR/issue, there is nothing to tag -- that's
+expected, not an error.
