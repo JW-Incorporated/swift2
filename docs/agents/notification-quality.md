@@ -109,8 +109,10 @@ launch *after* REC-1's notifications-dispatch watchdog heartbeat lands
 a `watchdog.yml` freshness step — so this desk judges data a watchdog
 vouches for, not data from a dispatcher that could itself be silently dead.
 See `runners.md` § "Notification-quality desk — trigger config to create"
-for the live status of that precondition; the live trigger is not created
-until it clears.
+for the live status of that precondition **and the `NOTIFICATIONS_DASHBOARD_SECRET`
+environment provisioning step required before the trigger's first run** —
+the live trigger is not created until REC-1 clears, and the secret must be
+provisioned in the same session that creates it.
 
 ## Audited by
 

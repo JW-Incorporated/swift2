@@ -650,6 +650,7 @@ trigger is not, and should not be, until REC-1 lands.
 | Repo | `JW-Incorporated/swift2`, branch `main` |
 | Prompt | the **full text** of `docs/agents/runner-prompts/notification-quality-run.md`, verbatim |
 | MCP connectors | none |
+| **Environment secret (provision BEFORE creating)** | `NOTIFICATIONS_DASHBOARD_SECRET` must be added to the `job_config.ccr.environment_id` this trigger is created under (the same account-level Claude Code environment every other Joey-account routine's `GITHUB_TOKEN`/`SUPABASE_SERVICE_ROLE_KEY` already lives in — see `runners.md` § RemoteTrigger footgun for how `environment_id` works) — copy the value from Vercel (`SETUP_NOTIFICATIONS.md` § the dashboard secret). **This routine has no data source without it**: the metrics route (`apps/web/app/api/notifications/metrics/route.ts`) 401s on a missing/wrong secret, and the prompt file is written to treat that as a real failure, not a silent no-op — but a session that never gets the secret provisioned will 401 on every single run, forever, which the watchdog cannot distinguish from "the desk is broken" without a human reading the log issue. Provision this in the SAME session that creates the trigger, not as a follow-up. |
 
 **Charter:** [`notification-quality.md`](notification-quality.md). Reads
 `/api/notifications/metrics` (open rates, mute rates, flagged categories)

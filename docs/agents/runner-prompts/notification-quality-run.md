@@ -10,10 +10,16 @@ Steps:
 
 1. Fetch the metrics payload:
    `curl -s "https://www.longlivets.com/api/notifications/metrics?secret=$NOTIFICATIONS_DASHBOARD_SECRET"`
-   (the canonical production host — see `docs/deploy.md`; the secret is an
-   env var already configured for this trigger, never print it). If the
-   route 503s with "isn't wired up" or 401s, that is a REAL failure — say so
-   loudly in the log issue and stop; do not fabricate a metrics snapshot.
+   (the canonical production host — see `docs/deploy.md`). `NOTIFICATIONS_DASHBOARD_SECRET`
+   must be set in this trigger's Claude Code environment (`runners.md` §
+   "Notification-quality desk — trigger config to create" names the exact
+   provisioning step — do this BEFORE the trigger's first scheduled run, not
+   as a reaction to a failure) — never print its value. If the route 503s
+   with "isn't wired up" or 401s, that is a REAL failure — say so loudly in
+   the log issue and stop; do not fabricate a metrics snapshot. A 401
+   specifically means the environment secret is missing or stale — name
+   that as the likely cause in the log so a human fixes provisioning
+   instead of re-running.
 
 2. Read the payload against `packages/core/src/notification-metrics.ts`'s
    `NotificationMetrics` shape (read the file if you need the exact field
