@@ -1,10 +1,13 @@
 # AUTOMATION.md — everything that runs by itself
 
-**Read this first.** This is the canonical index of every automated routine
-keeping longlivets.com running. It tells you *what runs, when, why, and where
-its real documentation lives* — it deliberately does **not** duplicate that
-documentation. Each row links to the file that is the source of truth for that
-routine.
+**Read this first for anything scheduled.** This is the index of every
+automated routine keeping longlivets.com running. It tells you *what runs,
+when, why, and where its real documentation lives* — it deliberately does
+**not** duplicate that documentation, and it does **not** override any of it.
+Each row links to the file that is the source of truth for that routine;
+[`CLAUDE.md`](../CLAUDE.md) remains the authoritative operating manual, and
+where this file records a conflict between two docs it says so rather than
+picking a winner.
 
 - Owner: the repo (any desk may propose changes by PR; no routine may edit
   this file's Efficiency Review section about itself).
@@ -39,7 +42,7 @@ The repo runs on a deliberate split, stated as a standing rule in
 | Tier | What it is | Runs on | Costs | Fails how |
 |---|---|---|---|---|
 | **1 — Actions (deterministic)** | `.github/workflows/*.yml`. Zero or near-zero LLM. Detects, files tickets, ships queued work, commits state, alerts. | GitHub's scheduler | Actions minutes | Loudly — a red run is visible in the Actions tab |
-| **2 — Desk routines (judgment)** | Scheduled Claude sessions, one per "desk". They read what Tier 1 produced and make calls a script cannot: is this rumor sourced, is this page thin, is this alert real. Charters in [`docs/agents/`](agents/), prompts in [`docs/agents/runner-prompts/`](agents/runner-prompts/), cadence registry in [`agents/runners.md`](agents/runners.md). | **Joey's account** — see the account note below | Claude tokens | **Silently** — this repo cannot see a routine's dashboard, which is why Tier 1 carries liveness checks for them |
+| **2 — Desk routines (judgment)** | Scheduled Claude sessions, one per "desk". They read what Tier 1 produced and make calls a script cannot: is this rumor sourced, is this page thin, is this alert real. Charters in [`docs/agents/`](agents/), prompts in [`docs/agents/runner-prompts/`](agents/runner-prompts/), cadence registry in [`agents/runners.md`](agents/runners.md). | a founder's Claude account — **which one is currently contradicted across the docs, see the note below** | Claude tokens | **Silently** — this repo cannot see a routine's dashboard, which is why Tier 1 carries liveness checks for them |
 | **3 — Product runtime** | Cron built into the deployed product, not into CI. Today: exactly one, the notifications dispatcher. | Vercel Cron | Vercel plan | Silently, and **currently unwatched** — see [REC-1](#rec-1) |
 
 **Why Tier 1 exists even where Tier 2 could do the job:** Karen (the content
@@ -53,31 +56,34 @@ the *judgment* half on a routine.
 Instant per-tier stops also exist: repo variable `SOCIAL_FREEZE` halts all
 posting; `CONTENT_AUTOMERGE_FREEZE` halts all content auto-merge.
 
-> ### ⚠️ Which account owns the routines — a live contradiction in the docs
+> ### ⚠️ Unresolved: which account owns the routines
 >
-> **Answer: Joey's account. Do not act on `CLAUDE.md`'s line 76.**
+> **This document does not decide this, and you should not act on either
+> answer without confirming with a founder first.** Two files in this repo
+> disagree, and the disagreement is itself the finding:
 >
-> Two files disagree, and anyone provisioning, auditing, or disabling a
-> routine needs to know which to believe:
+> - [`CLAUDE.md`](../CLAUDE.md) § Operating habits — the authoritative
+>   operating manual — says *"Scheduled runners live on Wyatt's account so
+>   Joey's weekly limit stays free"*, and § Parallel fleets repeats it.
+> - [`agents/runners.md`](agents/runners.md), the cadence registry, says that
+>   assignment is **historical**: it records the fleet consolidating to
+>   **Joey's account ~2026-08-23**, re-verified against the live routines API
+>   on **2026-08-27** ("All 24 triggers verified live … Nothing remains on the
+>   other founder's account"), and lists per-trigger IDs on that basis.
 >
-> - [`CLAUDE.md`](../CLAUDE.md) § Operating habits still says *"Scheduled
->   runners live on Wyatt's account so Joey's weekly limit stays free"*, and
->   § Parallel fleets repeats it.
-> - [`agents/runners.md`](agents/runners.md) says that assignment is
->   **historical**: the entire fleet was consolidated to **Joey's account
->   ~2026-08-23** and verified against the live routines API on **2026-08-27**
->   ("All 24 triggers verified live … Nothing remains on the other founder's
->   account"), with every current trigger ID recorded in its live table.
+> The evidence in the registry is specific and dated, which is why the trigger
+> IDs elsewhere in this file are recorded as the registry has them. But
+> `CLAUDE.md` is the authoritative instruction file per this repo's own rules,
+> and **it has not been updated** — so as things stand an agent reading the
+> manual and an agent reading the registry would target different accounts.
 >
-> The registry wins: it carries a dated, live-verified audit with per-trigger
-> IDs, while `CLAUDE.md`'s line predates the migration and was not updated
-> with it. Every trigger ID in this file resolves on Joey's account.
->
-> **`CLAUDE.md` is not corrected in this PR** — it is a protected
-> agent-instruction file and editing it needs explicit founder approval, which
-> is outside this card's docs-audit scope. Recommended follow-up: a one-line
-> founder-approved edit replacing that sentence with a pointer to the registry.
-> Until then, treat this note as the reconciliation.
+> **Correcting `CLAUDE.md` is a founder-approved edit and is deliberately out
+> of scope here** (it is a protected agent-instruction file; this card's scope
+> is a docs audit). Recommended follow-up, as a one-line change a founder
+> approves: confirm the live account, then make that sentence in `CLAUDE.md`
+> point at the registry so there is exactly one answer. **Until that lands,
+> confirm the account with a founder before provisioning, disabling, or
+> kill-switching any routine.**
 
 ---
 
@@ -347,13 +353,13 @@ sections says every scheduled agent must close.
 
 | Reference | Where | Reality |
 |---|---|---|
-| **"Scheduled runners live on Wyatt's account"** | [`CLAUDE.md`](../CLAUDE.md) § Operating habits + § Parallel fleets | **The whole fleet moved to Joey's account ~2026-08-23, verified live 2026-08-27.** Highest-consequence stale line in the docs — it sends anyone provisioning or disabling a routine to the wrong account. Not fixable in this PR (protected file); see the account note above. |
+| **"Scheduled runners live on Wyatt's account"** vs the registry's live-verified consolidation to Joey's account | [`CLAUDE.md`](../CLAUDE.md) § Operating habits + § Parallel fleets, against [`agents/runners.md`](agents/runners.md) | **Unresolved contradiction, highest-consequence item in this table** — it can send someone provisioning or kill-switching a routine to the wrong account. Needs a founder-approved one-line fix to `CLAUDE.md`; see the account note above. |
 | `knowledge-engine.yml` | [`watchdog.yml`](../.github/workflows/watchdog.yml) alert text; knowledge-engine proposal + handoff | never created — `news-worker.yml` was never renamed. The alert tells a founder to check a file that isn't there. |
 | `merch-audit.yml` | [`SPEC.merch-autonomy.md`](SPEC.merch-autonomy.md) § Cadence | split into `merch-audit-detect.yml` + `merch-audit-authoring.yml` |
 | `appearance-discovery` at `40 13 * * *` | [`agents/runners.md`](agents/runners.md) | actual cron is `40 13,21 * * *` — twice daily |
 | "Karen Deep — agent review" as pending | [`agents/runners.md`](agents/runners.md) | still not created, 20 days after specification |
-| Tree "routine is a pending Wyatt-side paste" | [`agents/README.md`](agents/README.md) roster | Tree is live on Joey's account and shipped a plan on 2026-08-31 |
-| "Kevin, on Wyatt's side: stop the session cron" | [`agents/README.md`](agents/README.md) kill switch | Kevin has been four cloud routines since 2026-07-12, and the whole fleet moved to Joey's account 2026-08-23 |
+| Tree "routine is a pending Wyatt-side paste" | [`agents/README.md`](agents/README.md) roster | Tree is live and shipped a plan on 2026-08-31 |
+| "Kevin, on Wyatt's side: stop the session cron" | [`agents/README.md`](agents/README.md) kill switch | Kevin has been four cloud routines since 2026-07-12, so the kill-switch step as written does not stop it |
 | Criterion 2 "`author-catalogs.mjs` is invoked by no workflow" | [`ops/MERCH-PHASE-4-ACCEPTANCE.md`](ops/MERCH-PHASE-4-ACCEPTANCE.md) | resolved — `merch-official-sync.yml`'s `author` job calls it (PR #3555) |
 | `agents/README.md` roster table | [`agents/README.md`](agents/README.md) | lists 5 desks + "Phase 2 pending" for Karen; Laura, Paul Blart, Growth, Tree, the Vault Run and the Routine Auditor are all live and absent |
 | "The job below still RUNS on schedule so `founder-mailed` bookkeeping stays current" | [`tree-mail.yml`](../.github/workflows/tree-mail.yml) header | the workflow's own `on:` block has had **no schedule since 2026-08-23** — the header contradicts the file it heads |
@@ -396,14 +402,33 @@ newest and least battle-tested of them.
 
 **Recommendation.** Add a `Notifications dispatch freshness` step to
 `watchdog.yml`, modelled byte-for-byte on the existing *Knowledge engine
-freshness* step: a small `scripts/notifications-freshness.mjs` that reads
-`max(created_at)` from `deliveries` (and the dispatch route's own run marker),
-exits 0 / 2 / 1 for healthy / no-data-yet / stale, with the alert routed
-through `scripts/watchdog/upsert-alert.sh`. **No new secret is required** —
-`watchdog.yml` already has `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` for
-the knowledge check. Run it on the **hourly** `:05` trigger, not the daily one:
-a 15-minute job that has been dead for 23 hours is not an acceptable detection
-window for the product's headline feature.
+freshness* step: a small `scripts/notifications-freshness.mjs` that exits
+0 / 2 / 1 for healthy / not-applicable / stale, with the alert routed through
+`scripts/watchdog/upsert-alert.sh`.
+
+**Read `max(sent_at)` from `public.deliveries`** — that is the delivery
+timestamp column the schema actually defines
+([`20260911000000_notifications_events.sql`](../supabase/migrations/20260911000000_notifications_events.sql));
+there is no `created_at` on that table, and querying one would fail on every
+run instead of detecting a stall.
+
+**A quiet queue is not a dead cron, and the check must not confuse them** — a
+period with genuinely nothing to send produces no `deliveries` row at all, so
+`sent_at` alone cannot distinguish "healthy and idle" from "cron dead". Gate
+the staleness verdict on there being pending work the dispatcher *should*
+already have picked up, using the router's own definition of pending
+([`notification-router.ts`](../packages/core/src/notification-router.ts)):
+an `events` row with `available_at <= now`, `killed_at is null`, no matching
+`deliveries.event_id`, and `expires_at` either null or still in the future.
+Alarm only when such a row has been waiting longer than one dispatch interval
+**and** `max(sent_at)` is older than the SLO. That reads the same two tables
+the route already reads, needs no new run marker, and cannot cry wolf on a
+quiet night.
+
+**No new secret is required** — `watchdog.yml` already has `SUPABASE_URL` and
+`SUPABASE_SERVICE_ROLE_KEY` for the knowledge check. Run it on the **hourly**
+`:05` trigger, not the daily one: a 15-minute job that has been dead for 23
+hours is not an acceptable detection window for the product's headline feature.
 
 **Cost:** zero new spend, ~5 seconds per hourly watchdog run.
 
