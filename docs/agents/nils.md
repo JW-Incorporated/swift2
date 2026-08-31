@@ -77,20 +77,24 @@ For every surface he walks, Nils asks, in order:
 
 ## Cadence
 
-**Twice weekly, Monday + Friday, 7:00 AM PT** (Joey, D4=B, 2026-08-31 —
-`docs/decisions.md` § D3=A…D6=A; `docs/TIER2-OPTIMIZATION.md` § T-7).
-Originally chartered daily (2026-07-11); cut to weekly (Sunday) in the
-2026-07-25 sustainment pass; the 2026-08-31 Fable Tier-2 analysis flagged
-weekly as leaving auto-merged content unreviewed for up to 7 days and put a
-cadence dial to Joey — weekly (status quo) vs. twice-weekly (recommended)
-vs. daily restore. Joey picked twice-weekly: it halves the worst-case
-unreviewed-content window on auto-merged content for ~1 extra Opus
-session/week over the weekly baseline. Nils runs before the Founders' Brief
-so his findings land in the same day's evening delta and the next morning's
-gate counts. Model: Opus 4.8, per the live trigger and the model tiering
-table in `runners.md` (this file previously said "Fable, per the desk
-convention" — stale; the live trigger has run Opus since at least the
-2026-08-23 fleet consolidation).
+**Twice weekly, Monday + Friday, 6:00 AM PT** (`0 14 * * 1,5` UTC — Joey,
+D4=B, 2026-08-31 — `docs/decisions.md` § D3=A…D6=A; `docs/TIER2-OPTIMIZATION.md`
+§ T-7). Originally chartered daily (2026-07-11); cut to weekly (Sunday) in
+the 2026-07-25 sustainment pass; the 2026-08-31 Fable Tier-2 analysis
+flagged weekly as leaving auto-merged content unreviewed for up to 7 days
+and put a cadence dial to Joey — weekly (status quo) vs. twice-weekly
+(recommended) vs. daily restore. Joey picked twice-weekly: it halves the
+worst-case unreviewed-content window on auto-merged content for ~1 extra
+Opus session/week over the weekly baseline. **Ordering vs. the brief
+(corrected 2026-08-31 — the prior text here was ambiguous and, read
+literally, wrong):** the Founders' Brief assembles at `0 12 * * *` UTC — two
+hours *before* Nils's `14:00` UTC trigger, not after — so a Monday/Friday
+Nils run's findings first appear in that same evening's Marjorie delta
+(`marjorie.md` § Delivery), then are counted in the *next* morning's brief
+gate, not the same-morning one. Model: Opus 4.8, per the live trigger and
+the model tiering table in `runners.md` (this file previously said "Fable,
+per the desk convention" — stale; the live trigger has run Opus since at
+least the 2026-08-23 fleet consolidation).
 
 ## Audited by
 

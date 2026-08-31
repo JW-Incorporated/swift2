@@ -42,10 +42,17 @@ For each category with enough delivery volume to be meaningful (never
 flag a category on a handful of sends — name the sample size and skip
 judgment on ones too thin to trust):
 
-1. **Over-firing.** Mute rate above the flagged threshold, or a
-   category's send volume trending sharply up week-over-week without a
-   matching open-rate story (more pushes, same or falling engagement) — the
-   pattern REC-7.3 and `vision.md` name as the named failure mode.
+1. **Over-firing.** Mute rate above the flagged threshold, or — once the
+   desk has at least one prior run's logged snapshot to compare against
+   (`runner-prompts/notification-quality-run.md` step 0/5; the metrics
+   endpoint itself is a single rolling-30-day aggregate with no
+   week-over-week data of its own, so the desk's own log is the only source
+   of trend history) — a category's send volume trending sharply up
+   week-over-week without a matching open-rate story (more pushes, same or
+   falling engagement). On the very first run, with no prior snapshot yet,
+   judge over-firing on the mute-rate threshold and cross-category
+   comparison alone and say so explicitly — the trend criterion is not
+   fabricable from a single snapshot.
 2. **Under-performing.** Open rate persistently low relative to the
    category's peers, or a category present in `metrics` with near-zero
    opens across the whole lookback window (a category firing into the void
