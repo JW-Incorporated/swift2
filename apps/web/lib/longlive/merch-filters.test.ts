@@ -136,10 +136,22 @@ describe('merchItemImage', () => {
     // has a real photo, product-only otherwise), which is why split/product
     // rose sharply and moment/monogram fell — a real, intended composition
     // shift, not a regression.
-    expect(split).toBe(63);
-    expect(product).toBe(4);
-    expect(moment).toBe(26);
-    expect(monogram).toBe(7);
+    // 63/4/26/7 -> 80/7/12/1 (kanban task t_fa7bfb57 round 2, 2026-08-31):
+    // review found the round-1 audit incomplete (33/100 products still
+    // missing imageUrl, including 3 recreating the exact blank-tile bug in
+    // different moments). This pass sourced real, curl-verified retailer
+    // imageUrls for the remaining fixable products (87/100 total now have
+    // one) — every multi-product moment now has at most one product without
+    // its own photo, so the blank-monogram fallback never fires from a
+    // demoted same-moment duplicate again. The 13 still missing imageUrl are
+    // either products with no live retailer image reachable (paywalled
+    // luxury PDPs, discontinued items, resolvable-but-not-found domains) or
+    // single-product moments with no moment photo either — a real,
+    // intended composition shift, not a regression.
+    expect(split).toBe(80);
+    expect(product).toBe(7);
+    expect(moment).toBe(12);
+    expect(monogram).toBe(1);
     expect(split + product + moment + monogram).toBe(100);
   });
 
