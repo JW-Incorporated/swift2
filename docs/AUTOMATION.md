@@ -42,7 +42,7 @@ The repo runs on a deliberate split, stated as a standing rule in
 | Tier | What it is | Runs on | Costs | Fails how |
 |---|---|---|---|---|
 | **1 — Actions (deterministic)** | `.github/workflows/*.yml`. Zero or near-zero LLM. Detects, files tickets, ships queued work, commits state, alerts. | GitHub's scheduler | Actions minutes | Loudly — a red run is visible in the Actions tab |
-| **2 — Desk routines (judgment)** | Scheduled Claude sessions, one per "desk". They read what Tier 1 produced and make calls a script cannot: is this rumor sourced, is this page thin, is this alert real. Charters in [`docs/agents/`](agents/), prompts in [`docs/agents/runner-prompts/`](agents/runner-prompts/), cadence registry in [`agents/runners.md`](agents/runners.md). | a founder's Claude account — **which one is currently contradicted across the docs, see the note below** | Claude tokens | **Silently** — this repo cannot see a routine's dashboard, which is why Tier 1 carries liveness checks for them |
+| **2 — Desk routines (judgment)** | Scheduled Claude sessions, one per "desk". They read what Tier 1 produced and make calls a script cannot: is this rumor sourced, is this page thin, is this alert real. Charters in [`docs/agents/`](agents/), prompts in [`docs/agents/runner-prompts/`](agents/runner-prompts/), cadence registry in [`agents/runners.md`](agents/runners.md). | Joey's Claude account — see the note below | Claude tokens | **Silently** — this repo cannot see a routine's dashboard, which is why Tier 1 carries liveness checks for them |
 | **3 — Product runtime** | Cron built into the deployed product, not into CI. Today: exactly one, the notifications dispatcher. | Vercel Cron | Vercel plan | Silently, and **currently unwatched** — see [REC-1](#rec-1) |
 
 **Why Tier 1 exists even where Tier 2 could do the job:** Karen (the content
@@ -56,34 +56,32 @@ the *judgment* half on a routine.
 Instant per-tier stops also exist: repo variable `SOCIAL_FREEZE` halts all
 posting; `CONTENT_AUTOMERGE_FREEZE` halts all content auto-merge.
 
-> ### ⚠️ Unresolved: which account owns the routines
+> ### Which account owns the routines
 >
-> **This document does not decide this, and you should not act on either
-> answer without confirming with a founder first.** Two files in this repo
-> disagree, and the disagreement is itself the finding:
+> **Joey's.** Two lines in `CLAUDE.md` still say otherwise, but `CLAUDE.md`
+> resolves its own contradiction — no founder needs to be asked, and nothing
+> here requires approval:
 >
-> - [`CLAUDE.md`](../CLAUDE.md) § Operating habits — the authoritative
->   operating manual — says *"Scheduled runners live on Wyatt's account so
->   Joey's weekly limit stays free"*, and § Parallel fleets repeats it.
-> - [`agents/runners.md`](agents/runners.md), the cadence registry, says that
->   assignment is **historical**: it records the fleet consolidating to
->   **Joey's account ~2026-08-23**, re-verified against the live routines API
->   on **2026-08-27** ("All 24 triggers verified live … Nothing remains on the
->   other founder's account"), and lists per-trigger IDs on that basis.
+> - [`CLAUDE.md`](../CLAUDE.md) § Operating habits says *"Scheduled runners
+>   live on Wyatt's account so Joey's weekly limit stays free"*, and § Parallel
+>   fleets repeats it.
+> - But [`CLAUDE.md`](../CLAUDE.md) § The team, which is the authoritative
+>   statement of who does what, says Wyatt *"no longer takes actions or makes
+>   decisions on this project"* and that **"where older docs say 'ask Wyatt' or
+>   'Wyatt decides,' that means Joey now."** The two runner lines are exactly
+>   that kind of older reference.
+> - [`agents/runners.md`](agents/runners.md) agrees on the facts: the fleet
+>   consolidated to **Joey's account ~2026-08-23**, re-verified against the
+>   live routines API on **2026-08-27** ("All 24 triggers verified live …
+>   Nothing remains on the other founder's account"), with per-trigger IDs.
 >
-> The evidence in the registry is specific and dated, which is why the trigger
-> IDs elsewhere in this file are recorded as the registry has them. But
-> `CLAUDE.md` is the authoritative instruction file per this repo's own rules,
-> and **it has not been updated** — so as things stand an agent reading the
-> manual and an agent reading the registry would target different accounts.
->
-> **Correcting `CLAUDE.md` is a founder-approved edit and is deliberately out
-> of scope here** (it is a protected agent-instruction file; this card's scope
-> is a docs audit). Recommended follow-up, as a one-line change a founder
-> approves: confirm the live account, then make that sentence in `CLAUDE.md`
-> point at the registry so there is exactly one answer. **Until that lands,
-> confirm the account with a founder before provisioning, disabling, or
-> kill-switching any routine.**
+> So: **operate routines on Joey's account, using the trigger IDs in the
+> registry.** Provisioning, disabling, and kill-switching a routine are all
+> reversible, so per § Decision authority they are agent calls — act, don't
+> wait. Recommended cleanup: a one-line edit to those two `CLAUDE.md`
+> sentences pointing at the registry, so the stale phrasing stops resurfacing.
+> Not done here — `CLAUDE.md` is a protected agent-instruction file and this
+> card's scope is a docs audit.
 
 ---
 
@@ -353,7 +351,7 @@ sections says every scheduled agent must close.
 
 | Reference | Where | Reality |
 |---|---|---|
-| **"Scheduled runners live on Wyatt's account"** vs the registry's live-verified consolidation to Joey's account | [`CLAUDE.md`](../CLAUDE.md) § Operating habits + § Parallel fleets, against [`agents/runners.md`](agents/runners.md) | **Unresolved contradiction, highest-consequence item in this table** — it can send someone provisioning or kill-switching a routine to the wrong account. Needs a founder-approved one-line fix to `CLAUDE.md`; see the account note above. |
+| **"Scheduled runners live on Wyatt's account"** | [`CLAUDE.md`](../CLAUDE.md) § Operating habits + § Parallel fleets | Stale phrasing. `CLAUDE.md` § The team already resolves it ("where older docs say 'ask Wyatt' … that means Joey now") and the registry records the live-verified move to Joey's account. Worth a one-line cleanup so it stops resurfacing; see the account note above. |
 | `knowledge-engine.yml` | [`watchdog.yml`](../.github/workflows/watchdog.yml) alert text; knowledge-engine proposal + handoff | never created — `news-worker.yml` was never renamed. The alert tells a founder to check a file that isn't there. |
 | `merch-audit.yml` | [`SPEC.merch-autonomy.md`](SPEC.merch-autonomy.md) § Cadence | split into `merch-audit-detect.yml` + `merch-audit-authoring.yml` |
 | `appearance-discovery` at `40 13 * * *` | [`agents/runners.md`](agents/runners.md) | actual cron is `40 13,21 * * *` — twice daily |
@@ -468,10 +466,11 @@ PUT silently destroys the prompt and returns 200.
 removes the cross-lane conflict bug class the consolidation was designed to
 delete, and saves **~3.9 cold-boot Claude sessions/day** on average — three
 daily lanes (Content Shift, Answerer, Photo Enrichment) plus Rumor Desk at
-0.5/day, Cross-Link at 2/week, and Stylist at 1/week. **Flagged for founder
-awareness** — Rumor Desk content landing every day from two independent
-schedulers is a `product_direction`-adjacent fact even though the fix itself
-is reversible.
+0.5/day, Cross-Link at 2/week, and Stylist at 1/week. Every step is reversible
+(disable, don't delete — re-enabling is a two-minute operation), so this is an
+agent call to execute, not a decision to route. Worth **telling** Joey that
+Rumor Desk has been publishing daily rather than every other day, because it
+is a content-cadence fact he'd want to know — but the fix does not wait on him.
 
 <a id="rec-3"></a>
 ### REC-3 — Make the automation index self-checking (deterministic, zero tokens)
@@ -541,7 +540,7 @@ one-line allowlist entry instead of a fourth copy-pasted file.
 |---|---|---|
 | `remove-x-site-screens.yml` | Self-described one-time, parameter-free cleanup for two specific posts. It is a permanently live dispatch button that **deletes real social posts** and whose purpose has passed. | Delete the workflow (reversible via git). Record in `decisions.md` whether it ran. |
 | `tree-mail.yml`'s digest sweep job | Its mail send was retired 2026-08-23, its schedule was removed the same day, and its stated remaining purpose — keeping `founder-mailed` "current for any tooling that reads it" — does not hold: **nothing consumes that label** (verified repo-wide; the only references are the sweep's own helper `scripts/watchdog/build-founder-digest.mjs`, that helper's test, and the label bootstrapper that creates it). | Delete the `digest` job and the `founder-mailed` label; keep `tree-pr-mail`. Fix the contradicting header either way. |
-| `Marjorie — 8 PM Evening Delta` routine | Email retired 2026-08-23 under the 1–2-email cap. It still burns a Claude session every day at 03:00 UTC to post a GitHub comment with no established reader. | Founder call: either confirm someone reads the delta comment, or disable the trigger and fold the delta into the next morning's brief. |
+| `Marjorie — 8 PM Evening Delta` routine | Email retired 2026-08-23 under the 1–2-email cap. It still burns a Claude session every day at 03:00 UTC to post a GitHub comment with no established reader. | Disable the trigger (reversible — it stays a warm spare) and let the next morning's brief carry the delta. Worth telling Joey it happened, since he set the email cap; not worth waiting on him. |
 | `Lex depth` routine | Disabled warm spare since 2026-07-25, five weeks, with no thaw condition recorded. | Either write the one-line condition that would revive it into `runners.md`, or delete it. |
 | `swift2 Getty purge — GitHub GC watch` routine | Created 2026-08-15 as a self-retiring one-shot for a completed purge; still listed as enabled at 2×/day with no prompt file and no retirement receipt. | Read the trigger; if the purge is complete, delete it and record the receipt. |
 
