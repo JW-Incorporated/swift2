@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // E4 detector: fetches the public official-store catalog and writes only a
 // data handoff. A separate authoring lane owns any seed or social-queue change.
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -521,7 +521,19 @@ async function jsonFrom(path, fallback) {
 export async function currentFrom(path, fallback) {
   if (!path) return fallback;
   if (path.endsWith('.mjs')) {
-    const catalog = (await import(pathToFileURL(resolve(path)).href)).default;
+    try {
+      await access(resolve(path));
+    } catch (error) {
+      if (error?.code === 'ENOENT') return fallback;
+      throw error;
+    }
+    let catalog;
+    try {
+      catalog = (await import(pathToFileURL(resolve(path)).href)).default;
+    } catch (error) {
+      if (error?.code === 'ERR_MODULE_NOT_FOUND') return fallback;
+      throw error;
+    }
     if (!Array.isArray(catalog)) throw new Error('current catalog module must export an array');
     return catalog;
   }

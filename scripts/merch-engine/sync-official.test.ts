@@ -439,6 +439,16 @@ describe('E4 official-store sync', () => {
     );
   });
 
+  it('returns the fallback instead of throwing when a new .mjs catalog path does not exist yet', async () => {
+    await expect(
+      currentFrom('scripts/merch-engine/__fixtures__/does-not-exist.mjs', []),
+    ).resolves.toEqual([]);
+    const sentinel = [{ sourceId: 'seed' }];
+    await expect(
+      currentFrom('scripts/merch-engine/__fixtures__/does-not-exist.mjs', sentinel),
+    ).resolves.toBe(sentinel);
+  });
+
   it('crawls bounded sitemap product URLs when catalog and collections are unavailable', async () => {
     const fetchImpl = vi
       .fn()
