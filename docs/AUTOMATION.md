@@ -13,8 +13,11 @@ picking a winner.
   this file's Efficiency Review section about itself).
 - Last full audit: **2026-08-31**.
 - Counted here: **37 GitHub Actions workflows**, **24 Claude desk routine
-  triggers**, **1 Vercel Cron job**, **1 Dependabot schedule** = **63
-  automated routines**.
+  triggers**, **1 Vercel Cron job**, **2 Dependabot update schedules** = **64
+  automated routines**. The counting unit is *one independently-scheduled
+  thing*, not one file — which is why `.github/dependabot.yml` contributes two
+  (npm and github-actions are separate `updates:` entries with their own
+  cadences) and why `watchdog.yml`'s two crons still count as one workflow.
 
 > **On the routine count.** [`agents/runners.md`](agents/runners.md)'s summary
 > line reads "23 Swift2 routines total, 22 enabled" while its own table has 24
@@ -190,13 +193,14 @@ spends money or calls a model is a separate **manually confirmed** workflow.
 | [`db-seed.yml`](../.github/workflows/db-seed.yml) | dispatch only, `target` chosen from a fixed allowlist | **yes** — operator-triggered seeds |
 | [`db-connectivity-check.yml`](../.github/workflows/db-connectivity-check.yml) | dispatch + PR touching itself | no — `SELECT 1` |
 
-### Security and standing reminders (3)
+### Security and standing reminders (4)
 
 | Workflow | Trigger | Docs |
 |---|---|---|
 | [`dependabot-alerts-snapshot.yml`](../.github/workflows/dependabot-alerts-snapshot.yml) | Mon 21:00 (one hour before Paul Blart's patrol) | header — exists because the routine's own token 403s on the alerts API |
 | [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | header — Facebook has no API for non-administered groups, so this stays a human task |
-| [`.github/dependabot.yml`](../.github/dependabot.yml) *(config, not a workflow)* | weekly Mon 05:00 PT | [`agents/paul-blart.md`](agents/paul-blart.md) — grouped bumps + a separate security lane |
+| [`.github/dependabot.yml`](../.github/dependabot.yml) → **npm** *(config, not a workflow)* | weekly Mon 05:00 America/Los_Angeles | [`agents/paul-blart.md`](agents/paul-blart.md) — grouped dev + production patch/minor bumps, max 5 open PRs; security updates ride their own immediate lane, deliberately un-batched |
+| [`.github/dependabot.yml`](../.github/dependabot.yml) → **github-actions** *(config, not a workflow)* | weekly Mon (no explicit time — GitHub picks) | [`agents/paul-blart.md`](agents/paul-blart.md) — one grouped PR for all Action version bumps, keeping the CI/security workflows current |
 
 ---
 
@@ -301,19 +305,20 @@ engineering code?**
 
 | Verdict | Count | Share |
 |---|---:|---:|
-| Well documented | 40 | 63% |
+| Well documented | 41 | 64% |
 | Partially documented | 17 | 27% |
-| Effectively undocumented | 6 | 10% |
+| Effectively undocumented | 6 | 9% |
 
-**Well documented (40).** Twenty-two workflows — all five watchdog/freshness,
+**Well documented (41).** Twenty-two workflows — all five watchdog/freshness,
 all three founder-comms, all three content-engine, all three DB, both security
 reminders, two of the three gates (`codeql.yml`, `auto-merge-content.yml`) and
-four of the five social — plus `dependabot.yml` and the Tier-3 notifications
-cron (24); and on the routine side, all sixteen desks that have a charter:
-Marjorie ×2, Austin, Nils, Content Shift, Tree, Laura, Paul Blart, Growth,
-Karen, Kevin ×4, the Vault Run, and the Routine Auditor. This repo's workflow
-headers are genuinely unusual: most carry the incident that caused them, the
-alternative that was rejected, and the date. That is the standard to preserve.
+four of the five social — plus both `dependabot.yml` update schedules and the
+Tier-3 notifications cron (25); and on the routine side, all sixteen desks that
+have a charter: Marjorie ×2, Austin, Nils, Content Shift, Tree, Laura, Paul
+Blart, Growth, Karen, Kevin ×4, the Vault Run, and the Routine Auditor. This
+repo's workflow headers are genuinely unusual: most carry the incident that
+caused them, the alternative that was rejected, and the date. That is the
+standard to preserve.
 
 **Partially documented (17).** Eleven of the thirteen merch workflows, whose
 own headers are 1–3 lines and whose real explanation lives in
@@ -625,7 +630,7 @@ ship path, and its own dedupe ledger is built for that rate) and
   the same job at zero token cost and fails the build instead of filing a
   ticket someone has to read.
 - **Reducing the routine count as a goal.** The count is not the problem; six
-  of the 63 are stale and two are duplicated. The rest each do one job the
+  of the 64 are stale and two are duplicated. The rest each do one job the
   others do not.
 - **A second uptime monitor.** `watchdog.yml`'s hourly prod smoke check is the
   uptime signal; `e2e.yml` is a deeper daily functional sweep. Adding a third
