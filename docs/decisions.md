@@ -7,6 +7,77 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-31 — D3=A, D4=B, D5=A, D6=A: Tier-2 founder decisions from `TIER2-OPTIMIZATION.md`
+
+Joey ruled on all four founder-gated Tier-2 recommendations from the Fable
+cost/benefit analysis (`docs/TIER2-OPTIMIZATION.md`) in one pass:
+
+**D3 = A → T-6: create "Karen Deep."** Full dial (`--factual-batches 2
+--image-batches 1`), ≈$114/month on `claude-sonnet-5`, on the same
+Anthropic account the fleet already runs on (Joey's, per D1=B above — not a
+new vendor/service). The spec was already fully written in `runners.md` §
+"Karen Deep — trigger config to create"; this decision is the founder yes
+the spend gate (`AUTOMATION.md` § Adding-a-routine) required. Prompt file
+(`runner-prompts/karen-deep-review.md`) already existed; the "NOT YET
+CREATED" registry warnings are struck in this PR since the spec is now
+approved, but the live `RemoteTrigger` still needs a session authenticated
+to Joey's Claude account to actually create it (same account-access
+constraint every other trigger creation in this repo has hit — see
+`runners.md` § "Tree's routine does not exist yet").
+
+**D4 = B → T-7: Nils cadence = twice weekly (Mon+Fri).** The Fable analysis
+recommended twice-weekly over the weekly status quo or a daily restore;
+Joey picked B (twice-weekly) — it halves the worst-case unreviewed-content
+window on auto-merged content for ~1 extra Opus session/week. `nils.md`'s
+charter and `runners.md`'s live-trigger table are updated to match.
+
+**D5 = A → T-11: run the 2-week Austin Fable→Opus 4.8 trial.** `austin.md`
+§ Cadence pins Austin to Fable "unless founders say otherwise" — this is
+that recorded founder yes. Judge by the charter's own existing metrics
+(Codex findings-per-PR, rework rate) against the Fable baseline weeks;
+**any counted degradation in findings-per-PR reverts the trial** (a
+one-field trigger change back to Fable). T-19's stale "×2/day `0 16, 0 21`"
+entry in `runners.md`'s historical split table is fixed in the same pass
+(rides along per the analysis).
+
+**D6 = A → T-16: create the weekly notification-quality desk.** Sonnet 5,
+weekly, on the standard desk pattern: reads last week's sends/open-rates via
+`/api/notifications/metrics` and `deliveries`, files tickets on
+over-firing or under-performing categories (≤5/run), one log issue. New
+charter (`agents/notification-quality.md`), prompt file
+(`runner-prompts/notification-quality-run.md`), and registry row added.
+**Sequencing note:** the analysis said this should launch *after* REC-1's
+notifications-dispatch watchdog heartbeat lands
+(`docs/automation/review-2026-08-31.md#rec-1`) — verified in this PR that
+REC-1 has **not** landed yet (no `dispatch_runs` table, no watchdog step, no
+`notifications-freshness.mjs`). Per the founder instruction not to block
+indefinitely on that precondition, the desk's charter/prompt/registry are
+built now and its `runners.md` row is marked `⚠️ NOT YET CREATED — sequence
+after REC-1 lands` rather than creating the live trigger ahead of its own
+data-quality dependency.
+
+**Why (all four):** these are the four founder-gated items the Fable
+analysis could not resolve on its own — two new-spend calls (Karen Deep,
+notification desk) and two charter/model-pin overrides (Nils cadence,
+Austin's Fable pin) — everything else in the analysis was already inside
+standing agent authority.
+
+**Alternatives considered:** per-item alternatives are recorded in
+`TIER2-OPTIMIZATION.md` §§ B6/T-6, B2/T-7, C5/T-11, T-16 (weekly vs.
+twice-weekly vs. daily for Nils; full vs. half-batch dial for Karen Deep;
+declining either new-spend item; skipping or further delaying the Austin
+trial).
+
+**Approved by:** Joey, 2026-08-31, D3=A/D4=B/D5=A/D6=A (recorded on Kanban
+task t_e698ab19, in response to the Fable analysis referenced above).
+
+**Implementation:** `docs/agents/runners.md`, `docs/agents/nils.md`,
+`docs/agents/austin.md`, `docs/AUTOMATION.md`, new
+`docs/agents/notification-quality.md`, new
+`docs/agents/runner-prompts/notification-quality-run.md`.
+
+---
+
 ## 2026-08-31 — D1=B: scheduled routine fleet correctly runs on Joey's account
 
 **Decision:** the automated routine fleet (~24 Claude desk triggers) stays on
