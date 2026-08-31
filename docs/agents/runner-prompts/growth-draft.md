@@ -92,3 +92,19 @@ Files under `social/queue/` and `apps/web/public/social/` only — never app cod
 Why: those self-armed check-ins were ~69% of all scheduled agent token spend (~144 cloud sessions/day whose entire output was "still open, still green, re-arm in 1h"). PR health is already covered without spending a token — `build` gates the merge, `auto-merge-content.yml` lands content PRs the moment they go green, and `watchdog.yml` alerts if a runner goes dark. If your PR fails CI or hits a conflict, the NEXT scheduled run of this runner picks it up.
 
 If something genuinely needs a human, say so once in the PR body or a single comment and exit. Never poll for the answer.
+
+
+## Attribution trailer (T-20 Phase 1 -- per-routine output telemetry)
+
+Every PR body (and its commit message) AND every GitHub issue body this
+routine opens MUST include this exact line:
+
+    Tier-2: Growth — daily draft
+
+Use this identifier verbatim -- do not paraphrase or abbreviate it, and
+include it even on a routine that normally files issues rather than PRs
+(e.g. intake/ticket-filing desks) -- issues count exactly like PRs for
+this telemetry. This powers daily per-Tier-2-routine output counts in
+Marjorie's Founders' Brief (`docs/agents/runners.md`,
+`docs/TIER2-OPTIMIZATION.md` section T-20). If this run produces no
+PR/issue at all, there is nothing to tag -- that's expected, not an error.

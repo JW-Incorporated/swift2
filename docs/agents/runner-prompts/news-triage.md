@@ -65,4 +65,7 @@ One issue per event, labeled `intake`, titled 'intake: <plain description>'. Bod
 
 === NEVER EXIT SILENTLY ===
 If you file nothing, comment why on the Nils walk log #502: which window you read, roughly how many stories, why none cleared the bar. If a tool, auth or rate limit stopped you, say THAT. During the T-3 trial (see above), always include `consumed-snapshot: <filename>` in that comment even when you DO file issues -- open a comment either way so the recall check has it. Never merge; never author Vault content.
+
+
+ATTRIBUTION (T-20 Phase 1): include the exact line `Tier-2: News Triage` in the body of every PR and every GitHub issue you open. This powers daily per-Tier-2-routine output counts in Marjorie's Founders' Brief (docs/agents/runners.md, docs/TIER2-OPTIMIZATION.md section T-20). If this run produces no PR/issue, there is nothing to tag.
 ```

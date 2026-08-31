@@ -107,3 +107,19 @@ author Vault content. Never merge anything. Read-only on Vault content and
 the `intake` pipeline; the one exception is the FAIL escalation above
 (opening a plain `automation-review` issue plus a small `HUMAN-ACTIONS.md`-only
 PR is in scope — it is how you report, not an editorial action on content).
+
+
+## Attribution trailer (T-20 Phase 1 -- per-routine output telemetry)
+
+Every PR body (and its commit message) AND every GitHub issue body this
+routine opens MUST include this exact line:
+
+    Tier-2: News Triage recall check
+
+Use this identifier verbatim -- do not paraphrase or abbreviate it, and
+include it even on a routine that normally files issues rather than PRs
+(e.g. intake/ticket-filing desks) -- issues count exactly like PRs for
+this telemetry. This powers daily per-Tier-2-routine output counts in
+Marjorie's Founders' Brief (`docs/agents/runners.md`,
+`docs/TIER2-OPTIMIZATION.md` section T-20). If this run produces no
+PR/issue at all, there is nothing to tag -- that's expected, not an error.

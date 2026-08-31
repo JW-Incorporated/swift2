@@ -26,6 +26,50 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 37. [UPGRADE] Sync the new T-20 attribution-trailer instructions to all 24 live triggers — needs Joey's Claude account, ~30-45 min
+
+**Filed:** 2026-08-31
+
+**Status:** OPEN
+
+**Why it matters:** T-20 Phase 1 (`docs/TIER2-OPTIMIZATION.md` § T-20, PR
+#3621) added a one-line attribution-trailer instruction to every Tier-2
+routine's prompt file in `docs/agents/runner-prompts/`, so each routine's
+PRs/issues carry `Tier-2: <routine name>` — the input Phase 2's daily
+telemetry rollup (a follow-up card) will count. Per this repo's own rule
+(`docs/agents/runners.md` § Rules — "the repo file is the source of
+truth, and a trigger whose inline prompt drifts from its file is a bug"),
+the **repo files are updated but the live triggers' inline prompts are
+not** — same limitation as items #35/#36: `RemoteTrigger` read/update
+needs a session authenticated to the account the fleet runs on (Joey's),
+which a headless docs/CI sandbox cannot reach. Until every live trigger
+is re-synced, real routine runs still execute the OLD inline prompt
+without the trailer, so the "season for a few days of PRs" step Phase 1
+exists to start has not actually begun.
+
+**Steps (from a `claude.ai/code` session on your account, or one you
+explicitly point at that surface):**
+1. For each of the 24 rows in `docs/agents/runners.md`'s "Live trigger
+   IDs" table, `RemoteTrigger get` the trigger, read back its full
+   `job_config`, replace the `prompt` field with the current full text of
+   the matching file in `docs/agents/runner-prompts/` (verbatim — do not
+   hand-edit), and `RemoteTrigger update` with the whole `job_config`
+   (never a partial PUT — see the RemoteTrigger footgun this file already
+   documents elsewhere).
+2. Skip the two approved-but-not-yet-created desks (Karen Deep,
+   Notification quality) — nothing live to sync yet.
+3. Record in `docs/decisions.md` or a brief comment on Kanban card
+   t_017c1e5b once all 24 are synced, so Phase 2 knows the seasoning
+   clock actually started and from what date.
+
+**Worked if:** a fresh `RemoteTrigger get` on any of the 24 triggers shows
+its inline prompt containing the "Attribution trailer (T-20 Phase 1)"
+section verbatim, matching the repo file.
+
+---
+
+## OPEN
+
 ### 36. [BLOCKING] T-3 News Triage model trial needs a RemoteTrigger-capable session on your account — ~15 min
 
 **Filed:** 2026-08-31
