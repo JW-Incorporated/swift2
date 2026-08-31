@@ -4,9 +4,6 @@
 
 import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from './types';
 
-/** Build-time freshness stamp — emitted only by prebuild (deploy). */
-export const CONTENT_GENERATED_AT = "2026-08-31T05:13:26.402Z";
-
 type VaultRawItem = {
   id: string;
   slug?: string;
@@ -4122,7 +4119,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/05-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg", credit: "Kevin Mazur/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
-      products: [{ brand: "Upper 90 Studio", item: "\"Not a Lot Going on at the Moment\" Unisex T-Shirt", retailer: "upper90studio.com", url: "https://www.upper90studio.com/store/p/not-a-lot-going-on-at-the-moment-unisex-t-shirt", price: "$19.95+", isAlternative: true, altNote: "The Ashish stage recreation was custom and never sold at retail -- this made-to-order shirt reproduces the \"22\" video's phrase, not the designer construction.", imageUrl: "http://static1.squarespace.com/static/63b729d4171af66ccea2414b/63c0deeeecc669179e075571/64397b6b70ada81b868d877a/1681488751624/unisex-staple-t-shirt-white-front-64397b6437281.jpg?format=1500w", matchTier: "unscored", kind: "top", verifiedAt: "2026-08-30T19:22:10.691Z" }],
+      products: [{ brand: "Upper 90 Studio", item: "\"Not a Lot Going on at the Moment\" Unisex T-Shirt", retailer: "upper90studio.com", url: "https://www.upper90studio.com/store/p/not-a-lot-going-on-at-the-moment-unisex-t-shirt", price: "$19.95+", isAlternative: true, altNote: "The Ashish stage recreation was custom and never sold at retail -- this made-to-order shirt reproduces the \"22\" video's phrase, not the designer construction.", imageUrl: "https://static1.squarespace.com/static/63b729d4171af66ccea2414b/63c0deeeecc669179e075571/64397b6b70ada81b868d877a/1681488751624/unisex-staple-t-shirt-white-front-64397b6437281.jpg?format=1500w", matchTier: "unscored", kind: "top", verifiedAt: "2026-08-30T19:22:10.691Z" }],
     },
     {
       id: "vault-midnights-a-nicole-felicia-princess-gown-for-speak-now",

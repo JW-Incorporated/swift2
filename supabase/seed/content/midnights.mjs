@@ -2038,7 +2038,7 @@ export default {
             url: 'https://www.upper90studio.com/store/p/not-a-lot-going-on-at-the-moment-unisex-t-shirt',
             // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
             // 200 image/* response.
-            imageUrl: 'http://static1.squarespace.com/static/63b729d4171af66ccea2414b/63c0deeeecc669179e075571/64397b6b70ada81b868d877a/1681488751624/unisex-staple-t-shirt-white-front-64397b6437281.jpg?format=1500w',
+            imageUrl: 'https://static1.squarespace.com/static/63b729d4171af66ccea2414b/63c0deeeecc669179e075571/64397b6b70ada81b868d877a/1681488751624/unisex-staple-t-shirt-white-front-64397b6437281.jpg?format=1500w',
             matchTier: 'unscored',
             kind: 'top',
             price: '$19.95+',
