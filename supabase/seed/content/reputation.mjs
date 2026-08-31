@@ -435,6 +435,9 @@ export default {
             item: 'Snake Print Silver Sequined Bodysuit',
             retailer: 'rhapso-designs.com',
             url: 'https://www.rhapso-designs.com/product-page/snake-print-silver-sequined-bodysuit-leo32',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://static.wixstatic.com/media/a88653_79a149a90cff4fb787e246b77424f847~mv2.jpg/v1/fit/w_500,h_500,q_90/file.jpg',
             matchTier: 'unscored',
             kind: 'top',
             price: 'AU$90.00',
@@ -815,6 +818,9 @@ export default {
             item: 'Fits Everybody Zip Front Bodysuit in Shadow Snake Print',
             retailer: 'skims.com',
             url: 'https://skims.com/products/fits-everybody-zip-front-bodysuit-shadow-snake-print',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0259/5448/4284/files/SKIMS-LOUNGEWEAR-BD-BRF-9083-GSP-FLT.jpg?v=1758757495',
             matchTier: 'unscored',
             kind: 'top',
             price: '$46.00',
@@ -2200,6 +2206,10 @@ export default {
             item: 'Tea Party Chic Pink Floral Print Tie-Strap Tiered Midi Dress',
             retailer: 'lulus.com',
             url: 'https://www.lulus.com/products/tea-party-chic-pink-floral-print-tie-strap-tiered-midi-dress/1712196.html',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer photo via
+            // Poshmark listing of the same Lulus style (lulus.com itself blocks
+            // non-browser fetches), curl-verified 200 image/jpeg.
+            imageUrl: 'https://di2ponv0v5otw.cloudfront.net/posts/2026/07/10/6a51c55a9e4f74cf70811414/m_6a51c5cd2981af99c3b77248.jpeg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$30.00',
@@ -2253,6 +2263,11 @@ export default {
             item: "Women's Multicolor Rainbow Bandana Western Snap Shirt",
             retailer: 'jacksonswestern.com',
             url: 'https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): the jacksonswestern.com
+            // PDP is now 404 (delisted); this is the same real Wrangler x Lainey
+            // Wilson Rainbow Bandana Western Snap Shirt product photo from another
+            // in-stock retailer, curl-verified 200 image/png.
+            imageUrl: 'https://bootjack.com/cdn/shop/files/SHIRTLONGG-2024-10-31T142255.702.png?v=1730406459',
             matchTier: 'unscored',
             kind: 'top',
             price: '$55.00',
@@ -2316,6 +2331,13 @@ export default {
             item: 'Disco Crush High Shine Glitter Eye + Face Sparkle in Heart Eyes',
             retailer: 'ulta.com',
             url: 'https://www.ulta.com/p/disco-crush-high-shine-glitter-eye-face-sparkle-pimprod2046472?sku=2627323',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response. Uses the SKU-specific media.ulta.com
+            // path (not the page's server-rendered og:image, which
+            // defaulted to the Mystic Pink variant regardless of
+            // ?sku= — codex review flagged the mismatch) so the photo
+            // matches the named Heart Eyes shade (SKU 2627323).
+            imageUrl: 'https://media.ultainc.com/i/ulta/2627323?w=500&h=500',
             matchTier: 'unscored',
             kind: 'beauty',
             price: '$18.00',

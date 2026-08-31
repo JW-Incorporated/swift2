@@ -23,7 +23,7 @@
  */
 
 import { CONTENT } from './content';
-import type { EraId, Product } from './types';
+import { hasRealPrimaryImage, primaryImage, type EraId, type Product } from './types';
 // Authored engine output remains JavaScript so sync scripts can write it directly.
 import { OFFICIAL } from '../../../../supabase/seed/merch/official.mjs';
 import { FAN_MADE } from '../../../../supabase/seed/merch/fanmade.mjs';
@@ -46,6 +46,23 @@ export interface MerchItem extends Product {
   source?: MerchSource;
   /** Provenance supplied by the catalogue engines for fresh-drop ordering. */
   discoveredAt?: string;
+  /**
+   * True when this item has no product photo of its own (`imageUrl` unset)
+   * AND an earlier product from the SAME source moment already claimed that
+   * moment's real photo as its card image. Without this flag, 2+ different
+   * products matched to one moment (e.g. dress/shoes/clutch all "seen on"
+   * the same photo of Taylor) would each independently render that
+   * identical photo — reading as duplicate cards of the same item (founder
+   * feedback, kanban task t_49a63ae1). The E6 matcher output carries no
+   * per-item "as-worn" photo today (`scripts/merch-engine/match-moments.mjs`
+   * has no such field), so there is no real alternate photo to substitute —
+   * `merchItemImage()` (merch-filters.ts) falls back to the honest monogram
+   * tile for every item after the first, rather than repeat the photo or
+   * fabricate a substitute. Set once, deterministically, in
+   * `shopTheLookItems()` below, in the matcher's own best-first product
+   * order — never recomputed per-view, so it stays stable across filters.
+   */
+  demoteSharedMomentPhoto?: boolean;
 }
 
 export interface MerchCatalogue {
@@ -56,8 +73,48 @@ export interface MerchCatalogue {
 
 function shopTheLookItems(): MerchItem[] {
   const items: MerchItem[] = [];
+  // Claimed moment-photo URLs, tracked GLOBALLY across every moment in this
+  // one pass — not reset per moment. A per-moment scope only caught 2+
+  // products repeating one moment's photo; it missed two DIFFERENT moments
+  // whose `images` happen to cite the identical underlying photo URL (e.g.
+  // the same wire photo synced into two separate moments), which still
+  // rendered as consecutive duplicate cards in the "Seen on Taylor" rail
+  // (founder screenshot, kanban task t_cfd48d66). Keying by the actual
+  // photo URL rather than momentId is what makes this catch that case: two
+  // distinct moments sharing a URL collide on the same Set entry. This is
+  // deliberately NOT global across the whole page — a moment's own photo
+  // still renders normally as that moment's hero everywhere else; only its
+  // reuse as a SECOND shop-the-look product card image is demoted.
+  const claimedMomentPhotoUrls = new Set<string>();
   for (const moment of CONTENT) {
+    // Whether this moment even HAS a real (non-era-art) photo to share in
+    // the first place — only relevant when deciding whether a later
+    // product without its own imageUrl would otherwise repeat it.
+    const momentHasRealPhoto = hasRealPrimaryImage(moment);
+    const momentPhotoUrl = momentHasRealPhoto ? primaryImage(moment) : undefined;
     for (const product of moment.products ?? []) {
+      // Whether THIS product's card would put the moment photo on screen at
+      // all — either alone (merchItemImage()'s 'moment' kind, no product
+      // photo of its own) or alongside its own product photo ('split' kind,
+      // the moment half still visibly labelled). Both cases show the same
+      // pixels to the reader, so both count as "claiming" that photo for
+      // dedupe purposes — a 'split' card upstream is exactly what let the
+      // Grammy-2016 haircut moment repeat its wardrobe moment's photo
+      // (kanban task t_cfd48d66): the wardrobe product had its own image
+      // (rendered split, silently claiming nothing under the old check),
+      // so the haircut product's identical URL read as unclaimed and
+      // rendered again full-width right next to it.
+      const wouldRenderMomentPhoto = momentPhotoUrl !== undefined;
+      const alreadyClaimed = wouldRenderMomentPhoto && claimedMomentPhotoUrls.has(momentPhotoUrl!);
+      // Demotion (falling back to the monogram tile) is only possible for a
+      // product with NO photo of its own — merchItemImage() has no "split
+      // with the moment half suppressed" layout, so a product that has its
+      // own imageUrl always renders its split card regardless of claim
+      // state; it just also marks the URL claimed for whoever comes next.
+      const demoteSharedMomentPhoto = alreadyClaimed && !product.imageUrl;
+      if (wouldRenderMomentPhoto && !alreadyClaimed) {
+        claimedMomentPhotoUrls.add(momentPhotoUrl!);
+      }
       items.push({
         ...product,
         category: 'shop-the-look',
@@ -67,6 +124,7 @@ function shopTheLookItems(): MerchItem[] {
           momentSlug: moment.slug,
           momentTitle: moment.title,
         },
+        ...(demoteSharedMomentPhoto ? { demoteSharedMomentPhoto: true } : {}),
       });
     }
   }

@@ -538,6 +538,10 @@ export default {
             item: 'Sleeveless Lambskin Jumpsuit',
             retailer: 'us.balmain.com',
             url: 'https://us.balmain.com/en/p/sleeveless-lambskin-jumpsuit-FF0QO025LE040DA.html',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer product photo
+            // via Lyst (Balmain's own PDP is JS-rendered, no server-side image),
+            // curl-verified 200 image/jpeg.
+            imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/balmain/80087fee/2220x3000/balmain-white-Sleeveless-Lambskin-Jumpsuit.jpeg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$3,495.00',
@@ -857,6 +861,9 @@ export default {
             // to Showpo's canonical `/us/products/` URL (still the live PDP);
             // stored the canonical target directly so we don't lean on the redirect.
             url: 'https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0904/3371/6589/files/1-Siofra_Beaded_Fringe_Mini_Dress_in_Hot_Pink_40.jpg?v=1744807739',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$22.00',
@@ -961,6 +968,9 @@ export default {
             item: 'Original Styler 1" Flat Iron Hair Straightener',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Ghd-Original-Styler-Straightener-Professional/dp/B09P4SVXK4',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://m.media-amazon.com/images/I/61K2WB+c0WL._SL1500_.jpg',
             matchTier: 'unscored',
             kind: 'beauty',
             price: '$191.00',
@@ -1092,6 +1102,9 @@ export default {
             item: 'Retro Matte Lipstick in Ruby Woo',
             retailer: 'maccosmetics.com',
             url: 'https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://www.maccosmetics.com/cdn/shop/files/mac_sku_M0N904_1x1_0.png?format=webp&v=1788129931&width=2000',
             matchTier: 'unscored',
             kind: 'beauty',
             price: '$23.00',
@@ -2545,6 +2558,9 @@ export default {
             item: 'Simona Satin Mini Dress',
             retailer: 'fashionnova.com',
             url: 'https://www.fashionnova.com/products/simona-satin-mini-dress-light-blue',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0293/9277/products/01-06-22Studio3_ME_MJ_10-19-40_16_73792_LightBlue_0528_EH.jpg?v=1643755094&width=1200&height=627',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$23.98',

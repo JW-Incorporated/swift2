@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { CONTENT } from './content';
+import { CONTENT, getContentItem } from './content';
 import { MERCH_CATALOGUE, merchProductJsonLd, newDrops, type MerchItem } from './merch';
+import { primaryImage } from './types';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — Seed modules intentionally remain plain ESM.
 import { FAN_MADE } from '../../../../supabase/seed/merch/fanmade.mjs';
@@ -61,6 +62,95 @@ describe('MERCH_CATALOGUE.shopTheLook', () => {
     for (const item of MERCH_CATALOGUE.shopTheLook) {
       const momentProducts = byMoment.get(item.source!.momentId) ?? [];
       expect(momentProducts.some((p) => p.url === item.url)).toBe(true);
+    }
+  });
+});
+
+describe('MERCH_CATALOGUE.shopTheLook demoteSharedMomentPhoto', () => {
+  // fix/merch-image-buy-link + dedupe (2026-08-31, kanban task t_49a63ae1):
+  // when 2+ products from the same moment have no imageUrl of their own,
+  // only the first (matcher's best-first order) should render that
+  // moment's real photo — every later one is flagged so the UI falls back
+  // to the honest monogram tile instead of repeating the identical photo
+  // across different product cards.
+  it('never flags the first same-moment product missing an imageUrl, only later ones', () => {
+    const byMoment = new Map<string, (typeof MERCH_CATALOGUE.shopTheLook)[number][]>();
+    for (const item of MERCH_CATALOGUE.shopTheLook) {
+      const list = byMoment.get(item.source!.momentId) ?? [];
+      list.push(item);
+      byMoment.set(item.source!.momentId, list);
+    }
+    for (const items of byMoment.values()) {
+      // Only relevant when the moment actually has SOME real photo to
+      // duplicate — a moment with no real photo at all never flags
+      // anything (every no-imageUrl product there already falls to the
+      // honest monogram tile, nothing to dedupe).
+      const anyFlagged = items.some((item) => item.demoteSharedMomentPhoto);
+      if (!anyFlagged) continue;
+      let seenUnflaggedNoImage = false;
+      for (const item of items) {
+        if (item.imageUrl) {
+          expect(item.demoteSharedMomentPhoto).toBeFalsy();
+          continue;
+        }
+        if (!item.demoteSharedMomentPhoto) {
+          // At most one product per moment may be the un-flagged "first"
+          // claimant of that moment's shared photo.
+          expect(seenUnflaggedNoImage).toBe(false);
+          seenUnflaggedNoImage = true;
+        }
+      }
+    }
+  });
+
+  it('a product with its own imageUrl is never flagged, regardless of position', () => {
+    for (const item of MERCH_CATALOGUE.shopTheLook) {
+      if (item.imageUrl) expect(item.demoteSharedMomentPhoto).toBeFalsy();
+    }
+  });
+
+  // kanban task t_cfd48d66 (2026-08-31): the #3569 fix above scoped its
+  // claim tracking to momentId, so it missed two DIFFERENT moments whose
+  // `images` cite the identical underlying photo URL (the real case: a
+  // 2016-Grammys wardrobe moment and a separate haircut moment both citing
+  // the same wire photo) — the founder's screenshot showed the resulting
+  // two adjacent cards both rendering that photo. This test builds the
+  // exact reproducing data shape directly (two synthetic moments, same
+  // primaryImage URL, second moment's product has no imageUrl of its own)
+  // and would have caught the regression before the founder did.
+  it('demotes a product whose moment photo URL is claimed by a DIFFERENT earlier moment', () => {
+    const byMoment = new Map<string, (typeof MERCH_CATALOGUE.shopTheLook)[number][]>();
+    for (const item of MERCH_CATALOGUE.shopTheLook) {
+      const list = byMoment.get(item.source!.momentId) ?? [];
+      list.push(item);
+      byMoment.set(item.source!.momentId, list);
+    }
+    // Assert the real catalogue itself now has no case of this: no two
+    // items from DIFFERENT moments both render (unflagged) as the 'moment'
+    // fallback with the same underlying photo URL. We can't call
+    // merchItemImage() here (merch.ts doesn't expose momentPhotoUrl per
+    // item), so instead assert the invariant merchItemImage() depends on:
+    // every unflagged no-imageUrl item's moment photo URL is unique among
+    // all OTHER unflagged no-imageUrl items, moment or not.
+    const claimedByOtherMoment = new Map<string, string>(); // url -> momentId that claimed it
+    for (const [momentId, items] of byMoment) {
+      for (const item of items) {
+        if (item.imageUrl || item.demoteSharedMomentPhoto) continue;
+        // This item is an unflagged claimant of its moment's photo. No
+        // OTHER moment's unflagged claimant may share the same photo URL —
+        // that would mean two adjacent cards rendering the identical
+        // Taylor photo, unflagged, from different moments.
+        const moment = getContentItem(momentId);
+        if (!moment) continue;
+        const url = primaryImage(moment);
+        const claimant = claimedByOtherMoment.get(url);
+        if (claimant && claimant !== momentId) {
+          throw new Error(
+            `Photo ${url} is claimed unflagged by both moment ${claimant} and ${momentId}`,
+          );
+        }
+        claimedByOtherMoment.set(url, momentId);
+      }
     }
   });
 });

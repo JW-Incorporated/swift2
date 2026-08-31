@@ -2213,6 +2213,9 @@ export default {
             item: 'Cowboy Boots for Women, Mid-Calf Cowgirl Boots',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/IUV-Cowboy-Western-Cowgirl-Pointy/dp/B0BFQRZPRH',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://m.media-amazon.com/images/I/71ybsbBuDuL.jpg_BO30,255,255,255_UF750,750_SR1910,1000,0,C_QL100_.jpg',
             matchTier: 'unscored',
             kind: 'shoes',
             price: '$54.99',

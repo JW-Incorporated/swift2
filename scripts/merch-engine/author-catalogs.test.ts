@@ -82,6 +82,63 @@ describe('E4/E5 catalog authoring', () => {
     expect(result.catalog).toEqual([official]);
   });
 
+  it('merges an update-only delta plan into the existing catalog instead of discarding unchanged rows', () => {
+    const unchanged = { ...official, sourceId: '202', item: 'Unrelated Unchanged Product', url: 'https://store.taylorswift.com/products/unrelated' };
+    const updated = { ...official, price: '$99.99' };
+
+    const result = authorOfficialCatalog({
+      plan: { plan: { added: [], updated: [updated], discontinued: [] } },
+      currentCatalog: [official, unchanged],
+    });
+
+    expect(result.catalog).toEqual(
+      [unchanged, updated].sort((left, right) => left.sourceId.localeCompare(right.sourceId)),
+    );
+  });
+
+  it('marks a discontinued-only delta plan out of stock while preserving unrelated rows', () => {
+    const unchanged = { ...official, sourceId: '202', item: 'Unrelated Unchanged Product', url: 'https://store.taylorswift.com/products/unrelated' };
+    const discontinuedRow = { ...official, inStock: false };
+
+    const result = authorOfficialCatalog({
+      plan: { plan: { added: [], updated: [], discontinued: [discontinuedRow] } },
+      currentCatalog: [official, unchanged],
+    });
+
+    expect(result.catalog).toEqual(
+      [unchanged, discontinuedRow].sort((left, right) => left.sourceId.localeCompare(right.sourceId)),
+    );
+    expect(result.catalog.find((row: { sourceId: string }) => row.sourceId === official.sourceId)?.inStock).toBe(false);
+  });
+
+  it('limits the social draft to newly added products only, never updated or discontinued rows', () => {
+    const unchanged = { ...official, sourceId: '202', item: 'Unrelated Unchanged Product', url: 'https://store.taylorswift.com/products/unrelated' };
+    const updated = { ...official, price: '$99.99' };
+    const discontinuedRow = { ...official, sourceId: '303', inStock: false, url: 'https://store.taylorswift.com/products/discontinued' };
+    const newProduct = { ...official, sourceId: '404', item: 'Brand New Drop', url: 'https://store.taylorswift.com/products/brand-new-drop' };
+
+    const updateOnly = authorOfficialCatalog({
+      plan: { plan: { added: [], updated: [updated], discontinued: [] } },
+      currentCatalog: [official, unchanged],
+    });
+    expect(updateOnly.socialDraft).toEqual({ type: 'merch-drop-draft', products: [] });
+
+    const discontinuedOnly = authorOfficialCatalog({
+      plan: { plan: { added: [], updated: [], discontinued: [discontinuedRow] } },
+      currentCatalog: [official, unchanged],
+    });
+    expect(discontinuedOnly.socialDraft).toEqual({ type: 'merch-drop-draft', products: [] });
+
+    const mixed = authorOfficialCatalog({
+      plan: { plan: { added: [newProduct], updated: [updated], discontinued: [discontinuedRow] } },
+      currentCatalog: [official, unchanged],
+    });
+    expect(mixed.socialDraft).toEqual({
+      type: 'merch-drop-draft',
+      products: [{ sourceId: newProduct.sourceId, item: newProduct.item, url: newProduct.url }],
+    });
+  });
+
   it('authors only D3-approved fan-made seeds with provenance and both E1/E2 evidence', () => {
     const accepted = {
       brand: 'LavenderMaker', item: 'Original lavender lyric bracelet', kind: 'accessory',

@@ -175,6 +175,28 @@ test.describe('Vault smoke', () => {
     expect(Math.abs(afterScroll - beforeScroll)).toBeLessThanOrEqual(4);
   });
 
+  test('merch All items clears an active product-kind filter', async ({ page }) => {
+    await gotoVault(page);
+
+    // The desktop tab rail and mobile primary navigation both expose the same
+    // accessible Merch control, so this covers both Playwright viewports.
+    await page.getByRole('button', { name: 'Merch' }).click();
+
+    const allItems = page.getByRole('button', { name: 'All items' });
+    const dresses = page.getByRole('button', { name: 'Dresses' });
+    await expect(allItems).toBeVisible();
+    await expect(dresses).toBeVisible();
+    await expect(allItems).toHaveAttribute('aria-pressed', 'true');
+
+    await dresses.click();
+    await expect(dresses).toHaveAttribute('aria-pressed', 'true');
+    await expect(allItems).toHaveAttribute('aria-pressed', 'false');
+
+    await allItems.click();
+    await expect(dresses).toHaveAttribute('aria-pressed', 'false');
+    await expect(allItems).toHaveAttribute('aria-pressed', 'true');
+  });
+
   test('clicking a month item opens the moment detail sheet and closes it', async ({ page }) => {
     await gotoVault(page);
     await enterEra(page);

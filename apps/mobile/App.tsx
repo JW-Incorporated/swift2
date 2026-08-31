@@ -16,7 +16,7 @@
 // must wrap everything that consumes insets; `initialWindowMetrics` seeds it
 // synchronously so the first frame is already inset (no visible reflow).
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -26,11 +26,33 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import type { VaultSkeleton } from '@swift2/core';
 import { loadSkeleton } from './lib/vault';
+import { registerDevice } from './lib/push-registration';
+import { registerNotificationActions } from './lib/notification-actions';
+import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
 import { VaultNavigator } from './components/VaultNavigator';
+import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
+import { NotificationInboxScreen } from './components/NotificationInboxScreen';
+import { OnboardingScreen } from './components/OnboardingScreen';
 
 export default function App() {
   const [skeleton, setSkeleton] = useState<VaultSkeleton | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Notifications Phase 1 (spec §8: "persistent bell icon in the app header
+  // on every screen → Notification Settings"). No navigation library is
+  // wired up in this app yet (App.tsx renders one screen at a time), so the
+  // settings screen is a full-bleed overlay toggled by local state rather
+  // than a route — same reachability guarantee (≤1 tap from anywhere), no
+  // new dependency.
+  const [notificationSettingsOpen, setNotificationSettingsOpen] = useState(false);
+  // Notifications Phase 3 (spec §8): the global in-app inbox, reachable
+  // from the settings screen's "Inbox" link (see onOpenInbox below).
+  const [inboxOpen, setInboxOpen] = useState(false);
+  // Notifications Phase 2 (spec §7): the pre-permission onboarding screen,
+  // shown at the VALUE MOMENT of the user first tapping the bell — that tap
+  // already signals "I care about notifications", and it's the same
+  // reachability point Phase 1 built, so no new UI surface is needed to
+  // find the trigger. Shown at most once per install (onboarding-state.ts).
+  const [onboardingOpen, setOnboardingOpen] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -42,6 +64,26 @@ export default function App() {
     };
   }, []);
 
+  useEffect(() => {
+    // Notifications Phase 0: register (or refresh) this device's row on
+    // every cold start — WITHOUT ever asking for notification permission
+    // here (spec §7: never fire the OS dialog cold on first launch; that ask
+    // is Phase 2's pre-permission onboarding screen, gated on a value
+    // moment). Failures here are non-fatal to the app — logged, never
+    // surfaced as a blocking error.
+    registerDevice().catch((e) => {
+      console.warn('device registration failed', e instanceof Error ? e.message : e);
+    });
+    // Notifications Phase 2 (spec §8): "Mute this type" + "Settings" on
+    // every notification. Registering the action set is independent of
+    // permission state (Expo lets you define categories before permission
+    // is granted) and idempotent, so it's safe alongside the cold-start
+    // device registration above.
+    registerNotificationActions().catch((e) => {
+      console.warn('notification action registration failed', e instanceof Error ? e.message : e);
+    });
+  }, []);
+
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -50,7 +92,24 @@ export default function App() {
             padding a second time. */}
         <SafeAreaView style={styles.fill}>
           <StatusBar style="light" />
-          {error ? (
+          {notificationSettingsOpen ? (
+            <NotificationSettingsScreen
+              onClose={() => setNotificationSettingsOpen(false)}
+              onOpenInbox={() => setInboxOpen(true)}
+            />
+          ) : inboxOpen ? (
+            <NotificationInboxScreen onClose={() => setInboxOpen(false)} />
+          ) : onboardingOpen ? (
+            <OnboardingScreen
+              onDone={(outcome) => {
+                setOnboardingOpen(false);
+                markOnboardingOffered().catch(() => {
+                  /* best-effort — a re-offer on the next bell tap is harmless */
+                });
+                if (outcome.kind === 'customize') setNotificationSettingsOpen(true);
+              }}
+            />
+          ) : error ? (
             <View style={[styles.fill, styles.center]}>
               <Text style={styles.errTitle}>Couldn’t load the Vault</Text>
               <Text style={styles.errBody}>{error}</Text>
@@ -61,7 +120,25 @@ export default function App() {
               <Text style={styles.loading}>Loading the Vault…</Text>
             </View>
           ) : (
-            <VaultNavigator skeleton={skeleton} />
+            <>
+              <VaultNavigator skeleton={skeleton} />
+              <Pressable
+                onPress={() => {
+                  hasOnboardingBeenOffered()
+                    .then((offered) => {
+                      if (offered) setNotificationSettingsOpen(true);
+                      else setOnboardingOpen(true);
+                    })
+                    .catch(() => setNotificationSettingsOpen(true));
+                }}
+                accessibilityLabel="Notification settings"
+                accessibilityRole="button"
+                style={styles.bellButton}
+                hitSlop={10}
+              >
+                <Text style={styles.bellIcon}>🔔</Text>
+              </Pressable>
+            </>
           )}
         </SafeAreaView>
       </SafeAreaProvider>
@@ -75,4 +152,16 @@ const styles = StyleSheet.create({
   loading: { color: '#aaa', marginTop: 10 },
   errTitle: { color: '#fff', fontSize: 18, fontWeight: '700', marginBottom: 8 },
   errBody: { color: '#f88', textAlign: 'center' },
+  bellButton: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(11,11,15,0.85)',
+    borderRadius: 22,
+    height: 44,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 12,
+    top: 12,
+    width: 44,
+  },
+  bellIcon: { fontSize: 20 },
 });

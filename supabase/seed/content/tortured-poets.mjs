@@ -2474,6 +2474,9 @@ export default {
             item: 'Strappy Houndstooth Tweed A-Line Dress',
             retailer: 'nordstrom.com',
             url: 'https://www.nordstrom.com/s/strappy-houndstooth-tweed-a-line-dress/8377396',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://n.nordstrommedia.com/it/bfde4241-4a38-404d-9559-d2ce70df4ab3.jpeg?w=780&h=1170&crop=pad',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$3,500.00',
@@ -2490,6 +2493,9 @@ export default {
             item: 'Miss Jane Sandal',
             retailer: 'nordstrom.com',
             url: 'https://www.nordstrom.com/s/christian-louboutin-miss-jane-sandal-women/7544624',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://n.nordstrommedia.com/it/b8ab11ff-1819-4758-b627-9bbe348271dc.jpeg?w=780&h=1170&crop=pad&trim=color',
             matchTier: 'unscored',
             kind: 'shoes',
             price: '$945.00',
@@ -2586,6 +2592,9 @@ export default {
             item: 'Poppy Vest in Sand Plaid',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/simkhai-poppy-vest-in-sand-plaid/dp/JSKI-WO47/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://is4.revolveassets.com/images/p4/n/d/JSKI-WO47_V1.jpg',
             matchTier: 'unscored',
             kind: 'outerwear',
             price: '$222.00',
@@ -2597,6 +2606,9 @@ export default {
             item: 'Payton Wrap Mini Skirt in Sand Plaid',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/simkhai-payton-wrap-mini-skirt-in-sand-plaid/dp/JSKI-WQ100/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://is4.revolveassets.com/images/p4/n/d/JSKI-WQ100_V1.jpg',
             matchTier: 'unscored',
             kind: 'bottom',
             price: '$241.00',
@@ -2608,6 +2620,10 @@ export default {
             item: 'Ottavia Leather Platform Loafer Pumps',
             retailer: 'neimanmarcus.com',
             url: 'https://www.neimanmarcus.com/p/gucci-ottavia-leather-platform-loafer-pumps-prod274440624',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer photo via
+            // Lyst listing (neimanmarcus.com blocks non-browser fetches),
+            // curl-verified 200 image/jpeg.
+            imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/runwaycatalog/0b933c02/1278x2048/gucci--Ottavia-Horsebit-Loafer-145mm-Platform-Slingback-Pumps.jpeg',
             matchTier: 'unscored',
             kind: 'shoes',
             price: '$1,560.00',
@@ -4830,6 +4846,9 @@ export default {
             item: 'Harness Tapestry Dress — Alien Multi Print',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/MONSE-Harness-Tapestry-Dress-Alien/dp/B0FB9MHTDS',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer PDP image
+            // (m.media-amazon.com), curl-verified 200 image/jpeg.
+            imageUrl: 'https://m.media-amazon.com/images/I/31eFYA7mwUL.jpg',
             matchTier: 'unscored',
             kind: 'dress',
             inStock: false,
@@ -5963,6 +5982,10 @@ export default {
             item: '14K Yellow Gold Vintage Old Mine Cut Diamond Ring',
             retailer: 'mpopeandco.com',
             url: 'https://mpopeandco.com/products/14k-yellow-gold-vintage-old-mine-cut-diamond-ring',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): mpopeandco.com does not
+            // resolve; same real ring (M. Pope & Co estate jewelry) sourced from
+            // the jeweler's own shop platform, curl-verified 200 image/jpeg.
+            imageUrl: 'https://cdn.shoplightspeed.com/shops/641941/files/75979408/14k-yellow-gold-vintage-old-mine-cut-diamond-ring.jpg',
             matchTier: 'unscored',
             kind: 'jewelry',
             price: '$3,250.00',
@@ -6098,6 +6121,9 @@ export default {
             // Ralph Lauren's own page sits behind a PerimeterX wall, so the
             // verified Revolve page is the link.
             url: 'https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://is4.revolveassets.com/images/p4/n/d/PLOR-WD21_V1.jpg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$398',

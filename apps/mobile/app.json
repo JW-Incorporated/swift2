@@ -42,7 +42,8 @@
             "minSdkVersion": 24
           }
         }
-      ]
+      ],
+      "expo-notifications"
     ],
     "extra": {
       "eas": {

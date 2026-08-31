@@ -2908,6 +2908,11 @@ export default {
             item: 'Louise PM Earrings',
             retailer: 'louisvuitton.com',
             url: 'https://us.louisvuitton.com/eng-us/products/louise-pm-earrings-s00-nvprod2950037v/M00396',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer photo via
+            // Poshmark listing of the same authenticated LV product
+            // (louisvuitton.com itself blocks non-browser fetches), curl-verified
+            // 200 image/jpeg.
+            imageUrl: 'https://di2ponv0v5otw.cloudfront.net/posts/2023/03/16/6412e007e6b37b6c6c5dd435/m_6412e007e6b37b6c6c5dd436.jpg',
             matchTier: 'unscored',
             kind: 'jewelry',
             price: '$590.00',
@@ -3197,6 +3202,9 @@ export default {
             item: 'Heavy Cotton T-Shirt (G500) — Orange',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Gildan-Cotton-T-Shirt-Orange-Medium/dp/B00I84H5AS',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer PDP image
+            // (m.media-amazon.com hiRes), curl-verified 200 image/jpeg.
+            imageUrl: 'https://m.media-amazon.com/images/I/71IeXjOJzHL._AC_UL1500_.jpg',
             matchTier: 'unscored',
             kind: 'top',
             price: '$7.02',
@@ -5266,6 +5274,9 @@ export default {
             item: 'Viola Dress',
             retailer: 'moniquelhuillier.com',
             url: 'https://moniquelhuillier.com/products/viola-bridal-dress',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://moniquelhuillier.com/cdn/shop/files/ViolaDress-SILKWHITE_00248.png?height=630&pad_color=fff&v=1745622059&width=1200',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$4,990.00',
@@ -5387,6 +5398,10 @@ export default {
             item: 'Crystal Embroidered Neckline and Strap Mini Dress',
             retailer: 'davidkoma.com',
             url: 'https://davidkoma.com/collections/dresses/products/crystal-embroidered-neckline-and-strap-mini-dress-black-silver',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer photo via
+            // Lyst listing (davidkoma.com own PDP is JS-rendered), curl-verified
+            // 200 image/jpeg.
+            imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/forwardforward/70f8b4ea/967x1450/david-koma-Black-Silver-Crystal-Embroidered-Strap-Mini-Dress.jpeg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$1,200.00',
@@ -5587,6 +5602,9 @@ export default {
             item: 'Teo Cashmere Short Sleeve Sweater',
             retailer: 'thereformation.com',
             url: 'https://www.thereformation.com/products/teo-cashmere-short-sleeve-sweater/1313290.html',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer PDP image
+            // (media.thereformation.com), curl-verified 200 image/jpeg.
+            imageUrl: 'https://media.thereformation.com/image/upload/f_auto,q_auto,dpr_1.0/w_800,c_scale//PRD-SFCC/1313290/CHARCOAL/1313290.1.CHARCOAL?_s=RAABAB0',
             matchTier: 'unscored',
             kind: 'knitwear',
             price: '$64.00',
@@ -5685,6 +5703,10 @@ export default {
             item: 'Check Oversized Zip Up Wool Bomber Jacket',
             retailer: 'bergdorfgoodman.com',
             url: 'https://www.bergdorfgoodman.com/p/miu-miu-check-oversized-zip-up-wool-bomber-jacket-prod189900058',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer PDP image
+            // from miumiu.com (this exact checked blouson style), curl-verified
+            // 200 image/jpeg.
+            imageUrl: 'https://www.miumiu.com/content/dam/miumiubkg_products/M/ML1/ML1398/181NF0XX7/ML1398_181N_F0XX7_S_OOO_SLF.jpg',
             matchTier: 'unscored',
             kind: 'outerwear',
             price: '$4,600.00',
@@ -6285,6 +6307,9 @@ export default {
             item: 'Xena Crystal Fringe Bodysuit',
             retailer: 'manifestie.com',
             url: 'https://www.manifestie.com/products/xena-crystal-fringe-bodysuit-rhinestone-tassel-festival-outfit',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://www.manifestie.com/cdn/shop/products/il_fullxfull.4875464952_pc5o.jpg?v=1761351917',
             matchTier: 'unscored',
             kind: 'top',
             price: '$190.00',
@@ -9947,6 +9972,9 @@ export default {
             item: 'Feather-Trim Sequin-Embellished Mini Dress',
             retailer: 'brannacouture.com',
             url: 'https://brannacouture.com/products/feather-trim-sequin-embellished-mini-dress-in-orange',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://brannacouture.com/cdn/shop/files/Feather-Trim_Sequin-Embellished_Mini_Dress_in_Orange.webp?v=1773723519',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$262.00',
@@ -11485,6 +11513,10 @@ export default {
             item: 'Mini Isabelle Dress',
             retailer: 'delphinenyc.com',
             url: 'https://www.delphinenyc.com/products/mini-isabelle-dress-lilac-multi',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP og:image,
+            // curl-verified 200 image/jpeg (233113 bytes).
+            imageUrl:
+              'https://www.delphinenyc.com/cdn/shop/files/MINI_ISABELLE_DRESS_LILAC_048_copia_copy.jpg?v=1773154614&width=1920',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$995.00',
@@ -11496,6 +11528,11 @@ export default {
             item: 'Love Struck Sandal 85',
             retailer: 'aquazzura.com',
             url: 'https://www.aquazzura.com/us_en/love-struck-sandal-85-light-copper-lskmids0-npl-lco',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP og:image
+            // (media.aquazzura.com CDN, not the site logo), curl-verified
+            // 200 image/jpeg (184586 bytes).
+            imageUrl:
+              'https://media.aquazzura.com/media/catalog/product/L/S/LSKMIDS0-NPL-LCO_01.jpg?auto=compress',
             matchTier: 'unscored',
             kind: 'shoes',
             price: '$1,710.00',
@@ -11507,6 +11544,11 @@ export default {
             item: 'Loubi54 Ombré Crystal Embellished Clutch',
             retailer: 'nordstrom.com',
             url: 'https://www.nordstrom.com/s/loubi54-ombr-crystal-embellished-clutch/7693914',
+            // Photo pass (t_fa7bfb57, 2026-08-31): Nordstrom blocks generic
+            // fetchers, but a Googlebot UA reaches the real PDP og:image
+            // (n.nordstrommedia.com CDN), curl-verified 200 image/jpeg
+            // (674677 bytes).
+            imageUrl: 'https://n.nordstrommedia.com/it/0a7308e2-0986-4009-986e-da12d69b5b49.jpeg',
             matchTier: 'unscored',
             kind: 'bag',
             // No price shown on the sold-out PDP — omitted rather than guessed.

@@ -3,5 +3,11 @@
   "installCommand": "cd ../.. && npm ci",
   "github": {
     "silent": true
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/notifications/dispatch",
+      "schedule": "*/15 * * * *"
+    }
+  ]
 }

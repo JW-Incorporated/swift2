@@ -432,6 +432,9 @@ export default {
             item: 'Retro Matte Lipstick in Ruby Woo',
             retailer: 'maccosmetics.com',
             url: 'https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://www.maccosmetics.com/cdn/shop/files/mac_sku_M0N904_1x1_0.png?format=webp&v=1788129931&width=2000',
             matchTier: 'unscored',
             kind: 'beauty',
             price: '$23.00',
@@ -531,6 +534,9 @@ export default {
             // to Showpo's canonical `/us/products/` URL (still the live PDP);
             // stored the canonical target directly so we don't lean on the redirect.
             url: 'https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0904/3371/6589/files/1-Siofra_Beaded_Fringe_Mini_Dress_in_Hot_Pink_40.jpg?v=1744807739',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$22.00',
@@ -573,6 +579,9 @@ export default {
             item: 'Rhinestone Cat Ears Headband (3-Pack)',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/Rhinestone-Headbands-Decoration-Headdress-Accessories/dp/B075STRZCY',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://m.media-amazon.com/images/I/71HwkMTqMTL._SL1500_.jpg',
             matchTier: 'unscored',
             kind: 'accessory',
             price: '$9.99',

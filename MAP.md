@@ -295,6 +295,29 @@ or exclude only the hand-checked issue examples. General axis scoring and the
 - `data/communities-report.md` — landscape narrative, top 10, niches, and what is deliberately absent.
 - `sources.md` — every directory/thread/article mined, plus the platform blockers, so this is re-runnable.
 
+## Notifications Phase 0 (2026-08-31, NOTIFICATIONS_PLAN.md) — new files
+
+Device registry only — foundation for the full notification system.
+`NOTIFICATIONS_SPEC.md`/`NOTIFICATIONS_PLAN.md`/`NOTIFICATIONS_PROMPTS.md`
+at the repo root are the durable spec/plan; `SETUP_NOTIFICATIONS.md` is the
+founder-facing checklist for the Firebase/APNs pieces no agent can do.
+
+| Path | What |
+|---|---|
+| `supabase/migrations/20260909000000_notifications_devices.sql` | The `devices` table (spec §9). RLS on, no `anon`/`authenticated` policies — `service_role` only |
+| `packages/shared/src/notifications-types.ts` | Portable category catalogue (spec §4, minus Fun categories — Phase 4), `DeviceRegistrationInput` |
+| `packages/core/src/devices.ts` | `upsertDevice()` — the one write path, service-role only, called from the register route |
+| `apps/web/app/api/devices/register/route.ts` (+ `.test.ts`) | `POST /api/devices/register` — upsert-by-`device_id`, same call for first registration and token refresh |
+| `apps/mobile/lib/device-id.ts` | Anonymous `device_id` generation + SecureStore persistence (spec §2) |
+| `apps/mobile/lib/notification-channels.ts` | Android notification channels, 1:1 with spec §4 categories (Android-only, no-ops on iOS) |
+| `apps/mobile/lib/push-registration.ts` | `registerDevice()` (cold-start safe, no permission prompt) vs `requestPushRegistration()` (asks permission — Phase 2's onboarding screen calls this, not App.tsx) |
+| `scripts/send-test-push.ts` | Manual FCM HTTP v1 send to one device_id. Fails closed with a named-missing-env-var message until Firebase setup lands (`SETUP_NOTIFICATIONS.md`) |
+
+`apps/mobile/App.tsx` calls `registerDevice()` on every cold start — this
+alone satisfies Phase 0's "fresh install registers a devices row"
+acceptance criterion without ever firing the OS permission dialog (spec §7:
+that's gated behind Phase 2's pre-permission onboarding screen).
+
 ## Community + Merch (2026-08-14, PR pending)
 
 - `apps/web/lib/longlive/communities.ts` — types + `COMMUNITIES` + grouping helpers. Re-exports the three data files below.
@@ -314,3 +337,25 @@ or exclude only the hand-checked issue examples. General axis scoring and the
 - `apps/web/components/longlive/SubmitLinkForm.tsx` — shared by both sections. Honeypot is off-screen, NOT `display:none`.
 - `scripts/apps-script/submissions-doPost.gs` — Apps Script for the sheet. Joey deploys it; shared-secret gated.
 - `docs/ops/community-merch-submissions.md` — Joey-facing setup: Apps Script, Resend domain, `vercel env add`.
+
+## Notifications Phase 4 (2026-08-31, NOTIFICATIONS_PLAN.md) — new files
+
+Fun notifications: `lyric_of_day`, `on_this_day`, and the `countdowns`
+event-driven category. Builds on Phases 0-3's devices/prefs/events/digest
+infrastructure — no new send path, reuses `sendPushBatch` and the same
+`/api/notifications/dispatch` cron entry point.
+
+| Path | What |
+|---|---|
+| `supabase/migrations/20260913000000_notifications_fun.sql` | `lyrics`, `lyric_history`, `on_this_day`, `countdown_sends` tables + `events.drop_at` column. `service_role`-only RLS, same posture as every other notifications table |
+| `supabase/seed/lyrics/starter-pool.mjs` | **DRAFT** 224-entry lyric pool, `verified: false` until founder review — see STATE.md |
+| `supabase/seed/on-this-day/starter-pool.mjs` | 37 entries derived from the real `MILESTONES` timeline (`content.ts`) — not new content |
+| `scripts/seed-lyrics.mjs` / `scripts/seed-on-this-day.mjs` (`npm run db:seed:lyrics` / `db:seed:on-this-day`) | Wholesale-replace seeders, same pattern as `seed-tracks.mjs` |
+| `packages/core/src/notification-fun-schedule.ts` | DST-safe Daily/Weekly/Monthly send-day + period-boundary math for fun cadences, mirrors `notification-digest-schedule.ts` |
+| `packages/core/src/notification-fun.ts` | Pure selection (`selectLyricForDevice` 12-month no-repeat, `selectOnThisDayEntry` silent-skip, `scheduleCountdowns` T-7d/T-1d/release-hour) + DB orchestration (`dispatchFunNotifications`, `scheduleCountdownsForPendingEvents`, `dispatchDueCountdowns`) |
+| `packages/shared/src/notifications-types.ts` | Added `EVENT_NOTIFICATION_CATEGORIES` (`countdowns`), `EVENT_CADENCES` (`on`/`off`) — `cadenceVariantFor` now returns `'steady' \| 'fun' \| 'event'` |
+| `packages/shared/src/notification-deep-links.ts` | Added `{ screen: 'track'; slug }` destination — `lyric_of_day` deep-links via `?song=<slug>` |
+| `apps/mobile/components/CadencePills.tsx` | Added the `'event'` variant (On/Off pills) alongside `'steady'`/`'fun'` |
+| `apps/web/app/api/notifications/dispatch/route.ts` | Now also runs `dispatchFunNotifications`, `scheduleCountdownsForPendingEvents`, `dispatchDueCountdowns` every tick |
+
+
