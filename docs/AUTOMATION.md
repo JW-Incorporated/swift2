@@ -235,7 +235,7 @@ bug. Fleet invariants (what must always be true of every routine) are in
 | Content Shift | daily 17:00 | Opus 4.8 | [`agents/content-shift.md`](agents/content-shift.md) | [`content-shift-run.md`](agents/runner-prompts/content-shift-run.md) |
 | Answerer | daily 13:50 | Opus 4.8 | *none* | [`answerer.md`](agents/runner-prompts/answerer.md) |
 | Photo Enrichment worker | daily 06:21 | Sonnet 5 | *none* | [`photo-enrichment-worker.md`](agents/runner-prompts/photo-enrichment-worker.md) |
-| Rumor Desk | every 2 days 14:47 | Opus 4.8 | *none* | [`rumor-desk.md`](agents/runner-prompts/rumor-desk.md) |
+| Rumor Desk | 14:47 on **odd days of the month** (`47 14 */2 * *`) | Opus 4.8 | *none* | [`rumor-desk.md`](agents/runner-prompts/rumor-desk.md) |
 | Cross-Link builder | Mon+Thu 09:51 | Sonnet 5 | *none* | [`cross-link-builder.md`](agents/runner-prompts/cross-link-builder.md) |
 | Stylist | Sun 16:33 | Sonnet 5 | *none* | [`stylist.md`](agents/runner-prompts/stylist.md) |
 | News Triage | daily 15:40 | Opus 4.8 | *none* | [`news-triage.md`](agents/runner-prompts/news-triage.md) |
@@ -244,7 +244,8 @@ bug. Fleet invariants (what must always be true of every routine) are in
 ⚠️ **The six standalone lanes above (Content Shift, Answerer, Photo
 Enrichment, Rumor Desk, Cross-Link, Stylist) run *in addition to* the Vault Run
 that was built to replace them.** Phase 4 of the consolidation never landed, so
-Rumor Desk content lands every day from two alternating schedulers rather than
+Rumor Desk content lands every day from two schedulers (standalone on odd days
+of the month, Vault lane on even) rather than
 on its designed every-other-day cadence. See [REC-2](#rec-2).
 
 ### Quality and integrity desks
@@ -469,14 +470,19 @@ either false-alarms or fails silently.
 `vault-run-plan.md` documents this honestly, and the consequence is concrete
 and still live: **Rumor Desk content now lands every day, from two independent
 schedulers.** Neither runs twice in a day — the standalone cron is
-`47 14 */2 * *` (odd days of month) and the orchestrator's lane 4 is due on
-even days, so they *alternate* into continuous daily coverage of *the highest
-privacy-liability lane in the system*, which auto-merges with no human read.
-Confirmed on `main` this week: standalone `content(rumor-desk):` commits on
-08-25, 08-29 and 08-31, and `lane(rumor-desk)` commits inside `vault:` PRs on
-even days. **Nobody designed a daily cadence for this lane.** It is an
-artifact of Phase 4 not landing, and it doubles the lane's throughput against
-a cadence that was deliberately set to every-other-day.
+`47 14 */2 * *`, which is a **day-of-month** expression (odd days: 1, 3, 5 …
+31), and the orchestrator's lane 4 is due on even days, so between them the
+lane is covered every day of the month instead of every other day as designed.
+The month boundary is worse, not better: a 31-day month ends on an odd day and
+the next month starts on one, so the standalone routine runs **two days
+running** across 31 → 1 (e.g. Aug 31 → Sep 1) while the Vault lane covers the
+even days on either side. This is the highest privacy-liability lane in the
+system, and it auto-merges with no human read. Confirmed on `main` this week:
+standalone `content(rumor-desk):` commits on 08-25, 08-29 and 08-31, and
+`lane(rumor-desk)` commits inside `vault:` PRs on even days. **Nobody designed
+a daily cadence for this lane.** It is an artifact of Phase 4 not landing, and
+it roughly doubles the lane's throughput against a cadence that was
+deliberately set to every-other-day.
 
 Everything Phase 4 was blocked on in August has since cleared: Phase 3.5 is on
 `main` (the stuck-red-PR check and the `check_lane` liveness helper are both
@@ -497,7 +503,8 @@ PUT silently destroys the prompt and returns 200.
 removes the cross-lane conflict bug class the consolidation was designed to
 delete, and saves **~3.9 cold-boot Claude sessions/day** on average — three
 daily lanes (Content Shift, Answerer, Photo Enrichment) plus Rumor Desk at
-0.5/day, Cross-Link at 2/week, and Stylist at 1/week. Every step is reversible
+~0.52/day (odd days of month), Cross-Link at 2/week, and Stylist at 1/week.
+Every step is reversible
 (disable, don't delete — re-enabling is a two-minute operation), so this is an
 agent call to execute, not a decision to route. Worth **telling** Joey that
 Rumor Desk has been publishing daily rather than every other day, because it
