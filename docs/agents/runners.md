@@ -5,6 +5,32 @@
 > file does not cover. This file remains the authoritative **cadence and
 > trigger-ID registry** for the Claude desk routines.
 
+## Which account owns the routines
+
+**Joey's.** Recorded here because two docs disagree and anyone provisioning,
+auditing, disabling, or kill-switching a routine needs one answer:
+
+- [`../../CLAUDE.md`](../../CLAUDE.md) § Operating habits says *"Scheduled
+  runners live on Wyatt's account so Joey's weekly limit stays free"*, and
+  § Parallel fleets repeats it.
+- But `CLAUDE.md` § The team — the authoritative statement of who does what —
+  says Wyatt *"no longer takes actions or makes decisions on this project"* and
+  that **"where older docs say 'ask Wyatt' or 'Wyatt decides,' that means Joey
+  now."** Those two runner lines are exactly that kind of older reference.
+- This file's own live audit agrees: the fleet consolidated to **Joey's
+  account ~2026-08-23**, re-verified against the routines API on
+  **2026-08-27** ("All 24 triggers verified live … Nothing remains on the
+  other founder's account"), with the per-trigger IDs in the table below.
+
+So operate routines on Joey's account using the trigger IDs below. All of
+those operations are reversible, so per `CLAUDE.md` § Decision authority they
+are agent calls — act, don't wait for a founder.
+
+**Recommended cleanup:** a one-line edit to those two `CLAUDE.md` sentences
+pointing here, so the stale phrasing stops resurfacing. Not done as part of
+the 2026-08-31 automation audit — `CLAUDE.md` is a protected
+agent-instruction file and that card's scope was a docs audit.
+
 **Requirement (Joey, final form 2026-07-12): ALL scheduled agent spend runs
 on Wyatt's account** — Joey is near his weekly limit; his side spends zero
 scheduled tokens. The founder split of labor: **Joey = vision, monitoring,
