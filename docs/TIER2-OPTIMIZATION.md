@@ -189,7 +189,14 @@ the end.
   ships. Haiku is too thin for the redline/location-rule judgment (a
   misclassification here reaches authored content in one hop, as its own
   prompt warns), but Opus is over-tiered for it.
-- **Recommendation (T-3) — move News Triage to Sonnet 5.** One trigger-model
+- **Recommendation (T-3) — move News Triage to Sonnet 5.** **Status
+  2026-08-31: prep landed (PR #3608) — the recall-check trial design
+  (`docs/agents/runner-prompts/news-triage-recall-check.md`) and the
+  deterministic digest-archive step (`news-worker.yml`) are in place.
+  Applying the trigger's model field itself is pending account access — see
+  `docs/agents/runners.md` § News Triage for the exact config and the
+  standing account-access mechanic every not-yet-applied trigger change in
+  this repo shares.** One trigger-model
   change (full `job_config` round-trip per the RemoteTrigger footgun). Saves
   one Opus session/day. The risk is **asymmetric and lands on false
   negatives**: a wrongly-*filed* story is caught downstream (Content Shift
