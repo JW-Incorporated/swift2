@@ -77,9 +77,10 @@ For every surface he walks, Nils asks, in order:
 
 ## Cadence
 
-**Twice weekly, Monday + Friday, 6:00 AM PT** (`0 14 * * 1,5` UTC — Joey,
-D4=B, 2026-08-31 — `docs/decisions.md` § D3=A…D6=A; `docs/TIER2-OPTIMIZATION.md`
-§ T-7). Originally chartered daily (2026-07-11); cut to weekly (Sunday) in
+**Twice weekly, Monday + Friday, `0 14 * * 1,5` UTC** (7:00 AM PDT / 6:00 AM
+PST, DST-dependent — Joey, D4=B, 2026-08-31 — `docs/decisions.md` §
+D3=A…D6=A; `docs/TIER2-OPTIMIZATION.md` § T-7). Originally chartered daily
+(2026-07-11); cut to weekly (Sunday) in
 the 2026-07-25 sustainment pass; the 2026-08-31 Fable Tier-2 analysis
 flagged weekly as leaving auto-merged content unreviewed for up to 7 days
 and put a cadence dial to Joey — weekly (status quo) vs. twice-weekly
