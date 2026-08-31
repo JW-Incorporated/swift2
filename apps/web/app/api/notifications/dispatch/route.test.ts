@@ -41,7 +41,7 @@ describe('GET /api/notifications/dispatch', () => {
     expect(res.status).toBe(503);
   });
 
-  it('runs dispatchPendingEvents and returns its result on success', async () => {
+  it('runs the router + digest + clown report passes and returns their results on success', async () => {
     vi.stubEnv('CRON_SECRET', 'real-secret');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://x.supabase.co');
     vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-key');
@@ -51,6 +51,8 @@ describe('GET /api/notifications/dispatch', () => {
     }));
     vi.doMock('@swift2/core/notifications-server', () => ({
       dispatchPendingEvents: vi.fn().mockResolvedValue({ sent: 3, held: 1, errors: [] }),
+      dispatchDueDigests: vi.fn().mockResolvedValue({ digestsSent: 2, errors: [] }),
+      dispatchClownReports: vi.fn().mockResolvedValue({ clownReportsSent: 1, errors: [] }),
     }));
     vi.resetModules();
 
@@ -62,7 +64,11 @@ describe('GET /api/notifications/dispatch', () => {
     );
     expect(res.status).toBe(200);
     const json = await res.json();
-    expect(json).toEqual({ sent: 3, held: 1, errors: [] });
+    expect(json).toEqual({
+      router: { sent: 3, held: 1, errors: [] },
+      digests: { digestsSent: 2, errors: [] },
+      clownReports: { clownReportsSent: 1, errors: [] },
+    });
     vi.doUnmock('@supabase/supabase-js');
   });
 });

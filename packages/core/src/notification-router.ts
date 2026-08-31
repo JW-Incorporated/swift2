@@ -1,13 +1,13 @@
-// Notifications Phase 2 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §10) —
-// the router: fans a pending `events` row out to every device whose prefs
-// say "instant" for that category, running each candidate device through
-// the governor (notification-governor.ts) and logging a `deliveries` row
-// for every send.
+// Notifications Phase 2/3 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §10)
+// — the router: fans a pending `events` row out to every device whose
+// prefs say "instant" for that category (governed, sent immediately) or
+// "daily"/"weekly" (enqueued into `digest_queue`, Phase 3), running each
+// instant candidate through the governor (notification-governor.ts) and
+// logging a `deliveries` row for every send.
 //
 // Server-only, service-role posture (same as every other notifications
 // module). Called by the dispatch API route (POST /api/notifications/dispatch)
-// on a schedule (Phase 2: instant only; Phase 3 adds daily/weekly enqueue —
-// out of this phase's scope per NOTIFICATIONS_PLAN.md).
+// on a schedule.
 import type { SupabaseClient } from '@supabase/supabase-js';
 import {
   evaluateGovernor,
@@ -15,6 +15,7 @@ import {
   type GovernorDeviceSettings,
 } from './notification-governor';
 import { sendPushBatch, type PushSendResult } from './notification-sender';
+import { enqueueForDigest } from './notification-digest';
 
 export interface RouterEventRow {
   id: string;
@@ -41,6 +42,10 @@ export interface RouterDispatchResult {
   skippedCoalesced: number;
   skippedDailyCap: number;
   sendFailures: number;
+  /** Phase 3: daily/weekly-pref devices fanned into `digest_queue` instead
+   * of sent, PLUS any instant-tier cap-overflow rollovers (spec §6 gate 4:
+   * "overflow rolls into the next digest"). */
+  enqueuedToDigest: number;
   errors: string[];
 }
 
@@ -81,6 +86,7 @@ export async function dispatchPendingEvents(
     skippedCoalesced: 0,
     skippedDailyCap: 0,
     sendFailures: 0,
+    enqueuedToDigest: 0,
     errors: [],
   };
 
@@ -119,27 +125,60 @@ async function dispatchOneEvent(
   now: Date,
   result: RouterDispatchResult,
 ): Promise<void> {
-  // Instant fan-out only in Phase 2 — devices whose pref for this category is
-  // 'daily'/'weekly' are Phase 3's digest_queue scope, not this router.
+  // Phase 3: fan out to BOTH instant-tier devices (governed, sent below)
+  // AND daily/weekly devices (enqueued into digest_queue — NOTIFICATIONS_
+  // PLAN.md Phase 3: "router update so daily/weekly prefs enqueue instead
+  // of send"). One prefs query covers all three cadences so a device that
+  // changes cadence between dispatch passes is picked up correctly either
+  // way, without a second round-trip.
   const { data: prefRows, error: prefsError } = await db
     .from('notification_prefs')
-    .select('device_id')
+    .select('device_id,cadence')
     .eq('category', event.category)
-    .eq('cadence', 'instant');
+    .in('cadence', ['instant', 'daily', 'weekly']);
   if (prefsError) throw new Error(`prefs lookup: ${prefsError.message}`);
 
-  const deviceIds = (prefRows ?? []).map((r) => r.device_id as string);
-  if (deviceIds.length === 0) return;
+  const prefRowsArr = (prefRows ?? []) as { device_id: string; cadence: string }[];
+  const instantDeviceIds = prefRowsArr.filter((r) => r.cadence === 'instant').map((r) => r.device_id);
+  const digestDeviceIds = prefRowsArr.filter((r) => r.cadence !== 'instant');
+  const allDeviceIds = [...new Set(prefRowsArr.map((r) => r.device_id))];
+  if (allDeviceIds.length === 0) return;
 
   const { data: devices, error: devicesError } = await db
     .from('devices')
-    .select('id,push_token,master_enabled,snooze_until,daily_cap,quiet_start,quiet_end,tz')
-    .in('id', deviceIds);
+    .select('id,push_token,master_enabled,snooze_until,daily_cap,quiet_start,quiet_end,tz,digest_hour')
+    .in('id', allDeviceIds);
   if (devicesError) throw new Error(`device lookup: ${devicesError.message}`);
 
+  const devicesById = new Map(((devices ?? []) as (DeviceRow & { digest_hour: number })[]).map((d) => [d.id, d]));
+
+  // --- Daily/weekly devices: enqueue, never send from this path. ---
+  for (const { device_id, cadence } of digestDeviceIds) {
+    const device = devicesById.get(device_id);
+    if (!device) continue;
+    result.candidateDevices++;
+    try {
+      await enqueueForDigest(db, {
+        deviceId: device_id,
+        eventId: event.id,
+        category: event.category,
+        cadence: cadence as 'daily' | 'weekly',
+        tz: device.tz,
+        digestHour: device.digest_hour,
+        now,
+      });
+      result.enqueuedToDigest++;
+    } catch (err) {
+      result.errors.push(`digest enqueue failed for device ${device_id}: ${(err as Error).message}`);
+    }
+  }
+
+  // --- Instant-tier devices: governed send, same as Phase 2. ---
   const toSend: { device: DeviceRow }[] = [];
 
-  for (const device of (devices ?? []) as DeviceRow[]) {
+  for (const deviceId of instantDeviceIds) {
+    const device = devicesById.get(deviceId);
+    if (!device) continue;
     result.candidateDevices++;
     if (!device.push_token) continue; // never granted permission / no token yet
 
@@ -176,7 +215,32 @@ async function dispatchOneEvent(
         if (decision.reason === 'master_off') result.skippedMasterOff++;
         else if (decision.reason === 'snoozed') result.skippedSnoozed++;
         else if (decision.reason === 'coalesced') result.skippedCoalesced++;
-        else if (decision.reason === 'daily_cap') result.skippedDailyCap++;
+        else if (decision.reason === 'daily_cap') {
+          result.skippedDailyCap++;
+          // spec §6 gate 4: "Overflow rolls into the next digest" — an
+          // instant-tier device that's hit its daily cap doesn't just lose
+          // this event, it gets it in its next digest instead (daily
+          // cadence: even a device with NO daily/weekly prefs at all still
+          // gets an overflow digest, since the spec's rollover promise
+          // applies regardless of the device's own chosen cadence for this
+          // category).
+          try {
+            await enqueueForDigest(db, {
+              deviceId: device.id,
+              eventId: event.id,
+              category: event.category,
+              cadence: 'daily',
+              tz: device.tz,
+              digestHour: device.digest_hour,
+              now,
+            });
+            result.enqueuedToDigest++;
+          } catch (err) {
+            result.errors.push(
+              `cap-overflow digest enqueue failed for device ${device.id}: ${(err as Error).message}`,
+            );
+          }
+        }
         break;
     }
   }

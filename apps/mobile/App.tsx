@@ -31,6 +31,7 @@ import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
 import { VaultNavigator } from './components/VaultNavigator';
 import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
+import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 
 export default function App() {
@@ -43,6 +44,9 @@ export default function App() {
   // than a route — same reachability guarantee (≤1 tap from anywhere), no
   // new dependency.
   const [notificationSettingsOpen, setNotificationSettingsOpen] = useState(false);
+  // Notifications Phase 3 (spec §8): the global in-app inbox, reachable
+  // from the settings screen's "Inbox" link (see onOpenInbox below).
+  const [inboxOpen, setInboxOpen] = useState(false);
   // Notifications Phase 2 (spec §7): the pre-permission onboarding screen,
   // shown at the VALUE MOMENT of the user first tapping the bell — that tap
   // already signals "I care about notifications", and it's the same
@@ -89,7 +93,12 @@ export default function App() {
         <SafeAreaView style={styles.fill}>
           <StatusBar style="light" />
           {notificationSettingsOpen ? (
-            <NotificationSettingsScreen onClose={() => setNotificationSettingsOpen(false)} />
+            <NotificationSettingsScreen
+              onClose={() => setNotificationSettingsOpen(false)}
+              onOpenInbox={() => setInboxOpen(true)}
+            />
+          ) : inboxOpen ? (
+            <NotificationInboxScreen onClose={() => setInboxOpen(false)} />
           ) : onboardingOpen ? (
             <OnboardingScreen
               onDone={(outcome) => {

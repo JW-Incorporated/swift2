@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { dispatchPendingEvents } from '@swift2/core/notifications-server';
+import {
+  dispatchPendingEvents,
+  dispatchDueDigests,
+  dispatchClownReports,
+} from '@swift2/core/notifications-server';
 
 // Notifications Phase 2 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §10) —
 // the router's HTTP entry point. Runs `dispatchPendingEvents()` (fan-out +
@@ -72,7 +76,16 @@ export async function GET(req: Request): Promise<Response> {
 
   try {
     const result = await dispatchPendingEvents(db);
-    return NextResponse.json(result, { status: 200 });
+    const digestResult = await dispatchDueDigests(db);
+    const clownResult = await dispatchClownReports(db);
+    return NextResponse.json(
+      {
+        router: result,
+        digests: digestResult,
+        clownReports: clownResult,
+      },
+      { status: 200 },
+    );
   } catch (err) {
     console.error('notifications/dispatch: unexpected error', (err as Error).message);
     return NextResponse.json({ error: 'Dispatch failed unexpectedly.' }, { status: 500 });

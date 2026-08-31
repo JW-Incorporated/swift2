@@ -190,8 +190,10 @@ export function startOfLocalDay(tz: string, now: Date): Date {
 
 /** Minutes to ADD to local time to get UTC, at the given instant (handles
  * DST by evaluating the offset at that specific instant, not a fixed
- * constant). E.g. for America/Los_Angeles in winter this is +480 (UTC-8). */
-function tzOffsetMinutes(tz: string, at: Date): number {
+ * constant). E.g. for America/Los_Angeles in winter this is +480 (UTC-8).
+ * Exported for notification-digest.ts's scheduling math (Phase 3) — same
+ * DST-safe technique, applied at an arbitrary hour instead of midnight. */
+export function tzOffsetMinutes(tz: string, at: Date): number {
   const dtf = new Intl.DateTimeFormat('en-US', {
     timeZone: tz,
     year: 'numeric',

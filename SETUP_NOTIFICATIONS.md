@@ -178,8 +178,28 @@ the 5-minute window has nearly elapsed).
 
 - Play Store service-account access — needed for store submission, not for
   push delivery; tracked separately from this notifications work.
-- Digests (Phase 3), fun notifications (Phase 4), the remaining categories
-  + governor polish (Phase 5), web push + analytics (Phase 6) — all read
+- Digests (Phase 3) shipped — see the section below for what it added.
+- Fun notifications (Phase 4), the remaining categories + governor polish
+  (Phase 5), web push + analytics (Phase 6) — all read
   `NOTIFICATIONS_PLAN.md` for scope and pick up automatically once their
   own phase starts; none of them need anything beyond what's already
   documented here.
+
+## Phase 3 addendum (digest engine)
+
+Everything below rides on the same env vars items 1-7 already describe —
+nothing new to configure. Two things worth knowing:
+
+- The Weekly Clown Report's theory curation
+  (`packages/core/src/notification-clownbot-source.ts`) is a clearly-
+  flagged STUB, not the real Clownbot-curated ranking the plan describes —
+  no such pipeline exists in this repo yet. It queries real
+  `live_theory` rows (heat-ordered), so a weekly report never shows
+  fabricated content, but the ranking itself is a placeholder rule pending
+  a real Clownbot scoring pass. Swap `getTopTheories()`'s body when that
+  pipeline exists.
+- `digest_queue` rows are cleared only on a successful send — a failed
+  FCM send (e.g. before real credentials are set) leaves the queue intact
+  so nothing is silently lost; the next dispatch tick retries the same
+  merged group.
+
