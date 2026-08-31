@@ -20,6 +20,15 @@
 // per-routine cadence-sum numbers instead — the two systems compose to
 // cover both halves of the fleet (Actions workflows here, Claude Code
 // routines there); neither claims to see the other's half.
+//
+// WHY PER-WORKFLOW TOTAL_COUNT, NOT ONE PAGED LIST: this repo already
+// exceeds 1,000 matching runs in a 30-day window (CodeQL + CI alone), and
+// GitHub's actions/runs list endpoint silently caps pagination at 1,000
+// items even with `--paginate` — one repo-wide query would systematically
+// undercount. `total_count` on a filtered per-workflow query is accurate
+// regardless of that pagination cap, and this repo has ~40 workflows, so
+// ~40 cheap `per_page=1` calls (reading only `.total_count`) is the correct
+// shape, not one huge paged fetch.
 import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -36,41 +45,70 @@ export function isoDaysAgo(now, days) {
 }
 
 /**
- * Buckets a list of workflow runs by workflow name, counting only runs
- * created on/after `sinceIso` (a full ISO timestamp — compared as strings,
- * which works because ISO-8601 timestamps sort lexicographically). Exported
- * and pure so the counting logic is unit-testable without a network call.
+ * Turns a list of `{ name, totalCount }` per-workflow results into the
+ * `{ name: count }` map `buildReport` expects, dropping zero-run workflows
+ * (a workflow with no runs this window just doesn't get a row — see
+ * `buildReport`'s union-with-previous logic for how a workflow that HAD
+ * runs last time but none now is still shown, with a 0). Exported and pure
+ * for tests.
  */
-export function bucketRunsByWorkflow(runs, sinceIso) {
+export function buildRunCounts(workflowTotals) {
   const counts = {};
-  for (const run of runs) {
-    if (!run.created_at || run.created_at < sinceIso) continue;
-    const name = run.name || run.path || 'unknown';
-    counts[name] = (counts[name] || 0) + 1;
+  for (const { name, totalCount } of workflowTotals) {
+    if (totalCount > 0) counts[name] = totalCount;
   }
   return counts;
 }
 
-async function fetchWorkflowRuns(sinceIso) {
-  // Repo-scoped, paginated — the same list/get-only shape the Routine
-  // Auditor is held to (docs/agents/routine-invariants.md). `created` filters
-  // server-side so we don't page through the whole run history every month.
+async function fetchWorkflows() {
   const { stdout } = await gh([
     'api',
-    `repos/${REPO}/actions/runs`,
+    `repos/${REPO}/actions/workflows`,
     '--paginate',
+    '-X',
+    'GET',
+    '-f',
+    'per_page=100',
+    '--jq',
+    '.workflows[] | {id, name}',
+  ]);
+  const text = stdout.trim();
+  if (!text) return [];
+  return text.split('\n').filter(Boolean).map((line) => JSON.parse(line));
+}
+
+/**
+ * Total runs for one workflow since `sinceIso`, via `total_count` on a
+ * `per_page=1` request — see the module header for why this avoids the
+ * 1,000-run pagination cap that a single repo-wide list would hit.
+ */
+async function fetchWorkflowRunTotal(workflowId, sinceIso) {
+  const { stdout } = await gh([
+    'api',
+    `repos/${REPO}/actions/workflows/${workflowId}/runs`,
     '-X',
     'GET',
     '-f',
     `created=>=${sinceIso}`,
     '-f',
-    'per_page=100',
+    'per_page=1',
     '--jq',
-    '.workflow_runs[] | {name, created_at}',
+    '.total_count',
   ]);
-  const text = stdout.trim();
-  if (!text) return [];
-  return text.split('\n').filter(Boolean).map((line) => JSON.parse(line));
+  return parseInt(stdout.trim(), 10) || 0;
+}
+
+async function fetchRunCounts(sinceIso) {
+  const workflows = await fetchWorkflows();
+  const totals = [];
+  // Sequential, not Promise.all: this repo-scoped session shares one rate
+  // limit across ~40 calls; sequential keeps a single clear failure point
+  // (which workflow) instead of a burst that could trip secondary limits.
+  for (const wf of workflows) {
+    const totalCount = await fetchWorkflowRunTotal(wf.id, sinceIso);
+    totals.push({ name: wf.name, totalCount });
+  }
+  return buildRunCounts(totals);
 }
 
 async function fetchOpenPrCount() {
@@ -78,26 +116,45 @@ async function fetchOpenPrCount() {
   return JSON.parse(stdout).length;
 }
 
-/** Builds the markdown report. Exported and pure for tests. */
+/**
+ * Signed delta string, or an em-dash when there's nothing to compare
+ * against (no previous snapshot, or the workflow is new this window).
+ */
+function delta(current, previous) {
+  if (previous === undefined) return '—';
+  const d = current - previous;
+  return `${d >= 0 ? '+' : ''}${d}`;
+}
+
+/**
+ * Builds the markdown report. Exported and pure for tests.
+ *
+ * Rows are the UNION of this window's and the previous snapshot's workflow
+ * names — a workflow that had runs last time but zero this time (disabled,
+ * removed, renamed) still gets a row showing 0 and a negative delta, which
+ * is exactly the fleet-retirement signal this report exists to surface.
+ * Dropping it silently would hide the change instead of reporting it.
+ */
 export function buildReport({ month, sinceIso, runCounts, openPrCount, previous }) {
   const totalRuns = Object.values(runCounts).reduce((a, b) => a + b, 0);
-  const rows = Object.entries(runCounts)
-    .sort((a, b) => b[1] - a[1])
-    .map(([name, count]) => {
-      const prevCount = previous?.runCounts?.[name];
-      const delta = prevCount === undefined ? '—' : `${count - prevCount >= 0 ? '+' : ''}${count - prevCount}`;
-      return `| ${name} | ${count} | ${delta} |`;
-    });
+  const previousCounts = previous?.runCounts ?? {};
+  const allNames = new Set([...Object.keys(runCounts), ...Object.keys(previousCounts)]);
+  const rows = [...allNames]
+    .map((name) => ({ name, count: runCounts[name] ?? 0, prevCount: previousCounts[name] }))
+    .sort((a, b) => b.count - a.count)
+    .map(({ name, count, prevCount }) => `| ${name} | ${count} | ${delta(count, prevCount)} |`);
 
-  const prDelta =
-    previous?.openPrCount === undefined ? '—' : `${openPrCount - previous.openPrCount >= 0 ? '+' : ''}${openPrCount - previous.openPrCount}`;
+  const prDelta = delta(openPrCount, previous?.openPrCount);
 
   const lines = [
     `# Fleet telemetry snapshot — ${month}`,
     '',
     `Generated by \`scripts/fleet-telemetry-snapshot.mjs\` (report-only, zero-LLM,` +
       ` \`.github/workflows/fleet-telemetry-snapshot.yml\`). Window: workflow runs` +
-      ` created on/after ${sinceIso} (last ${LOOKBACK_DAYS} days). This is the` +
+      ` created on/after ${sinceIso} (last ${LOOKBACK_DAYS} days). Per-workflow` +
+      ' counts come from `total_count` on a filtered per-workflow query, not one' +
+      ' paginated repo-wide list, because this repo already exceeds the 1,000-run' +
+      ' pagination cap that a single query would silently hit. This is the' +
       ' Actions-workflow half of T-17 (`docs/TIER2-OPTIMIZATION.md`); the Claude' +
       ' Code routine-fleet half (enabled-trigger count + cadence sum) is reported' +
       ' weekly by the Routine Auditor per `docs/agents/routine-invariants.md` §' +
@@ -134,8 +191,7 @@ async function main() {
   const jsonFile = `${month}.json`;
   const mdFile = `${month}.md`;
 
-  const [runs, openPrCount] = await Promise.all([fetchWorkflowRuns(sinceIso), fetchOpenPrCount()]);
-  const runCounts = bucketRunsByWorkflow(runs, sinceIso);
+  const [runCounts, openPrCount] = await Promise.all([fetchRunCounts(sinceIso), fetchOpenPrCount()]);
   const previous = await findPreviousSnapshot(jsonFile);
 
   const report = buildReport({ month, sinceIso, runCounts, openPrCount, previous });

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isoDaysAgo, bucketRunsByWorkflow, buildReport } from './fleet-telemetry-snapshot.mjs';
+import { isoDaysAgo, buildRunCounts, buildReport } from './fleet-telemetry-snapshot.mjs';
 
 describe('isoDaysAgo', () => {
   it('returns a full ISO timestamp N days before the given date, preserving time-of-day', () => {
@@ -15,40 +15,22 @@ describe('isoDaysAgo', () => {
   });
 });
 
-describe('bucketRunsByWorkflow', () => {
-  const since = '2026-08-01T08:17:00.000Z';
-
-  it('counts runs on/after the cutoff instant, grouped by workflow name', () => {
-    const runs = [
-      { name: 'ci', created_at: '2026-08-05T00:00:00.000Z' },
-      { name: 'ci', created_at: '2026-08-10T00:00:00.000Z' },
-      { name: 'watchdog', created_at: '2026-08-02T00:00:00.000Z' },
-    ];
-    expect(bucketRunsByWorkflow(runs, since)).toEqual({ ci: 2, watchdog: 1 });
-  });
-
-  it('excludes runs strictly before the cutoff instant, including same-day-earlier-time', () => {
-    const runs = [
-      { name: 'ci', created_at: '2026-08-01T00:00:00.000Z' }, // same day, before the 08:17 cutoff
-      { name: 'ci', created_at: '2026-08-01T08:17:00.000Z' }, // exactly at the cutoff — included
-      { name: 'ci', created_at: '2026-08-01T09:00:00.000Z' },
-    ];
-    expect(bucketRunsByWorkflow(runs, since)).toEqual({ ci: 2 });
-  });
-
-  it('falls back to path when name is missing, and unknown when both are missing', () => {
-    const runs = [
-      { path: '.github/workflows/foo.yml', created_at: '2026-08-05T00:00:00.000Z' },
-      { created_at: '2026-08-05T00:00:00.000Z' },
-    ];
-    expect(bucketRunsByWorkflow(runs, since)).toEqual({
-      '.github/workflows/foo.yml': 1,
-      unknown: 1,
+describe('buildRunCounts', () => {
+  it('maps workflow totals to a name->count object', () => {
+    expect(buildRunCounts([{ name: 'ci', totalCount: 5 }, { name: 'watchdog', totalCount: 12 }])).toEqual({
+      ci: 5,
+      watchdog: 12,
     });
   });
 
-  it('returns an empty object for an empty run list', () => {
-    expect(bucketRunsByWorkflow([], since)).toEqual({});
+  it('drops workflows with zero runs this window', () => {
+    expect(buildRunCounts([{ name: 'ci', totalCount: 5 }, { name: 'idle-workflow', totalCount: 0 }])).toEqual({
+      ci: 5,
+    });
+  });
+
+  it('returns an empty object for an empty input', () => {
+    expect(buildRunCounts([])).toEqual({});
   });
 });
 
@@ -96,5 +78,16 @@ describe('buildReport', () => {
       previous: { runCounts: { ci: 5 }, openPrCount: 1 },
     });
     expect(report).toContain('| new-workflow | 2 | — |');
+  });
+
+  it('still shows a workflow that had runs last time but zero this time, with a negative delta', () => {
+    const report = buildReport({
+      month: '2026-09',
+      sinceIso: '2026-08-01T08:17:00.000Z',
+      runCounts: { ci: 8 },
+      openPrCount: 1,
+      previous: { runCounts: { ci: 5, 'retired-workflow': 20 }, openPrCount: 1 },
+    });
+    expect(report).toContain('| retired-workflow | 0 | -20 |');
   });
 });
