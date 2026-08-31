@@ -43,7 +43,7 @@ describe('getDevicePrefs', () => {
 
     const result = await getDevicePrefs(db, DEVICE_ID);
     expect(result).not.toBeNull();
-    expect(result?.prefs).toHaveLength(13); // 10 steady + 3 fun categories
+    expect(result?.prefs).toHaveLength(14); // 10 steady + 3 fun + 1 event-driven categ…
     const songDrop = result?.prefs.find((p) => p.category === 'song_drop');
     expect(songDrop?.cadence).toBe('instant'); // spec §4 default
     const fanMerch = result?.prefs.find((p) => p.category === 'fan_merch');

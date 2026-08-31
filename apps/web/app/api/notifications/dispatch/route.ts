@@ -4,6 +4,9 @@ import {
   dispatchPendingEvents,
   dispatchDueDigests,
   dispatchClownReports,
+  dispatchFunNotifications,
+  scheduleCountdownsForPendingEvents,
+  dispatchDueCountdowns,
 } from '@swift2/core/notifications-server';
 
 // Notifications Phase 2 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §10) —
@@ -78,11 +81,17 @@ export async function GET(req: Request): Promise<Response> {
     const result = await dispatchPendingEvents(db);
     const digestResult = await dispatchDueDigests(db);
     const clownResult = await dispatchClownReports(db);
+    const funResult = await dispatchFunNotifications(db);
+    const countdownScheduleResult = await scheduleCountdownsForPendingEvents(db);
+    const countdownDispatchResult = await dispatchDueCountdowns(db);
     return NextResponse.json(
       {
         router: result,
         digests: digestResult,
         clownReports: clownResult,
+        fun: funResult,
+        countdownSchedule: countdownScheduleResult,
+        countdownDispatch: countdownDispatchResult,
       },
       { status: 200 },
     );

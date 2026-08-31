@@ -8,3 +8,4 @@ export * from './notification-router';
 export * from './notification-sender';
 export * from './notification-digest';
 export * from './notification-clownbot-source';
+export * from './notification-fun';

@@ -136,7 +136,11 @@ export function NotificationSettingsScreen({
               <Text style={styles.inboxLink}>Inbox</Text>
             </Pressable>
           )}
-          <Pressable onPress={onClose} accessibilityLabel="Close notification settings" hitSlop={12}>
+          <Pressable
+            onPress={onClose}
+            accessibilityLabel="Close notification settings"
+            hitSlop={12}
+          >
             <Text style={styles.close}>Done</Text>
           </Pressable>
         </View>

@@ -10,6 +10,7 @@ export type DeepLinkDestination =
   | { screen: 'current-feed'; filter?: string }
   | { screen: 'settings'; focusCategory?: AnyNotificationCategory }
   | { screen: 'inbox' }
+  | { screen: 'track'; slug: string }
   | { screen: 'web'; url: string };
 
 /**
@@ -30,6 +31,11 @@ export function resolveDeepLink(
       if (url.hostname === 'www.longlivets.com' || url.hostname === 'longlivets.com') {
         const currentId = url.searchParams.get('current');
         if (currentId) return { screen: 'current-feed', filter: currentId };
+        // Phase 4: lyric_of_day deep-links to the song's track-guide page
+        // (spec §4: "deep-links to song page") via the same `?song=` param
+        // MAP.md documents the reader reading once on mount.
+        const songSlug = url.searchParams.get('song');
+        if (songSlug) return { screen: 'track', slug: songSlug };
         if (url.hash === '#merch-new-drops') return { screen: 'current-feed', filter: 'merch' };
         return { screen: 'web', url: rawUrl };
       }

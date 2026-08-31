@@ -7,8 +7,10 @@
 // variants now").
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import {
+  EVENT_CADENCES,
   FUN_CADENCES,
   STEADY_CADENCES,
+  type EventCadence,
   type FunCadence,
   type NotificationCadence,
   type SteadyCadence,
@@ -24,7 +26,7 @@ const LABELS: Record<NotificationCadence, string> = {
 };
 
 interface CadencePillsProps {
-  variant: 'steady' | 'fun';
+  variant: 'steady' | 'fun' | 'event';
   value: NotificationCadence;
   onChange: (value: NotificationCadence) => void;
   /** Disables all pills while a write is in flight — the row still shows
@@ -34,7 +36,7 @@ interface CadencePillsProps {
 
 export function CadencePills({ variant, value, onChange, disabled }: CadencePillsProps) {
   const options: readonly NotificationCadence[] =
-    variant === 'steady' ? STEADY_CADENCES : FUN_CADENCES;
+    variant === 'steady' ? STEADY_CADENCES : variant === 'fun' ? FUN_CADENCES : EVENT_CADENCES;
 
   return (
     <View style={styles.row} accessibilityRole="radiogroup">
@@ -60,7 +62,7 @@ export function CadencePills({ variant, value, onChange, disabled }: CadencePill
   );
 }
 
-export type { FunCadence, SteadyCadence };
+export type { EventCadence, FunCadence, SteadyCadence };
 
 const styles = StyleSheet.create({
   row: {

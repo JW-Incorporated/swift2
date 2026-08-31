@@ -77,7 +77,7 @@ describe('registerNotificationActions', () => {
     const Notifications = await import('expo-notifications');
     await registerNotificationActions();
     expect(Notifications.setNotificationCategoryAsync).toHaveBeenCalled();
-    // 10 steady + 3 fun categories = 13 (ALL_NOTIFICATION_CATEGORIES).
-    expect(vi.mocked(Notifications.setNotificationCategoryAsync).mock.calls.length).toBe(13);
+    // 10 steady + 3 fun + 1 event-driven categories = 14 (ALL_NOTIFICATION_CATEGORIES).
+    expect(vi.mocked(Notifications.setNotificationCategoryAsync).mock.calls).toHaveLength(14);
   });
 });
