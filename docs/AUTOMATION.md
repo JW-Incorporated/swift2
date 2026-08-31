@@ -207,14 +207,22 @@ spends money or calls a model is a separate **manually confirmed** workflow.
 | [`db-seed.yml`](../.github/workflows/db-seed.yml) | dispatch only, `target` chosen from a fixed allowlist | **yes** — operator-triggered seeds |
 | [`db-connectivity-check.yml`](../.github/workflows/db-connectivity-check.yml) | dispatch + PR touching itself | no — `SELECT 1` |
 
-### Security and standing reminders (4)
+### Security and standing reminders (2)
 
 | Workflow | Trigger | Docs |
 |---|---|---|
 | [`dependabot-alerts-snapshot.yml`](../.github/workflows/dependabot-alerts-snapshot.yml) | Mon 21:00 (one hour before Paul Blart's patrol) | header — exists because the routine's own token 403s on the alerts API |
 | [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | header — Facebook has no API for non-administered groups, so this stays a human task |
-| [`.github/dependabot.yml`](../.github/dependabot.yml) → **npm** *(config, not a workflow)* | weekly Mon 05:00 America/Los_Angeles | [`agents/paul-blart.md`](agents/paul-blart.md) — grouped dev + production patch/minor bumps, max 5 open PRs; security updates ride their own immediate lane, deliberately un-batched |
-| [`.github/dependabot.yml`](../.github/dependabot.yml) → **github-actions** *(config, not a workflow)* | weekly Mon (no explicit time — GitHub picks) | [`agents/paul-blart.md`](agents/paul-blart.md) — one grouped PR for all Action version bumps, keeping the CI/security workflows current |
+
+### Dependabot update schedules (2) — config, not workflows
+
+Counted separately from the 37 workflows above: these are `updates:` entries in
+one config file, scheduled by GitHub itself rather than by a workflow.
+
+| Schedule | Cadence | Docs |
+|---|---|---|
+| [`.github/dependabot.yml`](../.github/dependabot.yml) → **npm** | weekly Mon 05:00 America/Los_Angeles | [`agents/paul-blart.md`](agents/paul-blart.md) — grouped dev + production patch/minor bumps, max 5 open PRs; security updates ride their own immediate lane, deliberately un-batched |
+| [`.github/dependabot.yml`](../.github/dependabot.yml) → **github-actions** | weekly Mon (no explicit time — GitHub picks) | [`agents/paul-blart.md`](agents/paul-blart.md) — one grouped PR for all Action version bumps, keeping the CI/security workflows current |
 
 ---
 
