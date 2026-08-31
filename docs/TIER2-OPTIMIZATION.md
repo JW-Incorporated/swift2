@@ -560,8 +560,11 @@ the end.
 When this analysis began, the live fleet ran on **Joey's** account while the
 stated spend policy (`CLAUDE.md`, `runners.md`) said **Wyatt's** — a drift
 from the #2258 incident, not a decision (REC-7.5). Joey resolved it the same
-day: **D1=B, amend the docs to match reality** (PR #3598, merged to `main`
-2026-08-31). `runners.md` now states plainly that ALL scheduled agent spend
+day: **D1=B, amend the docs to match reality** — the gap was flagged by the
+2026-08-31 audit (PR #3593); the decision record and the doc amendments
+landed in PR #3598 ("docs: correct automation account-ownership policy to
+Joey (D1=B)", merged to `main` 2026-08-31; see `decisions.md` § 2026-08-31
+D1=B). `runners.md` now states plainly that ALL scheduled agent spend
 runs on Joey's account and is not to be migrated. No founder gate remains;
 kept here for the record because every token recommendation in this file
 counts against that (now-canonical) account limit.
