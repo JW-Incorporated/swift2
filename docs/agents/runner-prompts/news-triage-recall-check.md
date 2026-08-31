@@ -41,7 +41,10 @@ every 4-hourly ingest cycle and would otherwise be gone by the time you run.
    `gh api repos/JW-Incorporated/swift2/contents/<path>?ref=news-digest --jq .content | base64 -d`
 3. Read what Sonnet actually filed that day: search closed+open `intake`
    issues created within a few hours after each day's `40 15 * * *` run
-   (`gh issue list --label intake --search "created:<date>"`), plus any
+   (`gh issue list --label intake --state all --limit 500 --search
+   "created:<date>"` — `--state all` is required; the default is open-only
+   and Content Shift may have already closed a correctly-filed intake issue
+   by audit time, which would otherwise read as a false negative), plus any
    `needs-sources` holds and any run-log comment on the standing Nils walk
    log issue (News Triage's prompt requires it to comment there on every run,
    including zero-filed runs — read those comments for that day's window,
