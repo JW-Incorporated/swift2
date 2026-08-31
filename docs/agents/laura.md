@@ -90,16 +90,15 @@ closed with every one of the five found by a probe or a named axe rule.
 
 ## Cadence & account
 
-**Twice weekly, Tuesday + Friday, `20 18 * * 2,5` UTC** (Joey, standing agent
-authority — T-8, `docs/TIER2-OPTIMIZATION.md` § B3, `docs/decisions.md`).
-Originally chartered daily, `0 15 * * *` UTC (~08:00 AM PT); cut to 2×/week
-alongside the widened-slice redesign above so the whole-site-per-week
-coverage guarantee is preserved despite fewer runs — the change is one PR
-covering both edits per T-18 process discipline (never cadence alone).
-Model **Sonnet 5**, per the live trigger and the model tiering table in
-`runners.md` (this file previously said "Model Fable" — stale; the live
-trigger has run Sonnet 5). Account **Joey** (policy corrected 2026-08-31,
-D1=B). Tools:
+Daily, **~08:00 AM PT** (`0 15 * * *` UTC), right after Nils's 7 AM walk so the
+two critiques land together. **Cadence pending a follow-up PR (T-8,
+`docs/TIER2-OPTIMIZATION.md` § B3): cutting to twice weekly (Tue+Fri) once
+this widened-slice redesign has landed** — per T-18 process discipline, the
+cadence flip and the live trigger/registry update land together in that
+next PR, never cadence alone. Model **Sonnet 5**, per the live trigger and
+the model tiering table in `runners.md` (this file previously said "Model
+Fable" — stale; the live trigger has run Sonnet 5). Account **Joey** (policy
+corrected 2026-08-31, D1=B). Tools:
 Bash/Read/Write/Edit/Glob/Grep + WebSearch/WebFetch (fetch live pages; run the
 engines via `npx`; check current WCAG guidance).
 
