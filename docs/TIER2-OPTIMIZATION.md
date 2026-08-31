@@ -279,15 +279,24 @@ the end.
   key on). A daily Sonnet session re-reading a mostly-unchanged artifact set
   is script-and-summarize work at judgment cadence.
 - **Recommendation (T-8) — cut Laura to twice weekly (Tue+Fri), keeping
-  `a11y.yml` daily.** Saves ~5 Sonnet sessions/week (~71% of the lane's
-  spend); detection latency for *new automated findings* is unchanged (the
-  Action is the detector); judgment latency worst-case grows from 1 to ~4
-  days on a legal-exposure surface that changes slowly. Add one line to
-  `watchdog.yml`'s existing pattern only if her lane ever goes dark (the
-  charter's audit section already covers this via the brief). Reversible;
-  agent call. Risk if wrong: a code merge introducing a subtle a11y
-  regression waits up to 4 days for a *spec* (not for detection) — acceptable
-  against WCAG deadlines measured in months.
+  `a11y.yml` daily — WITH a matching slice redesign, not a cadence flip
+  alone.** Her walk is a rotating slice sized so that *daily* runs cover the
+  whole site weekly (marquee surfaces every run); halving the run count
+  without re-slicing would silently break that whole-site-per-week guarantee
+  and leave non-marquee pages unreviewed for weeks. So the change is two
+  edits in one PR: (a) cadence to `2×/wk`, (b) each run's slice widened
+  ~3.5× (the walk is engine-driven — axe/pa11y over more pages is minutes of
+  runtime, not a proportional token increase, since the judgment pass reads
+  violation lists, not pages). Marquee-every-run is preserved. What genuinely
+  lengthens: the window for *new automated regressions on non-marquee pages*
+  (the daily Action covers only its configured pages, not the whole site) and
+  for manual-residual flagging — worst case moves from ~1 to ~4 days.
+  Net saving is the ~5 Sonnet cold-boot sessions/week; per the fleet's own
+  evidence, session count is the cost driver, so fewer-but-wider runs keep
+  most of the saving. Reversible; agent call. Risk if wrong: a code merge
+  introducing a subtle a11y regression on a non-marquee page waits up to 4
+  days for a *spec* (not for marquee detection) — acceptable against WCAG
+  deadlines measured in months.
 
 #### B4. Paul Blart — security patrol (Mon 22:20, Opus 4.8)
 
@@ -594,7 +603,7 @@ in-repo).
 | T-5 | Trim Karen weekly to judgment-only; rename | ▼ slight (shorter sessions) | neutral (Action owns detection daily) | Trivial-moderate | none | none |
 | T-6 | Karen Deep: founder yes/no on the costed spec | **▲ ≈$66–114/mo NEW** if yes | **▲▲** only fabrication-depth review of the merged corpus ("stories are real" is the vision) | Trivial to decide; creation mechanical | spend without measured yield — mitigated by the documented re-baseline after week 1 | **spend** |
 | T-7 | Nils: fix charter; founder picks weekly / 2×wk / daily dial (rec: 2×wk) | ▲ ~1 Opus sm/wk at rec setting | ▲ halves worst-case unreviewed-content window | Trivial | slightly more spend | **product_direction** (quality dial) |
-| T-8 | Laura daily → 2×/week (Action stays daily) | **▼ ~5 Sonnet s/wk** | ≈neutral (detection unchanged; spec latency +≤3d) | Trivial | slower a11y *spec* turnaround | none |
+| T-8 | Laura daily → 2×/week with widened slices (Action stays daily) | **▼ ~5 Sonnet s/wk** | ≈neutral (whole-site-weekly preserved via re-slicing; non-marquee detection window +≤3d) | Trivial-moderate (cadence + slice redesign together) | slower a11y detection/spec turnaround on non-marquee pages | none |
 | T-9 | Routine Auditor: +2 checklist items (unregistered triggers; passed retirement conditions) | neutral (same Haiku session) | ▲ closes the drift class behind past incidents | Trivial | none | none |
 | T-10 | Kevin S1+S2+S3 → one daily session | **▼ ~1 sd** + 1 Opus→Sonnet/wk | neutral (streams disjoint; per-stream isolation) | Moderate | one stream's failure noise obscuring another — mitigated by Vault-style isolation | none |
 | T-11 | Austin: 2-week Fable → Opus trial, judged by existing metrics | **▼ ~30 Fable→Opus sm** if it sticks | neutral if metrics hold (Codex gate unchanged) | Trivial | findings-per-PR degrades → revert | none (reversible trial) |
