@@ -17,18 +17,24 @@ Steps:
    this format, note **"no prior snapshot — trend judgment skipped this
    run"** and proceed without one; do not guess at a baseline.
 
-1. Fetch the metrics payload:
-   `curl -s "https://www.longlivets.com/api/notifications/metrics?secret=$NOTIFICATIONS_DASHBOARD_SECRET"`
-   (the canonical production host — see `docs/deploy.md`). `NOTIFICATIONS_DASHBOARD_SECRET`
-   must be set in this trigger's Claude Code environment (`runners.md` §
-   "Notification-quality desk — trigger config to create" names the exact
-   provisioning step — do this BEFORE the trigger's first scheduled run, not
-   as a reaction to a failure) — never print its value. If the route 503s
-   with "isn't wired up" or 401s, that is a REAL failure — say so loudly in
-   the log issue and stop; do not fabricate a metrics snapshot. A 401
-   specifically means the environment secret is missing or stale — name
-   that as the likely cause in the log so a human fixes provisioning
-   instead of re-running.
+1. Fetch the metrics payload with the HTTP status captured (never bare
+   `curl -s`, which swallows non-2xx and transport failures silently):
+   `curl -s -w '\n%{http_code}' "https://www.longlivets.com/api/notifications/metrics?secret=$NOTIFICATIONS_DASHBOARD_SECRET"`
+   (the canonical production host — see `docs/deploy.md`; the last line of
+   output is the status code, everything before it is the body).
+   `NOTIFICATIONS_DASHBOARD_SECRET` must be set in this trigger's Claude
+   Code environment (`runners.md` § "Notification-quality desk — trigger
+   config to create" names the exact provisioning step — do this BEFORE the
+   trigger's first scheduled run, not as a reaction to a failure) — never
+   print its value. **Stop on any non-2xx status or a `curl` transport
+   failure (non-zero exit) — do not proceed to parsing.** Every one of
+   these is a REAL failure, say so loudly in the log issue and do not
+   fabricate or partially analyze a metrics snapshot: 503 = route not wired
+   up; 401 = the environment secret is missing or stale (name this as the
+   likely cause); 500 = an unexpected server error (`{error: "Failed to
+   load metrics."}` body — a genuine backend failure, not data to analyze);
+   any other non-2xx or no response at all = a transport/network problem,
+   name it and stop.
 
 2. Read the payload against `packages/core/src/notification-metrics.ts`'s
    `NotificationMetrics` shape (read the file if you need the exact field
