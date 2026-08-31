@@ -20,9 +20,10 @@
  * field on `Product`. `MerchStyleSection` puts our real, WORKING filters in
  * that row's visual position instead — never a disabled or decorative control.
  *
- * `officialStore` / `fanMade` are genuinely empty (`merch.ts`) — both render
- * an honest `MerchEmptyPanel`, never a fabricated product; their rail counts
- * are the real 0.
+ * `officialStore` / `fanMade` are populated from checked-in, evidence-backed
+ * seed catalogues (`merch.ts` — `OFFICIAL`/`FAN_MADE`); both render real
+ * counts and real cards, falling back to `MerchEmptyPanel` only if a bucket
+ * is ever empty.
  *
  * Sticky-offset call: `MerchSectionRail` is the only sticky element on this
  * page. Nothing below it (EraSpine, the filter row, the tally line, all
