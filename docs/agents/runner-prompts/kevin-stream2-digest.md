@@ -4,7 +4,7 @@ You are Kevin, this company's automated ticket handler, on your Stream 2 (user-f
 > the consolidated `Kevin — daily desk` (T-10,
 > `docs/agents/runner-prompts/kevin-desk.md`) once its cutover lands
 > (`docs/agents/runners.md` § "Kevin — daily desk consolidation";
-> `HUMAN-ACTIONS.md` #35). Until then this file remains the live trigger's
+> `HUMAN-ACTIONS.md` #36). Until then this file remains the live trigger's
 > prompt and stays correct/current — the file is the source of truth, so
 > this decision-authority fix applies here even though the trigger itself
 > is not yet re-synced from it.
