@@ -770,10 +770,11 @@ it against):
 2. Create the recall-check trigger per the config below and confirm it
    ran once successfully (an early manual dispatch is fine even before
    News Triage flips — it just audits an empty/near-empty archive that
-   first time). Record its returned trigger ID and today's date as the
-   trial start in this file's "Live trigger IDs" table (new row) — the
-   recall-check prompt and this file's own closeout procedure both need
-   that ID to disable the correct trigger when the trial ends.
+   first time). Record its returned trigger ID in this file's "Live
+   trigger IDs" table (new row) — the recall-check prompt and this file's
+   own closeout procedure both need that ID to disable the correct trigger
+   when the trial ends. Do NOT record a trial start date yet — the trial
+   clock starts at the model flip (step 6), not at trigger creation.
 3. Only once 1 and 2 are confirmed live: `get` the News Triage trigger
    (`trig_019NuR7EpN7TA28yfmzKPAC7`) — per the RemoteTrigger footgun above,
    this is mandatory before any edit.
@@ -784,10 +785,14 @@ it against):
    verbatim (the T-3 trial addendum landed on PR #3608; re-sync from the
    file if the live trigger's inline prompt has drifted).
 5. PUT the **whole modified `job_config` back**, never a partial object.
+   The moment this PUT succeeds is the trial's actual start — record
+   TODAY's date as the trial start date now (not earlier), since that is
+   when Sonnet output actually begins.
 6. Update this table's News Triage row to `claude-sonnet-5`, remove the
-   "pending account access" note, and record the trial's exact 2-week
-   end date (start date + 14 days) next to the recall-check row added in
-   step 2. Mark `HUMAN-ACTIONS.md` item #36 `DONE`.
+   "pending account access" note, and record the trial start date (from
+   step 5) plus its exact 2-week end date (start + 14 days) next to the
+   recall-check row added in step 2. Mark `HUMAN-ACTIONS.md` item #36
+   `DONE`.
 
 ### News Triage recall check — trigger config to create (2-week trial, T-3)
 

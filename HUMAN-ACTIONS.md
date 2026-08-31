@@ -49,12 +49,13 @@ so no trial run goes unaudited):
 1. Merge `docs/content-ops/news-triage-trial-active` (empty file) to
    `main` first — turns on the digest-archive step.
 2. Create the "News Triage recall check — T-3 trial" trigger per the exact
-   config in `runners.md`; record its trigger ID + trial start date in
-   `runners.md`'s live-trigger table.
+   config in `runners.md`; record its trigger ID (not a start date yet —
+   the clock starts at step 3) in `runners.md`'s live-trigger table.
 3. Only then flip News Triage's trigger
    (`trig_019NuR7EpN7TA28yfmzKPAC7`) from `claude-opus-4-8` to
    `claude-sonnet-5` — `get`, edit only the model field, PUT the whole
-   `job_config` back (never a partial PUT).
+   `job_config` back (never a partial PUT). This PUT succeeding is the
+   trial's actual start — record that date in `runners.md`.
 4. Update `runners.md`'s live-trigger table + this item to `DONE` once
    confirmed working (a real run, not just "created").
 
