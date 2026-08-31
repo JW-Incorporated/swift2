@@ -48,19 +48,36 @@ export interface MerchItem extends Product {
   discoveredAt?: string;
   /**
    * True when this item has no product photo of its own (`imageUrl` unset)
-   * AND an earlier product from the SAME source moment already claimed that
-   * moment's real photo as its card image. Without this flag, 2+ different
-   * products matched to one moment (e.g. dress/shoes/clutch all "seen on"
-   * the same photo of Taylor) would each independently render that
+   * AND an earlier product — from the SAME source moment (fix/merch-image-
+   * buy-link, PR #3569) or, as of kanban task t_cfd48d66, a DIFFERENT
+   * moment that cites the identical underlying photo URL — already claimed
+   * that photo as its card image. Without this flag, 2+ different products
+   * matched to one moment (e.g. dress/shoes/clutch all "seen on" the same
+   * photo of Taylor), or two unrelated moments whose content happens to
+   * cite the same wire photo, would each independently render that
    * identical photo — reading as duplicate cards of the same item (founder
-   * feedback, kanban task t_49a63ae1). The E6 matcher output carries no
-   * per-item "as-worn" photo today (`scripts/merch-engine/match-moments.mjs`
-   * has no such field), so there is no real alternate photo to substitute —
-   * `merchItemImage()` (merch-filters.ts) falls back to the honest monogram
-   * tile for every item after the first, rather than repeat the photo or
-   * fabricate a substitute. Set once, deterministically, in
-   * `shopTheLookItems()` below, in the matcher's own best-first product
-   * order — never recomputed per-view, so it stays stable across filters.
+   * feedback, kanban tasks t_49a63ae1 and t_cfd48d66). The E6 matcher
+   * output carries no per-item "as-worn" photo today
+   * (`scripts/merch-engine/match-moments.mjs` has no such field), so there
+   * is no real alternate photo to substitute — `merchItemImage()`
+   * (merch-filters.ts) falls back to the honest monogram tile for every
+   * item after the first, rather than repeat the photo or fabricate a
+   * substitute. Set once, deterministically, in `shopTheLookItemsFrom()`
+   * below, in CONTENT's own order — never recomputed per filtered/paginated
+   * view.
+   *
+   * KNOWN, ACCEPTED TRADE-OFF (inherited unchanged from PR #3569, not new
+   * here): because the flag is computed once over the FULL catalogue, a
+   * filter/pagination view that hides the claiming (earlier) card can
+   * leave the later card demoted to a monogram even though its own claimant
+   * is no longer visible in that view. This mirrors the original within-
+   * moment case exactly (a filter could already hide one product from a
+   * moment while showing another) — the fix here extends the SAME accepted
+   * behavior across moment boundaries rather than introducing a new one.
+   * Recomputing per rendered view would require moving this logic into the
+   * filtered/paginated render path (a hook, not this static catalogue
+   * builder) — a larger, separately-scoped change; the review record for
+   * this call is documented in kanban task t_cfd48d66.
    */
   demoteSharedMomentPhoto?: boolean;
 }
