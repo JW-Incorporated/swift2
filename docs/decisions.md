@@ -7,6 +7,114 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-31 — Root cause + fixes: bad appearance-discovery captions and site-screenshot media drift (SOCIAL_FREEZE incident, kanban t_895c2ba8)
+
+**Founder complaint (verbatim):** "Please stop this social media post from
+going out. Also please figure out why our social media is so bad that it
+would write this crap. Must be better!! Our whole social kinda sucks atm. I
+want just pictures of Taylor and Taylor related stuff, no more pictures of
+our website." `SOCIAL_FREEZE` was set live by the operator before this
+investigation began and is **not** touched by this entry — lifting it stays
+a founder call.
+
+**Root cause #1 — the bad caption.** The post that triggered the complaint
+(`social/queue/2026-08-31-appearance-ldBrFonU8NA-ig.json`, caption "my whole
+day is now about Taylor Swift, beyonce and more pay tribute to dolly
+parton!!") is **template-generated, not desk-authored.** It came from the
+`appearance-discovery` fast lane (`scripts/appearance-discovery/discover.mjs`
+→ `scripts/appearance-discovery/lib/social-draft.mjs`), added 2026-08-25 —
+a fixed-string template that fires on every new official Taylor YouTube
+upload with **zero LLM judgment and zero planning-layer review** (it bypasses
+Tree's calendar entirely — see the open incident Tree itself flagged in
+`social/calendar.md` this same week, issue #3584). The template's fixed
+hook lines ("i hit play SO fast", "drop everything because…") plus its fixed
+closer ("i haven't watched yet — come watch with me!!") are exactly the
+"generic breathless fan-account voice" failure the 2026-08-11 Growth/Tree
+split was built to prevent — except this lane sits outside that system,
+so none of the quality machinery (Tree's calendar, the desk's own judgment)
+ever touched it. It also literally disclosed in the caption that nobody had
+watched the video, which reads as glib over a Dolly Parton tribute video.
+This is **not** the Growth desk's judgment failing — Growth-authored posts
+(`social/posted/*.json`, the heartbeat/thread/mood/launch lanes) do not
+carry this voice; every "did you know"-class regression on that side was
+already caught and fixed in the 2026-08-11 Tree rebuild.
+
+**Root cause #2 — website screenshots as post media.** `docs/marketing/
+social-strategy.md` §2 already said a `site-screen` (a screenshot of
+longlivets.com) is only legitimate "for posts whose subject IS a product
+surface (a launch, a how-to)" — but nothing on the merge path enforced that
+scope. `scripts/social/check-drafts.mjs` only checked that a `site-screen`
+tile lived under `/social/library/` and NOT under the credited-photo prefix;
+it never checked which campaign was using it. Result, audited this run
+against `social/posted/*-ig.json`: **7 of the last 10 posted Instagram
+items used a website screenshot, 3 used a real Taylor photo** (target is
+≥70% real photo) — heartbeat and era-deep-cut posts, which strategy §2 never
+authorized for `site-screen`, were shipping site screenshots anyway because
+the gate didn't know the difference. Separately, and worse: the
+`appearance-discovery` fast lane declares its rehosted YouTube thumbnails
+`mediaKind: "photo"` (not `site-screen`) — `check-drafts.mjs`'s photo check
+only verifies the file lives under `/social/library/photos/` plus a credit
+string, it never verifies Taylor is actually IN the image. One of the three
+queued items (`appearance-XwCWKSO0F8s`) is a Pixar-style animated tree/tire
+swing thumbnail with no Taylor in the frame at all, declared "photo" and
+would have shipped as one — verified visually this run.
+
+**Fixes shipped in this PR (small, mechanical, reversible — under standing
+agent authority per project registry `merge_authority: agent`):**
+1. `scripts/appearance-discovery/lib/social-draft.mjs` — rewrote both the X
+   and Instagram caption templates. Calm and factual, still title/channel/
+   URL-only (this lane must never claim anything about a video's content —
+   nobody has watched it), no forced enthusiasm, no longer disclosing "i
+   haven't watched yet" as if that's charming. Verified against
+   `check-drafts.mjs`'s real gates (voice, opener-collision, cross-post
+   similarity) via its own test suite plus the fixed queue items below.
+2. `scripts/social/check-drafts.mjs` — new gate: an Instagram `site-screen`
+   tile is only accepted when the draft's `campaign` starts with `launch:`
+   (the one place strategy §2 actually authorizes it). Every other campaign
+   family must use a real Taylor `photo` or go text-only on X. This is the
+   enforcement strategy §2 always described but the code never had.
+3. The three queue items already staged by the fast lane
+   (`2026-08-31-appearance-ldBrFonU8NA-*`, `2026-09-01-appearance-
+   T6iTnTV-Rgw-*`, `2026-09-01-appearance-XwCWKSO0F8s-*`) had their bodies
+   regenerated with the new template so, if/when the founder lifts
+   `SOCIAL_FREEZE`, they no longer carry the old voice. `SOCIAL_FREEZE`
+   itself is untouched.
+
+**Left as a founder decision (not implemented here — this is exactly the
+kind of product-direction call that shouldn't be unilaterally decided):**
+1. **Whether the `appearance-discovery` fast lane should keep auto-posting
+   at all**, or be downgraded to intake-issue-only (the slower, human-
+   reviewed Vault-authoring lane already exists per-video) until it can
+   route through Tree's calendar/judgment layer like every other post. This
+   PR only makes its existing captions calmer; it does not add a planning
+   or verification layer to the lane itself.
+2. **Whether `mediaKind: "photo"` should require a human (or a vision
+   check) to confirm Taylor is actually in the frame** before a fast-lane
+   thumbnail can be declared "photo" — today the check is purely
+   path+credit, which is how `XwCWKSO0F8s`'s Taylor-free animated thumbnail
+   almost shipped as a "photo."
+3. **Growing the cleared-photo corpus** — `apps/web/public/social/library/
+   photos/` has only 4 genuinely license-cleared Taylor photos (the
+   `appearance-*.jpg` YouTube thumbnails are NOT part of that corpus and
+   were never meant to count toward it). With ~16 Instagram slots a
+   fortnight and 4 real photos, the ≥70%-real-photo target is arithmetically
+   unreachable regardless of the new `launch:`-only gate above — Tree
+   flagged this the same run (`social/calendar.md`). Sourcing more CC-
+   licensed Taylor photos is real ongoing work, not a one-line fix.
+
+**Approved by:** Joey's 2026-08-31 complaint is the founder direction being
+implemented here ("no more pictures of our website" = settled scope, not
+re-litigated). The three items above are new founder decisions this entry
+raises, not yet made.
+
+**Implementation:** `scripts/appearance-discovery/lib/social-draft.mjs`,
+`scripts/social/check-drafts.mjs`, `scripts/social/check-drafts.test.ts`,
+`social/queue/2026-08-31-appearance-ldBrFonU8NA-{x,ig}.json`,
+`social/queue/2026-09-01-appearance-T6iTnTV-Rgw-{x,ig}.json`,
+`social/queue/2026-09-01-appearance-XwCWKSO0F8s-{x,ig}.json`.
+
+---
+
 ## 2026-08-31 — D3=A, D4=B, D5=A, D6=A: Tier-2 founder decisions from `TIER2-OPTIMIZATION.md`
 
 Joey ruled on all four founder-gated Tier-2 recommendations from the Fable

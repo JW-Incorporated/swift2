@@ -63,39 +63,66 @@ function sanitize(text) {
   return String(text ?? '').replace(/\s+/g, ' ').trim().replace(/"/g, "'");
 }
 
-function bodyTemplate(title, channel, url) {
-  return `"${title}" just dropped from ${channel} — running to go watch this right now!! ${url}`;
+// Wording is conditioned on `c.rule`: 'all-uploads' means the video came
+// from Taylor's OWN channel (channels.mjs's allUploads:true entry) — a
+// genuine official upload. 'taylor-swift'/'swift-title' mean her NAME
+// appeared in a THIRD PARTY channel's title (a talk-show clip, a fan
+// reaction, a news channel) — calling that an "official upload" is a false
+// claim (Codex review round 1, kanban t_895c2ba8: `emit-official-youtube-
+// event.mjs` already draws exactly this distinction for the notifications
+// pipeline; the social copy must match it).
+function bodyTemplate(title, channel, url, isOfficial) {
+  return isOfficial
+    ? `"${title}" — official upload, no caption yet, link below. ${url}`
+    : `"${title}" — new from ${channel}, no caption yet, link below. ${url}`;
 }
 
+// Rewritten 2026-08-31 (Joey, kanban t_895c2ba8): the previous hooks ("i hit
+// play SO fast", "drop everything") plus the fixed line "i haven't watched
+// yet — come watch with me!!" read as generic breathless fan-account spam
+// and, worse, disclosed in the caption itself that nobody had watched the
+// video — exactly the low-quality output that triggered the founder
+// complaint and the SOCIAL_FREEZE. This lane is still, deliberately,
+// title/channel/URL-only (see this file's header) — it must never claim
+// anything about the video's CONTENT — but it no longer needs to perform
+// enthusiasm about a video it hasn't seen. Calm and factual beats gushing
+// about the unknown. Each hook opens on its OWN fixed words (not the title)
+// so the Instagram body doesn't collide with the X sibling's title-first
+// opener (checkOpeners compares first-6-words across every item in the same
+// PR, including a pair's own two halves). Deliberately does NOT repeat the
+// channel name in the hook (it already appears in the "video thumbnail:"
+// credit line below) — a channel whose NAME is itself Taylor's own name
+// (e.g. the "Taylor Swift" YouTube channel) would otherwise double the
+// shared-token count against the X sibling's title and push a short title
+// over checkCrossPostCopy's 80% overlap threshold (hit for real on
+// XwCWKSO0F8s, 2026-08-31 during this fix).
 const INSTAGRAM_HOOKS = [
-  (title) => `${title} has me dropping everything!!`,
-  (title) => `i am RUNNING to watch ${title}!!`,
-  (title) => `new obsession unlocked: ${title}!!`,
-  (title) => `Taylor really just gave us ${title}!!`,
-  (title) => `the way ${title} just appeared on my screen!!`,
-  (title) => `please tell me everyone else saw ${title}!!`,
-  (title) => `my whole day is now about ${title}!!`,
-  (title) => `i hit play SO fast on ${title}!!`,
-  (title) => `drop everything because ${title} is here!!`,
-  (title) => `nothing prepared me for ${title} showing up today!!`,
+  (title) => `just seen: ${title}.`,
+  (title) => `catching up on ${title}.`,
+  (title) => `worth a look — ${title}.`,
+  (title) => `on the radar today: ${title}.`,
+  (title) => `saving this one: ${title}.`,
 ];
 
 function instagramBodyTemplate(title, channel, url, videoId) {
   let hash = 2166136261;
   for (const char of String(videoId)) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
   const hookIndex = hash % INSTAGRAM_HOOKS.length;
-  return `${INSTAGRAM_HOOKS[hookIndex](title)}\n\n` +
-    `a fresh official Taylor upload just landed from ${channel}. i haven't watched yet — come watch with me!!\n\n` +
-    `${url}\n\nvideo thumbnail: ${channel}`;
+  return `${INSTAGRAM_HOOKS[hookIndex](title)}\n\n${url}\n\nvideo thumbnail: ${channel}`;
 }
 
 /** Trims `title` to fit whatever's left of X's weighted budget after the
  * template's own fixed words + channel + url, measured the same weighted
  * way X itself will measure the final post (so an emoji/CJK-heavy title, or
- * an unusually long channel name, can't quietly blow the total). */
+ * an unusually long channel name, can't quietly blow the total). Budgets
+ * against the LONGER of the two isOfficial branches so a swap between them
+ * (see bodyTemplate) never surprises the caller with a truncation change. */
 function truncateTitle(title, channel, url) {
   const t = sanitize(title);
-  const overhead = weightedTweetLength(bodyTemplate('', channel, url));
+  const overhead = Math.max(
+    weightedTweetLength(bodyTemplate('', channel, url, true)),
+    weightedTweetLength(bodyTemplate('', channel, url, false)),
+  );
   const budget = X_MAX_WEIGHTED - overhead - SAFETY_MARGIN_WEIGHTED;
   if (weightedTweetLength(t) <= budget) return t;
   let out = t;
@@ -119,9 +146,10 @@ function truncateTitle(title, channel, url) {
  * dedupe/videoId unique in the first place.
  */
 export function buildSocialDraftPair(c, { now = new Date() } = {}) {
+  const isOfficial = c.rule === 'all-uploads';
   const channel = toHouseStyle(sanitize(c.channelName));
   const title = toHouseStyle(truncateTitle(c.title, channel, c.url));
-  const xBody = bodyTemplate(title, channel, c.url);
+  const xBody = bodyTemplate(title, channel, c.url, isOfficial);
   const measured = weightedTweetLength(xBody);
   if (measured > X_MAX_WEIGHTED) {
     // Not expected to trip given truncateTitle's own budget math — fail loud

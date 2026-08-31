@@ -26,6 +26,19 @@ itself what to post. See `docs/decisions.md` (2026-08-11) for why: with no
 planning layer, the drafting run copied its own last post — 12 of 14 captions
 opened "did you know" on a generic era tile.
 
+**Known gap (2026-08-31, kanban t_895c2ba8 root-cause):** the
+`appearance-discovery` fast lane (`.github/workflows/appearance-discovery.yml`,
+`scripts/appearance-discovery/`, decided 2026-08-25) drafts and queues its
+own X+Instagram pairs directly, **entirely outside this desk and outside
+Tree's calendar.** It is template-generated (not desk-authored, not
+LLM-judged) and Tree itself did not know it existed until finding it live in
+`social/queue/` (see `social/calendar.md`'s open incident, issue #3584). Its
+2026-08-31 captions triggered a founder complaint and `SOCIAL_FREEZE` — fixed
+at the template level in that PR, but the lane's structural gap (no
+planning-layer review, no desk judgment) remains a founder decision: whether
+it should route through Tree/Growth like every other post, or stay
+intake-issue-only until it can.
+
 Unchanged and still this desk's: **the six hard rails below** (they bind Tree
 too), the daily fandom listening scan, the metrics rollup into the brief, the
 monthly research pass, sourcing and the #36/Clownbot blocklist on every draft,
