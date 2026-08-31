@@ -16,7 +16,7 @@
 // must wrap everything that consumes insets; `initialWindowMetrics` seeds it
 // synchronously so the first frame is already inset (no visible reflow).
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -28,10 +28,18 @@ import type { VaultSkeleton } from '@swift2/core';
 import { loadSkeleton } from './lib/vault';
 import { registerDevice } from './lib/push-registration';
 import { VaultNavigator } from './components/VaultNavigator';
+import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
 
 export default function App() {
   const [skeleton, setSkeleton] = useState<VaultSkeleton | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Notifications Phase 1 (spec §8: "persistent bell icon in the app header
+  // on every screen → Notification Settings"). No navigation library is
+  // wired up in this app yet (App.tsx renders one screen at a time), so the
+  // settings screen is a full-bleed overlay toggled by local state rather
+  // than a route — same reachability guarantee (≤1 tap from anywhere), no
+  // new dependency.
+  const [notificationSettingsOpen, setNotificationSettingsOpen] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -63,7 +71,9 @@ export default function App() {
             padding a second time. */}
         <SafeAreaView style={styles.fill}>
           <StatusBar style="light" />
-          {error ? (
+          {notificationSettingsOpen ? (
+            <NotificationSettingsScreen onClose={() => setNotificationSettingsOpen(false)} />
+          ) : error ? (
             <View style={[styles.fill, styles.center]}>
               <Text style={styles.errTitle}>Couldn’t load the Vault</Text>
               <Text style={styles.errBody}>{error}</Text>
@@ -74,7 +84,18 @@ export default function App() {
               <Text style={styles.loading}>Loading the Vault…</Text>
             </View>
           ) : (
-            <VaultNavigator skeleton={skeleton} />
+            <>
+              <VaultNavigator skeleton={skeleton} />
+              <Pressable
+                onPress={() => setNotificationSettingsOpen(true)}
+                accessibilityLabel="Notification settings"
+                accessibilityRole="button"
+                style={styles.bellButton}
+                hitSlop={10}
+              >
+                <Text style={styles.bellIcon}>🔔</Text>
+              </Pressable>
+            </>
           )}
         </SafeAreaView>
       </SafeAreaProvider>
@@ -88,4 +109,16 @@ const styles = StyleSheet.create({
   loading: { color: '#aaa', marginTop: 10 },
   errTitle: { color: '#fff', fontSize: 18, fontWeight: '700', marginBottom: 8 },
   errBody: { color: '#f88', textAlign: 'center' },
+  bellButton: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(11,11,15,0.85)',
+    borderRadius: 22,
+    height: 44,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 12,
+    top: 12,
+    width: 44,
+  },
+  bellIcon: { fontSize: 20 },
 });

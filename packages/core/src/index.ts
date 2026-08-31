@@ -6,3 +6,4 @@ export * from './map';
 export * from './current-map';
 export * from './knowledge';
 export * from './devices';
+export * from './notification-prefs';
