@@ -625,6 +625,35 @@ agent-reviewed would stay at zero forever, which is today's bug with extra steps
 (c) *`--claims-only` focusing* — RUNBOOK.md already records that this caused a
 real miss: claim-free narrative records are exactly where fabricated events hide.
 
+## Kevin — daily desk consolidation — trigger config to apply (2026-08-31, T-10)
+
+**Not applied by this change.** Same account-access mechanic as Karen Deep,
+Tree, and the Notification-quality desk below: applying this requires a
+session (or human) authenticated to the account the fleet runs on (Joey's,
+per the "Live trigger IDs" table above) — `RemoteTrigger` is not reachable
+from this headless repo session. The prompt file
+(`docs/agents/runner-prompts/kevin-desk.md`) is landed first per T-18
+("prompt-file PR before trigger update"); this section is the exact spec for
+whoever has that access to apply as one full `job_config` round-trip (never
+a partial PUT, per the RemoteTrigger footgun above).
+
+| Field | Value |
+|---|---|
+| Name | `Kevin — daily desk (S1+S2+S3)` |
+| Account | **Joey** (fleet policy, D1=B) |
+| Model | `claude-sonnet-5` (was Opus on S1 alone; folded in per the model-tiering table — S1's verify-first apply is mechanical field-filling, Karen's ticket already carries the judgment) |
+| Cron (UTC) | `13 15 * * *` — reuse S2's existing slot (`trig_0136mXcpmzn6mYtYoUQC3eGP`); the desk itself gates Stream 1 to Sundays internally (see the prompt file's Step 0), so one daily cron covers all three streams |
+| Repo | `JW-Incorporated/swift2`, branch `main` |
+| Prompt | the **full text** of `docs/agents/runner-prompts/kevin-desk.md`, verbatim |
+| MCP connectors | none |
+
+**Cutover sequence (apply in this order, do not skip steps):**
+1. `RemoteTrigger create` the new `Kevin — daily desk (S1+S2+S3)` trigger per the config above.
+2. Manually test-run it once; verify all due streams (S2 + S3 every day, S1 only landing on the next Sunday) actually post their digest/triage output and, on Sunday, open a real PR.
+3. Once verified working, **disable** (never delete — reversible safety net) the three superseded triggers: `Kevin — S1 Karen-ticket solver (cloud)` (`trig_01QEvYmKcpyDJJ8ec81aBjCV`), `Kevin — S2 user-feedback digest (cloud)` (`trig_0136mXcpmzn6mYtYoUQC3eGP`), `Kevin — S3 eng triage (cloud)` (`trig_01BRmPqZkLEcYKZhYPjypGMJ`).
+4. **Do not touch** `Kevin — S3 comment radar (cloud)` (`trig_01LaSLx4qzbsz68E6uRLkyDd`) — the radar stays its own, separate, faster-cadence trigger; T-10 only consolidates the three daily/weekly streams.
+5. Record the new trigger's ID in the "Live trigger IDs" table above, and mark the three disabled rows `⛔ disabled — superseded by Kevin daily desk, T-10` (do not delete the rows; disabled history stays visible per this file's own convention, see Lex depth).
+
 ## Notification-quality desk — trigger config to create (2026-08-31, T-16, D6=A)
 
 **Not created by this change** — same account-access mechanic as Karen Deep
