@@ -42,6 +42,11 @@ export interface RouterDispatchResult {
   skippedSnoozed: number;
   skippedCoalesced: number;
   skippedDailyCap: number;
+  /** spec §6.4 hard ceiling (Phase 5): combined instant+scheduled sends
+   * blocked outright once the device's device-wide 6/day floor is hit —
+   * unlike daily_cap overflow, never rolled into a digest (see gate 6's
+   * docstring in notification-governor.ts). */
+  skippedHardCeiling: number;
   sendFailures: number;
   /** Phase 3: daily/weekly-pref devices fanned into `digest_queue` instead
    * of sent, PLUS any instant-tier cap-overflow rollovers (spec §6 gate 4:
@@ -86,6 +91,7 @@ export async function dispatchPendingEvents(
     skippedSnoozed: 0,
     skippedCoalesced: 0,
     skippedDailyCap: 0,
+    skippedHardCeiling: 0,
     sendFailures: 0,
     enqueuedToDigest: 0,
     errors: [],
@@ -218,6 +224,7 @@ async function dispatchOneEvent(
         if (decision.reason === 'master_off') result.skippedMasterOff++;
         else if (decision.reason === 'snoozed') result.skippedSnoozed++;
         else if (decision.reason === 'coalesced') result.skippedCoalesced++;
+        else if (decision.reason === 'hard_ceiling') result.skippedHardCeiling++;
         else if (decision.reason === 'daily_cap') {
           result.skippedDailyCap++;
           // spec §6 gate 4: "Overflow rolls into the next digest" — an

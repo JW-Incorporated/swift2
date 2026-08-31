@@ -217,6 +217,33 @@ describe('dispatchDueDigests', () => {
     expect(result.digestsSkippedMasterOff).toBe(1);
     expect(sendSpy).not.toHaveBeenCalled();
   });
+
+  it('gate 6: a device already at the 6/day hard ceiling gets no 7th digest send, and its queue stays intact', async () => {
+    const now = new Date('2026-01-15T20:00:00Z'); // 12:00 PST — within send window
+    const since = '2026-01-15T08:00:00Z'; // start of local PST day
+    const sixDeliveriesToday = Array.from({ length: 6 }, (_, i) => ({
+      device_id: 'device-1',
+      kind: i % 2 === 0 ? 'instant' : 'fun',
+      category: 'song_drop',
+      sent_at: since,
+    }));
+    const db = makeFakeDb({
+      digestQueue: [
+        { device_id: 'device-1', event_id: 'evt-1', cadence: 'daily', category: 'song_drop', scheduled_for: '2026-01-15T17:00:00Z' },
+      ],
+      devices: [device()],
+      events: [{ id: 'evt-1', title: 'New song' }],
+      deliveries: sixDeliveriesToday,
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([]);
+
+    const result = await dispatchDueDigests(db, now);
+    expect(result.digestsSent).toBe(0);
+    expect(result.digestsSkippedHardCeiling).toBe(1);
+    expect(sendSpy).not.toHaveBeenCalled();
+    // Rows are NOT cleared — they stay queued for the next day's tick.
+    expect(db._deletedDigestQueueKeys).toHaveLength(0);
+  });
 });
 
 describe('enqueueForDigest', () => {

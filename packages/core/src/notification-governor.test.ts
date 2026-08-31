@@ -3,8 +3,10 @@ import {
   evaluateGovernor,
   gateCoalescing,
   gateDailyCap,
+  gateHardCeiling,
   gateMasterAndSnooze,
   gateQuietHours,
+  HARD_CEILING_PER_DAY,
   localHour,
   startOfLocalDay,
   type GovernorDeviceSettings,
@@ -167,6 +169,40 @@ describe('gateDailyCap', () => {
   });
 });
 
+describe('gateHardCeiling', () => {
+  it('passes (skips this gate) when totalDeliveriesToday is not provided', () => {
+    expect(gateHardCeiling(undefined)).toBeNull();
+  });
+
+  it('passes under the ceiling', () => {
+    expect(gateHardCeiling(0)).toBeNull();
+    expect(gateHardCeiling(HARD_CEILING_PER_DAY - 1)).toBeNull();
+  });
+
+  it('blocks at the ceiling', () => {
+    expect(gateHardCeiling(HARD_CEILING_PER_DAY)).toEqual({
+      action: 'skip',
+      reason: 'hard_ceiling',
+      ceiling: HARD_CEILING_PER_DAY,
+    });
+  });
+
+  it('blocks over the ceiling (never exceeds even if somehow already over)', () => {
+    expect(gateHardCeiling(HARD_CEILING_PER_DAY + 3)).toEqual({
+      action: 'skip',
+      reason: 'hard_ceiling',
+      ceiling: HARD_CEILING_PER_DAY,
+    });
+  });
+
+  it('ADVERSARIAL: the 7th total send of the day (across instant+digest+fun) never sends', () => {
+    const results = [0, 1, 2, 3, 4, 5, 6, 7].map((count) => gateHardCeiling(count));
+    expect(results[5]).toBeNull();
+    expect(results[6]).toEqual({ action: 'skip', reason: 'hard_ceiling', ceiling: 6 });
+    expect(results[7]).toEqual({ action: 'skip', reason: 'hard_ceiling', ceiling: 6 });
+  });
+});
+
 describe('evaluateGovernor', () => {
   const baseline = {
     now: new Date('2026-01-15T20:00:00Z'), // 12:00 PST, well outside quiet hours
@@ -178,6 +214,42 @@ describe('evaluateGovernor', () => {
 
   it('sends when every gate clears', () => {
     expect(evaluateGovernor(baseline)).toEqual({ action: 'send' });
+  });
+
+  it('gate 6: blocks with hard_ceiling once totalDeliveriesToday reaches the ceiling and every earlier gate clears', () => {
+    const result = evaluateGovernor({
+      ...baseline,
+      totalDeliveriesToday: HARD_CEILING_PER_DAY,
+    });
+    expect(result).toEqual({ action: 'skip', reason: 'hard_ceiling', ceiling: HARD_CEILING_PER_DAY });
+  });
+
+  it('gate order: a snoozed AND over-ceiling device reports snoozed, never hard_ceiling', () => {
+    const future = new Date(Date.now() + 60_000).toISOString();
+    const result = evaluateGovernor({
+      ...baseline,
+      device: device({ snoozeUntil: future }),
+      totalDeliveriesToday: HARD_CEILING_PER_DAY + 5,
+    });
+    expect(result).toEqual({ action: 'skip', reason: 'snoozed', until: future });
+  });
+
+  it('gate order: an over-daily-cap AND over-ceiling device reports daily_cap, never hard_ceiling', () => {
+    const result = evaluateGovernor({
+      ...baseline,
+      device: device({ dailyCap: 1 }),
+      instantDeliveriesToday: 1,
+      totalDeliveriesToday: HARD_CEILING_PER_DAY + 5,
+    });
+    expect(result).toEqual({ action: 'skip', reason: 'daily_cap', dailyCap: 1 });
+  });
+
+  it('omitting totalDeliveriesToday entirely never blocks on the hard ceiling (existing Phase 2-4 call sites)', () => {
+    const result = evaluateGovernor({
+      ...baseline,
+      instantDeliveriesToday: 0,
+    });
+    expect(result).toEqual({ action: 'send' });
   });
 
   it('gate order: a snoozed AND over-cap device reports snoozed, not daily_cap', () => {
@@ -217,6 +289,46 @@ describe('evaluateGovernor', () => {
       instantDeliveriesToday: 2,
     });
     expect(result).toEqual({ action: 'skip', reason: 'daily_cap', dailyCap: 2 });
+  });
+
+  it('gate order: a snoozed AND over-ceiling device reports snoozed, not hard_ceiling', () => {
+    const future = new Date(Date.now() + 60_000).toISOString();
+    const result = evaluateGovernor({
+      ...baseline,
+      device: device({ snoozeUntil: future }),
+      totalDeliveriesToday: 99,
+    });
+    expect(result).toEqual({ action: 'skip', reason: 'snoozed', until: future });
+  });
+
+  it('gate order: a device under daily_cap but at the hard ceiling reports hard_ceiling', () => {
+    const result = evaluateGovernor({
+      ...baseline,
+      device: device({ dailyCap: 3 }),
+      instantDeliveriesToday: 1, // well under the 3 instant cap
+      totalDeliveriesToday: HARD_CEILING_PER_DAY, // but the combined 6/day floor is hit
+    });
+    expect(result).toEqual({ action: 'skip', reason: 'hard_ceiling', ceiling: HARD_CEILING_PER_DAY });
+  });
+
+  it('ADVERSARIAL: hard ceiling fires only when every earlier gate would otherwise send', () => {
+    // Under daily cap AND under the ceiling -> sends.
+    expect(
+      evaluateGovernor({ ...baseline, instantDeliveriesToday: 1, totalDeliveriesToday: 4 }),
+    ).toEqual({ action: 'send' });
+    // Under daily cap but AT the ceiling -> blocked by gate 6.
+    expect(
+      evaluateGovernor({
+        ...baseline,
+        instantDeliveriesToday: 1,
+        totalDeliveriesToday: HARD_CEILING_PER_DAY,
+      }),
+    ).toEqual({ action: 'skip', reason: 'hard_ceiling', ceiling: HARD_CEILING_PER_DAY });
+  });
+
+  it('omitting totalDeliveriesToday never blocks a send (gate 6 skipped, not treated as 0)', () => {
+    const result = evaluateGovernor({ ...baseline, instantDeliveriesToday: 0 });
+    expect(result).toEqual({ action: 'send' });
   });
 });
 

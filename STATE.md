@@ -92,6 +92,19 @@ a seeded stale device"), plus adversarial cases: an engaged device
 yet) is never downgraded, and an open exactly at the 30-day cutoff still
 counts as recent.
 
+**Hard ceiling (round 2 addition, per review feedback):**
+`notification-governor.test.ts` now covers `gateHardCeiling()` directly
+(under/at/over the ceiling, `undefined` skips the gate) plus
+`evaluateGovernor()` precedence (a snoozed-and-over-ceiling device reports
+`snoozed`, never `hard_ceiling`; a device under its per-category
+`daily_cap` but at the device-wide ceiling correctly reports
+`hard_ceiling`). Call-site coverage: `notification-router.test.ts` proves
+a device at 6 total deliveries today gets nothing further even with 0
+song_drop instant sends so far; `notification-digest.test.ts` proves a
+ceiling-blocked digest's queue rows stay queued, not dropped;
+`notification-fun.test.ts` proves the same for lyric/on-this-day/countdown
+dispatch.
+
 ## Scope note
 
 Phase 6 (web push + analytics) NOT started — out of this task's scope per
@@ -105,7 +118,7 @@ but degrades gracefully (never throws, never fabricates opens) until then.
 - `npm run typecheck` — clean across all 5 workspaces.
 - `npm run lint` — 0 errors (2 pre-existing unrelated warnings in
   scripts/merch-engine/*.test.ts, untouched by this PR).
-- `npm test` (`vitest run`) — 4360 passed, 2 skipped, 2 pre-existing
+- `npm test` (`vitest run`) — 4377 passed, 2 skipped, 2 pre-existing
   failures in `scripts/lib/gh.test.ts` (`Promise.withResolvers`, the same
   Node-version/sandbox issue Phases 0-4 already documented as unrelated to
   notifications work).

@@ -280,4 +280,45 @@ describe('dispatchPendingEvents', () => {
     expect(result.sendFailures).toBe(1);
     expect(db._clearedTokenDeviceIds).toEqual(['device-1']);
   });
+
+  it('ACCEPTANCE (Phase 5): a device already at the 6/day hard ceiling receives nothing further, even under its per-category daily cap', async () => {
+    const now = new Date('2026-01-15T20:00:00Z');
+    const since = new Date('2026-01-15T08:00:00Z').toISOString(); // start of local PST day
+    const db = makeFakeDb({
+      events: [
+        {
+          id: 'evt-1',
+          category: 'song_drop',
+          tier: 1,
+          title: 'New song',
+          body: 'Out now',
+          deep_link: 'https://x',
+          available_at: new Date(now.getTime() - 1000).toISOString(),
+          expires_at: null,
+          killed_at: null,
+        },
+      ],
+      // Well under the per-category instant daily cap (0 of 3 song_drop
+      // instant sends today) — daily_cap would clear this send.
+      notificationPrefs: [{ device_id: 'device-1', category: 'song_drop', cadence: 'instant' }],
+      devices: [device({ daily_cap: 3 })],
+      // 6 total deliveries today across every kind (digest/fun mostly, not
+      // song_drop) — the device-wide 6/day floor, not the per-category cap.
+      deliveries: [
+        { device_id: 'device-1', category: 'album_news', kind: 'digest', sent_at: since },
+        { device_id: 'device-1', category: 'tour_news', kind: 'digest', sent_at: since },
+        { device_id: 'device-1', category: 'lyric_of_day', kind: 'fun', sent_at: since },
+        { device_id: 'device-1', category: 'on_this_day', kind: 'fun', sent_at: since },
+        { device_id: 'device-1', category: 'countdowns', kind: 'fun', sent_at: since },
+        { device_id: 'device-1', category: 'award_news', kind: 'instant', sent_at: since },
+      ],
+    });
+    const spy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([]);
+
+    const result = await dispatchPendingEvents(db, now);
+    expect(result.sent).toBe(0);
+    expect(result.skippedHardCeiling).toBe(1);
+    expect(result.skippedDailyCap).toBe(0); // NOT the per-category cap gate
+    expect(spy).not.toHaveBeenCalled();
+  });
 });
