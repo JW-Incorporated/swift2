@@ -486,15 +486,34 @@ the end.
   the trigger still burns a **Fable** session every day to post a GitHub
   comment with no established reader (REC-5 finding). Note the irony: the
   fleet's most expensive model, on the fleet's least-read artifact.
-- **Assessment.** The morning brief's "Last 24 hours" section already carries
-  the delta a day later; the watchdog carries anything urgent via T3 paging.
-  No reader, no unique function, daily premium-model cost.
+- **Assessment.** The delta *comment* has no reader — the morning brief's
+  "Last 24 hours" section carries the same information a day later, and the
+  watchdog carries anything urgent via T3 paging. But the run is not only
+  the comment: `marjorie-delta.md` also has it (a) process founder checkbox
+  decisions and 📧 email replies posted since the morning run, (b) run an
+  evening merge sweep over qualifying green PRs, and (c) recreate a missing
+  morning brief in degraded mode. Disabling it removes the fleet's second
+  daily execution window for those duties: founder decisions/replies posted
+  after ~6 AM LA would wait until the next morning run, and in-envelope PRs
+  going green in the afternoon would wait overnight for merge (though
+  `auto-merge-content.yml` already lands green *content* PRs on its own, so
+  the gap is non-content in-envelope PRs only). This is a real latency
+  trade, not a free deletion — the precedent is the 2026-07-25 sustainment
+  pass, which disabled this same trigger and explicitly accepted that
+  "autonomous merge cycles cover the gap."
 - **Recommendation (T-13) — disable the trigger (warm spare, prompt preserved
-  in `marjorie-delta.md`), per REC-5.** Saves ~30 Fable sessions/month — in
-  model-tier terms plausibly the second-largest single saving in this
-  document after T-1. Tell Joey it happened (he set the email cap; the delta
-  comment's retirement follows his own directive's logic); do not wait on
-  him. Trivial; reversible; agent call.
+  in `marjorie-delta.md`), per REC-5, explicitly re-accepting the same
+  overnight-latency trade the 2026-07-25 sustainment pass made:** founder
+  decisions/replies and non-content merge sweeps posted after the morning
+  run wait for the next morning run (auto-merge covers green content PRs;
+  the watchdog covers urgent breakage; degraded-mode brief creation moves
+  back to the morning run that already owns it). Saves ~30 Fable
+  sessions/month — in model-tier terms plausibly the second-largest single
+  saving in this document after T-1. Tell Joey it happened *and name the
+  latency trade in that note* (he set the email cap; the delta comment's
+  retirement follows his own directive's logic — but the evening
+  decision-processing window is his to veto); do not wait on
+  him. Trivial; reversible in two minutes; agent call.
 
 #### D3. Tree — weekly social plan (Mon 10:00, Opus 5)
 
@@ -671,7 +690,7 @@ in-repo first because no prompt file exists for it).
 | T-10 | Kevin S1+S2+S3 → one daily session | **▼ ~1 sd** + 1 Opus→Sonnet/wk | neutral (streams disjoint; per-stream isolation) | Moderate | one stream's failure noise obscuring another — mitigated by Vault-style isolation | none |
 | T-11 | Austin: propose 2-week Fable → Opus trial to Joey, judged by existing metrics | **▼ ~30 Fable→Opus sm** if approved and it sticks | neutral if metrics hold (Codex gate unchanged) | Trivial | findings-per-PR degrades → revert | **charter model pin** — founder yes required (austin.md § Cadence) |
 | T-12 | Marjorie brief: ratify Opus 4.8 in charter | neutral | ▲ charter/reality coherence | Trivial | none | founder-approved charter PR |
-| T-13 | Disable Marjorie 8 PM delta | **▼▼ ~30 Fable sm** | ≈neutral (no established reader; brief carries delta) | Trivial | someone was reading it — re-enable in 2 min | none (tell Joey after) |
+| T-13 | Disable Marjorie 8 PM delta (re-accepting the 2026-07-25 overnight-latency trade) | **▼▼ ~30 Fable sm** | ≈neutral for the comment (no established reader); real but precedented latency cost: evening founder-decision processing + non-content merge sweep wait for the morning run | Trivial | evening window turns out load-bearing — re-enable in 2 min | none (tell Joey after, naming the latency trade) |
 | T-14 | Getty purge: verify complete, archive config in-repo, disable, receipt (optional later deletion = founder-gated) | **▼ ~60 Sonnet sm** | ▲ hygiene | Trivial | purge not actually complete → check first; no prompt file exists → archive before touching | none for disable; **data_deletion** for optional permanent delete |
 | T-15 | Account placement — RESOLVED (D1=B, PR #3598: docs amended to Joey's account); residual `CLAUDE.md` drift folded into T-19 | neutral | ▲ policy coherence (decision done; CLAUDE.md lines pending in T-19) | — (decision landed) | interim readers of CLAUDE.md see the stale rule until T-19 lands | ~~spend~~ resolved 2026-08-31 |
 | T-16 | NEW weekly notification-quality desk (Sonnet) | **▲ ~4 Sonnet sm NEW** | **▲▲** guards the product's stated differentiator | Moderate (new desk, full checklist) | ticket noise if analytics too thin — start after REC-1 heartbeat | **spend** |
@@ -691,7 +710,8 @@ under a new trigger id, `runners.md` live table vs. overrides table). So
 today's fleet is **~19 sessions/day** (plus weekly cadences), and the
 pre-approved set cuts roughly **45-47% of Tier-2 session count**. About a
 third of that cut is retiring stale/dead
-weight (T-13's reader-less delta, T-14's completed one-shot); the rest is the
+weight (T-13's reader-less delta comment — with its evening duties
+consciously deferred to the morning run — T-14's completed one-shot); the rest is the
 Vault consolidation and cadence/structure fixes. Quality-relevant coverage
 (Rumor cadence, detection layers, review gates, Laura's whole-site week)
 is *improved or preserved* throughout, not traded away. The
@@ -703,7 +723,9 @@ notification quality.
 
 ## Prioritized action list (benefit-per-effort, work top to bottom)
 
-1. **T-13** — disable the Marjorie 8 PM delta. Biggest single premium-model
+1. **T-13** — disable the Marjorie 8 PM delta, re-accepting the 2026-07-25
+   overnight-latency trade (evening decision-processing and non-content
+   merge sweeps wait for the morning run). Biggest single premium-model
    saving available for one trigger flip. *(agent)*
 2. **T-14** — verify + archive config in-repo + disable the Getty purge
    one-shot, with receipt (optional permanent deletion goes to Joey with
