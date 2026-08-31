@@ -26,6 +26,32 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 35. Apply the Kevin daily-desk trigger cutover (T-10) — needs Joey's Claude account
+
+**Filed:** 2026-08-31
+
+**Status:** OPEN
+
+**Why it matters:** Tier-2 T-10 consolidates Kevin's three separate cloud
+routines (S1 Karen solver, S2 user digest, S3 eng triage) into one daily
+"Kevin — daily desk" session, saving ~1 cold-boot session/day plus a weekly
+Opus→Sonnet substitution. The prompt file
+(`docs/agents/runner-prompts/kevin-desk.md`) and the exact trigger spec +
+cutover sequence (`docs/agents/runners.md` § "Kevin — daily desk
+consolidation") are both landed and ready. No agent session can finish
+this: `RemoteTrigger` create/update/run needs a session authenticated to
+the account the fleet runs on (Joey's), which a headless repo session
+cannot reach.
+
+**What to do:** either run this yourself in a Claude session logged into
+your account, or tell a session in chat to do it and it will follow the
+cutover sequence in `runners.md` exactly (create the new trigger → test-run
+once → verify real output → disable the three superseded triggers →
+record the new trigger ID → update the Live trigger IDs table). Takes one
+`job_config` round-trip per step; ~10–15 minutes.
+
+---
+
 ### 30. [DONE] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key
 
 **Filed:** 2026-08-30
