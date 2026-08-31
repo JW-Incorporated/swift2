@@ -48,6 +48,13 @@ Do NOT query the `news_story` table -- it needs a service-role key you are delib
 
   gh api repos/JW-Incorporated/swift2/contents/docs/content-ops/news-candidates.md?ref=news-digest --jq .content | base64 -d
 
+=== T-3 TRIAL ONLY: TRIAGE THE ARCHIVED SNAPSHOT, NOT THE LIVE FILE ===
+Present only while docs/content-ops/news-triage-trial-active exists on main (the Opus-to-Sonnet-5 trial, docs/TIER2-OPTIMIZATION.md T-3). The live `news-candidates.md` above can be overwritten mid-run by the worker's every-4h publish (delayed schedule, manual dispatch, or a run that starts right at a publish boundary) -- fetching it AND separately listing the archive for "the latest" is racy and can silently mismatch. So during the trial, use the archive as your actual source of truth instead of the live file: list `gh api repos/JW-Incorporated/swift2/contents/docs/content-ops/archive?ref=news-digest --jq '.[].name'`, take the single most recent filename, and fetch and triage THAT exact file:
+
+  gh api repos/JW-Incorporated/swift2/contents/docs/content-ops/archive/<filename>?ref=news-digest --jq .content | base64 -d
+
+Put that exact filename in your run-log comment (see NEVER EXIT SILENTLY below) as `consumed-snapshot: <filename>` on its own line -- since you triaged this file directly rather than inferring it after the fact, this line is now an exact, race-free record of your input, which is what lets the weekly recall-check runner diff against precisely what you saw.
+
 === THREE KNOWN DATA DEFECTS ===
 (A) Clustering is broken: source_count is 1 almost everywhere, so 'rumor' there mostly means 'one outlet so far'. Group the digest yourself -- your grouping IS the corroboration signal.
 (B) Many URLs are opaque news.google.com/rss/... redirects. Resolve the real publisher URL and cite that.
@@ -57,5 +64,5 @@ Do NOT query the `news_story` table -- it needs a service-role key you are delib
 One issue per event, labeled `intake`, titled 'intake: <plain description>'. Body: what happened; CONFIRMED or UNSETTLED and why; resolved source URLs with outlet and date; era seed file and category; what you cut and why; `needs-sources` ONLY if it still fails with the browser UA. Check open AND recently closed intake issues first -- #902, #903, #909, #920 and #945 are already filed.
 
 === NEVER EXIT SILENTLY ===
-If you file nothing, comment why on the Nils walk log #502: which window you read, roughly how many stories, why none cleared the bar. If a tool, auth or rate limit stopped you, say THAT. Never merge; never author Vault content.
+If you file nothing, comment why on the Nils walk log #502: which window you read, roughly how many stories, why none cleared the bar. If a tool, auth or rate limit stopped you, say THAT. During the T-3 trial (see above), always include `consumed-snapshot: <filename>` in that comment even when you DO file issues -- open a comment either way so the recall check has it. Never merge; never author Vault content.
 ```

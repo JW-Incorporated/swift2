@@ -147,3 +147,30 @@ jobs:
               -f content="$(base64 -w0 "$FILE")" >/dev/null
           fi
           echo "published digest to news-digest ($(grep -c '^## ' "$FILE") stories)"
+
+          # T-3 trial instrument (docs/TIER2-OPTIMIZATION.md): News Triage's
+          # live digest gets overwritten on every 4-hourly ingest, so by the
+          # time the weekly recall-check runner needs "what did News Triage
+          # actually see that day" the file is long gone. Archive a dated,
+          # credential-free snapshot alongside the live file every run — a
+          # new file each time, no SHA lookup needed, zero LLM, zero cost.
+          # Consumed by docs/agents/runner-prompts/news-triage-recall-check.md.
+          #
+          # Gated on a marker file (main branch, not news-digest) so this
+          # does not silently run forever after the trial ends: the
+          # follow-up PR that actually starts the trial (creates the
+          # recall-check trigger + flips News Triage's model) adds
+          # docs/content-ops/news-triage-trial-active, and removes it again
+          # when the trial concludes per the recall-check's PASS/FAIL verdict
+          # — reviewed P2, codex review on PR #3608.
+          if [ -f docs/content-ops/news-triage-trial-active ]; then
+            STAMP=$(date -u +%Y-%m-%dT%H%M%S)
+            ARCHIVE="docs/content-ops/archive/news-candidates-$STAMP-${{ github.run_id }}.md"
+            retry gh api -X PUT "repos/$REPO/contents/$ARCHIVE" \
+              -f message="chore(news): archive candidate digest snapshot ($STAMP)" \
+              -f branch=news-digest \
+              -f content="$(base64 -w0 "$FILE")" >/dev/null
+            echo "archived digest snapshot to $ARCHIVE"
+          else
+            echo "news-triage-trial-active marker absent — skipping archive (trial not running)"
+          fi
