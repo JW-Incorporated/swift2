@@ -121,7 +121,24 @@ dropdown — no checkout, no `.env`, no laptop command, ever again.
 **Worked if:** both workflow runs above show green in the Actions tab, and
 production's `video_work` table matches `supabase/seed/videos/**`.
 
-**Status:** OPEN
+**Update (2026-08-31, agent):** the founder-only one-time setup above was
+completed by the agent (SUPABASE_DB_URL was already configured as a repo
+secret from the original PR #3559 setup). The first real `db-migrate`
+workflow_dispatch run (33351378579) failed at "Run migrations (pass 1)"
+with `node: apps/worker/.env: not found` — a workflow-authoring bug, not
+a DB or secret problem: each `run:` step is its own shell process, and the
+materialize step's own `trap 'rm -f apps/worker/.env' EXIT` deleted the
+file the instant that step's shell exited, before the next step could read
+it. Same defect existed identically in `db-seed.yml`. Fixed in PR #3560
+(merged to main, commit f943f911) by moving the cleanup trap onto only the
+steps that consume the file. Re-verified both workflows for real via
+`gh workflow run`:
+- `db-migrate` dispatched on the fix branch → run 33351530969 → green,
+  including the pass-2 idempotency check.
+- `db-seed` (target=videos) dispatched on `main` after merge → run
+  33351722088 → green.
+
+**Status:** DONE
 
 ---
 
