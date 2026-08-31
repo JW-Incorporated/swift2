@@ -164,8 +164,8 @@ jobs:
           # when the trial concludes per the recall-check's PASS/FAIL verdict
           # — reviewed P2, codex review on PR #3608.
           if [ -f docs/content-ops/news-triage-trial-active ]; then
-            STAMP=$(date -u +%Y-%m-%dT%H%M)
-            ARCHIVE="docs/content-ops/archive/news-candidates-$STAMP.md"
+            STAMP=$(date -u +%Y-%m-%dT%H%M%S)
+            ARCHIVE="docs/content-ops/archive/news-candidates-$STAMP-${{ github.run_id }}.md"
             retry gh api -X PUT "repos/$REPO/contents/$ARCHIVE" \
               -f message="chore(news): archive candidate digest snapshot ($STAMP)" \
               -f branch=news-digest \
