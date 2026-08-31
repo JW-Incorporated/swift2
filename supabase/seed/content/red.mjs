@@ -2391,9 +2391,11 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg',
+            // Field-order fix 2026-08-31 (photo-enrichment, #762): focalPoint
+            // moved to immediately after url per the 2026-07-20 rule; value unchanged.
+            focalPoint: '48% 42%',
             credit: 'Big Machine Records / Taylor Swift via YouTube',
             kind: 'archival',
-            focalPoint: '48% 42%',
             caption: "Frost-covered mid-blizzard — a still from Joseph Kahn's official 'Out of the Woods' video, premiered on New Year's Eve 2015.",
           },
         ],
