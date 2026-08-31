@@ -224,6 +224,60 @@ schedule needs an explicit cap. The stuck-PR watchdog check carries one.
       lane 2 ships → disable the six one at a time, reading each back → delete
       the `content-shift/` row from the watchdog's lane table.
 
+      **Re-checked 2026-08-31 (kanban t_970448f8, Tier-2 T-1 execution attempt).**
+      Precondition-by-precondition status against live repo state:
+
+      1. **Phase 3.5 on `main`: CLEARED.** `watchdog.yml`'s stuck-red-PR check
+         and `vault-run.md`'s STEP 0 adoption path are both present on
+         `origin/main` today (PR #1629 merged 2026-08-12).
+      2. **Orchestrator miss rate: STILL NOT CLEARED — live miss today.**
+         Direct evidence, checked 2026-08-31 21:11 UTC (5h after the 16:07 UTC
+         Vault Run cron): **no `vault/2026-08-31` branch or PR exists**, while
+         both standalone lanes fired normally the same day —
+         `content-shift/2026-08-31` (PR #3596, 17:19 UTC) and
+         `content/rumor-desk-2026-08-31` (PR #3591, 15:10 UTC). Recent history
+         (08-24 through 08-30, 7 days) shows the Vault Run landing every day —
+         so the failure mode is intermittent, not constant — but today is a
+         live, reproducing instance of exactly the gap this precondition
+         exists to catch: **the standalone lanes are still the only reason
+         today's content shipped.** Retiring them today would have caused a
+         real content outage for at least the Rumor Desk / Content Shift
+         lanes. Root cause of today's specific miss has not been
+         investigated in this pass (out of scope for a docs-only session —
+         needs a session that can inspect the Vault Run trigger's actual run
+         log, not just its git output).
+      3. **Lane 2 (Answerer) coverage: CLEARED.** Vault Run PR #3434
+         (2026-08-29) shipped `lane(answerer): cross-link the four 'I Knew
+         It, I Knew You' / Toy Story...` — the lane is confirmed shipping
+         from the live queue, not no-oping.
+      4. **Trigger state verification: NOT CLEARABLE FROM THIS SANDBOX.** The
+         `RemoteTrigger` tool this doc's own footgun section describes is not
+         present in this worktree's Claude Code tool list (confirmed
+         2026-08-31: available tools are Agent, Bash, Edit, Read,
+         ReportFindings, ScheduleWakeup, Skill, ToolSearch, Workflow, Write —
+         no trigger/routine API access). Disabling a live standalone trigger
+         requires a session authenticated to the account the routines run on
+         (Joey's, per this file's `Live trigger IDs` section) with the
+         RemoteTrigger tool attached — this docs/CI sandbox cannot reach that
+         API at all, so no `job_config` read-or-write is possible here
+         regardless of precondition 2.
+
+      **Conclusion: Phase 4 remains not-safe-to-execute today**, for two
+      independent reasons — a live reproduction of the precondition-2 miss
+      pattern, and no execution capability for the actual disable step in
+      this environment. Next session picking this up needs BOTH: (a) a
+      RemoteTrigger-capable session on the routines account, and (b) the
+      missed-day cause root-caused and fixed — per this doc's own existing
+      requirement above ("root-cause the misses first"). An intermittent
+      failure that silently drops a day's content cannot be waved through by
+      a run of clean days alone: a short successful streak does not
+      demonstrate the trigger is reliable when the evidence above shows the
+      miss is real and recurring. Do not disable any of the six standalone
+      triggers until the root cause is identified and fixed, not merely
+      until it stops reproducing for a while. Filed as `HUMAN-ACTIONS.md`
+      item 35 (2026-08-31) — this needs a founder-authenticated
+      RemoteTrigger session, which no automated docs/CI worker can be.
+
 ## Rollback
 
 Re-enable the six triggers and disable the Vault Run. Nothing is deleted in
