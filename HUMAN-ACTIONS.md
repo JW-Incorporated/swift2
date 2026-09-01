@@ -188,7 +188,7 @@ entry here or in `docs/decisions.md` when done.
 
 ---
 
-### 30. [DONE] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key
+### 39. [DONE] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key
 
 **Filed:** 2026-08-30
 
@@ -198,7 +198,7 @@ entry here or in `docs/decisions.md` when done.
 
 ---
 
-### 32. [DONE] Etsy API returns 403 to the E5 evidence workflow — check app approval
+### 40. [DONE] Etsy API returns 403 to the E5 evidence workflow — check app approval
 
 **Filed:** 2026-08-30
 
