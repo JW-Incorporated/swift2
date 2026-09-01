@@ -332,7 +332,10 @@ function isRetryableVisionError(error) {
 function visionFailureReason(error) {
   if (error instanceof Error && error.message.startsWith('image source ')) return error.message;
   const status = error instanceof Error ? /\((\d{3})\)$/.exec(error.message)?.[1] : null;
-  return status ? `vision request failed (HTTP ${status})` : 'vision request failed';
+  if (status) return `vision request failed (HTTP ${status})`;
+  const rawDetail = error instanceof Error && error.message ? error.message : String(error);
+  const detail = rawDetail.length > 160 ? `${rawDetail.slice(0, 160)}…` : rawDetail;
+  return `vision request failed (${detail})`;
 }
 
 async function judgeWithRetry(pair, judge, sleep, reserveAttempt) {
