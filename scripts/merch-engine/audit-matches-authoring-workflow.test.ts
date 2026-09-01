@@ -3,9 +3,15 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 describe('E3 manually confirmed authoring workflow', () => {
-  it('keeps vision judgment manual, secret-bound, capped, cached, and artifact-only', () => {
-    const workflow = readFileSync(resolve('.github/workflows/merch-audit-authoring.yml'), 'utf8');
+  const workflow = readFileSync(resolve('.github/workflows/merch-audit-authoring.yml'), 'utf8');
+  // Isolate the `author:` job's own text (up to the next top-level job
+  // key) so the "stays artifact-only" assertion below judges ONLY that
+  // job — the separate `apply-demotions:` job legitimately commits and
+  // opens a PR (spec P2, issue #3447), same pattern merch-official-sync.yml
+  // already uses for its own `author` job.
+  const authorJob = workflow.slice(0, workflow.indexOf('\n  apply-demotions:'));
 
+  it('keeps vision judgment manual, secret-bound, capped, cached, and artifact-only', () => {
     expect(workflow).toMatch(/^on:\n\x20{2}workflow_dispatch:/m);
     expect(workflow).not.toMatch(/^\x20{2}(push|schedule):/m);
     expect(workflow).toContain('confirmation:');
@@ -31,6 +37,17 @@ describe('E3 manually confirmed authoring workflow', () => {
     expect(workflow).toContain('merch-audit-scores-v1-${{ github.ref_name }}-${{ github.run_id }}');
     expect(workflow).toContain('restore-keys');
     expect(workflow).toContain('buildScoreCache');
-    expect(workflow).not.toMatch(/git (add|commit|push)|gh pr|supabase\/seed|apps\/web\/lib\/longlive\/content/i);
+    expect(authorJob).not.toMatch(/git (add|commit|push)|gh pr|supabase\/seed|apps\/web\/lib\/longlive\/content/i);
+  });
+
+  it('applies demotions to moment content in a separate, gated PR-opening job (#3447 P2)', () => {
+    expect(workflow).toContain('apply-demotions:');
+    expect(workflow).toContain('needs: author');
+    expect(workflow).toContain("needs.author.outputs.demoted != '0'");
+    expect(workflow).toContain('apply-demotions.mjs');
+    expect(workflow).toContain('sync:content');
+    expect(workflow).toContain('SOCIAL_POSTER_PAT');
+    expect(workflow).toContain('merch-audit-authoring/${GITHUB_RUN_ID}');
+    expect(workflow).toContain('gh pr merge "$BRANCH" --squash --auto --delete-branch');
   });
 });

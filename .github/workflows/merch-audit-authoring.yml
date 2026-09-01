@@ -23,6 +23,8 @@ jobs:
     if: ${{ inputs.confirmation == 'RUN_AUTHORED_VISION_AUDIT' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    outputs:
+      demoted: ${{ steps.author.outputs.demoted }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -81,7 +83,15 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GH_TOKEN: ${{ github.token }}
-        run: node scripts/merch-engine/audit-matches-authoring.mjs --receipt .cache/merch-audit-authoring.json --queue .artifacts/merch-audit-queue.json --write .artifacts/merch-audit-authoring.json
+        run: |
+          node scripts/merch-engine/audit-matches-authoring.mjs --receipt .cache/merch-audit-authoring.json --queue .artifacts/merch-audit-queue.json --write .artifacts/merch-audit-authoring.json
+          demoted=$(node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+          const artifact = JSON.parse(await readFile('.artifacts/merch-audit-authoring.json', 'utf8'));
+          console.log(Array.isArray(artifact.demotions) ? artifact.demotions.length : 0);
+          NODE
+          )
+          echo "demoted=$demoted" >> "$GITHUB_OUTPUT"
       - name: Update the reusable authoring receipt
         if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.artifacts/merch-audit-authoring.json') != '' }}
         run: cp .artifacts/merch-audit-authoring.json .cache/merch-audit-authoring.json
@@ -124,3 +134,60 @@ jobs:
             .artifacts/merch-audit-authoring.json
           if-no-files-found: error
           retention-days: 90
+
+  # Spec P2 (issue #3447): a below-25 mismatch must actually be removed from
+  # the moment's products, not just recorded in the artifact + a re-source
+  # issue. This job applies scripts/merch-engine/apply-demotions.mjs to the
+  # SAME artifact the `author` job just produced and opens a gated content
+  # PR — same branch/PAT/auto-merge shape as merch-official-sync.yml's
+  # `author` job (SOCIAL_POSTER_PAT so the PR can trigger the required
+  # `build` check on branch-protected main; auto-merge is still gated by
+  # auto-merge-content.yml's path allowlist + branch/author gate, which
+  # explicitly recognizes the `merch-audit-authoring/` branch prefix this
+  # job uses).
+  apply-demotions:
+    needs: author
+    if: ${{ needs.author.outputs.demoted != '0' && needs.author.outputs.demoted != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Download the authoring artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: merch-audit-authoring-artifact
+      - name: Remove demoted products from moment content
+        run: node scripts/merch-engine/apply-demotions.mjs --artifact merch-audit-authoring.json --seed-dir supabase/seed/content
+      - name: Regenerate the built content vault
+        run: npm run sync:content
+      - name: Open gated demotion PR
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+        run: |
+          set -euo pipefail
+          git add supabase/seed/content apps/web/lib/longlive/content-vault.generated.ts
+          if git diff --cached --quiet; then
+            echo "apply-demotions ran but nothing changed — every demotion url was already gone (prior run applied it, or a race with a manual edit). Nothing to PR."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH="merch-audit-authoring/${GITHUB_RUN_ID}"
+          git checkout -b "$BRANCH"
+          git commit -m "fix(merch): remove E3-demoted mismatches (run ${GITHUB_RUN_ID})"
+          git push origin "$BRANCH"
+          gh pr create --title "fix(merch): remove E3-demoted mismatches (run ${GITHUB_RUN_ID})" \
+            --body "Automated E3 demotion lane (scripts/merch-engine/apply-demotions.mjs). Removes every product this run's vision auditor scored below 25 (mismatch) from its moment's products, per spec P2 (issue #3447) — the paired E6 re-source GitHub issue names the same products with the auditor's reasons. Restates only the auditor's own recorded outcome; adds no new content. Auto-merges once check-drafts.mjs + the required build check pass; a human can still merge or hold it." \
+            --base main --head "$BRANCH"
+          gh pr merge "$BRANCH" --squash --auto --delete-branch
+
