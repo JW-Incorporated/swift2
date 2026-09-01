@@ -135,6 +135,27 @@ it and leave the lane's content in place.
      body — shipping five good lanes beats blocking on one.
    - `lint` reporting `Duplicate key` means the `focalPoint` bug: remove the
      duplicate, do not leave both.
+   - **Also run the two CI content checks this gate used to skip (#3516):**
+     `git fetch --no-tags --depth=1 origin main`, then
+     `npm run check:voice -- --base-ref FETCH_HEAD` and
+     `npm run content:coverage`. Both are cheap and scoped — `check:voice`
+     only scans the seed files this run's commits actually touched (not the
+     whole corpus) and `content:coverage` is a pure file check with no DB or
+     network calls — so there is no cost reason to skip either on a normal
+     run. PR #3514 passed the old five-command gate and still failed CI's
+     `build` job on a `check:voice` finding this gate never would have
+     caught; these two commands close that gap.
+   - **Do NOT add `npm run build` to this local gate.** Unlike the two checks
+     above, `build` runs a full multi-workspace production build (every
+     `apps/*` package, `--if-present`), which is materially slower than the
+     five-command gate and does not scale to running after every lane on
+     every Vault Run. It is still enforced — CI's `build` job runs it on the
+     PR before merge — so a real build break is still caught before landing,
+     just not locally. If you want a cheap local proxy instead of the full
+     build, `npm run typecheck` (already in this gate) catches the type
+     errors that would fail `build` for TypeScript reasons; it does not catch
+     bundler/asset errors, so treat CI's `build` job, not this gate, as the
+     authority on those.
 4. **Open ONE PR**, branch `vault/<date>`, label `content-shift`, titled
    `vault: <date> — <n> lanes`. Body must contain:
    - a one-line TL;DR per lane that did something, and
