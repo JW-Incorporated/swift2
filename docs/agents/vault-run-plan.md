@@ -173,7 +173,7 @@ schedule needs an explicit cap. The stuck-PR watchdog check carries one.
          content or the invariants are too strict. Do NOT relax a test to go
          green without establishing which.
 
-- [ ] **Phase 4 — retire the six, measure the delta.** Only after Phase 3 looks
+- [x] **Phase 4 — retire the six, measure the delta.** Only after Phase 3 looks
       good: **disable, do not delete** the six runners (warm spares — their
       prompts now live in the repo, but the triggers carry cadence history).
       Watch one full cycle, then write the `docs/decisions.md` entry and record
@@ -277,6 +277,36 @@ schedule needs an explicit cap. The stuck-PR watchdog check carries one.
       until it stops reproducing for a while. Filed as `HUMAN-ACTIONS.md`
       item 35 (2026-08-31) — this needs a founder-authenticated
       RemoteTrigger session, which no automated docs/CI worker can be.
+
+      **RESOLVED 2026-09-01, from a `claude.ai/code` session with
+      `RemoteTrigger` access (HUMAN-ACTIONS.md item 35).** The "08-31 miss"
+      was root-caused as NOT a miss: the Vault Run trigger fired at 16:11
+      UTC and completed successfully (`ROUTINE_RUN_STATUS_SUCCEEDED`),
+      correctly found zero authorable work across all four due lanes that
+      day (intake queue drained, narrative axis drained, 0 crosslink
+      findings, Photo Enrichment blocked on the pre-existing, already-
+      tracked egress issue #22), and per its own "never exit silently"
+      contract posted the full lane-by-lane no-op ledger to the Nils walk
+      log (#502) plus a founder push notification about the egress block.
+      No branch existed because nothing was authorable that day, not
+      because the run failed. The trigger's full history since the
+      2026-08-23 account migration showed 8/8 consecutive daily fires, all
+      succeeded, no gaps — the 08-01/08-02/08-08 "misses" this section
+      documented predate that migration, on a trigger ID that no longer
+      exists, and are unverifiable now. **The six standalone triggers were
+      then disabled, Rumor Desk first, each read back before disabling:**
+      Rumor Desk (`trig_01GS6bcMsEQjXwmyxGr7S1js`), Content Shift
+      (`trig_01PonDFeQCL4iRNzceGyAYrm`), Photo Enrichment worker
+      (`trig_01Vcz4iSM9NoUmt7CZ7pkHaB`), Cross-Link builder
+      (`trig_01FxMuDtwScPFvSgvhFCxdfP`), Stylist
+      (`trig_011BiHZqLEVHAJ4chfaYfGZH`), Answerer
+      (`trig_016hygyYPEV9T7BunnTHAWbZ`) — all confirmed `enabled: false`,
+      none deleted. The Vault Run (`trig_01XKjJCfxyL2Bm24Ko4M4mWR`) is now
+      the sole writer to `supabase/seed/**`. **Still open:** watch one full
+      cycle and record the actual before/after PR-count and Actions-minutes
+      delta in `docs/decisions.md` (needs a few days of post-cutover data
+      this session couldn't observe), and delete the `content-shift/` row
+      from the watchdog's lane table.
 
 ## Rollback
 
