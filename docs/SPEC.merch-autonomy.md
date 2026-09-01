@@ -339,16 +339,18 @@ Pipeline per moment:
    a look trends).
 
 **Field naming (issue #3463):** `scripts/merch-engine/match-moments.mjs`
-produces an intermediate plan artifact (`merch-matcher-plan.json`, step 3's
-scoring output) that carries each candidate's confidence under `score`, not
-`matchScore`. That is deliberate, not a defect: the plan is candidate data,
-not a `Product` record, and nothing consumes it yet. The `score` →
-`Product.matchScore` mapping is the authoring lane's job (step 4, still to
-be built) — its spec/implementation must map plan-candidate `score` onto
-`Product.matchScore` when it writes products, and decide then whether the
-plan artifact itself should be renamed to `matchScore` for consistency.
-Until the authoring lane exists, `match-moments.mjs` keeps `score` to
-preserve parity with its staged source.
+(step 3's tie-break/selection logic) and `match-moments-authoring.mjs`
+(steps 1–3: extraction, search, vision scoring) carry each candidate's
+confidence under `score`, not `matchScore`, in their intermediate plan
+artifact (`merch-matcher-plan.json` / `.artifacts/merch-matcher-authoring/
+plan.json`). That is deliberate, not a defect: the plan is candidate data,
+not a `Product` record. Step 4 — writing products onto the moment through
+the standard content lane — is not yet implemented by any script; when it
+is built, its spec/implementation must map plan-candidate `score` onto
+`Product.matchScore`, and decide then whether the plan artifact itself
+should be renamed to `matchScore` for consistency. Until that product
+writer exists, `match-moments.mjs`/`match-moments-authoring.mjs` keep
+`score` to preserve parity with their staged source.
 
 Budget: expected single-digit search calls + low-tens of vision scores per
 moment; the R5 cap makes the worst case a ticket, not a bill.
