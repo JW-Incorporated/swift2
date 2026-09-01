@@ -27,6 +27,38 @@ so far".
 
 Stories: 71
 
+## Taylor Swift's 20-Year Journey From Opry to Pop Royalty
+
+- first seen: 2026-09-01 23:16 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: A retrospective on Taylor Swift's career highlights her rise from her debut at the Grand Ole Opry to becoming a pop music icon over the past two decades.
+- sources:
+  - [unverified] WSMV — https://news.google.com/rss/articles/CBMisAFBVV95cUxQM1ZRWHpubDZEeFNNTEMxb0wxbUE1dkNibUtFekxoX05ORTVFRlY2Y1dHQnVab21HODBUUGVGRDlfYWk2b1JFc1ZiQVBrb2NFaDdJY1BZSFNxVThPT0RCRFdlRHRhR2NBR25jZkhfU2FoNUpONEFLVUdpaThUeU9RQy11Z1RUMjhuaHBfZF9jV3g0cks1M3RyWVdyZk1PMkhrdXlpYkxhRjJpVTFheW9xQw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares Thoughts on Taylor Swift's Fashion Style
+
+- first seen: 2026-09-01 23:16 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce comments on his wife Taylor Swift's fashion sense while celebrating a significant milestone. His remarks highlight her style in a positive light.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxNVHhhR0RLTUVOYnVrWTJ3QlJ5Y1ZOanlhemw3eER5TVJyY1FBQmU4clVZTnQ1Q2tUUUt5alZ0bWZuTG5iYklWNzU5OUNtdERPdUs3c1hXbEUzbXVDbVhfNll4UWNUZnRUQlozZFJualFzcVYxSTQ5X1ZuSjJuelV2THBhOTdiV3Z3RUZ6TWFubzFNWWNTV2tTNWpB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Gracie Hunt Holds Engagement Party Amid Taylor Swift's Influence
+
+- first seen: 2026-09-01 23:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Gracie Hunt's engagement party is drawing attention as she attempts to refocus the Kansas City Chiefs' spotlight away from Taylor Swift. The event highlights her significant role within the franchise.
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiygFBVV95cUxPemw5aFhKX21JcTg3dkMwM2xaOTdlV1psS2YxOWpfYnJtUkRvdUMtTVRVbnJLMTdHU05QY0MtUWZsRk54dVJINzdseW5YUURVdkhheVpfZUZEQU5lcXh6RVM3eHJOYnJldVRPWXNXbGdwRUlQZ1hpS0Vtb0ttbl9RWjlyY0NHV1gyOEtBbzJDM3hOTTBBb2VKUHNSbnhlbllpaDRqckJQV0FPaUZ3UkFobXp4SWVSWDUyYjhxVjFGWkN3Yk4wTDZFaVB3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Conan O'Brien Addresses Taylor Swift Wedding Rumors
+
+- first seen: 2026-09-01 23:16 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Conan O'Brien took to social media to clarify and debunk circulating rumors regarding Taylor Swift's wedding. The comedian offers insights on the speculation surrounding the singer's personal life.
+- sources:
+  - [unverified] Pajiba — https://news.google.com/rss/articles/CBMingFBVV95cUxNcjhfX05xazA4Z2hTdFNFMzIydHJaUExGTHI4U2ZMeHRQLWN2TVdiU25KNnVHWnFzNmFVNEg4aVNTM2lUOW1IT0RfalA3YldzdVZQeFQ1T2tCU2VFcFVTdFFzblJzZXRsYUVmeTJDcWxTSmtGY1oyM09rVG1DTUlpdGtwdjZMTFhFTlYtMURxbjdJQkpTUFhDYWFGRl9udw?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift and Travis Kelce Introduce Their New Dog
 
 - first seen: 2026-09-01 19:55 UTC | category: relationship | importance: 5
@@ -143,7 +175,7 @@ Stories: 71
 ## Travis Kelce: Football Star Excels as Fashion Ambassador
 
 - first seen: 2026-09-01 14:07 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 10
+- verification_status: corroborated | source_count: 16
 - summary: Vogue features Travis Kelce as a multi-faceted figure in the fashion world, showcasing his influence beyond football. His role as a fashion ambassador is highlighted, along with his passion for being a dog dad.
 - sources:
   - [unverified] HELLO! Magazine — https://news.google.com/rss/articles/CBMipgFBVV95cUxORkljTnZaZjlCQ2M3UmtLZXFRYUVpWWR3RWRQZnlYLWhEc1M2bkMyWW83N2ZnV0JKZjc3ZHpaX0taTHRBLWNrOXFHU1BDam11VlBIS19NbnhiQzFyaWVSWUVCb25HV2xNN1UyUjdYdWdicGtSVlM4dzZrT1E5RWRjcjJjNWRkdTV4MUNyNTVQSUZqUU1HbDlRRGhQUjRGdTRDeTFLa3pR?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -156,6 +188,12 @@ Stories: 71
   - [unverified] ESPN Philippines — https://news.google.com/rss/articles/CBMitgFBVV95cUxOV3hjdEx1dnNycEc3Z3VEWms4c1BsMG13cHRmV19XVDdXRnJQTDltcGo0dzB3UFhKX3pKZDdCd2RNblVad3M0Y3lUTlJoT0xtSHUyZ2xYdUlNRktYX1VXcV9MWW5FV0NmV0h2NkxwRTVCc3lscFZUOHVHOFVQVFQydkQ0cTkyc0J2UzFGZDhlUXJocW8xTG9mN0N4LTlGcnE0dzRLMkdTcDZNSEVlQjdPSjNmWnNndw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] KOMO — https://news.google.com/rss/articles/CBMilgFBVV95cUxNS2FsSnk5eVNNbW5VdGdRY0dNLUlPc1JKNlJkTUsxdHp2bkg0cXdRSFEybUQyZHFNaWhhUHQ2M0lMRGUxQ3JXUE5Sd3FoMTlnZjZKZmtjSUFRSzJrWHNVMnF0Yjc5LW1iZkpoTXdIWnZtcTRkS2kya0x5WmtuYmJDNVgyOVpxV1NwcTBBSjdfLVMwaFlTbUE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMinwFBVV95cUxPckFhZmxPcnFhTThCS3YwQ3cwRzVwcFhPcFFCazlRUTk4QzRkNTY5MUFnekl5SDdockxZckM0RDBIaVRUTWVkNnA2NTZKWHZwOWg4WWNTRDdIdnlYcTQzbTdIblBKalhyelpSRkYxbDFWSVo1d0thY0lwNWM4Y2pkcGxuWHYxaHlFekJubWRXZExQLTNyNnFoWEpIcmZ0UUXSAaQBQVVfeXFMTlA0WmpBSlpBbENBdnVHNWhjVjJlM0VKR2NyLXpCSk1oNXNOZWlZeDRVUnFOX2tBQmQtNUtRMGJyT2tyNWxTejA4RDR6aVpoQi0tUHpheUU1a09MLW5UTzAxcXF2NW1BSWtiaS01S0RVcHprQ2h5Q3VyMTBzVFVnWlJ1TnVLa3RnZUVpZ3JlZVhFNDUzMGpqWjlIOVhQNGxkbE40bjg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikAFBVV95cUxPVHFHa08zOWNVS1dObExxamdRQVFtanZiNU53TWR5THNTWFBJaUluX3RSbU5YTXdqZERQWkNTSmwya0VQVHV4eTNoYy1CRXdZeTh2eUQwTTdlMXF0OWV6eXNwV19zZFhSNGlDeUlzV2FfSlA2TGo4UTZFaGllRWttOGUzMklMQmpzVDdVbnZWNS0?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ESPN — https://news.google.com/rss/articles/CBMitwFBVV95cUxPWWhUMHRJVExrYVZSblZtSzNpUnNIaF9EMVA5Vkp2bi00VHdlaDZUR2JpaEswaTVjNTFZT2Fud2NJUDlHREg2WGw2bW1JdktsOFc4UmtrM01WbVFXVlFud1BFUnhaUjlaM3VwbmxRZEc1ZXVtU2dqZnd4QmJPRmFKOTF5Y2hkbWFMdTVNVE4ybTk4WHRsMHJOaVVEejU0YjVTOElsb1o2akFjUkZNdm9rZlZ2eFZMVHc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WCIV — https://news.google.com/rss/articles/CBMilgFBVV95cUxQSTJzTFlpMmNaU2FselduWG03X2luUUdVRnNxRG9yNXo1NFRndUYwQ1Ztd1BRU05sRG5qLUFicFFTR0FMM296OTkzWDBXVzRjRWJtbkhqTEItNVlIOEJXRlZSc1dRc3FENWtwX0VSdTFUN250S05XcWhURVFoNEhzSzk2ODdtclZSMmlOZmY5OTlZbHhubHc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] usatoday.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxNaUxpbUNHcksyeHRpX3hRQlZnaWEtOGx1cTRxYm1JMDNsX0IwNXlNa1VFMkwzTW1IRWFPNU1PWUlBUVRIV2VoVXotYWFlMTBsX0tDcmtYelJuYThPZ2t5Ml9MZnkwWFduZkdhQmxES054NXQyMjhjQmlsNVJFNUtfSGk3SlN2RV9VSm9naUpSOVZjaHlfc25DR21NaHJQVVVNOHkxRjRQZE1yZXh4ZGU3SjZmX3BBQXNoVzNDSW5EZmZFTGhuTXlj?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxOaUhaa0p3VzZBbzVlTThNVllCd0FCeFdLTk96MHZQbFluaVBFWnZvdTktdXUxLXdWb3JFWDc3YzJENjlPNG1zQ2NZX0g5VlZ0V0xSMHVMZzBfSXN6ZEZna01jUmFBUTc0N05NUlktcXNsaXlFT1JTSXMtVVpLbURsaGMyM2YwakxDM1cyLVR6NXE0cDQ1WFdnZHl2TjE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOTF9qd0locjA3Z0VaT3NPbF9feUxJenU5Z2ZjM0llSDNpR3JWTjJJUnlYWkEyLVlJUlJPSERYQVdaNk01ekRHamdkWVR6aXlyQThjVWxtUTMwcjRab3NhcVRycnI5WXJoaElsVUtyMXEwZzZpdFRxaDZGLVEzR0V5RjMyVmlKNEFQUl9qcjZDcUloMnNrQ3ZYcWIxZXJ4T0hnR2NuMVExWlF6UdIBrwFBVV95cUxQX0I2QzIyRzR0ajA4cnZoX1FYdHMzZVNwVmVfVGd3UDR4RF9iQ1hhTXVDREZ6SWEweWpRU01FejYzcUZ2dWZGa09Dc0ZaQVJRQWVVUzlCbF9TbUZUU29td1ItNUxLRWY5S28yUndoa0dxMXZCemhHdDNWRjFJdF9wRWxweS1HaGZRdFFPXzVJSkowalpVR3pMUnpzUVFlM3FqcFEzOGVFZ2lFV3VVbFkw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Blake Lively Faces Silence from Taylor Swift After Legal Issues
 
@@ -592,35 +630,3 @@ Stories: 71
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/harry-styles-taylor-swift-wedding-madison-square-garden-1236685019/
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiogFBVV95cUxNSm9ucU1kaTR4bHQzOXhyaXFRVWhzWWFzN2YwRGFkMUxKVEZnSmVOSmI1Q2lLYUZzRVVVLWMybUtnYUJ1Zm9UXzMySl9TMmxfQmlvZU5NbERRVFhMMVNOTl9vYlBTWktTN1dBZEVrNEV4TG5GWGI3M1Y2eEp4MHZQSW45bTBWOHZPdmlBMlAxbEFZc1BHbmhITHU1SDhpc2dSMVE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiugFBVV95cUxOX3czTGZIZThOaU1mWkVKUlRMVnNaRUNwWkpja2EzX0FiTUo3dmc0ZG9sZmxIQzlrbnV1LVZVSHg3ZndEd2ZldjVIMGZGbU84UU56UFUxQkxFZTNtekFZVlRCWDZEeGFPN0trejRrZWVUcEwwamJuRm5MRGRPTnFBejhyalpqMDMzZXZmeFRUVFZYUVJVVlEwbjZPdlBoQ2NqRW1pbG5aZm9kLXlfWVVIRS1nSm5iaEh2OUE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift shares original concept for 'I Knew You Were Trouble'
-
-- first seen: 2026-08-29 23:15 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has disclosed that her hit song 'I Knew You Were Trouble' was initially composed as a piano ballad. The revelation offers insight into the creative process behind one of her popular tracks.
-- sources:
-  - [unverified] ABS-CBN — https://news.google.com/rss/articles/CBMi5wFBVV95cUxPclFOSmtCWmw5enNaeHNZM3pHcjRORElWY3drZ0JmUWc5N3owZGxqb2xDUnU0eFFMNVMzYXFuelZtYlpENzEzWVpYNzFHaTFUc0JHNG5CZ3FXZ1hzZ0plTTBZZXVvR0s2RUU1ZVFDSVc3c0t3alE1bmppWUJ6QmNZM1JkWnBiTmZydGxUTVV2WGp4MzNHdFVTdDlTbFIxb01HZUF0U0hUWHBwSlBOcFN6c1lfZnlLdml2WWlBeVpHcTFRQ0dNY0pTdTlpa0tVNEkwUmVNLU9LbWxOZjI1M3NvbVRRQVZFUlE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Shows Off Chunky Gold Wedding Band During NFL Season
-
-- first seen: 2026-08-29 23:15 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: NFL player Travis Kelce is seen wearing an oversized chunky gold wedding band as he begins the new season. The accessory has attracted attention in the fashion sphere.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxORTNTbWVWTnF3dW81ZzJzRjJCRDlTa0pmZl9mdkRCUTlRQXN2MnRidlBTVHRwOWtoWGJXSkpiR1lUdWlWV1J3aUhlVC1NSmV1RzJYTDYyb3oxTkZ1bjVubDFPdW5jdi1BRXVkYUtvOFZNeTU4M1c2V01EWFZRd1kwZUhTVmdTakM5OHBZ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift makes $50K donation to a mom injured while saving a teen
-
-- first seen: 2026-08-29 23:15 UTC | category: business | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has donated $50,000 to a mother who was injured after being struck by a car while she was saving a teenager. The donation highlights Swift's ongoing philanthropic efforts and support for those in need.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwAFBVV95cUxOSW9HUmhqZGo5c2FNNnFuZjhmSHlyazRDVVVvWVVpeDZTdlFwdjFSMVFUVWhuTVZZYlVPY01QR0Z4eDdVV08yYVBSSjlCSXpPdDZEaXk3eVRIbTNqRHA1aXAwYnE2My0tZkdJZlVNLU9RM3dCTzlZZU5vaGYxaDUxMFM2T21EQWRURnpHMVJSSjhpTDZnME1xWnBjOVZvNjd4NWdkRVRaVEVjT25ybUVGVHczb2d2LW5DTl9XMFF3d2M?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Donates $50,000 to Support Injured Mother
-
-- first seen: 2026-08-29 23:15 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a donation of $50,000 to a mother who was severely injured after rescuing teenagers from a highway crash. The donation aims to assist her recovery following a collapsed lung and ruptured organs.
-- sources:
-  - [unverified] NBC News — https://news.google.com/rss/articles/CBMijwFBVV95cUxNNlFkS2I2VHA3OG5LY04zZHlQdmtrMi0tOFJvTlRjYVJhRkM5a1F3bDl4MURkLWEweE1NNlVjSElJTEpRMF9ZcTNUSzJ1bElEalZJSHdybmdHYmV6REJkU2Y0S2lfM2N5dFRtQ293RzQ1dWw4VDRXaGp2bnlZUUN5ZzZ4TW5seHVUaElHV1REaw?oc=5&hl=en-US&gl=US&ceid=US:en
