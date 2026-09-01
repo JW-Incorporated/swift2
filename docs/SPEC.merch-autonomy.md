@@ -234,17 +234,20 @@ The core quality fix. Split per R1 — the schedule never runs the model
   `matchTier` is missing), gather the pairs, and file/refresh the scoring
   queue (issue/artifact, the appearance-discovery detect pattern). No
   model call, no judged writes, no PR authoring of scores.
-- **Judge (unscheduled authoring lane, artifact-only):** `merch-audit-authoring.yml`
-  is a manually confirmed (`workflow_dispatch` with a typed confirmation
-  string), read-only-content GitHub Actions job. It rebuilds the detector
-  queue itself, then runs `scripts/merch-engine/audit-matches-authoring.mjs`
-  to make the capped vision calls (hard $5/run reservation ceiling) and
-  uploads the resulting judgments as a build artifact (plus a follow-up
-  issue if the cap is hit mid-run). **It does not write `matchTier`/
-  `matchScore`/`kind` to any content file and does not open a PR** — landing
-  those judgments into the content is a separate, not-yet-built step that
-  must go through the normal R1 gates (`auto-merge-content.yml` +
-  `automerge-branch-author-gate.mjs`) when it exists.
+- **Judge + write (authoring lane, per FR-MERCH-5):** the authoring lane
+  consumes the detector queue, makes the vision calls, writes
+  `matchTier`/`matchScore`/`kind`, and lands them via a gated PR on a
+  registered branch prefix through the R1 gates — this is the binding
+  contract (`docs/decisions.md` FR-MERCH-5, 2026-08-30). **Known
+  implementation gap, not part of this doc-fix's scope:** the deployed
+  `merch-audit-authoring.yml` (manually confirmed via `workflow_dispatch`)
+  currently stops short of that contract — it rebuilds the queue, runs
+  `scripts/merch-engine/audit-matches-authoring.mjs` under a capped $5/run
+  vision-call budget, and uploads the judgments as a build artifact (plus a
+  follow-up issue on cap) but does not yet write product data or open a PR.
+  Closing that gap (an authoring-lane write + PR step) is follow-up
+  engineering work, tracked separately — this SPEC states the required end
+  state per the binding decision, not the interim artifact-only build.
 
 The judged half scores each pair as follows:
 
@@ -396,7 +399,7 @@ moment; the R5 cap makes the worst case a ticket, not a bill.
 | `merch-verify.yml` (E1+E2 detect) | daily | no | report → mender |
 | `merch-mend` (E1/E2 act) | daily, after verify | small | gated PR |
 | `merch-audit-detect.yml` (E3 detect) | weekly + on new items | no | scoring queue → authoring lane |
-| `merch-audit-authoring.yml` (E3 judge) | manual (`workflow_dispatch`, confirmation-gated) | vision | judgment artifact only (no PR yet — landing step not built) |
+| `merch-audit-authoring.yml` (E3 judge) | manual (`workflow_dispatch`, confirmation-gated) | vision | gated PR (required end-state, FR-MERCH-5) — deployed workflow is currently artifact-only, see §5 |
 | `merch-official-sync.yml` (E4) | 2×/day | authoring lane for new items | gated PR + social queue |
 | `merch-fanmade.yml` (E5) | daily | curation lane | gated PR |
 | `merch-matcher.yml` (E6) | on fashion-moment merge | yes | gated PR |
