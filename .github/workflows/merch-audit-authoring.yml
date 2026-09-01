@@ -86,17 +86,21 @@ jobs:
         # failure is visible in logs, but a transient GitHub Issues API
         # error must never block the actual demotion removal below on a
         # judgment the vision model already conclusively made (P1 review
-        # finding, #3447 P2). continue-on-error lets every later step's
-        # `steps.author.conclusion != 'skipped'` guard still pass (a
-        # continue-on-error'd step's conclusion is reported as 'success'),
-        # while `steps.author.outcome` still reports the real 'failure' for
-        # the check below.
+        # finding, #3447 P2). `|| echo ::warning::...` on the node command
+        # keeps bash's default `-e` from aborting the rest of THIS step's
+        # script when that exit code is nonzero, so the `demoted` output
+        # below still gets set from whatever artifact the script did write
+        # (round 3 review finding: continue-on-error alone only protects the
+        # JOB from a failed step's exit code — it does nothing for commands
+        # still queued after an early `-e` exit inside the same step).
+        # continue-on-error is kept as defense-in-depth against any other
+        # future non-zero exit this script might add.
         continue-on-error: true
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GH_TOKEN: ${{ github.token }}
         run: |
-          node scripts/merch-engine/audit-matches-authoring.mjs --receipt .cache/merch-audit-authoring.json --queue .artifacts/merch-audit-queue.json --write .artifacts/merch-audit-authoring.json
+          node scripts/merch-engine/audit-matches-authoring.mjs --receipt .cache/merch-audit-authoring.json --queue .artifacts/merch-audit-queue.json --write .artifacts/merch-audit-authoring.json || echo "::warning::merch-audit-authoring.mjs exited non-zero (see log above, likely a best-effort issue-filing failure) — continuing to publish the demoted output from whatever artifact it did write."
           demoted=$(node --input-type=module <<'NODE'
           import { readFile } from 'node:fs/promises';
           const artifact = JSON.parse(await readFile('.artifacts/merch-audit-authoring.json', 'utf8'));
@@ -146,15 +150,6 @@ jobs:
             .artifacts/merch-audit-authoring.json
           if-no-files-found: error
           retention-days: 90
-      # Surface an issue-filing failure loudly (a job annotation) WITHOUT
-      # failing the job — a transient GitHub Issues API error must never
-      # block the apply-demotions job below from removing products the
-      # vision model already conclusively judged (P1 review finding,
-      # #3447 P2). The underlying script already logged the specific error.
-      - name: Flag a best-effort issue-filing failure
-        if: ${{ steps.author.outcome == 'failure' }}
-        run: |
-          echo "::warning::merch-audit-authoring: the cap follow-up and/or re-source issue failed to file this run (see the 'Run capped vision authoring' step log) - demotion removal below still proceeds on the judged artifact."
 
   # Spec P2 (issue #3447): a below-25 mismatch must actually be removed from
   # the moment's products, not just recorded in the artifact + a re-source
