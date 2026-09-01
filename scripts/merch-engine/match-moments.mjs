@@ -125,11 +125,18 @@ export function searchPlanFor({ moment, callsUsed, cap }) {
 
 export function buildMatcherPlan({ moments, paidSearch }) {
   if (!Array.isArray(moments)) throw new Error('input must contain a moments array');
+  // Thread a running counter across no-candidate moments so each subsequent
+  // paid-search check sees calls actually consumed by earlier moments in
+  // this run, rather than the same static snapshot every time.
+  let callsUsed = paidSearch?.callsUsed ?? 0;
   const matches = moments.map(({ moment, candidates }) => {
     const match = matchMoment({ moment, candidates });
-    const paidSearchTicket = match.products.length === 0 && paidSearch
-      ? planPaidSearch({ moment, ...paidSearch }).ticket
-      : null;
+    let paidSearchTicket = null;
+    if (match.products.length === 0 && paidSearch) {
+      const plan = planPaidSearch({ moment, callsUsed, cap: paidSearch.cap });
+      paidSearchTicket = plan.ticket;
+      if (plan.allowed) callsUsed += 1;
+    }
     return { ...match, ticket: paidSearchTicket ?? match.ticket };
   });
   const tickets = matches.flatMap((match) => (match.ticket ? [match.ticket] : []));
