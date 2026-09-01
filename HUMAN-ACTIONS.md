@@ -26,7 +26,7 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 41. [UPGRADE] Add a GitHub comment-edit tool to Kevin's cloud sessions (or accept the append-and-supersede workaround) — ~10 min
+### 42. [UPGRADE] Add a GitHub comment-edit tool to Kevin's cloud sessions (or accept the append-and-supersede workaround) — ~10 min
 
 **Filed:** 2026-09-01
 
@@ -79,6 +79,51 @@ RemoteTrigger access.
 **Worked if:** either a comment-edit tool is confirmed available and a
 follow-up PR reverts to edit-in-place, or you mark this `SKIP` because no
 such tool exists.
+### 41. [BLOCKING] Rename Karen's live trigger to match its judgment-only prompt (#3616, T-5) — ~2 min
+
+**Filed:** 2026-09-01
+
+**Why it matters:** issue #3616 / `docs/agents/runners.md` § T-5. The rename
+itself is pre-approved, standing-agent-authority work — no founder decision
+needed on the *what*. `runner-prompts/karen-nightly.md` already reads
+"weekly content-safety judgment review" (trimmed to the bounded judgment
+slice by PR #3445), so the live trigger's registered name is the only thing
+out of sync. This is a metadata-only resync — no prompt, cadence, model, or
+connector changes. Same account-access limitation this file documents
+elsewhere (items #35/#37/#38): the actual edit needs the `RemoteTrigger`
+tool, on Joey's account — this docs/CI worktree sandbox has no such tool
+attached at all.
+
+**Exact current vs. target:**
+
+| Field | Current | Target |
+|---|---|---|
+| Trigger ID | `trig_01TmYaZgnecrEp9mkeV3Gq6X` (the live, current ID — confirmed in `runners.md`'s live table; recreated on Joey's account 2026-08-23 per item #2) | unchanged |
+| Name | `Karen — nightly scan` | `Karen — weekly judgment slice` |
+| Prompt (`events`), cadence, model, repo, connectors | already correct (`0 9 * * 0` UTC, `claude-sonnet-5`, `JW-Incorporated/swift2`@main, judgment-only prompt per PR #3445) | unchanged — preserve verbatim on the round-trip |
+
+**Do not use `trig_014HWuRmT2MFveDkPGwVDiQX`** — per `runners.md` § T-5 this
+ID predates the 2026-08-23 account migration and is very likely stale/
+orphaned. `get` it first to confirm it's no longer live before touching
+anything; if it turns out to still be live, that's a separate finding (a
+live duplicate), not part of this rename.
+
+**Steps (one `job_config` round-trip, never a partial PUT):**
+1. From a `claude.ai/code` session with `RemoteTrigger` access on Joey's
+   account, `get` `trig_01TmYaZgnecrEp9mkeV3Gq6X`.
+2. In the returned object, change only `name` to
+   `Karen — weekly judgment slice`. Leave everything else — prompt, cadence,
+   model, repo, connectors — exactly as returned.
+3. `PUT` the whole object back (never a partial PUT — see `runners.md` §
+   RemoteTrigger footgun).
+4. Confirm the `get` reflects the new name, then update
+   `docs/agents/runners.md`'s live table (both the main table and the
+   "Cadence overrides still in force" table) to drop the RENAME PENDING flag
+   and show `Karen — weekly judgment slice` outright, and close issue #3616.
+
+**Worked if:** the trigger's registered name reads
+`Karen — weekly judgment slice`, `runners.md`'s tables show the new name
+with no RENAME PENDING flag, and issue #3616 is closed.
 
 **Status:** OPEN
 

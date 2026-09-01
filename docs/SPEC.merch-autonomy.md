@@ -275,6 +275,18 @@ The judged half scores each pair as follows:
    ≥90 `exact`, 70–89 `close`, 45–69 `similar`, 25–44 `inspired`,
    **<25 = mismatch → demoted**: removed from the moment's products and
    filed as a re-source ticket for E6 with the auditor's reasons attached.
+   Renewable score cache + the actual demotion removal (issue #3447):
+   `.cache/merch-audit-scores.json` is restored/saved under a run-scoped
+   key + `restore-keys` prefix (never one immutable pinned key) so newly
+   scored pairs are always visible to the next run
+   (`buildScoreCache()` in `audit-matches.mjs`). The removal itself is
+   `scripts/merch-engine/apply-demotions.mjs` (text-level scan/parse
+   helpers split into `scripts/merch-engine/demotion-source-scan.mjs` per
+   the 300-line file cap) — it scopes each removal to the SPECIFIC moment
+   named in the demoted `productId`, never a bare url-anywhere match,
+   because this corpus already reuses a handful of listing urls across
+   unrelated moments. `merch-audit-authoring.yml`'s `apply-demotions` job
+   runs it, regenerates the vault, and opens a gated content PR.
 4. Products with no comparable image pair (beauty items, no moment photo)
    are marked `matchTier: 'unscored'` (an explicit member of the `matchTier`
    union, `apps/web/lib/longlive/types.ts`) and skip scoring — the UI shows
@@ -389,6 +401,20 @@ Pipeline per moment:
 5. A moment where nothing clears the floor gets **no products** (R2) and a
    ticket that re-runs after 14 days (retail lag: dupes appear weeks after
    a look trends).
+
+**Field naming (issue #3463):** `scripts/merch-engine/match-moments.mjs`
+(step 3's tie-break/selection logic) and `match-moments-authoring.mjs`
+(steps 1–3: extraction, search, vision scoring) carry each candidate's
+confidence under `score`, not `matchScore`, in their intermediate plan
+artifact (`merch-matcher-plan.json` / `.artifacts/merch-matcher-authoring/
+plan.json`). That is deliberate, not a defect: the plan is candidate data,
+not a `Product` record. Step 4 — writing products onto the moment through
+the standard content lane — is not yet implemented by any script; when it
+is built, its spec/implementation must map plan-candidate `score` onto
+`Product.matchScore`, and decide then whether the plan artifact itself
+should be renamed to `matchScore` for consistency. Until that product
+writer exists, `match-moments.mjs`/`match-moments-authoring.mjs` keep
+`score` to preserve parity with their staged source.
 
 Budget: expected single-digit search calls + low-tens of vision scores per
 moment; the R5 cap makes the worst case a ticket, not a bill.

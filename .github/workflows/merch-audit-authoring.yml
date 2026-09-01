@@ -23,8 +23,17 @@ jobs:
     if: ${{ inputs.confirmation == 'RUN_AUTHORED_VISION_AUDIT' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    outputs:
+      demoted: ${{ steps.author.outputs.demoted }}
     steps:
+      # Pinned to main (P2 review finding, round 9): this authoring lane
+      # audits the live content vault and its resulting productIds/urls
+      # must resolve against the SAME revision apply-demotions later edits.
+      # Auditing a dispatched non-main ref would produce judgments the
+      # main-pinned apply-demotions job could never correctly match.
       - uses: actions/checkout@v7
+        with:
+          ref: main
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
@@ -34,11 +43,27 @@ jobs:
       - uses: actions/cache/restore@v5
         with:
           path: .cache/merch-audit-authoring.json
-          key: merch-audit-authoring-v1-${{ github.ref_name }}-${{ github.run_id }}
+          # Keyed on the literal `main`, not github.ref_name (P2 review
+          # finding, round 10): the author job's checkout is now pinned to
+          # main regardless of which ref this workflow_dispatch was fired
+          # from, so a dispatch-ref-scoped key would silently isolate every
+          # non-main dispatch's scores from main's own cache scope —
+          # defeating the renewable cache and re-paying for judgments
+          # that were already made.
+          key: merch-audit-authoring-v1-main-${{ github.run_id }}
           restore-keys: |
-            merch-audit-authoring-v1-${{ github.ref_name }}-
+            merch-audit-authoring-v1-main-
+      # Restore the newest renewable score cache (issue #3447 P1): a fixed
+      # pinned key can never absorb a newly scored pair, so this key carries
+      # the run id and the prefix restore always picks up the latest save.
+      - uses: actions/cache/restore@v5
+        with:
+          path: .cache/merch-audit-scores.json
+          key: merch-audit-scores-v1-main-${{ github.run_id }}
+          restore-keys: |
+            merch-audit-scores-v1-main-
       - name: Build the deterministic detector queue
-        run: npx tsx scripts/merch-engine/audit-matches.mjs --detect --write-queue .artifacts/merch-audit-queue.json
+        run: npx tsx scripts/merch-engine/audit-matches.mjs --detect --cache .cache/merch-audit-scores.json --write-queue .artifacts/merch-audit-queue.json
       - name: Initialize or refresh the authoring receipt
         run: |
           node --input-type=module <<'NODE'
@@ -61,6 +86,7 @@ jobs:
             providerModel: 'claude-sonnet-5',
             thinking: 'disabled',
             detectorReceipt, unscored: queue.unscored,
+            demotions: Array.isArray(queue.demotions) ? queue.demotions : [],
             judgments: Array.isArray(previous.judgments) ? previous.judgments : [],
           };
           mkdirSync('.cache', { recursive: true });
@@ -68,10 +94,41 @@ jobs:
           NODE
       - name: Run capped vision authoring
         id: author
+        # Issue-filing (the cap follow-up issue and the P2 re-source issue)
+        # is a best-effort side effect of this script, not its core job —
+        # the script sets process.exitCode=1 when EITHER fails, AFTER it
+        # has already written the artifact. A transient GitHub Issues API
+        # error at that point must never block the actual demotion removal
+        # below on a judgment the vision model already conclusively made
+        # (P1 review finding, round 2). But a failure BEFORE the artifact
+        # exists (missing/invalid API key, a thrown error mid-run) means no
+        # audit actually happened, and THAT must fail this job for real —
+        # a green run with no artifact would silently mean nothing was
+        # checked at all (P1 review finding, round 9). `|| { ... }` on the
+        # node command checks which case this is and only downgrades to a
+        # warning + explicit exit 0 when the artifact file exists; any
+        # other failure re-raises via `exit 1` so `-e` (and this step)
+        # fails hard, exactly as an authoring crash should.
+        continue-on-error: false
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GH_TOKEN: ${{ github.token }}
-        run: node scripts/merch-engine/audit-matches-authoring.mjs --receipt .cache/merch-audit-authoring.json --queue .artifacts/merch-audit-queue.json --write .artifacts/merch-audit-authoring.json
+        run: |
+          node scripts/merch-engine/audit-matches-authoring.mjs --receipt .cache/merch-audit-authoring.json --queue .artifacts/merch-audit-queue.json --write .artifacts/merch-audit-authoring.json || {
+            if [ -s .artifacts/merch-audit-authoring.json ]; then
+              echo "::warning::merch-audit-authoring.mjs exited non-zero but did write its artifact (likely a best-effort issue-filing failure, see log above) — continuing to publish the demoted output from what it did write."
+            else
+              echo "::error::merch-audit-authoring.mjs exited non-zero and never wrote an artifact — no audit actually ran this dispatch. Failing the job for real."
+              exit 1
+            fi
+          }
+          demoted=$(node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+          const artifact = JSON.parse(await readFile('.artifacts/merch-audit-authoring.json', 'utf8'));
+          console.log(Array.isArray(artifact.demotions) ? artifact.demotions.length : 0);
+          NODE
+          )
+          echo "demoted=$demoted" >> "$GITHUB_OUTPUT"
       - name: Update the reusable authoring receipt
         if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.artifacts/merch-audit-authoring.json') != '' }}
         run: cp .artifacts/merch-audit-authoring.json .cache/merch-audit-authoring.json
@@ -79,7 +136,31 @@ jobs:
         if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.cache/merch-audit-authoring.json') != '' }}
         with:
           path: .cache/merch-audit-authoring.json
-          key: merch-audit-authoring-v1-${{ github.ref_name }}-${{ github.run_id }}
+          key: merch-audit-authoring-v1-main-${{ github.run_id }}
+      # Renewable save-key (issue #3447 P1): fold this run's resolved
+      # judgments (score, unresolved-safe) into the restored score cache and
+      # save under a NEW run-scoped key every run, so the next run's
+      # restore-keys prefix match always finds the freshest saved key — the
+      # immutable single key this repaired can never be updated once set.
+      - name: Renew the persistent score cache with this run's judgments
+        if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.artifacts/merch-audit-authoring.json') != '' }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+          import { buildScoreCache } from './scripts/merch-engine/audit-matches.mjs';
+
+          const artifact = JSON.parse(readFileSync('.artifacts/merch-audit-authoring.json', 'utf8'));
+          const cachePath = '.cache/merch-audit-scores.json';
+          const previous = existsSync(cachePath) ? JSON.parse(readFileSync(cachePath, 'utf8')) : {};
+          const cache = buildScoreCache(artifact.judgments, previous);
+          mkdirSync('.cache', { recursive: true });
+          writeFileSync(cachePath, `${JSON.stringify(cache, null, 2)}\n`);
+          NODE
+      - uses: actions/cache/save@v5
+        if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.cache/merch-audit-scores.json') != '' }}
+        with:
+          path: .cache/merch-audit-scores.json
+          key: merch-audit-scores-v1-main-${{ github.run_id }}
       - name: Upload auditable authoring artifact
         if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.artifacts/merch-audit-authoring.json') != '' }}
         uses: actions/upload-artifact@v4
@@ -90,3 +171,93 @@ jobs:
             .artifacts/merch-audit-authoring.json
           if-no-files-found: error
           retention-days: 90
+
+  # Spec P2 (issue #3447): a below-25 mismatch must actually be removed from
+  # the moment's products, not just recorded in the artifact + a re-source
+  # issue. This job applies scripts/merch-engine/apply-demotions.mjs to the
+  # SAME artifact the `author` job just produced and opens a gated content
+  # PR — same branch/PAT/auto-merge shape as merch-official-sync.yml's
+  # `author` job (SOCIAL_POSTER_PAT so the PR can trigger the required
+  # `build` check on branch-protected main; auto-merge is still gated by
+  # auto-merge-content.yml's path allowlist + branch/author gate, which
+  # explicitly recognizes the `merch-audit-authoring/` branch prefix this
+  # job uses).
+  apply-demotions:
+    needs: author
+    if: ${{ needs.author.outputs.demoted != '0' && needs.author.outputs.demoted != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Pinned to main regardless of which ref this workflow_dispatch
+          # was fired from (P1 review finding, round 7): this job commits a
+          # NEW branch and opens a PR against main, so basing that branch on
+          # anything other than main would silently carry the dispatched
+          # ref's own unrelated commits into an auto-mergeable content PR.
+          # The `author` job legitimately runs against whatever ref was
+          # selected (harmless — it only produces an artifact); only this
+          # PR-writing job needs pinning.
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Download the authoring artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: merch-audit-authoring-artifact
+      - name: Remove demoted products from moment content
+        id: remove
+        # apply-demotions.mjs exits non-zero when one or more demotions
+        # couldn't be resolved (malformed productId, moment/url not found)
+        # — a real signal that a known mismatch stayed visible, per the P1
+        # review finding. continue-on-error lets the job still commit and
+        # PR whatever WAS successfully removed rather than throwing away a
+        # partial success; the failed outcome is surfaced as a job
+        # annotation below so it doesn't silently disappear.
+        continue-on-error: true
+        run: node scripts/merch-engine/apply-demotions.mjs --artifact merch-audit-authoring.json --seed-dir supabase/seed/content
+      - name: Flag unresolved demotions
+        if: ${{ steps.remove.outcome == 'failure' }}
+        run: |
+          echo "::warning::apply-demotions.mjs left one or more demotions unresolved this run (see the 'Remove demoted products from moment content' step log) — any resolvable removals are still committed below; the unresolved ones need a follow-up run or manual look."
+      - name: Regenerate the built content vault
+        run: npm run sync:content
+      - name: Open gated demotion PR
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+        run: |
+          set -euo pipefail
+          git add supabase/seed/content apps/web/lib/longlive/content-vault.generated.ts
+          if git diff --cached --quiet; then
+            echo "apply-demotions ran but nothing changed — every demotion url was already gone (prior run applied it, or a race with a manual edit). Nothing to PR."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH="merch-audit-authoring/${GITHUB_RUN_ID}"
+          git checkout -b "$BRANCH"
+          git commit -m "fix(merch): remove E3-demoted mismatches (run ${GITHUB_RUN_ID})"
+          git push origin "$BRANCH"
+          gh pr create --title "fix(merch): remove E3-demoted mismatches (run ${GITHUB_RUN_ID})" \
+            --body "Automated E3 demotion lane (scripts/merch-engine/apply-demotions.mjs). Removes every product this run's vision auditor scored below 25 (mismatch) from its moment's products, per spec P2 (issue #3447) — the paired E6 re-source GitHub issue names the same products with the auditor's reasons. Restates only the auditor's own recorded outcome; adds no new content. Auto-merges once check-drafts.mjs + the required build check pass; a human can still merge or hold it." \
+            --base main --head "$BRANCH"
+          gh pr merge "$BRANCH" --squash --auto --delete-branch
+      # Preserve every resolvable removal above (already committed/PR'd) but
+      # still end the RUN failed when one or more demotions could not be
+      # applied — a green run here would report success while a
+      # conclusively judged mismatch stays live (P1 review finding, round
+      # 6). This step runs LAST, after the PR is safely opened, so a
+      # partial success is never thrown away by an earlier hard failure.
+      - name: Fail the run when any demotion stayed unresolved
+        if: ${{ steps.remove.outcome == 'failure' }}
+        run: |
+          echo "::error::apply-demotions.mjs left one or more demotions unresolved this run — see the 'Remove demoted products from moment content' step log for which ones. Any resolvable removals were still committed/PR'd above; this run is marked failed so the unresolved ones get a human look or a follow-up dispatch, instead of a green run hiding a known-bad product still live."
+          exit 1
+
