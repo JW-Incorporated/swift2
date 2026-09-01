@@ -26,7 +26,14 @@ jobs:
     outputs:
       demoted: ${{ steps.author.outputs.demoted }}
     steps:
+      # Pinned to main (P2 review finding, round 9): this authoring lane
+      # audits the live content vault and its resulting productIds/urls
+      # must resolve against the SAME revision apply-demotions later edits.
+      # Auditing a dispatched non-main ref would produce judgments the
+      # main-pinned apply-demotions job could never correctly match.
       - uses: actions/checkout@v7
+        with:
+          ref: main
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
@@ -82,25 +89,32 @@ jobs:
         id: author
         # Issue-filing (the cap follow-up issue and the P2 re-source issue)
         # is a best-effort side effect of this script, not its core job —
-        # the script itself sets process.exitCode=1 when EITHER fails so the
-        # failure is visible in logs, but a transient GitHub Issues API
-        # error must never block the actual demotion removal below on a
-        # judgment the vision model already conclusively made (P1 review
-        # finding, #3447 P2). `|| echo ::warning::...` on the node command
-        # keeps bash's default `-e` from aborting the rest of THIS step's
-        # script when that exit code is nonzero, so the `demoted` output
-        # below still gets set from whatever artifact the script did write
-        # (round 3 review finding: continue-on-error alone only protects the
-        # JOB from a failed step's exit code — it does nothing for commands
-        # still queued after an early `-e` exit inside the same step).
-        # continue-on-error is kept as defense-in-depth against any other
-        # future non-zero exit this script might add.
-        continue-on-error: true
+        # the script sets process.exitCode=1 when EITHER fails, AFTER it
+        # has already written the artifact. A transient GitHub Issues API
+        # error at that point must never block the actual demotion removal
+        # below on a judgment the vision model already conclusively made
+        # (P1 review finding, round 2). But a failure BEFORE the artifact
+        # exists (missing/invalid API key, a thrown error mid-run) means no
+        # audit actually happened, and THAT must fail this job for real —
+        # a green run with no artifact would silently mean nothing was
+        # checked at all (P1 review finding, round 9). `|| { ... }` on the
+        # node command checks which case this is and only downgrades to a
+        # warning + explicit exit 0 when the artifact file exists; any
+        # other failure re-raises via `exit 1` so `-e` (and this step)
+        # fails hard, exactly as an authoring crash should.
+        continue-on-error: false
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GH_TOKEN: ${{ github.token }}
         run: |
-          node scripts/merch-engine/audit-matches-authoring.mjs --receipt .cache/merch-audit-authoring.json --queue .artifacts/merch-audit-queue.json --write .artifacts/merch-audit-authoring.json || echo "::warning::merch-audit-authoring.mjs exited non-zero (see log above, likely a best-effort issue-filing failure) — continuing to publish the demoted output from whatever artifact it did write."
+          node scripts/merch-engine/audit-matches-authoring.mjs --receipt .cache/merch-audit-authoring.json --queue .artifacts/merch-audit-queue.json --write .artifacts/merch-audit-authoring.json || {
+            if [ -s .artifacts/merch-audit-authoring.json ]; then
+              echo "::warning::merch-audit-authoring.mjs exited non-zero but did write its artifact (likely a best-effort issue-filing failure, see log above) — continuing to publish the demoted output from what it did write."
+            else
+              echo "::error::merch-audit-authoring.mjs exited non-zero and never wrote an artifact — no audit actually ran this dispatch. Failing the job for real."
+              exit 1
+            fi
+          }
           demoted=$(node --input-type=module <<'NODE'
           import { readFile } from 'node:fs/promises';
           const artifact = JSON.parse(await readFile('.artifacts/merch-audit-authoring.json', 'utf8'));

@@ -58,16 +58,24 @@ describe('E3 manually confirmed authoring workflow', () => {
     expect(applyDemotionsJob).toContain('ref: main');
   });
 
-  it('never lets a transient issue-filing failure block demotion removal (#3447 P2 review fix)', () => {
-    // A `-e`-safe `|| echo ::warning::...` guard on the authoring command
-    // itself (not just continue-on-error, which only protects the JOB from
-    // a failed STEP's exit code — it does nothing for commands still
-    // queued after an early `-e` exit inside the SAME step's script) is
-    // what actually lets the `demoted` output still get set when
-    // issue-filing fails.
-    expect(authorJob).toContain('continue-on-error: true');
-    expect(authorJob).toContain('|| echo "::warning::');
+  it('only tolerates a POST-artifact issue-filing failure, never a failure before the audit artifact exists (#3447 P2 round-9 review fix)', () => {
+    // The authoring script sets a non-zero exit AFTER writing its artifact
+    // when best-effort issue-filing fails — that case still lets the run
+    // proceed. But a failure with no artifact on disk (crash, missing API
+    // key) means no audit happened at all, and must fail the job for real
+    // rather than silently reporting green with a stale/empty demoted
+    // output.
+    expect(authorJob).toContain('continue-on-error: false');
+    expect(authorJob).toContain('if [ -s .artifacts/merch-audit-authoring.json ]; then');
+    expect(authorJob).toContain('echo "::error::merch-audit-authoring.mjs exited non-zero and never wrote an artifact');
     expect(authorJob).toContain('echo "demoted=$demoted" >> "$GITHUB_OUTPUT"');
+  });
+
+  it('pins the audit itself to main, matching the revision apply-demotions edits (#3447 P2 round-9 review fix)', () => {
+    // A dispatched non-main ref's productIds/urls would never resolve
+    // against apply-demotions' main-pinned checkout — auditing anything
+    // other than main here would make every resulting demotion unresolvable.
+    expect(authorJob).toContain('ref: main');
   });
 
   it('fails loudly instead of silently on an unresolved demotion (#3447 P2 round-5/6 review fix)', () => {
