@@ -6064,3 +6064,28 @@ loosening of AI decision authority to include merge/push. This entry is
 that spec, filed with the implementing PR per CLAUDE.md rule 6 — Wyatt has
 not separately reviewed the design; flag for his attention if he wants to
 revisit the Option A vs. B call.
+
+## 2026-08-31 — Tier-2 optimization T-13/T-14: two live triggers disabled by founder
+
+Following Fable's Tier-2 cost/benefit analysis (`docs/TIER2-OPTIMIZATION.md`),
+Joey disabled two live claude.ai scheduled routines directly in the routines
+UI, since only an operator-authenticated session can flip a live trigger
+(no repo-side RemoteTrigger access exists in any worker sandbox):
+
+1. **Marjorie — 8 PM Evening Delta** (`trig_01L2EG5veWBQwMowaykXAi6B`, T-13).
+   Disabled as a warm spare — prompt preserved at
+   `docs/agents/runner-prompts/marjorie-delta.md`, trigger config not
+   deleted, reversible by re-enabling in the routines UI.
+2. **swift2 Getty purge — GitHub GC watch** (`trig_018QuJozjMr1bYMPcqgKUmvL`,
+   T-14). Disabled after independently re-confirming the purge it watchdogs
+   is complete (zero `media.gettyimages.com` references anywhere in the
+   repo; PR #3246, merged 2026-08-25, retired the last live comp URLs).
+   This trigger had no prompt file, so its full `job_config` (schedule,
+   sources, model) was not captured before disable — not recoverable from
+   this repo if ever needed again; a fresh watchdog would need to be
+   authored from scratch.
+
+`docs/agents/runners.md`'s live trigger table updated to reflect both as
+disabled (⛔, not removed). Fleet count corrected: 23 Swift2 routines total,
+21 enabled in the standing fleet (Lex depth and Marjorie's delta both
+paused).

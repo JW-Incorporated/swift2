@@ -81,12 +81,13 @@ drifts).
 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | `claude-opus-4-8` |
 | Content Shift — authoring runs | `trig_01PonDFeQCL4iRNzceGyAYrm` | `0 17 * * *` | ✅ | `claude-opus-4-8` |
 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ✅ | `claude-opus-4-8` |
-| Marjorie — 8 PM Evening Delta | `trig_01L2EG5veWBQwMowaykXAi6B` | `0 3 * * *` | ✅ (comment-only since 2026-08-23, not mailed — `docs/agents/marjorie.md` § Delivery) | `claude-fable-5` |
+| ~~Marjorie — 8 PM Evening Delta~~ **(DISABLED 2026-08-31, Joey, T-13)** | `trig_01L2EG5veWBQwMowaykXAi6B` | ~~`0 3 * * *`~~ | ⛔ disabled (warm spare, intentional — prompt preserved in `runner-prompts/marjorie-delta.md`) | `claude-fable-5` |
 | Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | `11 16 * * 0` | ✅ | `claude-haiku-4-5-20251001` |
-| swift2 Getty purge — GitHub GC watch | `trig_018QuJozjMr1bYMPcqgKUmvL` | `0 3,15 * * *` | ✅ (self-retiring one-shot watchdog, not part of the standing fleet — created 2026-08-15, unrelated to #2258) | `claude-sonnet-5` |
+| ~~swift2 Getty purge — GitHub GC watch~~ **(DISABLED 2026-08-31, Joey, T-14)** | `trig_018QuJozjMr1bYMPcqgKUmvL` | ~~`0 3,15 * * *`~~ | ⛔ disabled (purge verified complete pre-disable — zero `media.gettyimages.com` refs remain in repo, PR #3246; no prompt file existed for this trigger, so its full `job_config` was not captured before the operator disabled it via the routines UI — if the exact original config is ever needed, it is not recoverable from this repo) | `claude-sonnet-5` |
 
-**23 Swift2 routines total, 22 enabled** in the **standing fleet** (Lex depth
-intentionally paused). The table above has 24 rows because it also carries
+**23 Swift2 routines total, 21 enabled** in the **standing fleet** (Lex depth
+and Marjorie — 8 PM Evening Delta intentionally paused, the latter disabled
+2026-08-31 per T-13). The table above has 24 rows because it also carries
 `swift2 Getty purge — GitHub GC watch`, a self-retiring one-shot deliberately
 outside the fleet — which is why the 2026-08-27 audit note below says "all 24
 triggers verified live" and why [`../AUTOMATION.md`](../AUTOMATION.md), which
