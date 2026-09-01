@@ -368,6 +368,28 @@ describe('E3 authoring runner cost reservation', () => {
     expect(result.summary.demoted).toBe(2);
   });
 
+  it('records a real url on a fresh mismatch even for an already-image-backed pair (#3447 P2 regression)', async () => {
+    // detectAuditQueue() carries productUrl through on every queued entry,
+    // including the normal cacheKey-eligible path (a pair that already has
+    // productImageUrl and so never needed productUrl for og:image
+    // discovery). Without that, apply-demotions.mjs has no url to act on
+    // and the demotion never actually gets removed from content.
+    const imageBackedPair = { ...source, cacheKey: 'pair-image-backed' };
+    const result = await runAuthoring({
+      receipt: receipt([]),
+      queue: { queue: [imageBackedPair] },
+      judge: async () => ({ score: 5, kind: 'dress', reasons: ['completely different garment'] }),
+    });
+
+    expect(result.demotions).toEqual([{
+      productId: source.productId,
+      url: source.productUrl,
+      reason: 'vision-audited-mismatch',
+      auditorReasons: ['completely different garment'],
+    }]);
+    expect(result.demotions[0].url).not.toBeNull();
+  });
+
   it('requires an API key for an eligible pair introduced by the detector queue', () => {
     expect(requiresApiKey(receipt([]), queue)).toBe(true);
     expect(

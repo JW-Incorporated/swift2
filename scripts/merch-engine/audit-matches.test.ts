@@ -223,11 +223,15 @@ describe('renewable score cache (#3447 P1)', () => {
 describe('R1 lane separation', () => {
   it('emits data-only authoring requests and never invokes a scorer from detection', () => {
     const plan = detectAuditQueue({
-      records: [{ productId: 'dress', productImageUrl: 'https://images.example/product.jpg', momentImageUrl: 'https://images.example/moment.jpg', hasRealPrimaryImage: true }],
+      records: [{ productId: 'dress', productUrl: 'https://shop.example/products/dress', productImageUrl: 'https://images.example/product.jpg', momentImageUrl: 'https://images.example/moment.jpg', hasRealPrimaryImage: true }],
       cache: {},
     });
 
     expect(plan.queue).toHaveLength(1);
+    // #3447 P2 regression: productUrl must survive onto the queued entry
+    // even when the pair already has an image — otherwise a fresh mismatch
+    // judgment for this pair has no url apply-demotions.mjs can act on.
+    expect(plan.queue[0].productUrl).toBe('https://shop.example/products/dress');
     expect(authoringRequestFor(plan)).toEqual({
       lane: 'merch-audit-authoring',
       queue: plan.queue,

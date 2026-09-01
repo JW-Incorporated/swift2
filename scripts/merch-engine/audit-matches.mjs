@@ -112,6 +112,12 @@ export function detectAuditQueue({ records, cache }) {
     }
     queue.push({
       productId: record.productId,
+      // Carried through so a fresh mismatch judgment (audit-matches-
+      // authoring.mjs) can still record a real url on its demotion, even
+      // when the pair already had a productImageUrl and so never needed
+      // this url for og:image discovery (#3447 P2 — apply-demotions.mjs
+      // can't remove a product it has no url for).
+      productUrl: record.productUrl ?? null,
       productImageUrl: record.productImageUrl,
       momentImageUrl: record.momentImageUrl,
       cacheKey,
