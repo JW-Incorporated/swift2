@@ -76,68 +76,62 @@ Actions-minutes delta, per the plan's own Phase 4 instructions.
 
 ---
 
-### 36. Apply the Kevin daily-desk trigger cutover (T-10) — needs Joey's Claude account
+### 38. [DONE] Apply the Kevin daily-desk trigger cutover (T-10)
 
 **Filed:** 2026-08-31
+**Closed:** 2026-09-01
 
-**Status:** OPEN
+**What happened:** Joey created the consolidated trigger directly
+(`trig_01GH3EMWdDwwKpx2GCRnCYM5`, "Kevin — daily desk (S1+S2+S3)", cron
+`13 15 * * *` UTC, live and enabled) and test-fired it. The test session
+correctly determined the UTC day was Tuesday (not Sunday), so it skipped
+Stream 1 by design, and found Stream 2 (digest) and Stream 3 (triage) had
+already posted for real on issue #3590 hours earlier (~15:16–15:49 UTC,
+2026-08-31) via the old standalone triggers — since today's slot had
+already fired before the cutover, it correctly abstained from re-posting
+rather than duplicating. **Tomorrow's `13 15 * * *` run (2026-09-02) is the
+first genuine end-to-end fire of the new trigger.**
 
-**Why it matters:** Tier-2 T-10 consolidates Kevin's three separate cloud
-routines (S1 Karen solver, S2 user digest, S3 eng triage) into one daily
-"Kevin — daily desk" session, saving ~1 cold-boot session/day plus a weekly
-Opus→Sonnet substitution. The prompt file
-(`docs/agents/runner-prompts/kevin-desk.md`) and the exact trigger spec +
-cutover sequence (`docs/agents/runners.md` § "Kevin — daily desk
-consolidation") are both landed and ready.
+Joey disabled both superseded daily triggers directly (not deleted —
+history preserved, per this file's convention):
+- `trig_0136mXcpmzn6mYtYoUQC3eGP` (S2 digest) → disabled
+- `trig_01BRmPqZkLEcYKZhYPjypGMJ` (S3 eng triage) → disabled
 
-**Update 2026-09-01 (from the desk session's own first fire):** step 1 is
-done — the new trigger (`trig_01GH3EMWdDwwKpx2GCRnCYM5`, cron `13 15 * * *`,
-reusing S2's slot) now exists and fired its first test-run today, exactly
-per the cutover sequence's step 2. Step 0 logic correctly skipped Stream 1
-(not Sunday); S2/S3 had nothing new to post since the old triggers had
-already covered today, so the posting path wasn't exercised end-to-end but
-raised no errors.
+Left alone exactly as the cutover sequence specifies:
+- `trig_01QEvYmKcpyDJJ8ec81aBjCV` (S1 Karen-ticket solver) — still live;
+  the new desk trigger's next Sunday fire will exercise Stream 1 for the
+  first time, and this old trigger gets disabled only after that
+  Sunday's real output is confirmed. **Not yet done — next Sunday check
+  is still outstanding, tracked below.**
+- `trig_01LaSLx4qzbsz68E6uRLkyDd` (S3 comment radar) — untouched, not part
+  of this consolidation.
 
-**Step 3 is more blocked than the original plan assumed — not just an
-account-auth gap.** That same desk session tried to disable the two
-superseded triggers (`trig_0136mXcpmzn6mYtYoUQC3eGP` S2 digest,
-`trig_01BRmPqZkLEcYKZhYPjypGMJ` S3 eng-triage) itself and got a hard denial:
-*"this routine was created via http_api, not by an agent. Agents can only
-update routines they created (via create_trigger). A routine's own session
-may still disable itself (enabled=false only)."* Both old triggers (like
-the new one) were created via `http_api`, not through an agent's
-`create_trigger` call — so **no Claude session, on any account, can disable
-them via the RemoteTrigger tool.** This is a real gap in the "either you
-directly in `claude.ai/code`, or a session you explicitly point at that
-surface" framing this item and item #35 both used — only the
-**`claude.ai/code/routines` UI itself** (a manual toggle, not a session you
-can delegate to) can do it.
+**Blocker found and worked around:** the first test-fire tried to disable
+the two old triggers itself and got a hard denial — `RemoteTrigger`'s
+`update_trigger` is restricted to a trigger's own creator-session; since
+the old triggers were created via `http_api` rather than through an
+agent's `create_trigger` call, no Claude session (on any account) could
+flip them via the API. Only the `claude.ai/code/routines` UI could — which
+is what Joey then did directly. Filed as an interim finding in PR #3630
+(merged) before Joey's direct fix landed; this entry supersedes that
+interim note.
 
-**Time-sensitive: today's `13 15 * * *` slot (~15:13 UTC / ~8:13 AM PT) will
-double-fire** — the new consolidated trigger and the old S2 digest trigger
-share that exact cron slot, so both will run this morning, and S3's old
-`43 15 * * *` triage trigger fires redundantly 30 min later too. This is
-wasted token spend, not a correctness break (GitHub content just gets a
-same-day duplicate/updated comment), but it repeats every day until the
-three old triggers below are turned off, and duplicates Stream 1 too on the
-next Sunday.
+**Open sub-item, not blocking, low urgency:** the new trigger's
+`mcp_connections` came back populated with `Google_Drive`/`Vercel`/`Gmail`/
+`Claude_Code_Remote` even though creation explicitly requested `[]` — this
+matches the RemoteTrigger create/update footgun already documented above
+(§ RemoteTrigger API footgun) and appears to be inherited from the shared
+environment (`env_01WFa19KpZdcwUUBPvHWPig6`) rather than settable per-
+trigger via the create body. Matches what the old triggers already
+carried, so not a regression — acceptable as-is; worth a real fix only if
+this connector set ever proves to matter for this desk's actual behavior.
 
-**What to do:** open `claude.ai/code/routines` and disable these three
-directly in the UI (toggle off, don't delete — keeps run history per this
-file's usual convention):
-- `Kevin — S1 Karen-ticket solver (cloud)` — `trig_01QEvYmKcpyDJJ8ec81aBjCV`
-- `Kevin — S2 user-feedback digest (cloud)` — `trig_0136mXcpmzn6mYtYoUQC3eGP`
-- `Kevin — S3 eng triage (cloud)` — `trig_01BRmPqZkLEcYKZhYPjypGMJ`
-
-Leave `Kevin — S3 comment radar (cloud)` (`trig_01LaSLx4qzbsz68E6uRLkyDd`)
-alone — it stays its own separate trigger by design, T-10 doesn't touch it.
-Once disabled, a future session can update `docs/agents/runners.md`'s Live
-trigger IDs table and `docs/kevin.md`'s target-topology paragraph to record
-the cutover as actually complete.
-
-**Worked if:** tomorrow's `13 15 * * *` slot fires only the new "Kevin —
-daily desk (S1+S2+S3)" trigger, with the three old Kevin triggers showing
-disabled in the routines UI.
+**Remaining step:** on the next Sunday after 2026-09-01, confirm the new
+desk trigger's Stream 1 output (a real `fix/karen-tickets` PR, or a correct
+no-op if no new Karen tickets exist), then disable
+`trig_01QEvYmKcpyDJJ8ec81aBjCV`. A session can do this verification and the
+disable both, once account-authenticated — record it as its own dated
+entry here or in `docs/decisions.md` when done.
 
 ---
 
