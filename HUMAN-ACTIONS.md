@@ -72,7 +72,60 @@ the *what*. But two things stop an agent from finishing it today:
 `docs/decisions.md` records the actual before/after PR-count and
 Actions-minutes delta, per the plan's own Phase 4 instructions.
 
-**Status:** OPEN
+**Resolved 2026-09-01, from a `claude.ai/code` session with `RemoteTrigger`
+access.**
+
+**Root cause of the 08-31 "miss" (item 2 above): it was not a miss.**
+Pulled the Vault Run trigger's (`trig_01XKjJCfxyL2Bm24Ko4M4mWR`) actual run
+log for that day (session `cse_013BrBHiyjvR4EafbEum1gHQ`, fired 16:11 UTC,
+finished 16:18 UTC, `ROUTINE_RUN_STATUS_SUCCEEDED`). It ran end to end and
+correctly found **zero authorable work** across all four lanes due that day:
+Content Shift's intake queue was fully drained (confirmed live, not from a
+stale ledger), the Answerer's narrative axis was drained (live
+`scan --no-images`: 0 narrative-thin, 9 depth-deficit findings all
+photos-axis-only), Cross-Link had 0 detector findings, and Photo Enrichment
+is blocked by the already-tracked image-host egress issue (item #22). Per
+its own "never exit silently" contract it posted the full lane-by-lane
+no-op ledger to the Nils walk log (#502) and sent a founder push
+notification about the one real, already-tracked problem (the egress
+block). No `vault/2026-08-31` branch existed because there was nothing to
+ship that day, not because the run failed or didn't fire — the "silent
+no-op" reading in this item's original filing was a misdiagnosis from
+git-log-only evidence.
+
+Also checked the trigger's full run history since the 2026-08-23 account
+migration: **8 for 8** daily fires, no gaps, all succeeded
+(2026-08-24 → 2026-08-31). The historical "missed days" cited in
+`vault-run-plan.md` (08-01, 08-02, 08-08) predate that migration, on a
+now-nonexistent trigger ID — unverifiable now, superseded by this clean
+record on the live infrastructure.
+
+**Phase 4 executed**, Rumor Desk first per the plan's ordering, each
+trigger's `job_config` read back before disabling (`enabled: false`,
+confirmed in the response, nothing else in the config touched):
+
+| Lane | Trigger ID | Disabled |
+|---|---|---|
+| Rumor Desk | `trig_01GS6bcMsEQjXwmyxGr7S1js` | ✅ |
+| Content Shift | `trig_01PonDFeQCL4iRNzceGyAYrm` | ✅ |
+| Photo Enrichment worker | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | ✅ |
+| Cross-Link builder | `trig_01FxMuDtwScPFvSgvhFCxdfP` | ✅ |
+| Stylist | `trig_011BiHZqLEVHAJ4chfaYfGZH` | ✅ |
+| Answerer (sole instance) | `trig_016hygyYPEV9T7BunnTHAWbZ` | ✅ |
+
+All six disabled (not deleted) — cadence history preserved, `enabled: false`
+in every case. The Vault Run (`trig_01XKjJCfxyL2Bm24Ko4M4mWR`) is now the
+sole writer to `supabase/seed/**`.
+
+**Not yet done, follow-up needed:** the plan's "Worked if" also calls for
+watching one full cycle and recording the actual before/after PR-count and
+Actions-minutes delta in `docs/decisions.md` — that requires a few days of
+data with the six lanes off, which this session cannot observe. A future
+session (or Marjorie's brief) should record that delta once there's enough
+post-cutover history, and delete the `content-shift/` row from the
+watchdog's lane table per the plan's final step.
+
+**Status:** DONE
 
 ---
 

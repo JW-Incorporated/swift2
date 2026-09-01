@@ -60,14 +60,14 @@ drifts).
 
 | Routine | Trigger ID | Cadence (UTC) | Enabled | Model |
 |---|---|---|---|---|
-| Photo Enrichment worker | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | `21 6 * * *` | ✅ | `claude-sonnet-5` |
+| ~~Photo Enrichment worker~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | ~~`21 6 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 3), warm spare | `claude-sonnet-5` |
 | News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ✅ | `claude-sonnet-5` — **T-3 trial live 2026-09-01 → 2026-09-15**, see § News Triage below |
 | News Triage recall check — T-3 trial audit | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `0 17 * * 2` | ✅ | `claude-opus-4-8` — 2-week trial instrument, disable after 2026-09-15 verdict |
-| Cross-Link builder | `trig_01FxMuDtwScPFvSgvhFCxdfP` | `51 9 * * 1,4` | ✅ | `claude-sonnet-5` |
-| Stylist — shop-link sourcing & upkeep | `trig_011BiHZqLEVHAJ4chfaYfGZH` | `33 16 * * 0` | ✅ | `claude-sonnet-5` |
-| Rumor Desk — sourcing & lifecycle | `trig_01GS6bcMsEQjXwmyxGr7S1js` | `47 14 */2 * *` | ✅ | `claude-opus-4-8` |
+| ~~Cross-Link builder~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01FxMuDtwScPFvSgvhFCxdfP` | ~~`51 9 * * 1,4`~~ | ⛔ disabled — superseded by The Vault Run (lane 5), warm spare | `claude-sonnet-5` |
+| ~~Stylist — shop-link sourcing & upkeep~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_011BiHZqLEVHAJ4chfaYfGZH` | ~~`33 16 * * 0`~~ | ⛔ disabled — superseded by The Vault Run (lane 6), warm spare | `claude-sonnet-5` |
+| ~~Rumor Desk — sourcing & lifecycle~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01GS6bcMsEQjXwmyxGr7S1js` | ~~`47 14 */2 * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 4), warm spare | `claude-opus-4-8` |
 | Lex depth (sole instance) | `trig_01BoVCT67VbeLE8sRiaYPju4` | `20 */2 * * *` | ⛔ **disabled** (warm spare, intentional) | `claude-opus-4-8` |
-| Answerer (sole instance) | `trig_016hygyYPEV9T7BunnTHAWbZ` | `50 13 * * *` | ✅ | `claude-opus-4-8` |
+| ~~Answerer (sole instance)~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_016hygyYPEV9T7BunnTHAWbZ` | ~~`50 13 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 2), warm spare | `claude-opus-4-8` |
 | Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `0 10 * * 1` | ✅ | `claude-opus-5` |
 | Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `0 11 * * *` | ✅ | `claude-opus-4-8` |
 | Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `20 22 * * 1` | ✅ | `claude-opus-4-8` |
@@ -81,15 +81,17 @@ drifts).
 | Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ (pending disable — kept live until the new desk's first Sunday fire confirms Stream 1, see HUMAN-ACTIONS.md #38) | `claude-opus-4-8` |
 | Karen — nightly scan ⚠️ **RENAME PENDING (T-5, 2026-08-31)** — registered name not yet resynced to `Karen — weekly judgment slice`; prompt already judgment-only, see `runner-prompts/karen-nightly.md` and § T-5 below | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | `claude-opus-4-8` |
-| Content Shift — authoring runs | `trig_01PonDFeQCL4iRNzceGyAYrm` | `0 17 * * *` | ✅ | `claude-opus-4-8` |
+| ~~Content Shift — authoring runs~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01PonDFeQCL4iRNzceGyAYrm` | ~~`0 17 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 1), warm spare | `claude-opus-4-8` |
 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ✅ | `claude-opus-4-8` |
 | ~~Marjorie — 8 PM Evening Delta~~ **(DISABLED 2026-08-31, Joey, T-13)** | `trig_01L2EG5veWBQwMowaykXAi6B` | ~~`0 3 * * *`~~ | ⛔ disabled (warm spare, intentional — prompt preserved in `runner-prompts/marjorie-delta.md`) | `claude-fable-5` |
 | Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | `11 16 * * 0` | ✅ | `claude-haiku-4-5-20251001` |
 | ~~swift2 Getty purge — GitHub GC watch~~ **(DISABLED 2026-08-31, Joey, T-14)** | `trig_018QuJozjMr1bYMPcqgKUmvL` | ~~`0 3,15 * * *`~~ | ⛔ disabled (purge verified complete pre-disable — zero `media.gettyimages.com` refs remain in repo, PR #3246; no prompt file existed for this trigger, so its full `job_config` was not captured before the operator disabled it via the routines UI — if the exact original config is ever needed, it is not recoverable from this repo) | `claude-sonnet-5` |
 
-**23 Swift2 routines total, 21 enabled** in the **standing fleet** (Lex depth
-and Marjorie — 8 PM Evening Delta intentionally paused, the latter disabled
-2026-08-31 per T-13). The table above has 24 rows because it also carries
+**23 Swift2 routines total, 15 enabled** in the **standing fleet** (Lex depth
+and Marjorie — 8 PM Evening Delta intentionally paused; the six standalone
+Vault lanes — Content Shift, Photo Enrichment, Cross-Link, Stylist, Rumor
+Desk, Answerer — disabled 2026-09-01 per T-1 Vault Phase 4, superseded by
+The Vault Run). The table above has 24 rows because it also carries
 `swift2 Getty purge — GitHub GC watch`, a self-retiring one-shot deliberately
 outside the fleet — which is why the 2026-08-27 audit note below says "all 24
 triggers verified live" and why [`../AUTOMATION.md`](../AUTOMATION.md), which
