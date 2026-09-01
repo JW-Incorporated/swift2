@@ -33,7 +33,7 @@ jobs:
           AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}
         run: npx tsx scripts/merch-engine/awin-directory-recommendations.mjs --output .artifacts/merch-awin-directory-recommendations
       - name: Upload Awin join-recommendation list
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: merch-awin-directory-recommendations
           path: .artifacts/merch-awin-directory-recommendations
