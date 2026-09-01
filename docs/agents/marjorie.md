@@ -37,13 +37,22 @@ Marjorie v1 is a **curator, not a commander**:
 | **8:00 PM** | Post the **Evening Delta** as a comment on the same issue: only what changed since 6:00 AM — newly-blocking decisions, content shipped/authored today, anything that stalls overnight unanswered. Never restate the morning brief. **Comment-only since 2026-08-23** — it is no longer mailed (see Delivery below); the GitHub trail is unchanged. |
 | Between briefs | Curate new `founder-decision` issues as they arrive: dedupe, check precedent, rank by cost-of-delay. |
 
-Runner: today a scheduled Claude session on Joey's side (same pattern as
-Kevin on Wyatt's side), in **its own git worktree/clone — never a shared
-checkout**. **Model: pin to Fable (`claude-fable-5`)** — Joey's call,
-2026-07-11: Marjorie's judgment passes always run on the most capable
-available model; set it in the runner/agent config, and if Fable is ever
-unavailable the runner may fall back but must flag the substitution in the
-brief's Health section. `node --use-env-proxy scripts/marjorie/assemble-brief.mjs` produces
+Runner: today a scheduled Claude session on Joey's account (fleet policy
+D1=B, 2026-08-31 — all scheduled agent spend runs on Joey's account; the
+"Kevin on Wyatt's side" pairing below is historical phrasing), in **its own
+git worktree/clone — never a shared checkout**. **Model: `claude-opus-4-8`**
+— moved off `claude-fable-5` on 2026-07-26 (the live trigger had been
+silently failing on Fable since 2026-07-17; `runners.md` § "Marjorie moved
+off Fable 5") and ratified here per T-12 (`docs/TIER2-OPTIMIZATION.md`,
+pre-approved standing-agent-authority docs pass, T-19): this charter
+previously still said "pin to Fable," which had drifted out of sync with
+the live trigger for over a month.
+Marjorie's judgment passes run on this reliability-tested pin, not
+whichever model is newest — set it in the runner/agent config, and if the
+pinned model is ever unavailable the runner may fall back but must flag
+the substitution in the brief's Health section. A future pin change is a
+separate, recorded decision (same rule that governs this one), not an
+automatic upgrade. `node --use-env-proxy scripts/marjorie/assemble-brief.mjs` produces
 the deterministic skeleton (open bank items, PRs, merges, cadence status);
 Marjorie's judgment pass curates it (precedent, dedupe, ranking, plain-
 language framing) and posts. If no session runs, the watchdog Action
