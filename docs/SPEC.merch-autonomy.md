@@ -420,19 +420,31 @@ moment; the R5 cap makes the worst case a ticket, not a bill.
 | `merch-audit-authoring.yml` (E3 judge) | manual (`workflow_dispatch`, confirmation-gated) | vision | gated PR (required end-state, FR-MERCH-5) — deployed workflow is currently artifact-only, see §5 |
 | `merch-official-sync.yml` (E4) | 2×/day | authoring lane for new items | gated PR + social queue |
 | `merch-fanmade.yml` (E5) | daily | curation lane | gated PR |
-| `merch-matcher.yml` (E6) | on fashion-moment merge | yes | gated PR |
+| `merch-matcher.yml` (E6 handoff) | manual (`workflow_dispatch`, candidate-file input) | no (zero-LLM handoff) | bounded plan artifact — judgment/spend live in a separate content-authoring lane |
 | `merch-revenue.yml` | weekly | no | Marjorie brief |
 
 Reading the LLM column per R1: every *scheduled* trigger is zero-LLM
 detection; a non-"no" entry marks the judgment half that runs in the
 separate authoring lane the schedule hands off to (E3's split above is the
-pattern; E5's curation lane and E6's matcher lane are the same shape) —
-never inside the scheduled workflow itself. **E4 is the one documented
-exception:** its "authoring lane for new items" cell is deterministic, not
-an LLM judgment call — `authorOfficialCatalog()` is a pure function (no
-model call) and runs inside the same `merch-official-sync.yml` schedule,
-so it never leaves the scheduled workflow the way E3/E5/E6's judged halves
-do.
+pattern) — never inside the scheduled workflow itself. Two exceptions are
+called out explicitly rather than left implied:
+
+- **E4 is deterministic, not a judgment call.** Its "authoring lane for new
+  items" cell runs `authorOfficialCatalog()`, a pure function (no model
+  call), inside the same `merch-official-sync.yml` schedule — it never
+  leaves the scheduled workflow the way E3's judged half does.
+- **E5's curation lane is not yet wired up.** `merch-fanmade.yml` on its
+  cron trigger runs `fanmade-discovery.mjs` in dry-run mode (`inputs.dry_run`
+  is unset on a schedule trigger, which the workflow's `${DRY_RUN:-true}`
+  default treats as dry-run) — it neither files a candidate issue/artifact
+  nor hands off to a separate curation lane; only a manual
+  `workflow_dispatch` with `dry_run: false` files candidates via
+  `--file`, and no curation workflow exists yet to consume them or apply
+  the D3 "inspired-by yes, bootleg no" gate automatically. The table's
+  "curation lane" / "gated PR" cells describe the required end state
+  (FR-MERCH-5's E3 lane-split pattern extended to E5), not a currently
+  scheduled reality — closing this gap is follow-up engineering work,
+  out of scope for this doc-fix.
 
 All schedule minutes chosen clear of existing cron clusters; each workflow
 header documents its offset and its secrets per house style. New secrets:
