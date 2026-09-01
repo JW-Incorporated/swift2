@@ -88,32 +88,56 @@ routines (S1 Karen solver, S2 user digest, S3 eng triage) into one daily
 Opus→Sonnet substitution. The prompt file
 (`docs/agents/runner-prompts/kevin-desk.md`) and the exact trigger spec +
 cutover sequence (`docs/agents/runners.md` § "Kevin — daily desk
-consolidation") are both landed and ready. No agent session can finish
-this: `RemoteTrigger` create/update/run needs a session authenticated to
-the account the fleet runs on (Joey's), which a headless repo session
-cannot reach.
+consolidation") are both landed and ready.
 
-**Time-sensitive sub-item:** while this cutover is pending, the still-live
-`kevin-stream2-digest.md` trigger's inline prompt is stale on a real
-authority question — it was corrected in-repo (2026-08-31, restricting
-Accept/Reject digest decisions to Joey only, per `CLAUDE.md`'s sole-
-decision-maker rule) but the LIVE trigger's inline prompt has not been
-re-synced from the file yet (same `RemoteTrigger` access gap). Until either
-this re-sync or the full desk cutover happens, a `wjduvall-cmd` checkbox on
-the live Stream 2 digest could still be actioned by the old inline prompt.
-Re-sync `kevin-stream2-digest.md`'s current content to the live trigger
-(`trig_0136mXcpmzn6mYtYoUQC3eGP`) as a priority first step, even ahead of
-the full T-10 cutover if that takes longer to schedule.
+**Update 2026-09-01 (from the desk session's own first fire):** step 1 is
+done — the new trigger (`trig_01GH3EMWdDwwKpx2GCRnCYM5`, cron `13 15 * * *`,
+reusing S2's slot) now exists and fired its first test-run today, exactly
+per the cutover sequence's step 2. Step 0 logic correctly skipped Stream 1
+(not Sunday); S2/S3 had nothing new to post since the old triggers had
+already covered today, so the posting path wasn't exercised end-to-end but
+raised no errors.
 
-**What to do:** either run this yourself in a Claude session logged into
-your account, or tell a session in chat to do it and it will follow the
-cutover sequence in `runners.md` § "Kevin — daily desk consolidation"
-exactly (create the new trigger → test-run once → disable S2/S3's
-superseded triggers as soon as verified → **wait for a Sunday run to
-verify Stream 1 before disabling its old trigger** → record the new
-trigger ID → update the Live trigger IDs table). Takes one `job_config`
-round-trip per step; ~10–15 minutes for S2/S3, plus one follow-up Sunday
-check for S1 if today isn't Sunday.
+**Step 3 is more blocked than the original plan assumed — not just an
+account-auth gap.** That same desk session tried to disable the two
+superseded triggers (`trig_0136mXcpmzn6mYtYoUQC3eGP` S2 digest,
+`trig_01BRmPqZkLEcYKZhYPjypGMJ` S3 eng-triage) itself and got a hard denial:
+*"this routine was created via http_api, not by an agent. Agents can only
+update routines they created (via create_trigger). A routine's own session
+may still disable itself (enabled=false only)."* Both old triggers (like
+the new one) were created via `http_api`, not through an agent's
+`create_trigger` call — so **no Claude session, on any account, can disable
+them via the RemoteTrigger tool.** This is a real gap in the "either you
+directly in `claude.ai/code`, or a session you explicitly point at that
+surface" framing this item and item #35 both used — only the
+**`claude.ai/code/routines` UI itself** (a manual toggle, not a session you
+can delegate to) can do it.
+
+**Time-sensitive: today's `13 15 * * *` slot (~15:13 UTC / ~8:13 AM PT) will
+double-fire** — the new consolidated trigger and the old S2 digest trigger
+share that exact cron slot, so both will run this morning, and S3's old
+`43 15 * * *` triage trigger fires redundantly 30 min later too. This is
+wasted token spend, not a correctness break (GitHub content just gets a
+same-day duplicate/updated comment), but it repeats every day until the
+three old triggers below are turned off, and duplicates Stream 1 too on the
+next Sunday.
+
+**What to do:** open `claude.ai/code/routines` and disable these three
+directly in the UI (toggle off, don't delete — keeps run history per this
+file's usual convention):
+- `Kevin — S1 Karen-ticket solver (cloud)` — `trig_01QEvYmKcpyDJJ8ec81aBjCV`
+- `Kevin — S2 user-feedback digest (cloud)` — `trig_0136mXcpmzn6mYtYoUQC3eGP`
+- `Kevin — S3 eng triage (cloud)` — `trig_01BRmPqZkLEcYKZhYPjypGMJ`
+
+Leave `Kevin — S3 comment radar (cloud)` (`trig_01LaSLx4qzbsz68E6uRLkyDd`)
+alone — it stays its own separate trigger by design, T-10 doesn't touch it.
+Once disabled, a future session can update `docs/agents/runners.md`'s Live
+trigger IDs table and `docs/kevin.md`'s target-topology paragraph to record
+the cutover as actually complete.
+
+**Worked if:** tomorrow's `13 15 * * *` slot fires only the new "Kevin —
+daily desk (S1+S2+S3)" trigger, with the three old Kevin triggers showing
+disabled in the routines UI.
 
 ---
 
