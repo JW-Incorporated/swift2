@@ -251,7 +251,13 @@ describe('R1 lane separation', () => {
     // a prefix, not a single pinned key, or a newly renewed key is invisible
     // to it.
     expect(workflow).toContain('restore-keys');
-    expect(workflow).toContain('merch-audit-scores-v1-${{ github.ref_name }}-');
+    // Keyed on the literal `main`, not github.ref_name (round-10 review
+    // fix) — the audit always targets main's own content now, so the
+    // detector's restore prefix must match merch-audit-authoring.yml's
+    // main-scoped save key even when this workflow is itself dispatched
+    // from a different ref.
+    expect(workflow).toContain('merch-audit-scores-v1-main-');
+    expect(workflow).not.toMatch(/key:.*ref_name/);
   });
 });
 

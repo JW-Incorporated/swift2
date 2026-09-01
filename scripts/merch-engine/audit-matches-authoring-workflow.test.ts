@@ -34,7 +34,12 @@ describe('E3 manually confirmed authoring workflow', () => {
     // Renewable score cache (#3447 P1): the save key must be run-scoped so
     // an immutable pinned key can never go stale, and restore must fall
     // back through a prefix so the newest saved key is always picked up.
-    expect(workflow).toContain('merch-audit-scores-v1-${{ github.ref_name }}-${{ github.run_id }}');
+    // Keyed on the literal `main` (round-10 review fix), never
+    // github.ref_name — the author job's checkout is pinned to main
+    // regardless of dispatch ref, so a ref-scoped key would silently
+    // isolate a non-main dispatch's scores from main's own cache scope.
+    expect(workflow).toContain('merch-audit-scores-v1-main-${{ github.run_id }}');
+    expect(workflow).not.toMatch(/key:.*ref_name/);
     expect(workflow).toContain('restore-keys');
     expect(workflow).toContain('buildScoreCache');
     expect(authorJob).not.toMatch(/git (add|commit|push)|gh pr|supabase\/seed|apps\/web\/lib\/longlive\/content/i);
