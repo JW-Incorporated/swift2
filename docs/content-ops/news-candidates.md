@@ -25,7 +25,95 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 73
+
+## Taylor Swift donates $50K to injured mother helping teens
+
+- first seen: 2026-09-01 06:13 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a $50,000 donation to a Connecticut mother who was injured while assisting teenagers after a crash in Rhode Island. The donation has been described as a shocking act of kindness by those involved.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOYXladHFsU3Z3Y1VlVHIwOGNWeGRjcUpVRnZoZ2FSdnktV2hqZ3VCZThqNU41WDVleVhWODVxOTNhY1NQRnRrblNpNm55bkhFeEdMV0lNQXQyVFI1RDhKcG15LXVfbkZ5VEpGSXVJcWVRbk1KWjc2Qk1wWHJCT1lIZlRYOVdmZkdXMXJNVUxCUlNPTVBhZ2RkRk1rLXFES0hZZ2pUMkJvbnFEWlcxQmdGYm8yemVqY1pnb1F3aTNabjA2dw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Blake Lively Faces Silence from Taylor Swift After Legal Issues
+
+- first seen: 2026-09-01 06:13 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively reportedly received no response from Taylor Swift following her legal fee loss, as sources indicate Ryan Reynolds is feeling frustrated. The situation is causing tension in their relationship.
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMimwFBVV95cUxNdlVUVGR6azJtNTZyZEVpQ0VFMDNqa1dKOUFiRWMtS0JyWWxXbk1LcUtTZ1VJRjlDeG5MbHlaQXd6RmltQmNQWjExbXJWNXlqOEpWUUxDM2JtTnk3ZVpoOTlicl96eHEtOXBCMHo3UDZMZUhyWi1kbzMyV3k5bTQ5S2p2MG4yYzJmNTFZRUhxMlJpVy1CNlU0NjM3VQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce's Relationship Update
+
+- first seen: 2026-09-01 06:13 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce's relationship may have entered a new phase, as they no longer see each other daily. This update suggests a shift in their interactions.
+- sources:
+  - [unverified] thelist.com — https://news.google.com/rss/articles/CBMiigFBVV95cUxOR3pvZW1DMk53TllqUW9LQllVR3J6bUlXYkZwOUV4WU9XWjZUc3BHdWVwWVVaMzlsV1NxMUN3M2tNODlacHNDaW9YVGJyWG5WN01vY2tSczlYdlZqaEpYcURESzZMUkcyUmVnYkJhTm1NaTFzTnpwWEQ1YXJ5MWNFbzlUZWZKQlhQNGc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift makes $50,000 donation to woman's GoFundMe
+
+- first seen: 2026-09-01 06:13 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has contributed $50,000 to a woman's GoFundMe campaign, highlighting her philanthropic efforts.
+- sources:
+  - [unverified] WCJB — https://news.google.com/rss/articles/CBMiiAFBVV95cUxNemFsallJRmZtVkNxODI4RXpaNGJlNDBuc2Q0aDFXVk9wSHEtU1FuNTdNeS1UNllUTVdjWGsxNlRWekRMdmRVcElkR0tEcW5IUVB6TzN2blVOdDgtT0ZsQlV3c3laMXZBR1h0ODNEQ2VrZ3lrVFA4c081RG9NWEVUZ0ZLeW1Cb0h5?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift contributes $50,000 to a woman's GoFundMe campaign
+
+- first seen: 2026-09-01 06:13 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a significant donation of $50,000 to support a woman through her GoFundMe campaign. This act of generosity highlights Swift's commitment to charitable causes.
+- sources:
+  - [unverified] KCTV — https://news.google.com/rss/articles/CBMiigFBVV95cUxQSWg4LVVHTkFJV0FKLUxiWUpodUo4emlyVmlJMDczMFBEc3Facm5fSnZZVHN2YjV0dXpaV0xmZUgyZ1FsQ2lHN20tU3cxTXJfcFZiZ3J2ZWRyYzNzSDE3NzFTSGNidGNZLUt5ZzBNbEpERU9MVzZXNFp6am9iemN5dHZLeWpZcVNUU0E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Film and TV Roles Highlighted in Young Hollywood Feature
+
+- first seen: 2026-09-01 06:13 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent Young Hollywood article details every major film and television role of Taylor Swift up to September 2026. The piece provides an overview of her on-screen appearances, celebrating her contributions to the entertainment industry beyond music.
+- sources:
+  - [unverified] Young Hollywood — https://news.google.com/rss/articles/CBMiggFBVV95cUxQN2VHSW5mWm9nWEFXSWVwSi14LURISjdOajR6Z01xZTE3eGlHRWVLWF9SSmNTTndhdDlwWkJRdTA1UjdCQXBrNlFQM2M5QWhucGQtQzhMcFBJaFRlaTNCQ2Jua2pRbVlUZmJxRW9uX3czbWRzWHVxV2ZDVGw5TTBrcFRR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## AMC Theaters Starts Indie Distribution Label
+
+- first seen: 2026-09-01 06:13 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: AMC Theaters has announced the launch of its own indie distribution label focusing on films beyond the Taylor Swift movies. This move is part of their strategy to diversify their offerings.
+- sources:
+  - [unverified] IndieWire — https://news.google.com/rss/articles/CBMinwFBVV95cUxPdDNJUDUwa3FQb3F0a3ZaOTlVeE00OEJqa3VGNFg4VUxKQWVURlVkcmtBTGkxNEdYYVFJaTZ2eTd5WVF2Q1FfRHQxTnBqRjA2cGVWeC1sbHpEMjJzNlZBOExYZ0RrZDVYcmFmZEtNdW1ad01MMmpaMTVlcFdJZE5WNnNFSzNWSzJrYkNzOG4wbjJteG9JQ0dYRTZjRFdiZHM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reportedly Frustrated with Travis Kelce Marriage Challenges
+
+- first seen: 2026-09-01 06:13 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest that Taylor Swift is feeling frustrated with her marriage to Travis Kelce due to claims of significant challenges, including a lack of time spent together.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisAFBVV95cUxNTUN5dDZkc3hlRmI2RFI4MVVxQUhUTzMwb20wT0M2QzNDQWpocV8tbnpRUXRjemxmTlRUZUd1R1JjWU9keUMyMjlRczFVV0o5N3N1LTgtNHZzS3lzc2x6d2Jwek5MbUx4NmljWnlXaHY1eVA1U2dQTjNFZ2kydkhfVW1QSzhOV1pKa3dvaXJlTG5UT0RDcVFnQm5FeWZXbmpDenMycEpDQnU1cVJtVGdBaQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Stuns in Pink Lip and Prairie Dress for Date Night
+
+- first seen: 2026-09-01 06:13 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased a striking pink lip paired with a prairie dress, receiving praise as one of her best date night outfits. Her fashion choice highlights her unique style and attention to detail.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNUjVTNDV4a21CU3hYZldLS2FBLVl3azd3WS1xcVdFSkUxOGNWNWdCT3JOZFAtb0JMTHhwcUFzLXMyNUVZLVcxZHN5dHRjUmJhNDlqRTN2SU1IOWhkMzFvdGRyZXAxYUM2eHZhbV9DWnhnS3R0dDZtRVFqS1p3VGp5NTBGd3A3dl91RVJ4bnE3Q0QxODZZYkkxYkd0RVJPMFVHS3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift donates $50K to injured mother in Rhode Island
+
+- first seen: 2026-09-01 06:13 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a $50,000 donation to a mother who was injured while saving a teenager on a Rhode Island highway. The donation highlights Swift's philanthropic efforts in response to this act of heroism.
+- sources:
+  - [unverified] wtsp.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxNSjlmazZ2RThxNWdhRlF6RDRhdXZFYzFlZVFlMlFGQTBwYldzR0N2bFZndHlHSmFKUWhDMGRacjNBaGR6MTN6eGh2dlRJMG5CT2cyYXpxb0pSRHFlVjUtODdSMlJyY3Q5TFBsOXZycFZac1BZd2I3RTNIZVk2dUNBM2xVSmVZLWVoQnpOQ2k1XzctNkprTTJXdGppM25KVzRQVFpwd09rdTNBRzhPZGgtUll3Nnoyb2psMmxKNm1wS2Z3amdPOHlGUkJockVvSC1lcUp3UHZRdHEwZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift donates $50,000 to a woman's GoFundMe campaign
+
+- first seen: 2026-09-01 06:13 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a substantial donation of $50,000 to support a woman's GoFundMe initiative. The donation highlights Swift's philanthropic efforts and commitment to helping those in need.
+- sources:
+  - [unverified] WIBW — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQckhkNTFGMEcyNnRQU1NtMlVqNFFSVXliM1Zab1pWb3V3cEE0X2tvWDNnRXdnRHNyeVE5dGdkYWE1bGJwOGtmV3pILV9CU2ZTdmlMNmh6Zi1KSWttTi1sNlBVdGx0dkhmX0tLLVljV3NZN2FNdEJSZEZQSGZoRVcza3J0Zmg5bE9L?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift contributes $50,000 to GoFundMe campaign
 
@@ -86,11 +174,12 @@ Stories: 76
 ## Taylor Swift makes $50,000 donation to GoFundMe campaign
 
 - first seen: 2026-08-31 21:53 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift has donated $50,000 to a woman's GoFundMe campaign, showing her support for the cause. The donation highlights Swift's philanthropic contributions and engagement with her fans' initiatives.
 - sources:
   - [unverified] foxcarolina.com — https://news.google.com/rss/articles/CBMikgFBVV95cUxOYWN6a0xnd2hGb2NUMnNjTzhDcmRHQWU4bjk5ZXpHVFZfaHVFZV9qaGlvYl9KSllJUVhXSXBkQU5ReUd2b0U2U2ZKaHNFTklaWjUtdFpITnNuWGxCdGY3Ylg3ejIyUTZ2U3AyV3lER2xFREpaUXl2T2Q5TmVPRXRCUlZUckJhdVpjYWl3Mm90YjQ3Zw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] wdbj7.com — https://news.google.com/rss/articles/CBMiigFBVV95cUxOd3VzWFAxdm9YOGVrWGRMY1hRVU4zTnNlZXNlR2hRaFZLWnBSRHVyWlFWcEQxRkZJaGU2NVFsLVBlM1lQNXphS2huT2RCMHVXRUw2TlQxaGN1UENQcmJCY3d6d3VrOUd3MzdaakUwM3VmWGZuYThPaVY2TnhzY1VDS3EycmcwUGJHYnc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] kttc.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPLXozaGUyLTJrUDJ1dExiQzdtVnJfM0tqQlFmVTV3TldUUUFqUnpYdWF0ajVMcERGc1c3T1BpbVBzMjZnSzBrUC1QaWplNmpiSGMyeTdoc3BKRHNPeU1LOUJQZXZiSVRRNVVVMmJVXzFQNkw0NTdKaWhtNTZkdy15X014Yk9DOWp3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Efforts for a Song of the Year Grammy
 
@@ -100,14 +189,6 @@ Stories: 76
 - sources:
   - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMioAFBVV95cUxOTTBkaG1VTk1XUGMzUnVCQVZ3dXpGUTRLYjJnVWxyZ1BHRFNBWC1abXlGMFo1dXd3cVpxLWJLc0lEbUxIOEtxNk9ObDlrQktEbm0wOWstS3I5T2NsZGdyX1VEQnVwN1djcXpoT1BfWV9zdHg1LVpDZnVHOFA0TEd1ZVNia3dMX0RyZkUxN294ZVFOU0t6WlJsVUZXQ1MwZTRY?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift makes $50,000 donation to injured woman
-
-- first seen: 2026-08-31 21:53 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has donated $50,000 to a woman who was injured while assisting teens on the side of the road. The contribution highlights her philanthropic efforts in supporting those in need.
-- sources:
-  - [unverified] KTIV — https://news.google.com/rss/articles/CBMipgFBVV95cUxPOUZOdkFTNjhSTFZXdkl3WVhHb3lUTFh0OGdZOXh4MV94RlltLUwtRHM3ZjBwdzZIWHJNS0NwME5NQnhGdzZRMFE2a3RmVGw3dlRLY1h3OW5TVTZ1SHpWTC1NQ2hWQ1EwZXVIam5vcDIybk9scnhqU0NISmJHV2hIdXBudWxFdjhLUWczX3BmZmFjTG5DXzl6NWM4ZEVQLXk2blgxNnJ3?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Makes $50,000 Donation to GoFundMe Campaign
 
 - first seen: 2026-08-31 21:53 UTC | category: business | importance: 7
@@ -115,6 +196,15 @@ Stories: 76
 - summary: Taylor Swift has contributed $50,000 to a woman's GoFundMe campaign, supporting her cause. This act of generosity highlights Swift's continued involvement in charitable endeavors.
 - sources:
   - [unverified] WDTV 5 — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQRmt4d3RPbUFnR0NoSHRQRG8yME1QWkRXRHhGM0pZRmhRdXBRRmJpVEhfcF9OY0k4ZTRCWm01S0h5cGdtRDlmZ3BRakNZQVlPazZTQklPZTdTZ1pjYzZWcnE3SFNDaUxnLW9BSmRpNm12LWt0RHM2RE1SRnBYT1RpZERsTEY1R3Br?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift makes $50,000 donation to injured woman
+
+- first seen: 2026-08-31 21:53 UTC | category: business | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has donated $50,000 to a woman who was injured while assisting teens on the side of the road. The contribution highlights her philanthropic efforts in supporting those in need.
+- sources:
+  - [unverified] KTIV — https://news.google.com/rss/articles/CBMipgFBVV95cUxPOUZOdkFTNjhSTFZXdkl3WVhHb3lUTFh0OGdZOXh4MV94RlltLUwtRHM3ZjBwdzZIWHJNS0NwME5NQnhGdzZRMFE2a3RmVGw3dlRLY1h3OW5TVTZ1SHpWTC1NQ2hWQ1EwZXVIam5vcDIybk9scnhqU0NISmJHV2hIdXBudWxFdjhLUWczX3BmZmFjTG5DXzl6NWM4ZEVQLXk2blgxNnJ3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WABI — https://news.google.com/rss/articles/CBMipAFBVV95cUxQMXBQSUMzQTQ0TngtVExpVVdUNUNMbHpBYVRDOW50aHZJWElSQkI1ajJDVFQ2V2hoVkdpYVlrRUlKNjdNbnJtWklNU09YZjcwTTNLTTBPYnRKQlNQc2owc2JuTGNIbU05eldYSmU4bFBQNG5haUZWcC1DTU8ySXJaWkVPcEFLSVhJLW9qUUVodm5STXdGbzBFcVBGR1NUZjQwZHBLYtIBuAFBVV95cUxPQzJaT0lBd3ZzTTJfU1dHQTlBX1U3NnViNzhJLUdVVmNzNjNubWEtalpSaFZrM3JyUVN5V2ZHUVY2SXNqdjZSNko1NG9RWnJhcS1kbmVwRXNhNjJlSXJEWkxpTXBkbXI0Z3VTNC04T29vTXhrMm45LXpTbGNHeVFQQ2JkMGNvWjB2SUNyZjJPRGZ6VjNESlZOWTVodnVLZHAxSjNGRS1hUlMya1Z0dUMwSlFTX3BrUTB0?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce face challenges with football involvement
 
@@ -548,117 +638,3 @@ Stories: 76
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQT0pqaHdDWExwU19uM3h2OXJfaDJkdEc5LW9UTURuUEE4Y283WEMwTFAwQjJ6aV9OTUExNTdnN29pMVdYeUlVM1FvUnU2ZEtsOVFhN19GUENFQUNCLU8zNmJiVzZxb2puSW1sRlJqcVpyd3V6N3pOano4TUc3bEpJV2pDWXBQZ0Y0QUprNVI4T3M2U3VBV01nRnJxbi0yb1FJZHlyVUdIbExSUHc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMinAFBVV95cUxPT2FyRnp5SUZBSU51TFo2VGlrUmc5N1RCaUpQa3I2VkNJZFU0Tjc2SlVpNjg0MDBhMTRldXcyQVJIYktxNWM5emhvcFIzeUVtRExLSzRKRXFqMjVRcmF1OERCSVpQQjIxX1ZaVl90bXV3Q20tdFRWRl9RRXpiZ0I3M05KNXJIZk1JUEJ4SnZqVjBCY3lTMFdFeGlhYm0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] E! News — https://news.google.com/rss/articles/CBMikgFBVV95cUxQdFY2blJGYlpJbDdZZzE1UzRyeXcteXk3dHZ4Z2tHakxpdzZYcmNfM01SeFluRWlPbVJjQkZzcVMyRU1oTWdWMTBJWEg0T05DX01iSU4wcWNkQ1dQYmhrNHFiRGhlQS01cUhYMGFUNUpxRGlyWTZRZWk2QzF0T3NOa3pEQTNWd0t6a2xVS3dpMjUxdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Donates $50K to Assist Injured Mother
-
-- first seen: 2026-08-28 23:00 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has donated $50,000 to support a mother who was seriously injured in an act of kindness. This charitable act highlights her commitment to helping those in need.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxQb3RkSzBHd09UV3haV1ZVS0s4dUI3UDlUeWVEbExjVWd5UzlHZHFOZHF6N2tlQkhVNFU0ZVNxSWx6VTJQWWFRRjBjendPRjRVUFNIZEg4WmxSdE8wN3hXTE5wTGVncThtSThqYjRYRWQwNzZ2N19RQ3MwMTllcDdGOUdsT2VUX3NfNDRvQ0xCMHFXWURPQW41LTJiRGtSVV9TeXVDT190YTl1TjFPTUE1Vi1Sbw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Don Spencer Comments on Taylor Swift's Influence in Music
-
-- first seen: 2026-08-28 23:00 UTC | category: business | importance: 4
-- verification_status: rumor | source_count: 1
-- summary: Don Spencer discussed his lengthy music career and acknowledged that Taylor Swift, a notable figure in the industry, is not concerned about him, highlighting her prominence in the music world.
-- sources:
-  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMikAFBVV95cUxPVXJ1WHV5aW5jYVFqOHlQNTNOTWpKalZvd3hocG5oaHlqMEVjS0U1ZU5wREg1NGNVaWN5WEtoVmRpaV9KbTlmZi1vdk5ZQUo5WEwtMXNkVTN6U2Z6LThTVENoWlg2dE95M2tZcTMzeGt4Vm9JUGpJUlRjNHhvRDNJRFdPbTFvajc4emhVMEw5SGo?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Ice Spice and Riot Praise Taylor Swift's Party
-
-- first seen: 2026-08-28 23:00 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Ice Spice and Riot have publicly declared Taylor Swift's recent party as the greatest of all time (GOAT). Their endorsement showcases the positive vibe surrounding the event.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPaHZlc0xXRTF4OE45ajBET0lFOFpSOUROaXNkUXBLWU8tRHRFUjB3S3o4ZVJSX0stcHZMOVVRZjJnZzN4TEhtTXh0N2hhOEZ5U2lCSGJRcXIxX3dwcng2TzJiV3FaNk13dEcxNzdkc29xZ05wSHMwdTJXTXYyR1BGTkh2LXY4THJDLTlB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Grammy-Winning Album Achieves Chart Milestone
-
-- first seen: 2026-08-28 23:00 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's album, which won Album Of The Year at the Grammys, has reached a significant milestone on the charts, indicating its continued popularity and impact.
-- sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMivwFBVV95cUxPUUpYUGJQTW4zSzExazdndnkzUTB4Vnl2c3M3WjFfU0hjMUduNm9wVjBCc0pZUTFyLTE3Tnh0WHdySFVzc3BOWUxTQ2R0WW16UEFJMWNoUVNYU01sRHpsYmJfZ2ZJdVNKWmVyY0twdURuY2loQjUtSWlMTEMxZngwQ1lWQ3pBTDR4WFl2SzRXS1RoSVo5dFdEdEdEckJhUENIZ1pGZXhnME56VXhidjNwdE8wbmxoc200U2dvVExrMA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Caitlin Clark unveils Taylor Swift-inspired Nikes
-
-- first seen: 2026-08-28 23:00 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark has revealed her new Nikes inspired by Taylor Swift, showcasing a unique design that pays homage to the singer.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQREdmVTZZYlYzakZFTkNfS1BnbEEzWDNEVGxabXdhYXN0NUhyUmNCSXJXX1FmTHdQdFlQaDNuQm13d2x4UUZQQ3A3SEt2dWxVQVNyZ0p1TDI5dldURDlETUt3S0FVTTNMcjdoTUpld2M0MHRnN25lUWRjYlRjOElneE1tdTgzbzU1cFdF?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reportedly Writing New Music Following Marriage
-
-- first seen: 2026-08-28 23:00 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is reportedly working on new music while navigating her new married life with Travis Kelce, amidst recent sightings of teasers related to her work.
-- sources:
-  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMi7gFBVV95cUxPY0ZpSzhFRHFxS2wtQUJWYXlOOWE5VmJ6Q01QZjlsUmtuaElrT2owWWxYMmlCVUQtY3FHRk5lMURhUmZNT2w1NXlFak9BVWhDWXdhNkQ2Q2lvZ29NcVVIYkQ0UU04UVJrRTBQUG9lU1pidUp5a284LVZOSWV2YkJLX3UyZzktUlBwYm50V3hGSEhGRTUxeDhaSWJucUJaellRay1GSlhtS2dwaFlzZkJ6eEgyNGlwcVdoNzBZZ1E3LXNXdHZNWEZhaWRYb2puMkFLY0JHcTBMSlJGSUotdjVhRW5VZHZZSG84T05uRG1B?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMi-gFBVV95cUxNMWRLTHRwRlJtTF9jb2k0ZllLb09rbXc2TXdnRERXQUlQZlkyQjdBajBqTU5CWFNueUJPakdxSENjRUdzc0RNS0ozbkphUGpEQ2loVDNJUlNpbDllT2ViNzRxQWZQNmN0ZUZtNkJtOV9nallVT3hzcFNubUhTTGhpTlN3dERwZnZKb3VJRmtmcW82N2I2VHE0LWs5cUg4MVlKUjUzRVJ6UnJQNlY3LTNwZmI5bTNKVTNuWjBtRmxjaGVRTmt6VVJ1dWhMUEt5b3pwRjVteHI3Mms2bmJrZXJkVDVlOGdsenNZdks1Y3hYUndiOXN0NUFPa3ln0gH_AUFVX3lxTE1Od1RKNzkxYnhMbUwwX3Zna0Z3TGs3enJiSllTd19RU0E1dnNMcnJOb2k2MUZQTTlwdUZnbWs2SWZhSC0yOTdnOUlQaXlQSFM0VTQtamZYMmpvRjFDRUN3NTA4TkU3eGJEUDB2WF9fa3pMZ3M4UmFwTjhzMVNpYkZJQjJhWEVhV0F2c3NXNlgyV3ZvZGk4STZwVGNXU2VqY2dvUENIWmNjd0RoVzBQeEVXZ1llTmtQX1NXODFRakhVMFMwYnRIbl9hU2VidDhhaEExVnVyTjNQTnBnTWtyRVRfdVNUOURGM052bk1VVzBqOS0wVUZoUURBN2wxSzBfZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Caitlin Clark Unveils Taylor Swift-Inspired Nike Shoes
-
-- first seen: 2026-08-28 23:00 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark has introduced a new pair of Nike shoes inspired by Taylor Swift's friendship bracelets. The launch highlights the intersection of sports and pop culture influence.
-- sources:
-  - [unverified] Just Women's Sports — https://news.google.com/rss/articles/CBMipwFBVV95cUxQYkFBLTZla0llQ0FHZjFfSk44cWxGTVpBUUVSdTRFX0NJTHFuYW82X3VLZjZQN28xVmtUQTFVWWpxZng4Z3VwWEpOUERSV1V4VlQ2SUJJUVhvTmRPbkljaXFlYm9GcGl4NGpaS2p6OGdVdHZfcWlNWHVCSm5ORTAwYzhmR0pLa0tQNTF3TUxPTmlOa0RLbGxPQ01nTk96eHdkWFJ4eXFCOA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Shares Dislike for Aspect of Swift Marriage
-
-- first seen: 2026-08-28 23:00 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has reportedly expressed a dislike for a particular aspect of his marriage to Taylor Swift, noting that it 'hits differently now'. The comment highlights his feelings regarding their relationship dynamics.
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMirgFBVV95cUxQZmstZHF1RmRIcFV1MjNHU2VGNFp4cHplR0VDMXQxUlJSYzZVTFhnM3AyN25mUUhKYXQ1SDJXaU9EXzgzX3c3WlNWN3BIZ1hzQVNVRGo3MEN2YjR5QWdXRk85alZpZ2hneTM1MEFmYkhBbVNwN292ZWFUOEh1OGdRMXQ1bFpTVm1Nc2tBbkoxVm1kMDE5bTNpYmNfUEU0QU0xY3FKNnFGVTRkMjdGZ1E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Examining the Impact of Taylor Swift's Popularity
-
-- first seen: 2026-08-28 23:00 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An article from the Washington Times explores the implications of Taylor Swift's significant popularity. It discusses various factors contributing to her widespread acclaim and the challenges associated with it.
-- sources:
-  - [unverified] Washington Times — https://news.google.com/rss/articles/CBMigAFBVV95cUxNbHlldFN3WERWdXhwcnBtRmFFcEtkV0I2Y2Y4TU54YkFobFVkNHBCbF95aDU0cHRvdzFLNWVkTVg4bnhKcmhBSzBRaVpJWE4xeU9UVE13dzQ0emxPTTBDb29uX0lKdmc3ZlhncllXbzlnMlFWc3hKQ2NtVEoxdVdJWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Overcame Record Label Doubts in Her Music Career
-
-- first seen: 2026-08-28 23:00 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: The article discusses how Taylor Swift faced skepticism from record labels but persevered to establish her successful music career. It highlights her determination in overcoming challenges.
-- sources:
-  - [unverified] Deseret News — https://news.google.com/rss/articles/CBMilwFBVV95cUxOV2Z4aHRwcnpCUzZ0MUIzTEdKLWQwMk9fZ3RXU0t5aUh5MV8wbTJ1dGw1OHZORGR2N0ZrVTY0aFVKQ1ZLM3FUT00zY2tXRkhMYV9NTG90bDlraTdNYWN5bGU3N0wycHdyQlAwZkFoUGxwbUQxLURCRnJ4NjJCZGpncEt3dGpPbGRiaTM4TU5XZEFYcGFxWWQ4?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce's Dislike About Marrying Taylor Swift Revealed
-
-- first seen: 2026-08-28 23:00 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has expressed a particular dislike regarding his marriage to Taylor Swift, as reported by Yahoo. The details of this sentiment have not been elaborated in the article.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOWDhHZHFSRnkwZ2pvSW5KclF2czAyS2p0bER1ZzJQRHdKYkNLdGlHM2dBUGtoTUhJOE1DNVc2MHQ1WXBGRklYNzZfQmFpSkVvSDctRjJvb3piOS11c1ZTYXZ3UzhBSTQ3dVBjUmZxU1E4bEdRVTJoeXRtLURpeWRlaHRtcnFUMzR5Qld0MkEwVGpJQjl0bmtCNUduakRpQTA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Showcases Fall Floral Fashion Trends
-
-- first seen: 2026-08-28 23:00 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift demonstrates how to stylishly incorporate florals into fall attire, ensuring they remain trendy beyond the spring season.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi1gFBVV95cUxQaGd2Z2ptcUVHd0VCeGFBTUgxOGppLUhWYzJYM0tnY01icEM2WlhXWXJSWVBIdjRFMUZXQm0ydEF5OVpJMFVQdnBuQmx2Z0Y1V2xnbDFzU1l1R3dSMEZMaE5WM0ZSMEhXVjZCd0Ryd0dFbVVNemtRQk03OWRtaW9zV2h2SmtGUklZRjg5QjBxN3ZXZVdjbE9xdzdpRC1pV1VPbTlVMDc0azljRzVUS3dsZWhBSkdZUHNmQ3lJanR6NXVjbG9Hb0NJWHlSQTV0dVU1U2wySDB3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Little Big Town Discusses New Album Without AI Collaboration
-
-- first seen: 2026-08-28 23:00 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Karen Fairchild of Little Big Town emphasizes their new album, It's a Dying Art, and their commitment to traditional songwriting without the use of AI. She also highlights the band's significant role in Nashville's music scene.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/little-big-town-its-a-dying-art-album-interview-1235617159/
-
-## Caitlin Clark Incorporates Taylor Swift Influence into WNBA
-
-- first seen: 2026-08-28 23:00 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Caitlin Clark has drawn inspiration from Taylor Swift, resonating with fans and creating excitement among the Swifties in the WNBA context. This connection showcases the crossover between sports and pop culture.
-- sources:
-  - [unverified] HOLA — https://news.google.com/rss/articles/CBMilwFBVV95cUxQU3A1U2IwbzJpMW9oZldsaGRhSTNIVnpOdE12MThpczFXTG55dUtzUVk4YXoyLTJVU01PaUQzRzZEN3VXeVktY2VfcmFKaHMtYS1LeDk4RV9ubWppMEVvWVg3cG9yekE1SXBmSG1xVDZPUUktZjB6eGxEdVIwUk1wbVJkdldkZUhxZ195cDllUHJseHV1cWZN?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] IndyStar — https://news.google.com/rss/articles/CBMi7gFBVV95cUxNNklwWGYyVXdidklhQlJ4b1FDUGZLblhEX2NZU1JHVkplN0lMN0dSZU5yd2VTeU12M1NlcTRyUk9ocVVjWVlhdzY5Q0NyRVdJem53NHdWOHlhdGZPRUcwUmV3M2hZeEdyT2Vja2h0SzY5d2xFQ3UyUGFBSEZsT053MkxJMVZ1cVdoZm1DWWxLZDFnWWtuVTc5ZzZGMVRKME9DY2FnYWlUSGhlUDJFWlpQeHRVam9nWmdacVM4NENQMGlsRUlURlB4c29KWVpLZkFTRXB6dWVUa0pJemQ5cDRVelU1b21LNVg4MWhpbUxR?oc=5&hl=en-US&gl=US&ceid=US:en
