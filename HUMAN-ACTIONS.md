@@ -26,90 +26,6 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 37. [UPGRADE] Sync the new T-20 attribution-trailer instructions to all 24 live triggers — needs Joey's Claude account, ~30-45 min
-
-**Filed:** 2026-08-31
-
-**Status:** OPEN
-
-**Why it matters:** T-20 Phase 1 (`docs/TIER2-OPTIMIZATION.md` § T-20, PR
-#3621) added a one-line attribution-trailer instruction to every Tier-2
-routine's prompt file in `docs/agents/runner-prompts/`, so each routine's
-PRs/issues carry `Tier-2: <routine name>` — the input Phase 2's daily
-telemetry rollup (a follow-up card) will count. Per this repo's own rule
-(`docs/agents/runners.md` § Rules — "the repo file is the source of
-truth, and a trigger whose inline prompt drifts from its file is a bug"),
-the **repo files are updated but the live triggers' inline prompts are
-not** — same limitation as items #35/#36: `RemoteTrigger` read/update
-needs a session authenticated to the account the fleet runs on (Joey's),
-which a headless docs/CI sandbox cannot reach. Until every live trigger
-is re-synced, real routine runs still execute the OLD inline prompt
-without the trailer, so the "season for a few days of PRs" step Phase 1
-exists to start has not actually begun.
-
-**Steps (from a `claude.ai/code` session on your account, or one you
-explicitly point at that surface):**
-1. For each of the 24 rows in `docs/agents/runners.md`'s "Live trigger
-   IDs" table, `RemoteTrigger get` the trigger, read back its full
-   `job_config`, replace the `prompt` field with the current full text of
-   the matching file in `docs/agents/runner-prompts/` (verbatim — do not
-   hand-edit), and `RemoteTrigger update` with the whole `job_config`
-   (never a partial PUT — see the RemoteTrigger footgun this file already
-   documents elsewhere).
-2. Skip the two approved-but-not-yet-created desks (Karen Deep,
-   Notification quality) — nothing live to sync yet.
-3. Record in `docs/decisions.md` or a brief comment on Kanban card
-   t_017c1e5b once all 24 are synced, so Phase 2 knows the seasoning
-   clock actually started and from what date.
-
-**Worked if:** a fresh `RemoteTrigger get` on any of the 24 triggers shows
-its inline prompt containing the "Attribution trailer (T-20 Phase 1)"
-section verbatim, matching the repo file.
-
----
-
-## OPEN
-
-### 36. [BLOCKING] T-3 News Triage model trial needs a RemoteTrigger-capable session on your account — ~15 min
-
-**Filed:** 2026-08-31
-
-**Why it matters:** `docs/TIER2-OPTIMIZATION.md` T-3 (move News Triage from
-Opus to Sonnet 5, with a mandatory 2-week labeled-recall-check trial) is
-pre-approved, standing-agent-authority work — no founder decision needed on
-the *what*. The prep (recall-check trial prompt, digest-archive workflow
-step) already landed on PR #3608, and the exact application steps + recall-
-check trigger config are written out in full in `docs/agents/runners.md`
-§ "News Triage — model trial config to apply". But applying it needs the
-RemoteTrigger tool, authenticated to your account, the same limitation
-recorded in item #35 above — a docs/CI worktree sandbox has no such tool at
-all.
-
-**What to do, from a `claude.ai/code` session on your account (or one you
-explicitly point at that surface)** — exact order matters, see
-`runners.md` § "News Triage — model trial config to apply" for the full
-reasoning (archive/audit instrumentation must be live before Sonnet is,
-so no trial run goes unaudited):
-1. Merge `docs/content-ops/news-triage-trial-active` (empty file) to
-   `main` first — turns on the digest-archive step.
-2. Create the "News Triage recall check — T-3 trial" trigger per the exact
-   config in `runners.md`; record its trigger ID (not a start date yet —
-   the clock starts at step 3) in `runners.md`'s live-trigger table.
-3. Only then flip News Triage's trigger
-   (`trig_019NuR7EpN7TA28yfmzKPAC7`) from `claude-opus-4-8` to
-   `claude-sonnet-5` — `get`, edit only the model field, PUT the whole
-   `job_config` back (never a partial PUT). This PUT succeeding is the
-   trial's actual start — record that date in `runners.md`.
-4. Update `runners.md`'s live-trigger table + this item to `DONE` once
-   confirmed working (a real run, not just "created").
-
-The trial then runs 2 weeks unattended; a follow-up PR closes it out
-(revert on any FAIL, or make the Sonnet change permanent + remove the
-trial-active marker on a clean PASS) — no further human action needed
-until that verdict.
-
-**Status:** OPEN
-
 ### 35. [BLOCKING] Vault Phase 4 needs a RemoteTrigger-capable session on your account — the disable step can't run from a docs/CI sandbox — ~10-20 min
 
 **Filed:** 2026-08-31
@@ -586,6 +502,96 @@ credentials, this was just registering accounts/keys ahead of that build.
 
 ## DONE
 
+
+### 36. [DONE] T-3 News Triage model trial applied
+
+**Filed:** 2026-08-31
+**Closed:** 2026-09-01
+
+**What happened:** Applied from a `claude.ai/code` session with
+`RemoteTrigger` access, in the exact order `runners.md` § "News Triage —
+model trial config applied" specifies:
+1. Merged `docs/content-ops/news-triage-trial-active` to `main`
+   ([PR #3626](https://github.com/JW-Incorporated/swift2/pull/3626),
+   2026-09-01T00:42 UTC) — digest-archive step now live.
+2. Created the "News Triage recall check — T-3 trial" trigger
+   (`trig_01V8JrQPZfWpUqUWiy9fvmkh`), confirmed working via a manual
+   dispatch — correctly returned a vacuous PASS
+   ([issue #3628](https://github.com/JW-Incorporated/swift2/issues/3628))
+   since neither the archive nor the model flip existed yet at that point.
+3. Flipped News Triage's trigger (`trig_019NuR7EpN7TA28yfmzKPAC7`) from
+   `claude-opus-4-8` to `claude-sonnet-5` via a full `job_config`
+   round-trip (`get` → edit → PUT whole object, never partial), succeeded
+   2026-09-01T00:51 UTC — **trial runs 2026-09-01 → 2026-09-15.**
+   Also re-synced the live prompt to
+   `docs/agents/runner-prompts/news-triage.md` verbatim in the same PUT —
+   it had drifted (missing the #1966 prompt-injection defense, the T-3
+   archive-snapshot addendum, and the T-20 attribution trailer); left
+   unsynced, the recall check's `consumed-snapshot` mechanism and T-20
+   telemetry would have been broken from day one.
+4. `runners.md`'s live-trigger table updated (News Triage row + new
+   recall-check row).
+
+**One new follow-up surfaced, not blocking:** the recall-check trigger got
+4 MCP connectors auto-attached on creation (Google_Drive, Vercel, Gmail,
+Claude_Code_Remote) despite requesting none — same silent-ignore API
+footgun `runners.md` already documents for updates, apparently also true
+of creates. Needs manual removal via the `claude.ai/code/routines` UI
+(no API lever for it). Low urgency — the prompt is read-only/no-merge by
+design regardless of connector access — but worth doing before the trial's
+first real weekly audit.
+
+**Status:** DONE
+
+
+---
+
+### 37. [DONE] Sync T-20 attribution trailer to all 24 live Tier-2 routines
+
+**Filed:** 2026-08-31
+**Closed:** 2026-09-01
+
+**What happened:** Applied from a `claude.ai/code` session with
+`RemoteTrigger` access, per the checklist's own never-partial-PUT rule
+(`get` the trigger → replace only the `prompt` field in the full returned
+`job_config` → PUT the whole object back). All 21 live-prompt routines in
+the checklist were re-synced to their current `docs/agents/runner-prompts/`
+file content, each now carrying the `## Attribution trailer (T-20 Phase 1)`
+section verbatim. The 2 approved-but-not-yet-created desks (Karen Deep
+review, Notification-quality desk) and News Triage's recall-check trigger
+(created and synced separately under item #36) were skipped per the
+checklist's own instructions — 24 accounted for, 21 actually re-synced.
+
+Two deliberate deviations from a naive full-file resync, both judgment
+calls made in-flight and not later contested:
+- **Kevin S3 radar** (`kevin-stream3-radar`): the repo file's cadence
+  description doesn't match the trigger's real `23 1,13 * * *` (twice-daily)
+  schedule, while the LIVE prompt's cadence text already correctly matches
+  the real schedule. Only appended the attribution trailer to the existing
+  correct live text; did not overwrite it with the stale file. Flagged as a
+  documentation bug needing a fix in the file, not the trigger — separate
+  from this item's scope.
+- **Vault Run**: the live trigger's prompt is deliberately a short pointer,
+  not the full ~12KB orchestrator-contract file — replacing it wholesale
+  would have recreated the exact undocumented-inline-instructions anti-
+  pattern the file's own text warns against. Only appended the trailer to
+  the existing short prompt.
+
+**Also confirmed, not touched:** Marjorie — 8 PM Evening Delta
+(`trig_01L2EG5veWBQwMowaykXAi6B`) is disabled per Joey's T-13 decision
+(`docs/decisions.md` 2026-08-31 entry) — synced its prompt with the
+trailer but left `enabled: false` exactly as found.
+
+**Follow-ups surfaced, not blocking, not part of this item's scope:**
+Laura's `cron_expression` differs from `runners.md`'s table
+(`20 18 * * *` live vs `20 18 * * 2,5` documented); Austin's model is still
+`claude-fable-5` live though `runners.md`'s table names an intended
+`claude-opus-4-8` 2-week trial; Karen's pending trigger rename tracked
+separately as GitHub issue #3616.
+
+**Status:** DONE
+
+---
 
 ### 32. [BLOCKING] Etsy API returns 403 to the E5 evidence workflow — check app approval, ~10 min
 
