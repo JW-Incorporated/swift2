@@ -114,6 +114,20 @@ export type Network = 'awin' | 'amazon' | 'catchall' | 'none';
 export function networkFor(retailer: string): Network;
 ```
 
+`networkFor` itself resolves purely by hostname, but wrapping and the
+`isAffiliate` predicate are **listing-scoped, not product-retailer-scoped**:
+every call site passes an explicit `ShopLinkContext` (`{ eraId, momentId }`
+for a moment's shop-the-look products, `{ bucket: 'official' | 'fanmade' }`
+for merch-page buckets) that becomes the `<subid>` on the wrapped link. This
+means a D1-a `altListing` — a secondary Amazon link attached to an official
+item — is wrapped and disclosed **independently of its primary listing**,
+using the alt listing's own retailer and the same `{ bucket: 'official' }`
+context, per `createShopLinkBuilder`/`createShopLinkRenderer`
+(`apps/web/lib/longlive/shop.ts`). A listing without a resolved context never
+wraps, even if its retailer maps to a network (`shop.ts`'s "fails closed
+without... listing context" rule) — this is what keeps the primary and the
+alt listing's affiliate status independent per product.
+
 `buildShopUrl()` branches on `networkFor(product.retailer)`:
 
 - **awin** — Awin deeplink format
@@ -262,8 +276,12 @@ The judged half scores each pair as follows:
    **<25 = mismatch → demoted**: removed from the moment's products and
    filed as a re-source ticket for E6 with the auditor's reasons attached.
 4. Products with no comparable image pair (beauty items, no moment photo)
-   are marked `tier: null` and skip scoring — the UI shows no tier badge
-   rather than a guessed one (R2).
+   are marked `matchTier: 'unscored'` (an explicit member of the `matchTier`
+   union, `apps/web/lib/longlive/types.ts`) and skip scoring — the UI shows
+   no tier badge rather than a guessed one (R2). `'unscored'` is a real,
+   distinct state from having no `matchTier` at all: it says "we looked and
+   there was nothing comparable to score," not "this hasn't been audited
+   yet."
 
 Output: migration PR(s) writing `matchTier`/`matchScore`/`kind` across the
 existing 134, then steady-state runs only on new/changed items. UI: the
@@ -398,7 +416,7 @@ moment; the R5 cap makes the worst case a ticket, not a bill.
 | `merch-awin-sync.yml` (E0) | daily, jittered | no | gated PR (advertiser map) + Actions cache (index) |
 | `merch-verify.yml` (E1+E2 detect) | daily | no | report → mender |
 | `merch-mend` (E1/E2 act) | daily, after verify | small | gated PR |
-| `merch-audit-detect.yml` (E3 detect) | weekly + on new items | no | scoring queue → authoring lane |
+| `merch-audit-detect.yml` (E3 detect) | weekly + on new items | no (zero-LLM) | scoring queue → authoring lane, no PR |
 | `merch-audit-authoring.yml` (E3 judge) | manual (`workflow_dispatch`, confirmation-gated) | vision | gated PR (required end-state, FR-MERCH-5) — deployed workflow is currently artifact-only, see §5 |
 | `merch-official-sync.yml` (E4) | 2×/day | authoring lane for new items | gated PR + social queue |
 | `merch-fanmade.yml` (E5) | daily | curation lane | gated PR |
@@ -409,7 +427,12 @@ Reading the LLM column per R1: every *scheduled* trigger is zero-LLM
 detection; a non-"no" entry marks the judgment half that runs in the
 separate authoring lane the schedule hands off to (E3's split above is the
 pattern; E5's curation lane and E6's matcher lane are the same shape) —
-never inside the scheduled workflow itself.
+never inside the scheduled workflow itself. **E4 is the one documented
+exception:** its "authoring lane for new items" cell is deterministic, not
+an LLM judgment call — `authorOfficialCatalog()` is a pure function (no
+model call) and runs inside the same `merch-official-sync.yml` schedule,
+so it never leaves the scheduled workflow the way E3/E5/E6's judged halves
+do.
 
 All schedule minutes chosen clear of existing cron clusters; each workflow
 header documents its offset and its secrets per house style. New secrets:
