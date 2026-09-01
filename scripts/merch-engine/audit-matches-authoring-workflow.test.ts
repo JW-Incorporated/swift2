@@ -50,4 +50,14 @@ describe('E3 manually confirmed authoring workflow', () => {
     expect(workflow).toContain('merch-audit-authoring/${GITHUB_RUN_ID}');
     expect(workflow).toContain('gh pr merge "$BRANCH" --squash --auto --delete-branch');
   });
+
+  it('never lets a transient issue-filing failure block demotion removal (#3447 P2 review fix)', () => {
+    // The `author` step must continue-on-error so a re-source/cap issue API
+    // failure can't fail the whole job and skip the dependent
+    // apply-demotions job — the vision model's mismatch judgment is already
+    // conclusive by that point and must not be held hostage by GitHub
+    // Issues flakiness.
+    expect(authorJob).toContain('continue-on-error: true');
+    expect(authorJob).toContain("steps.author.outcome == 'failure'");
+  });
 });
