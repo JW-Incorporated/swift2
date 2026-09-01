@@ -26,6 +26,64 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 41. [UPGRADE] Add a GitHub comment-edit tool to Kevin's cloud sessions (or accept the append-and-supersede workaround) — ~10 min
+
+**Filed:** 2026-09-01
+
+**Why it matters:** issue #3631. Kevin's `docs/kevin.md` anchor-comment
+contract (Stream 2 digest / Stream 3 triage) was written assuming a
+same-day re-run could **edit its own prior comment in place**. It can't:
+Kevin's cloud sessions run with the GitHub MCP server, which exposes
+`add_issue_comment` (create only), `issue_write` (issue body/state, not
+comments), and PR-review-thread tools — **nothing that PATCHes an
+existing issue comment**. Direct `gh`/REST access is explicitly disabled
+in that environment ("use the GitHub MCP server tools for ALL GitHub
+interactions"). This surfaced for real on the first fire of the new T-10
+consolidated `Kevin — daily desk` trigger against issue #3590.
+
+**Already fixed in this repo (no action needed for this half):**
+`docs/kevin.md` and the runner prompts (`kevin-desk.md`,
+`kevin-stream2-digest.md`, `kevin-stream3-triage.md`) now specify an
+**append-and-supersede** convention instead of edit-in-place: a same-day
+re-run posts a NEW comment carrying the same anchor plus a
+"Supersedes the earlier comment(s) above" line, and the decision-processing
+step always reads the **most recent** anchored comment. This keeps the
+contract's spirit (one source of truth per anchor per issue) using only
+tools Kevin already has, and needs no account access.
+
+**What's left, and why it's yours:** the append-and-supersede workaround
+is correct but slightly worse than true edit-in-place (the brief issue
+accumulates a duplicate-but-superseded comment on every same-day re-run,
+which is minor visual noise for whoever reads #3590-style issues). If you
+want the cleaner behavior back, the actual fix is adding a comment-update
+capability to the **GitHub MCP tool config** Kevin's cloud sessions run
+with — that's a trigger/environment-level MCP server configuration change
+(`claude.ai/code` routines UI, or wherever this environment's GitHub MCP
+connector is provisioned), which an agent in a docs/CI worktree sandbox
+cannot reach or verify, the same class of gap as items #35/#38's
+RemoteTrigger access.
+
+**Steps (only if you want true edit-in-place back):**
+1. Open the environment/connector config that provisions the GitHub MCP
+   server for Kevin's routines (same account as `docs/agents/runners.md` §
+   "Live trigger IDs" — Joey's account) and check whether a comment-update
+   tool (e.g. an `update_issue_comment` / `issue_comment_write` capability)
+   can be enabled for that MCP server.
+2. If yes, enable it and tell a session — it can then revert the
+   append-and-supersede convention in `docs/kevin.md` and the runner
+   prompts back to true edit-in-place.
+3. If no such tool exists on the GitHub MCP server at all, this item is a
+   `SKIP` (write why) — the append-and-supersede workaround already
+   already shipped is the permanent answer.
+
+**Worked if:** either a comment-edit tool is confirmed available and a
+follow-up PR reverts to edit-in-place, or you mark this `SKIP` because no
+such tool exists.
+
+**Status:** OPEN
+
+---
+
 ### 35. [BLOCKING] Vault Phase 4 needs a RemoteTrigger-capable session on your account — the disable step can't run from a docs/CI sandbox — ~10-20 min
 
 **Filed:** 2026-08-31
