@@ -47,10 +47,12 @@ off Fable 5") and ratified here per T-12 (`docs/TIER2-OPTIMIZATION.md`,
 pre-approved standing-agent-authority docs pass, T-19): this charter
 previously still said "pin to Fable," which had drifted out of sync with
 the live trigger for over a month.
-Marjorie's judgment passes always run on the most capable available model;
-set it in the runner/agent config, and if the pinned model is ever
-unavailable the runner may fall back but must flag the substitution in the
-brief's Health section. `node --use-env-proxy scripts/marjorie/assemble-brief.mjs` produces
+Marjorie's judgment passes run on this reliability-tested pin, not
+whichever model is newest — set it in the runner/agent config, and if the
+pinned model is ever unavailable the runner may fall back but must flag
+the substitution in the brief's Health section. A future pin change is a
+separate, recorded decision (same rule that governs this one), not an
+automatic upgrade. `node --use-env-proxy scripts/marjorie/assemble-brief.mjs` produces
 the deterministic skeleton (open bank items, PRs, merges, cadence status);
 Marjorie's judgment pass curates it (precedent, dedupe, ranking, plain-
 language framing) and posts. If no session runs, the watchdog Action
