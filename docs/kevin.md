@@ -139,12 +139,22 @@ date — Marjorie posts by ~12:40 UTC / 6:00 AM PT, before Kevin's S2 run at
 13:15 UTC, so the brief is normally already up):
 
 - **Brief exists (normal mode, per §5.2, decisions.md 2026-07-11 — founders
-  read ONE daily artifact):** Kevin posts/updates Kevin's review list as
-  **one comment** on that brief issue — never the brief body itself (Marjorie
-  never edits her own body after posting either; comments are the shared
-  convention). The comment carries a hidden anchor
-  `<!-- kevin-stream2-digest -->` as its first line so a same-day re-run
-  edits that comment in place instead of duplicating it.
+  read ONE daily artifact):** Kevin posts Kevin's review list as a comment on
+  that brief issue — never the brief body itself (Marjorie never edits her
+  own body after posting either; comments are the shared convention). The
+  comment carries a hidden anchor `<!-- kevin-stream2-digest -->` as its
+  first line.
+  **Append-and-supersede, not edit-in-place (2026-09-01, #3631):** Kevin's
+  cloud sessions have no GitHub comment-edit tool — the GitHub MCP server
+  they run with exposes `add_issue_comment` (create only), nothing that
+  PATCHes an existing comment body, and direct `gh`/REST access is
+  explicitly disabled in that environment. A same-day re-run therefore
+  **posts a new comment** carrying the same anchor as its first line, with
+  a second line reading exactly `_Supersedes the earlier comment(s) above
+  with this anchor — read this one._` The **most recent** comment carrying
+  the anchor is always the current digest; older anchored comments are
+  historical and must not be re-acted-on. See "Decision processing" below
+  for how a re-run locates the current one.
 - **No brief exists today (degraded mode):** Kevin falls back to the
   standalone issue below, unchanged from today's behavior.
 
@@ -191,9 +201,16 @@ with no proposed change — the reviewer comments instructions or ticks Reject.
 
 Kevin locates the prior review list before doing anything else, checking in
 order:
-1. The most recent open `founders-brief` issue, for a comment carrying the
-   `<!-- kevin-stream2-digest -->` anchor (normal mode).
-2. Else the most recent open `kevin-digest` issue (standalone/degraded mode).
+1. The most recent open `founders-brief` issue; among its comments, the
+   **most recently posted** one carrying the `<!-- kevin-stream2-digest -->`
+   anchor as its first line (normal mode). If more than one anchored comment
+   exists on that issue — a same-day re-run under the append-and-supersede
+   convention above — the latest one by creation time is authoritative;
+   earlier anchored comments on the same issue are stale and must be
+   ignored, never re-parsed for checkbox state.
+2. Else the most recent open `kevin-digest` issue (standalone/degraded mode)
+   — this one genuinely is edited in place (`issue_write`/`gh issue edit`
+   covers the issue body, unlike a comment), so there is only ever one.
 
 Kevin re-reads whichever it finds and parses the checkboxes:
 
@@ -231,13 +248,19 @@ Kevin posts the result the same way Stream 2 does (§5.2, decisions.md
 `founders-brief`-labeled issue titled `Founders' Brief — YYYY-MM-DD` for
 today (America/Los_Angeles date).
 
-- **Brief exists (normal mode):** post/update **one comment** on that brief
+- **Brief exists (normal mode):** post **one comment** on that brief
   issue — never the brief body — carrying the hidden anchor
-  `<!-- kevin-stream3-triage -->` as its first line so a same-day re-run
-  edits that comment in place.
+  `<!-- kevin-stream3-triage -->` as its first line.
+  **Append-and-supersede, not edit-in-place (2026-09-01, #3631):** same
+  constraint and convention as Stream 2 above — no comment-edit tool is
+  available, so a same-day re-run posts a new anchored comment with the
+  second line `_Supersedes the earlier comment(s) above with this anchor —
+  read this one._` rather than editing the prior one. The most recent
+  anchored comment on the issue is the current triage; ignore older ones.
 - **No brief exists today (degraded mode):** fall back to the standalone
   issue **`Kevin Eng Triage — YYYY-MM-DD`** (label `kevin-triage`), unchanged
-  from today's behavior.
+  from today's behavior — this one is a genuine issue-body edit, so there is
+  only ever one.
 
 Stream 3 has no next-day checkbox decision-processing step to redirect (each
 day's triage re-derives its buckets from ticket-level comments, not from
@@ -320,14 +343,17 @@ A service implementation must replicate this contract exactly:
 - **Karen stream:** an LLM applies the ticket's suggested fix (text) or does
   verify-first image re-sourcing; emit/refresh one PR with `Closes #`.
 - **User stream:** check for today's open `founders-brief` issue first; if
-  present, generate/update the review list as a comment there (anchor
-  `<!-- kevin-stream2-digest -->`), else generate the standalone digest issue.
-  On each cycle, locate the prior list in whichever location it last posted
-  and parse its checkbox state to drive apply (→ `kevin/user-fixes` PR) / close.
+  present, generate the review list as a comment there (anchor
+  `<!-- kevin-stream2-digest -->`; if a comment-edit API is unavailable to
+  the caller, append-and-supersede per 2026-09-01/#3631 rather than
+  duplicating without an anchor), else generate the standalone digest issue
+  (a real edit, since issue bodies are PATCHable). On each cycle, locate the
+  **most recent** anchored comment (or the standalone issue) and parse its
+  checkbox state to drive apply (→ `kevin/user-fixes` PR) / close.
 - **Eng-triage stream:** same founders-brief-first check (anchor
-  `<!-- kevin-stream3-triage -->`), else the standalone `kevin-triage` issue.
-  No cross-cycle checkbox state to carry — buckets re-derive from ticket
-  comments each run.
+  `<!-- kevin-stream3-triage -->`, same append-and-supersede fallback), else
+  the standalone `kevin-triage` issue. No cross-cycle checkbox state to
+  carry — buckets re-derive from ticket comments each run.
 - **Stream 3 comment radar:** subscribe to issue/PR-comment + PR-review **webhooks**
   (the API port's answer to the session cron's ~10-min poll — true zero-LLM until
   an event fires); on a human comment, run the radar behavior table and refresh
