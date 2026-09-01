@@ -183,7 +183,20 @@ jobs:
         with:
           name: merch-audit-authoring-artifact
       - name: Remove demoted products from moment content
+        id: remove
+        # apply-demotions.mjs exits non-zero when one or more demotions
+        # couldn't be resolved (malformed productId, moment/url not found)
+        # — a real signal that a known mismatch stayed visible, per the P1
+        # review finding. continue-on-error lets the job still commit and
+        # PR whatever WAS successfully removed rather than throwing away a
+        # partial success; the failed outcome is surfaced as a job
+        # annotation below so it doesn't silently disappear.
+        continue-on-error: true
         run: node scripts/merch-engine/apply-demotions.mjs --artifact merch-audit-authoring.json --seed-dir supabase/seed/content
+      - name: Flag unresolved demotions
+        if: ${{ steps.remove.outcome == 'failure' }}
+        run: |
+          echo "::warning::apply-demotions.mjs left one or more demotions unresolved this run (see the 'Remove demoted products from moment content' step log) — any resolvable removals are still committed below; the unresolved ones need a follow-up run or manual look."
       - name: Regenerate the built content vault
         run: npm run sync:content
       - name: Open gated demotion PR

@@ -1,6 +1,8 @@
 import { mkdtempSync, rmSync, writeFileSync, readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import {
   applyDemotions,
@@ -10,6 +12,8 @@ import {
   removeProductForMoment,
   scanArray,
 } from './apply-demotions.mjs';
+
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 
 const SEED_WITH_TWO_PRODUCTS = `export default {
   eraSlug: 'evermore',
@@ -258,6 +262,61 @@ describe('applyDemotions', () => {
         reason: 'productId does not match the moment:index:url shape',
       }]);
       expect(result.filesChanged).toEqual([]);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('apply-demotions.mjs CLI exit code (#3447 P2 round-5 review fix)', () => {
+  it('exits non-zero when a demotion is left unresolved, so a known mismatch never silently stays visible', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'apply-demotions-cli-'));
+    try {
+      writeFileSync(join(dir, 'evermore.mjs'), SEED_WITH_TWO_PRODUCTS);
+      const artifactPath = join(dir, 'artifact.json');
+      writeFileSync(artifactPath, JSON.stringify({
+        demotions: [{ productId: 'unresolvable-garbage', url: 'https://shop.example/x' }],
+      }));
+
+      let exitCode = 0;
+      try {
+        execFileSync('node', ['apply-demotions.mjs', '--artifact', artifactPath, '--seed-dir', dir], {
+          cwd: SCRIPT_DIR,
+          stdio: 'pipe',
+        });
+      } catch (error) {
+        exitCode = (error as { status?: number }).status ?? 1;
+      }
+
+      expect(exitCode).not.toBe(0);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('exits zero when every demotion resolves cleanly', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'apply-demotions-cli-'));
+    try {
+      writeFileSync(join(dir, 'evermore.mjs'), SEED_WITH_TWO_PRODUCTS);
+      const artifactPath = join(dir, 'artifact.json');
+      writeFileSync(artifactPath, JSON.stringify({
+        demotions: [{
+          productId: 'vault-evermore-a-moment:0:https://www.runwaycatalog.com/products/gucci-silk-floral-print-dress',
+          url: 'https://www.runwaycatalog.com/products/gucci-silk-floral-print-dress',
+        }],
+      }));
+
+      let exitCode: number | null = 0;
+      try {
+        execFileSync('node', ['apply-demotions.mjs', '--artifact', artifactPath, '--seed-dir', dir], {
+          cwd: SCRIPT_DIR,
+          stdio: 'pipe',
+        });
+      } catch (error) {
+        exitCode = (error as { status?: number }).status ?? 1;
+      }
+
+      expect(exitCode).toBe(0);
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }

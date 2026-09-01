@@ -359,6 +359,16 @@ async function main() {
   }));
   if (result.unresolved.length > 0) {
     console.error(`apply-demotions: ${result.unresolved.length} demotion(s) could not be located`, result.unresolved);
+    // Fail loudly (P1 review finding, #3447 P2): an unresolved demotion is a
+    // known mismatch that DID NOT get removed. Exiting zero here would let
+    // the workflow silently regenerate the vault and open a PR (or open
+    // none at all, if every demotion was unresolved) while a conclusively
+    // judged mismatch stays visible — the opposite of this lane's whole
+    // purpose. The caller (merch-audit-authoring.yml's apply-demotions job)
+    // still commits and PRs whatever WAS resolved before this exit code is
+    // observed, so a partial success is never thrown away; the nonzero
+    // exit only ensures the run is flagged for follow-up.
+    process.exitCode = 1;
   }
 }
 

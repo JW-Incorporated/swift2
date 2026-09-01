@@ -62,4 +62,17 @@ describe('E3 manually confirmed authoring workflow', () => {
     expect(authorJob).toContain('|| echo "::warning::');
     expect(authorJob).toContain('echo "demoted=$demoted" >> "$GITHUB_OUTPUT"');
   });
+
+  it('fails loudly instead of silently on an unresolved demotion (#3447 P2 round-5 review fix)', () => {
+    // apply-demotions.mjs itself exits non-zero on any unresolved
+    // demotion; the job wraps that step in continue-on-error (so a
+    // partially-resolved run still commits/PRs what it DID remove) and
+    // surfaces the failure as a loud job annotation rather than letting it
+    // disappear.
+    const applyDemotionsJob = workflow.slice(workflow.indexOf('\n  apply-demotions:'));
+    expect(applyDemotionsJob).toContain('id: remove');
+    expect(applyDemotionsJob).toContain('continue-on-error: true');
+    expect(applyDemotionsJob).toContain("steps.remove.outcome == 'failure'");
+    expect(applyDemotionsJob).toContain('::warning::apply-demotions.mjs left one or more demotions unresolved');
+  });
 });
