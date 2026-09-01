@@ -219,4 +219,15 @@ jobs:
             --body "Automated E3 demotion lane (scripts/merch-engine/apply-demotions.mjs). Removes every product this run's vision auditor scored below 25 (mismatch) from its moment's products, per spec P2 (issue #3447) — the paired E6 re-source GitHub issue names the same products with the auditor's reasons. Restates only the auditor's own recorded outcome; adds no new content. Auto-merges once check-drafts.mjs + the required build check pass; a human can still merge or hold it." \
             --base main --head "$BRANCH"
           gh pr merge "$BRANCH" --squash --auto --delete-branch
+      # Preserve every resolvable removal above (already committed/PR'd) but
+      # still end the RUN failed when one or more demotions could not be
+      # applied — a green run here would report success while a
+      # conclusively judged mismatch stays live (P1 review finding, round
+      # 6). This step runs LAST, after the PR is safely opened, so a
+      # partial success is never thrown away by an earlier hard failure.
+      - name: Fail the run when any demotion stayed unresolved
+        if: ${{ steps.remove.outcome == 'failure' }}
+        run: |
+          echo "::error::apply-demotions.mjs left one or more demotions unresolved this run — see the 'Remove demoted products from moment content' step log for which ones. Any resolvable removals were still committed/PR'd above; this run is marked failed so the unresolved ones get a human look or a follow-up dispatch, instead of a green run hiding a known-bad product still live."
+          exit 1
 

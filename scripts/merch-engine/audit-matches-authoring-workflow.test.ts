@@ -63,16 +63,24 @@ describe('E3 manually confirmed authoring workflow', () => {
     expect(authorJob).toContain('echo "demoted=$demoted" >> "$GITHUB_OUTPUT"');
   });
 
-  it('fails loudly instead of silently on an unresolved demotion (#3447 P2 round-5 review fix)', () => {
+  it('fails loudly instead of silently on an unresolved demotion (#3447 P2 round-5/6 review fix)', () => {
     // apply-demotions.mjs itself exits non-zero on any unresolved
-    // demotion; the job wraps that step in continue-on-error (so a
-    // partially-resolved run still commits/PRs what it DID remove) and
-    // surfaces the failure as a loud job annotation rather than letting it
-    // disappear.
+    // demotion; the removal step wraps that in continue-on-error (so a
+    // partially-resolved run still commits/PRs what it DID remove), and a
+    // FINAL step running after the PR step turns that into a real failed
+    // run (not just a warning) so a green run can never hide a known-bad
+    // product that stayed live.
     const applyDemotionsJob = workflow.slice(workflow.indexOf('\n  apply-demotions:'));
     expect(applyDemotionsJob).toContain('id: remove');
     expect(applyDemotionsJob).toContain('continue-on-error: true');
     expect(applyDemotionsJob).toContain("steps.remove.outcome == 'failure'");
     expect(applyDemotionsJob).toContain('::warning::apply-demotions.mjs left one or more demotions unresolved');
+    // The failing step must come AFTER "Open gated demotion PR" so a
+    // partial success is committed/PR'd before the run is marked failed.
+    const prStepIndex = applyDemotionsJob.indexOf('Open gated demotion PR');
+    const failStepIndex = applyDemotionsJob.indexOf('Fail the run when any demotion stayed unresolved');
+    expect(prStepIndex).toBeGreaterThan(-1);
+    expect(failStepIndex).toBeGreaterThan(prStepIndex);
+    expect(applyDemotionsJob.slice(failStepIndex)).toContain('exit 1');
   });
 });
