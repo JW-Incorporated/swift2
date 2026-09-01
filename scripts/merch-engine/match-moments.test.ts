@@ -108,6 +108,29 @@ describe('moment-to-product matcher', () => {
     expect(plan.authoring.queue).toContainEqual(buildReSourceTicket(moment, 'paid-search-cap-reached'));
   });
 
+  it('decrements paid-search headroom across multiple no-candidate moments in one run', () => {
+    const momentA = { id: 'moment-a', title: 'First no-candidate moment' };
+    const momentB = { id: 'moment-b', title: 'Second no-candidate moment' };
+
+    const plan = buildMatcherPlan({
+      moments: [
+        { moment: momentA, candidates: [] },
+        { moment: momentB, candidates: [] },
+      ],
+      paidSearch: { callsUsed: 0, cap: 1 },
+    });
+
+    // Only the first no-candidate moment gets to spend the single allowed
+    // call; the second must see the cap already reached rather than a
+    // static snapshot that never advances.
+    expect(plan.matches[0].ticket).toEqual(buildReSourceTicket(momentA, 'no-qualifying-candidate'));
+    expect(plan.matches[1].ticket).toEqual(buildReSourceTicket(momentB, 'paid-search-cap-reached'));
+    expect(plan.tickets).toEqual([
+      buildReSourceTicket(momentA, 'no-qualifying-candidate'),
+      buildReSourceTicket(momentB, 'paid-search-cap-reached'),
+    ]);
+  });
+
   it('keeps the staged workflow dispatch-only and records the canonical price-band rules', () => {
     const workflow = readFileSync('.github/workflows/merch-matcher.yml', 'utf8');
     const filters = readFileSync('apps/web/lib/longlive/merch-filters.ts', 'utf8');
