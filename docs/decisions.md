@@ -7,7 +7,71 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-08-31 — Real photo-content verification for the appearance-discovery fast lane (kanban t_ac1281ef)
+## 2026-09-01 — Merch Autonomy provenance-snapshot reconciliation (#3460, Fable-ruled): all 4 conflicts were stale attachment drift, not new decisions
+
+**Context:** GitHub issue #3460, per binding Fable ruling
+`ARB-t_b2461a5a-01` ("merge PR #3459 verbatim; reconciliation is a
+follow-up, not a precondition"). PR #3459 adopted the 2026-08-29 PLAN/SPEC
+Discord attachments byte-for-byte as a provenance snapshot; this reconciles
+that snapshot's language against this operative decision record. All four
+listed conflicts turned out to be stale attachment-doc prose that the
+codebase and earlier decisions had already superseded — no product-direction
+change was needed for any of them, so no founder call was required (per the
+ruling's own test: "a Joey decision is needed only if resolving this would
+amend or reverse docs/decisions.md or change product direction").
+
+1. **Alternate-listing affiliate routing.** The attachment's `networkFor()`
+   doc comment described resolution as if it were purely per-retailer.
+   `apps/web/lib/longlive/shop.ts` (merged in #3474, "wire affiliate render
+   context") already implements listing-scoped routing: every wrap call
+   carries an explicit `ShopLinkContext` and a D1-a `altListing` is wrapped
+   independently of its primary listing, using its own retailer plus the
+   same `{ bucket: 'official' }` context — see `shop.test.ts`'s
+   `describe('listing-scoped affiliate wrapping', ...)`. Fixed:
+   `docs/SPEC.merch-autonomy.md` §2 now documents this explicitly.
+2. **E3 lane split.** The attachment's workflow table and prose described
+   `merch-audit.yml` as one scheduled vision workflow. The 2026-08-30
+   FR-MERCH-5 ruling (recorded above, "SPEC's workflow table put vision
+   scoring + PR output inside scheduled `merch-audit.yml`... Disposition: E3
+   splits into `merch-audit-detect.yml` (scheduled, zero-LLM)... and a
+   separate authoring lane") already settled this, and the repo already
+   ships `merch-audit-detect.yml` + `merch-audit-authoring.yml` as separate
+   workflows (`.github/workflows/`, `scripts/merch-engine/audit-matches.mjs`
+   + `audit-matches-authoring.mjs`). Fixed: `docs/SPEC.merch-autonomy.md` §5
+   and the workflow table (§10) now describe the two-lane split instead of
+   the superseded single workflow.
+3. **Unscored representation.** The attachment described a mismatch-scored
+   product as `tier: null`. The shipped implementation instead uses
+   `matchTier: 'unscored'`, an explicit member of the `matchTier` union
+   (`apps/web/lib/longlive/types.ts`), which is what actually distinguishes
+   "nothing comparable to score" from "not yet audited" — see the generated
+   vault's real `matchTier: "unscored"` rows and `MerchCard.tsx`'s
+   `item.matchTier !== 'unscored'` badge-suppression check. Fixed:
+   `docs/SPEC.merch-autonomy.md` §5 point 4 now documents the real
+   `'unscored'` state instead of the never-implemented `tier: null`.
+4. **D1/D3 status.** The attachment's PLAN still framed D1 and D3 as open
+   options for Joey to pick. Both were already decided in the 2026-08-30
+   entry above ("Merch autonomy: full official catalog with verified Amazon
+   alternatives; fan-made line is inspired-by, never bootleg" — "D1 is
+   **D1-a**... D3 is approved as the hard fan-made curation rule"). Fixed:
+   `docs/PLAN.merch-autonomy.md` now states both as settled, citing this
+   entry, instead of presenting them as pending choices.
+
+**Why no founder call:** every fix above brings a stale provenance-snapshot
+description into line with a decision or implementation this log already
+recorded before the snapshot was adopted verbatim in #3459 — none of them
+reverses or amends an existing entry, and none changes what ships.
+
+**Approved by:** Fable ruling `ARB-t_b2461a5a-01` authorized proceeding
+without a precondition founder review; this entry documents that no founder
+decision was triggered by the reconciliation itself, consistent with the
+ruling's own test.
+
+**Implementation:** `docs/SPEC.merch-autonomy.md`, `docs/PLAN.merch-autonomy.md`.
+
+---
+
+
 
 **Founder decision (t_19f99249):** Joey ruled build REAL photo content
 verification — not just filename/credit-string checks — for the

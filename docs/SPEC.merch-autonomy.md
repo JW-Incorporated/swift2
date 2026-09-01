@@ -104,6 +104,20 @@ export type Network = 'awin' | 'amazon' | 'catchall' | 'none';
 export function networkFor(retailer: string): Network;
 ```
 
+`networkFor` itself resolves purely by hostname, but wrapping and the
+`isAffiliate` predicate are **listing-scoped, not product-retailer-scoped**:
+every call site passes an explicit `ShopLinkContext` (`{ eraId, momentId }`
+for a moment's shop-the-look products, `{ bucket: 'official' | 'fanmade' }`
+for merch-page buckets) that becomes the `<subid>` on the wrapped link. This
+means a D1-a `altListing` — a secondary Amazon link attached to an official
+item — is wrapped and disclosed **independently of its primary listing**,
+using the alt listing's own retailer and the same `{ bucket: 'official' }`
+context, per `createShopLinkBuilder`/`createShopLinkRenderer`
+(`apps/web/lib/longlive/shop.ts`). A listing without a resolved context never
+wraps, even if its retailer maps to a network (`shop.ts`'s "fails closed
+without... listing context" rule) — this is what keeps the primary and the
+alt listing's affiliate status independent per product.
+
 `buildShopUrl()` branches on `networkFor(product.retailer)`:
 
 - **awin** — Awin deeplink format
@@ -215,7 +229,18 @@ merge (a gate check, `check-merch-images.mjs`, wired into the content CI).
 
 ## 5. Engine E3 — Match Auditor (issue #1)
 
-The core quality fix. `scripts/merch-engine/audit-matches.mjs`:
+Per R1 and the 2026-08-30 FR-MERCH-5 ruling, E3 splits into two lanes, not
+one scheduled vision workflow: `merch-audit-detect.yml` (scheduled,
+**zero-LLM** — enumerates new/changed product/moment image pairs and files a
+scoring queue) and `merch-audit-authoring.yml` (a separate, unscheduled
+authoring lane that makes the actual vision-model calls, writes tiers, and
+opens the gated PR). The two scripts below implement that split; nothing in
+E3 runs vision judgment on a schedule.
+
+The core quality fix. `scripts/merch-engine/audit-matches.mjs`
+(scheduled detection) and `scripts/merch-engine/audit-matches-authoring.mjs`
+(the paid vision-authoring lane, cost-modeled in `docs/decisions.md`
+2026-08-30 "E3 vision judgment uses Claude Sonnet 5..."):
 
 1. For each product with a source moment: gather product image (from
    `imageUrl` or scraped og:image) + the moment's real primary photo
@@ -228,8 +253,12 @@ The core quality fix. `scripts/merch-engine/audit-matches.mjs`:
    **<25 = mismatch → demoted**: removed from the moment's products and
    filed as a re-source ticket for E6 with the auditor's reasons attached.
 4. Products with no comparable image pair (beauty items, no moment photo)
-   are marked `tier: null` and skip scoring — the UI shows no tier badge
-   rather than a guessed one (R2).
+   are marked `matchTier: 'unscored'` (an explicit member of the `matchTier`
+   union, `apps/web/lib/longlive/types.ts`) and skip scoring — the UI shows
+   no tier badge rather than a guessed one (R2). `'unscored'` is a real,
+   distinct state from having no `matchTier` at all: it says "we looked and
+   there was nothing comparable to score," not "this hasn't been audited
+   yet."
 
 Output: migration PR(s) writing `matchTier`/`matchScore`/`kind` across the
 existing 134, then steady-state runs only on new/changed items. UI: the
@@ -364,7 +393,8 @@ moment; the R5 cap makes the worst case a ticket, not a bill.
 | `merch-awin-sync.yml` (E0) | daily, jittered | no | gated PR (advertiser map) + Actions cache (index) |
 | `merch-verify.yml` (E1+E2 detect) | daily | no | report → mender |
 | `merch-mend` (E1/E2 act) | daily, after verify | small | gated PR |
-| `merch-audit.yml` (E3) | weekly + on new items | vision | gated PR |
+| `merch-audit-detect.yml` (E3 detect) | weekly + on new items | no (zero-LLM) | scoring queue, no PR |
+| `merch-audit-authoring.yml` (E3 authoring) | unscheduled, on queue | vision | gated PR |
 | `merch-official-sync.yml` (E4) | 2×/day | authoring lane for new items | gated PR + social queue |
 | `merch-fanmade.yml` (E5) | daily | curation lane | gated PR |
 | `merch-matcher.yml` (E6) | on fashion-moment merge | yes | gated PR |
