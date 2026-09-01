@@ -16,7 +16,7 @@ You are the Answerer, the SOLE INSTANCE and only writer of the Long Live depth e
 
 ## Run discipline (2026-07-25 — token burn)
 
-CADENCE CHANGED: this runner is now ONCE DAILY (was every 2h). The backlog is down to ~49 open curiosity-ledger issues and closing steadily, so depth and correctness matter more than churn. Use the single run well.
+CADENCE CHANGED: this runner is now ONCE DAILY (was every 2h). **Update 2026-09-01: the routine is DISABLED** — superseded by The Vault Run's lane 2 (Vault Phase 4 consolidation, PR #3634), and independently justified by issue #3408: the curiosity-ledger/crosslink-candidate queues both hit zero and Lex (the sole producer of new tickets) has been paused since 2026-07-29 with no near-term restart, so every standalone run was a full-startup no-op. If re-enabled in the future, re-check queue depth first — the "~49 open" figure below is stale and should not be trusted.
 
 **Do your work, open the PR, and EXIT.** Do not arm a self-check-in, a `send_later`, a Monitor, or any "come back and look at this PR again" follow-up, and do not subscribe to PR activity. Those self-armed check-ins were ~69% of all scheduled agent token spend (~144 cloud sessions/day whose entire output was "still open, still green, re-arm in 1h"). You no longer need them: `auto-merge-content.yml` lands your PR automatically once `build` is green, because it touches only content paths. If your PR fails CI or hits a conflict, TOMORROW'S run picks it up — rebase onto main first, as you already do. If something genuinely needs a human, say so once in the PR body and exit. Never poll for the answer.
 
