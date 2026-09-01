@@ -25,7 +25,72 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 71
+
+## Taylor Swift and Travis Kelce Introduce Their New Dog
+
+- first seen: 2026-09-01 19:55 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have welcomed a new dog into their family, who is already making waves as a model. This adds another joyful element to their relationship.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMizgFBVV95cUxQRV9aZkZJRmJsUDh1dExLSFI0SVVtNnRraWdRQlBFOEtvRmxHOWFmbXpRV0dUNGhNVmV3NkY0aGZ5QWQzYXFaNWxMdllncFBtczh1bHR1a05OclVkVFFHNGVpekRhQTZRLThidXpibEltX1pIYW0yY2RiODZPQzRiSWl6QWV2MzdFN2I3Y2hLWThfdF9OcEZRLWs4VlBpR3dFV0FWdlppUG82M1pfcUxPWUU4Z2p4THJTNmxWdTN5N1RXYzBiVDFTY09zemo1QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses Taylor Swift's Timeless Style
+
+- first seen: 2026-09-01 19:55 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shares insights on why he believes his wife, Taylor Swift, maintains a timeless fashion sense. This highlights her enduring appeal in the fashion world.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxOZ3E0Zk8yd19VRUo4SGJkcmVWTThZWlhwckdvSFBNdFFnbDhjcFpGX2V2VmZ3N1ZLYUE1MGNxUW1TOEk3RTIwaFJFNjlzYk5aZG9PMU9relNzelZ4Ym45MUQwNzN6SVc1LTU0ZjFCTmxNVExUdXJuLUZUSjlzaU5vUnkwSk9MYXhUbnpYZU0zYWVfM0hvSmVUOGxDQzJPZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Launches Fashion Campaign Featuring His New Dog
+
+- first seen: 2026-09-01 19:55 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has introduced his new dog while starring in a fashion campaign that showcases both of them. This collaboration highlights Kelce's involvement in the fashion industry and promotes his bond with his pet.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxOTVkzY09MUjAtczlFVnJ6MlByOU52ZnVxQTIyS2ZuRzF0eUVYeXl1NThCZkJjT3kxNGVuU1VrdUZUZUJRVmcxQnNuU3dEZHJvb3dEUFFwcWJ6ZDJWYTlvZlg0ZmRnblpvbDRidDZBWWVOUWh0Zlg5Q3JUSllPdk92emVhQnhwVldtOWk4cWhNTlpaXzRF?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce's Dog Debuts as a Model
+
+- first seen: 2026-09-01 19:55 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce's dog has made a modeling debut, marking a new milestone in their pet's life. The dog's name has also been revealed in this announcement.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMijgFBVV95cUxNakhyQ2xDVzV6a3ZBZk03cllYVnFfR2tNQVhrdkVwdXFKOURvMG1LNHNLQktTTEl0ZEZ2SVRIOFV0N3RQZ3dLRDlTWFJBNTVzR0VDSlRNUE82WFFJY2lNbWNzWDBlMnlTekhGZVgxY1VUX2tWODlxeS0zMVVPTFpyalVjUU80QjBJbzZjN1V3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Praises Taylor Swift's Authentic Style
+
+- first seen: 2026-09-01 19:55 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shares his thoughts on Taylor Swift's fashion, stating that she is always authentically herself. His comments highlight appreciation for her unique style.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMimAFBVV95cUxNbmNWY0IweUplekdlNFh4WVBSWVFLcEdDOThVbUxkM0JsMmFBSzVFVWt5cGxDaktSakFEaE5YM3VXdjBmTmtDc1R4T3V0b3FkZllNRG1FTHhTbjBraUF1ZFNhVFQ1dnBoYk52dGNtWEFIUDJ6cUZLZU00aWhTYjI3TUdXUDRMZDlUZDFKUmhEVHJuMWFZMldkVQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Confirms Taylor Swift Rumor Amid Frustration Reports
+
+- first seen: 2026-09-01 19:55 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has confirmed a significant rumor regarding Taylor Swift as reports emerge about her frustration in their marriage. The situation highlights ongoing discussions about their relationship.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMExOZ1hYdjROUmI2UzJfZmV1NWFnaEg1Q0NUMmNvajl2RFUyVXY0eldqVlU2NzR6dmljQVNUbEpTMlhPVC1HYXp6MXlZVmdyeU5Gak9BX04xejkzREhJWWVkNXFURHFabDkxM1RtbkpZWThrWnZNTWxIVkRQRlhiS040LUtZQklZc0tGc3JwZ1hkTE92UTdkN0c5VDRuVTI0UlBuM2lyWW8?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Welcomes a New Step-Dog to Her Family
+
+- first seen: 2026-09-01 19:55 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, known for her love of cats, has now added a step-dog to her family. This news highlights her expanding role as a pet owner.
+- sources:
+  - [unverified] PureWow — https://news.google.com/rss/articles/CBMiWEFVX3lxTE9EempTQ2dyV2x6RlhEbWRUNHdjNTVoSWgxWHdYd0RNWEVNeG9IV2FnR1V2bFd4ZnJjenNYem5VRVZMeW43bWlMRVlQVU8zaUx5Yll1ZE1QY2o?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Olivia Rodrigo Hosts Charity Festival for Women-Focused Non-Profits
+
+- first seen: 2026-09-01 19:55 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Olivia Rodrigo hosted the Daisy Chain Fields festival, raising $20 million for women-focused charities. The event highlights Rodrigo's commitment to social issues and encourages her peers, including Taylor Swift, to engage in similar activism.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/commentisfree/2026/sep/01/olivia-rodrigo-is-standing-up-for-the-vulnerable-i-wish-taylor-swift-would-do-the-same
+  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMi1wFBVV95cUxQS0h3bm15UzNlMTlxR2JVaVdVSVQzWkI3NW5ucEJHTmpjcHFLaFVZTmlaSmVocEFva18yNnNXWmM1RWhiM3ZBWWVobEZIN2g0UzAxSlVWRnAxMldpSUNRb1JyQTNMaU1YdWpmemw4SWQxZm84UWdYbThvSHl1X09xMjVUMmd4ZndGQi0yeVJiT0c5ZUJGb2tMUzRHREdVOFZ0RmRybmUxZTFNMlJ6UzZUZ2ZJSWJvSU9ETHNsc2o4M1NRMk84aG8yRG5HUjctOW5rWU9CWlNMTQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Features in First Tommy Hilfiger Ad
 
@@ -59,18 +124,6 @@ Stories: 73
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiwgFBVV95cUxORzFXTndzZ0tXZmNlZ1Q0ajBNSlJ3b0hRSFZVdGg0T3YtaHVQZVZrSE5NalVDYUtRRWNZbUFfMHAxNnJxM09WVWhTREtvOEp0b0FNWE5SWlRMTUNRblRkT1RXRjRDRGRPTlE5MENwZkZBYnpGdThOOEVHWlJhYjVYMHo5dzc2U0lQdDNlNjNfRkJ5VTViX1JHVU9fV2xpeXNoMWVHOFVVZm5rUVFLUUV5LW9HMXI5YkRrSjFhVTk5cnVvdw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Travis Kelce: Football Star Excels as Fashion Ambassador
-
-- first seen: 2026-09-01 14:07 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 5
-- summary: Vogue features Travis Kelce as a multi-faceted figure in the fashion world, showcasing his influence beyond football. His role as a fashion ambassador is highlighted, along with his passion for being a dog dad.
-- sources:
-  - [unverified] HELLO! Magazine — https://news.google.com/rss/articles/CBMipgFBVV95cUxORkljTnZaZjlCQ2M3UmtLZXFRYUVpWWR3RWRQZnlYLWhEc1M2bkMyWW83N2ZnV0JKZjc3ZHpaX0taTHRBLWNrOXFHU1BDam11VlBIS19NbnhiQzFyaWVSWUVCb25HV2xNN1UyUjdYdWdicGtSVlM4dzZrT1E5RWRjcjJjNWRkdTV4MUNyNTVQSUZqUU1HbDlRRGhQUjRGdTRDeTFLa3pR?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMidEFVX3lxTFBnYXhNeTQ5RUFldXVNRnJvMndSek5sNWJ0cl9USENGN283VThvYUR6bjROcllUeTNWZFN5aTk0RkRTdjRENmZ1UzNhelFacG9jLXZsZ195dGZ1WWltN1FYMnlWUUhVYmFRZ2RqN3RJbnZjRjEz?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxOaHpIZThHaVBhUUdDeHg2Q0xRelJsUU1mXzJBOWluLUthNm84d1JUc3docXBMOE5HcGJaODA5TUFMWDltbEh4dEVHTmRQNnFlbnNxckh3R2w5SXl2eWVyZ2ROVnA3RkFhbVZRdFZVVVM5Qkxub1Q3cVNNeG1acFpXT3FKajV4ZFdKeVNWR1JVNzFXQmxxRndTZjRvZjBOXzVBN2hqMTRR?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxOY0tpa2p2cXplSXN2VVV2X1g5Rm5rd0d0dGl6bVk2SGZnSHJYZmY5SHItZk11VnY1SVIxbHZKbl8yNmlrNmM3SEZzakhXUHp0MW5jRjkzTU1XS3N3NnNnbnF0RWg2YUdjWjZQa2V4Mkg4N29FbkxfWTNnSFo5cUxMMGQyNUJ4YWszVHF2T1Fha2otUdIBkgFBVV95cUxQUEVOVVh2alNtdlBSaGxqcnpDWWYyVjFQNEZYOVNWSkdiNUtfZmlhbUJtWlUyYU9IYW5BUVFkckVjaDlXTnhDa0NwQ2oyVUZrSXV3LWR5b1ZEWVhPdXNtSTdkT2RVTDNhSHVZbDJ4dDNzd29MV2hobXZGS2gxRE5BR1d0dWpkcmwxYlhPWDducmRtQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNRlFsbWIzTk15ZDlXZGxjdnp2WFZWTmg0V1JnU0xPdmF0VjlWVVBXanRXb3VZUEV3czB6M0wzTVZlVzItaklFMkhNdGJ6cE5pMUJMNk1ZY1JlUWh1QS1CYUlXTDhRbHpPc21vRS1OVXBRMWpZbGFjZGdTVHlYVC1fc285U0ZWb0RzTDZwTmV0TlQ1ZF9wSlVZN1R3NUFqTHIy?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift's Honeymoon Phase Ends Earlier Than Expected
 
 - first seen: 2026-09-01 14:07 UTC | category: relationship | importance: 5
@@ -86,6 +139,23 @@ Stories: 73
 - summary: An L.A. mall that had been largely abandoned sees renewed attention after being discovered by Taylor Swift and Beyoncé. The interest from these high-profile artists is expected to bring new life to the location.
 - sources:
   - [unverified] latimes.com — https://news.google.com/rss/articles/CBMi1AFBVV95cUxQRGNpRDB6OHd1X3ZfczdoQ01PQjhhX015RlFPVkJyUWl4M3l3UHNwNFpUUDNjTm5fSUVxTThfQjdHbzVyTkEyalFXT19TbGV3UGJpeHk2ajFJTnk1ems1N2hIeThFSEFOODVYM2ZqR3ZkNkNkcEJCRDZ0LTFPS1RDSUhSTk54Y2JJcmM2eEdlNTA2Qmd3cHdnQlFvd1ZXcG1ZQ0N4SjRBSlIyWmFWbk9vaHFpNTJwSXU5NVZ1bm91endOUWZidzAwMXcxOWxjYjNUZGNhdQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce: Football Star Excels as Fashion Ambassador
+
+- first seen: 2026-09-01 14:07 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 10
+- summary: Vogue features Travis Kelce as a multi-faceted figure in the fashion world, showcasing his influence beyond football. His role as a fashion ambassador is highlighted, along with his passion for being a dog dad.
+- sources:
+  - [unverified] HELLO! Magazine — https://news.google.com/rss/articles/CBMipgFBVV95cUxORkljTnZaZjlCQ2M3UmtLZXFRYUVpWWR3RWRQZnlYLWhEc1M2bkMyWW83N2ZnV0JKZjc3ZHpaX0taTHRBLWNrOXFHU1BDam11VlBIS19NbnhiQzFyaWVSWUVCb25HV2xNN1UyUjdYdWdicGtSVlM4dzZrT1E5RWRjcjJjNWRkdTV4MUNyNTVQSUZqUU1HbDlRRGhQUjRGdTRDeTFLa3pR?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMidEFVX3lxTFBnYXhNeTQ5RUFldXVNRnJvMndSek5sNWJ0cl9USENGN283VThvYUR6bjROcllUeTNWZFN5aTk0RkRTdjRENmZ1UzNhelFacG9jLXZsZ195dGZ1WWltN1FYMnlWUUhVYmFRZ2RqN3RJbnZjRjEz?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxOaHpIZThHaVBhUUdDeHg2Q0xRelJsUU1mXzJBOWluLUthNm84d1JUc3docXBMOE5HcGJaODA5TUFMWDltbEh4dEVHTmRQNnFlbnNxckh3R2w5SXl2eWVyZ2ROVnA3RkFhbVZRdFZVVVM5Qkxub1Q3cVNNeG1acFpXT3FKajV4ZFdKeVNWR1JVNzFXQmxxRndTZjRvZjBOXzVBN2hqMTRR?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxOY0tpa2p2cXplSXN2VVV2X1g5Rm5rd0d0dGl6bVk2SGZnSHJYZmY5SHItZk11VnY1SVIxbHZKbl8yNmlrNmM3SEZzakhXUHp0MW5jRjkzTU1XS3N3NnNnbnF0RWg2YUdjWjZQa2V4Mkg4N29FbkxfWTNnSFo5cUxMMGQyNUJ4YWszVHF2T1Fha2otUdIBkgFBVV95cUxQUEVOVVh2alNtdlBSaGxqcnpDWWYyVjFQNEZYOVNWSkdiNUtfZmlhbUJtWlUyYU9IYW5BUVFkckVjaDlXTnhDa0NwQ2oyVUZrSXV3LWR5b1ZEWVhPdXNtSTdkT2RVTDNhSHVZbDJ4dDNzd29MV2hobXZGS2gxRE5BR1d0dWpkcmwxYlhPWDducmRtQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNRlFsbWIzTk15ZDlXZGxjdnp2WFZWTmg0V1JnU0xPdmF0VjlWVVBXanRXb3VZUEV3czB6M0wzTVZlVzItaklFMkhNdGJ6cE5pMUJMNk1ZY1JlUWh1QS1CYUlXTDhRbHpPc21vRS1OVXBRMWpZbGFjZGdTVHlYVC1fc285U0ZWb0RzTDZwTmV0TlQ1ZF9wSlVZN1R3NUFqTHIy?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1gFBVV95cUxNSHFaNzE0TGNwVE5FYzFrclpLS3d4QVNYVjFrM3B2Nmd4Q3hVRjdHdXNTRjVuSEdqNXZ2OFhEai0zR2dtMEJiUnZCMmw1LW9xWlVqSC1hQ2hxdWdZbmhGcFVld0RXeXQyN2xFRHh3RXdYQS1qWkFSYnZXanE1bkRPY3ZGZGFzN2NXTThnbGRvMm9VczNIcG0xOUxGbW51S2ZyaU9WV0Q3SzB5d1BYakJTZWJMSlY2aUd3YkxQcXRManRUeDNUQlN1aElOdzlJNmxqZzBPSjBR?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitAFBVV95cUxOMl9Tc3hmVXhUX1M1MjRsWFJNdTNHME9wZ1IwbGlSNFNIQkpRTzd5b256X2RPNXktcXpxajY2YXdBaEhqaFdxdk1BY1lGRFYtMGlXdUJaYjQ4WU5ZSFhZQ0hSRXozcGRKdkZTOElHbnR5TDRXSlpPQkpPX3phLTEzZUR2R3dhYzFfd3ExVlBnajlFTmVNOU54Z0FidmoxVWVxaW9fUkRfOFpCWlN6X0lsY0daTkc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ESPN Philippines — https://news.google.com/rss/articles/CBMitgFBVV95cUxOV3hjdEx1dnNycEc3Z3VEWms4c1BsMG13cHRmV19XVDdXRnJQTDltcGo0dzB3UFhKX3pKZDdCd2RNblVad3M0Y3lUTlJoT0xtSHUyZ2xYdUlNRktYX1VXcV9MWW5FV0NmV0h2NkxwRTVCc3lscFZUOHVHOFVQVFQydkQ0cTkyc0J2UzFGZDhlUXJocW8xTG9mN0N4LTlGcnE0dzRLMkdTcDZNSEVlQjdPSjNmWnNndw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KOMO — https://news.google.com/rss/articles/CBMilgFBVV95cUxNS2FsSnk5eVNNbW5VdGdRY0dNLUlPc1JKNlJkTUsxdHp2bkg0cXdRSFEybUQyZHFNaWhhUHQ2M0lMRGUxQ3JXUE5Sd3FoMTlnZjZKZmtjSUFRSzJrWHNVMnF0Yjc5LW1iZkpoTXdIWnZtcTRkS2kya0x5WmtuYmJDNVgyOVpxV1NwcTBBSjdfLVMwaFlTbUE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMinwFBVV95cUxPckFhZmxPcnFhTThCS3YwQ3cwRzVwcFhPcFFCazlRUTk4QzRkNTY5MUFnekl5SDdockxZckM0RDBIaVRUTWVkNnA2NTZKWHZwOWg4WWNTRDdIdnlYcTQzbTdIblBKalhyelpSRkYxbDFWSVo1d0thY0lwNWM4Y2pkcGxuWHYxaHlFekJubWRXZExQLTNyNnFoWEpIcmZ0UUXSAaQBQVVfeXFMTlA0WmpBSlpBbENBdnVHNWhjVjJlM0VKR2NyLXpCSk1oNXNOZWlZeDRVUnFOX2tBQmQtNUtRMGJyT2tyNWxTejA4RDR6aVpoQi0tUHpheUU1a09MLW5UTzAxcXF2NW1BSWtiaS01S0RVcHprQ2h5Q3VyMTBzVFVnWlJ1TnVLa3RnZUVpZ3JlZVhFNDUzMGpqWjlIOVhQNGxkbE40bjg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Blake Lively Faces Silence from Taylor Swift After Legal Issues
 
@@ -415,14 +485,6 @@ Stories: 73
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/sneaker-news/nike-caitlin-1-friendship-bracelet-release-date-ih7423-300-1239175022/
 
-## Taylor Swift Donates to Injured Good Samaritan
-
-- first seen: 2026-08-30 19:48 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a donation to support a good Samaritan who was injured in a crash. This gesture highlights her philanthropic efforts in helping those in need.
-- sources:
-  - [unverified] WPRI.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQYTliWlpaZXAyc3g1NlRfNzFkMkxmMEVCakdRUnEzWDJnWHJScnpXWDF3SHdzTlZXTTd3LUFKbGRQcTVOUVFhVmVFeG9LbW9tQ0ZqRXJkaExFZGVBYWVBQVdVbWU5MmdZRjJfLUhjQ3Z6Z2IwUkdjUXJCV0hhWjk2ZlVVQmtPbFVBQm5senFsVy1SYTlSLWtz?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Donates $50K to Injured Mother's Fundraising Effort
 
 - first seen: 2026-08-30 19:48 UTC | category: business | importance: 7
@@ -447,6 +509,14 @@ Stories: 73
 - summary: During his performance at Madison Square Garden, Harry Styles made a reference to Taylor Swift and Travis Kelce’s wedding. The mention occurred as part of his set, drawing attention from fans and media alike.
 - sources:
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOSEM4ZUVUNW02YXRDeWYxTHM5amQ3d1RNLUQ1UFNlQmpERUFDd3VSb3RKME5DVnBxbEtTU3JSc0J3VzZDSzZKSHQyNVV4dWxXY0xoQnpIaVdXVThUbFhDTVNCYmw2Q0d6Q1ZIc0h4REozMXZXLUFhRmtFM2w4N0Z5RTNqbGFaWHFTazJUTnc1ckZEaXljeENib1B6Tmx4SDlLRTY1aTNKbDFfTms1ZENDcl9KVWlHSVJXOEJF?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Donates to Injured Good Samaritan
+
+- first seen: 2026-08-30 19:48 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a donation to support a good Samaritan who was injured in a crash. This gesture highlights her philanthropic efforts in helping those in need.
+- sources:
+  - [unverified] WPRI.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQYTliWlpaZXAyc3g1NlRfNzFkMkxmMEVCakdRUnEzWDJnWHJScnpXWDF3SHdzTlZXTTd3LUFKbGRQcTVOUVFhVmVFeG9LbW9tQ0ZqRXJkaExFZGVBYWVBQVdVbWU5MmdZRjJfLUhjQ3Z6Z2IwUkdjUXJCV0hhWjk2ZlVVQmtPbFVBQm5senFsVy1SYTlSLWtz?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Makes Joke About Taylor Swift at Madison Square Garden
 
@@ -554,87 +624,3 @@ Stories: 73
 - summary: Taylor Swift has made a donation of $50,000 to a mother who was severely injured after rescuing teenagers from a highway crash. The donation aims to assist her recovery following a collapsed lung and ruptured organs.
 - sources:
   - [unverified] NBC News — https://news.google.com/rss/articles/CBMijwFBVV95cUxNNlFkS2I2VHA3OG5LY04zZHlQdmtrMi0tOFJvTlRjYVJhRkM5a1F3bDl4MURkLWEweE1NNlVjSElJTEpRMF9ZcTNUSzJ1bElEalZJSHdybmdHYmV6REJkU2Y0S2lfM2N5dFRtQ293RzQ1dWw4VDRXaGp2bnlZUUN5ZzZ4TW5seHVUaElHV1REaw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift donates $50,000 to crash victim
-
-- first seen: 2026-08-29 19:42 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift has reportedly donated $50,000 to support a woman who was seriously injured in a crash. This contribution highlights her philanthropic efforts in response to community challenges.
-- sources:
-  - [unverified] WJAR — https://news.google.com/rss/articles/CBMirgJBVV95cUxNQ0dubzB1TndCUm03bkJDbmVVV2pRRC1GZWpwZGEwdS1ySzZGZ2pLUDJrQ0dIN1NidE1hVVlVNUZmTDNxTURGcXFTMGZ6YjZuY0puRWx4LVdOY2Q0bWIzV0RiTUNQTFh4a3pSMmFSS25NSkVFQ1FPS0s3Wm85eWZSV25nZFYzbjhqMkl1Q2tmY2tPOW1XNHM1VG5sUFk1MHZUalBjZlFJU2t5RVdzUEdWS2k5WS10ZjZlbUNROGR5bFV0d0VPLS1NU29HMzRQQlY5cWFxY2hGM2M0cnQwY0FpLXFfcXZweHBpWXhrWU9MS04zSEl4cmxWQ2VLWjhwOUZiN295MXpGZlpKZTJORGhkUl9iMlgtem1SZkQ1bkMwN1JWT3VJWUUyYXo4NERaQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KBAK — https://news.google.com/rss/articles/CBMitgJBVV95cUxNMk5oSllaa0xocmw4REZFQ1d6d2Zzd2xJb09fcG9XWW9rdUpUeUh0eUFRTkM3YlVIQmhKNmdnbVA3YXpBaklBRVpQNHExcDhMam9ONnRveVcxT0llcm4yMXdlSWlKZG9oaEU0d2lxYUJRNzY1SkZmVDVjTFhsNi1zTkYtUmh6UVA1Vk9QUFVCOHNYTlVEX0paN2tPdjFoRHhLeFNxVTVOd3JDUWZBd1E2S09UbzJSeXZhWThiUlZpd0lGendpZzB5X0VHQ0pNaGVvbkpNb0IwUXVJTVlpUTlBQnoyMVBqVDlQRWI2R1BFQVhWbTcxUy1vN090UVUzUFdocXVSUlpRR09nb2J0OVFKUzlpX1dFZ2E2djI3SFNDa0YtSjR5NFA3MTRlcUpBbUN1WEVQb0V3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WSMH — https://news.google.com/rss/articles/CBMipAJBVV95cUxQVEJYaGdTOGZJVmswZmdtYkY1eGJMZk1GN0U5T19nLWZ2Nll0elo5Vjl0RFlyN3A0UUpIS2ZMODdzX0hRaDZlMlhEbjJwSTFFVGNlODhQWC1sd25OVkZSQTAxeExoUHM4RXFWMnZiREMwODg1dzZMUjVLUXVyckZVdW83M1I3ZjBIX3l3enhEc21ILUdBZjdMSk1POW1XdG5XVl9DcUZUNlotdXpRakNLWjJzeThrc0JyelBrdmZucGh3YzA3N1BKalp4WnhheWtlXzRtZW1kOWdIa2hsNnFnYzZna0l4MXhmaS1vb0N5bjFKSXJmRUVCNWZ3ZU1rUTVIUkYwZnEzSG54TTlzSmVUR3FrMkgxNzd5ZFZsdVYzS3Q2czZB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WCHS — https://news.google.com/rss/articles/CBMioAJBVV95cUxNaUZUdkh3MjJoaGRZcHZJYm9NOWs1NGgtN2Rvb0htTXp5MkJ3bVJXd2w2WVFkRUpqOEc3alhrS3k3Wjd2dVhKLXRsQUlibU50X19oSkF3Z0hheTU2a0psVF8tMFRJaldyUXZES0JEVFFxalNzemd2UHVsM1JRenVmcDI1bWRwUGphQnBDMThJdG53OXlkWnlRTzd4Mm1RYjdydFkxRFdhcXNTUVpsLXpGQkZJdlFTYkZybFk4Vm4xOXZLbC1Tcm5kSlAwNi14cmozT25JZ0hWMGktTDkyU05yWTBCbERWa0VpTGw0ejVTTVJ4QXRLVlhGcExKUG5KSUpjZWt4R2FyaG51N29RaW5DWWt1Q2I5Uko2TWU1a3R6ZUU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Discusses Coping Mechanism for Overwhelm
-
-- first seen: 2026-08-29 19:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift shares insights on her coping mechanism for dealing with feelings of overwhelm, emphasizing its potential positive impact on life. The discussion is featured in Brit + Co.
-- sources:
-  - [unverified] Brit + Co — https://news.google.com/rss/articles/CBMiaEFVX3lxTE5WaE9vcXNiYjcyZEx2WTZ1TTN5THpPcV95LWljb1h0eXd0VWp3TEs5b1FNZmdUcGVnd0g2VEFQM3g4dkNncEcwbWE1cnVtVXMxa0hsLWR4aVc3YUMtcUlIeFppTWZNQjlp?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Donates $50K to Mother Who Saved Teens in Car Crash
-
-- first seen: 2026-08-29 19:42 UTC | category: business | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a notable donation of $50,000 to a mother who heroically intervened during a serious car crash to save teenagers. The contribution highlights Swift's support for acts of bravery and community involvement.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNTTI2dlBXTGRGcEFZV0VvQ0VxZTNfZ0lVY3dxdFo4bGVfQklaYzJKejhncFZ3b3l6c3Z6S0pWbUtrR1EzU0FYblFRY1h3VC1IRUJPVlFDYk1hME1qb0l4V3paM0JkUk9nNnJlS1ZUSGV2VEpJR3R3d1pDYm1LYzNNaXhfd2VGYkd4SjJ5Q3RnUUVHcV9IVV9EeWRjNWt2V0ZmNTZwUkhvcWNYLS1rXzZzYmx4M2duZEVzaFFwbHJ5RHl6OGIxZTJyNDZuVlFvOVVl?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift donates $50,000 to mother injured while saving teens
-
-- first seen: 2026-08-29 19:42 UTC | category: business | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a $50,000 donation to a mother who was injured while attempting to save teenagers on I-95. This charitable act highlights Swift's commitment to supporting others in need.
-- sources:
-  - [unverified] Northeast Times — https://news.google.com/rss/articles/CBMipwFBVV95cUxOWkN0c0VIRkJQekNSeDR6WkoyN0l2MFNPcmNVR1ZwNnRqSWtBbDFOaml6cU9FaWNvVU1GaFlEQlA2OUlMWEdFc3NLclRrS3NzclQ4UG9sZXpmVkp4Q1BMb2pwUUdZQnQ5QTNQTUU0QkUwcVdwU3V4QXVVSjNoWXdxdC1RYWc5ZXp1MHVjRkI0alREaDk2X2xlZHdJQjZUa21NMzNtbnYzVQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## WNBA Fans Share Reactions to Caitlin Clark's Taylor Swift-Inspired Sneakers
-
-- first seen: 2026-08-29 19:42 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: WNBA fans express their thoughts as Caitlin Clark showcases Taylor Swift-themed sneakers, the Caitlin 1s. Fans known as 'Swifties' are particularly vocal about their excitement and the popularity of the footwear.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMif0FVX3lxTE1MdFEyOFZmR1RtazFFdnAwRF9neWFGOXhRZHh0QXVuYncyY2s5QU5Wd3RkNVFLXzFzWTl0UEExV2w0QWRsS1RmLWw5SzgtSTdRREZicDlWQ0d2eUU2c0h1aDdWYnFJZUstVUpVVFBYU0J5S0hacUh2cThNVnA4WDA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift makes $50,000 donation to mother who assisted teens
-
-- first seen: 2026-08-29 19:42 UTC | category: business | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has donated $50,000 to a mother who was seriously injured while helping teenagers in need. The donation highlights Swift's commitment to supporting individuals who perform heroic acts.
-- sources:
-  - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMilgFBVV95cUxNN19mWWVibjJTS01obXJvYjlxWlMxZDdNWFlSd2thbkQyZjYzRi1QN0I4cGV4ajBwWTVtOHo3cUNiY0M3Z1NjTmg1NTd5aHVKaVRhVHBCY19sWFlBcEgzdTBFaWZra3FKMnNDQVpqUWFUSVBYQ0dxcjFsaTJyb0VWajFoMWY4ZGVhVjJqR19yVXVTZHpxQkE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Caitlin Clark Debuts Taylor Swift-Inspired Nike Sneakers
-
-- first seen: 2026-08-29 14:25 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark showcases her new Nike sneakers inspired by Taylor Swift, blending fandom with fashion. The design reflects her admiration for the artist while appealing to sneaker enthusiasts.
-- sources:
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMiigFBVV95cUxQRXZtclB1NFc4SVZmRFF5TG96ejAxUDZsQ0ExMVBldEJhZjhOZ09QbXd2SFV2b2hsaVQ5OUkxclIxajRCbkp1NWo0RzhQc2NhZkoxa0twRDhHSHFoSkpJaW9qS2tHNVdIenV3Q0pIUmtLUlhRY3NPcG44RXF1emEzVm16YWQySk12LXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exes Share Their Insights on Taylor Swift
-
-- first seen: 2026-08-29 14:25 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report discusses various revelations made by Taylor Swift's former partners about her. The insights provide a glimpse into her personal life as conveyed by those who have been close to her.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxPU2xSZEpOSGpXZTBPbEtqWUU4SDN3bkVVZlo2eHpwYzd2QlVMZ3d2R09kc09Ld3d0eVdRYkVCNnM5aDM0blFDOTZaYktvMkNVY3hZRXJfRXVqc3k1LU5kQTFVSkVoWWFTbXBSOWl5WFBsTFhCa0E0cnVBV09XOHVSaXYycWVpTjc0MkJ3YWJTY3p0anpDUmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's First Major Career Decision Post-Travis Kelce Wedding
-
-- first seen: 2026-08-29 14:25 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Following her wedding to Travis Kelce, Taylor Swift has made significant career choices. Details on these decisions are currently limited.
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMitgFBVV95cUxNUHYzbGpPaGJIQU5FZkQ3LTlUc1FmY1ZyckVobXI4OWc3OVBlOVozVlo4NVVOTld6ZmdjSkFIVV94VkZIanBvNjh6ckx5OXpLOWIzQlVGUi1JQ0g3cWtnbjNndk9UaENlUFpQWklvUldhQUlmUEI2eHVhU2pQSjNXQlNVRzlWWS05LS1kbms4bTFXYTZJV2ZVS1lFS2xOTm0yYklMbGFOci16MmZkZllfaFNZd1I1Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Wedding Band Enhances Her Bridal Ring Collection
-
-- first seen: 2026-08-29 14:25 UTC | category: fashion | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: An article discussing the details of Taylor Swift's wedding band and how it complements her existing bridal ring stack. The piece highlights the design and significance of the new addition.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNN3JVaVJ4aHE4Zlp4cDc2OW1Ea2hQZzVrV1A4djA4VW9jSUZkU0hBa2d5YUIwU1E4TjEtRmxPMEh6cUpNTDYwSzEzOHVIZG1hLV9hdGoxd0JubW80MGJQa0YyMWtoM3UwbFBsYjd5VjhsUXFxMWdiU1lnVFdnaXpId1AxU0hFQmprSWx3NndyNVBVbjAyMmlTUWNiYk9Cby0xekE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE9yMDZiRHR3dGktMXBZUTI0ZERVQlBaUllKU0J6Rm5mTFZGd1pVek9QQ2R5ZkNaS0p0a3F0RzdGWk41cVZHMHozMDduR2J2Qm51SFFNY2J2VUFIbER0dHBaVzJLbXp5N0d6T3hZUDJ0WDJGZXZj?oc=5&hl=en-US&gl=US&ceid=US:en
