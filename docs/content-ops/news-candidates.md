@@ -27,13 +27,65 @@ so far".
 
 Stories: 73
 
-## Taylor Swift donates $50K to injured mother helping teens
+## Travis Kelce Features in First Tommy Hilfiger Ad
 
-- first seen: 2026-09-01 06:13 UTC | category: business | importance: 8
+- first seen: 2026-09-01 14:07 UTC | category: business | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a $50,000 donation to a Connecticut mother who was injured while assisting teenagers after a crash in Rhode Island. The donation has been described as a shocking act of kindness by those involved.
+- summary: Chiefs player Travis Kelce has made his debut in a Tommy Hilfiger advertisement, marking a new step in his career. The ad has been covered by various outlets, including Forbes.
 - sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOYXladHFsU3Z3Y1VlVHIwOGNWeGRjcUpVRnZoZ2FSdnktV2hqZ3VCZThqNU41WDVleVhWODVxOTNhY1NQRnRrblNpNm55bkhFeEdMV0lNQXQyVFI1RDhKcG15LXVfbkZ5VEpGSXVJcWVRbk1KWjc2Qk1wWHJCT1lIZlRYOVdmZkdXMXJNVUxCUlNPTVBhZ2RkRk1rLXFES0hZZ2pUMkJvbnFEWlcxQmdGYm8yemVqY1pnb1F3aTNabjA2dw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMitgFBVV95cUxNTDlLZ1RMM3V3RXJ5ODM5T0FlcERqdEVFakhRV3BvTzJZM0lWcVk2VVFuV2ZaSjkyNUViYzhxZURWcXpCekk4d3lMOVRnaXp5SFhjTU4xWnM4MmNtd200Y1E2cFRWZnhRNjZoN2F2ZTgzNWNQalh1cGdLcVd1Yk1sS1RrY2ZxLWVnaGRxNnhmZ2dCSkJhOWY1dzVObWZJQkxtb05vczUxQjlncThrWFNsY19mM3g4dw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce and Taylor Swift's Dog Stars in Tommy Hilfiger Campaign
+
+- first seen: 2026-09-01 14:07 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce and Taylor Swift's dog features in a new advertising campaign for Tommy Hilfiger. This marks the fashion debut of the couple's pet alongside Kelce, as reported in various outlets.
+- sources:
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxPTEt2THdNSmtHd3l6aFM0OHZ3N0x2TWJfOVVleDJsR3NBVWRONHBoUmlWOWRIZ2F3bzk2dk9FenB4UDU2dE55S2EwNlBBTWVYbVpEb0dPMGdRSlREbkpMTUs3VzJyM3lOXzlaZFEwczdxSU5qcFcwNzhQXzh1SVdMcktBY3BGOHh0czVveTVjblgydnhpVUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares Name of Dog with Taylor Swift
+
+- first seen: 2026-09-01 14:07 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has revealed the name of his dog with Taylor Swift, sharing a picture to accompany the announcement. The news highlights the couple's shared life together.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiowFBVV95cUxPbUlMRXQtbmtaUHBRWnp0OHNiWHZuWjBsVUxOc3E2VFUydkVSSVFPdFBWV28zRmUyUW9VeF9KbmFVbFhJVnZtX3BWTHdMSTRDX3lnUXFUNmZBMkFZUFBhTGJ6dUM4bmM3VlJ3ZlBiNk1hMzBJYk5rOVpDN3lkMFk2ODBiVU5fWndVNkRtRWFITzctbWl2SWdoanBHcG1ocUpPOVVZ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce and Taylor Swift's Dog Featured in Tommy Hilfiger Campaign
+
+- first seen: 2026-09-01 14:07 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce appears in a new Tommy Hilfiger campaign along with his dog, which is owned by Taylor Swift. The campaign includes various celebrity guests.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiwgFBVV95cUxORzFXTndzZ0tXZmNlZ1Q0ajBNSlJ3b0hRSFZVdGg0T3YtaHVQZVZrSE5NalVDYUtRRWNZbUFfMHAxNnJxM09WVWhTREtvOEp0b0FNWE5SWlRMTUNRblRkT1RXRjRDRGRPTlE5MENwZkZBYnpGdThOOEVHWlJhYjVYMHo5dzc2U0lQdDNlNjNfRkJ5VTViX1JHVU9fV2xpeXNoMWVHOFVVZm5rUVFLUUV5LW9HMXI5YkRrSjFhVTk5cnVvdw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce: Football Star Excels as Fashion Ambassador
+
+- first seen: 2026-09-01 14:07 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 5
+- summary: Vogue features Travis Kelce as a multi-faceted figure in the fashion world, showcasing his influence beyond football. His role as a fashion ambassador is highlighted, along with his passion for being a dog dad.
+- sources:
+  - [unverified] HELLO! Magazine — https://news.google.com/rss/articles/CBMipgFBVV95cUxORkljTnZaZjlCQ2M3UmtLZXFRYUVpWWR3RWRQZnlYLWhEc1M2bkMyWW83N2ZnV0JKZjc3ZHpaX0taTHRBLWNrOXFHU1BDam11VlBIS19NbnhiQzFyaWVSWUVCb25HV2xNN1UyUjdYdWdicGtSVlM4dzZrT1E5RWRjcjJjNWRkdTV4MUNyNTVQSUZqUU1HbDlRRGhQUjRGdTRDeTFLa3pR?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMidEFVX3lxTFBnYXhNeTQ5RUFldXVNRnJvMndSek5sNWJ0cl9USENGN283VThvYUR6bjROcllUeTNWZFN5aTk0RkRTdjRENmZ1UzNhelFacG9jLXZsZ195dGZ1WWltN1FYMnlWUUhVYmFRZ2RqN3RJbnZjRjEz?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxOaHpIZThHaVBhUUdDeHg2Q0xRelJsUU1mXzJBOWluLUthNm84d1JUc3docXBMOE5HcGJaODA5TUFMWDltbEh4dEVHTmRQNnFlbnNxckh3R2w5SXl2eWVyZ2ROVnA3RkFhbVZRdFZVVVM5Qkxub1Q3cVNNeG1acFpXT3FKajV4ZFdKeVNWR1JVNzFXQmxxRndTZjRvZjBOXzVBN2hqMTRR?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxOY0tpa2p2cXplSXN2VVV2X1g5Rm5rd0d0dGl6bVk2SGZnSHJYZmY5SHItZk11VnY1SVIxbHZKbl8yNmlrNmM3SEZzakhXUHp0MW5jRjkzTU1XS3N3NnNnbnF0RWg2YUdjWjZQa2V4Mkg4N29FbkxfWTNnSFo5cUxMMGQyNUJ4YWszVHF2T1Fha2otUdIBkgFBVV95cUxQUEVOVVh2alNtdlBSaGxqcnpDWWYyVjFQNEZYOVNWSkdiNUtfZmlhbUJtWlUyYU9IYW5BUVFkckVjaDlXTnhDa0NwQ2oyVUZrSXV3LWR5b1ZEWVhPdXNtSTdkT2RVTDNhSHVZbDJ4dDNzd29MV2hobXZGS2gxRE5BR1d0dWpkcmwxYlhPWDducmRtQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNRlFsbWIzTk15ZDlXZGxjdnp2WFZWTmg0V1JnU0xPdmF0VjlWVVBXanRXb3VZUEV3czB6M0wzTVZlVzItaklFMkhNdGJ6cE5pMUJMNk1ZY1JlUWh1QS1CYUlXTDhRbHpPc21vRS1OVXBRMWpZbGFjZGdTVHlYVC1fc285U0ZWb0RzTDZwTmV0TlQ1ZF9wSlVZN1R3NUFqTHIy?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Honeymoon Phase Ends Earlier Than Expected
+
+- first seen: 2026-09-01 14:07 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A source reports that Taylor Swift's honeymoon phase has come to an end sooner than she anticipated. Details on the reasons for this shift were not provided in the report.
+- sources:
+  - [unverified] Reality Tea — https://news.google.com/rss/articles/CBMinAFBVV95cUxONktZT3FJTmJfeXI5aXZlMWV6eEhveEtwdjdZcmRJeHZta2hmdGNQY1l3dVF1YkVOd3Y4SkdIWk1hZDhXQTlaT2ZuSXYxQmxiOGxrZW5iRlAwTGJlOFJhMnZ0aUFTb0cwdHZzcUhTZHlrZmxFVDVaWnVPRElTeHY0cC1fRkh1Qm1DVUE5TU9CM3ROZUtqdVBYNkFTOU_SAaIBQVVfeXFMT2hySHNMLVBBY3c3NXpmTmVycGYwV09NZlJ3V2RPNkw4QnBGMGVLbjlOaFI2WDZ0MEpudWpyS05hYVlYYnh1cUhhNlZ6b1FGM2s4RG90aV9MaEJFZ2lnT0JFbVlKemZfTUZRQkZWeExiazI3RXVCdjktcTNNOXNCeHpaUzJOMWtwWlJDQ1FiR1Y3c3lHNUlrb1MyeXlvMjV4QmJ3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Beyoncé Revive a Previously Abandoned L.A. Mall
+
+- first seen: 2026-09-01 14:07 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An L.A. mall that had been largely abandoned sees renewed attention after being discovered by Taylor Swift and Beyoncé. The interest from these high-profile artists is expected to bring new life to the location.
+- sources:
+  - [unverified] latimes.com — https://news.google.com/rss/articles/CBMi1AFBVV95cUxQRGNpRDB6OHd1X3ZfczdoQ01PQjhhX015RlFPVkJyUWl4M3l3UHNwNFpUUDNjTm5fSUVxTThfQjdHbzVyTkEyalFXT19TbGV3UGJpeHk2ajFJTnk1ems1N2hIeThFSEFOODVYM2ZqR3ZkNkNkcEJCRDZ0LTFPS1RDSUhSTk54Y2JJcmM2eEdlNTA2Qmd3cHdnQlFvd1ZXcG1ZQ0N4SjRBSlIyWmFWbk9vaHFpNTJwSXU5NVZ1bm91endOUWZidzAwMXcxOWxjYjNUZGNhdQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Blake Lively Faces Silence from Taylor Swift After Legal Issues
 
@@ -99,14 +151,6 @@ Stories: 73
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNUjVTNDV4a21CU3hYZldLS2FBLVl3azd3WS1xcVdFSkUxOGNWNWdCT3JOZFAtb0JMTHhwcUFzLXMyNUVZLVcxZHN5dHRjUmJhNDlqRTN2SU1IOWhkMzFvdGRyZXAxYUM2eHZhbV9DWnhnS3R0dDZtRVFqS1p3VGp5NTBGd3A3dl91RVJ4bnE3Q0QxODZZYkkxYkd0RVJPMFVHS3c?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift donates $50K to injured mother in Rhode Island
-
-- first seen: 2026-09-01 06:13 UTC | category: business | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a $50,000 donation to a mother who was injured while saving a teenager on a Rhode Island highway. The donation highlights Swift's philanthropic efforts in response to this act of heroism.
-- sources:
-  - [unverified] wtsp.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxNSjlmazZ2RThxNWdhRlF6RDRhdXZFYzFlZVFlMlFGQTBwYldzR0N2bFZndHlHSmFKUWhDMGRacjNBaGR6MTN6eGh2dlRJMG5CT2cyYXpxb0pSRHFlVjUtODdSMlJyY3Q5TFBsOXZycFZac1BZd2I3RTNIZVk2dUNBM2xVSmVZLWVoQnpOQ2k1XzctNkprTTJXdGppM25KVzRQVFpwd09rdTNBRzhPZGgtUll3Nnoyb2psMmxKNm1wS2Z3amdPOHlGUkJockVvSC1lcUp3UHZRdHEwZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift donates $50,000 to a woman's GoFundMe campaign
 
 - first seen: 2026-09-01 06:13 UTC | category: business | importance: 7
@@ -114,6 +158,24 @@ Stories: 73
 - summary: Taylor Swift has made a substantial donation of $50,000 to support a woman's GoFundMe initiative. The donation highlights Swift's philanthropic efforts and commitment to helping those in need.
 - sources:
   - [unverified] WIBW — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQckhkNTFGMEcyNnRQU1NtMlVqNFFSVXliM1Zab1pWb3V3cEE0X2tvWDNnRXdnRHNyeVE5dGdkYWE1bGJwOGtmV3pILV9CU2ZTdmlMNmh6Zi1KSWttTi1sNlBVdGx0dkhmX0tLLVljV3NZN2FNdEJSZEZQSGZoRVcza3J0Zmg5bE9L?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift donates $50K to injured mother helping teens
+
+- first seen: 2026-09-01 06:13 UTC | category: business | importance: 8
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift made a $50,000 donation to a Connecticut mother who was injured while assisting teenagers after a crash in Rhode Island. The donation has been described as a shocking act of kindness by those involved.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOYXladHFsU3Z3Y1VlVHIwOGNWeGRjcUpVRnZoZ2FSdnktV2hqZ3VCZThqNU41WDVleVhWODVxOTNhY1NQRnRrblNpNm55bkhFeEdMV0lNQXQyVFI1RDhKcG15LXVfbkZ5VEpGSXVJcWVRbk1KWjc2Qk1wWHJCT1lIZlRYOVdmZkdXMXJNVUxCUlNPTVBhZ2RkRk1rLXFES0hZZ2pUMkJvbnFEWlcxQmdGYm8yemVqY1pnb1F3aTNabjA2dw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] NBC Connecticut — https://news.google.com/rss/articles/CBMi0wFBVV95cUxQb01uR0Z3RHk0T2c1RnVMYUU5di1qQ1RWSGJ4aGRFS1kwQUNqZ3BBemJkWkVlTElnY2I3RlRjUDdiQ3V1SHVhYlFkMHk1YnNDRV8wLUxCMU1qdXRXcEpwcVhBY1V2SXlwNHRnS21wam5WTGhGaE1uVlNrT2h2cmREWG02RlV6VEhBZDFIUmIySzEwSnpwRVBPc2JKdjAxdDNqZXkxMXRTeVBJc2lQVEhZMDZfb3pUN2VNQ1V0ZXV0S2F3NGFaek9nUXZ5TWpiRHp3SXln0gHbAUFVX3lxTE5Kem02ZTR2ZW4zQjhlY1k1UnRIYmFjeVBUMHRCbHJLbnRYR0tGdjl3cEd0VjFEazI3NHJXMWdTclp5UVVFMUVGY25XX0ktNmRFSDRRY0VKakNTaTBET0FlRFYwYXdIWDh5SGc3Sk9BWWZYR2R4aWg2Yk83X1VaLXd2ZFNDWHZnYWNveklabmlsU0VERkMwZmlCb3RQem5YT2RPMjItVkU2Ulg2Sl9JWUIyZVBjSEVvVkxLaXZxT3NiMWZMRnpIY2Q1MWNCZWpya0pSNEZ0MFoxMWVKaw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift donates $50K to injured mother in Rhode Island
+
+- first seen: 2026-09-01 06:13 UTC | category: business | importance: 8
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has made a $50,000 donation to a mother who was injured while saving a teenager on a Rhode Island highway. The donation highlights Swift's philanthropic efforts in response to this act of heroism.
+- sources:
+  - [unverified] wtsp.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxNSjlmazZ2RThxNWdhRlF6RDRhdXZFYzFlZVFlMlFGQTBwYldzR0N2bFZndHlHSmFKUWhDMGRacjNBaGR6MTN6eGh2dlRJMG5CT2cyYXpxb0pSRHFlVjUtODdSMlJyY3Q5TFBsOXZycFZac1BZd2I3RTNIZVk2dUNBM2xVSmVZLWVoQnpOQ2k1XzctNkprTTJXdGppM25KVzRQVFpwd09rdTNBRzhPZGgtUll3Nnoyb2psMmxKNm1wS2Z3amdPOHlGUkJockVvSC1lcUp3UHZRdHEwZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] krem.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxOdkUtOEVkRENWemoydVg2blNuM3dCZVpVTmtJSkFXcVExVG1aclUwWVZHTmpvSUZfMUxjRFNFVEg0RzZiX0FCR0JuZkR1V0M1TWg4a2xmcks3RXFWNFMyOXktc1hDQ0Fqcm9nNGl2SVpDVVRUSzVDTUFhWjZsR1pQbzFNQlgybTNuWElMeWVIVHg5TGEtbUVCdGpKcHNxWktQZUl6cWJtZXpfVU1Uelc2QXdHS2VKMXhOdXBFRXRjQktnRmQ1T0szSHNONzNaVDIyUzBpWlRNdzRIdw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift contributes $50,000 to GoFundMe campaign
 
@@ -200,11 +262,12 @@ Stories: 73
 ## Taylor Swift makes $50,000 donation to injured woman
 
 - first seen: 2026-08-31 21:53 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift has donated $50,000 to a woman who was injured while assisting teens on the side of the road. The contribution highlights her philanthropic efforts in supporting those in need.
 - sources:
   - [unverified] KTIV — https://news.google.com/rss/articles/CBMipgFBVV95cUxPOUZOdkFTNjhSTFZXdkl3WVhHb3lUTFh0OGdZOXh4MV94RlltLUwtRHM3ZjBwdzZIWHJNS0NwME5NQnhGdzZRMFE2a3RmVGw3dlRLY1h3OW5TVTZ1SHpWTC1NQ2hWQ1EwZXVIam5vcDIybk9scnhqU0NISmJHV2hIdXBudWxFdjhLUWczX3BmZmFjTG5DXzl6NWM4ZEVQLXk2blgxNnJ3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] WABI — https://news.google.com/rss/articles/CBMipAFBVV95cUxQMXBQSUMzQTQ0TngtVExpVVdUNUNMbHpBYVRDOW50aHZJWElSQkI1ajJDVFQ2V2hoVkdpYVlrRUlKNjdNbnJtWklNU09YZjcwTTNLTTBPYnRKQlNQc2owc2JuTGNIbU05eldYSmU4bFBQNG5haUZWcC1DTU8ySXJaWkVPcEFLSVhJLW9qUUVodm5STXdGbzBFcVBGR1NUZjQwZHBLYtIBuAFBVV95cUxPQzJaT0lBd3ZzTTJfU1dHQTlBX1U3NnViNzhJLUdVVmNzNjNubWEtalpSaFZrM3JyUVN5V2ZHUVY2SXNqdjZSNko1NG9RWnJhcS1kbmVwRXNhNjJlSXJEWkxpTXBkbXI0Z3VTNC04T29vTXhrMm45LXpTbGNHeVFQQ2JkMGNvWjB2SUNyZjJPRGZ6VjNESlZOWTVodnVLZHAxSjNGRS1hUlMya1Z0dUMwSlFTX3BrUTB0?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WBTV — https://news.google.com/rss/articles/CBMipgFBVV95cUxPVGtDcEJ6ZkNZa0ZKc1BMdHduX0ZKTkdPLTZBc0RnSmt4emRPOUYxa3FZdGZCSkUwd2IxYlRXZC1lbEhoalVhVUYyN2tjWDU3aU0wNmNKbk5zam9UOU94Y0o0cEszSEhVckE1TnhuT0R6cExXMTdyOW1qZjkxVjVZdXFvSzhGOHU5VUtCdHR6enNkRnYyM0ZEZXdLcl9QREQ5ekVkOWpB0gG6AUFVX3lxTFA4clpkZkJvWFR3aTVTWF9rU0xsRVVmVW5SVjBXMUZiR1l4NElfa2hCVFpRaGQwLWMxUDVlbEhqZktRZkx1bVFoNjZabHkzSnVXMGloeEVhR3AwZ2V1TkVyM05nMTV1dXRHZ2V0LVRkdkFldE02RkRma0FHRTN0SUNEMzZpMk9wM2RZVlVKcTU1YzdNeTIwa3ZtZXpERFo1bDVBQlNpdllPc1pWcmdaelptRTgtY3ZFVVJVZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce face challenges with football involvement
 
@@ -575,66 +638,3 @@ Stories: 73
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNN3JVaVJ4aHE4Zlp4cDc2OW1Ea2hQZzVrV1A4djA4VW9jSUZkU0hBa2d5YUIwU1E4TjEtRmxPMEh6cUpNTDYwSzEzOHVIZG1hLV9hdGoxd0JubW80MGJQa0YyMWtoM3UwbFBsYjd5VjhsUXFxMWdiU1lnVFdnaXpId1AxU0hFQmprSWx3NndyNVBVbjAyMmlTUWNiYk9Cby0xekE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE9yMDZiRHR3dGktMXBZUTI0ZERVQlBaUllKU0J6Rm5mTFZGd1pVek9QQ2R5ZkNaS0p0a3F0RzdGWk41cVZHMHozMDduR2J2Qm51SFFNY2J2VUFIbER0dHBaVzJLbXp5N0d6T3hZUDJ0WDJGZXZj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Caitlin Clark Shares Taylor Swift's Take on New Nike Friendship Bracelet Shoe
-
-- first seen: 2026-08-29 07:50 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark has revealed what Taylor Swift thinks about the Nike Friendship Bracelet Caitlin 1 Signature Shoe. The statement highlights Swift's engagement with contemporary fashion trends.
-- sources:
-  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPa1FXUlJOaHliWTcwekQwbjZyVTJ4NzhWS1dkQkhNLXpJcjQ4N1ZtMC0ycE94X3VkelM0X3oyTmgtZHFkdmhEdEpHeWVBQUtST1JGeHFpZUNQTWxHR2cxelYyTkJDVENyOUdwek9ja1Y5TkNJNjlLQVBfV1FCR2dxcFBHcVdmMUJiLTAyUnUtdzNHbU85dnhLMkx1RGFoN3lFSWNTRGx0alBuV2JmTUlBd3pleUpMdTM1UW1YdlNnVXgyR1ozWVRsejQ2aGJMdi1YLUlZcA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Tributes Pour In for Dolly Parton Amid Public Mourning
-
-- first seen: 2026-08-29 07:50 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Numerous tributes have emerged for Dolly Parton as millions express their sorrow and admiration. The heartfelt messages highlight her impact on music and culture.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMivgFBVV95cUxPT0dXNWJYNVNYUlJzTThqV3liS1c1Z2I3YmxhNXRTNDBiM1lYMWJSNnYzWm0zOWE1WGt5Y1ZqOG1BWEkwTjd4QmE4TnZibDdHdkpLTWtqd0gwYkROdzBIR052MV9iLWJHSlR0cFdmVGRZSUk0QVJjOUtfb1lwaU0xSjNzQlpXUV93eTFRbnRKYW1yNi1iWFkzTzE2NlVSNEkzUTFVSnAwbkpyRUt3OHdXUXlrVUNWRnF3VGx1NE1n?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Mentioned as Part of NFL's Big Stories
-
-- first seen: 2026-08-29 07:50 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent article highlights Patrick Mahomes and Taylor Swift as significant figures in the NFL narrative. The mention showcases the intersection of sports and celebrity culture in current media.
-- sources:
-  - [unverified] Jay Mariotti | Substack — https://news.google.com/rss/articles/CBMieEFVX3lxTE9DRGdrYzJkbHBRVl83R2tEOHJQY21yVDVKQ3FPMmQ1WnVuWHVuNEVDYnJ3ai15aGMzdnNfQy1RblRCWmgzMTEtOXZwZ05VUnowRmI1NU5ISmpiRmFiSjA5bVNjSXJaTWtJSnRoMlZod1FWb1VWT1J3Xw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Update Before Chiefs-Seahawks Preseason Game
-
-- first seen: 2026-08-29 07:50 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: News about Taylor Swift surfaces in connection with the upcoming Chiefs-Seahawks preseason game. No specific details about her attendance or involvement are provided in the report.
-- sources:
-  - [unverified] Athlon Sports — https://news.google.com/rss/articles/CBMijwFBVV95cUxOTkM2QkRYdWt2U3BWeHA5d0pLcDFTTVcybk1qQ1ZISFltTVg4Nm9mQXM4SXhPY0pxOVo4TVY0UjJDeWhpVVhzY2k5RGlSRDBQb0hGM1lYNlE3YnJ1U0x4VG8tUi1VdmtKVU0wVTVTTkFRUzRUVUhYcHpab0JFU3NkSml1dmRVM21STW9Kc1BwQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Expresses Discontent About Time Away from Taylor Swift
-
-- first seen: 2026-08-29 07:50 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A report indicates that Travis Kelce has expressed feelings of dislike for being away from Taylor Swift while playing with the Chiefs. His sentiments highlight the challenges of maintaining a relationship during a busy sports season.
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNZWZQV2tZcjJaSnFTWUo0SUh5c1JQcElFVndWWkhJVF9pQ1p2VzBzZEw2b1VfS0lWQV95N2YzR2sxaVVZZ2JvbnBOcFp2TmNhcWZVWjNRaVZPV0l6RXJTOEVHUEdFcUw5MGcxRHdKcERnX2sxOWhELXlvQzR0S3lXRUFZODUyQW16XzFr?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes $50,000 Donation with Personal Message
-
-- first seen: 2026-08-29 07:50 UTC | category: business | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a surprise donation of $50,000, along with a heartfelt message, showcasing her philanthropic efforts. The news highlights her commitment to giving back to the community.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPUkZXRzE2eE52MXJsMHZSRk5UbGpDQ2dIdzBtTmVid2FkWktHNFpMWll0UE5JRElnZUVmSWhXNUYzYTMwSjBScVVJQzBvMVExdWNMU2kwMFg2bWhOQ2EybjhMQVZQSlBhSG4talNKT0NGejF2X0xVaDA3U1Z6aXFfdTBRckdNMGZkQjZnS2pzcFZiM25OSHhTY3hJNnRWaFdFZ0RqMFdNRnpxZmM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Donates $50K to Support Recovery of Car Accident Victim
-
-- first seen: 2026-08-29 07:50 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 8
-- summary: Taylor Swift has donated $50,000 to a mother who was injured in a car accident, expressing her support with a heartfelt message wishing for her best recovery.
-- sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipwFBVV95cUxQOUlueXBxSENrSkdlU0tiZFc5cnhZQmszckVzM1ktdVlqOTRNRVpmbVVaeUI4aFpUTl9hUFVudUtuUWk5WkJZRkFzRGtQS1BfelZBNEZ3SGE4UnExZ0lhc2pTTU5TUlF1ekNxZW5VUVdaaUJwN01QSGdVckFUZnRBQ1hjWlg0anJUbTJhT3hHSVdaOHdUR2t3NGJMRzFGMEd1T2haeHJqZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiogFBVV95cUxOaUx5bzlSZlhPUTdQM2NKbFNrZFJLTTVFTGpkNVRJY1hVU1VpOVg1VWhTSFZFMm0wQ0p3ekhEbWJJc3JaWFhQM3U1eGxUaFQzN0pjUHQxaHR4ZHlQd193RHFfajZTNU5MaEh5YUs3SVJWSjBjRFZUTm9VeHA2cFZEeUhMbEtqZlhBR0NDSGJYVkpIN0UtUTYtY0pkWUp2NTNCbGc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQU2U3VDhwRFRxVjF5VGFkT3NXWDRlWGhlbHJIUkRCM2NTRGdPQnRYV2VOU1JkdkFaZjZidXZUaG9TYW5hZmtReTkxMEJ0MDZvS2s2OHAyQkZmVU1Fd3E0YmhTUjR2RHU2akNZcXM1Z193LU1aYzQybHdyQ1VRdmNpbXRRNVRDa292YXNXMnpBcXNMakZmTWJjV0ExZWNPX3BCU2F1bk8zYUFYamc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Go Local Prov — https://news.google.com/rss/articles/CBMipwFBVV95cUxNVGN1NW5VaS01RXNjVGR3azhMOXNCRUZlMm5QR012MlJ1OGFCb3BuQVMySWhMal9XT25xcWNHSk9yNFhGWjV2ZlpRdXEybjM5azFaQnhFSlBhbUd2V0dFdXF5azRyVktmcmh0UWZhc0hyZUpWcjlZU1FTT3pvOHg1aUItUF9zOEdqcEo3M05nRjFuYjlZeWM0QmZfeXE1TmlRQktXdlVwTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQT0pqaHdDWExwU19uM3h2OXJfaDJkdEc5LW9UTURuUEE4Y283WEMwTFAwQjJ6aV9OTUExNTdnN29pMVdYeUlVM1FvUnU2ZEtsOVFhN19GUENFQUNCLU8zNmJiVzZxb2puSW1sRlJqcVpyd3V6N3pOano4TUc3bEpJV2pDWXBQZ0Y0QUprNVI4T3M2U3VBV01nRnJxbi0yb1FJZHlyVUdIbExSUHc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMinAFBVV95cUxPT2FyRnp5SUZBSU51TFo2VGlrUmc5N1RCaUpQa3I2VkNJZFU0Tjc2SlVpNjg0MDBhMTRldXcyQVJIYktxNWM5emhvcFIzeUVtRExLSzRKRXFqMjVRcmF1OERCSVpQQjIxX1ZaVl90bXV3Q20tdFRWRl9RRXpiZ0I3M05KNXJIZk1JUEJ4SnZqVjBCY3lTMFdFeGlhYm0?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMikgFBVV95cUxQdFY2blJGYlpJbDdZZzE1UzRyeXcteXk3dHZ4Z2tHakxpdzZYcmNfM01SeFluRWlPbVJjQkZzcVMyRU1oTWdWMTBJWEg0T05DX01iSU4wcWNkQ1dQYmhrNHFiRGhlQS01cUhYMGFUNUpxRGlyWTZRZWk2QzF0T3NOa3pEQTNWd0t6a2xVS3dpMjUxdw?oc=5&hl=en-US&gl=US&ceid=US:en
