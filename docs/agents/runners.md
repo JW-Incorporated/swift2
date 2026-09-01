@@ -61,7 +61,8 @@ drifts).
 | Routine | Trigger ID | Cadence (UTC) | Enabled | Model |
 |---|---|---|---|---|
 | Photo Enrichment worker | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | `21 6 * * *` | ✅ | `claude-sonnet-5` |
-| News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ✅ | `claude-opus-4-8` — **T-3 trigger update pending account access, see § News Triage below; not yet flipped by this PR** |
+| News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ✅ | `claude-sonnet-5` — **T-3 trial live 2026-09-01 → 2026-09-15**, see § News Triage below |
+| News Triage recall check — T-3 trial audit | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `0 17 * * 2` | ✅ | `claude-opus-4-8` — 2-week trial instrument, disable after 2026-09-15 verdict |
 | Cross-Link builder | `trig_01FxMuDtwScPFvSgvhFCxdfP` | `51 9 * * 1,4` | ✅ | `claude-sonnet-5` |
 | Stylist — shop-link sourcing & upkeep | `trig_011BiHZqLEVHAJ4chfaYfGZH` | `33 16 * * 0` | ✅ | `claude-sonnet-5` |
 | Rumor Desk — sourcing & lifecycle | `trig_01GS6bcMsEQjXwmyxGr7S1js` | `47 14 */2 * *` | ✅ | `claude-opus-4-8` |
@@ -109,6 +110,26 @@ how Karen Deep has always been handled in this file.
 - The list endpoint caps at 20/page and its cursor is broken (same page repeats) — consistent with the Routine Auditor's own prompt.
 - The 4 triggers beyond page 1 (both Marjorie runs, Routine Auditor, Getty purge GC watch) were verified by direct per-trigger fetch instead.
 - Table above updated to match: Photo Enrichment's trigger ID refreshed; Model column completed for every row.
+
+### 2026-09-01 — T-20 Phase 1 attribution-trailer sync complete
+
+All 21 live-prompt routines in the standing fleet (per HUMAN-ACTIONS.md
+item #37's checklist) had their inline `job_config` prompt re-synced to
+the current `runner-prompts/` file content, each now carrying the
+`## Attribution trailer (T-20 Phase 1)` section verbatim — closing the gap
+where every routine's PR/issue was supposed to carry a `Tier-2: <routine
+name>` line but the live triggers were still running the pre-PR #3621
+prompt. Two routines deliberately kept a live-vs-file divergence beyond
+just the trailer, both judgment calls made in-flight: Kevin S3 radar's
+cadence text (repo file is stale, live text already matches the real
+`23 1,13 * * *` schedule — file needs fixing separately) and Vault Run's
+short pointer-style prompt (by design; full file content was never meant
+to live inline). Marjorie — 8 PM Evening Delta was synced but left
+`enabled: false` per its T-13 disable. The 2 approved-but-not-yet-created
+desks (Karen Deep, Notification-quality) and News Triage's recall-check
+trigger (already synced fresh at creation under item #36) were out of
+scope. This starts the "season for a few days of real PRs" clock Phase 2's
+daily-visibility rollup needs — see `docs/decisions.md` 2026-09-01 entry.
 
 ## Token-burn audit + cost mode (2026-07-25, Wyatt — supersedes the sustainment table below)
 
@@ -169,7 +190,7 @@ Fixes applied (see `docs/decisions.md` 2026-07-25 and PR #1539):
 | Tier | Runners | Rationale |
 |---|---|---|
 | **Haiku 4.5** | Kevin comment radar | Cheap poll / bucketing; the radar is already a lazy `gh` poll |
-| **Sonnet 5** | Karen ✅, Stylist, Photo Enrichment, Audio Curator, Cross-Link, Mood Chat, Laura, Kevin S2/S3, News Triage (T-3 trial, pending account access — see § News Triage) | Deterministic script + summarize, or mechanical field-filling; News Triage is a bounded classify/redline-check/file job, not authoring |
+| **Sonnet 5** | Karen ✅, Stylist, Photo Enrichment, Audio Curator, Cross-Link, Mood Chat, Laura, Kevin S2/S3, News Triage (T-3 trial live, 2026-09-01 → 2026-09-15 — see § News Triage) | Deterministic script + summarize, or mechanical field-filling; News Triage is a bounded classify/redline-check/file job, not authoring |
 | **Opus** | Content Shift, Answerer, Rumor Desk, Nils, Marjorie brief, Austin, Paul Blart, Growth | Genuine authoring, adjudication, or security judgment |
 
 Deliberately NOT adopted: a "Sonnet drafts, Opus reviews" two-pass on the content
@@ -771,21 +792,35 @@ Until that paste happens, `social/calendar.md` is a static seed covering
 once it runs out — which it reports in its PR body, so the gap is visible rather
 than silent.
 
-## News Triage — model trial config to apply (2026-08-31, T-3, standing-agent-authority)
+## News Triage — model trial config applied (2026-09-01, T-3, standing-agent-authority)
 
-**Not applied by this PR.** `docs/TIER2-OPTIMIZATION.md` § T-3 recommends
+**Applied 2026-09-01.** `docs/TIER2-OPTIMIZATION.md` § T-3 recommended
 moving News Triage's live trigger from `claude-opus-4-8` to
-`claude-sonnet-5`. Two mitigations are required alongside the model change
-(both landed in prompt-file form on PR #3608, ahead of this update, per T-18
+`claude-sonnet-5`. Two mitigations landed alongside the model change (both
+in prompt-file form on PR #3608, ahead of this update, per T-18
 prompt-file-first): the labeled-recall-check trial design and the digest
 archive step (`.github/workflows/news-worker.yml`). Applying the change
-itself — editing the live `job_config` — requires a session (or human)
-authenticated to Joey's Claude account, the same account-access mechanic
-every other not-yet-created/not-yet-updated routine in this file shares (see
-"Tree's routine does not exist yet" above, Karen Deep and the
-notification-quality desk below). **The kanban worker sandbox that authored
-this change does not carry that account credential; tracked as
-`HUMAN-ACTIONS.md` item #36.**
+itself — editing the live `job_config` — required a session authenticated
+to Joey's Claude account (`HUMAN-ACTIONS.md` item #36); done via a
+`claude.ai/code` session with `RemoteTrigger` access, 2026-09-01.
+
+**Trial timeline:** marker merged to `main` 2026-09-01T00:42 UTC (PR #3626);
+model-flip PUT succeeded 2026-09-01T00:51 UTC — that PUT is the trial's
+actual start per this section's own rule below. **Trial runs
+2026-09-01 → 2026-09-15** (14 days). The recall-check trigger's first
+manual-dispatch run (2026-09-01T00:47 UTC, before the flip) correctly
+returned a vacuous PASS — no archive existed yet and News Triage was still
+on Opus, so there was nothing to audit (filed as
+[issue #3628](https://github.com/JW-Incorporated/swift2/issues/3628), which
+also flags that weekly recall-check runs should count the 2-week window
+from the model-flip date, not the marker-merge date, to avoid a spurious
+"early" vacuous PASS being mistaken for real coverage). Also re-synced the
+live trigger's prompt to `docs/agents/runner-prompts/news-triage.md`
+verbatim as part of the same PUT — it had drifted (missing the
+prompt-injection defense paragraph added per #1966, the T-3 archive-snapshot
+addendum, and the T-20 attribution trailer), which would have broken the
+recall check's `consumed-snapshot` mechanism and the T-20 telemetry from
+day one had it gone live unsynced.
 
 To apply, from a session authenticated to Joey's account — **in this exact
 order**, so a Sonnet run is never live before the archive/audit
@@ -825,13 +860,24 @@ it against):
    recall-check row added in step 2. Mark `HUMAN-ACTIONS.md` item #36
    `DONE`.
 
-### News Triage recall check — trigger config to create (2-week trial, T-3)
+### News Triage recall check — trigger config (2-week trial, T-3)
 
-**Also not created by this PR** — same account-access mechanic. Weekly
-Opus audit; see `docs/agents/runner-prompts/news-triage-recall-check.md`
-for the full trial design (labeled recall check against the archived
-digests, zero-tolerance false-negative bar — any counted miss reverts the
-model change).
+**Created 2026-09-01**, trigger ID `trig_01V8JrQPZfWpUqUWiy9fvmkh` (also
+recorded in the Live trigger IDs table above). Weekly Opus audit; see
+`docs/agents/runner-prompts/news-triage-recall-check.md` for the full trial
+design (labeled recall check against the archived digests, zero-tolerance
+false-negative bar — any counted miss reverts the model change). First
+manual-dispatch run (2026-09-01T00:47 UTC, before the model flip) returned
+a vacuous PASS — see [issue #3628](https://github.com/JW-Incorporated/swift2/issues/3628).
+
+**Known deviation from the intended config:** despite requesting
+`mcp_connections: []` at creation, the API attached the account's default
+connectors anyway (Google_Drive, Vercel, Gmail, **Claude_Code_Remote**) —
+the same silent-ignore footgun documented above for updates, apparently
+also true of creates. The prompt still says "you have no MCP connectors,"
+which is no longer accurate. **Follow-up needed:** remove these from the
+`claude.ai/code/routines` UI directly (the API has no lever for it per the
+footgun note).
 
 | Field | Value |
 |---|---|
@@ -841,8 +887,8 @@ model change).
 | Cron (UTC) | `0 17 * * 2` — weekly, Tuesday, well clear of News Triage's own `40 15 * * *` daily run and the Sunday/Monday judgment-desk cluster |
 | Repo | `JW-Incorporated/swift2`, branch `main` |
 | Prompt | the **full text** of `docs/agents/runner-prompts/news-triage-recall-check.md`, verbatim |
-| MCP connectors | none |
-| Start / end | create alongside the News Triage model flip; disable (never delete — reversible record) once the trial concludes (2 weeks from the model-flip date) with a PASS or a revert |
+| MCP connectors | none intended — see deviation note above; needs manual UI cleanup |
+| Start / end | created 2026-09-01 alongside the News Triage model flip; disable (never delete — reversible record) once the trial concludes 2026-09-15 with a PASS or a revert |
 
 **Trial window and disposition:** starts the day the model-flip is applied
 and this trigger is created; runs for 2 weeks (14 days), audited by the
