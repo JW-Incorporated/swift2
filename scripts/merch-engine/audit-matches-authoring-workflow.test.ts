@@ -49,6 +49,13 @@ describe('E3 manually confirmed authoring workflow', () => {
     expect(workflow).toContain('SOCIAL_POSTER_PAT');
     expect(workflow).toContain('merch-audit-authoring/${GITHUB_RUN_ID}');
     expect(workflow).toContain('gh pr merge "$BRANCH" --squash --auto --delete-branch');
+    // #3447 P2 round-7 review fix: this job must always base its new
+    // branch/PR on main, never on whatever ref the workflow_dispatch was
+    // fired from — otherwise an operator dispatching from a feature branch
+    // would silently carry that branch's own commits into an
+    // auto-mergeable content PR against main.
+    const applyDemotionsJob = workflow.slice(workflow.indexOf('\n  apply-demotions:'));
+    expect(applyDemotionsJob).toContain('ref: main');
   });
 
   it('never lets a transient issue-filing failure block demotion removal (#3447 P2 review fix)', () => {

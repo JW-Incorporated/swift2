@@ -172,6 +172,15 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
+          # Pinned to main regardless of which ref this workflow_dispatch
+          # was fired from (P1 review finding, round 7): this job commits a
+          # NEW branch and opens a PR against main, so basing that branch on
+          # anything other than main would silently carry the dispatched
+          # ref's own unrelated commits into an auto-mergeable content PR.
+          # The `author` job legitimately runs against whatever ref was
+          # selected (harmless — it only produces an artifact); only this
+          # PR-writing job needs pinning.
+          ref: main
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
       - uses: actions/setup-node@v7
         with:
