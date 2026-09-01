@@ -6089,3 +6089,54 @@ UI, since only an operator-authenticated session can flip a live trigger
 disabled (⛔, not removed). Fleet count corrected: 23 Swift2 routines total,
 21 enabled in the standing fleet (Lex depth and Marjorie's delta both
 paused).
+
+## 2026-09-01 — T-20 Phase 1: attribution-trailer sync to all 24 live Tier-2 routines complete
+
+Per HUMAN-ACTIONS.md item #37, synced every live routine's inline
+`job_config` prompt to its current `docs/agents/runner-prompts/` file
+content (never a partial PUT — `get` the trigger, replace only the
+`prompt` field in the full returned `job_config`, PUT the whole object
+back). 21 of the 24 tracked routines carry a live prompt and were
+re-synced; the remaining 3 were out of scope by design (Karen Deep review
+and the Notification-quality desk are approved but not yet created; News
+Triage's recall-check trigger was created fresh, already carrying the
+trailer, under item #36 the same session).
+
+Every re-synced routine now includes the `## Attribution trailer (T-20
+Phase 1)` section verbatim, so every PR/issue it opens from here forward
+carries a `Tier-2: <routine name>` line — the input Phase 2's daily
+per-routine telemetry rollup in Marjorie's Founders' Brief will read.
+**This date starts the "season for a few days of real PRs" clock** —
+Phase 2 should not be built to read real counts before a few days of
+post-sync output exist.
+
+Two routines kept a deliberate divergence from their file beyond the
+trailer itself, both judgment calls, not oversights:
+- **Kevin — S3 comment radar**: the repo file's cadence description does
+  not match the trigger's real twice-daily (`23 1,13 * * *`) schedule; the
+  live prompt's cadence text already correctly described the real
+  schedule. Resynced the trailer only, left the (correct) live cadence
+  text as-is, and flagged the file itself as needing a fix — inverted from
+  the usual "file is truth" default, and worth fixing in the file so a
+  future full resync doesn't regress it.
+- **The Vault Run**: its live prompt is deliberately a short pointer, not
+  the full ~12KB orchestrator-contract file — the file's own text warns
+  against baking that much undocumented instruction inline. Appended only
+  the trailer.
+
+**Marjorie — 8 PM Evening Delta** was re-synced (its file-sourced prompt
+now carries the trailer too) but left `enabled: false`, unchanged from its
+T-13 disable (see the 2026-08-31 entry above).
+
+Commented on kanban card `t_017c1e5b` with this same completion date so
+Phase 2 work knows when it's safe to start reading real per-routine
+output counts.
+
+**Follow-ups surfaced, not part of this item, not actioned:** the 4
+MCP connectors auto-attached to the new recall-check trigger on creation
+(item #36) still need manual removal via the routines UI; Laura's live
+`cron_expression` (`20 18 * * *`) differs from this file's table
+(`20 18 * * 2,5`); Austin's live model may not yet match the
+`claude-opus-4-8` 2-week trial the table already records as decided
+(D5=A) — worth a live re-check; Karen's pending rename is tracked
+separately as issue #3616.
