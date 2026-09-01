@@ -194,6 +194,39 @@ export async function upsertCapIssue(
   return created.stdout.trim();
 }
 
+/**
+ * Spec P2 (issue #3447): a below-25 `mismatch` must not stay in place. This
+ * builds one E6 re-source ticket per demoted product carrying the auditor's
+ * own reasons, so a human/E6 lane can find a replacement candidate without
+ * re-deriving why the original was rejected. Filed the same way as the cap
+ * follow-up issue (one exact-title issue, reused via comment on repeat runs)
+ * so re-running authoring never spawns duplicate tickets.
+ */
+export function reSourceIssueContent(artifact) {
+  const demotions = Array.isArray(artifact?.demotions) ? artifact.demotions : [];
+  if (demotions.length === 0) return null;
+  return {
+    title: 'E3 vision judgment: products demoted below match-tier floor',
+    body: [
+      'The E3 auditor scored these products below 25 (mismatch) against their',
+      'source moment photo. Per spec P2, they must be removed from the',
+      "moment's products and re-sourced — do not restore the same listing",
+      'without a new, higher-scoring vision judgment.',
+      '',
+      ...demotions.map((demotion) => {
+        const reasons = Array.isArray(demotion.auditorReasons)
+          ? demotion.auditorReasons.map((reason) => `  - ${reason}`).join('\n')
+          : '  - (reasons not attached)';
+        return [
+          `- ${demotion.productId}`,
+          `  url: ${demotion.url ?? '(unknown)'}`,
+          reasons,
+        ].join('\n');
+      }),
+    ].join('\n'),
+  };
+}
+
 function unavailableReason(pair) {
   if (!pair?.productImageUrl) return 'product image unavailable';
   if (!pair?.momentImageUrl) return 'moment image unavailable';
@@ -431,6 +464,19 @@ export async function runAuthoring({
   const unresolvedCount = judgments.filter((judgment) => judgment.tier === 'unresolved').length;
   const stopReason =
     eligibleCount === 0 ? 'no eligible image pairs' : stoppedAtCap ? CAP_STOP_REASON : null;
+  // Below-25 (mismatch) is demoted, never treated as a durable reusable tier
+  // (spec P2, issue #3447): fold this run's freshly-judged mismatches in
+  // alongside any the detector already identified from a cached score, so
+  // one artifact carries the complete demotion list for the content lane.
+  const freshDemotions = judgments
+    .filter((judgment) => judgment.tier === 'mismatch')
+    .map((judgment) => ({
+      productId: judgment.productId,
+      url: judgment.productUrl ?? null,
+      reason: 'vision-audited-mismatch',
+      auditorReasons: judgment.reasons,
+    }));
+  const demotions = [...(Array.isArray(queue.demotions) ? queue.demotions : []), ...freshDemotions];
   return {
     schemaVersion: 1,
     providerModel: MODEL,
@@ -446,10 +492,12 @@ export async function runAuthoring({
     },
     judgments,
     unscored: receipt.unscored ?? [],
+    demotions,
     summary: {
       queued: receipt.detectorReceipt?.queued ?? judgments.length,
       resolved: completedJudgments,
       unresolved: unresolvedCount,
+      demoted: demotions.length,
     },
   };
 }
@@ -496,11 +544,25 @@ async function main() {
       issueError = error instanceof Error ? error.message : String(error);
     }
   }
+  const reSourceIssue = reSourceIssueContent(artifact);
+  let reSourceIssueError = null;
+  if (reSourceIssue) {
+    try {
+      artifact.reSourceIssue = await upsertCapIssue(reSourceIssue);
+    } catch (error) {
+      artifact.reSourceIssue = null;
+      reSourceIssueError = error instanceof Error ? error.message : String(error);
+    }
+  }
   const target = resolve(writePath);
   await mkdir(dirname(target), { recursive: true });
   await writeFile(target, `${JSON.stringify(artifact, null, 2)}\n`, 'utf8');
   if (issueError) {
     console.error(`merch-audit-authoring: failed to file cap follow-up issue: ${issueError}`);
+    process.exitCode = 1;
+  }
+  if (reSourceIssueError) {
+    console.error(`merch-audit-authoring: failed to file re-source issue: ${reSourceIssueError}`);
     process.exitCode = 1;
   }
   console.log(
@@ -509,6 +571,7 @@ async function main() {
       reservedCostUsd: artifact.run.reservedCostUsd,
       completedJudgments: artifact.run.completedJudgments,
       stopReason: artifact.run.stopReason,
+      demoted: artifact.demotions?.length ?? 0,
     }),
   );
 }

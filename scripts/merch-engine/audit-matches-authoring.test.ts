@@ -5,6 +5,7 @@ import {
   capIssueContent,
   judgePairWithClaude,
   MAX_RUN_COST_USD,
+  reSourceIssueContent,
   retailerOgImage,
   RETAILER_FETCH_TIMEOUT_MS,
   RESERVATION_PER_REQUEST_USD,
@@ -341,6 +342,54 @@ describe('E3 authoring runner cost reservation', () => {
     });
   });
 
+  it('demotes a freshly judged mismatch and carries forward detector-provided demotions', async () => {
+    const detectorDemotion = {
+      productId: 'already-demoted',
+      url: 'https://shop.example/other-dress',
+      reason: 'vision-audited-mismatch',
+      auditorReasons: ['prior run reasons'],
+    };
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue: { ...queue, demotions: [detectorDemotion] },
+      judge: async () => ({ score: 10, kind: 'dress', reasons: ['wrong color entirely'] }),
+    });
+
+    expect(result.judgments[0]).toMatchObject({ score: 10, tier: 'mismatch' });
+    expect(result.demotions).toEqual([
+      detectorDemotion,
+      {
+        productId: source.productId,
+        url: source.productUrl,
+        reason: 'vision-audited-mismatch',
+        auditorReasons: ['wrong color entirely'],
+      },
+    ]);
+    expect(result.summary.demoted).toBe(2);
+  });
+
+  it('records a real url on a fresh mismatch even for an already-image-backed pair (#3447 P2 regression)', async () => {
+    // detectAuditQueue() carries productUrl through on every queued entry,
+    // including the normal cacheKey-eligible path (a pair that already has
+    // productImageUrl and so never needed productUrl for og:image
+    // discovery). Without that, apply-demotions.mjs has no url to act on
+    // and the demotion never actually gets removed from content.
+    const imageBackedPair = { ...source, cacheKey: 'pair-image-backed' };
+    const result = await runAuthoring({
+      receipt: receipt([]),
+      queue: { queue: [imageBackedPair] },
+      judge: async () => ({ score: 5, kind: 'dress', reasons: ['completely different garment'] }),
+    });
+
+    expect(result.demotions).toEqual([{
+      productId: source.productId,
+      url: source.productUrl,
+      reason: 'vision-audited-mismatch',
+      auditorReasons: ['completely different garment'],
+    }]);
+    expect(result.demotions[0].url).not.toBeNull();
+  });
+
   it('requires an API key for an eligible pair introduced by the detector queue', () => {
     expect(requiresApiKey(receipt([]), queue)).toBe(true);
     expect(
@@ -570,5 +619,29 @@ describe('E3 authoring runner cost reservation', () => {
     expect(
       capIssueContent({ run: { stopReason: 'no eligible image pairs' }, judgments: [] }),
     ).toBeNull();
+  });
+
+  it('builds a re-source ticket body naming each demoted product and its auditor reasons', () => {
+    const content = reSourceIssueContent({
+      demotions: [
+        {
+          productId: 'dress-1',
+          url: 'https://shop.example/dress-1',
+          reason: 'vision-audited-mismatch',
+          auditorReasons: ['wrong silhouette', 'wrong color'],
+        },
+      ],
+    });
+
+    expect(content?.title).toBe('E3 vision judgment: products demoted below match-tier floor');
+    expect(content?.body).toContain('dress-1');
+    expect(content?.body).toContain('https://shop.example/dress-1');
+    expect(content?.body).toContain('wrong silhouette');
+    expect(content?.body).toContain('wrong color');
+  });
+
+  it('returns null when there are no demotions to report', () => {
+    expect(reSourceIssueContent({ demotions: [] })).toBeNull();
+    expect(reSourceIssueContent({})).toBeNull();
   });
 });

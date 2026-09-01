@@ -275,6 +275,18 @@ The judged half scores each pair as follows:
    ≥90 `exact`, 70–89 `close`, 45–69 `similar`, 25–44 `inspired`,
    **<25 = mismatch → demoted**: removed from the moment's products and
    filed as a re-source ticket for E6 with the auditor's reasons attached.
+   Renewable score cache + the actual demotion removal (issue #3447):
+   `.cache/merch-audit-scores.json` is restored/saved under a run-scoped
+   key + `restore-keys` prefix (never one immutable pinned key) so newly
+   scored pairs are always visible to the next run
+   (`buildScoreCache()` in `audit-matches.mjs`). The removal itself is
+   `scripts/merch-engine/apply-demotions.mjs` (text-level scan/parse
+   helpers split into `scripts/merch-engine/demotion-source-scan.mjs` per
+   the 300-line file cap) — it scopes each removal to the SPECIFIC moment
+   named in the demoted `productId`, never a bare url-anywhere match,
+   because this corpus already reuses a handful of listing urls across
+   unrelated moments. `merch-audit-authoring.yml`'s `apply-demotions` job
+   runs it, regenerates the vault, and opens a gated content PR.
 4. Products with no comparable image pair (beauty items, no moment photo)
    are marked `matchTier: 'unscored'` (an explicit member of the `matchTier`
    union, `apps/web/lib/longlive/types.ts`) and skip scoring — the UI shows
