@@ -4268,6 +4268,126 @@ export default {
         ],
       },
     },
+    {
+      slug: 'showgirl-harry-styles-msg-wedding-nod',
+      year: 2026,
+      month: 8,
+      day: 29,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      title: 'Harry Styles, mid-show at the Garden: "and they also do weddings"',
+      snippet:
+        'Playing his own Madison Square Garden run, Harry Styles nodded to the arena\'s newest credential — "they also do weddings" — an unnamed but unmistakable wink at the July 3 ceremony held in the same building.',
+      sourceUrl:
+        'https://variety.com/2026/music/news/harry-styles-shout-out-taylor-swift-wedding-travis-kelce-madison-square-garden-show-1236846748/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Playing his own stand at Madison Square Garden on Aug. 29, Harry Styles paused to run down the room\'s résumé — "We\'re at Madison Square Garden, home of the world champion New York Knicks" — before adding, after a beat, "And they also do weddings." He named no one, but the wink landed on impact: it was the same arena where Taylor married Travis Kelce on July 3, and Styles and Taylor dated more than a decade ago. The press took it the same way fans did — a light, affectionate nod rather than a jab. Styles was not at the wedding himself; he had a show of his own that night. It was the plainest kind of pop-culture full-circle: an ex, on the same stage, tipping his hat to the day.',
+        // Intake #3658 (2026-09-01 Vault Run, Content Shift): a documented,
+        // dated public on-stage remark — same shape and right-size as the
+        // Adam Scott wedding-reaction item (#3306) above (short body, no hero,
+        // relationship). Confirmed: two established outlets with direct,
+        // non-redirect links (Variety, The Hollywood Reporter), corroborated
+        // widely (USA Today, E!, EW, Page Six, others). Location is MSG at
+        // venue level only, and it is a documented past public event about a
+        // ceremony already public in the Vault (L2 OK, privacy-redlines.md).
+        // No security, health, or private-individual material. Trimmed the
+        // third-party attendee color from the digest to keep the item on the
+        // remark itself. Photo deferred: allowlisted image hosts
+        // (upload.wikimedia.org) are org-egress-blocked (403 CONNECT) this
+        // session, so this ships text-only per content-shift.md step 3b and
+        // the photo-sparsity checker routes it to Photo Enrichment.
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/harry-styles-shout-out-taylor-swift-wedding-travis-kelce-madison-square-garden-show-1236846748/',
+            source_title: "Harry Styles Pokes Fun at Ex Taylor Swift's Wedding During Madison Square Garden Show",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-01',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/harry-styles-taylor-swift-wedding-madison-square-garden-1236685019/',
+            source_title: "Harry Styles References Taylor Swift's Wedding During Madison Square Garden Show",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-01',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-dog-tommy-hilfiger-campaign',
+      year: 2026,
+      month: 9,
+      day: 1,
+      category: 'fashion',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-a-rumored-newlywed-puppy-and-a-name-fans-traced-to-the-sandl',
+      ],
+      title: 'The couple\'s Samoyed turns up in Tommy Hilfiger\'s fall campaign',
+      snippet:
+        'The white Samoyed Taylor and Travis Kelce share appeared in Tommy Hilfiger\'s Fall 2026 campaign — the dog\'s first official turn in front of a camera, and the occasion on which outlets reported its name as "Wendy."',
+      sourceUrl:
+        'https://www.billboard.com/culture/lifestyle/travis-kelce-taylor-swift-dog-wendy-debut-fashion-ad-watch-1236329801/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Tommy Hilfiger\'s Fall 2026 campaign, shot at New York\'s Plaza Hotel, put Travis Kelce in a cast that also ran through JISOO, Gigi Hadid, Frances Tiafoe, Carmelo Anthony, Peggy Gou and the designer himself — and, in the detail Swifties zeroed in on, the fluffy white Samoyed Kelce shares with Taylor. It is the dog\'s most public appearance yet, weeks after it was first photographed descending the couple\'s jet in July. In talking through how the puppy ended up on set, Kelce prompted a wave of same-day coverage that, per Just Jared and others, "reportedly revealed" the dog\'s name as Wendy — the nod to "The Sandlot" fans had guessed at back in August. Neither Taylor nor Kelce has confirmed the name on the record, so the Vault keeps it where the reporting leaves it: strongly corroborated by an official campaign, still short of an on-the-record confirmation.',
+        // Intake #3657 (2026-09-01 Vault Run, Content Shift): the confirmed
+        // event here is the officially released Tommy Hilfiger campaign and
+        // the couple's dog appearing in it — a distinct, dated fashion moment,
+        // not a duplicate of the Aug. 3 dog-name RUMOR item
+        // (showgirl-newlyweds-rumored-dog-wendy), which it cross-links. Author
+        // carries the name as "reported," matching the digest ("reportedly
+        // revealed" per Just Jared): the principals have not confirmed it, so
+        // this item deliberately does NOT flip that rumor's lifecycle status —
+        // promotion/retirement of the Wendy RumorNote is the Rumor Desk's call
+        // (not due 2026-09-01, odd day-of-month) and left to it. Confirmed
+        // campaign, reported across established outlets (Billboard, Sports
+        // Illustrated) plus Just Jared for the name detail. Location: the
+        // Plaza Hotel named only as the brand's own officially released shoot
+        // venue (officially-announced provenance, L2 within cap,
+        // privacy-redlines.md); a pet is not a private individual, no redline.
+        // Right-sized as newlywed color (short body, no hero). Photo deferred:
+        // allowlisted image hosts are org-egress-blocked (403) this session;
+        // ships text-only per content-shift.md step 3b.
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/lifestyle/travis-kelce-taylor-swift-dog-wendy-debut-fashion-ad-watch-1236329801/',
+            source_title: "Travis Kelce and Taylor Swift's Adorable New Dog Makes Debut in Ad",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-01',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/pop-culture/travis-kelce-taylor-swift-dog',
+            source_title: "We Finally Got a Look at Travis Kelce and Taylor Swift's Dog",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-01',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/09/01/travis-kelce-explains-how-his-dog-ended-up-in-tommy-hilfiger-campaign-as-the-samoyeds-name-is-reportedly-revealed/',
+            source_title: "Travis Kelce Explains How His Dog Ended Up in Tommy Hilfiger Campaign as the Samoyed's Name Is Reportedly Revealed",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-01',
+            reliability_score: 2,
+          },
+        ],
+      },
+    },
     // --- Rumor Desk 2026-08-05 (intake: news digest). A wholly-unconfirmed,
     // social-tier gossip claim about the newlyweds' rumored puppy — admissible
     // because it is attributable (Deuxmoi, named), dated, and adjudicable (it
