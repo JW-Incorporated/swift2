@@ -25,6 +25,12 @@ describe('E3 manually confirmed authoring workflow', () => {
     expect(workflow).toContain('actions/cache/save');
     expect(workflow).toContain('actions/upload-artifact');
     expect(workflow).toContain('merch-audit-authoring-artifact');
+    // Renewable score cache (#3447 P1): the save key must be run-scoped so
+    // an immutable pinned key can never go stale, and restore must fall
+    // back through a prefix so the newest saved key is always picked up.
+    expect(workflow).toContain('merch-audit-scores-v1-${{ github.ref_name }}-${{ github.run_id }}');
+    expect(workflow).toContain('restore-keys');
+    expect(workflow).toContain('buildScoreCache');
     expect(workflow).not.toMatch(/git (add|commit|push)|gh pr|supabase\/seed|apps\/web\/lib\/longlive\/content/i);
   });
 });

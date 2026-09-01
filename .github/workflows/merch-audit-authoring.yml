@@ -37,8 +37,17 @@ jobs:
           key: merch-audit-authoring-v1-${{ github.ref_name }}-${{ github.run_id }}
           restore-keys: |
             merch-audit-authoring-v1-${{ github.ref_name }}-
+      # Restore the newest renewable score cache (issue #3447 P1): a fixed
+      # pinned key can never absorb a newly scored pair, so this key carries
+      # the run id and the prefix restore always picks up the latest save.
+      - uses: actions/cache/restore@v5
+        with:
+          path: .cache/merch-audit-scores.json
+          key: merch-audit-scores-v1-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            merch-audit-scores-v1-${{ github.ref_name }}-
       - name: Build the deterministic detector queue
-        run: npx tsx scripts/merch-engine/audit-matches.mjs --detect --write-queue .artifacts/merch-audit-queue.json
+        run: npx tsx scripts/merch-engine/audit-matches.mjs --detect --cache .cache/merch-audit-scores.json --write-queue .artifacts/merch-audit-queue.json
       - name: Initialize or refresh the authoring receipt
         run: |
           node --input-type=module <<'NODE'
@@ -61,6 +70,7 @@ jobs:
             providerModel: 'claude-sonnet-5',
             thinking: 'disabled',
             detectorReceipt, unscored: queue.unscored,
+            demotions: Array.isArray(queue.demotions) ? queue.demotions : [],
             judgments: Array.isArray(previous.judgments) ? previous.judgments : [],
           };
           mkdirSync('.cache', { recursive: true });
@@ -80,6 +90,30 @@ jobs:
         with:
           path: .cache/merch-audit-authoring.json
           key: merch-audit-authoring-v1-${{ github.ref_name }}-${{ github.run_id }}
+      # Renewable save-key (issue #3447 P1): fold this run's resolved
+      # judgments (score, unresolved-safe) into the restored score cache and
+      # save under a NEW run-scoped key every run, so the next run's
+      # restore-keys prefix match always finds the freshest saved key — the
+      # immutable single key this repaired can never be updated once set.
+      - name: Renew the persistent score cache with this run's judgments
+        if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.artifacts/merch-audit-authoring.json') != '' }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+          import { buildScoreCache } from './scripts/merch-engine/audit-matches.mjs';
+
+          const artifact = JSON.parse(readFileSync('.artifacts/merch-audit-authoring.json', 'utf8'));
+          const cachePath = '.cache/merch-audit-scores.json';
+          const previous = existsSync(cachePath) ? JSON.parse(readFileSync(cachePath, 'utf8')) : {};
+          const cache = buildScoreCache(artifact.judgments, previous);
+          mkdirSync('.cache', { recursive: true });
+          writeFileSync(cachePath, `${JSON.stringify(cache, null, 2)}\n`);
+          NODE
+      - uses: actions/cache/save@v5
+        if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.cache/merch-audit-scores.json') != '' }}
+        with:
+          path: .cache/merch-audit-scores.json
+          key: merch-audit-scores-v1-${{ github.ref_name }}-${{ github.run_id }}
       - name: Upload auditable authoring artifact
         if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.artifacts/merch-audit-authoring.json') != '' }}
         uses: actions/upload-artifact@v4

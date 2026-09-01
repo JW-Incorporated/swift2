@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import {
   auditCacheKey,
   authoringRequestFor,
+  buildScoreCache,
   detectAuditQueue,
   tierForScore,
 } from './audit-matches.mjs';
@@ -60,7 +61,7 @@ describe('E3 match auditor thresholds', () => {
     expect(plan.unscored).toEqual([]);
   });
 
-  it('retains an image-less listing after the judged lane writes its tier', () => {
+  it('demotes an image-less listing already judged as a mismatch, instead of reusing it', () => {
     const plan = detectAuditQueue({
       records: [{
         productId: 'already-judged-listing',
@@ -74,7 +75,12 @@ describe('E3 match auditor thresholds', () => {
     });
 
     expect(plan.queue).toEqual([]);
-    expect(plan.reused).toEqual([{ productId: 'already-judged-listing', cacheKey: null }]);
+    expect(plan.reused).toEqual([]);
+    expect(plan.demotions).toEqual([{
+      productId: 'already-judged-listing',
+      url: 'https://shop.example/products/dress',
+      reason: 'vision-audited-mismatch',
+    }]);
   });
 
   it('queues an image-less listing again when a product image later appears', () => {
@@ -133,6 +139,36 @@ describe('E3 cache and source eligibility', () => {
     expect(plan.queue.map((entry) => entry.productId)).toEqual(['ungraded-dress']);
   });
 
+  it('demotes a cached mismatch pair instead of re-queuing or reusing it', () => {
+    const record = {
+      productId: 'cached-mismatch-dress',
+      productUrl: 'https://shop.example/products/dress',
+      productImageUrl: 'https://images.example/product.jpg',
+      momentImageUrl: 'https://images.example/moment.jpg',
+      hasRealPrimaryImage: true,
+    };
+    const key = auditCacheKey(record);
+    const plan = detectAuditQueue({
+      records: [record],
+      cache: {
+        [key]: {
+          matchTier: 'mismatch',
+          matchScore: 12,
+          reasons: ['wrong silhouette'],
+        },
+      },
+    });
+
+    expect(plan.queue).toEqual([]);
+    expect(plan.reused).toEqual([]);
+    expect(plan.demotions).toEqual([{
+      productId: 'cached-mismatch-dress',
+      url: 'https://shop.example/products/dress',
+      reason: 'vision-audited-mismatch',
+      auditorReasons: ['wrong silhouette'],
+    }]);
+  });
+
   it('only queues a source moment with hasRealPrimaryImage()', () => {
     const plan = detectAuditQueue({
       records: [
@@ -157,6 +193,33 @@ describe('E3 cache and source eligibility', () => {
   });
 });
 
+describe('renewable score cache (#3447 P1)', () => {
+  it('folds resolved judgments into a previously restored cache without losing older entries', () => {
+    const previous = { 'existing-key': { matchTier: 'close', matchScore: 75 } };
+    const cache = buildScoreCache(
+      [
+        { cacheKey: 'new-key', tier: 'exact', score: 95, kind: 'dress', reasons: ['same dress'] },
+        { cacheKey: null, tier: 'exact', score: 95, kind: 'dress', reasons: ['no key, skipped'] },
+        { cacheKey: 'unresolved-key', tier: 'unresolved', score: null, kind: null, reasons: ['x'] },
+      ],
+      previous,
+    );
+
+    expect(cache).toEqual({
+      'existing-key': { matchTier: 'close', matchScore: 75 },
+      'new-key': { matchTier: 'exact', matchScore: 95, kind: 'dress', reasons: ['same dress'] },
+    });
+  });
+
+  it('caches mismatch judgments too, so a re-detected pair is not re-queued', () => {
+    const cache = buildScoreCache([
+      { cacheKey: 'mismatch-key', tier: 'mismatch', score: 10, kind: 'dress', reasons: ['wrong color'] },
+    ]);
+
+    expect(cache['mismatch-key']).toMatchObject({ matchTier: 'mismatch', matchScore: 10 });
+  });
+});
+
 describe('R1 lane separation', () => {
   it('emits data-only authoring requests and never invokes a scorer from detection', () => {
     const plan = detectAuditQueue({
@@ -169,6 +232,7 @@ describe('R1 lane separation', () => {
       lane: 'merch-audit-authoring',
       queue: plan.queue,
       unscored: [],
+      demotions: [],
     });
   });
 
@@ -179,6 +243,11 @@ describe('R1 lane separation', () => {
     expect(workflow).toContain('push:');
     expect(workflow).toContain('apps/web/lib/longlive/content.ts');
     expect(workflow).not.toMatch(/(ask-|openai|anthropic|gemini|vision)/i);
+    // Renewable save-key lifecycle (#3447 P1): the detector must restore via
+    // a prefix, not a single pinned key, or a newly renewed key is invisible
+    // to it.
+    expect(workflow).toContain('restore-keys');
+    expect(workflow).toContain('merch-audit-scores-v1-${{ github.ref_name }}-');
   });
 });
 

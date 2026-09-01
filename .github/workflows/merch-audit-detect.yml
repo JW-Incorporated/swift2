@@ -38,12 +38,15 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci --ignore-scripts
-      # Authoring owns writes to this cache after a scored pair is accepted.
-      # Detection only restores and reads it, so it cannot manufacture a score.
+      # Detection only restores and reads the score cache authoring keeps
+      # renewing below (never writes it) so a fixed pinned key can never go
+      # stale: the newest key matching the prefix always wins (#3447 P1).
       - uses: actions/cache/restore@v5
         with:
           path: .cache/merch-audit-scores.json
-          key: merch-audit-scores-v1-${{ github.ref_name }}
+          key: merch-audit-scores-v1-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            merch-audit-scores-v1-${{ github.ref_name }}-
       - name: Detect changed image pairs
         run: npx tsx scripts/merch-engine/audit-matches.mjs --detect --cache .cache/merch-audit-scores.json --write-queue .artifacts/merch-audit-queue.json
       - name: Upload scoring queue

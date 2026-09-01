@@ -44,11 +44,18 @@ export function auditCacheKey(record) {
 /**
  * Builds an authoring queue without judging or writing seed content. A moment
  * enters scoring only when the caller established hasRealPrimaryImage() first.
+ *
+ * Below-25 (`mismatch`) is never treated as a reusable, durable tier (spec
+ * P2, issue #3447): a mismatch is routed to `demotions` so the authoring/
+ * content lane can remove the product from the moment and file an E6
+ * re-source ticket with the auditor's reasons attached, instead of silently
+ * leaving a known-bad pairing in place forever.
  */
 export function detectAuditQueue({ records, cache }) {
   const queue = [];
   const reused = [];
   const unscored = [];
+  const demotions = [];
   for (const record of records) {
     const cacheKey = auditCacheKey(record);
     if (!record.hasRealPrimaryImage || !record.momentImageUrl) {
@@ -60,7 +67,13 @@ export function detectAuditQueue({ records, cache }) {
     // deliberately remains queued rather than being silently marked unscored.
     if (!record.productImageUrl) {
       if (record.productUrl) {
-        if (['exact', 'close', 'similar', 'inspired', 'mismatch'].includes(record.matchTier)) {
+        if (record.matchTier === 'mismatch') {
+          demotions.push({
+            productId: record.productId,
+            url: record.productUrl,
+            reason: 'vision-audited-mismatch',
+          });
+        } else if (['exact', 'close', 'similar', 'inspired'].includes(record.matchTier)) {
           reused.push({ productId: record.productId, cacheKey: null });
         } else {
           queue.push({
@@ -83,6 +96,15 @@ export function detectAuditQueue({ records, cache }) {
     const cached = cache[cacheKey];
     const cacheHasScore = cached && typeof cached === 'object' &&
       ['exact', 'close', 'similar', 'inspired', 'mismatch'].includes(cached.matchTier);
+    if (cacheHasScore && cached.matchTier === 'mismatch') {
+      demotions.push({
+        productId: record.productId,
+        url: record.productUrl ?? null,
+        reason: 'vision-audited-mismatch',
+        ...(Array.isArray(cached.reasons) ? { auditorReasons: cached.reasons } : {}),
+      });
+      continue;
+    }
     const productHasTier = ['exact', 'close', 'similar', 'inspired'].includes(record.matchTier);
     if (cacheHasScore && productHasTier) {
       reused.push({ productId: record.productId, cacheKey });
@@ -95,12 +117,41 @@ export function detectAuditQueue({ records, cache }) {
       cacheKey,
     });
   }
-  return { queue, reused, unscored };
+  return { queue, reused, unscored, demotions };
 }
 
 /** The only handoff to the judged lane; it is data, not a score invocation. */
 export function authoringRequestFor(plan) {
-  return { lane: 'merch-audit-authoring', queue: plan.queue, unscored: plan.unscored };
+  return {
+    lane: 'merch-audit-authoring',
+    queue: plan.queue,
+    unscored: plan.unscored,
+    demotions: plan.demotions ?? [],
+  };
+}
+
+/**
+ * Renewable score cache (issue #3447 P1): folds this run's resolved
+ * judgments into the previously-restored cache, keyed by `cacheKey`, so a
+ * future detector run restoring the latest saved key can see newly scored
+ * pairs. `mismatch` scores are cached too (so a re-detected mismatch pair
+ * isn't re-queued for another paid vision call) even though `mismatch` is
+ * never written into a Product's own `matchTier` (that value is stripped by
+ * `productsFrom()` — a mismatch is removed, not persisted as a tier).
+ */
+export function buildScoreCache(judgments, previousCache = {}) {
+  const cache = { ...previousCache };
+  for (const judgment of Array.isArray(judgments) ? judgments : []) {
+    if (!judgment?.cacheKey) continue;
+    if (!['exact', 'close', 'similar', 'inspired', 'mismatch'].includes(judgment.tier)) continue;
+    cache[judgment.cacheKey] = {
+      matchTier: judgment.tier,
+      matchScore: judgment.score,
+      kind: judgment.kind,
+      reasons: judgment.reasons,
+    };
+  }
+  return cache;
 }
 
 async function readJson(path, fallback) {
