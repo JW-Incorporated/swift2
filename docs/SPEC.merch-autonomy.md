@@ -402,6 +402,20 @@ Pipeline per moment:
    ticket that re-runs after 14 days (retail lag: dupes appear weeks after
    a look trends).
 
+**Field naming (issue #3463):** `scripts/merch-engine/match-moments.mjs`
+(step 3's tie-break/selection logic) and `match-moments-authoring.mjs`
+(steps 1–3: extraction, search, vision scoring) carry each candidate's
+confidence under `score`, not `matchScore`, in their intermediate plan
+artifact (`merch-matcher-plan.json` / `.artifacts/merch-matcher-authoring/
+plan.json`). That is deliberate, not a defect: the plan is candidate data,
+not a `Product` record. Step 4 — writing products onto the moment through
+the standard content lane — is not yet implemented by any script; when it
+is built, its spec/implementation must map plan-candidate `score` onto
+`Product.matchScore`, and decide then whether the plan artifact itself
+should be renamed to `matchScore` for consistency. Until that product
+writer exists, `match-moments.mjs`/`match-moments-authoring.mjs` keep
+`score` to preserve parity with their staged source.
+
 Budget: expected single-digit search calls + low-tens of vision scores per
 moment; the R5 cap makes the worst case a ticket, not a bill.
 
