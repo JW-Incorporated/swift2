@@ -75,9 +75,10 @@ drifts).
 | Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ✅ | `claude-opus-4-8` — 2-week trial 2026-08-31→2026-09-14 (was `claude-fable-5`; Joey D5=A, `decisions.md`) |
 | Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `0 14 * * 1,5` | ✅ | `claude-opus-4-8` |
 | Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `23 1,13 * * *` | ✅ | `claude-haiku-4-5-20251001` |
-| Kevin — S3 eng triage (cloud) | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | `43 15 * * *` | ✅ | `claude-sonnet-5` |
-| Kevin — S2 user-feedback digest (cloud) | `trig_0136mXcpmzn6mYtYoUQC3eGP` | `13 15 * * *` | ✅ | `claude-sonnet-5` |
-| Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ | `claude-opus-4-8` |
+| Kevin — daily desk (S1+S2+S3) | `trig_01GH3EMWdDwwKpx2GCRnCYM5` | `13 15 * * *` | ✅ | `claude-sonnet-5` |
+| ~~Kevin — S3 eng triage (cloud)~~ **(DISABLED 2026-09-01, Joey, T-10)** | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | ~~`43 15 * * *`~~ | ⛔ disabled — superseded by Kevin daily desk, T-10 | `claude-sonnet-5` |
+| ~~Kevin — S2 user-feedback digest (cloud)~~ **(DISABLED 2026-09-01, Joey, T-10)** | `trig_0136mXcpmzn6mYtYoUQC3eGP` | ~~`13 15 * * *`~~ | ⛔ disabled — superseded by Kevin daily desk, T-10 | `claude-sonnet-5` |
+| Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ (pending disable — kept live until the new desk's first Sunday fire confirms Stream 1, see HUMAN-ACTIONS.md #38) | `claude-opus-4-8` |
 | Karen — nightly scan ⚠️ **RENAME PENDING (T-5, 2026-08-31)** — registered name not yet resynced to `Karen — weekly judgment slice`; prompt already judgment-only, see `runner-prompts/karen-nightly.md` and § T-5 below | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | `claude-opus-4-8` |
 | Content Shift — authoring runs | `trig_01PonDFeQCL4iRNzceGyAYrm` | `0 17 * * *` | ✅ | `claude-opus-4-8` |
@@ -694,17 +695,13 @@ agent-reviewed would stay at zero forever, which is today's bug with extra steps
 (c) *`--claims-only` focusing* — RUNBOOK.md already records that this caused a
 real miss: claim-free narrative records are exactly where fabricated events hide.
 
-## Kevin — daily desk consolidation — trigger config to apply (2026-08-31, T-10)
+## Kevin — daily desk consolidation — applied (2026-09-01, T-10)
 
-**Not applied by this change.** Same account-access mechanic as Karen Deep,
-Tree, and the Notification-quality desk below: applying this requires a
-session (or human) authenticated to the account the fleet runs on (Joey's,
-per the "Live trigger IDs" table above) — `RemoteTrigger` is not reachable
-from this headless repo session. The prompt file
-(`docs/agents/runner-prompts/kevin-desk.md`) is landed first per T-18
-("prompt-file PR before trigger update"); this section is the exact spec for
-whoever has that access to apply as one full `job_config` round-trip (never
-a partial PUT, per the RemoteTrigger footgun above).
+**Applied.** Joey created `trig_01GH3EMWdDwwKpx2GCRnCYM5` ("Kevin — daily
+desk (S1+S2+S3)") directly and disabled the two superseded daily triggers
+(S2 digest, S3 eng triage). S1 (Karen-ticket solver) stays live until its
+first Sunday verification per the sequence below — see HUMAN-ACTIONS.md
+#38 for the full closeout narrative and the outstanding Sunday check.
 
 | Field | Value |
 |---|---|

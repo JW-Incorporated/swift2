@@ -76,44 +76,62 @@ Actions-minutes delta, per the plan's own Phase 4 instructions.
 
 ---
 
-### 36. Apply the Kevin daily-desk trigger cutover (T-10) — needs Joey's Claude account
+### 38. [DONE] Apply the Kevin daily-desk trigger cutover (T-10)
 
 **Filed:** 2026-08-31
+**Closed:** 2026-09-01
 
-**Status:** OPEN
+**What happened:** Joey created the consolidated trigger directly
+(`trig_01GH3EMWdDwwKpx2GCRnCYM5`, "Kevin — daily desk (S1+S2+S3)", cron
+`13 15 * * *` UTC, live and enabled) and test-fired it. The test session
+correctly determined the UTC day was Tuesday (not Sunday), so it skipped
+Stream 1 by design, and found Stream 2 (digest) and Stream 3 (triage) had
+already posted for real on issue #3590 hours earlier (~15:16–15:49 UTC,
+2026-08-31) via the old standalone triggers — since today's slot had
+already fired before the cutover, it correctly abstained from re-posting
+rather than duplicating. **Tomorrow's `13 15 * * *` run (2026-09-02) is the
+first genuine end-to-end fire of the new trigger.**
 
-**Why it matters:** Tier-2 T-10 consolidates Kevin's three separate cloud
-routines (S1 Karen solver, S2 user digest, S3 eng triage) into one daily
-"Kevin — daily desk" session, saving ~1 cold-boot session/day plus a weekly
-Opus→Sonnet substitution. The prompt file
-(`docs/agents/runner-prompts/kevin-desk.md`) and the exact trigger spec +
-cutover sequence (`docs/agents/runners.md` § "Kevin — daily desk
-consolidation") are both landed and ready. No agent session can finish
-this: `RemoteTrigger` create/update/run needs a session authenticated to
-the account the fleet runs on (Joey's), which a headless repo session
-cannot reach.
+Joey disabled both superseded daily triggers directly (not deleted —
+history preserved, per this file's convention):
+- `trig_0136mXcpmzn6mYtYoUQC3eGP` (S2 digest) → disabled
+- `trig_01BRmPqZkLEcYKZhYPjypGMJ` (S3 eng triage) → disabled
 
-**Time-sensitive sub-item:** while this cutover is pending, the still-live
-`kevin-stream2-digest.md` trigger's inline prompt is stale on a real
-authority question — it was corrected in-repo (2026-08-31, restricting
-Accept/Reject digest decisions to Joey only, per `CLAUDE.md`'s sole-
-decision-maker rule) but the LIVE trigger's inline prompt has not been
-re-synced from the file yet (same `RemoteTrigger` access gap). Until either
-this re-sync or the full desk cutover happens, a `wjduvall-cmd` checkbox on
-the live Stream 2 digest could still be actioned by the old inline prompt.
-Re-sync `kevin-stream2-digest.md`'s current content to the live trigger
-(`trig_0136mXcpmzn6mYtYoUQC3eGP`) as a priority first step, even ahead of
-the full T-10 cutover if that takes longer to schedule.
+Left alone exactly as the cutover sequence specifies:
+- `trig_01QEvYmKcpyDJJ8ec81aBjCV` (S1 Karen-ticket solver) — still live;
+  the new desk trigger's next Sunday fire will exercise Stream 1 for the
+  first time, and this old trigger gets disabled only after that
+  Sunday's real output is confirmed. **Not yet done — next Sunday check
+  is still outstanding, tracked below.**
+- `trig_01LaSLx4qzbsz68E6uRLkyDd` (S3 comment radar) — untouched, not part
+  of this consolidation.
 
-**What to do:** either run this yourself in a Claude session logged into
-your account, or tell a session in chat to do it and it will follow the
-cutover sequence in `runners.md` § "Kevin — daily desk consolidation"
-exactly (create the new trigger → test-run once → disable S2/S3's
-superseded triggers as soon as verified → **wait for a Sunday run to
-verify Stream 1 before disabling its old trigger** → record the new
-trigger ID → update the Live trigger IDs table). Takes one `job_config`
-round-trip per step; ~10–15 minutes for S2/S3, plus one follow-up Sunday
-check for S1 if today isn't Sunday.
+**Blocker found and worked around:** the first test-fire tried to disable
+the two old triggers itself and got a hard denial — `RemoteTrigger`'s
+`update_trigger` is restricted to a trigger's own creator-session; since
+the old triggers were created via `http_api` rather than through an
+agent's `create_trigger` call, no Claude session (on any account) could
+flip them via the API. Only the `claude.ai/code/routines` UI could — which
+is what Joey then did directly. Filed as an interim finding in PR #3630
+(merged) before Joey's direct fix landed; this entry supersedes that
+interim note.
+
+**Open sub-item, not blocking, low urgency:** the new trigger's
+`mcp_connections` came back populated with `Google_Drive`/`Vercel`/`Gmail`/
+`Claude_Code_Remote` even though creation explicitly requested `[]` — this
+matches the RemoteTrigger create/update footgun already documented above
+(§ RemoteTrigger API footgun) and appears to be inherited from the shared
+environment (`env_01WFa19KpZdcwUUBPvHWPig6`) rather than settable per-
+trigger via the create body. Matches what the old triggers already
+carried, so not a regression — acceptable as-is; worth a real fix only if
+this connector set ever proves to matter for this desk's actual behavior.
+
+**Remaining step:** on the next Sunday after 2026-09-01, confirm the new
+desk trigger's Stream 1 output (a real `fix/karen-tickets` PR, or a correct
+no-op if no new Karen tickets exist), then disable
+`trig_01QEvYmKcpyDJJ8ec81aBjCV`. A session can do this verification and the
+disable both, once account-authenticated — record it as its own dated
+entry here or in `docs/decisions.md` when done.
 
 ---
 
