@@ -31,7 +31,7 @@ amend or reverse docs/decisions.md or change product direction").
    `docs/SPEC.merch-autonomy.md` §2 now documents this explicitly.
 2. **E3 lane split.** The attachment's workflow table and prose described
    `merch-audit.yml` as one scheduled vision workflow. The 2026-08-30
-   FR-MERCH-5 ruling (recorded above, "SPEC's workflow table put vision
+   FR-MERCH-5 ruling (recorded below, "SPEC's workflow table put vision
    scoring + PR output inside scheduled `merch-audit.yml`... Disposition: E3
    splits into `merch-audit-detect.yml` (scheduled, zero-LLM)... and a
    separate authoring lane") already settled this, and the repo already
@@ -51,7 +51,7 @@ amend or reverse docs/decisions.md or change product direction").
    `'unscored'` state instead of the never-implemented `tier: null`.
 4. **D1/D3 status.** The attachment's PLAN still framed D1 and D3 as open
    options for Joey to pick. Both were already decided in the 2026-08-30
-   entry above ("Merch autonomy: full official catalog with verified Amazon
+   entry below ("Merch autonomy: full official catalog with verified Amazon
    alternatives; fan-made line is inspired-by, never bootleg" — "D1 is
    **D1-a**... D3 is approved as the hard fan-made curation rule"). Fixed:
    `docs/PLAN.merch-autonomy.md` now states both as settled, citing this
