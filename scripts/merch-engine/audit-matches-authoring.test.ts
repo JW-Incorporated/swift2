@@ -307,6 +307,41 @@ describe('E3 authoring runner cost reservation', () => {
     expect(result.judgments[0].reasons).toEqual(['vision request failed (HTTP 401)']);
   });
 
+  it('records the real network error detail instead of a generic string after exhausting retries', async () => {
+    let attempts = 0;
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      judge: async () => {
+        attempts += 1;
+        throw new Error('fetch failed: ECONNRESET');
+      },
+      sleep: async () => {},
+    });
+
+    expect(attempts).toBe(3);
+    expect(result.judgments[0].reasons).toEqual([
+      'vision request failed (fetch failed: ECONNRESET)',
+    ]);
+  });
+
+  it('truncates an overlong network error detail so the reason stays bounded', async () => {
+    const longMessage = `fetch failed: ${'x'.repeat(300)}`;
+    const result = await runAuthoring({
+      receipt: receipt(),
+      queue,
+      judge: async () => {
+        throw new Error(longMessage);
+      },
+      sleep: async () => {},
+    });
+
+    const reason = result.judgments[0].reasons[0] as string;
+    expect(reason.startsWith('vision request failed (fetch failed: ')).toBe(true);
+    expect(reason.length).toBeLessThan(longMessage.length);
+    expect(reason.endsWith('…)')).toBe(true);
+  });
+
   it('reserves each retry attempt before dispatching it', async () => {
     let attempts = 0;
     const result = await runAuthoring({
