@@ -128,7 +128,7 @@ export function DecodeCard({
             {gapText}
             {erasSpanned > 1 ? ` · ${erasSpanned} eras` : ''}
           </span>
-          <span className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--era-ink-soft)', opacity: 0.7 }}>
+          <span className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--era-ink-soft)' }}>
             {gap === 0 ? 'planted & paid off' : 'the wait'}
           </span>
         </div>
