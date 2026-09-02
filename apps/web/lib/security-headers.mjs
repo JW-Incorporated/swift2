@@ -26,12 +26,10 @@
  *      `/api/csp-report` without blocking anything, so we learn what the real
  *      site actually pulls before we make it fatal.
  *
- * TO FLIP REPORT-ONLY → ENFORCING: watch `/api/csp-report` for a quiet period
- * across the era reader, moment detail, Taylor's Version and Mood surfaces,
- * fold any legitimate host into the lists below, then call
- * `securityHeaders({ enforceResourcePolicy: true })` from next.config.mjs.
- * Read the `script-src` note first — enforcing as written buys very little
- * against XSS.
+ * The resource policy is enforced by `proxy.ts`, which creates one fresh nonce
+ * per page request and passes it to Next's server renderer. That lets Next put
+ * the nonce on its generated inline scripts and styles without weakening the
+ * policy for arbitrary injected markup.
  *
  * EXPECTED NOISE when reading those reports: PREVIEW deployments inject the
  * Vercel toolbar from `https://vercel.live`, which will report against
@@ -66,7 +64,7 @@ const VERCEL_ANALYTICS = 'https://va.vercel-scripts.com';
 export const CSP_REPORT_PATH = '/api/csp-report';
 
 /**
- * Directives safe to ENFORCE today: none of them can block a resource load.
+ * Directives that do not need the per-request nonce.
  * @returns {string[]}
  */
 function enforcedDirectives() {
@@ -85,12 +83,12 @@ function enforcedDirectives() {
 }
 
 /**
- * The full resource policy. Shipped Report-Only until the reports are quiet.
- * @param {{ dev?: boolean }} [opts]
+ * The nonce-based resource policy enforced by proxy.ts.
+ * @param {{ nonce: string, dev?: boolean }} opts
  * @returns {string[]}
  */
-function resourceDirectives({ dev = false } = {}) {
-  const script = ["'self'", "'unsafe-inline'", VERCEL_ANALYTICS];
+export function contentSecurityPolicy({ nonce, dev = false }) {
+  const script = ["'self'", `'nonce-${nonce}'`, "'strict-dynamic'", VERCEL_ANALYTICS];
   // Next's dev bundler uses eval-based source maps. Production builds do not.
   if (dev) script.push("'unsafe-eval'");
 
@@ -99,24 +97,19 @@ function resourceDirectives({ dev = false } = {}) {
   if (dev) connect.push('ws:', 'wss:');
 
   return [
+    ...enforcedDirectives(),
     "default-src 'self'",
 
-    // NOTE ON `script-src`: 'unsafe-inline' is required because the app ships
-    // inline scripts we do not control the content of — Next's hydration
-    // bootstrap (`self.__next_f.push(...)`, regenerated every build) and the
-    // JSON-LD block in app/layout.tsx. Removing it needs a per-request nonce,
-    // which in the App Router means middleware, which opts every page out of
-    // static generation — a real cost on a site that is 100% prerendered
-    // content. With 'unsafe-inline' present this directive is a host allowlist,
-    // not an XSS control: be honest about that rather than claim protection we
-    // do not have. Revisit if the site ever renders user-supplied HTML (today
-    // it renders none — feedback text goes to GitHub, never back into a page).
+    // Next reads the nonce from the request CSP and attaches it to its hydration
+    // bootstrap and generated styles. `strict-dynamic` keeps a nonce-authorized
+    // bootstrap from becoming an origin-wide script trust grant.
     `script-src ${script.join(' ')}`,
 
-    // Every component styles via React `style={{...}}` inline attributes, and
-    // Next injects inline <style> for the self-hosted fonts. 'unsafe-inline'
-    // is structural here, not laziness.
-    "style-src 'self' 'unsafe-inline'",
+    // Next attaches the nonce to generated <style> tags. The app also has many
+    // dynamic React style attributes (timeline coordinates, era colors and
+    // responsive geometry), which CSP nonces cannot authorize. They remain the
+    // bounded exception while the nonce removes arbitrary inline JavaScript.
+    `style-src 'self' 'nonce-${nonce}'`,
     "style-src-attr 'unsafe-inline'",
 
     // DELIBERATELY PERMISSIVE. Content hotlinks images from ~500 distinct
@@ -151,27 +144,12 @@ function resourceDirectives({ dev = false } = {}) {
 }
 
 /**
- * @param {{ dev?: boolean, enforceResourcePolicy?: boolean }} [opts]
+ * @param {{ dev?: boolean }} [opts]
  * @returns {{ key: string, value: string }[]}
  */
-export function securityHeaders({ dev = false, enforceResourcePolicy = false } = {}) {
-  const resource = resourceDirectives({ dev });
-  const enforced = enforcedDirectives();
-
-  /** @type {{ key: string, value: string }[]} */
-  const csp = enforceResourcePolicy
-    ? [{ key: 'Content-Security-Policy', value: [...enforced, ...resource].join('; ') }]
-    : [
-        { key: 'Content-Security-Policy', value: enforced.join('; ') },
-        // frame-ancestors is intentionally absent from the report-only policy:
-        // browsers ignore it there and log a console warning for the noise.
-        { key: 'Content-Security-Policy-Report-Only', value: resource.join('; ') },
-      ];
-
+export function securityHeaders() {
   return [
-    ...csp,
-
-    // Modern reporting transport for the Report-Only policy above.
+    // Modern reporting transport for the enforcing policy generated in proxy.ts.
     { key: 'Reporting-Endpoints', value: `csp-endpoint="${CSP_REPORT_PATH}"` },
 
     // Vercel already sends `max-age=63072000` with no includeSubDomains; this

@@ -8,6 +8,7 @@ import {
   type DevicePrefsUpdateInput,
   type NotificationPref,
 } from '@swift2/shared';
+import { trustedClientIp } from '../../../../../lib/longlive/client-ip';
 
 // Notifications Phase 1 — GET/PUT /api/devices/:id/prefs (NOTIFICATIONS_PLAN.md
 // Phase 1, NOTIFICATIONS_SPEC.md §8/§9). Batch read/write over the device's
@@ -44,14 +45,6 @@ function rateLimited(ip: string): boolean {
   recent.push(now);
   HITS.set(ip, recent);
   return recent.length > MAX_PER_WINDOW;
-}
-
-function requestIp(req: Request): string {
-  return (
-    req.headers.get('x-real-ip')?.trim() ||
-    req.headers.get('x-forwarded-for')?.split(',').pop()?.trim() ||
-    'unknown'
-  );
 }
 
 const SETTINGS_NUMERIC_FIELDS: Array<keyof DeviceNotificationSettings> = [
@@ -143,7 +136,7 @@ export async function GET(
     return NextResponse.json({ error: 'deviceId must be a UUID.' }, { status: 400 });
   }
 
-  const ip = requestIp(req);
+  const ip = trustedClientIp(req);
   if (rateLimited(ip)) {
     return NextResponse.json({ error: 'Please try again in a minute.' }, { status: 429 });
   }
@@ -193,7 +186,7 @@ export async function PUT(
     return NextResponse.json({ error: validated.error }, { status: 400 });
   }
 
-  const ip = requestIp(req);
+  const ip = trustedClientIp(req);
   if (rateLimited(ip)) {
     return NextResponse.json({ error: 'Please try again in a minute.' }, { status: 429 });
   }

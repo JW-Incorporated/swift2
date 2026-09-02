@@ -7,6 +7,35 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-02 — Nonce-based CSP removes inline-script exception
+
+**Decision.** `apps/web/proxy.ts` generates a fresh nonce for each rendered
+request and sends it in the enforcing CSP. The App Router receives the same
+nonce in its request headers, automatically applies it to framework-generated
+scripts/styles, and `app/layout.tsx` applies it to the static JSON-LD script.
+`script-src` no longer permits `'unsafe-inline'`; it uses the request nonce and
+`'strict-dynamic'` instead.
+
+**Why.** The security-hardening task explicitly required removing the inline
+script exception. Next.js documents nonce support as the supported App Router
+path, even though it changes static rendering to per-request rendering. This
+is a reversible implementation choice within the approved security task.
+
+**Bounded exception.** `style-src-attr 'unsafe-inline'` remains: the shipped UI
+uses numerous dynamic React style attributes for coordinates, colors and layout,
+which CSP nonces cannot authorize. `style-src` itself is nonce-based. Removing
+the attribute exception requires a separate visual refactor and is not claimed
+by this hardening change.
+
+**Alternatives considered:** retaining script `'unsafe-inline'` (rejected — it
+does not meet the audit remediation); converting every dynamic style attribute
+in this card (rejected — broad UI refactor outside the bounded security change).
+
+**Approved by:** no founder approval required — reversible technical hardening
+within Kanban task `t_07025f1e` under `CLAUDE.md` decision authority.
+
+---
+
 ## 2026-09-01 — Merch Autonomy provenance-snapshot reconciliation (#3460, Fable-ruled): all 4 conflicts were stale attachment drift, not new decisions
 
 **Context:** GitHub issue #3460, per binding Fable ruling

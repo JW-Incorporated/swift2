@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { markDeliveryOpened } from '@swift2/core/notifications-server';
+import { trustedClientIp } from '../../../../lib/longlive/client-ip';
 
 // Notifications Phase 6 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §11) —
 // POST /api/notifications/open: "notification-open tracking writing
@@ -57,10 +58,7 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ error: 'deliveryToken must be a UUID.' }, { status: 400 });
   }
 
-  const ip =
-    req.headers.get('x-real-ip')?.trim() ||
-    req.headers.get('x-forwarded-for')?.split(',').pop()?.trim() ||
-    'unknown';
+  const ip = trustedClientIp(req);
   if (rateLimited(ip)) {
     return NextResponse.json({ error: 'Please try again in a minute.' }, { status: 429 });
   }
