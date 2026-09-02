@@ -25,15 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 82
 
-## Travis Kelce Consulted Taylor Swift Before Dog's Appearance in Ad Shoot
+## Travis Kelce Praises Taylor Swift's Fashion and Her New Dog
 
-- first seen: 2026-09-02 19:45 UTC | category: relationship | importance: 6
+- first seen: 2026-09-02 23:16 UTC | category: fashion | importance: 6
 - verification_status: rumor | source_count: 1
-- summary: Travis Kelce sought Taylor Swift's approval before bringing their pet dog to a Tommy Hilfiger shoot. This gesture highlights their consideration for one another as they navigate their relationship.
+- summary: Travis Kelce expressed admiration for Taylor Swift's style and mentioned her new dog in a recent interview. His comments highlight his appreciation for her fashion sense and personal life.
 - sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxNSWZfYVZhM3htYnBpSFd0Z2NEWHBVMmhodEUxRV9uWXZweXFuc3VNUVYxb0duY3pjVnhfa1dRSURpMEwtUXlaUUFhandmdTNqNlN0V3RFRzhiWmNIYmpDNkFjVnJKNEhIT0NBajFDNzFfMjlvdlQwZVVVc090cWVEbGRjQkc2cDg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiogFBVV95cUxORDZnTGF0T2hGZGtzZGdCa3VBZjNJX3lLZk15YVlHMXZKZG5yVEF2VkxuRXI3ekppR2ZyT3RDMHJBYzN4dGppZGN0dm9MVENIekVGT1dXV0UyYkFHUFYxTUtmVk81OFNZQU5WLXd5V3VFaG43bWNBNVNtRFo3a29TRHRSeWFWWDFsbUdDYnRQY3NPeXlMbG1rNjJLMUtjSU1wLUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses Wedding to Taylor Swift at MSG
+
+- first seen: 2026-09-02 23:16 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shares insights about his wedding to Taylor Swift, including the choice of Madison Square Garden as the venue. The discussion highlights their relationship and event details.
+- sources:
+  - [unverified] Fangirlish — https://news.google.com/rss/articles/CBMioAFBVV95cUxNdzluemE3TGxXaXBfeVp5NXZCZzVqME43eGtOQ1hZWXFfdm15ZFkweHhkdnU0b1dhUUFHMDVPc01wSlRGZzIxdU9RMVdlNHlNTTEzbkhxTXBBY0prZmJ0THNSd2xUVmE0WTJtY1paSHRPdU5XRWNNNFcySGdwV2w2Q05KUmtmZ0w1VjhqNXFRX0k3S2hnQUJsSHZOejhlaVBM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares Post-Wedding Wish Related to Taylor Swift
+
+- first seen: 2026-09-02 23:16 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has shared his one wish following his wedding to Taylor Swift, highlighting their relationship. The revelation was reported by BuzzFeed.
+- sources:
+  - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMihAFBVV95cUxPVzRZSWdpMXZKbjlwdllIQzVCUWRJRXZQOHQyMk1tTU5HajhJbEhDd3d0REt6V2dfWEZDRGd3bWNjelotMDZ1aDIyanplUnpiNEZFbk1jbWNOTktPMkcxMDlHbHB3MU9DWFZsWURVOUVVblFzYmVWaVctbDFianNvaFFwM3Q?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Beverly Vance Responds to Taylor Swift’s Social Media Post
+
+- first seen: 2026-09-02 23:16 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Beverly Vance laughs at Taylor Swift's post, initially interpreting it as a humorous reference before realizing it was targeted at the Vice President. The discussion occurred during a segment of 'Tomi Lahren is Fearless' on Fox News.
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiVkFVX3lxTE5UaG5BMjZDV20ydUhQS0l5NWtHUXp4WFZPRU1kVm8xUmN4bHNGVkZTODR1ZlRrekEyQVhlSmM1RkFIS0dlM21oSzZqTngtN1c0bjNHbmpR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses Wedding Plans with Taylor Swift
+
+- first seen: 2026-09-02 23:16 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shares details about his upcoming wedding to Taylor Swift in a recent interview. The conversation highlights their relationship and future plans together.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxNMjJaNlIzQnEyX092WFBfZmpBdmVnNHp0ekpVeUwyVmpHb2lQQlJieG9DcTRwNzR3VGhxV0I5Mlp2MnFrYmdTX3U4WlpnX1ZnSjJzZDRjT2VLSzdLQUNOR3lYSEY5THFxVXJ1OUJMWEEtYk1vVng0cm5zR3IyVWtjOThSSVpDVC1C?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Comments on Taylor Swift Wedding at MSG
+
+- first seen: 2026-09-02 23:16 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has publicly commented on the recent wedding of Taylor Swift, describing the event as 'insane.' The remarks come amid Swift's ongoing prominence in the public eye.
+- sources:
+  - [unverified] E! Online — https://news.google.com/rss/articles/CBMimwFBVV95cUxQRkxaWUdnV202czFTMmhlcmZuVWZoSWhZZm1ScGhOd1FNNTBHOXZhcUlCcVlrUjZVR2kzZmpSV3RGdTVWWTNqa2hzWVpiTDVDcTZhb25aZ1g5WU02a18xMnVrMUQ0OE0xZkNSZHNNQ3JkM016TnZybGRTSld2YnU2WFNxMWVtLWptMTFUVHJwTVRMUDZpblZfNjBEMA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses MSG Wedding with Taylor Swift
+
+- first seen: 2026-09-02 23:16 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shares insights about his wedding with Taylor Swift at Madison Square Garden during an interview.
+- sources:
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxNdl9NYmJ5ZGhiSlJxcXRhdXhQTUxXbE1RdzJUNERzMUhwdWRubm9ZaHYwR2MySGR4c2RMeHpSRng3VGhkMkpZNlRzVEg5eGNiRWw3V3U3bWxSQ2gwRE9SdFU2Z2N0Zk43bkhGRDYzc192dUk5UkNtLW1KZm1VWTJzQWlSWkdOS2FtNTVjUDZBejdkbzdhaVhtdUJ1SnA1YmM?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Reflects on Wedding to Taylor Swift
 
@@ -42,6 +90,14 @@ Stories: 80
 - summary: Travis Kelce discusses his wedding to Taylor Swift, sharing one aspect he wishes had been different. He describes the event as the 'biggest night of our lives' and mentions how a phone ban impacted the evening.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxPLWtHbC1XSk1xYVB1Q092STdCekw1dHhWYlNUTjlwOU9DekJlSmxtUHp1ckhZT3NyQkdyc2hwTXpjYkJQUzVzTXV1bzZpT3Vxa0YzUERfYlM2MjNFVGpmMHJJLWpWRWNxSUd4SjJRWGtmZGxRNlBjbkpMR3ZiOVdfMzRUNGZOdWltTnNiVGt2a0ZMRDFoNEVCU2dsbkhpSzFRRVhNcEtVeWs3V29F?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Consulted Taylor Swift Before Dog's Appearance in Ad Shoot
+
+- first seen: 2026-09-02 19:45 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce sought Taylor Swift's approval before bringing their pet dog to a Tommy Hilfiger shoot. This gesture highlights their consideration for one another as they navigate their relationship.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxNSWZfYVZhM3htYnBpSFd0Z2NEWHBVMmhodEUxRV9uWXZweXFuc3VNUVYxb0duY3pjVnhfa1dRSURpMEwtUXlaUUFhandmdTNqNlN0V3RFRzhiWmNIYmpDNkFjVnJKNEhIT0NBajFDNzFfMjlvdlQwZVVVc090cWVEbGRjQkc2cDg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Purchases Ohio Estate for $5.35 Million
 
@@ -83,6 +139,15 @@ Stories: 80
 - sources:
   - [unverified] extratv.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPZ3BHeC1ha1JtVXJJcHRZajB4SW5aNktETS1iT0V6WGdzVkZsS0NGTFVnUTdjU2RsNGQtX2tJYzhEMDAwY3Vyb2ZDazFQU2RqZGIzNHhoM2VUTFZ4OWkwdFQ3a1RPdVE2Um1YN0E3ZkdNaFVhRDlTUTEwbXJKaVppeUpSZFVmZGNMS2Y5WUFndENuZEtpN0FWUE1wYi00VXVpc2lsSExB?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Travis Kelce Reveals Name of His and Taylor Swift's Dog
+
+- first seen: 2026-09-02 13:35 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce has confirmed the name of the dog he shares with Taylor Swift, sharing enchanting details about their pet. The news highlights a personal aspect of their relationship.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxOcWxNMTBqNGtCQWl4YUVXR3JjNF8yM0VVTF9Pdi13QmdlcWg4N3hCQkZnNVhHbnMwaEZycW9aQm1GQzRnLUZGRTJ5VWFsZ0VtOGN6WGdMR2RZeEU1TEJyWTVjOEgta3I5RHpFZW5xRzM3ZTB5WXFFRXJZTjhKTy1PTkpYS1BQR1c0b1NjSHR0eDJGTzBQQWg3cnk4ZGRPZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] E! Online — https://news.google.com/rss/articles/CBMioAFBVV95cUxQVDROV19iUWtIelA3QXJTLVdBWm11eXdxRkF2dEY2YXlTRnlKazJQQkRCNE1tZllNNjdvcGQ4NG1tbXlJZ1hkQV81WG1nNU9sbDRVRkdIdjhpMjhGQlhRcFRyWGRoWkhBR0dpbFJ6SWlTZ2hlb2pHN3AtSTlHUWl2VTd0aGJsMTdwa0FoR2MwVFRHSi1UWkFvMFMzQU1lZFZM?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Travis Kelce Discusses Wedding Plans with Taylor Swift
 
 - first seen: 2026-09-02 13:35 UTC | category: relationship | importance: 7
@@ -106,14 +171,6 @@ Stories: 80
 - summary: Travis Kelce has opened up about his wedding to Taylor Swift, describing it as an 'insane' and 'magical' event that took place at Madison Square Garden in July. He referred to the occasion as the 'biggest night of our lives.'
 - sources:
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/travis-kelce-wedding-taylor-swift-podcast-new-heights-1236688034/
-
-## Travis Kelce Reveals Name of His and Taylor Swift's Dog
-
-- first seen: 2026-09-02 13:35 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has confirmed the name of the dog he shares with Taylor Swift, sharing enchanting details about their pet. The news highlights a personal aspect of their relationship.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxOcWxNMTBqNGtCQWl4YUVXR3JjNF8yM0VVTF9Pdi13QmdlcWg4N3hCQkZnNVhHbnMwaEZycW9aQm1GQzRnLUZGRTJ5VWFsZ0VtOGN6WGdMR2RZeEU1TEJyWTVjOEgta3I5RHpFZW5xRzM3ZTB5WXFFRXJZTjhKTy1PTkpYS1BQR1c0b1NjSHR0eDJGTzBQQWg3cnk4ZGRPZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Introduces New Family Dog Wendy with Taylor Swift
 
@@ -143,7 +200,7 @@ Stories: 80
 ## Travis Kelce and Taylor Swift Buy $5.35M Lakefront Home
 
 - first seen: 2026-09-02 05:45 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 21
+- verification_status: corroborated | source_count: 23
 - summary: Travis Kelce and Taylor Swift have purchased a lakefront home in Bratenahl for $5.35 million. This acquisition highlights their high-profile investment in real estate.
 - sources:
   - [unverified] WKYC — https://news.google.com/rss/articles/CBMi3gFBVV95cUxOcHZ1QnZLeEx6TkRHenhJaFhvUGx1TFBzTG5LZU01NDJnMEdaMExXUFBMX1psa2FGOFFfZEhLY0pGQXQ1ZGxrUW5IVmJManVGemk4QUV5NWZrNVlIWHUtVDhyQ0N2WUQycnRSTk02aktxSFI4dU15cWtUeUFBZ2xsVVFJYmYzeEdWSXo4cHpPcWhkay11cXRJSVVvaW5PTjBQdFZxX2J1QTlBdm5xZUhxSmxFS09PaTBRbmQ3MnJDcXlDLXd5YWpaelBzbkY1OHF6UVBEcm4zZjkxM3NReHc?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -167,6 +224,8 @@ Stories: 80
   - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE5tMUNXZkhXckxQaklZSUlHWkFzd2JoLVNka0E4X2NxN0M1VnhjLXU1NVI3eG8tMmNOYjdDZUp1NUhPbmNsekNudDJhWjc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] wtsp.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPX1FQTk4tOVJUOFBRbWFpbVZqUHRNd3RXdTZGb1Vrb2ptVE4xS0EzNC1YLXdaT0pVZ1N3bFJ6YV90N2hfWlZmY1VldVIxWmFBRDMxS1FBb012OVlKdWtJeG5wSXMzTjhKSGtyVk9fRW5RWWpYZ3QxZmJVVHA1YlFaVHpudDJIWGFIallEUldmZDVmUjBFYWJmSzRfSXY3QUU2M2EtVXl6MWthOHhucFYwMWk1Y3l0MzdFSTZQb0pR?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] ESPN — https://news.google.com/rss/articles/CBMijwFBVV95cUxONW8wb0c2S1NrOHJNSGhmOFV4a1BMc3N0OFdLejNxZXhJWmZ6dWRUT2VjUU5MRVhFSC1ZQ1duc0FlMFBTNVpPVjhqRk9FOUpsMzJiMm43UFdvTUgzeWFvZW5oY3h1amJkck0zb2JBbjlfU3RmVkJuUERyZ0lGcnBWTkNOc3V3X1RFVzdOdktoWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KGW — https://news.google.com/rss/articles/CBMivAFBVV95cUxQM3liSTZJbldyUFRrb3k2cmRlOW0zZW12WjdINkVYU1hlaWw4cHRGRjVpd212T0EzanRMVlJ6LWVjWFk2LXlSWkFENlpnMHdWazlUdkxPRWdjd3lrWDlkQUppaDFPWUJERjZJdGw1amFTektQc3llVzVjeVJhRVI5cWVMOC1Oa3pjYUQwSm9JbU1qR0tNREVfWjdZZlJ4ejYzNDNTMDZnSGtTZ3ItY3Z4SEpEZ3dpLUZnVVRkZQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] NBC 7 San Diego — https://news.google.com/rss/articles/CBMi-AFBVV95cUxQUWtpZkstbXZlUmJfX1ZLV09KTFlpVDNJSXZCaU5ldkVfa2VuUUxxWVU3d1ZaMGdDZ2U4Vl9XWWJMZDNoWU1nZzRyd0szaDl1UkczX1p1ZnJvOVZBMlBzYTlQQnlZb3Y1SDJYaXZBbXJ5UmZnUmx4NHpFUHFuZjJwLTVJX0pEb2U5NzEzVkYzQ3hPVmRhSXZRclpWMFlGeFVqQVgxbzMtaDAwMlRzMXZiWmRDZ1NhbnFBODRsYm5tcUtBSWQyMGVsSjhlTDBFaDBfY3dJNkNFdk1QSlhTTmRpd2s2VGRxY1FmZEUxOWhNdEZtOHQ2OFJnUNIBgAJBVV95cUxPRUg1MXJWMm16Ylp3UlYtNUoxTjNUZWQtVS15VlVvdjZCakNyZDlRRVpFR3VyMUFKR1JqNVBJUDRzeldEdnhmdGw4emZ2NnAxT1ZLenpxRkxGX2szQTlBSlZaRFgxN0duMXVkT01veXlobGRrUUVVZDVhV1VjVTVkeC03N1RrbVdKajgxU2VhSnNLZ1pBVWNfcmx2S2o5TE1vS29VNDg2LWM0WllsZjN4SWRzVFRLbTBhNXdLR3oxekstSjRWMlJaZlhVbHU4Q01PR2pMZm9tT0hqa0p5Y25kbnF5Qm5xclFhQkVvQU5GRlV1UDFEV0RoeGJIa3pWWmln?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Reflects on Milestone Achievements in Nashville
 
@@ -676,44 +735,3 @@ Stories: 80
 - summary: A player who drew attention from Taylor Swift during a recent event is officially unemployed following a series of layoffs. The situation highlights the intersection of sports and celebrity culture.
 - sources:
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMijgJBVV95cUxNZUoxQmw3SFFzUkdnUEdSUm14S05fVGpQWFR2M3VrNzhGT0Zuc2dqbGZ6YjZGci1GMThZZy1CbG5tQWF0WUhEaUJIWWxLWDhubkdpaW1ZQnJTVEhhaG1WSWhCbHFMc2lTVzFXWGNhdG5wSHBHS3FTanlCWVVKc1dhZzBad2xncWgxQ1UtdjlHWC1jbzdFMVdxN1gybXhNR1lack5HSkdtUkZuR1d6RmtPd0hoQXJqSXMwZjRLQ09IWEItLVZmemd5eFJmVTQxNzhzYW56U010NHpaSFZpRE01cGtXdHFYUkYxR2pmYVg0M0dWZkhzZXJsbzk3OFVvWkRKaXJUOW5oLVBvUWFCWUHSAY4CQVVfeXFMTXVZcHItWC1sWkVLVi0zaXFtYWg4bjJpMGxsdzRRRHBrOGJMX2c5TTZHTlBoV0pmMWhfN2hnWHdXZ3pUMGJNcnhaQWZzZ3N1a0NnOEhmeUJ0N2dIenh1bXozZnhHblhtci1ab2Uwa3pndjJQT1pqYkxlRGRqbmZpSTRGNlcySXlZYWJ3bVRQcGdaZENKM2FBMXdRZGpMdDdGR3Q0Q1hSYWE3cV9fZWRzU0FyUWQzUGZPQVhOdXRYV1BKa0xDRjQ5WjlfaURtVUJCUXNqY2M1MUdNbnlyS2NVUGplMndIRS1RcnRoV3lWQTkzNVlrTmFybXE1aTZTbndKN3pLWTZMNU9mQzN3cVBB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Nike Caitlin 1 Sneakers to Feature Taylor Swift-Inspired Friendship Bracelet Style
-
-- first seen: 2026-08-30 19:48 UTC | category: fashion | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: The latest colorway of Caitlin Clark’s Nike Caitlin 1 sneakers will include customized bead and charm details inspired by Taylor Swift's friendship bracelets.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/sneaker-news/nike-caitlin-1-friendship-bracelet-release-date-ih7423-300-1239175022/
-
-## Taylor Swift Donates $50K to Injured Mother's Fundraising Effort
-
-- first seen: 2026-08-30 19:48 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has contributed $50,000 to a fundraising effort for a mother who was seriously injured while saving teenagers on the roadside. This donation highlights her charitable efforts and support for individuals in need.
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxNTEw0dW81d0RkZl9SQnBVVTRoLTdYT2REX0xoVk9pMkhXb2xOb29YSFdBY3N0MHA1WFhmZktoWVd3VGJuNE40ZWJ2bWI2RTB3MWpya3NwVkdvUVM4dlNkUFZzUEM4azd2X092Z2NYaVplNFBvdDcwaFVGVTdfbG5ScEcwdTZmUEgxdmFvaVQ4b1ZkdDFoZlVxM1dGMm9mQU0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Fans Theorize About Taylor Swift's Next Move Based on Color Meanings
-
-- first seen: 2026-08-30 19:48 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: A discussion among fans is underway, aiming to decode the meaning behind various colors associated with Taylor Swift and what they might signify for her future moves. Theories are circulating widely within the fan community.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-color-theory-explained-new-music-1235617057/
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMipgFBVV95cUxNNUhjV0JZdDk2U1NzSlh3WkdETExVcjFRQlQ0ZlBKaDZBWW5OWHpNTFFVeFF3bmo4bTZFRHlDa2lLbFhodmV3X01IaUFCT2UwRlREMnZqVUl2Vi1ENnd1OTVicktmNlo3SW9wLURVNTVHS1BYc1lSRGY0elVSOHNjdk83YmhmWmVHODZEcVI3cjhQc29GOFBWXzdyUU1TTklRVklPZXdB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Mentions Taylor Swift and Travis Kelce's Wedding at MSG Show
-
-- first seen: 2026-08-30 19:48 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: During his performance at Madison Square Garden, Harry Styles made a reference to Taylor Swift and Travis Kelce’s wedding. The mention occurred as part of his set, drawing attention from fans and media alike.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOSEM4ZUVUNW02YXRDeWYxTHM5amQ3d1RNLUQ1UFNlQmpERUFDd3VSb3RKME5DVnBxbEtTU3JSc0J3VzZDSzZKSHQyNVV4dWxXY0xoQnpIaVdXVThUbFhDTVNCYmw2Q0d6Q1ZIc0h4REozMXZXLUFhRmtFM2w4N0Z5RTNqbGFaWHFTazJUTnc1ckZEaXljeENib1B6Tmx4SDlLRTY1aTNKbDFfTms1ZENDcl9KVWlHSVJXOEJF?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Donates to Injured Good Samaritan
-
-- first seen: 2026-08-30 19:48 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a donation to support a good Samaritan who was injured in a crash. This gesture highlights her philanthropic efforts in helping those in need.
-- sources:
-  - [unverified] WPRI.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQYTliWlpaZXAyc3g1NlRfNzFkMkxmMEVCakdRUnEzWDJnWHJScnpXWDF3SHdzTlZXTTd3LUFKbGRQcTVOUVFhVmVFeG9LbW9tQ0ZqRXJkaExFZGVBYWVBQVdVbWU5MmdZRjJfLUhjQ3Z6Z2IwUkdjUXJCV0hhWjk2ZlVVQmtPbFVBQm5senFsVy1SYTlSLWtz?oc=5&hl=en-US&gl=US&ceid=US:en
