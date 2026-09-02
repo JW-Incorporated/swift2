@@ -5,32 +5,31 @@ by design: [Karen](../scripts/content-engine/README.md) (the Content Integrity
 Engine) is **read-only** and never edits content; **Kevin** proposes/applies
 fixes but never files Karen's tickets and never runs or modifies Karen's engine.
 
-**Target topology (Tier-2 T-10, prompt-file landed 2026-08-31 — cutover
-pending, see below):** Kevin is consolidating from **four scheduled cloud
-routines** down to **two**, both on Joey's account (fleet policy D1=B;
-registered in [`docs/agents/runners.md`](agents/runners.md)):
+**Target topology (Tier-2 T-10, cutover landed 2026-09-01, HUMAN-ACTIONS
+#38):** Kevin runs as **two live triggers**, both on Joey's account (fleet
+policy D1=B; registered in [`docs/agents/runners.md`](agents/runners.md)):
 
-- **Kevin — daily desk** (`agents/runner-prompts/kevin-desk.md`), once daily:
-  runs Stream 2 (user digest) and Stream 3 (eng triage) every day, plus
-  Stream 1 (Karen solver) on Sundays only — one clone, one charter read, per-
-  stream failure isolation (a failing stream is logged; the run continues to
-  the next).
-- **Kevin — S3 comment radar** (`agents/runner-prompts/kevin-stream3-radar.md`),
-  hourly 06:00–22:00 PT, skipping the overnight dead hours — unchanged by the
-  T-10 consolidation; it stays a separate, faster-cadence trigger.
+- **Kevin — daily desk (S1+S2+S3)** (`trig_01GH3EMWdDwwKpx2GCRnCYM5`,
+  `agents/runner-prompts/kevin-desk.md`), once daily at 15:13 UTC: runs
+  Stream 2 (user digest) and Stream 3 (eng triage) every day, plus Stream 1
+  (Karen solver) on Sundays only — one clone, one charter read, per-stream
+  failure isolation (a failing stream is logged; the run continues to the
+  next). First genuine end-to-end fire was 2026-09-02.
+- **Kevin — S3 comment radar (cloud)** (`trig_01LaSLx4qzbsz68E6uRLkyDd`,
+  `agents/runner-prompts/kevin-stream3-radar.md`) — unchanged by the T-10
+  consolidation; it stays a separate, faster-cadence trigger.
 
-**As of this writing the cutover has NOT happened.** The prompt file above
-exists and is correct, but applying it requires `RemoteTrigger` access
-authenticated to the target account, which a headless repo session cannot
-reach (`docs/agents/runners.md` § "Kevin — daily desk consolidation" has the
-exact config + cutover sequence for whoever has that access). **Until that
-cutover runs, the live fleet is still the four separate routines described
-below** — S1 (weekly, Sundays, per the sustainment throttle already in
-force), S2 (daily), S3 (daily), and the radar (hourly) — all on Joey's
-account, and this section's "target topology" is aspirational, not current
-fact. Once the cutover lands, update this paragraph to drop
-"target"/"pending" and record the date, per this doc's own rule that stale
-governance text is a bug.
+The old standalone S2-digest and S3-triage triggers were disabled (not
+deleted — history preserved) on 2026-08-31 as part of the cutover. **One
+old trigger is deliberately still live:** `trig_01QEvYmKcpyDJJ8ec81aBjCV`
+("Kevin — S1 Karen-ticket solver (cloud)", weekly Sundays 11:17 UTC) —
+per HUMAN-ACTIONS #38 it stays enabled until the new desk trigger's first
+real Sunday fire (next due 2026-09-06) is confirmed correct, at which point
+it gets disabled too. Only the old trigger's own creator-session (or the
+`claude.ai/code/routines` UI) can flip it — a same-account agent session
+gets a hard `RemoteTrigger` denial otherwise, confirmed 2026-09-02. Until
+that Sunday check happens, do not assume Stream 1 has fully cut over: verify
+against HUMAN-ACTIONS #38's status before treating it as closed.
 
 Before 2026-07-12 this ran as a **session-scoped Claude Code cron** — the
 cloud routines are more durable (survive session death). The radar still
