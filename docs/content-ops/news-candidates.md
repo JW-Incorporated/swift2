@@ -25,7 +25,35 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 74
+
+## Taylor Swift Reflects on Milestone Achievements in Nashville
+
+- first seen: 2026-09-02 05:45 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article discusses Taylor Swift's significant early milestones in Nashville, marking 20 years since her career began. It highlights her journey and impact in the music industry.
+- sources:
+  - [unverified] iHeart — https://news.google.com/rss/articles/CBMixAFBVV95cUxOb3hUU1RXREJJVXdTX1VIWDFYNVJnQ3JycF9nWjBzZEpTd1YzSWxLeXJORWtKQjhnME5Ibm9FTmxFc2d3aDh4SDIwazByVnN1ZHlQbFJrQWxRQld5czJtSUhfLVBMU21YVVBCOHkyekp3cDllbkFGb1ZBd3I2RFg2cE1oSE5lVEhnbllFMFR2WUpVVE5EeEVMcTRtcFlHa1NlUTFoekFxVEQ1Y1ZWbnJGMmlYeXV3dzlHeUpULVNzZnJ0d3Yt0gHMAUFVX3lxTE44cFN6YlkzQlh4NmwxYzRvWVQ3dDdTZHhyOEhmclJCU0ttYmhHOVhBcnk0YmJ5STZ3QWJmUS1HWkpNM2l1NG05dFd3V041VkdZeVptR1FRMnQ4QmdaalNDZnpVRkVvRVJoSWx1dmZqSXhQT0FKWlAzZEVXbU1EbklYRUxDb2IyZ2M3ZXlWYjZ2TUE4ZjBjNVZGY3h2RV96QlF0QzlFaVZycElYYmlSU1JEN21Qelhad21UcVZxaDhTN3RVMm00VkVrVG13YQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce and Taylor Swift Buy $5.35M Lakefront Home
+
+- first seen: 2026-09-02 05:45 UTC | category: business | importance: 6
+- verification_status: corroborated | source_count: 5
+- summary: Travis Kelce and Taylor Swift have purchased a lakefront home in Bratenahl for $5.35 million. This acquisition highlights their high-profile investment in real estate.
+- sources:
+  - [unverified] WKYC — https://news.google.com/rss/articles/CBMi3gFBVV95cUxOcHZ1QnZLeEx6TkRHenhJaFhvUGx1TFBzTG5LZU01NDJnMEdaMExXUFBMX1psa2FGOFFfZEhLY0pGQXQ1ZGxrUW5IVmJManVGemk4QUV5NWZrNVlIWHUtVDhyQ0N2WUQycnRSTk02aktxSFI4dU15cWtUeUFBZ2xsVVFJYmYzeEdWSXo4cHpPcWhkay11cXRJSVVvaW5PTjBQdFZxX2J1QTlBdm5xZUhxSmxFS09PaTBRbmQ3MnJDcXlDLXd5YWpaelBzbkY1OHF6UVBEcm4zZjkxM3NReHc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] wtol.com — https://news.google.com/rss/articles/CBMi5wFBVV95cUxNbHVidWN3YTNKdzZjUDhyS25GNER2bllNU1BaanpYT29RLWZvM1ZHNDcwLUoxdDdHMEliS0FKQWtFeGlSc1FDanpjUmNQNFZOelRkS2tETW5zdEp1b0lXWFZVdHF5RVFYSXZ4RFZmTVpGd010Y3JsWUxrUTNmVU5FWGFwNzg1Ny16VGdGZHR3eFQ3Mk9iVkFXMW1RTE5ibUhIdVc0bkRtLTMyMG9VUVB5U3Z3UjFqODNHNkctMTV5TVhObWdOT2hnWGRPOGtKRFdPUXlfTHlPNzlVTTlRVFFVcDRCVDVyQ3M?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] News 5 Cleveland WEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNYUF2ZlNQLTBWX25RTmktY2Y2Zng1aUVrRVVOY3ZJR3FHOXlyek94UkFZSzluMmFlNkkzczVwY2JiYkwxQ3pYaHVlc3M0ZUVJVi14TDhmVG5oMks2SHhVeGdtOEQ1WVB4SXdLY2dCZ2NlMHhHVktXY19XTnhVczBxdm9sXzQ3ZXdqR21LVFppc0RkanZlTEl6YzNJTHcyZzFabjFpNW5aNTNWTm8yQ1BLd0UzMmF1TkFHc2l1UnlkNXhjUzlmNEIwQnhBUEw0TjFHU3c?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMijAFBVV95cUxQaEFzZFA4TnZJeVEwOS1GSS1PcUx6TzJvS1R5LUdoME5iYzZGY3lvRHY1WGpTNW13b2wxSmxXVFpzWUU2RFRmeHpBNGRTMHNVQUxEaXpuUEpGbzdKWmpCY0RoV0FzcDB2TmNfQjB4R2hfZEljUlF0SldVcmxuMTgwRkp0SEFZYkNuY3h6Xw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxNdkx2c1c0c3d1ZE55VzFYbjVIeUJXSDFNSDRGZFBQQng5TmxhajlQWUhQYmVLZkRvd1Z3M2pvZkFXV2JvbWJONVZOR21BMWhNQ216UDNBV05BQUpuSHpxeHlBV0ZxUmZuR2FOUW0zV0pHMXcwX1R6a2ZPZ2lpbnl5UjF1SkZWRTg3UmZzRG05ZnlvYUxEaExZZU02SjdmZHFkRk9RNQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Purchases $5.3M Home Before Wedding to Taylor Swift
+
+- first seen: 2026-09-02 05:45 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has purchased a $5.3 million home in Ohio prior to his wedding with Taylor Swift. The acquisition comes as the Chiefs' season approaches.
+- sources:
+  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOd2xSb01ZTklGM213TzdVTDlPMVFUY2FlblNMTnVOVUdVcGE3SVNOd0ZGYzdfaTRuNmNOQnMteXZSVGVIR0RrYmpYOEc5QVl4cXl6VGdXTGtXcGFhVksyenN0bk0wVlN0ZV91RkMxanVVNHN4OGVQekQzR3VocHJ0NHlUVEo2WDdRYkRTNmp1MU1SVE56UXFReWVKLS1lT1hTYnBSMXNhWnA5S2V1Q0wxY1BiR0pMRUZ5bXQ4?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 20-Year Journey From Opry to Pop Royalty
 
@@ -175,9 +203,11 @@ Stories: 71
 ## Travis Kelce: Football Star Excels as Fashion Ambassador
 
 - first seen: 2026-09-01 14:07 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 16
+- verification_status: corroborated | source_count: 18
 - summary: Vogue features Travis Kelce as a multi-faceted figure in the fashion world, showcasing his influence beyond football. His role as a fashion ambassador is highlighted, along with his passion for being a dog dad.
 - sources:
+  - [unverified] National News Desk — https://news.google.com/rss/articles/CBMinwFBVV95cUxPTWVrUmpSYXF0YU9JWGpIMUItNThwMnBjX2VKcWt2M3JnakltTjUxTERUaTg0RjFOdklQSnZHWjJjRjRTMklqMjJZMlBsQmxYREl1QmNraWV3VXNrOGVLQVU5Tmx5SXZjQWhYY0x4QnRGMXBDamRfVzFhZVh4TURLUHZKWVptcWYwMzdyem5PSTEyempWSGluOXpwMDNuQVE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KFOX — https://news.google.com/rss/articles/CBMikwFBVV95cUxNaGJjMkt6eXhzOWp6MUpWNmV5ZWE0UWlCUE5QY1B6RUR2a1FxN1pLMGxoX2JwdDJTMEpHVFMtYnZyQXJ2V2JBdUJ6SDJZRGhEODlGZ2JXQ19aelZiT05xWUNhaGdJN20tU1RNX1lCTExTVWZ0UEttNFVMMWloY2d1U3NEb1lIWVhNc3NOc1AxSF9vSFk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] HELLO! Magazine — https://news.google.com/rss/articles/CBMipgFBVV95cUxORkljTnZaZjlCQ2M3UmtLZXFRYUVpWWR3RWRQZnlYLWhEc1M2bkMyWW83N2ZnV0JKZjc3ZHpaX0taTHRBLWNrOXFHU1BDam11VlBIS19NbnhiQzFyaWVSWUVCb25HV2xNN1UyUjdYdWdicGtSVlM4dzZrT1E5RWRjcjJjNWRkdTV4MUNyNTVQSUZqUU1HbDlRRGhQUjRGdTRDeTFLa3pR?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Vogue — https://news.google.com/rss/articles/CBMidEFVX3lxTFBnYXhNeTQ5RUFldXVNRnJvMndSek5sNWJ0cl9USENGN283VThvYUR6bjROcllUeTNWZFN5aTk0RkRTdjRENmZ1UzNhelFacG9jLXZsZ195dGZ1WWltN1FYMnlWUUhVYmFRZ2RqN3RJbnZjRjEz?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxOaHpIZThHaVBhUUdDeHg2Q0xRelJsUU1mXzJBOWluLUthNm84d1JUc3docXBMOE5HcGJaODA5TUFMWDltbEh4dEVHTmRQNnFlbnNxckh3R2w5SXl2eWVyZ2ROVnA3RkFhbVZRdFZVVVM5Qkxub1Q3cVNNeG1acFpXT3FKajV4ZFdKeVNWR1JVNzFXQmxxRndTZjRvZjBOXzVBN2hqMTRR?oc=5&hl=en-US&gl=US&ceid=US:en
