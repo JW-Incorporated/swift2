@@ -25,7 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 80
+
+## Travis Kelce Consulted Taylor Swift Before Dog's Appearance in Ad Shoot
+
+- first seen: 2026-09-02 19:45 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce sought Taylor Swift's approval before bringing their pet dog to a Tommy Hilfiger shoot. This gesture highlights their consideration for one another as they navigate their relationship.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxNSWZfYVZhM3htYnBpSFd0Z2NEWHBVMmhodEUxRV9uWXZweXFuc3VNUVYxb0duY3pjVnhfa1dRSURpMEwtUXlaUUFhandmdTNqNlN0V3RFRzhiWmNIYmpDNkFjVnJKNEhIT0NBajFDNzFfMjlvdlQwZVVVc090cWVEbGRjQkc2cDg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Reflects on Wedding to Taylor Swift
+
+- first seen: 2026-09-02 19:45 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce discusses his wedding to Taylor Swift, sharing one aspect he wishes had been different. He describes the event as the 'biggest night of our lives' and mentions how a phone ban impacted the evening.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxPLWtHbC1XSk1xYVB1Q092STdCekw1dHhWYlNUTjlwOU9DekJlSmxtUHp1ckhZT3NyQkdyc2hwTXpjYkJQUzVzTXV1bzZpT3Vxa0YzUERfYlM2MjNFVGpmMHJJLWpWRWNxSUd4SjJRWGtmZGxRNlBjbkpMR3ZiOVdfMzRUNGZOdWltTnNiVGt2a0ZMRDFoNEVCU2dsbkhpSzFRRVhNcEtVeWs3V29F?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Purchases Ohio Estate for $5.35 Million
+
+- first seen: 2026-09-02 19:45 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has acquired a new estate in Ohio for $5.35 million, located near his childhood home. This purchase highlights Kelce's investments in real estate.
+- sources:
+  - [unverified] realtor.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNRlVicXlGcWVWd2pGRklkV0dBblFsMkgzS3p1X01rMW5TRmk0V2k2Sl9BTEdyMVFiVU9DYmxxaEhkcnpIcklOQWo0aWVPZlQ4YmoyQ2UtSjhFZHNFUTVxNTdlZ3hWUWJaMC1ub0pRNkt1WnlPZ0hwODVHMGRQdzFuQnF0QWVULXRCMk9SN19FVlJONzRVN29kNHhJWXVleTctMUFWeVFpYTFPb3JwVmhv?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce and Taylor Swift Break Wedding Tradition, Says Jason Kelce
+
+- first seen: 2026-09-02 19:45 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce shared that Travis Kelce and Taylor Swift chose to skip a wedding tradition, which he described as making the celebration 'so fun.'
+- sources:
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxNZTFMQ2ZTbkpUOHBxOEt5UGpCUVlxVVhzb192MlRXVzlJemdycnhicnVIQTBWSnZFbV9CVUEyOXRsNTJsVEFuQmoybG5SNWgyRXN2RGZhOG5GVVFEZ0ZNbHZRZWpVU1o3RmNPcVJOYXhFMG9MSEd1Z2NXeGhlX1hCeEFlSDQ0RXQwSUlZOFZuaFRuQ3RWV0JHQjVROA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Acquire New Mansion in Bratenahl
+
+- first seen: 2026-09-02 19:45 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have purchased a new mansion in Bratenahl. This news highlights their relationship and recent developments in their personal lives.
+- sources:
+  - [unverified] Axios — https://news.google.com/rss/articles/CBMilgFBVV95cUxQeG9RX1hqM2E0RW40eHhXQ2RRWVBDeVNkSG9nWUZQLUd3ci1jRVNVU0VpdHdjNVcySHpTbE41akZ6YzB3bXJGVk5XdDJlLWdWcmhRSEtwX2tEYkJnSnlZSWpFY3dHMFhRRzVkNkFBYzIzUTVhX21jRGNzdW14T2ZTV1JDNkR2QlJQNnNiS2VLRjBjRERRR3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Beyoncé's Favorite Fashion Label Offers Fall Sale
+
+- first seen: 2026-09-02 19:45 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Beyoncé endorse a fashion label currently featuring a sale on fall staples. The collaboration highlights the popularity and appeal of the brand among celebrities.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNNnc2aUtQTWw4TnFkN255NGFDb3kyOTFSYlFRd0pFQnBEYkxYdG1RamM0YlRkenhXd0djWjc1VWZUUUFhNEdXOHhrbFQyVGlqN2JEWnVoeThLeXB0dWFLWEVnSVhOSkFORll4ZXRVWFpUTDFya3FVYWh3ZDFVSGZ0MUZxUEhrcE5Wd1BZcHJrLV9WeEhTb0tyR0NfZmlqREU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares New Wedding Details with Taylor Swift
+
+- first seen: 2026-09-02 19:45 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has shared new insights about his wedding to Taylor Swift, calling it a night they will never forget. The couple's recent nuptials continue to attract media attention.
+- sources:
+  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPZ3BHeC1ha1JtVXJJcHRZajB4SW5aNktETS1iT0V6WGdzVkZsS0NGTFVnUTdjU2RsNGQtX2tJYzhEMDAwY3Vyb2ZDazFQU2RqZGIzNHhoM2VUTFZ4OWkwdFQ3a1RPdVE2Um1YN0E3ZkdNaFVhRDlTUTEwbXJKaVppeUpSZFVmZGNMS2Y5WUFndENuZEtpN0FWUE1wYi00VXVpc2lsSExB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Discusses Wedding Plans with Taylor Swift
 
@@ -42,14 +98,6 @@ Stories: 75
 - summary: Travis Kelce discusses the choice of Madison Square Garden as the wedding venue with Taylor Swift. Details about their decision have been revealed in a recent interview.
 - sources:
   - [unverified] E! News — https://news.google.com/rss/articles/CBMikwFBVV95cUxQZDlFSVJCbWsycTNpenpkN3hTV3N0eGs3M3Bkd05KWXR1TGJMbDFrdVR5RXpRTkpaNjVEcFc5X3ZEM1poSnV4M3dDZjlPSDFrWUZqOEVOMDhyYS0xTHFFZ1RYTnRWVmlBQU4wSmVndER0Ty1QNTM5THVNMVRRREZ4bXF2czhqSjZBRGtZd093c1U2c1k?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses His Wedding to Taylor Swift on Podcast
-
-- first seen: 2026-09-02 13:35 UTC | category: relationship | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Travis Kelce shared insights about his wedding to Taylor Swift during the Season 5 premiere of his podcast "New Heights." He expressed his excitement about the event and the special moment of having Adam Sandler officiate the ceremony.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-sandler-officiating-1236849216/
 
 ## Travis Kelce Shares Insights on His Wedding to Taylor Swift
 
@@ -83,6 +131,43 @@ Stories: 75
 - sources:
   - [unverified] WSJ — https://news.google.com/rss/articles/CBMiggFBVV95cUxNMGJjS2VBNTB5Zms5aF95QnRqZFVvQk5fTTQxcFFaeExTUTFXZEdZWHdUeGFIeUdZZHFHRG9iR0poTjNGSWxlNEJEbEI1RFBSWUtHZ1pUNHY4NnM0Ymt1LURZVGtvU3o4UGo5YVVYYmNBR29jcmVMeTVkUEhzYkFpdkVB?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Travis Kelce Discusses His Wedding to Taylor Swift on Podcast
+
+- first seen: 2026-09-02 13:35 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce shared insights about his wedding to Taylor Swift during the Season 5 premiere of his podcast "New Heights." He expressed his excitement about the event and the special moment of having Adam Sandler officiate the ceremony.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-sandler-officiating-1236849216/
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQRnBEM0dhNG5waUMtWWlnMExCdjhDZlJBODRkdzZQYVF2ZFRGN2ctWXd1MXA5bGI4b3ZDUTRPZDRqY2FUeEUwT3lrMmFMSHQ3SGE4bWtqRTlrZnRNOUc5S0tLMkJIdFBvcFM0TDRkbVFGYklnbUE0Zkd2dEhRSGRCRFZMYlRhczUydzFYUG1IVDd1aVpnUVN6OUl1Wmg0QV81OXdGNnFOS0Rldw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce and Taylor Swift Buy $5.35M Lakefront Home
+
+- first seen: 2026-09-02 05:45 UTC | category: business | importance: 6
+- verification_status: corroborated | source_count: 21
+- summary: Travis Kelce and Taylor Swift have purchased a lakefront home in Bratenahl for $5.35 million. This acquisition highlights their high-profile investment in real estate.
+- sources:
+  - [unverified] WKYC — https://news.google.com/rss/articles/CBMi3gFBVV95cUxOcHZ1QnZLeEx6TkRHenhJaFhvUGx1TFBzTG5LZU01NDJnMEdaMExXUFBMX1psa2FGOFFfZEhLY0pGQXQ1ZGxrUW5IVmJManVGemk4QUV5NWZrNVlIWHUtVDhyQ0N2WUQycnRSTk02aktxSFI4dU15cWtUeUFBZ2xsVVFJYmYzeEdWSXo4cHpPcWhkay11cXRJSVVvaW5PTjBQdFZxX2J1QTlBdm5xZUhxSmxFS09PaTBRbmQ3MnJDcXlDLXd5YWpaelBzbkY1OHF6UVBEcm4zZjkxM3NReHc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] wtol.com — https://news.google.com/rss/articles/CBMi5wFBVV95cUxNbHVidWN3YTNKdzZjUDhyS25GNER2bllNU1BaanpYT29RLWZvM1ZHNDcwLUoxdDdHMEliS0FKQWtFeGlSc1FDanpjUmNQNFZOelRkS2tETW5zdEp1b0lXWFZVdHF5RVFYSXZ4RFZmTVpGd010Y3JsWUxrUTNmVU5FWGFwNzg1Ny16VGdGZHR3eFQ3Mk9iVkFXMW1RTE5ibUhIdVc0bkRtLTMyMG9VUVB5U3Z3UjFqODNHNkctMTV5TVhObWdOT2hnWGRPOGtKRFdPUXlfTHlPNzlVTTlRVFFVcDRCVDVyQ3M?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] News 5 Cleveland WEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNYUF2ZlNQLTBWX25RTmktY2Y2Zng1aUVrRVVOY3ZJR3FHOXlyek94UkFZSzluMmFlNkkzczVwY2JiYkwxQ3pYaHVlc3M0ZUVJVi14TDhmVG5oMks2SHhVeGdtOEQ1WVB4SXdLY2dCZ2NlMHhHVktXY19XTnhVczBxdm9sXzQ3ZXdqR21LVFppc0RkanZlTEl6YzNJTHcyZzFabjFpNW5aNTNWTm8yQ1BLd0UzMmF1TkFHc2l1UnlkNXhjUzlmNEIwQnhBUEw0TjFHU3c?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMijAFBVV95cUxQaEFzZFA4TnZJeVEwOS1GSS1PcUx6TzJvS1R5LUdoME5iYzZGY3lvRHY1WGpTNW13b2wxSmxXVFpzWUU2RFRmeHpBNGRTMHNVQUxEaXpuUEpGbzdKWmpCY0RoV0FzcDB2TmNfQjB4R2hfZEljUlF0SldVcmxuMTgwRkp0SEFZYkNuY3h6Xw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxNdkx2c1c0c3d1ZE55VzFYbjVIeUJXSDFNSDRGZFBQQng5TmxhajlQWUhQYmVLZkRvd1Z3M2pvZkFXV2JvbWJONVZOR21BMWhNQ216UDNBV05BQUpuSHpxeHlBV0ZxUmZuR2FOUW0zV0pHMXcwX1R6a2ZPZ2lpbnl5UjF1SkZWRTg3UmZzRG05ZnlvYUxEaExZZU02SjdmZHFkRk9RNQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] wkyc.com — https://news.google.com/rss/articles/CBMi7AFBVV95cUxOVlZDaXo0RjFEclh2SnluQlJmWmgwa3ZXNUtUbnRtMDczVmxUVkRqTy1lMExoU3BZVF9lYVFVNW9hM1hBUnhBOTdqSGloN2lTV0V3RUVsN3ZoNDFMcDZjQ3N6dERjc0FXTTRTcEd1aURyVnJWeGQtd3ZBblVYdXFFT1ZURDkwUUJYcEh6UEtaQ3RJSVV5Q0RTVl9NS0dBSnFKWDFIX1RuNDNkdVNuV1ZmcFk5YTRHc08wNlk4Y0V4N1JZRklZVkR2ajR1MGo2YmNhRnoyWnJlaTRjMzB2bEFnWE9xd2VXbk5YcWZTVA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxNZ20tc2RTUHJsM19vUFgxbUhlbHQ3dkdfY2lkYVRfUDl3Y2RmaWotODkza2VxMW41dVVWd25BdzQxS3NycEotM0hVaXd3elRRb0NiMFdQMnhveno1eUpzOTN0RjRmN0VwYXRhcWItQnh0YjNOeTdGRk9qVHJyeWtZS21wS3RPZU8tSElHV09WRG5ZZ0V1aWk0RW9lTE9hTkdsN2Q3dm52MHl0MEQ2eFNUbnFYeG1TdE51UjF3NXd1dm9LX2tsQ2xUNVVB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiyAFBVV95cUxOX1NrSDF2LWFYTDlBcDVNSFJtMHdtOFVNTUtIM0p2NnpRSDdPVWZLMnFFWHpveDFoWEpjS0tIV3F3V0s3c3l0Y043VjBRb00xMkJFWkt5aWZNb0tOWUFnSWJKNm5hclFKcGFCN1VwMGZZUHRYLWQwYmZNY1owWTQyOWN2OFdpNE1Ma1BDQS0tNGRheUpwWUxhS2VlX2tpdE5pVXRQcmhDRnZBYTM3d3NKVkNWRDN2VDhMZC1OdUFudTVTUDZHVUFVQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMipwFBVV95cUxNaDhNcVpJNlh6bFJEdzRyN0pTbnVCXzhLUndxckU2cWR3UHRKSVd3QzExa1pFYllic2JUMDRFMEV3eVRKT1FJOFFHNXpvR3lNQ2ZybEpiX2pmSklSclNzU3JoRER2WEw3RkNBb0UzczBhUDZSalJYdWZGYndrbWdPMVQ3R3BrZ25xNzl2RkxpZjZ0a3MzaTlocVJVRlBHTzdlTVA1ZlFIY9IBrAFBVV95cUxQTjliSGF6OTdRQW5KaUdOMG5HUHA0MkJKbXNGcGM5MUZIbWhvVkgzem5jckljaDdVNGNHNXNJaHdFUHZZT0VGb2tGRTJRUnBtS200bWhDamI4Q3ZzZnFwQm43YTAzRnVlVmkwclZRRFBWVWlQSXlpR3BuUkw3YTBkcUJCeEZ6d21CTjdRR2V0SS1JMWJmX2FJOV9RcnJQM0dTd0NQb3VyUnRFckZu?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Akron Beacon Journal — https://news.google.com/rss/articles/CBMi2gFBVV95cUxOekhaRE1CeUVEeXFYNEFCSXo3SC1HQjZXUmVjSEpLVVZiWjNxMzVpMmFmWXRsMGpVaEJuQXIwN2ZOeUdfUUl1S1VUWURTRGlYSk42c1QtY0lZWW54Z3o1VEZ1THNDV29nNzRBUERzcFFuMDZ5ZGRfNjYxbWpSUHE2WENRTTFYUV9kaHNMNG8wMnVPd1UyeVBYR0JhSkM2NnBWb0NqRHF4SU40R0hmdW1WWDEtWUxVcTJNaWRGeUZ2MDBETXE0c3lTVnpuSEs1aGJhSDlyQzFpSlV4dw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/why-travis-kelce-taylor-swift-chose-msg-for-wedding-1235619693/
+  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMitAFBVV95cUxPRFNZZEVnSUVhWXZlU2wtN2dpOUt2VGJ2ZUM4QkpGZ3hhVzZxdXkwTE84c3h2bG51cTNMeHJ3X1I1Rk9FVjdsODQwMno1WHVEb0VYd1RwNGx6LU9xcHpHb2pjU3JWVE9SaGNIQ2NPNndMblF3NWZES0VOQ2hTUVVldkh2RUp3UnpjUmFIOVJSMU5NUEFicWhBOW8tSk5rVFpFS3VMbFNhYkN5T3h3bFJwNlRzUlE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ESPN Philippines — https://news.google.com/rss/articles/CBMiiwFBVV95cUxONEVBSTdJbXZPTEdjMzh6U1pETEplNDViLUp0MzBPTElCcC1OMk13d3NWUHIyQ3VZNWJKWlkyZ2pQaG1aTVQ5Q3drRk9WNGNZTURiWDRKTGwzdE1zczkzV3hfdDkzWXdveEhhcm9zTXFhUkFSTWxZandxRXV1ZFEzQnJLUTB3TGVlbTlJ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] fox4kc.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOdmNKa09OTUt0aUpraGNXX1Z4dElYUDFBb0xSeko5a3VaVk1PSHdORF91ZEZVV0xLNUM2QTJCRGI3MHgtT2lJN2NiUV91c2xOQlBMc1Vra1daM1FKNFVCVmNTSG10NVk3U29IVUM5UVhpMmR0Y2RxeWI1N1p3UmRsU2t5QXk3S1FwSXp5bjF5blVXd25kZHgtMndjeFNkZ9IBowFBVV95cUxONkpaeUxvS3E2VHJhcVJrNHAxbTF3cE5mRzlfcllON0pEZGVmRnY1bVVoZ2RaXzlaYnFPZ0dFVzhRRnNJU1Q5Q2tEYzlFUGl0NUJfMFFqM2NPQnQ5RGFmN21fOFJmNW1GQk81ci1hbkx3YVN2X2RBY3VyRmwyWmY3bTdDM3VaSWZxcjB1UTd0NVlrc3VocXJ4eTJxU1VqV2hvYkZz?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Columbus Dispatch — https://news.google.com/rss/articles/CBMiuwFBVV95cUxObVE4TkxWTDRSUkJSUktCYmQwVjh0VVBmTlhOaTgtY3B5eEo0OFJYd2ZENTdFMktjOTlCXzdfbTFyTjYtU25vd1hTUjk2cHpaV2NKamhBNTAwRUpGUHlrM0NlendpN3FWZXBjUE4yV1NwanF6VzVwS2J5Y1Z5ajlRRG5NN2JUNlltcHNQTjZMRVdOc1FLeFI4VkRqX2FwTE5BUVFldHpob3pLOFRnSDYybU1JcVRaVzdocXFn?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxPbDZXLWs0QXVUOWNnaEFqSWtYTnJYUWgxVUtEbWN2TGhhUDZaRXVkaWJ3NGJ4X0J2V091ZWt1LXk4ZElZcEFrWWtGemM1ZDV0Z0h0X09TSkEzb282VDkyTnhCRTVBTnVZeU01NFIxbTFxTnZJa3RaSTVvRF9LM0Q4SFFBOTVoRWF3RkdZVkx1dTFCNXdpYXNHRUxUR2RpSGxkLU5BUG9fQ3JsdmkzYXc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] NBC New York — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPMlc1RWppSWRQbVkyS3NvTzdZM0tyYW9ibFYwSm50WTlXcTF1WldReklJWS0yZlAtYktKMUJKZm9tdDBmdDJBRVBFZUR2TTl4WUl4X2hyTlhXUzlMYlpBZlZWUDl3dTJwekVHa0FKbENwNUFzalExaGVzOXJLZnpXYmRPQ3ZiX2gzY1dmWXZSTWZrNUtFSUNGa3VXNnZ3UTA3X21jcXlob3JEa3hUQXE1Ry1iSjJ3TFZPdHFjOE9JamJhZVXSAcsBQVVfeXFMTmRiT2lqOGY3VWhobVhvZVhBc3B6ZHlGZEdvWVpGMENLZG44em90WmNGTUxhS1VIM2FWTjRONjRvNGJSX3F0OUptR3B1NDF2MGtYdE1RSHhyTVFCdnNJeVlDc0djYXVSQ2QwTTRrWXptNm5pd21yTTlDZzVZN1RiamZZTzVwSm5idEhiVi1fVVhQZ09TOVRubEduMVVVV1RNdnprTXg1WVdFdnBJN0dsc3BGU3RmenpDSzNEcDJRVm55clExc1BCcE1sOXc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxQYUxFSkV1YlIwd3BVTkJOUnozUjVZOTFoWl9jMkVtLWJLV2N1VG5vdURYS3RRQXBrWVVMRU5aWDh4V1VBR3ZHeXpnWm55RjF6MVNjMnZFeE5yTHNlLTk4QmRqdVJlMWNFRnpBU2lvaENLSmtldzVwTHlCMVJGcVFxUF9DWmZzZWRKd0ZXZFp4d011UdIBkgFBVV95cUxOTmRicW1vMVdyQ1EwZDF5MXRDbzVtYmVtcVoyVkhMT3lMemJGTzcxaUpWaG1CYnl2QUhGZFJvcFBsc2NiNWpDVXl5elczNl9IX3BxU0EtdUVrSVA5bnFGRFBHek9XRzBoNng0SjlIbTZNdDJ3OVB5THU5ZWpLcVVUOW82bUd0WGY1d05abS1iRHVOUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE5tMUNXZkhXckxQaklZSUlHWkFzd2JoLVNka0E4X2NxN0M1VnhjLXU1NVI3eG8tMmNOYjdDZUp1NUhPbmNsekNudDJhWjc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] wtsp.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPX1FQTk4tOVJUOFBRbWFpbVZqUHRNd3RXdTZGb1Vrb2ptVE4xS0EzNC1YLXdaT0pVZ1N3bFJ6YV90N2hfWlZmY1VldVIxWmFBRDMxS1FBb012OVlKdWtJeG5wSXMzTjhKSGtyVk9fRW5RWWpYZ3QxZmJVVHA1YlFaVHpudDJIWGFIallEUldmZDVmUjBFYWJmSzRfSXY3QUU2M2EtVXl6MWthOHhucFYwMWk1Y3l0MzdFSTZQb0pR?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ESPN — https://news.google.com/rss/articles/CBMijwFBVV95cUxONW8wb0c2S1NrOHJNSGhmOFV4a1BMc3N0OFdLejNxZXhJWmZ6dWRUT2VjUU5MRVhFSC1ZQ1duc0FlMFBTNVpPVjhqRk9FOUpsMzJiMm43UFdvTUgzeWFvZW5oY3h1amJkck0zb2JBbjlfU3RmVkJuUERyZ0lGcnBWTkNOc3V3X1RFVzdOdktoWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Reflects on Milestone Achievements in Nashville
 
 - first seen: 2026-09-02 05:45 UTC | category: music | importance: 5
@@ -99,22 +184,6 @@ Stories: 75
 - sources:
   - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOd2xSb01ZTklGM213TzdVTDlPMVFUY2FlblNMTnVOVUdVcGE3SVNOd0ZGYzdfaTRuNmNOQnMteXZSVGVIR0RrYmpYOEc5QVl4cXl6VGdXTGtXcGFhVksyenN0bk0wVlN0ZV91RkMxanVVNHN4OGVQekQzR3VocHJ0NHlUVEo2WDdRYkRTNmp1MU1SVE56UXFReWVKLS1lT1hTYnBSMXNhWnA5S2V1Q0wxY1BiR0pMRUZ5bXQ4?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMipAFBVV95cUxPbzlkdTh4YUNmdzJoYnZ2bm1adWU2NzgzZEU0NFpGTk5GdXpNU1BzaC1yYWFjbUR4RTFVN09iN2NMSmN4OFg5VDRlelFCdHpTOWJwNlRESXJzVzJpUlVhczBjWXhNWllKeGp1dHVsM3p4UGNZZzNWM09Ed29DX2pQLTBLeUlPb1lfVWplX09sUlZ6bENpZ1pyLVMzT3ltSUljRjBUeQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce and Taylor Swift Buy $5.35M Lakefront Home
-
-- first seen: 2026-09-02 05:45 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 9
-- summary: Travis Kelce and Taylor Swift have purchased a lakefront home in Bratenahl for $5.35 million. This acquisition highlights their high-profile investment in real estate.
-- sources:
-  - [unverified] WKYC — https://news.google.com/rss/articles/CBMi3gFBVV95cUxOcHZ1QnZLeEx6TkRHenhJaFhvUGx1TFBzTG5LZU01NDJnMEdaMExXUFBMX1psa2FGOFFfZEhLY0pGQXQ1ZGxrUW5IVmJManVGemk4QUV5NWZrNVlIWHUtVDhyQ0N2WUQycnRSTk02aktxSFI4dU15cWtUeUFBZ2xsVVFJYmYzeEdWSXo4cHpPcWhkay11cXRJSVVvaW5PTjBQdFZxX2J1QTlBdm5xZUhxSmxFS09PaTBRbmQ3MnJDcXlDLXd5YWpaelBzbkY1OHF6UVBEcm4zZjkxM3NReHc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] wtol.com — https://news.google.com/rss/articles/CBMi5wFBVV95cUxNbHVidWN3YTNKdzZjUDhyS25GNER2bllNU1BaanpYT29RLWZvM1ZHNDcwLUoxdDdHMEliS0FKQWtFeGlSc1FDanpjUmNQNFZOelRkS2tETW5zdEp1b0lXWFZVdHF5RVFYSXZ4RFZmTVpGd010Y3JsWUxrUTNmVU5FWGFwNzg1Ny16VGdGZHR3eFQ3Mk9iVkFXMW1RTE5ibUhIdVc0bkRtLTMyMG9VUVB5U3Z3UjFqODNHNkctMTV5TVhObWdOT2hnWGRPOGtKRFdPUXlfTHlPNzlVTTlRVFFVcDRCVDVyQ3M?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] News 5 Cleveland WEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNYUF2ZlNQLTBWX25RTmktY2Y2Zng1aUVrRVVOY3ZJR3FHOXlyek94UkFZSzluMmFlNkkzczVwY2JiYkwxQ3pYaHVlc3M0ZUVJVi14TDhmVG5oMks2SHhVeGdtOEQ1WVB4SXdLY2dCZ2NlMHhHVktXY19XTnhVczBxdm9sXzQ3ZXdqR21LVFppc0RkanZlTEl6YzNJTHcyZzFabjFpNW5aNTNWTm8yQ1BLd0UzMmF1TkFHc2l1UnlkNXhjUzlmNEIwQnhBUEw0TjFHU3c?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMijAFBVV95cUxQaEFzZFA4TnZJeVEwOS1GSS1PcUx6TzJvS1R5LUdoME5iYzZGY3lvRHY1WGpTNW13b2wxSmxXVFpzWUU2RFRmeHpBNGRTMHNVQUxEaXpuUEpGbzdKWmpCY0RoV0FzcDB2TmNfQjB4R2hfZEljUlF0SldVcmxuMTgwRkp0SEFZYkNuY3h6Xw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxNdkx2c1c0c3d1ZE55VzFYbjVIeUJXSDFNSDRGZFBQQng5TmxhajlQWUhQYmVLZkRvd1Z3M2pvZkFXV2JvbWJONVZOR21BMWhNQ216UDNBV05BQUpuSHpxeHlBV0ZxUmZuR2FOUW0zV0pHMXcwX1R6a2ZPZ2lpbnl5UjF1SkZWRTg3UmZzRG05ZnlvYUxEaExZZU02SjdmZHFkRk9RNQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] wkyc.com — https://news.google.com/rss/articles/CBMi7AFBVV95cUxOVlZDaXo0RjFEclh2SnluQlJmWmgwa3ZXNUtUbnRtMDczVmxUVkRqTy1lMExoU3BZVF9lYVFVNW9hM1hBUnhBOTdqSGloN2lTV0V3RUVsN3ZoNDFMcDZjQ3N6dERjc0FXTTRTcEd1aURyVnJWeGQtd3ZBblVYdXFFT1ZURDkwUUJYcEh6UEtaQ3RJSVV5Q0RTVl9NS0dBSnFKWDFIX1RuNDNkdVNuV1ZmcFk5YTRHc08wNlk4Y0V4N1JZRklZVkR2ajR1MGo2YmNhRnoyWnJlaTRjMzB2bEFnWE9xd2VXbk5YcWZTVA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxNZ20tc2RTUHJsM19vUFgxbUhlbHQ3dkdfY2lkYVRfUDl3Y2RmaWotODkza2VxMW41dVVWd25BdzQxS3NycEotM0hVaXd3elRRb0NiMFdQMnhveno1eUpzOTN0RjRmN0VwYXRhcWItQnh0YjNOeTdGRk9qVHJyeWtZS21wS3RPZU8tSElHV09WRG5ZZ0V1aWk0RW9lTE9hTkdsN2Q3dm52MHl0MEQ2eFNUbnFYeG1TdE51UjF3NXd1dm9LX2tsQ2xUNVVB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiyAFBVV95cUxOX1NrSDF2LWFYTDlBcDVNSFJtMHdtOFVNTUtIM0p2NnpRSDdPVWZLMnFFWHpveDFoWEpjS0tIV3F3V0s3c3l0Y043VjBRb00xMkJFWkt5aWZNb0tOWUFnSWJKNm5hclFKcGFCN1VwMGZZUHRYLWQwYmZNY1owWTQyOWN2OFdpNE1Ma1BDQS0tNGRheUpwWUxhS2VlX2tpdE5pVXRQcmhDRnZBYTM3d3NKVkNWRDN2VDhMZC1OdUFudTVTUDZHVUFVQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMipwFBVV95cUxNaDhNcVpJNlh6bFJEdzRyN0pTbnVCXzhLUndxckU2cWR3UHRKSVd3QzExa1pFYllic2JUMDRFMEV3eVRKT1FJOFFHNXpvR3lNQ2ZybEpiX2pmSklSclNzU3JoRER2WEw3RkNBb0UzczBhUDZSalJYdWZGYndrbWdPMVQ3R3BrZ25xNzl2RkxpZjZ0a3MzaTlocVJVRlBHTzdlTVA1ZlFIY9IBrAFBVV95cUxQTjliSGF6OTdRQW5KaUdOMG5HUHA0MkJKbXNGcGM5MUZIbWhvVkgzem5jckljaDdVNGNHNXNJaHdFUHZZT0VGb2tGRTJRUnBtS200bWhDamI4Q3ZzZnFwQm43YTAzRnVlVmkwclZRRFBWVWlQSXlpR3BuUkw3YTBkcUJCeEZ6d21CTjdRR2V0SS1JMWJmX2FJOV9RcnJQM0dTd0NQb3VyUnRFckZu?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 20-Year Journey From Opry to Pop Royalty
 
@@ -648,26 +717,3 @@ Stories: 75
 - summary: Taylor Swift has made a donation to support a good Samaritan who was injured in a crash. This gesture highlights her philanthropic efforts in helping those in need.
 - sources:
   - [unverified] WPRI.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQYTliWlpaZXAyc3g1NlRfNzFkMkxmMEVCakdRUnEzWDJnWHJScnpXWDF3SHdzTlZXTTd3LUFKbGRQcTVOUVFhVmVFeG9LbW9tQ0ZqRXJkaExFZGVBYWVBQVdVbWU5MmdZRjJfLUhjQ3Z6Z2IwUkdjUXJCV0hhWjk2ZlVVQmtPbFVBQm5senFsVy1SYTlSLWtz?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Makes Joke About Taylor Swift at Madison Square Garden
-
-- first seen: 2026-08-30 14:24 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 7
-- summary: During an event at Madison Square Garden, Harry Styles made a joke referencing Taylor Swift. The comment was reported by The Independent.
-- sources:
-  - [unverified] The Independent — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQMURrMXVMa2tzZWZWWlZ4MnhvUFIwWk5TRm1VcFJ5Z2RPZ0tEcjZCRVNOUDU2NzRETmFTak9vNEdLUGF1dWNQeUpjejQ4S2NyRDc5cWJmV0VfR2hNbHJpRmZRSjJwcEJvT3I3Tkc3WGI5cHozVlM3SDE0WUxCYXd4WXAyQm94QkJHeEx2UTdrU3A1TTBPZEVhc3V5SERhWHF3akE5NTBnekZGYUoyVzBEdndaZ3VnNW9xMlRERTVGNjhFUDZ1aWRxWg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Northeast Times — https://news.google.com/rss/articles/CBMipgFBVV95cUxQdkgzb2J5MGJrT0NUejB4VkZrbnBvMDEwZXZaa3QzdVdRVWJuYVZhQUx2OFZieWYxX0NHU1Ftc3JiYjE2WkFVWVdIbXF6WUxQa05DYTM4RF9oOW5NYXZXbm5JcC1ETWptdVdyZTJoRUU4VjNDMWxTSkdBN2FhWWNwZGgySl9ZaEJlWl93TXNjNnFhbUU0UmF2c29SMWJqQllRT1U1Yk1n?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOR3NCV1pmTnFOZk0xaUo0c3J3TWlWWFM5RV92aUhZWTk0UmRCc2JHNHBVODFtc3Q2MU4wcThETDlGMG5ESUpCak1fWFZXc2Zic3doWmVLRGg2WUxXYXdMSGFWRVpBd1dGd2hHUW81blg4QmZIb3F2NmRhQzZOS05FRDdqRGJvc3pPSDZ4aGZhbmdzdTRrZGp5Zl9RcnRCVXVpZE1ocDQyczhDOU9fbjJmbGE5UW1iT0t3WU5FYjg5MEc2OFE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi8wFBVV95cUxNMl9BTmdjTnQ5ZHRiMXB6dVZMRHFWOXdOT0ExZU5LSFJQdUJfSnlpTjc1UU00eFgtTVoxV3g1eDQ0Tjhmdmx2T2ZMcklyM0RrUFMzNm5Ec2lCSzFtbkdoNm1PQUdvNTlWMTFPZ0VZOVRkSlFRaTNoMERpVzJ0czVCR0lHR0JJN2twVFFqakFuUkxGMkdZSnVrcnNwMVhfZzB6NGtXbWE1ZUZpdS1WdVEtaDdhTG1pM3VyOTZhWFduc3RBaUxHWkJrX1FSY0JYUnFkSXRoV19aYkQzQ2doMllEeF9MdmJjcU5WdENKZVN2OU1FYknSAfMBQVVfeXFMTklWVXBRenh0SUZRN19BTVdTc2ZsNTBuNllUREZaME9WbDJjZER6eC1yTGlHczdYbFhOenJ0MG93MUVSNlZuaWVVZXFiUF9qYUN1RlYxRndjZXZza3hvQjdDVjdJTGNsVk1WaUZsTERqWmV2ZkhqM044eW51Y1NDMDEwYkdtNGZBZ1BYaVJPVnJ2Ul9FbnBHSkJTRFE5QjdlVDhnWmZLZ3lHOVFVcVZzQnRqaXljRjNfUTFqak4wV3dscXZqYTZydlJJN0xQMnhQSFI4U2RZSlRON1lIZTdTM2dVbW5vS1ZSVUJiLUR0VzAydms4?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPMmhuMHUzQUsyejN1X0N5RDdvVng1aHRzNUZTcG5vUm1ENlBtX0UzVlN1cTVTald1NDZ1ZUlpRVIzWk8teldvamhubzBERWltak0zY0FHVS1ocjhQOGNnSllFR3FvY19RS09FaUtFOTJidVBLeG9lX1dacXppZTBKN3U2RU5RNG4zeklMSGxwVmpnYUgtX25Qay0wWkNYaDhYRXJ5dXlhc2tfUnRkbjJnNHBGRkM4d3I0NzBqaVRCV1RKSzZjcldSeTNzY3VxZHB2NzdPbQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikAFBVV95cUxOTnl2UFRfSm5YdHIwYmxmQXZtVXo1bHdpd0cwckdqRE9uaFZjc0swR3FQRVdSbDB5aVdNRDlsS3dtU2pTR1VrV3lTejVLWFloZ1dMMlVDNkJwM29EYjVPSXA1NExlOWNuV2w1MV9NdXZjdGY2ZlBsNDJwdmtFYy15cGQwNGJzNmNpaTBqOG5QLTk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WWD — https://news.google.com/rss/articles/CBMiswFBVV95cUxPZHpya2FFdnlHaExibWI0MmtfdXBuY211UEstWnFSQjZYLTZhR19jZ05abERmeHJqQ2hsVjU1Rnk0M21TMWtkYVUxbnRsaTlobk5laWFIMGY5SDY0UXk4VXFCVTI3YVZMOFFmd2ZpQlB4RjdaVUV4OXNXZ1FOdkVha2p4anNjaEt2VXJ3eGxZOWkyby1pZnFZWFFXOFhib194QXZNQkNjRWRQUFBrN1J0VWllYw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Comments on Taylor Swift's Wedding at Concert
-
-- first seen: 2026-08-30 14:24 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: During a concert at Madison Square Garden, Harry Styles made a playful remark regarding his ex, Taylor Swift's wedding. The incident drew attention from fans and media.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNaTZlc1RYVEtwWnZwQWtfVGJFY0loTjl4QXBJcUZKamZtQXhVTmpfRXRBWURCWUZKVVlpT2hBd1VwR2FxREY5MGZCTUtodVktcWJMS2pxYmloNVRMWHBkd0FIbkVHRkxFUS1rV2dkd2NfTUxid2g4emc1Zk9QbGNDRkFzaHRmSGI2TENEWnVUdEp2ODZXTC1icnlVM2JDNnJZYmRkcEJDX25faF9Y?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNM29QY1FCeGMzd2VJdXdzRHBxVW1zZGw4cnJncmRYZjY1WVJFZm1vLUlVREgybm5MZ3ZneE1RZWpYSmN3bmZucHROY0FMa0NFai1VM0s0azUzelFNTE9lZlRGVkZ2Um4zR0xBaHlFZXd2S25TS3FhT25SbUdOZVZZTWNMR3NCMjJrNmxUZGpoV2QyNkhkakMzdW9NYU0xYU0?oc=5&hl=en-US&gl=US&ceid=US:en
