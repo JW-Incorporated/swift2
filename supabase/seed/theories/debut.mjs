@@ -77,8 +77,14 @@ export default {
       claim:
         'Her very first single is a reference folded inside a reference — named after a country legend, built around one of his songs, and hiding that song\'s title in the liner-note code. The clue-planting that became her signature was there on record one.',
       evidence:
-        'Taylor wrote it in about fifteen minutes during a math class, singing "when you think Tim McGraw" to herself. Big Machine head Scott Borchetta talked her out of the longer working title "When You Think Tim McGraw" and down to just "Tim McGraw" — and naming a debut single after an established star, as one music scholar put it, was "a clever strategy" that handed an unknown sixteen-year-old instant "country music legibility." The song turns on McGraw\'s 2004 hit "Can\'t Tell Me Nothin\'," her favorite of his — and the debut booklet\'s capitalized-letter secret message for the track spells out that same title, "CAN\'T TELL ME NOTHIN\'." The homage is doubled: the name on the marquee, and the name hidden in the margins.',
-      confidence: 'reputable_reporting',
+        'Taylor wrote it in about fifteen minutes during a math class, singing "when you think Tim McGraw" to herself. Big Machine head Scott Borchetta talked her out of the longer working title "When You Think Tim McGraw" and down to just "Tim McGraw" — and naming a debut single after an established star, as one music scholar put it, was "a clever strategy" that handed an unknown sixteen-year-old instant "country music legibility." The song turns on McGraw\'s 2004 hit "Can\'t Tell Me Nothin\'," her favorite of his — and the debut booklet\'s capitalized-letter secret message for the track spells out that same title, "CAN\'T TELL ME NOTHIN\'." The homage is doubled: the name on the marquee, and the name hidden in the margins. Both halves are documented from primary material: the secret message is decodable from her own official liner notes, and "Can\'t Tell Me Nothin\'" is a real 2004 Tim McGraw single — the same confirmed, deliberate liner-note practice catalogued in the sibling entry.',
+      // confidence raised reputable_reporting -> official (CIE #3673): this is a
+      // specific instance of the 'liner-notes-hidden-messages' practice, which
+      // is itself 'official'/confirmed. Every element is documented from a
+      // primary artifact (the official booklet decode) rather than merely
+      // reported, so the sub-confirmed "not confirmed" banner was contradicting
+      // the confirmed outcome. Re-verified 2026-09-02.
+      confidence: 'official',
       outcome: 'confirmed',
       relatedSlugs: ['debut:liner-notes-hidden-messages'],
       sources: [
