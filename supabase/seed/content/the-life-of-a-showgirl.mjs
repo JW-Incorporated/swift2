@@ -3542,9 +3542,9 @@ export default {
             reportedOn: '2026-08-25',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-romantic-green-dress-005404690.html',
-            note: "A fan color-symbolism reading carried by entertainment outlets, not a report of any plan — the underlying source is Swiftie easter-egg speculation, so it rides at tabloid tier. Distinct from the TS13 (new album No. 13) tips above: this one points at the debut re-record specifically. Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if it goes quiet. No location.",
+            note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan — tabloid tier. Points at the debut re-record specifically (distinct from the TS13 tips above). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Re-verified STILL LIVE 2026-09-02: fresh Icon Sessions easter-egg cluster (PureWow, Yardbarker), nothing announced.",
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-25',
+            lastCheckedOn: '2026-09-02',
           },
           // Rumor Desk 2026-08-29 (news-digest, first-seen 2026-08-28): a fresh,
           // post-wedding data point on the same next-record thread as the TS13
