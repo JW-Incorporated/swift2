@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 import {
   Inter,
   Playfair_Display,
@@ -111,7 +112,9 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
+
   return (
     <html
       lang="en"
@@ -119,6 +122,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body>
         <script
+          nonce={nonce}
           type="application/ld+json"
           // Static, hardcoded object with no user input — safe without extra
           // escaping, but stripping `<` defensively costs nothing.
