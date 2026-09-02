@@ -25,7 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 75
+
+## Travis Kelce Discusses Wedding Plans with Taylor Swift
+
+- first seen: 2026-09-02 13:35 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shares details about his upcoming wedding to Taylor Swift, mentioning Adam Sandler's involvement in the ceremony. The couple's plans have gained public interest as they prepare for their special day.
+- sources:
+  - [unverified] consequence.net — https://news.google.com/rss/articles/CBMif0FVX3lxTE1hdEpiNHlNU01mbGhqa2RublF3NXExdG4wVGQ3NlhHU3BHemxxM0d0am9vSWxWUjl4TWlXSTRFeDlrRW9nUTRIcXRQcmhoMmVtMllFZWo2eWJmdU1SQ2JkSzc5cHdmcXI5ZDZfS0JTRnI2UEJvS1lfb1FNR1BGOUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares Reason for Choosing MSG with Taylor Swift for Wedding
+
+- first seen: 2026-09-02 13:35 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce discusses the choice of Madison Square Garden as the wedding venue with Taylor Swift. Details about their decision have been revealed in a recent interview.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMikwFBVV95cUxQZDlFSVJCbWsycTNpenpkN3hTV3N0eGs3M3Bkd05KWXR1TGJMbDFrdVR5RXpRTkpaNjVEcFc5X3ZEM1poSnV4M3dDZjlPSDFrWUZqOEVOMDhyYS0xTHFFZ1RYTnRWVmlBQU4wSmVndER0Ty1QNTM5THVNMVRRREZ4bXF2czhqSjZBRGtZd093c1U2c1k?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses His Wedding to Taylor Swift on Podcast
+
+- first seen: 2026-09-02 13:35 UTC | category: relationship | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Travis Kelce shared insights about his wedding to Taylor Swift during the Season 5 premiere of his podcast "New Heights." He expressed his excitement about the event and the special moment of having Adam Sandler officiate the ceremony.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-sandler-officiating-1236849216/
+
+## Travis Kelce Shares Insights on His Wedding to Taylor Swift
+
+- first seen: 2026-09-02 13:35 UTC | category: relationship | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Travis Kelce has opened up about his wedding to Taylor Swift, describing it as an 'insane' and 'magical' event that took place at Madison Square Garden in July. He referred to the occasion as the 'biggest night of our lives.'
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/lifestyle-news/travis-kelce-wedding-taylor-swift-podcast-new-heights-1236688034/
+
+## Travis Kelce Reveals Name of His and Taylor Swift's Dog
+
+- first seen: 2026-09-02 13:35 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has confirmed the name of the dog he shares with Taylor Swift, sharing enchanting details about their pet. The news highlights a personal aspect of their relationship.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxOcWxNMTBqNGtCQWl4YUVXR3JjNF8yM0VVTF9Pdi13QmdlcWg4N3hCQkZnNVhHbnMwaEZycW9aQm1GQzRnLUZGRTJ5VWFsZ0VtOGN6WGdMR2RZeEU1TEJyWTVjOEgta3I5RHpFZW5xRzM3ZTB5WXFFRXJZTjhKTy1PTkpYS1BQR1c0b1NjSHR0eDJGTzBQQWg3cnk4ZGRPZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Introduces New Family Dog Wendy with Taylor Swift
+
+- first seen: 2026-09-02 13:35 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has shared details about his and Taylor Swift's newest pet, a dog named Wendy. This announcement comes alongside mentions of their wedding, described as the 'biggest night of our lives.'
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxQRmMyS0Q1RFNEbGllTnVfcGdNbUJMUlB1eDh3dEFBS1lhbkJhRWNHaXFKYms1US1hUTUyWW5HdnZoNDc2c240MjQycWl2aV9BQkM5ZXlBR0t5MDRIWnBYNDlwd0M2ZmJhY0ZhTFN5THpxY2tIbkJqV3lrck4xN1pMSi1TeDRvdlRzYlBiRUNtQkJuLWQ4M0VwbDd3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Purchases Lakefront Property in Ohio for $5.35 Million
+
+- first seen: 2026-09-02 13:35 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has completed the purchase of a lakefront home in Ohio, acquiring the property for $5.35 million. The acquisition was reported by the Wall Street Journal.
+- sources:
+  - [unverified] WSJ — https://news.google.com/rss/articles/CBMiggFBVV95cUxNMGJjS2VBNTB5Zms5aF95QnRqZFVvQk5fTTQxcFFaeExTUTFXZEdZWHdUeGFIeUdZZHFHRG9iR0poTjNGSWxlNEJEbEI1RFBSWUtHZ1pUNHY4NnM0Ymt1LURZVGtvU3o4UGo5YVVYYmNBR29jcmVMeTVkUEhzYkFpdkVB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Reflects on Milestone Achievements in Nashville
 
@@ -35,10 +91,19 @@ Stories: 74
 - sources:
   - [unverified] iHeart — https://news.google.com/rss/articles/CBMixAFBVV95cUxOb3hUU1RXREJJVXdTX1VIWDFYNVJnQ3JycF9nWjBzZEpTd1YzSWxLeXJORWtKQjhnME5Ibm9FTmxFc2d3aDh4SDIwazByVnN1ZHlQbFJrQWxRQld5czJtSUhfLVBMU21YVVBCOHkyekp3cDllbkFGb1ZBd3I2RFg2cE1oSE5lVEhnbllFMFR2WUpVVE5EeEVMcTRtcFlHa1NlUTFoekFxVEQ1Y1ZWbnJGMmlYeXV3dzlHeUpULVNzZnJ0d3Yt0gHMAUFVX3lxTE44cFN6YlkzQlh4NmwxYzRvWVQ3dDdTZHhyOEhmclJCU0ttYmhHOVhBcnk0YmJ5STZ3QWJmUS1HWkpNM2l1NG05dFd3V041VkdZeVptR1FRMnQ4QmdaalNDZnpVRkVvRVJoSWx1dmZqSXhQT0FKWlAzZEVXbU1EbklYRUxDb2IyZ2M3ZXlWYjZ2TUE4ZjBjNVZGY3h2RV96QlF0QzlFaVZycElYYmlSU1JEN21Qelhad21UcVZxaDhTN3RVMm00VkVrVG13YQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Travis Kelce Purchases $5.3M Home Before Wedding to Taylor Swift
+
+- first seen: 2026-09-02 05:45 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce has purchased a $5.3 million home in Ohio prior to his wedding with Taylor Swift. The acquisition comes as the Chiefs' season approaches.
+- sources:
+  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOd2xSb01ZTklGM213TzdVTDlPMVFUY2FlblNMTnVOVUdVcGE3SVNOd0ZGYzdfaTRuNmNOQnMteXZSVGVIR0RrYmpYOEc5QVl4cXl6VGdXTGtXcGFhVksyenN0bk0wVlN0ZV91RkMxanVVNHN4OGVQekQzR3VocHJ0NHlUVEo2WDdRYkRTNmp1MU1SVE56UXFReWVKLS1lT1hTYnBSMXNhWnA5S2V1Q0wxY1BiR0pMRUZ5bXQ4?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMipAFBVV95cUxPbzlkdTh4YUNmdzJoYnZ2bm1adWU2NzgzZEU0NFpGTk5GdXpNU1BzaC1yYWFjbUR4RTFVN09iN2NMSmN4OFg5VDRlelFCdHpTOWJwNlRESXJzVzJpUlVhczBjWXhNWllKeGp1dHVsM3p4UGNZZzNWM09Ed29DX2pQLTBLeUlPb1lfVWplX09sUlZ6bENpZ1pyLVMzT3ltSUljRjBUeQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Travis Kelce and Taylor Swift Buy $5.35M Lakefront Home
 
 - first seen: 2026-09-02 05:45 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 9
 - summary: Travis Kelce and Taylor Swift have purchased a lakefront home in Bratenahl for $5.35 million. This acquisition highlights their high-profile investment in real estate.
 - sources:
   - [unverified] WKYC — https://news.google.com/rss/articles/CBMi3gFBVV95cUxOcHZ1QnZLeEx6TkRHenhJaFhvUGx1TFBzTG5LZU01NDJnMEdaMExXUFBMX1psa2FGOFFfZEhLY0pGQXQ1ZGxrUW5IVmJManVGemk4QUV5NWZrNVlIWHUtVDhyQ0N2WUQycnRSTk02aktxSFI4dU15cWtUeUFBZ2xsVVFJYmYzeEdWSXo4cHpPcWhkay11cXRJSVVvaW5PTjBQdFZxX2J1QTlBdm5xZUhxSmxFS09PaTBRbmQ3MnJDcXlDLXd5YWpaelBzbkY1OHF6UVBEcm4zZjkxM3NReHc?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -46,14 +111,10 @@ Stories: 74
   - [unverified] News 5 Cleveland WEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNYUF2ZlNQLTBWX25RTmktY2Y2Zng1aUVrRVVOY3ZJR3FHOXlyek94UkFZSzluMmFlNkkzczVwY2JiYkwxQ3pYaHVlc3M0ZUVJVi14TDhmVG5oMks2SHhVeGdtOEQ1WVB4SXdLY2dCZ2NlMHhHVktXY19XTnhVczBxdm9sXzQ3ZXdqR21LVFppc0RkanZlTEl6YzNJTHcyZzFabjFpNW5aNTNWTm8yQ1BLd0UzMmF1TkFHc2l1UnlkNXhjUzlmNEIwQnhBUEw0TjFHU3c?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMijAFBVV95cUxQaEFzZFA4TnZJeVEwOS1GSS1PcUx6TzJvS1R5LUdoME5iYzZGY3lvRHY1WGpTNW13b2wxSmxXVFpzWUU2RFRmeHpBNGRTMHNVQUxEaXpuUEpGbzdKWmpCY0RoV0FzcDB2TmNfQjB4R2hfZEljUlF0SldVcmxuMTgwRkp0SEFZYkNuY3h6Xw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxNdkx2c1c0c3d1ZE55VzFYbjVIeUJXSDFNSDRGZFBQQng5TmxhajlQWUhQYmVLZkRvd1Z3M2pvZkFXV2JvbWJONVZOR21BMWhNQ216UDNBV05BQUpuSHpxeHlBV0ZxUmZuR2FOUW0zV0pHMXcwX1R6a2ZPZ2lpbnl5UjF1SkZWRTg3UmZzRG05ZnlvYUxEaExZZU02SjdmZHFkRk9RNQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Purchases $5.3M Home Before Wedding to Taylor Swift
-
-- first seen: 2026-09-02 05:45 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has purchased a $5.3 million home in Ohio prior to his wedding with Taylor Swift. The acquisition comes as the Chiefs' season approaches.
-- sources:
-  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOd2xSb01ZTklGM213TzdVTDlPMVFUY2FlblNMTnVOVUdVcGE3SVNOd0ZGYzdfaTRuNmNOQnMteXZSVGVIR0RrYmpYOEc5QVl4cXl6VGdXTGtXcGFhVksyenN0bk0wVlN0ZV91RkMxanVVNHN4OGVQekQzR3VocHJ0NHlUVEo2WDdRYkRTNmp1MU1SVE56UXFReWVKLS1lT1hTYnBSMXNhWnA5S2V1Q0wxY1BiR0pMRUZ5bXQ4?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] wkyc.com — https://news.google.com/rss/articles/CBMi7AFBVV95cUxOVlZDaXo0RjFEclh2SnluQlJmWmgwa3ZXNUtUbnRtMDczVmxUVkRqTy1lMExoU3BZVF9lYVFVNW9hM1hBUnhBOTdqSGloN2lTV0V3RUVsN3ZoNDFMcDZjQ3N6dERjc0FXTTRTcEd1aURyVnJWeGQtd3ZBblVYdXFFT1ZURDkwUUJYcEh6UEtaQ3RJSVV5Q0RTVl9NS0dBSnFKWDFIX1RuNDNkdVNuV1ZmcFk5YTRHc08wNlk4Y0V4N1JZRklZVkR2ajR1MGo2YmNhRnoyWnJlaTRjMzB2bEFnWE9xd2VXbk5YcWZTVA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxNZ20tc2RTUHJsM19vUFgxbUhlbHQ3dkdfY2lkYVRfUDl3Y2RmaWotODkza2VxMW41dVVWd25BdzQxS3NycEotM0hVaXd3elRRb0NiMFdQMnhveno1eUpzOTN0RjRmN0VwYXRhcWItQnh0YjNOeTdGRk9qVHJyeWtZS21wS3RPZU8tSElHV09WRG5ZZ0V1aWk0RW9lTE9hTkdsN2Q3dm52MHl0MEQ2eFNUbnFYeG1TdE51UjF3NXd1dm9LX2tsQ2xUNVVB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiyAFBVV95cUxOX1NrSDF2LWFYTDlBcDVNSFJtMHdtOFVNTUtIM0p2NnpRSDdPVWZLMnFFWHpveDFoWEpjS0tIV3F3V0s3c3l0Y043VjBRb00xMkJFWkt5aWZNb0tOWUFnSWJKNm5hclFKcGFCN1VwMGZZUHRYLWQwYmZNY1owWTQyOWN2OFdpNE1Ma1BDQS0tNGRheUpwWUxhS2VlX2tpdE5pVXRQcmhDRnZBYTM3d3NKVkNWRDN2VDhMZC1OdUFudTVTUDZHVUFVQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMipwFBVV95cUxNaDhNcVpJNlh6bFJEdzRyN0pTbnVCXzhLUndxckU2cWR3UHRKSVd3QzExa1pFYllic2JUMDRFMEV3eVRKT1FJOFFHNXpvR3lNQ2ZybEpiX2pmSklSclNzU3JoRER2WEw3RkNBb0UzczBhUDZSalJYdWZGYndrbWdPMVQ3R3BrZ25xNzl2RkxpZjZ0a3MzaTlocVJVRlBHTzdlTVA1ZlFIY9IBrAFBVV95cUxQTjliSGF6OTdRQW5KaUdOMG5HUHA0MkJKbXNGcGM5MUZIbWhvVkgzem5jckljaDdVNGNHNXNJaHdFUHZZT0VGb2tGRTJRUnBtS200bWhDamI4Q3ZzZnFwQm43YTAzRnVlVmkwclZRRFBWVWlQSXlpR3BuUkw3YTBkcUJCeEZ6d21CTjdRR2V0SS1JMWJmX2FJOV9RcnJQM0dTd0NQb3VyUnRFckZu?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 20-Year Journey From Opry to Pop Royalty
 
@@ -203,11 +264,12 @@ Stories: 74
 ## Travis Kelce: Football Star Excels as Fashion Ambassador
 
 - first seen: 2026-09-01 14:07 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 18
+- verification_status: corroborated | source_count: 19
 - summary: Vogue features Travis Kelce as a multi-faceted figure in the fashion world, showcasing his influence beyond football. His role as a fashion ambassador is highlighted, along with his passion for being a dog dad.
 - sources:
   - [unverified] National News Desk — https://news.google.com/rss/articles/CBMinwFBVV95cUxPTWVrUmpSYXF0YU9JWGpIMUItNThwMnBjX2VKcWt2M3JnakltTjUxTERUaTg0RjFOdklQSnZHWjJjRjRTMklqMjJZMlBsQmxYREl1QmNraWV3VXNrOGVLQVU5Tmx5SXZjQWhYY0x4QnRGMXBDamRfVzFhZVh4TURLUHZKWVptcWYwMzdyem5PSTEyempWSGluOXpwMDNuQVE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] KFOX — https://news.google.com/rss/articles/CBMikwFBVV95cUxNaGJjMkt6eXhzOWp6MUpWNmV5ZWE0UWlCUE5QY1B6RUR2a1FxN1pLMGxoX2JwdDJTMEpHVFMtYnZyQXJ2V2JBdUJ6SDJZRGhEODlGZ2JXQ19aelZiT05xWUNhaGdJN20tU1RNX1lCTExTVWZ0UEttNFVMMWloY2d1U3NEb1lIWVhNc3NOc1AxSF9vSFk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] thelist.com — https://news.google.com/rss/articles/CBMie0FVX3lxTFBFSmhReW5UUHp6WTBDZXdubGZncmxDanlJQUV2UjFwNEtaZ0g2R2k1NXFpT1BOU3hzZXRJUDlidmw1eDI3VU1adjFrY2JlRWtGM1ZEZ2E2dlEyUDY4eFhlLUpEdWFFOFpOaVF0MTRDaEZYdzFnd1dMaU1OSQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] HELLO! Magazine — https://news.google.com/rss/articles/CBMipgFBVV95cUxORkljTnZaZjlCQ2M3UmtLZXFRYUVpWWR3RWRQZnlYLWhEc1M2bkMyWW83N2ZnV0JKZjc3ZHpaX0taTHRBLWNrOXFHU1BDam11VlBIS19NbnhiQzFyaWVSWUVCb25HV2xNN1UyUjdYdWdicGtSVlM4dzZrT1E5RWRjcjJjNWRkdTV4MUNyNTVQSUZqUU1HbDlRRGhQUjRGdTRDeTFLa3pR?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Vogue — https://news.google.com/rss/articles/CBMidEFVX3lxTFBnYXhNeTQ5RUFldXVNRnJvMndSek5sNWJ0cl9USENGN283VThvYUR6bjROcllUeTNWZFN5aTk0RkRTdjRENmZ1UzNhelFacG9jLXZsZ195dGZ1WWltN1FYMnlWUUhVYmFRZ2RqN3RJbnZjRjEz?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxOaHpIZThHaVBhUUdDeHg2Q0xRelJsUU1mXzJBOWluLUthNm84d1JUc3docXBMOE5HcGJaODA5TUFMWDltbEh4dEVHTmRQNnFlbnNxckh3R2w5SXl2eWVyZ2ROVnA3RkFhbVZRdFZVVVM5Qkxub1Q3cVNNeG1acFpXT3FKajV4ZFdKeVNWR1JVNzFXQmxxRndTZjRvZjBOXzVBN2hqMTRR?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -407,15 +469,6 @@ Stories: 74
   - [unverified] WABI — https://news.google.com/rss/articles/CBMipAFBVV95cUxQMXBQSUMzQTQ0TngtVExpVVdUNUNMbHpBYVRDOW50aHZJWElSQkI1ajJDVFQ2V2hoVkdpYVlrRUlKNjdNbnJtWklNU09YZjcwTTNLTTBPYnRKQlNQc2owc2JuTGNIbU05eldYSmU4bFBQNG5haUZWcC1DTU8ySXJaWkVPcEFLSVhJLW9qUUVodm5STXdGbzBFcVBGR1NUZjQwZHBLYtIBuAFBVV95cUxPQzJaT0lBd3ZzTTJfU1dHQTlBX1U3NnViNzhJLUdVVmNzNjNubWEtalpSaFZrM3JyUVN5V2ZHUVY2SXNqdjZSNko1NG9RWnJhcS1kbmVwRXNhNjJlSXJEWkxpTXBkbXI0Z3VTNC04T29vTXhrMm45LXpTbGNHeVFQQ2JkMGNvWjB2SUNyZjJPRGZ6VjNESlZOWTVodnVLZHAxSjNGRS1hUlMya1Z0dUMwSlFTX3BrUTB0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] WBTV — https://news.google.com/rss/articles/CBMipgFBVV95cUxPVGtDcEJ6ZkNZa0ZKc1BMdHduX0ZKTkdPLTZBc0RnSmt4emRPOUYxa3FZdGZCSkUwd2IxYlRXZC1lbEhoalVhVUYyN2tjWDU3aU0wNmNKbk5zam9UOU94Y0o0cEszSEhVckE1TnhuT0R6cExXMTdyOW1qZjkxVjVZdXFvSzhGOHU5VUtCdHR6enNkRnYyM0ZEZXdLcl9QREQ5ekVkOWpB0gG6AUFVX3lxTFA4clpkZkJvWFR3aTVTWF9rU0xsRVVmVW5SVjBXMUZiR1l4NElfa2hCVFpRaGQwLWMxUDVlbEhqZktRZkx1bVFoNjZabHkzSnVXMGloeEVhR3AwZ2V1TkVyM05nMTV1dXRHZ2V0LVRkdkFldE02RkRma0FHRTN0SUNEMzZpMk9wM2RZVlVKcTU1YzdNeTIwa3ZtZXpERFo1bDVBQlNpdllPc1pWcmdaelptRTgtY3ZFVVJVZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift and Travis Kelce face challenges with football involvement
-
-- first seen: 2026-08-31 17:02 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift's newly married life is reportedly facing some difficulties due to tensions arising from football commitments involving Travis Kelce.
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi5gFBVV95cUxNMFJIVDdqY0FyTGRFOXVJcEY3OW00WDF2dTZqTVRyWWRTU3dpQWRPXzdLdk51MlFtT0lKTVR1TDZqZEZsNlVadDRJbmo4VFo3YVpuS1Z6OHNjSzR0MkUyZXBVV2pieFFQcTVad0pqcVZyTS01Ykh6VVVMX3Z5UTRURHc0dEQ1cS1XQ1Z5TmhxMUIyNFdveFplQS01QnRBN0RLQV9xY0ZYRm5ZaGF5Z0RKano3UXd2Z09BdmJGUGt1cXdxOHZmZGVxeWY2SGdEMVlFSUdyQVFXVmFRbkZsMExfYzZRalFVd9IB5gFBVV95cUxQZUEyTGxaVDYzV21xenFGdmtyOTRnenJuTWV4ZTFnVkVWM1ZlelpBWHpBMUhROWNzSGQzUGlrZXlLUlVKdWt5UEdMSHo2aWZxendLZVp6a204MmVxN282VWlhZE5paExoYzhZQ1FKQmhLNDhIUkhKZDdQYUFWcC1BSUxEejROclZiRnNIREk2ZEY2VW9YT2pwVE1XRkMyd3pwTGoyME9lRmJ4R1M5WDk1T0dFRlAtSE85TVBWQnRKSm1hOVRSQXNnXzR2aUdUWjhmTENJNmFabktkajIwbUJtZkdxUDNzUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisAFBVV95cUxNZDBZTy05OTNNVGl6dXctSXRJQi11QU8tUUdMUHhHbjg3QVFhbk9aZDREMzJUQ3JDZXZxWFY2NnRoY0NXN05oQS1yTHRQd1VYUTJTcDRsVU9BMHZnUG1zU29jdHB2bVFPOHRYWko3eFBtVDNSc3VqSHNtX1lCWXMxaFJMbElGMEdsVzl2WXBPSlNDY3RkQWhKU0N5OXBkaml5bHpOemxvb3lLcTNJbDlfZA?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift donates $50k to support injured Connecticut mother
 
 - first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
@@ -488,6 +541,16 @@ Stories: 74
 - sources:
   - [unverified] WBAL-TV — https://news.google.com/rss/articles/CBMiggFBVV95cUxQLXU3TkVHbzUyUjhqS1BsZl9PWndNa0ZBNWlCZTkyR2VVT0pjVDA5dE14Q2VTUlNsb2JxajlYa0tobmJTcE9JZUswbkIzYjhoYnBTRWZhT0tBRnpOQUFQNUJyMF83OXpFR29TZmtjSGZqQ2ZHaTUzazNjUGNxTmhqNTRn?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] WXII — https://news.google.com/rss/articles/CBMiggFBVV95cUxQbDduZmdkcWFJSnZ0LUpMdE1ENlAwMUtxb0NlMUsycXctSkpoSmxSOUs5ZHV1YXAwRTZyOWVaVEtzRlp3V3pkSUp5LUduUGZMRGZkYjQtQkdMblZRUGVyMU11NU5MaDhORTVaZzkwOFlNREVUUFk2MkZXRTNWeVlSb0hn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce face challenges with football involvement
+
+- first seen: 2026-08-31 17:02 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift's newly married life is reportedly facing some difficulties due to tensions arising from football commitments involving Travis Kelce.
+- sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE0zcXNqWUVhcUs4aWtRWGNVWHNieFhXSjR2Rm9jQUdqZjZnX21KZC1vWjRIUFVnNUVWbW1JWXNrampSUDZjdlFXUkNYaGk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi5gFBVV95cUxNMFJIVDdqY0FyTGRFOXVJcEY3OW00WDF2dTZqTVRyWWRTU3dpQWRPXzdLdk51MlFtT0lKTVR1TDZqZEZsNlVadDRJbmo4VFo3YVpuS1Z6OHNjSzR0MkUyZXBVV2pieFFQcTVad0pqcVZyTS01Ykh6VVVMX3Z5UTRURHc0dEQ1cS1XQ1Z5TmhxMUIyNFdveFplQS01QnRBN0RLQV9xY0ZYRm5ZaGF5Z0RKano3UXd2Z09BdmJGUGt1cXdxOHZmZGVxeWY2SGdEMVlFSUdyQVFXVmFRbkZsMExfYzZRalFVd9IB5gFBVV95cUxQZUEyTGxaVDYzV21xenFGdmtyOTRnenJuTWV4ZTFnVkVWM1ZlelpBWHpBMUhROWNzSGQzUGlrZXlLUlVKdWt5UEdMSHo2aWZxendLZVp6a204MmVxN282VWlhZE5paExoYzhZQ1FKQmhLNDhIUkhKZDdQYUFWcC1BSUxEejROclZiRnNIREk2ZEY2VW9YT2pwVE1XRkMyd3pwTGoyME9lRmJ4R1M5WDk1T0dFRlAtSE85TVBWQnRKSm1hOVRSQXNnXzR2aUdUWjhmTENJNmFabktkajIwbUJtZkdxUDNzUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisAFBVV95cUxNZDBZTy05OTNNVGl6dXctSXRJQi11QU8tUUdMUHhHbjg3QVFhbk9aZDREMzJUQ3JDZXZxWFY2NnRoY0NXN05oQS1yTHRQd1VYUTJTcDRsVU9BMHZnUG1zU29jdHB2bVFPOHRYWko3eFBtVDNSc3VqSHNtX1lCWXMxaFJMbElGMEdsVzl2WXBPSlNDY3RkQWhKU0N5OXBkaml5bHpOemxvb3lLcTNJbDlfZA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift donates $50K to Connecticut mother recovering from injury
 
@@ -608,55 +671,3 @@ Stories: 74
 - sources:
   - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNaTZlc1RYVEtwWnZwQWtfVGJFY0loTjl4QXBJcUZKamZtQXhVTmpfRXRBWURCWUZKVVlpT2hBd1VwR2FxREY5MGZCTUtodVktcWJMS2pxYmloNVRMWHBkd0FIbkVHRkxFUS1rV2dkd2NfTUxid2g4emc1Zk9QbGNDRkFzaHRmSGI2TENEWnVUdEp2ODZXTC1icnlVM2JDNnJZYmRkcEJDX25faF9Y?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNM29QY1FCeGMzd2VJdXdzRHBxVW1zZGw4cnJncmRYZjY1WVJFZm1vLUlVREgybm5MZ3ZneE1RZWpYSmN3bmZucHROY0FMa0NFai1VM0s0azUzelFNTE9lZlRGVkZ2Um4zR0xBaHlFZXd2S25TS3FhT25SbUdOZVZZTWNMR3NCMjJrNmxUZGpoV2QyNkhkakMzdW9NYU0xYU0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Jokes About Taylor Swift's Wedding at MSG Concert
-
-- first seen: 2026-08-30 06:36 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: During a concert at Madison Square Garden, Harry Styles made a humorous remark regarding his ex, Taylor Swift's wedding. The comment added a playful element to his performance, drawing attention from the audience.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/harry-styles-shout-out-taylor-swift-wedding-travis-kelce-madison-square-garden-show-1236846748/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxQSDQ1ajA5LXhwSmx1YmFRYldIMk5YeURlRGpJY1hqcy1fRWpHWTU3dGFOdkx1SWFtcG9mZDYtcG85cjhmSjc3dWZ6S2JKNGFtSFh3TTJWRGFrbEsxZ0phOGhZSEJoSWNtNTlrd1BpUFRwX2lqUmhaVmJzYlRGMm1fcWRVbkJXNW9jSWJiMWR0MFAyM0wzOGduc29BSWtfQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiywFBVV95cUxPMk1VbDlPTmVtVU5aZjFJaG5QMG45cmgzT2RHZk5yeFlXYkVyNzBaQ21zbkRnRTNVaFpUWDJ3RUxneWh0U1BiSFl6Tk5sRVJLZlJINXctcG4wcmtZQk1nMXpzUEhhS2lQU0JuVkZQb21VVTV1S29adklaQ0xrbHFwQ0RTZ3RneGdKbFMyaTZjTmlINDVQM0ZXeTdvSzQxTlkxRDlEaE5jeEVwRnE1UzluTzM1bzYwVDN4NGd1UndBS19vNmRZY1dEczBuaw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Mentions Taylor Swift at Venue of Her Recent Marriage
-
-- first seen: 2026-08-30 06:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During a performance at the venue where Taylor Swift married Travis Kelce, Harry Styles made a reference to his ex, Taylor Swift. This occurrence garnered attention due to the location's significance to Swift's recent personal life.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMixAFBVV95cUxNTWtKbl84SktNbV83alpib05aTVJfOEZBaUl2ZVFaRVZRLWFNSXc4VHZFMDE1ZnBwU3RyVHg0WjYtYnVuQWQwZHlLZDBIaDhXNkpTZ2xXQmpub3NsVnBISVpwQXZhbTVGSDRLTUZiVUZ1SG5zaEhWMS04SVp3MFJMMlZFRGp6Wl91NlJabTQxanhOazJZX0dKSnlBTkhBLXREZlh6ZXlGV2NEaVU3OUU0bVJiVXJVYzdQTkJacU9HMHN3TnAw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Acknowledges Taylor Swift's Wedding During MSG Performance
-
-- first seen: 2026-08-30 06:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During a recent concert at Madison Square Garden, Harry Styles mentioned Taylor Swift's wedding, drawing attention from fans. The shout-out highlighted their friendship in the music industry.
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikAFBVV95cUxNQkdNRG1HWDBLSms0by16NjlvZzI3akw0RS1YeElsSDBhbEI2WFhydVJ4Nzg0cUpyU00yR2ZvY2dPOVlFUU9abUdpLVUxQkxpZVhmaEpOalhxMnJYbWl5akNTQ1dyY3pjbEVkeW5uYWpoaVdKOE1PTWR1aE55azZhV2syRDF3b1NITE9OV3JuMU0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift contributes $50,000 to GoFundMe for injured woman
-
-- first seen: 2026-08-30 06:36 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a donation of $50,000 to a GoFundMe campaign supporting a woman from Connecticut who was injured in a crash. The contribution highlights Swift's philanthropic efforts in response to community needs.
-- sources:
-  - [unverified] WJAR — https://news.google.com/rss/articles/CBMiowFBVV95cUxOZmpUenVfYWNPZFRqQ1NzOFVoMnhkRlFzQ18yZ3JIZ2FQTGtwZnlXdGNISS1wUWRwcVJSRlJuVE4xNXZfMGFNMTVTUEI0OVdQQWYxbncxaVByLV9fcm95c1plYjlvcDFuSlhjbUtDYS14Q3JZSmtFdnpTZ0ZSc01QZnpEbmxyX0JObHplWUZVV3lLamxLMnR0cFhJdl9hMUNfaFNV?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Influences Fall Fashion Trends
-
-- first seen: 2026-08-30 06:36 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: This fall, Taylor Swift's style is inspiring a romantic fairytale aesthetic in fashion, encouraging fans to embrace whimsical outfits. Her influence is set to shape autumn wardrobe choices this season.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE9KSXZnN29CNEFYZElWMk4wLTNUeGRVNEtKdGhUVS11TWhrRUQ0Yjdzb21GVEY3bC12Sk5XVTkwdWdQQnh3azZyVXczTWEtRWJ0OEU0RGV4dVpRekJnYTZjVHI0eUFWVXEtNzFGRFZYb1d1bnhPemNwQzViTzNyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Makes Jokes About Taylor Swift at Concert
-
-- first seen: 2026-08-30 06:36 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: During his concert at Madison Square Garden, Harry Styles joked about the venue's history, referencing that it is home to the New York Knicks and also hosts weddings. The comments were made in a light-hearted manner amid his performance.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/harry-styles-taylor-swift-wedding-madison-square-garden-1236685019/
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiogFBVV95cUxNSm9ucU1kaTR4bHQzOXhyaXFRVWhzWWFzN2YwRGFkMUxKVEZnSmVOSmI1Q2lLYUZzRVVVLWMybUtnYUJ1Zm9UXzMySl9TMmxfQmlvZU5NbERRVFhMMVNOTl9vYlBTWktTN1dBZEVrNEV4TG5GWGI3M1Y2eEp4MHZQSW45bTBWOHZPdmlBMlAxbEFZc1BHbmhITHU1SDhpc2dSMVE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiugFBVV95cUxOX3czTGZIZThOaU1mWkVKUlRMVnNaRUNwWkpja2EzX0FiTUo3dmc0ZG9sZmxIQzlrbnV1LVZVSHg3ZndEd2ZldjVIMGZGbU84UU56UFUxQkxFZTNtekFZVlRCWDZEeGFPN0trejRrZWVUcEwwamJuRm5MRGRPTnFBejhyalpqMDMzZXZmeFRUVFZYUVJVVlEwbjZPdlBoQ2NqRW1pbG5aZm9kLXlfWVVIRS1nSm5iaEh2OUE?oc=5&hl=en-US&gl=US&ceid=US:en
