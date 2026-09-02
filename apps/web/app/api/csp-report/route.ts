@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+import { trustedClientIp } from '../../../lib/longlive/client-ip';
+
 // Sink for CSP violation reports (`report-uri` / `report-to` in
 // lib/security-headers.mjs). It exists so the Report-Only policy is
 // actionable: without somewhere to send violations, "ship report-only first"
@@ -85,10 +87,7 @@ function rateLimited(ip: string): boolean {
 }
 
 export async function POST(req: Request): Promise<Response> {
-  const ip =
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    req.headers.get('x-real-ip') ||
-    'unknown';
+  const ip = trustedClientIp(req);
   // Always 204 — a violation report is fire-and-forget and the browser does
   // nothing useful with an error.
   if (rateLimited(ip)) return new NextResponse(null, { status: 204 });

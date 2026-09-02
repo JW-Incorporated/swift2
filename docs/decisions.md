@@ -3711,6 +3711,15 @@ costs static generation for XSS protection the threat model doesn't need yet;
 
 **Approved by:** pending Wyatt.
 
+**2026-09-02 reaffirmation.** A security-audit follow-up re-flagged
+`script-src`/`style-src` `unsafe-inline` as generic hardening advice (no new
+exploit and no change to the no-user-HTML-sink invariant this decision rests
+on). Retain the documented tradeoff: the nonce/middleware alternative would
+cost the whole site's static generation for no new threat. The trigger to
+revisit remains unchanged: if the app ever renders user-supplied HTML, this
+directive needs the nonce. The audit follow-up separately standardized the
+trusted-IP resolver used by public per-instance rate limiters.
+
 ---
 
 ## 2026-08-26 — Resource CSP flipped from Report-Only to enforcing (#1975)

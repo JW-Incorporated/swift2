@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { getInboxEvents } from '@swift2/core';
+import { trustedClientIp } from '../../../../lib/longlive/client-ip';
 
 // Notifications Phase 3 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §8) —
 // GET /api/notifications/inbox. Same SERVICE-ROLE-ONLY posture as every
@@ -35,10 +36,7 @@ function rateLimited(ip: string): boolean {
 }
 
 export async function GET(req: Request): Promise<Response> {
-  const ip =
-    req.headers.get('x-real-ip')?.trim() ||
-    req.headers.get('x-forwarded-for')?.split(',').pop()?.trim() ||
-    'unknown';
+  const ip = trustedClientIp(req);
   if (rateLimited(ip)) {
     return NextResponse.json({ error: 'Please try again in a minute.' }, { status: 429 });
   }
