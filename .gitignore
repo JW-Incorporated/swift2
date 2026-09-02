@@ -86,3 +86,6 @@ scripts/social/social-poster-workflow.test.ts.tmp
 /swift2-routine-export-*.md
 /evermore_block.txt
 social/joey/Screenshot*.png
+
+# iOS App Store Connect API key (real credential, never commit)
+apps/mobile/credentials/
