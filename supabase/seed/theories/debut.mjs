@@ -2,7 +2,9 @@
 // liner-note codes, plus the two songs Taylor has named as her earliest —
 // "The Outside" and "A Place in This World." Egg URLs verified 2026-07-08;
 // the two song-origin theories verified 2026-07-31; the "Tim McGraw"
-// nested-clue egg verified 2026-08-03.
+// nested-clue egg re-verified 2026-09-03 (confidence raised to 'official' to
+// match its 'confirmed' outcome — the secret message is in the official
+// booklet; the loud "not confirmed" banner was stale, CIE #3673).
 
 const wiki = (article, title, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${article}`,
@@ -78,7 +80,7 @@ export default {
         'Her very first single is a reference folded inside a reference — named after a country legend, built around one of his songs, and hiding that song\'s title in the liner-note code. The clue-planting that became her signature was there on record one.',
       evidence:
         'Taylor wrote it in about fifteen minutes during a math class, singing "when you think Tim McGraw" to herself. Big Machine head Scott Borchetta talked her out of the longer working title "When You Think Tim McGraw" and down to just "Tim McGraw" — and naming a debut single after an established star, as one music scholar put it, was "a clever strategy" that handed an unknown sixteen-year-old instant "country music legibility." The song turns on McGraw\'s 2004 hit "Can\'t Tell Me Nothin\'," her favorite of his — and the debut booklet\'s capitalized-letter secret message for the track spells out that same title, "CAN\'T TELL ME NOTHIN\'." The homage is doubled: the name on the marquee, and the name hidden in the margins.',
-      confidence: 'reputable_reporting',
+      confidence: 'official',
       outcome: 'confirmed',
       relatedSlugs: ['debut:liner-notes-hidden-messages'],
       sources: [
@@ -89,7 +91,7 @@ export default {
             "Tim McGraw at 20: how Taylor Swift's debut single set her formula for success",
           publisher: 'The Conversation',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-03',
+          accessed_at: '2026-09-03',
           reliability_score: 4,
           excerpt: null,
           notes:
@@ -102,7 +104,7 @@ export default {
             'The Reactions of the Men Behind Taylor Swift\'s Debut Single, "Tim McGraw"',
           publisher: 'American Songwriter',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-03',
+          accessed_at: '2026-09-03',
           reliability_score: 4,
           excerpt: null,
           notes:
@@ -113,7 +115,7 @@ export default {
           source_title: 'Tim McGraw (song)',
           publisher: 'Wikipedia',
           source_type: 'wiki',
-          accessed_at: '2026-08-03',
+          accessed_at: '2026-09-03',
           reliability_score: 2,
           excerpt: null,
           notes:
@@ -125,7 +127,7 @@ export default {
           source_title: "Taylor Swift's 13 Best Liner Note Secret Messages",
           publisher: 'Billboard',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-03',
+          accessed_at: '2026-09-03',
           reliability_score: 4,
           excerpt: null,
           notes: 'the decoded debut-booklet message for "Tim McGraw" is "Can\'t tell me nothin\'"',
