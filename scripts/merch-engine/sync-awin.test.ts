@@ -475,8 +475,8 @@ describe('E0 Awin sync', () => {
     expect(jitterDelay(() => 0.999999)).toBe(120_000);
 
     const workflow = readFileSync('.github/workflows/merch-awin-sync.yml', 'utf8');
-    expect(workflow).toContain('actions/cache/restore@v4');
-    expect(workflow).toContain('actions/cache/save@v4');
+    expect(workflow).toContain('actions/cache/restore@v6');
+    expect(workflow).toContain('actions/cache/save@v6');
     expect(workflow).toContain('sync-awin-programmes.mjs');
     expect(workflow).toContain('npx tsx scripts/merch-engine/sync-awin-programmes.mjs');
     expect(workflow).toContain('npx tsx scripts/merch-engine/affiliate-coverage.mjs');
