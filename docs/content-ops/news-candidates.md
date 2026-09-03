@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 88
+
+## Chris Lake Seeks New Inspirations in Music
+
+- first seen: 2026-09-03 13:32 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Chris Lake expresses a desire for fresh musical inspirations in a recent article. His comments highlight a craving for new creative directions in his work.
+- sources:
+  - [unverified] nylon.com — https://news.google.com/rss/articles/CBMiZkFVX3lxTFB0WHZSWWo3ajFsT2c1ZF9ha0l0SnphRTh4c3c5WV9Ub2hObVdzUGpENWhfNGFfaFljVkQ5aUlxNjVUa2VSXzMzbFBfcVVkakloeTU2SzNKZkkwSHY1QjNsdDhSNDJZQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Jensen Huang Compared to Taylor Swift by The Economist
+
+- first seen: 2026-09-03 13:32 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Economist's article discusses how Jensen Huang is being likened to Taylor Swift in the AI realm. The comparison highlights Huang's significant influence in the industry, similar to Swift's impact in music.
+- sources:
+  - [unverified] The Economist — https://news.google.com/rss/articles/CBMimgFBVV95cUxPOGNqbTR3T1ZpZFJxVjJtXzJvUmdaYUpaY0w5MTZoQ1VZVWhab3M5aDY3WmlmTnF5RXFOZFVuSXlJb2JpT25adGhLRWFtWlFBQWNRVlFoNGdZMW5aOFBHUHNXYjJtVGFndkZVS2t2WFNNdGZ3bkF0dEIxVGU1eWVrMkFOaS1iNHVXb0Nyc3pTU1VkejB3Yk1oSEVB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce and Taylor Swift Discuss Their Home Life and New Addition
+
+- first seen: 2026-09-03 13:32 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce and Taylor Swift are highlighted in a story about their home life, which includes the confirmation of a new addition. The article explores their growing domestic life together amidst Kelce's NFL career.
+- sources:
+  - [unverified] Realtor.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxPcGdxZjdkYVFDeVA0TFBWMDRRN2tIR2xCb1E1NU1LR0JnR2czbEUxX1NfSFJpSVFncm10UmNncjcxc0VON19yU3NOWnZaemZlcVVnMVdLOGUzbGU1TWJrTTh4ZXZub0JGSV9tLXhqVHRHRVBUd083d1dYbGFvRUo1WHNDOW94RUJiNVphenBYYlR1Z0I4MXk3ckRKZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Discussion on Taylor Swift's Pet Choice: Samoyeds
+
+- first seen: 2026-09-03 13:32 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article explores the pros and cons of owning a Samoyed dog, referencing Taylor Swift's choice of the breed. It suggests that potential dog owners should consider various factors before making a decision.
+- sources:
+  - [unverified] cnn.com — https://news.google.com/rss/articles/CBMikgFBVV95cUxNY1JTWG0wV3NpWV9vMVowYnh4WVVkRHBnZWc5UFNoWFVjTXlBMFlsVUI4YW1fQW5rWThCSFVjOVNXSHl0VVFOa003Wlc4bjlSVEEwU1ViNENqdkdEbVBPd0pETzBoNU9IR3k4TlZUVzZxX0luSGw5UUJkeTc1SzlGWkx1NHgyLVJ0b1R3WkxQbExaUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Chai Cookies: A Popular Fall Treat Among Fans
+
+- first seen: 2026-09-03 13:32 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Fans continue to enjoy Taylor Swift's Chai Cookies, which have become a beloved fall treat. The recipe has captured the attention of many, highlighting its seasonal appeal.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiigFBVV95cUxOSlNCbjBNRGhEME9MdlhHZkIyQkQ5cFZlbmY3c0FJcEJqTHRlNkcza3NTSE9jbjg1d1ZWajRkcjNydnc4enBNOXl0T3BMVGpnTi1pMTUtOVVuYkJ3ckZUbGRFeUFRallpdGxJTmxKUzdfaXdWUmdUT3BZcFpiRy1kZGM1LVg4SVJlSWc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Purchase $5 Million Lakefront Home in Ohio
 
@@ -34,14 +74,6 @@ Stories: 86
 - summary: Taylor Swift and Travis Kelce, recently married, have acquired a lakefront property in Ohio valued at over $5 million. This move marks a significant milestone in their relationship following their wedding.
 - sources:
   - [unverified] WHIO TV — https://news.google.com/rss/articles/CBMizwFBVV95cUxPVkpicjFZZW5VRmREYlc3NjBQTzhFRldFcnByTDdwQm9lYXU4R0tlVUg0Y2Zya2hKVElTTTNEcW52YnI5OEJWYmdWaHdxOE9jNVFIUWsxbXNMQUxpSXNqWnQ5X0VyQkxSekUzT1JIVEpFTDRUNHlBdEhMUTg4d3FkcElrM0xod0pKU2lDRl9TaUQ1UFVWc1BIZlV4b1hxZWNISEphVnRCTFkwWGVqM2VaZ0w5X255eVhJVUV0WFpaYk13ZDRxU2N3bWQxV19kaWvSAeMBQVVfeXFMTjR6bWpHcjFBdkFPUGJYMHRZMFVqaUQ1ZzNKTU01UkRIM25BbXR5WlhQSjhUdTgzREEzajlEQ3A4b2lHR2NvazlyODBnVHV0ZDRqUVFIMklOVEZWeVVSTE5Sd2JnVTJ2cHRUY2Jxdk9FbjNOYWF4Z2haZDB1OWpKY1FsN0loQ0dRT3FQS3hmb0tvdExEUk5wam9hdFFCZnUtM3VkWDg3Vm1BUW44a3BJNTU3b3ZGWnRVY0xOR1hzWFlXZkdvMkprcDl0QnVXREpiTjhycmlZdEhJLWNhQzZBT3ZpaXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Buy $5.35 Million Home in Bratenahl
-
-- first seen: 2026-09-03 05:44 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce have reportedly purchased a Bratenahl home for $5.35 million. This real estate acquisition adds to their growing portfolio.
-- sources:
-  - [unverified] Cleveland Magazine — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOZHFTR1hseGhBZGRnVjJUMTdTS25pQ3ZEVVBiUzdaU2ZSbGZSNnlmei0zbWZIS1FJY0xLQmpkV3BTZmtsT3VCUnR3ZldYcEstNkhVU1JoOUVlWUMwbzZ6aDQyd29YRTVUY0NWakZTam02aVNGbUt3Y2tYVHotUVpxWXQteE1EU3pqNXpRU0Itdm1wcUJjeE15T21kTko2UjNUWmRvSk5ENHA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Reveals Taylor Swift's Reaction to Their Dog's Public Debut
 
@@ -67,14 +99,6 @@ Stories: 86
 - sources:
   - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMi8gFBVV95cUxPZ1pOLTZ2TTNqWkF1MDVnVU5kTHExYk9MZGZOV3lGTTR1ZGFvZEpPbnFUYzAxR3hWenBWQm5mZmVCMV9GQkNReFk2SFNXejNsYkZyWDctSnJGZ1FQTGV6ZHcxdDAtMTdSSTRneHNrOEJhR3BzY1d6XzhaMkdqRjVpV2t4WGJScEwxUnNHVHhNOHR4bFVWR1YyM1pjb2FaZnBLUDVPbGZIblU3bHNyTVJra2NsUTRiWVBZYzhqeXVNN1N1dnRUZDZkVm10MldFQmZyRHNtV2tQZVN3Q28yX3A2eExsVldYb21CODVEMXhIM1FwUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Mike Polk Jr. Welcomes Swift and Kelce to Cleveland
-
-- first seen: 2026-09-03 05:44 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Mike Polk Jr. has extended a welcome to Travis Kelce and Taylor Swift during their visit to Cleveland, as reported by WKYC.
-- sources:
-  - [unverified] WKYC — https://news.google.com/rss/articles/CBMi5gFBVV95cUxNSGZJS3l6STdnMUlBd3o0S3FUa1VxMmFhQzYyaTZyanlLVkV1b2FwRHNRVGY2dGJGdF9mOFdwZERDc0J0TkI5XzVfVWtrRzlfeTRaQ29pNWRhTFFrVF9JdC1lOXpseGdWTGNuM1BibFF4X0NaNnhNV0hiQ2VSLVphNjhFWlhxSGNoZWtyemhJLUJwYmRKN2k4ay0teElrcWZQSDFvakF5YWJjc3NETTFvbE1NcV80Sk8xc1Q3U3c5RDJWdUIwZVZid2duUWlubE9hVlpOQXI5NEV6QzFVNTIxWHA3OFhEQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift and Travis Kelce's New Home in Bratenahl
 
 - first seen: 2026-09-03 05:44 UTC | category: relationship | importance: 6
@@ -90,6 +114,24 @@ Stories: 86
 - summary: Travis Kelce reportedly needed Taylor Swift's approval before introducing his dog, Wendy, to the public. This highlights the couple's relationship dynamic and their shared life, even in pet introductions.
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOYlRTRkxRMjg2Z0xCVHN4R2RiMFIxYmtka0c5MnlZYVBrckRhVjU5SHJhaXRIQW5MXzdjSzdGX1VlOUdFbFV6MEhLYkljTnpmZ3VLZGljVmpMaFQtUm5vNlVlcnVGOTVuMFRsRVJOXzhzUElHZHBweG4zd3BHVElWZ2hOa2JtRVhVOW5Bejg2elZ5SHl4ZmVsX1l5c013UUNUVVowTWNqRklWN2tORVl3TFhyYUhnNnZfcFUzNg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Mike Polk Jr. Welcomes Swift and Kelce to Cleveland
+
+- first seen: 2026-09-03 05:44 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Mike Polk Jr. has extended a welcome to Travis Kelce and Taylor Swift during their visit to Cleveland, as reported by WKYC.
+- sources:
+  - [unverified] WKYC — https://news.google.com/rss/articles/CBMi5gFBVV95cUxNSGZJS3l6STdnMUlBd3o0S3FUa1VxMmFhQzYyaTZyanlLVkV1b2FwRHNRVGY2dGJGdF9mOFdwZERDc0J0TkI5XzVfVWtrRzlfeTRaQ29pNWRhTFFrVF9JdC1lOXpseGdWTGNuM1BibFF4X0NaNnhNV0hiQ2VSLVphNjhFWlhxSGNoZWtyemhJLUJwYmRKN2k4ay0teElrcWZQSDFvakF5YWJjc3NETTFvbE1NcV80Sk8xc1Q3U3c5RDJWdUIwZVZid2duUWlubE9hVlpOQXI5NEV6QzFVNTIxWHA3OFhEQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Nine.com.au — https://news.google.com/rss/articles/CBMi9AFBVV95cUxOZmRwUURGSUkyb21TOGVKOGZnc3IzX3Iwd0VTdkljWGNWS2JaYzNGc0hkdlIxTTZWdGN5eDA4cjNDdWZ6ZXdCNUJsRTEwSl9vYmljSTdVTTdHdDZTbk0zVUo3QjQ5b2ZvZTlYTk1naUFCLWdPdndtdnp0MWw5aEd2VlhOWFQ5WDJvdlVPUFA0TmNIbTFPRUhmYU5PRmZYSlFoaVAtdEZ6YnNoTjlkVHpYNWxJbHkxVTRJcC1iQTlDSnhRTlNJVk9kUG9yZHBNb3hkSWxJZ25XTk1JRlVsZ0Z1M181V0VxYnY5XzlvZVFlTzF0OFBB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPSnhUNHZabThYeTcyV0NmT1NMUFh0bmpVSVE3VUNPb0lMM3FfWGV0Rlh0RHIzOGV3OVhVUDNVWl9TQ1VidW1yZ0lrYnVhRXZVRkRKLTNkVHBFQlJaTm1HbnVUQXI0Rnp3cjJlVUZQVGFwcWphanl0Yjl0bC1POWxMS3Z5MFAydDI2Uk1ZaVVvbGZXckU4RmxhVU1UNzdoU2VC?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Buy $5.35 Million Home in Bratenahl
+
+- first seen: 2026-09-03 05:44 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have reportedly purchased a Bratenahl home for $5.35 million. This real estate acquisition adds to their growing portfolio.
+- sources:
+  - [unverified] Cleveland Magazine — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOZHFTR1hseGhBZGRnVjJUMTdTS25pQ3ZEVVBiUzdaU2ZSbGZSNnlmei0zbWZIS1FJY0xLQmpkV3BTZmtsT3VCUnR3ZldYcEstNkhVU1JoOUVlWUMwbzZ6aDQyd29YRTVUY0NWakZTam02aVNGbUt3Y2tYVHotUVpxWXQteE1EU3pqNXpRU0Itdm1wcUJjeE15T21kTko2UjNUWmRvSk5ENHA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Praises Taylor Swift's Fashion and Her New Dog
 
@@ -282,7 +324,7 @@ Stories: 86
 ## Travis Kelce and Taylor Swift Buy $5.35M Lakefront Home
 
 - first seen: 2026-09-02 05:45 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 25
+- verification_status: corroborated | source_count: 26
 - summary: Travis Kelce and Taylor Swift have purchased a lakefront home in Bratenahl for $5.35 million. This acquisition highlights their high-profile investment in real estate.
 - sources:
   - [unverified] WKYC — https://news.google.com/rss/articles/CBMi3gFBVV95cUxOcHZ1QnZLeEx6TkRHenhJaFhvUGx1TFBzTG5LZU01NDJnMEdaMExXUFBMX1psa2FGOFFfZEhLY0pGQXQ1ZGxrUW5IVmJManVGemk4QUV5NWZrNVlIWHUtVDhyQ0N2WUQycnRSTk02aktxSFI4dU15cWtUeUFBZ2xsVVFJYmYzeEdWSXo4cHpPcWhkay11cXRJSVVvaW5PTjBQdFZxX2J1QTlBdm5xZUhxSmxFS09PaTBRbmQ3MnJDcXlDLXd5YWpaelBzbkY1OHF6UVBEcm4zZjkxM3NReHc?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -310,6 +352,7 @@ Stories: 86
   - [unverified] NBC 7 San Diego — https://news.google.com/rss/articles/CBMi-AFBVV95cUxQUWtpZkstbXZlUmJfX1ZLV09KTFlpVDNJSXZCaU5ldkVfa2VuUUxxWVU3d1ZaMGdDZ2U4Vl9XWWJMZDNoWU1nZzRyd0szaDl1UkczX1p1ZnJvOVZBMlBzYTlQQnlZb3Y1SDJYaXZBbXJ5UmZnUmx4NHpFUHFuZjJwLTVJX0pEb2U5NzEzVkYzQ3hPVmRhSXZRclpWMFlGeFVqQVgxbzMtaDAwMlRzMXZiWmRDZ1NhbnFBODRsYm5tcUtBSWQyMGVsSjhlTDBFaDBfY3dJNkNFdk1QSlhTTmRpd2s2VGRxY1FmZEUxOWhNdEZtOHQ2OFJnUNIBgAJBVV95cUxPRUg1MXJWMm16Ylp3UlYtNUoxTjNUZWQtVS15VlVvdjZCakNyZDlRRVpFR3VyMUFKR1JqNVBJUDRzeldEdnhmdGw4emZ2NnAxT1ZLenpxRkxGX2szQTlBSlZaRFgxN0duMXVkT01veXlobGRrUUVVZDVhV1VjVTVkeC03N1RrbVdKajgxU2VhSnNLZ1pBVWNfcmx2S2o5TE1vS29VNDg2LWM0WllsZjN4SWRzVFRLbTBhNXdLR3oxekstSjRWMlJaZlhVbHU4Q01PR2pMZm9tT0hqa0p5Y25kbnF5Qm5xclFhQkVvQU5GRlV1UDFEV0RoeGJIa3pWWmln?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] cleveland.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOZ3ZSMmtUV19DWVVadUd4UnphMGo3NlpvbWlQakhkZjJIa3ZiQTVBUnQwVkNXTV92dHN3bXZ1WWZDeXhfaDYtd29RXzZNdnhpV2pXazYweHlva1RFTmtJUzF0VG41NlFtTzdRaUJHTmdzRW1NRFkxZ2ZMWUVPOHdWTVQ5UmEyblNQT19QT1BoVzVmS055TXJlTHh5c09CaHRmclByNXdwUEpDM3RvVGNVT08wU0FtUjRn0gHMAUFVX3lxTE9yejFQWTd1MUNCTjdrN0lCWXNnX0lPMzh0YUt4RGpFM0NvdEt6LU1oVmpGcTFqWWVIZDJVVURldDlTT2Qyb0NUMzQ0X1ZMTVNkLWMxZTdSMVg5OHBFWXltODhnTWp1UlJCNGlOeVJlS2hVLVllbHJTMms4TmpDelRCY2JEZ3EwTDA2am9JbGpNNUVPa01kSEdoYmVKUXdtci1McWpiLXZULTgxcjd6OHdoZzBJcUt6T2s5X25Mcm9ILTBLMUlwRENfWHNHYg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] KCTV — https://news.google.com/rss/articles/CBMivwFBVV95cUxQZ3JiRDZuR3djOW9abE8yLW1fOGFKNHFfLUpHRUdGTFBkbEpCQXcwcW83RnJ6bVdjRUFta1FFd2FOdldQY05KWHN2RlFTZGVZdXFndjl1VXR1a2pwSWpHN1I0QlVXOE9EVU5ES0g0UXFNa09oQkcxYkl3anBNaUMwekp5R1E3cTRoZG1Xd2hpTG1fV2Fqc1QxNDRNSHdNM2N4T0lqUTNpOG9rdkFwNWl2N0xnOFYxTC14ME05aVk1TdIB0wFBVV95cUxOVG5aM2ljbWtkTXQyZ1cxSm1BREplTk1VZmJaQ0lQaUJFWGhIS1NMQTNWU1pBOFF3MUJ1Q2xlV3NLOW45QVVqUjV6NU5wZ2R0ZXdocWVlVUhULWV2UUhfMnBlckZOOHN0cFBtQ01YUl9NRGNjSkV1bnJXMkdEYnVuNl91Y3Z1UnF2SHRqS1VBMXluNy11SUc5eVk1ZGJYWnBUcGtHbXNPZVF3YVJOLU1EMUZhT3hSMWY5SGRLRHF3SGppcmtCbXFnTkxmOEdpc1A4X1lF?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] lehighvalleylive — https://news.google.com/rss/articles/CBMixgFBVV95cUxOLXdYT2hKZ0FsTmN2SEt1VzNZZE1LZkJLT1ZkUlZZMEVNS2Q5SG1SMFA1U3RmNERHSzZpNVNjbWxFcHVEOEtsYTZxSE5nb2ZaS0tCbC00MEVoRll1VWwwMy0xOE11bk9xSWVCTUV5OGQtLUtWMEdMVDRjRWtpbWYzTXo0N3NGZzJxNmczdkk5a2FiVmZwYmMzUVpjTVFVYmVTUGtORzBvSV9xWnZuWHZ4VzZlRDRPNGVZNDlXU2VzYm5YeWxuY3c?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 20-Year Journey From Opry to Pop Royalty
 
@@ -746,27 +789,3 @@ Stories: 86
   - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE0zcXNqWUVhcUs4aWtRWGNVWHNieFhXSjR2Rm9jQUdqZjZnX21KZC1vWjRIUFVnNUVWbW1JWXNrampSUDZjdlFXUkNYaGk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi5gFBVV95cUxNMFJIVDdqY0FyTGRFOXVJcEY3OW00WDF2dTZqTVRyWWRTU3dpQWRPXzdLdk51MlFtT0lKTVR1TDZqZEZsNlVadDRJbmo4VFo3YVpuS1Z6OHNjSzR0MkUyZXBVV2pieFFQcTVad0pqcVZyTS01Ykh6VVVMX3Z5UTRURHc0dEQ1cS1XQ1Z5TmhxMUIyNFdveFplQS01QnRBN0RLQV9xY0ZYRm5ZaGF5Z0RKano3UXd2Z09BdmJGUGt1cXdxOHZmZGVxeWY2SGdEMVlFSUdyQVFXVmFRbkZsMExfYzZRalFVd9IB5gFBVV95cUxQZUEyTGxaVDYzV21xenFGdmtyOTRnenJuTWV4ZTFnVkVWM1ZlelpBWHpBMUhROWNzSGQzUGlrZXlLUlVKdWt5UEdMSHo2aWZxendLZVp6a204MmVxN282VWlhZE5paExoYzhZQ1FKQmhLNDhIUkhKZDdQYUFWcC1BSUxEejROclZiRnNIREk2ZEY2VW9YT2pwVE1XRkMyd3pwTGoyME9lRmJ4R1M5WDk1T0dFRlAtSE85TVBWQnRKSm1hOVRSQXNnXzR2aUdUWjhmTENJNmFabktkajIwbUJtZkdxUDNzUQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisAFBVV95cUxNZDBZTy05OTNNVGl6dXctSXRJQi11QU8tUUdMUHhHbjg3QVFhbk9aZDREMzJUQ3JDZXZxWFY2NnRoY0NXN05oQS1yTHRQd1VYUTJTcDRsVU9BMHZnUG1zU29jdHB2bVFPOHRYWko3eFBtVDNSc3VqSHNtX1lCWXMxaFJMbElGMEdsVzl2WXBPSlNDY3RkQWhKU0N5OXBkaml5bHpOemxvb3lLcTNJbDlfZA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift donates $50K to Connecticut mother recovering from injury
-
-- first seen: 2026-08-31 07:00 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has donated $50,000 to a mother from Connecticut who has been injured. This charitable act highlights her support for individuals in need.
-- sources:
-  - [unverified] NBC News — https://news.google.com/rss/articles/CBMipwFBVV95cUxPOGllNUxGT2VUSWhvekhKUHVWal8yVjFveWs5ZFVTWWxrRFVSU09iMDBCczhQeG4ycmctakpueXppV01EdXQtZnhYZHVEanczOWV3d1B1TGRTdzNkbURaUW9Qd0J0TVcwTWJLU3ZlMVBzMy1xdS1tUmJ2cURDRDkxMXltb0RTYXExU3BzX3FEcjFCUmpIUjRYeGFqdzJjeXRNOTlLVUw0dw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Jokes About Weddings After Swift and Kelce's Marriage
-
-- first seen: 2026-08-31 07:00 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: At Madison Square Garden, Harry Styles made jokes about weddings, referencing the recent marriage of Taylor Swift and Travis Kelce. The comment comes months after their announcement, highlighting the ongoing public interest in their relationship.
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMinAFBVV95cUxNT1VscnZSTzVHRUg5ZU9Id083LTB3elhRdDFxeTVYd0dfeFdlLU9yYUtkQXQxazVac3M4Y0VuRm0xeFZ3YlVIM2xITzZPbU1aNGpFUmk1cFBWU19aNFNxZkVfR1AzWUs2QXI5ZFNDVmUwOG5ZVWNha19ZQmpPNHoyT0o1V19wZHJtQUd1ZmJYclBoRjBfVDM3NFZkWk8?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift donates $50K to Connecticut mom injured in crash rescue attempt
-
-- first seen: 2026-08-31 07:00 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has donated $50,000 to a Connecticut mother who was injured while assisting victims of a car crash. The donation aims to support her recovery and help with medical expenses.
-- sources:
-  - [unverified] CT Insider — https://news.google.com/rss/articles/CBMimwFBVV95cUxPVnNCeDRKZGwwOXF2TEdkRXZPUGR0QTVsaWd1MHZ0aWd0aTBvZGxXcjZWWm92RzIwYmpISEhRT21GZm95VGFJck95QmJ1MFpwWVhTTG9xeXFKMW9TRTQ4eWtSeFJGQVZtdDZoRUhqWnA1R3pRbkcybl9qSUY2T0RaUG0wQlpsUGZxZkl6WDFJSWppTGtDQ1ppdEYzRQ?oc=5&hl=en-US&gl=US&ceid=US:en
