@@ -45,7 +45,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - name: Restore Awin product index cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: |
             awin-feed-cache.json
@@ -95,7 +95,7 @@ jobs:
           await mkdir('.artifacts/merch-matcher-authoring', { recursive: true });
           await writeFile('.artifacts/merch-matcher-authoring/plan.json', `${JSON.stringify(output, null, 2)}\n`, 'utf8');
           NODE
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: merch-matcher-authoring-plan
           path: .artifacts/merch-matcher-authoring/plan.json
