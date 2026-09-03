@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 86
+
+## Taylor Swift and Travis Kelce Purchase $5 Million Lakefront Home in Ohio
+
+- first seen: 2026-09-03 05:44 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce, recently married, have acquired a lakefront property in Ohio valued at over $5 million. This move marks a significant milestone in their relationship following their wedding.
+- sources:
+  - [unverified] WHIO TV — https://news.google.com/rss/articles/CBMizwFBVV95cUxPVkpicjFZZW5VRmREYlc3NjBQTzhFRldFcnByTDdwQm9lYXU4R0tlVUg0Y2Zya2hKVElTTTNEcW52YnI5OEJWYmdWaHdxOE9jNVFIUWsxbXNMQUxpSXNqWnQ5X0VyQkxSekUzT1JIVEpFTDRUNHlBdEhMUTg4d3FkcElrM0xod0pKU2lDRl9TaUQ1UFVWc1BIZlV4b1hxZWNISEphVnRCTFkwWGVqM2VaZ0w5X255eVhJVUV0WFpaYk13ZDRxU2N3bWQxV19kaWvSAeMBQVVfeXFMTjR6bWpHcjFBdkFPUGJYMHRZMFVqaUQ1ZzNKTU01UkRIM25BbXR5WlhQSjhUdTgzREEzajlEQ3A4b2lHR2NvazlyODBnVHV0ZDRqUVFIMklOVEZWeVVSTE5Sd2JnVTJ2cHRUY2Jxdk9FbjNOYWF4Z2haZDB1OWpKY1FsN0loQ0dRT3FQS3hmb0tvdExEUk5wam9hdFFCZnUtM3VkWDg3Vm1BUW44a3BJNTU3b3ZGWnRVY0xOR1hzWFlXZkdvMkprcDl0QnVXREpiTjhycmlZdEhJLWNhQzZBT3ZpaXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Buy $5.35 Million Home in Bratenahl
+
+- first seen: 2026-09-03 05:44 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have reportedly purchased a Bratenahl home for $5.35 million. This real estate acquisition adds to their growing portfolio.
+- sources:
+  - [unverified] Cleveland Magazine — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOZHFTR1hseGhBZGRnVjJUMTdTS25pQ3ZEVVBiUzdaU2ZSbGZSNnlmei0zbWZIS1FJY0xLQmpkV3BTZmtsT3VCUnR3ZldYcEstNkhVU1JoOUVlWUMwbzZ6aDQyd29YRTVUY0NWakZTam02aVNGbUt3Y2tYVHotUVpxWXQteE1EU3pqNXpRU0Itdm1wcUJjeE15T21kTko2UjNUWmRvSk5ENHA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Reveals Taylor Swift's Reaction to Their Dog's Public Debut
+
+- first seen: 2026-09-03 05:44 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce discusses Taylor Swift's response to their dog being publicly debuted after a year of privacy. The couple chose to keep their pet under wraps before sharing this moment with the public.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisgFBVV95cUxNWEN0MVJzUm4zbVJfNjh2MUhjSUZYNXJ0TWdkbEQyY3dwNmpBS01rYVhxdDZnc1ZrRVJqSnlzYmZBSWl2b2xUQndvLXRYUlB2SUZ2ak5MM21uSFhJLU9hNHdmV3JWT1BsQmZuZGZBWkZNWEUzRE5hOE56TG5ZNEVSblliaEgyYXZYVWFHMHdBVkZJZW5JR1RxWVZ4RDF2UGY0YzFsS05ha19WUjFPYzl2WkxB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Brazil Enacts “Taylor Swift Law” Following Concert Tragedy
+
+- first seen: 2026-09-03 05:44 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Brazil has introduced the “Taylor Swift Law” three years after a fan passed away due to extreme heat conditions at one of her concerts. This legislation aims to enhance safety measures at large events.
+- sources:
+  - [unverified] Consequence of Sound — https://news.google.com/rss/articles/CBMidkFVX3lxTE0ybXpnekhwYU5WWVZ5Ums4eEkzTHBnb3lhNjMzQU9EUVpwbnI2QWFENEpYTTVEc0Jha3QtQWpZaU9NZzE4U2FDMXNIR0g4cXpHZE03VTloTnVXemtrSlh1dzdVUFhaTV9MclVSeFpuOS1YMWwteEE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Appear on Country Radio for Interview on Sept. 5
+
+- first seen: 2026-09-03 05:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to return to country radio on September 5 for a new interview. Details on how to listen have been provided.
+- sources:
+  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMi8gFBVV95cUxPZ1pOLTZ2TTNqWkF1MDVnVU5kTHExYk9MZGZOV3lGTTR1ZGFvZEpPbnFUYzAxR3hWenBWQm5mZmVCMV9GQkNReFk2SFNXejNsYkZyWDctSnJGZ1FQTGV6ZHcxdDAtMTdSSTRneHNrOEJhR3BzY1d6XzhaMkdqRjVpV2t4WGJScEwxUnNHVHhNOHR4bFVWR1YyM1pjb2FaZnBLUDVPbGZIblU3bHNyTVJra2NsUTRiWVBZYzhqeXVNN1N1dnRUZDZkVm10MldFQmZyRHNtV2tQZVN3Q28yX3A2eExsVldYb21CODVEMXhIM1FwUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Mike Polk Jr. Welcomes Swift and Kelce to Cleveland
+
+- first seen: 2026-09-03 05:44 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Mike Polk Jr. has extended a welcome to Travis Kelce and Taylor Swift during their visit to Cleveland, as reported by WKYC.
+- sources:
+  - [unverified] WKYC — https://news.google.com/rss/articles/CBMi5gFBVV95cUxNSGZJS3l6STdnMUlBd3o0S3FUa1VxMmFhQzYyaTZyanlLVkV1b2FwRHNRVGY2dGJGdF9mOFdwZERDc0J0TkI5XzVfVWtrRzlfeTRaQ29pNWRhTFFrVF9JdC1lOXpseGdWTGNuM1BibFF4X0NaNnhNV0hiQ2VSLVphNjhFWlhxSGNoZWtyemhJLUJwYmRKN2k4ay0teElrcWZQSDFvakF5YWJjc3NETTFvbE1NcV80Sk8xc1Q3U3c5RDJWdUIwZVZid2duUWlubE9hVlpOQXI5NEV6QzFVNTIxWHA3OFhEQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce's New Home in Bratenahl
+
+- first seen: 2026-09-03 05:44 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An aerial view showcases the new home of Taylor Swift and Travis Kelce located in Bratenahl. The image provides fans with a glimpse into the couple's recent property acquisition.
+- sources:
+  - [unverified] WKYC — https://news.google.com/rss/articles/CBMi4gFBVV95cUxPVW1nci0tZXFTWS1NMDFRRlI5MXl3eTRWeENHSlM3UDVISFBzV1hVTFZWYXQtSUREVFJLTHd3ZV8yNXRScXJGMXFuR3c4WWgtVHdRYmVPdWNJaU5wdEIzZmFlWkhvdm42YmY4czV2QXIxM0tnRU5HaWhjX2dNNC16RkNnQy1uOGRFdUVudXBzZ1lxZWZ5ZE5jVXhzV3BIVjZrUHZPZk1lelJVRHYwNWlVTE05VXBZNTFOOGVVZGtLbndKWUxiaG1DLUlkaVVBUlNlc1JZYTJXQVhiRHZkenZQQmlB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Seeks Taylor Swift's Approval for Dog Introduction
+
+- first seen: 2026-09-03 05:44 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce reportedly needed Taylor Swift's approval before introducing his dog, Wendy, to the public. This highlights the couple's relationship dynamic and their shared life, even in pet introductions.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOYlRTRkxRMjg2Z0xCVHN4R2RiMFIxYmtka0c5MnlZYVBrckRhVjU5SHJhaXRIQW5MXzdjSzdGX1VlOUdFbFV6MEhLYkljTnpmZ3VLZGljVmpMaFQtUm5vNlVlcnVGOTVuMFRsRVJOXzhzUElHZHBweG4zd3BHVElWZ2hOa2JtRVhVOW5Bejg2elZ5SHl4ZmVsX1l5c013UUNUVVowTWNqRklWN2tORVl3TFhyYUhnNnZfcFUzNg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Praises Taylor Swift's Fashion and Her New Dog
 
@@ -115,14 +179,6 @@ Stories: 82
 - sources:
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxNZTFMQ2ZTbkpUOHBxOEt5UGpCUVlxVVhzb192MlRXVzlJemdycnhicnVIQTBWSnZFbV9CVUEyOXRsNTJsVEFuQmoybG5SNWgyRXN2RGZhOG5GVVFEZ0ZNbHZRZWpVU1o3RmNPcVJOYXhFMG9MSEd1Z2NXeGhlX1hCeEFlSDQ0RXQwSUlZOFZuaFRuQ3RWV0JHQjVROA?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift and Travis Kelce Acquire New Mansion in Bratenahl
-
-- first seen: 2026-09-02 19:45 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce have purchased a new mansion in Bratenahl. This news highlights their relationship and recent developments in their personal lives.
-- sources:
-  - [unverified] Axios — https://news.google.com/rss/articles/CBMilgFBVV95cUxQeG9RX1hqM2E0RW40eHhXQ2RRWVBDeVNkSG9nWUZQLUd3ci1jRVNVU0VpdHdjNVcySHpTbE41akZ6YzB3bXJGVk5XdDJlLWdWcmhRSEtwX2tEYkJnSnlZSWpFY3dHMFhRRzVkNkFBYzIzUTVhX21jRGNzdW14T2ZTV1JDNkR2QlJQNnNiS2VLRjBjRERRR3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift and Beyoncé's Favorite Fashion Label Offers Fall Sale
 
 - first seen: 2026-09-02 19:45 UTC | category: fashion | importance: 6
@@ -138,6 +194,15 @@ Stories: 82
 - summary: Travis Kelce has shared new insights about his wedding to Taylor Swift, calling it a night they will never forget. The couple's recent nuptials continue to attract media attention.
 - sources:
   - [unverified] extratv.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPZ3BHeC1ha1JtVXJJcHRZajB4SW5aNktETS1iT0V6WGdzVkZsS0NGTFVnUTdjU2RsNGQtX2tJYzhEMDAwY3Vyb2ZDazFQU2RqZGIzNHhoM2VUTFZ4OWkwdFQ3a1RPdVE2Um1YN0E3ZkdNaFVhRDlTUTEwbXJKaVppeUpSZFVmZGNMS2Y5WUFndENuZEtpN0FWUE1wYi00VXVpc2lsSExB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Acquire New Mansion in Bratenahl
+
+- first seen: 2026-09-02 19:45 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift and Travis Kelce have purchased a new mansion in Bratenahl. This news highlights their relationship and recent developments in their personal lives.
+- sources:
+  - [unverified] Axios — https://news.google.com/rss/articles/CBMilgFBVV95cUxQeG9RX1hqM2E0RW40eHhXQ2RRWVBDeVNkSG9nWUZQLUd3ci1jRVNVU0VpdHdjNVcySHpTbE41akZ6YzB3bXJGVk5XdDJlLWdWcmhRSEtwX2tEYkJnSnlZSWpFY3dHMFhRRzVkNkFBYzIzUTVhX21jRGNzdW14T2ZTV1JDNkR2QlJQNnNiS2VLRjBjRERRR3c?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi2gFBVV95cUxPQmFHRGlZT3AtR3JucFFESTRYM2JKek5jMEd4eDcyekpIZWxhb2p2TUNMdENmMlIwNUQ1TnRFODVOV1dDRjl6eFlsTEFTM0J5c2ZudXItckZkN3FsS25VNnNWQnhQMjJNUS1ZN01udXN0cUREOExrRTdsREQzMlQwOUNUenhhcGhMdElwN2duVTdWQVFBdW84QXlUX1FlRDNDZFA5TDFEWEk3dVpUUmJncEpoUWI3MDN1SzdxSlJpcTVrT0tKdjVlRzcyR0I3T0hTRUVFdWJnczA3dw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Reveals Name of His and Taylor Swift's Dog
 
@@ -197,10 +262,27 @@ Stories: 82
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-sandler-officiating-1236849216/
   - [unverified] Variety — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQRnBEM0dhNG5waUMtWWlnMExCdjhDZlJBODRkdzZQYVF2ZFRGN2ctWXd1MXA5bGI4b3ZDUTRPZDRqY2FUeEUwT3lrMmFMSHQ3SGE4bWtqRTlrZnRNOUc5S0tLMkJIdFBvcFM0TDRkbVFGYklnbUE0Zkd2dEhRSGRCRFZMYlRhczUydzFYUG1IVDd1aVpnUVN6OUl1Wmg0QV81OXdGNnFOS0Rldw?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift Reflects on Milestone Achievements in Nashville
+
+- first seen: 2026-09-02 05:45 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article discusses Taylor Swift's significant early milestones in Nashville, marking 20 years since her career began. It highlights her journey and impact in the music industry.
+- sources:
+  - [unverified] iHeart — https://news.google.com/rss/articles/CBMixAFBVV95cUxOb3hUU1RXREJJVXdTX1VIWDFYNVJnQ3JycF9nWjBzZEpTd1YzSWxLeXJORWtKQjhnME5Ibm9FTmxFc2d3aDh4SDIwazByVnN1ZHlQbFJrQWxRQld5czJtSUhfLVBMU21YVVBCOHkyekp3cDllbkFGb1ZBd3I2RFg2cE1oSE5lVEhnbllFMFR2WUpVVE5EeEVMcTRtcFlHa1NlUTFoekFxVEQ1Y1ZWbnJGMmlYeXV3dzlHeUpULVNzZnJ0d3Yt0gHMAUFVX3lxTE44cFN6YlkzQlh4NmwxYzRvWVQ3dDdTZHhyOEhmclJCU0ttYmhHOVhBcnk0YmJ5STZ3QWJmUS1HWkpNM2l1NG05dFd3V041VkdZeVptR1FRMnQ4QmdaalNDZnpVRkVvRVJoSWx1dmZqSXhQT0FKWlAzZEVXbU1EbklYRUxDb2IyZ2M3ZXlWYjZ2TUE4ZjBjNVZGY3h2RV96QlF0QzlFaVZycElYYmlSU1JEN21Qelhad21UcVZxaDhTN3RVMm00VkVrVG13YQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Purchases $5.3M Home Before Wedding to Taylor Swift
+
+- first seen: 2026-09-02 05:45 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce has purchased a $5.3 million home in Ohio prior to his wedding with Taylor Swift. The acquisition comes as the Chiefs' season approaches.
+- sources:
+  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOd2xSb01ZTklGM213TzdVTDlPMVFUY2FlblNMTnVOVUdVcGE3SVNOd0ZGYzdfaTRuNmNOQnMteXZSVGVIR0RrYmpYOEc5QVl4cXl6VGdXTGtXcGFhVksyenN0bk0wVlN0ZV91RkMxanVVNHN4OGVQekQzR3VocHJ0NHlUVEo2WDdRYkRTNmp1MU1SVE56UXFReWVKLS1lT1hTYnBSMXNhWnA5S2V1Q0wxY1BiR0pMRUZ5bXQ4?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMipAFBVV95cUxPbzlkdTh4YUNmdzJoYnZ2bm1adWU2NzgzZEU0NFpGTk5GdXpNU1BzaC1yYWFjbUR4RTFVN09iN2NMSmN4OFg5VDRlelFCdHpTOWJwNlRESXJzVzJpUlVhczBjWXhNWllKeGp1dHVsM3p4UGNZZzNWM09Ed29DX2pQLTBLeUlPb1lfVWplX09sUlZ6bENpZ1pyLVMzT3ltSUljRjBUeQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Travis Kelce and Taylor Swift Buy $5.35M Lakefront Home
 
 - first seen: 2026-09-02 05:45 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 23
+- verification_status: corroborated | source_count: 25
 - summary: Travis Kelce and Taylor Swift have purchased a lakefront home in Bratenahl for $5.35 million. This acquisition highlights their high-profile investment in real estate.
 - sources:
   - [unverified] WKYC — https://news.google.com/rss/articles/CBMi3gFBVV95cUxOcHZ1QnZLeEx6TkRHenhJaFhvUGx1TFBzTG5LZU01NDJnMEdaMExXUFBMX1psa2FGOFFfZEhLY0pGQXQ1ZGxrUW5IVmJManVGemk4QUV5NWZrNVlIWHUtVDhyQ0N2WUQycnRSTk02aktxSFI4dU15cWtUeUFBZ2xsVVFJYmYzeEdWSXo4cHpPcWhkay11cXRJSVVvaW5PTjBQdFZxX2J1QTlBdm5xZUhxSmxFS09PaTBRbmQ3MnJDcXlDLXd5YWpaelBzbkY1OHF6UVBEcm4zZjkxM3NReHc?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -226,23 +308,8 @@ Stories: 82
   - [unverified] ESPN — https://news.google.com/rss/articles/CBMijwFBVV95cUxONW8wb0c2S1NrOHJNSGhmOFV4a1BMc3N0OFdLejNxZXhJWmZ6dWRUT2VjUU5MRVhFSC1ZQ1duc0FlMFBTNVpPVjhqRk9FOUpsMzJiMm43UFdvTUgzeWFvZW5oY3h1amJkck0zb2JBbjlfU3RmVkJuUERyZ0lGcnBWTkNOc3V3X1RFVzdOdktoWQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] KGW — https://news.google.com/rss/articles/CBMivAFBVV95cUxQM3liSTZJbldyUFRrb3k2cmRlOW0zZW12WjdINkVYU1hlaWw4cHRGRjVpd212T0EzanRMVlJ6LWVjWFk2LXlSWkFENlpnMHdWazlUdkxPRWdjd3lrWDlkQUppaDFPWUJERjZJdGw1amFTektQc3llVzVjeVJhRVI5cWVMOC1Oa3pjYUQwSm9JbU1qR0tNREVfWjdZZlJ4ejYzNDNTMDZnSGtTZ3ItY3Z4SEpEZ3dpLUZnVVRkZQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] NBC 7 San Diego — https://news.google.com/rss/articles/CBMi-AFBVV95cUxQUWtpZkstbXZlUmJfX1ZLV09KTFlpVDNJSXZCaU5ldkVfa2VuUUxxWVU3d1ZaMGdDZ2U4Vl9XWWJMZDNoWU1nZzRyd0szaDl1UkczX1p1ZnJvOVZBMlBzYTlQQnlZb3Y1SDJYaXZBbXJ5UmZnUmx4NHpFUHFuZjJwLTVJX0pEb2U5NzEzVkYzQ3hPVmRhSXZRclpWMFlGeFVqQVgxbzMtaDAwMlRzMXZiWmRDZ1NhbnFBODRsYm5tcUtBSWQyMGVsSjhlTDBFaDBfY3dJNkNFdk1QSlhTTmRpd2s2VGRxY1FmZEUxOWhNdEZtOHQ2OFJnUNIBgAJBVV95cUxPRUg1MXJWMm16Ylp3UlYtNUoxTjNUZWQtVS15VlVvdjZCakNyZDlRRVpFR3VyMUFKR1JqNVBJUDRzeldEdnhmdGw4emZ2NnAxT1ZLenpxRkxGX2szQTlBSlZaRFgxN0duMXVkT01veXlobGRrUUVVZDVhV1VjVTVkeC03N1RrbVdKajgxU2VhSnNLZ1pBVWNfcmx2S2o5TE1vS29VNDg2LWM0WllsZjN4SWRzVFRLbTBhNXdLR3oxekstSjRWMlJaZlhVbHU4Q01PR2pMZm9tT0hqa0p5Y25kbnF5Qm5xclFhQkVvQU5GRlV1UDFEV0RoeGJIa3pWWmln?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reflects on Milestone Achievements in Nashville
-
-- first seen: 2026-09-02 05:45 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article discusses Taylor Swift's significant early milestones in Nashville, marking 20 years since her career began. It highlights her journey and impact in the music industry.
-- sources:
-  - [unverified] iHeart — https://news.google.com/rss/articles/CBMixAFBVV95cUxOb3hUU1RXREJJVXdTX1VIWDFYNVJnQ3JycF9nWjBzZEpTd1YzSWxLeXJORWtKQjhnME5Ibm9FTmxFc2d3aDh4SDIwazByVnN1ZHlQbFJrQWxRQld5czJtSUhfLVBMU21YVVBCOHkyekp3cDllbkFGb1ZBd3I2RFg2cE1oSE5lVEhnbllFMFR2WUpVVE5EeEVMcTRtcFlHa1NlUTFoekFxVEQ1Y1ZWbnJGMmlYeXV3dzlHeUpULVNzZnJ0d3Yt0gHMAUFVX3lxTE44cFN6YlkzQlh4NmwxYzRvWVQ3dDdTZHhyOEhmclJCU0ttYmhHOVhBcnk0YmJ5STZ3QWJmUS1HWkpNM2l1NG05dFd3V041VkdZeVptR1FRMnQ4QmdaalNDZnpVRkVvRVJoSWx1dmZqSXhQT0FKWlAzZEVXbU1EbklYRUxDb2IyZ2M3ZXlWYjZ2TUE4ZjBjNVZGY3h2RV96QlF0QzlFaVZycElYYmlSU1JEN21Qelhad21UcVZxaDhTN3RVMm00VkVrVG13YQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Purchases $5.3M Home Before Wedding to Taylor Swift
-
-- first seen: 2026-09-02 05:45 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce has purchased a $5.3 million home in Ohio prior to his wedding with Taylor Swift. The acquisition comes as the Chiefs' season approaches.
-- sources:
-  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOd2xSb01ZTklGM213TzdVTDlPMVFUY2FlblNMTnVOVUdVcGE3SVNOd0ZGYzdfaTRuNmNOQnMteXZSVGVIR0RrYmpYOEc5QVl4cXl6VGdXTGtXcGFhVksyenN0bk0wVlN0ZV91RkMxanVVNHN4OGVQekQzR3VocHJ0NHlUVEo2WDdRYkRTNmp1MU1SVE56UXFReWVKLS1lT1hTYnBSMXNhWnA5S2V1Q0wxY1BiR0pMRUZ5bXQ4?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMipAFBVV95cUxPbzlkdTh4YUNmdzJoYnZ2bm1adWU2NzgzZEU0NFpGTk5GdXpNU1BzaC1yYWFjbUR4RTFVN09iN2NMSmN4OFg5VDRlelFCdHpTOWJwNlRESXJzVzJpUlVhczBjWXhNWllKeGp1dHVsM3p4UGNZZzNWM09Ed29DX2pQLTBLeUlPb1lfVWplX09sUlZ6bENpZ1pyLVMzT3ltSUljRjBUeQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] cleveland.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOZ3ZSMmtUV19DWVVadUd4UnphMGo3NlpvbWlQakhkZjJIa3ZiQTVBUnQwVkNXTV92dHN3bXZ1WWZDeXhfaDYtd29RXzZNdnhpV2pXazYweHlva1RFTmtJUzF0VG41NlFtTzdRaUJHTmdzRW1NRFkxZ2ZMWUVPOHdWTVQ5UmEyblNQT19QT1BoVzVmS055TXJlTHh5c09CaHRmclByNXdwUEpDM3RvVGNVT08wU0FtUjRn0gHMAUFVX3lxTE9yejFQWTd1MUNCTjdrN0lCWXNnX0lPMzh0YUt4RGpFM0NvdEt6LU1oVmpGcTFqWWVIZDJVVURldDlTT2Qyb0NUMzQ0X1ZMTVNkLWMxZTdSMVg5OHBFWXltODhnTWp1UlJCNGlOeVJlS2hVLVllbHJTMms4TmpDelRCY2JEZ3EwTDA2am9JbGpNNUVPa01kSEdoYmVKUXdtci1McWpiLXZULTgxcjd6OHdoZzBJcUt6T2s5X25Mcm9ILTBLMUlwRENfWHNHYg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KCTV — https://news.google.com/rss/articles/CBMivwFBVV95cUxQZ3JiRDZuR3djOW9abE8yLW1fOGFKNHFfLUpHRUdGTFBkbEpCQXcwcW83RnJ6bVdjRUFta1FFd2FOdldQY05KWHN2RlFTZGVZdXFndjl1VXR1a2pwSWpHN1I0QlVXOE9EVU5ES0g0UXFNa09oQkcxYkl3anBNaUMwekp5R1E3cTRoZG1Xd2hpTG1fV2Fqc1QxNDRNSHdNM2N4T0lqUTNpOG9rdkFwNWl2N0xnOFYxTC14ME05aVk1TdIB0wFBVV95cUxOVG5aM2ljbWtkTXQyZ1cxSm1BREplTk1VZmJaQ0lQaUJFWGhIS1NMQTNWU1pBOFF3MUJ1Q2xlV3NLOW45QVVqUjV6NU5wZ2R0ZXdocWVlVUhULWV2UUhfMnBlckZOOHN0cFBtQ01YUl9NRGNjSkV1bnJXMkdEYnVuNl91Y3Z1UnF2SHRqS1VBMXluNy11SUc5eVk1ZGJYWnBUcGtHbXNPZVF3YVJOLU1EMUZhT3hSMWY5SGRLRHF3SGppcmtCbXFnTkxmOEdpc1A4X1lF?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 20-Year Journey From Opry to Pop Royalty
 
@@ -703,35 +770,3 @@ Stories: 82
 - summary: Taylor Swift has donated $50,000 to a Connecticut mother who was injured while assisting victims of a car crash. The donation aims to support her recovery and help with medical expenses.
 - sources:
   - [unverified] CT Insider — https://news.google.com/rss/articles/CBMimwFBVV95cUxPVnNCeDRKZGwwOXF2TEdkRXZPUGR0QTVsaWd1MHZ0aWd0aTBvZGxXcjZWWm92RzIwYmpISEhRT21GZm95VGFJck95QmJ1MFpwWVhTTG9xeXFKMW9TRTQ4eWtSeFJGQVZtdDZoRUhqWnA1R3pRbkcybl9qSUY2T0RaUG0wQlpsUGZxZkl6WDFJSWppTGtDQ1ppdEYzRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dolly Parton Shares Thoughts on Taylor Swift and Travis Kelce's Romance
-
-- first seen: 2026-08-30 23:27 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Dolly Parton has expressed her opinions regarding the relationship between Taylor Swift and Travis Kelce, describing it as a 'little love affair.'
-- sources:
-  - [unverified] thelist.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxONmJFVG5MbC0wMXl5QklLWW14Tl83VTRlNVZUdlVTY0h2ZllyWEZScXlaVGd1Y29NRVBIcC0tdGFFc1huUFNxLXh1LXJwUnlHbm0xV0ZxZjVVN29NNnpyRHhpLWlOc0ZQc21NZy1jUU1jN3lrZHVvYlcwV2xUOTYwU3lESHNjMzVqZGxvMExEN3c5V3RtS19Xa0FZaUt3SVZOVVZtN0hfcHpxNmFqYVYyWDVUTlY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Comments on Taylor Swift's Wedding During Performance
-
-- first seen: 2026-08-30 23:27 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Harry Styles made a light-hearted remark about his ex-girlfriend Taylor Swift's wedding while on stage. The comment has generated buzz among fans and the media.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxQUW9TRHRHc1pWMElwZjlOelA3R3lVV0VKM1V5R0tTRnVlWjlrdmpGc0t0bklqbUUwM0ZHMTJsQXVlTVpFRjM5aEI1YzNEMFI4ZFNIdjl1UmRZdXJlVnRneHJjWS1icXBaTU5EUllnaGZCV1Rpa09YaExNMmRuSzU0bTJtaHp4VGJBX2gyb2xIVkVpeFExaUtzRlZQSUI4RHUta3ZsR0FWLVJ6Y1VEVjNmYQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Jokes About Taylor Swift's Wedding at MSG Performance
-
-- first seen: 2026-08-30 23:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During his concert at Madison Square Garden, Harry Styles made a humorous comment regarding Taylor Swift's wedding. The remark added a playful touch to his performance, drawing attention from fans.
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxPUUZSQjNnMUh6X0FlZHlhQlJxUzZLSlV6T1JvelJ3TTYtWkl5RTRhSEFxQk5qeGROM0lYdE5hd25saVE3eHQ2TG5nWEZoNmZ2YnY3ZjBwdDZ2TVJhVDdmLWkteGtZUmdWeVN6VkZibnlkdjhSUkFGYUpUVnI1OVNtRU9tdjI2NmY3X1ZHTWRpVVVBS1k?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Player Linked to Taylor Swift Faces Job Loss
-
-- first seen: 2026-08-30 23:27 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A player who drew attention from Taylor Swift during a recent event is officially unemployed following a series of layoffs. The situation highlights the intersection of sports and celebrity culture.
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMijgJBVV95cUxNZUoxQmw3SFFzUkdnUEdSUm14S05fVGpQWFR2M3VrNzhGT0Zuc2dqbGZ6YjZGci1GMThZZy1CbG5tQWF0WUhEaUJIWWxLWDhubkdpaW1ZQnJTVEhhaG1WSWhCbHFMc2lTVzFXWGNhdG5wSHBHS3FTanlCWVVKc1dhZzBad2xncWgxQ1UtdjlHWC1jbzdFMVdxN1gybXhNR1lack5HSkdtUkZuR1d6RmtPd0hoQXJqSXMwZjRLQ09IWEItLVZmemd5eFJmVTQxNzhzYW56U010NHpaSFZpRE01cGtXdHFYUkYxR2pmYVg0M0dWZkhzZXJsbzk3OFVvWkRKaXJUOW5oLVBvUWFCWUHSAY4CQVVfeXFMTXVZcHItWC1sWkVLVi0zaXFtYWg4bjJpMGxsdzRRRHBrOGJMX2c5TTZHTlBoV0pmMWhfN2hnWHdXZ3pUMGJNcnhaQWZzZ3N1a0NnOEhmeUJ0N2dIenh1bXozZnhHblhtci1ab2Uwa3pndjJQT1pqYkxlRGRqbmZpSTRGNlcySXlZYWJ3bVRQcGdaZENKM2FBMXdRZGpMdDdGR3Q0Q1hSYWE3cV9fZWRzU0FyUWQzUGZPQVhOdXRYV1BKa0xDRjQ5WjlfaURtVUJCUXNqY2M1MUdNbnlyS2NVUGplMndIRS1RcnRoV3lWQTkzNVlrTmFybXE1aTZTbndKN3pLWTZMNU9mQzN3cVBB?oc=5&hl=en-US&gl=US&ceid=US:en
