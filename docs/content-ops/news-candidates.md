@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 80
+
+## Travis Kelce's Home Raises Questions About Taylor Swift's Future Music
+
+- first seen: 2026-09-03 19:46 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from Akron Beacon Journal discusses whether Travis Kelce's newly acquired home in Bratenahl may influence Taylor Swift's upcoming music. The speculation highlights the intersection of their lives but does not confirm any direct connection.
+- sources:
+  - [unverified] Akron Beacon Journal — https://news.google.com/rss/articles/CBMi6AFBVV95cUxOSkhZOUVaSVlLbGkxM2pmY0NDRmgyX1BZSEE1Ql9GOTJTSzljYkVZeDBLSU4xVkdZUy1sRy1IbEtHalFNR1VuTXhxcXdodmNXbFgxbFQ2MGZuVFkwc1R0SnBaV29pZGFQWEczanFfcEZVZUpDdDR2NzVlZ2RLQzZ3VFVYdWx5akZDUE05NUdQMVR1Vk1WSzZXODZKc0prWm5GN2k5Z2trdkh0OG5zQl85NW95cFFSdWxGYXRRUG1YQUdWYlV3aHNhcnp4UTJ0a09LSGM4akdzV1Y0Ynd3OS1WZ2dfMlVFbWhq?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce's Dog Featured in Fashion Campaign
+
+- first seen: 2026-09-03 19:46 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce’s dog has made her debut in a new fashion campaign. The inclusion highlights the couple’s lifestyle and personal branding.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOblgyQWRBekh0LTZEWEtrUmZmRVJkN0g0ZXk0cUdiWVlsNGRYWldTdDVkTlpna3hRMDUyRzMybmo4VjZtWTVjcFppRDVQTHBHaHJtZE1xLWd1SzczcTNHSUZMenpjMWdweWJWN3ZXTGhHWXlkelJvUUpHNk9XR05RYXRUdFhWemNDOWNvYkpIT3FVY3ZNQlhsRkRiejI4RzdBVGc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Chris Lake Seeks New Inspirations in Music
 
@@ -99,14 +115,6 @@ Stories: 88
 - sources:
   - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMi8gFBVV95cUxPZ1pOLTZ2TTNqWkF1MDVnVU5kTHExYk9MZGZOV3lGTTR1ZGFvZEpPbnFUYzAxR3hWenBWQm5mZmVCMV9GQkNReFk2SFNXejNsYkZyWDctSnJGZ1FQTGV6ZHcxdDAtMTdSSTRneHNrOEJhR3BzY1d6XzhaMkdqRjVpV2t4WGJScEwxUnNHVHhNOHR4bFVWR1YyM1pjb2FaZnBLUDVPbGZIblU3bHNyTVJra2NsUTRiWVBZYzhqeXVNN1N1dnRUZDZkVm10MldFQmZyRHNtV2tQZVN3Q28yX3A2eExsVldYb21CODVEMXhIM1FwUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift and Travis Kelce's New Home in Bratenahl
-
-- first seen: 2026-09-03 05:44 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An aerial view showcases the new home of Taylor Swift and Travis Kelce located in Bratenahl. The image provides fans with a glimpse into the couple's recent property acquisition.
-- sources:
-  - [unverified] WKYC — https://news.google.com/rss/articles/CBMi4gFBVV95cUxPVW1nci0tZXFTWS1NMDFRRlI5MXl3eTRWeENHSlM3UDVISFBzV1hVTFZWYXQtSUREVFJLTHd3ZV8yNXRScXJGMXFuR3c4WWgtVHdRYmVPdWNJaU5wdEIzZmFlWkhvdm42YmY4czV2QXIxM0tnRU5HaWhjX2dNNC16RkNnQy1uOGRFdUVudXBzZ1lxZWZ5ZE5jVXhzV3BIVjZrUHZPZk1lelJVRHYwNWlVTE05VXBZNTFOOGVVZGtLbndKWUxiaG1DLUlkaVVBUlNlc1JZYTJXQVhiRHZkenZQQmlB?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Travis Kelce Seeks Taylor Swift's Approval for Dog Introduction
 
 - first seen: 2026-09-03 05:44 UTC | category: relationship | importance: 5
@@ -115,16 +123,6 @@ Stories: 88
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOYlRTRkxRMjg2Z0xCVHN4R2RiMFIxYmtka0c5MnlZYVBrckRhVjU5SHJhaXRIQW5MXzdjSzdGX1VlOUdFbFV6MEhLYkljTnpmZ3VLZGljVmpMaFQtUm5vNlVlcnVGOTVuMFRsRVJOXzhzUElHZHBweG4zd3BHVElWZ2hOa2JtRVhVOW5Bejg2elZ5SHl4ZmVsX1l5c013UUNUVVowTWNqRklWN2tORVl3TFhyYUhnNnZfcFUzNg?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Mike Polk Jr. Welcomes Swift and Kelce to Cleveland
-
-- first seen: 2026-09-03 05:44 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Mike Polk Jr. has extended a welcome to Travis Kelce and Taylor Swift during their visit to Cleveland, as reported by WKYC.
-- sources:
-  - [unverified] WKYC — https://news.google.com/rss/articles/CBMi5gFBVV95cUxNSGZJS3l6STdnMUlBd3o0S3FUa1VxMmFhQzYyaTZyanlLVkV1b2FwRHNRVGY2dGJGdF9mOFdwZERDc0J0TkI5XzVfVWtrRzlfeTRaQ29pNWRhTFFrVF9JdC1lOXpseGdWTGNuM1BibFF4X0NaNnhNV0hiQ2VSLVphNjhFWlhxSGNoZWtyemhJLUJwYmRKN2k4ay0teElrcWZQSDFvakF5YWJjc3NETTFvbE1NcV80Sk8xc1Q3U3c5RDJWdUIwZVZid2duUWlubE9hVlpOQXI5NEV6QzFVNTIxWHA3OFhEQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Nine.com.au — https://news.google.com/rss/articles/CBMi9AFBVV95cUxOZmRwUURGSUkyb21TOGVKOGZnc3IzX3Iwd0VTdkljWGNWS2JaYzNGc0hkdlIxTTZWdGN5eDA4cjNDdWZ6ZXdCNUJsRTEwSl9vYmljSTdVTTdHdDZTbk0zVUo3QjQ5b2ZvZTlYTk1naUFCLWdPdndtdnp0MWw5aEd2VlhOWFQ5WDJvdlVPUFA0TmNIbTFPRUhmYU5PRmZYSlFoaVAtdEZ6YnNoTjlkVHpYNWxJbHkxVTRJcC1iQTlDSnhRTlNJVk9kUG9yZHBNb3hkSWxJZ25XTk1JRlVsZ0Z1M181V0VxYnY5XzlvZVFlTzF0OFBB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPSnhUNHZabThYeTcyV0NmT1NMUFh0bmpVSVE3VUNPb0lMM3FfWGV0Rlh0RHIzOGV3OVhVUDNVWl9TQ1VidW1yZ0lrYnVhRXZVRkRKLTNkVHBFQlJaTm1HbnVUQXI0Rnp3cjJlVUZQVGFwcWphanl0Yjl0bC1POWxMS3Z5MFAydDI2Uk1ZaVVvbGZXckU4RmxhVU1UNzdoU2VC?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift and Travis Kelce Buy $5.35 Million Home in Bratenahl
 
 - first seen: 2026-09-03 05:44 UTC | category: business | importance: 6
@@ -132,6 +130,27 @@ Stories: 88
 - summary: Taylor Swift and Travis Kelce have reportedly purchased a Bratenahl home for $5.35 million. This real estate acquisition adds to their growing portfolio.
 - sources:
   - [unverified] Cleveland Magazine — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOZHFTR1hseGhBZGRnVjJUMTdTS25pQ3ZEVVBiUzdaU2ZSbGZSNnlmei0zbWZIS1FJY0xLQmpkV3BTZmtsT3VCUnR3ZldYcEstNkhVU1JoOUVlWUMwbzZ6aDQyd29YRTVUY0NWakZTam02aVNGbUt3Y2tYVHotUVpxWXQteE1EU3pqNXpRU0Itdm1wcUJjeE15T21kTko2UjNUWmRvSk5ENHA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce's New Home in Bratenahl
+
+- first seen: 2026-09-03 05:44 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: An aerial view showcases the new home of Taylor Swift and Travis Kelce located in Bratenahl. The image provides fans with a glimpse into the couple's recent property acquisition.
+- sources:
+  - [unverified] HELLO! Magazine — https://news.google.com/rss/articles/CBMiowFBVV95cUxQM3QzMmJJLVRJeFNVZmU0ZjFyM3NUMHhJZm5kcTRCejBSMjBCTFNwc0dvT215dXR4UkgxNWlqeVBNa1o0MzZ0U3hRQmtjV2tDUzB5QXpYU09UdFZIdHBRTXFtQ2ZmZmVsalRTU0Q1MWNfMUJfTEhSYTVydWZ1NmJzUDZaUFpQRnVuM0kzaVpyTWFORXdMandtZ1FYYnlvQzhFcHFj?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WKYC — https://news.google.com/rss/articles/CBMi4gFBVV95cUxPVW1nci0tZXFTWS1NMDFRRlI5MXl3eTRWeENHSlM3UDVISFBzV1hVTFZWYXQtSUREVFJLTHd3ZV8yNXRScXJGMXFuR3c4WWgtVHdRYmVPdWNJaU5wdEIzZmFlWkhvdm42YmY4czV2QXIxM0tnRU5HaWhjX2dNNC16RkNnQy1uOGRFdUVudXBzZ1lxZWZ5ZE5jVXhzV3BIVjZrUHZPZk1lelJVRHYwNWlVTE05VXBZNTFOOGVVZGtLbndKWUxiaG1DLUlkaVVBUlNlc1JZYTJXQVhiRHZkenZQQmlB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Mike Polk Jr. Welcomes Swift and Kelce to Cleveland
+
+- first seen: 2026-09-03 05:44 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 5
+- summary: Mike Polk Jr. has extended a welcome to Travis Kelce and Taylor Swift during their visit to Cleveland, as reported by WKYC.
+- sources:
+  - [unverified] AL.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPajJJVnRFMXZsZmZTOGdXVU90RkdVVDBsc0xMU3pSaGV2UnFYb3VNWTF2bk1IZWlyWFVzaUJQUURiRWNncHFDMWVhOGFOMFZDOTFkcVFoZmJTakgzcXV5dkpSeEQ0dmlZalJ2S2NWWHNzcFkwNmZBV2tVS1hRSUpFbzVlVjYxS2MxOEUtZGttMXRkRUFYVU1OLVpBaXBBVjBQMnlXUEY1S1BiUdIBvgFBVV95cUxQVjdXVFhwSmpuM0hqTmd5MlZwMFh2Z0dmQnNLVmhrbm9NbWQwSXQxM19wMHphUXp4S19hSWRnaUpWMlh3U2M4N2ZBam9YR3dfeXo1c0RNTG5NcjNTNXN4djduT1EtNVVvblpnQ0NNSVFJUFc0cENodkQwenEzaVZwWXRKbDlVWkI5LXlEYWozT01lM3hfb1VOb2NwYkJha1BIWW9fMHByZ0x4R0lheTZUdlNWdHAzbXBvdTlBaWd3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WKYC — https://news.google.com/rss/articles/CBMi5gFBVV95cUxNSGZJS3l6STdnMUlBd3o0S3FUa1VxMmFhQzYyaTZyanlLVkV1b2FwRHNRVGY2dGJGdF9mOFdwZERDc0J0TkI5XzVfVWtrRzlfeTRaQ29pNWRhTFFrVF9JdC1lOXpseGdWTGNuM1BibFF4X0NaNnhNV0hiQ2VSLVphNjhFWlhxSGNoZWtyemhJLUJwYmRKN2k4ay0teElrcWZQSDFvakF5YWJjc3NETTFvbE1NcV80Sk8xc1Q3U3c5RDJWdUIwZVZid2duUWlubE9hVlpOQXI5NEV6QzFVNTIxWHA3OFhEQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Nine.com.au — https://news.google.com/rss/articles/CBMi9AFBVV95cUxOZmRwUURGSUkyb21TOGVKOGZnc3IzX3Iwd0VTdkljWGNWS2JaYzNGc0hkdlIxTTZWdGN5eDA4cjNDdWZ6ZXdCNUJsRTEwSl9vYmljSTdVTTdHdDZTbk0zVUo3QjQ5b2ZvZTlYTk1naUFCLWdPdndtdnp0MWw5aEd2VlhOWFQ5WDJvdlVPUFA0TmNIbTFPRUhmYU5PRmZYSlFoaVAtdEZ6YnNoTjlkVHpYNWxJbHkxVTRJcC1iQTlDSnhRTlNJVk9kUG9yZHBNb3hkSWxJZ25XTk1JRlVsZ0Z1M181V0VxYnY5XzlvZVFlTzF0OFBB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPSnhUNHZabThYeTcyV0NmT1NMUFh0bmpVSVE3VUNPb0lMM3FfWGV0Rlh0RHIzOGV3OVhVUDNVWl9TQ1VidW1yZ0lrYnVhRXZVRkRKLTNkVHBFQlJaTm1HbnVUQXI0Rnp3cjJlVUZQVGFwcWphanl0Yjl0bC1POWxMS3Z5MFAydDI2Uk1ZaVVvbGZXckU4RmxhVU1UNzdoU2VC?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/03/us/bratenahl-ohio-taylor-swift-travis-kelce.html
 
 ## Travis Kelce Praises Taylor Swift's Fashion and Her New Dog
 
@@ -324,7 +343,7 @@ Stories: 88
 ## Travis Kelce and Taylor Swift Buy $5.35M Lakefront Home
 
 - first seen: 2026-09-02 05:45 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 26
+- verification_status: corroborated | source_count: 27
 - summary: Travis Kelce and Taylor Swift have purchased a lakefront home in Bratenahl for $5.35 million. This acquisition highlights their high-profile investment in real estate.
 - sources:
   - [unverified] WKYC — https://news.google.com/rss/articles/CBMi3gFBVV95cUxOcHZ1QnZLeEx6TkRHenhJaFhvUGx1TFBzTG5LZU01NDJnMEdaMExXUFBMX1psa2FGOFFfZEhLY0pGQXQ1ZGxrUW5IVmJManVGemk4QUV5NWZrNVlIWHUtVDhyQ0N2WUQycnRSTk02aktxSFI4dU15cWtUeUFBZ2xsVVFJYmYzeEdWSXo4cHpPcWhkay11cXRJSVVvaW5PTjBQdFZxX2J1QTlBdm5xZUhxSmxFS09PaTBRbmQ3MnJDcXlDLXd5YWpaelBzbkY1OHF6UVBEcm4zZjkxM3NReHc?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -353,6 +372,7 @@ Stories: 88
   - [unverified] cleveland.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOZ3ZSMmtUV19DWVVadUd4UnphMGo3NlpvbWlQakhkZjJIa3ZiQTVBUnQwVkNXTV92dHN3bXZ1WWZDeXhfaDYtd29RXzZNdnhpV2pXazYweHlva1RFTmtJUzF0VG41NlFtTzdRaUJHTmdzRW1NRFkxZ2ZMWUVPOHdWTVQ5UmEyblNQT19QT1BoVzVmS055TXJlTHh5c09CaHRmclByNXdwUEpDM3RvVGNVT08wU0FtUjRn0gHMAUFVX3lxTE9yejFQWTd1MUNCTjdrN0lCWXNnX0lPMzh0YUt4RGpFM0NvdEt6LU1oVmpGcTFqWWVIZDJVVURldDlTT2Qyb0NUMzQ0X1ZMTVNkLWMxZTdSMVg5OHBFWXltODhnTWp1UlJCNGlOeVJlS2hVLVllbHJTMms4TmpDelRCY2JEZ3EwTDA2am9JbGpNNUVPa01kSEdoYmVKUXdtci1McWpiLXZULTgxcjd6OHdoZzBJcUt6T2s5X25Mcm9ILTBLMUlwRENfWHNHYg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] KCTV — https://news.google.com/rss/articles/CBMivwFBVV95cUxQZ3JiRDZuR3djOW9abE8yLW1fOGFKNHFfLUpHRUdGTFBkbEpCQXcwcW83RnJ6bVdjRUFta1FFd2FOdldQY05KWHN2RlFTZGVZdXFndjl1VXR1a2pwSWpHN1I0QlVXOE9EVU5ES0g0UXFNa09oQkcxYkl3anBNaUMwekp5R1E3cTRoZG1Xd2hpTG1fV2Fqc1QxNDRNSHdNM2N4T0lqUTNpOG9rdkFwNWl2N0xnOFYxTC14ME05aVk1TdIB0wFBVV95cUxOVG5aM2ljbWtkTXQyZ1cxSm1BREplTk1VZmJaQ0lQaUJFWGhIS1NMQTNWU1pBOFF3MUJ1Q2xlV3NLOW45QVVqUjV6NU5wZ2R0ZXdocWVlVUhULWV2UUhfMnBlckZOOHN0cFBtQ01YUl9NRGNjSkV1bnJXMkdEYnVuNl91Y3Z1UnF2SHRqS1VBMXluNy11SUc5eVk1ZGJYWnBUcGtHbXNPZVF3YVJOLU1EMUZhT3hSMWY5SGRLRHF3SGppcmtCbXFnTkxmOEdpc1A4X1lF?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] lehighvalleylive — https://news.google.com/rss/articles/CBMixgFBVV95cUxOLXdYT2hKZ0FsTmN2SEt1VzNZZE1LZkJLT1ZkUlZZMEVNS2Q5SG1SMFA1U3RmNERHSzZpNVNjbWxFcHVEOEtsYTZxSE5nb2ZaS0tCbC00MEVoRll1VWwwMy0xOE11bk9xSWVCTUV5OGQtLUtWMEdMVDRjRWtpbWYzTXo0N3NGZzJxNmczdkk5a2FiVmZwYmMzUVpjTVFVYmVTUGtORzBvSV9xWnZuWHZ4VzZlRDRPNGVZNDlXU2VzYm5YeWxuY3c?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMitwFBVV95cUxQanBDbjVaVjdaNWlrbmQ5SGhUa2JhOTZvdFRyRkw0cnFLc3JycllrRTVNNEJ2QnphcjFhTXV5OGk2a0pRTkpGZnJUMzUtWTh4VTIxUU9RTUhLVlh6TEN1VjY2ek9zY2l3SU13bGNnTHZxLTRoR1NrUjhOdXcwWWxlYzFJQi1sY0d5bWtGQ0x4MmVXM1YteEJiWWRiMjJiUFlwcWoydHkwQmZEVVNyODJpQXRMV1RObW_SAbwBQVVfeXFMTUpfaHo0Ry1MREpTT1RlVmFzb3pkenhPaHl1XzM2bU9rd3RvZEptN1gtclBzVHFnSEhuZ2dSTFg4LXY4UFdBQ0M4dEg3TzZ2blN5ak9wRExubWFucVpPVHhMUzNNMDZWSzJIV3dwd3JRaERfWk5MbXNsVzFoQ3VVSkNWMU5pelFCZ3pJOTJkN2w0Q3hJTnhtYTNXMFhPRzY2Q0JvczFib1BGX0R3anNtZE0zMVJrM0NHdnMta1k?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 20-Year Journey From Opry to Pop Royalty
 
@@ -706,86 +726,3 @@ Stories: 88
   - [unverified] KTIV — https://news.google.com/rss/articles/CBMipgFBVV95cUxPOUZOdkFTNjhSTFZXdkl3WVhHb3lUTFh0OGdZOXh4MV94RlltLUwtRHM3ZjBwdzZIWHJNS0NwME5NQnhGdzZRMFE2a3RmVGw3dlRLY1h3OW5TVTZ1SHpWTC1NQ2hWQ1EwZXVIam5vcDIybk9scnhqU0NISmJHV2hIdXBudWxFdjhLUWczX3BmZmFjTG5DXzl6NWM4ZEVQLXk2blgxNnJ3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] WABI — https://news.google.com/rss/articles/CBMipAFBVV95cUxQMXBQSUMzQTQ0TngtVExpVVdUNUNMbHpBYVRDOW50aHZJWElSQkI1ajJDVFQ2V2hoVkdpYVlrRUlKNjdNbnJtWklNU09YZjcwTTNLTTBPYnRKQlNQc2owc2JuTGNIbU05eldYSmU4bFBQNG5haUZWcC1DTU8ySXJaWkVPcEFLSVhJLW9qUUVodm5STXdGbzBFcVBGR1NUZjQwZHBLYtIBuAFBVV95cUxPQzJaT0lBd3ZzTTJfU1dHQTlBX1U3NnViNzhJLUdVVmNzNjNubWEtalpSaFZrM3JyUVN5V2ZHUVY2SXNqdjZSNko1NG9RWnJhcS1kbmVwRXNhNjJlSXJEWkxpTXBkbXI0Z3VTNC04T29vTXhrMm45LXpTbGNHeVFQQ2JkMGNvWjB2SUNyZjJPRGZ6VjNESlZOWTVodnVLZHAxSjNGRS1hUlMya1Z0dUMwSlFTX3BrUTB0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] WBTV — https://news.google.com/rss/articles/CBMipgFBVV95cUxPVGtDcEJ6ZkNZa0ZKc1BMdHduX0ZKTkdPLTZBc0RnSmt4emRPOUYxa3FZdGZCSkUwd2IxYlRXZC1lbEhoalVhVUYyN2tjWDU3aU0wNmNKbk5zam9UOU94Y0o0cEszSEhVckE1TnhuT0R6cExXMTdyOW1qZjkxVjVZdXFvSzhGOHU5VUtCdHR6enNkRnYyM0ZEZXdLcl9QREQ5ekVkOWpB0gG6AUFVX3lxTFA4clpkZkJvWFR3aTVTWF9rU0xsRVVmVW5SVjBXMUZiR1l4NElfa2hCVFpRaGQwLWMxUDVlbEhqZktRZkx1bVFoNjZabHkzSnVXMGloeEVhR3AwZ2V1TkVyM05nMTV1dXRHZ2V0LVRkdkFldE02RkRma0FHRTN0SUNEMzZpMk9wM2RZVlVKcTU1YzdNeTIwa3ZtZXpERFo1bDVBQlNpdllPc1pWcmdaelptRTgtY3ZFVVJVZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift donates $50k to support injured Connecticut mother
-
-- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has contributed $50,000 to assist a Connecticut mother who was injured in a car accident while acting as a good Samaritan. This donation aims to provide significant support to her during recovery.
-- sources:
-  - [unverified] wtnh.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPeGVPNVB1WGdtV2xwRGk0VEFmbVhNck1UQlZVVmhKMW5sc0w5Q1d2RlpVSEk3aTJVaHp6R0N6RlFmdmh5V1RVUFI3b2RobktSWEtHbUticko4cEw1UEFrWktyQS1Qb1hEend1YnZZLUJFM3VHSUlBdm9XMmk0b3NLSnVrakVZSGpTMC1Ta0o0TkxTZWNpZm9JZGRzZkxJSUMyOTNWWFNlV0wzZXpXMFhqaW9QUjlvZEMwSzNsS0dGQUd6akXSAcgBQVVfeXFMT2d3ZlJSRURVT1JuQTQ5Vy12Ylc2eU1aQWJBdHI3ekZHRnpzTXJ5eFdYSzlGMFNkYzIxYzg2bWtSX0tfelNNa3RSMXN6d0c4ZmsyaTVGNll2MzhGQkhmQnRNTmNwVWdsN0gxV0t4aUdzOE1tYkVKbzNjb2dYbEZwNThURzBSSFNHZ25ZM1MzRzlNaEVrZXFQRGZ3b0NKWlhuN1dQekVkY2dIN25fWlEzcEIwSUYtRHc1cHUteHZTWlJTcE8tekt0YnU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes $50,000 Donation to Crash Victim
-
-- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has donated $50,000 to assist a woman who was injured in a crash on I-95. The donation highlights her philanthropic efforts in supporting individuals in need during difficult times.
-- sources:
-  - [unverified] The Providence Journal — https://news.google.com/rss/articles/CBMizAFBVV95cUxPaGtwRjZZTVNTTDJFSGdfbTdKWWJaMlhhUVFBaWlsbHo0WlV6SU9LQVFMN2pVUk8xZnVoejBVRlNlN1RfRkMzcmh5NGpVNTRYeFBza2JQelBBc1dkekJDZGhzZGNXaGdwT0RjcHlxUVdpNDd2QjhTZ3ZtV1p5Q2JGdFdaeW5TcHRNM1pBbU1lY056R3pFbzh4andhWVJQbHlPMmp1cnVCZXRnWFB4NFBPWWJ4VXRoekM1ZExyekVqdUFVMmRJUlhsREJMZU0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Reader Questions if Red Lipstick is Out of Style
-
-- first seen: 2026-08-31 17:02 UTC | category: fashion | importance: 4
-- verification_status: single_source | source_count: 1
-- summary: A reader seeks advice on whether her choice of red lipstick is still in fashion and if she should consider a makeover.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/08/31/fashion/red-lipstick-fashion-identity.html
-
-## Taylor Swift Donates Generously to Hero Mom After Rescue
-
-- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Reports indicate that Taylor Swift has made a substantial donation in response to a hero mom's near-fatal rescue, highlighting her philanthropic efforts. The donation reflects Swift's engagement in charitable initiatives.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNRFg5MUZiaklGVVdzTUJCTlVvLWFmeWphTjZ3bTVNVmdsMUdhNnIxOEJXVDRRZWVTeGVnbE51c1Yzbl9kZVNGd016ek5YZXpDWWMyTHd0OUNINkUyVnFXWXVUSkNZOW9jWmE3cDJyMFYyTmNRVXZpSVJqMG1fdGxOVDF3LUZKQXlmWVd4YWxIN1FsdjhSUEF3bGNPVUk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes $50k Donation to Aid Recovery Efforts
-
-- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has donated $50,000 to support a good Samaritan in recovery. This generous act highlights her ongoing charity work and commitment to helping individuals in need.
-- sources:
-  - [unverified] WRAL — https://news.google.com/rss/articles/CBMinAFBVV95cUxPWXhXTXNNd3dpS2JwaF9qckxyMFNyMGEzR201cE9hYUk3NE1GUmVqZkh1LWxxaFR5S3BnUkpLSTU4eC1LRGZIZDNJUkFUZElRbTZOYVMwREU0ZGdmQjgxcFFFeTBfRUJ4bG1LdEV2YXVWLUJ5dmh3Y1ZMbU50MWo2cG9rQjJnSFJfQ2FPTWF5bGJROG93aVIyclc4UG8?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Harry Styles Mentions Taylor Swift During Madison Square Garden Event
-
-- first seen: 2026-08-31 17:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Harry Styles recognizes his ex, Taylor Swift, during an event at Madison Square Garden. The mention highlights their past relationship amidst a public setting.
-- sources:
-  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMijgFBVV95cUxQd3ZEOHM0THNTYkotRVhUaUpCYnlyTlJRSWlWMko3Q1pXN3BOUTFiejcxY3NxcUJsa1RvWnFnNUhyeVQwU2RrMzVPZzVEMUlwajYtQmtWYTlUVzVaamliN0xXLVZxX3hJQkdIa0JNWGRxZkQ2YmE5N2RJTVdfU2dORkVMQ1hoRXl5dFY2dldR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Hints at Upcoming Album With Easter Egg
-
-- first seen: 2026-08-31 17:02 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift may have teased details about her next album, sparking interest and speculation among fans. The news comes from a recent article discussing potential clues she has shared.
-- sources:
-  - [unverified] PureWow — https://news.google.com/rss/articles/CBMidEFVX3lxTFBuRHdnbm1ody1WVU9tSXJHZUUyRVlBNVZGLUhvNjRLQmQwTlBXZTBMTjBGTWhoeVJCdUtPSlVfV0kzRDdUR1k3M0pkaDltakNvQlhjdVlmY29qbGtma21scEd3V3kwS1QtVWhYUnZ1OTlhUmNa?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Could Make Grammy History Alongside Ariana Grande
-
-- first seen: 2026-08-31 17:02 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is on track to potentially make Grammy history, with rumors suggesting Ariana Grande may also be involved in the achievement. This development is garnering significant attention in the music industry.
-- sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOdGUydFZqYkZFc0ZJOUMwNmdybmhrS0xfZWsyWnFsbTdFcFR5elE5aVRfMkVuT3p6Zm5DdzR4QVhKaGNtTVEyLTN5RkNEaWV1WDM0UnYzQXQ2c1M3eVBXOXVkU1NGSGZwYVBKYlA0SU5lRmFmMjhpOU1zREdpMXh5LTNTc1F3VDkzdF9lbkt0bzBHZ3Vvckl0cTBvQUVleUh2RmZHOXYwV09MaUNvakt4UE0yc0twalFEYU80bmlkY2xiVWc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Gifts Life-Changing Item to Woman Who Helped Teens
-
-- first seen: 2026-08-31 17:02 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: A woman who was injured after helping teens on the interstate received a significant gift from Taylor Swift, described as 'life-changing.' The incident highlights Swift's generosity towards those in need.
-- sources:
-  - [unverified] WBAL-TV — https://news.google.com/rss/articles/CBMiggFBVV95cUxQLXU3TkVHbzUyUjhqS1BsZl9PWndNa0ZBNWlCZTkyR2VVT0pjVDA5dE14Q2VTUlNsb2JxajlYa0tobmJTcE9JZUswbkIzYjhoYnBTRWZhT0tBRnpOQUFQNUJyMF83OXpFR29TZmtjSGZqQ2ZHaTUzazNjUGNxTmhqNTRn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WXII — https://news.google.com/rss/articles/CBMiggFBVV95cUxQbDduZmdkcWFJSnZ0LUpMdE1ENlAwMUtxb0NlMUsycXctSkpoSmxSOUs5ZHV1YXAwRTZyOWVaVEtzRlp3V3pkSUp5LUduUGZMRGZkYjQtQkdMblZRUGVyMU11NU5MaDhORTVaZzkwOFlNREVUUFk2MkZXRTNWeVlSb0hn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce face challenges with football involvement
-
-- first seen: 2026-08-31 17:02 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift's newly married life is reportedly facing some difficulties due to tensions arising from football commitments involving Travis Kelce.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE0zcXNqWUVhcUs4aWtRWGNVWHNieFhXSjR2Rm9jQUdqZjZnX21KZC1vWjRIUFVnNUVWbW1JWXNrampSUDZjdlFXUkNYaGk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi5gFBVV95cUxNMFJIVDdqY0FyTGRFOXVJcEY3OW00WDF2dTZqTVRyWWRTU3dpQWRPXzdLdk51MlFtT0lKTVR1TDZqZEZsNlVadDRJbmo4VFo3YVpuS1Z6OHNjSzR0MkUyZXBVV2pieFFQcTVad0pqcVZyTS01Ykh6VVVMX3Z5UTRURHc0dEQ1cS1XQ1Z5TmhxMUIyNFdveFplQS01QnRBN0RLQV9xY0ZYRm5ZaGF5Z0RKano3UXd2Z09BdmJGUGt1cXdxOHZmZGVxeWY2SGdEMVlFSUdyQVFXVmFRbkZsMExfYzZRalFVd9IB5gFBVV95cUxQZUEyTGxaVDYzV21xenFGdmtyOTRnenJuTWV4ZTFnVkVWM1ZlelpBWHpBMUhROWNzSGQzUGlrZXlLUlVKdWt5UEdMSHo2aWZxendLZVp6a204MmVxN282VWlhZE5paExoYzhZQ1FKQmhLNDhIUkhKZDdQYUFWcC1BSUxEejROclZiRnNIREk2ZEY2VW9YT2pwVE1XRkMyd3pwTGoyME9lRmJ4R1M5WDk1T0dFRlAtSE85TVBWQnRKSm1hOVRSQXNnXzR2aUdUWjhmTENJNmFabktkajIwbUJtZkdxUDNzUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisAFBVV95cUxNZDBZTy05OTNNVGl6dXctSXRJQi11QU8tUUdMUHhHbjg3QVFhbk9aZDREMzJUQ3JDZXZxWFY2NnRoY0NXN05oQS1yTHRQd1VYUTJTcDRsVU9BMHZnUG1zU29jdHB2bVFPOHRYWko3eFBtVDNSc3VqSHNtX1lCWXMxaFJMbElGMEdsVzl2WXBPSlNDY3RkQWhKU0N5OXBkaml5bHpOemxvb3lLcTNJbDlfZA?oc=5&hl=en-US&gl=US&ceid=US:en
