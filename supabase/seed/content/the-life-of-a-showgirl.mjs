@@ -2840,6 +2840,9 @@ export default {
       // first half of the pattern lives on that TTPD-era page.
       relatedIds: [
         'moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play',
+        // Cross-Link (same session): the friendship-bracelet Nike colorway that
+        // turns Clark's Swiftie fandom into her signature shoe.
+        'moment:vault-tloas-a-friendship-bracelet-nike-from-a-swiftie-on-the-court-caitl',
       ],
       moment: {
         context:
@@ -12338,9 +12341,12 @@ export default {
       month: 8,
       day: 27,
       category: 'fashion',
-      // relatedIds omitted at author time — the natural sibling is this era's
-      // Caitlin-Clark Arrowhead sighting; left for the Cross-Link lane to thread
-      // with a verified moment id rather than a hand-guessed one.
+      // Cross-Link (same session): threaded to this era's Caitlin-Clark
+      // Arrowhead sighting — a reader on the shoe wants the moment where Clark,
+      // the Swiftie whose fandom the colorway celebrates, sits in Taylor's suite.
+      relatedIds: [
+        'moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb',
+      ],
       title: 'A friendship-bracelet Nike, from a Swiftie on the court: Caitlin Clark\'s "Friendship Bracelet" Caitlin 1',
       snippet:
         'Caitlin Clark — the WNBA star repeatedly seen trading Eras Tour bracelets and sitting in Taylor\'s Arrowhead suite — unveiled a "Friendship Bracelet" colorway of her debut Nike signature shoe, its fuzzy laces beaded like the ones fans make for Taylor\'s concerts.',
