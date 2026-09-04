@@ -309,8 +309,11 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     gh(['issue', 'list', '--repo', repo, '--label', 'founders-brief', '--state', 'all', '--limit', '14', '--json', 'number,title,body,createdAt']),
     // Folded in 2026-08-23: the standalone founder-task digest email was
     // retired (Joey's call) — these now surface here instead, next-morning
-    // latency, explicitly OK'd.
-    ghCriticalList(['issue', 'list', '--repo', repo, '--label', 'founder-task', '--state', 'open', '--limit', '50', '--json', ISSUE_FIELDS]),
+    // latency, explicitly OK'd. Same #3689 headroom as founder-decision
+    // above: --limit 500, well past the 300-row floor that caused the
+    // incident, so ghCriticalList's throw path is never exercised by real
+    // founder-task volume either.
+    ghCriticalList(['issue', 'list', '--repo', repo, '--label', 'founder-task', '--state', 'open', '--limit', '500', '--json', ISSUE_FIELDS]),
   ]);
   const allIssues = allIssuesRaw;
   const runnerListsCapExhausted = allPRsCapExhausted || allIssuesCapExhausted;
