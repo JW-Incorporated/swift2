@@ -89,14 +89,18 @@ function mixSrgb(hex1: string, weight1: number, hex2: string): string {
 // `--era-ink-soft` already cleared 4.5:1 on both, so accent2 is the token the
 // measurements identify). Locks the two nudged eras at ≥4.5:1 against every
 // background layer accent2 text can sit on.
-describe('accent2 as text — WCAG AA 4.5:1 on reputation/evermore (#3399)', () => {
-  const fixed = ERAS.filter((e) => e.id === 'reputation' || e.id === 'evermore').map((e) => ({
+// #3665 (Laura's 2026-09-01 walk) caught the same pattern on speak-now —
+// #7d5bd0 on #1c1030 = 3.66:1 — so speak-now joins the lock with its nudged
+// value.
+describe('accent2 as text — WCAG AA 4.5:1 on reputation/evermore/speak-now (#3399, #3665)', () => {
+  const NUDGED = ['reputation', 'evermore', 'speak-now'];
+  const fixed = ERAS.filter((e) => NUDGED.includes(e.id)).map((e) => ({
     id: e.id,
     theme: e.theme,
   }));
 
-  it('covers both eras the #3399 audit flagged', () => {
-    expect(fixed.map((t) => t.id).sort()).toEqual(['evermore', 'reputation']);
+  it('covers every era an accent2 audit flagged', () => {
+    expect(fixed.map((t) => t.id).sort()).toEqual(['evermore', 'reputation', 'speak-now']);
   });
 
   it.each(fixed)('$id: accent2 clears 4.5:1 on bg, surface, and surface2', ({ theme }) => {
