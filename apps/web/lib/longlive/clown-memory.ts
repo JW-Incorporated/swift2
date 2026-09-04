@@ -11,9 +11,18 @@
  * outcome) when `session` is `null` — the same graceful-degrade contract
  * `clown-session.ts`'s header documents. Write failures reject so the route
  * can log them while still returning the already-composed answer.
+ *
+ * ONE CLIENT PER REQUEST (Fable 5.1 architecture review, task R14): every
+ * exported function here takes an already-built `SupabaseClient | null` —
+ * built ONCE by the caller (`route.ts`, via `clown-session.ts`'s
+ * `createClownDbClient`) from the resolved session, rather than each
+ * function/each PostgREST call re-deriving its own client/headers/URL. A
+ * `null` db means the same thing a `null` env/session meant before: degrade
+ * silently, exactly per this file's own graceful-degrade contract above.
  */
+import type { SupabaseClient } from '@supabase/supabase-js';
+
 import type { ClownSession } from './clown-session';
-import { clownAuthHeaders, clownMemoryEnv } from './clown-session';
 import type { ClownTurn } from './clown-client';
 import { MAX_TRANSCRIPT_TURNS } from './clown-client';
 import { screenTurn } from './clown-safety';
@@ -56,19 +65,18 @@ export const CLOWN_USER_DAILY_CAP = 200;
  * A failed/unreachable RPC fails OPEN (defense in depth only, same posture
  * `usage_daily`'s other callers already take on a durable-counter miss).
  */
-export async function incrementUserUsage(session: ClownSession, fetchImpl: typeof fetch = fetch, signal?: AbortSignal): Promise<boolean> {
-  const env = clownMemoryEnv();
-  if (!env) return true;
+export async function incrementUserUsage(
+  session: ClownSession,
+  db: SupabaseClient | null,
+  signal?: AbortSignal,
+): Promise<boolean> {
+  if (!db) return true;
   try {
-    const res = await fetchImpl(`${env.supabaseUrl}/rest/v1/rpc/increment_usage_daily`, {
-      method: 'POST',
-      headers: { ...clownAuthHeaders(env, session), 'content-type': 'application/json' },
-      body: JSON.stringify({ p_scope: `clown-chat:${session.userId}` }),
-      signal,
-    });
-    if (!res.ok) return true;
-    const count = await res.json();
-    return typeof count === 'number' ? count <= CLOWN_USER_DAILY_CAP : true;
+    let query_ = db.rpc('increment_usage_daily', { p_scope: `clown-chat:${session.userId}` });
+    if (signal) query_ = query_.abortSignal(signal);
+    const { data, error } = await query_;
+    if (error) return true;
+    return typeof data === 'number' ? data <= CLOWN_USER_DAILY_CAP : true;
   } catch {
     return true;
   }
@@ -126,14 +134,18 @@ type ConversationLookup =
  * Supabase hiccup would 500 the live chat route instead of degrading to
  * no-memory. Caught here, once, and degraded to `{ status: 'error' }` —
  * never thrown. */
-async function getConversation(session: ClownSession, fetchImpl: typeof fetch, signal?: AbortSignal): Promise<ConversationLookup> {
-  const env = clownMemoryEnv();
-  if (!env) return { status: 'error' };
+async function getConversation(session: ClownSession, db: SupabaseClient, signal?: AbortSignal): Promise<ConversationLookup> {
   try {
-    const getUrl = `${env.supabaseUrl}/rest/v1/clown_conversation?select=id,summary&user_id=eq.${session.userId}&order=last_active_at.desc&limit=1`;
-    const getRes = await fetchImpl(getUrl, { headers: clownAuthHeaders(env, session), signal });
-    if (!getRes.ok) return { status: 'error' };
-    const rows = (await getRes.json()) as unknown;
+    let query_ = db
+      .from('clown_conversation')
+      .select('id,summary')
+      .eq('user_id', session.userId)
+      .order('last_active_at', { ascending: false })
+      .limit(1);
+    if (signal) query_ = query_.abortSignal(signal);
+    const { data, error } = await query_;
+    if (error) return { status: 'error' };
+    const rows = data as unknown;
     if (!Array.isArray(rows)) return { status: 'error' };
     if (rows.length === 0) return { status: 'empty' };
     const row = rows[0] as { id?: unknown; summary?: unknown };
@@ -165,29 +177,24 @@ async function getConversation(session: ClownSession, fetchImpl: typeof fetch, s
  * from that collision by resetting `summary`/`expires_at` on the existing
  * row instead of erroring.
  */
-async function getOrCreateConversation(session: ClownSession, fetchImpl: typeof fetch): Promise<ConversationRef | null> {
-  const env = clownMemoryEnv();
-  if (!env) return null;
-  const lookup = await getConversation(session, fetchImpl);
+async function getOrCreateConversation(session: ClownSession, db: SupabaseClient): Promise<ConversationRef | null> {
+  const lookup = await getConversation(session, db);
   if (lookup.status === 'found') return lookup.conversation;
   if (lookup.status === 'error') return null;
-  const postRes = await fetchImpl(`${env.supabaseUrl}/rest/v1/clown_conversation?on_conflict=user_id`, {
-    method: 'POST',
-    headers: {
-      ...clownAuthHeaders(env, session),
-      'content-type': 'application/json',
-      Prefer: 'resolution=merge-duplicates,return=representation',
-    },
-    body: JSON.stringify({
-      user_id: session.userId,
-      summary: '',
-      expires_at: new Date(Date.now() + CONVERSATION_RETENTION_MS).toISOString(),
-    }),
-  });
-  if (!postRes.ok) return null;
-  const created = (await postRes.json()) as unknown;
-  const row = Array.isArray(created) ? created[0] : created;
-  const id = (row as { id?: unknown })?.id;
+  const { data: created, error } = await db
+    .from('clown_conversation')
+    .upsert(
+      {
+        user_id: session.userId,
+        summary: '',
+        expires_at: new Date(Date.now() + CONVERSATION_RETENTION_MS).toISOString(),
+      },
+      { onConflict: 'user_id' },
+    )
+    .select('id')
+    .single();
+  if (error || !created) return null;
+  const id = (created as { id?: unknown }).id;
   if (typeof id !== 'string') return null;
   return { id, summary: '' };
 }
@@ -220,20 +227,24 @@ export interface LoadedClownHistory {
  */
 export async function loadClownHistory(
   session: ClownSession | null,
-  fetchImpl: typeof fetch = fetch,
+  db: SupabaseClient | null,
   signal?: AbortSignal,
 ): Promise<LoadedClownHistory | null> {
-  if (!session) return null;
-  const env = clownMemoryEnv();
-  if (!env) return null;
-  const lookup = await getConversation(session, fetchImpl, signal);
+  if (!session || !db) return null;
+  const lookup = await getConversation(session, db, signal);
   if (lookup.status !== 'found') return null;
   const conversation = lookup.conversation;
   try {
-    const listUrl = `${env.supabaseUrl}/rest/v1/clown_turn?select=role,text&conversation_id=eq.${conversation.id}&order=created_at.desc&limit=${MAX_TRANSCRIPT_TURNS}`;
-    const listRes = await fetchImpl(listUrl, { headers: clownAuthHeaders(env, session), signal });
-    if (!listRes.ok) return { summary: conversation.summary, turns: [] };
-    const rows = (await listRes.json()) as Array<{ role?: unknown; text?: unknown }>;
+    let query_ = db
+      .from('clown_turn')
+      .select('role,text')
+      .eq('conversation_id', conversation.id)
+      .order('created_at', { ascending: false })
+      .limit(MAX_TRANSCRIPT_TURNS);
+    if (signal) query_ = query_.abortSignal(signal);
+    const { data, error } = await query_;
+    if (error) return { summary: conversation.summary, turns: [] };
+    const rows = data as Array<{ role?: unknown; text?: unknown }>;
     const turns: ClownTurn[] = Array.isArray(rows)
       ? rows
           .filter((r): r is { role: 'user' | 'assistant'; text: string } => (r.role === 'user' || r.role === 'assistant') && typeof r.text === 'string')
@@ -250,35 +261,29 @@ const MAX_TURN_TEXT = 4000;
 
 async function appendTurnPair(
   session: ClownSession,
+  db: SupabaseClient,
   conversationId: string,
   question: string,
   answerText: string,
-  fetchImpl: typeof fetch,
 ): Promise<void> {
-  const env = clownMemoryEnv();
-  if (!env) return;
   const userCreatedAt = Date.now();
-  const res = await fetchImpl(`${env.supabaseUrl}/rest/v1/clown_turn`, {
-    method: 'POST',
-    headers: { ...clownAuthHeaders(env, session), 'content-type': 'application/json' },
-    body: JSON.stringify([
-      {
-        conversation_id: conversationId,
-        user_id: session.userId,
-        role: 'user',
-        text: question.slice(0, MAX_TURN_TEXT),
-        created_at: new Date(userCreatedAt).toISOString(),
-      },
-      {
-        conversation_id: conversationId,
-        user_id: session.userId,
-        role: 'assistant',
-        text: answerText.slice(0, MAX_TURN_TEXT),
-        created_at: new Date(userCreatedAt + 1).toISOString(),
-      },
-    ]),
-  });
-  if (!res.ok) throw new Error(`clown memory turn insert failed (${res.status})`);
+  const { error } = await db.from('clown_turn').insert([
+    {
+      conversation_id: conversationId,
+      user_id: session.userId,
+      role: 'user',
+      text: question.slice(0, MAX_TURN_TEXT),
+      created_at: new Date(userCreatedAt).toISOString(),
+    },
+    {
+      conversation_id: conversationId,
+      user_id: session.userId,
+      role: 'assistant',
+      text: answerText.slice(0, MAX_TURN_TEXT),
+      created_at: new Date(userCreatedAt + 1).toISOString(),
+    },
+  ]);
+  if (error) throw new Error(`clown memory turn insert failed: ${error.message}`);
 }
 
 /** How many of the MOST RECENT turns stay as individual rows — well above
@@ -314,18 +319,19 @@ interface TurnRow {
  */
 async function maintainRollingSummary(
   session: ClownSession,
+  db: SupabaseClient,
   conversation: ConversationRef,
-  fetchImpl: typeof fetch,
 ): Promise<void> {
-  const env = clownMemoryEnv();
-  if (!env) return;
-  const listUrl = `${env.supabaseUrl}/rest/v1/clown_turn?select=id,role,text&conversation_id=eq.${conversation.id}&order=created_at.asc`;
-  const listRes = await fetchImpl(listUrl, { headers: clownAuthHeaders(env, session) });
-  if (!listRes.ok) {
-    console.log('clown:memory-fold-list-failed', JSON.stringify({ conversationId: conversation.id, status: listRes.status }));
+  const { data, error: listError } = await db
+    .from('clown_turn')
+    .select('id,role,text')
+    .eq('conversation_id', conversation.id)
+    .order('created_at', { ascending: true });
+  if (listError) {
+    console.log('clown:memory-fold-list-failed', JSON.stringify({ conversationId: conversation.id, message: listError.message }));
     return;
   }
-  const turns = (await listRes.json()) as TurnRow[];
+  const turns = data as TurnRow[];
   if (!Array.isArray(turns)) return;
 
   let deleteTurnIds: string[] = [];
@@ -348,17 +354,13 @@ async function maintainRollingSummary(
     deleteTurnIds = toFold.map((t) => t.id);
   }
 
-  const foldRes = await fetchImpl(`${env.supabaseUrl}/rest/v1/rpc/fold_clown_conversation`, {
-    method: 'POST',
-    headers: { ...clownAuthHeaders(env, session), 'content-type': 'application/json' },
-    body: JSON.stringify({
-      p_conversation_id: conversation.id,
-      p_delete_turn_ids: deleteTurnIds,
-      p_new_summary: newSummary,
-    }),
+  const { error: foldError } = await db.rpc('fold_clown_conversation', {
+    p_conversation_id: conversation.id,
+    p_delete_turn_ids: deleteTurnIds,
+    p_new_summary: newSummary,
   });
-  if (!foldRes.ok) {
-    console.log('clown:memory-fold-failed', JSON.stringify({ conversationId: conversation.id, status: foldRes.status }));
+  if (foldError) {
+    console.log('clown:memory-fold-failed', JSON.stringify({ conversationId: conversation.id, message: foldError.message }));
   }
 }
 
@@ -372,12 +374,12 @@ export interface RecordTurnInput {
  * Best-effort — the caller (`route.ts`) waits for this to settle before the
  * response stream closes and logs a rejection without replacing the answer.
  * No-ops entirely when `session` is `null` (auth unavailable — today's real
- * state).
+ * state) or `db` couldn't be built.
  */
-export async function recordClownMemory(input: RecordTurnInput, fetchImpl: typeof fetch = fetch): Promise<void> {
-  if (!input.session) return;
-  const conversation = await getOrCreateConversation(input.session, fetchImpl);
+export async function recordClownMemory(input: RecordTurnInput, db: SupabaseClient | null): Promise<void> {
+  if (!input.session || !db) return;
+  const conversation = await getOrCreateConversation(input.session, db);
   if (!conversation) return;
-  await appendTurnPair(input.session, conversation.id, input.question, input.answerText, fetchImpl);
-  await maintainRollingSummary(input.session, conversation, fetchImpl);
+  await appendTurnPair(input.session, db, conversation.id, input.question, input.answerText);
+  await maintainRollingSummary(input.session, db, conversation);
 }
