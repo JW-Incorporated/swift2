@@ -45,6 +45,14 @@ npm run build --workspace @swift2/web
 ```
 npm run validate:content # seed content vs DB constraints (category/month/length/era)
 npm run check:budget:seed # Tier 0 payload budget from seed files (≤2 MB gz / ≤10 MB parsed)
+npm run check:budget:bundle # apps/web shipped client bundle (.next/static): ≤8 MB. Detection
+                             # only, no auto-remediation. Current build is ~4.9 MB (2026-09-04);
+                             # 8 MB leaves ~60% headroom for organic growth while still catching a
+                             # real regression (e.g. an unsplit dependency landing client-side).
+                             # Run `npm run build --workspace @swift2/web` first — the check reads
+                             # its output. Raise the threshold deliberately in
+                             # scripts/check-bundle-size.mjs (with a comment) if legitimate growth
+                             # needs more room; don't raise it to make a regression pass.
 ```
 **Database / seed — ⚠️ writes to PROD, needs `apps/worker/.env`.** (Note: the
 website builds from repo seed files directly since 2026-07-17 — DB seeding

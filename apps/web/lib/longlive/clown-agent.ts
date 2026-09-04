@@ -66,6 +66,7 @@ import { reserveGlobalUsage } from './usage-db-gate';
 import type { InvestigationStep } from './clown-answer';
 import type { RetrievedItem } from './clown-fallback';
 import type { ToolCallResult } from './clown-agent-tools';
+import type { KnowledgeDataSource } from '@swift2/core';
 import {
   buildInitialMessages,
   dispatchReadBlocks,
@@ -152,6 +153,7 @@ export async function runClownAgent(
   transcript: readonly ClownTurn[],
   seed: ToolCallResult,
   seedInput: Record<string, unknown>,
+  client: KnowledgeDataSource | null,
   onStep?: (step: InvestigationStep) => void,
   clock: () => number = Date.now,
   signal?: AbortSignal,
@@ -311,7 +313,7 @@ export async function runClownAgent(
     // credited by the whole batch size, matching the inline version this
     // replaced.
     toolCallCount += readBlocks.length;
-    const { assistantBlocks, resultBlocks } = await dispatchReadBlocks(readBlocks, pool, investigation, onStep, signal);
+    const { assistantBlocks, resultBlocks } = await dispatchReadBlocks(client, readBlocks, pool, investigation, onStep, signal);
 
     messages.push({ role: 'assistant', content: assistantBlocks });
     messages.push({ role: 'user', content: resultBlocks });

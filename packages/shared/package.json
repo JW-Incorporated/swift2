@@ -9,7 +9,8 @@
     ".": "./src/index.ts",
     "./mood": "./src/mood/index.ts",
     "./news": "./src/news/index.ts",
-    "./redline": "./src/redline.ts"
+    "./redline": "./src/redline.ts",
+    "./llm/anthropic-messages": "./src/llm/anthropic-messages.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

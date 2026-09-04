@@ -38,6 +38,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { httpsRequest } from '../lib/gh.mjs';
 
 import {
   formatMaintenanceSection,
@@ -97,6 +98,28 @@ async function getJsonLines(url, headers, label) {
     return null;
   } finally {
     clearTimeout(timer);
+  }
+}
+
+/**
+ * GitHub-only counterpart to `getJson`, routed through `scripts/lib/gh.mjs`'s
+ * `httpsRequest` rather than a bare `fetch`. `api.github.com` calls in cloud
+ * runners go through a proxy that swaps a placeholder GH_TOKEN for the real
+ * credential; Node's `fetch` silently bypasses that proxy unless the process
+ * was booted with `--use-env-proxy`, which produces a flat 401 that looks
+ * like a bad token (#1869/#2008). Every other collector here (Vercel,
+ * Supabase) is unaffected and keeps using `fetch` directly.
+ */
+async function getGithubJson(url, headers, label) {
+  try {
+    const res = await httpsRequest(url, { headers, timeoutMs: FETCH_TIMEOUT_MS });
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error(`HTTP ${res.status}: ${(res.text ?? '').slice(0, 200)}`);
+    }
+    return res.text ? JSON.parse(res.text) : null;
+  } catch (err) {
+    console.error(`collect-maintenance: ${label} failed: ${err.message ?? err}`);
+    return null;
   }
 }
 
@@ -187,7 +210,7 @@ async function collectGithub(now) {
   // (the one that needed `admin:org`) now returns HTTP 410 Gone; this
   // replacement is readable with the plain `repo` + `read:org` scopes the
   // existing tokens already carry. Verified against the live org 2026-08-11.
-  const usage = await getJson(
+  const usage = await getGithubJson(
     `https://api.github.com/organizations/${encodeURIComponent(ORG)}/settings/billing/usage?year=${d.getUTCFullYear()}&month=${d.getUTCMonth() + 1}`,
     headers,
     'GitHub billing usage',
@@ -200,14 +223,14 @@ async function collectGithub(now) {
   // failures, the same page reaches back 11 days. The summariser still
   // re-checks `conclusion` and the window itself, so this stays correct even
   // if the filter's semantics change.
-  const runs = await getJson(
+  const runs = await getGithubJson(
     `https://api.github.com/repos/${REPO}/actions/runs?status=failure&per_page=100`,
     headers,
     'GitHub workflow runs',
   );
 
   // Dependabot alerts need `security_events` (or `repo` on a classic token).
-  const alerts = await getJson(
+  const alerts = await getGithubJson(
     `https://api.github.com/repos/${REPO}/dependabot/alerts?state=open&per_page=100`,
     headers,
     'GitHub Dependabot alerts',

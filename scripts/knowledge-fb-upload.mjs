@@ -13,11 +13,11 @@
 // Self-provisions the bucket on first run via the service-role key's
 // storage.createBucket — checked before assuming this needed a dashboard
 // click; it doesn't, a service-role caller can create a bucket directly.
-import { createClient } from '@supabase/supabase-js';
 import { readFileSync, unlinkSync } from 'node:fs';
 import { basename } from 'node:path';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { serviceClient } from './lib/supabase.mjs';
 
 export const BUCKET = 'facebook-exports';
 
@@ -67,15 +67,13 @@ async function main() {
     process.exit(1);
   }
 
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) {
+  const supabase = serviceClient();
+  if (!supabase) {
     console.error(
       'knowledge:fb-upload: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set (expected in apps/worker/.env).',
     );
     process.exit(1);
   }
-  const supabase = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
 
   const created = await ensureBucket(supabase);
   if (created) console.log(`knowledge:fb-upload: created private bucket "${BUCKET}"`);
