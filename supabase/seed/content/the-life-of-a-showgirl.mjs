@@ -12684,5 +12684,66 @@ export default {
         // route to Photo Enrichment if a reusable image surfaces.
       },
     },
+    {
+      slug: 'showgirl-brazil-taylor-swift-law',
+      year: 2026,
+      month: 8,
+      day: 31,
+      category: 'business',
+      // relatedIds intentionally omitted at author time — the natural thread is
+      // the Nov. 2023 Rio Eras Tour show and its aftermath, which live in a
+      // different era file; left for the Cross-Link lane to resolve rather than
+      // hand-fabricate a moment id here.
+      title: 'Brazil signs the "Taylor Swift Law" — free water and honest ticket prices, three years after a fan died at her Rio show',
+      snippet:
+        'President Lula signed two decrees named in local coverage for Taylor: events over 1,000 capacity must give out free water and let fans bring their own, and ticket platforms must show every fee up front. Both trace to Ana Clara Benevides, the 23-year-old fan who died in the heat at the 2023 Rio Eras Tour show.',
+      sourceUrl: 'https://www.upi.com/Top_News/World-News/2026/09/01/latam-brazil-taylor-swift-law/3221788282214',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Aug. 31, 2026, Brazilian President Luiz Inácio Lula da Silva signed two decrees in Brasília that local coverage immediately nicknamed the "Taylor Swift Law" — nationwide rules for concerts and live events, written in the shadow of a death at one of her shows. The first requires any event with a capacity over 1,000 to provide free drinking water and to let attendees bring their own containers; selling bottled water no longer exempts an organizer, and consumer-protection agencies are tasked with watching for price gouging. The second goes after ticketing: platforms must disclose the original face price and every added fee up front, transfers through official channels have to be free, and high-demand sales must run through mechanisms like virtual queues and pre-registration to blunt bulk-buying bots and abusive resale.\n\nThe law is tied explicitly to Ana Clara Benevides, a 23-year-old fan who died of heat exhaustion after collapsing at Taylor\'s November 2023 Eras Tour show in Rio de Janeiro, amid record heat that reached roughly 38°C — a loss that led Taylor to postpone the following night\'s concert and that Brazilian fans turned into a years-long push for change. Representatives of fan groups for Taylor, BTS, Lady Gaga, Harry Styles and others stood with Lula at the signing; per the coverage, he told them, "If it weren\'t for you, we wouldn\'t be making this decree." It is the rare case of an Eras Tour legacy written into national law rather than a setlist — Taylor is the name on it, but the fans who kept Benevides\'s death from fading are the reason it exists.',
+        sources: [
+          {
+            outlet: 'UPI',
+            url: 'https://www.upi.com/Top_News/World-News/2026/09/01/latam-brazil-taylor-swift-law/3221788282214',
+            source_title: "Brazil adopts 'Taylor Swift Law' rules for concerts, ticket sales",
+            publisher: 'UPI',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/brazil-introduces-taylor-swift-law-three-years-after-fan-died-of-extreme-heat-at-gig-3966818',
+            source_title: "Brazil introduces 'Taylor Swift Law' three years after fan died of extreme heat at gig",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Digital Music News',
+            url: 'https://www.digitalmusicnews.com/2026/09/02/brazil-president-taylor-swift-law-protect-fans/',
+            source_title: "Brazilian President Signs 'Taylor Swift Law' to Protect Fans",
+            publisher: 'Digital Music News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Exclaim!',
+            url: 'https://exclaim.ca/music/article/brazil-institutes-taylor-swift-law-for-concerts-ticket-sales-following-fan-s-death-at-eras-tour',
+            source_title: 'Brazil Institutes "Taylor Swift Law" for Concerts, Ticket Sales Following Fan\'s Death at Eras Tour',
+            publisher: 'Exclaim!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 3,
+          },
+        ],
+        // No reusable, allowlisted photo attached at author time — the signing
+        // imagery is wire/agency-owned and not on a reusable host. Left for the
+        // photo-sparsity checker to route to Photo Enrichment.
+      },
+    },
   ],
 };
