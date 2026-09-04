@@ -12416,12 +12416,29 @@ export default {
         // photo-sparsity/social-post checkers will route it to Photo Enrichment
         // if a verifiable visual (an embeddable @taylorswift post) surfaces.
         // Photo pass #762 (2026-08-27): re-checked. TODAY/Variety/Hollywood
-        // Reporter all illustrate this story with editorial red-carpet
-        // composites (a Songwriters Hall of Fame pairing, or unrelated
-        // performance shots of each woman) — not photos of the tribute
-        // itself, which is a text post. Rejected as off-subject stock rather
-        // than added; stays text-first.
-        photos: [],
+        // Reporter illustrate this story with editorial red-carpet composites
+        // (a Songwriters Hall of Fame pairing, or unrelated performance shots)
+        // — off-subject wire stock, correctly rejected then.
+        // Photo pass (Vault Run 2026-09-04): image egress restored this
+        // session (upload.wikimedia.org reachable, HTTP 200). Attached an
+        // on-subject archival PORTRAIT of the honoree from Wikimedia Commons
+        // instead — a public-domain 1977 RCA publicity photo — rather than the
+        // off-subject composites above.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Young-Dolly-Parton_%28higher_quality_scan%29_%28cropped%29.jpg',
+            // Downloaded and vision-confirmed: a black-and-white 1977 RCA
+            // publicity portrait of a young Dolly Parton — signature blonde
+            // curls, hoop earring, denim shirt, looking up. 2049x2633. License
+            // per the Commons file page: public domain (US work published
+            // 1931-1977 without a copyright notice).
+            focalPoint: '50% 32%',
+            credit: 'RCA Records publicity photograph, 1977 (public domain), via Wikimedia Commons',
+            caption:
+              'Dolly Parton in a 1977 RCA publicity portrait — the country legend in her prime, whose path from country to pop Taylor has long said she followed.',
+            kind: 'archival',
+          },
+        ],
         // Rumor Desk / Content Shift (2026-08-27, from intake #3393): in the
         // days after Parton's death, tabloid/sports coverage floated Taylor as
         // "lining up" for a hypothetical Dolly tribute concert. Adjudicable and
