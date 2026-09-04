@@ -17,7 +17,7 @@ import { readFileSync } from 'node:fs';
 // read by scripts/check-automerge-allowlist.mjs, which proves the manifest
 // matches what is actually on disk and that the auto-merge gate covers all of
 // it. Do not re-list these here.
-import { GENERATED, SYNCS } from './lib/generated-content.mjs';
+import { GENERATED, OTHER_SYNC_TARGETS, SYNCS } from './lib/generated-content.mjs';
 
 // A build stamp legitimately changes every run — not content drift.
 //
@@ -42,6 +42,7 @@ const normalize = (s) =>
     .trimEnd();
 
 for (const s of SYNCS) execSync(`node ${s}`, { stdio: ['ignore', 'ignore', 'inherit'] });
+for (const { sync } of OTHER_SYNC_TARGETS) execSync(`node ${sync}`, { stdio: ['ignore', 'ignore', 'inherit'] });
 
 // The generated vault is multi-MB, so give git room past execSync's 1MB default.
 const MAX_BUFFER = 256 * 1024 * 1024;
@@ -56,6 +57,16 @@ for (const f of GENERATED) {
     continue;
   }
   if (normalize(committed) !== normalize(readFileSync(f, 'utf8'))) drifted.push(f);
+}
+for (const { out } of OTHER_SYNC_TARGETS) {
+  let committed;
+  try {
+    committed = execSync(`git show HEAD:${out}`, { encoding: 'utf8', maxBuffer: MAX_BUFFER });
+  } catch (e) {
+    drifted.push(`${out} (${/ENOENT|exists on disk|does not exist/.test(String(e)) ? 'missing from HEAD — commit it' : String(e.message || e).slice(0, 80)})`);
+    continue;
+  }
+  if (normalize(committed) !== normalize(readFileSync(out, 'utf8'))) drifted.push(out);
 }
 
 if (drifted.length) {
