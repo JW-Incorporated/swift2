@@ -230,8 +230,14 @@ export const RUMOR_STATUSES = new Set([
   'faded',
 ]);
 
-/** Mirrors RumorSourceTier in apps/web/lib/longlive/types.ts. */
-export const RUMOR_SOURCE_TIERS = new Set(['official', 'established', 'tabloid', 'social']);
+/** Mirrors RumorSourceTier in apps/web/lib/longlive/types.ts. R9 consolidation
+ * (Fable 5.1 review): sourced from the generated mirror of
+ * packages/shared/src/source-tiers.ts (the single hand-authored source) so
+ * this vocabulary can't drift from the other four source-tier lists it used
+ * to be independently hand-typed alongside. Re-wrapped as a Set here (the
+ * generated twin exports a plain array) since callers use `.has()`. */
+import { RUMOR_SOURCE_TIERS as RUMOR_SOURCE_TIERS_ARRAY } from './lib/source-tiers.generated.mjs';
+export const RUMOR_SOURCE_TIERS = new Set(RUMOR_SOURCE_TIERS_ARRAY);
 
 /**
  * Mirrors LocationSpecificity. No 'address' member on purpose — L3 is never

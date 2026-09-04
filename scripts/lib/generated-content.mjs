@@ -52,6 +52,24 @@ export const GENERATED = SYNC_TARGETS.map((t) => t.out);
 export const SYNCS = SYNC_TARGETS.map((t) => t.sync);
 
 /**
+ * Generated artifacts OUTSIDE the Long Live UI content vault
+ * (GENERATED_DIR/GENERATED_SUFFIX above) — deliberately a separate list from
+ * SYNC_TARGETS, because that one also drives the content auto-merge
+ * allowlist check (scripts/check-automerge-allowlist.mjs), which is scoped
+ * to `apps/web/lib/longlive/*.generated.ts` specifically. This list is
+ * consumed only by scripts/check-generated-in-sync.mjs (`check:generated`),
+ * which regenerates + diffs each entry the same way.
+ *
+ * - scripts/lib/source-tiers.generated.mjs (scripts/sync-source-tiers.mjs) —
+ *   the plain-JS mirror of packages/shared/src/source-tiers.ts's DATA
+ *   constants (R9, Fable 5.1 review); scripts/**\/*.mjs run under plain
+ *   `node` with no compile step and cannot import the .ts module directly.
+ */
+export const OTHER_SYNC_TARGETS = [
+  { sync: 'scripts/sync-source-tiers.mjs', out: 'scripts/lib/source-tiers.generated.mjs' },
+];
+
+/**
  * Ground truth: every `*.generated.ts` actually present in GENERATED_DIR,
  * as repo-relative POSIX paths, sorted. Used to prove SYNC_TARGETS is complete.
  */
