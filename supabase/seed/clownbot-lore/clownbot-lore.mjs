@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-08-31',
+  updatedOn: '2026-09-04',
   items: [
     {
       id: 'masters-buyback',
@@ -71,7 +71,7 @@ export default {
       id: 'rep-tv-debut-tv',
       status: 'rumor',
       date: '2025-05-30',
-      lastCheckedOn: '2026-08-31',
+      lastCheckedOn: '2026-09-04',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of Reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -151,7 +151,7 @@ export default {
       id: 'swifties-against-ai',
       status: 'reported',
       date: '2025-10-09',
-      lastCheckedOn: '2026-08-31',
+      lastCheckedOn: '2026-09-04',
       headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
       detail:
         "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
@@ -179,7 +179,7 @@ export default {
       id: 'green-ts-next-era',
       status: 'reported',
       date: '2026-08-20',
-      lastCheckedOn: '2026-08-31',
+      lastCheckedOn: '2026-09-04',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, Reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -206,7 +206,7 @@ export default {
       id: 'ts13-lilac-cipher',
       status: 'reported',
       date: '2026-08-21',
-      lastCheckedOn: '2026-08-31',
+      lastCheckedOn: '2026-09-04',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -229,7 +229,7 @@ export default {
       id: 'writing-new-music-post-wedding',
       status: 'reported',
       date: '2026-08-27',
-      lastCheckedOn: '2026-08-31',
+      lastCheckedOn: '2026-09-04',
       headline: 'Reportedly "writing new music" and "incredibly inspired" since the wedding',
       detail:
         'A Page Six insider said Taylor has been "pouring herself into writing new music" and is "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." Reported across outlets, all tracing to that single Page Six sourcing; Taylor and her team have announced no album, title, or timeline. Status stays `reported`, not `confirmed` — an unnamed-insider report is not an announcement.',
@@ -320,6 +320,36 @@ export default {
       ],
       evergreen: true,
       tags: ['superbowl', 'clowned'],
+    },
+    {
+      id: 'kelce-dog-wendy',
+      status: 'confirmed',
+      date: '2026-09-02',
+      lastCheckedOn: '2026-09-04',
+      headline: 'The secret dog is real, and her name is Wendy',
+      detail:
+        'For a month it was a Deuxmoi blind item nobody would confirm: a white puppy named Wendy in the Taylor–Kelce household. Then Travis Kelce settled it himself on the 2 September 2026 New Heights season-five premiere — the fluffy white Samoyed who turned up a day earlier in his Tommy Hilfiger fall campaign is named Wendy and is "a little over a year old," a dog the couple had quietly had for a while and kept out of view. Fans had already read "Wendy" as a nod to Wendy Peffercorn from "The Sandlot," Kelce\'s oft-cited favorite film — an etymology the couple has not spelled out, so that part stays a fan decode.',
+      sources: [
+        {
+          name: 'Billboard',
+          url: 'https://www.billboard.com/music/music-news/travis-kelce-taylor-swift-reaction-dog-wendy-public-debut-1236331304/',
+        },
+        {
+          name: 'CNN',
+          url: 'https://www.cnn.com/2026/09/03/entertainment/taylor-swift-travis-kelce-dog-wendy-samoyed',
+        },
+      ],
+      prompts: [
+        'A whole month of "there is no dog" and then Travis just says her name on the podcast. Rank Wendy against the couple\'s other slow reveals.',
+        'Fans swear "Wendy" is a "Sandlot" reference and the couple has not confirmed it. Build the case, then tell me where it is just wishful.',
+      ],
+      ledger: {
+        theory:
+          'That the Deuxmoi blind item about a secret newlyweds’ dog named Wendy was real, not gossip',
+        verdict: 'confirmed',
+        on: '2026-09-02',
+      },
+      tags: ['relationship', 'confirmed', 'easter-eggs'],
     },
   ],
 };
