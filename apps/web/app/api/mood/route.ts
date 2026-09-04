@@ -14,6 +14,7 @@ import {
   assessCrisis,
 } from '../../../lib/longlive/mood-safety';
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
+import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
 
 // Mood Chat — Stage 4: the API route. See docs/proposals/2026-07-19-mood-chat.md
 // and docs/content-ops/mood-chat-safety-language.md.
@@ -42,16 +43,10 @@ const MAX_LIMIT = 8;
 // is a billing incident waiting to happen (spec Stage 4). Serverless instances
 // are ephemeral, so this blunts bursts on a warm instance rather than being a
 // hard security control; the daily call cap (mood-usage) is the spend ceiling.
-const HITS = new Map<string, number[]>();
-const RATE_WINDOW_MS = 60_000;
-const RATE_MAX_PER_WINDOW = 15;
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 15 });
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > RATE_MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 // See lib/longlive/client-ip.ts's trustedClientIp for the #1973 rationale —
@@ -153,7 +148,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // Honeypot — bots fill hidden fields. Pretend success, do nothing.
-  if (payload.hp) return NextResponse.json({ kind: 'matches', picks: [], source: 'chip' }, { status: 200 });
+  if (isHoneypotTripped(payload.hp)) return NextResponse.json({ kind: 'matches', picks: [], source: 'chip' }, { status: 200 });
 
   const limit = Math.min(MAX_LIMIT, Math.max(1, Math.round(Number(payload.limit) || DEFAULT_LIMIT)));
 

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
+import { makeRateLimiter } from '../../../lib/longlive/rate-limit';
 
 // Sink for CSP violation reports (`report-uri` / `report-to` in
 // lib/security-headers.mjs). It exists so the Report-Only policy is
@@ -74,16 +75,10 @@ export function summarize(body: CspReportBody): { directive: string; blocked: st
 
 // Browsers can fire a report per blocked resource; a bad policy on a
 // 500-image page would otherwise flood the log. Per-instance, best-effort.
-const HITS = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 30;
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 30 });
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 export async function POST(req: Request): Promise<Response> {

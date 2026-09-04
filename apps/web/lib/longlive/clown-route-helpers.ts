@@ -12,6 +12,7 @@ import { MAX_TRANSCRIPT_TURNS, type ClownTurn } from './clown-client';
 import { composeFallback } from './clown-fallback';
 import type { ClownStreamEvent } from './clown-stream';
 import { trustedClientIp } from './client-ip';
+import { makeRateLimiter } from './rate-limit';
 
 /** A question, not an essay — well above the composer's 300-char UI cap. */
 export const MAX_TEXT = 600;
@@ -20,16 +21,10 @@ export const MAX_TEXT = 600;
 // apps/web/app/api/mood/route.ts. Serverless instances are ephemeral, so
 // this blunts bursts on a warm instance; the daily compose cap
 // (clown-usage.ts) is the real spend ceiling.
-const HITS = new Map<string, number[]>();
-const RATE_WINDOW_MS = 60_000;
-const RATE_MAX_PER_WINDOW = 15;
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 15 });
 
 export function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > RATE_MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 // See client-ip.ts's trustedClientIp for the #1973 rationale — this route
