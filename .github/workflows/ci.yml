@@ -22,7 +22,42 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  build:
+  # Path filter (R22, #3709): content-only PRs (seed data, social queue,
+  # docs, generated-file bumps) don't need typecheck/vitest/next build — the
+  # slow, code-focused ~7min of `build`. `non_content` matches every file
+  # EXCEPT the four content globs below (start from `**`, then negate each
+  # content path), so it flips true the moment a PR touches ANY code file.
+  # `push` (the merge-to-main deploy gate) always takes the full path
+  # regardless of this output — see build-full's `if`.
+  changes:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      non_content: ${{ steps.filter.outputs.non_content }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            non_content:
+              - '**'
+              - '!supabase/seed/**'
+              - '!social/**'
+              - '!docs/**'
+              - '!**/*.generated.ts'
+
+  # Full suite: runs on every push to main (the deploy gate), and on any PR
+  # that touches code outside supabase/seed/**, social/**, docs/**, and
+  # *.generated.ts.
+  build-full:
+    needs: [changes]
+    if: |
+      always() &&
+      (github.event_name != 'pull_request' || needs.changes.outputs.non_content == 'true')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -90,3 +125,59 @@ jobs:
       - run: npm run content:coverage
       - run: npm run build
       - run: npm run check:budget:seed
+
+  # Fast path (R22, #3709): content-only PRs skip typecheck/vitest/next build
+  # and run only the validators that actually gate that content. Mirrors the
+  # relevant subset of build-full's steps 1:1 so a content PR gets the same
+  # checks it would have gotten from the full job, just without the ~7min of
+  # unrelated code-build work.
+  build-content:
+    needs: [changes]
+    if: github.event_name == 'pull_request' && needs.changes.outputs.non_content == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run validate:content
+      - run: npm run validate:social
+      - run: npm run check:generated
+      - name: Voice gate on changed content
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          npm run check:voice -- --base-ref FETCH_HEAD
+      - run: npm run content:coverage
+
+  # Required-check aggregator: branch protection points at the job named
+  # `build`, which now never runs the work itself — it just fans in whichever
+  # of build-full / build-content actually ran (exactly one always does; see
+  # each job's `if`) and fails if that job failed, was cancelled, or — the
+  # defensive case — somehow neither ran at all.
+  build:
+    name: build
+    needs: [changes, build-full, build-content]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify the applicable CI path succeeded
+        run: |
+          full="${{ needs.build-full.result }}"
+          content="${{ needs.build-content.result }}"
+          echo "build-full: $full"
+          echo "build-content: $content"
+          if [ "$full" = "skipped" ] && [ "$content" = "skipped" ]; then
+            echo "::error::Neither build-full nor build-content ran for this event."
+            exit 1
+          fi
+          if [ "$full" = "failure" ] || [ "$full" = "cancelled" ]; then
+            echo "::error::build-full did not succeed."
+            exit 1
+          fi
+          if [ "$content" = "failure" ] || [ "$content" = "cancelled" ]; then
+            echo "::error::build-content did not succeed."
+            exit 1
+          fi
+          echo "OK"
