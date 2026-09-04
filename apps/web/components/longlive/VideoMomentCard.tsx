@@ -1,8 +1,8 @@
 'use client';
 
-import { Clapperboard } from 'lucide-react';
-import { VIDEO_KIND_LABEL } from '@/lib/longlive/videos';
-import type { PlayableVideoNote } from '@/lib/longlive/videos';
+import { Clapperboard, ExternalLink } from 'lucide-react';
+import { VIDEO_KIND_LABEL, isPlayable } from '@/lib/longlive/videos';
+import type { WatchableVideoNote } from '@/lib/longlive/videos';
 import { formatMonthYear } from '@/lib/longlive/format';
 import { MomentVideo } from './MomentVideo';
 import type { Era } from '@/lib/longlive/types';
@@ -37,7 +37,7 @@ export function VideoMomentCard({
   sortDate,
   displayDate,
 }: {
-  video: PlayableVideoNote;
+  video: WatchableVideoNote;
   eraId: Era['id'];
   sortDate: string;
   /** Positioning only via `sortDate` above — see anchor-date.ts's honesty
@@ -55,13 +55,13 @@ export function VideoMomentCard({
     'data-ll-exact': displayDate != null ? '1' : '0',
   };
   const kindLabel = video.kind ? VIDEO_KIND_LABEL[video.kind] : 'Video';
-  // Every video record reaching this component plays: `videosForEra` hides the
-  // ones with no verified embed rather than rendering them (playable-first,
-  // docs/decisions.md 2026-08-13). That is why there is no else branch here and
-  // no `youtubeId` guard — the type says the id is present.
+  // `videosForEra` (#3476) widened from playable-only to watchable: a record
+  // reaching this component either plays in-app (isPlayable) or carries a
+  // verified `watchUrl`/`platform` link-out — never neither. The branch below
+  // is the one place that distinction becomes two different affordances.
   //
-  // Full width because this card always carries a 16/9 YouTube facade, which is
-  // unreadable squeezed into a half-width track.
+  // Full width because this card always carries a 16/9 facade (embed or
+  // watch-link poster), which is unreadable squeezed into a half-width track.
   //
   // NB: this comment lives OUTSIDE the tag on purpose. A `//` comment in JSX
   // attribute position parses under tsc but is a hard syntax error in Next's
@@ -90,12 +90,25 @@ export function VideoMomentCard({
             {video.summary}
           </p>
         )}
-        <MomentVideo
-          video={{ youtubeId: video.youtubeId, title: video.title }}
-          caption={null}
-          playNoun={kindLabel.toLowerCase()}
-          className="mt-4"
-        />
+        {isPlayable(video) ? (
+          <MomentVideo
+            video={{ youtubeId: video.youtubeId, title: video.title }}
+            caption={null}
+            playNoun={kindLabel.toLowerCase()}
+            className="mt-4"
+          />
+        ) : (
+          <a
+            href={video.watchUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="era-card mt-4 flex items-center justify-between gap-3 rounded-xl border px-4 py-3 text-sm font-medium transition hover:opacity-90"
+            aria-label={`Watch ${video.title} on ${video.platform}`}
+          >
+            <span>Watch on {video.platform}</span>
+            <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
+          </a>
+        )}
 
       </div>
     </li>

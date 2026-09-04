@@ -16,6 +16,8 @@ function video(overrides: Partial<VideoNote> & { title: string }): VideoNote {
     easterEggs: overrides.easterEggs ?? [],
     symbolism: overrides.symbolism ?? null,
     youtubeId: overrides.youtubeId ?? 'abc123abc12',
+    watchUrl: overrides.watchUrl ?? null,
+    platform: overrides.platform ?? null,
     sources: overrides.sources ?? [],
   };
 }

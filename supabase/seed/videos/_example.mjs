@@ -50,6 +50,21 @@
 //     it). A fan archive may be a timeline SOURCE; it may never be an
 //     officialUrl, no matter how long it has been alive. If the only surviving
 //     copy is a fan re-upload, the appearance stays off this rail.
+//   - watchUrl / platform (#3476, both optional, only meaningful when this
+//     work has no YouTube embed): a verified official watch page and the
+//     service it points at, e.g. `watchUrl: 'https://www.netflix.com/title/…'`,
+//     `platform: 'Netflix'`. Renders a "Watch on {platform}" link-out card
+//     instead of the play facade. Both fields are required together — set
+//     neither, or set both; a lone `watchUrl` with no `platform` (or vice
+//     versa) is dropped by the generator. Same provenance bar as
+//     `officialUrl`: the canonical title/listing page on the platform that
+//     actually holds the rights (Netflix, Disney+, Apple Music, a theatrical/
+//     AMC listing, a retailer's official DVD/Blu-ray page) — never a
+//     third-party review site, a torrent index, or a fan wiki's "where to
+//     watch" guess. A record with NEITHER a YouTube embed NOR a
+//     watchUrl+platform pair is hidden from every reader-facing surface
+//     (playable-first, widened to playable-OR-watchable by #3476 — see
+//     docs/decisions.md).
 //   - media: rights-aware MediaRef objects only (kind + rights REQUIRED) —
 //     typically a YouTube oEmbed of the official upload. Never rehosted files.
 //   - sources: full provenance objects (audit §5) — >=1 REQUIRED.

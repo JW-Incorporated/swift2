@@ -27,7 +27,7 @@ import { threadDoorwaysForEra, eggDoorwaysForEra } from '@/lib/longlive/doorways
 import { spaceDoorways } from '@/lib/longlive/space-doorways';
 import { feedCardImageHidden } from '@/lib/longlive/video-affordance';
 import type { Era } from '@/lib/longlive/types';
-import type { PlayableVideoNote } from '@/lib/longlive/videos';
+import type { WatchableVideoNote } from '@/lib/longlive/videos';
 import { assignFeedTiers, withInlineVideoTiers } from '@/lib/longlive/feed-tiers';
 import type { CurrentItem } from '@swift2/shared';
 
@@ -186,7 +186,7 @@ export function EraSection({
   // doorway's mode switch, TheoryGuide's own close effect for an egg
   // doorway's overlay) — see store.tsx's ReturnPoint doc comment.
   const handleOpenDoorway = useCallback(
-    (entry: Extract<EraFeedEntry<PlayableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => {
+    (entry: Extract<EraFeedEntry<WatchableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => {
       pushReturnPoint({
         mode: 'era',
         eraId: era.id,

@@ -165,11 +165,13 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is a live CD/DVD release.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // #3476: the retailer's official Blu-ray purchase page is a verified
+      // official watch link, so the record now renders a "Watch on
+      // DVD/Blu-ray" card instead of staying hidden (playable-first widened
+      // to playable-or-watchable, docs/decisions.md 2026-08-13).
       officialUrl: null,
+      watchUrl: 'https://www.amazon.com/Speak-Now-World-Tour-Blu-ray/dp/B005ZI3E46',
+      platform: 'DVD/Blu-ray',
       media: [],
       sources: [
         wiki('Speak_Now_World_Tour', 'Speak Now World Tour', 'the live album/film is documented in the tour article'),

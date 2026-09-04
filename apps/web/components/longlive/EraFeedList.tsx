@@ -4,7 +4,7 @@ import { emptyFeedMessage, type EraFeedEntry } from '@/lib/longlive/era-feed';
 import type { RenderFeedEntry } from '@/lib/longlive/era-feed-clusters';
 import type { FilterId } from '@/lib/longlive/filters';
 import type { Era } from '@/lib/longlive/types';
-import type { PlayableVideoNote } from '@/lib/longlive/videos';
+import type { WatchableVideoNote } from '@/lib/longlive/videos';
 import type { CardTier } from '@/lib/longlive/feed-tiers';
 import type { CurrentItem } from '@swift2/shared';
 import { MomentCard } from './MomentCard';
@@ -38,14 +38,14 @@ export function EraFeedList({
   onOpenDoorway,
   onOpenCurrentItem,
 }: {
-  entries: RenderFeedEntry<PlayableVideoNote>[];
+  entries: RenderFeedEntry<WatchableVideoNote>[];
   era: Era;
   tiers: Map<string, CardTier>;
   videoOwnerIds: Set<string>;
   imageHiddenIds: Set<string>;
   filters: ReadonlySet<FilterId>;
   onOpenItem: (id: string) => void;
-  onOpenDoorway: (entry: Extract<EraFeedEntry<PlayableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => void;
+  onOpenDoorway: (entry: Extract<EraFeedEntry<WatchableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => void;
   /** PLAN.md Stage 5 — opens the live-item overlay (CurrentItemDetail). */
   onOpenCurrentItem: (item: CurrentItem) => void;
 }) {
@@ -69,14 +69,14 @@ export function EraFeedList({
 }
 
 function renderEntry(
-  entry: RenderFeedEntry<PlayableVideoNote>,
+  entry: RenderFeedEntry<WatchableVideoNote>,
   ctx: {
     era: Era;
     tiers: Map<string, CardTier>;
     videoOwnerIds: Set<string>;
     imageHiddenIds: Set<string>;
     onOpenItem: (id: string) => void;
-    onOpenDoorway: (entry: Extract<EraFeedEntry<PlayableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => void;
+    onOpenDoorway: (entry: Extract<EraFeedEntry<WatchableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => void;
     onOpenCurrentItem: (item: CurrentItem) => void;
   },
 ) {

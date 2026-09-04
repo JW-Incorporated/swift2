@@ -7,7 +7,63 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-09-01 — Merch Autonomy provenance-snapshot reconciliation (#3460, Fable-ruled): all 4 conflicts were stale attachment drift, not new decisions
+## 2026-09-04 — Playable-first widened to playable-OR-watchable: the 8 hidden tour films/documentaries now show a watch-link card (#3476)
+
+**Decision:** the 2026-08-13 "Playable-first timeline" rule ("if a video card
+is visible, it plays") stays in force, but "plays" now means "a reader can
+actually watch it" rather than "embeds inline on this site". `VideoNote`
+gains two optional fields, `watchUrl` and `platform`, always set together: a
+canonical official watch page (Netflix, Disney+, Apple Music, an AMC/
+theatrical listing, a retailer's official DVD/Blu-ray page) and the label the
+UI renders it under. `videosForEra()` now returns a record when it has EITHER
+a verified YouTube embed OR a complete `watchUrl`+`platform` pair
+(`isWatchable`, replacing the narrower `isPlayable` at that one call site —
+see `apps/web/lib/longlive/videos.ts`). `VideoMomentCard` renders the
+existing click-to-play facade for an embed, or a "Watch on {platform}"
+link-out card (external link icon, `target="_blank" rel="noopener
+noreferrer"`) for a watch-link-only record. A record with neither signal
+stays exactly as hidden as before this change — nothing about the underlying
+invariant weakened, only what counts as satisfying it.
+
+**Why:** issue #3476 (filed by Nils, a routine content-gap walk) found that
+the 8 records the 08-13 decision hid — *The Eras Tour* film, *Miss
+Americana*, *reputation Stadium Tour*, *City of Lover*, *Journey to
+Fearless*, *The 1989 World Tour Live*, *Speak Now World Tour – Live*, and
+*The Official Release Party of a Showgirl* — are Taylor's most significant
+visual works and are all genuinely watchable today, just not embeddable
+(Netflix/Disney+/Apple Music/theatrical/DVD rather than YouTube). Joey's
+08-13 rule ("I don't want anything on the timeline that can't be
+played... it doesn't make sense to show a piece of content that a user can't
+view") was never actually violated by these — they were hidden by a
+narrower-than-intended reading of "played" as "embeds on this site", not by
+the rule itself. The fix restores the reader's actual ability to watch
+without touching the invariant that motivated hiding them.
+
+**Scope discipline:** `musicVideosForEra()` (the dated chronological-timeline
+merge) stays `isPlayable`-only — that surface embeds inline via `MomentVideo`
+and has no slot for a link-out. Only the Videos-rail path (`videosForEra` →
+`eraVideoFeed` → `VideoMomentCard`) widened. `sync-longlive-videos.mjs`
+normalizes `watchUrl`/`platform` as a matched pair — a seed record with only
+one of the two degrades both to null rather than shipping a link with no
+label or a label with no link. Guardrail test added
+(`apps/web/lib/longlive/videos.test.ts`, "#3476 guardrail") asserting every
+generated record carries an embed or a complete watch-link pair, so a future
+authored-but-unlinkable film fails CI instead of silently vanishing the way
+these 8 originally did.
+
+**Alternatives considered:** embedding official trailers for the 8 films
+(the shipped `folklore: the long pond studio sessions` precedent, noted as an
+option in the 08-13 decision) — not done, because a trailer is not the work,
+and the issue's own concrete fix shape asked for the watch-link affordance
+specifically. Deleting the records — never on the table; the repo rule is to
+never discard sourced work.
+
+**Who approved:** routine content-completeness fix per issue #3476 — bounded,
+successor to already-closed #721 (which deliberately dropped non-YouTube
+films; this closes the resulting gap), no founder decision required.
+
+---
+
 
 **Context:** GitHub issue #3460, per binding Fable ruling
 `ARB-t_b2461a5a-01` ("merge PR #3459 verbatim; reconciliation is a

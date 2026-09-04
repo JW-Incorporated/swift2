@@ -8,7 +8,7 @@ import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { tracksForEra } from '@/lib/longlive/tracks';
-import { videosForEra, isPlayable, VIDEO_KIND_LABEL, type PlayableVideoNote } from '@/lib/longlive/videos';
+import { videosForEra, isPlayable, VIDEO_KIND_LABEL, type WatchableVideoNote } from '@/lib/longlive/videos';
 import { trackVideoFor } from '@/lib/longlive/track-video';
 import { eraStyle } from '@/lib/longlive/theme';
 import { OverlayNav } from './OverlayNav';
@@ -120,7 +120,7 @@ function TrackRow({
 }: {
   eraId: EraId;
   track: TrackNote;
-  videos: readonly PlayableVideoNote[];
+  videos: readonly WatchableVideoNote[];
 }) {
   const { openTrack } = useAppActions();
   const hasDeepDive = Boolean((track.discussion && track.discussion.length > 0) || track.dossier);

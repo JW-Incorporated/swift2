@@ -136,11 +136,13 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is a theatrical release, then Disney+.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // #3476: canonical Disney+ title page (the Taylor's Version extended
+      // cut) is a verified official watch link, so the record now renders a
+      // "Watch on Disney+" card instead of staying hidden (playable-first
+      // widened to playable-or-watchable, docs/decisions.md 2026-08-13).
       officialUrl: null,
+      watchUrl: 'https://www.disneyplus.com/browse/entity-48f31304-ed30-47af-8c7e-83f825129b10',
+      platform: 'Disney+',
       media: [],
       sources: [
         wiki('Taylor_Swift:_The_Eras_Tour', 'Taylor Swift: The Eras Tour'),

@@ -48,15 +48,15 @@ try {
     await client.query(
       `insert into public.video_work
          (slug, era_slug, kind, title, director, released_on, related_songs,
-          summary, symbolism, easter_eggs, official_url, media, sources)
-       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+          summary, symbolism, easter_eggs, official_url, watch_url, platform, media, sources)
+       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
        on conflict (slug) do update set
          era_slug = excluded.era_slug, kind = excluded.kind, title = excluded.title,
          director = excluded.director, released_on = excluded.released_on,
          related_songs = excluded.related_songs, summary = excluded.summary,
          symbolism = excluded.symbolism, easter_eggs = excluded.easter_eggs,
-         official_url = excluded.official_url, media = excluded.media,
-         sources = excluded.sources`,
+         official_url = excluded.official_url, watch_url = excluded.watch_url,
+         platform = excluded.platform, media = excluded.media, sources = excluded.sources`,
       [
         v.slug,
         v.eraSlug ?? eraSlug,
@@ -69,6 +69,8 @@ try {
         v.symbolism ?? null,
         JSON.stringify(v.easterEggs ?? []),
         v.officialUrl ?? null,
+        v.watchUrl ?? null,
+        v.platform ?? null,
         JSON.stringify(v.media ?? []),
         JSON.stringify(v.sources ?? []),
       ],

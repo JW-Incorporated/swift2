@@ -529,6 +529,12 @@ export interface VideoWork {
   easterEggs?: string[];
   /** Canonical official URL (e.g. the official YouTube upload), or null. */
   officialUrl: string | null;
+  /** Where to watch a work carrying no YouTube embed (#3476) — see
+   * `VideoNote.watchUrl` in apps/web/lib/longlive/types.ts. */
+  watchUrl?: string | null;
+  /** The service `watchUrl` points at. Null/absent exactly when `watchUrl`
+   * is. */
+  platform?: string | null;
   media?: MediaRef[];
   sources: SourceRef[];
 }

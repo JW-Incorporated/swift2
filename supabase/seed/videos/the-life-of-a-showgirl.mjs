@@ -235,11 +235,13 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is a theatrical event release.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // #3476: AMC Theatres' own listing page is a verified official watch
+      // link, so the record now renders a "Watch on AMC Theatres" card
+      // instead of staying hidden (playable-first widened to
+      // playable-or-watchable, docs/decisions.md 2026-08-13).
       officialUrl: null,
+      watchUrl: 'https://www.amctheatres.com/movies/taylor-swift-the-official-release-party-of-a-showgirl-81310',
+      platform: 'AMC Theatres',
       media: [],
       sources: [
         wiki('The_Official_Release_Party_of_a_Showgirl', 'The Official Release Party of a Showgirl'),
