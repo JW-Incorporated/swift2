@@ -15,23 +15,28 @@ import { loadCurrentItems, loadFanSignals, loadLiveTheories } from '../../../../
 // rules on backward compatibility).
 export const revalidate = 900;
 
+function settledOrEmpty<T>(result: PromiseSettledResult<T[]>, label: string): T[] {
+  if (result.status === 'fulfilled') return result.value;
+  // Fails soft, per-slice: the two routes this replaces (`/vault/current/[eraId]`
+  // and `/vault/live-theories`) failed independently of each other, so a
+  // combined route must preserve that — one slice's fetch failure degrades
+  // only that slice to `[]`, never the other independent slices.
+  console.error(`vault/live: ${label}:`, (result.reason as Error)?.message ?? result.reason);
+  return [];
+}
+
 export async function GET(_req: Request, { params }: { params: Promise<{ eraId: string }> }) {
-  try {
-    const { eraId } = await params;
-    const [items, theories, signals] = await Promise.all([
-      loadCurrentItems(eraId),
-      loadLiveTheories(),
-      loadFanSignals(),
-    ]);
-    return NextResponse.json(
-      { items, theories, signals },
-      { headers: { 'Cache-Control': 'public, max-age=0, s-maxage=900, stale-while-revalidate=3600' } },
-    );
-  } catch (err) {
-    // Fails soft: the Current tier and the theories/signals boards are all
-    // additive, so a fetch failure degrades to an empty combined slice
-    // (Vault-only render) rather than breaking the page.
-    console.error('vault/live:', (err as Error).message);
-    return NextResponse.json({ items: [], theories: [], signals: [] }, { status: 200 });
-  }
+  const { eraId } = await params;
+  const [itemsResult, theoriesResult, signalsResult] = await Promise.allSettled([
+    loadCurrentItems(eraId),
+    loadLiveTheories(),
+    loadFanSignals(),
+  ]);
+  const items = settledOrEmpty(itemsResult, 'items');
+  const theories = settledOrEmpty(theoriesResult, 'theories');
+  const signals = settledOrEmpty(signalsResult, 'signals');
+  return NextResponse.json(
+    { items, theories, signals },
+    { headers: { 'Cache-Control': 'public, max-age=0, s-maxage=900, stale-while-revalidate=3600' } },
+  );
 }
