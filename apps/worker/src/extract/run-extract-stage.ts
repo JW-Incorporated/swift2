@@ -94,7 +94,14 @@ async function loadRawItems(db: SupabaseClient, storyId: string): Promise<RawIte
  * `fetchesRemaining` additionally caps total distinct-URL fetches for the
  * whole run regardless of how many reddit-sourced clusters qualify. */
 interface CommentFetchState {
-  urlCache: Map<string, RedditComment[]>;
+  // Caches the IN-FLIGHT PROMISE, not just the resolved value. Two raw items
+  // sharing the same URL are processed concurrently via Promise.all below,
+  // so caching only the resolved value would leave a window where both
+  // items observe a cache miss (the first hasn't resolved yet) and both
+  // call fetchPostComments — caching the promise itself closes that race,
+  // since the second item's synchronous cache lookup (before its own first
+  // `await`) already sees the first item's in-flight promise.
+  urlCache: Map<string, Promise<RedditComment[]>>;
   fetchesRemaining: number;
 }
 
@@ -112,23 +119,23 @@ async function loadCommentThreads(
         // never refetched, even if the story is still pending.
         if (item.fetchedCommentsAt) return null;
 
-        const cached = state.urlCache.get(item.url);
-        if (cached) {
-          return cached.length > 0
-            ? { postTitle: item.title, comments: cached.map((comment) => comment.body) }
-            : null;
+        let pending = state.urlCache.get(item.url);
+        if (!pending) {
+          if (state.fetchesRemaining <= 0) {
+            // Per-run cap reached — leave fetched_comments_at unset so this
+            // post is eligible again next cycle rather than skipped forever.
+            return null;
+          }
+          state.fetchesRemaining--;
+          pending = fetchPostComments(item.url);
+          // Set the promise synchronously (before awaiting it) so any other
+          // item for the same URL in this same Promise.all batch reuses it
+          // instead of racing a second fetch.
+          state.urlCache.set(item.url, pending);
         }
-
-        if (state.fetchesRemaining <= 0) {
-          // Per-run cap reached — leave fetched_comments_at unset so this
-          // post is eligible again next cycle rather than skipped forever.
-          return null;
-        }
-        state.fetchesRemaining--;
 
         try {
-          const comments = await fetchPostComments(item.url);
-          state.urlCache.set(item.url, comments);
+          const comments = await pending;
           // Stamp as attempted regardless of result (empty/backed-off still
           // counts as "tried this cycle") so a quiet or 429'd post doesn't
           // get hammered again on the next cycle it's still pending in.
@@ -145,7 +152,10 @@ async function loadCommentThreads(
           return { postTitle: item.title, comments: comments.map((comment) => comment.body) };
         } catch (err) {
           // Comment context is best-effort enrichment. A network/parser error
-          // must not defer an otherwise extractable clustered story.
+          // must not defer an otherwise extractable clustered story, and must
+          // not stamp fetched_comments_at — leave it unset so a genuine
+          // failure (not a 429, which fetchPostComments already swallows) is
+          // retried next cycle rather than permanently skipped.
           console.error(
             `reddit comment context unavailable for story ${storyId}: ${(err as Error).message}`,
           );
