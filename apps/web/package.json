@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node ../../scripts/sync-longlive-content.mjs && node ../../scripts/sync-longlive-tracks.mjs && node ../../scripts/sync-longlive-theories.mjs && node ../../scripts/sync-longlive-videos.mjs && node ../../scripts/sync-longlive-era-secrets.mjs && node ../../scripts/sync-song-moods.mjs",
+    "prebuild": "node ../../scripts/sync-longlive-content.mjs && node ../../scripts/sync-longlive-tracks.mjs && node ../../scripts/sync-longlive-theories.mjs && node ../../scripts/sync-longlive-videos.mjs && node ../../scripts/sync-longlive-era-secrets.mjs && node ../../scripts/sync-song-moods.mjs && node ../../scripts/sync-longlive-merch.mjs",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit"

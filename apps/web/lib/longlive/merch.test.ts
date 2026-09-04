@@ -8,9 +8,7 @@ import {
   type MerchItem,
 } from './merch';
 import { primaryImage } from './types';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore — Seed modules intentionally remain plain ESM.
-import { FAN_MADE } from '../../../../supabase/seed/merch/fanmade.mjs';
+import { FAN_MADE } from './merch.generated';
 
 // Mirrors merch.ts's private MERCH_KINDS set (the normalization target for
 // every catalogue item's `kind`) — kept in sync deliberately rather than

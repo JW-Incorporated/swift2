@@ -26,9 +26,12 @@
 
 import { CONTENT } from './content';
 import { hasRealPrimaryImage, primaryImage, type EraId, type Product } from './types';
-// Authored engine output remains JavaScript so sync scripts can write it directly.
-import { OFFICIAL } from '../../../../supabase/seed/merch/official.mjs';
-import { FAN_MADE } from '../../../../supabase/seed/merch/fanmade.mjs';
+// Generated from supabase/seed/merch/{official,fanmade}.mjs by
+// scripts/sync-longlive-merch.mjs (Fable 5.1 architecture review, R11) — the
+// same generated-file pattern as the other vault modules in this directory.
+// Do not import supabase/seed/** directly from app code; regenerate instead
+// (`npm run sync:content` / `npm run check:generated`).
+import { OFFICIAL, FAN_MADE } from './merch.generated';
 
 export type MerchCategory = 'shop-the-look' | 'official-store' | 'fan-made';
 
