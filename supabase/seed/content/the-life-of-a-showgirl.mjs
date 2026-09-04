@@ -12769,5 +12769,131 @@ export default {
         // photo-sparsity checker to route to Photo Enrichment.
       },
     },
+    // Content Shift (Vault Run 2026-09-04): intake #3682 — Travis's Sept 2
+    // New Heights S5 premiere is the first on-record account of the ceremony
+    // from a principal. Distinct from msg-wedding (the event, from guest
+    // accounts) and kelce-new-heights-proposal-story (July 8 finale, which the
+    // corpus notes kept the wedding off the table). Authored as a new moment.
+    {
+      slug: 'kelce-new-heights-wedding-recap',
+      year: 2026,
+      month: 9,
+      day: 2,
+      category: 'relationship',
+      title: 'Travis finally recounts the wedding, on the New Heights season-five premiere',
+      snippet:
+        'For two months the most public couple alive had told no one the story of their own wedding. On the Sept. 2 season-five premiere of New Heights, Travis finally walked through it — building the whole account around Adam Sandler, who got ordained in New York State to officiate "in the very Sandman style."',
+      sourceUrl:
+        'https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-adam-sandler-officiating-1236849216/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'For two months the wedding sat in a strange place: the most public couple in the world had thrown the most private party imaginable, and neither of them had actually told the story. Travis\'s first post-wedding New Heights — the July 8 season-four finale — stuck to the proposal and left the ceremony alone, and the day itself lived only in guest accounts and the arrivals outside the Garden. The season-five premiere, taped with brother Jason and released Sept. 2, 2026, was the first time one of the principals walked through the night in his own words.\n\nHis throughline was Adam Sandler. Sandler had gotten legally ordained in New York State expressly to marry them, and Travis framed the whole evening around what his friend pulled off: "For him to be up for getting ordained in the state of New York and marrying me and Taylor, and the way he did it, in the very Sandman style, and giving us more than what we could\'ve ever imagined at that moment, knowing that it was the biggest night of our lives — it was absolutely insane." He called Sandler "the best person on this planet" and the night "magical," landing on the same original-Sandler-song detail the Vault had previously carried only from an outside guest\'s account.\n\nHe also gave the first on-record reason for a venue that had read as pure spectacle. They chose Madison Square Garden, he said, because they wanted "somewhere where we could have a very intimate and genuine setting without a lot of distractions" — an odd thing to say about a 20,000-seat arena, until you remember they curtained the glass entrance and built a garden and a castle inside it. What the premiere did not do was open the images the wedding still hasn\'t released: no ceremony footage, no reception photos, nothing past the arrivals and the "JusT&T Married" marquee. Travis told the story; the pictures stayed private. It was, fittingly, the same desk that announced the album in August 2025 and told the proposal story in July — New Heights functioning once again as the relationship\'s on-record channel.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-adam-sandler-officiating-1236849216/',
+            source_title: 'Travis Kelce Breaks Down Wedding to Taylor Swift and Says Adam Sandler Officiating Was "Absolutely Insane"',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/lifestyle-news/travis-kelce-wedding-taylor-swift-podcast-new-heights-1236688034/',
+            source_title: "Travis Kelce Talks Taylor Swift Wedding on 'New Heights' Podcast",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News (Good Morning America)',
+            url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-adam-sandler-wedding-officiant/story?id=134472500',
+            source_title: "Taylor Swift, Travis Kelce and Adam Sandler's wedding officiant story",
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-talks-wedding-taylor-swift-preview-new-heights-1236331277/',
+            source_title: "Travis Kelce Talks Wedding to Taylor Swift in Preview of 'New Heights' Podcast",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+        ],
+        // No reusable, allowlisted photo attached at author time — podcast/wire
+        // imagery is agency-owned and not on a reusable host, and Instagram
+        // embeds are not applicable here. Left for the photo-sparsity checker.
+      },
+    },
+    // Content Shift (Vault Run 2026-09-04): intake #3694 context — the durable,
+    // verifiable milestone behind that ticket. Placed by real-world date (the
+    // June 2026 country-radio impact week), not by the ticket's "this week"
+    // framing, which conflated it with the upcoming iHeart interview (a future
+    // event, not authored today). Distinct from the Country Airplay top-10 and
+    // Pop Airplay items already in the corpus.
+    {
+      slug: 'i-knew-it-i-knew-you-country-panel-close',
+      year: 2026,
+      month: 6,
+      day: 8,
+      category: 'music',
+      title: 'I Knew It, I Knew You closes the entire country radio panel on impact',
+      snippet:
+        'On its first week at country radio, the Toy Story 5 ballad became the first song by a woman to close out Mediabase\'s entire country reporting panel on impact — every station adding it at once — and, per trade reporting, the first female artist to debut inside Billboard\'s Country Airplay top 10 in the chart\'s history.',
+      sourceUrl:
+        'https://www.countryinsider.com/news/most-added-taylor-swift-closes-the-country-panel/article_cf99907b-2591-46e5-8c83-312c3520ae86.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When "I Knew It, I Knew You" went for adds at country radio, it did something no song by a woman had done before: it closed the panel. On its impact date — the Monday of its first promotional week, in early June 2026 — every country station reporting to Mediabase added the song at once, the full reporting panel signing on in a single week. The country-radio trades (Country Insider, Inside Radio, Headline Planet) framed it as an add record: the first country single by a woman to wrap the entire impact panel on its first day out.\n\nThe chart caught up to the adds. Per trade reporting the song debuted inside Billboard\'s Country Airplay top 10 — the first time a female artist had launched directly into the top 10 in the chart\'s history, which runs back to 1990 — before climbing to No. 7. That was the stranger half of the story given where the record came from: it isn\'t a Showgirl track, and not really a country song either, but Taylor\'s original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff and issued as a single on June 5, 2026.\n\nIts country-radio welcome became one thread in a wider "is she going back to country?" conversation the outlets kept returning to — reported pre-release meetings with country programmers, a CMA Single of the Year campaign, her self-titled debut turning twenty that October — every write-up careful to stress that nothing had been announced. What was concrete was the add sheet: for one week, every country station in the panel was playing the same movie song about a cowgirl.',
+        sources: [
+          {
+            outlet: 'Country Insider',
+            url: 'https://www.countryinsider.com/news/most-added-taylor-swift-closes-the-country-panel/article_cf99907b-2591-46e5-8c83-312c3520ae86.html',
+            source_title: 'Most Added: Taylor Swift Closes The Country Panel',
+            publisher: 'Country Insider',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Inside Radio',
+            url: 'https://www.insideradio.com/free/radio-embraces-taylor-swift-s-i-knew-it-i-knew-you/article_69bb9c1a-8ede-463d-a35b-f2c67166a8f7.html',
+            source_title: "Radio Embraces Taylor Swift's 'I Knew It, I Knew You'",
+            publisher: 'Inside Radio',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2026/06/09/taylor-swifts-i-knew-it-i-knew-you-breaks-country-radio-add-record/',
+            source_title: "Taylor Swift's 'I Knew It, I Knew You' Breaks Country Radio Add Record",
+            publisher: 'Headline Planet',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-back-on-country-radio-i-knew-it-i-knew-you-1235574735/',
+            source_title: "Taylor Swift Is Back on Country Radio With 'I Knew It, I Knew You'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+        ],
+        // Text-first: no reusable, allowlisted image of a radio add-board /
+        // chart exists; not a photo-shaped moment. Left for the checkers.
+      },
+    },
   ],
 };
