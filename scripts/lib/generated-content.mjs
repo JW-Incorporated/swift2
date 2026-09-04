@@ -33,6 +33,10 @@ export const GENERATED_SUFFIX = '.generated.ts';
  * order (song-moods reads the track seeds, so it goes last).
  */
 export const SYNC_TARGETS = [
+  {
+    sync: 'scripts/sync-longlive-content-ids.mjs',
+    out: `${GENERATED_DIR}/content-ids.generated.ts`,
+  },
   { sync: 'scripts/sync-longlive-content.mjs', out: `${GENERATED_DIR}/content-vault.generated.ts` },
   { sync: 'scripts/sync-longlive-tracks.mjs', out: `${GENERATED_DIR}/tracks.generated.ts` },
   { sync: 'scripts/sync-longlive-theories.mjs', out: `${GENERATED_DIR}/theories.generated.ts` },
