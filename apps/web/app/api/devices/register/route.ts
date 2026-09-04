@@ -7,6 +7,7 @@ import {
   type DeviceRegistrationInput,
 } from '@swift2/shared';
 import { trustedClientIp } from '../../../../lib/longlive/client-ip';
+import { makeRateLimiter } from '../../../../lib/longlive/rate-limit';
 
 // Notifications Phase 0 — POST /api/devices/register (NOTIFICATIONS_PLAN.md
 // Phase 0, NOTIFICATIONS_SPEC.md §2/§9). Upserts a `devices` row keyed by the
@@ -44,17 +45,11 @@ const clip = (s: unknown, n: number): string | undefined =>
 // Best-effort per-instance rate limit — same shape/posture as every other
 // public POST route in this repo (feedback/intake/submit-link/mood): blunts
 // accidental bursts, not a global security guarantee.
-const HITS = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 20; // higher than the content-submission routes: a
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 20 }); // higher than the content-submission routes: a
 // real device legitimately re-registers on every cold start / token refresh.
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 interface RegisterPayload {

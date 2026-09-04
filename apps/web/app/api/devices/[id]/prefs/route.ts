@@ -9,6 +9,7 @@ import {
   type NotificationPref,
 } from '@swift2/shared';
 import { trustedClientIp } from '../../../../../lib/longlive/client-ip';
+import { makeRateLimiter } from '../../../../../lib/longlive/rate-limit';
 
 // Notifications Phase 1 — GET/PUT /api/devices/:id/prefs (NOTIFICATIONS_PLAN.md
 // Phase 1, NOTIFICATIONS_SPEC.md §8/§9). Batch read/write over the device's
@@ -35,16 +36,10 @@ function supabaseAdmin() {
 // Same best-effort per-instance rate limit shape as devices/register — a
 // settings screen legitimately fires several PUTs in quick succession
 // (instant-apply, one call per pill tap), so the window is generous.
-const HITS = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 40;
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 40 });
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 const SETTINGS_NUMERIC_FIELDS: Array<keyof DeviceNotificationSettings> = [
