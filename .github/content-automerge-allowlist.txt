@@ -133,6 +133,7 @@ apps/web/public/social/
 # ── Built vault: machine-generated from supabase/seed/** by the sync scripts
 #    listed in scripts/lib/generated-content.mjs. Never hand-edited; `npm run
 #    check:generated` fails if any of these drifts from its seeds. ───────────
+apps/web/lib/longlive/content-ids.generated.ts
 apps/web/lib/longlive/content-vault.generated.ts
 apps/web/lib/longlive/tracks.generated.ts
 apps/web/lib/longlive/theories.generated.ts

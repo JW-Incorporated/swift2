@@ -6,19 +6,19 @@
  * real backend can drop in later without touching UI code.
  */
 
-export type EraId =
-  | 'debut'
-  | 'fearless'
-  | 'speak-now'
-  | 'red'
-  | '1989'
-  | 'reputation'
-  | 'lover'
-  | 'folklore'
-  | 'evermore'
-  | 'midnights'
-  | 'ttpd'
-  | 'tloas';
+/**
+ * `EraId` and the other content-derived id unions below (`TrackKey`,
+ * `SongSlug`, `TheoryId`, `VideoId`) come from `content-ids.generated.ts` —
+ * a small, id-only generated file the sync scripts emit from the seed data
+ * (Fable 5.1 architecture review, R10). Before this, deriving these unions
+ * meant importing the full `tracks.generated.ts` / `theories.generated.ts` /
+ * `videos.generated.ts` / `song-moods.generated.ts` / `era-secrets.generated.ts`
+ * data files, making `types.ts` — imported by ~80 modules — transitively
+ * depend on the entire ~20k-line content corpus. This is the ONLY generated
+ * file `types.ts` imports; it never imports the data files directly.
+ */
+import type { EraId, TrackKey, SongSlug, TheoryId, VideoId } from './content-ids.generated';
+export type { EraId, TrackKey, SongSlug, TheoryId, VideoId };
 
 export type ContentTag = 'Music' | 'Fashion' | 'Tour' | 'Relationship' | 'Lore';
 
