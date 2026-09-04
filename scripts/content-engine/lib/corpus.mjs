@@ -4,6 +4,11 @@
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+// Zero-dependency vocabulary shared with the sync generators (R8, Fable 5.1
+// architecture review) — kept dependency-free like this file itself (see
+// header above), so this loader can validate against the real enum without
+// pulling in @supabase/supabase-js transitively.
+import { RUMOR_STATUSES } from '../../lib/content-vocab.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 export const ROOT = join(here, '..', '..', '..');
@@ -71,6 +76,10 @@ export async function loadCorpus() {
     // prose in the corpus; it must not bypass the safety net.
     const rumorTexts = {};
     (it.moment?.rumors ?? it.rumors ?? []).forEach((r, i) => {
+      // Skip rumors with an unrecognized/malformed status — validate-content.mjs
+      // (rumorsFrom()) drops these the same way, so the corpus loader's texts
+      // stay aligned with what actually ships.
+      if (r?.status !== undefined && !RUMOR_STATUSES.has(r.status)) return;
       if (str(r?.claim)) rumorTexts[`rumors[${i}].claim`] = r.claim;
       if (str(r?.note)) rumorTexts[`rumors[${i}].note`] = r.note;
     });
