@@ -5,7 +5,7 @@
 // single cluster's failure logs and continues, never aborts the whole stage.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { fetchPostComments } from '../sources/reddit-rss';
+import { fetchPostComments, type RedditComment } from '../sources/reddit-rss';
 import { extractWithLLM } from './haiku-client';
 import type { ExtractCommentThread } from './types';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
@@ -27,6 +27,13 @@ import {
 const CURRENT_ERA_ID = 'tloas';
 
 const MAX_CLUSTERS_PER_CYCLE = 50;
+// R16 (Fable 5.1 architecture review): bounds how many *distinct* Reddit
+// posts this stage will call fetchPostComments for in one run. Comment
+// fetching already backs off on 429 (reddit-rss.ts), but nothing previously
+// stopped a run with many reddit-sourced clusters from issuing dozens of
+// comment-thread requests back to back — this caps the blast radius per
+// cycle regardless of how many stories/items qualify.
+const MAX_COMMENT_FETCHES_PER_RUN = 40;
 
 export interface ExtractStageResult {
   clustersConsidered: number;
@@ -46,16 +53,18 @@ interface PendingStory {
 }
 
 interface RawItem {
+  id: string;
   title: string;
   snippet: string;
   url: string;
   sourceType?: string;
+  fetchedCommentsAt: string | null;
 }
 
 async function loadRawItems(db: SupabaseClient, storyId: string): Promise<RawItem[]> {
   const { data, error } = await db
     .from('news_raw_item')
-    .select('title, snippet, url, news_source(source_type)')
+    .select('id, title, snippet, url, fetched_comments_at, news_source(source_type)')
     .eq('story_id', storyId)
     .limit(20);
   if (error) throw new Error(`raw item load failed for story ${storyId}: ${error.message}`);
@@ -63,24 +72,75 @@ async function loadRawItems(db: SupabaseClient, storyId: string): Promise<RawIte
     const relation = r.news_source as { source_type?: string } | { source_type?: string }[] | null;
     const source = Array.isArray(relation) ? relation[0] : relation;
     return {
+      id: r.id as string,
       title: r.title as string,
       snippet: (r.snippet as string) ?? '',
       url: r.url as string,
       sourceType: source?.source_type,
+      fetchedCommentsAt: (r.fetched_comments_at as string | null) ?? null,
     };
   });
 }
 
+/** Run-scoped state threaded through every cluster's `loadCommentThreads`
+ * call so redundant Reddit comment fetches are eliminated two ways (R16):
+ *   - within a run: `urlCache` memoises `fetchPostComments` per post URL, so
+ *     two raw items (in the same or different clusters) that share a URL
+ *     only ever hit the network once per run.
+ *   - across runs: a post whose `news_raw_item.fetched_comments_at` is
+ *     already set was fetched in a *previous* cycle and is never re-fetched
+ *     — the DB stamp is the cross-run memo, since the comment bodies
+ *     themselves are transient (never persisted) enrichment context.
+ * `fetchesRemaining` additionally caps total distinct-URL fetches for the
+ * whole run regardless of how many reddit-sourced clusters qualify. */
+interface CommentFetchState {
+  urlCache: Map<string, RedditComment[]>;
+  fetchesRemaining: number;
+}
+
 async function loadCommentThreads(
+  db: SupabaseClient,
   items: readonly RawItem[],
   storyId: string,
+  state: CommentFetchState,
 ): Promise<ExtractCommentThread[]> {
   const threads = await Promise.all(
     items
       .filter((item) => item.sourceType === 'reddit_rss')
       .map(async (item): Promise<ExtractCommentThread | null> => {
+        // Already fetched in a prior extract cycle for this exact post —
+        // never refetched, even if the story is still pending.
+        if (item.fetchedCommentsAt) return null;
+
+        const cached = state.urlCache.get(item.url);
+        if (cached) {
+          return cached.length > 0
+            ? { postTitle: item.title, comments: cached.map((comment) => comment.body) }
+            : null;
+        }
+
+        if (state.fetchesRemaining <= 0) {
+          // Per-run cap reached — leave fetched_comments_at unset so this
+          // post is eligible again next cycle rather than skipped forever.
+          return null;
+        }
+        state.fetchesRemaining--;
+
         try {
           const comments = await fetchPostComments(item.url);
+          state.urlCache.set(item.url, comments);
+          // Stamp as attempted regardless of result (empty/backed-off still
+          // counts as "tried this cycle") so a quiet or 429'd post doesn't
+          // get hammered again on the next cycle it's still pending in.
+          const { error: stampError } = await db
+            .from('news_raw_item')
+            .update({ fetched_comments_at: new Date().toISOString() })
+            .eq('id', item.id);
+          if (stampError) {
+            console.error(
+              `could not stamp fetched_comments_at for raw item ${item.id}: ${stampError.message}`,
+            );
+          }
           if (comments.length === 0) return null;
           return { postTitle: item.title, comments: comments.map((comment) => comment.body) };
         } catch (err) {
@@ -139,6 +199,10 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
 
   const today = new Date().toISOString().slice(0, 10);
   const usage = await ExtractUsageStore.create(supabaseExtractUsageDb(db));
+  const commentFetchState: CommentFetchState = {
+    urlCache: new Map(),
+    fetchesRemaining: MAX_COMMENT_FETCHES_PER_RUN,
+  };
 
   for (const story of (pending ?? []) as PendingStory[]) {
     result.clustersConsidered++;
@@ -155,7 +219,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
       // comment bodies to go, so do not spend Reddit requests enriching a
       // cluster that extractWithLLM will immediately defer.
       const commentThreads = process.env.ANTHROPIC_API_KEY
-        ? await loadCommentThreads(items, story.id)
+        ? await loadCommentThreads(db, items, story.id, commentFetchState)
         : [];
 
       const extracted = await extractWithLLM(usage, {
