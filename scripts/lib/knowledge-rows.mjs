@@ -5,6 +5,7 @@
 
 import { slugify } from './longlive-sync-shared.mjs';
 import { symbolsIn } from './knowledge-symbols.mjs';
+import { RESOLVED_RUMOR_STATUSES } from './content-vocab.mjs';
 
 const SOURCE_TIER_BY_TYPE = {
   official: 'official',
@@ -36,8 +37,6 @@ export function sourceTierFrom(sources) {
   }
   return best ?? 'established';
 }
-
-const RESOLVED_RUMOR_STATUSES = new Set(['confirmed', 'debunked']);
 
 /** One `moment:*` knowledge_doc row from a normalized content-vault item (addItem()'s output). */
 export function buildMomentDoc(item, eraId, lexicon) {

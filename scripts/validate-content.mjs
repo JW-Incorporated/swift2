@@ -34,7 +34,7 @@ import {
   LOCATION_SPECIFICITY,
   RESOLVED_RUMOR_STATUSES,
   slugify,
-} from './sync-longlive-content.mjs';
+} from './lib/content-vocab.mjs';
 import { SLUG_TO_ERA_ID } from './lib/longlive-sync-shared.mjs';
 // Every length cap lives in ONE module — see the incident note at the top of
 // scripts/lib/content-caps.mjs. Never hard-code a cap number in this file.

@@ -29,6 +29,14 @@ import {
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
+// Both fields are REQUIRED on every theory — they render as badges so
+// speculation never reads as fact — so a record with a missing/unknown value
+// is dropped, never guessed at. CONFIDENCE_VALUES mirrors THEORY_CONFIDENCE
+// in packages/shared/src/vault-types.ts (the source of truth); re-exported
+// here because sync-longlive-content.mjs and other callers import it from
+// this file.
+import { CONFIDENCE_VALUES } from './lib/content-vocab.mjs';
+export { CONFIDENCE_VALUES };
 
 const SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'theories');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'theories.generated.ts');
@@ -39,20 +47,6 @@ const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'theories.gen
 const THEORY_COLS = 'era_slug,slug,kind,title,claim,evidence,confidence,outcome,sources,related_slugs';
 const MAX_ROWS = 2000;
 
-// Mirrors THEORY_CONFIDENCE / THEORY_OUTCOMES in packages/shared/src/
-// vault-types.ts (the source of truth). Both fields are REQUIRED on every
-// theory — they render as badges so speculation never reads as fact — so a
-// record with a missing/unknown value is dropped, never guessed at.
-export const CONFIDENCE_VALUES = new Set([
-  'official',
-  'confirmed_interview',
-  'reputable_reporting',
-  'strong_fan_consensus',
-  'plausible',
-  'clowning',
-  'disproven',
-  'joke_meme',
-]);
 export const OUTCOME_VALUES = new Set([
   'confirmed',
   'partially_confirmed',

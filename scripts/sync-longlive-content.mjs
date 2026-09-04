@@ -40,10 +40,20 @@ import {
 // can import it without @supabase/supabase-js); re-exported here because
 // validate-content.mjs and other callers import it from this file.
 export { slugify };
-// The 8 shared confidence values (mirrors THEORY_CONFIDENCE in
-// packages/shared/src/vault-types.ts). Importing the theories generator only
-// pulls its pure exports — its main() is guarded behind invokedDirectly.
-import { CONFIDENCE_VALUES } from './sync-longlive-theories.mjs';
+// The rumor/location/milestone/confidence vocabulary lives in the
+// dependency-free scripts/lib/content-vocab.mjs (R8, Fable 5.1 architecture
+// review) — this generator re-exports it so validate-content.mjs and other
+// existing callers keep importing from this file, while breaking the
+// content<->theories module coupling this used to require.
+import {
+  CONFIDENCE_VALUES,
+  LOCATION_SPECIFICITY,
+  MILESTONE_KINDS,
+  RESOLVED_RUMOR_STATUSES,
+  RUMOR_SOURCE_TIERS,
+  RUMOR_STATUSES,
+} from './lib/content-vocab.mjs';
+export { CONFIDENCE_VALUES, LOCATION_SPECIFICITY, MILESTONE_KINDS, RESOLVED_RUMOR_STATUSES, RUMOR_SOURCE_TIERS, RUMOR_STATUSES };
 
 const SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'content');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'content-vault.generated.ts');
@@ -218,29 +228,6 @@ export function confidenceFrom(confidence) {
   return CONFIDENCE_VALUES.has(confidence) ? confidence : undefined;
 }
 
-/** Mirrors RumorStatus in apps/web/lib/longlive/types.ts. */
-export const RUMOR_STATUSES = new Set([
-  'unconfirmed',
-  'partially_confirmed',
-  'confirmed',
-  'debunked',
-  // The honest end-state for a claim that was reported, never confirmed,
-  // never denied, and went quiet (2026-07-20, docs/content-ops/rumor-pipeline.md).
-  'faded',
-]);
-
-/** Mirrors RumorSourceTier in apps/web/lib/longlive/types.ts. */
-export const RUMOR_SOURCE_TIERS = new Set(['official', 'established', 'tabloid', 'social']);
-
-/**
- * Mirrors LocationSpecificity. No 'address' member on purpose — L3 is never
- * publishable at any provenance (privacy-redlines.md Never-OK #1).
- */
-export const LOCATION_SPECIFICITY = new Set(['region', 'city', 'venue']);
-
-/** Statuses whose claim is settled, and therefore need a citation to back it. */
-export const RESOLVED_RUMOR_STATUSES = new Set(['confirmed', 'debunked']);
-
 const RUMOR_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 /**
@@ -357,13 +344,6 @@ function relatedIdsFrom(relatedIds) {
   );
   return out.length ? out : undefined;
 }
-
-/**
- * Valid `MilestoneKind` values — must stay in step with the union in
- * apps/web/lib/longlive/types.ts. `fandom` (2026-08-11) covers documented
- * fan-community events; see docs/proposals/2026-08-11-facebook-groups-signal.md.
- */
-export const MILESTONE_KINDS = ['album', 'tour', 'life', 'business', 'award', 'fandom'];
 
 /**
  * Era-timeline milestone marker. All three fields are required or the marker
