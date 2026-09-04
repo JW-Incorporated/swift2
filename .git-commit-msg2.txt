@@ -1,0 +1,36 @@
+fix(web): restore cross-slice overlay-closing behavior lost in R21 split
+
+Self-review found that the initial store split (edd7c186) lost several
+cross-slice side effects the monolithic store.tsx had: openThread/openEra
+closed the moment overlay + both era-hero guides inline; openCrossing
+closed the moment overlay; openClueWebTrail and openVideo pivoted through
+openThread/openEra plus a filter clear. The first cut of the split left
+overlays.tsx's openThread/openEra/openCrossing wiring disconnected from
+the navigation slice, so switching threads/eras/crossings no longer closed
+the moment/track-guide/theory-guide overlays underneath.
+
+Fixes, all in store/index.tsx (composition layer) + a small overlays.tsx
+reducer addition:
+
+- Added `closeMomentAndEraGuides` (clears openItemId/trackGuideEraId/
+  theoryGuideEraId; leaves openTrackKey/theoryGuideHighlightSlug alone,
+  matching the original's exact field set) and `closeMomentOnly` actions
+  to overlays.tsx.
+- AppProvider now composes openThread/openEra (nav pivot +
+  closeMomentAndEraGuides), openCrossing (nav pivot + closeMomentOnly),
+  openClueWebTrail (setClueWebTrail + composed openThread), and openVideo
+  (composed openEra + clearFilters + pendingVideoAnchor) instead of each
+  slice's raw action, then wires the composed versions into both the
+  deep-link mount effect and the exported AppActions object.
+- overlays.tsx's useOverlays() no longer takes injected
+  openThread/openEra/clearFilters params — the composition now lives
+  entirely in index.tsx, which is the only place that can see all three
+  slices at once.
+
+Also added 2 new overlays.test.ts cases documenting the
+closeMomentAndEraGuides/closeMomentOnly contracts.
+
+Verified: npx tsc --noEmit in apps/web clean. npx vitest run apps/web/ -
+144 files, 2399 passed, 1 skipped, 0 failed (includes 38 store/ slice
+tests, up from 36). npm run lint (repo-wide) - 0 errors, 2 pre-existing
+unrelated warnings.

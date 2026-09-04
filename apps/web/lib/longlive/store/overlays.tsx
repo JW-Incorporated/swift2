@@ -2,7 +2,7 @@
 
 import { useCallback, useReducer } from 'react';
 import { getEra } from '../eras';
-import type { EraId, LensId, MotifId } from '../types';
+import type { EraId, MotifId } from '../types';
 
 interface OverlaysState {
   /** Currently open content item id (immersive detail), or null. */
@@ -51,6 +51,15 @@ type OverlaysAction =
   | { type: 'closeTheoryGuide' }
   | { type: 'setClueWebTrail'; motif: MotifId | null }
   | { type: 'setPendingVideoAnchor'; anchor: string | null }
+  /**
+   * Closes the moment overlay and both era-hero guide overlays, but leaves
+   * `openTrackKey`/`theoryGuideHighlightSlug` untouched — the exact field
+   * set `openThread`/`openEra`/`openCrossing` (moment only) closed inline
+   * in the pre-split store.tsx (they never called `setOpenTrackKey(null)`
+   * or cleared the highlight slug directly).
+   */
+  | { type: 'closeMomentAndEraGuides' }
+  | { type: 'closeMomentOnly' }
   /** Bulk-close every overlay this slice owns (mode switches, goHome, etc). */
   | { type: 'closeAll' };
 
@@ -91,6 +100,10 @@ export function overlaysReducer(state: OverlaysState, action: OverlaysAction): O
       return { ...state, clueWebTrail: action.motif };
     case 'setPendingVideoAnchor':
       return { ...state, pendingVideoAnchor: action.anchor };
+    case 'closeMomentAndEraGuides':
+      return { ...state, openItemId: null, trackGuideEraId: null, theoryGuideEraId: null };
+    case 'closeMomentOnly':
+      return { ...state, openItemId: null };
     case 'closeAll':
       return {
         ...state,
@@ -117,12 +130,17 @@ export function overlaysInitialState(): OverlaysState {
 
 /**
  * Owns every immersive-overlay id (moment detail, track guide/detail, theory
- * guide, clue-web trail focus, pending video scroll anchor). `openThread` and
- * `openEra`/`clearFilters` are injected by the composing AppProvider — this
- * slice's `openClueWebTrail`/`openVideo` actions pivot into the navigation
- * and search-share slices, which it does not own.
+ * guide, clue-web trail focus, pending video scroll anchor). Exposes raw
+ * per-field setters plus `closeAllOverlays` (clears openItemId/
+ * trackGuideEraId/theoryGuideEraId together — the exact three fields
+ * `goHome`/`openThread`/`openEra`/`openCrossing` closed inline in the
+ * pre-split store.tsx). Composition with the navigation/search-share slices
+ * (openThread also closing these overlays, openVideo pivoting through
+ * openEra, openClueWebTrail pivoting through openThread) happens in the
+ * top-level AppProvider (store/index.tsx), which owns all three slices and
+ * can sequence cross-slice dispatches without a circular dependency here.
  */
-export function useOverlays(openThread: (id: LensId) => void, openEra: (id: EraId) => void, clearFilters: () => void) {
+export function useOverlays() {
   const [state, dispatch] = useReducer(overlaysReducer, undefined, overlaysInitialState);
 
   const openItem = useCallback((id: string) => dispatch({ type: 'openItem', id }), []);
@@ -138,15 +156,8 @@ export function useOverlays(openThread: (id: LensId) => void, openEra: (id: EraI
   );
 
   const openVideo = useCallback(
-    (eraId: EraId, videoId: string) => {
-      openEra(eraId);
-      // Ensures the target video's card is actually in the filtered feed —
-      // an active filter unrelated to the video's own tags would otherwise
-      // hide the very card we're about to scroll for.
-      clearFilters();
-      dispatch({ type: 'setPendingVideoAnchor', anchor: `era-video-${videoId}` });
-    },
-    [openEra, clearFilters],
+    (eraId: EraId, videoId: string) => dispatch({ type: 'setPendingVideoAnchor', anchor: `era-video-${videoId}` }),
+    [],
   );
   const clearPendingVideoAnchor = useCallback(
     () => dispatch({ type: 'setPendingVideoAnchor', anchor: null }),
@@ -160,18 +171,12 @@ export function useOverlays(openThread: (id: LensId) => void, openEra: (id: EraI
   );
   const closeTheoryGuide = useCallback(() => dispatch({ type: 'closeTheoryGuide' }), []);
 
-  // The Clue Web lives inside the 'easter-eggs' thread; a cross-link jump is
-  // openThread plus a pending trail focus that ClueWeb consumes on landing.
-  const openClueWebTrail = useCallback(
-    (motif: MotifId) => {
-      dispatch({ type: 'setClueWebTrail', motif });
-      openThread('easter-eggs' as LensId);
-    },
-    [openThread],
-  );
+  const setClueWebTrail = useCallback((motif: MotifId | null) => dispatch({ type: 'setClueWebTrail', motif }), []);
   const clearClueWebTrail = useCallback(() => dispatch({ type: 'setClueWebTrail', motif: null }), []);
 
   const closeAllOverlays = useCallback(() => dispatch({ type: 'closeAll' }), []);
+  const closeMomentAndEraGuides = useCallback(() => dispatch({ type: 'closeMomentAndEraGuides' }), []);
+  const closeMomentOnly = useCallback(() => dispatch({ type: 'closeMomentOnly' }), []);
 
   return {
     state,
@@ -187,8 +192,10 @@ export function useOverlays(openThread: (id: LensId) => void, openEra: (id: EraI
     clearPendingVideoAnchor,
     openTheoryGuide,
     closeTheoryGuide,
-    openClueWebTrail,
+    setClueWebTrail,
     clearClueWebTrail,
     closeAllOverlays,
+    closeMomentAndEraGuides,
+    closeMomentOnly,
   };
 }

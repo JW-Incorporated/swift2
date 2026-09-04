@@ -193,7 +193,56 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const returnPoints = useReturnPoints();
   const nav = useNavigation(CURRENT_ERA_ID, returnPoints.consumeMatching);
   const searchShare = useSearchShare();
-  const overlays = useOverlays(nav.openThread, nav.openEra, searchShare.clearFilters);
+  const overlays = useOverlays();
+
+  // Cross-slice composition: several nav-slice pivots also close overlays
+  // this slice doesn't own (the original store.tsx did this inline in one
+  // component). Each wrapper below reproduces that exact original field set.
+  const openThread = useCallback(
+    (id: LensId) => {
+      nav.openThread(id);
+      overlays.closeMomentAndEraGuides();
+    },
+    [nav.openThread, overlays.closeMomentAndEraGuides],
+  );
+
+  const openEra = useCallback(
+    (id: EraId) => {
+      nav.openEra(id);
+      overlays.closeMomentAndEraGuides();
+    },
+    [nav.openEra, overlays.closeMomentAndEraGuides],
+  );
+
+  const openCrossing = useCallback(
+    (a: LensId, b: LensId) => {
+      nav.openCrossing(a, b);
+      overlays.closeMomentOnly();
+    },
+    [nav.openCrossing, overlays.closeMomentOnly],
+  );
+
+  // The Clue Web lives inside the 'easter-eggs' thread; a cross-link jump is
+  // openThread plus a pending trail focus that ClueWeb consumes on landing.
+  const openClueWebTrail = useCallback(
+    (motif: MotifId) => {
+      overlays.setClueWebTrail(motif);
+      openThread('easter-eggs' as LensId);
+    },
+    [overlays.setClueWebTrail, openThread],
+  );
+
+  const openVideo = useCallback(
+    (eraId: EraId, videoId: string) => {
+      openEra(eraId);
+      // Ensures the target video's card is actually in the filtered feed —
+      // an active filter unrelated to the video's own tags would otherwise
+      // hide the very card we're about to scroll for.
+      searchShare.clearFilters();
+      overlays.openVideo(eraId, videoId);
+    },
+    [openEra, searchShare.clearFilters, overlays.openVideo],
+  );
 
   const goHome = useCallback(() => {
     // Home is now (R1, PLAN.md 2026-08-14): the current era, top of the stream
@@ -239,7 +288,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           // Mirrors the `openVideo` action (defined below) exactly: jump to
           // the video's era, clear filters so its card can't be hidden, and
           // queue the scroll-to-card anchor EraStream consumes on mount.
-          overlays.openVideo(videoEraId as EraId, target.id);
+          openVideo(videoEraId as EraId, target.id);
         }
       }
     } else if (target.kind === 'song') {
@@ -265,7 +314,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         overlays.openTheoryGuide(eraId);
       }
     } else if (target.kind === 'lens') {
-      nav.openThread(target.id as LensId);
+      openThread(target.id as LensId);
     } else if (target.kind === 'mode') {
       // Threads gallery / Mood / Clownbot / Community / Merch: land on the
       // bare surface — every other piece of state is still at its
@@ -287,11 +336,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setActiveEra: nav.setActiveEra,
       setLens: nav.setLensId,
       clearLens: () => nav.setLensId(null),
-      openThread: nav.openThread,
-      openEra: nav.openEra,
-      openClueWebTrail: overlays.openClueWebTrail,
+      openThread,
+      openEra,
+      openClueWebTrail,
       clearClueWebTrail: overlays.clearClueWebTrail,
-      openCrossing: nav.openCrossing,
+      openCrossing,
       closeCrossing: nav.closeCrossing,
       openItem: overlays.openItem,
       closeItem: overlays.closeItem,
@@ -300,7 +349,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       openTrack: overlays.openTrack,
       closeTrack: overlays.closeTrack,
       openSong: overlays.openSong,
-      openVideo: overlays.openVideo,
+      openVideo,
       clearPendingVideoAnchor: overlays.clearPendingVideoAnchor,
       openTheoryGuide: overlays.openTheoryGuide,
       closeTheoryGuide: overlays.closeTheoryGuide,
@@ -326,17 +375,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
       nav.setEra,
       nav.setActiveEra,
       nav.setLensId,
-      nav.openThread,
-      nav.openEra,
-      nav.openCrossing,
-      nav.closeCrossing,
-      nav.saveEraScroll,
-      nav.getEraScroll,
-      nav.clearEraScroll,
-      nav.setSelectorOpen,
-      nav.setScrubbing,
-      overlays.openClueWebTrail,
+      openThread,
+      openEra,
+      openClueWebTrail,
       overlays.clearClueWebTrail,
+      openCrossing,
+      nav.closeCrossing,
       overlays.openItem,
       overlays.closeItem,
       overlays.openTrackGuide,
@@ -344,10 +388,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
       overlays.openTrack,
       overlays.closeTrack,
       overlays.openSong,
-      overlays.openVideo,
+      openVideo,
       overlays.clearPendingVideoAnchor,
       overlays.openTheoryGuide,
       overlays.closeTheoryGuide,
+      nav.saveEraScroll,
+      nav.getEraScroll,
+      nav.clearEraScroll,
+      nav.setSelectorOpen,
+      nav.setScrubbing,
       searchShare.setSearchOpen,
       searchShare.openShare,
       searchShare.closeShare,

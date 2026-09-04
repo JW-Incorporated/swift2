@@ -116,4 +116,35 @@ describe('overlaysReducer', () => {
     expect(next.clueWebTrail).toBe('clock');
     expect(next.pendingVideoAnchor).toBe('era-video-x');
   });
+
+  it('closeMomentAndEraGuides clears the moment + both era-hero guides but leaves openTrackKey/highlightSlug (openThread/openEra contract)', () => {
+    const start = {
+      ...overlaysInitialState(),
+      openItemId: 'm1',
+      trackGuideEraId: eraA as never,
+      openTrackKey: 'k',
+      theoryGuideEraId: eraB as never,
+      theoryGuideHighlightSlug: 'egg-1',
+    };
+    const next = overlaysReducer(start, { type: 'closeMomentAndEraGuides' });
+    expect(next.openItemId).toBeNull();
+    expect(next.trackGuideEraId).toBeNull();
+    expect(next.theoryGuideEraId).toBeNull();
+    // Matches original store.tsx: openThread/openEra never cleared these two.
+    expect(next.openTrackKey).toBe('k');
+    expect(next.theoryGuideHighlightSlug).toBe('egg-1');
+  });
+
+  it('closeMomentOnly clears only the moment overlay (openCrossing contract)', () => {
+    const start = {
+      ...overlaysInitialState(),
+      openItemId: 'm1',
+      trackGuideEraId: eraA as never,
+      theoryGuideEraId: eraB as never,
+    };
+    const next = overlaysReducer(start, { type: 'closeMomentOnly' });
+    expect(next.openItemId).toBeNull();
+    expect(next.trackGuideEraId).toBe(eraA);
+    expect(next.theoryGuideEraId).toBe(eraB);
+  });
 });
