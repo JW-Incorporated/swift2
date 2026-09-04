@@ -1,5 +1,6 @@
 import { mapFanSignal, mapLiveTheory, type FanSignalRow, type LiveTheoryRow } from '@swift2/core';
 import type { FanSignal, LiveTheory } from '@swift2/shared';
+import { supabasePublicEnv } from './supabase-server';
 
 // Server-side reads for `live_theory` / `fan_signal` (PLAN.md Stage 7) —
 // deliberately NOT routed through `packages/core/src/knowledge/` (a sibling
@@ -12,14 +13,6 @@ import type { FanSignal, LiveTheory } from '@swift2/shared';
 // from `@swift2/core`'s `current-map.ts` (outside `knowledge/`, already the
 // single source of truth for that shape) rather than duplicating it by hand.
 // Env detection + degrade-to-empty mirrors `lib/current.ts`/`lib/vault.ts`.
-
-function supabaseEnv(): { supabaseUrl: string; supabaseKey: string } | null {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey =
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!supabaseUrl || !supabaseKey) return null;
-  return { supabaseUrl, supabaseKey };
-}
 
 // Defensive ceiling, same intent as knowledge/client.ts's CURRENT_ITEM_MAX_ROWS.
 const MAX_ROWS = 200;
@@ -49,7 +42,7 @@ async function restSelect<T>(
  * configured; a fetch/HTTP failure propagates so the caller (the
  * `/vault/live-theories` route) can log it and degrade to `[]` itself. */
 export async function loadLiveTheories(): Promise<LiveTheory[]> {
-  const env = supabaseEnv();
+  const env = supabasePublicEnv();
   if (!env) return [];
   const rows = await restSelect<LiveTheoryRow>(env, 'live_theory', LIVE_THEORY_COLS, 'heat.desc');
   return rows.map(mapLiveTheory);
@@ -59,7 +52,7 @@ export async function loadLiveTheories(): Promise<LiveTheory[]> {
  * (`lib/longlive/live-theories.ts`'s `matchFanSignal`) for the "fans are
  * saying" line. Same empty/failure contract as `loadLiveTheories`. */
 export async function loadFanSignals(): Promise<FanSignal[]> {
-  const env = supabaseEnv();
+  const env = supabasePublicEnv();
   if (!env) return [];
   const rows = await restSelect<FanSignalRow>(env, 'fan_signal', FAN_SIGNAL_COLS, 'heat.desc');
   return rows.map(mapFanSignal);

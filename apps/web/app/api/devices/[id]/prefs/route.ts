@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { getDevicePrefs, updateDevicePrefs } from '@swift2/core';
 import {
   isAnyNotificationCategory,
@@ -9,6 +8,7 @@ import {
   type NotificationPref,
 } from '@swift2/shared';
 import { trustedClientIp } from '../../../../../lib/longlive/client-ip';
+import { supabaseAdmin } from '../../../../../lib/supabase-server';
 
 // Notifications Phase 1 — GET/PUT /api/devices/:id/prefs (NOTIFICATIONS_PLAN.md
 // Phase 1, NOTIFICATIONS_SPEC.md §8/§9). Batch read/write over the device's
@@ -22,15 +22,6 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-function supabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
 
 // Same best-effort per-instance rate limit shape as devices/register — a
 // settings screen legitimately fires several PUTs in quick succession

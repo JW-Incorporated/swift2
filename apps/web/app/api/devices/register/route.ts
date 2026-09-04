@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { upsertDevice } from '@swift2/core';
 import {
   DEVICE_PLATFORMS,
@@ -7,6 +6,7 @@ import {
   type DeviceRegistrationInput,
 } from '@swift2/shared';
 import { trustedClientIp } from '../../../../lib/longlive/client-ip';
+import { supabaseAdmin } from '../../../../lib/supabase-server';
 
 // Notifications Phase 0 — POST /api/devices/register (NOTIFICATIONS_PLAN.md
 // Phase 0, NOTIFICATIONS_SPEC.md §2/§9). Upserts a `devices` row keyed by the
@@ -28,15 +28,6 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const MAX_FIELD = 200;
-
-function supabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
 
 const clip = (s: unknown, n: number): string | undefined =>
   typeof s === 'string' && s.trim() ? s.trim().slice(0, n) : undefined;

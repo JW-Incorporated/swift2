@@ -1,13 +1,6 @@
 import { createVaultClient, type VaultDataSource, type VaultSkeleton } from '@swift2/core';
 import type { Moment, TrackNote } from '@swift2/shared';
-
-function supabaseEnv(): { supabaseUrl: string; supabaseKey: string } | null {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey =
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!supabaseUrl || !supabaseKey) return null;
-  return { supabaseUrl, supabaseKey };
-}
+import { supabasePublicEnv } from './supabase-server';
 
 /**
  * Preview/dev fallback: when no Supabase env is configured (e.g. the v0
@@ -48,7 +41,7 @@ function publicApiClient(): VaultDataSource {
 }
 
 function client(): VaultDataSource {
-  const env = supabaseEnv();
+  const env = supabasePublicEnv();
   if (env) return createVaultClient(env);
   // No Supabase env → serve the full site from the public deployed API.
   return publicApiClient();
