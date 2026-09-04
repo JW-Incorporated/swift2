@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 75
+
+## Local Resident Toasts to New Neighbors Taylor Swift and Travis Kelce
+
+- first seen: 2026-09-04 05:49 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A local resident, Sharon Klonowski, expressed her excitement about her new neighbors, Taylor Swift and Travis Kelce, by raising a toast. This adds to the public interest surrounding the new celebrity couple.
+- sources:
+  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi0wFBVV95cUxOMFFSRE5FMkx2alVsRGtTYW5TOGgtZUdOR3BkUjQ0UzFiVF9NVndfdEJiMWc1bTd5elo4RnJZU3Q1SlgzVHg3Um9oMGNJc3ZTSEdRX25UaERHcDFuQzg0ejBJRkpQaEQtSnhXMWc0UHBCYWJ5U2dIajZCX3hKd1JXY001eHdjTXQ0MTNjdDNEMVZjbFo1eWFtN0xxRDFmZzRaS3hrdDF1VzhIa2tZNkNHMUtFQUhCLU1zcjA3aGpSTHZsQWlmeVlqd1ZmUEp6UDBPeEJn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Cancer Patient in South Florida Meets Taylor Swift After Treatment
+
+- first seen: 2026-09-04 05:49 UTC | category: sighting | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A cancer patient from South Florida, who had a surprise meeting with Taylor Swift, is now celebrating the conclusion of her treatment. The event highlights the impact of celebrity interactions on individuals facing health challenges.
+- sources:
+  - [unverified] CBS News — https://news.google.com/rss/articles/CBMirAFBVV95cUxPOGRQZm9aVnBSRnlJSjRBVHk1M29ha0NrZWZ6OVc0alpVRmVEbkItNW9KcEFTU3dFYmJZaVBmYnFWZ2d6VEt5Q2I5LUxVZGNHRFlrLWlTbmFDTFQ4RHRDbVM4RHZOc0RMdk1mYl8xYW1GcF9HdXZ5Z2dXaXY3LVViaWN3ZmZFb2pjdmZ1Zm5oUWJYbkZLV0dFMzkxVHprek1MaDBaejUtc0J5Wlpr?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Surprises South Florida Cancer Patient
+
+- first seen: 2026-09-04 05:49 UTC | category: sighting | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A cancer patient in South Florida receives a surprise visit from Taylor Swift, which contributes to their recovery. The interaction highlights the positive impact of celebrity visits on patients' well-being.
+- sources:
+  - [unverified] CBS News — https://news.google.com/rss/articles/CBMiwgFBVV95cUxNVkYxTllTaENoZ2hoT1RZdmpEbjNwMGszVGVNOFluVlNVNm1QVkxzcHloekNKZ0Q3VjRLNTlGVE5yb0VYTW9CV1B6enFmWUF5ZVhtUllnbHNjeGt1NTVKRUhfX2ZWblk3aC1JRUhkQkpRNE9oMTNHN28yc3p6dW9VQkQzLUNZMlJGX0l2TWs4M0ZOM2UzWXFlUlV5NGZiYzNGcnNrVEc1S0dWcUdCTUlBNEF3NW05dHJzaTVoVjgyWlFkZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Tribute Concert to Feature 'Shake It Off' on September 11
 
