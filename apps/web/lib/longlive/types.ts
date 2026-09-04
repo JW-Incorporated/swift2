@@ -1098,8 +1098,9 @@ export interface EraSecret {
 
 /**
  * Clownbot's no-DB fallback lore (clownbot-lore.generated.ts, produced from
- * supabase/seed/content/clownbot-lore.mjs by scripts/sync-clownbot-lore.mjs —
- * see docs/content-ops/clownbot-rumor-refresh.md). Types live here, alongside
+ * supabase/seed/clownbot-lore/clownbot-lore.mjs by
+ * scripts/sync-clownbot-lore.mjs — see
+ * docs/content-ops/clownbot-rumor-refresh.md). Types live here, alongside
  * every other generated-vault shape, so both the generated data module and
  * the hand-authored `clownbot-lore.ts` helpers (loreById/daysBetween/
  * loreFreshness) can import them without a circular dependency between the

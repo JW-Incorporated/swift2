@@ -80,6 +80,7 @@ describe('normalizeLoreItem', () => {
   });
 
   it('omits optional fields entirely when absent rather than emitting empty arrays', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { prompts, tags, ledger, evergreen, ...minimal } = good;
     const out = normalizeLoreItem(minimal);
     expect(out.prompts).toBeUndefined();
