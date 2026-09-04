@@ -972,92 +972,78 @@ for (const file of trackFiles) {
   // -- THREADS: id uniqueness + valid LensId + non-empty hero/kicker/what.
   uniqueBy(threads, 'id', 'threads.mjs');
   for (const t of threads) {
-    if (t.id && !THREAD_IDS.has(t.id))
-      console.error(`ERROR lenses/threads.mjs "${t.id}": not a known LensId`), (errors += 1);
-    if (!t.title) console.error(`ERROR lenses/threads.mjs "${t.id}": missing title`), (errors += 1);
-    if (!t.hero) console.error(`ERROR lenses/threads.mjs "${t.id}": missing hero`), (errors += 1);
+    const { err } = makeReporters(`lenses/threads.mjs "${t.id}"`);
+    if (t.id && !THREAD_IDS.has(t.id)) err('not a known LensId');
+    if (!t.title) err('missing title');
+    if (!t.hero) err('missing hero');
   }
 
   // -- RELATIONSHIPS: id uniqueness, ISO dates, end >= start, valid eraIds.
   uniqueBy(relationships, 'id', 'relationships.mjs');
   for (const r of relationships) {
-    const at = `lenses/relationships.mjs "${r.id ?? r.name}"`;
-    if (!ISO_DATE_RE.test(r.start ?? ''))
-      console.error(`ERROR ${at}: start "${r.start}" is not YYYY-MM-DD`), (errors += 1);
+    const { err } = makeReporters(`lenses/relationships.mjs "${r.id ?? r.name}"`);
+    if (!ISO_DATE_RE.test(r.start ?? '')) err(`start "${r.start}" is not YYYY-MM-DD`);
     if (r.end !== null && !ISO_DATE_RE.test(r.end ?? ''))
-      console.error(`ERROR ${at}: end "${r.end}" is not null or YYYY-MM-DD`), (errors += 1);
+      err(`end "${r.end}" is not null or YYYY-MM-DD`);
     if (r.end && r.start && r.end < r.start)
-      console.error(`ERROR ${at}: end "${r.end}" is before start "${r.start}"`), (errors += 1);
+      err(`end "${r.end}" is before start "${r.start}"`);
     for (const eraId of r.eraIds ?? []) {
-      if (!ERA_IDS.has(eraId))
-        console.error(`ERROR ${at}: eraId "${eraId}" is not a known EraId`), (errors += 1);
+      if (!ERA_IDS.has(eraId)) err(`eraId "${eraId}" is not a known EraId`);
     }
   }
 
   // -- SINGLE_PERIODS: same date/eraId shape as RELATIONSHIPS.
   uniqueBy(singlePeriods, 'id', 'single-periods.mjs');
   for (const p of singlePeriods) {
-    const at = `lenses/single-periods.mjs "${p.id}"`;
-    if (!ISO_DATE_RE.test(p.start ?? ''))
-      console.error(`ERROR ${at}: start "${p.start}" is not YYYY-MM-DD`), (errors += 1);
-    if (!ISO_DATE_RE.test(p.end ?? ''))
-      console.error(`ERROR ${at}: end "${p.end}" is not YYYY-MM-DD`), (errors += 1);
+    const { err } = makeReporters(`lenses/single-periods.mjs "${p.id}"`);
+    if (!ISO_DATE_RE.test(p.start ?? '')) err(`start "${p.start}" is not YYYY-MM-DD`);
+    if (!ISO_DATE_RE.test(p.end ?? '')) err(`end "${p.end}" is not YYYY-MM-DD`);
     if (p.end && p.start && p.end < p.start)
-      console.error(`ERROR ${at}: end "${p.end}" is before start "${p.start}"`), (errors += 1);
+      err(`end "${p.end}" is before start "${p.start}"`);
     for (const eraId of p.eraIds ?? []) {
-      if (!ERA_IDS.has(eraId))
-        console.error(`ERROR ${at}: eraId "${eraId}" is not a known EraId`), (errors += 1);
+      if (!ERA_IDS.has(eraId)) err(`eraId "${eraId}" is not a known EraId`);
     }
   }
 
   // -- RUNWAY_LOOKS: id uniqueness, valid eraId, >=1 image with url/credit.
   uniqueBy(runwayLooks, 'id', 'runway-looks.mjs');
   for (const l of runwayLooks) {
-    const at = `lenses/runway-looks.mjs "${l.id}"`;
-    if (!ERA_IDS.has(l.eraId))
-      console.error(`ERROR ${at}: eraId "${l.eraId}" is not a known EraId`), (errors += 1);
-    if (!Array.isArray(l.images) || l.images.length === 0)
-      console.error(`ERROR ${at}: needs at least one image`), (errors += 1);
+    const { err } = makeReporters(`lenses/runway-looks.mjs "${l.id}"`);
+    if (!ERA_IDS.has(l.eraId)) err(`eraId "${l.eraId}" is not a known EraId`);
+    if (!Array.isArray(l.images) || l.images.length === 0) err('needs at least one image');
     for (const img of l.images ?? []) {
-      if (!img.url) console.error(`ERROR ${at}: image missing url`), (errors += 1);
-      if (!img.credit) console.error(`ERROR ${at}: image missing credit`), (errors += 1);
+      if (!img.url) err('image missing url');
+      if (!img.credit) err('image missing credit');
     }
   }
 
   // -- RERECORDS: id uniqueness, originalYear/reclaimedYear shape.
   uniqueBy(rerecords, 'id', 'rerecords.mjs');
   for (const rr of rerecords) {
-    const at = `lenses/rerecords.mjs "${rr.id}"`;
-    if (!Number.isInteger(rr.originalYear))
-      console.error(`ERROR ${at}: originalYear must be an int`), (errors += 1);
+    const { err } = makeReporters(`lenses/rerecords.mjs "${rr.id}"`);
+    if (!Number.isInteger(rr.originalYear)) err('originalYear must be an int');
     if (rr.reclaimedYear !== null && !Number.isInteger(rr.reclaimedYear))
-      console.error(`ERROR ${at}: reclaimedYear must be null or an int`), (errors += 1);
+      err('reclaimedYear must be null or an int');
   }
 
   // -- EGG_NODES: id uniqueness, valid eraId, kind, x/y in [0,100], >=1 source.
   const eggNodeIds = uniqueBy(eggNodes, 'id', 'egg-nodes.mjs');
   const EGG_KINDS = new Set(['clue', 'payoff']);
   for (const n of eggNodes) {
-    const at = `lenses/egg-nodes.mjs "${n.id}"`;
-    if (!ERA_IDS.has(n.eraId))
-      console.error(`ERROR ${at}: eraId "${n.eraId}" is not a known EraId`), (errors += 1);
-    if (!EGG_KINDS.has(n.kind))
-      console.error(`ERROR ${at}: kind "${n.kind}" not in clue|payoff`), (errors += 1);
-    if (!Number.isInteger(n.year))
-      console.error(`ERROR ${at}: year must be an int`), (errors += 1);
+    const { err } = makeReporters(`lenses/egg-nodes.mjs "${n.id}"`);
+    if (!ERA_IDS.has(n.eraId)) err(`eraId "${n.eraId}" is not a known EraId`);
+    if (!EGG_KINDS.has(n.kind)) err(`kind "${n.kind}" not in clue|payoff`);
+    if (!Number.isInteger(n.year)) err('year must be an int');
     if (!(n.x >= 0 && n.x <= 100) || !(n.y >= 0 && n.y <= 100))
-      console.error(`ERROR ${at}: x/y must be normalized 0..100 coordinates`), (errors += 1);
-    if (!Array.isArray(n.sources) || n.sources.length === 0)
-      console.error(`ERROR ${at}: needs at least one source`), (errors += 1);
+      err('x/y must be normalized 0..100 coordinates');
+    if (!Array.isArray(n.sources) || n.sources.length === 0) err('needs at least one source');
   }
 
   // -- EGG_LINKS: from/to must reference real EGG_NODES ids.
   for (const link of eggLinks) {
-    const at = `lenses/egg-links.mjs "${link.from} -> ${link.to}"`;
-    if (!eggNodeIds.has(link.from))
-      console.error(`ERROR ${at}: from "${link.from}" is not a known egg node id`), (errors += 1);
-    if (!eggNodeIds.has(link.to))
-      console.error(`ERROR ${at}: to "${link.to}" is not a known egg node id`), (errors += 1);
+    const { err } = makeReporters(`lenses/egg-links.mjs "${link.from} -> ${link.to}"`);
+    if (!eggNodeIds.has(link.from)) err(`from "${link.from}" is not a known egg node id`);
+    if (!eggNodeIds.has(link.to)) err(`to "${link.to}" is not a known egg node id`);
   }
 
   // -- MOTIFS: id uniqueness (membership itself is asserted by lenses.ts's
@@ -1069,19 +1055,16 @@ for (const file of trackFiles) {
   //    now a real check instead of a hand-audit claim.
   uniqueBy(cluePairs, 'id', 'clue-pairs.mjs');
   for (const c of cluePairs) {
-    const at = `lenses/clue-pairs.mjs "${c.id}"`;
-    if (!ISO_DATE_RE.test(c.plant?.date ?? ''))
-      console.error(`ERROR ${at}: plant.date "${c.plant?.date}" is not YYYY-MM-DD`), (errors += 1);
-    if (!ISO_DATE_RE.test(c.payoff?.date ?? ''))
-      console.error(`ERROR ${at}: payoff.date "${c.payoff?.date}" is not YYYY-MM-DD`), (errors += 1);
+    const { err } = makeReporters(`lenses/clue-pairs.mjs "${c.id}"`);
+    if (!ISO_DATE_RE.test(c.plant?.date ?? '')) err(`plant.date "${c.plant?.date}" is not YYYY-MM-DD`);
+    if (!ISO_DATE_RE.test(c.payoff?.date ?? '')) err(`payoff.date "${c.payoff?.date}" is not YYYY-MM-DD`);
     if (c.plant?.date && c.payoff?.date && c.plant.date > c.payoff.date)
-      console.error(`ERROR ${at}: plant.date "${c.plant.date}" is after payoff.date "${c.payoff.date}" — plant must precede payoff`), (errors += 1);
+      err(`plant.date "${c.plant.date}" is after payoff.date "${c.payoff.date}" — plant must precede payoff`);
     if (c.plant?.eraId && !ERA_IDS.has(c.plant.eraId))
-      console.error(`ERROR ${at}: plant.eraId "${c.plant.eraId}" is not a known EraId`), (errors += 1);
+      err(`plant.eraId "${c.plant.eraId}" is not a known EraId`);
     if (c.payoff?.eraId && !ERA_IDS.has(c.payoff.eraId))
-      console.error(`ERROR ${at}: payoff.eraId "${c.payoff.eraId}" is not a known EraId`), (errors += 1);
-    if (!Array.isArray(c.sources) || c.sources.length === 0)
-      console.error(`ERROR ${at}: needs at least one source`), (errors += 1);
+      err(`payoff.eraId "${c.payoff.eraId}" is not a known EraId`);
+    if (!Array.isArray(c.sources) || c.sources.length === 0) err('needs at least one source');
   }
 }
 
