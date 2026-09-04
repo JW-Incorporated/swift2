@@ -171,6 +171,131 @@ export function scoreDoc(doc: SearchDoc, terms: string[]): number {
   return score + doc.weight;
 }
 
+// ── Posting list (candidate lookup) ─────────────────────────────────────────
+
+/**
+ * `bodyNorm` is a space-joined string (titleNorm followed by normalized
+ * extra text — see `makeDoc`), and query terms (from `tokenize`) never
+ * contain a space. So a term can only ever match *inside* one space-
+ * delimited word of `bodyNorm`, never across two — "does some word contain
+ * `term` as a substring" is an exact stand-in for `bodyNorm.includes(term)`
+ * (and `titleNorm.includes(term)`, since titleNorm is that string's first
+ * word(s)).
+ *
+ * To answer "does some word contain `term`" without scanning every word for
+ * every query (which is no better than scanning every doc — this corpus has
+ * far more distinct words than docs), each word is expanded into all of its
+ * suffixes and every suffix is stored as its own entry, sorted lexically.
+ * `term` is a substring of a word starting at position i exactly when the
+ * suffix starting at i begins with `term` — so "words containing term"
+ * becomes "sorted suffixes with this prefix", found by one binary search
+ * plus a scan of just the matches, instead of a scan of the whole
+ * vocabulary.
+ */
+interface SuffixEntry {
+  suffix: string;
+  doc: SearchDoc;
+}
+
+const suffixIndexCache = new WeakMap<readonly SearchDoc[], SuffixEntry[]>();
+
+function buildSuffixIndex(docs: readonly SearchDoc[]): SuffixEntry[] {
+  const entries: SuffixEntry[] = [];
+  for (const doc of docs) {
+    // Dedupe per doc: a repeated word (or overlapping occurrence, e.g. "aa"
+    // in "aaa") must only ever contribute one candidate entry per doc per
+    // suffix, or a later intersection step could double-count it.
+    const suffixes = new Set<string>();
+    for (const word of doc.bodyNorm.split(' ')) {
+      if (!word) continue;
+      for (let i = 0; i < word.length; i++) suffixes.add(word.slice(i));
+    }
+    for (const suffix of suffixes) entries.push({ suffix, doc });
+  }
+  entries.sort((a, b) => (a.suffix < b.suffix ? -1 : a.suffix > b.suffix ? 1 : 0));
+  return entries;
+}
+
+// Keyed by the doc array's identity: `getSearchIndex()` returns the same
+// cached array on every call, so its suffix index is built once and reused;
+// a fresh array (as in tests, or a future non-singleton caller) just builds
+// its own the first time it's searched.
+function getSuffixIndex(docs: readonly SearchDoc[]): SuffixEntry[] {
+  let entries = suffixIndexCache.get(docs);
+  if (!entries) {
+    entries = buildSuffixIndex(docs);
+    suffixIndexCache.set(docs, entries);
+  }
+  return entries;
+}
+
+/** First index in the (sorted) entries whose suffix is >= `term`. */
+function lowerBound(entries: readonly SuffixEntry[], term: string): number {
+  let lo = 0;
+  let hi = entries.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >>> 1;
+    if (entries[mid].suffix < term) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo;
+}
+
+/**
+ * A term whose candidate scan would touch more entries than there are docs
+ * is not selective enough to be worth indexing — a full scan is already
+ * cheaper, and returning `null` (meaning "no useful narrowing, treat every
+ * doc as a candidate for this term") lets the caller fall back cleanly
+ * instead of paying for a long scan anyway.
+ */
+type TermCandidates = Set<SearchDoc> | null;
+
+// Below this length a term is too short to be selective: real corpora have
+// enough words containing any 1-2 character substring that scanning for
+// candidates costs about as much as just checking every doc directly, and
+// skipping the scan entirely (rather than running it and giving up midway)
+// avoids paying for that scan on top of the eventual full-scan fallback.
+const MIN_TERM_LENGTH_TO_INDEX = 3;
+
+/**
+ * Every doc with at least one indexed word containing `term`, or `null` if
+ * the term is too short/common to narrow usefully (see `TermCandidates`).
+ */
+function candidatesForTerm(entries: readonly SuffixEntry[], term: string): TermCandidates {
+  if (term.length < MIN_TERM_LENGTH_TO_INDEX) return null;
+  const candidates = new Set<SearchDoc>();
+  for (let i = lowerBound(entries, term); i < entries.length; i++) {
+    if (!entries[i].suffix.startsWith(term)) break; // sorted: no more possible matches
+    candidates.add(entries[i].doc);
+  }
+  return candidates;
+}
+
+/**
+ * Docs that could possibly score against every term (AND semantics), found
+ * via the suffix index instead of a full scan. `scoreDoc` still does the
+ * real, authoritative scoring — this only narrows which docs it has to run
+ * on, so ranking/output is unchanged. Falls back to the full doc list (same
+ * cost as the pre-refactor scan, never worse) when no term narrows usefully.
+ */
+function candidateDocs(docs: readonly SearchDoc[], terms: readonly string[]): Iterable<SearchDoc> {
+  const entries = getSuffixIndex(docs);
+  let candidates: Set<SearchDoc> | undefined;
+  for (const term of terms) {
+    const termCandidates = candidatesForTerm(entries, term);
+    if (termCandidates === null) continue; // this term doesn't narrow; rely on the others
+    if (candidates === undefined) {
+      candidates = new Set(termCandidates);
+    } else {
+      for (const existing of candidates) {
+        if (!termCandidates.has(existing)) candidates.delete(existing);
+      }
+    }
+    if (candidates.size === 0) return [];
+  }
+  return candidates ?? docs; // no term narrowed usefully: fall back to a full scan
+}
+
 export const MAX_RESULTS_PER_TYPE = 5;
 
 /** Presentation order + labels for result groups. */
@@ -204,7 +329,7 @@ export function searchDocs(
   if (terms.length === 0) return [];
 
   const byType = new Map<SearchDocType, SearchResult[]>();
-  for (const doc of docs) {
+  for (const doc of candidateDocs(docs, terms)) {
     const score = scoreDoc(doc, terms);
     if (score <= 0) continue;
     const bucket = byType.get(doc.type);
