@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { markDeliveryOpened } from '@swift2/core/notifications-server';
 import { trustedClientIp } from '../../../../lib/longlive/client-ip';
 import { makeRateLimiter } from '../../../../lib/longlive/rate-limit';
+import { supabaseAdmin } from '../../../../lib/supabase-server';
 
 // Notifications Phase 6 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §11) —
 // POST /api/notifications/open: "notification-open tracking writing
@@ -17,15 +17,6 @@ import { makeRateLimiter } from '../../../../lib/longlive/rate-limit';
 // policies, so this route is the only writer.
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-
-function supabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
 
 // Same best-effort per-instance rate limit shape as every other public
 // POST route in this repo — a burst here is either a bug in the service

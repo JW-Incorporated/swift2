@@ -562,7 +562,7 @@ describe('POST /api/clown', () => {
         { tool: 'search', input: { query: MASTERS_QUERY }, summary: '1 result' },
         { tool: 'precedents', input: { symbol: 'masters' }, summary: '2 precedents' },
       ];
-      vi.mocked(runClownAgent).mockImplementationOnce(async (_usage, _transcript, _seed, _seedInput, onStep) => {
+      vi.mocked(runClownAgent).mockImplementationOnce(async (_usage, _transcript, _seed, _seedInput, _client, onStep) => {
         for (const step of steps) onStep?.(step);
         return agentRun({ investigation: steps });
       });
@@ -753,7 +753,7 @@ describe('POST /api/clown', () => {
       vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
       await post({ text: MASTERS_QUERY }, '10.4.0.7');
       expect(incrementUserUsage).not.toHaveBeenCalled();
-      const reserveCallback = vi.mocked(runClownAgent).mock.calls[0][8] as (() => Promise<boolean>) | undefined;
+      const reserveCallback = vi.mocked(runClownAgent).mock.calls[0][9] as (() => Promise<boolean>) | undefined;
       expect(reserveCallback).toBeInstanceOf(Function);
       await reserveCallback?.();
       expect(incrementUserUsage).toHaveBeenCalledTimes(1);
@@ -763,7 +763,7 @@ describe('POST /api/clown', () => {
     it('no session resolved: runClownAgent receives no reserveUserBudget callback at all', async () => {
       vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
       await post({ text: MASTERS_QUERY }, '10.4.0.8');
-      expect(vi.mocked(runClownAgent).mock.calls[0][8]).toBeUndefined();
+      expect(vi.mocked(runClownAgent).mock.calls[0][9]).toBeUndefined();
     });
 
     it('a loaded conversation summary is passed through to runClownAgent when the client transcript is empty', async () => {
@@ -771,7 +771,7 @@ describe('POST /api/clown', () => {
       vi.mocked(loadClownHistory).mockResolvedValueOnce({ summary: 'earlier folded turns', turns: [] });
       vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
       await post({ text: MASTERS_QUERY }, '10.4.0.9');
-      expect(vi.mocked(runClownAgent).mock.calls[0][7]).toBe('earlier folded turns');
+      expect(vi.mocked(runClownAgent).mock.calls[0][8]).toBe('earlier folded turns');
     });
 
     it('a non-empty client transcript skips the history load entirely', async () => {
@@ -822,7 +822,7 @@ describe('POST /api/clown', () => {
       const json = await finalAnswer(res);
       expect(json.kind).toBe('take');
       expect(runClownAgent).toHaveBeenCalledTimes(1);
-      expect(vi.mocked(runClownAgent).mock.calls[0][7]).toBe(
+      expect(vi.mocked(runClownAgent).mock.calls[0][8]).toBe(
         'user: Is Taylor secretly expecting a baby? / assistant: Great question, I was about to answer yes.',
       );
     });

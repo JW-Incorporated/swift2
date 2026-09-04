@@ -5,6 +5,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { httpsRequest } from '../lib/gh.mjs';
 import {
   ETSY_FAILURE_ISSUE_PREFIX,
   ETSY_FAILURE_LABEL,
@@ -20,6 +21,29 @@ import { FAN_MADE } from '../../supabase/seed/merch/fanmade.mjs';
 
 function text(value) {
   return typeof value === 'string' && value.trim() ? value.trim() : null;
+}
+
+// The GitHub calls in this file (issue list/create, label create) are all
+// `api.github.com`. Routed through `scripts/lib/gh.mjs`'s `httpsRequest` —
+// the one transport in this repo proven to honour HTTPS_PROXY in cloud
+// runners (#1869/#2008) — rather than a bare `fetch`, which silently bypasses
+// the proxy unless the process was booted with `--use-env-proxy`. Wrapped to
+// look like the fetch Response shape so callers (and their test doubles,
+// which already speak that shape) are unaffected.
+async function githubFetch(url, options = {}) {
+  const { method = 'GET', headers = {}, body } = options;
+  const res = await httpsRequest(String(url), { method, headers, body });
+  return {
+    ok: res.status >= 200 && res.status < 300,
+    status: res.status,
+    headers: res.headers,
+    async json() {
+      return res.text ? JSON.parse(res.text) : null;
+    },
+    async text() {
+      return res.text ?? '';
+    },
+  };
 }
 
 function canonicalUrl(value) {
@@ -541,13 +565,13 @@ async function main() {
     console.log(JSON.stringify({ candidates: evidence.candidates }, null, 2));
     return;
   }
-  const submissions = await githubIssues({ repository, token, label: SUBMISSION_LABEL, fetchImpl: fetch });
+  const submissions = await githubIssues({ repository, token, label: SUBMISSION_LABEL, fetchImpl: githubFetch });
   const discovery = await discoverCandidates({ etsyApiKey, submissions });
   const revalidation = await reverifyFanmadeListings({ etsyApiKey });
-  const revalidationFiling = await fileReverificationIssues({ repository, token, reverified: revalidation.reverified, fetchImpl: fetch, dryRun });
-  const filing = await fileCandidateIssues({ repository, token, candidates: discovery.candidates, fetchImpl: fetch, dryRun });
+  const revalidationFiling = await fileReverificationIssues({ repository, token, reverified: revalidation.reverified, fetchImpl: githubFetch, dryRun });
+  const filing = await fileCandidateIssues({ repository, token, candidates: discovery.candidates, fetchImpl: githubFetch, dryRun });
   const etsyOutageFiling = discovery.etsyTotalFailure
-    ? await fileEtsyOutageIssue({ repository, token, queryErrors: discovery.etsyQueryErrors, fetchImpl: fetch, dryRun })
+    ? await fileEtsyOutageIssue({ repository, token, queryErrors: discovery.etsyQueryErrors, fetchImpl: githubFetch, dryRun })
     : { filed: false, skipped: false };
   console.log(JSON.stringify({ ...discovery, ...revalidation, revalidationFiling, ...filing, etsyOutageFiling, dryRun }, null, 2));
 }

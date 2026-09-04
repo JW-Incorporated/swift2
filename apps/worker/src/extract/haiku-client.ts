@@ -26,9 +26,9 @@ import type {
   SkipReason,
 } from './types';
 import type { ExtractUsageStore } from './usage-store';
+import { callAnthropicMessages, extractToolUseInput } from '@swift2/shared/llm/anthropic-messages';
 
 const MODEL = 'claude-haiku-4-5'; // cost-cheap tier per proposal §4.5; re-check at any real usage review
-const ANTHROPIC_VERSION = '2023-06-01';
 const MAX_TOKENS = 1_024;
 /** Cluster titles+snippets are capped to this many characters (proposal §4.5). */
 const MAX_CLUSTER_CHARS = 6_000;
@@ -94,14 +94,7 @@ function buildUserMessage(input: ExtractInput): string {
 }
 
 function extractToolInput(body: unknown): unknown | null {
-  const content = (body as { content?: unknown })?.content;
-  if (!Array.isArray(content)) return null;
-  for (const block of content) {
-    if (block && typeof block === 'object' && (block as { type?: string }).type === 'tool_use') {
-      return (block as { input?: unknown }).input ?? {};
-    }
-  }
-  return null;
+  return extractToolUseInput(body, { fallback: {} });
 }
 
 function str(value: unknown, max: number): string {
@@ -213,27 +206,19 @@ export function sanitizeResult(parsed: unknown): RecordKnowledgeResult {
 }
 
 async function attempt(apiKey: string, userMessage: string): Promise<RecordKnowledgeResult> {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'x-api-key': apiKey,
-      'anthropic-version': ANTHROPIC_VERSION,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
+  const { raw } = await callAnthropicMessages(
+    apiKey,
+    {
       model: MODEL,
       max_tokens: MAX_TOKENS,
       system: [{ type: 'text', text: EXTRACT_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
       tools: [RECORD_KNOWLEDGE_TOOL],
       tool_choice: { type: 'tool', name: RECORD_KNOWLEDGE_TOOL.name },
       messages: [{ role: 'user', content: userMessage }],
-    }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`Anthropic extract failed (${res.status}): ${await res.text()}`);
-  }
-  const toolInput = extractToolInput(await res.json());
+    },
+    { errorLabel: 'Anthropic extract', includeBodyTextInError: true },
+  );
+  const toolInput = extractToolInput(raw);
   if (toolInput === null) throw new Error('Anthropic extract: no tool_use block');
   return sanitizeResult(toolInput);
 }

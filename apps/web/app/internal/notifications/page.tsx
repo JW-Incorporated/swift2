@@ -1,10 +1,10 @@
-import { createClient } from '@supabase/supabase-js';
 import {
   loadMetrics,
   MUTE_RATE_FLAG_THRESHOLD,
   type NotificationMetrics,
 } from '@swift2/core/notifications-server';
 import { authorizedForDashboard } from '@/app/api/notifications/metrics/route';
+import { supabaseAdmin } from '@/lib/supabase-server';
 
 // Notifications Phase 6 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §11) —
 // the internal metrics dashboard. Server-rendered (no client fetch round
@@ -13,15 +13,6 @@ import { authorizedForDashboard } from '@/app/api/notifications/metrics/route';
 // that route's header for the tradeoff reasoning). Not in the sitemap, not
 // linked from anywhere in the public app.
 export const dynamic = 'force-dynamic';
-
-function supabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
 
 function pct(rate: number | null): string {
   if (rate === null) return '\u2014';

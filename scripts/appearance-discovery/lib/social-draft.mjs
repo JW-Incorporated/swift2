@@ -24,6 +24,7 @@
 
 import { weightedTweetLength } from '../../social/lib/x-length.mjs';
 import { imageMeta } from '../../content-engine/checkers/image-liveness.mjs';
+import { callAnthropicMessages } from '../../lib/anthropic.mjs';
 
 const X_MAX_WEIGHTED = 280;
 // Leaves headroom under check-drafts.mjs's own 270 WARN threshold (and a lot
@@ -214,7 +215,6 @@ export function buildSocialDraftPair(c, { now = new Date() } = {}) {
 // verification is simply never staged, the same "loud, not fatal" shape
 // draftFailures already has for a fetch/build failure.
 const TAYLOR_VERIFY_MODEL = 'claude-sonnet-5';
-const ANTHROPIC_VERSION = '2023-06-01';
 const TAYLOR_VERIFY_TOOL = {
   name: 'record_taylor_presence',
   description: 'Record whether Taylor Swift is visibly, photographically present in the supplied image.',
@@ -288,15 +288,9 @@ export async function verifyTaylorPresence(bytes, mediaType, { apiKey, fetchImpl
     );
   }
   verifyCallCount += 1;
-  const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'x-api-key': apiKey,
-      'anthropic-version': ANTHROPIC_VERSION,
-      'content-type': 'application/json',
-    },
-    signal: AbortSignal.timeout(TAYLOR_VERIFY_TIMEOUT_MS),
-    body: JSON.stringify({
+  const { raw } = await callAnthropicMessages(
+    apiKey,
+    {
       model: TAYLOR_VERIFY_MODEL,
       max_tokens: 128,
       thinking: { type: 'disabled' },
@@ -317,10 +311,10 @@ export async function verifyTaylorPresence(bytes, mediaType, { apiKey, fetchImpl
           ],
         },
       ],
-    }),
-  });
-  if (!response.ok) throw new Error(`taylor-presence vision request failed (${response.status})`);
-  const input = taylorVerifyToolInput(await response.json());
+    },
+    { timeoutMs: TAYLOR_VERIFY_TIMEOUT_MS, fetchImpl, errorLabel: 'taylor-presence vision request' },
+  );
+  const input = taylorVerifyToolInput(raw);
   if (
     !input ||
     typeof input.taylor_present !== 'boolean' ||
