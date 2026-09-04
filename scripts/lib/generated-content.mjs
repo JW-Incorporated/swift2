@@ -37,11 +37,11 @@ export const GENERATED_SUFFIX = '.generated.ts';
  * a generated artifact like the rest, but deliberately keeps its pre-existing
  * filename rather than moving to `*.generated.ts` — many display modules
  * already `import ... from './clownbot-lore'`, and the ruling's whole point
- * was "preserve the generated artifact's shape". `listGeneratedOnDisk()`
- * below only globs `*.generated.ts` for that reason, so it does NOT discover
- * this file automatically; `check-automerge-allowlist.mjs`'s "manifest
- * matches disk" check still covers it because it unions `generatedOnDisk`
- * with every `SYNC_TARGETS` `out` path, not just the glob.
+ * was "preserve the generated artifact's shape". Because it doesn't match
+ * `GENERATED_SUFFIX`, it's listed in `EXTRA_GENERATED` below so
+ * `listGeneratedOnDisk()` — ground truth for both `check-generated-in-sync`
+ * and `check-automerge-allowlist`'s "manifest matches disk" check — still
+ * discovers it.
  */
 export const SYNC_TARGETS = [
   { sync: 'scripts/sync-longlive-content.mjs', out: `${GENERATED_DIR}/content-vault.generated.ts` },
@@ -56,6 +56,15 @@ export const SYNC_TARGETS = [
   { sync: 'scripts/sync-clownbot-lore.mjs', out: `${GENERATED_DIR}/clownbot-lore.ts` },
 ];
 
+/**
+ * Generated artifacts that do NOT follow the `*.generated.ts` naming
+ * convention, so the plain suffix glob in `listGeneratedOnDisk()` can't find
+ * them. Every entry here MUST also appear as a `SYNC_TARGETS[].out` — this
+ * list only widens what the disk scan considers, it doesn't grant anything
+ * sync/allowlist coverage on its own.
+ */
+export const EXTRA_GENERATED = [`${GENERATED_DIR}/clownbot-lore.ts`];
+
 /** Repo-relative POSIX paths of the generated artifacts, in sync order. */
 export const GENERATED = SYNC_TARGETS.map((t) => t.out);
 
@@ -64,13 +73,15 @@ export const SYNCS = SYNC_TARGETS.map((t) => t.sync);
 
 /**
  * Ground truth: every `*.generated.ts` actually present in GENERATED_DIR,
- * as repo-relative POSIX paths, sorted. Used to prove SYNC_TARGETS is complete.
+ * plus any `EXTRA_GENERATED` file that exists there, as repo-relative POSIX
+ * paths, sorted. Used to prove SYNC_TARGETS is complete.
  */
 export function listGeneratedOnDisk(root = ROOT) {
   const dir = join(root, ...GENERATED_DIR.split('/'));
   if (!existsSync(dir)) return [];
-  return readdirSync(dir)
+  const globbed = readdirSync(dir)
     .filter((f) => f.endsWith(GENERATED_SUFFIX))
-    .map((f) => `${GENERATED_DIR}/${f}`)
-    .sort();
+    .map((f) => `${GENERATED_DIR}/${f}`);
+  const extras = EXTRA_GENERATED.filter((f) => existsSync(join(root, ...f.split('/'))));
+  return [...new Set([...globbed, ...extras])].sort();
 }
