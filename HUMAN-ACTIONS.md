@@ -541,6 +541,49 @@ This is the same intermittent policy, now confirmed to hit more than one
 scheduled trigger in this repo, so the "looks resolved" note above was
 premature — leaving Status as OPEN.
 
+**Update (2026-09-05, investigation task t_948d67b9 — this is now the direct
+cause of the "no photo / thin posts" regression Joey flagged):** confirmed
+this block has been **continuous, not intermittent, for the last 11
+consecutive Vault Run firings** (2026-08-25 through 2026-09-04 — every
+single daily run's own PR body says so explicitly):
+
+- 2026-08-25 PR #3308, 08-26 PR #3371, 08-27 PR #3394, 08-28 PR #3409,
+  08-29 PR #3434, 08-30 PR #3514, 09-01 PR #3660, 09-02 PR #3684,
+  09-04 PR #3744 — every one reports Lane 3 (Photo Enrichment) as
+  `NO-OP, environment-blocked`, always the same hosts: `upload.wikimedia.org`,
+  `www.instagram.com`, and often `billboard.com`/`i.ytimg.com`, all `403` at
+  the agent-proxy CONNECT step.
+- Net effect on the live site: **all 12 new Vault moments authored since
+  2026-08-24 shipped with zero photos** (verified against
+  `apps/web/lib/longlive/content-vault.generated.ts`'s diffs for every Vault
+  Run commit in that window) — matches Joey's "last 8 posts have no photo"
+  report almost exactly. The Content Shift lane's own step 3b explicitly
+  routes new moments to Photo Enrichment's backlog when it can't attach a
+  photo itself, so authored moments have shipped **text-only** for two
+  straight weeks, which is also the direct cause of the "short/boring" read
+  — a moment with no photo reads thinner than the same moment illustrated.
+- **This is not a content-authoring failure and no seed/lane-prompt change
+  fixes it.** Every run is doing exactly what its protocol requires
+  (verify-first, never add an unconfirmed/unfetched photo). The fix is
+  entirely infra: the `claude.ai/code` environment's outbound network
+  allowlist for the Vault Run's execution environment needs
+  `upload.wikimedia.org` and `www.instagram.com` (and ideally the outlet CDNs
+  the Photo Enrichment protocol already curls: `billboard.com`, `i.ytimg.com`)
+  added. Steps 1-3 above are unchanged and still the fix — they were never
+  completed; every "looks resolved"/"reachable again" update above was a
+  transient window on an otherwise-still-blocking policy, not evidence the
+  policy was fixed.
+- No code-side workaround exists: this repo's own protocol design
+  (`docs/agents/runner-prompts/vault-lanes/3-photo-enrichment.md`) requires
+  fetching and vision-verifying every candidate image before it can be added
+  — an agent cannot fabricate around a network block without violating the
+  no-fabrication rule the whole photo pipeline exists to enforce.
+
+**Status:** OPEN — needs a founder with `claude.ai/code` environment/trigger
+access to update the Vault Run trigger's outbound network policy per the
+Steps above. This is the highest-priority open item blocking new-content
+photo quality.
+
 ---
 
 ### 16. [UPGRADE] Facebook groups checklist ships empty — needs your real group list, and your first real export to trust the parser
