@@ -39,10 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: '24'
+      - uses: ./.github/actions/setup-repo
       - name: Restore conditional-request validators
         uses: actions/cache/restore@v6
         with:
@@ -70,18 +67,12 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
         with:
-          # A real user token (reused, not new — same PAT merch-revenue.yml
-          # and merch-awin-sync.yml already use), so the PR this job opens
-          # can trigger the required `build` check: main is branch-protected
-          # and the default GITHUB_TOKEN cannot trigger checks on its own PRs.
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
-      - uses: actions/setup-node@v7
-        with:
-          node-version: '24'
+          npm-ci: 'true'
+          npm-ci-args: '--ignore-scripts'
           cache: npm
-      - run: npm ci --ignore-scripts
       - name: Download the detected sync plan
         uses: actions/download-artifact@v8
         with:
@@ -152,25 +143,23 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: node scripts/merch-engine/emit-official-merch-event.mjs --social-draft .official-social-draft.json
-      - name: Open gated catalog + social-draft PR
+      - name: Compute PR metadata
         if: ${{ steps.diff.outputs.changed == 'true' || steps.drop.outputs.count != '0' }}
-        env:
-          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
-        run: |
-          set -euo pipefail
-          git add supabase/seed/merch/official.mjs social/queue apps/web/public/social/library
-          if git diff --cached --quiet; then
-            echo "Nothing to commit — a diff was detected but staged empty; nothing to do."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          BRANCH="merch-official-sync/${GITHUB_RUN_ID}"
-          git checkout -b "$BRANCH"
-          git commit -m "feat(merch): author official-store sync plan (run ${GITHUB_RUN_ID})"
-          git push origin "$BRANCH"
-          gh pr create --title "feat(merch): author official-store sync plan (run ${GITHUB_RUN_ID})" \
-            --body "Automated E4 authoring lane (scripts/merch-engine/author-catalogs.mjs). Consumes the detect job's verified sync plan and writes supabase/seed/merch/official.mjs; when the plan contains new products, also stages the store-drop social/queue/*.json X+Instagram pair (scripts/merch-engine/build-drop-draft.mjs) and its rendered card image. Restates only observed catalog metadata (R2) — no fabricated price/stock/content claims. Auto-merges once check-drafts.mjs + the required build check pass; a human can still merge or hold it." \
-            --base main --head "$BRANCH"
-          gh pr merge "$BRANCH" --squash --auto --delete-branch
+        run: echo "branch=merch-official-sync/${{ github.run_id }}" >> "$GITHUB_ENV"
+      - uses: ./.github/actions/commit-and-pr
+        if: ${{ steps.diff.outputs.changed == 'true' || steps.drop.outputs.count != '0' }}
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: supabase/seed/merch/official.mjs social/queue apps/web/public/social/library
+          branch: ${{ env.branch }}
+          commit-message: "feat(merch): author official-store sync plan (run ${{ github.run_id }})"
+          pr-title: "feat(merch): author official-store sync plan (run ${{ github.run_id }})"
+          pr-body: >-
+            Automated E4 authoring lane (scripts/merch-engine/author-catalogs.mjs). Consumes the detect
+            job's verified sync plan and writes supabase/seed/merch/official.mjs; when the plan contains
+            new products, also stages the store-drop social/queue/*.json X+Instagram pair
+            (scripts/merch-engine/build-drop-draft.mjs) and its rendered card image. Restates only
+            observed catalog metadata (R2) — no fabricated price/stock/content claims. Auto-merges once
+            check-drafts.mjs + the required build check pass; a human can still merge or hold it.
+          no-changes-message: "Nothing to commit — a diff was detected but staged empty; nothing to do."
 

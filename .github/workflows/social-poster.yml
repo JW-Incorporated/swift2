@@ -148,16 +148,11 @@ jobs:
             echo "frozen=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
         if: steps.freeze.outputs.frozen != 'true'
         with:
           # Real-user token, not the default — see the header note above.
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
-
-      - uses: actions/setup-node@v7
-        if: steps.freeze.outputs.frozen != 'true'
-        with:
-          node-version: "24"
 
       # Freshness for social/queue/ (2026-08-12 originally; re-justified
       # 2026-08-25 — this used to also close a race with the now-retired
@@ -346,20 +341,13 @@ jobs:
       # human does not need to drop everything to merge it — watchdog.yml's
       # generic stuck-PR check already surfaces a PR wedged on a failing or
       # missing check.
-      - name: Fold ledger back into main (via PR — visibility only, not correctness-critical)
+      - name: Prepare fold-back PR metadata
         if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
         env:
-          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
           REPORT_FILE: ${{ runner.temp }}/social-poster-report.md
           POST_OUTCOME: ${{ steps.post.outcome }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add social/queue social/posted social/failed
-          if git diff --cached --quiet; then
-            echo "No queue changes to fold back into main."
-            exit 0
-          fi
+          set -euo pipefail
           TITLE_SUFFIX=""
           if [ "$POST_OUTCOME" != "success" ]; then
             TITLE_SUFFIX=" — ⛔ A POST FAILED"
@@ -371,14 +359,24 @@ jobs:
             echo "social-poster produced no report (the poster step itself crashed before reporting)." > "$BODY_FILE"
           fi
           printf '\n---\n\nAutomated queue state update (posted/failed/retry attempts) from this scheduled run, folding social-ledger back into main for visibility. No content decisions are made here, and this PR is no longer what dedupe correctness depends on (issue #2040) — the posted/failed record already landed durably on the unprotected `social-ledger` branch in this same run.\n\n⚠️ Please still merge, not close — closing leaves main claiming these items are still queued, which is a staleness/visibility problem even though it can no longer cause a live duplicate post.\n' >> "$BODY_FILE"
-          BRANCH="${STATE_BRANCH_PREFIX}$(date -u +%Y%m%d%H%M%S)"
-          git checkout -b "$BRANCH"
-          git commit -m "social-poster: queue run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          git push origin "$BRANCH"
-          gh pr create --title "social-poster: queue state $(date -u +%Y-%m-%dT%H:%M:%SZ)$TITLE_SUFFIX" \
-            --body-file "$BODY_FILE" \
-            --base main --head "$BRANCH"
-          gh pr merge "$BRANCH" --squash --auto --delete-branch
+          {
+            echo "body_file=$BODY_FILE"
+            echo "branch=${STATE_BRANCH_PREFIX}$(date -u +%Y%m%d%H%M%S)"
+            echo "pr_title=social-poster: queue state $(date -u +%Y-%m-%dT%H:%M:%SZ)$TITLE_SUFFIX"
+            echo "commit_message=social-poster: queue run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } >> "$GITHUB_ENV"
+
+      - name: Fold ledger back into main (via PR — visibility only, not correctness-critical)
+        if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
+        uses: ./.github/actions/commit-and-pr
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: social/queue social/posted social/failed
+          branch: ${{ env.branch }}
+          commit-message: ${{ env.commit_message }}
+          pr-title: ${{ env.pr_title }}
+          pr-body-file: ${{ env.body_file }}
+          no-changes-message: "No queue changes to fold back into main."
 
       # See the "Failure EMAIL" header note above. `if: always()` — this must
       # fire even if the fold-back step above fails to push/open its PR;

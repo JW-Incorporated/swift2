@@ -58,15 +58,10 @@ jobs:
     steps:
       # Checkout with the PAT so the report PR below is opened as a real user
       # and therefore triggers the required `build` check (see header).
-      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
-
-      - uses: actions/setup-node@v7
-        with:
-          node-version: "24"
-
-      - run: npm ci
+          npm-ci: 'true'
 
       # Deterministic detection + ticket filing. `all --create` writes
       # docs/audits/engine/<date>-cie-run.md (stamped source=all + a cie-filing
@@ -80,26 +75,23 @@ jobs:
         run: node scripts/content-engine/run.mjs all --no-images --create
 
       # Commit the report via a PAT-opened auto-merging PR (main is protected).
-      - name: Commit run report (via PR — main is branch-protected)
-        env:
-          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - name: Compute PR metadata
         run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Scope the add to the report only — never the transient .findings/
-          # scan artifacts run.mjs also writes.
-          git add docs/audits/engine
-          if git diff --cached --quiet; then
-            echo "No new CIE report to commit (unexpected — all --create always writes today's report)."
-            exit 0
-          fi
-          STAMP=$(date -u +%Y%m%d%H%M%S)
-          BRANCH="cie-scan/${STAMP}"
-          git checkout -b "$BRANCH"
-          git commit -m "cie: deterministic scan report $(date -u +%Y-%m-%d) (automated)"
-          git push origin "$BRANCH"
-          gh pr create --title "cie: scan report $(date -u +%Y-%m-%d)" \
-            --body "Automated deterministic Content Integrity Engine run (\`run.mjs all --no-images --create\`). Findings filed as tickets; this PR carries only the run report. No content decisions are made here." \
-            --base main --head "$BRANCH"
-          gh pr merge "$BRANCH" --squash --auto --delete-branch
+          STAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          {
+            echo "branch=cie-scan/$(date -u +%Y%m%d%H%M%S)"
+            echo "commit_message=cie: deterministic scan report $(date -u +%Y-%m-%d) (automated)"
+            echo "pr_title=cie: scan report $(date -u +%Y-%m-%d)"
+          } >> "$GITHUB_ENV"
+      - uses: ./.github/actions/commit-and-pr
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: docs/audits/engine
+          branch: ${{ env.branch }}
+          commit-message: ${{ env.commit_message }}
+          pr-title: ${{ env.pr_title }}
+          pr-body: >-
+            Automated deterministic Content Integrity Engine run (`run.mjs all --no-images --create`).
+            Findings filed as tickets; this PR carries only the run report. No content decisions are made
+            here.
+          no-changes-message: "No new CIE report to commit (unexpected — all --create always writes today's report)."

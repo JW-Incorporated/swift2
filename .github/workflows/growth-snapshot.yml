@@ -38,13 +38,9 @@ jobs:
   snapshot:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
-
-      - uses: actions/setup-node@v7
-        with:
-          node-version: "24"
 
       - name: Take today's growth snapshot
         env:
@@ -57,22 +53,16 @@ jobs:
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
         run: node scripts/social/growth-snapshot.mjs
 
-      - name: Commit snapshot (via PR — main is branch-protected)
-        env:
-          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - name: Compute PR metadata
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add social/metrics
-          if git diff --cached --quiet; then
-            echo "No metrics changes to commit."
-            exit 0
-          fi
-          BRANCH="growth-snapshot/$(date -u +%Y%m%d%H%M%S)"
-          git checkout -b "$BRANCH"
-          git commit -m "growth-snapshot: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          git push origin "$BRANCH"
-          gh pr create --title "growth-snapshot: $(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-            --body "Automated daily growth snapshot (follower counts + posts published). No content decisions are made here." \
-            --base main --head "$BRANCH"
-          gh pr merge "$BRANCH" --squash --auto --delete-branch
+          echo "branch=growth-snapshot/$(date -u +%Y%m%d%H%M%S)" >> "$GITHUB_ENV"
+          echo "stamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+      - uses: ./.github/actions/commit-and-pr
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: social/metrics
+          branch: ${{ env.branch }}
+          commit-message: "growth-snapshot: ${{ env.stamp }}"
+          pr-title: "growth-snapshot: ${{ env.stamp }}"
+          pr-body: "Automated daily growth snapshot (follower counts + posts published). No content decisions are made here."
+          no-changes-message: "No metrics changes to commit."

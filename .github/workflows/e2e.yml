@@ -40,12 +40,10 @@ jobs:
       # workflow_dispatch supplies an input; schedule falls back to prod.
       BASE_URL: ${{ github.event.inputs.base_url || 'https://www.longlivets.com' }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: ./.github/actions/setup-repo
         with:
-          node-version: 24
+          npm-ci: 'true'
           cache: npm
-      - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test
       - if: ${{ !cancelled() }}

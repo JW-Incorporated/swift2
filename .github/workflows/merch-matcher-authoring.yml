@@ -38,12 +38,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: ./.github/actions/setup-repo
         with:
-          node-version: '24'
+          npm-ci: 'true'
+          npm-ci-args: '--ignore-scripts'
           cache: npm
-      - run: npm ci --ignore-scripts
       - name: Restore Awin product index cache
         uses: actions/cache/restore@v6
         with:

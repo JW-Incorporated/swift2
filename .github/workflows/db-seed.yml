@@ -37,12 +37,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: ./.github/actions/setup-repo
         with:
-          node-version: 24
+          npm-ci: 'true'
           cache: npm
-      - run: npm ci
       - name: Preflight — confirm SUPABASE_DB_URL is configured
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
