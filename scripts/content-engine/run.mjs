@@ -22,6 +22,7 @@ import { createIssues, ensureLabels, errText } from './lib/issues.mjs';
 import { tier, visibilityScore } from './lib/visibility.mjs';
 import { contentHash, coverage, loadLedger, saveLedger, selectSlice, LEDGER_REL } from './lib/review-ledger.mjs';
 import { CONFIG } from './config.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 import * as numericDate from './checkers/numeric-date.mjs';
 import * as redlines from './checkers/redlines.mjs';
@@ -603,16 +604,18 @@ const cmds = {
   all, karen: all, scan, 'prep-agents': prepAgents, 'prep-batches': prepBatches, ingest, report, issues,
   'review-slice': reviewSlice, 'record-review': recordReview, 'review-status': reviewStatus,
 };
-(cmds[cmd] ?? (async () => {
-  log('Content Integrity Engine — read-only content checker → GitHub issues.\n');
-  log('One command (recommended):');
-  log('  node --use-env-proxy scripts/content-engine/run.mjs all            # full pipeline, dry-run issues');
-  log('  node --use-env-proxy scripts/content-engine/run.mjs all --create   # …and file the GitHub issues\n');
-  log('Deterministic phases:');
-  log('  scan [--no-images] | prep-agents | prep-batches | ingest | report | issues [--create] [--limit N]\n');
-  log('Agent review layer (the LLM half — see docs/agents/runner-prompts/karen-deep-review.md):');
-  log('  review-slice [--factual-batches N] [--image-batches N]   # tonight\'s bounded slice, changed content first');
-  log('  record-review                                            # mark the reviewed slice in the committed ledger');
-  log('  review-status                                            # how much of the corpus the agent layer has ever seen');
-}))(opts)
-  .catch((e) => { console.error(e); process.exit(1); });
+async function main() {
+  return (cmds[cmd] ?? (async () => {
+    log('Content Integrity Engine — read-only content checker → GitHub issues.\n');
+    log('One command (recommended):');
+    log('  node --use-env-proxy scripts/content-engine/run.mjs all            # full pipeline, dry-run issues');
+    log('  node --use-env-proxy scripts/content-engine/run.mjs all --create   # …and file the GitHub issues\n');
+    log('Deterministic phases:');
+    log('  scan [--no-images] | prep-agents | prep-batches | ingest | report | issues [--create] [--limit N]\n');
+    log('Agent review layer (the LLM half — see docs/agents/runner-prompts/karen-deep-review.md):');
+    log('  review-slice [--factual-batches N] [--image-batches N]   # tonight\'s bounded slice, changed content first');
+    log('  record-review                                            # mark the reviewed slice in the committed ledger');
+    log('  review-status                                            # how much of the corpus the agent layer has ever seen');
+  }))(opts);
+}
+runMain(main, { name: 'run' });

@@ -44,6 +44,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ROOT } from './lib/generated-content.mjs';
+import { runMain } from './lib/cli.mjs';
 
 export const DOC_FILE = 'docs/launch-readiness.md';
 
@@ -345,7 +346,7 @@ async function main() {
   const docPath = join(ROOT, ...DOC_FILE.split('/'));
   if (!existsSync(docPath)) {
     console.error(`✗ ${DOC_FILE} not found`);
-    process.exit(1);
+    return 1;
   }
   const docText = readFileSync(docPath, 'utf8');
 
@@ -377,7 +378,7 @@ async function main() {
   if (errors.length) {
     console.error(`\n✗ ${DOC_FILE} — ${errors.length} problem(s):`);
     for (const e of errors) console.error(`  - ${e}`);
-    process.exit(1);
+    return 1;
   }
   const green = gates.filter((g) => g.status === '🟢').length;
   const byBlock = BLOCKED_ON.map(
@@ -415,5 +416,5 @@ if (
   import.meta.url === `file://${process.argv[1]}` ||
   process.argv[1]?.endsWith('check-launch-gates.mjs')
 ) {
-  await main();
+  await runMain(main, { name: 'check-launch-gates' });
 }

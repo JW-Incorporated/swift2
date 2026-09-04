@@ -18,6 +18,7 @@ import { readFileSync } from 'node:fs';
 // matches what is actually on disk and that the auto-merge gate covers all of
 // it. Do not re-list these here.
 import { GENERATED, SYNCS } from './lib/generated-content.mjs';
+import { runMain } from './lib/cli.mjs';
 
 // A build stamp legitimately changes every run — not content drift.
 //
@@ -41,28 +42,32 @@ const normalize = (s) =>
     .join('\n')
     .trimEnd();
 
-for (const s of SYNCS) execSync(`node ${s}`, { stdio: ['ignore', 'ignore', 'inherit'] });
+async function main() {
+  for (const s of SYNCS) execSync(`node ${s}`, { stdio: ['ignore', 'ignore', 'inherit'] });
 
-// The generated vault is multi-MB, so give git room past execSync's 1MB default.
-const MAX_BUFFER = 256 * 1024 * 1024;
+  // The generated vault is multi-MB, so give git room past execSync's 1MB default.
+  const MAX_BUFFER = 256 * 1024 * 1024;
 
-const drifted = [];
-for (const f of GENERATED) {
-  let committed;
-  try {
-    committed = execSync(`git show HEAD:${f}`, { encoding: 'utf8', maxBuffer: MAX_BUFFER });
-  } catch (e) {
-    drifted.push(`${f} (${/ENOENT|exists on disk|does not exist/.test(String(e)) ? 'missing from HEAD — commit it' : String(e.message || e).slice(0, 80)})`);
-    continue;
+  const drifted = [];
+  for (const f of GENERATED) {
+    let committed;
+    try {
+      committed = execSync(`git show HEAD:${f}`, { encoding: 'utf8', maxBuffer: MAX_BUFFER });
+    } catch (e) {
+      drifted.push(`${f} (${/ENOENT|exists on disk|does not exist/.test(String(e)) ? 'missing from HEAD — commit it' : String(e.message || e).slice(0, 80)})`);
+      continue;
+    }
+    if (normalize(committed) !== normalize(readFileSync(f, 'utf8'))) drifted.push(f);
   }
-  if (normalize(committed) !== normalize(readFileSync(f, 'utf8'))) drifted.push(f);
+
+  if (drifted.length) {
+    console.error('\n✖ The built vault is out of sync with the seed files:');
+    for (const f of drifted) console.error('    ' + f);
+    console.error('\nA seed under supabase/seed/** was edited without regenerating the vault.');
+    console.error('Fix: run `npm run sync:content`, then commit the updated *.generated.ts.\n');
+    return 1;
+  }
+  console.log('✓ built vault is in sync with the seeds');
 }
 
-if (drifted.length) {
-  console.error('\n✖ The built vault is out of sync with the seed files:');
-  for (const f of drifted) console.error('    ' + f);
-  console.error('\nA seed under supabase/seed/** was edited without regenerating the vault.');
-  console.error('Fix: run `npm run sync:content`, then commit the updated *.generated.ts.\n');
-  process.exit(1);
-}
-console.log('✓ built vault is in sync with the seeds');
+runMain(main, { name: 'check-generated-in-sync' });

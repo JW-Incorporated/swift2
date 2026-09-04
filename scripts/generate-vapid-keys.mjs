@@ -21,17 +21,22 @@
 // dev-generated pair before promoting it).
 
 import webpush from 'web-push';
+import { runMain } from './lib/cli.mjs';
 
-const keys = webpush.generateVAPIDKeys();
+function main() {
+  const keys = webpush.generateVAPIDKeys();
 
-console.log('VAPID keypair generated:\n');
-console.log(`VAPID_PUBLIC_KEY=${keys.publicKey}`);
-console.log(`VAPID_PRIVATE_KEY=${keys.privateKey}`);
-console.log(`NEXT_PUBLIC_VAPID_PUBLIC_KEY=${keys.publicKey}`);
-console.log(
-  '\nSet VAPID_PUBLIC_KEY + VAPID_PRIVATE_KEY as server-only env vars (never NEXT_PUBLIC_*\n' +
-    'for the private key), and NEXT_PUBLIC_VAPID_PUBLIC_KEY as the client-visible public\n' +
-    'half. See SETUP_NOTIFICATIONS.md for exactly where. VAPID_SUBJECT is a mailto: or\n' +
-    'https: URL identifying the sender (e.g. mailto:ops@longlivets.com) — not generated\n' +
-    'here, set it directly.',
-);
+  console.log('VAPID keypair generated:\n');
+  console.log(`VAPID_PUBLIC_KEY=${keys.publicKey}`);
+  console.log(`VAPID_PRIVATE_KEY=${keys.privateKey}`);
+  console.log(`NEXT_PUBLIC_VAPID_PUBLIC_KEY=${keys.publicKey}`);
+  console.log(
+    '\nSet VAPID_PUBLIC_KEY + VAPID_PRIVATE_KEY as server-only env vars (never NEXT_PUBLIC_*\n' +
+      'for the private key), and NEXT_PUBLIC_VAPID_PUBLIC_KEY as the client-visible public\n' +
+      'half. See SETUP_NOTIFICATIONS.md for exactly where. VAPID_SUBJECT is a mailto: or\n' +
+      'https: URL identifying the sender (e.g. mailto:ops@longlivets.com) — not generated\n' +
+      'here, set it directly.',
+  );
+}
+
+runMain(main, { name: 'generate-vapid-keys' });

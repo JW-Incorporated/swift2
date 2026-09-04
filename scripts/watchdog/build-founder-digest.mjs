@@ -26,6 +26,7 @@
 //   payload.json written only when there is something to mail
 //   numbers.txt  written alongside it, one issue number per line
 import { readFileSync, writeFileSync } from 'node:fs';
+import { runMain } from '../lib/cli.mjs';
 
 export const FOUNDER_TASK_LABEL = 'founder-task';
 export const MAILED_LABEL = 'founder-mailed';
@@ -91,21 +92,24 @@ export function buildDigest(issues, repo) {
 const invokedDirectly =
   process.argv[1] && import.meta.url.endsWith(process.argv[1].split(/[\\/]/).pop());
 if (invokedDirectly) {
-  const [issuesFile, payloadFile, numbersFile] = process.argv.slice(2);
-  if (!issuesFile || !payloadFile || !numbersFile) {
-    console.error('Usage: build-founder-digest.mjs <issues.json> <payload.json> <numbers.txt>');
-    process.exit(2);
+  function main() {
+    const [issuesFile, payloadFile, numbersFile] = process.argv.slice(2);
+    if (!issuesFile || !payloadFile || !numbersFile) {
+      console.error('Usage: build-founder-digest.mjs <issues.json> <payload.json> <numbers.txt>');
+      return 2;
+    }
+    const issues = JSON.parse(readFileSync(issuesFile, 'utf8'));
+    const repo = process.env.GITHUB_REPOSITORY ?? '';
+    const digest = buildDigest(issues, repo);
+    if (!digest) {
+      console.log('No unmailed founder-task issues — nothing to send.');
+    } else {
+      writeFileSync(payloadFile, JSON.stringify(digest.payload));
+      writeFileSync(numbersFile, digest.numbers.join('\n') + '\n');
+      console.log(
+        `Digest of ${digest.numbers.length} issue(s): ${digest.numbers.join(', ')} -> ${payloadFile}`,
+      );
+    }
   }
-  const issues = JSON.parse(readFileSync(issuesFile, 'utf8'));
-  const repo = process.env.GITHUB_REPOSITORY ?? '';
-  const digest = buildDigest(issues, repo);
-  if (!digest) {
-    console.log('No unmailed founder-task issues — nothing to send.');
-  } else {
-    writeFileSync(payloadFile, JSON.stringify(digest.payload));
-    writeFileSync(numbersFile, digest.numbers.join('\n') + '\n');
-    console.log(
-      `Digest of ${digest.numbers.length} issue(s): ${digest.numbers.join(', ')} -> ${payloadFile}`,
-    );
-  }
+  runMain(main, { name: 'build-founder-digest' });
 }

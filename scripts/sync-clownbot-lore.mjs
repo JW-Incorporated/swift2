@@ -20,6 +20,7 @@ import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ROOT, esc } from './lib/longlive-sync-shared.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const SEED_FILE = path.join(ROOT, 'supabase', 'seed', 'clownbot-lore', 'clownbot-lore.mjs');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'clownbot-lore.generated.ts');
@@ -188,8 +189,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'sync-clownbot-lore' });
 }

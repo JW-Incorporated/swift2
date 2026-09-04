@@ -39,6 +39,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { httpsRequest } from '../lib/gh.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 import {
   formatMaintenanceSection,
@@ -271,4 +272,4 @@ async function main() {
   );
 }
 
-main();
+runMain(main, { name: 'collect-maintenance' });

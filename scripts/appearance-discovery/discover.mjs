@@ -47,6 +47,7 @@ import { videoIdsIn, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
 import { buildSocialDraftPair, fetchAppearanceThumbnail } from './lib/social-draft.mjs';
 import { clampMaxPerRun } from './lib/spend-limits.mjs';
 import { emitOfficialYoutubeEvent } from './lib/emit-official-youtube-event.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 const INTAKE_LABEL = 'intake';
 // Matches the label as it already exists on the repo — the upsert is a no-op
@@ -483,7 +484,4 @@ async function main() {
     process.exitCode = 1;
 }
 
-main().catch((e) => {
-  console.error(`appearance-discovery: fatal — ${e.stack || e}`);
-  process.exitCode = 1;
-});
+runMain(main, { name: 'discover' });

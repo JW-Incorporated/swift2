@@ -22,6 +22,7 @@ import { weightedTweetLength } from '../social/lib/x-length.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { runMain } from '../lib/cli.mjs';
 
 const X_MAX_WEIGHTED = 280;
 const SAFETY_MARGIN_WEIGHTED = 10;
@@ -165,8 +166,5 @@ async function main() {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  main().catch((error) => {
-    console.error(`build-drop-draft: ${error.message}`);
-    process.exitCode = 1;
-  });
+  runMain(main, { name: 'build-drop-draft' });
 }

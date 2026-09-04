@@ -57,7 +57,9 @@ import {
 } from './lib/rumor-redlines.mjs';
 import { PHOTO_HOST_LEGACY, hostOf as photoHostOf } from './lib/photo-host-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
+import { runMain } from './lib/cli.mjs';
 
+async function main() {
 const here = dirname(fileURLToPath(import.meta.url));
 const seed = join(here, '..', 'supabase', 'seed');
 
@@ -899,4 +901,7 @@ for (const file of trackFiles) {
 }
 
 console.log(`\nvalidated ${checked} content item(s) — ${errors} error(s), ${warnings} warning(s)`);
-if (errors > 0) process.exit(1);
+if (errors > 0) return 1;
+}
+
+runMain(main, { name: 'validate-content' });

@@ -19,6 +19,7 @@
 
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { runMain } from './lib/cli.mjs';
 
 const ROOT = process.cwd();
 const MIGRATIONS_DIR = join(ROOT, 'supabase', 'migrations');
@@ -134,4 +135,4 @@ async function main() {
   process.exitCode = 0; // reporting tool, never a CI gate — a feed going down later isn't this repo's bug
 }
 
-main();
+runMain(main, { name: 'validate-news-source-feeds' });

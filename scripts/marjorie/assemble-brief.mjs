@@ -69,6 +69,7 @@ import { readCurrentDone, readDoneHistory, changeSinceAnchor, sinceLastBrief, ST
 import { readOpenActions, sortForBrief, renderActionLine } from './human-actions.mjs';
 import { fetchContentShipped, renderContentShippedSection } from './content-shipped.mjs';
 import { loadRevenueSection } from '../merch-engine/revenue-report.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 const REPO = 'JW-Incorporated/swift2';
 const ORG = REPO.split('/')[0];
@@ -542,40 +543,43 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
 
 const invokedDirectly = process.argv[1] && import.meta.url.endsWith(process.argv[1].split(/[\\/]/).pop());
 if (invokedDirectly) {
-  const args = process.argv.slice(2);
-  const wantJson = args.includes('--json');
-  const date = args.find((x) => /^\d{4}-\d{2}-\d{2}$/.test(x)) || todayLA();
-  const now = Date.now();
+  async function main() {
+    const args = process.argv.slice(2);
+    const wantJson = args.includes('--json');
+    const date = args.find((x) => /^\d{4}-\d{2}-\d{2}$/.test(x)) || todayLA();
+    const now = Date.now();
 
-  const state = await fetchState(REPO, { now });
-  // Constraints last: it is the only optional collector, and a billing hiccup
-  // must degrade the Budget line, never the brief.
-  state.constraints = await collectConstraints({
-    org: ORG,
-    repo: REPO,
-    now,
-    plan: 'team',
-    state,
-    ciRuns: state.ciRuns,
-    expectations: loadRunnerCadence().runners
-      .filter((r) => r.checkable !== false)
-      .map((r) => ({
-        name: r.name,
-        perDay: r.perDay,
-        match: (art) => (r.match.kind === 'pr-branch' ? art.type === 'pr' && String(art.branch || '').startsWith(r.match.value)
-          : r.match.kind === 'pr-title' ? art.type === 'pr' && String(art.title || '').toLowerCase().includes(r.match.value.toLowerCase())
-            : r.match.kind === 'issue-label' ? art.type === 'issue' && (art.labels || []).includes(r.match.value)
-              : art.type === 'issue' && String(art.title || '').includes(r.match.value)),
-      })),
-    artifacts: [
-      ...state.allPRs.map((p) => ({ type: 'pr', at: p.createdAt, branch: p.headRefName, title: p.title })),
-      ...state.allIssues.map((i) => ({ type: 'issue', at: i.createdAt, title: i.title, labels: (i.labels || []).map((l) => (typeof l === 'string' ? l : l.name)) })),
-    ],
-  });
+    const state = await fetchState(REPO, { now });
+    // Constraints last: it is the only optional collector, and a billing hiccup
+    // must degrade the Budget line, never the brief.
+    state.constraints = await collectConstraints({
+      org: ORG,
+      repo: REPO,
+      now,
+      plan: 'team',
+      state,
+      ciRuns: state.ciRuns,
+      expectations: loadRunnerCadence().runners
+        .filter((r) => r.checkable !== false)
+        .map((r) => ({
+          name: r.name,
+          perDay: r.perDay,
+          match: (art) => (r.match.kind === 'pr-branch' ? art.type === 'pr' && String(art.branch || '').startsWith(r.match.value)
+            : r.match.kind === 'pr-title' ? art.type === 'pr' && String(art.title || '').toLowerCase().includes(r.match.value.toLowerCase())
+              : r.match.kind === 'issue-label' ? art.type === 'issue' && (art.labels || []).includes(r.match.value)
+                : art.type === 'issue' && String(art.title || '').includes(r.match.value)),
+        })),
+      artifacts: [
+        ...state.allPRs.map((p) => ({ type: 'pr', at: p.createdAt, branch: p.headRefName, title: p.title })),
+        ...state.allIssues.map((i) => ({ type: 'issue', at: i.createdAt, title: i.title, labels: (i.labels || []).map((l) => (typeof l === 'string' ? l : l.name)) })),
+      ],
+    });
 
-  if (wantJson) {
-    process.stdout.write(`${JSON.stringify({ analysis: analyse(state, { now }), constraints: state.constraints }, null, 2)}\n`);
-  } else {
-    process.stdout.write(buildBrief(state, { date, now }));
+    if (wantJson) {
+      process.stdout.write(`${JSON.stringify({ analysis: analyse(state, { now }), constraints: state.constraints }, null, 2)}\n`);
+    } else {
+      process.stdout.write(buildBrief(state, { date, now }));
+    }
   }
+  runMain(main, { name: 'assemble-brief' });
 }

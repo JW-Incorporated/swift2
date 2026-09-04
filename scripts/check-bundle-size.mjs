@@ -12,6 +12,7 @@
 import { statSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runMain } from './lib/cli.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const staticDir = join(here, '..', 'apps', 'web', '.next', 'static');
@@ -37,24 +38,28 @@ function dirSizeBytes(dir) {
   return total;
 }
 
-let bytes;
-try {
-  bytes = dirSizeBytes(staticDir);
-} catch (err) {
-  if (err.code === 'ENOENT') {
-    console.error(
-      `✗ ${staticDir} not found — run "npm run build --workspace @swift2/web" before this check.`,
-    );
-    process.exit(1);
+function main() {
+  let bytes;
+  try {
+    bytes = dirSizeBytes(staticDir);
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      console.error(
+        `✗ ${staticDir} not found — run "npm run build --workspace @swift2/web" before this check.`,
+      );
+      return 1;
+    }
+    throw err;
   }
-  throw err;
+
+  const mb = (v) => `${(v / (1024 * 1024)).toFixed(2)} MB`;
+  console.log(`apps/web client bundle (.next/static): ${mb(bytes)} / ${mb(BUDGET_BYTES)} budget`);
+
+  if (bytes > BUDGET_BYTES) {
+    console.error(`✗ OVER bundle-size budget by ${mb(bytes - BUDGET_BYTES)}`);
+    return 1;
+  }
+  console.log('✓ within bundle-size budget');
 }
 
-const mb = (v) => `${(v / (1024 * 1024)).toFixed(2)} MB`;
-console.log(`apps/web client bundle (.next/static): ${mb(bytes)} / ${mb(BUDGET_BYTES)} budget`);
-
-if (bytes > BUDGET_BYTES) {
-  console.error(`✗ OVER bundle-size budget by ${mb(bytes - BUDGET_BYTES)}`);
-  process.exit(1);
-}
-console.log('✓ within bundle-size budget');
+runMain(main, { name: 'check-bundle-size' });
