@@ -45,7 +45,7 @@ function check(id, label, ok, detail, extra = {}) {
  * history to read. A runner is alive if the artifact its registry entry
  * promises has appeared inside its tolerance window.
  */
-export function checkRunners({ allPRs = [], issues = [], cadence, now }) {
+export function checkRunners({ allPRs = [], issues = [], cadence, now, listsCapExhausted = false }) {
   const prs = allPRs; // liveness must look at MERGED PRs too — a runner whose
   // PR auto-merged within the hour is the healthiest case, and checking only
   // open PRs marked Vault Run, Content Shift and Growth "dark" on a day all
@@ -76,16 +76,26 @@ export function checkRunners({ allPRs = [], issues = [], cadence, now }) {
     const seen = artifacts.filter(fn).map((a) => new Date(a.at).getTime()).filter(Number.isFinite).sort();
     const last = seen.length ? seen.at(-1) : null;
     const ageHours = last === null ? null : (nowMs - last) / HOUR_MS;
+    // #3689: a runner with NO artifact in the fetched window is only
+    // genuinely dark if that window is the WHOLE window gh.mjs was asked
+    // for. When the source lists hit gh.mjs's own page cap, "not found" is
+    // "not found in a fraction of the data" — a truncated allPRs/allIssues
+    // fetch caused false "10 dark runners" flags for Vault Run, Content
+    // Shift and Growth on days they had actually shipped. Report unknown,
+    // not a confident dark, in that case.
+    const truncatedDark = last === null && listsCapExhausted;
     rows.push({
       runner: r.name,
-      status: last === null ? 'fail' : ageHours <= r.maxAgeHours ? 'ok' : 'fail',
+      status: truncatedDark ? 'unknown' : last === null ? 'fail' : ageHours <= r.maxAgeHours ? 'ok' : 'fail',
       lastSeen: last === null ? null : new Date(last).toISOString(),
       ageHours: ageHours === null ? null : Math.round(ageHours),
       ageLabel: ageHours === null ? 'never seen' : `${Math.round(ageHours)}h`,
       maxAgeHours: r.maxAgeHours,
-      detail: last === null
-        ? `no artifact in the fetched window (tolerance ${r.maxAgeHours}h)`
-        : `last artifact ${Math.round(ageHours)}h ago (tolerance ${r.maxAgeHours}h)`,
+      detail: truncatedDark
+        ? `no artifact in the fetched window, but that window was truncated by gh.mjs's page cap (#3689) — cannot confirm dark`
+        : last === null
+          ? `no artifact in the fetched window (tolerance ${r.maxAgeHours}h)`
+          : `last artifact ${Math.round(ageHours)}h ago (tolerance ${r.maxAgeHours}h)`,
     });
   }
 
