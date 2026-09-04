@@ -44,10 +44,17 @@ function knowledgeEnv(): { supabaseUrl: string; supabaseKey: string } | null {
   return { supabaseUrl, supabaseKey };
 }
 
-/** Fresh client per call — mirrors `lib/current.ts`'s pattern (no
- * module-level caching), which keeps this trivially mockable in tests and
- * costs nothing: `createClient` does no network I/O on construction. */
-function knowledgeClient(): KnowledgeDataSource | null {
+/**
+ * ONE client per request (Fable 5.1 architecture review, task R14) — the
+ * route builds this exactly once (before its pre-loop scope check) and
+ * threads the same instance through `resolveScopeSignal` and every read
+ * tool `runClownAgent`'s loop may go on to call, instead of each tool call
+ * re-instantiating its own `createKnowledgeClient`. `createClient` itself
+ * does no network I/O on construction, so the old per-call pattern never
+ * cost latency — this is about not spinning up N otherwise-identical
+ * clients (and their underlying fetch/auth wiring) for one request.
+ */
+export function createKnowledgeClientForRequest(): KnowledgeDataSource | null {
   const env = knowledgeEnv();
   if (!env) return null;
   return createKnowledgeClient(env);
@@ -133,8 +140,7 @@ function countLabel(n: number, noun: string): string {
  * A DB result that comes back reachable-but-empty is reported as empty,
  * never padded from the compile-time corpus.
  */
-export async function toolSearch(query: string, signal?: AbortSignal): Promise<ToolCallResult> {
-  const client = knowledgeClient();
+export async function toolSearch(client: KnowledgeDataSource | null, query: string, signal?: AbortSignal): Promise<ToolCallResult> {
   if (client) {
     try {
       const docs = await client.search(query, undefined, signal);
@@ -149,8 +155,7 @@ export async function toolSearch(query: string, signal?: AbortSignal): Promise<T
   return { items, summary: `${countLabel(items.length, 'result')} for "${query}" (no-DB fallback)` };
 }
 
-export async function toolPrecedents(symbol: string, signal?: AbortSignal): Promise<ToolCallResult> {
-  const client = knowledgeClient();
+export async function toolPrecedents(client: KnowledgeDataSource | null, symbol: string, signal?: AbortSignal): Promise<ToolCallResult> {
   if (!client) return { items: [], summary: `precedents unavailable for "${symbol}" (no DB configured)` };
   try {
     const groups = await client.precedents(symbol, signal);
@@ -163,8 +168,7 @@ export async function toolPrecedents(symbol: string, signal?: AbortSignal): Prom
   }
 }
 
-export async function toolRecent(days: number, signal?: AbortSignal): Promise<ToolCallResult> {
-  const client = knowledgeClient();
+export async function toolRecent(client: KnowledgeDataSource | null, days: number, signal?: AbortSignal): Promise<ToolCallResult> {
   if (!client) return { items: [], summary: `recent items unavailable (no DB configured)` };
   try {
     const rows = await client.recent(days, signal);
@@ -175,8 +179,7 @@ export async function toolRecent(days: number, signal?: AbortSignal): Promise<To
   }
 }
 
-export async function toolChatter(topic: string, signal?: AbortSignal): Promise<ToolCallResult> {
-  const client = knowledgeClient();
+export async function toolChatter(client: KnowledgeDataSource | null, topic: string, signal?: AbortSignal): Promise<ToolCallResult> {
   if (!client) return { items: [], summary: `chatter unavailable for "${topic}" (no DB configured)` };
   try {
     const rows = await client.chatter(topic, signal);
@@ -189,8 +192,7 @@ export async function toolChatter(topic: string, signal?: AbortSignal): Promise<
 
 /** `symbol_activity` rows are weekly counts, not citable claims — never
  * added to the citable pool, only summarised narratively for the model. */
-export async function toolSymbolActivity(symbol: string, signal?: AbortSignal): Promise<ToolCallResult> {
-  const client = knowledgeClient();
+export async function toolSymbolActivity(client: KnowledgeDataSource | null, symbol: string, signal?: AbortSignal): Promise<ToolCallResult> {
   if (!client) return { items: [], summary: `symbol activity unavailable for "${symbol}" (no DB configured)` };
   try {
     const rows = await client.symbolActivity(symbol, signal);
@@ -205,8 +207,7 @@ export async function toolSymbolActivity(symbol: string, signal?: AbortSignal): 
   }
 }
 
-export async function toolTrack(title: string, signal?: AbortSignal): Promise<ToolCallResult> {
-  const client = knowledgeClient();
+export async function toolTrack(client: KnowledgeDataSource | null, title: string, signal?: AbortSignal): Promise<ToolCallResult> {
   if (!client) return { items: [], summary: `track lookup unavailable for "${title}" (no DB configured)` };
   try {
     const doc = await client.track(title, signal);
@@ -253,10 +254,11 @@ export async function toolDateMath(phrase: string): Promise<ToolCallResult> {
  * such extra check: FTS relevance there is never the recency shortcut.
  */
 export async function resolveScopeSignal(
+  client: KnowledgeDataSource | null,
   query: string,
   signal?: AbortSignal,
 ): Promise<{ inScope: boolean; result: ToolCallResult }> {
-  const dbResult = await toolSearch(query, signal);
+  const dbResult = await toolSearch(client, query, signal);
   if (dbResult.items.length > 0) {
     const usedNoDbFallback = dbResult.summary.includes('no-DB fallback');
     if (!usedNoDbFallback || hasRelevantTopic(query, allClownDocs())) {
