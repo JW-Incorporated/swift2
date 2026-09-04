@@ -4294,10 +4294,20 @@ export default {
         // ceremony already public in the Vault (L2 OK, privacy-redlines.md).
         // No security, health, or private-individual material. Trimmed the
         // third-party attendee color from the digest to keep the item on the
-        // remark itself. Photo deferred: allowlisted image hosts
-        // (upload.wikimedia.org) are org-egress-blocked (403 CONNECT) this
-        // session, so this ships text-only per content-shift.md step 3b and
-        // the photo-sparsity checker routes it to Photo Enrichment.
+        // remark itself.
+        // Photo pass (2026-09-04, re-review #762): network access restored.
+        // Variety's own og:image for this exact story — curl-verified 200
+        // image/jpeg, downloaded and vision-confirmed: Harry Styles performing
+        // on stage. variety.com is already on the host allowlist.
+        photos: [
+          {
+            url: 'https://variety.com/wp-content/uploads/2026/08/GettyImages-2265098696.jpg?crop=967px%2C484px%2C4036px%2C2267px&resize=1000%2C563',
+            focalPoint: '50% 40%',
+            credit: 'Getty Images, via Variety',
+            caption: 'Harry Styles performing at his own Madison Square Garden residency — the show where he joked "and they also do weddings."',
+            kind: 'reference',
+          },
+        ],
         sources: [
           {
             outlet: 'Variety',
@@ -4354,9 +4364,21 @@ export default {
         // Plaza Hotel named only as the brand's own officially released shoot
         // venue (officially-announced provenance, L2 within cap,
         // privacy-redlines.md); a pet is not a private individual, no redline.
-        // Right-sized as newlywed color (short body, no hero). Photo deferred:
-        // allowlisted image hosts are org-egress-blocked (403) this session;
-        // ships text-only per content-shift.md step 3b.
+        // Right-sized as newlywed color (short body, no hero).
+        // Photo pass (2026-09-04, re-review #762): network access restored.
+        // TODAY's own og:image for this exact campaign story — curl-verified
+        // 200 image/jpeg, downloaded and vision-confirmed: Travis Kelce with
+        // the white Samoyed. media-cldnry.s-nbcnews.com (today.com) is already
+        // on the host allowlist.
+        photos: [
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_social_share_1200x630_center,f_auto,q_auto:best/rockcms/2026-09/travis-kelce-me-26901-499274.jpg',
+            focalPoint: '30% 50%',
+            credit: 'Tommy Hilfiger, via TODAY',
+            caption: 'Travis Kelce with the couple\'s Samoyed, from Tommy Hilfiger\'s Fall 2026 campaign shoot at the Plaza Hotel.',
+            kind: 'reference',
+          },
+        ],
         sources: [
           {
             outlet: 'Billboard',
@@ -12723,6 +12745,19 @@ export default {
         // and on-court press photography, none on an allowlisted reusable host
         // and none a non-expiring URL. Left for the photo-sparsity checker to
         // route to Photo Enrichment if a reusable image surfaces.
+        // Photo pass (2026-09-04, re-review #762): network access restored.
+        // ESPN's own og:image for this exact story — curl-verified 200
+        // image/jpeg, downloaded and vision-confirmed: Caitlin Clark. ESPN's
+        // CDN (espncdn.com) is already on the host allowlist.
+        photos: [
+          {
+            url: 'https://a1.espncdn.com/combiner/i?img=%2Fphoto%2F2026%2F0827%2Fr1707669_1296x729_16%2D9.jpg',
+            focalPoint: '50% 40%',
+            credit: 'ESPN',
+            caption: 'Caitlin Clark, whose signature Nike Caitlin 1 got a Taylor Swift-inspired "Friendship Bracelet" colorway.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -12784,6 +12819,20 @@ export default {
         // No reusable, allowlisted photo attached at author time — the signing
         // imagery is wire/agency-owned and not on a reusable host. Left for the
         // photo-sparsity checker to route to Photo Enrichment.
+        // Photo pass (2026-09-04, re-review #762): network access restored.
+        // consequence.net's own og:image for its coverage of this story —
+        // curl-verified 200 image/jpeg, downloaded and vision-confirmed: a
+        // reference photo of Taylor Swift. consequence.net is already on the
+        // host allowlist.
+        photos: [
+          {
+            url: 'https://consequence.net/wp-content/uploads/2026/09/Taylor-Swift.jpeg',
+            focalPoint: '50% 30%',
+            credit: 'Consequence',
+            caption: 'Taylor Swift — Brazil signed two decrees dubbed the "Taylor Swift Law" for concert ticketing and water access.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     // Content Shift (Vault Run 2026-09-04): intake #3682 — Travis's Sept 2
@@ -12847,6 +12896,19 @@ export default {
         // No reusable, allowlisted photo attached at author time — podcast/wire
         // imagery is agency-owned and not on a reusable host, and Instagram
         // embeds are not applicable here. Left for the photo-sparsity checker.
+        // Photo pass (2026-09-04, re-review #762): network access restored.
+        // Billboard's own og:image for this exact story — curl-verified 200
+        // image/jpeg, downloaded and vision-confirmed: Taylor Swift and Travis
+        // Kelce together. billboard.com is already on the host allowlist.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/04/P1055G9J-e1775141858666.jpg?w=1024',
+            focalPoint: '40% 35%',
+            credit: 'Billboard',
+            caption: 'Taylor Swift and Travis Kelce — Travis gave his first on-record account of their wedding on the New Heights season-five premiere.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     // Content Shift (Vault Run 2026-09-04): intake #3694 context — the durable,
