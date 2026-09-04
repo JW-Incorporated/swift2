@@ -187,3 +187,16 @@ export function isAffiliateListing(listing: ShopListing, context: ShopLinkContex
  */
 export const SHOP_DISCLOSURE =
   'Some links may earn Long Live a commission at no extra cost to you.';
+
+/**
+ * Boolean-only presence flags for each affiliate network's configuration,
+ * derived from this seam's own credentials — never the raw values. This is
+ * the canonical source the coverage CLI (scripts/merch-engine/affiliate-coverage.mjs)
+ * reads via its optional-import fallback so it can report wrapped-vs-pending
+ * status without ever inspecting process.env itself (issue #3453).
+ */
+export const AFFILIATE_NETWORK_CONFIGURED: Readonly<Record<'awin' | 'amazon' | 'catchall', boolean>> = {
+  awin: Boolean(process.env.NEXT_PUBLIC_AWIN_ID),
+  amazon: Boolean(process.env.NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG),
+  catchall: Boolean(process.env.NEXT_PUBLIC_CATCHALL_ID),
+};

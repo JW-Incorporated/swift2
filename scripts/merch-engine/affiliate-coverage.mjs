@@ -117,9 +117,22 @@ async function main() {
         ? { network: 'amazon' }
         : { network: 'none' };
   }
+  // The seam leaf (shop.ts) can regenerate while this leaf is still awaiting
+  // merge, same pattern as networkFor above. Once present, always read its
+  // boolean-only AFFILIATE_NETWORK_CONFIGURED presence flags; the fallback
+  // is the pre-seam fail-closed state (nothing reported configured). This
+  // CLI never reads process.env directly (issue #3453, counsel-approved).
+  let credentials;
+  try {
+    ({ AFFILIATE_NETWORK_CONFIGURED: credentials } = await import('../../apps/web/lib/longlive/shop.ts'));
+  } catch (error) {
+    if (error?.code !== 'ERR_MODULE_NOT_FOUND') throw error;
+    credentials = {};
+  }
   const products = Object.values(MERCH_CATALOGUE).flat();
   const rendered = generateCoverage(products, {
     resolveNetwork: networkFor,
+    credentials,
   });
   writeFileSync(resolve(ROOT, OUTPUT), rendered);
   console.log(`Generated ${OUTPUT} for ${parseCoverage(rendered).summary.total} products.`);
