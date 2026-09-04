@@ -2,7 +2,9 @@
 // liner-note codes, plus the two songs Taylor has named as her earliest —
 // "The Outside" and "A Place in This World." Egg URLs verified 2026-07-08;
 // the two song-origin theories verified 2026-07-31; the "Tim McGraw"
-// nested-clue egg verified 2026-08-03.
+// nested-clue egg re-verified 2026-09-04 (still reputable_reporting — no
+// on-the-record Taylor confirmation of the doubled-homage framing itself,
+// see #3673).
 
 const wiki = (article, title, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${article}`,
@@ -113,11 +115,11 @@ export default {
           source_title: 'Tim McGraw (song)',
           publisher: 'Wikipedia',
           source_type: 'wiki',
-          accessed_at: '2026-08-03',
+          accessed_at: '2026-09-04',
           reliability_score: 2,
           excerpt: null,
           notes:
-            'the fifteen-minute math-class origin, Borchetta\'s rename to make McGraw fans curious about her, and "Can\'t Tell Me Nothin\'" (2004) as the referenced favorite',
+            'the fifteen-minute math-class origin, Borchetta\'s rename to make McGraw fans curious about her, and "Can\'t Tell Me Nothin\'" (2004) as the referenced favorite; re-verified 2026-09-04 (still live, content unchanged; no new on-the-record confirmation from Taylor of the nested-clue framing beyond established reputable-press reporting, so confidence tier stays reputable_reporting)',
         },
         {
           source_url:
