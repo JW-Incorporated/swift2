@@ -4328,7 +4328,7 @@ export default {
       category: 'fashion',
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
-        'moment:vault-tloas-a-rumored-newlywed-puppy-and-a-name-fans-traced-to-the-sandl',
+        'moment:vault-tloas-wendy-the-kelces-samoyed-confirmed-and-a-name-that-nods-to-t',
       ],
       title: 'The couple\'s Samoyed turns up in Tommy Hilfiger\'s fall campaign',
       snippet:
@@ -4338,7 +4338,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Tommy Hilfiger\'s Fall 2026 campaign, shot at New York\'s Plaza Hotel, put Travis Kelce in a cast that also ran through JISOO, Gigi Hadid, Frances Tiafoe, Carmelo Anthony, Peggy Gou and the designer himself — and, in the detail Swifties zeroed in on, the fluffy white Samoyed Kelce shares with Taylor. It is the dog\'s most public appearance yet, weeks after it was first photographed descending the couple\'s jet in July. In talking through how the puppy ended up on set, Kelce prompted a wave of same-day coverage that, per Just Jared and others, "reportedly revealed" the dog\'s name as Wendy — the nod to "The Sandlot" fans had guessed at back in August. Neither Taylor nor Kelce has confirmed the name on the record, so the Vault keeps it where the reporting leaves it: strongly corroborated by an official campaign, still short of an on-the-record confirmation.',
+          'Tommy Hilfiger\'s Fall 2026 campaign, shot at New York\'s Plaza Hotel, put Travis Kelce in a cast that also ran through JISOO, Gigi Hadid, Frances Tiafoe, Carmelo Anthony, Peggy Gou and the designer himself — and, in the detail Swifties zeroed in on, the fluffy white Samoyed Kelce shares with Taylor. It is the dog\'s most public appearance yet, weeks after it was first photographed descending the couple\'s jet in July. In talking through how the puppy ended up on set, Kelce prompted a wave of same-day coverage that, per Just Jared and others, "reportedly revealed" the dog\'s name as Wendy — the nod to "The Sandlot" fans had guessed at back in August. On the day of the campaign the name was still only reported; Kelce put it on the record himself the next day, naming Wendy on the Sept. 2 New Heights premiere (tracked on the confirmed dog-name moment this cross-links).',
         // Intake #3657 (2026-09-01 Vault Run, Content Shift): the confirmed
         // event here is the officially released Tommy Hilfiger campaign and
         // the couple's dog appearing in it — a distinct, dated fashion moment,
@@ -4404,15 +4404,15 @@ export default {
       day: 3,
       category: 'relationship',
       relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
-      confidence: 'plausible',
-      title: 'A rumored newlywed puppy — and a name fans traced to "The Sandlot"',
+      confidence: 'confirmed_interview',
+      title: 'Wendy: the Kelces\' Samoyed, confirmed — and a name that nods to "The Sandlot"',
       snippet:
-        'A month after the wedding, gossip account Deuxmoi reported the newlyweds had quietly gotten a white puppy named "Wendy" — a name fans read as a nod to Travis\'s favorite film. Neither Taylor nor Kelce has confirmed the dog or the name.',
+        'What began as an August Deuxmoi blind item is now on the record: on the Sept. 2, 2026 New Heights season-five premiere, Travis Kelce confirmed the white Samoyed he and Taylor share is named Wendy — "a little over a year old now" — the name fans had already read as a nod to Wendy Peffercorn from his favorite film, "The Sandlot."',
       sourceUrl: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
       thumbnailUrl: null,
       moment: {
         context:
-          'In early August 2026, roughly a month after the Madison Square Garden wedding, the gossip account Deuxmoi reported that Taylor and Kelce had quietly added a white puppy to the household — and that its name is "Wendy." Entertainment outlets including Cosmopolitan and SheKnows picked the item up within the day, most flagging that it traces to a single blind item rather than to either of the principals.\n\nThe detail fans latched onto was the name: "Wendy" reads as a reference to Wendy Peffercorn, the lifeguard from the 1993 film "The Sandlot" — a movie Kelce has called a favorite and a character he has joked about a childhood crush on. It is the kind of small, sweet story that is easy to want to be true; the honest status is that it is one gossip report the couple has not addressed. Neither Taylor nor Kelce has publicly confirmed adopting a puppy or its name.',
+          'The story started as gossip and ended as fact. In early August 2026 the account Deuxmoi reported that Taylor and Kelce had quietly added a white puppy named "Wendy" to the household — one blind item, aggregated the same day by Cosmopolitan, SheKnows and others, none of it traceable to either principal. For a month the Vault carried it exactly where the reporting left it: a plausible, unconfirmed rumor.\n\nThe confirmation came from Kelce himself. On the Sept. 2, 2026 season-five premiere of the New Heights podcast — a day after the couple\'s Samoyed turned up in Tommy Hilfiger\'s Fall 2026 campaign — he talked about the dog by name, calling her "little \'ol Wendy," saying she is "a little over a year old now" and that they had had her "for quite a while" while keeping her out of public view, and that Taylor was "all for" putting her in the shoot. That squares the timeline the earlier gossip got wrong: Wendy was not a newlywed puppy acquired a month after the wedding but a dog the couple had lived with privately for a year, first caught on camera descending their jet in Palm Beach that July.\n\nThe name fans had already decoded holds up too: "Wendy" reads as Wendy Peffercorn, the lifeguard from the 1993 film "The Sandlot," a movie Kelce has called a favorite and a character he has joked about a childhood crush on. What was a single gossip report in August is, as of the New Heights premiere, confirmed on the record by one of the two people who would know.',
         sources: [
           {
             outlet: 'Cosmopolitan (via AOL)',
@@ -4432,6 +4432,24 @@ export default {
             accessed_at: '2026-08-05',
             reliability_score: 2,
           },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-taylor-swift-reaction-dog-wendy-public-debut-1236331304/',
+            source_title: "Travis Kelce Shares Taylor Swift's Reaction to Dog Wendy's Public Debut",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CNN',
+            url: 'https://www.cnn.com/2026/09/03/entertainment/taylor-swift-travis-kelce-dog-wendy-samoyed',
+            source_title: "Taylor Swift and Travis Kelce's dog goes from 'alleged' to confirmed",
+            publisher: 'CNN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
         ],
         rumors: [
           {
@@ -4439,11 +4457,11 @@ export default {
               'Gossip account Deuxmoi reported in early August 2026 that Taylor and Kelce had quietly gotten a white puppy named "Wendy," with fans reading the name as a nod to Wendy Peffercorn, the lifeguard in Kelce\'s oft-cited favorite film "The Sandlot."',
             reportedBy: 'Deuxmoi (via Cosmopolitan)',
             reportedOn: '2026-08-03',
-            status: 'unconfirmed',
-            url: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
-            note: 'Traces to a single Deuxmoi blind item, aggregated the same day by Cosmopolitan, SheKnows and others; carried at the social tier. Cosmopolitan/AOL: neither Taylor nor Kelce "has publicly confirmed they adopted a puppy or revealed its name." A pet, not a private individual — no redline; no location. Resolves if the couple confirms the dog and name, fades if it stays unaddressed.',
+            status: 'confirmed',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-taylor-swift-reaction-dog-wendy-public-debut-1236331304/',
+            note: 'RESOLVED — CONFIRMED (2026-09-04 re-check, CIE #3736). The Aug. 3 Deuxmoi blind item — a single social-tier report the couple had not addressed — was confirmed on the record by Travis Kelce himself on the Sept. 2, 2026 New Heights season-five premiere: he named the Samoyed "Wendy," called her "a little over a year old," and said they had had her "for quite a while." Reported by Billboard and CNN ("goes from \'alleged\' to confirmed"). Moment confidence raised plausible → confirmed_interview and prose reconciled to match. A pet, not a private individual — no redline; no location.',
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-26',
+            lastCheckedOn: '2026-09-04',
           },
         ],
         // Photo pass #762 (2026-08-06): re-confirms the deliberate no-photo
