@@ -7,7 +7,7 @@
  */
 
 /**
- * `EraId` and the other content-derived id unions below (`TrackKey`,
+ * `EraId` and the other content-derived id unions below (`TrackSlugId`,
  * `SongSlug`, `TheoryId`, `VideoId`) come from `content-ids.generated.ts` —
  * a small, id-only generated file the sync scripts emit from the seed data
  * (Fable 5.1 architecture review, R10). Before this, deriving these unions
@@ -16,9 +16,14 @@
  * data files, making `types.ts` — imported by ~80 modules — transitively
  * depend on the entire ~20k-line content corpus. This is the ONLY generated
  * file `types.ts` imports; it never imports the data files directly.
+ *
+ * `TrackSlugId` (`${EraId}:${slug}`) is distinct from `trackKey()` in
+ * `tracks.ts` (the `${eraId}::${trackNumber}::${title}` composite key used
+ * for deep-linking / the `?song=` share URL) — deliberately not reused here
+ * to avoid ambiguity between the two id shapes.
  */
-import type { EraId, TrackKey, SongSlug, TheoryId, VideoId } from './content-ids.generated';
-export type { EraId, TrackKey, SongSlug, TheoryId, VideoId };
+import type { EraId, TrackSlugId, SongSlug, TheoryId, VideoId } from './content-ids.generated';
+export type { EraId, TrackSlugId, SongSlug, TheoryId, VideoId };
 
 export type ContentTag = 'Music' | 'Fashion' | 'Tour' | 'Relationship' | 'Lore';
 

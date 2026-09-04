@@ -92,10 +92,17 @@ async function loadVideoEntries() {
 }
 
 /**
- * `${EraId}:${slug}` keys for every renderable track that has a `slug`
+ * `${EraId}:${slug}` ids for every renderable track that has a `slug`
  * (some legacy rows don't — see TrackNote.slug), sorted for a stable diff.
+ *
+ * NOT the same thing as `trackKey()` in `tracks.ts` (the
+ * `${eraId}::${trackNumber}::${title}` composite key used for deep-linking
+ * and the store's `?song=` share URL) — that key has no stable slug
+ * component and can't be derived here. This is the slug-based sibling to
+ * `SongSlug`/the `song:<slug>` RelatedId convention, named `TrackSlugId` to
+ * avoid colliding with (or being mistaken for) that existing `trackKey`.
  */
-export function trackKeysFrom(byEra) {
+export function trackSlugIdsFrom(byEra) {
   const keys = [];
   for (const eraId of Object.keys(byEra).sort()) {
     for (const t of byEra[eraId]) {
@@ -136,7 +143,7 @@ export function videoIdsFrom(byEra) {
 }
 
 /** Render the generated TypeScript module. Pure string building. */
-export function renderModule({ eraIds, trackKeys, songSlugs, theoryIds, videoIds }) {
+export function renderModule({ eraIds, trackSlugIds, songSlugs, theoryIds, videoIds }) {
   const lines = [];
   lines.push('// GENERATED FILE — do not hand-edit.');
   lines.push('// Produced by scripts/sync-longlive-content-ids.mjs from supabase/seed/**.');
@@ -154,7 +161,7 @@ export function renderModule({ eraIds, trackKeys, songSlugs, theoryIds, videoIds
     lines.push('');
   };
   emit('ERA_IDS', 'EraId', eraIds);
-  emit('TRACK_KEYS', 'TrackKey', trackKeys);
+  emit('TRACK_SLUG_IDS', 'TrackSlugId', trackSlugIds);
   emit('SONG_SLUGS', 'SongSlug', songSlugs);
   emit('THEORY_IDS', 'TheoryId', theoryIds);
   emit('VIDEO_IDS', 'VideoId', videoIds);
@@ -168,7 +175,7 @@ async function build() {
   const videoByEra = buildVideoGuide(await loadVideoEntries());
   return {
     eraIds,
-    trackKeys: trackKeysFrom(trackByEra),
+    trackSlugIds: trackSlugIdsFrom(trackByEra),
     songSlugs: songSlugsFrom(trackByEra),
     theoryIds: theoryIdsFrom(theoryByEra),
     videoIds: videoIdsFrom(videoByEra),
@@ -179,7 +186,7 @@ async function main() {
   const data = await build();
   await writeFile(OUT_FILE, renderModule(data), 'utf-8');
   console.log(
-    `Synced content ids (${data.eraIds.length} eras, ${data.trackKeys.length} track keys, ` +
+    `Synced content ids (${data.eraIds.length} eras, ${data.trackSlugIds.length} track slug ids, ` +
       `${data.songSlugs.length} song slugs, ${data.theoryIds.length} theory ids, ` +
       `${data.videoIds.length} video ids) -> ${path.relative(ROOT, OUT_FILE)}`,
   );

@@ -22,7 +22,7 @@ export const ERA_IDS = [
 ] as const;
 export type EraId = (typeof ERA_IDS)[number];
 
-export const TRACK_KEYS = [
+export const TRACK_SLUG_IDS = [
   "1989:all-you-had-to-do-was-stay",
   "1989:bad-blood",
   "1989:blank-space",
@@ -268,7 +268,7 @@ export const TRACK_KEYS = [
   "ttpd:the-tortured-poets-department",
   "ttpd:whos-afraid-of-little-old-me",
 ] as const;
-export type TrackKey = (typeof TRACK_KEYS)[number];
+export type TrackSlugId = (typeof TRACK_SLUG_IDS)[number];
 
 export const SONG_SLUGS = [
   "22",
