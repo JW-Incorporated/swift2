@@ -53,7 +53,7 @@
 // Requires an authenticated `gh` or a GH_TOKEN. Read-only: never writes to GitHub.
 
 import { gh as ghRun } from '../lib/gh.mjs';
-import { ghApiSoft } from './lib/gh-api.mjs';
+import { ghApiSoft } from '../lib/gh.mjs';
 import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
