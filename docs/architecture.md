@@ -4,32 +4,69 @@ Owner: Wyatt (CTO). This is the source of truth for stack, hosting, data, and
 coding standards. Expensive-to-reverse choices are mirrored as entries in
 `docs/decisions.md`.
 
-Status: v0.2 — stack proven against the reference workload. The Supabase-backed
-web Vault reader UI (era-scrubber, `VaultReader.tsx` and its exclusive
-dependencies) was built against this plan, was never mounted, and was
-**deleted on 2026-08-11** — `/` renders the static LongLive experience instead
-(see the front-end note below and `docs/longlive-experience.md`). It is
-recoverable from git history if the convergence ever wants it; rebuilding
-against the current schema is likely cheaper than reviving it.
+Status: v0.3 — reflects the actual structure map from the Fable 5.1
+architecture review (`docs/reviews/2026-09-fable-architecture-review.md`,
+2026-09-04, read-only review of `origin/main`). That review is the baseline
+for everything in this section; re-read it for full detail (dependency
+graphs, duplication inventory, hotspot rankings) — this doc summarizes it.
 
-**The two-tier HTTP serving path it read is still here and still supported:**
-`apps/web/app/vault/tier0`, `/vault/moment/[id]`, `/vault/album/[slug]/tracks`
-and `apps/web/lib/vault.ts`. Those are shipped deliverables of record (roadmap
-W4.5/W7, `docs/decisions.md`) and `/vault/tier0` is the default target of
-`npm run check:budget`. Only the unmounted UI was removed. The Expo mobile app is scaffolded
-reusing `packages/*` unchanged (validating the shared boundary). Product
-vision (`docs/vision.md`) is still Joey's to fill in; this doc grows as
-features are specced.
+## What this repo actually is — two products in one
 
-> **Front-end note.** The interactive experience currently shipped on the web
-> (the era/threads reader at `/`) is a self-contained, statically-authored
-> layer under `apps/web/components/longlive/**` + `apps/web/lib/longlive/**`.
-> It does not yet read from the Supabase two-tier path described below. That
-> layer has its own manual: **`docs/longlive-experience.md`** — read it before
-> working on the site UI. This doc remains the source of truth for the
-> underlying stack/data plan the two will converge on.
+1. **The website.** Small, fast, honestly simple: **one client-rendered
+   Next.js page** (`app/page.tsx` → `components/longlive/LongLive.tsx`) over
+   **build-time generated TypeScript**. Content is authored in
+   `supabase/seed/**`, compiled by `scripts/sync-longlive-content.mjs` and
+   siblings into six `*.generated.ts` files (content, tracks, theories,
+   videos, era-secrets, song-moods — manifest in
+   `scripts/lib/generated-content.mjs`), and shipped as a static, CDN-cached
+   client bundle. This is the interactive era/threads reader users see at
+   `/`. **Its operational manual is `docs/longlive-experience.md` — read it
+   before touching site UI.**
+2. **The factory around it.** ~57k lines in `scripts/` (thirteen
+   sub-engines), 39 GitHub Actions workflows, and 23 registered Claude desk
+   routines (15 enabled) that write content, file issues, post to social,
+   and merge their own PRs. CI (`ci.yml` job `build`) is the only reviewer
+   for most of what lands — 764 PRs merged in the last 30 days on this
+   auto-merge path. **Its operational manual is `docs/AUTOMATION.md` — read
+   it before touching any workflow, script, or desk routine.**
 
----
+Both are real, both are load-bearing, and neither substitutes for the other's
+manual.
+
+## The Supabase Vault read path — pending a founder decision
+
+There are two separate, non-overlapping content pipelines that both produce
+"Taylor's timeline" content:
+
+- **Static-generated (live, in production).** Described above — this is
+  what `/` actually serves. Deleted from the web UI on 2026-08-11 (the old
+  `VaultReader.tsx` era-scrubber component); recoverable from git history if
+  ever wanted again.
+- **Supabase-direct (built, not on the web read path; mobile's only Vault
+  data source today).** `apps/web/app/vault/{tier0,moment,album/[slug]/tracks}`
+  routes and `apps/web/lib/vault.ts` → `packages/core/src/vault.ts` read
+  live from Supabase `era`/`milestone`/`month_item`/`moment`/`track_note`
+  tables, seeded via `db-seed.yml`. `/vault/tier0` is the default target of
+  `npm run check:budget`. `apps/mobile/lib/vault.ts` +
+  `VaultNavigator.tsx` are the one real, working consumer.
+
+**This duplication is a known, recorded fork (`docs/decisions.md`
+2026-07-17, 2026-08-23), not an accident — but whether to keep both
+pipelines running is an open founder decision, not yet resolved.**
+`docs/proposals/2026-09-vault-read-path.md` (R24) lays out the two options:
+
+- **Option A (recommended in that doc):** mobile switches to reading the
+  same generated static content the web ships; retire the Supabase Vault
+  read path (routes, `packages/core/src/vault.ts`, `db-seed.yml`'s Vault
+  targets, eventually the tables).
+- **Option B:** reverse direction — make the live web UI read from Supabase
+  instead of the static generated file, converging on the schema mobile
+  already uses. Much larger blast radius; reopens a latency/scale problem
+  the static approach already sidesteps.
+
+**Until Joey decides, treat both pipelines as live and supported.** Do not
+delete or repurpose either side of it without a decision recorded in
+`docs/decisions.md`.
 
 ## Guiding principle
 
@@ -56,14 +93,25 @@ Decision: "Reuse Orbit stack, separate backend."
 Monorepo, npm workspaces (Orbit's layout):
 
 ```
-apps/web        Next.js reader
-apps/mobile     Expo app            (scaffolded — reuses packages/* unchanged)
-packages/shared types + domain, zero I/O — portable
-packages/core   data-access layer over Supabase — portable
+apps/web        Next.js reader (438 files, ~81k lines incl. generated)
+apps/mobile     Expo app: Vault navigator + notification settings/inbox (35 files, ~2.2k lines)
+apps/worker     News/Current ingest pipeline, run every 4h (49 files, ~4.7k lines)
+packages/shared types + domain, zero I/O — portable (39 files, ~4.7k lines)
+packages/core   data-access layer over Supabase — portable (40 files, ~7.6k lines)
+scripts/        automation: 13 sub-engines + 83 top-level scripts (311 files, ~57k lines)
+supabase/       33 migrations + 90 seed files — the content corpus (123 files, ~95k lines)
 ```
 
-**Hard boundary:** new business logic goes in `packages/shared` or
-`packages/core`, never in an app's view layer. The view layer (React
+**Reality check on the "hard boundary" below:** in practice the entire
+reader domain layer (`apps/web/lib/longlive/*`, 201 files) lives inside the
+app, not in `packages/*`. `packages/shared`/`packages/core` hold almost none
+of the web reader's logic today. The boundary below is the intended
+target, not the current state — see the Fable review §1.3/§3.2 for the
+specific layer violations (`types.ts` depending on generated data,
+`merch.ts` reaching into `supabase/seed/**` directly).
+
+**Hard boundary (intended):** new business logic goes in `packages/shared`
+or `packages/core`, never in an app's view layer. The view layer (React
 components, screens) is the only non-portable code. This is what lets the
 future Expo app reuse everything but the views.
 
@@ -74,10 +122,12 @@ The product has two content cadences that must not be coupled:
 1. **Vault — curated, slow, editorial.** Eras, milestones (album releases,
    tours), fashion looks. Authored and versioned *in the repo* (seed files /
    migrations), effectively static between deploys, aggressively cacheable,
-   served from the CDN. This is the world the era-scrubber navigates.
-2. **News / Current — live, polled, ranked.** Changing hourly via an ingest
-   pipeline (Orbit-style worker, if/when we build it). Volatile, freshness
-   matters.
+   served from the CDN today via the static-generated pipeline described
+   above. This is the world the era-scrubber navigates.
+2. **News / Current — live, polled, ranked.** Changing hourly via
+   `apps/worker` (Orbit-style worker), the one genuinely live-from-DB
+   surface on the web (`/vault/current/[eraId]`, `/vault/live-theories`, ISR
+   900s). Volatile, freshness matters.
 
 They live in separate tables and are served on separate surfaces/routes. The
 Vault must never inherit the News feed's volatility or its cache-busting. This
@@ -134,7 +184,9 @@ inside the expanded timeline to aid orientation.
   `setState` per pointer-move (that drops frames).
 - The full Vault dataset is loaded/cached up front so scrubbing never waits on
   the network. Era content is virtualized/lazy where heavy (images), but
-  timeline markers are cheap and always resident.
+  timeline markers are cheap and always resident. In production this shows up
+  as the entire content corpus (~20k lines of generated TS) shipping in the
+  web client bundle — an intentional static/CDN tradeoff, not an oversight.
 
 ### What is and isn't shared across platforms
 
@@ -167,15 +219,25 @@ Carried over from Orbit's discipline:
 - No user-facing AI feature is in scope until a spec calls for one; when one
   does, it gets its own decision-log entry (cost model, latency budget, where
   keys live).
+- **Reality check:** every LLM call site currently hand-writes its own
+  Anthropic/OpenAI client, headers, and usage cap (six distinct
+  implementations across web, worker, and scripts — see the Fable review
+  §2.3). Consolidating this is on the review's remediation list; until that
+  lands, treat each call site's cap as independent and per-instance, not a
+  shared global cap.
 
 ## Coding standards (first draft — Wyatt to ratify)
 
 - TypeScript strict mode across all workspaces.
 - `npm run typecheck` must pass before any PR.
-- Business logic in `shared`/`core`; views stay thin and platform-specific.
+- Business logic in `shared`/`core`; views stay thin and platform-specific
+  (see the "reality check" above — this is aspirational today).
 - Conventional-commit style: `feat(vault): …`, `fix(web): …`, `docs: …`.
 - Branch per task (`feature/<name>`, `fix/<name>`); never commit to `main`.
-- Automated tests for every feature; full suite green before "done."
+- Automated tests for every feature; full suite green before "done." (Note:
+  63 of 81 web components currently have no test, and 27 of 39 existing
+  component test files are `readFileSync` string-greps rather than a
+  rendered-DOM assertion — see the Fable review §5.3.)
 - **Media & content sourcing** (full policy + rationale: `docs/decisions.md`,
   2026-07-09 "no rules against hosting photos"). The product presents rich
   media on-site (goal #7 — users don't click out):
@@ -196,8 +258,8 @@ Carried over from Orbit's discipline:
 
 The shared-package boundary above answers *where code lives*. This answers
 *how a feature actually ships without the three surfaces drifting apart* —
-Joey's 2026-07-17 question, prompted by the mobile app (`apps/mobile`,
-draft PR #67) approaching real use. The risk isn't writing a feature three
+Joey's 2026-07-17 question, prompted by the mobile app (`apps/mobile`)
+approaching real use. The risk isn't writing a feature three
 times (the shared boundary already prevents that); it's that **web deploys
 instantly on every merge and mobile does not** — an EAS store build sits in
 App Store / Play review for days, and adoption of a new version is gradual,
@@ -247,11 +309,21 @@ that turns out to be genuinely hard to reverse (e.g., committing to real API
 versioning, adopting a paid feature-flag vendor) gets its own
 `docs/decisions.md` entry when it happens, same as any other stack choice.
 
+## Operational manuals (read these before touching the live system)
+
+- **`docs/longlive-experience.md`** — the statically-authored web reader UI
+  (the era/threads experience at `/`): components, state, content flow.
+- **`docs/AUTOMATION.md`** — the three-tier automation factory: GitHub
+  Actions (deterministic), Claude desk routines (judgment), and product cron.
+
 ## Open questions (need Joey's vision or a later decision)
 
 - Product class: read-only content vs. social/UGC vs. utility — gates how much
   auth/RLS/realtime we actually build.
 - Free-scrub-with-milestone-anchors (scrubber v2) — deferred.
+- **Supabase Vault read path — retire (Option A) or adopt (Option B)?** See
+  above and `docs/proposals/2026-09-vault-read-path.md`. Pending Joey's
+  decision; not yet resolved.
 
 _Resolved:_ v1 scope is the **Vault only**; the News/Current world is out of v1
 (see `docs/decisions.md`, 2026-07-03).
