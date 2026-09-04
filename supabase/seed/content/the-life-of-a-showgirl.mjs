@@ -4328,7 +4328,7 @@ export default {
       category: 'fashion',
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
-        'moment:vault-tloas-a-rumored-newlywed-puppy-and-a-name-fans-traced-to-the-sandl',
+        'moment:vault-tloas-wendy-the-kelces-samoyed-confirmed-and-a-name-that-nods-to-t',
       ],
       title: 'The couple\'s Samoyed turns up in Tommy Hilfiger\'s fall campaign',
       snippet:
@@ -4338,7 +4338,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Tommy Hilfiger\'s Fall 2026 campaign, shot at New York\'s Plaza Hotel, put Travis Kelce in a cast that also ran through JISOO, Gigi Hadid, Frances Tiafoe, Carmelo Anthony, Peggy Gou and the designer himself — and, in the detail Swifties zeroed in on, the fluffy white Samoyed Kelce shares with Taylor. It is the dog\'s most public appearance yet, weeks after it was first photographed descending the couple\'s jet in July. In talking through how the puppy ended up on set, Kelce prompted a wave of same-day coverage that, per Just Jared and others, "reportedly revealed" the dog\'s name as Wendy — the nod to "The Sandlot" fans had guessed at back in August. Neither Taylor nor Kelce has confirmed the name on the record, so the Vault keeps it where the reporting leaves it: strongly corroborated by an official campaign, still short of an on-the-record confirmation.',
+          'Tommy Hilfiger\'s Fall 2026 campaign, shot at New York\'s Plaza Hotel, put Travis Kelce in a cast that also ran through JISOO, Gigi Hadid, Frances Tiafoe, Carmelo Anthony, Peggy Gou and the designer himself — and, in the detail Swifties zeroed in on, the fluffy white Samoyed Kelce shares with Taylor. It is the dog\'s most public appearance yet, weeks after it was first photographed descending the couple\'s jet in July. In talking through how the puppy ended up on set, Kelce prompted a wave of same-day coverage that, per Just Jared and others, "reportedly revealed" the dog\'s name as Wendy — the nod to "The Sandlot" fans had guessed at back in August. On the day of the campaign the name was still only reported; Kelce put it on the record himself the next day, naming Wendy on the Sept. 2 New Heights premiere (tracked on the confirmed dog-name moment this cross-links).',
         // Intake #3657 (2026-09-01 Vault Run, Content Shift): the confirmed
         // event here is the officially released Tommy Hilfiger campaign and
         // the couple's dog appearing in it — a distinct, dated fashion moment,
@@ -4404,15 +4404,15 @@ export default {
       day: 3,
       category: 'relationship',
       relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
-      confidence: 'plausible',
-      title: 'A rumored newlywed puppy — and a name fans traced to "The Sandlot"',
+      confidence: 'confirmed_interview',
+      title: 'Wendy: the Kelces\' Samoyed, confirmed — and a name that nods to "The Sandlot"',
       snippet:
-        'A month after the wedding, gossip account Deuxmoi reported the newlyweds had quietly gotten a white puppy named "Wendy" — a name fans read as a nod to Travis\'s favorite film. Neither Taylor nor Kelce has confirmed the dog or the name.',
+        'What began as an August Deuxmoi blind item is now on the record: on the Sept. 2, 2026 New Heights season-five premiere, Travis Kelce confirmed the white Samoyed he and Taylor share is named Wendy — "a little over a year old now" — the name fans had already read as a nod to Wendy Peffercorn from his favorite film, "The Sandlot."',
       sourceUrl: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
       thumbnailUrl: null,
       moment: {
         context:
-          'In early August 2026, roughly a month after the Madison Square Garden wedding, the gossip account Deuxmoi reported that Taylor and Kelce had quietly added a white puppy to the household — and that its name is "Wendy." Entertainment outlets including Cosmopolitan and SheKnows picked the item up within the day, most flagging that it traces to a single blind item rather than to either of the principals.\n\nThe detail fans latched onto was the name: "Wendy" reads as a reference to Wendy Peffercorn, the lifeguard from the 1993 film "The Sandlot" — a movie Kelce has called a favorite and a character he has joked about a childhood crush on. It is the kind of small, sweet story that is easy to want to be true; the honest status is that it is one gossip report the couple has not addressed. Neither Taylor nor Kelce has publicly confirmed adopting a puppy or its name.',
+          'The story started as gossip and ended as fact. In early August 2026 the account Deuxmoi reported that Taylor and Kelce had quietly added a white puppy named "Wendy" to the household — one blind item, aggregated the same day by Cosmopolitan, SheKnows and others, none of it traceable to either principal. For a month the Vault carried it exactly where the reporting left it: a plausible, unconfirmed rumor.\n\nThe confirmation came from Kelce himself. On the Sept. 2, 2026 season-five premiere of the New Heights podcast — a day after the couple\'s Samoyed turned up in Tommy Hilfiger\'s Fall 2026 campaign — he talked about the dog by name, calling her "little \'ol Wendy," saying she is "a little over a year old now" and that they had had her "for quite a while" while keeping her out of public view, and that Taylor was "all for" putting her in the shoot. That squares the timeline the earlier gossip got wrong: Wendy was not a newlywed puppy acquired a month after the wedding but a dog the couple had lived with privately for a year, first caught on camera descending their jet in Palm Beach that July.\n\nThe name fans had already decoded holds up too: "Wendy" reads as Wendy Peffercorn, the lifeguard from the 1993 film "The Sandlot," a movie Kelce has called a favorite and a character he has joked about a childhood crush on. What was a single gossip report in August is, as of the New Heights premiere, confirmed on the record by one of the two people who would know.',
         sources: [
           {
             outlet: 'Cosmopolitan (via AOL)',
@@ -4432,6 +4432,24 @@ export default {
             accessed_at: '2026-08-05',
             reliability_score: 2,
           },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-taylor-swift-reaction-dog-wendy-public-debut-1236331304/',
+            source_title: "Travis Kelce Shares Taylor Swift's Reaction to Dog Wendy's Public Debut",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CNN',
+            url: 'https://www.cnn.com/2026/09/03/entertainment/taylor-swift-travis-kelce-dog-wendy-samoyed',
+            source_title: "Taylor Swift and Travis Kelce's dog goes from 'alleged' to confirmed",
+            publisher: 'CNN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
         ],
         rumors: [
           {
@@ -4439,11 +4457,17 @@ export default {
               'Gossip account Deuxmoi reported in early August 2026 that Taylor and Kelce had quietly gotten a white puppy named "Wendy," with fans reading the name as a nod to Wendy Peffercorn, the lifeguard in Kelce\'s oft-cited favorite film "The Sandlot."',
             reportedBy: 'Deuxmoi (via Cosmopolitan)',
             reportedOn: '2026-08-03',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
-            note: 'Traces to a single Deuxmoi blind item, aggregated the same day by Cosmopolitan, SheKnows and others; carried at the social tier. Cosmopolitan/AOL: neither Taylor nor Kelce "has publicly confirmed they adopted a puppy or revealed its name." A pet, not a private individual — no redline; no location. Resolves if the couple confirms the dog and name, fades if it stays unaddressed.',
+            note: 'The Aug. 3 Deuxmoi blind item — one social-tier report the couple had not addressed — was later confirmed on the record. Re-checked 2026-09-04 (CIE #3736); the moment\'s confidence was raised plausible → confirmed_interview and its prose reconciled to match. A pet, not a private individual — no redline, no location.',
+            resolution: {
+              on: '2026-09-02',
+              url: 'https://www.billboard.com/music/music-news/travis-kelce-taylor-swift-reaction-dog-wendy-public-debut-1236331304/',
+              outlet: 'New Heights (via Billboard, CNN)',
+              note: 'Travis Kelce named the Samoyed "Wendy" and called her "a little over a year old" on the Sept. 2, 2026 New Heights season-five premiere; Billboard and CNN reported the confirmation ("goes from \'alleged\' to confirmed").',
+            },
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-26',
+            lastCheckedOn: '2026-09-04',
           },
         ],
         // Photo pass #762 (2026-08-06): re-confirms the deliberate no-photo
@@ -12392,12 +12416,29 @@ export default {
         // photo-sparsity/social-post checkers will route it to Photo Enrichment
         // if a verifiable visual (an embeddable @taylorswift post) surfaces.
         // Photo pass #762 (2026-08-27): re-checked. TODAY/Variety/Hollywood
-        // Reporter all illustrate this story with editorial red-carpet
-        // composites (a Songwriters Hall of Fame pairing, or unrelated
-        // performance shots of each woman) — not photos of the tribute
-        // itself, which is a text post. Rejected as off-subject stock rather
-        // than added; stays text-first.
-        photos: [],
+        // Reporter illustrate this story with editorial red-carpet composites
+        // (a Songwriters Hall of Fame pairing, or unrelated performance shots)
+        // — off-subject wire stock, correctly rejected then.
+        // Photo pass (Vault Run 2026-09-04): image egress restored this
+        // session (upload.wikimedia.org reachable, HTTP 200). Attached an
+        // on-subject archival PORTRAIT of the honoree from Wikimedia Commons
+        // instead — a public-domain 1977 RCA publicity photo — rather than the
+        // off-subject composites above.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Young-Dolly-Parton_%28higher_quality_scan%29_%28cropped%29.jpg',
+            // Downloaded and vision-confirmed: a black-and-white 1977 RCA
+            // publicity portrait of a young Dolly Parton — signature blonde
+            // curls, hoop earring, denim shirt, looking up. 2049x2633. License
+            // per the Commons file page: public domain (US work published
+            // 1931-1977 without a copyright notice).
+            focalPoint: '50% 32%',
+            credit: 'RCA Records publicity photograph, 1977 (public domain), via Wikimedia Commons',
+            caption:
+              'Dolly Parton in a 1977 RCA publicity portrait — the country legend in her prime, whose path from country to pop Taylor has long said she followed.',
+            kind: 'archival',
+          },
+        ],
         // Rumor Desk / Content Shift (2026-08-27, from intake #3393): in the
         // days after Parton's death, tabloid/sports coverage floated Taylor as
         // "lining up" for a hypothetical Dolly tribute concert. Adjudicable and
@@ -12682,6 +12723,193 @@ export default {
         // and on-court press photography, none on an allowlisted reusable host
         // and none a non-expiring URL. Left for the photo-sparsity checker to
         // route to Photo Enrichment if a reusable image surfaces.
+      },
+    },
+    {
+      slug: 'showgirl-brazil-taylor-swift-law',
+      year: 2026,
+      month: 8,
+      day: 31,
+      category: 'business',
+      // relatedIds intentionally omitted at author time — the natural thread is
+      // the Nov. 2023 Rio Eras Tour show and its aftermath, which live in a
+      // different era file; left for the Cross-Link lane to resolve rather than
+      // hand-fabricate a moment id here.
+      title: 'Brazil signs the "Taylor Swift Law" — free water and honest ticket prices, three years after a fan died at her Rio show',
+      snippet:
+        'President Lula signed two decrees named in local coverage for Taylor: events over 1,000 capacity must give out free water and let fans bring their own, and ticket platforms must show every fee up front. Both trace to Ana Clara Benevides, the 23-year-old fan who died in the heat at the 2023 Rio Eras Tour show.',
+      sourceUrl: 'https://www.upi.com/Top_News/World-News/2026/09/01/latam-brazil-taylor-swift-law/3221788282214',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Aug. 31, 2026, Brazilian President Luiz Inácio Lula da Silva signed two decrees in Brasília that local coverage immediately nicknamed the "Taylor Swift Law" — nationwide rules for concerts and live events, written in the shadow of a death at one of her shows. The first requires any event with a capacity over 1,000 to provide free drinking water and to let attendees bring their own containers; selling bottled water no longer exempts an organizer, and consumer-protection agencies are tasked with watching for price gouging. The second goes after ticketing: platforms must disclose the original face price and every added fee up front, transfers through official channels have to be free, and high-demand sales must run through mechanisms like virtual queues and pre-registration to blunt bulk-buying bots and abusive resale.\n\nThe law is tied explicitly to Ana Clara Benevides, a 23-year-old fan who died of heat exhaustion after collapsing at Taylor\'s November 2023 Eras Tour show in Rio de Janeiro, amid record heat that reached roughly 38°C — a loss that led Taylor to postpone the following night\'s concert and that Brazilian fans turned into a years-long push for change. Representatives of fan groups for Taylor, BTS, Lady Gaga, Harry Styles and others stood with Lula at the signing; per the coverage, he told them, "If it weren\'t for you, we wouldn\'t be making this decree." It is the rare case of an Eras Tour legacy written into national law rather than a setlist — Taylor is the name on it, but the fans who kept Benevides\'s death from fading are the reason it exists.',
+        sources: [
+          {
+            outlet: 'UPI',
+            url: 'https://www.upi.com/Top_News/World-News/2026/09/01/latam-brazil-taylor-swift-law/3221788282214',
+            source_title: "Brazil adopts 'Taylor Swift Law' rules for concerts, ticket sales",
+            publisher: 'UPI',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/brazil-introduces-taylor-swift-law-three-years-after-fan-died-of-extreme-heat-at-gig-3966818',
+            source_title: "Brazil introduces 'Taylor Swift Law' three years after fan died of extreme heat at gig",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Digital Music News',
+            url: 'https://www.digitalmusicnews.com/2026/09/02/brazil-president-taylor-swift-law-protect-fans/',
+            source_title: "Brazilian President Signs 'Taylor Swift Law' to Protect Fans",
+            publisher: 'Digital Music News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Exclaim!',
+            url: 'https://exclaim.ca/music/article/brazil-institutes-taylor-swift-law-for-concerts-ticket-sales-following-fan-s-death-at-eras-tour',
+            source_title: 'Brazil Institutes "Taylor Swift Law" for Concerts, Ticket Sales Following Fan\'s Death at Eras Tour',
+            publisher: 'Exclaim!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 3,
+          },
+        ],
+        // No reusable, allowlisted photo attached at author time — the signing
+        // imagery is wire/agency-owned and not on a reusable host. Left for the
+        // photo-sparsity checker to route to Photo Enrichment.
+      },
+    },
+    // Content Shift (Vault Run 2026-09-04): intake #3682 — Travis's Sept 2
+    // New Heights S5 premiere is the first on-record account of the ceremony
+    // from a principal. Distinct from msg-wedding (the event, from guest
+    // accounts) and kelce-new-heights-proposal-story (July 8 finale, which the
+    // corpus notes kept the wedding off the table). Authored as a new moment.
+    {
+      slug: 'kelce-new-heights-wedding-recap',
+      year: 2026,
+      month: 9,
+      day: 2,
+      category: 'relationship',
+      title: 'Travis finally recounts the wedding, on the New Heights season-five premiere',
+      snippet:
+        'For two months the most public couple alive had told no one the story of their own wedding. On the Sept. 2 season-five premiere of New Heights, Travis finally walked through it — building the whole account around Adam Sandler, who got ordained in New York State to officiate "in the very Sandman style."',
+      sourceUrl:
+        'https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-adam-sandler-officiating-1236849216/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'For two months the wedding sat in a strange place: the most public couple in the world had thrown the most private party imaginable, and neither of them had actually told the story. Travis\'s first post-wedding New Heights — the July 8 season-four finale — stuck to the proposal and left the ceremony alone, and the day itself lived only in guest accounts and the arrivals outside the Garden. The season-five premiere, taped with brother Jason and released Sept. 2, 2026, was the first time one of the principals walked through the night in his own words.\n\nHis throughline was Adam Sandler. Sandler had gotten legally ordained in New York State expressly to marry them, and Travis framed the whole evening around what his friend pulled off: "For him to be up for getting ordained in the state of New York and marrying me and Taylor, and the way he did it, in the very Sandman style, and giving us more than what we could\'ve ever imagined at that moment, knowing that it was the biggest night of our lives — it was absolutely insane." He called Sandler "the best person on this planet" and the night "magical," landing on the same original-Sandler-song detail the Vault had previously carried only from an outside guest\'s account.\n\nHe also gave the first on-record reason for a venue that had read as pure spectacle. They chose Madison Square Garden, he said, because they wanted "somewhere where we could have a very intimate and genuine setting without a lot of distractions" — an odd thing to say about a 20,000-seat arena, until you remember they curtained the glass entrance and built a garden and a castle inside it. What the premiere did not do was open the images the wedding still hasn\'t released: no ceremony footage, no reception photos, nothing past the arrivals and the "JusT&T Married" marquee. Travis told the story; the pictures stayed private. It was, fittingly, the same desk that announced the album in August 2025 and told the proposal story in July — New Heights functioning once again as the relationship\'s on-record channel.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-adam-sandler-officiating-1236849216/',
+            source_title: 'Travis Kelce Breaks Down Wedding to Taylor Swift and Says Adam Sandler Officiating Was "Absolutely Insane"',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/lifestyle-news/travis-kelce-wedding-taylor-swift-podcast-new-heights-1236688034/',
+            source_title: "Travis Kelce Talks Taylor Swift Wedding on 'New Heights' Podcast",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News (Good Morning America)',
+            url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-adam-sandler-wedding-officiant/story?id=134472500',
+            source_title: "Taylor Swift, Travis Kelce and Adam Sandler's wedding officiant story",
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-talks-wedding-taylor-swift-preview-new-heights-1236331277/',
+            source_title: "Travis Kelce Talks Wedding to Taylor Swift in Preview of 'New Heights' Podcast",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+        ],
+        // No reusable, allowlisted photo attached at author time — podcast/wire
+        // imagery is agency-owned and not on a reusable host, and Instagram
+        // embeds are not applicable here. Left for the photo-sparsity checker.
+      },
+    },
+    // Content Shift (Vault Run 2026-09-04): intake #3694 context — the durable,
+    // verifiable milestone behind that ticket. Placed by real-world date (the
+    // June 2026 country-radio impact week), not by the ticket's "this week"
+    // framing, which conflated it with the upcoming iHeart interview (a future
+    // event, not authored today). Distinct from the Country Airplay top-10 and
+    // Pop Airplay items already in the corpus.
+    {
+      slug: 'i-knew-it-i-knew-you-country-panel-close',
+      year: 2026,
+      month: 6,
+      day: 8,
+      category: 'music',
+      title: 'I Knew It, I Knew You closes the entire country radio panel on impact',
+      snippet:
+        'On its first week at country radio, the Toy Story 5 ballad became the first song by a woman to close out Mediabase\'s entire country reporting panel on impact — every station adding it at once — and, per trade reporting, the first female artist to debut inside Billboard\'s Country Airplay top 10 in the chart\'s history.',
+      sourceUrl:
+        'https://www.countryinsider.com/news/most-added-taylor-swift-closes-the-country-panel/article_cf99907b-2591-46e5-8c83-312c3520ae86.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When "I Knew It, I Knew You" went for adds at country radio, it did something no song by a woman had done before: it closed the panel. On its impact date — the Monday of its first promotional week, in early June 2026 — every country station reporting to Mediabase added the song at once, the full reporting panel signing on in a single week. The country-radio trades (Country Insider, Inside Radio, Headline Planet) framed it as an add record: the first country single by a woman to wrap the entire impact panel on its first day out.\n\nThe chart caught up to the adds. Per trade reporting the song debuted inside Billboard\'s Country Airplay top 10 — the first time a female artist had launched directly into the top 10 in the chart\'s history, which runs back to 1990 — before climbing to No. 7. That was the stranger half of the story given where the record came from: it isn\'t a Showgirl track, and not really a country song either, but Taylor\'s original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff and issued as a single on June 5, 2026.\n\nIts country-radio welcome became one thread in a wider "is she going back to country?" conversation the outlets kept returning to — reported pre-release meetings with country programmers, a CMA Single of the Year campaign, her self-titled debut turning twenty that October — every write-up careful to stress that nothing had been announced. What was concrete was the add sheet: for one week, every country station in the panel was playing the same movie song about a cowgirl.',
+        sources: [
+          {
+            outlet: 'Country Insider',
+            url: 'https://www.countryinsider.com/news/most-added-taylor-swift-closes-the-country-panel/article_cf99907b-2591-46e5-8c83-312c3520ae86.html',
+            source_title: 'Most Added: Taylor Swift Closes The Country Panel',
+            publisher: 'Country Insider',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Inside Radio',
+            url: 'https://www.insideradio.com/free/radio-embraces-taylor-swift-s-i-knew-it-i-knew-you/article_69bb9c1a-8ede-463d-a35b-f2c67166a8f7.html',
+            source_title: "Radio Embraces Taylor Swift's 'I Knew It, I Knew You'",
+            publisher: 'Inside Radio',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2026/06/09/taylor-swifts-i-knew-it-i-knew-you-breaks-country-radio-add-record/',
+            source_title: "Taylor Swift's 'I Knew It, I Knew You' Breaks Country Radio Add Record",
+            publisher: 'Headline Planet',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-back-on-country-radio-i-knew-it-i-knew-you-1235574735/',
+            source_title: "Taylor Swift Is Back on Country Radio With 'I Knew It, I Knew You'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+        ],
+        // Text-first: no reusable, allowlisted image of a radio add-board /
+        // chart exists; not a photo-shaped moment. Left for the checkers.
       },
     },
   ],
