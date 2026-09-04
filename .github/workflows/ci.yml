@@ -89,4 +89,10 @@ jobs:
           npm run check:voice -- --base-ref FETCH_HEAD
       - run: npm run content:coverage
       - run: npm run build
+      # Bundle-size gate (R7, Fable 5.1 architecture review, #3709): detection
+      # only — fails CI if apps/web's shipped client bundle
+      # (.next/static: JS/CSS/fonts) exceeds the threshold documented in
+      # docs/dev-quickstart.md. Runs after `build` since it measures that
+      # step's output.
+      - run: npm run check:budget:bundle
       - run: npm run check:budget:seed
