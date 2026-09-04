@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { getEra } from '@/lib/longlive/eras';
 import { erasBetween, gapYears } from '@/lib/longlive/decode';
+import { accentFgFor } from '@/lib/longlive/theme';
 import { DECODE_MOTIF_META, type CluePair, type DecodeMotifId } from '@/lib/longlive/types';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
@@ -217,7 +218,12 @@ export function DecodeCard({
             )}
           </div>
         ) : (
-          <LockedPayoff eraLabel={payoffEra.shortName} eraColor={payoffColor} teaseLine={Boolean(clue.payoff.line)} />
+          <LockedPayoff
+            eraLabel={payoffEra.shortName}
+            eraColor={payoffColor}
+            eraFg={accentFgFor(payoffEra.theme)}
+            teaseLine={Boolean(clue.payoff.line)}
+          />
         )}
 
         <button
@@ -257,7 +263,17 @@ function Receipt({ line, cite, color, compact = false, className = '' }: { line:
   );
 }
 
-function LockedPayoff({ eraLabel, eraColor, teaseLine }: { eraLabel: string; eraColor: string; teaseLine: boolean }) {
+function LockedPayoff({
+  eraLabel,
+  eraColor,
+  eraFg,
+  teaseLine,
+}: {
+  eraLabel: string;
+  eraColor: string;
+  eraFg: string;
+  teaseLine: boolean;
+}) {
   return (
     <div aria-hidden className="w-full select-none rounded-xl border border-dashed p-4 text-left" style={{ borderColor: 'var(--era-line)', background: 'var(--era-surface-2)' }}>
       <div className="mb-3 flex items-center gap-2">
@@ -265,7 +281,7 @@ function LockedPayoff({ eraLabel, eraColor, teaseLine }: { eraLabel: string; era
         <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: 'var(--era-ink-soft)' }}>
           The payoff
         </span>
-        <span className="select-none rounded-full px-2 py-0.5 text-[11px] blur-[3px]" style={{ background: `${eraColor}26`, color: eraColor }}>
+        <span className="select-none rounded-full px-2 py-0.5 text-[11px] blur-[3px]" style={{ background: eraColor, color: eraFg }}>
           {eraLabel}
         </span>
       </div>

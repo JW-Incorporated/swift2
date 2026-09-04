@@ -189,7 +189,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
           type="button"
           onClick={handleSubscribe}
           disabled={subscribeState.kind === 'subscribing' || subscribeState.kind === 'denied'}
-          className="inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-bg transition-opacity hover:opacity-90 disabled:opacity-50"
+          className="inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-fg transition-opacity hover:opacity-90 disabled:opacity-50"
         >
           {subscribeState.kind === 'subscribing' ? 'Enabling\u2026' : 'Enable notifications'}
         </button>
@@ -266,7 +266,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
                         }
                         className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
                           active
-                            ? 'border-accent bg-accent text-bg'
+                            ? 'border-accent bg-accent text-accent-fg'
                             : 'border-white/20 text-ink-soft hover:border-white/40'
                         }`}
                       >

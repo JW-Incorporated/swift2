@@ -106,6 +106,40 @@ describe('accent2 as text — WCAG AA 4.5:1 on reputation/evermore (#3399)', () 
   });
 });
 
+// #3665: Speak Now's accent2 (`#7d5bd0`) failed 4.5:1 as raw text on `bg`
+// (measured 3.66:1 by Laura's 2026-09-01 walk) — the LandingMasthead eyebrow
+// line. Nudged lighter (`#9e84dc`) the same way #3399 nudged reputation and
+// evermore. Locks the fix at ≥4.5:1 against every background layer accent2
+// text can sit on, same discipline as the #3399 table above.
+describe('accent2 as text — WCAG AA 4.5:1 on speak-now (#3665)', () => {
+  const speakNow = ERAS.find((e) => e.id === 'speak-now')!;
+
+  it.each([speakNow.theme.bg, speakNow.theme.surface, speakNow.theme.surface2])(
+    'speak-now: accent2 clears 4.5:1 on %s',
+    (bg) => {
+      expect(contrastRatio(speakNow.theme.accent2, bg)).toBeGreaterThanOrEqual(4.5);
+    },
+  );
+});
+
+// #3664: four call sites painted the theme's raw `--era-bg` as text directly
+// on a solid `--era-accent` fill (Button primary, FeedbackButton,
+// WebNotificationSettings, FilterBar's "All" chip) instead of the calibrated
+// `--era-accent-fg` token (#3318) — proven ≥4.5:1 above, this just asserts
+// every theme's accentFg-on-accent pairing (the shape those four sites now
+// use) stays clean, which the #3318 "defining fill" table above already
+// covers structurally; this describe documents the #3664 call sites by name
+// so a future revert of any of them is legible in the test file.
+describe('bg-accent/text-accent-fg call sites — WCAG AA 4.5:1 (#3664)', () => {
+  it('every theme accentFg clears 4.5:1 on its own accent (shared by Button, FeedbackButton, WebNotificationSettings, FilterBar)', () => {
+    const themes = [...ERAS.map((e) => e.theme), VAULT_THEME, MERCH_THEME];
+    for (const theme of themes) {
+      const fg = theme.accentFg ?? '#000000';
+      expect(contrastRatio(fg, theme.accent)).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+});
+
 describe('.era-icon-btn (#525 close-affordance contrast) — WCAG AA 4.5:1', () => {
   const themes = [...ERAS.map((e) => ({ id: e.id, theme: e.theme })), { id: 'vault', theme: VAULT_THEME }, { id: 'merch', theme: MERCH_THEME }];
 

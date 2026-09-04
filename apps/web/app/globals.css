@@ -15,6 +15,7 @@
   --color-line: var(--era-line);
   --color-accent: var(--era-accent);
   --color-accent-2: var(--era-accent-2);
+  --color-accent-fg: var(--era-accent-fg);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
