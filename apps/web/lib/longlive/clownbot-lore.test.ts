@@ -117,14 +117,26 @@ describe('freshness is reported honestly', () => {
 });
 
 describe('scheduled refresh ownership', () => {
-  it('connects the scheduled Rumor Desk lane to the Clownbot fallback file (#1997)', () => {
+  it('connects the scheduled Rumor Desk lane to the Clownbot seed source and its generation step (#1997, #3515)', () => {
     const root = resolve(import.meta.dirname, '../../../..');
     const lane = readFileSync(
       resolve(root, 'docs/agents/runner-prompts/vault-lanes/4-rumor-desk.md'),
       'utf8',
     );
-    expect(lane).toContain('apps/web/lib/longlive/clownbot-lore.ts');
-    expect(lane).toContain('LORE_UPDATED_ON');
+    // Post-FR-t_2745eb60-1 (#3515): the lane edits the seed, not the
+    // generated .ts file, and must name both the seed path and the sync
+    // step that turns it into clownbot-lore.ts — a lane that only touches
+    // the seed and never regenerates is the same silent no-op gap #1997
+    // fixed for the old direct-edit path.
+    expect(lane).toContain('supabase/seed/clownbot-lore/clownbot-lore.mjs');
+    expect(lane).toContain('sync:content');
     expect(lane).toContain('lastCheckedOn');
+  });
+
+  it('the generated file carries its GENERATED FILE header pointing at the sync script', () => {
+    const root = resolve(import.meta.dirname, '../../../..');
+    const generated = readFileSync(resolve(root, 'apps/web/lib/longlive/clownbot-lore.ts'), 'utf8');
+    expect(generated).toContain('GENERATED FILE — do not hand-edit');
+    expect(generated).toContain('scripts/sync-clownbot-lore.mjs');
   });
 });

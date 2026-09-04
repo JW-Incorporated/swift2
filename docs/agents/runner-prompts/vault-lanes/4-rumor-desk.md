@@ -84,13 +84,18 @@ onto the wedding page, which already carries the most.
 
 **C. Refresh Clownbot's no-DB fallback.** The knowledge engine is Clownbot's
 primary live source, but `apps/web/lib/longlive/clownbot-lore.ts` remains the
-load-bearing fallback when the database is unreachable. It is not refreshed by
-editing Vault `rumors` entries. On every due run, independently sweep every
-open (`rumor` / `reported`) lore item, update its `lastCheckedOn`, resolution,
-and citations as warranted, add genuinely prompt-worthy current items from the
-same sourced queue, and bump `LORE_UPDATED_ON`. Run
-`apps/web/lib/longlive/clownbot-lore.test.ts` before committing. A run that
-touches Vault rumors but skips this fallback sweep is incomplete.
+load-bearing fallback when the database is unreachable. As of Fable ruling
+FR-t_2745eb60-1 (#3515), that file is GENERATED — edit
+`supabase/seed/clownbot-lore/clownbot-lore.mjs` instead, never the `.ts` file
+directly. It is not refreshed by editing Vault `rumors` entries. On every due
+run, independently sweep every open (`rumor` / `reported`) item in the seed
+file, update its `lastCheckedOn`, resolution, and citations as warranted, add
+genuinely prompt-worthy current items from the same sourced queue, and bump
+the seed's `updatedOn`. Then let the orchestrator's `sync:content` step (Run
+procedure §3) regenerate `clownbot-lore.ts` and confirm
+`apps/web/lib/longlive/clownbot-lore.test.ts` passes on the regenerated
+output before committing. A run that touches Vault rumors but skips this
+fallback sweep is incomplete.
 
 ## Untrusted external content (#1966)
 

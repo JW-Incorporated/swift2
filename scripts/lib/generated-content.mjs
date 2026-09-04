@@ -30,7 +30,18 @@ export const GENERATED_SUFFIX = '.generated.ts';
 /**
  * Every generated content artifact, paired with the script that writes it.
  * Order matters: `check:generated` / `sync:content` run the syncs in this
- * order (song-moods reads the track seeds, so it goes last).
+ * order (song-moods reads the track seeds, so it goes last; clownbot-lore
+ * goes after that since it has no seed-order dependency).
+ *
+ * `clownbot-lore.ts` (added 2026-09, Fable ruling FR-t_2745eb60-1, #3515) is
+ * a generated artifact like the rest, but deliberately keeps its pre-existing
+ * filename rather than moving to `*.generated.ts` — many display modules
+ * already `import ... from './clownbot-lore'`, and the ruling's whole point
+ * was "preserve the generated artifact's shape". `listGeneratedOnDisk()`
+ * below only globs `*.generated.ts` for that reason, so it does NOT discover
+ * this file automatically; `check-automerge-allowlist.mjs`'s "manifest
+ * matches disk" check still covers it because it unions `generatedOnDisk`
+ * with every `SYNC_TARGETS` `out` path, not just the glob.
  */
 export const SYNC_TARGETS = [
   { sync: 'scripts/sync-longlive-content.mjs', out: `${GENERATED_DIR}/content-vault.generated.ts` },
@@ -42,6 +53,7 @@ export const SYNC_TARGETS = [
     out: `${GENERATED_DIR}/era-secrets.generated.ts`,
   },
   { sync: 'scripts/sync-song-moods.mjs', out: `${GENERATED_DIR}/song-moods.generated.ts` },
+  { sync: 'scripts/sync-clownbot-lore.mjs', out: `${GENERATED_DIR}/clownbot-lore.ts` },
 ];
 
 /** Repo-relative POSIX paths of the generated artifacts, in sync order. */

@@ -1,7 +1,13 @@
 # Clownbot — the rumor/lore file and how it gets refreshed
 
-**Status:** v2, 2026-08-24. Owner: the scheduled Rumor Desk lane.
-Source of truth for the file itself: `apps/web/lib/longlive/clownbot-lore.ts`.
+**Status:** v3, 2026-09-04 (Fable ruling FR-t_2745eb60-1, #3515). Owner: the
+scheduled Rumor Desk lane.
+Source of truth for authoring: `supabase/seed/clownbot-lore/clownbot-lore.mjs`.
+Generated output the app imports: `apps/web/lib/longlive/clownbot-lore.ts`
+(produced by `scripts/sync-clownbot-lore.mjs`, wired into `npm run
+sync:content`). **Never hand-edit the `.ts` file** — it is regenerated from
+the seed on every sync, and `npm run check:generated` fails the build if it
+drifts from the seed.
 Binding above this doc: `docs/content-ops/privacy-redlines.md`.
 
 ## Why this file exists separately from the Vault
@@ -9,16 +15,24 @@ Binding above this doc: `docs/content-ops/privacy-redlines.md`.
 The Vault is ~733 dated, sourced moments — stable, past-tense, slow-moving.
 Clownbot also needs the **live** layer: what the fandom is arguing about this
 week. That is a different shape (short-lived, status-tagged, expires) and a
-different risk profile, so it lives in its own small hand-curated file rather
-than being smuggled into the seed corpus.
+different risk profile, so it lives in its own small seed file rather than
+being smuggled into the seed corpus's `content` items — but it now follows
+the exact same seed-authored / generated-output pattern as the rest of the
+Vault (theories, era secrets, etc.), per the FR-t_2745eb60-1 ruling. The prior
+v2 design (hand-authored `.ts` app source, edited directly by the unattended
+Rumor Desk lane) is retired: it put an unattended content lane in `apps/`
+source, which is the seed-only hard limit this ruling exists to uphold.
 
 ## The one rule
 
 **No source, no ship.** Every item carries at least one named outlet and a real
-`https` URL, plus a real date. This is enforced by `clownbot-lore.test.ts`,
-which fails the build on a missing or malformed source, a bad date, a duplicate
-id, or anything that looks like street-level location detail. A fabricated
-rumor is the single failure this feature cannot survive.
+`https` URL, plus a real date. This is enforced two ways: by
+`scripts/sync-clownbot-lore.mjs`, which drops any seed item missing a source,
+a valid status, or a valid date rather than generating a malformed one, and by
+`clownbot-lore.test.ts`, which fails the build on the generated output for a
+missing/malformed source, a bad date, a duplicate id, or anything that looks
+like street-level location detail. A fabricated rumor is the single failure
+this feature cannot survive.
 
 Corollary: **if we cannot source it, we ship the file without it.** At v1 this
 meant deliberately dropping two otherwise attractive items — an aggregated
@@ -28,21 +42,29 @@ says June 13" theory (no named outlet). The empty slot is the honest outcome.
 
 ## Schema
 
-```ts
-interface LoreItem {
-  id: string;            // stable; the model cites this as a receipt id
-  status: 'rumor' | 'reported' | 'confirmed' | 'debunked';
-  date: string;          // ISO — when it happened, or when it was reported
-  lastCheckedOn: string; // ISO — when a human last verified the status
-  headline: string;      // one line, our words
-  detail: string;        // 1–3 sentences, our words, never asserting past `status`
-  sources: { name: string; url: string }[];  // >= 1, always
-  prompts?: string[];    // suggested-prompt seeds (see the landing rule below)
-  ledger?: { theory: string; verdict: 'clowned' | 'confirmed'; on: string };
-  evergreen?: boolean;   // stays in the prompt pool once the fresh window empties
-  tags?: string[];
+The seed file (`supabase/seed/clownbot-lore/clownbot-lore.mjs`) exports
+`{ updatedOn: string, items: RawLoreItem[] }`. Each raw item:
+
+```js
+{
+  id: string,            // stable; the model cites this as a receipt id
+  status: 'rumor' | 'reported' | 'confirmed' | 'debunked',
+  date: string,          // ISO — when it happened, or when it was reported
+  lastCheckedOn: string, // ISO — when a human/frontier-model last verified the status
+  headline: string,      // one line, our words
+  detail: string,        // 1–3 sentences, our words, never asserting past `status`
+  sources: [{ outlet: string, url: string }],  // >= 1, always, real https URL
+  prompts: [string],     // optional suggested-prompt seeds (see the landing rule below)
+  ledger: { theory: string, verdict: 'clowned' | 'confirmed', on: string },  // optional
+  evergreen: boolean,    // optional — stays in the prompt pool once the fresh window empties
+  tags: [string],        // optional
 }
 ```
+
+`scripts/sync-clownbot-lore.mjs` normalizes this into the generated
+`LoreItem` shape (`sources: [{ outlet, url }]` → `[{ name, url }]`, same
+convention as the other sync generators) and writes
+`apps/web/lib/longlive/clownbot-lore.ts`.
 
 ### What each status means
 
@@ -64,7 +86,9 @@ The scheduled owner is `docs/agents/runner-prompts/vault-lanes/4-rumor-desk.md`
 seed `rumors` and the knowledge-engine lifecycle queue but never named this
 file, so `clownbot-lore.ts` had no refresh trigger at all. The lane now carries
 an explicit fallback sweep, and a regression test fails if that connection is
-removed.
+removed. As of FR-t_2745eb60-1 (#3515), the sweep edits the SEED
+(`supabase/seed/clownbot-lore/clownbot-lore.mjs`); the orchestrator's `sync:content`
+step regenerates `clownbot-lore.ts` from it before the gate runs.
 
 The primary live path is separate and mechanical: `.github/workflows/news-worker.yml`
 runs every four hours and writes `current_item` / `fan_signal` / `live_theory`.
@@ -79,23 +103,27 @@ updates and for being honest when it has not had one.
 ### Cadence
 
 - **Same-day** when something breaks (an announcement, a countdown, a denial).
-- **Weekly sweep** minimum: walk every `rumor` / `reported` item, re-check it,
-  and bump `lastCheckedOn` whether or not the status changed.
-- Bump `LORE_UPDATED_ON` on **every** sweep. It is shown to the reader.
+- **Weekly sweep** minimum: walk every `rumor` / `reported` item in the seed,
+  re-check it, and bump `lastCheckedOn` whether or not the status changed.
+- Bump the seed's `updatedOn` on **every** sweep — it becomes `LORE_UPDATED_ON`
+  in the generated file and is shown to the reader.
 
 ### The steps
 
-1. **Re-check every open item.** For each `rumor` / `reported` item, look for a
-   confirmation or a denial from a named outlet.
+1. **Re-check every open item** in `supabase/seed/clownbot-lore/clownbot-lore.mjs`.
+   For each `rumor` / `reported` item, look for a confirmation or a denial
+   from a named outlet.
 2. **Promote or retire.** A resolved item moves to `confirmed` or `debunked`
    **with the confirming/debunking citation added** — never silently.
 3. **Add the ledger verdict** when a fandom prediction resolves. `debunked`
-   items are required by test to carry a `ledger` block, because a debunked
-   theory with no verdict is just a dead claim sitting in the file.
+   items are required by test (on the generated output) to carry a `ledger`
+   block, because a debunked theory with no verdict is just a dead claim
+   sitting in the file.
 4. **Add new items** — status-tagged, sourced, dated, redline-checked *before*
    writing, not after.
 5. **Write prompts** for anything prompt-worthy (rule below).
-6. **Bump `LORE_UPDATED_ON`**, run `npm test`, open a PR.
+6. **Bump the seed's `updatedOn`**, run `npm run sync:content` to regenerate
+   `clownbot-lore.ts`, then `npm test`, then open a PR.
 
 ### Compile it with a strong model, not the chat model
 
