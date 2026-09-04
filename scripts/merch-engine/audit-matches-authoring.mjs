@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { auditCacheKey, tierForScore } from './audit-matches.mjs';
 import { extractReplacementImage } from './verify-images.mjs';
+import { callAnthropicMessages, extractToolUseInput } from '../lib/anthropic.mjs';
 
 export const MODEL = 'claude-sonnet-5';
 export const MAX_RUN_COST_USD = 5;
@@ -21,7 +22,6 @@ export const HYDRATION_BUDGET_MS = 5 * 60_000;
 export const IMAGE_FETCH_TIMEOUT_MS = 10_000;
 export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
-const ANTHROPIC_VERSION = '2023-06-01';
 const execFileAsync = promisify(execFile);
 const THINKING = { type: 'disabled' };
 const SUPPORTED_IMAGE_MEDIA_TYPES = new Set(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
@@ -249,12 +249,7 @@ export async function retailerOgImage(
 }
 
 function toolInput(body) {
-  const content = body?.content;
-  if (!Array.isArray(content)) return null;
-  return (
-    content.find((block) => block?.type === 'tool_use' && block.name === AUDIT_TOOL.name)?.input ??
-    null
-  );
+  return extractToolUseInput(body, { toolName: AUDIT_TOOL.name });
 }
 
 function imageFailure(message, status = null) {
@@ -291,14 +286,9 @@ export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
     imageContent(pair.productImageUrl, fetchImpl),
     imageContent(pair.momentImageUrl, fetchImpl),
   ]);
-  const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'x-api-key': apiKey,
-      'anthropic-version': ANTHROPIC_VERSION,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
+  const { raw } = await callAnthropicMessages(
+    apiKey,
+    {
       model: MODEL,
       max_tokens: 256,
       thinking: THINKING,
@@ -317,10 +307,10 @@ export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
           ],
         },
       ],
-    }),
-  });
-  if (!response.ok) throw new Error(`anthropic vision request failed (${response.status})`);
-  return toolInput(await response.json());
+    },
+    { fetchImpl, errorLabel: 'anthropic vision request' },
+  );
+  return toolInput(raw);
 }
 
 function isRetryableVisionError(error) {
