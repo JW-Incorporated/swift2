@@ -959,6 +959,58 @@ export interface EraMedia {
  * freely-licensed portrait. `credit` is not decoration — most of these are
  * CC BY-SA, where attribution is a licence condition.
  */
+/**
+ * Presentation metadata for each Thread (formerly "Lens"). The `what` line is
+ * the promise we make the instant someone opens a thread — it must answer
+ * "where am I and what am I exploring?" in one breath.
+ *
+ * `hero` is a real photograph of the thread's own subject (Joey, 2026-08-13:
+ * "they should all represent their subject matter"). Era album art was the
+ * original stand-in and is now only a fallback — `love-story` keeps one behind
+ * its tile grid. Two rules that come with a photo hero: it is a local file
+ * under `public/threads/`, fetched and downscaled by
+ * `scripts/images/thread-hero.mjs`, and it carries `heroAlt` + `heroCredit`
+ * describing exactly what its source caption claims, no more.
+ *
+ * `icon` is resolved in the component.
+ */
+export interface ThreadMeta {
+  id: LensId;
+  title: string;
+  kicker: string;
+  what: string;
+  hero: string;
+  /**
+   * `object-position` for `hero`, when the default centre crop loses the
+   * subject. Era art is square and needs none; a portrait photo cropped to a
+   * 16:10 card does.
+   */
+  heroPosition?: string;
+  /**
+   * Alt text for `hero`. Omitted = the image is decorative texture behind the
+   * thread's own title/blurb (true of the era-art heroes) and renders `alt=""`.
+   * Set it when the photo carries meaning the surrounding copy doesn't.
+   */
+  heroAlt?: string;
+  /**
+   * Photographer + licence for `hero`, rendered on the thread detail. Required
+   * by licence for anything CC BY / CC BY-SA; kept for public-domain photos
+   * too because saying where a photo came from is the site's standing habit.
+   * Threads whose hero is a tile grid derive this from the tiles instead
+   * (see `threadHeroCredit`).
+   */
+  heroCredit?: string;
+  /**
+   * The photo's Commons file page. Rendered as the credit's link, because
+   * CC BY 4.0 / CC BY-SA 4.0 §3(a)(1) ask for a URI to the licensed material
+   * "to the extent reasonably practicable" — a credit line naming a licence
+   * with no way to reach it satisfies the habit but not the condition. The
+   * Commons page is the right target: it carries the licence deed link, the
+   * full author record and the original file.
+   */
+  heroSourceUrl?: string;
+}
+
 export interface RelationshipImage {
   url: string;
   /** Photographer + licence, e.g. "Gage Skidmore · CC BY-SA 3.0". */
