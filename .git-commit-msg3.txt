@@ -1,0 +1,26 @@
+test(web): add cross-slice integration coverage for R21 composition
+
+Adds store/index.integration.test.ts covering the exact overlay-clearing
+contracts AppProvider's composed openThread/openEra/openCrossing apply
+(closeMomentAndEraGuides for openThread/openEra, closeMomentOnly for
+openCrossing) — the gap an independent fresh-context review flagged as
+missing after the earlier composition fix (755aa847). Can't renderHook
+AppProvider directly yet (no jsdom/@testing-library/react harness wired
+into this worktree - that lands with R19, not yet merged to main), so
+this drives the exact navReducer/overlaysReducer pair AppProvider
+composes and asserts the same field-clearing behavior traced from
+store/index.tsx, with a comment flagging it should be replaced by a true
+renderHook test once R19 lands.
+
+Also removes a stray review-notes scratch file that was accidentally
+git-added in the prior commit.
+
+Verified: npx tsc --noEmit in apps/web clean. npx vitest run
+apps/web/lib/longlive/store/ - 5 files, 41 tests, 0 failed. Full npx
+vitest run apps/web/ - 145 files, 2400 passed, 1 skipped, 4 failed under
+full-suite load; all 4 failures are in apps/web/app/api/notifications/**
+(untouched by this change) and pass cleanly in isolation
+(apps/web/app/api/notifications: 4 files, 23 tests, 0 failed) - a
+pre-existing resource-contention flake under full parallel load, not
+caused by this diff. npm run lint (repo-wide): 0 errors, 2 pre-existing
+unrelated warnings.
