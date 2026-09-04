@@ -34,7 +34,7 @@ jobs:
         run: node scripts/merch-engine/verify-images.mjs --input .artifacts/merch-links.json --write .artifacts/merch-images.json
       - name: Build bounded mender plan
         run: node scripts/merch-engine/mend-links.mjs --input .artifacts/merch-links.json --write .artifacts/merch-mend.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: merch-verify-report
           path: .artifacts/merch-*.json

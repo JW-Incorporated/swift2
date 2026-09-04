@@ -6,6 +6,7 @@ import {
   isDevicePlatform,
   type DeviceRegistrationInput,
 } from '@swift2/shared';
+import { trustedClientIp } from '../../../../lib/longlive/client-ip';
 
 // Notifications Phase 0 — POST /api/devices/register (NOTIFICATIONS_PLAN.md
 // Phase 0, NOTIFICATIONS_SPEC.md §2/§9). Upserts a `devices` row keyed by the
@@ -42,7 +43,7 @@ const clip = (s: unknown, n: number): string | undefined =>
 
 // Best-effort per-instance rate limit — same shape/posture as every other
 // public POST route in this repo (feedback/intake/submit-link/mood): blunts
-// accidental bursts, not a security guarantee behind a spoofable XFF header.
+// accidental bursts, not a global security guarantee.
 const HITS = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 20; // higher than the content-submission routes: a
@@ -104,10 +105,7 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ error: validated.error }, { status: 400 });
   }
 
-  const ip =
-    req.headers.get('x-real-ip')?.trim() ||
-    req.headers.get('x-forwarded-for')?.split(',').pop()?.trim() ||
-    'unknown';
+  const ip = trustedClientIp(req);
   if (rateLimited(ip)) {
     return NextResponse.json({ error: 'Please try again in a minute.' }, { status: 429 });
   }

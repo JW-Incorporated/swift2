@@ -13,6 +13,7 @@ import {
   UNCLEAR_MESSAGE,
   assessCrisis,
 } from '../../../lib/longlive/mood-safety';
+import { trustedClientIp } from '../../../lib/longlive/client-ip';
 
 // Mood Chat — Stage 4: the API route. See docs/proposals/2026-07-19-mood-chat.md
 // and docs/content-ops/mood-chat-safety-language.md.
@@ -53,12 +54,12 @@ function rateLimited(ip: string): boolean {
   return recent.length > RATE_MAX_PER_WINDOW;
 }
 
+// See lib/longlive/client-ip.ts's trustedClientIp for the #1973 rationale —
+// this route was migrated to it 2026-09-02 (security audit follow-up
+// t_07025f1e), replacing the spoofable-leftmost-XFF lookup that used to live
+// here directly.
 function clientIp(req: Request): string {
-  return (
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    req.headers.get('x-real-ip') ||
-    'unknown'
-  );
+  return trustedClientIp(req);
 }
 
 function unit(n: unknown): number | undefined {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { securityHeaders, FRAME_SRC, CSP_REPORT_PATH } from './security-headers.mjs';
+import { contentSecurityPolicy, securityHeaders, FRAME_SRC, CSP_REPORT_PATH } from './security-headers.mjs';
 
 const get = (headers: { key: string; value: string }[], key: string): string =>
   headers.find((h) => h.key.toLowerCase() === key.toLowerCase())?.value ?? '';
@@ -24,7 +24,7 @@ describe('securityHeaders — the always-on set', () => {
     expect(get(headers, 'X-Content-Type-Options')).toBe('nosniff');
     expect(get(headers, 'X-Frame-Options')).toBe('DENY');
     expect(get(headers, 'Referrer-Policy')).toBe('strict-origin-when-cross-origin');
-    expect(get(headers, 'Content-Security-Policy')).not.toBe('');
+    expect(get(headers, 'Content-Security-Policy')).toBe('');
   });
 
   it('does not opt into HSTS preload (irreversible; Wyatt’s call)', () => {
@@ -54,8 +54,8 @@ describe('securityHeaders — the always-on set', () => {
   });
 });
 
-describe('the ENFORCED policy', () => {
-  const csp = directives(get(securityHeaders(), 'Content-Security-Policy'));
+describe('the nonce-based enforcing policy', () => {
+  const csp = directives(contentSecurityPolicy({ nonce: 'test-nonce' }).join('; '));
 
   it('carries the clickjacking + injection-pivot controls', () => {
     expect(csp.get('frame-ancestors')).toBe("'none'");
@@ -64,38 +64,21 @@ describe('the ENFORCED policy', () => {
     expect(csp.get('object-src')).toBe("'none'");
   });
 
-  it('contains NO directive that can block a resource load', () => {
-    // This is the whole safety argument for enforcing on day one: a content PR
-    // adding a new image host, embed or script cannot be broken by any of
-    // these. If someone adds a fetch directive here, they have to move it into
-    // the report-only policy first and watch /api/csp-report.
-    const fetchDirectives = [
-      'default-src',
-      'script-src',
-      'style-src',
-      'img-src',
-      'font-src',
-      'connect-src',
-      'frame-src',
-      'media-src',
-      'worker-src',
-      'manifest-src',
-      'child-src',
-    ];
-    for (const d of fetchDirectives) expect(csp.has(d)).toBe(false);
+  it('allows only nonce-authorized inline scripts', () => {
+    expect(csp.get('script-src')).toContain("'nonce-test-nonce'");
+    expect(csp.get('script-src')).toContain("'strict-dynamic'");
+    expect(csp.get('script-src')).not.toContain("'unsafe-inline'");
+    expect(csp.get('style-src')).toContain("'nonce-test-nonce'");
+    expect(csp.get('style-src')).not.toContain("'unsafe-inline'");
+    expect(csp.get('style-src-attr')).toBe("'unsafe-inline'");
   });
 });
 
-describe('the REPORT-ONLY policy', () => {
-  const headers = securityHeaders();
-  const ro = directives(get(headers, 'Content-Security-Policy-Report-Only'));
-
-  it('is report-only, so nothing it says can blank a page', () => {
-    expect(get(headers, 'Content-Security-Policy-Report-Only')).not.toBe('');
-  });
+describe('the resource policy', () => {
+  const csp = directives(contentSecurityPolicy({ nonce: 'test-nonce' }).join('; '));
 
   it('allows every embed host the components actually mount', () => {
-    const frameSrc = ro.get('frame-src') ?? '';
+    const frameSrc = csp.get('frame-src') ?? '';
     for (const host of FRAME_SRC) expect(frameSrc).toContain(host);
     // The four embeds on the site today.
     expect(frameSrc).toContain('youtube-nocookie.com');
@@ -104,54 +87,34 @@ describe('the REPORT-ONLY policy', () => {
   });
 
   it('keeps img-src permissive on purpose — ~500 hotlinked hosts and growing', () => {
-    const img = ro.get('img-src') ?? '';
+    const img = csp.get('img-src') ?? '';
     expect(img).toContain('https:');
     expect(img).toContain('data:');
     // ...but still forbids plaintext image loads.
     expect(img).not.toContain('http:');
   });
 
-  it('allows inline styles (every component uses style={{...}})', () => {
-    expect(ro.get('style-src')).toContain("'unsafe-inline'");
-  });
-
   it('allows the Vercel Analytics script + beacon on both prod and dev paths', () => {
     // Prod is same-origin (/_vercel/insights/*); dev pulls the debug build.
-    expect(ro.get('script-src')).toContain("'self'");
-    expect(ro.get('script-src')).toContain('https://va.vercel-scripts.com');
-    expect(ro.get('connect-src')).toContain("'self'");
-  });
-
-  it('omits frame-ancestors (browsers ignore it report-only)', () => {
-    expect(ro.has('frame-ancestors')).toBe(false);
+    expect(csp.get('script-src')).toContain("'self'");
+    expect(csp.get('script-src')).toContain('https://va.vercel-scripts.com');
+    expect(csp.get('connect-src')).toContain("'self'");
   });
 
   it('points violations at the report sink', () => {
-    expect(ro.get('report-uri')).toBe(CSP_REPORT_PATH);
-    expect(get(headers, 'Reporting-Endpoints')).toContain(CSP_REPORT_PATH);
+    expect(csp.get('report-uri')).toBe(CSP_REPORT_PATH);
+    expect(get(securityHeaders(), 'Reporting-Endpoints')).toContain(CSP_REPORT_PATH);
   });
 
   it('adds unsafe-eval ONLY in dev (Next’s dev bundler needs it; prod does not)', () => {
     const prod = directives(
-      get(securityHeaders({ dev: false }), 'Content-Security-Policy-Report-Only'),
+      contentSecurityPolicy({ nonce: 'test-nonce', dev: false }).join('; '),
     );
     const dev = directives(
-      get(securityHeaders({ dev: true }), 'Content-Security-Policy-Report-Only'),
+      contentSecurityPolicy({ nonce: 'test-nonce', dev: true }).join('; '),
     );
     expect(prod.get('script-src')).not.toContain('unsafe-eval');
     expect(dev.get('script-src')).toContain("'unsafe-eval'");
     expect(dev.get('connect-src')).toContain('ws:');
-  });
-});
-
-describe('the flip to enforcing', () => {
-  const headers = securityHeaders({ enforceResourcePolicy: true });
-
-  it('merges both policies into one enforcing header and drops report-only', () => {
-    const csp = directives(get(headers, 'Content-Security-Policy'));
-    expect(csp.get('frame-ancestors')).toBe("'none'");
-    expect(csp.get('default-src')).toBe("'self'");
-    expect(csp.get('frame-src')).toContain('open.spotify.com');
-    expect(get(headers, 'Content-Security-Policy-Report-Only')).toBe('');
   });
 });
