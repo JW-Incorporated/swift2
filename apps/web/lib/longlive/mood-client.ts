@@ -27,13 +27,23 @@
 
 import { MOOD_AXES, type MoodAxis } from './types';
 import type { MoodQuery } from './mood-match';
-import type { MoodUsage } from './mood-usage';
+import { MOOD_DAILY_CAP, MOOD_GLOBAL_SCOPE, type MoodUsage } from './mood-usage';
 import { MOOD_SYSTEM_PROMPT } from './mood-prompt';
+import { reserveGlobalUsage } from './usage-db-gate';
 
 const MODEL = 'claude-sonnet-5';
 const ANTHROPIC_VERSION = '2023-06-01';
 const MAX_TOKENS = 1_024;
 const REQUEST_TIMEOUT_MS = 8_000;
+
+/** Kill switch, an env flag — parity with Clownbot's `CLOWN_MODEL_DISABLED`
+ * (`clown-client.ts`). Neither feature had a dedicated standing switch of
+ * its own before Clownbot's; Mood Chat previously only ever degraded on a
+ * missing key or an exhausted cap. An operator can now force Mood Chat's
+ * degraded (keyword-matcher) path without touching the key or the cap.
+ * Checked BEFORE `reserveGlobalUsage()` so flipping it costs nothing — same
+ * ordering `clownModelKey()` uses. */
+const MOOD_MODEL_DISABLED_ENV = 'MOOD_MODEL_DISABLED';
 
 /**
  * Thinking OFF, explicitly.
@@ -171,14 +181,16 @@ async function attempt(apiKey: string, text: string): Promise<Classification> {
  * Classify a reader's feeling, or return null to signal "fall back to keywords".
  *
  * null is returned — never an exception surfaced — for every expected degraded
- * state: no API key, daily cap reached, or two consecutive failed attempts.
- * The one budget reservation covers both attempts (a retry is the same logical
- * call, not a second one against the cap).
+ * state: no API key, the kill switch, the daily cap reached (in-process OR the
+ * durable cross-instance DB gate — `reserveGlobalUsage`), or two consecutive
+ * failed attempts. The one budget reservation covers both attempts (a retry is
+ * the same logical call, not a second one against the cap).
  */
 export async function classifyMood(usage: MoodUsage, text: string): Promise<Classification | null> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return null;
-  if (!usage.reserve()) return null;
+  if (process.env[MOOD_MODEL_DISABLED_ENV] === '1') return null;
+  if (!(await reserveGlobalUsage(usage, MOOD_GLOBAL_SCOPE, MOOD_DAILY_CAP))) return null;
 
   try {
     return await attempt(apiKey, text);

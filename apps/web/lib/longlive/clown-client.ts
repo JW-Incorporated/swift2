@@ -34,7 +34,8 @@
  */
 
 import type { ClownDoc } from './clown-index';
-import type { ClownUsage } from './clown-usage';
+import { CLOWN_DAILY_CAP, CLOWN_GLOBAL_SCOPE, type ClownUsage } from './clown-usage';
+import { reserveGlobalUsage } from './usage-db-gate';
 import { CLOWN_SYSTEM_PROMPT, CLOWN_TAKE_TOOL } from './clown-client-prompt';
 
 /**
@@ -314,7 +315,7 @@ export async function askClown(
   const capped = transcript.slice(-MAX_TRANSCRIPT_TURNS);
   if (capped.length === 0 || capped[capped.length - 1].role !== 'user') return null;
 
-  if (!usage.reserve()) return null;
+  if (!(await reserveGlobalUsage(usage, CLOWN_GLOBAL_SCOPE, CLOWN_DAILY_CAP))) return null;
 
   const messages = buildMessages(capped, docs);
 
