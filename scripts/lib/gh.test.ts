@@ -81,6 +81,20 @@ describe('planRest — pr list is repo-scoped (#1869)', () => {
     expect(p.sortBy).toBe('mergedAt');
   });
 
+  it('sorts --state all by `updated`, not `created` (#3671/#3652)', () => {
+    // Marjorie's `allPRs` liveness feed asks for `--state all`. Sorting by
+    // `created` ranks a PR by when it was OPENED, so a PR opened weeks ago
+    // and merged an hour ago sorts behind every PR opened more recently —
+    // pushing it past the page/limit window and reading its runner as
+    // "never seen" on the very day it shipped. `updated` keeps recently
+    // merged/active PRs on page 1 regardless of how old the branch is.
+    const p = planRest(['pr', 'list', '--repo', REPO, '--state', 'all', '--limit', '100', '--json', 'number,title,createdAt,mergedAt,headRefName'], REPO);
+    expect(p.path).not.toContain('/search');
+    expect(qs(p.path).get('state')).toBe('all');
+    expect(qs(p.path).get('sort')).toBe('updated');
+    expect(qs(p.path).get('direction')).toBe('desc');
+  });
+
   it('keeps only merged PRs, newest merge first, capped at --limit', () => {
     const hits = [
       { number: 1, merged_at: '2026-08-09T00:00:00Z' },

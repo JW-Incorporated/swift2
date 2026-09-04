@@ -525,9 +525,19 @@ export function planRest(args, repoFallback) {
       // open/closed/all, so ask for closed and keep the merged ones. Sorting by
       // `updated` desc guarantees anything merged recently is on page 1 — a PR
       // merge is an update.
+      //
+      // `--state all` gets the SAME `updated` sort, and for the same reason
+      // (#3671/#3652). `sort=created` ranks by PR-open time, so a PR opened
+      // weeks ago and merged an hour ago sorts by its stale creation date —
+      // newer-but-still-open PRs bury it past the page/limit window and its
+      // runner reads as "never seen" even though it just shipped. Only a
+      // caller wanting PRs ranked purely by open date (none currently do)
+      // would want `created` for `all`; every existing `all` caller
+      // (Marjorie's `checkRunners` liveness feed) wants recent ACTIVITY,
+      // merges included.
       const merged = state === 'merged';
       const restState = merged ? 'closed' : state === 'all' ? 'all' : state;
-      const sort = merged ? 'updated' : 'created';
+      const sort = merged || restState === 'all' ? 'updated' : 'created';
       return {
         method: 'GET',
         path: `/repos/${repo}/pulls?state=${restState}&sort=${sort}&direction=desc&per_page=${PER_PAGE}`,
