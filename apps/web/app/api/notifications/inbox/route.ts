@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { getInboxEvents } from '@swift2/core';
 import { trustedClientIp } from '../../../../lib/longlive/client-ip';
+import { supabaseAdmin } from '../../../../lib/supabase-server';
 
 // Notifications Phase 3 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §8) —
 // GET /api/notifications/inbox. Same SERVICE-ROLE-ONLY posture as every
@@ -13,15 +13,6 @@ import { trustedClientIp } from '../../../../lib/longlive/client-ip';
 // worry about beyond the standard per-IP guard every public route here uses.
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-
-function supabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
 
 const HITS = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
