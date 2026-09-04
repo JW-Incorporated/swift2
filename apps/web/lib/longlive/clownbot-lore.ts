@@ -1,6 +1,6 @@
 // GENERATED FILE — do not hand-edit.
 // Produced by scripts/sync-clownbot-lore.mjs from
-// supabase/seed/content/clownbot-lore.mjs (the authored source of truth,
+// supabase/seed/clownbot-lore/clownbot-lore.mjs (the authored source of truth,
 // per Fable ruling FR-t_2745eb60-1, #3515).
 // Re-run `npm run sync:content` after editing the seed; don't edit this file directly.
 //

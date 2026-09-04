@@ -7,8 +7,8 @@
 //
 // Fable ruling FR-t_2745eb60-1 (#3515): the fallback data moves from
 // hand-authored app source to a seed-authored source (this generator, reading
-// supabase/seed/content/clownbot-lore.mjs), keeping refresh inside the
-// existing seed-only Vault Run lane. `apps/web/lib/longlive/clownbot-lore.ts`
+// supabase/seed/clownbot-lore/clownbot-lore.mjs), keeping its refresh inside
+// the existing seed-only Vault Run lane. `apps/web/lib/longlive/clownbot-lore.ts`
 // is now GENERATED — never hand-edit it; edit the seed file and run
 // `npm run sync:content` (or this script directly).
 //
@@ -154,7 +154,7 @@ export function renderModule({ updatedOn, items }) {
   const lines = [];
   lines.push('// GENERATED FILE — do not hand-edit.');
   lines.push('// Produced by scripts/sync-clownbot-lore.mjs from');
-  lines.push('// supabase/seed/content/clownbot-lore.mjs (the authored source of truth,');
+  lines.push('// supabase/seed/clownbot-lore/clownbot-lore.mjs (the authored source of truth,');
   lines.push('// per Fable ruling FR-t_2745eb60-1, #3515).');
   lines.push(
     "// Re-run `npm run sync:content` after editing the seed; don't edit this file directly.",
