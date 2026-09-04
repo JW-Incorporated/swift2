@@ -18,6 +18,7 @@ import { basename } from 'node:path';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { serviceClient } from './lib/supabase.mjs';
+import { runMain } from './lib/cli.mjs';
 
 export const BUCKET = 'facebook-exports';
 
@@ -64,7 +65,7 @@ async function main() {
   const files = process.argv.slice(2);
   if (files.length === 0) {
     console.error('knowledge:fb-upload: usage: npm run knowledge:fb-upload -- <file.html> [more files...]');
-    process.exit(1);
+    return 1;
   }
 
   const supabase = serviceClient();
@@ -72,7 +73,7 @@ async function main() {
     console.error(
       'knowledge:fb-upload: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set (expected in apps/worker/.env).',
     );
-    process.exit(1);
+    return 1;
   }
 
   const created = await ensureBucket(supabase);
@@ -84,14 +85,11 @@ async function main() {
   }
   const okCount = results.filter((r) => r.ok).length;
   console.log(`knowledge:fb-upload: ${okCount}/${results.length} uploaded`);
-  if (okCount < results.length) process.exitCode = 1;
+  if (okCount < results.length) return 1;
 }
 
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error('knowledge:fb-upload: crashed:', err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'knowledge-fb-upload' });
 }

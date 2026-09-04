@@ -35,6 +35,7 @@ import {
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
+import { runMain } from './lib/cli.mjs';
 
 // slugify now lives in the dependency-free shared module (so the content-engine
 // can import it without @supabase/supabase-js); re-exported here because
@@ -929,8 +930,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'sync-longlive-content' });
 }

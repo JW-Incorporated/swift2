@@ -29,6 +29,7 @@ import { readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ROOT, SLUG_TO_ERA_ID, esc } from './lib/longlive-sync-shared.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const TRACKS_SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'tracks');
 const MOODS_SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'song-moods');
@@ -358,7 +359,7 @@ async function main() {
     console.error('\n✖ song-moods score errors:');
     for (const e of errors) console.error('    ' + e);
     console.error('\nFix the score files under supabase/seed/song-moods/** and re-run.\n');
-    process.exit(1);
+    return 1;
   }
 
   const scoreEntries = rawScores.map(({ eraId, raw }) => ({
@@ -380,8 +381,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'sync-song-moods' });
 }

@@ -4,6 +4,7 @@
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { runMain } from '../lib/cli.mjs';
 
 const STORE_URL = 'https://store.taylorswift.com';
 const REQUEST_INTERVAL_MS = 1000;
@@ -607,8 +608,5 @@ async function main() {
 
 const self = fileURLToPath(import.meta.url);
 if (process.argv[1] && resolve(process.argv[1]) === self) {
-  main().catch((error) => {
-    console.error(`merch-official-sync: ${error.message}`);
-    process.exitCode = 1;
-  });
+  runMain(main, { name: 'sync-official' });
 }

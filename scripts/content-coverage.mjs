@@ -28,6 +28,7 @@ import {
   QUOTE_WARN_CHARS,
   SHALLOW_CONTEXT_CHARS,
 } from './lib/content-caps.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const seed = join(here, '..', 'supabase', 'seed');
@@ -176,6 +177,7 @@ function privateDataHits(text) {
 // Load the corpus
 // ---------------------------------------------------------------------------
 
+async function main() {
 const { eras, milestones } = await import(pathToFileURL(join(seed, 'eras-data.mjs')).href);
 
 async function loadSeedDir(dir, listKey) {
@@ -505,10 +507,13 @@ console.log('');
 if (hardFails.length) {
   console.error(`HARD FAIL — ${hardFails.length} policy violation(s):`);
   for (const f of hardFails) console.error(`  ✗ ${f}`);
-  process.exit(1);
+  return 1;
 }
 console.log(
   `✓ no hard-fail conditions (lyrics dumps / article dumps / private-location data / unstable identity) across ` +
     `${content.rows.length} items + ${tracks.rows.length} track notes + ${releases.rows.length} releases + ` +
     `${tours.rows.length} tours + ${theories.rows.length} theories + ${videos.rows.length} videos`,
 );
+}
+
+runMain(main, { name: 'content-coverage' });

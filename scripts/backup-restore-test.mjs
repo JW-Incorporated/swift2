@@ -55,6 +55,7 @@ import { join, dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { makeClient, describeConnection } from './lib/pg.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(here, '..');
@@ -613,7 +614,7 @@ Backup + restore drill (launch gate BACKUPS, #680). See docs/backup-restore.md.
   --json               print the JSON report to stdout
 `;
 
-async function main() {
+async function run() {
   const opts = parseArgs(process.argv.slice(2));
   if (opts.help) {
     console.log(USAGE);
@@ -931,26 +932,26 @@ async function runSpotChecks(client) {
 
 const truncate = (s, n) => (s.length > n ? s.slice(0, n) + '…' : s);
 
+// A restore that blows up mid-flight (an FK violation from a truncated
+// backup, a dead connection) is a FAILED DRILL, not a stack trace. Say so
+// in the same voice as a checksum mismatch so CI output reads the same way,
+// instead of letting runMain's generic `[name] error:` line take over.
+async function main() {
+  try {
+    return await run();
+  } catch (err) {
+    console.error('\n== verdict ==============================================');
+    console.error(`\n  FAIL — the drill did not complete: ${err?.message ?? err}`);
+    if (process.env.BRT_DEBUG) console.error(err);
+    else console.error('  (set BRT_DEBUG=1 for the full stack)');
+    return 1;
+  }
+}
+
 // Run only when invoked directly — the unit tests import this module for
 // checkTarget/checksumRows and must not kick off a drill.
 const invokedDirectly =
   process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url));
 if (invokedDirectly) {
-  let code;
-  try {
-    code = await main();
-  } catch (err) {
-    // A restore that blows up mid-flight (an FK violation from a truncated
-    // backup, a dead connection) is a FAILED DRILL, not a stack trace. Say so
-    // in the same voice as a checksum mismatch so CI output reads the same way.
-    console.error('\n== verdict ==============================================');
-    console.error(`\n  FAIL — the drill did not complete: ${err?.message ?? err}`);
-    if (process.env.BRT_DEBUG) console.error(err);
-    else console.error('  (set BRT_DEBUG=1 for the full stack)');
-    code = 1;
-  }
-  // Exit explicitly. Everything this script owns is closed by the time main()
-  // returns, but the optional embedded cluster is an external process and a
-  // stray handle must not turn a finished drill into a hung CI job.
-  process.exit(code);
+  runMain(main, { name: 'backup-restore-test' });
 }

@@ -17,6 +17,7 @@ import { writeFileSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { gh } from './lib/gh.mjs';
 import { FB_GROUPS_CHECKLIST } from './knowledge/fb-groups-checklist.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const DRY_RUN = process.env.DRY_RUN === 'true';
 
@@ -100,8 +101,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error('fb-export-reminder:', err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'knowledge-fb-export-reminder' });
 }

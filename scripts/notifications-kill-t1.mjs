@@ -18,6 +18,7 @@
 // even if `--kill` runs a moment before the 5-minute delay elapses.
 import { pathToFileURL } from 'node:url';
 import { serviceClient } from './lib/supabase.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const T1_CATEGORIES = ['song_drop', 'album_news', 'tour_news'];
 
@@ -95,12 +96,9 @@ async function main() {
   }
 
   console.error('usage: notifications-kill-t1.mjs --list | --kill <event-id>');
-  process.exitCode = 2;
+  return 2;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  main().catch((error) => {
-    console.error(`notifications-kill-t1: ${error.message}`);
-    process.exitCode = 1;
-  });
+  runMain(main, { name: 'notifications-kill-t1' });
 }
