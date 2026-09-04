@@ -117,14 +117,22 @@ describe('freshness is reported honestly', () => {
 });
 
 describe('scheduled refresh ownership', () => {
-  it('connects the scheduled Rumor Desk lane to the Clownbot fallback file (#1997)', () => {
+  it('connects the scheduled Rumor Desk lane to the Clownbot fallback seed (Fable ruling FR-t_2745eb60-1, #3515)', () => {
     const root = resolve(import.meta.dirname, '../../../..');
     const lane = readFileSync(
       resolve(root, 'docs/agents/runner-prompts/vault-lanes/4-rumor-desk.md'),
       'utf8',
     );
-    expect(lane).toContain('apps/web/lib/longlive/clownbot-lore.ts');
-    expect(lane).toContain('LORE_UPDATED_ON');
+    // Post-migration: the lane instructs editing the SEED file and
+    // regenerating, not hand-editing the runtime .ts files.
+    expect(lane).toContain('supabase/seed/clownbot-lore/clownbot-lore.mjs');
+    expect(lane).toContain('sync:content');
     expect(lane).toContain('lastCheckedOn');
+  });
+
+  it('the generator wires the seed into sync:content', () => {
+    const root = resolve(import.meta.dirname, '../../../..');
+    const pkg = readFileSync(resolve(root, 'package.json'), 'utf8');
+    expect(pkg).toContain('sync-clownbot-lore.mjs');
   });
 });
