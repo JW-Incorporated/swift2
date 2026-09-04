@@ -3,7 +3,8 @@
  * session resolution.
  *
  * `apps/web` deliberately has no `@supabase/supabase-js` dependency (see
- * `lib/live-theories-data.ts`'s header) — this module talks to Supabase Auth
+ * `lib/current.ts`'s `loadLiveTheories`/`loadFanSignals` header comment) —
+ * this module talks to Supabase Auth
  * (GoTrue) and PostgREST the same way, raw `fetch()` over each REST endpoint,
  * rather than adding the SDK for one feature.
  *
