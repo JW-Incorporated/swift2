@@ -44,6 +44,7 @@ export const SYNC_TARGETS = [
   { sync: 'scripts/sync-song-moods.mjs', out: `${GENERATED_DIR}/song-moods.generated.ts` },
   { sync: 'scripts/sync-clownbot-lore.mjs', out: `${GENERATED_DIR}/clownbot-lore.generated.ts` },
   { sync: 'scripts/sync-longlive-merch.mjs', out: `${GENERATED_DIR}/merch.generated.ts` },
+  { sync: 'scripts/sync-longlive-lenses.mjs', out: `${GENERATED_DIR}/lenses.generated.ts` },
 ];
 
 /** Repo-relative POSIX paths of the generated artifacts, in sync order. */
