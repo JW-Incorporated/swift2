@@ -11,6 +11,7 @@ import { answerFromFallback, type ClownAnswer } from './clown-answer';
 import { MAX_TRANSCRIPT_TURNS, type ClownTurn } from './clown-client';
 import { composeFallback } from './clown-fallback';
 import type { ClownStreamEvent } from './clown-stream';
+import { trustedClientIp } from './client-ip';
 
 /** A question, not an essay — well above the composer's 300-char UI cap. */
 export const MAX_TEXT = 600;
@@ -31,12 +32,12 @@ export function rateLimited(ip: string): boolean {
   return recent.length > RATE_MAX_PER_WINDOW;
 }
 
+// See client-ip.ts's trustedClientIp for the #1973 rationale — this route
+// was migrated to it 2026-09-02 (security audit follow-up t_07025f1e),
+// replacing the spoofable-leftmost-XFF lookup that used to live here
+// directly.
 export function clientIp(req: Request): string {
-  return (
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    req.headers.get('x-real-ip') ||
-    'unknown'
-  );
+  return trustedClientIp(req);
 }
 
 interface RawTurn {

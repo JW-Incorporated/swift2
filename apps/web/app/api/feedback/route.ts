@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+import { trustedClientIp } from '../../../lib/longlive/client-ip';
+
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
 // `feedback:user` marker, and a "Reported by: User" header) so it can be
@@ -61,26 +63,10 @@ function rateLimited(ip: string): boolean {
   return recent.length > MAX_PER_WINDOW;
 }
 
-// Trust ONLY the header layer Vercel's own edge controls, not whatever a
-// client hands us (#1973). `x-forwarded-for` is a client-EXTENDABLE chain —
-// each proxy APPENDS its own hop, it never overwrites earlier entries — so
-// the FIRST (leftmost) value is attacker-supplied; sending a random XFF per
-// request used to buy a fresh, never-limited bucket every time. `x-real-ip`
-// is set by Vercel's edge network from the actual peer of the request that
-// reached it, not forwarded through from a client-sent header of the same
-// name, so it's the trustworthy value; the rightmost `x-forwarded-for` entry
-// (the hop Vercel's own edge appended) is the fallback if `x-real-ip` is ever
-// absent.
-export function trustedClientIp(req: Request): string {
-  const real = req.headers.get('x-real-ip')?.trim();
-  if (real) return real;
-  const xff = req.headers.get('x-forwarded-for');
-  if (xff) {
-    const hops = xff.split(',').map((h) => h.trim()).filter(Boolean);
-    if (hops.length) return hops[hops.length - 1];
-  }
-  return 'unknown';
-}
+// See lib/longlive/client-ip.ts's trustedClientIp for the #1973 rationale
+// (re-exported here so any existing importer of this route's trustedClientIp
+// keeps working — the implementation itself now lives in one shared place).
+export { trustedClientIp } from '../../../lib/longlive/client-ip';
 
 const clip = (s: unknown, n: number): string =>
   typeof s === 'string' ? s.slice(0, n) : '';

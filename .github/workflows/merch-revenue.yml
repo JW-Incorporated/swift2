@@ -33,7 +33,7 @@ jobs:
       - name: Generate configured network revenue report
         run: npm run merch:revenue -- --input scripts/merch-engine/data/revenue-report-inputs.json
       - name: Retain the report with this run
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: merch-revenue-report
           path: docs/ops/MERCH-REVENUE.json

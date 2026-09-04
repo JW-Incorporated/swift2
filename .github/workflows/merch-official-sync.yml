@@ -44,20 +44,20 @@ jobs:
         with:
           node-version: '24'
       - name: Restore conditional-request validators
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: official-sync-cache.json
           key: merch-official-sync-${{ github.run_id }}
           restore-keys: merch-official-sync-
       - name: Fetch official-store change handoff
         run: node scripts/merch-engine/sync-official.mjs --detect --write-plan official-sync-plan.json --cache official-sync-cache.json --current supabase/seed/merch/official.mjs
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: merch-official-sync-plan
           path: official-sync-plan.json
           if-no-files-found: error
       - name: Save conditional-request validators
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: official-sync-cache.json
           key: merch-official-sync-${{ github.run_id }}
@@ -83,7 +83,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - name: Download the detected sync plan
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: merch-official-sync-plan
       - name: Author the official catalog from the plan

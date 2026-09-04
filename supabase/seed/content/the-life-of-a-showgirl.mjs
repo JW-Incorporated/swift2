@@ -3542,9 +3542,9 @@ export default {
             reportedOn: '2026-08-25',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-romantic-green-dress-005404690.html',
-            note: "A fan color-symbolism reading carried by entertainment outlets, not a report of any plan — the underlying source is Swiftie easter-egg speculation, so it rides at tabloid tier. Distinct from the TS13 (new album No. 13) tips above: this one points at the debut re-record specifically. Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if it goes quiet. No location.",
+            note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan — tabloid tier. Points at the debut re-record specifically (distinct from the TS13 tips above). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Re-verified STILL LIVE 2026-09-02: fresh Icon Sessions easter-egg cluster (PureWow, Yardbarker), nothing announced.",
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-25',
+            lastCheckedOn: '2026-09-02',
           },
           // Rumor Desk 2026-08-29 (news-digest, first-seen 2026-08-28): a fresh,
           // post-wedding data point on the same next-record thread as the TS13
@@ -12567,6 +12567,121 @@ export default {
         // individual is exactly what the redlines guard against. Left for the
         // social-post-missing / photo-sparsity checkers to route to Photo
         // Enrichment rather than force a picture here.
+      },
+    },
+    {
+      slug: 'showgirl-kelce-bratenahl-home',
+      year: 2026,
+      month: 9,
+      day: 1,
+      category: 'business',
+      title: "Travis Kelce's $5.35 million lakefront home in Ohio surfaces months before the wedding",
+      snippet:
+        'Public property records showed Travis Kelce closed on a $5.35 million lakefront home in Bratenahl, Ohio — a village east of downtown Cleveland, a few miles from where he grew up — in March 2026, about four months before the couple married at Madison Square Garden. It broke publicly in early September.',
+      sourceUrl:
+        'https://www.news5cleveland.com/news/local-news/travis-kelce-buys-lakefront-home-in-bratenahl-east-of-downtown-cleveland-for-5-35-million',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'It was a matter of public record, which is how it surfaced at all: Travis Kelce closed on a $5.35 million lakefront property in Bratenahl, Ohio — a village on Lake Erie just east of downtown Cleveland, a few miles from where the Chiefs tight end grew up — back in March 2026, roughly four months before he and Taylor married at Madison Square Garden on July 3. Local Cleveland outlets and national entertainment press picked it up in early September, reporting it as a home for the couple; the deed names Travis as the purchaser.\n\nWhat the coverage amounts to is the fact of the purchase, its price, the village, and its timing against the wedding — a professional-athlete real-estate deal that happens to sit inside the biggest personal year of his life, closed quietly that spring and only reported now. This entry deliberately stops there. A home the couple actually lives in is capped by Long Live\'s privacy rules at city/village level no matter how many outlets print the street, the house\'s nickname, or its room count — so the address, the name, and the physical description that all circulated are left out here on purpose, and no photograph of the property is attached.',
+        sources: [
+          {
+            outlet: 'News 5 Cleveland',
+            url: 'https://www.news5cleveland.com/news/local-news/travis-kelce-buys-lakefront-home-in-bratenahl-east-of-downtown-cleveland-for-5-35-million',
+            source_title:
+              'Travis Kelce buys lakefront home in Bratenahl, east of downtown Cleveland, for $5.35 million',
+            publisher: 'News 5 Cleveland (WEWS)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Cleveland 19 News',
+            url: 'https://www.cleveland19.com/2026/09/02/travis-kelce-taylor-swift-buy-home-bratenahl/',
+            source_title: 'Travis Kelce and Taylor Swift buy lakefront home in Bratenahl',
+            publisher: 'Cleveland 19 News (WOIO)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-5-115116247.html',
+            source_title: 'Taylor Swift, Travis Kelce have a new $5.35M home in Ohio',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/09/01/travis-kelce-bought-lakefront-ohio-mansion-before-taylor-swift-wedding/',
+            source_title:
+              'Travis Kelce Bought $5.3 Million Lakefront Ohio Mansion Months Before Taylor Swift Wedding',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 2,
+          },
+        ],
+        // Residence item: capped at village level per privacy-redlines.md's
+        // residence rule (L1, regardless of provenance). No street, no house
+        // nickname, no bed/bath/acreage/amenity description, and no photo of
+        // the property — every one of those circulated in the coverage and is
+        // deliberately withheld. There is intentionally nothing here for Photo
+        // Enrichment to backfill: imagery of an occupied residence is exactly
+        // what the redline exists to withhold.
+      },
+    },
+    {
+      slug: 'showgirl-caitlin-clark-friendship-bracelet-nike',
+      year: 2026,
+      month: 8,
+      day: 30,
+      category: 'fashion',
+      title: "Nike gives Caitlin Clark's signature shoe a Taylor-inspired \"Friendship Bracelet\" colorway",
+      snippet:
+        'Nike unveiled a "Friendship Bracelet" colorway of Caitlin Clark\'s signature Caitlin 1 sneaker — pastel tie-dye with fuzzy beaded laces built to mimic the bracelets Swifties trade at shows, the beads spelling out Clark\'s initials and number. WWD reported a $150 pair for a February release.',
+      sourceUrl:
+        'https://wwd.com/footwear-news/sneaker-news/nike-caitlin-1-friendship-bracelet-release-date-ih7423-300-1239175022/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor\'s fingerprints on the wider culture turned up this time on a basketball shoe. Nike unveiled a Taylor Swift-inspired "Friendship Bracelet" colorway of Caitlin Clark\'s signature sneaker, the Caitlin 1 — a Pearl Pink, Summit White, Metallic Silver and Racer Blue makeup with a washed pastel tie-dye upper, finished with fuzzy laces strung with beads and charms to echo the friendship bracelets Swifties trade at shows. The beads at the bottom of the laces spell out Clark\'s initials on one shoe and her jersey number on the other. WWD, which broke the look, reported a $150 price and a release expected in late February via Nike.com.\n\nThe tie is not accidental. Clark is an openly devoted Swiftie — she has shown off her own Eras Tour bracelets courtside — and the shoe reads as Nike leaning into that overlap between her fandom and Taylor\'s, the same bracelet-trading ritual the Eras Tour turned into a mass fan language. It sits alongside the Vault\'s earlier Clark thread, the October night the two sat together in the suite at Arrowhead. This is a product announcement rather than anything about Taylor herself: no involvement by her or her team is claimed, only the design\'s stated inspiration, and the exact release date is the one detail still soft across the coverage.',
+        sources: [
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/footwear-news/sneaker-news/nike-caitlin-1-friendship-bracelet-release-date-ih7423-300-1239175022/',
+            source_title:
+              "Best Look Yet: Caitlin Clark's Nike Caitlin 1 Sneaker Is Getting a Taylor Swift-inspired 'Friendship Bracelet' Release",
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/wnba/story/_/id/49743667/nike-caitlin-clark-1-taylor-swift-new-sneakers-friendship-bracelet-indiana-fever',
+            source_title: "Caitlin Clark debuts 'Friendship Bracelet' colorway inspired by Taylor Swift",
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Sports',
+            url: 'https://sports.yahoo.com/articles/caitlin-clark-teases-release-taylor-193314410.html',
+            source_title: 'Caitlin Clark teases release of Taylor Swift inspired Nike shoes',
+            publisher: 'Yahoo Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 3,
+          },
+        ],
+        // No photo attached: the only images are Nike/retailer product shots
+        // and on-court press photography, none on an allowlisted reusable host
+        // and none a non-expiring URL. Left for the photo-sparsity checker to
+        // route to Photo Enrichment if a reusable image surfaces.
       },
     },
   ],

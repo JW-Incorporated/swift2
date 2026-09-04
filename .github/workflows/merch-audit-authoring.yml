@@ -40,7 +40,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       # Restore the newest completed receipt so previously judged pairs remain cached.
-      - uses: actions/cache/restore@v5
+      - uses: actions/cache/restore@v6
         with:
           path: .cache/merch-audit-authoring.json
           # Keyed on the literal `main`, not github.ref_name (P2 review
@@ -56,7 +56,7 @@ jobs:
       # Restore the newest renewable score cache (issue #3447 P1): a fixed
       # pinned key can never absorb a newly scored pair, so this key carries
       # the run id and the prefix restore always picks up the latest save.
-      - uses: actions/cache/restore@v5
+      - uses: actions/cache/restore@v6
         with:
           path: .cache/merch-audit-scores.json
           key: merch-audit-scores-v1-main-${{ github.run_id }}
@@ -132,7 +132,7 @@ jobs:
       - name: Update the reusable authoring receipt
         if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.artifacts/merch-audit-authoring.json') != '' }}
         run: cp .artifacts/merch-audit-authoring.json .cache/merch-audit-authoring.json
-      - uses: actions/cache/save@v5
+      - uses: actions/cache/save@v6
         if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.cache/merch-audit-authoring.json') != '' }}
         with:
           path: .cache/merch-audit-authoring.json
@@ -156,14 +156,14 @@ jobs:
           mkdirSync('.cache', { recursive: true });
           writeFileSync(cachePath, `${JSON.stringify(cache, null, 2)}\n`);
           NODE
-      - uses: actions/cache/save@v5
+      - uses: actions/cache/save@v6
         if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.cache/merch-audit-scores.json') != '' }}
         with:
           path: .cache/merch-audit-scores.json
           key: merch-audit-scores-v1-main-${{ github.run_id }}
       - name: Upload auditable authoring artifact
         if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.artifacts/merch-audit-authoring.json') != '' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: merch-audit-authoring-artifact
           path: |
@@ -209,7 +209,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - name: Download the authoring artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: merch-audit-authoring-artifact
       - name: Remove demoted products from moment content
