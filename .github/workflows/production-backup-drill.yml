@@ -35,6 +35,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
   group: production-backup-drill
@@ -87,6 +88,7 @@ jobs:
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
         run: |
+          set -o pipefail
           node scripts/backup-restore-test.mjs \
             --source "$SUPABASE_DB_URL" \
             --target "postgres://postgres:postgres@127.0.0.1:5432/brt_prod_drill_target?sslmode=disable" \
