@@ -6236,7 +6236,7 @@ separately as issue #3616.
 
 ## 2026-09-05 — The mobile app ships the website in a native shell (WebView), native port deferred
 
-**Decision (Wyatt, in session; Joey to confirm — product-direction call per CLAUDE.md):**
+**Decision (Wyatt, owner, in session 2026-09-05 — final; Joey informed via #531):**
 `apps/mobile` renders **www.longlivets.com in a full-screen WebView**
 (`components/SiteShell.tsx`) and keeps everything built natively around it:
 device registry, opt-in push registration, the bell → notification settings,
@@ -6268,3 +6268,31 @@ User ID), User Content, Usage Data, all not linked, no tracking.
 `apps/mobile/lib/vault.ts` and `@swift2/core` are no longer called from
 the mounted app; `architecture.md`'s "reuse packages/* unchanged" holds only
 for the deferred native port.
+
+## 2026-09-05 — Convergence decisions D1–D4 ratified: one content bundle, two renderers on one core, progressive native port, EAS Update
+
+**Decided by:** Wyatt (owner), in session, 2026-09-05 — final, not pending
+Joey's confirmation. Joey informed via issue #531. Spec:
+`docs/specs/2026-09-05-one-source-three-surfaces.md` (now marked ratified).
+
+- **D1 — Content source of truth = git seeds → published, versioned bundle.**
+  Authoring stays in `supabase/seed/**` (the content agents are untouched);
+  `scripts/build-content-bundle.mjs` publishes a hashed JSON bundle on every
+  merge that web, iOS and Android all read through `packages/content`.
+  Supabase keeps only dynamic data (devices, prefs, notification events,
+  clown memory). *Rejected:* Supabase as the runtime content source — it
+  re-creates the stale-production failure of #723/#725 and puts a DB call in
+  every page load.
+- **D2 — Two renderers, one headless core.** Next.js stays for the web,
+  React Native for mobile; both consume `packages/experience`. *Rejected:*
+  a universal react-native-web app — a full rewrite of a working 64k-line
+  site with weaker SEO and performance.
+- **D3 — Progressive native port, route by route, behind flags, with the
+  WebView shell as fallback** until the last route lands. *Rejected:*
+  big-bang rewrite behind the shell (months with nothing shipping).
+- **D4 — EAS Update for JS-only mobile changes**, fingerprint runtime
+  policy; store builds only when native code changes. *Rejected:* store
+  builds only (the app would lag the web by days on every change).
+
+**Why now:** the WebView shell (entry above) is a stop-gap; without these
+four calls no Phase 1+ card in the spec was Ready. All phases are unblocked.

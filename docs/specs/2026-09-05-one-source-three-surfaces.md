@@ -1,8 +1,8 @@
 # One Source, Three Surfaces — convergence spec and Hermes kanban plan
 
-Owner: Engineering. Status: **proposed 2026-09-05** (Wyatt, in session).
-Product-direction call → **Joey to ratify** the four decisions in §4 before
-Phase 1 starts. Phase 0 is reversible hardening and can start now.
+Owner: Engineering. Status: **ratified 2026-09-05** — decisions D1–D4 in §4
+were made by Wyatt (owner) in session; Joey informed via issue #531. Every
+phase is unblocked; Hermes may pull cards in dependency order from §6.
 
 ## 1. The problem, stated from the code
 
@@ -49,16 +49,16 @@ apps/web (Next.js)                 apps/mobile (Expo / React Native)  (Layer 3)
 
 Principles:
 
-1. **Content is an artifact, not a database.** Authoring stays in git (the
+1. **Content is an artifact, not a database (D1).** Authoring stays in git (the
    whole content engine depends on that). The bundle is the single thing
    every surface reads; Supabase content tables are frozen, then retired.
-2. **Two renderers, one core.** Next.js stays for the web (SEO, 64k lines
+2. **Two renderers, one core (D2).** Next.js stays for the web (SEO, 64k lines
    that work). React Native renders the same core natively. No
    react-native-web migration of the site — it would regress the web to gain
    nothing the core does not already give.
-3. **Progressive, never big-bang.** The WebView shell stays as the fallback
+3. **Progressive, never big-bang (D3).** The WebView shell stays as the fallback
    for any route not yet native. A routing table decides per URL.
-4. **Ship JS without the store.** EAS Update carries JS-only mobile changes
+4. **Ship JS without the store (D4).** EAS Update carries JS-only mobile changes
    so the app keeps pace with the web; store builds only for native changes.
 
 ## 3. Non-goals
@@ -68,14 +68,14 @@ Principles:
   merch pipelines are untouched — they write the same seed files).
 - Accounts / sign-in. Out of scope; the identity model stays anonymous.
 
-## 4. Decisions for Joey to ratify (log in `docs/decisions.md`)
+## 4. Decisions (ratified by Wyatt, 2026-09-05; logged in `docs/decisions.md`)
 
-| # | Decision | Recommendation | Reversal cost |
-| --- | --- | --- | --- |
-| D1 | Content source of truth for all surfaces | Git seeds → published bundle (not Supabase) | Medium: loader swap |
-| D2 | One renderer (RN-web) vs two renderers sharing a core | Two renderers | High once ported |
-| D3 | Native port strategy | Progressive, route by route, WebView fallback | Low |
-| D4 | JS over-the-air for mobile | EAS Update, fingerprint runtime policy | Low |
+| # | Decision | Decided | Rejected alternative | Reversal cost |
+| --- | --- | --- | --- | --- |
+| D1 | Content source of truth for all surfaces | **Git seeds → published, versioned bundle**; Supabase keeps dynamic data only | Supabase as runtime source (re-creates the stale-production failure of #723/#725) | Medium: loader swap |
+| D2 | One renderer vs two | **Two renderers, one headless core** (Next.js web, React Native mobile) | One universal RN app via react-native-web (full web rewrite, weaker SEO) | High once ported |
+| D3 | Native port strategy | **Progressive, route by route, behind flags, WebView fallback** | Big-bang rewrite behind the shell | Low |
+| D4 | JS over-the-air for mobile | **EAS Update**, fingerprint runtime policy; store builds only for native changes | Store builds only | Low |
 
 ## 5. Kanban conventions for Hermes
 
@@ -96,7 +96,7 @@ branch, PR with TL;DR, tests, docs in the same change, land your own green PR.
 
 ## 6. Cards
 
-### Phase 0 — Make the shell a first-class wrapper (start now, no ratification needed)
+### Phase 0 — Make the shell a first-class wrapper (start now)
 
 **OS-001 · App-aware website** · S · Depends on: —
 Goal: the site knows when it runs inside the app.
@@ -150,9 +150,9 @@ Steps: add `npm run typecheck --workspace @swift2/mobile` and
 the `build` gate; cache node_modules.
 Done when: CI runs both on a PR touching `apps/mobile/**` or `packages/**`.
 
-### Phase 1 — One content artifact (after D1)
+### Phase 1 — One content artifact (D1 decided; start now)
 
-**OS-010 · Content bundle schema + ADR** · M · Depends on: D1
+**OS-010 · Content bundle schema + ADR** · M · Depends on: —
 Goal: a typed, versioned contract for everything the experience renders.
 Touches: `packages/content/src/schema.ts` (new, zod), `docs/decisions.md`,
 `docs/architecture.md`.
@@ -228,9 +228,9 @@ Steps: remove content seeding from runbooks and CI; leave dynamic tables
 release cycle.
 Done when: no code path outside `scripts/` reads era/milestone/month_item.
 
-### Phase 2 — Headless experience core (after D2; can overlap Phase 1)
+### Phase 2 — Headless experience core (D2 decided; overlaps Phase 1)
 
-**OS-020 · `packages/experience` skeleton + purity guard** · S · Depends on: D2
+**OS-020 · `packages/experience` skeleton + purity guard** · S · Depends on: —
 Touches: `packages/experience/{package.json,tsconfig.json,src/index.ts}`,
 `eslint.config.mjs`, `vitest.config.ts`, `tsconfig.base.json` paths.
 Steps: workspace package; ESLint `no-restricted-imports` for `react-dom`,
@@ -264,7 +264,7 @@ view-models (era stream sections, thread timelines, track guide pages);
 both renderers must render from these exact inputs.
 Done when: golden files committed; CI runs them.
 
-### Phase 3 — Native renderer, route by route (after D3; needs OS-015, OS-026)
+### Phase 3 — Native renderer, route by route (D3 decided; needs OS-015, OS-026)
 
 **OS-030 · Hybrid routing table** · M · Depends on: OS-003
 Touches: `apps/mobile/lib/routes.ts` (new), `App.tsx`, `SiteShell.tsx`.
@@ -303,7 +303,7 @@ screenshots natively; update `docs/architecture.md`, `apps/mobile/README.md`,
 and the App Privacy answers.
 Done when: no route resolves to `web` except the legal pages.
 
-### Phase 4 — Release and operations (after D4; OS-040 can start with Phase 0)
+### Phase 4 — Release and operations (D4 decided; OS-040 can start with Phase 0)
 
 **OS-040 · EAS Update wiring** · M · Depends on: OS-005
 Touches: `apps/mobile/app.json` (`updates`, `runtimeVersion: { policy: 'fingerprint' }`),
