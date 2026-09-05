@@ -30,6 +30,13 @@ export const CONFIG = {
     highTierThreshold: 5,
   },
 
+  // ── Top-of-feed photo checker ─────────────────────────────────────────────
+  // How many of an era's newest moments must carry a real photo (or a
+  // recorded `photosReviewed` reason) — see checkers/top-of-feed-photo.mjs.
+  topOfFeed: {
+    count: 10,
+  },
+
   // ── Image quality thresholds ─────────────────────────────────────────────
   image: {
     minWidth: 400, // px — below this reads as a junk thumbnail
