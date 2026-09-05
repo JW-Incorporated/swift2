@@ -2,7 +2,7 @@
 // Produced by scripts/sync-longlive-era-secrets.mjs from supabase/seed/era-secrets/**
 // Re-run that script after era-secret-seed changes; don't edit this file directly.
 
-import type { EraId, EraSecret } from './types';
+import type { EraId, EraSecret } from '@swift2/experience';
 
 export const ERA_SECRETS_RAW: Partial<Record<EraId, EraSecret[]>> = {
   "1989": [

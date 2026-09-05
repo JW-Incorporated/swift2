@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+/* GENERATED default values for --era-* / --clown-* (OS-031) — see the
+   :root block below for why this lives in its own generated file. Must
+   stay a top-level @import (CSS requires imports before other rules). */
+@import './tokens.generated.css';
 
 /*
   Long Live — per-era theming system.
@@ -21,30 +25,15 @@
   --font-mono: var(--font-typewriter), ui-monospace, monospace;
 }
 
-/* Sensible defaults before the shell mounts (TTPD / current era). */
+/* Sensible defaults before the shell mounts (TTPD / current era).
+   The --era-* and --clown-* values themselves come from
+   tokens.generated.css (OS-031, packages/experience/src/tokens.ts) — the
+   single source shared with the native StyleSheet
+   (apps/mobile/lib/theme.ts). Do not hand-declare those vars here; edit
+   the token source and run `npm run tokens:generate` instead. */
 :root {
-  --era-bg: #0c0c0c;
-  --era-surface: #161616;
-  --era-surface-2: #1e1e1e;
-  --era-ink: #ededed;
-  --era-ink-soft: #9a9a9a;
-  --era-line: #2a2a2a;
-  --era-accent: #e8e8e8;
-  --era-accent-2: #8a8a8a;
-  --era-glow: rgba(255, 255, 255, 0.12);
   --era-font: var(--font-serif);
   color-scheme: dark;
-
-  /* Clown bot app chrome — deliberately NOT the era palette. The chat panel
-     must read as a device embedded in the page, not another block of era
-     content, so it stays a fixed neutral near-black regardless of era. Only
-     the accent (var(--era-accent)) still re-themes per era. See ClownChat.tsx. */
-  --clown-bg: #17120e;
-  --clown-panel: #1e1814;
-  --clown-raised: #272019;
-  --clown-line: #332a22;
-  --clown-ink: #f4efe9;
-  --clown-ink-soft: #a3948a;
 }
 
 * {

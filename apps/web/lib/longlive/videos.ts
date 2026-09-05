@@ -1,6 +1,6 @@
-import type { AppearanceVideoKind, EraId, VideoNote, VideoNoteKind } from './types';
+import type { AppearanceVideoKind, EraId, VideoNote, VideoNoteKind } from '@swift2/experience';
 import { VIDEOS_RAW } from './videos.generated';
-import { ERAS } from './eras';
+import { ERAS } from '@swift2/experience';
 
 /**
  * Per-era official videos / visual media — static data synced at build time

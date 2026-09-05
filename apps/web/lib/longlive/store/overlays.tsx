@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useReducer } from 'react';
-import { getEra } from '../eras';
-import type { EraId, MotifId } from '../types';
+import { getEra } from '@swift2/experience';
+import type { EraId, MotifId } from '@swift2/experience';
 
 interface OverlaysState {
   /** Currently open content item id (immersive detail), or null. */

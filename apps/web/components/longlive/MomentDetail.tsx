@@ -27,8 +27,8 @@ import {
 } from '@/lib/longlive/store';
 import { isPointerOutsideContainedImage } from '@/lib/longlive/contain-fit';
 import { getContentItem } from '@/lib/longlive/content';
-import { getEra } from '@/lib/longlive/eras';
-import { getThread } from '@/lib/longlive/lenses';
+import { getEra } from '@swift2/experience';
+import { getThread } from '@swift2/experience';
 import {
   resolveMotifTrail,
   resolveRelatedMoments,
@@ -60,7 +60,7 @@ import {
   type RumorNote,
   type RumorStatus,
   type SubConfirmed,
-} from '@/lib/longlive/types';
+} from '@swift2/experience';
 import { renderMomentShopLink, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
 import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';

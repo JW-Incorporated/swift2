@@ -1,7 +1,7 @@
 'use client';
 
 import { Star } from 'lucide-react';
-import type { ContentItem } from '@/lib/longlive/types';
+import type { ContentItem } from '@swift2/experience';
 
 const LABEL: Record<'defining' | 'notable', string> = {
   defining: 'Career-defining',

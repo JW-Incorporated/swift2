@@ -1,4 +1,4 @@
-import type { ContentItem, VideoNote } from './types';
+import type { ContentItem, VideoNote } from '@swift2/experience';
 import type { Anchored } from './anchor-date';
 import type { EraFeedEntry } from './era-feed';
 

@@ -9,7 +9,7 @@ import {
   type MoodQuery,
 } from './mood-match';
 import { SONG_MOODS } from './song-moods.generated';
-import { MOOD_AXES, type MoodAxes, type SongMood } from './types';
+import { MOOD_AXES, type MoodAxes, type SongMood } from '@swift2/experience';
 
 /**
  * #1984 — the grief-canon gate. Bereavement songs are scored max-heartbreak

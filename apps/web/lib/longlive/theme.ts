@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { Era, EraFont, EraTheme } from './types';
+import type { Era, EraFont, EraTheme } from '@swift2/experience';
 
 const FONT_VAR: Record<EraFont, string> = {
   serif: 'var(--font-playfair)',

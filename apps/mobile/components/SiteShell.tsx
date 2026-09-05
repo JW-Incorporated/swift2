@@ -29,7 +29,7 @@ import {
   View,
 } from 'react-native';
 import Constants from 'expo-constants';
-import { WebView, type WebViewNavigation } from 'react-native-webview';
+import { WebView, type WebViewMessageEvent, type WebViewNavigation } from 'react-native-webview';
 import type { ShouldStartLoadRequest } from 'react-native-webview/lib/WebViewTypes';
 
 export const SITE_URL = (process.env.EXPO_PUBLIC_SITE_URL ?? 'https://www.longlivets.com').replace(
@@ -53,12 +53,58 @@ function isSiteUrl(raw: string): boolean {
 
 const APP_UA_SUFFIX = `LongLiveApp/${Constants.expoConfig?.version ?? '0'} (${Platform.OS})`;
 
+// OS-002: the one-way message protocol the in-page bell (`apps/web/lib/
+// longlive/in-app.ts`'s `postToNativeApp`) sends via
+// `window.ReactNativeWebView.postMessage`. Documented in
+// `docs/architecture.md`.
+export type NativeBridgeMessage =
+  | { type: 'openNotificationSettings' }
+  | { type: 'openInbox' };
+
+function parseBridgeMessage(raw: string): NativeBridgeMessage | null {
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (
+      parsed &&
+      typeof parsed === 'object' &&
+      'type' in parsed &&
+      (parsed.type === 'openNotificationSettings' || parsed.type === 'openInbox')
+    ) {
+      return parsed as NativeBridgeMessage;
+    }
+  } catch {
+    /* ignore malformed messages — never crash the shell over web-side JSON */
+  }
+  return null;
+}
+
 export interface SiteShellProps {
   /** The page to show. Changing it navigates the WebView (used by deep links). */
   url: string;
+  /** Called when the page asks to open a native screen (OS-002 bridge). */
+  onBridgeMessage?: (message: NativeBridgeMessage) => void;
+  /**
+   * OS-030: given an on-site URL a user tapped inside the WebView, returns
+   * true if the hybrid routing table (`lib/routes.ts`) would send it to a
+   * native screen right now (flags applied). When omitted, no in-WebView
+   * link click is treated as native-capable — every on-site link keeps
+   * loading inside the WebView, matching pre-OS-030 behavior.
+   */
+  isNativeCapableUrl?: (url: string) => boolean;
+  /**
+   * Called instead of loading the URL in the WebView when
+   * `isNativeCapableUrl` reports true — the caller should route through the
+   * same `navigate()` every other entry point uses.
+   */
+  onNativeCapableLinkPress?: (url: string) => void;
 }
 
-export function SiteShell({ url }: SiteShellProps) {
+export function SiteShell({
+  url,
+  onBridgeMessage,
+  isNativeCapableUrl,
+  onNativeCapableLinkPress,
+}: SiteShellProps) {
   const webRef = useRef<WebView>(null);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState<string | null>(null);
@@ -78,21 +124,43 @@ export function SiteShell({ url }: SiteShellProps) {
     return () => sub.remove();
   }, [canGoBack]);
 
-  const onShouldStart = useCallback((req: ShouldStartLoadRequest) => {
-    // Only top-level navigations leave the shell; iframe loads (embeds) are
-    // untouched. `isTopFrame` is iOS-only, so treat Android as top-level.
-    const topLevel = req.isTopFrame ?? true;
-    if (!topLevel) return true;
-    if (isSiteUrl(req.url) || req.url.startsWith('about:')) return true;
-    Linking.openURL(req.url).catch(() => {
-      /* nothing sensible to do if the OS refuses; stay put */
-    });
-    return false;
-  }, []);
+  const onShouldStart = useCallback(
+    (req: ShouldStartLoadRequest) => {
+      // Only top-level navigations leave the shell; iframe loads (embeds) are
+      // untouched. `isTopFrame` is iOS-only, so treat Android as top-level.
+      const topLevel = req.isTopFrame ?? true;
+      if (!topLevel) return true;
+      if (isSiteUrl(req.url)) {
+        // OS-030: a link click inside the WebView (e.g. the site's own
+        // "Notification Settings" or inbox link) that targets a
+        // native-capable, flag-on route opens the native screen instead of
+        // letting the WebView render the site's own version of it.
+        if (isNativeCapableUrl?.(req.url) && onNativeCapableLinkPress) {
+          onNativeCapableLinkPress(req.url);
+          return false;
+        }
+        return true;
+      }
+      if (req.url.startsWith('about:')) return true;
+      Linking.openURL(req.url).catch(() => {
+        /* nothing sensible to do if the OS refuses; stay put */
+      });
+      return false;
+    },
+    [isNativeCapableUrl, onNativeCapableLinkPress],
+  );
 
   const onNav = useCallback((nav: WebViewNavigation) => {
     setCanGoBack(nav.canGoBack);
   }, []);
+
+  const onMessage = useCallback(
+    (event: WebViewMessageEvent) => {
+      const message = parseBridgeMessage(event.nativeEvent.data);
+      if (message) onBridgeMessage?.(message);
+    },
+    [onBridgeMessage],
+  );
 
   const retry = useCallback(() => {
     setFailed(null);
@@ -122,6 +190,7 @@ export function SiteShell({ url }: SiteShellProps) {
           applicationNameForUserAgent={APP_UA_SUFFIX}
           onShouldStartLoadWithRequest={onShouldStart}
           onNavigationStateChange={onNav}
+          onMessage={onMessage}
           onLoadStart={() => setLoading(true)}
           onLoadEnd={() => setLoading(false)}
           onError={(e) => {

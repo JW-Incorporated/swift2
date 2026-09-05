@@ -133,7 +133,7 @@ export function renderModule({ updatedOn, items }) {
   lines.push("// Re-run that script after the seed changes; don't edit this file directly.");
   lines.push('// Refresh path: docs/content-ops/clownbot-rumor-refresh.md.');
   lines.push('');
-  lines.push("import type { LoreItem } from './types';");
+  lines.push("import type { LoreItem } from '@swift2/experience';");
   lines.push('');
   lines.push(`export const LORE_UPDATED_ON = ${esc(updatedOn)};`);
   lines.push('');

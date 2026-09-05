@@ -13,5 +13,9 @@
   },
   "dependencies": {
     "@swift2/shared": "*"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "lucide-react": "*"
   }
 }

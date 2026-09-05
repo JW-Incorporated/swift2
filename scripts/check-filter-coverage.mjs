@@ -22,7 +22,7 @@
 // appearance videos now carry authored `VideoNote.tags` (2026-08-13
 // backfill, see docs/longlive-experience.md §5.8); a record left untagged is
 // one whose own title/summary genuinely didn't support a topic, not a gap.
-import { ERAS } from '../apps/web/lib/longlive/eras.ts';
+import { ERAS } from '../packages/experience/src/eras.ts';
 import { contentForEra } from '../apps/web/lib/longlive/content.ts';
 import { eraVideoFeed, isAppearance } from '../apps/web/lib/longlive/videos.ts';
 import {
@@ -30,7 +30,7 @@ import {
   inlineVideoMomentIds,
   mergeEraFeed,
 } from '../apps/web/lib/longlive/era-feed.ts';
-import { ALL_FILTERS, filtersForEntry } from '../apps/web/lib/longlive/filters.ts';
+import { ALL_FILTERS, filtersForEntry } from '../packages/experience/src/filters.ts';
 import { threadDoorwaysForEra, eggDoorwaysForEra } from '../apps/web/lib/longlive/doorways.ts';
 import { runMain } from './lib/cli.mjs';
 

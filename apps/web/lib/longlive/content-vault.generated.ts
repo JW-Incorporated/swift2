@@ -2,7 +2,10 @@
 // Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.
 // Re-run that script after content-seed changes; don't edit this file directly.
 
-import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from './types';
+import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from '@swift2/experience';
+
+/** Build-time freshness stamp — emitted only by prebuild (deploy). */
+export const CONTENT_GENERATED_AT = "2026-09-05T22:55:20.896Z";
 
 type VaultRawItem = {
   id: string;

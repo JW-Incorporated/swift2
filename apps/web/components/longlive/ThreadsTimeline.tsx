@@ -7,9 +7,9 @@ import {
   careerEndMs,
   ERAS,
   getEra,
-} from '@/lib/longlive/eras';
-import { threadPoints } from '@/lib/longlive/lenses';
-import type { LensId } from '@/lib/longlive/types';
+} from '@swift2/experience';
+import { threadPoints } from '@swift2/experience';
+import type { LensId } from '@swift2/experience';
 import { cn } from '@/lib/utils';
 import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
 

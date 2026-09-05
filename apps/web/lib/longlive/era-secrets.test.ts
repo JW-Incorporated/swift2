@@ -8,7 +8,7 @@ import {
 } from './era-secrets';
 import { songTargetOf } from './tracks';
 import { getContentItem } from './content';
-import { ERAS } from './eras';
+import { ERAS } from '@swift2/experience';
 
 // The Era Secret card (#688) is static, sourced, and deterministic. These
 // guards protect the three things the UI relies on: the generated data is

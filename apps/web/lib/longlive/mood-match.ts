@@ -19,7 +19,7 @@
  * unless the mood genuinely points there.
  */
 
-import { MOOD_AXES, type EraId, type MoodAxes, type MoodAxis, type SongMood } from './types';
+import { MOOD_AXES, type EraId, type MoodAxes, type MoodAxis, type SongMood } from '@swift2/experience';
 import { SONG_MOODS } from './song-moods.generated';
 import { moodIntentPolicy, type MoodIntent } from './mood-intents';
 

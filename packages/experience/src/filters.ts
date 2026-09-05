@@ -1,5 +1,5 @@
 import type { ContentTag, LensId } from './types';
-import type { EraFeedEntry } from './era-feed';
+import type { EraFeedEntry } from './feed-types';
 
 /** R2: exactly six, forever. Videos is a peer chip, not a separate axis. */
 export type FilterId = ContentTag | 'Videos';
