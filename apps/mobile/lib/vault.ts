@@ -76,14 +76,15 @@ function expoFileSystemStorageAdapter(): StorageAdapter {
 
 const storage = expoFileSystemStorageAdapter();
 
-/** In-memory holder for the last successfully-mapped bundle's raw `files`, so `loadMoment`/`loadTrackGuide` (Tier 1
- * lookups) don't have to reload+revalidate the whole bundle for every on-demand call — `loadSkeleton()` primes it. */
-let lastBundleFiles: Record<string, unknown> | null = null;
-
+/**
+ * Loads the current published bundle. Always calls `loadBundle`, never short-circuits on an in-memory cache: the
+ * loader itself re-checks `current.json` and revalidates the manifest by ETag every call, so a fresh publish is
+ * picked up immediately (a stale in-memory copy here would otherwise let `loadMoment`/`loadTrackGuide` keep serving
+ * an old bundle version indefinitely after `loadSkeleton()` last ran, even once a newer one is live) — a 304 makes
+ * the "already have this version" case just as cheap as an in-memory read would have been.
+ */
 async function ensureBundle() {
-  const loaded = await loadBundle({ baseUrl: contentBaseUrl(), storage });
-  lastBundleFiles = loaded.files;
-  return loaded;
+  return loadBundle({ baseUrl: contentBaseUrl(), storage });
 }
 
 /** Tier 0 Vault skeleton — the always-resident eras/milestones/month index, now read from the published content
@@ -96,15 +97,16 @@ export async function loadSkeleton(): Promise<VaultSkeleton> {
 }
 
 /** One Tier 1 moment. The content bundle carries every item's full body up front (no per-item network fetch), so
- * this looks the id up in the last-loaded bundle, loading one if `loadSkeleton()` hasn't run yet this session. */
+ * this is a local lookup once the current bundle is loaded — see `ensureBundle`'s doc for why every call re-checks
+ * the published version rather than trusting a cached one. */
 export async function loadMoment(id: string): Promise<Moment | null> {
-  const files = lastBundleFiles ?? (await ensureBundle()).files;
+  const { files } = await ensureBundle();
   return findMoment(files, id);
 }
 
-/** An album's song track guide, from the same already-loaded bundle. */
+/** An album's song track guide, from the current published bundle. */
 export async function loadTrackGuide(eraSlug: string): Promise<TrackNote[]> {
-  const files = lastBundleFiles ?? (await ensureBundle()).files;
+  const { files } = await ensureBundle();
   return findTrackGuide(files, eraSlug);
 }
 

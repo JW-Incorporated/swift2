@@ -127,13 +127,31 @@ describe('mapContentItemToMonthItem', () => {
     expect(mi.category).toBe('release');
   });
 
-  it('falls back to the tag-derived category when there is no album milestone', () => {
+  it('categorizes an item with milestone.kind "business" as business', () => {
+    const { milestone: _m, ...rest } = item;
+    const mi = mapContentItemToMonthItem({
+      ...rest,
+      milestone: { id: 'ms-x', label: 'x', kind: 'business' },
+    } as typeof item);
+    expect(mi.category).toBe('business');
+  });
+
+  it('categorizes an item carrying a video as video, when it has no album/business milestone', () => {
+    const { milestone: _m, ...rest } = item;
+    const mi = mapContentItemToMonthItem({
+      ...rest,
+      video: { youtubeId: 'abc123', title: 'cardigan (Official Music Video)' },
+    } as typeof item);
+    expect(mi.category).toBe('video');
+  });
+
+  it('falls back to the tag-derived category when there is no album/business milestone or video', () => {
     const { milestone: _milestone, ...rest } = item;
     const mi = mapContentItemToMonthItem(rest as typeof item);
     expect(mi.category).toBe('music'); // tags: ["Music"]
   });
 
-  it('falls back to "sighting" when an item has neither an album milestone nor a mappable tag', () => {
+  it('falls back to "sighting" when an item has no album/business milestone, video, or mappable tag', () => {
     const { milestone: _m, ...rest } = item;
     const mi = mapContentItemToMonthItem({ ...rest, tags: [] } as typeof item);
     expect(mi.category).toBe('sighting');

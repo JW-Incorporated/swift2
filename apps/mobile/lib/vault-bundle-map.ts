@@ -106,17 +106,24 @@ export function mapMilestone(milestone: ContentMilestone): Milestone {
   };
 }
 
-/** One `ContentItem` -> one Tier 0 `MonthItem` row. Category preference: an item flagged as its era's own milestone
- * (`item.milestone.kind === 'album'`) is a `release`; otherwise the item's first `ContentTag` maps via
- * `TAG_TO_CATEGORY`; an item with neither falls back to `'sighting'` (the Vault's catch-all, same default the web
- * reader's own content model uses for untagged items). */
+/** One `ContentItem` -> one Tier 0 `MonthItem` row. Category preference, most specific first: an item flagged as
+ * its era's own album milestone (`item.milestone.kind === 'album'`) is a `release`; a business milestone
+ * (`item.milestone.kind === 'business'`) is `business`; an item carrying a `video` (music video / lyric video
+ * etc.) is `video`; otherwise the item's first `ContentTag` maps via `TAG_TO_CATEGORY`; an item matching none of
+ * these falls back to `'sighting'` (the Vault's catch-all, same default the web reader's own content model uses
+ * for untagged items). This ordering is why `business` and `video` — reachable via `milestone.kind`/`video`, not
+ * any `ContentTag` — still show up as categories despite `TAG_TO_CATEGORY` never producing them itself. */
 export function mapContentItemToMonthItem(item: ContentItem): MonthItem {
   const { year, month } = parseYearMonth(item.date);
   const primaryImage = item.images.find((img) => img.kind === 'primary') ?? item.images[0];
   const category: VaultCategory =
     item.milestone?.kind === 'album'
       ? 'release'
-      : (item.tags.map((tag) => TAG_TO_CATEGORY[tag]).find(isVaultCategory) ?? 'sighting');
+      : item.milestone?.kind === 'business'
+        ? 'business'
+        : item.video
+          ? 'video'
+          : (item.tags.map((tag) => TAG_TO_CATEGORY[tag]).find(isVaultCategory) ?? 'sighting');
 
   return {
     id: item.id,

@@ -133,25 +133,19 @@ describe('loadSkeleton', () => {
 });
 
 describe('loadMoment / loadTrackGuide', () => {
-  it('loadMoment reuses the bundle already loaded by loadSkeleton without calling loadBundle again', async () => {
+  it('loadMoment always calls loadBundle (never serves a stale in-memory copy) and finds the moment', async () => {
     await loadSkeleton();
     loadBundle.mockClear();
     const moment = await loadMoment('item-1');
-    expect(loadBundle).not.toHaveBeenCalled();
+    expect(loadBundle).toHaveBeenCalledTimes(1);
     expect(moment).not.toBeNull();
     expect(moment!.monthItemId).toBe('item-1');
   });
 
-  it('loadMoment loads the bundle itself when no prior loadSkeleton call happened this session', async () => {
-    // The module-level `lastBundleFiles` cache is shared across tests in this file (same module
-    // instance), so this exercises the "cache already warm" path rather than a truly cold one —
-    // the real cold path is covered by loadSkeleton's own tests above, which always call loadBundle.
-    const moment = await loadMoment('item-1');
-    expect(moment!.monthItemId).toBe('item-1');
-  });
-
-  it('loadTrackGuide returns the era track guide from the loaded bundle', async () => {
+  it('loadTrackGuide always calls loadBundle and returns the era track guide', async () => {
+    loadBundle.mockClear();
     const notes = await loadTrackGuide('folklore');
+    expect(loadBundle).toHaveBeenCalledTimes(1);
     expect(notes).toHaveLength(1);
     expect(notes[0]!.trackTitle).toBe('the 1');
   });
