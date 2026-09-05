@@ -55,7 +55,7 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { register } from 'tsx/esm/api';
-import { ROOT, SYNCS } from './lib/generated-content.mjs';
+import { ROOT, SYNCS, OTHER_SYNC_TARGETS } from './lib/generated-content.mjs';
 import { runMain } from './lib/cli.mjs';
 
 const SCHEMA_FILE = path.join(ROOT, 'packages', 'content', 'src', 'schema.ts');
@@ -112,12 +112,21 @@ export function renderJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
 
-/** Re-run every scripts/sync-longlive-*.mjs generator so the *.generated.ts
- * intermediates this script imports are fresh off supabase/seed/**. Mirrors
- * scripts/check-generated-in-sync.mjs's own re-sync step. */
+/** Re-run every scripts/sync-longlive-*.mjs generator (and the other
+ * generated-content targets, e.g. scripts/lib/source-tiers.generated.mjs,
+ * which sync-longlive-content.mjs's CONFIDENCE_VALUES import transitively
+ * relies on) so every *.generated.ts/.mjs intermediate this script imports
+ * is fresh off supabase/seed/**. Mirrors scripts/check-generated-in-sync
+ * .mjs's own resync step (SYNCS + OTHER_SYNC_TARGETS) exactly — omitting
+ * OTHER_SYNC_TARGETS here would let a bundle build silently read a stale
+ * source-tiers mirror instead of failing loudly the way a missing file
+ * would. */
 function resyncGeneratedIntermediates() {
   for (const s of SYNCS) {
     execFileSync(process.execPath, [path.join(ROOT, s)], { stdio: ['ignore', 'ignore', 'inherit'] });
+  }
+  for (const { sync } of OTHER_SYNC_TARGETS) {
+    execFileSync(process.execPath, [path.join(ROOT, sync)], { stdio: ['ignore', 'ignore', 'inherit'] });
   }
 }
 
