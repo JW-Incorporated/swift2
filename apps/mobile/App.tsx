@@ -21,7 +21,7 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as Notifications from 'expo-notifications';
-import { destinationFor as destinationForUrl, type ShellDestination } from '@swift2/shared';
+import { createNavigate, resolve as resolveRoute, type ScreenId } from './lib/routes';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
@@ -29,20 +29,6 @@ import { SITE_URL, SiteShell, type NativeBridgeMessage } from './components/Site
 import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
-
-/**
- * Where a notification (tap or inbox row) should take the user. The backend
- * emits full www.longlivets.com URLs as deep links (packages/core
- * notification-*.ts), so the site does the routing; the two special cases
- * are the native screens. Anything else lands on the site's front door.
- *
- * The routing logic itself lives in @swift2/shared (OS-003) so the root
- * vitest suite's deep-link contract test covers it directly; this wrapper
- * just binds it to this app's configured SITE_URL.
- */
-export function destinationFor(rawUrl: string | null | undefined): ShellDestination {
-  return destinationForUrl(rawUrl, SITE_URL);
-}
 
 export default function App() {
   // The page the shell shows. Deep links replace it; the WebView keeps its
@@ -57,14 +43,40 @@ export default function App() {
   // once per install, at the value moment of the first bell tap.
   const [onboardingOpen, setOnboardingOpen] = useState(false);
 
-  const go = useCallback((dest: ShellDestination) => {
+  // OS-030: the single navigate(url) every entry point below funnels
+  // through — deep links, inbox rows, the web→native bridge, and (via
+  // SiteShell's onShouldStart) in-WebView link clicks to native-capable
+  // routes. `resolve()` already applies the per-screen feature flags, so
+  // toggling one takes effect on the very next navigation with no rebuild.
+  const openNativeScreen = useCallback((screen: ScreenId) => {
     setNotificationSettingsOpen(false);
     setInboxOpen(false);
     setOnboardingOpen(false);
-    if (dest.kind === 'settings') setNotificationSettingsOpen(true);
-    else if (dest.kind === 'inbox') setInboxOpen(true);
-    else setWebUrl(dest.url);
+    if (screen === 'settings') setNotificationSettingsOpen(true);
+    else setInboxOpen(true);
   }, []);
+
+  const openWebUrl = useCallback((url: string) => {
+    setNotificationSettingsOpen(false);
+    setInboxOpen(false);
+    setOnboardingOpen(false);
+    setWebUrl(url);
+  }, []);
+
+  const navigate = useCallback(
+    (rawUrl: string | null | undefined) => {
+      createNavigate({ openNative: openNativeScreen, openWeb: openWebUrl }, SITE_URL)(rawUrl);
+    },
+    [openNativeScreen, openWebUrl],
+  );
+
+  // SiteShell intercepts in-WebView link clicks that target a native-capable
+  // route (per the OS-030 card) so a link to Settings/Inbox opens the native
+  // screen instead of the WebView rendering the site's own version of it.
+  const isNativeCapableUrl = useCallback(
+    (url: string) => 'native' in resolveRoute(url, SITE_URL),
+    [],
+  );
 
   useEffect(() => {
     // Phase 0: register (or refresh) this device's row on every cold start —
@@ -85,32 +97,37 @@ export default function App() {
       if (!resp) return;
       const data = resp.notification.request.content.data as Record<string, unknown> | undefined;
       const link = data && typeof data.deepLink === 'string' ? data.deepLink : null;
-      go(destinationFor(link));
+      navigate(link);
     };
     Notifications.getLastNotificationResponseAsync()
       .then(read)
       .catch(() => {});
     const sub = Notifications.addNotificationResponseReceivedListener(read);
     return () => sub.remove();
-  }, [go]);
+  }, [navigate]);
 
-  // OS-002: the in-page bell (site's own top bar, shown only when
+  // OS-002/OS-030: the in-page bell (site's own top bar, shown only when
   // `isInApp()`) posts one of these instead of the app rendering its own
   // floating bell overlay. Mirrors the onboarding-gate logic the removed
-  // overlay used to run on press.
-  const handleBridgeMessage = useCallback((message: NativeBridgeMessage) => {
-    if (message.type === 'openInbox') {
-      setInboxOpen(true);
-      return;
-    }
-    // openNotificationSettings
-    hasOnboardingBeenOffered()
-      .then((offered) => {
-        if (offered) setNotificationSettingsOpen(true);
-        else setOnboardingOpen(true);
-      })
-      .catch(() => setNotificationSettingsOpen(true));
-  }, []);
+  // overlay used to run on press. Routes through openNativeScreen (the same
+  // native-screen opener navigate() uses) rather than raw setState so this
+  // stays the single place screen-opening logic lives.
+  const handleBridgeMessage = useCallback(
+    (message: NativeBridgeMessage) => {
+      if (message.type === 'openInbox') {
+        openNativeScreen('inbox');
+        return;
+      }
+      // openNotificationSettings
+      hasOnboardingBeenOffered()
+        .then((offered) => {
+          if (offered) openNativeScreen('settings');
+          else setOnboardingOpen(true);
+        })
+        .catch(() => openNativeScreen('settings'));
+    },
+    [openNativeScreen],
+  );
 
   return (
     <GestureHandlerRootView style={styles.fill}>
@@ -125,7 +142,7 @@ export default function App() {
           ) : inboxOpen ? (
             <NotificationInboxScreen
               onClose={() => setInboxOpen(false)}
-              onOpenItem={(event) => go(destinationFor(event.deepLink))}
+              onOpenItem={(event) => navigate(event.deepLink)}
             />
           ) : onboardingOpen ? (
             <OnboardingScreen
@@ -134,11 +151,16 @@ export default function App() {
                 markOnboardingOffered().catch(() => {
                   /* best-effort — a re-offer on the next bell tap is harmless */
                 });
-                if (outcome.kind === 'customize') setNotificationSettingsOpen(true);
+                if (outcome.kind === 'customize') openNativeScreen('settings');
               }}
             />
           ) : (
-            <SiteShell url={webUrl} onBridgeMessage={handleBridgeMessage} />
+            <SiteShell
+              url={webUrl}
+              onBridgeMessage={handleBridgeMessage}
+              isNativeCapableUrl={isNativeCapableUrl}
+              onNativeCapableLinkPress={navigate}
+            />
           )}
         </SafeAreaView>
       </SafeAreaProvider>
