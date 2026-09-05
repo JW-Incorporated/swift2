@@ -541,6 +541,21 @@ This is the same intermittent policy, now confirmed to hit more than one
 scheduled trigger in this repo, so the "looks resolved" note above was
 premature — leaving Status as OPEN.
 
+**Update (2026-09-05, RESOLVED):** Joey changed the Vault Run routine's
+network access setting in claude.ai/code to "full internet access" on
+2026-09-04. Confirmed fixed on the real scheduled (non-manual) daily
+trigger: today's 16:07 UTC cron firing produced PR #3805 ("vault:
+2026-09-05 — 3 lanes"), whose Photo Enrichment lane reports egress open
+("Instagram / i.ytimg.com / outlet CDNs reachable") with a reasoned
+coverage outcome (no page needed a new photo this run) — no
+`EGRESS_BLOCKED` / `403 CONNECT` language anywhere, a clean break from
+every prior run (#3744, #3696, and this item's own history) which all
+hard-blocked. This is the founder-authorized policy change the prior
+updates were waiting on, verified on the actual trigger rather than a
+manually-fired one. Closing this out.
+
+**Status:** RESOLVED (2026-09-05)
+
 ---
 
 ### 16. [UPGRADE] Facebook groups checklist ships empty — needs your real group list, and your first real export to trust the parser
