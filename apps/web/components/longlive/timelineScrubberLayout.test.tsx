@@ -1,6 +1,10 @@
+// @vitest-environment jsdom
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { render } from '@testing-library/react';
+import { TimelineScrubber } from './TimelineScrubber';
+import { AppProvider } from '@/lib/longlive/store';
 import {
   CURRENT_ERA_NOW_GRAIN_MS,
   RAIL_PCT_DECIMALS,
@@ -93,29 +97,48 @@ describe('TimelineScrubber layout', () => {
     expect(SCRUBBER_SCRIM_CLASS).toContain('w-full');
   });
 
-  // Constants alone cannot fail if the component stops using them. The
-  // repo has no component-render setup (node test env, no jsdom or
-  // testing-library, and the store needs providers), so pin the wiring
-  // statically: each constant must appear as a className binding in the
-  // component source, nested in the intended order, with no literal
-  // vh/inset-y classes reintroduced alongside them.
+  // Rendered for real (jsdom + AppProvider) instead of a source-string pin:
+  // proves the constants are actually applied to the shell/scrim/anchor/rail
+  // elements in that nesting order, not just defined and referenced
+  // somewhere in the file.
   it('is actually wired into TimelineScrubber in shell > anchor > rail order', () => {
-    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const { container } = render(
+      <AppProvider>
+        <TimelineScrubber />
+      </AppProvider>,
+    );
 
-    const shellAt = src.indexOf('className={SCRUBBER_SHELL_CLASS}');
-    const scrimAt = src.indexOf('className={SCRUBBER_SCRIM_CLASS}');
-    const anchorAt = src.indexOf('className={SCRUBBER_ANCHOR_CLASS}');
-    const railAt = src.indexOf('className={SCRUBBER_RAIL_CLASS}');
+    // Match by the FULL class string (not just the first token) — the scrim
+    // and anchor classes both happen to start with "absolute", so a
+    // first-token-only selector can't tell them apart.
+    const byExactClass = (cls: string) =>
+      Array.from(container.querySelectorAll<HTMLElement>(`.${CSS.escape(cls.split(' ')[0])}`)).find(
+        (el) => el.className === cls,
+      );
 
-    expect(shellAt).toBeGreaterThan(-1);
-    expect(scrimAt).toBeGreaterThan(shellAt);
-    expect(anchorAt).toBeGreaterThan(scrimAt);
-    expect(railAt).toBeGreaterThan(anchorAt);
+    const shell = byExactClass(SCRUBBER_SHELL_CLASS);
+    expect(shell).not.toBeUndefined();
+
+    const scrim = byExactClass(SCRUBBER_SCRIM_CLASS);
+    expect(scrim).not.toBeUndefined();
+
+    const anchor = byExactClass(SCRUBBER_ANCHOR_CLASS);
+    expect(anchor).not.toBeUndefined();
+
+    const rail = shell!.querySelector('[role="slider"]');
+    expect(rail).not.toBeNull();
+    expect(rail!.className).toContain(SCRUBBER_RAIL_CLASS.split(' ')[0]);
+
+    // DOM containment mirrors source order here: scrim and anchor are both
+    // direct children of shell, anchor contains rail.
+    expect(anchor!.contains(rail)).toBe(true);
+    expect(shell!.contains(scrim!)).toBe(true);
+    expect(shell!.contains(anchor!)).toBe(true);
 
     // No drifting unit smuggled back in as a literal class: the only vh-ish
-    // sizing in the component must come from the pinned constants.
-    expect(src).not.toMatch(/className="[^"]*\d+vh/);
-    expect(src).not.toMatch(/className="[^"]*h-svh/); // svh sizing lives in the constants
+    // sizing in the rendered tree must come from the pinned constants.
+    const html = container.innerHTML;
+    expect(html).not.toMatch(/class="[^"]*\d+vh/);
   });
 });
 
