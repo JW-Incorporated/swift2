@@ -2316,7 +2316,8 @@ export default {
     {
       year: 2025,
       month: 6,
-      day: 12,
+      // Month-level on purpose: reputable outlets disagree on the exact day
+      // (E! June 12; ABC a Friday that week), so no single day is asserted.
       category: 'sighting',
       title: 'A surprise afternoon at Joe DiMaggio Children\'s Hospital',
       snippet:
@@ -2328,7 +2329,7 @@ export default {
         'private-individual/minor redline — the only images of the visit are hospital and press-CDN frames that pair Taylor with pediatric patients (private minors); none exists on a reusable allowlisted host, so no photo is carried per privacy-redlines.md (reviewed 2026-09-05)',
       moment: {
         context:
-          'On June 12, 2025, while in South Florida for the Stanley Cup Final, Taylor made an unannounced visit to Joe DiMaggio Children\'s Hospital in Hollywood, Florida, spending the afternoon going room to room with young patients and their families. She introduced herself, asked for hugs, handed out signed copies of her book and posed for selfies; the hospital said she "turned hospital hallways into a place of joy, comfort, and connection."\n\nAmong the patients she met was Valentina Olivares, diagnosed at 15 with a rare B-cell lymphoma found only in her spinal fluid and treated there with CAR T-cell therapy. Olivares had missed an Eras Tour date in Tampa to a fever during treatment — her care team recreated the show in her hospital room — and later attended her first concert ever, an Eras Tour night at Miami\'s Hard Rock Stadium. The selfie she took with Taylor that afternoon became, in her own words, the wallpaper on her phone.\n\nMore than a year later, a September 2026 CBS Miami retrospective for Pediatric Cancer Awareness Month caught up with her: three years past diagnosis, finished with treatment, and studying accounting at Broward College. "You are so much stronger than you think," she said. "Everything works out in the end. You just have to give it time, take one day at a time." The visit fits a year of quiet, reactive giving from Taylor — the kind that arrives without a press release and is told, when it is told at all, by the people on the receiving end. Olivares appears here only as a patient who has publicly shared her own story with the outlet that reported it.',
+          'In June 2025, while she was in South Florida around the Stanley Cup Final, Taylor made an unannounced visit to Joe DiMaggio Children\'s Hospital in Hollywood, Florida, spending the afternoon going room to room with young patients and their families. She introduced herself, asked for hugs, handed out signed copies of her book and posed for selfies; the hospital said she "turned hospital hallways into a place of joy, comfort, and connection."\n\nAmong the patients she met was Valentina Olivares, diagnosed at 15 with a rare B-cell lymphoma found only in her spinal fluid and treated there with CAR T-cell therapy. Olivares had missed an Eras Tour date in Tampa to a fever during treatment — her care team recreated the show in her hospital room — and later attended her first concert ever, an Eras Tour night at Miami\'s Hard Rock Stadium. The selfie she took with Taylor that afternoon became, in her own words, the wallpaper on her phone.\n\nMore than a year later, a September 2026 CBS Miami retrospective for Pediatric Cancer Awareness Month caught up with her: three years past diagnosis, finished with treatment, and studying accounting at Broward College. "You are so much stronger than you think," she said. "Everything works out in the end. You just have to give it time, take one day at a time." The visit fits a year of quiet, reactive giving from Taylor — the kind that arrives without a press release and is told, when it is told at all, by the people on the receiving end. Olivares appears here only as a patient who has publicly shared her own story with the outlet that reported it.',
         sources: [
           {
             outlet: 'CBS Miami',
@@ -2348,6 +2349,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-09-05',
             reliability_score: 3,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/taylor-swift-visits-joe-dimaggio-childrens-hospital-florida/story?id=122848133',
+            source_title: 'Taylor Swift visits Joe DiMaggio Children\'s Hospital in Florida, surprises patients',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-05',
+            reliability_score: 4,
           },
         ],
       },
