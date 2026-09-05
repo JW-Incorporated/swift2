@@ -12,7 +12,7 @@
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
 import { useCallback, useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -21,35 +21,27 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as Notifications from 'expo-notifications';
+import { destinationFor as destinationForUrl, type ShellDestination } from '@swift2/shared';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
-import { SITE_URL, SiteShell } from './components/SiteShell';
+import { SITE_URL, SiteShell, type NativeBridgeMessage } from './components/SiteShell';
 import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
-
-const SITE_HOSTS = new Set(['www.longlivets.com', 'longlivets.com']);
 
 /**
  * Where a notification (tap or inbox row) should take the user. The backend
  * emits full www.longlivets.com URLs as deep links (packages/core
  * notification-*.ts), so the site does the routing; the two special cases
  * are the native screens. Anything else lands on the site's front door.
+ *
+ * The routing logic itself lives in @swift2/shared (OS-003) so the root
+ * vitest suite's deep-link contract test covers it directly; this wrapper
+ * just binds it to this app's configured SITE_URL.
  */
-type Destination = { kind: 'web'; url: string } | { kind: 'settings' } | { kind: 'inbox' };
-
-export function destinationFor(rawUrl: string | null | undefined): Destination {
-  if (!rawUrl) return { kind: 'web', url: SITE_URL };
-  try {
-    const u = new URL(rawUrl);
-    if (!SITE_HOSTS.has(u.hostname) && u.origin !== SITE_URL) return { kind: 'web', url: SITE_URL };
-    if (u.searchParams.get('screen') === 'settings') return { kind: 'settings' };
-    if (u.searchParams.get('current') === 'inbox') return { kind: 'inbox' };
-    return { kind: 'web', url: rawUrl };
-  } catch {
-    return { kind: 'web', url: SITE_URL };
-  }
+export function destinationFor(rawUrl: string | null | undefined): ShellDestination {
+  return destinationForUrl(rawUrl, SITE_URL);
 }
 
 export default function App() {
@@ -65,7 +57,7 @@ export default function App() {
   // once per install, at the value moment of the first bell tap.
   const [onboardingOpen, setOnboardingOpen] = useState(false);
 
-  const go = useCallback((dest: Destination) => {
+  const go = useCallback((dest: ShellDestination) => {
     setNotificationSettingsOpen(false);
     setInboxOpen(false);
     setOnboardingOpen(false);
@@ -102,6 +94,24 @@ export default function App() {
     return () => sub.remove();
   }, [go]);
 
+  // OS-002: the in-page bell (site's own top bar, shown only when
+  // `isInApp()`) posts one of these instead of the app rendering its own
+  // floating bell overlay. Mirrors the onboarding-gate logic the removed
+  // overlay used to run on press.
+  const handleBridgeMessage = useCallback((message: NativeBridgeMessage) => {
+    if (message.type === 'openInbox') {
+      setInboxOpen(true);
+      return;
+    }
+    // openNotificationSettings
+    hasOnboardingBeenOffered()
+      .then((offered) => {
+        if (offered) setNotificationSettingsOpen(true);
+        else setOnboardingOpen(true);
+      })
+      .catch(() => setNotificationSettingsOpen(true));
+  }, []);
+
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -128,25 +138,7 @@ export default function App() {
               }}
             />
           ) : (
-            <>
-              <SiteShell url={webUrl} />
-              <Pressable
-                onPress={() => {
-                  hasOnboardingBeenOffered()
-                    .then((offered) => {
-                      if (offered) setNotificationSettingsOpen(true);
-                      else setOnboardingOpen(true);
-                    })
-                    .catch(() => setNotificationSettingsOpen(true));
-                }}
-                accessibilityLabel="Notification settings"
-                accessibilityRole="button"
-                style={styles.bellButton}
-                hitSlop={10}
-              >
-                <Text style={styles.bellIcon}>🔔</Text>
-              </Pressable>
-            </>
+            <SiteShell url={webUrl} onBridgeMessage={handleBridgeMessage} />
           )}
         </SafeAreaView>
       </SafeAreaProvider>
@@ -156,20 +148,4 @@ export default function App() {
 
 const styles = StyleSheet.create({
   fill: { backgroundColor: '#0b0b0f', flex: 1 },
-  // Bottom-right, above the site's bottom nav, so it never covers the
-  // site's own top bar / wordmark.
-  bellButton: {
-    alignItems: 'center',
-    backgroundColor: 'rgba(11,11,15,0.85)',
-    borderColor: 'rgba(255,255,255,0.18)',
-    borderRadius: 22,
-    borderWidth: StyleSheet.hairlineWidth,
-    bottom: 84,
-    height: 44,
-    justifyContent: 'center',
-    position: 'absolute',
-    right: 12,
-    width: 44,
-  },
-  bellIcon: { fontSize: 20 },
 });

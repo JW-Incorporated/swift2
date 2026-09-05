@@ -29,7 +29,7 @@ import {
   View,
 } from 'react-native';
 import Constants from 'expo-constants';
-import { WebView, type WebViewNavigation } from 'react-native-webview';
+import { WebView, type WebViewMessageEvent, type WebViewNavigation } from 'react-native-webview';
 import type { ShouldStartLoadRequest } from 'react-native-webview/lib/WebViewTypes';
 
 export const SITE_URL = (process.env.EXPO_PUBLIC_SITE_URL ?? 'https://www.longlivets.com').replace(
@@ -53,12 +53,39 @@ function isSiteUrl(raw: string): boolean {
 
 const APP_UA_SUFFIX = `LongLiveApp/${Constants.expoConfig?.version ?? '0'} (${Platform.OS})`;
 
+// OS-002: the one-way message protocol the in-page bell (`apps/web/lib/
+// longlive/in-app.ts`'s `postToNativeApp`) sends via
+// `window.ReactNativeWebView.postMessage`. Documented in
+// `docs/architecture.md`.
+export type NativeBridgeMessage =
+  | { type: 'openNotificationSettings' }
+  | { type: 'openInbox' };
+
+function parseBridgeMessage(raw: string): NativeBridgeMessage | null {
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (
+      parsed &&
+      typeof parsed === 'object' &&
+      'type' in parsed &&
+      (parsed.type === 'openNotificationSettings' || parsed.type === 'openInbox')
+    ) {
+      return parsed as NativeBridgeMessage;
+    }
+  } catch {
+    /* ignore malformed messages — never crash the shell over web-side JSON */
+  }
+  return null;
+}
+
 export interface SiteShellProps {
   /** The page to show. Changing it navigates the WebView (used by deep links). */
   url: string;
+  /** Called when the page asks to open a native screen (OS-002 bridge). */
+  onBridgeMessage?: (message: NativeBridgeMessage) => void;
 }
 
-export function SiteShell({ url }: SiteShellProps) {
+export function SiteShell({ url, onBridgeMessage }: SiteShellProps) {
   const webRef = useRef<WebView>(null);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState<string | null>(null);
@@ -94,6 +121,14 @@ export function SiteShell({ url }: SiteShellProps) {
     setCanGoBack(nav.canGoBack);
   }, []);
 
+  const onMessage = useCallback(
+    (event: WebViewMessageEvent) => {
+      const message = parseBridgeMessage(event.nativeEvent.data);
+      if (message) onBridgeMessage?.(message);
+    },
+    [onBridgeMessage],
+  );
+
   const retry = useCallback(() => {
     setFailed(null);
     setLoading(true);
@@ -122,6 +157,7 @@ export function SiteShell({ url }: SiteShellProps) {
           applicationNameForUserAgent={APP_UA_SUFFIX}
           onShouldStartLoadWithRequest={onShouldStart}
           onNavigationStateChange={onNav}
+          onMessage={onMessage}
           onLoadStart={() => setLoading(true)}
           onLoadEnd={() => setLoading(false)}
           onError={(e) => {

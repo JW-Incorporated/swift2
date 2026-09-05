@@ -40,9 +40,10 @@ import { z } from 'zod';
 import { contentBundleSchemas, manifestSchema, type Manifest } from './schema';
 import { MemoryStorageAdapter, type StorageAdapter } from './cache';
 import { createHash } from './hash';
+import { assertSchemaVersionSupported, CURRENT_SCHEMA_VERSION } from './compat';
 
-/** Bumped only when a breaking change lands in `schema.ts`. See OS-041 for the eventual N-1 compatibility policy — until that lands, a mismatch is a hard error rather than a silent downgrade. */
-export const SUPPORTED_SCHEMA_VERSION = 1;
+/** Re-exported for anyone importing `SUPPORTED_SCHEMA_VERSION` from `./load` directly. Delegates to `./compat`'s `CURRENT_SCHEMA_VERSION` (OS-041) — the single source of truth for the schemaVersion this loader build targets, including its N-1 compatibility window. */
+export const SUPPORTED_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
 
 const pointerSchema = z.object({
   bundleVersion: z.string().min(1),
@@ -99,12 +100,14 @@ export class SchemaVersionMismatchError extends Error {
   constructor(
     readonly found: number,
     readonly supported: number,
+    cause?: unknown,
   ) {
     super(
       `Content bundle schemaVersion ${found} is not supported by this build (this loader ` +
-        `supports schemaVersion ${supported}). Ship a build whose packages/content loader ` +
-        `understands schemaVersion ${found} before publishing a bundle at that version (see ` +
-        `OS-041 for the N-1 support policy).`,
+        `supports schemaVersion ${supported}, plus its N-1 window per OS-041's compatibility ` +
+        `policy — see ./compat.ts). Ship a build whose packages/content loader understands ` +
+        `schemaVersion ${found} before publishing a bundle at that version.` +
+        (cause instanceof Error ? ` (${cause.message})` : ''),
     );
     this.name = 'SchemaVersionMismatchError';
   }
@@ -303,7 +306,11 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
   }
 
   if (manifest.schemaVersion !== schemaVersion) {
-    throw new SchemaVersionMismatchError(manifest.schemaVersion, schemaVersion);
+    try {
+      assertSchemaVersionSupported(manifest, schemaVersion);
+    } catch (err) {
+      throw new SchemaVersionMismatchError(manifest.schemaVersion, schemaVersion, err);
+    }
   }
 
   const files: BundleFiles = {};

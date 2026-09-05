@@ -25,3 +25,54 @@ export function inAppPlatformFromUserAgent(userAgent: string | null | undefined)
 export function isInApp(userAgent: string | null | undefined): boolean {
   return inAppPlatformFromUserAgent(userAgent) !== null;
 }
+
+/**
+ * Client-side counterpart to `isInApp`, for components that can't read the
+ * request's user-agent (e.g. a `'use client'` component rendering before its
+ * own effect runs). Reads the `data-app` attribute RootLayout already set on
+ * `<html>` from the server-side UA check, so there is exactly one place
+ * (this module) that decides what counts as "in app" — the client never
+ * re-parses `navigator.userAgent` itself. Returns `false` during SSR and on
+ * the very first client render, matching every other hydration-safe read in
+ * this codebase (see ProgressProvider in `store/index.tsx`): callers should
+ * read it inside a `useEffect`, not during render, to avoid a hydration
+ * mismatch.
+ */
+export function isInAppDocument(): boolean {
+  if (typeof document === 'undefined') return false;
+  return document.documentElement.dataset.app != null;
+}
+
+// ---------------------------------------------------------------------------
+// Web → native bridge (OS-002)
+//
+// One-way messages the in-page UI sends into the native shell via
+// `window.ReactNativeWebView.postMessage`. `apps/mobile/components/
+// SiteShell.tsx` listens for these on its WebView's `onMessage` and routes
+// them to a native screen (see `apps/mobile/App.tsx`'s `go`/`destinationFor`).
+// Documented in `docs/architecture.md`.
+export type NativeBridgeMessage =
+  | { type: 'openNotificationSettings' }
+  | { type: 'openInbox' };
+
+interface ReactNativeWebViewBridge {
+  postMessage(message: string): void;
+}
+
+declare global {
+  interface Window {
+    ReactNativeWebView?: ReactNativeWebViewBridge;
+  }
+}
+
+/**
+ * Sends a message to the native shell, if one is listening. Returns `false`
+ * (and does nothing) outside the app — a plain browser tab has no
+ * `window.ReactNativeWebView`, so callers can invoke this unconditionally
+ * and fall back to normal web navigation when it returns `false`.
+ */
+export function postToNativeApp(message: NativeBridgeMessage): boolean {
+  if (typeof window === 'undefined' || !window.ReactNativeWebView) return false;
+  window.ReactNativeWebView.postMessage(JSON.stringify(message));
+  return true;
+}
