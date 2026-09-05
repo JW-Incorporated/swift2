@@ -1,19 +1,36 @@
 /**
- * Exploration progress — the pure logic behind the localStorage visited-state
- * layer (audit §G-T6). No React in here: parsing, guarding, set math, and the
- * count/completion helpers all live in this module so they can be unit-tested
- * directly; the React wiring (hydrate-after-mount, write-on-change) lives in
- * store.tsx's ProgressProvider.
+ * Exploration progress — the pure logic behind the visited-state layer
+ * (audit §G-T6), moved into the headless core (OS-025,
+ * `docs/specs/2026-09-05-one-source-three-surfaces.md` §6 Phase 2) so both
+ * renderers track the same shape with their own storage.
  *
- * Storage contract: one versioned JSON blob under `ll-progress-v1`. Every read
- * is defensive — malformed JSON, a wrong version, missing fields, or non-string
- * members all degrade to "nothing tracked yet", never a throw. localStorage
- * itself may be unavailable (private mode, SSR): readers/writers swallow that
- * too and the app simply behaves like a first visit.
+ * Storage contract: one versioned JSON blob under `PROGRESS_STORAGE_KEY`.
+ * Every read is defensive — malformed JSON, a wrong version, missing
+ * fields, or non-string members all degrade to "nothing tracked yet",
+ * never a throw.
+ *
+ * Renderer-agnostic storage: this module never touches `localStorage`,
+ * `expo-file-system`, or any other platform API directly (packages/experience
+ * must stay framework-free — see index.ts and eslint.config.mjs's
+ * `no-restricted-imports` guard on `window`/`document`). Instead every
+ * caller injects a `StorageAdapter` — the same shape as `@swift2/content`'s
+ * adapter contract, kept independent here so this package never depends on
+ * `@swift2/content` for a two-method interface:
+ *
+ *  - on the web, `apps/web/lib/longlive/local-storage-adapter.ts` wraps
+ *    `window.localStorage`, guarding SSR (`typeof window === 'undefined'`)
+ *    and private-mode/quota failures;
+ *  - in tests, `createMemoryStorageAdapter()` below — a process-local Map;
+ *  - on mobile (future), an adapter backed by `expo-file-system` or
+ *    `AsyncStorage`.
+ *
+ * The React wiring (hydrate-after-mount, write-on-change) stays in the app
+ * layer's store (e.g. `apps/web/lib/longlive/store/index.tsx`'s
+ * ProgressProvider) since it needs `useState`/`useEffect`.
  */
 
-import { EGG_NODES, MOTIFS, motifNodes } from '@swift2/experience';
-import type { MotifId } from '@swift2/experience';
+import { EGG_NODES, MOTIFS, motifNodes } from './lenses';
+import type { MotifId } from './types';
 
 export const PROGRESS_STORAGE_KEY = 'll-progress-v1';
 
@@ -29,13 +46,35 @@ export interface Progress {
   favorites: ReadonlySet<string>;
 }
 
-/** Serialized (localStorage) shape — arrays so it's plain JSON. */
+/** Serialized (storage) shape — arrays so it's plain JSON. */
 interface ProgressSnapshotV1 {
   v: 1;
   moments: string[];
   eggs: string[];
   trails: string[];
   favorites: string[];
+}
+
+/**
+ * Injected storage contract — plain string-keyed get/set, synchronous like
+ * `localStorage` (the only backend this powers today). Kept minimal and
+ * local to this module rather than importing `@swift2/content`'s adapter,
+ * so `packages/experience` never depends on `packages/content` for it.
+ */
+export interface StorageAdapter {
+  getItem(key: string): string | null;
+  setItem(key: string, value: string): void;
+}
+
+/** In-memory adapter: durable for the lifetime of the process, nowhere else. Used by tests. */
+export function createMemoryStorageAdapter(): StorageAdapter {
+  const store = new Map<string, string>();
+  return {
+    getItem: (key) => (store.has(key) ? store.get(key)! : null),
+    setItem: (key, value) => {
+      store.set(key, value);
+    },
+  };
 }
 
 export function emptyProgress(): Progress {
@@ -89,23 +128,22 @@ export function serializeProgress(p: Progress): string {
 }
 
 /**
- * Read persisted progress. Safe everywhere: on the server, in private mode,
- * or with a corrupted blob it returns empty progress instead of throwing.
+ * Read persisted progress through the injected adapter. Safe everywhere: a
+ * throwing adapter (private mode, a null-object adapter, etc.) or a
+ * corrupted blob both return empty progress instead of throwing.
  */
-export function readStoredProgress(): Progress {
+export function readStoredProgress(adapter: StorageAdapter): Progress {
   try {
-    if (typeof window === 'undefined') return emptyProgress();
-    return parseProgress(window.localStorage.getItem(PROGRESS_STORAGE_KEY));
+    return parseProgress(adapter.getItem(PROGRESS_STORAGE_KEY));
   } catch {
     return emptyProgress();
   }
 }
 
-/** Persist progress. Best-effort — storage failures are silently ignored. */
-export function writeStoredProgress(p: Progress): void {
+/** Persist progress through the injected adapter. Best-effort — storage failures are silently ignored. */
+export function writeStoredProgress(adapter: StorageAdapter, p: Progress): void {
   try {
-    if (typeof window === 'undefined') return;
-    window.localStorage.setItem(PROGRESS_STORAGE_KEY, serializeProgress(p));
+    adapter.setItem(PROGRESS_STORAGE_KEY, serializeProgress(p));
   } catch {
     /* private mode / quota — the session still works, it just won't persist */
   }
