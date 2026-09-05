@@ -763,7 +763,7 @@ export default {
         'https://www.rollingstone.com/wp-content/uploads/2024/10/taylor-swift-florence-welch-florida-miami-show.jpg?w=1600&h=900&crop=1',
       moment: {
         context:
-          'The first show since Wembley on Aug. 20 — Oct. 18, 2024 at Hard Rock Stadium, and the start of the tour\'s last lap. Over its first two nights (Oct. 18–19) the run drew more than 122,000, breaking Billy Joel and Elton John\'s 1995 two-night Hard Rock Stadium record of 103,694 — with Billy Joel himself in the crowd the night it fell; a third sold-out show followed Oct. 20 with no separately published count. The layoff showed in the wardrobe: new Roberto Cavalli looks by Fausto Puglisi, headlined by the first new Reputation outfit of the entire tour — a gold-and-black one-leg bodysuit with a 3-D cobra, retiring the red-sequin-snake catsuit worn at every show since March 2023 — plus a new sapphire-fringe Fearless dress and a four-color crystal ombré wrap dress for the acoustic set (fashion desks documented three new Miami looks in all).\n\nThe TTPD set had the marquee guest: Florence Welch walked out for a live "Florida!!!" on all three nights. It wasn\'t the song\'s debut — that had come at the Aug. 20 Wembley finale — but Miami made the duet a fixture. Otherwise the setlist held; only the nightly two-song surprise changed: "Tim McGraw" / "Timeless" and "this is me trying" / "Daylight" (18th); "Should\'ve Said No" / "I Did Something Bad" and "loml" / "White Horse" (19th); "Out of the Woods" / "All You Had to Do Was Stay" and "mirrorball" / "Guilty as Sin?" (20th). Rain soaked the open-canopy opener — "a little rain never stopped Swift," wrote Deadline. Travis Kelce, mid-NFL season, missed the run, though his mother Donna and brother Jason\'s family came opening night.\n\nThe three nights sat inside a documented South Florida tourism surge: FIU analysts projected the run would push Miami\'s average hotel rate above $200 for the first October in more than a decade, against an Eras Tour per-attendee spend they estimated near $1,327 a head — likely higher in a costlier market like Miami.',
+          'The first show since Wembley on Aug. 20 — Oct. 18, 2024 at Hard Rock Stadium, and the start of the tour\'s last lap. Over its first two nights (Oct. 18–19) the run drew more than 122,000, breaking Billy Joel and Elton John\'s 1995 two-night Hard Rock Stadium record of 103,694 — with Billy Joel himself in the crowd the night it fell; a third sold-out show followed Oct. 20 with no separately published count. The layoff showed in the wardrobe: new Roberto Cavalli looks by Fausto Puglisi, headlined by the first new reputation outfit of the entire tour — a gold-and-black one-leg bodysuit with a 3-D cobra, retiring the red-sequin-snake catsuit worn at every show since March 2023 — plus a new sapphire-fringe Fearless dress and a four-color crystal ombré wrap dress for the acoustic set (fashion desks documented three new Miami looks in all).\n\nThe TTPD set had the marquee guest: Florence Welch walked out for a live "Florida!!!" on all three nights. It wasn\'t the song\'s debut — that had come at the Aug. 20 Wembley finale — but Miami made the duet a fixture. Otherwise the setlist held; only the nightly two-song surprise changed: "Tim McGraw" / "Timeless" and "this is me trying" / "Daylight" (18th); "Should\'ve Said No" / "I Did Something Bad" and "loml" / "White Horse" (19th); "Out of the Woods" / "All You Had to Do Was Stay" and "mirrorball" / "Guilty as Sin?" (20th). Rain soaked the open-canopy opener — "a little rain never stopped Swift," wrote Deadline. Travis Kelce, mid-NFL season, missed the run, though his mother Donna and brother Jason\'s family came opening night.\n\nThe three nights sat inside a documented South Florida tourism surge: FIU analysts projected the run would push Miami\'s average hotel rate above $200 for the first October in more than a decade, against an Eras Tour per-attendee spend they estimated near $1,327 a head — likely higher in a costlier market like Miami.',
         sources: [
           {
             outlet: 'Deadline',
@@ -811,7 +811,7 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
-            notes: 'First new Reputation look of the tour (gold-and-black cobra bodysuit); Roberto Cavalli / Fausto Puglisi across the final leg',
+            notes: 'First new reputation look of the tour (gold-and-black cobra bodysuit); Roberto Cavalli / Fausto Puglisi across the final leg',
           },
           {
             outlet: 'Newsweek',
@@ -851,7 +851,7 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 3,
-            notes: 'Three new Miami looks (Reputation cobra bodysuit, Fearless fringe, acoustic ombré dress) — no new Midnights look',
+            notes: 'Three new Miami looks (reputation cobra bodysuit, Fearless fringe, acoustic ombré dress) — no new Midnights look',
           },
           {
             outlet: 'TMZ',
@@ -871,7 +871,7 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
-            notes: 'The cobra-bodysuit swap fueled Reputation (Taylor\'s Version) speculation; Swift\'s Oct 22 deflection ("nice when the crowd notices").',
+            notes: 'The cobra-bodysuit swap fueled reputation (Taylor\'s Version) speculation; Swift\'s Oct 22 deflection ("nice when the crowd notices").',
           },
           {
             outlet: 'Rolling Stone',
@@ -1384,7 +1384,7 @@ export default {
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/241208-taylor-swift-mn-1245-48703f.jpg',
             credit: 'Kevin Winter/Getty Images for TAS Rights Management',
-            caption: 'The Reputation set on the first night of the farewell stand at BC Place, Dec. 6, 2024.',
+            caption: 'The reputation set on the first night of the farewell stand at BC Place, Dec. 6, 2024.',
             focalPoint: '59% 22%',
           },
           // Photo depth pass (round 2, 2026-07-19): nine more frames, all
@@ -1430,7 +1430,7 @@ export default {
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-reputation-ae-241208-4905ed.jpg',
             credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
-            caption: 'The Reputation set on the finale night, Dec. 8, 2024.',
+            caption: 'The reputation set on the finale night, Dec. 8, 2024.',
             kind: 'primary',
             focalPoint: '55% 30%',
           },
@@ -1963,12 +1963,12 @@ export default {
       category: 'fashion',
       title: '2024 VMAs red carpet: a tartan Dior corset and cape',
       snippet:
-        'A custom Christian Dior look from the Resort 2025 collection — plaid bustier, open cape-like skirt, thigh-high Stuart Weitzman boots, and lace-up gloves. Fans called it "Reputation"-coded.',
+        'A custom Christian Dior look from the Resort 2025 collection — plaid bustier, open cape-like skirt, thigh-high Stuart Weitzman boots, and lace-up gloves. Fans called it "reputation"-coded.',
       sourceUrl: 'https://www.marieclaire.com/fashion/taylor-swift-2024-vmas-red-carpet-tartan-corset/',
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a-1200-80.jpg',
       moment: {
         context:
-          'The Sept. 11, 2024 look adapted a runway design from Dior\'s Resort 2025 collection — a show Dior staged in Scotland — into a tartan bustier with black hot pants and an open skirt that flowed behind her "like a Highland warrior\'s cape" — Marie Claire\'s phrase for it. Joseph Cassell Falconer styled it with Stuart Weitzman thigh-high boots, lace-up leather gloves, and a plaid choker cut to match the corset print; hair was a classic blow-out over heavy black eyeliner and a lighter-than-usual red lip.\n\nFans immediately filed the black-and-plaid punk styling as "Reputation"-coded — the same guessing game her black Versace VMAs look had set off in 2023 — though she never commented on the inspiration. Whatever the signal, the night itself became a record haul: she left with seven Moon Persons, including her third straight Video of the Year.',
+          'The Sept. 11, 2024 look adapted a runway design from Dior\'s Resort 2025 collection — a show Dior staged in Scotland — into a tartan bustier with black hot pants and an open skirt that flowed behind her "like a Highland warrior\'s cape" — Marie Claire\'s phrase for it. Joseph Cassell Falconer styled it with Stuart Weitzman thigh-high boots, lace-up leather gloves, and a plaid choker cut to match the corset print; hair was a classic blow-out over heavy black eyeliner and a lighter-than-usual red lip.\n\nFans immediately filed the black-and-plaid punk styling as "reputation"-coded — the same guessing game her black Versace VMAs look had set off in 2023 — though she never commented on the inspiration. Whatever the signal, the night itself became a record haul: she left with seven Moon Persons, including her third straight Video of the Year.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -5174,7 +5174,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed, and the reported price depends on who you ask: around $360 million per Billboard, around $300 million per Rolling Stone, and — the highest figure floated — $405 million per Music Business Worldwide, for the catalog Shamrock Capital had bought from Scooter Braun\'s Ithaca Holdings in November 2020. As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs... Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville management team, a source adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe buyback gave Taylor ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned — quietly ending her long campaign urging fans to stream only the re-records. The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled. On the two unfinished re-records the letter was candid: of Reputation she wrote, "Full transparency: I haven\'t even re-recorded a quarter of it," explaining the album "was so specific to that time in my life" that she "kept hitting a stopping point" trying to remake it, and said both it and the debut "can still have their moments to re-emerge when the time is right." As of mid-2026 the debut Taylor\'s Version remained finished but unreleased, and Reputation (Taylor\'s Version) stayed shelved.',
+          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed, and the reported price depends on who you ask: around $360 million per Billboard, around $300 million per Rolling Stone, and — the highest figure floated — $405 million per Music Business Worldwide, for the catalog Shamrock Capital had bought from Scooter Braun\'s Ithaca Holdings in November 2020. As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs... Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville management team, a source adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe buyback gave Taylor ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned — quietly ending her long campaign urging fans to stream only the re-records. The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled. On the two unfinished re-records the letter was candid: of reputation she wrote, "Full transparency: I haven\'t even re-recorded a quarter of it," explaining the album "was so specific to that time in my life" that she "kept hitting a stopping point" trying to remake it, and said both it and the debut "can still have their moments to re-emerge when the time is right." As of mid-2026 the debut Taylor\'s Version remained finished but unreleased, and reputation (Taylor\'s Version) stayed shelved.',
         sources: [
           {
             outlet: 'Billboard',
@@ -5221,7 +5221,7 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-21',
             reliability_score: 2,
-            notes: 'Asset list; Reputation TV vs debut TV status; Shamrock statement wording',
+            notes: 'Asset list; reputation TV vs debut TV status; Shamrock statement wording',
           },
           {
             outlet: 'ABC News',
@@ -5261,7 +5261,7 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
-            notes: 'Letter quotes on Reputation TV (barely a quarter re-recorded) and the finished debut re-record',
+            notes: 'Letter quotes on reputation TV (barely a quarter re-recorded) and the finished debut re-record',
           },
           {
             outlet: 'NBC News',
