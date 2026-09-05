@@ -27,6 +27,8 @@ export * from './love-story';
 export * from './theories';
 export * from './live-theories';
 export * from './era-secrets';
+export * from './progress';
+export * from './search-index';
 
 export {
   TOKENS,
