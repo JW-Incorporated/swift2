@@ -9,13 +9,14 @@ import { screenClownTake } from '../../../lib/longlive/clown-gate';
 import { resolveTheoryName } from '../../../lib/longlive/clown-names';
 import { docToRetrievedItem, composeFallback, type RetrievedItem } from '../../../lib/longlive/clown-fallback';
 import { answerFromFallback, answerFromTake } from '../../../lib/longlive/clown-answer';
-import { resolveScopeSignal } from '../../../lib/longlive/clown-agent-tools';
+import { resolveScopeSignal, createKnowledgeClientForRequest } from '../../../lib/longlive/clown-agent-tools';
 import { AGENT_MAX_WALL_MS, runClownAgent } from '../../../lib/longlive/clown-agent';
 import { explainClownQuestion } from '../../../lib/longlive/clown-explain';
 import { persistPrediction } from '../../../lib/longlive/clown-predictions';
 import { incrementUserUsage, loadClownHistory, recordClownMemory } from '../../../lib/longlive/clown-memory';
 import {
   buildSessionCookieHeader,
+  createClownDbClient,
   decodeSessionToken,
   encodeSessionToken,
   readSessionCookie,
@@ -197,9 +198,16 @@ export async function POST(req: Request): Promise<Response> {
   const deadlineController = new AbortController();
   const deadlineTimer = setTimeout(() => deadlineController.abort(), AGENT_MAX_WALL_MS);
 
+  // ONE KNOWLEDGE CLIENT PER REQUEST (Fable 5.1 architecture review, task
+  // R14) — built once here, before the scope check, and threaded through
+  // BOTH `resolveScopeSignal` and the agent loop's own read tools below,
+  // instead of each tool call separately re-instantiating its own
+  // `createKnowledgeClient`.
+  const knowledgeClient = createKnowledgeClientForRequest();
+
   // SCOPE CHECK — fast-path retrieval short-circuit (PLAN.md Stage 10 req
   // 3), NOT a new blocklist layer. Runs before the model is ever consulted.
-  const scope = await resolveScopeSignal(text, deadlineController.signal);
+  const scope = await resolveScopeSignal(knowledgeClient, text, deadlineController.signal);
   if (!scope.inScope) {
     clearTimeout(deadlineTimer);
     console.log('clown:out-of-scope', JSON.stringify({ length: text.length }));
@@ -232,8 +240,13 @@ export async function POST(req: Request): Promise<Response> {
   const sessionHeaders = memorySession
     ? { 'Set-Cookie': buildSessionCookieHeader(encodeSessionToken(memorySession)) }
     : undefined;
+  // ONE SUPABASE CLIENT PER REQUEST (Fable 5.1 architecture review, task
+  // R14): built once here, right after the session resolves, and threaded
+  // through every memory/pin/prediction call below instead of each of them
+  // separately constructing its own client from the same session.
+  const clownDb = memorySession ? createClownDbClient(memorySession) : null;
   const reserveUserBudget = memorySession
-    ? () => incrementUserUsage(memorySession, undefined, deadlineController.signal)
+    ? () => incrementUserUsage(memorySession, clownDb, deadlineController.signal)
     : undefined;
 
   // MEMORY LOAD — see the header note above. Only pulled when the client's
@@ -241,7 +254,7 @@ export async function POST(req: Request): Promise<Response> {
   // the same recent-turn window.
   const loadedHistory =
     memorySession && priorTurns.length === 0
-      ? await loadClownHistory(memorySession, undefined, deadlineController.signal)
+      ? await loadClownHistory(memorySession, clownDb, deadlineController.signal)
       : null;
 
   // LOADED-HISTORY SCREEN (HUMAN-ACTIONS.md #15 item 1 fix) — a stored turn
@@ -284,6 +297,7 @@ export async function POST(req: Request): Promise<Response> {
         transcript,
         scope.result,
         { query: text },
+        knowledgeClient,
         (step) => emit({ type: 'investigation', step }),
         undefined,
         deadlineController.signal,
@@ -318,12 +332,12 @@ export async function POST(req: Request): Promise<Response> {
           const answer = answerFromTake(finalTake, sources, run.investigation);
           emit({ type: 'answer', answer });
           const persistenceResults = await Promise.allSettled([
-            persistPrediction({ session: memorySession, question: text, take: finalTake, sources }),
+            persistPrediction({ session: memorySession, question: text, take: finalTake, sources }, deadlineController.signal),
             recordClownMemory({
               session: memorySession,
               question: text,
               answerText: `${finalTake.stance} ${finalTake.argument}`.trim(),
-            }),
+            }, clownDb),
           ]);
           for (const [index, result] of persistenceResults.entries()) {
             if (result.status === 'rejected') {

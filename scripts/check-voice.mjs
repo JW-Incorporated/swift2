@@ -54,6 +54,7 @@
 import { execFileSync } from 'node:child_process';
 import { loadCorpus } from './content-engine/lib/corpus.mjs';
 import * as voice from './content-engine/checkers/voice.mjs';
+import { runMain } from './lib/cli.mjs';
 
 /** Every reviewable content file lives under this prefix. */
 export const CONTENT_PREFIX = 'supabase/seed/';
@@ -225,5 +226,5 @@ async function main(argv) {
 // Only run when executed directly, never on import (tests import the pure fns).
 // Same suffix-match pattern the sibling checks use (Windows-path safe).
 if (process.argv[1] && process.argv[1].split('\\').join('/').endsWith('scripts/check-voice.mjs')) {
-  process.exit(await main(process.argv.slice(2)));
+  runMain(() => main(process.argv.slice(2)), { name: 'check-voice' });
 }

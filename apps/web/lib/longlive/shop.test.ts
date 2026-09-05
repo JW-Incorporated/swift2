@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { createShopLinkBuilder, SHOP_DISCLOSURE } from './shop';
+import { createShopLinkBuilder, createShopLinkRenderer, SHOP_DISCLOSURE } from './shop';
+import type { MerchItem } from './merch';
 import type { Product } from './types';
 
 const product = (over: Partial<Product> = {}): Product => ({
@@ -86,6 +87,70 @@ describe('listing-scoped affiliate wrapping', () => {
     expect(credentialless.isAffiliate(product(), context)).toBe(false);
     expect(contextual.buildUrl(product())).toBe(product().url);
     expect(contextual.isAffiliate(product())).toBe(false);
+  });
+});
+
+describe('render-context adapters', () => {
+  const affiliateRenderer = createShopLinkRenderer(
+    createShopLinkBuilder({
+      awinAdvertisers: { 'ralphlauren.com': '1234' },
+      awinId: 'affiliate-42',
+    }),
+  );
+
+  it('keeps a moment href and disclosure predicate on the same era and moment context', () => {
+    const link = affiliateRenderer.forMoment(product(), {
+      eraId: 'midnights',
+      momentId: 'bejeweled-video',
+    });
+
+    expect(link.href).toContain('clickref=midnights.bejeweled-video');
+    expect(link.isAffiliate).toBe(true);
+  });
+
+  it('uses a merch bucket context for both the href and disclosure predicate', () => {
+    const link = affiliateRenderer.forMerch(product(), 'fanmade');
+
+    expect(link.href).toContain('clickref=fanmade');
+    expect(link.isAffiliate).toBe(true);
+  });
+
+  it('keeps official primary listings direct and fan-made listings in their bucket', () => {
+    const sourcedOfficial: MerchItem = {
+      ...product(),
+      category: 'official-store',
+      source: { eraId: 'midnights', momentId: 'bejeweled-video', momentTitle: 'Bejeweled' },
+    };
+    const sourcedFanMade: MerchItem = { ...sourcedOfficial, category: 'fan-made' };
+
+    expect(affiliateRenderer.forMerchItem(sourcedOfficial)).toEqual({
+      href: sourcedOfficial.url,
+      isAffiliate: false,
+    });
+    expect(affiliateRenderer.forMerchItem(sourcedFanMade).href).toContain('clickref=fanmade');
+    expect(affiliateRenderer.forMerchItem(sourcedFanMade).isAffiliate).toBe(true);
+  });
+
+  it('detects affiliate links across every non-exempt rendered merch bucket', () => {
+    const official: MerchItem = { ...product(), category: 'official-store' };
+    const fanMade: MerchItem = { ...product(), category: 'fan-made' };
+
+    expect(affiliateRenderer.hasAffiliateMerch([official])).toBe(false);
+    expect(affiliateRenderer.hasAffiliateMerch([official, fanMade])).toBe(true);
+  });
+
+  it('leaves the direct no-credential path unchanged through both adapters', () => {
+    const directRenderer = createShopLinkRenderer(
+      createShopLinkBuilder({ awinAdvertisers: { 'ralphlauren.com': '1234' } }),
+    );
+
+    for (const link of [
+      directRenderer.forMoment(product(), { eraId: 'midnights', momentId: 'bejeweled-video' }),
+      directRenderer.forMerch(product(), 'official'),
+    ]) {
+      expect(link.href).toBe(product().url);
+      expect(link.isAffiliate).toBe(false);
+    }
   });
 });
 

@@ -1,0 +1,176 @@
+# E4 official-store detection is zero-LLM and writes an artifact only.
+# :17 avoids this repository's :00/:05/:10/:23/:30/:40 cron contention cluster.
+#
+# The `author` job below is the authoring lane R1 requires: it consumes the
+# `detect` job's plan artifact and calls `author-catalogs.mjs`'s
+# `authorOfficialCatalog()` — a PURE, deterministic function (no LLM call, no
+# paid API, no network beyond what `detect` already did) — so it stays a
+# same-workflow follow-on job rather than a separate manually-confirmed lane
+# like merch-matcher-authoring.yml/merch-audit-authoring.yml (those exist
+# because THEIR authoring step spends money or calls a model; this one does
+# not). It never lands on main directly: same gated-PR pattern as
+# merch-revenue.yml and merch-awin-sync.yml (SOCIAL_POSTER_PAT + a PR that
+# waits on auto-merge-content.yml's required `build` check + check-drafts).
+#
+# Per docs/SPEC.merch-autonomy.md §6.4 ("a batch of genuinely new products =
+# a drop"): when the plan's `added` list is non-empty, this job also authors
+# the store-drop social/queue/*.json X+Instagram pair from
+# authorOfficialCatalog()'s `socialDraft` output (scripts/merch-engine/
+# build-drop-draft.mjs) and renders its card image
+# (scripts/social/render-card.mjs) in the SAME PR — the "store-drop fixture"
+# docs/ops/MERCH-PHASE-4-ACCEPTANCE.md flagged as absent
+# (scripts/merch-engine/build-drop-draft.test.ts is the unit-level proof).
+name: merch-official-sync
+
+on:
+  schedule:
+    - cron: '17 8,20 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: merch-official-sync
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Restore conditional-request validators
+        uses: actions/cache/restore@v6
+        with:
+          path: official-sync-cache.json
+          key: merch-official-sync-${{ github.run_id }}
+          restore-keys: merch-official-sync-
+      - name: Fetch official-store change handoff
+        run: node scripts/merch-engine/sync-official.mjs --detect --write-plan official-sync-plan.json --cache official-sync-cache.json --current supabase/seed/merch/official.mjs
+      - uses: actions/upload-artifact@v7
+        with:
+          name: merch-official-sync-plan
+          path: official-sync-plan.json
+          if-no-files-found: error
+      - name: Save conditional-request validators
+        uses: actions/cache/save@v6
+        with:
+          path: official-sync-cache.json
+          key: merch-official-sync-${{ github.run_id }}
+
+  author:
+    needs: detect
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # A real user token (reused, not new — same PAT merch-revenue.yml
+          # and merch-awin-sync.yml already use), so the PR this job opens
+          # can trigger the required `build` check: main is branch-protected
+          # and the default GITHUB_TOKEN cannot trigger checks on its own PRs.
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Download the detected sync plan
+        uses: actions/download-artifact@v8
+        with:
+          name: merch-official-sync-plan
+      - name: Author the official catalog from the plan
+        id: author
+        run: |
+          set -euo pipefail
+          node scripts/merch-engine/author-catalogs.mjs \
+            --official-plan official-sync-plan.json \
+            --write-official supabase/seed/merch/official.mjs \
+            > .official-authoring-summary.json
+          cat .official-authoring-summary.json
+          node --input-type=module <<'NODE'
+          import { readFile, writeFile } from 'node:fs/promises';
+          const summary = JSON.parse(await readFile('.official-authoring-summary.json', 'utf8'));
+          const draft = summary.official?.socialDraft ?? { type: 'merch-drop-draft', products: [] };
+          await writeFile('.official-social-draft.json', JSON.stringify(draft));
+          const hasProducts = Array.isArray(draft.products) && draft.products.length > 0;
+          console.log(`has_drop=${hasProducts}`);
+          NODE
+      - name: Check for a catalog diff
+        id: diff
+        run: |
+          if git diff --quiet -- supabase/seed/merch/official.mjs; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Check for a new store drop
+        id: drop
+        run: |
+          count=$(node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+          const draft = JSON.parse(await readFile('.official-social-draft.json', 'utf8'));
+          console.log(Array.isArray(draft.products) ? draft.products.length : 0);
+          NODE
+          )
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+      - name: Render the store-drop card
+        if: ${{ steps.drop.outputs.count != '0' }}
+        run: |
+          set -euo pipefail
+          count="${{ steps.drop.outputs.count }}"
+          lead=$(node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+          const draft = JSON.parse(await readFile('.official-social-draft.json', 'utf8'));
+          console.log(draft.products[0]?.item ?? 'new merch');
+          NODE
+          )
+          npx tsx scripts/social/render-card.mjs --variant thread \
+            --headline "New in the official store" \
+            --eyebrow "Official Store" \
+            --stat-value "$count" \
+            --stat-label "new item$([ "$count" = "1" ] || echo s)" \
+            --detail "$lead" \
+            --out "apps/web/public/social/library/merch-drop-${GITHUB_RUN_ID}.png"
+      - name: Build the store-drop social/queue draft
+        if: ${{ steps.drop.outputs.count != '0' }}
+        run: |
+          node scripts/merch-engine/build-drop-draft.mjs \
+            --social-draft .official-social-draft.json \
+            --media-path "/social/library/merch-drop-${GITHUB_RUN_ID}.png" \
+            --out-dir social/queue
+      - name: Emit official_merch notification event
+        if: ${{ steps.drop.outputs.count != '0' }}
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/merch-engine/emit-official-merch-event.mjs --social-draft .official-social-draft.json
+      - name: Open gated catalog + social-draft PR
+        if: ${{ steps.diff.outputs.changed == 'true' || steps.drop.outputs.count != '0' }}
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+        run: |
+          set -euo pipefail
+          git add supabase/seed/merch/official.mjs social/queue apps/web/public/social/library
+          if git diff --cached --quiet; then
+            echo "Nothing to commit — a diff was detected but staged empty; nothing to do."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH="merch-official-sync/${GITHUB_RUN_ID}"
+          git checkout -b "$BRANCH"
+          git commit -m "feat(merch): author official-store sync plan (run ${GITHUB_RUN_ID})"
+          git push origin "$BRANCH"
+          gh pr create --title "feat(merch): author official-store sync plan (run ${GITHUB_RUN_ID})" \
+            --body "Automated E4 authoring lane (scripts/merch-engine/author-catalogs.mjs). Consumes the detect job's verified sync plan and writes supabase/seed/merch/official.mjs; when the plan contains new products, also stages the store-drop social/queue/*.json X+Instagram pair (scripts/merch-engine/build-drop-draft.mjs) and its rendered card image. Restates only observed catalog metadata (R2) — no fabricated price/stock/content claims. Auto-merges once check-drafts.mjs + the required build check pass; a human can still merge or hold it." \
+            --base main --head "$BRANCH"
+          gh pr merge "$BRANCH" --squash --auto --delete-branch
+

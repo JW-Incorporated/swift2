@@ -1,0 +1,45 @@
+# E5 evidence collection is deliberately manual and artifact-only.
+# It preserves raw Etsy responses for judged D3/E1/E2 curation; it never writes seed data.
+name: merch-e5-evidence
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type COLLECT_E5_EVIDENCE to collect raw Etsy evidence for manual curation'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: merch-e5-evidence
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    if: ${{ inputs.confirmation == 'COLLECT_E5_EVIDENCE' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Collect raw Etsy listing evidence
+        env:
+          ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
+          ETSY_SHARED_SECRET: ${{ secrets.ETSY_SHARED_SECRET }}
+        run: |
+          mkdir -p .artifacts/merch-e5-evidence
+          E5_EVIDENCE_DIR=.artifacts/merch-e5-evidence/raw \
+            node scripts/merch-engine/fanmade-discovery.mjs --e5-evidence \
+            > .artifacts/merch-e5-evidence/candidates.json
+      - name: Upload auditable E5 evidence artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: merch-e5-evidence-artifact
+          path: .artifacts/merch-e5-evidence
+          if-no-files-found: error
+          retention-days: 7

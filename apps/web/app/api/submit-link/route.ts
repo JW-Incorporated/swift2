@@ -10,6 +10,8 @@ import {
   type Section,
   type SubmissionRecord,
 } from '../../../lib/longlive/submit-link';
+import { trustedClientIp } from '../../../lib/longlive/client-ip';
+import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
 
 // The Community/Merch "submit a link" form. A visitor pastes a URL and picks
 // a section (community/merch) — that's the whole input. Nothing submitted
@@ -19,50 +21,34 @@ import {
 // docs/ops/community-merch-submissions.md and lib/longlive/submit-link.ts.
 //
 // Shape copied from /api/feedback: per-IP burst limit + a honeypot that
-// returns 200 as if it worked, so bots learn nothing. A Cloudflare Turnstile
-// check runs after those, before any sink — inert (skipped) until
-// TURNSTILE_SECRET_KEY is set, then mandatory. See verifyTurnstile's doc
-// comment in lib/longlive/submit-link.ts for the fail-open/fail-closed split.
+// returns 200 as if it worked, so bots learn nothing. IP resolution uses the
+// shared trustedClientIp (#1973 fix, propagated repo-wide 2026-09-02 per
+// security audit follow-up t_07025f1e) — Vercel-set x-real-ip, or the
+// edge-appended rightmost x-forwarded-for hop, never the client-spoofable
+// leftmost XFF value. A Cloudflare Turnstile check runs after those, before
+// any sink — inert (skipped) until TURNSTILE_SECRET_KEY is set, then
+// mandatory. See verifyTurnstile's doc comment in lib/longlive/submit-link.ts
+// for the fail-open/fail-closed split.
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-// Best-effort only: this keys off `x-forwarded-for`, a client-supplied header
-// that isn't authoritative behind a proxy, so it can never be a security
-// guarantee — a spoofed IP simply gets its own bucket. The honeypot field
-// above (`hp`) is the real floor against automated abuse; this limiter only
-// blunts accidental bursts (e.g. a retry loop or a slow double-click).
-const HITS = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 5;
-const SWEEP_INTERVAL_MS = 5 * 60_000;
-let lastSweep = Date.now();
-
-/** Drops every IP whose hits have all aged out of the window. Without this,
- * an IP that hits once and never returns keeps its (eventually empty) key
- * forever — this is what let the map grow unbounded. Runs at most once per
- * `SWEEP_INTERVAL_MS`, not on every request. */
-function sweepExpiredHits(now: number): void {
-  for (const [ip, hits] of HITS) {
-    if (hits.every((t) => now - t >= WINDOW_MS)) HITS.delete(ip);
-  }
-}
+// Best-effort per-instance rate limit only — this keys off the shared
+// trustedClientIp (#1973 fix; Vercel-set x-real-ip, falling back to the
+// edge-appended rightmost x-forwarded-for hop, never the client-spoofable
+// leftmost value), which is still not a hard security guarantee behind a
+// proxy in general — the honeypot field above (`hp`) is the real floor
+// against automated abuse; this limiter only blunts accidental bursts (e.g.
+// a retry loop or a slow double-click).
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 5, sweepIntervalMs: 5 * 60_000 });
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  if (now - lastSweep > SWEEP_INTERVAL_MS) {
-    sweepExpiredHits(now);
-    lastSweep = now;
-  }
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 /** Test-only: exposes the rate limiter's internal map size so eviction can be
  * verified without reaching into module internals. Never used at runtime. */
 export function __rateLimiterSizeForTests(): number {
-  return HITS.size;
+  return limiter.size();
 }
 
 function normalizeSection(raw: unknown): Section | null {
@@ -84,7 +70,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // Honeypot: bots fill hidden fields. Pretend success, write nothing.
-  if (payload.hp) return NextResponse.json({ ok: true }, { status: 200 });
+  if (isHoneypotTripped(payload.hp)) return NextResponse.json({ ok: true }, { status: 200 });
 
   const section = normalizeSection(payload.section);
   if (!section) {
@@ -96,10 +82,7 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ error: validated.error }, { status: 400 });
   }
 
-  const ip =
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    req.headers.get('x-real-ip') ||
-    'unknown';
+  const ip = trustedClientIp(req);
   if (rateLimited(ip)) {
     return NextResponse.json(
       { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },

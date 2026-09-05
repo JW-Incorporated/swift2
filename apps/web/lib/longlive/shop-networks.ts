@@ -1,3 +1,5 @@
+import directory from './awin-advertisers.json';
+
 export type Network = 'awin' | 'amazon' | 'catchall' | 'none';
 
 export type NetworkResolution =
@@ -36,6 +38,10 @@ export function createNetworkResolver(advertisers: AwinAdvertisers) {
  * Until then the resolver fails closed, leaving all non-Amazon retailers
  * direct instead of fabricating affiliate coverage.
  */
-const GENERATED_AWIN_ADVERTISERS: AwinAdvertisers = {};
+const GENERATED_AWIN_ADVERTISERS: AwinAdvertisers = Object.fromEntries(
+  (directory as { advertisers?: Array<{ retailer?: string; awinmid?: string; joined?: boolean }> }).advertisers
+    ?.filter((advertiser) => advertiser.joined && advertiser.retailer && advertiser.awinmid)
+    .map((advertiser) => [advertiser.retailer!, advertiser.awinmid!]) ?? [],
+);
 
 export const networkFor = createNetworkResolver(GENERATED_AWIN_ADVERTISERS);

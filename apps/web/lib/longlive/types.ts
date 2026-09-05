@@ -387,6 +387,8 @@ export interface Product {
     | 'collectible'
     | 'home'
     | 'other';
+  /** A separately verified secondary retailer for this exact listing. */
+  altListing?: { retailer: string; url: string };
 }
 
 export interface ContentItem {
@@ -1092,6 +1094,57 @@ export interface EraSecret {
   deeperLink?: string;
   /** Citations backing the fact. Never empty (generator-enforced). */
   sources: EggSource[];
+}
+
+/**
+ * Clownbot's no-DB fallback lore (clownbot-lore.generated.ts, produced from
+ * supabase/seed/clownbot-lore/clownbot-lore.mjs by
+ * scripts/sync-clownbot-lore.mjs — see
+ * docs/content-ops/clownbot-rumor-refresh.md). Types live here, alongside
+ * every other generated-vault shape, so both the generated data module and
+ * the hand-authored `clownbot-lore.ts` helpers (loreById/daysBetween/
+ * loreFreshness) can import them without a circular dependency between the
+ * two.
+ */
+
+/** Where a claim sits in its lifecycle. */
+export type LoreStatus = 'rumor' | 'reported' | 'confirmed' | 'debunked';
+
+export interface LoreSource {
+  name: string;
+  url: string;
+}
+
+/** How a fandom prediction actually landed. Powers the CLOWNED/CONFIRMED ledger. */
+export interface LoreLedger {
+  /** What the fandom committed to, in our words. */
+  theory: string;
+  /** clowned = the fandom was wrong and we own it. confirmed = called it. */
+  verdict: 'clowned' | 'confirmed';
+  /** ISO date the verdict landed. */
+  on: string;
+}
+
+export interface LoreItem {
+  /** Stable id. The model cites this as a receipt; unknown ids are dropped. */
+  id: string;
+  status: LoreStatus;
+  /** ISO date the event happened, or the date it was reported. */
+  date: string;
+  /** ISO date a human last verified this item's status. */
+  lastCheckedOn: string;
+  /** One line, our words. */
+  headline: string;
+  /** 1–3 sentences, our words. Never asserts beyond `status`. */
+  detail: string;
+  /** At least one. Real outlet, real URL. */
+  sources: LoreSource[];
+  /** Suggested-prompt seeds this item can power. Empty = not prompt-worthy. */
+  prompts?: string[];
+  ledger?: LoreLedger;
+  /** Evergreen items stay in the prompt pool once the fresh window empties. */
+  evergreen?: boolean;
+  tags?: string[];
 }
 
 export interface EggNode {

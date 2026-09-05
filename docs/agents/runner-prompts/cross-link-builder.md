@@ -30,4 +30,7 @@ Verify: npm run validate:content (it checks relatedIds resolve to real moments),
 NEVER EXIT SILENTLY: if a run ends without a PR - rate limits, a tool failure, an empty queue - post a one-line comment saying why on issue #851 before exiting.
 
 RUN DISCIPLINE (2026-07-25, token burn): do the work, open the PR, and EXIT. Do not arm a self-check-in, a `send_later`, a Monitor, or any "come back and look at this PR again" follow-up, and do not subscribe to PR activity — those loops were ~69% of all scheduled agent token spend. `auto-merge-content.yml` lands your PR automatically once `build` is green if it touches only seed/generated content paths. If CI fails, the next scheduled run picks it up.
+
+
+ATTRIBUTION (T-20 Phase 1): include the exact line `Tier-2: Cross-Link builder` in the body of every PR and every GitHub issue you open. This powers daily per-Tier-2-routine output counts in Marjorie's Founders' Brief (docs/agents/runners.md, docs/TIER2-OPTIMIZATION.md section T-20). If this run produces no PR/issue, there is nothing to tag.
 ```

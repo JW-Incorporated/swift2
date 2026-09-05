@@ -97,6 +97,20 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
     [crossings, end, span], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
+  // Lane dot tops after the ≥24px collision pass (#3398, WCAG 2.5.8): a lane's
+  // own points can cluster tightly along the timeline, and each dot's own box
+  // being ≥24px isn't enough if a same-lane neighbour's box overlaps it and
+  // eats the safe click margin. Same declutter pass as the crossing diamonds
+  // above, run once per lane so lane A and lane B spread independently.
+  const laneATops = useMemo(
+    () => resolveCrossingMarkerTops(pointsA.map((p) => pct(new Date(p.date).getTime())), RAIL_HEIGHT),
+    [pointsA, end, span], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+  const laneBTops = useMemo(
+    () => resolveCrossingMarkerTops(pointsB.map((p) => pct(new Date(p.date).getTime())), RAIL_HEIGHT),
+    [pointsB, end, span], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+
   // Which point indices participate in a crossing, so we can emphasize them
   // and — since #655 — jump a dot's tap straight to that crossing's detail.
   const { crossedA, crossedB, crossingByA, crossingByB } = useMemo(() => {
@@ -246,7 +260,7 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
                 crossing detail, an uncrossed one opens the point's own thread. */}
             {pointsA.map((p, i) => {
               const era = getEra(p.eraId);
-              const top = pct(new Date(p.date).getTime());
+              const top = laneATops[i];
               const key = `${p.date}-${p.label}`;
               const crossed = crossedA.has(key);
               const crossingIndex = crossingByA.get(key);
@@ -292,7 +306,7 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
             {/* Lane B points — same tappable shape as lane A. */}
             {pointsB.map((p, i) => {
               const era = getEra(p.eraId);
-              const top = pct(new Date(p.date).getTime());
+              const top = laneBTops[i];
               const key = `${p.date}-${p.label}`;
               const crossed = crossedB.has(key);
               const crossingIndex = crossingByB.get(key);

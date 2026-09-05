@@ -1,0 +1,125 @@
+# News Triage recall check — weekly Opus audit (T-3 trial instrument)
+
+**New runner, created for the T-3 trial only** (`docs/TIER2-OPTIMIZATION.md`
+§ T-3). News Triage's live trigger model is moving from `claude-opus-4-8` to
+`claude-sonnet-5`. The risk is asymmetric and lands on false negatives: a
+wrongly-*filed* story is caught downstream (Content Shift re-verifies sources
+before authoring), but a wrongly-*rejected or overlooked* story is simply
+never filed — intake issues are the ONLY thing Content Shift reads, so
+nothing downstream can recover a miss. This routine is the mitigation: it
+re-triages, on Opus, the exact digests Sonnet actually consumed that week,
+and diffs the two decision sets.
+
+**Cadence: weekly, one run, for the 2-week trial window only**
+(`docs/agents/runners.md` § News Triage records the exact start/end dates
+and the live trigger IDs for both this routine and News Triage itself).
+Not a standing runner — disable or delete after the trial resolves per the
+verdict below.
+
+**Zero tolerance, not a budget.** Any counted false negative reverts the
+News Triage model change back to `claude-opus-4-8` immediately. This is not
+a "some misses are acceptable" trial; a single confirmed miss is enough,
+because a missed story cannot be recovered by anything downstream.
+
+## What you read
+
+The `news-worker` workflow (`.github/workflows/news-worker.yml`) now writes
+a dated, credential-free snapshot of every digest it emits to
+`docs/content-ops/archive/news-candidates-<UTC timestamp>.md` on the
+`news-digest` branch, in addition to the live `news-candidates.md` file News
+Triage reads. This is the "consumed" record — it captures the exact input
+Sonnet's News Triage run saw that day, since the live file is overwritten on
+every 4-hourly ingest cycle and would otherwise be gone by the time you run.
+
+1. List `docs/content-ops/archive/` on the `news-digest` branch:
+   `gh api repos/JW-Incorporated/swift2/contents/docs/content-ops/archive?ref=news-digest --jq '.[].name'`
+2. For each day in the trial window so far (since the last recall-check run,
+   or since trial start on the first run), do NOT infer which snapshot News
+   Triage consumed from cron timing — either schedule can run late, and a
+   timing guess can silently pick the wrong digest. Instead read the exact
+   filename News Triage itself recorded: find that day's News Triage run-log
+   comment on the standing Nils walk log issue (#502) and read its
+   `consumed-snapshot: <filename>` line (News Triage's prompt records this on
+   every run during the trial, per its own T-3 addendum). Fetch that exact
+   file:
+   `gh api repos/JW-Incorporated/swift2/contents/docs/content-ops/archive/<filename>?ref=news-digest --jq .content | base64 -d`
+   If a day's run-log comment is missing the `consumed-snapshot:` line (a run
+   from before this addendum was live, or a genuine gap), fall back to the
+   snapshot with the timestamp closest to *before* that day's `40 15 * * *`
+   cron and flag the fallback explicitly in your output — a cron-time guess
+   is a known-weaker signal, not silent equivalent to the recorded one.
+3. Read what Sonnet actually filed that day: search closed+open `intake`
+   issues created within a few hours after each day's `40 15 * * *` run
+   (`gh issue list --label intake --state all --limit 500 --search
+   "created:<date>"` — `--state all` is required; the default is open-only
+   and Content Shift may have already closed a correctly-filed intake issue
+   by audit time, which would otherwise read as a false negative), plus any
+   `needs-sources` holds and any run-log comment on the standing Nils walk
+   log issue (News Triage's prompt requires it to comment there on every run,
+   including zero-filed runs — read those comments for that day's window,
+   they record what was reviewed and refused).
+
+## What you do
+
+Re-triage each day's archived digest **as if you were News Triage**, on
+Opus: read `docs/agents/runner-prompts/news-triage.md` in full and apply
+its exact bar (adjudicability + `docs/content-ops/privacy-redlines.md`) to
+every story in the archived digest, exactly as that prompt instructs. Do
+NOT file anything — this is a dry-run comparison, never a live triage pass.
+Produce your own list of "would file" / "would hold as unconfirmed" /
+"would reject" decisions per story, independent of what Sonnet actually did.
+
+## The diff
+
+Compare your per-story decisions against what Sonnet's News Triage run
+actually did that day (step 3 above). Classify every disagreement:
+
+- **Opus would file, Sonnet did not (filed nothing, held it, or rejected
+  it) → counted false negative.** This is the case the trial exists to
+  catch. Any single one of these ends the trial as a revert, regardless of
+  how many stories agreed.
+- **Opus would reject/hold, Sonnet filed → NOT a false negative** (an
+  over-filed story is caught downstream by Content Shift, per the doc's own
+  risk framing). Note it for completeness but it does not trigger a revert.
+- **Both agree → no action.**
+
+## Output
+
+File one issue, labeled `automation-review`, titled
+`news-triage recall check: <trial week N> — <PASS|FAIL: N false negatives>`.
+Body: per-day story counts reviewed, the full list of any false negatives
+(story, why Opus would have filed it, why Sonnet did not), and the full list
+of any over-filed disagreements (informational only). State plainly at the
+top: **PASS** (zero false negatives, trial continues / concludes
+successfully) or **FAIL** (one or more false negatives — recommend
+immediate revert of the News Triage trigger's model field back to
+`claude-opus-4-8`, full `job_config` round-trip per the RemoteTrigger
+footgun in `runners.md`, never a partial PUT). **On a FAIL, you cannot
+execute the revert yourself** — you have no MCP connectors and are
+explicitly read-only. Also add a `HUMAN-ACTIONS.md` entry (same shape as
+item #36) titled `[BLOCKING] News Triage trial FAILED — revert to Opus
+needed` linking this issue, so the revert doesn't depend on someone
+noticing the GitHub issue on their own; label it urgent (a missed story is
+unrecoverable downstream for every day the revert is delayed).
+
+Never file, edit, or close an `intake` issue from this routine. Never
+author Vault content. Never merge anything. Read-only on Vault content and
+the `intake` pipeline; the one exception is the FAIL escalation above
+(opening a plain `automation-review` issue plus a small `HUMAN-ACTIONS.md`-only
+PR is in scope — it is how you report, not an editorial action on content).
+
+
+## Attribution trailer (T-20 Phase 1 -- per-routine output telemetry)
+
+Every PR body (and its commit message) AND every GitHub issue body this
+routine opens MUST include this exact line:
+
+    Tier-2: News Triage recall check
+
+Use this identifier verbatim -- do not paraphrase or abbreviate it, and
+include it even on a routine that normally files issues rather than PRs
+(e.g. intake/ticket-filing desks) -- issues count exactly like PRs for
+this telemetry. This powers daily per-Tier-2-routine output counts in
+Marjorie's Founders' Brief (`docs/agents/runners.md`,
+`docs/TIER2-OPTIMIZATION.md` section T-20). If this run produces no
+PR/issue at all, there is nothing to tag -- that's expected, not an error.

@@ -120,6 +120,9 @@ social/failed/
 # ── Audit reports written by the content-engine runners. ────────────────────
 docs/audits/
 
+# ── Weekly deterministic merch revenue report. ─────────────────────────────
+docs/ops/MERCH-REVENUE.json
+
 # ── Social images: ONE narrow exception to the apps/web/public/** rule above
 #    (docs/decisions.md 2026-08-11 — checker-gated, per-file constraints
 #    enforced by the workflow, not by this file). A queue item's own
@@ -136,6 +139,8 @@ apps/web/lib/longlive/theories.generated.ts
 apps/web/lib/longlive/videos.generated.ts
 apps/web/lib/longlive/era-secrets.generated.ts
 apps/web/lib/longlive/song-moods.generated.ts
+apps/web/lib/longlive/clownbot-lore.generated.ts
+apps/web/lib/longlive/merch.generated.ts
 
 # ── App code (WIDENED 2026-08-11, Wyatt — docs/decisions.md). Gated by FULL
 #    required CI green (`build`), not a human. View components, app pages, the

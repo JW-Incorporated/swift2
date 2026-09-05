@@ -647,9 +647,15 @@ export default {
             item: 'Kai Two Piece Top and Skirt Set',
             retailer: 'showpo.com',
             url: 'https://www.showpo.com/us/products/kai-two-piece-top-and-skirt-set-sequin-strappy-crop-top-and-wrap-tie-side-mini-skirt-in-sc2605000502',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0904/3371/6589/files/Kai_Two_Piece_Top_and_Skirt_Set_-_Sequin_Crop_Top_and_Wrap_Tie_Side_Mini_Skirt_in_Light_Blue_1.jpg?v=1778810829',
+            matchTier: 'unscored',
+            kind: 'top',
             price: '$105.00',
             isAlternative: true,
             altNote: 'The custom Cavalli look was never sold at retail -- this light-blue sequin two-piece matches its color, sparkle, and silhouette (boots not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1104,16 +1110,6 @@ export default {
         // The exact seasonal Dôen tank is discontinued; this is a current
         // same-brand alternative verified in stock.
         products: [
-          {
-            brand: 'DÔEN',
-            item: 'Lois Tank',
-            retailer: 'shopdoen.com',
-            url: 'https://www.shopdoen.com/products/lois-tank-salt-quelle-jolie-pointelle',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0950/9820/files/DOEN2026VALENTINE_SPICKUP_LOIS-TANK_SALT_05.jpg?v=1771873081',
-            price: '$138.00',
-            isAlternative: true,
-            altNote: 'The exact game-day tank is discontinued -- this is a current Dôen white pointelle tank, same brand (shorts, windbreaker, and shoes not separately sourced).',
-          },
         ],
       },
     },
@@ -1271,10 +1267,13 @@ export default {
             item: 'Blue Floral Brocade Strapless Ball Gown',
             retailer: 'macduggal.com',
             url: 'https://macduggal.com/products/11921-blue-multi',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/files/11921-BlueMulti-AB.jpg?v=1773440487',
             price: '$798.00',
             isAlternative: true,
             altNote: 'Her exact Oscar de la Renta gown is discontinued -- this is a current blue floral brocade ball gown in the same full-skirted silhouette, without the original\'s cutouts.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1334,16 +1333,6 @@ export default {
         // is undocumented beyond the brand name -- a current same-brand
         // leather skirt, verified in stock, closest real match.
         products: [
-          {
-            brand: 'KHAITE',
-            item: 'Jett Skirt in Black Leather',
-            retailer: 'khaite.com',
-            url: 'https://khaite.com/products/jett-skirt-in-black-leather',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/1519/7996/files/JETT_BLACK-LEATHER_GHOST_7320032a-f212-4b42-b7e0-7a09407e9d76.jpg?v=1725442992',
-            price: '$1,680.00',
-            isAlternative: true,
-            altNote: 'The exact Khaite mini worn to the game is undocumented -- this is a current same-brand black leather skirt (vintage top, jewelry, and boots not separately sourced).',
-          },
         ],
       },
     },
@@ -1416,16 +1405,6 @@ export default {
         // dress isn't currently sold -- a current same-brand black
         // crystal mini, verified in stock, closest real match.
         products: [
-          {
-            brand: 'AREA',
-            item: 'Crystal Hotfix Mini Dress',
-            retailer: 'area.nyc',
-            url: 'https://area.nyc/products/crystal-hotfix-mini-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/1747/6229/files/RS26AWDR0216FA01.jpg?v=1764719184',
-            price: '$398.00',
-            isAlternative: true,
-            altNote: 'The cover\'s grey AREA crystal dress isn\'t currently sold -- this is a current same-brand black crystal mini, one of the shoot\'s three looks.',
-          },
         ],
       },
     },
@@ -1530,11 +1509,14 @@ export default {
             item: 'White Polka Dot Strapless Viscose Gown With Slit',
             retailer: 'macduggal.com',
             url: 'https://macduggal.com/products/56248-black-ivory',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/files/56248-BlackIvory-AB.jpg?v=1773440361',
             price: '$398.00',
             isAlternative: true,
             inStock: false,
             altNote: 'The custom Schiaparelli ensemble was never sold at retail -- this is a current strapless slit gown in a similar high-contrast shape, polka dots instead of crystals (choker not included).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1745,10 +1727,13 @@ export default {
             item: 'Crystal Slit Jean',
             retailer: 'area.nyc',
             url: 'https://area.nyc/products/crystal-slit-jean-3',
+            matchTier: 'unscored',
+            kind: 'bottom',
             imageUrl: 'https://cdn.shopify.com/s/files/1/1747/6229/files/0000P013331_Black_FRONT.jpg?v=1699753216',
             price: '$298.00',
             isAlternative: false,
             altNote: 'The exact AREA Crystal Slit Jean named in the look, currently marked down -- sourcing the jeans only (corset, jacket, boots, and jewelry not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1858,9 +1843,15 @@ export default {
             item: 'Natalie Rhinestone Fishnet Mini Dress',
             retailer: 'fashionnova.com',
             url: 'https://www.fashionnova.com/products/natalie-rhinestone-fishnet-mini-dress-fncolorname-pink',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0293/9277/files/07-18-25_S8_53_KBBD4053024_Pink_JG_MC_15-11-45_11984-Adia_CM_PXF.jpg?v=1754591992&width=1200&height=627',
+            matchTier: 'unscored',
+            kind: 'dress',
             price: '$27.98',
             isAlternative: true,
             altNote: 'The custom Versace stage bodysuit was never sold at retail -- this pink rhinestone fishnet mini offers a similar color and sparkle, as a dress rather than a bodysuit.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1905,10 +1896,13 @@ export default {
             item: 'Multicolor Metallic Sequin One Shoulder Fringe Dress',
             retailer: 'macduggal.com',
             url: 'https://macduggal.com/products/6212',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/files/6212-GoldSilverOmbre-AB.jpg?v=1766609094',
             price: '$698.00',
             isAlternative: true,
             altNote: 'The custom Cavalli stage dress was never sold at retail -- this gold-silver ombre sequin fringe dress recreates its shimmer and movement (boots not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1947,10 +1941,13 @@ export default {
             item: 'Yellow Ruffle Shoulder V-Neck Chiffon Gown',
             retailer: 'macduggal.com',
             url: 'https://macduggal.com/products/48856-marigold',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/files/48856-Marigold-AB.jpg?v=1773441026',
             price: '$458.00',
             isAlternative: true,
             altNote: 'The custom Etro stage gown is not retail merchandise -- this marigold chiffon gown matches its warm, flowing character with ruffled shoulders rather than the original\'s cape.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1992,9 +1989,15 @@ export default {
             item: 'Lara Cut Out Jumpsuit',
             retailer: 'fashionnova.com',
             url: 'https://www.fashionnova.com/products/lara-cut-out-jumpsuit-fncolorname-black',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0293/9277/files/01-13-25_S6_23_JP3189PD_Red_HY_AC_15-55-21_62353_BH_KP_Black.jpg?v=1746126033&width=1200&height=627',
+            matchTier: 'unscored',
+            kind: 'dress',
             price: '$39.99',
             isAlternative: true,
             altNote: 'The asymmetrical Cavalli catsuit was custom-made -- this black one-shoulder cutout jumpsuit echoes its one-piece shape with flared pants (boots not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2033,9 +2036,15 @@ export default {
             item: '"Not a Lot Going on at the Moment" Unisex T-Shirt',
             retailer: 'upper90studio.com',
             url: 'https://www.upper90studio.com/store/p/not-a-lot-going-on-at-the-moment-unisex-t-shirt',
+            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
+            // 200 image/* response.
+            imageUrl: 'https://static1.squarespace.com/static/63b729d4171af66ccea2414b/63c0deeeecc669179e075571/64397b6b70ada81b868d877a/1681488751624/unisex-staple-t-shirt-white-front-64397b6437281.jpg?format=1500w',
+            matchTier: 'unscored',
+            kind: 'top',
             price: '$19.95+',
             isAlternative: true,
             altNote: 'The Ashish stage recreation was custom and never sold at retail -- this made-to-order shirt reproduces the "22" video\'s phrase, not the designer construction.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2073,10 +2082,13 @@ export default {
             item: 'Purple Strapless Satin Ball Gown With Draped Detail',
             retailer: 'macduggal.com',
             url: 'https://macduggal.com/products/56425-periwinkle',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/files/56425-Periwinkle-AB.jpg?v=1766610238',
             price: '$398.00',
             isAlternative: true,
             altNote: 'The Nicole + Felicia tour gown was custom-made -- this periwinkle strapless ball gown recreates the purple princess volume in satin, with draping rather than the original embellishment.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2115,10 +2127,13 @@ export default {
             item: 'Purple Ruched Chiffon Sleeveless Gown With 3D Flower',
             retailer: 'macduggal.com',
             url: 'https://macduggal.com/products/49938',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/files/49938-VintageLilac-AB.jpg?v=1753126400',
             price: '$498.00',
             isAlternative: true,
             altNote: 'The Alberta Ferretti tour dress was custom-made -- this vintage-lilac layered chiffon gown offers comparable soft movement, with a different neckline and floral detail.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2157,10 +2172,13 @@ export default {
             item: 'Hot Pink Cut Out Fringe Kaftan Gown',
             retailer: 'macduggal.com',
             url: 'https://macduggal.com/products/49898-magenta',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/files/49898-Magenta-AB.jpg?v=1773438407',
             price: '$498.00',
             isAlternative: true,
             altNote: 'The Jessica Jones stage gown was custom-made -- this magenta kaftan gown preserves the saturated color and flowing movement, with cutouts and fringe instead of the original silhouette.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2204,10 +2222,13 @@ export default {
             item: 'Penny Lane Navy Sequin Mini Dress',
             retailer: 'beginningboutique.com',
             url: 'https://www.beginningboutique.com/products/penny-lane-navy-sequin-mini-dress',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0077/9327/9033/files/Penny-Lane-Navy-sequin-mini-dress-1_d86dee70-2410-4969-a011-b6be8adae36b.jpg?v=1776587748',
             price: '$89.99',
             isAlternative: true,
             altNote: 'The Oscar de la Renta bodysuit, shirt, and coat were custom -- this navy sequin mini captures the closing look\'s color and shine in one dress, the primary piece only.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2246,10 +2267,13 @@ export default {
             item: 'Green Cowl Back Boat Neck Sequined Evening Gown',
             retailer: 'macduggal.com',
             url: 'https://macduggal.com/products/26331_emerald',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/files/26331-EmeraldGreen-AB.jpg?v=1773437851',
             price: '$398.00',
             isAlternative: true,
             altNote: 'The custom Gucci gown was not released for retail -- this emerald sequin gown shares its saturated sparkle, with a boat neck and cowl back instead of the original column shape.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2298,17 +2322,7 @@ export default {
         // Shop pass (2026-07-22): the custom Cavalli Grammys set was
         // never sold at retail -- a current sequin two-piece set,
         // verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Showpo',
-            item: 'Aurora Two Piece Top and Skirt Set',
-            retailer: 'showpo.com',
-            url: 'https://www.showpo.com/us/products/aurora-two-piece-top-and-skirt-set-floral-sequin-cowl-neck-top-and-maxi-skirt-in-baby-blue',
-            price: '$45.00',
-            isAlternative: true,
-            altNote: 'The custom Cavalli Grammys set was never sold at retail -- this blue sequin two-piece keeps the cropped-top-and-skirt formula, in pale blue with floral sequins and a cowl neck.',
-          },
-        ],
+        products: [],
       },
     },
 
@@ -2425,10 +2439,14 @@ export default {
             item: 'LiquiLUST: Legendary Wear Lipstick in Elson 4',
             retailer: 'patmcgrath.com',
             url: 'https://www.patmcgrath.com/products/liquilust-legendary-wear-matte-lipstick',
+            matchTier: 'inspired',
+            matchScore: 30,
+            kind: 'beauty',
             imageUrl: 'https://cdn.shopify.com/s/files/1/1463/9662/products/PMG_LIPS_LIQUILUST_ELSON4_OPEN_898cccd8-29a2-4d1b-addc-64cd98736c7c.jpg?v=1764707981',
             price: '$34.00',
             isAlternative: false,
             altNote: 'The exact Elson 4 shade used for the red ombre lip -- the primary makeup item only, not the full 30-look kit or the jeweled cat-eye.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2465,16 +2483,6 @@ export default {
         // sold -- a current black-and-gold sequin gown, verified in
         // stock, closest real match.
         products: [
-          {
-            brand: 'Mac Duggal',
-            item: 'Black and Gold Sequined Wrap Over Butterfly Sleeve Draped Gown',
-            retailer: 'macduggal.com',
-            url: 'https://macduggal.com/products/5540',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/products/5540-BlackGold-AB.jpg?v=1753836953',
-            price: '$199.00',
-            isAlternative: true,
-            altNote: 'The original Versace gown is no longer sold -- this black-and-gold sequin gown matches the palette and shine, with a wrap front and butterfly sleeves instead of gold buttons.',
-          },
         ],
       },
     },
@@ -2513,9 +2521,15 @@ export default {
             item: 'Locked Kiss 24HR Lipstick in Ruby True',
             retailer: 'maccosmetics.com',
             url: 'https://www.maccosmetics.com/product/13854/119065/products/makeup/lips/lipstick/mac-locked-kiss-24hr-lipstick?shade=RUBY+TRUE',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://www.maccosmetics.com/cdn/shop/files/mac_sku_NXPW01_1x1_0.png?format=webp&v=1787865399&width=2000',
+            matchTier: 'unscored',
+            kind: 'beauty',
             price: '$34.00',
             isAlternative: false,
             altNote: 'The exact MAC lipstick and shade identified in the backstage footage -- the primary lip color only, without the liner, setting powder, or full application routine.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2556,18 +2570,7 @@ export default {
         // Shop pass (2026-07-22): the original Free People slip and coat
         // are discontinued -- a current white lace mini, verified in
         // stock, closest real match.
-        products: [
-          {
-            brand: 'Beginning Boutique',
-            item: 'All Mine White Lace Mini Dress',
-            retailer: 'beginningboutique.com',
-            url: 'https://www.beginningboutique.com/products/all-mine-white-lace-mini-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0077/9327/9033/files/All-Mine-White-Lace-Mini-Dress-1.webp?v=1782774138',
-            price: '$99.99',
-            isAlternative: true,
-            altNote: 'The original Free People slip and coat are discontinued -- this white lace mini is a current stand-in for the dress only, with a different lace construction (the fur coat not included).',
-          },
-        ],
+        products: [],
       },
     },
     {
@@ -2608,10 +2611,13 @@ export default {
             item: 'Red Gingham & Cherries Sweetheart Swing Dress',
             retailer: 'unique-vintage.com',
             url: 'https://www.unique-vintage.com/products/unique-vintage-red-gingham-cherries-sweetheart-swing-dress',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/2714/9310/files/unique-vintage-red-gingham-cherries-sweetheart-swing-dress-7909696.jpg?v=1775146223',
             price: '$98.00',
             isAlternative: true,
             altNote: 'The exact Coach black-and-white Peter Pan-collar mini is discontinued -- this current dress carries the gingham-and-cherry motif in red, with a sweetheart neckline and swing skirt.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -5569,11 +5575,14 @@ export default {
             item: 'Bex Strapless Slinky Maxi Dress With Split',
             retailer: 'meshki.us',
             url: 'https://www.meshki.us/products/bex-strapless-slinky-maxi-dress-with-split-ivory',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0017/7920/4211/files/MESHKI_ECOM_LAMAISON_DROP0102_OCT23_DAY02_KATIE-S45_006.jpg?v=1784499680',
             price: '$95.00',
             isAlternative: true,
             inStock: false,
             altNote: 'The custom Schiaparelli gown was never sold at retail -- this is a current ivory strapless gown with a leg slit in a similar draped spirit, without the corset-style back lacing.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

@@ -1,0 +1,101 @@
+import { NextResponse } from 'next/server';
+import {
+  dispatchPendingEvents,
+  dispatchDueDigests,
+  dispatchClownReports,
+  dispatchFunNotifications,
+  scheduleCountdownsForPendingEvents,
+  dispatchDueCountdowns,
+  runCooldownPass,
+} from '@swift2/core/notifications-server';
+import { supabaseAdmin } from '../../../../lib/supabase-server';
+
+// Notifications Phase 2 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §10) —
+// the router's HTTP entry point. Runs `dispatchPendingEvents()` (fan-out +
+// governor + FCM send + delivery logging) against every pending, non-killed,
+// non-expired event whose `available_at` has arrived. Triggered every 15
+// minutes by Vercel Cron (apps/web/vercel.json's `crons` entry — the
+// Supabase Edge Function + pg_cron path spec §10 describes is the eventual
+// production home; this route is the deployable-today equivalent given the
+// same Vercel stack every other API route in this repo already uses, same
+// reasoning as Phase 0/1's routes).
+//
+// GET, not POST: Vercel Cron only ever issues a GET request to the
+// configured path, and automatically attaches `Authorization: Bearer
+// $CRON_SECRET` when a project env var literally named `CRON_SECRET` is
+// set — see https://vercel.com/docs/cron-jobs/manage-cron-jobs#securing-cron-jobs.
+// `authorized()` below checks that exact header/env pair.
+//
+// SERVICE ROLE, same posture as every other notifications route — this is
+// the only writer to `deliveries` and the only reader of cross-device
+// `events`/`devices`/`notification_prefs` state, so it must never be a
+// client-callable route with just the anon key.
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
+function authorized(req: Request): boolean {
+  const expected = process.env.CRON_SECRET;
+  // Unset secret = route disabled (fails closed), matching every other
+  // unconfigured-env route in this repo (503, not "trust the request").
+  if (!expected) return false;
+  const header = req.headers.get('authorization');
+  return header === `Bearer ${expected}`;
+}
+
+export async function GET(req: Request): Promise<Response> {
+  if (!authorized(req)) {
+    const configured = Boolean(process.env.CRON_SECRET);
+    console.warn(
+      configured
+        ? 'notifications/dispatch: unauthorized request rejected'
+        : 'notifications/dispatch: CRON_SECRET not set; dispatch disabled',
+    );
+    return NextResponse.json(
+      {
+        error: configured
+          ? 'Unauthorized.'
+          : 'Dispatch isn\u2019t wired up in this environment yet.',
+      },
+      { status: configured ? 401 : 503 },
+    );
+  }
+
+  const db = supabaseAdmin();
+  if (!db) {
+    console.warn('notifications/dispatch: SUPABASE_SERVICE_ROLE_KEY not set; dispatch dropped');
+    return NextResponse.json(
+      { error: 'Notifications dispatch isn\u2019t wired up in this environment yet.' },
+      { status: 503 },
+    );
+  }
+
+  try {
+    const result = await dispatchPendingEvents(db);
+    const digestResult = await dispatchDueDigests(db);
+    const clownResult = await dispatchClownReports(db);
+    const funResult = await dispatchFunNotifications(db);
+    const countdownScheduleResult = await scheduleCountdownsForPendingEvents(db);
+    const countdownDispatchResult = await dispatchDueCountdowns(db);
+    // Phase 5: cooldown is a once-a-day-effective check (isCooldownEligible
+    // only fires once a device's instant prefs are already gone), run every
+    // tick alongside the other passes — cheap no-op for already-downgraded
+    // devices, same "run on every 15-min tick" cadence as everything else
+    // in this route.
+    const cooldownResult = await runCooldownPass(db);
+    return NextResponse.json(
+      {
+        router: result,
+        digests: digestResult,
+        clownReports: clownResult,
+        fun: funResult,
+        countdownSchedule: countdownScheduleResult,
+        countdownDispatch: countdownDispatchResult,
+        cooldown: cooldownResult,
+      },
+      { status: 200 },
+    );
+  } catch (err) {
+    console.error('notifications/dispatch: unexpected error', (err as Error).message);
+    return NextResponse.json({ error: 'Dispatch failed unexpectedly.' }, { status: 500 });
+  }
+}

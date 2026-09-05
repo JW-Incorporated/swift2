@@ -135,6 +135,27 @@ it and leave the lane's content in place.
      body — shipping five good lanes beats blocking on one.
    - `lint` reporting `Duplicate key` means the `focalPoint` bug: remove the
      duplicate, do not leave both.
+   - **Also run the two CI content checks this gate used to skip (#3516):**
+     `git fetch --no-tags --depth=1 origin main`, then
+     `npm run check:voice -- --base-ref FETCH_HEAD` and
+     `npm run content:coverage`. Both are cheap and scoped — `check:voice`
+     only scans the seed files this run's commits actually touched (not the
+     whole corpus) and `content:coverage` is a pure file check with no DB or
+     network calls — so there is no cost reason to skip either on a normal
+     run. PR #3514 passed the old five-command gate and still failed CI's
+     `build` job on a `check:voice` finding this gate never would have
+     caught; these two commands close that gap.
+   - **Do NOT add `npm run build` to this local gate.** Unlike the two checks
+     above, `build` runs a full multi-workspace production build (every
+     `apps/*` package, `--if-present`), which is materially slower than the
+     five-command gate and does not scale to running after every lane on
+     every Vault Run. It is still enforced — CI's `build` job runs it on the
+     PR before merge — so a real build break is still caught before landing,
+     just not locally. If you want a cheap local proxy instead of the full
+     build, `npm run typecheck` (already in this gate) catches the type
+     errors that would fail `build` for TypeScript reasons; it does not catch
+     bundler/asset errors, so treat CI's `build` job, not this gate, as the
+     authority on those.
 4. **Open ONE PR**, branch `vault/<date>`, label `content-shift`, titled
    `vault: <date> — <n> lanes`. Body must contain:
    - a one-line TL;DR per lane that did something, and
@@ -165,9 +186,12 @@ you assume that sentence means someone will keep trying.
 
 ## Hard limits, all lanes
 
-- **Seed files only.** Never `docs/`, `scripts/`, `apps/` (except the two
+- **Seed files only.** Never `docs/`, `scripts/`, `apps/` (except the
   generated vault files, and only via `sync:content`), or `.github/`. Only
-  Austin touches app code.
+  Austin touches app code. (This now includes Clownbot's no-DB fallback —
+  `apps/web/lib/longlive/clownbot-lore.ts` / `clownbot-lore.generated.ts` —
+  refreshed via `supabase/seed/clownbot-lore/clownbot-lore.mjs` per Fable
+  ruling FR-t_2745eb60-1, #3515; see Lane 4 Part C.)
 - **Respect the ownership lock.** Skip every era claimed in
   `.github/content-ownership.json` (loaded in step 1) — pick a different,
   unclaimed era or corpus instead. If a lane's only available work is on a
@@ -202,3 +226,19 @@ seconds. If you are running long, **cut per-lane volume rather than dropping a
 lane** — a lane that ships one good item beats a lane that ships nothing, and
 silently skipping a lane is the failure mode that makes this consolidation worse
 than what it replaced. Say in the PR body when you trimmed for budget.
+
+
+## Attribution trailer (T-20 Phase 1 -- per-routine output telemetry)
+
+Every PR body (and its commit message) AND every GitHub issue body this
+routine opens MUST include this exact line:
+
+    Tier-2: Vault Run
+
+Use this identifier verbatim -- do not paraphrase or abbreviate it, and
+include it even on a routine that normally files issues rather than PRs
+(e.g. intake/ticket-filing desks) -- issues count exactly like PRs for
+this telemetry. This powers daily per-Tier-2-routine output counts in
+Marjorie's Founders' Brief (`docs/agents/runners.md`,
+`docs/TIER2-OPTIMIZATION.md` section T-20). If this run produces no
+PR/issue at all, there is nothing to tag -- that's expected, not an error.

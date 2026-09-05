@@ -81,6 +81,31 @@ function mixSrgb(hex1: string, weight1: number, hex2: string): string {
   return [mix(r1, r2), mix(g1, g2), mix(b1, b2)].map((v) => v.toString(16).padStart(2, '0')).join('');
 }
 
+// #3399: accent2 is painted as small raw text over era-themed backgrounds
+// (LandingMasthead eyebrow, CommunitySection counts — both
+// `text-[color:var(--era-accent-2)]`). Laura's 2026-08-27 axe walk measured
+// reputation #6f6f6f on #0a0a0a = 3.94:1 and evermore #9a7b5a on #241611 =
+// 4.47:1 — exactly those eras' accent2-on-bg pairs (the ticket's named
+// `--era-ink-soft` already cleared 4.5:1 on both, so accent2 is the token the
+// measurements identify). Locks the two nudged eras at ≥4.5:1 against every
+// background layer accent2 text can sit on.
+describe('accent2 as text — WCAG AA 4.5:1 on reputation/evermore (#3399)', () => {
+  const fixed = ERAS.filter((e) => e.id === 'reputation' || e.id === 'evermore').map((e) => ({
+    id: e.id,
+    theme: e.theme,
+  }));
+
+  it('covers both eras the #3399 audit flagged', () => {
+    expect(fixed.map((t) => t.id).sort()).toEqual(['evermore', 'reputation']);
+  });
+
+  it.each(fixed)('$id: accent2 clears 4.5:1 on bg, surface, and surface2', ({ theme }) => {
+    for (const bg of [theme.bg, theme.surface, theme.surface2]) {
+      expect(contrastRatio(theme.accent2, bg)).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+});
+
 describe('.era-icon-btn (#525 close-affordance contrast) — WCAG AA 4.5:1', () => {
   const themes = [...ERAS.map((e) => ({ id: e.id, theme: e.theme })), { id: 'vault', theme: VAULT_THEME }, { id: 'merch', theme: MERCH_THEME }];
 

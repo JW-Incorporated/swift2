@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-08-31T20:52:00.861Z",
+  "sources": [
+    {
+      "network": "awin",
+      "status": "unavailable",
+      "reason": "Awin reporting API is not configured"
+    },
+    {
+      "network": "amazon",
+      "status": "unavailable",
+      "reason": "Amazon Associates reporting API is not configured"
+    }
+  ],
+  "totals": {
+    "clicks": 0,
+    "revenue": 0
+  },
+  "byEra": [],
+  "byMoment": [],
+  "byBucket": [],
+  "uncoveredRetailers": []
+}

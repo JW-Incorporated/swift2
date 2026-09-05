@@ -45,7 +45,7 @@ jobs:
             *) echo 'candidate_file must stay under scripts/merch-engine/' >&2; exit 1 ;;
           esac
           node scripts/merch-engine/match-moments.mjs --input "$input" --output merch-matcher-plan.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: merch-matcher-plan
           path: |

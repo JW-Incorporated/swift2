@@ -8,6 +8,9 @@ team.
 - `CLAUDE.md` — operating manual for AI agents (workflow, definition of done,
   decision authority). Start here.
 - `AGENTS.md` — Codex-specific instructions (reviewer role).
+- `docs/AUTOMATION.md` — **what runs automatically and why.** The one-page
+  index of every scheduled routine (GitHub Actions, Claude desk routines, and
+  the product's own cron). Read this before touching anything scheduled.
 - `docs/cto-role.md` — the CTO/engineering role + new-session bootup checklist.
 - `docs/longlive-experience.md` — source of truth for the shipped front-end
   (the era/threads reader at `/`). Read before touching web UI code.

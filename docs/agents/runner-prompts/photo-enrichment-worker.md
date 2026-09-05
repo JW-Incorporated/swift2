@@ -41,9 +41,13 @@ For each one:
 AFTER SYNCING, CONFIRM IT ACTUALLY LANDED: run `npm run sync:content` then grep the shortcode in apps/web/lib/longlive/content-vault.generated.ts. This field was dropped on its very first build because one link in the seed->caller->normalizer->serializer chain was missing, and every layer looked correct. Do not trust the layers; check the built vault.
 
 === BEFORE OPENING YOUR PR ===
+First check for a prior photo PR still open: run `gh pr list --repo JW-Incorporated/swift2 --state open --search "photos in:title"`. If one is still open, say so at the top of your issue #762 comment and in the PR body, and do not report this run as landed.
 Run `npm run lint` as well as validate:content and check:generated. If lint reports `Duplicate key`, you have hit the focalPoint bug -- remove the duplicate rather than leaving both. State in the PR how many photos and how many posts you added, and how many candidates you rejected and why.
 
 REPORTING: do NOT exit quietly. If ANYTHING stops this run -- usage limits, rate limits, a tool or auth failure, or no eligible pages -- post a one-line comment on issue #762 saying which, then exit. A comment explaining a no-op is a good outcome; a silent no-op is not.
 
 RUN DISCIPLINE (2026-07-25, token burn): do the work, open the PR, and EXIT. Do not arm a self-check-in, a `send_later`, a Monitor, or any "come back and look at this PR again" follow-up, and do not subscribe to PR activity — those loops were ~69% of all scheduled agent token spend. `auto-merge-content.yml` lands your PR automatically once `build` is green, because it touches only seed and generated content. If CI fails, tomorrow's run picks it up.
+
+
+ATTRIBUTION (T-20 Phase 1): include the exact line `Tier-2: Photo Enrichment worker` in the body of every PR and every GitHub issue you open. This powers daily per-Tier-2-routine output counts in Marjorie's Founders' Brief (docs/agents/runners.md, docs/TIER2-OPTIMIZATION.md section T-20). If this run produces no PR/issue, there is nothing to tag.
 ```

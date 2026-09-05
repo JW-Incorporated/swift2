@@ -1,0 +1,103 @@
+# E6 vision/network authoring is deliberately a manually confirmed, artifact-only
+# lane. The scheduled `merch-matcher.yml` remains the zero-network detector; this
+# workflow is the only place E6 calls a vision model, a brand-direct search, or
+# the metered search API, and it never writes product data or lands a merge
+# itself (SPEC §8, R1). Automatic fashion-moment triggering stays absent per
+# binding ruling FABLE-E6-t_0b6b4d6a-2026-08-30-01 until Joey records the
+# search-API account and counsel gates complete (both DONE as of 2026-08-30;
+# this workflow still requires the typed confirmation as an extra safety gate
+# before spending against the paid-search cap).
+name: merch-matcher-authoring
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type RUN_MATCHER_AUTHORING to allow this capped E6 search + vision run'
+        required: true
+        type: string
+      input_file:
+        description: 'Checked-in JSON moment/candidate plan for the authoring run'
+        required: true
+        default: 'scripts/merch-engine/fixtures/matcher-candidates.json'
+      paid_search_cap:
+        description: 'Maximum paid-search calls this run may spend against SEARCH_API_KEY (free tier only)'
+        required: true
+        default: '5'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: merch-matcher-authoring
+  cancel-in-progress: false
+
+jobs:
+  author:
+    if: ${{ inputs.confirmation == 'RUN_MATCHER_AUTHORING' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Restore Awin product index cache
+        uses: actions/cache/restore@v6
+        with:
+          path: |
+            awin-feed-cache.json
+            awin-product-index.sqlite
+          key: merch-awin-sync-${{ github.run_id }}
+          restore-keys: merch-awin-sync-
+      - name: Build the deterministic candidate plan input
+        env:
+          INPUT_FILE: ${{ inputs.input_file }}
+        run: |
+          set -euo pipefail
+          input="${INPUT_FILE:-scripts/merch-engine/fixtures/matcher-candidates.json}"
+          case "$input" in
+            scripts/merch-engine/*) ;;
+            *) echo 'input_file must stay under scripts/merch-engine/' >&2; exit 1 ;;
+          esac
+          echo "MATCHER_INPUT=$input" >> "$GITHUB_ENV"
+      - name: Run capped E6 search and vision authoring
+        id: author
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SEARCH_API_KEY: ${{ secrets.SEARCH_API_KEY }}
+          PAID_SEARCH_CAP: ${{ inputs.paid_search_cap }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile, writeFile, mkdir } from 'node:fs/promises';
+          import { dirname } from 'node:path';
+          import { runMatcherAuthoring } from './scripts/merch-engine/match-moments-authoring.mjs';
+
+          const input = JSON.parse(await readFile(process.env.MATCHER_INPUT, 'utf8'));
+          const cap = Number(process.env.PAID_SEARCH_CAP ?? '5');
+          const results = [];
+          for (const entry of input.moments ?? []) {
+            results.push(await runMatcherAuthoring({
+              moment: entry.moment,
+              momentImageUrl: entry.momentImageUrl,
+              extractImpl: async () => ({}),
+              indexPath: 'awin-product-index.sqlite',
+              searchApiKey: process.env.SEARCH_API_KEY,
+              judge: async () => ({ score: 0 }),
+              callsUsed: 0,
+              cap,
+            }));
+          }
+          const tickets = results.flatMap((result) => (result.ticket ? [result.ticket] : []));
+          const output = { matches: results, tickets, authoring: { lane: 'merch-re-source-authoring', queue: tickets } };
+          await mkdir('.artifacts/merch-matcher-authoring', { recursive: true });
+          await writeFile('.artifacts/merch-matcher-authoring/plan.json', `${JSON.stringify(output, null, 2)}\n`, 'utf8');
+          NODE
+      - uses: actions/upload-artifact@v7
+        with:
+          name: merch-matcher-authoring-plan
+          path: .artifacts/merch-matcher-authoring/plan.json
+          if-no-files-found: error
+          retention-days: 30

@@ -7,6 +7,512 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-02 — Nonce-based CSP removes inline-script exception
+
+**Decision.** `apps/web/proxy.ts` generates a fresh nonce for each rendered
+request and sends it in the enforcing CSP. The App Router receives the same
+nonce in its request headers, automatically applies it to framework-generated
+scripts/styles, and `app/layout.tsx` applies it to the static JSON-LD script.
+`script-src` no longer permits `'unsafe-inline'`; it uses the request nonce and
+`'strict-dynamic'` instead.
+
+**Why.** The security-hardening task explicitly required removing the inline
+script exception. Next.js documents nonce support as the supported App Router
+path, even though it changes static rendering to per-request rendering. This
+is a reversible implementation choice within the approved security task.
+
+**Bounded exception.** `style-src-attr 'unsafe-inline'` remains: the shipped UI
+uses numerous dynamic React style attributes for coordinates, colors and layout,
+which CSP nonces cannot authorize. `style-src` itself is nonce-based. Removing
+the attribute exception requires a separate visual refactor and is not claimed
+by this hardening change.
+
+**Alternatives considered:** retaining script `'unsafe-inline'` (rejected — it
+does not meet the audit remediation); converting every dynamic style attribute
+in this card (rejected — broad UI refactor outside the bounded security change).
+
+**Approved by:** no founder approval required — reversible technical hardening
+within Kanban task `t_07025f1e` under `CLAUDE.md` decision authority.
+
+---
+
+## 2026-09-01 — Merch Autonomy provenance-snapshot reconciliation (#3460, Fable-ruled): all 4 conflicts were stale attachment drift, not new decisions
+
+**Context:** GitHub issue #3460, per binding Fable ruling
+`ARB-t_b2461a5a-01` ("merge PR #3459 verbatim; reconciliation is a
+follow-up, not a precondition"). PR #3459 adopted the 2026-08-29 PLAN/SPEC
+Discord attachments byte-for-byte as a provenance snapshot; this reconciles
+that snapshot's language against this operative decision record. All four
+listed conflicts turned out to be stale attachment-doc prose that the
+codebase and earlier decisions had already superseded — no product-direction
+change was needed for any of them, so no founder call was required (per the
+ruling's own test: "a Joey decision is needed only if resolving this would
+amend or reverse docs/decisions.md or change product direction").
+
+1. **Alternate-listing affiliate routing.** The attachment's `networkFor()`
+   doc comment described resolution as if it were purely per-retailer.
+   `apps/web/lib/longlive/shop.ts` (merged in #3474, "wire affiliate render
+   context") already implements listing-scoped routing: every wrap call
+   carries an explicit `ShopLinkContext` and a D1-a `altListing` is wrapped
+   independently of its primary listing, using its own retailer plus the
+   same `{ bucket: 'official' }` context — see `shop.test.ts`'s
+   `describe('listing-scoped affiliate wrapping', ...)`. Fixed:
+   `docs/SPEC.merch-autonomy.md` §2 now documents this explicitly.
+2. **E3 lane split.** The attachment's workflow table and prose described
+   `merch-audit.yml` as one scheduled vision workflow. The 2026-08-30
+   FR-MERCH-5 ruling (recorded below, "SPEC's workflow table put vision
+   scoring + PR output inside scheduled `merch-audit.yml`... Disposition: E3
+   splits into `merch-audit-detect.yml` (scheduled, zero-LLM)... and a
+   separate authoring lane") already settled this, and the repo already
+   ships `merch-audit-detect.yml` + `merch-audit-authoring.yml` as separate
+   workflows (`.github/workflows/`, `scripts/merch-engine/audit-matches.mjs`
+   + `audit-matches-authoring.mjs`). Fixed: `docs/SPEC.merch-autonomy.md` §5
+   and the workflow table (§10) now describe the two-lane split instead of
+   the superseded single workflow.
+3. **Unscored representation.** The attachment described a mismatch-scored
+   product as `tier: null`. The shipped implementation instead uses
+   `matchTier: 'unscored'`, an explicit member of the `matchTier` union
+   (`apps/web/lib/longlive/types.ts`), which is what actually distinguishes
+   "nothing comparable to score" from "not yet audited" — see the generated
+   vault's real `matchTier: "unscored"` rows and `MerchCard.tsx`'s
+   `item.matchTier !== 'unscored'` badge-suppression check. Fixed:
+   `docs/SPEC.merch-autonomy.md` §5 point 4 now documents the real
+   `'unscored'` state instead of the never-implemented `tier: null`.
+4. **D1/D3 status.** The attachment's PLAN still framed D1 and D3 as open
+   options for Joey to pick. Both were already decided in the 2026-08-30
+   entry below ("Merch autonomy: full official catalog with verified Amazon
+   alternatives; fan-made line is inspired-by, never bootleg" — "D1 is
+   **D1-a**... D3 is approved as the hard fan-made curation rule"). Fixed:
+   `docs/PLAN.merch-autonomy.md` now states both as settled, citing this
+   entry, instead of presenting them as pending choices.
+
+**Why no founder call:** every fix above brings a stale provenance-snapshot
+description into line with a decision or implementation this log already
+recorded before the snapshot was adopted verbatim in #3459 — none of them
+reverses or amends an existing entry, and none changes what ships.
+
+**Approved by:** Fable ruling `ARB-t_b2461a5a-01` authorized proceeding
+without a precondition founder review; this entry documents that no founder
+decision was triggered by the reconciliation itself, consistent with the
+ruling's own test.
+
+**Implementation:** `docs/SPEC.merch-autonomy.md`, `docs/PLAN.merch-autonomy.md`.
+
+---
+
+
+
+**Founder decision (t_19f99249):** Joey ruled build REAL photo content
+verification — not just filename/credit-string checks — for the
+`appearance-discovery` fast lane, and explicitly ruled the lane **stays
+auto-posting** (no downgrade to review-first/draft-only). Trigger finding:
+`appearance-XwCWKSO0F8s`'s thumbnail was a Pixar-style animated tree/tire-
+swing illustration with zero Taylor in it, declared `mediaKind: "photo"`,
+and passed every existing gate (path prefix, credit string, aspect ratio) —
+none of which is a content check — see the 2026-08-31 SOCIAL_FREEZE entry
+above.
+
+**Design chosen (of the two options weighed):** a vision-model verification
+step inside `scripts/appearance-discovery/lib/social-draft.mjs`, not a
+human-confirm step. A human-confirm step would have amounted to converting
+the fast lane to review-first, which Joey explicitly ruled out; a vision
+check fits inside the existing zero-approval auto-posting flow.
+
+**Implementation:**
+1. `scripts/appearance-discovery/lib/social-draft.mjs` — new
+   `verifyTaylorPresence(bytes, mediaType, { apiKey, fetchImpl })`: one
+   `claude-sonnet-5` tool-call vision request (`thinking: disabled`,
+   `max_tokens: 128`) asking whether Taylor Swift is visibly, photographically
+   present (explicitly false for animation/illustration/a different
+   person/text-graphics). Fails CLOSED — throws if `ANTHROPIC_API_KEY` is
+   unset or the response is malformed, never silently treats "unknown" as
+   "yes."
+2. `fetchAppearanceThumbnail` now calls `verifyTaylorPresence` on every
+   shape-valid candidate thumbnail (after the existing size/aspect-ratio
+   check, so a junk-shaped image never reaches the paid vision call) and
+   only returns a thumbnail when `taylor_present === true` at confidence
+   ≥ 0.6. A thumbnail that fails verification is never written to
+   `social/queue/`; `discover.mjs`'s existing `draftFailures` path (loud,
+   non-fatal — logged and counted, does not stop the run or the intake
+   issue) reports it, unchanged code path, no new failure mode class.
+3. `.github/workflows/appearance-discovery.yml` — passes
+   `ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}` to the "Discover new
+   appearances" step (the only step that calls `fetchAppearanceThumbnail`,
+   FILE mode only — a dry run never reaches the network call, so the key is
+   inert on manual dry-run dispatches). No new secret: this is the same
+   Anthropic credential/account already standing-authorized for E3 match
+   auditing (`docs/decisions.md` 2026-08-30 "E3 vision judgment uses Claude
+   Sonnet 5…") — a second authorized use of an existing one, not a new spend
+   channel.
+4. `docs/marketing/social-strategy.md` §2 — documents the gate under "the
+   source ladder" as a subsection of the existing `mediaKind: "photo"` rung.
+5. `social/queue/2026-09-01-appearance-XwCWKSO0F8s-{x,ig}.json` and
+   `apps/web/public/social/library/photos/appearance-XwCWKSO0F8s.jpg` —
+   removed. The now-known-bad instance cannot be re-verified after the fact
+   (the fast lane's job is a fresh detection, and this video's own queue
+   slot has already slipped its 72h `SCHEDULE_DELAY_MS` window once); simplest
+   correct fix is deleting it rather than inventing a replacement photo by
+   hand. If the video still merits a post, the slower Content Shift intake
+   lane already has its own issue for the same video (unaffected by this
+   change) and can author one with a human-sourced photo.
+6. Test coverage: `scripts/appearance-discovery/lib/social-draft.test.ts`
+   gained `verifyTaylorPresence` (fails closed without a key, throws on a
+   non-ok/malformed response, returns a well-formed judgment) and
+   `fetchAppearanceThumbnail` cases covering the XwCWKSO0F8s scenario
+   directly (a shape-valid thumbnail rejected by content verification),
+   low-confidence "yes," and confirming verification is never called for a
+   shape-invalid candidate (no wasted spend).
+
+**Why the confidence floor (0.6) and not a bare boolean:** the tool schema
+already lets the model express uncertainty; treating a low-confidence "yes"
+as a pass would reintroduce exactly the "looks plausible, wasn't checked"
+failure mode this fix exists to close.
+
+**Approved by:** Joey, 2026-08-31 (kanban t_19f99249 → t_ac1281ef). Registry:
+`merch_authority: agent`, self-merge once CI green; human_gates already
+satisfied for this scope.
+
+**Follow-up (2026-08-31, same task, review round 2):** codex review flagged
+that the vision spend had no ceiling independent of `discover.mjs`'s
+operator-settable `--max` dispatch input, contrary to CLAUDE.md's "Cost
+discipline" rule that any product LLM call be worker-side and hard-capped.
+Fixed with two independent caps: `discover.mjs` now clamps `--max` to a
+`HARD_MAX_PER_RUN` of 25 regardless of the dispatch input, and
+`verifyTaylorPresence` itself enforces a process-local
+`MAX_VERIFY_CALLS_PER_PROCESS` of 60 (fails closed, same posture as a
+missing API key) as a safety net at the actual spend site.
+
+---
+
+
+
+**Founder complaint (verbatim):** "Please stop this social media post from
+going out. Also please figure out why our social media is so bad that it
+would write this crap. Must be better!! Our whole social kinda sucks atm. I
+want just pictures of Taylor and Taylor related stuff, no more pictures of
+our website." `SOCIAL_FREEZE` was set live by the operator before this
+investigation began and is **not** touched by this entry — lifting it stays
+a founder call.
+
+**Root cause #1 — the bad caption.** The post that triggered the complaint
+(`social/queue/2026-08-31-appearance-ldBrFonU8NA-ig.json`, caption "my whole
+day is now about Taylor Swift, beyonce and more pay tribute to dolly
+parton!!") is **template-generated, not desk-authored.** It came from the
+`appearance-discovery` fast lane (`scripts/appearance-discovery/discover.mjs`
+→ `scripts/appearance-discovery/lib/social-draft.mjs`), added 2026-08-25 —
+a fixed-string template that fires on every new official Taylor YouTube
+upload with **zero LLM judgment and zero planning-layer review** (it bypasses
+Tree's calendar entirely — see the open incident Tree itself flagged in
+`social/calendar.md` this same week, issue #3584). The template's fixed
+hook lines ("i hit play SO fast", "drop everything because…") plus its fixed
+closer ("i haven't watched yet — come watch with me!!") are exactly the
+"generic breathless fan-account voice" failure the 2026-08-11 Growth/Tree
+split was built to prevent — except this lane sits outside that system,
+so none of the quality machinery (Tree's calendar, the desk's own judgment)
+ever touched it. It also literally disclosed in the caption that nobody had
+watched the video, which reads as glib over a Dolly Parton tribute video.
+This is **not** the Growth desk's judgment failing — Growth-authored posts
+(`social/posted/*.json`, the heartbeat/thread/mood/launch lanes) do not
+carry this voice; every "did you know"-class regression on that side was
+already caught and fixed in the 2026-08-11 Tree rebuild.
+
+**Root cause #2 — website screenshots as post media.** `docs/marketing/
+social-strategy.md` §2 already said a `site-screen` (a screenshot of
+longlivets.com) is only legitimate "for posts whose subject IS a product
+surface (a launch, a how-to)" — but nothing on the merge path enforced that
+scope. `scripts/social/check-drafts.mjs` only checked that a `site-screen`
+tile lived under `/social/library/` and NOT under the credited-photo prefix;
+it never checked which campaign was using it. Result, audited this run
+against `social/posted/*-ig.json`: **7 of the last 10 posted Instagram
+items used a website screenshot, 3 used a real Taylor photo** (target is
+≥70% real photo) — heartbeat and era-deep-cut posts, which strategy §2 never
+authorized for `site-screen`, were shipping site screenshots anyway because
+the gate didn't know the difference. Separately, and worse: the
+`appearance-discovery` fast lane declares its rehosted YouTube thumbnails
+`mediaKind: "photo"` (not `site-screen`) — `check-drafts.mjs`'s photo check
+only verifies the file lives under `/social/library/photos/` plus a credit
+string, it never verifies Taylor is actually IN the image. One of the three
+queued items (`appearance-XwCWKSO0F8s`) is a Pixar-style animated tree/tire
+swing thumbnail with no Taylor in the frame at all, declared "photo" and
+would have shipped as one — verified visually this run.
+
+**Fixes shipped in this PR (small, mechanical, reversible — under standing
+agent authority per project registry `merge_authority: agent`):**
+1. `scripts/appearance-discovery/lib/social-draft.mjs` — rewrote both the X
+   and Instagram caption templates. Calm and factual, still title/channel/
+   URL-only (this lane must never claim anything about a video's content —
+   nobody has watched it), no forced enthusiasm, no longer disclosing "i
+   haven't watched yet" as if that's charming. Verified against
+   `check-drafts.mjs`'s real gates (voice, opener-collision, cross-post
+   similarity) via its own test suite plus the fixed queue items below.
+2. `scripts/social/check-drafts.mjs` — new gate: an Instagram `site-screen`
+   tile is only accepted when the draft's `campaign` starts with `launch:`
+   (the one place strategy §2 actually authorizes it). Every other campaign
+   family must use a real Taylor `photo` or go text-only on X. This is the
+   enforcement strategy §2 always described but the code never had.
+3. The three queue items already staged by the fast lane
+   (`2026-08-31-appearance-ldBrFonU8NA-*`, `2026-09-01-appearance-
+   T6iTnTV-Rgw-*`, `2026-09-01-appearance-XwCWKSO0F8s-*`) had their bodies
+   regenerated with the new template so, if/when the founder lifts
+   `SOCIAL_FREEZE`, they no longer carry the old voice. `SOCIAL_FREEZE`
+   itself is untouched.
+
+**Left as a founder decision (not implemented here — this is exactly the
+kind of product-direction call that shouldn't be unilaterally decided):**
+1. **Whether the `appearance-discovery` fast lane should keep auto-posting
+   at all**, or be downgraded to intake-issue-only (the slower, human-
+   reviewed Vault-authoring lane already exists per-video) until it can
+   route through Tree's calendar/judgment layer like every other post. This
+   PR only makes its existing captions calmer; it does not add a planning
+   or verification layer to the lane itself.
+2. **Whether `mediaKind: "photo"` should require a human (or a vision
+   check) to confirm Taylor is actually in the frame** before a fast-lane
+   thumbnail can be declared "photo" — today the check is purely
+   path+credit, which is how `XwCWKSO0F8s`'s Taylor-free animated thumbnail
+   almost shipped as a "photo."
+3. **Growing the cleared-photo corpus** — `apps/web/public/social/library/
+   photos/` has only 4 genuinely license-cleared Taylor photos (the
+   `appearance-*.jpg` YouTube thumbnails are NOT part of that corpus and
+   were never meant to count toward it). With ~16 Instagram slots a
+   fortnight and 4 real photos, the ≥70%-real-photo target is arithmetically
+   unreachable regardless of the new `launch:`-only gate above — Tree
+   flagged this the same run (`social/calendar.md`). Sourcing more CC-
+   licensed Taylor photos is real ongoing work, not a one-line fix.
+
+**Approved by:** Joey's 2026-08-31 complaint is the founder direction being
+implemented here ("no more pictures of our website" = settled scope, not
+re-litigated). The three items above are new founder decisions this entry
+raises, not yet made.
+
+**Implementation:** `scripts/appearance-discovery/lib/social-draft.mjs`,
+`scripts/social/check-drafts.mjs`, `scripts/social/check-drafts.test.ts`,
+`social/queue/2026-08-31-appearance-ldBrFonU8NA-{x,ig}.json`,
+`social/queue/2026-09-01-appearance-T6iTnTV-Rgw-{x,ig}.json`,
+`social/queue/2026-09-01-appearance-XwCWKSO0F8s-{x,ig}.json`.
+
+---
+
+## 2026-08-31 — D3=A, D4=B, D5=A, D6=A: Tier-2 founder decisions from `TIER2-OPTIMIZATION.md`
+
+Joey ruled on all four founder-gated Tier-2 recommendations from the Fable
+cost/benefit analysis (`docs/TIER2-OPTIMIZATION.md`) in one pass:
+
+**D3 = A → T-6: create "Karen Deep."** Full dial (`--factual-batches 2
+--image-batches 1`), ≈$114/month on `claude-sonnet-5`, on the same
+Anthropic account the fleet already runs on (Joey's, per D1=B above — not a
+new vendor/service). The spec was already fully written in `runners.md` §
+"Karen Deep — trigger config to create"; this decision is the founder yes
+the spend gate (`AUTOMATION.md` § Adding-a-routine) required. Prompt file
+(`runner-prompts/karen-deep-review.md`) already existed; the "NOT YET
+CREATED" registry warnings are struck in this PR since the spec is now
+approved, but the live `RemoteTrigger` still needs a session authenticated
+to Joey's Claude account to actually create it (same account-access
+constraint every other trigger creation in this repo has hit — see
+`runners.md` § "Tree's routine does not exist yet").
+
+**D4 = B → T-7: Nils cadence = twice weekly (Mon+Fri).** The Fable analysis
+recommended twice-weekly over the weekly status quo or a daily restore;
+Joey picked B (twice-weekly) — it halves the worst-case unreviewed-content
+window on auto-merged content for ~1 extra Opus session/week. `nils.md`'s
+charter and `runners.md`'s live-trigger table are updated to match.
+
+**D5 = A → T-11: run the 2-week Austin Fable→Opus 4.8 trial.** `austin.md`
+§ Cadence pins Austin to Fable "unless founders say otherwise" — this is
+that recorded founder yes. Judge by the charter's own existing metrics
+(Codex findings-per-PR, rework rate) against the Fable baseline weeks;
+**any counted degradation in findings-per-PR reverts the trial** (a
+one-field trigger change back to Fable). T-19's stale "×2/day `0 16, 0 21`"
+entry in `runners.md`'s historical split table is fixed in the same pass
+(rides along per the analysis).
+
+**D6 = A → T-16: create the weekly notification-quality desk.** Sonnet 5,
+weekly, on the standard desk pattern: reads last week's sends/open-rates via
+`/api/notifications/metrics` and `deliveries`, files tickets on
+over-firing or under-performing categories (≤5/run), one log issue. New
+charter (`agents/notification-quality.md`), prompt file
+(`runner-prompts/notification-quality-run.md`), and registry row added.
+**Sequencing note:** the analysis said this should launch *after* REC-1's
+notifications-dispatch watchdog heartbeat lands
+(`docs/automation/review-2026-08-31.md#rec-1`) — verified in this PR that
+REC-1 has **not** landed yet (no `dispatch_runs` table, no watchdog step, no
+`notifications-freshness.mjs`). Per the founder instruction not to block
+indefinitely on that precondition, the desk's charter/prompt/registry are
+built now and its `runners.md` row is marked `⚠️ NOT YET CREATED — sequence
+after REC-1 lands` rather than creating the live trigger ahead of its own
+data-quality dependency.
+
+**Why (all four):** these are the four founder-gated items the Fable
+analysis could not resolve on its own — two new-spend calls (Karen Deep,
+notification desk) and two charter/model-pin overrides (Nils cadence,
+Austin's Fable pin) — everything else in the analysis was already inside
+standing agent authority.
+
+**Alternatives considered:** per-item alternatives are recorded in
+`TIER2-OPTIMIZATION.md` §§ B6/T-6, B2/T-7, C5/T-11, T-16 (weekly vs.
+twice-weekly vs. daily for Nils; full vs. half-batch dial for Karen Deep;
+declining either new-spend item; skipping or further delaying the Austin
+trial).
+
+**Approved by:** Joey, 2026-08-31, D3=A/D4=B/D5=A/D6=A (recorded on Kanban
+task t_e698ab19, in response to the Fable analysis referenced above).
+
+**Implementation:** `docs/agents/runners.md`, `docs/agents/nils.md`,
+`docs/agents/austin.md`, `docs/AUTOMATION.md`, new
+`docs/agents/notification-quality.md`, new
+`docs/agents/runner-prompts/notification-quality-run.md`.
+
+---
+
+## 2026-08-31 — D1=B: scheduled routine fleet correctly runs on Joey's account
+
+**Decision:** the automated routine fleet (~24 Claude desk triggers) stays on
+**Joey's** account, permanently. Do not migrate any routine to Wyatt's
+account. This makes explicit, as the intended standing policy, what has been
+the live reality since the fleet was consolidated onto Joey's account
+~2026-08-23 (after issue #2258, the prior account's routine loss) and
+verified live 2026-08-27 ("Nothing remains on the other founder's account").
+
+**Why:** the 2026-08-31 automation audit (PR #3593, `docs/AUTOMATION.md` +
+its companion `docs/automation/review-2026-08-31.md` and
+`docs/automation/doc-quality-2026-08-31.md`) flagged that the written policy
+in `CLAUDE.md` and `docs/agents/runners.md` still said Wyatt's account while
+the live fleet had been on Joey's for weeks — an unresolved, Joey-only
+recurring-spend call. Joey's ruling: the consolidation was a reasonable
+outcome of the #2258 incident and should stand; migrating ~24 triggers back
+to Wyatt's account (each needing a full `job_config` round-trip per the
+RemoteTrigger footgun in `runners.md`) is real, error-prone work with no
+offsetting benefit. Correct the docs to match reality instead.
+
+**Alternatives considered:** (a) migrate the fleet back to Wyatt's account to
+match the original 2026-07-12 policy — rejected, real work with no benefit
+and the original policy's premise (freeing Joey's weekly token limit) no
+longer needs a dedicated second account now that spend is Sonnet/Haiku-tiered
+and metered. (b) leave the gap flagged but unresolved — rejected, it's a
+standing invitation for a future agent to "fix" the fleet by migrating it
+somewhere worse.
+
+**Approved by:** Joey, 2026-08-31, D1=B.
+
+**Implementation:** `docs/agents/runners.md`, `docs/AUTOMATION.md`,
+`docs/automation/doc-quality-2026-08-31.md`, `MAP.md`, `docs/agents/tree.md`,
+`docs/agents/paul-blart.md`, `docs/agents/laura.md`, and
+`.github/workflows/watchdog.yml`'s alert text corrected in PR #3598.
+`CLAUDE.md`'s two references (§ Operating habits, § Parallel fleets) remain
+stale pending a separate protected-file write — that file's write tool
+hard-blocked the edit with an unresolved approval prompt.
+
+---
+
+## 2026-08-30 — Standing authorization: E3 *** runs at the $5/run cap
+
+
+**Decision:** `merch-audit-authoring` runs are standing-authorized by Joey at
+the existing $5.00/run reservation cap, existing model (`claude-sonnet-5`)
+and pre-call reservation policy. Agents dispatch runs whenever new eligible
+image pairs exist (for example after product-image re-sourcing) without a
+fresh founder ask. Anything beyond this lane — a higher cap, a model or
+policy change, or vision spend outside E3 authoring — still requires Joey's
+approval, requested with a concrete reason.
+
+**Why:** The first two capped runs proved the lane safe and cheap (~$5.06
+and ~$1.47 reserved) while per-run founder asks added latency without adding
+control: the cap, not the ask, is the real safety mechanism. Joey set the
+standing approach on 2026-08-30 after authorizing the second run.
+
+**Alternatives considered:** per-run approval (rejected: redundant with the
+circuit breaker); unlimited authorization (rejected: cap changes and new
+lanes stay founder-gated).
+
+**Approved by:** Joey, 2026-08-30 (recorded on kanban card t_6faf515d).
+
+---
+
+## 2026-08-30 — HUMAN-ACTIONS section structure
+
+**Decision:** `HUMAN-ACTIONS.md` contains exactly one `## OPEN` heading and one `## DONE` heading, with OPEN before DONE. Every numbered item lives in the section matching its status; closing an item moves its complete block into the existing DONE section rather than adding another heading.
+
+**Why:** Marjorie reads the first matching section and stops at the next heading. Duplicate OPEN/DONE headings silently omit real pending work or surface closed work in the founder brief.
+
+**Approved by:** Fable arbitration, 2026-08-30 (FABLE-CONSULT-01a0535c), preserving Joey's already-recorded decisions for #15.
+
+---
+
+## 2026-08-30 — Retain CI-gated auto-merge for eligible UI and client-code changes (closes HUMAN-ACTIONS #6)
+
+**Decision:** Retain the existing `auto-merge-content` behavior, including
+automatic landing of eligible UI and client-code changes when the current CI
+checks pass.
+
+**Why:** The existing workflow already excludes server-executing and
+secret-reading paths while preserving a fast, CI-gated delivery route for
+eligible client-side work. Joey chose to retain that scope rather than restrict
+it to content files or rename the workflow.
+
+**Approved by:** Joey (direct instruction, 2026-08-30).
+
+---
+
+## 2026-08-30 — Clownbot/Mood/era-reader ratification (closes HUMAN-ACTIONS #5)
+
+**Decision:** Joey's direct statement, “I'm good with these as is,” ratifies
+all five dispositions in HUMAN-ACTIONS #5: (1) retain Clownbot's
+`claude-sonnet-5` model tier; (2) retain its 200/day/instance cap; (3) retain
+the existing Mood route pattern; (4) approve and retain the existing
+2026-08-13 Clownbot rebuild decisions entry; and (5) ratify the shipped era
+reader bottom navigation as the authoritative override of
+`docs/specs/2026-08-13-landing-page-brief.md` §3.2/D3.
+
+**Why:** The listed dispositions were already shipped or documented and had
+lost their former owner. Joey's direct acceptance closes the remaining
+ratification record without changing their implementation, model/provider
+configuration, cap, routing, or the superseded specification text.
+
+**Approved by:** Joey (direct instruction, 2026-08-30).
+
+## 2026-08-30 — Knowledge-engine source and Clownbot state decisions
+
+**Decision:** Reddit denied the knowledge engine's Data API request. Retain
+the disclosed RSS-only interim today while a separate sustainable-source
+research lane investigates alternatives. Clownbot's current stateless operation
+is accepted until it has users; do not enable Supabase anonymous sign-ins or
+its server-side conversation-memory feature.
+
+**Why:** Joey directly supplied both dispositions. The RSS interim remains
+transparent while a sustainable replacement is evaluated, and there is no
+current user need to enable anonymous identities or stored conversation data.
+
+**Scope:** This records only the current source and Clownbot-operation posture.
+It does not change Reddit access, Supabase settings, authentication, database
+schema, server-side memory, or application behavior.
+
+**Approved by:** Joey (direct instruction, 2026-08-30). Closes
+HUMAN-ACTIONS #15.
+
+---
+
+## 2026-08-30 — Community coverage includes creator accounts; refresh is automation-first
+
+**Decision:** Instagram and TikTok creator-account coverage is in scope and
+requires an automated solution. Group and invite refresh must be automated. If
+full automation is not feasible, the fallback is automated human-action
+reminders containing specific instructions. Retain the exclusion of
+`r/TravisAndTaylor` and additionally exclude `r/GaylorSwift`.
+
+**Why:** Joey resolved the three open questions recorded in HUMAN-ACTIONS #7
+after the community-map research landed. Creator accounts are distinct from
+joinable communities, and invites and group availability decay; automation is
+therefore the required operating posture rather than a founder-owned manual
+cadence.
+
+**Scope:** This records the product-direction and operating posture only. It
+does not activate a source, alter `data/communities.json`, configure social or
+API access, create schedules, use credentials, or implement the separate
+automation-design work.
+
+**Approved by:** Joey (direct decision, 2026-08-30).
+
+---
+
 ## 2026-08-30 — FR-MERCH-6: E5 fan-made discovery round-2 repair ruling (t_fe545cfd) — four bounded repairs, no third Codex review
 
 **Context:** Fable arbiter ruling for Kanban task t_fe545cfd (E5 fan-made
@@ -5651,3 +6157,79 @@ loosening of AI decision authority to include merge/push. This entry is
 that spec, filed with the implementing PR per CLAUDE.md rule 6 — Wyatt has
 not separately reviewed the design; flag for his attention if he wants to
 revisit the Option A vs. B call.
+
+## 2026-08-31 — Tier-2 optimization T-13/T-14: two live triggers disabled by founder
+
+Following Fable's Tier-2 cost/benefit analysis (`docs/TIER2-OPTIMIZATION.md`),
+Joey disabled two live claude.ai scheduled routines directly in the routines
+UI, since only an operator-authenticated session can flip a live trigger
+(no repo-side RemoteTrigger access exists in any worker sandbox):
+
+1. **Marjorie — 8 PM Evening Delta** (`trig_01L2EG5veWBQwMowaykXAi6B`, T-13).
+   Disabled as a warm spare — prompt preserved at
+   `docs/agents/runner-prompts/marjorie-delta.md`, trigger config not
+   deleted, reversible by re-enabling in the routines UI.
+2. **swift2 Getty purge — GitHub GC watch** (`trig_018QuJozjMr1bYMPcqgKUmvL`,
+   T-14). Disabled after independently re-confirming the purge it watchdogs
+   is complete (zero `media.gettyimages.com` references anywhere in the
+   repo; PR #3246, merged 2026-08-25, retired the last live comp URLs).
+   This trigger had no prompt file, so its full `job_config` (schedule,
+   sources, model) was not captured before disable — not recoverable from
+   this repo if ever needed again; a fresh watchdog would need to be
+   authored from scratch.
+
+`docs/agents/runners.md`'s live trigger table updated to reflect both as
+disabled (⛔, not removed). Fleet count corrected: 23 Swift2 routines total,
+21 enabled in the standing fleet (Lex depth and Marjorie's delta both
+paused).
+
+## 2026-09-01 — T-20 Phase 1: attribution-trailer sync to all 24 live Tier-2 routines complete
+
+Per HUMAN-ACTIONS.md item #37, synced every live routine's inline
+`job_config` prompt to its current `docs/agents/runner-prompts/` file
+content (never a partial PUT — `get` the trigger, replace only the
+`prompt` field in the full returned `job_config`, PUT the whole object
+back). 21 of the 24 tracked routines carry a live prompt and were
+re-synced; the remaining 3 were out of scope by design (Karen Deep review
+and the Notification-quality desk are approved but not yet created; News
+Triage's recall-check trigger was created fresh, already carrying the
+trailer, under item #36 the same session).
+
+Every re-synced routine now includes the `## Attribution trailer (T-20
+Phase 1)` section verbatim, so every PR/issue it opens from here forward
+carries a `Tier-2: <routine name>` line — the input Phase 2's daily
+per-routine telemetry rollup in Marjorie's Founders' Brief will read.
+**This date starts the "season for a few days of real PRs" clock** —
+Phase 2 should not be built to read real counts before a few days of
+post-sync output exist.
+
+Two routines kept a deliberate divergence from their file beyond the
+trailer itself, both judgment calls, not oversights:
+- **Kevin — S3 comment radar**: the repo file's cadence description does
+  not match the trigger's real twice-daily (`23 1,13 * * *`) schedule; the
+  live prompt's cadence text already correctly described the real
+  schedule. Resynced the trailer only, left the (correct) live cadence
+  text as-is, and flagged the file itself as needing a fix — inverted from
+  the usual "file is truth" default, and worth fixing in the file so a
+  future full resync doesn't regress it.
+- **The Vault Run**: its live prompt is deliberately a short pointer, not
+  the full ~12KB orchestrator-contract file — the file's own text warns
+  against baking that much undocumented instruction inline. Appended only
+  the trailer.
+
+**Marjorie — 8 PM Evening Delta** was re-synced (its file-sourced prompt
+now carries the trailer too) but left `enabled: false`, unchanged from its
+T-13 disable (see the 2026-08-31 entry above).
+
+Commented on kanban card `t_017c1e5b` with this same completion date so
+Phase 2 work knows when it's safe to start reading real per-routine
+output counts.
+
+**Follow-ups surfaced, not part of this item, not actioned:** the 4
+MCP connectors auto-attached to the new recall-check trigger on creation
+(item #36) still need manual removal via the routines UI; Laura's live
+`cron_expression` (`20 18 * * *`) differs from this file's table
+(`20 18 * * 2,5`); Austin's live model may not yet match the
+`claude-opus-4-8` 2-week trial the table already records as decided
+(D5=A) — worth a live re-check; Karen's pending rename is tracked
+separately as issue #3616.

@@ -173,7 +173,7 @@ schedule needs an explicit cap. The stuck-PR watchdog check carries one.
          content or the invariants are too strict. Do NOT relax a test to go
          green without establishing which.
 
-- [ ] **Phase 4 — retire the six, measure the delta.** Only after Phase 3 looks
+- [x] **Phase 4 — retire the six, measure the delta.** Only after Phase 3 looks
       good: **disable, do not delete** the six runners (warm spares — their
       prompts now live in the repo, but the triggers carry cadence history).
       Watch one full cycle, then write the `docs/decisions.md` entry and record
@@ -223,6 +223,90 @@ schedule needs an explicit cap. The stuck-PR watchdog check carries one.
       Ordering, once unblocked: merge #1629 → fix the missed-day cause → confirm
       lane 2 ships → disable the six one at a time, reading each back → delete
       the `content-shift/` row from the watchdog's lane table.
+
+      **Re-checked 2026-08-31 (kanban t_970448f8, Tier-2 T-1 execution attempt).**
+      Precondition-by-precondition status against live repo state:
+
+      1. **Phase 3.5 on `main`: CLEARED.** `watchdog.yml`'s stuck-red-PR check
+         and `vault-run.md`'s STEP 0 adoption path are both present on
+         `origin/main` today (PR #1629 merged 2026-08-12).
+      2. **Orchestrator miss rate: STILL NOT CLEARED — live miss today.**
+         Direct evidence, checked 2026-08-31 21:11 UTC (5h after the 16:07 UTC
+         Vault Run cron): **no `vault/2026-08-31` branch or PR exists**, while
+         both standalone lanes fired normally the same day —
+         `content-shift/2026-08-31` (PR #3596, 17:19 UTC) and
+         `content/rumor-desk-2026-08-31` (PR #3591, 15:10 UTC). Recent history
+         (08-24 through 08-30, 7 days) shows the Vault Run landing every day —
+         so the failure mode is intermittent, not constant — but today is a
+         live, reproducing instance of exactly the gap this precondition
+         exists to catch: **the standalone lanes are still the only reason
+         today's content shipped.** Retiring them today would have caused a
+         real content outage for at least the Rumor Desk / Content Shift
+         lanes. Root cause of today's specific miss has not been
+         investigated in this pass (out of scope for a docs-only session —
+         needs a session that can inspect the Vault Run trigger's actual run
+         log, not just its git output).
+      3. **Lane 2 (Answerer) coverage: CLEARED.** Vault Run PR #3434
+         (2026-08-29) shipped `lane(answerer): cross-link the four 'I Knew
+         It, I Knew You' / Toy Story...` — the lane is confirmed shipping
+         from the live queue, not no-oping.
+      4. **Trigger state verification: NOT CLEARABLE FROM THIS SANDBOX.** The
+         `RemoteTrigger` tool this doc's own footgun section describes is not
+         present in this worktree's Claude Code tool list (confirmed
+         2026-08-31: available tools are Agent, Bash, Edit, Read,
+         ReportFindings, ScheduleWakeup, Skill, ToolSearch, Workflow, Write —
+         no trigger/routine API access). Disabling a live standalone trigger
+         requires a session authenticated to the account the routines run on
+         (Joey's, per this file's `Live trigger IDs` section) with the
+         RemoteTrigger tool attached — this docs/CI sandbox cannot reach that
+         API at all, so no `job_config` read-or-write is possible here
+         regardless of precondition 2.
+
+      **Conclusion: Phase 4 remains not-safe-to-execute today**, for two
+      independent reasons — a live reproduction of the precondition-2 miss
+      pattern, and no execution capability for the actual disable step in
+      this environment. Next session picking this up needs BOTH: (a) a
+      RemoteTrigger-capable session on the routines account, and (b) the
+      missed-day cause root-caused and fixed — per this doc's own existing
+      requirement above ("root-cause the misses first"). An intermittent
+      failure that silently drops a day's content cannot be waved through by
+      a run of clean days alone: a short successful streak does not
+      demonstrate the trigger is reliable when the evidence above shows the
+      miss is real and recurring. Do not disable any of the six standalone
+      triggers until the root cause is identified and fixed, not merely
+      until it stops reproducing for a while. Filed as `HUMAN-ACTIONS.md`
+      item 35 (2026-08-31) — this needs a founder-authenticated
+      RemoteTrigger session, which no automated docs/CI worker can be.
+
+      **RESOLVED 2026-09-01, from a `claude.ai/code` session with
+      `RemoteTrigger` access (HUMAN-ACTIONS.md item 35).** The "08-31 miss"
+      was root-caused as NOT a miss: the Vault Run trigger fired at 16:11
+      UTC and completed successfully (`ROUTINE_RUN_STATUS_SUCCEEDED`),
+      correctly found zero authorable work across all four due lanes that
+      day (intake queue drained, narrative axis drained, 0 crosslink
+      findings, Photo Enrichment blocked on the pre-existing, already-
+      tracked egress issue #22), and per its own "never exit silently"
+      contract posted the full lane-by-lane no-op ledger to the Nils walk
+      log (#502) plus a founder push notification about the egress block.
+      No branch existed because nothing was authorable that day, not
+      because the run failed. The trigger's full history since the
+      2026-08-23 account migration showed 8/8 consecutive daily fires, all
+      succeeded, no gaps — the 08-01/08-02/08-08 "misses" this section
+      documented predate that migration, on a trigger ID that no longer
+      exists, and are unverifiable now. **The six standalone triggers were
+      then disabled, Rumor Desk first, each read back before disabling:**
+      Rumor Desk (`trig_01GS6bcMsEQjXwmyxGr7S1js`), Content Shift
+      (`trig_01PonDFeQCL4iRNzceGyAYrm`), Photo Enrichment worker
+      (`trig_01Vcz4iSM9NoUmt7CZ7pkHaB`), Cross-Link builder
+      (`trig_01FxMuDtwScPFvSgvhFCxdfP`), Stylist
+      (`trig_011BiHZqLEVHAJ4chfaYfGZH`), Answerer
+      (`trig_016hygyYPEV9T7BunnTHAWbZ`) — all confirmed `enabled: false`,
+      none deleted. The Vault Run (`trig_01XKjJCfxyL2Bm24Ko4M4mWR`) is now
+      the sole writer to `supabase/seed/**`. **Still open:** watch one full
+      cycle and record the actual before/after PR-count and Actions-minutes
+      delta in `docs/decisions.md` (needs a few days of post-cutover data
+      this session couldn't observe), and delete the `content-shift/` row
+      from the watchdog's lane table.
 
 ## Rollback
 

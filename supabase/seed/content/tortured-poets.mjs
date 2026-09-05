@@ -531,10 +531,13 @@ export default {
             item: 'Seraphine Corset Satin Maxi Dress',
             retailer: 'meshki.us',
             url: 'https://www.meshki.us/products/seraphine-corset-satin-maxi-dress-ivory',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0017/7920/4211/files/250324_MESHKI_HertiageFinal_09_412.jpg?v=1785700012',
             price: '$229.00',
             isAlternative: true,
             altNote: 'The custom Vivienne Westwood lyric gown was never sold at retail -- this sources the gown only, matching its corseted, draped feel (no printed text; the bodysuit not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -657,7 +660,7 @@ export default {
         'https://img.mlbstatic.com/mlb-images/image/upload/t_2x1/t_w1536/mlb/gbi9ws0peesvkjm8m0ye.jpg',
       moment: {
         context:
-          "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.\n\nThey watched from a right-field luxury suite with what Kelce later called an \"unbelievable crew\" of friends; no outlet pinned down whose suite it was, and no other celebrities were photographed inside with them. The neutral dress code was its own tell — both wore black-and-navy caps by Midnight Rodeo, a Kansas City band whose merch Kelce favors (his from its \"You're Not Dreaming\" line), with Taylor finishing the look in her signature red lip rather than any team gear.\n\nThe night's viral image was Taylor's startled reaction to Juan Soto's leadoff home run in the bottom of the third, a broadcast cutaway that MLB and the Yankees reposted on their own channels; TBS announcer Brian Anderson had already flagged Kelce as a \"big Cleveland fan.\" Kelce, a Cleveland Heights native, quietly pulled for the visiting Guardians \"in hostile territory,\" as he put it on New Heights, and days later defended his hometown loyalty on X after being trolled for wearing no Guardians gear. It was the couple's first MLB game together and their only postseason-baseball outing that October — one beat in a run of New York sporting dates that had included the Sept. 8 US Open final — with no reported early exit and no player weighing in on their presence.",
+          "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.\n\nThey watched from a right-field luxury suite with what Kelce later called an \"unbelievable crew\" of friends; no outlet pinned down whose suite it was, and no other celebrities were photographed inside with them. The neutral dress code was its own tell — both wore black-and-navy caps by Midnight Rodeo, a Kansas City band whose merch Kelce favors (his from its \"You're Not Dreaming\" line), with Taylor finishing the look in her signature red lip rather than any team gear.\n\nThe night's viral image was Taylor's startled reaction to Juan Soto's leadoff home run in the bottom of the third, a broadcast cutaway that MLB and the Yankees reposted on their own channels; TBS announcer Brian Anderson had already flagged Kelce as a \"big Cleveland fan.\" Kelce, a Cleveland Heights native, quietly pulled for the visiting Guardians \"in hostile territory,\" as he put it on New Heights, and days later defended his hometown loyalty on X after being trolled for wearing no Guardians gear. It was, per the available coverage, the couple's first MLB game together and their only reported postseason-baseball outing that October — one beat in a run of New York sporting dates that had included the Sept. 8 US Open final — with no reported early exit and no player weighing in on their presence.",
         sources: [
           {
             outlet: 'ESPN',
@@ -1051,7 +1054,7 @@ export default {
         'https://wish-media.s3.us-east-2.amazonaws.com/wp-content/2024/11/04/MAIN-PIC-ac-photo-taylor-swift-1.jpg',
       moment: {
         context:
-          'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl. Mayor Joe Hogsett proclaimed "Taylor Swift Weekend," and downtown leaned into a "Swift City" nickname — press-and-fan shorthand, not an official renaming — while roughly 81% of ticket holders came from out of state. Visit Indy anticipated a "healthy nine-figure" impact and economists floated $100M-plus, though an IU economist cautioned the true figure is essentially unknowable; read it as an estimate.\n\nEach acoustic surprise slot landed with the finality fans expected. Night 1 paired "The Albatross"/"Holy Ground" and "Cold As You"/"exile"; night 2, "The Prophecy"/"This Love" and "Maroon"/"Cowboy Like Me"; and the final U.S. night (Nov. 3), "Cornelia Street"/"The Bolter" and "Death by a Thousand Cuts"/"The Great War." From the stage that night she named it plainly — the very last U.S. show the Eras Tour would ever play.\n\nInside the building each crowd topped 69,000 and each night broke the attendance record the one before had just set, for 207,000 across the weekend — opening night alone drew 69,000, itself a Lucas Oil Stadium concert record. Indianapolis is also where the Taylor–Caitlin Clark friendship began: Clark attended, met Andrea Swift and Travis Kelce in a suite, and Taylor later sent her four bags of Eras merch with a note calling her "inspiring to watch from afar" and an invitation to a Chiefs game. After Indy, only Toronto and Vancouver remained.',
+          'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl. Mayor Joe Hogsett proclaimed "Taylor Swift Weekend," and downtown leaned into a "Swift City" nickname — press-and-fan shorthand, not an official renaming — while roughly 81% of ticket holders came from out of state. Visit Indy anticipated a "healthy nine-figure" impact and economists floated $100M-plus, though an IU economist cautioned the true figure is essentially unknowable; read it as an estimate.\n\nEach acoustic surprise slot landed with the finality fans expected. Night 1 paired "The Albatross"/"Holy Ground" and "Cold As You"/"exile"; night 2, "The Prophecy"/"This Love" and "Maroon"/"Cowboy Like Me"; and the final U.S. night (Nov. 3), "Cornelia Street"/"The Bolter" and "Death by a Thousand Cuts"/"The Great War." From the stage that night she named it plainly — the very last U.S. show the Eras Tour would ever play.\n\nInside the building each crowd topped 69,000 and each night broke the attendance record the one before had just set, for 207,000 across the weekend — opening night alone drew 69,000, itself a Lucas Oil Stadium concert record. Indianapolis is also where the Taylor–Caitlin Clark friendship first became publicly visible: Clark attended, met Andrea Swift and Travis Kelce in a suite, and Taylor later sent her four bags of Eras merch with a note calling her "inspiring to watch from afar" and an invitation to a Chiefs game. After Indy, only Toronto and Vancouver remained.',
         sources: [
           {
             outlet: 'WTHR',
@@ -1700,16 +1703,6 @@ export default {
         // discontinued -- a current white double-breasted blazer,
         // verified in stock, closest real match.
         products: [
-          {
-            brand: 'St. John',
-            item: 'Double-Breasted Knit Blazer',
-            retailer: 'shop.simon.com',
-            url: 'https://shop.simon.com/products/st-john-double-breasted-knit-blazer',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0291/4536/6588/files/0be92bc7dc894eb88b1b9b7353c0e898.jpg?v=1774388033',
-            price: '$599.98',
-            isAlternative: true,
-            altNote: 'Her exact Saint Laurent blazer is discontinued -- this is a current white double-breasted blazer with padded shoulders in a similar longline cut, in knit rather than tailored fabric.',
-          },
         ],
         // Rumor Desk 2026-08-03: a clean DEBUNKED lifecycle entry, seeding the
         // recurring "will Taylor headline a Super Bowl halftime?" question onto
@@ -1815,6 +1808,10 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): a real photo of the two
             // together at the March 17 2025 iHeartRadio Music Awards itself.
             url: 'https://i.abcnewsfe.com/a/a4f153c7-b859-4f68-81b3-31d32dde44cf/taylor-travis_1774576414070_hpMain_16x9.jpg?w=992',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // both faces sit in the upper half, Travis left-of-center and
+            // Taylor right-of-center — split the difference, bias high.
+            focalPoint: '54% 32%',
             credit: 'Kevin Mazur/Getty Images for iHeartRadio',
             caption: 'Taylor Swift and Travis Kelce together at the 2025 iHeartRadio Music Awards, March 17, 2025, where their Wembley cameo won Favorite Surprise Guest.',
             kind: 'reference',
@@ -1891,16 +1888,6 @@ export default {
         // identified -- a current off-shoulder grey top, verified in
         // stock, in the same greige, undone spirit.
         products: [
-          {
-            brand: 'Princess Polly',
-            item: 'Ashlinn Off Shoulder Drapey Top',
-            retailer: 'us.princesspolly.com',
-            url: 'https://us.princesspolly.com/products/ashlinn-off-shoulder-drapey-top-grey',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0061/8627/0804/files/0-modelinfo-sasha-us2_13f6bb7b-90b8-4cf6-aec5-76fc74475349.jpg?v=1773791821',
-            price: '$45.00',
-            isAlternative: true,
-            altNote: 'No single piece from the shoot is identified -- this is a current grey off-shoulder top in the same greige, undone-styling spirit as the album photography.',
-          },
         ],
       },
     },
@@ -1917,7 +1904,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg/500px-Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg',
       moment: {
         context:
-          'The pieces came from Elena Velez\'s Fall 2024 runway collection — Velez, the 2022 CFDA Emerging Designer of the Year, was raised in Milwaukee by a single mother who captained ships on the Great Lakes, and told Vogue her aim is a "more multi-dimensional representation of womanhood, good and bad."\n\nMonths after the video, the ensemble got museum treatment as one of 13 theatrically staged stops on the V&A\'s free Taylor Swift | Songbook Trail in London (July 27–Sept. 8, 2024), where the museum described it as fusing "monochromatic elements of B-movie sci-fi with a Victorian gothic aesthetic."',
+          'The pieces came from Elena Velez\'s Fall 2024 runway collection — Velez, the 2022 CFDA Emerging Designer of the Year, was raised in Milwaukee by a single mother who captained ships on the Great Lakes, and has described her aim as a "more multi-dimensional representation of womanhood, good and bad."\n\nMonths after the video, the ensemble got museum treatment as one of 13 theatrically staged stops on the V&A\'s free Taylor Swift | Songbook Trail in London (July 27–Sept. 8, 2024), where the museum described it as fusing "monochromatic elements of B-movie sci-fi with a Victorian gothic aesthetic."',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fortnight_(song)' },
           { outlet: 'V&A', url: 'https://www.vam.ac.uk/articles/va-trail-taylor-swift-songbook' },
@@ -1958,10 +1945,13 @@ export default {
             item: 'Renaissance Dress in Black (Dark Raven)',
             retailer: 'darefashionglobe.com',
             url: 'https://darefashionglobe.com/products/renaissance-corset-dress-black',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0866/5676/products/D01-Black-Renaissance-Gothic-Witch-Dress-Gown-W_e13fec9f-e5d3-411e-ae79-7a1c8d156efb.jpg?v=1660526065',
             price: '$69.99',
             isAlternative: true,
             altNote: 'The Elena Velez runway gown is not sold at mainstream retail -- this is a current black Victorian-gothic corset gown in the same silhouette family (top by UNTTLD not separately sourced).',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2013,10 +2003,13 @@ export default {
             item: 'Look At Me Baby Tweed Corset',
             retailer: 'shopakira.com',
             url: 'https://shopakira.com/products/look-at-me-baby-tweed-corset',
+            matchTier: 'unscored',
+            kind: 'top',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0850/1329/9515/files/JLM9302516-TPINK-MULTI1.jpg?v=1780426843',
             price: '$45.90',
             isAlternative: true,
             altNote: 'The custom Dior runway look was never sold at retail -- this sources the corset only, a pink-and-black plaid rather than the exact tartan, without the cape.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2084,16 +2077,6 @@ export default {
         // never sold at retail -- a current red sequined one-shoulder
         // mini, verified in stock, closest real match.
         products: [
-          {
-            brand: 'Armani Exchange',
-            item: 'Sequin One Shoulder Mini Dress',
-            retailer: 'shop.simon.com',
-            url: 'https://shop.simon.com/products/sequin-one-shoulder-mini-dress-in-red',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0291/4536/6588/files/badf2e58973b41ccb0182cc09fb32e34.jpg?v=1761084178',
-            price: '$111.00',
-            isAlternative: true,
-            altNote: 'The custom Vivienne Westwood mini was never sold at retail -- this is a current red sequined one-shoulder mini in the same color and asymmetric silhouette (thigh chain not separately sourced).',
-          },
         ],
       },
     },
@@ -2146,10 +2129,13 @@ export default {
             item: 'Aphrodite Off Shoulder Crepe Gown',
             retailer: 'meshki.us',
             url: 'https://www.meshki.us/products/aphrodite-off-shoulder-crepe-gown-ivory',
+            matchTier: 'unscored',
+            kind: 'dress',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0017/7920/4211/files/250708_MESHKI_BRIDAL_7430x2_1b45b4c3-d2a8-4f16-b5b0-fdf02ff45f4d.jpg?v=1785365370',
             price: '$339.00',
             isAlternative: true,
             altNote: 'The "Candescence" gown is no longer sold -- this ivory crepe gown keeps the sculptural gathering and dramatic white silhouette, off-shoulder with a fishtail hem rather than high-low cotton.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2214,10 +2200,13 @@ export default {
             item: 'Twirl Skort - Plum',
             retailer: 'popflexactive.com',
             url: 'https://www.popflexactive.com/products/twirl-skort-plum',
+            matchTier: 'unscored',
+            kind: 'bottom',
             imageUrl: 'https://cdn.shopify.com/s/files/1/1089/2102/files/SupersculptTwirlSkort-plum_02716.jpg?v=1771881333',
             price: '$54.00',
             isAlternative: false,
             altNote: 'The exact Popflex Twirl Skort in Plum shown in the video -- sourcing the skort only, not the lavender set, WISKII skirt, or boots.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2404,6 +2393,11 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): a real still from the
             // performance itself, not just the backstage aftermath.
             url: 'https://i.ytimg.com/vi/ZgxmtNVeex8/maxresdefault.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // vertical fan-shot video letterboxed in red; the actual frame
+            // (guitar, mic, her face) sits in the center band, face upper-left
+            // of that band.
+            focalPoint: '47% 22%',
             credit: 'YouTube — "Taylor Swift - Shake It Off (with Kane Brown) (Live at TEU)"',
             caption: 'Taylor Swift performing a surprise "Shake It Off" with Kane Brown at the Tight Ends & Friends / Tight End University concert, Brooklyn Bowl Nashville, June 24, 2025.',
             kind: 'archival',
@@ -2489,8 +2483,14 @@ export default {
             item: 'Strappy Houndstooth Tweed A-Line Dress',
             retailer: 'nordstrom.com',
             url: 'https://www.nordstrom.com/s/strappy-houndstooth-tweed-a-line-dress/8377396',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://n.nordstrommedia.com/it/bfde4241-4a38-404d-9559-d2ce70df4ab3.jpeg?w=780&h=1170&crop=pad',
+            matchTier: 'unscored',
+            kind: 'dress',
             price: '$3,500.00',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
             // The Louboutin "Miss Jane" sandal she wore was the taupe/"Leche"
@@ -2502,9 +2502,15 @@ export default {
             item: 'Miss Jane Sandal',
             retailer: 'nordstrom.com',
             url: 'https://www.nordstrom.com/s/christian-louboutin-miss-jane-sandal-women/7544624',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://n.nordstrommedia.com/it/b8ab11ff-1819-4758-b627-9bbe348271dc.jpeg?w=780&h=1170&crop=pad&trim=color',
+            matchTier: 'unscored',
+            kind: 'shoes',
             price: '$945.00',
             isAlternative: true,
             altNote: 'Same Miss Jane sandal she wore; the exact taupe ("Leche") colorway sells only on Louboutin\'s own site — this Nordstrom listing is Blush/Black.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -2599,26 +2605,45 @@ export default {
             item: 'Poppy Vest in Sand Plaid',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/simkhai-poppy-vest-in-sand-plaid/dp/JSKI-WO47/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://is4.revolveassets.com/images/p4/n/d/JSKI-WO47_V1.jpg',
+            matchTier: 'unscored',
+            kind: 'outerwear',
             price: '$222.00',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
             brand: 'SIMKHAI',
             item: 'Payton Wrap Mini Skirt in Sand Plaid',
             retailer: 'revolve.com',
             url: 'https://www.revolve.com/simkhai-payton-wrap-mini-skirt-in-sand-plaid/dp/JSKI-WQ100/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://is4.revolveassets.com/images/p4/n/d/JSKI-WQ100_V1.jpg',
+            matchTier: 'unscored',
+            kind: 'bottom',
             price: '$241.00',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
             brand: 'Gucci',
             item: 'Ottavia Leather Platform Loafer Pumps',
             retailer: 'neimanmarcus.com',
             url: 'https://www.neimanmarcus.com/p/gucci-ottavia-leather-platform-loafer-pumps-prod274440624',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer photo via
+            // Lyst listing (neimanmarcus.com blocks non-browser fetches),
+            // curl-verified 200 image/jpeg.
+            imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/runwaycatalog/0b933c02/1278x2048/gucci--Ottavia-Horsebit-Loafer-145mm-Platform-Slingback-Pumps.jpeg',
+            matchTier: 'unscored',
+            kind: 'shoes',
             price: '$1,560.00',
             inStock: true,
             isAlternative: true,
             altNote: 'Same Ottavia style; she wore it in "dark red" (Rosso Ancora) — that colorway\'s listings are blocked by bot protection everywhere checked, so this is the verified-live Black colorway.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -4583,7 +4608,7 @@ export default {
             url: 'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
             note: 'The muting is documented across outlets (Variety, Rolling Stone, Deadline, EW); what is unconfirmed is who issued the copyright block. Continues the Taylor-vs-Trump thread here — a "Father Figure" clip was similarly muted in Nov 2025. Resolves if Taylor, her team, or her label confirms it acted (or it is shown to be TikTok\'s automated system); fades if no one claims it. No location.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-09',
+            lastCheckedOn: '2026-08-30',
           },
         ],
       },
@@ -4696,16 +4721,7 @@ export default {
         //   specific style; gucci.com / louisvuitton.com hard-block automated
         //   requests, so no PDP can be identified or curl-verified without
         //   guessing — better no link than a fabricated one.
-        products: [
-          {
-            brand: 'Reformation',
-            item: 'Sora Linen Dress',
-            retailer: 'thereformation.com',
-            url: 'https://www.thereformation.com/products/sora-linen-dress/1314992.html',
-            price: '$248.00',
-            inStock: false,
-          },
-        ],
+        products: [],
         // CIE image-liveness repair (2026-08-24): Getty frames from Just
         // Jared's event gallery, verified live and visually confirmed.
         photos: [
@@ -4843,7 +4859,13 @@ export default {
             item: 'Harness Tapestry Dress — Alien Multi Print',
             retailer: 'amazon.com',
             url: 'https://www.amazon.com/MONSE-Harness-Tapestry-Dress-Alien/dp/B0FB9MHTDS',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer PDP image
+            // (m.media-amazon.com), curl-verified 200 image/jpeg.
+            imageUrl: 'https://m.media-amazon.com/images/I/31eFYA7mwUL.jpg',
+            matchTier: 'unscored',
+            kind: 'dress',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -5518,10 +5540,13 @@ export default {
             item: 'Extra Extra Printed Mesh Tee',
             retailer: 'shopakira.com',
             url: 'https://shopakira.com/products/extra-extra-printed-mesh-tee',
+            matchTier: 'unscored',
+            kind: 'top',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0850/1329/9515/files/JLM2601154BEIGE-MULTI1.jpg?v=1783950392',
             price: '$25.90',
             isAlternative: true,
             altNote: 'No single retail original is named -- this newspaper-print tee turns the typewritten motif into clothing, though its beige-multicolor print isn\'t the restrained monochrome styling.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
         // Photo pass (issue #1721, 2026-08-25): page had zero photos.
@@ -5546,6 +5571,7 @@ export default {
       month: 9,
       day: 30,
       category: 'business',
+      slug: 'ttpd-1989-diamond-certification',
       title: '1989 itself goes Diamond, joining Fearless as her second 10-million-unit album',
       snippet:
         'Certified 14x Platinum by the RIAA — crossing the 10-million-unit Diamond threshold and putting her among a small group of women, including Adele, Mariah Carey, and Whitney Houston, with a Diamond album.',
@@ -5625,7 +5651,7 @@ export default {
           postedOn: '2025-08-26',
         },
         context:
-          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Taylor used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Taylor\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Taylor in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at his home in Leawood, Kansas (over an Eagles practice weekend, his father Ed said; exact date unconfirmed). Ed Kelce misspoke the location in his first TV interview, naming Lee\'s Summit, Missouri; Kansas City\'s own NPR station, KCUR, ran a correction the next day confirming Leawood once fans geolocated the photos to Kelce\'s house. On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.\n\nHow the scene was made came out only later, when Taylor detailed it on The Graham Norton Show. Kelce staged the whole thing during the three-to-four-hour taping of the New Heights album-reveal episode — having his Leawood backyard turned into a flower-filled "secret garden" while they recorded inside, and building a wall of hedges that had not been there before, with Taylor\'s own tour photographer hidden inside them to shoot the carousel. That is why the professionally lit frames carry only the couple\'s @taylorswift/Instagram credit and no outside photographer was ever named. Per Travis\'s father, Ed Kelce, the florists who dressed the set were still finishing and had to duck into the bushes when the couple came out — so the floral architecture was a temporary installation built for the occasion, not a standing garden feature. No event designer or florist has been publicly named, but florists reading the images for the press catalogued garden roses, "Limelight" hydrangeas, delphinium, ranunculus, lilies and southern smilax draping a domed metal arbor; Kansas City florist Sarah Burch (EverWild Florals) put the flowers alone at $10,000–$15,000. The caption had its own afterlife: within hours brands were riffing on it — Pixar paired "Your English teacher and your gym teacher are getting married" with the Incredibles — and it hardened into a documented meme format, with its own Know Your Meme entry, recycled onto countless other couples.',
+          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Taylor used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Taylor\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Taylor in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at his home in Leawood, Kansas — Ed Kelce learned of it by FaceTime while attending a Philadelphia Eagles public practice that Sunday, which is the source of the "Eagles" detail; the proposal itself has no connection to the Eagles beyond his father\'s location when the couple called with the news (exact proposal date otherwise unconfirmed). Ed Kelce misspoke the location in his first TV interview, naming Lee\'s Summit, Missouri; Kansas City\'s own NPR station, KCUR, ran a correction the next day confirming Leawood once fans geolocated the photos to Kelce\'s house. On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.\n\nHow the scene was made came out only later, when Taylor detailed it on The Graham Norton Show. Kelce staged the whole thing during the three-to-four-hour taping of the New Heights album-reveal episode — having his Leawood backyard turned into a flower-filled "secret garden" while they recorded inside, and building a wall of hedges that had not been there before, with Taylor\'s own tour photographer hidden inside them to shoot the carousel. That is why the professionally lit frames carry only the couple\'s @taylorswift/Instagram credit and no outside photographer was ever named. Per Travis\'s father, Ed Kelce, the florists who dressed the set were still finishing and had to duck into the bushes when the couple came out — so the floral architecture was a temporary installation built for the occasion, not a standing garden feature. No event designer or florist has been publicly named, but florists reading the images for the press catalogued garden roses, "Limelight" hydrangeas, delphinium, ranunculus, lilies and southern smilax draping a domed metal arbor; Kansas City florist Sarah Burch (EverWild Florals) put the flowers alone at $10,000–$15,000. The caption had its own afterlife: within hours brands were riffing on it — Pixar paired "Your English teacher and your gym teacher are getting married" with the Incredibles — and it hardened into a documented meme format, with its own Know Your Meme entry, recycled onto countless other couples.',
         // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
         // own official post imagery via ABC News' stable copies (i.abcnewsfe.com),
         // credited "@taylorswift/Instagram" as ABC credits them. Instagram's own
@@ -5970,9 +5996,16 @@ export default {
             item: '14K Yellow Gold Vintage Old Mine Cut Diamond Ring',
             retailer: 'mpopeandco.com',
             url: 'https://mpopeandco.com/products/14k-yellow-gold-vintage-old-mine-cut-diamond-ring',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): mpopeandco.com does not
+            // resolve; same real ring (M. Pope & Co estate jewelry) sourced from
+            // the jeweler's own shop platform, curl-verified 200 image/jpeg.
+            imageUrl: 'https://cdn.shoplightspeed.com/shops/641941/files/75979408/14k-yellow-gold-vintage-old-mine-cut-diamond-ring.jpg',
+            matchTier: 'unscored',
+            kind: 'jewelry',
             price: '$3,250.00',
             isAlternative: true,
             altNote: 'The real ring is a one-of-one Artifex Fine Jewelry commission by Kindred Lubeck -- this is a real vintage old mine-cut diamond in a yellow-gold setting, not the actual ring.',
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -6102,15 +6135,22 @@ export default {
             // Ralph Lauren's own page sits behind a PerimeterX wall, so the
             // verified Revolve page is the link.
             url: 'https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/',
+            // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
+            // curl-verified 200 image/* response.
+            imageUrl: 'https://is4.revolveassets.com/images/p4/n/d/PLOR-WD21_V1.jpg',
+            matchTier: 'unscored',
+            kind: 'dress',
             price: '$398',
             inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           // NOT added, per the never-fabricate/never-dead-link rule
           // (2026-07-19 verification pass):
           //   - Louis Vuitton "LV Isola Sandal" (exact model per WWD): every
           //     LV domain answers HTTP 403 to verification, and LV sells
           //     first-party only — no verifiable page exists from CI.
-          //   - Cartier diamond watch (a Santos Demoiselle per Esquire):
+          //   - Cartier diamond watch (a Santos Demoiselle per Esquire Australia,
+          //     https://esquire.com.au/taylor-swift-engagement-watch/):
           //     discontinued ~2014, no cartier.com product page; linking the
           //     current Panthère would be a wrong-product substitution.
           // Having any products dequeues this moment from the

@@ -51,4 +51,7 @@ BEFORE OPENING THE PR: run npm run sync:content, then CONFIRM your sourceTier / 
 Open ONE PR (branch content/rumor-desk-<date>) listing every claim added with its outlet and tier, every lifecycle change with its citation, and everything you dropped and why. NEVER merge.
 
 NEVER EXIT SILENTLY: if you end without a PR for any reason -- empty queue, rate limits, a tool failure -- say so in a comment on the Nils walk log #502 before exiting.
+
+
+ATTRIBUTION (T-20 Phase 1): include the exact line `Tier-2: Rumor Desk` in the body of every PR and every GitHub issue you open. This powers daily per-Tier-2-routine output counts in Marjorie's Founders' Brief (docs/agents/runners.md, docs/TIER2-OPTIMIZATION.md section T-20). If this run produces no PR/issue, there is nothing to tag.
 ```

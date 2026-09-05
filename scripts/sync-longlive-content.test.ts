@@ -214,6 +214,13 @@ describe('productsFrom', () => {
     expect(productsFrom([{ ...dress, inStock: true }])?.[0].inStock).toBeUndefined();
   });
 
+  it('keeps valid past ISO verification timestamps and omits malformed or future values', () => {
+    const past = '2026-08-30T12:00:00.000Z';
+    expect(productsFrom([{ ...dress, verifiedAt: past }])?.[0].verifiedAt).toBe(past);
+    expect(productsFrom([{ ...dress, verifiedAt: '2026-02-30T12:00:00.000Z' }])?.[0].verifiedAt).toBeUndefined();
+    expect(productsFrom([{ ...dress, verifiedAt: new Date(Date.now() + 86_400_000).toISOString() }])?.[0].verifiedAt).toBeUndefined();
+  });
+
   it('drops rows missing any required field or with a non-https url', () => {
     expect(
       productsFrom([
@@ -346,6 +353,10 @@ describe('buildOutputSource', () => {
           price: '$319.99',
           inStock: false,
           imageUrl: 'https://cdn.shopify.com/some-dress.jpg',
+          matchTier: 'close',
+          matchScore: 72,
+          kind: 'dress',
+          verifiedAt: '2026-08-30T12:00:00.000Z',
         },
       ],
       confidence: 'reputable_reporting',
@@ -369,7 +380,7 @@ describe('buildOutputSource', () => {
     expect(source).toContain('video: { youtubeId: "abc123", title: "A video" }');
     expect(source).toContain('relatedIds: ["moment:some-other-item"]');
     expect(source).toContain(
-      'products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Day Dress", retailer: "ralphlauren.com", url: "https://www.ralphlauren.com/some-dress", price: "$319.99", inStock: false, imageUrl: "https://cdn.shopify.com/some-dress.jpg" }]',
+      'products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Day Dress", retailer: "ralphlauren.com", url: "https://www.ralphlauren.com/some-dress", price: "$319.99", inStock: false, imageUrl: "https://cdn.shopify.com/some-dress.jpg", matchTier: "close", matchScore: 72, kind: "dress", verifiedAt: "2026-08-30T12:00:00.000Z" }]',
     );
     expect(source).toContain('confidence: "reputable_reporting"');
     expect(source).toContain(

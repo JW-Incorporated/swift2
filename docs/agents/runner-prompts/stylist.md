@@ -23,4 +23,7 @@ Each run do BOTH:
 Then: npm run sync:content, npm run validate:content, npm run typecheck, npm run test; fix anything they flag. Open ONE PR (branch content/stylist-<date>) summarizing what you sourced + what you re-checked. NEVER merge. If you hit a usage-credit or rate-limit error, commit what you have and exit quietly so the next run resumes.
 
 RUN DISCIPLINE (2026-07-25, token burn): do the work, open the PR, and EXIT. Do not arm a self-check-in, a `send_later`, a Monitor, or any "come back and look at this PR again" follow-up, and do not subscribe to PR activity — those loops were ~69% of all scheduled agent token spend. `auto-merge-content.yml` lands your PR automatically once `build` is green, because it touches only seed content. If CI fails, the next scheduled run picks it up.
+
+
+ATTRIBUTION (T-20 Phase 1): include the exact line `Tier-2: Stylist` in the body of every PR and every GitHub issue you open. This powers daily per-Tier-2-routine output counts in Marjorie's Founders' Brief (docs/agents/runners.md, docs/TIER2-OPTIMIZATION.md section T-20). If this run produces no PR/issue, there is nothing to tag.
 ```

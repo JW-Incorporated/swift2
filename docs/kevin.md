@@ -5,19 +5,40 @@ by design: [Karen](../scripts/content-engine/README.md) (the Content Integrity
 Engine) is **read-only** and never edits content; **Kevin** proposes/applies
 fixes but never files Karen's tickets and never runs or modifies Karen's engine.
 
-As of 2026-07-12 Kevin runs as **four scheduled cloud routines** on Wyatt's
-account (registered in [`docs/agents/runners.md`](agents/runners.md), prompts in
-`agents/runner-prompts/kevin-*.md`): S1 Karen solver (daily, after Karen), S2
-user digest (daily), S3 eng triage (daily), and the S3 comment radar (hourly
-06:00–22:00 PT, skipping the overnight dead hours). This replaced the earlier
-**session-scoped Claude Code cron** — it is more durable (survives session death)
-but is still an interim: the comment radar polls hourly where the eventual
-**API-backed service** target below uses webhooks (zero-LLM until an event
-fires). The radar's cloud prompt is deliberately lazy — a cheap deterministic
-comment check runs first and Kevin's full context loads only on a real hit — so
-the frequent empty runs stay cheap. This document remains the contract that both
-the cloud routines and any future service port must honor, so it is deliberately
-explicit.
+**Target topology (Tier-2 T-10, cutover landed 2026-09-01, HUMAN-ACTIONS
+#38):** Kevin runs as **two live triggers**, both on Joey's account (fleet
+policy D1=B; registered in [`docs/agents/runners.md`](agents/runners.md)):
+
+- **Kevin — daily desk (S1+S2+S3)** (`trig_01GH3EMWdDwwKpx2GCRnCYM5`,
+  `agents/runner-prompts/kevin-desk.md`), once daily at 15:13 UTC: runs
+  Stream 2 (user digest) and Stream 3 (eng triage) every day, plus Stream 1
+  (Karen solver) on Sundays only — one clone, one charter read, per-stream
+  failure isolation (a failing stream is logged; the run continues to the
+  next). First genuine end-to-end fire was 2026-09-02.
+- **Kevin — S3 comment radar (cloud)** (`trig_01LaSLx4qzbsz68E6uRLkyDd`,
+  `agents/runner-prompts/kevin-stream3-radar.md`) — unchanged by the T-10
+  consolidation; it stays a separate, faster-cadence trigger.
+
+The old standalone S2-digest and S3-triage triggers were disabled (not
+deleted — history preserved) on 2026-08-31 as part of the cutover. **One
+old trigger is deliberately still live:** `trig_01QEvYmKcpyDJJ8ec81aBjCV`
+("Kevin — S1 Karen-ticket solver (cloud)", weekly Sundays 11:17 UTC) —
+per HUMAN-ACTIONS #38 it stays enabled until the new desk trigger's first
+real Sunday fire (next due 2026-09-06) is confirmed correct, at which point
+it gets disabled too. Only the old trigger's own creator-session (or the
+`claude.ai/code/routines` UI) can flip it — a same-account agent session
+gets a hard `RemoteTrigger` denial otherwise, confirmed 2026-09-02. Until
+that Sunday check happens, do not assume Stream 1 has fully cut over: verify
+against HUMAN-ACTIONS #38's status before treating it as closed.
+
+Before 2026-07-12 this ran as a **session-scoped Claude Code cron** — the
+cloud routines are more durable (survive session death). The radar still
+polls hourly where the eventual **API-backed service** target below uses
+webhooks (zero-LLM until an event fires); its prompt is deliberately lazy — a
+cheap deterministic comment check runs first and Kevin's full context loads
+only on a real hit — so the frequent empty runs stay cheap. This document
+remains the contract that both the cloud routines and any future service
+port must honor, so it is deliberately explicit.
 
 ---
 
@@ -60,7 +81,9 @@ Karen tickets are trusted and structured — each carries file · record ·
 field · exact excerpt · a sourced **Suggested fix** · sources. Kevin may fix them
 directly on a PR.
 
-**Hourly** Kevin:
+**Weekly, on Sundays, once the T-10 cutover lands** (folded into the desk's
+Step 0 — see the top of this document; until cutover, this stream still runs
+on its own separate weekly trigger, unchanged), Kevin:
 1. Lists open `cie` issues (`--limit 500`; the gh default caps at 30).
 2. Computes NEW = open `cie` minus (numbers already in any open fix PR's `Closes`
    list) minus every ticket carrying an **exclusion label** (below).
@@ -115,21 +138,35 @@ date — Marjorie posts by ~12:40 UTC / 6:00 AM PT, before Kevin's S2 run at
 13:15 UTC, so the brief is normally already up):
 
 - **Brief exists (normal mode, per §5.2, decisions.md 2026-07-11 — founders
-  read ONE daily artifact):** Kevin posts/updates Kevin's review list as
-  **one comment** on that brief issue — never the brief body itself (Marjorie
-  never edits her own body after posting either; comments are the shared
-  convention). The comment carries a hidden anchor
-  `<!-- kevin-stream2-digest -->` as its first line so a same-day re-run
-  edits that comment in place instead of duplicating it.
+  read ONE daily artifact):** Kevin posts Kevin's review list as a comment on
+  that brief issue — never the brief body itself (Marjorie never edits her
+  own body after posting either; comments are the shared convention). The
+  comment carries a hidden anchor `<!-- kevin-stream2-digest -->` as its
+  first line.
+  **Append-and-supersede, not edit-in-place (2026-09-01, #3631):** Kevin's
+  cloud sessions have no GitHub comment-edit tool — the GitHub MCP server
+  they run with exposes `add_issue_comment` (create only), nothing that
+  PATCHes an existing comment body, and direct `gh`/REST access is
+  explicitly disabled in that environment. A same-day re-run therefore
+  **posts a new comment** carrying the same anchor as its first line, with
+  a second line reading exactly `_Supersedes the earlier comment(s) above
+  with this anchor — read this one._` The **most recent** comment carrying
+  the anchor is always the current digest; older anchored comments are
+  historical and must not be re-acted-on. See "Decision processing" below
+  for how a re-run locates the current one.
 - **No brief exists today (degraded mode):** Kevin falls back to the
   standalone issue below, unchanged from today's behavior.
 
 Either way the content is the same compact **review list** — one block per
-pending user ticket. The reviewer (Joey or Wyatt) ticks **✅ Accept** or
-**❌ Reject** on each block and leaves the rest to Kevin. (It is a list of
-blocks, not a table, because GitHub only renders clickable checkboxes for
-top-level list items, not inside table cells — true in both an issue body
-and a comment.)
+pending user ticket. **The reviewer is Joey (`sffan15-sys`)** — per
+`CLAUDE.md` § "The company" (2026-08-31), Joey is the sole active
+decision-maker on this project; Wyatt remains an owner but no longer takes
+actions or makes decisions here, so a `wjduvall-cmd` tick is not
+authoritative and must be left pending, not acted on. Joey ticks
+**✅ Accept** or **❌ Reject** on each block and leaves the rest to Kevin.
+(It is a list of blocks, not a table, because GitHub only renders clickable
+checkboxes for top-level list items, not inside table cells — true in both
+an issue body and a comment.)
 
 **Standalone/degraded mode:** Kevin posts/updates a single GitHub issue
 titled **`Kevin Daily Review — YYYY-MM-DD`** (labels `kevin-digest`) with the
@@ -163,9 +200,16 @@ with no proposed change — the reviewer comments instructions or ticks Reject.
 
 Kevin locates the prior review list before doing anything else, checking in
 order:
-1. The most recent open `founders-brief` issue, for a comment carrying the
-   `<!-- kevin-stream2-digest -->` anchor (normal mode).
-2. Else the most recent open `kevin-digest` issue (standalone/degraded mode).
+1. The most recent open `founders-brief` issue; among its comments, the
+   **most recently posted** one carrying the `<!-- kevin-stream2-digest -->`
+   anchor as its first line (normal mode). If more than one anchored comment
+   exists on that issue — a same-day re-run under the append-and-supersede
+   convention above — the latest one by creation time is authoritative;
+   earlier anchored comments on the same issue are stale and must be
+   ignored, never re-parsed for checkbox state.
+2. Else the most recent open `kevin-digest` issue (standalone/degraded mode)
+   — this one genuinely is edited in place (`issue_write`/`gh issue edit`
+   covers the issue body, unlike a comment), so there is only ever one.
 
 Kevin re-reads whichever it finds and parses the checkboxes:
 
@@ -203,13 +247,19 @@ Kevin posts the result the same way Stream 2 does (§5.2, decisions.md
 `founders-brief`-labeled issue titled `Founders' Brief — YYYY-MM-DD` for
 today (America/Los_Angeles date).
 
-- **Brief exists (normal mode):** post/update **one comment** on that brief
+- **Brief exists (normal mode):** post **one comment** on that brief
   issue — never the brief body — carrying the hidden anchor
-  `<!-- kevin-stream3-triage -->` as its first line so a same-day re-run
-  edits that comment in place.
+  `<!-- kevin-stream3-triage -->` as its first line.
+  **Append-and-supersede, not edit-in-place (2026-09-01, #3631):** same
+  constraint and convention as Stream 2 above — no comment-edit tool is
+  available, so a same-day re-run posts a new anchored comment with the
+  second line `_Supersedes the earlier comment(s) above with this anchor —
+  read this one._` rather than editing the prior one. The most recent
+  anchored comment on the issue is the current triage; ignore older ones.
 - **No brief exists today (degraded mode):** fall back to the standalone
   issue **`Kevin Eng Triage — YYYY-MM-DD`** (label `kevin-triage`), unchanged
-  from today's behavior.
+  from today's behavior — this one is a genuine issue-body edit, so there is
+  only ever one.
 
 Stream 3 has no next-day checkbox decision-processing step to redirect (each
 day's triage re-derives its buckets from ticket-level comments, not from
@@ -292,14 +342,17 @@ A service implementation must replicate this contract exactly:
 - **Karen stream:** an LLM applies the ticket's suggested fix (text) or does
   verify-first image re-sourcing; emit/refresh one PR with `Closes #`.
 - **User stream:** check for today's open `founders-brief` issue first; if
-  present, generate/update the review list as a comment there (anchor
-  `<!-- kevin-stream2-digest -->`), else generate the standalone digest issue.
-  On each cycle, locate the prior list in whichever location it last posted
-  and parse its checkbox state to drive apply (→ `kevin/user-fixes` PR) / close.
+  present, generate the review list as a comment there (anchor
+  `<!-- kevin-stream2-digest -->`; if a comment-edit API is unavailable to
+  the caller, append-and-supersede per 2026-09-01/#3631 rather than
+  duplicating without an anchor), else generate the standalone digest issue
+  (a real edit, since issue bodies are PATCHable). On each cycle, locate the
+  **most recent** anchored comment (or the standalone issue) and parse its
+  checkbox state to drive apply (→ `kevin/user-fixes` PR) / close.
 - **Eng-triage stream:** same founders-brief-first check (anchor
-  `<!-- kevin-stream3-triage -->`), else the standalone `kevin-triage` issue.
-  No cross-cycle checkbox state to carry — buckets re-derive from ticket
-  comments each run.
+  `<!-- kevin-stream3-triage -->`, same append-and-supersede fallback), else
+  the standalone `kevin-triage` issue. No cross-cycle checkbox state to
+  carry — buckets re-derive from ticket comments each run.
 - **Stream 3 comment radar:** subscribe to issue/PR-comment + PR-review **webhooks**
   (the API port's answer to the session cron's ~10-min poll — true zero-LLM until
   an event fires); on a human comment, run the radar behavior table and refresh

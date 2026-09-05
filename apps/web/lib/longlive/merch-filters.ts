@@ -11,7 +11,7 @@
 
 import { ERAS } from './eras';
 import { getContentItem } from './content';
-import { hasRealPrimaryImage, primaryImage, type EraId } from './types';
+import { hasRealPrimaryImage, primaryImage, type EraId, type Product } from './types';
 import { MERCH_CATALOGUE, type MerchItem } from './merch';
 
 export interface MerchEraGroup {
@@ -74,6 +74,29 @@ export const MERCH_FILTER_LABEL: Record<MerchFilterId, string> = {
   '50to200': '$50–200',
   '200plus': '$200+',
 };
+
+export const MERCH_KIND_LABEL: Record<NonNullable<Product['kind']>, string> = {
+  dress: 'Dresses',
+  top: 'Tops',
+  bottom: 'Bottoms',
+  outerwear: 'Outerwear',
+  knitwear: 'Knitwear',
+  shoes: 'Shoes',
+  jewelry: 'Jewelry',
+  bag: 'Bags',
+  hat: 'Hats',
+  eyewear: 'Eyewear',
+  beauty: 'Beauty',
+  accessory: 'Accessories',
+  music: 'Music',
+  collectible: 'Collectibles',
+  home: 'Home',
+  other: 'Other',
+};
+
+export function merchKinds(items: readonly MerchItem[]): readonly NonNullable<Product['kind']>[] {
+  return [...new Set(items.flatMap((item) => (item.kind ? [item.kind] : [])))];
+}
 
 type MerchFilterDimension = 'stock' | 'exact' | 'price';
 
@@ -149,13 +172,17 @@ export function merchMatchesFilter(item: MerchItem, active: ReadonlySet<MerchFil
  *    moment's real primary photo exist. The card renders both side by side;
  *    the moment half must be visibly labelled (2026-08-15, docs/decisions.md)
  *    since it's a picture of Taylor wearing the look, not the product itself.
+ *    Per D7=C (2026-08-31, kanban t_28e3ad2a/t_c71f0eea), MerchCard.tsx now
+ *    makes this half a buy link too — that's a rendering decision made by
+ *    the caller, not this function; this type only says which photo(s) exist.
  * 2. `product` — only the product photo exists. Never labelled — this is the
  *    honest single-image case.
  * 3. `moment` — only the moment's photo exists. This is a picture of Taylor
  *    wearing the look, NOT the product, so the UI must visibly label it
  *    (2026-08-15, docs/decisions.md) rather than let it pass as a product
  *    shot. A split card with an empty half reads as broken, so this is a
- *    single full-width image, not a half card next to a monogram.
+ *    single full-width image, not a half card next to a monogram. Per D7=C,
+ *    MerchCard.tsx now also makes this tile a buy link (label stays visible).
  * 4. `monogram` — neither exists.
  * The moment photo is resolved via `hasRealPrimaryImage()` — never by
  * checking `images.length`, which is always non-empty and proves nothing
@@ -172,6 +199,14 @@ export function merchItemImage(item: MerchItem): MerchImage {
   const momentUrl = moment && hasRealPrimaryImage(moment) ? primaryImage(moment) : undefined;
   if (item.imageUrl && momentUrl) return { kind: 'split', productUrl: item.imageUrl, momentUrl };
   if (item.imageUrl) return { kind: 'product', url: item.imageUrl };
-  if (momentUrl) return { kind: 'moment', url: momentUrl };
+  // demoteSharedMomentPhoto (set in merch.ts's shopTheLookItems()) means an
+  // earlier product from this same moment already claimed momentUrl as its
+  // card photo — rendering it again here would be the exact "3 identical
+  // Taylor photos" bug this flag exists to stop (2026-08-31, kanban task
+  // t_49a63ae1). No per-item "as-worn" alternate photo exists in the E6
+  // matcher output today and this item has no imageUrl of its own, so the
+  // only honest fallback is the monogram tile, not a repeated or fabricated
+  // photo.
+  if (momentUrl && !item.demoteSharedMomentPhoto) return { kind: 'moment', url: momentUrl };
   return { kind: 'monogram' };
 }

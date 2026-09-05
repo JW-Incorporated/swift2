@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { useIsomorphicLayoutEffect } from '@/lib/longlive/useIsomorphicLayoutEffect';
 import {
+  Bell,
   ChevronDown,
   Compass,
   Search,
@@ -13,6 +14,7 @@ import {
   Users,
   ShoppingBag,
 } from 'lucide-react';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { getEra } from '@/lib/longlive/eras';
 import { getThread } from '@/lib/longlive/lenses';
@@ -101,6 +103,17 @@ export function TopBar() {
           <div className="hidden md:block">
             <ModeToggle mode={mode} onChange={setMode} />
           </div>
+          <Button
+            variant="surface"
+            size="icon"
+            aria-label="Notification settings"
+            title="Notification settings"
+            asChild
+          >
+            <Link href="/settings/notifications">
+              <Bell />
+            </Link>
+          </Button>
           <Button
             variant="surface"
             size="icon"

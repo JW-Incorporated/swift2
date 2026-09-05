@@ -26,92 +26,308 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 29. [UPGRADE] Search-API account for merch engine E6 — payment card, ~10 min
+### 42. [UPGRADE] Add a GitHub comment-edit tool to Kevin's cloud sessions (or accept the append-and-supersede workaround) — ~10 min
 
-**Filed:** 2026-08-30
+**Filed:** 2026-09-01
+
+**Why it matters:** issue #3631. Kevin's `docs/kevin.md` anchor-comment
+contract (Stream 2 digest / Stream 3 triage) was written assuming a
+same-day re-run could **edit its own prior comment in place**. It can't:
+Kevin's cloud sessions run with the GitHub MCP server, which exposes
+`add_issue_comment` (create only), `issue_write` (issue body/state, not
+comments), and PR-review-thread tools — **nothing that PATCHes an
+existing issue comment**. Direct `gh`/REST access is explicitly disabled
+in that environment ("use the GitHub MCP server tools for ALL GitHub
+interactions"). This surfaced for real on the first fire of the new T-10
+consolidated `Kevin — daily desk` trigger against issue #3590.
+
+**Already fixed in this repo (no action needed for this half):**
+`docs/kevin.md` and the runner prompts (`kevin-desk.md`,
+`kevin-stream2-digest.md`, `kevin-stream3-triage.md`) now specify an
+**append-and-supersede** convention instead of edit-in-place: a same-day
+re-run posts a NEW comment carrying the same anchor plus a
+"Supersedes the earlier comment(s) above" line, and the decision-processing
+step always reads the **most recent** anchored comment. This keeps the
+contract's spirit (one source of truth per anchor per issue) using only
+tools Kevin already has, and needs no account access.
+
+**What's left, and why it's yours:** the append-and-supersede workaround
+is correct but slightly worse than true edit-in-place (the brief issue
+accumulates a duplicate-but-superseded comment on every same-day re-run,
+which is minor visual noise for whoever reads #3590-style issues). If you
+want the cleaner behavior back, the actual fix is adding a comment-update
+capability to the **GitHub MCP tool config** Kevin's cloud sessions run
+with — that's a trigger/environment-level MCP server configuration change
+(`claude.ai/code` routines UI, or wherever this environment's GitHub MCP
+connector is provisioned), which an agent in a docs/CI worktree sandbox
+cannot reach or verify, the same class of gap as items #35/#38's
+RemoteTrigger access.
+
+**Steps (only if you want true edit-in-place back):**
+1. Open the environment/connector config that provisions the GitHub MCP
+   server for Kevin's routines (same account as `docs/agents/runners.md` §
+   "Live trigger IDs" — Joey's account) and check whether a comment-update
+   tool (e.g. an `update_issue_comment` / `issue_comment_write` capability)
+   can be enabled for that MCP server.
+2. If yes, enable it and tell a session — it can then revert the
+   append-and-supersede convention in `docs/kevin.md` and the runner
+   prompts back to true edit-in-place.
+3. If no such tool exists on the GitHub MCP server at all, this item is a
+   `SKIP` (write why) — the append-and-supersede workaround already
+   already shipped is the permanent answer.
+
+**Worked if:** either a comment-edit tool is confirmed available and a
+follow-up PR reverts to edit-in-place, or you mark this `SKIP` because no
+such tool exists.
+### 41. [BLOCKING] Rename Karen's live trigger to match its judgment-only prompt (#3616, T-5) — ~2 min
+
+**Filed:** 2026-09-01
+
+**Why it matters:** issue #3616 / `docs/agents/runners.md` § T-5. The rename
+itself is pre-approved, standing-agent-authority work — no founder decision
+needed on the *what*. `runner-prompts/karen-nightly.md` already reads
+"weekly content-safety judgment review" (trimmed to the bounded judgment
+slice by PR #3445), so the live trigger's registered name is the only thing
+out of sync. This is a metadata-only resync — no prompt, cadence, model, or
+connector changes. Same account-access limitation this file documents
+elsewhere (items #35/#37/#38): the actual edit needs the `RemoteTrigger`
+tool, on Joey's account — this docs/CI worktree sandbox has no such tool
+attached at all.
+
+**Exact current vs. target:**
+
+| Field | Current | Target |
+|---|---|---|
+| Trigger ID | `trig_01TmYaZgnecrEp9mkeV3Gq6X` (the live, current ID — confirmed in `runners.md`'s live table; recreated on Joey's account 2026-08-23 per item #2) | unchanged |
+| Name | `Karen — nightly scan` | `Karen — weekly judgment slice` |
+| Prompt (`events`), cadence, model, repo, connectors | already correct (`0 9 * * 0` UTC, `claude-sonnet-5`, `JW-Incorporated/swift2`@main, judgment-only prompt per PR #3445) | unchanged — preserve verbatim on the round-trip |
+
+**Do not use `trig_014HWuRmT2MFveDkPGwVDiQX`** — per `runners.md` § T-5 this
+ID predates the 2026-08-23 account migration and is very likely stale/
+orphaned. `get` it first to confirm it's no longer live before touching
+anything; if it turns out to still be live, that's a separate finding (a
+live duplicate), not part of this rename.
+
+**Steps (one `job_config` round-trip, never a partial PUT):**
+1. From a `claude.ai/code` session with `RemoteTrigger` access on Joey's
+   account, `get` `trig_01TmYaZgnecrEp9mkeV3Gq6X`.
+2. In the returned object, change only `name` to
+   `Karen — weekly judgment slice`. Leave everything else — prompt, cadence,
+   model, repo, connectors — exactly as returned.
+3. `PUT` the whole object back (never a partial PUT — see `runners.md` §
+   RemoteTrigger footgun).
+4. Confirm the `get` reflects the new name, then update
+   `docs/agents/runners.md`'s live table (both the main table and the
+   "Cadence overrides still in force" table) to drop the RENAME PENDING flag
+   and show `Karen — weekly judgment slice` outright, and close issue #3616.
+
+**Worked if:** the trigger's registered name reads
+`Karen — weekly judgment slice`, `runners.md`'s tables show the new name
+with no RENAME PENDING flag, and issue #3616 is closed.
 
 **Status:** OPEN
 
-**Why it matters:** engine E6 (Moment→Product Matcher, merch plan Phase 4)
-needs a Google Shopping-class search API for the matches the free Awin
-product index can't answer. This is a spend decision (paid account), so
-only you can open it. Nothing is halted today — E1/E2/E3 run without it —
-but E6 cannot start until this key exists (FR-MERCH-5 gate ruling,
-`docs/decisions.md` 2026-08-30). Expect light usage: the Awin index takes
-the first pass on every match for free, so a low tier (~$10–30/mo) likely
-suffices; start small, upgrade only if E6's ticket volume shows it.
+---
+
+### 35. [BLOCKING] Vault Phase 4 needs a RemoteTrigger-capable session on your account — the disable step can't run from a docs/CI sandbox — ~10-20 min
+
+**Filed:** 2026-08-31
+
+**Why it matters:** `docs/agents/vault-run-plan.md` Phase 4 (retiring the six
+standalone content-lane triggers now duplicated by the Vault Run — worth
+~3.9 fewer cold-boot sessions/day per `docs/TIER2-OPTIMIZATION.md` T-1) is
+pre-approved, standing-agent-authority work — no founder decision needed on
+the *what*. But two things stop an agent from finishing it today:
+
+1. **The actual disable step needs the RemoteTrigger tool, on your
+   account.** This repo's own docs (`docs/agents/runners.md` § RemoteTrigger
+   footgun) describe reading a trigger's `job_config` and PUTting the whole
+   thing back to change `enabled: false` — that requires a Claude Code
+   session with the RemoteTrigger tool attached and authenticated to the
+   account the routines run on (yours, per `runners.md` § Live trigger IDs,
+   confirmed 2026-08-31 D1=B). A docs/CI worktree sandbox (used for PR work
+   like this one) has no such tool available at all — confirmed by listing
+   its tool set directly. So even once the item below clears, someone needs
+   to run this from a session that actually has RemoteTrigger — either you
+   directly in `claude.ai/code`, or a session you explicitly point at that
+   surface.
+2. **A live, reproducing miss as of today (2026-08-31), not yet
+   root-caused.** No `vault/2026-08-31` branch or PR exists as of 21:11 UTC
+   (5h after the 16:07 UTC cron), while both standalone lanes it's meant to
+   replace fired normally the same day. Retiring the standalones before this
+   is root-caused and fixed would risk a real content outage on days the
+   Vault Run silently no-ops. See `vault-run-plan.md`'s Phase 4 section for
+   the full evidence trail.
 
 **Steps:**
-1. Sign up at `https://serpapi.com` (or an equivalent Google
-   Shopping-results API you prefer) on its cheapest paid tier; add the
-   payment card.
-2. Copy the API key and save it as a repo Actions secret named
-   `SEARCH_API_KEY`: from a terminal in the repo, run
-   `gh secret set SEARCH_API_KEY --repo JW-Incorporated/swift2` and paste
-   the value when prompted (`gh secret set` is guard-denied for agents —
-   founder-only on purpose). Key **name** only in chat, never the value.
+1. When you (or a session you point at `claude.ai/code`'s routines UI) have
+   a spare few minutes, look at what happened to today's 16:07 UTC Vault Run
+   firing specifically — did it fire and fail, or not fire at all? That
+   answer is what root-causes item 2 above.
+2. Once that's fixed and a session confirms several subsequent clean days,
+   a RemoteTrigger-capable session (yours, or one you explicitly authorize)
+   can do the actual Phase 4 disable — reading back and disabling each of
+   the six standalone triggers one at a time, per the plan's own ordering
+   (Rumor Desk first).
 
-**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows
-`SEARCH_API_KEY`, and E6's first run reports real search results instead
-of a missing-credential skip.
+**Worked if:** the six standalone triggers listed in
+`docs/agents/vault-run-plan.md` are disabled (not deleted) and
+`docs/decisions.md` records the actual before/after PR-count and
+Actions-minutes delta, per the plan's own Phase 4 instructions.
+
+**Resolved 2026-09-01, from a `claude.ai/code` session with `RemoteTrigger`
+access.**
+
+**Root cause of the 08-31 "miss" (item 2 above): it was not a miss.**
+Pulled the Vault Run trigger's (`trig_01XKjJCfxyL2Bm24Ko4M4mWR`) actual run
+log for that day (session `cse_013BrBHiyjvR4EafbEum1gHQ`, fired 16:11 UTC,
+finished 16:18 UTC, `ROUTINE_RUN_STATUS_SUCCEEDED`). It ran end to end and
+correctly found **zero authorable work** across all four lanes due that day:
+Content Shift's intake queue was fully drained (confirmed live, not from a
+stale ledger), the Answerer's narrative axis was drained (live
+`scan --no-images`: 0 narrative-thin, 9 depth-deficit findings all
+photos-axis-only), Cross-Link had 0 detector findings, and Photo Enrichment
+is blocked by the already-tracked image-host egress issue (item #22). Per
+its own "never exit silently" contract it posted the full lane-by-lane
+no-op ledger to the Nils walk log (#502) and sent a founder push
+notification about the one real, already-tracked problem (the egress
+block). No `vault/2026-08-31` branch existed because there was nothing to
+ship that day, not because the run failed or didn't fire — the "silent
+no-op" reading in this item's original filing was a misdiagnosis from
+git-log-only evidence.
+
+Also checked the trigger's full run history since the 2026-08-23 account
+migration: **8 for 8** daily fires, no gaps, all succeeded
+(2026-08-24 → 2026-08-31). The historical "missed days" cited in
+`vault-run-plan.md` (08-01, 08-02, 08-08) predate that migration, on a
+now-nonexistent trigger ID — unverifiable now, superseded by this clean
+record on the live infrastructure.
+
+**Phase 4 executed**, Rumor Desk first per the plan's ordering, each
+trigger's `job_config` read back before disabling (`enabled: false`,
+confirmed in the response, nothing else in the config touched):
+
+| Lane | Trigger ID | Disabled |
+|---|---|---|
+| Rumor Desk | `trig_01GS6bcMsEQjXwmyxGr7S1js` | ✅ |
+| Content Shift | `trig_01PonDFeQCL4iRNzceGyAYrm` | ✅ |
+| Photo Enrichment worker | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | ✅ |
+| Cross-Link builder | `trig_01FxMuDtwScPFvSgvhFCxdfP` | ✅ |
+| Stylist | `trig_011BiHZqLEVHAJ4chfaYfGZH` | ✅ |
+| Answerer (sole instance) | `trig_016hygyYPEV9T7BunnTHAWbZ` | ✅ |
+
+All six disabled (not deleted) — cadence history preserved, `enabled: false`
+in every case. The Vault Run (`trig_01XKjJCfxyL2Bm24Ko4M4mWR`) is now the
+sole writer to `supabase/seed/**`.
+
+**Not yet done, follow-up needed:** the plan's "Worked if" also calls for
+watching one full cycle and recording the actual before/after PR-count and
+Actions-minutes delta in `docs/decisions.md` — that requires a few days of
+data with the six lanes off, which this session cannot observe. A future
+session (or Marjorie's brief) should record that delta once there's enough
+post-cutover history, and delete the `content-shift/` row from the
+watchdog's lane table per the plan's final step.
+
+**Status:** DONE
 
 ---
 
-### 28. [UPGRADE] Merch plan: save credentials under canonical names — ~10 min
+### 38. [DONE] Apply the Kevin daily-desk trigger cutover (T-10)
 
-**Filed:** 2026-08-30
+**Filed:** 2026-08-31
+**Closed:** 2026-09-01
 
-**Status:** OPEN
+**What happened:** Joey created the consolidated trigger directly
+(`trig_01GH3EMWdDwwKpx2GCRnCYM5`, "Kevin — daily desk (S1+S2+S3)", cron
+`13 15 * * *` UTC, live and enabled) and test-fired it. The test session
+correctly determined the UTC day was Tuesday (not Sunday), so it skipped
+Stream 1 by design, and found Stream 2 (digest) and Stream 3 (triage) had
+already posted for real on issue #3590 hours earlier (~15:16–15:49 UTC,
+2026-08-31) via the old standalone triggers — since today's slot had
+already fired before the cutover, it correctly abstained from re-posting
+rather than duplicating. **Tomorrow's `13 15 * * *` run (2026-09-02) is the
+first genuine end-to-end fire of the new trigger.**
 
-**Why it matters:** Joey's D1/D3 product decisions are complete under
-HUMAN-ACTIONS #26. The remaining owner action is the credential-naming cleanup:
-the Awin/Etsy engines read the canonical secret names below (FR-MERCH-5,
-`docs/decisions.md` 2026-08-30). No code reads the old names, so this is a
-save-under-the-right-name step, not a migration.
+Joey disabled both superseded daily triggers directly (not deleted —
+history preserved, per this file's convention):
+- `trig_0136mXcpmzn6mYtYoUQC3eGP` (S2 digest) → disabled
+- `trig_01BRmPqZkLEcYKZhYPjypGMJ` (S3 eng triage) → disabled
 
-**Steps:**
-1. In the **Awin dashboard**: generate the **Publisher API token** and the
-   **Create-a-Feed API key**. Save them in the project `.env` / secret
-   store as `AWIN_API_TOKEN` and `AWIN_FEED_API_KEY`, and save your Awin
-   publisher ID as `AWIN_PUBLISHER_ID`. Delete the old `AWIN_API` entry
-   (ambiguous name, retired by FR-MERCH-5).
-2. Re-save the Etsy keystring value under the name `ETSY_API_KEY` (it
-   currently sits as `ETSY_KEYSTRING`; keep `ETSY_SHARED_SECRET` as-is).
-   As always: key **names** only in chat, never values.
+Left alone exactly as the cutover sequence specifies:
+- `trig_01QEvYmKcpyDJJ8ec81aBjCV` (S1 Karen-ticket solver) — still live;
+  the new desk trigger's next Sunday fire will exercise Stream 1 for the
+  first time, and this old trigger gets disabled only after that
+  Sunday's real output is confirmed. **Not yet done — next Sunday check
+  is still outstanding, tracked below.**
+- `trig_01LaSLx4qzbsz68E6uRLkyDd` (S3 comment radar) — untouched, not part
+  of this consolidation.
 
-**Worked if:** the secret store holds `AWIN_API_TOKEN`, `AWIN_FEED_API_KEY`,
-`AWIN_PUBLISHER_ID`, and `ETSY_API_KEY` with no `AWIN_API` entry left.
+**Blocker found and worked around:** the first test-fire tried to disable
+the two old triggers itself and got a hard denial — `RemoteTrigger`'s
+`update_trigger` is restricted to a trigger's own creator-session; since
+the old triggers were created via `http_api` rather than through an
+agent's `create_trigger` call, no Claude session (on any account) could
+flip them via the API. Only the `claude.ai/code/routines` UI could — which
+is what Joey then did directly. Filed as an interim finding in PR #3630
+(merged) before Joey's direct fix landed; this entry supersedes that
+interim note.
+
+**Open sub-item, not blocking, low urgency:** the new trigger's
+`mcp_connections` came back populated with `Google_Drive`/`Vercel`/`Gmail`/
+`Claude_Code_Remote` even though creation explicitly requested `[]` — this
+matches the RemoteTrigger create/update footgun already documented above
+(§ RemoteTrigger API footgun) and appears to be inherited from the shared
+environment (`env_01WFa19KpZdcwUUBPvHWPig6`) rather than settable per-
+trigger via the create body. Matches what the old triggers already
+carried, so not a regression — acceptable as-is; worth a real fix only if
+this connector set ever proves to matter for this desk's actual behavior.
+
+**Remaining step:** on the next Sunday after 2026-09-01, confirm the new
+desk trigger's Stream 1 output (a real `fix/karen-tickets` PR, or a correct
+no-op if no new Karen tickets exist), then disable
+`trig_01QEvYmKcpyDJJ8ec81aBjCV`. A session can do this verification and the
+disable both, once account-authenticated — record it as its own dated
+entry here or in `docs/decisions.md` when done.
 
 ---
 
-### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
+### 39. [DONE] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key
 
 **Filed:** 2026-08-30
 
 **Status:** DONE
 
-**Why it matters:** `docs/decisions.md` 2026-07-08 §3 is the standing rule:
-**nothing monetized ships without external IP-counsel review**
-(right-of-publicity, false endorsement, FTC affiliate disclosure), and
-FR-MERCH-4/5 hold that no affiliate/commercial implementation (the
-`shop.ts` seam flip, engine E0, coverage-report wiring) starts before that
-sign-off. The merch plan's Phase 1 trust fixes (E1/E2/E3) proceed without
-you; every money phase waits here. Engaging counsel is also a spend
-decision, which is yours alone.
+**Resolved:** 2026-08-30. Joey verified the existing Etsy app and repository secrets. PR #3519 corrected the Etsy v3 authorization construction and the manual workflow completed successfully with its evidence artifact. This entry records the resolved credential/access prerequisite only; any later evidence-quality repair remains an agent-owned task.
 
-**Steps:**
-1. Engage an IP attorney (right-of-publicity / false-endorsement / FTC
-   affiliate-disclosure scope). Bring: the live site `longlivets.com`, the
-   plan `docs/PLAN.merch-autonomy.md`, the UNOFFICIAL fan-project
-   disclaimer, and the fact that content stores plain retailer URLs with
-   wrapping at one seam (`apps/web/lib/longlive/shop.ts`).
-2. Report the outcome in chat (sign-off, or the changes counsel requires);
-   a session records it in `docs/decisions.md` and unblocks Phase 2.
+---
 
-**Worked if:** counsel's written sign-off (or required-changes list) is
-recorded in `docs/decisions.md` and this item is DONE.
+### 40. [DONE] Etsy API returns 403 to the E5 evidence workflow — check app approval
 
-**Outcome (2026-08-30):** Counsel sign-off recorded from Joey's direct chat instruction.
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Resolved:** 2026-08-30. The Etsy v3 API access issue was resolved by the verified authorization-format correction in PR #3519. The evidence workflow thereafter completed successfully and uploaded `merch-e5-evidence-artifact`.
+
+---
+
+### 33. [REVIEW] Confirm the Phase 2 merch catalog on mobile and desktop — ~2 min
+
+**Status:** DONE
+
+**Why it matters:** Phase 2's deterministic acceptance checks are green on
+merged `main`: generated coverage is current for 463 products, every uncovered
+row has an explanation, `awin-apply` is empty, the listing-scoped affiliate
+resolver/disclosure tests pass, and lint/typecheck pass. The remaining
+acceptance item is a real browser check of the merch surface at both viewports.
+
+**Outcome (2026-08-30, founder confirmation):** Joey confirmed in Discord
+that the desktop and mobile merch-catalog viewport check is complete (`HA33
+complete`). The confirmation covered the catalog surface only: no purchase and
+no external retailer link was opened.
+
+**Worked:** the merch catalog was usable on both desktop and mobile; no
+purchase or external retailer click was part of this confirmation.
 
 ---
 
@@ -147,21 +363,60 @@ the real script), confirmed it relocates cleanly with no duplicate-key error,
 and confirmed a second run is a clean no-op (215 rows both times). PR:
 `docs/2026-08-26-decisions-and-seed-fix` branch.
 
-**Steps:**
-1. Once that PR merges to `main`, from a checkout with `apps/worker/.env`,
-   just run: `npm run db:seed:videos`. Nothing else needed — content and
-   theories are already caught up.
+**Update (2026-08-31):** DB migrate/seed operations are now automated via
+GitHub Actions instead of a laptop command. This item's residual form:
 
-**Worked if:** the command prints `seeded videos: N from 12 file(s)` with no
-error, and production's `video_work` table matches `supabase/seed/videos/**`.
+**One-time setup (founder-only, do once):**
+1. Set the repo Actions secret (nobody else can — `gh secret set` is
+   guard-denied for agents):
+   `gh secret set SUPABASE_DB_URL --repo JW-Incorporated/swift2`
+2. Trigger `db-migrate` once from the Actions tab and confirm it's green:
+   `https://github.com/JW-Incorporated/swift2/actions/workflows/db-migrate.yml`
+   (Run workflow → main)
+3. Trigger `db-seed` once with `target: videos` and confirm it's green:
+   `https://github.com/JW-Incorporated/swift2/actions/workflows/db-seed.yml`
+   (Run workflow → target = videos)
 
-**Status:** OPEN
+**After that:** all future migrations run automatically on merge to `main`
+(any change under `supabase/migrations/**` triggers `db-migrate`), and every
+seed (`eras`, `content`, `tracks`, `releases`, `tours`, `theories`, `videos`)
+is a one-click dispatch from the `db-seed` Actions tab with a `target`
+dropdown — no checkout, no `.env`, no laptop command, ever again.
+
+**Worked if:** both workflow runs above show green in the Actions tab, and
+production's `video_work` table matches `supabase/seed/videos/**`.
+
+**Status:** DONE
+
+**Resolved (2026-08-31):** `SUPABASE_DB_URL` was already configured as a
+repo Actions secret. Found and fixed a real workflow-authoring bug blocking
+both actions: an `EXIT` trap inside the "Materialize ephemeral
+apps/worker/.env" step deleted the file the instant that step's own shell
+exited, before the next step ("Run migrations (pass 1)") could read it
+(`node: apps/worker/.env: not found`) — each GH Actions `run:` block is a
+separate shell process. Fixed in `db-migrate.yml`/`db-seed.yml` by moving
+the cleanup trap into the steps that actually consume the file. Confirmed
+both fixed workflows green with fresh `workflow_dispatch` runs directly on
+`main`:
+- `db-migrate` run 33351892355 — success, includes the pass-2 idempotency
+  check.
+- `db-seed` (target=videos) run 33351966250 — success.
+
+Production `video_work` now matches `supabase/seed/videos/**`. All future
+migrations run automatically on merge to `main`; every seed target is a
+one-click Actions dispatch.
 
 ---
 
 ### 23. [BLOCKING] BACKUPS launch gate (#680) — read Supabase plan/backup status off the dashboard, run one restore drill against production's own bytes — ~10 min
 
 **Filed:** 2026-08-26
+
+**Update (2026-08-30, Joey report):** The current project is on the Supabase
+Free plan, which has no available backup options. No backup was made and no
+production restore drill was performed. This records the current status only;
+it does not accept the associated launch risk. The BACKUPS gate remains
+unresolved until the required evidence is recorded.
 
 **Why it matters:** the BACKUPS launch gate has been 🟡 since 2026-08-12. The
 restore mechanism itself is built, tested, and green in CI (#1890) — a drill
@@ -175,6 +430,17 @@ Checked today for any agent-side workaround (env vars, `gh secret list`,
 Supabase CLI/MCP/management-API token) — none exists; this is genuinely
 founder-only. Full detail: `docs/backup-restore.md` §2 and §6.
 
+**Update (this session, #680 desk pass):** added a one-click Actions
+workflow (`.github/workflows/production-backup-drill.yml`, `Run workflow`
+from the Actions tab) so step 3 below no longer needs a local checkout,
+`apps/worker/.env`, or pasting a production connection string anywhere by
+hand — it reuses the `SUPABASE_DB_URL` secret already configured for
+`db-migrate`/`db-seed`, opens it strictly read-only, and restores into a
+throwaway Postgres inside the job (never a `*.supabase.co` host — the
+script's `assertSafeTarget` refuses that regardless). Step 1 (dashboard
+plan/backup-status) is still genuinely founder-only; nothing reaches that
+information programmatically.
+
 **Steps:**
 1. Open the Supabase dashboard for the Long Live project → **Settings** →
    **Billing** (or **Database** → **Backups**). Note: (a) the plan tier,
@@ -183,21 +449,15 @@ founder-only. Full detail: `docs/backup-restore.md` §2 and §6.
 2. Record those three answers in `docs/backup-restore.md` §6 (there's a
    table row format already there to follow), or tell a session the answers
    in chat and it will write them in.
-3. From a machine/checkout that has `apps/worker/.env` (`SUPABASE_DB_URL`),
-   run one real drill, read-only against production:
-   ```bash
-   node scripts/backup-restore-test.mjs \
-     --source "$SUPABASE_DB_URL" \
-     --target "postgres://postgres:postgres@127.0.0.1:5432/scratch?sslmode=disable" \
-     --keep
-   ```
-   (Needs a local scratch Postgres reachable at that target — `npm i
-   --no-save embedded-postgres` then point `--target` at a local instance,
-   or any throwaway Postgres you already have. The script refuses to write
-   to production or to any `*.supabase.co` host, by design.)
-4. Paste the pass/fail output (or tell a session) and it'll log it as a new
-   row in `docs/backup-restore.md` §6's drill log and flip the BACKUPS gate
-   in `docs/launch-readiness.md` once both items are done.
+3. Run the drill against production's own bytes with one click — no
+   checkout, no local Postgres, no credential ever touches your machine:
+   `https://github.com/JW-Incorporated/swift2/actions/workflows/production-backup-drill.yml`
+   → **Run workflow** → **Run workflow** (main branch). Takes a couple of
+   minutes; the job posts PASS/FAIL as an alert issue and uploads the report
+   as a run artifact.
+4. Paste the pass/fail result (or tell a session the run URL) and it'll log
+   it as a new row in `docs/backup-restore.md` §6's drill log and flip the
+   BACKUPS gate in `docs/launch-readiness.md` once both items are done.
 
 **Worked if:** `docs/backup-restore.md` §6 has a drill-log row sourced from
 production (not the fixture) marked **PASS**, and §2's plan/backup-status
@@ -267,7 +527,19 @@ per the above — a founder call remains the way to confirm the policy
 change was intentional and close this for good, but at this point the
 egress block looks resolved.
 
-**Status:** OPEN
+**Update (2026-08-30, Stylist run):** same root cause, different worker —
+the Stylist's scheduled firing today hit a **total** outbound block again:
+`curl`/`WebFetch`/Node `fetch` to `en.wikipedia.org`, `www.gucci.com`,
+`www.nordstrom.com`, and `www.therealreal.com` all failed (`EGRESS_BLOCKED` /
+proxy status `gateway answered 403 to CONNECT`; Node's own fetch returned
+`403 Host not in allowlist`). Only `WebSearch` worked. Since curl-verifying
+a real retailer product page (never a search-results page, never fabricated)
+is the Stylist's whole SOURCE step, and re-checking existing product URLs
+for liveness is its whole MAINTAIN step, this run could do neither — it
+exited with no changes and no PR rather than fabricate an unverified link.
+This is the same intermittent policy, now confirmed to hit more than one
+scheduled trigger in this repo, so the "looks resolved" note above was
+premature — leaving Status as OPEN.
 
 ---
 
@@ -296,6 +568,229 @@ files every Sunday and says so plainly rather than silently doing nothing.
 export has been parsed without silently returning 0 posts.
 
 **Status:** OPEN
+
+---
+
+### 9. [UPGRADE] Decide whether `main` should keep requiring PRs — ~2 min
+
+**Filed:** 2026-08-19
+
+**CORRECTION, 2026-08-19.** An earlier version of this item said "`main` is
+completely unprotected" and gave steps to add protection. **That was wrong.**
+`main` has been protected the whole time by an active repository **ruleset**
+named `protect-main`. The check that produced the false reading was:
+
+```
+gh api repos/JW-Incorporated/swift2/branches/main/protection
+-> 404 {"message":"Branch not protected"}
+```
+
+That endpoint only reports **classic branch protection**. Protection
+implemented as a **ruleset** does not appear there and returns 404 anyway. The
+correct check is:
+
+```
+gh api repos/JW-Incorporated/swift2/rulesets
+gh api repos/JW-Incorporated/swift2/rulesets/18819106
+```
+
+The corroborating evidence that was in plain sight: **every commit on `main`
+carries a `(#NNNN)` PR number.** Nothing has been pushed directly to `main` in
+this repo for a long time, because nothing can be.
+
+**What `protect-main` (id `18819106`, enforcement `active`) actually enforces:**
+
+| Rule | Effect |
+|---|---|
+| `pull_request` (0 approvals required) | **A PR is required. Direct push to `main` is blocked** |
+| `required_status_checks` → `build` | `build` must be green before merge |
+| `non_fast_forward` | No force-pushes |
+| `deletion` | `main` cannot be deleted |
+| `bypass_actors: []` | **Nobody bypasses — not admins, not Actions** |
+
+There is also a second ruleset named `main` (id `21070803`) with enforcement
+**`disabled`**, so it currently does nothing.
+
+**So there is no gap to fix, and nothing here is blocking.** This item is now a
+decision, not a repair.
+
+**The decision.** Joey said he likes Claude Code pushing straight to `main` on
+low-risk projects. In *this* repo that has never been possible, and turning it
+on means editing `protect-main`:
+
+- **To keep things as they are (recommended):** do nothing. Work lands by
+  branch → PR → `build` green → merge, which is what every runner and
+  `auto-merge-content.yml` already do.
+- **To allow direct pushes:** open the ruleset, remove the **Require a pull
+  request before merging** rule and the **Require status checks to pass** rule,
+  and keep **Block force pushes** + **Restrict deletions**. Ruleset UI:
+  `https://github.com/JW-Incorporated/swift2/settings/rules`
+
+**Recommendation: leave it alone.** longlivets.com is live, `auto-merge-content.yml`
+lands PRs unattended, and `build` is the only thing standing between a bad
+generated-file drift and production. The PR requirement costs one extra command
+and is the reason `main` has stayed green.
+
+**Worked if:** whichever you choose, `gh api repos/JW-Incorporated/swift2/rulesets/18819106`
+reflects it, and a test PR still merges once `build` is green.
+
+**Status:** OPEN
+
+---
+
+
+### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
+
+**Filed:** 2026-08-15
+
+**Why it matters:** you asked for a curated dataset of official + viral fan-made
+merch. Tier 1 (the official store) is already solved and needs nothing from you.
+Everything else in the brief is unreachable from an agent environment —
+Etsy/Redbubble/TeePublic return 403, Reddit is refused at the tool level, TikTok
+returns an empty shell. You chose "get proper API access first" over browser
+automation. Until these exist, agents pointed at those sources would invent
+numbers, so the work is deliberately parked.
+
+**Steps:**
+1. Reddit script app: `https://www.reddit.com/prefs/apps` → **create another
+   app** → type **script**. Save the client id and secret.
+2. Etsy Open API Personal App: `https://www.etsy.com/developers/register` (or
+   `https://developer.etsy.com`). Save the keystring.
+3. Optional, only for referral revenue later: Awin and Amazon Associates.
+4. Put the values in the project `.env` yourself — never paste a key into chat.
+   Tell a session the key NAMES only, and it will wire them up.
+
+**Known ceiling, so you do not sign up for more than you need:** per-video
+TikTok/Instagram view counts for accounts you do not own are **not obtainable**
+on any legitimate path, and Etsy listings carry **no review count**. Hype
+evidence will be Reddit score + comments + press mentions.
+
+**Progress (2026-08-24):** Etsy Open API done — `ETSY_KEYSTRING` and
+`ETSY_SHARED_SECRET` are saved (values never seen by any session, key names
+only). Awin (step 3, referral revenue) also done — `AWIN_API` saved, same
+way. Reddit script app (step 1) still needed before the marketplace-
+research work can start — no code exists yet to consume any of these
+credentials, this was just registering accounts/keys ahead of that build.
+
+**Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
+
+**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
+
+---
+
+
+## DONE
+
+
+### 36. [DONE] T-3 News Triage model trial applied
+
+**Filed:** 2026-08-31
+**Closed:** 2026-09-01
+
+**What happened:** Applied from a `claude.ai/code` session with
+`RemoteTrigger` access, in the exact order `runners.md` § "News Triage —
+model trial config applied" specifies:
+1. Merged `docs/content-ops/news-triage-trial-active` to `main`
+   ([PR #3626](https://github.com/JW-Incorporated/swift2/pull/3626),
+   2026-09-01T00:42 UTC) — digest-archive step now live.
+2. Created the "News Triage recall check — T-3 trial" trigger
+   (`trig_01V8JrQPZfWpUqUWiy9fvmkh`), confirmed working via a manual
+   dispatch — correctly returned a vacuous PASS
+   ([issue #3628](https://github.com/JW-Incorporated/swift2/issues/3628))
+   since neither the archive nor the model flip existed yet at that point.
+3. Flipped News Triage's trigger (`trig_019NuR7EpN7TA28yfmzKPAC7`) from
+   `claude-opus-4-8` to `claude-sonnet-5` via a full `job_config`
+   round-trip (`get` → edit → PUT whole object, never partial), succeeded
+   2026-09-01T00:51 UTC — **trial runs 2026-09-01 → 2026-09-15.**
+   Also re-synced the live prompt to
+   `docs/agents/runner-prompts/news-triage.md` verbatim in the same PUT —
+   it had drifted (missing the #1966 prompt-injection defense, the T-3
+   archive-snapshot addendum, and the T-20 attribution trailer); left
+   unsynced, the recall check's `consumed-snapshot` mechanism and T-20
+   telemetry would have been broken from day one.
+4. `runners.md`'s live-trigger table updated (News Triage row + new
+   recall-check row).
+
+**One new follow-up surfaced, not blocking:** the recall-check trigger got
+4 MCP connectors auto-attached on creation (Google_Drive, Vercel, Gmail,
+Claude_Code_Remote) despite requesting none — same silent-ignore API
+footgun `runners.md` already documents for updates, apparently also true
+of creates. Needs manual removal via the `claude.ai/code/routines` UI
+(no API lever for it). Low urgency — the prompt is read-only/no-merge by
+design regardless of connector access — but worth doing before the trial's
+first real weekly audit.
+
+**Status:** DONE
+
+
+---
+
+### 37. [DONE] Sync T-20 attribution trailer to all 24 live Tier-2 routines
+
+**Filed:** 2026-08-31
+**Closed:** 2026-09-01
+
+**What happened:** Applied from a `claude.ai/code` session with
+`RemoteTrigger` access, per the checklist's own never-partial-PUT rule
+(`get` the trigger → replace only the `prompt` field in the full returned
+`job_config` → PUT the whole object back). All 21 live-prompt routines in
+the checklist were re-synced to their current `docs/agents/runner-prompts/`
+file content, each now carrying the `## Attribution trailer (T-20 Phase 1)`
+section verbatim. The 2 approved-but-not-yet-created desks (Karen Deep
+review, Notification-quality desk) and News Triage's recall-check trigger
+(created and synced separately under item #36) were skipped per the
+checklist's own instructions — 24 accounted for, 21 actually re-synced.
+
+Two deliberate deviations from a naive full-file resync, both judgment
+calls made in-flight and not later contested:
+- **Kevin S3 radar** (`kevin-stream3-radar`): the repo file's cadence
+  description doesn't match the trigger's real `23 1,13 * * *` (twice-daily)
+  schedule, while the LIVE prompt's cadence text already correctly matches
+  the real schedule. Only appended the attribution trailer to the existing
+  correct live text; did not overwrite it with the stale file. Flagged as a
+  documentation bug needing a fix in the file, not the trigger — separate
+  from this item's scope.
+- **Vault Run**: the live trigger's prompt is deliberately a short pointer,
+  not the full ~12KB orchestrator-contract file — replacing it wholesale
+  would have recreated the exact undocumented-inline-instructions anti-
+  pattern the file's own text warns against. Only appended the trailer to
+  the existing short prompt.
+
+**Also confirmed, not touched:** Marjorie — 8 PM Evening Delta
+(`trig_01L2EG5veWBQwMowaykXAi6B`) is disabled per Joey's T-13 decision
+(`docs/decisions.md` 2026-08-31 entry) — synced its prompt with the
+trailer but left `enabled: false` exactly as found.
+
+**Follow-ups surfaced, not blocking, not part of this item's scope:**
+Laura's `cron_expression` differs from `runners.md`'s table
+(`20 18 * * *` live vs `20 18 * * 2,5` documented); Austin's model is still
+`claude-fable-5` live though `runners.md`'s table names an intended
+`claude-opus-4-8` 2-week trial; Karen's pending trigger rename tracked
+separately as GitHub issue #3616.
+
+**Status:** DONE
+
+---
+
+### 32. [BLOCKING] Etsy API returns 403 to the E5 evidence workflow — check app approval, ~10 min
+
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Outcome (2026-08-30):** no human action was needed after all — Joey
+verified the app is activated (Etsy confirmation email) and both secrets
+correct, and the real cause was on the code side: Etsy changed v3 auth so
+`x-api-key` must hold `keystring:shared_secret` joined by a colon; the
+keystring alone now 403s. PR #3519 fixed both call sites
+(`merch-e5-evidence.yml`, `fanmade-discovery.mjs`). The "worked if" is
+satisfied: run 33323629432 completed green and uploaded
+`merch-e5-evidence-artifact`. Cards t_aec44307 / t_13d961e9 unblocked.
+
+Original ask (kept for the record): check the app's approval state at
+`https://www.etsy.com/developers/your-apps`, confirm `ETSY_API_KEY` holds
+the Keystring (not the shared secret), then rerun **merch-e5-evidence**
+with `COLLECT_E5_EVIDENCE`.
 
 ---
 
@@ -496,46 +991,14 @@ with it. Neither blocks tonight's build.
 migrations are applied, flip the Supabase toggle whenever you like — the
 code is ready.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Reddit denied the knowledge engine's Data API
+request. The disclosed RSS-only interim remains in place today while a
+separate sustainable-source research lane investigates alternatives. Joey also
+accepted Clownbot's current stateless operation until it has users; do not
+enable Supabase anonymous sign-ins or server-side conversation memory. See
+`docs/decisions.md` 2026-08-30 decision record.
 
----
-
-### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
-
-**Filed:** 2026-08-15
-
-**Why it matters:** you asked for a curated dataset of official + viral fan-made
-merch. Tier 1 (the official store) is already solved and needs nothing from you.
-Everything else in the brief is unreachable from an agent environment —
-Etsy/Redbubble/TeePublic return 403, Reddit is refused at the tool level, TikTok
-returns an empty shell. You chose "get proper API access first" over browser
-automation. Until these exist, agents pointed at those sources would invent
-numbers, so the work is deliberately parked.
-
-**Steps:**
-1. Reddit script app: `https://www.reddit.com/prefs/apps` → **create another
-   app** → type **script**. Save the client id and secret.
-2. Etsy Open API Personal App: `https://www.etsy.com/developers/register` (or
-   `https://developer.etsy.com`). Save the keystring.
-3. Optional, only for referral revenue later: Awin and Amazon Associates.
-4. Put the values in the project `.env` yourself — never paste a key into chat.
-   Tell a session the key NAMES only, and it will wire them up.
-
-**Known ceiling, so you do not sign up for more than you need:** per-video
-TikTok/Instagram view counts for accounts you do not own are **not obtainable**
-on any legitimate path, and Etsy listings carry **no review count**. Hype
-evidence will be Reddit score + comments + press mentions.
-
-**Progress (2026-08-24):** Etsy Open API done — `ETSY_KEYSTRING` and
-`ETSY_SHARED_SECRET` are saved (values never seen by any session, key names
-only). Awin (step 3, referral revenue) also done — `AWIN_API` saved, same
-way. Reddit script app (step 1) still needed before the marketplace-
-research work can start — no code exists yet to consume any of these
-credentials, this was just registering accounts/keys ahead of that build.
-
-**Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
-
-**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
+**Status:** DONE (2026-08-30)
 
 ---
 
@@ -558,9 +1021,14 @@ they ship unratified by default. None is urgent; all are cheap to answer.
 **Worked if:** you answer in chat. A session writes the answers into
 `docs/decisions.md`.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey said, “I'm good with these as is.” The five
+dispositions are recorded in `docs/decisions.md` under
+“Clownbot/Mood/era-reader ratification.”
+
+**Status:** DONE
 
 ---
+
 
 ### 6. [UPGRADE] Should `auto-merge-content` keep auto-landing UI code? — ~2 min
 
@@ -578,9 +1046,14 @@ surprising.
 
 **Worked if:** you pick one in chat.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey retained the current CI-gated
+`auto-merge-content` behavior, including eligible UI/client-code changes; see
+the 2026-08-30 decision entry in `docs/decisions.md`.
+
+**Status:** DONE
 
 ---
+
 
 ### 7. [UPGRADE] Three questions left open when #2110 merged — ~5 min
 
@@ -599,9 +1072,18 @@ answer them, and the dataset ages from here.
 
 **Worked if:** you answer in chat; a session records it on the issue.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey decided that Instagram and TikTok creator-account
+coverage is in scope and must have an automated solution. Group and invite
+refresh must also be automated; only if full automation is not feasible may it
+use automated human-action reminders with specific instructions. Retain the
+exclusion of `r/TravisAndTaylor` and also exclude `r/GaylorSwift`. The decision
+is recorded in `docs/decisions.md` (2026-08-30); the automation-design work is
+tracked separately.
+
+**Status:** DONE
 
 ---
+
 
 ### 8. [UPGRADE] Turn on the spam gate for link submissions — ~10 min
 
@@ -641,78 +1123,133 @@ Full write-up: `docs/ops/community-merch-submissions.md`, Part 4.
 looks different (the widget passes invisibly). Submit a test link and
 confirm it still works and still shows up as a GitHub issue.
 
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey decided: “Close this; we can worry about it if
+it becomes an issue.” Turnstile remains disabled/inert; the existing honeypot
+and rate limiter remain the active protections.
+
+**Status:** SKIP
 
 ---
 
-### 9. [UPGRADE] Decide whether `main` should keep requiring PRs — ~2 min
 
-**Filed:** 2026-08-19
 
-**CORRECTION, 2026-08-19.** An earlier version of this item said "`main` is
-completely unprotected" and gave steps to add protection. **That was wrong.**
-`main` has been protected the whole time by an active repository **ruleset**
-named `protect-main`. The check that produced the false reading was:
+### 30. [UPGRADE] Confirm the two owner-authorized X post deletions
 
-```
-gh api repos/JW-Incorporated/swift2/branches/main/protection
--> 404 {"message":"Branch not protected"}
-```
+**Status:** DONE (2026-08-30)
 
-That endpoint only reports **classic branch protection**. Protection
-implemented as a **ruleset** does not appear there and returns 404 anyway. The
-correct check is:
-
-```
-gh api repos/JW-Incorporated/swift2/rulesets
-gh api repos/JW-Incorporated/swift2/rulesets/18819106
-```
-
-The corroborating evidence that was in plain sight: **every commit on `main`
-carries a `(#NNNN)` PR number.** Nothing has been pushed directly to `main` in
-this repo for a long time, because nothing can be.
-
-**What `protect-main` (id `18819106`, enforcement `active`) actually enforces:**
-
-| Rule | Effect |
-|---|---|
-| `pull_request` (0 approvals required) | **A PR is required. Direct push to `main` is blocked** |
-| `required_status_checks` → `build` | `build` must be green before merge |
-| `non_fast_forward` | No force-pushes |
-| `deletion` | `main` cannot be deleted |
-| `bypass_actors: []` | **Nobody bypasses — not admins, not Actions** |
-
-There is also a second ruleset named `main` (id `21070803`) with enforcement
-**`disabled`**, so it currently does nothing.
-
-**So there is no gap to fix, and nothing here is blocking.** This item is now a
-decision, not a repair.
-
-**The decision.** Joey said he likes Claude Code pushing straight to `main` on
-low-risk projects. In *this* repo that has never been possible, and turning it
-on means editing `protect-main`:
-
-- **To keep things as they are (recommended):** do nothing. Work lands by
-  branch → PR → `build` green → merge, which is what every runner and
-  `auto-merge-content.yml` already do.
-- **To allow direct pushes:** open the ruleset, remove the **Require a pull
-  request before merging** rule and the **Require status checks to pass** rule,
-  and keep **Block force pushes** + **Restrict deletions**. Ruleset UI:
-  `https://github.com/JW-Incorporated/swift2/settings/rules`
-
-**Recommendation: leave it alone.** longlivets.com is live, `auto-merge-content.yml`
-lands PRs unattended, and `build` is the only thing standing between a bad
-generated-file drift and production. The PR requirement costs one extra command
-and is the reason `main` has stayed green.
-
-**Worked if:** whichever you choose, `gh api repos/JW-Incorporated/swift2/rulesets/18819106`
-reflects it, and a test PR still merges once `build` is green.
-
-**Status:** OPEN
+**Outcome (2026-08-30):** Joey confirmed both specified posts are gone/unavailable.
 
 ---
 
-## DONE
+### 27. [BLOCKING] External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4
+
+**Filed:** 2026-08-30
+
+**Status:** DONE (2026-08-30)
+
+**Why it matters:** `docs/decisions.md` 2026-07-08 §3 is the standing rule:
+**nothing monetized ships without external IP-counsel review**
+(right-of-publicity, false endorsement, FTC affiliate disclosure), and
+FR-MERCH-4/5 hold that no affiliate/commercial implementation (the
+`shop.ts` seam flip, engine E0, coverage-report wiring) starts before that
+sign-off. The merch plan's Phase 1 trust fixes (E1/E2/E3) proceed without
+you; every money phase waits here. Engaging counsel is also a spend
+decision, which is yours alone.
+
+**Steps:**
+1. Engage an IP attorney (right-of-publicity / false-endorsement / FTC
+   affiliate-disclosure scope). Bring: the live site `longlivets.com`, the
+   plan `docs/PLAN.merch-autonomy.md`, the UNOFFICIAL fan-project
+   disclaimer, and the fact that content stores plain retailer URLs with
+   wrapping at one seam (`apps/web/lib/longlive/shop.ts`).
+2. Report the outcome in chat (sign-off, or the changes counsel requires);
+   a session records it in `docs/decisions.md` and unblocks Phase 2.
+
+**Worked if:** counsel's written sign-off (or required-changes list) is
+recorded in `docs/decisions.md` and this item is DONE.
+
+**Outcome (2026-08-30):** Counsel sign-off recorded from Joey's direct chat instruction.
+
+---
+
+### 29. [UPGRADE] Search-API account for merch engine E6 — payment card, ~10 min
+
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Why it matters:** engine E6 (Moment→Product Matcher, merch plan Phase 4)
+needs a Google Shopping-class search API for the matches the free Awin
+product index can't answer. This is a spend decision (paid account), so
+only you can open it. Nothing is halted today — E1/E2/E3 run without it —
+but E6 cannot start until this key exists (FR-MERCH-5 gate ruling,
+`docs/decisions.md` 2026-08-30). Expect light usage: the Awin index takes
+the first pass on every match for free, so a low tier (~$10–30/mo) likely
+suffices; start small, upgrade only if E6's ticket volume shows it.
+
+**Steps:**
+1. Sign up at `https://serpapi.com` (or an equivalent Google
+   Shopping-results API you prefer) on its cheapest paid tier; add the
+   payment card.
+2. Copy the API key and save it as a repo Actions secret named
+   `SEARCH_API_KEY`: from a terminal in the repo, run
+   `gh secret set SEARCH_API_KEY --repo JW-Incorporated/swift2` and paste
+   the value when prompted (`gh secret set` is guard-denied for agents —
+   founder-only on purpose). Key **name** only in chat, never the value.
+
+**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows
+`SEARCH_API_KEY`, and E6's first run reports real search results instead
+of a missing-credential skip.
+
+**Outcome (2026-08-30):** Joey saved `SEARCH_API_KEY` in GitHub Actions
+secrets and set a $25/month cap ($300/year maximum). The closing signal for
+this founder action is the first "Worked if" clause (secret present), per
+Joey's report; the E6 first-run clause transfers to E6's own acceptance check
+when Phase 4 builds it — it is not a founder action and does not hold this item
+open.
+
+---
+
+### 31. [UPGRADE] Higher-cap paid-search request — superseded, ~0 min (no action needed)
+
+**Status:** DONE — no longer needed; superseded by #29's completed, lower-cap disposition.
+
+**Outcome (2026-08-30):** The prior $75/month action request is no longer
+active. #29 records the completed `SEARCH_API_KEY` setup with a $25/month cap
+($300/year maximum).
+
+---
+
+### 28. [UPGRADE] Merch plan: save credentials under canonical names — ~10 min
+
+**Filed:** 2026-08-30
+
+**Status:** DONE
+
+**Why it matters:** Joey's D1/D3 product decisions are complete under
+HUMAN-ACTIONS #26. The remaining owner action is the credential-naming cleanup:
+the Awin/Etsy engines read the canonical secret names below (FR-MERCH-5,
+`docs/decisions.md` 2026-08-30). No code reads the old names, so this is a
+save-under-the-right-name step, not a migration.
+
+**Steps:**
+1. In the **Awin dashboard**: generate the **Publisher API token** and the
+   **Create-a-Feed API key**. Save them in the project `.env` / secret
+   store as `AWIN_API_TOKEN` and `AWIN_FEED_API_KEY`, and save your Awin
+   publisher ID as `AWIN_PUBLISHER_ID`. Delete the old `AWIN_API` entry
+   (ambiguous name, retired by FR-MERCH-5).
+2. Re-save the Etsy keystring value under the name `ETSY_API_KEY` (it
+   currently sits as `ETSY_KEYSTRING`; keep `ETSY_SHARED_SECRET` as-is).
+   As always: key **names** only in chat, never values.
+
+**Worked if:** the secret store holds `AWIN_API_TOKEN`, `AWIN_FEED_API_KEY`,
+`AWIN_PUBLISHER_ID`, and `ETSY_API_KEY` with no `AWIN_API` entry left.
+
+**Outcome (2026-08-30):** Joey completed canonical GitHub repository-secret
+provisioning: `AWIN_API_TOKEN`, `AWIN_FEED_API_KEY`, `AWIN_PUBLISHER_ID`,
+`ETSY_API_KEY`, and `ETSY_SHARED_SECRET`; retired `AWIN_API` is absent.
+
+---
 
 ### 26. [MERCH] Record owner decisions D1 and D3 for the autonomous marketplace
 
@@ -1286,4 +1823,24 @@ the nav question permanently — six separate tabs, and PR #2116's merge-to-five
 was closed unmerged.
 
 ---
+
+### 34. [BLOCKING] Codex review quota lock on merge-ready merch PR #3549 — pick one, ~2 min
+
+**Filed:** 2026-08-30
+**Status:** DONE (2026-08-30) — Founder decision D5: substitute Claude-model
+review instead of waiting or paying. PR #3549 independently re-reviewed by
+Claude (fresh checkout, all tests/typecheck/lint re-run), then merged
+2026-08-30T22:07:58Z. This is now the standing precedent for any future card
+blocked only by the fleet-wide Codex quota outage.
+
+**Why it mattered:** PR #3549 (test-only, 69 lines added to
+`apps/web/lib/longlive/merch.test.ts`) was independently reviewed twice with
+every check green (12/12 focused tests, 1983 full-suite tests, typecheck,
+lint, live 1440px/360px browser check). It could not merge because the
+project's `codex_governed=true` gate requires `sh ~/.codex/review.sh`, and
+the OpenAI Codex account had hit its usage limit — a non-transient lock that
+resets 2026-09-05 21:26.
+
+---
+
 

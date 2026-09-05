@@ -44,6 +44,7 @@
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { ROOT, SYNC_TARGETS, listGeneratedOnDisk } from './lib/generated-content.mjs';
+import { runMain } from './lib/cli.mjs';
 
 export const ALLOWLIST_FILE = '.github/content-automerge-allowlist.txt';
 export const WORKFLOW_FILE = '.github/workflows/auto-merge-content.yml';
@@ -447,7 +448,7 @@ function main() {
         ALLOWLIST_FILE +
         '\nbefore widening it.\n',
     );
-    process.exit(1);
+    return 1;
   }
   console.log('✓ every generated content artifact is covered by the auto-merge allowlist');
 }
@@ -456,5 +457,5 @@ if (
   process.argv[1] &&
   process.argv[1].split('\\').join('/').endsWith('scripts/check-automerge-allowlist.mjs')
 ) {
-  main();
+  runMain(main, { name: 'check-automerge-allowlist' });
 }

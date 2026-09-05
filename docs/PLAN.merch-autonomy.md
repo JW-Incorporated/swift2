@@ -31,6 +31,12 @@ require an account with a payment card. No agent can (or should) sign those.
 That 5% is **one batch of ~6 one-time signups, roughly 2–4 hours total**, then
 a steady state of approximately zero — annual tax forms and the occasional
 compliance email. Everything downstream of the credentials is automated.
+One human gate sits outside the signup batch and is not a signup at all:
+the standing **external IP-counsel review** (`docs/decisions.md` 2026-07-08
+§3) before anything monetized ships — see Phase 2 and FR-MERCH-5. This gate
+has since cleared (counsel sign-off recorded `docs/decisions.md`
+2026-08-30, HUMAN-ACTIONS #27 DONE); it is restated here as the hard
+launch gate the plan must always show, not as an open blocker.
 
 The honest caveats, so nothing here oversells:
 
@@ -86,7 +92,7 @@ The honest caveats, so nothing here oversells:
 | 1 | Products don't look like what Taylor wears | **E3 Match Auditor** — vision model scores every product image against its moment photo; graded tiers replace the binary flag; mismatches auto-demoted and re-sourced | Full |
 | 2 | Dead / "not found" links | **E1 Link & Stock Verifier** — Karen's detector grows an acting lane: re-resolve, replace, or mark `inStock:false` via gated PR | Full |
 | 3 | Images don't load | **E2 Image Verifier** — HEAD-check every `imageUrl`, re-scrape `og:image` from the product page on failure | Full |
-| 4 | Affiliate on every product | **Seam flip + resolver** — 3–4 network signups cover all 77 retailers; a generated coverage report tells you per-product how it monetizes | Full after signups |
+| 4 | Affiliate on every product | **Seam flip + resolver** — 3–4 network signups cover all 77 retailers; a generated coverage report tells you per-product how it monetizes | Full after signups + IP-counsel gate (cleared 2026-08-30) |
 | 5 | Official bucket empty | **E4 Official Store Sync** — Shopify JSON crawl of the full catalog, diffed on a schedule (drops detection falls out for free) | Full |
 | 6 | Fan-made bucket empty | **E5 Fan-Made Discovery** — Etsy API search + Reddit polling + the existing submission form; all items monetize via the one Etsy/Awin membership | Full after signups |
 | 7 | Engine for newly released merch | E4 + E5 *are* that engine — both run on schedules and file only what's new | Full |
@@ -136,31 +142,31 @@ product → its resolved network → link format → status
 done for issue #4 is that report showing zero `uncovered` rows (or each one
 carrying an explicit policy reason).
 
-## The official store problem (issue #5) — and decision D1
+## The official store problem (issue #5) — decision D1, settled: D1-a
 
 Verified: **store.taylorswift.com has no affiliate program.** It's a UMG
 (Taylor Nation LLC) Shopify store; no network lists it; nothing in its terms
 offers one. Your "every product MUST have an affiliate link" rule therefore
-collides with "fill the official bucket." Options:
+collides with "fill the official bucket." **Joey decided D1-a** (recorded
+`docs/decisions.md` 2026-08-30 "Merch autonomy: full official catalog with
+verified Amazon alternatives..."): exempt the official bucket from the
+affiliate rule. List the full official catalog unmonetized for completeness,
+SEO, and drops coverage (drops feed the social poster — that's audience
+growth, which is the asset). Where the same official item verifiably sells on
+Amazon (Amazon hosts an official Taylor Swift artist merch page — vinyl, CDs,
+some merch), E4 attaches a *secondary* "Also on Amazon" affiliate link.
+Partial monetization, full catalog. D1-b (only official items with an Amazon
+twin get listed) was considered and rejected — it would miss store exclusives
+and most of the catalog.
 
-- **D1-a (recommended): exempt the official bucket from the affiliate rule.**
-  List the full official catalog unmonetized for completeness, SEO, and drops
-  coverage (drops feed the social poster — that's audience growth, which is
-  the asset). Where the same official item verifiably sells on Amazon
-  (Amazon hosts an official Taylor Swift artist merch page — vinyl, CDs, some
-  merch), E4 attaches a *secondary* "Also on Amazon" affiliate link. Partial
-  monetization, full catalog.
-- **D1-b: strict rule.** Only official items with an Amazon twin get listed.
-  The bucket stays thin and misses store exclusives — most of the catalog.
+## Fan-made posture — decision D3, settled: the hard curation rule below
 
-## Fan-made posture — decision D3
-
-Fan merch is inherently an IP gray zone. The curation gate should hold a
-line that protects both the Etsy/Awin account and the site:
-**"inspired-by" yes, bootleg no** — skip items that reprint official artwork,
-tour graphics, or photos of Taylor; favor lyric-reference, era-color, and
-original-design items. E5 encodes this as a hard curation rule. (D3 is
-approving that line or drawing your own.)
+Fan merch is inherently an IP gray zone. **Joey approved D3** (same
+2026-08-30 decisions.md entry) as the hard fan-made curation rule the
+curation gate enforces, not a preference: **"inspired-by" yes, bootleg no** —
+E5 must reject items that reprint official artwork, tour graphics, or photos
+of Taylor, and may curate original lyric-reference, era-color, and
+original-design items.
 
 ## Decision D2 — the catch-all network
 
@@ -172,19 +178,28 @@ apply to one first, the other as fallback. Do not run both on the same links.
 ## Phases — trust first, then money, then growth
 
 **Phase 0 — Signups (Joey, the only human phase).** File the HUMAN-ACTIONS
-items below; agents proceed with everything not blocked on credentials.
+items below; agents proceed with everything not blocked on credentials —
+or on the FR-MERCH-5 counsel gate, which credentials never open (Phase 2).
 
 **Phase 1 — Fix what exists (E1, E2, E3).** Dead links, broken images, and
 mismatched products destroy buyer trust and would get an affiliate
 application rejected on review. Runs credential-free — starts immediately.
 
 **Phase 2 — Turn on money.** The seam flip (small diff to `shop.ts` +
-resolver config), disclosure auto-appears, coverage report goes live. **The
-Awin branch is unblocked today** — the moment the API token and affiliate ID
-land in env, Etsy links and every joined-advertiser link wrap live, per
-network, without waiting on Amazon or anything else (`isAffiliate()` is
-per-network by design). E0's programme audit also runs in this phase and
-produces your first apply shortlist.
+resolver config), disclosure auto-appears, coverage report goes live.
+**Hard gate first (FR-MERCH-5):** per `docs/decisions.md` 2026-07-08 §3
+nothing monetized ships, and per FR-MERCH-4/5 no affiliate/commercial
+implementation (seam flip, E0, coverage wiring) even starts, until external
+IP counsel has reviewed the affiliate layer (right-of-publicity, false
+endorsement, FTC disclosure — HUMAN-ACTIONS #27). Credentials landing in
+env does **not** open this phase; counsel sign-off does. **Status: the gate
+has cleared** — counsel sign-off is recorded in `docs/decisions.md`
+(2026-08-30) and HUMAN-ACTIONS #27 is DONE — so with credentials in env the
+Awin branch is unblocked: Etsy links and every joined-advertiser link wrap
+live, per network, without waiting on Amazon (`isAffiliate()` is per-network
+by design). E0's programme audit belongs to this phase (it is affiliate
+infrastructure, so it waited with it) and produces your first apply
+shortlist.
 
 **Phase 3 — Fill the buckets (E4, E5).** Official catalog sync; fan-made
 discovery + curation. The Merch page's three-section design finally has three
@@ -210,6 +225,12 @@ deserve re-matching.
 
 ## HUMAN-ACTIONS items to file (the whole human surface)
 
+0. **External IP-counsel review — the Phase 2+ hard gate** (filed:
+   HUMAN-ACTIONS #27, DONE). Engage counsel on the affiliate/commercial
+   layer; nothing monetized ships, and no affiliate/commercial engine work
+   starts, before sign-off (`docs/decisions.md` 2026-07-08 §3, FR-MERCH-4/5).
+   Sign-off is recorded (`docs/decisions.md` 2026-08-30) — this gate is
+   cleared, kept here as the standing rule the plan must always reflect.
 1. **Amazon Associates signup** — identity, tax, payout; note the tag ID.
    ~20 min + probation caveat above.
 2. **Awin — DONE** (account live). Two small follow-ups remain: in the

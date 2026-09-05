@@ -35,6 +35,7 @@ import {
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
+import { runMain } from './lib/cli.mjs';
 
 // slugify now lives in the dependency-free shared module (so the content-engine
 // can import it without @supabase/supabase-js); re-exported here because
@@ -153,6 +154,11 @@ export function significanceFrom(significance) {
  */
 export function productsFrom(products) {
   if (!Array.isArray(products)) return undefined;
+  const matchTiers = new Set(['exact', 'close', 'similar', 'inspired', 'unscored']);
+  const productKinds = new Set([
+    'dress', 'top', 'bottom', 'outerwear', 'knitwear', 'shoes', 'jewelry', 'bag', 'hat',
+    'eyewear', 'beauty', 'accessory', 'music', 'collectible', 'home', 'other',
+  ]);
   const out = [];
   for (const p of products) {
     if (!p) continue;
@@ -164,6 +170,13 @@ export function productsFrom(products) {
     // style" pill would be worse than none (2026-07-20, docs/decisions.md).
     const hasAltNote = typeof p.altNote === 'string' && p.altNote.trim();
     const isAlternative = p.isAlternative === true && hasAltNote;
+    const matchTier = matchTiers.has(p.matchTier) ? p.matchTier : undefined;
+    const matchScore =
+      matchTier && matchTier !== 'unscored' && Number.isFinite(p.matchScore) && p.matchScore >= 0 && p.matchScore <= 100
+        ? p.matchScore
+        : undefined;
+    const kind = productKinds.has(p.kind) ? p.kind : undefined;
+    const verifiedAt = verifiedAtFrom(p.verifiedAt);
     out.push({
       brand: p.brand,
       item: p.item,
@@ -174,9 +187,24 @@ export function productsFrom(products) {
       isAlternative: isAlternative ? true : undefined,
       altNote: isAlternative ? p.altNote : undefined,
       imageUrl: typeof p.imageUrl === 'string' && p.imageUrl.trim() ? p.imageUrl : undefined,
+      matchTier,
+      matchScore,
+      kind,
+      verifiedAt,
     });
   }
   return out.length ? out : undefined;
+}
+
+function verifiedAtFrom(value) {
+  if (typeof value !== 'string') return undefined;
+  const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(value);
+  const utcTimestamp = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(value);
+  if (!dateOnly && !utcTimestamp) return undefined;
+
+  const timestamp = Date.parse(value);
+  if (Number.isNaN(timestamp) || timestamp > Date.now()) return undefined;
+  return new Date(timestamp).toISOString().slice(0, 10) === value.slice(0, 10) ? value : undefined;
 }
 
 /**
@@ -202,8 +230,14 @@ export const RUMOR_STATUSES = new Set([
   'faded',
 ]);
 
-/** Mirrors RumorSourceTier in apps/web/lib/longlive/types.ts. */
-export const RUMOR_SOURCE_TIERS = new Set(['official', 'established', 'tabloid', 'social']);
+/** Mirrors RumorSourceTier in apps/web/lib/longlive/types.ts. R9 consolidation
+ * (Fable 5.1 review): sourced from the generated mirror of
+ * packages/shared/src/source-tiers.ts (the single hand-authored source) so
+ * this vocabulary can't drift from the other four source-tier lists it used
+ * to be independently hand-typed alongside. Re-wrapped as a Set here (the
+ * generated twin exports a plain array) since callers use `.has()`. */
+import { RUMOR_SOURCE_TIERS as RUMOR_SOURCE_TIERS_ARRAY } from './lib/source-tiers.generated.mjs';
+export const RUMOR_SOURCE_TIERS = new Set(RUMOR_SOURCE_TIERS_ARRAY);
 
 /**
  * Mirrors LocationSpecificity. No 'address' member on purpose — L3 is never
@@ -821,6 +855,10 @@ export function buildOutputSource(byEra) {
             if (p.isAlternative) parts.push('isAlternative: true');
             if (p.altNote) parts.push(`altNote: ${esc(p.altNote)}`);
             if (p.imageUrl) parts.push(`imageUrl: ${esc(p.imageUrl)}`);
+            if (p.matchTier) parts.push(`matchTier: ${esc(p.matchTier)}`);
+            if (p.matchScore !== undefined) parts.push(`matchScore: ${p.matchScore}`);
+            if (p.kind) parts.push(`kind: ${esc(p.kind)}`);
+            if (p.verifiedAt) parts.push(`verifiedAt: ${esc(p.verifiedAt)}`);
             return `{ ${parts.join(', ')} }`;
           })
           .join(', ');
@@ -892,8 +930,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'sync-longlive-content' });
 }

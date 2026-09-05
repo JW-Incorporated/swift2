@@ -39,11 +39,15 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gh, httpsRequest } from '../lib/gh.mjs';
+import { serviceClient } from '../lib/supabase.mjs';
 import { CHANNELS, feedUrl } from './channels.mjs';
 import { parseFeed, looksLikeFeed } from './lib/feed.mjs';
 import { matchRule, isFresh } from './lib/filter.mjs';
 import { videoIdsIn, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
 import { buildSocialDraftPair, fetchAppearanceThumbnail } from './lib/social-draft.mjs';
+import { clampMaxPerRun } from './lib/spend-limits.mjs';
+import { emitOfficialYoutubeEvent } from './lib/emit-official-youtube-event.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 const INTAKE_LABEL = 'intake';
 // Matches the label as it already exists on the repo — the upsert is a no-op
@@ -74,8 +78,11 @@ function intArg(name, fallback) {
   }
   return n;
 }
+// Hard ceiling on `--max`, independent of the dispatch input — see
+// lib/spend-limits.mjs for the full rationale (codex review, kanban
+// t_ac1281ef rounds 2-3).
 const FILE_MODE = process.argv.includes('--file');
-const MAX_PER_RUN = intArg('--max', 10);
+const MAX_PER_RUN = clampMaxPerRun(intArg('--max', 10));
 const MAX_AGE_DAYS = intArg('--max-age-days', 30);
 
 function withTimeout(promise, ms, what) {
@@ -178,8 +185,16 @@ export function readSeedIds(root) {
  */
 async function loadLedger() {
   const res = await gh([
-    'issue', 'list', '--label', INTAKE_LABEL, '--state', 'all',
-    '--json', 'number,title,body', '--limit', String(LEDGER_LIMIT),
+    'issue',
+    'list',
+    '--label',
+    INTAKE_LABEL,
+    '--state',
+    'all',
+    '--json',
+    'number,title,body',
+    '--limit',
+    String(LEDGER_LIMIT),
   ]);
   const { stdout } = res;
   // Empty stdout is NOT an empty ledger. A successful "no issues" result is
@@ -219,7 +234,8 @@ const MAX_ISSUE_TITLE = 250;
 
 function issueTitle(c) {
   const day = (c.published || '').slice(0, 10) || 'date unknown';
-  const build = (title) => `intake: YouTube appearance — ${c.channelName}: “${title}” (published ${day})`;
+  const build = (title) =>
+    `intake: YouTube appearance — ${c.channelName}: “${title}” (published ${day})`;
   const full = build(c.title);
   if (full.length <= MAX_ISSUE_TITLE) return full;
   const over = full.length - MAX_ISSUE_TITLE;
@@ -260,12 +276,27 @@ async function createIntakeIssue(c) {
   writeFileSync(bodyPath, issueBody(c), 'utf8');
   try {
     const { stdout } = await gh([
-      'issue', 'create', '--title', issueTitle(c), '--body-file', bodyPath, '--label', INTAKE_LABEL,
+      'issue',
+      'create',
+      '--title',
+      issueTitle(c),
+      '--body-file',
+      bodyPath,
+      '--label',
+      INTAKE_LABEL,
     ]);
     return stdout.trim();
   } finally {
-    try { unlinkSync(bodyPath); } catch { /* best-effort cleanup */ }
+    try {
+      unlinkSync(bodyPath);
+    } catch {
+      /* best-effort cleanup */
+    }
   }
+}
+
+function supabaseAdmin() {
+  return serviceClient();
 }
 
 async function main() {
@@ -275,7 +306,9 @@ async function main() {
   const candidates = [];
   let totalEntries = 0;
 
-  console.log(`appearance-discovery: ${FILE_MODE ? 'FILE mode' : 'DRY RUN (no gh calls)'} — ${CHANNELS.length} channels, window ${MAX_AGE_DAYS}d, cap ${MAX_PER_RUN}/run`);
+  console.log(
+    `appearance-discovery: ${FILE_MODE ? 'FILE mode' : 'DRY RUN (no gh calls)'} — ${CHANNELS.length} channels, window ${MAX_AGE_DAYS}d, cap ${MAX_PER_RUN}/run`,
+  );
 
   for (const channel of CHANNELS) {
     try {
@@ -285,10 +318,18 @@ async function main() {
       for (const e of entries) {
         const rule = matchRule(e, channel);
         if (!rule || !isFresh(e.published, now, MAX_AGE_DAYS)) continue;
-        hits.push({ ...e, rule, channelId: channel.channelId, channelName: channel.name, channelWhy: channel.why });
+        hits.push({
+          ...e,
+          rule,
+          channelId: channel.channelId,
+          channelName: channel.name,
+          channelWhy: channel.why,
+        });
       }
       candidates.push(...hits);
-      console.log(`  ✓ ${channel.name} (feed title: "${channelTitle}") — ${entries.length} entries, ${hits.length} relevant+fresh`);
+      console.log(
+        `  ✓ ${channel.name} (feed title: "${channelTitle}") — ${entries.length} entries, ${hits.length} relevant+fresh`,
+      );
     } catch (e) {
       failures.push(`${channel.name}: ${e.message}`);
       console.error(`  ✗ ${channel.name}: ${e.message}`);
@@ -310,9 +351,20 @@ async function main() {
       // the run would refuse forever and never reach the line that creates it.
       // It doubles as the write preflight (same pattern as the CIE) — find out
       // GitHub is unwritable before filing, not halfway through.
-      await gh(['label', 'create', INTAKE_LABEL, '--color', INTAKE_COLOR, '--description', INTAKE_DESC, '--force']);
+      await gh([
+        'label',
+        'create',
+        INTAKE_LABEL,
+        '--color',
+        INTAKE_COLOR,
+        '--description',
+        INTAKE_DESC,
+        '--force',
+      ]);
       ledger = await loadLedger();
-      console.log(`ledger: ${ledger.issues} intake issues scanned, ${ledger.ids.size} video ids known${ledger.complete ? '' : ' (POSSIBLY TRUNCATED)'}`);
+      console.log(
+        `ledger: ${ledger.issues} intake issues scanned, ${ledger.ids.size} video ids known${ledger.complete ? '' : ' (POSSIBLY TRUNCATED)'}`,
+      );
       // Tripwire for both ceiling problems: the one-sided truncation test above,
       // and the fact that `--state all` makes this population MONOTONIC — at the
       // limit the lane refuses every day and does NOT self-heal, because nothing
@@ -321,7 +373,7 @@ async function main() {
       if (ledger.issues >= LEDGER_LIMIT * 0.8) {
         console.error(
           `ledger: WARNING — ${ledger.issues}/${LEDGER_LIMIT} intake issues. This ceiling does not self-heal: ` +
-          'at the limit every run refuses permanently. Raise LEDGER_LIMIT (and gh.mjs\'s page cap) or narrow the query.',
+            "at the limit every run refuses permanently. Raise LEDGER_LIMIT (and gh.mjs's page cap) or narrow the query.",
         );
       }
     } catch (e) {
@@ -336,8 +388,12 @@ async function main() {
 
   const plan = planFilings(candidates, { ledger, seedIds, max: MAX_PER_RUN });
 
-  for (const s of plan.skipped) console.log(`  skip [${s.reason}] ${s.videoId} — ${s.channelName}: ${s.title}`);
-  for (const c of plan.toFile) console.log(`  ${FILE_MODE ? 'FILE' : 'would file'} [${c.rule}] ${c.videoId} — ${issueTitle(c)}`);
+  for (const s of plan.skipped)
+    console.log(`  skip [${s.reason}] ${s.videoId} — ${s.channelName}: ${s.title}`);
+  for (const c of plan.toFile)
+    console.log(
+      `  ${FILE_MODE ? 'FILE' : 'would file'} [${c.rule}] ${c.videoId} — ${issueTitle(c)}`,
+    );
 
   let filed = 0;
   let staged = 0;
@@ -347,6 +403,12 @@ async function main() {
     console.error(`REFUSED to file: ${plan.refuse}`);
   } else if (FILE_MODE && plan.toFile.length) {
     // (The label upsert / write preflight already ran before the ledger read.)
+    const notifDb = supabaseAdmin();
+    if (!notifDb) {
+      console.log(
+        '  notifications: SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY not set — skipping official_youtube events (see SETUP_NOTIFICATIONS.md)',
+      );
+    }
     for (const c of plan.toFile) {
       try {
         const url = await createIntakeIssue(c);
@@ -356,6 +418,18 @@ async function main() {
         createFailures.push(`${c.videoId}: ${String(e?.stderr || e?.message || e).slice(0, 300)}`);
         console.error(`  FAILED to file ${c.videoId}: ${e.message}`);
         continue; // no fast-lane draft for a video whose slow-lane lead didn't even file
+      }
+      // Notifications Phase 2 producer seam: 'all-uploads' candidates
+      // (Taylor's own channel) fire an official_youtube event. Never
+      // blocks or undoes the issue that already filed — same "loud, not
+      // fatal" posture as the social-draft step below.
+      if (notifDb) {
+        try {
+          const notifResult = await emitOfficialYoutubeEvent(c, { db: notifDb });
+          if (notifResult.emitted) console.log(`  notified official_youtube for ${c.videoId}`);
+        } catch (e) {
+          console.error(`  FAILED to emit official_youtube event for ${c.videoId}: ${e.message}`);
+        }
       }
       // Fast lane (docs/decisions.md 2026-08-25): stage an X + Instagram
       // social/queue/ pair alongside the intake issue. Instagram supplies the
@@ -370,7 +444,11 @@ async function main() {
         const thumbnail = await fetchAppearanceThumbnail(c);
         writeFileSync(join(root, media.repoPath), thumbnail.bytes);
         for (const { filename, item } of drafts) {
-          writeFileSync(join(root, 'social', 'queue', filename), `${JSON.stringify(item, null, 2)}\n`, 'utf8');
+          writeFileSync(
+            join(root, 'social', 'queue', filename),
+            `${JSON.stringify(item, null, 2)}\n`,
+            'utf8',
+          );
           staged++;
           console.log(`  staged social/queue/${filename}`);
         }
@@ -394,17 +472,16 @@ async function main() {
 
   console.log(
     `summary: ${CHANNELS.length - failures.length}/${CHANNELS.length} channels ok, ${totalEntries} entries, ` +
-    `${candidates.length} relevant+fresh, ${plan.toFile.length} ${FILE_MODE ? 'to file' : 'would file'}, ` +
-    `${plan.skipped.length} skipped, ${filed} filed, ${staged} staged${plan.refuse ? ', REFUSED (fail closed)' : ''}`,
+      `${candidates.length} relevant+fresh, ${plan.toFile.length} ${FILE_MODE ? 'to file' : 'would file'}, ` +
+      `${plan.skipped.length} skipped, ${filed} filed, ${staged} staged${plan.refuse ? ', REFUSED (fail closed)' : ''}`,
   );
   if (failures.length) console.error(`channel failures:\n  ${failures.join('\n  ')}`);
   if (createFailures.length) console.error(`create failures:\n  ${createFailures.join('\n  ')}`);
-  if (draftFailures.length) console.error(`social draft failures:\n  ${draftFailures.join('\n  ')}`);
+  if (draftFailures.length)
+    console.error(`social draft failures:\n  ${draftFailures.join('\n  ')}`);
 
-  if (failures.length || createFailures.length || draftFailures.length || plan.refuse) process.exitCode = 1;
+  if (failures.length || createFailures.length || draftFailures.length || plan.refuse)
+    process.exitCode = 1;
 }
 
-main().catch((e) => {
-  console.error(`appearance-discovery: fatal — ${e.stack || e}`);
-  process.exitCode = 1;
-});
+runMain(main, { name: 'discover' });
