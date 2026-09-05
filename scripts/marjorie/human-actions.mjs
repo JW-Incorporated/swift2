@@ -59,12 +59,32 @@ function parseItems(sectionText) {
 }
 
 /**
+ * A terminal status means the item is finished, no matter which markdown
+ * section it physically sits under. Items are supposed to move from `##
+ * OPEN` to `## DONE` when they close out, but that's a manual step a writer
+ * can forget — and 2026-09-05 proved it: HA#22 (`RESOLVED`) and HA#24
+ * (`DONE`) both got their `**Status:**` line updated in place and were left
+ * under `## OPEN`, so the brief kept re-asking for them. The item's own
+ * Status line is the ground truth; the section heading is not. Matches
+ * `DONE`, `RESOLVED`, and `SKIP`, optionally followed by more text (a date,
+ * a dash-note) — same terminal vocabulary the human-actions skill and this
+ * file's own DONE-section entries already use.
+ */
+const TERMINAL_STATUS = /^(DONE|RESOLVED|SKIP)\b/i;
+
+function isTerminal(status) {
+  return typeof status === 'string' && TERMINAL_STATUS.test(status);
+}
+
+/**
  * OPEN items, with age-in-days computed from `Filed:` (null if the item
  * predates the convention and was never backfilled — report the gap, don't
- * guess an age).
+ * guess an age). Items whose own `**Status:**` line is terminal (DONE /
+ * RESOLVED / SKIP) are excluded even if they are still physically sitting
+ * under the `## OPEN` heading — see TERMINAL_STATUS above.
  */
 export function parseOpenActions(markdown, { now = Date.now() } = {}) {
-  const items = parseItems(sectionBody(markdown, 'OPEN'));
+  const items = parseItems(sectionBody(markdown, 'OPEN')).filter((it) => !isTerminal(it.status));
   return items.map((it) => ({
     ...it,
     ageDays: it.filed ? Math.floor((now - new Date(`${it.filed}T00:00:00Z`).getTime()) / DAY_MS) : null,

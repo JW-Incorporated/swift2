@@ -119,12 +119,24 @@ function metricLines(rows) {
 }
 
 export function formatRevenueSection(report) {
+  const availableSources = report.sources.filter((source) => source.status === 'available');
+  // Every source unavailable (no Awin/Amazon reporting API wired) is not new
+  // information — it has been true every day for weeks and was pure noise on
+  // the brief (JW Labs 2026-09-05 triage). Collapse it to one line instead
+  // of a 10-line all-dashes section; the moment either network comes online
+  // this reverts to the full report automatically.
+  if (report.sources.length > 0 && availableSources.length === 0) {
+    return [
+      '## Merch revenue and clicks',
+      '',
+      `- No reporting configured yet (${report.sources.map((s) => s.network).join(', ')} unavailable) — nothing to show until one is wired up.`,
+    ].join('\n');
+  }
   const sourceLines = report.sources.length
     ? report.sources.map((source) => source.status === 'available'
       ? `- ${source.network[0].toUpperCase()}${source.network.slice(1)}: available`
       : `- ${source.network[0].toUpperCase()}${source.network.slice(1)}: unavailable — ${source.reason}`)
     : ['- No network reports were supplied.'];
-  const availableSources = report.sources.filter((source) => source.status === 'available');
   const total = availableSources.length
     ? `- Total reported: ${report.totals.clicks} clicks · ${money(report.totals.revenue)}`
     : '- Total reported: unavailable (no reporting source is available)';
