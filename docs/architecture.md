@@ -60,12 +60,43 @@ apps/web        Next.js reader
 apps/mobile     Expo app            (scaffolded — reuses packages/* unchanged)
 packages/shared types + domain, zero I/O — portable
 packages/core   data-access layer over Supabase — portable
+packages/content zod schemas + typed loader for the published content
+                bundle (OS-010/013) — the Layer 1 contract in
+                docs/specs/2026-09-05-one-source-three-surfaces.md §2;
+                no I/O of its own beyond the injectable loader
 ```
 
 **Hard boundary:** new business logic goes in `packages/shared` or
 `packages/core`, never in an app's view layer. The view layer (React
 components, screens) is the only non-portable code. This is what lets the
 future Expo app reuse everything but the views.
+
+### Content bundle boundary (`packages/content`, OS-010)
+
+Per convergence decision D1 (`docs/decisions.md` 2026-09-05, spec §4),
+content authoring stays in `supabase/seed/**`; `scripts/build-content-
+bundle.mjs` (OS-011) publishes it as a hashed, versioned JSON artifact that
+`packages/content` gives every surface a typed, runtime-validated way to
+read (`manifest.json` + one file per domain — see the ADR in
+`docs/decisions.md` for why an artifact and not a live DB, and for the
+N-1 schema-version compatibility rule OS-041 enforces in CI). Supabase
+keeps only dynamic runtime data (devices, prefs, notification events, clown
+memory) — content tables are frozen under this plan and retired in OS-016.
+`packages/content`'s schemas mirror `apps/web/lib/longlive/types.ts`
+structurally; they do not replace it until OS-014/OS-015 switch the read
+path off the generated `*.generated.ts` files.
+
+**Schema compatibility policy (`packages/content/src/compat.ts`, OS-041).**
+`CURRENT_SCHEMA_VERSION` bumps ONLY on a breaking schema change (a field
+changing type, or a previously-optional field becoming required — additive
+optional fields never bump it). `isSchemaVersionSupported`/
+`assertSchemaVersionSupported` enforce the N-1 window: a loader built
+against version N must still read a bundle published at N-1. `compat.test.ts`
+is the CI check for "a schema change ships with a loader that still reads
+the previous version" — it runs a deliberate simulated version-bump case
+(N → N+1) proving N is still accepted, N+1 is accepted, and N-1 relative to
+the new current is correctly rejected. It runs as part of the root
+`npm run test` job already required in `.github/workflows/ci.yml`.
 
 ## Data architecture: two worlds, kept apart
 
@@ -246,6 +277,54 @@ any change to the shared boundary or the mobile release process. Anything
 that turns out to be genuinely hard to reverse (e.g., committing to real API
 versioning, adopting a paid feature-flag vendor) gets its own
 `docs/decisions.md` entry when it happens, same as any other stack choice.
+
+## Web → native bridge (OS-002, One Source/Three Surfaces Phase 0)
+
+The site (`apps/web`) runs inside the app's WebView (`apps/mobile/components/
+SiteShell.tsx`), and detects that with the `LongLiveApp/<ver> (ios|android)`
+user-agent marker — see `apps/web/lib/longlive/in-app.ts` (OS-001). Phase 0
+adds a **one-way message channel** so the site's own UI can hand off to a
+native screen instead of the app floating a duplicate control (e.g. a bell)
+on top of the page.
+
+**Protocol.** The site calls `postToNativeApp(message)` (`apps/web/lib/
+longlive/in-app.ts`), which does nothing outside the app and otherwise calls
+`window.ReactNativeWebView.postMessage(JSON.stringify(message))`. Messages
+are a small closed union, currently:
+
+```ts
+type NativeBridgeMessage =
+  | { type: 'openNotificationSettings' }
+  | { type: 'openInbox' };
+```
+
+`SiteShell` wires the WebView's `onMessage` to `onBridgeMessage`, JSON-parses
+and validates the payload (a malformed or unknown `type` is dropped, never
+thrown), and `App.tsx` maps it onto the same native screens the push
+notification deep-link handler (`destinationFor`) already opens —
+`NotificationSettingsScreen` for `openNotificationSettings`,
+`NotificationInboxScreen` for `openInbox`.
+
+**Site-side usage.** `TopBar.tsx` renders the bell as a native `<Button>`
+press (calling `postToNativeApp`) only when `isInAppDocument()` is true;
+outside the app it stays the existing `<Link href="/settings/notifications">`
+so the web-only path (including web push, Phase 6 of
+`NOTIFICATIONS_PLAN.md`) is unaffected. `isInAppDocument()` reads the
+`data-app` attribute `RootLayout` already sets from the server-side UA check
+(OS-001) — the client never re-parses `navigator.userAgent` itself, keeping
+one source of truth for "am I in the app" across server and client renders.
+Because that attribute isn't known until after hydration, the bell renders
+in its web (`Link`) form for one frame and flips to the native form in a
+mount effect — a deliberate hydration-safe flash, not a bug.
+
+**Why one-way, for now.** The app already has everything it needs to answer
+(local onboarding state, notification settings) without a reply from the
+site; a native→web acknowledgement channel can be added the same way
+(`webRef.current.injectJavaScript(...)` from `SiteShell`) if a future card
+needs it. Extending the protocol: add a member to the `NativeBridgeMessage`
+union in **both** `apps/web/lib/longlive/in-app.ts` and
+`apps/mobile/components/SiteShell.tsx` (kept in sync by hand until OS-003's
+deep-link contract test pattern is generalized to this channel too).
 
 ## Open questions (need Joey's vision or a later decision)
 

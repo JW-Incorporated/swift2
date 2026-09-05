@@ -8,9 +8,9 @@
 // belongs in the app layer, not here.
 //
 // OS-021: eras, deep links, lenses, filters, filter chips, and the shared
-// content model (types.ts) moved in from apps/web/lib/longlive. Real
-// feeds/threads/track-guide/progress/search logic lands in follow-up cards
-// (OS-022..OS-025).
+// content model (types.ts) moved in from apps/web/lib/longlive. OS-031
+// added shared design tokens. Real feeds/threads/track-guide/progress/
+// search logic lands in follow-up cards (OS-022..OS-025).
 
 export const EXPERIENCE_CORE_VERSION = '0.1.0';
 
@@ -22,3 +22,13 @@ export * from './filters';
 export * from './filter-chips';
 export * from './feed-types';
 export * from './thread-content-provider';
+
+export {
+  TOKENS,
+  ERA_TOKENS,
+  CLOWN_TOKENS,
+  STATUS_TOKENS,
+  ERA_CSS_VAR_NAMES,
+  CLOWN_CSS_VAR_NAMES,
+} from './tokens';
+export type { Tokens, EraTokens, ClownTokens, StatusTokens } from './tokens';

@@ -1,6 +1,11 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { inAppPlatformFromUserAgent, isInApp } from './in-app';
+import {
+  inAppPlatformFromUserAgent,
+  isInApp,
+  isInAppDocument,
+  postToNativeApp,
+} from './in-app';
 
 describe('inAppPlatformFromUserAgent', () => {
   it('detects the iOS app marker', () => {
@@ -39,5 +44,61 @@ describe('isInApp', () => {
 
   it('is false for a regular browser UA', () => {
     expect(isInApp('Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0')).toBe(false);
+  });
+});
+
+describe('isInAppDocument', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('is false when there is no document (SSR/node)', () => {
+    expect(isInAppDocument()).toBe(false);
+  });
+
+  it('is true when RootLayout set data-app on <html>', () => {
+    vi.stubGlobal('document', { documentElement: { dataset: { app: 'ios' } } });
+    expect(isInAppDocument()).toBe(true);
+  });
+
+  it('is false when <html> has no data-app attribute', () => {
+    vi.stubGlobal('document', { documentElement: { dataset: {} } });
+    expect(isInAppDocument()).toBe(false);
+  });
+});
+
+describe('postToNativeApp', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('does nothing and returns false outside the app', () => {
+    expect(postToNativeApp({ type: 'openNotificationSettings' })).toBe(false);
+  });
+
+  it('posts the exact JSON payload to window.ReactNativeWebView', () => {
+    const postMessage = vi.fn();
+    vi.stubGlobal('window', { ReactNativeWebView: { postMessage } });
+
+    const result = postToNativeApp({ type: 'openNotificationSettings' });
+
+    expect(result).toBe(true);
+    expect(postMessage).toHaveBeenCalledExactlyOnceWith(
+      JSON.stringify({ type: 'openNotificationSettings' }),
+    );
+  });
+
+  it('posts the openInbox payload too', () => {
+    const postMessage = vi.fn();
+    vi.stubGlobal('window', { ReactNativeWebView: { postMessage } });
+
+    postToNativeApp({ type: 'openInbox' });
+
+    expect(postMessage).toHaveBeenCalledExactlyOnceWith(JSON.stringify({ type: 'openInbox' }));
+  });
+
+  it('is a no-op when window exists but the native bridge is not injected', () => {
+    vi.stubGlobal('window', {});
+    expect(postToNativeApp({ type: 'openInbox' })).toBe(false);
   });
 });
