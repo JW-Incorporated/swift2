@@ -3343,12 +3343,30 @@ export default {
         photos: [
           {
             url: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
+            // Tent peaks and the walking couple sit center-right, just above and below the midline.
+            // Field-order fix (2026-08-30, #762): moved up to sit immediately
+            // after `url`, per the field-order rule — value unchanged.
+            focalPoint: '52% 45%',
             credit: 'AP Photo/Robert F. Bukaty, via Fortune',
             caption:
               'A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the tent that fueled bachelorette-weekend speculation, though the resort said that weekend\'s booked wedding was an unrelated couple\'s.',
             kind: 'primary',
-            // Tent peaks and the walking couple sit center-right, just above and below the midline.
-            focalPoint: '52% 45%',
+          },
+          {
+            // Photo pass #762 (2026-08-30): a second, unrelated-outlet photo of
+            // the public resort itself (not her home, not security) — the
+            // Boston Globe's own NYT-credited exterior shot, curl-verified 200
+            // image/jpeg on the outlet's own Arc Publishing CDN, downloaded and
+            // vision-confirmed: just the Ocean House facade and unrelated
+            // passersby, no connection to the privacy-redline photo removed
+            // 2026-07-22. Predates the bachelorette weekend by six days, so
+            // captioned honestly as a reference shot of the venue, not the event.
+            url: 'https://bostonglobe-prod.cdn.arcpublishing.com/resizer/v2/2U473J3FQNEC7OCN3PJ7UVWBJM.jpg?auth=b54ee3c066fb2d358665d1864babca74f3b3684470a628f16593dc80d1245912&width=1440',
+            // Full hotel facade fills the upper two-thirds, centered.
+            focalPoint: '50% 35%',
+            credit: 'Sarah Meftah/NYT, via The Boston Globe',
+            caption: 'Reference image: the Ocean House in Watch Hill, June 13, 2026 — six days before the tented-lawn weekend, not the event itself.',
+            kind: 'reference',
           },
         ],
         // Rumor Desk 2026-07-27: formalizes the wedding-DATE rumor this moment's
@@ -5767,12 +5785,12 @@ export default {
         photos: [
           {
             url: 'https://cdn.mos.cms.futurecdn.net/izGR5GyrdGtkDeTMsNFvAN-1920-80.jpg',
+            // Talking-head frame with her face centered high; eyes in the upper third.
+            focalPoint: '50% 32%',
             credit: 'Instagram/@taylornation, via Marie Claire',
             caption:
               'From the Sept. 20 behind-the-scenes video: Taylor in the pumpkin-orange Reformation knit, explaining the album\'s visual identity on camera.',
             kind: 'primary',
-            // Talking-head frame with her face centered high; eyes in the upper third.
-            focalPoint: '50% 32%',
           },
           // Photo pass (#762 run 6, 2026-07-18): deliberately left at one
           // photo. The Sept. 20 Taylor Nation video yielded a single credited
@@ -5780,6 +5798,20 @@ export default {
           // different sightings (the $70 merch cardigan in a later teaser
           // trailer), and the album-cover render would duplicate the
           // showgirl-release-day page's art.
+          {
+            // Photo pass #762 (2026-08-30): superseded the note above — Taylor
+            // Swift Style's own Squarespace CDN carries a wider frame from the
+            // SAME Sept. 20 BTS setup (same director's chair, same painted
+            // backdrop), curl-verified 200 image/png, downloaded and
+            // vision-confirmed: shows the Versace leather mini skirt half of
+            // the outfit the existing head-and-shoulders crop cuts off.
+            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/445c8b30-9ae0-463a-a533-cf2ee094c7fc/0920+Taylor+Swift+Style+The+Life+of+a+Showgirl+13+Days+Feature.png',
+            // Full-body seated frame; face sits high and centered.
+            focalPoint: '46% 13%',
+            credit: 'Instagram/@taylornation, via Taylor Swift Style',
+            caption: 'From the same Sept. 20 video: the full look — the Reformation crew over the Versace leather mini, with the gold Versace watch and "T" pendant.',
+            kind: 'reference',
+          },
         ],
         // Shop pass (Stylist 2026-07-20): the exact Reformation piece she
         // wore — the "Cashmere Short Sleeve Crew" in Showgirl orange — was
@@ -6252,14 +6284,6 @@ export default {
             // bag low-left — keep the face under wide crops.
             focalPoint: '65% 14%',
           },
-          {
-            // Photo pass (issue #1721, 2026-08-25): a second photo, from the
-            // same Marie Claire outfit-story article, superseding the note below.
-            url: 'https://cdn.mos.cms.futurecdn.net/RgRJ6QDr4KSapNCHFvdze9.jpg',
-            credit: 'Marie Claire / Getty Images',
-            caption: 'Taylor Swift arriving at Arrowhead Stadium for the Chiefs vs. Broncos Christmas Day 2025 game.',
-            kind: 'reference',
-          },
           // Photo pass #762 run 7 (2026-07-18): re-searched for a second photo of
           // this event and again found none that verify. AOL/InStyle's "lead
           // photo" of the game downloaded as a recycled Jan-2025 AFC-Championship
@@ -6267,8 +6291,20 @@ export default {
           // rejected on viewing); TMZ's article runs a Dec. 3 Getty file photo;
           // Taylor Swift Style's gallery carries only the single broadcast frame
           // already used above (wire photographers had no access — broadcast-only
-          // event). Superseded 2026-08-25: a second, distinct Marie Claire photo
-          // was found and added above.
+          // event).
+          // Photo pass #762 (2026-08-30): the 2026-08-25 pass's "second Marie
+          // Claire photo" (RgRJ6QDr4KSapNCHFvdze9.jpg) is WRONG — Marie Claire's
+          // own og:image:alt on that article reads "Taylor Swift at the Kansas
+          // City Chiefs Christmas day game in 2023 wearing a red sweater and
+          // plaid skirt with a santa hat." Downloaded and viewed: it shows her
+          // in a Santa hat next to a person in a full Santa costume, not the red
+          // Frankie Shop bomber this moment describes — a recycled 2023 file
+          // photo the article used as its speculative-outfit-piece lead image,
+          // mislabeled here as the Dec. 25 2025 game. Removed rather than kept
+          // mislabeled. Re-searched (AOL's original piece now 404s; Just Jared's
+          // Dec. 25 2025 recap is Cloudflare-blocked; TMZ's Dec. 25 2025 article
+          // still runs the same Dec. 3 file photo as run 7 found) — no genuine
+          // second photo of this broadcast-only event verifies. Back to one.
         ],
         products: [
           {
@@ -8328,14 +8364,28 @@ export default {
         photos: [
           {
             url: 'https://imagez.tmz.com/image/43/16by9/2026/07/11/435b7e695e334893923e269c987b46f6_xl.jpg',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // TMZ two-panel frame — Travis's face upper-left panel, Taylor's face
+            // upper-right panel; both sit in the top quarter, so bias the crop high.
+            // Field-order fix (2026-08-30, #762): moved up to sit immediately
+            // after `url`, per the field-order rule — value unchanged.
+            focalPoint: '50% 22%',
             credit: 'TMZ.com',
             caption:
               "Taylor in the pink Markarian gown and Travis in a black suit, arriving at JuJu Smith-Schuster's wedding.",
             kind: 'primary',
-            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
-            // TMZ two-panel frame — Travis's face upper-left panel, Taylor's face
-            // upper-right panel; both sit in the top quarter, so bias the crop high.
-            focalPoint: '50% 22%',
+          },
+          {
+            // Photo pass #762 (2026-08-30): a second TMZ gallery frame from the
+            // same event/article, curl-verified 200 image/jpeg, downloaded and
+            // vision-confirmed — Taylor and Travis seated among guests during
+            // the reception, a distinct moment from the arrival photo above.
+            url: 'https://imagez.tmz.com/image/66/16by9/2026/07/11/66235653fbbb4643883469aadf9fc9a9_xl.jpg',
+            // Both faces sit left-of-center, upper third (Taylor lower, Travis just above her).
+            focalPoint: '38% 30%',
+            credit: 'TMZ.com',
+            caption: "Taylor and Travis seated among guests at JuJu Smith-Schuster's wedding reception, both still in sunglasses.",
+            kind: 'reference',
           },
         ],
         // Stylist lane (Vault Run, 2026-08-09): sourcing the named garments.
@@ -8414,6 +8464,22 @@ export default {
             accessed_at: '2026-08-28',
             reliability_score: 4,
             notes: 'confirms the new piano-version animated video timed to the streaming date; resolved via web search, not fetched (news-domain egress blocked this run).',
+          },
+        ],
+        // Photo pass 2026-08-31 (photo-enrichment, #762): no standalone
+        // official upload of the piano-version video exists on YouTube (only
+        // a fan-cover and a UMG "Topic" audio-only auto-upload) — the video
+        // lives on Disney+/Spotify/Apple Music per the article. Used GMA's
+        // own hero photo instead: Taylor at the Toy Story 5 premiere, honest
+        // era context for this Toy-Story-5-adjacent news item. Curl-verified
+        // 200 image/jpeg, downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/a7c3cbbc-cb67-4351-9094-bc18e2d853c5/taylor-gty-er-260826_1787779134122_hpMain_16x9.jpg?w=992',
+            focalPoint: '66% 50%',
+            credit: 'Kevin Mazur/Getty Images (via Good Morning America)',
+            caption: 'Taylor Swift at the Toy Story 5 world premiere in Los Angeles, June 9, 2026.',
+            kind: 'reference',
           },
         ],
       },
@@ -10360,9 +10426,25 @@ export default {
             kind: 'archival',
           },
           // Photo pass (issue #1721, 2026-08-25): a second frame from the same
-          // press series was tried here, but combined with this pass's other
-          // additions it pushed that frame's reuse past content.image-overuse's
-          // >3-moments threshold — reverted rather than force an overused image.
+          // numbered press series (05-...) was tried here, but combined with
+          // this pass's other additions it pushed that frame's reuse past
+          // content.image-overuse's >3-moments threshold — reverted rather
+          // than force an overused image.
+          {
+            // Photo pass #762 (2026-08-30): a DIFFERENT press photo — separate
+            // file, separate October shoot/folder (not the exhausted August
+            // 05-... series above) — from the same Billboard article already
+            // cited as this moment's source. Curl-verified 200 image/jpeg,
+            // EXIF-dated 2025-10-09 (matches this chart week), downloaded and
+            // vision-confirmed. Used once elsewhere in the corpus; this is its
+            // 2nd use, well under the overuse threshold.
+            url: 'https://www.billboard.com/wp-content/uploads/2025/10/taylor-swift-2025-cr-Mert-Alas-Marcus-Piggot-billboard-1800.jpg',
+            // Low-angle shot looking back over her shoulder; face sits high, just left of center.
+            focalPoint: '46% 13%',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
+            caption: 'A Showgirl-era portrait, run by Billboard alongside its coverage of the week the tracklist swept the top 12.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -10829,12 +10911,20 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Rogers_Centre.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // the dome and "ROGERS CENTRE" sign carry the frame, centered,
+            // upper-middle of the shot.
+            focalPoint: '50% 38%',
             credit: 'Wikimedia Commons',
             caption: 'Rogers Centre in Toronto, the venue for Taylor Swift\'s November 2024 Eras Tour shows targeted by the fake-ticket scam.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // audience-POV stadium shot; the lit stage and screens sit
+            // left-of-center, mid-frame.
+            focalPoint: '38% 48%',
             credit: 'Wikimedia Commons / BrigidLIS (CC BY 4.0)',
             caption: 'Taylor Swift performing at the Eras Tour, the same tour whose Toronto shows this scam targeted.',
             kind: 'reference',
@@ -11323,12 +11413,19 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Holiday_House_on_Watch_Hill.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // shoreline shot, the house cluster forms a horizontal band across
+            // the middle third — center it, well below the sky.
+            focalPoint: '50% 48%',
             credit: 'JJBers, via Wikimedia Commons',
             caption: '"Holiday House," Taylor Swift\'s Watch Hill, Rhode Island estate, seen from the shoreline — the property the surtax is informally named for.',
             kind: 'reference',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/04-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // close-up portrait, face sits right-of-center, mid-frame.
+            focalPoint: '56% 42%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo.',
             kind: 'reference',
@@ -11470,7 +11567,19 @@ export default {
         sources: [
           { outlet: 'YouTube — Apple Music', url: 'https://www.youtube.com/watch?v=mUZ9T-hstUI' },
         ],
-        photos: [],
+        // Photo pass 2026-08-31 (photo-enrichment, #762): the official Apple
+        // Music upload's own thumbnail — a real video still (not a title
+        // card), confirmed by viewing: Taylor on the FaceTime side, Zane Lowe
+        // with headphones and the Showgirl album art behind him.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/mUZ9T-hstUI/maxresdefault.jpg',
+            focalPoint: '22% 28%',
+            credit: 'Apple Music via YouTube',
+            caption: "Taylor on FaceTime with Zane Lowe (right, with the Showgirl album art behind him) for Apple Music's extended interview, Oct. 7, 2025.",
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -11713,8 +11822,21 @@ export default {
           // it is a live-performance photo (long hair, mic stand, guitar,
           // concert stage lighting), not the London night-out described in
           // the caption (short hair, lavender minidress, off-stage). Removed
-          // as a verify-first failure rather than kept or focal-pointed;
-          // flagged for follow-up if a genuine second photo surfaces.
+          // as a verify-first failure rather than kept or focal-pointed.
+          {
+            // Photo pass #762 (2026-08-30): a different image from the same
+            // Marie Claire article (not the rejected performance photo
+            // above), curl-verified 200 image/jpeg, downloaded and
+            // vision-confirmed — shoulder-length hair with bangs, lavender
+            // floral minidress, sequined clutch, exiting via a fire-exit
+            // door at night (a club side exit), matching the caption.
+            url: 'https://cdn.mos.cms.futurecdn.net/2PmqhdvzG6xnDhn85qivX3.jpg',
+            // Full-body paparazzi shot; she's left-of-center, dress/hair fill the upper-middle.
+            focalPoint: '45% 35%',
+            credit: 'Splash News, via Marie Claire',
+            caption: 'Taylor Swift snuck out of a London members\' club in the lavender Delphine minidress, Aug. 12, 2026.',
+            kind: 'reference',
+          },
         ],
         // Stylist run 2026-08-16: verified live retailer product pages for
         // the dress and sandals (both currently purchasable) and the clutch
@@ -12092,6 +12214,20 @@ export default {
               'Taylor at Laura Sisk and Oli Jacobs\' Aug. 15, 2026 wedding in England, in the navy Costarellos "Arcangela" gown.',
             kind: 'primary',
           },
+          {
+            // Photo pass #762 (2026-08-30): a second TMZ frame from the same
+            // gallery, curl-verified 200 image/jpeg, downloaded and
+            // vision-confirmed — a two-panel crop of the same reception,
+            // Taylor's face and the gown's gold appliqué clearly visible in
+            // both panels; a distinct moment from the photo above.
+            url: 'https://imagez.tmz.com/image/33/4by3/2026/08/16/3371a9a6afba4453afb1ec589225192a_md.jpg',
+            // Two-panel split image; her face sits in the upper half of both panels.
+            focalPoint: '58% 20%',
+            credit: 'SplashNews.com, via TMZ',
+            caption:
+              'Taylor mid-conversation with wedding guests at Laura Sisk and Oli Jacobs\' Aug. 15, 2026 wedding, in the navy Costarellos gown.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -12362,6 +12498,24 @@ export default {
             lastCheckedOn: '2026-08-24',
           },
         ],
+        // Photo pass #762 (2026-08-30): no photo of the rumored night exists —
+        // the context above says so explicitly, and no combined Taylor/Dakota
+        // photo verifies on any allowlisted host (checked Wikimedia Commons;
+        // their documented outings are gated behind watermarked Getty/Backgrid
+        // comps only). Added one honest reference photo of Dakota Johnson
+        // herself, the other named person in this rumor — curl-verified 200
+        // image/jpeg on Wikimedia Commons, downloaded and vision-confirmed,
+        // same pattern as the Gronkowski reference photos elsewhere in this file.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Dakota_Johnson_at_the_2025_Cannes_Film_Festival.jpg',
+            // Red-carpet portrait, looking back over her shoulder; face sits upper-center-right.
+            focalPoint: '62% 32%',
+            credit: 'Gabriel Hutchinson / WikiPortraits, via Wikimedia Commons (CC BY-SA 4.0)',
+            caption: 'Reference image: Dakota Johnson, the friend named in the rumored Aug. 21, 2026 night out — pictured at the May 2025 Cannes Film Festival, not from the rumored night itself.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -12596,6 +12750,7 @@ export default {
         'Taylor gave $50,000 to Ashley Taunton, a certified nursing assistant and mother of three who was struck by a hydroplaning car in July while pushing a teenager clear of its path. Her note read: "Wishing you the best recovery possible and sending love to your family!"',
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/',
       thumbnailUrl: null,
+      photosReviewed: 'private-individual composite redline — every hero image available pairs Taylor with a private individual (reviewed 2026-08-31)',
       moment: {
         context:
           'The story that reached Taylor began on I-95. In July 2026, Ashley Taunton — a certified nursing assistant, wife and mother of three from Connecticut — was driving in Rhode Island in a heavy rainstorm when she stopped to help at a crash where a car of teenagers had hydroplaned off the road. While moving them to safety, she pushed one teen clear of a second vehicle that hydroplaned toward the scene, and was struck herself. A GoFundMe opened to support her recovery.\n\nLate in August, Taylor donated $50,000 to that fund and left a message on the page: "Wishing you the best recovery possible and sending love to your family!" It was the kind of quiet, reactive giving she has folded into her year: no announcement and no press release, just a name on a stranger\'s fundraiser and a note. Outlets from Rolling Stone to NME picked it up from the fund itself. What is on the record is the gift, the message, and the everyday act of courage it answered — Taunton appears here only as the widely-reported beneficiary of that public fundraiser, nothing beyond what the coverage carried.',
@@ -12637,6 +12792,14 @@ export default {
         // redline (Ashley Taunton appears only as a private GoFundMe
         // beneficiary; no allowlisted image exists that isn't a
         // private-individual composite). Reviewed, not a gap.
+        //
+        // Photo pass 2026-08-31 (photo-enrichment, #762): re-checked. The
+        // syndicated coverage's own hero images are all Taylor/Ashley Taunton
+        // composites (e.g. Yahoo's, credited "Ashley Taunton; Jamie
+        // McCarthy/Getty") — Taunton's half is her own personal photo, so
+        // that composite is exactly the private-individual hotlink the
+        // redlines bar. No clean Taylor-only image tied to this specific
+        // story was found on an allowlisted host. Stays at editorial max (0).
         photos: [],
       },
     },
@@ -12652,6 +12815,7 @@ export default {
       sourceUrl:
         'https://www.news5cleveland.com/news/local-news/travis-kelce-buys-lakefront-home-in-bratenahl-east-of-downtown-cleveland-for-5-35-million',
       thumbnailUrl: null,
+      photosReviewed: 'residence privacy redline (L1) — no photo of an occupied property, per privacy-redlines.md',
       moment: {
         context:
           'It was a matter of public record, which is how it surfaced at all: Travis Kelce closed on a $5.35 million lakefront property in Bratenahl, Ohio — a village on Lake Erie just east of downtown Cleveland, a few miles from where the Chiefs tight end grew up — back in March 2026, roughly four months before he and Taylor married at Madison Square Garden on July 3. Local Cleveland outlets and national entertainment press picked it up in early September, reporting it as a home for the couple; the deed names Travis as the purchaser.\n\nWhat the coverage amounts to is the fact of the purchase, its price, the village, and its timing against the wedding — a professional-athlete real-estate deal that happens to sit inside the biggest personal year of his life, closed quietly that spring and only reported now. This entry deliberately stops there. A home the couple actually lives in is capped by Long Live\'s privacy rules at city/village level no matter how many outlets print the street, the house\'s nickname, or its room count — so the address, the name, and the physical description that all circulated are left out here on purpose, and no photograph of the property is attached.',

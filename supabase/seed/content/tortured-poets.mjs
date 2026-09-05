@@ -1808,6 +1808,10 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): a real photo of the two
             // together at the March 17 2025 iHeartRadio Music Awards itself.
             url: 'https://i.abcnewsfe.com/a/a4f153c7-b859-4f68-81b3-31d32dde44cf/taylor-travis_1774576414070_hpMain_16x9.jpg?w=992',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // both faces sit in the upper half, Travis left-of-center and
+            // Taylor right-of-center — split the difference, bias high.
+            focalPoint: '54% 32%',
             credit: 'Kevin Mazur/Getty Images for iHeartRadio',
             caption: 'Taylor Swift and Travis Kelce together at the 2025 iHeartRadio Music Awards, March 17, 2025, where their Wembley cameo won Favorite Surprise Guest.',
             kind: 'reference',
@@ -2389,6 +2393,11 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): a real still from the
             // performance itself, not just the backstage aftermath.
             url: 'https://i.ytimg.com/vi/ZgxmtNVeex8/maxresdefault.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // vertical fan-shot video letterboxed in red; the actual frame
+            // (guitar, mic, her face) sits in the center band, face upper-left
+            // of that band.
+            focalPoint: '47% 22%',
             credit: 'YouTube — "Taylor Swift - Shake It Off (with Kane Brown) (Live at TEU)"',
             caption: 'Taylor Swift performing a surprise "Shake It Off" with Kane Brown at the Tight Ends & Friends / Tight End University concert, Brooklyn Bowl Nashville, June 24, 2025.',
             kind: 'archival',
@@ -2574,6 +2583,10 @@ export default {
             // (not a raw Instagram hotlink) clears the outlet-own-CDN bar the
             // prior note above required.
             url: 'https://imagez.tmz.com/image/6c/4by3/2025/09/16/6c7d014afbfa48a9a60b29d86fbc092d_md.jpg',
+            // Focal point set 2026-08-30 (#762) by viewing: six-person group
+            // shot on a staircase; Taylor and Travis are the rightmost two,
+            // faces in the upper-fifth of the frame — bias right and high.
+            focalPoint: '68% 22%',
             credit: 'Kane Brown / Instagram, via TMZ',
             caption: 'Kane Brown\'s Instagram photo of himself with Taylor Swift and Travis Kelce at Patrick Mahomes\' 30th birthday party, September 2025.',
             kind: 'reference',
