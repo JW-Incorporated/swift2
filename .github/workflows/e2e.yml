@@ -40,6 +40,8 @@ jobs:
       # workflow_dispatch supplies an input; schedule falls back to prod.
       BASE_URL: ${{ github.event.inputs.base_url || 'https://www.longlivets.com' }}
     steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
         with:
           npm-ci: 'true'

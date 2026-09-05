@@ -58,6 +58,8 @@ jobs:
     steps:
       # Checkout with the PAT so the report PR below is opened as a real user
       # and therefore triggers the required `build` check (see header).
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}

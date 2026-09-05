@@ -29,6 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
         with:
           npm-ci: 'true'

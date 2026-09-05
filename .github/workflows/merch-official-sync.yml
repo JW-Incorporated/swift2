@@ -39,6 +39,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
       - name: Restore conditional-request validators
         uses: actions/cache/restore@v6
@@ -67,6 +69,8 @@ jobs:
       contents: read
       pull-requests: write
     steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}

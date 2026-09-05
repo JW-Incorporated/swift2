@@ -31,6 +31,8 @@ jobs:
       # must resolve against the SAME revision apply-demotions later edits.
       # Auditing a dispatched non-main ref would produce judgments the
       # main-pinned apply-demotions job could never correctly match.
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
         with:
           ref: main
@@ -189,6 +191,8 @@ jobs:
       contents: read
       pull-requests: write
     steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
         with:
           ref: main

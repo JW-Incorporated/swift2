@@ -148,6 +148,10 @@ jobs:
             echo "frozen=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Checkout (resolve local composite actions)
+        if: steps.freeze.outputs.frozen != 'true'
+        uses: actions/checkout@v7
+
       - uses: ./.github/actions/setup-repo
         if: steps.freeze.outputs.frozen != 'true'
         with:

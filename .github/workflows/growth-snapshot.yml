@@ -38,6 +38,8 @@ jobs:
   snapshot:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}

@@ -22,6 +22,8 @@ jobs:
     steps:
       # Reuse the existing branch-and-PR token so this report goes through the
       # repository's required checks instead of attempting a protected main push.
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}

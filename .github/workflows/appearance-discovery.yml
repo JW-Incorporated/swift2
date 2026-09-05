@@ -112,6 +112,8 @@ jobs:
       # passing `build` check required). The "Discover new appearances" step
       # below still uses the default GITHUB_TOKEN for issue filing —
       # least-privilege, unchanged from before this lane existed.
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
