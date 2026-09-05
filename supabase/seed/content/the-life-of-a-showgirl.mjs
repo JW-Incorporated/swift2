@@ -4313,10 +4313,12 @@ export default {
         // ceremony already public in the Vault (L2 OK, privacy-redlines.md).
         // No security, health, or private-individual material. Trimmed the
         // third-party attendee color from the digest to keep the item on the
-        // remark itself. Photo deferred: allowlisted image hosts
-        // (upload.wikimedia.org) are org-egress-blocked (403 CONNECT) this
-        // session, so this ships text-only per content-shift.md step 3b and
-        // the photo-sparsity checker routes it to Photo Enrichment.
+        // remark itself. Photo backfill 2026-09-05 (card t_45787614, RC-2
+        // egress-block resolved): no verifiable image of the specific Aug. 29
+        // MSG show surfaced on an allowlisted host, so this uses a
+        // license-verified Commons reference photo of Harry Styles performing
+        // on the same 2026 tour (Wembley, June 23) — labeled a reference, not
+        // a photo of this exact night.
         sources: [
           {
             outlet: 'Variety',
@@ -4335,6 +4337,16 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-09-01',
             reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Harry_Styles_%282026%29.jpg',
+            focalPoint: '50% 30%',
+            credit: 'Wilnel José Verdú Guerrero, Wikimedia Commons (CC BY-SA 4.0)',
+            caption:
+              "Harry Styles performing on the Together, Together tour in 2026 — reference photo; not the specific Aug. 29 Madison Square Garden show where he made the remark.",
+            kind: 'reference',
           },
         ],
       },
@@ -4373,9 +4385,7 @@ export default {
         // Plaza Hotel named only as the brand's own officially released shoot
         // venue (officially-announced provenance, L2 within cap,
         // privacy-redlines.md); a pet is not a private individual, no redline.
-        // Right-sized as newlywed color (short body, no hero). Photo deferred:
-        // allowlisted image hosts are org-egress-blocked (403) this session;
-        // ships text-only per content-shift.md step 3b.
+        // Right-sized as newlywed color (short body, no hero).
         sources: [
           {
             outlet: 'Billboard',
@@ -4403,6 +4413,22 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-09-01',
             reliability_score: 2,
+          },
+        ],
+        // Photo backfill 2026-09-05 (card t_45787614, RC-2 egress-block
+        // resolved): Access Hollywood's official coverage video of the Tommy
+        // Hilfiger campaign, oEmbed-verified title "Travis Kelce Stars w/ His &
+        // Taylor Swift's Dog In New Tommy Hilfiger Campaign". Thumbnail HTTP
+        // 200 + image/jpeg, downloaded and vision-confirmed: Kelce reclined on
+        // a striped outdoor sofa with the white Samoyed beside him.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/gxTDZSflo9E/hqdefault.jpg',
+            focalPoint: '30% 40%',
+            credit: 'Access Hollywood, via Tommy Hilfiger Fall 2026 campaign',
+            caption:
+              "Travis Kelce with the couple's Samoyed on the Plaza Hotel rooftop set of Tommy Hilfiger's Fall 2026 campaign.",
+            kind: 'primary',
           },
         ],
       },
@@ -12761,9 +12787,11 @@ export default {
         // private GoFundMe and a recipient who appears only in her
         // public-facing role, with no allowlisted, non-expiring image of the
         // donation itself — and hotlinking a news og:image of a private
-        // individual is exactly what the redlines guard against. Left for the
-        // social-post-missing / photo-sparsity checkers to route to Photo
-        // Enrichment rather than force a picture here.
+        // individual is exactly what the redlines guard against.
+        // photos: reviewed-sparse 2026-09-05 — private-individual composite
+        // redline (Ashley Taunton appears only as a private GoFundMe
+        // beneficiary; no allowlisted image exists that isn't a
+        // private-individual composite). Reviewed, not a gap.
         //
         // Photo pass 2026-08-31 (photo-enrichment, #762): re-checked. The
         // syndicated coverage's own hero images are all Taylor/Ashley Taunton
@@ -12772,6 +12800,7 @@ export default {
         // that composite is exactly the private-individual hotlink the
         // redlines bar. No clean Taylor-only image tied to this specific
         // story was found on an allowlisted host. Stays at editorial max (0).
+        photos: [],
       },
     },
     {
@@ -12834,9 +12863,11 @@ export default {
         // residence rule (L1, regardless of provenance). No street, no house
         // nickname, no bed/bath/acreage/amenity description, and no photo of
         // the property — every one of those circulated in the coverage and is
-        // deliberately withheld. There is intentionally nothing here for Photo
-        // Enrichment to backfill: imagery of an occupied residence is exactly
-        // what the redline exists to withhold.
+        // deliberately withheld.
+        // photos: reviewed-sparse 2026-09-05 — residence privacy redline (L1);
+        // imagery of an occupied residence is exactly what the redline exists
+        // to withhold. Reviewed, not a gap.
+        photos: [],
       },
     },
     {
@@ -12886,8 +12917,21 @@ export default {
         ],
         // No photo attached: the only images are Nike/retailer product shots
         // and on-court press photography, none on an allowlisted reusable host
-        // and none a non-expiring URL. Left for the photo-sparsity checker to
-        // route to Photo Enrichment if a reusable image surfaces.
+        // and none a non-expiring URL. Photo backfill 2026-09-05 (card
+        // t_45787614, RC-2 egress-block resolved): the item's own subject,
+        // Caitlin Clark, is photographable and verifiable — a
+        // license-verified Commons in-game photo, downloaded and
+        // vision-confirmed as Clark playing.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Caitlin_Clark_Fever_2026.jpg',
+            focalPoint: '55% 32%',
+            credit: 'John Mac, Wikimedia Commons (CC BY-SA 4.0)',
+            caption:
+              'Caitlin Clark playing for the Indiana Fever, Aug. 2, 2026 — reference photo; not the sneaker itself.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -12947,8 +12991,23 @@ export default {
           },
         ],
         // No reusable, allowlisted photo attached at author time — the signing
-        // imagery is wire/agency-owned and not on a reusable host. Left for the
-        // photo-sparsity checker to route to Photo Enrichment.
+        // imagery is wire/agency-owned and not on a reusable host. Photo
+        // backfill 2026-09-05 (card t_45787614, RC-2 egress-block resolved):
+        // no verifiable image of the Aug. 31 signing ceremony surfaced on an
+        // allowlisted host, so this uses a license-verified Commons reference
+        // photo of the exact Nov. 17, 2023 Rio de Janeiro Eras Tour show the
+        // law traces back to — downloaded and vision-confirmed as Swift
+        // performing on stage.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/The_Eras_Tour_-_show_da_Taylor_Swift_no_Rio_de_Janeiro.jpg',
+            focalPoint: '50% 30%',
+            credit: 'Luidy Félix, Wikimedia Commons (CC BY-SA 4.0)',
+            caption:
+              'The Eras Tour, Estádio Nilton Santos, Rio de Janeiro, Nov. 17, 2023 — the show this law traces back to. Reference photo; not the Aug. 31, 2026 signing ceremony.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     // Content Shift (Vault Run 2026-09-04): intake #3682 — Travis's Sept 2
@@ -13009,9 +13068,23 @@ export default {
             reliability_score: 4,
           },
         ],
-        // No reusable, allowlisted photo attached at author time — podcast/wire
-        // imagery is agency-owned and not on a reusable host, and Instagram
-        // embeds are not applicable here. Left for the photo-sparsity checker.
+        // Photo backfill 2026-09-05 (card t_45787614, RC-2 egress-block
+        // resolved): New Heights EP 199 is the official season-five-premiere
+        // episode covering the wedding recap (oEmbed-verified title "Chiefs &
+        // Eagles Preseason,Travis GoT&T Married, Wide Deceivers & Aaron Donald
+        // Returns | EP 199", channel New Heights). Thumbnail HTTP 200 +
+        // image/jpeg, downloaded and vision-confirmed: Travis and Jason Kelce
+        // side by side at the podcast desk.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/cZKgEhA_KyA/hqdefault.jpg',
+            focalPoint: '50% 30%',
+            credit: 'New Heights (official YouTube episode thumbnail, EP 199)',
+            caption:
+              'The New Heights season-five premiere — Travis and Jason Kelce at the podcast desk for the episode where Travis first recounted the wedding.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     // Content Shift (Vault Run 2026-09-04): intake #3694 context — the durable,
