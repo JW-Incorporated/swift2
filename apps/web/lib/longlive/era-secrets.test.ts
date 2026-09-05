@@ -5,15 +5,23 @@ import {
   epochDay,
   dailyEraSecret,
   resolveEraSecretLink,
-} from './era-secrets';
+  ERAS,
+} from '@swift2/experience';
 import { songTargetOf } from './tracks';
 import { getContentItem } from './content';
-import { ERAS } from '@swift2/experience';
+import './era-secrets'; // wires the real generated data/tracks/content providers
 
 // The Era Secret card (#688) is static, sourced, and deterministic. These
 // guards protect the three things the UI relies on: the generated data is
 // renderable, the daily rotation is deterministic + stable, and deeper links
 // never render dead.
+//
+// `eraSecretsForEra`/`epochDay`/`dailyEraSecret`/`resolveEraSecretLink`
+// moved into `packages/experience` in OS-023
+// (docs/specs/2026-09-05-one-source-three-surfaces.md §6); this test stays
+// in `apps/web` because it drives them off the real generated
+// `ERA_SECRETS_RAW`/`songTargetOf`/`getContentItem` (content-loading is
+// OS-013/OS-014 scope), wired in via the `./era-secrets` import above.
 describe('era-secrets.generated.ts invariants', () => {
   const eraIds = new Set(ERAS.map((e) => e.id));
 

@@ -1,6 +1,6 @@
 import type { CluePair, EggLink, EggNode, LensId, Motif, MotifId, ReRecord, Relationship, RunwayLook, SinglePeriod } from './types';
 import { getEra } from './eras';
-import { contentForThreadInjected } from './thread-content-provider';
+import { contentForThread } from './threads';
 
 /**
  * Cross-era Lens datasets. Names and details are the widely-discussed fan
@@ -338,7 +338,7 @@ export function threadPoints(id: LensId): ThreadPoint[] {
     case 'the-proposal':
       // Derived (stage 3, 2026-07-19): markers come from the tagged moments
       // themselves — the same source the thread page renders from.
-      return contentForThreadInjected('the-proposal').map((item) => ({
+      return contentForThread('the-proposal').map((item) => ({
         date: item.date,
         eraId: item.eraId,
         label: item.title,
