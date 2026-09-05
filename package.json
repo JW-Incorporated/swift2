@@ -49,6 +49,7 @@
     "validate:content": "node scripts/validate-content.mjs",
     "validate:social": "node scripts/social/validate-queue.mjs",
     "check:content-inert": "node scripts/check-content-inert.mjs",
+    "check:routines": "node scripts/check-routine-workflows.mjs",
     "check:voice": "node scripts/check-voice.mjs",
     "content:coverage": "node scripts/content-coverage.mjs",
     "knowledge:coverage": "node scripts/knowledge-coverage.mjs",
