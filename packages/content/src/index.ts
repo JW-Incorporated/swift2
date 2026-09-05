@@ -6,3 +6,4 @@
  * rather than reaching into `schema.ts` directly.
  */
 export * from './schema';
+export * from './compat';

@@ -86,6 +86,18 @@ memory) — content tables are frozen under this plan and retired in OS-016.
 structurally; they do not replace it until OS-014/OS-015 switch the read
 path off the generated `*.generated.ts` files.
 
+**Schema compatibility policy (`packages/content/src/compat.ts`, OS-041).**
+`CURRENT_SCHEMA_VERSION` bumps ONLY on a breaking schema change (a field
+changing type, or a previously-optional field becoming required — additive
+optional fields never bump it). `isSchemaVersionSupported`/
+`assertSchemaVersionSupported` enforce the N-1 window: a loader built
+against version N must still read a bundle published at N-1. `compat.test.ts`
+is the CI check for "a schema change ships with a loader that still reads
+the previous version" — it runs a deliberate simulated version-bump case
+(N → N+1) proving N is still accepted, N+1 is accepted, and N-1 relative to
+the new current is correctly rejected. It runs as part of the root
+`npm run test` job already required in `.github/workflows/ci.yml`.
+
 ## Data architecture: two worlds, kept apart
 
 The product has two content cadences that must not be coupled:
