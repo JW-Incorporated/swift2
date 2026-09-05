@@ -408,60 +408,30 @@ one-click Actions dispatch.
 
 ---
 
-### 23. [BLOCKING] BACKUPS launch gate (#680) — read Supabase plan/backup status off the dashboard, run one restore drill against production's own bytes — ~10 min
+### 23. [BLOCKING] BACKUPS launch gate (#680) — click Run workflow on the one-click restore drill — ~2 min
 
 **Filed:** 2026-08-26
 
-**Update (2026-08-30, Joey report):** The current project is on the Supabase
-Free plan, which has no available backup options. No backup was made and no
-production restore drill was performed. This records the current status only;
-it does not accept the associated launch risk. The BACKUPS gate remains
-unresolved until the required evidence is recorded.
+**Update (2026-09-05, shrunk to the actual remaining step):** all engineering
+is done and #680 is assigned to you (sffan15-sys). Everything that could be
+built has been: the restore mechanism (#1890, green in CI) and a one-click
+`production-backup-drill.yml` Actions workflow that reuses the existing
+`SUPABASE_DB_URL` secret, opens production strictly read-only, and restores
+into a throwaway Postgres inside the job — no checkout, no local Postgres, no
+credential ever touches your machine. What's left is genuinely founder-only
+because it needs your own Supabase dashboard login, not more code:
 
-**Why it matters:** the BACKUPS launch gate has been 🟡 since 2026-08-12. The
-restore mechanism itself is built, tested, and green in CI (#1890) — a drill
-that backs up, restores into a scratch database, and verifies by checksum.
-What's left needs your own Supabase login, not more engineering: (1) nobody
-has confirmed whether this project actually has automated daily backups or
-PITR — on the free plan the answer is "none," which needs to be a recorded
-accepted risk, not an assumption; (2) the drill has only ever run against a
-fixture built from repo seeds, never against production's real bytes.
-Checked today for any agent-side workaround (env vars, `gh secret list`,
-Supabase CLI/MCP/management-API token) — none exists; this is genuinely
-founder-only. Full detail: `docs/backup-restore.md` §2 and §6.
+1. Run the drill: `https://github.com/JW-Incorporated/swift2/actions/workflows/production-backup-drill.yml`
+   → **Run workflow** → **Run workflow** (main branch). ~2 min; posts
+   PASS/FAIL as an alert issue and uploads the report as a run artifact.
+2. (Optional, ~1 min) Open the Supabase dashboard → **Settings** →
+   **Billing** (or **Database** → **Backups**) and note the plan tier +
+   whether automated backups/PITR are available, so `docs/backup-restore.md`
+   §2 can record it instead of "UNVERIFIED" — tell a session the answer and
+   it will write it in.
 
-**Update (this session, #680 desk pass):** added a one-click Actions
-workflow (`.github/workflows/production-backup-drill.yml`, `Run workflow`
-from the Actions tab) so step 3 below no longer needs a local checkout,
-`apps/worker/.env`, or pasting a production connection string anywhere by
-hand — it reuses the `SUPABASE_DB_URL` secret already configured for
-`db-migrate`/`db-seed`, opens it strictly read-only, and restores into a
-throwaway Postgres inside the job (never a `*.supabase.co` host — the
-script's `assertSafeTarget` refuses that regardless). Step 1 (dashboard
-plan/backup-status) is still genuinely founder-only; nothing reaches that
-information programmatically.
-
-**Steps:**
-1. Open the Supabase dashboard for the Long Live project → **Settings** →
-   **Billing** (or **Database** → **Backups**). Note: (a) the plan tier,
-   (b) whether **Database → Backups** lists automated daily backups, (c) the
-   retention window, and whether **PITR** is enabled/available.
-2. Record those three answers in `docs/backup-restore.md` §6 (there's a
-   table row format already there to follow), or tell a session the answers
-   in chat and it will write them in.
-3. Run the drill against production's own bytes with one click — no
-   checkout, no local Postgres, no credential ever touches your machine:
-   `https://github.com/JW-Incorporated/swift2/actions/workflows/production-backup-drill.yml`
-   → **Run workflow** → **Run workflow** (main branch). Takes a couple of
-   minutes; the job posts PASS/FAIL as an alert issue and uploads the report
-   as a run artifact.
-4. Paste the pass/fail result (or tell a session the run URL) and it'll log
-   it as a new row in `docs/backup-restore.md` §6's drill log and flip the
-   BACKUPS gate in `docs/launch-readiness.md` once both items are done.
-
-**Worked if:** `docs/backup-restore.md` §6 has a drill-log row sourced from
-production (not the fixture) marked **PASS**, and §2's plan/backup-status
-table is filled in instead of "UNVERIFIED."
+**Worked if:** the drill run shows **PASS** and `docs/backup-restore.md` §6
+has a drill-log row sourced from production.
 
 **Status:** OPEN
 

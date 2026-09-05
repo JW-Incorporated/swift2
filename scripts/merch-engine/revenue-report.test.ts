@@ -30,8 +30,38 @@ describe('revenue reporting', () => {
     const report = buildRevenueReport({ coverage, reports: [{ network: 'awin', available: false, reason: 'reporting API is not configured' }] });
 
     expect(report.sources).toEqual([{ network: 'awin', status: 'unavailable', reason: 'reporting API is not configured' }]);
-    expect(formatRevenueSection(report)).toContain('Awin: unavailable — reporting API is not configured');
     expect(formatRevenueSection(report)).not.toContain('$0.00');
+  });
+
+  it('collapses to one line when every reporting source is unavailable, instead of a noisy all-dashes section', () => {
+    // 2026-09-05: Awin/Amazon have been unwired for weeks and the full
+    // section (Total/Availability/By era/By moment/By bucket/Top uncovered,
+    // every row a dash) was pure noise on the daily brief.
+    const report = buildRevenueReport({
+      coverage,
+      reports: [
+        { network: 'awin', available: false, reason: 'Awin reporting API is not configured' },
+        { network: 'amazon', available: false, reason: 'Amazon Associates reporting API is not configured' },
+      ],
+    });
+    const section = formatRevenueSection(report);
+    expect(section).toContain('No reporting configured yet (awin, amazon unavailable)');
+    expect(section).not.toContain('By era:');
+    expect(section).not.toContain('Top uncovered retailers');
+  });
+
+  it('renders the full section once at least one source is available', () => {
+    const report = buildRevenueReport({
+      coverage,
+      reports: [
+        { network: 'awin', available: true, rows: [{ subid: 'folklore.cardigan', clicks: 4, revenue: 1.5 }] },
+        { network: 'amazon', available: false, reason: 'Amazon Associates reporting API is not configured' },
+      ],
+    });
+    const section = formatRevenueSection(report);
+    expect(section).toContain('Awin: available');
+    expect(section).toContain('Amazon: unavailable — Amazon Associates reporting API is not configured');
+    expect(section).toContain('By era:');
   });
 
   it('ranks uncovered retailers only when click evidence identifies them', () => {

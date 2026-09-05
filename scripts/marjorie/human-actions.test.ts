@@ -55,6 +55,49 @@ describe('parseOpenActions', () => {
     expect(items.map((i) => i.number)).toEqual([4, 10, 11]);
   });
 
+  it('excludes an item under OPEN whose own Status line is terminal', () => {
+    // 2026-09-05: HA#22 (RESOLVED) and HA#24 (DONE) both got their Status
+    // line updated in place but were never physically moved to the ## DONE
+    // section, so the brief kept re-asking for them. The Status line, not
+    // the section heading, decides.
+    const docWithStaleTerminal = [
+      '# HUMAN-ACTIONS.md — things only Joey can do',
+      '',
+      '## OPEN',
+      '',
+      '### 22. [BLOCKING] Resolved but still under OPEN — ~5 min',
+      '',
+      '**Filed:** 2026-08-25',
+      '',
+      '**Status:** RESOLVED (2026-09-05)',
+      '',
+      '---',
+      '',
+      '### 24. [UPGRADE] Done but still under OPEN — ~2 min',
+      '',
+      '**Filed:** 2026-08-26',
+      '',
+      '**Update (2026-08-31):** intermediate note.',
+      '',
+      '**Status:** DONE',
+      '',
+      '---',
+      '',
+      '### 4. [UPGRADE] Genuinely still open — ~20 min',
+      '',
+      '**Filed:** 2026-08-15',
+      '',
+      '**Status:** OPEN',
+      '',
+      '---',
+      '',
+      '## DONE',
+      '',
+    ].join('\n');
+    const items = parseOpenActions(docWithStaleTerminal, { now: NOW });
+    expect(items.map((i) => i.number)).toEqual([4]);
+  });
+
   it('computes age in days from Filed:', () => {
     const items = parseOpenActions(DOC, { now: NOW });
     const item4 = items.find((i) => i.number === 4)!;
