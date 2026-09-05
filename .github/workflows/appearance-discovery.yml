@@ -112,13 +112,11 @@ jobs:
       # passing `build` check required). The "Discover new appearances" step
       # below still uses the default GITHUB_TOKEN for issue filing —
       # least-privilege, unchanged from before this lane existed.
-      - uses: actions/checkout@v7
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
-
-      - uses: actions/setup-node@v7
-        with:
-          node-version: "24"
 
       # Scheduled runs always file. A manual run can ask for a dry run, which
       # makes zero GitHub calls and only reads RSS.
@@ -170,22 +168,17 @@ jobs:
       # just should not silently swallow whatever DID stage.
       - name: Stage social drafts (via PR — main is branch-protected)
         if: always() && (steps.discover.conclusion == 'success' || steps.discover.conclusion == 'failure')
-        env:
-          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
-        run: |
-          set -euo pipefail
-          git add social/queue apps/web/public/social/library/photos
-          if git diff --cached --quiet; then
-            echo "No new social drafts staged this run."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          BRANCH="appearance-discovery/${GITHUB_RUN_ID}"
-          git checkout -b "$BRANCH"
-          git commit -m "appearance-discovery: fast-lane social draft(s) — run ${GITHUB_RUN_ID}"
-          git push origin "$BRANCH"
-          gh pr create --title "appearance-discovery: fast-lane social draft(s) — run ${GITHUB_RUN_ID}" \
-            --body "Auto-drafted from a genuinely new, deterministically-matched official-channel upload — see \`scripts/appearance-discovery/lib/social-draft.mjs\` and docs/decisions.md 2026-08-25 (\"Detection-triggered social auto-post\"). Never a claim about the video's content, only RSS metadata (title/channel/URL). Auto-merges once \`scripts/social/check-drafts.mjs\` passes, same as any other queue draft; posts live on its own \`scheduledAt\`, no further approval." \
-            --base main --head "$BRANCH"
-          gh pr merge "$BRANCH" --squash --auto --delete-branch
+        uses: ./.github/actions/commit-and-pr
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: social/queue apps/web/public/social/library/photos
+          branch: appearance-discovery/${{ github.run_id }}
+          commit-message: "appearance-discovery: fast-lane social draft(s) — run ${{ github.run_id }}"
+          pr-title: "appearance-discovery: fast-lane social draft(s) — run ${{ github.run_id }}"
+          pr-body: >-
+            Auto-drafted from a genuinely new, deterministically-matched official-channel upload — see
+            `scripts/appearance-discovery/lib/social-draft.mjs` and docs/decisions.md 2026-08-25
+            ("Detection-triggered social auto-post"). Never a claim about the video's content, only RSS
+            metadata (title/channel/URL). Auto-merges once `scripts/social/check-drafts.mjs` passes, same
+            as any other queue draft; posts live on its own `scheduledAt`, no further approval.
+          no-changes-message: "No new social drafts staged this run."

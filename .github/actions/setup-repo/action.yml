@@ -1,0 +1,59 @@
+name: 'Setup repo'
+description: >-
+  Standard checkout + Node setup (+ optional npm ci) used by every workflow
+  in this repo. Pure consolidation of the checkout/setup-node/npm-ci
+  boilerplate that used to be copy-pasted into each workflow — no behaviour
+  change versus the inlined steps it replaces (R6, Fable 5.1 architecture
+  review).
+
+inputs:
+  token:
+    description: >-
+      Token passed to actions/checkout's `with.token`. Pass
+      secrets.SOCIAL_POSTER_PAT for any job whose later steps push a branch
+      and open a PR against protected `main` (the default GITHUB_TOKEN
+      cannot trigger the required `build` check on its own PRs). Leave unset
+      to fall back to actions/checkout's own default (the job's
+      GITHUB_TOKEN).
+    required: false
+    default: ''
+  ref:
+    description: 'Git ref to check out. Leave unset for the default (the triggering ref).'
+    required: false
+    default: ''
+  node-version:
+    description: 'Node version for actions/setup-node.'
+    required: false
+    default: '24'
+  cache:
+    description: >-
+      Package manager cache for actions/setup-node (e.g. "npm"). Leave unset
+      to disable caching, matching setup-node's own default.
+    required: false
+    default: ''
+  npm-ci:
+    description: 'Whether to run `npm ci` after setup-node. "true" or "false".'
+    required: false
+    default: 'false'
+  npm-ci-args:
+    description: 'Extra args appended to `npm ci`, e.g. "--ignore-scripts".'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v7
+      with:
+        token: ${{ inputs.token || github.token }}
+        ref: ${{ inputs.ref }}
+
+    - uses: actions/setup-node@v7
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: ${{ inputs.cache }}
+
+    - name: npm ci
+      if: ${{ inputs.npm-ci == 'true' }}
+      shell: bash
+      run: npm ci ${{ inputs.npm-ci-args }}

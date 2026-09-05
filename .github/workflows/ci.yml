@@ -25,12 +25,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
         with:
-          node-version: 24
+          npm-ci: 'true'
           cache: npm
-      - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test
