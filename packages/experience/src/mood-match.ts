@@ -7,9 +7,10 @@
  * never touches this file: Stage 4's classify call turns a reader's words into
  * a `MoodQuery`, this ranks the precomputed catalogue, and only then does a
  * second model call write prose ABOUT the songs already chosen here. Because
- * the picks come from `SONG_MOODS` (a generated file guarded by
- * `check:generated`), the model structurally cannot invent a song that does
- * not exist — the same no-fabrication guarantee the rest of the Vault runs on.
+ * the picks come from the app-wired `SONG_MOODS` catalogue (a generated file
+ * guarded by `check:generated`), the model structurally cannot invent a song
+ * that does not exist — the same no-fabrication guarantee the rest of the
+ * Vault runs on.
  *
  * Scoring, in one sentence: a song's match is the reader-weighted geometric
  * mean of its scores on the mood axes the reader actually asserted (geometric
@@ -19,8 +20,8 @@
  * unless the mood genuinely points there.
  */
 
-import { MOOD_AXES, type EraId, type MoodAxes, type MoodAxis, type SongMood } from '@swift2/experience';
-import { SONG_MOODS } from './song-moods.generated';
+import { MOOD_AXES, type EraId, type MoodAxes, type MoodAxis, type SongMood } from './types';
+import { defaultSongCatalogue } from './song-catalogue-provider';
 import { moodIntentPolicy, type MoodIntent } from './mood-intents';
 
 /**
@@ -107,8 +108,9 @@ export interface MatchOptions {
   /** How many songs to return. Default 5. */
   limit?: number;
   /**
-   * The catalogue to rank. Defaults to the generated `SONG_MOODS`; injectable
-   * so tests (and future callers) can rank a fixed slice deterministically.
+   * The catalogue to rank. Defaults to the app-wired catalogue (see
+   * `song-catalogue-provider.ts`); injectable so tests (and future callers)
+   * can rank a fixed slice deterministically.
    */
   catalogue?: readonly SongMood[];
   /**
@@ -140,7 +142,7 @@ export function isScored(song: SongMood): song is ScoredSong {
 }
 
 /** The match-eligible slice of a catalogue, in stable input order. */
-export function scoredSongs(catalogue: readonly SongMood[] = SONG_MOODS): ScoredSong[] {
+export function scoredSongs(catalogue: readonly SongMood[] = defaultSongCatalogue()): ScoredSong[] {
   return catalogue.filter(isScored);
 }
 
@@ -231,7 +233,9 @@ function singleAxisTieScore(query: MoodQuery, song: ScoredSong): number {
   if (query.energy !== undefined || query.valence !== undefined) return 0;
   const asserted = MOOD_AXES.filter((axis) => unit(query.moods[axis] ?? 0) > 0);
   if (asserted.length !== 1) return 0;
-  const profile = AXIS_TIE_PROFILES[asserted[0]];
+  const axis = asserted[0];
+  if (axis === undefined) return 0;
+  const profile = AXIS_TIE_PROFILES[axis];
   const energyFit = 1 - Math.abs(song.energy - profile.energy);
   const valenceFit = 1 - Math.abs(song.valence - profile.valence);
   return (energyFit + valenceFit) / 2;
@@ -250,7 +254,7 @@ function singleAxisTieScore(query: MoodQuery, song: ScoredSong): number {
 export function matchMoods(query: MoodQuery, options: MatchOptions = {}): MoodMatch[] {
   const limit = Math.max(0, options.limit ?? 5);
   const diversity = unit(options.diversity ?? 0.2);
-  const catalogue = options.catalogue ?? SONG_MOODS;
+  const catalogue = options.catalogue ?? defaultSongCatalogue();
   if (limit === 0) return [];
 
   // Grief-canon gate (#1984): the bereavement songs are eligible ONLY when the
@@ -302,7 +306,9 @@ export function matchMoods(query: MoodQuery, options: MatchOptions = {}): MoodMa
     let bestIndex = 0;
     let bestAdjusted = -1;
     for (let i = 0; i < remaining.length; i++) {
-      const { song, score } = remaining[i];
+      const entry = remaining[i];
+      if (!entry) continue;
+      const { song, score } = entry;
       const already = perEra.get(song.eraId) ?? 0;
       const adjusted = score * (1 - diversity) ** already;
       // Ties broken by the pre-sorted order (raw score, then slug) — the first
@@ -313,6 +319,7 @@ export function matchMoods(query: MoodQuery, options: MatchOptions = {}): MoodMa
       }
     }
     const chosen = remaining.splice(bestIndex, 1)[0];
+    if (!chosen) break;
     perEra.set(chosen.song.eraId, (perEra.get(chosen.song.eraId) ?? 0) + 1);
     picks.push({
       slug: chosen.song.slug,

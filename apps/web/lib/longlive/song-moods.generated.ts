@@ -6,6 +6,7 @@
 // 244 songs, 244 scored.
 
 import type { SongMood } from '@swift2/experience';
+import { setDefaultSongCatalogue } from '@swift2/experience';
 
 export const SONG_MOODS: SongMood[] = [
   {
@@ -2693,3 +2694,5 @@ export const SONG_MOODS: SongMood[] = [
     oneLiner: "A closing duet about handing the spotlight forward, and what it costs everyone who holds it.",
   },
 ];
+
+setDefaultSongCatalogue(SONG_MOODS);

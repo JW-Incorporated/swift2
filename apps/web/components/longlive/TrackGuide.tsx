@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
-import { tracksForEra } from '@/lib/longlive/tracks';
+import { tracksForEra } from '@swift2/experience';
 import { videosForEra, isPlayable, VIDEO_KIND_LABEL, type PlayableVideoNote } from '@/lib/longlive/videos';
 import { trackVideoFor } from '@/lib/longlive/track-video';
 import { eraStyle } from '@/lib/longlive/theme';

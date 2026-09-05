@@ -14,7 +14,7 @@ import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
 import { getContentItem } from '../content';
 import { allVideoRecordsForEra, findVideoEraId } from '../videos';
 import { THREADS } from '@swift2/experience';
-import { resolveTrackKey } from '../tracks';
+import { resolveTrackKey } from '@swift2/experience';
 import {
   emptyProgress,
   readStoredProgress,

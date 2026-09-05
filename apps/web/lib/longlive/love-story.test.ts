@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { allocateHitRanges, durationLabel, mergedTimeline, monthsBetween, previousRelationship, soloLeadIn } from './love-story';
 import { RELATIONSHIPS, SINGLE_PERIODS } from '@swift2/experience';
-import { songTargetOf } from './tracks';
+import { songTargetOf } from '@swift2/experience';
+import './tracks.generated'; // wires setTracksRawProvider so songTargetOf resolves real data
 import type { Relationship, SinglePeriod } from '@swift2/experience';
 
 const rels: Relationship[] = [

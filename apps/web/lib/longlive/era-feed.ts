@@ -1,6 +1,6 @@
 import type { ContentItem, VideoNote } from '@swift2/experience';
 import { ALL_FILTERS, filterMatches, filtersForEntry, type FilterId } from '@swift2/experience';
-import { resolveAnchor, type Anchored } from './anchor-date';
+import { resolveAnchor, type Anchored } from '@swift2/experience';
 import type { EggDoorway, ThreadDoorway } from './doorways';
 import type { CurrentItem } from '@swift2/shared';
 import type { EraFeedEntry as SharedEraFeedEntry } from '@swift2/experience';

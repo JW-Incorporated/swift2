@@ -1,14 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { ERA_SECRETS_RAW } from './era-secrets.generated';
-import {
-  eraSecretsForEra,
-  epochDay,
-  dailyEraSecret,
-  resolveEraSecretLink,
-} from './era-secrets';
-import { songTargetOf } from './tracks';
+import { eraSecretsForEra, dailyEraSecret, resolveEraSecretLink } from './era-secrets';
 import { getContentItem } from './content';
-import { ERAS } from '@swift2/experience';
+import { ERAS, epochDay, songTargetOf } from '@swift2/experience';
+import './tracks.generated'; // wires setTracksRawProvider so songTargetOf resolves real data
 
 // The Era Secret card (#688) is static, sourced, and deterministic. These
 // guards protect the three things the UI relies on: the generated data is

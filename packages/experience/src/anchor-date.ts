@@ -1,3 +1,5 @@
+import type { Anchored, AnchorSource } from './feed-types';
+
 /**
  * Anchor resolution for undated items — pure, tested.
  *
@@ -9,12 +11,11 @@
  * Only the first of those may ever be shown to a reader; the rest exist to
  * place a card, never to claim a fact.
  *
- * `AnchorSource`/`Anchored` moved to `packages/experience` in OS-021 (they
- * are `filters.ts`'s `EraFeedEntry` shape) — imported back here rather than
- * re-declared, so the two can never drift apart.
+ * `AnchorSource`/`Anchored` live in `feed-types.ts` (moved there in OS-021 as
+ * the shared type surface for `filters.ts`); this module re-exports them so
+ * existing `import { ..., type AnchorSource } from './anchor-date'` call
+ * sites keep working unchanged.
  */
-import type { AnchorSource, Anchored } from '@swift2/experience';
-
 export type { AnchorSource, Anchored };
 
 /**

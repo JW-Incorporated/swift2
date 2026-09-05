@@ -4,6 +4,7 @@
 // Re-run that script after track-seed changes; don't edit this file directly.
 
 import type { EraId, TrackNote } from '@swift2/experience';
+import { setTracksRawProvider } from '@swift2/experience';
 
 export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
   "1989": [
@@ -2838,3 +2839,5 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
     },
   ],
 };
+
+setTracksRawProvider(TRACKS_RAW);

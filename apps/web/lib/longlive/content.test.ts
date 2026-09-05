@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CONTENT, MILESTONES, build, milestonesForEra, type RawItem } from './content';
-import { formatMonthYear } from './format';
+import { formatMonthYear } from '@swift2/experience';
 import {
   autoFocalPoint,
   focalPointOf,

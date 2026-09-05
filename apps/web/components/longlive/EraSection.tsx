@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
-import { tracksForEra } from '@/lib/longlive/tracks';
+import { tracksForEra } from '@swift2/experience';
 import { threadsInEra } from '@swift2/experience';
 import { videosForEra, eraVideoFeed } from '@/lib/longlive/videos';
 import { EraSecretCard } from './EraSecretCard';

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { CONTENT } from './content';
-import { resolveTrackKey } from './tracks';
+import { resolveTrackKey } from '@swift2/experience';
+import './tracks.generated'; // wires setTracksRawProvider so track lookups resolve real data
 import {
   MAX_RESULTS_PER_TYPE,
   buildSearchIndex,

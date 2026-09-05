@@ -1,19 +1,21 @@
-import type { ContentItem, EraId, RelatedId, TrackConnection, TrackFacts, TrackNote } from '@swift2/experience';
-import { TRACKS_RAW } from './tracks.generated';
-import { getContentItem } from './content';
-import { getEra } from '@swift2/experience';
+import type { ContentItem, EraId, RelatedId, TrackConnection, TrackFacts, TrackNote } from './types';
+import { tracksRawProvider } from './track-catalogue-provider';
+import { contentItemLookup } from './content-item-provider';
+import { getEra } from './eras';
 import { formatFullDate } from './format';
 
 /**
- * Per-album song track guide — static data synced at build time from the
- * Vault `track_note` seed/table by scripts/sync-longlive-tracks.mjs (same
- * pattern as content-vault.generated.ts; see docs/longlive-experience.md §9).
- * The generator already normalizes, de-dupes, and sorts (track number
- * ascending, unnumbered last), so reads here are plain lookups.
+ * Per-album song track guide — reads the app-wired per-era track map (see
+ * `track-catalogue-provider.ts`), which is static data synced at build time
+ * from the Vault `track_note` seed/table by scripts/sync-longlive-tracks.mjs
+ * (same pattern as content-vault.generated.ts; see
+ * docs/longlive-experience.md §9). The generator already normalizes,
+ * de-dupes, and sorts (track number ascending, unnumbered last), so reads
+ * here are plain lookups.
  */
 
 export function tracksForEra(eraId: EraId): TrackNote[] {
-  return TRACKS_RAW[eraId] ?? [];
+  return tracksRawProvider()[eraId] ?? [];
 }
 
 /**
@@ -35,7 +37,7 @@ export function trackKey(eraId: string, track: Pick<TrackNote, 'trackNumber' | '
  * rather than opening an empty dossier over the wrong era.
  */
 export function resolveTrackKey(key: string): { eraId: EraId; track: TrackNote } | null {
-  const rawEra = key.split('::')[0];
+  const rawEra = key.split('::')[0] ?? '';
   const eraId = getEra(rawEra).id;
   // getEra falls back to the last era for an unknown id; reject that so a bad
   // era segment can't silently resolve against the wrong album.
@@ -73,7 +75,7 @@ export function songTargetOf(relatedId: RelatedId): SongTarget | null {
   if (!relatedId.startsWith('song:')) return null;
   const slug = relatedId.slice('song:'.length);
   if (!slug) return null;
-  for (const [eraId, tracks] of Object.entries(TRACKS_RAW) as [EraId, TrackNote[]][]) {
+  for (const [eraId, tracks] of Object.entries(tracksRawProvider()) as [EraId, TrackNote[]][]) {
     const track = tracks.find((t) => t.slug === slug);
     if (track) return { eraId, track };
   }
@@ -104,7 +106,7 @@ export function resolveConnections(
       continue;
     }
     if (connection.relatedId.startsWith('moment:')) {
-      const item = getContentItem(connection.relatedId.slice('moment:'.length));
+      const item = contentItemLookup(connection.relatedId.slice('moment:'.length));
       if (item) out.push({ kind: 'moment', connection, item });
     }
   }
@@ -113,8 +115,9 @@ export function resolveConnections(
 
 /**
  * The next numbered song on the same album, or null on the last (or an
- * unnumbered) track. TRACKS_RAW is generator-sorted (track number ascending,
- * unnumbered last), so "next" is the first later entry with a greater number.
+ * unnumbered) track. tracksForEra returns generator-sorted output (track
+ * number ascending, unnumbered last), so "next" is the first later entry
+ * with a greater number.
  */
 export function nextTrackOnAlbum(eraId: EraId, track: TrackNote): TrackNote | null {
   if (track.trackNumber == null) return null;

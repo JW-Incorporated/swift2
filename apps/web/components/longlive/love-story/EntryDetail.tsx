@@ -6,7 +6,7 @@ import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
 import { durationLabel, monthsBetween, soloLeadIn, type LoveStoryEntry } from '@/lib/longlive/love-story';
 import { contentForThreadInRange } from '@/lib/longlive/threads';
-import { songTargetOf, trackKey } from '@/lib/longlive/tracks';
+import { songTargetOf, trackKey } from '@swift2/experience';
 import { FromTheEras } from '../FromTheEras';
 
 function fmtYear(iso: string): string {

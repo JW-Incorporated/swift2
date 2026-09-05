@@ -1,7 +1,7 @@
 import type { EraId, LensId, TheoryNote } from '@swift2/experience';
 import { getThread, threadPoints, threadsInEra } from '@swift2/experience';
 import { theoriesForEra } from './theories';
-import { resolveAnchor } from './anchor-date';
+import { resolveAnchor } from '@swift2/experience';
 import type { Anchored, ThreadDoorway, EggDoorway } from '@swift2/experience';
 
 export type { ThreadDoorway, EggDoorway };
