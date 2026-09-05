@@ -71,7 +71,10 @@ fan apps, but Apple review can be picky — if rejected on 2.3.7/metadata, drop
 
 **Age rating questionnaire:** all "No" (no violence, no gambling, no
 unrestricted web, no UGC) → expect 4+ / Everyone.
-**Copyright field:** © 2026 JW Incorporated — unofficial fan project.
+**Copyright field:** © 2026 JW Labs LLC
+**Support URL:** https://www.longlivets.com/support
+**Marketing URL:** https://www.longlivets.com
+**Privacy Policy URL:** https://www.longlivets.com/privacy
 
 ---
 
@@ -128,15 +131,13 @@ unrestricted web, no UGC) → expect 4+ / Everyone.
 
 ## Shared listing facts (paste into forms as asked)
 
-- **Privacy policy URL:** `https://<production-web-domain>/privacy`
-  (route exists in `apps/web/app/privacy/page.tsx`; goes live with the next
-  web deploy — fill in the real domain).
-- **Support email:** wjduvall@gmail.com (swap for a project address if one
-  is created later).
+- **Privacy policy URL:** `https://www.longlivets.com/privacy`
+- **Support URL:** `https://www.longlivets.com/support`
+- **Support email:** privacy@longlivets.com (founder-approved role alias; never a personal inbox).
 - **Ads:** none. **In-app purchases:** none. **Accounts:** none.
-- **Data collection:** none — see
-  `apps/mobile/docs/privacy-and-data-safety.md` for the exact questionnaire
-  answers.
+- **Data collection:** anonymous device id + opt-in push token, app functionality only,
+  not linked to identity, no tracking — see `privacy-and-data-safety.md` (2026-09-05 block)
+  for the exact questionnaire answers. "Data Not Collected" is NO LONGER correct.
 
 ## Graphics still needed (design gap — see shipping checklist)
 
@@ -147,8 +148,9 @@ valid for builds but not launch branding:
 - Android adaptive-icon foreground (1024×1024, mark inside central ~61%)
 - Splash image
 - Play feature graphic 1024×500
-- Screenshots: Play needs ≥2 phone screenshots; App Store needs 6.9" and 6.5"
-  iPhone sets (iPad set too since `supportsTablet` is true — or ship iPhone-only
-  by flipping `supportsTablet` to false before the store build)
+- Screenshots: Play needs ≥2 phone screenshots; App Store needs one iPhone set
+  (6.5" 1284×2778 / 1242×2688, or 6.9" 1320×2868) AND one iPad 13" set
+  (2064×2752 or 2048×2732) because `supportsTablet` is `true` (Wyatt, 2026-09-05:
+  iPad ships at launch). 3–10 per set, PNG/JPEG, no alpha.
 
 Original artwork only — no album art or photos we don't own (media policy).
