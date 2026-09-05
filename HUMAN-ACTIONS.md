@@ -26,6 +26,30 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 44. [BLOCKING] OS-040 — `EXPO_TOKEN` repo secret for automatic EAS Update — ~5 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/specs/2026-09-05-one-source-three-surfaces.md`
+§6, card OS-040 (Phase 4). `.github/workflows/eas-update.yml` publishes
+JS-only mobile changes to the `production` EAS Update channel on every
+qualifying merge to `main`, but it needs an Expo access token to
+authenticate — `gh secret set` requires repo-secret write access this
+session doesn't have per `.claude/hooks/guard.sh`.
+
+**Steps:**
+1. Generate a token at expo.dev → account settings → Access Tokens,
+   scoped to this project (owner `wjduvall`, project id
+   `a4ff0e9b-ad3e-48a4-a765-ffc19a8b3209`).
+2. `gh secret set EXPO_TOKEN --repo JW-Incorporated/swift2` and paste it.
+
+**Worked if:** the next JS-only merge to `apps/mobile/**` or
+`packages/**` shows a green `EAS Update (mobile OTA)` run in Actions.
+
+**Status:** OPEN
+
+
+
 ### 43. [BLOCKING] OS-004 — Push credentials on EAS (One Source, Three Surfaces plan) — ~15 min
 
 **Filed:** 2026-09-05
