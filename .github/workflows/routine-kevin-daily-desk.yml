@@ -18,6 +18,12 @@
 # built-in GITHUB_TOKEN cannot trigger the required `build` check on its
 # own PRs — same reason growth-snapshot.yml / appearance-discovery.yml /
 # routine-karen-nightly.yml use the PAT).
+#
+# `Task` is in allowed_tools deliberately: routine-invariants.md invariant #4
+# allows it when the charter says why. This desk runs three consolidated
+# streams (S1 Karen-ticket solving, S2 digest, S3 triage) in one session per
+# docs/agents/runner-prompts/kevin-desk.md, and benefits from subagent
+# fan-out across that many independent per-stream workloads in one run.
 name: routine-kevin-daily-desk
 
 on:
