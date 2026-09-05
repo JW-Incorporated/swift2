@@ -1,0 +1,39 @@
+# News Triage recall check — weekly Opus audit, migrated to this scheduled
+# Action per docs/audits/2026-09-05-claude-routines-relocation-assessment.md
+# + the 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# 2-WEEK TRIAL INSTRUMENT — ends 2026-09-15
+# (docs/agents/runner-prompts/news-triage-recall-check.md,
+# docs/TIER2-OPTIMIZATION.md § T-3). Disable or delete this workflow once
+# the trial resolves per that doc's verdict; it is not a standing runner.
+#
+# Explicitly read-only per its own prompt (re-triages archived digests and
+# diffs against what News Triage actually filed — never files, edits, or
+# closes an `intake` issue, never merges). Needs only `issues: write` — no
+# SOCIAL_POSTER_PAT, no Supabase secrets (prompt file has none).
+# allowed_tools mirrors the prompt's read-only steps (Bash for `gh api`/
+# `gh issue list`, Read/Glob/Grep for local files) per
+# docs/agents/routine-invariants.md — no Write/Edit/Task.
+name: routine-news-triage-recall
+
+on:
+  schedule:
+    - cron: "0 17 * * 2" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "News Triage recall check"
+      prompt_file: docs/agents/runner-prompts/news-triage-recall-check.md
+      model: claude-opus-4-8
+      allowed_tools: "Bash,Read,Glob,Grep"
+      timeout_minutes: 30
+      checkout_token_secret: GITHUB_TOKEN
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
