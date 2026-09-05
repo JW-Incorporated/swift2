@@ -236,11 +236,15 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is an Apple Music streaming exclusive.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // #3476: Apple Music's own playlist page for the tour film's setlist
+      // is the canonical official watch link, so the record now renders a
+      // "Watch on Apple Music" card instead of staying hidden
+      // (playable-first widened to playable-or-watchable,
+      // docs/decisions.md 2026-08-13).
       officialUrl: null,
+      watchUrl:
+        'https://music.apple.com/us/playlist/taylor-swift-the-1989-world-tour-live/pl.58fe4a88cbc34502920b37f0cbee8aa9',
+      platform: 'Apple Music',
       media: [],
       sources: [
         wiki('The_1989_World_Tour_Live', 'The 1989 World Tour Live'),

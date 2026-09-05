@@ -26,7 +26,32 @@ export function isPlayable(v: VideoNote): v is PlayableVideoNote {
 }
 
 /**
- * Every playable video record for an era.
+ * A video record is WATCHABLE when it either plays in-app (`isPlayable`) or
+ * carries a verified official watch link elsewhere (`watchUrl` + `platform`)
+ * — #3476. This widens playable-first rather than replacing it: Joey's rule
+ * ("nothing on the timeline that can't be played... nothing a user can't
+ * view") was never actually violated by these 8 tour films/documentaries —
+ * they ARE viewable, just not embeddable. The rule that broke was reading
+ * "played" as "played inline on this site" when Joey's own words are about
+ * the READER being able to watch the thing, full stop. A record with
+ * neither signal (no embed, no watch link) stays exactly as hidden as
+ * before this change.
+ */
+export type WatchableVideoNote =
+  | PlayableVideoNote
+  | (VideoNote & { youtubeId: null; watchUrl: string; platform: string });
+
+export function isWatchable(v: VideoNote): v is WatchableVideoNote {
+  return isPlayable(v) || (typeof v.watchUrl === 'string' && typeof v.platform === 'string');
+}
+
+/**
+ * Every watchable video record for an era — playable in-app OR link-out
+ * watchable (#3476; see `isWatchable`). Renamed from "playable" to
+ * "watchable" in spirit, not in the exported type name: `PlayableVideoNote`
+ * stays the narrower type most callers (track pairing, in-app embeds) still
+ * need, and only card-rendering surfaces (`VideoMomentCard`, the Videos
+ * filter) actually need the wider `WatchableVideoNote`.
  *
  * The filter lives HERE, at the single read point, rather than in each
  * component: the era feed and its Videos filter (EraSection), the search
@@ -37,15 +62,13 @@ export function isPlayable(v: VideoNote): v is PlayableVideoNote {
  * didn't hold — #2050's inert cards came from two components each deciding
  * for themselves.
  *
- * Records without an embed are hidden, NOT deleted (Joey's "hidden until the
- * content is available"): re-add a verified official upload to the seed and the
- * card returns on the next sync with no code change. The eight records this
- * currently hides are the tour films, documentaries and the theatrical release
- * party, whose works exist only behind Netflix / Disney+ / Apple Music / DVD —
- * each is annotated in supabase/seed/videos/**.
+ * Records with neither an embed nor a watch link are hidden, NOT deleted
+ * (Joey's "hidden until the content is available"): add a verified official
+ * upload OR a verified official watch link to the seed and the card returns
+ * on the next sync with no code change.
  */
-export function videosForEra(eraId: EraId): PlayableVideoNote[] {
-  return (VIDEOS_RAW[eraId] ?? []).filter(isPlayable);
+export function videosForEra(eraId: EraId): WatchableVideoNote[] {
+  return (VIDEOS_RAW[eraId] ?? []).filter(isWatchable);
 }
 
 /**
@@ -69,11 +92,18 @@ export function allVideoRecordsForEra(eraId: EraId): VideoNote[] {
  * chronological timeline (EraSection). Scoped to `kind === 'music_video'`
  * only, per the issue #439 request. A video with no `releasedOn` has nowhere
  * to sit on a dated timeline, so it's excluded here.
+ *
+ * Scoped to `isPlayable` on top of `videosForEra`'s wider watchable set: the
+ * chronological timeline embeds video inline (MomentVideo), so a music video
+ * reachable only via a `watchUrl` link-out (#3476) has no in-app player to
+ * offer here — it stays reachable through the Videos filter instead
+ * (`eraVideoFeed`, which renders the "Watch on {platform}" affordance for
+ * exactly that case).
  */
 export function musicVideosForEra(eraId: EraId): (PlayableVideoNote & { releasedOn: string })[] {
   return videosForEra(eraId).filter(
     (v): v is PlayableVideoNote & { releasedOn: string } =>
-      v.kind === 'music_video' && v.releasedOn != null,
+      isPlayable(v) && v.kind === 'music_video' && v.releasedOn != null,
   );
 }
 
@@ -127,7 +157,9 @@ export function isAppearance(v: VideoNote): boolean {
  * `embeddedYoutubeIds` are the ids already embedded on curated moments in the
  * same era: those records are dropped here so one video never appears twice in
  * one list. Same de-dup key and same direction as the existing music-video
- * merge — the moment wins, because it carries the narrative.
+ * merge — the moment wins, because it carries the narrative. A link-out
+ * record (no `youtubeId`) has nothing to de-dup against a moment's embed, so
+ * it always passes this filter untouched.
  *
  * Undated records sort last rather than being dropped (unlike
  * `musicVideosForEra`, which must be datable to sit in the chronological
@@ -135,16 +167,16 @@ export function isAppearance(v: VideoNote): boolean {
  * video for having no premiere date would quietly hide it from the filter
  * that exists to find it.
  *
- * Unplayable records are already gone — `videosForEra` drops them.
+ * Unwatchable records are already gone — `videosForEra` drops them.
  */
 export function eraVideoFeed(
   eraId: EraId,
   embeddedYoutubeIds: ReadonlySet<string> = new Set(),
-): PlayableVideoNote[] {
+): WatchableVideoNote[] {
   // `filter` already returns a fresh array, so sorting in place here cannot
   // reach VIDEOS_RAW.
   return videosForEra(eraId)
-    .filter((v) => !embeddedYoutubeIds.has(v.youtubeId))
+    .filter((v) => v.youtubeId === null || !embeddedYoutubeIds.has(v.youtubeId))
     .sort((a, b) => {
       if (a.releasedOn !== null && b.releasedOn !== null && a.releasedOn !== b.releasedOn) {
         return a.releasedOn < b.releasedOn ? 1 : -1; // newest first

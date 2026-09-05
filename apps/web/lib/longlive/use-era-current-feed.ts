@@ -5,7 +5,7 @@ import type { CurrentItem } from '@swift2/shared';
 import { CURRENT_ERA_ID } from './eras';
 import { currentFeedEntries } from './current-feed';
 import type { EraFeedEntry } from './era-feed';
-import type { PlayableVideoNote } from './videos';
+import type { WatchableVideoNote } from './videos';
 
 /**
  * PLAN.md Stage 5 — the live-item slice of one `EraSection`'s wiring: builds
@@ -22,13 +22,13 @@ export function useEraCurrentFeed(
   eraEnd: string,
   currentItems: CurrentItem[],
 ): {
-  liveEntries: EraFeedEntry<PlayableVideoNote>[];
+  liveEntries: EraFeedEntry<WatchableVideoNote>[];
   openCurrentItem: CurrentItem | null;
   setOpenCurrentItem: (item: CurrentItem | null) => void;
 } {
   const liveEntries = useMemo(
     () =>
-      eraId === CURRENT_ERA_ID ? currentFeedEntries<PlayableVideoNote>(currentItems, eraStart, eraEnd) : [],
+      eraId === CURRENT_ERA_ID ? currentFeedEntries<WatchableVideoNote>(currentItems, eraStart, eraEnd) : [],
     [eraId, eraStart, eraEnd, currentItems],
   );
   const [openCurrentItem, setOpenCurrentItem] = useState<CurrentItem | null>(null);

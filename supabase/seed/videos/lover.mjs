@@ -146,11 +146,14 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is a Netflix original.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // With no embed the record used to be HIDDEN from every reader-facing
+      // surface (playable-first, docs/decisions.md 2026-08-13). #3476 widened
+      // that to playable-OR-watchable: this canonical Netflix title page is a
+      // verified official watch link, so the record now renders a
+      // "Watch on Netflix" card instead of staying hidden.
       officialUrl: null,
+      watchUrl: 'https://www.netflix.com/title/81028336',
+      platform: 'Netflix',
       media: [],
       sources: [
         wiki('Miss_Americana', 'Miss Americana'),
@@ -175,11 +178,13 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is an ABC special, then Disney+.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // #3476: canonical Disney+ title page is a verified official watch
+      // link, so the record now renders a "Watch on Disney+" card instead of
+      // staying hidden (playable-first widened to playable-or-watchable,
+      // docs/decisions.md 2026-08-13).
       officialUrl: null,
+      watchUrl: 'https://www.disneyplus.com/browse/entity-574be448-08cf-441a-b5ad-651b1a4363b9',
+      platform: 'Disney+',
       media: [],
       sources: [
         wiki('Taylor_Swift_City_of_Lover_Concert', 'Taylor Swift City of Lover Concert'),

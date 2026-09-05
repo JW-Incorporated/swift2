@@ -115,47 +115,57 @@ describe('the appearance taxonomy (2026-08-12)', () => {
   });
 });
 
-describe('playable-first: every rendered video card plays (Joey, 2026-08-13)', () => {
+describe('watchable-first: every rendered video card can actually be watched (Joey, 2026-08-13; widened #3476)', () => {
   // Replaces #2050/#2055's "every card either plays or says why it can't".
-  // Joey reversed that: "I don't want anything on the timeline that can't be
-  // played. It just doesn't make sense to show a piece of content that a user
-  // can't view." So the invariant is no longer "nothing is inert" but the
-  // stronger "nothing is rendered unless it plays" — records without a verified
-  // embed are hidden, not shown as an unavailable state and not deleted.
-  // See docs/decisions.md, "Playable-first timeline".
+  // Joey's original rule: "I don't want anything on the timeline that can't
+  // be played. It just doesn't make sense to show a piece of content that a
+  // user can't view." #3476 corrected a too-narrow reading of "played": 8
+  // tour films/documentaries ARE viewable (Netflix, Disney+, Apple Music,
+  // DVD, theatrical) but were hidden because "played" had been read as
+  // "embeddable on this site". The invariant is still "nothing is rendered
+  // unless a reader can actually watch it" — it just now accepts a verified
+  // official watch link as well as an in-app embed. See docs/decisions.md,
+  // "Playable-first timeline" (superseded in spirit, not reverted).
 
-  it('gives every record on every reader-facing surface a real embed id', () => {
+  it('gives every record on every reader-facing surface a real embed id OR a verified watch link', () => {
     for (const eraId of ALL_ERA_IDS) {
       for (const v of videosForEra(eraId)) {
-        expect(v.youtubeId, `${v.slug} would render without an embed`).toBeTruthy();
+        const watchable = Boolean(v.youtubeId) || (Boolean(v.watchUrl) && Boolean(v.platform));
+        expect(watchable, `${v.slug} would render with nothing to watch`).toBe(true);
       }
-      // The two derived surfaces inherit it rather than re-deciding.
-      for (const v of eraVideoFeed(eraId)) expect(v.youtubeId).toBeTruthy();
+      // The two derived surfaces inherit it rather than re-deciding — both
+      // stay embed-only, since neither has an in-app slot for a link-out.
+      for (const v of eraVideoFeed(eraId)) {
+        const watchable = Boolean(v.youtubeId) || (Boolean(v.watchUrl) && Boolean(v.platform));
+        expect(watchable).toBe(true);
+      }
       for (const v of musicVideosForEra(eraId)) expect(v.youtubeId).toBeTruthy();
     }
   });
 
-  it('hides an unplayable record rather than deleting it — the seed still holds it', () => {
+  it('shows a record with a verified watch link even with no embed (#3476)', () => {
     // The Eras Tour film is the clearest case: a real, important, well-sourced
-    // record whose work exists only in cinemas and on Disney+. It must not
-    // render (nothing to play) and must not be lost (the research stands).
-    expect(videosForEra('midnights').map((v) => v.slug)).not.toContain(
-      'taylor-swift-the-eras-tour-film',
-    );
+    // record whose work exists only in cinemas and on Disney+. It now renders
+    // via its watchUrl/platform rather than staying hidden.
+    const found = videosForEra('midnights').find((v) => v.slug === 'taylor-swift-the-eras-tour-film');
+    expect(found, 'the Eras Tour film should render via its watch link').toBeDefined();
+    expect(found!.youtubeId).toBeNull();
+    expect(found!.watchUrl).toBeTruthy();
+    expect(found!.platform).toBeTruthy();
     expect(allVideoRecordsForEra('midnights').map((v) => v.slug)).toContain(
       'taylor-swift-the-eras-tour-film',
     );
   });
 
-  it('hides exactly the records with no embed, and no others', () => {
+  it('hides exactly the records with neither an embed nor a watch link, and no others', () => {
     for (const eraId of ALL_ERA_IDS) {
       const hidden = allVideoRecordsForEra(eraId)
         .filter((v) => !videosForEra(eraId).some((p) => p.slug === v.slug))
         .map((v) => v.slug);
-      const unplayable = allVideoRecordsForEra(eraId)
-        .filter((v) => !v.youtubeId)
+      const unwatchable = allVideoRecordsForEra(eraId)
+        .filter((v) => !v.youtubeId && !(v.watchUrl && v.platform))
         .map((v) => v.slug);
-      expect(hidden).toEqual(unplayable);
+      expect(hidden).toEqual(unwatchable);
     }
   });
 
@@ -195,6 +205,33 @@ describe('playable-first: every rendered video card plays (Joey, 2026-08-13)', (
     expect(isPlayable(base)).toBe(true);
     expect(isPlayable({ ...base, youtubeId: null })).toBe(false);
     expect(isPlayable({ ...base, youtubeId: '' })).toBe(false);
+  });
+});
+
+describe('#3476 guardrail: every generated video record is watchable somehow', () => {
+  // The issue's own concrete fix shape (item 4): a future authored-but-
+  // unlinkable film — one with neither a YouTube embed nor a watchUrl/
+  // platform pair — should fail CI, not silently vanish the way the original
+  // 8 tour films/documentaries did. Runs over `allVideoRecordsForEra`, the
+  // unfiltered path, so it catches the defect BEFORE `videosForEra` would
+  // otherwise quietly hide it.
+  it('has a youtubeId or a complete watchUrl+platform pair on every record', () => {
+    for (const eraId of ALL_ERA_IDS) {
+      for (const v of allVideoRecordsForEra(eraId)) {
+        const watchable = Boolean(v.youtubeId) || (Boolean(v.watchUrl) && Boolean(v.platform));
+        expect(watchable, `${eraId}/${v.slug} has no embed and no watch link`).toBe(true);
+      }
+    }
+  });
+
+  it('never carries a watchUrl without a platform label, or vice versa', () => {
+    for (const eraId of ALL_ERA_IDS) {
+      for (const v of allVideoRecordsForEra(eraId)) {
+        expect(Boolean(v.watchUrl), `${eraId}/${v.slug} watchUrl/platform mismatch`).toBe(
+          Boolean(v.platform),
+        );
+      }
+    }
   });
 });
 

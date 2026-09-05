@@ -127,11 +127,16 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is a Netflix original.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // #3476: this canonical Netflix title page is a verified official
+      // watch link, so the record now renders a "Watch on Netflix" card
+      // instead of staying hidden (playable-first widened to
+      // playable-or-watchable, docs/decisions.md 2026-08-13). Netflix has
+      // since pulled the title from its US catalog (Dec 2023) without
+      // relisting it elsewhere; the link is kept as the canonical official
+      // watch page and can be swapped if/when a new official home appears.
       officialUrl: null,
+      watchUrl: 'https://www.netflix.com/title/81026251',
+      platform: 'Netflix',
       media: [],
       sources: [
         wiki('Taylor_Swift:_Reputation_Stadium_Tour', 'Taylor Swift: Reputation Stadium Tour'),

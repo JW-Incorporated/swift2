@@ -134,6 +134,8 @@ describe('normalizeVideo', () => {
       easterEggs: ['The will scene.'],
       symbolism: 'The will as a metaphor for legacy and self-judgment.',
       youtubeId: 'b1kbLwvqugk',
+      watchUrl: null,
+      platform: null,
       sources: [{ name: 'Example', url: 'https://en.wikipedia.org/wiki/Example' }],
       tags: [],
     });
@@ -181,6 +183,51 @@ describe('normalizeVideo', () => {
     expect(normalizeVideo({ ...base, slug: ' ' })).toBeNull();
     expect(normalizeVideo({ ...base, title: '' })).toBeNull();
     expect(normalizeVideo({ ...base, sources: [] })).toBeNull();
+  });
+});
+
+describe('normalizeVideo — watchUrl/platform (#3476)', () => {
+  it('carries a complete watchUrl+platform pair through for an unembeddable work', () => {
+    const v = normalizeVideo({
+      ...base,
+      officialUrl: null,
+      media: [],
+      watchUrl: 'https://www.netflix.com/title/81028336',
+      platform: 'Netflix',
+    });
+    expect(v?.youtubeId).toBeNull();
+    expect(v?.watchUrl).toBe('https://www.netflix.com/title/81028336');
+    expect(v?.platform).toBe('Netflix');
+  });
+
+  it('accepts the DB snake_case watch_url column name', () => {
+    const v = normalizeVideo({
+      ...base,
+      officialUrl: null,
+      media: [],
+      watch_url: 'https://www.disneyplus.com/browse/entity-x',
+      platform: 'Disney+',
+    });
+    expect(v?.watchUrl).toBe('https://www.disneyplus.com/browse/entity-x');
+  });
+
+  it('drops a lone watchUrl with no platform label — never renders a link with no button text', () => {
+    const v = normalizeVideo({ ...base, officialUrl: null, media: [], watchUrl: 'https://x.com/y', platform: '' });
+    expect(v?.watchUrl).toBeNull();
+    expect(v?.platform).toBeNull();
+  });
+
+  it('drops a lone platform label with no watchUrl', () => {
+    const v = normalizeVideo({ ...base, officialUrl: null, media: [], watchUrl: '', platform: 'Netflix' });
+    expect(v?.watchUrl).toBeNull();
+    expect(v?.platform).toBeNull();
+  });
+
+  it('keeps watchUrl/platform null for a normally-embeddable record', () => {
+    const v = normalizeVideo(base);
+    expect(v?.youtubeId).toBeTruthy();
+    expect(v?.watchUrl).toBeNull();
+    expect(v?.platform).toBeNull();
   });
 });
 

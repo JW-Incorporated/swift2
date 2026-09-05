@@ -278,9 +278,9 @@ export function emptyFeedMessage(active: ReadonlySet<FilterId>, eraShortName: st
  */
 export function eraKnownVideoIds(
   items: ContentItem[],
-  videos: readonly { youtubeId: string }[],
+  videos: readonly { youtubeId: string | null }[],
 ): Set<string> {
   const ids = embeddedYoutubeIds(items);
-  for (const v of videos) ids.add(v.youtubeId);
+  for (const v of videos) if (v.youtubeId) ids.add(v.youtubeId);
   return ids;
 }
