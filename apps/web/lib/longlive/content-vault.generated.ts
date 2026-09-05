@@ -4,6 +4,9 @@
 
 import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from './types';
 
+/** Build-time freshness stamp — emitted only by prebuild (deploy). */
+export const CONTENT_GENERATED_AT = "2026-09-04T01:07:29.528Z";
+
 type VaultRawItem = {
   id: string;
   slug?: string;

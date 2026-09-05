@@ -84,7 +84,7 @@ export const ERAS: Era[] = [
       inkSoft: '#c3a8e0',
       line: '#412a5e',
       accent: '#b06be0',
-      accent2: '#7d5bd0',
+      accent2: '#9e84dc',
       glow: 'rgba(176, 107, 224, 0.3)',
       font: 'script',
     },
