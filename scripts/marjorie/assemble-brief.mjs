@@ -84,6 +84,47 @@ async function gh(args) {
   return JSON.parse(stdout || '[]');
 }
 
+// Same fetch as `gh()`, but also surfaces `capExhausted` — for lists that
+// feed the runner-liveness check (#3689's second finding: "the same
+// truncated list drives the recurring false '10 dark runners' flag").
+// `allPRs`/`allIssues` are org-wide, high-volume lists a busy day can push
+// past gh.mjs's page cap; when that happens a runner whose last artifact
+// fell outside the fetched window must read as UNKNOWN ("I couldn't see
+// far enough back"), never as a confident DARK — a green light or a red
+// light both claim to know something a truncated fetch does not.
+async function ghWithCompleteness(args) {
+  const { stdout, capExhausted } = await ghRun(args);
+  return { rows: JSON.parse(stdout || '[]'), capExhausted: Boolean(capExhausted) };
+}
+
+// #3689: `gh()` above throws away the `complete`/`capExhausted` flags gh.mjs
+// computes for every list call — so nothing downstream could ever tell a
+// silently truncated list from a genuinely short one. For section 1's ASK
+// SOURCES (founder-decision, founder-task) that is exactly the failure mode
+// the 2026-09-03 incident (#3689) hit: a founder-decision ask past whatever
+// page the fetch happened to stop on is not "0 asks", it is a bug, and this
+// module's own rule (see the REST-fallback header note in gh.mjs) is that a
+// degraded state throws loudly rather than returning an innocent-looking
+// empty result. These lists are always small (a handful of banked
+// decisions) — `capExhausted` here can only mean the fetch broke, never
+// that the founders genuinely have hundreds of open decisions, so it is a
+// safe, unambiguous trigger to refuse the run rather than post a brief that
+// could be hiding a founder ask.
+export async function ghCriticalList(args) {
+  const { stdout, capExhausted } = await ghRun(args);
+  const rows = JSON.parse(stdout || '[]');
+  if (capExhausted) {
+    throw new Error(
+      `assemble-brief: the ask-source query \`gh ${args.join(' ')}\` hit gh.mjs's page cap and is ` +
+      'INCOMPLETE. This is the list section 1 ("Waiting on you") is built from — treating a ' +
+      'truncated fetch as "nothing open" is the exact #3689 failure (open founder-decision asks ' +
+      'silently dropped from the brief). Refusing to run rather than post a brief that could be ' +
+      'hiding a founder ask.',
+    );
+  }
+  return rows;
+}
+
 // ─── unchanged growth/queue helpers (kept verbatim: the 2026-07-18 rule that
 // every social claim comes from this number and nowhere else still stands) ──
 
@@ -236,19 +277,47 @@ const PR_FIELDS = 'number,title,body,author,isDraft,reviewDecision,createdAt,upd
  * list is the #1869 failure mode) and softly for the optional ones.
  */
 export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
-  const [decisions, intake, alerts, openPRs, allPRs, allIssues, briefs, founderTasks] = await Promise.all([
-    gh(['issue', 'list', '--repo', repo, '--label', 'founder-decision', '--state', 'open', '--limit', '100', '--json', ISSUE_FIELDS]),
+  const [
+    decisions, intake, alerts, openPRs,
+    { rows: allPRs, capExhausted: allPRsCapExhausted },
+    { rows: allIssuesRaw, capExhausted: allIssuesCapExhausted },
+    briefs, founderTasks,
+  ] = await Promise.all([
+    // Label-scoped ASK SOURCES for section 1 ("Waiting on you"). #3689: an
+    // ask past whatever page a fetch happens to stop on must never render as
+    // "nothing to ask", so these go through ghCriticalList (throws loudly if
+    // gh.mjs's own page cap gets hit) AND request a limit well above any
+    // plausible real backlog (500, vs. gh.mjs's PER_PAGE=100 -> 5 pages
+    // fetched, comfortably past the 3-page/300-row floor that silently
+    // dropped #3584/#531/#138 on 2026-09-03) so the cap is never actually
+    // exercised by real data in the first place.
+    ghCriticalList(['issue', 'list', '--repo', repo, '--label', 'founder-decision', '--state', 'open', '--limit', '500', '--json', ISSUE_FIELDS]),
     gh(['issue', 'list', '--repo', repo, '--label', 'intake', '--state', 'open', '--limit', '100', '--json', ISSUE_FIELDS]),
     gh(['issue', 'list', '--repo', repo, '--label', 'watchdog-alert', '--state', 'open', '--limit', '20', '--json', ISSUE_FIELDS]),
     gh(['pr', 'list', '--repo', repo, '--state', 'open', '--limit', '60', '--json', PR_FIELDS]),
-    gh(['pr', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', 'number,title,body,createdAt,updatedAt,mergedAt,headRefName,state,url']),
-    gh(['issue', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', ISSUE_FIELDS]),
+    // Org-wide, high-volume lists that also feed the runner-liveness check
+    // (#3689's second finding). Capped at gh.mjs's HARD_MAX_PAGES either way,
+    // but now the truncation is VISIBLE to that check instead of silently
+    // read as "this runner never shipped".
+    ghWithCompleteness(['pr', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', 'number,title,body,createdAt,updatedAt,mergedAt,headRefName,state,url']),
+    ghWithCompleteness(['issue', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', ISSUE_FIELDS]),
+    // NOT ghCriticalList: this is a deliberate recent-window lookback (the
+    // last 14 briefs, for askHistory's repeat-count logic), not a "fetch
+    // everything" list — the repo has posted 49+ founders-brief issues total,
+    // so a `--limit 14` fetch is EXPECTED to stop short of the full history.
+    // Treating that as "the fetch broke" would make the brief refuse to run
+    // every single day.
     gh(['issue', 'list', '--repo', repo, '--label', 'founders-brief', '--state', 'all', '--limit', '14', '--json', 'number,title,body,createdAt']),
     // Folded in 2026-08-23: the standalone founder-task digest email was
     // retired (Joey's call) — these now surface here instead, next-morning
-    // latency, explicitly OK'd.
-    gh(['issue', 'list', '--repo', repo, '--label', 'founder-task', '--state', 'open', '--limit', '50', '--json', ISSUE_FIELDS]),
+    // latency, explicitly OK'd. Same #3689 headroom as founder-decision
+    // above: --limit 500, well past the 300-row floor that caused the
+    // incident, so ghCriticalList's throw path is never exercised by real
+    // founder-task volume either.
+    ghCriticalList(['issue', 'list', '--repo', repo, '--label', 'founder-task', '--state', 'open', '--limit', '500', '--json', ISSUE_FIELDS]),
   ]);
+  const allIssues = allIssuesRaw;
+  const runnerListsCapExhausted = allPRsCapExhausted || allIssuesCapExhausted;
 
   const gates = readCurrentGates();
   const series = readGateHistory();
@@ -315,6 +384,10 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     askedBefore: recentlyAsked.filter(Boolean),
     founderTasks,
     intake, alerts, openPRs, allPRs, allIssues: gateIssues, briefs,
+    // #3689 finding 2: the runner-liveness check must know when its own
+    // source lists (allPRs/allIssues) were truncated by gh.mjs's page cap,
+    // so it can report UNKNOWN instead of a confident false DARK.
+    runnerListsCapExhausted,
     gates, series,
     doneItems: readCurrentDone(),
     doneSeries: readDoneHistory(),
@@ -521,6 +594,10 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     constraints: state.constraints,
     lag: a.lag,
     staleRows: a.estimate.trackerStale,
+    // #3689 finding 2: a truncated allPRs/allIssues fetch must make
+    // checkRunners report unknown, not a confident dark, for the runners it
+    // cannot fully see.
+    listsCapExhausted: state.runnerListsCapExhausted,
     now,
   });
   out.push(...renderStandingChecks(checks));

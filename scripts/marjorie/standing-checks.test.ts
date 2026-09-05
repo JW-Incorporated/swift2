@@ -42,6 +42,23 @@ describe('checkRunners', () => {
       else expect(['pr-branch', 'pr-title', 'issue-label', 'issue-title']).toContain(r.match.kind);
     }
   });
+
+  // #3689: gh.mjs's own page cap on allPRs/allIssues silently truncated the
+  // window this check reads, and a runner with no visible artifact in a
+  // truncated window read as a confident DARK — the false "10 dark runners"
+  // flag the incident named for Vault Run, Content Shift and Growth on days
+  // they had actually shipped.
+  it('reports unknown, not dark, for a silent runner when the source lists were capped', () => {
+    const r = checkRunners({ allPRs: [], issues: [], cadence, now: NOW, listsCapExhausted: true });
+    expect(r.rows[0].status).toBe('unknown');
+    expect(r.rows[0].detail).toContain('truncated');
+  });
+
+  it('still reports dark when the runner is silent and the lists are complete', () => {
+    const r = checkRunners({ allPRs: [], issues: [], cadence, now: NOW, listsCapExhausted: false });
+    expect(r.status).toBe('fail');
+    expect(r.rows[0].status).toBe('fail');
+  });
 });
 
 describe('checkPRs', () => {
