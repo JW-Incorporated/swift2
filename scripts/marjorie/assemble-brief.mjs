@@ -336,15 +336,19 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
   }));
   const gateIssues = [...allIssues, ...fetched.filter(Boolean)];
 
-  // Comments on the bank items — the fix for the phantom-ask loop. Only the
-  // open founder-decision items, so this is a handful of calls, not hundreds.
+  // Comments on the bank items + founder-tasks — the fix for the phantom-ask
+  // loop. Only OPEN items of either label, so this is a handful of calls on
+  // a normal day, never hundreds.
   //
   // 2026-09-05 audit: founder-task issues join the same path. They used to be
   // rendered straight from the raw `--state open` list, so a founder answering
   // ON the task (the way Joey did on #2195, 08-17: "All 3 tasks are complete")
   // could never clear it — the exact #799 phantom-ask loop this block exists
-  // to prevent, reproduced for a second label.
-  const withComments = await Promise.all([...decisions, ...founderTasks].map(async (d) => {
+  // to prevent, reproduced for a second label. An issue carrying BOTH labels
+  // is fetched once (decision wins).
+  const decisionNums = new Set(decisions.map((d) => d.number));
+  const askSources = [...decisions, ...founderTasks.filter((t) => !decisionNums.has(t.number))];
+  const withComments = await Promise.all(askSources.map(async (d) => {
     const r = await ghApiSoft(`/repos/${repo}/issues/${d.number}/comments?per_page=100`, []);
     return { ...d, comments: (r.data || []).map((c) => ({ author: { login: c.user?.login }, createdAt: c.created_at, body: c.body })) };
   }));
@@ -394,7 +398,6 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
   // degrades its own section, never the whole brief.
   const contentShipped = await fetchContentShipped(repo, new Date(now - DAY_MS).toISOString()).catch(() => []);
 
-  const decisionNums = new Set(decisions.map((d) => d.number));
   return {
     decisions: withComments.filter((d) => decisionNums.has(d.number)),
     askedBefore: recentlyAsked.filter(Boolean),
