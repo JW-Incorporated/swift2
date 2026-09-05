@@ -1,0 +1,138 @@
+# Production-bytes backup/restore drill — closes item 3 of the BACKUPS launch
+# gate (#680): "test one restore end-to-end (to a scratch project/branch,
+# never production)" against the real database, not the repo-seed fixture
+# `backup-restore-drill.yml` already proves monthly.
+#
+# WHY THIS EXISTS: docs/backup-restore.md §6 records that the only two open
+# items on this gate are founder-only — reading the Supabase plan off the
+# dashboard (done, 2026-08-30: Free tier, no automated backups) and running
+# the drill against production's own bytes, which needs `SUPABASE_DB_URL`.
+# That credential already exists as a repo Actions secret (used by
+# `db-migrate.yml`/`db-seed.yml`) but was never wired to the drill script,
+# so closing this item meant a human running a local Node command with a
+# production credential pasted on their own machine. This workflow removes
+# that: GitHub injects the secret straight into the job, nobody ever sees or
+# handles the raw connection string, and the only human action left is
+# clicking "Run workflow" once.
+#
+# SAFETY — this is a READ against production, never a write:
+#   - `scripts/backup-restore-test.mjs --source` opens the source connection
+#     with `default_transaction_read_only=on` pinned at the server (belt and
+#     braces on top of the whole backup running inside one read-only
+#     `repeatable read` transaction) — see scripts/lib/pg.mjs.
+#   - `--target` points at this job's own throwaway Postgres service
+#     container (127.0.0.1, torn down when the job ends). The script's
+#     `assertSafeTarget` refuses any `*.supabase.co`/pooler host as a target
+#     and refuses target === source, with no override flag — see
+#     `checkTarget` in the script and its unit tests.
+#   - `workflow_dispatch` only. Deliberately not on a schedule or a push
+#     trigger: touching production's real bytes, even read-only, is a
+#     founder-invoked action, not routine CI.
+name: production-backup-drill
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-backup-drill
+  cancel-in-progress: false
+
+jobs:
+  drill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        # Scratch target only — never touched by the source connection.
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Preflight — confirm SUPABASE_DB_URL is configured
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if [ -z "$SUPABASE_DB_URL" ]; then
+            echo "FAIL: SUPABASE_DB_URL secret is not configured in repo Actions secrets. Nothing was run."
+            exit 1
+          fi
+          echo "SUPABASE_DB_URL is configured."
+
+      - name: Create scratch target database
+        run: |
+          PGPASSWORD=postgres psql -h 127.0.0.1 -U postgres -d postgres \
+            -c "create database brt_prod_drill_target"
+
+      - name: Run the drill against production's own bytes (read-only source)
+        id: drill
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          node scripts/backup-restore-test.mjs \
+            --source "$SUPABASE_DB_URL" \
+            --target "postgres://postgres:postgres@127.0.0.1:5432/brt_prod_drill_target?sslmode=disable" \
+            --json \
+            | tee /tmp/drill.log
+
+      - name: Upload the drill report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: production-backup-drill-report
+          path: .backups/last-report.json
+          if-no-files-found: warn
+          retention-days: 90
+
+      # Same evolving-issue pattern as backup-restore-drill.yml's page step,
+      # but for a manually-dispatched run: leaves a durable, linkable record
+      # of the result (pass or fail) for docs/backup-restore.md §6 without
+      # requiring the human who clicked "Run workflow" to also copy the log
+      # by hand.
+      - name: Record the result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          OUTCOME: ${{ steps.drill.outcome }}
+        run: |
+          set -euo pipefail
+          ALERT_TITLE="Production-bytes backup/restore drill result (#680)"
+          if [ "$OUTCOME" = "success" ]; then
+            {
+              echo "Production-bytes drill PASSED at $(date -u +'%Y-%m-%d %H:%M UTC')."
+              echo ""
+              echo "Report: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+              echo ""
+              echo "Record this run's numbers (rows/tables/timing from the artifact above) in docs/backup-restore.md section 6's drill log."
+            } > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            exit 0
+          fi
+          {
+            echo "@sffan15-sys — the production-bytes backup/restore drill FAILED at $(date -u +'%H:%M UTC')."
+            echo ""
+            echo "This means restoring production's actual data through the documented path in \`docs/backup-restore.md\` did not round-trip cleanly. This is the real-data half of launch gate BACKUPS — treat as urgent before launch."
+            echo ""
+            echo "Run log: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          exit 1

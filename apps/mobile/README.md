@@ -1,5 +1,10 @@
 # @swift2/mobile — Expo app (Android-first)
 
+> **2026-09-05:** the mounted app is now `components/SiteShell.tsx` — a WebView of
+> www.longlivets.com inside the native notification shell (see
+> `docs/decisions.md` 2026-09-05). The Vault navigator described below is kept
+> unmounted as the native-port target; everything else in this README still applies.
+
 The iOS/Android reader. Reuses `@swift2/shared` (domain/types) and
 `@swift2/core` (Supabase data access) **unchanged** — the whole point of the
 `packages/*` boundary (see `docs/architecture.md`). Only the view layer and the

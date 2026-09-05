@@ -591,7 +591,7 @@ describe('E4 official-store sync', () => {
 
     expect(workflow).toContain("cron: '17 8,20 * * *'");
     expect(workflow).toContain('sync-official.mjs --detect --write-plan official-sync-plan.json');
-    expect(workflow).toContain('actions/upload-artifact@v6');
+    expect(workflow).toContain('actions/upload-artifact@v7');
     // No model/paid-search calls anywhere in this workflow (detect OR the
     // deterministic `author` follow-on job) — authorOfficialCatalog() is a
     // pure function, so the authoring job legitimately writes the catalog

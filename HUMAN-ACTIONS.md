@@ -430,6 +430,17 @@ Checked today for any agent-side workaround (env vars, `gh secret list`,
 Supabase CLI/MCP/management-API token) — none exists; this is genuinely
 founder-only. Full detail: `docs/backup-restore.md` §2 and §6.
 
+**Update (this session, #680 desk pass):** added a one-click Actions
+workflow (`.github/workflows/production-backup-drill.yml`, `Run workflow`
+from the Actions tab) so step 3 below no longer needs a local checkout,
+`apps/worker/.env`, or pasting a production connection string anywhere by
+hand — it reuses the `SUPABASE_DB_URL` secret already configured for
+`db-migrate`/`db-seed`, opens it strictly read-only, and restores into a
+throwaway Postgres inside the job (never a `*.supabase.co` host — the
+script's `assertSafeTarget` refuses that regardless). Step 1 (dashboard
+plan/backup-status) is still genuinely founder-only; nothing reaches that
+information programmatically.
+
 **Steps:**
 1. Open the Supabase dashboard for the Long Live project → **Settings** →
    **Billing** (or **Database** → **Backups**). Note: (a) the plan tier,
@@ -438,21 +449,15 @@ founder-only. Full detail: `docs/backup-restore.md` §2 and §6.
 2. Record those three answers in `docs/backup-restore.md` §6 (there's a
    table row format already there to follow), or tell a session the answers
    in chat and it will write them in.
-3. From a machine/checkout that has `apps/worker/.env` (`SUPABASE_DB_URL`),
-   run one real drill, read-only against production:
-   ```bash
-   node scripts/backup-restore-test.mjs \
-     --source "$SUPABASE_DB_URL" \
-     --target "postgres://postgres:postgres@127.0.0.1:5432/scratch?sslmode=disable" \
-     --keep
-   ```
-   (Needs a local scratch Postgres reachable at that target — `npm i
-   --no-save embedded-postgres` then point `--target` at a local instance,
-   or any throwaway Postgres you already have. The script refuses to write
-   to production or to any `*.supabase.co` host, by design.)
-4. Paste the pass/fail output (or tell a session) and it'll log it as a new
-   row in `docs/backup-restore.md` §6's drill log and flip the BACKUPS gate
-   in `docs/launch-readiness.md` once both items are done.
+3. Run the drill against production's own bytes with one click — no
+   checkout, no local Postgres, no credential ever touches your machine:
+   `https://github.com/JW-Incorporated/swift2/actions/workflows/production-backup-drill.yml`
+   → **Run workflow** → **Run workflow** (main branch). Takes a couple of
+   minutes; the job posts PASS/FAIL as an alert issue and uploads the report
+   as a run artifact.
+4. Paste the pass/fail result (or tell a session the run URL) and it'll log
+   it as a new row in `docs/backup-restore.md` §6's drill log and flip the
+   BACKUPS gate in `docs/launch-readiness.md` once both items are done.
 
 **Worked if:** `docs/backup-restore.md` §6 has a drill-log row sourced from
 production (not the fixture) marked **PASS**, and §2's plan/backup-status
@@ -535,6 +540,21 @@ exited with no changes and no PR rather than fabricate an unverified link.
 This is the same intermittent policy, now confirmed to hit more than one
 scheduled trigger in this repo, so the "looks resolved" note above was
 premature — leaving Status as OPEN.
+
+**Update (2026-09-05, RESOLVED):** Joey changed the Vault Run routine's
+network access setting in claude.ai/code to "full internet access" on
+2026-09-04. Confirmed fixed on the real scheduled (non-manual) daily
+trigger: today's 16:07 UTC cron firing produced PR #3805 ("vault:
+2026-09-05 — 3 lanes"), whose Photo Enrichment lane reports egress open
+("Instagram / i.ytimg.com / outlet CDNs reachable") with a reasoned
+coverage outcome (no page needed a new photo this run) — no
+`EGRESS_BLOCKED` / `403 CONNECT` language anywhere, a clean break from
+every prior run (#3744, #3696, and this item's own history) which all
+hard-blocked. This is the founder-authorized policy change the prior
+updates were waiting on, verified on the actual trigger rather than a
+manually-fired one. Closing this out.
+
+**Status:** RESOLVED (2026-09-05)
 
 ---
 

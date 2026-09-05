@@ -64,6 +64,36 @@ films; this closes the resulting gap), no founder decision required.
 
 ---
 
+## 2026-09-02 — Nonce-based CSP removes inline-script exception
+
+**Decision.** `apps/web/proxy.ts` generates a fresh nonce for each rendered
+request and sends it in the enforcing CSP. The App Router receives the same
+nonce in its request headers, automatically applies it to framework-generated
+scripts/styles, and `app/layout.tsx` applies it to the static JSON-LD script.
+`script-src` no longer permits `'unsafe-inline'`; it uses the request nonce and
+`'strict-dynamic'` instead.
+
+**Why.** The security-hardening task explicitly required removing the inline
+script exception. Next.js documents nonce support as the supported App Router
+path, even though it changes static rendering to per-request rendering. This
+is a reversible implementation choice within the approved security task.
+
+**Bounded exception.** `style-src-attr 'unsafe-inline'` remains: the shipped UI
+uses numerous dynamic React style attributes for coordinates, colors and layout,
+which CSP nonces cannot authorize. `style-src` itself is nonce-based. Removing
+the attribute exception requires a separate visual refactor and is not claimed
+by this hardening change.
+
+**Alternatives considered:** retaining script `'unsafe-inline'` (rejected — it
+does not meet the audit remediation); converting every dynamic style attribute
+in this card (rejected — broad UI refactor outside the bounded security change).
+
+**Approved by:** no founder approval required — reversible technical hardening
+within Kanban task `t_07025f1e` under `CLAUDE.md` decision authority.
+
+---
+
+## 2026-09-01 — Merch Autonomy provenance-snapshot reconciliation (#3460, Fable-ruled): all 4 conflicts were stale attachment drift, not new decisions
 
 **Context:** GitHub issue #3460, per binding Fable ruling
 `ARB-t_b2461a5a-01` ("merge PR #3459 verbatim; reconciliation is a
@@ -6260,3 +6290,38 @@ MCP connectors auto-attached to the new recall-check trigger on creation
 `claude-opus-4-8` 2-week trial the table already records as decided
 (D5=A) — worth a live re-check; Karen's pending rename is tracked
 separately as issue #3616.
+
+## 2026-09-05 — The mobile app ships the website in a native shell (WebView), native port deferred
+
+**Decision (Wyatt, in session; Joey to confirm — product-direction call per CLAUDE.md):**
+`apps/mobile` renders **www.longlivets.com in a full-screen WebView**
+(`components/SiteShell.tsx`) and keeps everything built natively around it:
+device registry, opt-in push registration, the bell → notification settings,
+the inbox, and notification deep links (which now navigate the WebView to the
+matching site URL). The native Vault navigator (`VaultNavigator.tsx`,
+`EraTimeline.tsx`) stays in the tree unmounted as the long-term port target.
+
+**Why:** the first TestFlight build (v1.0.0 build 3, 2026-09-05) exposed that
+the two apps had diverged completely. The website is the self-contained
+experience layer under `apps/web/lib/longlive` (~64k lines, 99 components,
+generated in-repo content — see `docs/longlive-experience.md`); the native
+app was the ~2k-line Supabase "Vault" MVP that `docs/architecture.md` intended
+the web to converge on, which never happened. Porting the site to React
+Native is weeks of work; a shell ships the real product today and every web
+deploy reaches the app instantly. Reversible: a later build can swap the
+shell for native screens one at a time.
+
+**Accepted risk:** App Store guideline 4.2 (minimum functionality) rejects
+"repackaged websites". The native push/settings/inbox surface, deep links,
+and in-app offline handling are the defense. If App Review rejects on 4.2,
+the fallback is to re-mount `VaultNavigator` as an additional native tab
+rather than argue.
+
+**Consequences:** the `/privacy` mobile section and both stores' data-safety
+answers now inherit the website's collection (feedback text, mood/Clownbot
+text to the Claude API, Vercel Web Analytics, Clownbot cookie) on top of the
+device id + push token — App Privacy label becomes Identifiers (Device ID,
+User ID), User Content, Usage Data, all not linked, no tracking.
+`apps/mobile/lib/vault.ts` and `@swift2/core` are no longer called from
+the mounted app; `architecture.md`'s "reuse packages/* unchanged" holds only
+for the deferred native port.

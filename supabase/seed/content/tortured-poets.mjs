@@ -660,7 +660,7 @@ export default {
         'https://img.mlbstatic.com/mlb-images/image/upload/t_2x1/t_w1536/mlb/gbi9ws0peesvkjm8m0ye.jpg',
       moment: {
         context:
-          "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.\n\nThey watched from a right-field luxury suite with what Kelce later called an \"unbelievable crew\" of friends; no outlet pinned down whose suite it was, and no other celebrities were photographed inside with them. The neutral dress code was its own tell — both wore black-and-navy caps by Midnight Rodeo, a Kansas City band whose merch Kelce favors (his from its \"You're Not Dreaming\" line), with Taylor finishing the look in her signature red lip rather than any team gear.\n\nThe night's viral image was Taylor's startled reaction to Juan Soto's leadoff home run in the bottom of the third, a broadcast cutaway that MLB and the Yankees reposted on their own channels; TBS announcer Brian Anderson had already flagged Kelce as a \"big Cleveland fan.\" Kelce, a Cleveland Heights native, quietly pulled for the visiting Guardians \"in hostile territory,\" as he put it on New Heights, and days later defended his hometown loyalty on X after being trolled for wearing no Guardians gear. It was the couple's first MLB game together and their only postseason-baseball outing that October — one beat in a run of New York sporting dates that had included the Sept. 8 US Open final — with no reported early exit and no player weighing in on their presence.",
+          "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.\n\nThey watched from a right-field luxury suite with what Kelce later called an \"unbelievable crew\" of friends; no outlet pinned down whose suite it was, and no other celebrities were photographed inside with them. The neutral dress code was its own tell — both wore black-and-navy caps by Midnight Rodeo, a Kansas City band whose merch Kelce favors (his from its \"You're Not Dreaming\" line), with Taylor finishing the look in her signature red lip rather than any team gear.\n\nThe night's viral image was Taylor's startled reaction to Juan Soto's leadoff home run in the bottom of the third, a broadcast cutaway that MLB and the Yankees reposted on their own channels; TBS announcer Brian Anderson had already flagged Kelce as a \"big Cleveland fan.\" Kelce, a Cleveland Heights native, quietly pulled for the visiting Guardians \"in hostile territory,\" as he put it on New Heights, and days later defended his hometown loyalty on X after being trolled for wearing no Guardians gear. It was, per the available coverage, the couple's first MLB game together and their only reported postseason-baseball outing that October — one beat in a run of New York sporting dates that had included the Sept. 8 US Open final — with no reported early exit and no player weighing in on their presence.",
         sources: [
           {
             outlet: 'ESPN',
@@ -1054,7 +1054,7 @@ export default {
         'https://wish-media.s3.us-east-2.amazonaws.com/wp-content/2024/11/04/MAIN-PIC-ac-photo-taylor-swift-1.jpg',
       moment: {
         context:
-          'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl. Mayor Joe Hogsett proclaimed "Taylor Swift Weekend," and downtown leaned into a "Swift City" nickname — press-and-fan shorthand, not an official renaming — while roughly 81% of ticket holders came from out of state. Visit Indy anticipated a "healthy nine-figure" impact and economists floated $100M-plus, though an IU economist cautioned the true figure is essentially unknowable; read it as an estimate.\n\nEach acoustic surprise slot landed with the finality fans expected. Night 1 paired "The Albatross"/"Holy Ground" and "Cold As You"/"exile"; night 2, "The Prophecy"/"This Love" and "Maroon"/"Cowboy Like Me"; and the final U.S. night (Nov. 3), "Cornelia Street"/"The Bolter" and "Death by a Thousand Cuts"/"The Great War." From the stage that night she named it plainly — the very last U.S. show the Eras Tour would ever play.\n\nInside the building each crowd topped 69,000 and each night broke the attendance record the one before had just set, for 207,000 across the weekend — opening night alone drew 69,000, itself a Lucas Oil Stadium concert record. Indianapolis is also where the Taylor–Caitlin Clark friendship began: Clark attended, met Andrea Swift and Travis Kelce in a suite, and Taylor later sent her four bags of Eras merch with a note calling her "inspiring to watch from afar" and an invitation to a Chiefs game. After Indy, only Toronto and Vancouver remained.',
+          'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl. Mayor Joe Hogsett proclaimed "Taylor Swift Weekend," and downtown leaned into a "Swift City" nickname — press-and-fan shorthand, not an official renaming — while roughly 81% of ticket holders came from out of state. Visit Indy anticipated a "healthy nine-figure" impact and economists floated $100M-plus, though an IU economist cautioned the true figure is essentially unknowable; read it as an estimate.\n\nEach acoustic surprise slot landed with the finality fans expected. Night 1 paired "The Albatross"/"Holy Ground" and "Cold As You"/"exile"; night 2, "The Prophecy"/"This Love" and "Maroon"/"Cowboy Like Me"; and the final U.S. night (Nov. 3), "Cornelia Street"/"The Bolter" and "Death by a Thousand Cuts"/"The Great War." From the stage that night she named it plainly — the very last U.S. show the Eras Tour would ever play.\n\nInside the building each crowd topped 69,000 and each night broke the attendance record the one before had just set, for 207,000 across the weekend — opening night alone drew 69,000, itself a Lucas Oil Stadium concert record. Indianapolis is also where the Taylor–Caitlin Clark friendship first became publicly visible: Clark attended, met Andrea Swift and Travis Kelce in a suite, and Taylor later sent her four bags of Eras merch with a note calling her "inspiring to watch from afar" and an invitation to a Chiefs game. After Indy, only Toronto and Vancouver remained.',
         sources: [
           {
             outlet: 'WTHR',
@@ -1808,6 +1808,10 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): a real photo of the two
             // together at the March 17 2025 iHeartRadio Music Awards itself.
             url: 'https://i.abcnewsfe.com/a/a4f153c7-b859-4f68-81b3-31d32dde44cf/taylor-travis_1774576414070_hpMain_16x9.jpg?w=992',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // both faces sit in the upper half, Travis left-of-center and
+            // Taylor right-of-center — split the difference, bias high.
+            focalPoint: '54% 32%',
             credit: 'Kevin Mazur/Getty Images for iHeartRadio',
             caption: 'Taylor Swift and Travis Kelce together at the 2025 iHeartRadio Music Awards, March 17, 2025, where their Wembley cameo won Favorite Surprise Guest.',
             kind: 'reference',
@@ -1900,7 +1904,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg/500px-Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg',
       moment: {
         context:
-          'The pieces came from Elena Velez\'s Fall 2024 runway collection — Velez, the 2022 CFDA Emerging Designer of the Year, was raised in Milwaukee by a single mother who captained ships on the Great Lakes, and told Vogue her aim is a "more multi-dimensional representation of womanhood, good and bad."\n\nMonths after the video, the ensemble got museum treatment as one of 13 theatrically staged stops on the V&A\'s free Taylor Swift | Songbook Trail in London (July 27–Sept. 8, 2024), where the museum described it as fusing "monochromatic elements of B-movie sci-fi with a Victorian gothic aesthetic."',
+          'The pieces came from Elena Velez\'s Fall 2024 runway collection — Velez, the 2022 CFDA Emerging Designer of the Year, was raised in Milwaukee by a single mother who captained ships on the Great Lakes, and has described her aim as a "more multi-dimensional representation of womanhood, good and bad."\n\nMonths after the video, the ensemble got museum treatment as one of 13 theatrically staged stops on the V&A\'s free Taylor Swift | Songbook Trail in London (July 27–Sept. 8, 2024), where the museum described it as fusing "monochromatic elements of B-movie sci-fi with a Victorian gothic aesthetic."',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fortnight_(song)' },
           { outlet: 'V&A', url: 'https://www.vam.ac.uk/articles/va-trail-taylor-swift-songbook' },
@@ -2310,6 +2314,55 @@ export default {
       },
     },
     {
+      year: 2025,
+      month: 6,
+      // Month-level on purpose: reputable outlets disagree on the exact day
+      // (E! June 12; ABC a Friday that week), so no single day is asserted.
+      category: 'sighting',
+      title: 'A surprise afternoon at Joe DiMaggio Children\'s Hospital',
+      snippet:
+        'An unannounced visit to Joe DiMaggio Children\'s Hospital in Hollywood, Florida — signed books, hugs and selfies room to room — where one patient she met, teen cancer survivor Valentina Olivares, kept their photo as her phone wallpaper.',
+      sourceUrl:
+        'https://www.cbsnews.com/miami/news/joe-dimaggios-south-florida-cancer-survivor-taylor-swift-visit-eras-tour/',
+      thumbnailUrl: null,
+      photosReviewed:
+        'private-individual/minor redline — the only images of the visit are hospital and press-CDN frames that pair Taylor with pediatric patients (private minors); none exists on a reusable allowlisted host, so no photo is carried per privacy-redlines.md (reviewed 2026-09-05)',
+      moment: {
+        context:
+          'In June 2025, while she was in South Florida around the Stanley Cup Final, Taylor made an unannounced visit to Joe DiMaggio Children\'s Hospital in Hollywood, Florida, spending the afternoon going room to room with young patients and their families. She introduced herself, asked for hugs, handed out signed copies of her book and posed for selfies; the hospital said she "turned hospital hallways into a place of joy, comfort, and connection."\n\nAmong the patients she met was Valentina Olivares, diagnosed at 15 with a rare B-cell lymphoma found only in her spinal fluid and treated there with CAR T-cell therapy. Olivares had missed an Eras Tour date in Tampa to a fever during treatment — her care team recreated the show in her hospital room — and later attended her first concert ever, an Eras Tour night at Miami\'s Hard Rock Stadium. The selfie she took with Taylor that afternoon became, in her own words, the wallpaper on her phone.\n\nMore than a year later, a September 2026 CBS Miami retrospective for Pediatric Cancer Awareness Month caught up with her: three years past diagnosis, finished with treatment, and studying accounting at Broward College. "You are so much stronger than you think," she said. "Everything works out in the end. You just have to give it time, take one day at a time." The visit fits a year of quiet, reactive giving from Taylor — the kind that arrives without a press release and is told, when it is told at all, by the people on the receiving end. Olivares appears here only as a patient who has publicly shared her own story with the outlet that reported it.',
+        sources: [
+          {
+            outlet: 'CBS Miami',
+            url: 'https://www.cbsnews.com/miami/news/joe-dimaggios-south-florida-cancer-survivor-taylor-swift-visit-eras-tour/',
+            source_title:
+              'A South Florida cancer patient who was surprised with meeting Taylor Swift is now marking the end of her treatment',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-05',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1418750/taylor-swift-surprises-patients-at-florida-childrens-hospital',
+            source_title: 'Taylor Swift Surprises Patients at Florida Children\'s Hospital',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-05',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/taylor-swift-visits-joe-dimaggio-childrens-hospital-florida/story?id=122848133',
+            source_title: 'Taylor Swift visits Joe DiMaggio Children\'s Hospital in Florida, surprises patients',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-05',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
       // Depth audit 2026-08-12: second of the two `relationship` rows the
       // audit queued for this era (see the iHeartRadio moment above). Date
       // fixed as Tuesday June 24, 2025 by NFL.com ("Tuesday night") against
@@ -2389,6 +2442,11 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): a real still from the
             // performance itself, not just the backstage aftermath.
             url: 'https://i.ytimg.com/vi/ZgxmtNVeex8/maxresdefault.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // vertical fan-shot video letterboxed in red; the actual frame
+            // (guitar, mic, her face) sits in the center band, face upper-left
+            // of that band.
+            focalPoint: '47% 22%',
             credit: 'YouTube — "Taylor Swift - Shake It Off (with Kane Brown) (Live at TEU)"',
             caption: 'Taylor Swift performing a surprise "Shake It Off" with Kane Brown at the Tight Ends & Friends / Tight End University concert, Brooklyn Bowl Nashville, June 24, 2025.',
             kind: 'archival',
@@ -2574,6 +2632,10 @@ export default {
             // (not a raw Instagram hotlink) clears the outlet-own-CDN bar the
             // prior note above required.
             url: 'https://imagez.tmz.com/image/6c/4by3/2025/09/16/6c7d014afbfa48a9a60b29d86fbc092d_md.jpg',
+            // Focal point set 2026-08-30 (#762) by viewing: six-person group
+            // shot on a staircase; Taylor and Travis are the rightmost two,
+            // faces in the upper-fifth of the frame — bias right and high.
+            focalPoint: '68% 22%',
             credit: 'Kane Brown / Instagram, via TMZ',
             caption: 'Kane Brown\'s Instagram photo of himself with Taylor Swift and Travis Kelce at Patrick Mahomes\' 30th birthday party, September 2025.',
             kind: 'reference',
@@ -5558,6 +5620,7 @@ export default {
       month: 9,
       day: 30,
       category: 'business',
+      slug: 'ttpd-1989-diamond-certification',
       title: '1989 itself goes Diamond, joining Fearless as her second 10-million-unit album',
       snippet:
         'Certified 14x Platinum by the RIAA — crossing the 10-million-unit Diamond threshold and putting her among a small group of women, including Adele, Mariah Carey, and Whitney Houston, with a Diamond album.',
@@ -5637,7 +5700,7 @@ export default {
           postedOn: '2025-08-26',
         },
         context:
-          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Taylor used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Taylor\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Taylor in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at his home in Leawood, Kansas (over an Eagles practice weekend, his father Ed said; exact date unconfirmed). Ed Kelce misspoke the location in his first TV interview, naming Lee\'s Summit, Missouri; Kansas City\'s own NPR station, KCUR, ran a correction the next day confirming Leawood once fans geolocated the photos to Kelce\'s house. On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.\n\nHow the scene was made came out only later, when Taylor detailed it on The Graham Norton Show. Kelce staged the whole thing during the three-to-four-hour taping of the New Heights album-reveal episode — having his Leawood backyard turned into a flower-filled "secret garden" while they recorded inside, and building a wall of hedges that had not been there before, with Taylor\'s own tour photographer hidden inside them to shoot the carousel. That is why the professionally lit frames carry only the couple\'s @taylorswift/Instagram credit and no outside photographer was ever named. Per Travis\'s father, Ed Kelce, the florists who dressed the set were still finishing and had to duck into the bushes when the couple came out — so the floral architecture was a temporary installation built for the occasion, not a standing garden feature. No event designer or florist has been publicly named, but florists reading the images for the press catalogued garden roses, "Limelight" hydrangeas, delphinium, ranunculus, lilies and southern smilax draping a domed metal arbor; Kansas City florist Sarah Burch (EverWild Florals) put the flowers alone at $10,000–$15,000. The caption had its own afterlife: within hours brands were riffing on it — Pixar paired "Your English teacher and your gym teacher are getting married" with the Incredibles — and it hardened into a documented meme format, with its own Know Your Meme entry, recycled onto countless other couples.',
+          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Taylor used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Taylor\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Taylor in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at his home in Leawood, Kansas — Ed Kelce learned of it by FaceTime while attending a Philadelphia Eagles public practice that Sunday, which is the source of the "Eagles" detail; the proposal itself has no connection to the Eagles beyond his father\'s location when the couple called with the news (exact proposal date otherwise unconfirmed). Ed Kelce misspoke the location in his first TV interview, naming Lee\'s Summit, Missouri; Kansas City\'s own NPR station, KCUR, ran a correction the next day confirming Leawood once fans geolocated the photos to Kelce\'s house. On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.\n\nHow the scene was made came out only later, when Taylor detailed it on The Graham Norton Show. Kelce staged the whole thing during the three-to-four-hour taping of the New Heights album-reveal episode — having his Leawood backyard turned into a flower-filled "secret garden" while they recorded inside, and building a wall of hedges that had not been there before, with Taylor\'s own tour photographer hidden inside them to shoot the carousel. That is why the professionally lit frames carry only the couple\'s @taylorswift/Instagram credit and no outside photographer was ever named. Per Travis\'s father, Ed Kelce, the florists who dressed the set were still finishing and had to duck into the bushes when the couple came out — so the floral architecture was a temporary installation built for the occasion, not a standing garden feature. No event designer or florist has been publicly named, but florists reading the images for the press catalogued garden roses, "Limelight" hydrangeas, delphinium, ranunculus, lilies and southern smilax draping a domed metal arbor; Kansas City florist Sarah Burch (EverWild Florals) put the flowers alone at $10,000–$15,000. The caption had its own afterlife: within hours brands were riffing on it — Pixar paired "Your English teacher and your gym teacher are getting married" with the Incredibles — and it hardened into a documented meme format, with its own Know Your Meme entry, recycled onto countless other couples.',
         // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
         // own official post imagery via ABC News' stable copies (i.abcnewsfe.com),
         // credited "@taylorswift/Instagram" as ABC credits them. Instagram's own
@@ -6135,7 +6198,8 @@ export default {
           //   - Louis Vuitton "LV Isola Sandal" (exact model per WWD): every
           //     LV domain answers HTTP 403 to verification, and LV sells
           //     first-party only — no verifiable page exists from CI.
-          //   - Cartier diamond watch (a Santos Demoiselle per Esquire):
+          //   - Cartier diamond watch (a Santos Demoiselle per Esquire Australia,
+          //     https://esquire.com.au/taylor-swift-engagement-watch/):
           //     discontinued ~2014, no cartier.com product page; linking the
           //     current Panthère would be a wrong-product substitution.
           // Having any products dequeues this moment from the

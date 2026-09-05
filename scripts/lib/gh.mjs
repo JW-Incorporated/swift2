@@ -525,9 +525,19 @@ export function planRest(args, repoFallback) {
       // open/closed/all, so ask for closed and keep the merged ones. Sorting by
       // `updated` desc guarantees anything merged recently is on page 1 — a PR
       // merge is an update.
+      //
+      // `--state all` gets the SAME `updated` sort, and for the same reason
+      // (#3671/#3652). `sort=created` ranks by PR-open time, so a PR opened
+      // weeks ago and merged an hour ago sorts by its stale creation date —
+      // newer-but-still-open PRs bury it past the page/limit window and its
+      // runner reads as "never seen" even though it just shipped. Only a
+      // caller wanting PRs ranked purely by open date (none currently do)
+      // would want `created` for `all`; every existing `all` caller
+      // (Marjorie's `checkRunners` liveness feed) wants recent ACTIVITY,
+      // merges included.
       const merged = state === 'merged';
       const restState = merged ? 'closed' : state === 'all' ? 'all' : state;
-      const sort = merged ? 'updated' : 'created';
+      const sort = merged || restState === 'all' ? 'updated' : 'created';
       return {
         method: 'GET',
         path: `/repos/${repo}/pulls?state=${restState}&sort=${sort}&direction=desc&per_page=${PER_PAGE}`,
@@ -783,4 +793,98 @@ export async function gh(args, opts = {}) {
 /** True when GitHub is reachable at all — for callers that want to degrade early. */
 export async function githubReachable() {
   return Boolean((await resolveGh()) || findToken());
+}
+
+// ---------------------------------------------------------------------------
+// ghApi — a minimal authenticated GitHub REST GET for raw endpoints
+// ---------------------------------------------------------------------------
+//
+// Folded in from `scripts/marjorie/lib/gh-api.mjs` (R4, Fable 5.1 review):
+// `gh()` above translates a *gh argv* into REST via `planRest()`. Marjorie's
+// brief collectors need raw endpoints that have no `gh <noun> <verb>`
+// equivalent in that translator — `/organizations/{org}/settings/billing/usage`,
+// `/actions/runs`, `/actions/workflows` — so this is a small, separate GET
+// that returns JSON. It shares this module's `resolveGh`/`findToken`/
+// `httpsRequest` rather than re-deriving proxy-correctness itself, which is
+// the whole reason it moved here instead of staying a standalone file.
+
+export class GhApiError extends Error {
+  constructor(message, { status, path } = {}) {
+    super(message);
+    this.name = 'GhApiError';
+    this.status = status;
+    this.path = path;
+  }
+}
+
+async function ghApiDirectRequest(path, token) {
+  const res = await httpsRequest(`https://api.github.com${path}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+      accept: 'application/vnd.github+json',
+      'user-agent': 'swift2-marjorie',
+      'x-github-api-version': '2022-11-28',
+    },
+  });
+  const text = res.text ?? '';
+  if (res.status < 200 || res.status >= 300) {
+    throw new GhApiError(`GitHub REST GET ${path} → ${res.status} ${text.slice(0, 300)}`, { status: res.status, path });
+  }
+  return text ? JSON.parse(text) : null;
+}
+
+/**
+ * GET a GitHub REST path and return parsed JSON.
+ * `path` starts with a slash, e.g. `/repos/o/r/actions/runs?per_page=1`.
+ */
+export async function ghApi(path) {
+  const bin = await resolveGh();
+  if (bin) {
+    try {
+      // `gh api` inherits the CLI's auth AND its proxy handling.
+      const { stdout } = await execFileAsync(bin, ['api', path.replace(/^\//, '')], {
+        maxBuffer: 32 * 1024 * 1024,
+      });
+      return stdout ? JSON.parse(stdout) : null;
+    } catch (err) {
+      // gh prints the API body on stdout even for 4xx; surface it, don't hide it.
+      const detail = (err.stdout || err.stderr || err.message || '').toString().slice(0, 400);
+      const status = Number((detail.match(/HTTP (\d{3})/) || [])[1]) || undefined;
+      throw new GhApiError(`gh api ${path} failed: ${detail}`, { status, path });
+    }
+  }
+  const token = findToken();
+  if (!token) {
+    throw new GhApiError(
+      `No gh CLI and no GH_TOKEN/GITHUB_TOKEN, so ${path} cannot be fetched.\n` +
+      'Set GH_TOKEN in this runner (see docs/agents/runners.md).',
+      { path },
+    );
+  }
+  return ghApiDirectRequest(path, token);
+}
+
+/**
+ * Like `ghApi`, but returns `fallback` instead of throwing.
+ *
+ * Every collector that calls this is a *reporting* path: a brief that fails
+ * to render because one optional metric 404'd is worse than a brief that says
+ * "this metric is unavailable". Callers pass a fallback that renders honestly
+ * (usually `null`, which the formatters print as "unavailable"), and the
+ * reason is carried out on `.error` so the brief can name it.
+ */
+export async function ghApiSoft(path, fallback = null) {
+  try {
+    return { ok: true, data: await ghApi(path) };
+  } catch (err) {
+    // A 401 IS NOT AN OPTIONAL-METRIC FAILURE. It means this runner cannot
+    // authenticate to GitHub at all, so every other collector is about to fail
+    // the same way — and softening it renders a brief full of honest-looking
+    // "unavailable" lines that still exits 0. That is exactly the silent
+    // failure #2008 is about, so credential failures stay fatal. (403 stays
+    // soft: the repo-scoped /search ban and rate limits are real, expected,
+    // per-endpoint degradations — see #1869.)
+    if (err?.status === 401) throw err;
+    return { ok: false, data: fallback, error: err.message };
+  }
 }

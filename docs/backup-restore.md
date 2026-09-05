@@ -65,14 +65,21 @@ That is not purism: Postgres client binaries are not installed on this repo's
 dev machines or guaranteed on runners, and a backup tool you cannot run is not
 a backup tool.
 
-To take one against production (read-only, safe):
+To take one against production (read-only, safe), either run it locally:
 
 ```bash
 node scripts/backup-restore-test.mjs \
   --source "$SUPABASE_DB_URL" \
-  --target "postgres://postgres:postgres@127.0.0.1:5432/scratch?sslmode=disable" \
+  --target "postgres://postgres:***@127.0.0.1:5432/scratch?sslmode=disable" \
   --keep
 ```
+
+or, preferred — one click, no credential ever leaves GitHub Actions:
+`.github/workflows/production-backup-drill.yml` (`workflow_dispatch` from the
+Actions tab) reuses the `SUPABASE_DB_URL` secret already configured for
+`db-migrate`/`db-seed`, restores into a throwaway Postgres service container
+inside the job, and records PASS/FAIL as an alert issue + a downloadable
+report artifact. See `HUMAN-ACTIONS.md` #23 for the walkthrough.
 
 `--keep` leaves the artifact in `.backups/<timestamp>/` (gitignored). The source
 session is pinned `default_transaction_read_only=on` at the server, so this
@@ -184,9 +191,15 @@ quarter should be treated as unproven.
       absence of Supabase Free-plan backup options; the BACKUPS launch gate
       remains unresolved unless that risk is explicitly accepted or another
       backup path is evidenced.
-- [ ] **Joey (or a session Joey grants credentials to):** one real-data drill —
-      `--source "$SUPABASE_DB_URL" --target <scratch>` — before launch, logged
-      above. This is the only step that proves production's own bytes restore.
+- [ ] **Joey (or anyone with repo write access — no credential handling
+      required):** one real-data drill via
+      `.github/workflows/production-backup-drill.yml`
+      (`workflow_dispatch`) — before launch, logged above. This is the only
+      step that proves production's own bytes restore. The mechanical
+      barrier (needing `SUPABASE_DB_URL` on a local machine) is gone as of
+      this session: the workflow reuses the secret already configured for
+      `db-migrate`/`db-seed` and never exposes it to a human. See
+      `HUMAN-ACTIONS.md` #23.
 
 **2026-08-26 — access check (#680 desk pass, agent session, no product code touched):**
 Before re-asking Wyatt, checked whether either open item was actually reachable

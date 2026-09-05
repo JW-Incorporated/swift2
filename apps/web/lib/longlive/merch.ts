@@ -26,9 +26,12 @@
 
 import { CONTENT } from './content';
 import { hasRealPrimaryImage, primaryImage, type EraId, type Product } from './types';
-// Authored engine output remains JavaScript so sync scripts can write it directly.
-import { OFFICIAL } from '../../../../supabase/seed/merch/official.mjs';
-import { FAN_MADE } from '../../../../supabase/seed/merch/fanmade.mjs';
+// Generated from supabase/seed/merch/{official,fanmade}.mjs by
+// scripts/sync-longlive-merch.mjs (Fable 5.1 architecture review, R11) — the
+// same generated-file pattern as the other vault modules in this directory.
+// Do not import supabase/seed/** directly from app code; regenerate instead
+// (`npm run sync:content` / `npm run check:generated`).
+import { OFFICIAL, FAN_MADE } from './merch.generated';
 
 export type MerchCategory = 'shop-the-look' | 'official-store' | 'fan-made';
 
@@ -50,19 +53,36 @@ export interface MerchItem extends Product {
   discoveredAt?: string;
   /**
    * True when this item has no product photo of its own (`imageUrl` unset)
-   * AND an earlier product from the SAME source moment already claimed that
-   * moment's real photo as its card image. Without this flag, 2+ different
-   * products matched to one moment (e.g. dress/shoes/clutch all "seen on"
-   * the same photo of Taylor) would each independently render that
+   * AND an earlier product — from the SAME source moment (fix/merch-image-
+   * buy-link, PR #3569) or, as of kanban task t_cfd48d66, a DIFFERENT
+   * moment that cites the identical underlying photo URL — already claimed
+   * that photo as its card image. Without this flag, 2+ different products
+   * matched to one moment (e.g. dress/shoes/clutch all "seen on" the same
+   * photo of Taylor), or two unrelated moments whose content happens to
+   * cite the same wire photo, would each independently render that
    * identical photo — reading as duplicate cards of the same item (founder
-   * feedback, kanban task t_49a63ae1). The E6 matcher output carries no
-   * per-item "as-worn" photo today (`scripts/merch-engine/match-moments.mjs`
-   * has no such field), so there is no real alternate photo to substitute —
-   * `merchItemImage()` (merch-filters.ts) falls back to the honest monogram
-   * tile for every item after the first, rather than repeat the photo or
-   * fabricate a substitute. Set once, deterministically, in
-   * `shopTheLookItems()` below, in the matcher's own best-first product
-   * order — never recomputed per-view, so it stays stable across filters.
+   * feedback, kanban tasks t_49a63ae1 and t_cfd48d66). The E6 matcher
+   * output carries no per-item "as-worn" photo today
+   * (`scripts/merch-engine/match-moments.mjs` has no such field), so there
+   * is no real alternate photo to substitute — `merchItemImage()`
+   * (merch-filters.ts) falls back to the honest monogram tile for every
+   * item after the first, rather than repeat the photo or fabricate a
+   * substitute. Set once, deterministically, in `shopTheLookItemsFrom()`
+   * below, in CONTENT's own order — never recomputed per filtered/paginated
+   * view.
+   *
+   * KNOWN, ACCEPTED TRADE-OFF (inherited unchanged from PR #3569, not new
+   * here): because the flag is computed once over the FULL catalogue, a
+   * filter/pagination view that hides the claiming (earlier) card can
+   * leave the later card demoted to a monogram even though its own claimant
+   * is no longer visible in that view. This mirrors the original within-
+   * moment case exactly (a filter could already hide one product from a
+   * moment while showing another) — the fix here extends the SAME accepted
+   * behavior across moment boundaries rather than introducing a new one.
+   * Recomputing per rendered view would require moving this logic into the
+   * filtered/paginated render path (a hook, not this static catalogue
+   * builder) — a larger, separately-scoped change; the review record for
+   * this call is documented in kanban task t_cfd48d66.
    */
   demoteSharedMomentPhoto?: boolean;
 }
@@ -73,7 +93,36 @@ export interface MerchCatalogue {
   fanMade: readonly MerchItem[];
 }
 
-function shopTheLookItems(): MerchItem[] {
+/**
+ * Minimal shape shopTheLookItemsFrom() needs from a moment — deliberately
+ * NOT the full ContentItem, so this can be exercised directly with tiny
+ * fixtures in tests (no need to fabricate a whole real moment's worth of
+ * required fields, and no risk of the fixture accidentally matching a real
+ * production moment's shape).
+ */
+export interface MomentPhotoInput {
+  id: string;
+  eraId: EraId;
+  slug?: string;
+  title: string;
+  /** The moment's real primary photo URL, or undefined if it has none
+   *  (mirrors `hasRealPrimaryImage(moment) ? primaryImage(moment) : undefined`). */
+  momentPhotoUrl: string | undefined;
+  products: readonly Product[];
+}
+
+/**
+ * The claim-and-demote core of shopTheLookItems(), extracted so it can be
+ * unit-tested directly against small fixtures rather than only indirectly
+ * through the real (718-moment) production CONTENT vault — see
+ * merch.test.ts's "demotes a product whose moment photo is claimed by an
+ * EARLIER SPLIT CARD from a different moment" test, which exercises the
+ * exact split-card-claims-first scenario that caused kanban task
+ * t_cfd48d66: a product's own imageUrl produces a 'split' card
+ * (merchItemImage()) whose moment half still renders the shared photo, so
+ * it must count as a claim even though the product itself is never demoted.
+ */
+export function shopTheLookItemsFrom(moments: readonly MomentPhotoInput[]): MerchItem[] {
   const items: MerchItem[] = [];
   // Claimed moment-photo URLs, tracked GLOBALLY across every moment in this
   // one pass — not reset per moment. A per-moment scope only caught 2+
@@ -88,12 +137,8 @@ function shopTheLookItems(): MerchItem[] {
   // still renders normally as that moment's hero everywhere else; only its
   // reuse as a SECOND shop-the-look product card image is demoted.
   const claimedMomentPhotoUrls = new Set<string>();
-  for (const moment of CONTENT) {
-    // Whether this moment even HAS a real (non-era-art) photo to share in
-    // the first place — only relevant when deciding whether a later
-    // product without its own imageUrl would otherwise repeat it.
-    const momentHasRealPhoto = hasRealPrimaryImage(moment);
-    const momentPhotoUrl = momentHasRealPhoto ? primaryImage(moment) : undefined;
+  for (const moment of moments) {
+    const momentPhotoUrl = moment.momentPhotoUrl;
     for (const product of moment.products ?? []) {
       // Whether THIS product's card would put the moment photo on screen at
       // all — either alone (merchItemImage()'s 'moment' kind, no product
@@ -131,6 +176,19 @@ function shopTheLookItems(): MerchItem[] {
     }
   }
   return items;
+}
+
+function shopTheLookItems(): MerchItem[] {
+  return shopTheLookItemsFrom(
+    CONTENT.map((moment) => ({
+      id: moment.id,
+      eraId: moment.eraId,
+      slug: moment.slug,
+      title: moment.title,
+      momentPhotoUrl: hasRealPrimaryImage(moment) ? primaryImage(moment) : undefined,
+      products: moment.products ?? [],
+    })),
+  );
 }
 
 const MERCH_KINDS: ReadonlySet<NonNullable<Product['kind']>> = new Set([

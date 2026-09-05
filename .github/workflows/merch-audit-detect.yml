@@ -41,7 +41,7 @@ jobs:
       # Detection only restores and reads the score cache authoring keeps
       # renewing below (never writes it) so a fixed pinned key can never go
       # stale: the newest key matching the prefix always wins (#3447 P1).
-      - uses: actions/cache/restore@v5
+      - uses: actions/cache/restore@v6
         with:
           path: .cache/merch-audit-scores.json
           # Keyed on the literal `main` (matches merch-audit-authoring.yml's
@@ -56,7 +56,7 @@ jobs:
         run: npx tsx scripts/merch-engine/audit-matches.mjs --detect --cache .cache/merch-audit-scores.json --write-queue .artifacts/merch-audit-queue.json
       - name: Upload scoring queue
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: merch-audit-queue
           path: .artifacts/merch-audit-queue.json

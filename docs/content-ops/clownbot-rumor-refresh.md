@@ -1,7 +1,10 @@
 # Clownbot — the rumor/lore file and how it gets refreshed
 
-**Status:** v2, 2026-08-24. Owner: the scheduled Rumor Desk lane.
-Source of truth for the file itself: `apps/web/lib/longlive/clownbot-lore.ts`.
+**Status:** v3, 2026-09-04. Owner: the scheduled Rumor Desk lane.
+Authoring source: `supabase/seed/clownbot-lore/clownbot-lore.mjs`.
+Built artifact the app reads: `apps/web/lib/longlive/clownbot-lore.ts`
+(hand-authored helpers) + `clownbot-lore.generated.ts` (produced from the seed
+by `scripts/sync-clownbot-lore.mjs`, wired into `npm run sync:content`).
 Binding above this doc: `docs/content-ops/privacy-redlines.md`.
 
 ## Why this file exists separately from the Vault
@@ -9,16 +12,40 @@ Binding above this doc: `docs/content-ops/privacy-redlines.md`.
 The Vault is ~733 dated, sourced moments — stable, past-tense, slow-moving.
 Clownbot also needs the **live** layer: what the fandom is arguing about this
 week. That is a different shape (short-lived, status-tagged, expires) and a
-different risk profile, so it lives in its own small hand-curated file rather
-than being smuggled into the seed corpus.
+different risk profile, so it lives in its own small seed file rather than
+being smuggled into the Vault seed corpus.
+
+## Where to edit it (READ THIS FIRST)
+
+**Edit `supabase/seed/clownbot-lore/clownbot-lore.mjs`. Never hand-edit
+`apps/web/lib/longlive/clownbot-lore.generated.ts`** — it is a build artifact,
+same as `theories.generated.ts` or `era-secrets.generated.ts`, and
+`npm run check:generated` fails CI if it drifts from the seed.
+`apps/web/lib/longlive/clownbot-lore.ts` (no `.generated`) is the small
+hand-authored helpers module (`loreById`, `daysBetween`, `loreFreshness`) that
+imports the generated data — it is legitimate app code, but it has no lore
+content in it to edit; adding or changing an item always means editing the
+seed file and re-running `npm run sync:content`.
+
+This is v3 of this doc (Fable ruling FR-t_2745eb60-1, issue #3515,
+2026-09-04): through v2, the lane edited `clownbot-lore.ts` directly, which
+put unattended, judgment-heavy content editing straight onto runtime app
+source — a hard-limit violation once that got noticed. The ruling adopted
+Position A: move the editing surface into a seed file inside the existing
+seed-only Vault Run lane, generating the runtime artifact the same way the
+two other generated-vault-file exceptions already work. The sourcing rigor,
+the schema, and the one rule below are all unchanged — only where you type
+the edit changed.
 
 ## The one rule
 
 **No source, no ship.** Every item carries at least one named outlet and a real
-`https` URL, plus a real date. This is enforced by `clownbot-lore.test.ts`,
-which fails the build on a missing or malformed source, a bad date, a duplicate
-id, or anything that looks like street-level location detail. A fabricated
-rumor is the single failure this feature cannot survive.
+`https` URL, plus a real date. This is enforced by `scripts/sync-clownbot-lore.mjs`
+(drops any item missing a real source, same as every sibling generator) and
+again by `clownbot-lore.test.ts`, which fails the build on a missing or
+malformed source, a bad date, a duplicate id, or anything that looks like
+street-level location detail. A fabricated rumor is the single failure this
+feature cannot survive.
 
 Corollary: **if we cannot source it, we ship the file without it.** At v1 this
 meant deliberately dropping two otherwise attractive items — an aggregated
@@ -27,6 +54,9 @@ banned outright by the redlines) and an unsourced "erased writing in the promo
 says June 13" theory (no named outlet). The empty slot is the honest outcome.
 
 ## Schema
+
+The authoring shape in the seed file matches the `LoreItem` type
+(`apps/web/lib/longlive/types.ts`) that the generator emits:
 
 ```ts
 interface LoreItem {
@@ -43,6 +73,12 @@ interface LoreItem {
   tags?: string[];
 }
 ```
+
+The seed file's top-level export is `{ updatedOn: 'YYYY-MM-DD', items: [...] }`
+— `updatedOn` becomes `LORE_UPDATED_ON` after sync. An item the generator
+can't validate (missing id/headline/detail/dates, unknown `status`, or zero
+real `https` sources) is silently dropped from the build, exactly like a bad
+row in any other seed file — never shipped malformed.
 
 ### What each status means
 
@@ -81,7 +117,8 @@ updates and for being honest when it has not had one.
 - **Same-day** when something breaks (an announcement, a countdown, a denial).
 - **Weekly sweep** minimum: walk every `rumor` / `reported` item, re-check it,
   and bump `lastCheckedOn` whether or not the status changed.
-- Bump `LORE_UPDATED_ON` on **every** sweep. It is shown to the reader.
+- Bump `updatedOn` in the seed file on **every** sweep (becomes `LORE_UPDATED_ON`
+  after `npm run sync:content`). It is shown to the reader.
 
 ### The steps
 
@@ -95,7 +132,8 @@ updates and for being honest when it has not had one.
 4. **Add new items** — status-tagged, sourced, dated, redline-checked *before*
    writing, not after.
 5. **Write prompts** for anything prompt-worthy (rule below).
-6. **Bump `LORE_UPDATED_ON`**, run `npm test`, open a PR.
+6. **Bump `updatedOn`** in the seed file, run `npm run sync:content` to
+   regenerate `clownbot-lore.generated.ts`, run `npm test`, open a PR.
 
 ### Compile it with a strong model, not the chat model
 

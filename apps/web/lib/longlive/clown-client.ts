@@ -34,8 +34,14 @@
  */
 
 import type { ClownDoc } from './clown-index';
-import type { ClownUsage } from './clown-usage';
+import { CLOWN_DAILY_CAP, CLOWN_GLOBAL_SCOPE, type ClownUsage } from './clown-usage';
+import { reserveGlobalUsage } from './usage-db-gate';
 import { CLOWN_SYSTEM_PROMPT, CLOWN_TAKE_TOOL } from './clown-client-prompt';
+import {
+  callAnthropicMessages as sharedCallAnthropicMessages,
+  extractToolUseInput,
+  ANTHROPIC_VERSION as SHARED_ANTHROPIC_VERSION,
+} from '@swift2/shared/llm/anthropic-messages';
 
 /**
  * PENDING WYATT'S RATIFICATION — see header. Matches `mood-client.ts`'s
@@ -57,7 +63,7 @@ const CLOWN_MODEL_DISABLED_ENV = 'CLOWN_MODEL_DISABLED';
 
 /** Exported so `clown-agent.ts` (PLAN.md Stage 10) can build its own request
  * bodies against the same wire contract without a second constant. */
-export const ANTHROPIC_VERSION = '2023-06-01';
+export const ANTHROPIC_VERSION = SHARED_ANTHROPIC_VERSION;
 export const MAX_TOKENS = 1_024;
 // Slightly higher than Mood Chat's 8s — this call composes prose across up
 // to MAX_TRANSCRIPT_TURNS turns, not a single short vector classification.
@@ -138,14 +144,7 @@ export function sanitizeTake(input: unknown): ClownTake {
 }
 
 function extractToolInput(body: unknown): unknown | null {
-  const content = (body as { content?: unknown })?.content;
-  if (!Array.isArray(content)) return null;
-  for (const block of content) {
-    if (block && typeof block === 'object' && (block as { type?: string }).type === 'tool_use') {
-      return (block as { input?: unknown }).input ?? {};
-    }
-  }
-  return null;
+  return extractToolUseInput(body, { fallback: {} });
 }
 
 /** Trim a doc's searchable haystack to one citable line, same discipline as
@@ -194,28 +193,22 @@ function buildMessages(transcript: readonly ClownTurn[], docs: readonly ClownDoc
 
 /** Anthropic `usage` block, normalised to camelCase — same field either
  * caller needs: `askClown` ignores it, `clown-agent.ts`'s loop sums it
- * toward its own token budget. */
-export interface AnthropicCallUsage {
-  inputTokens: number;
-  outputTokens: number;
-}
-
-export interface AnthropicCallResult {
-  /** The full parsed response body — the caller extracts what it needs
-   * (`extractToolInput` here; `clown-agent.ts` also reads `stop_reason`). */
-  raw: unknown;
-  usage: AnthropicCallUsage;
-}
+ * toward its own token budget. Re-exported from the shared client so
+ * existing importers of `AnthropicCallUsage`/`AnthropicCallResult` from
+ * this module are unaffected by the R3 migration. */
+export type { AnthropicCallUsage, AnthropicCallResult } from '@swift2/shared/llm/anthropic-messages';
 
 /**
  * THE shared wire primitive — one POST to the Messages API, timeout +
  * abort, no retry (callers own their own retry policy; `attempt` below
- * keeps `askClown`'s existing one-retry behaviour). Exported so
- * `clown-agent.ts`'s multi-turn tool loop sends requests through the exact
- * same transport (headers, endpoint, timeout) rather than standing up a
- * second model client — PLAN.md Stage 10's "don't add a new model client."
- * Pulled out of `attempt` below as a pure extraction: `askClown`'s own
- * request shape and behaviour are unchanged.
+ * keeps `askClown`'s existing one-retry behaviour). Delegates to
+ * `@swift2/shared`'s `callAnthropicMessages` (R3 migration) so every
+ * Anthropic Messages caller in the repo shares one transport (headers,
+ * endpoint, timeout/abort wiring, usage parsing) rather than each hand-
+ * rolling its own `fetch()` — including `clown-agent.ts`'s multi-turn tool
+ * loop, per PLAN.md Stage 10's "don't add a new model client." Re-exported
+ * under this module's original name/signature so existing callers and
+ * tests are unaffected by the migration.
  */
 /**
  * `signal` (Codex review BLOCKER 2, Clownbot agent loop) lets a caller with
@@ -232,35 +225,12 @@ export async function callAnthropicMessages(
   body: Record<string, unknown>,
   timeoutMs: number = REQUEST_TIMEOUT_MS,
   signal?: AbortSignal,
-): Promise<AnthropicCallResult> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  const onExternalAbort = () => controller.abort();
-  if (signal) {
-    if (signal.aborted) controller.abort();
-    else signal.addEventListener('abort', onExternalAbort);
-  }
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      signal: controller.signal,
-      headers: {
-        'x-api-key': apiKey,
-        'anthropic-version': ANTHROPIC_VERSION,
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
-    if (!res.ok) throw new Error(`anthropic call failed (${res.status})`);
-    const json = await res.json();
-    const rawUsage = (json as { usage?: { input_tokens?: unknown; output_tokens?: unknown } } | null)?.usage;
-    const inputTokens = typeof rawUsage?.input_tokens === 'number' ? rawUsage.input_tokens : 0;
-    const outputTokens = typeof rawUsage?.output_tokens === 'number' ? rawUsage.output_tokens : 0;
-    return { raw: json, usage: { inputTokens, outputTokens } };
-  } finally {
-    clearTimeout(timer);
-    signal?.removeEventListener('abort', onExternalAbort);
-  }
+): Promise<import('@swift2/shared/llm/anthropic-messages').AnthropicCallResult> {
+  return sharedCallAnthropicMessages(apiKey, body, {
+    timeoutMs,
+    signal,
+    errorLabel: 'anthropic call',
+  });
 }
 
 async function attempt(apiKey: string, messages: readonly WireMessage[]): Promise<ClownTake> {
@@ -314,7 +284,7 @@ export async function askClown(
   const capped = transcript.slice(-MAX_TRANSCRIPT_TURNS);
   if (capped.length === 0 || capped[capped.length - 1].role !== 'user') return null;
 
-  if (!usage.reserve()) return null;
+  if (!(await reserveGlobalUsage(usage, CLOWN_GLOBAL_SCOPE, CLOWN_DAILY_CAP))) return null;
 
   const messages = buildMessages(capped, docs);
 

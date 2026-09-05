@@ -1,10 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { CONTENT, getContentItem } from './content';
-import { MERCH_CATALOGUE, merchProductJsonLd, newDrops, type MerchItem } from './merch';
+import {
+  MERCH_CATALOGUE,
+  merchProductJsonLd,
+  newDrops,
+  shopTheLookItemsFrom,
+  type MerchItem,
+} from './merch';
 import { primaryImage } from './types';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore — Seed modules intentionally remain plain ESM.
-import { FAN_MADE } from '../../../../supabase/seed/merch/fanmade.mjs';
+import { FAN_MADE } from './merch.generated';
 
 // Mirrors merch.ts's private MERCH_KINDS set (the normalization target for
 // every catalogue item's `kind`) — kept in sync deliberately rather than
@@ -152,6 +156,81 @@ describe('MERCH_CATALOGUE.shopTheLook demoteSharedMomentPhoto', () => {
         claimedByOtherMoment.set(url, momentId);
       }
     }
+  });
+
+  // Codex review (kanban task t_cfd48d66, round 1): the catalogue-walking
+  // test above only ever inspects no-imageUrl items, so it can't tell a
+  // split card apart from a moment with no photo at all — it would still
+  // pass if shopTheLookItemsFrom() reverted to per-moment-only tracking,
+  // as long as no OTHER product happened to be unflagged-and-no-image for
+  // the same URL. This test builds the exact reproducing fixture directly
+  // and asserts the SPECIFIC mechanism: an earlier moment's product with
+  // its OWN imageUrl (which renders as a 'split' card, moment half still
+  // showing the shared photo) must still claim that photo URL, so a LATER
+  // moment's no-imageUrl product sharing the same URL gets demoted.
+  // Reverting to per-moment (or momentId-keyed) tracking fails this test.
+  it('demotes a product whose moment photo is claimed by an EARLIER SPLIT CARD from a different moment', () => {
+    const sharedUrl = 'https://example.test/shared-wire-photo.jpg';
+    const wardrobeProduct = {
+      brand: 'Test Designer',
+      item: 'Test Dress',
+      retailer: 'test.com',
+      url: 'https://test.com/dress',
+      imageUrl: 'https://example.test/dress-product-photo.jpg', // has its own photo -> renders split
+    };
+    const haircutProduct = {
+      brand: 'Test Brand',
+      item: 'Test Hair Product',
+      retailer: 'test.com',
+      url: 'https://test.com/hair',
+      // no imageUrl -> falls back to the moment photo (or gets demoted)
+    };
+    const items = shopTheLookItemsFrom([
+      {
+        id: 'moment-wardrobe',
+        eraId: '1989',
+        title: 'Wardrobe moment',
+        momentPhotoUrl: sharedUrl,
+        products: [wardrobeProduct],
+      },
+      {
+        id: 'moment-haircut',
+        eraId: '1989',
+        title: 'Haircut moment',
+        momentPhotoUrl: sharedUrl,
+        products: [haircutProduct],
+      },
+    ]);
+    expect(items).toHaveLength(2);
+    const wardrobeItem = items.find((i) => i.url === wardrobeProduct.url)!;
+    const haircutItem = items.find((i) => i.url === haircutProduct.url)!;
+    // The split card's own product is never demoted — it has its own photo.
+    expect(wardrobeItem.demoteSharedMomentPhoto).toBeFalsy();
+    // The later, different-moment product sharing the same photo URL IS
+    // demoted, even though it's the first (and only) product in ITS moment
+    // — proving the claim crossed moment boundaries via the URL, not via
+    // momentId or position-within-moment.
+    expect(haircutItem.demoteSharedMomentPhoto).toBe(true);
+  });
+
+  it('a genuinely different photo URL across two moments is never demoted', () => {
+    const items = shopTheLookItemsFrom([
+      {
+        id: 'moment-a',
+        eraId: '1989',
+        title: 'Moment A',
+        momentPhotoUrl: 'https://example.test/photo-a.jpg',
+        products: [{ brand: 'B', item: 'A', retailer: 'test.com', url: 'https://test.com/a' }],
+      },
+      {
+        id: 'moment-b',
+        eraId: '1989',
+        title: 'Moment B',
+        momentPhotoUrl: 'https://example.test/photo-b.jpg',
+        products: [{ brand: 'B', item: 'B', retailer: 'test.com', url: 'https://test.com/b' }],
+      },
+    ]);
+    expect(items.every((i) => !i.demoteSharedMomentPhoto)).toBe(true);
   });
 });
 

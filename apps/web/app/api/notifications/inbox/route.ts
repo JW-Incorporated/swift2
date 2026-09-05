@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { getInboxEvents } from '@swift2/core';
+import { trustedClientIp } from '../../../../lib/longlive/client-ip';
+import { makeRateLimiter } from '../../../../lib/longlive/rate-limit';
+import { supabaseAdmin } from '../../../../lib/supabase-server';
 
 // Notifications Phase 3 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §8) —
 // GET /api/notifications/inbox. Same SERVICE-ROLE-ONLY posture as every
@@ -13,32 +15,14 @@ import { getInboxEvents } from '@swift2/core';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-function supabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
-
-const HITS = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 30;
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 30 });
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 export async function GET(req: Request): Promise<Response> {
-  const ip =
-    req.headers.get('x-real-ip')?.trim() ||
-    req.headers.get('x-forwarded-for')?.split(',').pop()?.trim() ||
-    'unknown';
+  const ip = trustedClientIp(req);
   if (rateLimited(ip)) {
     return NextResponse.json({ error: 'Please try again in a minute.' }, { status: 429 });
   }

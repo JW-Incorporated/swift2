@@ -1,12 +1,11 @@
 import http from 'node:http';
 import net from 'node:net';
 import type { AddressInfo } from 'node:net';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
-  applyPostFilters, fetchIsProxyAware, httpsRequest, maxPagesFor, planRest,
-  proxyForHost, resetPageCapWarnings, rest, shapeHit,
+  applyPostFilters, fetchIsProxyAware, ghApi, httpsRequest, maxPagesFor, planRest,
+  proxyForHost, resetGhResolution, resetPageCapWarnings, rest, shapeHit,
 } from './gh.mjs';
-
 // These cover the REST fallback's argv→request translation, which is the part
 // that silently does the wrong thing if it's wrong. The failure mode we're
 // guarding against is a run that reports success while filing nothing —
@@ -79,6 +78,20 @@ describe('planRest — pr list is repo-scoped (#1869)', () => {
     expect(qs(p.path).get('direction')).toBe('desc');
     expect(p.postFilter).toContain('mergedOnly');
     expect(p.sortBy).toBe('mergedAt');
+  });
+
+  it('sorts --state all by `updated`, not `created` (#3671/#3652)', () => {
+    // Marjorie's `allPRs` liveness feed asks for `--state all`. Sorting by
+    // `created` ranks a PR by when it was OPENED, so a PR opened weeks ago
+    // and merged an hour ago sorts behind every PR opened more recently —
+    // pushing it past the page/limit window and reading its runner as
+    // "never seen" on the very day it shipped. `updated` keeps recently
+    // merged/active PRs on page 1 regardless of how old the branch is.
+    const p = planRest(['pr', 'list', '--repo', REPO, '--state', 'all', '--limit', '100', '--json', 'number,title,createdAt,mergedAt,headRefName'], REPO);
+    expect(p.path).not.toContain('/search');
+    expect(qs(p.path).get('state')).toBe('all');
+    expect(qs(p.path).get('sort')).toBe('updated');
+    expect(qs(p.path).get('direction')).toBe('desc');
   });
 
   it('keeps only merged PRs, newest merge first, capped at --limit', () => {
@@ -453,4 +466,24 @@ describe('a stalled request is destroyed, not merely abandoned (#2034)', () => {
     for (const s of sockets) s.destroy();
     await new Promise<void>((r) => dead.close(() => r()));
   }, 15_000);
+});
+
+describe('ghApiSoft — a credential failure is never "this metric is unavailable" (#2008)', () => {
+  // ghApi's REST fallback needs no gh binary and no token to exercise its
+  // error path deterministically, with no network or module-internal mocking.
+  beforeEach(() => resetGhResolution());
+  afterEach(() => resetGhResolution());
+
+  it('throws a named GhApiError when neither gh nor a token is available', async () => {
+    const saved = { ...process.env };
+    delete process.env.GH_TOKEN;
+    delete process.env.GITHUB_TOKEN;
+    try {
+      // Force resolveGh() to report absent by pointing PATH somewhere empty.
+      process.env.PATH = '';
+      await expect(ghApi('/repos/o/r')).rejects.toMatchObject({ name: 'GhApiError' });
+    } finally {
+      process.env = saved;
+    }
+  });
 });

@@ -57,7 +57,9 @@ import {
 } from './lib/rumor-redlines.mjs';
 import { PHOTO_HOST_LEGACY, hostOf as photoHostOf } from './lib/photo-host-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
+import { runMain } from './lib/cli.mjs';
 
+async function main() {
 const here = dirname(fileURLToPath(import.meta.url));
 const seed = join(here, '..', 'supabase', 'seed');
 
@@ -427,6 +429,14 @@ for (const { file, data } of loaded) {
         `significance "${it.significance}" not in ${[...SIGNIFICANCE_VALUES].join('|')} — a typo here silently loses the item's prominence`,
       );
     }
+
+    // photosReviewed (OPTIONAL, 2026-09-05, #762 top-of-feed checker): a
+    // deliberate editorial no-photo decision (privacy redline, no verifiable
+    // image, etc.), recorded on the item so content.top-of-feed-photo (the
+    // deterministic checker) and any human reader both recognize it as
+    // reviewed instead of re-flagging it as an oversight every run.
+    if (it.photosReviewed != null && !(typeof it.photosReviewed === 'string' && it.photosReviewed.trim()))
+      err('photosReviewed must be a non-empty string reason when present');
 
     // Rumor tier (2026-07-19). The sync script drops anything malformed
     // (fail-closed: an unattributed rumor never renders), so every drop
@@ -899,4 +909,7 @@ for (const file of trackFiles) {
 }
 
 console.log(`\nvalidated ${checked} content item(s) — ${errors} error(s), ${warnings} warning(s)`);
-if (errors > 0) process.exit(1);
+if (errors > 0) return 1;
+}
+
+runMain(main, { name: 'validate-content' });

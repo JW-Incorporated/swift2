@@ -444,7 +444,7 @@ jobs:
           # already documents for itself.
           branch_ok=0
           case "${HEAD_REF:-}" in
-            content-shift/*|vault/*|growth/*|tree/*|depth/answerer-*|content/rumor-desk-*|content/stylist-*|social-poster/state-*|appearance-discovery/*|merch-revenue/*|merch-official-sync/*|merch-audit-authoring/*|fix/karen-tickets|kevin/user-fixes)
+            content-shift/*|vault/*|growth/*|tree/*|depth/answerer-*|content/rumor-desk-*|content/stylist-*|social-poster/state-*|appearance-discovery/*|merch-revenue/*|merch-official-sync/*|merch-audit-authoring/*|claude/pensive-galileo-*|fix/karen-tickets|kevin/user-fixes)
               branch_ok=1 ;;
           esac
           author_ok=0

@@ -33,6 +33,7 @@ import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { gh } from './lib/gh.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(ROOT, 'docs', 'audits', 'fleet-telemetry');
@@ -223,8 +224,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error('fleet-telemetry-snapshot:', err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'fleet-telemetry-snapshot' });
 }

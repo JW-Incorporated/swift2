@@ -1,22 +1,18 @@
-// Swift2 Vault — native reader root.
-// Loads the Tier 0 skeleton through @swift2/core (the SAME data layer the web
-// app uses) and hands it to the era navigator. View code only lives here; all
-// domain logic is in @swift2/shared (architecture.md hard boundary).
+// LongLive — native root.
 //
-// SAFE AREA (2026-08-30). This file used to import `SafeAreaView` from
-// `react-native`. That component is iOS-only — on Android it renders as a plain
-// View and insets NOTHING. Since SDK 54 Expo draws Android edge-to-edge, so the
-// app's first row of chrome (the EraTimeline scrubber strip) rendered UNDER the
-// status bar: its era segments sat at y=71–97 while the status-bar window
-// swallowed every touch down to y=128, making tap-to-jump completely dead on
-// Android. Dragging still worked, so screenshots looked fine.
+// Decision 2026-09-05 (docs/decisions.md): the app shows the shipped website
+// (www.longlivets.com) inside a WebView — see components/SiteShell.tsx — and
+// keeps the natively-built notification surface around it. The native Vault
+// navigator (components/VaultNavigator.tsx, fed by lib/vault.ts) is no longer
+// mounted; it remains in the tree as the long-term native port target.
 //
-// The fix is the standard Expo one: `react-native-safe-area-context`, whose
-// SafeAreaView reads the real window insets on both platforms. The provider
-// must wrap everything that consumes insets; `initialWindowMetrics` seeds it
-// synchronously so the first frame is already inset (no visible reflow).
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
+// SAFE AREA (2026-08-30). `SafeAreaView` from `react-native` is iOS-only — on
+// Android it insets nothing, so chrome rendered under the status bar and
+// swallowed taps. `react-native-safe-area-context` reads real window insets
+// on both platforms; `initialWindowMetrics` seeds it synchronously so the
+// first frame is already inset.
+import { useCallback, useEffect, useState } from 'react';
+import { Pressable, StyleSheet, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -24,72 +20,91 @@ import {
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import type { VaultSkeleton } from '@swift2/core';
-import { loadSkeleton } from './lib/vault';
+import * as Notifications from 'expo-notifications';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
-import { VaultNavigator } from './components/VaultNavigator';
+import { SITE_URL, SiteShell } from './components/SiteShell';
 import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 
+const SITE_HOSTS = new Set(['www.longlivets.com', 'longlivets.com']);
+
+/**
+ * Where a notification (tap or inbox row) should take the user. The backend
+ * emits full www.longlivets.com URLs as deep links (packages/core
+ * notification-*.ts), so the site does the routing; the two special cases
+ * are the native screens. Anything else lands on the site's front door.
+ */
+type Destination = { kind: 'web'; url: string } | { kind: 'settings' } | { kind: 'inbox' };
+
+export function destinationFor(rawUrl: string | null | undefined): Destination {
+  if (!rawUrl) return { kind: 'web', url: SITE_URL };
+  try {
+    const u = new URL(rawUrl);
+    if (!SITE_HOSTS.has(u.hostname) && u.origin !== SITE_URL) return { kind: 'web', url: SITE_URL };
+    if (u.searchParams.get('screen') === 'settings') return { kind: 'settings' };
+    if (u.searchParams.get('current') === 'inbox') return { kind: 'inbox' };
+    return { kind: 'web', url: rawUrl };
+  } catch {
+    return { kind: 'web', url: SITE_URL };
+  }
+}
+
 export default function App() {
-  const [skeleton, setSkeleton] = useState<VaultSkeleton | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  // Notifications Phase 1 (spec §8: "persistent bell icon in the app header
-  // on every screen → Notification Settings"). No navigation library is
-  // wired up in this app yet (App.tsx renders one screen at a time), so the
-  // settings screen is a full-bleed overlay toggled by local state rather
-  // than a route — same reachability guarantee (≤1 tap from anywhere), no
-  // new dependency.
+  // The page the shell shows. Deep links replace it; the WebView keeps its
+  // own back history for in-site navigation.
+  const [webUrl, setWebUrl] = useState(SITE_URL);
+  // Notifications Phase 1 (spec §8): the bell is reachable from every screen
+  // → Notification Settings. App.tsx renders one screen at a time, so the
+  // native screens are full-bleed overlays toggled by local state.
   const [notificationSettingsOpen, setNotificationSettingsOpen] = useState(false);
-  // Notifications Phase 3 (spec §8): the global in-app inbox, reachable
-  // from the settings screen's "Inbox" link (see onOpenInbox below).
   const [inboxOpen, setInboxOpen] = useState(false);
-  // Notifications Phase 2 (spec §7): the pre-permission onboarding screen,
-  // shown at the VALUE MOMENT of the user first tapping the bell — that tap
-  // already signals "I care about notifications", and it's the same
-  // reachability point Phase 1 built, so no new UI surface is needed to
-  // find the trigger. Shown at most once per install (onboarding-state.ts).
+  // Phase 2 (spec §7): the pre-permission onboarding screen, shown at most
+  // once per install, at the value moment of the first bell tap.
   const [onboardingOpen, setOnboardingOpen] = useState(false);
 
-  useEffect(() => {
-    let alive = true;
-    loadSkeleton()
-      .then((s) => alive && setSkeleton(s))
-      .catch((e) => alive && setError(e instanceof Error ? e.message : String(e)));
-    return () => {
-      alive = false;
-    };
+  const go = useCallback((dest: Destination) => {
+    setNotificationSettingsOpen(false);
+    setInboxOpen(false);
+    setOnboardingOpen(false);
+    if (dest.kind === 'settings') setNotificationSettingsOpen(true);
+    else if (dest.kind === 'inbox') setInboxOpen(true);
+    else setWebUrl(dest.url);
   }, []);
 
   useEffect(() => {
-    // Notifications Phase 0: register (or refresh) this device's row on
-    // every cold start — WITHOUT ever asking for notification permission
-    // here (spec §7: never fire the OS dialog cold on first launch; that ask
-    // is Phase 2's pre-permission onboarding screen, gated on a value
-    // moment). Failures here are non-fatal to the app — logged, never
-    // surfaced as a blocking error.
+    // Phase 0: register (or refresh) this device's row on every cold start —
+    // WITHOUT asking for notification permission here (spec §7). Failures are
+    // non-fatal: logged, never surfaced as a blocking error.
     registerDevice().catch((e) => {
       console.warn('device registration failed', e instanceof Error ? e.message : e);
     });
-    // Notifications Phase 2 (spec §8): "Mute this type" + "Settings" on
-    // every notification. Registering the action set is independent of
-    // permission state (Expo lets you define categories before permission
-    // is granted) and idempotent, so it's safe alongside the cold-start
-    // device registration above.
     registerNotificationActions().catch((e) => {
       console.warn('notification action registration failed', e instanceof Error ? e.message : e);
     });
   }, []);
 
+  useEffect(() => {
+    // A tapped notification carries the same deep link the inbox shows; the
+    // payload key mirrors packages/core notification-events.ts (`deepLink`).
+    const read = (resp: Notifications.NotificationResponse | null) => {
+      if (!resp) return;
+      const data = resp.notification.request.content.data as Record<string, unknown> | undefined;
+      const link = data && typeof data.deepLink === 'string' ? data.deepLink : null;
+      go(destinationFor(link));
+    };
+    Notifications.getLastNotificationResponseAsync()
+      .then(read)
+      .catch(() => {});
+    const sub = Notifications.addNotificationResponseReceivedListener(read);
+    return () => sub.remove();
+  }, [go]);
+
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        {/* The one and only inset boundary. The status/loading states below are
-            plain Views on purpose: a nested SafeAreaView would apply the same
-            padding a second time. */}
         <SafeAreaView style={styles.fill}>
           <StatusBar style="light" />
           {notificationSettingsOpen ? (
@@ -98,7 +113,10 @@ export default function App() {
               onOpenInbox={() => setInboxOpen(true)}
             />
           ) : inboxOpen ? (
-            <NotificationInboxScreen onClose={() => setInboxOpen(false)} />
+            <NotificationInboxScreen
+              onClose={() => setInboxOpen(false)}
+              onOpenItem={(event) => go(destinationFor(event.deepLink))}
+            />
           ) : onboardingOpen ? (
             <OnboardingScreen
               onDone={(outcome) => {
@@ -109,19 +127,9 @@ export default function App() {
                 if (outcome.kind === 'customize') setNotificationSettingsOpen(true);
               }}
             />
-          ) : error ? (
-            <View style={[styles.fill, styles.center]}>
-              <Text style={styles.errTitle}>Couldn’t load the Vault</Text>
-              <Text style={styles.errBody}>{error}</Text>
-            </View>
-          ) : !skeleton ? (
-            <View style={[styles.fill, styles.center]}>
-              <ActivityIndicator />
-              <Text style={styles.loading}>Loading the Vault…</Text>
-            </View>
           ) : (
             <>
-              <VaultNavigator skeleton={skeleton} />
+              <SiteShell url={webUrl} />
               <Pressable
                 onPress={() => {
                   hasOnboardingBeenOffered()
@@ -148,19 +156,19 @@ export default function App() {
 
 const styles = StyleSheet.create({
   fill: { backgroundColor: '#0b0b0f', flex: 1 },
-  center: { alignItems: 'center', justifyContent: 'center', padding: 24 },
-  loading: { color: '#aaa', marginTop: 10 },
-  errTitle: { color: '#fff', fontSize: 18, fontWeight: '700', marginBottom: 8 },
-  errBody: { color: '#f88', textAlign: 'center' },
+  // Bottom-right, above the site's bottom nav, so it never covers the
+  // site's own top bar / wordmark.
   bellButton: {
     alignItems: 'center',
     backgroundColor: 'rgba(11,11,15,0.85)',
+    borderColor: 'rgba(255,255,255,0.18)',
     borderRadius: 22,
+    borderWidth: StyleSheet.hairlineWidth,
+    bottom: 84,
     height: 44,
     justifyContent: 'center',
     position: 'absolute',
     right: 12,
-    top: 12,
     width: 44,
   },
   bellIcon: { fontSize: 20 },

@@ -32,6 +32,7 @@ import {
 } from '../apps/web/lib/longlive/era-feed.ts';
 import { ALL_FILTERS, filtersForEntry } from '../apps/web/lib/longlive/filters.ts';
 import { threadDoorwaysForEra, eggDoorwaysForEra } from '../apps/web/lib/longlive/doorways.ts';
+import { runMain } from './lib/cli.mjs';
 
 /** The five topic tags — ALL_FILTERS minus the Videos peer chip. */
 export const TOPIC_FILTERS = ALL_FILTERS.filter((f) => f !== 'Videos');
@@ -150,7 +151,7 @@ function main() {
     );
     for (const o of offenders) console.error(`  \u2022 ${formatOffender(o)}`);
     console.error('\nBackfill tags for each (PLAN.md step 7) — do not invent facts.\n');
-    process.exit(1);
+    return 1;
   }
 
   console.log('\n\u2713 every timeline item carries at least one filter id.');
@@ -160,5 +161,5 @@ if (
   process.argv[1] &&
   process.argv[1].split('\\').join('/').endsWith('scripts/check-filter-coverage.mjs')
 ) {
-  main();
+  runMain(main, { name: 'check-filter-coverage' });
 }

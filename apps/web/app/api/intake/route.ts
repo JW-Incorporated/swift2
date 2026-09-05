@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 
+import { trustedClientIp } from '../../../lib/longlive/client-ip';
+import { makeRateLimiter } from '../../../lib/longlive/rate-limit';
+
 // "Help us verify" — CurrentItemDetail.tsx's verify button files a GitHub
 // `intake` issue (.github/ISSUE_TEMPLATE/intake.yml) so a reader who spots
 // something wrong with a live current_item row can flag it for a human to
@@ -13,16 +16,10 @@ export const dynamic = 'force-dynamic';
 
 const MAX_FIELD = 500;
 
-const HITS = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 5;
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 5 });
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 const clip = (s: unknown, n: number): string => (typeof s === 'string' ? s.slice(0, n) : '');
@@ -98,10 +95,10 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ error: 'Missing item.' }, { status: 400 });
   }
 
-  const ip =
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    req.headers.get('x-real-ip') ||
-    'unknown';
+  // Shared trusted-IP resolver (#1973 fix, propagated repo-wide 2026-09-02
+  // per security audit follow-up t_07025f1e) — not the spoofable leftmost
+  // x-forwarded-for hop.
+  const ip = trustedClientIp(req);
   if (rateLimited(ip)) {
     return NextResponse.json({ error: 'Please try again in a minute.' }, { status: 429 });
   }

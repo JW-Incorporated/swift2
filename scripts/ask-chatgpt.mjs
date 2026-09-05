@@ -7,24 +7,29 @@
 // Usage: node scripts/ask-chatgpt.mjs "your prompt here"
 
 import { spawnSync } from "node:child_process";
+import { runMain } from "./lib/cli.mjs";
 
-const prompt = process.argv.slice(2).join(" ").trim();
+function main() {
+  const prompt = process.argv.slice(2).join(" ").trim();
 
-if (!prompt) {
-  console.error('Usage: node scripts/ask-chatgpt.mjs "<prompt>"');
-  process.exit(1);
+  if (!prompt) {
+    console.error('Usage: node scripts/ask-chatgpt.mjs "<prompt>"');
+    return 1;
+  }
+
+  const quotedPrompt = `"${prompt.replace(/"/g, '\\"')}"`;
+  const result = spawnSync(`codex exec ${quotedPrompt}`, {
+    stdio: ["inherit", "inherit", "inherit"],
+    encoding: "utf-8",
+    shell: true,
+  });
+
+  if (result.error) {
+    console.error(`Failed to run codex CLI: ${result.error.message}`);
+    return 1;
+  }
+
+  return result.status ?? 0;
 }
 
-const quotedPrompt = `"${prompt.replace(/"/g, '\\"')}"`;
-const result = spawnSync(`codex exec ${quotedPrompt}`, {
-  stdio: ["inherit", "inherit", "inherit"],
-  encoding: "utf-8",
-  shell: true,
-});
-
-if (result.error) {
-  console.error(`Failed to run codex CLI: ${result.error.message}`);
-  process.exit(1);
-}
-
-process.exit(result.status ?? 0);
+runMain(main, { name: "ask-chatgpt" });

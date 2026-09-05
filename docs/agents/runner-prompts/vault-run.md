@@ -186,9 +186,12 @@ you assume that sentence means someone will keep trying.
 
 ## Hard limits, all lanes
 
-- **Seed files only.** Never `docs/`, `scripts/`, `apps/` (except the two
+- **Seed files only.** Never `docs/`, `scripts/`, `apps/` (except the
   generated vault files, and only via `sync:content`), or `.github/`. Only
-  Austin touches app code.
+  Austin touches app code. (This now includes Clownbot's no-DB fallback —
+  `apps/web/lib/longlive/clownbot-lore.ts` / `clownbot-lore.generated.ts` —
+  refreshed via `supabase/seed/clownbot-lore/clownbot-lore.mjs` per Fable
+  ruling FR-t_2745eb60-1, #3515; see Lane 4 Part C.)
 - **Respect the ownership lock.** Skip every era claimed in
   `.github/content-ownership.json` (loaded in step 1) — pick a different,
   unclaimed era or corpus instead. If a lane's only available work is on a

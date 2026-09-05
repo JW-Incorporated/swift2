@@ -38,8 +38,8 @@ import { readdirSync, readFileSync, writeFileSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createClient } from '@supabase/supabase-js';
 import { gh, httpsRequest } from '../lib/gh.mjs';
+import { serviceClient } from '../lib/supabase.mjs';
 import { CHANNELS, feedUrl } from './channels.mjs';
 import { parseFeed, looksLikeFeed } from './lib/feed.mjs';
 import { matchRule, isFresh } from './lib/filter.mjs';
@@ -47,6 +47,7 @@ import { videoIdsIn, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
 import { buildSocialDraftPair, fetchAppearanceThumbnail } from './lib/social-draft.mjs';
 import { clampMaxPerRun } from './lib/spend-limits.mjs';
 import { emitOfficialYoutubeEvent } from './lib/emit-official-youtube-event.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 const INTAKE_LABEL = 'intake';
 // Matches the label as it already exists on the repo — the upsert is a no-op
@@ -295,10 +296,7 @@ async function createIntakeIssue(c) {
 }
 
 function supabaseAdmin() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+  return serviceClient();
 }
 
 async function main() {
@@ -486,7 +484,4 @@ async function main() {
     process.exitCode = 1;
 }
 
-main().catch((e) => {
-  console.error(`appearance-discovery: fatal — ${e.stack || e}`);
-  process.exitCode = 1;
-});
+runMain(main, { name: 'discover' });

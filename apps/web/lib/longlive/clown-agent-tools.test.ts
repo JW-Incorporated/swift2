@@ -31,6 +31,7 @@ vi.mock('./clown-index', async () => {
 });
 
 import {
+  createKnowledgeClientForRequest,
   resolveScopeSignal,
   toolChatter,
   toolDateMath,
@@ -43,6 +44,14 @@ import {
 
 const CONFIRMED_DOC = fixtures.CONFIRMED_DOC as unknown as ClownDoc;
 
+/** ONE client per request (Fable 5.1 architecture review, task R14) — each
+ * test builds it exactly once, the same way `route.ts` now does, and
+ * threads it into every tool call it exercises. `null` when Supabase env
+ * isn't stubbed, matching the "no DB configured" branch. */
+function client() {
+  return createKnowledgeClientForRequest();
+}
+
 beforeEach(() => {
   mockCreateKnowledgeClient.mockReset();
   vi.unstubAllEnvs();
@@ -54,7 +63,7 @@ afterEach(() => {
 
 describe('toolSearch — DB-first, compile-time fallback ONLY on DB-unreachable', () => {
   it('no Supabase env configured: falls back to the compile-time corpus', async () => {
-    const result = await toolSearch('masters buyback');
+    const result = await toolSearch(client(), 'masters buyback');
     expect(result.items).toHaveLength(1);
     expect(result.items[0].id).toBe(CONFIRMED_DOC.id);
     expect(result.summary).toContain('no-DB fallback');
@@ -65,7 +74,7 @@ describe('toolSearch — DB-first, compile-time fallback ONLY on DB-unreachable'
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
     mockCreateKnowledgeClient.mockReturnValue({ search: vi.fn().mockResolvedValue([]) });
-    const result = await toolSearch('masters buyback');
+    const result = await toolSearch(client(), 'masters buyback');
     expect(result.items).toHaveLength(0);
     expect(result.summary).not.toContain('no-DB fallback');
   });
@@ -74,7 +83,7 @@ describe('toolSearch — DB-first, compile-time fallback ONLY on DB-unreachable'
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
     mockCreateKnowledgeClient.mockReturnValue({ search: vi.fn().mockRejectedValue(new Error('network down')) });
-    const result = await toolSearch('masters buyback');
+    const result = await toolSearch(client(), 'masters buyback');
     expect(result.items).toHaveLength(1);
     expect(result.summary).toContain('no-DB fallback');
   });
@@ -95,7 +104,7 @@ describe('toolSearch — DB-first, compile-time fallback ONLY on DB-unreachable'
         },
       ]),
     });
-    const result = await toolSearch('anything');
+    const result = await toolSearch(client(), 'anything');
     expect(result.items).toHaveLength(1);
     expect(result.items[0].status).toBe('rumor');
     expect(result.items[0].date).toBe('2026-08-01');
@@ -105,7 +114,7 @@ describe('toolSearch — DB-first, compile-time fallback ONLY on DB-unreachable'
 
 describe('the other six tools: DB-first, honest "no DB configured" / "DB unreachable" degrade (no compile-time substitute)', () => {
   it('precedents: no DB configured', async () => {
-    const result = await toolPrecedents('track-five');
+    const result = await toolPrecedents(client(), 'track-five');
     expect(result.items).toEqual([]);
     expect(result.summary).toContain('no DB configured');
   });
@@ -133,7 +142,7 @@ describe('the other six tools: DB-first, honest "no DB configured" / "DB unreach
         },
       ]),
     });
-    const result = await toolPrecedents('track-five');
+    const result = await toolPrecedents(client(), 'track-five');
     expect(result.items).toHaveLength(1);
     expect(result.items[0].status).toBe('confirmed');
     expect(result.summary).toContain('numerology');
@@ -143,19 +152,19 @@ describe('the other six tools: DB-first, honest "no DB configured" / "DB unreach
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
     mockCreateKnowledgeClient.mockReturnValue({ precedents: vi.fn().mockRejectedValue(new Error('down')) });
-    const result = await toolPrecedents('track-five');
+    const result = await toolPrecedents(client(), 'track-five');
     expect(result.items).toEqual([]);
     expect(result.summary).toContain('DB unreachable');
   });
 
   it('recent: no DB configured', async () => {
-    const result = await toolRecent(7);
+    const result = await toolRecent(client(), 7);
     expect(result.items).toEqual([]);
     expect(result.summary).toContain('no DB configured');
   });
 
   it('chatter: no DB configured', async () => {
-    const result = await toolChatter('orange era');
+    const result = await toolChatter(client(), 'orange era');
     expect(result.items).toEqual([]);
     expect(result.summary).toContain('no DB configured');
   });
@@ -183,14 +192,14 @@ describe('the other six tools: DB-first, honest "no DB configured" / "DB unreach
         },
       ]),
     });
-    const result = await toolChatter('orange era');
+    const result = await toolChatter(client(), 'orange era');
     expect(result.items).toHaveLength(1);
     expect(result.items[0].status).toBe('rumor');
     expect(result.items[0].date).toBe('2026-08-02');
   });
 
   it('symbol_activity: no DB configured', async () => {
-    const result = await toolSymbolActivity('orange');
+    const result = await toolSymbolActivity(client(), 'orange');
     expect(result.items).toEqual([]);
     expect(result.summary).toContain('no DB configured');
   });
@@ -201,13 +210,13 @@ describe('the other six tools: DB-first, honest "no DB configured" / "DB unreach
     mockCreateKnowledgeClient.mockReturnValue({
       symbolActivity: vi.fn().mockResolvedValue([{ symbol: 'orange', week: '2026-08-03', n: 4 }]),
     });
-    const result = await toolSymbolActivity('orange');
+    const result = await toolSymbolActivity(client(), 'orange');
     expect(result.items).toEqual([]);
     expect(result.summary).toContain('2026-08-03: 4');
   });
 
   it('track: no DB configured', async () => {
-    const result = await toolTrack('Fate of Ophelia');
+    const result = await toolTrack(client(), 'Fate of Ophelia');
     expect(result.items).toEqual([]);
     expect(result.summary).toContain('no DB configured');
   });
@@ -216,7 +225,7 @@ describe('the other six tools: DB-first, honest "no DB configured" / "DB unreach
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
     mockCreateKnowledgeClient.mockReturnValue({ track: vi.fn().mockResolvedValue(null) });
-    const result = await toolTrack('Not A Real Track');
+    const result = await toolTrack(client(), 'Not A Real Track');
     expect(result.items).toEqual([]);
     expect(result.summary).toContain('no track found');
   });
@@ -251,7 +260,7 @@ describe('resolveScopeSignal — two independent clauses, in scope if EITHER res
         },
       ]),
     });
-    const { inScope } = await resolveScopeSignal('anything');
+    const { inScope } = await resolveScopeSignal(client(), 'anything');
     expect(inScope).toBe(true);
   });
 
@@ -259,7 +268,7 @@ describe('resolveScopeSignal — two independent clauses, in scope if EITHER res
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
     mockCreateKnowledgeClient.mockReturnValue({ search: vi.fn().mockResolvedValue([]) });
-    const { inScope, result } = await resolveScopeSignal('tell me about the masters buyback');
+    const { inScope, result } = await resolveScopeSignal(client(), 'tell me about the masters buyback');
     expect(inScope).toBe(true);
     expect(result.items[0].id).toBe(CONFIRMED_DOC.id);
   });
@@ -268,7 +277,7 @@ describe('resolveScopeSignal — two independent clauses, in scope if EITHER res
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
     mockCreateKnowledgeClient.mockReturnValue({ search: vi.fn().mockResolvedValue([]) });
-    const { inScope } = await resolveScopeSignal('what is a good pasta recipe');
+    const { inScope } = await resolveScopeSignal(client(), 'what is a good pasta recipe');
     expect(inScope).toBe(false);
   });
 
@@ -299,12 +308,12 @@ describe('resolveScopeSignal — two independent clauses, in scope if EITHER res
     });
 
     it('a recency-phrased, off-topic query stays out of scope even though an open item exists', async () => {
-      const { inScope } = await resolveScopeSignal('what should I cook today');
+      const { inScope } = await resolveScopeSignal(client(), 'what should I cook today');
       expect(inScope).toBe(false);
     });
 
     it('the same recency phrasing DOES resolve in scope once it also names a real topic', async () => {
-      const { inScope } = await resolveScopeSignal('tell me about the masters buyback today');
+      const { inScope } = await resolveScopeSignal(client(), 'tell me about the masters buyback today');
       expect(inScope).toBe(true);
     });
   });
