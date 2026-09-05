@@ -1,10 +1,10 @@
 import { CONTENT } from './content';
-import { ERAS } from './eras';
-import { EGG_NODES, motifOf, THREADS } from './lenses';
+import { ERAS } from '@swift2/experience';
+import { EGG_NODES, motifOf, THREADS } from '@swift2/experience';
 import { tracksForEra, trackKey } from './tracks';
 import { theoriesForEra } from './theories';
 import { allVideoRecordsForEra } from './videos';
-import type { EraId, LensId, MotifId } from './types';
+import type { EraId, LensId, MotifId } from '@swift2/experience';
 
 /**
  * Long Live — client-side search (audit T7 / §E.11).

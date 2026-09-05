@@ -25,7 +25,7 @@
  * absent key is the normal local/preview state, not an error.
  */
 
-import { MOOD_AXES, type MoodAxis } from './types';
+import { MOOD_AXES, type MoodAxis } from '@swift2/experience';
 import type { MoodQuery } from './mood-match';
 import { MOOD_DAILY_CAP, MOOD_GLOBAL_SCOPE, type MoodUsage } from './mood-usage';
 import { MOOD_SYSTEM_PROMPT } from './mood-prompt';

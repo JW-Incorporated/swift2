@@ -7,7 +7,7 @@ import {
   shopTheLookItemsFrom,
   type MerchItem,
 } from './merch';
-import { primaryImage } from './types';
+import { primaryImage } from '@swift2/experience';
 import { FAN_MADE } from './merch.generated';
 
 // Mirrors merch.ts's private MERCH_KINDS set (the normalization target for

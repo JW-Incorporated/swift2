@@ -1,5 +1,6 @@
 import { CONTENT } from './content';
-import type { ContentItem, EraId, LensId } from './types';
+import type { ContentItem, EraId, LensId } from '@swift2/experience';
+import { setThreadContentProvider } from '@swift2/experience';
 
 /**
  * A Thread's content, derived from tagged ContentItems (docs/decisions.md
@@ -40,3 +41,12 @@ export function contentForThreadInRange(
 export function contentForThreadInEra(threadId: LensId, eraId: EraId): ContentItem[] {
   return contentForThread(threadId).filter((c) => c.eraId === eraId);
 }
+
+// Wires this module's `contentForThread` into `packages/experience`'s
+// `lenses.ts` (OS-021 — see `thread-content-provider.ts`'s doc comment):
+// `lenses.ts`'s `threadPoints('the-proposal')` needs tagged-content lookups
+// that the headless package can't perform itself (content loading is
+// OS-013/OS-014 scope), so the app injects its real implementation here, at
+// import time, rather than `lenses.ts` importing this app-layer module
+// directly.
+setThreadContentProvider(contentForThread);

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { normalizeTrackVideoTitle, resolvedTrackVideo, trackVideoFor } from './track-video';
 import { tracksForEra } from './tracks';
 import { allVideoRecordsForEra, videosForEra } from './videos';
-import type { VideoNote, VideoNoteKind } from './types';
+import type { VideoNote, VideoNoteKind } from '@swift2/experience';
 
 function video(overrides: Partial<VideoNote> & { title: string }): VideoNote {
   return {

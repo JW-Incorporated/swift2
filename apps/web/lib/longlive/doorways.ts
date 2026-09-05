@@ -1,7 +1,10 @@
-import type { EraId, LensId, TheoryNote } from './types';
-import { getThread, threadPoints, threadsInEra } from './lenses';
+import type { EraId, LensId, TheoryNote } from '@swift2/experience';
+import { getThread, threadPoints, threadsInEra } from '@swift2/experience';
 import { theoriesForEra } from './theories';
-import { resolveAnchor, type Anchored } from './anchor-date';
+import { resolveAnchor } from './anchor-date';
+import type { Anchored, ThreadDoorway, EggDoorway } from '@swift2/experience';
+
+export type { ThreadDoorway, EggDoorway };
 
 /**
  * Builds the `thread`/`egg` doorway entries that widen `EraFeedEntry`
@@ -12,31 +15,10 @@ import { resolveAnchor, type Anchored } from './anchor-date';
  * `era-feed.ts` imports only the two doorway TYPES from here, plus these two
  * builder functions where a caller (EraSection, in a later step) assembles
  * the era's full doorway list to hand to `mergeEraFeed`.
+ *
+ * `ThreadDoorway`/`EggDoorway` moved to `packages/experience` in OS-021
+ * (they are part of `EraFeedEntry`'s shape); re-exported above.
  */
-
-/** A doorway into a THREADS gallery, anchored on that thread's own dated
- * point inside this era. R2: every doorway carries a filter id — see
- * `filterForThread` in filters.ts. */
-export type ThreadDoorway = {
-  threadId: LensId;
-  kicker: string;
-  title: string;
-  /** A real, sourced line from the thread's own point in this era — never
-   * invented copy. */
-  example: string;
-};
-
-/** A doorway into one theory/egg's detail (TheoryGuide). R4: `threadId` is
- * how the detail points back to "the thread it belongs to" — only
- * `easter_egg` theories resolve to one (the Clue Web, `easter-eggs`); a
- * `theory` has no thread of its own, so this is null rather than guessed. */
-export type EggDoorway = {
-  /** Globally stable — `TheoryNote.slug` is only unique per era. */
-  eggId: string;
-  threadId: LensId | null;
-  kicker: string;
-  title: string;
-};
 
 const THREAD_DOORWAY_KICKER = 'THREADS — one storyline at a time, across every era';
 const EGG_DOORWAY_KICKER = 'EGGS — the secrets she plants';

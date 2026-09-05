@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ERAS } from './eras';
+import { ERAS } from '@swift2/experience';
 import { getContentItem } from './content';
 import { MERCH_CATALOGUE, type MerchItem } from './merch';
 import { renderMerchShopLink } from './shop';

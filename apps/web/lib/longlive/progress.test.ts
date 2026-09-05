@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { EGG_NODES, MOTIFS, motifNodes } from './lenses';
+import { EGG_NODES, MOTIFS, motifNodes } from '@swift2/experience';
 import {
   clueWebProgress,
   emptyProgress,

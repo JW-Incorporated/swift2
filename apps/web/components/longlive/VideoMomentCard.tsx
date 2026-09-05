@@ -5,7 +5,7 @@ import { VIDEO_KIND_LABEL } from '@/lib/longlive/videos';
 import type { PlayableVideoNote } from '@/lib/longlive/videos';
 import { formatMonthYear } from '@/lib/longlive/format';
 import { MomentVideo } from './MomentVideo';
-import type { Era } from '@/lib/longlive/types';
+import type { Era } from '@swift2/experience';
 
 // Split out of EraSection.tsx (PLAN.md P3 step 15 — see MAP.md).
 

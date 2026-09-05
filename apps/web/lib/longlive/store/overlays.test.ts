@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { overlaysReducer, overlaysInitialState } from './overlays';
-import { CURRENT_ERA_ID, ERAS } from '../eras';
-import type { MotifId } from '../types';
+import { CURRENT_ERA_ID, ERAS } from '@swift2/experience';
+import type { MotifId } from '@swift2/experience';
 
 const eraA = CURRENT_ERA_ID;
 const eraB = ERAS[0].id;

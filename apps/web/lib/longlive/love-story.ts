@@ -1,4 +1,4 @@
-import type { Relationship, SinglePeriod } from './types';
+import type { Relationship, SinglePeriod } from '@swift2/experience';
 
 export type LoveStoryEntry = ({ kind: 'relationship' } & Relationship) | ({ kind: 'single' } & SinglePeriod);
 

@@ -1,4 +1,4 @@
-import type { EraId, TheoryNote } from './types';
+import type { EraId, TheoryNote } from '@swift2/experience';
 import { THEORIES_RAW } from './theories.generated';
 
 /**

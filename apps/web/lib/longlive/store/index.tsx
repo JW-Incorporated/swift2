@@ -9,11 +9,11 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { deepLinkTarget, resolveVideoDeepLink } from '../deepLink';
-import { CURRENT_ERA_ID, getEra } from '../eras';
+import { deepLinkTarget, resolveVideoDeepLink } from '@swift2/experience';
+import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
 import { getContentItem } from '../content';
 import { allVideoRecordsForEra, findVideoEraId } from '../videos';
-import { THREADS } from '../lenses';
+import { THREADS } from '@swift2/experience';
 import { resolveTrackKey } from '../tracks';
 import {
   emptyProgress,
@@ -23,8 +23,8 @@ import {
   writeStoredProgress,
   type Progress,
 } from '../progress';
-import type { FilterId } from '../filters';
-import type { EraId, LensId, MotifId } from '../types';
+import type { FilterId } from '@swift2/experience';
+import type { EraId, LensId, MotifId } from '@swift2/experience';
 import type { ClownAnswer } from '../clown-answer';
 
 import { useNavigation, type AppMode, type EraScrollSnapshot } from './navigation';

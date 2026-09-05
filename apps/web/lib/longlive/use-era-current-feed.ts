@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import type { CurrentItem } from '@swift2/shared';
-import { CURRENT_ERA_ID } from './eras';
+import { CURRENT_ERA_ID } from '@swift2/experience';
 import { currentFeedEntries } from './current-feed';
 import type { EraFeedEntry } from './era-feed';
 import type { PlayableVideoNote } from './videos';

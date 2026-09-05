@@ -26,7 +26,7 @@
  * moves in hours, so `LORE_UPDATED_ON` is surfaced to the reader and the
  * surface says plainly when it is stale rather than pretending to be live.
  */
-import type { LoreItem, LoreLedger, LoreSource, LoreStatus } from './types';
+import type { LoreItem, LoreLedger, LoreSource, LoreStatus } from '@swift2/experience';
 import { LORE_RAW, LORE_UPDATED_ON } from './clownbot-lore.generated';
 
 export type { LoreStatus, LoreSource, LoreLedger, LoreItem };

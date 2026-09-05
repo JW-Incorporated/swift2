@@ -21,7 +21,7 @@
  * None of these reference lyrics. Titles and era imagery only — that is what
  * keeps the set clear of the no-lyrics redline while still landing for a fan.
  */
-import type { MoodAxes } from './types';
+import type { MoodAxes } from '@swift2/experience';
 
 export interface MoodStarter {
   /** The approved label, shown verbatim. */

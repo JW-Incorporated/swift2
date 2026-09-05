@@ -16,8 +16,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { getEra } from '@/lib/longlive/eras';
-import { getThread } from '@/lib/longlive/lenses';
+import { getEra, getThread } from '@swift2/experience';
 import { isInAppDocument, postToNativeApp } from '@/lib/longlive/in-app';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { Button } from '@/components/ui/button';

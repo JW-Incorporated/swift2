@@ -14,7 +14,7 @@
  * produces a mood vector, and the matcher can only return catalogue entries.
  */
 
-import { MOOD_AXES, type MoodAxis } from './types';
+import { MOOD_AXES, type MoodAxis } from '@swift2/experience';
 import type { MoodQuery } from './mood-match';
 
 /**

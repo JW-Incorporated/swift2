@@ -9,7 +9,7 @@ import {
   primaryImage,
   primaryImageRef,
   type ImageRef,
-} from './types';
+} from '@swift2/experience';
 
 /** Minimal RawItem factory — only image fields vary across these tests. */
 function raw(partial: Partial<RawItem> = {}): RawItem {

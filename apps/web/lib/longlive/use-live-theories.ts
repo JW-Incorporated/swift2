@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { FanSignal, LiveTheory } from '@swift2/shared';
-import { CURRENT_ERA_ID } from './eras';
+import { CURRENT_ERA_ID } from '@swift2/experience';
 import { fetchLiveData } from './use-live-data';
 
 export interface LiveTheoryBoard {

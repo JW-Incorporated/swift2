@@ -1,4 +1,4 @@
-import type { ContentItem, EraId, EraSecret, TrackNote } from './types';
+import type { ContentItem, EraId, EraSecret, TrackNote } from '@swift2/experience';
 import { ERA_SECRETS_RAW } from './era-secrets.generated';
 import { songTargetOf } from './tracks';
 import { getContentItem } from './content';

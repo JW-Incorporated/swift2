@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { AppProvider, useAppState } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import { eraStyle, vaultStyle, merchStyle, VAULT_THEME, MERCH_THEME } from '@/lib/longlive/theme';
 import { TopBar } from './TopBar';
 import { EraStream } from './EraStream';

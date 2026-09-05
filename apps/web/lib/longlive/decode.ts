@@ -1,5 +1,5 @@
-import { ERAS, eraIndex } from './eras';
-import type { CluePair } from './types';
+import { ERAS, eraIndex } from '@swift2/experience';
+import type { CluePair } from '@swift2/experience';
 
 /** Every era Taylor moved through between a clue's plant and payoff (inclusive of both ends), in chronological order. */
 export function erasBetween(plantEraId: string, payoffEraId: string): string[] {

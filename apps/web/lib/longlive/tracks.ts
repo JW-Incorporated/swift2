@@ -1,7 +1,7 @@
-import type { ContentItem, EraId, RelatedId, TrackConnection, TrackFacts, TrackNote } from './types';
+import type { ContentItem, EraId, RelatedId, TrackConnection, TrackFacts, TrackNote } from '@swift2/experience';
 import { TRACKS_RAW } from './tracks.generated';
 import { getContentItem } from './content';
-import { getEra } from './eras';
+import { getEra } from '@swift2/experience';
 import { formatFullDate } from './format';
 
 /**

@@ -6,7 +6,7 @@ import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import Image from 'next/image';
 import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import { tracksForEra } from '@/lib/longlive/tracks';
 import { videosForEra, isPlayable, VIDEO_KIND_LABEL, type PlayableVideoNote } from '@/lib/longlive/videos';
 import { trackVideoFor } from '@/lib/longlive/track-video';
@@ -16,7 +16,7 @@ import { trackKey } from './TrackDetail';
 import { TrackFivePill } from './TrackFivePill';
 import { MomentVideo } from './MomentVideo';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import type { EraId, TrackNote } from '@/lib/longlive/types';
+import type { EraId, TrackNote } from '@swift2/experience';
 
 /**
  * The album track guide — an immersive per-era overlay (same pattern as

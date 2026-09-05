@@ -15,8 +15,8 @@ import {
   hasRealPrimaryImage,
   isSubConfirmed,
   primaryImageRef,
-} from '@/lib/longlive/types';
-import type { ContentItem, ContentTag } from '@/lib/longlive/types';
+} from '@swift2/experience';
+import type { ContentItem, ContentTag } from '@swift2/experience';
 import type { CardTier } from '@/lib/longlive/feed-tiers';
 import { TIER_BODY } from '@/lib/longlive/card-chrome';
 import { cn } from '@/lib/utils';

@@ -10,8 +10,8 @@ import {
   tracksForEra,
 } from './tracks';
 import { CONTENT, getContentItem } from './content';
-import { ERAS } from './eras';
-import type { EraId, TrackNote } from './types';
+import { ERAS } from '@swift2/experience';
+import type { EraId, TrackNote } from '@swift2/experience';
 
 // Guards the generated track-guide data against generator drift: everything
 // the TrackGuide overlay assumes about tracks.generated.ts is asserted here.

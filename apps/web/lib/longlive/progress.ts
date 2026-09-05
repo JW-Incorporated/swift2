@@ -12,8 +12,8 @@
  * too and the app simply behaves like a first visit.
  */
 
-import { EGG_NODES, MOTIFS, motifNodes } from './lenses';
-import type { MotifId } from './types';
+import { EGG_NODES, MOTIFS, motifNodes } from '@swift2/experience';
+import type { MotifId } from '@swift2/experience';
 
 export const PROGRESS_STORAGE_KEY = 'll-progress-v1';
 

@@ -3,7 +3,7 @@
 // (or the live Supabase track_note table when configured).
 // Re-run that script after track-seed changes; don't edit this file directly.
 
-import type { EraId, TrackNote } from './types';
+import type { EraId, TrackNote } from '@swift2/experience';
 
 export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
   "1989": [

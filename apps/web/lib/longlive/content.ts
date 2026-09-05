@@ -1,4 +1,4 @@
-import type { ContentItem, ContentTag, EraId, ImageRef, LensId, Milestone } from './types';
+import type { ContentItem, ContentTag, EraId, ImageRef, LensId, Milestone } from '@swift2/experience';
 import { VAULT_RAW } from './content-vault.generated';
 
 /**

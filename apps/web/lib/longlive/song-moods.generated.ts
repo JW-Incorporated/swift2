@@ -5,7 +5,7 @@
 //
 // 244 songs, 244 scored.
 
-import type { SongMood } from './types';
+import type { SongMood } from '@swift2/experience';
 
 export const SONG_MOODS: SongMood[] = [
   {

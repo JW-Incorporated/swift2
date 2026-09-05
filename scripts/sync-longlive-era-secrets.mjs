@@ -82,7 +82,7 @@ export function renderModule(byEra) {
   lines.push('// Produced by scripts/sync-longlive-era-secrets.mjs from supabase/seed/era-secrets/**');
   lines.push("// Re-run that script after era-secret-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { EraId, EraSecret } from './types';");
+  lines.push("import type { EraId, EraSecret } from '@swift2/experience';");
   lines.push('');
   lines.push('export const ERA_SECRETS_RAW: Partial<Record<EraId, EraSecret[]>> = {');
   for (const eraId of Object.keys(byEra).sort()) {

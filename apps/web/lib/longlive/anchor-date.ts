@@ -8,26 +8,14 @@
  * deterministic, id-derived position scattered across the era's own span.
  * Only the first of those may ever be shown to a reader; the rest exist to
  * place a card, never to claim a fact.
+ *
+ * `AnchorSource`/`Anchored` moved to `packages/experience` in OS-021 (they
+ * are `filters.ts`'s `EraFeedEntry` shape) — imported back here rather than
+ * re-declared, so the two can never drift apart.
  */
+import type { AnchorSource, Anchored } from '@swift2/experience';
 
-/** How a sort position was arrived at. Drives whether a date may be SHOWN. */
-export type AnchorSource =
-  | 'exact' // the item has a real, authored date
-  | 'related-item' // borrowed from a moment it references
-  | 'related-song' // borrowed from a song/album release date
-  | 'era-scatter' // last resort: a stable, id-derived position in the era's span
-  | 'clamped'; // a real, exact date that fell outside the era's window and was
-  // pulled to the nearest boundary (PLAN.md P3 step 14a) — still a real date
-  // internally, but no longer trustworthy enough to print, so displayDate is
-  // null exactly as for every other non-exact source.
-
-export type Anchored = {
-  /** Always present. Sorting only. NEVER rendered as fact. */
-  sortDate: string; // YYYY-MM-DD
-  /** Present only when `via === 'exact'`. Null means render no date. */
-  displayDate: string | null;
-  via: AnchorSource;
-};
+export type { AnchorSource, Anchored };
 
 /**
  * A stable 32-bit hash of a string (FNV-1a). Deterministic across renders AND

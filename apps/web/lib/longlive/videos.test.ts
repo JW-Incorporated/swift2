@@ -10,7 +10,7 @@ import {
   VIDEO_KIND_LABEL,
   findVideoEraId,
 } from './videos';
-import type { EraId, VideoNote } from './types';
+import type { EraId, VideoNote } from '@swift2/experience';
 
 const ALL_ERA_IDS: EraId[] = [
   'debut',
