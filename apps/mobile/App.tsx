@@ -12,7 +12,7 @@
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
 import { useCallback, useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -24,7 +24,7 @@ import * as Notifications from 'expo-notifications';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
-import { SITE_URL, SiteShell } from './components/SiteShell';
+import { SITE_URL, SiteShell, type NativeBridgeMessage } from './components/SiteShell';
 import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
@@ -102,6 +102,24 @@ export default function App() {
     return () => sub.remove();
   }, [go]);
 
+  // OS-002: the in-page bell (site's own top bar, shown only when
+  // `isInApp()`) posts one of these instead of the app rendering its own
+  // floating bell overlay. Mirrors the onboarding-gate logic the removed
+  // overlay used to run on press.
+  const handleBridgeMessage = useCallback((message: NativeBridgeMessage) => {
+    if (message.type === 'openInbox') {
+      setInboxOpen(true);
+      return;
+    }
+    // openNotificationSettings
+    hasOnboardingBeenOffered()
+      .then((offered) => {
+        if (offered) setNotificationSettingsOpen(true);
+        else setOnboardingOpen(true);
+      })
+      .catch(() => setNotificationSettingsOpen(true));
+  }, []);
+
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -128,25 +146,7 @@ export default function App() {
               }}
             />
           ) : (
-            <>
-              <SiteShell url={webUrl} />
-              <Pressable
-                onPress={() => {
-                  hasOnboardingBeenOffered()
-                    .then((offered) => {
-                      if (offered) setNotificationSettingsOpen(true);
-                      else setOnboardingOpen(true);
-                    })
-                    .catch(() => setNotificationSettingsOpen(true));
-                }}
-                accessibilityLabel="Notification settings"
-                accessibilityRole="button"
-                style={styles.bellButton}
-                hitSlop={10}
-              >
-                <Text style={styles.bellIcon}>🔔</Text>
-              </Pressable>
-            </>
+            <SiteShell url={webUrl} onBridgeMessage={handleBridgeMessage} />
           )}
         </SafeAreaView>
       </SafeAreaProvider>
@@ -156,20 +156,4 @@ export default function App() {
 
 const styles = StyleSheet.create({
   fill: { backgroundColor: '#0b0b0f', flex: 1 },
-  // Bottom-right, above the site's bottom nav, so it never covers the
-  // site's own top bar / wordmark.
-  bellButton: {
-    alignItems: 'center',
-    backgroundColor: 'rgba(11,11,15,0.85)',
-    borderColor: 'rgba(255,255,255,0.18)',
-    borderRadius: 22,
-    borderWidth: StyleSheet.hairlineWidth,
-    bottom: 84,
-    height: 44,
-    justifyContent: 'center',
-    position: 'absolute',
-    right: 12,
-    width: 44,
-  },
-  bellIcon: { fontSize: 20 },
 });
