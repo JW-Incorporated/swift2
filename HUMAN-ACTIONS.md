@@ -26,6 +26,29 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 43. [BLOCKING] OS-004 — Push credentials on EAS (One Source, Three Surfaces plan) — ~15 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/specs/2026-09-05-one-source-three-surfaces.md` §6,
+card OS-004 (Phase 0). iOS and Android push don't actually deliver yet.
+This needs interactive credential upload only you can do — Apple/Google
+account access, not code.
+
+**Steps:**
+1. Run `eas credentials -p ios` interactively (from a machine with EAS CLI
+   and your Apple Developer login) and upload/generate the APNs key under
+   team `D9N628AFHS`.
+2. Do the equivalent for Android: upload/generate the FCM v1 service
+   account key via `eas credentials -p android`.
+3. Send one test push via `scripts/send-test-push.ts` to a real TestFlight
+   device.
+
+**Worked if:** a real device receives the push and tapping it opens the
+correct deep link in the shell (per OS-004's own "Done when").
+
+**Status:** OPEN
+
 ### 42. [UPGRADE] Add a GitHub comment-edit tool to Kevin's cloud sessions (or accept the append-and-supersede workaround) — ~10 min
 
 **Filed:** 2026-09-01
