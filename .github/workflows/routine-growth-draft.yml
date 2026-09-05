@@ -1,0 +1,39 @@
+# Growth — daily draft, migrated from claude.ai Routine
+# `trig_01UBvxMi2Pz7x7qnsffLHAU3` to this scheduled Action per
+# docs/audits/2026-09-05-claude-routines-relocation-assessment.md + the
+# 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# Daily draft-and-listen run: drafts off Tree's weekly calendar, sources a
+# short listening scan, and opens a PR containing only `social/queue/` +
+# `apps/web/public/social/**` items — never merges (auto-merge-content.yml
+# lands it on green). Needs `contents: write` + `pull-requests: write` for
+# the PR, `issues: write` for the "social calendar has run dry" coordination
+# issue and the founders-brief listening-scan comment, checked out with
+# SOCIAL_POSTER_PAT (main is branch-protected; the built-in GITHUB_TOKEN
+# cannot trigger this repo's required `build` check on its own PRs — same
+# reason growth-snapshot.yml / appearance-discovery.yml use the PAT).
+name: routine-growth-draft
+
+on:
+  schedule:
+    - cron: "0 11 * * *" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Growth — daily draft"
+      prompt_file: docs/agents/runner-prompts/growth-draft.md
+      model: claude-opus-4-8
+      allowed_tools: "Bash,Read,Grep,Glob,Write,WebSearch,WebFetch,Task"
+      timeout_minutes: 30
+      checkout_token_secret: SOCIAL_POSTER_PAT
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
