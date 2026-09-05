@@ -52,8 +52,14 @@ describe('E3 manually confirmed authoring workflow', () => {
     expect(workflow).toContain('apply-demotions.mjs');
     expect(workflow).toContain('sync:content');
     expect(workflow).toContain('SOCIAL_POSTER_PAT');
-    expect(workflow).toContain('merch-audit-authoring/${GITHUB_RUN_ID}');
-    expect(workflow).toContain('gh pr merge "$BRANCH" --squash --auto --delete-branch');
+    expect(workflow).toContain('merch-audit-authoring/${{ github.run_id }}');
+    // Auto-merge is now armed by the shared commit-and-pr composite action
+    // (default auto-merge: 'true', which runs `gh pr merge ... --squash
+    // --auto --delete-branch` internally — see
+    // .github/actions/commit-and-pr/action.yml) rather than an inline `gh
+    // pr merge` call in this workflow; same behaviour, no `--auto-merge`
+    // override needed since 'true' is the default.
+    expect(workflow).toContain('uses: ./.github/actions/commit-and-pr');
     // #3447 P2 round-7 review fix: this job must always base its new
     // branch/PR on main, never on whatever ref the workflow_dispatch was
     // fired from — otherwise an operator dispatching from a feature branch

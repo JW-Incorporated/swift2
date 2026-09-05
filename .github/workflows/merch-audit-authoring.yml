@@ -223,7 +223,8 @@ jobs:
         run: npm run sync:content
       - name: Compute PR metadata
         run: echo "branch=merch-audit-authoring/${{ github.run_id }}" >> "$GITHUB_ENV"
-      - uses: ./.github/actions/commit-and-pr
+      - name: Open gated demotion PR
+        uses: ./.github/actions/commit-and-pr
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
           paths: supabase/seed/content apps/web/lib/longlive/content-vault.generated.ts
