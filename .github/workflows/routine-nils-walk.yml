@@ -1,0 +1,35 @@
+# Nils — daily site walk, migrated from claude.ai Routine
+# `trig_01WhgsVQFKMRGw2tfRg3i2rB` to this scheduled Action per
+# docs/audits/2026-09-05-claude-routines-relocation-assessment.md + the
+# 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# Read-only site critic: walks the live deployed site
+# (https://www.longlivets.com/ per docs/deploy.md) plus repo content data
+# and files at most 5 tickets + a coverage-ledger log comment on issue
+# #502 — never edits content/code/seeds, never opens a PR. Needs only
+# `issues: write` and the built-in GITHUB_TOKEN; needs WebFetch in
+# addition to the usual read tools so it can spot-check the live site
+# per the charter's amendment 1.
+name: routine-nils-walk
+
+on:
+  schedule:
+    - cron: "0 14 * * 1,5" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Nils — daily site walk"
+      prompt_file: docs/agents/runner-prompts/nils-walk.md
+      model: claude-opus-4-8
+      allowed_tools: "Bash,Read,Grep,Glob,WebFetch"
+      timeout_minutes: 35
+      checkout_token_secret: GITHUB_TOKEN
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

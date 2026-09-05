@@ -1,0 +1,45 @@
+# Kevin — daily desk (S1+S2+S3 consolidated), migrated from claude.ai
+# Routine `trig_01GH3EMWdDwwKpx2GCRnCYM5` to this scheduled Action per
+# docs/audits/2026-09-05-claude-routines-relocation-assessment.md + the
+# 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# Consolidated desk that replaces the old standalone Stream 2
+# (user-feedback digest) and Stream 3 (engineering triage) triggers per
+# T-10 (docs/agents/runners.md § "Kevin — daily desk consolidation —
+# applied (2026-09-01, T-10)"); Stream 1 (Karen-ticket solver, Sundays
+# only) and Stream 3 (triage-only, never a PR) also run inside this same
+# session per docs/agents/runner-prompts/kevin-desk.md. Per
+# docs/kevin.md § "Hard invariants", Kevin NEVER merges a PR and never
+# pushes to main — every fix lands on a branch for a human to merge, so
+# merge_authority is explicitly NOT granted here. Streams 1 and 2 each
+# open/update their own PR (`fix/karen-tickets`, `kevin/user-fixes`)
+# against branch-protected main, so this needs `contents: write`,
+# `pull-requests: write`, `issues: write`, and SOCIAL_POSTER_PAT (the
+# built-in GITHUB_TOKEN cannot trigger the required `build` check on its
+# own PRs — same reason growth-snapshot.yml / appearance-discovery.yml /
+# routine-karen-nightly.yml use the PAT).
+name: routine-kevin-daily-desk
+
+on:
+  schedule:
+    - cron: "13 15 * * *" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Kevin — daily desk"
+      prompt_file: docs/agents/runner-prompts/kevin-desk.md
+      model: claude-sonnet-5
+      allowed_tools: "Bash,Read,Grep,Glob,Write,Edit,Task"
+      timeout_minutes: 60
+      checkout_token_secret: SOCIAL_POSTER_PAT
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
