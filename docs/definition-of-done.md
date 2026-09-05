@@ -36,7 +36,7 @@ unstaffed, not stuck, and it's the most actionable answer this table has).
 | 5 | Every link on the site works | 🟡 engineering work not yet done — Karen's nightly link-liveness check (`scripts/check-link-liveness.mjs`) already covers source URLs; shop/product links aren't in that sweep yet and no single full-site pass has ever run | agent | Widen Karen's nightly to shop/product links + run one full-site pass |
 | 6 | Every video, chronological, + video filter | 🟡 sourcing underway — the official-YouTube catalog audit ([#3286](https://github.com/JW-Incorporated/swift2/issues/3286)) merged 5 batches on 2026-08-25 (~76 videos: [#3298](https://github.com/JW-Incorporated/swift2/pull/3298), [#3311](https://github.com/JW-Incorporated/swift2/pull/3311), [#3331](https://github.com/JW-Incorporated/swift2/pull/3331), [#3335](https://github.com/JW-Incorporated/swift2/pull/3335), [#3338](https://github.com/JW-Incorporated/swift2/pull/3338)), and era placement now follows real-world upload date ([#3315](https://github.com/JW-Incorporated/swift2/pull/3315), decision 2026-08-25). The video *filter* UI and the completeness-tier spec are still unbuilt | agent | Land the remaining catalog batches (3 open, merge-conflicted); then tier spec + filter UI |
 | 7 | Clown bot | 🟢 chat feature live and shipped (agent loop, streaming, investigation trail). Memory/session feature: PR #2328 merged 2026-08-24 after a 5-round review (architecture escalation, redesign, 2 verification rounds) — code is genuinely ready, independently reviewed clean. Not turned on yet — that's a founder action, not an engineering gap: apply the pending migrations and flip the Supabase anon-auth toggle when ready ([`HUMAN-ACTIONS.md`](../HUMAN-ACTIONS.md) #14/#15) | founder | Apply migrations + flip the toggle whenever you're ready — nothing left blocking it |
-| 8 | Era/album capitalization audit | 🟡 staffed 2026-09-05, work not yet landed | agent (kanban swift2/t_a783eb4c) | Audit + fix + add a checker so it can't regress |
+| 8 | Era/album capitalization audit | 🟢 done — audit complete, drift fixed, checker merged ([`scripts/content-engine/checkers/era-capitalization.mjs`](../scripts/content-engine/checkers/era-capitalization.mjs), registered in `DET_CHECKERS`; Karen's nightly catches any future drift automatically) | — | none — closed |
 
 Legend: 🟢 done (criterion met, verified) · 🟡 moving · ⬜ not started ·
 🔴 blocked, says on what.
@@ -259,6 +259,26 @@ including the "(Taylor's Version)" suffix styling where used.
 
 **Acceptance criteria:** audit report merged with zero remaining findings;
 checker live in `DET_CHECKERS`; a deliberately-miscased test fixture fails CI.
+
+**Resolution (2026-09-05, kanban swift2/t_a783eb4c):** audited every era/album
+title reference under `supabase/seed/**` (all era `.mjs` files including
+`.dossiers.mjs`/lore files) and `apps/web/lib/longlive/*.generated.ts`. Found
+and fixed genuine drift — "Folklore"/"Evermore"/"Reputation" used mid-sentence
+as ordinary title-case words (fashion captions, track dossiers, tour-set
+photo captions, the clownbot lore prompts) — while leaving the correct
+sentence-initial lowercase styling untouched, per the styling itself. No
+"Ttpd" mixed-case abbreviation was found in the corpus (existing usage was
+already the all-caps "TTPD" acronym or the spelled-out title). Added
+`scripts/content-engine/checkers/era-capitalization.mjs` (two findings:
+`content.era-capitalization.stylized-title-miscased`,
+`content.era-capitalization.bad-ttpd-abbreviation`), registered in
+`DET_CHECKERS` (`scripts/content-engine/run.mjs`), with
+`era-capitalization.test.ts` covering a deliberately-miscased fixture. `npm
+run sync:content` regenerated the affected `apps/web/lib/longlive/*.generated.ts`
+files from the fixed seed content. One remaining case — "evermore vs.
+Evermore" (a deliberate pun contrasting the album with the unrelated Evermore
+Park theme-park lawsuit) — is intentional wordplay, not drift; the checker
+correctly flags it only as a low-confidence review note, not an auto-fix.
 
 ---
 

@@ -41,13 +41,14 @@ import * as rumorLifecycle from './checkers/rumor-lifecycle.mjs';
 import * as rumorRedline from './checkers/rumor-redline.mjs';
 import * as socialPostMissing from './checkers/social-post-missing.mjs';
 import * as voice from './checkers/voice.mjs';
+import * as eraCapitalization from './checkers/era-capitalization.mjs';
 
 // imageModeration no-ops without GOOGLE_VISION_API_KEY, so it is safe to always
 // include — it only does work (and costs) when a moderation key is provisioned.
 // imageUrlQuality is network-free, so it runs even under --no-images / egress
 // blocks — it is the fallback that keeps the image-quality gate alive when the
 // byte-level resolution check in imageLiveness can't reach hosts.
-const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, topOfFeedPhoto, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, rumorRedline, socialPostMissing, voice];
+const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, topOfFeedPhoto, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, rumorRedline, socialPostMissing, voice, eraCapitalization];
 const FINDINGS_DIR = join(ROOT, CONFIG.output.findingsDir);
 // docs/audits/engine/ is Karen-exclusive (docs/decisions.md 2026-08-14): a
 // bare `scan` self-check writes here instead, so other agents keep their

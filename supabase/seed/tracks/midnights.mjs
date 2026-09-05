@@ -507,7 +507,7 @@ const ERA = {
           {
             relatedId: "song:look-what-you-made-me-do",
             label: "Look What You Made Me Do",
-            why: "reputation's public, theatrical revenge is the precedent critics reached for; Vigilante Shit reruns the vengeance instinct in a colder, quieter, procedural register — the 'Reputation-adjacent' read made concrete."
+            why: "reputation's public, theatrical revenge is the precedent critics reached for; Vigilante Shit reruns the vengeance instinct in a colder, quieter, procedural register — the 'reputation-adjacent' read made concrete."
           },
           {
             relatedId: "song:mad-woman",
