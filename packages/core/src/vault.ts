@@ -1,6 +1,16 @@
 // Vault data access (Tier 0 skeleton + Tier 1 moment detail) over Supabase.
 // Portable: no view code, no framework — the web app and the future Expo app
 // both call this. Callers pass their own Supabase URL + public key.
+//
+// DEPRECATED (OS-015, `docs/specs/2026-09-05-one-source-three-surfaces.md`
+// §6 Phase 1, D1): `apps/mobile` no longer calls `createVaultClient` — it
+// reads the published content bundle via `@swift2/content`'s `loadBundle`
+// instead (see `apps/mobile/lib/vault.ts` + `vault-bundle-map.ts`). This
+// module stays only as `apps/web/lib/vault.ts`'s live-Supabase path (used
+// when `NEXT_PUBLIC_SUPABASE_*` env is configured) until OS-014 moves the
+// web reader onto the bundle too, at which point `createVaultClient`, the
+// `era`/`milestone`/`month_item` Supabase tables it reads (OS-016), and this
+// whole file are slated for removal. Do not add new callers.
 import { createClient } from '@supabase/supabase-js';
 import type { Era, Milestone, Moment, MonthItem, TrackNote } from '@swift2/shared';
 import { orderedEras } from '@swift2/shared';
