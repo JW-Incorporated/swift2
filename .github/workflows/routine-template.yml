@@ -122,10 +122,14 @@ jobs:
             echo "::error::prompt_file '${{ inputs.prompt_file }}' does not exist in this checkout."
             exit 1
           fi
+          # Random per-run delimiter (not a fixed string like EOF) — a fixed
+          # delimiter breaks silently (truncates the prompt with no error) if
+          # any line in the prompt file ever happens to match it verbatim.
+          DELIM="ROUTINE_PROMPT_$(openssl rand -hex 16)"
           {
-            echo 'prompt<<ROUTINE_PROMPT_EOF'
+            echo "prompt<<$DELIM"
             cat "${{ inputs.prompt_file }}"
-            echo ROUTINE_PROMPT_EOF
+            echo "$DELIM"
           } >> "$GITHUB_OUTPUT"
 
       - name: Run ${{ inputs.routine_name }}
