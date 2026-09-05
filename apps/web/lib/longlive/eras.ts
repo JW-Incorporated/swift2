@@ -84,7 +84,10 @@ export const ERAS: Era[] = [
       inkSoft: '#c3a8e0',
       line: '#412a5e',
       accent: '#b06be0',
-      accent2: '#7d5bd0',
+      // #3665: accent2 is small raw text (masthead eyebrow, community counts);
+      // #7d5bd0 hit only 3.66:1 on bg. Lightened to clear 4.5:1 on bg,
+      // surface, and surface2 (locked in theme.test.ts).
+      accent2: '#9e84dc',
       glow: 'rgba(176, 107, 224, 0.3)',
       font: 'script',
     },
