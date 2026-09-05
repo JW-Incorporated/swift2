@@ -1,0 +1,38 @@
+# Karen — nightly scan, migrated from claude.ai Routine `trig_01TmYaZgnecrEp9mkeV3Gq6X`
+# (registered display name still pending T-5 rename to "Karen — weekly
+# judgment slice" — see docs/agents/runners.md § T-5) to this scheduled
+# Action per docs/audits/2026-09-05-claude-routines-relocation-assessment.md
+# + the 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# Judgment/ticket-filing routine: opens a small PR containing only the
+# judgment-review ledger + report (never merges it — human/reviewer merge
+# per its own charter), so it needs `contents: write` + `pull-requests: write`
+# + `issues: write`, checked out with SOCIAL_POSTER_PAT (main is
+# branch-protected; the built-in GITHUB_TOKEN cannot trigger this repo's
+# required `build` check on its own PRs — same reason growth-snapshot.yml /
+# appearance-discovery.yml use the PAT).
+name: routine-karen-nightly
+
+on:
+  schedule:
+    - cron: "0 9 * * 0" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Karen — nightly scan"
+      prompt_file: docs/agents/runner-prompts/karen-nightly.md
+      model: claude-sonnet-5
+      allowed_tools: "Bash,Read,Grep,Glob,Write,Task"
+      timeout_minutes: 45
+      checkout_token_secret: SOCIAL_POSTER_PAT
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
