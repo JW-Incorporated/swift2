@@ -317,6 +317,51 @@ const ERA = {
         },
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "\"Snow on the Beach\" was one of the most anticipated tracks on Midnights because Swift had called Lana Del Rey 'the most influential artist in pop' in a 2019 Billboard speech; the collaboration was revealed only in the final episode of Swift's 'Midnights Mayhem with Me' rollout series.",
+          "The song became a flashpoint in Midnights' reception because Del Rey's vocals were largely relegated to harmonies rather than a true co-lead duet, prompting Swift to release a 'More Lana Del Rey' version on the Til Dawn Edition seven months later."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift explained in a promotional Instagram video that the song 'is about falling in love with someone at the same time as they're falling in love with you,' a 'cataclysmic, fated moment,' comparable to the rarity of snow falling on a beach.",
+            "Swift called collaborating with Del Rey 'an honor and a privilege.'",
+            "Del Rey told Billboard she 'had no idea' she was the album's only featured artist and would have sung more of verse two had she known; in Harper's Bazaar she said she felt she was 'all over' the track and considered it 'perfect' as released."
+          ],
+          supported: [
+            "Rolling Stone's Brittany Spanos called Del Rey's contribution the album's 'only true disappointment' for falling short of a true duet, while The Guardian and Variety praised the restrained blending of voices as deliberate and effective.",
+            "Critics read the 'aurora borealis green' and 'once saw on a screen' imagery as evoking a dreamlike, disbelieving state of new romantic infatuation.",
+            "The Janet Jackson 'All for You' reference in the bridge has been read as Swift signaling total devotion once she allows herself to believe the relationship is real."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:mirrorball",
+            label: "Mirrorball",
+            why: "Rolling Stone's Brittany Spanos noted both songs share a hazy, reverb-drenched dream pop production style with Jack Antonoff."
+          },
+          {
+            relatedId: "song:lavender-haze",
+            label: "Lavender Haze",
+            why: "Both explore the disorienting, almost unbelievable feeling of newly mutual love."
+          },
+          {
+            relatedId: "song:call-it-what-you-want",
+            label: "Call It What You Want",
+            why: "Both describe a relationship that feels miraculous and too good to be true after personal turmoil."
+          },
+          {
+            relatedId: "song:long-story-short",
+            label: "long story short",
+            why: "The opening verse's discovery of unexpected love against personal upheaval echoes this earlier storytelling approach."
+          }
+        ],
+        sources: [
+          { name: "Snow on the Beach — Wikipedia", url: "https://en.wikipedia.org/wiki/Snow_on_the_Beach" },
+          { name: "Taylor Swift explains the meaning behind her Snow on the Beach lyrics with Lana Del Rey — Capital FM", url: "https://www.capitalfm.com/artists/taylor-swift/snow-on-the-beach-lyrics-meaning-lana-del-rey/" },
+          { name: "The Warmer Meaning Behind Taylor Swift's 'Midnights' Track 'Snow on the Beach' — American Songwriter", url: "https://americansongwriter.com/meaning-behind-taylor-swift-snow-on-the-beach/" }
+        ]
+      },
     },
     {
       slug: 'youre-on-your-own-kid',
@@ -776,6 +821,35 @@ const ERA = {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "\"Karma\" sits near the emotional resolution point of Midnights, functioning as the album's victory lap after tracks like \"Anti-Hero\" and \"Vigilante Shit\" wrestle with self-doubt and grievance. Where much of the record turns inward on insomnia-fueled anxiety, \"Karma\" flips the mood to buoyant self-assurance, letting Swift openly enjoy the idea that her patience and integrity have been rewarded while her detractors face consequences of their own making.",
+          "The song also became a commercial flashpoint in the Midnights era: released as a pop-radio single with an Ice Spice remix and later closing out Eras Tour setlists, it cemented Midnights' most playful, unapologetic track as a centerpiece of Swift's live victory narrative rather than a deep cut."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift told Apple Music's 'New Music Daily' that she wrote 'Karma' from 'a perspective of feeling really happy, really proud of the way your life is, feeling like this must be a reward for doing stuff right.'",
+            "Swift directed the song's music video herself, which uses cosmic/outer-space imagery and features her alongside Ice Spice, who appears on the official remix released May 26, 2023.",
+            "Swift changed a lyric during Eras Tour stops (beginning in Buenos Aires, November 2023) from 'Karma is the guy on the screen' to 'Karma is the guy on the Chiefs,' a nod to Travis Kelce that fans and press widely noted as a public relationship signal."
+          ],
+          supported: [
+            "Critics including Rolling Stone's CT Jones read the song as a thesis statement for the Midnights era, with the line 'I'm still here' interpreted as a pointed rebuke to those who wished for Swift's professional or public downfall.",
+            "The lyrics are widely understood by critics as revisiting the intense media scrutiny Swift faced around 2016, reframing that period as something she ultimately outlasted rather than was wounded by.",
+            "Music writers have noted a thematic echo between 'Karma' and Evermore's 'Long Story Short,' where Swift similarly counsels letting rivals defeat themselves rather than seeking active revenge."
+          ]
+        },
+        connections: [
+          { relatedId: "song:anti-hero", label: "Anti-Hero", why: "Both are centerpiece Midnights tracks processing self-image, but where 'Anti-Hero' wallows in insecurity, 'Karma' answers it with hard-won confidence." },
+          { relatedId: "song:vigilante-shit", label: "Vigilante Shit", why: "Both songs on Midnights explore revenge fantasies against rivals, though 'Karma' frames retribution as cosmic justice rather than personal action." },
+          { relatedId: "song:long-story-short", label: "Long Story Short", why: "Critics have drawn a direct lyrical parallel between the two songs' shared idea that enemies will 'defeat themselves' without Swift needing to intervene." },
+          { relatedId: "song:mastermind", label: "Mastermind", why: "Both close out Midnights' emotional arc with Swift owning her calculated resilience and reputation as a strategist rather than a victim." }
+        ],
+        sources: [
+          { name: "Karma (Taylor Swift song) - Wikipedia", url: "https://en.wikipedia.org/wiki/Karma_(Taylor_Swift_song)" },
+          { name: "Midnights - Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" },
+          { name: "Why Taylor Swift's 'Karma' was the most buzzed about song on 'Midnights' - TODAY", url: "https://www.today.com/popculture/music/taylor-swift-karma-midnights-lyrics-theories-rcna53495" }
+        ]
+      },
     },
     {
       slug: 'sweet-nothing',
