@@ -39,6 +39,8 @@
     "check:generated": "node scripts/check-generated-in-sync.mjs",
     "content:bundle": "node scripts/build-content-bundle.mjs",
     "check:content-bundle": "node scripts/check-content-bundle-determinism.mjs",
+    "content:publish": "node scripts/publish-content-bundle.mjs",
+    "content:publish-storage": "node scripts/publish-content-bundle-to-storage.mjs",
     "tokens:generate": "node scripts/generate-design-tokens.mjs",
     "merch:coverage": "tsx scripts/merch-engine/affiliate-coverage.mjs",
     "check:affiliate-coverage": "node scripts/check-affiliate-coverage-in-sync.mjs",

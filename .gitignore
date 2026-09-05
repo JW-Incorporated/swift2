@@ -90,3 +90,9 @@ social/joey/Screenshot*.png
 # iOS App Store Connect API key (real credential, never commit)
 apps/mobile/credentials/
 apps/mobile/credentials.json
+
+# Published content bundle (OS-012) — build output written by
+# scripts/publish-content-bundle.mjs during apps/web's `prebuild`. Every
+# merge regenerates it deterministically from supabase/seed/**; never
+# tracked (docs/specs/2026-09-05-one-source-three-surfaces.md §6).
+/apps/web/public/content/
