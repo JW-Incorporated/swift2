@@ -11,6 +11,11 @@
 # branch-protected; the built-in GITHUB_TOKEN cannot trigger this repo's
 # required `build` check on its own PRs — same reason growth-snapshot.yml /
 # appearance-discovery.yml use the PAT).
+#
+# `Task` is in allowed_tools deliberately (routine-invariants.md invariant #4
+# allows it when the charter says why): the nightly/weekly judgment scan
+# reviews many pages for content-safety findings in one run and benefits from
+# subagent fan-out per page rather than one long serial pass.
 name: routine-karen-nightly
 
 on:
