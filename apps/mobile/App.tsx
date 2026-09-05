@@ -21,6 +21,7 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as Notifications from 'expo-notifications';
+import { destinationFor as destinationForUrl, type ShellDestination } from '@swift2/shared';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
@@ -29,27 +30,18 @@ import { NotificationSettingsScreen } from './components/NotificationSettingsScr
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 
-const SITE_HOSTS = new Set(['www.longlivets.com', 'longlivets.com']);
-
 /**
  * Where a notification (tap or inbox row) should take the user. The backend
  * emits full www.longlivets.com URLs as deep links (packages/core
  * notification-*.ts), so the site does the routing; the two special cases
  * are the native screens. Anything else lands on the site's front door.
+ *
+ * The routing logic itself lives in @swift2/shared (OS-003) so the root
+ * vitest suite's deep-link contract test covers it directly; this wrapper
+ * just binds it to this app's configured SITE_URL.
  */
-type Destination = { kind: 'web'; url: string } | { kind: 'settings' } | { kind: 'inbox' };
-
-export function destinationFor(rawUrl: string | null | undefined): Destination {
-  if (!rawUrl) return { kind: 'web', url: SITE_URL };
-  try {
-    const u = new URL(rawUrl);
-    if (!SITE_HOSTS.has(u.hostname) && u.origin !== SITE_URL) return { kind: 'web', url: SITE_URL };
-    if (u.searchParams.get('screen') === 'settings') return { kind: 'settings' };
-    if (u.searchParams.get('current') === 'inbox') return { kind: 'inbox' };
-    return { kind: 'web', url: rawUrl };
-  } catch {
-    return { kind: 'web', url: SITE_URL };
-  }
+export function destinationFor(rawUrl: string | null | undefined): ShellDestination {
+  return destinationForUrl(rawUrl, SITE_URL);
 }
 
 export default function App() {
@@ -65,7 +57,7 @@ export default function App() {
   // once per install, at the value moment of the first bell tap.
   const [onboardingOpen, setOnboardingOpen] = useState(false);
 
-  const go = useCallback((dest: Destination) => {
+  const go = useCallback((dest: ShellDestination) => {
     setNotificationSettingsOpen(false);
     setInboxOpen(false);
     setOnboardingOpen(false);
