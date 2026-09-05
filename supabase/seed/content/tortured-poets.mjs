@@ -2314,6 +2314,55 @@ export default {
       },
     },
     {
+      year: 2025,
+      month: 6,
+      // Month-level on purpose: reputable outlets disagree on the exact day
+      // (E! June 12; ABC a Friday that week), so no single day is asserted.
+      category: 'sighting',
+      title: 'A surprise afternoon at Joe DiMaggio Children\'s Hospital',
+      snippet:
+        'An unannounced visit to Joe DiMaggio Children\'s Hospital in Hollywood, Florida — signed books, hugs and selfies room to room — where one patient she met, teen cancer survivor Valentina Olivares, kept their photo as her phone wallpaper.',
+      sourceUrl:
+        'https://www.cbsnews.com/miami/news/joe-dimaggios-south-florida-cancer-survivor-taylor-swift-visit-eras-tour/',
+      thumbnailUrl: null,
+      photosReviewed:
+        'private-individual/minor redline — the only images of the visit are hospital and press-CDN frames that pair Taylor with pediatric patients (private minors); none exists on a reusable allowlisted host, so no photo is carried per privacy-redlines.md (reviewed 2026-09-05)',
+      moment: {
+        context:
+          'In June 2025, while she was in South Florida around the Stanley Cup Final, Taylor made an unannounced visit to Joe DiMaggio Children\'s Hospital in Hollywood, Florida, spending the afternoon going room to room with young patients and their families. She introduced herself, asked for hugs, handed out signed copies of her book and posed for selfies; the hospital said she "turned hospital hallways into a place of joy, comfort, and connection."\n\nAmong the patients she met was Valentina Olivares, diagnosed at 15 with a rare B-cell lymphoma found only in her spinal fluid and treated there with CAR T-cell therapy. Olivares had missed an Eras Tour date in Tampa to a fever during treatment — her care team recreated the show in her hospital room — and later attended her first concert ever, an Eras Tour night at Miami\'s Hard Rock Stadium. The selfie she took with Taylor that afternoon became, in her own words, the wallpaper on her phone.\n\nMore than a year later, a September 2026 CBS Miami retrospective for Pediatric Cancer Awareness Month caught up with her: three years past diagnosis, finished with treatment, and studying accounting at Broward College. "You are so much stronger than you think," she said. "Everything works out in the end. You just have to give it time, take one day at a time." The visit fits a year of quiet, reactive giving from Taylor — the kind that arrives without a press release and is told, when it is told at all, by the people on the receiving end. Olivares appears here only as a patient who has publicly shared her own story with the outlet that reported it.',
+        sources: [
+          {
+            outlet: 'CBS Miami',
+            url: 'https://www.cbsnews.com/miami/news/joe-dimaggios-south-florida-cancer-survivor-taylor-swift-visit-eras-tour/',
+            source_title:
+              'A South Florida cancer patient who was surprised with meeting Taylor Swift is now marking the end of her treatment',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-05',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1418750/taylor-swift-surprises-patients-at-florida-childrens-hospital',
+            source_title: 'Taylor Swift Surprises Patients at Florida Children\'s Hospital',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-05',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/taylor-swift-visits-joe-dimaggio-childrens-hospital-florida/story?id=122848133',
+            source_title: 'Taylor Swift visits Joe DiMaggio Children\'s Hospital in Florida, surprises patients',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-05',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
       // Depth audit 2026-08-12: second of the two `relationship` rows the
       // audit queued for this era (see the iHeartRadio moment above). Date
       // fixed as Tuesday June 24, 2025 by NFL.com ("Tuesday night") against

@@ -8425,12 +8425,14 @@ export default {
       // Cross-links (extended 2026-08-29, crosslink-opportunity): the same
       // song's main story/Oscar page and its Pop Airplay chart run, plus its
       // sibling chart milestones and the music-video debut it followed.
+      // Extended 2026-09-05: + the country-radio add-record moment.
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
         'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
+        'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
       ],
       year: 2026,
       month: 8,
@@ -8676,6 +8678,7 @@ export default {
       // Cross-link (crosslink-opportunity, 2026-08-24; extended 2026-08-29): + its
       // Adult Pop Airplay No. 1 record and the other same-song milestones — the
       // music-video debut and the Disney+ piano-version video.
+      // Extended 2026-09-05: + the country-radio add-record moment.
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
@@ -8683,6 +8686,7 @@ export default {
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
         'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
+        'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
       ],
       year: 2026,
       month: 8,
@@ -13099,6 +13103,18 @@ export default {
       month: 6,
       day: 8,
       category: 'music',
+      // Cross-links (crosslink-opportunity, Vault Run 2026-09-05): the same
+      // song's other chart/airplay milestones — the Hot 100 top-five country
+      // sweep, both music videos, its Adult Pop Airplay record and Pop Airplay
+      // run, and the Oscar-conversation page.
+      relatedIds: [
+        'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
+        'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+        'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+      ],
       title: 'I Knew It, I Knew You closes the entire country radio panel on impact',
       snippet:
         'On its first week at country radio, the Toy Story 5 ballad became the first song by a woman to close out Mediabase\'s entire country reporting panel on impact — every station adding it at once — and, per trade reporting, the first female artist to debut inside Billboard\'s Country Airplay top 10 in the chart\'s history.',
