@@ -26,33 +26,6 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 43. [BLOCKING] Generate `CLAUDE_CODE_OAUTH_TOKEN` for the routines-migration fleet — ~1 min
-
-**Filed:** 2026-09-05
-
-**Why it matters:** kanban `t_876f9697` (Joey D1=B, 2026-09-05) is migrating
-the 23-routine claude.ai fleet to scheduled GitHub Actions workflows that
-run on your Claude Pro/Max plan usage, not metered API billing — see
-`docs/audits/2026-09-05-routines-oauth-token-revision.md` for the full
-tradeoff (draws from the same 5-hour/weekly plan-usage pool your own
-interactive Claude Code sessions use). Every `routine-*.yml` workflow reads
-this one secret; none of them can run without it.
-
-**What only you can do:** run `claude setup-token` from any machine where
-you can log into your Claude account (this server or your laptop). It's a
-~1-minute interactive prompt and produces a long-lived (~1 year) token
-built for automation, distinct from the short-lived interactive-login
-token. Send the resulting token to Hermes over a private channel (never
-paste it in a repo PR, issue, or public chat) — Hermes will store it as
-the `CLAUDE_CODE_OAUTH_TOKEN` repository secret via `gh secret set`, the
-same mechanical step already used for `ANTHROPIC_API_KEY`.
-
-**Until this is done:** every migrated `routine-*.yml` workflow runs on
-schedule, prints a loud `::warning::` that the secret is missing, and
-exits clean (not red) — by design, so 23 routines going live at once
-doesn't paper the Actions tab in false failures while this one step is
-still open.
-
 ### 42. [UPGRADE] Add a GitHub comment-edit tool to Kevin's cloud sessions (or accept the append-and-supersede workaround) — ~10 min
 
 **Filed:** 2026-09-01
@@ -723,6 +696,19 @@ credentials, this was just registering accounts/keys ahead of that build.
 
 ## DONE
 
+
+### 43. [DONE] Generate `CLAUDE_CODE_OAUTH_TOKEN` for the routines-migration fleet
+
+**Filed:** 2026-09-05
+**Closed:** 2026-09-05
+
+**What happened:** Joey ran `claude setup-token` and sent the token to
+Hermes over Discord; Hermes stored it as the `CLAUDE_CODE_OAUTH_TOKEN`
+repository secret via `gh secret set` (confirmed present via
+`gh secret list`, never echoed or logged). All `routine-*.yml` workflows
+from the routines-migration (kanban `t_876f9697`, D1=B) can now run
+end-to-end on Joey's Claude Pro/Max plan usage instead of exiting clean
+with a missing-secret warning.
 
 ### 36. [DONE] T-3 News Triage model trial applied
 
