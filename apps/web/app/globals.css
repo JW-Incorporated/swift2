@@ -258,6 +258,31 @@ body {
   background: color-mix(in srgb, var(--era-ink) 82%, var(--era-bg));
 }
 
+/* Quiet variant, for icon buttons that borrow the 44px floor above but are
+   NOT the primary affordance on their surface. The solid inversion is right
+   for the close X of an overlay, where the X *is* the thing you are looking
+   for. It is wrong for the feedback widget's session-dismiss button
+   (FeedbackButton.tsx), which sits beside the "Feedback" trigger it belongs
+   to: rendered at maximum contrast, a bare X in a solid circle floating in
+   the bottom-right corner of a phone outshone everything around it and read
+   as the close button of a pop-up that had failed to render. Same recessive
+   surface as `.era-btn-ghost`, so the labelled trigger leads and the X reads
+   as attached to it — with the tap target unchanged.
+
+   Note these declarations must live here rather than as Tailwind `bg-*`
+   utilities on the element: globals.css is ordered after Tailwind's
+   utilities, so `.era-icon-btn`'s `background`/`color` win over any
+   equal-specificity utility class a caller adds. */
+.era-icon-btn--quiet {
+  background: color-mix(in srgb, var(--era-surface) 80%, transparent);
+  border: 1px solid var(--era-line);
+  color: var(--era-ink-soft);
+}
+.era-icon-btn--quiet:hover {
+  background: var(--era-surface-2);
+  color: var(--era-ink);
+}
+
 /* Eras timeline filter pills (FilterBar.tsx). Colors are per-chip and
    computed in JS (a fixed hue per topic tag, the era accent for "All"/
    Videos) — passed in as custom properties so this one rule's :hover can
