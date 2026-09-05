@@ -2112,17 +2112,35 @@ export default {
       },
     },
     {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      // Re-sourced 2026-09-05 (issue #3755): the migrated stub had no
+      // sourceUrl, no sources, and no specific named event — replaced with
+      // the actual first live performance of "I Knew You Were Trouble" at
+      // the 2012 AMAs. Legacy id kept as slug for stability.
       slug: "red-snl",
       year: 2012,
       month: 11,
-      dateLabel: "Fall 2012",
+      day: 18,
+      dateLabel: "November 18, 2012",
       category: "tour",
-      title: "A run of TV performances",
-      snippet: "Late-night and award-show stages keep Red everywhere at once.",
+      title: "I Knew You Were Trouble debuts live at the AMAs",
+      snippet:
+        "A gothic staircase entrance, a discarded pink gown, and a black-and-red reveal mark the song's first live performance.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
       moment: {
-        context: "A dense promotional stretch put the album on every major stage as the release momentum peaked.",
+        context:
+          "Swift performed \"I Knew You Were Trouble\" live for the first time at the 40th American Music Awards, held at the Nokia Theatre L.A. Live. She opened in a pale-pink, princess-style gown descending a staircase surrounded by black-clad dancers, then discarded the dress midway through to reveal a black-and-red corset-and-tulle look for a darker, more aggressive second half — a deliberate tonal swerve from her usual image. She also won Favorite Country Female Artist that night.",
+          sources: [
+            { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble' },
+            {
+              outlet: 'Taste of Country',
+              url: 'https://tasteofcountry.com/taylor-swift-i-knew-you-were-trouble-american-music-awards/',
+              source_title: 'Taylor Swift Debuts \'I Knew You Were Trouble\' at 2012 American Music Awards',
+              publisher: 'Taste of Country',
+              source_type: 'reputable_press',
+              accessed_at: '2026-09-05',
+              reliability_score: 3,
+            },
+          ],
       },
     },
     {
