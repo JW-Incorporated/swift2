@@ -135,9 +135,10 @@ unrestricted web, no UGC) → expect 4+ / Everyone.
 - **Support URL:** `https://www.longlivets.com/support`
 - **Support email:** privacy@longlivets.com (founder-approved role alias; never a personal inbox).
 - **Ads:** none. **In-app purchases:** none. **Accounts:** none.
-- **Data collection:** anonymous device id + opt-in push token, app functionality only,
-  not linked to identity, no tracking — see `privacy-and-data-safety.md` (2026-09-05 block)
-  for the exact questionnaire answers. "Data Not Collected" is NO LONGER correct.
+- **Data collection:** the app shows the website (2026-09-05), so: device id + opt-in push
+  token, the site's anonymous Clownbot id, typed feedback/chat text, and analytics page
+  views — all not linked to identity, no tracking. Exact answers in
+  `privacy-and-data-safety.md` (2026-09-05 block). "Data Not Collected" is wrong.
 
 ## Graphics still needed (design gap — see shipping checklist)
 

@@ -16,11 +16,12 @@
 > | Question | Answer |
 > | --- | --- |
 > | Do you or your third-party partners collect data from this app? | **Yes** |
-> | Data types | **Identifiers → Device ID** (the app-generated UUID and the push token). Nothing else: no contact info, no location, no usage data, no diagnostics, no user content. |
-> | Device ID → Is this used for tracking? | **No** |
-> | Device ID → Is it linked to the user's identity? | **No** |
-> | Device ID → Purposes | **App Functionality** only |
-> | Resulting label | **"Data Not Linked to You: Identifiers"** |
+> | **Identifiers → Device ID** | the app's UUID + push token. Purpose: App Functionality. Not linked, not tracking. |
+> | **Identifiers → User ID** | the website's anonymous Clownbot session id (cookie), because the app shows the site (2026-09-05 WebView decision). Purpose: App Functionality. Not linked, not tracking. |
+> | **User Content → Other User Content** | feedback-box text (to GitHub) and mood-chat / Clownbot text (to the Claude API) typed inside the in-app site. Purpose: App Functionality. Not linked, not tracking. |
+> | **Usage Data → Product Interaction** | Vercel Web Analytics page views inside the in-app site. Purpose: Analytics. Not linked, not tracking. |
+> | Every other data type | **not collected** |
+> | Resulting label | **"Data Not Linked to You: Identifiers, User Content, Usage Data"** |
 >
 > **Google Play → Data safety** (paste-ready): Collects data: **Yes**. Data type:
 > **Device or other IDs**. Collected, not shared. Not processed ephemerally.
