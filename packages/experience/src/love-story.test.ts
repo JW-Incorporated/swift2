@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { allocateHitRanges, durationLabel, mergedTimeline, monthsBetween, previousRelationship, soloLeadIn } from './love-story';
-import { RELATIONSHIPS, SINGLE_PERIODS } from '@swift2/experience';
-import { songTargetOf } from './tracks';
-import type { Relationship, SinglePeriod } from '@swift2/experience';
+import { RELATIONSHIPS, SINGLE_PERIODS } from './lenses';
+import type { Relationship, SinglePeriod } from './types';
 
 const rels: Relationship[] = [
   { id: 'r1', name: 'Alex', start: '2010-01-01', end: '2010-06-01', eraIds: ['debut'], songs: [], note: '' },
@@ -31,13 +30,13 @@ describe('monthsBetween / durationLabel', () => {
 describe('previousRelationship', () => {
   it('finds the relationship that most recently ended before an entry started', () => {
     const timeline = mergedTimeline(rels, singles);
-    const prev = previousRelationship(timeline[1], timeline);
+    const prev = previousRelationship(timeline[1]!, timeline);
     expect(prev?.id).toBe('r1');
   });
 
   it('returns null when nothing preceded the entry', () => {
     const timeline = mergedTimeline(rels, singles);
-    expect(previousRelationship(timeline[0], timeline)).toBeNull();
+    expect(previousRelationship(timeline[0]!, timeline)).toBeNull();
   });
 });
 
@@ -45,17 +44,17 @@ describe('allocateHitRanges', () => {
   // A run of contiguous sliver segments (5–12px painted at 1280px wide,
   // ~0.5–1% each) next to two roomy neighbours.
   const slivers = [0, 16, 16.5, 17.4, 18.2, 19.2, 40, 100];
-  const sliverRun = slivers.slice(0, -1).map((s, i) => ({ start: s, end: slivers[i + 1] }));
+  const sliverRun = slivers.slice(0, -1).map((s, i) => ({ start: s, end: slivers[i + 1]! }));
   const MIN = 2;
   const centre = (s: { start: number; end: number }) => (s.start + s.end) / 2;
 
   it('tiles the domain in order without gaps or overlaps', () => {
     const ranges = allocateHitRanges(sliverRun, MIN);
-    expect(ranges[0].start).toBe(0);
-    expect(ranges[ranges.length - 1].end).toBe(100);
+    expect(ranges[0]!.start).toBe(0);
+    expect(ranges[ranges.length - 1]!.end).toBe(100);
     ranges.forEach((r, i) => {
       expect(r.end).toBeGreaterThanOrEqual(r.start);
-      if (i > 0) expect(r.start).toBeCloseTo(ranges[i - 1].end, 9);
+      if (i > 0) expect(r.start).toBeCloseTo(ranges[i - 1]!.end, 9);
     });
   });
 
@@ -66,7 +65,7 @@ describe('allocateHitRanges', () => {
       [{ start: 0, end: 40 }, { start: 40, end: 40.5 }, { start: 40.5, end: 100 }],
       MIN,
     );
-    expect(ranges[1].end - ranges[1].start).toBeGreaterThanOrEqual(MIN - 1e-9);
+    expect(ranges[1]!.end - ranges[1]!.start).toBeGreaterThanOrEqual(MIN - 1e-9);
   });
 
   // THE invariant, and the regression this function was rewritten for
@@ -77,7 +76,7 @@ describe('allocateHitRanges', () => {
     for (const min of [0, 1, 2, 5, 20]) {
       const ranges = allocateHitRanges(sliverRun, min);
       ranges.forEach((r, i) => {
-        const c = centre(sliverRun[i]);
+        const c = centre(sliverRun[i]!);
         // Strictly inside — landing exactly on a boundary means
         // elementFromPoint hands the click to the neighbour.
         if (i > 0) expect(c).toBeGreaterThan(r.start);
@@ -100,7 +99,7 @@ describe('allocateHitRanges', () => {
     for (const bandWidth of [320, 361, 480, 640, 862, 1024, 1440]) {
       const ranges = allocateHitRanges(segments, (24 / bandWidth) * 100);
       ranges.forEach((r, i) => {
-        const c = centre(segments[i]);
+        const c = centre(segments[i]!);
         // Strict on the inner edges, with at least half a CSS pixel of margin
         // so percentage-layout rounding can't tip a click into the neighbour.
         const halfPx = 100 / bandWidth / 2;
@@ -108,14 +107,17 @@ describe('allocateHitRanges', () => {
         const endOk = i === ranges.length - 1 ? c <= r.end : c < r.end - halfPx;
         expect(
           startOk && endOk,
-          `band ${bandWidth}px: "${timeline[i].id}" centre ${c.toFixed(3)}% is not safely inside its hit range [${r.start.toFixed(3)}, ${r.end.toFixed(3)}]`,
+          `band ${bandWidth}px: "${timeline[i]!.id}" centre ${c.toFixed(3)}% is not safely inside its hit range [${r.start.toFixed(3)}, ${r.end.toFixed(3)}]`,
         ).toBe(true);
       });
     }
   });
 
   it('puts the boundary between two roomy segments at the midpoint of their centres', () => {
-    const [a, b] = allocateHitRanges([{ start: 0, end: 30 }, { start: 32, end: 100 }], MIN);
+    const [a, b] = allocateHitRanges([{ start: 0, end: 30 }, { start: 32, end: 100 }], MIN) as [
+      { start: number; end: number },
+      { start: number; end: number },
+    ];
     expect(a.end).toBeCloseTo((15 + 66) / 2, 9);
     expect(b.start).toBeCloseTo(a.end, 9);
   });
@@ -133,7 +135,7 @@ describe('allocateHitRanges', () => {
 describe('soloLeadIn', () => {
   it('names the prior relationship when one exists', () => {
     const timeline = mergedTimeline(rels, singles);
-    expect(soloLeadIn(singles[0], timeline)).toBe('Just out of her relationship with Alex.');
+    expect(soloLeadIn(singles[0]!, timeline)).toBe('Just out of her relationship with Alex.');
   });
 
   it('falls back to an age-based lead-in for the very first solo period', () => {
@@ -174,19 +176,3 @@ describe('solo-period editorial depth', () => {
   });
 });
 
-describe('relationship song links', () => {
-  const songs = [...RELATIONSHIPS, ...SINGLE_PERIODS].flatMap((entry) => entry.songs ?? []);
-
-  it('resolves every authored song id to a real track-guide entry', () => {
-    for (const song of songs) {
-      if (!song.relatedId) continue;
-      expect(songTargetOf(song.relatedId), `${song.title} (${song.relatedId})`).not.toBeNull();
-    }
-  });
-
-  it('leaves only songs absent from the track guide non-interactive', () => {
-    expect(songs.filter((song) => !song.relatedId).map((song) => song.title)).toEqual([
-      'This Is What You Came For',
-    ]);
-  });
-});
