@@ -137,12 +137,16 @@ on every start, and sends an Expo push token if the user opts in. Answers:
 | Question | Answer |
 | --- | --- |
 | Do you collect data from this app? | **Yes** |
-| Data types | **Identifiers → Device ID** only |
-| Used for tracking? | **No** |
-| Linked to the user's identity? | **No** |
-| Purpose | **App Functionality** |
+| Data types | **Identifiers → Device ID** and **User ID**; **User Content → Other User Content**; **Usage Data → Product Interaction** |
+| Used for tracking? | **No** (every type) |
+| Linked to the user's identity? | **No** (every type) |
+| Purpose | App Functionality for all; Analytics additionally for Product Interaction |
 
-Resulting label: *Data Not Linked to You — Identifiers*. Full rationale and
+Since the 2026-09-05 WebView decision the app shows the website, so the
+site's own collection (feedback text, mood/Clownbot text sent to the Claude
+API, the anonymous Clownbot cookie id, Vercel Web Analytics) counts as
+collected "from this app" and is declared alongside the device id.
+Resulting label: *Data Not Linked to You — Identifiers, User Content, Usage Data*. Full rationale and
 the matching Play answers: `apps/mobile/docs/privacy-and-data-safety.md`.
 
 ## 6. Review risks to expect

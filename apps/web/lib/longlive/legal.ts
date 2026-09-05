@@ -383,48 +383,35 @@ export const PRIVACY_POLICY: LegalDoc = {
       heading: 'The mobile app',
       blocks: [
         {
-          // Rewritten 2026-09-05 for the App Store release and re-verified
-          // against apps/mobile/** on that date. The 2026-08-30 copy said the
-          // app "neither generates nor sends any device identifier" and had
-          // "no notifications" — both went false the same day, when the
-          // notifications work (device registry, push registration, in-app
-          // inbox) landed. Source inventory: apps/mobile/lib/device-id.ts,
-          // push-registration.ts, prefs-client.ts, inbox-client.ts;
-          // apps/web/app/api/devices/register/route.ts and
-          // api/devices/[id]/prefs/route.ts; migration
-          // 20260909000000_notifications_devices.sql. Whoever changes the
-          // app changes this section in the same release, and both stores'
-          // data-safety forms with it.
+          // Rewritten 2026-09-05 (second time that day) for the App Store
+          // release. Decision in docs/decisions.md 2026-09-05: the app now
+          // shows this website inside it (apps/mobile/components/SiteShell.tsx,
+          // a WebView of www.longlivets.com), so everything the sections
+          // above say about the website is true inside the app too. On top of
+          // that the app has its own device registry and opt-in push
+          // notifications (apps/mobile/lib/device-id.ts, push-registration.ts,
+          // prefs-client.ts, inbox-client.ts; apps/web/app/api/devices/**;
+          // migration 20260909000000_notifications_devices.sql). Whoever
+          // changes the app changes this section in the same release, and
+          // both stores' data-safety forms with it.
           kind: 'p',
-          text: 'The sections above describe the Long Live website. There is also a Long Live mobile app for iPhone and Android — listed as "LongLive", bundle and package id ai.jwlabs.longlive — and it is a different piece of software with a much shorter story. This section is that story.',
+          text: 'There is also a Long Live mobile app for iPhone and Android — listed as "LongLive", bundle and package id ai.jwlabs.longlive. The app shows this website inside it: when you open the app you are reading www.longlivets.com, with the same pages, the same features, and the same handling of your data as described in every section above. The feedback button, the mood chat, Clownbot, the analytics, the embeds, and the server logs all behave in the app exactly as they do in a browser, and the sections above are the description of them.',
         },
         {
           kind: 'p',
-          text: 'When you open the app it makes three requests, all over HTTPS, to our content database at Supabase: one for the eras, one for the milestones, and one for the items on the timeline. They are anonymous reads of published content, made with the same public key the website uses against the same public tables, and they say nothing about you. The app holds no session and no token: its database client is configured not to keep a session and not to refresh one, so there is nothing to log in to and nothing kept signed in.',
+          text: 'Two things are specific to the app. The first is a device id. On first launch the app creates a random device id — a UUID, not derived from your phone, your Apple or Google account, or any advertising identifier — and stores it in the device’s secure storage. Each time the app starts it sends that id to our server together with the platform (iPhone or Android), your device’s time zone and language setting, and the app version. We keep those in a devices table in our Supabase database so that notification preferences can be saved and so that notifications, if you turn them on, can be delivered at a sensible local hour. None of it names you, and we do not link it to anything that could, including the website’s anonymous Clownbot id.',
         },
         {
           kind: 'p',
-          text: 'The app does generate one identifier. On first launch it creates a random device id — a UUID, not derived from your phone, your Apple or Google account, or any advertising identifier — and stores it in the device’s secure storage. Each time the app starts it sends that id to our server together with the platform (iPhone or Android), your device’s time zone and language setting, and the app version. We keep those in a devices table in our Supabase database so that notification preferences can be saved and so that notifications, if you turn them on, can be delivered at a sensible local hour. None of it names you, and we do not link it to anything that could.',
+          text: 'The second is notifications, which are off until you ask for them. The app never shows the system permission prompt on its own; you reach it by tapping the bell and choosing to turn notifications on. If you allow them, the app obtains a push token from Expo’s push notification service — the relay that hands messages to Apple or Google for delivery — and stores that token against your device id so we can send to that device. Your choices in the bell menu (off, muted types, quiet hours, a daily cap) are saved to the same devices row. The in-app inbox is a public feed of recent notifications and is fetched without your device id. You can withdraw notification permission in your phone’s settings at any time; the token then stops working and is pruned.',
         },
         {
           kind: 'p',
-          text: 'Notifications are off until you ask for them. The app never shows the system permission prompt on its own; you reach it by tapping the bell and choosing to turn notifications on. If you allow them, the app obtains a push token from Expo’s push notification service — the relay that hands messages to Apple or Google for delivery — and stores that token against your device id so we can send to that device. Your choices in the bell menu (off, muted types, quiet hours, a daily cap) are saved to the same devices row. The in-app inbox is a public feed of recent notifications and is fetched without your device id. You can withdraw notification permission in your phone’s settings at any time; the token then stops working and is pruned.',
+          text: 'Apart from internet access and — only if you grant it — permission to notify you, the app asks for no device permissions: not your camera, your microphone, your location, your contacts, your photos, or your storage. It carries no advertising SDK, no crash-reporting SDK, no in-app purchases, no account, and no sign-in of its own. Links that lead away from longlivets.com open in your phone’s browser, not inside the app.',
         },
         {
           kind: 'p',
-          text: 'There is nowhere in the app to type. No form, no search box, no upload, no camera, no microphone, no location. The whole interface is a drag gesture, a scrolling view of the timeline, and the notification settings behind the bell. The app carries no advertising, analytics, or crash-reporting software, no in-app purchases, no account, and no sign-in. Apart from internet access and — only if you grant it — permission to notify you, it asks for no device permissions: not your camera, your microphone, your location, your contacts, your photos, or your storage.',
-        },
-        {
-          kind: 'p',
-          text: "Two things reach a third party, and neither can be avoided if the app is to work: fetching anything over the internet tells the other end where the request came from, so Supabase (our database host) and Vercel (which runs the server the app registers with) see your device's IP address and the user-agent string your device sends, and both appear in their request logs, which exist for security and reliability. That is the same kind of log described under Server logs below, and the same limits apply: we do not use it to build a profile of you and we do not combine it with anything else.",
-        },
-        {
-          kind: 'p',
-          text: 'The features of this website that do collect something are not in the app. There is no feedback button, no mood chat, and no Clownbot in the app, so nothing described in those sections above happens there. The app sets no cookies. Uninstalling it discards the device id; write to us at the address in Contact and we will delete the matching devices row, and rows whose tokens stop working are pruned on their own.',
-        },
-        {
-          kind: 'p',
-          text: 'Our Google Play Data safety declaration and our App Store privacy label both describe the same app as this section does: an anonymous device id and, if you opt in, a push token, used for app functionality only, not linked to your identity and not used for tracking. All three are kept in step: if the app ever starts collecting something else, they change in the release that ships it.',
+          text: 'Uninstalling the app discards the device id and the website’s cookies held inside the app. Write to us at the address in Contact and we will delete the matching devices row; rows whose tokens stop working are pruned on their own. Our Google Play Data safety declaration and our App Store privacy label describe the same app as this section does — the website’s collection described above, plus an anonymous device id and, if you opt in, a push token, used for app functionality only, not linked to your identity and not used for tracking. If the app ever starts collecting something else, all three change in the release that ships it.',
         },
       ],
     },
