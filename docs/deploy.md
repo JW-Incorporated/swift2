@@ -119,3 +119,64 @@ mode — that's what Path B adds once the app is linked.)
 - Open the URL — you should see the eras with per-era theming.
 - Check the Tier 0 payload against budget:
   `npm run check:budget -- --url https://<your-app>/vault/tier0`
+
+---
+
+# Deploying the mobile app (EAS)
+
+## Store builds vs. EAS Update
+
+Two release paths, pick based on what changed:
+
+| Change touches | Release path | Turnaround |
+| --- | --- | --- |
+| Only JS/TS (screens, logic, `packages/**` consumed by mobile) | **EAS Update** (OTA) | Minutes — no App/Play Store review |
+| Native code (new native module, Expo config plugin, `app.json`'s `ios`/`android` blocks, SDK bump) | **EAS Build** + store submit | Days — App Store/Play review |
+
+This is decided automatically at publish time, not by a human judgment
+call: `apps/mobile/app.json` sets `runtimeVersion: { policy: "fingerprint" }`,
+so every build's install computes a fingerprint from its actual native
+dependency tree, and a running app only ever accepts an OTA update whose
+fingerprint matches the build it shipped with (OS-040, One Source spec §4
+D4). A JS-only change publishes under the same fingerprint and reaches
+every existing install immediately; a native change publishes under a new
+fingerprint that no existing install matches, so it's a silent no-op there
+until the next store build carries it — you cannot "OTA a native change"
+by mistake.
+
+## Publishing an EAS Update by hand
+
+```bash
+cd apps/mobile
+eas update --channel production --message "what changed"
+```
+
+`preview` is the internal-testing channel (matches the `preview` build
+profile in `eas.json`); `production` is what TestFlight/App Store/Play
+production builds are wired to via `eas.json`'s `build.<profile>.channel`.
+
+## Automatic EAS Update on merge
+
+`.github/workflows/eas-update.yml` runs on every push to `main` that
+touches `apps/mobile/**` or `packages/**`: it publishes to the `production`
+channel unconditionally (the fingerprint policy above is what makes that
+safe — see the workflow's own comment). It needs an `EXPO_TOKEN` repo
+secret (an Expo access token scoped to this project; generate one at
+expo.dev → account settings → Access Tokens) — **filed as a
+`HUMAN-ACTIONS.md` item**, since only a founder can create/paste that
+secret via `gh secret set`.
+
+## First-time setup checklist
+
+1. `eas.json` already defines `build` profiles (`development`, `preview`,
+   `production`) and now a `channel` per profile — a build only ever
+   receives updates published to its own channel.
+2. `apps/mobile/app.json` sets `updates.url` to this project's EAS Update
+   URL and `runtimeVersion.policy: "fingerprint"` — both required for any
+   of the above to work; don't hand-set a static `runtimeVersion` string,
+   it defeats the safety property this whole scheme relies on.
+3. A store build must be created (`eas build --profile production`) with
+   these fields present before its installs can receive OTA updates at
+   all — OS-040 wires the *mechanism*, not a placeholder store build (that
+   waits on OS-004's TestFlight device + push credentials human action).
+
