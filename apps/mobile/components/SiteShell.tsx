@@ -83,9 +83,28 @@ export interface SiteShellProps {
   url: string;
   /** Called when the page asks to open a native screen (OS-002 bridge). */
   onBridgeMessage?: (message: NativeBridgeMessage) => void;
+  /**
+   * OS-030: given an on-site URL a user tapped inside the WebView, returns
+   * true if the hybrid routing table (`lib/routes.ts`) would send it to a
+   * native screen right now (flags applied). When omitted, no in-WebView
+   * link click is treated as native-capable — every on-site link keeps
+   * loading inside the WebView, matching pre-OS-030 behavior.
+   */
+  isNativeCapableUrl?: (url: string) => boolean;
+  /**
+   * Called instead of loading the URL in the WebView when
+   * `isNativeCapableUrl` reports true — the caller should route through the
+   * same `navigate()` every other entry point uses.
+   */
+  onNativeCapableLinkPress?: (url: string) => void;
 }
 
-export function SiteShell({ url, onBridgeMessage }: SiteShellProps) {
+export function SiteShell({
+  url,
+  onBridgeMessage,
+  isNativeCapableUrl,
+  onNativeCapableLinkPress,
+}: SiteShellProps) {
   const webRef = useRef<WebView>(null);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState<string | null>(null);
@@ -105,17 +124,31 @@ export function SiteShell({ url, onBridgeMessage }: SiteShellProps) {
     return () => sub.remove();
   }, [canGoBack]);
 
-  const onShouldStart = useCallback((req: ShouldStartLoadRequest) => {
-    // Only top-level navigations leave the shell; iframe loads (embeds) are
-    // untouched. `isTopFrame` is iOS-only, so treat Android as top-level.
-    const topLevel = req.isTopFrame ?? true;
-    if (!topLevel) return true;
-    if (isSiteUrl(req.url) || req.url.startsWith('about:')) return true;
-    Linking.openURL(req.url).catch(() => {
-      /* nothing sensible to do if the OS refuses; stay put */
-    });
-    return false;
-  }, []);
+  const onShouldStart = useCallback(
+    (req: ShouldStartLoadRequest) => {
+      // Only top-level navigations leave the shell; iframe loads (embeds) are
+      // untouched. `isTopFrame` is iOS-only, so treat Android as top-level.
+      const topLevel = req.isTopFrame ?? true;
+      if (!topLevel) return true;
+      if (isSiteUrl(req.url)) {
+        // OS-030: a link click inside the WebView (e.g. the site's own
+        // "Notification Settings" or inbox link) that targets a
+        // native-capable, flag-on route opens the native screen instead of
+        // letting the WebView render the site's own version of it.
+        if (isNativeCapableUrl?.(req.url) && onNativeCapableLinkPress) {
+          onNativeCapableLinkPress(req.url);
+          return false;
+        }
+        return true;
+      }
+      if (req.url.startsWith('about:')) return true;
+      Linking.openURL(req.url).catch(() => {
+        /* nothing sensible to do if the OS refuses; stay put */
+      });
+      return false;
+    },
+    [isNativeCapableUrl, onNativeCapableLinkPress],
+  );
 
   const onNav = useCallback((nav: WebViewNavigation) => {
     setCanGoBack(nav.canGoBack);
