@@ -8390,6 +8390,22 @@ export default {
             notes: 'confirms the new piano-version animated video timed to the streaming date; resolved via web search, not fetched (news-domain egress blocked this run).',
           },
         ],
+        // Photo pass 2026-08-31 (photo-enrichment, #762): no standalone
+        // official upload of the piano-version video exists on YouTube (only
+        // a fan-cover and a UMG "Topic" audio-only auto-upload) — the video
+        // lives on Disney+/Spotify/Apple Music per the article. Used GMA's
+        // own hero photo instead: Taylor at the Toy Story 5 premiere, honest
+        // era context for this Toy-Story-5-adjacent news item. Curl-verified
+        // 200 image/jpeg, downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/a7c3cbbc-cb67-4351-9094-bc18e2d853c5/taylor-gty-er-260826_1787779134122_hpMain_16x9.jpg?w=992',
+            focalPoint: '66% 50%',
+            credit: 'Kevin Mazur/Getty Images (via Good Morning America)',
+            caption: 'Taylor Swift at the Toy Story 5 world premiere in Los Angeles, June 9, 2026.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -10803,12 +10819,20 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Rogers_Centre.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // the dome and "ROGERS CENTRE" sign carry the frame, centered,
+            // upper-middle of the shot.
+            focalPoint: '50% 38%',
             credit: 'Wikimedia Commons',
             caption: 'Rogers Centre in Toronto, the venue for Taylor Swift\'s November 2024 Eras Tour shows targeted by the fake-ticket scam.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // audience-POV stadium shot; the lit stage and screens sit
+            // left-of-center, mid-frame.
+            focalPoint: '38% 48%',
             credit: 'Wikimedia Commons / BrigidLIS (CC BY 4.0)',
             caption: 'Taylor Swift performing at the Eras Tour, the same tour whose Toronto shows this scam targeted.',
             kind: 'reference',
@@ -11297,12 +11321,19 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Holiday_House_on_Watch_Hill.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // shoreline shot, the house cluster forms a horizontal band across
+            // the middle third — center it, well below the sky.
+            focalPoint: '50% 48%',
             credit: 'JJBers, via Wikimedia Commons',
             caption: '"Holiday House," Taylor Swift\'s Watch Hill, Rhode Island estate, seen from the shoreline — the property the surtax is informally named for.',
             kind: 'reference',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/04-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // close-up portrait, face sits right-of-center, mid-frame.
+            focalPoint: '56% 42%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo.',
             kind: 'reference',
@@ -11444,7 +11475,19 @@ export default {
         sources: [
           { outlet: 'YouTube — Apple Music', url: 'https://www.youtube.com/watch?v=mUZ9T-hstUI' },
         ],
-        photos: [],
+        // Photo pass 2026-08-31 (photo-enrichment, #762): the official Apple
+        // Music upload's own thumbnail — a real video still (not a title
+        // card), confirmed by viewing: Taylor on the FaceTime side, Zane Lowe
+        // with headphones and the Showgirl album art behind him.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/mUZ9T-hstUI/maxresdefault.jpg',
+            focalPoint: '22% 28%',
+            credit: 'Apple Music via YouTube',
+            caption: "Taylor on FaceTime with Zane Lowe (right, with the Showgirl album art behind him) for Apple Music's extended interview, Oct. 7, 2025.",
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -12609,6 +12652,14 @@ export default {
         // individual is exactly what the redlines guard against. Left for the
         // social-post-missing / photo-sparsity checkers to route to Photo
         // Enrichment rather than force a picture here.
+        //
+        // Photo pass 2026-08-31 (photo-enrichment, #762): re-checked. The
+        // syndicated coverage's own hero images are all Taylor/Ashley Taunton
+        // composites (e.g. Yahoo's, credited "Ashley Taunton; Jamie
+        // McCarthy/Getty") — Taunton's half is her own personal photo, so
+        // that composite is exactly the private-individual hotlink the
+        // redlines bar. No clean Taylor-only image tied to this specific
+        // story was found on an allowlisted host. Stays at editorial max (0).
       },
     },
     {

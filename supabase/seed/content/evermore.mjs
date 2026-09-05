@@ -3462,6 +3462,9 @@ export default {
         photos: [
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2020/12/Kimmtaylor.jpg?w=1600&h=900&crop=1',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // split-screen frame; Taylor's face sits in the right panel, upper-third.
+            focalPoint: '78% 32%',
             credit: 'Rolling Stone / ABC',
             caption: 'Taylor Swift\'s December 14, 2020 remote appearance on Jimmy Kimmel Live discussing the folklore/evermore surprise albums.',
             kind: 'reference',

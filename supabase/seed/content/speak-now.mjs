@@ -48,11 +48,13 @@ export default {
           // Read-viewed: she performs from the tour's suspended balcony.
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Taylor_Swift_-_Speak_Now_tour_2011.jpg/960px-Taylor_Swift_-_Speak_Now_tour_2011.jpg',
+            // Field-order fix 2026-08-31 (photo-enrichment, #762): focalPoint
+            // moved to immediately after url per the 2026-07-20 rule; value unchanged.
+            focalPoint: '47% 42%',
             credit: 'dephisticate / Wikimedia Commons (CC BY 2.0)',
             caption:
               "Performing from the Speak Now World Tour's flying balcony in Newark, July 2011 — the arena spectacle that record-setting week set up.",
             kind: 'archival',
-            focalPoint: '47% 42%',
           },
         ],
       },
