@@ -1,9 +1,9 @@
 'use client';
 
 import { useCallback, useReducer, useRef } from 'react';
-import { getEra } from '../eras';
+import { getEra } from '@swift2/experience';
 import { pushBackEntry } from '../useBackDismiss';
-import type { EraId, LensId } from '../types';
+import type { EraId, LensId } from '@swift2/experience';
 
 export type AppMode = 'era' | 'threads' | 'mood' | 'clownbot' | 'community' | 'merch';
 

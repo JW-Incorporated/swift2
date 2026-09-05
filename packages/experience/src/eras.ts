@@ -364,7 +364,7 @@ export function eraIndex(id: string): number {
 export function erasBackFrom(fromId: string, count: number): Era[] {
   const start = eraIndex(fromId);
   const out: Era[] = [];
-  for (let i = start; i >= 0 && out.length < count; i--) out.push(ERAS[i]);
+  for (let i = start; i >= 0 && out.length < count; i--) out.push(ERAS[i]!);
   return out;
 }
 
@@ -388,7 +388,7 @@ export function isFirstEra(id: string): boolean {
 }
 
 /** Career-wide date bounds for cross-era (Threads) timelines. */
-export const CAREER_START_MS = new Date(ERAS[0].start).getTime();
+export const CAREER_START_MS = new Date(ERAS[0]!.start).getTime();
 export function careerEndMs(): number {
   // The career axis should never extend into the future — the last era's
   // authored `end` can be a placeholder date past today (e.g. a year

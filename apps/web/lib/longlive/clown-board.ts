@@ -18,7 +18,7 @@
 
 import { LORE } from './clownbot-lore';
 import { THEORIES_RAW } from './theories.generated';
-import { ERAS, getEra } from './eras';
+import { ERAS, getEra } from '@swift2/experience';
 
 export type BoardItem = {
   id: string;

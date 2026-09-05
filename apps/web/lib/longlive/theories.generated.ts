@@ -3,7 +3,7 @@
 // (or the live Supabase theory table when configured).
 // Re-run that script after theory-seed changes; don't edit this file directly.
 
-import type { EraId, TheoryNote } from './types';
+import type { EraId, TheoryNote } from '@swift2/experience';
 
 export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
   "1989": [

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { allocateHitRanges, durationLabel, mergedTimeline, monthsBetween, previousRelationship, soloLeadIn } from './love-story';
-import { RELATIONSHIPS, SINGLE_PERIODS } from './lenses';
+import { RELATIONSHIPS, SINGLE_PERIODS } from '@swift2/experience';
 import { songTargetOf } from './tracks';
-import type { Relationship, SinglePeriod } from './types';
+import type { Relationship, SinglePeriod } from '@swift2/experience';
 
 const rels: Relationship[] = [
   { id: 'r1', name: 'Alex', start: '2010-01-01', end: '2010-06-01', eraIds: ['debut'], songs: [], note: '' },

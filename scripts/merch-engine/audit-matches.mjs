@@ -171,7 +171,7 @@ async function readJson(path, fallback) {
 
 async function recordsFromContent() {
   const { CONTENT } = await import('../../apps/web/lib/longlive/content.ts');
-  const { hasRealPrimaryImage, primaryImageRef } = await import('../../apps/web/lib/longlive/types.ts');
+  const { hasRealPrimaryImage, primaryImageRef } = await import('../../packages/experience/src/types.ts');
   return CONTENT.flatMap((moment) => {
     const momentImageUrl = primaryImageRef(moment)?.url ?? null;
     return (moment.products ?? []).map((product, index) => ({

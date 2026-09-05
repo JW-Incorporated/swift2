@@ -16,8 +16,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { getEra } from '@/lib/longlive/eras';
-import { getThread } from '@/lib/longlive/lenses';
+import { getEra } from '@swift2/experience';
+import { getThread } from '@swift2/experience';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { Button } from '@/components/ui/button';
 import { TimelineScrubber } from './TimelineScrubber';

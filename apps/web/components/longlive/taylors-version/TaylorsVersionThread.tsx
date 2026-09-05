@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Lock, Unlock } from 'lucide-react';
-import { RERECORDS } from '@/lib/longlive/lenses';
-import type { ReRecord } from '@/lib/longlive/types';
+import { RERECORDS } from '@swift2/experience';
+import type { ReRecord } from '@swift2/experience';
 import { OwnershipTimeline } from './OwnershipTimeline';
 import { AlbumNarrativeCard } from './AlbumNarrativeCard';
 import { BuybackBeat } from './BuybackBeat';

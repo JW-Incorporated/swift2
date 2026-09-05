@@ -3,7 +3,7 @@
 // (or the live Supabase video_work table when configured).
 // Re-run that script after video-seed changes; don't edit this file directly.
 
-import type { EraId, VideoNote } from './types';
+import type { EraId, VideoNote } from '@swift2/experience';
 
 export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
   "1989": [

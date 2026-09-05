@@ -16,7 +16,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import {
   tracksForEra,
   keepExploring,
@@ -33,7 +33,7 @@ import { eraStyle } from '@/lib/longlive/theme';
 import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { useSwipeNav } from '@/lib/longlive/useSwipeNav';
-import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@/lib/longlive/types';
+import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@swift2/experience';
 
 /** Shown once, ever, the first time a song page has a swipe neighbor
  * (#774 Option 2's "subtle one-time hint"). localStorage, not session —

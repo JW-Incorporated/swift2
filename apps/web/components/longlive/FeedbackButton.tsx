@@ -3,7 +3,7 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { MessageSquarePlus, X, Check, Loader2 } from 'lucide-react';
 import { useAppState } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 

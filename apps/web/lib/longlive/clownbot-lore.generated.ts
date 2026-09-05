@@ -4,7 +4,7 @@
 // Re-run that script after the seed changes; don't edit this file directly.
 // Refresh path: docs/content-ops/clownbot-rumor-refresh.md.
 
-import type { LoreItem } from './types';
+import type { LoreItem } from '@swift2/experience';
 
 export const LORE_UPDATED_ON = "2026-09-04";
 

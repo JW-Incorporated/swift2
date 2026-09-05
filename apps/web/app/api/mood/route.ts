@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { MOOD_AXES, type MoodAxis } from '../../../lib/longlive/types';
+import { MOOD_AXES, type MoodAxis } from '@swift2/experience';
 import { matchMoods, type MoodMatch, type MoodQuery } from '../../../lib/longlive/mood-match';
 import { keywordQuery, isEmptyQuery, hasSignal, hasBereavementSignal } from '../../../lib/longlive/mood-keywords';
 import { classifyMood } from '../../../lib/longlive/mood-client';

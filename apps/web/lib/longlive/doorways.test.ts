@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { threadDoorwaysForEra, eggDoorwaysForEra } from './doorways';
-import { threadsInEra } from './lenses';
+import { threadsInEra } from '@swift2/experience';
 import { theoriesForEra } from './theories';
-import { ERAS } from './eras';
+import { ERAS } from '@swift2/experience';
 
 // Real-corpus invariants, in the idiom of track-video.test.ts's "every track
 // guide entry either pairs with a real video or returns null — never

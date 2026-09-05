@@ -13,7 +13,7 @@ import {
   youtubeIdFrom,
 } from './sync-song-moods.mjs';
 // Drift guard: the generator's axis list must equal the type's source of truth.
-import { MOOD_AXES as TYPES_MOOD_AXES } from '../apps/web/lib/longlive/types';
+import { MOOD_AXES as TYPES_MOOD_AXES } from '../packages/experience/src/types';
 
 // A complete, valid raw score for reuse in tests.
 const validScore = () => ({
@@ -204,7 +204,7 @@ describe('renderModule', () => {
       [scored],
     );
     const out = renderModule(cat);
-    expect(out).toContain("import type { SongMood } from './types';");
+    expect(out).toContain("import type { SongMood } from '@swift2/experience';");
     expect(out).toContain('1 scored');
     expect(out).toContain('oneLiner: "Ten minutes of a wound reopened on purpose."');
     // Exactly one song is scored, so exactly one `moods:` block is emitted —

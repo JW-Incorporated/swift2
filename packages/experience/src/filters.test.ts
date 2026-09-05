@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ALL_FILTERS, filterForThread, filterMatches, filtersForEntry, type FilterId } from './filters';
-import type { EraFeedEntry } from './era-feed';
-import type { Anchored } from './anchor-date';
+import type { EraFeedEntry, Anchored } from './feed-types';
 import type { ContentItem, ContentTag, LensId, VideoNote } from './types';
 import type { CurrentItem } from '@swift2/shared';
 

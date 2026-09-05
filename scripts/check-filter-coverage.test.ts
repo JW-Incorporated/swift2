@@ -6,8 +6,8 @@ import {
   eraCoverage,
   formatOffender,
 } from './check-filter-coverage.mjs';
-import { ERAS } from '../apps/web/lib/longlive/eras.ts';
-import type { ContentItem, ContentTag, VideoNote } from '../apps/web/lib/longlive/types.ts';
+import { ERAS } from '../packages/experience/src/eras.ts';
+import type { ContentItem, ContentTag, VideoNote } from '../packages/experience/src/types.ts';
 import type { EraFeedEntry } from '../apps/web/lib/longlive/era-feed.ts';
 
 const ANCHOR = { sortDate: '2019-06-01', displayDate: '2019-06-01', via: 'exact' as const };
@@ -165,7 +165,7 @@ describe('the checker reuses the real selection logic, never reimplements it', (
   const src = readFileSync(new URL('./check-filter-coverage.mjs', import.meta.url), 'utf8');
 
   it('imports filtersForEntry and mergeEraFeed from the shipped modules', () => {
-    expect(src).toContain("from '../apps/web/lib/longlive/filters.ts'");
+    expect(src).toContain("from '../packages/experience/src/filters.ts'");
     expect(src).toContain("from '../apps/web/lib/longlive/era-feed.ts'");
     expect(src).toContain('filtersForEntry(');
     expect(src).toContain('mergeEraFeed(');
