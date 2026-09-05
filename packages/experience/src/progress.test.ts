@@ -1,13 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { EGG_NODES, MOTIFS, motifNodes } from '@swift2/experience';
+import { EGG_NODES, MOTIFS, motifNodes } from './lenses';
 import {
   clueWebProgress,
+  createMemoryStorageAdapter,
   emptyProgress,
   parseProgress,
+  readStoredProgress,
   serializeProgress,
   trailProgress,
   withAdded,
   withToggled,
+  writeStoredProgress,
   type Progress,
 } from './progress';
 
@@ -71,6 +74,38 @@ describe('parseProgress (storage guard)', () => {
     expect(back.eggs).toEqual(original.eggs);
     expect(back.trails).toEqual(original.trails);
     expect(back.favorites).toEqual(original.favorites);
+  });
+});
+
+describe('readStoredProgress / writeStoredProgress (injected adapter)', () => {
+  it('round-trips through an in-memory adapter', () => {
+    const adapter = createMemoryStorageAdapter();
+    const original = progressWith({
+      moments: ['m1'],
+      eggs: ['egg-13-debut'],
+      trails: ['number-13'],
+      favorites: ['m1'],
+    });
+    writeStoredProgress(adapter, original);
+    const back = readStoredProgress(adapter);
+    expect(back).toEqual(original);
+  });
+
+  it('returns empty progress when the adapter has never been written to', () => {
+    expect(readStoredProgress(createMemoryStorageAdapter())).toEqual(emptyProgress());
+  });
+
+  it('degrades to empty progress instead of throwing when the adapter throws', () => {
+    const throwingAdapter = {
+      getItem(): string | null {
+        throw new Error('quota exceeded');
+      },
+      setItem(): void {
+        throw new Error('quota exceeded');
+      },
+    };
+    expect(readStoredProgress(throwingAdapter)).toEqual(emptyProgress());
+    expect(() => writeStoredProgress(throwingAdapter, emptyProgress())).not.toThrow();
   });
 });
 
@@ -138,8 +173,8 @@ describe('trailProgress / completion detection', () => {
   });
 
   it('ignores ids that are not on the trail (stale/tampered storage)', () => {
-    const m = MOTIFS[0];
-    const seen = new Set(['egg-that-was-deleted', 'garbage', motifNodes(m.id)[0].id]);
+    const m = MOTIFS[0]!;
+    const seen = new Set(['egg-that-was-deleted', 'garbage', motifNodes(m.id)[0]!.id]);
     const tp = trailProgress(seen, m.id);
     expect(tp.seen).toBe(1);
     expect(tp.complete).toBe(false);
@@ -158,8 +193,8 @@ describe('clueWebProgress', () => {
   it('counts only ids that exist in the live data — stale ids never inflate counts', () => {
     const cp = clueWebProgress(
       progressWith({
-        eggs: [EGG_NODES[0].id, 'egg-removed-in-v2', 'junk'],
-        trails: [MOTIFS[0].id, 'motif-that-never-existed'],
+        eggs: [EGG_NODES[0]!.id, 'egg-removed-in-v2', 'junk'],
+        trails: [MOTIFS[0]!.id, 'motif-that-never-existed'],
       }),
     );
     expect(cp.eggsSeen).toBe(1);

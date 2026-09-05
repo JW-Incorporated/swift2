@@ -36,7 +36,8 @@
  *                apps/web/app/api/mood/route.ts
  *                apps/web/lib/longlive/mood-client.ts
  *   - analytics: apps/web/app/layout.tsx (`<Analytics />`, @vercel/analytics)
- *   - on-device: apps/web/lib/longlive/progress.ts (`ll-progress-v1`)
+ *   - on-device: packages/experience/src/progress.ts (`ll-progress-v1`,
+ *                persisted on web via apps/web/lib/longlive/local-storage-adapter.ts)
  *                apps/web/components/longlive/TimelineScrubber.tsx
  *   - content:   supabase/migrations/** (14 editorial tables, zero personal)
  *   - Clownbot:  apps/web/components/longlive/ClownChat.tsx

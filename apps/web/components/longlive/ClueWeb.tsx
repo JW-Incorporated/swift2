@@ -27,7 +27,7 @@ import {
   motifEraIds,
   motifOf,
 } from '@swift2/experience';
-import { clueWebProgress, trailProgress } from '@/lib/longlive/progress';
+import { clueWebProgress, trailProgress } from '@swift2/experience';
 import {
   useAppActions,
   useAppState,
