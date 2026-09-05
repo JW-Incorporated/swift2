@@ -89,3 +89,4 @@ social/joey/Screenshot*.png
 
 # iOS App Store Connect API key (real credential, never commit)
 apps/mobile/credentials/
+apps/mobile/credentials.json
