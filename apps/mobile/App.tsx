@@ -21,7 +21,6 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as Notifications from 'expo-notifications';
-import { destinationFor as destinationForUrl, type ShellDestination } from '@swift2/shared';
 import { createNavigate, resolve as resolveRoute, type ScreenId } from './lib/routes';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
@@ -30,23 +29,6 @@ import { SITE_URL, SiteShell, type NativeBridgeMessage } from './components/Site
 import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
-
-/**
- * Where a notification (tap or inbox row) should take the user. The backend
- * emits full www.longlivets.com URLs as deep links (packages/core
- * notification-*.ts), so the site does the routing; the two special cases
- * are the native screens. Anything else lands on the site's front door.
- *
- * The routing logic itself lives in @swift2/shared (OS-003) so the root
- * vitest suite's deep-link contract test covers it directly; this wrapper
- * just binds it to this app's configured SITE_URL. Kept for callers that
- * still want the raw web-vs-native-screen decision without the OS-030
- * per-screen feature flags (e.g. anything intentionally flag-exempt); the
- * app's own navigation goes through `navigate()` below instead.
- */
-export function destinationFor(rawUrl: string | null | undefined): ShellDestination {
-  return destinationForUrl(rawUrl, SITE_URL);
-}
 
 export default function App() {
   // The page the shell shows. Deep links replace it; the WebView keeps its
@@ -83,18 +65,18 @@ export default function App() {
 
   const navigate = useCallback(
     (rawUrl: string | null | undefined) => {
-      createNavigate({ openNative: openNativeScreen, openWeb: openWebUrl })(rawUrl);
+      createNavigate({ openNative: openNativeScreen, openWeb: openWebUrl }, SITE_URL)(rawUrl);
     },
     [openNativeScreen, openWebUrl],
   );
 
-  // Kept for the one caller (SiteShell's onShouldStart) that needs to know
-  // the routing decision WITHOUT acting on it yet — see isNativeCapableUrl.
-
   // SiteShell intercepts in-WebView link clicks that target a native-capable
   // route (per the OS-030 card) so a link to Settings/Inbox opens the native
   // screen instead of the WebView rendering the site's own version of it.
-  const isNativeCapableUrl = useCallback((url: string) => 'native' in resolveRoute(url), []);
+  const isNativeCapableUrl = useCallback(
+    (url: string) => 'native' in resolveRoute(url, SITE_URL),
+    [],
+  );
 
   useEffect(() => {
     // Phase 0: register (or refresh) this device's row on every cold start —
