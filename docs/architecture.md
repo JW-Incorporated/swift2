@@ -60,12 +60,31 @@ apps/web        Next.js reader
 apps/mobile     Expo app            (scaffolded — reuses packages/* unchanged)
 packages/shared types + domain, zero I/O — portable
 packages/core   data-access layer over Supabase — portable
+packages/content zod schemas + typed loader for the published content
+                bundle (OS-010/013) — the Layer 1 contract in
+                docs/specs/2026-09-05-one-source-three-surfaces.md §2;
+                no I/O of its own beyond the injectable loader
 ```
 
 **Hard boundary:** new business logic goes in `packages/shared` or
 `packages/core`, never in an app's view layer. The view layer (React
 components, screens) is the only non-portable code. This is what lets the
 future Expo app reuse everything but the views.
+
+### Content bundle boundary (`packages/content`, OS-010)
+
+Per convergence decision D1 (`docs/decisions.md` 2026-09-05, spec §4),
+content authoring stays in `supabase/seed/**`; `scripts/build-content-
+bundle.mjs` (OS-011) publishes it as a hashed, versioned JSON artifact that
+`packages/content` gives every surface a typed, runtime-validated way to
+read (`manifest.json` + one file per domain — see the ADR in
+`docs/decisions.md` for why an artifact and not a live DB, and for the
+N-1 schema-version compatibility rule OS-041 enforces in CI). Supabase
+keeps only dynamic runtime data (devices, prefs, notification events, clown
+memory) — content tables are frozen under this plan and retired in OS-016.
+`packages/content`'s schemas mirror `apps/web/lib/longlive/types.ts`
+structurally; they do not replace it until OS-014/OS-015 switch the read
+path off the generated `*.generated.ts` files.
 
 ## Data architecture: two worlds, kept apart
 

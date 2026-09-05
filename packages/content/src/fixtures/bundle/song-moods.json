@@ -1,0 +1,24 @@
+{
+  "songs": [
+    {
+      "slug": "cardigan",
+      "title": "cardigan",
+      "eraId": "folklore",
+      "youtubeId": "5IfTPa4l4ns",
+      "moods": {
+        "heartbreak": 0.6,
+        "anger": 0.1,
+        "nostalgia": 0.9,
+        "joy": 0.2,
+        "calm": 0.5,
+        "defiance": 0.1,
+        "longing": 0.8,
+        "catharsis": 0.4
+      },
+      "energy": 0.3,
+      "valence": 0.35,
+      "useCase": ["a quiet rainy afternoon", "revisiting an old memory"],
+      "oneLiner": "A wistful reflection on a formative teenage romance, told from years later."
+    }
+  ]
+}
