@@ -21,16 +21,38 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as Notifications from 'expo-notifications';
-import { createNavigate, resolve as resolveRoute, type ScreenId } from './lib/routes';
+import type { EraId, TrackNote } from '@swift2/experience';
+import { resolveTrackKey } from '@swift2/experience';
+import {
+  createNavigate,
+  resolve as resolveRoute,
+  type NativeParams,
+  type ScreenId,
+} from './lib/routes';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
+import { ensureTrackGuideWired, loadTrackGuide } from './lib/track-guide-data';
 import { SITE_URL, SiteShell, type NativeBridgeMessage } from './components/SiteShell';
 import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 import { EraStreamScreen } from './components/EraStreamScreen';
 import { ThreadsScreen } from './components/ThreadsScreen';
+import { TrackGuideScreen } from './components/TrackGuideScreen';
+import { SongScreen } from './components/SongScreen';
+
+/**
+ * OS-035's two param-carrying screens don't fit the existing plain-boolean
+ * `xOpen` state slots the other screens use (they need an eraId, and `song`
+ * additionally needs which track) — this union is the minimal extension of
+ * that pattern rather than a bigger routing refactor. `null` = neither is
+ * showing (i.e. some other screen or the WebView owns the view).
+ */
+type TrackGuideRouteState =
+  | { screen: 'track-guide'; eraId: EraId }
+  | { screen: 'song'; eraId: EraId; track: TrackNote }
+  | null;
 
 export default function App() {
   // The page the shell shows. Deep links replace it; the WebView keeps its
@@ -50,22 +72,86 @@ export default function App() {
   // OS-034: the native threads mode, reached via `?mode=threads` once the
   // `threads` route flag is on (off by default — see routes.ts).
   const [threadsOpen, setThreadsOpen] = useState(false);
+  // OS-035: the native track guide / song dossier, reached via
+  // `?screen=track-guide` / `?screen=song` once their respective route
+  // flags are on (off by default — see routes.ts). See
+  // `TrackGuideRouteState`'s doc for why this is a small union rather than
+  // another plain boolean.
+  const [trackGuideRoute, setTrackGuideRoute] = useState<TrackGuideRouteState>(null);
+  // Tracks for the era currently open in `trackGuideRoute` — loaded async
+  // via `loadTrackGuide` (the published bundle, OS-035's data layer) and
+  // kept alongside the route so both TrackGuideScreen and SongScreen (which
+  // needs the full album list for Previous/Next) can read it without each
+  // re-fetching. Cleared whenever the route's era changes so a stale list
+  // never renders while the new era's fetch is in flight.
+  const [trackGuideTracks, setTrackGuideTracks] = useState<TrackNote[]>([]);
+
+  useEffect(() => {
+    if (!trackGuideRoute) return;
+    let cancelled = false;
+    setTrackGuideTracks([]);
+    loadTrackGuide(trackGuideRoute.eraId)
+      .then((tracks) => {
+        if (!cancelled) setTrackGuideTracks(tracks);
+      })
+      .catch((e) => {
+        console.warn('loadTrackGuide failed', e instanceof Error ? e.message : e);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [trackGuideRoute?.eraId]);
 
   // OS-030: the single navigate(url) every entry point below funnels
   // through — deep links, inbox rows, the web→native bridge, and (via
   // SiteShell's onShouldStart) in-WebView link clicks to native-capable
   // routes. `resolve()` already applies the per-screen feature flags, so
   // toggling one takes effect on the very next navigation with no rebuild.
-  const openNativeScreen = useCallback((screen: ScreenId) => {
+  const openNativeScreen = useCallback((screen: ScreenId, params: NativeParams = {}) => {
     setNotificationSettingsOpen(false);
     setInboxOpen(false);
     setOnboardingOpen(false);
     setEraStreamOpen(false);
     setThreadsOpen(false);
-    if (screen === 'settings') setNotificationSettingsOpen(true);
-    else if (screen === 'era-stream') setEraStreamOpen(true);
-    else if (screen === 'threads') setThreadsOpen(true);
-    else setInboxOpen(true);
+    setTrackGuideRoute(null);
+    if (screen === 'settings') {
+      setNotificationSettingsOpen(true);
+    } else if (screen === 'era-stream') {
+      setEraStreamOpen(true);
+    } else if (screen === 'threads') {
+      setThreadsOpen(true);
+    } else if (screen === 'track-guide') {
+      // routes.ts only resolves this screen when `params.eraId` is present
+      // (see `paramsForDestination`/`destinationFor`'s track-guide arm) —
+      // the fallback below is unreachable in practice, kept only so this
+      // function never silently no-ops on a malformed call.
+      if (params.eraId) setTrackGuideRoute({ screen: 'track-guide', eraId: params.eraId as EraId });
+    } else if (screen === 'song') {
+      const key = params.trackKey;
+      if (!key) return;
+      // The song screen also needs the resolved TrackNote (not just its
+      // key) — `resolveTrackKey` needs the tracks provider wired first, so
+      // this ensures the bundle is loaded before resolving. `loadTrackGuide`
+      // (below, via the route-state effect) redundantly re-wires the same
+      // provider for the era once `trackGuideRoute` is set, which is a
+      // no-op past the first call (see track-guide-data.ts's `tracksWired`
+      // guard) — cheap, and keeps this branch simple rather than needing
+      // its own loading state.
+      ensureTrackGuideWired()
+        .then(() => {
+          const resolved = resolveTrackKey(key);
+          if (resolved) {
+            setTrackGuideRoute({ screen: 'song', eraId: resolved.eraId, track: resolved.track });
+          } else {
+            console.warn('resolveTrackKey: unknown or stale song key', key);
+          }
+        })
+        .catch((e) => {
+          console.warn('ensureTrackGuideWired failed', e instanceof Error ? e.message : e);
+        });
+    } else {
+      setInboxOpen(true);
+    }
   }, []);
 
   const openWebUrl = useCallback((url: string) => {
@@ -74,6 +160,7 @@ export default function App() {
     setOnboardingOpen(false);
     setEraStreamOpen(false);
     setThreadsOpen(false);
+    setTrackGuideRoute(null);
     setWebUrl(url);
   }, []);
 
@@ -162,6 +249,25 @@ export default function App() {
             <EraStreamScreen />
           ) : threadsOpen ? (
             <ThreadsScreen />
+          ) : trackGuideRoute?.screen === 'track-guide' ? (
+            <TrackGuideScreen
+              eraId={trackGuideRoute.eraId}
+              tracks={trackGuideTracks}
+              onOpenSong={(track) =>
+                setTrackGuideRoute({ screen: 'song', eraId: trackGuideRoute.eraId, track })
+              }
+            />
+          ) : trackGuideRoute?.screen === 'song' ? (
+            <SongScreen
+              eraId={trackGuideRoute.eraId}
+              track={trackGuideRoute.track}
+              onOpenSong={(eraId, track) => setTrackGuideRoute({ screen: 'song', eraId, track })}
+              // Native moment detail (OS-033/OS-037) isn't built yet — a
+              // "Keep exploring" moment connection has nowhere native to
+              // send it to, so this is a documented no-op, matching
+              // EraStreamScreen's `handleOpenItem` precedent.
+              onOpenMoment={undefined}
+            />
           ) : onboardingOpen ? (
             <OnboardingScreen
               onDone={(outcome) => {
