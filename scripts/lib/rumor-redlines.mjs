@@ -577,7 +577,7 @@ export const PROSE_REDLINE_LEGACY = new Set([
   'red.mjs#a-virgin-islands-getaway-spotted-at-dinner-at-cocomaya',
   'red.mjs#a-british-virgin-islands-trip-ends-the-relationship',
   'reputation.mjs#a-johanna-ortiz-tiered-dress-for-the-lover-music-video',
-  'speak-now.mjs#red-ronan-stand-up-to-cancer',
+  'red.mjs#red-ronan-stand-up-to-cancer',
   'the-life-of-a-showgirl.mjs#phil-collins-white-horse-blown-away',
   'tortured-poets.mjs#harris-endorsement-cat-lady',
 ]);

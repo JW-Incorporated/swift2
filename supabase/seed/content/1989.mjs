@@ -471,6 +471,18 @@ export default {
             outlet: 'Time',
             url: 'https://time.com/3936952/taylor-swift-calvin-harris-highest-paid/',
           },
+          {
+            // Fix #3760 (2026-09-05): the original Forbes reporting behind the
+            // "(Forbes)" attribution and the $233M 2016 projection — verified live.
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/maddieberg/2016/07/13/taylor-swift-vs-calvin-harris-the-233-million-dollar-break-up/',
+          },
+          {
+            // Fix #3761 (2026-09-05): sources the "3.6.15" locket-engraving detail —
+            // Taylor posted the locket photo herself on their one-year anniversary.
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/747710/taylor-swift-proudly-wears-calvin-harris-sweet-1-year-anniversary-gift-close-to-her-heart',
+          },
         ],
         // Photo pass 2026-07-19 (defining-events-31-50): 3 more real,
         // verified photos. Two are recent (2024) individual photos of each
@@ -702,7 +714,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg',
       moment: {
         context:
-          'The two had quietly been a couple for months by the time The Sun\'s May 2017 scoop broke, with Taylor moving around London in disguises, "like scarves and hats," and renting a house in North London for her time in the city. The Daily Mail floated a claim that Emma Stone had made the introduction; fans have long preferred the 2016 Met Gala theory, pointing to the "Dress" lyric about his buzz cut and her bleached hair, though the two were also reportedly at the same Kings of Leon afterparty at the Bowery Hotel that October.\n\nTaylor later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: "We have been together and no one has found out for 3 months now" — placing the start around October 2016, more than half a year before The Sun\'s story landed.',
+          'The two had quietly been a couple for months by the time The Sun\'s May 2017 scoop broke, with Taylor moving around London in disguises, "like scarves and hats," and renting a house in North London for her time in the city. The two were reportedly at the same Kings of Leon afterparty at the Bowery Hotel that October.\n\nTaylor later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: "We have been together and no one has found out for 3 months now" — placing the start around October 2016, more than half a year before The Sun\'s story landed.',
         sources: [
           {
             outlet: 'Today',
@@ -1545,8 +1557,7 @@ export default {
       month: 10,
       category: 'release',
       title: 'The Secret Sessions: 89 fans at a time, in her living rooms',
-      snippet:
-        'Through September and October she hand-picked fans off the internet and played them 1989 early — at her homes in New York, LA, Rhode Island, her mom\'s place in Nashville, and a London hotel — baking the cookies herself. Nobody leaked a note.',
+      snippet: 'She hand-picked fans off the internet and played them 1989 early, in her own living rooms.',
       sourceUrl: 'https://www.nylon.com/entertainment/oral-history-of-taylor-swifts-1989-secret-sessions',
       thumbnailUrl: null,
       moment: {
@@ -2184,8 +2195,7 @@ export default {
       category: 'music',
       significance: 'defining', // the inciting incident of the whole Kimye saga and reputation era (docs/decisions.md, 2026-07-19)
       title: 'The night "Famous" premiered, and she said no',
-      snippet:
-        'Kanye West debuts "Famous" at Madison Square Garden — "I made that bitch famous" — and says she approved it. Her team answers the same day: she was never told that line, and she "cautioned him about releasing a song with such a strong misogynistic message."',
+      snippet: 'Kanye West debuts "Famous" at Madison Square Garden and says she approved the line "I made that bitch famous."',
       sourceUrl: 'https://time.com/4411055/kanye-west-taylor-swift-kim-kardashian-feud/',
       thumbnailUrl: null,
       relatedIds: [
@@ -2346,29 +2356,11 @@ export default {
         // curl-verified live (HTTP 200 + real image content-type).
         photos: [
           {
-            url: 'https://assets.teenvogue.com/photos/578d040a6e85f8db434d47c6/master/w_1600%2Cc_limit/IMG_1374.PNG',
-            focalPoint: '50% 12%',
-            credit: 'Taylor Swift/Instagram, via Teen Vogue',
-            // FLAG (photo-enrichment 2026-07-20): downloaded + vision-checked —
-            // this asset is a BLANK Apple Notes screen, not the statement text
-            // the prior caption claimed. Caption corrected to match the image;
-            // recommend a verified replacement showing the actual statement.
-            caption: 'The Apple Notes format Taylor used to post her July 18, 2016 reply — the statement that asked where West had told her about the "that bitch" lyric and ended, "I would very much like to be excluded from this narrative."',
-            kind: 'primary',
-          },
-          {
-            url: 'https://i.guim.co.uk/img/media/83c4993d8e8ad4dde6c653daff10b74e537e6aea/0_0_620_372/master/620.jpg?crop=none&dpr=1&s=none&width=1000',
-            focalPoint: '50% 22%',
-            credit: 'Rex Features, via The Guardian',
-            // FLAG (photo-enrichment 2026-07-20): downloaded + vision-checked —
-            // this asset is a Guardian side-by-side of Kim Kardashian and Taylor
-            // Swift, NOT a Snapchat still of West on the phone. Caption corrected
-            // to match the image; recommend a verified replacement if a Snapchat
-            // still is wanted here.
-            caption: 'A Guardian side-by-side of Kim Kardashian and Taylor Swift, published as Kardashian\'s Snapchat clips reignited the feud in July 2016.',
-            kind: 'primary',
-          },
-          {
+            // Fix #3763 (2026-09-05): the Teen Vogue "Apple Notes" and Guardian
+            // side-by-side photos previously here were both self-flagged
+            // mismatches (a blank Notes screen and an unrelated portrait) — dropped
+            // rather than kept with corrected captions; the four remaining photos
+            // below are all verified accurate matches.
             url: 'https://media.vanityfair.com/photos/5792599af9039e5f13c9db9f/master/w_2560%2Cc_limit/taylor-swift-tom-hiddleston.jpg',
             focalPoint: '50% 33%',
             credit: 'Cameron Richardson/Newspix/Rex/Shutterstock, via Vanity Fair',
@@ -2941,6 +2933,13 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/pop/taylor-swift-new-years-day-video-live-scandal-8031153/',
+          },
+          {
+            // Fix #3764 (2026-09-05): sources the "100 hand-picked fans" figure —
+            // ABC News's own report on the taping confirms "one hundred fans, who
+            // were picked by Swift herself, were in the audience."
+            outlet: 'ABC News',
+            url: 'https://abcnews.go.com/Entertainment/taylor-swift-performs-reputation-song-years-day-fans/story?id=51038508',
           },
         ],
         // T16 photo pass (2026-07-09): Wikimedia Commons, CC BY-SA 2.0, author
