@@ -95,7 +95,17 @@ export type ShellDestination =
   | { kind: 'web'; url: string }
   | { kind: 'settings' }
   | { kind: 'inbox' }
-  | { kind: 'era-stream' };
+  | { kind: 'era-stream' }
+  // OS-035: the native track guide (one album's song list) and song dossier.
+  // Reachable via new explicit `?screen=` markers — same pattern as
+  // `era-stream` above — rather than the WEBSITE's own `?guide=<eraId>` /
+  // `?song=<key>` params (deepLink.ts, ShareSheet.tsx), which stay untouched
+  // and continue to fall through to the `web` case below: those are shared
+  // URLs and notification payloads (`notification-fun.ts`'s `lyric_of_day`)
+  // that must keep opening in the WebView until this screen's flag flips on
+  // for everyone, not just when a shell happens to be running this build.
+  | { kind: 'track-guide'; eraId: string }
+  | { kind: 'song'; trackKey: string };
 
 const DEFAULT_SITE_URL = 'https://www.longlivets.com';
 
@@ -128,6 +138,21 @@ export function destinationFor(
     // bare site root, which stays the WebView's job until OS-039 retires
     // SiteShell as the default for every route this phase ports.
     if (u.searchParams.get('screen') === 'era-stream') return { kind: 'era-stream' };
+    // OS-035: same pattern, one param per native screen — `?screen=track-
+    // guide&era=<eraId>` and `?screen=song&key=<trackKey>`. The website's
+    // OWN `?guide=<eraId>` / `?song=<key>` params (deepLink.ts) are left
+    // alone and fall through to the `web` case below: those are shared URLs
+    // and notification payloads that must keep opening in the WebView until
+    // this screen is rolled out, not just because a build happens to carry
+    // the native screen.
+    if (u.searchParams.get('screen') === 'track-guide') {
+      const eraId = u.searchParams.get('era');
+      if (eraId) return { kind: 'track-guide', eraId };
+    }
+    if (u.searchParams.get('screen') === 'song') {
+      const trackKey = u.searchParams.get('key');
+      if (trackKey) return { kind: 'song', trackKey };
+    }
     // `?current=theories|merch|countdowns`, `?song=<slug>`,
     // `#merch-new-drops`, and a bare site root all address something the
     // website itself renders — hand the URL through unchanged so the
