@@ -27,18 +27,20 @@ import { destinationFor, type ShellDestination } from '@swift2/shared';
 /**
  * Every screen this table can route to natively. `settings` and `inbox`
  * shipped in Phase 0; OS-032 adds `era-stream` (Phase 3's native era
- * stream — masthead, era sections, moment cards). OS-035 adds `track-guide`
- * (an album's song list) and `song` (one song's dossier). OS-033 adds
- * `moment` (the native moment detail sheet). OS-036 adds `clownbot` (the
- * native Clownbot + mood chat screen). OS-037 adds `community` and `merch`
- * (the fan community directory and the merch directory). Remaining screens
- * join as they're built (OS-038) — each new screen gets one more entry
- * here and one more flag, nothing else in this file changes shape.
+ * stream — masthead, era sections, moment cards). OS-034 adds `threads`
+ * (the native threads gallery + detail). OS-035 adds `track-guide` (an
+ * album's song list) and `song` (one song's dossier). OS-033 adds `moment`
+ * (the native moment detail sheet). OS-036 adds `clownbot` (the native
+ * Clownbot + mood chat screen). OS-037 adds `community` and `merch` (the
+ * fan community directory and the merch directory). Remaining screens join
+ * as they're built (OS-038) — each new screen gets one more entry here and
+ * one more flag, nothing else in this file changes shape.
  */
 export type ScreenId =
   | 'settings'
   | 'inbox'
   | 'era-stream'
+  | 'threads'
   | 'community'
   | 'merch'
   | 'track-guide'
@@ -49,10 +51,11 @@ export type ScreenId =
 /**
  * The native-side resolution carries whichever params the target screen
  * needs to render (OS-035's `track-guide`/`song` were the first screens in
- * this table that needed any — `settings`/`inbox`/`era-stream`/`community`/
- * `merch`/`clownbot` take none; OS-033's `moment` adds `itemId`). `params`
- * is always present (possibly `{}`) so callers never need an `'params' in
- * resolution` guard on top of the `'native' in resolution` one.
+ * this table that needed any — `settings`/`inbox`/`era-stream`/`threads`/
+ * `community`/`merch`/`clownbot` take none; OS-033's `moment` adds
+ * `itemId`). `params` is always present (possibly `{}`) so callers never
+ * need an `'params' in resolution` guard on top of the `'native' in
+ * resolution` one.
  */
 export type NativeParams = { eraId?: string; trackKey?: string; itemId?: string };
 export type RouteResolution = { native: ScreenId; params: NativeParams } | { web: string };
@@ -73,6 +76,9 @@ export interface RouteFlags {
    * flip that would put an unreviewed native screen in front of every user
    * on merge. */
   eraStream: boolean;
+  /** OS-034: same progressive-rollout posture as `eraStream` — defaults OFF
+   * (see DEFAULT_ROUTE_FLAGS); flipped on after a staged TestFlight review. */
+  threads: boolean;
   /** OS-037: same progressive-rollout posture as `eraStream` — the native
    * community directory ships OFF by default; a remote-config flip after
    * review turns it on without a rebuild. */
@@ -96,11 +102,12 @@ export interface RouteFlags {
   clownbot: boolean;
 }
 
-/** Settings/inbox ship on by default (Phase 0, already shipped); OS-032's era stream, OS-037's community/merch, OS-035's track guide/song screens, OS-033's moment sheet, and OS-036's Clownbot all ship OFF by default — see each flag's own doc above. */
+/** Settings/inbox ship on by default (Phase 0, already shipped); OS-032's era stream, OS-033's moment sheet, OS-034's threads mode, OS-037's community/merch, OS-035's track guide/song screens, and OS-036's Clownbot all ship OFF by default — see each flag's own doc above. */
 export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   settings: true,
   inbox: true,
   eraStream: false,
+  threads: false,
   community: false,
   merch: false,
   trackGuide: false,
@@ -113,6 +120,7 @@ function screenForDestination(dest: ShellDestination): ScreenId | null {
   if (dest.kind === 'settings') return 'settings';
   if (dest.kind === 'inbox') return 'inbox';
   if (dest.kind === 'era-stream') return 'era-stream';
+  if (dest.kind === 'threads') return 'threads';
   if (dest.kind === 'community') return 'community';
   if (dest.kind === 'merch') return 'merch';
   if (dest.kind === 'track-guide') return 'track-guide';
@@ -130,11 +138,12 @@ function paramsForDestination(dest: ShellDestination): NativeParams {
   return {};
 }
 
-/** Maps a `ScreenId` to its `RouteFlags` key — the flag names differ from the screen ids in the hyphenated/multi-word cases (`era-stream` -> `eraStream`, `track-guide` -> `trackGuide`; `song`/`community`/`merch`/`moment`/`clownbot` match their screen id), all valid RouteFlags/TS identifiers, so this indirection is the one place that mapping lives. */
+/** Maps a `ScreenId` to its `RouteFlags` key — the flag names differ from the screen ids in the hyphenated/multi-word cases (`era-stream` -> `eraStream`, `track-guide` -> `trackGuide`; `song`/`threads`/`community`/`merch`/`moment`/`clownbot` match their screen id), all valid RouteFlags/TS identifiers, so this indirection is the one place that mapping lives. */
 function flagForScreen(screen: ScreenId, flags: RouteFlags): boolean {
   if (screen === 'settings') return flags.settings;
   if (screen === 'inbox') return flags.inbox;
   if (screen === 'era-stream') return flags.eraStream;
+  if (screen === 'threads') return flags.threads;
   if (screen === 'community') return flags.community;
   if (screen === 'merch') return flags.merch;
   if (screen === 'track-guide') return flags.trackGuide;
@@ -166,8 +175,8 @@ export function resolve(
   // (OS-033: the website already renders `?item=<id>` itself via its own
   // deep-link handling, so a flagged-off moment falls back to THAT url
   // rather than the bare site root — unlike settings/inbox/era-stream/
-  // community/merch/track-guide/song/clownbot, which have no web equivalent
-  // of their own to fall back to).
+  // threads/community/merch/track-guide/song/clownbot, which have no web
+  // equivalent of their own to fall back to).
   if (dest.kind === 'web') return { web: dest.url };
   if (dest.kind === 'moment') return { web: dest.url };
   return { web: siteUrl ?? 'https://www.longlivets.com' };

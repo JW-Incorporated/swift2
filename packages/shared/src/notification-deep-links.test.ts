@@ -155,9 +155,11 @@ describe('destinationFor (shell routing, OS-003)', () => {
     });
   });
 
-  it('passes ?mode=threads through to the WebView (no native screen for it)', () => {
-    const url = 'https://www.longlivets.com/?mode=threads';
-    expect(destinationFor(url)).toEqual({ kind: 'web', url });
+  // OS-034
+  it('routes ?mode=threads to the native threads screen', () => {
+    expect(destinationFor('https://www.longlivets.com/?mode=threads')).toEqual({
+      kind: 'threads',
+    });
   });
 
   // OS-035

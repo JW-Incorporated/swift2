@@ -96,6 +96,10 @@ export type ShellDestination =
   | { kind: 'settings' }
   | { kind: 'inbox' }
   | { kind: 'era-stream' }
+  // OS-034: the native threads gallery + detail, reached via the web's own
+  // existing `?mode=threads` shareable-URL param (ShareSheet.tsx/
+  // deepLink.ts's `mode` target) — reused rather than a new param.
+  | { kind: 'threads' }
   // OS-037: Community and Merch are each a whole surface with no more
   // specific "thing" to address (same category as era-stream), shared via
   // `?mode=community` / `?mode=merch` — the exact param
@@ -151,10 +155,18 @@ export function destinationFor(
     // bare site root, which stays the WebView's job until OS-039 retires
     // SiteShell as the default for every route this phase ports.
     if (u.searchParams.get('screen') === 'era-stream') return { kind: 'era-stream' };
+    // OS-034: same explicit-marker convention as era-stream — `?mode=threads`
+    // is the web's own existing shareable-URL param for the Threads gallery
+    // (ShareSheet.tsx / deepLink.ts's `mode` target), so this reuses it
+    // rather than inventing a second param, while still requiring the
+    // `screen=` OR `mode=` marker (never claiming the bare site root) until
+    // OS-039 retires SiteShell as the default for every route this phase
+    // ports.
+    const mode = u.searchParams.get('mode');
+    if (mode === 'threads') return { kind: 'threads' };
     // OS-037: a tapped share link or deep link with `?mode=community` /
     // `?mode=merch` takes the shell straight to the matching native screen
     // instead of falling through to the WebView's own `?mode=` handling.
-    const mode = u.searchParams.get('mode');
     if (mode === 'community') return { kind: 'community' };
     if (mode === 'merch') return { kind: 'merch' };
     // OS-035: same pattern, one param per native screen — `?screen=track-

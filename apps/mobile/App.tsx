@@ -38,6 +38,7 @@ import { NotificationSettingsScreen } from './components/NotificationSettingsScr
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 import { EraStreamScreen } from './components/EraStreamScreen';
+import { ThreadsScreen } from './components/ThreadsScreen';
 import { CommunityScreen } from './components/CommunityScreen';
 import { MerchScreen } from './components/MerchScreen';
 import { TrackGuideScreen } from './components/TrackGuideScreen';
@@ -72,6 +73,9 @@ export default function App() {
   // OS-032: the native era stream, reached via `?screen=era-stream` once the
   // `eraStream` route flag is on (off by default — see routes.ts).
   const [eraStreamOpen, setEraStreamOpen] = useState(false);
+  // OS-034: the native threads mode, reached via `?mode=threads` once the
+  // `threads` route flag is on (off by default — see routes.ts).
+  const [threadsOpen, setThreadsOpen] = useState(false);
   // OS-037: native community/merch directories, reached via `?mode=community`
   // / `?mode=merch` once their respective route flags are on (both off by
   // default — see routes.ts).
@@ -125,6 +129,7 @@ export default function App() {
     setInboxOpen(false);
     setOnboardingOpen(false);
     setEraStreamOpen(false);
+    setThreadsOpen(false);
     setCommunityOpen(false);
     setMerchOpen(false);
     setTrackGuideRoute(null);
@@ -134,6 +139,8 @@ export default function App() {
       setNotificationSettingsOpen(true);
     } else if (screen === 'era-stream') {
       setEraStreamOpen(true);
+    } else if (screen === 'threads') {
+      setThreadsOpen(true);
     } else if (screen === 'community') {
       setCommunityOpen(true);
     } else if (screen === 'merch') {
@@ -181,6 +188,7 @@ export default function App() {
     setInboxOpen(false);
     setOnboardingOpen(false);
     setEraStreamOpen(false);
+    setThreadsOpen(false);
     setCommunityOpen(false);
     setMerchOpen(false);
     setTrackGuideRoute(null);
@@ -282,6 +290,8 @@ export default function App() {
             />
           ) : eraStreamOpen ? (
             <EraStreamScreen onOpenItem={openMoment} />
+          ) : threadsOpen ? (
+            <ThreadsScreen />
           ) : communityOpen ? (
             <CommunityScreen />
           ) : merchOpen ? (
