@@ -1,0 +1,44 @@
+# Paul Blart — security patrol, migrated from claude.ai Routine
+# `trig_01Px9HckABpWC4Bq1JQomfWT` to this scheduled Action per
+# docs/audits/2026-09-05-claude-routines-relocation-assessment.md + the
+# 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# Weekly dependency/supply-chain security patrol: judges Dependabot +
+# code-scanning alerts, verdicts open Dependabot PRs (never merges), and
+# posts/refreshes one `security`-labeled report issue. Its own gh access
+# does NOT call the Dependabot alerts API directly — HUMAN-ACTIONS.md #21
+# (DONE 2026-08-24: `DEPENDABOT_ALERTS_PAT` secret set) fixed that gap by
+# having a separate scheduled workflow (dependabot-alerts-snapshot.yml)
+# publish a snapshot issue that this routine reads instead, so this
+# workflow needs no Dependabot-specific secret of its own.
+# Needs `issues: write` (patrol report + PR verdict comments) and
+# `contents: write` + `pull-requests: write` for the OPTIONAL grouped
+# patch-bump PR (step 6 of the prompt — opened, never merged), checked out
+# with SOCIAL_POSTER_PAT since main is branch-protected (built-in
+# GITHUB_TOKEN cannot trigger the required `build` check on its own PRs —
+# same reason growth-snapshot.yml / appearance-discovery.yml use the PAT).
+name: routine-paul-blart
+
+on:
+  schedule:
+    - cron: "20 22 * * 1" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Paul Blart — security patrol"
+      prompt_file: docs/agents/runner-prompts/paul-blart-run.md
+      model: claude-opus-4-8
+      allowed_tools: "Bash,Read,Grep,Glob,Write,Edit"
+      timeout_minutes: 30
+      checkout_token_secret: SOCIAL_POSTER_PAT
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}

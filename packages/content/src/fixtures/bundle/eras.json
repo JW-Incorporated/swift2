@@ -1,0 +1,26 @@
+[
+  {
+    "id": "folklore",
+    "name": "folklore",
+    "shortName": "folklore",
+    "album": "folklore",
+    "start": "2020-07-24",
+    "end": "2020-12-10",
+    "yearLabel": "2020",
+    "tagline": "Wistful, literary, surprise-released.",
+    "intro": "A surprise indie-folk turn recorded and released during the pandemic.",
+    "image": "/eras/folklore.png",
+    "theme": {
+      "bg": "#1a1a1a",
+      "surface": "#2a2a2a",
+      "surface2": "#333333",
+      "ink": "#f5f5f5",
+      "inkSoft": "#cccccc",
+      "line": "#444444",
+      "accent": "#8a8a6d",
+      "accent2": "#5f5f4a",
+      "glow": "#c8c8a8",
+      "font": "serif"
+    }
+  }
+]

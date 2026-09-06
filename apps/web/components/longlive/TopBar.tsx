@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useIsomorphicLayoutEffect } from '@/lib/longlive/useIsomorphicLayoutEffect';
 import {
   Bell,
@@ -16,8 +16,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { getEra } from '@/lib/longlive/eras';
-import { getThread } from '@/lib/longlive/lenses';
+import { getEra, getThread } from '@swift2/experience';
+import { isInAppDocument, postToNativeApp } from '@/lib/longlive/in-app';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { Button } from '@/components/ui/button';
 import { TimelineScrubber } from './TimelineScrubber';
@@ -28,6 +28,20 @@ export function TopBar() {
   const { mode, eraId, lensId } = useAppState();
   const { setMode, setSelectorOpen, setSearchOpen, openShare, goHome } = useAppActions();
   const era = getEra(eraId);
+
+  // OS-002: inside the app, the bell hands off to the native notification
+  // settings screen instead of navigating to the web page — see
+  // `apps/web/lib/longlive/in-app.ts` and `docs/architecture.md`. `false`
+  // until the mount effect runs so server and first-client render agree
+  // (see `isInAppDocument`'s doc comment).
+  const [inApp, setInApp] = useState(false);
+  useEffect(() => {
+    setInApp(isInAppDocument());
+  }, []);
+
+  function handleBellPress() {
+    postToNativeApp({ type: 'openNotificationSettings' });
+  }
 
   const shareTarget = topbarShareTarget(mode, eraId, lensId);
 
@@ -108,11 +122,16 @@ export function TopBar() {
             size="icon"
             aria-label="Notification settings"
             title="Notification settings"
-            asChild
+            asChild={!inApp}
+            onClick={inApp ? handleBellPress : undefined}
           >
-            <Link href="/settings/notifications">
+            {inApp ? (
               <Bell />
-            </Link>
+            ) : (
+              <Link href="/settings/notifications">
+                <Bell />
+              </Link>
+            )}
           </Button>
           <Button
             variant="surface"

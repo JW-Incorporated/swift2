@@ -1,9 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { ERAS } from '@/lib/longlive/eras';
+import { ERAS } from '@swift2/experience';
 import { eraStyle } from '@/lib/longlive/theme';
-import type { EraId } from '@/lib/longlive/types';
+import type { EraId } from '@swift2/experience';
 
 /**
  * The twelve-era tile grid ("Twelve chapters, newest first"), shared by the

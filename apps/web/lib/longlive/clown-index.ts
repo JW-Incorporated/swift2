@@ -35,7 +35,7 @@ import { LORE } from './clownbot-lore';
 import { screenTopic } from './clown-blocklist';
 import type { ItemStatus } from './clown-fallback';
 import type { LoreStatus } from './clownbot-lore';
-import type { EraId, RumorNote, RumorStatus, TheoryOutcome } from './types';
+import type { EraId, RumorNote, RumorStatus, TheoryOutcome } from '@swift2/experience';
 
 export type ClownDocKind = 'theory' | 'lore' | 'moment' | 'rumor';
 

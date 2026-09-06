@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useReducer } from 'react';
-import type { FilterId } from '../filters';
-import type { EraId, LensId } from '../types';
+import type { FilterId } from '@swift2/experience';
+import type { EraId, LensId } from '@swift2/experience';
 import type { ClownAnswer } from '../clown-answer';
 
 export type ShareTarget =

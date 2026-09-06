@@ -13,8 +13,13 @@
 // T16 full-era pass (2026-07-09): every item now carries a 2+ paragraph
 // sourced body (paragraphs split on blank lines per the sync contract) and
 // at least one real photo with credit + caption + kind, per the relaxed
-// 2026-07-09 media policy in docs/decisions.md. Every image URL was
-// curl-verified (HTTP 200 + image content-type) this session; YouTube
+// 2026-07-09 media policy in docs/decisions.md — with one documented
+// exception: the "folklore-album" / "A surprise in the woods" item has no
+// photo. Every verifiable release-announcement image is already the
+// primary photo on a richer sibling moment elsewhere in this file, and
+// reusing one caused a corpus substance-score regression in a prior run
+// (2026-08-05, reverted). See that item's inline comment. Every image URL
+// was curl-verified (HTTP 200 + image content-type) this session; YouTube
 // thumbnails were verified via oEmbed against the official channel; Commons
 // files had their licenses checked on the file page. No AI-generated images.
 
@@ -806,7 +811,15 @@ export default {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/pro/taylor-swift-folklore-billboard-200-number-1/',
           },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-achieves-seventh-no-1-album-billboard-200-chart-1305548/',
+          },
         ],
+        // 2-source pass (#3779, issue-fix): added The Hollywood Reporter's
+        // independent report of the same 846,000-unit debut/seventh-No.-1
+        // figures (verified HTTP 200) to meet the business-category 2-source
+        // minimum.
         // Real-photo pass (2026-07-09): official album cover from Wikipedia's
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
         // Photo-enrichment run 17 (2026-07-18, #762): added the cream-sweater
@@ -850,7 +863,15 @@ export default {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/pro/taylor-swift-folklore-first-million-selling-album-2020/',
           },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swifts-folklore-becomes-first-million-selling-album-of-2020-in-u-s-4082448/',
+          },
         ],
+        // 2-source pass (#3779, issue-fix): added The Hollywood Reporter's
+        // independent report of the same 1.038-million-copies milestone
+        // (verified HTTP 200) to meet the business-category 2-source
+        // minimum.
         // Real-photo pass (2026-07-09): folklore-era publicity photo, same
         // stable Hollywood Reporter CDN copy used on this era's chart item.
         // Verified HTTP 200 + image/jpeg this session.
@@ -895,7 +916,15 @@ export default {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-lists/best-albums-2020-1096814/taylor-swift-folklore-1096815/',
           },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2021/music/news/taylor-swift-top-album-2020-lil-baby-second-1234879233/',
+          },
         ],
+        // 2-source pass (#3779, issue-fix): added Variety's independent
+        // report confirming folklore topped Rolling Stone's 2020 year-end
+        // list as the year's No. 1 seller (verified HTTP 200) to meet the
+        // business-category 2-source minimum.
         // Photo-enrichment run 17 (2026-07-18, #762): added the lead collage
         // art of the Rolling Stone list itself (the article body's folklore
         // image is just the album cover — rejected as a duplicate). Hosted on

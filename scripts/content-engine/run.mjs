@@ -28,6 +28,7 @@ import * as numericDate from './checkers/numeric-date.mjs';
 import * as redlines from './checkers/redlines.mjs';
 import * as imageUrlQuality from './checkers/image-url-quality.mjs';
 import * as photoSparsity from './checkers/photo-sparsity.mjs';
+import * as topOfFeedPhoto from './checkers/top-of-feed-photo.mjs';
 import * as imageOveruse from './checkers/image-overuse.mjs';
 import * as imageLiveness from './checkers/image-liveness.mjs';
 import * as imageModeration from './checkers/image-moderation.mjs';
@@ -46,7 +47,7 @@ import * as voice from './checkers/voice.mjs';
 // imageUrlQuality is network-free, so it runs even under --no-images / egress
 // blocks — it is the fallback that keeps the image-quality gate alive when the
 // byte-level resolution check in imageLiveness can't reach hosts.
-const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, rumorRedline, socialPostMissing, voice];
+const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, topOfFeedPhoto, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, rumorRedline, socialPostMissing, voice];
 const FINDINGS_DIR = join(ROOT, CONFIG.output.findingsDir);
 // docs/audits/engine/ is Karen-exclusive (docs/decisions.md 2026-08-14): a
 // bare `scan` self-check writes here instead, so other agents keep their

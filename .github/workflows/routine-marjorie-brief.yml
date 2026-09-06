@@ -1,0 +1,42 @@
+# Marjorie — 6 AM Founders' Brief, migrated from claude.ai Routine
+# `trig_018eDoH5pWRvwGMEg58aW4f3` to this scheduled Action per
+# docs/audits/2026-09-05-claude-routines-relocation-assessment.md + the
+# 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# Heaviest routine in the fleet: files a GitHub issue, posts pointer
+# comments/journal, and can merge reversible PRs within the charter's Merge
+# authority envelope (docs/agents/marjorie.md) — needs `contents: write`,
+# `pull-requests: write`, `issues: write`, the Supabase secrets the
+# assembler script reads, and SOCIAL_POSTER_PAT (main is branch-protected).
+#
+# Cadence note: this fires at 12:00 UTC specifically so the 12:45 UTC
+# brief-mailer.yml send lands in founder inboxes by ~6:00 AM PT (unchanged
+# from the claude.ai trigger — see runner-prompts/marjorie-brief.md line 1).
+name: routine-marjorie-brief
+
+on:
+  schedule:
+    - cron: "0 12 * * *" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Marjorie — 6 AM Founders' Brief"
+      prompt_file: docs/agents/runner-prompts/marjorie-brief.md
+      model: claude-opus-4-8
+      allowed_tools: "Bash,Read,Grep,Glob,Write,Edit"
+      timeout_minutes: 40
+      checkout_token_secret: SOCIAL_POSTER_PAT
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
