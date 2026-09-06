@@ -17,7 +17,9 @@ deliberately adopts it.
   > them as `month_item` rows.** Per the 2026-07-04 decision ("Song track guide
   > is a separate, non-month-scoped shape", `docs/decisions.md`), full song
   > coverage now lives in the `track_note` table, authored via
-  > `supabase/seed/tracks/*.mjs` (`npm run db:seed:tracks`) — reached from the
+  > `supabase/seed/tracks/*.mjs` (`node scripts/seed-tracks.mjs` — see
+  > `docs/dev-quickstart.md`; OS-016 retired the `npm run db:seed:tracks`
+  > alias since no surface reads this table any more) — reached from the
   > album, kept off the Tier-0 timeline payload. These ported song blurbs are
   > also **unsourced** (empty `sources[]`), so they can't be adopted as-is under
   > the no-fabrication rule regardless. Mine them for song *titles* to research,
@@ -43,10 +45,19 @@ deliberately adopts it.
 
 1. Open the candidate file and read through it.
 2. Keep what's good. Either:
-   - move the whole file into `../content/` (goes live wholesale on next seed), or
+   - move the whole file into `../content/` (this is the live authoring
+     source the content bundle builds from — `npm run content:bundle` /
+     the next merge to `main` picks it up), or
    - copy the items you want into per-era files there (e.g. `lover.mjs`) and
      edit/verify them first — the better path for a curated launch.
-3. `npm run db:seed:content` to push your `../content/` selections to the DB.
+3. That's it — `../content/` is read at build time by
+   `scripts/sync-longlive-content.mjs` / `scripts/build-content-bundle.mjs`,
+   not by a separate DB-push step. (`node scripts/seed-content.mjs` /
+   `npm run db:seed:content` used to be the extra step when the web read
+   live from Supabase; OS-016 retired that npm alias because no surface
+   reads the DB copy any more — see `docs/dev-quickstart.md`. The script
+   itself still runs if you genuinely want the DB row mirrored too, but
+   nothing in the app depends on it.)
 
 Deleting a file here has **no effect on the live app** — it only discards the
 proposal.
