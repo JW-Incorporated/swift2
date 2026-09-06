@@ -128,14 +128,20 @@ export function sortForBrief(items) {
 }
 
 /**
- * Pull the author's own `~N min` estimate out of an item's title, if any.
- * Every HUMAN-ACTIONS.md item is written with one (see the file's own
- * template) — the brief already had this number sitting in plain text and
- * never used it for anything. Returns null, never a guess, when absent.
+ * Pull the author's own `~N min` (or `~N-M min`) estimate out of an item's
+ * title, if any. Every HUMAN-ACTIONS.md item is written with one (see the
+ * file's own template) — the brief already had this number sitting in plain
+ * text and never used it for anything. Real titles use both forms (`~2 min`
+ * and `~10-20 min`/`~30–60 min` with a hyphen or en dash); a range's UPPER
+ * bound is used, because this number feeds a "quick to clear" promise — the
+ * worst case is the honest claim for "will this actually take 15 min or
+ * less", not the best case. Returns null, never a guess, when no estimate is
+ * present at all.
  */
 export function parseMinutes(title) {
-  const m = /~\s*(\d+)\s*min/i.exec(String(title || ''));
-  return m ? Number(m[1]) : null;
+  const m = /~\s*(\d+)(?:\s*[-–]\s*(\d+))?\s*min/i.exec(String(title || ''));
+  if (!m) return null;
+  return m[2] ? Number(m[2]) : Number(m[1]);
 }
 
 /**

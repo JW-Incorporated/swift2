@@ -162,6 +162,11 @@ describe('parseMinutes', () => {
     expect(parseMinutes('Mobile release train — ~35 min total')).toBe(35);
   });
 
+  it('uses the UPPER bound of a range (honest worst-case for a "quick" claim)', () => {
+    expect(parseMinutes('Vault Phase 4 needs a session — ~10-20 min')).toBe(20);
+    expect(parseMinutes('Two PRs stuck — ~5\u201315 min, needs your GitHub UI access')).toBe(15);
+  });
+
   it('returns null, never a guess, when no estimate is present', () => {
     expect(parseMinutes('No estimate here')).toBeNull();
     expect(parseMinutes(undefined)).toBeNull();
