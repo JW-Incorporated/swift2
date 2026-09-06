@@ -170,6 +170,13 @@ describe('destinationFor (shell routing, OS-003)', () => {
     });
   });
 
+  // OS-034
+  it('routes ?mode=threads to the native threads screen', () => {
+    expect(destinationFor('https://www.longlivets.com/?mode=threads')).toEqual({
+      kind: 'threads',
+    });
+  });
+
   // OS-035
   it('routes ?screen=track-guide&era=<id> to the native track guide screen', () => {
     expect(

@@ -38,6 +38,7 @@ import { NotificationSettingsScreen } from './components/NotificationSettingsScr
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 import { EraStreamScreen } from './components/EraStreamScreen';
+import { ThreadsScreen } from './components/ThreadsScreen';
 import { TrackGuideScreen } from './components/TrackGuideScreen';
 import { SongScreen } from './components/SongScreen';
 import { MomentSheet } from './components/MomentSheet';
@@ -70,6 +71,9 @@ export default function App() {
   // OS-032: the native era stream, reached via `?screen=era-stream` once the
   // `eraStream` route flag is on (off by default — see routes.ts).
   const [eraStreamOpen, setEraStreamOpen] = useState(false);
+  // OS-034: the native threads mode, reached via `?mode=threads` once the
+  // `threads` route flag is on (off by default — see routes.ts).
+  const [threadsOpen, setThreadsOpen] = useState(false);
   // OS-035: the native track guide / song dossier, reached via
   // `?screen=track-guide` / `?screen=song` once their respective route
   // flags are on (off by default — see routes.ts). See
@@ -118,6 +122,7 @@ export default function App() {
     setInboxOpen(false);
     setOnboardingOpen(false);
     setEraStreamOpen(false);
+    setThreadsOpen(false);
     setTrackGuideRoute(null);
     setMomentItemId(null);
     setClownChatOpen(false);
@@ -125,6 +130,8 @@ export default function App() {
       setNotificationSettingsOpen(true);
     } else if (screen === 'era-stream') {
       setEraStreamOpen(true);
+    } else if (screen === 'threads') {
+      setThreadsOpen(true);
     } else if (screen === 'clownbot') {
       setClownChatOpen(true);
     } else if (screen === 'track-guide') {
@@ -168,6 +175,7 @@ export default function App() {
     setInboxOpen(false);
     setOnboardingOpen(false);
     setEraStreamOpen(false);
+    setThreadsOpen(false);
     setTrackGuideRoute(null);
     setMomentItemId(null);
     setClownChatOpen(false);
@@ -267,6 +275,8 @@ export default function App() {
             />
           ) : eraStreamOpen ? (
             <EraStreamScreen onOpenItem={openMoment} />
+          ) : threadsOpen ? (
+            <ThreadsScreen />
           ) : trackGuideRoute?.screen === 'track-guide' ? (
             <TrackGuideScreen
               eraId={trackGuideRoute.eraId}

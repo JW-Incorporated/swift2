@@ -38,6 +38,7 @@ export type ScreenId =
   | 'settings'
   | 'inbox'
   | 'era-stream'
+  | 'threads'
   | 'track-guide'
   | 'song'
   | 'moment'
@@ -70,6 +71,9 @@ export interface RouteFlags {
    * flip that would put an unreviewed native screen in front of every user
    * on merge. */
   eraStream: boolean;
+  /** OS-034: same progressive-rollout posture as `eraStream` — defaults OFF
+   * (see DEFAULT_ROUTE_FLAGS); flipped on after a staged TestFlight review. */
+  threads: boolean;
   /** OS-035: same D3 progressive-rollout contract as `eraStream` — defaults
    * OFF, flips on later via remote config once reviewed in TestFlight. */
   trackGuide: boolean;
@@ -87,11 +91,12 @@ export interface RouteFlags {
   clownbot: boolean;
 }
 
-/** Settings/inbox ship on by default (Phase 0, already shipped); OS-032's era stream, OS-035's track guide/song screens, OS-033's moment sheet, and OS-036's Clownbot all ship OFF by default — see each flag's own doc above. */
+/** Settings/inbox ship on by default (Phase 0, already shipped); OS-032's era stream, OS-033's moment sheet, OS-034's threads mode, OS-035's track guide/song screens, and OS-036's Clownbot all ship OFF by default — see each flag's own doc above. */
 export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   settings: true,
   inbox: true,
   eraStream: false,
+  threads: false,
   trackGuide: false,
   song: false,
   moment: false,
@@ -102,6 +107,7 @@ function screenForDestination(dest: ShellDestination): ScreenId | null {
   if (dest.kind === 'settings') return 'settings';
   if (dest.kind === 'inbox') return 'inbox';
   if (dest.kind === 'era-stream') return 'era-stream';
+  if (dest.kind === 'threads') return 'threads';
   if (dest.kind === 'track-guide') return 'track-guide';
   if (dest.kind === 'song') return 'song';
   if (dest.kind === 'moment') return 'moment';
@@ -122,6 +128,7 @@ function flagForScreen(screen: ScreenId, flags: RouteFlags): boolean {
   if (screen === 'settings') return flags.settings;
   if (screen === 'inbox') return flags.inbox;
   if (screen === 'era-stream') return flags.eraStream;
+  if (screen === 'threads') return flags.threads;
   if (screen === 'track-guide') return flags.trackGuide;
   if (screen === 'song') return flags.song;
   if (screen === 'moment') return flags.moment;
