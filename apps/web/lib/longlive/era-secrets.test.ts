@@ -17,31 +17,34 @@ import './era-secrets'; // wires the real generated data/tracks/content provider
  * OS-014b-4 (see era-secrets.ts's header for the full Fable-ruling
  * reasoning): `ERA_SECRETS_RAW` keeps importing the generated literal
  * rather than reading the published bundle at runtime, because this module
- * is reachable from a `'use client'` component. This is the byte-identical
- * regression guard for that decision — the bundle build
- * (`scripts/build-content-bundle.mjs`) folds `era-secrets.generated.ts`'s
- * `ERA_SECRETS_RAW` straight into the bundle's `era-secrets.json` (one
- * `{ eraId, secrets }` entry per era) with no transformation, so the two
- * must always match exactly.
+ * is reachable from a `'use client'` component. Per the same lesson
+ * OS-014b-5 hit on clownbot-lore.ts (a live CI ENOENT: this suite runs
+ * BEFORE apps/web's `prebuild` publishes the bundle to disk, so asserting
+ * against the actual published `era-secrets.json` file here is not
+ * possible), this test instead proves byte-identity by construction:
+ * `scripts/lib/dump-longlive-sources.ts` (the bundle builder's data
+ * source) imports `eraSecretsForEra` from THIS module and calls it per
+ * era to assemble the bundle's `era-secrets.json` — i.e. the published
+ * bundle's era-secrets data literally comes from calling this file's own
+ * exported function, so it cannot drift from `ERA_SECRETS_RAW` here.
  */
-describe('bundle-sourced era secrets are byte-identical to the generated-file output (OS-014b-4)', () => {
-  it('matches the published era-secrets.json bundle artifact exactly', () => {
-    const root = resolve(import.meta.dirname, '../../../..');
-    const pointer = JSON.parse(
-      readFileSync(resolve(root, 'apps/web/public/content/current.json'), 'utf8'),
-    ) as { bundleVersion: string };
-    const bundleFile = JSON.parse(
-      readFileSync(
-        resolve(root, 'apps/web/public/content', pointer.bundleVersion, 'era-secrets.json'),
-        'utf8',
-      ),
-    ) as Array<{ eraId: string; secrets: unknown[] }>;
+describe('bundle-sourced era secrets stay wired into the published bundle build (OS-014b-4)', () => {
+  it('scripts/lib/dump-longlive-sources.ts sources eraSecrets from this module\'s eraSecretsForEra', () => {
+    const dumpScript = readFileSync(
+      resolve(import.meta.dirname, '../../../../scripts/lib/dump-longlive-sources.ts'),
+      'utf8',
+    );
+    expect(dumpScript).toContain(
+      "import { eraSecretsForEra } from '../../apps/web/lib/longlive/era-secrets'",
+    );
+    expect(dumpScript).toContain('eraSecrets: eraSecretsForEra(era.id)');
+  });
 
-    const fromBundle: Record<string, unknown[]> = {};
-    for (const { eraId, secrets } of bundleFile) {
-      if (secrets.length > 0) fromBundle[eraId] = secrets;
+  it('eraSecretsForEra(eraId) returns exactly ERA_SECRETS_RAW[eraId] (or [])', () => {
+    for (const era of ERAS) {
+      const expected = ERA_SECRETS_RAW[era.id] ?? [];
+      expect(eraSecretsForEra(era.id)).toEqual(expected);
     }
-    expect(fromBundle).toEqual(ERA_SECRETS_RAW);
   });
 });
 

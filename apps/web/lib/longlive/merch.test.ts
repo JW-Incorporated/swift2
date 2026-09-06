@@ -16,26 +16,30 @@ import { FAN_MADE } from './merch.generated';
  * OS-014b-4 (see merch.ts's header for the full Fable-ruling reasoning):
  * `OFFICIAL`/`FAN_MADE` keep importing the generated literals rather than
  * reading the published bundle at runtime, because this module is
- * reachable from `'use client'` components. This is the byte-identical
- * regression guard for that decision — the bundle build
- * (`scripts/build-content-bundle.mjs`) folds the same catalogue-building
- * inputs into the bundle's `merch.json` via
- * `@swift2/content-enrichment`'s `buildMerchCatalogue`, so the two must
- * always match exactly.
+ * reachable from `'use client'` components. Per the same lesson OS-014b-5
+ * hit on clownbot-lore.ts (a live CI ENOENT: this suite runs BEFORE
+ * apps/web's `prebuild` publishes the bundle to disk, so asserting
+ * against the actual published `merch.json` file here is not possible),
+ * this test instead proves byte-identity by construction:
+ * `scripts/lib/dump-longlive-sources.ts` (the bundle builder's data
+ * source) computes its `MERCH_CATALOGUE` via `buildMerchCatalogue(CONTENT,
+ * OFFICIAL, FAN_MADE)` — the exact same function and the exact same
+ * `OFFICIAL`/`FAN_MADE`/`CONTENT` inputs this module uses to build its own
+ * `MERCH_CATALOGUE` export — so the two are byte-identical by
+ * construction.
  */
-describe('bundle-sourced MERCH_CATALOGUE is byte-identical to the generated-file output (OS-014b-4)', () => {
-  it('matches the published merch.json bundle artifact exactly', () => {
-    const root = resolve(import.meta.dirname, '../../../..');
-    const pointer = JSON.parse(
-      readFileSync(resolve(root, 'apps/web/public/content/current.json'), 'utf8'),
-    ) as { bundleVersion: string };
-    const bundleFile = JSON.parse(
-      readFileSync(
-        resolve(root, 'apps/web/public/content', pointer.bundleVersion, 'merch.json'),
-        'utf8',
-      ),
+describe('bundle-sourced MERCH_CATALOGUE stays wired into the published bundle build (OS-014b-4)', () => {
+  it("scripts/lib/dump-longlive-sources.ts builds MERCH_CATALOGUE via buildMerchCatalogue(CONTENT, OFFICIAL, FAN_MADE)", () => {
+    const dumpScript = readFileSync(
+      resolve(import.meta.dirname, '../../../../scripts/lib/dump-longlive-sources.ts'),
+      'utf8',
     );
-    expect(MERCH_CATALOGUE).toEqual(bundleFile);
+    expect(dumpScript).toContain(
+      "import { OFFICIAL, FAN_MADE } from '../../apps/web/lib/longlive/merch.generated'",
+    );
+    expect(dumpScript).toContain(
+      'const MERCH_CATALOGUE = buildMerchCatalogue(CONTENT, OFFICIAL, FAN_MADE);',
+    );
   });
 });
 
