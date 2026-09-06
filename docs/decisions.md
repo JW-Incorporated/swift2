@@ -7,6 +7,56 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-06 — Future-dated Showgirl moment pulled; blocking future-date gate added (t_187359e9)
+
+**Context:** Joey, 2026-09-06: "our engine for producing content is still
+posting stuff without images. Last two posts, one of which is dated IN THE
+FUTURE (9/12/26 = wtf?) dont have pictures." Verified against the live site
+and a local CIE run (`node scripts/content-engine/run.mjs all --no-images`):
+the two newest `the-life-of-a-showgirl` moments were, in order —
+1. `florida-orchestra-taylor-swift-symphony-era-mahaffey`, dated 2026-09-12
+   (six days after the 2026-09-06 authoring run that added it, PR #3910/#3906)
+   and with `thumbnailUrl: null` — the future date AND the missing photo.
+2. `i-knew-it-i-knew-you-country-radio-double-meanings`, dated 2026-09-05,
+   also `thumbnailUrl: null` — the second no-photo item Joey saw.
+
+**Fix:**
+- Pulled the Florida Orchestra moment entirely rather than back-dating it —
+  there is no true date to move it to since the concert has not happened
+  yet. Left a dated comment in the seed file for whoever re-authors it after
+  2026-09-12.
+- Marked the radio-interview moment `photosReviewed` (no reusable,
+  allowlisted subject photo exists for this specific interview; the era
+  already carries verified photos for the same song elsewhere) so
+  `content.top-of-feed-photo` stops re-flagging a reviewed decision as a gap.
+- Added a blocking check to `scripts/validate-content.mjs` (CI's
+  `check:validate-content` step, part of the required `build` check): any
+  seed moment dated after the CI run date is now a hard `ERROR`, not just a
+  nightly-scan finding someone has to notice. The existing deterministic CIE
+  checker (`fact.claim-risk`) already caught this pattern but only surfaces
+  in a scheduled report; this closes the gap between "detected" and
+  "blocks the merge."
+
+**Why not also fix `amc-leawood-films-eras-tour-inspiration` (the 10th-newest
+no-photo item) here:** it is not one of the two items Joey reported (it's
+already several positions back in the feed) and is already inside the
+existing photo-backlog lane (open PR #3902 and its siblings are actively
+working the `content.top-of-feed-photo` ticket queue). Fixing it here would
+duplicate that in-flight work.
+
+**Alternatives considered:** leave the future-dated item and just add a
+photo (rejected — the event genuinely has not happened yet, so no real photo
+can exist and shipping any image would misrepresent an unconfirmed future
+event); rely on the nightly CIE scan catching future dates going forward
+(rejected — that is the exact detection-without-enforcement gap that let
+this one reach the live site, per RC-3 in
+`docs/audits/2026-09-05-newest-posts-no-images-root-cause.md`).
+
+**Approved by:** Joey (direct escalation in chat, 2026-09-06, routed via
+kanban t_187359e9).
+
+---
+
 ## 2026-09-06 — Fable triage of the Founders' Brief: 7 of 13 "waiting on you" items were never founder items
 
 **Context:** Joey, 2026-09-06: "Dispatch one card to assess which of the

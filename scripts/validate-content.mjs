@@ -235,6 +235,34 @@ for (const { file, data } of loaded) {
     if (!Number.isInteger(it.year)) err(`year is not an integer (${it.year})`);
     if (!(Number.isInteger(it.month) && it.month >= 1 && it.month <= 12))
       err(`month out of 1..12 (${it.month})`);
+    // Future-dated moment (t_187359e9, 2026-09-06 founder escalation): the
+    // deterministic CIE checker (fact.claim-risk / numeric-date.mjs) already
+    // flags a moment dated after today, but only as a nightly-scan finding
+    // that can sit unread for days — that is exactly how
+    // florida-orchestra-taylor-swift-symphony-era-mahaffey (dated 2026-09-12,
+    // authored 2026-09-06) reached `main` and the live site. This file's
+    // items record things that happened, so a date in the future relative to
+    // the CI run is always an authoring error (wrong date, or an event
+    // written up before it occurred) — block it at merge time instead of
+    // relying on a scan someone has to notice.
+    if (
+      Number.isInteger(it.year) &&
+      Number.isInteger(it.month) &&
+      it.month >= 1 &&
+      it.month <= 12
+    ) {
+      const d = Number.isInteger(it.day) && it.day >= 1 && it.day <= 31 ? it.day : 1;
+      const itemDate = Date.UTC(it.year, it.month - 1, d);
+      const todayUtc = Date.UTC(
+        new Date().getUTCFullYear(),
+        new Date().getUTCMonth(),
+        new Date().getUTCDate(),
+      );
+      if (itemDate > todayUtc)
+        err(
+          `dated in the future (${it.year}-${String(it.month).padStart(2, '0')}-${String(d).padStart(2, '0')}, today is ${new Date().toISOString().slice(0, 10)}) — confirm the event has actually happened and fix the date, or remove/hold this item until it has`,
+        );
+    }
     if (!CATEGORIES.has(it.category))
       err(`category "${it.category}" not in ${[...CATEGORIES].join('|')}`);
     if (!it.title) err('missing title');
