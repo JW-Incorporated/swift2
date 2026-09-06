@@ -27,6 +27,36 @@ alone. Founder decision (Joey, direct instruction, accepted the risk) — see
 originally closed off. Every routine on this account may now hold that
 connector; nothing in this fleet enforces the old one-exception rule anymore.
 
+## Community Engine additions (2026-09-06 plan — six new workflow-level things to track)
+
+`docs/proposals/2026-09-06-community-engine-plan.md` (board `swift2`, Phase
+0–3) adds six new pieces of scheduled/triggered machinery. None exist yet —
+this section is the pre-registered checklist so each lands already covered by
+check 5 (registered in `runners.md`, named in `AUTOMATION.md`) instead of
+drifting the way the nine unregistered runners did. Each row must be flipped
+from "planned" to a live row in both files, in the same PR that creates it:
+
+| # | Workflow / routine | Kind | Lands with | Invariant it must satisfy on creation |
+|---|---|---|---|---|
+| 1 | `community-inbox.yml` | Tier 1 (Action) | P1-1 | zero-LLM, DKIM-verified, idempotent by Message-ID |
+| 2 | `community-scan.yml` | Tier 1 (Action) | P1-2 | zero-LLM, gated by `COMMUNITY_SCAN_ENABLED` |
+| 3 | `community-mailer.yml` | Tier 1 (Action) | P1-6 | zero-LLM, bounded to 1 daily send + ≤1 replies-waiting/day (invariant-adjacent to founder email ceiling, see `AUTOMATION.md` § Founder communications) |
+| 4 | `community-crawl.yml` | Tier 1 (Action) | P2-1 | **no Task in `allowed_tools`** (invariant #4) is N/A (it's an Action, not a Claude routine) but carries the equivalent Action-side guardrail: `COMMUNITY_CRAWL_ENABLED` repo **variable** checked as the very first step before any network call, default `false`; `COMMUNITY_CRAWL_BUDGET` caps threads/run; home-relay use probe-before-use, bounded ≤40 threads/day, never retried in-run on 403/429 |
+| 5 | Community Answerer (Tier 2 desk) | Claude routine | P1-4 | `persist_session: false`; narrowest `allowed_tools` (no `Task`, no `Monitor` unless the charter justifies it); model per plan §8-Q4 (Sonnet 5 daily); Run-discipline block: draft, write leads, exit — no self-check-ins; registered in `runners.md` with its prompt file |
+| 6 | Theory Miner (Tier 2 desk, extraction + weekly merge) | Claude routine | P2-2 (extraction), P2-3 (weekly merge/promote) | same four checks as row 5; extraction model Haiku 4.5, weekly merge Opus 4.8 per plan §2.4/§8-Q4-adjacent cost table; redline screen (`screenTopic()`) on every candidate before insert, hashed authors only, no raw comment bodies stored |
+
+Cross-cutting guardrails from the plan (§6) that apply to all six regardless
+of tier, and that the Auditor's weekly pass should treat as fleet invariants
+once any of these six is live: no posting/replying/voting/following/DMing on
+Reddit or Facebook by any automation (a human always posts); no Facebook
+fetch of any kind including relay (human export only); home-relay bounded
+per run (Answerer ≤5 threads, crawl ≤40 threads/day) and probe-before-use.
+
+Total enabled trigger count (invariant #3, ≤35 ceiling): landing all six
+adds at most one new Claude-routine trigger pair (Community Answerer +
+Theory Miner) to the Tier-2 count the Auditor already tracks — the other
+four are GitHub Actions and do not count against this ceiling.
+
 ## Additional checks (T-9, 2026-08-31 — `docs/TIER2-OPTIMIZATION.md` § B5)
 
 Two cheap drift/retirement checks, run in the same weekly Haiku session
