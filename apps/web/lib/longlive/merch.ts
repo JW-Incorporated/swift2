@@ -55,6 +55,33 @@ import {
  * dependency. Re-exported here unchanged so every existing caller/test of
  * this module keeps working.
  *
+ * BUNDLE AS SOURCE OF TRUTH, LITERAL AS RUNTIME VALUE (OS-014b-4, same
+ * reasoning recorded for era-secrets.ts and clownbot-lore.ts's OS-014b-5 —
+ * see those files' headers for the fuller writeup): `OFFICIAL`/`FAN_MADE`
+ * keep importing straight from `merch.generated.ts` (plain array literals
+ * with zero imports) rather than reading the published bundle's
+ * `merch.json` via `packages/content`'s async `loadBundle()` or the
+ * synchronous `readBundleArtifact()` helper (`./read-bundle-artifact.ts`).
+ *
+ * This module is reachable from `MerchCard.tsx`/`MerchStyleSection.tsx`,
+ * both `'use client'` components — Next.js/Turbopack statically traces
+ * every module in a client component's import graph and refuses to bundle
+ * `node:fs`/`node:path` for the browser, so `readBundleArtifact()` is not
+ * usable here. `loadBundle()` is likewise the wrong shape: it is an async
+ * HTTP client, and `MERCH_CATALOGUE` is read synchronously by every one of
+ * its ~100+ call sites today (this migration's explicit "zero
+ * pixel/behavior change" bar) — an async load would ripple into every
+ * consumer's render path for no benefit apps/web's own build doesn't
+ * already get for free (the generated files are produced from the exact
+ * same `supabase/seed/merch/**` sources the bundle is built from, by the
+ * same `prebuild` step, before either is read).
+ *
+ * `merch.test.ts` enforces the actual invariant instead: a
+ * byte-identical-to-the-published-bundle regression check on
+ * `MERCH_CATALOGUE`, so any drift between the generated-literal path and
+ * `merch.json` fails the suite immediately — see that file for the
+ * assertion.
+ *
  * Aggregates three sources into one catalogue:
  *   1. shopTheLook — the existing "shop the look" `Product`s already attached
  *      to fashion moments in `content-vault.generated.ts` (via `CONTENT`),

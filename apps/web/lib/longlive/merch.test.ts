@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { CONTENT, getContentItem } from './content';
 import {
@@ -9,6 +11,33 @@ import {
 } from './merch';
 import { primaryImage } from '@swift2/experience';
 import { FAN_MADE } from './merch.generated';
+
+/**
+ * OS-014b-4 (see merch.ts's header for the full Fable-ruling reasoning):
+ * `OFFICIAL`/`FAN_MADE` keep importing the generated literals rather than
+ * reading the published bundle at runtime, because this module is
+ * reachable from `'use client'` components. This is the byte-identical
+ * regression guard for that decision — the bundle build
+ * (`scripts/build-content-bundle.mjs`) folds the same catalogue-building
+ * inputs into the bundle's `merch.json` via
+ * `@swift2/content-enrichment`'s `buildMerchCatalogue`, so the two must
+ * always match exactly.
+ */
+describe('bundle-sourced MERCH_CATALOGUE is byte-identical to the generated-file output (OS-014b-4)', () => {
+  it('matches the published merch.json bundle artifact exactly', () => {
+    const root = resolve(import.meta.dirname, '../../../..');
+    const pointer = JSON.parse(
+      readFileSync(resolve(root, 'apps/web/public/content/current.json'), 'utf8'),
+    ) as { bundleVersion: string };
+    const bundleFile = JSON.parse(
+      readFileSync(
+        resolve(root, 'apps/web/public/content', pointer.bundleVersion, 'merch.json'),
+        'utf8',
+      ),
+    );
+    expect(MERCH_CATALOGUE).toEqual(bundleFile);
+  });
+});
 
 // Mirrors merch.ts's private MERCH_KINDS set (the normalization target for
 // every catalogue item's `kind`) — kept in sync deliberately rather than

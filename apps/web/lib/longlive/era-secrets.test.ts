@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { ERA_SECRETS_RAW } from './era-secrets.generated';
 import {
@@ -10,6 +12,38 @@ import {
 } from '@swift2/experience';
 import { getContentItem } from './content';
 import './era-secrets'; // wires the real generated data/tracks/content providers
+
+/**
+ * OS-014b-4 (see era-secrets.ts's header for the full Fable-ruling
+ * reasoning): `ERA_SECRETS_RAW` keeps importing the generated literal
+ * rather than reading the published bundle at runtime, because this module
+ * is reachable from a `'use client'` component. This is the byte-identical
+ * regression guard for that decision — the bundle build
+ * (`scripts/build-content-bundle.mjs`) folds `era-secrets.generated.ts`'s
+ * `ERA_SECRETS_RAW` straight into the bundle's `era-secrets.json` (one
+ * `{ eraId, secrets }` entry per era) with no transformation, so the two
+ * must always match exactly.
+ */
+describe('bundle-sourced era secrets are byte-identical to the generated-file output (OS-014b-4)', () => {
+  it('matches the published era-secrets.json bundle artifact exactly', () => {
+    const root = resolve(import.meta.dirname, '../../../..');
+    const pointer = JSON.parse(
+      readFileSync(resolve(root, 'apps/web/public/content/current.json'), 'utf8'),
+    ) as { bundleVersion: string };
+    const bundleFile = JSON.parse(
+      readFileSync(
+        resolve(root, 'apps/web/public/content', pointer.bundleVersion, 'era-secrets.json'),
+        'utf8',
+      ),
+    ) as Array<{ eraId: string; secrets: unknown[] }>;
+
+    const fromBundle: Record<string, unknown[]> = {};
+    for (const { eraId, secrets } of bundleFile) {
+      if (secrets.length > 0) fromBundle[eraId] = secrets;
+    }
+    expect(fromBundle).toEqual(ERA_SECRETS_RAW);
+  });
+});
 
 // The Era Secret card (#688) is static, sourced, and deterministic. These
 // guards protect the three things the UI relies on: the generated data is
