@@ -43,6 +43,7 @@ import {
 } from '@swift2/experience';
 import { loadMomentById } from '../lib/era-stream-data';
 import { eraColors } from '../lib/theme';
+import { SITE_URL } from './SiteShell';
 
 /** Mirrors `MomentDetail.tsx`'s CONFIDENCE_BANNER — same copy, native chrome. */
 const CONFIDENCE_BANNER: Record<SubConfirmed, { label: string; blurb: string }> = {
@@ -72,9 +73,7 @@ const CONFIDENCE_BANNER: Record<SubConfirmed, { label: string; blurb: string }> 
   },
 };
 
-const SITE_URL = (process.env.EXPO_PUBLIC_SITE_URL ?? 'https://www.longlivets.com').replace(/\/$/, '');
-
-/** `?item=<id>` — the same share-link shape `ShareSheet.tsx`'s `shareUrl` builds for `share.kind === 'item'`, so a moment shared FROM this sheet round-trips back to the same native screen via `destinationFor`/`resolve` (OS-033's own routing change). */
+/** `?item=<id>` — the same share-link shape `ShareSheet.tsx`'s `shareUrl` builds for `share.kind === 'item'`, so a moment shared FROM this sheet round-trips back to the same native screen via `destinationFor`/`resolve` (OS-033's own routing change). `SITE_URL` (imported from `SiteShell.tsx`) is already trailing-slash-trimmed. */
 function shareUrlFor(itemId: string): string {
   return `${SITE_URL}?item=${encodeURIComponent(itemId)}`;
 }
