@@ -1,6 +1,6 @@
 # Decision doc: retire or adopt the Supabase Vault read path
 
-Status: DRAFT — awaiting Joey's decision
+Status: RESOLVED BY IMPLEMENTATION (2026-09-06) — see note below. Originally: DRAFT — awaiting Joey's decision
 Author: Claude Code (worker, task R24)
 Source: Fable 5.1 architecture review, PR #3709 finding
 Grounded in: `docs/architecture.md`, `docs/proposals/2026-07-02-vault-history-serving-architecture.md`,
@@ -201,3 +201,34 @@ touch.
 This card is docs-only and is **not authorized to implement either option**.
 No code, schema, or workflow changes were made. Once Joey decides, open a
 follow-up implementation card scoped to the chosen option.
+
+## 2026-09-06 update — Option A adopted via the ratified One Source, Three Surfaces plan
+
+Joey's founder-level decision D1 in `docs/specs/2026-09-05-one-source-
+three-surfaces.md` (ratified 2026-09-05) independently reached the same
+conclusion as this doc's Option A, and it has since been implemented:
+
+- **OS-015** switched `apps/mobile/lib/vault.ts` off `createVaultClient`/
+  Supabase entirely onto the same published static content bundle the web
+  ships (`@swift2/content`'s `loadBundle()`). Mobile no longer touches
+  Supabase for Vault content. Merged (PR #3845).
+- **OS-016** retired Vault content DB seeding (`db-seed.yml`'s dropdown,
+  `package.json` scripts) and marked the 9 Supabase Vault tables deprecated
+  via `COMMENT ON TABLE` — **not dropped**, matching this doc's own
+  "Table retention" caution above (leave unseeded for a rollback window
+  rather than drop outright). Merged (PR #3851).
+- **Not yet done:** `packages/core/src/vault.ts` (`createVaultClient`) and
+  the `apps/web/app/vault/{tier0,moment,album/[slug]/tracks}` routes still
+  exist — they were deliberately left in place pending **OS-014b** (tracked
+  in `docs/longlive-experience.md` §9, not yet a kanban card), the follow-up
+  that extracts the web reader's enrichment logic so it too can read from
+  the bundle instead of the generated TS files. Once OS-014b lands, this
+  doc's Option A can be closed out completely (delete `vault.ts` + the
+  three routes).
+- The two "open questions" above are effectively answered: mobile ship
+  timeline no longer gates this (already switched), and table retention
+  chose "mark deprecated, don't drop" as this doc suggested.
+
+No further founder decision is needed on the read-path direction — it was
+made and executed via D1. The remaining work is purely OS-014b's
+implementation follow-up.
