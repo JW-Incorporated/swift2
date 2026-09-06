@@ -37,16 +37,6 @@ import { makeFinding } from '../lib/finding.mjs';
 
 export const id = 'content.era-capitalization';
 
-// Real full album/era titles that ARE correctly capitalized — never flagged.
-const CORRECT_CAPITALIZED = [
-  'The Tortured Poets Department',
-  'The Life of a Showgirl',
-  'Taylor Swift',
-  'Fearless',
-  'Speak Now',
-  'Midnights',
-];
-
 // The three lowercase-styled album/era names. Matched case-sensitively for
 // the miscased ("Folklore"/"Evermore"/"Reputation") form only.
 const LOWERCASE_ERAS = ['Folklore', 'Evermore', 'Reputation'];
@@ -89,7 +79,6 @@ function findMiscasedEras(text) {
       if (ALLOWED_PHRASES.some((p) => p.test(matchedPhrase))) continue;
       // Sentence-initial position: start of string, or preceded by
       // [.!?] + whitespace, or a line-start after a dash/quote opener.
-      const precedingTrim = before.replace(/\s+$/, '');
       const sentenceInitial =
         idx === 0 ||
         /[.!?]\s*$/.test(before) ||

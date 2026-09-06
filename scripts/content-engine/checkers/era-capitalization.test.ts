@@ -31,7 +31,7 @@ describe('content.era-capitalization.stylized-title-miscased', () => {
     ]);
     // Two hits: "Reputation" and "Evermore" both miscased mid-sentence; "folklore" is correct and not flagged.
     expect(f.length).toBeGreaterThanOrEqual(2);
-    const eras = f.map((x: any) => x.title);
+    const eras = f.map((x: { title: string }) => x.title);
     expect(eras.some((t: string) => t.includes('Evermore'))).toBe(true);
     expect(eras.some((t: string) => t.includes('Reputation'))).toBe(true);
   });
@@ -123,7 +123,7 @@ describe('content.era-capitalization.check (combined)', () => {
           "The Ttpd set had the marquee guest. It captured the woodsy feel of Folklore on opening night.",
       }),
     ]);
-    const checkers = f.map((x: any) => x.checker);
+    const checkers = f.map((x: { checker: string }) => x.checker);
     expect(checkers).toContain('content.era-capitalization.bad-ttpd-abbreviation');
     expect(checkers).toContain('content.era-capitalization.stylized-title-miscased');
   });
