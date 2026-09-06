@@ -14,12 +14,16 @@
 // CONTENT.
 //
 // FAST LANE (added 2026-08-25, docs/decisions.md "Detection-triggered social
-// auto-post"): alongside that intake issue, FILE mode also stages a
-// templated X + Instagram social/queue/*.json pair (lib/social-draft.mjs) — captions
-// that only ever restates RSS metadata (title/channel/URL), never a claim
-// about content. The workflow's own git step commits it via a PR; it posts
-// live on schedule same as any other queue draft (no approval gate, per that
-// decision) once it clears the real content gate (check-drafts.mjs).
+// auto-post"; revised 2026-09-05 by the #3584 Fable ruling): alongside that
+// intake issue, FILE mode also stages a templated X-only social/queue/*.json
+// draft (lib/social-draft.mjs) — captions that only ever restate RSS
+// metadata (title/channel/URL), never a claim about content. There is no
+// Instagram sibling: this lane has no license-cleared photo to offer, and
+// the ruling skips Instagram entirely rather than ship a rehosted YouTube
+// thumbnail mislabeled as a "photo". The workflow's own git step commits it
+// via a PR; it posts live on schedule same as any other queue draft (no
+// approval gate, per that decision) once it clears the real content gate
+// (check-drafts.mjs).
 //
 // Usage:
 //   node scripts/appearance-discovery/discover.mjs                # DRY RUN (default): print, no gh calls
@@ -44,7 +48,7 @@ import { CHANNELS, feedUrl } from './channels.mjs';
 import { parseFeed, looksLikeFeed } from './lib/feed.mjs';
 import { matchRule, isFresh } from './lib/filter.mjs';
 import { videoIdsIn, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
-import { buildSocialDraftPair, fetchAppearanceThumbnail } from './lib/social-draft.mjs';
+import { buildSocialDraftPair } from './lib/social-draft.mjs';
 import { clampMaxPerRun } from './lib/spend-limits.mjs';
 import { emitOfficialYoutubeEvent } from './lib/emit-official-youtube-event.mjs';
 import { runMain } from '../lib/cli.mjs';
@@ -431,18 +435,19 @@ async function main() {
           console.error(`  FAILED to emit official_youtube event for ${c.videoId}: ${e.message}`);
         }
       }
-      // Fast lane (docs/decisions.md 2026-08-25): stage an X + Instagram
-      // social/queue/ pair alongside the intake issue. Instagram supplies the
-      // Facebook cross-post, so there is no third queue item.
+      // Fast lane (docs/decisions.md 2026-08-25, revised 2026-09-05 by the
+      // #3584 Fable ruling): stage an X-only social/queue/ draft alongside
+      // the intake issue. No Instagram sibling and no thumbnail fetch —
+      // this lane has no license-cleared photo to offer, and Instagram is
+      // skipped rather than shipped with a rehosted thumbnail mislabeled as
+      // a "photo" (see lib/social-draft.mjs's header for the full ruling).
       // Never blocks or undoes the issue that already filed — a bad draft is
       // loud, not fatal, same "loud beats quiet" posture as everything else
       // in this script. The workflow's own git step (appearance-discovery.yml)
       // commits whatever lands here via a PR; check-drafts.mjs is the real
       // content gate before it can ever post.
       try {
-        const { drafts, media } = buildSocialDraftPair(c);
-        const thumbnail = await fetchAppearanceThumbnail(c);
-        writeFileSync(join(root, media.repoPath), thumbnail.bytes);
+        const { drafts } = buildSocialDraftPair(c);
         for (const { filename, item } of drafts) {
           writeFileSync(
             join(root, 'social', 'queue', filename),

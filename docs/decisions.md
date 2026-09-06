@@ -44,6 +44,54 @@ reversible and the directive was "make decisions").
 
 ---
 
+## 2026-09-05 — #3584 checker hole closed: rehosted video thumbnails can't be `mediaKind: "photo"`; appearance lane is X-only
+
+**Decision (Fable 5.1 ruling, kanban t_36d74b87 → t_503ff677, binding, reversible design/policy call — no founder reply needed).**
+1. A rehosted YouTube/broadcaster thumbnail is NOT a `photo`. This entry's
+   2026-08-15 definition of "photo" (a license-cleared local file) and
+   `docs/marketing/social-strategy.md` §2 (no typography/designed cards
+   standing in for real media) already said so — #3584 is a checker hole,
+   not a new policy. `scripts/social/check-drafts.mjs`'s `checkMedia` now
+   hard-fails a `mediaKind: "photo"` tile whose `mediaCredit`/`mediaSource`
+   reads like a rehosted video thumbnail, or that isn't in an explicit
+   allowlist of the genuinely cleared corpus files under
+   `/social/library/photos/` (`CLEARED_PHOTO_ALLOWLIST`) — either signal
+   alone fails. `scripts/social/lib/queue-schema.mjs` carries a matching
+   `mediaKind: "video-thumb"` value (the new declared kind for this shape):
+   Instagram drafts reject it outright; X drafts may only carry it with no
+   attached image (a bare link preview).
+2. Appearance-lane posts go X text-only. Instagram is skipped unless a
+   cleared photo exists (the calendar's "empty IG slot beats a failed one"
+   rule) — this lane has none to offer, so it no longer manufactures an
+   Instagram sibling at all. `checkCampaignPair`'s otherwise-unconditional
+   cross-platform pairing rule (Joey, 2026-08-25/26, "always an IG copy,
+   always") now exempts `appearance:`-family campaigns by name, since this
+   is the one lane the ruling deliberately carves an X-only shape out for.
+3. The lane may keep running unattended (2026-08-25 decision stands)
+   PROVIDED the checker enforces 1 and 2 mechanically (now true — see
+   above). Caption copy must not claim engagement with unwatched media
+   ("come watch with me", "my whole day is now about") — that template was
+   already dropped from `scripts/appearance-discovery/lib/social-draft.mjs`
+   in the 2026-08-31 entry below; this entry only removes the leftover
+   Instagram/thumbnail machinery around it (the thumbnail fetch, the vision
+   "Taylor is really in the frame" verification call, and the
+   `mediaKind: "photo"` declaration it fed).
+
+**Implementation:** `scripts/social/check-drafts.mjs`,
+`scripts/social/check-drafts.test.ts`, `scripts/social/lib/queue-schema.mjs`,
+`scripts/appearance-discovery/lib/social-draft.mjs` (rewritten X-only, pure,
+no network/vision dependency), `scripts/appearance-discovery/lib/social-draft.test.ts`,
+`scripts/appearance-discovery/discover.mjs` (drops the thumbnail fetch/write
+step for this lane). Deleted 4 stale queue files past the 48h stale window
+that would never post: `2026-08-31-appearance-ldBrFonU8NA-{x,ig}.json`,
+`2026-09-01-appearance-T6iTnTV-Rgw-{x,ig}.json` (the GMA Dolly-memorial card
+never shipped).
+
+**Approved by:** Fable 5.1 arbiter ruling on kanban t_36d74b87, implemented
+on t_503ff677 — reversible checker/policy-enforcement fix under standing
+agent authority (`merge_authority: agent`). Issue #3584 commented with this
+ruling and closed.
+
 ## 2026-09-05 — ADR: the content bundle is a versioned artifact, not a database (OS-010)
 
 **Context:** D1 (ratified 2026-09-05, `docs/specs/2026-09-05-one-source-

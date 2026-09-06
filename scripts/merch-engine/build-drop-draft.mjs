@@ -63,8 +63,8 @@ function shopUrl(utmSource) {
  *
  * `mediaPath` is the already-rendered card's site-relative path (e.g.
  * `/social/library/merch-drop-<run>.png`) — this module never renders
- * images itself, mirroring the appearance-discovery split between
- * buildSocialDraftPair (pure) and fetchAppearanceThumbnail (network/fs).
+ * images itself, mirroring appearance-discovery's split between pure draft
+ * construction (buildSocialDraftPair) and any network/fs-touching step.
  */
 export function buildMerchDropDraftPair(socialDraft, { mediaPath, now = new Date() } = {}) {
   const products = Array.isArray(socialDraft?.products) ? socialDraft.products : [];

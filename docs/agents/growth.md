@@ -242,6 +242,14 @@ from the X API, not a bug: the account really does have ~0 followers.
   (health, pregnancy, sexuality, family/minors, legal wrongdoing, private
   individuals, relationship-existence speculation) applies to every draft;
   sourcing standards from `docs/decisions.md` 2026-07-08 apply to claims.
+- **Confirmed-only carve-out for major personal-life events (Joey, 2026-09-01,
+  `D1=A`; full rule in `docs/marketing/social-strategy.md` §"Voice"):**
+  pregnancy/relationship-existence *speculation* stays fully banned, same as
+  every other blocklist topic — never search for it, never draft it. Once
+  such an event is confirmed (by Taylor/her team, or two major outlets
+  independently reporting it as settled fact), it's ordinary confirmed news
+  and may be covered like any other real event — factual, warm, no special
+  rumor-tracker treatment.
 - No engagement bait, no follow/unfollow churn, no bought followers, no
   reposting others' edits/media without credit and permission.
 
