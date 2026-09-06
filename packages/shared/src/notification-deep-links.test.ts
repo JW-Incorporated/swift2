@@ -170,6 +170,44 @@ describe('destinationFor (shell routing, OS-003)', () => {
     });
   });
 
+  // OS-035
+  it('routes ?screen=track-guide&era=<id> to the native track guide screen', () => {
+    expect(
+      destinationFor('https://www.longlivets.com/?screen=track-guide&era=folklore'),
+    ).toEqual({ kind: 'track-guide', eraId: 'folklore' });
+  });
+
+  it('does not treat ?screen=track-guide with no era param as native', () => {
+    expect(destinationFor('https://www.longlivets.com/?screen=track-guide')).toEqual({
+      kind: 'web',
+      url: 'https://www.longlivets.com/?screen=track-guide',
+    });
+  });
+
+  it('routes ?screen=song&key=<trackKey> to the native song screen', () => {
+    expect(
+      destinationFor('https://www.longlivets.com/?screen=song&key=folklore%3A%3A1%3A%3Athe%201'),
+    ).toEqual({ kind: 'song', trackKey: 'folklore::1::the 1' });
+  });
+
+  it('does not treat ?screen=song with no key param as native', () => {
+    expect(destinationFor('https://www.longlivets.com/?screen=song')).toEqual({
+      kind: 'web',
+      url: 'https://www.longlivets.com/?screen=song',
+    });
+  });
+
+  it("passes the website's own ?guide=/?song= share-link params through unchanged", () => {
+    expect(destinationFor('https://www.longlivets.com/?guide=folklore')).toEqual({
+      kind: 'web',
+      url: 'https://www.longlivets.com/?guide=folklore',
+    });
+    expect(destinationFor('https://www.longlivets.com/?song=all-too-well-10-min')).toEqual({
+      kind: 'web',
+      url: 'https://www.longlivets.com/?song=all-too-well-10-min',
+    });
+  });
+
   // OS-033
   it('routes ?item=<id> to the native moment sheet, carrying the itemId and original url', () => {
     expect(destinationFor('https://www.longlivets.com/?item=folklore-cardigan')).toEqual({

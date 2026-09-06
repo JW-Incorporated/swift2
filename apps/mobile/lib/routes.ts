@@ -27,14 +27,24 @@ import { destinationFor, type ShellDestination } from '@swift2/shared';
 /**
  * Every screen this table can route to natively. `settings` and `inbox`
  * shipped in Phase 0; OS-032 adds `era-stream` (Phase 3's native era
- * stream — masthead, era sections, moment cards). `moment`, `track-guide`,
- * etc. join as they're built (OS-033..OS-038) — each new screen gets one
- * more entry here and one more flag, nothing else in this file changes
- * shape.
+ * stream — masthead, era sections, moment cards). OS-035 adds `track-guide`
+ * (an album's song list) and `song` (one song's dossier). OS-033 adds
+ * `moment` (the native moment detail sheet). Remaining screens join as
+ * they're built (OS-036..OS-038) — each new screen gets one more entry
+ * here and one more flag, nothing else in this file changes shape.
  */
-export type ScreenId = 'settings' | 'inbox' | 'era-stream' | 'moment';
+export type ScreenId = 'settings' | 'inbox' | 'era-stream' | 'track-guide' | 'song' | 'moment';
 
-export type RouteResolution = { native: ScreenId; itemId?: string } | { web: string };
+/**
+ * The native-side resolution carries whichever params the target screen
+ * needs to render (OS-035's `track-guide`/`song` were the first screens in
+ * this table that needed any — `settings`/`inbox`/`era-stream` take none;
+ * OS-033's `moment` adds `itemId`). `params` is always present (possibly
+ * `{}`) so callers never need an `'params' in resolution` guard on top of
+ * the `'native' in resolution` one.
+ */
+export type NativeParams = { eraId?: string; trackKey?: string; itemId?: string };
+export type RouteResolution = { native: ScreenId; params: NativeParams } | { web: string };
 
 /**
  * One boolean per native-capable screen. `true` = route to the native
@@ -52,20 +62,27 @@ export interface RouteFlags {
    * flip that would put an unreviewed native screen in front of every user
    * on merge. */
   eraStream: boolean;
-  /** OS-033: same D3 posture as `eraStream` — defaults OFF until the native
-   * moment sheet has been through review/TestFlight. `destinationFor`
-   * already resolves any `?item=<id>` link to `{ kind: 'moment', itemId }`
-   * regardless of this flag (it is the deep-link CONTRACT, not the routing
-   * decision); this flag is what `resolve()`/`screenForDestination` gate on
-   * before actually sending the shell to the native sheet vs. the WebView. */
+  /** OS-035: same D3 progressive-rollout contract as `eraStream` — defaults
+   * OFF, flips on later via remote config once reviewed in TestFlight. */
+  trackGuide: boolean;
+  song: boolean;
+  /** OS-033: same D3 posture as `eraStream`/`trackGuide`/`song` — defaults
+   * OFF until the native moment sheet has been through review/TestFlight.
+   * `destinationFor` already resolves any `?item=<id>` link to
+   * `{ kind: 'moment', itemId, url }` regardless of this flag (it is the
+   * deep-link CONTRACT, not the routing decision); this flag is what
+   * `resolve()`/`screenForDestination` gate on before actually sending the
+   * shell to the native sheet vs. the WebView. */
   moment: boolean;
 }
 
-/** Settings/inbox ship on by default (Phase 0, already shipped); the new OS-032 era stream and OS-033 moment sheet ship OFF by default — see `RouteFlags.eraStream`/`RouteFlags.moment`'s docs. */
+/** Settings/inbox ship on by default (Phase 0, already shipped); OS-032's era stream, OS-035's track guide/song screens, and OS-033's moment sheet ship OFF by default — see each flag's own doc above. */
 export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   settings: true,
   inbox: true,
   eraStream: false,
+  trackGuide: false,
+  song: false,
   moment: false,
 };
 
@@ -73,16 +90,28 @@ function screenForDestination(dest: ShellDestination): ScreenId | null {
   if (dest.kind === 'settings') return 'settings';
   if (dest.kind === 'inbox') return 'inbox';
   if (dest.kind === 'era-stream') return 'era-stream';
+  if (dest.kind === 'track-guide') return 'track-guide';
+  if (dest.kind === 'song') return 'song';
   if (dest.kind === 'moment') return 'moment';
   return null;
 }
 
-/** Maps a `ScreenId` to its `RouteFlags` key — the flag names differ from the screen ids in one case (`era-stream` -> `eraStream`, a valid RouteFlags/TS identifier) so this indirection is the one place that mapping lives. */
+/** The native params a resolved destination carries through to the screen — `{}` for every screen that needs none. */
+function paramsForDestination(dest: ShellDestination): NativeParams {
+  if (dest.kind === 'track-guide') return { eraId: dest.eraId };
+  if (dest.kind === 'song') return { trackKey: dest.trackKey };
+  if (dest.kind === 'moment') return { itemId: dest.itemId };
+  return {};
+}
+
+/** Maps a `ScreenId` to its `RouteFlags` key — the flag names differ from the screen ids in two cases (`era-stream` -> `eraStream`, `track-guide` -> `trackGuide`; both valid RouteFlags/TS identifiers) so this indirection is the one place that mapping lives. */
 function flagForScreen(screen: ScreenId, flags: RouteFlags): boolean {
   if (screen === 'settings') return flags.settings;
   if (screen === 'inbox') return flags.inbox;
-  if (screen === 'moment') return flags.moment;
-  return flags.eraStream;
+  if (screen === 'era-stream') return flags.eraStream;
+  if (screen === 'track-guide') return flags.trackGuide;
+  if (screen === 'song') return flags.song;
+  return flags.moment;
 }
 
 /**
@@ -100,16 +129,16 @@ export function resolve(
   const dest = siteUrl === undefined ? destinationFor(rawUrl) : destinationFor(rawUrl, siteUrl);
   const screen = screenForDestination(dest);
   if (screen && flagForScreen(screen, flags)) {
-    if (screen === 'moment' && dest.kind === 'moment') return { native: screen, itemId: dest.itemId };
-    return { native: screen };
+    return { native: screen, params: paramsForDestination(dest) };
   }
   // Either destinationFor already said `web` (nothing native addresses this
   // URL), or it does but the flag is off — both fall back to the WebView.
   // `dest.kind === 'web'` always carries a `url`, and so does `'moment'`
   // (OS-033: the website already renders `?item=<id>` itself via its own
   // deep-link handling, so a flagged-off moment falls back to THAT url
-  // rather than the bare site root — unlike settings/inbox/era-stream,
-  // which have no web equivalent of their own to fall back to).
+  // rather than the bare site root — unlike settings/inbox/era-stream/
+  // track-guide/song, which have no web equivalent of their own to fall
+  // back to).
   if (dest.kind === 'web') return { web: dest.url };
   if (dest.kind === 'moment') return { web: dest.url };
   return { web: siteUrl ?? 'https://www.longlivets.com' };
@@ -125,8 +154,8 @@ export function isNativeRoute(
 }
 
 export interface NavigateHandlers {
-  /** Show the given native screen (settings, inbox, …). `itemId` is set only for `screen === 'moment'` (OS-033's `?item=<id>` deep link). */
-  openNative: (screen: ScreenId, itemId?: string) => void;
+  /** Show the given native screen (settings, inbox, …) with its resolved params. */
+  openNative: (screen: ScreenId, params: NativeParams) => void;
   /** Load this URL in the WebView. */
   openWeb: (url: string) => void;
 }
@@ -146,9 +175,7 @@ export function createNavigate(
 ): (rawUrl: string | null | undefined) => void {
   return (rawUrl: string | null | undefined) => {
     const resolution = resolve(rawUrl, siteUrl, getFlags());
-    if ('native' in resolution) {
-      if (resolution.itemId !== undefined) handlers.openNative(resolution.native, resolution.itemId);
-      else handlers.openNative(resolution.native);
-    } else handlers.openWeb(resolution.web);
+    if ('native' in resolution) handlers.openNative(resolution.native, resolution.params);
+    else handlers.openWeb(resolution.web);
   };
 }
