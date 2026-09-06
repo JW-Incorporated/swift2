@@ -22,7 +22,15 @@ import {
   readSessionCookie,
   resolveClownSession,
 } from '../../../lib/longlive/clown-session';
-import { MAX_TEXT, clientIp, messageAnswer, ndjsonResponse, rateLimited, sanitizeTranscript } from '../../../lib/longlive/clown-route-helpers';
+import {
+  MAX_TEXT,
+  bearerSessionToken,
+  clientIp,
+  messageAnswer,
+  ndjsonResponse,
+  rateLimited,
+  sanitizeTranscript,
+} from '../../../lib/longlive/clown-route-helpers';
 
 // Clownbot (build B) — the API route. PLAN.md Step 8; agent loop added
 // PLAN.md Stage 10 (proposal §7).
@@ -235,10 +243,29 @@ export async function POST(req: Request): Promise<Response> {
   // same-origin `fetch`, and a forged/invalid cookie just fails the refresh
   // exchange inside `resolveClownSession` (falls through to null/fresh-
   // signup) — no signing, no HMAC, no new env var needed.
-  const incomingSessionToken = decodeSessionToken(readSessionCookie(req.headers.get('cookie')));
+  //
+  // OS-036 — the native app carries the SAME encoded token as a bearer
+  // credential instead (`clown-route-helpers.ts`'s `bearerSessionToken`),
+  // since a bare React Native `fetch` has no cookie jar to store/resend
+  // `Set-Cookie` for it. The bearer header is checked FIRST: a native
+  // client that supplies one is authenticating via that transport and gets
+  // it back (below) the same way; the cookie is the fallback for every
+  // browser caller that never sends an Authorization header at all. A
+  // request is never expected to carry both.
+  const incomingSessionToken =
+    decodeSessionToken(bearerSessionToken(req.headers.get('authorization'))) ??
+    decodeSessionToken(readSessionCookie(req.headers.get('cookie')));
   const memorySession = await resolveClownSession(incomingSessionToken, undefined, deadlineController.signal);
+  // The browser reads/resends `Set-Cookie` automatically; a bare RN `fetch`
+  // does neither, so the SAME encoded token is also echoed back in a plain
+  // response header (`X-Clown-Session`) the mobile client reads explicitly
+  // and persists itself (`apps/mobile/lib/clown-session-store.ts`). Same
+  // value, two transports — never a second credential.
   const sessionHeaders = memorySession
-    ? { 'Set-Cookie': buildSessionCookieHeader(encodeSessionToken(memorySession)) }
+    ? {
+        'Set-Cookie': buildSessionCookieHeader(encodeSessionToken(memorySession)),
+        'X-Clown-Session': encodeSessionToken(memorySession),
+      }
     : undefined;
   // ONE SUPABASE CLIENT PER REQUEST (Fable 5.1 architecture review, task
   // R14): built once here, right after the session resolves, and threaded

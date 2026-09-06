@@ -27,14 +27,34 @@ import { destinationFor, type ShellDestination } from '@swift2/shared';
 /**
  * Every screen this table can route to natively. `settings` and `inbox`
  * shipped in Phase 0; OS-032 adds `era-stream` (Phase 3's native era
- * stream — masthead, era sections, moment cards). `moment`, `track-guide`,
- * etc. join as they're built (OS-033..OS-038) — each new screen gets one
- * more entry here and one more flag, nothing else in this file changes
- * shape.
+ * stream — masthead, era sections, moment cards). OS-035 adds `track-guide`
+ * (an album's song list) and `song` (one song's dossier). OS-036 adds
+ * `clownbot` (the native Clownbot + mood chat screen). OS-037 adds
+ * `community` and `merch` (the fan community directory and the merch
+ * directory). `moment`, etc. join as they're built (OS-033, OS-038) — each
+ * new screen gets one more entry here and one more flag, nothing else in
+ * this file changes shape.
  */
-export type ScreenId = 'settings' | 'inbox' | 'era-stream' | 'community' | 'merch';
+export type ScreenId =
+  | 'settings'
+  | 'inbox'
+  | 'era-stream'
+  | 'community'
+  | 'merch'
+  | 'track-guide'
+  | 'song'
+  | 'clownbot';
 
-export type RouteResolution = { native: ScreenId } | { web: string };
+/**
+ * The native-side resolution carries whichever params the target screen
+ * needs to render (OS-035's `track-guide`/`song` are the first screens in
+ * this table that need any — `settings`/`inbox`/`era-stream`/`community`/
+ * `merch`/`clownbot` take none). `params` is always present (possibly `{}`)
+ * so callers never need an `'params' in resolution` guard on top of the
+ * `'native' in resolution` one.
+ */
+export type NativeParams = { eraId?: string; trackKey?: string };
+export type RouteResolution = { native: ScreenId; params: NativeParams } | { web: string };
 
 /**
  * One boolean per native-capable screen. `true` = route to the native
@@ -58,15 +78,25 @@ export interface RouteFlags {
   community: boolean;
   /** OS-037: same progressive-rollout posture as `eraStream`/`community`. */
   merch: boolean;
+  /** OS-035: same D3 progressive-rollout contract as `eraStream` — defaults
+   * OFF, flips on later via remote config once reviewed in TestFlight. */
+  trackGuide: boolean;
+  song: boolean;
+  /** OS-036: same progressive-rollout posture as eraStream/trackGuide —
+   * defaults OFF (see DEFAULT_ROUTE_FLAGS). */
+  clownbot: boolean;
 }
 
-/** Settings/inbox ship on by default (Phase 0, already shipped); the new OS-032 era stream, and OS-037's community/merch, ship OFF by default — see `RouteFlags`'s per-field docs. */
+/** Settings/inbox ship on by default (Phase 0, already shipped); OS-032's era stream, OS-037's community/merch, OS-035's track guide/song screens, and OS-036's Clownbot all ship OFF by default — see each flag's own doc above. */
 export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   settings: true,
   inbox: true,
   eraStream: false,
   community: false,
   merch: false,
+  trackGuide: false,
+  song: false,
+  clownbot: false,
 };
 
 function screenForDestination(dest: ShellDestination): ScreenId | null {
@@ -75,16 +105,29 @@ function screenForDestination(dest: ShellDestination): ScreenId | null {
   if (dest.kind === 'era-stream') return 'era-stream';
   if (dest.kind === 'community') return 'community';
   if (dest.kind === 'merch') return 'merch';
+  if (dest.kind === 'track-guide') return 'track-guide';
+  if (dest.kind === 'song') return 'song';
+  if (dest.kind === 'clownbot') return 'clownbot';
   return null;
 }
 
-/** Maps a `ScreenId` to its `RouteFlags` key — the flag names differ from the screen ids in one case (`era-stream` -> `eraStream`, a valid RouteFlags/TS identifier) so this indirection is the one place that mapping lives. */
+/** The native params a resolved destination carries through to the screen — `{}` for every screen that needs none. */
+function paramsForDestination(dest: ShellDestination): NativeParams {
+  if (dest.kind === 'track-guide') return { eraId: dest.eraId };
+  if (dest.kind === 'song') return { trackKey: dest.trackKey };
+  return {};
+}
+
+/** Maps a `ScreenId` to its `RouteFlags` key — the flag names differ from the screen ids in the hyphenated/multi-word cases (`era-stream` -> `eraStream`, `track-guide` -> `trackGuide`; `song`/`community`/`merch`/`clownbot` match their screen id), all valid RouteFlags/TS identifiers, so this indirection is the one place that mapping lives. */
 function flagForScreen(screen: ScreenId, flags: RouteFlags): boolean {
   if (screen === 'settings') return flags.settings;
   if (screen === 'inbox') return flags.inbox;
   if (screen === 'era-stream') return flags.eraStream;
   if (screen === 'community') return flags.community;
-  return flags.merch;
+  if (screen === 'merch') return flags.merch;
+  if (screen === 'track-guide') return flags.trackGuide;
+  if (screen === 'song') return flags.song;
+  return flags.clownbot;
 }
 
 /**
@@ -101,7 +144,9 @@ export function resolve(
 ): RouteResolution {
   const dest = siteUrl === undefined ? destinationFor(rawUrl) : destinationFor(rawUrl, siteUrl);
   const screen = screenForDestination(dest);
-  if (screen && flagForScreen(screen, flags)) return { native: screen };
+  if (screen && flagForScreen(screen, flags)) {
+    return { native: screen, params: paramsForDestination(dest) };
+  }
   // Either destinationFor already said `web` (nothing native addresses this
   // URL), or it does but the flag is off — both fall back to the WebView.
   // `dest.kind === 'web'` always carries a `url`; the native-but-flagged-off
@@ -120,8 +165,8 @@ export function isNativeRoute(
 }
 
 export interface NavigateHandlers {
-  /** Show the given native screen (settings, inbox, …). */
-  openNative: (screen: ScreenId) => void;
+  /** Show the given native screen (settings, inbox, …) with its resolved params. */
+  openNative: (screen: ScreenId, params: NativeParams) => void;
   /** Load this URL in the WebView. */
   openWeb: (url: string) => void;
 }
@@ -141,7 +186,7 @@ export function createNavigate(
 ): (rawUrl: string | null | undefined) => void {
   return (rawUrl: string | null | undefined) => {
     const resolution = resolve(rawUrl, siteUrl, getFlags());
-    if ('native' in resolution) handlers.openNative(resolution.native);
+    if ('native' in resolution) handlers.openNative(resolution.native, resolution.params);
     else handlers.openWeb(resolution.web);
   };
 }

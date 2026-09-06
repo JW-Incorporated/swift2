@@ -55,6 +55,7 @@ export * from './live-theories';
 export * from './era-secrets';
 export * from './progress';
 export * from './search-index';
+export * from './share-copy';
 
 export {
   TOKENS,
