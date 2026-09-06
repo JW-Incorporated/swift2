@@ -122,20 +122,22 @@ alter table public.engagement_lead        enable row level security;
 alter table public.community_post_ledger  enable row level security;
 alter table public.fan_theory_candidate   enable row level security;
 
--- Seed the watchlist from §8-Q1 defaults (founder accepted; edit later in
--- this table, not in code). crawl=true only on the first three per §3.2's
--- opening list; TSwiftEasterEggs-style sub verification is P0-2's job, not
--- inserted here as a guess. Facebook groups from sources.md's verified
--- names (Taylor Swift's Vault, ~480k; the Friendship Bracelet Making and
--- Trading group) — the rest of sources.md's candidate list is unverified
--- and is P0-2's job to confirm before it's added here.
+-- Seed the watchlist from the P0-2 verified values (docs/community/watchlist.md,
+-- PR #3944, researched from docs/proposals/2026-09-06-community-engine-plan.md
+-- §8-Q1 defaults). crawl=true on the first three scan subs plus
+-- reddit:TaylorSwiftTheories, the confirmed "TSwiftEasterEggs-style" sub
+-- (§8-Q1, §3.2). Facebook groups from sources.md's verified names (Taylor
+-- Swift's Vault, ~480k; the Friendship Bracelet Making and Trading group) —
+-- the rest of sources.md's candidate list remains unverified and is not
+-- seeded here.
 insert into public.community_watchlist (id, platform, name, scan, crawl, allows_links, notes)
 values
-  ('reddit:TaylorSwift', 'reddit', 'TaylorSwift', true, true, null, 'Seed default (§8-Q1). allows_links pending P0-2 sidebar-rule verification.'),
-  ('reddit:SwiftlyNeutral', 'reddit', 'SwiftlyNeutral', true, true, null, 'Seed default (§8-Q1). allows_links pending P0-2 sidebar-rule verification.'),
-  ('reddit:TaylorSwiftBookClub', 'reddit', 'TaylorSwiftBookClub', true, true, null, 'Seed default (§8-Q1). allows_links pending P0-2 sidebar-rule verification.'),
-  ('reddit:YouBelongWithMemes', 'reddit', 'YouBelongWithMemes', true, false, null, 'Seed default (§8-Q1), scan-only. allows_links pending P0-2 verification.'),
-  ('reddit:TaylorSwiftMerch', 'reddit', 'TaylorSwiftMerch', true, false, null, 'Seed default (§8-Q1), scan-only; also feeds the E5 fan-merch widen (§3.5).'),
-  ('facebook:taylor-swifts-vault', 'facebook', 'Taylor Swift''s Vault', true, false, null, 'sources.md verified group name (~480k members). Export-only intake (§2.4), no crawler.'),
-  ('facebook:friendship-bracelet-making-and-trading', 'facebook', 'Taylor Swift Friendship Bracelet Making and Trading NO SALES', true, false, null, 'sources.md verified group name. Export-only intake (§2.4), no crawler.')
+  ('reddit:TaylorSwift', 'reddit', 'TaylorSwift', true, true, false, 'Sidebar/rules wiki (`/wiki/index/rules`) explicit: "No self promo... Linking or directing to your store will result in a ban." No exceptions found. Never link here without a prior modmail.'),
+  ('reddit:SwiftlyNeutral', 'reddit', 'SwiftlyNeutral', true, true, true, 'Its own pinned Daily Discussion Thread rules explicitly list "Memes, videos, art, merch photos, or self-promotion you''d like to share" as permitted content — but this permission is scoped to the daily discussion thread, not the main feed/link posts. Treat as link-friendly only inside daily discussion threads; still gate on redditNonPromo≥20 and do a modmail check before the first post.'),
+  ('reddit:TaylorSwiftBookClub', 'reddit', 'TaylorSwiftBookClub', true, true, true, 'Official rules (`/about/sidebar`, rule 5): "Please follow Reddit''s guidelines on self promotion. Self promotion links from accounts with limited non-promotion history may be removed." — i.e. no blanket ban, standard site-wide 9:1 norm applies. Low-traffic sub; a good "safe" first-link candidate for the etiquette gate once redditNonPromo≥20.'),
+  ('reddit:YouBelongWithMemes', 'reddit', 'YouBelongWithMemes', true, false, false, 'Could not locate a published rules/sidebar text via search (mirrors show posts but not a rules page). Meme-only culture makes link posts atypical. Default to no-link until an Answerer-desk modmail check confirms a posture.'),
+  ('reddit:TaylorSwiftMerch', 'reddit', 'TaylorSwiftMerch', true, false, false, 'No explicit self-promo rule surfaced; sub exists specifically to discuss merch/trading, so shop-adjacent links may be more tolerated than elsewhere, but nothing found guarantees it. Gate behind modmail same as others — this is the E5 fan-merch-widen target, not an Answerer-desk link target.'),
+  ('reddit:TaylorSwiftTheories', 'reddit', 'TaylorSwiftTheories', false, true, false, 'r/TaylorSwiftTheories is confirmed alive with dated 2026 posts ("The Literacy of Taylor Swift" Apr ''26, an Eras-Tour Easter-egg thread Nov ''25, etc.) and its stated purpose is exactly "discuss and share Taylor Swift theories and Easter eggs" — a direct match for the Theory Miner''s intake. The lowercase r/tswifteastereggs variant also exists but no recent activity could be found in search results (only an old tagline snippet); recommend TaylorSwiftTheories over it. allows_links=false (theory/discussion sub, no self-promo rule text found — treat conservatively; irrelevant anyway since crawl-only subs don''t post).'),
+  ('facebook:taylor-swifts-vault', 'facebook', 'Taylor Swift''s Vault', true, false, false, 'No FB crawler exists or is planned (decisions.md 2026-08-11) — this row only matters for the human-export ingest (E4/§2.4); "links" here means comment replies drafted from an export, not automated posting. Treat as no-link by default, same modmail-style caution as Reddit, until Joey confirms group norms from an actual export.'),
+  ('facebook:friendship-bracelet-trading', 'facebook', 'Taylor Swift Friendship Bracelet Making and Trading NO SALES', true, false, false, 'The "NO SALES" in the group''s title is itself the self-promo rule — this is a making/trading group, not a marketplace. Never draft a promotional/shop-link reply here.')
 on conflict (id) do nothing;
