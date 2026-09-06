@@ -96,6 +96,8 @@ describe('resolve — feature flags (OS-030: toggle without a rebuild)', () => {
       inbox: false,
       eraStream: false,
       threads: false,
+      community: false,
+      merch: false,
       trackGuide: false,
       song: false,
       moment: false,
@@ -137,6 +139,36 @@ describe('resolve — OS-034 native threads mode (off by default)', () => {
     const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, threads: true };
     expect(resolve('https://www.longlivets.com/?mode=threads', undefined, flags)).toEqual({
       native: 'threads',
+      params: {},
+    });
+  });
+});
+
+describe('resolve — OS-037 native community/merch (off by default)', () => {
+  it('falls back to the WebView site root when the community flag is off (default)', () => {
+    expect(resolve('https://www.longlivets.com/?mode=community')).toEqual({
+      web: 'https://www.longlivets.com',
+    });
+  });
+
+  it('routes to native once the community flag is flipped on', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, community: true };
+    expect(resolve('https://www.longlivets.com/?mode=community', undefined, flags)).toEqual({
+      native: 'community',
+      params: {},
+    });
+  });
+
+  it('falls back to the WebView site root when the merch flag is off (default)', () => {
+    expect(resolve('https://www.longlivets.com/?mode=merch')).toEqual({
+      web: 'https://www.longlivets.com',
+    });
+  });
+
+  it('routes to native once the merch flag is flipped on', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, merch: true };
+    expect(resolve('https://www.longlivets.com/?mode=merch', undefined, flags)).toEqual({
+      native: 'merch',
       params: {},
     });
   });
@@ -201,7 +233,7 @@ describe('resolve — OS-035 native track guide + song (off by default)', () => 
 });
 
 describe('resolve — OS-033 native moment detail (off by default)', () => {
-  it('falls back to the WebView (the site\'s own ?item= page) when the moment flag is off (default)', () => {
+  it("falls back to the WebView (the site's own ?item= page) when the moment flag is off (default)", () => {
     expect(resolve('https://www.longlivets.com/?item=folklore-cardigan')).toEqual({
       web: 'https://www.longlivets.com/?item=folklore-cardigan',
     });

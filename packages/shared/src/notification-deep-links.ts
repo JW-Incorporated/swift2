@@ -96,7 +96,17 @@ export type ShellDestination =
   | { kind: 'settings' }
   | { kind: 'inbox' }
   | { kind: 'era-stream' }
+  // OS-034: the native threads gallery + detail, reached via the web's own
+  // existing `?mode=threads` shareable-URL param (ShareSheet.tsx/
+  // deepLink.ts's `mode` target) — reused rather than a new param.
   | { kind: 'threads' }
+  // OS-037: Community and Merch are each a whole surface with no more
+  // specific "thing" to address (same category as era-stream), shared via
+  // `?mode=community` / `?mode=merch` — the exact param
+  // `packages/experience/src/deepLink.ts`'s `deepLinkTarget` (web) and
+  // `ShareSheet.tsx`'s `shareUrl` already use for these two surfaces.
+  | { kind: 'community' }
+  | { kind: 'merch' }
   // OS-035: the native track guide (one album's song list) and song dossier.
   // Reachable via new explicit `?screen=` markers — same pattern as
   // `era-stream` above — rather than the WEBSITE's own `?guide=<eraId>` /
@@ -109,6 +119,9 @@ export type ShellDestination =
   | { kind: 'song'; trackKey: string }
   // OS-036: the native Clownbot + mood chat screen, same `?screen=` pattern.
   | { kind: 'clownbot' }
+  // OS-033: the native moment detail sheet, reached via the web's own
+  // `?item=<id>` share link (ShareSheet.tsx's `shareUrl` for
+  // `share.kind === 'item'`).
   | { kind: 'moment'; itemId: string; url: string };
 
 const DEFAULT_SITE_URL = 'https://www.longlivets.com';
@@ -149,7 +162,13 @@ export function destinationFor(
     // `screen=` OR `mode=` marker (never claiming the bare site root) until
     // OS-039 retires SiteShell as the default for every route this phase
     // ports.
-    if (u.searchParams.get('mode') === 'threads') return { kind: 'threads' };
+    const mode = u.searchParams.get('mode');
+    if (mode === 'threads') return { kind: 'threads' };
+    // OS-037: a tapped share link or deep link with `?mode=community` /
+    // `?mode=merch` takes the shell straight to the matching native screen
+    // instead of falling through to the WebView's own `?mode=` handling.
+    if (mode === 'community') return { kind: 'community' };
+    if (mode === 'merch') return { kind: 'merch' };
     // OS-035: same pattern, one param per native screen — `?screen=track-
     // guide&era=<eraId>` and `?screen=song&key=<trackKey>`. The website's
     // OWN `?guide=<eraId>` / `?song=<key>` params (deepLink.ts) are left
