@@ -36,7 +36,7 @@ jobs:
       routine_name: "Austin — build runs"
       prompt_file: docs/agents/runner-prompts/austin-run.md
       model: claude-opus-4-8
-      allowed_tools: "Bash,Read,Grep,Glob,Write,Edit,Task"
+      allowed_tools: "Bash,Read,Grep,Glob,Write,Edit"
       timeout_minutes: 45
       checkout_token_secret: SOCIAL_POSTER_PAT
     secrets:
