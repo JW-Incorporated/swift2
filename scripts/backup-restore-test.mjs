@@ -36,6 +36,17 @@
 //   The source session is pinned `default_transaction_read_only=on` at the
 //   server, so this physically cannot write to production.
 //
+//   Backup only (scheduled production snapshot, no target needed):
+//     node scripts/backup-restore-test.mjs --source "$SUPABASE_DB_URL" \
+//       --backup-only --keep
+//   Runs exactly the backup half of the drill above — the same read-only
+//   session, the same single REPEATABLE READ snapshot, the same NDJSON +
+//   manifest artifact — and stops. No target database is touched or even
+//   required. This is what `production-backup.yml` runs on a schedule: it
+//   proves nothing about *restoring*, only that production's bytes were
+//   readable and captured. See `production-backup-drill.yml` for the
+//   restore-inclusive drill.
+//
 // SAFETY (non-negotiable, no override flag exists on purpose)
 //   - The target is refused if it is the same database as the source.
 //   - The target is refused if its host looks Supabase-hosted. Restore goes to
@@ -46,6 +57,7 @@
 //   --cluster <url|ephemeral>  where --drill creates its two scratch databases
 //   --source <url>          database to back up FROM (read-only)
 //   --target <url>          scratch database to restore INTO (rewritten!)
+//   --backup-only           run only the backup phase; no --target needed
 //   --out <dir>             backup artifact root (default: .backups)
 //   --keep                  keep the backup artifact + scratch databases
 //   --json                  print the machine-readable report to stdout at end
@@ -127,7 +139,7 @@ const SPOT_CHECKS = [
 // --------------------------------------------------------------------------
 // args
 // --------------------------------------------------------------------------
-function parseArgs(argv) {
+export function parseArgs(argv) {
   const opts = { out: '.backups' };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -139,6 +151,7 @@ function parseArgs(argv) {
     if (a === '--drill') opts.drill = true;
     else if (a === '--keep') opts.keep = true;
     else if (a === '--json') opts.json = true;
+    else if (a === '--backup-only') opts.backupOnly = true;
     else if (a === '--cluster') opts.cluster = take();
     else if (a === '--source') opts.source = take();
     else if (a === '--target') opts.target = take();
@@ -206,6 +219,87 @@ export function assertSafeTarget(sourceUrl, targetUrl) {
   const reason = checkTarget(sourceUrl, targetUrl);
   if (reason) fail(reason);
   return true;
+}
+
+/** True when `hostname` looks like a managed Supabase host. */
+export function isManagedSupabaseHost(hostname) {
+  return MANAGED_HOST.test(String(hostname));
+}
+
+// --------------------------------------------------------------------------
+// Supabase compatibility shim for non-Supabase restore targets
+//
+// The migrations reference `auth.users`/`auth.uid()` (Supabase's built-in
+// auth schema) starting with 20260904000000_clown_sessions.sql, plus grants
+// that assume the `authenticated`/`service_role` roles exist. `assertSafeTarget`
+// REQUIRES the restore target to be a non-Supabase host (it refuses any
+// *.supabase.co / pooler.supabase.com target on purpose), so `migrate.mjs`
+// against that target fails with "schema \"auth\" does not exist" unless
+// something stands in for the bits of Supabase's auth schema the migrations
+// touch. This is that stand-in: the minimum surface (schema, one table, one
+// function, two roles) the migrations currently need — not a Supabase
+// reimplementation. Applied ONLY to non-Supabase targets; never touches a
+// real Supabase database (which already has the real thing).
+// --------------------------------------------------------------------------
+const SUPABASE_COMPAT_SQL = `
+create schema if not exists auth;
+
+create table if not exists auth.users (
+  id uuid primary key
+);
+
+create or replace function auth.uid() returns uuid
+  language sql stable as
+  $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
+
+do $$ begin
+  if not exists (select 1 from pg_roles where rolname = 'authenticated') then
+    create role authenticated nologin;
+  end if;
+  if not exists (select 1 from pg_roles where rolname = 'service_role') then
+    create role service_role nologin bypassrls;
+  end if;
+  if not exists (select 1 from pg_roles where rolname = 'anon') then
+    create role anon nologin;
+  end if;
+end $$;
+`;
+
+/**
+ * Stand in for the slice of Supabase's `auth` schema the migrations
+ * reference, on a scratch (non-Supabase) restore target. A no-op — and a
+ * mistake — on a real Supabase target, which already has the genuine
+ * `auth` schema and roles; calling this there would be redundant at best
+ * and is refused defensively via `isManagedSupabaseHost`.
+ *
+ * Idempotent: every statement is `if not exists` / `or replace`, so running
+ * it against a target that already has the shim (e.g. `--drill`'s source
+ * AND target, or a re-run of the drill against the same scratch cluster)
+ * is a harmless no-op the second time.
+ */
+export async function ensureSupabaseCompat(client) {
+  await client.query(SUPABASE_COMPAT_SQL);
+}
+
+/** Applies the compat shim to `targetUrl` iff it is not a managed Supabase
+ *  host. Exported separately from `ensureSupabaseCompat` so the SQL itself
+ *  stays unit-testable without a live connection. */
+async function ensureSupabaseCompatIfNeeded(targetUrl, label) {
+  let hostname;
+  try {
+    hostname = new URL(targetUrl).hostname;
+  } catch {
+    return; // an invalid URL fails elsewhere (assertSafeTarget) with a clearer message
+  }
+  if (isManagedSupabaseHost(hostname)) return;
+  const client = makeClient(targetUrl);
+  await client.connect();
+  try {
+    await ensureSupabaseCompat(client);
+    console.log(`  applied Supabase auth-schema compat shim to ${label} (non-Supabase target)`);
+  } finally {
+    await client.end();
+  }
 }
 
 // --------------------------------------------------------------------------
@@ -609,6 +703,7 @@ Backup + restore drill (launch gate BACKUPS, #680). See docs/backup-restore.md.
   --cluster <url|ephemeral>   where --drill creates its scratch databases
   --source <url>       database to back up FROM (opened read-only)
   --target <url>       scratch database to restore INTO — REWRITTEN
+  --backup-only        run only the backup phase; no --target needed
   --out <dir>          backup artifact root (default .backups)
   --keep               keep artifacts and scratch databases
   --json               print the JSON report to stdout
@@ -620,7 +715,11 @@ async function run() {
     console.log(USAGE);
     return 0;
   }
-  if (!opts.drill && (!opts.source || !opts.target)) {
+  if (opts.backupOnly) {
+    if (opts.drill) fail('--backup-only cannot be combined with --drill');
+    if (!opts.source) fail('--backup-only needs --source');
+    if (opts.target) fail('--backup-only does not take --target — nothing is restored');
+  } else if (!opts.drill && (!opts.source || !opts.target)) {
     console.log(USAGE);
     fail('need either --drill, or both --source and --target');
   }
@@ -686,6 +785,10 @@ async function run() {
 
       console.log('\nbuilding the source from repo migrations + seeds:');
       await time('fixture', async () => {
+        // The scratch source is not Supabase either — the migrations run
+        // against it the same as any other non-Supabase target, so it needs
+        // the same auth-schema stand-in before migrate.mjs touches it.
+        await ensureSupabaseCompatIfNeeded(sourceUrl, 'drill source');
         const env = { SUPABASE_DB_URL: sourceUrl };
         runNode('migrate.mjs', env, 'migrate');
         console.log('  migrations applied');
@@ -708,12 +811,17 @@ async function run() {
       console.log('');
     }
 
-    assertSafeTarget(sourceUrl, targetUrl);
-    console.log(
-      `source : ${describeConnection(sourceUrl)}${opts.drill ? '' : '  (READ-ONLY session)'}`,
-    );
-    console.log(`target : ${describeConnection(targetUrl)}  (will be rewritten)`);
-    console.log(`artifact: ${relative(repoRoot, outDir)}\n`);
+    if (opts.backupOnly) {
+      console.log(`source : ${describeConnection(sourceUrl)}  (READ-ONLY session)`);
+      console.log(`artifact: ${relative(repoRoot, outDir)}\n`);
+    } else {
+      assertSafeTarget(sourceUrl, targetUrl);
+      console.log(
+        `source : ${describeConnection(sourceUrl)}${opts.drill ? '' : '  (READ-ONLY session)'}`,
+      );
+      console.log(`target : ${describeConnection(targetUrl)}  (will be rewritten)`);
+      console.log(`artifact: ${relative(repoRoot, outDir)}\n`);
+    }
 
     // ---- 1. backup --------------------------------------------------------
     console.log('== 1. backup ============================================');
@@ -765,10 +873,48 @@ async function run() {
       await src.end();
     }
 
+    // ---- 2/3. restore + verify, or stop here for --backup-only ------------
+    if (opts.backupOnly) {
+      const report = {
+        gate: 'BACKUPS (#680)',
+        mode: 'backup-only (scheduled production snapshot)',
+        startedAt: new Date(started).toISOString(),
+        postgresVersion: manifest.postgresVersion,
+        source: manifest.source,
+        artifact: relative(repoRoot, outDir),
+        timingsMs: { ...timings, total: Date.now() - started },
+        tables: Object.fromEntries(
+          Object.entries(manifest.tables).map(([t, r]) => [t, { rows: r.rows }]),
+        ),
+        totalRows: Object.values(manifest.tables).reduce((a, b) => a + b.rows, 0),
+        totalBytes: Object.values(manifest.tables).reduce((a, b) => a + b.bytes, 0),
+        passed: true,
+      };
+      writeFileSync(join(outDir, 'report.json'), JSON.stringify(report, null, 2));
+      writeFileSync(join(repoRoot, opts.out, 'last-report.json'), JSON.stringify(report, null, 2));
+
+      console.log('\n== verdict ==============================================');
+      console.log(`  tables      ${Object.keys(report.tables).length}`);
+      console.log(`  rows        ${report.totalRows}`);
+      console.log(`  backup      ${timings.backup} ms`);
+      console.log(`  total       ${report.timingsMs.total} ms`);
+      console.log(`  report      ${relative(repoRoot, join(outDir, 'report.json'))}`);
+      console.log('\n  PASS — production backed up (backup-only, no restore attempted).');
+      if (opts.json) console.log('\n' + JSON.stringify(report, null, 2));
+      return 0;
+    }
+
     // ---- 2. restore -------------------------------------------------------
     console.log('\n== 2. restore ===========================================');
     console.log('  schema comes from git (supabase/migrations), data from the backup');
     await time('restore', async () => {
+      // assertSafeTarget above requires the restore target to be a
+      // non-Supabase host, so it never has the real `auth` schema the
+      // migrations reference (auth.users / auth.uid()) — stand that in
+      // before migrate.mjs runs against it. On a genuine Supabase target
+      // this would be a no-op-that-never-runs (assertSafeTarget refuses the
+      // target before we get here).
+      await ensureSupabaseCompatIfNeeded(targetUrl, 'restore target');
       runNode('migrate.mjs', { SUPABASE_DB_URL: targetUrl }, 'migrate (target)');
       console.log('  migrations applied to target');
       const tgt = makeClient(targetUrl);

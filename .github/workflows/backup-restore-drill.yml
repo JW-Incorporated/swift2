@@ -74,6 +74,7 @@ jobs:
       - name: Run the drill
         id: drill
         run: |
+          set -euo pipefail
           node scripts/backup-restore-test.mjs --drill \
             --cluster "postgres://postgres:postgres@127.0.0.1:5432/postgres?sslmode=disable" \
             | tee /tmp/drill.log

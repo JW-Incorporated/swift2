@@ -53,7 +53,7 @@ The honest caveats, so nothing here oversells:
   is real photography, so we comply, but the rule is worth knowing.
 - **Instagram/TikTok discovery is deferred**, not promised. Neither offers a
   usable public read API for this; scraping them is brittle and
-  ToS-hostile. Reddit (public JSON), Etsy (official API), and our own
+  ToS-hostile. Reddit (public RSS, no key), Etsy (official API), and our own
   submission form cover fan-made discovery well without them.
 - **The official store has no affiliate program** (see Phase 2) — one of the
   three decisions below is yours because it trades revenue purity against
@@ -220,7 +220,7 @@ deserve re-matching.
 - **Vision/LLM calls** (E3 audits, E5 curation, E6 matching): on the order of
   a few dollars/mo at this catalog size — batched, cached, within the repo's
   existing cost-discipline rules.
-- **Awin APIs + product feeds, Etsy API, Reddit JSON, Shopify JSON, GitHub
+- **Awin APIs + product feeds, Etsy API, Reddit RSS, Shopify JSON, GitHub
   Actions:** $0.
 
 ## HUMAN-ACTIONS items to file (the whole human surface)
