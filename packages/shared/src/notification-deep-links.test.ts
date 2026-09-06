@@ -214,4 +214,11 @@ describe('destinationFor (shell routing, OS-003)', () => {
       url: 'https://www.longlivets.com/?song=all-too-well-10-min',
     });
   });
+
+  // OS-036
+  it('routes ?screen=clownbot to the native Clownbot + mood chat screen', () => {
+    expect(destinationFor('https://www.longlivets.com/?screen=clownbot')).toEqual({
+      kind: 'clownbot',
+    });
+  });
 });

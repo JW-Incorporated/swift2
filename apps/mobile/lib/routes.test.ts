@@ -98,6 +98,7 @@ describe('resolve — feature flags (OS-030: toggle without a rebuild)', () => {
       threads: false,
       trackGuide: false,
       song: false,
+      clownbot: false,
     };
     expect(resolve('https://www.longlivets.com/?screen=settings', undefined, flags)).toEqual({
       web: 'https://www.longlivets.com',
@@ -195,6 +196,22 @@ describe('resolve — OS-035 native track guide + song (off by default)', () => 
     expect(
       resolve('https://www.longlivets.com/?song=all-too-well-10-min', undefined, flags),
     ).toEqual({ web: 'https://www.longlivets.com/?song=all-too-well-10-min' });
+  });
+});
+
+describe('resolve — OS-036 native Clownbot + mood chat (off by default)', () => {
+  it('falls back to the WebView when the clownbot flag is off (default)', () => {
+    expect(resolve('https://www.longlivets.com/?screen=clownbot')).toEqual({
+      web: 'https://www.longlivets.com',
+    });
+  });
+
+  it('routes to native once the clownbot flag is flipped on', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, clownbot: true };
+    expect(resolve('https://www.longlivets.com/?screen=clownbot', undefined, flags)).toEqual({
+      native: 'clownbot',
+      params: {},
+    });
   });
 });
 
