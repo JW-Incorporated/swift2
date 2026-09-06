@@ -111,3 +111,41 @@ export function evaluateBranchAuthorGate({ branch, author }) {
   }
   return { ok: reasons.length === 0, reasons };
 }
+
+// ── CLI (added for auto-merge-keepup.yml, t_21a0cd6f) ──────────────────────
+// The `enable` job's own copy of this gate is mirrored bash (a workflow step
+// can't `import` an ESM module), which is exactly why the sibling test file
+// asserts the two stay in sync. A SECOND workflow (auto-merge-keepup.yml)
+// that pro-actively refreshes stale content-lane branches needs the same
+// WHO/WHERE-FROM judgement, and shelling out to `node` here beats maintaining
+// a THIRD hand-copied bash mirror of this list. Usage:
+//   node scripts/automerge-branch-author-gate.mjs --branch <ref> --author <login>
+// Exit 0 = passes the gate; exit 1 = does not (reasons on stderr); exit 2 =
+// missing/invalid arguments (the check itself couldn't run).
+function parseArg(argv, name) {
+  const i = argv.indexOf(name);
+  return i === -1 ? undefined : argv[i + 1];
+}
+
+function cliMain() {
+  const argv = process.argv.slice(2);
+  const branch = parseArg(argv, '--branch');
+  const author = parseArg(argv, '--author');
+  if (branch === undefined || author === undefined) {
+    console.error('usage: automerge-branch-author-gate.mjs --branch <ref> --author <login>');
+    return 2;
+  }
+  const { ok, reasons } = evaluateBranchAuthorGate({ branch, author });
+  if (!ok) {
+    for (const r of reasons) console.error(`  • ${r}`);
+    return 1;
+  }
+  console.log(`ok: branch \`${branch}\` / author \`${author}\` pass the content-lane gate`);
+  return 0;
+}
+
+const invokedDirectly =
+  process.argv[1] && process.argv[1].split('\\').join('/').endsWith('scripts/automerge-branch-author-gate.mjs');
+if (invokedDirectly) {
+  import('./lib/cli.mjs').then(({ runMain }) => runMain(cliMain, { name: 'automerge-branch-author-gate' }));
+}
