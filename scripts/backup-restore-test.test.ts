@@ -4,6 +4,7 @@ import {
   checksumRows,
   ensureSupabaseCompat,
   isManagedSupabaseHost,
+  parseArgs,
 } from './backup-restore-test.mjs';
 
 // The restore drill REWRITES its target. Two things therefore have to be true,
@@ -11,8 +12,8 @@ import {
 //   1. the target can never be production, and
 //   2. the checksum has to notice when the restored data is wrong.
 
-const PROD = 'postgres://u:p@db.abcdefgh.supabase.co:5432/postgres';
-const SCRATCH = 'postgres://postgres:postgres@127.0.0.1:5432/brt_target?sslmode=disable';
+const PROD = 'postgres://u:***@db.abcdefgh.supabase.co:5432/postgres';
+const SCRATCH = 'postgres://postgres:***@127.0.0.1:5432/brt_target?sslmode=disable';
 
 describe('checkTarget — refuses to restore over anything real', () => {
   it('refuses a managed Supabase host', () => {
@@ -21,7 +22,7 @@ describe('checkTarget — refuses to restore over anything real', () => {
 
   it('refuses the Supabase connection pooler', () => {
     expect(
-      checkTarget(null, 'postgres://u:p@aws-0-us-east-1.pooler.supabase.com:6543/postgres'),
+      checkTarget(null, 'postgres://u:***@aws-0-us-east-1.pooler.supabase.com:6543/postgres'),
     ).toMatch(/managed Supabase host/);
   });
 
@@ -34,14 +35,14 @@ describe('checkTarget — refuses to restore over anything real', () => {
     // be fooled by which spelling each URL happens to use.
     expect(
       checkTarget(
-        'postgres://postgres:postgres@localhost:5432/brt',
-        'postgres://postgres:postgres@127.0.0.1:5432/brt',
+        'postgres://postgres:***@localhost:5432/brt',
+        'postgres://postgres:***@127.0.0.1:5432/brt',
       ),
     ).toMatch(/source database/);
     expect(
       checkTarget(
-        'postgres://postgres:postgres@127.0.0.1:5432/brt',
-        'postgres://postgres:postgres@localhost:5432/brt_other',
+        'postgres://postgres:***@127.0.0.1:5432/brt',
+        'postgres://postgres:***@localhost:5432/brt_other',
       ),
     ).toBeNull();
   });
@@ -49,8 +50,8 @@ describe('checkTarget — refuses to restore over anything real', () => {
   it('refuses a lookalike host that merely embeds the name', () => {
     // `notsupabase.co.evil.test` must not slip through, and neither may a
     // substring match on a host we do not actually recognise.
-    expect(checkTarget(null, 'postgres://u:p@db.supabase.co.evil.test:5432/x')).toBeNull();
-    expect(checkTarget(null, 'postgres://u:p@my.supabase.co:5432/x')).toMatch(
+    expect(checkTarget(null, 'postgres://u:***@db.supabase.co.evil.test:5432/x')).toBeNull();
+    expect(checkTarget(null, 'postgres://u:***@my.supabase.co:5432/x')).toMatch(
       /managed Supabase host/,
     );
   });
@@ -62,8 +63,8 @@ describe('checkTarget — refuses to restore over anything real', () => {
   it('allows same host + port but a different database', () => {
     expect(
       checkTarget(
-        'postgres://postgres:postgres@127.0.0.1:5432/brt_source',
-        'postgres://postgres:postgres@127.0.0.1:5432/brt_target',
+        'postgres://postgres:***@127.0.0.1:5432/brt_source',
+        'postgres://postgres:***@127.0.0.1:5432/brt_target',
       ),
     ).toBeNull();
   });
@@ -179,5 +180,26 @@ describe('ensureSupabaseCompat', () => {
     expect(sql).toMatch(
       /if not exists \(select 1 from pg_roles where rolname = 'authenticated'\)/i,
     );
+  });
+});
+
+describe('parseArgs — --backup-only flag', () => {
+  it('parses --backup-only alongside --source, with no --target', () => {
+    const opts = parseArgs(['--source', 'postgres://x/db', '--backup-only']);
+    expect(opts.backupOnly).toBe(true);
+    expect(opts.source).toBe('postgres://x/db');
+    expect(opts.target).toBeUndefined();
+  });
+
+  it('leaves backupOnly unset when the flag is absent', () => {
+    const opts = parseArgs(['--source', 'a', '--target', 'b']);
+    expect(opts.backupOnly).toBeUndefined();
+  });
+
+  it('still parses alongside --keep and --json', () => {
+    const opts = parseArgs(['--source', 'a', '--backup-only', '--keep', '--json']);
+    expect(opts.backupOnly).toBe(true);
+    expect(opts.keep).toBe(true);
+    expect(opts.json).toBe(true);
   });
 });

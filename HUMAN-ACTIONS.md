@@ -87,7 +87,13 @@ disables are done; just say "disabled #47" in chat.
 disabled, and no duplicate PR/issue/output appears from a claude.ai-side
 fire after today.
 
-**Status:** OPEN
+**Status:** DONE
+
+**Outcome (2026-09-06, founder confirmation):** Joey confirmed in Discord
+that all 15 original claude.ai routines in the table above are disabled
+(toggled off, not deleted). `docs/agents/runners.md`'s live trigger table
+updated in this same change to mark all 15 as ⛔ disabled — superseded by
+GitHub Actions, per this item.
 
 ---
 

@@ -30,6 +30,25 @@ describe('issueBody', () => {
     expect(body).toContain('- [ ] Group B (`group-b`)');
   });
 
+  it('flags candidate rows with a confirm-or-delete note and the flip instructions', () => {
+    const body = issueBody([
+      { slug: 'group-a', label: 'Group A', candidate: true },
+      { slug: 'group-b', label: 'Group B' },
+    ]);
+    expect(body).toContain(
+      "- [ ] Group A (`group-a`) — _candidate, confirm you're a member, or delete the line_",
+    );
+    expect(body).toContain('- [ ] Group B (`group-b`)');
+    expect(body).not.toContain('Group B (`group-b`) — _candidate');
+    expect(body).toMatch(/remove.*`candidate: true`/);
+    expect(body).toMatch(/confirmed <slug>/);
+  });
+
+  it('omits the flip instructions when no rows are candidates', () => {
+    const body = issueBody([{ slug: 'group-a', label: 'Group A' }]);
+    expect(body).not.toMatch(/confirmed <slug>/);
+  });
+
   it('mentions the owner and references the upload command', () => {
     const body = issueBody([]);
     expect(body).toMatch(/@sffan15-sys/);

@@ -88,6 +88,32 @@ schema fingerprint, every table dump, and the source spot checks — runs inside
 one `REPEATABLE READ` snapshot, so the artifact is internally consistent (FK
 chains restore) even if the news worker writes mid-backup.
 
+#### Scheduled
+
+`.github/workflows/production-backup.yml` runs `scripts/backup-restore-test.mjs
+--backup-only` daily at 03:40 UTC (`workflow_dispatch` also available), using
+the same `SUPABASE_DB_URL` secret and the same read-only, single-snapshot
+backup path described above — `--backup-only` skips the restore/verify phases
+entirely, so no scratch Postgres is created and nothing is ever restored. Each
+run uploads `.backups/**` as a GitHub Actions artifact named
+`production-backup-<run-id>`, retained 90 days. This is a zero-spend
+mitigation for Supabase Free having no platform backups (§2 Layer A) — it does
+not prove a restore works end-to-end; that is `production-backup-drill.yml`
+(§6). Failures raise a persistent `watchdog-alert` issue titled
+"Production backup failing" (`scripts/watchdog/upsert-alert.sh`), closed
+automatically on the next successful run.
+
+To pull a scheduled artifact down for a restore:
+
+```bash
+gh run list --repo JW-Incorporated/swift2 --workflow production-backup.yml
+gh run download <run-id> --repo JW-Incorporated/swift2 -n production-backup-<run-id> -D ./restore-artifact
+```
+
+The downloaded directory is the same `<timestamp>/data/*.ndjson` + `manifest.json`
+shape `scripts/backup-restore-test.mjs` produces and consumes normally — point
+a restore at it the same way §3 describes.
+
 ---
 
 ## 3. How to restore
@@ -109,7 +135,7 @@ code path, so the runbook cannot drift from what actually works.
 |---|---|---|
 | Content wrong / partially clobbered | `npm run db:migrate` then the retired content seed scripts if you really want the DB to match (`docs/dev-quickstart.md` — cosmetic only, OS-016: no surface reads these tables) | Nothing content-side; **uuids change** |
 | Runtime `news_*` data lost, content fine | Restore from the most recent layer-B artifact, `news_*` tables only | Everything since that artifact |
-| Whole project gone | New Supabase project → `db:migrate` → (content reseed optional/cosmetic, OS-016) → load the newest layer-B artifact over the `news_*` tables → repoint `SUPABASE_URL`/keys | News state since the last artifact; **all uuids change** |
+| Whole project gone | New Supabase project → `db:migrate` → (content reseed optional/cosmetic, OS-016) → load the newest layer-B artifact over the `news_*` tables → repoint `SUPABASE_URL`/keys. The newest artifact is either a local `--keep` run or the latest `production-backup.yml` scheduled run (§2 "Scheduled" — `gh run download`) | News state since the last artifact; **all uuids change** |
 | Bad write in the last few minutes/hours | Supabase PITR — **only if §2 layer A says it is enabled** | Depends on the window |
 
 ### The uuid trap
@@ -194,8 +220,10 @@ quarter should be treated as unproven.
       and generated uuids (§1); Layer B already reads all of it in 7.7 s.
       A *scheduled* Layer-B production backup uploaded as a 90-day GitHub
       artifact is "another backup path evidenced" at zero spend, so the
-      risk is mitigated rather than accepted. Tracked on the swift2 kanban
-      (child of t_a0ad2392). Upgrading the Supabase plan would be real
+      risk is mitigated rather than accepted. **Mitigated 2026-09-06:**
+      `.github/workflows/production-backup.yml` runs
+      `backup-restore-test.mjs --backup-only` daily and uploads a 90-day
+      artifact (§2 "Scheduled"). Upgrading the Supabase plan would be real
       recurring spend and stays a founder call — but nothing here needs it.
 - [ ] **Agent:** make the production-bytes drill restore cleanly on a
       non-Supabase target (stub `auth` schema before migrating) and make
