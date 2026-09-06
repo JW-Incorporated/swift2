@@ -944,14 +944,18 @@ credentials, this was just registering accounts/keys ahead of that build.
 a prerequisite. The knowledge engine already reads Reddit without any API
 key — `apps/worker/src/sources/reddit-rss.ts` documents the verified
 no-auth path (`<permalink>.rss?limit=N&sort=top`, and subreddit RSS
-feeds), and `scripts/merch-engine/fanmade-discovery.mjs` already polls
-`r/<sub>/new.json` (403 from GitHub runners, fine through the JW Labs
-`home-relay` lane on Joey's home PC). Hype evidence for E5 (score +
-comment count) is fully available that way; the script-app support ticket
-can be ignored or answered whenever Reddit replies — if a key ever arrives
-it becomes an optimization, not a gate. Etsy and Awin are done. The
-marketplace-research build is unparked and tracked on the swift2 kanban
-(child of t_a0ad2392). Nothing left for a founder.
+feeds). `scripts/merch-engine/fanmade-discovery.mjs` has now switched its
+Reddit leg to the same proven RSS path (via shared helper
+`scripts/lib/reddit-rss.mjs`) instead of the dead-end `r/<sub>/new.json`
+call that silently 403'd on every GitHub-hosted run; the `home-relay` lane
+remains the fallback only if GitHub runners are ever RSS-blocked too, which
+has not been observed. RSS carries no score field, so hype ranking uses
+feed position under `sort=top&t=week` (`rank`) in place of Reddit's
+`score`; the script-app support ticket can be ignored or answered whenever
+Reddit replies — if a key ever arrives it becomes an optimization, not a
+gate. Etsy and Awin are done. The marketplace-research build is unparked
+and tracked on the swift2 kanban (child of t_a0ad2392). Nothing left for a
+founder.
 
 **Status:** DONE (2026-09-06) — Etsy + Awin keys in place; Reddit
 dependency removed by ruling.

@@ -3,6 +3,23 @@ import { describe, expect, it, vi } from 'vitest';
 // @ts-ignore — plain .mjs script, no declaration file
 import { collectEtsyEvidence, curateCandidate, discoverCandidates, fileEtsyOutageIssue, fileReverificationIssues, normalizeEtsyListing, normalizeRedditPost, normalizeSubmission, reverifyFanmadeListings } from './fanmade-discovery.mjs';
 
+function escapeXml(value: string) {
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function redditRssFeed(posts: Array<{ id: string; title: string; permalink: string; createdAt: string; url: string }>) {
+  const entries = posts
+    .map((post) => `<entry>
+      <id>t3_${post.id}</id>
+      <link href="${post.permalink}" />
+      <title>${escapeXml(post.title)}</title>
+      <updated>${post.createdAt}</updated>
+      <content type="html">${escapeXml(`<span><a href="${post.url}">[link]</a></span>`)}</content>
+    </entry>`)
+    .join('');
+  return `<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">${entries}</feed>`;
+}
+
 describe('fan-made discovery', () => {
   it('keeps the original bounded search payload and waits one second before retrying a detail 429 without Retry-After', async () => {
     const searchPayload = { results: [{ listing_id: 42, title: 'Search-only title', search_marker: 'retain-me' }] };
@@ -108,13 +125,13 @@ describe('fan-made discovery', () => {
         }), { status: 200 });
       }
       if (url.includes('reddit.com')) {
-        return new Response(JSON.stringify({ data: { children: [{ data: {
+        return new Response(redditRssFeed([{
           id: 'reddit-1',
           title: 'Found an original lavender lyric bracelet',
+          permalink: 'https://www.reddit.com/r/TaylorSwiftMerch/comments/reddit-1',
+          createdAt: '2026-08-30T00:00:00.000Z',
           url: 'https://www.etsy.com/listing/42/original-bracelet',
-          permalink: '/r/TaylorSwiftMerch/comments/reddit-1',
-          created_utc: 1_700_000_000,
-        } }] } }), { status: 200 });
+        }]), { status: 200 });
       }
       throw new Error(`unexpected URL: ${url}`);
     });
@@ -156,10 +173,10 @@ describe('fan-made discovery', () => {
           images: [{ url_fullxfull: 'https://images.example.test/bracelet.jpg' }],
         }), { status: 200 });
       }
-      return new Response(JSON.stringify({ data: { children: [{ data: {
-        id: 'reddit-1', title: 'Found it', url: 'https://www.etsy.com/listing/42/original-bracelet',
-        permalink: '/r/TaylorSwiftMerch/comments/reddit-1', created_utc: 1_700_000_000,
-      } }] } }), { status: 200 });
+      return new Response(redditRssFeed([{
+        id: 'reddit-1', title: 'Found it', permalink: 'https://www.reddit.com/r/TaylorSwiftMerch/comments/reddit-1',
+        createdAt: '2026-08-30T00:00:00.000Z', url: 'https://www.etsy.com/listing/42/original-bracelet',
+      }]), { status: 200 });
     });
 
     const result = await discoverCandidates({ etsyApiKey: 'test-key', fetchImpl });
@@ -255,13 +272,13 @@ describe('fan-made discovery', () => {
           images: [{ url_fullxfull: 'https://images.example.test/item.jpg' }],
         }] }), { status: 200 });
       }
-      return new Response(JSON.stringify({ data: { children: [] } }), { status: 200 });
+      return new Response(redditRssFeed([]), { status: 200 });
     });
 
     await expect(discoverCandidates({ etsyApiKey: 'test-key', fetchImpl })).resolves.toEqual({ candidates: [], etsyQueryErrors: [], etsyTotalFailure: false });
   });
 
-  it('keeps the scheduled dry-run useful when Reddit temporarily rejects public JSON', async () => {
+  it('keeps the scheduled dry-run useful when Reddit temporarily rejects public RSS', async () => {
     const fetchImpl = vi.fn(async (url: string) => {
       if (url.includes('openapi.etsy.com')) return new Response(JSON.stringify({ results: [] }), { status: 200 });
       if (url.includes('reddit.com')) return new Response('', { status: 403 });
@@ -273,11 +290,12 @@ describe('fan-made discovery', () => {
 
   it('normalizes public Reddit and form intake without treating either as verified product facts', () => {
     expect(normalizeRedditPost({
-      id: 'abc', title: 'A shop find', url: 'https://www.etsy.com/listing/7', permalink: '/r/TaylorSwiftMerch/comments/abc', created_utc: 1_700_000_000,
+      id: 'abc', title: 'A shop find', url: 'https://www.etsy.com/listing/7', permalink: 'https://www.reddit.com/r/TaylorSwiftMerch/comments/abc', createdAt: '2026-08-30T00:00:00.000Z', rank: 3,
     })).toMatchObject({
       url: 'https://www.etsy.com/listing/7',
       brand: null,
       price: null,
+      rank: 3,
       provenance: [expect.objectContaining({ discoveredVia: 'reddit' })],
     });
     expect(normalizeSubmission({
@@ -330,7 +348,7 @@ describe('fan-made discovery', () => {
           images: [{ url_fullxfull: 'https://images.example.test/bracelet.jpg' }],
         }), { status: 200 });
       }
-      return new Response(JSON.stringify({ data: { children: [] } }), { status: 200 });
+      return new Response(redditRssFeed([]), { status: 200 });
     });
 
     const result = await collectEtsyEvidence({ etsyApiKey: 'test-key', fetchImpl, queries: ['bad', 'good query'] });
@@ -344,13 +362,13 @@ describe('fan-made discovery', () => {
     const fetchImpl = vi.fn(async (url: string) => {
       if (url.includes('openapi.etsy.com')) return new Response('', { status: 403 });
       if (url.includes('reddit.com')) {
-        return new Response(JSON.stringify({ data: { children: [{ data: {
+        return new Response(redditRssFeed([{
           id: 'reddit-1',
           title: 'Found an original lavender lyric bracelet',
+          permalink: 'https://www.reddit.com/r/TaylorSwiftMerch/comments/reddit-1',
+          createdAt: '2026-08-30T00:00:00.000Z',
           url: 'https://www.etsy.com/listing/42/original-bracelet',
-          permalink: '/r/TaylorSwiftMerch/comments/reddit-1',
-          created_utc: 1_700_000_000,
-        } }] } }), { status: 200 });
+        }]), { status: 200 });
       }
       throw new Error(`unexpected URL: ${url}`);
     });

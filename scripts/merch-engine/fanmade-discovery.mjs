@@ -6,6 +6,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { httpsRequest } from '../lib/gh.mjs';
+import { fetchSubredditPosts } from '../lib/reddit-rss.mjs';
 import {
   ETSY_FAILURE_ISSUE_PREFIX,
   ETSY_FAILURE_LABEL,
@@ -76,10 +77,6 @@ function isAllowedShopUrl(value) {
   return SHOP_DOMAIN_ALLOWLIST.includes(hostname) || SHOP_DOMAIN_SUFFIX_ALLOWLIST.some((suffix) => hostname.endsWith(suffix));
 }
 
-function isoFromUnix(seconds) {
-  return Number.isFinite(Number(seconds)) ? new Date(Number(seconds) * 1000).toISOString() : null;
-}
-
 function isMerchSubmission(issue) {
   return /^\[Link submission\]\s+merch:/i.test(text(issue?.title) || '');
 }
@@ -102,6 +99,11 @@ export function normalizeEtsyListing(listing, query, discoveredAt = null) {
   };
 }
 
+// Accepts the RSS-shaped post from `fetchSubredditPosts` (`id`, `permalink`
+// — already an absolute reddit.com URL, `url`, `createdAt` ISO string,
+// `rank`). RSS has no score field (see scripts/lib/reddit-rss.mjs header),
+// so `rank` — 1-based position in the `sort=top&t=week` feed, lower is more
+// hyped this week — is recorded as the hype signal in place of `score`.
 export function normalizeRedditPost(post) {
   const url = canonicalUrl(post?.url);
   if (!isAllowedShopUrl(url)) return null;
@@ -112,11 +114,8 @@ export function normalizeRedditPost(post) {
     brand: null,
     price: null,
     imageUrl: null,
-    provenance: [provenance(
-      'reddit',
-      isoFromUnix(post?.created_utc),
-      text(post?.permalink) ? `https://www.reddit.com${post.permalink}` : url,
-    )],
+    rank: Number.isFinite(post?.rank) ? post.rank : null,
+    provenance: [provenance('reddit', text(post?.createdAt), text(post?.permalink) || url)],
   };
 }
 
@@ -279,22 +278,27 @@ async function discoverEtsy({ etsyApiKey, fetchImpl, now, queries = ETSY_QUERIES
   return { candidates: evidence.candidates, queryErrors: evidence.queryErrors, totalFailure };
 }
 
-async function discoverReddit({ fetchImpl }) {
+async function discoverReddit({ fetchImpl, warn = console.warn }) {
   const candidates = [];
+  let forbiddenCount = 0;
   for (const subreddit of REDDIT_SUBREDDITS) {
-    let payload;
+    let result;
     try {
-      payload = await json(fetchImpl, `https://www.reddit.com/r/${subreddit}/new.json?limit=100`, {
-        headers: { 'user-agent': 'LongLiveFanMadeDiscovery/1.0' },
-      });
+      result = await fetchSubredditPosts(subreddit, { sort: 'top', time: 'week', limit: 100, fetchImpl });
     } catch (error) {
-      if (error?.status === 403) continue;
+      if (error?.status === 403) {
+        forbiddenCount += 1;
+        continue;
+      }
       throw error;
     }
-    for (const child of payload?.data?.children || []) {
-      const candidate = normalizeRedditPost(child.data);
+    for (const post of result.posts) {
+      const candidate = normalizeRedditPost(post);
       if (candidate) candidates.push(candidate);
     }
+  }
+  if (forbiddenCount > 0) {
+    warn(`fanmade-discovery: Reddit RSS returned 403 for ${forbiddenCount}/${REDDIT_SUBREDDITS.length} subreddit(s) this run`);
   }
   return candidates;
 }
