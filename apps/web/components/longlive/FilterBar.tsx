@@ -118,7 +118,7 @@ export function FilterBar() {
               '--chip-cue': 'var(--era-accent)',
               '--chip-bg': allActive ? 'var(--era-accent)' : 'transparent',
               '--chip-border': 'var(--era-accent)',
-              '--chip-fg': allActive ? 'var(--era-bg)' : 'var(--era-ink)',
+              '--chip-fg': allActive ? 'var(--era-accent-fg)' : 'var(--era-ink)',
             } as React.CSSProperties}
           >
             All
