@@ -162,4 +162,11 @@ describe('destinationFor (shell routing, OS-003)', () => {
       destinationFor('https://www.longlivets.com/?screen=settings', 'https://longlivets.com'),
     ).toEqual({ kind: 'settings' });
   });
+
+  // OS-032
+  it('routes ?screen=era-stream to the native era stream screen', () => {
+    expect(destinationFor('https://www.longlivets.com/?screen=era-stream')).toEqual({
+      kind: 'era-stream',
+    });
+  });
 });

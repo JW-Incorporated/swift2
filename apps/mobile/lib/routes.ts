@@ -25,13 +25,14 @@
 import { destinationFor, type ShellDestination } from '@swift2/shared';
 
 /**
- * Every screen this table can route to natively. Only `settings` and
- * `inbox` exist today (Phase 0); Phase 3 adds `era-stream`, `moment`,
- * `track-guide`, etc. as they're built (OS-032..OS-038) — each new screen
- * gets one more entry here and one more flag, nothing else in this file
- * changes shape.
+ * Every screen this table can route to natively. `settings` and `inbox`
+ * shipped in Phase 0; OS-032 adds `era-stream` (Phase 3's native era
+ * stream — masthead, era sections, moment cards). `moment`, `track-guide`,
+ * etc. join as they're built (OS-033..OS-038) — each new screen gets one
+ * more entry here and one more flag, nothing else in this file changes
+ * shape.
  */
-export type ScreenId = 'settings' | 'inbox';
+export type ScreenId = 'settings' | 'inbox' | 'era-stream';
 
 export type RouteResolution = { native: ScreenId } | { web: string };
 
@@ -45,18 +46,33 @@ export type RouteResolution = { native: ScreenId } | { web: string };
 export interface RouteFlags {
   settings: boolean;
   inbox: boolean;
+  /** OS-032: defaults OFF (see DEFAULT_ROUTE_FLAGS) — D3's progressive,
+   * flag-gated rollout. The card's "done when" is "flag on in TestFlight",
+   * i.e. a remote-config/staged flip after review, not a same-PR default
+   * flip that would put an unreviewed native screen in front of every user
+   * on merge. */
+  eraStream: boolean;
 }
 
-/** Both native-capable screens ship on by default. */
+/** Settings/inbox ship on by default (Phase 0, already shipped); the new OS-032 era stream ships OFF by default — see `RouteFlags.eraStream`'s doc. */
 export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   settings: true,
   inbox: true,
+  eraStream: false,
 };
 
 function screenForDestination(dest: ShellDestination): ScreenId | null {
   if (dest.kind === 'settings') return 'settings';
   if (dest.kind === 'inbox') return 'inbox';
+  if (dest.kind === 'era-stream') return 'era-stream';
   return null;
+}
+
+/** Maps a `ScreenId` to its `RouteFlags` key — the flag names differ from the screen ids in one case (`era-stream` -> `eraStream`, a valid RouteFlags/TS identifier) so this indirection is the one place that mapping lives. */
+function flagForScreen(screen: ScreenId, flags: RouteFlags): boolean {
+  if (screen === 'settings') return flags.settings;
+  if (screen === 'inbox') return flags.inbox;
+  return flags.eraStream;
 }
 
 /**
@@ -73,7 +89,7 @@ export function resolve(
 ): RouteResolution {
   const dest = siteUrl === undefined ? destinationFor(rawUrl) : destinationFor(rawUrl, siteUrl);
   const screen = screenForDestination(dest);
-  if (screen && flags[screen]) return { native: screen };
+  if (screen && flagForScreen(screen, flags)) return { native: screen };
   // Either destinationFor already said `web` (nothing native addresses this
   // URL), or it does but the flag is off — both fall back to the WebView.
   // `dest.kind === 'web'` always carries a `url`; the native-but-flagged-off
