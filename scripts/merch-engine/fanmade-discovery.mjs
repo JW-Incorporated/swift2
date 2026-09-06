@@ -145,7 +145,7 @@ function mergeCandidates(candidates) {
     for (const item of candidate.provenance) {
       if (!current.provenance.some((existing) => JSON.stringify(existing) === JSON.stringify(item))) current.provenance.push(item);
     }
-    for (const field of ['id', 'item', 'brand', 'price', 'imageUrl']) current[field] ||= candidate[field];
+    for (const field of ['id', 'item', 'brand', 'price', 'imageUrl', 'rank']) current[field] ||= candidate[field];
   }
   return [...byUrl.values()].sort((a, b) => a.url.localeCompare(b.url));
 }

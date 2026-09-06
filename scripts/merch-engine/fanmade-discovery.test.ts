@@ -160,6 +160,37 @@ describe('fan-made discovery', () => {
     });
   });
 
+  it('preserves a Reddit candidate\'s rank when it merges with an Etsy/submission match for the same URL', async () => {
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('/listings/active')) return new Response(JSON.stringify({ results: [{ listing_id: 42 }] }), { status: 200 });
+      if (url.includes('openapi.etsy.com')) {
+        return new Response(JSON.stringify({
+          listing_id: 42,
+          title: 'Original lavender lyric bracelet',
+          url: 'https://www.etsy.com/listing/42/original-bracelet',
+          price: { amount: 2800, divisor: 100, currency_code: 'USD' },
+          shop: { shop_name: 'LavenderMaker', is_vacation: false, review_count: 12 },
+          images: [{ url_fullxfull: 'https://images.example.test/bracelet.jpg' }],
+        }), { status: 200 });
+      }
+      if (url.includes('reddit.com')) {
+        return new Response(redditRssFeed([{
+          id: 'reddit-1',
+          title: 'Found an original lavender lyric bracelet',
+          permalink: 'https://www.reddit.com/r/TaylorSwiftMerch/comments/reddit-1',
+          createdAt: '2026-08-30T00:00:00.000Z',
+          url: 'https://www.etsy.com/listing/42/original-bracelet',
+        }]), { status: 200 });
+      }
+      throw new Error(`unexpected URL: ${url}`);
+    });
+
+    const result = await discoverCandidates({ etsyApiKey: 'test-key', fetchImpl });
+
+    expect(result.candidates).toHaveLength(1);
+    expect(result.candidates[0]).toMatchObject({ url: 'https://www.etsy.com/listing/42/original-bracelet', rank: 1 });
+  });
+
   it('deduplicates Etsy listings when a non-UTM tracking parameter is present', async () => {
     const fetchImpl = vi.fn(async (url: string) => {
       if (url.includes('/listings/active')) return new Response(JSON.stringify({ results: [{ listing_id: 42 }] }), { status: 200 });
