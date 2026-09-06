@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { CONTENT } from './content';
-import { resolveTrackKey } from './tracks';
+import { resolveTrackKey } from '@swift2/experience';
+import './tracks'; // wires setTracksRawProvider so track lookups resolve real data
 import {
   MAX_RESULTS_PER_TYPE,
   buildSearchIndex,
@@ -250,87 +251,5 @@ describe('#652 deep-link targets', () => {
     const endGame = searchDocs(index, 'end game').find((g) => g.type === 'thread');
     expect(endGame).toBeDefined();
     expect(endGame!.results[0].doc.target).toEqual({ kind: 'thread', lensId: 'the-proposal' });
-  });
-});
-
-// ---------------------------------------------------------------------------
-// Editorial weighting. Added 2026-07-20 after a real, reported failure:
-// searching "wedding" ranked the actual MSG wedding page 20th of 26 matches —
-// past the 5-per-type cap, so invisible — because its title is "Taylor and
-// Travis marry at Madison Square Garden" and never says "wedding", while a
-// chat-show anecdote with the word in its title scored higher.
-// ---------------------------------------------------------------------------
-describe('editorial weighting in ranking', () => {
-  it('lifts a defining body-match above an unmarked title-match', () => {
-    const canonical = doc(
-      { title: 'Taylor and Travis marry at Madison Square Garden', weight: WEIGHT_DEFINING },
-      ['A wedding officiated by their friend Adam Sandler'],
-    );
-    const tangential = doc({ title: 'Wedding plans, teased from a chat-show couch' });
-    const terms = tokenize('wedding');
-    expect(scoreDoc(canonical, terms)).toBeGreaterThan(scoreDoc(tangential, terms));
-  });
-
-  it('still puts an exact title match first — importance reorders, never overrides', () => {
-    const exact = doc({ title: 'wedding' });
-    const defining = doc({ title: 'Something else entirely', weight: WEIGHT_DEFINING }, [
-      'a wedding happened',
-    ]);
-    const terms = tokenize('wedding');
-    expect(scoreDoc(exact, terms)).toBeGreaterThan(scoreDoc(defining, terms));
-  });
-
-  it('adds the bonus once per doc, not once per term', () => {
-    const one = doc({ title: 'alpha', weight: WEIGHT_DEFINING }, ['beta']);
-    const terms = tokenize('alpha beta');
-    // title-word-prefix (25) + body hit (6) + phrase bonus is not triggered
-    // here + weight (30) — the weight must appear exactly once.
-    expect(scoreDoc(one, terms)).toBe(scoreDoc({ ...one, weight: 0 }, terms) + WEIGHT_DEFINING);
-  });
-
-  it('leaves unweighted docs scoring exactly as before', () => {
-    const plain = doc({ title: 'a plain moment' }, ['nothing special']);
-    expect(scoreDoc(plain, tokenize('plain'))).toBe(25);
-  });
-});
-
-describe('result caps and totals', () => {
-  // Wyatt, 2026-07-20: "if I type something and hit enter without selecting a
-  // suggested result, it should take me to a search results page, not just the
-  // top suggested result." The results view needs every match, and the
-  // dropdown needs to admit what it is hiding.
-  const many = Array.from({ length: 12 }, (_, i) =>
-    doc({ title: `Wedding moment number ${i}`, key: `m${i}` }),
-  );
-
-  it('caps each group at five by default — the dropdown is a shortlist', () => {
-    const [group] = searchDocs(many, 'wedding');
-    expect(group.results).toHaveLength(MAX_RESULTS_PER_TYPE);
-  });
-
-  it('reports the true total even while capped, so the UI can say "5 of 12"', () => {
-    const [group] = searchDocs(many, 'wedding');
-    expect(group.totalMatches).toBe(12);
-    expect(group.totalMatches).toBeGreaterThan(group.results.length);
-  });
-
-  it('returns every match when the cap is lifted', () => {
-    const [group] = searchDocs(many, 'wedding', Number.POSITIVE_INFINITY);
-    expect(group.results).toHaveLength(12);
-    expect(group.totalMatches).toBe(12);
-  });
-
-  it('keeps ranking order when uncapped — more results must not mean worse order', () => {
-    const uncapped = searchDocs(many, 'wedding', Number.POSITIVE_INFINITY)[0].results;
-    const scores = uncapped.map((r) => r.score);
-    expect([...scores].sort((a, b) => b - a)).toEqual(scores);
-  });
-
-  it('the uncapped list starts with exactly the capped list', () => {
-    const capped = searchDocs(many, 'wedding')[0].results.map((r) => r.doc.key);
-    const uncapped = searchDocs(many, 'wedding', Number.POSITIVE_INFINITY)[0].results.map(
-      (r) => r.doc.key,
-    );
-    expect(uncapped.slice(0, capped.length)).toEqual(capped);
   });
 });

@@ -17,7 +17,7 @@ import {
   Route,
   Check,
 } from 'lucide-react';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import {
   EGG_NODES,
   EGG_LINKS,
@@ -26,15 +26,15 @@ import {
   motifNodes,
   motifEraIds,
   motifOf,
-} from '@/lib/longlive/lenses';
-import { clueWebProgress, trailProgress } from '@/lib/longlive/progress';
+} from '@swift2/experience';
+import { clueWebProgress, trailProgress } from '@swift2/experience';
 import {
   useAppActions,
   useAppState,
   useProgress,
   useProgressActions,
 } from '@/lib/longlive/store';
-import type { EggNode, Motif, MotifId } from '@/lib/longlive/types';
+import type { EggNode, Motif, MotifId } from '@swift2/experience';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 /** Motif icon strings (from the data) resolved to lucide components. */

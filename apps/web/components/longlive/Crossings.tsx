@@ -3,15 +3,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Heart, Shirt, RefreshCw, Gem, ArrowLeft, ArrowRight, X, GitFork } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
-import { CAREER_START_MS, careerEndMs, ERAS, getEra } from '@/lib/longlive/eras';
+import { CAREER_START_MS, careerEndMs, ERAS, getEra } from '@swift2/experience';
 import {
   CROSSING_THREADS,
   getThread,
   threadCrossings,
   threadPoints,
   type Crossing,
-} from '@/lib/longlive/lenses';
-import type { LensId } from '@/lib/longlive/types';
+} from '@swift2/experience';
+import type { LensId } from '@swift2/experience';
 import { accentFgFor } from '@/lib/longlive/theme';
 import { cn } from '@/lib/utils';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
@@ -520,7 +520,7 @@ function CrossingDetail({
   metaATitle: string;
   metaBTitle: string;
   onClose: () => void;
-  onOpenEra: (id: import('@/lib/longlive/types').EraId) => void;
+  onOpenEra: (id: import('@swift2/experience').EraId) => void;
   onOpenThread: (id: LensId) => void;
   threadA: LensId;
   threadB: LensId;

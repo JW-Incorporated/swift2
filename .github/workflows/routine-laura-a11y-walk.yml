@@ -1,0 +1,34 @@
+# Laura — a11y walk, migrated from claude.ai Routine `trig_019aY4jhN6T9ZDAMve8YaRGw`
+# to this scheduled Action per docs/audits/2026-09-05-claude-routines-relocation-assessment.md
+# + the 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# Read-only routine (files tickets + a log comment, never edits content or
+# opens a PR), so it only needs `issues: write` and the built-in
+# GITHUB_TOKEN — no SOCIAL_POSTER_PAT, no Supabase secrets.
+#
+# The original claude.ai trigger stays disabled-not-deleted until this
+# workflow's first clean run is verified (migration risk mitigation table,
+# relocation assessment doc).
+name: routine-laura-a11y-walk
+
+on:
+  schedule:
+    - cron: "20 18 * * 2,5" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Laura — a11y walk"
+      prompt_file: docs/agents/runner-prompts/laura-walk.md
+      model: claude-sonnet-5
+      allowed_tools: "Bash,Read,Grep,Glob"
+      timeout_minutes: 25
+      checkout_token_secret: GITHUB_TOKEN
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

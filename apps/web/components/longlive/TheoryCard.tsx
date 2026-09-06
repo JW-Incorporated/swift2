@@ -2,11 +2,11 @@
 
 import { Egg, HelpCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import { resolveRelatedTheory } from '@/lib/longlive/theories';
-import { theoryThreadId } from '@/lib/longlive/doorways';
-import { getThread } from '@/lib/longlive/lenses';
-import type { Confidence, TheoryNote, TheoryOutcome } from '@/lib/longlive/types';
+import { theoryThreadId } from '@swift2/experience';
+import { getThread } from '@swift2/experience';
+import type { Confidence, TheoryNote, TheoryOutcome } from '@swift2/experience';
 
 // Split out of TheoryGuide.tsx (PLAN.md P3 step 17 — see MAP.md; kept that
 // file under the 300-line cap once R4's back-link block landed).

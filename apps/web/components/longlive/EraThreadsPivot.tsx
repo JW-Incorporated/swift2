@@ -1,8 +1,8 @@
 'use client';
 
 import { ArrowRight, Gem, Heart, RefreshCw, Shirt } from 'lucide-react';
-import { getThread } from '@/lib/longlive/lenses';
-import type { Era, LensId } from '@/lib/longlive/types';
+import { getThread } from '@swift2/experience';
+import type { Era, LensId } from '@swift2/experience';
 
 // Split out of EraSection.tsx (PLAN.md P3 step 15 — see MAP.md).
 
