@@ -1,0 +1,77 @@
+name: Mobile parity check
+
+# Independent proof that iOS and Android carry the same release. The release
+# train (mobile-release.yml → apps/mobile/.eas/workflows/release.yml) is
+# built not to drift; this job checks EAS state every 6 hours and after
+# every train run, and raises ONE persistent alert issue (same pattern as
+# watchdog.yml) when they diverge or when the check itself cannot run.
+# Rules and exit codes: scripts/mobile/check-parity.mjs.
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_run:
+    workflows: ['Mobile release train']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    env:
+      ALERT_TITLE: 'Mobile parity: iOS and Android have diverged'
+      REPO: ${{ github.repository }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Check parity
+        id: parity
+        working-directory: apps/mobile
+        continue-on-error: true
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          set +e
+          if [ -z "$EXPO_TOKEN" ]; then
+            echo "EXPO_TOKEN missing — cannot verify parity (HUMAN-ACTIONS.md #44)" | tee /tmp/parity.txt
+            echo "code=2" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          node ../../scripts/mobile/check-parity.mjs | tee /tmp/parity.txt
+          echo "code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+      - name: Raise or refresh the alert
+        if: steps.parity.outputs.code != '0'
+        run: |
+          {
+            echo "@sffan15-sys @wjduvall-cmd — the mobile parity check did not pass (exit ${{ steps.parity.outputs.code }}; 1 = diverged, 2 = could not check)."
+            echo
+            echo '```'
+            cat /tmp/parity.txt
+            echo '```'
+            echo
+            echo "Runbook: docs/mobile-release.md → \"When the parity check fails\"."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+      - name: Close the alert if recovered
+        if: steps.parity.outputs.code == '0'
+        run: |
+          {
+            echo "Parity check passed on $(date -u +'%Y-%m-%d %H:%M UTC')."
+            echo
+            echo '```'
+            cat /tmp/parity.txt
+            echo '```'
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+      - name: Fail the run when diverged
+        if: steps.parity.outputs.code != '0'
+        run: exit 1

@@ -124,47 +124,16 @@ mode — that's what Path B adds once the app is linked.)
 
 # Deploying the mobile app (EAS)
 
-## Store builds vs. EAS Update
+## Mobile releases (iOS + Android)
 
-Two release paths, pick based on what changed:
-
-| Change touches | Release path | Turnaround |
-| --- | --- | --- |
-| Only JS/TS (screens, logic, `packages/**` consumed by mobile) | **EAS Update** (OTA) | Minutes — no App/Play Store review |
-| Native code (new native module, Expo config plugin, `app.json`'s `ios`/`android` blocks, SDK bump) | **EAS Build** + store submit | Days — App Store/Play review |
-
-This is decided automatically at publish time, not by a human judgment
-call: `apps/mobile/app.json` sets `runtimeVersion: { policy: "fingerprint" }`,
-so every build's install computes a fingerprint from its actual native
-dependency tree, and a running app only ever accepts an OTA update whose
-fingerprint matches the build it shipped with (OS-040, One Source spec §4
-D4). A JS-only change publishes under the same fingerprint and reaches
-every existing install immediately; a native change publishes under a new
-fingerprint that no existing install matches, so it's a silent no-op there
-until the next store build carries it — you cannot "OTA a native change"
-by mistake.
-
-## Publishing an EAS Update by hand
-
-```bash
-cd apps/mobile
-eas update --channel production --message "what changed"
-```
-
-`preview` is the internal-testing channel (matches the `preview` build
-profile in `eas.json`); `production` is what TestFlight/App Store/Play
-production builds are wired to via `eas.json`'s `build.<profile>.channel`.
-
-## Automatic EAS Update on merge
-
-`.github/workflows/eas-update.yml` runs on every push to `main` that
-touches `apps/mobile/**` or `packages/**`: it publishes to the `production`
-channel unconditionally (the fingerprint policy above is what makes that
-safe — see the workflow's own comment). It needs an `EXPO_TOKEN` repo
-secret (an Expo access token scoped to this project; generate one at
-expo.dev → account settings → Access Tokens) — **filed as a
-`HUMAN-ACTIONS.md` item**, since only a founder can create/paste that
-secret via `gh secret set`.
+Superseded 2026-09-05 by the **mobile release train** — see
+`docs/mobile-release.md`. In short: a merge to `main` touching
+`apps/mobile/**` or `packages/**` runs `apps/mobile/.eas/workflows/release.yml`
+on EAS, which decides per platform (by native fingerprint) between one OTA
+update group to both platforms and store builds for both, and never submits
+one platform without the other. `scripts/mobile/check-parity.mjs` proves it
+every 6 hours. Do not run `eas build`/`eas update` for production by hand;
+the runbook lists the two recovery cases where you might.
 
 ## First-time setup checklist
 

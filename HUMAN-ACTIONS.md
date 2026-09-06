@@ -26,6 +26,74 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 46. [BLOCKING] Mobile release train — Google Play service-account key into EAS — ~15 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/mobile-release.md`. The release train
+(`apps/mobile/.eas/workflows/release.yml`) submits Android builds to the
+Play **internal testing** track itself, so nobody uploads `.aab` files by
+hand and Android can never lag iOS. That submit step needs a Google Play
+service account, which only the Play Console owner can create and link.
+Until it exists every train run fails at `submit_android` (and, by design,
+blocks `submit_ios` in the same run).
+
+**Steps:**
+1. Google Cloud Console → create/select a project → **IAM & Admin → Service
+   Accounts → Create service account** (name e.g. `eas-play-submit`) →
+   **Keys → Add key → Create new key → JSON** → download the file.
+2. Play Console → **Users and permissions → Invite new users** → paste the
+   service account's email → App permissions: **LongLive** → Account
+   permissions: tick **Release to testing tracks** (under Releases) → Invite.
+3. On your machine, from `apps/mobile`:
+   `eas credentials --platform android` → choose **production** → **Google
+   Service Account** → **Manage your Google Service Account Key for Play Store
+   Submissions** → **Set up a Google Service Account Key** → point it at the
+   downloaded JSON. Then delete the JSON from Downloads.
+
+**Worked if:** `eas submit --platform android --latest --non-interactive`
+(from `apps/mobile`) uploads to the internal track without asking for a key
+path, and the next **Mobile release train** run shows `submit_android`
+green.
+
+**Status:** OPEN
+
+### 45. [BLOCKING] Mobile release train — iOS signing + App Store Connect key into EAS — ~10 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/mobile-release.md`. Today the iOS distribution
+certificate, the LongLive provisioning profile, and the App Store Connect
+API key exist only in `C:\Users\wjduv\Desktop\4a-signing\` and
+`apps/mobile/credentials/` on Wyatt's laptop (`production-local` profile,
+`credentials.json`). The release train runs on EAS with no laptop
+involved, so it can only sign and submit iOS if those live in EAS
+credentials. `eas credentials` is interactive-only (no TTY in agent
+shells), so a founder has to run it once.
+
+**Steps:**
+1. From `apps/mobile` (where `credentials.json` already points at
+   `./credentials/Certificates.p12` and `./credentials/longlive.mobileprovision`):
+   `eas credentials --platform ios` → **production** → **Build Credentials**
+   → **Upload credentials from credentials.json to EAS** (confirm the
+   Distribution Certificate and the Provisioning Profile for
+   `ai.jwlabs.longlive`).
+2. Same menu → **App Store Connect: Manage your API Key** → **Use an existing
+   API Key** → key path `./credentials/AuthKey_QU7P2WC49Z.p8`, Key ID
+   `QU7P2WC49Z`, Issuer ID `26d1ad10-af24-431a-a9bb-d097ca96e9bc`.
+3. Tell a session it is done so it removes `ascApiKeyPath`/`ascApiKeyId`/
+   `ascApiKeyIssuerId` from `apps/mobile/eas.json` `submit.production.ios`
+   (the remote key then applies) and retires the `production-local` profile.
+
+**Worked if:** `eas build --platform ios --profile production --non-interactive`
+(from `apps/mobile`, no `credentials.json` needed) starts a build that
+says `Using remote iOS credentials (Expo server)` and reaches the compile
+phase, and `eas submit --platform ios --latest --non-interactive` runs
+without a local key path.
+
+**Status:** OPEN
+
+
 ### 44. [BLOCKING] OS-040 — `EXPO_TOKEN` repo secret for automatic EAS Update — ~5 min
 
 **Filed:** 2026-09-05
