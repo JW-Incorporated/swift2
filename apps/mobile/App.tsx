@@ -40,6 +40,7 @@ import { OnboardingScreen } from './components/OnboardingScreen';
 import { EraStreamScreen } from './components/EraStreamScreen';
 import { TrackGuideScreen } from './components/TrackGuideScreen';
 import { SongScreen } from './components/SongScreen';
+import { ClownChatScreen } from './components/ClownChatScreen';
 
 /**
  * OS-035's two param-carrying screens don't fit the existing plain-boolean
@@ -81,6 +82,10 @@ export default function App() {
   // re-fetching. Cleared whenever the route's era changes so a stale list
   // never renders while the new era's fetch is in flight.
   const [trackGuideTracks, setTrackGuideTracks] = useState<TrackNote[]>([]);
+  // OS-036: the native Clownbot + mood chat screen, reached via
+  // `?screen=clownbot` once the `clownbot` route flag is on (off by
+  // default — see routes.ts).
+  const [clownChatOpen, setClownChatOpen] = useState(false);
 
   useEffect(() => {
     if (!trackGuideRoute) return;
@@ -109,10 +114,13 @@ export default function App() {
     setOnboardingOpen(false);
     setEraStreamOpen(false);
     setTrackGuideRoute(null);
+    setClownChatOpen(false);
     if (screen === 'settings') {
       setNotificationSettingsOpen(true);
     } else if (screen === 'era-stream') {
       setEraStreamOpen(true);
+    } else if (screen === 'clownbot') {
+      setClownChatOpen(true);
     } else if (screen === 'track-guide') {
       // routes.ts only resolves this screen when `params.eraId` is present
       // (see `paramsForDestination`/`destinationFor`'s track-guide arm) —
@@ -153,6 +161,7 @@ export default function App() {
     setOnboardingOpen(false);
     setEraStreamOpen(false);
     setTrackGuideRoute(null);
+    setClownChatOpen(false);
     setWebUrl(url);
   }, []);
 
@@ -258,6 +267,8 @@ export default function App() {
               // EraStreamScreen's `handleOpenItem` precedent.
               onOpenMoment={undefined}
             />
+          ) : clownChatOpen ? (
+            <ClownChatScreen onClose={() => setClownChatOpen(false)} />
           ) : onboardingOpen ? (
             <OnboardingScreen
               onDone={(outcome) => {
