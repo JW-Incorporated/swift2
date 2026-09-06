@@ -27,6 +27,30 @@ so far".
 
 Stories: 120
 
+## Celebrity Outfit Highlights of the Week Featuring Taylor Swift
+
+- first seen: 2026-09-06 12:51 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A roundup of favorite celebrity outfits of the week is showcased, including styles worn by Taylor Swift. Tips are provided on how to recreate these fashionable looks.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE5rbnNRcExJUmFFREg2SENWS2l4U0JuaEFaYUlwSm5jQTNaQmkxeFhzR0pWT3hFS09BdU9uQk5fWVNyYlRCajdJRk15Tnh2VU1CMFY2dXc3SUhLMjNuUGpMYnFFaXlNMGR4THJhWEZFTExNVlZR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Nikki Glaser Discusses Item She Nearly Took From Taylor Swift's Wedding
+
+- first seen: 2026-09-06 12:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nikki Glaser recently shared a humorous anecdote about an item she almost stole from Taylor Swift's wedding. The revelation adds a light-hearted touch to conversations surrounding the event.
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMikgFBVV95cUxPdE1hWDh3NFJEbEh6Sm5raVltUXZhSmlodU5oLUN6QmM5d1N1U0FoOXZnNDJ6ZzZya0c4M0VDYWtrWTduOFJKZnM0eXVDRE85bkZmRl82cEEtY1JoR2pOdUhzU1pPQWU3SGRJZmZOd3pELWNEcG5VV29SQ2d0N2VoRDVSMHc4eUs3cXdtOHFFVTdEdw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Beverly Vance Responds to Vice President's Comments on Taylor Swift
+
+- first seen: 2026-09-06 12:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Beverly Vance, mother of JD Vance, has reacted to recent comments made by the vice president regarding Taylor Swift and 'childless cat ladies.'
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNVm9qQ2c3OGpZMURWMUZTbnRoRTZWeGlPb295cmg2SWxCbU4zZXhnVWRZSXJnTlJLZk9WLVdVaGhkc1BUYk9xYzB2a2JqOTc2NlFTanhaMmEtbC1lV0JIMjFWcnQyZTFlVElIYklnZUVZQmtSWUpQb3h0aGI1T01qRExwVzIxc3Y1eWx5UDhzSGRfMTIyZng3YTIyTm0wWjF1M0VGNmNrLWFPYW0tMmRhTEtNTVItdF80cUtmNkFxUnJtcXhaOG04dQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift to Appear Multiple Times Before Chiefs Game
 
 - first seen: 2026-09-06 05:53 UTC | category: tour | importance: 5
@@ -874,25 +898,4 @@ Stories: 120
 - first seen: 2026-09-04 19:31 UTC | category: business | importance: 7
 - verification_status: single_source | source_count: 0
 - summary: A recent Luminate report reveals that Taylor Swift's fanbase significantly contributes to millions in physical album sales, showcasing the strong market presence of her music. The findings were reported by USA Today.
-- sources: _none recorded_
-
-## Ohio Village Prepares for Taylor Swift and Travis Kelce Visit
-
-- first seen: 2026-09-04 19:31 UTC | category: relationship | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: A small village in Ohio is gearing up for a potential visit from Taylor Swift and Travis Kelce, showcasing their excitement for the couple's arrival. The community is ready to welcome the high-profile pair.
-- sources: _none recorded_
-
-## Emmy Predictions Include Taylor Swift Among Potential Winners
-
-- first seen: 2026-09-04 19:31 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: The Emmy Awards season is underway, with predictions for winners including notable names such as Taylor Swift and others. The event will span the Labor Day weekend, showcasing various categories and contenders.
-- sources: _none recorded_
-
-## Taylor Swift Playlist Curated for Senior Year Released by Her Campus
-
-- first seen: 2026-09-04 19:31 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Her Campus has published a playlist of Taylor Swift songs curated for high school seniors, celebrating their final year. The playlist aims to encapsulate the emotions and experiences of this significant time in students' lives.
 - sources: _none recorded_
