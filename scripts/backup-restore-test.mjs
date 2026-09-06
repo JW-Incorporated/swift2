@@ -208,6 +208,87 @@ export function assertSafeTarget(sourceUrl, targetUrl) {
   return true;
 }
 
+/** True when `hostname` looks like a managed Supabase host. */
+export function isManagedSupabaseHost(hostname) {
+  return MANAGED_HOST.test(String(hostname));
+}
+
+// --------------------------------------------------------------------------
+// Supabase compatibility shim for non-Supabase restore targets
+//
+// The migrations reference `auth.users`/`auth.uid()` (Supabase's built-in
+// auth schema) starting with 20260904000000_clown_sessions.sql, plus grants
+// that assume the `authenticated`/`service_role` roles exist. `assertSafeTarget`
+// REQUIRES the restore target to be a non-Supabase host (it refuses any
+// *.supabase.co / pooler.supabase.com target on purpose), so `migrate.mjs`
+// against that target fails with "schema \"auth\" does not exist" unless
+// something stands in for the bits of Supabase's auth schema the migrations
+// touch. This is that stand-in: the minimum surface (schema, one table, one
+// function, two roles) the migrations currently need — not a Supabase
+// reimplementation. Applied ONLY to non-Supabase targets; never touches a
+// real Supabase database (which already has the real thing).
+// --------------------------------------------------------------------------
+const SUPABASE_COMPAT_SQL = `
+create schema if not exists auth;
+
+create table if not exists auth.users (
+  id uuid primary key
+);
+
+create or replace function auth.uid() returns uuid
+  language sql stable as
+  $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
+
+do $$ begin
+  if not exists (select 1 from pg_roles where rolname = 'authenticated') then
+    create role authenticated nologin;
+  end if;
+  if not exists (select 1 from pg_roles where rolname = 'service_role') then
+    create role service_role nologin bypassrls;
+  end if;
+  if not exists (select 1 from pg_roles where rolname = 'anon') then
+    create role anon nologin;
+  end if;
+end $$;
+`;
+
+/**
+ * Stand in for the slice of Supabase's `auth` schema the migrations
+ * reference, on a scratch (non-Supabase) restore target. A no-op — and a
+ * mistake — on a real Supabase target, which already has the genuine
+ * `auth` schema and roles; calling this there would be redundant at best
+ * and is refused defensively via `isManagedSupabaseHost`.
+ *
+ * Idempotent: every statement is `if not exists` / `or replace`, so running
+ * it against a target that already has the shim (e.g. `--drill`'s source
+ * AND target, or a re-run of the drill against the same scratch cluster)
+ * is a harmless no-op the second time.
+ */
+export async function ensureSupabaseCompat(client) {
+  await client.query(SUPABASE_COMPAT_SQL);
+}
+
+/** Applies the compat shim to `targetUrl` iff it is not a managed Supabase
+ *  host. Exported separately from `ensureSupabaseCompat` so the SQL itself
+ *  stays unit-testable without a live connection. */
+async function ensureSupabaseCompatIfNeeded(targetUrl, label) {
+  let hostname;
+  try {
+    hostname = new URL(targetUrl).hostname;
+  } catch {
+    return; // an invalid URL fails elsewhere (assertSafeTarget) with a clearer message
+  }
+  if (isManagedSupabaseHost(hostname)) return;
+  const client = makeClient(targetUrl);
+  await client.connect();
+  try {
+    await ensureSupabaseCompat(client);
+    console.log(`  applied Supabase auth-schema compat shim to ${label} (non-Supabase target)`);
+  } finally {
+    await client.end();
+  }
+}
+
 // --------------------------------------------------------------------------
 // checksums
 //
@@ -686,6 +767,10 @@ async function run() {
 
       console.log('\nbuilding the source from repo migrations + seeds:');
       await time('fixture', async () => {
+        // The scratch source is not Supabase either — the migrations run
+        // against it the same as any other non-Supabase target, so it needs
+        // the same auth-schema stand-in before migrate.mjs touches it.
+        await ensureSupabaseCompatIfNeeded(sourceUrl, 'drill source');
         const env = { SUPABASE_DB_URL: sourceUrl };
         runNode('migrate.mjs', env, 'migrate');
         console.log('  migrations applied');
@@ -769,6 +854,13 @@ async function run() {
     console.log('\n== 2. restore ===========================================');
     console.log('  schema comes from git (supabase/migrations), data from the backup');
     await time('restore', async () => {
+      // assertSafeTarget above requires the restore target to be a
+      // non-Supabase host, so it never has the real `auth` schema the
+      // migrations reference (auth.users / auth.uid()) — stand that in
+      // before migrate.mjs runs against it. On a genuine Supabase target
+      // this would be a no-op-that-never-runs (assertSafeTarget refuses the
+      // target before we get here).
+      await ensureSupabaseCompatIfNeeded(targetUrl, 'restore target');
       runNode('migrate.mjs', { SUPABASE_DB_URL: targetUrl }, 'migrate (target)');
       console.log('  migrations applied to target');
       const tgt = makeClient(targetUrl);
