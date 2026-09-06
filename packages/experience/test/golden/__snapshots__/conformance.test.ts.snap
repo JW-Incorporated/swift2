@@ -1,0 +1,228 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`OS-026 core conformance suite > builds a thread timeline view-model (love-story) from the fixture bundle > thread-timeline-love-story 1`] = `[]`;
+
+exports[`OS-026 core conformance suite > builds the folklore era stream section view-model from the fixture bundle > era-stream-section-folklore 1`] = `
+[
+  {
+    "anchor": {
+      "displayDate": null,
+      "sortDate": "2020-09-23",
+      "via": "era-scatter",
+    },
+    "doorway": {
+      "eggId": "folklore:teenage-love-triangle",
+      "kicker": "EGGS — the secrets she plants",
+      "threadId": null,
+      "title": "The teenage love triangle",
+    },
+    "kind": "egg",
+  },
+  {
+    "anchor": {
+      "displayDate": "2020-07-27",
+      "sortDate": "2020-07-27",
+      "via": "exact",
+    },
+    "kind": "video",
+    "video": {
+      "director": "Taylor Swift",
+      "easterEggs": [
+        "A piano that becomes a portal to a forest.",
+      ],
+      "kind": "music_video",
+      "relatedSongs": [
+        "cardigan",
+      ],
+      "releasedOn": "2020-07-27",
+      "slug": "cardigan-music-video",
+      "sources": [
+        {
+          "name": "Vogue",
+          "reliability": 4,
+          "url": "https://example.com/cardigan-video",
+        },
+      ],
+      "summary": "A self-directed video shot in isolation during the pandemic, using magical-realist visuals.",
+      "symbolism": "The piano-as-portal reflects folklore's theme of escaping into memory and story.",
+      "tags": [
+        "Music",
+      ],
+      "title": "cardigan (Official Music Video)",
+      "youtubeId": "5IfTPa4l4ns",
+    },
+  },
+  {
+    "anchor": {
+      "displayDate": "2020-07-24",
+      "sortDate": "2020-07-24",
+      "via": "exact",
+    },
+    "item": {
+      "body": [
+        "Taylor Swift announced folklore on social media and released it less than a day later, breaking from the months-long rollout campaigns of her earlier eras.",
+      ],
+      "date": "2020-07-24",
+      "dateLabel": "July 24, 2020",
+      "eraId": "folklore",
+      "id": "vault-folklore-001",
+      "images": [
+        {
+          "kind": "primary",
+          "url": "/eras/folklore.png",
+        },
+      ],
+      "milestone": {
+        "id": "ms-folklore-release",
+        "kind": "album",
+        "label": "folklore released",
+      },
+      "significance": "defining",
+      "sources": [
+        {
+          "name": "Rolling Stone",
+          "reliability": 4,
+          "url": "https://example.com/folklore-surprise",
+        },
+      ],
+      "summary": "The surprise-drop era begins: a full album announced and released inside 24 hours.",
+      "tags": [
+        "Music",
+      ],
+      "title": "folklore released with no announcement",
+    },
+    "kind": "moment",
+  },
+  {
+    "anchor": {
+      "displayDate": "2020-07-24",
+      "sortDate": "2020-07-24",
+      "via": "exact",
+    },
+    "displaced": true,
+    "doorway": {
+      "example": "Cottagecore Cardigan",
+      "kicker": "THREADS — one storyline at a time, across every era",
+      "threadId": "fashion",
+      "title": "The Runway",
+    },
+    "kind": "thread",
+  },
+  {
+    "anchor": {
+      "displayDate": "2020-07-24",
+      "sortDate": "2020-07-24",
+      "via": "exact",
+    },
+    "displaced": true,
+    "doorway": {
+      "example": "Joe Alwyn",
+      "kicker": "THREADS — one storyline at a time, across every era",
+      "threadId": "love-story",
+      "title": "Blank Spaces",
+    },
+    "kind": "thread",
+  },
+]
+`;
+
+exports[`OS-026 core conformance suite > builds the folklore theories/eggs and era-secret view-models from the fixture bundle > theories-and-secrets-folklore 1`] = `
+{
+  "secrets": [
+    {
+      "secret": "The cottagecore aesthetic of folklore's rollout was built entirely from stock/licensed imagery and studio photography — no cabin Taylor Swift owns or stayed in is depicted.",
+      "slug": "folklore-cabin",
+      "sources": [
+        {
+          "name": "Rolling Stone",
+          "reliability": 4,
+          "url": "https://example.com/folklore-imagery",
+        },
+      ],
+      "title": "The album has no cabin",
+    },
+  ],
+  "theories": [
+    {
+      "claim": "Fans believe "cardigan", "august", and "betty" tell one love triangle from three perspectives.",
+      "confidence": "official",
+      "evidence": "Confirmed by Taylor Swift herself in interviews around the album's release.",
+      "kind": "theory",
+      "outcome": "confirmed",
+      "slug": "teenage-love-triangle",
+      "sources": [
+        {
+          "name": "Entertainment Weekly",
+          "reliability": 4,
+          "url": "https://example.com/love-triangle",
+        },
+      ],
+      "title": "The teenage love triangle",
+    },
+  ],
+}
+`;
+
+exports[`OS-026 core conformance suite > builds the folklore track guide page view-model from the fixture bundle > track-guide-folklore 1`] = `
+[
+  {
+    "keepExploring": [],
+    "key": "folklore::1::the 1",
+    "note": "The opening track sets folklore's tone: wistful, conversational, string-and-piano production.",
+    "releasedFact": "July 24, 2020",
+    "title": "the 1",
+    "trackNumber": 1,
+  },
+]
+`;
+
+exports[`OS-026 core conformance suite > resolves every deep link in the fixture to the same target both renderers must dispatch on > deep-link-targets 1`] = `
+[
+  {
+    "search": "?item=vault-folklore-001",
+    "target": {
+      "id": "vault-folklore-001",
+      "kind": "item",
+    },
+  },
+  {
+    "search": "?song=folklore%3A%3A1%3A%3Athe%201",
+    "target": {
+      "key": "folklore::1::the 1",
+      "kind": "song",
+    },
+  },
+  {
+    "search": "?guide=folklore",
+    "target": {
+      "eraId": "folklore",
+      "kind": "guide",
+    },
+  },
+  {
+    "search": "?theories=folklore",
+    "target": {
+      "eraId": "folklore",
+      "kind": "theories",
+    },
+  },
+  {
+    "search": "?mode=threads",
+    "target": {
+      "kind": "mode",
+      "mode": "threads",
+    },
+  },
+  {
+    "search": "?era=folklore",
+    "target": {
+      "id": "folklore",
+      "kind": "era",
+    },
+  },
+  {
+    "search": "?nonsense=1",
+    "target": null,
+  },
+]
+`;

@@ -10,7 +10,7 @@ import {
 } from './video-affordance';
 import { ERAS } from '@swift2/experience';
 import { contentForEra } from './content';
-import { eraKnownVideoIds, inlineVideoMomentIds } from './era-feed';
+import { eraKnownVideoIds, inlineVideoMomentIds } from '@swift2/experience';
 import { videosForEra } from './videos';
 import { primaryImageRef } from '@swift2/experience';
 import type { ContentItem, EggSource } from '@swift2/experience';

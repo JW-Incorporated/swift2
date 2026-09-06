@@ -8,7 +8,6 @@ import {
   type RawItem,
 } from '@swift2/content-enrichment';
 import { VAULT_RAW } from './content-vault.generated';
-import { contentFromPublishedBundle } from './bundle-source';
 
 // OS-014b-1: the pure enrichment logic (defaultThreadIdsForTags, build(),
 // buildContent(), buildMilestones()) moved to `@swift2/content-enrichment`
@@ -19,18 +18,36 @@ export { build, defaultThreadIdsForTags };
 export type { RawItem };
 
 /**
- * Representative mock content. Every era gets a hero image reused from the era
- * art; a real API would supply per-moment imagery. Ordering is handled in the
- * UI (chronological, oldest-first), so authoring order here is not significant.
+ * BUNDLE AS SOURCE OF TRUTH, LITERAL AS RUNTIME VALUE (OS-014b-2, same
+ * reasoning recorded for era-secrets.ts/merch.ts/clownbot-lore.ts's
+ * OS-014b-4/5 — see those files' headers for the fuller writeup, and Fable
+ * rulings FR-t_cd5741fc-1/-2 for why a runtime filesystem read was
+ * rejected): `CONTENT` keeps computing straight from `buildContent({},
+ * VAULT_RAW)` (the seed-derived intermediate that also feeds the published
+ * bundle build, via `scripts/lib/dump-longlive-sources.ts`) rather than
+ * reading the published bundle's `content:<eraId>.json` files at runtime
+ * via `packages/content`'s async `loadBundle()` or a synchronous
+ * `node:fs` read.
  *
- * dateLabel rule (#682 — the WS1 day-precision relapse): when `date` is a
- * researched day-precision date, the label must show the day — write the
- * formatFullDate() form ('June 19, 2006'), never the bare month ('June
- * 2006'). When the day is genuinely unknown or the moment spans a period,
- * use an editorial period label ('Spring 2007', 'Late 2012') with a
- * representative placeholder date — a bare month+year label is
- * indistinguishable from a masked day-precision date, so a test
- * (content.test.ts) rejects it on curated items.
+ * This module is reachable from `TimelineScrubber.tsx`/`ShareSheet.tsx`/
+ * `MomentDetail.tsx`, all `'use client'` components — Next.js/Turbopack
+ * statically traces every module in a client component's import graph and
+ * refuses to bundle `node:fs`/`node:path` for the browser (a real
+ * `TurbopackInternalError` build failure hit while implementing this card,
+ * not a theoretical concern — see FR-t_cd5741fc-1's writeup). `loadBundle()`
+ * is likewise the wrong shape: it is an async HTTP client, and every one of
+ * the ~100+ call sites across the app reads `CONTENT`/`contentForEra`/
+ * `getContentItem` synchronously today (this migration's explicit "zero
+ * pixel/behavior change" bar) — switching to an async load would ripple
+ * into every consumer's render path for no benefit apps/web's own build
+ * doesn't already get for free (the generated file is produced from the
+ * exact same seed source the bundle is built from, by the same `prebuild`
+ * step, before either is read).
+ *
+ * `content.test.ts`'s bundle-regression describe block enforces the actual
+ * invariant instead: a byte-identical-to-the-published-bundle regression
+ * check, so any drift between `CONTENT` and the bundle's `content:<eraId>`
+ * entries fails the suite immediately.
  */
 
 // All hand-curated content has been migrated into supabase/seed/content/**
@@ -41,16 +58,7 @@ export type { RawItem };
 // engine, and the bot fleet all operate.
 const RAW: Partial<Record<EraId, RawItem[]>> = {};
 
-// OS-014b-2 (docs/specs/2026-09-05-one-source-three-surfaces.md §6): prefer
-// the published content bundle — the SAME artifact `packages/content`'s
-// `loadBundle()` serves to mobile (OS-015) — over recomputing `CONTENT` from
-// the locally generated `VAULT_RAW`. `contentFromPublishedBundle()` returns
-// `null` (never throws) whenever the bundle isn't available/valid — a fresh
-// checkout before `content:bundle` has run, or `build-content-bundle.mjs`'s
-// own child process building it (see bundle-source.ts's module doc) — in
-// which case this falls back to `buildContent`, exactly as before OS-014b-2.
-// Both paths are proven byte-identical in content.bundle-source.test.ts.
-export const CONTENT: ContentItem[] = contentFromPublishedBundle() ?? buildContent(RAW, VAULT_RAW);
+export const CONTENT: ContentItem[] = buildContent(RAW, VAULT_RAW);
 
 export function contentForEra(eraId: EraId): ContentItem[] {
   // Newest-first: the experience travels *back* in time, so the most recent

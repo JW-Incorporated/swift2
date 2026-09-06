@@ -1,50 +1,59 @@
-// Long Live — the per-era track guide's raw data module (OS-014b-2,
-// docs/specs/2026-09-05-one-source-three-surfaces.md §6). Historically this
-// data lived only in the generated `tracks.generated.ts` (produced by
-// `scripts/sync-longlive-tracks.mjs` from `supabase/seed/tracks/**`), which
-// wired itself straight into `@swift2/experience`'s injected track-catalogue
-// provider via a side-effecting `setTracksRawProvider(TRACKS_RAW)` call at
-// import time (see track-catalogue-provider.ts's doc for why the app must
-// wire this in rather than `packages/experience` reading generated data
-// directly).
+// Long Live — the per-era track guide's raw data module.
 //
-// This module is now the canonical place that wiring happens: it prefers
-// the published content bundle's `tracks` entry — the SAME artifact
-// `packages/content`'s `loadBundle()` serves to mobile (OS-015) — falling
-// back to the generated `TRACKS_RAW` map whenever the bundle isn't
-// available/valid (a fresh checkout before `content:bundle` has run, or
-// `build-content-bundle.mjs`'s own bundle-building process — see
-// `bundle-source.ts`'s module doc). Both paths are proven byte-identical in
-// `bundle-source.test.ts`.
-import type { EraId, TrackNote } from '@swift2/experience';
-import { setTracksRawProvider } from '@swift2/experience';
-import { TRACKS_RAW as GENERATED_TRACKS_RAW } from './tracks.generated';
-import { tracksRawFromPublishedBundle } from './bundle-source';
+// BUNDLE AS SOURCE OF TRUTH, LITERAL AS RUNTIME VALUE (OS-014b-2, same
+// reasoning recorded for era-secrets.ts/merch.ts/clownbot-lore.ts's
+// OS-014b-4/5 — see those files' headers for the fuller writeup, and Fable
+// rulings FR-t_cd5741fc-1/-2 for why a runtime filesystem read was
+// rejected): `TRACKS_RAW` keeps importing straight from
+// `tracks.generated.ts` (a plain object literal with zero imports, produced
+// by `scripts/sync-longlive-tracks.mjs` from `supabase/seed/tracks/**` —
+// the same seed source that also feeds the published bundle build, via
+// `scripts/lib/dump-longlive-sources.ts`) rather than reading the
+// published bundle's `tracks.json` at runtime via `packages/content`'s
+// async `loadBundle()` or a synchronous `node:fs` read.
+//
+// This module is reachable from `TrackGuide.tsx`/`TrackDetail.tsx`, both
+// `'use client'` components — Next.js/Turbopack statically traces every
+// module in a client component's import graph and refuses to bundle
+// `node:fs`/`node:path` for the browser (a real `TurbopackInternalError`
+// build failure hit while implementing this card, not a theoretical
+// concern — see FR-t_cd5741fc-1's writeup). `loadBundle()` is likewise the
+// wrong shape: it is an async HTTP client, and every one of the ~100+ call
+// sites across the app reads `tracksForEra`/`songTargetOf`/etc.
+// synchronously today (this migration's explicit "zero pixel/behavior
+// change" bar) — switching to an async load would ripple into every
+// consumer's render path for no benefit apps/web's own build doesn't
+// already get for free (the generated file is produced from the exact same
+// seed source the bundle is built from, by the same `prebuild` step,
+// before either is read).
+//
+// `tracks.test.ts`'s bundle-regression describe block enforces the actual
+// invariant instead: a byte-identical-to-the-published-bundle regression
+// check, so any drift between `TRACKS_RAW` and the bundle's `tracks.json`
+// fails the suite immediately.
+export {
+  adjacentTrackOnAlbum,
+  keepExploring,
+  nextTrackOnAlbum,
+  releasedFactValue,
+  resolveConnections,
+  songTargetOf,
+  tracksForEra,
+} from '@swift2/experience';
 
-export { tracksForEra } from '@swift2/experience';
-
-export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> =
-  tracksRawFromPublishedBundle() ?? GENERATED_TRACKS_RAW;
-
-// Wires the per-era track map into packages/experience's injected provider —
-// see track-catalogue-provider.ts. Importing this module (for its side
-// effect, same convention as `./content`/`./tracks.generated` before it) is
-// what every existing caller (vault-wiring.ts, scripts/lib/dump-longlive-
+// Wires the app's generated track-guide dataset into `packages/experience`'s
+// injected track-catalogue provider — see track-catalogue-provider.ts for
+// why the headless package can't load generated content itself (content
+// loading is OS-013/OS-014 scope, so the app injects the real
+// implementation in at import time). Importing this module (for its side
+// effect, same convention as `./content`/`./era-secrets` before it) is what
+// every existing caller (vault-wiring.ts, scripts/lib/dump-longlive-
 // sources.ts) already relies on for `tracksForEra()`/`songTargetOf()` etc.
 // to resolve real data.
-//
-// IMPORTANT: any consumer that needs `tracksForEra()` (or another
-// `@swift2/experience` accessor backed by this provider) to see the data
-// this module just wired MUST import it from THIS module (the re-export
-// above), not straight from `@swift2/experience` — a caller living outside
-// `apps/web`'s own package.json (no top-level `"type": "module"`, unlike
-// this file's package) can otherwise resolve `@swift2/experience` to a
-// SEPARATE module instantiation than the one this file wired
-// (`scripts/lib/dump-longlive-sources.ts` hit exactly this: it imports
-// `@swift2/experience` from `scripts/`, which lives under a package.json
-// that IS `"type": "module"`, so Node's dual-CJS/ESM-instance resolution
-// gave it a different `track-catalogue-provider.ts` module instance than
-// the one `setTracksRawProvider` below writes to — `tracksForEra()` then
-// silently read an empty, never-wired default). `theories.ts` already
-// re-exports `theoriesForEra` for the same reason; this mirrors it.
-setTracksRawProvider(TRACKS_RAW);
+import type { EraId, TrackNote } from '@swift2/experience';
+import { setTracksRawProvider } from '@swift2/experience';
+import { TRACKS_RAW } from './tracks.generated';
+
+export { TRACKS_RAW };
+
+setTracksRawProvider(TRACKS_RAW as Partial<Record<EraId, TrackNote[]>>);

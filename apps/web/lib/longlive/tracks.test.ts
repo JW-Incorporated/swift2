@@ -1,4 +1,6 @@
 import { describe, expect, it, beforeAll } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { TRACKS_RAW } from './tracks';
 import {
   adjacentTrackOnAlbum,
@@ -15,14 +17,37 @@ import {
 import { CONTENT, getContentItem } from './content';
 import type { EraId, TrackNote } from '@swift2/experience';
 
-// Guards the generated track-guide data against generator drift: everything
-// the TrackGuide overlay assumes about tracks.generated.ts is asserted here.
-// The track-guide logic itself moved to packages/experience/src/track-guide.ts
-// (OS-024); this file wires the real generated catalogue in via the
-// providers so the same invariants are exercised against real data.
 beforeAll(() => {
   setTracksRawProvider(TRACKS_RAW);
   setContentItemLookup(getContentItem);
+});
+
+/**
+ * OS-014b-2 (see tracks.ts's header for the full Fable-ruling reasoning):
+ * `TRACKS_RAW` keeps importing straight from `tracks.generated.ts` rather
+ * than reading the published bundle at runtime, because this module is
+ * reachable from a `'use client'` component. Per the same lesson
+ * OS-014b-4/5 hit on era-secrets.ts/clownbot-lore.ts (this suite runs
+ * BEFORE apps/web's `prebuild` publishes the bundle to disk, so asserting
+ * against the actual published bundle file here is not possible), this
+ * test instead proves byte-identity by construction:
+ * `scripts/lib/dump-longlive-sources.ts` (the bundle builder's data
+ * source) imports `tracksForEra` from THIS module and calls it per era to
+ * assemble the bundle's `tracks.json` — i.e. the published bundle's track
+ * data literally comes from calling this file's own wired
+ * `tracksForEra()`, so it cannot drift from `TRACKS_RAW` here.
+ */
+describe('bundle-sourced TRACKS_RAW stays wired into the published bundle build (OS-014b-2)', () => {
+  it("scripts/lib/dump-longlive-sources.ts sources tracks from this module's tracksForEra", () => {
+    const dumpScript = readFileSync(
+      resolve(import.meta.dirname, '../../../../scripts/lib/dump-longlive-sources.ts'),
+      'utf8',
+    );
+    expect(dumpScript).toContain(
+      "import { tracksForEra } from '../../apps/web/lib/longlive/tracks'",
+    );
+    expect(dumpScript).toContain('tracks: tracksForEra(era.id)');
+  });
 });
 
 describe('tracks.generated.ts invariants', () => {

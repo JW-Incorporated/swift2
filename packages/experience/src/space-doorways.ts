@@ -1,4 +1,4 @@
-import type { VideoNote } from '@swift2/experience';
+import type { VideoNote } from './types';
 import type { EraFeedEntry } from './era-feed';
 
 /**

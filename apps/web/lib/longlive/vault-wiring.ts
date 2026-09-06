@@ -11,8 +11,8 @@ import * as vault from './content-vault.generated';
 // - `./content` (imported for side effects only) wires the content-item
 //   lookup via setContentItemLookup(getContentItem).
 // - `./tracks` wires the per-era track map via
-//   setTracksRawProvider(TRACKS_RAW) — OS-014b-2: reads the published
-//   content bundle when available, falling back to `./tracks.generated`.
+//   setTracksRawProvider(TRACKS_RAW) — imports the generated literal
+//   directly (OS-014b-2; see tracks.ts's header for why).
 // - `./song-moods.generated` wires the mood-match catalogue via
 //   setDefaultSongCatalogue(SONG_MOODS).
 // - the content-freshness stamp is wired here directly, since no other

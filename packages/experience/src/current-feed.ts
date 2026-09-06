@@ -1,7 +1,8 @@
 import type { CurrentItem, CurrentItemStatus } from '@swift2/shared';
-import { resolveAnchor, formatRelativeTime } from '@swift2/experience';
+import { resolveAnchor } from './anchor-date';
+import { formatRelativeTime } from './format';
 import type { EraFeedEntry } from './era-feed';
-import type { VideoNote } from '@swift2/experience';
+import type { VideoNote } from './types';
 
 /**
  * Builds the fifth `EraFeedEntry` kind ('current') from the current era's
