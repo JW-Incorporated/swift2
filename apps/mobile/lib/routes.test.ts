@@ -85,7 +85,7 @@ describe('resolve — feature flags (OS-030: toggle without a rebuild)', () => {
   });
 
   it('flipping both flags off sends every native-capable route to the web', () => {
-    const flags: RouteFlags = { settings: false, inbox: false, eraStream: false };
+    const flags: RouteFlags = { settings: false, inbox: false, eraStream: false, moment: false };
     expect(resolve('https://www.longlivets.com/?screen=settings', undefined, flags)).toEqual({
       web: 'https://www.longlivets.com',
     });
@@ -106,6 +106,29 @@ describe('resolve — OS-032 native era stream (off by default)', () => {
     const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, eraStream: true };
     expect(resolve('https://www.longlivets.com/?screen=era-stream', undefined, flags)).toEqual({
       native: 'era-stream',
+    });
+  });
+});
+
+describe('resolve — OS-033 native moment detail (off by default)', () => {
+  it('falls back to the WebView (the site\'s own ?item= page) when the moment flag is off (default)', () => {
+    expect(resolve('https://www.longlivets.com/?item=folklore-cardigan')).toEqual({
+      web: 'https://www.longlivets.com/?item=folklore-cardigan',
+    });
+  });
+
+  it('routes to native with the itemId once the moment flag is flipped on', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, moment: true };
+    expect(resolve('https://www.longlivets.com/?item=folklore-cardigan', undefined, flags)).toEqual({
+      native: 'moment',
+      itemId: 'folklore-cardigan',
+    });
+  });
+
+  it('does not claim a bare ?item= with no value', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, moment: true };
+    expect(resolve('https://www.longlivets.com/?item=', undefined, flags)).toEqual({
+      web: 'https://www.longlivets.com/?item=',
     });
   });
 });

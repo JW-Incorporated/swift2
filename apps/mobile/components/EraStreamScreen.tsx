@@ -19,14 +19,9 @@ import { eraColors } from '../lib/theme';
 /** How many eras (newest-first) this screen mounts at once. OS-032 scope: "three eras" per the card's own done-when; a follow-up (OS-032 the same shared jumpWindow the web uses, or its own incremental-append) can widen this without touching EraSection or the shared view-model builder. */
 const INITIAL_ERA_COUNT = 3;
 
-export function EraStreamScreen() {
+export function EraStreamScreen({ onOpenItem }: { onOpenItem: (id: string) => void }) {
   const eras = useMemo(() => orderedEras().slice(0, INITIAL_ERA_COUNT), []);
   const [activeEraName] = useState(eras[0]?.name ?? '');
-
-  // OS-033 (native moment detail) owns opening a moment's full sheet; this
-  // card renders the tap target but has nowhere native to send it yet, so
-  // the handler is a documented no-op rather than a fake navigation.
-  const handleOpenItem = (_id: string) => {};
 
   return (
     <View style={styles.fill}>
@@ -41,7 +36,7 @@ export function EraStreamScreen() {
       <ScrollView style={styles.fill} contentContainerStyle={styles.content}>
         <LandingMasthead />
         {eras.map((era) => (
-          <EraSection key={era.id} era={era} onOpenItem={handleOpenItem} />
+          <EraSection key={era.id} era={era} onOpenItem={onOpenItem} />
         ))}
       </ScrollView>
     </View>

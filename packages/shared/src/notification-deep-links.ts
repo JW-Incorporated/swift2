@@ -95,7 +95,8 @@ export type ShellDestination =
   | { kind: 'web'; url: string }
   | { kind: 'settings' }
   | { kind: 'inbox' }
-  | { kind: 'era-stream' };
+  | { kind: 'era-stream' }
+  | { kind: 'moment'; itemId: string; url: string };
 
 const DEFAULT_SITE_URL = 'https://www.longlivets.com';
 
@@ -128,6 +129,13 @@ export function destinationFor(
     // bare site root, which stays the WebView's job until OS-039 retires
     // SiteShell as the default for every route this phase ports.
     if (u.searchParams.get('screen') === 'era-stream') return { kind: 'era-stream' };
+    // OS-033: `?item=<id>` is the web's own moment-detail share link
+    // (ShareSheet.tsx's `shareUrl` for `share.kind === 'item'`) — the ONE
+    // deep link this card's "done when" names explicitly ("every `?item=`
+    // deep link opens natively"). An empty id is not a moment; fall through
+    // to the generic web handling below rather than opening an empty sheet.
+    const itemId = u.searchParams.get('item');
+    if (itemId) return { kind: 'moment', itemId, url: rawUrl };
     // `?current=theories|merch|countdowns`, `?song=<slug>`,
     // `#merch-new-drops`, and a bare site root all address something the
     // website itself renders — hand the URL through unchanged so the

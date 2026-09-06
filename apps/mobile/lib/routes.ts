@@ -32,9 +32,9 @@ import { destinationFor, type ShellDestination } from '@swift2/shared';
  * more entry here and one more flag, nothing else in this file changes
  * shape.
  */
-export type ScreenId = 'settings' | 'inbox' | 'era-stream';
+export type ScreenId = 'settings' | 'inbox' | 'era-stream' | 'moment';
 
-export type RouteResolution = { native: ScreenId } | { web: string };
+export type RouteResolution = { native: ScreenId; itemId?: string } | { web: string };
 
 /**
  * One boolean per native-capable screen. `true` = route to the native
@@ -52,19 +52,28 @@ export interface RouteFlags {
    * flip that would put an unreviewed native screen in front of every user
    * on merge. */
   eraStream: boolean;
+  /** OS-033: same D3 posture as `eraStream` — defaults OFF until the native
+   * moment sheet has been through review/TestFlight. `destinationFor`
+   * already resolves any `?item=<id>` link to `{ kind: 'moment', itemId }`
+   * regardless of this flag (it is the deep-link CONTRACT, not the routing
+   * decision); this flag is what `resolve()`/`screenForDestination` gate on
+   * before actually sending the shell to the native sheet vs. the WebView. */
+  moment: boolean;
 }
 
-/** Settings/inbox ship on by default (Phase 0, already shipped); the new OS-032 era stream ships OFF by default — see `RouteFlags.eraStream`'s doc. */
+/** Settings/inbox ship on by default (Phase 0, already shipped); the new OS-032 era stream and OS-033 moment sheet ship OFF by default — see `RouteFlags.eraStream`/`RouteFlags.moment`'s docs. */
 export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   settings: true,
   inbox: true,
   eraStream: false,
+  moment: false,
 };
 
 function screenForDestination(dest: ShellDestination): ScreenId | null {
   if (dest.kind === 'settings') return 'settings';
   if (dest.kind === 'inbox') return 'inbox';
   if (dest.kind === 'era-stream') return 'era-stream';
+  if (dest.kind === 'moment') return 'moment';
   return null;
 }
 
@@ -72,6 +81,7 @@ function screenForDestination(dest: ShellDestination): ScreenId | null {
 function flagForScreen(screen: ScreenId, flags: RouteFlags): boolean {
   if (screen === 'settings') return flags.settings;
   if (screen === 'inbox') return flags.inbox;
+  if (screen === 'moment') return flags.moment;
   return flags.eraStream;
 }
 
@@ -89,13 +99,20 @@ export function resolve(
 ): RouteResolution {
   const dest = siteUrl === undefined ? destinationFor(rawUrl) : destinationFor(rawUrl, siteUrl);
   const screen = screenForDestination(dest);
-  if (screen && flagForScreen(screen, flags)) return { native: screen };
+  if (screen && flagForScreen(screen, flags)) {
+    if (screen === 'moment' && dest.kind === 'moment') return { native: screen, itemId: dest.itemId };
+    return { native: screen };
+  }
   // Either destinationFor already said `web` (nothing native addresses this
   // URL), or it does but the flag is off — both fall back to the WebView.
-  // `dest.kind === 'web'` always carries a `url`; the native-but-flagged-off
-  // case has no web equivalent URL of its own, so it falls back to the site
-  // root the same way destinationFor does for an unroutable link.
-  return { web: dest.kind === 'web' ? dest.url : siteUrl ?? 'https://www.longlivets.com' };
+  // `dest.kind === 'web'` always carries a `url`, and so does `'moment'`
+  // (OS-033: the website already renders `?item=<id>` itself via its own
+  // deep-link handling, so a flagged-off moment falls back to THAT url
+  // rather than the bare site root — unlike settings/inbox/era-stream,
+  // which have no web equivalent of their own to fall back to).
+  if (dest.kind === 'web') return { web: dest.url };
+  if (dest.kind === 'moment') return { web: dest.url };
+  return { web: siteUrl ?? 'https://www.longlivets.com' };
 }
 
 /** True when `resolve()` would send this URL to a native screen right now. */
@@ -108,8 +125,8 @@ export function isNativeRoute(
 }
 
 export interface NavigateHandlers {
-  /** Show the given native screen (settings, inbox, …). */
-  openNative: (screen: ScreenId) => void;
+  /** Show the given native screen (settings, inbox, …). `itemId` is set only for `screen === 'moment'` (OS-033's `?item=<id>` deep link). */
+  openNative: (screen: ScreenId, itemId?: string) => void;
   /** Load this URL in the WebView. */
   openWeb: (url: string) => void;
 }
@@ -129,7 +146,9 @@ export function createNavigate(
 ): (rawUrl: string | null | undefined) => void {
   return (rawUrl: string | null | undefined) => {
     const resolution = resolve(rawUrl, siteUrl, getFlags());
-    if ('native' in resolution) handlers.openNative(resolution.native);
-    else handlers.openWeb(resolution.web);
+    if ('native' in resolution) {
+      if (resolution.itemId !== undefined) handlers.openNative(resolution.native, resolution.itemId);
+      else handlers.openNative(resolution.native);
+    } else handlers.openWeb(resolution.web);
   };
 }

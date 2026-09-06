@@ -30,6 +30,7 @@ import { NotificationSettingsScreen } from './components/NotificationSettingsScr
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 import { EraStreamScreen } from './components/EraStreamScreen';
+import { MomentSheet } from './components/MomentSheet';
 
 export default function App() {
   // The page the shell shows. Deep links replace it; the WebView keeps its
@@ -46,19 +47,25 @@ export default function App() {
   // OS-032: the native era stream, reached via `?screen=era-stream` once the
   // `eraStream` route flag is on (off by default — see routes.ts).
   const [eraStreamOpen, setEraStreamOpen] = useState(false);
+  // OS-033: the native moment detail sheet, reached via `?item=<id>` once the
+  // `moment` route flag is on (off by default — see routes.ts). Holds the id
+  // rather than a boolean since the sheet needs it to load the moment.
+  const [momentItemId, setMomentItemId] = useState<string | null>(null);
 
   // OS-030: the single navigate(url) every entry point below funnels
   // through — deep links, inbox rows, the web→native bridge, and (via
   // SiteShell's onShouldStart) in-WebView link clicks to native-capable
   // routes. `resolve()` already applies the per-screen feature flags, so
   // toggling one takes effect on the very next navigation with no rebuild.
-  const openNativeScreen = useCallback((screen: ScreenId) => {
+  const openNativeScreen = useCallback((screen: ScreenId, itemId?: string) => {
     setNotificationSettingsOpen(false);
     setInboxOpen(false);
     setOnboardingOpen(false);
     setEraStreamOpen(false);
+    setMomentItemId(null);
     if (screen === 'settings') setNotificationSettingsOpen(true);
     else if (screen === 'era-stream') setEraStreamOpen(true);
+    else if (screen === 'moment' && itemId) setMomentItemId(itemId);
     else setInboxOpen(true);
   }, []);
 
@@ -67,6 +74,7 @@ export default function App() {
     setInboxOpen(false);
     setOnboardingOpen(false);
     setEraStreamOpen(false);
+    setMomentItemId(null);
     setWebUrl(url);
   }, []);
 
@@ -152,7 +160,9 @@ export default function App() {
               onOpenItem={(event) => navigate(event.deepLink)}
             />
           ) : eraStreamOpen ? (
-            <EraStreamScreen />
+            <EraStreamScreen onOpenItem={(id) => navigate(`${SITE_URL}?item=${encodeURIComponent(id)}`)} />
+          ) : momentItemId ? (
+            <MomentSheet itemId={momentItemId} onClose={() => setMomentItemId(null)} />
           ) : onboardingOpen ? (
             <OnboardingScreen
               onDone={(outcome) => {
