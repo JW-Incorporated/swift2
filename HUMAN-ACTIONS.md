@@ -259,6 +259,22 @@ RemoteTrigger access.
 **Worked if:** either a comment-edit tool is confirmed available and a
 follow-up PR reverts to edit-in-place, or you mark this `SKIP` because no
 such tool exists.
+
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-2):** resolved by the
+routines-migration (#47), not by a connector change. Kevin's daily desk
+now runs as `.github/workflows/routine-kevin-daily-desk.yml` with `Bash`
+allowed and `GH_TOKEN` in the environment, so
+`gh api -X PATCH repos/{owner}/{repo}/issues/comments/{id}` — true
+edit-in-place — is available with no account access at all. The
+claude.ai MCP connector this item asked you to inspect is being retired
+under #47. Reverting `docs/kevin.md` and the runner prompts from
+append-and-supersede back to edit-in-place is agent work, tracked on the
+swift2 kanban (child of t_a0ad2392). Nothing left for a founder.
+
+**Status:** DONE (2026-09-06)
+
+---
+
 ### 41. [BLOCKING] Rename Karen's live trigger to match its judgment-only prompt (#3616, T-5) — ~2 min
 
 **Filed:** 2026-09-01
@@ -305,7 +321,17 @@ live duplicate), not part of this rename.
 `Karen — weekly judgment slice`, `runners.md`'s tables show the new name
 with no RENAME PENDING flag, and issue #3616 is closed.
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-1):** the ground moved
+under this item. The routines-migration (#47) made
+`.github/workflows/routine-karen-nightly.yml` the live runner; the
+claude.ai trigger this item wanted renamed is on #47's *disable* list. A
+trigger about to be retired is never renamed. The rename was applied
+where it now matters — `routine_name` in the workflow and
+`scripts/marjorie/runner-cadence.json` read `Karen — weekly judgment
+slice`; `runners.md`'s live table shows the new name with no RENAME
+PENDING flag; #3616 closed. Nothing left for a founder.
+
+**Status:** DONE (2026-09-06)
 
 ---
 
@@ -643,7 +669,26 @@ information programmatically.
 production (not the fixture) marked **PASS**, and §2's plan/backup-status
 table is filled in instead of "UNVERIFIED."
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-4):** step 1 was already
+answered by your 2026-08-30 report (Free plan, no platform backups, no
+PITR) — that *is* the dashboard reading; §2 Layer A records it. Step 3
+needs no founder: `workflow_dispatch` is reachable from any session with
+repo write, so the production-bytes drill was clicked today —
+run [34054042528](https://github.com/JW-Incorporated/swift2/actions/runs/34054042528).
+Result: **the backup half PASSED against real production bytes** (35
+tables · 8298 rows · 11.27 MB read in 7.7 s over a read-only session)
+and **the restore half FAILED** — `20260904000000_clown_sessions.sql`
+references `auth.users`, and the throwaway Postgres has no `auth` schema
+(Supabase-only). The workflow still reported green because `node … | tee`
+without `set -o pipefail` masks the script's exit code, so the "Record the
+result" step closed the alert as PASSED. Both are agent-fixable bugs and
+are on the swift2 kanban (children of t_a0ad2392): fix the drill so a
+non-Supabase target gets a stub `auth` schema, and make the workflow fail
+honestly. The drill re-runs itself from that fix's PR. Nothing left for a
+founder on this item; the gate flips when the corrected drill passes.
+
+**Status:** DONE (2026-09-06) — founder steps complete; remaining work is
+engineering, tracked on kanban and on #680.
 
 ---
 
@@ -762,7 +807,19 @@ files every Sunday and says so plainly rather than silently doing nothing.
 **Worked if:** the checklist file has real entries and at least one real
 export has been parsed without silently returning 0 posts.
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-5):** this is not a
+decision and should not sit in the Founders' Brief for 13 days. Two halves:
+(1) the checklist is being seeded by an agent from the groups already
+researched in `sources.md` § "Facebook Groups research" (Taylor Swift's
+Vault, the bracelet-trading groups, Kulto ni TAYLOR SWIFT), each entry
+flagged `candidate: true` until a real export arrives — the Sunday
+reminder then lists them instead of shipping empty; (2) the real export
+itself needs your Facebook login and stays on the Sunday
+`fb-export-reminder.yml` issue, which is the correct place to nag for it —
+not the brief. Edit the seeded list any time; nothing waits on you.
+
+**Status:** DONE (2026-09-06) — converted to the weekly reminder; seeding
+tracked on the swift2 kanban (child of t_a0ad2392).
 
 ---
 
@@ -829,7 +886,21 @@ and is the reason `main` has stayed green.
 **Worked if:** whichever you choose, `gh api repos/JW-Incorporated/swift2/rulesets/18819106`
 reflects it, and a test PR still merges once `build` is green.
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-3):** decided by
+precedent, no founder answer needed. `CLAUDE.md` ("`build` gates every
+merge"; "Never babysit your own PR" — land via PR + auto-merge) and
+`docs/decisions.md` 2026-08-22 (merge/push authority granted *through
+`gh pr merge`*, not direct push) already encode the answer this item's own
+recommendation gives: keep `protect-main` as is. Reversible at any time
+via the ruleset UI if a founder ever wants otherwise — that would be a new
+decision, filed fresh. Verified 2026-09-06 (`gh api
+repos/JW-Incorporated/swift2/rules/branches/main`): `main` is governed by
+active ruleset `protect-swift2-main` (id `21672404` — the `18819106` id
+above is stale, that ruleset no longer exists) enforcing `pull_request`,
+`required_status_checks`, `non_fast_forward`, `deletion`. Same posture,
+new id.
+
+**Status:** SKIP (2026-09-06) — precedent already answers it; keep PRs required.
 
 ---
 
@@ -869,7 +940,21 @@ credentials, this was just registering accounts/keys ahead of that build.
 
 **Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
 
-**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-6):** Reddit is no longer
+a prerequisite. The knowledge engine already reads Reddit without any API
+key — `apps/worker/src/sources/reddit-rss.ts` documents the verified
+no-auth path (`<permalink>.rss?limit=N&sort=top`, and subreddit RSS
+feeds), and `scripts/merch-engine/fanmade-discovery.mjs` already polls
+`r/<sub>/new.json` (403 from GitHub runners, fine through the JW Labs
+`home-relay` lane on Joey's home PC). Hype evidence for E5 (score +
+comment count) is fully available that way; the script-app support ticket
+can be ignored or answered whenever Reddit replies — if a key ever arrives
+it becomes an optimization, not a gate. Etsy and Awin are done. The
+marketplace-research build is unparked and tracked on the swift2 kanban
+(child of t_a0ad2392). Nothing left for a founder.
+
+**Status:** DONE (2026-09-06) — Etsy + Awin keys in place; Reddit
+dependency removed by ruling.
 
 ---
 

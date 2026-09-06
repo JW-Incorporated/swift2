@@ -79,7 +79,7 @@ drifts).
 | ~~Kevin — S3 eng triage (cloud)~~ **(DISABLED 2026-09-01, Joey, T-10)** | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | ~~`43 15 * * *`~~ | ⛔ disabled — superseded by Kevin daily desk, T-10 | `claude-sonnet-5` |
 | ~~Kevin — S2 user-feedback digest (cloud)~~ **(DISABLED 2026-09-01, Joey, T-10)** | `trig_0136mXcpmzn6mYtYoUQC3eGP` | ~~`13 15 * * *`~~ | ⛔ disabled — superseded by Kevin daily desk, T-10 | `claude-sonnet-5` |
 | Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ (pending disable — kept live until the new desk's first Sunday fire confirms Stream 1, see HUMAN-ACTIONS.md #38) | `claude-opus-4-8` |
-| Karen — nightly scan ⚠️ **RENAME PENDING (T-5, 2026-08-31)** — registered name not yet resynced to `Karen — weekly judgment slice`; prompt already judgment-only, see `runner-prompts/karen-nightly.md` and § T-5 below | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
+| Karen — weekly judgment slice (T-5 rename applied 2026-09-06 on the live runner, `.github/workflows/routine-karen-nightly.yml`; the claude.ai trigger still registered as `Karen — nightly scan` is on HUMAN-ACTIONS.md #47's disable list, not a rename list) | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | `claude-opus-4-8` |
 | ~~Content Shift — authoring runs~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01PonDFeQCL4iRNzceGyAYrm` | ~~`0 17 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 1), warm spare | `claude-opus-4-8` |
 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ✅ | `claude-opus-4-8` |
@@ -548,14 +548,21 @@ that PR only touched Karen Deep (T-6, a separate not-yet-created routine),
 Nils cadence, Austin's model trial, and the notification-quality desk; it
 never edited this prompt file or this trigger.
 
-**Remaining scope: rename the live trigger to match.** Tracked as
-[#3616](https://github.com/JW-Incorporated/swift2/issues/3616) so this
-doesn't strand as an untracked "whoever has access" note. The registered
-name is still `Karen — nightly scan`, contradicting its own judgment-only
-content and weekly cadence (documented above). Whoever next has account
-access to <https://claude.ai/code/routines> should, in one `job_config`
-round-trip (get → edit only `name` in the returned object → PUT the whole
-thing back — **never a partial PUT**, per the RemoteTrigger footgun above):
+**Rename — DONE 2026-09-06 (Fable ruling FR-t_a0ad2392-1, closes
+[#3616](https://github.com/JW-Incorporated/swift2/issues/3616)).** The
+routines-migration (HUMAN-ACTIONS.md #47) made
+`.github/workflows/routine-karen-nightly.yml` the live runner for this
+routine; its `routine_name` is now `Karen — weekly judgment slice`, and
+`scripts/marjorie/runner-cadence.json` matches. The claude.ai trigger
+`trig_01TmYaZgnecrEp9mkeV3Gq6X` keeps its old registered name until it is
+disabled under #47 — it is never renamed, because it is being retired.
+The `job_config` round-trip below is kept for the record only; do not run
+it against a trigger that is about to be disabled.
+
+Historical procedure (superseded): whoever next had account access to
+<https://claude.ai/code/routines> would, in one `job_config` round-trip
+(get → edit only `name` in the returned object → PUT the whole thing back
+— **never a partial PUT**, per the RemoteTrigger footgun above):
 
 | Field | Current | New |
 |---|---|---|

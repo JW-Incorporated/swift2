@@ -7,6 +7,43 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-06 — Fable triage of the Founders' Brief: 7 of 13 "waiting on you" items were never founder items
+
+**Context:** Joey, 2026-09-06: "Dispatch one card to assess which of the
+issues can be solved without a founder. Be aggressive, make decisions."
+Brief #3893 listed 13 open founder asks. Kanban t_a0ad2392 (Fable 5.1)
+ruled each one against the reversibility test (2026-07-11 operating
+model) and the human-only list (credentials, real spend, irreversible
+external actions, legal exposure). Rulings are binding on agents; a
+founder may overrule after the fact by commenting the ruling id.
+
+| Ruling | Item | Verdict | Why |
+|---|---|---|---|
+| FR-t_a0ad2392-1 | HA#41 / #3616 Karen trigger rename | **Done by agent** | The live runner is now `.github/workflows/routine-karen-nightly.yml` (routines migration, HA#47); renamed there + `runner-cadence.json`. The claude.ai trigger is on #47's *disable* list — you never rename something you are retiring. |
+| FR-t_a0ad2392-2 | HA#42 / #3631 Kevin comment-edit tool | **Done by agent** | Kevin's desk now runs as a GitHub Action with `Bash` + `GH_TOKEN`; `gh api -X PATCH …/issues/comments/{id}` is edit-in-place with no connector change. Revert to edit-in-place is a child card. |
+| FR-t_a0ad2392-3 | HA#9 keep PRs required on `main` | **SKIP — precedent** | `CLAUDE.md` ("`build` gates every merge") and the 2026-08-22 merge-authority entry already assume PR-only landing. Reversible via the ruleset UI any time; verified `protect-swift2-main` (id 21672404) active. |
+| FR-t_a0ad2392-4 | HA#23 / #680 BACKUPS gate | **Founder half done; engineering half found broken** | Step 1 was Joey's 2026-08-30 report. Step 3 (`workflow_dispatch`) needs no founder — ran it: backup of production bytes PASSED (35 tables / 8298 rows / 11.27 MB), restore FAILED on `auth.users` (Supabase-only schema), and the workflow **masked the failure** (`\| tee` without `pipefail`). Two child cards. "Accept the risk" is not a founder decision either: a scheduled Layer-B backup artifact at zero spend mitigates it — child card. |
+| FR-t_a0ad2392-5 | HA#16 Facebook groups checklist | **Converted** | Seed from `sources.md`'s researched groups (child card); the real export needs Joey's login and belongs on the Sunday `fb-export-reminder.yml` issue, not the daily brief. |
+| FR-t_a0ad2392-6 | HA#4 Reddit API account | **Dependency removed** | Reddit is already read without a key (`reddit-rss.ts`, `fanmade-discovery.mjs`); Etsy + Awin keys exist. E5 marketplace research unparked — child card. |
+| FR-t_a0ad2392-7 | #1955 Midnights + TTPD depth spot-check | **Agent QA, not founder taste** | The J3.5 bar is the rubric's "Active" tier (2–4 sourceable items/month). That is measurable: a depth audit script + report (child card). The merge sequence that blocked it landed 2026-08-12; the ticket was stale. `founder-task` label removed; re-add only if the audit finds a gap that needs editorial judgment. |
+| FR-t_a0ad2392-8 | #138 CSAM enrollment (PhotoDNA + NCMEC) | **Deferred with trigger** | The on-file recommendation is "defer until the site accepts user photo uploads" and it does not. 58 days unanswered *is* deferral; deferral is reversible. `founder-decision` label removed so it leaves the daily brief; `cie:safety` stays. Hard trigger: any card/PR that adds user image upload must reopen the ask first (noted on the issue + `docs/definition-of-done.md`). Enrollment itself remains human-only when that day comes. |
+| — | HA#43–46 mobile release train (EXPO_TOKEN, iOS signing, Play key, push creds) | **Human-only — consolidated** | Credentials on Expo/Apple/Google accounts. Reduced to one decision card instead of four line items; `PLAY_SERVICE_ACCOUNT_JSON` already exists as a repo secret (2026-09-06), so the Android submit can be wired from Actions once `EXPO_TOKEN` exists (child card). |
+| — | #3891 SOCIAL_FREEZE | **Already cleared** | Joey flipped it 2026-09-06 19:01; verified posting resumed. |
+
+**Net:** 13 → 4 founder items (#47's 15 routine disables, `EXPO_TOKEN`,
+Wyatt's iOS credential upload, push credentials). Everything else is
+either done or on the swift2 kanban as children of t_a0ad2392.
+
+**Alternatives considered:** leave items as founder asks until answered
+(rejected — 5 of them had aged 13–58 days with no decision content); ask
+Joey to confirm each ruling before acting (rejected — every ruling is
+reversible and the directive was "make decisions").
+
+**Approved by:** Fable arbiter (claude-fable-5-1), per
+`policy/escalation-matrix.yaml`; founder overrule by comment.
+
+---
+
 ## 2026-09-05 — ADR: the content bundle is a versioned artifact, not a database (OS-010)
 
 **Context:** D1 (ratified 2026-09-05, `docs/specs/2026-09-05-one-source-
