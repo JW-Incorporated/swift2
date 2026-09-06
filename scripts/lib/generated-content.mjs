@@ -44,6 +44,14 @@ export const SYNC_TARGETS = [
   { sync: 'scripts/sync-song-moods.mjs', out: `${GENERATED_DIR}/song-moods.generated.ts` },
   { sync: 'scripts/sync-clownbot-lore.mjs', out: `${GENERATED_DIR}/clownbot-lore.generated.ts` },
   { sync: 'scripts/sync-longlive-merch.mjs', out: `${GENERATED_DIR}/merch.generated.ts` },
+  {
+    sync: 'scripts/generate-bundle-backed-modules.mjs',
+    out: `${GENERATED_DIR}/theories-bundle.generated.ts`,
+  },
+  {
+    sync: 'scripts/generate-bundle-backed-modules.mjs',
+    out: `${GENERATED_DIR}/videos-bundle.generated.ts`,
+  },
 ];
 
 /** Repo-relative POSIX paths of the generated artifacts, in sync order. */
@@ -68,6 +76,9 @@ export const SYNCS = SYNC_TARGETS.map((t) => t.sync);
  */
 export const OTHER_SYNC_TARGETS = [
   { sync: 'scripts/sync-source-tiers.mjs', out: 'scripts/lib/source-tiers.generated.mjs' },
+  // OS-031: the web's --era-*/--clown-* CSS variable defaults, generated
+  // from packages/experience/src/tokens.ts so web and native never drift.
+  { sync: 'scripts/generate-design-tokens.mjs', out: 'apps/web/app/tokens.generated.css' },
 ];
 
 /**

@@ -1,0 +1,151 @@
+# Mobile release train — iOS and Android move together, or not at all.
+#
+# Decision 2026-09-05 (docs/decisions.md, "Mobile release train"): no human
+# and no laptop is in the release path. Every qualifying merge to `main` runs
+# this on EAS's own infrastructure (triggered by
+# .github/workflows/mobile-release.yml via `eas workflow:run`), and EAS
+# decides — from the native fingerprint of the commit, not from a guess —
+# whether both platforms get an over-the-air JS update or new store builds.
+#
+# Invariants this file enforces:
+#   1. One commit → one fingerprint per platform → one decision per platform.
+#   2. When neither platform has a store build for its fingerprint, BOTH are
+#      built, and NEITHER is submitted until BOTH builds have succeeded
+#      (submit jobs `need` both builds). A failed iOS build blocks the Android
+#      submission and vice versa — no half-shipped native release.
+#   3. When both platforms already have a build for their fingerprint, ONE
+#      update job publishes ONE update group to both platforms atomically.
+#   4. Mixed case (a native change touched only one platform): the platform
+#      with an existing build gets the update, the other gets a build +
+#      submit. Both end up carrying the commit; the parity check
+#      (scripts/mobile/check-parity.mjs) reports the store-review lag.
+#
+# Prerequisites (HUMAN-ACTIONS.md #45/#46): iOS distribution credentials and
+# the App Store Connect API key stored in EAS credentials (not on a laptop),
+# and the Google Play service-account key stored in EAS credentials. Until
+# both exist, the submit jobs fail — loudly, on both platforms, which is the
+# intended failure mode.
+#
+# Runbook: docs/mobile-release.md.
+
+name: Mobile release train (iOS + Android together)
+
+on:
+  # Push triggers only fire when the Expo GitHub App is connected to the
+  # repo. The GitHub Action trigger below does not need that, so this block
+  # is belt-and-braces, not the primary path.
+  push:
+    branches: ['main']
+    paths:
+      - 'apps/mobile/**'
+      - 'packages/**'
+      - '!**/*.md'
+  workflow_dispatch:
+    inputs:
+      force_store_build:
+        description: Build and submit both platforms even if a build for this fingerprint already exists
+        type: boolean
+        default: false
+      message:
+        description: Release message (defaults to the commit message)
+        type: string
+        default: ''
+
+jobs:
+  fingerprint:
+    name: Fingerprint (native layer, both platforms)
+    type: fingerprint
+    environment: production
+
+  get_android_build:
+    name: Existing Android build for this fingerprint?
+    needs: [fingerprint]
+    type: get-build
+    params:
+      fingerprint_hash: ${{ needs.fingerprint.outputs.android_fingerprint_hash }}
+      profile: production
+      platform: android
+
+  get_ios_build:
+    name: Existing iOS build for this fingerprint?
+    needs: [fingerprint]
+    type: get-build
+    params:
+      fingerprint_hash: ${{ needs.fingerprint.outputs.ios_fingerprint_hash }}
+      profile: production
+      platform: ios
+
+  # ── Store path ─────────────────────────────────────────────────────────
+  build_android:
+    name: Build Android (store)
+    needs: [get_android_build]
+    if: ${{ !needs.get_android_build.outputs.build_id || inputs.force_store_build }}
+    type: build
+    params:
+      platform: android
+      profile: production
+      message: ${{ inputs.message || github.event.head_commit.message }}
+
+  build_ios:
+    name: Build iOS (store)
+    needs: [get_ios_build]
+    if: ${{ !needs.get_ios_build.outputs.build_id || inputs.force_store_build }}
+    type: build
+    params:
+      platform: ios
+      profile: production
+      message: ${{ inputs.message || github.event.head_commit.message }}
+
+  # Both submits need BOTH builds. If only one platform needed a build the
+  # other build job is skipped (not failed) and the submit still runs; if a
+  # build FAILS, both submits are blocked.
+  submit_android:
+    name: Submit Android (Play internal track)
+    needs: [build_android, build_ios]
+    if: ${{ needs.build_android.outputs.build_id }}
+    type: submit
+    params:
+      build_id: ${{ needs.build_android.outputs.build_id }}
+      profile: production
+
+  submit_ios:
+    name: Submit iOS (App Store Connect / TestFlight)
+    needs: [build_android, build_ios]
+    if: ${{ needs.build_ios.outputs.build_id }}
+    type: submit
+    params:
+      build_id: ${{ needs.build_ios.outputs.build_id }}
+      profile: production
+
+  # ── OTA path ───────────────────────────────────────────────────────────
+  # One update group, both platforms, one job — the atomic case.
+  publish_update_both:
+    name: Publish OTA update (both platforms, one group)
+    needs: [get_android_build, get_ios_build]
+    if: ${{ needs.get_android_build.outputs.build_id && needs.get_ios_build.outputs.build_id && !inputs.force_store_build }}
+    type: update
+    params:
+      branch: production
+      message: ${{ inputs.message || github.event.head_commit.message }}
+
+  # Mixed cases: only the platform that already has a matching build can
+  # take an update; the other is being built above.
+  publish_update_android_only:
+    name: Publish OTA update (Android only — iOS is being rebuilt)
+    needs: [get_android_build, get_ios_build]
+    if: ${{ needs.get_android_build.outputs.build_id && !needs.get_ios_build.outputs.build_id && !inputs.force_store_build }}
+    type: update
+    params:
+      branch: production
+      platform: android
+      message: ${{ inputs.message || github.event.head_commit.message }}
+
+  publish_update_ios_only:
+    name: Publish OTA update (iOS only — Android is being rebuilt)
+    needs: [get_android_build, get_ios_build]
+    if: ${{ !needs.get_android_build.outputs.build_id && needs.get_ios_build.outputs.build_id && !inputs.force_store_build }}
+    type: update
+    params:
+      branch: production
+      platform: ios
+      message: ${{ inputs.message || github.event.head_commit.message }}

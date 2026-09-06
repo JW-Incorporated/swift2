@@ -88,8 +88,11 @@ export function buildGateActivity(currentGates, { issues = [], prs = [] } = {}) 
 
 /**
  * `'idle'` — nothing has moved anywhere: a real blocker.
- * `'tracker-stale'` — the tracker row is old but the gate's tickets or PRs
- *                     moved inside the window: a bookkeeping failure.
+ * `'moving'` — the row is frozen but its tickets saw activity (comments,
+ *              edits) inside the window: neither idle nor contradicted.
+ * `'tracker-stale'` — the tracker row is old but an open PR targets the
+ *                     gate's tickets, or one of them CLOSED inside the window:
+ *                     a bookkeeping failure.
  * `'unknown'` — the row names no tickets at all, so we cannot tell. Treated as
  *               idle for estimation (conservative) but labelled honestly.
  */
@@ -102,11 +105,23 @@ export function classifyStall(gate, activity, nowMs, windowDays) {
     const list = a.openPRs.map((p) => `#${p.number}`).join(', ');
     return { kind: 'tracker-stale', reason: `open PR ${list} targets this gate's tickets`, prs: a.openPRs };
   }
-  if (a.lastActivityMs !== null && nowMs - a.lastActivityMs < windowDays * DAY_MS) {
-    const d = Math.floor((nowMs - a.lastActivityMs) / DAY_MS);
-    return { kind: 'tracker-stale', reason: `gate tickets last moved ${d}d ago, tracker row is older` };
+  // A ticket CLOSED inside the window while the row's status never moved is
+  // a real contradiction. A ticket merely UPDATED (a comment, a label, an
+  // assignee) is not — 2026-09-05 audit: every triage comment on #680/#1719
+  // flagged DEPTH/WORTHY/ERRORS/BACKUPS as "contradicted by live tickets"
+  // and turned the Launch-tracker check red on a day the file itself had
+  // been edited 24h earlier. Activity is not a status change; only an
+  // artifact that claims progress (a PR, a closed ticket) contradicts a row.
+  const closedRecently = a.tickets.filter((t) => t.state === 'closed' && t.closedAt
+    && nowMs - new Date(t.closedAt).getTime() < windowDays * DAY_MS);
+  if (closedRecently.length > 0) {
+    const list = closedRecently.map((t) => `#${t.number}`).join(', ');
+    return { kind: 'tracker-stale', reason: `${list} closed inside the window, tracker row never moved` };
   }
   const d = a.lastActivityMs === null ? null : Math.floor((nowMs - a.lastActivityMs) / DAY_MS);
+  if (d !== null && d < windowDays) {
+    return { kind: 'moving', reason: `ticket activity ${d}d ago, no status change yet` };
+  }
   return { kind: 'idle', reason: d === null ? 'no ticket activity on record' : `no ticket activity in ${d} days` };
 }
 

@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
+import { LORE_RAW } from './clownbot-lore.generated';
 import {
   FRESH_WINDOW_DAYS,
   LORE,
@@ -10,6 +11,20 @@ import {
   loreById,
   loreFreshness,
 } from './clownbot-lore';
+
+/**
+ * OS-014b-5: `LORE` is now sourced from the published content bundle's own
+ * `clownbot-lore.json` artifact (via `readBundleArtifact`) instead of the
+ * `.generated.ts` re-derivation. This is the byte-identical regression
+ * guard for that migration — the bundle build (`scripts/build-content-bundle.mjs`)
+ * folds `clownbot-lore.generated.ts`'s `LORE_RAW` straight into the bundle's
+ * JSON with no transformation, so the two must always match exactly.
+ */
+describe('bundle-sourced LORE is byte-identical to the generated-file output (OS-014b-5)', () => {
+  it('matches clownbot-lore.generated.ts LORE_RAW exactly', () => {
+    expect(LORE).toEqual(LORE_RAW);
+  });
+});
 
 /**
  * "No source, no ship" is enforced here rather than by good intentions. A
@@ -134,5 +149,32 @@ describe('scheduled refresh ownership', () => {
     const root = resolve(import.meta.dirname, '../../../..');
     const pkg = readFileSync(resolve(root, 'package.json'), 'utf8');
     expect(pkg).toContain('sync-clownbot-lore.mjs');
+  });
+});
+
+describe('LORE stays wired into the published bundle build (OS-014b-5, FR-t_cd5741fc-1/-2)', () => {
+  it('build-content-bundle.mjs folds this exact LORE into clownbot-lore.json', () => {
+    // Fable ruling FR-t_cd5741fc-2: clownbot-lore.ts is reachable from a
+    // 'use client' component (clown-board.ts -> ClownBoard.tsx), so it must
+    // keep importing the clownbot-lore.generated.ts literal as its runtime
+    // value (a Turbopack client bundle cannot contain node:fs) rather than
+    // reading the published bundle artifact off disk at runtime (that
+    // artifact does not exist yet when this suite runs in CI — the publish
+    // step is part of apps/web's `prebuild`, which runs during `npm run
+    // build`, after `npm run test`). The "bundle is authoritative" invariant
+    // this migration wants is instead proven at the build-script level:
+    // scripts/build-content-bundle.test.ts's "wraps clownbotLore/songMoods
+    // as their bundle-file shape" test asserts
+    // `entries.clownbotLore.value === { lore: LORE }` directly against
+    // scripts/build-content-bundle.mjs's own logic — i.e. the published
+    // bundle's clownbot-lore.json is defined as `{ lore: LORE }` with zero
+    // transformation, so this module's LORE export IS the bundle's source
+    // of truth by construction. This test just keeps the connection visible
+    // from clownbot-lore.ts's own suite.
+    const buildScript = readFileSync(
+      resolve(import.meta.dirname, '../../../../scripts/build-content-bundle.mjs'),
+      'utf8',
+    );
+    expect(buildScript).toContain("entries.clownbotLore = { value: { lore: [...LORE] }");
   });
 });

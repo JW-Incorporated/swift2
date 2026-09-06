@@ -1,4 +1,4 @@
-import type { ContentTag } from './types';
+import type { ContentTag } from '@swift2/experience';
 import { ALL_TAGS } from './tags';
 
 /**

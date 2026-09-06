@@ -3,10 +3,10 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Filter, ArrowUpDown, CheckCircle2, Layers, ChevronDown, ChevronUp, TrendingUp, X } from 'lucide-react';
 import { useAppState } from '@/lib/longlive/store';
-import { getEra, eraIndex } from '@/lib/longlive/eras';
-import { CLUE_PAIRS } from '@/lib/longlive/lenses';
+import { getEra, eraIndex } from '@swift2/experience';
+import { CLUE_PAIRS } from '@swift2/experience';
 import { gapYears } from '@/lib/longlive/decode';
-import type { CluePair } from '@/lib/longlive/types';
+import type { CluePair } from '@swift2/experience';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { DecodeCard } from './DecodeCard';
 import { PatternRail } from './PatternRail';

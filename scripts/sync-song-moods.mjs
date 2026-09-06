@@ -247,7 +247,8 @@ export function renderModule(catalogue) {
   lines.push('//');
   lines.push(`// ${catalogue.length} songs, ${scored} scored.`);
   lines.push('');
-  lines.push("import type { SongMood } from './types';");
+  lines.push("import type { SongMood } from '@swift2/experience';");
+  lines.push("import { setDefaultSongCatalogue } from '@swift2/experience';");
   lines.push('');
   lines.push('export const SONG_MOODS: SongMood[] = [');
   for (const s of catalogue) {
@@ -267,6 +268,8 @@ export function renderModule(catalogue) {
     lines.push('  },');
   }
   lines.push('];');
+  lines.push('');
+  lines.push('setDefaultSongCatalogue(SONG_MOODS);');
   lines.push('');
   return lines.join('\n');
 }

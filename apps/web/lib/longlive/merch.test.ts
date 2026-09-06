@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { CONTENT, getContentItem } from './content';
 import {
@@ -7,8 +9,39 @@ import {
   shopTheLookItemsFrom,
   type MerchItem,
 } from './merch';
-import { primaryImage } from './types';
+import { primaryImage } from '@swift2/experience';
 import { FAN_MADE } from './merch.generated';
+
+/**
+ * OS-014b-4 (see merch.ts's header for the full Fable-ruling reasoning):
+ * `OFFICIAL`/`FAN_MADE` keep importing the generated literals rather than
+ * reading the published bundle at runtime, because this module is
+ * reachable from `'use client'` components. Per the same lesson OS-014b-5
+ * hit on clownbot-lore.ts (a live CI ENOENT: this suite runs BEFORE
+ * apps/web's `prebuild` publishes the bundle to disk, so asserting
+ * against the actual published `merch.json` file here is not possible),
+ * this test instead proves byte-identity by construction:
+ * `scripts/lib/dump-longlive-sources.ts` (the bundle builder's data
+ * source) computes its `MERCH_CATALOGUE` via `buildMerchCatalogue(CONTENT,
+ * OFFICIAL, FAN_MADE)` — the exact same function and the exact same
+ * `OFFICIAL`/`FAN_MADE`/`CONTENT` inputs this module uses to build its own
+ * `MERCH_CATALOGUE` export — so the two are byte-identical by
+ * construction.
+ */
+describe('bundle-sourced MERCH_CATALOGUE stays wired into the published bundle build (OS-014b-4)', () => {
+  it("scripts/lib/dump-longlive-sources.ts builds MERCH_CATALOGUE via buildMerchCatalogue(CONTENT, OFFICIAL, FAN_MADE)", () => {
+    const dumpScript = readFileSync(
+      resolve(import.meta.dirname, '../../../../scripts/lib/dump-longlive-sources.ts'),
+      'utf8',
+    );
+    expect(dumpScript).toContain(
+      "import { OFFICIAL, FAN_MADE } from '../../apps/web/lib/longlive/merch.generated'",
+    );
+    expect(dumpScript).toContain(
+      'const MERCH_CATALOGUE = buildMerchCatalogue(CONTENT, OFFICIAL, FAN_MADE);',
+    );
+  });
+});
 
 // Mirrors merch.ts's private MERCH_KINDS set (the normalization target for
 // every catalogue item's `kind`) — kept in sync deliberately rather than

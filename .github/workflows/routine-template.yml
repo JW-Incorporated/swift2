@@ -1,0 +1,142 @@
+# Reusable workflow for the Claude Routines → GitHub Actions migration
+# (docs/audits/2026-09-05-claude-routines-relocation-assessment.md +
+# docs/audits/2026-09-05-routines-oauth-token-revision.md, kanban t_876f9697,
+# Joey D1=B 2026-09-05).
+#
+# One thin `routine-<name>.yml` caller file per routine (schedule +
+# `workflow_dispatch` + routine-specific `permissions:`/secrets) calls this
+# template via `uses:` + `with:` — mirrors the original routine → workflow
+# mapping table 1:1: cron -> on.schedule.cron, prompt (inline copy) -> the
+# prompt FILE under docs/agents/runner-prompts/ (no copy, no drift), model ->
+# `model` input, allowed_tools -> `allowed_tools` input, RemoteTrigger manual
+# run -> `workflow_dispatch`, trigger ID -> the file name.
+#
+# Auth (2026-09-05 revision): uses CLAUDE_CODE_OAUTH_TOKEN (Joey's Claude
+# Pro/Max plan usage, via `claude setup-token` — see HUMAN-ACTIONS.md), NOT
+# ANTHROPIC_API_KEY. This draws from the SAME shared plan-usage pool as
+# Joey's own interactive Claude Code sessions, not metered per-token
+# billing — see the revision doc's "honest remaining catch" before adding
+# more routines than the plan can absorb.
+#
+# The secret does not exist yet as of this migration (HUMAN-ACTIONS.md item
+# below) — every routine workflow this template backs SKIPS cleanly with a
+# loud log line instead of failing red until Joey runs `claude setup-token`
+# and the secret is set. This is deliberate: a red check on every scheduled
+# routine, every day, for a human step nobody has done yet is worse noise
+# than one accurate "waiting on secret" line each run.
+name: routine-template
+
+on:
+  workflow_call:
+    inputs:
+      routine_name:
+        description: "Human-readable routine name, for logs/PR-body context only"
+        required: true
+        type: string
+      prompt_file:
+        description: "Path (repo-relative) to the routine's prompt file under docs/agents/runner-prompts/"
+        required: true
+        type: string
+      model:
+        description: "Model id, e.g. claude-opus-4-8, claude-sonnet-5, claude-haiku-4-5-20251001"
+        required: true
+        type: string
+      allowed_tools:
+        description: "Comma-separated claude_args --allowedTools list (narrowest that works — routine-invariants.md)"
+        required: true
+        type: string
+      timeout_minutes:
+        description: "Job timeout — bound every routine so a hang cannot block the next scheduled run"
+        required: false
+        type: number
+        default: 30
+      max_turns:
+        description: "claude_args --max-turns ceiling, a second cost/runaway guard alongside allowed_tools"
+        required: false
+        type: number
+        default: 40
+      checkout_token_secret:
+        description: |
+          Which repo secret to check out with, by NAME (not value) — 'GITHUB_TOKEN'
+          (default, read-mostly routines that only file issues/comments) or
+          'SOCIAL_POSTER_PAT' (routines that open a PR against branch-protected
+          main — the built-in token cannot trigger the required `build` check on
+          its own PRs, same reason growth-snapshot.yml / appearance-discovery.yml
+          use the PAT).
+        required: false
+        type: string
+        default: "GITHUB_TOKEN"
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN:
+        required: false
+      SOCIAL_POSTER_PAT:
+        required: false
+      ANTHROPIC_API_KEY:
+        required: false
+      SUPABASE_URL:
+        required: false
+      SUPABASE_SERVICE_ROLE_KEY:
+        required: false
+      SUPABASE_DB_URL:
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  run-routine:
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout_minutes }}
+    concurrency:
+      # One routine, one lane — the same routine's next scheduled fire never
+      # queues behind or races a still-running prior one.
+      group: routine-${{ inputs.routine_name }}
+      cancel-in-progress: false
+    steps:
+      - name: Guard — CLAUDE_CODE_OAUTH_TOKEN not set yet
+        id: guard
+        run: |
+          if [ -z "${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}" ]; then
+            echo "::warning::CLAUDE_CODE_OAUTH_TOKEN is not set — this routine (${{ inputs.routine_name }}) is inert until Joey runs 'claude setup-token' and the secret is stored (see HUMAN-ACTIONS.md). Skipping run, not failing."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v7
+        if: steps.guard.outputs.skip == 'false'
+        with:
+          token: ${{ inputs.checkout_token_secret == 'SOCIAL_POSTER_PAT' && secrets.SOCIAL_POSTER_PAT || secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v7
+        if: steps.guard.outputs.skip == 'false'
+        with:
+          node-version: "24"
+
+      - name: Load prompt file (repo file is the source of truth — no inline copy)
+        id: load_prompt
+        if: steps.guard.outputs.skip == 'false'
+        run: |
+          set -euo pipefail
+          if [ ! -f "${{ inputs.prompt_file }}" ]; then
+            echo "::error::prompt_file '${{ inputs.prompt_file }}' does not exist in this checkout."
+            exit 1
+          fi
+          {
+            echo 'prompt<<ROUTINE_PROMPT_EOF'
+            cat "${{ inputs.prompt_file }}"
+            echo ROUTINE_PROMPT_EOF
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Run ${{ inputs.routine_name }}
+        if: steps.guard.outputs.skip == 'false'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: ${{ steps.load_prompt.outputs.prompt }}
+          claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}"
+        env:
+          GH_TOKEN: ${{ inputs.checkout_token_secret == 'SOCIAL_POSTER_PAT' && secrets.SOCIAL_POSTER_PAT || secrets.GITHUB_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}

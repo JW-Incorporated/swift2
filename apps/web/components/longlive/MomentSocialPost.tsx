@@ -4,7 +4,7 @@ import { useState } from 'react';
 // lucide-react 1.x has no brand glyphs (no `Instagram` export). The caption
 // says the platform in words, so a neutral camera mark is enough here.
 import { Camera, ExternalLink } from 'lucide-react';
-import type { SocialPost } from '@/lib/longlive/types';
+import type { SocialPost } from '@swift2/experience';
 
 /**
  * A social post the moment is about, rendered INLINE on our page (issue #1074).
