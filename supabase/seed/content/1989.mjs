@@ -15,6 +15,13 @@ export default {
       month: 11,
       day: 15,
       category: 'business',
+      // Cross-link (Answerer depth pass, 2026-09-06): the record-setting
+      // million-copy opening weeks she strung together — Red (2012, the record
+      // this one broke) and Speak Now (2010, the first).
+      relatedIds: [
+        'moment:vault-red-red-sells-1-2-million-copies-the-biggest-week-in-a-decade',
+        'moment:vault-speak-now-speak-now-sells-over-a-million-copies-in-a-single-week',
+      ],
       title: '1989 becomes her third million-copy opening week',
       snippet:
         "1.287 million copies in week one — the biggest sales week for any album since Eminem's The Eminem Show in 2002, and her third album to cross a million copies in its first week.",
