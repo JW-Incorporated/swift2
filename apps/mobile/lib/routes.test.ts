@@ -85,7 +85,13 @@ describe('resolve — feature flags (OS-030: toggle without a rebuild)', () => {
   });
 
   it('flipping both flags off sends every native-capable route to the web', () => {
-    const flags: RouteFlags = { settings: false, inbox: false, eraStream: false };
+    const flags: RouteFlags = {
+      settings: false,
+      inbox: false,
+      eraStream: false,
+      community: false,
+      merch: false,
+    };
     expect(resolve('https://www.longlivets.com/?screen=settings', undefined, flags)).toEqual({
       web: 'https://www.longlivets.com',
     });
@@ -106,6 +112,34 @@ describe('resolve — OS-032 native era stream (off by default)', () => {
     const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, eraStream: true };
     expect(resolve('https://www.longlivets.com/?screen=era-stream', undefined, flags)).toEqual({
       native: 'era-stream',
+    });
+  });
+});
+
+describe('resolve — OS-037 native community/merch (off by default)', () => {
+  it('falls back to the WebView site root when the community flag is off (default)', () => {
+    expect(resolve('https://www.longlivets.com/?mode=community')).toEqual({
+      web: 'https://www.longlivets.com',
+    });
+  });
+
+  it('routes to native once the community flag is flipped on', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, community: true };
+    expect(resolve('https://www.longlivets.com/?mode=community', undefined, flags)).toEqual({
+      native: 'community',
+    });
+  });
+
+  it('falls back to the WebView site root when the merch flag is off (default)', () => {
+    expect(resolve('https://www.longlivets.com/?mode=merch')).toEqual({
+      web: 'https://www.longlivets.com',
+    });
+  });
+
+  it('routes to native once the merch flag is flipped on', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, merch: true };
+    expect(resolve('https://www.longlivets.com/?mode=merch', undefined, flags)).toEqual({
+      native: 'merch',
     });
   });
 });

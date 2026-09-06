@@ -169,4 +169,22 @@ describe('destinationFor (shell routing, OS-003)', () => {
       kind: 'era-stream',
     });
   });
+
+  // OS-037
+  it('routes ?mode=community to the native community screen', () => {
+    expect(destinationFor('https://www.longlivets.com/?mode=community')).toEqual({
+      kind: 'community',
+    });
+  });
+
+  it('routes ?mode=merch to the native merch screen', () => {
+    expect(destinationFor('https://www.longlivets.com/?mode=merch')).toEqual({
+      kind: 'merch',
+    });
+  });
+
+  it('passes ?mode=threads through to the WebView (no native screen for it)', () => {
+    const url = 'https://www.longlivets.com/?mode=threads';
+    expect(destinationFor(url)).toEqual({ kind: 'web', url });
+  });
 });

@@ -32,7 +32,7 @@ import { destinationFor, type ShellDestination } from '@swift2/shared';
  * more entry here and one more flag, nothing else in this file changes
  * shape.
  */
-export type ScreenId = 'settings' | 'inbox' | 'era-stream';
+export type ScreenId = 'settings' | 'inbox' | 'era-stream' | 'community' | 'merch';
 
 export type RouteResolution = { native: ScreenId } | { web: string };
 
@@ -52,19 +52,29 @@ export interface RouteFlags {
    * flip that would put an unreviewed native screen in front of every user
    * on merge. */
   eraStream: boolean;
+  /** OS-037: same progressive-rollout posture as `eraStream` — the native
+   * community directory ships OFF by default; a remote-config flip after
+   * review turns it on without a rebuild. */
+  community: boolean;
+  /** OS-037: same progressive-rollout posture as `eraStream`/`community`. */
+  merch: boolean;
 }
 
-/** Settings/inbox ship on by default (Phase 0, already shipped); the new OS-032 era stream ships OFF by default — see `RouteFlags.eraStream`'s doc. */
+/** Settings/inbox ship on by default (Phase 0, already shipped); the new OS-032 era stream, and OS-037's community/merch, ship OFF by default — see `RouteFlags`'s per-field docs. */
 export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   settings: true,
   inbox: true,
   eraStream: false,
+  community: false,
+  merch: false,
 };
 
 function screenForDestination(dest: ShellDestination): ScreenId | null {
   if (dest.kind === 'settings') return 'settings';
   if (dest.kind === 'inbox') return 'inbox';
   if (dest.kind === 'era-stream') return 'era-stream';
+  if (dest.kind === 'community') return 'community';
+  if (dest.kind === 'merch') return 'merch';
   return null;
 }
 
@@ -72,7 +82,9 @@ function screenForDestination(dest: ShellDestination): ScreenId | null {
 function flagForScreen(screen: ScreenId, flags: RouteFlags): boolean {
   if (screen === 'settings') return flags.settings;
   if (screen === 'inbox') return flags.inbox;
-  return flags.eraStream;
+  if (screen === 'era-stream') return flags.eraStream;
+  if (screen === 'community') return flags.community;
+  return flags.merch;
 }
 
 /**

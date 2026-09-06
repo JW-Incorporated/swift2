@@ -30,6 +30,8 @@ import { NotificationSettingsScreen } from './components/NotificationSettingsScr
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 import { EraStreamScreen } from './components/EraStreamScreen';
+import { CommunityScreen } from './components/CommunityScreen';
+import { MerchScreen } from './components/MerchScreen';
 
 export default function App() {
   // The page the shell shows. Deep links replace it; the WebView keeps its
@@ -46,6 +48,11 @@ export default function App() {
   // OS-032: the native era stream, reached via `?screen=era-stream` once the
   // `eraStream` route flag is on (off by default — see routes.ts).
   const [eraStreamOpen, setEraStreamOpen] = useState(false);
+  // OS-037: native community/merch directories, reached via `?mode=community`
+  // / `?mode=merch` once their respective route flags are on (both off by
+  // default — see routes.ts).
+  const [communityOpen, setCommunityOpen] = useState(false);
+  const [merchOpen, setMerchOpen] = useState(false);
 
   // OS-030: the single navigate(url) every entry point below funnels
   // through — deep links, inbox rows, the web→native bridge, and (via
@@ -57,8 +64,12 @@ export default function App() {
     setInboxOpen(false);
     setOnboardingOpen(false);
     setEraStreamOpen(false);
+    setCommunityOpen(false);
+    setMerchOpen(false);
     if (screen === 'settings') setNotificationSettingsOpen(true);
     else if (screen === 'era-stream') setEraStreamOpen(true);
+    else if (screen === 'community') setCommunityOpen(true);
+    else if (screen === 'merch') setMerchOpen(true);
     else setInboxOpen(true);
   }, []);
 
@@ -67,6 +78,8 @@ export default function App() {
     setInboxOpen(false);
     setOnboardingOpen(false);
     setEraStreamOpen(false);
+    setCommunityOpen(false);
+    setMerchOpen(false);
     setWebUrl(url);
   }, []);
 
@@ -153,6 +166,10 @@ export default function App() {
             />
           ) : eraStreamOpen ? (
             <EraStreamScreen />
+          ) : communityOpen ? (
+            <CommunityScreen />
+          ) : merchOpen ? (
+            <MerchScreen />
           ) : onboardingOpen ? (
             <OnboardingScreen
               onDone={(outcome) => {

@@ -33,6 +33,7 @@ export * from './era-feed-clusters';
 export * from './era-stream';
 export * from './space-doorways';
 export * from './doorways';
+export * from './communities';
 export * from './current-feed';
 export * from './feed-tiers';
 export * from './substance';

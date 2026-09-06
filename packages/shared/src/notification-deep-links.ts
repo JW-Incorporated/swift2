@@ -95,7 +95,9 @@ export type ShellDestination =
   | { kind: 'web'; url: string }
   | { kind: 'settings' }
   | { kind: 'inbox' }
-  | { kind: 'era-stream' };
+  | { kind: 'era-stream' }
+  | { kind: 'community' }
+  | { kind: 'merch' };
 
 const DEFAULT_SITE_URL = 'https://www.longlivets.com';
 
@@ -128,6 +130,17 @@ export function destinationFor(
     // bare site root, which stays the WebView's job until OS-039 retires
     // SiteShell as the default for every route this phase ports.
     if (u.searchParams.get('screen') === 'era-stream') return { kind: 'era-stream' };
+    // OS-037: Community and Merch are each a whole surface with no more
+    // specific "thing" to address (same category as era-stream), shared via
+    // `?mode=community` / `?mode=merch` — the exact param
+    // `packages/experience/src/deepLink.ts`'s `deepLinkTarget` (web) and
+    // `ShareSheet.tsx`'s `shareUrl` already use for these two surfaces. A
+    // tapped share link or deep link with that param takes the shell
+    // straight to the matching native screen instead of falling through to
+    // the WebView's own `?mode=` handling.
+    const mode = u.searchParams.get('mode');
+    if (mode === 'community') return { kind: 'community' };
+    if (mode === 'merch') return { kind: 'merch' };
     // `?current=theories|merch|countdowns`, `?song=<slug>`,
     // `#merch-new-drops`, and a bare site root all address something the
     // website itself renders — hand the URL through unchanged so the
