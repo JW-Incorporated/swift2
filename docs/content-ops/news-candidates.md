@@ -27,13 +27,37 @@ so far".
 
 Stories: 120
 
-## Eras Tour Concert Movie Fails to Win at 2026 Emmy Awards
+## Taylor Swift Reportedly Declines Move to Kansas City Over NFL Schedule Issues
 
-- first seen: 2026-09-06 16:12 UTC | category: business | importance: 4
+- first seen: 2026-09-06 22:52 UTC | category: relationship | importance: 6
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s ‘Eras Tour’ concert movie did not win any awards at the 2026 Creative Arts Emmy Awards. This outcome highlights the competitive nature of award categories in the entertainment industry.
+- summary: Reports indicate that Taylor Swift has chosen not to relocate to Kansas City due to frustration with Travis Kelce's NFL schedule. This decision highlights potential challenges in their relationship.
 - sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMioAFBVV95cUxQYUxzMXVoUVpQODc1V01sQzBKYVpJTG04SDYwUkI1dmlhNm9OZ0lLdG5uVy01VlRlX0VFaVItU2xmQVhyWTk4czdWcmFLMzNKajlKQjBTdXI2YlBYV01lQ25BaDZuUGJwcmRob3RjVTVtcG5TS05LOWV4Z2NWQUwtUUIwdlFCQ0thNW9OR3l5cF95ckd0OXpNOUdISGxrcVp5?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOa1E3Y2t5VzF5TUZocy1ETk90anNpd1dTeXdNUTI0Y3hQdTh5Q0VpUVEwMGN1bFpLanJndE1BSVp4Tm1HTDhwY3lXNHZwTnNSM1RRWEQwUzB0Z3A0WkJzOTZ4MkVJSEpxd0pVQzBManh0am1EbzRZMnhFTGRfSHBHZ05rYXh1b0JBeDkwOEZZZTFEdERubV9QM1dpTVdBVHZZX1JmbjhhZG1NZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Quotes Insight on Moving On
+
+- first seen: 2026-09-06 22:52 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shares a reflective quote about moving on without the need to forgive or forget, featured by The Times of India.
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMitANBVV95cUxOWTFBR25seUNET3VCVmpIOTlpSGZOd085T3pIVVpNbGhIZWVnV1lzbVoxTVNOdzlXOTFwaTlEaTFqX3c1bUZuR21NM1FhWlpIWExBLWdZYTZwbVppQ2RCWU94MVlDWEFDWGpaalAzWV9seEpnVm9Ic3lELV9ZMThvMjZLUjY3M3R2Z2xyT0t6ZHpxdDdrYXRQZEdveEoyR0ZJVUVDa3VVLUlGT0hqdGZiS3VtLW9NZk83WkpkbFRTRUlwNEZyaXlNeHowVXVzQTVUNlU5Z3dIbWNWWFQyU0Ewdk1FRjRfbXEzWnA3NUlna2ZEQzZCeFRrRmZMeU1YMEh5dzZQRTJUQk82N0tncUlseHVVeGlDRGF0dWZXVTFUenhaTkFhTHZJQzNjSlRFRUxHSXZRY255cmZZbmZjRmtSWE5ETTZ6VmJHQWxfb05ybkNLYjE4V2x0bzlIVHY4U2p0RWhhVDhPZ1NLSFE3dGRxNmc3bWxUempyX3pNWUJtSVN6a1dTNnA2cmtUUzBhai1lNTgxZmhIZjRnWTZhY1BLTEhvMDV5TjFsY0gzSTl0aXZYTDE20gG6A0FVX3lxTE8xRzhITGJ3ZUFYMlNrcDZVTjY5SGNEY2U0Ui1GNzQxelQxcHpKbE9TUzRXNmpnMXc1b1B4NjFyYV9mYkVmSXRPaGF0MVA4OWd1TTNWeUFpcW9oYm5sYTRod1dWNnVjeXVmSjBlQUNkbV9ac3F6TjY2LUhQdm9iNGtMbHMyYVBaMXEteHNsMjA0dWFDTDk3X0xOQzJYWWYzdGtPSUdBY1VHMGt5bUtHLWdEdUU0ejdJeHJfNDUyU004anFmZmRjdTlJMklJWmQ4Y0NwUWhQcEZYZFF6VXBYWUN2ZXBSWlUyM2w0MmhtdkgtNmdlTjRBTmN3WlZFYTJDRGN2Vi1MNFdUSG54YTJka2VHSjBsallfRklJOXVqdndnRDY4cDQ2VlpfcGJ5UDZLQmthMlVkOGE5ZWJkZVdBZXlMN2VjcTg3VjVXSFVLUTZWWWJnTmN4ZE9HZnZtTHlfMUx6OFB5Nmk1OUtRcFVzTEVTQ3loTWItaTRydk96VHBISUo2WVVvNWNDR0Y1N2M1cXh4bkpGWGpqeUN3b2FTZG03T0FqZDItXzcwR2QxYXZCeEpZMVhjNU15YXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Celebrating 69 Years of Taylor Swift's Songwriting Collaborator
+
+- first seen: 2026-09-06 22:52 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article recognizes the 69th birthday of a significant songwriting figure associated with Taylor Swift and other prominent artists. This individual is noted for their contributions to hits by Little Big Town and Carrie Underwood.
+- sources:
+  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMiiwJBVV95cUxNV3NFU0xqQjVGdnU5WVMxMUdQMzRIYUpzZGVmYVB2NFI0b2UxOW9wSUJzczZWWlNfQTJuMEx4cksta0x0aTlEd1djVHpqRDR2VXRDNEoyQTU2VUV3clp4OUZwUGJVVmItbGU4RTV2R2J0T2YwcU9aMjZpZ2prckEtUUhTOVNUTmRYSVZ6M1FDeGJFOVozTHVSbDVPQWkwVXl0R1YtMzhLMktZUEt0b1c5VWlOUXBQYWZQbnU5aUZDRnJzQTNkVW9vSWY1cWlOR3FoMjQzel9zSHZicTJDQ01EQUt2MzIzUk1BLXpqcHpLUEtGMGt1VGhCaUVRVlZBVzZzNWZsanZoSDhXRTQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Purchases Home Linked to Travis Kelce
+
+- first seen: 2026-09-06 22:52 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reportedly expanded her real estate portfolio by purchasing a home associated with NFL player Travis Kelce. This acquisition adds to her existing properties as she diversifies her investments.
+- sources:
+  - [unverified] NewsNation — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdXFLQU1VMGVVbnlCMENPVGpPWUJvbEVBaVZFbGxlTlBjTjc3MGxFRWVELTMxb0U2cno5c04tNkRHTE9fVW1tYmx5QnhpLUF4MUc2XzdFMklIWE13eGUzbHZEcU80VmRUc281Xzd5MnhDZVMwX3VOVV9ZdVRVMDROWG9NSHpsYkl1U2dJVEt2T185V1NoVE5wWXY0cE5OUU1MLUVHeEM4VTcxZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## 'Eras Tour' Finale Not Nominated at 2026 Emmys
 
@@ -51,6 +75,15 @@ Stories: 120
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOV0t6ZmlTU1pOMXZXTVFzdW0yZDU4TFc5VUVDcGo2UTl5Zk1fYlliSzFzWnRTcDRMLUMwcUFQRmNwTzBVR1NaTnpBWU9GajM3aW01Yjg4Qnl0WjBRaXZYYnhBemgtZmdsZVZoeXEzUVZXSkhNTzBZWTRBZWlMYmxaMWZGNTJlY3Myd3A2WTRPbDcwcHJmUHc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxOT203ZWtUX3RiTU5ocWZ2anp2bjRRTTFIenN1c1l5b0pSbVhHSEJrLTQyNm9TbFJKUHdwaGpUemlaNzE3TWh0ZmhWNHYtRk5tV0M3R1VSdWtxdjNCSC1Tdm1ndXlsVWN5eFN5RzBDU1ROYVNFNnZJVGlyVWhBVkoweV9sb0FmRDN4UUhLZ1pKVm9vZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Eras Tour Concert Movie Fails to Win at 2026 Emmy Awards
+
+- first seen: 2026-09-06 16:12 UTC | category: business | importance: 4
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift’s ‘Eras Tour’ concert movie did not win any awards at the 2026 Creative Arts Emmy Awards. This outcome highlights the competitive nature of award categories in the entertainment industry.
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMioAFBVV95cUxQYUxzMXVoUVpQODc1V01sQzBKYVpJTG04SDYwUkI1dmlhNm9OZ0lLdG5uVy01VlRlX0VFaVItU2xmQVhyWTk4czdWcmFLMzNKajlKQjBTdXI2YlBYV01lQ25BaDZuUGJwcmRob3RjVTVtcG5TS05LOWV4Z2NWQUwtUUIwdlFCQ0thNW9OR3l5cF95ckd0OXpNOUdISGxrcVp5?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxPWDN4Y3ljdFdVMEE3V1BFaXBOZk5WbzZGRFIwOG9nU1FhaVpvTlk5dmd4ZWVXYkVUb0hpVmFYWDFPTDBlREFxalQ5aDE0bU12UFY3a2loZWN5TGo4SDNaX0Q3elZfSHpPU0czcHE2RW0tdlRpNUIzN1JwekdXcTRYTnh1WktvWmlYRkVSUnA5dmh5aXd3dkdfQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Celebrity Outfit Highlights of the Week Featuring Taylor Swift
 
@@ -172,12 +205,15 @@ Stories: 120
 ## Taylor Swift Discusses 'I Knew It, I Knew You' Lyrics on Country Radio
 
 - first seen: 2026-09-06 05:53 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 7
 - summary: In a rare appearance on country radio, Taylor Swift shared insights into the double meaning of the lyrics from her song 'I Knew It, I Knew You'.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMGo5ZXdtTmwzUkxMUDZ6djBHUmQxaGFfaUgxclhxZ2VWU0ZHTkJyOEFMTTFjTnJpbXlCYjNfYTBfbDBkOGU5MVVCZVVZY0hQbmR5RU51bWlKT2Voa2dpQzJqV05fakR0akxBWm93czVTOE9uaWE5RzVRYUVIcnZ4OThtZERsRGJFS1NVaTFMaFJPRGVoUjRCNGdLd3RqWTdHQjJsaHV5aTU5SmczU013?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] DRGNews — https://news.google.com/rss/articles/CBMimAFBVV95cUxQV0dqM3VxLUdpZi15cGtoZkwzZkUtVWlPQlF6N1dkOGpXYWRMYmRPb3NjUTZlQzhKSXhoV01SQTFKeGRCOVg1VmVpOERkTGhMeEV4QVNDN3Y3Szg3OTJvRGIxTVk2d01vSHZFb3R4R1BxZVUzYnZ6eXA3aUE0SGhYWG50WTYxRzdDRnFab19reXZKMEQxY0w0YQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Headline Planet — https://news.google.com/rss/articles/CBMitwFBVV95cUxQSE1zR25MMGJMcjk5NElsMDRsMEcza0o5dGVJbi1sS0pibGpJY0kybGhmRnVkS1lqTHRnUEJuRUdvZDN5YkZjYkxjRTVSVE43R0x2WGtOS3dfLU1JS2VCTFJwNm5teVV4T3k0ai1aV1M3cUg4d3JNYUVKU1B3WERyeHNuUWtOcnpLRUQwLUx5Yy0yWTd0N2w2WGQ3SWdMNmIwTWhGRFFVd3JTLU41SGI2LWF1Mnd2VjjSAbwBQVVfeXFMUHcwTDdzTm0zQjhnVlUwWnVMMzI2NGxOOWpsTnhNSjlqSG12RUVBVDNmV08wUTZucUJlcnVBZ2EzVmJFaVppTTFhNUNaNnNZSTdrdER4R3RORnM3YzhoQmJjb2dpSmVGbzBwV1RPcHN0cm1mQlViU0ZuM3lSNDUyZWdMbHgtNTYzRXdwaDdVTlE5ekNmNHB6RWNuRkx2RGNiRE5JQWYyelFCUm9mbTcyM2VtTVFPM1NiaFRUN2w?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMipAFBVV95cUxQZF9VaWx6S0tuTm9VeF90ZW82cGpOVVdnZzJjZWdMdThYYnpsMmJKN3lsXzFkRFdGaVRUblRlR1pfVDRRd3BzZkdpNkRXX21mUHRoS3REcEwxQVVDODU2Z2xxcGxJYTlWczhjbERpMDNnVGk4ZVBOaEN0MEV3X2FEU29wdmtiTVY4UHdid25ybEZrWUttRDAtZTdycEZpcm5BWE9BRg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPb2o4OGRXbHh6aDMzemE4MVVXd3E0NkRlZERqMkNxSGxyOHdfZDZQcjdVamtCcUQ3T0l5ZHVlRVZtdThsZmc1azFFdXMyTWV2UTB0M01TT0FhRzlvMGFxdDBkcHUxOTh0SF9Qc1ZZWnJVcDVCSHBzTEp0Uk05R3N0MXlLZVY5QzFV?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi4wFBVV95cUxNbng5RF9sTmRmdnplZ0FYV3h2RUROcGZXa1RtdHBrdVl3RzF2OGJOZzgyZFpLR29MQmItQW81MEZhaC1sblJuMUZUYXpTSGhxUjRlbVRmcmdROUhKMnczNUY4QXNSMFlHYllaS0xpTFZiWm9majRaVm1mZDlXRTdZS1ByUTVxcmhzZEJNaWJqSWNPR3l1X0EzVm5RX2hjQkRQZGFKeDRhR0VtQW8yVUFuSkxhdzBkRHBSUzhINVhFemJib1RkYUcwRkFqQVEzVjl4ZTFqbkRyOVA0VGJ1NDhLQTVQZw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMihgFBVV95cUxNdkRWOG9waEFsZ1JNajZqaEV4Z1V2T0stbG9Xd0ozUXVTSFBfazVZblRib0tRQ29wNTAwY0F0MWQ4cmoyMGJFVUU5WkJCSi0tWlhDM3U4WWdEWGd0Y3drN3l1TkFpUjUwdGFJeEtjc24tbFEwSjNwUE5PazYwaWJYUHhyai1WQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Makes Wedding Joke at NYC Concert Referencing Taylor Swift
@@ -878,32 +914,4 @@ Stories: 120
 - first seen: 2026-09-04 23:01 UTC | category: sighting | importance: 5
 - verification_status: single_source | source_count: 0
 - summary: A small village in Ohio is gearing up for the anticipated visit of Taylor Swift and Travis Kelce. The local community is excited about their potential arrival.
-- sources: _none recorded_
-
-## Luminate Report Highlights Swift Fans' Impact on Album Sales
-
-- first seen: 2026-09-04 23:01 UTC | category: business | importance: 8
-- verification_status: single_source | source_count: 0
-- summary: A recent report from Luminate reveals that Taylor Swift's fanbase significantly contributes to millions in physical album sales. This underscores the strong purchasing power and loyalty of her supporters.
-- sources: _none recorded_
-
-## Analysis of Taylor Swift's Economic Impact
-
-- first seen: 2026-09-04 23:01 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: An article by Lydia Kulina-Washburn examines the economic implications of Taylor Swift's influence and her connection to various recessions. The piece provides insight into Swift's impact on the economy.
-- sources: _none recorded_
-
-## Travis Kelce Shows Affection for New Family Member Not Related to Taylor Swift
-
-- first seen: 2026-09-04 23:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce expresses strong feelings for a new family member, distancing the mention of Taylor Swift in this context.
-- sources: _none recorded_
-
-## Travis Kelce Shares Affection for New Family Member, Not Taylor Swift
-
-- first seen: 2026-09-04 19:31 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce recently expressed his affection for a new member of his family, clarifying that it's not Taylor Swift. The news highlights his personal life outside of his relationship with the pop star.
 - sources: _none recorded_
