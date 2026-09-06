@@ -20,15 +20,17 @@ import {
   mergeEraFeed,
   visibleFeed,
   type EraFeedEntry,
-} from '@/lib/longlive/era-feed';
+  clusterSameDayMoments,
+  threadDoorwaysForEra,
+  eggDoorwaysForEra,
+  spaceDoorways,
+  assignFeedTiers,
+  withInlineVideoTiers,
+} from '@swift2/experience';
 import { useEraCurrentFeed } from '@/lib/longlive/use-era-current-feed';
-import { clusterSameDayMoments } from '@/lib/longlive/era-feed-clusters';
-import { threadDoorwaysForEra, eggDoorwaysForEra } from '@/lib/longlive/doorways';
-import { spaceDoorways } from '@/lib/longlive/space-doorways';
 import { feedCardImageHidden } from '@/lib/longlive/video-affordance';
 import type { Era } from '@swift2/experience';
 import type { PlayableVideoNote } from '@/lib/longlive/videos';
-import { assignFeedTiers, withInlineVideoTiers } from '@/lib/longlive/feed-tiers';
 import type { CurrentItem } from '@swift2/shared';
 
 /**
