@@ -9,7 +9,7 @@ import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
 import { getContentItem } from '@/lib/longlive/content';
 import { getThread } from '@swift2/experience';
-import { resolveTrackKey } from '@/lib/longlive/tracks';
+import { resolveTrackKey } from '@swift2/experience';
 import {
   clownbotShareCopy,
   communityShareCopy,

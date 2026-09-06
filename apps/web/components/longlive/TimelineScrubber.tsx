@@ -4,7 +4,7 @@ import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getEra } from '@swift2/experience';
 import { contentForEra, milestonesForEra } from '@/lib/longlive/content';
-import { truncate } from '@/lib/longlive/format';
+import { truncate } from '@swift2/experience';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { measureChromeHeight, measureChromeBottom } from '@/lib/longlive/chrome-offset';
 import { cn } from '@/lib/utils';

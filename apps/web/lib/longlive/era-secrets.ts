@@ -1,11 +1,3 @@
-import type { EraId, EraSecret } from '@swift2/experience';
-import { setEraSecretsRawProvider, setSongTargetResolver } from '@swift2/experience';
-import { ERA_SECRETS_RAW } from './era-secrets.generated';
-import { songTargetOf } from './tracks';
-import { getContentItem } from './content';
-import { setThreadContentProvider } from '@swift2/experience';
-import { CONTENT } from './content';
-
 export {
   eraSecretsForEra,
   epochDay,
@@ -19,6 +11,13 @@ export type { EraSecretLink } from '@swift2/experience';
 // `thread-content-provider.ts`'s doc comment): the headless package can't
 // load generated content itself (content loading is OS-013/OS-014 scope),
 // so the app injects the real implementations in at import time.
+import type { EraId, EraSecret } from '@swift2/experience';
+import { setEraSecretsRawProvider, setSongTargetResolver, setThreadContentProvider } from '@swift2/experience';
+import { ERA_SECRETS_RAW } from './era-secrets.generated';
+import { songTargetOf } from '@swift2/experience';
+import { getContentItem } from './content';
+import { CONTENT } from './content';
+
 setEraSecretsRawProvider((): Partial<Record<EraId, EraSecret[]>> => ERA_SECRETS_RAW);
 setSongTargetResolver(songTargetOf);
 // `contentItemInjected` (used by `resolveEraSecretLink`'s `moment:` case)

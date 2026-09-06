@@ -15,12 +15,12 @@
 // the way it does when a human runs `tsx some-script.ts` directly.
 import { eraSecretsForEra } from '../../apps/web/lib/longlive/era-secrets';
 import { CONTENT, MILESTONES } from '../../apps/web/lib/longlive/content';
-import { ERAS } from '@swift2/experience';
+import { ERAS, tracksForEra } from '@swift2/experience';
 import { MERCH_CATALOGUE } from '../../apps/web/lib/longlive/merch';
 import { LORE, LORE_UPDATED_ON } from '../../apps/web/lib/longlive/clownbot-lore';
 import { SONG_MOODS } from '../../apps/web/lib/longlive/song-moods.generated';
 import { theoriesForEra } from '../../apps/web/lib/longlive/theories';
-import { tracksForEra } from '../../apps/web/lib/longlive/tracks';
+import '../../apps/web/lib/longlive/tracks.generated'; // wires setTracksRawProvider so tracksForEra resolves real data
 import { allVideoRecordsForEra } from '../../apps/web/lib/longlive/videos';
 
 void LORE_UPDATED_ON; // not part of the bundle schema; imported for completeness only

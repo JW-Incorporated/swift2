@@ -3,7 +3,7 @@
 import { ArrowRight, Egg, Gem, Heart, HelpCircle, RefreshCw, Shirt, Sparkles } from 'lucide-react';
 import type { ThreadDoorway, EggDoorway } from '@/lib/longlive/doorways';
 import type { EraId, LensId } from '@swift2/experience';
-import { formatMonthYear } from '@/lib/longlive/format';
+import { formatMonthYear } from '@swift2/experience';
 
 /**
  * Timeline doorway cards (PLAN.md P3 step 15) — thread and egg variants.

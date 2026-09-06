@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { RELATIONSHIPS, SINGLE_PERIODS } from '@swift2/experience';
-import { songTargetOf } from './tracks';
+import { RELATIONSHIPS, SINGLE_PERIODS, songTargetOf } from '@swift2/experience';
+import './tracks.generated'; // wires setTracksRawProvider so songTargetOf resolves real data
 
 // Split out of packages/experience/src/love-story.test.ts in OS-023: this
-// test cross-references the real track-guide data (`tracks.ts`'s
-// `songTargetOf`), which is still app-layer/OS-013-OS-014 scope, so it can't
-// live inside the headless package without giving it a forbidden dependency
-// on apps/web.
+// test cross-references the real track-guide data (OS-024 moved
+// `songTargetOf` itself into packages/experience/src/track-guide.ts, but the
+// GENERATED per-era track map it reads is still app-layer, so this test
+// stays in apps/web to wire the real data in and can't live inside the
+// headless package without giving it a forbidden dependency on apps/web).
 describe('relationship song links', () => {
   const songs = [...RELATIONSHIPS, ...SINGLE_PERIODS].flatMap((entry) => entry.songs ?? []);
 

@@ -332,6 +332,7 @@ export function renderModule(byEra) {
   lines.push("// Re-run that script after track-seed changes; don't edit this file directly.");
   lines.push('');
   lines.push("import type { EraId, TrackNote } from '@swift2/experience';");
+  lines.push("import { setTracksRawProvider } from '@swift2/experience';");
   lines.push('');
   lines.push('export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {');
   for (const eraId of Object.keys(byEra).sort()) {
@@ -364,6 +365,8 @@ export function renderModule(byEra) {
     lines.push('  ],');
   }
   lines.push('};');
+  lines.push('');
+  lines.push('setTracksRawProvider(TRACKS_RAW);');
   lines.push('');
   return lines.join('\n');
 }

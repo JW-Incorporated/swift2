@@ -3,7 +3,7 @@
 import { Clapperboard } from 'lucide-react';
 import { VIDEO_KIND_LABEL } from '@/lib/longlive/videos';
 import type { PlayableVideoNote } from '@/lib/longlive/videos';
-import { formatMonthYear } from '@/lib/longlive/format';
+import { formatMonthYear } from '@swift2/experience';
 import { MomentVideo } from './MomentVideo';
 import type { Era } from '@swift2/experience';
 

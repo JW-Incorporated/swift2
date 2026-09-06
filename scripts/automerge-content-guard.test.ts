@@ -206,9 +206,9 @@ describe('against the committed tree', () => {
 
   it('does NOT flag real client-safe display modules (no over-tightening)', () => {
     for (const p of [
-      'apps/web/lib/longlive/format.ts',
+      'packages/experience/src/format.ts',
       'packages/experience/src/eras.ts',
-      'apps/web/lib/longlive/tracks.ts',
+      'packages/experience/src/track-guide.ts',
     ]) {
       expect(scanFile({ path: p, content: read(p) }), p).toEqual([]);
     }

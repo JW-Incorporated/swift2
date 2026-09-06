@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { MOOD_STARTERS, STARTERS_VISIBLE, visibleStarters } from './mood-starters';
-import { matchMoods } from './mood-match';
+import { matchMoods } from '@swift2/experience';
+import './vault-wiring';
 import { MOOD_AXES } from '@swift2/experience';
 
 /**

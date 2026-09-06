@@ -2,7 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { POST } from './route';
 import { MOOD_STARTERS } from '../../../lib/longlive/mood-starters';
-import { BEREAVEMENT_SLUGS } from '../../../lib/longlive/mood-match';
+import { BEREAVEMENT_SLUGS } from '@swift2/experience';
+import '../../../lib/longlive/vault-wiring';
 import { MOOD_BATTERY } from '../../../lib/longlive/mood-battery';
 
 // Post JSON to the route with a chosen client IP so the per-IP rate limiter

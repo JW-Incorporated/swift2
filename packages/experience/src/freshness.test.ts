@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { contentGeneratedAt, readGeneratedAt } from './freshness';
+import { readGeneratedAt, contentGeneratedAt, setContentGeneratedAtSource } from './freshness';
 
 describe('readGeneratedAt', () => {
   it('returns the stamp when present and a non-empty string', () => {
@@ -21,8 +21,14 @@ describe('readGeneratedAt', () => {
 });
 
 describe('contentGeneratedAt', () => {
-  it('never throws against the real generated module, stamped or not', () => {
-    const v = contentGeneratedAt();
-    expect(v === null || typeof v === 'string').toBe(true);
+  it('never throws against an unwired source (defaults to an empty record)', () => {
+    setContentGeneratedAtSource({});
+    expect(contentGeneratedAt()).toBeNull();
+  });
+
+  it('reads through whatever source was last wired in', () => {
+    setContentGeneratedAtSource({ CONTENT_GENERATED_AT: '2026-07-09T00:00:00.000Z' });
+    expect(contentGeneratedAt()).toBe('2026-07-09T00:00:00.000Z');
+    setContentGeneratedAtSource({});
   });
 });

@@ -62,7 +62,7 @@ import {
   type SubConfirmed,
 } from '@swift2/experience';
 import { renderMomentShopLink, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
-import { formatFullDate } from '@/lib/longlive/format';
+import { formatFullDate } from '@swift2/experience';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 // A moment at/above CONFIRMED_TIER (types.ts) is established fact — no

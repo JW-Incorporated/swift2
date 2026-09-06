@@ -1,4 +1,5 @@
-import type { ContentItem, EraId, LensId, EraSecret, TheoryNote, TrackNote } from './types';
+import type { ContentItem, EraId, LensId, EraSecret, TheoryNote } from './types';
+import type { SongTarget } from './track-guide';
 
 /**
  * The single seam through which `packages/experience` reaches app-layer data
@@ -33,8 +34,7 @@ export function contentForThreadInjected(): ContentItem[] {
   return contentProvider();
 }
 
-/** A `song:<slug>` RelatedId resolved to its era + track note, or null. */
-export type SongTarget = { eraId: EraId; track: TrackNote };
+/** A `song:<slug>` RelatedId resolved to its era + track note — see `SongTarget` in `track-guide.ts`. */
 export type SongTargetResolver = (relatedId: string) => SongTarget | null;
 
 let songTargetResolver: SongTargetResolver = () => null;

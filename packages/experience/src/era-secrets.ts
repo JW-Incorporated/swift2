@@ -4,6 +4,7 @@ import {
   songTargetInjected,
   contentItemInjected,
 } from './thread-content-provider';
+import { epochDay } from './epoch-day';
 
 /**
  * Per-era "Era Secret" pool (#688) — static data synced at build time from the
@@ -27,22 +28,13 @@ export function eraSecretsForEra(eraId: EraId): EraSecret[] {
 }
 
 /**
- * The number of whole days since the Unix epoch for a `YYYY-MM-DD` day key.
- * Parsed as UTC noon so a viewer's timezone can't nudge the boundary, and so
- * the value is a pure function of the calendar date string (testable, no
- * `Date.now()` inside).
- */
-export function epochDay(dayKey: string): number {
-  const ms = Date.parse(`${dayKey}T12:00:00Z`);
-  return Number.isNaN(ms) ? 0 : Math.floor(ms / 86_400_000);
-}
-
-/**
  * Deterministic daily pick from an era's pool: the same secret for everyone on
  * a given calendar day (a curated feel + a return-visit hook, zero runtime
  * LLM — the recommended shape in docs/proposals/2026-07-15-era-secrets.md).
  * Rotates by day so a repeat visit within an era can surface a different fact.
- * Pure: the day key is passed in, never read from the clock here.
+ * Pure: the day key is passed in, never read from the clock here. `epochDay`
+ * lives in `epoch-day.ts` (OS-024) — reused by `gloss-rotation.ts`'s daily
+ * masthead rotation.
  */
 export function dailyEraSecret(eraId: EraId, dayKey: string): EraSecret | null {
   const pool = eraSecretsForEra(eraId);

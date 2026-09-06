@@ -23,14 +23,14 @@ import {
   releasedFactValue,
   trackKey,
   adjacentTrackOnAlbum,
-} from '@/lib/longlive/tracks';
+} from '@swift2/experience';
 import { videosForEra } from '@/lib/longlive/videos';
 import { resolvedTrackVideo } from '@/lib/longlive/track-video';
 import { MomentVideo } from './MomentVideo';
 import { OverlayNav } from './OverlayNav';
 import { TrackFiveCallout } from './TrackFivePill';
 import { eraStyle } from '@/lib/longlive/theme';
-import { formatFullDate } from '@/lib/longlive/format';
+import { formatFullDate } from '@swift2/experience';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { useSwipeNav } from '@/lib/longlive/useSwipeNav';
 import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@swift2/experience';

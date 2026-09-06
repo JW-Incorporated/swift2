@@ -6,8 +6,8 @@ import {
   dailyEraSecret,
   resolveEraSecretLink,
   ERAS,
+  songTargetOf,
 } from '@swift2/experience';
-import { songTargetOf } from './tracks';
 import { getContentItem } from './content';
 import './era-secrets'; // wires the real generated data/tracks/content providers
 

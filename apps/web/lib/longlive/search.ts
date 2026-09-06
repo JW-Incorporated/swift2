@@ -1,7 +1,7 @@
 import { CONTENT } from './content';
 import { ERAS } from '@swift2/experience';
 import { EGG_NODES, motifOf, THREADS } from '@swift2/experience';
-import { tracksForEra, trackKey } from './tracks';
+import { tracksForEra, trackKey } from '@swift2/experience';
 import { theoriesForEra } from './theories';
 import { allVideoRecordsForEra } from './videos';
 import {

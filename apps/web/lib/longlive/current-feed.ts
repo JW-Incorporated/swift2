@@ -1,6 +1,5 @@
 import type { CurrentItem, CurrentItemStatus } from '@swift2/shared';
-import { resolveAnchor } from './anchor-date';
-import { formatRelativeTime } from './format';
+import { resolveAnchor, formatRelativeTime } from '@swift2/experience';
 import type { EraFeedEntry } from './era-feed';
 import type { VideoNote } from '@swift2/experience';
 

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import { MOOD_AXES, type MoodAxis } from '@swift2/experience';
-import { matchMoods, type MoodMatch, type MoodQuery } from '../../../lib/longlive/mood-match';
+import { MOOD_AXES, matchMoods, type MoodAxis, type MoodMatch, type MoodQuery } from '@swift2/experience';
+import '../../../lib/longlive/vault-wiring';
 import { keywordQuery, isEmptyQuery, hasSignal, hasBereavementSignal } from '../../../lib/longlive/mood-keywords';
 import { classifyMood } from '../../../lib/longlive/mood-client';
 import { moodUsage } from '../../../lib/longlive/mood-usage';
