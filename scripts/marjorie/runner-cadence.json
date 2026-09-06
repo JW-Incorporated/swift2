@@ -39,7 +39,7 @@
     { "name": "Kevin — S2 user digest (standalone)", "perDay": 1, "maxAgeHours": 30, "disabled": true, "why": "disabled 2026-09-01 (T-10) — folded into Kevin daily desk", "match": { "kind": "issue-label", "value": "kevin-digest" } },
     { "name": "Kevin — S3 eng triage (standalone)", "perDay": 1, "maxAgeHours": 30, "disabled": true, "why": "disabled 2026-09-01 (T-10) — folded into Kevin daily desk", "match": { "kind": "issue-label", "value": "kevin-triage" } },
     { "name": "Kevin — S1 Karen solver", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "pr-branch", "value": "fix/karen-tickets" } },
-    { "name": "Karen — nightly scan", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "pr-title", "value": "karen: nightly run report" } },
+    { "name": "Karen — weekly judgment slice", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "pr-title", "value": "karen: nightly run report" } },
     { "name": "Paul Blart — security patrol", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "issue-title", "value": "Paul Blart — Security Patrol" } },
     { "name": "Nils — walk", "perDay": 0.14, "maxAgeHours": 216, "match": { "kind": "issue-label", "value": "experience" } },
     { "name": "Laura — a11y walk", "perDay": 0.2857, "maxAgeHours": 210, "match": { "kind": "issue-label", "value": "a11y" } },

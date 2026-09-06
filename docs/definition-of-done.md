@@ -289,3 +289,10 @@ checker live in `DET_CHECKERS`; a deliberately-miscased test fixture fails CI.
   relationship note above) — status changes here need a PR link like any
   gate file, same as before, but they now show up in the brief the next
   morning instead of going unreported.
+- **2026-09-06 (standing trigger, FR-t_a0ad2392-8):** the site does not
+  accept user image uploads, so CSAM-scanning enrollment (#138, PhotoDNA +
+  NCMEC) is deferred, not open. **Any card or PR that adds a user photo /
+  image upload path — Community (item 4) is the likely place — must
+  first re-label #138 `founder-decision` and wait for the enrollment
+  before that surface ships.** This is a hard precondition, not a
+  follow-up.

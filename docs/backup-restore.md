@@ -184,15 +184,27 @@ quarter should be treated as unproven.
 |---|---|---|---|---|
 | 2026-08-11 | drill (fixture source, ephemeral Postgres 18.4, Windows) | repo migrations + 7 seed scripts + synthetic `news_*` | **PASS** | 14 tables, 1901 rows, 3.24 MB. backup 216 ms · restore 590 ms · verify 97 ms · 15.2 s end-to-end including booting and tearing down the cluster. Schema fingerprint match (156 columns); all 14 per-table checksums match; 8/8 spot checks byte-identical. Negative control run the same day: deliberately dropping one `theory` row and altering one `news_story` title made the drill exit 1 and name both tables plus two spot checks — the verification is not a rubber stamp. |
 | 2026-08-30 | status report (Joey) | Supabase dashboard report | **OPEN** | Current plan is Supabase Free; no backup options are available and no backup was made. No production-data restore drill was performed. This records status only and does not accept the BACKUPS launch risk. |
+| 2026-09-06 | production-bytes drill (`production-backup-drill.yml`, [run 34054042528](https://github.com/JW-Incorporated/swift2/actions/runs/34054042528)) | production `SUPABASE_DB_URL`, read-only session → throwaway Postgres 17 in the job | **FAIL (restore); backup PASS** | Backup half worked against real production data: 35 tables · 8298 rows · 11.27 MB in 7664 ms, per-table checksums recorded. Restore half died applying `20260904000000_clown_sessions.sql`: `schema "auth" does not exist` — the migration references `auth.users`, which only exists on Supabase, so any non-Supabase restore target (which `assertSafeTarget` *requires*) cannot replay the migration set. **The workflow reported green anyway** — `node … \| tee` without `pipefail` swallowed the exit code, and the alert issue was closed as PASSED. Two fixes tracked on the swift2 kanban (children of t_a0ad2392): (a) the drill/migrate path creates a stub `auth` schema + `auth.users(id uuid pk)` + `auth.uid()` on non-Supabase targets before migrating, (b) `set -o pipefail` in both drill workflows. Gate stays 🟡 until a corrected run passes end-to-end. |
 
 **Open items to close the gate fully:**
 
-- [ ] **Joey:** decide and record the backup-risk posture after the confirmed
-      absence of Supabase Free-plan backup options; the BACKUPS launch gate
-      remains unresolved unless that risk is explicitly accepted or another
-      backup path is evidenced.
-- [ ] **Joey (or anyone with repo write access — no credential handling
-      required):** one real-data drill via
+- [x] ~~**Joey:** decide and record the backup-risk posture~~ — **ruled
+      2026-09-06 (FR-t_a0ad2392-4):** not a founder decision. The only
+      state that exists nowhere but Supabase is the `news_*` runtime tables
+      and generated uuids (§1); Layer B already reads all of it in 7.7 s.
+      A *scheduled* Layer-B production backup uploaded as a 90-day GitHub
+      artifact is "another backup path evidenced" at zero spend, so the
+      risk is mitigated rather than accepted. Tracked on the swift2 kanban
+      (child of t_a0ad2392). Upgrading the Supabase plan would be real
+      recurring spend and stays a founder call — but nothing here needs it.
+- [ ] **Agent:** make the production-bytes drill restore cleanly on a
+      non-Supabase target (stub `auth` schema before migrating) and make
+      both drill workflows fail honestly (`pipefail`) — see the 2026-09-06
+      row above. The next corrected run's PASS row closes this gate.
+- [ ] ~~**Joey (or anyone with repo write access — no credential handling
+      required):** one real-data drill~~ — clicked 2026-09-06, see the row
+      above; will be re-run automatically from the fix PR.
+      Original text kept below for context: one real-data drill via
       `.github/workflows/production-backup-drill.yml`
       (`workflow_dispatch`) — before launch, logged above. This is the only
       step that proves production's own bytes restore. The mechanical
