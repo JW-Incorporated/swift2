@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { MerchCatalogue, MerchItem } from '@swift2/content';
 import { loadMerchCatalogue } from '../lib/merch-data';
+import { buildShopUrl } from '../lib/shop';
 import { eraColors } from '../lib/theme';
 
 interface Row {
@@ -49,7 +50,7 @@ function buildRows(catalogue: MerchCatalogue): Row[] {
 
 function MerchRow({ item }: { item: MerchItem }) {
   return (
-    <Pressable style={styles.card} onPress={() => Linking.openURL(item.url).catch(() => {})}>
+    <Pressable style={styles.card} onPress={() => Linking.openURL(buildShopUrl(item)).catch(() => {})}>
       {item.imageUrl ? (
         <Image source={{ uri: item.imageUrl }} style={styles.cardImage} resizeMode="cover" />
       ) : (
