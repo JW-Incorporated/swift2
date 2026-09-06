@@ -98,6 +98,7 @@ describe('resolve — feature flags (OS-030: toggle without a rebuild)', () => {
       threads: false,
       trackGuide: false,
       song: false,
+      moment: false,
       clownbot: false,
     };
     expect(resolve('https://www.longlivets.com/?screen=settings', undefined, flags)).toEqual({
@@ -196,6 +197,29 @@ describe('resolve — OS-035 native track guide + song (off by default)', () => 
     expect(
       resolve('https://www.longlivets.com/?song=all-too-well-10-min', undefined, flags),
     ).toEqual({ web: 'https://www.longlivets.com/?song=all-too-well-10-min' });
+  });
+});
+
+describe('resolve — OS-033 native moment detail (off by default)', () => {
+  it('falls back to the WebView (the site\'s own ?item= page) when the moment flag is off (default)', () => {
+    expect(resolve('https://www.longlivets.com/?item=folklore-cardigan')).toEqual({
+      web: 'https://www.longlivets.com/?item=folklore-cardigan',
+    });
+  });
+
+  it('routes to native with the itemId param once the moment flag is flipped on', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, moment: true };
+    expect(resolve('https://www.longlivets.com/?item=folklore-cardigan', undefined, flags)).toEqual({
+      native: 'moment',
+      params: { itemId: 'folklore-cardigan' },
+    });
+  });
+
+  it('does not claim a bare ?item= with no value', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, moment: true };
+    expect(resolve('https://www.longlivets.com/?item=', undefined, flags)).toEqual({
+      web: 'https://www.longlivets.com/?item=',
+    });
   });
 });
 
