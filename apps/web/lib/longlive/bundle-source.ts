@@ -115,28 +115,23 @@ function readPublishedBundle(): RawBundle | null {
   try {
     const root = bundleRoot();
     const currentPath = path.join(root, 'current.json');
-    if (!fs.existsSync(/* turbopackIgnore: true */ currentPath)) return null;
+    if (!fs.existsSync(currentPath)) return null;
 
     const pointerSchema = z.object({ bundleVersion: z.string().min(1) });
     const { bundleVersion } = pointerSchema.parse(
-      // turbopackIgnore: dynamic bundle-version dir name — the actual path
-      // read is scoped to apps/web/public/content/ (or a test temp dir via
-      // LONGLIVE_CONTENT_BUNDLE_DIR), not project-wide; see bundleRoot().
-      JSON.parse(fs.readFileSync(/* turbopackIgnore: true */ currentPath, 'utf-8')),
+      JSON.parse(fs.readFileSync(currentPath, 'utf-8')),
     );
 
     const versionDir = path.join(root, bundleVersion);
     const manifestPath = path.join(versionDir, 'manifest.json');
-    if (!fs.existsSync(/* turbopackIgnore: true */ manifestPath)) return null;
-    const manifest = manifestSchema.parse(
-      JSON.parse(fs.readFileSync(/* turbopackIgnore: true */ manifestPath, 'utf-8')),
-    );
+    if (!fs.existsSync(manifestPath)) return null;
+    const manifest = manifestSchema.parse(JSON.parse(fs.readFileSync(manifestPath, 'utf-8')));
 
     const files: Record<string, unknown> = {};
     for (const [name, entry] of Object.entries(manifest.files)) {
       const filePath = path.join(versionDir, entry.path);
-      if (!fs.existsSync(/* turbopackIgnore: true */ filePath)) return null;
-      const text = fs.readFileSync(/* turbopackIgnore: true */ filePath, 'utf-8');
+      if (!fs.existsSync(filePath)) return null;
+      const text = fs.readFileSync(filePath, 'utf-8');
 
       const byteLength = Buffer.byteLength(text, 'utf-8');
       if (byteLength !== entry.bytes) return null;
