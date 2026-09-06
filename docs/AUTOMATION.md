@@ -186,6 +186,31 @@ call a model are separate **manually confirmed** workflows.
 | [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | header — Facebook has no API for non-administered groups, so this stays a human task |
 | [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The Claude-routine half is the Routine Auditor's weekly comment, see below |
 
+### Community engine (planned — 0 automatic + 0 manual today, 4 on landing)
+
+Spec: [`docs/proposals/2026-09-06-community-engine-plan.md`](proposals/2026-09-06-community-engine-plan.md)
+(Fable-approved plan, board `swift2`, Phase 0–3 cards). **None of these four
+exist yet** — each row below is a placeholder the naming P1/P2 card fills in
+when it ships (P0-4 lands the rows so later cards don't also have to touch
+this file). Standing rule from the plan: a human always posts; nothing here
+auto-posts, auto-comments, or auto-DMs on Reddit or Facebook.
+
+| Workflow | Trigger | LLM | Mutates | Card that creates it |
+|---|---|---|---|---|
+| `community-inbox.yml` | every 30 min | no | reads Marjorie's Gmail (Reddit alert/reply mail, DKIM-verified) → `engagement_lead`; also parses founder `posted <id>`/`skip <id>` replies | P1-1 |
+| `community-scan.yml` | daily (off-peak minute, see the repo's cron-contention rule) | no | RSS hot-thread scan per `community_watchlist` → `engagement_lead`, deduped vs `community_post_ledger`; gated by `COMMUNITY_SCAN_ENABLED` | P1-2 |
+| `community-mailer.yml` | daily, after the Community Answerer desk; + a bounded replies-waiting second send | no | sends the daily "Community Tasks" HTML email (paste-ready drafts, one-click ack/skip links); one-line pointer added to Marjorie's brief | P1-6 |
+| `community-crawl.yml` | daily, bounded | no | year-deep Reddit top-post walker (RSS month windows) + bounded home-relay full-tree fetch; writes to a transient 24h Actions artifact only, never the repo/DB; gated by repo variables `COMMUNITY_CRAWL_ENABLED` (default `false`) and `COMMUNITY_CRAWL_BUDGET` (threads/run cap) | P2-1 |
+
+`fb-export-ingest` (script, not its own cron — run by the Answerer desk or
+`workflow_dispatch` after a weekly Facebook export lands) and `theory-resolve`
+(folds into the existing nightly `sync:content` job) are the other two pieces
+of workflow-level machinery this plan adds; they don't get their own row here
+because they aren't independently-triggered things per this file's counting
+rule (see the header) — `fb-export-ingest` is documented under P1-3,
+`theory-resolve` under P2-3. E5's merch-lane widening (P2-7) reuses
+`merch-fanmade.yml`'s existing cron and needs no new row either.
+
 ### Dependabot update schedules (2) — config, not workflows
 
 `updates:` entries scheduled by GitHub itself, counted apart from the 37
@@ -224,6 +249,8 @@ Fleet invariants: [`agents/routine-invariants.md`](agents/routine-invariants.md)
 | Stylist | Sun 16:33 | Sonnet 5 | *none* | [`stylist.md`](agents/runner-prompts/stylist.md) |
 | News Triage | daily 15:40 | Opus 4.8 (T-3 trial: Sonnet 5, pending account access — `docs/agents/runners.md` § News Triage) | *none* | [`news-triage.md`](agents/runner-prompts/news-triage.md) |
 | Lex depth | **disabled** (warm spare) | Opus 4.8 | *none* | [`lex-depth.md`](agents/runner-prompts/lex-depth.md) |
+| Community Answerer — engagement drafts (planned, not created — P1-4) | daily, after `community-scan.yml` | Sonnet 5 (§8-Q4) | *none yet — charter lands with P1-4* | [`community-answerer.md`](agents/runner-prompts/community-answerer.md) |
+| Theory Miner — fan-theory corpus extraction (planned, not created — P2-2) | daily, after `community-crawl.yml`; + weekly Opus merge/promote pass (P2-3) | Haiku 4.5 extract / Opus 4.8 weekly merge | *none yet — charter lands with P2-2* | [`theory-miner.md`](agents/runner-prompts/theory-miner.md) |
 
 ⚠️ **The six standalone lanes above run *in addition to* the Vault Run built
 to replace them** — Phase 4 never landed, so Rumor Desk content lands daily
@@ -272,6 +299,8 @@ designed every-other-day cadence. See
 |---|---|---|
 | Karen Deep — agent review | ⚠️ **APPROVED (D3=A, 2026-08-31), NOT CREATED** — spend question resolved; only the account-access mechanic remains | [`agents/runners.md`](agents/runners.md) § "Karen Deep — trigger config to create" + [`karen-deep-review.md`](agents/runner-prompts/karen-deep-review.md) |
 | Notification quality — weekly desk | ⚠️ **APPROVED (D6=A, 2026-08-31), NOT CREATED** — sequence after REC-1's dispatch heartbeat lands ([REC-1](automation/review-2026-08-31.md#rec-1) not yet landed) | [`agents/runners.md`](agents/runners.md) § "Notification-quality desk — trigger config to create" + [`agents/notification-quality.md`](agents/notification-quality.md) + [`notification-quality-run.md`](agents/runner-prompts/notification-quality-run.md) |
+| Community Answerer — engagement drafts | ⏳ **PLANNED (Community Engine plan, Fable-approved 2026-09-06), NOT CREATED** — ships with card P1-4; model per plan §8-Q4 | [`docs/proposals/2026-09-06-community-engine-plan.md`](proposals/2026-09-06-community-engine-plan.md) §2.5 + `agents/runners.md` § "Community Answerer — trigger config to create" (added when P1-4 lands) |
+| Theory Miner — fan-theory corpus extraction + weekly merge | ⏳ **PLANNED (Community Engine plan, Fable-approved 2026-09-06), NOT CREATED** — extraction ships with P2-2, weekly Opus merge/promote pass with P2-3 | [`docs/proposals/2026-09-06-community-engine-plan.md`](proposals/2026-09-06-community-engine-plan.md) §3.3 + `agents/runners.md` § "Theory Miner — trigger config to create" (added when P2-2 lands) |
 
 ---
 
