@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkTarget, checksumRows } from './backup-restore-test.mjs';
+import { checkTarget, checksumRows, parseArgs } from './backup-restore-test.mjs';
 
 // The restore drill REWRITES its target. Two things therefore have to be true,
 // and neither is allowed to be a matter of trust:
@@ -99,5 +99,26 @@ describe('checksumRows — the property the verify step depends on', () => {
     expect(checksumRows([])).toBe(
       '0000000000000000000000000000000000000000000000000000000000000000',
     );
+  });
+});
+
+describe('parseArgs — --backup-only flag', () => {
+  it('parses --backup-only alongside --source, with no --target', () => {
+    const opts = parseArgs(['--source', 'postgres://x/db', '--backup-only']);
+    expect(opts.backupOnly).toBe(true);
+    expect(opts.source).toBe('postgres://x/db');
+    expect(opts.target).toBeUndefined();
+  });
+
+  it('leaves backupOnly unset when the flag is absent', () => {
+    const opts = parseArgs(['--source', 'a', '--target', 'b']);
+    expect(opts.backupOnly).toBeUndefined();
+  });
+
+  it('still parses alongside --keep and --json', () => {
+    const opts = parseArgs(['--source', 'a', '--backup-only', '--keep', '--json']);
+    expect(opts.backupOnly).toBe(true);
+    expect(opts.keep).toBe(true);
+    expect(opts.json).toBe(true);
   });
 });
