@@ -73,6 +73,7 @@ jobs:
       # scripts/social/lib/queue-schema.mjs for the eleven X posts that cost.
       - run: npm run validate:social
       - run: npm run check:generated
+      - run: npm run check:privacy-inventory
       - run: npm run check:affiliate-coverage
       - run: npm run check:content-inert
       - run: npm run check:automerge-allowlist
