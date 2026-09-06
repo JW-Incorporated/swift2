@@ -42,6 +42,7 @@ import { CommunityScreen } from './components/CommunityScreen';
 import { MerchScreen } from './components/MerchScreen';
 import { TrackGuideScreen } from './components/TrackGuideScreen';
 import { SongScreen } from './components/SongScreen';
+import { MomentSheet } from './components/MomentSheet';
 import { ClownChatScreen } from './components/ClownChatScreen';
 
 /**
@@ -89,6 +90,10 @@ export default function App() {
   // re-fetching. Cleared whenever the route's era changes so a stale list
   // never renders while the new era's fetch is in flight.
   const [trackGuideTracks, setTrackGuideTracks] = useState<TrackNote[]>([]);
+  // OS-033: the native moment detail sheet, reached via `?item=<id>` once the
+  // `moment` route flag is on (off by default — see routes.ts). Holds the id
+  // rather than a boolean since the sheet needs it to load the moment.
+  const [momentItemId, setMomentItemId] = useState<string | null>(null);
   // OS-036: the native Clownbot + mood chat screen, reached via
   // `?screen=clownbot` once the `clownbot` route flag is on (off by
   // default — see routes.ts).
@@ -123,6 +128,7 @@ export default function App() {
     setCommunityOpen(false);
     setMerchOpen(false);
     setTrackGuideRoute(null);
+    setMomentItemId(null);
     setClownChatOpen(false);
     if (screen === 'settings') {
       setNotificationSettingsOpen(true);
@@ -163,6 +169,8 @@ export default function App() {
         .catch((e) => {
           console.warn('ensureTrackGuideWired failed', e instanceof Error ? e.message : e);
         });
+    } else if (screen === 'moment' && params.itemId) {
+      setMomentItemId(params.itemId);
     } else {
       setInboxOpen(true);
     }
@@ -176,6 +184,7 @@ export default function App() {
     setCommunityOpen(false);
     setMerchOpen(false);
     setTrackGuideRoute(null);
+    setMomentItemId(null);
     setClownChatOpen(false);
     setWebUrl(url);
   }, []);
@@ -246,6 +255,16 @@ export default function App() {
     [openNativeScreen],
   );
 
+  // OS-033: a moment id from anywhere in the native tree (era-stream cards,
+  // a song dossier's "Keep exploring" connection) funnels through the same
+  // navigate() every other entry point uses, so the moment/eraStream/
+  // trackGuide route flags all apply consistently regardless of which
+  // screen the tap originated from.
+  const openMoment = useCallback(
+    (id: string) => navigate(`${SITE_URL}?item=${encodeURIComponent(id)}`),
+    [navigate],
+  );
+
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -262,7 +281,7 @@ export default function App() {
               onOpenItem={(event) => navigate(event.deepLink)}
             />
           ) : eraStreamOpen ? (
-            <EraStreamScreen />
+            <EraStreamScreen onOpenItem={openMoment} />
           ) : communityOpen ? (
             <CommunityScreen />
           ) : merchOpen ? (
@@ -280,12 +299,14 @@ export default function App() {
               eraId={trackGuideRoute.eraId}
               track={trackGuideRoute.track}
               onOpenSong={(eraId, track) => setTrackGuideRoute({ screen: 'song', eraId, track })}
-              // Native moment detail (OS-033/OS-037) isn't built yet — a
-              // "Keep exploring" moment connection has nowhere native to
-              // send it to, so this is a documented no-op, matching
-              // EraStreamScreen's `handleOpenItem` precedent.
-              onOpenMoment={undefined}
+              // OS-033 ships the native moment sheet: a "Keep exploring"
+              // moment connection now opens it (through the same navigate()
+              // every other entry point uses), replacing the documented
+              // no-op OS-035 left here pending this card.
+              onOpenMoment={openMoment}
             />
+          ) : momentItemId ? (
+            <MomentSheet itemId={momentItemId} onClose={() => setMomentItemId(null)} />
           ) : clownChatOpen ? (
             <ClownChatScreen onClose={() => setClownChatOpen(false)} />
           ) : onboardingOpen ? (

@@ -28,12 +28,12 @@ import { destinationFor, type ShellDestination } from '@swift2/shared';
  * Every screen this table can route to natively. `settings` and `inbox`
  * shipped in Phase 0; OS-032 adds `era-stream` (Phase 3's native era
  * stream — masthead, era sections, moment cards). OS-035 adds `track-guide`
- * (an album's song list) and `song` (one song's dossier). OS-036 adds
- * `clownbot` (the native Clownbot + mood chat screen). OS-037 adds
- * `community` and `merch` (the fan community directory and the merch
- * directory). `moment`, etc. join as they're built (OS-033, OS-038) — each
- * new screen gets one more entry here and one more flag, nothing else in
- * this file changes shape.
+ * (an album's song list) and `song` (one song's dossier). OS-033 adds
+ * `moment` (the native moment detail sheet). OS-036 adds `clownbot` (the
+ * native Clownbot + mood chat screen). OS-037 adds `community` and `merch`
+ * (the fan community directory and the merch directory). Remaining screens
+ * join as they're built (OS-038) — each new screen gets one more entry
+ * here and one more flag, nothing else in this file changes shape.
  */
 export type ScreenId =
   | 'settings'
@@ -43,17 +43,18 @@ export type ScreenId =
   | 'merch'
   | 'track-guide'
   | 'song'
+  | 'moment'
   | 'clownbot';
 
 /**
  * The native-side resolution carries whichever params the target screen
- * needs to render (OS-035's `track-guide`/`song` are the first screens in
- * this table that need any — `settings`/`inbox`/`era-stream`/`community`/
- * `merch`/`clownbot` take none). `params` is always present (possibly `{}`)
- * so callers never need an `'params' in resolution` guard on top of the
- * `'native' in resolution` one.
+ * needs to render (OS-035's `track-guide`/`song` were the first screens in
+ * this table that needed any — `settings`/`inbox`/`era-stream`/`community`/
+ * `merch`/`clownbot` take none; OS-033's `moment` adds `itemId`). `params`
+ * is always present (possibly `{}`) so callers never need an `'params' in
+ * resolution` guard on top of the `'native' in resolution` one.
  */
-export type NativeParams = { eraId?: string; trackKey?: string };
+export type NativeParams = { eraId?: string; trackKey?: string; itemId?: string };
 export type RouteResolution = { native: ScreenId; params: NativeParams } | { web: string };
 
 /**
@@ -82,12 +83,20 @@ export interface RouteFlags {
    * OFF, flips on later via remote config once reviewed in TestFlight. */
   trackGuide: boolean;
   song: boolean;
+  /** OS-033: same D3 posture as `eraStream`/`trackGuide`/`song` — defaults
+   * OFF until the native moment sheet has been through review/TestFlight.
+   * `destinationFor` already resolves any `?item=<id>` link to
+   * `{ kind: 'moment', itemId, url }` regardless of this flag (it is the
+   * deep-link CONTRACT, not the routing decision); this flag is what
+   * `resolve()`/`screenForDestination` gate on before actually sending the
+   * shell to the native sheet vs. the WebView. */
+  moment: boolean;
   /** OS-036: same progressive-rollout posture as eraStream/trackGuide —
    * defaults OFF (see DEFAULT_ROUTE_FLAGS). */
   clownbot: boolean;
 }
 
-/** Settings/inbox ship on by default (Phase 0, already shipped); OS-032's era stream, OS-037's community/merch, OS-035's track guide/song screens, and OS-036's Clownbot all ship OFF by default — see each flag's own doc above. */
+/** Settings/inbox ship on by default (Phase 0, already shipped); OS-032's era stream, OS-037's community/merch, OS-035's track guide/song screens, OS-033's moment sheet, and OS-036's Clownbot all ship OFF by default — see each flag's own doc above. */
 export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   settings: true,
   inbox: true,
@@ -96,6 +105,7 @@ export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   merch: false,
   trackGuide: false,
   song: false,
+  moment: false,
   clownbot: false,
 };
 
@@ -107,6 +117,7 @@ function screenForDestination(dest: ShellDestination): ScreenId | null {
   if (dest.kind === 'merch') return 'merch';
   if (dest.kind === 'track-guide') return 'track-guide';
   if (dest.kind === 'song') return 'song';
+  if (dest.kind === 'moment') return 'moment';
   if (dest.kind === 'clownbot') return 'clownbot';
   return null;
 }
@@ -115,10 +126,11 @@ function screenForDestination(dest: ShellDestination): ScreenId | null {
 function paramsForDestination(dest: ShellDestination): NativeParams {
   if (dest.kind === 'track-guide') return { eraId: dest.eraId };
   if (dest.kind === 'song') return { trackKey: dest.trackKey };
+  if (dest.kind === 'moment') return { itemId: dest.itemId };
   return {};
 }
 
-/** Maps a `ScreenId` to its `RouteFlags` key — the flag names differ from the screen ids in the hyphenated/multi-word cases (`era-stream` -> `eraStream`, `track-guide` -> `trackGuide`; `song`/`community`/`merch`/`clownbot` match their screen id), all valid RouteFlags/TS identifiers, so this indirection is the one place that mapping lives. */
+/** Maps a `ScreenId` to its `RouteFlags` key — the flag names differ from the screen ids in the hyphenated/multi-word cases (`era-stream` -> `eraStream`, `track-guide` -> `trackGuide`; `song`/`community`/`merch`/`moment`/`clownbot` match their screen id), all valid RouteFlags/TS identifiers, so this indirection is the one place that mapping lives. */
 function flagForScreen(screen: ScreenId, flags: RouteFlags): boolean {
   if (screen === 'settings') return flags.settings;
   if (screen === 'inbox') return flags.inbox;
@@ -127,6 +139,7 @@ function flagForScreen(screen: ScreenId, flags: RouteFlags): boolean {
   if (screen === 'merch') return flags.merch;
   if (screen === 'track-guide') return flags.trackGuide;
   if (screen === 'song') return flags.song;
+  if (screen === 'moment') return flags.moment;
   return flags.clownbot;
 }
 
@@ -149,10 +162,15 @@ export function resolve(
   }
   // Either destinationFor already said `web` (nothing native addresses this
   // URL), or it does but the flag is off — both fall back to the WebView.
-  // `dest.kind === 'web'` always carries a `url`; the native-but-flagged-off
-  // case has no web equivalent URL of its own, so it falls back to the site
-  // root the same way destinationFor does for an unroutable link.
-  return { web: dest.kind === 'web' ? dest.url : siteUrl ?? 'https://www.longlivets.com' };
+  // `dest.kind === 'web'` always carries a `url`, and so does `'moment'`
+  // (OS-033: the website already renders `?item=<id>` itself via its own
+  // deep-link handling, so a flagged-off moment falls back to THAT url
+  // rather than the bare site root — unlike settings/inbox/era-stream/
+  // community/merch/track-guide/song/clownbot, which have no web equivalent
+  // of their own to fall back to).
+  if (dest.kind === 'web') return { web: dest.url };
+  if (dest.kind === 'moment') return { web: dest.url };
+  return { web: siteUrl ?? 'https://www.longlivets.com' };
 }
 
 /** True when `resolve()` would send this URL to a native screen right now. */

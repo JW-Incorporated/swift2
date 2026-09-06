@@ -204,4 +204,18 @@ describe('destinationFor (shell routing, OS-003)', () => {
       kind: 'clownbot',
     });
   });
+
+  // OS-033
+  it('routes ?item=<id> to the native moment sheet, carrying the itemId and original url', () => {
+    expect(destinationFor('https://www.longlivets.com/?item=folklore-cardigan')).toEqual({
+      kind: 'moment',
+      itemId: 'folklore-cardigan',
+      url: 'https://www.longlivets.com/?item=folklore-cardigan',
+    });
+  });
+
+  it('does not treat a bare ?item= (no value) as a moment link', () => {
+    const url = 'https://www.longlivets.com/?item=';
+    expect(destinationFor(url)).toEqual({ kind: 'web', url });
+  });
 });
