@@ -115,7 +115,7 @@ function readPublishedBundle(): RawBundle | null {
   try {
     const root = bundleRoot();
     const currentPath = path.join(root, 'current.json');
-    if (!fs.existsSync(currentPath)) return null;
+    if (!fs.existsSync(/* turbopackIgnore: true */ currentPath)) return null;
 
     const pointerSchema = z.object({ bundleVersion: z.string().min(1) });
     const { bundleVersion } = pointerSchema.parse(
@@ -127,7 +127,7 @@ function readPublishedBundle(): RawBundle | null {
 
     const versionDir = path.join(root, bundleVersion);
     const manifestPath = path.join(versionDir, 'manifest.json');
-    if (!fs.existsSync(manifestPath)) return null;
+    if (!fs.existsSync(/* turbopackIgnore: true */ manifestPath)) return null;
     const manifest = manifestSchema.parse(
       JSON.parse(fs.readFileSync(/* turbopackIgnore: true */ manifestPath, 'utf-8')),
     );
@@ -135,7 +135,7 @@ function readPublishedBundle(): RawBundle | null {
     const files: Record<string, unknown> = {};
     for (const [name, entry] of Object.entries(manifest.files)) {
       const filePath = path.join(versionDir, entry.path);
-      if (!fs.existsSync(filePath)) return null;
+      if (!fs.existsSync(/* turbopackIgnore: true */ filePath)) return null;
       const text = fs.readFileSync(/* turbopackIgnore: true */ filePath, 'utf-8');
 
       const byteLength = Buffer.byteLength(text, 'utf-8');
