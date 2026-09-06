@@ -454,6 +454,25 @@ relationship-existence speculation) applies to every draft, and nothing is ever
 invented — no stat, quote, or trend without a Vault item or a verifiable source
 behind it.
 
+**Major personal-life events — confirmed-only carve-out (Joey, 2026-09-01,
+`D1=A`).** The blocklist above still bars searching for, drafting, or posting
+any pregnancy or relationship-existence *speculation* — that stays absolute,
+zero exceptions, same as every other rumor-stage topic on this list. The one
+change: once a major personal-life event (pregnancy, engagement, marriage, and
+comparable milestones) is **confirmed** — by Taylor or her team directly, or
+independently reported as settled fact by two major outlets — it is no longer
+"speculation" and social may cover it like any other confirmed public news
+event (the same treatment a Grammy win or a tour date gets): warm, factual,
+sourced, celebratory. It never gets a "clues/countdown/rumor tracker"
+treatment the way an album rollout does — that framing is reserved for
+product launches and creative rollouts, not a person's private life. Until
+confirmation, silence; the moment it's confirmed, normal coverage. This
+carve-out is social-caption policy only (this file, `docs/agents/growth.md`,
+`docs/agents/runner-prompts/growth-draft.md`) — it does not touch the
+site's Vault/editorial pipeline or the Clownbot safety gate, which remain
+governed by their own docs and are outside Tree's and Growth's mutation
+rights.
+
 **Register — a fan in love, out loud (Joey, 2026-08-25).** We are fans and we
 GUSH. Every caption is first-person fan reaction first, fact second: lead with
 the feeling ("OMG", "i can't stop thinking about", "this makes me so happy"),
