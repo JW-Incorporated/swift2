@@ -494,9 +494,35 @@ function runNode(script, env, label) {
  * own row type inside Postgres, so the round-trip is symmetric with the dump
  * and stays correct if a column's type changes.
  */
-async function loadTable(client, table, lines) {
-  const sql = `insert into public.${q(table)}
-                 select r.* from jsonb_array_elements($1::jsonb) e,
+export async function loadableColumns(client, table) {
+  // Generated columns (`generated always as (...) stored`) can't take an
+  // explicit value on insert — Postgres rejects it even when the value
+  // came straight out of the table itself. `attgenerated` is 's' for a
+  // stored generated column and '' otherwise; filter those out so the
+  // loader works for this table and for any future generated column
+  // added to any table, without naming columns/tables by hand.
+  const { rows } = await client.query(
+    `select a.attname as name
+       from pg_attribute a
+       join pg_class c on c.oid = a.attrelid
+       join pg_namespace n on n.oid = c.relnamespace
+      where n.nspname = 'public'
+        and c.relname = $1
+        and a.attnum > 0
+        and not a.attisdropped
+        and a.attgenerated = ''
+      order by a.attnum`,
+    [table],
+  );
+  return rows.map((r) => r.name);
+}
+
+export async function loadTable(client, table, lines) {
+  const cols = await loadableColumns(client, table);
+  const colList = cols.map((c) => q(c)).join(', ');
+  const selList = cols.map((c) => `r.${q(c)}`).join(', ');
+  const sql = `insert into public.${q(table)} (${colList})
+                 select ${selList} from jsonb_array_elements($1::jsonb) e,
                               jsonb_populate_record(null::public.${q(table)}, e) r`;
   for (let i = 0; i < lines.length; i += FETCH) {
     const batch = lines.slice(i, i + FETCH);
