@@ -1,8 +1,0 @@
-fix(community-engine): unique index instead of invalid expression constraint
-
-Fresh-context review of PR #3946 caught a real Postgres bug:
-`unique (platform, coalesce(thread_id, locator), kind)` as a table-level
-constraint is invalid -- Postgres only accepts a plain column list there,
-not an expression like coalesce(). Replaced with a `create unique index`
-over the same expression, which is the correct way to express this
-dedupe key.
