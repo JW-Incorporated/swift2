@@ -2128,7 +2128,7 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
       moment: {
         context:
-          "Swift performed \"I Knew You Were Trouble\" live for the first time at the 40th American Music Awards, held at the Nokia Theatre L.A. Live. She opened in a pale-pink, princess-style gown descending a staircase surrounded by black-clad dancers, then discarded the dress midway through to reveal a black-and-red corset-and-tulle look for a darker, more aggressive second half — a deliberate tonal swerve from her usual image. She also won Favorite Country Female Artist that night.",
+          "Taylor performed \"I Knew You Were Trouble\" live for the first time at the 40th American Music Awards, held at the Nokia Theatre L.A. Live. She opened in a pale-pink, princess-style gown descending a staircase surrounded by black-clad dancers, then discarded the dress midway through to reveal a black-and-red corset-and-tulle look for a darker, more aggressive second half — a deliberate tonal swerve from her usual image. She also won Favorite Country Female Artist that night.",
           sources: [
             { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble' },
             {
