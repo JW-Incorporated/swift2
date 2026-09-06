@@ -29,6 +29,7 @@ import {
   threadDoorwaysForEra,
   eggDoorwaysForEra,
   setTheoriesRawProvider,
+  type ContentItem,
   type Era,
   type EraId,
   type EraStreamViewModel,
@@ -93,4 +94,25 @@ export async function loadEraStream(eraId: EraId): Promise<EraStreamViewModel<Pl
 /** Every era, newest-first — the order `EraStream.tsx`'s selector and `RouteFlags`-gated native stream both present eras in. */
 export function orderedEras(): Era[] {
   return [...ERAS].sort((a, b) => b.start.localeCompare(a.start));
+}
+
+/**
+ * OS-033 — one moment by id, searched across every era's `content:<eraId>`
+ * bundle file (mirrors `vault-bundle-map.ts`'s `findMoment`, which does the
+ * same id search but returns the mapped Vault `Moment` shape; this returns
+ * the raw `ContentItem` the shared `@swift2/experience` detail helpers
+ * (video-affordance-equivalent lookups, `getEra`, etc.) expect). Returns
+ * `undefined` for an unknown id — a dead `?item=` link degrades to "moment
+ * not found" rather than throwing, the same silent-skip contract
+ * `content-item-provider.ts` documents for the web's own lookup.
+ */
+export async function loadMomentById(itemId: string): Promise<ContentItem | undefined> {
+  const { files } = await ensureBundle();
+  if (!theoriesWired) wireTheories(files);
+  for (const era of ERAS) {
+    const items = itemsForEra(files, era.id);
+    const found = items.find((item) => item.id === itemId);
+    if (found) return found;
+  }
+  return undefined;
 }

@@ -31,18 +31,16 @@ import { eraColors } from '../lib/theme';
 /** How many eras (newest-first) this screen mounts at once. OS-032 scope: "three eras" per the card's own done-when; a follow-up (OS-032 the same shared jumpWindow the web uses, or its own incremental-append) can widen this without touching EraSection or the shared view-model builder. */
 const INITIAL_ERA_COUNT = 3;
 
-export function EraStreamScreen() {
+export function EraStreamScreen({ onOpenItem }: { onOpenItem: (id: string) => void }) {
   const eras = useMemo(() => orderedEras().slice(0, INITIAL_ERA_COUNT), []);
   const [activeEraName] = useState(eras[0]?.name ?? '');
   const [searchOpen, setSearchOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
 
-  // OS-033 (native moment detail) owns opening a moment's full sheet; this
-  // card renders the tap target but has nowhere native to send it yet, so
-  // the handler is a documented no-op rather than a fake navigation. A
-  // search hit on a moment funnels through the same handler for the same
-  // reason (see SearchScreen's onOpenMoment).
-  const handleOpenItem = (_id: string) => {};
+  // OS-033 ships the native moment detail sheet: a moment hit (feed tap or
+  // search result) now opens it via the `onOpenItem` prop, replacing the
+  // documented no-op OS-038 left here pending this card.
+  const handleOpenItem = onOpenItem;
   // A search hit on an era has nowhere to scroll to yet either — this
   // screen renders a fixed three-era window rather than the web's
   // incremental jump-to-era scroll (see this file's header doc); a
@@ -80,7 +78,7 @@ export function EraStreamScreen() {
       <ScrollView style={styles.fill} contentContainerStyle={styles.content}>
         <LandingMasthead />
         {eras.map((era) => (
-          <EraSection key={era.id} era={era} onOpenItem={handleOpenItem} />
+          <EraSection key={era.id} era={era} onOpenItem={onOpenItem} />
         ))}
       </ScrollView>
 

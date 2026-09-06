@@ -107,7 +107,8 @@ export type ShellDestination =
   | { kind: 'track-guide'; eraId: string }
   | { kind: 'song'; trackKey: string }
   // OS-036: the native Clownbot + mood chat screen, same `?screen=` pattern.
-  | { kind: 'clownbot' };
+  | { kind: 'clownbot' }
+  | { kind: 'moment'; itemId: string; url: string };
 
 const DEFAULT_SITE_URL = 'https://www.longlivets.com';
 
@@ -155,6 +156,13 @@ export function destinationFor(
       const trackKey = u.searchParams.get('key');
       if (trackKey) return { kind: 'song', trackKey };
     }
+    // OS-033: `?item=<id>` is the web's own moment-detail share link
+    // (ShareSheet.tsx's `shareUrl` for `share.kind === 'item'`) — the ONE
+    // deep link this card's "done when" names explicitly ("every `?item=`
+    // deep link opens natively"). An empty id is not a moment; fall through
+    // to the generic web handling below rather than opening an empty sheet.
+    const itemId = u.searchParams.get('item');
+    if (itemId) return { kind: 'moment', itemId, url: rawUrl };
     // OS-036: the native Clownbot + mood chat screen, reached the same way —
     // an explicit `?screen=clownbot` marker.
     if (u.searchParams.get('screen') === 'clownbot') return { kind: 'clownbot' };
