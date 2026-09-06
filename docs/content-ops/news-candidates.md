@@ -27,6 +27,30 @@ so far".
 
 Stories: 120
 
+## Eras Tour Concert Movie Fails to Win at 2026 Emmy Awards
+
+- first seen: 2026-09-06 16:12 UTC | category: business | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s ‘Eras Tour’ concert movie did not win any awards at the 2026 Creative Arts Emmy Awards. This outcome highlights the competitive nature of award categories in the entertainment industry.
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMioAFBVV95cUxQYUxzMXVoUVpQODc1V01sQzBKYVpJTG04SDYwUkI1dmlhNm9OZ0lLdG5uVy01VlRlX0VFaVItU2xmQVhyWTk4czdWcmFLMzNKajlKQjBTdXI2YlBYV01lQ25BaDZuUGJwcmRob3RjVTVtcG5TS05LOWV4Z2NWQUwtUUIwdlFCQ0thNW9OR3l5cF95ckd0OXpNOUdISGxrcVp5?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## 'Eras Tour' Finale Not Nominated at 2026 Emmys
+
+- first seen: 2026-09-06 16:12 UTC | category: tour | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's 'Eras Tour' finale was not nominated at the 2026 Emmys, according to USA Today. The event concluded without recognition at the awards.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiywFBVV95cUxPcVktblduN1JCbEhZV2xvYVR0ZmxGaVllbXM1ZXN4OE1aN0tmZkRVaXk1RWRUVWV0TjZQLWhDVWpISERkbUw1bWk1bWJZdmQ0RDc4NDNGWHhObGtTaUF2WXNMZjl4blB6aWIxNmdVVV9hendNcXNRdkFnUE1JZ25zV09XQXF6WjJtdjcyWGMtSzFQbi11Nk5jRk5fcWg4aW5BTHZ6QXVWT08yajhkT2FmVGpfa0F3Y0pUMnp1eXBYOHJZWnZxb3FteTZCcw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Nikki Glaser Discusses Unique Aspect of Taylor Swift and Travis Kelce's Wedding
+
+- first seen: 2026-09-06 16:12 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Comedian Nikki Glaser highlights a distinctive feature of Taylor Swift and Travis Kelce's wedding that is rarely seen at celebrity events. The comments were made during a discussion about the high-profile couple's event.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOV0t6ZmlTU1pOMXZXTVFzdW0yZDU4TFc5VUVDcGo2UTl5Zk1fYlliSzFzWnRTcDRMLUMwcUFQRmNwTzBVR1NaTnpBWU9GajM3aW01Yjg4Qnl0WjBRaXZYYnhBemgtZmdsZVZoeXEzUVZXSkhNTzBZWTRBZWlMYmxaMWZGNTJlY3Myd3A2WTRPbDcwcHJmUHc?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Celebrity Outfit Highlights of the Week Featuring Taylor Swift
 
 - first seen: 2026-09-06 12:51 UTC | category: fashion | importance: 5
@@ -46,10 +70,11 @@ Stories: 120
 ## Beverly Vance Responds to Vice President's Comments on Taylor Swift
 
 - first seen: 2026-09-06 12:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Beverly Vance, mother of JD Vance, has reacted to recent comments made by the vice president regarding Taylor Swift and 'childless cat ladies.'
 - sources:
   - [unverified] Fox News — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNVm9qQ2c3OGpZMURWMUZTbnRoRTZWeGlPb295cmg2SWxCbU4zZXhnVWRZSXJnTlJLZk9WLVdVaGhkc1BUYk9xYzB2a2JqOTc2NlFTanhaMmEtbC1lV0JIMjFWcnQyZTFlVElIYklnZUVZQmtSWUpQb3h0aGI1T01qRExwVzIxc3Y1eWx5UDhzSGRfMTIyZng3YTIyTm0wWjF1M0VGNmNrLWFPYW0tMmRhTEtNTVItdF80cUtmNkFxUnJtcXhaOG04dQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] foxnews.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPSzZ6cUZIaXhCY2hQZ0x6RVJxNHoteUdEM3Myb0EtZVdWeXpQQjJiV0FqdWtWVnl5UkxCaWpsa1JBdy1PZTdobHhTSDAzMzQ4WS05WWY5bjU3MmVRTTZLVVR2MkpMSEJQUVVfclBQb1duTTRtcXQ3MkdYQVh5dWpndGJBTDdHSUk5cmRMWHRZNDVzOE1oaWxjRE1oajk1cTJ6T183VTFEYi1kX1BVMTVzS055UW9Na2hjUVljRUNjcnRyemc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift to Appear Multiple Times Before Chiefs Game
 
@@ -126,14 +151,6 @@ Stories: 120
 - sources:
   - [unverified] hitc.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOS0FSaWhEc2xmMFQ0ZnMxU0Utb2NMWHRqOG5QXzM0bmFVY1I4NXZ1TXZoVnU0MjdhT29aSWxjWUxhb1dVeDV3M2R6VGF5NEtNNFhvN0NMa0NUZGRNdklqVXNZcU9LWmVBNmQxX1Uxa2JObE0tbFlTV2IySF9MMEc4T0JvNUhnY3RGdm9ZYTNiVDh5eDRnall1OWlVWnJvZUQwWDhJTnpCUVZyeDhZOVQxM1ZQR3M3cUxMRzRaWEUzRlNaNjQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Discusses 'I Knew It, I Knew You' Lyrics on Country Radio
-
-- first seen: 2026-09-06 05:53 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: In a rare appearance on country radio, Taylor Swift shared insights into the double meaning of the lyrics from her song 'I Knew It, I Knew You'.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMGo5ZXdtTmwzUkxMUDZ6djBHUmQxaGFfaUgxclhxZ2VWU0ZHTkJyOEFMTTFjTnJpbXlCYjNfYTBfbDBkOGU5MVVCZVVZY0hQbmR5RU51bWlKT2Voa2dpQzJqV05fakR0akxBWm93czVTOE9uaWE5RzVRYUVIcnZ4OThtZERsRGJFS1NVaTFMaFJPRGVoUjRCNGdLd3RqWTdHQjJsaHV5aTU5SmczU013?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Discusses 'Toy Story 5' Song in Country Radio Interviews
 
 - first seen: 2026-09-06 05:53 UTC | category: music | importance: 6
@@ -150,6 +167,16 @@ Stories: 120
 - summary: Taylor Swift has reportedly purchased a home from Travis Kelce, marking an expansion of her real estate portfolio. This acquisition showcases her continued investment in property.
 - sources:
   - [unverified] newsnationnow.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdXFLQU1VMGVVbnlCMENPVGpPWUJvbEVBaVZFbGxlTlBjTjc3MGxFRWVELTMxb0U2cno5c04tNkRHTE9fVW1tYmx5QnhpLUF4MUc2XzdFMklIWE13eGUzbHZEcU80VmRUc281Xzd5MnhDZVMwX3VOVV9ZdVRVMDROWG9NSHpsYkl1U2dJVEt2T185V1NoVE5wWXY0cE5OUU1MLUVHeEM4VTcxZ9IBrwFBVV95cUxOSlB1UjNhVnVWdWRsOXhLSzdQemRINFhXYjZ6QjJWRDRKMFZMekVUSlZVTWhvSHNCR0Vob1cyN2tYNXVZVk0xQlRrVmlGbTZBeVJNQVpRSTgyaFdWYk5fZG5xWW1nZWN1YklNaWVad2tJSDZETkd1NXVpUmdIWExKNDFkS1F4c216RjhRZXRDQWNOd2NkbTNRQ2cteTY4bVZMYWdUYlBQaTIydXE1S1A0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Discusses 'I Knew It, I Knew You' Lyrics on Country Radio
+
+- first seen: 2026-09-06 05:53 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: In a rare appearance on country radio, Taylor Swift shared insights into the double meaning of the lyrics from her song 'I Knew It, I Knew You'.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMGo5ZXdtTmwzUkxMUDZ6djBHUmQxaGFfaUgxclhxZ2VWU0ZHTkJyOEFMTTFjTnJpbXlCYjNfYTBfbDBkOGU5MVVCZVVZY0hQbmR5RU51bWlKT2Voa2dpQzJqV05fakR0akxBWm93czVTOE9uaWE5RzVRYUVIcnZ4OThtZERsRGJFS1NVaTFMaFJPRGVoUjRCNGdLd3RqWTdHQjJsaHV5aTU5SmczU013?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Headline Planet — https://news.google.com/rss/articles/CBMitwFBVV95cUxQSE1zR25MMGJMcjk5NElsMDRsMEcza0o5dGVJbi1sS0pibGpJY0kybGhmRnVkS1lqTHRnUEJuRUdvZDN5YkZjYkxjRTVSVE43R0x2WGtOS3dfLU1JS2VCTFJwNm5teVV4T3k0ai1aV1M3cUg4d3JNYUVKU1B3WERyeHNuUWtOcnpLRUQwLUx5Yy0yWTd0N2w2WGQ3SWdMNmIwTWhGRFFVd3JTLU41SGI2LWF1Mnd2VjjSAbwBQVVfeXFMUHcwTDdzTm0zQjhnVlUwWnVMMzI2NGxOOWpsTnhNSjlqSG12RUVBVDNmV08wUTZucUJlcnVBZ2EzVmJFaVppTTFhNUNaNnNZSTdrdER4R3RORnM3YzhoQmJjb2dpSmVGbzBwV1RPcHN0cm1mQlViU0ZuM3lSNDUyZWdMbHgtNTYzRXdwaDdVTlE5ekNmNHB6RWNuRkx2RGNiRE5JQWYyelFCUm9mbTcyM2VtTVFPM1NiaFRUN2w?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMihgFBVV95cUxNdkRWOG9waEFsZ1JNajZqaEV4Z1V2T0stbG9Xd0ozUXVTSFBfazVZblRib0tRQ29wNTAwY0F0MWQ4cmoyMGJFVUU5WkJCSi0tWlhDM3U4WWdEWGd0Y3drN3l1TkFpUjUwdGFJeEtjc24tbFEwSjNwUE5PazYwaWJYUHhyai1WQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Makes Wedding Joke at NYC Concert Referencing Taylor Swift
 
@@ -877,25 +904,4 @@ Stories: 120
 - first seen: 2026-09-04 19:31 UTC | category: relationship | importance: 5
 - verification_status: single_source | source_count: 0
 - summary: Travis Kelce recently expressed his affection for a new member of his family, clarifying that it's not Taylor Swift. The news highlights his personal life outside of his relationship with the pop star.
-- sources: _none recorded_
-
-## The Florida Orchestra to Perform Taylor Swift's Music
-
-- first seen: 2026-09-04 19:31 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: The Florida Orchestra is set to perform a symphonic rendition of Taylor Swift's music, showcasing her songs in a new musical style. This event aims to blend classical music with contemporary pop hits.
-- sources: _none recorded_
-
-## Analysis of Taylor Swift's Impact on Economic Trends
-
-- first seen: 2026-09-04 19:31 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Lydia Kulina-Washburn discusses the influence of Taylor Swift on economic trends and recessions in an article for Broad + Liberty.
-- sources: _none recorded_
-
-## Luminate Report Highlights Taylor Swift's Impact on Album Sales
-
-- first seen: 2026-09-04 19:31 UTC | category: business | importance: 7
-- verification_status: single_source | source_count: 0
-- summary: A recent Luminate report reveals that Taylor Swift's fanbase significantly contributes to millions in physical album sales, showcasing the strong market presence of her music. The findings were reported by USA Today.
 - sources: _none recorded_
