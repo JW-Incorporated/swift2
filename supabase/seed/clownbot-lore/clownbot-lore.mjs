@@ -72,9 +72,9 @@ export default {
       status: 'rumor',
       date: '2025-05-30',
       lastCheckedOn: '2026-09-04',
-      headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
+      headline: "reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
-        'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of Reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
+        'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
       sources: [
         {
           name: 'Rolling Stone',
@@ -90,8 +90,8 @@ export default {
         },
       ],
       prompts: [
-        "Decode this: she said she hasn't re-recorded a quarter of REPUTATION. She said nothing about the debut. What does that omission mean?",
-        'Rank the odds: Reputation TV, debut TV, or neither ever. Commit to a number.',
+        "Decode this: she said she hasn't re-recorded a quarter of reputation. She said nothing about the debut. What does that omission mean?",
+        'Rank the odds: reputation TV, debut TV, or neither ever. Commit to a number.',
       ],
       evergreen: true,
       tags: ['re-records', 'open-question'],
@@ -180,9 +180,9 @@ export default {
       status: 'reported',
       date: '2026-08-20',
       lastCheckedOn: '2026-09-04',
-      headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
+      headline: 'The green “TS” clue: debut, reputation, TS13 — or a skyscraper trolling',
       detail:
-        'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, Reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
+        'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
       sources: [
         {
           name: 'Us Weekly',
@@ -198,7 +198,7 @@ export default {
         },
       ],
       prompts: [
-        'Green TS logo, green Empire State Building, and a 20th anniversary coming: debut, Reputation, TS13, or pure trolling? Pick one.',
+        'Green TS logo, green Empire State Building, and a 20th anniversary coming: debut, reputation, TS13, or pure trolling? Pick one.',
       ],
       tags: ['re-records', 'ts13', 'easter-eggs'],
     },

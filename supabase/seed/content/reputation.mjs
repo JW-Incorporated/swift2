@@ -1224,7 +1224,7 @@ export default {
         'https://www.rollingstone.com/wp-content/uploads/2018/12/taylor-swift-biggest-loser.jpg?w=1600&h=900&crop=1',
       moment: {
         context:
-          "Reputation was the best-selling album of 2017 and the No. 1 album on Billboard's 2018 year-end Billboard 200, but by the 61st Annual Grammy Awards in February 2019 it had one nomination to show for it: Best Pop Vocal Album.\n\nNone of its singles — \"Look What You Made Me Do,\" \"...Ready for It?,\" \"End Game,\" \"New Year's Day,\" \"Gorgeous,\" or \"Delicate\" — made the cut for Record, Song, or Album of the Year, making it, per Rolling Stone, her least-nominated LP since her self-titled 2006 debut.",
+          "reputation was the best-selling album of 2017 and the No. 1 album on Billboard's 2018 year-end Billboard 200, but by the 61st Annual Grammy Awards in February 2019 it had one nomination to show for it: Best Pop Vocal Album.\n\nNone of its singles — \"Look What You Made Me Do,\" \"...Ready for It?,\" \"End Game,\" \"New Year's Day,\" \"Gorgeous,\" or \"Delicate\" — made the cut for Record, Song, or Album of the Year, making it, per Rolling Stone, her least-nominated LP since her self-titled 2006 debut.",
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -2171,7 +2171,7 @@ export default {
       relatedIds: ['moment:vault-reputation-the-pastel-turn-me-ends-the-reputation-black'],
       title: 'Seven pastel outfit changes in the ME! video',
       snippet:
-        'Styled by Joseph Cassell Falconer, the video traded Reputation black-and-white for tulle, pastels, and bold suiting — including a Monique Lhuillier tea-length dress and a lemon-yellow power suit.',
+        'Styled by Joseph Cassell Falconer, the video traded reputation black-and-white for tulle, pastels, and bold suiting — including a Monique Lhuillier tea-length dress and a lemon-yellow power suit.',
       sourceUrl: 'https://www.etonline.com/see-every-dreamy-outfit-taylor-swift-wears-in-me-music-video-124147',
       thumbnailUrl: 'https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-04/taylor-swift-me-music-video-1280.jpg',
       moment: {
