@@ -5776,6 +5776,19 @@ export default {
         sources: [
           { outlet: 'People', url: 'https://people.com/taylor-swift-and-travis-kelce-spotted-on-date-night-in-singapore-8606812' },
           { outlet: 'Page Six', url: 'https://pagesix.com/2024/03/09/entertainment/taylor-swift-and-travis-kelce-enjoy-group-date-night-in-singapore-with-her-bandmates/' },
+          { outlet: 'TMZ', url: 'https://www.tmz.com/2024/03/09/taylor-swift-travis-kelce-singapore-date-night-mall/' },
+        ],
+        // Photo backfill (t_23e4b90b, 2026-09-06): TMZ's own report photo,
+        // HTTP-verified, downloaded and vision-confirmed this session.
+        photos: [
+          {
+            url: 'https://imagez.tmz.com/image/29/16by9/2024/03/09/2914720aa3fb49f5b4db062559bc0b71_xl.jpg',
+            credit: 'TMZ (Getty composite)',
+            caption:
+              'Taylor and Travis pictured around the Singapore golf-cart mall date, March 8-9, 2024.',
+            kind: 'primary',
+            focalPoint: '50% 40%',
+          },
         ],
       },
     },
@@ -5795,6 +5808,17 @@ export default {
         sources: [
           { outlet: 'People', url: 'https://people.com/coachella-2024-what-you-didnt-see-taylor-swift-and-travis-kelce-dancing-and-more-exclusive-8631334' },
           { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swift-and-teresa-giudice-meet-at-coachella-2024/' },
+        ],
+        // Photo backfill (t_23e4b90b, 2026-09-06): People's own report photo,
+        // HTTP-verified, downloaded and vision-confirmed this session.
+        photos: [
+          {
+            url: 'https://people.com/thmb/eByVsS4ATBa0YPv9gKKbnPDzvI8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(690x229:692x231)/taylor-swift-travis-kelce-neon-carnival-coachella-music-and-arts-festival-041524-1-ee59dcf6feae4473865941f320dbe788.jpg',
+            credit: 'via People',
+            caption: 'Taylor and Travis at the Neon Carnival during Coachella weekend, April 13, 2024.',
+            kind: 'primary',
+            focalPoint: '46% 15%',
+          },
         ],
       },
     },

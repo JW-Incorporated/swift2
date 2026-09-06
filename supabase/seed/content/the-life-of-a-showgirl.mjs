@@ -13282,8 +13282,20 @@ export default {
               'confirms the Eras Tour / Official Release Party of a Showgirl / Beyoncé Renaissance lineage and the $261.6M concert-film figure.',
           },
         ],
-        // Text-first: a corporate distribution announcement has no reusable,
-        // allowlisted subject photo. Left for the checkers.
+        // Photo backfill (t_23e4b90b, 2026-09-06): AMC theater signage —
+        // no photo of the specific press release exists (it is a business
+        // announcement, not a photographable event), but this is an
+        // honestly-captioned real photo of the subject company, sourced from
+        // Variety's own CDN. HTTP-verified, downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://variety.com/wp-content/uploads/2023/02/amc.jpg',
+            credit: 'via Variety',
+            caption: 'An AMC Theatres location — the chain behind the new Leawood Films distribution venture.',
+            kind: 'reference',
+            focalPoint: '48% 45%',
+          },
+        ],
       },
     },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
