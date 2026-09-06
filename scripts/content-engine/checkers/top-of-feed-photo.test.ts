@@ -37,10 +37,23 @@ describe('top-of-feed-photo check', () => {
     expect(await check([m])).toEqual([]);
   });
 
-  it('does not flag a moment with a photosReviewed reason recorded', async () => {
+  it('does not flag a moment with a genuine privacy-decision photosReviewed reason', async () => {
     const m = moment({
       key: 'reviewed-sparse',
       raw: { year: 2026, month: 9, day: 1, photosReviewed: 'residence privacy redline (L1)' },
+    });
+    expect(await check([m])).toEqual([]);
+  });
+
+  it('does not flag a moment with a private-individual composite redline reason', async () => {
+    const m = moment({
+      key: 'reviewed-private-individual',
+      raw: {
+        year: 2026,
+        month: 9,
+        day: 1,
+        photosReviewed: 'private-individual composite redline — every hero image pairs Taylor with a private individual',
+      },
     });
     expect(await check([m])).toEqual([]);
   });
@@ -52,6 +65,21 @@ describe('top-of-feed-photo check', () => {
     });
     const f = await check([m]);
     expect(f).toHaveLength(1);
+  });
+
+  it('POLICY 2026-09-06: flags a moment whose photosReviewed reason is NOT a privacy decision — "no photo found" no longer exempts', async () => {
+    const m = moment({
+      key: 'no-photo-found-excuse',
+      raw: {
+        year: 2026,
+        month: 9,
+        day: 1,
+        photosReviewed: 'no reusable, allowlisted photo of this specific radio interview exists',
+      },
+    });
+    const f = await check([m]);
+    expect(f).toHaveLength(1);
+    expect(f[0].evidence).toMatch(/does not describe a privacy decision/);
   });
 
   it('only considers the N newest moments per era (N = CONFIG.topOfFeed.count, default 10)', async () => {

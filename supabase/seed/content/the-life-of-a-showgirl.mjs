@@ -13223,12 +13223,29 @@ export default {
               'confirms she is a longtime Randy Newman fan and tried to channel him writing the song; resolved via web search, not fetched (news-domain egress blocked this run).',
           },
         ],
-        // Text-first: a radio interview has no reusable, allowlisted subject
-        // photo; the era already carries premiere/hero shots on the song's
-        // other pages. Left for Photo Enrichment / the checkers.
+        // POLICY CHANGE (2026-09-06, Joey, kanban t_40f29d07): "There's no
+        // such thing as a post without a picture." This moment previously
+        // shipped text-only with a `photosReviewed` note saying no photo of
+        // the exact radio interview existed — Joey's ruling is that "no
+        // photo found" is never an acceptable outcome; be smarter and pull a
+        // legitimately connected real photo instead. This is a story ABOUT
+        // "I Knew It, I Knew You" — the same official video thumbnail
+        // already verified and used on this song's other Vault pages
+        // (oEmbed-verified against @TaylorSwift, i.ytimg.com allowlisted
+        // host, curl 200 image/jpeg) is a genuinely connected, honestly-
+        // captioned photo for this story: Taylor performing the very song
+        // she is explaining in these interviews.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video thumbnail, YouTube)',
+            caption:
+              'The song at the center of the interviews: the official "I Knew It, I Knew You" video, cut from Toy Story 5 footage with Jessie at its center.',
+            kind: 'primary',
+            focalPoint: '48% 35%',
+          },
+        ],
       },
-      photosReviewed:
-        'no reusable, allowlisted photo of this specific radio interview exists; the era already carries verified premiere/hero shots for this song elsewhere (reviewed 2026-09-06, t_187359e9)',
     },
     {
       slug: 'amc-leawood-films-eras-tour-inspiration',
