@@ -410,6 +410,22 @@ the code is what actually ships and this file is the bug.
    photo as the grid tile, the screenshot as slide 2 — the grid shows Taylor
    either way. **X site-screen posts are permanently prohibited**; the X
    sibling uses a real credited photo or text-only copy.
+
+   **The "cool feature only" rule (Joey, 2026-09-01).** A `site-screen` may
+   only show one of the site's genuinely distinctive, visually rich surfaces
+   — the thread lenses (Decode, Clue Web, Runway, Blank Spaces, Taylor's
+   Version, End Game), the Mood chat/chip experience, Clownbot, the shoppable
+   "seen on Taylor" surface, or a comparably standout feature — captured in
+   actual use (a real result on screen, not an empty state or a generic list
+   view). It may never be: a bare landing page, a plain article/moment page,
+   a letterboxed video-padding frame, or any screenshot whose only content is
+   "the site exists" rather than "look what the site does." If a launch or
+   how-to post has no genuinely cool visual to show, it drops to rung 3
+   (text-only on X) or is skipped rather than shipping a flat screenshot —
+   same "an empty slot beats a failed one" principle as the photo ladder.
+   This is a caption/media judgment call for the drafter, and `check-drafts.mjs`
+   cannot verify "cool" automatically — flag any borderline call in the
+   item's `why` field so it's auditable in the weekly review.
 3. **No image at all** (X only — Instagram always requires media). A sharp
    text-only tweet beats a decorative tile every time.
 
@@ -453,6 +469,25 @@ sexuality, family/minors, legal wrongdoing, private individuals,
 relationship-existence speculation) applies to every draft, and nothing is ever
 invented — no stat, quote, or trend without a Vault item or a verifiable source
 behind it.
+
+**Major personal-life events — confirmed-only carve-out (Joey, 2026-09-01,
+`D1=A`).** The blocklist above still bars searching for, drafting, or posting
+any pregnancy or relationship-existence *speculation* — that stays absolute,
+zero exceptions, same as every other rumor-stage topic on this list. The one
+change: once a major personal-life event (pregnancy, engagement, marriage, and
+comparable milestones) is **confirmed** — by Taylor or her team directly, or
+independently reported as settled fact by two major outlets — it is no longer
+"speculation" and social may cover it like any other confirmed public news
+event (the same treatment a Grammy win or a tour date gets): warm, factual,
+sourced, celebratory. It never gets a "clues/countdown/rumor tracker"
+treatment the way an album rollout does — that framing is reserved for
+product launches and creative rollouts, not a person's private life. Until
+confirmation, silence; the moment it's confirmed, normal coverage. This
+carve-out is social-caption policy only (this file, `docs/agents/growth.md`,
+`docs/agents/runner-prompts/growth-draft.md`) — it does not touch the
+site's Vault/editorial pipeline or the Clownbot safety gate, which remain
+governed by their own docs and are outside Tree's and Growth's mutation
+rights.
 
 **Register — a fan in love, out loud (Joey, 2026-08-25).** We are fans and we
 GUSH. Every caption is first-person fan reaction first, fact second: lead with
@@ -502,17 +537,23 @@ IG posts by reach/saves, pasted from IG Insights. 2 minutes, and it is the only
 per-post engagement signal that exists. Tree names those 3 in its next monthly
 review and says what they had in common.
 
-### Targets — reset for reality
+### Targets — reset for reality (revised 2026-09-01 — tied to mechanisms, not hopes)
 
-| By | Instagram followers | Also true |
-|---|---|---|
-| 2026-09-30 | **50** | zero failed posts; ≥12 distinct openers per 14 days; every one of the six threads taught twice |
-| 2026-10-31 | **150** | one post with measurable saves; Reddit contribution count ≥20 and the first promo post made |
-| 2026-12-31 | **500** | a repeatable format identified from Insights data |
+**Why these changed:** the previous targets were floors for an account running growth-plan §6's outward-engagement engine (daily human engagement hour, following relevant accounts, Reddit non-promo participation). That engine has not been running — near-zero traction to date is a symptom of that gap, not of calendar quality. Targets below stay the same numbers but now name the mechanism each one depends on, so a miss tells us *what* to fix, not just *that* something's wrong.
+
+| By | Instagram followers | Also true | Depends on |
+|---|---|---|---|
+| 2026-09-30 | **50** | zero failed posts; ≥12 distinct openers per 14 days; every one of the six threads taught twice; first 3 logged shares | Daily human engagement hour (comments + follows, growth-plan §6) running 3+ weeks; share-design pass (below) live on every heartbeat/mood post |
+| 2026-10-31 | **150** | one post with measurable saves; Reddit contribution count ≥20 and the first promo post made | Reddit non-promo engine producing daily draft comments; engagement hour sustained |
+| 2026-12-31 | **500** | a repeatable format identified from Insights data; first collab post with a mid-size fan account | 8+ weeks of Insights data actually arriving monthly (see below) to identify what to double down on |
+
+**App-store launch week revised down from the old day-30 fantasy (500-1,500 was growth-plan's number for an account already running the outward engine): realistic launch-week bump is +200-500 IG in 7 days**, contingent on a pre-launch base of 150+ already built per the targets above.
 
 These are floors for a fan account posting daily with real images and real
-links, not viral projections. One hit changes everything, and no plan can
+links plus a genuine outward-reach engine, not viral projections. One hit changes everything, and no plan can
 schedule one — what a plan can do is buy a ticket every day.
+
+**Standing blocker, not a new ask:** monthly IG Insights (top 3 posts by reach/saves) has been requested every month since 2026-08 and has never arrived. Without it, Tree cannot tell which content/format actually earns shares — the single most important number for tuning this plan — and every "double down / drop" call in the monthly review is a guess instead of a measurement.
 
 ### The monthly self-review
 

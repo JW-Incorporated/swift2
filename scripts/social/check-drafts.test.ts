@@ -284,6 +284,15 @@ describe('checkCampaignPair', () => {
   it('defers to checkSchema for an unrecognized platform', () => {
     expect(checkCampaignPair('x.json', { platform: 'tiktok', campaign: 'c1', body: 'b' }, [], [])).toEqual([]);
   });
+
+  // 2026-09-05 (#3584, Fable ruling): the appearance-discovery fast lane is
+  // deliberately X-only (no license-cleared photo to pair with) — its
+  // `appearance:<videoId>` campaigns are exempt from the otherwise-
+  // unconditional pairing rule.
+  it('exempts an appearance:-family campaign from the pairing requirement', () => {
+    const x = { file: 'x.json', data: { platform: 'x', campaign: 'appearance:dQw4w9WgXcQ', body: 'b' } };
+    expect(checkCampaignPair('x.json', x.data, [x], [])).toEqual([]);
+  });
 });
 
 describe('checkCrossPostCopy', () => {
@@ -676,5 +685,113 @@ describe('checkMedia', () => {
   it('does NOT apply the aspect-ratio gate to X drafts', async () => {
     const findings = await checkMedia('a.json', { platform: 'x', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
     expect(findings.some((f) => f.includes('aspect'))).toBe(false);
+  });
+
+  // ── #3584 (2026-09-05, Fable ruling on kanban t_36d74b87): a rehosted
+  //    YouTube/broadcaster thumbnail is NOT a "photo" — see the
+  //    VIDEO_THUMBNAIL_CREDIT_RE / CLEARED_PHOTO_ALLOWLIST block comment in
+  //    check-drafts.mjs. ──
+  it('rejects a "photo" tile whose credit reads like a rehosted video thumbnail', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      {
+        platform: 'instagram',
+        media: [`${CORPUS_PHOTO.replace('taylor-lover-eras-minneapolis-2023.jpg', 'appearance-dQw4w9WgXcQ.jpg')}`],
+        mediaKind: 'photo',
+        mediaCredit: 'Video thumbnail: Republic Records',
+        mediaSource: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      },
+      [],
+    );
+    expect(findings.some((f) => f.includes('cannot be mediaKind "photo"') && f.includes('rehosted video thumbnail'))).toBe(true);
+  });
+
+  it('rejects a "photo" tile under the photo prefix that is not in the cleared allowlist, even with an innocuous credit', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: ['/social/library/photos/some-new-uncleared-file.jpg'], mediaKind: 'photo', mediaCredit: 'A Photographer', mediaSource: 'https://example.com' },
+      [],
+    );
+    expect(findings.some((f) => f.includes('cannot be mediaKind "photo"') && f.includes('not in the license-cleared photo corpus allowlist'))).toBe(true);
+  });
+
+  it('accepts a "photo" tile that is both allowlisted and has an innocuous credit', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons', mediaSource: 'https://commons.wikimedia.org/wiki/File:Example.jpg' },
+      [],
+    );
+    expect(findings).toEqual([]);
+  });
+
+  // ── Regression coverage for the three appearance-discovery items #3584
+  //    named as already-shipped/queued bad items (kanban t_ed5fb547): confirm
+  //    the mediaKind "photo" gate (rehosted-thumbnail credit regex AND the
+  //    tiny CLEARED_PHOTO_ALLOWLIST) rejects all three shapes, not just the
+  //    Taylor-absent one. None of these three files are in the allowlist, so
+  //    each is rejected on that signal alone even where the credit text
+  //    itself doesn't literally say "thumbnail"/"youtube"/"video" — a
+  //    branded-quote-card or a genuinely-Taylor-but-low-quality frame gets
+  //    no free pass just because the wording is innocuous. ──
+  it('rejects the GMA Dolly-memorial branded quote card (ldBrFonU8NA) as mediaKind "photo"', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      {
+        platform: 'instagram',
+        media: ['/social/library/photos/appearance-ldBrFonU8NA.jpg'],
+        mediaKind: 'photo',
+        mediaCredit: 'Video thumbnail: Good Morning America',
+        mediaSource: 'https://www.youtube.com/watch?v=ldBrFonU8NA',
+      },
+      [],
+    );
+    expect(findings.some((f) => f.includes('cannot be mediaKind "photo"'))).toBe(true);
+  });
+
+  it('rejects the Taylor-free animated tree/tire-swing frame (XwCWKSO0F8s) as mediaKind "photo" even with an innocuous credit', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      {
+        platform: 'instagram',
+        media: [CORPUS_PHOTO.replace('taylor-lover-eras-minneapolis-2023.jpg', 'appearance-XwCWKSO0F8s.jpg')],
+        mediaKind: 'photo',
+        // Deliberately innocuous wording (no "thumbnail"/"youtube"/"video")
+        // to prove the allowlist signal alone still catches it.
+        mediaCredit: 'Republic Records',
+        mediaSource: 'https://www.youtube.com/watch?v=XwCWKSO0F8s',
+      },
+      [],
+    );
+    expect(findings.some((f) => f.includes('cannot be mediaKind "photo"'))).toBe(true);
+  });
+
+  it('rejects the genuinely-Taylor but letterboxed/low-quality Icon Sessions frame (T6iTnTV-Rgw) as mediaKind "photo"', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      {
+        platform: 'instagram',
+        media: [CORPUS_PHOTO.replace('taylor-lover-eras-minneapolis-2023.jpg', 'appearance-T6iTnTV-Rgw.jpg')],
+        mediaKind: 'photo',
+        mediaCredit: 'The Grammy Museum',
+        mediaSource: 'https://www.youtube.com/watch?v=T6iTnTV-Rgw',
+      },
+      [],
+    );
+    expect(findings.some((f) => f.includes('cannot be mediaKind "photo"'))).toBe(true);
+  });
+
+  it('rejects mediaKind "video-thumb" on an Instagram draft outright', async () => {
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/photos/appearance-dQw4w9WgXcQ.jpg'], mediaKind: 'video-thumb' }, []);
+    expect(findings.some((f) => f.includes('not allowed on Instagram drafts at all'))).toBe(true);
+  });
+
+  it('rejects mediaKind "video-thumb" on an X draft that attaches an image', async () => {
+    const findings = await checkMedia('a.json', { platform: 'x', media: ['/social/library/photos/appearance-dQw4w9WgXcQ.jpg'], mediaKind: 'video-thumb' }, []);
+    expect(findings.some((f) => f.includes('may not attach an image'))).toBe(true);
+  });
+
+  it('accepts mediaKind "video-thumb" on an X draft with no attached media (link preview only)', async () => {
+    const findings = await checkMedia('a.json', { platform: 'x', mediaKind: 'video-thumb', body: 'text with a link' }, []);
+    expect(findings).toEqual([]);
   });
 });

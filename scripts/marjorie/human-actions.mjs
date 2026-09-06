@@ -126,3 +126,39 @@ export function sortForBrief(items) {
     return (b.ageDays ?? -1) - (a.ageDays ?? -1);
   });
 }
+
+/**
+ * Pull the author's own `~N min` (or `~N-M min`) estimate out of an item's
+ * title, if any. Every HUMAN-ACTIONS.md item is written with one (see the
+ * file's own template) — the brief already had this number sitting in plain
+ * text and never used it for anything. Real titles use both forms (`~2 min`
+ * and `~10-20 min`/`~30–60 min` with a hyphen or en dash); a range's UPPER
+ * bound is used, because this number feeds a "quick to clear" promise — the
+ * worst case is the honest claim for "will this actually take 15 min or
+ * less", not the best case. Returns null, never a guess, when no estimate is
+ * present at all.
+ */
+export function parseMinutes(title) {
+  const m = /~\s*(\d+)(?:\s*[-–]\s*(\d+))?\s*min/i.exec(String(title || ''));
+  if (!m) return null;
+  return m[2] ? Number(m[2]) : Number(m[1]);
+}
+
+/**
+ * 2026-09-06 content-quality gap: 13 "waiting on you" items were shown as one
+ * flat oldest-first list mixing a 2-minute rename with a 35-minute credential
+ * upload with a legal sign-off that needs real thought. A founder skimming
+ * top-to-bottom has no way to see "I could clear 4 of these in the next 10
+ * minutes" without reading every line's estimate by hand. Surface the ones
+ * that are cheap to clear as their own pointer — ascending by time, so the
+ * very fastest is first.
+ */
+export const QUICK_WIN_MAX_MINUTES = 15;
+
+export function quickWins(items, maxMinutes = QUICK_WIN_MAX_MINUTES) {
+  return items
+    .map((it) => ({ item: it, minutes: parseMinutes(it.title) }))
+    .filter((x) => x.minutes !== null && x.minutes <= maxMinutes)
+    .sort((a, b) => a.minutes - b.minutes)
+    .map((x) => x.item);
+}
