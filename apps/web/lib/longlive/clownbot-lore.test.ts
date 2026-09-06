@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
+import { LORE_RAW } from './clownbot-lore.generated';
 import {
   FRESH_WINDOW_DAYS,
   LORE,
@@ -10,6 +11,20 @@ import {
   loreById,
   loreFreshness,
 } from './clownbot-lore';
+
+/**
+ * OS-014b-5: `LORE` is now sourced from the published content bundle's own
+ * `clownbot-lore.json` artifact (via `readBundleArtifact`) instead of the
+ * `.generated.ts` re-derivation. This is the byte-identical regression
+ * guard for that migration — the bundle build (`scripts/build-content-bundle.mjs`)
+ * folds `clownbot-lore.generated.ts`'s `LORE_RAW` straight into the bundle's
+ * JSON with no transformation, so the two must always match exactly.
+ */
+describe('bundle-sourced LORE is byte-identical to the generated-file output (OS-014b-5)', () => {
+  it('matches clownbot-lore.generated.ts LORE_RAW exactly', () => {
+    expect(LORE).toEqual(LORE_RAW);
+  });
+});
 
 /**
  * "No source, no ship" is enforced here rather than by good intentions. A
@@ -134,5 +149,36 @@ describe('scheduled refresh ownership', () => {
     const root = resolve(import.meta.dirname, '../../../..');
     const pkg = readFileSync(resolve(root, 'package.json'), 'utf8');
     expect(pkg).toContain('sync-clownbot-lore.mjs');
+  });
+});
+
+describe('LORE (the generated literal) matches the published bundle artifact (OS-014b-5, FR-t_cd5741fc-1/-2)', () => {
+  it('is byte-identical to the published clownbot-lore.json content', () => {
+    // Fable ruling FR-t_cd5741fc-2: clownbot-lore.ts is reachable from a
+    // 'use client' component (clown-board.ts -> ClownBoard.tsx), so it must
+    // keep importing the clownbot-lore.generated.ts literal as its runtime
+    // value (a Turbopack client bundle cannot contain node:fs). This test is
+    // the mechanism that ruling designates for making the bundle
+    // authoritative anyway: it reads the published bundle's own
+    // clownbot-lore.json (written by scripts/publish-content-bundle.mjs,
+    // which apps/web's own `prebuild` runs before this suite executes) and
+    // asserts LORE is exactly the same data — any drift between the
+    // generated literal and the bundle artifact fails here immediately.
+    const root = resolve(import.meta.dirname, '../../../..');
+    const pointer = JSON.parse(
+      readFileSync(resolve(root, 'apps/web/public/content/current.json'), 'utf8'),
+    ) as { bundleVersion: string };
+    const bundleFile = JSON.parse(
+      readFileSync(
+        resolve(
+          root,
+          'apps/web/public/content',
+          pointer.bundleVersion,
+          'clownbot-lore.json',
+        ),
+        'utf8',
+      ),
+    ) as { lore: unknown };
+    expect(LORE).toEqual(bundleFile.lore);
   });
 });
