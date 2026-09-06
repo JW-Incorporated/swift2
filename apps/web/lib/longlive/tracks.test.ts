@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeAll } from 'vitest';
-import { TRACKS_RAW } from './tracks.generated';
+import { TRACKS_RAW } from './tracks';
 import {
   adjacentTrackOnAlbum,
   keepExploring,

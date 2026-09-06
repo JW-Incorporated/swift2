@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { RELATIONSHIPS, SINGLE_PERIODS, songTargetOf } from '@swift2/experience';
-import './tracks.generated'; // wires setTracksRawProvider so songTargetOf resolves real data
+import './tracks'; // wires setTracksRawProvider so songTargetOf resolves real data
 
 // Split out of packages/experience/src/love-story.test.ts in OS-023: this
 // test cross-references the real track-guide data (OS-024 moved
