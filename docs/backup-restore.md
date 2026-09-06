@@ -212,6 +212,7 @@ quarter should be treated as unproven.
 | 2026-08-30 | status report (Joey) | Supabase dashboard report | **OPEN** | Current plan is Supabase Free; no backup options are available and no backup was made. No production-data restore drill was performed. This records status only and does not accept the BACKUPS launch risk. |
 | 2026-09-06 | production-bytes drill (`production-backup-drill.yml`, [run 34054042528](https://github.com/JW-Incorporated/swift2/actions/runs/34054042528)) | production `SUPABASE_DB_URL`, read-only session → throwaway Postgres 17 in the job | **FAIL (restore); backup PASS** | Backup half worked against real production data: 35 tables · 8298 rows · 11.27 MB in 7664 ms, per-table checksums recorded. Restore half died applying `20260904000000_clown_sessions.sql`: `schema "auth" does not exist` — the migration references `auth.users`, which only exists on Supabase, so any non-Supabase restore target (which `assertSafeTarget` *requires*) cannot replay the migration set. **The workflow reported green anyway** — `node … \| tee` without `pipefail` swallowed the exit code, and the alert issue was closed as PASSED. Two fixes tracked on the swift2 kanban (children of t_a0ad2392): (a) the drill/migrate path creates a stub `auth` schema + `auth.users(id uuid pk)` + `auth.uid()` on non-Supabase targets before migrating, (b) `set -o pipefail` in both drill workflows. Gate stays 🟡 until a corrected run passes end-to-end. |
 | 2026-09-06 | production-bytes drill (`production-backup-drill.yml`, [run 34056536066](https://github.com/JW-Incorporated/swift2/actions/runs/34056536066)) | production `SUPABASE_DB_URL`, read-only session → throwaway Postgres 17 in the job | **FAIL (restore, new reason); backup PASS** | Re-run from `main` after PR #3926 (auth-schema shim + pipefail, merged 2026-09-06). Both #3926 fixes worked as intended: the auth-schema shim applied cleanly ("applied Supabase auth-schema compat shim to restore target (non-Supabase target)"), migrations applied, and this time the failure was reported honestly (workflow went red, no false PASS). Backup half again worked against real production data: 35 tables · 8298 rows · 11.27 MB in 4129 ms, per-table checksums recorded. Restore died on the very first table load: `cannot insert a non-DEFAULT value into column "lag_days"` — `public.egg_ledger.lag_days` is a `generated always as (...) stored` column (`supabase/migrations/20260901000000_knowledge_engine.sql:117`), and the restore's row-loader is inserting the backed-up value for it instead of omitting the column and letting Postgres compute it. This is a distinct bug from the `auth`-schema issue #3926 fixed — new follow-up filed (see below). Gate stays 🟡. |
+| 2026-09-06 | production-bytes drill (`production-backup-drill.yml`, [run 34057210905](https://github.com/JW-Incorporated/swift2/actions/runs/34057210905)) | production `SUPABASE_DB_URL`, read-only session → throwaway Postgres 17 in the job | **PASS** | Re-run from `main` after PR #3931 (`loadTable()` now builds an explicit, `pg_attribute`-derived column list per table, excluding any `generated always ... stored` column — fixes `egg_ledger.lag_days` generically, not by name). Backup half: 35 tables · 8298 rows · 11.27 MB in 10206 ms. Restore: 829 ms. Verify: 228 ms. Total: 14259 ms. Every one of the 35 tables restored with matching row count and content checksum, including `egg_ledger` (37 rows, checksum match). `PASS — every table restored with matching row count and content checksum.` **Gate closes green.** |
 
 **Open items to close the gate fully:**
 
@@ -226,17 +227,19 @@ quarter should be treated as unproven.
       `backup-restore-test.mjs --backup-only` daily and uploads a 90-day
       artifact (§2 "Scheduled"). Upgrading the Supabase plan would be real
       recurring spend and stays a founder call — but nothing here needs it.
-- [ ] **Agent:** the production-bytes drill's restore path now fails on
+- [x] ~~**Agent:** the production-bytes drill's restore path now fails on
       `public.egg_ledger.lag_days` (`generated always as (...) stored`):
       `loadTable()` in `scripts/backup-restore-test.mjs` does
       `insert into public.<table> select r.* from jsonb_populate_record(...)`
       with no column list, so it tries to write a value into a generated
-      column and Postgres rejects it. Needs an explicit column list (or a
-      generated-column exclusion) built from `information_schema.columns`
-      filtering `is_generated = 'ALWAYS'`. Tracked as a new follow-up card
-      (child of t_a0ad2392) — see the 2026-09-06 run-34056536066 row above.
-      The next corrected run's PASS row closes this gate.
-- [ ] ~~**Joey (or anyone with repo write access — no credential handling
+      column and Postgres rejects it.~~ — **fixed 2026-09-06, PR #3931.**
+      `loadTable()` now queries `pg_attribute` (`attgenerated <> ''`) per
+      table to build an explicit, generic column list excluding any
+      generated column, and uses it in both the insert target list and the
+      `jsonb_populate_record` projection — not an `egg_ledger`-specific
+      fix. Re-run [34057210905](https://github.com/JW-Incorporated/swift2/actions/runs/34057210905)
+      from `main` PASSED end-to-end (see the row above). Gate closes.
+- [x] ~~**Joey (or anyone with repo write access — no credential handling
       required):** one real-data drill~~ — clicked 2026-09-06, see the row
       above; will be re-run automatically from the fix PR.
       Original text kept below for context: one real-data drill via
