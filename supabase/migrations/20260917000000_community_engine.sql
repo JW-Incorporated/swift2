@@ -49,11 +49,16 @@ create table if not exists public.engagement_lead (
   redline_ok        boolean not null default false,
   created_at        timestamptz default now(),
   emailed_at        timestamptz,
-  posted_at         timestamptz,
-  unique (platform, coalesce(thread_id, locator), kind)
+  posted_at         timestamptz
 );
 create index if not exists engagement_lead_status_idx
   on public.engagement_lead (status, created_at desc);
+-- Dedupe key from §5's schema (`unique (platform, coalesce(thread_id,
+-- locator), kind)`). A table-level UNIQUE constraint only accepts a plain
+-- column list in Postgres — it cannot take an expression like coalesce() —
+-- so the dedupe has to be a unique INDEX over the expression instead.
+create unique index if not exists engagement_lead_dedupe_idx
+  on public.engagement_lead (platform, coalesce(thread_id, locator), kind);
 
 create table if not exists public.community_post_ledger (   -- the "did we already comment" truth (§2.6)
   id              uuid primary key default gen_random_uuid(),
