@@ -537,26 +537,13 @@ export default {
         ],
         photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2015417/rs_634x1024-150517170511-634.Taylor-Swift-Billboard-Music-Awards.jl.051715.jpg', credit: 'Jason Merritt/Getty Images' }],
         // Shop pass (2026-07-21): the exact 2015 beaded jumpsuit is
-        // discontinued -- a current Balmain white jumpsuit, verified in
-        // stock, closest real match.
-        products: [
-          {
-            brand: 'Balmain',
-            item: 'Sleeveless Lambskin Jumpsuit',
-            retailer: 'us.balmain.com',
-            url: 'https://us.balmain.com/en/p/sleeveless-lambskin-jumpsuit-FF0QO025LE040DA.html',
-            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer product photo
-            // via Lyst (Balmain's own PDP is JS-rendered, no server-side image),
-            // curl-verified 200 image/jpeg.
-            imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/balmain/80087fee/2220x3000/balmain-white-Sleeveless-Lambskin-Jumpsuit.jpeg',
-            matchTier: 'unscored',
-            kind: 'dress',
-            price: '$3,495.00',
-            isAlternative: true,
-            altNote: 'Her exact 2015 beaded jumpsuit is long discontinued -- this is a current Balmain white jumpsuit, same house, a sleek lambskin cut rather than all-over beading.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
-          },
-        ],
+        // discontinued -- a current Balmain white jumpsuit was linked as the
+        // closest real match.
+        // Stylist upkeep (Vault Run, 2026-09-06): that alternative PDP now
+        // redirects to Balmain's women-RTW category listing (curl-verified the
+        // product page is gone). A dead link is worse than none, so it's
+        // removed; fashion-products will re-surface this moment for re-sourcing.
+        products: [],
       },
     },
     {
@@ -856,29 +843,15 @@ export default {
         // tonyshek); captioned here as one look from the rotating wardrobe rather than
         // implying it's the only one.
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png', credit: 'tonyshek / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', caption: 'One of the tour\'s many sequined stage looks (Ford Field, Detroit, May 30, 2015) — the wardrobe rotated night to night.' }],
-        // Shop pass (2026-07-21): the exact tour costumes are custom,
-        // one-off pieces -- a current beaded fringe mini, verified in
-        // stock, in the same spirit as the pink fringe minidress described.
-        products: [
-          {
-            brand: 'Showpo',
-            item: 'Siofra Mini Dress (Zig Zag Fringe Dress)',
-            retailer: 'showpo.com',
-            // Liveness re-check 2026-07-22: old `/siofra-...html` path now 301s
-            // to Showpo's canonical `/us/products/` URL (still the live PDP);
-            // stored the canonical target directly so we don't lean on the redirect.
-            url: 'https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink',
-            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
-            // 200 image/* response.
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0904/3371/6589/files/1-Siofra_Beaded_Fringe_Mini_Dress_in_Hot_Pink_40.jpg?v=1744807739',
-            matchTier: 'unscored',
-            kind: 'dress',
-            price: '$22.00',
-            isAlternative: true,
-            altNote: 'The tour\'s custom costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same pink-fringe spirit as one of the rotating looks.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
-          },
-        ],
+        // Shop pass (2026-07-21): the exact tour costumes are custom, one-off
+        // pieces -- a current beaded fringe mini (Showpo "Siofra") was linked
+        // as the closest in-spirit match.
+        // Stylist upkeep (Vault Run, 2026-09-06): that Showpo PDP now returns
+        // HTTP 404 (curl-verified — the item was discontinued). A dead link is
+        // worse than none, so it's removed; fashion-products will re-surface
+        // this moment for re-sourcing (a live in-stock pink-fringe alternative
+        // exists, but was deferred rather than store an unverified US price).
+        products: [],
       },
     },
     {
@@ -1108,7 +1081,10 @@ export default {
             brand: 'MAC',
             item: 'Retro Matte Lipstick in Ruby Woo',
             retailer: 'maccosmetics.com',
-            url: 'https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick',
+            // Stylist upkeep (Vault Run, 2026-09-06): old /product/13854/... path
+            // now 301s to this canonical /products/ URL (still the live PDP);
+            // stored the canonical target so we don't lean on the redirect.
+            url: 'https://www.maccosmetics.com/products/retro-matte-lipstick',
             // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
             // curl-verified 200 image/* response.
             imageUrl: 'https://www.maccosmetics.com/cdn/shop/files/mac_sku_M0N904_1x1_0.png?format=webp&v=1788129931&width=2000',
@@ -1117,7 +1093,7 @@ export default {
             price: '$23.00',
             isAlternative: true,
             altNote: 'The exact shade Lorrie Turk used is undocumented -- Ruby Woo is MAC\'s iconic blue-red matte, the same bold-red finish described for the video\'s warrior look.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-06T16:35:00.000Z'
           },
         ],
       },
@@ -2564,7 +2540,10 @@ export default {
             brand: 'Fashion Nova',
             item: 'Simona Satin Mini Dress',
             retailer: 'fashionnova.com',
-            url: 'https://www.fashionnova.com/products/simona-satin-mini-dress-light-blue',
+            // Stylist upkeep (Vault Run, 2026-09-06): old slug now 301s to this
+            // canonical product URL with the light-blue variant selected (still
+            // the live PDP); stored the canonical target directly.
+            url: 'https://www.fashionnova.com/products/simona-satin-mini-dress?color=light-blue',
             // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
             // 200 image/* response.
             imageUrl: 'https://cdn.shopify.com/s/files/1/0293/9277/products/01-06-22Studio3_ME_MJ_10-19-40_16_73792_LightBlue_0528_EH.jpg?v=1643755094&width=1200&height=627',
@@ -2573,7 +2552,7 @@ export default {
             price: '$23.98',
             isAlternative: true,
             altNote: 'No single named dress -- this is the era\'s visual palette, not one outfit -- a current light-blue mini in the same sky-blue minimalist spirit.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-06T16:35:00.000Z'
           },
         ],
       },
