@@ -22,6 +22,7 @@ import {
   Text,
   TextInput,
   View,
+  type ScrollViewInstance,
 } from 'react-native';
 import type { MoodMatch } from '@swift2/experience';
 import { askClown, type ClownAnswer, type ClownTurn } from '../lib/clown-client';
@@ -127,7 +128,7 @@ export function ClownChatScreen({ onClose }: { onClose: () => void }) {
   const [error, setError] = useState<string | null>(null);
   const [clownTurns, setClownTurns] = useState<ClownTranscriptTurn[]>([]);
   const [moodResult, setMoodResult] = useState<MoodResult | null>(null);
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const nextId = useRef(0);
 
   const askClownQuestion = useCallback(
