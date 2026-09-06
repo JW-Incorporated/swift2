@@ -121,7 +121,13 @@ blocks `submit_ios` in the same run).
 path, and the next **Mobile release train** run shows `submit_android`
 green.
 
-**Status:** OPEN
+**Status:** DONE
+
+**Outcome (2026-09-06, founder confirmation):** Joey confirmed in Discord
+that the Google Play service-account key has been created, invited into
+Play Console with Release-to-testing-tracks permission, and set up in EAS
+via `eas credentials --platform android`. The next **Mobile release train**
+run should be checked for a green `submit_android` step to fully verify.
 
 ### 45. [BLOCKING] Mobile release train — iOS signing + App Store Connect key into EAS — ~10 min
 
