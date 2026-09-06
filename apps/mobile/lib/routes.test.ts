@@ -112,161 +112,155 @@ describe('resolve — feature flags (OS-030: toggle without a rebuild)', () => {
   });
 });
 
-describe('resolve — OS-032 native era stream (off by default)', () => {
-  it('falls back to the WebView when the eraStream flag is off (default)', () => {
+describe('resolve — OS-032 native era stream (on by default since OS-039)', () => {
+  it('routes to native by default', () => {
     expect(resolve('https://www.longlivets.com/?screen=era-stream')).toEqual({
-      web: 'https://www.longlivets.com',
-    });
-  });
-
-  it('routes to native once the eraStream flag is flipped on', () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, eraStream: true };
-    expect(resolve('https://www.longlivets.com/?screen=era-stream', undefined, flags)).toEqual({
       native: 'era-stream',
       params: {},
     });
   });
-});
 
-describe('resolve — OS-034 native threads mode (off by default)', () => {
-  it('falls back to the WebView when the threads flag is off (default)', () => {
-    expect(resolve('https://www.longlivets.com/?mode=threads')).toEqual({
+  it('falls back to the WebView site root if the eraStream flag is flipped off as a kill switch', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, eraStream: false };
+    expect(resolve('https://www.longlivets.com/?screen=era-stream', undefined, flags)).toEqual({
       web: 'https://www.longlivets.com',
     });
   });
+});
 
-  it('routes to native once the threads flag is flipped on', () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, threads: true };
-    expect(resolve('https://www.longlivets.com/?mode=threads', undefined, flags)).toEqual({
+describe('resolve — OS-034 native threads mode (on by default since OS-039)', () => {
+  it('routes to native by default', () => {
+    expect(resolve('https://www.longlivets.com/?mode=threads')).toEqual({
       native: 'threads',
       params: {},
     });
   });
-});
 
-describe('resolve — OS-037 native community/merch (off by default)', () => {
-  it('falls back to the WebView site root when the community flag is off (default)', () => {
-    expect(resolve('https://www.longlivets.com/?mode=community')).toEqual({
+  it('falls back to the WebView if the threads flag is flipped off as a kill switch', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, threads: false };
+    expect(resolve('https://www.longlivets.com/?mode=threads', undefined, flags)).toEqual({
       web: 'https://www.longlivets.com',
     });
   });
+});
 
-  it('routes to native once the community flag is flipped on', () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, community: true };
-    expect(resolve('https://www.longlivets.com/?mode=community', undefined, flags)).toEqual({
+describe('resolve — OS-037 native community/merch (on by default since OS-039)', () => {
+  it('routes community to native by default', () => {
+    expect(resolve('https://www.longlivets.com/?mode=community')).toEqual({
       native: 'community',
       params: {},
     });
   });
 
-  it('falls back to the WebView site root when the merch flag is off (default)', () => {
-    expect(resolve('https://www.longlivets.com/?mode=merch')).toEqual({
+  it('falls back to the WebView site root if the community flag is flipped off as a kill switch', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, community: false };
+    expect(resolve('https://www.longlivets.com/?mode=community', undefined, flags)).toEqual({
       web: 'https://www.longlivets.com',
     });
   });
 
-  it('routes to native once the merch flag is flipped on', () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, merch: true };
-    expect(resolve('https://www.longlivets.com/?mode=merch', undefined, flags)).toEqual({
+  it('routes merch to native by default', () => {
+    expect(resolve('https://www.longlivets.com/?mode=merch')).toEqual({
       native: 'merch',
       params: {},
     });
   });
-});
 
-describe('resolve — OS-035 native track guide + song (off by default)', () => {
-  it('falls back to the WebView when the trackGuide flag is off (default)', () => {
-    expect(
-      resolve('https://www.longlivets.com/?screen=track-guide&era=folklore'),
-    ).toEqual({
+  it('falls back to the WebView site root if the merch flag is flipped off as a kill switch', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, merch: false };
+    expect(resolve('https://www.longlivets.com/?mode=merch', undefined, flags)).toEqual({
       web: 'https://www.longlivets.com',
     });
   });
+});
 
-  it('routes to native with the eraId param once the trackGuide flag is on', () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, trackGuide: true };
+describe('resolve — OS-035 native track guide + song (on by default since OS-039)', () => {
+  it('routes track-guide to native by default', () => {
     expect(
-      resolve('https://www.longlivets.com/?screen=track-guide&era=folklore', undefined, flags),
+      resolve('https://www.longlivets.com/?screen=track-guide&era=folklore'),
     ).toEqual({ native: 'track-guide', params: { eraId: 'folklore' } });
   });
 
-  it('falls back to the WebView for track-guide with no era param, even flag-on', () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, trackGuide: true };
+  it('falls back to the WebView if the trackGuide flag is flipped off as a kill switch', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, trackGuide: false };
     expect(
-      resolve('https://www.longlivets.com/?screen=track-guide', undefined, flags),
-    ).toEqual({ web: 'https://www.longlivets.com/?screen=track-guide' });
-  });
-
-  it('falls back to the WebView when the song flag is off (default)', () => {
-    expect(
-      resolve('https://www.longlivets.com/?screen=song&key=folklore%3A%3A1%3A%3Athe%201'),
+      resolve('https://www.longlivets.com/?screen=track-guide&era=folklore', undefined, flags),
     ).toEqual({ web: 'https://www.longlivets.com' });
   });
 
-  it('routes to native with the trackKey param once the song flag is on', () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, song: true };
+  it('falls back to the WebView for track-guide with no era param, even flag-on', () => {
+    expect(
+      resolve('https://www.longlivets.com/?screen=track-guide'),
+    ).toEqual({ web: 'https://www.longlivets.com/?screen=track-guide' });
+  });
+
+  it('routes song to native by default', () => {
+    expect(
+      resolve('https://www.longlivets.com/?screen=song&key=folklore%3A%3A1%3A%3Athe%201'),
+    ).toEqual({ native: 'song', params: { trackKey: 'folklore::1::the 1' } });
+  });
+
+  it('falls back to the WebView if the song flag is flipped off as a kill switch', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, song: false };
     expect(
       resolve(
         'https://www.longlivets.com/?screen=song&key=folklore%3A%3A1%3A%3Athe%201',
         undefined,
         flags,
       ),
-    ).toEqual({ native: 'song', params: { trackKey: 'folklore::1::the 1' } });
+    ).toEqual({ web: 'https://www.longlivets.com' });
   });
 
   it('falls back to the WebView for song with no key param, even flag-on', () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, song: true };
-    expect(resolve('https://www.longlivets.com/?screen=song', undefined, flags)).toEqual({
+    expect(resolve('https://www.longlivets.com/?screen=song')).toEqual({
       web: 'https://www.longlivets.com/?screen=song',
     });
   });
 
   it("leaves the website's own ?guide=/?song= share-link params alone (they stay web-routed regardless of flags)", () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, trackGuide: true, song: true };
-    expect(resolve('https://www.longlivets.com/?guide=folklore', undefined, flags)).toEqual({
+    expect(resolve('https://www.longlivets.com/?guide=folklore')).toEqual({
       web: 'https://www.longlivets.com/?guide=folklore',
     });
     expect(
-      resolve('https://www.longlivets.com/?song=all-too-well-10-min', undefined, flags),
+      resolve('https://www.longlivets.com/?song=all-too-well-10-min'),
     ).toEqual({ web: 'https://www.longlivets.com/?song=all-too-well-10-min' });
   });
 });
 
-describe('resolve — OS-033 native moment detail (off by default)', () => {
-  it("falls back to the WebView (the site's own ?item= page) when the moment flag is off (default)", () => {
+describe('resolve — OS-033 native moment detail (on by default since OS-039)', () => {
+  it('routes to native with the itemId param by default', () => {
     expect(resolve('https://www.longlivets.com/?item=folklore-cardigan')).toEqual({
-      web: 'https://www.longlivets.com/?item=folklore-cardigan',
-    });
-  });
-
-  it('routes to native with the itemId param once the moment flag is flipped on', () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, moment: true };
-    expect(resolve('https://www.longlivets.com/?item=folklore-cardigan', undefined, flags)).toEqual({
       native: 'moment',
       params: { itemId: 'folklore-cardigan' },
     });
   });
 
+  it("falls back to the WebView (the site's own ?item= page) if the moment flag is flipped off as a kill switch", () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, moment: false };
+    expect(resolve('https://www.longlivets.com/?item=folklore-cardigan', undefined, flags)).toEqual({
+      web: 'https://www.longlivets.com/?item=folklore-cardigan',
+    });
+  });
+
   it('does not claim a bare ?item= with no value', () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, moment: true };
-    expect(resolve('https://www.longlivets.com/?item=', undefined, flags)).toEqual({
+    expect(resolve('https://www.longlivets.com/?item=')).toEqual({
       web: 'https://www.longlivets.com/?item=',
     });
   });
 });
 
-describe('resolve — OS-036 native Clownbot + mood chat (off by default)', () => {
-  it('falls back to the WebView when the clownbot flag is off (default)', () => {
+describe('resolve — OS-036 native Clownbot + mood chat (on by default since OS-039)', () => {
+  it('routes to native by default', () => {
     expect(resolve('https://www.longlivets.com/?screen=clownbot')).toEqual({
-      web: 'https://www.longlivets.com',
+      native: 'clownbot',
+      params: {},
     });
   });
 
-  it('routes to native once the clownbot flag is flipped on', () => {
-    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, clownbot: true };
+  it('falls back to the WebView if the clownbot flag is flipped off as a kill switch', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, clownbot: false };
     expect(resolve('https://www.longlivets.com/?screen=clownbot', undefined, flags)).toEqual({
-      native: 'clownbot',
-      params: {},
+      web: 'https://www.longlivets.com',
     });
   });
 });
