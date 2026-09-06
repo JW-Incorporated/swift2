@@ -46,10 +46,11 @@ Stories: 120
 ## Nikki Glaser Discusses Unique Aspect of Taylor Swift and Travis Kelce's Wedding
 
 - first seen: 2026-09-06 16:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Comedian Nikki Glaser highlights a distinctive feature of Taylor Swift and Travis Kelce's wedding that is rarely seen at celebrity events. The comments were made during a discussion about the high-profile couple's event.
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOV0t6ZmlTU1pOMXZXTVFzdW0yZDU4TFc5VUVDcGo2UTl5Zk1fYlliSzFzWnRTcDRMLUMwcUFQRmNwTzBVR1NaTnpBWU9GajM3aW01Yjg4Qnl0WjBRaXZYYnhBemgtZmdsZVZoeXEzUVZXSkhNTzBZWTRBZWlMYmxaMWZGNTJlY3Myd3A2WTRPbDcwcHJmUHc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxOT203ZWtUX3RiTU5ocWZ2anp2bjRRTTFIenN1c1l5b0pSbVhHSEJrLTQyNm9TbFJKUHdwaGpUemlaNzE3TWh0ZmhWNHYtRk5tV0M3R1VSdWtxdjNCSC1Tdm1ndXlsVWN5eFN5RzBDU1ROYVNFNnZJVGlyVWhBVkoweV9sb0FmRDN4UUhLZ1pKVm9vZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Celebrity Outfit Highlights of the Week Featuring Taylor Swift
 
@@ -171,11 +172,12 @@ Stories: 120
 ## Taylor Swift Discusses 'I Knew It, I Knew You' Lyrics on Country Radio
 
 - first seen: 2026-09-06 05:53 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: In a rare appearance on country radio, Taylor Swift shared insights into the double meaning of the lyrics from her song 'I Knew It, I Knew You'.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMGo5ZXdtTmwzUkxMUDZ6djBHUmQxaGFfaUgxclhxZ2VWU0ZHTkJyOEFMTTFjTnJpbXlCYjNfYTBfbDBkOGU5MVVCZVVZY0hQbmR5RU51bWlKT2Voa2dpQzJqV05fakR0akxBWm93czVTOE9uaWE5RzVRYUVIcnZ4OThtZERsRGJFS1NVaTFMaFJPRGVoUjRCNGdLd3RqWTdHQjJsaHV5aTU5SmczU013?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Headline Planet — https://news.google.com/rss/articles/CBMitwFBVV95cUxQSE1zR25MMGJMcjk5NElsMDRsMEcza0o5dGVJbi1sS0pibGpJY0kybGhmRnVkS1lqTHRnUEJuRUdvZDN5YkZjYkxjRTVSVE43R0x2WGtOS3dfLU1JS2VCTFJwNm5teVV4T3k0ai1aV1M3cUg4d3JNYUVKU1B3WERyeHNuUWtOcnpLRUQwLUx5Yy0yWTd0N2w2WGQ3SWdMNmIwTWhGRFFVd3JTLU41SGI2LWF1Mnd2VjjSAbwBQVVfeXFMUHcwTDdzTm0zQjhnVlUwWnVMMzI2NGxOOWpsTnhNSjlqSG12RUVBVDNmV08wUTZucUJlcnVBZ2EzVmJFaVppTTFhNUNaNnNZSTdrdER4R3RORnM3YzhoQmJjb2dpSmVGbzBwV1RPcHN0cm1mQlViU0ZuM3lSNDUyZWdMbHgtNTYzRXdwaDdVTlE5ekNmNHB6RWNuRkx2RGNiRE5JQWYyelFCUm9mbTcyM2VtTVFPM1NiaFRUN2w?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMipAFBVV95cUxQZF9VaWx6S0tuTm9VeF90ZW82cGpOVVdnZzJjZWdMdThYYnpsMmJKN3lsXzFkRFdGaVRUblRlR1pfVDRRd3BzZkdpNkRXX21mUHRoS3REcEwxQVVDODU2Z2xxcGxJYTlWczhjbERpMDNnVGk4ZVBOaEN0MEV3X2FEU29wdmtiTVY4UHdid25ybEZrWUttRDAtZTdycEZpcm5BWE9BRg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMihgFBVV95cUxNdkRWOG9waEFsZ1JNajZqaEV4Z1V2T0stbG9Xd0ozUXVTSFBfazVZblRib0tRQ29wNTAwY0F0MWQ4cmoyMGJFVUU5WkJCSi0tWlhDM3U4WWdEWGd0Y3drN3l1TkFpUjUwdGFJeEtjc24tbFEwSjNwUE5PazYwaWJYUHhyai1WQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Makes Wedding Joke at NYC Concert Referencing Taylor Swift
