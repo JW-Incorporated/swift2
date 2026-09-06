@@ -28,19 +28,21 @@ import { destinationFor, type ShellDestination } from '@swift2/shared';
  * Every screen this table can route to natively. `settings` and `inbox`
  * shipped in Phase 0; OS-032 adds `era-stream` (Phase 3's native era
  * stream — masthead, era sections, moment cards). OS-035 adds `track-guide`
- * (an album's song list) and `song` (one song's dossier). `moment`, etc.
- * join as they're built (OS-033, OS-036..OS-038) — each new screen gets one
+ * (an album's song list) and `song` (one song's dossier). OS-036 adds
+ * `clownbot` (the native Clownbot + mood chat screen). `moment`, etc. join
+ * as they're built (OS-033, OS-037, OS-038) — each new screen gets one
  * more entry here and one more flag, nothing else in this file changes
  * shape.
  */
-export type ScreenId = 'settings' | 'inbox' | 'era-stream' | 'track-guide' | 'song';
+export type ScreenId = 'settings' | 'inbox' | 'era-stream' | 'track-guide' | 'song' | 'clownbot';
 
 /**
  * The native-side resolution carries whichever params the target screen
  * needs to render (OS-035's `track-guide`/`song` are the first screens in
- * this table that need any — `settings`/`inbox`/`era-stream` take none).
- * `params` is always present (possibly `{}`) so callers never need an
- * `'params' in resolution` guard on top of the `'native' in resolution` one.
+ * this table that need any — `settings`/`inbox`/`era-stream`/`clownbot`
+ * take none). `params` is always present (possibly `{}`) so callers never
+ * need an `'params' in resolution` guard on top of the `'native' in
+ * resolution` one.
  */
 export type NativeParams = { eraId?: string; trackKey?: string };
 export type RouteResolution = { native: ScreenId; params: NativeParams } | { web: string };
@@ -65,15 +67,19 @@ export interface RouteFlags {
    * OFF, flips on later via remote config once reviewed in TestFlight. */
   trackGuide: boolean;
   song: boolean;
+  /** OS-036: same progressive-rollout posture as eraStream/trackGuide —
+   * defaults OFF (see DEFAULT_ROUTE_FLAGS). */
+  clownbot: boolean;
 }
 
-/** Settings/inbox ship on by default (Phase 0, already shipped); OS-032's era stream and OS-035's track guide/song screens ship OFF by default — see each flag's own doc above. */
+/** Settings/inbox ship on by default (Phase 0, already shipped); OS-032's era stream, OS-035's track guide/song screens, and OS-036's Clownbot all ship OFF by default — see each flag's own doc above. */
 export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   settings: true,
   inbox: true,
   eraStream: false,
   trackGuide: false,
   song: false,
+  clownbot: false,
 };
 
 function screenForDestination(dest: ShellDestination): ScreenId | null {
@@ -82,6 +88,7 @@ function screenForDestination(dest: ShellDestination): ScreenId | null {
   if (dest.kind === 'era-stream') return 'era-stream';
   if (dest.kind === 'track-guide') return 'track-guide';
   if (dest.kind === 'song') return 'song';
+  if (dest.kind === 'clownbot') return 'clownbot';
   return null;
 }
 
@@ -92,13 +99,14 @@ function paramsForDestination(dest: ShellDestination): NativeParams {
   return {};
 }
 
-/** Maps a `ScreenId` to its `RouteFlags` key — the flag names differ from the screen ids in two cases (`era-stream` -> `eraStream`, `track-guide` -> `trackGuide`; both valid RouteFlags/TS identifiers) so this indirection is the one place that mapping lives. */
+/** Maps a `ScreenId` to its `RouteFlags` key — the flag names differ from the screen ids in the hyphenated/multi-word cases (`era-stream` -> `eraStream`, `track-guide` -> `trackGuide`; `song` and `clownbot` match their screen id), all valid RouteFlags/TS identifiers, so this indirection is the one place that mapping lives. */
 function flagForScreen(screen: ScreenId, flags: RouteFlags): boolean {
   if (screen === 'settings') return flags.settings;
   if (screen === 'inbox') return flags.inbox;
   if (screen === 'era-stream') return flags.eraStream;
   if (screen === 'track-guide') return flags.trackGuide;
-  return flags.song;
+  if (screen === 'song') return flags.song;
+  return flags.clownbot;
 }
 
 /**

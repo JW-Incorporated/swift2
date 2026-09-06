@@ -105,7 +105,9 @@ export type ShellDestination =
   // that must keep opening in the WebView until this screen's flag flips on
   // for everyone, not just when a shell happens to be running this build.
   | { kind: 'track-guide'; eraId: string }
-  | { kind: 'song'; trackKey: string };
+  | { kind: 'song'; trackKey: string }
+  // OS-036: the native Clownbot + mood chat screen, same `?screen=` pattern.
+  | { kind: 'clownbot' };
 
 const DEFAULT_SITE_URL = 'https://www.longlivets.com';
 
@@ -153,6 +155,9 @@ export function destinationFor(
       const trackKey = u.searchParams.get('key');
       if (trackKey) return { kind: 'song', trackKey };
     }
+    // OS-036: the native Clownbot + mood chat screen, reached the same way —
+    // an explicit `?screen=clownbot` marker.
+    if (u.searchParams.get('screen') === 'clownbot') return { kind: 'clownbot' };
     // `?current=theories|merch|countdowns`, `?song=<slug>`,
     // `#merch-new-drops`, and a bare site root all address something the
     // website itself renders — hand the URL through unchanged so the
