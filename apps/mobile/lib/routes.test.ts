@@ -85,12 +85,27 @@ describe('resolve — feature flags (OS-030: toggle without a rebuild)', () => {
   });
 
   it('flipping both flags off sends every native-capable route to the web', () => {
-    const flags: RouteFlags = { settings: false, inbox: false };
+    const flags: RouteFlags = { settings: false, inbox: false, eraStream: false };
     expect(resolve('https://www.longlivets.com/?screen=settings', undefined, flags)).toEqual({
       web: 'https://www.longlivets.com',
     });
     expect(resolve('https://www.longlivets.com/?current=inbox', undefined, flags)).toEqual({
       web: 'https://www.longlivets.com',
+    });
+  });
+});
+
+describe('resolve — OS-032 native era stream (off by default)', () => {
+  it('falls back to the WebView when the eraStream flag is off (default)', () => {
+    expect(resolve('https://www.longlivets.com/?screen=era-stream')).toEqual({
+      web: 'https://www.longlivets.com',
+    });
+  });
+
+  it('routes to native once the eraStream flag is flipped on', () => {
+    const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS, eraStream: true };
+    expect(resolve('https://www.longlivets.com/?screen=era-stream', undefined, flags)).toEqual({
+      native: 'era-stream',
     });
   });
 });

@@ -30,6 +30,7 @@ export * from './feed-types';
 export * from './thread-content-provider';
 export * from './era-feed';
 export * from './era-feed-clusters';
+export * from './era-stream';
 export * from './space-doorways';
 export * from './doorways';
 export * from './current-feed';

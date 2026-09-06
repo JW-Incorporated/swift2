@@ -94,7 +94,8 @@ export function settingsDestination(category: AnyNotificationCategory): DeepLink
 export type ShellDestination =
   | { kind: 'web'; url: string }
   | { kind: 'settings' }
-  | { kind: 'inbox' };
+  | { kind: 'inbox' }
+  | { kind: 'era-stream' };
 
 const DEFAULT_SITE_URL = 'https://www.longlivets.com';
 
@@ -122,6 +123,11 @@ export function destinationFor(
     }
     if (u.searchParams.get('screen') === 'settings') return { kind: 'settings' };
     if (u.searchParams.get('current') === 'inbox') return { kind: 'inbox' };
+    // OS-032: the native era stream is reachable the same way Settings is —
+    // an explicit `?screen=era-stream` marker — rather than claiming the
+    // bare site root, which stays the WebView's job until OS-039 retires
+    // SiteShell as the default for every route this phase ports.
+    if (u.searchParams.get('screen') === 'era-stream') return { kind: 'era-stream' };
     // `?current=theories|merch|countdowns`, `?song=<slug>`,
     // `#merch-new-drops`, and a bare site root all address something the
     // website itself renders — hand the URL through unchanged so the
