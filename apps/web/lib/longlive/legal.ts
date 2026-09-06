@@ -384,23 +384,29 @@ export const PRIVACY_POLICY: LegalDoc = {
       heading: 'The mobile app',
       blocks: [
         {
-          // Rewritten 2026-09-05 (second time that day) for the App Store
-          // release. Decision in docs/decisions.md 2026-09-05: the app now
-          // shows this website inside it (apps/mobile/components/SiteShell.tsx,
-          // a WebView of www.longlivets.com), so everything the sections
-          // above say about the website is true inside the app too. On top of
-          // that the app has its own device registry and opt-in push
-          // notifications (apps/mobile/lib/device-id.ts, push-registration.ts,
+          // Rewritten 2026-09-06 for OS-039 (docs/specs/2026-09-05-one-
+          // source-three-surfaces.md): SiteShell is retired as the app's
+          // default surface. The app now renders native screens for eras,
+          // threads, Clownbot, community, and merch
+          // (apps/mobile/App.tsx + BottomTabBar.tsx), each reading the same
+          // published content bundle as the website (D2: two renderers, one
+          // headless core) — so the DATA and its handling are identical to
+          // the website even though the UI is native, not a WebView. Only
+          // three static pages — Privacy, Terms, and Support — still open in
+          // a WebView (apps/mobile/components/SiteShell.tsx), since they
+          // have no native screen. On top of that the app has its own
+          // device registry and opt-in push notifications
+          // (apps/mobile/lib/device-id.ts, push-registration.ts,
           // prefs-client.ts, inbox-client.ts; apps/web/app/api/devices/**;
           // migration 20260909000000_notifications_devices.sql). Whoever
           // changes the app changes this section in the same release, and
           // both stores' data-safety forms with it.
           kind: 'p',
-          text: 'There is also a Long Live mobile app for iPhone and Android — listed as "LongLive", bundle and package id ai.jwlabs.longlive. The app shows this website inside it: when you open the app you are reading www.longlivets.com, with the same pages, the same features, and the same handling of your data as described in every section above. The feedback button, the mood chat, Clownbot, the analytics, the embeds, and the server logs all behave in the app exactly as they do in a browser, and the sections above are the description of them.',
+          text: 'There is also a Long Live mobile app for iPhone and Android — listed as "LongLive", bundle and package id ai.jwlabs.longlive. The app renders its own native screens for eras, threads, Clownbot, community, and merch, all built from the exact same content and the exact same rules described in every section above — nothing about what is collected or how it is handled changes because the screen is native instead of a web page. Only three pages — Privacy, Terms, and Support (this page among them) — still open inside the app as the website itself, unchanged. The feedback button, the mood chat, Clownbot, the analytics, and the server logs all behave in the app exactly as they do in a browser, and the sections above are the description of them.',
         },
         {
           kind: 'p',
-          text: 'Two things are specific to the app. The first is a device id. On first launch the app creates a random device id — a UUID, not derived from your phone, your Apple or Google account, or any advertising identifier — and stores it in the device’s secure storage. Each time the app starts it sends that id to our server together with the platform (iPhone or Android), your device’s time zone and language setting, and the app version. We keep those in a devices table in our Supabase database so that notification preferences can be saved and so that notifications, if you turn them on, can be delivered at a sensible local hour. None of it names you, and we do not link it to anything that could, including the website’s anonymous Clownbot id.',
+          text: 'Two things are specific to the app. The first is a device id. On first launch the app creates a random device id — a UUID, not derived from your phone, your Apple or Google account, or any advertising identifier — and stores it in the device’s secure storage. Each time the app starts it sends that id to our server together with the platform (iPhone or Android), your device’s time zone and language setting, and the app version. We keep those in a devices table in our Supabase database so that notification preferences can be saved and so that notifications, if you turn them on, can be delivered at a sensible local hour. None of it names you, and we do not link it to anything that could, including your anonymous Clownbot identity (a device-bound token in the native chat screen, or the website’s own anonymous session cookie on the Privacy/Terms/Support pages).',
         },
         {
           kind: 'p',

@@ -24,7 +24,7 @@
 > | --- | --- |
 > | Do you or your third-party partners collect data from this app? | **Yes** |
 > | **Identifiers → Device ID** | the app's UUID + push token. Purpose: App Functionality. Not linked, not tracking. |
-> | **Identifiers → User ID** | the website's anonymous Clownbot session id (cookie), because the app shows the site (2026-09-05 WebView decision). Purpose: App Functionality. Not linked, not tracking. |
+> | **Identifiers → User ID** | an anonymous Clownbot identity — a bearer device token for the native chat screen, or the website's own session cookie on the three legal WebView pages. Purpose: App Functionality. Not linked, not tracking. |
 > | **User Content → Other User Content** | feedback-box text (to GitHub) and mood-chat / Clownbot text (to the Claude API) typed inside the in-app site. Purpose: App Functionality. Not linked, not tracking. |
 > | **Usage Data → Product Interaction** | Vercel Web Analytics page views inside the in-app site. Purpose: Analytics. Not linked, not tracking. |
 > | Every other data type | **not collected** |

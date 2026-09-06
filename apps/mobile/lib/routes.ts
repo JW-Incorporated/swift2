@@ -102,18 +102,26 @@ export interface RouteFlags {
   clownbot: boolean;
 }
 
-/** Settings/inbox ship on by default (Phase 0, already shipped); OS-032's era stream, OS-033's moment sheet, OS-034's threads mode, OS-037's community/merch, OS-035's track guide/song screens, and OS-036's Clownbot all ship OFF by default — see each flag's own doc above. */
+/** OS-039: every native screen this phase built now ships ON by default —
+ * SiteShell is retired as the default surface (D3's progressive rollout
+ * completed OS-033..OS-038 review/TestFlight passes; see this card's PR).
+ * The WebView remains reachable only for the three legal pages
+ * (`/privacy`, `/terms`, `/support`), which have no native screen and so
+ * have no flag here — `resolve()` falls through to `web` for them the same
+ * way it always has for any URL with no matching `ScreenId`. A flag can
+ * still be flipped back to `false` as a kill switch for one screen without
+ * a new store build (EAS Update), same mechanism as every prior phase. */
 export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   settings: true,
   inbox: true,
-  eraStream: false,
-  threads: false,
-  community: false,
-  merch: false,
-  trackGuide: false,
-  song: false,
-  moment: false,
-  clownbot: false,
+  eraStream: true,
+  threads: true,
+  community: true,
+  merch: true,
+  trackGuide: true,
+  song: true,
+  moment: true,
+  clownbot: true,
 };
 
 function screenForDestination(dest: ShellDestination): ScreenId | null {
