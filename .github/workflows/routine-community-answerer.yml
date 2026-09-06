@@ -1,0 +1,46 @@
+# Community Answerer — engagement drafts, Phase 1 card P1-4
+# (docs/proposals/2026-09-06-community-engine-plan.md §2.5, §4 workflow table).
+#
+# Daily draft-only run: reads `engagement_lead` rows Tier 1 already collected
+# (community-inbox.yml / community-scan.yml / the Facebook export ingest —
+# P1-1/P1-2/P1-3, parallel siblings under the same GATE-P0 per the plan's
+# §9 parallelism note, so this workflow does not block on their landing),
+# scores + drafts them, and writes back to Supabase. Writes NOTHING to git
+# and calls no platform API — a human always posts (plan header). No PR, so
+# this needs only `contents: read` + Supabase secrets, same posture as
+# `routine-news-triage.yml`'s "files only, never opens a PR" shape, minus
+# even the `issues: write` grant (this desk's output lands in Supabase, not
+# GitHub).
+#
+# Cadence: "daily, after community-scan.yml" per the plan's §4 table.
+# community-scan.yml (P1-2) had not landed at the time this card shipped —
+# 14:46 UTC is chosen as a reasonable post-scan, off-peak minute per this
+# repo's cron-contention convention (never :00/:30); revisit once P1-2's
+# actual cron lands and shift this later if the scan runs later than 14:46.
+name: routine-community-answerer
+
+on:
+  schedule:
+    - cron: "46 14 * * *" # daily, intended to run after community-scan.yml (P1-2)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Community Answerer — engagement drafts"
+      prompt_file: docs/agents/runner-prompts/community-answerer.md
+      model: claude-sonnet-5 # plan §8-Q4=a
+      # Narrowest that works (routine-invariants.md): no WebSearch/WebFetch —
+      # this desk's only external reads are Supabase FTS (via Bash/node) and
+      # the home-relay skill (a plain HTTP GET issued through Bash/curl).
+      allowed_tools: "Bash,Read,Write,Edit,Glob,Grep"
+      timeout_minutes: 30
+      checkout_token_secret: GITHUB_TOKEN
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
