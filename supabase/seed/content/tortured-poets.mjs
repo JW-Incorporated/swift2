@@ -6222,12 +6222,12 @@ export default {
       category: 'relationship',
       title: 'Instagram official — a backstage selfie at Wembley',
       snippet:
-        'Swift and Kelce posed for a selfie backstage at her first London Eras Tour show, with Prince William, Prince George and Princess Charlotte visiting — the first photo of Kelce Swift shared on her own Instagram.',
+        'Taylor and Kelce posed for a selfie backstage at her first London Eras Tour show, with Prince William, Prince George and Princess Charlotte visiting — the first photo of Kelce Swift shared on her own Instagram.',
       sourceUrl: 'https://people.com/taylor-swift-travis-kelce-party-4am-london-eras-tour-stage-debut-8667987',
       thumbnailUrl: null,
       moment: {
         context:
-          'Marked the first time Swift publicly shared a photo with Kelce on her own Instagram, taken during the royal family backstage visit at Wembley Stadium.',
+          'Marked the first time Taylor publicly shared a photo with Kelce on her own Instagram, taken during the royal family backstage visit at Wembley Stadium.',
         sources: [
           { outlet: 'People', url: 'https://people.com/taylor-swift-travis-kelce-party-4am-london-eras-tour-stage-debut-8667987' },
           { outlet: 'E! Online', url: 'https://www.eonline.com/news/1406999/taylor-swift-and-travis-kelce-arrive-at-nyc-dinner-in-style-after-chiefs-win' },
@@ -6241,7 +6241,7 @@ export default {
       category: 'sighting',
       title: 'A surprise Eras Tour stage debut, in a tuxedo and top hat',
       snippet:
-        'Kelce joined Swift onstage during "I Can Do It With a Broken Heart" at her third and final London show, carrying her across the stage before the two partied at Chiltern Firehouse until 4 a.m.',
+        'Kelce joined Taylor onstage during "I Can Do It With a Broken Heart" at her third and final London show, carrying her across the stage before the two partied at Chiltern Firehouse until 4 a.m.',
       sourceUrl: 'https://www.cnn.com/2024/06/23/entertainment/taylor-swift-travis-kelce-on-stage',
       thumbnailUrl: null,
       moment: {
@@ -6260,12 +6260,12 @@ export default {
       category: 'sighting',
       title: 'A kiss goodbye after the final Amsterdam Eras Tour show',
       snippet:
-        'After Swift\'s third and final Amsterdam concert at Johan Cruijff Arena, she and Kelce left hand-in-hand, with Kelce kissing the top of her head as fans cheered nearby.',
+        'After Taylor\'s third and final Amsterdam concert at Johan Cruijff Arena, she and Kelce left hand-in-hand, with Kelce kissing the top of her head as fans cheered nearby.',
       sourceUrl: 'https://www.today.com/popculture/music/taylor-swift-travis-kelce-amsterdam-eras-tour-rcna160532',
       thumbnailUrl: null,
       moment: {
         context:
-          'Kelce watched from a stadium suite rather than the usual VIP tent, then reunited with Swift backstage after the show.',
+          'Kelce watched from a stadium suite rather than the usual VIP tent, then reunited with Taylor backstage after the show.',
         sources: [
           { outlet: 'TODAY', url: 'https://www.today.com/popculture/music/taylor-swift-travis-kelce-amsterdam-eras-tour-rcna160532' },
           { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swift-travis-kelce-leave-3rd-amsterdam-eras-concert-together/' },
@@ -6279,7 +6279,7 @@ export default {
       category: 'sighting',
       title: 'Travis bikes around Amsterdam before the show',
       snippet:
-        'Ahead of catching Swift\'s Eras Tour stop in Amsterdam, Kelce was photographed riding a bike through the city on Saturday, July 6, 2024.',
+        'Ahead of catching Taylor\'s Eras Tour stop in Amsterdam, Kelce was photographed riding a bike through the city on Saturday, July 6, 2024.',
       sourceUrl: 'https://www.yahoo.com/entertainment/travis-kelce-rides-bike-amsterdam-181438609.html',
       thumbnailUrl: null,
       moment: {
@@ -6295,12 +6295,12 @@ export default {
       category: 'relationship',
       title: 'Rhode Island reunion for Blake Lively\'s birthday weekend',
       snippet:
-        'Fresh off the end of the Eras Tour\'s European leg, Swift and Kelce were spotted together at her Rhode Island house on Aug. 24 — their first sighting together since mid-July — joined by Blake Lively, Ryan Reynolds, the Mahomeses and the Kelces.',
+        'Fresh off the end of the Eras Tour\'s European leg, Taylor and Kelce were spotted together at her Rhode Island house on Aug. 24 — their first sighting together since mid-July — joined by Blake Lively, Ryan Reynolds, the Mahomeses and the Kelces.',
       sourceUrl: 'https://people.com/everyone-who-joined-taylor-swift-travis-kelce-in-rhode-island-celebrity-guests-8701057',
       thumbnailUrl: null,
       moment: {
         context:
-          'Coincided with the end of Kelce\'s preseason schedule and Swift\'s Eras Tour hiatus before the October North American resumption.',
+          'Coincided with the end of Kelce\'s preseason schedule and Taylor\'s Eras Tour hiatus before the October North American resumption.',
         sources: [
           { outlet: 'People', url: 'https://people.com/everyone-who-joined-taylor-swift-travis-kelce-in-rhode-island-celebrity-guests-8701057' },
           { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swifts-rhode-island-getaway-was-grounding-source-says/' },
@@ -6314,7 +6314,7 @@ export default {
       category: 'sighting',
       title: 'An eighth, record-breaking Wembley show closes the European leg',
       snippet:
-        'Swift wrapped the European leg of the Eras Tour with her eighth Wembley Stadium performance, breaking a venue attendance record, bringing out Florence Welch and Jack Antonoff and debuting "So Long, London" live for the first time.',
+        'Taylor wrapped the European leg of the Eras Tour with her eighth Wembley Stadium performance, breaking a venue attendance record, bringing out Florence Welch and Jack Antonoff and debuting "So Long, London" live for the first time.',
       sourceUrl: 'https://www.bbc.co.uk/news/articles/cr5nr3n6epvo',
       thumbnailUrl: null,
       moment: {
@@ -6337,7 +6337,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift\'s return to Chiefs-related public outings marking the start of the 2024 NFL season.',
+          'Taylor\'s return to Chiefs-related public outings marking the start of the 2024 NFL season.',
         sources: [
           { outlet: 'E! Online', url: 'https://www.eonline.com/news/1406999/taylor-swift-and-travis-kelce-arrive-at-nyc-dinner-in-style-after-chiefs-win' },
           { outlet: 'New York Daily News', url: 'https://www.nydailynews.com/2024/09/07/taylor-swift-travis-kelce-brooklyn-date-night-lucali-pizza-nyc/' },
@@ -6351,7 +6351,7 @@ export default {
       category: 'relationship',
       title: 'A second straight NYC date night, hand in hand',
       snippet:
-        'Swift and Kelce were photographed holding hands arriving at Torrisi restaurant in Manhattan, their second consecutive date night after dining with Blake Lively and Ryan Reynolds the night before.',
+        'Taylor and Kelce were photographed holding hands arriving at Torrisi restaurant in Manhattan, their second consecutive date night after dining with Blake Lively and Ryan Reynolds the night before.',
       sourceUrl: 'https://people.com/taylor-swift-and-travis-kelce-cute-nyc-dinner-date-8727621',
       thumbnailUrl: null,
       moment: {
@@ -6370,12 +6370,12 @@ export default {
       category: 'sighting',
       title: 'A plaid Vivienne Westwood corset for Monday Night Football',
       snippet:
-        'Swift arrived at Arrowhead Stadium in a plaid Vivienne Westwood corset and mini skirt as the Chiefs beat the Saints 26-13, sitting with her father Scott and reuniting with Chiefs WAGs afterward.',
+        'Taylor arrived at Arrowhead Stadium in a plaid Vivienne Westwood corset and mini skirt as the Chiefs beat the Saints 26-13, sitting with her father Scott and reuniting with Chiefs WAGs afterward.',
       sourceUrl: 'https://people.com/taylor-swift-serves-sexy-cheerleader-to-support-travis-kelce-chiefs-game-8715641',
       thumbnailUrl: null,
       moment: {
         context:
-          'First Chiefs game Swift attended after missing two road games during Eras Tour prep.',
+          'First Chiefs game Taylor attended after missing two road games during Eras Tour prep.',
         sources: [
           { outlet: 'People', url: 'https://people.com/taylor-swift-serves-sexy-cheerleader-to-support-travis-kelce-chiefs-game-8715641' },
           { outlet: 'TMZ', url: 'https://tmz.com/2024/10/07/taylor-swift-arrives-travis-kelce-chiefs-monday-night-football-game' },
@@ -6389,7 +6389,7 @@ export default {
       category: 'relationship',
       title: 'A New Year\'s Eve kiss in Kansas City',
       snippet:
-        'Swift and Kelce rang in 2025 with a private, low-key celebration and a midnight kiss in Kansas City; a source called the night "romantic."',
+        'Taylor and Kelce rang in 2025 with a private, low-key celebration and a midnight kiss in Kansas City; a source called the night "romantic."',
       sourceUrl: 'https://marca.com/en/nfl/kansas-city-chiefs/2025/01/04/6778bff4268e3e26178b457a.html',
       thumbnailUrl: null,
       moment: {
@@ -6408,12 +6408,12 @@ export default {
       category: 'sighting',
       title: 'A red faux-fur coat back at Arrowhead',
       snippet:
-        'Two weeks after the Eras Tour ended in Vancouver, Swift returned to Arrowhead in a red faux fur Charlotte Simone coat and vintage Chanel bucket hat with her parents to watch the Chiefs beat the Texans 27-19.',
+        'Two weeks after the Eras Tour ended in Vancouver, Taylor returned to Arrowhead in a red faux fur Charlotte Simone coat and vintage Chanel bucket hat with her parents to watch the Chiefs beat the Texans 27-19.',
       sourceUrl: 'https://www.usatoday.com/story/entertainment/music/2024/12/21/taylor-swift-chiefs-texans-game/77006838007',
       thumbnailUrl: null,
       moment: {
         context:
-          'First game Swift attended after wrapping the Eras Tour on Dec. 8, 2024.',
+          'First game Taylor attended after wrapping the Eras Tour on Dec. 8, 2024.',
         sources: [
           { outlet: 'USA Today', url: 'https://www.usatoday.com/story/entertainment/music/2024/12/21/taylor-swift-chiefs-texans-game/77006838007' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-red-coat-chiefs-game-dec-21-2024-1235863757' },
@@ -6427,7 +6427,7 @@ export default {
       category: 'relationship',
       title: 'A field kiss after the AFC Championship win',
       snippet:
-        'After the Chiefs beat the Bills 32-29 to reach Super Bowl LIX, Swift came onto the field to kiss and embrace Kelce; the couple reportedly told each other "I love you so much."',
+        'After the Chiefs beat the Bills 32-29 to reach Super Bowl LIX, Taylor came onto the field to kiss and embrace Kelce; the couple reportedly told each other "I love you so much."',
       sourceUrl: 'https://people.com/travis-kelce-taylor-swift-tell-each-other-i-love-you-after-chiefs-win-8780926',
       thumbnailUrl: null,
       moment: {
@@ -6446,7 +6446,7 @@ export default {
       category: 'sighting',
       title: 'Back at Arrowhead for the divisional round in a Chanel tweed coat',
       snippet:
-        'Swift attended her first Chiefs game since December, arriving in a Chanel tweed coat with her parents and brother to watch Kansas City beat Houston 23-14 in the AFC Divisional Round.',
+        'Taylor attended her first Chiefs game since December, arriving in a Chanel tweed coat with her parents and brother to watch Kansas City beat Houston 23-14 in the AFC Divisional Round.',
       sourceUrl: 'https://people.com/taylor-swift-cheers-travis-kelce-kansas-city-chiefs-playoff-game-8774616',
       thumbnailUrl: null,
       moment: {
@@ -6465,7 +6465,7 @@ export default {
       category: 'sighting',
       title: 'Super Bowl LIX with the Haim sisters and Ice Spice',
       snippet:
-        'Swift arrived at Caesars Superdome with the Haim sisters and Ice Spice to watch the Chiefs face the Eagles in Super Bowl LIX, drawing a mixed jumbotron crowd reaction; the Chiefs lost 40-22.',
+        'Taylor arrived at Caesars Superdome with the Haim sisters and Ice Spice to watch the Chiefs face the Eagles in Super Bowl LIX, drawing a mixed jumbotron crowd reaction; the Chiefs lost 40-22.',
       sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-super-bowl-2025/story?id=118535158',
       thumbnailUrl: null,
       moment: {
@@ -6484,7 +6484,7 @@ export default {
       category: 'relationship',
       title: 'A rare public reunion in Philadelphia',
       snippet:
-        'After nearly two months out of the spotlight together, Swift and Kelce were spotted dining at Talula\'s Garden in Philadelphia on Mother\'s Day, marking their first public outing since March.',
+        'After nearly two months out of the spotlight together, Taylor and Kelce were spotted dining at Talula\'s Garden in Philadelphia on Mother\'s Day, marking their first public outing since March.',
       sourceUrl: 'https://people.com/taylor-swift-travis-kelce-in-philadelphia-for-first-public-spotting-in-months-11732745',
       thumbnailUrl: null,
       moment: {
@@ -6503,12 +6503,12 @@ export default {
       category: 'fashion',
       title: 'A sequined Gucci set for a masters-buyback dinner with Selena Gomez',
       snippet:
-        'Celebrating her masters buyback announcement, Swift stepped out at NYC\'s Monkey Bar wearing a Gucci sequined silk-and-wool set, De Beers diamond earrings, and a diamond tennis bracelet.',
+        'Celebrating her masters buyback announcement, Taylor stepped out at NYC\'s Monkey Bar wearing a Gucci sequined silk-and-wool set, De Beers diamond earrings, and a diamond tennis bracelet.',
       sourceUrl: 'https://www.marieclaire.com/fashion/taylor-swift-gucci-sequin-matching-set-selena-gomez-reunion-new-york/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Outing came one day after Swift announced she had bought back the masters to her first six albums.',
+          'Outing came one day after Taylor announced she had bought back the masters to her first six albums.',
         sources: [
           { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/fashion/taylor-swift-gucci-sequin-matching-set-selena-gomez-reunion-new-york/' },
           { outlet: 'CelebMafia', url: 'https://celebmafia.com/taylor-swift-gucci-look-monkey-bar-nyc-2025-4507633/' },
@@ -6522,7 +6522,7 @@ export default {
       category: 'fashion',
       title: 'A crystal-embellished Area tracksuit at the Stanley Cup Final',
       snippet:
-        'Swift and Kelce coordinated outfits for Game 4 of the 2025 Stanley Cup Final in Sunrise, Florida, Swift wearing a beige crystal-trim Area tracksuit, Prada booties and a Chanel bag.',
+        'Taylor and Kelce coordinated outfits for Game 4 of the 2025 Stanley Cup Final in Sunrise, Florida, Taylor wearing a beige crystal-trim Area tracksuit, Prada booties and a Chanel bag.',
       sourceUrl: 'https://www.harpersbazaar.com/celebrity/latest/a65057043/taylor-swift-crystal-athleisure-set-hockey-game-travis-kelce-photos/',
       thumbnailUrl: null,
       moment: {
@@ -6541,7 +6541,7 @@ export default {
       category: 'relationship',
       title: 'A quiet Fourth of July at Montana\'s Yellowstone Club',
       snippet:
-        'Skipping her traditional Rhode Island bash for a second year, Swift and Kelce spent the July 4th weekend low-key at the exclusive Yellowstone Club resort in Big Sky, Montana.',
+        'Skipping her traditional Rhode Island bash for a second year, Taylor and Kelce spent the July 4th weekend low-key at the exclusive Yellowstone Club resort in Big Sky, Montana.',
       sourceUrl: 'https://pagesix.com/2025/07/09/celebrity-news/taylor-swift-and-travis-kelce-spent-fourth-of-july-in-montana/',
       thumbnailUrl: null,
       moment: {
@@ -6560,7 +6560,7 @@ export default {
       category: 'sighting',
       title: 'First public outing since the engagement, at a college football game',
       snippet:
-        'Two days after announcing their engagement, Swift and Kelce were spotted publicly together for the first time as an engaged couple, attending a Cincinnati vs. Nebraska game with the Mahomeses — Swift wearing her ring in public for the first time.',
+        'Two days after announcing their engagement, Taylor and Kelce were spotted publicly together for the first time as an engaged couple, attending a Cincinnati vs. Nebraska game with the Mahomeses — Taylor wearing her ring in public for the first time.',
       sourceUrl: 'https://pagesix.com/2025/08/30/celebrity-news/newly-engaged-taylor-swift-surfaces-in-nashville-for-brittany-mahomes-30th-birthday-party',
       thumbnailUrl: null,
       moment: {

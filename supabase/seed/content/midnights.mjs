@@ -5604,7 +5604,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift and Alwyn were famously private about their six-year relationship; this small Instagram Story from Alwyn was treated as a notable public relationship signal during the Midnights promotional period.',
+          'Taylor and Alwyn were famously private about their six-year relationship; this small Instagram Story from Alwyn was treated as a notable public relationship signal during the Midnights promotional period.',
         sources: [
           { outlet: 'ELLE', url: 'https://www.elle.com/culture/celebrities/a42071335/taylor-swift-boyfriend-joe-alwyn-cat-benjamin/' },
           { outlet: 'Geo News', url: 'https://www.geo.tv/latest/455377-joe-alwyn-shares-adorable-snap-with-taylor-swifts-cat' },
@@ -5636,12 +5636,12 @@ export default {
       category: 'relationship',
       title: 'A zodiac Easter egg for Joe Alwyn in the \'Lavender Haze\' video',
       snippet:
-        'When Swift released the self-directed "Lavender Haze" music video on Jan. 27, 2023, fans spotted a vinyl record cover featuring the Sagittarius and Pisces constellations — her and Alwyn\'s zodiac signs — read as a coded nod to their relationship.',
+        'When Taylor released the self-directed "Lavender Haze" music video on Jan. 27, 2023, fans spotted a vinyl record cover featuring the Sagittarius and Pisces constellations — her and Alwyn\'s zodiac signs — read as a coded nod to their relationship.',
       sourceUrl: 'https://www.eonline.com/news/1362894/taylor-swift-fans-spot-joe-alwyn-easter-egg-in-lavender-haze-video',
       thumbnailUrl: null,
       moment: {
         context:
-          'Part of Swift\'s pattern of subtle, coded references to Alwyn throughout the Midnights era rather than direct public confirmation.',
+          'Part of Taylor\'s pattern of subtle, coded references to Alwyn throughout the Midnights era rather than direct public confirmation.',
         sources: [
           { outlet: 'E! Online', url: 'https://www.eonline.com/news/1362894/taylor-swift-fans-spot-joe-alwyn-easter-egg-in-lavender-haze-video' },
           { outlet: 'Business Insider', url: 'https://www.businessinsider.com/taylor-swift-lavender-haze-music-video-details-easter-eggs-2023-1' },
@@ -5655,12 +5655,12 @@ export default {
       category: 'relationship',
       title: 'A borrowed Joe Alwyn jacket at the Grammys afterparty',
       snippet:
-        'After winning Best Music Video at the Grammys on Feb. 5, 2023, Swift was photographed at her afterparty in a Celine leather bomber jacket previously worn by Alwyn at the 2022 Toronto International Film Festival.',
+        'After winning Best Music Video at the Grammys on Feb. 5, 2023, Taylor was photographed at her afterparty in a Celine leather bomber jacket previously worn by Alwyn at the 2022 Toronto International Film Festival.',
       sourceUrl: 'https://people.com/style/taylor-swift-wears-joe-alwyn-jacket-to-grammys-afterparty/',
       thumbnailUrl: null,
       moment: {
         context:
-          'A source told Entertainment Tonight that Alwyn also attended the afterparty at Chateau Marmont with Swift, even though he did not accompany her on the Grammys red carpet.',
+          'A source told Entertainment Tonight that Alwyn also attended the afterparty at Chateau Marmont with Taylor, even though he did not accompany her on the Grammys red carpet.',
         sources: [
           { outlet: 'People', url: 'https://people.com/style/taylor-swift-wears-joe-alwyn-jacket-to-grammys-afterparty/' },
           { outlet: 'Page Six', url: 'https://pagesix.com/2023/02/08/taylor-swift-borrows-joe-alwyns-jacket-at-grammys-2023-afterparty/' },
@@ -5693,12 +5693,12 @@ export default {
       category: 'sighting',
       title: 'Leaving Electric Lady Studios with Matty Healy and a star-studded crew',
       snippet:
-        'Swift and Matty Healy were seen leaving Electric Lady Studios in New York with a group including Kendrick Lamar, Jack Antonoff, Margaret Qualley, Jerrod Carmichael and Florence Welch, Swift in an NYU sweatshirt and black skirt.',
+        'Taylor and Matty Healy were seen leaving Electric Lady Studios in New York with a group including Kendrick Lamar, Jack Antonoff, Margaret Qualley, Jerrod Carmichael and Florence Welch, Taylor in an NYU sweatshirt and black skirt.',
       sourceUrl: 'https://www.eonline.com/news/1374508/you-wont-calm-down-over-taylor-swift-and-matty-healys-latest-nyc-outing',
       thumbnailUrl: null,
       moment: {
         context:
-          'Part of the wave of sightings following The Sun\'s May 3, 2023 report of a budding Swift-Healy romance and Healy\'s appearances at her Nashville Eras Tour shows.',
+          'Part of the wave of sightings following The Sun\'s May 3, 2023 report of a budding Taylor-Healy romance and Healy\'s appearances at her Nashville Eras Tour shows.',
         sources: [
           { outlet: 'E! Online', url: 'https://www.eonline.com/news/1374508/you-wont-calm-down-over-taylor-swift-and-matty-healys-latest-nyc-outing' },
         ],
@@ -5716,7 +5716,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Healy had appeared at Swift\'s Nashville Eras Tour shows in early May 2023; the pair reportedly split around June 5, 2023, weeks after the romance was first reported.',
+          'Healy had appeared at Taylor\'s Nashville Eras Tour shows in early May 2023; the pair reportedly split around June 5, 2023, weeks after the romance was first reported.',
         sources: [
           { outlet: 'People', url: 'https://people.com/music/taylor-swift-matty-healy-relationship-timeline/' },
           { outlet: 'TMZ', url: 'https://www.tmz.com/2023/06/05/taylor-swift-matty-healy-break-up-split/' },
@@ -5735,7 +5735,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'First on-camera acknowledgment moment from Kelce after his July "New Heights" podcast bracelet story sparked dating rumors, weeks before Swift\'s Sept. 24 Chiefs game appearance made the relationship public.',
+          'First on-camera acknowledgment moment from Kelce after his July "New Heights" podcast bracelet story sparked dating rumors, weeks before Taylor\'s Sept. 24 Chiefs game appearance made the relationship public.',
         sources: [
           { outlet: 'The Kansas City Star', url: 'https://kansascity.com/news/local/article280456364.html' },
           { outlet: 'Yahoo Entertainment', url: 'https://aol.com/travis-kelce-jokingly-ends-interview-030921483.html' },
@@ -5749,7 +5749,7 @@ export default {
       category: 'sighting',
       title: 'Sitting with Donna Kelce as the relationship goes public',
       snippet:
-        'Swift was seen at Arrowhead Stadium on Sept. 24, 2023, sitting with Donna Kelce as the Chiefs beat the Bears 41-10; after the game she left with Travis Kelce, riding off together — the sighting that made the relationship public.',
+        'Taylor was seen at Arrowhead Stadium on Sept. 24, 2023, sitting with Donna Kelce as the Chiefs beat the Bears 41-10; after the game she left with Travis Kelce, riding off together — the sighting that made the relationship public.',
       sourceUrl: 'https://www.today.com/popculture/taylor-swift-kansas-city-chiefs-game-travis-kelce-rcna117098',
       thumbnailUrl: null,
       moment: {
@@ -5767,12 +5767,12 @@ export default {
       category: 'relationship',
       title: 'A golf-cart date night in Singapore mid-Eras Tour',
       snippet:
-        'After her fifth Singapore show, Swift and Kelce were spotted on a date night March 8-9, 2024 — riding a golf cart at a mall, hugging and holding hands, then dining with her band and backup singers before her two-month tour hiatus.',
+        'After her fifth Singapore show, Taylor and Kelce were spotted on a date night March 8-9, 2024 — riding a golf cart at a mall, hugging and holding hands, then dining with her band and backup singers before her two-month tour hiatus.',
       sourceUrl: 'https://people.com/taylor-swift-and-travis-kelce-spotted-on-date-night-in-singapore-8606812',
       thumbnailUrl: null,
       moment: {
         context:
-          'Kelce flew to Singapore to support Swift during her Eras Tour residency; the pair kissed backstage after her show before the group dinner date.',
+          'Kelce flew to Singapore to support Taylor during her Eras Tour residency; the pair kissed backstage after her show before the group dinner date.',
         sources: [
           { outlet: 'People', url: 'https://people.com/taylor-swift-and-travis-kelce-spotted-on-date-night-in-singapore-8606812' },
           { outlet: 'Page Six', url: 'https://pagesix.com/2024/03/09/entertainment/taylor-swift-and-travis-kelce-enjoy-group-date-night-in-singapore-with-her-bandmates/' },
@@ -5786,7 +5786,7 @@ export default {
       category: 'relationship',
       title: 'A Coachella debut as a couple',
       snippet:
-        'On April 13, 2024, Swift and Kelce were spotted dancing, kissing and holding hands backstage at Coachella watching Bleachers and Ice Spice — their first Coachella appearance together as a couple.',
+        'On April 13, 2024, Taylor and Kelce were spotted dancing, kissing and holding hands backstage at Coachella watching Bleachers and Ice Spice — their first Coachella appearance together as a couple.',
       sourceUrl: 'https://people.com/coachella-2024-what-you-didnt-see-taylor-swift-and-travis-kelce-dancing-and-more-exclusive-8631334',
       thumbnailUrl: null,
       moment: {
