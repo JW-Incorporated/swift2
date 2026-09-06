@@ -39,7 +39,7 @@ from "planned" to a live row in both files, in the same PR that creates it:
 | # | Workflow / routine | Kind | Lands with | Invariant it must satisfy on creation |
 |---|---|---|---|---|
 | 1 | `community-inbox.yml` | Tier 1 (Action) | P1-1 | zero-LLM, DKIM-verified, idempotent by Message-ID |
-| 2 | `community-scan.yml` | Tier 1 (Action) | P1-2 | zero-LLM, gated by `COMMUNITY_SCAN_ENABLED` |
+| 2 | `community-scan.yml` (**landed**, board `swift2`) | Tier 1 (Action) | P1-2 | zero-LLM, gated by repo variable `COMMUNITY_SCAN_ENABLED` (default off) |
 | 3 | `community-mailer.yml` | Tier 1 (Action) | P1-6 | zero-LLM, bounded to 1 daily send + ≤1 replies-waiting/day (invariant-adjacent to founder email ceiling, see `AUTOMATION.md` § Founder communications) |
 | 4 | `community-crawl.yml` | Tier 1 (Action) | P2-1 | **no Task in `allowed_tools`** (invariant #4) is N/A (it's an Action, not a Claude routine) but carries the equivalent Action-side guardrail: `COMMUNITY_CRAWL_ENABLED` repo **variable** checked as the very first step before any network call, default `false`; `COMMUNITY_CRAWL_BUDGET` caps threads/run; home-relay use probe-before-use, bounded ≤40 threads/day, never retried in-run on 403/429 |
 | 5 | Community Answerer (Tier 2 desk) | Claude routine | P1-4 | `persist_session: false`; narrowest `allowed_tools` (no `Task`, no `Monitor` unless the charter justifies it); model per plan §8-Q4 (Sonnet 5 daily); Run-discipline block: draft, write leads, exit — no self-check-ins; registered in `runners.md` with its prompt file |
