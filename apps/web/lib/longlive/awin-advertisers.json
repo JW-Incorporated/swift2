@@ -1,5 +1,46 @@
 {
   "source": "E0 Awin Publisher API cross-reference",
-  "generatedAt": null,
-  "advertisers": []
+  "generatedAt": "2026-09-05T11:25:52.557Z",
+  "advertisers": [
+    {
+      "retailer": "agolde.com",
+      "awinmid": "89849",
+      "joined": false
+    },
+    {
+      "retailer": "alamourthelabel.com",
+      "awinmid": "109862",
+      "joined": false
+    },
+    {
+      "retailer": "clubllondon.us",
+      "awinmid": "31523",
+      "joined": false
+    },
+    {
+      "retailer": "jenniferbehr.com",
+      "awinmid": "62941",
+      "joined": false
+    },
+    {
+      "retailer": "markarian-nyc.com",
+      "awinmid": "70482",
+      "joined": false
+    },
+    {
+      "retailer": "meshki.us",
+      "awinmid": "15378",
+      "joined": false
+    },
+    {
+      "retailer": "popflexactive.com",
+      "awinmid": "75886",
+      "joined": false
+    },
+    {
+      "retailer": "unique-vintage.com",
+      "awinmid": "123224",
+      "joined": false
+    }
+  ]
 }

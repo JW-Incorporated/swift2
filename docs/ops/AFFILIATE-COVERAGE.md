@@ -57,12 +57,12 @@ The explanation column is required for every uncovered row. It reports only the 
 | Alyce 40022 Short Homecoming Dress | promgirl.com | none | uncovered | direct retailer URL | reputation.vault-reputation-the-teal-fringe-dress-in-the-second-delicate-video | not listed in checked-in E0 Awin advertiser directory |
 | Alyn Halter Mini Dress | us.princesspolly.com | none | uncovered | direct retailer URL | speak-now.vault-speak-now-a-marilyn-monroe-inspired-white-halter-dress-at-the-teen-cho | not listed in checked-in E0 Awin advertiser directory |
 | And For A Fortnight There We Were Forever T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Aphrodite Off Shoulder Crepe Gown | meshki.us | none | uncovered | direct retailer URL | ttpd.vault-ttpd-a-sculptural-white-toni-mati-evski-gown-opens-the-fortnight- | not listed in checked-in E0 Awin advertiser directory |
+| Aphrodite Off Shoulder Crepe Gown | meshki.us | none | awin-apply | direct retailer URL | ttpd.vault-ttpd-a-sculptural-white-toni-mati-evski-gown-opens-the-fortnight- |  |
 | Are You Ever Dreaming Of Me? Compact Mirror | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Armina Blush Pink One-Shoulder Feather-Trim Maxi Dress | clubllondon.us | none | uncovered | direct retailer URL | reputation.vault-reputation-an-800-hour-atelier-versace-gown-for-her-first-red-carpet-in | not listed in checked-in E0 Awin advertiser directory |
+| Armina Blush Pink One-Shoulder Feather-Trim Maxi Dress | clubllondon.us | none | awin-apply | direct retailer URL | reputation.vault-reputation-an-800-hour-atelier-versace-gown-for-her-first-red-carpet-in |  |
 | Baby, That's Show Business Cropped Tee | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Beautiful Tragic Love Affair Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Bex Strapless Slinky Maxi Dress With Split | meshki.us | none | uncovered | direct retailer URL | midnights.vault-midnights-a-draped-schiaparelli-gown-the-same-night-ttpd-was-announced | not listed in checked-in E0 Awin advertiser directory |
+| Bex Strapless Slinky Maxi Dress With Split | meshki.us | none | awin-apply | direct retailer URL | midnights.vault-midnights-a-draped-schiaparelli-gown-the-same-night-ttpd-was-announced |  |
 | Big Reputation Album Bomber Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Blue Floral Brocade Strapless Ball Gown | macduggal.com | none | uncovered | direct retailer URL | midnights.vault-midnights-a-blue-floral-gown-and-a-surprise-beyonc-reunion | not listed in checked-in E0 Awin advertiser directory |
 | Burgundy Satin Off-the-Shoulder Twist Evening Ball Gown | macduggal.com | none | uncovered | direct retailer URL | red.vault-red-a-wine-red-elie-saab-gown-for-a-historic-pinnacle-award | not listed in checked-in E0 Awin advertiser directory |
@@ -148,7 +148,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | In My Maine Era Tank Top &#124; Swiftie Inspired Maine Shirt | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Indy V Neck Rainbow Crystal Fringe Mini Dress | mewmews.com | none | uncovered | direct retailer URL | reputation.vault-reputation-the-cotton-candy-dress-for-delicate-shake-it-off | not listed in checked-in E0 Awin advertiser directory |
 | Invisible String, Folklore-inspired Sweatshirt | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
-| Isabel Open Plunge With Thigh Slit Sequins Gown | alamourthelabel.com | none | uncovered | direct retailer URL | lover.vault-lover-a-shimmering-green-julien-macdonald-gown-at-the-2019-amas | not listed in checked-in E0 Awin advertiser directory |
+| Isabel Open Plunge With Thigh Slit Sequins Gown | alamourthelabel.com | none | awin-apply | direct retailer URL | lover.vault-lover-a-shimmering-green-julien-macdonald-gown-at-the-2019-amas |  |
 | Island Breeze & Lights Down Low Crochet Snake Tee | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | It's a Cruel Summer with You Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | It's Been A Long Time Coming Cropped Longsleeve T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -157,7 +157,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Jesenia Beaded Mini Dress | us.princesspolly.com | none | uncovered | direct retailer URL | speak-now.vault-speak-now-blunt-bangs-debut-at-the-2010-american-music-awards | not listed in checked-in E0 Awin advertiser directory |
 | Kai Two Piece Top and Skirt Set | showpo.com | none | uncovered | direct retailer URL | midnights.vault-midnights-roberto-cavalli-and-louboutin-for-the-1989-set | not listed in checked-in E0 Awin advertiser directory |
 | Karma is a Cat Cropped T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Laila Floral Beaded Organza Strapless Gown | markarian-nyc.com | none | uncovered | direct retailer URL | tloas.vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends | not listed in checked-in E0 Awin advertiser directory |
+| Laila Floral Beaded Organza Strapless Gown | markarian-nyc.com | none | awin-apply | direct retailer URL | tloas.vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends |  |
 | Lara Cut Out Jumpsuit | fashionnova.com | none | uncovered | direct retailer URL | midnights.vault-midnights-the-original-reputation-catsuit-cut-outs-and-all | not listed in checked-in E0 Awin advertiser directory |
 | Last Great American Dynasty Terry Cloth Jogger | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Last Great American Dynasty Terry Cloth Polo | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -180,7 +180,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Lover Live From Paris Black Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lover Standard Edition Physical CD | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lover Vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Low Slung Baggy Jean | agolde.com | none | uncovered | direct retailer URL | tloas.vault-tloas-a-low-key-game-day-layer-for-the-colts-game | not listed in checked-in E0 Awin advertiser directory |
+| Low Slung Baggy Jean | agolde.com | none | awin-apply | direct retailer URL | tloas.vault-tloas-a-low-key-game-day-layer-for-the-colts-game |  |
 | Lux Velvet Shirt Dress | revolve.com | none | uncovered | direct retailer URL | folklore.vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se | not listed in checked-in E0 Awin advertiser directory |
 | LYRIC ILLUSTRATION PHONE CASE | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Magic, Madness, Heaven, Sin Baby T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -223,7 +223,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Penny Lane Navy Sequin Mini Dress | beginningboutique.com | none | uncovered | direct retailer URL | midnights.vault-midnights-oscar-de-la-renta-closes-the-night-for-midnights | not listed in checked-in E0 Awin advertiser directory |
 | Pink 1989 (Taylor's Version) T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Poppy Vest in Sand Plaid | revolve.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-unseen-at-the-eagles-rematch-then-photographed-at-mahomes-bi | not listed in checked-in E0 Awin advertiser directory |
-| Priscilla Tiara | jenniferbehr.com | none | uncovered | direct retailer URL | evermore.vault-evermore-the-ivory-zimmermann-gown-from-the-willow-video | not listed in checked-in E0 Awin advertiser directory |
+| Priscilla Tiara | jenniferbehr.com | none | awin-apply | direct retailer URL | evermore.vault-evermore-the-ivory-zimmermann-gown-from-the-willow-video |  |
 | Purple Ruched Chiffon Sleeveless Gown With 3D Flower | macduggal.com | none | uncovered | direct retailer URL | midnights.vault-midnights-a-flowing-purple-alberta-ferretti-dress-for-folklore | not listed in checked-in E0 Awin advertiser directory |
 | Purple Strapless Satin Ball Gown With Draped Detail | macduggal.com | none | uncovered | direct retailer URL | midnights.vault-midnights-a-nicole-felicia-princess-gown-for-speak-now | not listed in checked-in E0 Awin advertiser directory |
 | RED (Taylor's Version) CD | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -231,7 +231,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | RED (Taylor's Version) Red Vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Red (Taylor's Version) State of Grace Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Red (Taylor's Version) Vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Red Gingham & Cherries Sweetheart Swing Dress | unique-vintage.com | none | uncovered | direct retailer URL | midnights.vault-midnights-a-coach-gingham-minidress-for-the-karma-surprise-video | not listed in checked-in E0 Awin advertiser directory |
+| Red Gingham & Cherries Sweetheart Swing Dress | unique-vintage.com | none | awin-apply | direct retailer URL | midnights.vault-midnights-a-coach-gingham-minidress-for-the-karma-surprise-video |  |
 | Renaissance Dress in Black (Dark Raven) | darefashionglobe.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-fortnight-video-costuming-an-elena-velez-gothic-gown | not listed in checked-in E0 Awin advertiser directory |
 | Reputation Album Handbag | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Reputation Album Snake Cuff Bracelet | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -256,7 +256,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Self-Titled Stars That Shine Baby T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Sequin Red Lip Classic Thing That You Like Crewneck Sweatshirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Sequin Tartan Overshirt | ashish.co.uk | none | uncovered | direct retailer URL | 1989.vault-1989-a-houndstooth-ashish-crop-top-pantsuit-leads-the-bad-blood-s | not listed in checked-in E0 Awin advertiser directory |
-| Seraphine Corset Satin Maxi Dress | meshki.us | none | uncovered | direct retailer URL | ttpd.vault-ttpd-a-new-crystal-bodysuit-and-a-dress-covered-in-lyrics | not listed in checked-in E0 Awin advertiser directory |
+| Seraphine Corset Satin Maxi Dress | meshki.us | none | awin-apply | direct retailer URL | ttpd.vault-ttpd-a-new-crystal-bodysuit-and-a-dress-covered-in-lyrics |  |
 | Serene Snake Print Sequin Mini Dress | edgebyks.com | none | uncovered | direct retailer URL | 1989.vault-1989-a-silver-snakeskin-louis-vuitton-mini-co-chairing-the-2016-m | not listed in checked-in E0 Awin advertiser directory |
 | Set of 12! Cute little Fall Pumpkins fanmade Swiftie Inspired! OOAK Handmade V1 | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Set of 12! Cute Tall Pumpkins fanmade Swiftie Inspired! OOAK Handmade V1 | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
@@ -465,7 +465,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | TTPD Stationery and Wax Seal Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | TTPD V-Neck Cropped Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Tweed Plaid Button Up Wide Leg Jumpsuit | shopcider.com | none | uncovered | direct retailer URL | lover.vault-lover-head-to-toe-plaid-at-the-miss-americana-sundance-premiere | not listed in checked-in E0 Awin advertiser directory |
-| Twirl Skort - Plum | popflexactive.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-popflex-and-wiskii-athleisure-for-i-can-do-it-with-a-broken- | not listed in checked-in E0 Awin advertiser directory |
+| Twirl Skort - Plum | popflexactive.com | none | awin-apply | direct retailer URL | ttpd.vault-ttpd-popflex-and-wiskii-athleisure-for-i-can-do-it-with-a-broken- |  |
 | Underground Original Design: So Long, London Boxy Cotton TShirt | theclandestineunderground.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | View of Portofino Strappy Tank | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Vintage Denim High-Waisted Jean Shorts | amazon.com | amazon | pending-signup | amazon tag + ascsubtag | speak-now.vault-speak-now-high-waisted-shorts-become-a-recurring-signature |  |
@@ -493,7 +493,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | --- | ---: |
 | total | 477 |
 | wrapped | 0 |
-| awin-apply | 0 |
+| awin-apply | 10 |
 | pending-signup | 8 |
-| uncovered | 114 |
+| uncovered | 104 |
 | direct-by-policy | 355 |
