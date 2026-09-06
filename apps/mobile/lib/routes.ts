@@ -32,7 +32,7 @@ import { destinationFor, type ShellDestination } from '@swift2/shared';
  * more entry here and one more flag, nothing else in this file changes
  * shape.
  */
-export type ScreenId = 'settings' | 'inbox' | 'era-stream';
+export type ScreenId = 'settings' | 'inbox' | 'era-stream' | 'threads';
 
 export type RouteResolution = { native: ScreenId } | { web: string };
 
@@ -52,19 +52,24 @@ export interface RouteFlags {
    * flip that would put an unreviewed native screen in front of every user
    * on merge. */
   eraStream: boolean;
+  /** OS-034: same progressive-rollout posture as `eraStream` — defaults OFF
+   * (see DEFAULT_ROUTE_FLAGS); flipped on after a staged TestFlight review. */
+  threads: boolean;
 }
 
-/** Settings/inbox ship on by default (Phase 0, already shipped); the new OS-032 era stream ships OFF by default — see `RouteFlags.eraStream`'s doc. */
+/** Settings/inbox ship on by default (Phase 0, already shipped); the OS-032 era stream and OS-034 threads mode ship OFF by default — see their doc comments above. */
 export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   settings: true,
   inbox: true,
   eraStream: false,
+  threads: false,
 };
 
 function screenForDestination(dest: ShellDestination): ScreenId | null {
   if (dest.kind === 'settings') return 'settings';
   if (dest.kind === 'inbox') return 'inbox';
   if (dest.kind === 'era-stream') return 'era-stream';
+  if (dest.kind === 'threads') return 'threads';
   return null;
 }
 
@@ -72,7 +77,8 @@ function screenForDestination(dest: ShellDestination): ScreenId | null {
 function flagForScreen(screen: ScreenId, flags: RouteFlags): boolean {
   if (screen === 'settings') return flags.settings;
   if (screen === 'inbox') return flags.inbox;
-  return flags.eraStream;
+  if (screen === 'era-stream') return flags.eraStream;
+  return flags.threads;
 }
 
 /**

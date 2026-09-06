@@ -169,4 +169,11 @@ describe('destinationFor (shell routing, OS-003)', () => {
       kind: 'era-stream',
     });
   });
+
+  // OS-034
+  it('routes ?mode=threads to the native threads screen', () => {
+    expect(destinationFor('https://www.longlivets.com/?mode=threads')).toEqual({
+      kind: 'threads',
+    });
+  });
 });

@@ -30,6 +30,7 @@ import { NotificationSettingsScreen } from './components/NotificationSettingsScr
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 import { EraStreamScreen } from './components/EraStreamScreen';
+import { ThreadsScreen } from './components/ThreadsScreen';
 
 export default function App() {
   // The page the shell shows. Deep links replace it; the WebView keeps its
@@ -46,6 +47,9 @@ export default function App() {
   // OS-032: the native era stream, reached via `?screen=era-stream` once the
   // `eraStream` route flag is on (off by default — see routes.ts).
   const [eraStreamOpen, setEraStreamOpen] = useState(false);
+  // OS-034: the native threads mode, reached via `?mode=threads` once the
+  // `threads` route flag is on (off by default — see routes.ts).
+  const [threadsOpen, setThreadsOpen] = useState(false);
 
   // OS-030: the single navigate(url) every entry point below funnels
   // through — deep links, inbox rows, the web→native bridge, and (via
@@ -57,8 +61,10 @@ export default function App() {
     setInboxOpen(false);
     setOnboardingOpen(false);
     setEraStreamOpen(false);
+    setThreadsOpen(false);
     if (screen === 'settings') setNotificationSettingsOpen(true);
     else if (screen === 'era-stream') setEraStreamOpen(true);
+    else if (screen === 'threads') setThreadsOpen(true);
     else setInboxOpen(true);
   }, []);
 
@@ -67,6 +73,7 @@ export default function App() {
     setInboxOpen(false);
     setOnboardingOpen(false);
     setEraStreamOpen(false);
+    setThreadsOpen(false);
     setWebUrl(url);
   }, []);
 
@@ -153,6 +160,8 @@ export default function App() {
             />
           ) : eraStreamOpen ? (
             <EraStreamScreen />
+          ) : threadsOpen ? (
+            <ThreadsScreen />
           ) : onboardingOpen ? (
             <OnboardingScreen
               onDone={(outcome) => {
