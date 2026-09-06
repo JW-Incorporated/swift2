@@ -2041,7 +2041,21 @@ export default {
             notes: 'page-creation date (Aug. 31, 2005) and the 45-million-plays figure shown to radio',
           },
         ],
-        photos: [],
+        // Photo pass (2026-09-05, issue #3754): no freely licensed photo of
+        // the actual Aug. 31, 2005 MySpace launch exists (pre-dates most
+        // photography of her), so this stays honest era-context — the
+        // earliest dated photo of her on Wikimedia Commons, from ten months
+        // later. Curl-verified 200 + image/jpeg, downloaded and visually
+        // confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Taylor_Swift.jpg',
+            credit: 'Dwight McCann, CC BY-SA 2.5, via Wikimedia Commons',
+            caption: 'Performing at the Maverick Saloon & Grill in Santa Maria, California, June 16, 2006 — the earliest dated photo of her on Commons; not the MySpace launch.',
+            kind: 'archival',
+            focalPoint: '50% 18%',
+          },
+        ],
       },
     },
     {
@@ -2085,7 +2099,20 @@ export default {
             url: 'https://www.youtube.com/watch?v=k3eWsix68bs',
           },
         ],
-        photos: [],
+        // Photo pass (2026-09-05, issue #3754): no freely licensed photo of
+        // the May 15, 2007 ACM performance/handshake itself was found (the
+        // moment lives on fan-archive video, cited above), so this stays
+        // honest era-context — a dated Commons portrait from the day after,
+        // May 16, 2007. Curl-verified 200 + image/jpeg, downloaded and
+        // visually confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
+            credit: 'Wikimedia Commons — Taylor Swift, May 16, 2007 (archival, era context; not the ACM performance)',
+            kind: 'archival',
+            focalPoint: '39% 23%',
+          },
+        ],
       },
     },
 
