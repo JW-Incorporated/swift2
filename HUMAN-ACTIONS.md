@@ -26,7 +26,38 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 46. [BLOCKING] Mobile release train — Google Play service-account key into EAS — ~15 min
+### 47. [UPGRADE] Disable the old standalone Kevin S1 trigger now that the desk trigger's Sunday fire is confirmed — ~2 min
+
+**Status:** OPEN
+**Filed:** 2026-09-06
+
+**Why:** Item #38's outstanding sub-item. Today (2026-09-06, the first Sunday
+after the T-10 desk-trigger cutover) the consolidated "Kevin — daily desk
+(S1+S2+S3)" trigger (`trig_01GH3EMWdDwwKpx2GCRnCYM5`) fired its Stream 1 for
+real and produced correct output: PR
+[#3902](https://github.com/JW-Incorporated/swift2/pull/3902) (2 tickets
+fixed with sourced field edits, 6 correctly parked with `kevin-skip` +
+reason/review-date, 3 investigated-and-left-with-explanatory-comments, 1
+left alone as already-routed). Per `docs/kevin.md`'s cutover note, the old
+standalone weekly trigger should now be disabled — but per the same doc
+(and item #38's own "Blocker found and worked around" section, confirmed
+again just now), `RemoteTrigger`'s `update_trigger` only works for a
+trigger's own creator-session; this trigger was created via `http_api`, so
+no Claude session on any account can flip it via the API — only the
+`claude.ai/code/routines` UI can, same as when Joey disabled the other two
+superseded triggers for item #38.
+
+**Steps:**
+1. Open `https://claude.ai/code/routines`.
+2. Find **"Kevin — S1 Karen-ticket solver (cloud)"** (trigger ID
+   `trig_01QEvYmKcpyDJJ8ec81aBjCV`, weekly Sundays 11:17 UTC).
+3. Disable it (not delete — history stays, per this file's own convention
+   and `docs/kevin.md`'s note that the T-10 cutover disabled, never
+   deleted, the other two superseded triggers).
+
+**Worked if:** the trigger shows disabled in the routines UI, and next
+Sunday only one Stream-1 PR appears (from the consolidated desk trigger,
+`13 15 * * *` UTC) instead of two.
 
 **Filed:** 2026-09-05
 
@@ -372,8 +403,10 @@ Left alone exactly as the cutover sequence specifies:
 - `trig_01QEvYmKcpyDJJ8ec81aBjCV` (S1 Karen-ticket solver) — still live;
   the new desk trigger's next Sunday fire will exercise Stream 1 for the
   first time, and this old trigger gets disabled only after that
-  Sunday's real output is confirmed. **Not yet done — next Sunday check
-  is still outstanding, tracked below.**
+  Sunday's real output is confirmed. **Confirmed 2026-09-06 — the desk
+  trigger's Stream 1 fired correctly (PR #3902). Disabling the old
+  trigger needs the `claude.ai/code/routines` UI, same restriction as
+  below — tracked as its own item, #47.**
 - `trig_01LaSLx4qzbsz68E6uRLkyDd` (S3 comment radar) — untouched, not part
   of this consolidation.
 
@@ -397,12 +430,14 @@ trigger via the create body. Matches what the old triggers already
 carried, so not a regression — acceptable as-is; worth a real fix only if
 this connector set ever proves to matter for this desk's actual behavior.
 
-**Remaining step:** on the next Sunday after 2026-09-01, confirm the new
+**Remaining step:** ~~on the next Sunday after 2026-09-01, confirm the new
 desk trigger's Stream 1 output (a real `fix/karen-tickets` PR, or a correct
 no-op if no new Karen tickets exist), then disable
-`trig_01QEvYmKcpyDJJ8ec81aBjCV`. A session can do this verification and the
-disable both, once account-authenticated — record it as its own dated
-entry here or in `docs/decisions.md` when done.
+`trig_01QEvYmKcpyDJJ8ec81aBjCV`.~~ **Done 2026-09-06:** the confirmation
+half happened (PR #3902). The disable half turned out to need the
+`claude.ai/code/routines` UI, not an account-authenticated session (same
+`update_trigger`-only-works-for-creator-session restriction as the
+"Blocker found and worked around" section above) — tracked as item #47.
 
 ---
 
