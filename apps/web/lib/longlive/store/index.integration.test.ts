@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { navReducer, navInitialState } from './navigation';
 import { overlaysReducer, overlaysInitialState } from './overlays';
-import { CURRENT_ERA_ID, ERAS } from '../eras';
-import type { LensId } from '../types';
+import { CURRENT_ERA_ID, ERAS } from '@swift2/experience';
+import type { LensId } from '@swift2/experience';
 
 /**
  * Integration coverage for store/index.tsx's AppProvider composition —

@@ -1,5 +1,5 @@
-import { isEraArtFallback } from './types';
-import type { ContentItem } from './types';
+import { isEraArtFallback } from '@swift2/experience';
+import type { ContentItem } from '@swift2/experience';
 
 /**
  * How much *article* there is in a moment, 0..1 — the input the feed's card

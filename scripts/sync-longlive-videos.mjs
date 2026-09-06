@@ -209,7 +209,7 @@ export function renderModule(byEra) {
   lines.push('// (or the live Supabase video_work table when configured).');
   lines.push("// Re-run that script after video-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { EraId, VideoNote } from './types';");
+  lines.push("import type { EraId, VideoNote } from '@swift2/experience';");
   lines.push('');
   lines.push('export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {');
   for (const eraId of Object.keys(byEra).sort()) {

@@ -415,7 +415,7 @@ describe('buildOutputSource', () => {
   it('declares products on the generated VaultRawItem type and imports the Product type', () => {
     const source = buildOutputSource({});
     expect(source).toContain('products?: Product[];');
-    expect(source).toMatch(/import type \{.*Product.*\} from '\.\/types';/);
+    expect(source).toMatch(/import type \{.*Product.*\} from '@swift2\/experience';/);
   });
 
   // THIRD occurrence of the bug this describe block was created for. On

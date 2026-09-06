@@ -12,7 +12,7 @@ import {
   realPhotoCount,
   substanceScore,
 } from './substance';
-import type { ContentItem, EraId } from './types';
+import type { ContentItem, EraId } from '@swift2/experience';
 
 const realImg = (n: number) =>
   Array.from({ length: n }, (_, i) => ({

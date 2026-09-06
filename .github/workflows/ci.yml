@@ -31,9 +31,33 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # OS-014 (2026-09-05): apps/web/lib/longlive/*.generated.ts are no
+      # longer committed (gitignored, build-time-only — see .gitignore and
+      # docs/longlive-experience.md §9), so a fresh checkout has none of
+      # them. typecheck/test/build all import them directly, so generate
+      # them once, up front, before anything that needs them runs. This is
+      # the same `npm run sync:content` a local `npm run build` gets for
+      # free via apps/web's own `prebuild` — CI needs it explicit because
+      # typecheck/test run before `build` does.
+      - run: npm run sync:content
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test
+      # Mobile-in-CI (OS-005, Phase 0): the shell must not rot silently
+      # between store builds. typecheck runs @swift2/mobile's own tsconfig
+      # (separate from the root `npm run typecheck --workspaces` above,
+      # which already covers it, but this makes the mobile gate explicit
+      # and independently reportable). The two headless `expo export`
+      # bundles below prove index.ts + every native module actually
+      # resolves and Metro can bundle for both platforms, without needing
+      # a simulator/emulator or EAS credentials — pure static-bundle proof.
+      - run: npm run typecheck --workspace @swift2/mobile
+      - name: Expo export (iOS, headless bundle check)
+        working-directory: apps/mobile
+        run: npx expo export --platform ios
+      - name: Expo export (Android, headless bundle check)
+        working-directory: apps/mobile
+        run: npx expo export --platform android
       # Clownbot rebuild's red-team battery (J3, PLAN.md Step 12): the feature
       # ships live on merge, gated on this check, so it runs on every PR, not
       # on a cadence someone has to remember. Deterministic and keyless — it
@@ -49,6 +73,7 @@ jobs:
       # scripts/social/lib/queue-schema.mjs for the eleven X posts that cost.
       - run: npm run validate:social
       - run: npm run check:generated
+      - run: npm run check:privacy-inventory
       - run: npm run check:affiliate-coverage
       - run: npm run check:content-inert
       - run: npm run check:automerge-allowlist

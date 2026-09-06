@@ -305,7 +305,13 @@ Done when: no route resolves to `web` except the legal pages.
 
 ### Phase 4 — Release and operations (D4 decided; OS-040 can start with Phase 0)
 
-**OS-040 · EAS Update wiring** · M · Depends on: OS-005
+**OS-043 · Mobile release train (EAS Workflow, both platforms as one unit)** · M · Depends on: OS-005 · **Done 2026-09-05**
+`apps/mobile/.eas/workflows/release.yml` + `.github/workflows/mobile-release.yml`; runbook `docs/mobile-release.md`. Fingerprint decides OTA vs store per platform; submits need both builds; one update group for both. Human prerequisites: HUMAN-ACTIONS #44/#45/#46.
+
+**OS-044 · Mobile parity check** · S · Depends on: OS-043 · **Done 2026-09-05**
+`scripts/mobile/check-parity.mjs` + `.github/workflows/mobile-parity.yml` (6-hourly + after each train); one persistent alert issue on divergence.
+
+**OS-040 · EAS Update wiring** · M · Depends on: OS-005 · **Superseded by OS-043** (the per-platform unconditional `eas-update.yml` was removed; the app.json/eas.json wiring it added stays)
 Touches: `apps/mobile/app.json` (`updates`, `runtimeVersion: { policy: 'fingerprint' }`),
 `eas.json` channels, CI job `eas update --channel production` on merge when
 only JS changed, `docs/deploy.md`.

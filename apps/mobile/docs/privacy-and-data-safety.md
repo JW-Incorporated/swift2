@@ -11,6 +11,13 @@
 > be selected on either store. The `/privacy` page's "The mobile app" section
 > was rewritten to match in the same PR.
 >
+> <!-- GENERATED:mobile-privacy-inventory:start — produced by
+> `npm run privacy:mobile-doc` from `apps/web/lib/longlive/data-inventory.ts`
+> (OS-042). Do not hand-edit the lines below; edit the inventory and
+> regenerate. `data-inventory.test.ts` fails the build if this block drifts
+> from what the inventory would produce, or if the inventory ever disagrees
+> with the `/privacy` policy prose. -->
+>
 > **App Store Connect → App Privacy** (paste-ready):
 >
 > | Question | Answer |
@@ -28,6 +35,8 @@
 > Required (needed for notifications to work). Purpose: **App functionality**.
 > Encrypted in transit: **Yes**. Deletion request: **Yes** — email
 > privacy@longlivets.com (documented at /support and /privacy).
+>
+> <!-- GENERATED:mobile-privacy-inventory:end -->
 >
 > Everything below this block predates the notifications work and is kept for
 > the content-rating / age-rating answers, which are unchanged (all "No", 4+).

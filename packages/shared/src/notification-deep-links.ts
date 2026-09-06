@@ -76,3 +76,60 @@ export function resolveDeepLink(
 export function settingsDestination(category: AnyNotificationCategory): DeepLinkDestination {
   return { screen: 'settings', focusCategory: category };
 }
+
+// --- Shell routing (OS-003) ---------------------------------------------
+//
+// The native shell (apps/mobile/App.tsx) receives the SAME longlivets.com
+// URLs the backend emits (packages/core/src/notification-*.ts) — a tapped
+// push or an inbox row carries the `deepLink` payload verbatim. Two of
+// those URL shapes address screens that only exist natively (Settings,
+// Inbox); everything else — `?current=<value>`, `?song=<slug>`,
+// `#merch-new-drops`, a bare `/`, or an off-site URL — is the WEBSITE's
+// job to interpret once loaded, so the shell's only responsibility for
+// those is to hand the WebView the URL unchanged (or fall back to the
+// site root for anything that isn't ours to show). `destinationFor` used
+// to live in apps/mobile/App.tsx; it moved here (OS-003) so the deep-link
+// contract test below can exercise it directly — apps/mobile has no test
+// runner of its own wired into the root vitest suite.
+export type ShellDestination =
+  | { kind: 'web'; url: string }
+  | { kind: 'settings' }
+  | { kind: 'inbox' };
+
+const DEFAULT_SITE_URL = 'https://www.longlivets.com';
+
+/**
+ * Where a notification (tap or inbox row) should take the shell. `siteUrl`
+ * defaults to the production site but is injectable because the mobile app
+ * points at `EXPO_PUBLIC_SITE_URL` in non-production builds.
+ */
+export function destinationFor(
+  rawUrl: string | null | undefined,
+  siteUrl: string = DEFAULT_SITE_URL,
+): ShellDestination {
+  const normalizedSiteUrl = siteUrl.replace(/\/$/, '');
+  if (!rawUrl) return { kind: 'web', url: normalizedSiteUrl };
+  try {
+    const site = new URL(normalizedSiteUrl);
+    const siteHosts = new Set(
+      site.hostname.startsWith('www.')
+        ? [site.hostname, site.hostname.slice('www.'.length)]
+        : [site.hostname, `www.${site.hostname}`],
+    );
+    const u = new URL(rawUrl);
+    if (!siteHosts.has(u.hostname) && u.origin !== normalizedSiteUrl) {
+      return { kind: 'web', url: normalizedSiteUrl };
+    }
+    if (u.searchParams.get('screen') === 'settings') return { kind: 'settings' };
+    if (u.searchParams.get('current') === 'inbox') return { kind: 'inbox' };
+    // `?current=theories|merch|countdowns`, `?song=<slug>`,
+    // `#merch-new-drops`, and a bare site root all address something the
+    // website itself renders — hand the URL through unchanged so the
+    // site's own router (apps/web/lib/longlive/deepLink.ts) or a plain DOM
+    // anchor resolves it.
+    return { kind: 'web', url: rawUrl };
+  } catch {
+    // Not a parseable URL — never crash on a tap, just show the front door.
+    return { kind: 'web', url: normalizedSiteUrl };
+  }
+}

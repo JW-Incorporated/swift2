@@ -12,7 +12,7 @@
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
 import { useCallback, useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -21,36 +21,14 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as Notifications from 'expo-notifications';
+import { createNavigate, resolve as resolveRoute, type ScreenId } from './lib/routes';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
-import { SITE_URL, SiteShell } from './components/SiteShell';
+import { SITE_URL, SiteShell, type NativeBridgeMessage } from './components/SiteShell';
 import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
-
-const SITE_HOSTS = new Set(['www.longlivets.com', 'longlivets.com']);
-
-/**
- * Where a notification (tap or inbox row) should take the user. The backend
- * emits full www.longlivets.com URLs as deep links (packages/core
- * notification-*.ts), so the site does the routing; the two special cases
- * are the native screens. Anything else lands on the site's front door.
- */
-type Destination = { kind: 'web'; url: string } | { kind: 'settings' } | { kind: 'inbox' };
-
-export function destinationFor(rawUrl: string | null | undefined): Destination {
-  if (!rawUrl) return { kind: 'web', url: SITE_URL };
-  try {
-    const u = new URL(rawUrl);
-    if (!SITE_HOSTS.has(u.hostname) && u.origin !== SITE_URL) return { kind: 'web', url: SITE_URL };
-    if (u.searchParams.get('screen') === 'settings') return { kind: 'settings' };
-    if (u.searchParams.get('current') === 'inbox') return { kind: 'inbox' };
-    return { kind: 'web', url: rawUrl };
-  } catch {
-    return { kind: 'web', url: SITE_URL };
-  }
-}
 
 export default function App() {
   // The page the shell shows. Deep links replace it; the WebView keeps its
@@ -65,14 +43,40 @@ export default function App() {
   // once per install, at the value moment of the first bell tap.
   const [onboardingOpen, setOnboardingOpen] = useState(false);
 
-  const go = useCallback((dest: Destination) => {
+  // OS-030: the single navigate(url) every entry point below funnels
+  // through — deep links, inbox rows, the web→native bridge, and (via
+  // SiteShell's onShouldStart) in-WebView link clicks to native-capable
+  // routes. `resolve()` already applies the per-screen feature flags, so
+  // toggling one takes effect on the very next navigation with no rebuild.
+  const openNativeScreen = useCallback((screen: ScreenId) => {
     setNotificationSettingsOpen(false);
     setInboxOpen(false);
     setOnboardingOpen(false);
-    if (dest.kind === 'settings') setNotificationSettingsOpen(true);
-    else if (dest.kind === 'inbox') setInboxOpen(true);
-    else setWebUrl(dest.url);
+    if (screen === 'settings') setNotificationSettingsOpen(true);
+    else setInboxOpen(true);
   }, []);
+
+  const openWebUrl = useCallback((url: string) => {
+    setNotificationSettingsOpen(false);
+    setInboxOpen(false);
+    setOnboardingOpen(false);
+    setWebUrl(url);
+  }, []);
+
+  const navigate = useCallback(
+    (rawUrl: string | null | undefined) => {
+      createNavigate({ openNative: openNativeScreen, openWeb: openWebUrl }, SITE_URL)(rawUrl);
+    },
+    [openNativeScreen, openWebUrl],
+  );
+
+  // SiteShell intercepts in-WebView link clicks that target a native-capable
+  // route (per the OS-030 card) so a link to Settings/Inbox opens the native
+  // screen instead of the WebView rendering the site's own version of it.
+  const isNativeCapableUrl = useCallback(
+    (url: string) => 'native' in resolveRoute(url, SITE_URL),
+    [],
+  );
 
   useEffect(() => {
     // Phase 0: register (or refresh) this device's row on every cold start —
@@ -93,14 +97,37 @@ export default function App() {
       if (!resp) return;
       const data = resp.notification.request.content.data as Record<string, unknown> | undefined;
       const link = data && typeof data.deepLink === 'string' ? data.deepLink : null;
-      go(destinationFor(link));
+      navigate(link);
     };
     Notifications.getLastNotificationResponseAsync()
       .then(read)
       .catch(() => {});
     const sub = Notifications.addNotificationResponseReceivedListener(read);
     return () => sub.remove();
-  }, [go]);
+  }, [navigate]);
+
+  // OS-002/OS-030: the in-page bell (site's own top bar, shown only when
+  // `isInApp()`) posts one of these instead of the app rendering its own
+  // floating bell overlay. Mirrors the onboarding-gate logic the removed
+  // overlay used to run on press. Routes through openNativeScreen (the same
+  // native-screen opener navigate() uses) rather than raw setState so this
+  // stays the single place screen-opening logic lives.
+  const handleBridgeMessage = useCallback(
+    (message: NativeBridgeMessage) => {
+      if (message.type === 'openInbox') {
+        openNativeScreen('inbox');
+        return;
+      }
+      // openNotificationSettings
+      hasOnboardingBeenOffered()
+        .then((offered) => {
+          if (offered) openNativeScreen('settings');
+          else setOnboardingOpen(true);
+        })
+        .catch(() => openNativeScreen('settings'));
+    },
+    [openNativeScreen],
+  );
 
   return (
     <GestureHandlerRootView style={styles.fill}>
@@ -115,7 +142,7 @@ export default function App() {
           ) : inboxOpen ? (
             <NotificationInboxScreen
               onClose={() => setInboxOpen(false)}
-              onOpenItem={(event) => go(destinationFor(event.deepLink))}
+              onOpenItem={(event) => navigate(event.deepLink)}
             />
           ) : onboardingOpen ? (
             <OnboardingScreen
@@ -124,29 +151,16 @@ export default function App() {
                 markOnboardingOffered().catch(() => {
                   /* best-effort — a re-offer on the next bell tap is harmless */
                 });
-                if (outcome.kind === 'customize') setNotificationSettingsOpen(true);
+                if (outcome.kind === 'customize') openNativeScreen('settings');
               }}
             />
           ) : (
-            <>
-              <SiteShell url={webUrl} />
-              <Pressable
-                onPress={() => {
-                  hasOnboardingBeenOffered()
-                    .then((offered) => {
-                      if (offered) setNotificationSettingsOpen(true);
-                      else setOnboardingOpen(true);
-                    })
-                    .catch(() => setNotificationSettingsOpen(true));
-                }}
-                accessibilityLabel="Notification settings"
-                accessibilityRole="button"
-                style={styles.bellButton}
-                hitSlop={10}
-              >
-                <Text style={styles.bellIcon}>🔔</Text>
-              </Pressable>
-            </>
+            <SiteShell
+              url={webUrl}
+              onBridgeMessage={handleBridgeMessage}
+              isNativeCapableUrl={isNativeCapableUrl}
+              onNativeCapableLinkPress={navigate}
+            />
           )}
         </SafeAreaView>
       </SafeAreaProvider>
@@ -156,20 +170,4 @@ export default function App() {
 
 const styles = StyleSheet.create({
   fill: { backgroundColor: '#0b0b0f', flex: 1 },
-  // Bottom-right, above the site's bottom nav, so it never covers the
-  // site's own top bar / wordmark.
-  bellButton: {
-    alignItems: 'center',
-    backgroundColor: 'rgba(11,11,15,0.85)',
-    borderColor: 'rgba(255,255,255,0.18)',
-    borderRadius: 22,
-    borderWidth: StyleSheet.hairlineWidth,
-    bottom: 84,
-    height: 44,
-    justifyContent: 'center',
-    position: 'absolute',
-    right: 12,
-    width: 44,
-  },
-  bellIcon: { fontSize: 20 },
 });

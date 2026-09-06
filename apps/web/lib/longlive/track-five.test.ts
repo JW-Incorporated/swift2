@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { TRACKS_RAW } from './tracks.generated';
-import { tracksForEra } from './tracks';
+import { tracksForEra } from '@swift2/experience';
 
 // The "Track Five" pill (#689) is DERIVED, not authored: the UI badges a row
 // purely when `track.trackNumber === 5`, the way milestones derive from

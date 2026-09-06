@@ -1,4 +1,5 @@
-import type { ContentItem, ContentTag, EraId, ImageRef, LensId, Milestone } from './types';
+import type { ContentItem, ContentTag, EraId, ImageRef, LensId, Milestone } from '@swift2/experience';
+import { setContentItemLookup } from '@swift2/experience';
 import { VAULT_RAW } from './content-vault.generated';
 
 /**
@@ -112,6 +113,12 @@ export function contentForEra(eraId: EraId): ContentItem[] {
 export function getContentItem(id: string): ContentItem | undefined {
   return CONTENT.find((c) => c.id === id);
 }
+
+// OS-024: wires this module's getContentItem into packages/experience's
+// track-guide (dossier connections resolve `moment:<id>` links) and any
+// other consumer of the injected content-item lookup — see
+// content-item-provider.ts for why the indirection exists.
+setContentItemLookup(getContentItem);
 
 // ── Milestones (timeline markers) ───────────────────────────────────────────
 

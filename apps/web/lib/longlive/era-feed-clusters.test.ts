@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { clusterSameDayMoments } from './era-feed-clusters';
 import { mergeEraFeed } from './era-feed';
-import type { ContentItem, ContentTag, VideoNote } from './types';
+import type { ContentItem, ContentTag, VideoNote } from '@swift2/experience';
 
 const ERA_START = '2020-01-01';
 const ERA_END = '2020-12-31';

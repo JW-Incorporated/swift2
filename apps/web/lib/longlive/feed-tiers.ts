@@ -1,6 +1,6 @@
 import { substanceScore } from './substance';
-import { hasRealPrimaryImage } from './types';
-import type { ContentItem } from './types';
+import { hasRealPrimaryImage } from '@swift2/experience';
+import type { ContentItem } from '@swift2/experience';
 
 /**
  * Card silhouette for one feed item.

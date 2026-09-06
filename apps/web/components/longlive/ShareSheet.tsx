@@ -6,10 +6,10 @@ import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import Image from 'next/image';
 import { X, Check, Copy, Share2 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
-import { CURRENT_ERA_ID, getEra } from '@/lib/longlive/eras';
+import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
 import { getContentItem } from '@/lib/longlive/content';
-import { getThread } from '@/lib/longlive/lenses';
-import { resolveTrackKey } from '@/lib/longlive/tracks';
+import { getThread } from '@swift2/experience';
+import { resolveTrackKey } from '@swift2/experience';
 import {
   clownbotShareCopy,
   communityShareCopy,
@@ -25,7 +25,7 @@ import {
 } from '@/lib/longlive/share';
 import { eraStyle } from '@/lib/longlive/theme';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import { autoFocalPoint, focalPointOf, primaryImageRef, type Era, type ImageRef } from '@/lib/longlive/types';
+import { autoFocalPoint, focalPointOf, primaryImageRef, type Era, type ImageRef } from '@swift2/experience';
 
 const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
 
