@@ -54,7 +54,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | 1989 Striped Seagull Hat | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Ain't That The Worst Thing You Ever Heard? T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | All I Think About Is Karma Snake Necklace | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Alyce 40022 Short Homecoming Dress | promgirl.com | none | uncovered | direct retailer URL | reputation.vault-reputation-the-teal-fringe-dress-in-the-first-delicate-video | not listed in checked-in E0 Awin advertiser directory |
+| Alyce 40022 Short Homecoming Dress | promgirl.com | none | uncovered | direct retailer URL | reputation.vault-reputation-the-teal-fringe-dress-in-the-second-delicate-video | not listed in checked-in E0 Awin advertiser directory |
 | Alyn Halter Mini Dress | us.princesspolly.com | none | uncovered | direct retailer URL | speak-now.vault-speak-now-a-marilyn-monroe-inspired-white-halter-dress-at-the-teen-cho | not listed in checked-in E0 Awin advertiser directory |
 | And For A Fortnight There We Were Forever T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Aphrodite Off Shoulder Crepe Gown | meshki.us | none | uncovered | direct retailer URL | ttpd.vault-ttpd-a-sculptural-white-toni-mati-evski-gown-opens-the-fortnight- | not listed in checked-in E0 Awin advertiser directory |
