@@ -58,6 +58,7 @@
     "knowledge:freshness": "node scripts/knowledge-freshness.mjs",
     "clown:eval": "tsx scripts/knowledge-engine/clown-eval.mjs",
     "depth:months": "node scripts/depth-rows-per-month.mjs",
+    "content:depth-audit": "node scripts/content/depth-audit.mjs",
     "karen": "node --use-env-proxy scripts/content-engine/run.mjs all",
     "karen:file": "node --use-env-proxy scripts/content-engine/run.mjs all --create",
     "cie": "node --use-env-proxy scripts/content-engine/run.mjs all",
