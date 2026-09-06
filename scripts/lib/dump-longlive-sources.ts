@@ -9,9 +9,23 @@
 // with the SAME raw data, so their exports stay byte-identical to what this
 // script assembles; only the import path changed, resolving the circularity
 // OS-014b needs fixed before the app layer can read from the bundle instead
-// of computing it locally. `theories.ts`/`era-secrets.ts`/`tracks.generated`/
-// `clownbot-lore.ts` are OS-014b-2..5 scope (no pure enrichment logic to
+// of computing it locally. `era-secrets.ts`/`tracks.generated`/
+// `clownbot-lore.ts` are OS-014b-4/5 scope (no pure enrichment logic to
 // extract there beyond thin provider wiring) and are unchanged.
+//
+// OS-014b-3 (kanban t_a68139a4): `theories.ts` now reads its raw per-era
+// data from the PUBLISHED bundle (`apps/web/lib/longlive/theories.ts`) via
+// a synchronous disk reader — but THIS script is what PRODUCES that bundle
+// (`build-content-bundle.mjs`), so it cannot import `theories.ts` without
+// creating a fixed-point circularity (the bundle would derive from
+// `theories.ts`, which would derive from the bundle it hasn't built yet).
+// Reads `THEORIES_RAW` straight from `theories.generated.ts` instead, the
+// same way videos already read `VIDEOS_RAW` from `videos.generated.ts`.
+// `theoriesForEra(eraId)` is `THEORIES_RAW[eraId] ?? []`, an unconditional
+// lookup with zero transformation (packages/experience/src/theories.ts), so
+// this is a byte-identical substitution, not a behavior change — the
+// regression test in `theories.test.ts` proves the published bundle and
+// `THEORIES_RAW` stay identical.
 //
 // Run via `tsx` (the dev-only TS loader already used elsewhere in this repo,
 // e.g. scripts/sync-source-tiers.mjs) IN A SEPARATE PROCESS from
@@ -26,7 +40,7 @@ import { eraSecretsForEra } from '../../apps/web/lib/longlive/era-secrets';
 import { ERAS, tracksForEra } from '@swift2/experience';
 import { LORE, LORE_UPDATED_ON } from '../../apps/web/lib/longlive/clownbot-lore';
 import { SONG_MOODS } from '../../apps/web/lib/longlive/song-moods.generated';
-import { theoriesForEra } from '../../apps/web/lib/longlive/theories';
+import { THEORIES_RAW } from '../../apps/web/lib/longlive/theories.generated';
 import '../../apps/web/lib/longlive/tracks.generated'; // wires setTracksRawProvider so tracksForEra resolves real data
 import { buildContent, buildMilestones, buildMerchCatalogue, allVideoRecords } from '@swift2/content-enrichment';
 import { VAULT_RAW } from '../../apps/web/lib/longlive/content-vault.generated';
@@ -50,7 +64,7 @@ process.stdout.write(
     perEra: ERAS.map((era) => ({
       eraId: era.id,
       tracks: tracksForEra(era.id),
-      theories: theoriesForEra(era.id),
+      theories: THEORIES_RAW[era.id] ?? [],
       videos: allVideoRecords(VIDEOS_RAW[era.id] ?? []),
       eraSecrets: eraSecretsForEra(era.id),
     })),
