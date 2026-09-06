@@ -473,6 +473,23 @@ phases auto-release.
   (RSS month windows), relay probe + bounded full-tree fetch, writes raw
   bundles to a **transient** Actions artifact (24 h) consumed by P2-2 — never
   to the repo or DB. `COMMUNITY_CRAWL_ENABLED`.
+
+  **Founder directive (2026-09-06): this is the one component of the whole
+  Community Engine that carries real risk (scraping volume/pace), and Joey
+  wants a trivially easy on/off switch, separate from every other piece.**
+  `COMMUNITY_CRAWL_ENABLED` must be a single GitHub repo **variable**
+  (Settings → Variables → Actions — same pattern as `SOCIAL_FREEZE`, not a
+  secret, not buried in code), checked as the very first step of the
+  workflow before any network call. Default it to `false` at ship time —
+  Joey turns it on deliberately, it does not start crawling on its own the
+  moment this card merges. Also expose a `COMMUNITY_CRAWL_BUDGET` variable
+  (threads-per-run cap, default a conservative small number e.g. 10-20) so
+  Joey can run it "a little bit here and there" instead of only a binary
+  full-speed/off choice — document both variables clearly in
+  `docs/community/README.md` (P3-1) with the exact toggle steps in plain
+  English, and mention the toggle in the Founders' Brief's Section 5
+  maintenance block whenever `COMMUNITY_CRAWL_ENABLED=true` so it's never a
+  silently-forgotten background process.
 - **P2-2 Theory Miner extract** (parents P0-1, P2-1): `record_fan_theories`
   tool in `apps/worker/src/extract/` (sibling of `record_knowledge`),
   `scripts/community/theory-miner.mjs`, redline screen, hashed authors,
