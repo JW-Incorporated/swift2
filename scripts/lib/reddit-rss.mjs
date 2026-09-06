@@ -221,7 +221,8 @@ function contentTypeOf(headers) {
 function collectParts(rawMime) {
   const parts = { html: '', text: '' };
   function walk(chunk) {
-    const { headers, body } = splitHeadersAndBody(chunk);
+    const { headers: headerBlock, body } = splitHeadersAndBody(chunk);
+    const headers = parseHeaders(headerBlock);
     const { type, boundary } = contentTypeOf(headers);
     if (type.startsWith('multipart/') && boundary) {
       const segments = body.split(`--${boundary}`);

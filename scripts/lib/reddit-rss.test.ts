@@ -490,6 +490,77 @@ describe('parseRedditEmail', () => {
     expect(result.postIds).toEqual(['qp1234']);
   });
 
+  it('handles base64-encoded HTML bodies (Gmail commonly encodes the html part this way — regression test for a collectParts bug where the raw header block was passed to contentTypeOf/decodePart instead of the parsed header map, silently dropping every base64 part)', () => {
+    const html = '<a href="https://www.reddit.com/r/TaylorSwift/comments/b64test/a_post/">view</a>';
+    const encoded = Buffer.from(html, 'utf8').toString('base64');
+    const raw = [
+      'From: noreply@reddit.com',
+      'Subject: New reply to your post',
+      'Content-Type: multipart/alternative; boundary="B1"',
+      '',
+      '--B1',
+      'Content-Type: text/plain; charset=UTF-8',
+      '',
+      'no link here',
+      '--B1',
+      'Content-Type: text/html; charset=UTF-8',
+      'Content-Transfer-Encoding: base64',
+      '',
+      encoded,
+      '--B1--',
+    ].join('\r\n');
+
+    const result = parseRedditEmail(raw);
+
+    expect(result.postIds).toEqual(['b64test']);
+    expect(result.links).toEqual(['https://www.reddit.com/r/TaylorSwift/comments/b64test/a_post/']);
+  });
+
+  it('handles a preamble before the first boundary (RFC 2046 allows arbitrary preamble text)', () => {
+    const raw = [
+      'From: noreply@reddit.com',
+      'Subject: New reply to your comment',
+      'Content-Type: multipart/alternative; boundary="B2"',
+      '',
+      'This is a multi-part message in MIME format.',
+      '--B2',
+      'Content-Type: text/plain; charset=UTF-8',
+      '',
+      'https://www.reddit.com/r/TaylorSwift/comments/preamble01/a_post/',
+      '--B2--',
+    ].join('\r\n');
+
+    const result = parseRedditEmail(raw);
+
+    expect(result.postIds).toEqual(['preamble01']);
+  });
+
+  it('handles a nested multipart/mixed wrapping a multipart/alternative (real Gmail-relayed shape)', () => {
+    const raw = [
+      'From: noreply@redditmail.com',
+      'Subject: u/someuser replied to your comment',
+      'Content-Type: multipart/mixed; boundary="outer"',
+      '',
+      '--outer',
+      'Content-Type: multipart/alternative; boundary="inner"',
+      '',
+      '--inner',
+      'Content-Type: text/plain; charset=UTF-8',
+      '',
+      'plain text, no link',
+      '--inner',
+      'Content-Type: text/html; charset=UTF-8',
+      '',
+      '<a href="https://www.reddit.com/r/TaylorSwift/comments/nested01/a_post/">view</a>',
+      '--inner--',
+      '--outer--',
+    ].join('\r\n');
+
+    const result = parseRedditEmail(raw);
+
+    expect(result.postIds).toEqual(['nested01']);
+  });
+
   it('returns no post ids and kind=alert for an email with no reddit links', () => {
     const raw = rawEmail({ subject: 'Welcome to Reddit', textBody: 'Thanks for signing up.' });
 
