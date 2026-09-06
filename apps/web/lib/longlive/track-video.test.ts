@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { normalizeTrackVideoTitle, resolvedTrackVideo, trackVideoFor } from './track-video';
 import { tracksForEra } from '@swift2/experience';
-import './tracks.generated'; // wires setTracksRawProvider so tracksForEra resolves real data
+import './tracks'; // wires setTracksRawProvider so tracksForEra resolves real data
 import { allVideoRecordsForEra, videosForEra } from './videos';
 import type { VideoNote, VideoNoteKind } from '@swift2/experience';
 

@@ -8,6 +8,7 @@ import {
   type RawItem,
 } from '@swift2/content-enrichment';
 import { VAULT_RAW } from './content-vault.generated';
+import { contentFromPublishedBundle } from './bundle-source';
 
 // OS-014b-1: the pure enrichment logic (defaultThreadIdsForTags, build(),
 // buildContent(), buildMilestones()) moved to `@swift2/content-enrichment`
@@ -40,7 +41,16 @@ export type { RawItem };
 // engine, and the bot fleet all operate.
 const RAW: Partial<Record<EraId, RawItem[]>> = {};
 
-export const CONTENT: ContentItem[] = buildContent(RAW, VAULT_RAW);
+// OS-014b-2 (docs/specs/2026-09-05-one-source-three-surfaces.md §6): prefer
+// the published content bundle — the SAME artifact `packages/content`'s
+// `loadBundle()` serves to mobile (OS-015) — over recomputing `CONTENT` from
+// the locally generated `VAULT_RAW`. `contentFromPublishedBundle()` returns
+// `null` (never throws) whenever the bundle isn't available/valid — a fresh
+// checkout before `content:bundle` has run, or `build-content-bundle.mjs`'s
+// own child process building it (see bundle-source.ts's module doc) — in
+// which case this falls back to `buildContent`, exactly as before OS-014b-2.
+// Both paths are proven byte-identical in content.bundle-source.test.ts.
+export const CONTENT: ContentItem[] = contentFromPublishedBundle() ?? buildContent(RAW, VAULT_RAW);
 
 export function contentForEra(eraId: EraId): ContentItem[] {
   // Newest-first: the experience travels *back* in time, so the most recent
