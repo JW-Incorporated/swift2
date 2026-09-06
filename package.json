@@ -32,6 +32,8 @@
     "check:generated": "node scripts/check-generated-in-sync.mjs",
     "content:bundle": "node scripts/build-content-bundle.mjs",
     "check:content-bundle": "node scripts/check-content-bundle-determinism.mjs",
+    "privacy:mobile-doc": "tsx scripts/generate-mobile-privacy-doc.mjs",
+    "check:privacy-inventory": "tsx scripts/check-privacy-inventory-in-sync.mjs",
     "content:publish": "node scripts/publish-content-bundle.mjs",
     "content:publish-storage": "node scripts/publish-content-bundle-to-storage.mjs",
     "tokens:generate": "node scripts/generate-design-tokens.mjs",
