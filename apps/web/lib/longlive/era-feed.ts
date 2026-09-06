@@ -1,8 +1,17 @@
-import type { ContentItem, VideoNote } from './types';
-import { ALL_FILTERS, filterMatches, filtersForEntry, type FilterId } from './filters';
-import { resolveAnchor, type Anchored } from './anchor-date';
+import type { ContentItem, VideoNote } from '@swift2/experience';
+import { ALL_FILTERS, filterMatches, filtersForEntry, type FilterId } from '@swift2/experience';
+import { resolveAnchor, type Anchored } from '@swift2/experience';
 import type { EggDoorway, ThreadDoorway } from './doorways';
 import type { CurrentItem } from '@swift2/shared';
+import type { EraFeedEntry as SharedEraFeedEntry } from '@swift2/experience';
+
+/**
+ * `EraFeedEntry` moved to `packages/experience/src/feed-types.ts` in OS-021
+ * (it's `filtersForEntry`'s parameter type); re-exported here under its
+ * original name so this file's existing exports keep working for its many
+ * `apps/web` importers until OS-022 moves the rest of this module.
+ */
+export type EraFeedEntry<V extends VideoNote = VideoNote> = SharedEraFeedEntry<V>;
 
 /**
  * The era feed's SELECTION rules, as pure functions.
@@ -48,12 +57,6 @@ import type { CurrentItem } from '@swift2/shared';
  * anchors `via: 'exact'` (`observedOn` is a real, authored date), so it is
  * never a `spaceDoorways` candidate and never `displaced`.
  */
-export type EraFeedEntry<V extends VideoNote = VideoNote> =
-  | { kind: 'moment'; item: ContentItem; anchor: Anchored }
-  | { kind: 'video'; video: V; anchor: Anchored }
-  | { kind: 'thread'; doorway: ThreadDoorway; anchor: Anchored; displaced?: boolean }
-  | { kind: 'egg'; doorway: EggDoorway; anchor: Anchored; displaced?: boolean }
-  | { kind: 'current'; item: CurrentItem; anchor: Anchored };
 
 /**
  * The merged feed (mergeEraFeed's output over every moment and every

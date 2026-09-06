@@ -131,6 +131,51 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "\"Champagne Problems\" is the second track on evermore, the surprise sister album Taylor Swift released in December 2020 less than five months after folklore, and it functions as a keystone example of the character-driven songwriting mode she was refining across both records. Co-written with her then-partner Joe Alwyn under his pseudonym William Bowery and produced with Aaron Dessner, the song imagines a college couple whose relationship collapses at the exact moment a marriage proposal goes wrong, told from the point of view of the woman who says no rather than the man who is rejected.",
+          "The song matters to Swift's broader story because it demonstrates her turn toward fiction-adjacent narrative songwriting during the folklore/evermore era, moving away from strictly autobiographical material toward invented (or semi-invented) characters and situations, while still working in devastating emotional specificity. Its placement as track two, its inclusion in the Eras Tour setlist, and its accumulation of tens of millions of lyric-video views all point to it becoming one of the most enduring and critically praised songs from the evermore era."
+        ],
+        meaning: {
+          confirmed: [
+            "Taylor Swift described 'Champagne Problems' as a song about two college sweethearts when she revealed evermore's track list and teased imagery associated with each song ahead of the album's release.",
+            "The song was written during the September 2020 sessions at Long Pond Studio in upstate New York, the same cabin sessions documented in the Folklore: The Long Pond Studio Sessions film, and was co-written with Joe Alwyn under the pseudonym William Bowery.",
+            "Swift produced the track with Aaron Dessner, and it was recorded partly at Dessner's Long Pond studio and partly at Swift's Kitty Committee studio in Beverly Hills."
+          ],
+          supported: [
+            "Critics and outlets covering the song have generally read the lyrics as depicting a woman who turns down her boyfriend's proposal at a Christmas gathering because she does not feel emotionally ready, then spends the rest of the song processing guilt, grief, and the fallout of disappointing a partner who had seemingly already told his family the engagement was coming.",
+            "Multiple reviewers, including writers at Billboard, Entertainment Weekly, and The Sydney Morning Herald, praised the song specifically for its detailed, novelistic characterization — building out a couple's entire emotional history and breakup in a few short verses rather than relying on generic breakup language.",
+            "Several critics noted stylistic or tonal echoes between 'Champagne Problems' and earlier Swift songs: The Guardian's Alexis Petridis linked the bridge's depiction of mental unraveling to 'Blank Space,' while NME's Hannah Mylrea felt the song's romantic sincerity had more in common with 'Love Story.'"
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:right-where-you-left-me",
+            label: "Right Where You Left Me",
+            why: "Also from evermore, this bonus track shares Champagne Problems' interest in a single devastating moment (here, a jilted-at-the-altar breakup) freezing a character in time, and both songs were framed by Swift as connected character studies from the same emotional universe."
+          },
+          {
+            relatedId: "song:willow",
+            label: "Willow",
+            why: "As evermore's opening track, Willow establishes the folklore/evermore aesthetic of romantic longing and cinematic imagery that Champagne Problems, the very next song, extends into a story about love curdling instead of blooming."
+          },
+          {
+            relatedId: "song:tolerate-it",
+            label: "Tolerate It",
+            why: "Both songs are evermore-era character studies centered on the imbalance and ache of a relationship, showcasing the same narrative, third-person-adjacent songwriting approach Swift leaned into for the album."
+          },
+          {
+            relatedId: "song:this-is-me-trying",
+            label: "This Is Me Trying",
+            why: "Another evermore track dealing with guilt, self-blame, and the aftermath of personal failure in a relationship, mirroring the self-recrimination the narrator of Champagne Problems expresses after rejecting the proposal."
+          }
+        ],
+        sources: [
+          { name: "Champagne Problems (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Champagne_Problems_(Taylor_Swift_song)" },
+          { name: "Evermore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" },
+          { name: "Champagne Problems — Taylor Swift Wiki (Fandom)", url: "https://taylorswift.fandom.com/wiki/Champagne_Problems" }
+        ]
+      },
     },
     {
       slug: 'gold-rush',

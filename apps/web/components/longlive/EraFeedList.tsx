@@ -2,8 +2,8 @@
 
 import { emptyFeedMessage, type EraFeedEntry } from '@/lib/longlive/era-feed';
 import type { RenderFeedEntry } from '@/lib/longlive/era-feed-clusters';
-import type { FilterId } from '@/lib/longlive/filters';
-import type { Era } from '@/lib/longlive/types';
+import type { FilterId } from '@swift2/experience';
+import type { Era } from '@swift2/experience';
 import type { PlayableVideoNote } from '@/lib/longlive/videos';
 import type { CardTier } from '@/lib/longlive/feed-tiers';
 import type { CurrentItem } from '@swift2/shared';

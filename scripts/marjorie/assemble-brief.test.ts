@@ -250,10 +250,27 @@ describe('buildBrief — five sections (v3, 2026-08-23)', () => {
   it('folds open founder-task issues into Waiting on you', () => {
     const brief = buildBrief({
       ...withGates,
-      founderTasks: [{ number: 1955, title: 'founder-task: paste your IG Insights', createdAt: '2026-07-11T01:00:00Z' }],
+      founderTasks: [{ number: 1955, title: 'founder-task: paste your IG Insights', labels: [{ name: 'founder-task' }], state: 'OPEN', createdAt: '2026-07-11T01:00:00Z', comments: [] }],
     }, { date: '2026-07-12', now: NOW });
     expect(brief).toContain('#1955');
     expect(brief).toContain('founder-task');
+  });
+
+  // 2026-09-05 audit: founder-tasks were rendered from the raw open list and
+  // never resolved against their own thread — Joey's "All 3 tasks are
+  // complete" on #2195 (08-17) was invisible for 19 briefs.
+  it('clears a founder-task the founder answered on the task itself', () => {
+    const brief = buildBrief({
+      ...withGates,
+      briefs: [{ number: 1, createdAt: '2026-07-11T12:00:00Z', body: '- [ ] [#2195](https://github.com/o/r/issues/2195) **founder-task**' }],
+      founderTasks: [{
+        number: 2195, title: 'founder-task: social reach', labels: [{ name: 'founder-task' }], state: 'OPEN', createdAt: '2026-07-05T01:00:00Z',
+        comments: [{ author: { login: 'sffan15-sys' }, createdAt: '2026-07-11T23:00:00Z', body: 'All 3 tasks are complete.' }],
+      }],
+    }, { date: '2026-07-12', now: NOW });
+    expect(brief).not.toContain('- [ ] [#2195]');
+    expect(brief).toContain('**Cleared: 1**');
+    expect(brief).toContain('#2195');
   });
 
   it('renders the Definition of Done table with every non-green item stating why', () => {

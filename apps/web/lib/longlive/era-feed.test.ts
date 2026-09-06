@@ -8,8 +8,8 @@ import {
   visibleFeed,
   type EraFeedEntry,
 } from './era-feed';
-import type { FilterId } from './filters';
-import type { ContentItem, ContentTag, VideoNote } from './types';
+import type { FilterId } from '@swift2/experience';
+import type { ContentItem, ContentTag, VideoNote } from '@swift2/experience';
 import type { ThreadDoorway } from './doorways';
 import { spaceDoorways, DOORWAY_MIN_GAP } from './space-doorways';
 import type { CurrentItem } from '@swift2/shared';

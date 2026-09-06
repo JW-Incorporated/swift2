@@ -2,8 +2,8 @@
 
 import { Radio } from 'lucide-react';
 import type { CurrentItem } from '@swift2/shared';
-import type { EraId } from '@/lib/longlive/types';
-import { formatFullDate } from '@/lib/longlive/format';
+import type { EraId } from '@swift2/experience';
+import { formatFullDate } from '@swift2/experience';
 import { outletFor } from '@/lib/longlive/current-feed';
 
 /**

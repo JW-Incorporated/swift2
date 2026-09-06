@@ -30,7 +30,7 @@ Workflow + decision authority live in `CLAUDE.md`; stack rationale in
 |------|------|---------|
 | `apps/web/.env.local` | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (or `…_PUBLISHABLE_KEY`) | web reader (public RLS read) |
 | `apps/worker/.env` | `SUPABASE_DB_URL` (full Postgres connection string) | `db:migrate` + seeds (`pg` direct, bypasses RLS to write) |
-| `apps/mobile/.env` | `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY` | mobile app (see `apps/mobile/.env.example`) |
+| `apps/mobile/.env` | `EXPO_PUBLIC_CONTENT_BASE_URL` (optional) | mobile app content bundle override (see `apps/mobile/.env.example`; OS-015 — the app no longer reads Supabase directly) |
 
 ## Commands (from repo root)
 
@@ -54,15 +54,26 @@ npm run check:budget:bundle # apps/web shipped client bundle (.next/static): ≤
                              # scripts/check-bundle-size.mjs (with a comment) if legitimate growth
                              # needs more room; don't raise it to make a regression pass.
 ```
-**Database / seed — ⚠️ writes to PROD, needs `apps/worker/.env`.** (Note: the
-website builds from repo seed files directly since 2026-07-17 — DB seeding
-matters for the Tier-0 API path and mobile, not for what longlivets.com
-shows.)
+**Database / seed — ⚠️ writes to PROD, needs `apps/worker/.env`.** Content
+seeding (eras/content/tracks/releases/tours/theories/videos) was retired
+from the runbook and CI in OS-016
+(`docs/specs/2026-09-05-one-source-three-surfaces.md`): the website and
+mobile app now read the published content bundle
+(`scripts/build-content-bundle.mjs` → `packages/content`'s `loadBundle`),
+never Supabase's `era`/`milestone`/`month_item`/`track_note`/`theory`/
+`video_work`/`release`/`tour` tables, so reseeding them no longer changes
+what either surface shows. Those tables and their seed scripts
+(`scripts/seed-eras.mjs`, `seed-content.mjs`, `seed-tracks.mjs`,
+`seed-releases.mjs`, `seed-tours.mjs`, `seed-theories.mjs`,
+`seed-videos.mjs`) still exist and still work (`supabase/migrations` marks
+them deprecated, not dropped) — a follow-up will drop them after one
+release cycle. Only the genuinely dynamic notification pools
+(`lyrics`, `on_this_day`, still read live by
+`packages/core/src/notification-fun.ts`) remain seedable below.
 ```
-npm run db:migrate       # apply all supabase/migrations in order
-npm run db:seed          # eras + milestones
-npm run db:seed:content  # month items  (supabase/seed/content/*.mjs)
-npm run db:seed:tracks   # song notes   (supabase/seed/tracks/*.mjs)
+npm run db:migrate         # apply all supabase/migrations in order
+npm run db:seed:lyrics     # notification lyric pool (supabase/seed/lyrics/*.mjs)
+npm run db:seed:on-this-day # notification on-this-day pool (supabase/seed/on-this-day/*.mjs)
 ```
 After any schema change: add a migration file, apply it, and update
 `packages/shared` types + `packages/core/src/map.ts` to match.

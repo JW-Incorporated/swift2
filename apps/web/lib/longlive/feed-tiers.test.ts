@@ -4,7 +4,7 @@ import { eraKnownVideoIds, inlineVideoMomentIds } from './era-feed';
 import { feedCardImageHidden } from './video-affordance';
 import { videosForEra } from './videos';
 import { VAULT_RAW } from './content-vault.generated';
-import { ERAS } from './eras';
+import { ERAS } from '@swift2/experience';
 import {
   HERO_MIN_GAP,
   HERO_SCORE_THRESHOLD,
@@ -15,7 +15,7 @@ import {
   type CardTier,
 } from './feed-tiers';
 import { substanceScore } from './substance';
-import type { ContentItem, EraId } from './types';
+import type { ContentItem, EraId } from '@swift2/experience';
 
 const realImg = [{ url: 'https://example.com/a.jpg', kind: 'primary' as const }];
 const manyImgs = Array.from({ length: 4 }, (_, i) => ({

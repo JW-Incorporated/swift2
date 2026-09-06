@@ -146,7 +146,7 @@ export function renderModule(byEra) {
   lines.push('// (or the live Supabase theory table when configured).');
   lines.push("// Re-run that script after theory-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { EraId, TheoryNote } from './types';");
+  lines.push("import type { EraId, TheoryNote } from '@swift2/experience';");
   lines.push('');
   lines.push('export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {');
   for (const eraId of Object.keys(byEra).sort()) {

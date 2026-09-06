@@ -1,0 +1,44 @@
+# Austin — build runs, migrated from claude.ai Routine
+# `trig_01FE8o9vscpHts7FwsVKGMZm` to this scheduled Action per
+# docs/audits/2026-09-05-claude-routines-relocation-assessment.md + the
+# 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# MODEL TRIAL — do not forget to revisit: this runs `claude-opus-4-8` as a
+# 2-week trial 2026-08-31 → 2026-09-14 (was `claude-fable-5`; Joey D5=A,
+# see docs/agents/decisions.md and docs/agents/runners.md § Live trigger
+# IDs). A future pass after 2026-09-14 should check whether the trial was
+# kept or the model input should revert.
+#
+# Build desk's autonomous lane: claims a ticket from the Kevin/a11y queues,
+# implements within its charter's allowlist, runs the full suite, and opens
+# a PR (never merges, never pushes main) labeled `austin-built`. Needs
+# `contents: write` + `pull-requests: write` + `issues: write` (ticket
+# claim/ledger comments), checked out with SOCIAL_POSTER_PAT since main is
+# branch-protected (built-in GITHUB_TOKEN cannot trigger the required
+# `build` check on its own PRs — same reason growth-snapshot.yml /
+# appearance-discovery.yml use the PAT).
+name: routine-austin-build
+
+on:
+  schedule:
+    - cron: "0 21 * * *" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Austin — build runs"
+      prompt_file: docs/agents/runner-prompts/austin-run.md
+      model: claude-opus-4-8
+      allowed_tools: "Bash,Read,Grep,Glob,Write,Edit,Task"
+      timeout_minutes: 45
+      checkout_token_secret: SOCIAL_POSTER_PAT
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}

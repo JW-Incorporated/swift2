@@ -19,7 +19,7 @@ this product's source of truth mostly is not the database.
 | Layer | Lives where | If the database vanished |
 |---|---|---|
 | **Schema** | `supabase/migrations/*.sql`, in git, idempotent, applied in filename order | `npm run db:migrate` rebuilds it exactly |
-| **Content** (eras, milestones, month items, moments, track notes, theories, videos, releases, tours) | `supabase/seed/**`, in git — and the *website* renders from `apps/web/lib/longlive/*.generated.ts`, which is also committed | Reseed. **The public site never went down**: longlivets.com builds from the generated vault, not from Supabase |
+| Content (eras, milestones, month items, moments, track notes, theories, videos) | `supabase/seed/**`, in git — and every surface (web + mobile) now renders from the published content bundle (`scripts/build-content-bundle.mjs` output), also derived from these same seeds and also committed-adjacent (build artifact, OS-016) | Reseed the DB if you want, but it's cosmetic: **the public site and the app never went down** — neither reads these Supabase tables any more, both build from the content bundle |
 | **News feed seed** (`news_source` rows) | Inserted by migrations `20260719180000` / `20260719190000`, in git | Rebuilt by `db:migrate` |
 | **Runtime-only state** — `news_story`, `news_raw_item`, `news_story_source`, `news_llm_usage`, and `news_source.last_polled_at` | **Only in the database.** Written by `apps/worker/src/pipeline/run-cycle.ts` on its 6×/day cycle | **Gone forever.** Nothing in git can rebuild it |
 | **Generated `id` values** — every `uuid` primary key | **Only in the database.** The seeds carry no ids; `gen_random_uuid()` mints them at seed time | A reseed produces *different* ids. Any stored `month_item_id` (e.g. `/vault/moment/[id]`) breaks |
@@ -107,9 +107,9 @@ code path, so the runbook cannot drift from what actually works.
 
 | Situation | Do this | Data lost |
 |---|---|---|
-| Content wrong / partially clobbered | `npm run db:migrate` then the `db:seed*` scripts (`docs/dev-quickstart.md`) | Nothing content-side; **uuids change** |
+| Content wrong / partially clobbered | `npm run db:migrate` then the retired content seed scripts if you really want the DB to match (`docs/dev-quickstart.md` — cosmetic only, OS-016: no surface reads these tables) | Nothing content-side; **uuids change** |
 | Runtime `news_*` data lost, content fine | Restore from the most recent layer-B artifact, `news_*` tables only | Everything since that artifact |
-| Whole project gone | New Supabase project → `db:migrate` → `db:seed*` → load the newest layer-B artifact over the `news_*` tables → repoint `SUPABASE_URL`/keys | News state since the last artifact; **all uuids change** |
+| Whole project gone | New Supabase project → `db:migrate` → (content reseed optional/cosmetic, OS-016) → load the newest layer-B artifact over the `news_*` tables → repoint `SUPABASE_URL`/keys | News state since the last artifact; **all uuids change** |
 | Bad write in the last few minutes/hours | Supabase PITR — **only if §2 layer A says it is enabled** | Depends on the window |
 
 ### The uuid trap

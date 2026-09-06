@@ -35,6 +35,11 @@ function check(id, label, ok, detail, extra = {}) {
   return { id, label, status: ok === null ? 'unknown' : ok ? 'ok' : 'fail', detail, ...extra };
 }
 
+/** `&lt;!-- x --&gt;` and `<!-- x -->` are the same anchor. */
+export function unescapeAnchor(s) {
+  return String(s || '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();
+}
+
 // ─── the checks ────────────────────────────────────────────────────────────
 
 /**
@@ -45,7 +50,7 @@ function check(id, label, ok, detail, extra = {}) {
  * history to read. A runner is alive if the artifact its registry entry
  * promises has appeared inside its tolerance window.
  */
-export function checkRunners({ allPRs = [], issues = [], cadence, now, listsCapExhausted = false }) {
+export function checkRunners({ allPRs = [], issues = [], briefComments = [], cadence, now, listsCapExhausted = false }) {
   const prs = allPRs; // liveness must look at MERGED PRs too — a runner whose
   // PR auto-merged within the hour is the healthiest case, and checking only
   // open PRs marked Vault Run, Content Shift and Growth "dark" on a day all
@@ -56,14 +61,48 @@ export function checkRunners({ allPRs = [], issues = [], cadence, now, listsCapE
     'pr-title': (v) => (a) => a.type === 'pr' && String(a.title || '').toLowerCase().includes(v.toLowerCase()),
     'issue-label': (v) => (a) => a.type === 'issue' && (a.labels || []).includes(v),
     'issue-title': (v) => (a) => a.type === 'issue' && String(a.title || '').includes(v),
+    // A comment on a Founders' Brief whose FIRST LINE is the given anchor —
+    // Kevin's daily desk (T-10, 2026-09-01) posts its S2/S3 output this way
+    // and files no issue at all, so `issue-label` could never see it again.
+    // The cloud session HTML-escapes the anchor (`&lt;!-- x --&gt;`); accept
+    // both spellings.
+    'brief-comment': (v) => (a) => a.type === 'brief-comment' && unescapeAnchor(a.firstLine) === unescapeAnchor(v),
   };
   const artifacts = [
     ...prs.map((p) => ({ type: 'pr', at: p.createdAt, branch: p.headRefName, title: p.title, number: p.number })),
     ...issues.map((i) => ({ type: 'issue', at: i.createdAt, title: i.title, number: i.number, labels: (i.labels || []).map((l) => (typeof l === 'string' ? l : l.name)) })),
+    ...briefComments.map((c) => ({ type: 'brief-comment', at: c.createdAt, firstLine: String(c.body || '').split('\n')[0] })),
   ];
+  // How far back the fetched lists actually reach, per artifact type. On a
+  // busy day the `--limit 100` PR list covers ~3-4 days (31 PRs/day on
+  // 2026-09-05) while weekly runners carry a 216h (9-day) tolerance — so
+  // "no artifact in the fetched window" said nothing about whether the
+  // runner ran. 2026-09-05 audit: 7 "dark" runners that morning; 4 were
+  // disabled in the registry, the other 3 were weekly runners whose last
+  // artifact simply predated the fetch. A window shorter than the tolerance
+  // is a blind spot, and blind spots report `unknown`, never `fail`. A list
+  // SHORTER than the fetch limit is complete, though — an empty repo is a
+  // genuinely dark runner, not a short window — so the rule only kicks in
+  // when the list is plausibly at its `--limit` (PER_PAGE-sized).
+  const LIST_LIMIT = 100;
+  const byType = (type) => artifacts.filter((a) => a.type === type);
+  const oldestSeenMs = (type) => {
+    const ts = byType(type).map((a) => new Date(a.at).getTime()).filter(Number.isFinite);
+    return ts.length ? Math.min(...ts) : null;
+  };
+  const windowHoursFor = (kind) => {
+    const type = kind === 'brief-comment' ? 'brief-comment' : kind.startsWith('pr') ? 'pr' : 'issue';
+    if (byType(type).length < LIST_LIMIT) return Infinity; // complete list: the window is everything
+    const oldest = oldestSeenMs(type);
+    return oldest === null ? Infinity : (nowMs - oldest) / HOUR_MS;
+  };
 
   const rows = [];
   for (const r of cadence.runners) {
+    if (r.disabled) {
+      rows.push({ runner: r.name, status: 'disabled', detail: r.why || 'disabled in docs/agents/runners.md', lastSeen: null });
+      continue;
+    }
     if (r.checkable === false) {
       rows.push({ runner: r.name, status: 'unknown', detail: r.why, lastSeen: null });
       continue;
@@ -83,7 +122,9 @@ export function checkRunners({ allPRs = [], issues = [], cadence, now, listsCapE
     // fetch caused false "10 dark runners" flags for Vault Run, Content
     // Shift and Growth on days they had actually shipped. Report unknown,
     // not a confident dark, in that case.
-    const truncatedDark = last === null && listsCapExhausted;
+    const windowHours = windowHoursFor(r.match.kind);
+    const windowTooShort = last === null && windowHours < r.maxAgeHours;
+    const truncatedDark = last === null && (listsCapExhausted || windowTooShort);
     rows.push({
       runner: r.name,
       status: truncatedDark ? 'unknown' : last === null ? 'fail' : ageHours <= r.maxAgeHours ? 'ok' : 'fail',
@@ -91,8 +132,11 @@ export function checkRunners({ allPRs = [], issues = [], cadence, now, listsCapE
       ageHours: ageHours === null ? null : Math.round(ageHours),
       ageLabel: ageHours === null ? 'never seen' : `${Math.round(ageHours)}h`,
       maxAgeHours: r.maxAgeHours,
+      windowHours: Number.isFinite(windowHours) ? Math.round(windowHours) : null,
       detail: truncatedDark
-        ? `no artifact in the fetched window, but that window was truncated by gh.mjs's page cap (#3689) — cannot confirm dark`
+        ? (listsCapExhausted
+          ? `no artifact in the fetched window, but that window was truncated by gh.mjs's page cap (#3689) — cannot confirm dark`
+          : `no artifact in the fetched window, but that window only reaches back ${Math.round(windowHours)}h against a ${r.maxAgeHours}h tolerance — cannot confirm dark`)
         : last === null
           ? `no artifact in the fetched window (tolerance ${r.maxAgeHours}h)`
           : `last artifact ${Math.round(ageHours)}h ago (tolerance ${r.maxAgeHours}h)`,
@@ -101,6 +145,7 @@ export function checkRunners({ allPRs = [], issues = [], cadence, now, listsCapE
 
   const dark = rows.filter((r) => r.status === 'fail');
   const blind = rows.filter((r) => r.status === 'unknown');
+  const off = rows.filter((r) => r.status === 'disabled');
   return check(
     'runners',
     'All bots running',
@@ -110,8 +155,8 @@ export function checkRunners({ allPRs = [], issues = [], cadence, now, listsCapE
     dark.length === 0,
     dark.length
       ? `${dark.length} dark: ${dark.slice(0, 5).map((d) => `${d.runner} (${d.ageLabel})`).join(', ')}${dark.length > 5 ? ` +${dark.length - 5}` : ''}`
-      : `${rows.length - blind.length} on cadence · ${blind.length} produce no observable artifact`,
-    { rows, blind: blind.map((b) => b.runner) },
+      : `${rows.length - blind.length - off.length} on cadence · ${blind.length} produce no observable artifact${off.length ? ` · ${off.length} disabled by design` : ''}`,
+    { rows, blind: blind.map((b) => b.runner), disabled: off.map((d) => d.runner) },
   );
 }
 

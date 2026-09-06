@@ -63,7 +63,7 @@ import { readGateHistory, readCurrentGates, GATES } from './gate-history.mjs';
 import { buildGateActivity, extractTickets, trackerLagDays } from './gate-activity.mjs';
 import { estimateDaysToDone, renderDoneLines } from './done-estimator.mjs';
 import { partitionAsks, asksInBrief, ESCALATE_AFTER } from './founder-gate.mjs';
-import { runStandingChecks, renderStandingChecks, loadRunnerCadence } from './standing-checks.mjs';
+import { runStandingChecks, renderStandingChecks, loadRunnerCadence, unescapeAnchor } from './standing-checks.mjs';
 import { collectConstraints } from './meta-constraints.mjs';
 import { readCurrentDone, readDoneHistory, changeSinceAnchor, sinceLastBrief, STATUS_ICONS } from './done-history.mjs';
 import { readOpenActions, sortForBrief, renderActionLine } from './human-actions.mjs';
@@ -336,9 +336,19 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
   }));
   const gateIssues = [...allIssues, ...fetched.filter(Boolean)];
 
-  // Comments on the bank items — the fix for the phantom-ask loop. Only the
-  // open founder-decision items, so this is a handful of calls, not hundreds.
-  const withComments = await Promise.all(decisions.map(async (d) => {
+  // Comments on the bank items + founder-tasks — the fix for the phantom-ask
+  // loop. Only OPEN items of either label, so this is a handful of calls on
+  // a normal day, never hundreds.
+  //
+  // 2026-09-05 audit: founder-task issues join the same path. They used to be
+  // rendered straight from the raw `--state open` list, so a founder answering
+  // ON the task (the way Joey did on #2195, 08-17: "All 3 tasks are complete")
+  // could never clear it — the exact #799 phantom-ask loop this block exists
+  // to prevent, reproduced for a second label. An issue carrying BOTH labels
+  // is fetched once (decision wins).
+  const decisionNums = new Set(decisions.map((d) => d.number));
+  const askSources = [...decisions, ...founderTasks.filter((t) => !decisionNums.has(t.number))];
+  const withComments = await Promise.all(askSources.map(async (d) => {
     const r = await ghApiSoft(`/repos/${repo}/issues/${d.number}/comments?per_page=100`, []);
     return { ...d, comments: (r.data || []).map((c) => ({ author: { login: c.user?.login }, createdAt: c.created_at, body: c.body })) };
   }));
@@ -375,15 +385,27 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
 
   const ciRuns = await ghApiSoft(`/repos/${repo}/actions/workflows/ci.yml/runs?branch=main&per_page=40`, { workflow_runs: [] });
 
+  // Comments on the last few briefs — Kevin's daily desk (T-10) reports as
+  // anchored comments on the brief instead of filing labelled issues, so this
+  // is the only artifact its liveness check can see. Soft: a failed fetch
+  // makes Kevin `unknown`, never the brief broken.
+  const briefComments = (await Promise.all(briefs.slice(0, 5).map(async (b) => {
+    const r = await ghApiSoft(`/repos/${repo}/issues/${b.number}/comments?per_page=100`, []);
+    return (r.data || []).map((c) => ({ issue: b.number, author: c.user?.login, createdAt: c.created_at, body: c.body }));
+  }))).flat();
+
   // v3 additions — each independently soft-failing so a single bad source
   // degrades its own section, never the whole brief.
   const contentShipped = await fetchContentShipped(repo, new Date(now - DAY_MS).toISOString()).catch(() => []);
 
   return {
-    decisions: withComments,
+    decisions: withComments.filter((d) => decisionNums.has(d.number)),
     askedBefore: recentlyAsked.filter(Boolean),
-    founderTasks,
+    // With comments now — so partitionAsks() can resolve them on their own
+    // thread exactly like a founder-decision.
+    founderTasks: withComments.filter((d) => !decisionNums.has(d.number)),
     intake, alerts, openPRs, allPRs, allIssues: gateIssues, briefs,
+    briefComments,
     // #3689 finding 2: the runner-liveness check must know when its own
     // source lists (allPRs/allIssues) were truncated by gh.mjs's page cap,
     // so it can report UNKNOWN instead of a confident false DARK.
@@ -415,7 +437,12 @@ export function analyse(state, { now = state.now ?? Date.now() } = {}) {
   const estimate = estimateDaysToDone(state.series, state.gates, { now: nowMs, activity });
   const lag = trackerLagDays(state.series, activity, nowMs);
 
-  const asks = partitionAsks([...state.decisions, ...state.askedBefore], { briefs: state.briefs, now: nowMs });
+  // founderTasks go through the same resolve/escalate path as the decision
+  // bank (2026-09-05 audit) — they carry the `founder-task` label, which
+  // classifyFounderGate treats as provable membership, so they land in
+  // `open`/`escalated`/`resolved` like any other ask instead of being
+  // appended raw to section 1.
+  const asks = partitionAsks([...state.decisions, ...(state.founderTasks || []), ...state.askedBefore], { briefs: state.briefs, now: nowMs });
 
   const cadence = loadRunnerCadence();
   const merged24 = state.allPRs.filter((p) => p.mergedAt && nowMs - new Date(p.mergedAt).getTime() < DAY_MS);
@@ -487,8 +514,8 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
 
   const { open, escalated, resolved, phantom } = a.asks;
   const actionItems = sortForBrief(state.openActions || []);
-  const founderTasks = state.founderTasks || [];
-  const totalWaiting = open.length + escalated.length + actionItems.length + founderTasks.length;
+  // founder-task issues are inside `open`/`escalated` now (see analyse()).
+  const totalWaiting = open.length + escalated.length + actionItems.length;
 
   if (totalWaiting === 0) {
     out.push('**🫵 Nothing is gated on you.** No founder action is blocking anything today.', '');
@@ -497,10 +524,6 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     for (const e of escalated) out.push(`- 🔴 ${link(e.number)} **${shortTitle(e.title)}** — ${e.escalateReason}`);
     for (const o of open) out.push(`- [ ] ${link(o.number)} **${shortTitle(o.title)}** — ${o.gateReasons[0]}, ${o.daysOpen}d old`);
     for (const it of actionItems) out.push(renderActionLine(it));
-    for (const ft of founderTasks) {
-      const ageDays = Math.floor((now - new Date(ft.createdAt).getTime()) / DAY_MS);
-      out.push(`- [ ] ${link(ft.number)} **${shortTitle(ft.title)}** — founder-task, ${ageDays}d old`);
-    }
     out.push('');
   }
   if (resolved.length) {
@@ -585,6 +608,7 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     openPRs: state.openPRs,
     allPRs: state.allPRs,
     issues: state.allIssues,
+    briefComments: state.briefComments,
     alerts: state.alerts,
     gateTickets: [...new Set(GATES.flatMap((g) => extractTickets(state.gates[g]?.nextAction)))],
     runs: state.ciRuns,
@@ -640,15 +664,20 @@ if (invokedDirectly) {
         .filter((r) => r.checkable !== false)
         .map((r) => ({
           name: r.name,
-          perDay: r.perDay,
+          // A registry-disabled runner is expected at 0/day — so an artifact
+          // from it is `running-while-disabled` (a real alarm), and silence is
+          // the healthy state, not a `silent` warn.
+          perDay: r.disabled ? 0 : r.perDay,
           match: (art) => (r.match.kind === 'pr-branch' ? art.type === 'pr' && String(art.branch || '').startsWith(r.match.value)
             : r.match.kind === 'pr-title' ? art.type === 'pr' && String(art.title || '').toLowerCase().includes(r.match.value.toLowerCase())
               : r.match.kind === 'issue-label' ? art.type === 'issue' && (art.labels || []).includes(r.match.value)
-                : art.type === 'issue' && String(art.title || '').includes(r.match.value)),
+                : r.match.kind === 'brief-comment' ? art.type === 'brief-comment' && unescapeAnchor(art.firstLine) === unescapeAnchor(r.match.value)
+                  : art.type === 'issue' && String(art.title || '').includes(r.match.value)),
         })),
       artifacts: [
         ...state.allPRs.map((p) => ({ type: 'pr', at: p.createdAt, branch: p.headRefName, title: p.title })),
         ...state.allIssues.map((i) => ({ type: 'issue', at: i.createdAt, title: i.title, labels: (i.labels || []).map((l) => (typeof l === 'string' ? l : l.name)) })),
+        ...(state.briefComments || []).map((c) => ({ type: 'brief-comment', at: c.createdAt, firstLine: String(c.body || '').split('\n')[0] })),
       ],
     });
 

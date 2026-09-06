@@ -1,0 +1,21 @@
+{
+  "name": "@swift2/experience",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@swift2/shared": "*"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "lucide-react": "*"
+  }
+}
