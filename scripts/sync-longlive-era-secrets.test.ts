@@ -71,7 +71,7 @@ describe('renderModule', () => {
     const ts = renderModule({
       debut: [{ slug: 's', title: 'T', secret: 'fact', sources: [{ name: 'N', url: 'https://u' }] }],
     });
-    expect(ts).toContain("import type { EraId, EraSecret } from './types';");
+    expect(ts).toContain("import type { EraId, EraSecret } from '@swift2/experience';");
     expect(ts).toContain('export const ERA_SECRETS_RAW: Partial<Record<EraId, EraSecret[]>> = {');
     expect(ts).toContain('sources: [{ name: "N", url: "https://u" }],');
   });

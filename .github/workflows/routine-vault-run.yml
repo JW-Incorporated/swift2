@@ -1,0 +1,45 @@
+# The Vault Run — consolidated 6-lane content orchestrator, migrated from
+# claude.ai Routine `trig_01XKjJCfxyL2Bm24Ko4M4mWR` to this scheduled Action
+# per docs/audits/2026-09-05-claude-routines-relocation-assessment.md + the
+# 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# Full lane list and rationale: docs/agents/vault-run-plan.md. Opens ONE
+# `vault/<date>` PR per run (never merges it — auto-merge-content.yml lands
+# it once `build` is green), so needs `contents: write`/`pull-requests:
+# write` via SOCIAL_POSTER_PAT (main is branch-protected; the built-in
+# GITHUB_TOKEN cannot trigger this repo's required `build` check on its own
+# PRs — same reason growth-snapshot.yml / appearance-discovery.yml use the
+# PAT).
+#
+# `Task` is in allowed_tools deliberately: routine-invariants.md invariant #4
+# allows `Task` when the routine's own charter explains why. vault-run-plan.md
+# does — six lanes run sequentially in one session, and Content Shift /
+# Answerer / Photo Enrichment / Rumor Desk / Cross-Link / Stylist each do
+# independent research legwork (WebSearch/WebFetch/curl) that benefits from
+# subagent fan-out within a lane, per the plan's own "Session length is the
+# real constraint" risk note.
+name: routine-vault-run
+
+on:
+  schedule:
+    - cron: "7 16 * * *" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "The Vault Run"
+      prompt_file: docs/agents/runner-prompts/vault-run.md
+      model: claude-opus-4-8
+      allowed_tools: "Bash,Read,Grep,Glob,Write,Edit,WebSearch,WebFetch,Task"
+      timeout_minutes: 90
+      max_turns: 80
+      checkout_token_secret: SOCIAL_POSTER_PAT
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import type { ContentItem, TheoryNote } from './types';
+import type { ContentItem, TheoryNote } from '@swift2/experience';
 import type { LoreItem } from './clownbot-lore';
 
 /**

@@ -36,7 +36,8 @@
  *                apps/web/app/api/mood/route.ts
  *                apps/web/lib/longlive/mood-client.ts
  *   - analytics: apps/web/app/layout.tsx (`<Analytics />`, @vercel/analytics)
- *   - on-device: apps/web/lib/longlive/progress.ts (`ll-progress-v1`)
+ *   - on-device: packages/experience/src/progress.ts (`ll-progress-v1`,
+ *                persisted on web via apps/web/lib/longlive/local-storage-adapter.ts)
  *                apps/web/components/longlive/TimelineScrubber.tsx
  *   - content:   supabase/migrations/** (14 editorial tables, zero personal)
  *   - Clownbot:  apps/web/components/longlive/ClownChat.tsx
@@ -145,7 +146,7 @@ export const PRIVACY_POLICY: LegalDoc = {
   title: 'Privacy Policy',
   description: 'What Long Live collects, what it does not, and which third parties are involved.',
   summary:
-    "Long Live has no accounts, no logins, no passwords, and no payments, and it never asks you for your name or email. Three features do send something: the feedback button sends what you type to our private issue tracker; the mood chat sends what you type to an AI service so it can read the feeling; and Clownbot sends your questions to an AI service to answer them, and — only once an identity system described below is switched on — remembers the conversation in our database for up to 180 days. Everything else on this page is detail.",
+    'Long Live has no accounts, no logins, no passwords, and no payments, and it never asks you for your name or email. Three features do send something: the feedback button sends what you type to our private issue tracker; the mood chat sends what you type to an AI service so it can read the feeling; and Clownbot sends your questions to an AI service to answer them, and — only once an identity system described below is switched on — remembers the conversation in our database for up to 180 days. Everything else on this page is detail.',
   sections: [
     {
       id: 'who-we-are',
@@ -258,15 +259,15 @@ export const PRIVACY_POLICY: LegalDoc = {
         },
         {
           kind: 'p',
-          text: "Unlike the mood chat, Clownbot's server can remember a conversation across visits, using an anonymous identity system built on Supabase (the same third party named in the table below). That system requires a setting (\"allow anonymous sign-ins\") to be switched on in a dashboard outside this codebase, and as of this policy's effective date it has not been switched on — while it is off, nothing else in this section happens: no cookie is set, no message is stored, and Clownbot answers from the current conversation only. We are describing the capability here, as it is built into our code, rather than only its moment-to-moment on/off state, because that switch can be flipped without a new release of the site and we do not want this page to fall out of date the moment it is.",
+          text: 'Unlike the mood chat, Clownbot\'s server can remember a conversation across visits, using an anonymous identity system built on Supabase (the same third party named in the table below). That system requires a setting ("allow anonymous sign-ins") to be switched on in a dashboard outside this codebase, and as of this policy\'s effective date it has not been switched on — while it is off, nothing else in this section happens: no cookie is set, no message is stored, and Clownbot answers from the current conversation only. We are describing the capability here, as it is built into our code, rather than only its moment-to-moment on/off state, because that switch can be flipped without a new release of the site and we do not want this page to fall out of date the moment it is.',
         },
         {
           kind: 'p',
-          text: 'Once that identity system is switched on: sending Clownbot a message assigns your browser an anonymous id — no name, email, or other identifying detail, just a randomly generated identifier — held in a first-party cookie scoped to the chat feature, marked so it cannot be read by page scripts and only sent over HTTPS, and set to expire after 180 days. Every message you send and every reply Clownbot gives is then stored against that anonymous id in our Supabase database for up to 180 days since the conversation was last used. Once a stored conversation passes 20 messages, the oldest ones are folded into a short running summary (capped at a few thousand characters) and deleted individually; the summary and the most recent messages are what persists. There is also a limit of 200 messages per day per anonymous id, to control cost and abuse.',
+          text: "Once that identity system is switched on: sending Clownbot a message assigns your browser (or, in the app, your device) an anonymous id — no name, email, or other identifying detail, just a randomly generated identifier — held in a first-party cookie scoped to the chat feature on the website, or in the app's own secure on-device storage, marked so it cannot be read by page scripts and only sent over HTTPS, and set to expire after 180 days. Every message you send and every reply Clownbot gives is then stored against that anonymous id in our Supabase database for up to 180 days since the conversation was last used. Once a stored conversation passes 20 messages, the oldest ones are folded into a short running summary (capped at a few thousand characters) and deleted individually; the summary and the most recent messages are what persists. There is also a limit of 200 messages per day per anonymous id, to control cost and abuse.",
         },
         {
           kind: 'p',
-          text: "Because the identity behind a stored Clownbot conversation is anonymous, we generally have no way to match an email from you to a specific one, so we cannot offer the same manual delete-on-request process described for feedback below. A stored conversation is deleted automatically once it has gone unused for 180 days. Clearing your browser's cookies for this site starts you on a fresh anonymous identity going forward, but does not reach back and delete rows already stored under the old one — those still expire on their own schedule. If you have a concern about a specific conversation, write to us anyway; we will do what we can.",
+          text: "Because the identity behind a stored Clownbot conversation is anonymous, we generally have no way to match an email from you to a specific one, so we cannot offer the same manual delete-on-request process described for feedback below. A stored conversation is deleted automatically once it has gone unused for 180 days. Clearing your browser's cookies for this site, or the app's storage for it, starts you on a fresh anonymous identity going forward, but does not reach back and delete rows already stored under the old one — those still expire on their own schedule. If you have a concern about a specific conversation, write to us anyway; we will do what we can.",
         },
         {
           kind: 'p',
@@ -334,7 +335,7 @@ export const PRIVACY_POLICY: LegalDoc = {
             [
               'Supabase',
               'Content database; Clownbot anonymous identity and conversation storage',
-              "Most site content is baked in when the site is built, not fetched while you browse — one illustrative image, and a pair of machine-readable content endpoints the site itself does not call, are the only content paths that reach it. Separately, and only once the anonymous-identity system described in the Clownbot section is switched on, your Clownbot messages, replies, and anonymous id are stored here for up to 180 days.",
+              'Most site content is baked in when the site is built, not fetched while you browse — one illustrative image, and a pair of machine-readable content endpoints the site itself does not call, are the only content paths that reach it. Separately, and only once the anonymous-identity system described in the Clownbot section is switched on, your Clownbot messages, replies, and anonymous id are stored here for up to 180 days.',
             ],
             [
               'GitHub',
@@ -383,44 +384,41 @@ export const PRIVACY_POLICY: LegalDoc = {
       heading: 'The mobile app',
       blocks: [
         {
-          // Rewritten for the Google Play release. The previous copy said the
-          // app "has not been released in any app store" and promised its data
-          // handling would be described "if and when" it was — both go false
-          // the moment the listing goes live, so this section now describes
-          // the shipped app instead of promising to. Verified against
-          // apps/mobile/** on 2026-08-30; see the source inventory at the top
-          // of this file. Whoever changes the app changes this section in the
-          // same release, and the Play Data safety form with it.
+          // Rewritten 2026-09-06 for OS-039 (docs/specs/2026-09-05-one-
+          // source-three-surfaces.md): SiteShell is retired as the app's
+          // default surface. The app now renders native screens for eras,
+          // threads, Clownbot, community, and merch
+          // (apps/mobile/App.tsx + BottomTabBar.tsx), each reading the same
+          // published content bundle as the website (D2: two renderers, one
+          // headless core) — so the DATA and its handling are identical to
+          // the website even though the UI is native, not a WebView. Only
+          // three static pages — Privacy, Terms, and Support — still open in
+          // a WebView (apps/mobile/components/SiteShell.tsx), since they
+          // have no native screen. On top of that the app has its own
+          // device registry and opt-in push notifications
+          // (apps/mobile/lib/device-id.ts, push-registration.ts,
+          // prefs-client.ts, inbox-client.ts; apps/web/app/api/devices/**;
+          // migration 20260909000000_notifications_devices.sql). Whoever
+          // changes the app changes this section in the same release, and
+          // both stores' data-safety forms with it.
           kind: 'p',
-          text: 'The sections above describe the Long Live website. There is also a Long Live Android app — listed as "LongLive", package ai.jwlabs.longlive — and it is a different piece of software with a much shorter story. This section is that story.',
+          text: 'There is also a Long Live mobile app for iPhone and Android — listed as "LongLive", bundle and package id ai.jwlabs.longlive. The app renders its own native screens for eras, threads, Clownbot, community, and merch, all built from the exact same content and the exact same rules described in every section above — nothing about what is collected or how it is handled changes because the screen is native instead of a web page. Only three pages — Privacy, Terms, and Support (this page among them) — still open inside the app as the website itself, unchanged. The feedback button, the mood chat, Clownbot, the analytics, and the server logs all behave in the app exactly as they do in a browser, and the sections above are the description of them.',
         },
         {
           kind: 'p',
-          text: 'When you open the app it makes three requests, all over HTTPS, to our content database at Supabase: one for the eras, one for the milestones, and one for the items on the timeline. They are anonymous reads of published content, made with the same public key the website uses against the same public tables, and they say nothing about you. Nothing is sent back the other way.',
+          text: 'Two things are specific to the app. The first is a device id. On first launch the app creates a random device id — a UUID, not derived from your phone, your Apple or Google account, or any advertising identifier — and stores it in the device’s secure storage. Each time the app starts it sends that id to our server together with the platform (iPhone or Android), your device’s time zone and language setting, and the app version. We keep those in a devices table in our Supabase database so that notification preferences can be saved and so that notifications, if you turn them on, can be delivered at a sensible local hour. None of it names you, and we do not link it to anything that could, including your anonymous Clownbot identity (a device-bound token in the native chat screen, or the website’s own anonymous session cookie on the Privacy/Terms/Support pages).',
         },
         {
           kind: 'p',
-          text: 'The app holds no session and no token. Its database client is configured not to keep a session and not to refresh one, so there is nothing to log in to and nothing kept signed in, and the app neither generates nor sends any device identifier.',
+          text: 'The second is notifications, which are off until you ask for them. The app never shows the system permission prompt on its own; you reach it by tapping the bell and choosing to turn notifications on. If you allow them, the app obtains a push token from Expo’s push notification service — the relay that hands messages to Apple or Google for delivery — and stores that token against your device id so we can send to that device. Your choices in the bell menu (off, muted types, quiet hours, a daily cap) are saved to the same devices row. The in-app inbox is a public feed of recent notifications and is fetched without your device id. You can withdraw notification permission in your phone’s settings at any time; the token then stops working and is pruned.',
         },
         {
           kind: 'p',
-          text: 'There is nowhere in the app to type. No form, no search box, no upload, no camera, no microphone, no location. The whole interface is a drag gesture and a scrolling view of the timeline. Nothing you tell us can leave your device, because there is nothing to tell us.',
+          text: 'Apart from internet access and — only if you grant it — permission to notify you, the app asks for no device permissions: not your camera, your microphone, your location, your contacts, your photos, or your storage. It carries no advertising SDK, no crash-reporting SDK, no in-app purchases, no account, and no sign-in of its own. Links that lead away from longlivets.com open in your phone’s browser, not inside the app.',
         },
         {
           kind: 'p',
-          text: 'The app carries no advertising, analytics, or crash-reporting software, no notifications, no in-app purchases, no account, and no sign-in. Its only libraries are the Expo and React Native runtime it is built on and the code it shares with this website. Apart from the internet access it needs to fetch the three tables above, it asks for no Android permissions — not your camera, your microphone, your location, your contacts, your photos, your storage, or permission to notify you.',
-        },
-        {
-          kind: 'p',
-          text: "One thing does reach a third party, and it cannot be avoided: fetching anything over the internet tells the other end where the request came from. So Supabase, which hosts that database for us, sees your device's IP address and the user-agent string your device sends, and both appear in its request logs, which exist for security and reliability. That is the same kind of log described under Server logs below, and the same limits apply: we do not use it to build a profile of you and we do not combine it with anything else.",
-        },
-        {
-          kind: 'p',
-          text: 'The features of this website that do collect something are not in the app. There is no feedback button, no mood chat, and no Clownbot in the Android app, so nothing described in those sections above happens there. The app sets no cookies and keeps nothing about you on your device.',
-        },
-        {
-          kind: 'p',
-          text: "Our Google Play Data safety declaration says the app collects no user data. That declaration and this section describe the same app and are kept in step: if the app ever starts collecting something, both change in the release that ships it. If the app is ever released on another store, its data handling will be described here before it ships, and that store's disclosures will be made to match.",
+          text: 'Uninstalling the app discards the device id and the website’s cookies held inside the app. Write to us at the address in Contact and we will delete the matching devices row; rows whose tokens stop working are pruned on their own. Our Google Play Data safety declaration and our App Store privacy label describe the same app as this section does — the website’s collection described above, plus an anonymous device id and, if you opt in, a push token, used for app functionality only, not linked to your identity and not used for tracking. If the app ever starts collecting something else, all three change in the release that ships it.',
         },
       ],
     },

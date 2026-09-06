@@ -724,18 +724,29 @@ export default {
       snippet:
         '"Our Song" won both Video of the Year and Female Video of the Year at the 2008 CMT Music Awards -- with a cheeky thank-you to the stylist who did her hair and dresses.',
       sourceUrl: 'https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/',
-      // Photo dropped 2026-07-25 (#762 review, PR #1506): the prior image
-      // hotlinked a Getty comp (gettyimages-80677442.jpg) via the
-      // non-allowlisted host images.hellomagazine.com — the legal class
-      // tracked in #935 — and was an off-moment shot anyway ("Picture to
-      // Burn" performance, not the Our Song win). Left photo-less until an
-      // allowlisted/reusable source for this exact moment is verified.
-      thumbnailUrl: null,
+      // Photo pass (Vault Run photo-enrichment, 2026-09-06, #3896): the prior
+      // image here hotlinked a Getty comp via a non-allowlisted host (#935) and
+      // was an off-moment shot; dropped 2026-07-25 (#762, PR #1506). Replaced
+      // now with a still from the "Our Song" official video itself — the clip
+      // the two CMT trophies were awarded for. oEmbed-verified the video
+      // (Jb2stN7kH28) belongs to the official @TaylorSwift channel; i.ytimg.com
+      // is YouTube's own CDN; curl 200 image/jpeg 640x480, downloaded and
+      // vision-confirmed (Taylor in the red dress against the rose wall).
+      thumbnailUrl: 'https://i.ytimg.com/vi/Jb2stN7kH28/sddefault.jpg',
       moment: {
         context:
           'At the 2008 CMT Music Awards on April 14, 2008 at Nashville\'s Curb Events Center, "Our Song" won both Video of the Year and Female Video of the Year, beating a field that included Carrie Underwood, LeAnn Rimes, Martina McBride, and Miranda Lambert.\n\nAccepting, 18-year-old Taylor joked: "I want to thank Sandy Spika for making all the dresses in that video and for straightening my hair, because that\'s not easy," before tearfully thanking the fans who\'d voted for her.',
         sources: [
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/' },
+        ],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/Jb2stN7kH28/sddefault.jpg',
+            focalPoint: '50% 36%',
+            credit: 'Still from the official "Our Song" music video (Taylor Swift, via YouTube)',
+            caption: 'A still from the "Our Song" video — the clip that won both Video of the Year and Female Video of the Year at the 2008 CMT Music Awards (not the ceremony itself).',
+            kind: 'archival',
+          },
         ],
       },
     },

@@ -9,12 +9,13 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { deepLinkTarget, resolveVideoDeepLink } from '../deepLink';
-import { CURRENT_ERA_ID, getEra } from '../eras';
+import { deepLinkTarget, resolveVideoDeepLink } from '@swift2/experience';
+import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
 import { getContentItem } from '../content';
 import { allVideoRecordsForEra, findVideoEraId } from '../videos';
-import { THREADS } from '../lenses';
-import { resolveTrackKey } from '../tracks';
+import { THREADS } from '@swift2/experience';
+import { resolveTrackKey } from '@swift2/experience';
+import { createLocalStorageAdapter } from '../local-storage-adapter';
 import {
   emptyProgress,
   readStoredProgress,
@@ -22,9 +23,9 @@ import {
   withToggled,
   writeStoredProgress,
   type Progress,
-} from '../progress';
-import type { FilterId } from '../filters';
-import type { EraId, LensId, MotifId } from '../types';
+} from '@swift2/experience';
+import type { FilterId } from '@swift2/experience';
+import type { EraId, LensId, MotifId } from '@swift2/experience';
 import type { ClownAnswer } from '../clown-answer';
 
 import { useNavigation, type AppMode, type EraScrollSnapshot } from './navigation';
@@ -147,15 +148,18 @@ const ProgressActionsCtx = createContext<ProgressActions | null>(null);
 function ProgressProvider({ children }: { children: ReactNode }) {
   const [progress, setProgress] = useState<Progress>(emptyProgress);
   const [hydrated, setHydrated] = useState(false);
+  // Injected adapter (OS-025): stable across renders, created once — the
+  // module itself is renderer-agnostic and knows nothing about localStorage.
+  const storage = useMemo(() => createLocalStorageAdapter(), []);
 
   useEffect(() => {
-    setProgress(readStoredProgress());
+    setProgress(readStoredProgress(storage));
     setHydrated(true);
-  }, []);
+  }, [storage]);
 
   useEffect(() => {
-    if (hydrated) writeStoredProgress(progress);
-  }, [progress, hydrated]);
+    if (hydrated) writeStoredProgress(storage, progress);
+  }, [progress, hydrated, storage]);
 
   const actions = useMemo<ProgressActions>(
     () => ({
