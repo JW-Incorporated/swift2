@@ -539,11 +539,28 @@ export default {
         // Shop pass (2026-07-21): the exact 2015 beaded jumpsuit is
         // discontinued -- a current Balmain white jumpsuit was linked as the
         // closest real match.
-        // Stylist upkeep (Vault Run, 2026-09-06): that alternative PDP now
-        // redirects to Balmain's women-RTW category listing (curl-verified the
-        // product page is gone). A dead link is worse than none, so it's
-        // removed; fashion-products will re-surface this moment for re-sourcing.
-        products: [],
+        // Stylist upkeep (Vault Run, 2026-09-06): that alternative PDP now 301s
+        // to Balmain's women-RTW category listing (curl-verified — the product
+        // page is gone). Flagged inStock:false rather than deleted: removing the
+        // product trips an exact-count invariant in app code
+        // (merch-filters.test.ts), outside this lane's seed-only scope — filed
+        // as an issue for re-sourcing / a proper removal.
+        products: [
+          {
+            brand: 'Balmain',
+            item: 'Sleeveless Lambskin Jumpsuit',
+            retailer: 'us.balmain.com',
+            url: 'https://us.balmain.com/en/p/sleeveless-lambskin-jumpsuit-FF0QO025LE040DA.html',
+            imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/balmain/80087fee/2220x3000/balmain-white-Sleeveless-Lambskin-Jumpsuit.jpeg',
+            matchTier: 'unscored',
+            kind: 'dress',
+            price: '$3,495.00',
+            isAlternative: true,
+            inStock: false,
+            altNote: 'Her exact 2015 beaded jumpsuit is long discontinued; this Balmain white jumpsuit was the closest match, but as of 2026-09-06 its page redirects to a category listing — no longer live.',
+            verifiedAt: '2026-09-06T16:35:00.000Z'
+          },
+        ],
       },
     },
     {
@@ -847,11 +864,27 @@ export default {
         // pieces -- a current beaded fringe mini (Showpo "Siofra") was linked
         // as the closest in-spirit match.
         // Stylist upkeep (Vault Run, 2026-09-06): that Showpo PDP now returns
-        // HTTP 404 (curl-verified — the item was discontinued). A dead link is
-        // worse than none, so it's removed; fashion-products will re-surface
-        // this moment for re-sourcing (a live in-stock pink-fringe alternative
-        // exists, but was deferred rather than store an unverified US price).
-        products: [],
+        // HTTP 404 (curl-verified — discontinued). Flagged inStock:false rather
+        // than deleted: removing the product trips an exact-count invariant in
+        // app code (merch-filters.test.ts), outside this lane's seed-only scope
+        // — filed as an issue for re-sourcing (a live pink-fringe alternative
+        // exists but was deferred rather than store an unverified US price).
+        products: [
+          {
+            brand: 'Showpo',
+            item: 'Siofra Mini Dress (Zig Zag Fringe Dress)',
+            retailer: 'showpo.com',
+            url: 'https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink',
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0904/3371/6589/files/1-Siofra_Beaded_Fringe_Mini_Dress_in_Hot_Pink_40.jpg?v=1744807739',
+            matchTier: 'unscored',
+            kind: 'dress',
+            price: '$22.00',
+            isAlternative: true,
+            inStock: false,
+            altNote: 'The tour\'s custom costumes were one-off pieces, never sold; this beaded fringe mini was the closest in-spirit match, but as of 2026-09-06 its Showpo page returns 404 — discontinued.',
+            verifiedAt: '2026-09-06T16:35:00.000Z'
+          },
+        ],
       },
     },
     {
