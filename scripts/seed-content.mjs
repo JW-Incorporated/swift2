@@ -14,7 +14,7 @@
 // `docs/dev-quickstart.md`; kept runnable only until the tables themselves
 // are dropped, one release cycle out.
 //
-//   npm run db:seed:content
+//   node --env-file=apps/worker/.env scripts/seed-content.mjs  (npm alias retired, OS-016)
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';

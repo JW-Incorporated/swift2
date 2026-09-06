@@ -8,7 +8,7 @@
 // instead. Removed from `db-seed.yml` and `docs/dev-quickstart.md`; kept
 // runnable only until the table itself is dropped, one release cycle out.
 //
-//   npm run db:seed:tours
+//   node --env-file=apps/worker/.env scripts/seed-tours.mjs  (npm alias retired, OS-016)
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
