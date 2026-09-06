@@ -152,17 +152,6 @@ async function loadSources() {
     encoding: 'utf-8',
     maxBuffer: 256 * 1024 * 1024,
     stdio: ['ignore', 'pipe', 'inherit'],
-    // OS-014b-2: this child process's module graph passes through
-    // apps/web/lib/longlive/{content,tracks}.ts (era-secrets.ts ->
-    // content.ts; the dump script's own `tracks.generated` import wires the
-    // provider those modules read through). Both now prefer the PUBLISHED
-    // bundle over recomputing from the generated data — exactly the thing
-    // this script is in the middle of producing. Reading a possibly-stale
-    // on-disk bundle here would let a fresh build silently mix new era data
-    // with an old published snapshot, so this env var (see
-    // apps/web/lib/longlive/bundle-source.ts's module doc) forces both
-    // modules to always recompute fresh in this process.
-    env: { ...process.env, LONGLIVE_BUNDLE_BUILD: '1' },
   });
   const dumped = JSON.parse(stdout);
 
