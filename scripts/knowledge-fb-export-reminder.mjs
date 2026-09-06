@@ -42,7 +42,19 @@ export function issueBody(groups) {
     );
   } else {
     lines.push('**Groups (start with 3–5; this list is the checklist):**');
-    for (const g of groups) lines.push(`- [ ] ${g.label} (\`${g.slug}\`)`);
+    for (const g of groups) {
+      const note = g.candidate
+        ? ' — _candidate, confirm you\'re a member, or delete the line_'
+        : '';
+      lines.push(`- [ ] ${g.label} (\`${g.slug}\`)${note}`);
+    }
+    if (groups.some((g) => g.candidate)) {
+      lines.push(
+        '',
+        'To confirm a candidate row: edit `scripts/knowledge/fb-groups-checklist.mjs` and remove ' +
+          "its `candidate: true` (or say \"confirmed <slug>\" in chat and a session will edit it for you).",
+      );
+    }
   }
   lines.push(
     '',
