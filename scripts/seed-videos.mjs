@@ -6,6 +6,12 @@
 // stale row from the old era. A slug that no longer appears in ANY file is
 // deleted — that's the only case a row should disappear.
 //
+// DEPRECATED (OS-016, `docs/specs/2026-09-05-one-source-three-surfaces.md`
+// §6 Phase 1): no code path outside `scripts/` reads `video_work` any more —
+// web (OS-014) and mobile (OS-015) both read the published content bundle
+// instead. Removed from `db-seed.yml` and `docs/dev-quickstart.md`; kept
+// runnable only until the table itself is dropped, one release cycle out.
+//
 //   npm run db:seed:videos
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';

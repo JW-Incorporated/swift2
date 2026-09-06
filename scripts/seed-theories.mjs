@@ -3,6 +3,12 @@
 // Idempotent per era: a file owns its era_slug and its rows are replaced
 // wholesale on each run (same pattern as seed-tracks.mjs).
 //
+// DEPRECATED (OS-016, `docs/specs/2026-09-05-one-source-three-surfaces.md`
+// §6 Phase 1): no code path outside `scripts/` reads `theory` any more —
+// web (OS-014) and mobile (OS-015) both read the published content bundle
+// instead. Removed from `db-seed.yml` and `docs/dev-quickstart.md`; kept
+// runnable only until the table itself is dropped, one release cycle out.
+//
 //   npm run db:seed:theories
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
