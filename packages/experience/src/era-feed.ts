@@ -1,17 +1,16 @@
-import type { ContentItem, VideoNote } from '@swift2/experience';
-import { ALL_FILTERS, filterMatches, filtersForEntry, type FilterId } from '@swift2/experience';
-import { resolveAnchor, type Anchored } from '@swift2/experience';
-import type { EggDoorway, ThreadDoorway } from './doorways';
-import type { CurrentItem } from '@swift2/shared';
-import type { EraFeedEntry as SharedEraFeedEntry } from '@swift2/experience';
+import type { ContentItem, VideoNote } from './types';
+import { ALL_FILTERS, filterMatches, filtersForEntry, type FilterId } from './filters';
+import { resolveAnchor } from './anchor-date';
+import type { EraFeedEntry } from './feed-types';
 
 /**
- * `EraFeedEntry` moved to `packages/experience/src/feed-types.ts` in OS-021
- * (it's `filtersForEntry`'s parameter type); re-exported here under its
- * original name so this file's existing exports keep working for its many
- * `apps/web` importers until OS-022 moves the rest of this module.
+ * `EraFeedEntry` lives in `feed-types.ts` (moved there in OS-021, ahead of
+ * the rest of this module, so `filters.ts` had a non-circular home for the
+ * type it needs). Re-exported here under its original name so this file's
+ * many importers keep working unchanged now that the builder logic
+ * (mergeEraFeed, visibleFeed, ...) has moved alongside it (OS-022).
  */
-export type EraFeedEntry<V extends VideoNote = VideoNote> = SharedEraFeedEntry<V>;
+export type { EraFeedEntry };
 
 /**
  * The era feed's SELECTION rules, as pure functions.

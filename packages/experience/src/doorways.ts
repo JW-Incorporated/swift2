@@ -1,8 +1,8 @@
-import type { EraId, LensId, TheoryNote } from '@swift2/experience';
-import { getThread, threadPoints, threadsInEra } from '@swift2/experience';
+import type { EraId, LensId, TheoryNote } from './types';
+import { getThread, threadPoints, threadsInEra } from './lenses';
 import { theoriesForEra } from './theories';
-import { resolveAnchor } from '@swift2/experience';
-import type { Anchored, ThreadDoorway, EggDoorway } from '@swift2/experience';
+import { resolveAnchor } from './anchor-date';
+import type { Anchored, ThreadDoorway, EggDoorway } from './feed-types';
 
 export type { ThreadDoorway, EggDoorway };
 
@@ -55,7 +55,7 @@ export function threadDoorwaysForEra(
     const points = threadPoints(id)
       .filter((p) => p.eraId === eraId)
       .sort((a, b) => a.date.localeCompare(b.date));
-    const point = points[0];
+    const point = points[0]!; // threadsInEra's count > 0 guarantees this
     const clampedDate = point.date < eraStart ? eraStart : point.date > eraEnd ? eraEnd : point.date;
     const anchor: Anchored =
       clampedDate === point.date

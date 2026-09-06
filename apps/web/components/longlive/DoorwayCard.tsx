@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowRight, Egg, Gem, Heart, HelpCircle, RefreshCw, Shirt, Sparkles } from 'lucide-react';
-import type { ThreadDoorway, EggDoorway } from '@/lib/longlive/doorways';
+import type { ThreadDoorway, EggDoorway } from '@swift2/experience';
 import type { EraId, LensId } from '@swift2/experience';
 import { formatMonthYear } from '@swift2/experience';
 

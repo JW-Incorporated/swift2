@@ -4,7 +4,7 @@ import { Egg, HelpCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
 import { resolveRelatedTheory } from '@/lib/longlive/theories';
-import { theoryThreadId } from '@/lib/longlive/doorways';
+import { theoryThreadId } from '@swift2/experience';
 import { getThread } from '@swift2/experience';
 import type { Confidence, TheoryNote, TheoryOutcome } from '@swift2/experience';
 

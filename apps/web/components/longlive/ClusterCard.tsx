@@ -5,7 +5,7 @@ import { ChevronDown } from 'lucide-react';
 import { formatFullDate } from '@swift2/experience';
 import { MomentCard } from './MomentCard';
 import type { ContentItem, Era } from '@swift2/experience';
-import type { CardTier } from '@/lib/longlive/feed-tiers';
+import type { CardTier } from '@swift2/experience';
 import { cn } from '@/lib/utils';
 
 /**

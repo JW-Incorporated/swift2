@@ -30,14 +30,14 @@ describe('currentFeedEntries', () => {
   it('anchors every entry exactly on observedOn (never era-scattered)', () => {
     const items = [currentItem({ id: 'ci1', observedOn: '2026-08-20' })];
     const [entry] = currentFeedEntries(items, ERA_START, ERA_END);
-    expect(entry.kind).toBe('current');
-    expect(entry.anchor).toEqual({ sortDate: '2026-08-20', displayDate: '2026-08-20', via: 'exact' });
+    expect(entry!.kind).toBe('current');
+    expect(entry!.anchor).toEqual({ sortDate: '2026-08-20', displayDate: '2026-08-20', via: 'exact' });
   });
 
   it('carries the item through unmodified', () => {
     const items = [currentItem({ id: 'ci1', observedOn: '2026-08-20', headline: 'Seen at rehearsal' })];
     const [entry] = currentFeedEntries(items, ERA_START, ERA_END);
-    expect(entry.kind === 'current' ? entry.item.headline : null).toBe('Seen at rehearsal');
+    expect(entry!.kind === 'current' ? entry!.item.headline : null).toBe('Seen at rehearsal');
   });
 
   it('is empty for an empty input', () => {

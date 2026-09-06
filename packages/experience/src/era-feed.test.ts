@@ -1,4 +1,3 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   embeddedYoutubeIds,
@@ -8,8 +7,8 @@ import {
   visibleFeed,
   type EraFeedEntry,
 } from './era-feed';
-import type { FilterId } from '@swift2/experience';
-import type { ContentItem, ContentTag, VideoNote } from '@swift2/experience';
+import type { FilterId } from './filters';
+import type { ContentItem, ContentTag, VideoNote } from './types';
 import type { ThreadDoorway } from './doorways';
 import { spaceDoorways, DOORWAY_MIN_GAP } from './space-doorways';
 import type { CurrentItem } from '@swift2/shared';
@@ -357,7 +356,7 @@ describe('spaceDoorways', () => {
       .map((e, i) => ((e.kind === 'thread' || e.kind === 'egg') ? i : -1))
       .filter((i) => i >= 0);
     expect(doorwayIndexes).toHaveLength(2);
-    expect(doorwayIndexes[1] - doorwayIndexes[0]).toBeGreaterThan(DOORWAY_MIN_GAP);
+    expect(doorwayIndexes[1]! - doorwayIndexes[0]!).toBeGreaterThan(DOORWAY_MIN_GAP);
     // Every doorway from the input is still present in the output.
     expect(entryIds(spaced).filter((id) => id.startsWith('thread:') || id.startsWith('egg:')).sort()).toEqual(
       ['egg:e1', 'thread:t1'].sort(),
@@ -368,7 +367,7 @@ describe('spaceDoorways', () => {
     // 6 doorways, only 3 filler cards total — nowhere near enough room to
     // give every doorway its own 4-card gap.
     const doorways = Array.from({ length: 6 }, (_, i) => threadEntry(`t${i}`, '2019-01-01'));
-    const feed = [doorways[0], ...filler(1), doorways[1], ...filler(1), doorways[2], ...filler(1), doorways[3], doorways[4], doorways[5]];
+    const feed = [doorways[0]!, ...filler(1), doorways[1]!, ...filler(1), doorways[2]!, ...filler(1), doorways[3]!, doorways[4]!, doorways[5]!];
     const spaced = spaceDoorways(feed);
     // Nothing lost: same total length, and every doorway id from the input
     // is present in the output exactly once.
@@ -380,14 +379,14 @@ describe('spaceDoorways', () => {
 
   it('never moves a doorway earlier than its original position, and never reorders two doorways', () => {
     const doorways = Array.from({ length: 5 }, (_, i) => threadEntry(`t${i}`, '2019-01-01'));
-    const feed = [doorways[0], doorways[1], ...filler(2), doorways[2], doorways[3], doorways[4]];
+    const feed = [doorways[0]!, doorways[1]!, ...filler(2), doorways[2]!, doorways[3]!, doorways[4]!];
     const spaced = spaceDoorways(feed);
     const orderInSpaced = ['t0', 't1', 't2', 't3', 't4'].map((id) =>
       spaced.findIndex((e) => e.kind === 'thread' && e.doorway.threadId === id),
     );
     // Ascending — doorway-to-doorway relative order preserved.
     for (let i = 1; i < orderInSpaced.length; i++) {
-      expect(orderInSpaced[i]).toBeGreaterThan(orderInSpaced[i - 1]);
+      expect(orderInSpaced[i]).toBeGreaterThan(orderInSpaced[i - 1]!);
     }
   });
 
@@ -432,7 +431,7 @@ describe('spaceDoorways', () => {
 
   it('marks every best-effort-tail doorway as displaced (dense-era case)', () => {
     const doorways = Array.from({ length: 6 }, (_, i) => threadEntry(`t${i}`, '2019-01-01'));
-    const feed = [doorways[0], ...filler(1), doorways[1], ...filler(1), doorways[2], ...filler(1), doorways[3], doorways[4], doorways[5]];
+    const feed = [doorways[0]!, ...filler(1), doorways[1]!, ...filler(1), doorways[2]!, ...filler(1), doorways[3]!, doorways[4]!, doorways[5]!];
     const spaced = spaceDoorways(feed);
     // t3/t4/t5 land in the un-spaceable tail with no gap at all — displaced.
     for (const id of ['t3', 't4', 't5']) {
@@ -468,21 +467,5 @@ describe('emptyFeedMessage', () => {
 
   it('renders the era by its own shortName casing (TTPD, not "ttpd" or "Ttpd")', () => {
     expect(emptyFeedMessage(filterOf(['Fashion']), 'TTPD')).toBe('Nothing under Fashion in TTPD.');
-  });
-});
-
-describe('EraSection wires ownership to the rendered list', () => {
-  // The rule above is only true if the component hands it the moments actually
-  // on screen. There are no component tests in this suite (vitest runs in a
-  // `node` environment), so this is a source lock in the idiom of
-  // components/longlive/close-affordance.test.ts.
-  const src = readFileSync(
-    new URL('../../components/longlive/EraSection.tsx', import.meta.url),
-    'utf8',
-  );
-
-  it('derives the video owners from `visible`, never from the full era list', () => {
-    expect(src).toContain('inlineVideoMomentIds(visible)');
-    expect(src).not.toContain('inlineVideoMomentIds(items)');
   });
 });

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { clusterSameDayMoments } from './era-feed-clusters';
 import { mergeEraFeed } from './era-feed';
-import type { ContentItem, ContentTag, VideoNote } from '@swift2/experience';
+import type { ContentItem, ContentTag, VideoNote } from './types';
 
 const ERA_START = '2020-01-01';
 const ERA_END = '2020-12-31';
@@ -47,7 +47,7 @@ describe('clusterSameDayMoments', () => {
 
     expect(out).toHaveLength(2);
     expect(out[0]).toMatchObject({ kind: 'cluster', anchor: { sortDate: '2020-07-24' } });
-    expect(out[0].kind === 'cluster' && out[0].items.map((i) => i.id)).toEqual(['m1', 'm2', 'm3']);
+    expect(out[0]!.kind === 'cluster' && out[0]!.items.map((i) => i.id)).toEqual(['m1', 'm2', 'm3']);
     expect(out[1]).toMatchObject({ kind: 'moment', item: { id: 'm4' } });
   });
 
@@ -84,8 +84,8 @@ describe('clusterSameDayMoments', () => {
     const out = clusterSameDayMoments(feed, 3);
 
     expect(out.map((e) => e.kind)).toEqual(['moment', 'cluster', 'moment']);
-    expect(out[0].kind === 'moment' && out[0].item.id).toBe('newest');
-    expect(out[2].kind === 'moment' && out[2].item.id).toBe('oldest');
+    expect(out[0]!.kind === 'moment' && out[0]!.item.id).toBe('newest');
+    expect(out[2]!.kind === 'moment' && out[2]!.item.id).toBe('oldest');
   });
 
   it('defaults to CLUSTER_MIN_SIZE when minSize is omitted', () => {

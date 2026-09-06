@@ -1,5 +1,5 @@
-import type { ContentItem, VideoNote } from '@swift2/experience';
-import type { Anchored } from '@swift2/experience';
+import type { ContentItem, VideoNote } from './types';
+import type { Anchored } from './feed-types';
 import type { EraFeedEntry } from './era-feed';
 
 /**
@@ -54,7 +54,7 @@ export function clusterSameDayMoments<V extends VideoNote>(
 
   const flush = () => {
     if (run.length >= minSize) {
-      out.push({ kind: 'cluster', items: run.map((e) => e.item), anchor: run[0].anchor });
+      out.push({ kind: 'cluster', items: run.map((e) => e.item), anchor: run[0]!.anchor });
     } else {
       out.push(...run);
     }
@@ -63,7 +63,7 @@ export function clusterSameDayMoments<V extends VideoNote>(
 
   for (const entry of entries) {
     if (entry.kind === 'moment') {
-      if (run.length > 0 && entry.anchor.sortDate === run[0].anchor.sortDate) {
+      if (run.length > 0 && entry.anchor.sortDate === run[0]!.anchor.sortDate) {
         run.push(entry);
       } else {
         flush();
