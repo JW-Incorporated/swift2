@@ -20,6 +20,17 @@
 // were — the only change is WHERE the data comes from (the published
 // bundle, not a second parse of `supabase/seed/**`).
 //
+// `content.ts`/`tracks.ts` (OS-014b-2) took the OTHER accepted pattern
+// instead (per Fable rulings FR-t_cd5741fc-1/-2, same as era-secrets.ts/
+// merch.ts/clownbot-lore.ts's OS-014b-4/5): those keep importing their
+// `.generated.ts` literal directly (no bundle-backed regeneration step
+// here) and rely on a byte-identical-to-the-published-bundle regression
+// test instead — content.ts is on `era-secrets.ts`'s own import graph
+// (`era-secrets.ts` imports `getContentItem`/`CONTENT` from `content.ts`),
+// so giving `content.ts` a bundle-backed generated module here would create
+// the exact fixed-point circularity this script already avoids for
+// `theories.ts`/`videos.ts` (see `dump-longlive-sources.ts`'s doc comment).
+//
 // Run as a `prebuild` step AFTER `scripts/publish-content-bundle.mjs`, so
 // the bundle already exists on disk at `apps/web/public/content/` by the
 // time this script reads it.
