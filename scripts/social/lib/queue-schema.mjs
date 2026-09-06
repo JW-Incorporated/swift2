@@ -28,8 +28,11 @@ import { MAX_X_IMAGES } from './platforms.mjs';
 /** Platforms the poster can actually publish to (post-queue.mjs's postOne). */
 export const PLATFORMS = ['x', 'instagram'];
 
-/** Declared media kinds — see the mediaKind section of validateQueueItem. */
-export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art'];
+/** Declared media kinds — see the mediaKind section of validateQueueItem.
+ * "video-thumb" added 2026-09-05 (#3584, Fable ruling): a rehosted YouTube/
+ * broadcaster thumbnail is not a "photo" — see check-drafts.mjs's
+ * VIDEO_THUMBNAIL_CREDIT_RE / CLEARED_PHOTO_ALLOWLIST for the full story. */
+export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art', 'video-thumb'];
 
 /**
  * Per-platform hard limits, enforced by the platform, not by taste.
@@ -154,6 +157,17 @@ export function validateQueueItem(item) {
   }
   if (item.platform === 'x' && item.mediaKind === 'site-screen') {
     findings.push('mediaKind: X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
+  }
+  // #3584 (Fable ruling, 2026-09-05): Instagram is skipped unless a cleared
+  // photo exists — "video-thumb" (a rehosted YouTube/broadcaster thumbnail)
+  // never qualifies, so it is never allowed on an Instagram item at all.
+  if (item.platform === 'instagram' && item.mediaKind === 'video-thumb') {
+    findings.push('mediaKind: Instagram drafts may not use mediaKind "video-thumb" — Instagram is skipped unless a cleared photo exists (Fable ruling, #3584).');
+  }
+  // X's "video-thumb" ships as a bare link preview only — never an attached
+  // image (see check-drafts.mjs's mirror of this rule for the full story).
+  if (item.platform === 'x' && item.mediaKind === 'video-thumb' && Array.isArray(item.media) && item.media.length > 0) {
+    findings.push('mediaKind: X "video-thumb" drafts may not attach an image via `media` — it ships as a bare link preview only.');
   }
   for (const field of ['mediaCredit', 'mediaSource']) {
     if (item[field] !== undefined && (typeof item[field] !== 'string' || item[field].trim() === '')) {

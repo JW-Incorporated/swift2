@@ -7,6 +7,91 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-06 — Fable triage of the Founders' Brief: 7 of 13 "waiting on you" items were never founder items
+
+**Context:** Joey, 2026-09-06: "Dispatch one card to assess which of the
+issues can be solved without a founder. Be aggressive, make decisions."
+Brief #3893 listed 13 open founder asks. Kanban t_a0ad2392 (Fable 5.1)
+ruled each one against the reversibility test (2026-07-11 operating
+model) and the human-only list (credentials, real spend, irreversible
+external actions, legal exposure). Rulings are binding on agents; a
+founder may overrule after the fact by commenting the ruling id.
+
+| Ruling | Item | Verdict | Why |
+|---|---|---|---|
+| FR-t_a0ad2392-1 | HA#41 / #3616 Karen trigger rename | **Done by agent** | The live runner is now `.github/workflows/routine-karen-nightly.yml` (routines migration, HA#47); renamed there + `runner-cadence.json`. The claude.ai trigger is on #47's *disable* list — you never rename something you are retiring. |
+| FR-t_a0ad2392-2 | HA#42 / #3631 Kevin comment-edit tool | **Done by agent** | Kevin's desk now runs as a GitHub Action with `Bash` + `GH_TOKEN`; `gh api -X PATCH …/issues/comments/{id}` is edit-in-place with no connector change. Revert to edit-in-place is a child card. |
+| FR-t_a0ad2392-3 | HA#9 keep PRs required on `main` | **SKIP — precedent** | `CLAUDE.md` ("`build` gates every merge") and the 2026-08-22 merge-authority entry already assume PR-only landing. Reversible via the ruleset UI any time; verified `protect-swift2-main` (id 21672404) active. |
+| FR-t_a0ad2392-4 | HA#23 / #680 BACKUPS gate | **Founder half done; engineering half found broken** | Step 1 was Joey's 2026-08-30 report. Step 3 (`workflow_dispatch`) needs no founder — ran it: backup of production bytes PASSED (35 tables / 8298 rows / 11.27 MB), restore FAILED on `auth.users` (Supabase-only schema), and the workflow **masked the failure** (`\| tee` without `pipefail`). Two child cards. "Accept the risk" is not a founder decision either: a scheduled Layer-B backup artifact at zero spend mitigates it — child card. |
+| FR-t_a0ad2392-5 | HA#16 Facebook groups checklist | **Converted** | Seed from `sources.md`'s researched groups (child card); the real export needs Joey's login and belongs on the Sunday `fb-export-reminder.yml` issue, not the daily brief. |
+| FR-t_a0ad2392-6 | HA#4 Reddit API account | **Dependency removed** | Reddit is already read without a key (`reddit-rss.ts`, `fanmade-discovery.mjs`); Etsy + Awin keys exist. E5 marketplace research unparked — child card. |
+| FR-t_a0ad2392-7 | #1955 Midnights + TTPD depth spot-check | **Agent QA, not founder taste** | The J3.5 bar is the rubric's "Active" tier (2–4 sourceable items/month). That is measurable: a depth audit script + report (child card). The merge sequence that blocked it landed 2026-08-12; the ticket was stale. `founder-task` label removed; re-add only if the audit finds a gap that needs editorial judgment. |
+| FR-t_a0ad2392-8 | #138 CSAM enrollment (PhotoDNA + NCMEC) | **Deferred with trigger** | The on-file recommendation is "defer until the site accepts user photo uploads" and it does not. 58 days unanswered *is* deferral; deferral is reversible. `founder-decision` label removed so it leaves the daily brief; `cie:safety` stays. Hard trigger: any card/PR that adds user image upload must reopen the ask first (noted on the issue + `docs/definition-of-done.md`). Enrollment itself remains human-only when that day comes. |
+| — | HA#43–46 mobile release train (EXPO_TOKEN, iOS signing, Play key, push creds) | **Human-only — consolidated** | Credentials on Expo/Apple/Google accounts. Reduced to one decision card instead of four line items; `PLAY_SERVICE_ACCOUNT_JSON` already exists as a repo secret (2026-09-06), so the Android submit can be wired from Actions once `EXPO_TOKEN` exists (child card). |
+| — | #3891 SOCIAL_FREEZE | **Already cleared** | Joey flipped it 2026-09-06 19:01; verified posting resumed. |
+
+**Net:** 13 → 4 founder items (#47's 15 routine disables, `EXPO_TOKEN`,
+Wyatt's iOS credential upload, push credentials). Everything else is
+either done or on the swift2 kanban as children of t_a0ad2392.
+
+**Alternatives considered:** leave items as founder asks until answered
+(rejected — 5 of them had aged 13–58 days with no decision content); ask
+Joey to confirm each ruling before acting (rejected — every ruling is
+reversible and the directive was "make decisions").
+
+**Approved by:** Fable arbiter (claude-fable-5-1), per
+`policy/escalation-matrix.yaml`; founder overrule by comment.
+
+---
+
+## 2026-09-05 — #3584 checker hole closed: rehosted video thumbnails can't be `mediaKind: "photo"`; appearance lane is X-only
+
+**Decision (Fable 5.1 ruling, kanban t_36d74b87 → t_503ff677, binding, reversible design/policy call — no founder reply needed).**
+1. A rehosted YouTube/broadcaster thumbnail is NOT a `photo`. This entry's
+   2026-08-15 definition of "photo" (a license-cleared local file) and
+   `docs/marketing/social-strategy.md` §2 (no typography/designed cards
+   standing in for real media) already said so — #3584 is a checker hole,
+   not a new policy. `scripts/social/check-drafts.mjs`'s `checkMedia` now
+   hard-fails a `mediaKind: "photo"` tile whose `mediaCredit`/`mediaSource`
+   reads like a rehosted video thumbnail, or that isn't in an explicit
+   allowlist of the genuinely cleared corpus files under
+   `/social/library/photos/` (`CLEARED_PHOTO_ALLOWLIST`) — either signal
+   alone fails. `scripts/social/lib/queue-schema.mjs` carries a matching
+   `mediaKind: "video-thumb"` value (the new declared kind for this shape):
+   Instagram drafts reject it outright; X drafts may only carry it with no
+   attached image (a bare link preview).
+2. Appearance-lane posts go X text-only. Instagram is skipped unless a
+   cleared photo exists (the calendar's "empty IG slot beats a failed one"
+   rule) — this lane has none to offer, so it no longer manufactures an
+   Instagram sibling at all. `checkCampaignPair`'s otherwise-unconditional
+   cross-platform pairing rule (Joey, 2026-08-25/26, "always an IG copy,
+   always") now exempts `appearance:`-family campaigns by name, since this
+   is the one lane the ruling deliberately carves an X-only shape out for.
+3. The lane may keep running unattended (2026-08-25 decision stands)
+   PROVIDED the checker enforces 1 and 2 mechanically (now true — see
+   above). Caption copy must not claim engagement with unwatched media
+   ("come watch with me", "my whole day is now about") — that template was
+   already dropped from `scripts/appearance-discovery/lib/social-draft.mjs`
+   in the 2026-08-31 entry below; this entry only removes the leftover
+   Instagram/thumbnail machinery around it (the thumbnail fetch, the vision
+   "Taylor is really in the frame" verification call, and the
+   `mediaKind: "photo"` declaration it fed).
+
+**Implementation:** `scripts/social/check-drafts.mjs`,
+`scripts/social/check-drafts.test.ts`, `scripts/social/lib/queue-schema.mjs`,
+`scripts/appearance-discovery/lib/social-draft.mjs` (rewritten X-only, pure,
+no network/vision dependency), `scripts/appearance-discovery/lib/social-draft.test.ts`,
+`scripts/appearance-discovery/discover.mjs` (drops the thumbnail fetch/write
+step for this lane). Deleted 4 stale queue files past the 48h stale window
+that would never post: `2026-08-31-appearance-ldBrFonU8NA-{x,ig}.json`,
+`2026-09-01-appearance-T6iTnTV-Rgw-{x,ig}.json` (the GMA Dolly-memorial card
+never shipped).
+
+**Approved by:** Fable 5.1 arbiter ruling on kanban t_36d74b87, implemented
+on t_503ff677 — reversible checker/policy-enforcement fix under standing
+agent authority (`merge_authority: agent`). Issue #3584 commented with this
+ruling and closed.
+
 ## 2026-09-05 — ADR: the content bundle is a versioned artifact, not a database (OS-010)
 
 **Context:** D1 (ratified 2026-09-05, `docs/specs/2026-09-05-one-source-

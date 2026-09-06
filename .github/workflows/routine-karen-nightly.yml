@@ -1,7 +1,8 @@
-# Karen — nightly scan, migrated from claude.ai Routine `trig_01TmYaZgnecrEp9mkeV3Gq6X`
-# (registered display name still pending T-5 rename to "Karen — weekly
-# judgment slice" — see docs/agents/runners.md § T-5) to this scheduled
-# Action per docs/audits/2026-09-05-claude-routines-relocation-assessment.md
+# Karen — weekly judgment slice, migrated from claude.ai Routine
+# `trig_01TmYaZgnecrEp9mkeV3Gq6X` (registered there as "Karen — nightly scan";
+# the T-5 rename landed here, on the live runner, 2026-09-06 — see
+# docs/agents/runners.md § T-5) to this scheduled Action per
+# docs/audits/2026-09-05-claude-routines-relocation-assessment.md
 # + the 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
 #
 # Judgment/ticket-filing routine: opens a small PR containing only the
@@ -32,7 +33,7 @@ jobs:
   run:
     uses: ./.github/workflows/routine-template.yml
     with:
-      routine_name: "Karen — nightly scan"
+      routine_name: "Karen — weekly judgment slice"
       prompt_file: docs/agents/runner-prompts/karen-nightly.md
       model: claude-sonnet-5
       allowed_tools: "Bash,Read,Grep,Glob,Write,Task"

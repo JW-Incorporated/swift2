@@ -247,6 +247,48 @@ describe('buildBrief — five sections (v3, 2026-08-23)', () => {
     expect(brief).not.toContain('Nothing is gated on you');
   });
 
+  // 2026-09-06 content-quality fix: surface which open HUMAN-ACTIONS items
+  // are cheap to clear, so a founder skimming top-to-bottom doesn't have to
+  // read every line's own "~N min" estimate by hand to find a quick win.
+  it('surfaces a "Quickest to clear" callout above the full checklist, fastest first', () => {
+    const brief = buildBrief({
+      ...withGates,
+      openActions: [
+        { number: 1, tag: 'BLOCKING', title: 'Big thing — ~35 min total', ageDays: 1 },
+        { number: 2, tag: 'BLOCKING', title: 'Tiny thing — ~2 min', ageDays: 1 },
+        { number: 3, tag: 'UPGRADE', title: 'Medium thing — ~10 min', ageDays: 1 },
+      ],
+    }, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain('⚡ Quickest to clear');
+    const calloutLine = brief.split('\n').find((l) => l.includes('Quickest to clear'));
+    expect(calloutLine).toBeDefined();
+    // Fastest (HA#2, 2m) must appear before the slower one (HA#3, 10m); the
+    // over-cap item (HA#1, 35m) must not appear in the callout at all.
+    expect(calloutLine!.indexOf('HA#2')).toBeLessThan(calloutLine!.indexOf('HA#3'));
+    expect(calloutLine).not.toContain('HA#1');
+    // The full checklist below is untouched — every item still listed.
+    expect(brief).toContain('HA#1');
+  });
+
+  it('lists up to 4 quick wins and says how many more exist beyond that', () => {
+    const brief = buildBrief({
+      ...withGates,
+      openActions: Array.from({ length: 6 }, (_, i) => ({
+        number: 10 + i, tag: 'UPGRADE', title: `Item ${i} — ~${i + 1} min`, ageDays: 1,
+      })),
+    }, { date: '2026-07-12', now: NOW });
+    const calloutLine = brief.split('\n').find((l) => l.includes('Quickest to clear'))!;
+    expect(calloutLine).toContain('+2 more');
+  });
+
+  it('omits the callout entirely when no open action has a parseable ~N min estimate', () => {
+    const brief = buildBrief({
+      ...withGates,
+      openActions: [{ number: 7, tag: 'UPGRADE', title: 'No estimate at all', ageDays: 1 }],
+    }, { date: '2026-07-12', now: NOW });
+    expect(brief).not.toContain('Quickest to clear');
+  });
+
   it('folds open founder-task issues into Waiting on you', () => {
     const brief = buildBrief({
       ...withGates,

@@ -26,6 +26,71 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 47. [BLOCKING] URGENT — disable 15 original claude.ai routines now duplicated by the GitHub Actions migration — ~15-20 min
+
+**Filed:** 2026-09-06
+
+**Why it matters:** the routines-migration (t_876f9697, t_36d63712,
+t_574dfb62, t_9752a8e0, t_123b1628 — all merged) built GitHub Actions
+replacements for the whole standing fleet and they are now live on
+`main` (`.github/workflows/routine-*.yml`, using
+`CLAUDE_CODE_OAUTH_TOKEN` per D1=B). The original claude.ai triggers for
+these same routines are STILL ENABLED — every one of them is now firing
+**twice**: once from claude.ai, once from GitHub Actions. This is live
+double-spend (double API/token usage) and, for the routines that open
+PRs or file issues, doubled real-world output (duplicate PRs, duplicate
+issues) starting immediately on each one's next cron fire. This is why
+the card is marked URGENT.
+
+**Root cause this session hit:** disabling a live claude.ai trigger
+requires the `RemoteTrigger` tool authenticated to your account. No
+worker sandbox (docs/CI worktree, this one included) has that tool
+attached — confirmed directly this session, matching the same
+account-access limitation already documented at items #35/#38/#41. Only
+a `claude.ai/code` session running as you, or you directly in the
+`claude.ai/code/routines` UI, can flip these.
+
+**Steps — disable each of these 15 triggers** (via the
+`claude.ai/code/routines` UI is fastest; toggle "Enabled" to off, do NOT
+delete — same convention as every prior disable in this file):
+
+| # | Routine | Trigger ID | Now replaced by |
+|---|---|---|---|
+| 1 | Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `routine-laura-a11y-walk.yml` |
+| 2 | Karen — nightly scan (weekly judgment slice) | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `routine-karen-nightly.yml` |
+| 3 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `routine-marjorie-brief.yml` |
+| 4 | News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `routine-news-triage.yml` |
+| 5 | News Triage recall check (T-3 trial) | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `routine-news-triage-recall.yml` |
+| 6 | Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `routine-tree-weekly-plan.yml` |
+| 7 | Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `routine-growth-draft.yml` |
+| 8 | Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `routine-paul-blart.yml` |
+| 9 | Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `routine-austin-build.yml` |
+| 10 | Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `routine-nils-walk.yml` |
+| 11 | Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `routine-kevin-radar.yml` |
+| 12 | Kevin — daily desk (S1+S2+S3) | `trig_01GH3EMWdDwwKpx2GCRnCYM5` | `routine-kevin-daily-desk.yml` |
+| 13 | Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `routine-kevin-s1-karen-solver.yml` (this one was already flagged "pending disable" at item #38 — now doubly justified) |
+| 14 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `routine-vault-run.yml` |
+| 15 | Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | retired outright, replaced by `scripts/check-routine-workflows.mjs` in CI (no GH Actions cron equivalent — this one should just go off) |
+
+**Not in this list, leave alone:** Lex depth (already disabled, warm
+spare) and Marjorie — 8 PM Evening Delta (already disabled, warm spare)
+— neither was migrated. `bedrock nightly audit` is a different project's
+routine on the same account per `runners.md`'s ownership note — do not
+touch it here.
+
+**After disabling:** update `docs/agents/runners.md`'s live trigger
+table to mark all 15 as ⛔ disabled (superseded by GitHub Actions
+migration) — a session can do that edit for you once you confirm the
+disables are done; just say "disabled #47" in chat.
+
+**Worked if:** `claude.ai/code/routines` shows all 15 rows above as
+disabled, and no duplicate PR/issue/output appears from a claude.ai-side
+fire after today.
+
+**Status:** OPEN
+
+---
+
 ### 46. [BLOCKING] Mobile release train — Google Play service-account key into EAS — ~15 min
 
 **Filed:** 2026-09-05
@@ -194,6 +259,22 @@ RemoteTrigger access.
 **Worked if:** either a comment-edit tool is confirmed available and a
 follow-up PR reverts to edit-in-place, or you mark this `SKIP` because no
 such tool exists.
+
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-2):** resolved by the
+routines-migration (#47), not by a connector change. Kevin's daily desk
+now runs as `.github/workflows/routine-kevin-daily-desk.yml` with `Bash`
+allowed and `GH_TOKEN` in the environment, so
+`gh api -X PATCH repos/{owner}/{repo}/issues/comments/{id}` — true
+edit-in-place — is available with no account access at all. The
+claude.ai MCP connector this item asked you to inspect is being retired
+under #47. Reverting `docs/kevin.md` and the runner prompts from
+append-and-supersede back to edit-in-place is agent work, tracked on the
+swift2 kanban (child of t_a0ad2392). Nothing left for a founder.
+
+**Status:** DONE (2026-09-06)
+
+---
+
 ### 41. [BLOCKING] Rename Karen's live trigger to match its judgment-only prompt (#3616, T-5) — ~2 min
 
 **Filed:** 2026-09-01
@@ -240,7 +321,17 @@ live duplicate), not part of this rename.
 `Karen — weekly judgment slice`, `runners.md`'s tables show the new name
 with no RENAME PENDING flag, and issue #3616 is closed.
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-1):** the ground moved
+under this item. The routines-migration (#47) made
+`.github/workflows/routine-karen-nightly.yml` the live runner; the
+claude.ai trigger this item wanted renamed is on #47's *disable* list. A
+trigger about to be retired is never renamed. The rename was applied
+where it now matters — `routine_name` in the workflow and
+`scripts/marjorie/runner-cadence.json` read `Karen — weekly judgment
+slice`; `runners.md`'s live table shows the new name with no RENAME
+PENDING flag; #3616 closed. Nothing left for a founder.
+
+**Status:** DONE (2026-09-06)
 
 ---
 
@@ -578,7 +669,26 @@ information programmatically.
 production (not the fixture) marked **PASS**, and §2's plan/backup-status
 table is filled in instead of "UNVERIFIED."
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-4):** step 1 was already
+answered by your 2026-08-30 report (Free plan, no platform backups, no
+PITR) — that *is* the dashboard reading; §2 Layer A records it. Step 3
+needs no founder: `workflow_dispatch` is reachable from any session with
+repo write, so the production-bytes drill was clicked today —
+run [34054042528](https://github.com/JW-Incorporated/swift2/actions/runs/34054042528).
+Result: **the backup half PASSED against real production bytes** (35
+tables · 8298 rows · 11.27 MB read in 7.7 s over a read-only session)
+and **the restore half FAILED** — `20260904000000_clown_sessions.sql`
+references `auth.users`, and the throwaway Postgres has no `auth` schema
+(Supabase-only). The workflow still reported green because `node … | tee`
+without `set -o pipefail` masks the script's exit code, so the "Record the
+result" step closed the alert as PASSED. Both are agent-fixable bugs and
+are on the swift2 kanban (children of t_a0ad2392): fix the drill so a
+non-Supabase target gets a stub `auth` schema, and make the workflow fail
+honestly. The drill re-runs itself from that fix's PR. Nothing left for a
+founder on this item; the gate flips when the corrected drill passes.
+
+**Status:** DONE (2026-09-06) — founder steps complete; remaining work is
+engineering, tracked on kanban and on #680.
 
 ---
 
@@ -697,7 +807,19 @@ files every Sunday and says so plainly rather than silently doing nothing.
 **Worked if:** the checklist file has real entries and at least one real
 export has been parsed without silently returning 0 posts.
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-5):** this is not a
+decision and should not sit in the Founders' Brief for 13 days. Two halves:
+(1) the checklist is being seeded by an agent from the groups already
+researched in `sources.md` § "Facebook Groups research" (Taylor Swift's
+Vault, the bracelet-trading groups, Kulto ni TAYLOR SWIFT), each entry
+flagged `candidate: true` until a real export arrives — the Sunday
+reminder then lists them instead of shipping empty; (2) the real export
+itself needs your Facebook login and stays on the Sunday
+`fb-export-reminder.yml` issue, which is the correct place to nag for it —
+not the brief. Edit the seeded list any time; nothing waits on you.
+
+**Status:** DONE (2026-09-06) — converted to the weekly reminder; seeding
+tracked on the swift2 kanban (child of t_a0ad2392).
 
 ---
 
@@ -764,7 +886,21 @@ and is the reason `main` has stayed green.
 **Worked if:** whichever you choose, `gh api repos/JW-Incorporated/swift2/rulesets/18819106`
 reflects it, and a test PR still merges once `build` is green.
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-3):** decided by
+precedent, no founder answer needed. `CLAUDE.md` ("`build` gates every
+merge"; "Never babysit your own PR" — land via PR + auto-merge) and
+`docs/decisions.md` 2026-08-22 (merge/push authority granted *through
+`gh pr merge`*, not direct push) already encode the answer this item's own
+recommendation gives: keep `protect-main` as is. Reversible at any time
+via the ruleset UI if a founder ever wants otherwise — that would be a new
+decision, filed fresh. Verified 2026-09-06 (`gh api
+repos/JW-Incorporated/swift2/rules/branches/main`): `main` is governed by
+active ruleset `protect-swift2-main` (id `21672404` — the `18819106` id
+above is stale, that ruleset no longer exists) enforcing `pull_request`,
+`required_status_checks`, `non_fast_forward`, `deletion`. Same posture,
+new id.
+
+**Status:** SKIP (2026-09-06) — precedent already answers it; keep PRs required.
 
 ---
 
@@ -804,7 +940,21 @@ credentials, this was just registering accounts/keys ahead of that build.
 
 **Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
 
-**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-6):** Reddit is no longer
+a prerequisite. The knowledge engine already reads Reddit without any API
+key — `apps/worker/src/sources/reddit-rss.ts` documents the verified
+no-auth path (`<permalink>.rss?limit=N&sort=top`, and subreddit RSS
+feeds), and `scripts/merch-engine/fanmade-discovery.mjs` already polls
+`r/<sub>/new.json` (403 from GitHub runners, fine through the JW Labs
+`home-relay` lane on Joey's home PC). Hype evidence for E5 (score +
+comment count) is fully available that way; the script-app support ticket
+can be ignored or answered whenever Reddit replies — if a key ever arrives
+it becomes an optimization, not a gate. Etsy and Awin are done. The
+marketplace-research build is unparked and tracked on the swift2 kanban
+(child of t_a0ad2392). Nothing left for a founder.
+
+**Status:** DONE (2026-09-06) — Etsy + Awin keys in place; Reddit
+dependency removed by ruling.
 
 ---
 
