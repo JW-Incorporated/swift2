@@ -502,17 +502,23 @@ IG posts by reach/saves, pasted from IG Insights. 2 minutes, and it is the only
 per-post engagement signal that exists. Tree names those 3 in its next monthly
 review and says what they had in common.
 
-### Targets — reset for reality
+### Targets — reset for reality (revised 2026-09-01 — tied to mechanisms, not hopes)
 
-| By | Instagram followers | Also true |
-|---|---|---|
-| 2026-09-30 | **50** | zero failed posts; ≥12 distinct openers per 14 days; every one of the six threads taught twice |
-| 2026-10-31 | **150** | one post with measurable saves; Reddit contribution count ≥20 and the first promo post made |
-| 2026-12-31 | **500** | a repeatable format identified from Insights data |
+**Why these changed:** the previous targets were floors for an account running growth-plan §6's outward-engagement engine (daily human engagement hour, following relevant accounts, Reddit non-promo participation). That engine has not been running — near-zero traction to date is a symptom of that gap, not of calendar quality. Targets below stay the same numbers but now name the mechanism each one depends on, so a miss tells us *what* to fix, not just *that* something's wrong.
+
+| By | Instagram followers | Also true | Depends on |
+|---|---|---|---|
+| 2026-09-30 | **50** | zero failed posts; ≥12 distinct openers per 14 days; every one of the six threads taught twice; first 3 logged shares | Daily human engagement hour (comments + follows, growth-plan §6) running 3+ weeks; share-design pass (below) live on every heartbeat/mood post |
+| 2026-10-31 | **150** | one post with measurable saves; Reddit contribution count ≥20 and the first promo post made | Reddit non-promo engine producing daily draft comments; engagement hour sustained |
+| 2026-12-31 | **500** | a repeatable format identified from Insights data; first collab post with a mid-size fan account | 8+ weeks of Insights data actually arriving monthly (see below) to identify what to double down on |
+
+**App-store launch week revised down from the old day-30 fantasy (500-1,500 was growth-plan's number for an account already running the outward engine): realistic launch-week bump is +200-500 IG in 7 days**, contingent on a pre-launch base of 150+ already built per the targets above.
 
 These are floors for a fan account posting daily with real images and real
-links, not viral projections. One hit changes everything, and no plan can
+links plus a genuine outward-reach engine, not viral projections. One hit changes everything, and no plan can
 schedule one — what a plan can do is buy a ticket every day.
+
+**Standing blocker, not a new ask:** monthly IG Insights (top 3 posts by reach/saves) has been requested every month since 2026-08 and has never arrived. Without it, Tree cannot tell which content/format actually earns shares — the single most important number for tuning this plan — and every "double down / drop" call in the monthly review is a guess instead of a measurement.
 
 ### The monthly self-review
 
