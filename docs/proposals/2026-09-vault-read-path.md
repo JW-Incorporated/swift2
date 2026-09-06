@@ -217,18 +217,24 @@ conclusion as this doc's Option A, and it has since been implemented:
   via `COMMENT ON TABLE` — **not dropped**, matching this doc's own
   "Table retention" caution above (leave unseeded for a rollback window
   rather than drop outright). Merged (PR #3851).
-- **Not yet done:** `packages/core/src/vault.ts` (`createVaultClient`) and
-  the `apps/web/app/vault/{tier0,moment,album/[slug]/tracks}` routes still
-  exist — they were deliberately left in place pending **OS-014b** (tracked
-  in `docs/longlive-experience.md` §9, not yet a kanban card), the follow-up
-  that extracts the web reader's enrichment logic so it too can read from
-  the bundle instead of the generated TS files. Once OS-014b lands, this
-  doc's Option A can be closed out completely (delete `vault.ts` + the
-  three routes).
-- The two "open questions" above are effectively answered: mobile ship
-  timeline no longer gates this (already switched), and table retention
-  chose "mark deprecated, don't drop" as this doc suggested.
+- **OS-014b (all sub-phases, -1 through -6)** extracted the web reader's
+  enrichment logic to a zero-`apps/web`-dependency module
+  (`packages/content-enrichment`), rewired every domain
+  (content/tracks/theories/videos/era-secrets/merch/song-moods/
+  clownbot-lore) to read from the published content bundle, and finally
+  deleted the now-dead Supabase read path: `packages/core/src/vault.ts`
+  (`createVaultClient`), `apps/web/lib/vault.ts`, and the
+  `apps/web/app/vault/{tier0,moment,album/[slug]/tracks}` routes are gone.
+  Only the `VaultSkeleton` shape (now `packages/core/src/vault-types.ts`,
+  zero I/O) survives, because mobile's `@swift2/core` import still needs
+  the shared Tier-0 type. `apps/web/app/vault/{live,live-theories,current}`
+  are a separate, unrelated "Current" tier (reads `current_item`/
+  `live_theory`/`fan_signal` via `lib/current.ts`) and were intentionally
+  left untouched — they were never part of this proposal's scope.
 
-No further founder decision is needed on the read-path direction — it was
-made and executed via D1. The remaining work is purely OS-014b's
-implementation follow-up.
+**Status: CLOSED / SHIPPED.** Option A is fully implemented. The two
+"open questions" above are answered: mobile ship timeline no longer gates
+this (already switched), and table retention chose "mark deprecated,
+don't drop" as this doc suggested. No further founder decision is needed
+on the read-path direction — it was made and executed via D1, and OS-014b's
+implementation follow-up is complete.

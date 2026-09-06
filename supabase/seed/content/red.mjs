@@ -28,7 +28,7 @@ export default {
       day: 30,
       category: 'business',
       significance: 'defining', // stands in for the whole Red era's arrival — no dedicated release-day item exists yet (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-evermore-red-gets-its-do-over-red-taylors-version-opens-at-no-1', 'moment:vault-speak-now-speak-now-sells-over-a-million-copies-in-a-single-week'],
+      relatedIds: ['moment:vault-evermore-red-gets-its-do-over-red-taylors-version-opens-at-no-1', 'moment:vault-speak-now-speak-now-sells-over-a-million-copies-in-a-single-week', 'moment:vault-1989-1989-becomes-her-third-million-copy-opening-week'],
       title: 'Red sells 1.2 million copies — the biggest week in a decade',
       snippet:
         "1.208 million copies in week one — the strongest opening week for any album since Eminem's The Eminem Show in 2002, and her second million-selling debut in a row.",

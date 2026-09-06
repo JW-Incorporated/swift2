@@ -280,6 +280,15 @@ versioning, adopting a paid feature-flag vendor) gets its own
 
 ## Web → native bridge (OS-002, One Source/Three Surfaces Phase 0)
 
+**OS-039 update (Phase 3 complete):** the app's default surface is now
+native, not the WebView. `apps/mobile/App.tsx` renders one of five native
+worlds (era stream, threads, clownbot, community, merch) behind a
+persistent `BottomTabBar`; the WebView (`SiteShell.tsx`) only ever loads
+one of the three legal pages (`/privacy`, `/terms`, `/support`), which have
+no native screen and never will. The web → native bridge below still
+applies to any of those three legal pages the same way it always did — the
+protocol itself didn't change, just which pages can invoke it.
+
 The site (`apps/web`) runs inside the app's WebView (`apps/mobile/components/
 SiteShell.tsx`), and detects that with the `LongLiveApp/<ver> (ios|android)`
 user-agent marker — see `apps/web/lib/longlive/in-app.ts` (OS-001). Phase 0

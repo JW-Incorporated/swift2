@@ -18,6 +18,7 @@ import type { Era, EraId } from '@swift2/experience';
 import type { PlayableVideoNote } from '@swift2/content-enrichment';
 import { loadEraStream } from '../lib/era-stream-data';
 import { MomentCard, PlaceholderFeedRow } from './MomentCard';
+import { ThreadDoorwayRow, EggDoorwayRow } from './DoorwayCard';
 import { eraColors } from '../lib/theme';
 
 export function EraSection({ era, onOpenItem }: { era: Era; onOpenItem: (id: string) => void }) {
@@ -116,6 +117,21 @@ function renderEntry(
         : entry.kind === 'egg'
           ? `egg-${entry.doorway.eggId}`
           : `current-${entry.item.id}`;
+  // Thread/egg doorways get their real native card (OS-037); video/current
+  // entries stay the placeholder row — their native homes (OS-033's moment
+  // detail sheet doesn't cover them either; that's OS-034 threads mode,
+  // OS-036 Clownbot/mood, OS-038 search/share/feedback) aren't built yet.
+  // Tapping a doorway is a documented no-op here, same as `onOpenItem`
+  // above: OS-034 (threads mode) and the theory guide overlay are the
+  // native destinations neither exists yet, so there's nowhere to send the
+  // tap — the card still renders and reads correctly, it just doesn't
+  // navigate anywhere until those screens ship.
+  if (entry.kind === 'thread') {
+    return <ThreadDoorwayRow key={key} doorway={entry.doorway} />;
+  }
+  if (entry.kind === 'egg') {
+    return <EggDoorwayRow key={key} doorway={entry.doorway} />;
+  }
   return <PlaceholderFeedRow key={key} entry={entry} />;
 }
 

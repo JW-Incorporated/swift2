@@ -1,10 +1,23 @@
 // LongLive — native root.
 //
-// Decision 2026-09-05 (docs/decisions.md): the app shows the shipped website
-// (www.longlivets.com) inside a WebView — see components/SiteShell.tsx — and
-// keeps the natively-built notification surface around it. The native Vault
-// navigator (components/VaultNavigator.tsx, fed by lib/vault.ts) is no longer
-// mounted; it remains in the tree as the long-term native port target.
+// OS-039 (docs/specs/2026-09-05-one-source-three-surfaces.md, Phase 3):
+// SiteShell is retired as the app's DEFAULT surface. Every native screen
+// OS-032..OS-038 built now ships flag-on by default (routes.ts's
+// DEFAULT_ROUTE_FLAGS) and the five native worlds (era stream, threads,
+// clownbot, community, merch) are reachable from a persistent
+// BottomTabBar, same as the web's own BottomNav.tsx. The WebView
+// (components/SiteShell.tsx) still exists and is still mounted, but ONLY
+// ever shows one of the three legal pages (`/privacy`, `/terms`,
+// `/support`) — see `isLegalPageUrl` below — which have no native screen
+// and never will (they're static legal text, not product surface). Any
+// other URL that `resolve()`/`destinationFor` would have sent to the
+// WebView (a bare site root, an off-site link, a stale `?current=`/`?song=`/
+// `?guide=` notification-era param with no native equivalent yet) now lands
+// on the native home (whichever BottomTabBar tab was last active) instead —
+// see `openWebUrl` below. This preserves the pre-OS-039 decision (2026-09-05,
+// docs/decisions.md) that a notification/link the app doesn't understand
+// must never crash or dead-end, it now just degrades to the native home
+// screen instead of a WebView load.
 //
 // SAFE AREA (2026-08-30). `SafeAreaView` from `react-native` is iOS-only — on
 // Android it insets nothing, so chrome rendered under the status bar and
@@ -12,7 +25,7 @@
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
 import { useCallback, useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -38,8 +51,38 @@ import { NotificationSettingsScreen } from './components/NotificationSettingsScr
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 import { EraStreamScreen } from './components/EraStreamScreen';
+import { ThreadsScreen } from './components/ThreadsScreen';
+import { CommunityScreen } from './components/CommunityScreen';
+import { MerchScreen } from './components/MerchScreen';
 import { TrackGuideScreen } from './components/TrackGuideScreen';
 import { SongScreen } from './components/SongScreen';
+import { MomentSheet } from './components/MomentSheet';
+import { ClownChatScreen } from './components/ClownChatScreen';
+import { BottomTabBar, type HomeTab } from './components/BottomTabBar';
+
+/**
+ * OS-039: the only three routes the WebView is still allowed to show —
+ * static legal text with no native screen and no plan to ever get one.
+ * Matched on pathname alone (query/hash ignored) against `SITE_URL`'s own
+ * host, same host-matching posture `destinationFor` (@swift2/shared) uses,
+ * so a non-longlivets.com URL is never mistaken for a legal page.
+ */
+const LEGAL_PATHS = new Set(['/privacy', '/terms', '/support']);
+
+function isLegalPageUrl(rawUrl: string, siteUrl: string): boolean {
+  try {
+    const site = new URL(siteUrl);
+    const siteHosts = new Set(
+      site.hostname.startsWith('www.')
+        ? [site.hostname, site.hostname.slice('www.'.length)]
+        : [site.hostname, `www.${site.hostname}`],
+    );
+    const u = new URL(rawUrl);
+    return siteHosts.has(u.hostname) && LEGAL_PATHS.has(u.pathname);
+  } catch {
+    return false;
+  }
+}
 
 /**
  * OS-035's two param-carrying screens don't fit the existing plain-boolean
@@ -54,9 +97,13 @@ type TrackGuideRouteState =
   | null;
 
 export default function App() {
-  // The page the shell shows. Deep links replace it; the WebView keeps its
-  // own back history for in-site navigation.
-  const [webUrl, setWebUrl] = useState(SITE_URL);
+  // OS-039: the native home is now always one of the five BottomTabBar
+  // worlds — this replaces the old "webUrl state that defaults to the site
+  // root" posture. `legalUrl` is the ONLY thing that still drives a WebView
+  // load; it is null whenever no legal page is showing (i.e. every other
+  // screen state below takes priority in the render tree).
+  const [activeTab, setActiveTab] = useState<HomeTab>('era');
+  const [legalUrl, setLegalUrl] = useState<string | null>(null);
   // Notifications Phase 1 (spec §8): the bell is reachable from every screen
   // → Notification Settings. App.tsx renders one screen at a time, so the
   // native screens are full-bleed overlays toggled by local state.
@@ -65,14 +112,10 @@ export default function App() {
   // Phase 2 (spec §7): the pre-permission onboarding screen, shown at most
   // once per install, at the value moment of the first bell tap.
   const [onboardingOpen, setOnboardingOpen] = useState(false);
-  // OS-032: the native era stream, reached via `?screen=era-stream` once the
-  // `eraStream` route flag is on (off by default — see routes.ts).
-  const [eraStreamOpen, setEraStreamOpen] = useState(false);
   // OS-035: the native track guide / song dossier, reached via
-  // `?screen=track-guide` / `?screen=song` once their respective route
-  // flags are on (off by default — see routes.ts). See
-  // `TrackGuideRouteState`'s doc for why this is a small union rather than
-  // another plain boolean.
+  // `?screen=track-guide` / `?screen=song` (both flag-on by default since
+  // OS-039 — see routes.ts). See `TrackGuideRouteState`'s doc for why this
+  // is a small union rather than another plain boolean.
   const [trackGuideRoute, setTrackGuideRoute] = useState<TrackGuideRouteState>(null);
   // Tracks for the era currently open in `trackGuideRoute` — loaded async
   // via `loadTrackGuide` (the published bundle, OS-035's data layer) and
@@ -81,6 +124,11 @@ export default function App() {
   // re-fetching. Cleared whenever the route's era changes so a stale list
   // never renders while the new era's fetch is in flight.
   const [trackGuideTracks, setTrackGuideTracks] = useState<TrackNote[]>([]);
+  // OS-033: the native moment detail sheet, reached via `?item=<id>` (the
+  // `moment` route flag is on by default since OS-039 — see routes.ts).
+  // Holds the id rather than a boolean since the sheet needs it to load the
+  // moment.
+  const [momentItemId, setMomentItemId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!trackGuideRoute) return;
@@ -103,16 +151,27 @@ export default function App() {
   // SiteShell's onShouldStart) in-WebView link clicks to native-capable
   // routes. `resolve()` already applies the per-screen feature flags, so
   // toggling one takes effect on the very next navigation with no rebuild.
+  // OS-039: `era-stream`/`threads`/`community`/`merch`/`clownbot` no longer
+  // get their own boolean — they ARE the five BottomTabBar tabs, so
+  // resolving one of them just switches `activeTab` (closing every other
+  // overlay first, same as every other branch here always has).
   const openNativeScreen = useCallback((screen: ScreenId, params: NativeParams = {}) => {
     setNotificationSettingsOpen(false);
     setInboxOpen(false);
     setOnboardingOpen(false);
-    setEraStreamOpen(false);
     setTrackGuideRoute(null);
+    setMomentItemId(null);
+    setLegalUrl(null);
     if (screen === 'settings') {
       setNotificationSettingsOpen(true);
-    } else if (screen === 'era-stream') {
-      setEraStreamOpen(true);
+    } else if (
+      screen === 'era-stream' ||
+      screen === 'threads' ||
+      screen === 'community' ||
+      screen === 'merch' ||
+      screen === 'clownbot'
+    ) {
+      setActiveTab(screen === 'era-stream' ? 'era' : screen);
     } else if (screen === 'track-guide') {
       // routes.ts only resolves this screen when `params.eraId` is present
       // (see `paramsForDestination`/`destinationFor`'s track-guide arm) —
@@ -142,18 +201,32 @@ export default function App() {
         .catch((e) => {
           console.warn('ensureTrackGuideWired failed', e instanceof Error ? e.message : e);
         });
+    } else if (screen === 'moment' && params.itemId) {
+      setMomentItemId(params.itemId);
     } else {
       setInboxOpen(true);
     }
   }, []);
 
+  // OS-039: a URL `resolve()` hands to `openWeb` is one of two things now —
+  // a legal page (`/privacy`, `/terms`, `/support`), which the WebView still
+  // renders, or anything else (a bare site root, an off-site URL, a stale
+  // notification param with no native screen), which degrades to the
+  // native home rather than ever loading the WebView on a non-legal route
+  // (this card's own "done when": no route resolves to `web` except the
+  // legal pages).
   const openWebUrl = useCallback((url: string) => {
     setNotificationSettingsOpen(false);
     setInboxOpen(false);
     setOnboardingOpen(false);
-    setEraStreamOpen(false);
     setTrackGuideRoute(null);
-    setWebUrl(url);
+    setMomentItemId(null);
+    if (isLegalPageUrl(url, SITE_URL)) {
+      setLegalUrl(url);
+    } else {
+      setLegalUrl(null);
+      setActiveTab('era');
+    }
   }, []);
 
   const navigate = useCallback(
@@ -222,6 +295,16 @@ export default function App() {
     [openNativeScreen],
   );
 
+  // OS-033: a moment id from anywhere in the native tree (era-stream cards,
+  // a song dossier's "Keep exploring" connection) funnels through the same
+  // navigate() every other entry point uses, so the moment/eraStream/
+  // trackGuide route flags all apply consistently regardless of which
+  // screen the tap originated from.
+  const openMoment = useCallback(
+    (id: string) => navigate(`${SITE_URL}?item=${encodeURIComponent(id)}`),
+    [navigate],
+  );
+
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -237,8 +320,6 @@ export default function App() {
               onClose={() => setInboxOpen(false)}
               onOpenItem={(event) => navigate(event.deepLink)}
             />
-          ) : eraStreamOpen ? (
-            <EraStreamScreen />
           ) : trackGuideRoute?.screen === 'track-guide' ? (
             <TrackGuideScreen
               eraId={trackGuideRoute.eraId}
@@ -252,12 +333,14 @@ export default function App() {
               eraId={trackGuideRoute.eraId}
               track={trackGuideRoute.track}
               onOpenSong={(eraId, track) => setTrackGuideRoute({ screen: 'song', eraId, track })}
-              // Native moment detail (OS-033/OS-037) isn't built yet — a
-              // "Keep exploring" moment connection has nowhere native to
-              // send it to, so this is a documented no-op, matching
-              // EraStreamScreen's `handleOpenItem` precedent.
-              onOpenMoment={undefined}
+              // OS-033 ships the native moment sheet: a "Keep exploring"
+              // moment connection now opens it (through the same navigate()
+              // every other entry point uses), replacing the documented
+              // no-op OS-035 left here pending this card.
+              onOpenMoment={openMoment}
             />
+          ) : momentItemId ? (
+            <MomentSheet itemId={momentItemId} onClose={() => setMomentItemId(null)} />
           ) : onboardingOpen ? (
             <OnboardingScreen
               onDone={(outcome) => {
@@ -268,13 +351,35 @@ export default function App() {
                 if (outcome.kind === 'customize') openNativeScreen('settings');
               }}
             />
-          ) : (
+          ) : legalUrl ? (
+            // OS-039: the WebView's LAST remaining job — one of the three
+            // legal pages. No native-capable-link interception here (a
+            // legal page has no in-page links back into the app's own
+            // native-capable routes worth intercepting); `navigate` still
+            // handles the rare in-page link to another part of the site.
             <SiteShell
-              url={webUrl}
+              url={legalUrl}
               onBridgeMessage={handleBridgeMessage}
               isNativeCapableUrl={isNativeCapableUrl}
               onNativeCapableLinkPress={navigate}
             />
+          ) : (
+            <View style={styles.fill}>
+              <View style={styles.fill}>
+                {activeTab === 'era' ? (
+                  <EraStreamScreen onOpenItem={openMoment} />
+                ) : activeTab === 'threads' ? (
+                  <ThreadsScreen />
+                ) : activeTab === 'clownbot' ? (
+                  <ClownChatScreen onClose={() => setActiveTab('era')} />
+                ) : activeTab === 'community' ? (
+                  <CommunityScreen />
+                ) : (
+                  <MerchScreen />
+                )}
+              </View>
+              <BottomTabBar active={activeTab} onChange={setActiveTab} />
+            </View>
           )}
         </SafeAreaView>
       </SafeAreaProvider>
