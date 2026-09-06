@@ -195,7 +195,11 @@ describe('CONTENT dataset invariants', () => {
     // #717: these three aesthetic moments carried release-adjacent placeholder
     // dates, so day-level labels implied precision nobody researched — Joey
     // moved them to editorial period labels.
-    expectLabel('red-snl', 'Fall 2012');
+    // 'red-snl' was re-sourced #3755 (2026-09-05) with a specific dated
+    // event (the AMAs performance) replacing the old undated stub, so it
+    // now carries a researched day-precision label instead of the prior
+    // editorial "Fall 2012" placeholder.
+    expectLabel('red-snl', 'November 18, 2012');
     expectLabel('ttpd-typewriter', 'Spring 2024');
     expectLabel('tloas-sequins', 'Fall 2025');
   });
