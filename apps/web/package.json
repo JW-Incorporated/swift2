@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node ../../scripts/sync-source-tiers.mjs && node ../../scripts/sync-longlive-content.mjs && node ../../scripts/sync-longlive-tracks.mjs && node ../../scripts/sync-longlive-theories.mjs && node ../../scripts/sync-longlive-videos.mjs && node ../../scripts/sync-longlive-era-secrets.mjs && node ../../scripts/sync-song-moods.mjs && node ../../scripts/sync-clownbot-lore.mjs && node ../../scripts/sync-longlive-merch.mjs && node ../../scripts/publish-content-bundle.mjs --no-resync",
+    "prebuild": "node ../../scripts/sync-source-tiers.mjs && node ../../scripts/sync-longlive-content.mjs && node ../../scripts/sync-longlive-tracks.mjs && node ../../scripts/sync-longlive-theories.mjs && node ../../scripts/sync-longlive-videos.mjs && node ../../scripts/sync-longlive-era-secrets.mjs && node ../../scripts/sync-song-moods.mjs && node ../../scripts/sync-clownbot-lore.mjs && node ../../scripts/sync-longlive-merch.mjs && node ../../scripts/publish-content-bundle.mjs --no-resync && node ../../scripts/generate-bundle-backed-modules.mjs",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit"
@@ -17,6 +17,7 @@
     "@radix-ui/react-tooltip": "^1.2.16",
     "@radix-ui/react-visually-hidden": "^1.2.7",
     "@swift2/core": "*",
+    "@swift2/content-enrichment": "*",
     "@swift2/experience": "*",
     "@swift2/shared": "*",
     "@tailwindcss/postcss": "^4.3.3",

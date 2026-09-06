@@ -25,6 +25,22 @@ CLAUDE.md's workflow — anything non-trivial gets a spec approved before code.
 `nobody` (same vocabulary as launch-readiness.md rule 3 — `nobody` means
 unstaffed, not stuck, and it's the most actionable answer this table has).
 
+## Audit-reporting scope convention
+
+**Any audit summary relayed to the founders — Discord, kanban comments, PR
+bodies, Founders' Brief entries — must state its scope in its first line.**
+E.g. "prose + sourcing only; photos not checked." A green/pass verdict that
+doesn't say what it checked reads as site-wide quality assurance even when
+it wasn't, which is exactly how the 09-05 "newest posts have no photos"
+incident happened: the 09-04 era quality audits were honest, narrowly-scoped
+reviews of voice/fabrication/sourcing, but the summary passed up to the
+founder didn't repeat that scope, so a real (and already-flagged-elsewhere)
+photo gap read as covered when it wasn't. See
+[`docs/audits/2026-09-05-newest-posts-no-images-root-cause.md`](audits/2026-09-05-newest-posts-no-images-root-cause.md)
+§3/§5 for the full incident. This is a reporting convention, not a new
+automated check — any future audit-writing agent or routine should lead
+with scope before its verdict.
+
 ## Status at a glance
 
 | # | Item | Status | Blocked on | Next action |

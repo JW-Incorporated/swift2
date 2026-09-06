@@ -31,7 +31,7 @@ jobs:
       routine_name: "Growth — daily draft"
       prompt_file: docs/agents/runner-prompts/growth-draft.md
       model: claude-opus-4-8
-      allowed_tools: "Bash,Read,Grep,Glob,Write,WebSearch,WebFetch,Task"
+      allowed_tools: "Bash,Read,Grep,Glob,Write,WebSearch,WebFetch"
       timeout_minutes: 30
       checkout_token_secret: SOCIAL_POSTER_PAT
     secrets:

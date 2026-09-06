@@ -1,3 +1,33 @@
+/**
+ * BUNDLE AS SOURCE OF TRUTH, LITERAL AS RUNTIME VALUE (OS-014b-4, same
+ * reasoning recorded for merch.ts and clownbot-lore.ts's OS-014b-5 — see
+ * that file's header for the fuller writeup): `ERA_SECRETS_RAW` keeps
+ * importing straight from `era-secrets.generated.ts` (a plain object
+ * literal with zero imports) rather than reading the published bundle's
+ * `era-secrets.json` via `packages/content`'s async `loadBundle()` or the
+ * synchronous `readBundleArtifact()` helper (`./read-bundle-artifact.ts`).
+ *
+ * This module is reachable from `EraSecretCard.tsx`, a `'use client'`
+ * component (`EraSecretCard` -> `era-secrets.ts` -> `era-secrets.generated`)
+ * — Next.js/Turbopack statically traces every module in a client
+ * component's import graph and refuses to bundle `node:fs`/`node:path` for
+ * the browser, so `readBundleArtifact()` is not usable here (see its own
+ * doc comment for the concrete build failure this constraint comes from).
+ * `loadBundle()` is likewise the wrong shape: it is an async HTTP client,
+ * and every one of the ~100+ call sites across the app reads
+ * `eraSecretsForEra`/`dailyEraSecret`/etc. synchronously today (this
+ * migration's explicit "zero pixel/behavior change" bar) — switching to an
+ * async load would ripple into every consumer's render path for no benefit
+ * apps/web's own build doesn't already get for free (the generated file is
+ * produced from the exact same `supabase/seed/era-secrets/**` source the
+ * bundle is built from, by the same `prebuild` step, before either is
+ * read).
+ *
+ * `era-secrets.test.ts` enforces the actual invariant instead: a
+ * byte-identical-to-the-published-bundle regression check, so any drift
+ * between this literal and `era-secrets.json` fails the suite immediately
+ * — see that file for the assertion.
+ */
 export {
   eraSecretsForEra,
   epochDay,

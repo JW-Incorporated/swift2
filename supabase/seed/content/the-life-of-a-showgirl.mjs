@@ -13175,5 +13175,157 @@ export default {
         // chart exists; not a photo-shaped moment. Left for the checkers.
       },
     },
+    {
+      slug: 'i-knew-it-i-knew-you-country-radio-double-meanings',
+      // Cross-links: the same song's other Vault pages — its Oscar-race entry
+      // and the Toy Story 5 video debut.
+      relatedIds: [
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+      ],
+      year: 2026,
+      month: 9,
+      day: 5,
+      category: 'music',
+      title:
+        'Taylor unpacks the double meanings of "I Knew It, I Knew You" — and names the Randy Newman she was chasing',
+      snippet:
+        'In a rare round of country-radio interviews, Taylor walked through the wordplay she built into her Toy Story 5 song on purpose, and named the songwriter she tried to channel writing it: Randy Newman.',
+      sourceUrl:
+        'https://www.billboard.com/music/music-news/taylor-swift-i-knew-it-i-knew-you-meaning-country-radio-1236335029/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor almost never does country radio anymore, so a rare round of country-radio interviews around Sept. 5, 2026 turned into more than a promo lap: it turned into a songwriter walking through her own work. The song was "I Knew It, I Knew You," the ballad she wrote for Toy Story 5 from cowgirl Jessie\'s point of view, and she used the airtime to open up the lyrics she\'d deliberately built to work two ways at once.\n\nShe said she loves it when fans dig for double meanings, because she plants them on purpose — a song gives you only a few minutes to carry a whole film, so she leans on lines that mean two things at the same time. The clearest example is a single misspelling: a lyric printed as "daze" (d-a-z-e) is meant to be heard as "days" too, so the line lands at once as a childhood haze and as childhood days — a soft, beautiful memory that goes blurry at the edges. "Blades of the grass in summer" points back to playing outside as a kid, but also sits at a toy\'s eye level, since a toy can only see as high as the grass. And "parachutes for the free fall of being younger" is both a literal nod to the little plastic parachute army men of the Toy Story world and a figure for the person who catches you while you grow up.\n\nOn the sound rather than the words, she named her north star: Randy Newman. Taylor called herself a longtime Randy Newman fan and said she tried to channel him on the track — his taste for unexpected chord movement and a plainspoken, storybook warmth — which is part of why a Taylor song written in 2026 lands closer to a Pixar standard than to anything on the pop charts she\'d been topping. It is the rare case of her narrating her own craft in real time: the Toy Story 5 song had already opened at No. 1 on the Hot 100 and swept country and adult-pop radio, but this was the first time she showed the seams.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-i-knew-it-i-knew-you-meaning-country-radio-1236335029/',
+            source_title:
+              "Taylor Swift Talks 'Double Meaning' of 'I Knew It, I Knew You' Lyrics in Rare Country Radio Appearance",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+            notes:
+              'confirms the "daze"/"days" wordplay, the "blades of grass"/"parachutes" double meanings, and that she plants them deliberately; resolved via web search — this run\'s egress proxy blocks direct fetches to news domains.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-randy-newman-toy-story-song-1235621007/',
+            source_title:
+              "Taylor Swift Says She Tried to Channel Randy Newman on 'I Knew It, I Knew You'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+            notes:
+              'confirms she is a longtime Randy Newman fan and tried to channel him writing the song; resolved via web search, not fetched (news-domain egress blocked this run).',
+          },
+        ],
+        // Text-first: a radio interview has no reusable, allowlisted subject
+        // photo; the era already carries premiere/hero shots on the song's
+        // other pages. Left for Photo Enrichment / the checkers.
+      },
+    },
+    {
+      slug: 'amc-leawood-films-eras-tour-inspiration',
+      year: 2026,
+      month: 8,
+      day: 28,
+      category: 'business',
+      title:
+        'AMC builds its own movie-distribution label, "Leawood Films" — and names the Eras Tour film as the reason',
+      snippet:
+        'The theater chain is getting into distribution, and its own pitch credits the sold-out demand it saw for concert films — Taylor\'s Eras Tour movie chief among them — as proof the idea works.',
+      sourceUrl:
+        'https://investor.amctheatres.com/news-events/press-releases/detail/437/amc-entertainment-creates-leawood-films-with-the-aim-of-having-more-movies-distributed-on-to-the-big-screen',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When AMC Theatres announced a new film-distribution arm in late August 2026, it did something companies rarely do in a press release: it named the thing that gave them the idea. "Leawood Films," the chain\'s new venture, will distribute finished, independently financed movies to theaters while letting filmmakers keep ownership of their work and a share of what comes after the theatrical run — and AMC\'s own framing points straight at the concert films that packed its auditoriums, with Taylor\'s Eras Tour movie named as the headline example of theatrical demand the traditional pipeline was leaving on the table.\n\nThe numbers behind that claim are AMC\'s best argument. Taylor\'s Eras Tour concert film grossed about $261.6 million worldwide and stands as the highest-grossing concert film in box-office history — a run AMC distributed itself, outside the usual studio system, after Taylor took the movie straight to the chain. Leawood Films is described as the next step down that same road: AMC ties it to its earlier direct deals for the Eras Tour film, the 2025 theatrical "Official Release Party of a Showgirl," and Beyoncé\'s 2023 Renaissance concert film. The new label is meant for small- and mid-budget movies that struggle to find distribution elsewhere, across genres — not blockbuster tentpoles, and not limited to music or concert films — and it will split its base between Los Angeles and AMC\'s home town of Leawood, Kansas, which is where the name comes from.\n\nFor the Vault the throughline is narrower than the film-industry story: an era defined by Taylor rewriting how records are sold has a companion note in how movies reach a screen. A pop star\'s tour film didn\'t just break a box-office record; a national theater chain now cites it, by name, as the case study for a new line of business.',
+        sources: [
+          {
+            outlet: 'AMC Entertainment',
+            url: 'https://investor.amctheatres.com/news-events/press-releases/detail/437/amc-entertainment-creates-leawood-films-with-the-aim-of-having-more-movies-distributed-on-to-the-big-screen',
+            source_title:
+              'AMC Entertainment Creates "Leawood Films" With the Aim of Having More Movies Distributed on to the Big Screen',
+            publisher: 'AMC Entertainment Holdings (investor relations)',
+            source_type: 'official',
+            accessed_at: '2026-09-06',
+            reliability_score: 5,
+            notes:
+              'AMC\'s own press release announcing the venture; resolved via web search — this run\'s egress proxy blocks direct fetches.',
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/08/amc-theaters-leawood-films-launch-1237063060/',
+            source_title:
+              'AMC Theatres Gets Into Distribution Business, Launches Leawood Films',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'KCUR',
+            url: 'https://www.kcur.org/arts-life/2026-09-05/amc-leawood-films-movies-kansas-taylor-swift-eras-tour',
+            source_title:
+              'Inspired by Taylor Swift, AMC creates Leawood Films to get more movies to the big screen',
+            publisher: 'KCUR (NPR affiliate)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+            notes:
+              'confirms the Eras Tour / Official Release Party of a Showgirl / Beyoncé Renaissance lineage and the $261.6M concert-film figure.',
+          },
+        ],
+        // Text-first: a corporate distribution announcement has no reusable,
+        // allowlisted subject photo. Left for the checkers.
+      },
+    },
+    {
+      slug: 'florida-orchestra-taylor-swift-symphony-era-mahaffey',
+      year: 2026,
+      month: 9,
+      day: 12,
+      category: 'music',
+      title:
+        "A Taylor Swift symphony opens the Florida Orchestra's season — a fan tribute, no official ties",
+      snippet:
+        'Steve Hackman\'s "Taylor Swift: The Symphony Era" reimagines her catalog for full orchestra in St. Petersburg on Sept. 12 — an unaffiliated fan production, not a Taylor Swift event.',
+      sourceUrl:
+        'https://floridaorchestra.org/event/steve-hackmans-taylor-swift-the-symphony-era/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Florida Orchestra opens its 59th season on Sept. 12, 2026 with an all-Taylor night: "Steve Hackman\'s Taylor Swift: The Symphony Era," a full-orchestra reimagining of her catalog at the Duke Energy Center for the Arts–Mahaffey Theater in St. Petersburg, at 7:30 p.m. It is not a covers set — created and conducted by Steve Hackman, with four vocalists splitting the parts to cover her range, the program threads songs from across her eras into one arc, drawing unexpected connections between them and, in the orchestra\'s own words, unearthing new musical Easter eggs. The setlist spans the whole run, from "Love Story" and "You Belong With Me" to the Showgirl-era single "The Fate of Ophelia," with tickets starting around $38.\n\nThe one thing to be clear about is what this isn\'t. Taylor will not appear, and the production is explicit — on the orchestra\'s own event page — that it is fan-facing and not endorsed by or affiliated with Taylor Swift, TAS Rights Management, or any of her entities. It is a third-party symphonic tribute, the kind of thing her catalog now sustains the way the standards songbook sustains pops orchestras everywhere. We note it as exactly that: a fan experience worth knowing about for anyone near Tampa Bay this September, not a Taylor Swift concert.',
+        sources: [
+          {
+            outlet: 'The Florida Orchestra',
+            url: 'https://floridaorchestra.org/event/steve-hackmans-taylor-swift-the-symphony-era/',
+            source_title: "Steve Hackman's Taylor Swift: The Symphony Era",
+            publisher: 'The Florida Orchestra (promoter/venue)',
+            source_type: 'official',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+            notes:
+              'the promoter\'s own event page — confirms date, venue, conductor, four vocalists, $38 tickets, and the explicit "not affiliated with / endorsed by Taylor Swift or TAS Rights Management" disclaimer. Resolved via web search this run.',
+          },
+          {
+            outlet: 'WUSF',
+            url: 'https://www.wusf.org/arts-culture/2026-09-04/florida-orchestra-giving-taylor-swift-music-symphony-feel',
+            source_title: 'Florida Orchestra giving Taylor Swift music a symphony feel',
+            publisher: 'WUSF (NPR affiliate)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+          },
+        ],
+        // Text-first: no reusable, allowlisted photo of this specific
+        // production exists yet; a generic Taylor shot would misrepresent a
+        // fan-tribute event she is not part of. Left as text on purpose.
+      },
+    },
   ],
 };

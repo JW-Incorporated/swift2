@@ -26,6 +26,71 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 47. [BLOCKING] URGENT — disable 15 original claude.ai routines now duplicated by the GitHub Actions migration — ~15-20 min
+
+**Filed:** 2026-09-06
+
+**Why it matters:** the routines-migration (t_876f9697, t_36d63712,
+t_574dfb62, t_9752a8e0, t_123b1628 — all merged) built GitHub Actions
+replacements for the whole standing fleet and they are now live on
+`main` (`.github/workflows/routine-*.yml`, using
+`CLAUDE_CODE_OAUTH_TOKEN` per D1=B). The original claude.ai triggers for
+these same routines are STILL ENABLED — every one of them is now firing
+**twice**: once from claude.ai, once from GitHub Actions. This is live
+double-spend (double API/token usage) and, for the routines that open
+PRs or file issues, doubled real-world output (duplicate PRs, duplicate
+issues) starting immediately on each one's next cron fire. This is why
+the card is marked URGENT.
+
+**Root cause this session hit:** disabling a live claude.ai trigger
+requires the `RemoteTrigger` tool authenticated to your account. No
+worker sandbox (docs/CI worktree, this one included) has that tool
+attached — confirmed directly this session, matching the same
+account-access limitation already documented at items #35/#38/#41. Only
+a `claude.ai/code` session running as you, or you directly in the
+`claude.ai/code/routines` UI, can flip these.
+
+**Steps — disable each of these 15 triggers** (via the
+`claude.ai/code/routines` UI is fastest; toggle "Enabled" to off, do NOT
+delete — same convention as every prior disable in this file):
+
+| # | Routine | Trigger ID | Now replaced by |
+|---|---|---|---|
+| 1 | Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `routine-laura-a11y-walk.yml` |
+| 2 | Karen — nightly scan (weekly judgment slice) | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `routine-karen-nightly.yml` |
+| 3 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `routine-marjorie-brief.yml` |
+| 4 | News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `routine-news-triage.yml` |
+| 5 | News Triage recall check (T-3 trial) | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `routine-news-triage-recall.yml` |
+| 6 | Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `routine-tree-weekly-plan.yml` |
+| 7 | Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `routine-growth-draft.yml` |
+| 8 | Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `routine-paul-blart.yml` |
+| 9 | Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `routine-austin-build.yml` |
+| 10 | Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `routine-nils-walk.yml` |
+| 11 | Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `routine-kevin-radar.yml` |
+| 12 | Kevin — daily desk (S1+S2+S3) | `trig_01GH3EMWdDwwKpx2GCRnCYM5` | `routine-kevin-daily-desk.yml` |
+| 13 | Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `routine-kevin-s1-karen-solver.yml` (this one was already flagged "pending disable" at item #38 — now doubly justified) |
+| 14 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `routine-vault-run.yml` |
+| 15 | Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | retired outright, replaced by `scripts/check-routine-workflows.mjs` in CI (no GH Actions cron equivalent — this one should just go off) |
+
+**Not in this list, leave alone:** Lex depth (already disabled, warm
+spare) and Marjorie — 8 PM Evening Delta (already disabled, warm spare)
+— neither was migrated. `bedrock nightly audit` is a different project's
+routine on the same account per `runners.md`'s ownership note — do not
+touch it here.
+
+**After disabling:** update `docs/agents/runners.md`'s live trigger
+table to mark all 15 as ⛔ disabled (superseded by GitHub Actions
+migration) — a session can do that edit for you once you confirm the
+disables are done; just say "disabled #47" in chat.
+
+**Worked if:** `claude.ai/code/routines` shows all 15 rows above as
+disabled, and no duplicate PR/issue/output appears from a claude.ai-side
+fire after today.
+
+**Status:** OPEN
+
+---
+
 ### 46. [BLOCKING] Mobile release train — Google Play service-account key into EAS — ~15 min
 
 **Filed:** 2026-09-05

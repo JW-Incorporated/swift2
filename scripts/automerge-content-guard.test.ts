@@ -184,15 +184,14 @@ describe('scanFile / scanFiles', () => {
 // ── the real tree: the exact files #1972 named must be caught, and the
 //    founder's intended view/component auto-merge must NOT regress ──────────
 describe('against the committed tree', () => {
-  it('catches the three real vault route handlers (currently allowlisted by path)', () => {
-    for (const p of [
-      'apps/web/app/vault/tier0/route.ts',
-      'apps/web/app/vault/moment/[id]/route.ts',
-      'apps/web/app/vault/album/[slug]/tracks/route.ts',
-    ]) {
-      expect(scanFile({ path: p, content: read(p) }).length, p).toBeGreaterThan(0);
-    }
-  });
+  // The three legacy Supabase Vault route handlers this test used to assert
+  // against (`apps/web/app/vault/{tier0,moment,album/[slug]/tracks}/route.ts`)
+  // were deleted by OS-014b-6 (`docs/proposals/2026-09-vault-read-path.md`
+  // Option A closeout) — every surface now reads from the published content
+  // bundle and the whole Supabase read path is gone. Nothing in the
+  // committed tree needs this specific regression case anymore; the guard's
+  // general server-secret-scanning behavior is still covered by the other
+  // cases below and the synthetic cases above.
 
   it('catches mood-client.ts reading ANTHROPIC_API_KEY inside the display subtree', () => {
     const p = 'apps/web/lib/longlive/mood-client.ts';
