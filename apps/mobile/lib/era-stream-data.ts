@@ -32,6 +32,7 @@ import {
   type Era,
   type EraId,
   type EraStreamViewModel,
+  type TheoryNote,
 } from '@swift2/experience';
 import { eraVideoFeed, type PlayableVideoNote } from '@swift2/content-enrichment';
 import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
@@ -58,9 +59,9 @@ let theoriesWired = false;
 /** Wires the bundle's theories into `@swift2/experience`'s injected provider (same seam as `apps/web/lib/longlive/theories.ts`) — required once before `eggDoorwaysForEra` can return anything. Idempotent; call before building any era's view-model. */
 function wireTheories(files: Record<string, unknown>): void {
   const flat = files.theories as TheoriesBundleFile[] | undefined;
-  const byEra: Partial<Record<EraId, unknown[]>> = {};
+  const byEra: Partial<Record<EraId, TheoryNote[]>> = {};
   for (const f of flat ?? []) byEra[f.eraId] = f.theories;
-  setTheoriesRawProvider(() => byEra as never);
+  setTheoriesRawProvider(() => byEra);
   theoriesWired = true;
 }
 
