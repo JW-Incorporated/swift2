@@ -620,9 +620,22 @@ one-click Actions dispatch.
 
 ---
 
-### 23. [BLOCKING] BACKUPS launch gate (#680) — read Supabase plan/backup status off the dashboard, run one restore drill against production's own bytes — ~10 min
+### 23. [RESOLVED] BACKUPS launch gate (#680) — read Supabase plan/backup status off the dashboard, run one restore drill against production's own bytes — ~10 min
 
 **Filed:** 2026-08-26
+
+**Resolved 2026-09-06:** gate flipped 🟢 in `docs/launch-readiness.md` and
+`docs/backup-restore.md` §6. FR-t_a0ad2392-4 (2026-09-06) ruled the
+plan/backup-status question (Supabase Free, no platform backup/PITR,
+recorded 2026-08-30) mitigated at zero spend by the daily Layer-B
+scheduled GitHub-artifact backup rather than a founder plan-upgrade
+decision, so that half never needed the dashboard click. The drill itself
+needed two engineering fixes first (#3926 auth-schema shim + pipefail,
+#3931 generated-column-safe restore loader); the corrected run
+([34057210905](https://github.com/JW-Incorporated/swift2/actions/runs/34057210905))
+passed against production's own bytes: 35 tables · 8298 rows · 11.27 MB,
+every table's row count and checksum matching. Nothing further needed from
+Joey on this item.
 
 **Update (2026-08-30, Joey report):** The current project is on the Supabase
 Free plan, which has no available backup options. No backup was made and no
@@ -653,7 +666,7 @@ script's `assertSafeTarget` refuses that regardless). Step 1 (dashboard
 plan/backup-status) is still genuinely founder-only; nothing reaches that
 information programmatically.
 
-**Steps:**
+**Steps (historical — superseded by the resolution above):**
 1. Open the Supabase dashboard for the Long Live project → **Settings** →
    **Billing** (or **Database** → **Backups**). Note: (a) the plan tier,
    (b) whether **Database → Backups** lists automated daily backups, (c) the
@@ -673,7 +686,7 @@ information programmatically.
 
 **Worked if:** `docs/backup-restore.md` §6 has a drill-log row sourced from
 production (not the fixture) marked **PASS**, and §2's plan/backup-status
-table is filled in instead of "UNVERIFIED."
+table is filled in instead of "UNVERIFIED." — **both true as of 2026-09-06.**
 
 **Update (2026-09-06, Fable ruling FR-t_a0ad2392-4):** step 1 was already
 answered by your 2026-08-30 report (Free plan, no platform backups, no
