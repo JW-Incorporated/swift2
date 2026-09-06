@@ -7,6 +7,61 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-06 — Structural fix for recurring stranded-PR problem: proactive branch keep-up + faster watchdog escalation (t_21a0cd6f)
+
+**Context:** Joey, 2026-09-06, in response to t_dcb1f2c0's root-cause
+writeup on 7 stranded PRs that day ("Solve it however you want. Use your
+best judgment. I just don't want it to recur"). t_dcb1f2c0 found 6 of 7
+failed `build` for the identical reason: opened against an older `main`
+while bot content lanes merge every ~2-5 minutes, so each PR's own CI kept
+checking stale assumptions. `git merge main` fixed all 6 with zero
+conflicts — proof this was pure staleness, not real content collision.
+`watchdog.yml`'s existing "PRs stuck" step only detects this 24h+ later and
+does not repair anything.
+
+**Fix (two parts):**
+1. **New `.github/workflows/auto-merge-keepup.yml`** — runs every 15
+   minutes, lists open PRs, and for every PR that (a) targets `main`, (b) is
+   `BEHIND` main, (c) is not `hold`/`cie:escalate`/`founder-decision`
+   labelled, and (d) passes the SAME branch/author content-lane gate
+   `auto-merge-content.yml`'s `enable` job already uses
+   (`scripts/automerge-branch-author-gate.mjs`, now with a CLI entry point
+   reused via `scripts/automerge-keepup.mjs`) — merges `origin/main` into the
+   branch and pushes, using `SOCIAL_POSTER_PAT` (not `GITHUB_TOKEN`, so the
+   push actually re-triggers `build`). A real merge conflict is left
+   completely untouched (dry-run merge first, abort on conflict) — this
+   workflow never resolves content, only mechanically re-syncs. Bounded to 8
+   PRs/run (Actions-minutes discipline, same reasoning as watchdog.yml's
+   `RERUN_BUDGET`).
+2. **`watchdog.yml`'s "PRs stuck on failing or missing checks" step** now
+   runs on every hourly trigger (previously daily-only) and its
+   `RED_AFTER_H` threshold dropped 24h → 6h: with the staleness class
+   structurally prevented by (1), a PR still red after 6h is far more likely
+   a genuine failure that deserves a founder's eyes sooner. The CI re-run
+   sub-step (`gh run rerun`, `RERUN_BUDGET`) stays gated to the daily cron
+   only, so the more frequent alert pass does not multiply re-run spend.
+
+**Why this is safe to run unattended:** the keep-up job reuses the exact
+same eligibility gate auto-merge already trusts to land a PR unattended once
+green — it does not expand who/what may merge, only keeps already-eligible
+branches from drifting stale before auto-merge gets the chance. It never
+opens a PR, never resolves a conflict, never touches content.
+
+**Alternatives considered:** widen `RED_AFTER_H` re-run frequency instead of
+adding a keep-up job (rejected — a CI re-run against the same stale base
+proves nothing; the actual defect is the stale base itself, not a flaky
+check); have each content-lane agent self-rebase before re-running
+(rejected — agents no longer babysit their own PRs by design, 2026-07-25
+decision, and re-arming that would reintroduce the ~69%-of-token-spend
+self-check-in problem that decision eliminated); lower `RED_AFTER_H` without
+adding keep-up (rejected — would alert MORE on the exact staleness noise this
+fix is meant to eliminate).
+
+**Approved by:** Joey ("solve it however you want", 2026-09-06, kanban
+t_21a0cd6f).
+
+---
+
 ## 2026-09-06 — Future-dated Showgirl moment pulled; blocking future-date gate added (t_187359e9)
 
 **Context:** Joey, 2026-09-06: "our engine for producing content is still
