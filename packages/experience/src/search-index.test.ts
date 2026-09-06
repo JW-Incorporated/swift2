@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { CONTENT } from './content';
-import { resolveTrackKey } from '@swift2/experience';
-import './tracks.generated'; // wires setTracksRawProvider so track lookups resolve real data
 import {
   MAX_RESULTS_PER_TYPE,
-  buildSearchIndex,
   flattenGroups,
   normalize,
   scoreDoc,
@@ -12,10 +8,10 @@ import {
   tokenize,
   WEIGHT_DEFINING,
   type SearchDoc,
-  type SearchDocType,
-} from './search';
+  type SearchGroup,
+} from './search-index';
 
-/** Minimal doc factory for ranking tests (mirrors makeDoc's normalization). */
+/** Minimal doc factory for ranking tests (mirrors makeSearchDoc's normalization). */
 function doc(
   partial: Partial<SearchDoc> & { title: string },
   body: string[] = [],
@@ -32,6 +28,13 @@ function doc(
     bodyNorm: [titleNorm, ...body.map(normalize)].join(' '),
     weight: partial.weight ?? 0,
   };
+}
+
+/** First group, asserted present — tests below always expect at least one match. */
+function firstGroup(groups: readonly SearchGroup[]): SearchGroup {
+  const group = groups[0];
+  if (!group) throw new Error('expected at least one search group');
+  return group;
 }
 
 describe('normalize', () => {
@@ -86,9 +89,9 @@ describe('scoreDoc', () => {
     const wordPrefix = doc({ title: 'The snake strikes' });
     const substring = doc({ title: 'Rattlesnake' });
     const scores = [exact, prefix, wordPrefix, substring].map((d) => scoreDoc(d, ['snake']));
-    expect(scores[0]).toBeGreaterThan(scores[1]);
-    expect(scores[1]).toBeGreaterThan(scores[2]);
-    expect(scores[2]).toBeGreaterThan(scores[3]);
+    expect(scores[0]).toBeGreaterThan(scores[1]!);
+    expect(scores[1]).toBeGreaterThan(scores[2]!);
+    expect(scores[2]).toBeGreaterThan(scores[3]!);
   });
 
   it('matches queries typed with straight quotes against curly-quoted titles', () => {
@@ -141,7 +144,7 @@ describe('searchDocs', () => {
       doc({ title: 'Snake', type: 'moment', key: 'm:2' }),
       doc({ title: 'Apple snake', type: 'moment', key: 'm:3' }),
     ];
-    const [group] = searchDocs(many, 'snake');
+    const group = firstGroup(searchDocs(many, 'snake'));
     expect(group.results.map((r) => r.doc.title)).toEqual(['Snake', 'Apple snake', 'Zebra snake']);
   });
 
@@ -149,107 +152,89 @@ describe('searchDocs', () => {
     const many = Array.from({ length: MAX_RESULTS_PER_TYPE + 3 }, (_, i) =>
       doc({ title: `Snake ${i}`, type: 'moment', key: `m:${i}` }),
     );
-    const [group] = searchDocs(many, 'snake');
+    const group = firstGroup(searchDocs(many, 'snake'));
     expect(group.results).toHaveLength(MAX_RESULTS_PER_TYPE);
   });
 });
 
-describe('buildSearchIndex (real data)', () => {
-  const index = buildSearchIndex();
-
-  it('has unique keys', () => {
-    const keys = index.map((d) => d.key);
-    expect(new Set(keys).size).toBe(keys.length);
+// ---------------------------------------------------------------------------
+// Editorial weighting. Added 2026-07-20 after a real, reported failure:
+// searching "wedding" ranked the actual MSG wedding page 20th of 26 matches —
+// past the 5-per-type cap, so invisible — because its title is "Taylor and
+// Travis marry at Madison Square Garden" and never says "wedding", while a
+// chat-show anecdote with the word in its title scored higher.
+// ---------------------------------------------------------------------------
+describe('editorial weighting in ranking', () => {
+  it('lifts a defining body-match above an unmarked title-match', () => {
+    const canonical = doc(
+      { title: 'Taylor and Travis marry at Madison Square Garden', weight: WEIGHT_DEFINING },
+      ['A wedding officiated by their friend Adam Sandler'],
+    );
+    const tangential = doc({ title: 'Wedding plans, teased from a chat-show couch' });
+    const terms = tokenize('wedding');
+    expect(scoreDoc(canonical, terms)).toBeGreaterThan(scoreDoc(tangential, terms));
   });
 
-  it('covers every content type', () => {
-    const types = new Set(index.map((d) => d.type));
-    for (const t of ['era', 'moment', 'egg', 'track', 'theory', 'video', 'thread'] as SearchDocType[]) {
-      expect(types.has(t), `index missing type "${t}"`).toBe(true);
-    }
+  it('still puts an exact title match first — importance reorders, never overrides', () => {
+    const exact = doc({ title: 'wedding' });
+    const defining = doc({ title: 'Something else entirely', weight: WEIGHT_DEFINING }, [
+      'a wedding happened',
+    ]);
+    const terms = tokenize('wedding');
+    expect(scoreDoc(exact, terms)).toBeGreaterThan(scoreDoc(defining, terms));
   });
 
-  it('still indexes a work whose video card is hidden for having no embed', () => {
-    // Playable-first (2026-08-13) hides 8 records from the rail/feed because no
-    // official upload of the work exists. Search deliberately still indexes
-    // them: a search hit is not a video card, and an app that returns nothing
-    // at all for "Miss Americana" reads as not knowing the work exists. The
-    // hit targets the era section, not the card, so it still lands somewhere
-    // real. Asserted on index membership rather than on a query's results,
-    // because ranking is a separate concern with its own tests.
-    const keys = new Set(index.map((d) => d.key));
-    for (const key of [
-      'video:midnights:taylor-swift-the-eras-tour-film',
-      'video:lover:miss-americana',
-      'video:reputation:reputation-stadium-tour-film',
-    ]) {
-      expect(keys.has(key), `hidden work "${key}" dropped out of the search index`).toBe(true);
-    }
+  it('adds the bonus once per doc, not once per term', () => {
+    const one = doc({ title: 'alpha', weight: WEIGHT_DEFINING }, ['beta']);
+    const terms = tokenize('alpha beta');
+    // title-word-prefix (25) + body hit (6) + phrase bonus is not triggered
+    // here + weight (30) — the weight must appear exactly once.
+    expect(scoreDoc(one, terms)).toBe(scoreDoc({ ...one, weight: 0 }, terms) + WEIGHT_DEFINING);
   });
 
-  it('finds a known moment by a straight-quote query', () => {
-    const flat = flattenGroups(searchDocs(index, 'tim mcgraw'));
-    // post-migration (stage 2a): the legacy id is now the item's SLUG; the doc
-    // key carries the generated vault id, so resolve it through CONTENT.
-    const timMcgraw = CONTENT.find((c) => c.slug === 'debut-tim-mcgraw');
-    expect(timMcgraw, 'migrated tim-mcgraw item missing').toBeDefined();
-    expect(flat.some((r) => r.doc.key === 'moment:' + timMcgraw!.id)).toBe(true);
-  });
-
-  it('finds the snake egg nodes and targets a Clue Web trail', () => {
-    const groups = searchDocs(index, 'snake');
-    const eggs = groups.find((g) => g.type === 'egg');
-    expect(eggs).toBeDefined();
-    expect(eggs!.results.every((r) => r.doc.target.kind === 'trail')).toBe(true);
-  });
-
-  it('every doc has a snippet and a resolvable target shape', () => {
-    for (const d of index) {
-      expect(d.title.length).toBeGreaterThan(0);
-      expect(d.snippet.length).toBeGreaterThan(0);
-      expect(d.bodyNorm.length).toBeGreaterThan(0);
-    }
+  it('leaves unweighted docs scoring exactly as before', () => {
+    const plain = doc({ title: 'a plain moment' }, ['nothing special']);
+    expect(scoreDoc(plain, tokenize('plain'))).toBe(25);
   });
 });
 
-// ---------------------------------------------------------------------------
-// Search dead-ends (#652): a result must reach its actual target, not just
-// somewhere near it.
-// ---------------------------------------------------------------------------
-describe('#652 deep-link targets', () => {
-  const index = buildSearchIndex();
+describe('result caps and totals', () => {
+  // Wyatt, 2026-07-20: "if I type something and hit enter without selecting a
+  // suggested result, it should take me to a search results page, not just the
+  // top suggested result." The results view needs every match, and the
+  // dropdown needs to admit what it is hiding.
+  const many = Array.from({ length: 12 }, (_, i) =>
+    doc({ title: `Wedding moment number ${i}`, key: `m${i}` }),
+  );
 
-  it('song results carry a resolvable track key, not just the era track guide', () => {
-    const groups = searchDocs(index, 'cardigan');
-    const trackGroup = groups.find((g) => g.type === 'track');
-    expect(trackGroup).toBeDefined();
-    for (const r of trackGroup!.results) {
-      expect(r.doc.target.kind).toBe('track');
-      if (r.doc.target.kind === 'track') {
-        expect(resolveTrackKey(r.doc.target.trackKey)).not.toBeNull();
-      }
-    }
+  it('caps each group at five by default — the dropdown is a shortlist', () => {
+    const group = firstGroup(searchDocs(many, 'wedding'));
+    expect(group.results).toHaveLength(MAX_RESULTS_PER_TYPE);
   });
 
-  it('video results carry the specific videoId, not just the bare era', () => {
-    const groups = searchDocs(index, 'shake it off');
-    const videoGroup = groups.find((g) => g.type === 'video');
-    expect(videoGroup).toBeDefined();
-    for (const r of videoGroup!.results) {
-      expect(r.doc.target.kind).toBe('video');
-      if (r.doc.target.kind === 'video') {
-        expect(r.doc.target.videoId.length).toBeGreaterThan(0);
-      }
-    }
+  it('reports the true total even while capped, so the UI can say "5 of 12"', () => {
+    const group = firstGroup(searchDocs(many, 'wedding'));
+    expect(group.totalMatches).toBe(12);
+    expect(group.totalMatches).toBeGreaterThan(group.results.length);
   });
 
-  it('indexes threads by title, targeting openThread', () => {
-    const blankSpaces = searchDocs(index, 'blank spaces').find((g) => g.type === 'thread');
-    expect(blankSpaces).toBeDefined();
-    expect(blankSpaces!.results[0].doc.target).toEqual({ kind: 'thread', lensId: 'love-story' });
+  it('returns every match when the cap is lifted', () => {
+    const group = firstGroup(searchDocs(many, 'wedding', Number.POSITIVE_INFINITY));
+    expect(group.results).toHaveLength(12);
+    expect(group.totalMatches).toBe(12);
+  });
 
-    const endGame = searchDocs(index, 'end game').find((g) => g.type === 'thread');
-    expect(endGame).toBeDefined();
-    expect(endGame!.results[0].doc.target).toEqual({ kind: 'thread', lensId: 'the-proposal' });
+  it('keeps ranking order when uncapped — more results must not mean worse order', () => {
+    const uncapped = firstGroup(searchDocs(many, 'wedding', Number.POSITIVE_INFINITY)).results;
+    const scores = uncapped.map((r) => r.score);
+    expect([...scores].sort((a, b) => b - a)).toEqual(scores);
+  });
+
+  it('the uncapped list starts with exactly the capped list', () => {
+    const capped = firstGroup(searchDocs(many, 'wedding')).results.map((r) => r.doc.key);
+    const uncapped = firstGroup(searchDocs(many, 'wedding', Number.POSITIVE_INFINITY)).results.map(
+      (r) => r.doc.key,
+    );
+    expect(uncapped.slice(0, capped.length)).toEqual(capped);
   });
 });

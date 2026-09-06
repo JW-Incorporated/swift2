@@ -5,7 +5,7 @@
 import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from '@swift2/experience';
 
 /** Build-time freshness stamp — emitted only by prebuild (deploy). */
-export const CONTENT_GENERATED_AT = "2026-09-05T22:55:20.896Z";
+export const CONTENT_GENERATED_AT = "2026-09-06T00:19:29.506Z";
 
 type VaultRawItem = {
   id: string;

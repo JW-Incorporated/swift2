@@ -39,6 +39,13 @@ export * from './track-catalogue-provider';
 export * from './content-item-provider';
 export * from './track-guide';
 export * from './freshness';
+export * from './threads';
+export * from './love-story';
+export * from './theories';
+export * from './live-theories';
+export * from './era-secrets';
+export * from './progress';
+export * from './search-index';
 
 export {
   TOKENS,

@@ -15,6 +15,7 @@ import { getContentItem } from '../content';
 import { allVideoRecordsForEra, findVideoEraId } from '../videos';
 import { THREADS } from '@swift2/experience';
 import { resolveTrackKey } from '@swift2/experience';
+import { createLocalStorageAdapter } from '../local-storage-adapter';
 import {
   emptyProgress,
   readStoredProgress,
@@ -22,7 +23,7 @@ import {
   withToggled,
   writeStoredProgress,
   type Progress,
-} from '../progress';
+} from '@swift2/experience';
 import type { FilterId } from '@swift2/experience';
 import type { EraId, LensId, MotifId } from '@swift2/experience';
 import type { ClownAnswer } from '../clown-answer';
@@ -147,15 +148,18 @@ const ProgressActionsCtx = createContext<ProgressActions | null>(null);
 function ProgressProvider({ children }: { children: ReactNode }) {
   const [progress, setProgress] = useState<Progress>(emptyProgress);
   const [hydrated, setHydrated] = useState(false);
+  // Injected adapter (OS-025): stable across renders, created once — the
+  // module itself is renderer-agnostic and knows nothing about localStorage.
+  const storage = useMemo(() => createLocalStorageAdapter(), []);
 
   useEffect(() => {
-    setProgress(readStoredProgress());
+    setProgress(readStoredProgress(storage));
     setHydrated(true);
-  }, []);
+  }, [storage]);
 
   useEffect(() => {
-    if (hydrated) writeStoredProgress(progress);
-  }, [progress, hydrated]);
+    if (hydrated) writeStoredProgress(storage, progress);
+  }, [progress, hydrated, storage]);
 
   const actions = useMemo<ProgressActions>(
     () => ({
