@@ -16,11 +16,31 @@
  * GENERATED DATA, HAND-AUTHORED HELPERS (Fable ruling FR-t_2745eb60-1, issue
  * #3515, 2026-09-04): the `LORE` array itself is no longer authored here. It
  * is generated from supabase/seed/clownbot-lore/clownbot-lore.mjs by
- * scripts/sync-clownbot-lore.mjs into clownbot-lore.generated.ts, the same
- * pattern as theories.generated.ts / era-secrets.generated.ts — this keeps
- * the unattended Rumor Desk lane's editing surface in seed files, off runtime
- * app source, while this module stays the stable import surface every
- * consumer (clown-index.ts, clown-board.ts, tests) already uses.
+ * scripts/sync-clownbot-lore.mjs into clownbot-lore.generated.ts, which
+ * scripts/build-content-bundle.mjs then folds into the published content
+ * bundle's `clownbot-lore.json` — this keeps the unattended Rumor Desk
+ * lane's editing surface in seed files, off runtime app source, while this
+ * module stays the stable import surface every consumer (clown-index.ts,
+ * clown-board.ts, tests) already uses.
+ *
+ * BUNDLE AS SOURCE OF TRUTH, LITERAL AS RUNTIME VALUE (OS-014b-5, Fable
+ * rulings FR-t_cd5741fc-1 then -2, 2026-09-06): the goal is that the
+ * published bundle's `clownbot-lore.json` is authoritative and any drift
+ * from it is impossible to miss — NOT that this module perform a runtime
+ * filesystem read. `LORE`/`LORE_UPDATED_ON` keep importing straight from
+ * `clownbot-lore.generated.ts` (a plain array/string literal with zero
+ * imports) because this module is reachable from `clown-board.ts` ->
+ * `ClownBoard.tsx`, a `'use client'` component: Next.js/Turbopack statically
+ * traces every module in a client component's import graph and refuses to
+ * bundle `node:fs`/`node:path` for the browser (a real build failure hit
+ * during FR-t_cd5741fc-1's first implementation, not a theoretical
+ * concern) — a runtime `typeof window` guard does not help, since Turbopack
+ * resolves the graph before any branch executes. `clownbot-lore.test.ts`
+ * enforces the actual invariant instead: a CI-required assertion that this
+ * literal is byte-identical to the published bundle's `clownbot-lore.json`,
+ * so any drift between the two fails the build immediately. See
+ * `./read-bundle-artifact.ts` for the fs-based reader this ruling reserves
+ * for server-only domains (not usable here).
  *
  * REFRESH PATH: docs/content-ops/clownbot-rumor-refresh.md. The news cycle
  * moves in hours, so `LORE_UPDATED_ON` is surfaced to the reader and the
