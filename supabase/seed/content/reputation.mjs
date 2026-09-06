@@ -2862,6 +2862,8 @@ export default {
       // photographable event. A generic same-period Swift portrait would be
       // off-hook, and there is no verifiable image OF the sale — left
       // photo-less rather than fabricate. Skip on future runs.
+      thumbnailUrl: null,
+      photosReviewed: 'business transaction with no photographable event — no verifiable image of the sale itself (photo-enrichment #762, 2026-07-20); skip on future runs.',
       hiddenClue: { clue: "She announced she would re-record her old albums.", payoff: "The “Taylor’s Version” project was born — reclaiming her catalog one album at a time." },
       moment: {
         sources: [
