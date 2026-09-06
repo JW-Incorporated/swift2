@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { parseOpenActions, renderActionLine, sortForBrief, STALE_AFTER_DAYS } from './human-actions.mjs';
+import { parseOpenActions, renderActionLine, sortForBrief, STALE_AFTER_DAYS, parseMinutes, quickWins } from './human-actions.mjs';
 
 const NOW = new Date('2026-08-23T12:00:00Z').getTime();
 
@@ -153,5 +153,35 @@ describe('sortForBrief', () => {
       { number: 5, tag: 'UPGRADE', ageDays: 30 },
     ];
     expect(sortForBrief(items).map((i) => i.number)).toEqual([5, 4]);
+  });
+});
+
+describe('parseMinutes', () => {
+  it('reads the ~N min estimate out of a title', () => {
+    expect(parseMinutes('Rename Karen\u2019s live trigger — ~2 min')).toBe(2);
+    expect(parseMinutes('Mobile release train — ~35 min total')).toBe(35);
+  });
+
+  it('returns null, never a guess, when no estimate is present', () => {
+    expect(parseMinutes('No estimate here')).toBeNull();
+    expect(parseMinutes(undefined)).toBeNull();
+  });
+});
+
+describe('quickWins', () => {
+  const mk = (number, title) => ({ number, title, tag: 'UPGRADE', ageDays: 1 });
+  it('keeps only items at or under the minute cap, ascending by time', () => {
+    const items = [
+      mk(1, 'Big thing — ~35 min total'),
+      mk(2, 'Tiny thing — ~2 min'),
+      mk(3, 'Medium thing — ~10 min'),
+      mk(4, 'No estimate at all'),
+    ];
+    expect(quickWins(items).map((i) => i.number)).toEqual([2, 3]);
+  });
+
+  it('respects a custom minute cap', () => {
+    const items = [mk(1, 'x — ~20 min'), mk(2, 'y — ~5 min')];
+    expect(quickWins(items, 25).map((i) => i.number)).toEqual([2, 1]);
   });
 });

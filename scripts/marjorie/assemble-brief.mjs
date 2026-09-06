@@ -66,7 +66,7 @@ import { partitionAsks, asksInBrief, ESCALATE_AFTER } from './founder-gate.mjs';
 import { runStandingChecks, renderStandingChecks, loadRunnerCadence, unescapeAnchor } from './standing-checks.mjs';
 import { collectConstraints } from './meta-constraints.mjs';
 import { readCurrentDone, readDoneHistory, changeSinceAnchor, sinceLastBrief, STATUS_ICONS } from './done-history.mjs';
-import { readOpenActions, sortForBrief, renderActionLine } from './human-actions.mjs';
+import { readOpenActions, sortForBrief, renderActionLine, quickWins, parseMinutes } from './human-actions.mjs';
 import { fetchContentShipped, renderContentShippedSection } from './content-shipped.mjs';
 import { loadRevenueSection } from '../merch-engine/revenue-report.mjs';
 import { runMain } from '../lib/cli.mjs';
@@ -521,6 +521,11 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     out.push('**🫵 Nothing is gated on you.** No founder action is blocking anything today.', '');
   } else {
     out.push(`**🫵 Waiting on you: ${totalWaiting}**${escalated.length ? ` — ${escalated.length} overdue decision(s); each needs an answer **or a close**.` : '.'}`, '');
+    const wins = quickWins(actionItems);
+    if (wins.length) {
+      const fastest = wins.slice(0, 4).map((w) => `HA#${w.number} (~${parseMinutes(w.title)}m)`).join(', ');
+      out.push(`**⚡ Quickest to clear:** ${fastest}${wins.length > 4 ? ` +${wins.length - 4} more` : ''} — start here if you only have a few minutes.`, '');
+    }
     for (const e of escalated) out.push(`- 🔴 ${link(e.number)} **${shortTitle(e.title)}** — ${e.escalateReason}`);
     for (const o of open) out.push(`- [ ] ${link(o.number)} **${shortTitle(o.title)}** — ${o.gateReasons[0]}, ${o.daysOpen}d old`);
     for (const it of actionItems) out.push(renderActionLine(it));
