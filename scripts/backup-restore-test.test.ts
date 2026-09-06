@@ -4,6 +4,7 @@ import {
   checksumRows,
   ensureSupabaseCompat,
   isManagedSupabaseHost,
+  loadTable,
   parseArgs,
 } from './backup-restore-test.mjs';
 
@@ -201,5 +202,63 @@ describe('parseArgs — --backup-only flag', () => {
     expect(opts.backupOnly).toBe(true);
     expect(opts.keep).toBe(true);
     expect(opts.json).toBe(true);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// loadTable — must never write a generated column (#680 follow-up).
+// egg_ledger.lag_days is `generated always as (...) stored`; a column-less
+// `insert ... select r.*` includes it and Postgres rejects the explicit
+// value. loadTable has to discover the writable column list itself (via
+// pg_attribute.attgenerated) so this works for any table/column, not just
+// egg_ledger by name.
+// ---------------------------------------------------------------------------
+
+/** A fake `pg.Client` whose query() understands just enough to stand in for
+ *  both the pg_attribute introspection query and the insert loadTable issues,
+ *  for a table with one generated column. */
+function fakeLoadClient(generatedCols: string[]) {
+  const queries: string[] = [];
+  return {
+    queries,
+    query: vi.fn(async (sql: string, params?: unknown[]) => {
+      queries.push(sql);
+      if (sql.includes('pg_attribute')) {
+        const all = ['id', 'hint_date', 'reveal_date', 'lag_days'];
+        const rows = all
+          .filter((name) => !generatedCols.includes(name))
+          .map((name) => ({ name }));
+        return { rows };
+      }
+      return { rows: [], params };
+    }),
+  };
+}
+
+describe('loadTable — excludes generated columns from the insert (#680)', () => {
+  it('builds an explicit column list that omits a generated column', async () => {
+    const client = fakeLoadClient(['lag_days']);
+    await loadTable(
+      client,
+      'egg_ledger',
+      ['{"id":1,"hint_date":"2026-01-01","reveal_date":"2026-01-05","lag_days":4}'],
+    );
+
+    const insertSql = client.queries.find((s) => s.trim().startsWith('insert'));
+    expect(insertSql).toBeDefined();
+    // The explicit target list and the jsonb_populate_record projection must
+    // both name only the non-generated columns.
+    expect(insertSql).toMatch(/insert into public\."egg_ledger" \("id", "hint_date", "reveal_date"\)/);
+    expect(insertSql).toContain('select r."id", r."hint_date", r."reveal_date"');
+    expect(insertSql).not.toContain('lag_days');
+    expect(insertSql).not.toMatch(/select r\.\*/);
+  });
+
+  it('keeps every column for a table with no generated columns', async () => {
+    const client = fakeLoadClient([]);
+    await loadTable(client, 'egg_ledger', ['{"id":1}']);
+
+    const insertSql = client.queries.find((s) => s.trim().startsWith('insert'));
+    expect(insertSql).toContain('"id", "hint_date", "reveal_date", "lag_days"');
   });
 });
