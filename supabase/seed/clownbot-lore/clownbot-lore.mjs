@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-09-04',
+  updatedOn: '2026-09-06',
   items: [
     {
       id: 'masters-buyback',
@@ -71,7 +71,7 @@ export default {
       id: 'rep-tv-debut-tv',
       status: 'rumor',
       date: '2025-05-30',
-      lastCheckedOn: '2026-09-04',
+      lastCheckedOn: '2026-09-06',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of Reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -151,7 +151,7 @@ export default {
       id: 'swifties-against-ai',
       status: 'reported',
       date: '2025-10-09',
-      lastCheckedOn: '2026-09-04',
+      lastCheckedOn: '2026-09-06',
       headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
       detail:
         "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
@@ -179,7 +179,7 @@ export default {
       id: 'green-ts-next-era',
       status: 'reported',
       date: '2026-08-20',
-      lastCheckedOn: '2026-09-04',
+      lastCheckedOn: '2026-09-06',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, Reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -206,7 +206,7 @@ export default {
       id: 'ts13-lilac-cipher',
       status: 'reported',
       date: '2026-08-21',
-      lastCheckedOn: '2026-09-04',
+      lastCheckedOn: '2026-09-06',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -229,7 +229,7 @@ export default {
       id: 'writing-new-music-post-wedding',
       status: 'reported',
       date: '2026-08-27',
-      lastCheckedOn: '2026-09-04',
+      lastCheckedOn: '2026-09-06',
       headline: 'Reportedly "writing new music" and "incredibly inspired" since the wedding',
       detail:
         'A Page Six insider said Taylor has been "pouring herself into writing new music" and is "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." Reported across outlets, all tracing to that single Page Six sourcing; Taylor and her team have announced no album, title, or timeline. Status stays `reported`, not `confirmed` — an unnamed-insider report is not an announcement.',

@@ -1,10 +1,10 @@
 'use client';
 
 import { useLayoutEffect, useState } from 'react';
-import { dailyGloss, GLOSS_SECTIONS } from '@/lib/longlive/gloss-rotation';
+import { dailyGloss, GLOSS_SECTIONS } from '@swift2/experience';
 import type { AppMode } from '@/lib/longlive/store';
 import type { CurrentItem } from '@swift2/shared';
-import { summarizeCurrentActivity } from '@/lib/longlive/current-feed';
+import { summarizeCurrentActivity } from '@swift2/experience';
 
 /** The viewer's local calendar day as `YYYY-MM-DD`. Client-only (see below). */
 function todayKey(): string {

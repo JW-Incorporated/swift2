@@ -1,0 +1,33 @@
+# Kevin — S3 comment radar (cloud), migrated from claude.ai Routine
+# `trig_01LaSLx4qzbsz68E6uRLkyDd` to this scheduled Action per
+# docs/audits/2026-09-05-claude-routines-relocation-assessment.md + the
+# 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# Cheapest-tier lazy poll: does one deterministic `gh api` comment check
+# first and only loads Kevin's full charter (docs/kevin.md) if it finds
+# something genuinely new. Read-only, surfaces findings on a pinned
+# `kevin-radar` issue — never codes, never merges, never pushes to main.
+# Only needs `issues: write` and the built-in GITHUB_TOKEN.
+name: routine-kevin-radar
+
+on:
+  schedule:
+    - cron: "23 1,13 * * *" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Kevin — S3 comment radar"
+      prompt_file: docs/agents/runner-prompts/kevin-stream3-radar.md
+      model: claude-haiku-4-5-20251001
+      allowed_tools: "Bash,Read,Grep,Glob"
+      timeout_minutes: 15
+      checkout_token_secret: GITHUB_TOKEN
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

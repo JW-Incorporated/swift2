@@ -430,6 +430,14 @@ for (const { file, data } of loaded) {
       );
     }
 
+    // photosReviewed (OPTIONAL, 2026-09-05, #762 top-of-feed checker): a
+    // deliberate editorial no-photo decision (privacy redline, no verifiable
+    // image, etc.), recorded on the item so content.top-of-feed-photo (the
+    // deterministic checker) and any human reader both recognize it as
+    // reviewed instead of re-flagging it as an oversight every run.
+    if (it.photosReviewed != null && !(typeof it.photosReviewed === 'string' && it.photosReviewed.trim()))
+      err('photosReviewed must be a non-empty string reason when present');
+
     // Rumor tier (2026-07-19). The sync script drops anything malformed
     // (fail-closed: an unattributed rumor never renders), so every drop
     // condition must be a hard error here or the rumor just vanishes. The

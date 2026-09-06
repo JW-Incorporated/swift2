@@ -63,7 +63,7 @@ import { readGateHistory, readCurrentGates, GATES } from './gate-history.mjs';
 import { buildGateActivity, extractTickets, trackerLagDays } from './gate-activity.mjs';
 import { estimateDaysToDone, renderDoneLines } from './done-estimator.mjs';
 import { partitionAsks, asksInBrief, ESCALATE_AFTER } from './founder-gate.mjs';
-import { runStandingChecks, renderStandingChecks, loadRunnerCadence } from './standing-checks.mjs';
+import { runStandingChecks, renderStandingChecks, loadRunnerCadence, unescapeAnchor } from './standing-checks.mjs';
 import { collectConstraints } from './meta-constraints.mjs';
 import { readCurrentDone, readDoneHistory, changeSinceAnchor, sinceLastBrief, STATUS_ICONS } from './done-history.mjs';
 import { readOpenActions, sortForBrief, renderActionLine } from './human-actions.mjs';
@@ -82,6 +82,47 @@ const DAY_MS = 86_400_000;
 async function gh(args) {
   const { stdout } = await ghRun(args);
   return JSON.parse(stdout || '[]');
+}
+
+// Same fetch as `gh()`, but also surfaces `capExhausted` — for lists that
+// feed the runner-liveness check (#3689's second finding: "the same
+// truncated list drives the recurring false '10 dark runners' flag").
+// `allPRs`/`allIssues` are org-wide, high-volume lists a busy day can push
+// past gh.mjs's page cap; when that happens a runner whose last artifact
+// fell outside the fetched window must read as UNKNOWN ("I couldn't see
+// far enough back"), never as a confident DARK — a green light or a red
+// light both claim to know something a truncated fetch does not.
+async function ghWithCompleteness(args) {
+  const { stdout, capExhausted } = await ghRun(args);
+  return { rows: JSON.parse(stdout || '[]'), capExhausted: Boolean(capExhausted) };
+}
+
+// #3689: `gh()` above throws away the `complete`/`capExhausted` flags gh.mjs
+// computes for every list call — so nothing downstream could ever tell a
+// silently truncated list from a genuinely short one. For section 1's ASK
+// SOURCES (founder-decision, founder-task) that is exactly the failure mode
+// the 2026-09-03 incident (#3689) hit: a founder-decision ask past whatever
+// page the fetch happened to stop on is not "0 asks", it is a bug, and this
+// module's own rule (see the REST-fallback header note in gh.mjs) is that a
+// degraded state throws loudly rather than returning an innocent-looking
+// empty result. These lists are always small (a handful of banked
+// decisions) — `capExhausted` here can only mean the fetch broke, never
+// that the founders genuinely have hundreds of open decisions, so it is a
+// safe, unambiguous trigger to refuse the run rather than post a brief that
+// could be hiding a founder ask.
+export async function ghCriticalList(args) {
+  const { stdout, capExhausted } = await ghRun(args);
+  const rows = JSON.parse(stdout || '[]');
+  if (capExhausted) {
+    throw new Error(
+      `assemble-brief: the ask-source query \`gh ${args.join(' ')}\` hit gh.mjs's page cap and is ` +
+      'INCOMPLETE. This is the list section 1 ("Waiting on you") is built from — treating a ' +
+      'truncated fetch as "nothing open" is the exact #3689 failure (open founder-decision asks ' +
+      'silently dropped from the brief). Refusing to run rather than post a brief that could be ' +
+      'hiding a founder ask.',
+    );
+  }
+  return rows;
 }
 
 // ─── unchanged growth/queue helpers (kept verbatim: the 2026-07-18 rule that
@@ -236,19 +277,47 @@ const PR_FIELDS = 'number,title,body,author,isDraft,reviewDecision,createdAt,upd
  * list is the #1869 failure mode) and softly for the optional ones.
  */
 export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
-  const [decisions, intake, alerts, openPRs, allPRs, allIssues, briefs, founderTasks] = await Promise.all([
-    gh(['issue', 'list', '--repo', repo, '--label', 'founder-decision', '--state', 'open', '--limit', '100', '--json', ISSUE_FIELDS]),
+  const [
+    decisions, intake, alerts, openPRs,
+    { rows: allPRs, capExhausted: allPRsCapExhausted },
+    { rows: allIssuesRaw, capExhausted: allIssuesCapExhausted },
+    briefs, founderTasks,
+  ] = await Promise.all([
+    // Label-scoped ASK SOURCES for section 1 ("Waiting on you"). #3689: an
+    // ask past whatever page a fetch happens to stop on must never render as
+    // "nothing to ask", so these go through ghCriticalList (throws loudly if
+    // gh.mjs's own page cap gets hit) AND request a limit well above any
+    // plausible real backlog (500, vs. gh.mjs's PER_PAGE=100 -> 5 pages
+    // fetched, comfortably past the 3-page/300-row floor that silently
+    // dropped #3584/#531/#138 on 2026-09-03) so the cap is never actually
+    // exercised by real data in the first place.
+    ghCriticalList(['issue', 'list', '--repo', repo, '--label', 'founder-decision', '--state', 'open', '--limit', '500', '--json', ISSUE_FIELDS]),
     gh(['issue', 'list', '--repo', repo, '--label', 'intake', '--state', 'open', '--limit', '100', '--json', ISSUE_FIELDS]),
     gh(['issue', 'list', '--repo', repo, '--label', 'watchdog-alert', '--state', 'open', '--limit', '20', '--json', ISSUE_FIELDS]),
     gh(['pr', 'list', '--repo', repo, '--state', 'open', '--limit', '60', '--json', PR_FIELDS]),
-    gh(['pr', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', 'number,title,body,createdAt,updatedAt,mergedAt,headRefName,state,url']),
-    gh(['issue', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', ISSUE_FIELDS]),
+    // Org-wide, high-volume lists that also feed the runner-liveness check
+    // (#3689's second finding). Capped at gh.mjs's HARD_MAX_PAGES either way,
+    // but now the truncation is VISIBLE to that check instead of silently
+    // read as "this runner never shipped".
+    ghWithCompleteness(['pr', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', 'number,title,body,createdAt,updatedAt,mergedAt,headRefName,state,url']),
+    ghWithCompleteness(['issue', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', ISSUE_FIELDS]),
+    // NOT ghCriticalList: this is a deliberate recent-window lookback (the
+    // last 14 briefs, for askHistory's repeat-count logic), not a "fetch
+    // everything" list — the repo has posted 49+ founders-brief issues total,
+    // so a `--limit 14` fetch is EXPECTED to stop short of the full history.
+    // Treating that as "the fetch broke" would make the brief refuse to run
+    // every single day.
     gh(['issue', 'list', '--repo', repo, '--label', 'founders-brief', '--state', 'all', '--limit', '14', '--json', 'number,title,body,createdAt']),
     // Folded in 2026-08-23: the standalone founder-task digest email was
     // retired (Joey's call) — these now surface here instead, next-morning
-    // latency, explicitly OK'd.
-    gh(['issue', 'list', '--repo', repo, '--label', 'founder-task', '--state', 'open', '--limit', '50', '--json', ISSUE_FIELDS]),
+    // latency, explicitly OK'd. Same #3689 headroom as founder-decision
+    // above: --limit 500, well past the 300-row floor that caused the
+    // incident, so ghCriticalList's throw path is never exercised by real
+    // founder-task volume either.
+    ghCriticalList(['issue', 'list', '--repo', repo, '--label', 'founder-task', '--state', 'open', '--limit', '500', '--json', ISSUE_FIELDS]),
   ]);
+  const allIssues = allIssuesRaw;
+  const runnerListsCapExhausted = allPRsCapExhausted || allIssuesCapExhausted;
 
   const gates = readCurrentGates();
   const series = readGateHistory();
@@ -267,9 +336,19 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
   }));
   const gateIssues = [...allIssues, ...fetched.filter(Boolean)];
 
-  // Comments on the bank items — the fix for the phantom-ask loop. Only the
-  // open founder-decision items, so this is a handful of calls, not hundreds.
-  const withComments = await Promise.all(decisions.map(async (d) => {
+  // Comments on the bank items + founder-tasks — the fix for the phantom-ask
+  // loop. Only OPEN items of either label, so this is a handful of calls on
+  // a normal day, never hundreds.
+  //
+  // 2026-09-05 audit: founder-task issues join the same path. They used to be
+  // rendered straight from the raw `--state open` list, so a founder answering
+  // ON the task (the way Joey did on #2195, 08-17: "All 3 tasks are complete")
+  // could never clear it — the exact #799 phantom-ask loop this block exists
+  // to prevent, reproduced for a second label. An issue carrying BOTH labels
+  // is fetched once (decision wins).
+  const decisionNums = new Set(decisions.map((d) => d.number));
+  const askSources = [...decisions, ...founderTasks.filter((t) => !decisionNums.has(t.number))];
+  const withComments = await Promise.all(askSources.map(async (d) => {
     const r = await ghApiSoft(`/repos/${repo}/issues/${d.number}/comments?per_page=100`, []);
     return { ...d, comments: (r.data || []).map((c) => ({ author: { login: c.user?.login }, createdAt: c.created_at, body: c.body })) };
   }));
@@ -306,15 +385,31 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
 
   const ciRuns = await ghApiSoft(`/repos/${repo}/actions/workflows/ci.yml/runs?branch=main&per_page=40`, { workflow_runs: [] });
 
+  // Comments on the last few briefs — Kevin's daily desk (T-10) reports as
+  // anchored comments on the brief instead of filing labelled issues, so this
+  // is the only artifact its liveness check can see. Soft: a failed fetch
+  // makes Kevin `unknown`, never the brief broken.
+  const briefComments = (await Promise.all(briefs.slice(0, 5).map(async (b) => {
+    const r = await ghApiSoft(`/repos/${repo}/issues/${b.number}/comments?per_page=100`, []);
+    return (r.data || []).map((c) => ({ issue: b.number, author: c.user?.login, createdAt: c.created_at, body: c.body }));
+  }))).flat();
+
   // v3 additions — each independently soft-failing so a single bad source
   // degrades its own section, never the whole brief.
   const contentShipped = await fetchContentShipped(repo, new Date(now - DAY_MS).toISOString()).catch(() => []);
 
   return {
-    decisions: withComments,
+    decisions: withComments.filter((d) => decisionNums.has(d.number)),
     askedBefore: recentlyAsked.filter(Boolean),
-    founderTasks,
+    // With comments now — so partitionAsks() can resolve them on their own
+    // thread exactly like a founder-decision.
+    founderTasks: withComments.filter((d) => !decisionNums.has(d.number)),
     intake, alerts, openPRs, allPRs, allIssues: gateIssues, briefs,
+    briefComments,
+    // #3689 finding 2: the runner-liveness check must know when its own
+    // source lists (allPRs/allIssues) were truncated by gh.mjs's page cap,
+    // so it can report UNKNOWN instead of a confident false DARK.
+    runnerListsCapExhausted,
     gates, series,
     doneItems: readCurrentDone(),
     doneSeries: readDoneHistory(),
@@ -342,7 +437,12 @@ export function analyse(state, { now = state.now ?? Date.now() } = {}) {
   const estimate = estimateDaysToDone(state.series, state.gates, { now: nowMs, activity });
   const lag = trackerLagDays(state.series, activity, nowMs);
 
-  const asks = partitionAsks([...state.decisions, ...state.askedBefore], { briefs: state.briefs, now: nowMs });
+  // founderTasks go through the same resolve/escalate path as the decision
+  // bank (2026-09-05 audit) — they carry the `founder-task` label, which
+  // classifyFounderGate treats as provable membership, so they land in
+  // `open`/`escalated`/`resolved` like any other ask instead of being
+  // appended raw to section 1.
+  const asks = partitionAsks([...state.decisions, ...(state.founderTasks || []), ...state.askedBefore], { briefs: state.briefs, now: nowMs });
 
   const cadence = loadRunnerCadence();
   const merged24 = state.allPRs.filter((p) => p.mergedAt && nowMs - new Date(p.mergedAt).getTime() < DAY_MS);
@@ -414,8 +514,8 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
 
   const { open, escalated, resolved, phantom } = a.asks;
   const actionItems = sortForBrief(state.openActions || []);
-  const founderTasks = state.founderTasks || [];
-  const totalWaiting = open.length + escalated.length + actionItems.length + founderTasks.length;
+  // founder-task issues are inside `open`/`escalated` now (see analyse()).
+  const totalWaiting = open.length + escalated.length + actionItems.length;
 
   if (totalWaiting === 0) {
     out.push('**🫵 Nothing is gated on you.** No founder action is blocking anything today.', '');
@@ -424,10 +524,6 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     for (const e of escalated) out.push(`- 🔴 ${link(e.number)} **${shortTitle(e.title)}** — ${e.escalateReason}`);
     for (const o of open) out.push(`- [ ] ${link(o.number)} **${shortTitle(o.title)}** — ${o.gateReasons[0]}, ${o.daysOpen}d old`);
     for (const it of actionItems) out.push(renderActionLine(it));
-    for (const ft of founderTasks) {
-      const ageDays = Math.floor((now - new Date(ft.createdAt).getTime()) / DAY_MS);
-      out.push(`- [ ] ${link(ft.number)} **${shortTitle(ft.title)}** — founder-task, ${ageDays}d old`);
-    }
     out.push('');
   }
   if (resolved.length) {
@@ -512,6 +608,7 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     openPRs: state.openPRs,
     allPRs: state.allPRs,
     issues: state.allIssues,
+    briefComments: state.briefComments,
     alerts: state.alerts,
     gateTickets: [...new Set(GATES.flatMap((g) => extractTickets(state.gates[g]?.nextAction)))],
     runs: state.ciRuns,
@@ -521,6 +618,10 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     constraints: state.constraints,
     lag: a.lag,
     staleRows: a.estimate.trackerStale,
+    // #3689 finding 2: a truncated allPRs/allIssues fetch must make
+    // checkRunners report unknown, not a confident dark, for the runners it
+    // cannot fully see.
+    listsCapExhausted: state.runnerListsCapExhausted,
     now,
   });
   out.push(...renderStandingChecks(checks));
@@ -563,15 +664,20 @@ if (invokedDirectly) {
         .filter((r) => r.checkable !== false)
         .map((r) => ({
           name: r.name,
-          perDay: r.perDay,
+          // A registry-disabled runner is expected at 0/day — so an artifact
+          // from it is `running-while-disabled` (a real alarm), and silence is
+          // the healthy state, not a `silent` warn.
+          perDay: r.disabled ? 0 : r.perDay,
           match: (art) => (r.match.kind === 'pr-branch' ? art.type === 'pr' && String(art.branch || '').startsWith(r.match.value)
             : r.match.kind === 'pr-title' ? art.type === 'pr' && String(art.title || '').toLowerCase().includes(r.match.value.toLowerCase())
               : r.match.kind === 'issue-label' ? art.type === 'issue' && (art.labels || []).includes(r.match.value)
-                : art.type === 'issue' && String(art.title || '').includes(r.match.value)),
+                : r.match.kind === 'brief-comment' ? art.type === 'brief-comment' && unescapeAnchor(art.firstLine) === unescapeAnchor(r.match.value)
+                  : art.type === 'issue' && String(art.title || '').includes(r.match.value)),
         })),
       artifacts: [
         ...state.allPRs.map((p) => ({ type: 'pr', at: p.createdAt, branch: p.headRefName, title: p.title })),
         ...state.allIssues.map((i) => ({ type: 'issue', at: i.createdAt, title: i.title, labels: (i.labels || []).map((l) => (typeof l === 'string' ? l : l.name)) })),
+        ...(state.briefComments || []).map((c) => ({ type: 'brief-comment', at: c.createdAt, firstLine: String(c.body || '').split('\n')[0] })),
       ],
     });
 

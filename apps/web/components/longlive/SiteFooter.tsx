@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { formatRelativeTime } from '@/lib/longlive/format';
-import { contentGeneratedAt } from '@/lib/longlive/freshness';
+import { formatRelativeTime, contentGeneratedAt } from '@swift2/experience';
 import { LEGAL_LINKS } from '@/lib/longlive/legal';
 import { SOCIAL_LINKS, type SocialLink } from '@/lib/longlive/social';
 

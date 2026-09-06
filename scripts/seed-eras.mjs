@@ -2,6 +2,14 @@
 // Idempotent: eras upsert on slug; milestones are replaced wholesale each run
 // (they carry generated ids, so re-running would otherwise duplicate them).
 //
+// DEPRECATED (OS-016, `docs/specs/2026-09-05-one-source-three-surfaces.md`
+// §6 Phase 1): no code path outside `scripts/` reads the `era`/`milestone`
+// tables any more — web (OS-014) and mobile (OS-015) both read the
+// published content bundle instead. Removed from `db-seed.yml` and
+// `docs/dev-quickstart.md`; kept runnable (and in
+// `scripts/backup-restore-test.mjs`'s fixture build) only until the
+// tables themselves are dropped, one release cycle out.
+//
 //   node --env-file=apps/worker/.env scripts/seed-eras.mjs
 import { makeClient } from './lib/pg.mjs';
 import { runMain } from './lib/cli.mjs';

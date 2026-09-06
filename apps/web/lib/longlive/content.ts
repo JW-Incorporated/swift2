@@ -1,85 +1,54 @@
-import type { ContentItem, ContentTag, EraId, ImageRef, LensId, Milestone } from './types';
+import type { ContentItem, EraId, Milestone } from '@swift2/experience';
+import { setContentItemLookup } from '@swift2/experience';
+import {
+  build,
+  buildContent,
+  buildMilestones,
+  defaultThreadIdsForTags,
+  type RawItem,
+} from '@swift2/content-enrichment';
 import { VAULT_RAW } from './content-vault.generated';
 
-/**
- * Default thread membership implied by a content tag — the mechanism behind
- * "new content flows into Threads automatically" (docs/decisions.md
- * 2026-07-10). Only tags with an unambiguous, always-true thread mapping
- * belong here: a 'Relationship'-tagged item is *always* Love Story material,
- * a 'Fashion'-tagged item is *always* Runway material. Threads with no such
- * 1:1 tag ('taylors-version', 'easter-eggs', 'hidden-clues', 'the-proposal')
- * are opt-in only, via an item's explicit `threadIds` — adding a case here
- * would silently over-include unrelated content.
- */
-const DEFAULT_THREAD_IDS_BY_TAG: Partial<Record<ContentTag, LensId>> = {
-  Relationship: 'love-story',
-  Fashion: 'fashion',
-};
-
-/** Exported for unit tests. */
-export function defaultThreadIdsForTags(tags: ContentTag[]): LensId[] {
-  const out: LensId[] = [];
-  for (const t of tags) {
-    const id = DEFAULT_THREAD_IDS_BY_TAG[t];
-    if (id && !out.includes(id)) out.push(id);
-  }
-  return out;
-}
+// OS-014b-1: the pure enrichment logic (defaultThreadIdsForTags, build(),
+// buildContent(), buildMilestones()) moved to `@swift2/content-enrichment`
+// so `scripts/build-content-bundle.mjs` can call it with zero `apps/web`
+// dependency (docs/proposals/2026-09-vault-read-path.md). Re-exported here
+// unchanged so every existing caller/test of this module keeps working.
+export { build, defaultThreadIdsForTags };
+export type { RawItem };
 
 /**
- * Representative mock content. Every era gets a hero image reused from the era
- * art; a real API would supply per-moment imagery. Ordering is handled in the
- * UI (chronological, oldest-first), so authoring order here is not significant.
+ * BUNDLE AS SOURCE OF TRUTH, LITERAL AS RUNTIME VALUE (OS-014b-2, same
+ * reasoning recorded for era-secrets.ts/merch.ts/clownbot-lore.ts's
+ * OS-014b-4/5 — see those files' headers for the fuller writeup, and Fable
+ * rulings FR-t_cd5741fc-1/-2 for why a runtime filesystem read was
+ * rejected): `CONTENT` keeps computing straight from `buildContent({},
+ * VAULT_RAW)` (the seed-derived intermediate that also feeds the published
+ * bundle build, via `scripts/lib/dump-longlive-sources.ts`) rather than
+ * reading the published bundle's `content:<eraId>.json` files at runtime
+ * via `packages/content`'s async `loadBundle()` or a synchronous
+ * `node:fs` read.
  *
- * dateLabel rule (#682 — the WS1 day-precision relapse): when `date` is a
- * researched day-precision date, the label must show the day — write the
- * formatFullDate() form ('June 19, 2006'), never the bare month ('June
- * 2006'). When the day is genuinely unknown or the moment spans a period,
- * use an editorial period label ('Spring 2007', 'Late 2012') with a
- * representative placeholder date — a bare month+year label is
- * indistinguishable from a masked day-precision date, so a test
- * (content.test.ts) rejects it on curated items.
+ * This module is reachable from `TimelineScrubber.tsx`/`ShareSheet.tsx`/
+ * `MomentDetail.tsx`, all `'use client'` components — Next.js/Turbopack
+ * statically traces every module in a client component's import graph and
+ * refuses to bundle `node:fs`/`node:path` for the browser (a real
+ * `TurbopackInternalError` build failure hit while implementing this card,
+ * not a theoretical concern — see FR-t_cd5741fc-1's writeup). `loadBundle()`
+ * is likewise the wrong shape: it is an async HTTP client, and every one of
+ * the ~100+ call sites across the app reads `CONTENT`/`contentForEra`/
+ * `getContentItem` synchronously today (this migration's explicit "zero
+ * pixel/behavior change" bar) — switching to an async load would ripple
+ * into every consumer's render path for no benefit apps/web's own build
+ * doesn't already get for free (the generated file is produced from the
+ * exact same seed source the bundle is built from, by the same `prebuild`
+ * step, before either is read).
+ *
+ * `content.test.ts`'s bundle-regression describe block enforces the actual
+ * invariant instead: a byte-identical-to-the-published-bundle regression
+ * check, so any drift between `CONTENT` and the bundle's `content:<eraId>`
+ * entries fails the suite immediately.
  */
-
-/**
- * Authoring shape: accepts BOTH the legacy single `image` string and the new
- * `images` gallery, so existing data (the RAW literals below and the
- * generated VAULT_RAW) keeps compiling untouched. `build()` normalizes either
- * form into ContentItem's non-empty `images: ImageRef[]`.
- */
-export type RawItem = Omit<ContentItem, 'eraId' | 'images'> & {
-  image?: string;
-  images?: ImageRef[];
-};
-
-/**
- * Normalizes RawItems into ContentItems. Every item ends up with a non-empty
- * `images` gallery: an explicit `images` array passes through verbatim; a
- * legacy single `image` (or nothing) becomes one 'primary' entry, falling
- * back to the era art. Exported for unit tests.
- */
-export function build(eraId: EraId, items: RawItem[]): ContentItem[] {
-  return items.map(({ image, images, threadIds, ...it }) => {
-    // Explicit threadIds (an opt-in tag on the seed row) ADD to whatever the
-    // item's tags imply by default — an explicit opt-in never removes a tag
-    // default, matching the ContentItem.threadIds doc. Merged here — not in
-    // the sync script — so hand-curated RAW items below get the exact same
-    // treatment as items synced from supabase/seed/content.
-    const defaults = defaultThreadIdsForTags(it.tags);
-    const resolvedThreadIds = [
-      ...defaults,
-      ...(threadIds ?? []).filter((id) => !defaults.includes(id)),
-    ];
-    return {
-      ...it,
-      eraId,
-      images: images?.length
-        ? images
-        : [{ url: image ?? `/eras/${eraId === 'ttpd' ? 'ttpd' : eraId}.png`, kind: 'primary' }],
-      threadIds: resolvedThreadIds.length ? resolvedThreadIds : undefined,
-    };
-  });
-}
 
 // All hand-curated content has been migrated into supabase/seed/content/**
 // (consolidation stage 2a, 2026-07-19) — the seed vault is the single source
@@ -89,18 +58,7 @@ export function build(eraId: EraId, items: RawItem[]): ContentItem[] {
 // engine, and the bot fleet all operate.
 const RAW: Partial<Record<EraId, RawItem[]>> = {};
 
-// Curated ids win on collision, though the generator's `vault-` id prefix
-// makes that vanishingly unlikely in practice. Iteration is driven by the
-// VAULT's eras (∪ RAW's, defensively) — with RAW empty post-migration,
-// iterating RAW's keys would render the whole site empty.
-export const CONTENT: ContentItem[] = (
-  [...new Set([...Object.keys(VAULT_RAW), ...Object.keys(RAW)])] as EraId[]
-).flatMap((eraId) => {
-  const curated = build(eraId, RAW[eraId] ?? []);
-  const curatedIds = new Set(curated.map((c) => c.id));
-  const synced = build(eraId, VAULT_RAW[eraId] ?? []).filter((c) => !curatedIds.has(c.id));
-  return [...curated, ...synced];
-});
+export const CONTENT: ContentItem[] = buildContent(RAW, VAULT_RAW);
 
 export function contentForEra(eraId: EraId): ContentItem[] {
   // Newest-first: the experience travels *back* in time, so the most recent
@@ -113,6 +71,12 @@ export function getContentItem(id: string): ContentItem | undefined {
   return CONTENT.find((c) => c.id === id);
 }
 
+// OS-024: wires this module's getContentItem into packages/experience's
+// track-guide (dossier connections resolve `moment:<id>` links) and any
+// other consumer of the injected content-item lookup — see
+// content-item-provider.ts for why the indirection exists.
+setContentItemLookup(getContentItem);
+
 // ── Milestones (timeline markers) ───────────────────────────────────────────
 
 // Derived from the seed vault (consolidation stage 2b, 2026-07-19): every
@@ -120,13 +84,7 @@ export function getContentItem(id: string): ContentItem | undefined {
 // supabase/seed/content/**), so the scrubber's timeline and the moment it
 // points at can never drift apart — adding a milestone means marking the
 // moment, not editing a parallel list. Legacy ids preserved in the markers.
-export const MILESTONES: Milestone[] = CONTENT.filter((c) => c.milestone).map((c) => ({
-  id: c.milestone!.id,
-  eraId: c.eraId,
-  date: c.date,
-  label: c.milestone!.label,
-  kind: c.milestone!.kind,
-}));
+export const MILESTONES: Milestone[] = buildMilestones(CONTENT);
 
 export function milestonesForEra(eraId: EraId): Milestone[] {
   return MILESTONES.filter((m) => m.eraId === eraId).sort((a, b) => a.date.localeCompare(b.date));

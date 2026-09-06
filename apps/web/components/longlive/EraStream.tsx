@@ -3,9 +3,9 @@
 import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUp, Sparkles } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
-import { ERAS, erasBackFrom, isFirstEra, getEra, jumpWindow, CURRENT_ERA_ID } from '@/lib/longlive/eras';
+import { ERAS, erasBackFrom, isFirstEra, getEra, jumpWindow, CURRENT_ERA_ID } from '@swift2/experience';
 import { eraStyle } from '@/lib/longlive/theme';
-import type { Era } from '@/lib/longlive/types';
+import type { Era } from '@swift2/experience';
 import { EraSection } from './EraSection';
 import { FilterBar } from './FilterBar';
 import { LandingMasthead } from './LandingMasthead';

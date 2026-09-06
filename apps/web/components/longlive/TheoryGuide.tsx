@@ -6,7 +6,7 @@ import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import Image from 'next/image';
 import { X, Share2, Sparkles } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
-import { CURRENT_ERA_ID, getEra } from '@/lib/longlive/eras';
+import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
 import { theoriesForEra } from '@/lib/longlive/theories';
 import { eraStyle } from '@/lib/longlive/theme';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';

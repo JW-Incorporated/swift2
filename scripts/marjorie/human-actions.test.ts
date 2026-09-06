@@ -37,6 +37,32 @@ const DOC = [
   '',
   '---',
   '',
+  '### 22. [BLOCKING] Closed in place, still under OPEN — ~5 min',
+  '',
+  '**Filed:** 2026-08-10',
+  '',
+  '**Status:** OPEN',
+  '',
+  '**Update (2026-08-20):** fixed it.',
+  '',
+  '**Status:** RESOLVED (2026-08-20)',
+  '',
+  '---',
+  '',
+  '### 24. [UPGRADE] Done, dated status form — ~2 min',
+  '',
+  '**Filed:** 2026-08-11',
+  '',
+  '**Status (2026-08-21): DONE — no longer needed.**',
+  '',
+  '---',
+  '',
+  '### 38. [DONE] Tagged done in the header itself',
+  '',
+  '**Filed:** 2026-08-12',
+  '',
+  '---',
+  '',
   '## DONE',
   '',
   '### 1. [BLOCKING] Something already done — ~5 min',
@@ -73,6 +99,28 @@ describe('parseOpenActions', () => {
     const item10 = items.find((i) => i.number === 10)!;
     expect(item10.tag).toBe('BLOCKING');
     expect(item10.title).toBe('Something urgent — ~5 min');
+  });
+
+  // 2026-09-05 audit: HA#22 (RESOLVED), HA#24 (DONE), HA#35 (DONE) sat under
+  // `## OPEN` with a terminal Status line and were asked of the founders
+  // every morning with a growing "waiting Nd" age.
+  it('drops items whose own Status line is terminal, even under ## OPEN', () => {
+    const items = parseOpenActions(DOC, { now: NOW });
+    expect(items.map((i) => i.number)).not.toContain(22); // RESOLVED (date)
+    expect(items.map((i) => i.number)).not.toContain(24); // Status (date): DONE
+    expect(items.map((i) => i.number)).not.toContain(38); // [DONE] header tag
+  });
+
+  it('lets the LAST Status line win when an item accretes updates', () => {
+    const all = parseOpenActions(DOC, { now: NOW, includeClosed: true });
+    const item22 = all.find((i) => i.number === 22)!;
+    expect(item22.status).toBe('RESOLVED');
+    expect(item22.closed).toBe(true);
+  });
+
+  it('still lists a plain OPEN item with an OPEN status', () => {
+    const all = parseOpenActions(DOC, { now: NOW, includeClosed: true });
+    expect(all.find((i) => i.number === 4)!.closed).toBe(false);
   });
 });
 
