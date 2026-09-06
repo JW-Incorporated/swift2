@@ -13227,6 +13227,8 @@ export default {
         // photo; the era already carries premiere/hero shots on the song's
         // other pages. Left for Photo Enrichment / the checkers.
       },
+      photosReviewed:
+        'no reusable, allowlisted photo of this specific radio interview exists; the era already carries verified premiere/hero shots for this song elsewhere (reviewed 2026-09-06, t_187359e9)',
     },
     {
       slug: 'amc-leawood-films-eras-tour-inspiration',
@@ -13284,48 +13286,19 @@ export default {
         // allowlisted subject photo. Left for the checkers.
       },
     },
-    {
-      slug: 'florida-orchestra-taylor-swift-symphony-era-mahaffey',
-      year: 2026,
-      month: 9,
-      day: 12,
-      category: 'music',
-      title:
-        "A Taylor Swift symphony opens the Florida Orchestra's season — a fan tribute, no official ties",
-      snippet:
-        'Steve Hackman\'s "Taylor Swift: The Symphony Era" reimagines her catalog for full orchestra in St. Petersburg on Sept. 12 — an unaffiliated fan production, not a Taylor Swift event.',
-      sourceUrl:
-        'https://floridaorchestra.org/event/steve-hackmans-taylor-swift-the-symphony-era/',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'The Florida Orchestra opens its 59th season on Sept. 12, 2026 with an all-Taylor night: "Steve Hackman\'s Taylor Swift: The Symphony Era," a full-orchestra reimagining of her catalog at the Duke Energy Center for the Arts–Mahaffey Theater in St. Petersburg, at 7:30 p.m. It is not a covers set — created and conducted by Steve Hackman, with four vocalists splitting the parts to cover her range, the program threads songs from across her eras into one arc, drawing unexpected connections between them and, in the orchestra\'s own words, unearthing new musical Easter eggs. The setlist spans the whole run, from "Love Story" and "You Belong With Me" to the Showgirl-era single "The Fate of Ophelia," with tickets starting around $38.\n\nThe one thing to be clear about is what this isn\'t. Taylor will not appear, and the production is explicit — on the orchestra\'s own event page — that it is fan-facing and not endorsed by or affiliated with Taylor Swift, TAS Rights Management, or any of her entities. It is a third-party symphonic tribute, the kind of thing her catalog now sustains the way the standards songbook sustains pops orchestras everywhere. We note it as exactly that: a fan experience worth knowing about for anyone near Tampa Bay this September, not a Taylor Swift concert.',
-        sources: [
-          {
-            outlet: 'The Florida Orchestra',
-            url: 'https://floridaorchestra.org/event/steve-hackmans-taylor-swift-the-symphony-era/',
-            source_title: "Steve Hackman's Taylor Swift: The Symphony Era",
-            publisher: 'The Florida Orchestra (promoter/venue)',
-            source_type: 'official',
-            accessed_at: '2026-09-06',
-            reliability_score: 4,
-            notes:
-              'the promoter\'s own event page — confirms date, venue, conductor, four vocalists, $38 tickets, and the explicit "not affiliated with / endorsed by Taylor Swift or TAS Rights Management" disclaimer. Resolved via web search this run.',
-          },
-          {
-            outlet: 'WUSF',
-            url: 'https://www.wusf.org/arts-culture/2026-09-04/florida-orchestra-giving-taylor-swift-music-symphony-feel',
-            source_title: 'Florida Orchestra giving Taylor Swift music a symphony feel',
-            publisher: 'WUSF (NPR affiliate)',
-            source_type: 'reputable_press',
-            accessed_at: '2026-09-06',
-            reliability_score: 4,
-          },
-        ],
-        // Text-first: no reusable, allowlisted photo of this specific
-        // production exists yet; a generic Taylor shot would misrepresent a
-        // fan-tribute event she is not part of. Left as text on purpose.
-      },
-    },
+    // NOTE (2026-09-06, t_187359e9 — founder escalation): a
+    // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
+    // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
+    // BEFORE the event it describes happens. That is a real data-integrity
+    // bug, not a style nit: this file records things that occurred, and nothing
+    // here should be dated in the future relative to when it is authored. The
+    // entry is pulled entirely rather than back-dated (there is no true date to
+    // move it to — the concert has not happened yet) per the future-dated-moment
+    // checker's own guidance ("confirm the event has actually happened and fix
+    // the date, or remove until it has" — scripts/content-engine/checkers/
+    // numeric-date.mjs). Re-author it on/after 2026-09-12, once the show has
+    // actually taken place, with a same-day or later date. See
+    // docs/decisions.md for the full entry and scripts/validate-content.mjs's
+    // new blocking future-date check, which now fails CI on any repeat.
   ],
 };
