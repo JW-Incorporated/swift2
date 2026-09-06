@@ -3,7 +3,7 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { MessageSquarePlus, X, Check, Loader2 } from 'lucide-react';
 import { useAppState } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
@@ -283,13 +283,26 @@ export function FeedbackButton() {
         {/* Dismisses the whole widget for the rest of the session (Joey: "it
             shouldn't keep coming back and annoying them"), distinct from just
             closing the compose panel. Only offered while idle; while
-            composing, the panel's own close X is the relevant control. */}
+            composing, the panel's own close X is the relevant control.
+
+            It must stay VISUALLY SUBORDINATE to the trigger beside it, hence
+            `--quiet`. Plain `.era-icon-btn` is the maximum-contrast solid
+            inversion #525 asked for — correct for the close X of an overlay,
+            backwards here: on a dark era it painted this button solid cream,
+            the brightest thing on the page, while the trigger beside it
+            stayed a dim `bg-surface/90`. What a phone showed was a bright,
+            isolated X in a circle in the bottom-right corner with nothing
+            legible attached to it, which users read as the close button of a
+            pop-up that had failed to render ("an X in a circle... as if
+            there's an invisible pop up that I need to clear"). The `bg-*`
+            utility that used to sit here was inert — globals.css is ordered
+            after Tailwind's utilities, so `.era-icon-btn` won regardless. */}
         {!open && (
           <button
             type="button"
             onClick={dismissForSession}
             aria-label="Dismiss the feedback button for this session"
-            className="era-icon-btn rounded-full border border-line bg-bg text-ink-soft shadow"
+            className="era-icon-btn era-icon-btn--quiet rounded-full shadow backdrop-blur-md"
           >
             <X size={16} />
           </button>
@@ -302,7 +315,14 @@ export function FeedbackButton() {
           className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/90 px-4 py-3 text-sm font-medium text-ink shadow-2xl backdrop-blur-md transition-transform hover:scale-105 active:scale-95"
         >
           {open ? <X size={18} /> : <MessageSquarePlus size={18} />}
-          <span className="hidden sm:inline">Feedback</span>
+          {/* The label is what makes the whole bottom-right cluster
+              self-describing, so it is NOT hidden on small screens. It used to
+              be `hidden sm:inline`: under 640px the trigger collapsed to a dim,
+              unlabelled icon and the only legible thing left in the corner was
+              the dismiss X — which is why this looked like a stray close button
+              for a missing pop-up on a phone and looked completely fine on a
+              desktop viewport, where the label was showing all along. */}
+          <span>Feedback</span>
         </button>
       </div>
     </>

@@ -45,6 +45,51 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "'...Ready for It?' opens reputation and functions as the album's mission statement: after the vengeful, industrial stomp of lead single 'Look What You Made Me Do,' this track reintroduces Swift as someone falling hard and fast into a new relationship, fusing armored, hip-hop-inflected production with the vulnerability of infatuation. It signaled that reputation would not simply be a diss record but an album about rebuilding intimacy behind a defensive public persona.",
+          "As the album's second single and the song chosen to premiere during a nationally televised college football broadcast, it also mattered commercially and strategically — it was Swift's way of demonstrating that her sound could evolve toward trap and EDM-adjacent textures while still delivering a top-10, multi-platinum hit, distancing reputation from the polished synth-pop of 1989."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift co-wrote '...Ready for It?' with producers Max Martin, Shellback, and Ali Payami for reputation, and the song premiered as a teaser during an ABC college football broadcast on September 2, 2017, before being released for digital download the next day and going to radio as the second single on October 24, 2017.",
+            "Swift stated at her iHeartRadio reputation album release party that the song's central 'partner in crime' imagery is about the thrill of finding a romantic match who feels like your equal — comparing it to the excitement of deciding to 'rob banks together', and noted that this crime-and-heist theme recurs elsewhere on the record in different forms."
+          ],
+          supported: [
+            "Wikipedia's sourced composition summary and multiple outlets describe the lyrics as using criminal and heist imagery — including a bank robbery, holding someone 'for ransom,' and going into hiding together — as metaphors for intense new romantic attraction and desire to escape public scrutiny.",
+            "Several publications, including Songfacts, note the lyric describing her love interest as 'younger than my exes' who nonetheless 'acts like such a man' aligns with Joe Alwyn, who was younger than Swift when they began dating and when the song was released; additional numeric and visual cues in the music video (including birth-year references) are widely cited by press as reinforcing this reading.",
+            "Music critics, as summarized on Wikipedia, generally praised the track's anthemic production and considered it a stronger single than 'Look What You Made Me Do,' while some reviews found its sound generic or too aligned with contemporary trap-pop trends of the period.",
+            "The Joseph Kahn-directed music video, which depicts a cloaked human Swift battling a robotic double, has been widely interpreted by critics and fans as a visual metaphor for the tension between Swift's authentic self and her public, media-constructed persona during the reputation era."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:gorgeous",
+            label: "Gorgeous",
+            why: "Both songs document the same early-relationship infatuation (read by press as being about Joe Alwyn) — one through crime-thriller intensity, the other through flirtatious comedy."
+          },
+          {
+            relatedId: "song:look-what-you-made-me-do",
+            label: "Look What You Made Me Do",
+            why: "As reputation's first two singles, they establish the album's dual register — public vengeance and private devotion — with 'Ready for It?' pivoting the narrative from feud to romance."
+          },
+          {
+            relatedId: "song:delicate",
+            label: "Delicate",
+            why: "Both songs explore vulnerability inside a new relationship while Swift is hyper-aware of public perception, though 'Delicate' trades the heist bravado for hushed uncertainty."
+          },
+          {
+            relatedId: "song:end-game",
+            label: "End Game",
+            why: "The two tracks share reputation's recurring 'partner in crime' motif that Swift said carries through the record in varying forms, framing love as a shared conspiracy against outside judgment."
+          }
+        ],
+        sources: [
+          { name: "...Ready for It? — Wikipedia", url: "https://en.wikipedia.org/wiki/...Ready_for_It%3F" },
+          { name: "...Ready For It? by Taylor Swift — Songfacts", url: "https://dev-www.songfacts.com/facts/taylor-swift/ready-for-it" },
+          { name: "Reputation (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Reputation_(album)" }
+        ]
+      },
     },
     {
       slug: 'end-game',
@@ -387,6 +432,50 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "\"Gorgeous\" sits at a turning point on reputation where Swift lets a little sunlight back into an album built around armor and score-settling. Coming right after the vengeful \"Look What You Made Me Do\" and the seductive dare of \"...Ready for It?\", it shows the softer, sillier side of falling for someone while still wrapped in the record's synth-heavy, tabloid-scarred sound — proof that reputation's narrator could be petty and swooning in the same breath.",
+          "The song also matters as a piece of Swift's public narrative-management during the era: she used a low-stakes promotional single, built around a viral baby-voice hook from friends' toddler, to generate press buzz ahead of the album's release, showing her increasing command of rollout strategy alongside songwriting."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift wrote 'Gorgeous' with producers Max Martin and Shellback for reputation, and the track opens with a recording of a baby saying the word 'gorgeous' — a sample of James Reynolds, daughter of Blake Lively and Ryan Reynolds, which Swift decided to use after playing them an acoustic demo and the toddler kept repeating the word.",
+            "Big Machine Records released 'Gorgeous' as a promotional single on October 20, 2017, ahead of reputation's release, following 'Look What You Made Me Do' and '...Ready for It?' as the third song issued before the album."
+          ],
+          supported: [
+            "Critics and Wikipedia's composition summary describe the lyrics as a flirtatious, self-deprecating confession to a new love interest — the narrator jokes that his good looks make her miserable and torn, including a self-aware nod to being tempted to stray from a current boyfriend, played for comic exaggeration rather than literal confession.",
+            "Multiple outlets, including Wikipedia's sourced composition notes, connect the song's romantic subject to Swift's real-life relationship with actor Joe Alwyn, framing 'Gorgeous' as an early, tongue-in-cheek document of new infatuation within the reputation era's broader love story.",
+            "Critical reception was split: some reviewers praised its bright, 'radio-friendly' production as a welcome contrast to the album's darker early singles, while others, per Billboard and Wikipedia's aggregated critical summary, felt the songwriting was simplistic compared to Swift's usual standard."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:ready-for-it",
+            label: "...Ready for It?",
+            why: "Both songs chart the same new relationship (widely read as with Joe Alwyn) at different emotional temperatures — one breathless and cinematic, the other giddy and self-mocking."
+          },
+          {
+            relatedId: "song:call-it-what-you-want",
+            label: "Call It What You Want",
+            why: "Both tracks depict Swift finding stability and joy in a relationship that also serves as an emotional refuge from reputation's tabloid battles."
+          },
+          {
+            relatedId: "song:delicate",
+            label: "Delicate",
+            why: "Like 'Gorgeous,' 'Delicate' captures the anxious, giddy uncertainty of new romance, tempering reputation's tougher exterior with vulnerability."
+          },
+          {
+            relatedId: "song:dress",
+            label: "Dress",
+            why: "Both songs address the same love interest with playful desire, contrasting reputation's brasher, more combative tracks with intimate, romantic material."
+          }
+        ],
+        sources: [
+          { name: "Gorgeous (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Gorgeous_(Taylor_Swift_song)" },
+          { name: "Why Taylor Swift's 'Reputation' Is Her Best Album — Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-reputation-best-album-8527988" },
+          { name: "Reputation (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Reputation_(album)" }
+        ]
+      },
     },
     {
       slug: 'getaway-car',

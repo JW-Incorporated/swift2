@@ -2,7 +2,7 @@
 
 import { ChevronDown, Share2, X } from 'lucide-react';
 import { useAppActions, useAppState, type ShareTarget } from '@/lib/longlive/store';
-import type { Era } from '@/lib/longlive/types';
+import type { Era } from '@swift2/experience';
 import { ModeToggle } from './TopBar';
 
 /**

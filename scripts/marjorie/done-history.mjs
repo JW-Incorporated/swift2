@@ -37,6 +37,14 @@ function statusOf(cell) {
 function blockedOnOf(cell) {
   const t = String(cell || '').trim().toLowerCase();
   if (t === 'founder' || t === 'agent' || t === 'nobody') return t;
+  // Compound cells — `agent (Marketplace) · nobody (Community)` — are how the
+  // file records a row with two sub-items blocked on different parties.
+  // 2026-09-05 audit: this parsed as null, so the brief said "reason not
+  // recorded — the table needs a Blocked-on value" every day for DoD item 4
+  // while the file DID record it, and Marjorie was hand-correcting the row
+  // each morning. Keep the cell's own wording when it names real parties.
+  const parties = [...t.matchAll(/\b(founder|agent|nobody)\b/g)].map((m) => m[1]);
+  if (parties.length) return String(cell).trim();
   return null; // green rows carry no blocked-on value — that's expected, not a parse failure
 }
 

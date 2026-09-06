@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CONTENT, MILESTONES, build, milestonesForEra, type RawItem } from './content';
-import { formatMonthYear } from './format';
+import { formatMonthYear } from '@swift2/experience';
 import {
   autoFocalPoint,
   focalPointOf,
@@ -9,7 +9,7 @@ import {
   primaryImage,
   primaryImageRef,
   type ImageRef,
-} from './types';
+} from '@swift2/experience';
 
 /** Minimal RawItem factory — only image fields vary across these tests. */
 function raw(partial: Partial<RawItem> = {}): RawItem {

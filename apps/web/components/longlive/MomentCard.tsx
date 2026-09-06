@@ -5,7 +5,7 @@ import { X } from 'lucide-react';
 import { useAppState } from '@/lib/longlive/store';
 import { MomentVideo, VideoPoster } from './MomentVideo';
 import { feedVideoFor } from '@/lib/longlive/video-affordance';
-import type { ContentItem } from '@/lib/longlive/types';
+import type { ContentItem } from '@swift2/experience';
 import { TIER_BOX, TIER_BOX_STYLE, TIER_FOOTER, TIER_SPAN } from '@/lib/longlive/card-chrome';
 import type { CardTier } from '@/lib/longlive/feed-tiers';
 import { MomentCardButton } from './MomentCardButton';

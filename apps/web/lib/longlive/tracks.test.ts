@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, beforeAll } from 'vitest';
 import { TRACKS_RAW } from './tracks.generated';
 import {
   adjacentTrackOnAlbum,
@@ -8,13 +8,23 @@ import {
   resolveConnections,
   songTargetOf,
   tracksForEra,
-} from './tracks';
+  setTracksRawProvider,
+  setContentItemLookup,
+  ERAS,
+} from '@swift2/experience';
 import { CONTENT, getContentItem } from './content';
-import { ERAS } from './eras';
-import type { EraId, TrackNote } from './types';
+import type { EraId, TrackNote } from '@swift2/experience';
 
 // Guards the generated track-guide data against generator drift: everything
 // the TrackGuide overlay assumes about tracks.generated.ts is asserted here.
+// The track-guide logic itself moved to packages/experience/src/track-guide.ts
+// (OS-024); this file wires the real generated catalogue in via the
+// providers so the same invariants are exercised against real data.
+beforeAll(() => {
+  setTracksRawProvider(TRACKS_RAW);
+  setContentItemLookup(getContentItem);
+});
+
 describe('tracks.generated.ts invariants', () => {
   const eraIds = new Set(ERAS.map((e) => e.id));
 

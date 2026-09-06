@@ -39,7 +39,8 @@ describe('checkRunners', () => {
     expect(loaded.runners.length).toBeGreaterThan(10);
     for (const r of loaded.runners) {
       if (r.checkable === false) expect(r.why).toBeTruthy();
-      else expect(['pr-branch', 'pr-title', 'issue-label', 'issue-title']).toContain(r.match.kind);
+      else expect(['pr-branch', 'pr-title', 'issue-label', 'issue-title', 'brief-comment']).toContain(r.match.kind);
+      if (r.disabled) expect(r.why).toBeTruthy();
     }
   });
 
@@ -58,6 +59,42 @@ describe('checkRunners', () => {
     const r = checkRunners({ allPRs: [], issues: [], cadence, now: NOW, listsCapExhausted: false });
     expect(r.status).toBe('fail');
     expect(r.rows[0].status).toBe('fail');
+  });
+
+  // 2026-09-05 audit: a `--limit 100` PR list on a 31-PRs/day repo reaches
+  // back ~3 days, but weekly runners tolerate 9 days of silence. "Not in the
+  // fetched window" was being read as "never ran".
+  it('reports unknown, not dark, for a weekly runner when the fetched window is shorter than its tolerance', () => {
+    const weekly = { runners: [{ name: 'Karen — nightly scan', perDay: 0.14, maxAgeHours: 216, match: { kind: 'pr-title', value: 'karen: nightly run report' } }] };
+    // 100 unrelated PRs, all inside the last 3 days: a full page that does not reach back 216h.
+    const allPRs = Array.from({ length: 100 }, (_, i) => ({ number: i, headRefName: `x/${i}`, title: `chore ${i}`, createdAt: ago((i % 72) * HOUR) }));
+    const r = checkRunners({ allPRs, issues: [], cadence: weekly, now: NOW });
+    expect(r.rows[0].status).toBe('unknown');
+    expect(r.rows[0].detail).toContain('only reaches back');
+    expect(r.status).toBe('ok');
+  });
+
+  it('still calls a weekly runner dark when the full-page window DOES reach past its tolerance', () => {
+    const weekly = { runners: [{ name: 'Karen — nightly scan', perDay: 0.14, maxAgeHours: 216, match: { kind: 'pr-title', value: 'karen: nightly run report' } }] };
+    const allPRs = Array.from({ length: 100 }, (_, i) => ({ number: i, headRefName: `x/${i}`, title: `chore ${i}`, createdAt: ago(i * 3 * HOUR) })); // ~12.5 days
+    const r = checkRunners({ allPRs, issues: [], cadence: weekly, now: NOW });
+    expect(r.rows[0].status).toBe('fail');
+  });
+
+  it('reports a registry-disabled runner as "disabled by design", never dark', () => {
+    const c = { runners: [{ name: 'Content Shift', perDay: 2, maxAgeHours: 30, disabled: true, why: 'T-1 Vault Phase 4', match: { kind: 'pr-branch', value: 'content-shift/' } }] };
+    const r = checkRunners({ allPRs: [], issues: [], cadence: c, now: NOW });
+    expect(r.status).toBe('ok');
+    expect(r.rows[0].status).toBe('disabled');
+    expect(r.detail).toContain('disabled by design');
+    expect(r.disabled).toEqual(['Content Shift']);
+  });
+
+  it('sees Kevin daily desk through its anchored brief comment', () => {
+    const c = { runners: [{ name: 'Kevin — daily desk (S2 digest)', perDay: 1, maxAgeHours: 30, match: { kind: 'brief-comment', value: '<!-- kevin-stream2-digest -->' } }] };
+    const briefComments = [{ createdAt: ago(5 * HOUR), body: '<!-- kevin-stream2-digest -->\n### Kevin Daily Review' }];
+    expect(checkRunners({ allPRs: [], issues: [], briefComments, cadence: c, now: NOW }).status).toBe('ok');
+    expect(checkRunners({ allPRs: [], issues: [], briefComments: [], cadence: c, now: NOW }).status).toBe('fail');
   });
 });
 

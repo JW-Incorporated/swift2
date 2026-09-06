@@ -25,7 +25,7 @@
  */
 
 import { CONTENT } from './content';
-import { hasRealPrimaryImage, primaryImage, type EraId, type Product } from './types';
+import { hasRealPrimaryImage, primaryImage, type EraId, type Product } from '@swift2/experience';
 // Generated from supabase/seed/merch/{official,fanmade}.mjs by
 // scripts/sync-longlive-merch.mjs (Fable 5.1 architecture review, R11) — the
 // same generated-file pattern as the other vault modules in this directory.

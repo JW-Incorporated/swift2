@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { EGG_NODES, MOTIFS, motifOf } from './lenses';
+import { EGG_NODES, MOTIFS, motifOf } from '@swift2/experience';
 import { motifTargetOf, resolveMotifTrail, resolveRelatedMoments } from './related';
 import { CONTENT } from './content';
 

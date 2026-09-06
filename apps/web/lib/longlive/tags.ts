@@ -1,4 +1,4 @@
-import type { ContentTag } from './types';
+import type { ContentTag } from '@swift2/experience';
 
 /** Accent hue per tag — kept subtle so era theming still dominates. */
 // Fashion/Relationship/Lore lightness bumped from 66/66/70% (#659: pill text

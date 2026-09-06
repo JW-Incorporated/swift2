@@ -3,10 +3,10 @@
  * the exact text we hand to navigator.share / the clipboard is unit-testable.
  */
 
-import { truncate } from './format';
+import { truncate } from '@swift2/experience';
 import type { ShareTarget } from './store';
-import { isSubConfirmed } from './types';
-import type { ContentItem, Era, EraId, LensId, TrackNote } from './types';
+import { isSubConfirmed } from '@swift2/experience';
+import type { ContentItem, Era, EraId, LensId, TrackNote } from '@swift2/experience';
 
 export interface ShareCopy {
   /** Share-target title (many targets show it as the headline). */
