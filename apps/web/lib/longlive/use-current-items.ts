@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import type { CurrentItem } from '@swift2/shared';
+import { fetchLiveData } from './use-live-data';
 
 /**
  * Client-side fetch of the current era's live `current_item` rows, from the
- * `/vault/current/[eraId]` route (packages/core knowledge reader, ISR
- * revalidate: 900s — see that route's own comment). Called once, at
+ * combined `/vault/live/[eraId]` route (R17 — see `use-live-data.ts`;
+ * ISR revalidate: 900s, see that route's own comment). Called once, at
  * EraStream's top level, so the masthead's "Updated Nh ago" line and the
  * current era's feed entries read the exact same fetch, never two
  * independent snapshots that could disagree.
@@ -20,14 +21,9 @@ export function useCurrentItems(eraId: string): CurrentItem[] {
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`/vault/current/${encodeURIComponent(eraId)}`)
-      .then((res) => (res.ok ? res.json() : { items: [] }))
-      .then((data: { items?: unknown }) => {
-        if (!cancelled) setItems(Array.isArray(data.items) ? (data.items as CurrentItem[]) : []);
-      })
-      .catch(() => {
-        if (!cancelled) setItems([]);
-      });
+    fetchLiveData(eraId).then((data) => {
+      if (!cancelled) setItems(data.items);
+    });
     return () => {
       cancelled = true;
     };

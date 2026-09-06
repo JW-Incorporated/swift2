@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import { Play } from 'lucide-react';
-import type { MomentVideo as MomentVideoData } from '@/lib/longlive/types';
+import type { MomentVideo as MomentVideoData } from '@swift2/experience';
 
 /**
  * The 16:9 frame every video on the site sits in — poster or player, one

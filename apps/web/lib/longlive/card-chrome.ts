@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { CardTier } from './feed-tiers';
+import type { CardTier } from '@swift2/experience';
 
 /**
  * Per-tier card CHROME for the era feed: which element draws the card's visual

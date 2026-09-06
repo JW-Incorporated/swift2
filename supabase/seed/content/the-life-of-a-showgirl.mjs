@@ -3343,12 +3343,30 @@ export default {
         photos: [
           {
             url: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
+            // Tent peaks and the walking couple sit center-right, just above and below the midline.
+            // Field-order fix (2026-08-30, #762): moved up to sit immediately
+            // after `url`, per the field-order rule — value unchanged.
+            focalPoint: '52% 45%',
             credit: 'AP Photo/Robert F. Bukaty, via Fortune',
             caption:
               'A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the tent that fueled bachelorette-weekend speculation, though the resort said that weekend\'s booked wedding was an unrelated couple\'s.',
             kind: 'primary',
-            // Tent peaks and the walking couple sit center-right, just above and below the midline.
-            focalPoint: '52% 45%',
+          },
+          {
+            // Photo pass #762 (2026-08-30): a second, unrelated-outlet photo of
+            // the public resort itself (not her home, not security) — the
+            // Boston Globe's own NYT-credited exterior shot, curl-verified 200
+            // image/jpeg on the outlet's own Arc Publishing CDN, downloaded and
+            // vision-confirmed: just the Ocean House facade and unrelated
+            // passersby, no connection to the privacy-redline photo removed
+            // 2026-07-22. Predates the bachelorette weekend by six days, so
+            // captioned honestly as a reference shot of the venue, not the event.
+            url: 'https://bostonglobe-prod.cdn.arcpublishing.com/resizer/v2/2U473J3FQNEC7OCN3PJ7UVWBJM.jpg?auth=b54ee3c066fb2d358665d1864babca74f3b3684470a628f16593dc80d1245912&width=1440',
+            // Full hotel facade fills the upper two-thirds, centered.
+            focalPoint: '50% 35%',
+            credit: 'Sarah Meftah/NYT, via The Boston Globe',
+            caption: 'Reference image: the Ocean House in Watch Hill, June 13, 2026 — six days before the tented-lawn weekend, not the event itself.',
+            kind: 'reference',
           },
         ],
         // Rumor Desk 2026-07-27: formalizes the wedding-DATE rumor this moment's
@@ -3542,9 +3560,9 @@ export default {
             reportedOn: '2026-08-25',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-romantic-green-dress-005404690.html',
-            note: "A fan color-symbolism reading carried by entertainment outlets, not a report of any plan — the underlying source is Swiftie easter-egg speculation, so it rides at tabloid tier. Distinct from the TS13 (new album No. 13) tips above: this one points at the debut re-record specifically. Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if it goes quiet. No location.",
+            note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan — tabloid tier. Points at the debut re-record specifically (distinct from the TS13 tips above). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Re-verified STILL LIVE 2026-09-02: fresh Icon Sessions easter-egg cluster (PureWow, Yardbarker), nothing announced.",
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-25',
+            lastCheckedOn: '2026-09-02',
           },
           // Rumor Desk 2026-08-29 (news-digest, first-seen 2026-08-28): a fresh,
           // post-wedding data point on the same next-record thread as the TS13
@@ -3821,13 +3839,15 @@ export default {
               'Reports put the cost of hiring Madison Square Garden at roughly $3 million for three days — one to set up, one to marry, one to break it all down.',
             reportedBy: 'Hello!',
             reportedOn: '2026-07-02',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
-            note: 'An estimate aggregated from unnamed reports — neither the couple nor the venue has confirmed any figure. (Distinct from the separately confirmed $160K+ NYC permit fee — a city-services figure, not the cost of hiring the arena.)',
+            note: 'An estimate aggregated from unnamed reports — neither the couple nor the venue has confirmed any figure. (Distinct from the separately confirmed $160K+ NYC permit fee, a city-services figure, not the cost of hiring the arena.) Faded 2026-08-31: reported early July, never confirmed or denied — two months on, still an unattributed estimate that resolved by going quiet, not by being settled.',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-08-10: still no outlet has confirmed the
-            // venue-hire figure; still an unattributed estimate.
-            lastCheckedOn: '2026-08-10',
+            // Lifecycle re-checks: 2026-08-10 still an unattributed estimate;
+            // 2026-08-31 re-checked again (news digest + web search) — still no
+            // confirmation or denial 60d on, so retired to `faded` per the
+            // 45d-quiet rule rather than left implying it is still live.
+            lastCheckedOn: '2026-08-31',
           },
           {
             claim:
@@ -3855,10 +3875,14 @@ export default {
             url: 'https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party',
             note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published.',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-08-10: no complete guest list has been
-            // published; stays partially confirmed — some names verified by
-            // arrival photos, the roster as a whole never confirmed.
-            lastCheckedOn: '2026-08-10',
+            // Lifecycle re-checks: 2026-08-10 no complete guest list published;
+            // 2026-08-31 re-checked (news digest + web search) — still none.
+            // Stays partially_confirmed, NOT faded: unlike a claim that only
+            // ever went quiet, this one carries real partial confirmation
+            // (several rumored names verified by arrival photos), so a `faded`
+            // terminal state would understate what is actually on the record.
+            // The roster as a whole was never published.
+            lastCheckedOn: '2026-08-31',
           },
           {
             claim:
@@ -3892,15 +3916,17 @@ export default {
               'Ed Sheeran was widely rumored to perform at the reception, fueled by Taylor\'s own October 2025 radio quip that "it would be hard to keep him from it."',
             reportedBy: 'Hello!',
             reportedOn: '2026-07-02',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
-            note: 'The only reception performance confirmed by post-wedding reporting was Stevie Nicks, per CBS News. No outlet has confirmed or denied that Sheeran — who was photographed arriving as a guest — actually performed.',
+            note: 'Sheeran was photographed arriving as a guest, but no outlet ever confirmed or denied that he performed. Faded 2026-08-31: reported early July, gone quiet for two months. The performers who did surface point elsewhere — Stevie Nicks confirmed (CBS News), Paul McCartney separately reported (NME) — so a Sheeran set is the piece that never materialised, retired to `faded` over `unconfirmed`.',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-08-10: still no confirmation or denial of
-            // a Sheeran performance; post-wedding reporting names Stevie Nicks
-            // (and, reportedly, Tim McGraw) as performers, but nothing on
-            // whether Sheeran — photographed arriving as a guest — played.
-            lastCheckedOn: '2026-08-10',
+            // Lifecycle re-checks: 2026-08-10 no confirmation or denial;
+            // 2026-08-31 re-checked (news digest + web search) — post-wedding
+            // reporting names Stevie Nicks (confirmed) and Paul McCartney
+            // (reported) as reception performers, still nothing on Sheeran 60d
+            // on. Retired to `faded` per the 45d-quiet rule. (McCartney's own
+            // reported set is carried as its own entry below.)
+            lastCheckedOn: '2026-08-31',
           },
           {
             claim:
@@ -3975,6 +4001,25 @@ export default {
             sourceTier: 'social',
             lastCheckedOn: '2026-08-24',
           },
+          {
+            // Added 2026-08-31 (Rumor Desk, news digest + web search): a newly
+            // surfaced reception performance, distinct from — and the likely
+            // reason nothing ever backed — the Ed Sheeran set faded above.
+            // Public-facing entertainment fact at the wedding's documented venue
+            // (MSG); no location payload, no redline. Sourcing confirmed via web
+            // search this session (HollywoodLife, E! News, NME); direct article
+            // fetches were egress-blocked in this environment, so the outlet
+            // attribution rests on the search index — flagged here for the reader.
+            claim:
+              'Paul McCartney is reported to have given a surprise performance at the July 3 reception, playing The Beatles\' "I Want to Hold Your Hand" — by several accounts his first live rendition of the song in decades — alongside the separately reported Stevie Nicks set.',
+            reportedBy: 'HollywoodLife',
+            reportedOn: '2026-07-05',
+            status: 'unconfirmed',
+            url: 'https://hollywoodlife.com/2026/07/05/who-performed-at-taylor-swift-wedding/',
+            note: 'Reported across established outlets days after the wedding — E! News flatly ("Paul McCartney Performs Beatles Classic"), NME and HollywoodLife with the same "I Want to Hold Your Hand" detail — but never confirmed by the couple, who released no photos or video. Adjudicable: resolves if the couple, McCartney or guests confirm the set, or a fuller account rules it out. No location beyond MSG.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-31',
+          },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
           // review. A honeymoon is a private trip, not a public appearance —
@@ -3995,6 +4040,7 @@ export default {
         'moment:vault-tloas-a-2-million-gift-to-the-families-of-new-yorks-fallen-first-r',
       ],
       title: 'Children\'s Mercy patients design a tribute wedding gown for Taylor',
+      slug: 'showgirl-childrens-mercy-tribute-gown',
       snippet:
         'Children being treated at Children\'s Mercy Hospital in Kansas City covered a blank bridal gown in drawings, signatures, well-wishes and Tortured Poets lyrics — a collective "thank you" to Taylor after her July 3 wedding, then shipped it to her.',
       sourceUrl: 'https://www.kctv5.com/2026/08/03/childrens-mercy-kids-design-wedding-gown-taylor-swift/',
@@ -4241,6 +4287,152 @@ export default {
         ],
       },
     },
+    {
+      slug: 'showgirl-harry-styles-msg-wedding-nod',
+      year: 2026,
+      month: 8,
+      day: 29,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      title: 'Harry Styles, mid-show at the Garden: "and they also do weddings"',
+      snippet:
+        'Playing his own Madison Square Garden run, Harry Styles nodded to the arena\'s newest credential — "they also do weddings" — an unnamed but unmistakable wink at the July 3 ceremony held in the same building.',
+      sourceUrl:
+        'https://variety.com/2026/music/news/harry-styles-shout-out-taylor-swift-wedding-travis-kelce-madison-square-garden-show-1236846748/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Playing his own stand at Madison Square Garden on Aug. 29, Harry Styles paused to run down the room\'s résumé — "We\'re at Madison Square Garden, home of the world champion New York Knicks" — before adding, after a beat, "And they also do weddings." He named no one, but the wink landed on impact: it was the same arena where Taylor married Travis Kelce on July 3, and Styles and Taylor dated more than a decade ago. The press took it the same way fans did — a light, affectionate nod rather than a jab. Styles was not at the wedding himself; he had a show of his own that night. It was the plainest kind of pop-culture full-circle: an ex, on the same stage, tipping his hat to the day.',
+        // Intake #3658 (2026-09-01 Vault Run, Content Shift): a documented,
+        // dated public on-stage remark — same shape and right-size as the
+        // Adam Scott wedding-reaction item (#3306) above (short body, no hero,
+        // relationship). Confirmed: two established outlets with direct,
+        // non-redirect links (Variety, The Hollywood Reporter), corroborated
+        // widely (USA Today, E!, EW, Page Six, others). Location is MSG at
+        // venue level only, and it is a documented past public event about a
+        // ceremony already public in the Vault (L2 OK, privacy-redlines.md).
+        // No security, health, or private-individual material. Trimmed the
+        // third-party attendee color from the digest to keep the item on the
+        // remark itself. Photo backfill 2026-09-05 (card t_45787614, RC-2
+        // egress-block resolved): no verifiable image of the specific Aug. 29
+        // MSG show surfaced on an allowlisted host, so this uses a
+        // license-verified Commons reference photo of Harry Styles performing
+        // on the same 2026 tour (Wembley, June 23) — labeled a reference, not
+        // a photo of this exact night.
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/harry-styles-shout-out-taylor-swift-wedding-travis-kelce-madison-square-garden-show-1236846748/',
+            source_title: "Harry Styles Pokes Fun at Ex Taylor Swift's Wedding During Madison Square Garden Show",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-01',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/harry-styles-taylor-swift-wedding-madison-square-garden-1236685019/',
+            source_title: "Harry Styles References Taylor Swift's Wedding During Madison Square Garden Show",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-01',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Harry_Styles_%282026%29.jpg',
+            focalPoint: '50% 30%',
+            credit: 'Wilnel José Verdú Guerrero, Wikimedia Commons (CC BY-SA 4.0)',
+            caption:
+              "Harry Styles performing on the Together, Together tour in 2026 — reference photo; not the specific Aug. 29 Madison Square Garden show where he made the remark.",
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-dog-tommy-hilfiger-campaign',
+      year: 2026,
+      month: 9,
+      day: 1,
+      category: 'fashion',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-wendy-the-kelces-samoyed-confirmed-and-a-name-that-nods-to-t',
+      ],
+      title: 'The couple\'s Samoyed turns up in Tommy Hilfiger\'s fall campaign',
+      snippet:
+        'The white Samoyed Taylor and Travis Kelce share appeared in Tommy Hilfiger\'s Fall 2026 campaign — the dog\'s first official turn in front of a camera, and the occasion on which outlets reported its name as "Wendy."',
+      sourceUrl:
+        'https://www.billboard.com/culture/lifestyle/travis-kelce-taylor-swift-dog-wendy-debut-fashion-ad-watch-1236329801/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Tommy Hilfiger\'s Fall 2026 campaign, shot at New York\'s Plaza Hotel, put Travis Kelce in a cast that also ran through JISOO, Gigi Hadid, Frances Tiafoe, Carmelo Anthony, Peggy Gou and the designer himself — and, in the detail Swifties zeroed in on, the fluffy white Samoyed Kelce shares with Taylor. It is the dog\'s most public appearance yet, weeks after it was first photographed descending the couple\'s jet in July. In talking through how the puppy ended up on set, Kelce prompted a wave of same-day coverage that, per Just Jared and others, "reportedly revealed" the dog\'s name as Wendy — the nod to "The Sandlot" fans had guessed at back in August. On the day of the campaign the name was still only reported; Kelce put it on the record himself the next day, naming Wendy on the Sept. 2 New Heights premiere (tracked on the confirmed dog-name moment this cross-links).',
+        // Intake #3657 (2026-09-01 Vault Run, Content Shift): the confirmed
+        // event here is the officially released Tommy Hilfiger campaign and
+        // the couple's dog appearing in it — a distinct, dated fashion moment,
+        // not a duplicate of the Aug. 3 dog-name RUMOR item
+        // (showgirl-newlyweds-rumored-dog-wendy), which it cross-links. Author
+        // carries the name as "reported," matching the digest ("reportedly
+        // revealed" per Just Jared): the principals have not confirmed it, so
+        // this item deliberately does NOT flip that rumor's lifecycle status —
+        // promotion/retirement of the Wendy RumorNote is the Rumor Desk's call
+        // (not due 2026-09-01, odd day-of-month) and left to it. Confirmed
+        // campaign, reported across established outlets (Billboard, Sports
+        // Illustrated) plus Just Jared for the name detail. Location: the
+        // Plaza Hotel named only as the brand's own officially released shoot
+        // venue (officially-announced provenance, L2 within cap,
+        // privacy-redlines.md); a pet is not a private individual, no redline.
+        // Right-sized as newlywed color (short body, no hero).
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/lifestyle/travis-kelce-taylor-swift-dog-wendy-debut-fashion-ad-watch-1236329801/',
+            source_title: "Travis Kelce and Taylor Swift's Adorable New Dog Makes Debut in Ad",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-01',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/pop-culture/travis-kelce-taylor-swift-dog',
+            source_title: "We Finally Got a Look at Travis Kelce and Taylor Swift's Dog",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-01',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/09/01/travis-kelce-explains-how-his-dog-ended-up-in-tommy-hilfiger-campaign-as-the-samoyeds-name-is-reportedly-revealed/',
+            source_title: "Travis Kelce Explains How His Dog Ended Up in Tommy Hilfiger Campaign as the Samoyed's Name Is Reportedly Revealed",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-01',
+            reliability_score: 2,
+          },
+        ],
+        // Photo backfill 2026-09-05 (card t_45787614, RC-2 egress-block
+        // resolved): Access Hollywood's official coverage video of the Tommy
+        // Hilfiger campaign, oEmbed-verified title "Travis Kelce Stars w/ His &
+        // Taylor Swift's Dog In New Tommy Hilfiger Campaign". Thumbnail HTTP
+        // 200 + image/jpeg, downloaded and vision-confirmed: Kelce reclined on
+        // a striped outdoor sofa with the white Samoyed beside him.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/gxTDZSflo9E/hqdefault.jpg',
+            focalPoint: '30% 40%',
+            credit: 'Access Hollywood, via Tommy Hilfiger Fall 2026 campaign',
+            caption:
+              "Travis Kelce with the couple's Samoyed on the Plaza Hotel rooftop set of Tommy Hilfiger's Fall 2026 campaign.",
+            kind: 'primary',
+          },
+        ],
+      },
+    },
     // --- Rumor Desk 2026-08-05 (intake: news digest). A wholly-unconfirmed,
     // social-tier gossip claim about the newlyweds' rumored puppy — admissible
     // because it is attributable (Deuxmoi, named), dated, and adjudicable (it
@@ -4257,15 +4449,15 @@ export default {
       day: 3,
       category: 'relationship',
       relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
-      confidence: 'plausible',
-      title: 'A rumored newlywed puppy — and a name fans traced to "The Sandlot"',
+      confidence: 'confirmed_interview',
+      title: 'Wendy: the Kelces\' Samoyed, confirmed — and a name that nods to "The Sandlot"',
       snippet:
-        'A month after the wedding, gossip account Deuxmoi reported the newlyweds had quietly gotten a white puppy named "Wendy" — a name fans read as a nod to Travis\'s favorite film. Neither Taylor nor Kelce has confirmed the dog or the name.',
+        'What began as an August Deuxmoi blind item is now on the record: on the Sept. 2, 2026 New Heights season-five premiere, Travis Kelce confirmed the white Samoyed he and Taylor share is named Wendy — "a little over a year old now" — the name fans had already read as a nod to Wendy Peffercorn from his favorite film, "The Sandlot."',
       sourceUrl: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
       thumbnailUrl: null,
       moment: {
         context:
-          'In early August 2026, roughly a month after the Madison Square Garden wedding, the gossip account Deuxmoi reported that Taylor and Kelce had quietly added a white puppy to the household — and that its name is "Wendy." Entertainment outlets including Cosmopolitan and SheKnows picked the item up within the day, most flagging that it traces to a single blind item rather than to either of the principals.\n\nThe detail fans latched onto was the name: "Wendy" reads as a reference to Wendy Peffercorn, the lifeguard from the 1993 film "The Sandlot" — a movie Kelce has called a favorite and a character he has joked about a childhood crush on. It is the kind of small, sweet story that is easy to want to be true; the honest status is that it is one gossip report the couple has not addressed. Neither Taylor nor Kelce has publicly confirmed adopting a puppy or its name.',
+          'The story started as gossip and ended as fact. In early August 2026 the account Deuxmoi reported that Taylor and Kelce had quietly added a white puppy named "Wendy" to the household — one blind item, aggregated the same day by Cosmopolitan, SheKnows and others, none of it traceable to either principal. For a month the Vault carried it exactly where the reporting left it: a plausible, unconfirmed rumor.\n\nThe confirmation came from Kelce himself. On the Sept. 2, 2026 season-five premiere of the New Heights podcast — a day after the couple\'s Samoyed turned up in Tommy Hilfiger\'s Fall 2026 campaign — he talked about the dog by name, calling her "little \'ol Wendy," saying she is "a little over a year old now" and that they had had her "for quite a while" while keeping her out of public view, and that Taylor was "all for" putting her in the shoot. That squares the timeline the earlier gossip got wrong: Wendy was not a newlywed puppy acquired a month after the wedding but a dog the couple had lived with privately for a year, first caught on camera descending their jet in Palm Beach that July.\n\nThe name fans had already decoded holds up too: "Wendy" reads as Wendy Peffercorn, the lifeguard from the 1993 film "The Sandlot," a movie Kelce has called a favorite and a character he has joked about a childhood crush on. What was a single gossip report in August is, as of the New Heights premiere, confirmed on the record by one of the two people who would know.',
         sources: [
           {
             outlet: 'Cosmopolitan (via AOL)',
@@ -4285,6 +4477,24 @@ export default {
             accessed_at: '2026-08-05',
             reliability_score: 2,
           },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-taylor-swift-reaction-dog-wendy-public-debut-1236331304/',
+            source_title: "Travis Kelce Shares Taylor Swift's Reaction to Dog Wendy's Public Debut",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CNN',
+            url: 'https://www.cnn.com/2026/09/03/entertainment/taylor-swift-travis-kelce-dog-wendy-samoyed',
+            source_title: "Taylor Swift and Travis Kelce's dog goes from 'alleged' to confirmed",
+            publisher: 'CNN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
         ],
         rumors: [
           {
@@ -4292,11 +4502,17 @@ export default {
               'Gossip account Deuxmoi reported in early August 2026 that Taylor and Kelce had quietly gotten a white puppy named "Wendy," with fans reading the name as a nod to Wendy Peffercorn, the lifeguard in Kelce\'s oft-cited favorite film "The Sandlot."',
             reportedBy: 'Deuxmoi (via Cosmopolitan)',
             reportedOn: '2026-08-03',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
-            note: 'Traces to a single Deuxmoi blind item, aggregated the same day by Cosmopolitan, SheKnows and others; carried at the social tier. Cosmopolitan/AOL: neither Taylor nor Kelce "has publicly confirmed they adopted a puppy or revealed its name." A pet, not a private individual — no redline; no location. Resolves if the couple confirms the dog and name, fades if it stays unaddressed.',
+            note: 'The Aug. 3 Deuxmoi blind item — one social-tier report the couple had not addressed — was later confirmed on the record. Re-checked 2026-09-04 (CIE #3736); the moment\'s confidence was raised plausible → confirmed_interview and its prose reconciled to match. A pet, not a private individual — no redline, no location.',
+            resolution: {
+              on: '2026-09-02',
+              url: 'https://www.billboard.com/music/music-news/travis-kelce-taylor-swift-reaction-dog-wendy-public-debut-1236331304/',
+              outlet: 'New Heights (via Billboard, CNN)',
+              note: 'Travis Kelce named the Samoyed "Wendy" and called her "a little over a year old" on the Sept. 2, 2026 New Heights season-five premiere; Billboard and CNN reported the confirmation ("goes from \'alleged\' to confirmed").',
+            },
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-26',
+            lastCheckedOn: '2026-09-04',
           },
         ],
         // Photo pass #762 (2026-08-06): re-confirms the deliberate no-photo
@@ -5569,12 +5785,12 @@ export default {
         photos: [
           {
             url: 'https://cdn.mos.cms.futurecdn.net/izGR5GyrdGtkDeTMsNFvAN-1920-80.jpg',
+            // Talking-head frame with her face centered high; eyes in the upper third.
+            focalPoint: '50% 32%',
             credit: 'Instagram/@taylornation, via Marie Claire',
             caption:
               'From the Sept. 20 behind-the-scenes video: Taylor in the pumpkin-orange Reformation knit, explaining the album\'s visual identity on camera.',
             kind: 'primary',
-            // Talking-head frame with her face centered high; eyes in the upper third.
-            focalPoint: '50% 32%',
           },
           // Photo pass (#762 run 6, 2026-07-18): deliberately left at one
           // photo. The Sept. 20 Taylor Nation video yielded a single credited
@@ -5582,6 +5798,20 @@ export default {
           // different sightings (the $70 merch cardigan in a later teaser
           // trailer), and the album-cover render would duplicate the
           // showgirl-release-day page's art.
+          {
+            // Photo pass #762 (2026-08-30): superseded the note above — Taylor
+            // Swift Style's own Squarespace CDN carries a wider frame from the
+            // SAME Sept. 20 BTS setup (same director's chair, same painted
+            // backdrop), curl-verified 200 image/png, downloaded and
+            // vision-confirmed: shows the Versace leather mini skirt half of
+            // the outfit the existing head-and-shoulders crop cuts off.
+            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/445c8b30-9ae0-463a-a533-cf2ee094c7fc/0920+Taylor+Swift+Style+The+Life+of+a+Showgirl+13+Days+Feature.png',
+            // Full-body seated frame; face sits high and centered.
+            focalPoint: '46% 13%',
+            credit: 'Instagram/@taylornation, via Taylor Swift Style',
+            caption: 'From the same Sept. 20 video: the full look — the Reformation crew over the Versace leather mini, with the gold Versace watch and "T" pendant.',
+            kind: 'reference',
+          },
         ],
         // Shop pass (Stylist 2026-07-20): the exact Reformation piece she
         // wore — the "Cashmere Short Sleeve Crew" in Showgirl orange — was
@@ -6054,14 +6284,6 @@ export default {
             // bag low-left — keep the face under wide crops.
             focalPoint: '65% 14%',
           },
-          {
-            // Photo pass (issue #1721, 2026-08-25): a second photo, from the
-            // same Marie Claire outfit-story article, superseding the note below.
-            url: 'https://cdn.mos.cms.futurecdn.net/RgRJ6QDr4KSapNCHFvdze9.jpg',
-            credit: 'Marie Claire / Getty Images',
-            caption: 'Taylor Swift arriving at Arrowhead Stadium for the Chiefs vs. Broncos Christmas Day 2025 game.',
-            kind: 'reference',
-          },
           // Photo pass #762 run 7 (2026-07-18): re-searched for a second photo of
           // this event and again found none that verify. AOL/InStyle's "lead
           // photo" of the game downloaded as a recycled Jan-2025 AFC-Championship
@@ -6069,8 +6291,20 @@ export default {
           // rejected on viewing); TMZ's article runs a Dec. 3 Getty file photo;
           // Taylor Swift Style's gallery carries only the single broadcast frame
           // already used above (wire photographers had no access — broadcast-only
-          // event). Superseded 2026-08-25: a second, distinct Marie Claire photo
-          // was found and added above.
+          // event).
+          // Photo pass #762 (2026-08-30): the 2026-08-25 pass's "second Marie
+          // Claire photo" (RgRJ6QDr4KSapNCHFvdze9.jpg) is WRONG — Marie Claire's
+          // own og:image:alt on that article reads "Taylor Swift at the Kansas
+          // City Chiefs Christmas day game in 2023 wearing a red sweater and
+          // plaid skirt with a santa hat." Downloaded and viewed: it shows her
+          // in a Santa hat next to a person in a full Santa costume, not the red
+          // Frankie Shop bomber this moment describes — a recycled 2023 file
+          // photo the article used as its speculative-outfit-piece lead image,
+          // mislabeled here as the Dec. 25 2025 game. Removed rather than kept
+          // mislabeled. Re-searched (AOL's original piece now 404s; Just Jared's
+          // Dec. 25 2025 recap is Cloudflare-blocked; TMZ's Dec. 25 2025 article
+          // still runs the same Dec. 3 file photo as run 7 found) — no genuine
+          // second photo of this broadcast-only event verifies. Back to one.
         ],
         products: [
           {
@@ -7455,7 +7689,7 @@ export default {
         'https://d3i6fh83elv35t.cloudfront.net/static/2026/06/2026-06-11T222809Z_1091184995_RC2YRLAQU168_RTRMADP_3_AWARDS-SONGWRITERS-HALL-OF-FAME-1024x683.jpg',
       moment: {
         context:
-          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, KISS\'s Gene Simmons and Paul Stanley, Walter Afanasieff, Terry Britten and Graham Lyle, and Christopher "Tricky" Stewart — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. She had a prior tie to the Hall — its 2010 Hal David Starlight Award, given to her at 20 — which made her its first Starlight honoree to return as a full inducted member. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nThe introduction was her own doing: asked which of her heroes she\'d want presenting, she named Steven Spielberg, who appeared as a surprise. He set her in a lineage of "the composers of the Great American Songbook, Lennon and McCartney of the Sixties, and the singer-songwriters of the Seventies like Carole King and Stevie Nicks and your namesake James Taylor," called her "a woman who has no peer when it comes to shattering records as a writer, singer, and storyteller," and argued her achievements "defy A.I." — "no algorithm can replace the soul of a true original." "Somehow," he closed, "Taylor knows us all too well."\n\nTaylor didn\'t perform. Instead, at her request, the 20-year-old singer-songwriter sombr opened her segment with covers of "Cardigan" and "Dear John," and she returned the praise — "his writing is so exceptional that it makes me actually envious... Sombr is the future, and he doesn\'t need AI." Sombr, for his part, was terrified. Recounting the night to Variety that August, he called her "a goddess" and said that if he had let himself look at her "for three seconds during the performance, my mind would have completely blanked." Their friendship had begun the way many of his heroes\' do: she praised him in an interview, he sent a thank-you note, and she wrote back with a letter and a necklace. "I freaked out and fangirled," he said. The rest of her past-twenty-minute speech was about where her own writing began: she named the Nashville co-writers who taught her the room — Liz Rose (a fellow inductee, watching from the audience), Hillary Lindsey, the late Brett James, Robert Ellis Orrall, the Warren Brothers and Craig Wiseman — recalling how a session with Wiseman sent her home to finish "Love Story" alone that night. She held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her.\n\nShe kept the room on songwriting — no mention of the Madison Square Garden wedding twenty-two days off, though the seating told that story anyway, with Travis Kelce, Andrea Swift and Donna Kelce at her table. She walked the carpet in a custom Givenchy by Sarah Burton, a black gown embroidered top to bottom with blooms. The gala is an invite-only black-tie dinner with no broadcast or livestream; the full remarks reached fans mainly through Billboard\'s published transcript, picked up across Variety, Rolling Stone, PBS NewsHour and CBS News.',
+          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, KISS\'s Gene Simmons and Paul Stanley, Walter Afanasieff, Terry Britten and Graham Lyle, and Christopher "Tricky" Stewart — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. She had a prior tie to the Hall — its 2010 Hal David Starlight Award, given to her at 20 — which made her its first Starlight honoree to return as a full inducted member. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nThe introduction was her own doing: asked which of her heroes she\'d want presenting, she named Steven Spielberg, who appeared as a surprise. He set her in a lineage of "the composers of the Great American Songbook, Lennon and McCartney of the Sixties, and the singer-songwriters of the Seventies like Carole King and Stevie Nicks and your namesake James Taylor," called her "a woman who has no fear when it comes to shattering records as a writer, singer, and storyteller," and argued her achievements "defy A.I." — "no algorithm can replace the soul of a true original." "Somehow," he closed, "Taylor knows us all too well."\n\nTaylor didn\'t perform. Instead, at her request, the 20-year-old singer-songwriter sombr opened her segment with covers of "Cardigan" and "Dear John," and she returned the praise — "his writing is so exceptional that it makes me actually envious... Sombr is the future, and he doesn\'t need AI." Sombr, for his part, was terrified. Recounting the night to Variety that August, he called her "a goddess" and said that if he had let himself look at her "for three seconds during the performance, my mind would have completely blanked." Their friendship had begun the way many of his heroes\' do: she praised him in an interview, he sent a thank-you note, and she wrote back with a letter and a necklace. "I freaked out and fangirled," he said. The rest of her past-twenty-minute speech was about where her own writing began: she named the Nashville co-writers who taught her the room — Liz Rose (a fellow inductee, watching from the audience), Hillary Lindsey, the late Brett James, Robert Ellis Orrall, the Warren Brothers and Craig Wiseman — recalling how a session with Wiseman sent her home to finish "Love Story" alone that night. She held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her.\n\nShe kept the room on songwriting — no mention of the Madison Square Garden wedding twenty-two days off, though the seating told that story anyway, with Travis Kelce, Andrea Swift and Donna Kelce at her table. She walked the carpet in a custom Givenchy by Sarah Burton, a black gown embroidered top to bottom with blooms. The gala is an invite-only black-tie dinner with no broadcast or livestream; the full remarks reached fans mainly through Billboard\'s published transcript, picked up across Variety, Rolling Stone, PBS NewsHour and CBS News.',
         sources: [
           {
             outlet: 'PBS NewsHour',
@@ -8130,14 +8364,28 @@ export default {
         photos: [
           {
             url: 'https://imagez.tmz.com/image/43/16by9/2026/07/11/435b7e695e334893923e269c987b46f6_xl.jpg',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // TMZ two-panel frame — Travis's face upper-left panel, Taylor's face
+            // upper-right panel; both sit in the top quarter, so bias the crop high.
+            // Field-order fix (2026-08-30, #762): moved up to sit immediately
+            // after `url`, per the field-order rule — value unchanged.
+            focalPoint: '50% 22%',
             credit: 'TMZ.com',
             caption:
               "Taylor in the pink Markarian gown and Travis in a black suit, arriving at JuJu Smith-Schuster's wedding.",
             kind: 'primary',
-            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
-            // TMZ two-panel frame — Travis's face upper-left panel, Taylor's face
-            // upper-right panel; both sit in the top quarter, so bias the crop high.
-            focalPoint: '50% 22%',
+          },
+          {
+            // Photo pass #762 (2026-08-30): a second TMZ gallery frame from the
+            // same event/article, curl-verified 200 image/jpeg, downloaded and
+            // vision-confirmed — Taylor and Travis seated among guests during
+            // the reception, a distinct moment from the arrival photo above.
+            url: 'https://imagez.tmz.com/image/66/16by9/2026/07/11/66235653fbbb4643883469aadf9fc9a9_xl.jpg',
+            // Both faces sit left-of-center, upper third (Taylor lower, Travis just above her).
+            focalPoint: '38% 30%',
+            credit: 'TMZ.com',
+            caption: "Taylor and Travis seated among guests at JuJu Smith-Schuster's wedding reception, both still in sunglasses.",
+            kind: 'reference',
           },
         ],
         // Stylist lane (Vault Run, 2026-08-09): sourcing the named garments.
@@ -8177,12 +8425,14 @@ export default {
       // Cross-links (extended 2026-08-29, crosslink-opportunity): the same
       // song's main story/Oscar page and its Pop Airplay chart run, plus its
       // sibling chart milestones and the music-video debut it followed.
+      // Extended 2026-09-05: + the country-radio add-record moment.
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
         'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
+        'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
       ],
       year: 2026,
       month: 8,
@@ -8216,6 +8466,22 @@ export default {
             accessed_at: '2026-08-28',
             reliability_score: 4,
             notes: 'confirms the new piano-version animated video timed to the streaming date; resolved via web search, not fetched (news-domain egress blocked this run).',
+          },
+        ],
+        // Photo pass 2026-08-31 (photo-enrichment, #762): no standalone
+        // official upload of the piano-version video exists on YouTube (only
+        // a fan-cover and a UMG "Topic" audio-only auto-upload) — the video
+        // lives on Disney+/Spotify/Apple Music per the article. Used GMA's
+        // own hero photo instead: Taylor at the Toy Story 5 premiere, honest
+        // era context for this Toy-Story-5-adjacent news item. Curl-verified
+        // 200 image/jpeg, downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/a7c3cbbc-cb67-4351-9094-bc18e2d853c5/taylor-gty-er-260826_1787779134122_hpMain_16x9.jpg?w=992',
+            focalPoint: '66% 50%',
+            credit: 'Kevin Mazur/Getty Images (via Good Morning America)',
+            caption: 'Taylor Swift at the Toy Story 5 world premiere in Los Angeles, June 9, 2026.',
+            kind: 'reference',
           },
         ],
       },
@@ -8380,9 +8646,9 @@ export default {
             reportedOn: '2026-06-10',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/taylor-swift-jack-antonoff-toy-story-5-song-grammy-oscar-1236268865/',
-            note: 'A forward-looking prediction, not a nomination. Resolves with the shortlist and the January 2027 nominations. Lifecycle re-check 2026-08-10: still pending, not faded — a prediction awaiting scheduled Academy dates (Original Song submission deadline Oct. 14, 2026; shortlist Dec. 15, 2026), so no eligibility ruling or shortlist exists yet. Still live.',
+            note: 'A forward-looking prediction, not a nomination. Resolves with the shortlist and the January 2027 nominations. Re-checks 2026-08-10 and 2026-08-31: still pending, not faded — awaiting scheduled Academy dates (Original Song submission deadline Oct. 14, 2026; shortlist Dec. 15, 2026), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is still ahead. Still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-10',
+            lastCheckedOn: '2026-08-31',
           },
           {
             // Rumor Desk 2026-07-22 (news digest, The Tennessean via Yahoo): the
@@ -8412,6 +8678,7 @@ export default {
       // Cross-link (crosslink-opportunity, 2026-08-24; extended 2026-08-29): + its
       // Adult Pop Airplay No. 1 record and the other same-song milestones — the
       // music-video debut and the Disney+ piano-version video.
+      // Extended 2026-09-05: + the country-radio add-record moment.
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
@@ -8419,6 +8686,7 @@ export default {
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
         'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
+        'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
       ],
       year: 2026,
       month: 8,
@@ -8961,7 +9229,7 @@ export default {
       category: 'music',
       title: 'A secret Grammy Museum show: the Icon Sessions 20-year retrospective',
       snippet:
-        'On Aug. 18, 2026, Taylor sat for an invite-only career retrospective at the Grammy Museum in Los Angeles — “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” staged for the Recording Academy’s Songwriters & Composers Wing. Recording Academy CEO Harvey Mason Jr. led a career-spanning Q&A, and she performed an Eras Tour-style piano mashup for the roughly 100 guests.',
+        'On Aug. 18, 2026, Taylor sat for an invite-only career retrospective at the Grammy Museum in LA — “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” staged for the Recording Academy’s Songwriters & Composers Wing. CEO Harvey Mason Jr. led a career-spanning Q&A, and she performed an Eras Tour-style piano mashup for a crowd sized by sources at 100 to 200 guests.',
       sourceUrl:
         'https://www.justjared.com/2026/08/21/all-about-taylor-swifts-secret-show-in-l-a-this-week-who-was-invited-to-attend/',
       thumbnailUrl: null,
@@ -8978,7 +9246,7 @@ export default {
       ],
       moment: {
         context:
-          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance for the small crowd — though at first the specifics stayed inside the room. On Aug. 24, 2026 the Recording Academy released a recording of the performance, and the setlist came with it: an Eras Tour-style piano mashup of three songs she tied together by the theme of memory — her 2026 single “I Knew It, I Knew You,” “August,” and “All Too Well.” The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what first surfaced came from the guests themselves, before the Academy’s own recording put the performance on the record.\n\nWhen the Recording Academy released a conversation clip on Aug. 24, the songwriting Q&A produced the night’s most-quoted anecdote. Taylor said “I Knew You Were Trouble,” her 2012 Red single, started life as a “really, really sad” ballad with no drums — until she brought it to Max Martin and Shellback, who asked, “What if it’s dubstep?” She was unsure in the moment but came to call the pivot the best thing that could have happened to the song, adding that the collaborators she loves are the “‘Yes, and?’ people.” The same conversation had her circling back toward her country beginnings — revisiting “Tim McGraw,” her 2006 debut single — and saying she wants to honor those roots “the further along this path I get.”',
+          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets; Just Jared, citing an attendee, put the room at roughly 100 members, though JamBase\'s account of the night quotes Taylor herself addressing "the 200 assembled guests" from the stage — the two cited outlets disagree on the size of the crowd, and neither figure is confirmed independently. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance for the small crowd — though at first the specifics stayed inside the room. On Aug. 24, 2026 the Recording Academy released a recording of the performance, and the setlist came with it: an Eras Tour-style piano mashup of three songs she tied together by the theme of memory — her 2026 single “I Knew It, I Knew You,” “August,” and “All Too Well.” The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what first surfaced came from the guests themselves, before the Academy’s own recording put the performance on the record.\n\nWhen the Recording Academy released a conversation clip on Aug. 24, the songwriting Q&A produced the night’s most-quoted anecdote. Taylor said “I Knew You Were Trouble,” her 2012 Red single, started life as a “really, really sad” ballad with no drums — until she brought it to Max Martin and Shellback, who asked, “What if it’s dubstep?” She was unsure in the moment but came to call the pivot the best thing that could have happened to the song, adding that the collaborators she loves are the “‘Yes, and?’ people.” The same conversation had her circling back toward her country beginnings — revisiting “Tim McGraw,” her 2006 debut single — and saying she wants to honor those roots “the further along this path I get.”',
         sources: [
           {
             outlet: 'Just Jared',
@@ -9117,6 +9385,26 @@ export default {
             lastCheckedOn: '2026-08-25',
             note: 'Her own on-record quote (Always-OK); the adjudicable part is the read that her next work leans country. Resolves against the genre of her next release; fades if the read goes nowhere. No location.',
           },
+          {
+            // Added 2026-08-31 (Rumor Desk, news digest + web search): the
+            // "is a new record actually in the works" question, complementary to
+            // the country-direction read above — that one is about the GENRE of
+            // the next project, this is about whether there IS one. Distinct
+            // reporting (a Page Six insider, late August), not the Grammy Museum
+            // event itself; filed here as the era's what-comes-next hub. Public-
+            // facing music speculation, no location, no redline. Sourcing
+            // confirmed via web search (Just Jared carrying Page Six, plus
+            // SheKnows/IBTimes); direct fetches were egress-blocked this session.
+            claim:
+              'A Page Six insider said Taylor has been "pouring herself into writing new music" and is "incredibly inspired creatively" in the weeks since her July wedding — with songwriting described as "her main focus" — read across outlets as the first stirring of a next album, unannounced.',
+            reportedBy: 'Page Six (via Just Jared)',
+            reportedOn: '2026-08-27',
+            status: 'unconfirmed',
+            url: 'https://www.justjared.com/2026/08/27/taylor-swift-is-reportedly-working-on-new-music/',
+            note: 'An unnamed-insider report, not an announcement — no new album, title or timeline confirmed. Corroborated as a claim (SheKnows, IBTimes and others all trace to the same Page Six sourcing), which is why it is admitted, but it stays a rumor until she says so herself. Adjudicable: resolves if she announces or releases new original music, fades if the "writing" reports go nowhere. No location.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-31',
+          },
         ],
       },
     },
@@ -9141,7 +9429,7 @@ export default {
       category: 'tour',
       title: 'A rare LA appearance — and five songs — for the Eras Tour film’s Emmy campaign',
       snippet:
-        'On Aug. 20, 2026 Taylor turned up at a private Emmy For-Your-Consideration event in Los Angeles to back “The Eras Tour: The Final Show,” its Disney+ concert film. She reflected on the tour alongside director Glenn Weiss — calling it “a source of great escapism” — and played five songs on the Eras Tour piano for roughly 50 Emmy voters, with no press admitted.',
+        'On Aug. 20, 2026 Taylor turned up at a private Emmy For-Your-Consideration event in Los Angeles to back “The Eras Tour: The Final Show,” its Disney+ concert film. She reflected on the tour alongside director Glenn Weiss — calling it “a source of great escapism” — and reportedly played five songs on the Eras Tour piano for roughly 50 Emmy voters, with no press admitted.',
       sourceUrl:
         'https://deadline.com/2026/08/taylor-swift-eras-tour-final-show-emmy-nominations-1237047840/',
       thumbnailUrl: null,
@@ -9153,7 +9441,7 @@ export default {
       ],
       moment: {
         context:
-          'Six weeks after the concert film of her tour’s last night pulled five Emmy nominations, Taylor showed up to campaign for it in person. On Aug. 20, 2026 she made a rare appearance at a private For-Your-Consideration event in Los Angeles — the kind of small, no-press voters’ gathering the awards season runs on — in support of Taylor Swift: The Eras Tour: The Final Show and its craft nominees, chief among them director Glenn Weiss. About 50 Emmy voters were in the room; no media were admitted and no recording devices were allowed, so what left the event were her remarks and a setlist, carried out secondhand.\n\nHer reflection turned on a single idea: escapism. The Eras Tour, she said, “was such a phenomenon because of so many factors, but one that I know is really important is that it was a source of great escapism for the people who were there.” She framed the film as an attempt to keep that feeling intact, describing the conversations she and Weiss had about how to preserve the experience — the sense of “relaxation and freedom” for the fans in the stadium — so that the thing that made the concert special survived the translation to screen.\n\nThen she played, as reported, five songs on the Eras Tour piano — opening with the new single “I Knew It, I Knew You,” then “August,” “All Too Well” and “Cardigan,” and closing on “Champagne Problems.” It was a quiet, deliberate piece of awards-season stagecraft from an artist who rarely works a voters’ room: the film competes for Outstanding Variety Special (Pre-Recorded) on the primetime telecast, with Weiss double-nominated for his direction, and the appearance put the person the nominations attach to in front of the people casting the ballots.',
+          'Six weeks after the concert film of her tour’s last night pulled five Emmy nominations, Taylor showed up to campaign for it in person. On Aug. 20, 2026 she made a rare appearance at a private For-Your-Consideration event in Los Angeles — the kind of small, no-press voters’ gathering the awards season runs on — in support of Taylor Swift: The Eras Tour: The Final Show and its craft nominees, chief among them director Glenn Weiss. About 50 Emmy voters were in the room; no media were admitted and no recording devices were allowed, so what left the event were her remarks and a setlist, carried out secondhand. Deadline, the item\'s primary source, reported only that Swift sang at the event, noting "which songs from her expansive discography are not clear"; the specific five-song list comes from culture.org, which traces it to a further secondhand chain (Yahoo Entertainment, sourced from ClutchPoints), neither of which is independently confirmed here.\n\nHer reflection turned on a single idea: escapism. The Eras Tour, she said, “was such a phenomenon because of so many factors, but one that I know is really important is that it was a source of great escapism for the people who were there.” She framed the film as an attempt to keep that feeling intact, describing the conversations she and Weiss had about how to preserve the experience — the sense of “relaxation and freedom” for the fans in the stadium — so that the thing that made the concert special survived the translation to screen.\n\nThen she reportedly played, per culture.org, five songs on the Eras Tour piano — opening with the new single “I Knew It, I Knew You,” then “August,” “All Too Well” and “Cardigan,” and closing on “Champagne Problems.” It was a quiet, deliberate piece of awards-season stagecraft from an artist who rarely works a voters’ room: the film competes for Outstanding Variety Special (Pre-Recorded) on the primetime telecast, with Weiss double-nominated for his direction, and the appearance put the person the nominations attach to in front of the people casting the ballots.',
         sources: [
           {
             outlet: 'Deadline',
@@ -10142,9 +10430,25 @@ export default {
             kind: 'archival',
           },
           // Photo pass (issue #1721, 2026-08-25): a second frame from the same
-          // press series was tried here, but combined with this pass's other
-          // additions it pushed that frame's reuse past content.image-overuse's
-          // >3-moments threshold — reverted rather than force an overused image.
+          // numbered press series (05-...) was tried here, but combined with
+          // this pass's other additions it pushed that frame's reuse past
+          // content.image-overuse's >3-moments threshold — reverted rather
+          // than force an overused image.
+          {
+            // Photo pass #762 (2026-08-30): a DIFFERENT press photo — separate
+            // file, separate October shoot/folder (not the exhausted August
+            // 05-... series above) — from the same Billboard article already
+            // cited as this moment's source. Curl-verified 200 image/jpeg,
+            // EXIF-dated 2025-10-09 (matches this chart week), downloaded and
+            // vision-confirmed. Used once elsewhere in the corpus; this is its
+            // 2nd use, well under the overuse threshold.
+            url: 'https://www.billboard.com/wp-content/uploads/2025/10/taylor-swift-2025-cr-Mert-Alas-Marcus-Piggot-billboard-1800.jpg',
+            // Low-angle shot looking back over her shoulder; face sits high, just left of center.
+            focalPoint: '46% 13%',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
+            caption: 'A Showgirl-era portrait, run by Billboard alongside its coverage of the week the tracklist swept the top 12.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -10611,12 +10915,20 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Rogers_Centre.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // the dome and "ROGERS CENTRE" sign carry the frame, centered,
+            // upper-middle of the shot.
+            focalPoint: '50% 38%',
             credit: 'Wikimedia Commons',
             caption: 'Rogers Centre in Toronto, the venue for Taylor Swift\'s November 2024 Eras Tour shows targeted by the fake-ticket scam.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // audience-POV stadium shot; the lit stage and screens sit
+            // left-of-center, mid-frame.
+            focalPoint: '38% 48%',
             credit: 'Wikimedia Commons / BrigidLIS (CC BY 4.0)',
             caption: 'Taylor Swift performing at the Eras Tour, the same tour whose Toronto shows this scam targeted.',
             kind: 'reference',
@@ -11105,12 +11417,19 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Holiday_House_on_Watch_Hill.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // shoreline shot, the house cluster forms a horizontal band across
+            // the middle third — center it, well below the sky.
+            focalPoint: '50% 48%',
             credit: 'JJBers, via Wikimedia Commons',
             caption: '"Holiday House," Taylor Swift\'s Watch Hill, Rhode Island estate, seen from the shoreline — the property the surtax is informally named for.',
             kind: 'reference',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/04-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // close-up portrait, face sits right-of-center, mid-frame.
+            focalPoint: '56% 42%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo.',
             kind: 'reference',
@@ -11252,7 +11571,19 @@ export default {
         sources: [
           { outlet: 'YouTube — Apple Music', url: 'https://www.youtube.com/watch?v=mUZ9T-hstUI' },
         ],
-        photos: [],
+        // Photo pass 2026-08-31 (photo-enrichment, #762): the official Apple
+        // Music upload's own thumbnail — a real video still (not a title
+        // card), confirmed by viewing: Taylor on the FaceTime side, Zane Lowe
+        // with headphones and the Showgirl album art behind him.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/mUZ9T-hstUI/maxresdefault.jpg',
+            focalPoint: '22% 28%',
+            credit: 'Apple Music via YouTube',
+            caption: "Taylor on FaceTime with Zane Lowe (right, with the Showgirl album art behind him) for Apple Music's extended interview, Oct. 7, 2025.",
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -11495,8 +11826,21 @@ export default {
           // it is a live-performance photo (long hair, mic stand, guitar,
           // concert stage lighting), not the London night-out described in
           // the caption (short hair, lavender minidress, off-stage). Removed
-          // as a verify-first failure rather than kept or focal-pointed;
-          // flagged for follow-up if a genuine second photo surfaces.
+          // as a verify-first failure rather than kept or focal-pointed.
+          {
+            // Photo pass #762 (2026-08-30): a different image from the same
+            // Marie Claire article (not the rejected performance photo
+            // above), curl-verified 200 image/jpeg, downloaded and
+            // vision-confirmed — shoulder-length hair with bangs, lavender
+            // floral minidress, sequined clutch, exiting via a fire-exit
+            // door at night (a club side exit), matching the caption.
+            url: 'https://cdn.mos.cms.futurecdn.net/2PmqhdvzG6xnDhn85qivX3.jpg',
+            // Full-body paparazzi shot; she's left-of-center, dress/hair fill the upper-middle.
+            focalPoint: '45% 35%',
+            credit: 'Splash News, via Marie Claire',
+            caption: 'Taylor Swift snuck out of a London members\' club in the lavender Delphine minidress, Aug. 12, 2026.',
+            kind: 'reference',
+          },
         ],
         // Stylist run 2026-08-16: verified live retailer product pages for
         // the dress and sandals (both currently purchasable) and the clutch
@@ -11871,8 +12215,22 @@ export default {
             focalPoint: '58% 22%',
             credit: 'SplashNews.com, via TMZ',
             caption:
-              'Taylor at Laura Sisk and Oli Jacobs\' Aug. 15, 2026 wedding in Gloucestershire, England, in the navy Costarellos "Arcangela" gown.',
+              'Taylor at Laura Sisk and Oli Jacobs\' Aug. 15, 2026 wedding in England, in the navy Costarellos "Arcangela" gown.',
             kind: 'primary',
+          },
+          {
+            // Photo pass #762 (2026-08-30): a second TMZ frame from the same
+            // gallery, curl-verified 200 image/jpeg, downloaded and
+            // vision-confirmed — a two-panel crop of the same reception,
+            // Taylor's face and the gown's gold appliqué clearly visible in
+            // both panels; a distinct moment from the photo above.
+            url: 'https://imagez.tmz.com/image/33/4by3/2026/08/16/3371a9a6afba4453afb1ec589225192a_md.jpg',
+            // Two-panel split image; her face sits in the upper half of both panels.
+            focalPoint: '58% 20%',
+            credit: 'SplashNews.com, via TMZ',
+            caption:
+              'Taylor mid-conversation with wedding guests at Laura Sisk and Oli Jacobs\' Aug. 15, 2026 wedding, in the navy Costarellos gown.',
+            kind: 'reference',
           },
         ],
       },
@@ -12144,6 +12502,24 @@ export default {
             lastCheckedOn: '2026-08-24',
           },
         ],
+        // Photo pass #762 (2026-08-30): no photo of the rumored night exists —
+        // the context above says so explicitly, and no combined Taylor/Dakota
+        // photo verifies on any allowlisted host (checked Wikimedia Commons;
+        // their documented outings are gated behind watermarked Getty/Backgrid
+        // comps only). Added one honest reference photo of Dakota Johnson
+        // herself, the other named person in this rumor — curl-verified 200
+        // image/jpeg on Wikimedia Commons, downloaded and vision-confirmed,
+        // same pattern as the Gronkowski reference photos elsewhere in this file.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Dakota_Johnson_at_the_2025_Cannes_Film_Festival.jpg',
+            // Red-carpet portrait, looking back over her shoulder; face sits upper-center-right.
+            focalPoint: '62% 32%',
+            credit: 'Gabriel Hutchinson / WikiPortraits, via Wikimedia Commons (CC BY-SA 4.0)',
+            caption: 'Reference image: Dakota Johnson, the friend named in the rumored Aug. 21, 2026 night out — pictured at the May 2025 Cannes Film Festival, not from the rumored night itself.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -12225,12 +12601,29 @@ export default {
         // photo-sparsity/social-post checkers will route it to Photo Enrichment
         // if a verifiable visual (an embeddable @taylorswift post) surfaces.
         // Photo pass #762 (2026-08-27): re-checked. TODAY/Variety/Hollywood
-        // Reporter all illustrate this story with editorial red-carpet
-        // composites (a Songwriters Hall of Fame pairing, or unrelated
-        // performance shots of each woman) — not photos of the tribute
-        // itself, which is a text post. Rejected as off-subject stock rather
-        // than added; stays text-first.
-        photos: [],
+        // Reporter illustrate this story with editorial red-carpet composites
+        // (a Songwriters Hall of Fame pairing, or unrelated performance shots)
+        // — off-subject wire stock, correctly rejected then.
+        // Photo pass (Vault Run 2026-09-04): image egress restored this
+        // session (upload.wikimedia.org reachable, HTTP 200). Attached an
+        // on-subject archival PORTRAIT of the honoree from Wikimedia Commons
+        // instead — a public-domain 1977 RCA publicity photo — rather than the
+        // off-subject composites above.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Young-Dolly-Parton_%28higher_quality_scan%29_%28cropped%29.jpg',
+            // Downloaded and vision-confirmed: a black-and-white 1977 RCA
+            // publicity portrait of a young Dolly Parton — signature blonde
+            // curls, hoop earring, denim shirt, looking up. 2049x2633. License
+            // per the Commons file page: public domain (US work published
+            // 1931-1977 without a copyright notice).
+            focalPoint: '50% 32%',
+            credit: 'RCA Records publicity photograph, 1977 (public domain), via Wikimedia Commons',
+            caption:
+              'Dolly Parton in a 1977 RCA publicity portrait — the country legend in her prime, whose path from country to pop Taylor has long said she followed.',
+            kind: 'archival',
+          },
+        ],
         // Rumor Desk / Content Shift (2026-08-27, from intake #3393): in the
         // days after Parton's death, tabloid/sports coverage floated Taylor as
         // "lining up" for a hypothetical Dolly tribute concert. Adjudicable and
@@ -12358,12 +12751,13 @@ export default {
       ],
       title: 'A $50,000 gift to the mother who was hit shielding a stranger on I-95',
       snippet:
-        'Taylor gave $50,000 — the single largest donation to the fund — to Ashley Taunton, a Connecticut nurse and mother of three who was struck by a hydroplaning car in July while pushing a teenager clear of its path. Her note read: "Wishing you the best recovery possible and sending love to your family!"',
+        'Taylor gave $50,000 to Ashley Taunton, a certified nursing assistant and mother of three who was struck by a hydroplaning car in July while pushing a teenager clear of its path. Her note read: "Wishing you the best recovery possible and sending love to your family!"',
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/',
       thumbnailUrl: null,
+      photosReviewed: 'private-individual composite redline — every hero image available pairs Taylor with a private individual (reviewed 2026-08-31)',
       moment: {
         context:
-          'The story that reached Taylor began on I-95. In July 2026, Ashley Taunton — a 42-year-old certified nursing assistant, wife and mother of three from Connecticut — was driving south through Rhode Island in a heavy rainstorm when she stopped to help at a crash where a car of teenagers had hydroplaned off the road. While moving them to safety, she pushed one teen clear of a second vehicle that hydroplaned toward the scene, and was struck herself. A GoFundMe opened to support her recovery.\n\nLate in August, Taylor donated $50,000 to that fund — its single largest gift — and left a message on the page: "Wishing you the best recovery possible and sending love to your family!" It was the kind of quiet, reactive giving she has folded into her year: no announcement and no press release, just a name on a stranger\'s fundraiser and a note. Outlets from Rolling Stone to NME picked it up from the fund itself. What is on the record is the gift, the message, and the everyday act of courage it answered — Taunton appears here only as the widely-reported beneficiary of that public fundraiser, nothing beyond what the coverage carried.',
+          'The story that reached Taylor began on I-95. In July 2026, Ashley Taunton — a certified nursing assistant, wife and mother of three from Connecticut — was driving in Rhode Island in a heavy rainstorm when she stopped to help at a crash where a car of teenagers had hydroplaned off the road. While moving them to safety, she pushed one teen clear of a second vehicle that hydroplaned toward the scene, and was struck herself. A GoFundMe opened to support her recovery.\n\nLate in August, Taylor donated $50,000 to that fund and left a message on the page: "Wishing you the best recovery possible and sending love to your family!" It was the kind of quiet, reactive giving she has folded into her year: no announcement and no press release, just a name on a stranger\'s fundraiser and a note. Outlets from Rolling Stone to NME picked it up from the fund itself. What is on the record is the gift, the message, and the everyday act of courage it answered — Taunton appears here only as the widely-reported beneficiary of that public fundraiser, nothing beyond what the coverage carried.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -12397,9 +12791,540 @@ export default {
         // private GoFundMe and a recipient who appears only in her
         // public-facing role, with no allowlisted, non-expiring image of the
         // donation itself — and hotlinking a news og:image of a private
-        // individual is exactly what the redlines guard against. Left for the
-        // social-post-missing / photo-sparsity checkers to route to Photo
-        // Enrichment rather than force a picture here.
+        // individual is exactly what the redlines guard against.
+        // photos: reviewed-sparse 2026-09-05 — private-individual composite
+        // redline (Ashley Taunton appears only as a private GoFundMe
+        // beneficiary; no allowlisted image exists that isn't a
+        // private-individual composite). Reviewed, not a gap.
+        //
+        // Photo pass 2026-08-31 (photo-enrichment, #762): re-checked. The
+        // syndicated coverage's own hero images are all Taylor/Ashley Taunton
+        // composites (e.g. Yahoo's, credited "Ashley Taunton; Jamie
+        // McCarthy/Getty") — Taunton's half is her own personal photo, so
+        // that composite is exactly the private-individual hotlink the
+        // redlines bar. No clean Taylor-only image tied to this specific
+        // story was found on an allowlisted host. Stays at editorial max (0).
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-kelce-bratenahl-home',
+      year: 2026,
+      month: 9,
+      day: 1,
+      category: 'business',
+      title: "Travis Kelce's $5.35 million lakefront home in Ohio surfaces months before the wedding",
+      snippet:
+        'Public property records showed Travis Kelce closed on a $5.35 million lakefront home in Bratenahl, Ohio — a village east of downtown Cleveland, a few miles from where he grew up — in March 2026, about four months before the couple married at Madison Square Garden. It broke publicly in early September.',
+      sourceUrl:
+        'https://www.news5cleveland.com/news/local-news/travis-kelce-buys-lakefront-home-in-bratenahl-east-of-downtown-cleveland-for-5-35-million',
+      thumbnailUrl: null,
+      photosReviewed: 'residence privacy redline (L1) — no photo of an occupied property, per privacy-redlines.md',
+      moment: {
+        context:
+          'It was a matter of public record, which is how it surfaced at all: Travis Kelce closed on a $5.35 million lakefront property in Bratenahl, Ohio — a village on Lake Erie just east of downtown Cleveland, a few miles from where the Chiefs tight end grew up — back in March 2026, roughly four months before he and Taylor married at Madison Square Garden on July 3. Local Cleveland outlets and national entertainment press picked it up in early September, reporting it as a home for the couple; the deed names Travis as the purchaser.\n\nWhat the coverage amounts to is the fact of the purchase, its price, the village, and its timing against the wedding — a professional-athlete real-estate deal that happens to sit inside the biggest personal year of his life, closed quietly that spring and only reported now. This entry deliberately stops there. A home the couple actually lives in is capped by Long Live\'s privacy rules at city/village level no matter how many outlets print the street, the house\'s nickname, or its room count — so the address, the name, and the physical description that all circulated are left out here on purpose, and no photograph of the property is attached.',
+        sources: [
+          {
+            outlet: 'News 5 Cleveland',
+            url: 'https://www.news5cleveland.com/news/local-news/travis-kelce-buys-lakefront-home-in-bratenahl-east-of-downtown-cleveland-for-5-35-million',
+            source_title:
+              'Travis Kelce buys lakefront home in Bratenahl, east of downtown Cleveland, for $5.35 million',
+            publisher: 'News 5 Cleveland (WEWS)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Cleveland 19 News',
+            url: 'https://www.cleveland19.com/2026/09/02/travis-kelce-taylor-swift-buy-home-bratenahl/',
+            source_title: 'Travis Kelce and Taylor Swift buy lakefront home in Bratenahl',
+            publisher: 'Cleveland 19 News (WOIO)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-5-115116247.html',
+            source_title: 'Taylor Swift, Travis Kelce have a new $5.35M home in Ohio',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/09/01/travis-kelce-bought-lakefront-ohio-mansion-before-taylor-swift-wedding/',
+            source_title:
+              'Travis Kelce Bought $5.3 Million Lakefront Ohio Mansion Months Before Taylor Swift Wedding',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 2,
+          },
+        ],
+        // Residence item: capped at village level per privacy-redlines.md's
+        // residence rule (L1, regardless of provenance). No street, no house
+        // nickname, no bed/bath/acreage/amenity description, and no photo of
+        // the property — every one of those circulated in the coverage and is
+        // deliberately withheld.
+        // photos: reviewed-sparse 2026-09-05 — residence privacy redline (L1);
+        // imagery of an occupied residence is exactly what the redline exists
+        // to withhold. Reviewed, not a gap.
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-caitlin-clark-friendship-bracelet-nike',
+      year: 2026,
+      month: 8,
+      day: 30,
+      category: 'fashion',
+      title: "Nike gives Caitlin Clark's signature shoe a Taylor-inspired \"Friendship Bracelet\" colorway",
+      snippet:
+        'Nike unveiled a "Friendship Bracelet" colorway of Caitlin Clark\'s signature Caitlin 1 sneaker — pastel tie-dye with fuzzy beaded laces built to mimic the bracelets Swifties trade at shows, the beads spelling out Clark\'s initials and number. WWD reported a $150 pair for a February release.',
+      sourceUrl:
+        'https://wwd.com/footwear-news/sneaker-news/nike-caitlin-1-friendship-bracelet-release-date-ih7423-300-1239175022/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor\'s fingerprints on the wider culture turned up this time on a basketball shoe. Nike unveiled a Taylor Swift-inspired "Friendship Bracelet" colorway of Caitlin Clark\'s signature sneaker, the Caitlin 1 — a Pearl Pink, Summit White, Metallic Silver and Racer Blue makeup with a washed pastel tie-dye upper, finished with fuzzy laces strung with beads and charms to echo the friendship bracelets Swifties trade at shows. The beads at the bottom of the laces spell out Clark\'s initials on one shoe and her jersey number on the other. WWD, which broke the look, reported a $150 price and a release expected in late February via Nike.com.\n\nThe tie is not accidental. Clark is an openly devoted Swiftie — she has shown off her own Eras Tour bracelets courtside — and the shoe reads as Nike leaning into that overlap between her fandom and Taylor\'s, the same bracelet-trading ritual the Eras Tour turned into a mass fan language. It sits alongside the Vault\'s earlier Clark thread, the October night the two sat together in the suite at Arrowhead. This is a product announcement rather than anything about Taylor herself: no involvement by her or her team is claimed, only the design\'s stated inspiration, and the exact release date is the one detail still soft across the coverage.',
+        sources: [
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/footwear-news/sneaker-news/nike-caitlin-1-friendship-bracelet-release-date-ih7423-300-1239175022/',
+            source_title:
+              "Best Look Yet: Caitlin Clark's Nike Caitlin 1 Sneaker Is Getting a Taylor Swift-inspired 'Friendship Bracelet' Release",
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/wnba/story/_/id/49743667/nike-caitlin-clark-1-taylor-swift-new-sneakers-friendship-bracelet-indiana-fever',
+            source_title: "Caitlin Clark debuts 'Friendship Bracelet' colorway inspired by Taylor Swift",
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Sports',
+            url: 'https://sports.yahoo.com/articles/caitlin-clark-teases-release-taylor-193314410.html',
+            source_title: 'Caitlin Clark teases release of Taylor Swift inspired Nike shoes',
+            publisher: 'Yahoo Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-02',
+            reliability_score: 3,
+          },
+        ],
+        // No photo attached: the only images are Nike/retailer product shots
+        // and on-court press photography, none on an allowlisted reusable host
+        // and none a non-expiring URL. Photo backfill 2026-09-05 (card
+        // t_45787614, RC-2 egress-block resolved): the item's own subject,
+        // Caitlin Clark, is photographable and verifiable — a
+        // license-verified Commons in-game photo, downloaded and
+        // vision-confirmed as Clark playing.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Caitlin_Clark_Fever_2026.jpg',
+            focalPoint: '55% 32%',
+            credit: 'John Mac, Wikimedia Commons (CC BY-SA 4.0)',
+            caption:
+              'Caitlin Clark playing for the Indiana Fever, Aug. 2, 2026 — reference photo; not the sneaker itself.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-brazil-taylor-swift-law',
+      year: 2026,
+      month: 8,
+      day: 31,
+      category: 'business',
+      // relatedIds intentionally omitted at author time — the natural thread is
+      // the Nov. 2023 Rio Eras Tour show and its aftermath, which live in a
+      // different era file; left for the Cross-Link lane to resolve rather than
+      // hand-fabricate a moment id here.
+      title: 'Brazil signs the "Taylor Swift Law" — free water and honest ticket prices, three years after a fan died at her Rio show',
+      snippet:
+        'President Lula signed two decrees named in local coverage for Taylor: events over 1,000 capacity must give out free water and let fans bring their own, and ticket platforms must show every fee up front. Both trace to Ana Clara Benevides, the 23-year-old fan who died in the heat at the 2023 Rio Eras Tour show.',
+      sourceUrl: 'https://www.upi.com/Top_News/World-News/2026/09/01/latam-brazil-taylor-swift-law/3221788282214',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Aug. 31, 2026, Brazilian President Luiz Inácio Lula da Silva signed two decrees in Brasília that local coverage immediately nicknamed the "Taylor Swift Law" — nationwide rules for concerts and live events, written in the shadow of a death at one of her shows. The first requires any event with a capacity over 1,000 to provide free drinking water and to let attendees bring their own containers; selling bottled water no longer exempts an organizer, and consumer-protection agencies are tasked with watching for price gouging. The second goes after ticketing: platforms must disclose the original face price and every added fee up front, transfers through official channels have to be free, and high-demand sales must run through mechanisms like virtual queues and pre-registration to blunt bulk-buying bots and abusive resale.\n\nThe law is tied explicitly to Ana Clara Benevides, a 23-year-old fan who died of heat exhaustion after collapsing at Taylor\'s November 2023 Eras Tour show in Rio de Janeiro, amid record heat that reached roughly 38°C — a loss that led Taylor to postpone the following night\'s concert and that Brazilian fans turned into a years-long push for change. Representatives of fan groups for Taylor, BTS, Lady Gaga, Justin Bieber and others stood with Lula at the signing; per the coverage, he told them, "If it weren\'t for you, we wouldn\'t be making this decree." It is the rare case of an Eras Tour legacy written into national law rather than a setlist — Taylor is the name on it, but the fans who kept Benevides\'s death from fading are the reason it exists.',
+        sources: [
+          {
+            outlet: 'UPI',
+            url: 'https://www.upi.com/Top_News/World-News/2026/09/01/latam-brazil-taylor-swift-law/3221788282214',
+            source_title: "Brazil adopts 'Taylor Swift Law' rules for concerts, ticket sales",
+            publisher: 'UPI',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/brazil-introduces-taylor-swift-law-three-years-after-fan-died-of-extreme-heat-at-gig-3966818',
+            source_title: "Brazil introduces 'Taylor Swift Law' three years after fan died of extreme heat at gig",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Digital Music News',
+            url: 'https://www.digitalmusicnews.com/2026/09/02/brazil-president-taylor-swift-law-protect-fans/',
+            source_title: "Brazilian President Signs 'Taylor Swift Law' to Protect Fans",
+            publisher: 'Digital Music News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Exclaim!',
+            url: 'https://exclaim.ca/music/article/brazil-institutes-taylor-swift-law-for-concerts-ticket-sales-following-fan-s-death-at-eras-tour',
+            source_title: 'Brazil Institutes "Taylor Swift Law" for Concerts, Ticket Sales Following Fan\'s Death at Eras Tour',
+            publisher: 'Exclaim!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-03',
+            reliability_score: 3,
+          },
+        ],
+        // No reusable, allowlisted photo attached at author time — the signing
+        // imagery is wire/agency-owned and not on a reusable host. Photo
+        // backfill 2026-09-05 (card t_45787614, RC-2 egress-block resolved):
+        // no verifiable image of the Aug. 31 signing ceremony surfaced on an
+        // allowlisted host, so this uses a license-verified Commons reference
+        // photo of the exact Nov. 17, 2023 Rio de Janeiro Eras Tour show the
+        // law traces back to — downloaded and vision-confirmed as Swift
+        // performing on stage.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/The_Eras_Tour_-_show_da_Taylor_Swift_no_Rio_de_Janeiro.jpg',
+            focalPoint: '50% 30%',
+            credit: 'Luidy Félix, Wikimedia Commons (CC BY-SA 4.0)',
+            caption:
+              'The Eras Tour, Estádio Nilton Santos, Rio de Janeiro, Nov. 17, 2023 — the show this law traces back to. Reference photo; not the Aug. 31, 2026 signing ceremony.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    // Content Shift (Vault Run 2026-09-04): intake #3682 — Travis's Sept 2
+    // New Heights S5 premiere is the first on-record account of the ceremony
+    // from a principal. Distinct from msg-wedding (the event, from guest
+    // accounts) and kelce-new-heights-proposal-story (July 8 finale, which the
+    // corpus notes kept the wedding off the table). Authored as a new moment.
+    {
+      slug: 'kelce-new-heights-wedding-recap',
+      year: 2026,
+      month: 9,
+      day: 2,
+      category: 'relationship',
+      title: 'Travis finally recounts the wedding, on the New Heights season-five premiere',
+      snippet:
+        'For two months the most public couple alive had told no one the story of their own wedding. On the Sept. 2 season-five premiere of New Heights, Travis finally walked through it — building the whole account around Adam Sandler, who got ordained in New York State to officiate "in the very Sandman style."',
+      sourceUrl:
+        'https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-adam-sandler-officiating-1236849216/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'For two months the wedding sat in a strange place: the most public couple in the world had thrown the most private party imaginable, and neither of them had actually told the story. Travis\'s first post-wedding New Heights — the July 8 season-four finale — stuck to the proposal and left the ceremony alone, and the day itself lived only in guest accounts and the arrivals outside the Garden. The season-five premiere, taped with brother Jason and released Sept. 2, 2026, was the first time one of the principals walked through the night in his own words.\n\nHis throughline was Adam Sandler. Sandler had gotten legally ordained in New York State expressly to marry them, and Travis framed the whole evening around what his friend pulled off: "For him to be up for getting ordained in the state of New York and marrying me and Taylor, and the way he did it, in the very Sandman style, and giving us more than what we could\'ve ever imagined at that moment, knowing that it was the biggest night of our lives — it was absolutely insane." He called Sandler "the best person on this planet" and the night "magical," landing on the same original-Sandler-song detail the Vault had previously carried only from an outside guest\'s account.\n\nHe also gave the first on-record reason for a venue that had read as pure spectacle. They chose Madison Square Garden, he said, because they wanted "somewhere where we could have a very intimate and genuine setting without a lot of distractions" — an odd thing to say about a 20,000-seat arena, until you remember they curtained the glass entrance and built a garden and a castle inside it. What the premiere did not do was open the images the wedding still hasn\'t released: no ceremony footage, no reception photos, nothing past the arrivals and the "JusT&T Married" marquee. Travis told the story; the pictures stayed private. It was, fittingly, the same desk that announced the album in August 2025 and told the proposal story in July — New Heights functioning once again as the relationship\'s on-record channel.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-adam-sandler-officiating-1236849216/',
+            source_title: 'Travis Kelce Breaks Down Wedding to Taylor Swift and Says Adam Sandler Officiating Was "Absolutely Insane"',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/lifestyle-news/travis-kelce-wedding-taylor-swift-podcast-new-heights-1236688034/',
+            source_title: "Travis Kelce Talks Taylor Swift Wedding on 'New Heights' Podcast",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News (Good Morning America)',
+            url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-adam-sandler-wedding-officiant/story?id=134472500',
+            source_title: "Taylor Swift, Travis Kelce and Adam Sandler's wedding officiant story",
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-talks-wedding-taylor-swift-preview-new-heights-1236331277/',
+            source_title: "Travis Kelce Talks Wedding to Taylor Swift in Preview of 'New Heights' Podcast",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+        ],
+        // Photo backfill 2026-09-05 (card t_45787614, RC-2 egress-block
+        // resolved): New Heights EP 199 is the official season-five-premiere
+        // episode covering the wedding recap (oEmbed-verified title "Chiefs &
+        // Eagles Preseason,Travis GoT&T Married, Wide Deceivers & Aaron Donald
+        // Returns | EP 199", channel New Heights). Thumbnail HTTP 200 +
+        // image/jpeg, downloaded and vision-confirmed: Travis and Jason Kelce
+        // side by side at the podcast desk.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/cZKgEhA_KyA/hqdefault.jpg',
+            focalPoint: '50% 30%',
+            credit: 'New Heights (official YouTube episode thumbnail, EP 199)',
+            caption:
+              'The New Heights season-five premiere — Travis and Jason Kelce at the podcast desk for the episode where Travis first recounted the wedding.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    // Content Shift (Vault Run 2026-09-04): intake #3694 context — the durable,
+    // verifiable milestone behind that ticket. Placed by real-world date (the
+    // June 2026 country-radio impact week), not by the ticket's "this week"
+    // framing, which conflated it with the upcoming iHeart interview (a future
+    // event, not authored today). Distinct from the Country Airplay top-10 and
+    // Pop Airplay items already in the corpus.
+    {
+      slug: 'i-knew-it-i-knew-you-country-panel-close',
+      year: 2026,
+      month: 6,
+      day: 8,
+      category: 'music',
+      // Cross-links (crosslink-opportunity, Vault Run 2026-09-05): the same
+      // song's other chart/airplay milestones — the Hot 100 top-five country
+      // sweep, both music videos, its Adult Pop Airplay record and Pop Airplay
+      // run, and the Oscar-conversation page.
+      relatedIds: [
+        'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
+        'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+        'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+      ],
+      title: 'I Knew It, I Knew You closes the entire country radio panel on impact',
+      snippet:
+        'On its first week at country radio, the Toy Story 5 ballad became the first song by a woman to close out Mediabase\'s entire country reporting panel on impact — every station adding it at once — and, per trade reporting, the first female artist to debut inside Billboard\'s Country Airplay top 10 in the chart\'s history.',
+      sourceUrl:
+        'https://www.countryinsider.com/news/most-added-taylor-swift-closes-the-country-panel/article_cf99907b-2591-46e5-8c83-312c3520ae86.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When "I Knew It, I Knew You" went for adds at country radio, it did something no song by a woman had done before: it closed the panel. On its impact date — the Monday of its first promotional week, in early June 2026 — every country station reporting to Mediabase added the song at once, the full reporting panel signing on in a single week. The country-radio trades (Country Insider, Inside Radio, Headline Planet) framed it as an add record: the first country single by a woman to wrap the entire impact panel on its first day out.\n\nThe chart caught up to the adds. Per trade reporting the song debuted inside Billboard\'s Country Airplay top 10 — the first time a female artist had launched directly into the top 10 in the chart\'s history, which runs back to 1990 — before climbing to No. 7. That was the stranger half of the story given where the record came from: it isn\'t a Showgirl track, and not really a country song either, but Taylor\'s original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff and issued as a single on June 5, 2026.\n\nIts country-radio welcome became one thread in a wider "is she going back to country?" conversation the outlets kept returning to — reported pre-release meetings with country programmers, a CMA Single of the Year campaign, her self-titled debut turning twenty that October — every write-up careful to stress that nothing had been announced. What was concrete was the add sheet: for one week, every country station in the panel was playing the same movie song about a cowgirl.',
+        sources: [
+          {
+            outlet: 'Country Insider',
+            url: 'https://www.countryinsider.com/news/most-added-taylor-swift-closes-the-country-panel/article_cf99907b-2591-46e5-8c83-312c3520ae86.html',
+            source_title: 'Most Added: Taylor Swift Closes The Country Panel',
+            publisher: 'Country Insider',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Inside Radio',
+            url: 'https://www.insideradio.com/free/radio-embraces-taylor-swift-s-i-knew-it-i-knew-you/article_69bb9c1a-8ede-463d-a35b-f2c67166a8f7.html',
+            source_title: "Radio Embraces Taylor Swift's 'I Knew It, I Knew You'",
+            publisher: 'Inside Radio',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2026/06/09/taylor-swifts-i-knew-it-i-knew-you-breaks-country-radio-add-record/',
+            source_title: "Taylor Swift's 'I Knew It, I Knew You' Breaks Country Radio Add Record",
+            publisher: 'Headline Planet',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-back-on-country-radio-i-knew-it-i-knew-you-1235574735/',
+            source_title: "Taylor Swift Is Back on Country Radio With 'I Knew It, I Knew You'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-country-airplay-debut-1236271548/',
+            source_title: "Taylor Swift's 'I Knew It' Makes History With Country Airplay Debut",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-04',
+            reliability_score: 4,
+          },
+        ],
+        // Text-first: no reusable, allowlisted image of a radio add-board /
+        // chart exists; not a photo-shaped moment. Left for the checkers.
+      },
+    },
+    {
+      slug: 'i-knew-it-i-knew-you-country-radio-double-meanings',
+      // Cross-links: the same song's other Vault pages — its Oscar-race entry
+      // and the Toy Story 5 video debut.
+      relatedIds: [
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+      ],
+      year: 2026,
+      month: 9,
+      day: 5,
+      category: 'music',
+      title:
+        'Taylor unpacks the double meanings of "I Knew It, I Knew You" — and names the Randy Newman she was chasing',
+      snippet:
+        'In a rare round of country-radio interviews, Taylor walked through the wordplay she built into her Toy Story 5 song on purpose, and named the songwriter she tried to channel writing it: Randy Newman.',
+      sourceUrl:
+        'https://www.billboard.com/music/music-news/taylor-swift-i-knew-it-i-knew-you-meaning-country-radio-1236335029/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor almost never does country radio anymore, so a rare round of country-radio interviews around Sept. 5, 2026 turned into more than a promo lap: it turned into a songwriter walking through her own work. The song was "I Knew It, I Knew You," the ballad she wrote for Toy Story 5 from cowgirl Jessie\'s point of view, and she used the airtime to open up the lyrics she\'d deliberately built to work two ways at once.\n\nShe said she loves it when fans dig for double meanings, because she plants them on purpose — a song gives you only a few minutes to carry a whole film, so she leans on lines that mean two things at the same time. The clearest example is a single misspelling: a lyric printed as "daze" (d-a-z-e) is meant to be heard as "days" too, so the line lands at once as a childhood haze and as childhood days — a soft, beautiful memory that goes blurry at the edges. "Blades of the grass in summer" points back to playing outside as a kid, but also sits at a toy\'s eye level, since a toy can only see as high as the grass. And "parachutes for the free fall of being younger" is both a literal nod to the little plastic parachute army men of the Toy Story world and a figure for the person who catches you while you grow up.\n\nOn the sound rather than the words, she named her north star: Randy Newman. Taylor called herself a longtime Randy Newman fan and said she tried to channel him on the track — his taste for unexpected chord movement and a plainspoken, storybook warmth — which is part of why a Taylor song written in 2026 lands closer to a Pixar standard than to anything on the pop charts she\'d been topping. It is the rare case of her narrating her own craft in real time: the Toy Story 5 song had already opened at No. 1 on the Hot 100 and swept country and adult-pop radio, but this was the first time she showed the seams.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-i-knew-it-i-knew-you-meaning-country-radio-1236335029/',
+            source_title:
+              "Taylor Swift Talks 'Double Meaning' of 'I Knew It, I Knew You' Lyrics in Rare Country Radio Appearance",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+            notes:
+              'confirms the "daze"/"days" wordplay, the "blades of grass"/"parachutes" double meanings, and that she plants them deliberately; resolved via web search — this run\'s egress proxy blocks direct fetches to news domains.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-randy-newman-toy-story-song-1235621007/',
+            source_title:
+              "Taylor Swift Says She Tried to Channel Randy Newman on 'I Knew It, I Knew You'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+            notes:
+              'confirms she is a longtime Randy Newman fan and tried to channel him writing the song; resolved via web search, not fetched (news-domain egress blocked this run).',
+          },
+        ],
+        // Text-first: a radio interview has no reusable, allowlisted subject
+        // photo; the era already carries premiere/hero shots on the song's
+        // other pages. Left for Photo Enrichment / the checkers.
+      },
+    },
+    {
+      slug: 'amc-leawood-films-eras-tour-inspiration',
+      year: 2026,
+      month: 8,
+      day: 28,
+      category: 'business',
+      title:
+        'AMC builds its own movie-distribution label, "Leawood Films" — and names the Eras Tour film as the reason',
+      snippet:
+        'The theater chain is getting into distribution, and its own pitch credits the sold-out demand it saw for concert films — Taylor\'s Eras Tour movie chief among them — as proof the idea works.',
+      sourceUrl:
+        'https://investor.amctheatres.com/news-events/press-releases/detail/437/amc-entertainment-creates-leawood-films-with-the-aim-of-having-more-movies-distributed-on-to-the-big-screen',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When AMC Theatres announced a new film-distribution arm in late August 2026, it did something companies rarely do in a press release: it named the thing that gave them the idea. "Leawood Films," the chain\'s new venture, will distribute finished, independently financed movies to theaters while letting filmmakers keep ownership of their work and a share of what comes after the theatrical run — and AMC\'s own framing points straight at the concert films that packed its auditoriums, with Taylor\'s Eras Tour movie named as the headline example of theatrical demand the traditional pipeline was leaving on the table.\n\nThe numbers behind that claim are AMC\'s best argument. Taylor\'s Eras Tour concert film grossed about $261.6 million worldwide and stands as the highest-grossing concert film in box-office history — a run AMC distributed itself, outside the usual studio system, after Taylor took the movie straight to the chain. Leawood Films is described as the next step down that same road: AMC ties it to its earlier direct deals for the Eras Tour film, the 2025 theatrical "Official Release Party of a Showgirl," and Beyoncé\'s 2023 Renaissance concert film. The new label is meant for small- and mid-budget movies that struggle to find distribution elsewhere, across genres — not blockbuster tentpoles, and not limited to music or concert films — and it will split its base between Los Angeles and AMC\'s home town of Leawood, Kansas, which is where the name comes from.\n\nFor the Vault the throughline is narrower than the film-industry story: an era defined by Taylor rewriting how records are sold has a companion note in how movies reach a screen. A pop star\'s tour film didn\'t just break a box-office record; a national theater chain now cites it, by name, as the case study for a new line of business.',
+        sources: [
+          {
+            outlet: 'AMC Entertainment',
+            url: 'https://investor.amctheatres.com/news-events/press-releases/detail/437/amc-entertainment-creates-leawood-films-with-the-aim-of-having-more-movies-distributed-on-to-the-big-screen',
+            source_title:
+              'AMC Entertainment Creates "Leawood Films" With the Aim of Having More Movies Distributed on to the Big Screen',
+            publisher: 'AMC Entertainment Holdings (investor relations)',
+            source_type: 'official',
+            accessed_at: '2026-09-06',
+            reliability_score: 5,
+            notes:
+              'AMC\'s own press release announcing the venture; resolved via web search — this run\'s egress proxy blocks direct fetches.',
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/08/amc-theaters-leawood-films-launch-1237063060/',
+            source_title:
+              'AMC Theatres Gets Into Distribution Business, Launches Leawood Films',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'KCUR',
+            url: 'https://www.kcur.org/arts-life/2026-09-05/amc-leawood-films-movies-kansas-taylor-swift-eras-tour',
+            source_title:
+              'Inspired by Taylor Swift, AMC creates Leawood Films to get more movies to the big screen',
+            publisher: 'KCUR (NPR affiliate)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+            notes:
+              'confirms the Eras Tour / Official Release Party of a Showgirl / Beyoncé Renaissance lineage and the $261.6M concert-film figure.',
+          },
+        ],
+        // Text-first: a corporate distribution announcement has no reusable,
+        // allowlisted subject photo. Left for the checkers.
+      },
+    },
+    {
+      slug: 'florida-orchestra-taylor-swift-symphony-era-mahaffey',
+      year: 2026,
+      month: 9,
+      day: 12,
+      category: 'music',
+      title:
+        "A Taylor Swift symphony opens the Florida Orchestra's season — a fan tribute, no official ties",
+      snippet:
+        'Steve Hackman\'s "Taylor Swift: The Symphony Era" reimagines her catalog for full orchestra in St. Petersburg on Sept. 12 — an unaffiliated fan production, not a Taylor Swift event.',
+      sourceUrl:
+        'https://floridaorchestra.org/event/steve-hackmans-taylor-swift-the-symphony-era/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Florida Orchestra opens its 59th season on Sept. 12, 2026 with an all-Taylor night: "Steve Hackman\'s Taylor Swift: The Symphony Era," a full-orchestra reimagining of her catalog at the Duke Energy Center for the Arts–Mahaffey Theater in St. Petersburg, at 7:30 p.m. It is not a covers set — created and conducted by Steve Hackman, with four vocalists splitting the parts to cover her range, the program threads songs from across her eras into one arc, drawing unexpected connections between them and, in the orchestra\'s own words, unearthing new musical Easter eggs. The setlist spans the whole run, from "Love Story" and "You Belong With Me" to the Showgirl-era single "The Fate of Ophelia," with tickets starting around $38.\n\nThe one thing to be clear about is what this isn\'t. Taylor will not appear, and the production is explicit — on the orchestra\'s own event page — that it is fan-facing and not endorsed by or affiliated with Taylor Swift, TAS Rights Management, or any of her entities. It is a third-party symphonic tribute, the kind of thing her catalog now sustains the way the standards songbook sustains pops orchestras everywhere. We note it as exactly that: a fan experience worth knowing about for anyone near Tampa Bay this September, not a Taylor Swift concert.',
+        sources: [
+          {
+            outlet: 'The Florida Orchestra',
+            url: 'https://floridaorchestra.org/event/steve-hackmans-taylor-swift-the-symphony-era/',
+            source_title: "Steve Hackman's Taylor Swift: The Symphony Era",
+            publisher: 'The Florida Orchestra (promoter/venue)',
+            source_type: 'official',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+            notes:
+              'the promoter\'s own event page — confirms date, venue, conductor, four vocalists, $38 tickets, and the explicit "not affiliated with / endorsed by Taylor Swift or TAS Rights Management" disclaimer. Resolved via web search this run.',
+          },
+          {
+            outlet: 'WUSF',
+            url: 'https://www.wusf.org/arts-culture/2026-09-04/florida-orchestra-giving-taylor-swift-music-symphony-feel',
+            source_title: 'Florida Orchestra giving Taylor Swift music a symphony feel',
+            publisher: 'WUSF (NPR affiliate)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+          },
+        ],
+        // Text-first: no reusable, allowlisted photo of this specific
+        // production exists yet; a generic Taylor shot would misrepresent a
+        // fan-tribute event she is not part of. Left as text on purpose.
       },
     },
   ],

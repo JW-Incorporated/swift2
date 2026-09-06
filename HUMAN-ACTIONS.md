@@ -26,7 +26,387 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 30. [DONE] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key
+### 46. [BLOCKING] Mobile release train — Google Play service-account key into EAS — ~15 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/mobile-release.md`. The release train
+(`apps/mobile/.eas/workflows/release.yml`) submits Android builds to the
+Play **internal testing** track itself, so nobody uploads `.aab` files by
+hand and Android can never lag iOS. That submit step needs a Google Play
+service account, which only the Play Console owner can create and link.
+Until it exists every train run fails at `submit_android` (and, by design,
+blocks `submit_ios` in the same run).
+
+**Steps:**
+1. Google Cloud Console → create/select a project → **IAM & Admin → Service
+   Accounts → Create service account** (name e.g. `eas-play-submit`) →
+   **Keys → Add key → Create new key → JSON** → download the file.
+2. Play Console → **Users and permissions → Invite new users** → paste the
+   service account's email → App permissions: **LongLive** → Account
+   permissions: tick **Release to testing tracks** (under Releases) → Invite.
+3. On your machine, from `apps/mobile`:
+   `eas credentials --platform android` → choose **production** → **Google
+   Service Account** → **Manage your Google Service Account Key for Play Store
+   Submissions** → **Set up a Google Service Account Key** → point it at the
+   downloaded JSON. Then delete the JSON from Downloads.
+
+**Worked if:** `eas submit --platform android --latest --non-interactive`
+(from `apps/mobile`) uploads to the internal track without asking for a key
+path, and the next **Mobile release train** run shows `submit_android`
+green.
+
+**Status:** OPEN
+
+### 45. [BLOCKING] Mobile release train — iOS signing + App Store Connect key into EAS — ~10 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/mobile-release.md`. Today the iOS distribution
+certificate, the LongLive provisioning profile, and the App Store Connect
+API key exist only in `C:\Users\wjduv\Desktop\4a-signing\` and
+`apps/mobile/credentials/` on Wyatt's laptop (`production-local` profile,
+`credentials.json`). The release train runs on EAS with no laptop
+involved, so it can only sign and submit iOS if those live in EAS
+credentials. `eas credentials` is interactive-only (no TTY in agent
+shells), so a founder has to run it once.
+
+**Steps:**
+1. From `apps/mobile` (where `credentials.json` already points at
+   `./credentials/Certificates.p12` and `./credentials/longlive.mobileprovision`):
+   `eas credentials --platform ios` → **production** → **Build Credentials**
+   → **Upload credentials from credentials.json to EAS** (confirm the
+   Distribution Certificate and the Provisioning Profile for
+   `ai.jwlabs.longlive`).
+2. Same menu → **App Store Connect: Manage your API Key** → **Use an existing
+   API Key** → key path `./credentials/AuthKey_QU7P2WC49Z.p8`, Key ID
+   `QU7P2WC49Z`, Issuer ID `26d1ad10-af24-431a-a9bb-d097ca96e9bc`.
+3. Tell a session it is done so it removes `ascApiKeyPath`/`ascApiKeyId`/
+   `ascApiKeyIssuerId` from `apps/mobile/eas.json` `submit.production.ios`
+   (the remote key then applies) and retires the `production-local` profile.
+
+**Worked if:** `eas build --platform ios --profile production --non-interactive`
+(from `apps/mobile`, no `credentials.json` needed) starts a build that
+says `Using remote iOS credentials (Expo server)` and reaches the compile
+phase, and `eas submit --platform ios --latest --non-interactive` runs
+without a local key path.
+
+**Status:** OPEN
+
+
+### 44. [BLOCKING] OS-040 — `EXPO_TOKEN` repo secret for automatic EAS Update — ~5 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/specs/2026-09-05-one-source-three-surfaces.md`
+§6, card OS-040 (Phase 4). `.github/workflows/eas-update.yml` publishes
+JS-only mobile changes to the `production` EAS Update channel on every
+qualifying merge to `main`, but it needs an Expo access token to
+authenticate — `gh secret set` requires repo-secret write access this
+session doesn't have per `.claude/hooks/guard.sh`.
+
+**Steps:**
+1. Generate a token at expo.dev → account settings → Access Tokens,
+   scoped to this project (owner `wjduvall`, project id
+   `a4ff0e9b-ad3e-48a4-a765-ffc19a8b3209`).
+2. `gh secret set EXPO_TOKEN --repo JW-Incorporated/swift2` and paste it.
+
+**Worked if:** the next JS-only merge to `apps/mobile/**` or
+`packages/**` shows a green `EAS Update (mobile OTA)` run in Actions.
+
+**Status:** OPEN
+
+
+
+### 43. [BLOCKING] OS-004 — Push credentials on EAS (One Source, Three Surfaces plan) — ~15 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/specs/2026-09-05-one-source-three-surfaces.md` §6,
+card OS-004 (Phase 0). iOS and Android push don't actually deliver yet.
+This needs interactive credential upload only you can do — Apple/Google
+account access, not code.
+
+**Steps:**
+1. Run `eas credentials -p ios` interactively (from a machine with EAS CLI
+   and your Apple Developer login) and upload/generate the APNs key under
+   team `D9N628AFHS`.
+2. Do the equivalent for Android: upload/generate the FCM v1 service
+   account key via `eas credentials -p android`.
+3. Send one test push via `scripts/send-test-push.ts` to a real TestFlight
+   device.
+
+**Worked if:** a real device receives the push and tapping it opens the
+correct deep link in the shell (per OS-004's own "Done when").
+
+**Status:** OPEN
+
+### 42. [UPGRADE] Add a GitHub comment-edit tool to Kevin's cloud sessions (or accept the append-and-supersede workaround) — ~10 min
+
+**Filed:** 2026-09-01
+
+**Why it matters:** issue #3631. Kevin's `docs/kevin.md` anchor-comment
+contract (Stream 2 digest / Stream 3 triage) was written assuming a
+same-day re-run could **edit its own prior comment in place**. It can't:
+Kevin's cloud sessions run with the GitHub MCP server, which exposes
+`add_issue_comment` (create only), `issue_write` (issue body/state, not
+comments), and PR-review-thread tools — **nothing that PATCHes an
+existing issue comment**. Direct `gh`/REST access is explicitly disabled
+in that environment ("use the GitHub MCP server tools for ALL GitHub
+interactions"). This surfaced for real on the first fire of the new T-10
+consolidated `Kevin — daily desk` trigger against issue #3590.
+
+**Already fixed in this repo (no action needed for this half):**
+`docs/kevin.md` and the runner prompts (`kevin-desk.md`,
+`kevin-stream2-digest.md`, `kevin-stream3-triage.md`) now specify an
+**append-and-supersede** convention instead of edit-in-place: a same-day
+re-run posts a NEW comment carrying the same anchor plus a
+"Supersedes the earlier comment(s) above" line, and the decision-processing
+step always reads the **most recent** anchored comment. This keeps the
+contract's spirit (one source of truth per anchor per issue) using only
+tools Kevin already has, and needs no account access.
+
+**What's left, and why it's yours:** the append-and-supersede workaround
+is correct but slightly worse than true edit-in-place (the brief issue
+accumulates a duplicate-but-superseded comment on every same-day re-run,
+which is minor visual noise for whoever reads #3590-style issues). If you
+want the cleaner behavior back, the actual fix is adding a comment-update
+capability to the **GitHub MCP tool config** Kevin's cloud sessions run
+with — that's a trigger/environment-level MCP server configuration change
+(`claude.ai/code` routines UI, or wherever this environment's GitHub MCP
+connector is provisioned), which an agent in a docs/CI worktree sandbox
+cannot reach or verify, the same class of gap as items #35/#38's
+RemoteTrigger access.
+
+**Steps (only if you want true edit-in-place back):**
+1. Open the environment/connector config that provisions the GitHub MCP
+   server for Kevin's routines (same account as `docs/agents/runners.md` §
+   "Live trigger IDs" — Joey's account) and check whether a comment-update
+   tool (e.g. an `update_issue_comment` / `issue_comment_write` capability)
+   can be enabled for that MCP server.
+2. If yes, enable it and tell a session — it can then revert the
+   append-and-supersede convention in `docs/kevin.md` and the runner
+   prompts back to true edit-in-place.
+3. If no such tool exists on the GitHub MCP server at all, this item is a
+   `SKIP` (write why) — the append-and-supersede workaround already
+   already shipped is the permanent answer.
+
+**Worked if:** either a comment-edit tool is confirmed available and a
+follow-up PR reverts to edit-in-place, or you mark this `SKIP` because no
+such tool exists.
+### 41. [BLOCKING] Rename Karen's live trigger to match its judgment-only prompt (#3616, T-5) — ~2 min
+
+**Filed:** 2026-09-01
+
+**Why it matters:** issue #3616 / `docs/agents/runners.md` § T-5. The rename
+itself is pre-approved, standing-agent-authority work — no founder decision
+needed on the *what*. `runner-prompts/karen-nightly.md` already reads
+"weekly content-safety judgment review" (trimmed to the bounded judgment
+slice by PR #3445), so the live trigger's registered name is the only thing
+out of sync. This is a metadata-only resync — no prompt, cadence, model, or
+connector changes. Same account-access limitation this file documents
+elsewhere (items #35/#37/#38): the actual edit needs the `RemoteTrigger`
+tool, on Joey's account — this docs/CI worktree sandbox has no such tool
+attached at all.
+
+**Exact current vs. target:**
+
+| Field | Current | Target |
+|---|---|---|
+| Trigger ID | `trig_01TmYaZgnecrEp9mkeV3Gq6X` (the live, current ID — confirmed in `runners.md`'s live table; recreated on Joey's account 2026-08-23 per item #2) | unchanged |
+| Name | `Karen — nightly scan` | `Karen — weekly judgment slice` |
+| Prompt (`events`), cadence, model, repo, connectors | already correct (`0 9 * * 0` UTC, `claude-sonnet-5`, `JW-Incorporated/swift2`@main, judgment-only prompt per PR #3445) | unchanged — preserve verbatim on the round-trip |
+
+**Do not use `trig_014HWuRmT2MFveDkPGwVDiQX`** — per `runners.md` § T-5 this
+ID predates the 2026-08-23 account migration and is very likely stale/
+orphaned. `get` it first to confirm it's no longer live before touching
+anything; if it turns out to still be live, that's a separate finding (a
+live duplicate), not part of this rename.
+
+**Steps (one `job_config` round-trip, never a partial PUT):**
+1. From a `claude.ai/code` session with `RemoteTrigger` access on Joey's
+   account, `get` `trig_01TmYaZgnecrEp9mkeV3Gq6X`.
+2. In the returned object, change only `name` to
+   `Karen — weekly judgment slice`. Leave everything else — prompt, cadence,
+   model, repo, connectors — exactly as returned.
+3. `PUT` the whole object back (never a partial PUT — see `runners.md` §
+   RemoteTrigger footgun).
+4. Confirm the `get` reflects the new name, then update
+   `docs/agents/runners.md`'s live table (both the main table and the
+   "Cadence overrides still in force" table) to drop the RENAME PENDING flag
+   and show `Karen — weekly judgment slice` outright, and close issue #3616.
+
+**Worked if:** the trigger's registered name reads
+`Karen — weekly judgment slice`, `runners.md`'s tables show the new name
+with no RENAME PENDING flag, and issue #3616 is closed.
+
+**Status:** OPEN
+
+---
+
+### 35. [BLOCKING] Vault Phase 4 needs a RemoteTrigger-capable session on your account — the disable step can't run from a docs/CI sandbox — ~10-20 min
+
+**Filed:** 2026-08-31
+
+**Why it matters:** `docs/agents/vault-run-plan.md` Phase 4 (retiring the six
+standalone content-lane triggers now duplicated by the Vault Run — worth
+~3.9 fewer cold-boot sessions/day per `docs/TIER2-OPTIMIZATION.md` T-1) is
+pre-approved, standing-agent-authority work — no founder decision needed on
+the *what*. But two things stop an agent from finishing it today:
+
+1. **The actual disable step needs the RemoteTrigger tool, on your
+   account.** This repo's own docs (`docs/agents/runners.md` § RemoteTrigger
+   footgun) describe reading a trigger's `job_config` and PUTting the whole
+   thing back to change `enabled: false` — that requires a Claude Code
+   session with the RemoteTrigger tool attached and authenticated to the
+   account the routines run on (yours, per `runners.md` § Live trigger IDs,
+   confirmed 2026-08-31 D1=B). A docs/CI worktree sandbox (used for PR work
+   like this one) has no such tool available at all — confirmed by listing
+   its tool set directly. So even once the item below clears, someone needs
+   to run this from a session that actually has RemoteTrigger — either you
+   directly in `claude.ai/code`, or a session you explicitly point at that
+   surface.
+2. **A live, reproducing miss as of today (2026-08-31), not yet
+   root-caused.** No `vault/2026-08-31` branch or PR exists as of 21:11 UTC
+   (5h after the 16:07 UTC cron), while both standalone lanes it's meant to
+   replace fired normally the same day. Retiring the standalones before this
+   is root-caused and fixed would risk a real content outage on days the
+   Vault Run silently no-ops. See `vault-run-plan.md`'s Phase 4 section for
+   the full evidence trail.
+
+**Steps:**
+1. When you (or a session you point at `claude.ai/code`'s routines UI) have
+   a spare few minutes, look at what happened to today's 16:07 UTC Vault Run
+   firing specifically — did it fire and fail, or not fire at all? That
+   answer is what root-causes item 2 above.
+2. Once that's fixed and a session confirms several subsequent clean days,
+   a RemoteTrigger-capable session (yours, or one you explicitly authorize)
+   can do the actual Phase 4 disable — reading back and disabling each of
+   the six standalone triggers one at a time, per the plan's own ordering
+   (Rumor Desk first).
+
+**Worked if:** the six standalone triggers listed in
+`docs/agents/vault-run-plan.md` are disabled (not deleted) and
+`docs/decisions.md` records the actual before/after PR-count and
+Actions-minutes delta, per the plan's own Phase 4 instructions.
+
+**Resolved 2026-09-01, from a `claude.ai/code` session with `RemoteTrigger`
+access.**
+
+**Root cause of the 08-31 "miss" (item 2 above): it was not a miss.**
+Pulled the Vault Run trigger's (`trig_01XKjJCfxyL2Bm24Ko4M4mWR`) actual run
+log for that day (session `cse_013BrBHiyjvR4EafbEum1gHQ`, fired 16:11 UTC,
+finished 16:18 UTC, `ROUTINE_RUN_STATUS_SUCCEEDED`). It ran end to end and
+correctly found **zero authorable work** across all four lanes due that day:
+Content Shift's intake queue was fully drained (confirmed live, not from a
+stale ledger), the Answerer's narrative axis was drained (live
+`scan --no-images`: 0 narrative-thin, 9 depth-deficit findings all
+photos-axis-only), Cross-Link had 0 detector findings, and Photo Enrichment
+is blocked by the already-tracked image-host egress issue (item #22). Per
+its own "never exit silently" contract it posted the full lane-by-lane
+no-op ledger to the Nils walk log (#502) and sent a founder push
+notification about the one real, already-tracked problem (the egress
+block). No `vault/2026-08-31` branch existed because there was nothing to
+ship that day, not because the run failed or didn't fire — the "silent
+no-op" reading in this item's original filing was a misdiagnosis from
+git-log-only evidence.
+
+Also checked the trigger's full run history since the 2026-08-23 account
+migration: **8 for 8** daily fires, no gaps, all succeeded
+(2026-08-24 → 2026-08-31). The historical "missed days" cited in
+`vault-run-plan.md` (08-01, 08-02, 08-08) predate that migration, on a
+now-nonexistent trigger ID — unverifiable now, superseded by this clean
+record on the live infrastructure.
+
+**Phase 4 executed**, Rumor Desk first per the plan's ordering, each
+trigger's `job_config` read back before disabling (`enabled: false`,
+confirmed in the response, nothing else in the config touched):
+
+| Lane | Trigger ID | Disabled |
+|---|---|---|
+| Rumor Desk | `trig_01GS6bcMsEQjXwmyxGr7S1js` | ✅ |
+| Content Shift | `trig_01PonDFeQCL4iRNzceGyAYrm` | ✅ |
+| Photo Enrichment worker | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | ✅ |
+| Cross-Link builder | `trig_01FxMuDtwScPFvSgvhFCxdfP` | ✅ |
+| Stylist | `trig_011BiHZqLEVHAJ4chfaYfGZH` | ✅ |
+| Answerer (sole instance) | `trig_016hygyYPEV9T7BunnTHAWbZ` | ✅ |
+
+All six disabled (not deleted) — cadence history preserved, `enabled: false`
+in every case. The Vault Run (`trig_01XKjJCfxyL2Bm24Ko4M4mWR`) is now the
+sole writer to `supabase/seed/**`.
+
+**Not yet done, follow-up needed:** the plan's "Worked if" also calls for
+watching one full cycle and recording the actual before/after PR-count and
+Actions-minutes delta in `docs/decisions.md` — that requires a few days of
+data with the six lanes off, which this session cannot observe. A future
+session (or Marjorie's brief) should record that delta once there's enough
+post-cutover history, and delete the `content-shift/` row from the
+watchdog's lane table per the plan's final step.
+
+**Status:** DONE
+
+---
+
+### 38. [DONE] Apply the Kevin daily-desk trigger cutover (T-10)
+
+**Filed:** 2026-08-31
+**Closed:** 2026-09-01
+
+**What happened:** Joey created the consolidated trigger directly
+(`trig_01GH3EMWdDwwKpx2GCRnCYM5`, "Kevin — daily desk (S1+S2+S3)", cron
+`13 15 * * *` UTC, live and enabled) and test-fired it. The test session
+correctly determined the UTC day was Tuesday (not Sunday), so it skipped
+Stream 1 by design, and found Stream 2 (digest) and Stream 3 (triage) had
+already posted for real on issue #3590 hours earlier (~15:16–15:49 UTC,
+2026-08-31) via the old standalone triggers — since today's slot had
+already fired before the cutover, it correctly abstained from re-posting
+rather than duplicating. **Tomorrow's `13 15 * * *` run (2026-09-02) is the
+first genuine end-to-end fire of the new trigger.**
+
+Joey disabled both superseded daily triggers directly (not deleted —
+history preserved, per this file's convention):
+- `trig_0136mXcpmzn6mYtYoUQC3eGP` (S2 digest) → disabled
+- `trig_01BRmPqZkLEcYKZhYPjypGMJ` (S3 eng triage) → disabled
+
+Left alone exactly as the cutover sequence specifies:
+- `trig_01QEvYmKcpyDJJ8ec81aBjCV` (S1 Karen-ticket solver) — still live;
+  the new desk trigger's next Sunday fire will exercise Stream 1 for the
+  first time, and this old trigger gets disabled only after that
+  Sunday's real output is confirmed. **Not yet done — next Sunday check
+  is still outstanding, tracked below.**
+- `trig_01LaSLx4qzbsz68E6uRLkyDd` (S3 comment radar) — untouched, not part
+  of this consolidation.
+
+**Blocker found and worked around:** the first test-fire tried to disable
+the two old triggers itself and got a hard denial — `RemoteTrigger`'s
+`update_trigger` is restricted to a trigger's own creator-session; since
+the old triggers were created via `http_api` rather than through an
+agent's `create_trigger` call, no Claude session (on any account) could
+flip them via the API. Only the `claude.ai/code/routines` UI could — which
+is what Joey then did directly. Filed as an interim finding in PR #3630
+(merged) before Joey's direct fix landed; this entry supersedes that
+interim note.
+
+**Open sub-item, not blocking, low urgency:** the new trigger's
+`mcp_connections` came back populated with `Google_Drive`/`Vercel`/`Gmail`/
+`Claude_Code_Remote` even though creation explicitly requested `[]` — this
+matches the RemoteTrigger create/update footgun already documented above
+(§ RemoteTrigger API footgun) and appears to be inherited from the shared
+environment (`env_01WFa19KpZdcwUUBPvHWPig6`) rather than settable per-
+trigger via the create body. Matches what the old triggers already
+carried, so not a regression — acceptable as-is; worth a real fix only if
+this connector set ever proves to matter for this desk's actual behavior.
+
+**Remaining step:** on the next Sunday after 2026-09-01, confirm the new
+desk trigger's Stream 1 output (a real `fix/karen-tickets` PR, or a correct
+no-op if no new Karen tickets exist), then disable
+`trig_01QEvYmKcpyDJJ8ec81aBjCV`. A session can do this verification and the
+disable both, once account-authenticated — record it as its own dated
+entry here or in `docs/decisions.md` when done.
+
+---
+
+### 39. [DONE] Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key
 
 **Filed:** 2026-08-30
 
@@ -36,7 +416,7 @@ only matters while something is still pending.
 
 ---
 
-### 32. [DONE] Etsy API returns 403 to the E5 evidence workflow — check app approval
+### 40. [DONE] Etsy API returns 403 to the E5 evidence workflow — check app approval
 
 **Filed:** 2026-08-30
 
@@ -165,6 +545,17 @@ Checked today for any agent-side workaround (env vars, `gh secret list`,
 Supabase CLI/MCP/management-API token) — none exists; this is genuinely
 founder-only. Full detail: `docs/backup-restore.md` §2 and §6.
 
+**Update (this session, #680 desk pass):** added a one-click Actions
+workflow (`.github/workflows/production-backup-drill.yml`, `Run workflow`
+from the Actions tab) so step 3 below no longer needs a local checkout,
+`apps/worker/.env`, or pasting a production connection string anywhere by
+hand — it reuses the `SUPABASE_DB_URL` secret already configured for
+`db-migrate`/`db-seed`, opens it strictly read-only, and restores into a
+throwaway Postgres inside the job (never a `*.supabase.co` host — the
+script's `assertSafeTarget` refuses that regardless). Step 1 (dashboard
+plan/backup-status) is still genuinely founder-only; nothing reaches that
+information programmatically.
+
 **Steps:**
 1. Open the Supabase dashboard for the Long Live project → **Settings** →
    **Billing** (or **Database** → **Backups**). Note: (a) the plan tier,
@@ -173,21 +564,15 @@ founder-only. Full detail: `docs/backup-restore.md` §2 and §6.
 2. Record those three answers in `docs/backup-restore.md` §6 (there's a
    table row format already there to follow), or tell a session the answers
    in chat and it will write them in.
-3. From a machine/checkout that has `apps/worker/.env` (`SUPABASE_DB_URL`),
-   run one real drill, read-only against production:
-   ```bash
-   node scripts/backup-restore-test.mjs \
-     --source "$SUPABASE_DB_URL" \
-     --target "postgres://postgres:postgres@127.0.0.1:5432/scratch?sslmode=disable" \
-     --keep
-   ```
-   (Needs a local scratch Postgres reachable at that target — `npm i
-   --no-save embedded-postgres` then point `--target` at a local instance,
-   or any throwaway Postgres you already have. The script refuses to write
-   to production or to any `*.supabase.co` host, by design.)
-4. Paste the pass/fail output (or tell a session) and it'll log it as a new
-   row in `docs/backup-restore.md` §6's drill log and flip the BACKUPS gate
-   in `docs/launch-readiness.md` once both items are done.
+3. Run the drill against production's own bytes with one click — no
+   checkout, no local Postgres, no credential ever touches your machine:
+   `https://github.com/JW-Incorporated/swift2/actions/workflows/production-backup-drill.yml`
+   → **Run workflow** → **Run workflow** (main branch). Takes a couple of
+   minutes; the job posts PASS/FAIL as an alert issue and uploads the report
+   as a run artifact.
+4. Paste the pass/fail result (or tell a session the run URL) and it'll log
+   it as a new row in `docs/backup-restore.md` §6's drill log and flip the
+   BACKUPS gate in `docs/launch-readiness.md` once both items are done.
 
 **Worked if:** `docs/backup-restore.md` §6 has a drill-log row sourced from
 production (not the fixture) marked **PASS**, and §2's plan/backup-status
@@ -270,6 +655,21 @@ exited with no changes and no PR rather than fabricate an unverified link.
 This is the same intermittent policy, now confirmed to hit more than one
 scheduled trigger in this repo, so the "looks resolved" note above was
 premature — leaving Status as OPEN.
+
+**Update (2026-09-05, RESOLVED):** Joey changed the Vault Run routine's
+network access setting in claude.ai/code to "full internet access" on
+2026-09-04. Confirmed fixed on the real scheduled (non-manual) daily
+trigger: today's 16:07 UTC cron firing produced PR #3805 ("vault:
+2026-09-05 — 3 lanes"), whose Photo Enrichment lane reports egress open
+("Instagram / i.ytimg.com / outlet CDNs reachable") with a reasoned
+coverage outcome (no page needed a new photo this run) — no
+`EGRESS_BLOCKED` / `403 CONNECT` language anywhere, a clean break from
+every prior run (#3744, #3696, and this item's own history) which all
+hard-blocked. This is the founder-authorized policy change the prior
+updates were waiting on, verified on the actual trigger rather than a
+manually-fired one. Closing this out.
+
+**Status:** RESOLVED (2026-09-05)
 
 ---
 
@@ -411,6 +811,109 @@ credentials, this was just registering accounts/keys ahead of that build.
 
 ## DONE
 
+
+### 43. [DONE] Generate `CLAUDE_CODE_OAUTH_TOKEN` for the routines-migration fleet
+
+**Filed:** 2026-09-05
+**Closed:** 2026-09-05
+
+**What happened:** Joey ran `claude setup-token` and sent the token to
+Hermes over Discord; Hermes stored it as the `CLAUDE_CODE_OAUTH_TOKEN`
+repository secret via `gh secret set` (confirmed present via
+`gh secret list`, never echoed or logged). All `routine-*.yml` workflows
+from the routines-migration (kanban `t_876f9697`, D1=B) can now run
+end-to-end on Joey's Claude Pro/Max plan usage instead of exiting clean
+with a missing-secret warning.
+
+### 36. [DONE] T-3 News Triage model trial applied
+
+**Filed:** 2026-08-31
+**Closed:** 2026-09-01
+
+**What happened:** Applied from a `claude.ai/code` session with
+`RemoteTrigger` access, in the exact order `runners.md` § "News Triage —
+model trial config applied" specifies:
+1. Merged `docs/content-ops/news-triage-trial-active` to `main`
+   ([PR #3626](https://github.com/JW-Incorporated/swift2/pull/3626),
+   2026-09-01T00:42 UTC) — digest-archive step now live.
+2. Created the "News Triage recall check — T-3 trial" trigger
+   (`trig_01V8JrQPZfWpUqUWiy9fvmkh`), confirmed working via a manual
+   dispatch — correctly returned a vacuous PASS
+   ([issue #3628](https://github.com/JW-Incorporated/swift2/issues/3628))
+   since neither the archive nor the model flip existed yet at that point.
+3. Flipped News Triage's trigger (`trig_019NuR7EpN7TA28yfmzKPAC7`) from
+   `claude-opus-4-8` to `claude-sonnet-5` via a full `job_config`
+   round-trip (`get` → edit → PUT whole object, never partial), succeeded
+   2026-09-01T00:51 UTC — **trial runs 2026-09-01 → 2026-09-15.**
+   Also re-synced the live prompt to
+   `docs/agents/runner-prompts/news-triage.md` verbatim in the same PUT —
+   it had drifted (missing the #1966 prompt-injection defense, the T-3
+   archive-snapshot addendum, and the T-20 attribution trailer); left
+   unsynced, the recall check's `consumed-snapshot` mechanism and T-20
+   telemetry would have been broken from day one.
+4. `runners.md`'s live-trigger table updated (News Triage row + new
+   recall-check row).
+
+**One new follow-up surfaced, not blocking:** the recall-check trigger got
+4 MCP connectors auto-attached on creation (Google_Drive, Vercel, Gmail,
+Claude_Code_Remote) despite requesting none — same silent-ignore API
+footgun `runners.md` already documents for updates, apparently also true
+of creates. Needs manual removal via the `claude.ai/code/routines` UI
+(no API lever for it). Low urgency — the prompt is read-only/no-merge by
+design regardless of connector access — but worth doing before the trial's
+first real weekly audit.
+
+**Status:** DONE
+
+
+---
+
+### 37. [DONE] Sync T-20 attribution trailer to all 24 live Tier-2 routines
+
+**Filed:** 2026-08-31
+**Closed:** 2026-09-01
+
+**What happened:** Applied from a `claude.ai/code` session with
+`RemoteTrigger` access, per the checklist's own never-partial-PUT rule
+(`get` the trigger → replace only the `prompt` field in the full returned
+`job_config` → PUT the whole object back). All 21 live-prompt routines in
+the checklist were re-synced to their current `docs/agents/runner-prompts/`
+file content, each now carrying the `## Attribution trailer (T-20 Phase 1)`
+section verbatim. The 2 approved-but-not-yet-created desks (Karen Deep
+review, Notification-quality desk) and News Triage's recall-check trigger
+(created and synced separately under item #36) were skipped per the
+checklist's own instructions — 24 accounted for, 21 actually re-synced.
+
+Two deliberate deviations from a naive full-file resync, both judgment
+calls made in-flight and not later contested:
+- **Kevin S3 radar** (`kevin-stream3-radar`): the repo file's cadence
+  description doesn't match the trigger's real `23 1,13 * * *` (twice-daily)
+  schedule, while the LIVE prompt's cadence text already correctly matches
+  the real schedule. Only appended the attribution trailer to the existing
+  correct live text; did not overwrite it with the stale file. Flagged as a
+  documentation bug needing a fix in the file, not the trigger — separate
+  from this item's scope.
+- **Vault Run**: the live trigger's prompt is deliberately a short pointer,
+  not the full ~12KB orchestrator-contract file — replacing it wholesale
+  would have recreated the exact undocumented-inline-instructions anti-
+  pattern the file's own text warns against. Only appended the trailer to
+  the existing short prompt.
+
+**Also confirmed, not touched:** Marjorie — 8 PM Evening Delta
+(`trig_01L2EG5veWBQwMowaykXAi6B`) is disabled per Joey's T-13 decision
+(`docs/decisions.md` 2026-08-31 entry) — synced its prompt with the
+trailer but left `enabled: false` exactly as found.
+
+**Follow-ups surfaced, not blocking, not part of this item's scope:**
+Laura's `cron_expression` differs from `runners.md`'s table
+(`20 18 * * *` live vs `20 18 * * 2,5` documented); Austin's model is still
+`claude-fable-5` live though `runners.md`'s table names an intended
+`claude-opus-4-8` 2-week trial; Karen's pending trigger rename tracked
+separately as GitHub issue #3616.
+
+**Status:** DONE
+
+---
 
 ### 32. [BLOCKING] Etsy API returns 403 to the E5 evidence workflow — check app approval, ~10 min
 

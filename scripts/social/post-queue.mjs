@@ -101,6 +101,7 @@ import {
   formatAnnotations,
   formatPostedNotification,
 } from './lib/run-report.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 const MEDIA_BASE_URL = 'https://www.longlivets.com';
 const MAX_ATTEMPTS = 3;
@@ -511,5 +512,5 @@ export async function main() {
 
 // Only auto-run as a CLI; tests import `main` and drive it directly.
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main();
+  runMain(main, { name: 'post-queue' });
 }

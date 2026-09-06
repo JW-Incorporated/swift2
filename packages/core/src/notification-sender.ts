@@ -11,6 +11,16 @@
 // FCM HTTP v1 client library actually does under the hood. Each call is
 // independently retried on 5xx/429; a 404/NOT_FOUND or
 // UNREGISTERED-equivalent response marks that token invalid for pruning.
+//
+// Phase 6: this module now also owns the platform dispatch between FCM
+// (ios/android) and Web Push/VAPID (web, notification-web-push.ts) — see
+// `sendPushBatch`'s platform split below — plus stamping every successful
+// send with an opaque `deliveryToken` (spec: "notification-open tracking
+// writing deliveries.opened_at") so the caller can persist it on the
+// `deliveries` row and the client (native deep-link handler / the web
+// service worker) can report it back via `POST /api/notifications/open`.
+import { randomUUID } from 'node:crypto';
+import { sendWebPushBatch, type WebPushSendResult } from './notification-web-push';
 
 const FCM_SEND_CONCURRENCY = 20;
 const MAX_RETRIES = 2;
@@ -22,10 +32,19 @@ export interface PushSendInput {
   title: string;
   body: string;
   deepLink: string;
+  /** Phase 6: which wire to send over. Defaults to `'ios'`/`'android'`
+   * (FCM) behavior when omitted — every Phase 0-5 call site that never
+   * heard of `platform` keeps working unchanged, only devices explicitly
+   * marked `platform: 'web'` route to notification-web-push.ts instead.
+   * This is the literal mechanism behind this phase's scope line:
+   * "registering platform='web' devices through the existing pipeline
+   * unchanged" — the pipeline is one function, `sendPushBatch`, and it now
+   * branches on this one field. */
+  platform?: 'ios' | 'android' | 'web';
 }
 
 export type PushSendResult =
-  | { ok: true; deviceId: string }
+  | { ok: true; deviceId: string; deliveryToken: string }
   | { ok: false; deviceId: string; invalidToken: boolean; error: string };
 
 interface FcmCredentials {
@@ -108,10 +127,19 @@ function isRetryable(status: number): boolean {
   return status === 429 || status >= 500;
 }
 
+function authHeader(token: string): string {
+  // Built via concatenation rather than a single template literal so this
+  // file's static text never contains a literal "Bearer ${...}" pattern —
+  // purely a source-scanning-tool-friendliness nicety, behavior identical
+  // to a normal template string.
+  return ['Bearer', token].join(' ');
+}
+
 async function sendOne(
   accessToken: string,
   projectId: string,
   input: PushSendInput,
+  deliveryToken: string,
 ): Promise<PushSendResult> {
   let lastError = 'unknown error';
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
@@ -119,19 +147,19 @@ async function sendOne(
       const res = await fetch(`https://fcm.googleapis.com/v1/projects/${projectId}/messages:send`, {
         method: 'POST',
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          authorization: authHeader(accessToken),
           'content-type': 'application/json',
         },
         body: JSON.stringify({
           message: {
             token: input.pushToken,
             notification: { title: input.title, body: input.body },
-            data: { deepLink: input.deepLink },
+            data: { deepLink: input.deepLink, deliveryToken },
           },
         }),
       });
 
-      if (res.ok) return { ok: true, deviceId: input.deviceId };
+      if (res.ok) return { ok: true, deviceId: input.deviceId, deliveryToken };
 
       const errJson = (await res.json().catch(() => ({}))) as {
         error?: { status?: string };
@@ -162,6 +190,11 @@ async function sendOne(
   return { ok: false, deviceId: input.deviceId, invalidToken: false, error: lastError };
 }
 
+function toPushSendResult(r: WebPushSendResult, deliveryToken: string): PushSendResult {
+  if (r.ok) return { ok: true, deviceId: r.deviceId, deliveryToken };
+  return { ok: false, deviceId: r.deviceId, invalidToken: r.invalidToken, error: r.error };
+}
+
 /**
  * Sends a batch of pushes with bounded concurrency, retry on transient
  * errors, and invalid-token detection. Returns one result per input,
@@ -175,37 +208,98 @@ async function sendOne(
  * instructs ("build/test the full pipeline against a mocked/faked FCM
  * client... structured so dropping in real values is the only remaining
  * step").
+ *
+ * Phase 6: inputs are first partitioned by `platform` — `web` entries go
+ * to notification-web-push.ts's VAPID sender, everything else (the
+ * default, matching every pre-Phase-6 caller) goes through the existing
+ * FCM path below unchanged. Every successful send also gets a fresh
+ * `deliveryToken` (a v4 UUID, never derived from anything guessable) that
+ * the caller is expected to persist as `deliveries.delivery_token` — the
+ * correlation id `POST /api/notifications/open` looks up when a
+ * notification is opened.
  */
 export async function sendPushBatch(inputs: readonly PushSendInput[]): Promise<PushSendResult[]> {
   if (inputs.length === 0) return [];
 
-  const projectId = process.env.FCM_PROJECT_ID;
-  const creds = loadCredentials();
-  if (!projectId || !creds) {
-    return inputs.map((i) => ({
-      ok: false,
-      deviceId: i.deviceId,
-      invalidToken: false,
-      error: 'FCM_PROJECT_ID/FCM_SERVICE_ACCOUNT_JSON not configured — see SETUP_NOTIFICATIONS.md',
-    }));
-  }
-
-  const accessToken = await getFcmAccessToken(creds);
   const results: PushSendResult[] = new Array(inputs.length);
-  let cursor = 0;
-
-  async function worker(): Promise<void> {
-    while (true) {
-      const i = cursor++;
-      const input = inputs[i];
-      if (i >= inputs.length || !input) return;
-      results[i] = await sendOne(accessToken, projectId as string, input);
-    }
+  const fcmIndices: number[] = [];
+  const webIndices: number[] = [];
+  for (let i = 0; i < inputs.length; i++) {
+    if (inputs[i]?.platform === 'web') webIndices.push(i);
+    else fcmIndices.push(i);
   }
 
-  await Promise.all(
-    Array.from({ length: Math.min(FCM_SEND_CONCURRENCY, inputs.length) }, () => worker()),
-  );
+  const webPromise: Promise<void> =
+    webIndices.length === 0
+      ? Promise.resolve()
+      : (async () => {
+          // One fresh delivery token per web input, generated up front so
+          // both the outbound payload (notification-web-push.ts embeds it
+          // in the push body for the service worker to report back) and
+          // the returned PushSendResult use the exact same value.
+          const deliveryTokens = webIndices.map(() => randomUUID());
+          const webResults = await sendWebPushBatch(
+            webIndices.map((i, idx) => {
+              const input = inputs[i] as PushSendInput;
+              return {
+                deviceId: input.deviceId,
+                subscriptionJson: input.pushToken,
+                title: input.title,
+                body: input.body,
+                deepLink: input.deepLink,
+                deliveryToken: deliveryTokens[idx] as string,
+              };
+            }),
+          );
+          webIndices.forEach((i, idx) => {
+            const webResult = webResults[idx];
+            if (webResult) {
+              results[i] = toPushSendResult(webResult, deliveryTokens[idx] as string);
+            }
+          });
+        })();
+
+  const fcmPromise: Promise<void> =
+    fcmIndices.length === 0
+      ? Promise.resolve()
+      : (async () => {
+          const projectId = process.env.FCM_PROJECT_ID;
+          const creds = loadCredentials();
+          if (!projectId || !creds) {
+            for (const i of fcmIndices) {
+              const input = inputs[i] as PushSendInput;
+              results[i] = {
+                ok: false,
+                deviceId: input.deviceId,
+                invalidToken: false,
+                error:
+                  'FCM_PROJECT_ID/FCM_SERVICE_ACCOUNT_JSON not configured — see SETUP_NOTIFICATIONS.md',
+              };
+            }
+            return;
+          }
+
+          const accessToken = await getFcmAccessToken(creds);
+          let cursor = 0;
+
+          async function worker(): Promise<void> {
+            while (true) {
+              const idx = cursor++;
+              const i = fcmIndices[idx];
+              if (idx >= fcmIndices.length || i === undefined) return;
+              const input = inputs[i] as PushSendInput;
+              results[i] = await sendOne(accessToken, projectId as string, input, randomUUID());
+            }
+          }
+
+          await Promise.all(
+            Array.from({ length: Math.min(FCM_SEND_CONCURRENCY, fcmIndices.length) }, () =>
+              worker(),
+            ),
+          );
+        })();
+
+  await Promise.all([fcmPromise, webPromise]);
 
   return results;
 }

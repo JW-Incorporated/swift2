@@ -32,6 +32,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gh } from '../lib/gh.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 export const REPO = 'JW-Incorporated/swift2';
 export const TRIAGE_LABEL = 'needs-triage';
@@ -385,7 +386,7 @@ async function main(argv) {
 
   if (flags.has('--check') && state.unowned.length) {
     console.error(`\nFAIL: ${state.unowned.length} open issue(s) no scanner owns.`);
-    process.exit(1);
+    return 1;
   }
 }
 
@@ -393,8 +394,5 @@ if (
   process.argv[1] &&
   import.meta.url === new URL(`file://${process.argv[1].replace(/\\/g, '/')}`).href
 ) {
-  main(process.argv.slice(2)).catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
+  runMain(() => main(process.argv.slice(2)), { name: 'unowned-sweep' });
 }

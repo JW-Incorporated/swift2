@@ -8,12 +8,12 @@ import {
   imageDuplicatesPageVideo,
   youtubeFrameId,
 } from './video-affordance';
-import { ERAS } from './eras';
+import { ERAS } from '@swift2/experience';
 import { contentForEra } from './content';
-import { eraKnownVideoIds, inlineVideoMomentIds } from './era-feed';
+import { eraKnownVideoIds, inlineVideoMomentIds } from '@swift2/experience';
 import { videosForEra } from './videos';
-import { primaryImageRef } from './types';
-import type { ContentItem, EggSource } from './types';
+import { primaryImageRef } from '@swift2/experience';
+import type { ContentItem, EggSource } from '@swift2/experience';
 
 const source = (name: string, url: string): EggSource => ({ name, url }) as EggSource;
 

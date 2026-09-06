@@ -6,6 +6,7 @@ import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { curateCandidate } from './fanmade-discovery.mjs';
 import { currentFrom } from './sync-official.mjs';
+import { serviceClient } from '../lib/supabase.mjs';
 
 const OFFICIAL_HOST = 'store.taylorswift.com';
 const AMAZON_HOSTS = new Set(['amazon.com', 'www.amazon.com']);
@@ -134,6 +135,24 @@ export function authorOfficialCatalog({
   };
 }
 
+// Notifications Phase 5 producer seam for `fan_merch` (NOTIFICATIONS_PLAN.md,
+// NOTIFICATIONS_SPEC.md §4/§10) — mirrors official_merch's Phase 2 seam
+// (emit-official-merch-event.mjs): the authoring step IS the detection
+// point for "genuinely new fan merch", so the event fires here, once per
+// authoring run, batching every newly-accepted item into one push (same
+// "a batch = a drop" convention as official_merch, spec's own fan_merch
+// preview text: "12 new fan-made pieces this week, top pick inside").
+//
+// UNLIKE official_merch, there is no scheduled workflow that calls this
+// function on fan_merch curation today — grep of .github/workflows/*.yml
+// confirms fanmade curation (--fanmade-curation/--write-fanmade) is a
+// manually-invoked CLI step only (merch-e5-evidence.yml collects raw
+// evidence, merch-fanmade.yml only files GitHub candidate issues; neither
+// calls author-catalogs.mjs). This function still emits the event on every
+// invocation (CLI-triggered authoring IS the real detection moment, same
+// semantics as official_merch), it just isn't on a cron yet — flagged here
+// and in STATE.md per this task's instruction to flag rather than invent a
+// fake automated detector for a category with no existing pipeline.
 export function authorFanmadeCatalog({ curation = [], verifiedAt = new Date().toISOString() } = {}) {
   const catalog = [];
   const rejected = [];
@@ -146,7 +165,14 @@ export function authorFanmadeCatalog({ curation = [], verifiedAt = new Date().to
     catalog.push(result.seed);
   }
   catalog.sort((left, right) => left.url.localeCompare(right.url));
-  return { catalog, rejected };
+  return {
+    catalog,
+    rejected,
+    socialDraft: {
+      type: 'fanmade-drop-draft',
+      products: catalog.map(({ item, url }) => ({ item, url })),
+    },
+  };
 }
 
 export function moduleSource(exportName, catalog) {
@@ -220,8 +246,25 @@ async function main() {
     const result = authorFanmadeCatalog({ curation: artifact.curation ?? artifact.candidates ?? [] });
     await writeModule(fanmadeOut, 'FAN_MADE', result.catalog);
     summary.fanmade = { authored: result.catalog.length, rejected: result.rejected.length };
+    // Notifications Phase 5 seam (see authorFanmadeCatalog's header
+    // comment): fire fan_merch's notification event from the SAME
+    // authoring invocation that writes the catalog, rather than requiring
+    // a separate manual step. Never fails the authoring run — same
+    // stage-isolation discipline as emit-fanmade-event.mjs's own
+    // try/catch.
+    try {
+      const { emitFanmadeEvent } = await import('./emit-fanmade-event.mjs');
+      const db = supabaseAdminForNotifications();
+      if (db) await emitFanmadeEvent(result.socialDraft, { db });
+    } catch (error) {
+      console.error(`fan_merch notification emit failed: ${error.message}`);
+    }
   }
   console.log(JSON.stringify(summary));
+}
+
+function supabaseAdminForNotifications() {
+  return serviceClient();
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

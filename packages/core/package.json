@@ -14,6 +14,10 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.2",
-    "@swift2/shared": "*"
+    "@swift2/shared": "*",
+    "web-push": "^3.6.7"
+  },
+  "devDependencies": {
+    "@types/web-push": "^3.6.4"
   }
 }

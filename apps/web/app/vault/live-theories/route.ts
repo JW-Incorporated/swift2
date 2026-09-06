@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
-import { loadFanSignals, loadLiveTheories } from '../../../lib/live-theories-data';
+import { loadFanSignals, loadLiveTheories } from '../../../lib/current';
 
-// PLAN.md Stage 7's one read route: `live_theory` + `fan_signal`, for the
-// Threads "Theories & eggs" board and the Clownbot "what we're clowning on"
-// board. Zero model calls — pure data. ISR revalidate: 900s (15 min), same
-// cadence as `vault/current/[eraId]`.
+// Thin alias over `/vault/live/[eraId]` (R17), kept for one release so the
+// mobile client's additive-only API contract still resolves this path.
+// Prefer `/vault/live/[eraId]` for new callers — it returns items + live
+// theories + fan signals in one payload; this route re-derives just the
+// `theories`/`signals` shape from the same `lib/current.ts` loaders.
 export const revalidate = 900;
 
 export async function GET() {

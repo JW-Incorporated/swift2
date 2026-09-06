@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { ReRecord } from '@/lib/longlive/types';
+import type { ReRecord } from '@swift2/experience';
 
 const CHART_START = 2019;
 const CHART_END = 2026;

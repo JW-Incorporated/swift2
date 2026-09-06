@@ -1,13 +1,20 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import {
   selectLyricForDevice,
   selectOnThisDayEntry,
   scheduleCountdowns,
   countdownCopy,
+  dispatchFunNotifications,
   type LyricCandidate,
   type OnThisDayEntry,
 } from './notification-fun';
 import { isFunSendDay, startOfLocalPeriod } from './notification-fun-schedule';
+import * as sender from './notification-sender';
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 function lyric(overrides: Partial<LyricCandidate> = {}): LyricCandidate {
   return {
@@ -222,5 +229,142 @@ describe('30-day simulation — on_this_day', () => {
   it('an entirely empty pool sends nothing across the whole window', () => {
     const sends = simulate('daily', 'on_this_day', [], [], 30);
     expect(sends).toHaveLength(0);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// dispatchFunNotifications — DB orchestration, gate 6 (hard ceiling).
+// Same minimal fluent Supabase fake pattern as notification-router.test.ts /
+// notification-digest.test.ts.
+// ---------------------------------------------------------------------------
+
+function makeFakeDb(fixture: {
+  notificationPrefs: Array<{ device_id: string; category: string; cadence: string }>;
+  devices: Array<Record<string, unknown>>;
+  lyrics: Array<Record<string, unknown> | LyricCandidate>;
+  onThisDay: Array<Record<string, unknown>>;
+  deliveries?: Array<Record<string, unknown>>;
+  lyricHistory?: Array<Record<string, unknown>>;
+}) {
+  const insertedDeliveries: Array<Record<string, unknown>> = [];
+
+  function queryBuilder(table: string) {
+    const state: { filters: Array<(row: Record<string, unknown>) => boolean>; countOnly: boolean } =
+      {
+        filters: [],
+        countOnly: false,
+      };
+
+    const api: Record<string, (...args: unknown[]) => unknown> = {};
+    api.select = ((_cols: string, opts?: { count?: string; head?: boolean }) => {
+      if (opts?.head) state.countOnly = true;
+      return api;
+    }) as (...args: unknown[]) => unknown;
+    api.order = (() => api) as (...args: unknown[]) => unknown;
+    api.gte = ((col: string, val: unknown) => {
+      state.filters.push((row) => (row[col] as string) >= (val as string));
+      return api;
+    }) as (...args: unknown[]) => unknown;
+    api.eq = ((col: string, val: unknown) => {
+      state.filters.push((row) => row[col] === val);
+      return api;
+    }) as (...args: unknown[]) => unknown;
+    api.in = ((col: string, vals: unknown[]) => {
+      state.filters.push((row) => vals.includes(row[col]));
+      return api;
+    }) as (...args: unknown[]) => unknown;
+    api.then = ((resolve: (v: unknown) => void) => {
+      resolve(runQuery());
+    }) as (...args: unknown[]) => unknown;
+
+    function source(): Array<Record<string, unknown>> {
+      if (table === 'notification_prefs')
+        return fixture.notificationPrefs as unknown as Array<Record<string, unknown>>;
+      if (table === 'devices') return fixture.devices;
+      if (table === 'lyrics') return fixture.lyrics as unknown as Array<Record<string, unknown>>;
+      if (table === 'on_this_day') return fixture.onThisDay;
+      if (table === 'deliveries')
+        return (fixture.deliveries ?? []) as Array<Record<string, unknown>>;
+      if (table === 'lyric_history')
+        return (fixture.lyricHistory ?? []) as Array<Record<string, unknown>>;
+      throw new Error(`unexpected table ${table}`);
+    }
+
+    function runQuery() {
+      const rows = source().filter((row) => state.filters.every((f) => f(row)));
+      if (state.countOnly) return { count: rows.length, error: null };
+      return { data: rows, error: null };
+    }
+
+    api.insert = ((rows: Array<Record<string, unknown>> | Record<string, unknown>) => {
+      const arr = Array.isArray(rows) ? rows : [rows];
+      if (table === 'deliveries') insertedDeliveries.push(...arr);
+      return Promise.resolve({ data: null, error: null });
+    }) as (...args: unknown[]) => unknown;
+    api.upsert = (() => Promise.resolve({ data: null, error: null })) as (
+      ...args: unknown[]
+    ) => unknown;
+
+    return api;
+  }
+
+  return {
+    from: vi.fn((table: string) => queryBuilder(table)),
+    _insertedDeliveries: insertedDeliveries,
+  } as unknown as SupabaseClient & { _insertedDeliveries: Array<Record<string, unknown>> };
+}
+
+function funDevice(overrides: Record<string, unknown> = {}) {
+  return {
+    id: 'device-1',
+    push_token: 'token-1',
+    tz: 'America/Los_Angeles',
+    digest_hour: 9,
+    master_enabled: true,
+    ...overrides,
+  };
+}
+
+describe('dispatchFunNotifications — gate 6 (hard ceiling)', () => {
+  it('a device already at the 6/day hard ceiling gets no lyric_of_day send', async () => {
+    const now = new Date('2026-01-15T20:00:00Z'); // 12:00 PST — Thursday, a valid daily send day
+    const since = '2026-01-15T08:00:00Z'; // start of local PST day
+    const sixDeliveriesToday = Array.from({ length: 6 }, (_, i) => ({
+      device_id: 'device-1',
+      kind: i % 2 === 0 ? 'instant' : 'digest',
+      category: 'song_drop',
+      sent_at: since,
+    }));
+    const db = makeFakeDb({
+      notificationPrefs: [{ device_id: 'device-1', category: 'lyric_of_day', cadence: 'daily' }],
+      devices: [funDevice()],
+      lyrics: [lyric({ id: 1 })],
+      onThisDay: [],
+      deliveries: sixDeliveriesToday,
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([]);
+
+    const result = await dispatchFunNotifications(db, now);
+    expect(result.lyricsSent).toBe(0);
+    expect(result.skippedHardCeiling).toBe(1);
+    expect(sendSpy).not.toHaveBeenCalled();
+  });
+
+  it('a device under the hard ceiling still gets its lyric_of_day send', async () => {
+    const now = new Date('2026-01-15T20:00:00Z');
+    const db = makeFakeDb({
+      notificationPrefs: [{ device_id: 'device-1', category: 'lyric_of_day', cadence: 'daily' }],
+      devices: [funDevice()],
+      lyrics: [lyric({ id: 1 })],
+      onThisDay: [],
+      deliveries: [],
+    });
+    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
+      { ok: true, deviceId: 'device-1', deliveryToken: 'test-token-1' },
+    ]);
+
+    const result = await dispatchFunNotifications(db, now);
+    expect(result.lyricsSent).toBe(1);
+    expect(result.skippedHardCeiling).toBe(0);
   });
 });

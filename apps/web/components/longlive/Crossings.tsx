@@ -3,15 +3,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Heart, Shirt, RefreshCw, Gem, ArrowLeft, ArrowRight, X, GitFork } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
-import { CAREER_START_MS, careerEndMs, ERAS, getEra } from '@/lib/longlive/eras';
+import { CAREER_START_MS, careerEndMs, ERAS, getEra } from '@swift2/experience';
 import {
   CROSSING_THREADS,
   getThread,
   threadCrossings,
   threadPoints,
   type Crossing,
-} from '@/lib/longlive/lenses';
-import type { LensId } from '@/lib/longlive/types';
+} from '@swift2/experience';
+import type { LensId } from '@swift2/experience';
 import { accentFgFor } from '@/lib/longlive/theme';
 import { cn } from '@/lib/utils';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
@@ -95,6 +95,20 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
         RAIL_HEIGHT,
       ),
     [crossings, end, span], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+
+  // Lane dot tops after the ≥24px collision pass (#3398, WCAG 2.5.8): a lane's
+  // own points can cluster tightly along the timeline, and each dot's own box
+  // being ≥24px isn't enough if a same-lane neighbour's box overlaps it and
+  // eats the safe click margin. Same declutter pass as the crossing diamonds
+  // above, run once per lane so lane A and lane B spread independently.
+  const laneATops = useMemo(
+    () => resolveCrossingMarkerTops(pointsA.map((p) => pct(new Date(p.date).getTime())), RAIL_HEIGHT),
+    [pointsA, end, span], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+  const laneBTops = useMemo(
+    () => resolveCrossingMarkerTops(pointsB.map((p) => pct(new Date(p.date).getTime())), RAIL_HEIGHT),
+    [pointsB, end, span], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   // Which point indices participate in a crossing, so we can emphasize them
@@ -246,7 +260,7 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
                 crossing detail, an uncrossed one opens the point's own thread. */}
             {pointsA.map((p, i) => {
               const era = getEra(p.eraId);
-              const top = pct(new Date(p.date).getTime());
+              const top = laneATops[i];
               const key = `${p.date}-${p.label}`;
               const crossed = crossedA.has(key);
               const crossingIndex = crossingByA.get(key);
@@ -292,7 +306,7 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
             {/* Lane B points — same tappable shape as lane A. */}
             {pointsB.map((p, i) => {
               const era = getEra(p.eraId);
-              const top = pct(new Date(p.date).getTime());
+              const top = laneBTops[i];
               const key = `${p.date}-${p.label}`;
               const crossed = crossedB.has(key);
               const crossingIndex = crossingByB.get(key);
@@ -506,7 +520,7 @@ function CrossingDetail({
   metaATitle: string;
   metaBTitle: string;
   onClose: () => void;
-  onOpenEra: (id: import('@/lib/longlive/types').EraId) => void;
+  onOpenEra: (id: import('@swift2/experience').EraId) => void;
   onOpenThread: (id: LensId) => void;
   threadA: LensId;
   threadB: LensId;

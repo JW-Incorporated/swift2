@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '24'
       - name: Restore Awin feed index cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: |
             awin-feed-cache.json
@@ -40,7 +40,7 @@ jobs:
       - name: Regenerate affiliate coverage
         run: npx tsx scripts/merch-engine/affiliate-coverage.mjs
       - name: Open gated advertiser-map update
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           add-paths: |
             apps/web/lib/longlive/awin-advertisers.json
@@ -54,13 +54,13 @@ jobs:
         env:
           AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}
         run: node scripts/merch-engine/sync-awin-feeds.mjs --cache awin-feed-cache.json --index awin-product-index.sqlite
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: merch-awin-sync-handoff
           path: apps/web/lib/longlive/awin-advertisers.json
           if-no-files-found: error
       - name: Save Awin feed index cache
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: |
             awin-feed-cache.json

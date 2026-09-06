@@ -19,7 +19,7 @@ this product's source of truth mostly is not the database.
 | Layer | Lives where | If the database vanished |
 |---|---|---|
 | **Schema** | `supabase/migrations/*.sql`, in git, idempotent, applied in filename order | `npm run db:migrate` rebuilds it exactly |
-| **Content** (eras, milestones, month items, moments, track notes, theories, videos, releases, tours) | `supabase/seed/**`, in git — and the *website* renders from `apps/web/lib/longlive/*.generated.ts`, which is also committed | Reseed. **The public site never went down**: longlivets.com builds from the generated vault, not from Supabase |
+| Content (eras, milestones, month items, moments, track notes, theories, videos) | `supabase/seed/**`, in git — and every surface (web + mobile) now renders from the published content bundle (`scripts/build-content-bundle.mjs` output), also derived from these same seeds and also committed-adjacent (build artifact, OS-016) | Reseed the DB if you want, but it's cosmetic: **the public site and the app never went down** — neither reads these Supabase tables any more, both build from the content bundle |
 | **News feed seed** (`news_source` rows) | Inserted by migrations `20260719180000` / `20260719190000`, in git | Rebuilt by `db:migrate` |
 | **Runtime-only state** — `news_story`, `news_raw_item`, `news_story_source`, `news_llm_usage`, and `news_source.last_polled_at` | **Only in the database.** Written by `apps/worker/src/pipeline/run-cycle.ts` on its 6×/day cycle | **Gone forever.** Nothing in git can rebuild it |
 | **Generated `id` values** — every `uuid` primary key | **Only in the database.** The seeds carry no ids; `gen_random_uuid()` mints them at seed time | A reseed produces *different* ids. Any stored `month_item_id` (e.g. `/vault/moment/[id]`) breaks |
@@ -65,14 +65,21 @@ That is not purism: Postgres client binaries are not installed on this repo's
 dev machines or guaranteed on runners, and a backup tool you cannot run is not
 a backup tool.
 
-To take one against production (read-only, safe):
+To take one against production (read-only, safe), either run it locally:
 
 ```bash
 node scripts/backup-restore-test.mjs \
   --source "$SUPABASE_DB_URL" \
-  --target "postgres://postgres:postgres@127.0.0.1:5432/scratch?sslmode=disable" \
+  --target "postgres://postgres:***@127.0.0.1:5432/scratch?sslmode=disable" \
   --keep
 ```
+
+or, preferred — one click, no credential ever leaves GitHub Actions:
+`.github/workflows/production-backup-drill.yml` (`workflow_dispatch` from the
+Actions tab) reuses the `SUPABASE_DB_URL` secret already configured for
+`db-migrate`/`db-seed`, restores into a throwaway Postgres service container
+inside the job, and records PASS/FAIL as an alert issue + a downloadable
+report artifact. See `HUMAN-ACTIONS.md` #23 for the walkthrough.
 
 `--keep` leaves the artifact in `.backups/<timestamp>/` (gitignored). The source
 session is pinned `default_transaction_read_only=on` at the server, so this
@@ -100,9 +107,9 @@ code path, so the runbook cannot drift from what actually works.
 
 | Situation | Do this | Data lost |
 |---|---|---|
-| Content wrong / partially clobbered | `npm run db:migrate` then the `db:seed*` scripts (`docs/dev-quickstart.md`) | Nothing content-side; **uuids change** |
+| Content wrong / partially clobbered | `npm run db:migrate` then the retired content seed scripts if you really want the DB to match (`docs/dev-quickstart.md` — cosmetic only, OS-016: no surface reads these tables) | Nothing content-side; **uuids change** |
 | Runtime `news_*` data lost, content fine | Restore from the most recent layer-B artifact, `news_*` tables only | Everything since that artifact |
-| Whole project gone | New Supabase project → `db:migrate` → `db:seed*` → load the newest layer-B artifact over the `news_*` tables → repoint `SUPABASE_URL`/keys | News state since the last artifact; **all uuids change** |
+| Whole project gone | New Supabase project → `db:migrate` → (content reseed optional/cosmetic, OS-016) → load the newest layer-B artifact over the `news_*` tables → repoint `SUPABASE_URL`/keys | News state since the last artifact; **all uuids change** |
 | Bad write in the last few minutes/hours | Supabase PITR — **only if §2 layer A says it is enabled** | Depends on the window |
 
 ### The uuid trap
@@ -184,9 +191,15 @@ quarter should be treated as unproven.
       absence of Supabase Free-plan backup options; the BACKUPS launch gate
       remains unresolved unless that risk is explicitly accepted or another
       backup path is evidenced.
-- [ ] **Joey (or a session Joey grants credentials to):** one real-data drill —
-      `--source "$SUPABASE_DB_URL" --target <scratch>` — before launch, logged
-      above. This is the only step that proves production's own bytes restore.
+- [ ] **Joey (or anyone with repo write access — no credential handling
+      required):** one real-data drill via
+      `.github/workflows/production-backup-drill.yml`
+      (`workflow_dispatch`) — before launch, logged above. This is the only
+      step that proves production's own bytes restore. The mechanical
+      barrier (needing `SUPABASE_DB_URL` on a local machine) is gone as of
+      this session: the workflow reuses the secret already configured for
+      `db-migrate`/`db-seed` and never exposes it to a human. See
+      `HUMAN-ACTIONS.md` #23.
 
 **2026-08-26 — access check (#680 desk pass, agent session, no product code touched):**
 Before re-asking Wyatt, checked whether either open item was actually reachable

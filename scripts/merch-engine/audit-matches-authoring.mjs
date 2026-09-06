@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { auditCacheKey, tierForScore } from './audit-matches.mjs';
 import { extractReplacementImage } from './verify-images.mjs';
+import { callAnthropicMessages, extractToolUseInput } from '../lib/anthropic.mjs';
 
 export const MODEL = 'claude-sonnet-5';
 export const MAX_RUN_COST_USD = 5;
@@ -21,7 +22,6 @@ export const HYDRATION_BUDGET_MS = 5 * 60_000;
 export const IMAGE_FETCH_TIMEOUT_MS = 10_000;
 export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
-const ANTHROPIC_VERSION = '2023-06-01';
 const execFileAsync = promisify(execFile);
 const THINKING = { type: 'disabled' };
 const SUPPORTED_IMAGE_MEDIA_TYPES = new Set(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
@@ -194,6 +194,39 @@ export async function upsertCapIssue(
   return created.stdout.trim();
 }
 
+/**
+ * Spec P2 (issue #3447): a below-25 `mismatch` must not stay in place. This
+ * builds one E6 re-source ticket per demoted product carrying the auditor's
+ * own reasons, so a human/E6 lane can find a replacement candidate without
+ * re-deriving why the original was rejected. Filed the same way as the cap
+ * follow-up issue (one exact-title issue, reused via comment on repeat runs)
+ * so re-running authoring never spawns duplicate tickets.
+ */
+export function reSourceIssueContent(artifact) {
+  const demotions = Array.isArray(artifact?.demotions) ? artifact.demotions : [];
+  if (demotions.length === 0) return null;
+  return {
+    title: 'E3 vision judgment: products demoted below match-tier floor',
+    body: [
+      'The E3 auditor scored these products below 25 (mismatch) against their',
+      'source moment photo. Per spec P2, they must be removed from the',
+      "moment's products and re-sourced — do not restore the same listing",
+      'without a new, higher-scoring vision judgment.',
+      '',
+      ...demotions.map((demotion) => {
+        const reasons = Array.isArray(demotion.auditorReasons)
+          ? demotion.auditorReasons.map((reason) => `  - ${reason}`).join('\n')
+          : '  - (reasons not attached)';
+        return [
+          `- ${demotion.productId}`,
+          `  url: ${demotion.url ?? '(unknown)'}`,
+          reasons,
+        ].join('\n');
+      }),
+    ].join('\n'),
+  };
+}
+
 function unavailableReason(pair) {
   if (!pair?.productImageUrl) return 'product image unavailable';
   if (!pair?.momentImageUrl) return 'moment image unavailable';
@@ -216,12 +249,7 @@ export async function retailerOgImage(
 }
 
 function toolInput(body) {
-  const content = body?.content;
-  if (!Array.isArray(content)) return null;
-  return (
-    content.find((block) => block?.type === 'tool_use' && block.name === AUDIT_TOOL.name)?.input ??
-    null
-  );
+  return extractToolUseInput(body, { toolName: AUDIT_TOOL.name });
 }
 
 function imageFailure(message, status = null) {
@@ -258,14 +286,9 @@ export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
     imageContent(pair.productImageUrl, fetchImpl),
     imageContent(pair.momentImageUrl, fetchImpl),
   ]);
-  const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'x-api-key': apiKey,
-      'anthropic-version': ANTHROPIC_VERSION,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
+  const { raw } = await callAnthropicMessages(
+    apiKey,
+    {
       model: MODEL,
       max_tokens: 256,
       thinking: THINKING,
@@ -284,10 +307,10 @@ export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
           ],
         },
       ],
-    }),
-  });
-  if (!response.ok) throw new Error(`anthropic vision request failed (${response.status})`);
-  return toolInput(await response.json());
+    },
+    { fetchImpl, errorLabel: 'anthropic vision request' },
+  );
+  return toolInput(raw);
 }
 
 function isRetryableVisionError(error) {
@@ -299,7 +322,10 @@ function isRetryableVisionError(error) {
 function visionFailureReason(error) {
   if (error instanceof Error && error.message.startsWith('image source ')) return error.message;
   const status = error instanceof Error ? /\((\d{3})\)$/.exec(error.message)?.[1] : null;
-  return status ? `vision request failed (HTTP ${status})` : 'vision request failed';
+  if (status) return `vision request failed (HTTP ${status})`;
+  const rawDetail = error instanceof Error && error.message ? error.message : String(error);
+  const detail = rawDetail.length > 160 ? `${rawDetail.slice(0, 160)}…` : rawDetail;
+  return `vision request failed (${detail})`;
 }
 
 async function judgeWithRetry(pair, judge, sleep, reserveAttempt) {
@@ -431,6 +457,19 @@ export async function runAuthoring({
   const unresolvedCount = judgments.filter((judgment) => judgment.tier === 'unresolved').length;
   const stopReason =
     eligibleCount === 0 ? 'no eligible image pairs' : stoppedAtCap ? CAP_STOP_REASON : null;
+  // Below-25 (mismatch) is demoted, never treated as a durable reusable tier
+  // (spec P2, issue #3447): fold this run's freshly-judged mismatches in
+  // alongside any the detector already identified from a cached score, so
+  // one artifact carries the complete demotion list for the content lane.
+  const freshDemotions = judgments
+    .filter((judgment) => judgment.tier === 'mismatch')
+    .map((judgment) => ({
+      productId: judgment.productId,
+      url: judgment.productUrl ?? null,
+      reason: 'vision-audited-mismatch',
+      auditorReasons: judgment.reasons,
+    }));
+  const demotions = [...(Array.isArray(queue.demotions) ? queue.demotions : []), ...freshDemotions];
   return {
     schemaVersion: 1,
     providerModel: MODEL,
@@ -446,10 +485,12 @@ export async function runAuthoring({
     },
     judgments,
     unscored: receipt.unscored ?? [],
+    demotions,
     summary: {
       queued: receipt.detectorReceipt?.queued ?? judgments.length,
       resolved: completedJudgments,
       unresolved: unresolvedCount,
+      demoted: demotions.length,
     },
   };
 }
@@ -496,11 +537,25 @@ async function main() {
       issueError = error instanceof Error ? error.message : String(error);
     }
   }
+  const reSourceIssue = reSourceIssueContent(artifact);
+  let reSourceIssueError = null;
+  if (reSourceIssue) {
+    try {
+      artifact.reSourceIssue = await upsertCapIssue(reSourceIssue);
+    } catch (error) {
+      artifact.reSourceIssue = null;
+      reSourceIssueError = error instanceof Error ? error.message : String(error);
+    }
+  }
   const target = resolve(writePath);
   await mkdir(dirname(target), { recursive: true });
   await writeFile(target, `${JSON.stringify(artifact, null, 2)}\n`, 'utf8');
   if (issueError) {
     console.error(`merch-audit-authoring: failed to file cap follow-up issue: ${issueError}`);
+    process.exitCode = 1;
+  }
+  if (reSourceIssueError) {
+    console.error(`merch-audit-authoring: failed to file re-source issue: ${reSourceIssueError}`);
     process.exitCode = 1;
   }
   console.log(
@@ -509,6 +564,7 @@ async function main() {
       reservedCostUsd: artifact.run.reservedCostUsd,
       completedJudgments: artifact.run.completedJudgments,
       stopReason: artifact.run.stopReason,
+      demoted: artifact.demotions?.length ?? 0,
     }),
   );
 }

@@ -15,9 +15,25 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 export const HUMAN_ACTIONS_PATH = 'HUMAN-ACTIONS.md';
 const DAY_MS = 86_400_000;
 
-const ITEM_HEADER = /^###\s+(\d+)\.\s+\[(BLOCKING|UPGRADE)\]\s+(.*?)\s*$/;
+const ITEM_HEADER = /^###\s+(\d+)\.\s+\[(BLOCKING|UPGRADE|REVIEW|MERCH|DONE)\]\s+(.*?)\s*$/;
 const FILED = /^\*\*Filed:\*\*\s*(\d{4}-\d{2}-\d{2})/;
-const STATUS = /^\*\*Status:\*\*\s*(\S+)/;
+// `**Status:** DONE`, `**Status:** RESOLVED (2026-09-05)`, `**Status (2026-08-23): DONE`
+// — the file's authors write all three. The LAST status line inside an item
+// wins (items accrete `**Update:**` blocks and the newest verdict is at the
+// bottom), which parseItems() gets for free by overwriting.
+const STATUS = /^\*\*Status(?:\s*\([^)]*\))?:(?:\*\*)?\s*([A-Za-z]+)/;
+
+// Terminal statuses. An item carrying one of these is finished even when it
+// still physically sits under `## OPEN` — authors close items in place and
+// move them to `## DONE` later (or never). 2026-09-05 audit: HA#22 (RESOLVED),
+// HA#24 (DONE) and HA#35 (DONE) were all rendered as open founder asks with
+// "waiting Nd" ages on every brief, because this parser only looked at which
+// section an item sat in and never at what the item said about itself.
+export const CLOSED_STATUSES = new Set(['DONE', 'RESOLVED', 'SKIP', 'SKIPPED', 'CLOSED', 'SUPERSEDED']);
+
+export function isClosedStatus(status) {
+  return CLOSED_STATUSES.has(String(status || '').toUpperCase());
+}
 
 /**
  * Split a HUMAN-ACTIONS.md body into its `## OPEN` and `## DONE` sections.
@@ -62,13 +78,22 @@ function parseItems(sectionText) {
  * OPEN items, with age-in-days computed from `Filed:` (null if the item
  * predates the convention and was never backfilled — report the gap, don't
  * guess an age).
+ *
+ * Items whose own `**Status:**` line is terminal (DONE / RESOLVED / SKIP …)
+ * are excluded even when they still sit under `## OPEN` — see CLOSED_STATUSES.
+ * Items whose header tag is `[DONE]` are excluded for the same reason.
+ * `parseOpenActions(md, { includeClosed: true })` returns them too, with
+ * `closed: true`, so a journal can list what was filtered and why.
  */
-export function parseOpenActions(markdown, { now = Date.now() } = {}) {
+export function parseOpenActions(markdown, { now = Date.now(), includeClosed = false } = {}) {
   const items = parseItems(sectionBody(markdown, 'OPEN'));
-  return items.map((it) => ({
-    ...it,
-    ageDays: it.filed ? Math.floor((now - new Date(`${it.filed}T00:00:00Z`).getTime()) / DAY_MS) : null,
-  }));
+  return items
+    .map((it) => ({
+      ...it,
+      closed: it.tag === 'DONE' || isClosedStatus(it.status),
+      ageDays: it.filed ? Math.floor((now - new Date(`${it.filed}T00:00:00Z`).getTime()) / DAY_MS) : null,
+    }))
+    .filter((it) => includeClosed || !it.closed);
 }
 
 export function readOpenActions({ repoRoot = ROOT, file = HUMAN_ACTIONS_PATH, now = Date.now() } = {}) {

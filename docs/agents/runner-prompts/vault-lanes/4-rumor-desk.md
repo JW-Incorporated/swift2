@@ -84,11 +84,18 @@ onto the wedding page, which already carries the most.
 
 **C. Refresh Clownbot's no-DB fallback.** The knowledge engine is Clownbot's
 primary live source, but `apps/web/lib/longlive/clownbot-lore.ts` remains the
-load-bearing fallback when the database is unreachable. It is not refreshed by
-editing Vault `rumors` entries. On every due run, independently sweep every
-open (`rumor` / `reported`) lore item, update its `lastCheckedOn`, resolution,
-and citations as warranted, add genuinely prompt-worthy current items from the
-same sourced queue, and bump `LORE_UPDATED_ON`. Run
+load-bearing fallback when the database is unreachable. Per Fable ruling
+FR-t_2745eb60-1 (issue #3515, 2026-09-04), it is refreshed by editing the seed
+file `supabase/seed/clownbot-lore/clownbot-lore.mjs` — NEVER by editing
+`apps/web/lib/longlive/clownbot-lore.ts` or its generated companion
+`clownbot-lore.generated.ts` directly; both are produced from the seed by
+`npm run sync:content` (which runs `scripts/sync-clownbot-lore.mjs`). It is
+not refreshed by editing Vault `rumors` entries either. On every due run,
+independently sweep every open (`rumor` / `reported`) lore item in the seed
+file, update its `lastCheckedOn`, resolution, and citations as warranted, add
+genuinely prompt-worthy current items from the same sourced queue, and bump
+`updatedOn` at the top of the seed file (this becomes `LORE_UPDATED_ON` after
+sync). Run `npm run sync:content` to regenerate, then run
 `apps/web/lib/longlive/clownbot-lore.test.ts` before committing. A run that
 touches Vault rumors but skips this fallback sweep is incomplete.
 

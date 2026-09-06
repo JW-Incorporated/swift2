@@ -3,84 +3,92 @@
 // the ENGINE track) loads them. Idempotent per era: a file owns its era_slug
 // and its rows are replaced wholesale on each run.
 //
-//   npm run db:seed:tracks
+// DEPRECATED (OS-016, `docs/specs/2026-09-05-one-source-three-surfaces.md`
+// §6 Phase 1): no code path outside `scripts/` reads `track_note` any more —
+// web (OS-014) and mobile (OS-015) both read the published content bundle
+// instead. Removed from `db-seed.yml` and `docs/dev-quickstart.md`; kept
+// runnable only until the table itself is dropped, one release cycle out.
+//
+//   node --env-file=apps/worker/.env scripts/seed-tracks.mjs  (npm alias retired, OS-016)
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { makeClient } from './lib/pg.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const tracksDir = join(here, '..', 'supabase', 'seed', 'tracks');
 
-const connectionString = process.env.SUPABASE_DB_URL;
-if (!connectionString) {
-  console.error('SUPABASE_DB_URL not set (expected in apps/worker/.env)');
-  process.exit(1);
-}
-
-// Files starting with "_" are templates, not real content. `.dossiers.mjs`
-// files are per-era side modules imported by their era file (issue #440) —
-// not standalone seeds.
-const files = readdirSync(tracksDir)
-  .filter((f) => f.endsWith('.mjs') && !f.startsWith('_') && !f.endsWith('.dossiers.mjs'))
-  .sort();
-
-const client = makeClient(connectionString);
-await client.connect();
-let notes = 0;
-try {
-  for (const file of files) {
-    const mod = await import(pathToFileURL(join(tracksDir, file)).href);
-    const { eraSlug, tracks } = mod.default ?? mod;
-    if (!eraSlug || !Array.isArray(tracks)) {
-      console.warn(`skipping ${file}: expected { eraSlug, tracks: [] }`);
-      continue;
-    }
-    await client.query('delete from public.track_note where era_slug = $1', [eraSlug]);
-    for (const t of tracks) {
-      await client.query(
-        `insert into public.track_note
-           (era_slug, track_title, track_number, note, source_url, sources,
-            discussion, quoted_lines, discussion_source_url, discussion_sources,
-            summary, inspiration, easter_eggs,
-            slug, release, release_date, writers, producers,
-            is_single, single_release_date, themes, dossier)
-         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,
-                 $14,$15,$16,$17,$18,$19,$20,$21,$22)`,
-        [
-          eraSlug,
-          t.trackTitle,
-          t.trackNumber ?? null,
-          t.note ?? '',
-          t.sourceUrl ?? null,
-          JSON.stringify(t.sources ?? []),
-          JSON.stringify(t.discussion ?? []),
-          JSON.stringify(t.quotedLines ?? []),
-          t.discussionSourceUrl ?? null,
-          JSON.stringify(t.discussionSources ?? []),
-          t.summary ?? '',
-          t.inspiration ?? '',
-          t.easterEggs ?? '',
-          t.slug ?? null,
-          t.release ?? null,
-          t.releaseDate ?? null,
-          JSON.stringify(t.writers ?? []),
-          JSON.stringify(t.producers ?? []),
-          // A dated single release implies single status (mirror of the sync
-          // generator's factsFrom) — 30 seed rows have only the date.
-          Boolean(t.isSingle) || Boolean(t.singleReleaseDate),
-          t.singleReleaseDate ?? null,
-          JSON.stringify(t.themes ?? []),
-          JSON.stringify(t.dossier ?? {}),
-        ],
-      );
-      notes += 1;
-    }
+async function main() {
+  const connectionString = process.env.SUPABASE_DB_URL;
+  if (!connectionString) {
+    console.error('SUPABASE_DB_URL not set (expected in apps/worker/.env)');
+    return 1;
   }
-  console.log(`seeded track guide: ${notes} notes from ${files.length} file(s)`);
-} catch (err) {
-  console.error('TRACK SEED FAILED:', err.message);
-  process.exitCode = 1;
-} finally {
-  await client.end();
+
+  // Files starting with "_" are templates, not real content. `.dossiers.mjs`
+  // files are per-era side modules imported by their era file (issue #440) —
+  // not standalone seeds.
+  const files = readdirSync(tracksDir)
+    .filter((f) => f.endsWith('.mjs') && !f.startsWith('_') && !f.endsWith('.dossiers.mjs'))
+    .sort();
+
+  const client = makeClient(connectionString);
+  await client.connect();
+  let notes = 0;
+  try {
+    for (const file of files) {
+      const mod = await import(pathToFileURL(join(tracksDir, file)).href);
+      const { eraSlug, tracks } = mod.default ?? mod;
+      if (!eraSlug || !Array.isArray(tracks)) {
+        console.warn(`skipping ${file}: expected { eraSlug, tracks: [] }`);
+        continue;
+      }
+      await client.query('delete from public.track_note where era_slug = $1', [eraSlug]);
+      for (const t of tracks) {
+        await client.query(
+          `insert into public.track_note
+             (era_slug, track_title, track_number, note, source_url, sources,
+              discussion, quoted_lines, discussion_source_url, discussion_sources,
+              summary, inspiration, easter_eggs,
+              slug, release, release_date, writers, producers,
+              is_single, single_release_date, themes, dossier)
+           values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,
+                   $14,$15,$16,$17,$18,$19,$20,$21,$22)`,
+          [
+            eraSlug,
+            t.trackTitle,
+            t.trackNumber ?? null,
+            t.note ?? '',
+            t.sourceUrl ?? null,
+            JSON.stringify(t.sources ?? []),
+            JSON.stringify(t.discussion ?? []),
+            JSON.stringify(t.quotedLines ?? []),
+            t.discussionSourceUrl ?? null,
+            JSON.stringify(t.discussionSources ?? []),
+            t.summary ?? '',
+            t.inspiration ?? '',
+            t.easterEggs ?? '',
+            t.slug ?? null,
+            t.release ?? null,
+            t.releaseDate ?? null,
+            JSON.stringify(t.writers ?? []),
+            JSON.stringify(t.producers ?? []),
+            // A dated single release implies single status (mirror of the sync
+            // generator's factsFrom) — 30 seed rows have only the date.
+            Boolean(t.isSingle) || Boolean(t.singleReleaseDate),
+            t.singleReleaseDate ?? null,
+            JSON.stringify(t.themes ?? []),
+            JSON.stringify(t.dossier ?? {}),
+          ],
+        );
+        notes += 1;
+      }
+    }
+    console.log(`seeded track guide: ${notes} notes from ${files.length} file(s)`);
+  } finally {
+    await client.end();
+  }
 }
+
+runMain(main, { name: 'seed-tracks' });

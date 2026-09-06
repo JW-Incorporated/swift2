@@ -1,23 +1,49 @@
 # Runner registry — who runs where, on whose tokens
 
-**Requirement (Joey, final form 2026-07-12): ALL scheduled agent spend runs
-on Wyatt's account** — Joey is near his weekly limit; his side spends zero
-scheduled tokens. The founder split of labor: **Joey = vision, monitoring,
-and site QA** (10× Wyatt's testing bandwidth), feeding the org through
-zero-token paths — the intake form, experience reports, brief checkboxes;
-**Wyatt's account = every runner.** Standing operational assumption (Joey,
-2026-07-11): we have effective command-line access to Wyatt's machine via
-Joey→Wyatt chat — any prompt/command Joey relays gets run there, so
-Wyatt-side setup is a paste away, never a blocker. Every scheduled runner is registered here with
-its owner; the prompt each runner executes is versioned in
-`runner-prompts/` — **the repo file is the source of truth**, and a trigger
-whose inline prompt drifts from its file is a bug.
+> **Index:** [`../AUTOMATION.md`](../AUTOMATION.md) is the one-page view of
+> every automated routine in the project, including the GitHub Actions this
+> file does not cover. This file remains the authoritative **cadence and
+> trigger-ID registry** for the Claude desk routines.
 
-**SUPERSEDED 2026-08-27** — the "Wyatt's account" assignment above is
-historical. The entire fleet (24 triggers) was consolidated to Joey's
-account ~2026-08-23 and verified live 2026-08-27; every scheduled runner
-today runs on Joey's account. See the "Live trigger IDs" table below for
-the current, live configuration.
+## Which account the routines actually run on — current policy
+
+**Resolved 2026-08-31 (Joey, D1=B, in response to the 2026-08-31 automation
+audit — PR #3593):** the automated routine fleet correctly runs on **Joey's**
+account. Do not migrate it to Wyatt's account; the lines below that used to
+state a conflicting "Wyatt's account" policy were the stale half of this gap
+and are corrected to match the live, verified state.
+
+**Current state (this file's own audits, 2026-08-23 and 2026-08-27):** the
+fleet was recreated on **Joey's** account after issue #2258 (the prior
+account's routines were lost), and a live read of the routines API on
+2026-08-27 found "All 24 triggers verified live … Nothing remains on the other
+founder's account." Every trigger ID in the table below was fetched from
+Joey's account.
+
+**Requirement (Joey, corrected 2026-08-31 — supersedes the 2026-07-12 form
+below): ALL scheduled agent spend runs on Joey's account.** The founder split
+of labor: **Joey = vision, monitoring, and site QA** (10× Wyatt's testing
+bandwidth), feeding the org through zero-token paths — the intake form,
+experience reports, brief checkboxes; **Joey's account = every runner.**
+Every scheduled runner is registered here with its owner; the prompt each
+runner executes is versioned in `runner-prompts/` — **the repo file is the
+source of truth**, and a trigger whose inline prompt drifts from its file is
+a bug.
+
+**Historical note — 2026-07-12 original requirement (superseded 2026-08-31):**
+the original policy said all scheduled agent spend ran on **Wyatt's**
+account, to keep Joey's weekly limit free, with the standing operational
+assumption (Joey, 2026-07-11) that we had effective command-line access to
+Wyatt's machine via Joey→Wyatt chat. The fleet was consolidated onto Joey's
+account ~2026-08-23 after issue #2258 (the prior account's routines were
+lost) and verified live 2026-08-27; Joey's 2026-08-31 decision (D1=B) makes
+that the permanent, intended policy rather than a temporary gap.
+
+**SUPERSEDED 2026-08-27, confirmed policy 2026-08-31** — the entire fleet (24
+triggers) was consolidated to Joey's account ~2026-08-23 and verified live
+2026-08-27; every scheduled runner today runs on Joey's account, and that is
+now the stated policy, not just the observed state. See the "Live trigger
+IDs" table below for the current, live configuration.
 
 ## Live trigger IDs (verified 2026-08-23, post-migration #2258)
 
@@ -34,35 +60,50 @@ drifts).
 
 | Routine | Trigger ID | Cadence (UTC) | Enabled | Model |
 |---|---|---|---|---|
-| Photo Enrichment worker | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | `21 6 * * *` | ✅ | `claude-sonnet-5` |
-| News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ✅ | `claude-opus-4-8` |
-| Cross-Link builder | `trig_01FxMuDtwScPFvSgvhFCxdfP` | `51 9 * * 1,4` | ✅ | `claude-sonnet-5` |
-| Stylist — shop-link sourcing & upkeep | `trig_011BiHZqLEVHAJ4chfaYfGZH` | `33 16 * * 0` | ✅ | `claude-sonnet-5` |
-| Rumor Desk — sourcing & lifecycle | `trig_01GS6bcMsEQjXwmyxGr7S1js` | `47 14 */2 * *` | ✅ | `claude-opus-4-8` |
+| ~~Photo Enrichment worker~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | ~~`21 6 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 3), warm spare | `claude-sonnet-5` |
+| News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ✅ | `claude-sonnet-5` — **T-3 trial live 2026-09-01 → 2026-09-15**, see § News Triage below |
+| News Triage recall check — T-3 trial audit | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `0 17 * * 2` | ✅ | `claude-opus-4-8` — 2-week trial instrument, disable after 2026-09-15 verdict |
+| ~~Cross-Link builder~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01FxMuDtwScPFvSgvhFCxdfP` | ~~`51 9 * * 1,4`~~ | ⛔ disabled — superseded by The Vault Run (lane 5), warm spare | `claude-sonnet-5` |
+| ~~Stylist — shop-link sourcing & upkeep~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_011BiHZqLEVHAJ4chfaYfGZH` | ~~`33 16 * * 0`~~ | ⛔ disabled — superseded by The Vault Run (lane 6), warm spare | `claude-sonnet-5` |
+| ~~Rumor Desk — sourcing & lifecycle~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01GS6bcMsEQjXwmyxGr7S1js` | ~~`47 14 */2 * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 4), warm spare | `claude-opus-4-8` |
 | Lex depth (sole instance) | `trig_01BoVCT67VbeLE8sRiaYPju4` | `20 */2 * * *` | ⛔ **disabled** (warm spare, intentional) | `claude-opus-4-8` |
-| Answerer (sole instance) | `trig_016hygyYPEV9T7BunnTHAWbZ` | `50 13 * * *` | ✅ | `claude-opus-4-8` |
+| ~~Answerer (sole instance)~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_016hygyYPEV9T7BunnTHAWbZ` | ~~`50 13 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 2), warm spare | `claude-opus-4-8` |
 | Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `0 10 * * 1` | ✅ | `claude-opus-5` |
 | Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `0 11 * * *` | ✅ | `claude-opus-4-8` |
 | Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `20 22 * * 1` | ✅ | `claude-opus-4-8` |
-| Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `20 18 * * *` | ✅ | `claude-sonnet-5` |
-| Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ✅ | `claude-fable-5` |
-| Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `0 14 * * 0` | ✅ | `claude-opus-4-8` |
+| Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `20 18 * * 2,5` | ✅ | `claude-sonnet-5` |
+| Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ✅ | `claude-opus-4-8` — 2-week trial 2026-08-31→2026-09-14 (was `claude-fable-5`; Joey D5=A, `decisions.md`) |
+| Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `0 14 * * 1,5` | ✅ | `claude-opus-4-8` |
 | Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `23 1,13 * * *` | ✅ | `claude-haiku-4-5-20251001` |
-| Kevin — S3 eng triage (cloud) | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | `43 15 * * *` | ✅ | `claude-sonnet-5` |
-| Kevin — S2 user-feedback digest (cloud) | `trig_0136mXcpmzn6mYtYoUQC3eGP` | `13 15 * * *` | ✅ | `claude-sonnet-5` |
-| Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ | `claude-opus-4-8` |
-| Karen — nightly scan (registered name; bounded weekly judgment slice — see `runner-prompts/karen-nightly.md`) | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
+| Kevin — daily desk (S1+S2+S3) | `trig_01GH3EMWdDwwKpx2GCRnCYM5` | `13 15 * * *` | ✅ | `claude-sonnet-5` |
+| ~~Kevin — S3 eng triage (cloud)~~ **(DISABLED 2026-09-01, Joey, T-10)** | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | ~~`43 15 * * *`~~ | ⛔ disabled — superseded by Kevin daily desk, T-10 | `claude-sonnet-5` |
+| ~~Kevin — S2 user-feedback digest (cloud)~~ **(DISABLED 2026-09-01, Joey, T-10)** | `trig_0136mXcpmzn6mYtYoUQC3eGP` | ~~`13 15 * * *`~~ | ⛔ disabled — superseded by Kevin daily desk, T-10 | `claude-sonnet-5` |
+| Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ (pending disable — kept live until the new desk's first Sunday fire confirms Stream 1, see HUMAN-ACTIONS.md #38) | `claude-opus-4-8` |
+| Karen — nightly scan ⚠️ **RENAME PENDING (T-5, 2026-08-31)** — registered name not yet resynced to `Karen — weekly judgment slice`; prompt already judgment-only, see `runner-prompts/karen-nightly.md` and § T-5 below | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | `claude-opus-4-8` |
-| Content Shift — authoring runs | `trig_01PonDFeQCL4iRNzceGyAYrm` | `0 17 * * *` | ✅ | `claude-opus-4-8` |
+| ~~Content Shift — authoring runs~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01PonDFeQCL4iRNzceGyAYrm` | ~~`0 17 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 1), warm spare | `claude-opus-4-8` |
 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ✅ | `claude-opus-4-8` |
-| Marjorie — 8 PM Evening Delta | `trig_01L2EG5veWBQwMowaykXAi6B` | `0 3 * * *` | ✅ (comment-only since 2026-08-23, not mailed — `docs/agents/marjorie.md` § Delivery) | `claude-fable-5` |
+| ~~Marjorie — 8 PM Evening Delta~~ **(DISABLED 2026-08-31, Joey, T-13)** | `trig_01L2EG5veWBQwMowaykXAi6B` | ~~`0 3 * * *`~~ | ⛔ disabled (warm spare, intentional — prompt preserved in `runner-prompts/marjorie-delta.md`) | `claude-fable-5` |
 | Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | `11 16 * * 0` | ✅ | `claude-haiku-4-5-20251001` |
-| swift2 Getty purge — GitHub GC watch | `trig_018QuJozjMr1bYMPcqgKUmvL` | `0 3,15 * * *` | ✅ (self-retiring one-shot watchdog, not part of the standing fleet — created 2026-08-15, unrelated to #2258) | `claude-sonnet-5` |
+| ~~swift2 Getty purge — GitHub GC watch~~ **(DISABLED 2026-08-31, Joey, T-14)** | `trig_018QuJozjMr1bYMPcqgKUmvL` | ~~`0 3,15 * * *`~~ | ⛔ disabled (purge verified complete pre-disable — zero `media.gettyimages.com` refs remain in repo, PR #3246; no prompt file existed for this trigger, so its full `job_config` was not captured before the operator disabled it via the routines UI — if the exact original config is ever needed, it is not recoverable from this repo) | `claude-sonnet-5` |
 
-**23 Swift2 routines total, 22 enabled** (Lex depth intentionally paused).
+**23 Swift2 routines total, 15 enabled** in the **standing fleet** (Lex depth
+and Marjorie — 8 PM Evening Delta intentionally paused; the six standalone
+Vault lanes — Content Shift, Photo Enrichment, Cross-Link, Stylist, Rumor
+Desk, Answerer — disabled 2026-09-01 per T-1 Vault Phase 4, superseded by
+The Vault Run). The table above has 24 rows because it also carries
+`swift2 Getty purge — GitHub GC watch`, a self-retiring one-shot deliberately
+outside the fleet — which is why the 2026-08-27 audit note below says "all 24
+triggers verified live" and why [`../AUTOMATION.md`](../AUTOMATION.md), which
+counts every live trigger regardless of fleet membership, says 24/23. Both
+scopes are correct; quote whichever one your question is about.
 `bedrock nightly audit` also lives in this account's routine list but is a
 different project (per `~/Projects/CLAUDE.md`'s ownership table) — excluded
-here on purpose, not missed.
+here on purpose, not missed. **This table is live trigger IDs only** — Karen
+Deep and the new Notification-quality desk are both approved-but-not-yet-
+created (D3=A, D6=A), so neither has a row here; each is tracked in its own
+"trigger config to create" section below with full config, consistent with
+how Karen Deep has always been handled in this file.
 
 ### 2026-08-27 — Live fleet audit (Joey's account)
 
@@ -72,6 +113,26 @@ here on purpose, not missed.
 - The list endpoint caps at 20/page and its cursor is broken (same page repeats) — consistent with the Routine Auditor's own prompt.
 - The 4 triggers beyond page 1 (both Marjorie runs, Routine Auditor, Getty purge GC watch) were verified by direct per-trigger fetch instead.
 - Table above updated to match: Photo Enrichment's trigger ID refreshed; Model column completed for every row.
+
+### 2026-09-01 — T-20 Phase 1 attribution-trailer sync complete
+
+All 21 live-prompt routines in the standing fleet (per HUMAN-ACTIONS.md
+item #37's checklist) had their inline `job_config` prompt re-synced to
+the current `runner-prompts/` file content, each now carrying the
+`## Attribution trailer (T-20 Phase 1)` section verbatim — closing the gap
+where every routine's PR/issue was supposed to carry a `Tier-2: <routine
+name>` line but the live triggers were still running the pre-PR #3621
+prompt. Two routines deliberately kept a live-vs-file divergence beyond
+just the trailer, both judgment calls made in-flight: Kevin S3 radar's
+cadence text (repo file is stale, live text already matches the real
+`23 1,13 * * *` schedule — file needs fixing separately) and Vault Run's
+short pointer-style prompt (by design; full file content was never meant
+to live inline). Marjorie — 8 PM Evening Delta was synced but left
+`enabled: false` per its T-13 disable. The 2 approved-but-not-yet-created
+desks (Karen Deep, Notification-quality) and News Triage's recall-check
+trigger (already synced fresh at creation under item #36) were out of
+scope. This starts the "season for a few days of real PRs" clock Phase 2's
+daily-visibility rollup needs — see `docs/decisions.md` 2026-09-01 entry.
 
 ## Token-burn audit + cost mode (2026-07-25, Wyatt — supersedes the sustainment table below)
 
@@ -131,8 +192,8 @@ Fixes applied (see `docs/decisions.md` 2026-07-25 and PR #1539):
 
 | Tier | Runners | Rationale |
 |---|---|---|
-| **Haiku 4.5** | Kevin comment radar, News Triage | Cheap poll / bucketing; the radar is already a lazy `gh` poll |
-| **Sonnet 5** | Karen ✅, Stylist, Photo Enrichment, Audio Curator, Cross-Link, Mood Chat, Laura, Kevin S2/S3 | Deterministic script + summarize, or mechanical field-filling |
+| **Haiku 4.5** | Kevin comment radar | Cheap poll / bucketing; the radar is already a lazy `gh` poll |
+| **Sonnet 5** | Karen ✅, Stylist, Photo Enrichment, Audio Curator, Cross-Link, Mood Chat, Laura, Kevin S2/S3, News Triage (T-3 trial live, 2026-09-01 → 2026-09-15 — see § News Triage) | Deterministic script + summarize, or mechanical field-filling; News Triage is a bounded classify/redline-check/file job, not authoring |
 | **Opus** | Content Shift, Answerer, Rumor Desk, Nils, Marjorie brief, Austin, Paul Blart, Growth | Genuine authoring, adjudication, or security judgment |
 
 Deliberately NOT adopted: a "Sonnet drafts, Opus reviews" two-pass on the content
@@ -476,13 +537,60 @@ evidence already gathered in this section. The word "nightly" in the
 routine's name/title is historical — the cadence itself has been weekly since
 the 2026-07-25 override.
 
+### T-5 — trim routine + rename trigger (2026-08-31, `docs/TIER2-OPTIMIZATION.md`)
+
+**Prompt file: already judgment-only.** `runner-prompts/karen-nightly.md` was
+trimmed to the bounded judgment slice (review-slice + subagent dispatch +
+ingest/issues/record-review + link-rot sweep) by PR #3445 (2026-08-29), which
+also struck the old deterministic `run.mjs all --create` step now owned by
+`.github/workflows/cie-scan.yml`. **Not accidentally bundled into #3601** —
+that PR only touched Karen Deep (T-6, a separate not-yet-created routine),
+Nils cadence, Austin's model trial, and the notification-quality desk; it
+never edited this prompt file or this trigger.
+
+**Remaining scope: rename the live trigger to match.** Tracked as
+[#3616](https://github.com/JW-Incorporated/swift2/issues/3616) so this
+doesn't strand as an untracked "whoever has access" note. The registered
+name is still `Karen — nightly scan`, contradicting its own judgment-only
+content and weekly cadence (documented above). Whoever next has account
+access to <https://claude.ai/code/routines> should, in one `job_config`
+round-trip (get → edit only `name` in the returned object → PUT the whole
+thing back — **never a partial PUT**, per the RemoteTrigger footgun above):
+
+| Field | Current | New |
+|---|---|---|
+| Name | `Karen — nightly scan` | `Karen — weekly judgment slice` |
+| Trigger ID | `trig_01TmYaZgnecrEp9mkeV3Gq6X` — the live table above; recreated on Joey's account 2026-08-23 per `HUMAN-ACTIONS.md` #2, current and correct | unchanged |
+| Prompt (`events`) | already judgment-only (PR #3445) | unchanged — do not re-paste, just preserve on the round-trip |
+| Cadence, model, repo, connectors | `0 9 * * 0` UTC, `claude-sonnet-5`, `JW-Incorporated/swift2`@main | unchanged |
+
+**Do not use `trig_014HWuRmT2MFveDkPGwVDiQX`** (the "Cadence overrides still
+in force" table below and the historical split table further down) — that ID
+predates the 2026-08-23 account migration (issue #2258), when Wyatt's entire
+fleet was disabled and Karen was recreated fresh on Joey's account under
+`trig_01TmYaZgnecrEp9mkeV3Gq6X`. It is very likely stale/orphaned rather than
+the same routine under a second ID; whoever applies the rename should `get`
+`trig_014HW...` first to confirm it no longer exists live before touching
+anything, and if it turns out to still be live and enabled, flag that here as
+a separate finding (a live duplicate), don't fold it into this rename.
+
+Cross-checked against `runner-prompts/karen-nightly.md`: the file's own
+opening line already reads "weekly content-safety judgment review," so a
+rename to `Karen — weekly judgment slice` is a pure resync, not a new
+decision — no founder call needed (T-5 is pre-approved,
+standing-agent-authority per its Tier-2 entry). **This doc's live table
+(above) still shows the current registered name with a RENAME PENDING flag,
+not the new name** — the tables get updated to `Karen — weekly judgment
+slice` outright only once the live rename actually lands, to avoid the
+inventory drifting ahead of reality.
+
 ### Cadence overrides still in force (from the 2026-07-25 sustainment pass)
 
 | Runner | Cadence | Trigger ID |
 |---|---|---|
-| Karen — nightly scan | weekly `0 9 * * 0` (Sun) — registered name; bounded weekly judgment slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
+| Karen — nightly scan ⚠️ **trigger ID likely stale (predates the 2026-08-23 account migration, issue #2258) — see § T-5 above; use `trig_01TmYaZgnecrEp9mkeV3Gq6X` from the live table for any real action** | weekly `0 9 * * 0` (Sun) — registered name; bounded weekly judgment slice, see `runner-prompts/karen-nightly.md` | `trig_014HWuRmT2MFveDkPGwVDiQX` |
 | Kevin — S1 Karen solver *(cloud copy only)* | weekly `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` |
-| Nils — daily walk | weekly `0 14 * * 0` | `trig_013xb8Stm7m2sB6dqGePKRtr` |
+| ~~Nils — daily walk~~ **SUPERSEDED 2026-08-31 (Joey, D4=B)** — now twice weekly `0 14 * * 1,5` (Mon+Fri), see `nils.md` § Cadence and `decisions.md` § D3=A…D6=A | `trig_013xb8Stm7m2sB6dqGePKRtr` |
 | Stylist | weekly `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` |
 | Rumor Desk | every other day `47 14 */2 * *` | `trig_01QqbHr7dyttr7qijGKmCn7n` |
 | Marjorie — 8 PM delta | DISABLED | `trig_01G4GsUsphyz9LycqKjDEdi4` |
@@ -501,7 +609,7 @@ the 2026-07-25 override.
 | ~~Marjorie — 8 PM delta~~ **(DISABLED 2026-07-25, Wyatt)** | ~~`0 3 * * *`~~ | Fable | [`runner-prompts/marjorie-delta.md`](runner-prompts/marjorie-delta.md) | **Wyatt** | Cut to once-daily for sustainment mode — the morning brief stands alone. Trigger `trig_01G4GsUsphyz9LycqKjDEdi4` set `enabled:false` (not deleted; re-enable to restore). NOTE: the delta also ran an evening merge-sweep + founder-email-reply pass — those now happen only at the 6 AM brief (autonomous merge cycles cover the gap). |
 | Growth — daily draft | `0 11 * * *` (1h before Marjorie's morning brief, so its Growth line reflects a fresh queue) | Fable | [`runner-prompts/growth-draft.md`](runner-prompts/growth-draft.md) | **Wyatt** | Added 2026-07-21: the charter (`docs/agents/growth.md`) and the shipping pipeline (`social-poster.yml`) existed, but nothing was ever scheduled to run the *drafting* half — issue #864 (empty queue) sat unactioned 3 days for exactly this reason. **Since 2026-08-11 it drafts Tree's calendar rather than inventing content** |
 | Tree — weekly social plan | `0 10 * * 1` (Mondays, an hour before that day's Growth draft, so the fresh calendar is readable the same morning) | **Opus** — genuine strategy judgment; a script-and-summarize tier would restore the formula loop it exists to break | [`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md) | **Wyatt** | Added 2026-08-11 (Joey): posting was strategically random — 12 of 14 captions opened "did you know", every IG image a generic era tile, and feature launches / the six threads / Mood had never been posted about. Tree plans `social/calendar.md`; Growth executes it. Charter: [`tree.md`](tree.md) |
-| Austin — build runs ×2 | `0 16 * * *`, `0 21 * * *` | Fable | [`runner-prompts/austin-run.md`](runner-prompts/austin-run.md) | **Wyatt** | Solves work (code) |
+| Austin — build runs (historical ×2/day entry — **stale, fixed 2026-08-31 per T-19/T-11**; the charter's Cadence section correctly described the event/hourly poll all along, and the live registry above shows one daily trigger at `0 21 * * *`, now on `claude-opus-4-8` for the D5=A trial) | ~~`0 16 * * *`, `0 21 * * *`~~ superseded — see live table above | Fable (superseded — see live table above) | [`runner-prompts/austin-run.md`](runner-prompts/austin-run.md) | **Wyatt** (superseded — Joey per D1=B) | Solves work (code) |
 | Nils — daily walk | `0 14 * * *` | Fable | [`runner-prompts/nils-walk.md`](runner-prompts/nils-walk.md) — needs WebFetch tool (live-site walks) | **Wyatt** | Heavy judgment over the whole site + SEO/discoverability lens |
 | Content Shift ×2 | `0 17,23 * * *` | Fable | [`runner-prompts/content-shift-run.md`](runner-prompts/content-shift-run.md) | **Wyatt** | Heaviest: research + writing |
 | Kevin — S1 Karen solver | `17 11 * * *` | Fable | [`runner-prompts/kevin-stream1-karen.md`](runner-prompts/kevin-stream1-karen.md) | **Wyatt** | Fixes cie tickets; runs after Karen, before the brief |
@@ -509,25 +617,29 @@ the 2026-07-25 override.
 | Kevin — S3 eng triage | `43 15 * * *` | Fable | [`runner-prompts/kevin-stream3-triage.md`](runner-prompts/kevin-stream3-triage.md) | **Wyatt** | Buckets Joey's eng tickets → Austin intake |
 | Kevin — S3 comment radar | `23 1,13 * * *` | Fable | [`runner-prompts/kevin-stream3-radar.md`](runner-prompts/kevin-stream3-radar.md) — lazy: cheap poll, loads charter only on a hit | **Wyatt** | Twice daily (~6am + 6pm PT); surfaces cross-session comments — cut from hourly 2026-07-24 to reduce token burn (Wyatt) |
 | Karen — nightly scan | `0 9 * * *` — **contradicted, see "Cadence contradiction — Karen" above; evidence supports weekly** | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
-| **Karen Deep — agent review** ⚠️ **NOT YET CREATED** — config below | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
+| **Karen Deep — agent review** ⚠️ **APPROVED, NOT YET CREATED** (Joey, D3=A, 2026-08-31 — full dial; config below) | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
 | watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
 | appearance-discovery | `40 13 * * *` (GitHub Actions) | none | `.github/workflows/appearance-discovery.yml` + `scripts/appearance-discovery/` | repo | **Zero LLM (detection layer).** Polls 14 curated YouTube channel RSS feeds and files `intake` issues for new Taylor appearances; the Content Shift is the judge. No new secrets (channel RSS is keyless; only `GITHUB_TOKEN`). Runs 06:40 PT, ahead of the 10:00 PT Content Shift so fresh intake is queued. Stateless dedupe — no state file, no state PR (#2031), repo-scoped issue list only, never `/search` (#2008) |
 
-## Karen Deep — trigger config to create (2026-08-11)
+## Karen Deep — trigger config to create (2026-08-11; spend approved 2026-08-31, Joey, D3=A)
 
 **Not created by this change.** Creating it requires a session (or human)
 authenticated to the target Claude account — `RemoteTrigger` create/update/run
 works fine same-account (confirmed 2026-08-22); the only genuinely UI-only step
 is detaching the `Claude_Code_Remote` connector, which the API silently
 no-ops. This is the exact config to use; nothing runs until someone with
-account access creates it.
+account access creates it. **The spend question that gated creation is now
+resolved** — Joey approved the full dial (D3=A, 2026-08-31,
+`docs/decisions.md`) — so the only remaining blocker is the account-access
+mechanic every other not-yet-created routine in this file shares (see "Tree's
+routine does not exist yet" below), not a founder decision.
 
 | Field | Value |
 |---|---|
 | Name | `Karen Deep — agent review` |
-| Account | **Wyatt** |
+| Account | **Joey** (corrected 2026-08-31, D1=B — the fleet's account policy; was Wyatt when this spec was first drafted 2026-08-11, not yet created) |
 | Model | `claude-sonnet-5` |
 | Cron (UTC) | `40 9 * * *` — 40 min after Karen's nightly `0 9`, so the deterministic scan and its report have landed first; off the `:00`/`:30` cluster |
 | Repo | `JW-Incorporated/swift2`, branch `main` |
@@ -585,19 +697,88 @@ agent-reviewed would stay at zero forever, which is today's bug with extra steps
 (c) *`--claims-only` focusing* — RUNBOOK.md already records that this caused a
 real miss: claim-free narrative records are exactly where fabricated events hide.
 
-### Tree's routine does not exist yet — it is a Wyatt-side paste (2026-08-11)
+## Kevin — daily desk consolidation — applied (2026-09-01, T-10)
+
+**Applied.** Joey created `trig_01GH3EMWdDwwKpx2GCRnCYM5` ("Kevin — daily
+desk (S1+S2+S3)") directly and disabled the two superseded daily triggers
+(S2 digest, S3 eng triage). S1 (Karen-ticket solver) stays live until its
+first Sunday verification per the sequence below — see HUMAN-ACTIONS.md
+#38 for the full closeout narrative and the outstanding Sunday check.
+
+| Field | Value |
+|---|---|
+| Name | `Kevin — daily desk (S1+S2+S3)` |
+| Account | **Joey** (fleet policy, D1=B) |
+| Model | `claude-sonnet-5` (was Opus on S1 alone; folded in per the model-tiering table — S1's verify-first apply is mechanical field-filling, Karen's ticket already carries the judgment) |
+| Cron (UTC) | `13 15 * * *` — reuse S2's existing slot (`trig_0136mXcpmzn6mYtYoUQC3eGP`); the desk itself gates Stream 1 to Sundays internally (see the prompt file's Step 0), so one daily cron covers all three streams |
+| Repo | `JW-Incorporated/swift2`, branch `main` |
+| Prompt | the **full text** of `docs/agents/runner-prompts/kevin-desk.md`, verbatim |
+| MCP connectors | none |
+
+**Cutover sequence (apply in this order, do not skip steps):**
+1. `RemoteTrigger create` the new `Kevin — daily desk (S1+S2+S3)` trigger per the config above.
+2. Manually test-run it once immediately; verify the streams due that day (S2 + S3 every day) actually post their digest/triage output.
+3. **Disable S2's and S3's superseded triggers as soon as step 2 verifies them** — `Kevin — S2 user-feedback digest (cloud)` (`trig_0136mXcpmzn6mYtYoUQC3eGP`) and `Kevin — S3 eng triage (cloud)` (`trig_01BRmPqZkLEcYKZhYPjypGMJ`). Do not wait on Stream 1's own verification to cut these two over — they run daily and are independently testable now.
+4. **Stream 1 needs its own separate verification before its old trigger is touched.** If the cutover happens on a Sunday, step 2's test-run already exercises Stream 1 — confirm it actually opened/updated a real `fix/karen-tickets` PR (or correctly no-opped on "no new Karen tickets"), then disable `Kevin — S1 Karen-ticket solver (cloud)` (`trig_01QEvYmKcpyDJJ8ec81aBjCV`) immediately. If the cutover happens on any OTHER day, **leave S1's old trigger enabled** until the next Sunday, manually test-run the new desk trigger again that Sunday, verify Stream 1's real output, and only then disable S1's old trigger. Never disable S1's trigger on the strength of a non-Sunday test run — that run never exercised Stream 1 at all.
+5. **Do not touch** `Kevin — S3 comment radar (cloud)` (`trig_01LaSLx4qzbsz68E6uRLkyDd`) — the radar stays its own, separate, faster-cadence trigger; T-10 only consolidates the three daily/weekly streams.
+6. Record the new trigger's ID in the "Live trigger IDs" table above, and mark each disabled row `⛔ disabled — superseded by Kevin daily desk, T-10` as it is disabled (S2/S3 immediately, S1 only after its Sunday verification) — do not delete the rows; disabled history stays visible per this file's own convention, see Lex depth.
+
+## Notification-quality desk — trigger config to create (2026-08-31, T-16, D6=A)
+
+**Not created by this change** — same account-access mechanic as Karen Deep
+and Tree above. **Sequencing precondition NOT yet met**: the analysis
+(`TIER2-OPTIMIZATION.md` § T-16) says this desk should launch *after*
+REC-1's notifications-dispatch watchdog heartbeat lands
+(`docs/automation/review-2026-08-31.md#rec-1` — a `dispatch_runs` table +
+a `watchdog.yml` freshness step), so it judges data a watchdog vouches for
+rather than data from a dispatcher that could itself be silently dead.
+Verified this pass: no `dispatch_runs` table exists in
+`supabase/migrations/`, no notifications step exists in
+`.github/workflows/watchdog.yml`, no `scripts/notifications-freshness.mjs`
+exists. **Per the founder instruction not to block indefinitely**, the
+charter, prompt file, and this registry row are created now; the live
+trigger is not, and should not be, until REC-1 lands.
+
+| Field | Value |
+|---|---|
+| Name | `Notification quality — weekly desk` |
+| Account | **Joey** (fleet policy, D1=B) |
+| Model | `claude-sonnet-5` |
+| Cron (UTC) | `0 16 * * 2` — weekly, Tuesday, after a full week of Monday-anchored data is available and clear of the Sunday/Monday judgment-desk cluster (Karen, Nils, Kevin S1) |
+| Repo | `JW-Incorporated/swift2`, branch `main` |
+| Prompt | the **full text** of `docs/agents/runner-prompts/notification-quality-run.md`, verbatim |
+| MCP connectors | none |
+| **Environment secret (provision BEFORE creating)** | `NOTIFICATIONS_DASHBOARD_SECRET` must be added to the `job_config.ccr.environment_id` this trigger is created under (the same account-level Claude Code environment every other Joey-account routine's `GITHUB_TOKEN`/`SUPABASE_SERVICE_ROLE_KEY` already lives in — see `runners.md` § RemoteTrigger footgun for how `environment_id` works) — copy the value from Vercel (`SETUP_NOTIFICATIONS.md` § the dashboard secret). **This routine has no data source without it**: the metrics route (`apps/web/app/api/notifications/metrics/route.ts`) 401s on a missing/wrong secret, and the prompt file is written to treat that as a real failure, not a silent no-op — but a session that never gets the secret provisioned will 401 on every single run, forever, which the watchdog cannot distinguish from "the desk is broken" without a human reading the log issue. Provision this in the SAME session that creates the trigger, not as a follow-up. |
+
+**Charter:** [`notification-quality.md`](notification-quality.md). Reads
+`/api/notifications/metrics` (open rates, mute rates, flagged categories)
+and the `deliveries` table pattern already established by that route; files
+≤5 tickets/run on over-firing or under-performing categories, one log
+issue, per the standard desk pattern. **Labels provisioned 2026-08-31** (PR
+that adds this section) so issue filing does not fail on first run:
+`notifications`, `notif:P1`, `notif:P2`, `notif:P3` — same pattern as the
+`experience`/`exp:P*` and `cie`/`cie:P*` label sets Nils and Karen use.
+
+**Why it is the one new-spend Tier-2 item besides Karen Deep.** Per
+`TIER2-OPTIMIZATION.md` § T-16 / REC-7.3 and `vision.md`'s core promise
+(never over-notify), the copy that reaches a user's lock screen is the only
+user-facing surface with no judgment desk — Karen/Nils/Laura cover every
+other one. ~4 Sonnet sessions/month.
+
+### Tree's routine does not exist yet — needs creating on Joey's account (2026-08-11, account corrected 2026-08-31 D1=B)
 
 The row above is the *specification*. **No routine was created by the session
-that wrote it**, deliberately: creating it requires a session authenticated to
-Wyatt's account, which the session that wrote this spec was not.
+that wrote it**, deliberately: creating it requires a session authenticated
+to a Claude account. This spec originally named Wyatt's account per the
+2026-07-12 policy; per Joey's 2026-08-31 decision (D1=B) the fleet's account
+is now **Joey's**, so Tree should be created there like every other runner.
 **Correction (2026-08-22): this is not a "humans only" limitation** —
 `RemoteTrigger` create/update/run works fine same-account, confirmed against
 Joey's account the same day. The one step that genuinely is UI-only is
 `routine-invariants.md`'s connector removal (detaching `Claude_Code_Remote` —
 the API silently no-ops `mcp_connections: []`).
 
-To bring Tree live, from Wyatt's side (his account, not this repo's checkout):
-create a routine named
+To bring Tree live, from Joey's account: create a routine named
 `Tree — weekly social plan`, cron `0 10 * * 1`, model `claude-opus-5` (or the
 fleet's current Opus), prompt = the **exact contents** of
 [`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md), then run the
@@ -609,6 +790,132 @@ Until that paste happens, `social/calendar.md` is a static seed covering
 2026-08-12 → 08-25 and the Growth daily run will fall back to heartbeat pillars
 once it runs out — which it reports in its PR body, so the gap is visible rather
 than silent.
+
+## News Triage — model trial config applied (2026-09-01, T-3, standing-agent-authority)
+
+**Applied 2026-09-01.** `docs/TIER2-OPTIMIZATION.md` § T-3 recommended
+moving News Triage's live trigger from `claude-opus-4-8` to
+`claude-sonnet-5`. Two mitigations landed alongside the model change (both
+in prompt-file form on PR #3608, ahead of this update, per T-18
+prompt-file-first): the labeled-recall-check trial design and the digest
+archive step (`.github/workflows/news-worker.yml`). Applying the change
+itself — editing the live `job_config` — required a session authenticated
+to Joey's Claude account (`HUMAN-ACTIONS.md` item #36); done via a
+`claude.ai/code` session with `RemoteTrigger` access, 2026-09-01.
+
+**Trial timeline:** marker merged to `main` 2026-09-01T00:42 UTC (PR #3626);
+model-flip PUT succeeded 2026-09-01T00:51 UTC — that PUT is the trial's
+actual start per this section's own rule below. **Trial runs
+2026-09-01 → 2026-09-15** (14 days). The recall-check trigger's first
+manual-dispatch run (2026-09-01T00:47 UTC, before the flip) correctly
+returned a vacuous PASS — no archive existed yet and News Triage was still
+on Opus, so there was nothing to audit (filed as
+[issue #3628](https://github.com/JW-Incorporated/swift2/issues/3628), which
+also flags that weekly recall-check runs should count the 2-week window
+from the model-flip date, not the marker-merge date, to avoid a spurious
+"early" vacuous PASS being mistaken for real coverage). Also re-synced the
+live trigger's prompt to `docs/agents/runner-prompts/news-triage.md`
+verbatim as part of the same PUT — it had drifted (missing the
+prompt-injection defense paragraph added per #1966, the T-3 archive-snapshot
+addendum, and the T-20 attribution trailer), which would have broken the
+recall check's `consumed-snapshot` mechanism and the T-20 telemetry from
+day one had it gone live unsynced.
+
+To apply, from a session authenticated to Joey's account — **in this exact
+order**, so a Sonnet run is never live before the archive/audit
+instrumentation exists (an unarchived, unaudited Sonnet run would violate
+the trial's own zero-tolerance bar, since there would be nothing to check
+it against):
+
+1. Merge `docs/content-ops/news-triage-trial-active` (empty file is fine —
+   its presence is the only thing checked) to `main` FIRST, on its own
+   small PR, before touching the live trigger. This turns on the
+   `news-worker.yml` digest-archive step so the archive starts filling
+   ahead of the trial.
+2. Create the recall-check trigger per the config below and confirm it
+   ran once successfully (an early manual dispatch is fine even before
+   News Triage flips — it just audits an empty/near-empty archive that
+   first time). Record its returned trigger ID in this file's "Live
+   trigger IDs" table (new row) — the recall-check prompt and this file's
+   own closeout procedure both need that ID to disable the correct trigger
+   when the trial ends. Do NOT record a trial start date yet — the trial
+   clock starts at the model flip (step 6), not at trigger creation.
+3. Only once 1 and 2 are confirmed live: `get` the News Triage trigger
+   (`trig_019NuR7EpN7TA28yfmzKPAC7`) — per the RemoteTrigger footgun above,
+   this is mandatory before any edit.
+4. In the returned `job_config`, change only
+   `ccr.session_context.model` from `claude-opus-4-8` to `claude-sonnet-5`.
+   Leave `events` (the prompt) and `sources` (the repo binding) untouched —
+   they must already match `docs/agents/runner-prompts/news-triage.md`
+   verbatim (the T-3 trial addendum landed on PR #3608; re-sync from the
+   file if the live trigger's inline prompt has drifted).
+5. PUT the **whole modified `job_config` back**, never a partial object.
+   The moment this PUT succeeds is the trial's actual start — record
+   TODAY's date as the trial start date now (not earlier), since that is
+   when Sonnet output actually begins.
+6. Update this table's News Triage row to `claude-sonnet-5`, remove the
+   "pending account access" note, and record the trial start date (from
+   step 5) plus its exact 2-week end date (start + 14 days) next to the
+   recall-check row added in step 2. Mark `HUMAN-ACTIONS.md` item #36
+   `DONE`.
+
+### News Triage recall check — trigger config (2-week trial, T-3)
+
+**Created 2026-09-01**, trigger ID `trig_01V8JrQPZfWpUqUWiy9fvmkh` (also
+recorded in the Live trigger IDs table above). Weekly Opus audit; see
+`docs/agents/runner-prompts/news-triage-recall-check.md` for the full trial
+design (labeled recall check against the archived digests, zero-tolerance
+false-negative bar — any counted miss reverts the model change). First
+manual-dispatch run (2026-09-01T00:47 UTC, before the model flip) returned
+a vacuous PASS — see [issue #3628](https://github.com/JW-Incorporated/swift2/issues/3628).
+
+**Known deviation from the intended config:** despite requesting
+`mcp_connections: []` at creation, the API attached the account's default
+connectors anyway (Google_Drive, Vercel, Gmail, **Claude_Code_Remote**) —
+the same silent-ignore footgun documented above for updates, apparently
+also true of creates. The prompt still says "you have no MCP connectors,"
+which is no longer accurate. **Follow-up needed:** remove these from the
+`claude.ai/code/routines` UI directly (the API has no lever for it per the
+footgun note).
+
+| Field | Value |
+|---|---|
+| Name | `News Triage recall check — T-3 trial` |
+| Account | **Joey** (fleet policy, D1=B) |
+| Model | `claude-opus-4-8` |
+| Cron (UTC) | `0 17 * * 2` — weekly, Tuesday, well clear of News Triage's own `40 15 * * *` daily run and the Sunday/Monday judgment-desk cluster |
+| Repo | `JW-Incorporated/swift2`, branch `main` |
+| Prompt | the **full text** of `docs/agents/runner-prompts/news-triage-recall-check.md`, verbatim |
+| MCP connectors | none intended — see deviation note above; needs manual UI cleanup |
+| Start / end | created 2026-09-01 alongside the News Triage model flip; disable (never delete — reversible record) once the trial concludes 2026-09-15 with a PASS or a revert |
+
+**Trial window and disposition:** starts the day the model-flip is applied
+and this trigger is created; runs for 2 weeks (14 days), audited by the
+weekly Tuesday cadence above. **A clean PASS requires an audit that covers
+every day through and including day 14 — not just the most recent weekly
+run before day 14.** Because the fixed Tuesday cadence can land up to 6
+days before the 14-day mark (e.g. a Wednesday start's day-13 audit leaves
+day 14 itself unchecked), do NOT disable the trigger or declare PASS off
+that near-final run alone: after day 14 passes, dispatch the recall-check
+routine one more time (manual `workflow_dispatch`/trigger `run`, off its
+normal cadence) covering the remaining unaudited days, and only close out
+the trial once THAT run's verdict is in. Revert is NOT automatic —
+it needs the same account-authenticated RemoteTrigger access as every step
+above, so a FAIL cannot fix itself.** On the first FAIL (any counted false
+negative), the recall-check issue IS the trigger for action, but action
+still requires a human-account session: whoever reads the FAIL issue (Kevin
+S3's comment radar/eng triage, Marjorie's brief, or a founder scanning
+`intake`-adjacent issues) must escalate it as a new `HUMAN-ACTIONS.md` item
+(same shape as #36) requesting an urgent revert of News Triage's model back
+to `claude-opus-4-8` (full `job_config` round-trip) and disabling of this
+recall-check trigger — do not assume the revert happens without that
+explicit new item, and do not let the routine's own "any FAIL reverts"
+framing above read as "reverts itself." On a clean 2-week PASS, disable
+this recall-check trigger (its job is done — News Triage stays on
+`claude-sonnet-5` permanently) and remove the
+`docs/content-ops/news-triage-trial-active` marker in the same PR, which
+also turns off the now-unneeded digest-archive step in `news-worker.yml`.
+Record the outcome in `docs/decisions.md` either way.
 
 ## Maintenance fleet (2026-07-12)
 

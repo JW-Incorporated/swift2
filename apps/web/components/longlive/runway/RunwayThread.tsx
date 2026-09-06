@@ -1,11 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { getEra } from '@/lib/longlive/eras';
-import { eraStyle } from '@/lib/longlive/theme';
-import { RUNWAY_LOOKS } from '@/lib/longlive/lenses';
+import { getEra } from '@swift2/experience';
+import { accentFgFor, eraStyle } from '@/lib/longlive/theme';
+import { RUNWAY_LOOKS } from '@swift2/experience';
 import { contentForThreadInEra } from '@/lib/longlive/threads';
-import { autoFocalPoint, focalPointOf } from '@/lib/longlive/types';
+import { autoFocalPoint, focalPointOf } from '@swift2/experience';
 import { FromTheEras } from '../FromTheEras';
 
 // Hotlinked photo URLs bypass Next's image optimizer (whose remotePatterns
@@ -56,7 +56,11 @@ export function RunwayThread() {
               <div className="p-5 pb-0 sm:p-7 sm:pb-0">
                 <div
                   className="inline-flex items-center gap-2 rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
-                  style={{ backgroundColor: `color-mix(in srgb, ${era.theme.accent} 14%, transparent)`, color: era.theme.accent }}
+                  // #3411: solid fill + on-fill foreground (the #3397 shape) — the
+                  // accent-at-14%-tint bg left the raw accent under 4.5:1 on
+                  // Midnights/evermore/Red, and no surface-calibrated token fixes
+                  // a chip tinted by its own accent. Swept AA by theme.test.ts.
+                  style={{ backgroundColor: era.theme.accent, color: accentFgFor(era.theme) }}
                 >
                   {era.shortName} · {era.yearLabel}
                 </div>

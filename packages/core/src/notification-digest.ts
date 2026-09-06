@@ -31,8 +31,16 @@ import {
   type DigestQueueItem,
 } from '@swift2/shared';
 import { getTopTheories } from './notification-clownbot-source';
-import { isWithinSendWindow, nextDigestOccurrence, type DigestCadence } from './notification-digest-schedule';
-import { startOfLocalDay } from './notification-governor';
+import {
+  isWithinSendWindow,
+  nextDigestOccurrence,
+  type DigestCadence,
+} from './notification-digest-schedule';
+import {
+  HARD_CEILING_PER_DAY,
+  startOfLocalDay,
+  totalDeliveriesToday,
+} from './notification-governor';
 import { sendPushBatch } from './notification-sender';
 
 export interface DigestDeviceRow {
@@ -41,6 +49,8 @@ export interface DigestDeviceRow {
   tz: string;
   digest_hour: number;
   master_enabled: boolean;
+  /** Phase 6: which wire sendPushBatch should use. */
+  platform?: string;
 }
 
 /**
@@ -82,6 +92,7 @@ export interface DigestDispatchResult {
   digestsSent: number;
   digestsHeldOutsideSendWindow: number;
   digestsSkippedMasterOff: number;
+  digestsSkippedHardCeiling: number;
   sendFailures: number;
   clownReportsSent: number;
   errors: string[];
@@ -120,6 +131,7 @@ export async function dispatchDueDigests(
     digestsSent: 0,
     digestsHeldOutsideSendWindow: 0,
     digestsSkippedMasterOff: 0,
+    digestsSkippedHardCeiling: 0,
     sendFailures: 0,
     clownReportsSent: 0,
     errors: [],
@@ -150,7 +162,7 @@ export async function dispatchDueDigests(
   const deviceIds = [...new Set(rows.map((r) => r.device_id))];
   const { data: deviceRows, error: deviceError } = await db
     .from('devices')
-    .select('id,push_token,tz,digest_hour,master_enabled')
+    .select('id,push_token,tz,digest_hour,master_enabled,platform')
     .in('id', deviceIds);
   if (deviceError) {
     result.errors.push(`could not load devices: ${deviceError.message}`);
@@ -167,7 +179,9 @@ export async function dispatchDueDigests(
     result.errors.push(`could not load events: ${eventError.message}`);
     return result;
   }
-  const titleByEventId = new Map(((eventRows ?? []) as EventTitleRow[]).map((e) => [e.id, e.title]));
+  const titleByEventId = new Map(
+    ((eventRows ?? []) as EventTitleRow[]).map((e) => [e.id, e.title]),
+  );
 
   for (const [key, groupRows] of groups) {
     result.devicesConsidered++;
@@ -185,6 +199,18 @@ export async function dispatchDueDigests(
       continue;
     }
 
+    // spec §6.4 hard ceiling (Phase 5): combined instant+scheduled sends
+    // can never exceed 6/day. A ceiling-blocked digest's queued rows stay
+    // queued (same "wait, don't drop" posture as the send-window hold) —
+    // they'll be reconsidered, and re-merged with anything new, on the
+    // next tick once the device's local day rolls over and the count
+    // resets.
+    const sentSoFarToday = await totalDeliveriesToday(db, device.id, device.tz, now);
+    if (sentSoFarToday >= HARD_CEILING_PER_DAY) {
+      result.digestsSkippedHardCeiling++;
+      continue;
+    }
+
     const cadence = groupRows[0]?.cadence as DigestCadence;
     const items: DigestQueueItem[] = groupRows.map((r) => ({
       category: r.category as AnyNotificationCategory,
@@ -199,6 +225,7 @@ export async function dispatchDueDigests(
         title: cadence === 'daily' ? 'Today in Taylor' : 'This week in Taylor',
         body,
         deepLink: 'https://www.longlivets.com/?current=inbox',
+        platform: device.platform as 'ios' | 'android' | 'web' | undefined,
       },
     ]);
 
@@ -211,6 +238,7 @@ export async function dispatchDueDigests(
         kind: 'digest',
         category: null,
         sent_at: now.toISOString(),
+        delivery_token: sendResult.deliveryToken,
       });
       if (deliveryError) result.errors.push(`delivery log insert failed: ${deliveryError.message}`);
 
@@ -261,7 +289,7 @@ export async function dispatchClownReports(
 
   const { data: deviceRows, error: deviceError } = await db
     .from('devices')
-    .select('id,push_token,tz,digest_hour,master_enabled')
+    .select('id,push_token,tz,digest_hour,master_enabled,platform')
     .in('id', deviceIds);
   if (deviceError) {
     out.errors.push(`clown report device lookup failed: ${deviceError.message}`);
@@ -294,6 +322,12 @@ export async function dispatchClownReports(
     }
     if ((count ?? 0) > 0) continue; // already sent today
 
+    // spec §6.4 hard ceiling (Phase 5) — the Clown Report is a 'fun'-kind
+    // send just like lyric_of_day/on_this_day; it counts against the same
+    // device-wide 6/day floor.
+    const sentSoFarToday = await totalDeliveriesToday(db, device.id, device.tz, now);
+    if (sentSoFarToday >= HARD_CEILING_PER_DAY) continue;
+
     if (theories === null) theories = await getTopTheories(db);
     const body = buildEasterEggDigestBody(theories);
 
@@ -304,6 +338,7 @@ export async function dispatchClownReports(
         title: 'The Weekly Clown Report \u{1F921}',
         body,
         deepLink: 'https://www.longlivets.com/?current=theories',
+        platform: device.platform as 'ios' | 'android' | 'web' | undefined,
       },
     ]);
     const sendResult = sendResults[0];
@@ -315,8 +350,10 @@ export async function dispatchClownReports(
         kind: 'fun',
         category: 'easter_egg',
         sent_at: now.toISOString(),
+        delivery_token: sendResult.deliveryToken,
       });
-      if (deliveryError) out.errors.push(`clown report delivery log failed: ${deliveryError.message}`);
+      if (deliveryError)
+        out.errors.push(`clown report delivery log failed: ${deliveryError.message}`);
     } else {
       out.errors.push(
         `clown report send failed for device ${device.id}: ${sendResult && !sendResult.ok ? sendResult.error : 'no result'}`,

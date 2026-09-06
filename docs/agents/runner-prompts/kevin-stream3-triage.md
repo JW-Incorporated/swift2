@@ -8,7 +8,7 @@ Steps:
    - Triage a `needs-triage` ticket exactly like any other, and note in its bucket line that it arrived via the sweep. Nothing about your never-auto-code limit changes.
 2. For EACH, read its comments (invariant 7): a later human comment can approve a phased plan, change priority, or say "resolved" — reflect the latest human signal in the bucketing.
 3. Check for today's open `founders-brief`-labeled issue titled `Founders' Brief — YYYY-MM-DD` (today's America/Los_Angeles date):
-   - **Found (normal mode):** post/update ONE comment on that issue, first line `<!-- kevin-stream3-triage -->` (edit the existing comment carrying that anchor if one exists on this issue; never edit the brief body itself).
+   - **Found (normal mode):** post ONE comment on that issue, first line `<!-- kevin-stream3-triage -->` (edit the existing comment carrying that anchor if one exists on this issue; never edit the brief body itself). **No comment-edit tool is available to this session (#3631)** — if an anchored comment already exists from an earlier same-day run, post a NEW comment with the same anchor and a second line `_Supersedes the earlier comment(s) above with this anchor — read this one._` instead of duplicating without it. The most recent anchored comment is always the current triage; ignore older ones.
    - **Not found (degraded mode):** post/update ONE issue titled `Kevin Eng Triage — YYYY-MM-DD` (label `kevin-triage`), exactly as before.
    Content (either location) buckets each ticket into: **bug (small/pre-diagnosed)** · **feature** · **major/overhaul** · **tooling/Karen** · **content-ops/process** · **ready/greenlit** · **likely-already-resolved**, each with a one-line tractability note and a flag for anything pre-go-live-urgent. Move a plan-approved ticket into ready/greenlit; mark a commented-resolved one for close-confirmation; bump a priority a comment raised.
 4. This triage is Austin's intake, NOT authorization: the tractable subset (bug (small/pre-diagnosed) + ready/greenlit that also pass Austin's scope fence in docs/agents/austin.md) is what Austin's autonomous lane pulls from — every Austin PR is still human-merged. Everything outside that subset waits for a human to pick it up deliberately.
@@ -30,3 +30,19 @@ fails CI or hits a conflict, the NEXT scheduled run of this runner picks it up.
 
 If something genuinely needs a human, say so once in the PR body or a single
 comment and exit. Never poll for the answer.
+
+
+## Attribution trailer (T-20 Phase 1 -- per-routine output telemetry)
+
+Every PR body (and its commit message) AND every GitHub issue body this
+routine opens MUST include this exact line:
+
+    Tier-2: Kevin — S3 eng triage
+
+Use this identifier verbatim -- do not paraphrase or abbreviate it, and
+include it even on a routine that normally files issues rather than PRs
+(e.g. intake/ticket-filing desks) -- issues count exactly like PRs for
+this telemetry. This powers daily per-Tier-2-routine output counts in
+Marjorie's Founders' Brief (`docs/agents/runners.md`,
+`docs/TIER2-OPTIMIZATION.md` section T-20). If this run produces no
+PR/issue at all, there is nothing to tag -- that's expected, not an error.

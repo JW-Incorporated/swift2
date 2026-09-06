@@ -9,7 +9,6 @@ on:
     branches: [main]
     paths:
       - 'apps/web/lib/longlive/content.ts'
-      - 'apps/web/lib/longlive/content-vault.generated.ts'
       - 'supabase/seed/content/**'
   schedule:
     - cron: '24 15 * * 1'
@@ -38,17 +37,25 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci --ignore-scripts
-      # Authoring owns writes to this cache after a scored pair is accepted.
-      # Detection only restores and reads it, so it cannot manufacture a score.
-      - uses: actions/cache/restore@v5
+      # Detection only restores and reads the score cache authoring keeps
+      # renewing below (never writes it) so a fixed pinned key can never go
+      # stale: the newest key matching the prefix always wins (#3447 P1).
+      - uses: actions/cache/restore@v6
         with:
           path: .cache/merch-audit-scores.json
-          key: merch-audit-scores-v1-${{ github.ref_name }}
+          # Keyed on the literal `main` (matches merch-audit-authoring.yml's
+          # save key, round-10 review fix) rather than github.ref_name: for
+          # this workflow's push/schedule triggers ref_name is already
+          # "main", but a workflow_dispatch from another ref must still find
+          # the SAME cache authoring actually writes under.
+          key: merch-audit-scores-v1-main-${{ github.run_id }}
+          restore-keys: |
+            merch-audit-scores-v1-main-
       - name: Detect changed image pairs
         run: npx tsx scripts/merch-engine/audit-matches.mjs --detect --cache .cache/merch-audit-scores.json --write-queue .artifacts/merch-audit-queue.json
       - name: Upload scoring queue
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: merch-audit-queue
           path: .artifacts/merch-audit-queue.json

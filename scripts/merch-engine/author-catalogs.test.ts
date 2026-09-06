@@ -160,6 +160,10 @@ describe('E4/E5 catalog authoring', () => {
       { sourceId: null, reason: 'd3-prohibited-material' },
       { sourceId: null, reason: 'provenance-required' },
     ]);
+    expect(result.socialDraft).toEqual({
+      type: 'fanmade-drop-draft',
+      products: [{ item: accepted.item, url: accepted.url }],
+    });
   });
 
   it('writes executable seed module source without network wrappers or live social actions', () => {

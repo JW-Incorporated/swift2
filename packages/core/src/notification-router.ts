@@ -12,6 +12,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import {
   evaluateGovernor,
   startOfLocalDay,
+  totalDeliveriesToday,
   type GovernorDeviceSettings,
 } from './notification-governor';
 import { sendPushBatch, type PushSendResult } from './notification-sender';
@@ -41,6 +42,11 @@ export interface RouterDispatchResult {
   skippedSnoozed: number;
   skippedCoalesced: number;
   skippedDailyCap: number;
+  /** spec §6.4 hard ceiling (Phase 5): combined instant+scheduled sends
+   * blocked outright once the device's device-wide 6/day floor is hit —
+   * unlike daily_cap overflow, never rolled into a digest (see gate 6's
+   * docstring in notification-governor.ts). */
+  skippedHardCeiling: number;
   sendFailures: number;
   /** Phase 3: daily/weekly-pref devices fanned into `digest_queue` instead
    * of sent, PLUS any instant-tier cap-overflow rollovers (spec §6 gate 4:
@@ -58,6 +64,11 @@ interface DeviceRow {
   quiet_start: number;
   quiet_end: number;
   tz: string;
+  /** Phase 6: which wire sendPushBatch should use — see
+   * notification-sender.ts's `PushSendInput.platform`. Optional on the
+   * type only because a couple of test fixtures predate this column
+   * existing on the query; production rows always have it. */
+  platform?: string;
 }
 
 const PENDING_EVENT_LIMIT = 200;
@@ -85,6 +96,7 @@ export async function dispatchPendingEvents(
     skippedSnoozed: 0,
     skippedCoalesced: 0,
     skippedDailyCap: 0,
+    skippedHardCeiling: 0,
     sendFailures: 0,
     enqueuedToDigest: 0,
     errors: [],
@@ -139,18 +151,24 @@ async function dispatchOneEvent(
   if (prefsError) throw new Error(`prefs lookup: ${prefsError.message}`);
 
   const prefRowsArr = (prefRows ?? []) as { device_id: string; cadence: string }[];
-  const instantDeviceIds = prefRowsArr.filter((r) => r.cadence === 'instant').map((r) => r.device_id);
+  const instantDeviceIds = prefRowsArr
+    .filter((r) => r.cadence === 'instant')
+    .map((r) => r.device_id);
   const digestDeviceIds = prefRowsArr.filter((r) => r.cadence !== 'instant');
   const allDeviceIds = [...new Set(prefRowsArr.map((r) => r.device_id))];
   if (allDeviceIds.length === 0) return;
 
   const { data: devices, error: devicesError } = await db
     .from('devices')
-    .select('id,push_token,master_enabled,snooze_until,daily_cap,quiet_start,quiet_end,tz,digest_hour')
+    .select(
+      'id,push_token,master_enabled,snooze_until,daily_cap,quiet_start,quiet_end,tz,digest_hour,platform',
+    )
     .in('id', allDeviceIds);
   if (devicesError) throw new Error(`device lookup: ${devicesError.message}`);
 
-  const devicesById = new Map(((devices ?? []) as (DeviceRow & { digest_hour: number })[]).map((d) => [d.id, d]));
+  const devicesById = new Map(
+    ((devices ?? []) as (DeviceRow & { digest_hour: number })[]).map((d) => [d.id, d]),
+  );
 
   // --- Daily/weekly devices: enqueue, never send from this path. ---
   for (const { device_id, cadence } of digestDeviceIds) {
@@ -169,7 +187,9 @@ async function dispatchOneEvent(
       });
       result.enqueuedToDigest++;
     } catch (err) {
-      result.errors.push(`digest enqueue failed for device ${device_id}: ${(err as Error).message}`);
+      result.errors.push(
+        `digest enqueue failed for device ${device_id}: ${(err as Error).message}`,
+      );
     }
   }
 
@@ -191,9 +211,10 @@ async function dispatchOneEvent(
       tz: device.tz,
     };
 
-    const [recentDeliveries, instantToday] = await Promise.all([
+    const [recentDeliveries, instantToday, totalToday] = await Promise.all([
       recentSameCategoryDeliveries(db, device.id, event.category, now),
       instantDeliveriesToday(db, device.id, device.tz, now),
+      totalDeliveriesToday(db, device.id, device.tz, now),
     ]);
 
     const decision = evaluateGovernor({
@@ -202,6 +223,7 @@ async function dispatchOneEvent(
       event: { category: event.category, tier: event.tier },
       recentSameCategoryDeliveries: recentDeliveries,
       instantDeliveriesToday: instantToday,
+      totalDeliveriesToday: totalToday,
     });
 
     switch (decision.action) {
@@ -215,6 +237,7 @@ async function dispatchOneEvent(
         if (decision.reason === 'master_off') result.skippedMasterOff++;
         else if (decision.reason === 'snoozed') result.skippedSnoozed++;
         else if (decision.reason === 'coalesced') result.skippedCoalesced++;
+        else if (decision.reason === 'hard_ceiling') result.skippedHardCeiling++;
         else if (decision.reason === 'daily_cap') {
           result.skippedDailyCap++;
           // spec §6 gate 4: "Overflow rolls into the next digest" — an
@@ -254,6 +277,7 @@ async function dispatchOneEvent(
       title: event.title,
       body: event.body,
       deepLink: event.deep_link,
+      platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     })),
   );
 
@@ -294,6 +318,12 @@ async function instantDeliveriesToday(
   return count ?? 0;
 }
 
+/** Gate 6's (Phase 5 hard ceiling) counter now lives in
+ * notification-governor.ts's totalDeliveriesToday() so it can be shared
+ * with notification-digest.ts / notification-fun.ts without a circular
+ * import — re-exported here for any existing external importer. */
+export { totalDeliveriesToday } from './notification-governor';
+
 /**
  * Logs one `deliveries` row per successful send and prunes any device whose
  * token FCM reported UNREGISTERED (spec §10: "invalid tokens pruned on
@@ -307,8 +337,13 @@ async function logDeliveriesAndPrune(
   sendResults: readonly PushSendResult[],
   result: RouterDispatchResult,
 ): Promise<void> {
-  const deliveryRows: { device_id: string; event_id: string; kind: string; category: string }[] =
-    [];
+  const deliveryRows: {
+    device_id: string;
+    event_id: string;
+    kind: string;
+    category: string;
+    delivery_token: string;
+  }[] = [];
   const tokensToClear: string[] = [];
 
   for (const r of sendResults) {
@@ -319,6 +354,7 @@ async function logDeliveriesAndPrune(
         event_id: event.id,
         kind: 'instant',
         category: event.category,
+        delivery_token: r.deliveryToken,
       });
     } else {
       result.sendFailures++;

@@ -16,20 +16,20 @@
 // `killed_at`, which the router (notification-router.ts) checks
 // unconditionally before ever sending — a killed event is never delivered,
 // even if `--kill` runs a moment before the 5-minute delay elapses.
-import { createClient } from '@supabase/supabase-js';
 import { pathToFileURL } from 'node:url';
+import { serviceClient } from './lib/supabase.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const T1_CATEGORIES = ['song_drop', 'album_news', 'tour_news'];
 
 function supabaseAdmin() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) {
+  const db = serviceClient();
+  if (!db) {
     throw new Error(
       'SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set — see SETUP_NOTIFICATIONS.md.',
     );
   }
-  return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+  return db;
 }
 
 export async function listPendingT1(db, now = new Date()) {
@@ -96,12 +96,9 @@ async function main() {
   }
 
   console.error('usage: notifications-kill-t1.mjs --list | --kill <event-id>');
-  process.exitCode = 2;
+  return 2;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  main().catch((error) => {
-    console.error(`notifications-kill-t1: ${error.message}`);
-    process.exitCode = 1;
-  });
+  runMain(main, { name: 'notifications-kill-t1' });
 }

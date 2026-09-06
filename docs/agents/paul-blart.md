@@ -79,7 +79,8 @@ Dependabot PRs, code-scanning alerts); he never edits the scanners' findings.
 
 Weekly, **Monday ~05:00 PT** (`7 12 * * 1` UTC), before the week's first brief —
 deps don't change hourly, and security updates arrive on Dependabot's own lane
-between runs. Model **Fable**. Account **Wyatt** (per the 1:10 split). Tools:
+between runs. Model **Fable**. Account **Joey** (policy corrected 2026-08-31,
+D1=B). Tools:
 Bash/Read/Write/Edit/Glob/Grep.
 
 ## Audited by

@@ -23,9 +23,9 @@
  */
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Sparkles, CornerDownLeft, Loader2 } from 'lucide-react';
-import type { MoodMatch } from '@/lib/longlive/mood-match';
+import type { MoodMatch } from '@swift2/experience';
 import { MOOD_STARTERS, visibleStarters, type MoodStarter } from '@/lib/longlive/mood-starters';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import { MoodSongCard } from './MoodSongCard';
 
 /** The approved disclaimer (Block 3). Deliberately mentions neither therapy nor

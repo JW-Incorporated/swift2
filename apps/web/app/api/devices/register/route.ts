@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { upsertDevice } from '@swift2/core';
 import {
   DEVICE_PLATFORMS,
   isDevicePlatform,
   type DeviceRegistrationInput,
 } from '@swift2/shared';
+import { trustedClientIp } from '../../../../lib/longlive/client-ip';
+import { makeRateLimiter } from '../../../../lib/longlive/rate-limit';
+import { supabaseAdmin } from '../../../../lib/supabase-server';
 
 // Notifications Phase 0 — POST /api/devices/register (NOTIFICATIONS_PLAN.md
 // Phase 0, NOTIFICATIONS_SPEC.md §2/§9). Upserts a `devices` row keyed by the
@@ -28,32 +30,17 @@ export const dynamic = 'force-dynamic';
 
 const MAX_FIELD = 200;
 
-function supabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
-
 const clip = (s: unknown, n: number): string | undefined =>
   typeof s === 'string' && s.trim() ? s.trim().slice(0, n) : undefined;
 
 // Best-effort per-instance rate limit — same shape/posture as every other
 // public POST route in this repo (feedback/intake/submit-link/mood): blunts
-// accidental bursts, not a security guarantee behind a spoofable XFF header.
-const HITS = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 20; // higher than the content-submission routes: a
+// accidental bursts, not a global security guarantee.
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 20 }); // higher than the content-submission routes: a
 // real device legitimately re-registers on every cold start / token refresh.
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 interface RegisterPayload {
@@ -104,10 +91,7 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ error: validated.error }, { status: 400 });
   }
 
-  const ip =
-    req.headers.get('x-real-ip')?.trim() ||
-    req.headers.get('x-forwarded-for')?.split(',').pop()?.trim() ||
-    'unknown';
+  const ip = trustedClientIp(req);
   if (rateLimited(ip)) {
     return NextResponse.json({ error: 'Please try again in a minute.' }, { status: 429 });
   }

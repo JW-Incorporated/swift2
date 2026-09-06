@@ -11,6 +11,9 @@ export default defineConfig({
   },
   test: {
     environment: 'node',
+    // Polyfills Promise.withResolvers (Node 24+) so the full suite runs on
+    // Node 20 local sandboxes too — see scripts/lib/test/ and issue #3513.
+    setupFiles: ['./scripts/lib/test/promise-with-resolvers-polyfill.ts'],
     include: [
       'packages/**/*.test.ts',
       'apps/web/**/*.test.ts',

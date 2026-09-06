@@ -1,0 +1,46 @@
+# Kevin — Stream 1 (Karen-ticket solver), migrated from claude.ai Routine
+# `trig_01QEvYmKcpyDJJ8ec81aBjCV` to this scheduled Action per
+# docs/audits/2026-09-05-claude-routines-relocation-assessment.md + the
+# 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# Status check (t_123b1628, 2026-09-05): HUMAN-ACTIONS.md #38 is DONE (the
+# new Kevin daily-desk trigger, T-10, is live and has already run), but its
+# own "Remaining step" is still open — the desk's first genuine Sunday fire
+# (which exercises Stream 1) has not yet been confirmed, so this old S1
+# trigger is still marked "pending disable" (not yet disabled/retired) in
+# docs/agents/runners.md's live table. Migrating it live, not reviving a
+# dead routine — when the Sunday confirmation lands and the claude.ai
+# original is disabled per #38, delete this file (or gate it off) in the
+# same pass.
+#
+# Fixes NEW Karen `cie` tickets on a single review PR; opens `contents:
+# write`/`pull-requests: write`/`issues: read` (reads ticket comments only,
+# never writes issues) via SOCIAL_POSTER_PAT (main is branch-protected; the
+# built-in GITHUB_TOKEN cannot trigger this repo's required `build` check on
+# its own PRs — same reason growth-snapshot.yml / appearance-discovery.yml
+# use the PAT). Never merges its own PR.
+name: routine-kevin-s1-karen-solver
+
+on:
+  schedule:
+    - cron: "17 11 * * 0" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Kevin — S1 Karen-ticket solver"
+      prompt_file: docs/agents/runner-prompts/kevin-stream1-karen.md
+      model: claude-opus-4-8
+      allowed_tools: "Bash,Read,Grep,Glob,Write,Edit"
+      timeout_minutes: 30
+      checkout_token_secret: SOCIAL_POSTER_PAT
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}

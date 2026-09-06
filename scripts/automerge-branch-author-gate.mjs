@@ -58,6 +58,8 @@ export const CONTENT_LANE_BRANCH_PREFIXES = [
   'appearance-discovery/', // .github/workflows/appearance-discovery.yml + docs/decisions.md 2026-08-25 (fast-lane social drafts)
   'merch-revenue/', // .github/workflows/merch-revenue.yml (weekly generated report PRs)
   'merch-official-sync/', // .github/workflows/merch-official-sync.yml's `author` job (E4 catalog + store-drop social draft PRs)
+  'merch-audit-authoring/', // .github/workflows/merch-audit-authoring.yml's demotion-apply step (E3 mismatch removal, issue #3447 P2)
+  'claude/pensive-galileo-', // Photo Enrichment worker (docs/agents/runner-prompts/photo-enrichment-worker.md) opens PRs on claude.ai/code, which names its branch `claude/<adjective-name>-<id>`; every real PR from this routine (#3343, #3384, #3405, #3420, #3466, #3579, confirmed via `gh pr list --search "head:claude/pensive-galileo"` 2026-09-05) used the exact `claude/pensive-galileo-<id>` shape. Using the narrower `claude/pensive-galileo-` prefix instead of the bare `claude/` prefix the task also allowed, because `claude/` alone would match ANY claude.ai/code branch name (including this very gate-fix's own worktree branch naming family) and is unverifiably broad; this prefix is exactly what real history proves.
 ];
 
 /**

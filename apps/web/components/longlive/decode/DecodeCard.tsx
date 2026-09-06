@@ -16,9 +16,9 @@ import {
   ArrowDown,
   type LucideIcon,
 } from 'lucide-react';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import { erasBetween, gapYears } from '@/lib/longlive/decode';
-import { DECODE_MOTIF_META, type CluePair, type DecodeMotifId } from '@/lib/longlive/types';
+import { DECODE_MOTIF_META, type CluePair, type DecodeMotifId } from '@swift2/experience';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 const MOTIF_ICON: Record<DecodeMotifId, LucideIcon> = {
@@ -128,7 +128,7 @@ export function DecodeCard({
             {gapText}
             {erasSpanned > 1 ? ` · ${erasSpanned} eras` : ''}
           </span>
-          <span className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--era-ink-soft)', opacity: 0.7 }}>
+          <span className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--era-ink-soft)' }}>
             {gap === 0 ? 'planted & paid off' : 'the wait'}
           </span>
         </div>

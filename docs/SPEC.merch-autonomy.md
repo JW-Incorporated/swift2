@@ -53,6 +53,16 @@ it pays is the exact dishonesty R2 exists to prevent. Where the best match
 is unmonetized and an Awin candidate clears the same tier, both may be
 listed with the Awin item preferred in card order.
 
+**R7. The IP-counsel gate binds every monetized surface (FR-MERCH-5,
+2026-08-30).** Per `docs/decisions.md` 2026-07-08 §3, nothing monetized
+ships without external IP-counsel review; per FR-MERCH-4/5, no
+affiliate/commercial implementation — the seam flip, E0, coverage-report
+wiring, any wrap going live — starts before counsel sign-off
+(HUMAN-ACTIONS #27; sign-off recorded `docs/decisions.md` 2026-08-30, gate
+cleared). Credentials present ≠ gate open: `isAffiliate()`'s env-var check
+is a mechanism, not the gate. Phase 1 engines (E1, E2, E3) are editorial
+trust fixes and run regardless.
+
 ---
 
 ## 1. Data model changes (`apps/web/lib/longlive/types.ts`)
@@ -103,6 +113,20 @@ export type Network = 'awin' | 'amazon' | 'catchall' | 'none';
  *  4. 'none' — plus explicit policy exemptions (official bucket, D1-a). */
 export function networkFor(retailer: string): Network;
 ```
+
+`networkFor` itself resolves purely by hostname, but wrapping and the
+`isAffiliate` predicate are **listing-scoped, not product-retailer-scoped**:
+every call site passes an explicit `ShopLinkContext` (`{ eraId, momentId }`
+for a moment's shop-the-look products, `{ bucket: 'official' | 'fanmade' }`
+for merch-page buckets) that becomes the `<subid>` on the wrapped link. This
+means a D1-a `altListing` — a secondary Amazon link attached to an official
+item — is wrapped and disclosed **independently of its primary listing**,
+using the alt listing's own retailer and the same `{ bucket: 'official' }`
+context, per `createShopLinkBuilder`/`createShopLinkRenderer`
+(`apps/web/lib/longlive/shop.ts`). A listing without a resolved context never
+wraps, even if its retailer maps to a network (`shop.ts`'s "fails closed
+without... listing context" rule) — this is what keeps the primary and the
+alt listing's affiliate status independent per product.
 
 `buildShopUrl()` branches on `networkFor(product.retailer)`:
 
@@ -215,7 +239,31 @@ merge (a gate check, `check-merch-images.mjs`, wired into the content CI).
 
 ## 5. Engine E3 — Match Auditor (issue #1)
 
-The core quality fix. `scripts/merch-engine/audit-matches.mjs`:
+The core quality fix. Split per R1 — the schedule never runs the model
+(FR-MERCH-5 lane split):
+
+- **Detect (scheduled, zero-LLM):** `merch-audit-detect.yml` runs
+  `scripts/merch-engine/audit-matches.mjs --detect` — enumerate products
+  whose product-image/moment-image hash pair is new or changed (or whose
+  `matchTier` is missing), gather the pairs, and file/refresh the scoring
+  queue (issue/artifact, the appearance-discovery detect pattern). No
+  model call, no judged writes, no PR authoring of scores.
+- **Judge + write (authoring lane, per FR-MERCH-5):** the authoring lane
+  consumes the detector queue, makes the vision calls, writes
+  `matchTier`/`matchScore`/`kind`, and lands them via a gated PR on a
+  registered branch prefix through the R1 gates — this is the binding
+  contract (`docs/decisions.md` FR-MERCH-5, 2026-08-30). **Known
+  implementation gap, not part of this doc-fix's scope:** the deployed
+  `merch-audit-authoring.yml` (manually confirmed via `workflow_dispatch`)
+  currently stops short of that contract — it rebuilds the queue, runs
+  `scripts/merch-engine/audit-matches-authoring.mjs` under a capped $5/run
+  vision-call budget, and uploads the judgments as a build artifact (plus a
+  follow-up issue on cap) but does not yet write product data or open a PR.
+  Closing that gap (an authoring-lane write + PR step) is follow-up
+  engineering work, tracked separately — this SPEC states the required end
+  state per the binding decision, not the interim artifact-only build.
+
+The judged half scores each pair as follows:
 
 1. For each product with a source moment: gather product image (from
    `imageUrl` or scraped og:image) + the moment's real primary photo
@@ -227,9 +275,25 @@ The core quality fix. `scripts/merch-engine/audit-matches.mjs`:
    ≥90 `exact`, 70–89 `close`, 45–69 `similar`, 25–44 `inspired`,
    **<25 = mismatch → demoted**: removed from the moment's products and
    filed as a re-source ticket for E6 with the auditor's reasons attached.
+   Renewable score cache + the actual demotion removal (issue #3447):
+   `.cache/merch-audit-scores.json` is restored/saved under a run-scoped
+   key + `restore-keys` prefix (never one immutable pinned key) so newly
+   scored pairs are always visible to the next run
+   (`buildScoreCache()` in `audit-matches.mjs`). The removal itself is
+   `scripts/merch-engine/apply-demotions.mjs` (text-level scan/parse
+   helpers split into `scripts/merch-engine/demotion-source-scan.mjs` per
+   the 300-line file cap) — it scopes each removal to the SPECIFIC moment
+   named in the demoted `productId`, never a bare url-anywhere match,
+   because this corpus already reuses a handful of listing urls across
+   unrelated moments. `merch-audit-authoring.yml`'s `apply-demotions` job
+   runs it, regenerates the vault, and opens a gated content PR.
 4. Products with no comparable image pair (beauty items, no moment photo)
-   are marked `tier: null` and skip scoring — the UI shows no tier badge
-   rather than a guessed one (R2).
+   are marked `matchTier: 'unscored'` (an explicit member of the `matchTier`
+   union, `apps/web/lib/longlive/types.ts`) and skip scoring — the UI shows
+   no tier badge rather than a guessed one (R2). `'unscored'` is a real,
+   distinct state from having no `matchTier` at all: it says "we looked and
+   there was nothing comparable to score," not "this hasn't been audited
+   yet."
 
 Output: migration PR(s) writing `matchTier`/`matchScore`/`kind` across the
 existing 134, then steady-state runs only on new/changed items. UI: the
@@ -338,6 +402,20 @@ Pipeline per moment:
    ticket that re-runs after 14 days (retail lag: dupes appear weeks after
    a look trends).
 
+**Field naming (issue #3463):** `scripts/merch-engine/match-moments.mjs`
+(step 3's tie-break/selection logic) and `match-moments-authoring.mjs`
+(steps 1–3: extraction, search, vision scoring) carry each candidate's
+confidence under `score`, not `matchScore`, in their intermediate plan
+artifact (`merch-matcher-plan.json` / `.artifacts/merch-matcher-authoring/
+plan.json`). That is deliberate, not a defect: the plan is candidate data,
+not a `Product` record. Step 4 — writing products onto the moment through
+the standard content lane — is not yet implemented by any script; when it
+is built, its spec/implementation must map plan-candidate `score` onto
+`Product.matchScore`, and decide then whether the plan artifact itself
+should be renamed to `matchScore` for consistency. Until that product
+writer exists, `match-moments.mjs`/`match-moments-authoring.mjs` keep
+`score` to preserve parity with their staged source.
+
 Budget: expected single-digit search calls + low-tens of vision scores per
 moment; the R5 cap makes the worst case a ticket, not a bill.
 
@@ -364,11 +442,23 @@ moment; the R5 cap makes the worst case a ticket, not a bill.
 | `merch-awin-sync.yml` (E0) | daily, jittered | no | gated PR (advertiser map) + Actions cache (index) |
 | `merch-verify.yml` (E1+E2 detect) | daily | no | report → mender |
 | `merch-mend` (E1/E2 act) | daily, after verify | small | gated PR |
-| `merch-audit.yml` (E3) | weekly + on new items | vision | gated PR |
+| `merch-audit-detect.yml` (E3 detect) | weekly + on new items | no (zero-LLM) | scoring queue → authoring lane, no PR |
+| `merch-audit-authoring.yml` (E3 judge) | manual (`workflow_dispatch`, confirmation-gated) | vision | gated PR (required end-state, FR-MERCH-5) — deployed workflow is currently artifact-only, see §5 |
 | `merch-official-sync.yml` (E4) | 2×/day | authoring lane for new items | gated PR + social queue |
 | `merch-fanmade.yml` (E5) | daily | curation lane | gated PR |
 | `merch-matcher.yml` (E6) | on fashion-moment merge | yes | gated PR |
 | `merch-revenue.yml` | weekly | no | Marjorie brief |
+
+Reading the LLM column per R1: every *scheduled* trigger is zero-LLM
+detection; a non-"no" entry marks the judgment half that runs in the
+separate authoring lane the schedule hands off to (E3's split above is the
+pattern; E5's curation lane and E6's matcher lane are the same shape) —
+never inside the scheduled workflow itself. **E4 is the one documented
+exception:** its "authoring lane for new items" cell is deterministic, not
+an LLM judgment call — `authorOfficialCatalog()` is a pure function (no
+model call) and runs inside the same `merch-official-sync.yml` schedule,
+so it never leaves the scheduled workflow the way E3/E5/E6's judged halves
+do.
 
 All schedule minutes chosen clear of existing cron clusters; each workflow
 header documents its offset and its secrets per house style. New secrets:
@@ -376,6 +466,24 @@ header documents its offset and its secrets per house style. New secrets:
 `SEARCH_API_KEY` (Actions); `NEXT_PUBLIC_AWIN_ID` +
 `NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG` (Vercel env; the catch-all ID only if
 D2's residue case is ever proven). No other new credentials.
+
+**Canonical names (FR-MERCH-5).** The names above are authoritative and are
+what the codebase actually reads (`scripts/merch-engine/sync-awin-*.mjs`,
+`awin-directory-*.mjs`, `fanmade-discovery.mjs`, and every
+`merch-awin-*`/`merch-e5-evidence` workflow all use `AWIN_API_TOKEN`,
+`AWIN_FEED_API_KEY`, `AWIN_PUBLISHER_ID`, `ETSY_API_KEY` — grep-confirmed,
+no code anywhere reads `AWIN_API` or `ETSY_KEYSTRING`). `HUMAN-ACTIONS.md`
+originally recorded earlier saves under legacy names — `ETSY_KEYSTRING`
+(the Etsy keystring; its canonical home is `ETSY_API_KEY`),
+`ETSY_SHARED_SECRET` (kept as-is; OAuth-only, unused by E5), and `AWIN_API`
+(ambiguous — retired; the Publisher API token and Create-a-Feed key are
+saved fresh as `AWIN_API_TOKEN` / `AWIN_FEED_API_KEY`). No alias shim and
+no code migration were needed: HUMAN-ACTIONS #28 re-saved the values under
+the canonical names, the legacy entries retired, and HUMAN-ACTIONS.md's
+outcome note (2026-08-30) confirms the live secret store now holds exactly
+`AWIN_API_TOKEN`, `AWIN_FEED_API_KEY`, `AWIN_PUBLISHER_ID`, `ETSY_API_KEY`,
+`ETSY_SHARED_SECRET` with no `AWIN_API` entry left. Names are non-secret;
+values never appear in chat or the repo.
 
 ## 11. Acceptance criteria (definition of done, per phase)
 

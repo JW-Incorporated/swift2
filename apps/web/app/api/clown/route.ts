@@ -9,19 +9,28 @@ import { screenClownTake } from '../../../lib/longlive/clown-gate';
 import { resolveTheoryName } from '../../../lib/longlive/clown-names';
 import { docToRetrievedItem, composeFallback, type RetrievedItem } from '../../../lib/longlive/clown-fallback';
 import { answerFromFallback, answerFromTake } from '../../../lib/longlive/clown-answer';
-import { resolveScopeSignal } from '../../../lib/longlive/clown-agent-tools';
+import { resolveScopeSignal, createKnowledgeClientForRequest } from '../../../lib/longlive/clown-agent-tools';
 import { AGENT_MAX_WALL_MS, runClownAgent } from '../../../lib/longlive/clown-agent';
 import { explainClownQuestion } from '../../../lib/longlive/clown-explain';
 import { persistPrediction } from '../../../lib/longlive/clown-predictions';
 import { incrementUserUsage, loadClownHistory, recordClownMemory } from '../../../lib/longlive/clown-memory';
 import {
   buildSessionCookieHeader,
+  createClownDbClient,
   decodeSessionToken,
   encodeSessionToken,
   readSessionCookie,
   resolveClownSession,
 } from '../../../lib/longlive/clown-session';
-import { MAX_TEXT, clientIp, messageAnswer, ndjsonResponse, rateLimited, sanitizeTranscript } from '../../../lib/longlive/clown-route-helpers';
+import {
+  MAX_TEXT,
+  bearerSessionToken,
+  clientIp,
+  messageAnswer,
+  ndjsonResponse,
+  rateLimited,
+  sanitizeTranscript,
+} from '../../../lib/longlive/clown-route-helpers';
 
 // Clownbot (build B) — the API route. PLAN.md Step 8; agent loop added
 // PLAN.md Stage 10 (proposal §7).
@@ -197,9 +206,16 @@ export async function POST(req: Request): Promise<Response> {
   const deadlineController = new AbortController();
   const deadlineTimer = setTimeout(() => deadlineController.abort(), AGENT_MAX_WALL_MS);
 
+  // ONE KNOWLEDGE CLIENT PER REQUEST (Fable 5.1 architecture review, task
+  // R14) — built once here, before the scope check, and threaded through
+  // BOTH `resolveScopeSignal` and the agent loop's own read tools below,
+  // instead of each tool call separately re-instantiating its own
+  // `createKnowledgeClient`.
+  const knowledgeClient = createKnowledgeClientForRequest();
+
   // SCOPE CHECK — fast-path retrieval short-circuit (PLAN.md Stage 10 req
   // 3), NOT a new blocklist layer. Runs before the model is ever consulted.
-  const scope = await resolveScopeSignal(text, deadlineController.signal);
+  const scope = await resolveScopeSignal(knowledgeClient, text, deadlineController.signal);
   if (!scope.inScope) {
     clearTimeout(deadlineTimer);
     console.log('clown:out-of-scope', JSON.stringify({ length: text.length }));
@@ -227,13 +243,37 @@ export async function POST(req: Request): Promise<Response> {
   // same-origin `fetch`, and a forged/invalid cookie just fails the refresh
   // exchange inside `resolveClownSession` (falls through to null/fresh-
   // signup) — no signing, no HMAC, no new env var needed.
-  const incomingSessionToken = decodeSessionToken(readSessionCookie(req.headers.get('cookie')));
+  //
+  // OS-036 — the native app carries the SAME encoded token as a bearer
+  // credential instead (`clown-route-helpers.ts`'s `bearerSessionToken`),
+  // since a bare React Native `fetch` has no cookie jar to store/resend
+  // `Set-Cookie` for it. The bearer header is checked FIRST: a native
+  // client that supplies one is authenticating via that transport and gets
+  // it back (below) the same way; the cookie is the fallback for every
+  // browser caller that never sends an Authorization header at all. A
+  // request is never expected to carry both.
+  const incomingSessionToken =
+    decodeSessionToken(bearerSessionToken(req.headers.get('authorization'))) ??
+    decodeSessionToken(readSessionCookie(req.headers.get('cookie')));
   const memorySession = await resolveClownSession(incomingSessionToken, undefined, deadlineController.signal);
+  // The browser reads/resends `Set-Cookie` automatically; a bare RN `fetch`
+  // does neither, so the SAME encoded token is also echoed back in a plain
+  // response header (`X-Clown-Session`) the mobile client reads explicitly
+  // and persists itself (`apps/mobile/lib/clown-session-store.ts`). Same
+  // value, two transports — never a second credential.
   const sessionHeaders = memorySession
-    ? { 'Set-Cookie': buildSessionCookieHeader(encodeSessionToken(memorySession)) }
+    ? {
+        'Set-Cookie': buildSessionCookieHeader(encodeSessionToken(memorySession)),
+        'X-Clown-Session': encodeSessionToken(memorySession),
+      }
     : undefined;
+  // ONE SUPABASE CLIENT PER REQUEST (Fable 5.1 architecture review, task
+  // R14): built once here, right after the session resolves, and threaded
+  // through every memory/pin/prediction call below instead of each of them
+  // separately constructing its own client from the same session.
+  const clownDb = memorySession ? createClownDbClient(memorySession) : null;
   const reserveUserBudget = memorySession
-    ? () => incrementUserUsage(memorySession, undefined, deadlineController.signal)
+    ? () => incrementUserUsage(memorySession, clownDb, deadlineController.signal)
     : undefined;
 
   // MEMORY LOAD — see the header note above. Only pulled when the client's
@@ -241,7 +281,7 @@ export async function POST(req: Request): Promise<Response> {
   // the same recent-turn window.
   const loadedHistory =
     memorySession && priorTurns.length === 0
-      ? await loadClownHistory(memorySession, undefined, deadlineController.signal)
+      ? await loadClownHistory(memorySession, clownDb, deadlineController.signal)
       : null;
 
   // LOADED-HISTORY SCREEN (HUMAN-ACTIONS.md #15 item 1 fix) — a stored turn
@@ -284,6 +324,7 @@ export async function POST(req: Request): Promise<Response> {
         transcript,
         scope.result,
         { query: text },
+        knowledgeClient,
         (step) => emit({ type: 'investigation', step }),
         undefined,
         deadlineController.signal,
@@ -318,12 +359,12 @@ export async function POST(req: Request): Promise<Response> {
           const answer = answerFromTake(finalTake, sources, run.investigation);
           emit({ type: 'answer', answer });
           const persistenceResults = await Promise.allSettled([
-            persistPrediction({ session: memorySession, question: text, take: finalTake, sources }),
+            persistPrediction({ session: memorySession, question: text, take: finalTake, sources }, deadlineController.signal),
             recordClownMemory({
               session: memorySession,
               question: text,
               answerText: `${finalTake.stance} ${finalTake.argument}`.trim(),
-            }),
+            }, clownDb),
           ]);
           for (const [index, result] of persistenceResults.entries()) {
             if (result.status === 'rejected') {

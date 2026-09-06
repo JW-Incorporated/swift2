@@ -164,8 +164,17 @@ gated on capacity to start new work.
 
 Deterministic poll (zero LLM): after each Kevin Eng-Triage posts, and hourly
 otherwise; the session wakes only when an in-scope unclaimed ticket exists
-and WIP/start caps allow. Model: pinned per the Marjorie precedent (Fable)
-unless founders say otherwise.
+and WIP/start caps allow. **Model: `claude-opus-4-8`, 2-week trial
+(2026-08-31 → 2026-09-14)** — was pinned to Fable "unless founders say
+otherwise"; Joey's founder yes (D5=A, 2026-08-31 — `docs/decisions.md` §
+D3=A…D6=A; `docs/TIER2-OPTIMIZATION.md` § T-11) authorizes the trial per
+that override clause. Judged by this charter's own audited metrics —
+Codex findings-per-PR, rework rate — against the Fable baseline weeks.
+**Any counted degradation in findings-per-PR reverts to `claude-fable-5`**;
+that is a one-field trigger change either way, not a re-litigation of this
+charter. If the trial completes 2026-09-14 without a recorded degradation,
+Opus 4.8 becomes the standing pin and this note is replaced with the
+outcome.
 
 ## Audited by
 

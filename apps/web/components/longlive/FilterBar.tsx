@@ -7,7 +7,7 @@ import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { useIsomorphicLayoutEffect } from '@/lib/longlive/useIsomorphicLayoutEffect';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS } from '@/lib/longlive/tagBadges';
-import { ALL_FILTERS, type FilterId } from '@/lib/longlive/filters';
+import { ALL_FILTERS, type FilterId } from '@swift2/experience';
 
 const FILTER_ICON: Record<FilterId, LucideIcon> = {
   Music,

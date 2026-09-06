@@ -22,11 +22,13 @@ import { createIssues, ensureLabels, errText } from './lib/issues.mjs';
 import { tier, visibilityScore } from './lib/visibility.mjs';
 import { contentHash, coverage, loadLedger, saveLedger, selectSlice, LEDGER_REL } from './lib/review-ledger.mjs';
 import { CONFIG } from './config.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 import * as numericDate from './checkers/numeric-date.mjs';
 import * as redlines from './checkers/redlines.mjs';
 import * as imageUrlQuality from './checkers/image-url-quality.mjs';
 import * as photoSparsity from './checkers/photo-sparsity.mjs';
+import * as topOfFeedPhoto from './checkers/top-of-feed-photo.mjs';
 import * as imageOveruse from './checkers/image-overuse.mjs';
 import * as imageLiveness from './checkers/image-liveness.mjs';
 import * as imageModeration from './checkers/image-moderation.mjs';
@@ -45,7 +47,7 @@ import * as voice from './checkers/voice.mjs';
 // imageUrlQuality is network-free, so it runs even under --no-images / egress
 // blocks — it is the fallback that keeps the image-quality gate alive when the
 // byte-level resolution check in imageLiveness can't reach hosts.
-const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, rumorRedline, socialPostMissing, voice];
+const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, topOfFeedPhoto, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, rumorRedline, socialPostMissing, voice];
 const FINDINGS_DIR = join(ROOT, CONFIG.output.findingsDir);
 // docs/audits/engine/ is Karen-exclusive (docs/decisions.md 2026-08-14): a
 // bare `scan` self-check writes here instead, so other agents keep their
@@ -603,16 +605,18 @@ const cmds = {
   all, karen: all, scan, 'prep-agents': prepAgents, 'prep-batches': prepBatches, ingest, report, issues,
   'review-slice': reviewSlice, 'record-review': recordReview, 'review-status': reviewStatus,
 };
-(cmds[cmd] ?? (async () => {
-  log('Content Integrity Engine — read-only content checker → GitHub issues.\n');
-  log('One command (recommended):');
-  log('  node --use-env-proxy scripts/content-engine/run.mjs all            # full pipeline, dry-run issues');
-  log('  node --use-env-proxy scripts/content-engine/run.mjs all --create   # …and file the GitHub issues\n');
-  log('Deterministic phases:');
-  log('  scan [--no-images] | prep-agents | prep-batches | ingest | report | issues [--create] [--limit N]\n');
-  log('Agent review layer (the LLM half — see docs/agents/runner-prompts/karen-deep-review.md):');
-  log('  review-slice [--factual-batches N] [--image-batches N]   # tonight\'s bounded slice, changed content first');
-  log('  record-review                                            # mark the reviewed slice in the committed ledger');
-  log('  review-status                                            # how much of the corpus the agent layer has ever seen');
-}))(opts)
-  .catch((e) => { console.error(e); process.exit(1); });
+async function main() {
+  return (cmds[cmd] ?? (async () => {
+    log('Content Integrity Engine — read-only content checker → GitHub issues.\n');
+    log('One command (recommended):');
+    log('  node --use-env-proxy scripts/content-engine/run.mjs all            # full pipeline, dry-run issues');
+    log('  node --use-env-proxy scripts/content-engine/run.mjs all --create   # …and file the GitHub issues\n');
+    log('Deterministic phases:');
+    log('  scan [--no-images] | prep-agents | prep-batches | ingest | report | issues [--create] [--limit N]\n');
+    log('Agent review layer (the LLM half — see docs/agents/runner-prompts/karen-deep-review.md):');
+    log('  review-slice [--factual-batches N] [--image-batches N]   # tonight\'s bounded slice, changed content first');
+    log('  record-review                                            # mark the reviewed slice in the committed ledger');
+    log('  review-status                                            # how much of the corpus the agent layer has ever seen');
+  }))(opts);
+}
+runMain(main, { name: 'run' });

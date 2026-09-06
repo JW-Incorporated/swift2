@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import {
   dispatchPendingEvents,
   dispatchDueDigests,
@@ -7,7 +6,9 @@ import {
   dispatchFunNotifications,
   scheduleCountdownsForPendingEvents,
   dispatchDueCountdowns,
+  runCooldownPass,
 } from '@swift2/core/notifications-server';
+import { supabaseAdmin } from '../../../../lib/supabase-server';
 
 // Notifications Phase 2 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §10) —
 // the router's HTTP entry point. Runs `dispatchPendingEvents()` (fan-out +
@@ -31,15 +32,6 @@ import {
 // client-callable route with just the anon key.
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-
-function supabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
 
 function authorized(req: Request): boolean {
   const expected = process.env.CRON_SECRET;
@@ -84,6 +76,12 @@ export async function GET(req: Request): Promise<Response> {
     const funResult = await dispatchFunNotifications(db);
     const countdownScheduleResult = await scheduleCountdownsForPendingEvents(db);
     const countdownDispatchResult = await dispatchDueCountdowns(db);
+    // Phase 5: cooldown is a once-a-day-effective check (isCooldownEligible
+    // only fires once a device's instant prefs are already gone), run every
+    // tick alongside the other passes — cheap no-op for already-downgraded
+    // devices, same "run on every 15-min tick" cadence as everything else
+    // in this route.
+    const cooldownResult = await runCooldownPass(db);
     return NextResponse.json(
       {
         router: result,
@@ -92,6 +90,7 @@ export async function GET(req: Request): Promise<Response> {
         fun: funResult,
         countdownSchedule: countdownScheduleResult,
         countdownDispatch: countdownDispatchResult,
+        cooldown: cooldownResult,
       },
       { status: 200 },
     );

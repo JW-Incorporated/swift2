@@ -29,6 +29,7 @@ import { readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ROOT, SLUG_TO_ERA_ID, esc } from './lib/longlive-sync-shared.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const TRACKS_SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'tracks');
 const MOODS_SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'song-moods');
@@ -246,7 +247,8 @@ export function renderModule(catalogue) {
   lines.push('//');
   lines.push(`// ${catalogue.length} songs, ${scored} scored.`);
   lines.push('');
-  lines.push("import type { SongMood } from './types';");
+  lines.push("import type { SongMood } from '@swift2/experience';");
+  lines.push("import { setDefaultSongCatalogue } from '@swift2/experience';");
   lines.push('');
   lines.push('export const SONG_MOODS: SongMood[] = [');
   for (const s of catalogue) {
@@ -266,6 +268,8 @@ export function renderModule(catalogue) {
     lines.push('  },');
   }
   lines.push('];');
+  lines.push('');
+  lines.push('setDefaultSongCatalogue(SONG_MOODS);');
   lines.push('');
   return lines.join('\n');
 }
@@ -358,7 +362,7 @@ async function main() {
     console.error('\n✖ song-moods score errors:');
     for (const e of errors) console.error('    ' + e);
     console.error('\nFix the score files under supabase/seed/song-moods/** and re-run.\n');
-    process.exit(1);
+    return 1;
   }
 
   const scoreEntries = rawScores.map(({ eraId, raw }) => ({
@@ -380,8 +384,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'sync-song-moods' });
 }

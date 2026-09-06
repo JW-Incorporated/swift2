@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import { MOOD_AXES, type MoodAxis } from '../../../lib/longlive/types';
-import { matchMoods, type MoodMatch, type MoodQuery } from '../../../lib/longlive/mood-match';
+import { MOOD_AXES, matchMoods, type MoodAxis, type MoodMatch, type MoodQuery } from '@swift2/experience';
+import '../../../lib/longlive/vault-wiring';
 import { keywordQuery, isEmptyQuery, hasSignal, hasBereavementSignal } from '../../../lib/longlive/mood-keywords';
 import { classifyMood } from '../../../lib/longlive/mood-client';
 import { moodUsage } from '../../../lib/longlive/mood-usage';
@@ -13,6 +13,8 @@ import {
   UNCLEAR_MESSAGE,
   assessCrisis,
 } from '../../../lib/longlive/mood-safety';
+import { trustedClientIp } from '../../../lib/longlive/client-ip';
+import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
 
 // Mood Chat — Stage 4: the API route. See docs/proposals/2026-07-19-mood-chat.md
 // and docs/content-ops/mood-chat-safety-language.md.
@@ -41,24 +43,18 @@ const MAX_LIMIT = 8;
 // is a billing incident waiting to happen (spec Stage 4). Serverless instances
 // are ephemeral, so this blunts bursts on a warm instance rather than being a
 // hard security control; the daily call cap (mood-usage) is the spend ceiling.
-const HITS = new Map<string, number[]>();
-const RATE_WINDOW_MS = 60_000;
-const RATE_MAX_PER_WINDOW = 15;
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 15 });
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > RATE_MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
+// See lib/longlive/client-ip.ts's trustedClientIp for the #1973 rationale —
+// this route was migrated to it 2026-09-02 (security audit follow-up
+// t_07025f1e), replacing the spoofable-leftmost-XFF lookup that used to live
+// here directly.
 function clientIp(req: Request): string {
-  return (
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    req.headers.get('x-real-ip') ||
-    'unknown'
-  );
+  return trustedClientIp(req);
 }
 
 function unit(n: unknown): number | undefined {
@@ -152,7 +148,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // Honeypot — bots fill hidden fields. Pretend success, do nothing.
-  if (payload.hp) return NextResponse.json({ kind: 'matches', picks: [], source: 'chip' }, { status: 200 });
+  if (isHoneypotTripped(payload.hp)) return NextResponse.json({ kind: 'matches', picks: [], source: 'chip' }, { status: 200 });
 
   const limit = Math.min(MAX_LIMIT, Math.max(1, Math.round(Number(payload.limit) || DEFAULT_LIMIT)));
 

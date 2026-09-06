@@ -26,7 +26,8 @@ docs `CLAUDE.md` points at:
 | `docs/roadmap.md` | Roadmap and who owns what |
 | `docs/decisions.md` | Anything expensive to reverse. Append BEFORE implementing |
 | `docs/definition-of-done.md` | The long form of CLAUDE.md § Definition of done |
-| `docs/agents/runners.md` | Scheduled runners — all on Wyatt's account |
+| `docs/AUTOMATION.md` | **What runs automatically and why** — index of all 54 self-firing routines (27 GitHub Actions workflows, 24 Claude desk routines, the product's Vercel cron, 2 Dependabot schedules) plus the 10 manual-dispatch workflows. Read before touching anything scheduled. Its 2026-08-31 audit is split into `docs/automation/doc-quality-2026-08-31.md` (per-routine doc quality + stale references) and `docs/automation/review-2026-08-31.md` (efficiency review + recommendations) |
+| `docs/agents/runners.md` | Scheduled runners — cadences + live trigger IDs; account policy resolved 2026-08-31 (D1=B) to Joey's account, matching the live fleet |
 | `docs/agents/codex.md` | How a session actually runs a Codex review (`--background`, `result <job-id>`) |
 
 ## Conventions
@@ -90,7 +91,7 @@ read once on mount (`deepLink.ts`) and never written back.
 
 | Path (under `apps/web/`) | Responsibility |
 |---|---|
-| `lib/longlive/store.tsx` | The single state container: `mode`, `eraId`, `lensId`, overlays, era-scroll snapshot, `ReturnPoint` doorway back-to-position stack (`pushReturnPoint`/`popReturnPoint`) |
+| `lib/longlive/store/` | The state container, split into slices (R21): `navigation.tsx` (mode/era/lens/crossing/selector/scrubbing + the back-gesture nav-history stack), `overlays.tsx` (moment/track-guide/theory-guide/clue-web-trail/pending-video-anchor), `return-points.tsx` (doorway `ReturnPoint` LIFO stack), `search-share.tsx` (search overlay, share sheet, timeline filters, clown transcript). `index.tsx` composes them into one `AppProvider`; `useAppState()`/`useAppActions()` keep the pre-split public signature unchanged |
 | `lib/longlive/return-point-stack.ts` | Pure matching-consume rule for doorway return points; unrelated back restores leave the LIFO entry intact |
 | `lib/longlive/tags.ts` | `ContentTag` — the 5 authored topic tags. **Does not re-export the type; import `ContentTag` from `./types`** |
 | `lib/longlive/filters.ts` | `FilterId` (the 5 tags + `Videos`), `ALL_FILTERS`, `filterMatches`, `filtersForEntry`, `filterForThread` (LensId→FilterId, exhaustive) |
@@ -357,5 +358,29 @@ infrastructure — no new send path, reuses `sendPushBatch` and the same
 | `packages/shared/src/notification-deep-links.ts` | Added `{ screen: 'track'; slug }` destination — `lyric_of_day` deep-links via `?song=<slug>` |
 | `apps/mobile/components/CadencePills.tsx` | Added the `'event'` variant (On/Off pills) alongside `'steady'`/`'fun'` |
 | `apps/web/app/api/notifications/dispatch/route.ts` | Now also runs `dispatchFunNotifications`, `scheduleCountdownsForPendingEvents`, `dispatchDueCountdowns` every tick |
+
+
+## Notifications Phase 6 (2026-08-31, NOTIFICATIONS_PLAN.md) — final phase, new files
+
+Web Push (VAPID) + open tracking + internal metrics dashboard. No new
+device-identity schema — `platform='web'` devices reuse the entire Phase
+0-5 pipeline unchanged (see notification-web-push.ts's header comment).
+**The full notification system is now code-complete across all 7 phases.**
+
+| Path | What |
+|---|---|
+| `supabase/migrations/20260914000000_notifications_web_push.sql` | `deliveries.delivery_token` (opaque per-send correlation id, backfilled) + a covering index for the dashboard's prefs-update queries |
+| `packages/core/src/notification-web-push.ts` | VAPID sender (`sendWebPushBatch`) — same contract/degrade-on-unconfigured posture as the FCM sender |
+| `packages/core/src/notification-sender.ts` | `sendPushBatch` now partitions by `platform`; web routes to the VAPID sender, everything else keeps using FCM. Every successful send gets a fresh `deliveryToken` |
+| `packages/core/src/notification-metrics.ts` | `markDeliveryOpened()` (open-tracking write), `computeMetrics`/`computeOpenRateByCategory`/`computeMuteRateByCategory` (pure), `loadMetrics()` (DB orchestration), `MUTE_RATE_FLAG_THRESHOLD = 0.02` |
+| `apps/web/public/sw.js` | Service worker: renders the push, reports the open on tap, focuses/opens the right page |
+| `apps/web/lib/web-push-client.ts` | `subscribeToWebPush()`/`unsubscribeFromWebPush()` — localStorage device_id, permission request, Push subscribe, registers through the existing `/api/devices/register` |
+| `apps/web/components/longlive/WebNotificationSettings.tsx` | The real settings screen once subscribed — reuses `@swift2/shared` types + the existing prefs API, same instant-apply contract as mobile |
+| `apps/web/app/settings/notifications/page.tsx` | Was a static "get the app" page (Phase 1-5); now renders `WebNotificationSettings` |
+| `apps/web/app/api/notifications/open/route.ts` (+ `.test.ts`) | `POST /api/notifications/open` — the open-tracking HTTP entry point, unauthenticated beyond the unguessable per-delivery token, degrades to a soft 200 on every failure mode |
+| `apps/web/app/api/notifications/metrics/route.ts` (+ `.test.ts`) | `GET /api/notifications/metrics` — `?secret=`-gated (`NOTIFICATIONS_DASHBOARD_SECRET`), backs the dashboard page |
+| `apps/web/app/internal/notifications/page.tsx` | The internal metrics dashboard — server-rendered, same `?secret=` gate, shows an honest "no data yet" state before real traffic |
+| `scripts/generate-vapid-keys.mjs` | `node scripts/generate-vapid-keys.mjs` — thin wrapper around `web-push`'s own VAPID keypair generator |
+
 
 

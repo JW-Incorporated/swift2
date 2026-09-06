@@ -29,6 +29,7 @@ import {
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'videos');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'videos.generated.ts');
@@ -208,7 +209,7 @@ export function renderModule(byEra) {
   lines.push('// (or the live Supabase video_work table when configured).');
   lines.push("// Re-run that script after video-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { EraId, VideoNote } from './types';");
+  lines.push("import type { EraId, VideoNote } from '@swift2/experience';");
   lines.push('');
   lines.push('export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {');
   for (const eraId of Object.keys(byEra).sort()) {
@@ -313,8 +314,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'sync-longlive-videos' });
 }

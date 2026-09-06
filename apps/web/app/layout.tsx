@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 import {
   Inter,
   Playfair_Display,
@@ -8,6 +9,8 @@ import {
   Bodoni_Moda,
 } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
+import { inAppPlatformFromUserAgent } from '@/lib/longlive/in-app';
+import '@/lib/longlive/vault-wiring';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
@@ -111,14 +114,20 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const hdrs = await headers();
+  const nonce = hdrs.get('x-nonce') ?? undefined;
+  const inAppPlatform = inAppPlatformFromUserAgent(hdrs.get('user-agent'));
+
   return (
     <html
       lang="en"
       className={`${inter.variable} ${playfair.variable} ${typewriter.variable} ${script.variable} ${bodoni.variable} bg-bg`}
+      {...(inAppPlatform ? { 'data-app': inAppPlatform } : {})}
     >
       <body>
         <script
+          nonce={nonce}
           type="application/ld+json"
           // Static, hardcoded object with no user input — safe without extra
           // escaping, but stripping `<` defensively costs nothing.

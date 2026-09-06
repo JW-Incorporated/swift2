@@ -16,7 +16,11 @@ import {
   startOfLocalPeriod,
   type FunCadence,
 } from './notification-fun-schedule';
-import { startOfLocalDay } from './notification-governor';
+import {
+  HARD_CEILING_PER_DAY,
+  startOfLocalDay,
+  totalDeliveriesToday,
+} from './notification-governor';
 
 export interface LyricCandidate {
   id: number;
@@ -142,6 +146,8 @@ interface FunDeviceRow {
   tz: string;
   digest_hour: number;
   master_enabled: boolean;
+  /** Phase 6: which wire sendPushBatch should use. */
+  platform?: string;
 }
 
 export interface FunDispatchResult {
@@ -151,6 +157,7 @@ export interface FunDispatchResult {
   countdownsSent: number;
   devicesConsidered: number;
   sendFailures: number;
+  skippedHardCeiling: number;
   errors: string[];
 }
 
@@ -176,6 +183,7 @@ export async function dispatchFunNotifications(
     countdownsSent: 0,
     devicesConsidered: 0,
     sendFailures: 0,
+    skippedHardCeiling: 0,
     errors: [],
   };
 
@@ -201,7 +209,10 @@ export async function dispatchFunNotifications(
     { data: lyricRows, error: lyricError },
     { data: otdRows, error: otdError },
   ] = await Promise.all([
-    db.from('devices').select('id,push_token,tz,digest_hour,master_enabled').in('id', deviceIds),
+    db
+      .from('devices')
+      .select('id,push_token,tz,digest_hour,master_enabled,platform')
+      .in('id', deviceIds),
     db.from('lyrics').select('id,slug,song,album,lyric,verified').order('id', { ascending: true }),
     db.from('on_this_day').select('id,month,day,year,text,deep_link'),
   ]);
@@ -262,6 +273,14 @@ export async function dispatchFunNotifications(
     }
     if ((alreadySentCount ?? 0) > 0) continue; // already sent this period
 
+    // spec §6.4 hard ceiling (Phase 5): fun sends count against the same
+    // device-wide 6/day floor as instant + digest sends.
+    const sentSoFarToday = await totalDeliveriesToday(db, device.id, device.tz, now);
+    if (sentSoFarToday >= HARD_CEILING_PER_DAY) {
+      result.skippedHardCeiling++;
+      continue;
+    }
+
     if (pref.category === 'lyric_of_day') {
       await sendLyricOfDay(db, device, lyricPool, now, result);
     } else if (pref.category === 'on_this_day') {
@@ -303,6 +322,7 @@ async function sendLyricOfDay(
       title: "Today's lyric",
       body: `\u201c${lyric.lyric}\u201d \u2014 ${lyric.song} \u2192`,
       deepLink: `https://www.longlivets.com/?song=${encodeURIComponent(lyric.slug)}`,
+      platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     },
   ]);
   const sendResult = sendResults[0];
@@ -315,6 +335,7 @@ async function sendLyricOfDay(
         kind: 'fun',
         category: 'lyric_of_day',
         sent_at: now.toISOString(),
+        delivery_token: sendResult.deliveryToken,
       }),
       db
         .from('lyric_history')
@@ -352,6 +373,7 @@ async function sendOnThisDay(
       title: 'On this day',
       body: entry.text,
       deepLink: entry.deepLink ?? 'https://www.longlivets.com/',
+      platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     },
   ]);
   const sendResult = sendResults[0];
@@ -363,6 +385,7 @@ async function sendOnThisDay(
       kind: 'fun',
       category: 'on_this_day',
       sent_at: now.toISOString(),
+      delivery_token: sendResult.deliveryToken,
     });
   } else {
     result.sendFailures++;
@@ -481,8 +504,8 @@ interface CountdownSendRow {
 export async function dispatchDueCountdowns(
   db: SupabaseClient,
   now: Date = new Date(),
-): Promise<{ sent: number; sendFailures: number; errors: string[] }> {
-  const out = { sent: 0, sendFailures: 0, errors: [] as string[] };
+): Promise<{ sent: number; sendFailures: number; skippedHardCeiling: number; errors: string[] }> {
+  const out = { sent: 0, sendFailures: 0, skippedHardCeiling: 0, errors: [] as string[] };
 
   const { data: dueRows, error: dueError } = await db
     .from('countdown_sends')
@@ -500,7 +523,7 @@ export async function dispatchDueCountdowns(
   const eventIds = [...new Set(rows.map((r) => r.event_id))];
   const [{ data: deviceRows, error: deviceError }, { data: eventRows, error: eventError }] =
     await Promise.all([
-      db.from('devices').select('id,push_token,master_enabled').in('id', deviceIds),
+      db.from('devices').select('id,push_token,master_enabled,tz,platform').in('id', deviceIds),
       db.from('events').select('id,title').in('id', eventIds),
     ]);
   if (deviceError) {
@@ -513,7 +536,13 @@ export async function dispatchDueCountdowns(
   }
   const devicesById = new Map(
     (
-      (deviceRows ?? []) as { id: string; push_token: string | null; master_enabled: boolean }[]
+      (deviceRows ?? []) as {
+        id: string;
+        push_token: string | null;
+        master_enabled: boolean;
+        tz: string;
+        platform?: string;
+      }[]
     ).map((d) => [d.id, d]),
   );
   const titleByEventId = new Map(
@@ -523,6 +552,15 @@ export async function dispatchDueCountdowns(
   for (const row of rows) {
     const device = devicesById.get(row.device_id);
     if (!device || !device.master_enabled || !device.push_token) continue;
+
+    // spec §6.4 hard ceiling (Phase 5): countdown sends are kind='fun'
+    // just like lyric_of_day/on_this_day — same device-wide 6/day floor.
+    const sentSoFarToday = await totalDeliveriesToday(db, device.id, device.tz, now);
+    if (sentSoFarToday >= HARD_CEILING_PER_DAY) {
+      out.skippedHardCeiling++;
+      continue;
+    }
+
     const { title, body } = countdownCopy(
       row.milestone,
       titleByEventId.get(row.event_id) ?? 'A new drop',
@@ -534,6 +572,7 @@ export async function dispatchDueCountdowns(
         title,
         body,
         deepLink: 'https://www.longlivets.com/?current=countdowns',
+        platform: device.platform as 'ios' | 'android' | 'web' | undefined,
       },
     ]);
     const sendResult = sendResults[0];
@@ -552,6 +591,7 @@ export async function dispatchDueCountdowns(
           kind: 'fun',
           category: 'countdowns',
           sent_at: now.toISOString(),
+          delivery_token: sendResult.deliveryToken,
         }),
       ]);
     } else {

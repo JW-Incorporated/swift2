@@ -9,6 +9,12 @@
     "backgroundColor": "#0b0b0f",
     "icon": "./assets/icon.png",
     "assetBundlePatterns": ["**/*"],
+    "runtimeVersion": {
+      "policy": "fingerprint"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/a4ff0e9b-ad3e-48a4-a765-ffc19a8b3209"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "ai.jwlabs.longlive",
