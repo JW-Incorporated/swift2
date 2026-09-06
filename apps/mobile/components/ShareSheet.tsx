@@ -6,8 +6,7 @@
 // surfaces. React Native's built-in `Share` API stands in for
 // `navigator.share`/clipboard fallback — no native module is unmounted
 // when it's unavailable, `Share.share` always resolves.
-import { Share as RNShare, StyleSheet, Text, View } from 'react-native';
-import { Pressable } from 'react-native';
+import { Share as RNShare, StyleSheet, Text, View, Pressable } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import { useState } from 'react';
 import {
