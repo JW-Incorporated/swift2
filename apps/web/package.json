@@ -17,6 +17,7 @@
     "@radix-ui/react-tooltip": "^1.2.16",
     "@radix-ui/react-visually-hidden": "^1.2.7",
     "@swift2/core": "*",
+    "@swift2/content-enrichment": "*",
     "@swift2/experience": "*",
     "@swift2/shared": "*",
     "@tailwindcss/postcss": "^4.3.3",
