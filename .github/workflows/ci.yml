@@ -31,6 +31,15 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # OS-014 (2026-09-05): apps/web/lib/longlive/*.generated.ts are no
+      # longer committed (gitignored, build-time-only — see .gitignore and
+      # docs/longlive-experience.md §9), so a fresh checkout has none of
+      # them. typecheck/test/build all import them directly, so generate
+      # them once, up front, before anything that needs them runs. This is
+      # the same `npm run sync:content` a local `npm run build` gets for
+      # free via apps/web's own `prebuild` — CI needs it explicit because
+      # typecheck/test run before `build` does.
+      - run: npm run sync:content
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test

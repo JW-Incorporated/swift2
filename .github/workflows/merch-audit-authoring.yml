@@ -234,7 +234,11 @@ jobs:
           GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
         run: |
           set -euo pipefail
-          git add supabase/seed/content apps/web/lib/longlive/content-vault.generated.ts
+          git add supabase/seed/content
+          # apps/web/lib/longlive/content-vault.generated.ts is no longer
+          # committed (OS-014, 2026-09-05 — gitignored, build-time-only); the
+          # sync:content run above still regenerates it locally so this job's
+          # own build step sees fresh data, but there is nothing to `git add`.
           if git diff --cached --quiet; then
             echo "apply-demotions ran but nothing changed — every demotion url was already gone (prior run applied it, or a race with a manual edit). Nothing to PR."
             exit 0
