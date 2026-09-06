@@ -41,6 +41,7 @@ import { EraStreamScreen } from './components/EraStreamScreen';
 import { TrackGuideScreen } from './components/TrackGuideScreen';
 import { SongScreen } from './components/SongScreen';
 import { MomentSheet } from './components/MomentSheet';
+import { ClownChatScreen } from './components/ClownChatScreen';
 
 /**
  * OS-035's two param-carrying screens don't fit the existing plain-boolean
@@ -86,6 +87,10 @@ export default function App() {
   // `moment` route flag is on (off by default — see routes.ts). Holds the id
   // rather than a boolean since the sheet needs it to load the moment.
   const [momentItemId, setMomentItemId] = useState<string | null>(null);
+  // OS-036: the native Clownbot + mood chat screen, reached via
+  // `?screen=clownbot` once the `clownbot` route flag is on (off by
+  // default — see routes.ts).
+  const [clownChatOpen, setClownChatOpen] = useState(false);
 
   useEffect(() => {
     if (!trackGuideRoute) return;
@@ -115,10 +120,13 @@ export default function App() {
     setEraStreamOpen(false);
     setTrackGuideRoute(null);
     setMomentItemId(null);
+    setClownChatOpen(false);
     if (screen === 'settings') {
       setNotificationSettingsOpen(true);
     } else if (screen === 'era-stream') {
       setEraStreamOpen(true);
+    } else if (screen === 'clownbot') {
+      setClownChatOpen(true);
     } else if (screen === 'track-guide') {
       // routes.ts only resolves this screen when `params.eraId` is present
       // (see `paramsForDestination`/`destinationFor`'s track-guide arm) —
@@ -162,6 +170,7 @@ export default function App() {
     setEraStreamOpen(false);
     setTrackGuideRoute(null);
     setMomentItemId(null);
+    setClownChatOpen(false);
     setWebUrl(url);
   }, []);
 
@@ -279,6 +288,8 @@ export default function App() {
             />
           ) : momentItemId ? (
             <MomentSheet itemId={momentItemId} onClose={() => setMomentItemId(null)} />
+          ) : clownChatOpen ? (
+            <ClownChatScreen onClose={() => setClownChatOpen(false)} />
           ) : onboardingOpen ? (
             <OnboardingScreen
               onDone={(outcome) => {

@@ -641,8 +641,12 @@ describe('POST /api/clown', () => {
 
     // Architect-directed redesign, HUMAN-ACTIONS.md #15 round 4: the session
     // round-trips via an `HttpOnly; Secure; SameSite=Strict` cookie scoped to
-    // this route, not a client-visible `x-clown-session` header.
-    it('toggle ON (mocked auth success): a clean take records memory and the response carries a Set-Cookie session cookie', async () => {
+    // this route for the browser. OS-036 reintroduces a client-visible
+    // `X-Clown-Session` response header ALONGSIDE it (never instead of it) —
+    // that one is for the native app, which has no cookie jar to read a
+    // `Set-Cookie` from and must persist the token itself; see
+    // `apps/mobile/lib/clown-session-store.ts`.
+    it('toggle ON (mocked auth success): a clean take records memory and the response carries both a Set-Cookie session cookie and an X-Clown-Session header for the native app', async () => {
       vi.mocked(resolveClownSession).mockResolvedValueOnce(FIXTURE_SESSION);
       vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
       const res = await post({ text: MASTERS_QUERY }, '10.4.0.3');
@@ -655,10 +659,17 @@ describe('POST /api/clown', () => {
       expect(cookie).toContain('SameSite=Strict');
       expect(cookie).toContain('Path=/api/clown');
       expect(cookie).toContain('Max-Age=15552000');
+      expect(res.headers.get('x-clown-session')).toBe(encodeSessionToken(FIXTURE_SESSION));
       expect(recordClownMemory).toHaveBeenCalledTimes(1);
       const call = vi.mocked(recordClownMemory).mock.calls[0][0];
       expect(call.session).toEqual(FIXTURE_SESSION);
       expect(call.question).toBe(MASTERS_QUERY);
+    });
+
+    it('toggle OFF: no X-Clown-Session header either, same as no Set-Cookie', async () => {
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      const res = await post({ text: MASTERS_QUERY }, '10.4.0.24');
+      expect(res.headers.get('x-clown-session')).toBeNull();
     });
 
     it('keeps the response stream open until prediction and memory writes settle', async () => {
@@ -720,6 +731,46 @@ describe('POST /api/clown', () => {
         cookie: `other=1; clown_session=${encodeSessionToken(token)}; another=2`,
       });
       expect(vi.mocked(resolveClownSession).mock.calls[0][0]).toEqual(token);
+    });
+
+    // OS-036 — the native app has no cookie jar, so it authenticates with the
+    // same encoded token carried as a `Bearer` credential instead. See
+    // `clown-route-helpers.ts`'s `bearerSessionToken`.
+    it('an incoming bearer device token is decoded and passed through to resolveClownSession', async () => {
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      const token = { accessToken: 'device-access', refreshToken: 'device-refresh' };
+      await post({ text: MASTERS_QUERY }, '10.4.0.20', {
+        authorization: `Bearer ${encodeSessionToken(token)}`,
+      });
+      expect(vi.mocked(resolveClownSession).mock.calls[0][0]).toEqual(token);
+    });
+
+    it('a bearer device token takes precedence over a cookie when both are present', async () => {
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      const bearerToken = { accessToken: 'device-access', refreshToken: 'device-refresh' };
+      const cookieToken = { accessToken: 'cookie-access', refreshToken: 'cookie-refresh' };
+      await post({ text: MASTERS_QUERY }, '10.4.0.21', {
+        authorization: `Bearer ${encodeSessionToken(bearerToken)}`,
+        cookie: `clown_session=${encodeSessionToken(cookieToken)}`,
+      });
+      expect(vi.mocked(resolveClownSession).mock.calls[0][0]).toEqual(bearerToken);
+    });
+
+    it('a malformed Authorization header falls back to the cookie, never throws', async () => {
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      const cookieToken = { accessToken: 'cookie-access', refreshToken: 'cookie-refresh' };
+      const res = await post({ text: MASTERS_QUERY }, '10.4.0.22', {
+        authorization: 'not-a-bearer-header',
+        cookie: `clown_session=${encodeSessionToken(cookieToken)}`,
+      });
+      expect(res.status).toBe(200);
+      expect(vi.mocked(resolveClownSession).mock.calls[0][0]).toEqual(cookieToken);
+    });
+
+    it('no Authorization header and no cookie resolves with a null token (fresh anonymous signup path)', async () => {
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      await post({ text: MASTERS_QUERY }, '10.4.0.23');
+      expect(vi.mocked(resolveClownSession).mock.calls[0][0]).toBeNull();
     });
 
     it('over-cap: runClownAgent reports overUserCap and a fixed limit message is returned, memory is never recorded', async () => {

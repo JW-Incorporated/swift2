@@ -221,4 +221,11 @@ describe('destinationFor (shell routing, OS-003)', () => {
     const url = 'https://www.longlivets.com/?item=';
     expect(destinationFor(url)).toEqual({ kind: 'web', url });
   });
+
+  // OS-036
+  it('routes ?screen=clownbot to the native Clownbot + mood chat screen', () => {
+    expect(destinationFor('https://www.longlivets.com/?screen=clownbot')).toEqual({
+      kind: 'clownbot',
+    });
+  });
 });
