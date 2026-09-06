@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "bundleVersion": "bb5e585556a0914cf9f14a78ac336e8e216deae8f2fecede2832a87cfe92b56d",
+  "generatedAt": "2026-09-05T00:00:00.000Z",
+  "files": {
+    "clownbotLore": {
+      "path": "clownbot-lore.json",
+      "sha256": "4e9c8d6303780cd8e96edb4d75e20b0b88310cb1922816bda3ef8e18a42ae878",
+      "bytes": 624
+    },
+    "content:folklore": {
+      "path": "eras/folklore.json",
+      "sha256": "58d965abce45bf86a12fb54bd80d098117e39edc23ee6e04f1a62b9b53f08c28",
+      "bytes": 905
+    },
+    "eraSecrets": {
+      "path": "era-secrets.json",
+      "sha256": "9529eedea573072c5388c961d65b54bf4e7a5726c9b78888cfded4fefe6c40e9",
+      "bytes": 453
+    },
+    "eras": {
+      "path": "eras.json",
+      "sha256": "d013c25e6869450588823a74223222da9e7bbc05d086c387a8887f260d0e7d9c",
+      "bytes": 646
+    },
+    "merch": {
+      "path": "merch.json",
+      "sha256": "e25c0d474acfe9b82a6da6e6b9807961d9de0c9fe9678f44a2b802acb0e0abb8",
+      "bytes": 320
+    },
+    "milestones": {
+      "path": "milestones.json",
+      "sha256": "6dc2149a9a5e18d88f61f9b87c35fa10386293821ac36a9c53fb685db2a491e7",
+      "bytes": 150
+    },
+    "songMoods": {
+      "path": "song-moods.json",
+      "sha256": "54227f202f3fd4fe3ebeff2a6a24101d6431e82c7c81db2360f904b6448ad37f",
+      "bytes": 577
+    },
+    "theories": {
+      "path": "theories.json",
+      "sha256": "24fe9325dde2239ad1a282cbe97d27df6dfb4d5195aa15a80c7385daa7579c2c",
+      "bytes": 576
+    },
+    "tracks": {
+      "path": "tracks.json",
+      "sha256": "be070390536e1144dd4f9c9701c6103ce4b7fc4acc13703d3e5c8245b51b6ea0",
+      "bytes": 577
+    },
+    "videos": {
+      "path": "videos.json",
+      "sha256": "dea6a0b09447727f380ac0f6a8836b246eec3f071dd311c3898124bca11573dc",
+      "bytes": 738
+    }
+  }
+}

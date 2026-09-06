@@ -224,13 +224,24 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
         .filter((r): r is NonNullable<typeof r> => r !== null);
 
       if (attachRows.length > 0) {
-        const { error: attachError } = await db.from('news_raw_item').upsert(
-          attachRows.map((r) => ({
-            id: r.item.id,
-            story_id: r.storyId,
-            similarity_key: r.similarityKey,
-          })),
+        // Per-row UPDATE, not upsert: every id here already exists (it came
+        // from the `unclustered` select above). A blanket .upsert() issues
+        // INSERT ... ON CONFLICT DO UPDATE under the hood, and Postgres
+        // validates the INSERT branch's NOT NULL columns (source_id,
+        // external_id, url, ...) even though the row always resolves to the
+        // UPDATE branch — that mismatch is what broke every scheduled run
+        // (#3746): "null value in column source_id ... violates not-null
+        // constraint". An explicit .update() only ever touches the columns
+        // named here and never constructs a candidate INSERT row.
+        const attachResults = await Promise.all(
+          attachRows.map((r) =>
+            db
+              .from('news_raw_item')
+              .update({ story_id: r.storyId, similarity_key: r.similarityKey })
+              .eq('id', r.item.id),
+          ),
         );
+        const attachError = attachResults.find((res) => res.error)?.error;
         if (attachError) {
           errors.push(`batch attach raw_item -> story: ${attachError.message}`);
         } else {
@@ -446,8 +457,27 @@ async function recomputeVerification(
       };
     });
 
-    // Batched upsert instead of one UPDATE per story.
-    const { error: updateError } = await db.from('news_story').upsert(updateRows);
+    // Per-row UPDATE, not upsert: every id here already exists (touchedStoryIds
+    // always comes from stories just attached/created above). A blanket
+    // .upsert() issues INSERT ... ON CONFLICT DO UPDATE under the hood, and
+    // Postgres validates the INSERT branch's NOT NULL columns (canonical_title,
+    // ...) even though the row always resolves to the UPDATE branch — that
+    // mismatch is what broke every scheduled run (#3746): "null value in
+    // column canonical_title ... violates not-null constraint". An explicit
+    // .update() only ever touches the columns named here.
+    const updateResults = await Promise.all(
+      updateRows.map((row) =>
+        db
+          .from('news_story')
+          .update({
+            verification_status: row.verification_status,
+            verified_at: row.verified_at,
+            source_count: row.source_count,
+          })
+          .eq('id', row.id),
+      ),
+    );
+    const updateError = updateResults.find((res) => res.error)?.error;
     if (updateError) throw new Error(updateError.message);
   } catch (err) {
     errors.push(

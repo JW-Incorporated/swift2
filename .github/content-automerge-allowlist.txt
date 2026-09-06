@@ -130,17 +130,11 @@ docs/ops/MERCH-REVENUE.json
 #    media rules in the check-drafts job. ────────────────────────────────────
 apps/web/public/social/
 
-# ── Built vault: machine-generated from supabase/seed/** by the sync scripts
-#    listed in scripts/lib/generated-content.mjs. Never hand-edited; `npm run
-#    check:generated` fails if any of these drifts from its seeds. ───────────
-apps/web/lib/longlive/content-vault.generated.ts
-apps/web/lib/longlive/tracks.generated.ts
-apps/web/lib/longlive/theories.generated.ts
-apps/web/lib/longlive/videos.generated.ts
-apps/web/lib/longlive/era-secrets.generated.ts
-apps/web/lib/longlive/song-moods.generated.ts
-apps/web/lib/longlive/clownbot-lore.generated.ts
-apps/web/lib/longlive/merch.generated.ts
+# ── Built vault: OS-014 (2026-09-05) took these 8 files off git entirely
+#    (gitignored, build-time-only — see scripts/lib/generated-content.mjs and
+#    docs/longlive-experience.md §9). They can never appear in a PR diff any
+#    more, so they are EXCLUDED (not allowlisted) in
+#    scripts/check-automerge-allowlist.mjs rather than listed here. ──────────
 
 # ── App code (WIDENED 2026-08-11, Wyatt — docs/decisions.md). Gated by FULL
 #    required CI green (`build`), not a human. View components, app pages, the
@@ -175,6 +169,24 @@ packages/
 # among pure display modules, so `apps/web/lib/longlive/` would otherwise sweep
 # it in. Denied here by path, AND caught at runtime by the content guard below.
 !apps/web/lib/longlive/mood-client.ts
+# OS-014 (2026-09-05): these 8 files are gitignored / no longer committed, so
+# they can never actually appear in a PR diff — but deny them explicitly too,
+# so the broad `apps/web/lib/longlive/` allow above can't be read as covering
+# them (they are EXCLUDED, not allowlisted, in check-automerge-allowlist.mjs;
+# an entry cannot be both).
+!apps/web/lib/longlive/content-vault.generated.ts
+!apps/web/lib/longlive/tracks.generated.ts
+!apps/web/lib/longlive/theories.generated.ts
+!apps/web/lib/longlive/videos.generated.ts
+!apps/web/lib/longlive/era-secrets.generated.ts
+!apps/web/lib/longlive/song-moods.generated.ts
+!apps/web/lib/longlive/clownbot-lore.generated.ts
+!apps/web/lib/longlive/merch.generated.ts
+# OS-014b-3 (2026-09-06): same as above — generated from the published
+# content bundle rather than seed data, but equally gitignored/build-time-only
+# and cannot appear in a PR diff.
+!apps/web/lib/longlive/theories-bundle.generated.ts
+!apps/web/lib/longlive/videos-bundle.generated.ts
 
 # ── A path prefix CANNOT express two things that decide whether a file executes
 #    server-side with secrets, so they are NOT (and cannot be) listed above —

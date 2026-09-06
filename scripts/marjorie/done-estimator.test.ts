@@ -150,6 +150,29 @@ describe('gate activity', () => {
     });
     expect(classifyStall('BACKUPS', activity, NOW, 21).kind).toBe('idle');
   });
+
+  // 2026-09-05 audit: a triage COMMENT on #680 (an `updatedAt` bump, no
+  // status change anywhere) flagged BACKUPS as "contradicted by live
+  // tickets" and turned the Launch-tracker check red.
+  it('does not call a row contradicted just because a ticket got a comment', () => {
+    const gates = parseGateTable(table({ ...ALL_RED }, { BACKUPS: 'work #680 · Build desk' }));
+    const activity = buildGateActivity(gates, {
+      issues: [{ number: 680, state: 'open', updatedAt: new Date(NOW - 2 * DAY).toISOString() }],
+      prs: [],
+    });
+    const v = classifyStall('BACKUPS', activity, NOW, 21);
+    expect(v.kind).toBe('moving');
+    expect(v.kind).not.toBe('tracker-stale');
+  });
+
+  it('DOES call a row contradicted when its ticket closed inside the window', () => {
+    const gates = parseGateTable(table({ ...ALL_RED }, { BACKUPS: 'work #680 · Build desk' }));
+    const activity = buildGateActivity(gates, {
+      issues: [{ number: 680, state: 'closed', updatedAt: new Date(NOW - 2 * DAY).toISOString(), closedAt: new Date(NOW - 2 * DAY).toISOString() }],
+      prs: [],
+    });
+    expect(classifyStall('BACKUPS', activity, NOW, 21).kind).toBe('tracker-stale');
+  });
 });
 
 describe('estimateDaysToDone', () => {

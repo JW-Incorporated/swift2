@@ -235,6 +235,52 @@ const TRACKS = [
         wiki('Exile (song)', 'Exile_(song)', 'song article: Bowery confirmation and duet history'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "\"Exile\" is the fourth track on folklore (2020) and marks Taylor Swift's first studio collaboration with Justin Vernon of Bon Iver, a pairing that became one of the most talked-about elements of the album's surprise release. Co-written by Swift, Joe Alwyn (again credited as William Bowery), and Vernon, and produced by Aaron Dessner and Alwyn, the song reimagines a breakup as an unspoken, overlapping argument between two people who are both remembering the same relationship completely differently.",
+          "The song matters to Swift's artistic trajectory because it paired her pop songwriting instincts with Bon Iver's indie-folk and gospel-inflected sound, expanding the sonic and emotional palette of folklore beyond anything in her back catalog. It became commercially significant in its own right — reaching the top ten of the Billboard Hot 100 and giving Bon Iver the highest-charting single of the band's career — while also being singled out by critics as one of the most structurally inventive duets of Swift's discography, built around call-and-response verses that let two characters talk past each other rather than to each other."
+        ],
+        meaning: {
+          confirmed: [
+            "Taylor Swift has said the song originated from an imagined scenario of an exiled man wandering the bluffs of a foreign land, wondering how everything went wrong — an image she described as arising from her imagination during pandemic isolation while working on folklore.",
+            "William Bowery, credited as a co-writer, was later confirmed to be a pseudonym for Joe Alwyn, who wrote the song's piano melody and Bon Iver's first verse.",
+            "Swift first wrote a demo version singing both the male and female parts herself, then sent it to producer Aaron Dessner, who built out the arrangement; Swift and Dessner considered several vocalists before Swift chose Justin Vernon, whose vocal was then recorded after Dessner forwarded the track to him and Vernon added and recorded his own lyrics."
+          ],
+          supported: [
+            "Critics have widely interpreted the song as a portrait of two former partners who never fully articulate their grievances to each other, structured as a musical and lyrical call-and-response in which Swift's and Vernon's parts run in counterpoint rather than in dialogue, reflecting the couple's failure to actually communicate during the relationship.",
+            "Reviewers including Jon Caramanica of The New York Times and PopMatters' Michael Sumsion described the narrative as one partner (voiced by Vernon) still hung up on the breakup while watching his ex-partner (voiced by Swift) appear to have moved on with someone else at a social gathering, with the song building to a climactic, overlapping vocal confrontation before ending unresolved.",
+            "Multiple critics, including Bobby Olivier of Spin, compared 'Exile' to Swift's earlier duet 'Safe & Sound' (2011) and to other slow-building ballads in her catalog, framing it as a more mature, cinematic evolution of that collaborative balladry."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:the-last-time",
+            label: "The Last Time",
+            why: "This 2013 duet with Gary Lightbody of Snow Patrol was also noted by reviewers as a stylistic forerunner to Exile, sharing its structure of two voices airing a relationship's unresolved end."
+          },
+          {
+            relatedId: "song:cardigan",
+            label: "Cardigan",
+            why: "As folklore's lead single and opening track, Cardigan sits in the same fictionalized love-triangle narrative widely associated with the album's 'Teenage Love Triangle,' which fan and critical readings connect to Exile's story of a fractured relationship."
+          },
+          {
+            relatedId: "song:betty",
+            label: "Betty",
+            why: "Released as the same era's storytelling counterpart, Betty is often discussed alongside Exile as part of folklore's interconnected narrative songs about young love, jealousy, and reconciliation."
+          },
+          {
+            relatedId: "song:my-tears-ricochet",
+            label: "my tears ricochet",
+            why: "Both folklore tracks dramatize the aftermath of a relationship ending badly, pairing Exile's stalemate of two unheard perspectives with my tears ricochet's more vengeful, funeral-like reckoning."
+          }
+        ],
+        sources: [
+          { name: "Exile (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Exile_(song)" },
+          { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" },
+          { name: "Taylor Swift and Bon Iver Find Perfect Harmony on 'exile' — Vulture", url: "https://www.vulture.com/2020/07/taylor-swift-exile-bon-iver-song-review.html" },
+          { name: "Taylor Swift Scores Top 10 at a Seventh Different Radio Format With 'Exile' — Billboard", url: "https://www.billboard.com/articles/business/chart-beat/9475190/taylor-swift-exile-top-10-adult-alternative-songs-bon-iver/" }
+        ]
+      },
     },
     {
       slug: 'my-tears-ricochet',
@@ -355,6 +401,51 @@ const TRACKS = [
         wiki('Mirrorball (song)', 'Mirrorball_(song)', 'song article: lockdown writing context'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "\"Mirrorball\" is one of the clearest windows folklore offers into Taylor Swift's own headspace on an album otherwise built from invented characters and third-person narratives. She wrote it after her planned Lover Fest tour was scrapped by the COVID-19 pandemic, and the song became her way of processing what it means to perform for an audience that can no longer physically gather around her — imagining herself as the disco ball hanging alone over an empty dance floor, still trying to shine.",
+          "The track has grown into one of the most critically vaunted songs of Swift's catalog, repeatedly ranked among her five best by critics and by Swift herself, and it captures a recurring anxiety in her later work: the exhausting, self-erasing effort required to keep being loved by strangers."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift has said the song is 'a metaphor for celebrity, but it's also a metaphor for so many people who feel like they have to be different versions of themselves for different people.'",
+            "Swift described visualizing 'a lonely disco ball, twinkly lights, neon signs, people drinking beer by the bar, a couple of stragglers on the dance floor' as the scene that inspired the lyrics, and explained mirrorballs are 'broken a million times' and that's 'what makes them so shiny.'",
+            "Swift has said being a public figure means 'you are a mirror' onto which people project their own feelings about themselves."
+          ],
+          supported: [
+            "Critics widely read the track as being about the toll of fame on female musicians and the pressure to keep reinventing oneself to stay relevant.",
+            "The disco-ball-that-shines-because-it's-shattered imagery has been read as a metaphor for how scrutiny paradoxically fuels a celebrity's appeal.",
+            "Critics note the song is unusually autobiographical for folklore, reflecting Swift's pandemic-era isolation from touring and fans."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:snow-on-the-beach",
+            label: "Snow on the Beach",
+            why: "Rolling Stone's Brittany Spanos compared the two songs' dreamy, reverb-heavy dream pop production, both built with Jack Antonoff."
+          },
+          {
+            relatedId: "song:the-1",
+            label: "the 1",
+            why: "Both open folklore's meditation on identity and performance amid pandemic-era isolation."
+          },
+          {
+            relatedId: "song:this-is-me-trying",
+            label: "this is me trying",
+            why: "Both grapple with the exhausting effort of trying to be enough for other people."
+          },
+          {
+            relatedId: "song:the-archer",
+            label: "The Archer",
+            why: "Both center Swift's anxious self-scrutiny about public image and perception vs. reality."
+          }
+        ],
+        sources: [
+          { name: "Mirrorball (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Mirrorball_(song)" },
+          { name: "Mirrorball by Taylor Swift — Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/mirrorball" },
+          { name: "Behind the Introspective Meaning of 'Mirrorball' by Taylor Swift — American Songwriter", url: "https://americansongwriter.com/behind-the-introspective-meaning-of-mirrorball-by-taylor-swift/" }
+        ]
+      },
     },
     {
       slug: 'seven',

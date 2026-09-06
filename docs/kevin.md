@@ -72,6 +72,11 @@ port must honor, so it is deliberately explicit.
    or **cancel** the work. **The most recent human comment wins over the original
    body.** Never apply a body's stale suggested fix when a comment has since
    corrected or retracted it, and never re-do work a comment says is already done.
+8. **Any audit summary relayed to the founders states its scope in the first
+   line** (e.g. "prose + sourcing only; photos not checked") — see the
+   [audit-reporting scope convention](definition-of-done.md#audit-reporting-scope-convention).
+   Applies to anything Kevin posts into the Founders' Brief or a kanban/PR
+   comment that reports an audit's verdict, not just Karen/CIE output.
 
 ---
 

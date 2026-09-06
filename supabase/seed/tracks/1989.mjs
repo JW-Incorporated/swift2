@@ -148,6 +148,50 @@ export default {
         wiki('Blank Space', 'Blank_Space', 'song article: satire framing and chart run'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "\"Blank Space\" is the pivot point of Taylor Swift's 2014 reinvention: the second single from 1989, the album where she formally left country music behind for full-throttle pop. Rather than deny or rebut the years of tabloid coverage casting her as a serial dater cycling through famous boyfriends, Swift took the caricature and performed it back at the media, turning a narrative that had been used against her into a commercial and critical triumph — it spent seven weeks at No. 1 on the Billboard Hot 100 and became one of the best-selling singles of 2015.",
+          "The song matters to Swift's larger artistic story because it marked a turn toward self-aware, winking songwriting about her own public image rather than straightforward diary-style confession — a mode she would return to repeatedly in later eras (from 'Look What You Made Me Do' to 'Anti-Hero'). It also cemented her creative partnership with Max Martin and Shellback, who co-wrote and produced it, and became one of her signature live staples, appearing on the 1989 World Tour, the Reputation Stadium Tour, and the Eras Tour."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift has said publicly that media criticism of her personal life has repeatedly served as a creative prompt for her songwriting, specifically citing that a song like 'Blank Space' would not exist without the press narrative that reduced her to a slideshow of ex-boyfriends.",
+            "Swift and her co-writers approached the song as a heightened, satirical 'revenge fantasy' persona piece rather than a literal self-portrait, deliberately exaggerating the 'crazy girlfriend' trope for effect."
+          ],
+          supported: [
+            "Critics and commentators broadly read 'Blank Space' as a satire of Swift's own tabloid image as a 'serial dater,' with the narrator's over-the-top instability functioning as a parody of how the press characterized her rather than genuine autobiography.",
+            "The song is widely understood as a turning point in how Swift was perceived publicly — shifting her image from a woman seen as a passive subject of gossip to an artist demonstrated to be in full control of her own narrative and savvy about how that narrative gets constructed.",
+            "The Joseph Kahn-directed music video, which depicts Swift as an increasingly unhinged, wealthy femme fatale wrecking her boyfriend's car and mansion, is generally interpreted as visually amplifying the song's satirical intent to the point of near self-parody."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:style",
+            label: "Style",
+            why: "Both songs come from the Max Martin/Shellback-produced run on 1989 and deal with romantic reputation and repetition, contrasting Blank Space's satirical instability with Style's more wistful inevitability."
+          },
+          {
+            relatedId: "song:look-what-you-made-me-do",
+            label: "Look What You Made Me Do",
+            why: "A later-era sequel in spirit: Swift again weaponizes a media-assigned villain persona, this time in response to a different public feud, continuing the self-aware performance strategy she debuted with Blank Space."
+          },
+          {
+            relatedId: "song:anti-hero",
+            label: "Anti-Hero",
+            why: "Both tracks turn public perception of Swift into pointed, semi-comic self-caricature, though Anti-Hero trades outward satire for a more inward, self-critical lens."
+          },
+          {
+            relatedId: "song:shake-it-off",
+            label: "Shake It Off",
+            why: "Released as 1989's lead single just before Blank Space, it tackles the same problem of tabloid narrative control with a lighter, more defiant tone, forming a one-two thematic punch at the top of the album's rollout."
+          }
+        ],
+        sources: [
+          { name: "Blank Space - Wikipedia", url: "https://en.wikipedia.org/wiki/Blank_Space" },
+          { name: "1989 (album) - Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" },
+          { name: "List of songs by Taylor Swift - Wikipedia", url: "https://en.wikipedia.org/wiki/List_of_songs_by_Taylor_Swift" }
+        ]
+      },
     },
     {
       slug: 'style',
@@ -986,6 +1030,55 @@ export default {
         ),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "'Is It Over Now?' is the closing 'From the Vault' track on 1989 (Taylor's Version), a song Swift wrote with Jack Antonoff in 2014 but shelved before the original album's release. Its 2023 debut let fans hear, essentially for the first time, a missing piece of the emotional puzzle from Swift's pop reinvention era — and it landed immediately, debuting at No. 1 on the Billboard Hot 100 and making Swift the first female soloist to replace herself atop that chart twice (it knocked her own 'Cruel Summer' from the top spot).",
+          "The song matters to the 1989 story specifically because critics and fans widely heard it as a direct continuation of the album's central breakup narrative, functioning almost as a hidden final chapter to songs like 'Out of the Woods' and 'I Wish You Would.' Its release as part of the re-recording project also reinforced the broader significance of the Taylor's Version era: previously unheard vault material reshaping how audiences understand a decade-old album."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift confirmed the song was written for 1989 in 2014 but left off the final tracklist, and that she wrote and produced it with longtime collaborator Jack Antonoff for the 2023 re-recording.",
+            "In a voice recording shared publicly around the album's release, Swift said she always thought of 'Is It Over Now?' as a 'sister' song to 'Out of the Woods' and 'I Wish You Would,' explicitly linking it to the same emotional territory as those 1989 tracks."
+          ],
+          supported: [
+            "Critics widely praised 'Is It Over Now?' as one of the standout vault tracks and one of Swift's strongest songs of 2023, highlighting its internal rhyme scheme, rhetorical-question structure, and its role as an emotional coda to the original album's breakup arc.",
+            "Multiple outlets drew direct musical and narrative parallels between 'Is It Over Now?' and 'Out of the Woods,' framing the newer song as effectively answering the earlier song's central question about whether the relationship survived."
+          ],
+          fanTheories: [
+            "Widely repeated fan theory (not confirmed by Swift): the song is about her 2012–2013 relationship with Harry Styles, based on lyrical details fans connect to that era — including 'blue dress on a boat,' read as a reference to a paparazzi photo of Swift alone on a boat after their reported breakup, and 'red blood, white snow,' read as an allusion to a snowmobile incident Swift has said inspired similar imagery in 'Out of the Woods.'",
+            "Fans have also speculated that a lyric about a 'new girl' who resembles the narrator references women Styles reportedly dated after Swift who fans felt resembled her, though this reading is speculative and unconfirmed by either party."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:out-of-the-woods",
+            label: "Out of the Woods",
+            why: "Swift herself called the two songs 'sisters'; critics read Is It Over Now? as narratively and musically answering the open question Out of the Woods poses about whether a relationship survived."
+          },
+          {
+            relatedId: "song:i-wish-you-would",
+            label: "I Wish You Would",
+            why: "Swift grouped this track with Is It Over Now? and Out of the Woods as belonging to the same emotional cluster of songs from the 1989 era dealing with a fraught, unresolved relationship."
+          },
+          {
+            relatedId: "song:style",
+            label: "Style",
+            why: "Both songs are widely read by fans as referencing the same ex-partner and share a preoccupation with jealousy, infidelity, and a former lover moving on to someone new."
+          },
+          {
+            relatedId: "song:slut",
+            label: "'Slut!'",
+            why: "As the vault track immediately preceding Is It Over Now? on 1989 (Taylor's Version), it shares the retrospective, image-reckoning perspective that colors much of the vault material added to the reissue."
+          }
+        ],
+        sources: [
+          { name: "Is It Over Now? - Wikipedia", url: "https://en.wikipedia.org/wiki/Is_It_Over_Now%3F" },
+          { name: "1989 (Taylor's Version) - Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(Taylor%27s_Version)" },
+          { name: "How Taylor Swift's new song 'Is It Over Now?' answers her big relationship question from 'Out of the Woods' - Entertainment Weekly", url: "https://ew.com/music/taylor-swift-is-it-over-now-answers-out-of-the-woods-question-1989-taylors-version/" },
+          { name: "Are Taylor Swift's 'Is It Over Now?' Lyrics About Harry Styles? - TODAY.com", url: "https://www.today.com/popculture/music/taylor-swift-is-it-over-now-meaning-rcna122453" },
+          { name: "Taylor Swift References Viral Boat Photo in New Vault Track 'Is It Over Now?' - People", url: "https://people.com/taylor-swift-references-viral-boat-photo-in-vault-track-is-it-over-now-8383895" }
+        ]
+      },
     },
   ],
 };

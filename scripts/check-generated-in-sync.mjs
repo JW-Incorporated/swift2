@@ -1,15 +1,24 @@
-// Fails if any Long Live *.generated.ts drifts from its seed files.
+// Fails if a sync script errors, or if one of the still-COMMITTED generated
+// artifacts (OTHER_SYNC_TARGETS) drifts from its seed files.
 //
-// The built vault the app imports (apps/web/lib/longlive/*.generated.ts) is
-// DERIVED from supabase/seed/** by the sync scripts. Editing a seed without
-// regenerating leaves the committed/deployed data stale — the bug where the
-// Photo Enrichment worker added photos and focal points to seeds that never
-// reached the built vault. This guard makes that a red CI check for everyone,
-// bot or human, so a stale-vault PR can't merge.
+// OS-014 (2026-09-05, docs/specs/2026-09-05-one-source-three-surfaces.md §6):
+// the eight `apps/web/lib/longlive/*.generated.ts` vault files (SYNC_TARGETS/
+// GENERATED — content/tracks/theories/videos/era-secrets/song-moods/
+// clownbot-lore/merch) are no longer committed to git (see .gitignore and
+// docs/longlive-experience.md §9), so there is no committed copy for them to
+// drift FROM any more — the "stale committed vault" bug this check used to
+// guard against (the Photo Enrichment worker's seeds reaching the built
+// vault) cannot happen when the vault is never committed: `prebuild` and CI
+// both regenerate it fresh from supabase/seed/** on every build. This check
+// still RUNS every sync script (SYNCS below), so a script that throws or
+// hangs on the current seed data is still caught here rather than only at
+// `next build` time.
 //
-// The comparison ignores two non-signal differences: the CONTENT_GENERATED_AT
-// build timestamp (changes every run by design; freshness.ts reads it) and
-// CR line endings (Windows checkouts) — everything else must match.
+// OTHER_SYNC_TARGETS (scripts/lib/source-tiers.generated.mjs,
+// apps/web/app/tokens.generated.css) ARE still committed — plain-JS/CSS
+// mirrors consumed by tooling that cannot import TypeScript directly — so
+// those two keep the original drift check: regenerate, diff against HEAD,
+// fail loudly on any difference.
 import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 
@@ -17,7 +26,7 @@ import { readFileSync } from 'node:fs';
 // read by scripts/check-automerge-allowlist.mjs, which proves the manifest
 // matches what is actually on disk and that the auto-merge gate covers all of
 // it. Do not re-list these here.
-import { GENERATED, OTHER_SYNC_TARGETS, SYNCS } from './lib/generated-content.mjs';
+import { OTHER_SYNC_TARGETS, SYNCS } from './lib/generated-content.mjs';
 import { runMain } from './lib/cli.mjs';
 
 // A build stamp legitimately changes every run — not content drift.
@@ -43,23 +52,17 @@ const normalize = (s) =>
     .trimEnd();
 
 async function main() {
+  // Run every generator so a throwing/erroring sync script (bad seed data,
+  // a broken generator) is still caught here, even though the longlive
+  // *.generated.ts outputs themselves are no longer diffed against a
+  // committed copy (there isn't one — see module doc above).
   for (const s of SYNCS) execSync(`node ${s}`, { stdio: ['ignore', 'ignore', 'inherit'] });
   for (const { sync } of OTHER_SYNC_TARGETS) execSync(`node ${sync}`, { stdio: ['ignore', 'ignore', 'inherit'] });
 
-  // The generated vault is multi-MB, so give git room past execSync's 1MB default.
+  // These outputs are multi-MB, so give git room past execSync's 1MB default.
   const MAX_BUFFER = 256 * 1024 * 1024;
 
   const drifted = [];
-  for (const f of GENERATED) {
-    let committed;
-    try {
-      committed = execSync(`git show HEAD:${f}`, { encoding: 'utf8', maxBuffer: MAX_BUFFER });
-    } catch (e) {
-      drifted.push(`${f} (${/ENOENT|exists on disk|does not exist/.test(String(e)) ? 'missing from HEAD — commit it' : String(e.message || e).slice(0, 80)})`);
-      continue;
-    }
-    if (normalize(committed) !== normalize(readFileSync(f, 'utf8'))) drifted.push(f);
-  }
   for (const { out } of OTHER_SYNC_TARGETS) {
     let committed;
     try {
@@ -72,13 +75,17 @@ async function main() {
   }
 
   if (drifted.length) {
-    console.error('\n✖ The built vault is out of sync with the seed files:');
+    console.error('\n✖ A committed generated artifact is out of sync with its source:');
     for (const f of drifted) console.error('    ' + f);
-    console.error('\nA seed under supabase/seed/** was edited without regenerating the vault.');
-    console.error('Fix: run `npm run sync:content`, then commit the updated *.generated.ts.\n');
+    console.error('\nA source under supabase/seed/** or packages/experience/src/tokens.ts was');
+    console.error('edited without regenerating this artifact.');
+    console.error('Fix: run `npm run sync:content`, then commit the updated file(s).\n');
     return 1;
   }
-  console.log('✓ built vault is in sync with the seeds');
+  console.log(
+    '✓ every sync script ran clean; committed generated artifacts (tokens.generated.css, ' +
+      'source-tiers.generated.mjs) are in sync with their sources',
+  );
 }
 
 runMain(main, { name: 'check-generated-in-sync' });

@@ -1,6 +1,6 @@
 import { extractYouTubeId } from '@swift2/shared';
-import { hasRealPrimaryImage, isSubConfirmed, primaryImageRef } from './types';
-import type { ContentItem, MomentVideo } from './types';
+import { hasRealPrimaryImage, isSubConfirmed, primaryImageRef } from '@swift2/experience';
+import type { ContentItem, MomentVideo } from '@swift2/experience';
 
 /**
  * "What can this card actually DO with its footage?" — as pure functions.

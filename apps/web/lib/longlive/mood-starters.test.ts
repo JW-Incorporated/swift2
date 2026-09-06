@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { MOOD_STARTERS, STARTERS_VISIBLE, visibleStarters } from './mood-starters';
-import { matchMoods } from './mood-match';
-import { MOOD_AXES } from './types';
+import { matchMoods } from '@swift2/experience';
+import './vault-wiring';
+import { MOOD_AXES } from '@swift2/experience';
 
 /**
  * The safety doc's bar for these chips is explicit: they are the demo path, so
