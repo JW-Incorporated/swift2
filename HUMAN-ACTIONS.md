@@ -26,6 +26,48 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 48. [BLOCKING] Mobile release credentials — 3 remaining founder steps — ~30 min total
+
+**Filed:** 2026-09-06
+
+**Why it matters:** consolidates the three still-open founder items behind
+the mobile release train (`docs/mobile-release.md`) into one line so the
+brief doesn't show four separate rows for one release pipeline. The Play
+service-account key (was #46) is done — see that item's closing note.
+These three each block a different piece of mobile CI, but none blocks the
+others:
+
+1. **`EXPO_TOKEN` repo secret (was #44, ~5 min, Joey).** Without it the
+   whole train (`.github/workflows/mobile-release.yml`) refuses to start —
+   this is the one that actually blocks everything else below.
+   Steps: generate a token at expo.dev → account settings → Access Tokens
+   (owner `wjduvall`, project id `a4ff0e9b-ad3e-48a4-a765-ffc19a8b3209`),
+   then `gh secret set EXPO_TOKEN --repo JW-Incorporated/swift2`.
+2. **iOS signing + App Store Connect key into EAS (was #45, ~10 min,
+   Wyatt's laptop).** `eas credentials --platform ios` is interactive-only;
+   `credentials.json` and the cert/profile already sit on Wyatt's machine
+   (`C:\Users\wjduv\Desktop\4a-signing\`, `apps/mobile/credentials/`).
+   Steps: from `apps/mobile`, `eas credentials --platform ios` →
+   production → Build Credentials → upload from `credentials.json`; then
+   App Store Connect API key → use existing key
+   `./credentials/AuthKey_QU7P2WC49Z.p8` / `QU7P2WC49Z` /
+   `26d1ad10-af24-431a-a9bb-d097ca96e9bc`. Tell a session when done so it
+   can retire `apps/mobile/eas.json`'s `production-local` profile.
+3. **Push credentials on EAS, OS-004 (was #43, ~15 min, founder with Apple
+   + Google account access).** `eas credentials -p ios` for the APNs key
+   under team `D9N628AFHS`, and the Android equivalent for the FCM v1
+   service account key, then one test push via
+   `scripts/send-test-push.ts`.
+
+**Worked if:** all three steps above show green (train starts, iOS submit
+uses remote credentials, a real device receives a test push). Update this
+item as each sub-step lands rather than waiting for all three — a session
+can split this back into per-step DONE notes if that's clearer.
+
+**Status:** OPEN
+
+---
+
 ### 47. [BLOCKING] URGENT — disable 15 original claude.ai routines now duplicated by the GitHub Actions migration — ~15-20 min
 
 **Filed:** 2026-09-06
@@ -121,7 +163,17 @@ blocks `submit_ios` in the same run).
 path, and the next **Mobile release train** run shows `submit_android`
 green.
 
-**Status:** OPEN
+**Update (2026-09-06, t_b31878bb):** the key arrived as the GitHub Actions
+repo secret `PLAY_SERVICE_ACCOUNT_JSON` (created 2026-09-06T16:33Z) rather
+than through the interactive `eas credentials` upload this item asked for
+— which works fine, just differently: EAS Workflows can't see GitHub repo
+secrets, so `.github/workflows/mobile-release.yml` now runs `eas submit
+--platform android` itself after the EAS release workflow finishes, using
+the secret directly (see `docs/mobile-release.md` § "Android submission
+lives in the GitHub Action, not here"). Nothing left for a founder on this
+item.
+
+**Status:** DONE (2026-09-06)
 
 ### 45. [BLOCKING] Mobile release train — iOS signing + App Store Connect key into EAS — ~10 min
 
@@ -156,7 +208,7 @@ says `Using remote iOS credentials (Expo server)` and reaches the compile
 phase, and `eas submit --platform ios --latest --non-interactive` runs
 without a local key path.
 
-**Status:** OPEN
+**Status:** SUPERSEDED (see #48)
 
 
 ### 44. [BLOCKING] OS-040 — `EXPO_TOKEN` repo secret for automatic EAS Update — ~5 min
@@ -179,7 +231,7 @@ session doesn't have per `.claude/hooks/guard.sh`.
 **Worked if:** the next JS-only merge to `apps/mobile/**` or
 `packages/**` shows a green `EAS Update (mobile OTA)` run in Actions.
 
-**Status:** OPEN
+**Status:** SUPERSEDED (see #48)
 
 
 
@@ -204,7 +256,7 @@ account access, not code.
 **Worked if:** a real device receives the push and tapping it opens the
 correct deep link in the shell (per OS-004's own "Done when").
 
-**Status:** OPEN
+**Status:** SUPERSEDED (see #48)
 
 ### 42. [UPGRADE] Add a GitHub comment-edit tool to Kevin's cloud sessions (or accept the append-and-supersede workaround) — ~10 min
 

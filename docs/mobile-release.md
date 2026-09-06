@@ -43,8 +43,9 @@ apps/mobile/.eas/workflows/release.yml           (EAS: the actual train)
   in `CONFIGURE_EXPO_UPDATES`. The train computes everything on EAS.
 - **Credentials live in EAS**, not in the repo and not on a machine: iOS
   distribution certificate + App Store provisioning profile + App Store
-  Connect API key; Android upload keystore (already there) + Google Play
-  service-account key. Set up once via `HUMAN-ACTIONS.md` #45 and #46.
+  Connect API key. Set up once via `HUMAN-ACTIONS.md` #48 (was #45).
+  **Android is the one exception** — see "Android submission lives in the
+  GitHub Action, not here" below.
 
 ## What is a "release" in each store
 
@@ -58,6 +59,57 @@ design — App Review and Play review are asynchronous and out of our
 control. The invariant is about what we *send*, and the parity check
 reports store lag rather than failing on it (`BUILD_LAG` only fires after
 48h).
+
+## Android submission lives in the GitHub Action, not here
+
+The Google Play service-account key (2026-09-06) arrived as a GitHub
+Actions repo secret, `PLAY_SERVICE_ACCOUNT_JSON`, instead of being uploaded
+to EAS credentials via the interactive `eas credentials` flow HA#46 (now
+folded into #48) originally asked for. That is fine — arguably better, no
+laptop step — but it changes where the Android submit has to run: EAS
+Workflows execute on EAS's own infrastructure, which has no access to this
+repo's GitHub Actions secrets, so `apps/mobile/.eas/workflows/release.yml`
+cannot contain a `submit_android` job that will ever see the key.
+
+Instead:
+
+- The EAS workflow (`release.yml`) does everything platform-symmetric —
+  fingerprinting, `build_android`, `build_ios`, `submit_ios`, and all three
+  OTA-update jobs. It has no Android submit job.
+- `.github/workflows/mobile-release.yml` runs that EAS workflow with
+  `eas workflow:run --wait`, so the Action doesn't return until EAS is
+  done. It then calls `eas build:list --platform android --status
+  finished --git-commit-hash <sha>` to ask "did this commit's run produce
+  a fresh Android store build?" — if the fingerprint already had a build
+  (OTA-only case) there's nothing to submit and the step no-ops cleanly.
+  If a build exists for this commit, the Action writes
+  `PLAY_SERVICE_ACCOUNT_JSON` to a gitignored file at job time
+  (`apps/mobile/credentials/play-service-account.json`, `chmod 600`,
+  deleted via `trap ... EXIT` immediately after use, never echoed to logs)
+  and runs `eas submit --platform android --id <build_id> --profile
+  production --non-interactive` itself, in the one place that has the
+  secret.
+- `eas.json`'s `submit.production.android.serviceAccountKeyPath` points at
+  that same gitignored path so a founder can also run `eas submit
+  --platform android` locally after populating the file by hand (or once
+  the key is uploaded to EAS credentials directly, at which point this
+  local path becomes unnecessary and could be removed).
+- **No half-submit is preserved differently than iOS's.** `submit_ios`
+  inside the EAS workflow still `needs` both builds. The Android submit
+  step in the Action only runs `if: steps.eas_workflow.outcome ==
+  'success'` — so a failed iOS (or Android) build inside the EAS workflow
+  fails the whole `workflow:run --wait` call, and the Action's Android
+  submit step is skipped. A failed build on either platform still blocks
+  both submissions; the mechanism is now "the whole upstream workflow run
+  must succeed" rather than a shared `needs:` array, because Android's
+  submit job doesn't live in that graph anymore.
+- **Missing `EXPO_TOKEN` or `PLAY_SERVICE_ACCOUNT_JSON`:** the Android
+  submit step warns (`::warning::`) and exits 0 rather than failing the
+  train — HA#48 tracks `EXPO_TOKEN` as still-open founder work, and the
+  train as a whole already refuses to start without `EXPO_TOKEN` in the
+  `trigger` job's first step, so this path only fires if `EXPO_TOKEN`
+  exists but the *Play* key somehow doesn't (defense in depth, not the
+  expected case day-to-day).
 
 ## Manual runs
 
@@ -93,7 +145,7 @@ and carries the script output. By code:
 | `SPLIT_UPDATE` | the last update group covers one platform | re-run the train (`eas workflow:run …`) from `main`; it publishes one group to both |
 | `VERSION_SKEW` | store builds disagree on `version` | a build ran outside the train; run the train with `force_store_build=true` |
 | `BUILD_LAG` | one platform's latest build is >48h older and from a different commit | check the train run for a failed build/submit job (`eas workflow:runs`), fix, re-run |
-| exit 2 | check could not run | usually `EXPO_TOKEN` missing or expired → HUMAN-ACTIONS #44 |
+| exit 2 | check could not run | usually `EXPO_TOKEN` missing or expired → HUMAN-ACTIONS #48 |
 
 Rolling back JS on both platforms: `eas update:republish --branch production
 --group <previous-group-id>` (one command, both platforms). Rolling back a
