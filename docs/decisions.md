@@ -6383,3 +6383,46 @@ Joey's confirmation. Joey informed via issue #531. Spec:
 
 **Why now:** the WebView shell (entry above) is a stop-gap; without these
 four calls no Phase 1+ card in the spec was Ready. All phases are unblocked.
+
+## 2026-09-05 — Mobile release train: iOS and Android ship as one unit, from EAS, never from a laptop
+
+**Decided by:** Wyatt (owner), in session, 2026-09-05 — "I don't want one to
+ever fall behind the other or we accidentally only push out fixes to half
+of our users." Runbook: `docs/mobile-release.md`.
+
+**What:** every merge to `main` touching `apps/mobile/**` or
+`packages/**` triggers `apps/mobile/.eas/workflows/release.yml` (an EAS
+Workflow, kicked off by `.github/workflows/mobile-release.yml`). EAS
+fingerprints the commit's native layer for each platform; platforms whose
+fingerprint already has a production build get ONE over-the-air update
+group (both platforms in one job); platforms without one get a store build,
+and **neither platform is submitted until both builds succeed**. An
+independent check, `scripts/mobile/check-parity.mjs` (run by
+`.github/workflows/mobile-parity.yml` every 6h and after every train),
+raises one persistent alert issue if the platforms' latest builds or
+updates diverge (`STRANDED_OTA`, `SPLIT_UPDATE`, `VERSION_SKEW`,
+`BUILD_LAG`) or if it cannot run.
+
+**Why now:** the 2026-09-05 manual builds of `main` failed on both platforms
+in `CONFIGURE_EXPO_UPDATES` with a runtime-version mismatch — the
+fingerprint computed on a Windows checkout of this monorepo differs from the
+one EAS computes (hoisting paths for `@expo/config-plugins`). A laptop in the
+loop is therefore not just a process risk but a correctness bug: a build
+that did slip through would never match an OTA update. Separately, the Play
+internal track was still on the 2026-08-30 bundle while iOS had moved to
+build 4 — exactly the half-shipped state this rules out.
+
+**Supersedes:** `.github/workflows/eas-update.yml` (OS-040), which
+published per-platform, unconditionally, with no store-build path — removed.
+The `production-local` iOS profile (PR #3809) becomes a stop-gap to retire
+once HUMAN-ACTIONS #45 moves the iOS credentials into EAS.
+
+**Human prerequisites (filed):** #44 `EXPO_TOKEN` repo secret; #45 iOS
+credentials + ASC key into EAS; #46 Google Play service-account key into
+EAS. Until all three exist the train fails loudly on both platforms rather
+than shipping one.
+
+**Alternatives rejected:** GitHub Actions running `eas build` per platform
+with base64 secrets (puts signing material in a second secret store and
+keeps the runner's fingerprint in play); keeping manual `eas build` +
+manual Play upload (the failure mode this replaces).
