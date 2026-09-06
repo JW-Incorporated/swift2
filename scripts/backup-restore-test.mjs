@@ -36,6 +36,17 @@
 //   The source session is pinned `default_transaction_read_only=on` at the
 //   server, so this physically cannot write to production.
 //
+//   Backup only (scheduled production snapshot, no target needed):
+//     node scripts/backup-restore-test.mjs --source "$SUPABASE_DB_URL" \
+//       --backup-only --keep
+//   Runs exactly the backup half of the drill above — the same read-only
+//   session, the same single REPEATABLE READ snapshot, the same NDJSON +
+//   manifest artifact — and stops. No target database is touched or even
+//   required. This is what `production-backup.yml` runs on a schedule: it
+//   proves nothing about *restoring*, only that production's bytes were
+//   readable and captured. See `production-backup-drill.yml` for the
+//   restore-inclusive drill.
+//
 // SAFETY (non-negotiable, no override flag exists on purpose)
 //   - The target is refused if it is the same database as the source.
 //   - The target is refused if its host looks Supabase-hosted. Restore goes to
@@ -46,6 +57,7 @@
 //   --cluster <url|ephemeral>  where --drill creates its two scratch databases
 //   --source <url>          database to back up FROM (read-only)
 //   --target <url>          scratch database to restore INTO (rewritten!)
+//   --backup-only           run only the backup phase; no --target needed
 //   --out <dir>             backup artifact root (default: .backups)
 //   --keep                  keep the backup artifact + scratch databases
 //   --json                  print the machine-readable report to stdout at end
@@ -127,7 +139,7 @@ const SPOT_CHECKS = [
 // --------------------------------------------------------------------------
 // args
 // --------------------------------------------------------------------------
-function parseArgs(argv) {
+export function parseArgs(argv) {
   const opts = { out: '.backups' };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -139,6 +151,7 @@ function parseArgs(argv) {
     if (a === '--drill') opts.drill = true;
     else if (a === '--keep') opts.keep = true;
     else if (a === '--json') opts.json = true;
+    else if (a === '--backup-only') opts.backupOnly = true;
     else if (a === '--cluster') opts.cluster = take();
     else if (a === '--source') opts.source = take();
     else if (a === '--target') opts.target = take();
@@ -609,6 +622,7 @@ Backup + restore drill (launch gate BACKUPS, #680). See docs/backup-restore.md.
   --cluster <url|ephemeral>   where --drill creates its scratch databases
   --source <url>       database to back up FROM (opened read-only)
   --target <url>       scratch database to restore INTO — REWRITTEN
+  --backup-only        run only the backup phase; no --target needed
   --out <dir>          backup artifact root (default .backups)
   --keep               keep artifacts and scratch databases
   --json               print the JSON report to stdout
@@ -620,7 +634,11 @@ async function run() {
     console.log(USAGE);
     return 0;
   }
-  if (!opts.drill && (!opts.source || !opts.target)) {
+  if (opts.backupOnly) {
+    if (opts.drill) fail('--backup-only cannot be combined with --drill');
+    if (!opts.source) fail('--backup-only needs --source');
+    if (opts.target) fail('--backup-only does not take --target — nothing is restored');
+  } else if (!opts.drill && (!opts.source || !opts.target)) {
     console.log(USAGE);
     fail('need either --drill, or both --source and --target');
   }
@@ -708,12 +726,17 @@ async function run() {
       console.log('');
     }
 
-    assertSafeTarget(sourceUrl, targetUrl);
-    console.log(
-      `source : ${describeConnection(sourceUrl)}${opts.drill ? '' : '  (READ-ONLY session)'}`,
-    );
-    console.log(`target : ${describeConnection(targetUrl)}  (will be rewritten)`);
-    console.log(`artifact: ${relative(repoRoot, outDir)}\n`);
+    if (opts.backupOnly) {
+      console.log(`source : ${describeConnection(sourceUrl)}  (READ-ONLY session)`);
+      console.log(`artifact: ${relative(repoRoot, outDir)}\n`);
+    } else {
+      assertSafeTarget(sourceUrl, targetUrl);
+      console.log(
+        `source : ${describeConnection(sourceUrl)}${opts.drill ? '' : '  (READ-ONLY session)'}`,
+      );
+      console.log(`target : ${describeConnection(targetUrl)}  (will be rewritten)`);
+      console.log(`artifact: ${relative(repoRoot, outDir)}\n`);
+    }
 
     // ---- 1. backup --------------------------------------------------------
     console.log('== 1. backup ============================================');
@@ -763,6 +786,37 @@ async function run() {
       await src.query('commit').catch(() => {});
     } finally {
       await src.end();
+    }
+
+    // ---- 2/3. restore + verify, or stop here for --backup-only ------------
+    if (opts.backupOnly) {
+      const report = {
+        gate: 'BACKUPS (#680)',
+        mode: 'backup-only (scheduled production snapshot)',
+        startedAt: new Date(started).toISOString(),
+        postgresVersion: manifest.postgresVersion,
+        source: manifest.source,
+        artifact: relative(repoRoot, outDir),
+        timingsMs: { ...timings, total: Date.now() - started },
+        tables: Object.fromEntries(
+          Object.entries(manifest.tables).map(([t, r]) => [t, { rows: r.rows }]),
+        ),
+        totalRows: Object.values(manifest.tables).reduce((a, b) => a + b.rows, 0),
+        totalBytes: Object.values(manifest.tables).reduce((a, b) => a + b.bytes, 0),
+        passed: true,
+      };
+      writeFileSync(join(outDir, 'report.json'), JSON.stringify(report, null, 2));
+      writeFileSync(join(repoRoot, opts.out, 'last-report.json'), JSON.stringify(report, null, 2));
+
+      console.log('\n== verdict ==============================================');
+      console.log(`  tables      ${Object.keys(report.tables).length}`);
+      console.log(`  rows        ${report.totalRows}`);
+      console.log(`  backup      ${timings.backup} ms`);
+      console.log(`  total       ${report.timingsMs.total} ms`);
+      console.log(`  report      ${relative(repoRoot, join(outDir, 'report.json'))}`);
+      console.log('\n  PASS — production backed up (backup-only, no restore attempted).');
+      if (opts.json) console.log('\n' + JSON.stringify(report, null, 2));
+      return 0;
     }
 
     // ---- 2. restore -------------------------------------------------------

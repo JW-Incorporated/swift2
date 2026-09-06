@@ -410,6 +410,22 @@ the code is what actually ships and this file is the bug.
    photo as the grid tile, the screenshot as slide 2 — the grid shows Taylor
    either way. **X site-screen posts are permanently prohibited**; the X
    sibling uses a real credited photo or text-only copy.
+
+   **The "cool feature only" rule (Joey, 2026-09-01).** A `site-screen` may
+   only show one of the site's genuinely distinctive, visually rich surfaces
+   — the thread lenses (Decode, Clue Web, Runway, Blank Spaces, Taylor's
+   Version, End Game), the Mood chat/chip experience, Clownbot, the shoppable
+   "seen on Taylor" surface, or a comparably standout feature — captured in
+   actual use (a real result on screen, not an empty state or a generic list
+   view). It may never be: a bare landing page, a plain article/moment page,
+   a letterboxed video-padding frame, or any screenshot whose only content is
+   "the site exists" rather than "look what the site does." If a launch or
+   how-to post has no genuinely cool visual to show, it drops to rung 3
+   (text-only on X) or is skipped rather than shipping a flat screenshot —
+   same "an empty slot beats a failed one" principle as the photo ladder.
+   This is a caption/media judgment call for the drafter, and `check-drafts.mjs`
+   cannot verify "cool" automatically — flag any borderline call in the
+   item's `why` field so it's auditable in the weekly review.
 3. **No image at all** (X only — Instagram always requires media). A sharp
    text-only tweet beats a decorative tile every time.
 
