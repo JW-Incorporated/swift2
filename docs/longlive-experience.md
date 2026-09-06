@@ -717,6 +717,35 @@ constellation.
 - The `lib/vault.ts` / two-tier Supabase serving path in
   `docs/architecture.md` (live DB reads, not a static sync) is **not**
   wired into this experience yet.
+- **OS-014 (2026-09-05, `docs/specs/2026-09-05-one-source-three-surfaces.md`
+  §6):** the eight `apps/web/lib/longlive/*.generated.ts` files above (3.6 MB)
+  are no longer committed to git — they are gitignored, build-time-only
+  output of `npm run sync:content` / `prebuild`, identical to what they always
+  were on disk, just never checked in. This is intentionally the narrower of
+  two options weighed for OS-014 (a Fable ruling recorded on kanban task
+  t_61250204 chose it): the literal "web reads the bundle via
+  `packages/content`'s loader" architecture the spec describes would require
+  first breaking a real circularity — `scripts/build-content-bundle.mjs`
+  (OS-011) builds the bundle BY IMPORTING these same `lib/longlive/*.ts`
+  modules (and therefore their generated RAW data), so those modules cannot
+  simultaneously read FROM the bundle without extracting their enrichment
+  logic (`build()`, `defaultThreadIdsForTags`, the playable-video filter,
+  milestone derivation, the merch catalogue construction) into a
+  bundle-builder-side module with no dependency on `apps/web`. That is a
+  separate, larger redesign (tracked as a follow-up, OS-014b) with its own
+  regression surface across all 8 domains; OS-014 itself ships the
+  narrower, zero-risk win the card's Done-when bar actually asks for
+  (`git ls-files | grep generated.ts` empty, `npm run build` unchanged,
+  no pixel changes) without touching `scripts/build-content-bundle.mjs`.
+  `npm run sync:content` / `prebuild` are unchanged; `scripts/sync-longlive-
+  *.mjs` and the other generators keep running exactly as before, just
+  writing to files git no longer tracks. `scripts/check-generated-in-sync
+  .mjs` (whose whole point was catching a *committed* vault drifting from a
+  seed edit) is retired for these eight files since there is no longer a
+  committed copy to drift — the sync scripts remain the single derivation
+  path from `supabase/seed/**`, so a content PR that doesn't run
+  `sync:content` locally still gets the freshly-generated data at the next
+  `prebuild`/CI build, never a stale one.
 - Media coverage: all 12 eras carry `Era.media` Spotify album metadata, but it
   is unrendered as of 2026-08-13 (decision 2, `docs/decisions.md` — the era
   page has no first-party Spotify playback by design; see §5.5/§7/§8). 10
