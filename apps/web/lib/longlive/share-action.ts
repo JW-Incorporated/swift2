@@ -4,7 +4,7 @@ export interface WebSharePayload {
   url: string;
 }
 
-export type WebShareResult = 'native' | 'fallback' | 'cancelled';
+export type WebShareResult = 'native' | 'fallback' | 'unavailable' | 'cancelled';
 
 export interface WebShareEnvironment {
   share?: (data: WebSharePayload) => Promise<void>;
@@ -23,6 +23,7 @@ export async function triggerWebShare(
       return 'cancelled';
     }
   }
-  await copyText?.(payload.url);
+  if (!copyText) return 'unavailable';
+  await copyText(payload.url);
   return 'fallback';
 }
