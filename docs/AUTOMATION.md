@@ -14,23 +14,24 @@ picking a winner.
   documentation quality + every doc reference pointing at a routine or cadence
   that no longer exists) and [`review`](automation/review-2026-08-31.md)
   (overlaps, retirement candidates, gaps, seven recommendations).
-- **Fires on its own: 56 routines** — 29 GitHub Actions workflows (cron, PR,
-  push, or issue triggered), 24 Claude desk routine triggers, the product's
-  Vercel Cron job, 2 Dependabot update schedules. These run whether or not
-  anyone is watching.
+- **Fires on its own:** GitHub Actions workflows (cron, PR, push, or issue
+  triggered), the product's Vercel Cron job, and 2 Dependabot update
+  schedules. The old Claude desk-routine fleet has **0 enabled triggers** as
+  of 2026-09-06; its work is retired or superseded by Actions callers such as
+  the four quality-and-integrity workflows listed below.
 - **Manual-only: 10 workflows**, `workflow_dispatch` and nothing else, badged
   **MANUAL** below. They never fire by themselves and are **not** counted as
   scheduled routines; most sit behind a typed confirmation because they spend
   money, call a vision model, or delete something live. Indexed anyway,
   because what *can* run matters when auditing blast radius.
-- Counting unit is *one independently-triggered thing*, not one file: the 39
-  workflow files split 29 automatic / 10 manual, `.github/dependabot.yml`
-  contributes two (separate `updates:` entries, own cadences), and
-  `watchdog.yml`'s two crons are one workflow. On the desk-routine side,
-  [`agents/runners.md`](agents/runners.md)'s "23 total, 22 enabled" counts the
-  **standing fleet** and excludes `swift2 Getty purge`, a self-retiring
-  one-shot; this file counts every live trigger, hence 24 (23 enabled — Lex
-  depth is paused). Two scopes, same reality.
+- Counting unit is *one independently-triggered thing*, not one file:
+  `.github/dependabot.yml` contributes two separate `updates:` entries with
+  their own cadences, and `watchdog.yml`'s two crons are one workflow. The
+  former Claude desk-routine registry is historical: [`agents/runners.md`](agents/runners.md)
+  records 23 retired standing-fleet triggers (24 rows including the
+  self-retiring `swift2 Getty purge` one-shot), all disabled on 2026-09-06.
+  The active migrated callers are GitHub Actions workflow files, not Claude
+  dashboard triggers.
 
 ---
 
@@ -48,14 +49,14 @@ The repo runs on a deliberate split, stated as a standing rule in
 | Tier | What it is | Runs on | Costs | Fails how |
 |---|---|---|---|---|
 | **1 — Actions (deterministic)** | `.github/workflows/*.yml`. Zero or near-zero LLM. Detects, files tickets, ships queued work, commits state, alerts. | GitHub's scheduler | Actions minutes | Loudly — a red run is visible in the Actions tab |
-| **2 — Desk routines (judgment)** | Scheduled Claude sessions, one per "desk". They read what Tier 1 produced and make calls a script cannot: is this rumor sourced, is this page thin, is this alert real. Charters in [`docs/agents/`](agents/), prompts in [`docs/agents/runner-prompts/`](agents/runner-prompts/), cadence registry in [`agents/runners.md`](agents/runners.md). | Joey's Claude account — see the note below | Claude tokens | **Silently** — this repo cannot see a routine's dashboard, which is why Tier 1 carries liveness checks for them |
+| **2 — Desk routines (judgment)** | Judgment desks now called by scheduled `routine-*.yml` GitHub Actions workflows. The retired Claude trigger registry, charters, and prompts remain as historical context in [`docs/agents/`](agents/). | GitHub's scheduler | Actions minutes | Loudly — a red run is visible in the Actions tab |
 | **3 — Product runtime** | Cron built into the deployed product, not into CI. Today: exactly one, the notifications dispatcher. | Vercel Cron | Vercel plan | Silently, and **currently unwatched** — see [REC-1](automation/review-2026-08-31.md#rec-1) |
 
-**Why Tier 1 exists even where Tier 2 could do the job:** Karen (the content
-integrity engine) went dark for 10+ days in August 2026 and nobody noticed — a
-Claude routine leaves no trace here when it doesn't run. Karen's deterministic
-half became `cie-scan.yml` for that reason. Put the *freshness* half on
-Actions, the *judgment* half on a routine.
+**Historical rationale for the split:** Karen (the content integrity engine)
+went dark for 10+ days in August 2026 and nobody noticed — a Claude routine
+left no trace here when it did not run. Karen's deterministic half became
+`cie-scan.yml` for that reason. The 2026-09-06 migration moved its judgment
+half, and the other desk callers, to scheduled Actions as well.
 
 **Kill switch:** [`agents/README.md` § The kill switch](agents/README.md#the-kill-switch--pausing-the-org-gap-analysis-g10).
 Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
@@ -184,7 +185,7 @@ call a model are separate **manually confirmed** workflows.
 |---|---|---|
 | [`dependabot-alerts-snapshot.yml`](../.github/workflows/dependabot-alerts-snapshot.yml) | Mon 21:00 (one hour before Paul Blart's patrol) | header — exists because the routine's own token 403s on the alerts API |
 | [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | header — Facebook has no API for non-administered groups, so this stays a human task |
-| [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The Claude-routine half is the Routine Auditor's weekly comment, see below |
+| [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The retired Routine Auditor's invariant work is now covered by CI's `npm run check:routines`. |
 
 ### Community engine (Phase 0–2 fully landed; Phase 3 hardening/docs, P3-1 landed)
 
@@ -263,18 +264,18 @@ workflow files.
 
 ---
 
-## Tier 2 — Claude desk routines (24 triggers, 23 enabled)
+## Tier 2 — Historical Claude desk routines (0 enabled)
 
 Cost/benefit optimization analysis (2026-08-31, Fable):
 **[`TIER2-OPTIMIZATION.md`](TIER2-OPTIMIZATION.md)** — per-routine assessment
 of all 24 triggers with 19 ranked recommendations (T-1…T-19), split into
 pre-approved-reversible agent actions and founder-gated spend decisions.
 
-Cadence registry and live trigger IDs: **[`agents/runners.md`](agents/runners.md)**
-— that table supersedes any trigger ID quoted elsewhere. Prompts live in
-[`agents/runner-prompts/`](agents/runner-prompts/); **the repo file is the
-source of truth**, and a trigger whose inline prompt drifts from it is a bug.
-Fleet invariants: [`agents/routine-invariants.md`](agents/routine-invariants.md).
+Cadence registry and retired trigger IDs: **[`agents/runners.md`](agents/runners.md)**.
+The old trigger table and prompts remain useful historical records, but do not
+describe active Claude dashboard work. Active migrated callers are
+`routine-*.yml` GitHub Actions workflows; [`scripts/check-routine-workflows.mjs`](../scripts/check-routine-workflows.mjs)
+runs in CI as `npm run check:routines` to enforce their routine invariants.
 
 ### Content lanes
 
@@ -297,15 +298,15 @@ to replace them** — Phase 4 never landed, so Rumor Desk content lands daily
 designed every-other-day cadence. See
 [REC-2](automation/review-2026-08-31.md#rec-2).
 
-### Quality and integrity desks
+### Quality and integrity desks — active GitHub Actions callers
 
-| Routine | Cadence (UTC) | Model | Charter | Reads what Tier 1 produced |
+| Desk | Caller workflow | Cadence (UTC) | Model | Charter / input |
 |---|---|---|---|---|
-| Karen — weekly judgment slice (registered name still "Karen — nightly scan" pending T-5 trigger resync, `agents/runners.md` § T-5) | Sun 09:00 | Sonnet 5 | [`scripts/content-engine/README.md`](../scripts/content-engine/README.md) | `cie-scan.yml`'s findings |
-| Nils — site walk | Mon+Fri 14:00 | Opus 4.8 | [`agents/nils.md`](agents/nils.md) | live site |
-| Laura — a11y walk | daily 18:20 | Sonnet 5 | [`agents/laura.md`](agents/laura.md) | `a11y.yml` artifacts |
-| Paul Blart — security patrol | Mon 22:20 | Opus 4.8 | [`agents/paul-blart.md`](agents/paul-blart.md) | `dependabot-alerts-snapshot.yml` + `codeql.yml` |
-| Routine Auditor — fleet invariants | Sun 16:11 | Haiku 4.5 | [`agents/routine-invariants.md`](agents/routine-invariants.md) — checklist extended 2026-08-31 (T-9): drift + retirement checks; weekly comment now also states enabled-trigger count + cadence sum (T-17) | the routine fleet itself |
+| Karen — weekly judgment slice | [`routine-karen-nightly.yml`](../.github/workflows/routine-karen-nightly.yml) | Sun 09:00 | Sonnet 5 | [`scripts/content-engine/README.md`](../scripts/content-engine/README.md); `cie-scan.yml` findings |
+| Nils — site walk | [`routine-nils-walk.yml`](../.github/workflows/routine-nils-walk.yml) | Mon+Fri 14:00 | Opus 4.8 | [`agents/nils.md`](agents/nils.md); live site |
+| Laura — a11y walk | [`routine-laura-a11y-walk.yml`](../.github/workflows/routine-laura-a11y-walk.yml) | Tue+Fri 18:20 | Sonnet 5 | [`agents/laura.md`](agents/laura.md); `a11y.yml` artifacts |
+| Paul Blart — security patrol | [`routine-paul-blart.yml`](../.github/workflows/routine-paul-blart.yml) | Mon 22:20 | Opus 4.8 | [`agents/paul-blart.md`](agents/paul-blart.md); `dependabot-alerts-snapshot.yml` + `codeql.yml` |
+| Routine Auditor — fleet invariants | **Retired** | Replaced by CI on every PR and push | none | `npm run check:routines` (`scripts/check-routine-workflows.mjs`) checks the `routine-*.yml` fleet deterministically |
 
 ### Ticket operations and build
 
