@@ -55,6 +55,7 @@
     "knowledge:coverage": "node scripts/knowledge-coverage.mjs",
     "theory:promote": "node scripts/community/theory-promote.mjs",
     "theory:resolve": "node scripts/community/theory-resolve.mjs",
+    "theory:weaving-intake": "node scripts/community/song-weaving-intake.mjs",
     "merch:revenue": "node scripts/merch-engine/revenue-report.mjs",
     "knowledge:fb-upload": "node --env-file=apps/worker/.env scripts/knowledge-fb-upload.mjs",
     "knowledge:freshness": "node scripts/knowledge-freshness.mjs",

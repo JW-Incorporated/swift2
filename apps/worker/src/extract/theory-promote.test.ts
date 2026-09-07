@@ -87,6 +87,17 @@ describe('mergeTheoryCandidates', () => {
     expect(cluster.sampleUrls).toHaveLength(3);
   });
 
+  it('carries trackSlug from a merged sibling even when the canonical row has none (P2-6)', () => {
+    const rows = [
+      // Higher mentionCount wins canonical, but this row has no track_slug.
+      candidate({ id: 'a', name: 'Ticket Countdown Theory', symbols: ['13'], mentionCount: 3, trackSlug: null }),
+      candidate({ id: 'b', name: 'Ticket Countdown Theory', symbols: ['13'], mentionCount: 1, trackSlug: 'fortnight' }),
+    ];
+    const cluster = onlyCluster(mergeTheoryCandidates(rows));
+    expect(cluster.canonicalId).toBe('a');
+    expect(cluster.trackSlug).toBe('fortnight');
+  });
+
   it('merges transitively: A matches B, B matches C, but A does not directly match C', () => {
     // Distinct name text so A/C don't directly match on name-similarity
     // alone, but share enough symbol overlap with the MIDDLE row B to
@@ -178,7 +189,7 @@ describe('buildLiveTheoryUpsert', () => {
   it('inserts fresh when no existing live_theory matches', () => {
     const cluster = onlyCluster(
       mergeTheoryCandidates([
-        candidate({ mentionCount: PROMOTION_MENTION_THRESHOLD, stance: 'believed' }),
+        candidate({ mentionCount: PROMOTION_MENTION_THRESHOLD, stance: 'believed', trackSlug: 'fortnight' }),
       ]),
     );
     const upsert = buildLiveTheoryUpsert(cluster, []);
@@ -186,6 +197,7 @@ describe('buildLiveTheoryUpsert', () => {
     expect(upsert.row.origin).toBe('fan');
     expect(upsert.row.persistent).toBe(true);
     expect(upsert.row.status).toBe('rumor');
+    expect(upsert.row.track_slug).toBe('fortnight');
   });
 
   it('sets status debunked when the cluster stance is debunked_by_fans (promoted path only reached for non-debunked in practice)', () => {
