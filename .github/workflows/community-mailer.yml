@@ -1,0 +1,85 @@
+# Community Engine P1-6 — daily "Community Tasks" HTML digest email
+# (docs/proposals/2026-09-06-community-engine-plan.md §2.6, board swift2).
+# Parents: P1-4 (Answerer desk drafts `engagement_lead` rows) and P1-5 (ack
+# route + HMAC token), both merged to main.
+#
+# Sends ONE daily email (mode=daily, ordered replies-to-us first then by
+# relevance) plus an OPTIONAL bounded same-day "replies waiting" send
+# (mode=replies-waiting, reply_to_us leads only) — never both unconditionally
+# in the same run, so the founder email ceiling
+# (docs/agents/marjorie.md § Cadence) is never silently exceeded. Zero-LLM:
+# this workflow drafts nothing and posts nothing — it only reads leads the
+# Answerer desk already drafted, mails them, and marks them `emailed`.
+#
+# Cadence: 15:36 UTC, after the Answerer desk's 14:46 UTC run
+# (routine-community-answerer.yml) — an off-peak minute per this repo's
+# cron-contention convention (never :00/:30). Replies-waiting runs later the
+# same day (21:12 UTC) so a same-day reply that lands after the morning send
+# still reaches founders before the next morning brief.
+#
+# Secrets/vars needed (repo Settings): SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+# (same pair every Community Engine script uses), COMMUNITY_ACK_SECRET (HMAC
+# secret for the one-click Posted/Skip links, P1-5), MARJORIE_EMAIL (variable)
+# + GMAIL_APP_PASSWORD (secret) — same Gmail account brief-mailer.yml already
+# uses. Any missing piece degrades to a clean no-op log line, never a crash
+# (scripts/community/mailer.mjs's own contract, mirrors scan.mjs).
+name: community-mailer
+
+on:
+  schedule:
+    - cron: "36 15 * * *" # daily send, after routine-community-answerer.yml (14:46 UTC)
+    - cron: "12 21 * * *" # bounded replies-waiting second send (reply_to_us only)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Which send to run: auto (pick by which cron fired), daily, or replies-waiting"
+        required: false
+        default: auto
+        type: choice
+        options: [auto, daily, replies-waiting]
+
+concurrency:
+  group: community-mailer
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  mail:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Pick the mode for this run
+        id: pick
+        run: |
+          MODE="${{ github.event.inputs.mode || 'auto' }}"
+          if [ "$MODE" = "auto" ]; then
+            # Distinguish the two schedules by which cron string fired
+            # (github.event.schedule) — the 15:36 UTC trigger is the daily
+            # send, the 21:12 UTC trigger is the bounded replies-waiting
+            # send. workflow_dispatch (schedule is empty) defaults to daily.
+            if [ "${{ github.event.schedule }}" = "12 21 * * *" ]; then
+              MODE=replies-waiting
+            else
+              MODE=daily
+            fi
+          fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - run: npm ci --ignore-scripts
+
+      - name: Send the community digest email
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          COMMUNITY_ACK_SECRET: ${{ secrets.COMMUNITY_ACK_SECRET }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: node scripts/community/mailer.mjs --mode=${{ steps.pick.outputs.mode }}

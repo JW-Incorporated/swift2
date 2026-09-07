@@ -265,6 +265,40 @@ export function findLatestTreePR(allPRs) {
   return [...treePRs].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
 }
 
+/**
+ * Community Engine pointer line for section 2 (plan §2.6: "Marjorie's brief
+ * gets one pointer line ... a pointer, not a duplicate"). Counts today's
+ * (last-24h) `engagement_lead` drafts + how many are still emailed/waiting,
+ * via the same service-role Supabase client the Community Engine scripts
+ * use. Soft-fails to `null` on any error (missing table before migration
+ * ships, missing env, RLS surprise) — a broken Supabase read must degrade
+ * this ONE line, never the whole brief, same posture as `contentShipped`.
+ */
+export async function fetchCommunityTasksSummary(sinceIso) {
+  const { serviceClient } = await import('../lib/supabase.mjs');
+  const supabase = serviceClient();
+  if (!supabase) return null;
+  try {
+    const [{ count: draftedCount, error: draftedError }, { count: waitingCount, error: waitingError }] = await Promise.all([
+      supabase.from('engagement_lead').select('id', { count: 'exact', head: true }).eq('status', 'drafted').gte('created_at', sinceIso),
+      supabase.from('engagement_lead').select('id', { count: 'exact', head: true }).eq('status', 'drafted').eq('kind', 'reply_to_us'),
+    ]);
+    if (draftedError || waitingError) return null;
+    return { draftedLast24h: draftedCount ?? 0, repliesWaiting: waitingCount ?? 0 };
+  } catch {
+    return null;
+  }
+}
+
+export function renderCommunityTasksLine(summary) {
+  if (!summary) return null;
+  const { draftedLast24h, repliesWaiting } = summary;
+  if (draftedLast24h === 0 && repliesWaiting === 0) return null;
+  const parts = [`${draftedLast24h} community draft${draftedLast24h === 1 ? '' : 's'} ready to paste`];
+  if (repliesWaiting > 0) parts.push(`${repliesWaiting} reply/replies waiting`);
+  return `- Community tasks: ${parts.join(', ')} — see today's Community Tasks email.`;
+}
+
 // ─── fetch ─────────────────────────────────────────────────────────────────
 
 const ISSUE_FIELDS = 'number,title,body,labels,createdAt,updatedAt,closedAt,state,url,assignees';
@@ -397,6 +431,8 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
   // v3 additions — each independently soft-failing so a single bad source
   // degrades its own section, never the whole brief.
   const contentShipped = await fetchContentShipped(repo, new Date(now - DAY_MS).toISOString()).catch(() => []);
+  // Community Engine pointer line (plan §2.6) — same soft-fail contract.
+  const communityTasks = await fetchCommunityTasksSummary(new Date(now - DAY_MS).toISOString()).catch(() => null);
 
   return {
     decisions: withComments.filter((d) => decisionNums.has(d.number)),
@@ -415,6 +451,7 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     doneSeries: readDoneHistory(),
     openActions: readOpenActions({ now }),
     contentShipped,
+    communityTasks,
     revenueSection: loadRevenueSection(),
     postedSince: fetchPostedSince(now - DAY_MS),
     ciRuns: ciRuns.data?.workflow_runs ?? [],
@@ -542,7 +579,8 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
   const hadOrgActivity = a.merged24.length > 0 || a.closed24.length > 0;
   const contentShipped = state.contentShipped || [];
   const postedSince = state.postedSince || [];
-  if (!hadOrgActivity && contentShipped.length === 0 && postedSince.length === 0) {
+  const communityLine = renderCommunityTasksLine(state.communityTasks);
+  if (!hadOrgActivity && contentShipped.length === 0 && postedSince.length === 0 && !communityLine) {
     out.push('- Nothing merged, nothing closed, nothing new on the site or social. Per the charter\'s 2026-07-12 amendment this is a failed org day.');
   } else {
     if (hadOrgActivity) {
@@ -555,6 +593,7 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     if (postedSince.length) {
       out.push('', '**New on social:**', ...postedSince.map(renderSocialPostedLine));
     }
+    if (communityLine) out.push('', communityLine);
   }
   out.push('');
   if (state.revenueSection) out.push(state.revenueSection, '');
