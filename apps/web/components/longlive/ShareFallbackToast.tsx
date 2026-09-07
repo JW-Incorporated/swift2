@@ -7,10 +7,11 @@ import type { WebSharePayload } from '@/lib/longlive/share-action';
 const EVENT_NAME = 'longlive-share-fallback';
 
 export function ShareFallbackToast() {
-  const [payload, setPayload] = useState<WebSharePayload | null>(null);
+  const [payload, setPayload] = useState<(WebSharePayload & { copied: boolean }) | null>(null);
 
   useEffect(() => {
-    const onFallback = (event: Event) => setPayload((event as CustomEvent<WebSharePayload>).detail);
+    const onFallback = (event: Event) =>
+      setPayload((event as CustomEvent<WebSharePayload & { copied: boolean }>).detail);
     window.addEventListener(EVENT_NAME, onFallback);
     return () => window.removeEventListener(EVENT_NAME, onFallback);
   }, []);
@@ -28,8 +29,10 @@ export function ShareFallbackToast() {
       aria-live="polite"
       className="fixed bottom-24 right-4 z-[70] w-[min(24rem,calc(100vw-2rem))] rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-surface)] p-4 shadow-2xl"
     >
-      <p className="font-semibold text-[color:var(--era-ink)]">Link copied</p>
-      <p className="mt-1 text-sm text-[color:var(--era-ink-soft)]">Share it directly, or choose an option below.</p>
+      <p className="font-semibold text-[color:var(--era-ink)]">{payload.copied ? 'Link copied' : 'Share link ready'}</p>
+      <p className="mt-1 text-sm text-[color:var(--era-ink-soft)]">
+        {payload.copied ? 'Share it directly, or choose an option below.' : 'Choose a direct share option below.'}
+      </p>
       <div className="mt-3 flex flex-wrap gap-2">
         <button
           type="button"

@@ -33,4 +33,8 @@ describe('triggerWebShare', () => {
     await expect(triggerWebShare(payload, { share, copyText })).resolves.toBe('cancelled');
     expect(copyText).not.toHaveBeenCalled();
   });
+
+  it('never claims a link was copied when clipboard access is unavailable', async () => {
+    await expect(triggerWebShare(payload, {})).resolves.toBe('unavailable');
+  });
 });

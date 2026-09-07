@@ -62,8 +62,12 @@ export async function shareTarget(target: ShareTarget): Promise<WebShareResult> 
     share: navigator.share?.bind(navigator),
     copyText: navigator.clipboard?.writeText.bind(navigator.clipboard),
   });
-  if (result === 'fallback') {
-    window.dispatchEvent(new CustomEvent<WebSharePayload>('longlive-share-fallback', { detail: payload }));
+  if (result === 'fallback' || result === 'unavailable') {
+    window.dispatchEvent(
+      new CustomEvent<WebSharePayload & { copied: boolean }>('longlive-share-fallback', {
+        detail: { ...payload, copied: result === 'fallback' },
+      }),
+    );
   }
   return result;
 }
