@@ -193,10 +193,10 @@ Spec: [`docs/proposals/2026-09-06-community-engine-plan.md`](proposals/2026-09-0
 the plan: a human always posts; nothing here auto-posts, auto-comments, or
 auto-DMs on Reddit or Facebook. `community-scan.yml` (P1-2),
 `community-crawl.yml` (P2-1), `community-inbox.yml` (P1-1),
-`community-mailer.yml` (P1-6), and `theory-miner.yml` (P2-2) are all live
-Tier-1 workflows now. The Community Answerer desk (P1-4) shipped as a
-Tier-2 routine, not a Tier-1 workflow — see its row in the Tier 2 table
-below.
+`community-mailer.yml` (P1-6), `theory-miner.yml` (P2-2), and
+`theory-promote.yml` (P2-3) are all live Tier-1 workflows now. The
+Community Answerer desk (P1-4) shipped as a Tier-2 routine, not a Tier-1
+workflow — see its row in the Tier 2 table below.
 
 | Workflow | Trigger | LLM | Mutates | Card that creates it |
 |---|---|---|---|---|
@@ -205,14 +205,20 @@ below.
 | [`community-inbox.yml`](../.github/workflows/community-inbox.yml) | every 30 min | no | reads Marjorie's Gmail (Reddit alert/reply mail, DKIM-verified) → `engagement_lead`; also parses founder `posted <id>`/`skip <id>` replies | P1-1 (landed) |
 | [`community-mailer.yml`](../.github/workflows/community-mailer.yml) | daily 15:36 UTC (after the Community Answerer desk) + a bounded 21:12 UTC replies-waiting second send (`reply_to_us` leads only) | no | reads `engagement_lead` rows the Answerer desk drafted (`status='drafted'`) → sends the daily "Community Tasks" HTML email (paste-ready drafts, one-click ack/skip links via `/api/community/ack`, P1-5) → marks each lead `status='emailed'`; degrades to a clean no-op when `SUPABASE_*`/`COMMUNITY_ACK_SECRET`/`MARJORIE_EMAIL`+`GMAIL_APP_PASSWORD` are unset | P1-6 (landed) |
 | [`theory-miner.yml`](../.github/workflows/theory-miner.yml) | daily 08:20 UTC (after `community-crawl.yml`) | yes (Haiku 4.5 extract, `apps/worker/src/extract/theory-haiku-client.ts`'s forced `record_fan_theories` tool) | downloads the latest successful `community-crawl.yml` run's transient artifact (`gh run download`, since this is a separately scheduled workflow, not a `workflow_run` trigger); one Haiku call per post+comment bundle; every theory screened (`screenTopic()`) before `fan_theory_candidate` upsert, deduped by `theory_key`; a redline hit is never stored at all (no "written but unservable" state, unlike `current_item`/`fan_signal`); has nothing to mine while `COMMUNITY_CRAWL_ENABLED` stays off, which is a clean no-op, not a failure | P2-2 (landed) |
+| [`theory-promote.yml`](../.github/workflows/theory-promote.yml) | weekly, Sunday 09:45 UTC | no (deterministic merge — see `apps/worker/src/extract/theory-promote.ts`'s header for why this is not the Opus call the plan's §4 table originally described) | reads `fan_theory_candidate` rows `status='candidate'`, merges near-duplicates via the existing name-similarity + symbol-overlap rule (`theory-match.ts`), promotes clusters with `mention_count >= 3` (and stance not `debunked_by_fans`) into `live_theory` (origin='fan', persistent=true); merged rows marked `status='merged'`, rejected/held clusters marked accordingly; degrades to a clean no-op when `SUPABASE_*` are unset | P2-3 (landed) |
 
 `fb-export-ingest` (script, not its own cron — run by the Answerer desk or
-`workflow_dispatch` after a weekly Facebook export lands) and `theory-resolve`
-(folds into the existing nightly `sync:content` job) are the other two pieces
-of workflow-level machinery this plan adds; they don't get their own row here
-because they aren't independently-triggered things per this file's counting
-rule (see the header) — `fb-export-ingest` is documented under P1-3,
-`theory-resolve` under P2-3. E5's merch-lane widening (P2-7) reuses
+`workflow_dispatch` after a weekly Facebook export lands) and
+`theory-resolve` (folds into the existing nightly `sync:content` job as
+its final step — `scripts/community/theory-resolve.mjs`, matches
+`fan_theory_candidate.predicts`/`predicted_date` against Vault moments by
+date + shared symbol, writes `docs/audits/theory-resolutions.md` as a
+precedent-CANDIDATE report a human turns into an actual `egg_ledger` seed
+entry — it never auto-writes `egg_ledger` itself) are the other two pieces
+of workflow-level machinery this plan adds; they don't get their own row
+here because they aren't independently-triggered things per this file's
+counting rule (see the header) — `fb-export-ingest` is documented under
+P1-3, `theory-resolve` under P2-3. E5's merch-lane widening (P2-7) reuses
 `merch-fanmade.yml`'s existing cron and needs no new row either.
 
 **`/api/community/ack`** (`apps/web/app/api/community/ack/route.ts`, card
@@ -318,7 +324,7 @@ designed every-other-day cadence. See
 |---|---|---|
 | Karen Deep — agent review | ⚠️ **APPROVED (D3=A, 2026-08-31), NOT CREATED** — spend question resolved; only the account-access mechanic remains | [`agents/runners.md`](agents/runners.md) § "Karen Deep — trigger config to create" + [`karen-deep-review.md`](agents/runner-prompts/karen-deep-review.md) |
 | Notification quality — weekly desk | ⚠️ **APPROVED (D6=A, 2026-08-31), NOT CREATED** — sequence after REC-1's dispatch heartbeat lands ([REC-1](automation/review-2026-08-31.md#rec-1) not yet landed) | [`agents/runners.md`](agents/runners.md) § "Notification-quality desk — trigger config to create" + [`agents/notification-quality.md`](agents/notification-quality.md) + [`notification-quality-run.md`](agents/runner-prompts/notification-quality-run.md) |
-| Theory Miner — weekly Opus merge/promote pass | ⏳ **PLANNED (Community Engine plan, Fable-approved 2026-09-06), NOT CREATED** — extraction landed as [`theory-miner.yml`](../.github/workflows/theory-miner.yml) (P2-2, Tier-1 workflow script, Haiku 4.5 extract — not a Claude Routine, same shape as `community-crawl.yml`); the weekly Opus merge/promote pass into `live_theory` is P2-3, not yet built | [`docs/proposals/2026-09-06-community-engine-plan.md`](proposals/2026-09-06-community-engine-plan.md) §3.3 + `agents/runners.md` § "Theory Miner weekly merge — trigger config to create" (added when P2-3 lands) |
+| Theory Miner — weekly Opus merge/promote pass | ✅ **LANDED (P2-3)** — shipped as [`theory-promote.yml`](../.github/workflows/theory-promote.yml), a weekly (Sunday 09:45 UTC) deterministic merge/promote pass, NOT an Opus call — see `apps/worker/src/extract/theory-promote.ts`'s header for the documented scope decision (reuses the existing name-similarity + symbol-overlap dedupe rule from `theory-match.ts` instead of a second LLM). Reads `fan_theory_candidate` rows, merges near-duplicates, promotes clusters with `mention_count >= 3` (and not `debunked_by_fans`) into `live_theory` (origin='fan', persistent=true). The resolution matcher (`predicts`/`predicted_date` -> Vault moments -> `docs/audits/theory-resolutions.md` precedent-candidate report) folds into the nightly `sync:content` job as its final step, per this row's original note — it never auto-writes `egg_ledger` (human-reviewed PR like any Vault change, same as every other precedent row in this repo). | [`docs/proposals/2026-09-06-community-engine-plan.md`](proposals/2026-09-06-community-engine-plan.md) §3.3 + `agents/runners.md` § "Theory Miner weekly merge — trigger config to create" (added when P2-3 lands) |
 
 ---
 
