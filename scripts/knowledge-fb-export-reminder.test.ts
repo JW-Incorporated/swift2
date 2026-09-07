@@ -54,4 +54,24 @@ describe('issueBody', () => {
     expect(body).toMatch(/@sffan15-sys/);
     expect(body).toMatch(/npm run knowledge:fb-upload/);
   });
+
+  it('names the private drop location (facebook-exports bucket, never the repo)', () => {
+    const body = issueBody([]);
+    expect(body).toMatch(/private `facebook-exports` Supabase Storage bucket/);
+    expect(body).toMatch(/never the public repo/);
+  });
+
+  it('includes the fb-export-ingest step referencing card P1-3', () => {
+    const body = issueBody([]);
+    expect(body).toMatch(/node scripts\/community\/fb-export-ingest\.mjs --group/);
+    expect(body).toMatch(/--dry-run/);
+    expect(body).toMatch(/P1-3/);
+  });
+
+  it('includes the first-real-export calibration checklist referencing HUMAN-ACTIONS.md #16', () => {
+    const body = issueBody([]);
+    expect(body).toMatch(/one-time calibration \(HUMAN-ACTIONS\.md #16\)/);
+    expect(body).toMatch(/0 posts kept on a group you know was active/);
+    expect(body).toMatch(/parser is calibrated/);
+  });
 });
