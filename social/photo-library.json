@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "policy": "Every entry has a local publishable media path, an exact source URL, and a truthful credit. The selector chooses the least-used entry and then the longest-unseen entry; recency is a diversity preference, never an eligibility ban, so a valid campaign cannot deadlock when the finite library is exhausted.",
+  "photos": [
+    {
+      "id": "lover-minneapolis-2023",
+      "mediaPath": "/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg",
+      "credit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg",
+      "tags": ["lover", "eras-tour", "minneapolis"]
+    },
+    {
+      "id": "lover-minneapolis-act5-2023",
+      "mediaPath": "/social/library/photos/taylor-lover-eras-minneapolis-act5-2023.jpg",
+      "credit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_5.jpg",
+      "tags": ["lover", "eras-tour", "minneapolis"]
+    },
+    {
+      "id": "red-inglewood-2023",
+      "mediaPath": "/social/library/photos/taylor-red-eras-inglewood-2023.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_10.jpg",
+      "tags": ["red", "eras-tour", "inglewood"]
+    },
+    {
+      "id": "fearless-inglewood-2023",
+      "mediaPath": "/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg",
+      "tags": ["fearless", "eras-tour", "inglewood"]
+    },
+    {
+      "id": "debut-acoustic-2007",
+      "mediaPath": "/social/library/photos/taylor-debut-2007-acoustic.jpg",
+      "credit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(2007)_retouched.jpg",
+      "tags": ["debut", "acoustic", "2007"]
+    }
+  ]
+}

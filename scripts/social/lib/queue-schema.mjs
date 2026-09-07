@@ -47,12 +47,14 @@ export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art', 'video-thumb'];
  * Instagram's caption limit is 2,200 characters; it also caps hashtags at 30
  * (not checked here — no draft has ever come close).
  *
- * `media`: X posts may carry up to MAX_X_IMAGES images (uploaded via the
- * v1.1 media endpoint — see lib/platforms.mjs's postToX); Instagram requires
- * at least one and supports a 10-image carousel.
+ * `media`: every normal paired X/Instagram campaign requires at least one
+ * credited image. The named `appearance:` video-discovery exception remains
+ * X-only and link-preview-only; X otherwise supports up to MAX_X_IMAGES
+ * images (uploaded via the v1.1 media endpoint — see lib/platforms.mjs's
+ * postToX). Instagram requires at least one and supports a 10-image carousel.
  */
 export const PLATFORM_RULES = {
-  x: { maxBody: 280, media: 'optional', maxMedia: MAX_X_IMAGES, measure: weightedTweetLength, unit: 'weighted characters' },
+  x: { maxBody: 280, media: 'required', maxMedia: MAX_X_IMAGES, measure: weightedTweetLength, unit: 'weighted characters' },
   instagram: { maxBody: 2200, media: 'required', maxMedia: 10, measure: (body) => String(body ?? '').length, unit: 'characters' },
 };
 
@@ -60,6 +62,21 @@ const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d
 
 function isIsoInstant(value) {
   return typeof value === 'string' && ISO_INSTANT.test(value) && !Number.isNaN(Date.parse(value));
+}
+
+/** Validates that a photo draft preserves the inventory's exact provenance. */
+export function validatePhotoInventoryBinding(item, photoLibrary) {
+  if (item?.mediaKind !== 'photo') return [];
+  if (typeof item.photoId !== 'string' || item.photoId.trim() === '') {
+    return ['photoId: required when mediaKind is "photo" — bind the draft to social/photo-library.json.'];
+  }
+  const photo = photoLibrary.find((entry) => entry.id === item.photoId);
+  if (!photo) return [`photoId: ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
+  const tile = Array.isArray(item.media) ? item.media[0] : undefined;
+  if (tile !== photo.mediaPath || item.mediaCredit !== photo.credit || item.mediaSource !== photo.source) {
+    return ['photoId: must use its inventory media path, exact credit, and exact source so attribution cannot drift.'];
+  }
+  return [];
 }
 
 /**
@@ -129,7 +146,8 @@ export function validateQueueItem(item) {
         );
       }
     }
-    if (rules?.media === 'required' && paths.length === 0) {
+    const isAppearanceException = item.platform === 'x' && typeof item.campaign === 'string' && item.campaign.startsWith('appearance:');
+    if (rules?.media === 'required' && !isAppearanceException && paths.length === 0) {
       findings.push(`media: ${item.platform} posts require at least one image.`);
     }
     if (rules && paths.length > rules.maxMedia) {
@@ -203,7 +221,7 @@ export function validateQueueItem(item) {
   if (item.attempts !== undefined && (!Number.isInteger(item.attempts) || item.attempts < 0)) {
     findings.push(`attempts: must be a non-negative integer when present (${JSON.stringify(item.attempts)}).`);
   }
-  for (const field of ['campaign', 'why', 'approvedBy', 'lastError']) {
+  for (const field of ['campaign', 'why', 'approvedBy', 'lastError', 'photoId']) {
     if (item[field] !== undefined && typeof item[field] !== 'string') {
       findings.push(`${field}: must be a string when present.`);
     }

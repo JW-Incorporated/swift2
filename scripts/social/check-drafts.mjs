@@ -79,6 +79,7 @@
 //
 // Exits non-zero with a readable findings list if anything fails.
 
+import { readFileSync } from 'node:fs';
 import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -133,18 +134,11 @@ const PHOTO_PREFIX = '/social/library/photos/';
 // a thumbnail declared "photo" without an incriminating credit string (or a
 // future non-thumbnail file nobody vetted) still can't launder through.
 const VIDEO_THUMBNAIL_CREDIT_RE = /thumbnail|youtube|video/i;
-// The genuinely license-cleared Taylor-photo corpus as of 2026-09-05 (see
-// social/calendar.md's "Cleared-photo corpus" line — update this list, and
-// that doc, together whenever a new CC/public-domain photo is added under
-// PHOTO_PREFIX). Deliberately basenames only (not full paths) so the check
-// stays correct regardless of PHOTO_PREFIX's exact value.
-const CLEARED_PHOTO_ALLOWLIST = new Set([
-  'taylor-lover-eras-minneapolis-2023.jpg',
-  'taylor-lover-eras-minneapolis-act5-2023.jpg',
-  'taylor-red-eras-inglewood-2023.jpg',
-  'taylor-fearless-eras-inglewood-2023.jpg',
-  'taylor-debut-2007-acoustic.jpg',
-]);
+// The durable credited-photo inventory replaces the hand-maintained five-file
+// allowlist. Every entry carries the exact source and credit a draft may use.
+const PHOTO_LIBRARY = JSON.parse(readFileSync(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;
+const PHOTO_LIBRARY_BY_ID = new Map(PHOTO_LIBRARY.map((photo) => [photo.id, photo]));
+const PHOTO_LIBRARY_BY_PATH = new Map(PHOTO_LIBRARY.map((photo) => [photo.mediaPath, photo]));
 // Instagram rejects a feed image whose aspect ratio (width/height) falls
 // outside ~0.8 (4:5 portrait) to 1.91 (landscape) — API error_subcode
 // 2207009 / code 36003, "the aspect ratio is not supported". X has no such
@@ -448,11 +442,28 @@ export function checkLength(item) {
   return [];
 }
 
+function checkInventoryPhotoBinding(item, tile) {
+  if (typeof item.photoId !== 'string' || item.photoId.trim() === '') {
+    return ['media: mediaKind "photo" requires `photoId` from social/photo-library.json so its exact path, credit, and source stay bound together.'];
+  }
+  const selectedPhoto = PHOTO_LIBRARY_BY_ID.get(item.photoId);
+  if (!selectedPhoto) return [`media: photoId ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
+  if (selectedPhoto.mediaPath !== tile || selectedPhoto.credit !== item.mediaCredit || selectedPhoto.source !== item.mediaSource) {
+    return [`media: photoId ${JSON.stringify(item.photoId)} must use its inventory media path, exact credit, and exact source so attribution cannot drift.`];
+  }
+  return [];
+}
+
 export async function checkMedia(file, item, recentIgPosted, allQueueItems = []) {
   const findings = [];
   if (item.platform === 'instagram' && !item.media?.length) {
     findings.push('media: Instagram drafts require at least one image in `media`.');
     return findings; // nothing else to check without media
+  }
+  const isAppearanceException = item.platform === 'x' && typeof item.campaign === 'string' && item.campaign.startsWith('appearance:');
+  if (item.platform === 'x' && !isAppearanceException && !item.media?.length) {
+    findings.push('media: X drafts in a paired campaign require at least one credited image in `media`; only the named appearance: link-preview lane is X-only.');
+    return findings;
   }
   if (item.platform === 'x' && item.mediaKind === 'site-screen') {
     findings.push('media: X drafts may not use mediaKind "site-screen" — X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
@@ -552,7 +563,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     }
     if (repeatsRecentIgMedia(mediaPath, recentIgPosted, ERA_ART_LOOKBACK)) {
       findings.push(
-        `media: "${mediaPath}" repeats one of the last ${ERA_ART_LOOKBACK} posted Instagram items' media — even a dedicated photo shouldn't ship twice that soon.`,
+        `${WARNING_PREFIX} media: "${mediaPath}" was used in recent Instagram history; the selector prefers less-used, longer-unseen credited entries first, but reuse remains valid so a finite library cannot deadlock a paired campaign.`,
       );
     }
     // Queue-vs-queue: a SCHEDULED future repeat is invisible to the
@@ -561,7 +572,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     const alsoQueuedIn = allQueueItems.find((o) => o.file !== file && (o.data.media ?? []).includes(mediaPath));
     if (alsoQueuedIn) {
       findings.push(
-        `media: "${mediaPath}" is also scheduled in ${alsoQueuedIn.file} — two queued items may not share media; the repeat would land inside the recent-posted window by construction.`,
+        `${WARNING_PREFIX} media: "${mediaPath}" is also scheduled in ${alsoQueuedIn.file}; select another credited inventory entry when available, but retain this valid fallback so a finite library cannot deadlock the calendar.`,
       );
     }
   }
@@ -592,6 +603,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     if (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '') {
       findings.push('media: launch-campaign site-screen carousel requires `mediaSource` for its Taylor-photo grid tile.');
     }
+    findings.push(...checkInventoryPhotoBinding(item, grid));
     for (const slide of item.media.slice(1)) {
       const s = String(slide);
       if (!s.startsWith('/social/library/') || s.startsWith(PHOTO_PREFIX)) {
@@ -621,15 +633,16 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
       // already fired, so a thumbnail wrongly staged straight into
       // PHOTO_PREFIX doesn't dodge this on a technicality.
       const creditText = `${item.mediaCredit ?? ''} ${item.mediaSource ?? ''}`;
-      const basename = tile.split('/').pop() ?? '';
       const looksLikeThumbnail = VIDEO_THUMBNAIL_CREDIT_RE.test(creditText);
-      const notCleared = tile.startsWith(PHOTO_PREFIX) && !CLEARED_PHOTO_ALLOWLIST.has(basename);
+      const inventoryPhoto = PHOTO_LIBRARY_BY_PATH.get(tile);
+      const notCleared = tile.startsWith(PHOTO_PREFIX) && !inventoryPhoto;
       if (looksLikeThumbnail || notCleared) {
         findings.push(
-          `media: "${tile}" cannot be mediaKind "photo" — ${looksLikeThumbnail ? `its mediaCredit/mediaSource ("${creditText.trim()}") reads like a rehosted video thumbnail` : 'it is not in the license-cleared photo corpus allowlist'} (docs/decisions.md 2026-08-15: "photo" means a license-cleared local file; #3584 ruling). ` +
+          `media: "${tile}" cannot be mediaKind "photo" — ${looksLikeThumbnail ? `its mediaCredit/mediaSource ("${creditText.trim()}") reads like a rehosted video thumbnail` : 'it is not in the credited photo inventory'} (docs/decisions.md 2026-08-15: "photo" means a license-cleared local file; #3584 ruling). ` +
             'Use mediaKind "video-thumb" instead — Instagram drafts reject it outright, and X drafts may only carry it with no attached image (a plain link preview).',
         );
       }
+      findings.push(...checkInventoryPhotoBinding(item, tile));
     } else if (item.mediaKind === 'site-screen') {
       if (!tile.startsWith('/social/library/') || tile.startsWith(PHOTO_PREFIX)) {
         findings.push(
