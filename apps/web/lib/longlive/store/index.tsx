@@ -58,8 +58,7 @@ export interface AppState {
   scrubbing: boolean;
   /** Whether the search overlay is open. */
   searchOpen: boolean;
-  /** Whether the share sheet is open, and for what target. */
-  share: ShareTarget | null;
+
   clueWebTrail: MotifId | null;
   pendingVideoAnchor: string | null;
   /** Active global timeline filter chips. Empty = show everything (P1). */
@@ -105,8 +104,7 @@ interface AppActions {
   setSelectorOpen: (open: boolean) => void;
   setScrubbing: (v: boolean) => void;
   setSearchOpen: (open: boolean) => void;
-  openShare: (t: ShareTarget) => void;
-  closeShare: () => void;
+
   toggleFilter: (id: FilterId) => void;
   clearFilters: () => void;
   pushReturnPoint: (p: ReturnPoint) => void;
@@ -255,8 +253,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // "Return to now" button, where EraStream never remounts.
     nav.goHome(CURRENT_ERA_ID);
     overlays.closeAllOverlays();
-    searchShare.closeSearchAndShare();
-  }, [nav.goHome, overlays.closeAllOverlays, searchShare.closeSearchAndShare]);
+    searchShare.closeSearch();
+  }, [nav.goHome, overlays.closeAllOverlays, searchShare.closeSearch]);
 
   // Deep link support: a shared URL (?item=, ?lens=, ?era=, or ?mode= —
   // #2105) lands the visitor on the shared target instead of the front-door
@@ -363,8 +361,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setSelectorOpen: nav.setSelectorOpen,
       setScrubbing: nav.setScrubbing,
       setSearchOpen: searchShare.setSearchOpen,
-      openShare: searchShare.openShare,
-      closeShare: searchShare.closeShare,
+
       toggleFilter: searchShare.toggleFilter,
       clearFilters: searchShare.clearFilters,
       pushReturnPoint: returnPoints.pushReturnPoint,
@@ -402,8 +399,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       nav.setSelectorOpen,
       nav.setScrubbing,
       searchShare.setSearchOpen,
-      searchShare.openShare,
-      searchShare.closeShare,
+
       searchShare.toggleFilter,
       searchShare.clearFilters,
       returnPoints.pushReturnPoint,
@@ -429,7 +425,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       selectorOpen: nav.state.selectorOpen,
       scrubbing: nav.state.scrubbing,
       searchOpen: searchShare.state.searchOpen,
-      share: searchShare.state.share,
+
       clueWebTrail: overlays.state.clueWebTrail,
       pendingVideoAnchor: overlays.state.pendingVideoAnchor,
       filters: searchShare.state.filters,

@@ -14,6 +14,7 @@ import { useLiveTheories } from '@/lib/longlive/use-live-theories';
 import { fansAreSayingLine, matchFanSignal, sortByHeatDesc } from '@/lib/longlive/live-theories';
 import { TheoryCard, countLine } from './TheoryCard';
 import { LiveTheoryCard } from './LiveTheoryCard';
+import { shareTarget as shareTargetNow } from '@/lib/longlive/share-payload';
 
 /**
  * The era theories & easter eggs guide — an immersive per-era overlay (same
@@ -28,8 +29,8 @@ import { LiveTheoryCard } from './LiveTheoryCard';
  */
 
 export function TheoryGuide() {
-  const { theoryGuideEraId, theoryGuideHighlightSlug, share } = useAppState();
-  const { closeTheoryGuide, openShare, popReturnPoint } = useAppActions();
+  const { theoryGuideEraId, theoryGuideHighlightSlug } = useAppState();
+  const { closeTheoryGuide, popReturnPoint } = useAppActions();
 
   const era = theoryGuideEraId ? getEra(theoryGuideEraId) : undefined;
   const theories = theoryGuideEraId ? theoriesForEra(theoryGuideEraId) : [];
@@ -64,16 +65,14 @@ export function TheoryGuide() {
   useScrollLock(open);
   useFocusTrap(open, dialogRef);
 
-  // Close on Escape — unless the share sheet is layered on top; that overlay
-  // owns Escape until it closes itself.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !share) closeTheoryGuide();
+      if (e.key === 'Escape') closeTheoryGuide();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, closeTheoryGuide, share]);
+  }, [open, closeTheoryGuide]);
 
   // Let the mobile back-swipe gesture close this guide instead of leaving the app.
   useBackDismiss(open, closeTheoryGuide);
@@ -136,7 +135,7 @@ export function TheoryGuide() {
             the button is added here directly. */}
         <div className="absolute right-4 top-4 flex items-center gap-2">
           <button
-            onClick={() => openShare({ kind: 'theoryGuide', eraId: era.id })}
+            onClick={() => void shareTargetNow({ kind: 'theoryGuide', eraId: era.id })}
             className="era-icon-btn grid size-11 place-items-center rounded-full backdrop-blur-md"
             aria-label="Share"
             title="Share"

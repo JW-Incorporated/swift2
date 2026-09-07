@@ -24,7 +24,6 @@ const BACK_DISMISS_FILES = [
   './FeedbackButton.tsx',
   './MomentDetail.tsx',
   './SearchOverlay.tsx',
-  './ShareSheet.tsx',
   './TheoryGuide.tsx',
   './TrackDetail.tsx',
   './TrackGuide.tsx',

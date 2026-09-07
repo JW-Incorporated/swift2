@@ -17,14 +17,29 @@ const FEATURE_MODE_IDS = new Set(['mood', 'clownbot']);
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: Promise<{ lens?: string; mode?: string }>;
+  searchParams: Promise<{ lens?: string; mode?: string; item?: string; era?: string; song?: string; guide?: string; theories?: string }>;
 }): Promise<Metadata> {
-  const { lens, mode } = await searchParams;
+  const { lens, mode, item, era, song, guide, theories } = await searchParams;
   const validLens = lens && VALID_LENS_IDS.has(lens) ? lens : undefined;
   const validMode = mode && FEATURE_MODE_IDS.has(mode) ? mode : undefined;
-  if (!validLens && !validMode) return {};
+  const featureParam = validLens
+    ? `lens=${encodeURIComponent(validLens)}`
+    : validMode
+      ? `mode=${encodeURIComponent(validMode)}`
+      : item
+        ? `item=${encodeURIComponent(item)}`
+        : era
+          ? `era=${encodeURIComponent(era)}`
+          : song
+            ? `song=${encodeURIComponent(song)}`
+            : guide
+              ? `guide=${encodeURIComponent(guide)}`
+              : theories
+                ? `theories=${encodeURIComponent(theories)}`
+                : undefined;
+  if (!featureParam) return {};
 
-  const ogUrl = `/api/og?${validLens ? `lens=${encodeURIComponent(validLens)}` : `mode=${encodeURIComponent(validMode!)}`}`;
+  const ogUrl = `/api/og?${featureParam}`;
   return {
     openGraph: { images: [ogUrl] },
     twitter: { images: [ogUrl] },

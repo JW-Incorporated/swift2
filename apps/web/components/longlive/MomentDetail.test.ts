@@ -28,7 +28,7 @@ describe('MomentDetail — #659 (tag pill contrast)', () => {
 
 describe('MomentDetail — direct home navigation', () => {
   it('keeps a one-tap home control beside the detail controls', () => {
-    expect(src).toContain("const { closeItem, goHome, openShare, openItem } = useAppActions();");
+    expect(src).toContain("const { closeItem, goHome, openItem } = useAppActions();");
     expect(src).toContain('onClick={goHome}');
     expect(src).toContain('aria-label="Go to home"');
   });

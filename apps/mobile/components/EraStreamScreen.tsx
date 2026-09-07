@@ -11,22 +11,19 @@
 // the ORDER of eras and of each era's cards.
 //
 // OS-038 adds this screen's search/share/feedback affordances: a search icon
-// opens the full-screen native SearchScreen (same ranking engine as the
-// web's SearchOverlay, `lib/search-data.ts`); a share icon opens the native
-// ShareSheet with the bare front-door target (`{ kind: 'site' }` — parity
-// with the web's `topbarShareTarget('era', ...)` for a target this screen
-// has no more specific "thing" to address, since OS-033's moment detail
-// isn't built yet); and the feedback trigger floats over the whole screen,
-// same corner the web's FeedbackButton uses.
+// opens the full-screen native SearchScreen; the Share button opens the
+// platform destination picker immediately; and the feedback trigger floats
+// over the whole screen, same corner the web's FeedbackButton uses.
 import { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
+import { buildShareUrl, siteShareCopy } from '@swift2/experience';
 import { orderedEras } from '../lib/era-stream-data';
 import { LandingMasthead } from './LandingMasthead';
 import { EraSection } from './EraSection';
 import { SearchScreen } from './SearchScreen';
-import { ShareSheet } from './ShareSheet';
 import { FeedbackButton } from './FeedbackButton';
 import { eraColors } from '../lib/theme';
+import { SITE_URL } from './SiteShell';
 
 /** How many eras (newest-first) this screen mounts at once. OS-032 scope: "three eras" per the card's own done-when; a follow-up (OS-032 the same shared jumpWindow the web uses, or its own incremental-append) can widen this without touching EraSection or the shared view-model builder. */
 const INITIAL_ERA_COUNT = 3;
@@ -35,7 +32,7 @@ export function EraStreamScreen({ onOpenItem }: { onOpenItem: (id: string) => vo
   const eras = useMemo(() => orderedEras().slice(0, INITIAL_ERA_COUNT), []);
   const [activeEraName] = useState(eras[0]?.name ?? '');
   const [searchOpen, setSearchOpen] = useState(false);
-  const [shareOpen, setShareOpen] = useState(false);
+
 
   // OS-033 ships the native moment detail sheet: a moment hit (feed tap or
   // search result) now opens it via the `onOpenItem` prop, replacing the
@@ -46,6 +43,15 @@ export function EraStreamScreen({ onOpenItem }: { onOpenItem: (id: string) => vo
   // incremental jump-to-era scroll (see this file's header doc); a
   // follow-up that widens INITIAL_ERA_COUNT/adds scroll-to can wire this.
   const handleOpenEra = (_eraId: string) => {};
+  const handleShare = async () => {
+    const copy = siteShareCopy();
+    const url = buildShareUrl({ kind: 'site' }, SITE_URL);
+    try {
+      await Share.share({ title: copy.title, message: `${copy.text} ${url}`, url });
+    } catch {
+      /* The reader dismissed the native picker. */
+    }
+  };
 
   return (
     <View style={styles.fill}>
@@ -66,7 +72,7 @@ export function EraStreamScreen({ onOpenItem }: { onOpenItem: (id: string) => vo
             <Text style={styles.topBarBtnText}>Search</Text>
           </Pressable>
           <Pressable
-            onPress={() => setShareOpen(true)}
+            onPress={() => void handleShare()}
             accessibilityRole="button"
             accessibilityLabel="Share"
             style={styles.topBarBtn}
@@ -100,9 +106,6 @@ export function EraStreamScreen({ onOpenItem }: { onOpenItem: (id: string) => vo
         </View>
       )}
 
-      {shareOpen && eras[0] && (
-        <ShareSheet target={{ kind: 'site' }} era={eras[0]} onClose={() => setShareOpen(false)} />
-      )}
     </View>
   );
 }
