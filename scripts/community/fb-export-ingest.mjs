@@ -55,6 +55,13 @@
 //   node scripts/community/fb-export-ingest.mjs --group taylor-swifts-vault ~/Downloads/fb-taylor-swifts-vault-2026-09-07.html
 //   node scripts/community/fb-export-ingest.mjs --group taylor-swifts-vault --dry-run <file>
 //
+// `--group` is the slug used in `community`/`locator` (matches
+// `scripts/knowledge/fb-groups-checklist.mjs`'s `slug` and the
+// `community_watchlist` seed's `facebook:<slug>` id). The human-readable
+// name used in `locator` is looked up from that checklist by slug;
+// `--group-name "Human Name"` overrides it for a group not yet in the
+// checklist.
+//
 // Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY (same as
 // knowledge-fb-upload.mjs) unless --dry-run is set, in which case nothing is
 // written and the computed rows print to stdout instead.
@@ -66,9 +73,18 @@ import { parseFacebookExport, extractPostsFromHtml } from '../../apps/worker/src
 import { screenTopic } from '@swift2/shared/redline';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
+import { FB_GROUPS_CHECKLIST } from '../knowledge/fb-groups-checklist.mjs';
 
 const MAX_LOCATOR_EXCERPT = 80;
 const DEFAULT_MAX_LEADS_PER_GROUP = 10;
+
+/** Resolves the human-readable group name for `locator`: explicit override,
+ * then a lookup by slug in `scripts/knowledge/fb-groups-checklist.mjs`
+ * (§2.4's checklist already carries `label` per group), falling back to the
+ * slug itself for a group not yet added there. */
+export function resolveGroupName(slug, { groupNameOverride, checklist = FB_GROUPS_CHECKLIST } = {}) {
+  return groupNameOverride || checklist.find((g) => g.slug === slug)?.label || slug;
+}
 
 function parseArgs(argv) {
   const flags = { dryRun: false, group: null, maxLeadsPerGroup: DEFAULT_MAX_LEADS_PER_GROUP, files: [] };
@@ -84,6 +100,9 @@ function parseArgs(argv) {
       i += 1;
     } else if (arg === '--shop-links-out') {
       flags.shopLinksOut = argv[i + 1] ?? null;
+      i += 1;
+    } else if (arg === '--group-name') {
+      flags.groupName = argv[i + 1] ?? null;
       i += 1;
     } else if (!arg.startsWith('--')) {
       flags.files.push(arg);
@@ -236,7 +255,7 @@ async function writeResult(supabase, result) {
 async function main() {
   const flags = parseArgs(process.argv.slice(2));
   if (!flags.group) {
-    console.error('fb-export-ingest: usage: --group <slug> [--dry-run] [--max-leads-per-group N] <file.html> [more files...]');
+    console.error('fb-export-ingest: usage: --group <slug> [--group-name "Human Name"] [--dry-run] [--max-leads-per-group N] <file.html> [more files...]');
     return 1;
   }
   if (flags.files.length === 0) {
@@ -250,7 +269,7 @@ async function main() {
     return 1;
   }
 
-  const groupName = flags.group; // fb-groups-checklist.mjs's `label` is the human name; caller may pass it as --group instead of the slug when it differs
+  const groupName = resolveGroupName(flags.group, { groupNameOverride: flags.groupName });
   let exitCode = 0;
   const allShopLinks = [];
 

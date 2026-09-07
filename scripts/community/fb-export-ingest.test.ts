@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   buildIngestResult,
   engagementLeadsFromPosts,
+  resolveGroupName,
   shopLinksFromPosts,
 } from './fb-export-ingest.mjs';
 
@@ -108,6 +109,24 @@ describe('engagementLeadsFromPosts', () => {
     });
     expect(leads[0]).not.toHaveProperty('author');
     expect(leads[0]).not.toHaveProperty('authorHash');
+  });
+});
+
+describe('resolveGroupName', () => {
+  it('looks up the label from the checklist by slug', () => {
+    const checklist = [{ slug: 'taylor-swifts-vault', label: "Taylor Swift's Vault" }];
+    expect(resolveGroupName('taylor-swifts-vault', { checklist })).toBe("Taylor Swift's Vault");
+  });
+
+  it('prefers an explicit override over the checklist lookup', () => {
+    const checklist = [{ slug: 'taylor-swifts-vault', label: "Taylor Swift's Vault" }];
+    expect(resolveGroupName('taylor-swifts-vault', { groupNameOverride: 'Custom Name', checklist })).toBe(
+      'Custom Name',
+    );
+  });
+
+  it('falls back to the slug itself when the group is not in the checklist', () => {
+    expect(resolveGroupName('unknown-group', { checklist: [] })).toBe('unknown-group');
   });
 });
 

@@ -68,8 +68,9 @@ export function issueBody(groups) {
       'local copies once each upload is confirmed.',
     '6. Run `node scripts/community/fb-export-ingest.mjs --group <group-slug> <file.html>` for each ' +
       'uploaded file — parses it into a fan-signal row and paste-ready engagement leads (Community ' +
-      'Engine plan §2.4, card P1-3). Add `--dry-run` first if you want to see what it would write ' +
-      'before it touches the database.',
+      'Engine plan §2.4, card P1-3); the human-readable group name is looked up automatically from ' +
+      'this checklist by slug. Add `--dry-run` first if you want to see what it would write before ' +
+      'it touches the database.',
     '7. Tick the checklist above; close this issue. Done.',
     '',
     '**First real export — one-time calibration (HUMAN-ACTIONS.md #16):** the parser ' +
