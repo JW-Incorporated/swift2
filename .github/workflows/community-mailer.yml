@@ -52,14 +52,17 @@ jobs:
     steps:
       - name: Pick the mode for this run
         id: pick
+        env:
+          INPUT_MODE: ${{ github.event.inputs.mode }}
+          FIRED_SCHEDULE: ${{ github.event.schedule }}
         run: |
-          MODE="${{ github.event.inputs.mode || 'auto' }}"
+          MODE="${INPUT_MODE:-auto}"
           if [ "$MODE" = "auto" ]; then
             # Distinguish the two schedules by which cron string fired
             # (github.event.schedule) — the 15:36 UTC trigger is the daily
             # send, the 21:12 UTC trigger is the bounded replies-waiting
             # send. workflow_dispatch (schedule is empty) defaults to daily.
-            if [ "${{ github.event.schedule }}" = "12 21 * * *" ]; then
+            if [ "$FIRED_SCHEDULE" = "12 21 * * *" ]; then
               MODE=replies-waiting
             else
               MODE=daily
@@ -82,4 +85,5 @@ jobs:
           COMMUNITY_ACK_SECRET: ${{ secrets.COMMUNITY_ACK_SECRET }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-        run: node scripts/community/mailer.mjs --mode=${{ steps.pick.outputs.mode }}
+          MAILER_MODE: ${{ steps.pick.outputs.mode }}
+        run: node scripts/community/mailer.mjs --mode="$MAILER_MODE"

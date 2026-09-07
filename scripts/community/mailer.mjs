@@ -6,7 +6,8 @@
 // Answerer desk already drafted (`status='drafted'`), renders one HTML email
 // ordered replies-to-us-first then by relevance, sends it From Marjorie's
 // Gmail (same account/secret as brief-mailer.yml), then marks every emailed
-// lead `status='emailed'` so tomorrow's run never re-sends it.
+// lead `status='emailed'` (with retries — see `markEmailed`) so tomorrow's
+// run never re-sends it.
 //
 // This script drafts NOTHING and posts NOTHING — the Answerer desk (P1-4)
 // already wrote `draft`/`draft_alt`/`target_url`/`relevance`/`link_included`
@@ -113,7 +114,7 @@ export function destinationLine(lead) {
 /** One lead's HTML card: platform/destination, score, paste-ready draft(s), ack/skip links. */
 export function renderLeadCard(lead, { ackSecret }) {
   const relevanceLabel = typeof lead.relevance === 'number' ? lead.relevance.toFixed(2) : 'n/a';
-  const kindLabel = lead.kind === 'reply_to_us' ? '💬 reply waiting' : lead.kind === 'hot_thread' ? 'hot thread' : lead.kind;
+  const kindLabel = lead.kind === 'reply_to_us' ? '💬 reply waiting' : lead.kind === 'hot_thread' ? 'hot thread' : escapeHtml(lead.kind);
   const title = lead.title ? escapeHtml(lead.title) : null;
   const linkIncluded = Boolean(lead.link_included);
 
@@ -188,28 +189,53 @@ export function renderEmailText(leads, { mode = 'daily', date }) {
   return lines.join('\n');
 }
 
-/** Fetches drafted, not-yet-emailed leads. `mode='replies-waiting'` narrows to reply_to_us only. */
+/** Fetches drafted, not-yet-emailed leads. `mode='replies-waiting'` narrows to reply_to_us only.
+ * Fetches a pool well above `MAX_LEADS_PER_EMAIL` (fixed `FETCH_POOL_LIMIT`,
+ * not `limit`) BEFORE re-ordering: a DB-side `.limit(limit)` applied under
+ * the `created_at` sort would silently drop a newer, more urgent
+ * `reply_to_us` lead once the drafted backlog exceeds one email's worth —
+ * undermining the §2.6 "replies-to-us first" ordering this function exists
+ * to guarantee. Order-then-slice happens entirely in JS instead. */
+export const FETCH_POOL_LIMIT = 200;
+
 export async function fetchLeadsToMail(supabase, { mode = 'daily', limit = MAX_LEADS_PER_EMAIL } = {}) {
   let query = supabase
     .from('engagement_lead')
     .select('id, platform, community, kind, thread_id, url, locator, title, relevance, target_url, draft, draft_alt, link_included, status')
     .eq('status', 'drafted')
     .order('created_at', { ascending: true })
-    .limit(limit);
+    .limit(FETCH_POOL_LIMIT);
   if (mode === 'replies-waiting') query = query.eq('kind', 'reply_to_us');
   const { data, error } = await query;
   if (error) throw error;
   return orderLeads(data ?? []).slice(0, limit);
 }
 
-/** Marks every mailed lead `status='emailed'` so it is never re-sent tomorrow. */
-export async function markEmailed(supabase, leadIds) {
+/**
+ * Marks every mailed lead `status='emailed'`, retrying a few times with a
+ * short delay before giving up. This runs AFTER the send succeeds, so a
+ * transient failure here (not a re-throw of a genuine send error) is the
+ * one place a duplicate email can occur: the lead stays `status='drafted'`
+ * and gets mailed again tomorrow. Retrying absorbs the common transient
+ * case (a Supabase blip); the residual risk after retries are exhausted is
+ * an occasional duplicate email, never a duplicate POST/DM/vote — §6.1's
+ * "a human always posts" guardrail is unaffected either way, and the ack
+ * links this same email carries are idempotent, so a founder re-seeing an
+ * already-posted draft is a mild inconvenience, not a correctness bug.
+ */
+export async function markEmailed(supabase, leadIds, { attempts = 3, delayMs = 500, sleep = (ms) => new Promise((r) => { setTimeout(r, ms); }) } = {}) {
   if (leadIds.length === 0) return;
-  const { error } = await supabase
-    .from('engagement_lead')
-    .update({ status: 'emailed', emailed_at: new Date().toISOString() })
-    .in('id', leadIds);
-  if (error) throw error;
+  let lastError;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    const { error } = await supabase
+      .from('engagement_lead')
+      .update({ status: 'emailed', emailed_at: new Date().toISOString() })
+      .in('id', leadIds);
+    if (!error) return;
+    lastError = error;
+    if (attempt < attempts) await sleep(delayMs * attempt);
+  }
+  throw lastError;
 }
 
 /**

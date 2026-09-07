@@ -229,6 +229,23 @@ describe('fetchLeadsToMail', () => {
     expect(result.length).toBe(MAX_LEADS_PER_EMAIL);
   });
 
+  it('never drops a reply_to_us lead behind an older backlog exceeding one email (regression: fetch-then-sort, not sort-then-fetch)', async () => {
+    // A backlog of MAX_LEADS_PER_EMAIL older hot_thread leads plus ONE
+    // newer reply_to_us lead — a DB-side `.limit(MAX_LEADS_PER_EMAIL)`
+    // applied under the created_at sort (oldest-first) would silently
+    // exclude the reply before orderLeads ever sees it. The pool fetch
+    // (FETCH_POOL_LIMIT) must pull all of them so orderLeads can still put
+    // the reply first.
+    const rows = [
+      ...Array.from({ length: MAX_LEADS_PER_EMAIL }, (_, i) => lead({ id: `old-${i}`, kind: 'hot_thread', relevance: 0.9 })),
+      lead({ id: 'urgent-reply', kind: 'reply_to_us', relevance: 0.1 }),
+    ];
+    const supabase = fakeSupabase({ rows });
+    const result = await fetchLeadsToMail(supabase, { mode: 'daily' });
+    expect(result[0].id).toBe('urgent-reply');
+    expect(result.length).toBe(MAX_LEADS_PER_EMAIL);
+  });
+
   it('throws on a genuine db error rather than mailing a silently-empty batch', async () => {
     const supabase = fakeSupabase({ rows: [], selectError: { message: 'boom' } });
     await expect(fetchLeadsToMail(supabase, { mode: 'daily' })).rejects.toEqual({ message: 'boom' });
@@ -252,8 +269,24 @@ describe('markEmailed', () => {
     expect(seen?.ids).toEqual(['a', 'b']);
   });
 
-  it('throws on a db error so a failed mark never silently re-mails tomorrow', async () => {
+  it('retries a transient failure and succeeds without exhausting attempts', async () => {
+    let calls = 0;
+    const supabase = {
+      from: () => ({
+        update: () => ({
+          in: () => {
+            calls += 1;
+            return Promise.resolve({ error: calls < 2 ? { message: 'transient' } : null });
+          },
+        }),
+      }),
+    };
+    await markEmailed(supabase, ['a'], { attempts: 3, delayMs: 1, sleep: () => Promise.resolve() });
+    expect(calls).toBe(2);
+  });
+
+  it('throws after exhausting all retry attempts (never re-mails silently on a persistent failure either)', async () => {
     const supabase = fakeSupabase({ updateError: { message: 'db down' } });
-    await expect(markEmailed(supabase, ['a'])).rejects.toEqual({ message: 'db down' });
+    await expect(markEmailed(supabase, ['a'], { attempts: 2, delayMs: 1, sleep: () => Promise.resolve() })).rejects.toEqual({ message: 'db down' });
   });
 });
