@@ -27,6 +27,39 @@ so far".
 
 Stories: 120
 
+## Taylor Swift and Travis Kelce Enjoy Date Night in New York
+
+- first seen: 2026-09-07 23:28 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift and Travis Kelce were spotted on a date night in New York following the conclusion of NFL training camp.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOQWNfaV90VjROU3VYdDZfTF92UlBEbEduLWFzVWFjQ1FLa3EwLVVONHNzTnF3VmhMNTZobzkxemQwem45VjNLTzZlSF85cElTWFJxRW1hbTZWYWNsS0dfV0p4a1YwLUNYME5hYkZLUGlZd1VQSkpzak5NMl9pejE0YXBVWElUbGZoUDZkM3BQdzFrOWhaSUZNV2VuNG9wZndtSE92YXRneTZPdw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPMHBrcTNhR1d6YmZSLWZNTnNPWk9MbDZVRVhpLWJFcVRQNHBQejg0RkJuV3JHaDdudFFzMDdiekY3OFFZYmg2RVlmUHlrWTN2bU5jSTRhWlRaVmF4QWl4N0l2dS1RWUZIY0xZWk1STjFkZ0xpcmhCT0ZQbWcyajI0QlQ2UkQwdEtiZWFsV3owZmkxYTB4ZUtxWVoyeWVGUjFGWF9hQXBB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Involved in Ed Sheeran Dispute Ahead of NFL Opener
+
+- first seen: 2026-09-07 23:28 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reported to be facing a new conflict with Ed Sheeran just days before Travis Kelce's NFL opening game. Details of the conflict remain unspecified in the report.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNYWpaakEwb0YtQ0dwNXBiSW5nNU5NRktqSFRmOVFDMmN2d3ZvdXpiTnk3WkdKSmhKelVKcTJ2VFVwVG9IcHhzOVVfc0xfckhjbnVnQ2pVTWJQd21YYjZKWjV6WGtnU2ZfRjlDbUZFWHZ5QjlaZGJsTmgwdy1GczV3RWFiLTFmSWJual9RaUhEeG5WU0JoaWVvWE4wbw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Spotted on Date Night in NYC
+
+- first seen: 2026-09-07 23:28 UTC | category: sighting | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were seen on their first date night in New York City since their wedding two months ago. The sighting highlights their continuing relationship after their recent nuptials.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNMGlxeGlJOFV1azRNek56Mkt3djh5RUpNQUVPOExqZjZDQVlCV1BSNDVYYlBFa3pUUGVGQ1FWaE9ER09Zb2gxclFpbGdtZktPSnJWYVl6ZWloS0ljZ01xYXhKdE5WVE5CX3BWX3RGTzFrWFJOdjM0TVRwUEpIYlc1dW1FZWtkc1dvakpRNFF1NjJZZ1hlb2tGQ0JveUUtSk80Smc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Curious Iguana Celebrates 13th Birthday with Taylor Swift Theme
+
+- first seen: 2026-09-07 23:28 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Curious Iguana, a local business, marked its 13th anniversary by celebrating in a style inspired by Taylor Swift. The event showcased the store's unique character and connection to the pop star's cultural influence.
+- sources:
+  - [unverified] The Frederick News-Post — https://news.google.com/rss/articles/CBMiggJBVV95cUxOaU1NRmw2ZzdXMmd2VVBQQ1VQN2JyV3ZkNlFQck00MG5oVC14VTI3MERQX3NhVlNZVWs3TW0xVWtDb2lta1U2WWJ6bW16Zi1halV0STNKZWJfbUluaGNsZllXd0daVURwQXduVjVTd2duUExtM1luV1lsQUJCWGp6WkZpTDFKU0RlVnZjbWtDazE5bmdlbUQ0MHRHUlZnNS1qTEpYZ3gwRUQzYTNMNEx3OFl1UGg1VEYyYU9qVm9rUXdqUGFjM1FKR2h4M2Q4SVFHekRpMV9idmVvOHdNSFhacmZtOWF6Umx3N0ZsQ3lRd01wczFkYTUteVRDN3F2Z0otQlE?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift and Travis Kelce Visit NYC Restaurant Post-Wedding
 
 - first seen: 2026-09-07 20:32 UTC | category: relationship | importance: 6
@@ -169,9 +202,10 @@ Stories: 120
 ## Taylor Swift Purchases Home Linked to Travis Kelce
 
 - first seen: 2026-09-06 22:52 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift has reportedly expanded her real estate portfolio by purchasing a home associated with NFL player Travis Kelce. This acquisition adds to her existing properties as she diversifies her investments.
 - sources:
+  - [unverified] ABC27 — https://news.google.com/rss/articles/CBMimwFBVV95cUxQZE85MU1McS1tampWRHk3YzVrSTJEMndBa0djRmZrdlFyR2N5MndhSllvSWZZeEZzQmI5RXRoZExObEU2RENGSnRnR0hzek1sdzRPVHZwbTN2WHpZQXZIRU9RWHpjY2h6eFBkUDBNbDNwM0JSd3N5WHB6R3BEOFlBUW5tcVVhT2JlQ3BkUnhydnN6SDA4Z2U1UjVIZ9IBoAFBVV95cUxNWU50ZkswaC1KcTFfRnRSc1JpT014Z1hkeXRERHlORkFhdmVPUHp0UVNwWi05UmZiYUJOV1kzeHB3M0xjWlJaRjNSWGpGdHY0UjZKWEtGcWNNR1NlTHlCRlhfUmo5R1FjOHlRR3BGSGFPd3JCbXI4UXp1YlZTNWNBcElTQlBjRmwtRHJ0UVdKSlB4QWNBMXhzQ0hLdm9oamRY?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] NewsNation — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdXFLQU1VMGVVbnlCMENPVGpPWUJvbEVBaVZFbGxlTlBjTjc3MGxFRWVELTMxb0U2cno5c04tNkRHTE9fVW1tYmx5QnhpLUF4MUc2XzdFMklIWE13eGUzbHZEcU80VmRUc281Xzd5MnhDZVMwX3VOVV9ZdVRVMDROWG9NSHpsYkl1U2dJVEt2T185V1NoVE5wWXY0cE5OUU1MLUVHeEM4VTcxZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## 'Eras Tour' Finale Not Nominated at 2026 Emmys
@@ -904,32 +938,4 @@ Stories: 120
 - first seen: 2026-09-05 12:38 UTC | category: music | importance: 5
 - verification_status: single_source | source_count: 0
 - summary: A new playlist featuring Taylor Swift's songs has been curated to celebrate the senior year experience. The collection aims to resonate with graduating students during this significant time in their lives.
-- sources: _none recorded_
-
-## Gigi Hadid Labels Travis Kelce in Recent Photoshoot
-
-- first seen: 2026-09-05 12:38 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: During a new photoshoot, Gigi Hadid surprisingly referred to Travis Kelce in an unexpected way, drawing attention from fans and media. The details of the label and context were not specified in the report.
-- sources: _none recorded_
-
-## Harry Styles References Taylor Swift's MSG Event During Concert
-
-- first seen: 2026-09-05 12:38 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: During a concert in New York City, Harry Styles made a joke referencing his ex Taylor Swift's ceremony at Madison Square Garden, saying 'They also do weddings.'
-- sources: _none recorded_
-
-## Ohio Village Prepares for Taylor Swift and Travis Kelce Visit
-
-- first seen: 2026-09-05 12:38 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: A small village in Ohio is gearing up for a possible visit from Taylor Swift and Travis Kelce, indicating excitement among locals about their potential appearance.
-- sources: _none recorded_
-
-## Travis Kelce Shows Love for New Family Member, Not Taylor Swift
-
-- first seen: 2026-09-05 05:41 UTC | category: relationship | importance: 4
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce expresses his affection for a new addition to his family, unrelated to Taylor Swift, as reported by Yahoo.
 - sources: _none recorded_
