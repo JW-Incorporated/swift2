@@ -397,6 +397,19 @@ describe('selectDraftBatch — §2.5 step 7 caps', () => {
     }
   });
 
+  it('gives a community its full 3-slot quota even when a reply_to_us lead shares that community (regression: reply_to_us must not consume the per-community cap)', () => {
+    // lead-01 is a reply_to_us in community 'TaylorSwift'; lead-03/04/05/06/07/08/09/10/11
+    // are hot_thread leads also in 'TaylorSwift'. The community's 3-slot hot_thread
+    // quota must be filled in full (3), regardless of the reply_to_us lead sharing
+    // that community and regardless of dailyCap headroom.
+    const leadsWithRelevance = LEADS.map((l, i) => ({ ...l, relevance: 1 - i * 0.01 }));
+    const batch = selectDraftBatch(leadsWithRelevance);
+    const taylorSwiftHotThreads = batch.filter(
+      (l) => l.community === 'TaylorSwift' && l.kind !== 'reply_to_us',
+    );
+    expect(taylorSwiftHotThreads.length).toBe(PER_COMMUNITY_DRAFT_CAP);
+  });
+
   it('never exceeds the daily cap of 12', () => {
     const leadsWithRelevance = LEADS.map((l, i) => ({ ...l, relevance: 1 - i * 0.01 }));
     const batch = selectDraftBatch(leadsWithRelevance);

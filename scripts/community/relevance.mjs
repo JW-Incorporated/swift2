@@ -228,12 +228,17 @@ export function selectDraftBatch(
     .sort((a, b) => (b.relevance ?? 0) - (a.relevance ?? 0));
 
   const selected = [];
+  // Per-community counter tracks only non-reply leads: reply_to_us is
+  // "exempt from the per-community cap" (charter/docstring) and must not
+  // consume the 3-slot quota that hot_thread/digest/alert leads in the same
+  // community are budgeted against. Counting replies here previously let a
+  // community's real 3-slot allowance silently shrink to 2 whenever a
+  // reply_to_us lead also came from that community.
   const perCommunityCount = new Map();
 
   for (const lead of replies) {
     if (selected.length >= dailyCap) break;
     selected.push(lead);
-    perCommunityCount.set(lead.community, (perCommunityCount.get(lead.community) ?? 0) + 1);
   }
 
   for (const lead of rest) {
