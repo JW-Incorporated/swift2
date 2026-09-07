@@ -212,6 +212,22 @@ rule (see the header) — `fb-export-ingest` is documented under P1-3,
 `theory-resolve` under P2-3. E5's merch-lane widening (P2-7) reuses
 `merch-fanmade.yml`'s existing cron and needs no new row either.
 
+**`/api/community/ack`** (`apps/web/app/api/community/ack/route.ts`, card
+P1-5, **shipped**) isn't a scheduled routine either — it's the click target
+of `community-mailer.yml`'s one-click "Posted"/"Skip" links (still P1-6,
+not created yet), so it goes live ahead of the mailer that will call it,
+same as `engagement_lead`/`community_post_ledger` landing in P0-1 ahead of
+either desk that reads them. GET, HMAC-signed (`COMMUNITY_ACK_SECRET`, a
+generated secret — set it as a Vercel project env var, never
+`NEXT_PUBLIC_*`), idempotent (a repeat click or an email client's
+link-prefetch is a silent no-op). Marks `engagement_lead.status`
+(`posted` or the P1-5-only `skipped_by_founder`), appends the
+`community_post_ledger` row E2 dedupes against, and — link-free Reddit
+posts only — bumps the `reddit_non_promo` etiquette counter §6.5's link
+gate reads (`supabase/migrations/20260918000000_community_ack.sql`;
+mirrored for humans in `social/calendar.md`'s Ledger table, kept in sync by
+Tree's weekly run, not this route).
+
 ### Dependabot update schedules (2) — config, not workflows
 
 `updates:` entries scheduled by GitHub itself, counted apart from the 37

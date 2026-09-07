@@ -26,7 +26,7 @@ describe('community engine enums', () => {
     expect(ENGAGEMENT_LEAD_KINDS).toEqual(['alert', 'digest', 'hot_thread', 'reply_to_us']);
   });
 
-  it('lists the six engagement_lead statuses', () => {
+  it('lists the seven engagement_lead statuses (including P1-5\'s founder-skip outcome)', () => {
     expect(ENGAGEMENT_LEAD_STATUSES).toEqual([
       'new',
       'drafted',
@@ -34,6 +34,7 @@ describe('community engine enums', () => {
       'posted',
       'skipped_redline',
       'skipped_low_relevance',
+      'skipped_by_founder',
     ]);
   });
 
