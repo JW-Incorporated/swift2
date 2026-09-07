@@ -19,6 +19,7 @@ import {
   ShoppingBag,
   ExternalLink,
 } from 'lucide-react';
+import { shareTarget as shareTargetNow } from '@/lib/longlive/share-payload';
 import {
   useAppState,
   useAppActions,
@@ -481,8 +482,8 @@ function MomentLightbox({
 }
 
 export function MomentDetail() {
-  const { openItemId, share } = useAppState();
-  const { closeItem, openShare, openItem } = useAppActions();
+  const { openItemId } = useAppState();
+  const { closeItem, openItem } = useAppActions();
   const { progress } = useProgress();
   const { markMomentVisited, toggleFavorite } = useProgressActions();
   const [revealed, setRevealed] = useState(false);
@@ -531,17 +532,15 @@ export function MomentDetail() {
     setRevealed(false);
   }, [item]);
 
-  // Close on Escape — but not while the share sheet is open on top of us;
-  // that overlay owns Escape until it closes itself.
   useEffect(() => {
     if (!openItemId) return;
     const onKey = (e: KeyboardEvent) => {
       // While the full-screen viewer is open it owns Escape (closes itself).
-      if (e.key === 'Escape' && !share && lightboxIndex === null) closeItem();
+      if (e.key === 'Escape' && lightboxIndex === null) closeItem();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [openItemId, closeItem, share, lightboxIndex]);
+  }, [openItemId, closeItem, lightboxIndex]);
 
   // Let the mobile back-swipe gesture close this pill instead of leaving the app.
   useBackDismiss(Boolean(item), closeItem);
@@ -631,7 +630,7 @@ export function MomentDetail() {
         <Heart className="h-5 w-5" fill={isFavorite ? 'currentColor' : 'none'} />
       </button>
       <button
-        onClick={() => openShare({ kind: 'item', itemId: item.id })}
+        onClick={() => void shareTargetNow({ kind: 'item', itemId: item.id })}
         className="era-icon-btn rounded-full p-2 backdrop-blur-md"
         aria-label="Share this moment"
       >

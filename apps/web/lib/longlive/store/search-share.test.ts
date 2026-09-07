@@ -8,25 +8,17 @@ describe('searchShareReducer', () => {
   it('has the expected initial state', () => {
     const state = searchShareInitialState();
     expect(state.searchOpen).toBe(false);
-    expect(state.share).toBeNull();
+
     expect(state.filters.size).toBe(0);
     expect(state.clownMessages).toEqual([]);
     expect(state.clownChatExpanded).toBe(false);
   });
 
-  it('setSearchOpen toggles independently of share', () => {
+  it('setSearchOpen toggles independently of filters', () => {
     const start = searchShareInitialState();
     const opened = searchShareReducer(start, { type: 'setSearchOpen', open: true });
     expect(opened.searchOpen).toBe(true);
-    expect(opened.share).toBeNull();
-  });
-
-  it('setShare / closeShare (setShare null) set and clear the share target', () => {
-    const start = searchShareInitialState();
-    const withTarget = searchShareReducer(start, { type: 'setShare', target: { kind: 'site' } });
-    expect(withTarget.share).toEqual({ kind: 'site' });
-    const cleared = searchShareReducer(withTarget, { type: 'setShare', target: null });
-    expect(cleared.share).toBeNull();
+    expect(opened.filters.size).toBe(0);
   });
 
   it('toggleFilter adds then removes a filter id', () => {
@@ -73,16 +65,16 @@ describe('searchShareReducer', () => {
     expect(next.clownChatExpanded).toBe(true);
   });
 
-  it('closeAll clears searchOpen and share but leaves filters/transcript alone', () => {
+  it('closeAll clears searchOpen but leaves filters/transcript alone', () => {
     const start = {
       ...searchShareInitialState(),
       searchOpen: true,
-      share: { kind: 'site' as const },
+
       filters: new Set(['Videos' as const]),
     };
     const next = searchShareReducer(start, { type: 'closeAll' });
     expect(next.searchOpen).toBe(false);
-    expect(next.share).toBeNull();
+
     expect(next.filters.has('Videos')).toBe(true);
   });
 });

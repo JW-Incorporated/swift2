@@ -29,7 +29,7 @@ export type { RawItem };
  * via `packages/content`'s async `loadBundle()` or a synchronous
  * `node:fs` read.
  *
- * This module is reachable from `TimelineScrubber.tsx`/`ShareSheet.tsx`/
+ * This module is reachable from `TimelineScrubber.tsx`/share payload builders/
  * `MomentDetail.tsx`, all `'use client'` components — Next.js/Turbopack
  * statically traces every module in a client component's import graph and
  * refuses to bundle `node:fs`/`node:path` for the browser (a real

@@ -32,7 +32,9 @@ import { extractYouTubeId } from '@swift2/shared';
 import {
   formatFullDate,
   getEra,
+  buildShareUrl,
   isSubConfirmed,
+  momentShareCopy,
   primaryImageRef,
   type Confidence,
   type ContentItem,
@@ -43,7 +45,6 @@ import {
 } from '@swift2/experience';
 import { loadMomentById } from '../lib/era-stream-data';
 import { eraColors } from '../lib/theme';
-import { SITE_URL } from './SiteShell';
 
 /** Mirrors `MomentDetail.tsx`'s CONFIDENCE_BANNER — same copy, native chrome. */
 const CONFIDENCE_BANNER: Record<SubConfirmed, { label: string; blurb: string }> = {
@@ -73,10 +74,6 @@ const CONFIDENCE_BANNER: Record<SubConfirmed, { label: string; blurb: string }> 
   },
 };
 
-/** `?item=<id>` — the same share-link shape `ShareSheet.tsx`'s `shareUrl` builds for `share.kind === 'item'`, so a moment shared FROM this sheet round-trips back to the same native screen via `destinationFor`/`resolve` (OS-033's own routing change). `SITE_URL` (imported from `SiteShell.tsx`) is already trailing-slash-trimmed. */
-function shareUrlFor(itemId: string): string {
-  return `${SITE_URL}?item=${encodeURIComponent(itemId)}`;
-}
 
 /** One embedded player: a click-to-load facade (poster + play control) that mounts a WebView on tap — the same privacy posture `MomentVideo`/`MomentSocialPost` use on the web (nothing fetches YouTube/Spotify/Instagram until the reader opts in). */
 function EmbeddedMedia({
@@ -200,9 +197,10 @@ export function MomentSheet({ itemId, onClose }: { itemId: string; onClose: () =
   const onShare = useMemo(
     () => async () => {
       if (state.status !== 'ready') return;
-      const url = shareUrlFor(state.item.id);
+      const copy = momentShareCopy(state.item, getEra(state.item.eraId));
+      const url = buildShareUrl({ kind: 'item', itemId: state.item.id }, 'https://www.longlivets.com');
       try {
-        await Share.share({ message: `${state.item.title} — ${state.item.summary} ${url}`, url });
+        await Share.share({ title: copy.title, message: `${copy.text} ${url}`, url });
       } catch {
         /* user cancelled — no-op, matches the web's ShareSheet swallowing a cancelled navigator.share() */
       }
