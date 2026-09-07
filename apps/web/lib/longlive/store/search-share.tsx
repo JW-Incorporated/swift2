@@ -2,31 +2,8 @@
 
 import { useCallback, useReducer } from 'react';
 import type { FilterId } from '@swift2/experience';
-import type { EraId, LensId } from '@swift2/experience';
 import type { ClownAnswer } from '../clown-answer';
-
-export type ShareTarget =
-  | { kind: 'era'; eraId: EraId }
-  | { kind: 'lens'; lensId: LensId }
-  | { kind: 'item'; itemId: string }
-  // #707 — every immersive overlay is now shareable. A `track` carries the
-  // composite trackKey that reopens the song dossier (over its album guide);
-  // `trackGuide`/`theoryGuide` reopen the per-era guides; `site` is the bare
-  // front door (the era stream, which has no more specific target).
-  | { kind: 'track'; eraId: EraId; trackKey: string }
-  | { kind: 'trackGuide'; eraId: EraId }
-  | { kind: 'theoryGuide'; eraId: EraId }
-  | { kind: 'site' }
-  // #2105 — the Threads gallery, Mood, and Clownbot are each shareable as a
-  // destination (the surface itself, empty and ready), never as whatever a
-  // reader typed there — see topbarShareTarget's JSDoc for why. Community and
-  // Merch take no user input at all, but share the same destination-only
-  // shape for consistency with the other three.
-  | { kind: 'threads' }
-  | { kind: 'mood' }
-  | { kind: 'clownbot' }
-  | { kind: 'community' }
-  | { kind: 'merch' };
+export type { ShareTarget } from '@swift2/experience';
 
 /** One exchange in the clown bot transcript. */
 export interface ClownMessage {
@@ -46,8 +23,6 @@ const CLOWN_TRANSCRIPT_CAP = 6;
 interface SearchShareState {
   /** Whether the search overlay is open. */
   searchOpen: boolean;
-  /** Whether the share sheet is open, and for what target. */
-  share: ShareTarget | null;
   /** Active global timeline filter chips. Empty = show everything (P1). */
   filters: ReadonlySet<FilterId>;
   /**
@@ -70,7 +45,6 @@ interface SearchShareState {
 
 type SearchShareAction =
   | { type: 'setSearchOpen'; open: boolean }
-  | { type: 'setShare'; target: ShareTarget | null }
   | { type: 'toggleFilter'; id: FilterId }
   | { type: 'clearFilters' }
   | { type: 'addClownMessage'; question: string; answer: ClownAnswer }
@@ -83,8 +57,6 @@ export function searchShareReducer(state: SearchShareState, action: SearchShareA
   switch (action.type) {
     case 'setSearchOpen':
       return { ...state, searchOpen: action.open };
-    case 'setShare':
-      return { ...state, share: action.target };
     case 'toggleFilter': {
       const next = new Set(state.filters);
       if (next.has(action.id)) next.delete(action.id);
@@ -109,7 +81,7 @@ export function searchShareReducer(state: SearchShareState, action: SearchShareA
     case 'setClownChatExpanded':
       return { ...state, clownChatExpanded: action.v };
     case 'closeAll':
-      return { ...state, searchOpen: false, share: null };
+      return { ...state, searchOpen: false };
     default:
       return state;
   }
@@ -118,20 +90,17 @@ export function searchShareReducer(state: SearchShareState, action: SearchShareA
 export function searchShareInitialState(): SearchShareState {
   return {
     searchOpen: false,
-    share: null,
     filters: new Set(),
     clownMessages: [],
     clownChatExpanded: false,
   };
 }
 
-/** Owns search overlay, share sheet, timeline filter chips, and the clown-bot transcript/expansion. */
+/** Owns search overlay, timeline filter chips, and the clown-bot transcript/expansion. */
 export function useSearchShare() {
   const [state, dispatch] = useReducer(searchShareReducer, undefined, searchShareInitialState);
 
   const setSearchOpen = useCallback((open: boolean) => dispatch({ type: 'setSearchOpen', open }), []);
-  const openShare = useCallback((t: ShareTarget) => dispatch({ type: 'setShare', target: t }), []);
-  const closeShare = useCallback(() => dispatch({ type: 'setShare', target: null }), []);
   const toggleFilter = useCallback((id: FilterId) => dispatch({ type: 'toggleFilter', id }), []);
   const clearFilters = useCallback(() => dispatch({ type: 'clearFilters' }), []);
   const addClownMessage = useCallback(
@@ -140,19 +109,17 @@ export function useSearchShare() {
   );
   const clearClownMessages = useCallback(() => dispatch({ type: 'clearClownMessages' }), []);
   const setClownChatExpanded = useCallback((v: boolean) => dispatch({ type: 'setClownChatExpanded', v }), []);
-  const closeSearchAndShare = useCallback(() => dispatch({ type: 'closeAll' }), []);
+  const closeSearch = useCallback(() => dispatch({ type: 'closeAll' }), []);
 
   return {
     state,
     dispatch,
     setSearchOpen,
-    openShare,
-    closeShare,
     toggleFilter,
     clearFilters,
     addClownMessage,
     clearClownMessages,
     setClownChatExpanded,
-    closeSearchAndShare,
+    closeSearch,
   };
 }

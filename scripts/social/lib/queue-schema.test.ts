@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { validateQueueItem, validatePhotoInventoryBinding, PLATFORM_RULES } from './queue-schema.mjs';
+import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES } from './queue-schema.mjs';
 
 const validX = {
   platform: 'x',
@@ -122,6 +122,42 @@ ${url}`;
       const pairedX = { ...validX, campaign: 'launch:shop-the-look:announce', media: undefined, mediaKind: undefined };
       expect(findingFor(pairedX, 'x posts require at least one image')).toBeDefined();
       expect(validateQueueItem({ ...pairedX, campaign: 'appearance:video-id', mediaKind: 'video-thumb' })).toEqual([]);
+    });
+    it('binds a launch site-screen carousel grid photo to its exact credited inventory entry', () => {
+      const carousel = {
+        ...validIg,
+        campaign: 'launch:shop-the-look:announce',
+        media: [library[0].mediaPath, '/social/library/thread-fashion-intro.png'],
+        photoId: library[0].id,
+        mediaCredit: library[0].credit,
+        mediaSource: library[0].source,
+      };
+
+      expect(validatePhotoInventoryBinding(carousel, library)).toEqual([]);
+      expect(validatePhotoInventoryBinding({ ...carousel, photoId: undefined }, library)).toContainEqual(expect.stringContaining('photoId: required'));
+      expect(validatePhotoInventoryBinding({ ...carousel, media: ['/social/library/photos/wrong.jpg', carousel.media[1]] }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+      expect(validatePhotoInventoryBinding({ ...carousel, mediaCredit: 'Wrong credit' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+      expect(validatePhotoInventoryBinding({ ...carousel, mediaSource: 'https://example.com/wrong' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+
+      const laterSlidePhoto = {
+        ...carousel,
+        media: ['/social/library/thread-fashion-intro.png', library[0].mediaPath],
+      };
+      expect(validatePhotoInventoryBinding(laterSlidePhoto, library)).toEqual([]);
+      expect(validatePhotoInventoryBinding({ ...laterSlidePhoto, photoId: undefined }, library)).toContainEqual(expect.stringContaining('photoId: required'));
+      expect(validatePhotoInventoryBinding({ ...laterSlidePhoto, mediaCredit: 'Wrong credit' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+    });
+
+    it('leaves a genuine non-photo site screen outside the inventory binding', () => {
+      expect(validatePhotoInventoryBinding(validIg, library)).toEqual([]);
     });
 
     it('requires media on Instagram', () => {
