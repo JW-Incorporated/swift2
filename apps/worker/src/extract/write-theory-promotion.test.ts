@@ -129,6 +129,36 @@ describe('runTheoryPromotePass', () => {
     expect(updateCalled).toBe(false);
   });
 
+  it('persists the merged mention_count sum onto the canonical row even on the hold path', async () => {
+    // Two near-duplicate, still-below-threshold candidates merge into one
+    // cluster whose SUMMED mention_count is enough to matter for a future
+    // run, but the cluster itself still holds (assuming the sum is below
+    // PROMOTION_MENTION_THRESHOLD here) — regression test for the bug
+    // where a hold decision never wrote the merged sum back to the DB,
+    // silently losing the merged siblings' mention counts forever.
+    const a = { ...baseCandidateRow, id: 'a', theory_key: 'a', mention_count: 1 };
+    const b = { ...baseCandidateRow, id: 'b', theory_key: 'b', mention_count: 1 };
+    // Same claim text on both -> same `name` for matching purposes (see
+    // write-theory-promotion.ts's toCandidateRow comment on claim-as-name)
+    // -> they merge into a single cluster.
+    let sumUpdateRow: Record<string, unknown> | undefined;
+    const db = fakeDb((table) => {
+      if (table === 'fan_theory_candidate') {
+        const c = chain({ data: [a, b], error: null }) as Record<string, unknown>;
+        c.update = (row: Record<string, unknown>) => {
+          if (row.mention_count !== undefined) sumUpdateRow = row;
+          return chain({ error: null });
+        };
+        return c;
+      }
+      if (table === 'live_theory') return chain({ data: [], error: null });
+      throw new Error(`unexpected table ${table}`);
+    });
+    const result = await runTheoryPromotePass(db);
+    expect(result.held).toBe(1);
+    expect(sumUpdateRow?.mention_count).toBe(2); // 1 + 1 from the merged sibling, not just the canonical's own 1
+  });
+
   it('one cluster write failure is recorded in errors and does not abort the run', async () => {
     const a = { ...baseCandidateRow, id: 'a', theory_key: 'a' };
     const b = {

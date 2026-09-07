@@ -87,6 +87,39 @@ describe('mergeTheoryCandidates', () => {
     expect(cluster.sampleUrls).toHaveLength(3);
   });
 
+  it('merges transitively: A matches B, B matches C, but A does not directly match C', () => {
+    // Distinct name text so A/C don't directly match on name-similarity
+    // alone, but share enough symbol overlap with the MIDDLE row B to
+    // clear isTheoryMatch's threshold via B — a single left-to-right pass
+    // that never revisits an already-scanned candidate would wrongly
+    // split this into two clusters instead of one.
+    const rows = [
+      candidate({
+        id: 'a',
+        name: 'Alpha Countdown Idea',
+        symbols: ['13', 'butterfly'],
+        mentionCount: 1,
+      }),
+      candidate({
+        id: 'b',
+        name: 'Bravo Countdown Idea',
+        symbols: ['13', 'snake'],
+        mentionCount: 1,
+      }),
+      candidate({
+        id: 'c',
+        name: 'Charlie Merch Idea',
+        symbols: ['snake', 'guitar'],
+        mentionCount: 1,
+      }),
+    ];
+    const clusters = mergeTheoryCandidates(rows);
+    expect(clusters).toHaveLength(1);
+    const cluster = onlyCluster(clusters);
+    expect(cluster.mentionCount).toBe(3);
+    expect([cluster.canonicalId, ...cluster.mergedIds].sort()).toEqual(['a', 'b', 'c']);
+  });
+
   it('holds a cluster below the promotion mention threshold', () => {
     const rows = [candidate({ mentionCount: PROMOTION_MENTION_THRESHOLD - 1 })];
     const cluster = onlyCluster(mergeTheoryCandidates(rows));

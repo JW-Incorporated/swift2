@@ -125,18 +125,30 @@ export function mergeTheoryCandidates(
     if (!seed) break;
     const group: FanTheoryCandidateRow[] = [seed];
 
-    for (let i = remaining.length - 1; i >= 0; i--) {
-      const candidate = remaining[i];
-      if (!candidate) continue;
-      const matchesAny = group.some((g) =>
-        isTheoryMatch(
-          { name: candidate.name, symbols: candidate.symbols },
-          { name: g.name, symbols: g.symbols },
-        ),
-      );
-      if (matchesAny) {
-        group.push(candidate);
-        remaining.splice(i, 1);
+    // Repeat full sweeps of `remaining` until a pass adds nothing new —
+    // a single left-to-right pass is order-dependent (a candidate that
+    // only transitively matches the seed via ANOTHER candidate added
+    // later in the same pass would otherwise never get a second look and
+    // would wrongly seed its own separate cluster). Iterating to a fixed
+    // point makes clustering order-independent, i.e. a genuine
+    // transitive closure under isTheoryMatch.
+    let addedInPass = true;
+    while (addedInPass) {
+      addedInPass = false;
+      for (let i = remaining.length - 1; i >= 0; i--) {
+        const candidate = remaining[i];
+        if (!candidate) continue;
+        const matchesAny = group.some((g) =>
+          isTheoryMatch(
+            { name: candidate.name, symbols: candidate.symbols },
+            { name: g.name, symbols: g.symbols },
+          ),
+        );
+        if (matchesAny) {
+          group.push(candidate);
+          remaining.splice(i, 1);
+          addedInPass = true;
+        }
       }
     }
 

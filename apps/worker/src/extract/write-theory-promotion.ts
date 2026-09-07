@@ -72,11 +72,36 @@ async function applyCluster(
   existingLiveTheories: readonly ExistingLiveTheoryRow[],
 ): Promise<{ liveTheoryId?: string }> {
   if (cluster.mergedIds.length > 0) {
-    const { error } = await db
+    const { error: mergeError } = await db
       .from('fan_theory_candidate')
       .update({ status: 'merged', updated_at: new Date().toISOString() })
       .in('id', cluster.mergedIds);
-    if (error) throw new Error(`fan_theory_candidate merge-mark failed: ${error.message}`);
+    if (mergeError)
+      throw new Error(`fan_theory_candidate merge-mark failed: ${mergeError.message}`);
+
+    // The merged siblings' mention_count/symbols/communities/peak_score/
+    // sample_urls must be folded onto the canonical row's OWN db columns
+    // here, not just carried in the in-memory `cluster` object — the
+    // canonical row is the only one still `status='candidate'` (or
+    // 'accepted'/'rejected' below) after this run, so a future weekly
+    // pass reloads it fresh from the DB via `.eq('status','candidate')`.
+    // Without this write, a `hold` cluster's summed mention_count would
+    // be silently lost: the merged siblings are gone from every future
+    // query, and the canonical row would still show only its own
+    // pre-merge count, permanently understating how close it is to
+    // PROMOTION_MENTION_THRESHOLD.
+    const { error: sumError } = await db
+      .from('fan_theory_candidate')
+      .update({
+        mention_count: cluster.mentionCount,
+        peak_score: cluster.peakScore,
+        symbols: cluster.symbols,
+        communities: cluster.communities,
+        sample_urls: cluster.sampleUrls,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', cluster.canonicalId);
+    if (sumError) throw new Error(`fan_theory_candidate sum-persist failed: ${sumError.message}`);
   }
 
   if (cluster.decision === 'hold') {

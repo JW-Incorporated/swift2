@@ -49,6 +49,7 @@ import { loadWorkerEnvLocal } from '../sync-clown-knowledge.mjs';
 
 const OUT_FILE = path.join(ROOT, 'docs', 'audits', 'theory-resolutions.md');
 const GRACE_DAYS_BEFORE = 14; // a moment dated up to this many days BEFORE predicted_date can still confirm an early hit
+const GRACE_DAYS_AFTER = 60; // a moment dated more than this many days AFTER predicted_date is too stale to credibly confirm that specific prediction
 
 function daysBetween(a, b) {
   return Math.round(
@@ -56,21 +57,35 @@ function daysBetween(a, b) {
   );
 }
 
-/** Pure: finds the first Vault moment each candidate's prediction matches
- * (date + at least one shared symbol). Exported for unit testing without
- * any DB. */
+/** Pure: finds the CLOSEST-dated Vault moment each candidate's prediction
+ * matches (date within [-GRACE_DAYS_BEFORE, +GRACE_DAYS_AFTER] of
+ * predicted_date, plus at least one shared symbol). Nearest-in-time, not
+ * first-in-list — vaultMoments has no guaranteed order, and a generic
+ * shared symbol (e.g. a recurring number) could otherwise match an
+ * unrelated moment years away purely by list position. A tight upper
+ * bound also matters here: `resolved_at` makes a candidate
+ * un-rescannable (see module header), so wrongly matching a distant
+ * moment would permanently foreclose a later, genuinely correct match.
+ * Exported for unit testing without any DB. */
 export function matchPredictions(candidates, vaultMoments) {
   const matches = [];
   for (const c of candidates) {
     if (!c.predicts || !c.predictedDate) continue;
-    const hit = vaultMoments.find((m) => {
-      if (!m.date) return false;
+    let best;
+    let bestAbsDelta = Infinity;
+    for (const m of vaultMoments) {
+      if (!m.date) continue;
       const delta = daysBetween(c.predictedDate, m.date); // moment date minus predicted date
-      if (delta < -GRACE_DAYS_BEFORE) return false; // moment happened way before the prediction — not a hit
+      if (delta < -GRACE_DAYS_BEFORE || delta > GRACE_DAYS_AFTER) continue; // outside the grace window either direction
       const sharedSymbol = (c.symbols ?? []).some((s) => (m.symbols ?? []).includes(s));
-      return sharedSymbol;
-    });
-    if (hit) matches.push({ candidate: c, moment: hit });
+      if (!sharedSymbol) continue;
+      const absDelta = Math.abs(delta);
+      if (absDelta < bestAbsDelta) {
+        best = m;
+        bestAbsDelta = absDelta;
+      }
+    }
+    if (best) matches.push({ candidate: c, moment: best });
   }
   return matches;
 }
