@@ -14,7 +14,7 @@ picking a winner.
   documentation quality + every doc reference pointing at a routine or cadence
   that no longer exists) and [`review`](automation/review-2026-08-31.md)
   (overlaps, retirement candidates, gaps, seven recommendations).
-- **Fires on its own: 54 routines** — 27 GitHub Actions workflows (cron, PR,
+- **Fires on its own: 55 routines** — 28 GitHub Actions workflows (cron, PR,
   push, or issue triggered), 24 Claude desk routine triggers, the product's
   Vercel Cron job, 2 Dependabot update schedules. These run whether or not
   anyone is watching.
@@ -23,8 +23,8 @@ picking a winner.
   scheduled routines; most sit behind a typed confirmation because they spend
   money, call a vision model, or delete something live. Indexed anyway,
   because what *can* run matters when auditing blast radius.
-- Counting unit is *one independently-triggered thing*, not one file: the 37
-  workflow files split 27 automatic / 10 manual, `.github/dependabot.yml`
+- Counting unit is *one independently-triggered thing*, not one file: the 38
+  workflow files split 28 automatic / 10 manual, `.github/dependabot.yml`
   contributes two (separate `updates:` entries, own cadences), and
   `watchdog.yml`'s two crons are one workflow. On the desk-routine side,
   [`agents/runners.md`](agents/runners.md)'s "23 total, 22 enabled" counts the
@@ -70,7 +70,7 @@ Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
 
 ---
 
-## Tier 1 — GitHub Actions (28 automatic + 10 manual)
+## Tier 1 — GitHub Actions (29 automatic + 10 manual)
 
 Cadences are UTC. "LLM" = does this workflow itself call a model. Minute
 offsets are deliberately non-`:00`/`:30` — see `watchdog.yml`'s header on this
@@ -186,19 +186,20 @@ call a model are separate **manually confirmed** workflows.
 | [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | header — Facebook has no API for non-administered groups, so this stays a human task |
 | [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The Claude-routine half is the Routine Auditor's weekly comment, see below |
 
-### Community engine (planned — 0 automatic + 0 manual today, 4 on landing)
+### Community engine (planned — 1 automatic + 0 manual today, 3 more on landing)
 
 Spec: [`docs/proposals/2026-09-06-community-engine-plan.md`](proposals/2026-09-06-community-engine-plan.md)
-(Fable-approved plan, board `swift2`, Phase 0–3 cards). **None of these four
-exist yet** — each row below is a placeholder the naming P1/P2 card fills in
-when it ships (P0-4 lands the rows so later cards don't also have to touch
-this file). Standing rule from the plan: a human always posts; nothing here
-auto-posts, auto-comments, or auto-DMs on Reddit or Facebook.
+(Fable-approved plan, board `swift2`, Phase 0–3 cards). `community-scan.yml`
+(P1-2) is now live, off by default — see its row below. The other three
+rows are placeholders the naming P1/P2 card fills in when it ships (P0-4
+landed the rows so later cards don't also have to touch this file).
+Standing rule from the plan: a human always posts; nothing here auto-posts,
+auto-comments, or auto-DMs on Reddit or Facebook.
 
 | Workflow | Trigger | LLM | Mutates | Card that creates it |
 |---|---|---|---|---|
+| [`community-scan.yml`](../.github/workflows/community-scan.yml) | daily 08:17 UTC (off-peak minute, see the repo's cron-contention rule) | no | RSS hot-thread scan per `community_watchlist` → `engagement_lead`, deduped vs `community_post_ledger`; gated by repo variable `COMMUNITY_SCAN_ENABLED` (default off — no leads land until a founder flips it, per P1-7's dry-run gate) | P1-2 (landed) |
 | `community-inbox.yml` | every 30 min | no | reads Marjorie's Gmail (Reddit alert/reply mail, DKIM-verified) → `engagement_lead`; also parses founder `posted <id>`/`skip <id>` replies | P1-1 |
-| `community-scan.yml` | daily (off-peak minute, see the repo's cron-contention rule) | no | RSS hot-thread scan per `community_watchlist` → `engagement_lead`, deduped vs `community_post_ledger`; gated by `COMMUNITY_SCAN_ENABLED` | P1-2 |
 | `community-mailer.yml` | daily, after the Community Answerer desk; + a bounded replies-waiting second send | no | sends the daily "Community Tasks" HTML email (paste-ready drafts, one-click ack/skip links); one-line pointer added to Marjorie's brief | P1-6 |
 | `community-crawl.yml` | daily, bounded | no | year-deep Reddit top-post walker (RSS month windows) + bounded home-relay full-tree fetch; writes to a transient 24h Actions artifact only, never the repo/DB; gated by repo variables `COMMUNITY_CRAWL_ENABLED` (default `false`) and `COMMUNITY_CRAWL_BUDGET` (threads/run cap) | P2-1 |
 
