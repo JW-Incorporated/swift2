@@ -156,6 +156,7 @@ Because of the deadlock, **dates below are intent, not a promise.**
 | Launch backlog (reordered) | **Community Engine's fan-facing surfaces** — the Clownbot fan-theory chip (#3965) and the Clue Web live-theory board with origin badges and a "Live now" strip (#3964), merged 2026-09-07 — new to the backlog this run and the best story behind shop-the-look, because it is a *thing fans do*, not a thing we shipped. **Verify it is live on www.longlivets.com and ≥24h old before day 0.** → notifications + web push (#3568→#3583) → pinch-zoom photo viewer (#831) → photos + focal program (#762). Two arcs never overlap. |
 | ❓ Android status — **still needs Joey** | Unanswered from last run. `HUMAN-ACTIONS.md` #17 records the device test as "the only thing left **before** Play Store", while PR #3534 calls it "the shipped Android app". Tree cannot tell from the repo whether it is listed. **Barred under invariant 6 until a founder confirms.** Not re-asked this week — the deadlock is the only question worth Joey's attention right now. |
 | Mood beat | **2026-09 = `mood:chip-poll`**, cut from 3 slots to **2** (09-14, 09-19). None of last cycle's three ever drafted; three slots against a 5-photo corpus was wishful. |
+| **Blank Spaces relationship timeline — permanent weekly minimum** | **Starts 2026-09-17 at `23:00Z`** with `timeline:love-story:early-solo-years:2026-09-17`, the next flexible evening campaign beat after this calendar was written. It is additional to the 09-18/09-20 Blank Spaces thread-cycle slots. Every next calendar must reserve ≥1 story-unique `timeline:love-story:*` IG+X pair in each calendar week; Facebook rides IG automatically. Chapter sequence: early solo years → Joe Jonas era → confirmed public relationship-era material → Travis. Source precise facts only at drafting time; no rumor-stage claims. |
 | Openers burned (last 14 days) | **23 distinct patterns across 24 posts** — target ≥12, clear. One duplicate: *"Taylor Swift opens up about…"* ×2, both from the appearance lane, which is now X-only and no longer writes this shape. Still burned, do not reuse verbatim or near: bare `<month> <n>, <year>:` date-stamps · `an honest question` / `genuine question` · `she was twenty` / `she was 22` · `a fresh official Taylor upload just landed`. |
 | Eras stacked recently — spread away from these | **lover ×3** (09-07 twice, 09-02 attempt), tloas ×3, red ×2, debut ×2, fearless ×2. **Lean hard on:** speak-now, folklore, evermore, 1989, ttpd, reputation. |
 | **Cleared-photo corpus — 5 files, all currently blocked** | Every one is inside the last-10 Instagram window as of tonight. <br>• `taylor-lover-eras-minneapolis-2023.jpg` (lover) — Michael Hicks, CC BY 2.0, Wikimedia Commons <br>• `taylor-lover-eras-minneapolis-act5-2023.jpg` (lover) — Michael Hicks, CC BY 2.0, Wikimedia Commons <br>• `taylor-red-eras-inglewood-2023.jpg` (red) — Paolo Villanueva, CC BY 2.0, Wikimedia Commons <br>• `taylor-fearless-eras-inglewood-2023.jpg` (fearless) — Paolo Villanueva, CC BY 2.0, Wikimedia Commons <br>• `taylor-debut-2007-acoustic.jpg` (debut) — Brian Cantoni, CC BY 2.0, Wikimedia Commons <br>**To add one:** CC BY / CC BY-SA / CC0 / public domain only, from `commons.wikimedia.org` (never the `/wikipedia/en/` fair-use path); rehost under `/social/library/photos/`; record `mediaCredit` + `mediaSource`; **open the file and confirm the era before committing** (#3273: 4 of 4 sampled "Folklore Set Era" files were actually Speak Now); **and add the filename to `CLEARED_PHOTO_ALLOWLIST`** or it is dead on arrival. Priority eras: speak-now, folklore, 1989, reputation, ttpd, evermore. |
@@ -276,15 +277,26 @@ same slot and both would try to ship.
   The optional "what you did with it" follow-up runs **only** if real replies
   exist to quote with permission, and it is next Tree run's call, not Growth's.
 
-## 2026-09-17 (Thu) — Heartbeat
+## 2026-09-17 (Thu) — Blank Spaces relationship timeline, week 1
 
-- **`23:00Z` · `heartbeat:on-this-day`** — search the Vault for a moment dated
-  **Sep 17**; mint `on-this-day:<story-slug>`. **Fallback** if the date has no
-  match: `heartbeat:era-deep-cut` on **`1989`** → `/?era=1989`, mint
-  `era-deep-cut:1989-<slug>`. Say in the `why` which branch you took.
-  IG media: cleared photo tile, era matched to whichever branch ran.
-  X: text-only. Hook: **the real quote** — a sourced quote first, attribution
-  second. **Share hook required** (heartbeat).
+- **`23:00Z` · `timeline:love-story:early-solo-years:2026-09-17`** — the first
+  permanent weekly Blank Spaces relationship-timeline beat. Link
+  `/?lens=love-story` with the standard UTM parameters. **Direction, not
+  copy:** open in Taylor's early solo years and establish the lens's confirmed-
+  only chronology; the next weekly chapter advances to the Joe Jonas era, then
+  continues chronologically through confirmed public relationship-era material
+  toward Travis. The drafter must source every precise person, relationship,
+  event, date, and quote against the Vault or reliable public sources before
+  drafting — do not imply any unconfirmed relationship or use a rumor/countdown
+  frame.
+  Delivery: one IG post + one structurally distinct X post sharing this exact,
+  story-unique campaign value and `scheduledAt`; Facebook rides the IG post
+  automatically and is **not** a separate item. IG: real cleared Taylor photo
+  relevant to the era, **photo-only for this slot** so the separate 09-18 Blank
+  Spaces thread hero can use its eligible lens screenshot without repeating a
+  carousel asset. Never use a generic Long Live card, landing-page image, or
+  plain article screenshot. X: relevant cleared photo or text-only, never a
+  site screenshot. Hook: **the artifact**.
 
 ## 2026-09-18 (Fri) — Blank Spaces hero, slot 1 of 2
 
