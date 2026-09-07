@@ -27,6 +27,46 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Tops Country Radio Chart with New Song
+
+- first seen: 2026-09-07 06:01 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reached the top of the country radio chart with her song “I Knew It, I Knew You.” This marks another success in her music career.
+- sources:
+  - [unverified] the360mag.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxOUkJzRHFKRTA4S0NTQll5ZUtDTmlMSHowVG1hTkdjTjlpcl9rQi00d0tySWlqT0d2RUFYVUFfOVhrSHRQTmsycXJyYldaRzRzVWtVeGl4UmppbWdWR2FSV1lDeXlGUm93dWVkZEQtbmVWV1NrRDBQYXlGZ2hpemFYTXV5bjNSdUo2NmJnZ21ZanVOOVdK?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Discusses Meanings Behind Her Country Track
+
+- first seen: 2026-09-07 06:01 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shares insights into the themes and meanings of her latest country song, which is climbing the charts. This revelation adds depth to her music and engages fans further.
+- sources:
+  - [unverified] indiana105.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxQSGx5LWp6SFk1b1oyYTBOSExhWHFsNTZPM2Z5X25rNEJKUzNFZjZvdFZ2ZXFxQzU5emFBMWF3MGJaeXdKeE13cV9NcUhpWDQ5NGt3b2ZHeU9nSFpJSTYzdVlHb2psc21vaF9leTVjNklDY3hKTXFkR2NRQXJVOXRkYV9rUVV6akw4R21mdFZaSzRNZkgxVU1vLWRoQkVVdEJYSVdROE8taXBFbURNVG5UM1JqWE5Nd21fUUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Unfortunate News for Taylor Swift Ahead of Chiefs Season
+
+- first seen: 2026-09-07 06:01 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift faces some unfortunate news as the Chiefs season approaches, as reported by heavy.com. The nature of the news is not detailed in the source, leaving fans to speculate about its impact.
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPcm5HTDRZSWNsOG44ZUgxelVZYlRYU3dGRzVicUVndnZIdkxhY1BzNmJaVU5qU1N5aS05Q19tSThneXlBR0p1NnhQT3MteVU3UzFIdDVUaGRLNkpMdUNSWjJUX0xQaEJiMWdKN3Q5YUFzQTVDU1paU3lIRklUYW94VDVGeXRqVkN6S29KMjhhSFpwWWdPMjRJdHc1MF9oT2hzRG96dEpmSjg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Achieves 13th Country Radio Chart-Topper
+
+- first seen: 2026-09-07 06:01 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reached her 13th career chart-topper on the country radio charts, marking another milestone in her musical journey. This achievement highlights her enduring popularity in the country music genre.
+- sources:
+  - [unverified] The Music Universe — https://news.google.com/rss/articles/CBMikAFBVV95cUxQaXlQOFNsVEl4ckhrd0lIeE5xNUxPZXBQbWN0NVFlY0ZGclN1eERBUXhCb2ZudDVEb3hVRlFubzcyNjd3cGo1WjY5TjBtMjh6Ylp1cHdaT0NkczNMWm83dHg5dmJuUWpKTy16ZDBjTHg3TnplM1lObzRja1gzOTkxR196Zkx4M2F5WWxqMHY2dzI?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Nikki Glaser Shares Details from Taylor Swift-Travis Kelce Wedding
+
+- first seen: 2026-09-07 06:01 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nikki Glaser discusses her experience at the wedding of Taylor Swift and Travis Kelce, revealing humorous insights.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMilAFBVV95cUxNSkdyY1M3elpsZWM0YkJjLVpncUY4ckNoY05rdmxreHdmRFZidWZnc25NMDFlaVlJSnpTRXExQ1ZNNkxpZVhNY3BFS0VwY2d6b0gtUjl4S3VpRjNka2NGd0ViQzE5Mzc2S1k2Wk9vTXBVNU9DUHBoeEk5YjgxT1MyS1B4NENHZUJxeTYtbk8wVGVLN3I5?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Reportedly Declines Move to Kansas City Over NFL Schedule Issues
 
 - first seen: 2026-09-06 22:52 UTC | category: relationship | importance: 6
@@ -205,7 +245,7 @@ Stories: 120
 ## Taylor Swift Discusses 'I Knew It, I Knew You' Lyrics on Country Radio
 
 - first seen: 2026-09-06 05:53 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: In a rare appearance on country radio, Taylor Swift shared insights into the double meaning of the lyrics from her song 'I Knew It, I Knew You'.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMGo5ZXdtTmwzUkxMUDZ6djBHUmQxaGFfaUgxclhxZ2VWU0ZHTkJyOEFMTTFjTnJpbXlCYjNfYTBfbDBkOGU5MVVCZVVZY0hQbmR5RU51bWlKT2Voa2dpQzJqV05fakR0akxBWm93czVTOE9uaWE5RzVRYUVIcnZ4OThtZERsRGJFS1NVaTFMaFJPRGVoUjRCNGdLd3RqWTdHQjJsaHV5aTU5SmczU013?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -214,6 +254,7 @@ Stories: 120
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMipAFBVV95cUxQZF9VaWx6S0tuTm9VeF90ZW82cGpOVVdnZzJjZWdMdThYYnpsMmJKN3lsXzFkRFdGaVRUblRlR1pfVDRRd3BzZkdpNkRXX21mUHRoS3REcEwxQVVDODU2Z2xxcGxJYTlWczhjbERpMDNnVGk4ZVBOaEN0MEV3X2FEU29wdmtiTVY4UHdid25ybEZrWUttRDAtZTdycEZpcm5BWE9BRg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPb2o4OGRXbHh6aDMzemE4MVVXd3E0NkRlZERqMkNxSGxyOHdfZDZQcjdVamtCcUQ3T0l5ZHVlRVZtdThsZmc1azFFdXMyTWV2UTB0M01TT0FhRzlvMGFxdDBkcHUxOTh0SF9Qc1ZZWnJVcDVCSHBzTEp0Uk05R3N0MXlLZVY5QzFV?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMi4wFBVV95cUxNbng5RF9sTmRmdnplZ0FYV3h2RUROcGZXa1RtdHBrdVl3RzF2OGJOZzgyZFpLR29MQmItQW81MEZhaC1sblJuMUZUYXpTSGhxUjRlbVRmcmdROUhKMnczNUY4QXNSMFlHYllaS0xpTFZiWm9majRaVm1mZDlXRTdZS1ByUTVxcmhzZEJNaWJqSWNPR3l1X0EzVm5RX2hjQkRQZGFKeDRhR0VtQW8yVUFuSkxhdzBkRHBSUzhINVhFemJib1RkYUcwRkFqQVEzVjl4ZTFqbkRyOVA0VGJ1NDhLQTVQZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxNSlcxcVRLX0Ixd055WjdpU0dVODRNTmIxODBMMWNQWEo2TjRJRTU5N3pGbjNUUnVJMVpBOVNHT1g5VkxlVTBnQ0V5YnhhNU9kRjRENmFIMXB4cFZVektJZDVyQUZxelZhcnB0eHpTZlF2ejIzZzVfQWtBYXdYN1B2c1M4cVluQVFOVXpTMXdNSy1uRndHREhZcmJB?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMihgFBVV95cUxNdkRWOG9waEFsZ1JNajZqaEV4Z1V2T0stbG9Xd0ozUXVTSFBfazVZblRib0tRQ29wNTAwY0F0MWQ4cmoyMGJFVUU5WkJCSi0tWlhDM3U4WWdEWGd0Y3drN3l1TkFpUjUwdGFJeEtjc24tbFEwSjNwUE5PazYwaWJYUHhyai1WQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Harry Styles Makes Wedding Joke at NYC Concert Referencing Taylor Swift
@@ -879,39 +920,4 @@ Stories: 120
 - first seen: 2026-09-05 05:41 UTC | category: music | importance: 4
 - verification_status: single_source | source_count: 0
 - summary: Her Campus has created a Taylor Swift playlist specifically designed for students in their senior year, featuring songs to enhance the graduation experience.
-- sources: _none recorded_
-
-## Florida Orchestra Presents Taylor Swift's Music in a Symphonic Format
-
-- first seen: 2026-09-04 23:01 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: The Florida Orchestra has announced a performance featuring Taylor Swift's music arranged for a symphonic experience. This event brings a new interpretation to her popular songs.
-- sources: _none recorded_
-
-## Emmy Predictions Include Taylor Swift Among Potential Winners
-
-- first seen: 2026-09-04 23:01 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Pete Hammond discusses potential Emmy wins this weekend, highlighting contenders such as Taylor Swift alongside other celebrities like Bad Bunny and Jimmy Kimmel. The awards take place over the Labor Day holiday weekend.
-- sources: _none recorded_
-
-## Taylor Swift Playlist Ideas for Senior Year
-
-- first seen: 2026-09-04 23:01 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Her Campus features a playlist curated for senior students, inspired by Taylor Swift's music, perfect for reflecting on their final year of high school or college. The playlist aims to resonate with the experiences of seniors during this pivotal time.
-- sources: _none recorded_
-
-## Gigi Hadid Labels Travis Kelce in New Shoot
-
-- first seen: 2026-09-04 23:01 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Gigi Hadid referred to Travis Kelce with an unexpected label during a recent photo shoot. The statement has garnered attention but specifics about the label were not detailed in the source article.
-- sources: _none recorded_
-
-## Ohio Village Prepares for Taylor Swift and Travis Kelce
-
-- first seen: 2026-09-04 23:01 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: A small village in Ohio is gearing up for the anticipated visit of Taylor Swift and Travis Kelce. The local community is excited about their potential arrival.
 - sources: _none recorded_
