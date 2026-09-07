@@ -37,7 +37,7 @@ describe('EntryDetail song chips (#1856)', () => {
   });
 
   it('leaves Escape to the song overlay before collapsing the underlying chapter', () => {
-    expect(source).toContain("e.key === 'Escape' && !share && !trackGuideEraId");
+    expect(source).toContain("e.key === 'Escape' && !trackGuideEraId");
   });
 });
 
