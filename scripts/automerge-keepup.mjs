@@ -70,7 +70,20 @@ export const PARKED_LABELS = ['hold', 'cie:escalate', 'founder-decision'];
 export function isRefreshCandidate(pr) {
   if (pr.isDraft) return false;
   if (pr.baseRefName !== 'main') return false;
-  if (pr.mergeStateStatus !== 'BEHIND') return false;
+  // BEHIND is the obvious case, but GitHub's mergeStateStatus is a single
+  // value with a precedence order: a PR that is BOTH stale-behind-main AND
+  // has failing/pending required status checks reports as BLOCKED, never
+  // BEHIND — and the two stranded PRs t_159a1105 found (#3892, #3821) are
+  // exactly that: their `build` check failed for a real content reason, so
+  // GitHub reported BLOCKED even though `git merge main` still applied
+  // cleanly. Restricting to BEHIND meant this job silently could never see
+  // them: a PR whose CI fails even once instantly becomes permanently
+  // invisible to the one workflow whose whole job is keeping it fresh. The
+  // workflow's own dry-run-merge-then-abort-on-conflict step (not this
+  // function) is what actually protects against a genuine conflict, so it's
+  // safe to widen this filter to BLOCKED too — DIRTY (real conflict) and
+  // CLEAN (nothing to do) are still excluded below.
+  if (pr.mergeStateStatus !== 'BEHIND' && pr.mergeStateStatus !== 'BLOCKED') return false;
   const labelNames = (pr.labels || []).map((l) => (typeof l === 'string' ? l : l.name));
   if (labelNames.some((l) => PARKED_LABELS.includes(l))) return false;
   const { ok } = evaluateBranchAuthorGate({ branch: pr.headRefName, author: pr.author?.login });
