@@ -186,7 +186,10 @@ call a model are separate **manually confirmed** workflows.
 | [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | header — Facebook has no API for non-administered groups, so this stays a human task |
 | [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The Claude-routine half is the Routine Auditor's weekly comment, see below |
 
-### Community engine (Phase 0 landed; Phase 1 fully landed; Phase 2 P2-1/P2-2 landed)
+### Community engine (Phase 0–2 fully landed; Phase 3 hardening/docs, P3-1 landed)
+
+Operator's guide (non-developer, what emails to expect, how to ack, how to
+stop it): [`docs/community/README.md`](community/README.md) (P3-1).
 
 Spec: [`docs/proposals/2026-09-06-community-engine-plan.md`](proposals/2026-09-06-community-engine-plan.md)
 (Fable-approved plan, board `swift2`, Phase 0–3 cards). Standing rule from
