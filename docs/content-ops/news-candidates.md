@@ -27,13 +27,29 @@ so far".
 
 Stories: 120
 
-## Taylor Swift Tops Country Radio Chart with New Song
+## JD Vance’s Mom Responds to Taylor Swift's 'Cat Lady' Comment
 
-- first seen: 2026-09-07 06:01 UTC | category: music | importance: 7
+- first seen: 2026-09-07 15:02 UTC | category: business | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reached the top of the country radio chart with her song “I Knew It, I Knew You.” This marks another success in her music career.
+- summary: Taylor Swift recently made a comment referencing 'cat ladies,' which has prompted a surprising response from JD Vance's mother. The reaction highlights the intersection of celebrity remarks and political family dynamics.
 - sources:
-  - [unverified] the360mag.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxOUkJzRHFKRTA4S0NTQll5ZUtDTmlMSHowVG1hTkdjTjlpcl9rQi00d0tySWlqT0d2RUFYVUFfOVhrSHRQTmsycXJyYldaRzRzVWtVeGl4UmppbWdWR2FSV1lDeXlGUm93dWVkZEQtbmVWV1NrRDBQYXlGZ2hpemFYTXV5bjNSdUo2NmJnZ21ZanVOOVdK?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNZk1hdUd4aVVHMjhUN2lvVnNWQ0VnajQ3RTJuYk5IUFpVRms2Zlh1MVJjY2FTSmlZM1NXcDVnZms2YkJ2ZWtrVjZuT3JmRndha3UyWl9LemVpbHpEOHJzUS1EVWcydjZoRFZiZVVBMHhNdTRhNFVGT0U2MVNVS204THRlbE9Rck9UWWxXVllMZlpuaGdZaHprTW05Yw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## 30 Best Songs Featuring Cats Include Taylor Swift
+
+- first seen: 2026-09-07 15:02 UTC | category: music | importance: 4
+- verification_status: single_source | source_count: 1
+- summary: A list highlights the top songs about cats, featuring contributions from various artists including Taylor Swift. The compilation celebrates the charm of feline-inspired music.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-lists/best-cat-songs-1235618296/
+
+## Taylor Swift's Country Song Reaches Number One
+
+- first seen: 2026-09-07 15:02 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's country song has achieved the number one position, as reported by local3news.com. The achievement highlights her continued success in the music industry.
+- sources:
+  - [unverified] local3news.com — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOSXVMZGltaVBwaHNfMTdMbjZNRm1YNnNhR0k5R1FlWVZNbEkzUlNnZ3RabmxZZndPVU43aEhVMFdLWGp2YXZGYmUxYkdDYUQ4dzlkQUljeFlEeTdnV28xUDlzeXN5VUNOd0FQbmhhbzByRXZFcUVzdnpuVnJGNlo1YTdhX25mczNUbVFzaXM4M0RMVnBSbVpsVGdsdkJ0UnBESlYwNW1vVHI3dUhTVFVaSHVIbURXWjhEYzJHUGFneGQ0WUpiVmhrcEt1QjVBbFZv?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Discusses Meanings Behind Her Country Track
 
@@ -66,6 +82,16 @@ Stories: 120
 - summary: Nikki Glaser discusses her experience at the wedding of Taylor Swift and Travis Kelce, revealing humorous insights.
 - sources:
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMilAFBVV95cUxNSkdyY1M3elpsZWM0YkJjLVpncUY4ckNoY05rdmxreHdmRFZidWZnc25NMDFlaVlJSnpTRXExQ1ZNNkxpZVhNY3BFS0VwY2d6b0gtUjl4S3VpRjNka2NGd0ViQzE5Mzc2S1k2Wk9vTXBVNU9DUHBoeEk5YjgxT1MyS1B4NENHZUJxeTYtbk8wVGVLN3I5?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Tops Country Radio Chart with New Song
+
+- first seen: 2026-09-07 06:01 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift has reached the top of the country radio chart with her song “I Knew It, I Knew You.” This marks another success in her music career.
+- sources:
+  - [unverified] broadwayworld.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOU29XTkU0d0ROdF9XVEdfSTVlcXYzVGVQaThqMVFtYmdDcWJUUFZUQ0RfcUFNYlVXMkxzS3p5bG9YbURlT2NYZmtoSldNLUtqSW5rTkFHSTdncnRwR2hWOHV5TmdlUmNYblppQ3VLNlhfQ1dSaWNra2ZleFAyNUdRNW90cHl0cHphMW84R0RxRU5yMmJwV3c5MnZVUklvRFk2cUpnenRwUENmRHd3QmpIcktXejQydloxZ1NV?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] contactmusic.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxORjBobEFBWEhpdXhwOWItb3BleUdyTTM0TWFFR05PZHNSVXBoMkVZUWxwb01WaUxGLTdTQTdENFdrMm9SNlRYVTIzZl9ta3ZUdEhOMGxRbjN0Vy1PSkVZYndMa1o5dXNBUWZfU2JnYWx0MHJ2a05yNVVlbDN5S05PeV9iR05kWDRwRlRVTk9IN2lNeEFGN3Nnd1R2SlBrRGowUXFEREItN2JvNV9QeUxweDhibTdaUHpnNmp0ODhBM0RKOGxLbE05bFBaSkI?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] the360mag.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxOUkJzRHFKRTA4S0NTQll5ZUtDTmlMSHowVG1hTkdjTjlpcl9rQi00d0tySWlqT0d2RUFYVUFfOVhrSHRQTmsycXJyYldaRzRzVWtVeGl4UmppbWdWR2FSV1lDeXlGUm93dWVkZEQtbmVWV1NrRDBQYXlGZ2hpemFYTXV5bjNSdUo2NmJnZ21ZanVOOVdK?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Reportedly Declines Move to Kansas City Over NFL Schedule Issues
 
@@ -899,25 +925,4 @@ Stories: 120
 - first seen: 2026-09-05 05:41 UTC | category: relationship | importance: 5
 - verification_status: single_source | source_count: 0
 - summary: A village in Ohio is gearing up for a visit from Taylor Swift and Travis Kelce. The local community expresses excitement over the anticipated arrival of the celebrity couple.
-- sources: _none recorded_
-
-## Gigi Hadid Mentions Travis Kelce in Recent Photo Shoot
-
-- first seen: 2026-09-05 05:41 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: During a new photo shoot, Gigi Hadid refers to Travis Kelce with an unexpected label, sparking interest. The context of the label and its implications are not detailed.
-- sources: _none recorded_
-
-## Travis Kelce Talks About His Bond with Taylor Swift's Dog
-
-- first seen: 2026-09-05 05:41 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce discusses his affection for the dog he shares with Taylor Swift. This highlights their connection and shared experiences as a couple.
-- sources: _none recorded_
-
-## Taylor Swift Playlist Curated for Senior Year by Her Campus
-
-- first seen: 2026-09-05 05:41 UTC | category: music | importance: 4
-- verification_status: single_source | source_count: 0
-- summary: Her Campus has created a Taylor Swift playlist specifically designed for students in their senior year, featuring songs to enhance the graduation experience.
 - sources: _none recorded_
