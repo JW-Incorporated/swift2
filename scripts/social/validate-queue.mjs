@@ -20,9 +20,10 @@
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { validateQueueItem } from './lib/queue-schema.mjs';
+import { validatePhotoInventoryBinding, validateQueueItem } from './lib/queue-schema.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+const photoLibrary = JSON.parse(await readFile(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;
 
 /** Validates every *.json in `dir`. Returns [{ file, findings }] for failures only. */
 export async function validateDir(dir) {
@@ -44,7 +45,7 @@ export async function validateDir(dir) {
       failures.push({ file, findings: [`unparseable JSON: ${err.message ?? err}`] });
       continue;
     }
-    const findings = validateQueueItem(data);
+    const findings = [...validateQueueItem(data), ...validatePhotoInventoryBinding(data, photoLibrary)];
     if (findings.length) failures.push({ file, findings });
   }
   return { checked: files.length, failures };
