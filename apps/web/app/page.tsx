@@ -20,10 +20,11 @@ export async function generateMetadata({
   searchParams: Promise<{ lens?: string; mode?: string }>;
 }): Promise<Metadata> {
   const { lens, mode } = await searchParams;
-  const hasFeatureCard = (lens && VALID_LENS_IDS.has(lens)) || (mode && FEATURE_MODE_IDS.has(mode));
-  if (!hasFeatureCard) return {};
+  const validLens = lens && VALID_LENS_IDS.has(lens) ? lens : undefined;
+  const validMode = mode && FEATURE_MODE_IDS.has(mode) ? mode : undefined;
+  if (!validLens && !validMode) return {};
 
-  const ogUrl = `/api/og?${lens ? `lens=${encodeURIComponent(lens)}` : `mode=${encodeURIComponent(mode!)}`}`;
+  const ogUrl = `/api/og?${validLens ? `lens=${encodeURIComponent(validLens)}` : `mode=${encodeURIComponent(validMode!)}`}`;
   return {
     openGraph: { images: [ogUrl] },
     twitter: { images: [ogUrl] },
