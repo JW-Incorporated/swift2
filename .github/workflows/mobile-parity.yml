@@ -23,7 +23,15 @@ jobs:
   parity:
     runs-on: ubuntu-latest
     env:
-      ALERT_TITLE: 'Mobile parity: iOS and Android have diverged'
+      # Two alerts, because they mean different things and need different
+      # people: DIVERGED = the platforms really carry different releases
+      # (engineering); UNCHECKED = the check itself could not run, almost
+      # always a missing/expired EXPO_TOKEN (founder, HUMAN-ACTIONS #44).
+      # The first run (2026-09-06, #3854) filed an exit-2 token gap under the
+      # "diverged" title, which reads as a shipping incident that never
+      # happened.
+      DIVERGED_TITLE: 'Mobile parity: iOS and Android have diverged'
+      UNCHECKED_TITLE: 'Mobile parity: check could not run'
       REPO: ${{ github.repository }}
       GH_TOKEN: ${{ github.token }}
     steps:
@@ -48,11 +56,11 @@ jobs:
           fi
           node ../../scripts/mobile/check-parity.mjs | tee /tmp/parity.txt
           echo "code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
-      - name: Raise or refresh the alert
-        if: steps.parity.outputs.code != '0'
+      - name: Raise or refresh the "diverged" alert
+        if: steps.parity.outputs.code == '1'
         run: |
           {
-            echo "@sffan15-sys @wjduvall-cmd — the mobile parity check did not pass (exit ${{ steps.parity.outputs.code }}; 1 = diverged, 2 = could not check)."
+            echo "@sffan15-sys @wjduvall-cmd — iOS and Android are carrying different releases (parity check exit 1)."
             echo
             echo '```'
             cat /tmp/parity.txt
@@ -60,8 +68,24 @@ jobs:
             echo
             echo "Runbook: docs/mobile-release.md → \"When the parity check fails\"."
           } > /tmp/alert-body.md
-          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
-      - name: Close the alert if recovered
+          scripts/watchdog/upsert-alert.sh open "$DIVERGED_TITLE" /tmp/alert-body.md
+          # The check ran, so any earlier "could not run" alert is stale.
+          echo "Parity check ran on $(date -u +'%Y-%m-%d %H:%M UTC') (result: diverged — see the \"$DIVERGED_TITLE\" issue)." > /tmp/recovered.md
+          scripts/watchdog/upsert-alert.sh close "$UNCHECKED_TITLE" /tmp/recovered.md
+      - name: Raise or refresh the "could not run" alert
+        if: steps.parity.outputs.code != '0' && steps.parity.outputs.code != '1'
+        run: |
+          {
+            echo "@sffan15-sys @wjduvall-cmd — the mobile parity check could not run (exit ${{ steps.parity.outputs.code }}). This is NOT evidence the platforms diverged; it means nothing is verifying that right now."
+            echo
+            echo '```'
+            cat /tmp/parity.txt
+            echo '```'
+            echo
+            echo "Usual cause: \`EXPO_TOKEN\` missing or expired → HUMAN-ACTIONS.md #44. Runbook: docs/mobile-release.md → \"When the parity check fails\"."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$UNCHECKED_TITLE" /tmp/alert-body.md
+      - name: Close both alerts if recovered
         if: steps.parity.outputs.code == '0'
         run: |
           {
@@ -71,7 +95,8 @@ jobs:
             cat /tmp/parity.txt
             echo '```'
           } > /tmp/alert-body.md
-          scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh close "$DIVERGED_TITLE" /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh close "$UNCHECKED_TITLE" /tmp/alert-body.md
       - name: Fail the run when diverged
         if: steps.parity.outputs.code != '0'
         run: exit 1
