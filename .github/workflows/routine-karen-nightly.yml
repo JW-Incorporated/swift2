@@ -27,6 +27,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  id-token: write  # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
   issues: write
 
 jobs:
