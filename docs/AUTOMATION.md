@@ -209,6 +209,15 @@ workflow — see its row in the Tier 2 table below.
 | [`theory-promote.yml`](../.github/workflows/theory-promote.yml) | weekly, Sunday 09:45 UTC | no (deterministic merge — see `apps/worker/src/extract/theory-promote.ts`'s header for why this is not the Opus call the plan's §4 table originally described) | reads `fan_theory_candidate` rows `status='candidate'`, merges near-duplicates via the existing name-similarity + symbol-overlap rule (`theory-match.ts`), promotes clusters with `mention_count >= 3` (and stance not `debunked_by_fans`) into `live_theory` (origin='fan', persistent=true, carries `track_slug` — added by P2-6, see below); merged rows marked `status='merged'`, rejected/held clusters marked accordingly; degrades to a clean no-op when `SUPABASE_*` are unset | P2-3 (landed) |
 | [`theory-weaving-intake.yml`](../.github/workflows/theory-weaving-intake.yml) | weekly, Sunday 09:52 UTC (after `theory-promote.yml`) | no (deterministic — reads `live_theory`, no model call) | reads `live_theory` rows `origin='fan'`, `persistent=true`, `track_slug is not null`, not `debunked`, `mention_count >= 8` (a higher bar than P2-3's own `mention_count >= 3` promotion floor — see the script's header for why); files one `intake`-labeled GitHub issue per not-already-filed theory (fingerprint-deduped the same fail-closed way as `appearance-discovery`) pointing Content Shift at `docs/content-ops/theory-weaving.md`'s mainstream-coverage sourcing bar — a LEAD, never a song-page edit; degrades to a clean no-op when `SUPABASE_*` are unset | P2-6 (landed) |
 
+**30-day review (P3-2, `docs/community/30-day-review-plan.md`)**: the
+plan's Phase 3 scheduled review (posted-ratio, link-CTR, corpus size, cost,
+cap recommendations) is a dated follow-up, not a build item — it runs
+2026-10-07 (30 days after the engagement engine's `COMMUNITY_SCAN_ENABLED`
+flip) via a one-shot cron job that opens a results card on board `swift2`.
+See that doc for the exact metrics/queries and a flagged gap: no UTM
+parameters are appended to drafted links today, so link-CTR cannot be
+measured from click data until that's added.
+
 `fb-export-ingest` (script, not its own cron — run by the Answerer desk or
 `workflow_dispatch` after a weekly Facebook export lands) and
 `theory-resolve` (folds into the existing nightly `sync:content` job as
