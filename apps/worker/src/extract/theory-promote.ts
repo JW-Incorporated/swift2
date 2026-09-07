@@ -216,6 +216,12 @@ export interface PromotedLiveTheoryUpsert {
     persistent: true;
     mention_count: number;
     communities: string[];
+    // Community Engine P2-4: the promoted cluster's fan-side confidence
+    // (§3.3's `fan_theory_candidate.stance`) rides straight onto the
+    // `live_theory` row so the Clue Web / eggs board can render a stance
+    // chip without a second lookup — same "carry the corpus columns
+    // through, don't re-derive them" convention as mention_count/communities.
+    stance: FanTheoryStance;
     redline_ok: true;
   };
 }
@@ -243,6 +249,7 @@ export function buildLiveTheoryUpsert(
     persistent: true as const,
     mention_count: match ? (match.mentionCount ?? 0) + cluster.mentionCount : cluster.mentionCount,
     communities: match ? union([match.communities, cluster.communities]) : cluster.communities,
+    stance: cluster.stance,
     redline_ok: true as const,
   };
   return match ? { existingId: match.id, row } : { row };
