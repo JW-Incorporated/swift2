@@ -114,17 +114,18 @@ function parseArg(argv, name) {
 function cliMain() {
   const argv = process.argv.slice(2);
   const prsPath = parseArg(argv, '--prs-json');
-  // NOTE on --max: this bounds how many PRs we SCAN (attempt a dry-run
-  // merge against), not how many actually get refreshed. Widening
-  // eligibility to BLOCKED (see isRefreshCandidate) means some scanned
-  // candidates turn out to already contain all of main — GitHub reports
-  // BLOCKED for failing/missing checks alone, not only staleness — and a
-  // dry-run merge for those is a fast no-op. The workflow tracks its own
-  // separate REFRESH_BUDGET and only counts an actual push against it, so
-  // a scan pool larger than the real push budget is what stops those
-  // no-ops from starving newer, genuinely-behind PRs of the budget
-  // (codex review finding on t_159a1105/PR#3973).
-  const maxCount = Number(parseArg(argv, '--max')) || 8;
+  // NOTE on --max: this bounds how many PRs we SCAN, not how many actually
+  // get refreshed — the workflow enforces its own separate REFRESH_BUDGET
+  // and only counts an actual push against it. Widening eligibility to
+  // BLOCKED (see isRefreshCandidate) means some scanned candidates turn
+  // out to already contain all of main (GitHub reports BLOCKED for a
+  // failing/missing check alone, not only staleness); the workflow skips
+  // those via a cheap ancestry check before ever attempting a merge, so a
+  // low fixed scan cap here would let a run's oldest no-op candidates
+  // permanently exclude newer genuinely-behind PRs from ever being seen
+  // (codex review finding on t_159a1105/PR#3973) — default is intentionally
+  // large (effectively "scan everything gh pr list returned").
+  const maxCount = Number(parseArg(argv, '--max')) || 100;
   if (!prsPath) {
     console.error('usage: automerge-keepup.mjs --prs-json <path> [--max N]');
     return 2;
