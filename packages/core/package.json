@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.114.0",
+    "@supabase/supabase-js": "^2.115.0",
     "@swift2/shared": "*",
     "web-push": "^3.6.7"
   },
