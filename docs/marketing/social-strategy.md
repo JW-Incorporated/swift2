@@ -47,7 +47,7 @@ Three structural fixes, in priority order:
 
 ## 1. Campaign architecture
 
-Five campaigns. Every queue item belongs to exactly one. The names below are
+Six campaigns. Every queue item belongs to exactly one. The names below are
 **families** — a prefix that groups metrics — and the `campaign` field on a
 queue item is never the bare family:
 
@@ -55,6 +55,7 @@ queue item is never the bare family:
 |---|---|---|---|
 | Feature launch | `launch:<feature-slug>` | `launch:mood-chat:announce` | 0-6 slots per launch, bursty |
 | Thread cycle | `thread:<lensId>:<angle>` | `thread:hidden-clues:origin-story:2026-08` | 2 slots per thread per month (12/mo) |
+| Blank Spaces relationship timeline | `timeline:love-story:<chapter>` | `timeline:love-story:early-solo-years:2026-09-17` | **1 evening campaign beat every calendar week, permanent minimum** |
 | Mood beat | `mood:<format>` | `mood:chip-poll:2026-09` | 2-3 slots per month |
 | Daily heartbeat | `heartbeat:<pillar>` | `heartbeat:on-this-day:red-announcement` | everything left (~60-70%) |
 | Human reach | *(no queue item — a GitHub issue)* | — | 0 slots, ~15 min/week of Joey |
@@ -164,7 +165,38 @@ windows as fit and drops the rest; the next month starts again at The Decode
 with its own angle index. (August 2026 starts on the 12th, so it runs Decode →
 Clue Web → Runway → Blank Spaces and skips Taylor's Version + End Game.)
 
-### (c) Mood beat — monthly, starter-chip driven
+### (c) Blank Spaces relationship timeline — weekly, confirmed-only
+
+**Permanent minimum:** reserve at least **one 23:00Z evening campaign beat in
+every calendar week** for this series. It is additional to, and never replaces,
+the six-thread monthly rotation; Blank Spaces still receives its two thread-cycle
+slots in its normal monthly window. If a launch arc or another campaign already
+occupies the preferred evening beat, use the next available 23:00Z beat that
+week rather than double-booking a slot or adding a separate Facebook item.
+
+**Delivery shape:** each weekly beat is exactly one Instagram post and one
+structurally distinct X post with the same story-unique `timeline:love-story:*`
+campaign value and `scheduledAt`; Facebook rides the Instagram post
+automatically. Never draft or plan a standalone Facebook item.
+
+**Chronology:** begin with Taylor's early solo years, then advance through
+publicly confirmed relationship-era material toward Travis. Each beat must stand
+alone and point to `/?lens=love-story` with the standard UTM parameters. The
+calendar supplies only the chapter and sourcing direction; the Growth drafter
+must verify each specific person, relationship, event, date, quote, or other
+factual claim against the Vault or reliable public sources before it appears in
+copy. Joe Jonas may be covered only as confirmed public relationship history;
+rumor-stage relationship-existence claims, countdowns, and speculation remain
+banned.
+
+**Media:** Instagram leads with a real cleared Taylor photo relevant to the era.
+It may place a Blank Spaces lens screenshot on slide 2 only when the screenshot
+shows that lens in actual, visually rich use and satisfies §2's “cool feature
+only” rule; never use a generic Long Live card, landing-page image, or plain
+article screenshot. X follows the media ladder: a relevant cleared Taylor photo
+when it fits, otherwise text-only; never a site screenshot.
+
+### (d) Mood beat — monthly, starter-chip driven
 
 Mood is the most distinctive thing on the site and the hardest to link to.
 
@@ -195,7 +227,7 @@ Mood is the most distinctive thing on the site and the hardest to link to.
 the arc.** Don't run both — it doubles Mood to 8 slots in a month and the grid
 reads like an ad.
 
-### (d) Daily heartbeat — the everyday posts, with hook craft
+### (e) Daily heartbeat — the everyday posts, with hook craft
 
 The five pillars survive. What changes is how the copy opens.
 
@@ -252,7 +284,7 @@ can still be 300+ weighted once the link is counted — this, not duplicate
 sibling copy, is what actually broke 11 of 12 `social/failed/` items (§0,
 corrected 2026-08-11).
 
-### (e) Human reach — the lane APIs can't touch
+### (f) Human reach — the lane APIs can't touch
 
 Facebook groups, Reddit and Tumblr are where this audience actually lives, and
 no API we have reaches them. So they run on **~15 minutes of Joey per week**,
