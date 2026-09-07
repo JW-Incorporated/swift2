@@ -114,6 +114,16 @@ function parseArg(argv, name) {
 function cliMain() {
   const argv = process.argv.slice(2);
   const prsPath = parseArg(argv, '--prs-json');
+  // NOTE on --max: this bounds how many PRs we SCAN (attempt a dry-run
+  // merge against), not how many actually get refreshed. Widening
+  // eligibility to BLOCKED (see isRefreshCandidate) means some scanned
+  // candidates turn out to already contain all of main — GitHub reports
+  // BLOCKED for failing/missing checks alone, not only staleness — and a
+  // dry-run merge for those is a fast no-op. The workflow tracks its own
+  // separate REFRESH_BUDGET and only counts an actual push against it, so
+  // a scan pool larger than the real push budget is what stops those
+  // no-ops from starving newer, genuinely-behind PRs of the budget
+  // (codex review finding on t_159a1105/PR#3973).
   const maxCount = Number(parseArg(argv, '--max')) || 8;
   if (!prsPath) {
     console.error('usage: automerge-keepup.mjs --prs-json <path> [--max N]');
@@ -130,7 +140,7 @@ function cliMain() {
   const candidates = selectRefreshCandidates(prs, { maxCount });
   console.log(JSON.stringify(candidates));
   console.error(
-    `automerge-keepup: ${prs.length} open PR(s) seen, ${candidates.length} selected for refresh (cap ${maxCount}).`,
+    `automerge-keepup: ${prs.length} open PR(s) seen, ${candidates.length} selected to scan (cap ${maxCount}); workflow applies its own push budget on top.`,
   );
   return 0;
 }

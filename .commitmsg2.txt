@@ -1,0 +1,20 @@
+fix(ci): decouple auto-merge-keepup scan pool from push budget
+
+codex review finding on PR #3973: widening isRefreshCandidate to accept
+BLOCKED alongside BEHIND meant a BLOCKED-but-already-current PR (blocked
+by a failing/missing check alone, not staleness -- main brings nothing
+new) could consume one of the 8 candidate slots with a pure no-op,
+starving newer genuinely-behind PRs of the refresh budget every run.
+
+Fix: scan up to 24 candidates (automerge-keepup.mjs --max 24) but only
+count an actual push against an explicit REFRESH_BUDGET=8 in the
+workflow. A dry-run merge that produces an empty diff (already current)
+is now detected and treated as a no-op -- not a refresh, does not
+consume budget, loop continues to the next candidate.
+
+Verification: npm run test -- scripts/automerge-keepup.test.ts
+scripts/automerge-branch-author-gate.test.ts -- 24/24 pass (candidate
+selection logic unchanged, only its scan-pool size argument moved).
+Workflow YAML re-parsed clean with js-yaml.
+
+Kanban: t_159a1105.

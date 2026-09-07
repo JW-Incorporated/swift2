@@ -92,7 +92,15 @@ jobs:
         if: steps.list.outputs.count != '0'
         run: |
           set -euo pipefail
-          node scripts/automerge-keepup.mjs --prs-json /tmp/open-prs.json --max 8 > /tmp/candidates.json
+          # Scan pool (24) is deliberately larger than the 8-push refresh
+          # budget enforced below: BLOCKED PRs are now eligible (see
+          # automerge-keepup.mjs), and a BLOCKED PR can already contain all
+          # of main (blocked by a failing/missing check alone, not
+          # staleness) — a dry-run merge for those is a fast no-op that
+          # must not consume one of the 8 real pushes, or older no-op
+          # candidates would starve newer genuinely-behind PRs of the
+          # budget every run.
+          node scripts/automerge-keepup.mjs --prs-json /tmp/open-prs.json --max 24 > /tmp/candidates.json
           echo "count=$(jq 'length' /tmp/candidates.json)" >> "$GITHUB_OUTPUT"
 
       - name: Refresh each candidate branch against main
@@ -105,11 +113,17 @@ jobs:
           git config user.name "swift2-automerge-keepup"
           git config user.email "actions@users.noreply.github.com"
 
+          REFRESH_BUDGET=8
           REFRESHED=0
           CONFLICTED=0
+          NOOP=0
 
           while IFS=$'\t' read -r NUM BRANCH; do
             [ -z "$NUM" ] && continue
+            if [ "$REFRESHED" -ge "$REFRESH_BUDGET" ]; then
+              echo "::notice::refresh budget (${REFRESH_BUDGET}) reached — remaining candidates left for next tick"
+              break
+            fi
             echo "── PR #$NUM ($BRANCH) ──"
             git fetch origin "$BRANCH" main --quiet
             git checkout -B "keepup/$BRANCH" "origin/$BRANCH" --quiet
@@ -117,12 +131,21 @@ jobs:
             # Dry-run merge first: a real conflict is left completely alone —
             # this job resolves nothing, it only fast-forwards on a clean merge.
             if git merge --no-commit --no-ff origin/main --quiet; then
-              git commit --no-edit --quiet -m "chore: merge main into ${BRANCH} (auto-merge-keepup)"
-              if git push origin "HEAD:${BRANCH}" --quiet; then
-                echo "refreshed #$NUM"
-                REFRESHED=$((REFRESHED + 1))
+              if git diff --cached --quiet; then
+                # BLOCKED-but-already-current: main brought nothing new (the
+                # PR is blocked by a failing/missing check, not staleness).
+                # Not a refresh — must not consume the push budget.
+                echo "no-op for #$NUM ($BRANCH) — already current, blocked for another reason"
+                git merge --abort 2>/dev/null || true
+                NOOP=$((NOOP + 1))
               else
-                echo "::warning::push failed for #$NUM ($BRANCH) — leaving as-is, will retry next tick"
+                git commit --no-edit --quiet -m "chore: merge main into ${BRANCH} (auto-merge-keepup)"
+                if git push origin "HEAD:${BRANCH}" --quiet; then
+                  echo "refreshed #$NUM"
+                  REFRESHED=$((REFRESHED + 1))
+                else
+                  echo "::warning::push failed for #$NUM ($BRANCH) — leaving as-is, will retry next tick"
+                fi
               fi
             else
               echo "::notice::#$NUM ($BRANCH) has a real conflict against main — leaving untouched for a human/its own agent, same as today"
@@ -133,4 +156,4 @@ jobs:
             git branch -D "keepup/$BRANCH" --quiet 2>/dev/null || true
           done < <(jq -r '.[] | [.number, .headRefName] | @tsv' /tmp/candidates.json)
 
-          echo "auto-merge-keepup: refreshed ${REFRESHED}, conflicted ${CONFLICTED} (left for a human)."
+          echo "auto-merge-keepup: refreshed ${REFRESHED}, conflicted ${CONFLICTED}, no-op ${NOOP} (left for a human)."
