@@ -1,0 +1,14 @@
+{
+  "platform": "instagram",
+  "body": "ok i need you to go do something for me, because this one still makes me gasp.\n\nin the 'bejeweled' video there's a blink-and-you-miss-it moment in an elevator: two floor buttons glow. button 3 in purple. button 5 in blue. at the time it just looked pretty.\n\nmonths later she re-recorded Speak Now (her third album, purple) and 1989 (her fifth, blue). she'd told us the order, in an elevator, and most of us didn't clock it until it happened.\n\nso — the challenge: open The Clue Web, find the elevator clue, and tell me which two floors lit up and what they turned out to mean. reply with what you got 👇\n\nit lives under Threads on the site. 📷 the eras tour, minneapolis 2023 — michael hicks (cc by 2.0), via wikimedia commons. swipe for the clue web.\n\nlonglivets.com/?lens=easter-eggs&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg",
+    "/social/library/thread-easter-eggs-intro.png"
+  ],
+  "mediaKind": "photo",
+  "mediaCredit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_Minnesota_-_acoustic_set_2.jpg",
+  "scheduledAt": "2026-09-07T23:00:00Z",
+  "campaign": "thread:easter-eggs:interactive-challenge:2026-09-hero",
+  "why": "Today's Beat B (2026-09-07), The Clue Web hero, angle interactive-challenge. IG sibling of the X item, platform-native (long-form, the whole clue->payoff told, then the challenge). Same sourced pair: lenses.ts egg-bejeweled-elevator (Bejeweled elevator buttons 3/Speak Now + 5/1989, confirmed=true, Teen Vogue). MEDIA SUBSTITUTION (disclosed): the calendar assigned thread-easter-eggs-intro.png as a site-screen tile, but check-drafts.mjs's 2026-08-31 site-screen lock rejects mediaKind site-screen on any non-launch campaign, so this runs as a photo carousel instead — media[0] a real cleared Taylor photo (the grid shows Taylor), the Clue Web intro screenshot rides slide 2 (same shape the 09-05 run used). Photo choice forced: of 5 cleared photos, 4 (act5-lover, red, fearless, debut) are inside the last-10-posted-IG window and would fail the repeat check; taylor-lover-eras-minneapolis-2023.jpg is the only free one, and it is genuinely the Clue Web thread's own hero shot (same Michael Hicks Minneapolis Eras Tour crowd), so it reads as the thread's home rather than an era claim — the caption ties the photo to the tour, not to the Midnights/Speak Now/1989 content. Screenshot slide (thread-easter-eggs-intro.png, last posted 08-17, outside the last-10 window). Hook: the challenge. Thread-of-month = share-design-exempt (natural teach-a-lens share hook). Lyric-free, blocklist-safe."
+}

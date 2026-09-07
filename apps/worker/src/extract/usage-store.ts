@@ -19,6 +19,18 @@ export const PER_RUN_CAP = 150;
 export const DAILY_CAP = 600;
 const SCOPE = 'extract';
 
+/** Theory Miner's own scope/caps (Community Engine plan §3.3, P2-2) — a
+ * separate durable counter from the live-news extract stage's 'extract'
+ * scope, same "one scope per caller" rule this module's header establishes
+ * for classify vs extract. Lower caps: one call per crawled post bundle,
+ * and the crawl itself is already bounded to a handful of threads/day
+ * (community-crawl.yml's COMMUNITY_CRAWL_BUDGET), so there is no realistic
+ * path to needing the live extract stage's 600/day ceiling.
+ */
+export const THEORY_MINER_PER_RUN_CAP = 150;
+export const THEORY_MINER_DAILY_CAP = 300;
+const THEORY_MINER_SCOPE = 'theory-miner';
+
 export class ExtractUsageStore {
   private constructor(
     private db: UsageDb,
@@ -64,7 +76,9 @@ export class ExtractUsageStore {
 }
 
 /** Real UsageDb backed by usage_daily / increment_usage_daily('extract'). */
-export function supabaseExtractUsageDb(db: import('@supabase/supabase-js').SupabaseClient): UsageDb {
+export function supabaseExtractUsageDb(
+  db: import('@supabase/supabase-js').SupabaseClient,
+): UsageDb {
   return {
     async todaysCallCount() {
       const today = new Date().toISOString().slice(0, 10);
@@ -79,6 +93,29 @@ export function supabaseExtractUsageDb(db: import('@supabase/supabase-js').Supab
     },
     async incrementToday() {
       const { error } = await db.rpc('increment_usage_daily', { p_scope: SCOPE });
+      if (error) throw error;
+    },
+  };
+}
+
+/** Real UsageDb backed by usage_daily / increment_usage_daily('theory-miner'). */
+export function supabaseTheoryMinerUsageDb(
+  db: import('@supabase/supabase-js').SupabaseClient,
+): UsageDb {
+  return {
+    async todaysCallCount() {
+      const today = new Date().toISOString().slice(0, 10);
+      const { data, error } = await db
+        .from('usage_daily')
+        .select('call_count')
+        .eq('scope', THEORY_MINER_SCOPE)
+        .eq('usage_date', today)
+        .maybeSingle();
+      if (error) throw error;
+      return data?.call_count ?? 0;
+    },
+    async incrementToday() {
+      const { error } = await db.rpc('increment_usage_daily', { p_scope: THEORY_MINER_SCOPE });
       if (error) throw error;
     },
   };

@@ -79,7 +79,11 @@ function toItemSources(sources: readonly { name: string; url: string }[]): ItemS
   return sources.map((s) => ({ name: s.name, url: s.url }));
 }
 
-function knowledgeDocToItem(doc: KnowledgeDoc): RetrievedItem {
+/** Exported for the fan-theory chip (`route.ts`, Community Engine plan §Phase
+ * 2 card P2-5) — the zero-model "what are fans theorising right now?" pull
+ * reads `knowledge_doc` directly (kind='live_theory'), outside the read-tool
+ * loop this file otherwise wraps, so it needs this same doc->item mapping. */
+export function knowledgeDocToItem(doc: KnowledgeDoc): RetrievedItem {
   return {
     id: doc.id,
     headline: doc.title,
@@ -225,6 +229,30 @@ export async function toolDateMath(phrase: string): Promise<ToolCallResult> {
     items: [],
     summary: resolved ? `"${phrase}" resolves to ${resolved}` : `could not resolve "${phrase}"`,
   };
+}
+
+/**
+ * Fan-theory chip (Community Engine plan §Phase 2, card P2-5) — "what are
+ * fans theorising right now?" Reads `knowledge_doc` filtered to
+ * `kind='live_theory'` (the projection `write-knowledge.ts`'s
+ * `projectKnowledgeDoc` writes for every `origin='fan'` row promoted by
+ * `write-theory-promotion.ts`'s merge/promote pass), no text query at all —
+ * an empty `query` + `filters.kind` degrades `searchKnowledgeDocs` to
+ * filters-only (its own existing rule; see `client.ts`). Zero model calls,
+ * same contract as every other chip: DB-unreachable degrades to an empty
+ * result (no compile-time fallback exists for `live_theory` — same
+ * "no compile-time table to substitute" rule `toolPrecedents`/`toolRecent`/
+ * etc. already follow above), never a crash, never invented content.
+ */
+export async function toolFanTheories(client: KnowledgeDataSource | null, signal?: AbortSignal): Promise<ToolCallResult> {
+  if (!client) return { items: [], summary: 'fan theories unavailable (no DB configured)' };
+  try {
+    const docs = await client.search('', { kind: 'live_theory' }, signal);
+    const items = docs.map(knowledgeDocToItem);
+    return { items, summary: `${countLabel(items.length, 'fan theory')} currently live` };
+  } catch {
+    return { items: [], summary: 'fan theories unavailable (DB unreachable)' };
+  }
 }
 
 /**

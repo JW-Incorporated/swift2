@@ -147,6 +147,7 @@ import { encodeSessionToken, resolveClownSession, type ClownSession } from '../.
 import { CRISIS_MESSAGE, OUT_OF_SCOPE_MESSAGE, REFUSALS } from '../../../lib/longlive/clown-safety';
 import { FALLBACK_INTRO_CHIP, FALLBACK_INTRO_DEGRADED } from '../../../lib/longlive/clown-fallback';
 import { CLOWNING_DEFINITION } from '../../../lib/longlive/clown-explain';
+import { FAN_THEORY_CHIP_PROMPT } from '../../../lib/longlive/clown-starters';
 
 const CONFIRMED_DOC = fixtures.CONFIRMED_DOC as unknown as ClownDoc;
 const DEBUNKED_DOC = fixtures.DEBUNKED_DOC as unknown as ClownDoc;
@@ -242,6 +243,21 @@ describe('POST /api/clown', () => {
     expect(json.segments).toEqual([{ role: 'plain', text: CLOWNING_DEFINITION }]);
     expect(json.sources).toEqual([]);
     expect(json.investigation).toEqual([]);
+    expect(runClownAgent).not.toHaveBeenCalled();
+    expect(resolveClownSession).not.toHaveBeenCalled();
+  });
+
+  it('fan-theory chip (Community Engine plan §Phase 2, card P2-5): resolves zero-model, never reaches the agent loop', async () => {
+    // No Supabase env stubbed in this file, so `createKnowledgeClientForRequest`
+    // returns null and `toolFanTheories` degrades to the honest empty result —
+    // same "no DB configured" contract every other DB-only tool follows. The
+    // assertion that matters here is behavioural, not content: this exact
+    // prompt, sent as a chip, must resolve via the deterministic fallback
+    // composer and never touch the model.
+    const res = await post({ text: FAN_THEORY_CHIP_PROMPT, chip: true }, '10.1.0.2005');
+    expect(res.status).toBe(200);
+    const json = await res.json();
+    expect(json.kind).toBe('fallback');
     expect(runClownAgent).not.toHaveBeenCalled();
     expect(resolveClownSession).not.toHaveBeenCalled();
   });

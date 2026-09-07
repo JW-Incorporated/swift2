@@ -35,6 +35,7 @@ import {
   resolveScopeSignal,
   toolChatter,
   toolDateMath,
+  toolFanTheories,
   toolPrecedents,
   toolRecent,
   toolSearch,
@@ -316,5 +317,54 @@ describe('resolveScopeSignal — two independent clauses, in scope if EITHER res
       const { inScope } = await resolveScopeSignal(client(), 'tell me about the masters buyback today');
       expect(inScope).toBe(true);
     });
+  });
+});
+
+describe('toolFanTheories — Community Engine plan §Phase 2, card P2-5 (zero-model chip)', () => {
+  it('no Supabase env configured: degrades to an empty result (no compile-time live_theory substitute)', async () => {
+    const result = await toolFanTheories(client());
+    expect(result.items).toEqual([]);
+    expect(result.summary).toContain('no DB configured');
+    expect(mockCreateKnowledgeClient).not.toHaveBeenCalled();
+  });
+
+  it('DB reachable: passes kind=live_theory with an empty query, and maps rows to items', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
+    const searchSpy = vi.fn().mockResolvedValue([
+      {
+        id: 'ltheory:live-1',
+        title: 'The countdown clock predicts a vault track',
+        text: 'Fans believe the countdown clock predicts a new vault track.',
+        status: 'rumor',
+        date: undefined,
+        recencyDate: '2026-09-01',
+        sources: [],
+      },
+    ]);
+    mockCreateKnowledgeClient.mockReturnValue({ search: searchSpy });
+    const result = await toolFanTheories(client());
+    expect(searchSpy).toHaveBeenCalledWith('', { kind: 'live_theory' }, undefined);
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0].id).toBe('ltheory:live-1');
+    expect(result.summary).toContain('1 fan theory');
+  });
+
+  it('DB reachable but empty: reports zero fan theories honestly, never padded', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
+    mockCreateKnowledgeClient.mockReturnValue({ search: vi.fn().mockResolvedValue([]) });
+    const result = await toolFanTheories(client());
+    expect(result.items).toEqual([]);
+    expect(result.summary).toContain('0 fan theor');
+  });
+
+  it('DB unreachable (throws): degrades to an empty result, never a crash', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
+    mockCreateKnowledgeClient.mockReturnValue({ search: vi.fn().mockRejectedValue(new Error('boom')) });
+    const result = await toolFanTheories(client());
+    expect(result.items).toEqual([]);
+    expect(result.summary).toContain('DB unreachable');
   });
 });

@@ -1,0 +1,136 @@
+# auto-merge-keepup — structural fix for the recurring stranded-PR problem
+# (t_21a0cd6f, 2026-09-06, follow-up to t_dcb1f2c0's root-cause writeup).
+#
+# THE PROBLEM THIS EXISTS FOR. t_dcb1f2c0 found 6 of 7 stranded PRs on
+# 2026-09-06 failed `build` for the identical reason: opened against an older
+# `main`, then main moved (bot content lanes merge every ~2-5 minutes), and
+# each PR's CI kept checking stale assumptions against a base that no longer
+# matched reality. `git merge main` fixed all 6 with ZERO conflicts — proving
+# this is pure staleness, not a real content collision, and therefore
+# something a machine can safely repair without waiting for a human OR for
+# watchdog.yml's 24h-later alarm.
+#
+# `watchdog.yml`'s "PRs stuck" step (added 2026-07-30, rewritten 2026-08-11)
+# is DETECTION: it finds and alerts on a stuck PR up to 24h after the fact,
+# and even re-runs a stale-red `build` — but a re-run only re-checks the SAME
+# stale base; it does nothing to fix the actual staleness. This workflow is
+# the missing PREVENTION half: continuously keep every eligible content-lane
+# PR current against `main`, before it ever goes 24h stale, so watchdog.yml's
+# alarm has structurally less to catch.
+#
+# SAFETY MODEL: this workflow does exactly one thing — `git merge origin/main`
+# into an already-open PR branch, then push. It NEVER opens a PR, NEVER
+# resolves a conflict, NEVER touches PR content. Eligibility is gated by the
+# SAME automerge-branch-author-gate.mjs used by auto-merge-content.yml's
+# `enable` job (scripts/automerge-keepup.mjs re-applies it per PR) — a PR this
+# job is willing to silently keep fresh is, by definition, already a PR
+# GitHub's own auto-merge is willing to land unattended once green. This
+# workflow does not widen who/what may merge; it only keeps eligible branches
+# from drifting stale before auto-merge gets the chance to land them.
+#
+# A genuine merge conflict is left completely alone (git merge --no-commit
+# --no-ff dry-run first; abort and skip on any conflict) — that PR needs a
+# human or the next scheduled run of its own agent, unchanged from today.
+#
+# Bounded per run (--max, mirrors watchdog.yml's RERUN_BUDGET reasoning): a
+# large stale backlog cannot turn one scheduled tick into an unbounded burst
+# of pushes/CI runs.
+name: auto-merge-keepup
+
+on:
+  schedule:
+    # Every 15 minutes — frequent enough to keep pace with the ~2-5-minute bot
+    # merge cadence t_dcb1f2c0 documented (a PR merged once every cycle would
+    # otherwise re-drift almost immediately), bounded by the --max cap below
+    # so busier ticks cost the same regardless of cadence.
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: auto-merge-keepup
+  cancel-in-progress: false
+
+jobs:
+  keepup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # SOCIAL_POSTER_PAT, not GITHUB_TOKEN: a push made with the default
+          # GITHUB_TOKEN does not trigger downstream workflow runs (documented
+          # repo-wide, e.g. watchdog.yml's own "PRs stuck" triage step) — a
+          # merge-commit push under GITHUB_TOKEN would silently NOT re-run
+          # `build` on the refreshed branch, leaving the PR exactly as stuck
+          # as before. Same secret auto-merge-content.yml's `enable` job uses
+          # for the identical reason.
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: List open PRs
+        id: list
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh pr list --repo "$REPO" --state open --limit 100 \
+            --json number,headRefName,baseRefName,isDraft,mergeStateStatus,labels,createdAt,author \
+            > /tmp/open-prs.json
+          echo "count=$(jq 'length' /tmp/open-prs.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Select refresh candidates
+        id: select
+        if: steps.list.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          node scripts/automerge-keepup.mjs --prs-json /tmp/open-prs.json --max 8 > /tmp/candidates.json
+          echo "count=$(jq 'length' /tmp/candidates.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Refresh each candidate branch against main
+        if: steps.select.outputs.count != '' && steps.select.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          git config user.name "swift2-automerge-keepup"
+          git config user.email "actions@users.noreply.github.com"
+
+          REFRESHED=0
+          CONFLICTED=0
+
+          while IFS=$'\t' read -r NUM BRANCH; do
+            [ -z "$NUM" ] && continue
+            echo "── PR #$NUM ($BRANCH) ──"
+            git fetch origin "$BRANCH" main --quiet
+            git checkout -B "keepup/$BRANCH" "origin/$BRANCH" --quiet
+
+            # Dry-run merge first: a real conflict is left completely alone —
+            # this job resolves nothing, it only fast-forwards on a clean merge.
+            if git merge --no-commit --no-ff origin/main --quiet; then
+              git commit --no-edit --quiet -m "chore: merge main into ${BRANCH} (auto-merge-keepup)"
+              if git push origin "HEAD:${BRANCH}" --quiet; then
+                echo "refreshed #$NUM"
+                REFRESHED=$((REFRESHED + 1))
+              else
+                echo "::warning::push failed for #$NUM ($BRANCH) — leaving as-is, will retry next tick"
+              fi
+            else
+              echo "::notice::#$NUM ($BRANCH) has a real conflict against main — leaving untouched for a human/its own agent, same as today"
+              git merge --abort 2>/dev/null || true
+              CONFLICTED=$((CONFLICTED + 1))
+            fi
+            git checkout - --quiet 2>/dev/null || true
+            git branch -D "keepup/$BRANCH" --quiet 2>/dev/null || true
+          done < <(jq -r '.[] | [.number, .headRefName] | @tsv' /tmp/candidates.json)
+
+          echo "auto-merge-keepup: refreshed ${REFRESHED}, conflicted ${CONFLICTED} (left for a human)."

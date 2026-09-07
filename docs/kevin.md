@@ -40,6 +40,23 @@ only on a real hit — so the frequent empty runs stay cheap. This document
 remains the contract that both the cloud routines and any future service
 port must honor, so it is deliberately explicit.
 
+**Token identity for anchored-comment editing (2026-09-06, #3631):** the
+Stream 2/3 anchored digest and triage comments are posted (and, per the
+edit-in-place restoration above, PATCHed) only by the **Kevin — daily desk**
+workflow (`routine-kevin-daily-desk.yml`), whose `GH_TOKEN` is
+`SOCIAL_POSTER_PAT` (its `checkout_token_secret`) — the same identity for
+both the original post and any same-day edit, so `gh api -X PATCH` on a
+comment it authored always succeeds (GitHub allows a token to edit
+comments authored by its own identity). The **S1 Karen-ticket solver**
+(`routine-kevin-s1-karen-solver.yml`) also uses `SOCIAL_POSTER_PAT` but
+never touches the anchored comments (it only opens the `fix/karen-tickets`
+PR). The **S3 comment radar** (`routine-kevin-radar.yml`) uses the
+built-in `GITHUB_TOKEN`, not `SOCIAL_POSTER_PAT`, but it only posts/updates
+the separate `kevin-radar` issue body (a real issue-body edit, not an
+anchored comment) — it never posts or edits a `kevin-stream2-digest` /
+`kevin-stream3-triage` comment, so the identity mismatch with the desk's
+token is not a defect.
+
 ---
 
 ## Hard invariants (never violate)
@@ -148,17 +165,26 @@ date — Marjorie posts by ~12:40 UTC / 6:00 AM PT, before Kevin's S2 run at
   own body after posting either; comments are the shared convention). The
   comment carries a hidden anchor `<!-- kevin-stream2-digest -->` as its
   first line.
-  **Append-and-supersede, not edit-in-place (2026-09-01, #3631):** Kevin's
-  cloud sessions have no GitHub comment-edit tool — the GitHub MCP server
-  they run with exposes `add_issue_comment` (create only), nothing that
-  PATCHes an existing comment body, and direct `gh`/REST access is
-  explicitly disabled in that environment. A same-day re-run therefore
-  **posts a new comment** carrying the same anchor as its first line, with
-  a second line reading exactly `_Supersedes the earlier comment(s) above
-  with this anchor — read this one._` The **most recent** comment carrying
-  the anchor is always the current digest; older anchored comments are
-  historical and must not be re-acted-on. See "Decision processing" below
-  for how a re-run locates the current one.
+  **Edit-in-place, restored (2026-09-06, closes #3631):** Kevin now runs as
+  a GitHub Actions routine (`.github/workflows/routine-kevin-daily-desk.yml`
+  via `routine-template.yml`) with `Bash` in `allowed_tools` and `GH_TOKEN`
+  exported, so `gh` is available and true comment editing works: find the
+  existing anchored comment's id
+  (`gh api repos/{owner}/{repo}/issues/{n}/comments --jq '.[] | select(.body
+  | startswith("<!-- kevin-stream2-digest -->")) | .id'`), then
+  `gh api -X PATCH repos/{owner}/{repo}/issues/comments/<id> -f body=@file`
+  to edit that comment's body in place instead of posting a new one. Only
+  one anchored comment should ever exist going forward.
+  **Fallback (rare):** if `gh` is genuinely unavailable in the run
+  environment, fall back to append-and-supersede — post a new comment
+  carrying the same anchor as its first line, with a second line reading
+  exactly `_Supersedes the earlier comment(s) above with this anchor — read
+  this one._` — rather than losing the update.
+  **Always read the most recent anchored comment before acting** — this
+  rule stays regardless of which path posted it: it is harmless and
+  protects against historical duplicates already left on old brief issues
+  from the 2026-09-01–09-06 append-and-supersede window. See "Decision
+  processing" below for how a re-run locates the current one.
 - **No brief exists today (degraded mode):** Kevin falls back to the
   standalone issue below, unchanged from today's behavior.
 
@@ -207,11 +233,12 @@ Kevin locates the prior review list before doing anything else, checking in
 order:
 1. The most recent open `founders-brief` issue; among its comments, the
    **most recently posted** one carrying the `<!-- kevin-stream2-digest -->`
-   anchor as its first line (normal mode). If more than one anchored comment
-   exists on that issue — a same-day re-run under the append-and-supersede
-   convention above — the latest one by creation time is authoritative;
-   earlier anchored comments on the same issue are stale and must be
-   ignored, never re-parsed for checkbox state.
+   anchor as its first line (normal mode). Historical brief issues from the
+   2026-09-01–09-06 append-and-supersede window may still carry more than
+   one anchored comment — the latest one by creation time is authoritative
+   there; earlier anchored comments on those issues are stale and must be
+   ignored, never re-parsed for checkbox state. Going forward (edit-in-place
+   restored, #3631) each brief issue should carry only one anchored comment.
 2. Else the most recent open `kevin-digest` issue (standalone/degraded mode)
    — this one genuinely is edited in place (`issue_write`/`gh issue edit`
    covers the issue body, unlike a comment), so there is only ever one.
@@ -255,12 +282,16 @@ today (America/Los_Angeles date).
 - **Brief exists (normal mode):** post **one comment** on that brief
   issue — never the brief body — carrying the hidden anchor
   `<!-- kevin-stream3-triage -->` as its first line.
-  **Append-and-supersede, not edit-in-place (2026-09-01, #3631):** same
-  constraint and convention as Stream 2 above — no comment-edit tool is
-  available, so a same-day re-run posts a new anchored comment with the
-  second line `_Supersedes the earlier comment(s) above with this anchor —
-  read this one._` rather than editing the prior one. The most recent
-  anchored comment on the issue is the current triage; ignore older ones.
+  **Edit-in-place, restored (2026-09-06, closes #3631):** same restoration
+  as Stream 2 above — Kevin's GitHub Actions runtime has `gh`/`GH_TOKEN`
+  available, so a same-day re-run finds the existing anchored comment's id
+  and `gh api -X PATCH`es its body in place instead of posting a new one.
+  Fall back to append-and-supersede (a new anchored comment with the second
+  line `_Supersedes the earlier comment(s) above with this anchor — read
+  this one._`) only if `gh` is genuinely unavailable. The most recent
+  anchored comment on the issue is always the current triage; ignore older
+  ones (this still matters for duplicates left on old issues from the
+  2026-09-01–09-06 append-and-supersede window).
 - **No brief exists today (degraded mode):** fall back to the standalone
   issue **`Kevin Eng Triage — YYYY-MM-DD`** (label `kevin-triage`), unchanged
   from today's behavior — this one is a genuine issue-body edit, so there is
@@ -348,16 +379,18 @@ A service implementation must replicate this contract exactly:
   verify-first image re-sourcing; emit/refresh one PR with `Closes #`.
 - **User stream:** check for today's open `founders-brief` issue first; if
   present, generate the review list as a comment there (anchor
-  `<!-- kevin-stream2-digest -->`; if a comment-edit API is unavailable to
-  the caller, append-and-supersede per 2026-09-01/#3631 rather than
-  duplicating without an anchor), else generate the standalone digest issue
-  (a real edit, since issue bodies are PATCHable). On each cycle, locate the
-  **most recent** anchored comment (or the standalone issue) and parse its
-  checkbox state to drive apply (→ `kevin/user-fixes` PR) / close.
+  `<!-- kevin-stream2-digest -->`; edit that comment's body in place via the
+  GitHub API — `PATCH /repos/{owner}/{repo}/issues/comments/{id}` — when a
+  comment-edit capability is available to the caller; fall back to
+  append-and-supersede per 2026-09-01/#3631 only if it is not), else
+  generate the standalone digest issue (a real edit, since issue bodies are
+  PATCHable). On each cycle, locate the **most recent** anchored comment (or
+  the standalone issue) and parse its checkbox state to drive apply (→
+  `kevin/user-fixes` PR) / close.
 - **Eng-triage stream:** same founders-brief-first check (anchor
-  `<!-- kevin-stream3-triage -->`, same append-and-supersede fallback), else
-  the standalone `kevin-triage` issue. No cross-cycle checkbox state to
-  carry — buckets re-derive from ticket comments each run.
+  `<!-- kevin-stream3-triage -->`, same edit-in-place-with-fallback
+  behavior), else the standalone `kevin-triage` issue. No cross-cycle
+  checkbox state to carry — buckets re-derive from ticket comments each run.
 - **Stream 3 comment radar:** subscribe to issue/PR-comment + PR-review **webhooks**
   (the API port's answer to the session cron's ~10-min poll — true zero-LLM until
   an event fires); on a human comment, run the radar behavior table and refresh

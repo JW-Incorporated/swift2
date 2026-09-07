@@ -82,6 +82,13 @@ on:
 
 permissions:
   contents: read
+  # anthropics/claude-code-action@v1 unconditionally requests an OIDC token
+  # in setupGitHubToken() during startup — independent of CLAUDE_CODE_OAUTH_TOKEN
+  # auth above — and fails with "Could not fetch an OIDC token" without this,
+  # even though the action never uses OIDC for the actual Claude auth (kanban
+  # t_81bec452, 2026-09-07). Reusable-workflow permissions are capped by the
+  # caller, so every routine-*.yml caller also grants id-token: write.
+  id-token: write
 
 jobs:
   run-routine:

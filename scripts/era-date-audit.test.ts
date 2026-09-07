@@ -47,12 +47,24 @@ function possibleEras(row: SeedRow) {
   return eras.filter((era) => lo <= era.end_date && hi >= era.start_date).map((era) => era.slug);
 }
 
-const DELIBERATE_SHOWGIRL_CAMPAIGN_EXCEPTIONS = [
+const DELIBERATE_ERA_CONTENT_EXCEPTIONS = [
   'showgirl-announced-on-new-heights',
   'showgirl-mert-marcus-portraits',
   'showgirl-david-koma-graham-norton',
   'showgirl-orange-reformation-versace',
   'showgirl-graham-norton-destination-wedding',
+  // #3757 (2026-09-05): 7 items misfiled under speak-now.mjs moved to
+  // red.mjs, their correct era by content — they are Red-era press/chart
+  // milestones and a campaign record whose own dates sit outside the
+  // canonical Red date range, the same "filed by era, not by strict date
+  // range" pattern the Showgirl campaign exceptions above document.
+  "'We Are Never Ever Getting Back Together' becomes her first-ever Hot 100 No. 1",
+  'State of Grace opens Red with her first arena-rock swing',
+  'red-announced-google-hangout',
+  'red-begin-again',
+  'red-begin-again-single',
+  'red-ronan-stand-up-to-cancer',
+  'red-title-track-names-the-album',
 ].sort();
 
 describe('era-by-date seed audit (#3314)', () => {
@@ -77,7 +89,7 @@ describe('era-by-date seed audit (#3314)', () => {
     expect(outsideAllRanges.every(({ era, year }) => era === 'debut' && year <= 2006)).toBe(true);
     // These campaign/promo records are the deliberate prior call documented
     // in the Showgirl seed and PR #2035; #3314 explicitly leaves them intact.
-    expect(mismatches.sort()).toEqual(DELIBERATE_SHOWGIRL_CAMPAIGN_EXCEPTIONS);
+    expect(mismatches.sort()).toEqual(DELIBERATE_ERA_CONTENT_EXCEPTIONS);
   });
 
   it('checks every theory file and records that theories have no event-date field', async () => {
