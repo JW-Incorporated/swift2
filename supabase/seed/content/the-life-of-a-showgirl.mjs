@@ -13099,10 +13099,26 @@ export default {
       sourceUrl:
         'https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-adam-sandler-officiating-1236849216/',
       thumbnailUrl: null,
+      video: {
+        youtubeId: 'cZKgEhA_KyA',
+        title: 'New Heights — Travis recounts the wedding (Season 5 premiere)',
+      },
       moment: {
         context:
           'For two months the wedding sat in a strange place: the most public couple in the world had thrown the most private party imaginable, and neither of them had actually told the story. Travis\'s first New Heights to air after the wedding — the July 8 season-four finale, taped before the July 3 ceremony — told the proposal story but not the wedding, which hadn\'t happened yet when it was recorded, and the day itself lived only in guest accounts and the arrivals outside the Garden. The season-five premiere, taped with brother Jason and released Sept. 2, 2026, was the first time one of the principals walked through the night in his own words.\n\nHis throughline was Adam Sandler. Sandler had gotten legally ordained in New York State expressly to marry them, and Travis framed the whole evening around what his friend pulled off: "For him to be up for getting ordained in the state of New York and marrying me and Taylor, and the way he did it, in the very Sandman style, and giving us more than what we could\'ve ever imagined at that moment, knowing that it was the biggest night of our lives — it was absolutely insane." He called Sandler "the best person on this planet" and the night "magical," landing on the same original-Sandler-song detail the Vault had previously carried only from an outside guest\'s account.\n\nHe also gave the first on-record reason for a venue that had read as pure spectacle. They chose Madison Square Garden, he said, because they wanted "somewhere where we could have a very intimate and genuine setting without a lot of distractions" — an odd thing to say about a 20,000-seat arena, until you remember they curtained the glass entrance and built a garden and a castle inside it. What the premiere did not do was open the images the wedding still hasn\'t released: no ceremony footage, no reception photos, nothing past the arrivals and the "JusT&T Married" marquee. Travis told the story; the pictures stayed private. It was, fittingly, the same desk that announced the album in August 2025 and told the proposal story in July — New Heights functioning once again as the relationship\'s on-record channel.',
         sources: [
+          {
+            outlet: 'New Heights',
+            url: 'https://www.youtube.com/watch?v=cZKgEhA_KyA',
+            source_title:
+              'Chiefs & Eagles Preseason, Travis GoT&T Married, Wide Deceivers & Aaron Donald Returns | EP 199',
+            publisher: 'New Heights (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-09-05',
+            reliability_score: 5,
+            notes:
+              'primary source — New Heights EP 199, oEmbed-verified as the official season-five premiere',
+          },
           {
             outlet: 'Variety',
             url: 'https://variety.com/2026/music/news/travis-kelce-taylor-swift-wedding-adam-sandler-officiating-1236849216/',
