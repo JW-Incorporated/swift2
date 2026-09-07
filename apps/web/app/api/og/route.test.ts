@@ -51,6 +51,13 @@ describe('GET /api/og', () => {
     expect(res.status).toBe(200);
   });
 
+  it('falls back to the generic card for inherited-property mode names, never 500s', async () => {
+    for (const mode of ['constructor', 'toString', '__proto__', 'hasOwnProperty']) {
+      const res = await get(`?mode=${mode}`);
+      expect(res.status).toBe(200);
+    }
+  });
+
   it('falls back to the generic card with no params at all', async () => {
     const res = await get('');
     expect(res.status).toBe(200);

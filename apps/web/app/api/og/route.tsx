@@ -22,18 +22,24 @@ import '../../../lib/longlive/vault-wiring';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const MODE_COPY: Partial<Record<string, OgCardCopy>> = {
-  mood: {
-    kicker: 'Long Live',
-    title: 'Mood',
-    subtitle: "Tell it how you're feeling, get back the songs that fit.",
-  },
-  clownbot: {
-    kicker: 'Long Live',
-    title: 'Clownbot',
-    subtitle: 'An unhinged, permanently-online superfan you can chat with.',
-  },
-};
+const MODE_COPY = new Map<string, OgCardCopy>([
+  [
+    'mood',
+    {
+      kicker: 'Long Live',
+      title: 'Mood',
+      subtitle: "Tell it how you're feeling, get back the songs that fit.",
+    },
+  ],
+  [
+    'clownbot',
+    {
+      kicker: 'Long Live',
+      title: 'Clownbot',
+      subtitle: 'An unhinged, permanently-online superfan you can chat with.',
+    },
+  ],
+]);
 
 const VALID_LENS_IDS = THREADS.map((t) => t.id);
 
@@ -44,9 +50,8 @@ function copyForRequest(url: URL): OgCardCopy {
     return { kicker: 'Long Live', title: thread.title, subtitle: thread.what };
   }
   const mode = url.searchParams.get('mode');
-  if (mode && MODE_COPY[mode]) {
-    return MODE_COPY[mode]!;
-  }
+  const modeCopy = mode ? MODE_COPY.get(mode) : undefined;
+  if (modeCopy) return modeCopy;
   return DEFAULT_OG_COPY;
 }
 
