@@ -9,9 +9,10 @@ import { screenClownTake } from '../../../lib/longlive/clown-gate';
 import { resolveTheoryName } from '../../../lib/longlive/clown-names';
 import { docToRetrievedItem, composeFallback, type RetrievedItem } from '../../../lib/longlive/clown-fallback';
 import { answerFromFallback, answerFromTake } from '../../../lib/longlive/clown-answer';
-import { resolveScopeSignal, createKnowledgeClientForRequest } from '../../../lib/longlive/clown-agent-tools';
+import { resolveScopeSignal, createKnowledgeClientForRequest, toolFanTheories } from '../../../lib/longlive/clown-agent-tools';
 import { AGENT_MAX_WALL_MS, runClownAgent } from '../../../lib/longlive/clown-agent';
 import { explainClownQuestion } from '../../../lib/longlive/clown-explain';
+import { FAN_THEORY_CHIP_PROMPT } from '../../../lib/longlive/clown-starters';
 import { persistPrediction } from '../../../lib/longlive/clown-predictions';
 import { incrementUserUsage, loadClownHistory, recordClownMemory } from '../../../lib/longlive/clown-memory';
 import {
@@ -191,7 +192,23 @@ export async function POST(req: Request): Promise<Response> {
   // column. Those resolve here, via the unchanged deterministic compile-time
   // retrieval, and MUST NOT reach the model or the agent loop; that is what
   // keeps both board columns free.
+  //
+  // FAN-THEORY CHIP (Community Engine plan §Phase 2, card P2-5) is a
+  // narrower special case of the same "chip never reaches the model" rule:
+  // its one fixed prompt (`FAN_THEORY_CHIP_PROMPT`) has no compile-time
+  // corpus to rank against (`live_theory` rows are DB-only, fed by the
+  // fan-theory miner/promote pipeline — `clown-index.ts`'s no-DB fallback
+  // never carried them), so it reads `knowledge_doc` directly
+  // (`toolFanTheories`, kind='live_theory') instead of going through
+  // `retrieveClownDocs`/`allClownDocs()`. Checked by exact prompt match, not
+  // a second request field, so no client changes were needed beyond the
+  // existing `chip: true` flag every board tap already sends.
   if (payload.chip === true) {
+    if (text === FAN_THEORY_CHIP_PROMPT) {
+      const client = createKnowledgeClientForRequest();
+      const { items } = await toolFanTheories(client);
+      return NextResponse.json(answerFromFallback(composeFallback(items, 'chip')));
+    }
     const docs = retrieveClownDocs(text, allClownDocs());
     const items = docs.map(docToRetrievedItem);
     return NextResponse.json(answerFromFallback(composeFallback(items, 'chip')));
