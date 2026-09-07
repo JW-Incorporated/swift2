@@ -92,7 +92,15 @@ jobs:
         if: steps.list.outputs.count != '0'
         run: |
           set -euo pipefail
-          node scripts/automerge-keepup.mjs --prs-json /tmp/open-prs.json --max 8 > /tmp/candidates.json
+          # No fixed cap here (gh pr list itself is already capped at 100
+          # above): a low scan-pool cap combined with BLOCKED eligibility
+          # let older BLOCKED-but-already-current PRs permanently occupy
+          # every scan slot and starve newer genuinely-behind PRs (codex
+          # review, PR #3973). The loop below skips no-ops via a cheap
+          # ancestry check (no full merge attempt) before it ever touches
+          # the real REFRESH_BUDGET, so scanning the whole open-PR list is
+          # inexpensive; only actual pushes are budget-limited.
+          node scripts/automerge-keepup.mjs --prs-json /tmp/open-prs.json --max 100 > /tmp/candidates.json
           echo "count=$(jq 'length' /tmp/candidates.json)" >> "$GITHUB_OUTPUT"
 
       - name: Refresh each candidate branch against main
@@ -105,17 +113,40 @@ jobs:
           git config user.name "swift2-automerge-keepup"
           git config user.email "actions@users.noreply.github.com"
 
+          REFRESH_BUDGET=8
           REFRESHED=0
           CONFLICTED=0
+          NOOP=0
 
           while IFS=$'\t' read -r NUM BRANCH; do
             [ -z "$NUM" ] && continue
+            if [ "$REFRESHED" -ge "$REFRESH_BUDGET" ]; then
+              echo "::notice::refresh budget (${REFRESH_BUDGET}) reached — remaining candidates left for next tick"
+              break
+            fi
             echo "── PR #$NUM ($BRANCH) ──"
             git fetch origin "$BRANCH" main --quiet
+
+            # Ancestry check BEFORE attempting a merge: a BLOCKED PR (new
+            # eligibility, see automerge-keepup.mjs) can already contain
+            # every commit on main — blocked by a failing/missing check
+            # alone, not staleness. That's a genuine no-op, not something
+            # this job can fix, and must not consume the push budget. This
+            # is deliberately an ancestry check, not "empty diff after
+            # merge": a merge that lands independently-duplicated changes
+            # can produce an empty diff while still being a real, needed
+            # merge commit (codex review, PR #3973) — ancestry is the
+            # actually-correct "is there anything to refresh" test.
+            if git merge-base --is-ancestor origin/main "origin/$BRANCH"; then
+              echo "no-op for #$NUM ($BRANCH) — already contains all of main, blocked for another reason"
+              NOOP=$((NOOP + 1))
+              continue
+            fi
+
             git checkout -B "keepup/$BRANCH" "origin/$BRANCH" --quiet
 
-            # Dry-run merge first: a real conflict is left completely alone —
-            # this job resolves nothing, it only fast-forwards on a clean merge.
+            # Dry-run merge: a real conflict is left completely alone — this
+            # job resolves nothing, it only fast-forwards on a clean merge.
             if git merge --no-commit --no-ff origin/main --quiet; then
               git commit --no-edit --quiet -m "chore: merge main into ${BRANCH} (auto-merge-keepup)"
               if git push origin "HEAD:${BRANCH}" --quiet; then
@@ -133,4 +164,4 @@ jobs:
             git branch -D "keepup/$BRANCH" --quiet 2>/dev/null || true
           done < <(jq -r '.[] | [.number, .headRefName] | @tsv' /tmp/candidates.json)
 
-          echo "auto-merge-keepup: refreshed ${REFRESHED}, conflicted ${CONFLICTED} (left for a human)."
+          echo "auto-merge-keepup: refreshed ${REFRESHED}, conflicted ${CONFLICTED}, no-op ${NOOP} (left for a human)."

@@ -733,14 +733,14 @@ export default {
       month: 8,
       day: 23,
       category: 'music',
-      title: "I Forgot That You Existed, the track built to end Reputation's cycle of grieving",
+      title: "I Forgot That You Existed, the track built to end reputation's cycle of grieving",
       snippet:
         'The Lover opener started nearly finished, by design: "I wanted to come in with an idea that was pretty much all there, melody and lyrics."',
       sourceUrl: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor told Rolling Stone the song came out of the emotional distance she found on the Reputation Stadium Tour: "It was sometime on the Reputation tour, which was the most transformative emotional experience of my career. That tour put me in the healthiest, most balanced place I\'ve ever been. After that tour, bad stuff can happen to me, but it doesn\'t level me anymore."\n\nShe picked it to open Lover as a way of "basically kind of shrugging off a lot of things that you\'ve been through that have been causing a lot of struggle and pain."',
+          'Taylor told Rolling Stone the song came out of the emotional distance she found on the reputation Stadium Tour: "It was sometime on the Reputation tour, which was the most transformative emotional experience of my career. That tour put me in the healthiest, most balanced place I\'ve ever been. After that tour, bad stuff can happen to me, but it doesn\'t level me anymore."\n\nShe picked it to open Lover as a way of "basically kind of shrugging off a lot of things that you\'ve been through that have been causing a lot of struggle and pain."',
         sources: [
           {
             outlet: 'Rolling Stone',

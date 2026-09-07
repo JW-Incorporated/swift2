@@ -70,7 +70,20 @@ export const PARKED_LABELS = ['hold', 'cie:escalate', 'founder-decision'];
 export function isRefreshCandidate(pr) {
   if (pr.isDraft) return false;
   if (pr.baseRefName !== 'main') return false;
-  if (pr.mergeStateStatus !== 'BEHIND') return false;
+  // BEHIND is the obvious case, but GitHub's mergeStateStatus is a single
+  // value with a precedence order: a PR that is BOTH stale-behind-main AND
+  // has failing/pending required status checks reports as BLOCKED, never
+  // BEHIND — and the two stranded PRs t_159a1105 found (#3892, #3821) are
+  // exactly that: their `build` check failed for a real content reason, so
+  // GitHub reported BLOCKED even though `git merge main` still applied
+  // cleanly. Restricting to BEHIND meant this job silently could never see
+  // them: a PR whose CI fails even once instantly becomes permanently
+  // invisible to the one workflow whose whole job is keeping it fresh. The
+  // workflow's own dry-run-merge-then-abort-on-conflict step (not this
+  // function) is what actually protects against a genuine conflict, so it's
+  // safe to widen this filter to BLOCKED too — DIRTY (real conflict) and
+  // CLEAN (nothing to do) are still excluded below.
+  if (pr.mergeStateStatus !== 'BEHIND' && pr.mergeStateStatus !== 'BLOCKED') return false;
   const labelNames = (pr.labels || []).map((l) => (typeof l === 'string' ? l : l.name));
   if (labelNames.some((l) => PARKED_LABELS.includes(l))) return false;
   const { ok } = evaluateBranchAuthorGate({ branch: pr.headRefName, author: pr.author?.login });
@@ -101,7 +114,18 @@ function parseArg(argv, name) {
 function cliMain() {
   const argv = process.argv.slice(2);
   const prsPath = parseArg(argv, '--prs-json');
-  const maxCount = Number(parseArg(argv, '--max')) || 8;
+  // NOTE on --max: this bounds how many PRs we SCAN, not how many actually
+  // get refreshed — the workflow enforces its own separate REFRESH_BUDGET
+  // and only counts an actual push against it. Widening eligibility to
+  // BLOCKED (see isRefreshCandidate) means some scanned candidates turn
+  // out to already contain all of main (GitHub reports BLOCKED for a
+  // failing/missing check alone, not only staleness); the workflow skips
+  // those via a cheap ancestry check before ever attempting a merge, so a
+  // low fixed scan cap here would let a run's oldest no-op candidates
+  // permanently exclude newer genuinely-behind PRs from ever being seen
+  // (codex review finding on t_159a1105/PR#3973) — default is intentionally
+  // large (effectively "scan everything gh pr list returned").
+  const maxCount = Number(parseArg(argv, '--max')) || 100;
   if (!prsPath) {
     console.error('usage: automerge-keepup.mjs --prs-json <path> [--max N]');
     return 2;
@@ -117,7 +141,7 @@ function cliMain() {
   const candidates = selectRefreshCandidates(prs, { maxCount });
   console.log(JSON.stringify(candidates));
   console.error(
-    `automerge-keepup: ${prs.length} open PR(s) seen, ${candidates.length} selected for refresh (cap ${maxCount}).`,
+    `automerge-keepup: ${prs.length} open PR(s) seen, ${candidates.length} selected to scan (cap ${maxCount}); workflow applies its own push budget on top.`,
   );
   return 0;
 }

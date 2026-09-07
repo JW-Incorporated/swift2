@@ -26,9 +26,17 @@ describe('isRefreshCandidate', () => {
     expect(isRefreshCandidate(basePr({ baseRefName: 'release' }))).toBe(false);
   });
 
-  it('rejects a PR that is not behind (already fresh, or in conflict)', () => {
+  it('rejects a PR that is not behind (already fresh, or in real conflict)', () => {
     expect(isRefreshCandidate(basePr({ mergeStateStatus: 'CLEAN' }))).toBe(false);
     expect(isRefreshCandidate(basePr({ mergeStateStatus: 'DIRTY' }))).toBe(false);
+  });
+
+  it('accepts BLOCKED (stale-and-failing-checks, not a real conflict) same as BEHIND', () => {
+    // #3892 (t_159a1105, 2026-09-07) was exactly this: MERGEABLE (no
+    // conflicts) but mergeStateStatus BLOCKED because `build` failed on a
+    // stale base. Restricting to BEHIND made this job permanently blind to
+    // any PR whose CI had ever failed once — the opposite of the intent.
+    expect(isRefreshCandidate(basePr({ mergeStateStatus: 'BLOCKED' }))).toBe(true);
   });
 
   it('rejects every parked label', () => {
