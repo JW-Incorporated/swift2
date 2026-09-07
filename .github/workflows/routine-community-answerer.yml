@@ -26,6 +26,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write  # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
 
 jobs:
   run:
