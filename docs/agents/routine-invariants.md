@@ -30,18 +30,20 @@ connector; nothing in this fleet enforces the old one-exception rule anymore.
 ## Community Engine additions (2026-09-06 plan — six new workflow-level things to track)
 
 `docs/proposals/2026-09-06-community-engine-plan.md` (board `swift2`, Phase
-0–3) adds six new pieces of scheduled/triggered machinery. None exist yet —
-this section is the pre-registered checklist so each lands already covered by
-check 5 (registered in `runners.md`, named in `AUTOMATION.md`) instead of
-drifting the way the nine unregistered runners did. Each row must be flipped
-from "planned" to a live row in both files, in the same PR that creates it:
+0–3) adds six new pieces of scheduled/triggered machinery. Row 4
+(`community-crawl.yml`, P2-1) is now live — the other five are still
+pre-registered placeholders. This section is the checklist so each lands
+already covered by check 5 (registered in `runners.md`, named in
+`AUTOMATION.md`) instead of drifting the way the nine unregistered runners
+did. Each row must be flipped from "planned" to a live row in both files, in
+the same PR that creates it:
 
 | # | Workflow / routine | Kind | Lands with | Invariant it must satisfy on creation |
 |---|---|---|---|---|
 | 1 | `community-inbox.yml` | Tier 1 (Action) | P1-1 | zero-LLM, DKIM-verified, idempotent by Message-ID |
 | 2 | `community-scan.yml` | Tier 1 (Action) | P1-2 | zero-LLM, gated by `COMMUNITY_SCAN_ENABLED` |
 | 3 | `community-mailer.yml` | Tier 1 (Action) | P1-6 | zero-LLM, bounded to 1 daily send + ≤1 replies-waiting/day (invariant-adjacent to founder email ceiling, see `AUTOMATION.md` § Founder communications) |
-| 4 | `community-crawl.yml` | Tier 1 (Action) | P2-1 | **no Task in `allowed_tools`** (invariant #4) is N/A (it's an Action, not a Claude routine) but carries the equivalent Action-side guardrail: `COMMUNITY_CRAWL_ENABLED` repo **variable** checked as the very first step before any network call, default `false`; `COMMUNITY_CRAWL_BUDGET` caps threads/run; home-relay use probe-before-use, bounded ≤40 threads/day, never retried in-run on 403/429 |
+| 4 | `community-crawl.yml` — **live** | Tier 1 (Action) | P2-1 (landed) | **no Task in `allowed_tools`** (invariant #4) is N/A (it's an Action, not a Claude routine) but carries the equivalent Action-side guardrail: `COMMUNITY_CRAWL_ENABLED` repo **variable** checked as the very first step before any network call, default `false` (**ships OFF**, confirmed in the workflow's Kill-switch check step); `COMMUNITY_CRAWL_BUDGET` caps threads/run; home-relay use probe-before-use (5s reachability probe), bounded ≤40 threads/day (default budget well under that ceiling), never retried in-run on 403/429, mandatory randomized 1-11s pacing before every relay request |
 | 5 | Community Answerer (Tier 2 desk) | Claude routine | P1-4 | `persist_session: false`; narrowest `allowed_tools` (no `Task`, no `Monitor` unless the charter justifies it); model per plan §8-Q4 (Sonnet 5 daily); Run-discipline block: draft, write leads, exit — no self-check-ins; registered in `runners.md` with its prompt file |
 | 6 | Theory Miner (Tier 2 desk, extraction + weekly merge) | Claude routine | P2-2 (extraction), P2-3 (weekly merge/promote) | same four checks as row 5; extraction model Haiku 4.5, weekly merge Opus 4.8 per plan §2.4/§8-Q4-adjacent cost table; redline screen (`screenTopic()`) on every candidate before insert, hashed authors only, no raw comment bodies stored |
 
