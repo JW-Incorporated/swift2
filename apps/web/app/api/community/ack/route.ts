@@ -14,10 +14,12 @@ import { supabaseAdmin } from '../../../../lib/supabase-server';
 //
 // GET, no auth beyond the HMAC token itself (same posture as
 // `notifications/open`): a founder clicks a link from an email client,
-// there's no session to check. The token signs `lead+action` together
+// there's no session to check. The token signs `lead+action+link` together
 // (`COMMUNITY_ACK_SECRET`, `packages/core/src/community-ack-token.ts`), so
-// neither can be tampered with independently — flipping `action=posted` to
-// `action=skip` on a copied URL invalidates the signature.
+// none of the three can be tampered with independently — flipping
+// `action=posted` to `action=skip`, or flipping `link=1` to `link=0` (which
+// would otherwise let a copied URL dodge or inflate the `redditNonPromo`
+// etiquette counter), invalidates the signature.
 //
 // Idempotent (`ackPosted`/`ackSkipped`): a second click, or an email
 // client's link-prefetch bot, is a silent no-op — never a double ledger
@@ -84,7 +86,7 @@ export async function GET(req: Request): Promise<Response> {
     return htmlResponse(503, 'The Community Engine ack link isn’t configured in this environment yet.');
   }
 
-  if (!verifyAckToken(secret, { leadId, action }, token)) {
+  if (!verifyAckToken(secret, { leadId, action, linkIncluded }, token)) {
     // Tamper case (§9 acceptance criterion: "tests for route + tamper
     // cases") — wrong signature for this lead+action pair. Never reveals
     // whether the lead id itself exists.

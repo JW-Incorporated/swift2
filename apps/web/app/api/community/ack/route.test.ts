@@ -65,7 +65,7 @@ describe('GET /api/community/ack — validation', () => {
 describe('GET /api/community/ack — tamper cases', () => {
   it('rejects a token that does not match the lead+action pair', async () => {
     vi.stubEnv('COMMUNITY_ACK_SECRET', SECRET);
-    const wrongToken = signAckToken(SECRET, { leadId: LEAD_ID, action: 'skip' });
+    const wrongToken = signAckToken(SECRET, { leadId: LEAD_ID, action: 'skip', linkIncluded: false });
     const res = await get(`lead=${LEAD_ID}&action=posted&token=${wrongToken}`, '10.5.1.1');
     expect(res.status).toBe(403);
   });
@@ -73,8 +73,19 @@ describe('GET /api/community/ack — tamper cases', () => {
   it('rejects a token signed for a different lead id', async () => {
     vi.stubEnv('COMMUNITY_ACK_SECRET', SECRET);
     const otherLead = '22222222-2222-4222-8222-222222222222';
-    const wrongToken = signAckToken(SECRET, { leadId: otherLead, action: 'posted' });
+    const wrongToken = signAckToken(SECRET, {
+      leadId: otherLead,
+      action: 'posted',
+      linkIncluded: false,
+    });
     const res = await get(`lead=${LEAD_ID}&action=posted&token=${wrongToken}`, '10.5.1.2');
+    expect(res.status).toBe(403);
+  });
+
+  it('rejects a "posted" token minted with link=0 when the URL is edited to link=1 (etiquette-counter tamper case)', async () => {
+    vi.stubEnv('COMMUNITY_ACK_SECRET', SECRET);
+    const token = signAckToken(SECRET, { leadId: LEAD_ID, action: 'posted', linkIncluded: false });
+    const res = await get(`lead=${LEAD_ID}&action=posted&link=1&token=${token}`, '10.5.1.3');
     expect(res.status).toBe(403);
   });
 });
@@ -84,7 +95,7 @@ describe('GET /api/community/ack — happy path', () => {
     vi.stubEnv('COMMUNITY_ACK_SECRET', SECRET);
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', '');
     vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', '');
-    const token = signAckToken(SECRET, { leadId: LEAD_ID, action: 'posted' });
+    const token = signAckToken(SECRET, { leadId: LEAD_ID, action: 'posted', linkIncluded: false });
     const res = await get(`lead=${LEAD_ID}&action=posted&token=${token}`, '10.5.2.1');
     expect(res.status).toBe(503);
   });
@@ -103,7 +114,7 @@ describe('GET /api/community/ack — happy path', () => {
     });
     vi.resetModules();
 
-    const token = signAckToken(SECRET, { leadId: LEAD_ID, action: 'posted' });
+    const token = signAckToken(SECRET, { leadId: LEAD_ID, action: 'posted', linkIncluded: true });
     const { GET } = await import('./route');
     const res = await GET(
       new Request(
@@ -131,7 +142,7 @@ describe('GET /api/community/ack — happy path', () => {
     });
     vi.resetModules();
 
-    const token = signAckToken(SECRET, { leadId: LEAD_ID, action: 'skip' });
+    const token = signAckToken(SECRET, { leadId: LEAD_ID, action: 'skip', linkIncluded: false });
     const { GET } = await import('./route');
     const res = await GET(
       new Request(`http://localhost/api/community/ack?lead=${LEAD_ID}&action=skip&token=${token}`, {
@@ -157,7 +168,7 @@ describe('GET /api/community/ack — happy path', () => {
     });
     vi.resetModules();
 
-    const token = signAckToken(SECRET, { leadId: LEAD_ID, action: 'posted' });
+    const token = signAckToken(SECRET, { leadId: LEAD_ID, action: 'posted', linkIncluded: false });
     const { GET } = await import('./route');
     const res = await GET(
       new Request(`http://localhost/api/community/ack?lead=${LEAD_ID}&action=posted&token=${token}`, {
@@ -184,7 +195,7 @@ describe('GET /api/community/ack — happy path', () => {
     });
     vi.resetModules();
 
-    const token = signAckToken(SECRET, { leadId: LEAD_ID, action: 'posted' });
+    const token = signAckToken(SECRET, { leadId: LEAD_ID, action: 'posted', linkIncluded: false });
     const { GET } = await import('./route');
     const res = await GET(
       new Request(`http://localhost/api/community/ack?lead=${LEAD_ID}&action=posted&token=${token}`, {
