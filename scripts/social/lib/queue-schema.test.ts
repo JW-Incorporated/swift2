@@ -124,6 +124,16 @@ ${url}`;
       expect(validatePhotoInventoryBinding({ ...carousel, mediaSource: 'https://example.com/wrong' }, library)).toContainEqual(
         expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
       );
+
+      const laterSlidePhoto = {
+        ...carousel,
+        media: ['/social/library/thread-fashion-intro.png', library[0].mediaPath],
+      };
+      expect(validatePhotoInventoryBinding(laterSlidePhoto, library)).toEqual([]);
+      expect(validatePhotoInventoryBinding({ ...laterSlidePhoto, photoId: undefined }, library)).toContainEqual(expect.stringContaining('photoId: required'));
+      expect(validatePhotoInventoryBinding({ ...laterSlidePhoto, mediaCredit: 'Wrong credit' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
     });
 
     it('leaves a genuine non-photo site screen outside the inventory binding', () => {

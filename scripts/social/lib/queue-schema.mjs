@@ -64,21 +64,21 @@ function isIsoInstant(value) {
 
 /**
  * Validates that every queued Taylor photo preserves the inventory's exact
- * provenance. A launch `site-screen` carousel is included because its first
- * slide is deliberately the Taylor-photo grid tile; a genuine UI-only screen
- * has no photo-prefix slide and remains outside this binding.
+ * provenance. A launch `site-screen` carousel is included when any slide is
+ * a Taylor-photo grid tile; a genuine UI-only screen has no photo-prefix slide
+ * and remains outside this binding.
  */
 export function validatePhotoInventoryBinding(item, photoLibrary) {
-  const tile = Array.isArray(item?.media) ? item.media[0] : undefined;
-  const hasCarouselGridPhoto =
-    item?.mediaKind === 'site-screen' && typeof tile === 'string' && tile.startsWith('/social/library/photos/');
-  if (item?.mediaKind !== 'photo' && !hasCarouselGridPhoto) return [];
+  const photoTiles = Array.isArray(item?.media)
+    ? item.media.filter((media) => typeof media === 'string' && media.startsWith('/social/library/photos/'))
+    : [];
+  if (item?.mediaKind !== 'photo' && photoTiles.length === 0) return [];
   if (typeof item.photoId !== 'string' || item.photoId.trim() === '') {
     return ['photoId: required when queued media contains a Taylor photo — bind the draft to social/photo-library.json.'];
   }
   const photo = photoLibrary.find((entry) => entry.id === item.photoId);
   if (!photo) return [`photoId: ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
-  if (tile !== photo.mediaPath || item.mediaCredit !== photo.credit || item.mediaSource !== photo.source) {
+  if (photoTiles.length !== 1 || photoTiles[0] !== photo.mediaPath || item.mediaCredit !== photo.credit || item.mediaSource !== photo.source) {
     return ['photoId: must use its inventory media path, exact credit, and exact source so attribution cannot drift.'];
   }
   return [];
