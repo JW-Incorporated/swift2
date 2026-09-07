@@ -2,11 +2,12 @@
 // E5 detection is deliberately zero-LLM: it gathers candidates and files issues.
 // The separate judged curation lane calls curateCandidate before any seed authoring.
 
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { httpsRequest } from '../lib/gh.mjs';
 import { fetchSubredditPosts } from '../lib/reddit-rss.mjs';
+import { serviceClient } from '../lib/supabase.mjs';
 import {
   ETSY_FAILURE_ISSUE_PREFIX,
   ETSY_FAILURE_LABEL,
@@ -278,10 +279,10 @@ async function discoverEtsy({ etsyApiKey, fetchImpl, now, queries = ETSY_QUERIES
   return { candidates: evidence.candidates, queryErrors: evidence.queryErrors, totalFailure };
 }
 
-async function discoverReddit({ fetchImpl, warn = console.warn }) {
+async function discoverReddit({ fetchImpl, subreddits = REDDIT_SUBREDDITS, warn = console.warn }) {
   const candidates = [];
   let forbiddenCount = 0;
-  for (const subreddit of REDDIT_SUBREDDITS) {
+  for (const subreddit of subreddits) {
     let result;
     try {
       result = await fetchSubredditPosts(subreddit, { sort: 'top', time: 'week', limit: 100, fetchImpl });
@@ -298,18 +299,87 @@ async function discoverReddit({ fetchImpl, warn = console.warn }) {
     }
   }
   if (forbiddenCount > 0) {
-    warn(`fanmade-discovery: Reddit RSS returned 403 for ${forbiddenCount}/${REDDIT_SUBREDDITS.length} subreddit(s) this run`);
+    warn(`fanmade-discovery: Reddit RSS returned 403 for ${forbiddenCount}/${subreddits.length} subreddit(s) this run`);
   }
   return candidates;
 }
 
-export async function discoverCandidates({ etsyApiKey, fetchImpl = fetch, submissions = [], now = new Date().toISOString(), queries = ETSY_QUERIES } = {}) {
-  const [etsy, reddit] = await Promise.all([
+// P2-7 (§3.5): "REDDIT_SUBREDDITS -> add TaylorSwiftMerch-adjacent subs from
+// the watchlist ... read via the existing RSS helper." `community_watchlist`
+// is the live source of truth (seeded/verified in P0-1/P0-2); this widens E5
+// to every scan=true Reddit row instead of the single hardcoded sub. Static
+// `REDDIT_SUBREDDITS` remains the fallback when Supabase isn't configured
+// (local/dry-run) or the table has no rows yet.
+export async function loadWatchlistSubreddits({ client = serviceClient(), fallback = REDDIT_SUBREDDITS, warn = console.warn } = {}) {
+  if (!client) return fallback;
+  const { data, error } = await client
+    .from('community_watchlist')
+    .select('id')
+    .eq('platform', 'reddit')
+    .eq('scan', true);
+  if (error) {
+    warn(`fanmade-discovery: could not load community_watchlist, using fallback subreddits (${error.message})`);
+    return fallback;
+  }
+  const subs = (data || [])
+    .map((row) => text(row?.id)?.replace(/^reddit:/, ''))
+    .filter((sub) => sub);
+  return subs.length > 0 ? subs : fallback;
+}
+
+// P2-7 (§3.5 / §2.4): "FB export ingest emits shop links (Etsy/Redbubble/…)
+// it finds in post text into E5's candidate file; the same
+// SHOP_DOMAIN_ALLOWLIST + judged curation (D3/E1/E2) applies." The FB export
+// ingest script (P1-3) writes its discovered shop links as a side-output
+// JSON file (`{ shopLinks: [{ url, sourceUrl?, discoveredAt? }, ...] }`);
+// this reads that file if present. Leads only — no poster identity is ever
+// read from that file into a candidate (matches "the merch section shows
+// the shop, never the poster").
+export async function loadFbShopLinkCandidates({ filePath = process.env.FB_SHOP_LINKS_FILE, readFileImpl = readFile, now = new Date().toISOString(), warn = console.warn } = {}) {
+  if (!filePath) return [];
+  let raw;
+  try {
+    raw = await readFileImpl(filePath, 'utf8');
+  } catch (error) {
+    if (error?.code === 'ENOENT') return [];
+    warn(`fanmade-discovery: could not read FB shop-link file ${filePath} (${error.message})`);
+    return [];
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (error) {
+    warn(`fanmade-discovery: FB shop-link file ${filePath} is not valid JSON (${error.message})`);
+    return [];
+  }
+  const entries = Array.isArray(parsed?.shopLinks) ? parsed.shopLinks : [];
+  return entries
+    .map((entry) => normalizeFbShopLink(entry, now))
+    .filter((candidate) => candidate !== null);
+}
+
+export function normalizeFbShopLink(entry, discoveredAt = new Date().toISOString()) {
+  const url = canonicalUrl(entry?.url);
+  if (!isAllowedShopUrl(url)) return null;
+  return {
+    id: url ? `facebook:${url}` : null,
+    item: text(entry?.item),
+    url,
+    brand: null,
+    price: null,
+    imageUrl: null,
+    provenance: [provenance('facebook-export', text(entry?.discoveredAt) || discoveredAt, text(entry?.sourceUrl) || null)],
+  };
+}
+
+export async function discoverCandidates({ etsyApiKey, fetchImpl = fetch, submissions = [], now = new Date().toISOString(), queries = ETSY_QUERIES, subreddits, fbShopLinkFile } = {}) {
+  const [etsy, reddit, fbShopLinks] = await Promise.all([
     discoverEtsy({ etsyApiKey, fetchImpl, now, queries }),
-    discoverReddit({ fetchImpl }),
+    discoverReddit({ fetchImpl, subreddits: subreddits ?? (await loadWatchlistSubreddits()) }),
+    loadFbShopLinkCandidates({ filePath: fbShopLinkFile, now }),
   ]);
   return {
-    candidates: mergeCandidates([...etsy.candidates, ...reddit, ...submissions.filter(isMerchSubmission).map(normalizeSubmission)]),
+    candidates: mergeCandidates([...etsy.candidates, ...reddit, ...fbShopLinks, ...submissions.filter(isMerchSubmission).map(normalizeSubmission)]),
     etsyQueryErrors: etsy.queryErrors,
     etsyTotalFailure: etsy.totalFailure,
   };
@@ -570,7 +640,7 @@ async function main() {
     return;
   }
   const submissions = await githubIssues({ repository, token, label: SUBMISSION_LABEL, fetchImpl: githubFetch });
-  const discovery = await discoverCandidates({ etsyApiKey, submissions });
+  const discovery = await discoverCandidates({ etsyApiKey, submissions, fbShopLinkFile: process.env.FB_SHOP_LINKS_FILE });
   const revalidation = await reverifyFanmadeListings({ etsyApiKey });
   const revalidationFiling = await fileReverificationIssues({ repository, token, reverified: revalidation.reverified, fetchImpl: githubFetch, dryRun });
   const filing = await fileCandidateIssues({ repository, token, candidates: discovery.candidates, fetchImpl: githubFetch, dryRun });

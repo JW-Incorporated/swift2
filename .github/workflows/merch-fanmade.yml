@@ -1,6 +1,13 @@
 # E5 fan-made discovery. Scheduled detection is zero-LLM; a separate judged
 # curation lane applies D3 and E1/E2 before it authors supabase/seed/merch/fanmade.mjs.
 # :47 avoids this repository's :00/:05/:10/:23/:30/:40 cron contention cluster.
+#
+# Community Engine P2-7 (docs/proposals/2026-09-06-community-engine-plan.md
+# §3.5): widened from the single hardcoded TaylorSwiftMerch subreddit to
+# every scan=true Reddit row in `community_watchlist` (SUPABASE_URL /
+# SUPABASE_SERVICE_ROLE_KEY, same secrets as news-worker.yml — falls back to
+# the static REDDIT_SUBREDDITS list if unset), plus FB export shop-links from
+# a JSON side-output file when P1-3's fb-export-ingest.mjs has produced one.
 name: merch-fanmade
 
 on:
@@ -35,6 +42,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          FB_SHOP_LINKS_FILE: ${{ vars.FB_SHOP_LINKS_FILE }}
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
           set -euo pipefail
