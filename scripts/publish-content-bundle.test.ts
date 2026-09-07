@@ -1,7 +1,8 @@
 // OS-012 tests (docs/specs/2026-09-05-one-source-three-surfaces.md §6):
 // scripts/publish-content-bundle.mjs writes writeBundle()'s output plus the
 // current.json pointer, and prunes stale versions by default.
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { mkdir, mkdtemp, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
@@ -24,6 +25,25 @@ describe('publishBundle', () => {
 
     const eras = JSON.parse(await readFile(path.join(dir, manifest.bundleVersion, 'eras.json'), 'utf-8'));
     expect(Array.isArray(eras)).toBe(true);
+  }, 60_000);
+
+  it('resyncs a clean checkout before writing the first published current.json pointer', async () => {
+    dir = await mkdtemp(path.join(os.tmpdir(), 'publish-content-bundle-resync-'));
+    const publishedRoot = path.join(process.cwd(), 'apps', 'web', 'public', 'content');
+    const backupRoot = `${publishedRoot}.test-backup-${process.pid}`;
+    const hadPublishedRoot = existsSync(publishedRoot);
+
+    if (hadPublishedRoot) await rename(publishedRoot, backupRoot);
+
+    try {
+      const { manifest, pointerPath } = await publishBundle({ outRoot: dir, resync: true });
+
+      expect(JSON.parse(await readFile(pointerPath, 'utf-8'))).toEqual({
+        bundleVersion: manifest.bundleVersion,
+      });
+    } finally {
+      if (hadPublishedRoot) await rename(backupRoot, publishedRoot);
+    }
   }, 60_000);
 
   it('is deterministic: two publishes of the same content yield the same bundleVersion and pointer', async () => {
