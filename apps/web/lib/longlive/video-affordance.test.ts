@@ -256,13 +256,13 @@ describe('feedCardImageHidden over the real vault', () => {
   });
 
   it('still suppresses the #2080 owner frames, unchanged', () => {
-    // 8 moments hold a frame of their own video in the hero slot; 6 of them own
+    // 9 moments hold a frame of their own video in the hero slot; 7 of them own
     // their embed AND hold it as a real `primary` image, which is what this rule
     // suppresses. The other 2 (the deferring pair) are counted above. The two
     // that hold their frame as a non-primary stand-in never rendered a photo in
     // the feed anyway — MomentCardButton gates its image block on
     // `hasRealPrimaryImage` — so there was nothing there to suppress.
-    expect(suppressed.filter((s) => s.owns)).toHaveLength(6);
+    expect(suppressed.filter((s) => s.owns)).toHaveLength(7);
   });
 
   it('leaves every suppressed deferring card with a video it does not own', () => {
@@ -390,10 +390,10 @@ describe('heroVideoFor over the real vault', () => {
   const promoted = withVideo.filter((i) => heroVideoFor(i));
 
   it('promotes the video on the pages whose hero was a still of it', () => {
-    // 10 of the 16 video-carrying moments, measured 2026-08-13. Photo
+    // 11 of the 17 video-carrying moments, measured 2026-09-07. Photo
     // Enrichment sourced frames as photos for the moments that ARE a video.
-    expect(withVideo).toHaveLength(16);
-    expect(promoted).toHaveLength(10);
+    expect(withVideo).toHaveLength(17);
+    expect(promoted).toHaveLength(11);
   });
 
   it('includes the page Joey pointed at', () => {
@@ -404,6 +404,17 @@ describe('heroVideoFor over the real vault', () => {
 
   it('never leaves a promoted page rendering the same video twice', () => {
     for (const item of promoted) expect(detailVideoFor(item)).toBeNull();
+  });
+
+  it('keeps the official New Heights wedding-recap episode playable from its own moment', () => {
+    const recap = withVideo.find(
+      (item) =>
+        item.id === 'vault-tloas-travis-finally-recounts-the-wedding-on-the-new-heights-seaso',
+    );
+    expect(recap?.video).toEqual({
+      youtubeId: 'cZKgEhA_KyA',
+      title: 'New Heights — Travis recounts the wedding (Season 5 premiere)',
+    });
   });
 
   it('leaves the other six pages with hero=photo and body=video', () => {
