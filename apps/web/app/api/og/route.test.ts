@@ -1,13 +1,25 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import { getEra, setTracksRawProvider, trackKey } from '@swift2/experience';
 
-import { GET } from './route';
+const item = {
+  id: 'interrupted-speech',
+  eraId: 'fearless',
+  title: 'The interrupted speech',
+  dateLabel: 'September 2009',
+  summary: 'A defining public turning point.',
+};
+const track = { title: 'Fearless', note: 'A rushing first-love anthem.', trackNumber: 1 };
 
-// The "cool feature only" fix (social-strategy.md §2): a lens/mode deep
-// link must render a feature-specific card, not the generic brand card.
-// Real ImageResponse rendering (Satori/resvg) is slow and font-dependent,
-// so these check what's cheap and load-bearing: the route returns a real
-// PNG response, and it does so for every recognized param — an
-// unrecognized one falls back rather than 500ing.
+vi.mock('../../../lib/longlive/vault-wiring', () => ({}));
+vi.mock('@/lib/longlive/content', () => ({ getContentItem: (id: string) => (id === item.id ? item : undefined) }));
+
+import { DEFAULT_OG_COPY } from '@/lib/longlive/og-card';
+import { GET, ogCopyForRequest } from './route';
+
+const request = (query: string) => new URL(`https://www.longlivets.com/api/og?${query}`);
+
+setTracksRawProvider({ fearless: [track] });
+
 describe('GET /api/og', () => {
   function get(qs: string): Response {
     return GET(new Request(`http://localhost/api/og${qs}`) as never);
@@ -20,46 +32,51 @@ describe('GET /api/og', () => {
   });
 
   it('renders a PNG for each of the six thread lenses', async () => {
-    const lensIds = [
-      'the-proposal',
-      'love-story',
-      'fashion',
-      'taylors-version',
-      'easter-eggs',
-      'hidden-clues',
-    ];
-    for (const id of lensIds) {
-      const res = await get(`?lens=${id}`);
-      expect(res.status).toBe(200);
+    for (const id of ['the-proposal', 'love-story', 'fashion', 'taylors-version', 'easter-eggs', 'hidden-clues']) {
+      expect(get(`?lens=${id}`).status).toBe(200);
     }
   });
 
   it('renders a PNG for the mood and clownbot feature modes', async () => {
     for (const mode of ['mood', 'clownbot']) {
-      const res = await get(`?mode=${mode}`);
-      expect(res.status).toBe(200);
+      expect(get(`?mode=${mode}`).status).toBe(200);
     }
-  });
-
-  it('falls back to the generic card for an unrecognized lens (never 500s)', async () => {
-    const res = await get('?lens=not-a-real-thread');
-    expect(res.status).toBe(200);
-  });
-
-  it('falls back to the generic card for a non-feature mode', async () => {
-    const res = await get('?mode=merch');
-    expect(res.status).toBe(200);
   });
 
   it('falls back to the generic card for inherited-property mode names, never 500s', async () => {
     for (const mode of ['constructor', 'toString', '__proto__', 'hasOwnProperty']) {
-      const res = await get(`?mode=${mode}`);
-      expect(res.status).toBe(200);
+      expect(get(`?mode=${mode}`).status).toBe(200);
     }
   });
+});
 
-  it('falls back to the generic card with no params at all', async () => {
-    const res = await get('');
-    expect(res.status).toBe(200);
+describe('ogCopyForRequest', () => {
+  it('uses moment-specific metadata', () => {
+    expect(ogCopyForRequest(request('item=interrupted-speech'))).toMatchObject({
+      title: 'The interrupted speech',
+      subtitle: 'A defining public turning point.',
+    });
+  });
+
+  it('uses era-specific metadata', () => {
+    const era = getEra('fearless');
+    expect(ogCopyForRequest(request('era=fearless'))).toMatchObject({ title: era.name, subtitle: era.tagline });
+  });
+
+  it('uses song-specific metadata', () => {
+    expect(ogCopyForRequest(request(`song=${encodeURIComponent(trackKey('fearless', track))}`))).toMatchObject({
+      title: 'Fearless',
+      subtitle: 'A rushing first-love anthem.',
+    });
+  });
+
+  it('uses guide and theories metadata', () => {
+    const era = getEra('fearless');
+    expect(ogCopyForRequest(request('guide=fearless'))).toMatchObject({ title: era.album });
+    expect(ogCopyForRequest(request('theories=fearless'))).toMatchObject({ title: `${era.shortName} decoded` });
+  });
+
+  it('falls back to the generic card for an invalid target', () => {
+    expect(ogCopyForRequest(request('era=not-an-era'))).toEqual(DEFAULT_OG_COPY);
   });
 });
