@@ -37,7 +37,6 @@ describe('triggerWebShare', () => {
   it('never claims a link was copied when clipboard access is unavailable', async () => {
     await expect(triggerWebShare(payload, {})).resolves.toBe('unavailable');
   });
-
   it('falls back to a manual share link when copying is rejected', async () => {
     const copyText = vi.fn().mockRejectedValue(new Error('clipboard permission denied'));
 
