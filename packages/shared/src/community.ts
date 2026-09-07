@@ -22,7 +22,10 @@ export type CommunityPlatform = (typeof COMMUNITY_PLATFORMS)[number];
 export const ENGAGEMENT_LEAD_KINDS = ['alert', 'digest', 'hot_thread', 'reply_to_us'] as const;
 export type EngagementLeadKind = (typeof ENGAGEMENT_LEAD_KINDS)[number];
 
-/** `engagement_lead.status`. */
+/** `engagement_lead.status`. `skipped_by_founder` is P1-5's ack-route outcome
+ * (a human saw the finished draft and chose not to post it) — distinct from
+ * the Answerer desk's pre-draft `skipped_redline`/`skipped_low_relevance`
+ * (supabase/migrations/20260918000000_community_ack.sql). */
 export const ENGAGEMENT_LEAD_STATUSES = [
   'new',
   'drafted',
@@ -30,6 +33,7 @@ export const ENGAGEMENT_LEAD_STATUSES = [
   'posted',
   'skipped_redline',
   'skipped_low_relevance',
+  'skipped_by_founder',
 ] as const;
 export type EngagementLeadStatus = (typeof ENGAGEMENT_LEAD_STATUSES)[number];
 
