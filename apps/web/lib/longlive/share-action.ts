@@ -24,6 +24,10 @@ export async function triggerWebShare(
     }
   }
   if (!copyText) return 'unavailable';
-  await copyText(payload.url);
-  return 'fallback';
+  try {
+    await copyText(payload.url);
+    return 'fallback';
+  } catch {
+    return 'unavailable';
+  }
 }

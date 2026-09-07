@@ -31,12 +31,25 @@ export function ShareFallbackToast() {
     >
       <p className="font-semibold text-[color:var(--era-ink)]">{payload.copied ? 'Link copied' : 'Share link ready'}</p>
       <p className="mt-1 text-sm text-[color:var(--era-ink-soft)]">
-        {payload.copied ? 'Share it directly, or choose an option below.' : 'Choose a direct share option below.'}
+        {payload.copied ? 'Share it directly, or choose an option below.' : 'Select the link, or choose a direct share option below.'}
       </p>
+      <input
+        readOnly
+        value={payload.url}
+        aria-label="Share link"
+        onClick={(event) => event.currentTarget.select()}
+        onFocus={(event) => event.currentTarget.select()}
+        className="mt-3 w-full rounded-lg border border-[color:var(--era-line)] bg-[color:var(--era-bg)] px-2 py-1.5 text-xs text-[color:var(--era-ink)]"
+      />
       <div className="mt-3 flex flex-wrap gap-2">
         <button
           type="button"
-          onClick={() => navigator.clipboard?.writeText(payload.url)}
+          onClick={() =>
+            navigator.clipboard
+              ?.writeText(payload.url)
+              .then(() => setPayload((current) => (current ? { ...current, copied: true } : current)))
+              .catch(() => undefined)
+          }
           className="era-btn-ghost inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm"
         >
           <Copy className="size-4" /> Copy link
