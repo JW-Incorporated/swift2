@@ -2823,8 +2823,29 @@ export default {
         // rather than force an off-subject or misrepresenting crop (charter 3b).
         // Photo pass #762 (2026-08-27): re-checked, same conclusion — the
         // withdrawal is defined by the absence of public/paparazzi photos, so
-        // no image can honestly represent it. Stays text-first.
-        photos: [],
+        // no image can honestly represent it. Stayed text-first at that time.
+        //
+        // Policy update (2026-09-06, Joey via t_40f29d07 / t_23e4b90b): "no
+        // photo found" is no longer an acceptable outcome for
+        // content.top-of-feed-photo — a legitimately connected real photo
+        // must be used instead, honestly captioned as what it actually shows.
+        // No photo of the silence itself can exist (that is the whole point
+        // of the moment), so this uses the official "Look What You Made Me
+        // Do" music-video still — the exact answer to the silence the context
+        // above describes, oEmbed-verified against the TaylorSwift YouTube
+        // channel (video id 3tmd-ClpJxA), captioned as the video, not as a
+        // photo from the silent period.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg',
+            credit: 'Big Machine Records, via YouTube/TaylorSwift',
+            caption:
+              'The bathtub-of-diamonds shot from "Look What You Made Me Do" — the single that broke the year of silence in August 2017.',
+            kind: 'reference',
+            // Swift is centered, upper half of frame.
+            focalPoint: '58% 35%',
+          },
+        ],
       },
     },
     {

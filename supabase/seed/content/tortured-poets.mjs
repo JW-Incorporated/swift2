@@ -6531,6 +6531,21 @@ export default {
         sources: [
           { outlet: 'Harper\'s Bazaar', url: 'https://www.harpersbazaar.com/celebrity/latest/a65057043/taylor-swift-crystal-athleisure-set-hockey-game-travis-kelce-photos/' },
           { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/fashion/taylor-swift-2025-stanley-cup-finals-game-4-track-suit-chanel-bag/' },
+          { outlet: 'AP News', url: 'https://apnews.com/article/stanley-cup-oilers-panthers-taylor-swift-travis-kelce-64580f4056005e292ab261900cbd2144' },
+        ],
+        // Photo backfill (t_23e4b90b, 2026-09-06): switched from an initial
+        // media.gettyimages.com pick (flagged P2 by image.url-quality —
+        // Getty's public CDN only ever serves a watermarked "comp") to AP's
+        // own unwatermarked article photo of the exact game. HTTP-verified,
+        // downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://dims.apnews.com/dims4/default/8bc4b14/2147483647/strip/true/crop/2362x1574+11+0/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F4b%2F38%2F1959237a5262c70b6d8896c50341%2F8cba73227b004264b22837c2df69dffa',
+            credit: 'AP Photo',
+            caption: 'Taylor Swift and Travis Kelce at Game Four of the 2025 Stanley Cup Final, June 12, 2025, in Sunrise, Florida.',
+            kind: 'primary',
+            focalPoint: '45% 40%',
+          },
         ],
       },
     },
@@ -6552,6 +6567,16 @@ export default {
           { outlet: 'Cosmopolitan', url: 'https://www.cosmopolitan.com/entertainment/celebs/a65363853/taylor-swift-travis-kelce-fourth-of-july-2025-yellowstone/' },
         ],
       },
+      // Privacy redline (t_23e4b90b, 2026-09-06): this getaway happened
+      // entirely inside a private, gated, members-only residential compound —
+      // the whole point of the reporting is that no paparazzi could reach
+      // them there. The only photos in circulation are stock/generic shots of
+      // the resort's private homes and grounds (residence-privacy redline,
+      // location-privacy L2 territory) or unrelated file photos of the couple
+      // from other dates mislabeled as this one — neither is honest. No real,
+      // on-record photo of this specific private weekend exists to source.
+      photosReviewed:
+        'privacy redline — the getaway took place entirely inside a private, gated members-only residential compound with no press access; the only available images are of private homes/grounds (residence-privacy) or unrelated file photos of the couple, neither of which honestly represents this specific event (reviewed 2026-09-06, t_23e4b90b)',
     },
     {
       year: 2025,
@@ -6568,6 +6593,18 @@ export default {
           'This marked the couple\'s first public appearance since their Aug. 26 engagement announcement.',
         sources: [
           { outlet: 'Page Six', url: 'https://pagesix.com/2025/08/30/celebrity-news/newly-engaged-taylor-swift-surfaces-in-nashville-for-brittany-mahomes-30th-birthday-party' },
+          { outlet: 'AP News', url: 'https://apnews.com/article/travis-kelce-taylor-swift-nebraska-cincinnati-375c6f216299538c774b937b77869599' },
+        ],
+        // Photo backfill (t_23e4b90b, 2026-09-06): AP's own game photo,
+        // HTTP-verified, downloaded and vision-confirmed this session.
+        photos: [
+          {
+            url: 'https://dims.apnews.com/dims4/default/e0f8b9f/2147483647/strip/true/crop/2315x1543+0+0/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Feb%2Ff9%2F719ccebc3f53079cb41225f14cfd%2F40f7f8eb17be467cb7753efbaf87736f',
+            credit: 'Charlie Riedel/AP',
+            caption: 'Taylor Swift sits with fiancé Travis Kelce as they watch the Cincinnati-Nebraska game at Arrowhead Stadium, Aug. 28, 2025.',
+            kind: 'primary',
+            focalPoint: '55% 45%',
+          },
         ],
       },
     },
