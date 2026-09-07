@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { validateQueueItem, PLATFORM_RULES } from './queue-schema.mjs';
+import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES } from './queue-schema.mjs';
 
 const validX = { platform: 'x', body: 'a real tweet', scheduledAt: '2026-08-12T23:00:00Z' };
 const validIg = {
@@ -12,6 +12,15 @@ const validIg = {
 
 const findingFor = (item: unknown, needle: string | RegExp) =>
   validateQueueItem(item).find((f) => (typeof needle === 'string' ? f.includes(needle) : needle.test(f)));
+
+const library = [
+  {
+    id: 'lover-minneapolis-2023',
+    mediaPath: '/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg',
+    credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
+    source: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
+  },
+];
 
 describe('validateQueueItem', () => {
   it('accepts the two real shapes the queue actually uses', () => {
@@ -94,6 +103,43 @@ ${url}`;
   });
 
   describe('media', () => {
+    it('binds a launch site-screen carousel grid photo to its exact credited inventory entry', () => {
+      const carousel = {
+        ...validIg,
+        campaign: 'launch:shop-the-look:announce',
+        media: [library[0].mediaPath, '/social/library/thread-fashion-intro.png'],
+        photoId: library[0].id,
+        mediaCredit: library[0].credit,
+        mediaSource: library[0].source,
+      };
+
+      expect(validatePhotoInventoryBinding(carousel, library)).toEqual([]);
+      expect(validatePhotoInventoryBinding({ ...carousel, photoId: undefined }, library)).toContainEqual(expect.stringContaining('photoId: required'));
+      expect(validatePhotoInventoryBinding({ ...carousel, media: ['/social/library/photos/wrong.jpg', carousel.media[1]] }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+      expect(validatePhotoInventoryBinding({ ...carousel, mediaCredit: 'Wrong credit' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+      expect(validatePhotoInventoryBinding({ ...carousel, mediaSource: 'https://example.com/wrong' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+
+      const laterSlidePhoto = {
+        ...carousel,
+        media: ['/social/library/thread-fashion-intro.png', library[0].mediaPath],
+      };
+      expect(validatePhotoInventoryBinding(laterSlidePhoto, library)).toEqual([]);
+      expect(validatePhotoInventoryBinding({ ...laterSlidePhoto, photoId: undefined }, library)).toContainEqual(expect.stringContaining('photoId: required'));
+      expect(validatePhotoInventoryBinding({ ...laterSlidePhoto, mediaCredit: 'Wrong credit' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+    });
+
+    it('leaves a genuine non-photo site screen outside the inventory binding', () => {
+      expect(validatePhotoInventoryBinding(validIg, library)).toEqual([]);
+    });
+
     it('requires media on Instagram', () => {
       expect(findingFor({ ...validIg, media: [] }, 'media:')).toContain('require at least one image');
       expect(findingFor({ ...validIg, media: undefined }, 'media:')).toBeDefined();

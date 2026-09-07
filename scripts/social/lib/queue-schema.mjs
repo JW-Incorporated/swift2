@@ -63,6 +63,28 @@ function isIsoInstant(value) {
 }
 
 /**
+ * Validates that every queued Taylor photo preserves the inventory's exact
+ * provenance. A launch `site-screen` carousel is included when any slide is
+ * a Taylor-photo grid tile; a genuine UI-only screen has no photo-prefix slide
+ * and remains outside this binding.
+ */
+export function validatePhotoInventoryBinding(item, photoLibrary) {
+  const photoTiles = Array.isArray(item?.media)
+    ? item.media.filter((media) => typeof media === 'string' && media.startsWith('/social/library/photos/'))
+    : [];
+  if (item?.mediaKind !== 'photo' && photoTiles.length === 0) return [];
+  if (typeof item.photoId !== 'string' || item.photoId.trim() === '') {
+    return ['photoId: required when queued media contains a Taylor photo — bind the draft to social/photo-library.json.'];
+  }
+  const photo = photoLibrary.find((entry) => entry.id === item.photoId);
+  if (!photo) return [`photoId: ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
+  if (photoTiles.length !== 1 || photoTiles[0] !== photo.mediaPath || item.mediaCredit !== photo.credit || item.mediaSource !== photo.source) {
+    return ['photoId: must use its inventory media path, exact credit, and exact source so attribution cannot drift.'];
+  }
+  return [];
+}
+
+/**
  * Validates one parsed queue item. Returns an array of human-readable
  * findings; an empty array means the item is well-formed. Never throws —
  * callers get every problem at once rather than the first one.
@@ -203,7 +225,7 @@ export function validateQueueItem(item) {
   if (item.attempts !== undefined && (!Number.isInteger(item.attempts) || item.attempts < 0)) {
     findings.push(`attempts: must be a non-negative integer when present (${JSON.stringify(item.attempts)}).`);
   }
-  for (const field of ['campaign', 'why', 'approvedBy', 'lastError']) {
+  for (const field of ['campaign', 'why', 'approvedBy', 'lastError', 'photoId']) {
     if (item[field] !== undefined && typeof item[field] !== 'string') {
       findings.push(`${field}: must be a string when present.`);
     }
