@@ -186,23 +186,23 @@ call a model are separate **manually confirmed** workflows.
 | [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | header — Facebook has no API for non-administered groups, so this stays a human task |
 | [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The Claude-routine half is the Routine Auditor's weekly comment, see below |
 
-### Community engine (Phase 0 landed; Phase 1 mostly landed — 3 automatic today, 2 workflows still pending)
+### Community engine (Phase 0 landed; Phase 1 fully landed)
 
 Spec: [`docs/proposals/2026-09-06-community-engine-plan.md`](proposals/2026-09-06-community-engine-plan.md)
 (Fable-approved plan, board `swift2`, Phase 0–3 cards). Standing rule from
 the plan: a human always posts; nothing here auto-posts, auto-comments, or
-auto-DMs on Reddit or Facebook. `community-scan.yml` (P1-2) and
-`community-crawl.yml` (P2-1) are live Tier-1 workflows, both off by default.
-`routine-community-answerer.yml` (P1-4) shipped as a Tier-2 routine, not a
-Tier-1 workflow — see its row in the Tier 2 table below. The two rows below
-are the still-pending Tier-1 workflows each row's own card creates.
+auto-DMs on Reddit or Facebook. `community-scan.yml` (P1-2),
+`community-crawl.yml` (P2-1), `community-inbox.yml` (P1-1), and
+`community-mailer.yml` (P1-6) are all live Tier-1 workflows now. The
+Community Answerer desk (P1-4) shipped as a Tier-2 routine, not a Tier-1
+workflow — see its row in the Tier 2 table below.
 
 | Workflow | Trigger | LLM | Mutates | Card that creates it |
 |---|---|---|---|---|
 | [`community-scan.yml`](../.github/workflows/community-scan.yml) | daily 08:17 UTC (off-peak minute, see the repo's cron-contention rule) | no | RSS hot-thread scan per `community_watchlist` → `engagement_lead`, deduped vs `community_post_ledger`; gated by repo variable `COMMUNITY_SCAN_ENABLED` (default off — no leads land until a founder flips it, per P1-7's dry-run gate) | P1-2 (landed) |
 | [`community-crawl.yml`](../.github/workflows/community-crawl.yml) | daily 07:13 UTC, bounded | no | year-deep Reddit top-post walker (RSS `t=year` feed, real ceiling ~100 posts/sub) + bounded home-relay full-tree fetch; writes to a transient 24h Actions artifact only, never the repo/DB; gated by repo variables `COMMUNITY_CRAWL_ENABLED` (default `false`, **ships OFF**) and `COMMUNITY_CRAWL_BUDGET` (threads/run cap) | P2-1 (landed) |
-| `community-inbox.yml` | every 30 min | no | reads Marjorie's Gmail (Reddit alert/reply mail, DKIM-verified) → `engagement_lead`; also parses founder `posted <id>`/`skip <id>` replies | P1-1 |
-| `community-mailer.yml` | daily, after the Community Answerer desk; + a bounded replies-waiting second send | no | sends the daily "Community Tasks" HTML email (paste-ready drafts, one-click ack/skip links); one-line pointer added to Marjorie's brief | P1-6 |
+| [`community-inbox.yml`](../.github/workflows/community-inbox.yml) | every 30 min | no | reads Marjorie's Gmail (Reddit alert/reply mail, DKIM-verified) → `engagement_lead`; also parses founder `posted <id>`/`skip <id>` replies | P1-1 (landed) |
+| [`community-mailer.yml`](../.github/workflows/community-mailer.yml) | daily 15:36 UTC (after the Community Answerer desk) + a bounded 21:12 UTC replies-waiting second send (`reply_to_us` leads only) | no | reads `engagement_lead` rows the Answerer desk drafted (`status='drafted'`) → sends the daily "Community Tasks" HTML email (paste-ready drafts, one-click ack/skip links via `/api/community/ack`, P1-5) → marks each lead `status='emailed'`; degrades to a clean no-op when `SUPABASE_*`/`COMMUNITY_ACK_SECRET`/`MARJORIE_EMAIL`+`GMAIL_APP_PASSWORD` are unset | P1-6 (landed) |
 
 `fb-export-ingest` (script, not its own cron — run by the Answerer desk or
 `workflow_dispatch` after a weekly Facebook export lands) and `theory-resolve`
@@ -215,10 +215,10 @@ rule (see the header) — `fb-export-ingest` is documented under P1-3,
 
 **`/api/community/ack`** (`apps/web/app/api/community/ack/route.ts`, card
 P1-5, **shipped**) isn't a scheduled routine either — it's the click target
-of `community-mailer.yml`'s one-click "Posted"/"Skip" links (still P1-6,
-not created yet), so it goes live ahead of the mailer that will call it,
-same as `engagement_lead`/`community_post_ledger` landing in P0-1 ahead of
-either desk that reads them. GET, HMAC-signed (`COMMUNITY_ACK_SECRET`, a
+of `community-mailer.yml`'s one-click "Posted"/"Skip" links (P1-6,
+**shipped**), so it went live ahead of the mailer that calls it, same as
+`engagement_lead`/`community_post_ledger` landing in P0-1 ahead of either
+desk that reads them. GET, HMAC-signed (`COMMUNITY_ACK_SECRET`, a
 generated secret — set it as a Vercel project env var, never
 `NEXT_PUBLIC_*`), idempotent (a repeat click or an email client's
 link-prefetch is a silent no-op). Marks `engagement_lead.status`
