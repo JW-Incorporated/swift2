@@ -68,7 +68,9 @@
     "cie:file": "node --use-env-proxy scripts/content-engine/run.mjs all --create",
     "social:card": "tsx scripts/social/render-card.mjs",
     "social:capture": "node scripts/social/capture-screens.mjs",
-    "social:seed-library": "tsx scripts/social/seed-library.mjs"
+    "social:seed-library": "tsx scripts/social/seed-library.mjs",
+    "social:select-photo": "node scripts/social/select-photo.mjs",
+    "social:import-photo-library": "node scripts/social/import-photo-library.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

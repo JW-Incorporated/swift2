@@ -47,12 +47,14 @@ export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art', 'video-thumb'];
  * Instagram's caption limit is 2,200 characters; it also caps hashtags at 30
  * (not checked here — no draft has ever come close).
  *
- * `media`: X posts may carry up to MAX_X_IMAGES images (uploaded via the
- * v1.1 media endpoint — see lib/platforms.mjs's postToX); Instagram requires
- * at least one and supports a 10-image carousel.
+ * `media`: every normal paired X/Instagram campaign requires at least one
+ * credited image. The named `appearance:` video-discovery exception remains
+ * X-only and link-preview-only; X otherwise supports up to MAX_X_IMAGES
+ * images (uploaded via the v1.1 media endpoint — see lib/platforms.mjs's
+ * postToX). Instagram requires at least one and supports a 10-image carousel.
  */
 export const PLATFORM_RULES = {
-  x: { maxBody: 280, media: 'optional', maxMedia: MAX_X_IMAGES, measure: weightedTweetLength, unit: 'weighted characters' },
+  x: { maxBody: 280, media: 'required', maxMedia: MAX_X_IMAGES, measure: weightedTweetLength, unit: 'weighted characters' },
   instagram: { maxBody: 2200, media: 'required', maxMedia: 10, measure: (body) => String(body ?? '').length, unit: 'characters' },
 };
 
@@ -151,7 +153,8 @@ export function validateQueueItem(item) {
         );
       }
     }
-    if (rules?.media === 'required' && paths.length === 0) {
+    const isAppearanceException = item.platform === 'x' && typeof item.campaign === 'string' && item.campaign.startsWith('appearance:');
+    if (rules?.media === 'required' && !isAppearanceException && paths.length === 0) {
       findings.push(`media: ${item.platform} posts require at least one image.`);
     }
     if (rules && paths.length > rules.maxMedia) {
