@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { selectSocialPhoto, validatePhotoEntry } from './photo-library.mjs';
+import { validatePhotoInventoryBinding, validateQueueItem } from './queue-schema.mjs';
 
 const library = [
   {
@@ -67,5 +68,32 @@ describe('photo-library', () => {
     expect(selected.mediaPath).toMatch(/^\/social\/library\/photos\//);
     expect(selected.credit).not.toBe('');
     expect(selected.source).toMatch(/^https:\/\//);
+  });
+
+  it('makes the 09-08 paired launch plan valid after the five-photo corpus is exhausted', () => {
+    const history = library.map((photo, index) => ({
+      photoId: photo.id,
+      postedAt: `2026-09-0${index + 1}T23:00:00Z`,
+    }));
+    const selected = selectSocialPhoto(library, history);
+    const common = {
+      media: [selected.mediaPath],
+      mediaKind: 'photo',
+      photoId: selected.id,
+      mediaCredit: selected.credit,
+      mediaSource: selected.source,
+      scheduledAt: '2026-09-08T23:00:00Z',
+      campaign: 'launch:shop-the-look:announce',
+    };
+    const pair = [
+      { ...common, platform: 'instagram', body: 'See the look.' },
+      { ...common, platform: 'x', body: 'See the look.' },
+    ];
+
+    expect(selected.reused).toBe(true);
+    for (const draft of pair) {
+      expect(validateQueueItem(draft)).toEqual([]);
+      expect(validatePhotoInventoryBinding(draft, library)).toEqual([]);
+    }
   });
 });
