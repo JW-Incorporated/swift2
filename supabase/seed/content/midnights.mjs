@@ -2098,8 +2098,8 @@ export default {
       month: 3,
       day: 17,
       category: 'fashion',
-      title: 'A flowing purple Alberta Ferretti dress for Folklore',
-      snippet: "A flowing purple Alberta Ferretti dress captured the woodsy feel of Folklore on Eras Tour opening night.",
+      title: 'A flowing purple Alberta Ferretti dress for folklore',
+      snippet: "A flowing purple Alberta Ferretti dress captured the woodsy feel of folklore on Eras Tour opening night.",
       sourceUrl: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg',
@@ -5496,7 +5496,7 @@ export default {
         'https://assets1.cbsnewsstatic.com/hub/i/r/2024/02/05/8edd48b7-d5d3-4f41-9abc-73224e5a7012/thumbnail/620x413/c9004cfb98e90e6a93cd1764340a1057/gettyimages-1986514177.jpg',
       moment: {
         context:
-          'Accepting Best Pop Vocal Album for Midnights — her 13th career Grammy — she told the room: "I want to say thank you to the fans by telling you a secret that I\'ve been keeping from you for the last two years, which is that my brand new album comes out April 19th."\n\nFans primed by her lucky number 13 had bet on a Reputation (Taylor\'s Version) reveal; instead, a black-and-white cover photo of her lying in bed hit Instagram minutes later, captioned with lines about muses and love bombs. By the end of the night she had Album of the Year for Midnights too, making her the first artist ever to win the category four times.',
+          'Accepting Best Pop Vocal Album for Midnights — her 13th career Grammy — she told the room: "I want to say thank you to the fans by telling you a secret that I\'ve been keeping from you for the last two years, which is that my brand new album comes out April 19th."\n\nFans primed by her lucky number 13 had bet on a reputation (Taylor\'s Version) reveal; instead, a black-and-white cover photo of her lying in bed hit Instagram minutes later, captioned with lines about muses and love bombs. By the end of the night she had Album of the Year for Midnights too, making her the first artist ever to win the category four times.',
         sources: [
           {
             outlet: 'CBS News',

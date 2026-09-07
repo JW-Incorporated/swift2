@@ -76,7 +76,7 @@ const ERA = {
         meaning: {
           confirmed: [
             "Written by Swift with Jack Antonoff and Annie Clark (St. Vincent) during the Lover sessions; Swift and Antonoff produced it and St. Vincent contributed guitar. The 'ranting' bridge runs over skittering synths with Swift's vocal put through a vocoder — a distorted texture rare in her catalog.",
-            "Swift confirmed the long-rumored shelved single herself: at the Eras Tour's Pittsburgh show on June 17, 2023 she said she had 'intended to release Cruel Summer as a single in 2020' but abandoned the plan when the pandemic hit and pivoted to Folklore instead.",
+            "Swift confirmed the long-rumored shelved single herself: at the Eras Tour's Pittsburgh show on June 17, 2023 she said she had 'intended to release Cruel Summer as a single in 2020' but abandoned the plan when the pandemic hit and pivoted to folklore instead.",
             "Swift has described the song as an uncertain summer romance, about 'yearning for something that you don't quite have yet' — a general statement of theme rather than a named subject.",
           ],
           fanTheories: [
