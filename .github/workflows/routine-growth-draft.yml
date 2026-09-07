@@ -34,6 +34,7 @@ jobs:
       model: claude-opus-4-8
       allowed_tools: "Bash,Read,Grep,Glob,Write,WebSearch,WebFetch"
       timeout_minutes: 30
+      max_turns: 50 # was hitting default 40 by only 2 turns (kanban t_68b1a827, 2026-09-07)
       checkout_token_secret: SOCIAL_POSTER_PAT
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

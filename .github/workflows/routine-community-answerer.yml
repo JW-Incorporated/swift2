@@ -40,6 +40,7 @@ jobs:
       # the home-relay skill (a plain HTTP GET issued through Bash/curl).
       allowed_tools: "Bash,Read,Write,Edit,Glob,Grep"
       timeout_minutes: 30
+      max_turns: 80 # hard-failed at default 40 with no successful result; bumped generously pending actual-usage investigation (kanban t_68b1a827, 2026-09-07)
       checkout_token_secret: GITHUB_TOKEN
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
