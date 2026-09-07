@@ -1,0 +1,13 @@
+Fix clusterTrackSlug to honor canonical-row priority (review finding)
+
+Fresh-context Claude review of PR #3966 found a real bug: clusterTrackSlug
+scanned cluster-discovery order (group) instead of canonical-priority
+order (sortedGroup), so a low-mention seed row discovered first could
+silently override the actual canonical (highest-mentionCount) row's own
+trackSlug -- attaching the wrong song to a promoted live_theory row.
+
+Fixed by calling clusterTrackSlug(sortedGroup) instead of
+clusterTrackSlug(group), and documented the ordering requirement on the
+function itself. Added a regression test that reproduces the exact
+scenario (low-mention row discovered first with a conflicting trackSlug)
+and confirmed it fails against the old code and passes against the fix.

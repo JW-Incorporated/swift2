@@ -79,9 +79,13 @@ export interface MergedTheoryCluster {
  * that does supplies it — a merge should never drop a song association a
  * sibling candidate already had (P2-6 depends on this surviving promotion:
  * `live_theory.track_slug` is the only way the song-weaving intake script
- * finds a promoted theory's song). */
-function clusterTrackSlug(rows: readonly FanTheoryCandidateRow[]): string | null {
-  for (const r of rows) if (r.trackSlug) return r.trackSlug;
+ * finds a promoted theory's song). Must be called with the CANONICAL row
+ * first and its siblings after (i.e. `sortedGroup`, not the raw
+ * discovery-order `group`) — a raw-order scan would return whichever row
+ * happened to be discovered first, not the row that actually survives as
+ * `status='accepted'`/`rejected`. */
+function clusterTrackSlug(orderedRows: readonly FanTheoryCandidateRow[]): string | null {
+  for (const r of orderedRows) if (r.trackSlug) return r.trackSlug;
   return null;
 }
 
@@ -173,7 +177,7 @@ export function mergeTheoryCandidates(
     const mentionCount = group.reduce((sum, r) => sum + r.mentionCount, 0);
     const peakScore = Math.max(...group.map((r) => r.peakScore));
     const stance = clusterStance(group);
-    const trackSlug = clusterTrackSlug(group);
+    const trackSlug = clusterTrackSlug(sortedGroup);
     const decision: MergedTheoryCluster['decision'] =
       mentionCount < PROMOTION_MENTION_THRESHOLD
         ? 'hold'

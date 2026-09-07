@@ -98,6 +98,22 @@ describe('mergeTheoryCandidates', () => {
     expect(cluster.trackSlug).toBe('fortnight');
   });
 
+  it('prefers the CANONICAL row\'s trackSlug over an earlier-discovered sibling\'s conflicting one', () => {
+    // Regression for a real bug: clusterTrackSlug scanned discovery order
+    // (`group`) rather than canonical-priority order (`sortedGroup`), so a
+    // low-mention seed row discovered first could silently win over the
+    // actual canonical (highest-mentionCount) row's own trackSlug.
+    const rows = [
+      // Discovered FIRST (it's the seed), but LOWER mentionCount — must not win.
+      candidate({ id: 'a', name: 'Ticket Countdown Theory', symbols: ['13'], mentionCount: 1, trackSlug: 'wrongTrack' }),
+      // Discovered second via the match sweep, HIGHER mentionCount — becomes canonical.
+      candidate({ id: 'b', name: 'Ticket Countdown Theory', symbols: ['13'], mentionCount: 5, trackSlug: 'rightTrack' }),
+    ];
+    const cluster = onlyCluster(mergeTheoryCandidates(rows));
+    expect(cluster.canonicalId).toBe('b');
+    expect(cluster.trackSlug).toBe('rightTrack');
+  });
+
   it('merges transitively: A matches B, B matches C, but A does not directly match C', () => {
     // Distinct name text so A/C don't directly match on name-similarity
     // alone, but share enough symbol overlap with the MIDDLE row B to
