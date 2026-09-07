@@ -1,0 +1,50 @@
+# Song-page weaving intake (Content Shift lane input) — Community Engine
+# plan, Phase 2 card P2-6. docs/proposals/2026-09-06-community-engine-plan.md
+# §3.4 point 4, §9. Parents: P2-3 (merge/promote pass, merged PR #3963).
+#
+# Named theory-weaving-intake.yml, not routine-*.yml: same zero-orchestration
+# script-workflow shape as theory-promote.yml (checkout, npm ci, run a
+# script) — not a Claude-agent Routine, so it is intentionally outside
+# check-routine-workflows.mjs's routine-*.yml invariants.
+#
+# Weekly (Sunday, off-peak minute per the repo's cron-contention rule — see
+# watchdog.yml's header for the reserved :00/:05/:10/:23/:30/:40 cluster).
+# Runs after theory-promote.yml (09:45 UTC) so a theory promoted THIS week
+# is visible to this run (`live_theory.persistent`/`track_slug` land at
+# promotion time). Files `intake`-labeled GitHub issues only — LEADS for
+# Content Shift, never a song-page edit; see the script's own header for
+# why this never writes seed content directly.
+name: theory-weaving-intake
+
+on:
+  schedule:
+    - cron: '52 9 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: theory-weaving-intake
+  cancel-in-progress: false
+
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - run: npm ci
+
+      - name: File song-page weaving intake issues
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/community/song-weaving-intake.mjs --file

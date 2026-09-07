@@ -75,6 +75,20 @@ export interface MergedTheoryCluster {
   decision: 'promote' | 'reject' | 'hold';
 }
 
+/** Canonical row's `trackSlug` wins; if it has none, the first mergedin row
+ * that does supplies it — a merge should never drop a song association a
+ * sibling candidate already had (P2-6 depends on this surviving promotion:
+ * `live_theory.track_slug` is the only way the song-weaving intake script
+ * finds a promoted theory's song). Must be called with the CANONICAL row
+ * first and its siblings after (i.e. `sortedGroup`, not the raw
+ * discovery-order `group`) — a raw-order scan would return whichever row
+ * happened to be discovered first, not the row that actually survives as
+ * `status='accepted'`/`rejected`. */
+function clusterTrackSlug(orderedRows: readonly FanTheoryCandidateRow[]): string | null {
+  for (const r of orderedRows) if (r.trackSlug) return r.trackSlug;
+  return null;
+}
+
 /** Majority stance across a cluster; ties break toward `contested` (the
  * honest "the fandom disagrees" reading of a tie) rather than arbitrarily
  * picking a side. */
@@ -163,6 +177,7 @@ export function mergeTheoryCandidates(
     const mentionCount = group.reduce((sum, r) => sum + r.mentionCount, 0);
     const peakScore = Math.max(...group.map((r) => r.peakScore));
     const stance = clusterStance(group);
+    const trackSlug = clusterTrackSlug(sortedGroup);
     const decision: MergedTheoryCluster['decision'] =
       mentionCount < PROMOTION_MENTION_THRESHOLD
         ? 'hold'
@@ -177,7 +192,7 @@ export function mergeTheoryCandidates(
       claim: canonical.claim,
       mechanism: canonical.mechanism,
       symbols: union(group.map((r) => r.symbols)),
-      trackSlug: canonical.trackSlug,
+      trackSlug,
       evidenceSummary: canonical.evidenceSummary,
       mentionCount,
       peakScore,
@@ -223,6 +238,7 @@ export interface PromotedLiveTheoryUpsert {
     // through, don't re-derive them" convention as mention_count/communities.
     stance: FanTheoryStance;
     redline_ok: true;
+    track_slug: string | null;
   };
 }
 
@@ -251,6 +267,7 @@ export function buildLiveTheoryUpsert(
     communities: match ? union([match.communities, cluster.communities]) : cluster.communities,
     stance: cluster.stance,
     redline_ok: true as const,
+    track_slug: cluster.trackSlug,
   };
   return match ? { existingId: match.id, row } : { row };
 }

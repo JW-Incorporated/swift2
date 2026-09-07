@@ -509,6 +509,19 @@ phases auto-release.
 - **P2-6 Song-page weaving intake** (parents P2-3, docs+script): weekly
   report of persistent theories with `track_slug` + mainstream coverage
   found → Content Shift intake issues (leads only, per theory-weaving.md).
+  **Landed**: `theory-weaving-intake.yml` (weekly, Sunday 09:52 UTC, after
+  `theory-promote.yml`) files `intake`-labeled issues for `live_theory`
+  rows `origin='fan'`/`persistent=true`/`track_slug` set/`mention_count>=8`
+  — a higher bar than P2-3's own promotion floor since "just promoted" and
+  "well-documented enough for a human's look" are different questions. The
+  script does not verify mainstream coverage itself (it can't — corpus
+  chatter is exactly what theory-weaving.md's sourcing bar excludes); every
+  issue routes that check to Content Shift's normal `intake` triage. Also
+  added `live_theory.track_slug` (20260920000000_live_theory_track_slug.sql)
+  and taught `theory-promote.ts`'s merge pass to carry it through promotion
+  — it existed on `fan_theory_candidate` since P0-1 but was previously
+  dropped at the P2-3 merge step, so no promoted theory could ever be found
+  by this card until now.
 - **P2-7 Fan-merch widen (E5)** (GATE-P0 + P1-3): watchlist-driven
   `REDDIT_SUBREDDITS`, FB export shop-link input, same allowlist/curation.
 - **GATE-P2** (parents P2-4, P2-5, P2-6, P2-7).
