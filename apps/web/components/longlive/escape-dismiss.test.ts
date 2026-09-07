@@ -21,7 +21,6 @@ const ESCAPE_DISMISS_COMPONENTS = [
   './FeedbackButton.tsx',
   './MomentDetail.tsx',
   './SearchOverlay.tsx',
-  './ShareSheet.tsx',
   './TheoryGuide.tsx',
   './TrackDetail.tsx',
   './TrackGuide.tsx',

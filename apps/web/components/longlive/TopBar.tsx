@@ -22,11 +22,12 @@ import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { Button } from '@/components/ui/button';
 import { TimelineScrubber } from './TimelineScrubber';
 import { topbarShareTarget } from '@/lib/longlive/share';
+import { shareTarget as share } from '@/lib/longlive/share-payload';
 import { TOPBAR_ACTIONS_CLASS, TOPBAR_LEFT_CLASS, TOPBAR_ROW_CLASS } from './topbarLayout';
 
 export function TopBar() {
   const { mode, eraId, lensId } = useAppState();
-  const { setMode, setSelectorOpen, setSearchOpen, openShare, goHome } = useAppActions();
+  const { setMode, setSelectorOpen, setSearchOpen, goHome } = useAppActions();
   const era = getEra(eraId);
 
   // OS-002: inside the app, the bell hands off to the native notification
@@ -151,7 +152,7 @@ export function TopBar() {
             title="Share"
             disabled={shareTarget == null}
             onClick={() => {
-              if (shareTarget) openShare(shareTarget);
+              if (shareTarget) void share(shareTarget);
             }}
           >
             <Share2 />

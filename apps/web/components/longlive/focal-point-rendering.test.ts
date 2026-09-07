@@ -14,7 +14,6 @@ describe('ImageRef cover crops respect authored focal points (#746)', () => {
     ['./MomentCardButton.tsx', 3],
     ['./MomentDetail.tsx', 3],
     ['./FromTheEras.tsx', 1],
-    ['./ShareSheet.tsx', 1],
     ['./proposal/ProposalThread.tsx', 1],
     ['./runway/RunwayThread.tsx', 2],
   ])('%s applies focalPointOf at every ImageRef cover crop', (relPath, expectedUses) => {
