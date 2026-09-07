@@ -27,6 +27,54 @@ so far".
 
 Stories: 120
 
+## Taylor Swift and Travis Kelce Visit NYC Restaurant Post-Wedding
+
+- first seen: 2026-09-07 20:32 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted dining at a popular Indian restaurant in New York City. This outing occurred two months after their wedding at Madison Square Garden.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMi5gFBVV95cUxQc3VfTUh6YkdweHptSUhFRGUyY2ZqYnA5ZFZYTjZlUFpzQ29tWndKVm1ZeTU0cGxMTmcxd3FSUkdVNHBTeEExNTdoU3UyM1kyV2pjZ1AxTVRMcGx5a0REN3kxX1NucGJzSmxfejVCVDlpcnVHT3RITWpleTZBMUVLRURNRXNzMHl5X3pubHFVV19neU5EOWJXbnc3MTcwclE4NFZsbWFUSzZJbFJPUW92YWtpcE5QdmU3dE5iTGpaSG5FQWs3OHE3QzVFZ3h2cjd0UEpZYXVoMERDblIxNC1ZQWJsRktJQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and JD Vance Drama Reemerges Following Trump's Comment
+
+- first seen: 2026-09-07 20:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The ongoing drama between Taylor Swift and JD Vance has resurfaced after Donald Trump referred to Swift as ‘no longer hot’. The comment has reignited discussions around their past interactions.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNVHVsVUk5R0R0Xy1TVzRLTzM3bk9ud3B6dzRLSzBNUFNBRS1tZC1pczZlbTh3VThQQWlLeWxaclU2UjdzRlJiQVUwX295Z3gzNmFNc0FuaERkMmxiS3lKcmd5TTNTTjEybGVIdkl5TUQxNS01RFNLQ0xEaW1jTTBZdlhHV0Rndm1ibW9JaVlobW9zTDFGeFV4QjRVUk5Ndw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Guests at Taylor Swift's Wedding Joke About No-Phone Policy
+
+- first seen: 2026-09-07 20:32 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Celebrity guests humorously commented on the strict no-phone policy at the wedding of Taylor Swift and Travis Kelce. The lighthearted remarks add a playful tone to the event details.
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMikwJBVV95cUxNcjh2czBpdzM2andxdmk3dHh1akFHOUFoRUd2ZlRyWVhiTDhIcGhSdkdUaDdTZXlwck4xUzllUmtQak00TlRfMnlSQ29NY0RWckY5Wmo4dnVNMXcwNHFiVWRyRmZjdldzaGdoUUNxUjI0dHJsNXNXaWtSeVBrLWNkNnVuZDZXLWgwcXZfZUpKSUx6dkZySHJvTVFPVGJfNk02OTN0dDJKZ2dUemdyZ29RNlFjTk03aGVYSWNqUmpJRnF0THlkbFkzV0VWRGFaYkdPSlotcmtWVXlrQjNyR3puTUJsczRzaVNDOHh0cXFuYk1qSUNZNGRMaFFVSHNJMDFVN1hNaExDU0cydHVmclc3Umcza9IBkwJBVV95cUxPVFN4YlBGcWNScmw4ZkxUdXNhRHBvSzd4d1FDRTdmdDBPdG45NGxNNUY5NjRuNEN6Y0owdHZNNWNtcnJZS0hUX3ROekxQY1RjQkllWnMxTkFNTHNBM3dZWlExUGQwQjRMQTYtZy1vUGNLX0RvQVAwX2tTZTFzWHhINnpzZ1F4V28yV3daRXdTX1RibTQ1SExnMW5NTkxXdWNQSWUwc0gzWGl1N2ZuZGlSQ3gtOTNXV2FPclBoZ2NDeEd6QmczYXJiZEsySmhZM3ByeDV3Y0FoZDczWXdzREEtTWZ6dldnQk12Zlg4RlpxVDhWUXdkSXcwR2trM3RmdlhJV3czR3laOGpvMUdDZk8yUF9Edw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's New Country Song Reaches Number One
+
+- first seen: 2026-09-07 20:32 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has achieved a number one ranking with her latest country song, according to kxly.com. This marks a significant milestone in her music career.
+- sources:
+  - [unverified] kxly.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxPWTIyYlBBV3ljTW9NeUFySENYOWFHeGZuLTRpaWZSTUtLTEgxLWF1bkllUWtKdFN6SDFVcWtnZ0UwbVVFelNkT1piMkc5MUhzQVg3dGtjdVRvaDRkcUJ2WG0wXzA3c2R2ako5RDZxQU11aTI5LVU4c3VTZ1Vna2VSZ2podFVEbjF1S2ZCS3VEMG12U1Y0bkFvaG9ydWg5bDVya3E0Yk5rd2l2Y2V3N3VwQldCZlFLdw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift May Return to Country Music for Next Album
+
+- first seen: 2026-09-07 20:32 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: There is speculation that Taylor Swift's upcoming album could mark a return to her country music roots, according to Saving Country Music. Fans are anticipating what direction her new music will take.
+- sources:
+  - [unverified] - Saving Country Music — https://news.google.com/rss/articles/CBMiogFBVV95cUxPSDlMSE9jTG5Iai16TWFZMTRhd3JELVN4MDdNUml4cE9nNjRxNG9ITDB2V05xRHRYQWZXSVRqem9RM0ktUmF4RHpnc01XUk9vSFdYQ1pYbUVLWEtNaEJzMGFtM2NIVlRYN2hHZkNMM2FjZjFKMFJlcklDTnhHWTE0WW5mMEI2eDJGODhGRi1jaXBMZndxQzhBZUMxaWJuR2I2QVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Purchases Home from Travis Kelce
+
+- first seen: 2026-09-07 20:32 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a purchase in her real estate portfolio by acquiring a home from Travis Kelce. This move adds to her existing property investments.
+- sources:
+  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMilAFBVV95cUxQMVUzdndqWTZIVEdfUTFOd1BWRHdMX3RXSHF5TXBYWXJ6S3hLZUF4RlFmSXlVZnVlc1h3MEplLTd3UFBRSDNpS2xzdENMOS1oQ2ZwWk9zeHFXbHRnbk0tM05uWGMtc1EyOE44N2dOUXFBTmQwUjRGR2l2QVFfOEdoZVhLTmRWNGo5azYxTUd3WmphYzRy0gGaAUFVX3lxTE1sRzA3Vm9HaGlGRDJrbVFBbXdwN1RYQl9GVERiU21pSHJNR195VE53ZU9vUjdWNGhTaXo2cDExYzFmOEoxdlQtTUhqQk5ZQ0JPcDRMY1Z1V3AxWkMzdGE2eVpjS2RpcU5lWDl0eWRhUFpIRDBKd2hkN0JhTTF5UW9SWkRUNHpaWXZkYUUwdDZOSzRvazVhdFlia3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## JD Vance’s Mom Responds to Taylor Swift's 'Cat Lady' Comment
 
 - first seen: 2026-09-07 15:02 UTC | category: business | importance: 5
@@ -86,11 +134,12 @@ Stories: 120
 ## Taylor Swift Tops Country Radio Chart with New Song
 
 - first seen: 2026-09-07 06:01 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift has reached the top of the country radio chart with her song “I Knew It, I Knew You.” This marks another success in her music career.
 - sources:
   - [unverified] broadwayworld.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOU29XTkU0d0ROdF9XVEdfSTVlcXYzVGVQaThqMVFtYmdDcWJUUFZUQ0RfcUFNYlVXMkxzS3p5bG9YbURlT2NYZmtoSldNLUtqSW5rTkFHSTdncnRwR2hWOHV5TmdlUmNYblppQ3VLNlhfQ1dSaWNra2ZleFAyNUdRNW90cHl0cHphMW84R0RxRU5yMmJwV3c5MnZVUklvRFk2cUpnenRwUENmRHd3QmpIcktXejQydloxZ1NV?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] contactmusic.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxORjBobEFBWEhpdXhwOWItb3BleUdyTTM0TWFFR05PZHNSVXBoMkVZUWxwb01WaUxGLTdTQTdENFdrMm9SNlRYVTIzZl9ta3ZUdEhOMGxRbjN0Vy1PSkVZYndMa1o5dXNBUWZfU2JnYWx0MHJ2a05yNVVlbDN5S05PeV9iR05kWDRwRlRVTk9IN2lNeEFGN3Nnd1R2SlBrRGowUXFEREItN2JvNV9QeUxweDhibTdaUHpnNmp0ODhBM0RKOGxLbE05bFBaSkI?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxNQjhyN09YNHpRVVhfVV9zYTliT2FfbW45cS12Nk5ubE9vcHpSX3ROYTlHNnFQaGlLckNLMVY4eC1yWFVseDRidHptUS0tVkRnN2Q1QjJKbkxFbm9mVUJKaFd2RUR6UEpRTUhvSEpBWHd6THhNX3p3Qm8zMHhqUG43a2lwdXUyTzcxM1BFSlNDR2ZfOGs?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] the360mag.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxOUkJzRHFKRTA4S0NTQll5ZUtDTmlMSHowVG1hTkdjTjlpcl9rQi00d0tySWlqT0d2RUFYVUFfOVhrSHRQTmsycXJyYldaRzRzVWtVeGl4UmppbWdWR2FSV1lDeXlGUm93dWVkZEQtbmVWV1NrRDBQYXlGZ2hpemFYTXV5bjNSdUo2NmJnZ21ZanVOOVdK?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Reportedly Declines Move to Kansas City Over NFL Schedule Issues
@@ -883,46 +932,4 @@ Stories: 120
 - first seen: 2026-09-05 05:41 UTC | category: relationship | importance: 4
 - verification_status: single_source | source_count: 0
 - summary: Travis Kelce expresses his affection for a new addition to his family, unrelated to Taylor Swift, as reported by Yahoo.
-- sources: _none recorded_
-
-## Luminate Report Highlights Swift Fans' Impact on Album Sales
-
-- first seen: 2026-09-05 05:41 UTC | category: business | importance: 8
-- verification_status: single_source | source_count: 0
-- summary: A recent report from Luminate reveals that Taylor Swift's fanbase significantly contributes to millions in physical album sales. This underscores the influence of her supporters in the music industry.
-- sources: _none recorded_
-
-## The Florida Orchestra Presents Taylor Swift's Music in a New Symphonic Arrangement
-
-- first seen: 2026-09-05 05:41 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: The Florida Orchestra is set to perform a symphonic interpretation of Taylor Swift's music, bringing a new classical twist to her popular songs.
-- sources: _none recorded_
-
-## Details Emerge About Swift-Kelce's Dog, House, and Wedding
-
-- first seen: 2026-09-05 05:41 UTC | category: relationship | importance: 7
-- verification_status: single_source | source_count: 0
-- summary: Recent news highlights various aspects of Taylor Swift and Travis Kelce's life together, including their dog, house, and wedding plans. This information comes as part of a busy week covering their relationship.
-- sources: _none recorded_
-
-## Analysis of Taylor Swift’s Financial Impact
-
-- first seen: 2026-09-05 05:41 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Lydia Kulina-Washburn discusses the implications of Taylor Swift's influence on economic trends in her latest piece for Broad + Liberty.
-- sources: _none recorded_
-
-## Emmy Predictions Include Taylor Swift Among Potential Winners
-
-- first seen: 2026-09-05 05:41 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Pete Hammond discusses potential Emmy winners, featuring Taylor Swift in the mix for early wins this Labor Day weekend amid the Creative Arts Emmy Awards.
-- sources: _none recorded_
-
-## Small Ohio Village Prepares for Taylor Swift and Travis Kelce Visit
-
-- first seen: 2026-09-05 05:41 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: A village in Ohio is gearing up for a visit from Taylor Swift and Travis Kelce. The local community expresses excitement over the anticipated arrival of the celebrity couple.
 - sources: _none recorded_
