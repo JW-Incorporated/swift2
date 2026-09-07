@@ -18,6 +18,7 @@ import {
   MessageCircleQuestion,
   ShoppingBag,
   ExternalLink,
+  House,
 } from 'lucide-react';
 import {
   useAppState,
@@ -482,7 +483,7 @@ function MomentLightbox({
 
 export function MomentDetail() {
   const { openItemId, share } = useAppState();
-  const { closeItem, openShare, openItem } = useAppActions();
+  const { closeItem, goHome, openShare, openItem } = useAppActions();
   const { progress } = useProgress();
   const { markMomentVisited, toggleFavorite } = useProgressActions();
   const [revealed, setRevealed] = useState(false);
@@ -619,6 +620,13 @@ export function MomentDetail() {
   // at 42vh*16/9 and centered, so they land in the gutter beside it.
   const heroControls = (
     <div className="absolute right-4 top-4 z-10 flex gap-2">
+      <button
+        onClick={goHome}
+        className="era-icon-btn rounded-full p-2 backdrop-blur-md"
+        aria-label="Go to home"
+      >
+        <House className="h-5 w-5" />
+      </button>
       <button
         onClick={() => toggleFavorite(item.id)}
         className="era-icon-btn rounded-full p-2 backdrop-blur-md"
