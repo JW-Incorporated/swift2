@@ -14,8 +14,11 @@
   "dependencies": {
     "@swift2/shared": "*"
   },
+  "devDependencies": {
+    "@swift2/content": "*"
+  },
   "peerDependencies": {
-    "react": "*",
-    "lucide-react": "*"
+    "lucide-react": "^1.39.0",
+    "react": "^18.3.1"
   }
 }

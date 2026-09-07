@@ -28,6 +28,15 @@ export * from './filters';
 export * from './filter-chips';
 export * from './feed-types';
 export * from './thread-content-provider';
+export * from './era-feed';
+export * from './era-feed-clusters';
+export * from './era-stream';
+export * from './space-doorways';
+export * from './doorways';
+export * from './communities';
+export * from './current-feed';
+export * from './feed-tiers';
+export * from './substance';
 export * from './format';
 export * from './anchor-date';
 export * from './epoch-day';
@@ -46,6 +55,7 @@ export * from './live-theories';
 export * from './era-secrets';
 export * from './progress';
 export * from './search-index';
+export * from './share-copy';
 
 export {
   TOKENS,

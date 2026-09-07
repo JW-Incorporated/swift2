@@ -339,7 +339,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg/1280px-Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg',
       moment: {
         context:
-          'Secretly taped on October 6 at AT&T Stadium in Arlington — the second of two Texas nights, and the tour\'s final North American stop — the film preserves the full six-act show, 63-foot cobra included, plus its one-night-only guest moments: Sugarland joining her for the first-ever live "Babe," Maren Morris on "The Middle," and openers Camila Cabello and Charli XCX returning for "Shake It Off."\n\nIt landed on Netflix at 12:01 a.m. on New Year\'s Eve, weeks after the tour closed out as the highest-grossing U.S. tour ever, at $266.1 million; the trailer\'s voiceover set the era\'s arc in one line: "When she fell, she fell apart. When she rose, she rose slowly."',
+          'Secretly taped on October 6 at AT&T Stadium in Arlington — the second of two Texas nights, and the tour\'s final North American stop — the film preserves the full six-act show, 30-foot cobra included, plus its one-night-only guest moments: Sugarland joining her for the first-ever live "Babe," Maren Morris on "The Middle," and openers Camila Cabello and Charli XCX returning for "Shake It Off."\n\nIt landed on Netflix at 12:01 a.m. on New Year\'s Eve, weeks after the tour closed out as the highest-grossing U.S. tour ever, at $266.1 million; the trailer\'s voiceover set the era\'s arc in one line: "When she fell, she fell apart. When she rose, she rose slowly."',
         sources: [
           {
             outlet: 'Refinery29',
@@ -349,7 +349,16 @@ export default {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/pop/taylor-swift-reputation-stadium-tour-film-netflix-what-to-expect-8490159/',
           },
+          {
+            outlet: 'Stageco',
+            url: 'https://www.stageco.com/references/taylor-swift-reputation-world-tour-2018/568',
+          },
         ],
+        // Fact-check pass (t_2c6247ba, 2026-09-05, #3773): the '63-foot cobra'
+        // stat had no traceable source. Stageco (the tour's staging
+        // contractor) documents the snake prop rising behind the artist as
+        // 30 feet; corrected to that figure and the outlet added as a
+        // source.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg/1280px-Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg',
@@ -451,15 +460,22 @@ export default {
     {
       year: 2018,
       month: 3,
-      day: 30,
+      day: 11,
       category: 'fashion',
-      title: 'The teal fringe dress in the second Delicate video',
+      title: 'The teal fringe dress in the first Delicate video',
       snippet:
-        'A custom Naeem Khan piece from his Spring 2018 collection — layered tassels that swing into a mini as she twirls through the one-take video.',
+        'A custom Naeem Khan piece from his Spring 2018 collection — layered tassels that swing into a mini as she twirls through the elaborate original video.',
       sourceUrl: 'https://www.bustle.com/p/where-to-buy-taylor-swifts-delicate-blue-tassel-dress-thats-causing-a-fashion-frenzy-8469568',
       thumbnailUrl:
         'https://imgix.bustle.com/uploads/image/2018/3/12/c5dd79b9-3dd6-48fb-be2c-6b565fc5fe09-screen-shot-2018-03-12-at-61855-am.png?w=248&h=218&fit=crop&crop=faces&dpr=2',
       moment: {
+        // Fact-check pass (t_2c6247ba, 2026-09-05, #3774): re-read the cited
+        // Bustle source — the teal dress belongs to the elaborate ORIGINAL
+        // "Delicate" video (premiered March 11, 2018 at the iHeartRadio
+        // Music Awards; Taylor invisible in a hotel/red-carpet setting),
+        // not the stripped-down, one-take Spotify-exclusive vertical video
+        // (March 30, 2018, shot alone in a wooded clearing with no costume
+        // change). Date and title corrected accordingly.
         context:
           'The teal, tiered-tassel dress was custom-made by Naeem Khan from his Spring 2018 ready-to-wear runway collection — a roughly $3,500 design with a keyhole back that reads as two dresses in one, falling as a floor-length fringed column before swinging up into a mini as she dances.\n\nStyled with Anabela Chan earrings and Christian Louboutin pumps, it set off a where-to-buy frenzy in the video\'s release week.',
         sources: [
@@ -617,8 +633,15 @@ export default {
       sourceUrl: 'https://tayswiftstyle.wordpress.com/2018/06/06/reputation-tour-110-version-2-ready-for-it/',
       thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/06/tumblr_p9wqzvce8h1r4fk4fo1_r1_1280.jpg?w=1100',
       moment: {
+        // Fact-check pass (t_2c6247ba, 2026-09-05, #3775): the costume-swap
+        // claim itself (bodysuit/jacket swap, glitter cutout pattern,
+        // Chicago-stop date) is sourced only to the Taylor Swift Style fan
+        // blog — no independent outlet was found covering this specific
+        // wardrobe change. Flagged as unconfirmed below rather than
+        // presented as fact; iHeartRadio/Wikipedia back only the general
+        // tour-scale facts, not the costume-swap claim.
         context:
-          'Jessica Jones, Taylor\'s longtime tour costume designer, reworked the "...Ready For It?" opening-number look partway through the run — swapping in a bodysuit-and-jacket set covered edge to edge in cutout glitter patterning, which the Taylor Swift Style archive dates to the tour\'s Chicago stop in early June.\n\nThe number it dressed was the show\'s detonation point: after opening sets from Camila Cabello and Charli XCX, the main set opened with "...Ready for It?". The Soldier Field stand where the new look debuted was itself a two-night, 105,208-ticket engagement on June 1-2, 2018 — the kind of scale that made a mid-run costume refresh legible from the last row.',
+          'Jessica Jones, Taylor\'s longtime tour costume designer, reworked the "...Ready For It?" opening-number look partway through the run — swapping in a bodysuit-and-jacket set covered edge to edge in cutout glitter patterning. This costume swap and its Chicago-stop dating are reported only by the Taylor Swift Style fan-blog archive; no independent outlet has confirmed the specific change, so treat the swap itself as unconfirmed.\n\nThe number it dressed was the show\'s detonation point: after opening sets from Camila Cabello and Charli XCX, the main set opened with "...Ready for It?". The Soldier Field stand where the new look reportedly debuted was itself a two-night, 105,208-ticket engagement on June 1-2, 2018 — the kind of scale that made a mid-run costume refresh legible from the last row.',
         sources: [
           {
             outlet: 'Taylor Swift Style',
@@ -668,8 +691,13 @@ export default {
       sourceUrl: 'https://tayswiftstyle.wordpress.com/2018/07/22/reputation-tour-blank-space-bad/',
       thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pc9uwg06kq1r4fk4fo1_1280.jpg?w=1100',
       moment: {
+        // Fact-check pass (t_2c6247ba, 2026-09-05, #3775): the specific
+        // green-bodysuit costume claim is sourced only to the Taylor Swift
+        // Style fan-blog archive — no independent outlet was found
+        // confirming this exact variant. Flagged as unconfirmed below;
+        // Wikipedia backs only the general European-leg tour-scale facts.
         context:
-          'Jessica Jones designed at least three versions of this sequined bodysuit across the tour\'s run for the "Dress"-nicknamed segment; the Taylor Swift Style archive had documented all three versions, including this sparkling green iteration, by July 2018.\n\nThe European leg that summer was a compressed, three-country sprint: Manchester\'s Etihad Stadium on June 8-9, a 133,034-ticket double at Dublin\'s Croke Park on June 15-16, and the two Wembley nights of June 22-23 that drew 143,427 — the kind of run where rotating costume variants gave repeat European ticket-holders a genuinely different-looking show night to night.',
+          'Jessica Jones designed at least three versions of this sequined bodysuit across the tour\'s run for the "Dress"-nicknamed segment; the Taylor Swift Style fan-blog archive is the only source documenting this specific sparkling-green iteration, and no independent outlet has confirmed it — treat the exact costume detail as unconfirmed.\n\nThe European leg that summer was a compressed, three-country sprint: Manchester\'s Etihad Stadium on June 8-9, a 133,034-ticket double at Dublin\'s Croke Park on June 15-16, and the two Wembley nights of June 22-23 that drew 143,427 — the kind of run where rotating costume variants gave repeat European ticket-holders a genuinely different-looking show night to night.',
         sources: [
           {
             outlet: 'Taylor Swift Style',
@@ -1943,7 +1971,16 @@ export default {
       milestone: { id: "m-rep-1", label: "reputation released", kind: "album" },
       snippet: "Armored, monochrome, and defiant — the sound of rebuilding on her own terms.",
       hiddenClue: { clue: "She reclaimed the snake her critics used against her.", payoff: "Turning the insult into iconography flipped the whole narrative in her favor." },
+      sourceUrl: 'https://en.wikipedia.org/wiki/Reputation_(album)',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
       moment: {
+        // Depth/photo pass (t_2c6247ba, 2026-09-05, #3776): item was
+        // thinner than the rest of the era — no sourceUrl, no photos, and
+        // only a two-sentence context. Added a sourceUrl and album-cover
+        // photo, and expanded context to the era's 2+ paragraph standard
+        // using the already-cited TIME and NME reviews plus Wikipedia's
+        // critical-reception summary.
         sources: [
           {
             outlet: 'TIME',
@@ -1963,8 +2000,25 @@ export default {
             accessed_at: '2026-08-11',
             reliability_score: 4,
           },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Reputation_(album)',
+            source_title: 'Reputation (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-09-05',
+            reliability_score: 2,
+          },
         ],
-        context: "After a very public year, she disappeared and returned all in black, with snakes reclaimed as armor.\n\nBeneath the hard exterior, though, reputation hides a surprisingly tender love story.",
+        context: "Released November 10, 2017 through Big Machine Records, reputation opens with a run of vengeful, synth-heavy tracks — \"...Ready For It?,\" \"Look What You Made Me Do,\" \"I Did Something Bad\" — that trade her earlier country-pop optimism for monochrome, gothic imagery and a reclaimed snake motif, the same symbol her critics had used to brand her a villain during the 2016 Kanye West/Kim Kardashian controversy.\n\nBeneath that hard exterior, though, critics including TIME and NME noted the record settles into a surprisingly tender love story: as Rob Sheffield put it, much of the album is about \"finding love, intimacy, and expressing one's vulnerability\" after deciding to stop defining her life by others' perceptions of her. The shift from open vengeance to guarded romance became the album's defining arc — armor giving way to the vulnerability she'd spend the rest of the era, and the following one, unpacking.",
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
+            credit: 'Big Machine Records (album cover art)',
+            caption: 'The reputation album cover, released November 10, 2017.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1972,11 +2026,16 @@ export default {
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "rep-tour",
       year: 2018,
-      month: 5,
-      day: 8,
+      month: 11,
+      day: 30,
       category: "tour",
       title: "Giant snakes, record numbers",
-      snippet: "The Reputation Stadium Tour becomes the highest-grossing US tour at the time.",
+      snippet: "The Reputation Stadium Tour becomes the highest-grossing US tour of all time.",
+      // Fact-check pass (t_2c6247ba, 2026-09-05, #3777): was dated to the
+      // tour's May 8, 2018 opening night, but the item describes the
+      // highest-grossing-US-tour record, which Billboard Boxscore confirmed
+      // on Nov. 30, 2018, after the tour wrapped. Date corrected to match
+      // the event described.
       moment: {
         sources: [
           {
@@ -2282,7 +2341,7 @@ export default {
     {
       year: 2019,
       month: 6,
-      day: 17,
+      day: 13,
       category: 'fashion',
       title: 'The glitter heart eye that became the Lover era\'s signature',
       snippet:
@@ -2290,6 +2349,12 @@ export default {
       sourceUrl: 'https://www.refinery29.com/en-us/2019/06/235426/taylor-swift-lover-album-heart-makeup',
       thumbnailUrl: null,
       moment: {
+        // Fact-check pass (t_2c6247ba, 2026-09-05, #3777): was dated
+        // 2019-06-17, the "You Need to Calm Down" single release date —
+        // wrong event. The Lover cover art (with this makeup look) was
+        // actually revealed June 13, 2019 on Taylor's Instagram Live, the
+        // same broadcast where she announced the album. Corrected to that
+        // date.
         context:
           'Taylor credited the cover to "the artistic genius that is @valheria123" (photographer Valheria Rocha) on Instagram. The heart-lined eye, glitter, and pastel pink-and-blue hair streaks became a recurring beauty motif across the era\'s videos and press cycle.\n\nEvery element was a departure from an established signature: the giant glitter heart outlined her right eye, the trademark red lip went bright fuchsia, and the pink-and-blue streaks replaced the all-blonde hair fans had watched for a decade. Fans immediately began hunting for a hidden meaning, the way her beauty choices have a history of doubling as Easter eggs (as Refinery29 pointed out) — and, more practically, planning recreations: "All of us are going to show up with glittery heart to the tour," as one put it, back when the era was still supposed to get one.',
         sources: [
@@ -2844,49 +2909,10 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "lover-masters",
-      year: 2019,
-      month: 6,
-      day: 30,
-      category: "sighting",
-      title: "The masters are sold",
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-lov-1", label: "Masters sold", kind: "business" },
-      snippet: "Her back catalog changes hands without her — igniting a fight to reclaim her work.",
-      // No photo (photo-enrichment #762, 2026-07-20): the June 30, 2019
-      // Big Machine/Ithaca masters sale is a business transaction with no
-      // photographable event. A generic same-period Swift portrait would be
-      // off-hook, and there is no verifiable image OF the sale — left
-      // photo-less rather than fabricate. Skip on future runs.
-      hiddenClue: { clue: "She announced she would re-record her old albums.", payoff: "The “Taylor’s Version” project was born — reclaiming her catalog one album at a time." },
-      moment: {
-        sources: [
-          {
-            outlet: 'NPR',
-            url: 'https://text.npr.org/737613627',
-            source_title: 'Taylor Swift\'s Former Label Big Machine Is Sold, Rankling The Star',
-            publisher: 'NPR',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-            notes: 'NPR\'s text-only host; the canonical npr.org url timed out on every fetch attempt.',
-          },
-          {
-            outlet: 'Forbes',
-            url: 'https://www.forbes.com/sites/caitlinkelley/2019/06/30/taylor-swift-calls-scooter-braun-manipulative-after-big-machine-sells-her-catalog/',
-            source_title: 'Taylor Swift Calls Scooter Braun \'Manipulative\' After Big Machine Sells Her Catalog',
-            publisher: 'Forbes',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "News that her master recordings were sold set off the defining business battle of her career and the plan to re-record everything.",
-      },
-    },
+    // Fact-check pass (t_2c6247ba, 2026-09-05, #3778): this item was a thin
+    // duplicate of "My worst case scenario" (the Scooter Braun/Big Machine
+    // sale item above, same date/topic) with no sourceUrl and no photos.
+    // Merged into that item rather than kept as a separate, weaker entry —
+    // removed here.
   ],
 };

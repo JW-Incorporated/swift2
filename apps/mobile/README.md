@@ -1,39 +1,64 @@
 # @swift2/mobile — Expo app (Android-first)
 
-> **2026-09-05:** the mounted app is now `components/SiteShell.tsx` — a WebView of
-> www.longlivets.com inside the native notification shell (see
-> `docs/decisions.md` 2026-09-05). The Vault navigator described below is kept
-> unmounted as the native-port target; everything else in this README still applies.
+> **2026-09-06 (OS-039):** SiteShell is retired as the app's default surface.
+> The app now renders five native worlds — era stream, threads, clownbot,
+> community, merch — behind a persistent `BottomTabBar` (`App.tsx`,
+> `components/BottomTabBar.tsx`); every one of them reads from
+> `@swift2/experience`/`@swift2/content`, the same headless core + published
+> bundle the web uses (D2: two renderers, one core). The WebView
+> (`components/SiteShell.tsx`) still exists, but only ever renders one of
+> the three legal pages (`/privacy`, `/terms`, `/support`) — see `routes.ts`'s
+> `DEFAULT_ROUTE_FLAGS` (every native screen flag-on by default) and
+> `App.tsx`'s `isLegalPageUrl`. The Vault navigator described below predates
+> all of this (Phase 0's original architecture) and is kept unmounted as
+> dead code, superseded by the native screens above.
 
 The iOS/Android reader. Reuses `@swift2/shared` (domain/types) and
 `@swift2/core` (Supabase data access) **unchanged** — the whole point of the
 `packages/*` boundary (see `docs/architecture.md`). Only the view layer and the
 gesture/animation runtime are mobile-specific.
 
-## Status: bundles clean on SDK 57, EAS-ready, NOT yet device-verified
+## Status: native by default, EAS-ready, NOT yet device-verified
 
 Stack: **Expo SDK 57 · React Native 0.86 · React 19 · Reanimated 4** (New
 Architecture on). Targets **Android API 36** (compileSdk/targetSdk 36 via
 `expo-build-properties`), above Play's API-35 floor — store-submittable, not
 just internal.
 
-What's here (typechecked, and the Android bundle exports headlessly with Hermes
-bytecode — `npx expo export --platform android` → ~3.3 MB `.hbc`, no errors):
+What's here (typechecked, and both platforms export headlessly with Hermes
+bytecode — `npx expo export --platform ios|android` → ~3.4 MB `.hbc` each,
+no errors):
 
-- **Data layer** (`lib/vault.ts`): the SAME `createVaultClient` from
-  `@swift2/core` the web app uses, fed by `EXPO_PUBLIC_SUPABASE_URL` /
-  `EXPO_PUBLIC_SUPABASE_ANON_KEY` (copy `.env.example` → `.env` for local dev).
-- **Vault navigator** (`components/VaultNavigator.tsx`): the native counterpart
-  of `apps/web/components/VaultReader.tsx` — one era-skinned surface at a time
-  (hero, month rows, milestones + month items), all domain logic from
-  `@swift2/shared`.
+- **Native worlds** (`App.tsx` + `components/BottomTabBar.tsx`): the five
+  tabs a reader lands on by default — `EraStreamScreen`, `ThreadsScreen`,
+  `ClownChatScreen`, `CommunityScreen`, `MerchScreen` — plus the overlay
+  screens they open into (`MomentSheet`, `TrackGuideScreen`, `SongScreen`,
+  `NotificationSettingsScreen`, `NotificationInboxScreen`). Every one reads
+  the same published content bundle / `@swift2/experience` headless core the
+  web renders from — see each screen's own header comment for its exact web
+  equivalent and any documented scope cuts.
+- **Hybrid router** (`lib/routes.ts`): `resolve(url)` decides native vs.
+  WebView per URL behind a per-screen flag, all flags default ON since
+  OS-039 (a flag can still flip OFF as a kill switch without a new store
+  build, via EAS Update). Every URL this table doesn't recognize as one of
+  the three legal pages degrades to the native home, never a stale WebView
+  load (`App.tsx`'s `openWebUrl`/`isLegalPageUrl`).
+- **Data layer** (`lib/vault.ts`, unused by the mounted screens): the SAME
+  `createVaultClient` from `@swift2/core` the web app originally used —
+  superseded by the published content bundle (`packages/content`) that
+  every native screen above reads from instead. Kept for reference only.
+- **Vault navigator** (`components/VaultNavigator.tsx`): the ORIGINAL native
+  counterpart of `apps/web/components/VaultReader.tsx` from before this
+  phase's native screens existed — unmounted dead code, superseded by the
+  screens listed above.
 - **Era timeline scrubber** (`components/EraTimeline.tsx`): first pass of the
   morph-on-grab navigator on the architecture's required foundation — Gesture
   Handler + Reanimated, gesture and thumb animation entirely on the UI thread
   (shared values in worklets, zero JS/React state per frame). JS is touched
   once per gesture, on release, to snap + commit the era using the same
   `@swift2/shared` snap math as the web scrubber. Milestones render as passive
-  tick marks. Snaps to era boundaries only (v1 spec).
+  tick marks. Snaps to era boundaries only (v1 spec). Not yet wired into any
+  mounted screen.
 - **EAS config**: `eas.json` (development / preview internal APK / production
   AAB) + `app.json` (package `com.jwincorporated.swift2`, placeholder
   icon/splash from `scripts/make-placeholder-assets.mjs`).

@@ -122,6 +122,26 @@ ${url}`;
       expect(findingFor({ ...validIg, mediaKind: 'real-photo' }, 'mediaKind:')).toBeDefined();
     });
 
+    // 2026-09-05 (#3584, Fable ruling): "video-thumb" — a rehosted YouTube/
+    // broadcaster thumbnail. Instagram never gets one; X may declare it but
+    // only as a bare link preview (no attached image).
+    it('rejects mediaKind "video-thumb" on Instagram outright', () => {
+      expect(findingFor({ ...validIg, mediaKind: 'video-thumb' }, 'video-thumb')).toBeDefined();
+    });
+
+    it('rejects mediaKind "video-thumb" on X when an image is attached', () => {
+      expect(
+        findingFor(
+          { ...validX, media: ['/social/library/photos/appearance-dQw4w9WgXcQ.jpg'], mediaKind: 'video-thumb' },
+          'video-thumb',
+        ),
+      ).toBeDefined();
+    });
+
+    it('accepts mediaKind "video-thumb" on X with no attached media', () => {
+      expect(validateQueueItem({ ...validX, media: undefined, mediaKind: 'video-thumb' })).toEqual([]);
+    });
+
     // The Taylor-photo standard (2026-08-12): a photo always ships credited
     // and auditable, and queue media always declares what it is.
     it('requires mediaCredit AND mediaSource on mediaKind "photo"', () => {

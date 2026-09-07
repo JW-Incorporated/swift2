@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { TRACKS_RAW } from './tracks.generated';
+import { TRACKS_RAW } from './tracks';
 import { tracksForEra } from '@swift2/experience';
 
 // The "Track Five" pill (#689) is DERIVED, not authored: the UI badges a row

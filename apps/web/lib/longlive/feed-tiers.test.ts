@@ -1,20 +1,21 @@
 import { describe, expect, it } from 'vitest';
 import { build, contentForEra } from './content';
-import { eraKnownVideoIds, inlineVideoMomentIds } from './era-feed';
 import { feedCardImageHidden } from './video-affordance';
 import { videosForEra } from './videos';
 import { VAULT_RAW } from './content-vault.generated';
-import { ERAS } from '@swift2/experience';
 import {
+  ERAS,
+  eraKnownVideoIds,
+  inlineVideoMomentIds,
   HERO_MIN_GAP,
   HERO_SCORE_THRESHOLD,
   MEDIA_SCORE_THRESHOLD,
   assignFeedTiers,
   baseTierFor,
   withInlineVideoTiers,
+  substanceScore,
   type CardTier,
-} from './feed-tiers';
-import { substanceScore } from './substance';
+} from '@swift2/experience';
 import type { ContentItem, EraId } from '@swift2/experience';
 
 const realImg = [{ url: 'https://example.com/a.jpg', kind: 'primary' as const }];

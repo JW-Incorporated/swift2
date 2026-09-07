@@ -75,13 +75,14 @@ export const DATA_INVENTORY: DataInventoryItem[] = [
   },
   {
     id: 'clownbot-session-id',
-    label: "The website's anonymous Clownbot session id (cookie), read inside the in-app WebView",
+    label:
+      "An anonymous Clownbot identity — a bearer device token for the native chat screen (OS-036), or the website's own session cookie when a reader opens Clownbot through the /privacy, /terms, or /support WebView pages (the only WebView surfaces left since OS-039)",
     collected: true,
     policyNeedle: 'clownbot',
     appStore: {
       category: 'Identifiers → User ID',
       detail:
-        "the website's anonymous Clownbot session id (cookie), because the app shows the site (2026-09-05 WebView decision)",
+        "an anonymous Clownbot identity — a bearer device token for the native chat screen, or the website's own session cookie on the three legal WebView pages",
       purpose: 'App Functionality',
       linked: false,
       tracking: false,

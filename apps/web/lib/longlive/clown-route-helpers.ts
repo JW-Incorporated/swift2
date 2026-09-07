@@ -35,6 +35,29 @@ export function clientIp(req: Request): string {
   return trustedClientIp(req);
 }
 
+/**
+ * OS-036 — the native app's identity carrier. `apps/web`'s browser resends
+ * the round-tripped session automatically via the `HttpOnly` cookie
+ * (`clown-session.ts`'s `readSessionCookie`); `apps/mobile` has no
+ * same-origin cookie jar to rely on (a bare RN `fetch` neither stores nor
+ * resends `Set-Cookie`), so it instead persists the SAME encoded session
+ * token (`encodeSessionToken`/`decodeSessionToken` — the format is
+ * transport-agnostic) in `expo-secure-store` and resends it as a bearer
+ * token on every call. This is genuinely "alongside the cookie," not a
+ * replacement for it: `route.ts` tries this first, then falls back to the
+ * cookie, so a request can authenticate via either transport.
+ *
+ * Returns the raw (still-encoded) token, or `null` when the header is
+ * absent or malformed — `decodeSessionToken` (clown-session.ts) validates
+ * the payload shape either way, same as it already does for the cookie
+ * value.
+ */
+export function bearerSessionToken(authorizationHeader: string | null): string | null {
+  if (!authorizationHeader) return null;
+  const match = /^Bearer\s+(.+)$/i.exec(authorizationHeader.trim());
+  return match ? match[1].trim() || null : null;
+}
+
 interface RawTurn {
   role?: unknown;
   text?: unknown;

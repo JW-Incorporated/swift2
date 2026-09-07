@@ -13175,5 +13175,142 @@ export default {
         // chart exists; not a photo-shaped moment. Left for the checkers.
       },
     },
+    {
+      slug: 'i-knew-it-i-knew-you-country-radio-double-meanings',
+      // Cross-links: the same song's other Vault pages — its Oscar-race entry
+      // and the Toy Story 5 video debut.
+      relatedIds: [
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+      ],
+      year: 2026,
+      month: 9,
+      day: 5,
+      category: 'music',
+      title:
+        'Taylor unpacks the double meanings of "I Knew It, I Knew You" — and names the Randy Newman she was chasing',
+      snippet:
+        'In a rare round of country-radio interviews, Taylor walked through the wordplay she built into her Toy Story 5 song on purpose, and named the songwriter she tried to channel writing it: Randy Newman.',
+      sourceUrl:
+        'https://www.billboard.com/music/music-news/taylor-swift-i-knew-it-i-knew-you-meaning-country-radio-1236335029/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor almost never does country radio anymore, so a rare round of country-radio interviews around Sept. 5, 2026 turned into more than a promo lap: it turned into a songwriter walking through her own work. The song was "I Knew It, I Knew You," the ballad she wrote for Toy Story 5 from cowgirl Jessie\'s point of view, and she used the airtime to open up the lyrics she\'d deliberately built to work two ways at once.\n\nShe said she loves it when fans dig for double meanings, because she plants them on purpose — a song gives you only a few minutes to carry a whole film, so she leans on lines that mean two things at the same time. The clearest example is a single misspelling: a lyric printed as "daze" (d-a-z-e) is meant to be heard as "days" too, so the line lands at once as a childhood haze and as childhood days — a soft, beautiful memory that goes blurry at the edges. "Blades of the grass in summer" points back to playing outside as a kid, but also sits at a toy\'s eye level, since a toy can only see as high as the grass. And "parachutes for the free fall of being younger" is both a literal nod to the little plastic parachute army men of the Toy Story world and a figure for the person who catches you while you grow up.\n\nOn the sound rather than the words, she named her north star: Randy Newman. Taylor called herself a longtime Randy Newman fan and said she tried to channel him on the track — his taste for unexpected chord movement and a plainspoken, storybook warmth — which is part of why a Taylor song written in 2026 lands closer to a Pixar standard than to anything on the pop charts she\'d been topping. It is the rare case of her narrating her own craft in real time: the Toy Story 5 song had already opened at No. 1 on the Hot 100 and swept country and adult-pop radio, but this was the first time she showed the seams.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-i-knew-it-i-knew-you-meaning-country-radio-1236335029/',
+            source_title:
+              "Taylor Swift Talks 'Double Meaning' of 'I Knew It, I Knew You' Lyrics in Rare Country Radio Appearance",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+            notes:
+              'confirms the "daze"/"days" wordplay, the "blades of grass"/"parachutes" double meanings, and that she plants them deliberately; resolved via web search — this run\'s egress proxy blocks direct fetches to news domains.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-randy-newman-toy-story-song-1235621007/',
+            source_title:
+              "Taylor Swift Says She Tried to Channel Randy Newman on 'I Knew It, I Knew You'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+            notes:
+              'confirms she is a longtime Randy Newman fan and tried to channel him writing the song; resolved via web search, not fetched (news-domain egress blocked this run).',
+          },
+        ],
+        // Text-first: a radio interview has no reusable, allowlisted subject
+        // photo; the era already carries premiere/hero shots on the song's
+        // other pages. Left for Photo Enrichment / the checkers.
+      },
+      photosReviewed:
+        'no reusable, allowlisted photo of this specific radio interview exists; the era already carries verified premiere/hero shots for this song elsewhere (reviewed 2026-09-06, t_187359e9)',
+    },
+    {
+      slug: 'amc-leawood-films-eras-tour-inspiration',
+      year: 2026,
+      month: 8,
+      day: 28,
+      category: 'business',
+      title:
+        'AMC builds its own movie-distribution label, "Leawood Films" — and names the Eras Tour film as the reason',
+      snippet:
+        'The theater chain is getting into distribution, and its own pitch credits the sold-out demand it saw for concert films — Taylor\'s Eras Tour movie chief among them — as proof the idea works.',
+      sourceUrl:
+        'https://investor.amctheatres.com/news-events/press-releases/detail/437/amc-entertainment-creates-leawood-films-with-the-aim-of-having-more-movies-distributed-on-to-the-big-screen',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When AMC Theatres announced a new film-distribution arm in late August 2026, it did something companies rarely do in a press release: it named the thing that gave them the idea. "Leawood Films," the chain\'s new venture, will distribute finished, independently financed movies to theaters while letting filmmakers keep ownership of their work and a share of what comes after the theatrical run — and AMC\'s own framing points straight at the concert films that packed its auditoriums, with Taylor\'s Eras Tour movie named as the headline example of theatrical demand the traditional pipeline was leaving on the table.\n\nThe numbers behind that claim are AMC\'s best argument. Taylor\'s Eras Tour concert film grossed about $261.6 million worldwide and stands as the highest-grossing concert film in box-office history — a run AMC distributed itself, outside the usual studio system, after Taylor took the movie straight to the chain. Leawood Films is described as the next step down that same road: AMC ties it to its earlier direct deals for the Eras Tour film, the 2025 theatrical "Official Release Party of a Showgirl," and Beyoncé\'s 2023 Renaissance concert film. The new label is meant for small- and mid-budget movies that struggle to find distribution elsewhere, across genres — not blockbuster tentpoles, and not limited to music or concert films — and it will split its base between Los Angeles and AMC\'s home town of Leawood, Kansas, which is where the name comes from.\n\nFor the Vault the throughline is narrower than the film-industry story: an era defined by Taylor rewriting how records are sold has a companion note in how movies reach a screen. A pop star\'s tour film didn\'t just break a box-office record; a national theater chain now cites it, by name, as the case study for a new line of business.',
+        sources: [
+          {
+            outlet: 'AMC Entertainment',
+            url: 'https://investor.amctheatres.com/news-events/press-releases/detail/437/amc-entertainment-creates-leawood-films-with-the-aim-of-having-more-movies-distributed-on-to-the-big-screen',
+            source_title:
+              'AMC Entertainment Creates "Leawood Films" With the Aim of Having More Movies Distributed on to the Big Screen',
+            publisher: 'AMC Entertainment Holdings (investor relations)',
+            source_type: 'official',
+            accessed_at: '2026-09-06',
+            reliability_score: 5,
+            notes:
+              'AMC\'s own press release announcing the venture; resolved via web search — this run\'s egress proxy blocks direct fetches.',
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/08/amc-theaters-leawood-films-launch-1237063060/',
+            source_title:
+              'AMC Theatres Gets Into Distribution Business, Launches Leawood Films',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'KCUR',
+            url: 'https://www.kcur.org/arts-life/2026-09-05/amc-leawood-films-movies-kansas-taylor-swift-eras-tour',
+            source_title:
+              'Inspired by Taylor Swift, AMC creates Leawood Films to get more movies to the big screen',
+            publisher: 'KCUR (NPR affiliate)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-06',
+            reliability_score: 4,
+            notes:
+              'confirms the Eras Tour / Official Release Party of a Showgirl / Beyoncé Renaissance lineage and the $261.6M concert-film figure.',
+          },
+        ],
+        // Photo backfill (t_23e4b90b, 2026-09-06): AMC theater signage —
+        // no photo of the specific press release exists (it is a business
+        // announcement, not a photographable event), but this is an
+        // honestly-captioned real photo of the subject company, sourced from
+        // Variety's own CDN. HTTP-verified, downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://variety.com/wp-content/uploads/2023/02/amc.jpg',
+            credit: 'via Variety',
+            caption: 'An AMC Theatres location — the chain behind the new Leawood Films distribution venture.',
+            kind: 'reference',
+            focalPoint: '48% 45%',
+          },
+        ],
+      },
+    },
+    // NOTE (2026-09-06, t_187359e9 — founder escalation): a
+    // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
+    // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
+    // BEFORE the event it describes happens. That is a real data-integrity
+    // bug, not a style nit: this file records things that occurred, and nothing
+    // here should be dated in the future relative to when it is authored. The
+    // entry is pulled entirely rather than back-dated (there is no true date to
+    // move it to — the concert has not happened yet) per the future-dated-moment
+    // checker's own guidance ("confirm the event has actually happened and fix
+    // the date, or remove until it has" — scripts/content-engine/checkers/
+    // numeric-date.mjs). Re-author it on/after 2026-09-12, once the show has
+    // actually taken place, with a same-day or later date. See
+    // docs/decisions.md for the full entry and scripts/validate-content.mjs's
+    // new blocking future-date check, which now fails CI on any repeat.
   ],
 };

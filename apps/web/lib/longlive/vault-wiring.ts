@@ -10,15 +10,16 @@ import * as vault from './content-vault.generated';
 //
 // - `./content` (imported for side effects only) wires the content-item
 //   lookup via setContentItemLookup(getContentItem).
-// - `./tracks.generated` wires the per-era track map via
-//   setTracksRawProvider(TRACKS_RAW).
+// - `./tracks` wires the per-era track map via
+//   setTracksRawProvider(TRACKS_RAW) — imports the generated literal
+//   directly (OS-014b-2; see tracks.ts's header for why).
 // - `./song-moods.generated` wires the mood-match catalogue via
 //   setDefaultSongCatalogue(SONG_MOODS).
 // - the content-freshness stamp is wired here directly, since no other
 //   apps/web module already imports content-vault.generated for its side
 //   effects the way the other three do.
 import './content';
-import './tracks.generated';
+import './tracks';
 import './song-moods.generated';
 
 setContentGeneratedAtSource(vault as unknown as Record<string, unknown>);

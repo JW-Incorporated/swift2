@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { ERA_SECRETS_RAW } from './era-secrets.generated';
 import {
@@ -10,6 +12,41 @@ import {
 } from '@swift2/experience';
 import { getContentItem } from './content';
 import './era-secrets'; // wires the real generated data/tracks/content providers
+
+/**
+ * OS-014b-4 (see era-secrets.ts's header for the full Fable-ruling
+ * reasoning): `ERA_SECRETS_RAW` keeps importing the generated literal
+ * rather than reading the published bundle at runtime, because this module
+ * is reachable from a `'use client'` component. Per the same lesson
+ * OS-014b-5 hit on clownbot-lore.ts (a live CI ENOENT: this suite runs
+ * BEFORE apps/web's `prebuild` publishes the bundle to disk, so asserting
+ * against the actual published `era-secrets.json` file here is not
+ * possible), this test instead proves byte-identity by construction:
+ * `scripts/lib/dump-longlive-sources.ts` (the bundle builder's data
+ * source) imports `eraSecretsForEra` from THIS module and calls it per
+ * era to assemble the bundle's `era-secrets.json` — i.e. the published
+ * bundle's era-secrets data literally comes from calling this file's own
+ * exported function, so it cannot drift from `ERA_SECRETS_RAW` here.
+ */
+describe('bundle-sourced era secrets stay wired into the published bundle build (OS-014b-4)', () => {
+  it('scripts/lib/dump-longlive-sources.ts sources eraSecrets from this module\'s eraSecretsForEra', () => {
+    const dumpScript = readFileSync(
+      resolve(import.meta.dirname, '../../../../scripts/lib/dump-longlive-sources.ts'),
+      'utf8',
+    );
+    expect(dumpScript).toContain(
+      "import { eraSecretsForEra } from '../../apps/web/lib/longlive/era-secrets'",
+    );
+    expect(dumpScript).toContain('eraSecrets: eraSecretsForEra(era.id)');
+  });
+
+  it('eraSecretsForEra(eraId) returns exactly ERA_SECRETS_RAW[eraId] (or [])', () => {
+    for (const era of ERAS) {
+      const expected = ERA_SECRETS_RAW[era.id] ?? [];
+      expect(eraSecretsForEra(era.id)).toEqual(expected);
+    }
+  });
+});
 
 // The Era Secret card (#688) is static, sourced, and deterministic. These
 // guards protect the three things the UI relies on: the generated data is

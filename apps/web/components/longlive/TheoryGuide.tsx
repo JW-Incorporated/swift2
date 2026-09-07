@@ -42,12 +42,22 @@ export function TheoryGuide() {
   // attribute to itself (same "current era only" precedent Stage 5 set for
   // `current_item`, see `use-era-current-feed.ts`).
   const liveBoard = useLiveTheories(theoryGuideEraId === CURRENT_ERA_ID);
+  // Community Engine P2-4 ("Live now" strip, plan §3.4 C3.2): "top 5
+  // persistent fan theories by heat" — persistent is the corpus-promotion
+  // flag (`live_theory.persistent`, set by `theory-promote.ts`) that keeps
+  // a corpus-mined theory alive past the ordinary 60-day expiry. Non-
+  // persistent live theories (bot/site rows, or fan rows predating the
+  // corpus) still surface everywhere else `live_theory` is read — this cap
+  // is specific to this one strip, per the plan's own wording.
+  const LIVE_NOW_STRIP_CAP = 5;
   const liveTheoryCards = useMemo(
     () =>
-      sortByHeatDesc(liveBoard.theories).map((theory) => {
-        const signal = matchFanSignal(theory, liveBoard.signals);
-        return { theory, fansAreSaying: signal ? fansAreSayingLine(signal) : undefined };
-      }),
+      sortByHeatDesc(liveBoard.theories.filter((t) => t.persistent))
+        .slice(0, LIVE_NOW_STRIP_CAP)
+        .map((theory) => {
+          const signal = matchFanSignal(theory, liveBoard.signals);
+          return { theory, fansAreSaying: signal ? fansAreSayingLine(signal) : undefined };
+        }),
     [liveBoard.theories, liveBoard.signals],
   );
 

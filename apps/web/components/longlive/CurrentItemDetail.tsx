@@ -7,7 +7,7 @@ import type { Era } from '@swift2/experience';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { formatFullDate } from '@swift2/experience';
-import { CURRENT_ITEM_STATUS_COPY, outletFor } from '@/lib/longlive/current-feed';
+import { CURRENT_ITEM_STATUS_COPY, outletFor } from '@swift2/experience';
 import { eraStyle } from '@/lib/longlive/theme';
 
 /**

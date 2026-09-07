@@ -15,6 +15,13 @@ export default {
       month: 11,
       day: 15,
       category: 'business',
+      // Cross-link (Answerer depth pass, 2026-09-06): the record-setting
+      // million-copy opening weeks she strung together — Red (2012, the record
+      // this one broke) and Speak Now (2010, the first).
+      relatedIds: [
+        'moment:vault-red-red-sells-1-2-million-copies-the-biggest-week-in-a-decade',
+        'moment:vault-speak-now-speak-now-sells-over-a-million-copies-in-a-single-week',
+      ],
       title: '1989 becomes her third million-copy opening week',
       snippet:
         "1.287 million copies in week one — the biggest sales week for any album since Eminem's The Eminem Show in 2002, and her third album to cross a million copies in its first week.",
@@ -464,6 +471,18 @@ export default {
             outlet: 'Time',
             url: 'https://time.com/3936952/taylor-swift-calvin-harris-highest-paid/',
           },
+          {
+            // Fix #3760 (2026-09-05): the original Forbes reporting behind the
+            // "(Forbes)" attribution and the $233M 2016 projection — verified live.
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/maddieberg/2016/07/13/taylor-swift-vs-calvin-harris-the-233-million-dollar-break-up/',
+          },
+          {
+            // Fix #3761 (2026-09-05): sources the "3.6.15" locket-engraving detail —
+            // Taylor posted the locket photo herself on their one-year anniversary.
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/747710/taylor-swift-proudly-wears-calvin-harris-sweet-1-year-anniversary-gift-close-to-her-heart',
+          },
         ],
         // Photo pass 2026-07-19 (defining-events-31-50): 3 more real,
         // verified photos. Two are recent (2024) individual photos of each
@@ -530,24 +549,28 @@ export default {
         ],
         photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2015417/rs_634x1024-150517170511-634.Taylor-Swift-Billboard-Music-Awards.jl.051715.jpg', credit: 'Jason Merritt/Getty Images' }],
         // Shop pass (2026-07-21): the exact 2015 beaded jumpsuit is
-        // discontinued -- a current Balmain white jumpsuit, verified in
-        // stock, closest real match.
+        // discontinued -- a current Balmain white jumpsuit was linked as the
+        // closest real match.
+        // Stylist upkeep (Vault Run, 2026-09-06): that alternative PDP now 301s
+        // to Balmain's women-RTW category listing (curl-verified — the product
+        // page is gone). Flagged inStock:false rather than deleted: removing the
+        // product trips an exact-count invariant in app code
+        // (merch-filters.test.ts), outside this lane's seed-only scope — filed
+        // as an issue for re-sourcing / a proper removal.
         products: [
           {
             brand: 'Balmain',
             item: 'Sleeveless Lambskin Jumpsuit',
             retailer: 'us.balmain.com',
             url: 'https://us.balmain.com/en/p/sleeveless-lambskin-jumpsuit-FF0QO025LE040DA.html',
-            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer product photo
-            // via Lyst (Balmain's own PDP is JS-rendered, no server-side image),
-            // curl-verified 200 image/jpeg.
             imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/balmain/80087fee/2220x3000/balmain-white-Sleeveless-Lambskin-Jumpsuit.jpeg',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$3,495.00',
             isAlternative: true,
-            altNote: 'Her exact 2015 beaded jumpsuit is long discontinued -- this is a current Balmain white jumpsuit, same house, a sleek lambskin cut rather than all-over beading.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            inStock: false,
+            altNote: 'Her exact 2015 beaded jumpsuit is long discontinued; this Balmain white jumpsuit was the closest match, but as of 2026-09-06 its page redirects to a category listing — no longer live.',
+            verifiedAt: '2026-09-06T16:35:00.000Z'
           },
         ],
       },
@@ -691,7 +714,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg',
       moment: {
         context:
-          'The two had quietly been a couple for months by the time The Sun\'s May 2017 scoop broke, with Taylor moving around London in disguises, "like scarves and hats," and renting a house in North London for her time in the city. The Daily Mail floated a claim that Emma Stone had made the introduction; fans have long preferred the 2016 Met Gala theory, pointing to the "Dress" lyric about his buzz cut and her bleached hair, though the two were also reportedly at the same Kings of Leon afterparty at the Bowery Hotel that October.\n\nTaylor later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: "We have been together and no one has found out for 3 months now" — placing the start around October 2016, more than half a year before The Sun\'s story landed.',
+          'The two had quietly been a couple for months by the time The Sun\'s May 2017 scoop broke, with Taylor moving around London in disguises, "like scarves and hats," and renting a house in North London for her time in the city. The two were reportedly at the same Kings of Leon afterparty at the Bowery Hotel that October.\n\nTaylor later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: "We have been together and no one has found out for 3 months now" — placing the start around October 2016, more than half a year before The Sun\'s story landed.',
         sources: [
           {
             outlet: 'Today',
@@ -849,27 +872,29 @@ export default {
         // tonyshek); captioned here as one look from the rotating wardrobe rather than
         // implying it's the only one.
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png', credit: 'tonyshek / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', caption: 'One of the tour\'s many sequined stage looks (Ford Field, Detroit, May 30, 2015) — the wardrobe rotated night to night.' }],
-        // Shop pass (2026-07-21): the exact tour costumes are custom,
-        // one-off pieces -- a current beaded fringe mini, verified in
-        // stock, in the same spirit as the pink fringe minidress described.
+        // Shop pass (2026-07-21): the exact tour costumes are custom, one-off
+        // pieces -- a current beaded fringe mini (Showpo "Siofra") was linked
+        // as the closest in-spirit match.
+        // Stylist upkeep (Vault Run, 2026-09-06): that Showpo PDP now returns
+        // HTTP 404 (curl-verified — discontinued). Flagged inStock:false rather
+        // than deleted: removing the product trips an exact-count invariant in
+        // app code (merch-filters.test.ts), outside this lane's seed-only scope
+        // — filed as an issue for re-sourcing (a live pink-fringe alternative
+        // exists but was deferred rather than store an unverified US price).
         products: [
           {
             brand: 'Showpo',
             item: 'Siofra Mini Dress (Zig Zag Fringe Dress)',
             retailer: 'showpo.com',
-            // Liveness re-check 2026-07-22: old `/siofra-...html` path now 301s
-            // to Showpo's canonical `/us/products/` URL (still the live PDP);
-            // stored the canonical target directly so we don't lean on the redirect.
             url: 'https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink',
-            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
-            // 200 image/* response.
             imageUrl: 'https://cdn.shopify.com/s/files/1/0904/3371/6589/files/1-Siofra_Beaded_Fringe_Mini_Dress_in_Hot_Pink_40.jpg?v=1744807739',
             matchTier: 'unscored',
             kind: 'dress',
             price: '$22.00',
             isAlternative: true,
-            altNote: 'The tour\'s custom costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same pink-fringe spirit as one of the rotating looks.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            inStock: false,
+            altNote: 'The tour\'s custom costumes were one-off pieces, never sold; this beaded fringe mini was the closest in-spirit match, but as of 2026-09-06 its Showpo page returns 404 — discontinued.',
+            verifiedAt: '2026-09-06T16:35:00.000Z'
           },
         ],
       },
@@ -1101,7 +1126,10 @@ export default {
             brand: 'MAC',
             item: 'Retro Matte Lipstick in Ruby Woo',
             retailer: 'maccosmetics.com',
-            url: 'https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick',
+            // Stylist upkeep (Vault Run, 2026-09-06): old /product/13854/... path
+            // now 301s to this canonical /products/ URL (still the live PDP);
+            // stored the canonical target so we don't lean on the redirect.
+            url: 'https://www.maccosmetics.com/products/retro-matte-lipstick',
             // Photo pass (t_fa7bfb57 round 2, 2026-08-31): retailer PDP image,
             // curl-verified 200 image/* response.
             imageUrl: 'https://www.maccosmetics.com/cdn/shop/files/mac_sku_M0N904_1x1_0.png?format=webp&v=1788129931&width=2000',
@@ -1110,7 +1138,7 @@ export default {
             price: '$23.00',
             isAlternative: true,
             altNote: 'The exact shade Lorrie Turk used is undocumented -- Ruby Woo is MAC\'s iconic blue-red matte, the same bold-red finish described for the video\'s warrior look.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-06T16:35:00.000Z'
           },
         ],
       },
@@ -1529,8 +1557,7 @@ export default {
       month: 10,
       category: 'release',
       title: 'The Secret Sessions: 89 fans at a time, in her living rooms',
-      snippet:
-        'Through September and October she hand-picked fans off the internet and played them 1989 early — at her homes in New York, LA, Rhode Island, her mom\'s place in Nashville, and a London hotel — baking the cookies herself. Nobody leaked a note.',
+      snippet: 'She hand-picked fans off the internet and played them 1989 early, in her own living rooms.',
       sourceUrl: 'https://www.nylon.com/entertainment/oral-history-of-taylor-swifts-1989-secret-sessions',
       thumbnailUrl: null,
       moment: {
@@ -2168,8 +2195,7 @@ export default {
       category: 'music',
       significance: 'defining', // the inciting incident of the whole Kimye saga and reputation era (docs/decisions.md, 2026-07-19)
       title: 'The night "Famous" premiered, and she said no',
-      snippet:
-        'Kanye West debuts "Famous" at Madison Square Garden — "I made that bitch famous" — and says she approved it. Her team answers the same day: she was never told that line, and she "cautioned him about releasing a song with such a strong misogynistic message."',
+      snippet: 'Kanye West debuts "Famous" at Madison Square Garden and says she approved the line "I made that bitch famous."',
       sourceUrl: 'https://time.com/4411055/kanye-west-taylor-swift-kim-kardashian-feud/',
       thumbnailUrl: null,
       relatedIds: [
@@ -2330,29 +2356,11 @@ export default {
         // curl-verified live (HTTP 200 + real image content-type).
         photos: [
           {
-            url: 'https://assets.teenvogue.com/photos/578d040a6e85f8db434d47c6/master/w_1600%2Cc_limit/IMG_1374.PNG',
-            focalPoint: '50% 12%',
-            credit: 'Taylor Swift/Instagram, via Teen Vogue',
-            // FLAG (photo-enrichment 2026-07-20): downloaded + vision-checked —
-            // this asset is a BLANK Apple Notes screen, not the statement text
-            // the prior caption claimed. Caption corrected to match the image;
-            // recommend a verified replacement showing the actual statement.
-            caption: 'The Apple Notes format Taylor used to post her July 18, 2016 reply — the statement that asked where West had told her about the "that bitch" lyric and ended, "I would very much like to be excluded from this narrative."',
-            kind: 'primary',
-          },
-          {
-            url: 'https://i.guim.co.uk/img/media/83c4993d8e8ad4dde6c653daff10b74e537e6aea/0_0_620_372/master/620.jpg?crop=none&dpr=1&s=none&width=1000',
-            focalPoint: '50% 22%',
-            credit: 'Rex Features, via The Guardian',
-            // FLAG (photo-enrichment 2026-07-20): downloaded + vision-checked —
-            // this asset is a Guardian side-by-side of Kim Kardashian and Taylor
-            // Swift, NOT a Snapchat still of West on the phone. Caption corrected
-            // to match the image; recommend a verified replacement if a Snapchat
-            // still is wanted here.
-            caption: 'A Guardian side-by-side of Kim Kardashian and Taylor Swift, published as Kardashian\'s Snapchat clips reignited the feud in July 2016.',
-            kind: 'primary',
-          },
-          {
+            // Fix #3763 (2026-09-05): the Teen Vogue "Apple Notes" and Guardian
+            // side-by-side photos previously here were both self-flagged
+            // mismatches (a blank Notes screen and an unrelated portrait) — dropped
+            // rather than kept with corrected captions; the four remaining photos
+            // below are all verified accurate matches.
             url: 'https://media.vanityfair.com/photos/5792599af9039e5f13c9db9f/master/w_2560%2Cc_limit/taylor-swift-tom-hiddleston.jpg',
             focalPoint: '50% 33%',
             credit: 'Cameron Richardson/Newspix/Rex/Shutterstock, via Vanity Fair',
@@ -2557,7 +2565,10 @@ export default {
             brand: 'Fashion Nova',
             item: 'Simona Satin Mini Dress',
             retailer: 'fashionnova.com',
-            url: 'https://www.fashionnova.com/products/simona-satin-mini-dress-light-blue',
+            // Stylist upkeep (Vault Run, 2026-09-06): old slug now 301s to this
+            // canonical product URL with the light-blue variant selected (still
+            // the live PDP); stored the canonical target directly.
+            url: 'https://www.fashionnova.com/products/simona-satin-mini-dress?color=light-blue',
             // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP image, curl-verified
             // 200 image/* response.
             imageUrl: 'https://cdn.shopify.com/s/files/1/0293/9277/products/01-06-22Studio3_ME_MJ_10-19-40_16_73792_LightBlue_0528_EH.jpg?v=1643755094&width=1200&height=627',
@@ -2566,7 +2577,7 @@ export default {
             price: '$23.98',
             isAlternative: true,
             altNote: 'No single named dress -- this is the era\'s visual palette, not one outfit -- a current light-blue mini in the same sky-blue minimalist spirit.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-06T16:35:00.000Z'
           },
         ],
       },
@@ -2812,8 +2823,29 @@ export default {
         // rather than force an off-subject or misrepresenting crop (charter 3b).
         // Photo pass #762 (2026-08-27): re-checked, same conclusion — the
         // withdrawal is defined by the absence of public/paparazzi photos, so
-        // no image can honestly represent it. Stays text-first.
-        photos: [],
+        // no image can honestly represent it. Stayed text-first at that time.
+        //
+        // Policy update (2026-09-06, Joey via t_40f29d07 / t_23e4b90b): "no
+        // photo found" is no longer an acceptable outcome for
+        // content.top-of-feed-photo — a legitimately connected real photo
+        // must be used instead, honestly captioned as what it actually shows.
+        // No photo of the silence itself can exist (that is the whole point
+        // of the moment), so this uses the official "Look What You Made Me
+        // Do" music-video still — the exact answer to the silence the context
+        // above describes, oEmbed-verified against the TaylorSwift YouTube
+        // channel (video id 3tmd-ClpJxA), captioned as the video, not as a
+        // photo from the silent period.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg',
+            credit: 'Big Machine Records, via YouTube/TaylorSwift',
+            caption:
+              'The bathtub-of-diamonds shot from "Look What You Made Me Do" — the single that broke the year of silence in August 2017.',
+            kind: 'reference',
+            // Swift is centered, upper half of frame.
+            focalPoint: '58% 35%',
+          },
+        ],
       },
     },
     {
@@ -2922,6 +2954,13 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/pop/taylor-swift-new-years-day-video-live-scandal-8031153/',
+          },
+          {
+            // Fix #3764 (2026-09-05): sources the "100 hand-picked fans" figure —
+            // ABC News's own report on the taping confirms "one hundred fans, who
+            // were picked by Swift herself, were in the audience."
+            outlet: 'ABC News',
+            url: 'https://abcnews.go.com/Entertainment/taylor-swift-performs-reputation-song-years-day-fans/story?id=51038508',
           },
         ],
         // T16 photo pass (2026-07-09): Wikimedia Commons, CC BY-SA 2.0, author

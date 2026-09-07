@@ -1,0 +1,98 @@
+# Theory Miner (C2) — Community Engine plan, Phase 2 card P2-2.
+# docs/proposals/2026-09-06-community-engine-plan.md §3.3. Parents: P0-1
+# (schema, merged) and P2-1 (community-crawl.yml, merged — note
+# COMMUNITY_CRAWL_ENABLED defaults OFF, so this workflow has nothing to
+# mine until a founder deliberately turns crawling on; see
+# docs/community/README.md for the toggle steps).
+#
+# Named theory-miner.yml, NOT routine-*.yml: this is a plain zero-orchestration
+# script workflow (same shape as community-crawl.yml/community-scan.yml —
+# checkout, npm ci, run a script), not a Claude-agent Routine dispatched via
+# routine-template.yml, so it is intentionally outside check-routine-
+# workflows.mjs's routine-*.yml invariants (no prompt_file/allowed_tools to
+# check). The Haiku calls inside theory-miner.mjs are the pipeline's own
+# extract-stage LLM use (same pattern as news-worker.yml's classify stage),
+# not a Routine.
+#
+# Daily, after community-crawl.yml: downloads that workflow's transient
+# 24h Actions artifact (raw post+comment bundles, hashed authors, never
+# committed to the repo or DB by the crawl stage itself — see crawl.mjs's
+# header) and runs one Haiku call per bundle via
+# apps/worker/src/extract/theory-haiku-client.ts's forced
+# `record_fan_theories` tool, screening every theory (screenTopic()) before
+# it reaches `fan_theory_candidate`. Zero writes to Reddit/Facebook — this
+# workflow only ever writes to Supabase (plan §6.1's "a human always
+# posts" rule).
+#
+# No separate kill switch of its own: when COMMUNITY_CRAWL_ENABLED is off,
+# community-crawl.yml uploads no artifact, the lookup step below finds no
+# run to fetch from, and this workflow is a fast, clean no-op — same
+# "disabled run must be cheap and green" posture as community-crawl.yml's
+# own kill-switch step.
+#
+# ARTIFACT HANDOFF: this is a separately scheduled workflow, not a
+# workflow_run trigger off community-crawl.yml (a workflow_run trigger would
+# tie this run's timing to the crawl's completion instant, which is
+# unpredictable — the crawl itself has no fixed duration). Instead this
+# workflow looks up the most recent SUCCESSFUL community-crawl run via the
+# API and downloads that run's `community-crawl-bundle` artifact directly
+# (`gh run download --repo ... --name ... <run-id>`), which is the
+# documented way to pull an artifact from a different workflow run.
+#
+# :20 keeps this comfortably after community-crawl.yml's 07:13 UTC run
+# (30-min timeout budget there) while avoiding the repo's :00/:05/:10/:23/
+# :30/:40 cron-contention cluster (watchdog.yml header).
+name: theory-miner
+
+on:
+  schedule:
+    - cron: "20 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: theory-miner
+  cancel-in-progress: false
+
+jobs:
+  mine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - run: npm ci
+
+      # No preceding successful crawl run (or COMMUNITY_CRAWL_ENABLED is
+      # off, so the crawl's own kill switch skipped before uploading
+      # anything) means there is nothing to download here — expected, not
+      # a failure. `gh run download` failing just means .artifacts/ stays
+      # empty; theory-miner.mjs's own existsSync() check produces the
+      # clean no-op log line for that case.
+      - name: Fetch the latest community-crawl artifact, if one exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p .artifacts
+          RUN_ID=$(gh run list --workflow=community-crawl.yml --status=success --limit=1 --json databaseId --jq '.[0].databaseId' || true)
+          if [ -z "$RUN_ID" ] || [ "$RUN_ID" = "null" ]; then
+            echo "no successful community-crawl run found — nothing to mine this run."
+            exit 0
+          fi
+          gh run download "$RUN_ID" --name community-crawl-bundle --dir .artifacts || \
+            echo "community-crawl-bundle artifact not found for run $RUN_ID (likely expired past its 24h retention, or the crawl was disabled) — nothing to mine this run."
+
+      - name: Run the Theory Miner extract stage
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          COMMUNITY_CRAWL_ARTIFACT: .artifacts/community-crawl.json
+        run: node scripts/community/theory-miner.mjs

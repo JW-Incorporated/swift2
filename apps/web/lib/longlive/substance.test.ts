@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { build } from './content';
 import { VAULT_RAW } from './content-vault.generated';
+import type { ContentItem, EraId } from '@swift2/experience';
 import {
   BODY_FLOOR_CHARS,
   BODY_SATURATION_CHARS,
@@ -11,8 +12,7 @@ import {
   bodyChars,
   realPhotoCount,
   substanceScore,
-} from './substance';
-import type { ContentItem, EraId } from '@swift2/experience';
+} from '@swift2/experience';
 
 const realImg = (n: number) =>
   Array.from({ length: n }, (_, i) => ({

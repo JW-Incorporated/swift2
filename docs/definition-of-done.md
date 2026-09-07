@@ -25,6 +25,22 @@ CLAUDE.md's workflow — anything non-trivial gets a spec approved before code.
 `nobody` (same vocabulary as launch-readiness.md rule 3 — `nobody` means
 unstaffed, not stuck, and it's the most actionable answer this table has).
 
+## Audit-reporting scope convention
+
+**Any audit summary relayed to the founders — Discord, kanban comments, PR
+bodies, Founders' Brief entries — must state its scope in its first line.**
+E.g. "prose + sourcing only; photos not checked." A green/pass verdict that
+doesn't say what it checked reads as site-wide quality assurance even when
+it wasn't, which is exactly how the 09-05 "newest posts have no photos"
+incident happened: the 09-04 era quality audits were honest, narrowly-scoped
+reviews of voice/fabrication/sourcing, but the summary passed up to the
+founder didn't repeat that scope, so a real (and already-flagged-elsewhere)
+photo gap read as covered when it wasn't. See
+[`docs/audits/2026-09-05-newest-posts-no-images-root-cause.md`](audits/2026-09-05-newest-posts-no-images-root-cause.md)
+§3/§5 for the full incident. This is a reporting convention, not a new
+automated check — any future audit-writing agent or routine should lead
+with scope before its verdict.
+
 ## Status at a glance
 
 | # | Item | Status | Blocked on | Next action |
@@ -293,3 +309,10 @@ correctly flags it only as a low-confidence review note, not an auto-fix.
   relationship note above) — status changes here need a PR link like any
   gate file, same as before, but they now show up in the brief the next
   morning instead of going unreported.
+- **2026-09-06 (standing trigger, FR-t_a0ad2392-8):** the site does not
+  accept user image uploads, so CSAM-scanning enrollment (#138, PhotoDNA +
+  NCMEC) is deferred, not open. **Any card or PR that adds a user photo /
+  image upload path — Community (item 4) is the likely place — must
+  first re-label #138 `founder-decision` and wait for the enrollment
+  before that surface ships.** This is a hard precondition, not a
+  follow-up.

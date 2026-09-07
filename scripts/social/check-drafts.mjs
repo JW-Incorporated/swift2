@@ -107,6 +107,44 @@ const ALLOWED_MEDIA_EXTENSIONS = new Set(['png', 'jpg', 'jpeg']);
 // mediaKind "photo" is path-bound to this prefix, and "site-screen" is barred
 // from it — see the kind checks in checkMedia.
 const PHOTO_PREFIX = '/social/library/photos/';
+
+// The 2026-09-05 checker hole (#3584, Fable ruling on kanban t_36d74b87): a
+// rehosted YouTube/broadcaster thumbnail was declared mediaKind "photo" and
+// sailed through this gate because the gate only checked path + credit
+// strings, never whether the image was actually a license-cleared photo of
+// Taylor vs. a screenshot of someone else's video. docs/decisions.md
+// 2026-08-15 already defined "photo" as a license-cleared local file, and
+// docs/marketing/social-strategy.md §2 already banned typography/designed
+// cards standing in for real media — #3584 is this checker not enforcing
+// policy that already existed, not a new policy.
+//
+// Two independent signals close the hole:
+//   1. mediaCredit/mediaSource text that reads like a rehosted video
+//      thumbnail (VIDEO_THUMBNAIL_CREDIT_RE) — catches the exact shape the
+//      appearance-discovery fast lane produces (`mediaCredit: "Video
+//      thumbnail: <channel>"`).
+//   2. an explicit allowlist of the genuinely cleared corpus files under
+//      PHOTO_PREFIX (CLEARED_PHOTO_ALLOWLIST) — even a photo-shaped file
+//      that dodges signal 1's wording must still be a file this checker
+//      already knows is cleared; a new photo is added to the allowlist only
+//      after confirming (per social/calendar.md's growth instructions) it is
+//      genuinely CC/public-domain and correctly labelled.
+// Either signal alone is a hard fail — the two are deliberately redundant so
+// a thumbnail declared "photo" without an incriminating credit string (or a
+// future non-thumbnail file nobody vetted) still can't launder through.
+const VIDEO_THUMBNAIL_CREDIT_RE = /thumbnail|youtube|video/i;
+// The genuinely license-cleared Taylor-photo corpus as of 2026-09-05 (see
+// social/calendar.md's "Cleared-photo corpus" line — update this list, and
+// that doc, together whenever a new CC/public-domain photo is added under
+// PHOTO_PREFIX). Deliberately basenames only (not full paths) so the check
+// stays correct regardless of PHOTO_PREFIX's exact value.
+const CLEARED_PHOTO_ALLOWLIST = new Set([
+  'taylor-lover-eras-minneapolis-2023.jpg',
+  'taylor-lover-eras-minneapolis-act5-2023.jpg',
+  'taylor-red-eras-inglewood-2023.jpg',
+  'taylor-fearless-eras-inglewood-2023.jpg',
+  'taylor-debut-2007-acoustic.jpg',
+]);
 // Instagram rejects a feed image whose aspect ratio (width/height) falls
 // outside ~0.8 (4:5 portrait) to 1.91 (landscape) — API error_subcode
 // 2207009 / code 36003, "the aspect ratio is not supported". X has no such
@@ -308,6 +346,14 @@ export function checkCampaignPair(file, item, allQueueItems, allPostedItems) {
         'shared with this story\'s sibling item.',
     ];
   }
+
+  // appearance-discovery fast-lane campaigns are DELIBERATELY X-only
+  // (2026-09-05, #3584 Fable ruling): this lane has no license-cleared photo
+  // to offer, so it never authors an Instagram sibling at all — the
+  // otherwise-unconditional pairing rule (Joey 2026-08-25/26, "always an IG
+  // copy, always") does not apply to this one lane, which the ruling
+  // carves out by name. See scripts/appearance-discovery/lib/social-draft.mjs.
+  if (campaign.startsWith('appearance:')) return [];
 
   const wanted = item.platform === 'x' ? 'instagram' : 'x';
   const group = [...allQueueItems, ...allPostedItems].filter(
@@ -568,6 +614,22 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
       if (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '') {
         findings.push('media: mediaKind "photo" requires `mediaSource` — record where the photo came from so the credit is auditable.');
       }
+      // #3584 (Fable ruling, 2026-09-05): a rehosted YouTube/broadcaster
+      // thumbnail is NOT a "photo" — see the VIDEO_THUMBNAIL_CREDIT_RE /
+      // CLEARED_PHOTO_ALLOWLIST block comment above. Either signal alone is
+      // a hard fail; run both regardless of whether the path check above
+      // already fired, so a thumbnail wrongly staged straight into
+      // PHOTO_PREFIX doesn't dodge this on a technicality.
+      const creditText = `${item.mediaCredit ?? ''} ${item.mediaSource ?? ''}`;
+      const basename = tile.split('/').pop() ?? '';
+      const looksLikeThumbnail = VIDEO_THUMBNAIL_CREDIT_RE.test(creditText);
+      const notCleared = tile.startsWith(PHOTO_PREFIX) && !CLEARED_PHOTO_ALLOWLIST.has(basename);
+      if (looksLikeThumbnail || notCleared) {
+        findings.push(
+          `media: "${tile}" cannot be mediaKind "photo" — ${looksLikeThumbnail ? `its mediaCredit/mediaSource ("${creditText.trim()}") reads like a rehosted video thumbnail` : 'it is not in the license-cleared photo corpus allowlist'} (docs/decisions.md 2026-08-15: "photo" means a license-cleared local file; #3584 ruling). ` +
+            'Use mediaKind "video-thumb" instead — Instagram drafts reject it outright, and X drafts may only carry it with no attached image (a plain link preview).',
+        );
+      }
     } else if (item.mediaKind === 'site-screen') {
       if (!tile.startsWith('/social/library/') || tile.startsWith(PHOTO_PREFIX)) {
         findings.push(
@@ -578,11 +640,28 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
       findings.push(
         'media: mediaKind "era-art" is no longer allowed on drafts (2026-08-12 standard) — the value survives only so historical records parse. Use "photo" or "site-screen".',
       );
+    } else if (item.mediaKind === 'video-thumb') {
+      // See #3584 / the block comment above VIDEO_THUMBNAIL_CREDIT_RE.
+      // Instagram never gets a video-thumb — the calendar's own rule is
+      // "empty IG slot beats a failed one," and there is no cleared-photo
+      // fallback for an appearance-lane item.
+      findings.push(
+        'media: mediaKind "video-thumb" is not allowed on Instagram drafts at all — Instagram is skipped unless a cleared photo exists (Fable ruling, #3584). Drop the media/mediaKind and post text-only, or use a genuine cleared "photo".',
+      );
     } else {
       findings.push(
         `media: draft has media but no declared \`mediaKind\` (got ${JSON.stringify(item.mediaKind)}) — declare "photo" (real credited photograph of Taylor, with mediaCredit + mediaSource) or "site-screen" (deliberate product screenshot). Undeclared media is how the account drifted to a Taylor-free grid.`,
       );
     }
+  }
+  // X's video-thumb rule is independent of the media[0]-tile block above
+  // (that block only runs `if item.media?.length` and skips generic era
+  // art) — checked unconditionally here so it fires even with zero media.
+  if (item.platform === 'x' && item.mediaKind === 'video-thumb' && (item.media?.length ?? 0) > 0) {
+    findings.push(
+      'media: X drafts with mediaKind "video-thumb" may not attach an image — video-thumb only ships as a bare link preview (no `media`). ' +
+        'Drop `media` (the link unfurl already shows the thumbnail) or declare a real "photo"/"site-screen" if you genuinely mean to attach an image.',
+    );
   }
   return findings;
 }

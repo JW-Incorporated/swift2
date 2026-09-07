@@ -182,6 +182,11 @@ packages/
 !apps/web/lib/longlive/song-moods.generated.ts
 !apps/web/lib/longlive/clownbot-lore.generated.ts
 !apps/web/lib/longlive/merch.generated.ts
+# OS-014b-3 (2026-09-06): same as above — generated from the published
+# content bundle rather than seed data, but equally gitignored/build-time-only
+# and cannot appear in a PR diff.
+!apps/web/lib/longlive/theories-bundle.generated.ts
+!apps/web/lib/longlive/videos-bundle.generated.ts
 
 # ── A path prefix CANNOT express two things that decide whether a file executes
 #    server-side with secrets, so they are NOT (and cannot be) listed above —
