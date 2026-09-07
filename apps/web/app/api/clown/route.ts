@@ -205,9 +205,21 @@ export async function POST(req: Request): Promise<Response> {
   // existing `chip: true` flag every board tap already sends.
   if (payload.chip === true) {
     if (text === FAN_THEORY_CHIP_PROMPT) {
-      const client = createKnowledgeClientForRequest();
-      const { items } = await toolFanTheories(client);
-      return NextResponse.json(answerFromFallback(composeFallback(items, 'chip')));
+      // BOUNDED, same as every other network call this route makes (Codex
+      // review BLOCKER 2's "single shared deadline" rule, applied narrowly
+      // here since this path returns before that shared controller below is
+      // created): a hung Supabase read must never hang the whole request —
+      // `toolFanTheories` degrades to an empty result on its own errors, but
+      // an unresponsive (not erroring) connection needs an explicit abort.
+      const chipDeadline = new AbortController();
+      const chipDeadlineTimer = setTimeout(() => chipDeadline.abort(), AGENT_MAX_WALL_MS);
+      try {
+        const client = createKnowledgeClientForRequest();
+        const { items } = await toolFanTheories(client, chipDeadline.signal);
+        return NextResponse.json(answerFromFallback(composeFallback(items, 'chip')));
+      } finally {
+        clearTimeout(chipDeadlineTimer);
+      }
     }
     const docs = retrieveClownDocs(text, allClownDocs());
     const items = docs.map(docToRetrievedItem);
