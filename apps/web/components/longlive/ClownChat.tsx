@@ -36,7 +36,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ClownAnswer, InvestigationStep } from '@/lib/longlive/clown-answer';
 import type { BoardItem } from '@/lib/longlive/clown-board';
 import type { ClownTurn } from '@/lib/longlive/clown-client';
-import { promptForItem } from '@/lib/longlive/clown-starters';
+import { promptForItem, FAN_THEORY_CHIP_PROMPT } from '@/lib/longlive/clown-starters';
 import { useChromeOffset } from '@/lib/longlive/useChromeOffset';
 import { flattenAnswer, investigationLabel } from '@/lib/longlive/clown-chat-helpers';
 import { readClownStream } from '@/lib/longlive/clown-stream';
@@ -138,7 +138,7 @@ export function ClownChat() {
   const toggleExpanded = useCallback(() => setExpanded((v) => !v), []);
 
   const ask = useCallback(
-    async (question: string) => {
+    async (question: string, options: { chip?: boolean } = {}) => {
       setBusy(true);
       setError(null);
       setInvestigating(null);
@@ -150,11 +150,16 @@ export function ClownChat() {
           { role: 'user' as const, text: m.question },
           { role: 'assistant' as const, text: flattenAnswer(m.answer) },
         ]);
-        // `chip` deliberately omitted: that flag routes to the deterministic
-        // zero-model fallback (board taps only prefill the composer — once the
-        // reader hits send, per the founder's brief it's a normal question and
-        // gets the full model treatment). The route's chip path stays built
-        // and tested but is not wired up here on purpose.
+        // `chip` deliberately omitted for every normal ask: that flag routes
+        // to the deterministic zero-model fallback (board taps only prefill
+        // the composer — once the reader hits send, per the founder's brief
+        // it's a normal question and gets the full model treatment). The
+        // ONE exception is the fan-theory chip (Community Engine plan
+        // §Phase 2, card P2-5, `askFanTheoryChip` below) — it sends
+        // immediately with `chip: true`, same as `ClownBoard`'s deterministic
+        // taps, because "what are fans theorising right now?" has a real
+        // zero-model answer (the `live_theory` knowledge_doc projection) and
+        // does not need a model call to be worth answering instantly.
         // Session continuity (architect-directed redesign, HUMAN-ACTIONS.md
         // #15 round 4): the route's server-side identity now round-trips via
         // an `HttpOnly` cookie the browser sends/receives automatically on
@@ -163,7 +168,7 @@ export function ClownChat() {
         const res = await fetch('/api/clown', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ text: question, transcript }),
+          body: JSON.stringify({ text: question, transcript, ...(options.chip ? { chip: true } : {}) }),
         });
         if (!res.ok) throw new Error(String(res.status));
         // PLAN.md Stage 10: the route streams the agent loop's investigation
@@ -198,6 +203,15 @@ export function ClownChat() {
     },
     [text, busy, ask],
   );
+
+  /** Fan-theory chip (Community Engine plan §Phase 2, card P2-5) — the one
+   * chip that sends immediately instead of prefilling the composer, because
+   * it has a real zero-model answer. See `ask`'s header comment above for
+   * why this is the sole exception to "chip taps only prefill". */
+  const askFanTheoryChip = useCallback(() => {
+    if (busy) return;
+    void ask(FAN_THEORY_CHIP_PROMPT, { chip: true });
+  }, [busy, ask]);
 
   /** A board tap prefills the composer and brings it into view — it never
    * sends (founder brief item 3: "the user stays in control"). */
@@ -259,7 +273,7 @@ export function ClownChat() {
           aria-busy={busy}
         >
           {messages.length === 0 ? (
-            <ClownEmptyState intro={EMPTY_STATE_TEXT} onSelect={handleStarterSelect} />
+            <ClownEmptyState intro={EMPTY_STATE_TEXT} onSelect={handleStarterSelect} onFanTheoryChip={askFanTheoryChip} />
           ) : (
             messages.map((m) => <ClownMessageRow key={m.id} message={m} />)
           )}

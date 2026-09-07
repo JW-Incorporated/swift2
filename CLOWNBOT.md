@@ -58,6 +58,41 @@ fan_signal / live_theory → (maybe) promotes into the Vault → egg_ledger
    (`scripts/sync-clown-knowledge.mjs`) — the reverse direction, curated
    data feeding the retrieval index, not raw ingest feeding the Vault.
 
+## Fan corpus (Community Engine, `live_theory` origin=`fan`)
+
+A second, separate ingest path feeds `live_theory` rows without going
+through the worker's news pipeline above: the **Community Engine**
+(`docs/proposals/2026-09-06-community-engine-plan.md`, Phase 2). A slow
+background crawl (`community-crawl.yml`, real Reddit posts only — never
+Facebook) reads a year of top posts from a handful of watch-listed
+subreddits; the Theory Miner (`theory-miner.mjs`, one Haiku call per
+post+comment bundle, forced `record_fan_theories` tool, sibling of
+`record_knowledge`) extracts candidate theories into
+`fan_theory_candidate`; a weekly deterministic merge/promote pass
+(`theory-promote.mjs`, reuses `theory-match.ts`'s name+symbol dedupe rule
+rather than a second model call) clusters near-duplicates and promotes
+qualifying clusters into `live_theory` with `origin='fan'`,
+`persistent=true` (so they don't age out on the usual 60-day clock the way
+worker-sourced theories do). Same `screenTopic()` redline gate as every
+other write path here — a theory that trips the redline filter (relationships,
+identity, private life) never reaches the store, not even as a rejected row.
+
+Clownbot needs zero changes to cite these: they project into
+`knowledge_doc` exactly like any other `live_theory` row, so retrieval,
+grounding, and the Clue Web's dashed rendering all just work — "learning"
+new fan theories means nothing more than more rows existing to search. The
+Clue Web adds an origin badge and a heat-sorted "What fans are watching"
+cluster for these specifically (P2-4); Clownbot gets one zero-model starter
+chip, "What are fans theorising right now?" (P2-5).
+
+This whole path ships with its own kill switch, off by default
+(`COMMUNITY_CRAWL_ENABLED`, a repo Variable, checked before any network
+call) — see [`docs/community/README.md`](docs/community/README.md) for the
+exact operator-facing toggle steps and a recorded drill proving the switch
+works. It is separate from every switch in this file's own § below; turning
+it on/off has no effect on the news-worker ingest, the chat model, or any
+adapter flag.
+
 ## What's generated vs. hand-authored
 
 | Generated (never hand-edit) | Hand-authored |
@@ -115,6 +150,11 @@ without stopping the others:
    promoted into the Vault.
 5. **What keeps running on purpose:** `watchdog.yml`'s freshness SLO check
    and CI are dumb observers — they alert, they never write.
+6. **Stop the fan corpus specifically** (the `origin='fan'` path, § above):
+   `COMMUNITY_CRAWL_ENABLED=false` (repo Variable, ships off by default) —
+   see [`docs/community/README.md`](docs/community/README.md) for exact
+   steps. Independent of every switch above; it never touches the
+   news-worker ingest.
 
 ## What this document does not cover
 

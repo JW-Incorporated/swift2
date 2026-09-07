@@ -1,0 +1,53 @@
+# Theory merge/promote pass (C2 continuation) — Community Engine plan,
+# Phase 2 card P2-3. docs/proposals/2026-09-06-community-engine-plan.md
+# §3.3. Parents: P0-1 (schema, merged) and P2-2 (Theory Miner extract,
+# merged, PR #3962).
+#
+# Named theory-promote.yml, NOT routine-*.yml: same zero-orchestration
+# script-workflow shape as theory-miner.yml/community-crawl.yml (checkout,
+# npm ci, run a script) — not a Claude-agent Routine, so it is
+# intentionally outside check-routine-workflows.mjs's routine-*.yml
+# invariants (no prompt_file/allowed_tools to check). See
+# apps/worker/src/extract/theory-promote.ts's header for why this pass is
+# a deterministic merge (theory-match.ts's existing name+symbol rule), not
+# a second LLM call, despite the plan's §4 table describing it as a
+# "weekly Opus merge pass" — that scope decision is documented there.
+#
+# Weekly (Sunday, off-peak minute per the repo's cron-contention rule —
+# see watchdog.yml's header for the reserved :00/:05/:10/:23/:30/:40
+# cluster). Reads `fan_theory_candidate` rows the daily theory-miner.yml
+# has been upserting, merges near-duplicates, promotes qualifying clusters
+# into `live_theory`. Zero writes to Reddit/Facebook — this workflow only
+# ever writes to Supabase (plan §6.1's "a human always posts" rule).
+name: theory-promote
+
+on:
+  schedule:
+    - cron: '45 9 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: theory-promote
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - run: npm ci
+
+      - name: Run the Theory Miner merge/promote pass
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/community/theory-promote.mjs
