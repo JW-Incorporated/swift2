@@ -4,11 +4,13 @@ import { describe, expect, it } from 'vitest';
 
 const src = readFileSync(join(__dirname, 'CurrentItemDetail.tsx'), 'utf8');
 
-describe('CurrentItemDetail — direct home navigation', () => {
-  it('keeps a one-tap home control beside the close control', () => {
+describe('CurrentItemDetail — home navigation', () => {
+  it('closes the local live-item overlay before returning home', () => {
     expect(src).toContain("import { useAppActions } from '@/lib/longlive/store';");
     expect(src).toContain('const { goHome } = useAppActions();');
-    expect(src).toContain('onClick={goHome}');
+    expect(src).toContain('function handleHome() {\n    onClose();\n    goHome();\n  }');
+    expect(src).toContain('onClick={handleHome}');
+    expect(src).not.toContain('onClick={goHome}');
     expect(src).toContain('aria-label="Go to home"');
   });
 });
