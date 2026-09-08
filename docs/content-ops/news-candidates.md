@@ -27,6 +27,46 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Achieves Country Radio No. 1 with New Song
+
+- first seen: 2026-09-08 13:33 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's song 'I Knew It, I Knew You' has reached No. 1 on Country Radio, inspired by the character Jessie from Toy Story 5. The achievement highlights her impact on the genre as well as the connection to popular culture.
+- sources:
+  - [unverified] Holler Country — https://news.google.com/rss/articles/CBMi1AFBVV95cUxQM2UtWUdXMUFzbzU2bmVka3hsQi1xQWcweEtvNndPb3BOZjgyM3RmeVhtVkR6dmRIY3gyY2J5ZmYxT1o5TE1IT2U5RFBKYW1nUzhUM1R4M0FLZEU5eGlWY01tTTAxT1R4Yk55b09hbVdEMDRveGlIUTAwMHRzZkJOZFpWYjIxaGh1bnh2SWFSUlJqRXJRUDR1NDU2Q3p4SXg2S1ZYVnFiaHBaY0NTOF9NZ2FuTE9pT091azY2dmFQZmh5Vm5JV3hrUTk0YzZ4OUNnZUpRSA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Achieves Another No. 1 Hit
+
+- first seen: 2026-09-08 13:33 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has secured a No. 1 spot on the charts with a throwback track. This adds to her impressive record of chart-topping hits.
+- sources:
+  - [unverified] Newser — https://news.google.com/rss/articles/CBMigwFBVV95cUxOSC1Ud3Z1RW5fdDNIeUpHS3pUS2FSMjhKd1ZNVjR4aEx6eWJJWTd4Z2w3WVBmLUdEMTZzY1RWaG9nbTNYc1lubVNYQkZUUng2Y2h1bGZoUndMU3F0cEFORldGdlN6LVpONmswSUQ2VHdrMFlZZHczUzFRbEpVbzBLcXduOA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Upcoming Changes to NFL Sundays
+
+- first seen: 2026-09-08 13:33 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is expected to have a different experience on NFL Sundays, as reported. The reasons for this change were not detailed in the article.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOTW1WMnVuMS1WQ2R4Vkc3X1hsWUdkbUEtRDBjRFVtWGJ0Nm1hb0lJZkFEcjhqSXJCZHRmcGxLcTRLUWU5OEcwNlBJeVlZMURjMWVtUUpCVDlzOW10UG9hbGJMSFF0TTdZWFBoc2g4QzJnNXZRMTVKdUhEMDhQd2dLaUpKcFhmeEFUUTJyR0hQQ21ESElEcXB2S1hDb0d3MHl6Y0RXR19MTmM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Stuns in Metallic Dress on NYC Date with Travis Kelce
+
+- first seen: 2026-09-08 13:33 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted wearing a striking metallic halter dress during a recent date night with her husband, Travis Kelce, in New York City. The couple's appearance has drawn attention for their stylish outing.
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPWEFiV2c4Wno3T21IM2pvSVJnYXdBSG4wc01PTjhZajAxOWNOcExZSTR6V2EwM29yNXZrWUNhNklNQXExamRyZUVvb0I5V1dlemNCSHhaVHVIc3pGUjRiTUYyT0JBNHBkaHdPRWZHSDZXOVNHMkpLenBiejByUTEyeHY3c0hjMFB0WncwbEEzaWUzOGFqSmgwalAzWUNfaHcwTzBxNTJKbVNFUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Dazzles in Gold Dress at Public Event with Travis Kelce
+
+- first seen: 2026-09-08 13:33 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a stunning appearance in a liquid gold halter dress during her first public outing with Travis Kelce following their wedding.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNcTlsWmY0Zi1OQmhsWE5sckFpQ1JtNlI3Rk9CTFljd29vSEQ4SUxVV2E4S29VdnJyNXNyOUNndnZpWjd4bWQ4RTZpMThRS3k1WFR3Ymd0MEZneEFkc0ZfQmVSSl9YeGF6bEVETG5XLTFvTWRqX0MyQUJxbEdUM1NsX01IUU1JcG4zc2FkU2lpY3k2QkVwNU0yYXBBNHdFUGs0aWppYm5hTWtBdw?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Tops Country Radio Charts After 13 Years
 
 - first seen: 2026-09-08 05:55 UTC | category: music | importance: 7
@@ -54,10 +94,11 @@ Stories: 120
 ## Travis Kelce and Taylor Swift's First Public Date Night Captured in Photos
 
 - first seen: 2026-09-08 05:55 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Photos have emerged from Travis Kelce and Taylor Swift's first public date night following their wedding. The couple was seen enjoying their time together, marking a significant moment for fans.
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiugFBVV95cUxNbUw4eGJxdWcyVmdpblAxMWxVajNSUkUyRmx2c0EwM3pHVnR4YmVzNExtTWlMUTVXcElPSDlCdG1jSUFjSG1VNnJqMlY5MTd6ZF9rb3lPN05IWThGaE1XYS1VeUxDczA3ZlBoOC13dktJV2FnZWItMWxGSzNCeVExQ3NIZFYtbUlfMS1QaUI5aEMxT25oMV94MDFVZkJadkwyVnZud3dONFdSVDVwVVBKOTNLQ3hWUGtMN1E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPd3RWdWdjbnIwWDV5RDl1OXkyV3BxbEl4Y2JrTzc3STZMd05KSmJ2OGllZFVTQnU1WnJQb0FIWE5pZWd4SV9kZ0FZNDZhUWNsV3FLTU10Zmp2SXZoNlZKWXZ0QVV3NG9QNE5FT2tBZ1NiYTFLM2xvSXJnUG9PNVI1bzRtZEVsOHRBcFBUQllGZ0E3bGJwaXBTUW5UZkgzV0lxZ0JLbg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Vietnamese Woman Surpasses Taylor Swift in Wealth Rankings
 
@@ -76,14 +117,6 @@ Stories: 120
   - [unverified] E! News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOQWNfaV90VjROU3VYdDZfTF92UlBEbEduLWFzVWFjQ1FLa3EwLVVONHNzTnF3VmhMNTZobzkxemQwem45VjNLTzZlSF85cElTWFJxRW1hbTZWYWNsS0dfV0p4a1YwLUNYME5hYkZLUGlZd1VQSkpzak5NMl9pejE0YXBVWElUbGZoUDZkM3BQdzFrOWhaSUZNV2VuNG9wZndtSE92YXRneTZPdw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPMHBrcTNhR1d6YmZSLWZNTnNPWk9MbDZVRVhpLWJFcVRQNHBQejg0RkJuV3JHaDdudFFzMDdiekY3OFFZYmg2RVlmUHlrWTN2bU5jSTRhWlRaVmF4QWl4N0l2dS1RWUZIY0xZWk1STjFkZ0xpcmhCT0ZQbWcyajI0QlQ2UkQwdEtiZWFsV3owZmkxYTB4ZUtxWVoyeWVGUjFGWF9hQXBB?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Involved in Ed Sheeran Dispute Ahead of NFL Opener
-
-- first seen: 2026-09-07 23:28 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reported to be facing a new conflict with Ed Sheeran just days before Travis Kelce's NFL opening game. Details of the conflict remain unspecified in the report.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNYWpaakEwb0YtQ0dwNXBiSW5nNU5NRktqSFRmOVFDMmN2d3ZvdXpiTnk3WkdKSmhKelVKcTJ2VFVwVG9IcHhzOVVfc0xfckhjbnVnQ2pVTWJQd21YYjZKWjV6WGtnU2ZfRjlDbUZFWHZ5QjlaZGJsTmgwdy1GczV3RWFiLTFmSWJual9RaUhEeG5WU0JoaWVvWE4wbw?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift and Travis Kelce Spotted on Date Night in NYC
 
 - first seen: 2026-09-07 23:28 UTC | category: sighting | importance: 7
@@ -100,6 +133,15 @@ Stories: 120
 - sources:
   - [unverified] The Frederick News-Post — https://news.google.com/rss/articles/CBMiggJBVV95cUxOaU1NRmw2ZzdXMmd2VVBQQ1VQN2JyV3ZkNlFQck00MG5oVC14VTI3MERQX3NhVlNZVWs3TW0xVWtDb2lta1U2WWJ6bW16Zi1halV0STNKZWJfbUluaGNsZllXd0daVURwQXduVjVTd2duUExtM1luV1lsQUJCWGp6WkZpTDFKU0RlVnZjbWtDazE5bmdlbUQ0MHRHUlZnNS1qTEpYZ3gwRUQzYTNMNEx3OFl1UGg1VEYyYU9qVm9rUXdqUGFjM1FKR2h4M2Q4SVFHekRpMV9idmVvOHdNSFhacmZtOWF6Umx3N0ZsQ3lRd01wczFkYTUteVRDN3F2Z0otQlE?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift Involved in Ed Sheeran Dispute Ahead of NFL Opener
+
+- first seen: 2026-09-07 23:28 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift is reported to be facing a new conflict with Ed Sheeran just days before Travis Kelce's NFL opening game. Details of the conflict remain unspecified in the report.
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxNZUVfUjBYaHcza3hxOFNyZEdrdDZQTnczb01WZ05URnFEZ3hwMFZhTENIVTgzU0EyVF9nd3R3dE5YbDRnY0lEMVl6SGc0bWdQVWVSQy1nRjJ6blpxakpQOTdramdGa3lWTHlyVmE0NXhmMzZuZ2VmQWVKMjlfSGtSc2ItTmhMWE5rZEFibFNxS1R1dl82dHVz?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNYWpaakEwb0YtQ0dwNXBiSW5nNU5NRktqSFRmOVFDMmN2d3ZvdXpiTnk3WkdKSmhKelVKcTJ2VFVwVG9IcHhzOVVfc0xfckhjbnVnQ2pVTWJQd21YYjZKWjV6WGtnU2ZfRjlDbUZFWHZ5QjlaZGJsTmgwdy1GczV3RWFiLTFmSWJual9RaUhEeG5WU0JoaWVvWE4wbw?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift and Travis Kelce Visit NYC Restaurant Post-Wedding
 
 - first seen: 2026-09-07 20:32 UTC | category: relationship | importance: 6
@@ -111,9 +153,10 @@ Stories: 120
 ## Taylor Swift and JD Vance Drama Reemerges Following Trump's Comment
 
 - first seen: 2026-09-07 20:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: The ongoing drama between Taylor Swift and JD Vance has resurfaced after Donald Trump referred to Swift as ‘no longer hot’. The comment has reignited discussions around their past interactions.
 - sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMijwFBVV95cUxNYnA1akd4bDRpQ1pUMkJuYVpXRU1hcnhRb21kQWRUM0JOa1loUGRuZUZSbXZBQy1WVDZSTXhsbElGal9NODE3ZmdET1E4WkZNdXk2MHo2M1cteVNla2hXalp1aDdBNG9XS2lWYzBFZ0xVWmpFR2JIQ1Yzc3U4SXNTOGV0Qk1uYVNocGZhb1dLTQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNVHVsVUk5R0R0Xy1TVzRLTzM3bk9ud3B6dzRLSzBNUFNBRS1tZC1pczZlbTh3VThQQWlLeWxaclU2UjdzRlJiQVUwX295Z3gzNmFNc0FuaERkMmxiS3lKcmd5TTNTTjEybGVIdkl5TUQxNS01RFNLQ0xEaW1jTTBZdlhHV0Rndm1ibW9JaVlobW9zTDFGeFV4QjRVUk5Ndw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Guests at Taylor Swift's Wedding Joke About No-Phone Policy
@@ -908,39 +951,4 @@ Stories: 120
 - first seen: 2026-09-05 16:00 UTC | category: business | importance: 7
 - verification_status: single_source | source_count: 0
 - summary: A recent Luminate report reveals that Taylor Swift fans are responsible for driving millions in physical album sales. This underscores the significant influence her fanbase has on the music industry.
-- sources: _none recorded_
-
-## Taylor Swift Scheduled for Appearances Ahead of Chiefs Opener
-
-- first seen: 2026-09-05 16:00 UTC | category: tour | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Taylor Swift is set to make multiple appearances before the opening game of the Chiefs. Details about the specific events have not been disclosed yet.
-- sources: _none recorded_
-
-## Report Highlights Taylor Swift Fans' Impact on Album Sales
-
-- first seen: 2026-09-05 12:38 UTC | category: business | importance: 8
-- verification_status: single_source | source_count: 0
-- summary: A recent Luminate report reveals that Taylor Swift fans significantly contribute to millions in physical album sales. The findings underscore the robust support from her fanbase in the music industry.
-- sources: _none recorded_
-
-## Travis Kelce Shows Affection for New Family Member, Not Taylor Swift
-
-- first seen: 2026-09-05 12:38 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce expresses his fondness for a new addition to his family, distinguishing it from his relationship with Taylor Swift. The article highlights his recent statements regarding this new family member.
-- sources: _none recorded_
-
-## The Florida Orchestra Arranges Taylor Swift's Music for Symphony
-
-- first seen: 2026-09-05 12:38 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: The Florida Orchestra is adapting Taylor Swift's music into a symphonic format, showcasing her songs in a new orchestral arrangement. This event highlights the versatility of her music and its appeal across different genres.
-- sources: _none recorded_
-
-## Details Emerge About Swift and Kelce's Dog, House, and Wedding Plans
-
-- first seen: 2026-09-05 12:38 UTC | category: relationship | importance: 7
-- verification_status: single_source | source_count: 0
-- summary: Recent reports have provided insights into Taylor Swift and Travis Kelce's life together, including information about their dog, their home, and wedding plans. The couple continues to attract media attention.
 - sources: _none recorded_
