@@ -25,7 +25,72 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 120
+Stories: 92
+
+## Taylor Swift Returns to Top of Country Radio Chart After 13 Years
+
+- first seen: 2026-09-08 19:53 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has achieved a milestone by reaching the top of the country radio chart for the first time in 13 years. This marks a significant comeback for the artist in the country music genre.
+- sources:
+  - [unverified] Gulf Coast News and Weather — https://news.google.com/rss/articles/CBMihgFBVV95cUxPd1pZdWMxZlVaS0djZm0wOTN5MG5pWjdYWVU0bGhaa1RRWGo1M3IzWUtoTFg0LW1ueURTd1B1TzhNOWhnbFhGS3RaQ094cnRsWnAxdG9ld3RKdmRMWkxyaWZzNG52R2pkVzdoMkZlRU91eVlFbTdFdzZaTGZadk0zZFhUalNCQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Latest Song Reaches Top of Billboard Hot 100 and Country Radio
+
+- first seen: 2026-09-08 19:53 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's newest song has achieved the top position on both the Billboard Hot 100 chart and country radio rankings, marking a significant milestone in her music career.
+- sources:
+  - [unverified] CW33.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxPM1czdUJ2dzVvVF8yTlViN0RYMC1YYnFRaUdvcUpyb0tKRkxSblg3cldJdnpwcW1FRFhqNmdfM2pqQWh0eDBGRzJ4VFNZRnByR2d3NVo3SHhZTHNYeUFhRmt4WWJCOENXTGxuUXB3cklNSFhNR2Jjc3dyWl84U0pCWW5SRUpuVXFVdUg5bk9reFNBLTExUWt4ay1oYl90bmZxbXNWVdIBqgFBVV95cUxQUlp5Wl8yX21KbXpIdkNlaWFQWDNqS1FQRTk3VjIzWmIyUDU0Z0xTcDR1YndTbHdnMW5wQnlvUjVLY1JScFJHNVhSOU5XM3lQbGlTSUhOb2RTa08yWW1ZdEJFMHB2eEUxczZKcVFvRlZwVmZQamR3NUQtdG44SC1heWpTWnZ2R2MtbmppUU9NNzJ4UHBmTXM1TUlHTnVTVVdFWjVNWHBCaDBYQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Weill Center Announces Fall Lineup Featuring Taylor Swift Tribute and Ghost Tours
+
+- first seen: 2026-09-08 19:53 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Weill Center has revealed its fall lineup, which includes a tribute to Taylor Swift along with ghost tours. This event promises to showcase diverse entertainment options for attendees.
+- sources:
+  - [unverified] The Sheboygan Press — https://news.google.com/rss/articles/CBMi5AFBVV95cUxNdmZ1elRUWm9QLVYzY1ZtUnBxNGhpU3pTY0ktOXVWMXRfeHhWc0FfaFIxT2RrZUtWbWFWMW9JWWZSd2wzTENkSmlMMHprelk2bDdxYWNxd0pBcVBTWjZJeTJUclJaWURnRVE4RTcwYnBEMGNtRUJERzl4MmVDSmV2V3RxMVBMQVFnbUFIb3lSNC0zdk9wVWoySnI5bUs5akdDSUZ3WHdPQWlwbmFKdUxmRlBYenZBN2VmaWtEemNYb2czNEZPQ2V0a0FQTVhyVTdaLVNCWDJKemlSaEstZjZZMXVaWXU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and George Strait to Receive Honors at Nashville Gala
+
+- first seen: 2026-09-08 19:53 UTC | category: business | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift and George Strait are set to be honored at a gala in Nashville on October 26, as reported by The Tennessean. The event will celebrate their contributions to the music industry.
+- sources:
+  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMiygFBVV95cUxOblNhdmtRQmN2WG85d3h1QlJOUWRjWUIxa042ZFJpZWJEWjVTb2NLQkZxdml5WFEzcFdGbnZTZXVRZmxuWklORDZYaW9JVlR4OW01VExPMWN2RDV5MWpNbTZaazlpaVNqT0pQUUZsc0w4SXFXNFVHeElFeFFvNGRCMV9TNXVjX1hYdXZBdmNTT2xXQmg5RlNoSkZSVFNwZENYM1ByU1ZwcXI4c2xJeGFsWDQ0ZWV2eU1oakEtZWR3WVlCYVMybWhFdW9R?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOMFhxdkF4ZDkwUXduUUNEUTNJc1hkLUV6SHZSMHYzOXNSbDBEYk91eVJ4V3BHYkxWclkwUC1jczJuSWwxdTBJWUhwWXdPVUJSVk9BdmV4eUsyRjVWVmhjeVJmSmRoYlFVTlA3bVlLTDF5ZHRyUjVFemp2VmVUQ3IxQUtzWnV2Z1Z2TVVUcm9xU3VzdHczdncycG5wZlNhMkVqMmc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Achieves 14th No. 1 at Country Radio
+
+- first seen: 2026-09-08 19:53 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has secured her 14th career No. 1 hit on country radio, as reported by MusicRow.com. This milestone further solidifies her impact on the country music genre.
+- sources:
+  - [unverified] MusicRow.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPQXRUOVZXOWo2dkRXZ3FSbm9YdldhNVp3Z3M1cUtkWDZVUHk3SHhxMTZ3OHdNN1R6bDkxbGQzZGxnOExOaDY4dEJCUVdOTDFtczRDZmJPbzRxZm1RcFRJUEQ2c2twV0laVDBPNFh1MnR5WlFwQm0yLUh3SVZxWEk2NXZsdWg3RGhM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Wear Matching Wedding Bands in NYC
+
+- first seen: 2026-09-08 19:53 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were seen wearing matching gold wedding bands during a night out in New York City, highlighting their recent marriage. The couple's appearance together continues to draw attention from fans and media alike.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMikAFBVV95cUxOcTFWbGZ1dGhoaFlBUkdwMExNaTllRjkwVlZTMWJVaGc0V1l5ZmxYTm1ESlcyckRvUUJEZGVuZk1KeUl1d21oU2k5SU01cS1XX3k3WU8wQkVnR1JqcHdsVE15YTRqWmkzQm1rTVA1aG1nMGZjU2NBNWxldHdxTi1UcEdWY2ZPaUl3Qk9yY0wyZTU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Jeweler Creates Baby Signet Ring for Her Daughter
+
+- first seen: 2026-09-08 19:53 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Vogue reports on a special baby signet ring made by Taylor Swift's favorite jeweler for her newborn daughter, highlighting the personal touch of the creation.
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMihgFBVV95cUxNMHgxbWtpWFp1NWdWdTBmRHNTbjk2NTRDUDh4US1qdmI1YmF5VVRnaUtPY1FFU1ZmV2NNeE9xZUtYRG1DYktOSm9XTkFxTVdMYnhGaDlPWl93WFpZTUlzRThJaWhYX3lQcFhpSXcxcnNqdWhKWTRXeGl2Yl84bGloYWJHUXFUZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Campaign Focus Post-Emmys in Question
+
+- first seen: 2026-09-08 19:53 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Discussion arises whether Taylor Swift will shift her campaign efforts towards the Grammys and Oscars following the conclusion of the Creative Arts Emmys.
+- sources:
+  - [unverified] LaineyGossip — https://news.google.com/rss/articles/CBMixAFBVV95cUxNRUJNRnRPaUVKSnl5RWdacmtvWHNNTExyclBHZGpjcmNndFYyYWZRNjdZc1lGNDFCd1djaHcxaUFxU1ZteHNJNWR3clpCMW95Y0ZOV2Vqa19UTTh3TnpDamZGcmRnRjBoTGkwUElWSF9GNzZHSE9Wc3FtMktBcjYyeEdhWHlINndLYVc2WUZZOUIxNl82cW44MDVDNXlWNnRuTU9aZWJlQVFucnJDc1R2N2xTdnlCdmRWN3pSelpqSFpocWNX?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Achieves Country Radio No. 1 with New Song
 
@@ -699,256 +764,4 @@ Stories: 120
 - first seen: 2026-09-05 22:50 UTC | category: relationship | importance: 5
 - verification_status: single_source | source_count: 0
 - summary: During a concert in New York City, Harry Styles made a lighthearted comment about weddings, seemingly referencing his ex Taylor Swift and her MSG ceremony. The remark drew attention from fans and media alike.
-- sources: _none recorded_
-
-## Details Emerged About Swift-Kelce's Dog, Home, and Wedding Plans
-
-- first seen: 2026-09-05 19:00 UTC | category: relationship | importance: 7
-- verification_status: single_source | source_count: 0
-- summary: Recent news reveals updates on Taylor Swift and Travis Kelce, including information about their dog, home, and upcoming wedding plans. This comes during a busy week for the couple's public appearances and shared moments.
-- sources: _none recorded_
-
-## Lydia Kulina-Washburn Discusses Taylor Swift's Financial Impact
-
-- first seen: 2026-09-05 19:00 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Lydia Kulina-Washburn analyzes the economic influence of Taylor Swift and her impact on recessions in a new piece for Broad + Liberty.
-- sources: _none recorded_
-
-## The Florida Orchestra Arranges Taylor Swift's Music for Symphony
-
-- first seen: 2026-09-05 19:00 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: The Florida Orchestra is creating symphonic arrangements of Taylor Swift's music, enhancing her songs with orchestral elements. This initiative aims to bring a new dimension to Swift's popular tracks.
-- sources: _none recorded_
-
-## Travis Kelce Discusses Phone Ban at His and Taylor Swift's Wedding
-
-- first seen: 2026-09-05 19:00 UTC | category: relationship | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce shares insights on how the phone ban implemented at his wedding with Taylor Swift impacted the night. The couple's decision aimed to create a more intimate environment for their special occasion.
-- sources: _none recorded_
-
-## Nikki Glaser Discusses Wedding Artifact from Taylor Swift and Travis Kelce
-
-- first seen: 2026-09-05 19:00 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Nikki Glaser shares her experience regarding an item she nearly took from the wedding of Taylor Swift and Travis Kelce. The comments provide insight into the event and the significance of the artifact.
-- sources: _none recorded_
-
-## Gigi Hadid Labels Travis Kelce in New Shoot
-
-- first seen: 2026-09-05 19:00 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Gigi Hadid provides a surprising label for Travis Kelce during a recent photoshoot, as reported by Yahoo. Details of the shoot and the context of the label were not disclosed in the snippet.
-- sources: _none recorded_
-
-## Taylor Swift's Music Inspires New Playlist Featuring Fictional Perfumes
-
-- first seen: 2026-09-05 19:00 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: An exclusive essay discusses how Taylor Swift's music has inspired a playlist of fictional perfumes, highlighting the creative influence of her artistry.
-- sources: _none recorded_
-
-## Taylor Swift Shares Three-Word Motto for Tough Times
-
-- first seen: 2026-09-05 19:00 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Taylor Swift has revealed a three-word motto that helps her endure challenging moments. This personal insight offers a glimpse into her mindset during difficult times.
-- sources: _none recorded_
-
-## Luminate Report Highlights Swift Fans' Impact on Album Sales
-
-- first seen: 2026-09-05 19:00 UTC | category: business | importance: 8
-- verification_status: single_source | source_count: 0
-- summary: A recent report from Luminate reveals that Taylor Swift fans have significantly contributed to millions in physical album sales. This data underscores the robust market presence of her fanbase in the music industry.
-- sources: _none recorded_
-
-## Emmy Predictions Includes Taylor Swift as Contender
-
-- first seen: 2026-09-05 19:00 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: In a recent prediction article for the Emmy Awards, Taylor Swift is mentioned among potential early winners. The two-night presentation of the awards is set to take place over the Labor Day weekend, highlighting various categories including those featuring Swift.
-- sources: _none recorded_
-
-## Harry Styles References Taylor Swift's MSG Ceremony During Concert
-
-- first seen: 2026-09-05 19:00 UTC | category: relationship | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: During a concert in NYC, Harry Styles humorously referenced his ex, Taylor Swift, by saying 'They also do weddings,' in connection to her MSG ceremony. The comment was made during a lighthearted moment on stage.
-- sources: _none recorded_
-
-## Blank Space: Unofficial Taylor Swift Tribute Featured on FourStatesHomepage.com
-
-- first seen: 2026-09-05 19:00 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: An article on FourStatesHomepage.com covers 'Blank Space: The Unofficial Taylor Swift Tribute', highlighting the tribute's significance in celebrating Taylor Swift's music.
-- sources: _none recorded_
-
-## Taylor Swift Playlist Curated for Senior Year
-
-- first seen: 2026-09-05 19:00 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Her Campus has created a playlist featuring Taylor Swift's songs, tailored for students in their senior year. This playlist aims to resonate with the experiences and emotions of high school seniors.
-- sources: _none recorded_
-
-## Taylor Swift's Jeweller Creates Baby Signet Ring for Daughter
-
-- first seen: 2026-09-05 19:00 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: British Vogue reports on the custom baby signet ring made by Taylor Swift’s favorite jeweller for her newborn daughter. The piece reflects a personal touch and connection to the artist's family.
-- sources: _none recorded_
-
-## Ohio Village Prepares for Taylor Swift and Travis Kelce Visit
-
-- first seen: 2026-09-05 19:00 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: A small village in Ohio is getting ready for a potential visit from Taylor Swift and Travis Kelce. The community is excited about the possibility of hosting the famous couple.
-- sources: _none recorded_
-
-## Taylor Swift Scheduled for Several Appearances Before Chiefs Game
-
-- first seen: 2026-09-05 19:00 UTC | category: tour | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: Taylor Swift is set to make multiple appearances in the lead-up to the Kansas City Chiefs' season opener. Details about the specific events or locations of these appearances have not been disclosed.
-- sources: _none recorded_
-
-## Travis Kelce's Family Welcomes New Member, Not Related to Taylor Swift
-
-- first seen: 2026-09-05 19:00 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce expresses his enthusiasm for a new addition to his family that does not involve Taylor Swift. The statement highlights his connection to family beyond his relationship with the pop star.
-- sources: _none recorded_
-
-## Travis Kelce Discusses His Love for His and Taylor Swift's Dog
-
-- first seen: 2026-09-05 19:00 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce expresses his fondness for the dog he shares with Taylor Swift, highlighting their shared love for their pet.
-- sources: _none recorded_
-
-## AMC Launches Leawood Films to Increase Movie Releases
-
-- first seen: 2026-09-05 19:00 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: AMC has established a new initiative called Leawood Films, which draws inspiration from Taylor Swift, with the goal of enhancing the number of films released in theaters. This move reflects a strategic effort to bring more diverse content to the big screen.
-- sources: _none recorded_
-
-## Travis Kelce Discusses Phone Ban at Swift Wedding
-
-- first seen: 2026-09-05 16:00 UTC | category: relationship | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce shares insights about the phone ban during his and Taylor Swift's wedding, discussing its impact on the event.
-- sources: _none recorded_
-
-## Details Emerge About Swift and Kelce's Life Together
-
-- first seen: 2026-09-05 16:00 UTC | category: relationship | importance: 7
-- verification_status: single_source | source_count: 0
-- summary: Recent reports have provided insights into Taylor Swift and Travis Kelce's life, revealing information about their dog, house, and potential wedding plans.
-- sources: _none recorded_
-
-## Travis Kelce's New Family Member Sparks Interest
-
-- first seen: 2026-09-05 16:00 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce expresses affection for a new member of his family, which is not Taylor Swift. Details remain focused on his personal life outside of his relationship with the pop star.
-- sources: _none recorded_
-
-## Taylor Swift Shares Her Three-Word Motto for Perseverance
-
-- first seen: 2026-09-05 16:00 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: In a recent article, Taylor Swift discusses a personal three-word motto that helps her navigate challenging times. The insights reflect her approach to resilience in both her career and personal life.
-- sources: _none recorded_
-
-## Ohio Village Prepares for Taylor Swift and Travis Kelce Visit
-
-- first seen: 2026-09-05 16:00 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: A small village in Ohio is gearing up for the anticipated visit of Taylor Swift and Travis Kelce. The local community is preparing for the couple's arrival and the attention it may bring.
-- sources: _none recorded_
-
-## Taylor Swift's Music Inspires a New Playlist of Fictional Perfumes
-
-- first seen: 2026-09-05 16:00 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: An exclusive essay discusses how Taylor Swift's music has inspired a playlist themed around fictional perfumes. The piece explores the connection between her songs and the fragrances.
-- sources: _none recorded_
-
-## Official Tribute to Taylor Swift Featured on KSNF/KODE
-
-- first seen: 2026-09-05 16:00 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: KSNF/KODE has showcased 'Blank Space: The Unofficial Taylor Swift Tribute,' highlighting the impact of Taylor Swift's music. The tribute focuses on her influential work and the connection she has with her fans.
-- sources: _none recorded_
-
-## The Florida Orchestra Arranges Taylor Swift's Music for Symphony
-
-- first seen: 2026-09-05 16:00 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: The Florida Orchestra is presenting a performance that incorporates Taylor Swift's music into a symphonic arrangement. This unique adaptation aims to bring a new experience to her popular songs.
-- sources: _none recorded_
-
-## Harry Styles References Taylor Swift's MSG Ceremony During Concert
-
-- first seen: 2026-09-05 16:00 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: During a concert in NYC, Harry Styles made a joke about weddings, which has been interpreted as a nod to his ex, Taylor Swift, and her MSG ceremony. The comment drew attention from fans and the media.
-- sources: _none recorded_
-
-## Gigi Hadid Labels Travis Kelce in Recent Shoot
-
-- first seen: 2026-09-05 16:00 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: In a recent photoshoot, Gigi Hadid referred to Travis Kelce with an unexpected label, drawing media attention. The context of this label and its implications remain unclear from the information provided.
-- sources: _none recorded_
-
-## Taylor Swift Receives Baby Signet Ring from Favorite Jeweller
-
-- first seen: 2026-09-05 16:00 UTC | category: fashion | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: A British jeweller has crafted a special baby signet ring for Taylor Swift’s newborn daughter, showcasing the artist's appreciation for personalized jewelry. This unique piece highlights Swift's preference for bespoke items from her favorite jeweller.
-- sources: _none recorded_
-
-## Emmy Predictions Include Taylor Swift Among Potential Winners
-
-- first seen: 2026-09-05 16:00 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: The Emmy Awards weekend will feature predictions for various nominees, including Taylor Swift, amidst the Creative Arts Emmy Awards. The awards are part of a lengthy Emmy season spanning the Labor Day holiday.
-- sources: _none recorded_
-
-## Lydia Kulina-Washburn Discusses Taylor Swift’s Economic Impact
-
-- first seen: 2026-09-05 16:00 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Lydia Kulina-Washburn analyzes the economic effects attributed to Taylor Swift in an article for Broad + Liberty. The discussion focuses on the influence Swift has during economic downturns.
-- sources: _none recorded_
-
-## Travis Kelce discusses his connection to Taylor Swift's dog
-
-- first seen: 2026-09-05 16:00 UTC | category: relationship | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce has shared his affection for the dog he shares with Taylor Swift, highlighting their bond over pet ownership. This sentiment reflects their personal relationship with a shared love for their pet.
-- sources: _none recorded_
-
-## AMC Launches Leawood Films to Increase Movie Releases Inspired by Taylor Swift
-
-- first seen: 2026-09-05 16:00 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: AMC has established Leawood Films, a new initiative aimed at bringing more films to theaters. The move was inspired by Taylor Swift's impact on the entertainment industry.
-- sources: _none recorded_
-
-## Taylor Swift Playlist Curated for Senior Year
-
-- first seen: 2026-09-05 16:00 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Her Campus presents a playlist of Taylor Swift songs tailored for students in their senior year, highlighting emotions and experiences relevant to this milestone. The playlist aims to resonate with graduating students.
-- sources: _none recorded_
-
-## Luminate Report Highlights Taylor Swift's Impact on Album Sales
-
-- first seen: 2026-09-05 16:00 UTC | category: business | importance: 7
-- verification_status: single_source | source_count: 0
-- summary: A recent Luminate report reveals that Taylor Swift fans are responsible for driving millions in physical album sales. This underscores the significant influence her fanbase has on the music industry.
 - sources: _none recorded_
