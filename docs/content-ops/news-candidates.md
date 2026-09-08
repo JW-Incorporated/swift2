@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 79
+
+## Sabrina Carpenter Wins First Emmy Award, Ahead of Taylor Swift
+
+- first seen: 2026-09-08 23:21 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Sabrina Carpenter has won her first Emmy Award, marking a significant achievement in her career. This victory comes as Carpenter surpasses Taylor Swift in the award-winning race, highlighting her growing recognition in the entertainment industry.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNeUxNOVVEbEk1SjczVWNUNHZuS3VsVm84MzhOOGxBemt0UG5SRUR6cWstNGtCMWRlQTdSLTFFQkJ6MWxoT3ZzQU8xb3dCMFdlUDBMRENxanBKaHc0N1ZtUkhDd1JVcXhGRnpQVTBZbUlZcnVvMmkzcHZpSXZ0cnhJOFNZZVhwRVVsSkwtR25Oc0NiOWhrSDB4MnZtaDR2bTE2?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Promoter Claims Live Nation Excluded Him Amid Ticketmaster Breakup Calls
+
+- first seen: 2026-09-08 23:21 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A Taylor Swift promoter alleges that Live Nation has shut him out of discussions, coinciding with AEG's calls for a breakup of Ticketmaster. This situation highlights ongoing tensions within the live event industry.
+- sources:
+  - [unverified] TicketNews — https://news.google.com/rss/articles/CBMiggFBVV95cUxOR1MzdmxHbDBCalBianlXYS0zLWU5d05uYjJXMlJ6SWpjS0pZdEhFMWUtZlR6d1k2NHhvODZmN1NHdWhpNy0yTUg2eEdBeUVJNzdqY3p1bWNoWk84aFlkNG1vRk9LT1lRMG5PSVVvQjk4bElSOC12cVA5bVpGcHVYcF9R?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Exploring AI Celebrity Ownership: Taylor Swift and Others
+
+- first seen: 2026-09-08 23:21 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A new article discusses the complexities of trademark and publicity rights regarding AI-generated celebrities, featuring insights on Taylor Swift among others. The piece delves into legal considerations in the evolving landscape of public figures and AI.
+- sources:
+  - [unverified] JD Supra — https://news.google.com/rss/articles/CBMihwFBVV95cUxNQlkzRlp5TldTVlVNcXp4VU5Ycm16dzdmMzBxUzBXNUN2cUVWdTNvRW5SckRsZUxjSkl0OFNmUi1DMnB5YkhlLUFCaF90cWZPbmo3Z2doUkU1S1hrNWZrc2xSZGdHUXUwZnVxanVQOGt1UjZ4S0JtbldHNDh6UUwyMURQRTdyUHc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Ed Sheeran Reported to be in Disagreement
+
+- first seen: 2026-09-08 23:21 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest that Taylor Swift may be experiencing a fallout with Ed Sheeran following a recent controversy. There are questions about whether she has turned against him amidst these claims.
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMipAFBVV95cUxQVWxyU0dQekJiQlRBdHJ5TW93MWNTNGtTQjBrZGpZTzg3MDdOZzZDTjBSbzcxd2FsWVpoSmdqdWFiam9FcHZUb2NZcmc2WVNWaDNNWGpVczJqcVB6bC1ld3hWcHdleXljM1FQOV90RTlJQlpBcUNGVmdsRGVLUXFmQ3BiT3Q3dXVFWGZtb3Z1LU8yV1NGVWRGR3Axc3JzcnB2X0FuZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Returns to Country Radio Chart No. 1 After 13 Years
+
+- first seen: 2026-09-08 23:21 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reached the top of the country radio chart for the first time in 13 years. This marks a significant milestone in her music career, reflecting a return to her country roots.
+- sources:
+  - [unverified] WLWT — https://news.google.com/rss/articles/CBMihgFBVV95cUxNMnVRRkpGd2x1MlVRS24ydzlzTUxqeXJHTnV1NEF5OENKSVhwVV9QcGJSMnRETEZVN3RtSVlkeFdzWXNmblBhOFo1LVNoeFBrT3dyZGo0dE83cmFYRFNlaU9hZGxTaXVPSUhrSEJiWXJKNUhNalh1NVpoT1dZbmY5SE9JRHVnZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift References Debut Era on Date With Travis Kelce
+
+- first seen: 2026-09-08 23:21 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: On a date with Travis Kelce, Taylor Swift subtly alludes to her debut era. The couple's outing attracted attention for its nod to Swift's early music.
+- sources:
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMi8AFBVV95cUxOeXB0cUxnbkRxT05xZ2RPWURlMEphVG8zaTZ3YmxISnlJa0JRNDlpbmFkdm5pMENhVTRYWnJSN3RUQ3FwQ29aWHQyUTZYRjZzN25KbkhhNXhkQVFiYVdNWlFoM3RtS19KNEJsMlBDaTVTSHpXMkFvWWpUQjhOYWNVSU9ubUlyWmY1S3hYVW0wZkRlTFFSU1pmTXZEZzZ2dmZJOF95cllWdnY1aGlvbkN6N244Qmg0RDNvRUhrNFdLcVA4VFNsa1dmczVibXVjVkJCN3plckdXTmFHYndjYUtYTjZFZGRVWDR4YUpuemlvVm0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears Slinky Halter Dress for Date Night
+
+- first seen: 2026-09-08 23:21 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is seen wearing a stylish striped slinky halter dress, making a fashionable choice for a date night. The outfit highlights her chic and trendy sense of style.
+- sources:
+  - [unverified] Marie Claire — https://news.google.com/rss/articles/CBMitwFBVV95cUxQZXJ4T2pIRlZFb1JCMk9XZzdyWjI0cE5Cek9wdVh5ZGhQN0t0aDRNZ3owYXdqTGM4dkl0dzhNMWoxQ0hQUUQtVjJYd1JGekFLRzZ6TVZIWEo5SXpOSUNiWG92ZVppVXB3aGY4STFlSlJSeHpEb0FDWUpyMzJaNmlCVkZ6Y3h0RHJvNTVwNVJvOVFpV3JYWDRkRTZydUZxMXFhRmxRYWp0emExNU8yS19BM1dDSEVpRjg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Enjoy First Date Night as Newlyweds
+
+- first seen: 2026-09-08 23:21 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted on their first date night since getting married. The couple stepped out together, making their outing a special occasion.
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMimgFBVV95cUxNRy04a3h3Qk9xbVlXTDJBb0lzS2NMMlYyZWlOY3ZLbE5iME5BdmRfT0pGVU1OOXd3Sk1jNW5BNjdsb0UtY2x4Y3VpalBkNzIyRTRxdkZSWDlncF83MDBZZXJfbWl5UnpxT2ZtX1lZandtdnNLeDNNaTFFdHFIb25WdmFzYUUwNjZWbFdKSmRPMUNRbENsMHl6cjBR?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Returns to Top of Country Radio Chart After 13 Years
 
@@ -499,21 +563,6 @@ Stories: 92
 - sources:
   - [unverified] newsnationnow.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdXFLQU1VMGVVbnlCMENPVGpPWUJvbEVBaVZFbGxlTlBjTjc3MGxFRWVELTMxb0U2cno5c04tNkRHTE9fVW1tYmx5QnhpLUF4MUc2XzdFMklIWE13eGUzbHZEcU80VmRUc281Xzd5MnhDZVMwX3VOVV9ZdVRVMDROWG9NSHpsYkl1U2dJVEt2T185V1NoVE5wWXY0cE5OUU1MLUVHeEM4VTcxZ9IBrwFBVV95cUxOSlB1UjNhVnVWdWRsOXhLSzdQemRINFhXYjZ6QjJWRDRKMFZMekVUSlZVTWhvSHNCR0Vob1cyN2tYNXVZVk0xQlRrVmlGbTZBeVJNQVpRSTgyaFdWYk5fZG5xWW1nZWN1YklNaWVad2tJSDZETkd1NXVpUmdIWExKNDFkS1F4c216RjhRZXRDQWNOd2NkbTNRQ2cteTY4bVZMYWdUYlBQaTIydXE1S1A0?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Discusses 'I Knew It, I Knew You' Lyrics on Country Radio
-
-- first seen: 2026-09-06 05:53 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 8
-- summary: In a rare appearance on country radio, Taylor Swift shared insights into the double meaning of the lyrics from her song 'I Knew It, I Knew You'.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMGo5ZXdtTmwzUkxMUDZ6djBHUmQxaGFfaUgxclhxZ2VWU0ZHTkJyOEFMTTFjTnJpbXlCYjNfYTBfbDBkOGU5MVVCZVVZY0hQbmR5RU51bWlKT2Voa2dpQzJqV05fakR0akxBWm93czVTOE9uaWE5RzVRYUVIcnZ4OThtZERsRGJFS1NVaTFMaFJPRGVoUjRCNGdLd3RqWTdHQjJsaHV5aTU5SmczU013?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] DRGNews — https://news.google.com/rss/articles/CBMimAFBVV95cUxQV0dqM3VxLUdpZi15cGtoZkwzZkUtVWlPQlF6N1dkOGpXYWRMYmRPb3NjUTZlQzhKSXhoV01SQTFKeGRCOVg1VmVpOERkTGhMeEV4QVNDN3Y3Szg3OTJvRGIxTVk2d01vSHZFb3R4R1BxZVUzYnZ6eXA3aUE0SGhYWG50WTYxRzdDRnFab19reXZKMEQxY0w0YQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Headline Planet — https://news.google.com/rss/articles/CBMitwFBVV95cUxQSE1zR25MMGJMcjk5NElsMDRsMEcza0o5dGVJbi1sS0pibGpJY0kybGhmRnVkS1lqTHRnUEJuRUdvZDN5YkZjYkxjRTVSVE43R0x2WGtOS3dfLU1JS2VCTFJwNm5teVV4T3k0ai1aV1M3cUg4d3JNYUVKU1B3WERyeHNuUWtOcnpLRUQwLUx5Yy0yWTd0N2w2WGQ3SWdMNmIwTWhGRFFVd3JTLU41SGI2LWF1Mnd2VjjSAbwBQVVfeXFMUHcwTDdzTm0zQjhnVlUwWnVMMzI2NGxOOWpsTnhNSjlqSG12RUVBVDNmV08wUTZucUJlcnVBZ2EzVmJFaVppTTFhNUNaNnNZSTdrdER4R3RORnM3YzhoQmJjb2dpSmVGbzBwV1RPcHN0cm1mQlViU0ZuM3lSNDUyZWdMbHgtNTYzRXdwaDdVTlE5ekNmNHB6RWNuRkx2RGNiRE5JQWYyelFCUm9mbTcyM2VtTVFPM1NiaFRUN2w?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMipAFBVV95cUxQZF9VaWx6S0tuTm9VeF90ZW82cGpOVVdnZzJjZWdMdThYYnpsMmJKN3lsXzFkRFdGaVRUblRlR1pfVDRRd3BzZkdpNkRXX21mUHRoS3REcEwxQVVDODU2Z2xxcGxJYTlWczhjbERpMDNnVGk4ZVBOaEN0MEV3X2FEU29wdmtiTVY4UHdid25ybEZrWUttRDAtZTdycEZpcm5BWE9BRg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPb2o4OGRXbHh6aDMzemE4MVVXd3E0NkRlZERqMkNxSGxyOHdfZDZQcjdVamtCcUQ3T0l5ZHVlRVZtdThsZmc1azFFdXMyTWV2UTB0M01TT0FhRzlvMGFxdDBkcHUxOTh0SF9Qc1ZZWnJVcDVCSHBzTEp0Uk05R3N0MXlLZVY5QzFV?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi4wFBVV95cUxNbng5RF9sTmRmdnplZ0FYV3h2RUROcGZXa1RtdHBrdVl3RzF2OGJOZzgyZFpLR29MQmItQW81MEZhaC1sblJuMUZUYXpTSGhxUjRlbVRmcmdROUhKMnczNUY4QXNSMFlHYllaS0xpTFZiWm9majRaVm1mZDlXRTdZS1ByUTVxcmhzZEJNaWJqSWNPR3l1X0EzVm5RX2hjQkRQZGFKeDRhR0VtQW8yVUFuSkxhdzBkRHBSUzhINVhFemJib1RkYUcwRkFqQVEzVjl4ZTFqbkRyOVA0VGJ1NDhLQTVQZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxNSlcxcVRLX0Ixd055WjdpU0dVODRNTmIxODBMMWNQWEo2TjRJRTU5N3pGbjNUUnVJMVpBOVNHT1g5VkxlVTBnQ0V5YnhhNU9kRjRENmFIMXB4cFZVektJZDVyQUZxelZhcnB0eHpTZlF2ejIzZzVfQWtBYXdYN1B2c1M4cVluQVFOVXpTMXdNSy1uRndHREhZcmJB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMihgFBVV95cUxNdkRWOG9waEFsZ1JNajZqaEV4Z1V2T0stbG9Xd0ozUXVTSFBfazVZblRib0tRQ29wNTAwY0F0MWQ4cmoyMGJFVUU5WkJCSi0tWlhDM3U4WWdEWGd0Y3drN3l1TkFpUjUwdGFJeEtjc24tbFEwSjNwUE5PazYwaWJYUHhyai1WQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Harry Styles Makes Wedding Joke at NYC Concert Referencing Taylor Swift
 
 - first seen: 2026-09-06 05:53 UTC | category: relationship | importance: 5
@@ -562,6 +611,22 @@ Stories: 92
 - summary: During a recent photo shoot, Gigi Hadid used an unexpected label for Travis Kelce. The context and details of the shoot were not provided.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPa2MxNzU4dmVQdzNXYlJMZlptUW9DS2s2eW5aSXh6UTVpNFl6VVV3S0tmNVNTa2tfZllfX2hOYnhnOGNyMDZMUERIMDZqaHY4Z0JURW10ajZyWkE0U2ZURUgzRGtBYnhUV0gtZjJQUkxUVlBoaEowSnNuYUtHM19DLUJZZjZhM0Rtcks0VWV5aGpqa0RmYjNVX1lCVmF6R0swM2NpODRn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Discusses 'I Knew It, I Knew You' Lyrics on Country Radio
+
+- first seen: 2026-09-06 05:53 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 9
+- summary: In a rare appearance on country radio, Taylor Swift shared insights into the double meaning of the lyrics from her song 'I Knew It, I Knew You'.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMGo5ZXdtTmwzUkxMUDZ6djBHUmQxaGFfaUgxclhxZ2VWU0ZHTkJyOEFMTTFjTnJpbXlCYjNfYTBfbDBkOGU5MVVCZVVZY0hQbmR5RU51bWlKT2Voa2dpQzJqV05fakR0akxBWm93czVTOE9uaWE5RzVRYUVIcnZ4OThtZERsRGJFS1NVaTFMaFJPRGVoUjRCNGdLd3RqWTdHQjJsaHV5aTU5SmczU013?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] DRGNews — https://news.google.com/rss/articles/CBMimAFBVV95cUxQV0dqM3VxLUdpZi15cGtoZkwzZkUtVWlPQlF6N1dkOGpXYWRMYmRPb3NjUTZlQzhKSXhoV01SQTFKeGRCOVg1VmVpOERkTGhMeEV4QVNDN3Y3Szg3OTJvRGIxTVk2d01vSHZFb3R4R1BxZVUzYnZ6eXA3aUE0SGhYWG50WTYxRzdDRnFab19reXZKMEQxY0w0YQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Headline Planet — https://news.google.com/rss/articles/CBMitwFBVV95cUxQSE1zR25MMGJMcjk5NElsMDRsMEcza0o5dGVJbi1sS0pibGpJY0kybGhmRnVkS1lqTHRnUEJuRUdvZDN5YkZjYkxjRTVSVE43R0x2WGtOS3dfLU1JS2VCTFJwNm5teVV4T3k0ai1aV1M3cUg4d3JNYUVKU1B3WERyeHNuUWtOcnpLRUQwLUx5Yy0yWTd0N2w2WGQ3SWdMNmIwTWhGRFFVd3JTLU41SGI2LWF1Mnd2VjjSAbwBQVVfeXFMUHcwTDdzTm0zQjhnVlUwWnVMMzI2NGxOOWpsTnhNSjlqSG12RUVBVDNmV08wUTZucUJlcnVBZ2EzVmJFaVppTTFhNUNaNnNZSTdrdER4R3RORnM3YzhoQmJjb2dpSmVGbzBwV1RPcHN0cm1mQlViU0ZuM3lSNDUyZWdMbHgtNTYzRXdwaDdVTlE5ekNmNHB6RWNuRkx2RGNiRE5JQWYyelFCUm9mbTcyM2VtTVFPM1NiaFRUN2w?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMipAFBVV95cUxQZF9VaWx6S0tuTm9VeF90ZW82cGpOVVdnZzJjZWdMdThYYnpsMmJKN3lsXzFkRFdGaVRUblRlR1pfVDRRd3BzZkdpNkRXX21mUHRoS3REcEwxQVVDODU2Z2xxcGxJYTlWczhjbERpMDNnVGk4ZVBOaEN0MEV3X2FEU29wdmtiTVY4UHdid25ybEZrWUttRDAtZTdycEZpcm5BWE9BRg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPb2o4OGRXbHh6aDMzemE4MVVXd3E0NkRlZERqMkNxSGxyOHdfZDZQcjdVamtCcUQ3T0l5ZHVlRVZtdThsZmc1azFFdXMyTWV2UTB0M01TT0FhRzlvMGFxdDBkcHUxOTh0SF9Qc1ZZWnJVcDVCSHBzTEp0Uk05R3N0MXlLZVY5QzFV?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMizgFBVV95cUxQb1pEa2JreTBGSTJQRXJDSVd5SkdLV1FvS0FjWFg2aUt0WmVCOFRoek9zQ0Nua2JwSVQxa1JsNi1TRmJaMlR3MWFYLW5KUEZKTUNPRGx2SUtxajFnUXFKZ2ZyNE94STFHOGFnQUFHZFNsZFRNNWRlRW9oUWhQX3RuZ3UyS2pvcXYxX3FXNGFwMDRnbjFXT0dLdGp0ZzktVUkxbEZGWGFSVWtVMVM2Z2RNQzNmZWxnLV9vNUZ6TnB6VDF3SEpZNWJ5RWRJS1k0dw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi4wFBVV95cUxNbng5RF9sTmRmdnplZ0FYV3h2RUROcGZXa1RtdHBrdVl3RzF2OGJOZzgyZFpLR29MQmItQW81MEZhaC1sblJuMUZUYXpTSGhxUjRlbVRmcmdROUhKMnczNUY4QXNSMFlHYllaS0xpTFZiWm9majRaVm1mZDlXRTdZS1ByUTVxcmhzZEJNaWJqSWNPR3l1X0EzVm5RX2hjQkRQZGFKeDRhR0VtQW8yVUFuSkxhdzBkRHBSUzhINVhFemJib1RkYUcwRkFqQVEzVjl4ZTFqbkRyOVA0VGJ1NDhLQTVQZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxNSlcxcVRLX0Ixd055WjdpU0dVODRNTmIxODBMMWNQWEo2TjRJRTU5N3pGbjNUUnVJMVpBOVNHT1g5VkxlVTBnQ0V5YnhhNU9kRjRENmFIMXB4cFZVektJZDVyQUZxelZhcnB0eHpTZlF2ejIzZzVfQWtBYXdYN1B2c1M4cVluQVFOVXpTMXdNSy1uRndHREhZcmJB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMihgFBVV95cUxNdkRWOG9waEFsZ1JNajZqaEV4Z1V2T0stbG9Xd0ozUXVTSFBfazVZblRib0tRQ29wNTAwY0F0MWQ4cmoyMGJFVUU5WkJCSi0tWlhDM3U4WWdEWGd0Y3drN3l1TkFpUjUwdGFJeEtjc24tbFEwSjNwUE5PazYwaWJYUHhyai1WQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Discusses Wedding Phone Ban with Taylor Swift
 
@@ -618,150 +683,3 @@ Stories: 92
 - summary: AMC has announced the creation of Leawood Films, an initiative aimed at increasing the number of films shown in theaters, inspired by Taylor Swift's impact. This move could enhance their film programming and attract more audiences.
 - sources:
   - [unverified] KCUR — https://news.google.com/rss/articles/CBMinAFBVV95cUxPamEzaXA5ZFdjZTNLSUdwM0VyTVdZUmFmVEs1UTVqWE9tc194OWRtUHg2MHhNSnFXblpJRTdGWktHaDdmOEFZMVBUS0RUM3lhRElNUkVFc3hxdDMwQWNhRy16MV9ubWVCQU1vRzYxLTdfUTI0dDJHWGNCQmZtd2JUdTdRazVsYzlsV1BfeFZ1R3VkRWNxd1FvaXJxZHA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses Phone Ban at His Wedding to Taylor Swift
-
-- first seen: 2026-09-05 22:50 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce shares insights on the phone ban implemented during his wedding to Taylor Swift, explaining how it impacted the evening's events.
-- sources: _none recorded_
-
-## Taylor Swift Reveals Her Three-Word Motto for Tough Times
-
-- first seen: 2026-09-05 22:50 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: In a recent discussion, Taylor Swift shared a three-word motto that helps her stay resilient during challenging situations. This insight highlights her approach to perseverance and self-motivation.
-- sources: _none recorded_
-
-## Blank Space Tribute Event Featured on FourStatesHomepage.com
-
-- first seen: 2026-09-05 22:50 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: An unofficial tribute to Taylor Swift's 'Blank Space' has been highlighted on FourStatesHomepage.com. This event showcases the impact of Swift's music on fans.
-- sources: _none recorded_
-
-## Taylor Swift's Impact on Economic Discussions Explored
-
-- first seen: 2026-09-05 22:50 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Lydia Kulina-Washburn discusses Taylor Swift's influence on economic themes in her work, particularly regarding recessions. The piece appears in Broad + Liberty.
-- sources: _none recorded_
-
-## Taylor Swift Shares 'Toy Story 5' Song Details in Interviews
-
-- first seen: 2026-09-05 22:50 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 0
-- summary: In recent country radio interviews, Taylor Swift provided insights about her contribution to the upcoming 'Toy Story 5' soundtrack. Fans eagerly await more information on the song she has written for the film.
-- sources: _none recorded_
-
-## Travis Kelce Discusses His Affection for His Dog with Taylor Swift
-
-- first seen: 2026-09-05 22:50 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce recently shared insights about his love for the dog he shares with Taylor Swift, highlighting his affection for their pet.
-- sources: _none recorded_
-
-## Report Highlights Taylor Swift Fans' Impact on Album Sales
-
-- first seen: 2026-09-05 22:50 UTC | category: business | importance: 8
-- verification_status: single_source | source_count: 0
-- summary: A recent Luminate report reveals that Taylor Swift's fanbase is responsible for millions in physical album sales, showcasing her strong market influence. This emphasizes the economic power of her fandom in the music industry.
-- sources: _none recorded_
-
-## Ohio Village Prepares for Taylor Swift and Travis Kelce Visit
-
-- first seen: 2026-09-05 22:50 UTC | category: tour | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: A small village in Ohio is making preparations for an anticipated visit from Taylor Swift and Travis Kelce. The event is generating excitement among locals.
-- sources: _none recorded_
-
-## Jeweller Creates Baby Signet Ring for Taylor Swift's Daughter
-
-- first seen: 2026-09-05 22:50 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: A well-known jeweller, favored by Taylor Swift, has crafted a special baby signet ring for her newborn daughter. This piece showcases the jeweller's commitment to creating unique and personalized jewelry for Swift.
-- sources: _none recorded_
-
-## Nikki Glaser Jokes About Souvenir from Taylor Swift's Wedding
-
-- first seen: 2026-09-05 22:50 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Nikki Glaser made a light-hearted remark about being close to taking a souvenir from Taylor Swift's wedding. The comment reflects her humorous take on the event.
-- sources: _none recorded_
-
-## Taylor Swift Playlist Curated for Senior Year Experience
-
-- first seen: 2026-09-05 22:50 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: A new playlist featuring Taylor Swift's songs has been curated for students entering their senior year, aimed at enhancing their graduation experience. The playlist reflects themes relevant to this pivotal time.
-- sources: _none recorded_
-
-## Taylor Swift Among Emmy Predictions for Early Wins
-
-- first seen: 2026-09-05 22:50 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Pete Hammond predicts Taylor Swift could be in contention for an Emmy win during the upcoming awards weekend, which spans the Labor Day holiday. The event, previously known as the Creative Arts Emmy Awards, will feature nearly 100 categories.
-- sources: _none recorded_
-
-## Gigi Hadid Names Travis Kelce During Photoshoot
-
-- first seen: 2026-09-05 22:50 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: During a recent photoshoot, Gigi Hadid referred to Travis Kelce with a surprising label, sparking interest. The details of this label or its implications were not provided in the report.
-- sources: _none recorded_
-
-## The Florida Orchestra Presents Taylor Swift's Music in a Symphonic Style
-
-- first seen: 2026-09-05 22:50 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: The Florida Orchestra is set to perform Taylor Swift's music with a symphonic twist, bringing a new musical experience to her fans. This event showcases the blend of popular music with orchestral arrangements.
-- sources: _none recorded_
-
-## Taylor Swift Scheduled for Appearances Before Chiefs Season Opener
-
-- first seen: 2026-09-05 22:50 UTC | category: tour | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Taylor Swift is set to make multiple appearances prior to the Kansas City Chiefs' season opener, according to a report. Details about the nature of these appearances have not been disclosed.
-- sources: _none recorded_
-
-## Travis Kelce Expresses Affection for New Family Member
-
-- first seen: 2026-09-05 22:50 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce has shared that he is 'obsessed' with a new addition to his family, although it does not involve Taylor Swift. The comment highlights his personal life separate from his rumored relationship with the pop star.
-- sources: _none recorded_
-
-## AMC Launches Leawood Films Inspired by Taylor Swift
-
-- first seen: 2026-09-05 22:50 UTC | category: business | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: AMC has announced the creation of Leawood Films, a new initiative aimed at increasing the number of films shown in theaters, inspired by Taylor Swift's influence. This move is expected to enhance the movie-going experience and expand their film offerings.
-- sources: _none recorded_
-
-## Details Emerge About Swift and Kelce's Life Together
-
-- first seen: 2026-09-05 22:50 UTC | category: relationship | importance: 7
-- verification_status: single_source | source_count: 0
-- summary: New information has surfaced regarding Taylor Swift and Travis Kelce's personal life, including insights into their dog, home, and potential wedding plans. The news highlights a busy week for the couple amid ongoing public interest.
-- sources: _none recorded_
-
-## Fictional Perfumes Inspired by Taylor Swift's Music
-
-- first seen: 2026-09-05 22:50 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: An exclusive essay discusses how Taylor Swift's music has inspired a collection of fictional perfumes. The piece includes a playlist that complements these unique scents.
-- sources: _none recorded_
-
-## Nikki Glaser Discusses 'Artifact' from Taylor Swift and Travis Kelce's Wedding
-
-- first seen: 2026-09-05 22:50 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Nikki Glaser shared details about an 'artifact' she almost took from Taylor Swift and Travis Kelce's wedding. The conversation highlights her connection to the event and provides an inside look at the wedding's significance.
-- sources: _none recorded_
-
-## Harry Styles References Taylor Swift's MSG Ceremony at NYC Concert
-
-- first seen: 2026-09-05 22:50 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: During a concert in New York City, Harry Styles made a lighthearted comment about weddings, seemingly referencing his ex Taylor Swift and her MSG ceremony. The remark drew attention from fans and media alike.
-- sources: _none recorded_
