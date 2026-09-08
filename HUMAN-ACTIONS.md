@@ -26,6 +26,34 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 48. [UPGRADE] Put the website-shell build on the Play internal track now (Android testers still get the Aug 30 native app) — ~5 min
+
+**Filed:** 2026-09-07
+
+**Why it matters:** iOS testers have had the WebView shell (TestFlight
+build 4) since 2026-09-05; the Play internal track still serves release
+`1.0.0 (2)` from Aug 30, the pre-shell native app. The release train will
+close this gap on its own once #46 lands, but if that is days away, one
+manual upload gets Android testers the same app today. The bundle already
+exists — the 2026-09-06 train dry run built it on EAS (build
+`efd299ab`, versionCode 5, commit `7bd27f6e`, shell included). An agent
+cannot do this: the Play Console upload is a 62 MB file through your
+account, and the session's browser upload path is capped at 10 MB.
+
+**Steps:**
+1. Download the bundle (link is stable; it is the EAS artifact):
+   `https://expo.dev/artifacts/eas/UhgHFQSwieBfb8Vt0aRjPax3L05b5rqKRKASQDf9Igg.aab`
+2. Play Console → LongLive → **Test and release → Internal testing →
+   Create new release** → drop the `.aab` in → release name is prefilled
+   (`5 (1.0.0)`) → release notes: "Website shell — same app as iOS build 4."
+3. **Next → Save and publish** (internal track; no Google review).
+
+**Worked if:** Internal testing shows `1.0.0 (5)` as the latest release
+and a tester on the "Jess and Joey" or "Joey" list (both are ticked and
+saved — verified 2026-09-07) sees the website inside the app after
+updating from the Play Store.
+
+**Status:** OPEN
 ### 47. [BLOCKING] URGENT — disable 15 original claude.ai routines now duplicated by the GitHub Actions migration — ~15-20 min
 
 **Filed:** 2026-09-06
@@ -127,6 +155,16 @@ blocks `submit_ios` in the same run).
 path, and the next **Mobile release train** run shows `submit_android`
 green.
 
+**Note (2026-09-07):** a `PLAY_SERVICE_ACCOUNT_JSON` repo secret was added
+to this repo on 2026-09-06, following 4a's setup. It is harmless but
+unused here: 4a submits to Play from GitHub Actions, while this train's
+`submit_android` is an EAS job that reads EAS credentials, and EAS cannot
+see GitHub secrets. Step 3 above (with the same JSON) is still what
+unblocks the train. After step 3, either delete the GitHub secret
+(`gh secret delete PLAY_SERVICE_ACCOUNT_JSON --repo JW-Incorporated/swift2`)
+or tell a session you'd rather mirror 4a and submit from GitHub instead —
+either is fine; two copies of one key is the only downside of leaving it.
+
 **Status:** OPEN
 
 ### 45. [BLOCKING] Mobile release train — iOS signing + App Store Connect key into EAS — ~10 min
@@ -183,7 +221,16 @@ session doesn't have per `.claude/hooks/guard.sh`.
 2. `gh secret set EXPO_TOKEN --repo JW-Incorporated/swift2` and paste it.
 
 **Worked if:** the next JS-only merge to `apps/mobile/**` or
-`packages/**` shows a green `EAS Update (mobile OTA)` run in Actions.
+`packages/**` shows a green **Mobile release train** run in Actions
+(`eas-update.yml` was folded into the train by #3853), and the 6-hourly
+**Mobile parity check** closes its "check could not run" alert.
+
+**Note (2026-09-07):** this one secret now gates all three GitHub mobile
+workflows (train, parity check, and the train's post-merge trigger); every
+run since 2026-09-06 has stopped at the token check. The parity script
+itself was run locally against the EAS account on 2026-09-07 and passed
+(iOS build 4 / Android build 5, version 1.0.0, no findings), so once the
+token exists nothing else is expected to be wrong.
 
 **Status:** OPEN
 

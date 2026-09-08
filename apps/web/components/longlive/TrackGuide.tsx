@@ -26,7 +26,7 @@ import type { EraId, TrackNote } from '@swift2/experience';
  * note exist in the data, so gaps in an album's numbering are expected.
  */
 export function TrackGuide() {
-  const { trackGuideEraId, openTrackKey, share } = useAppState();
+  const { trackGuideEraId, openTrackKey } = useAppState();
   const { closeTrackGuide } = useAppActions();
 
   const era = trackGuideEraId ? getEra(trackGuideEraId) : undefined;
@@ -38,18 +38,18 @@ export function TrackGuide() {
   useScrollLock(open);
   useFocusTrap(open, dialogRef);
 
-  // Close on Escape — unless the share sheet or a song's TrackDetail is
-  // layered on top; the top-most overlay owns Escape until it closes itself
+  // Close on Escape — unless a song's TrackDetail is layered on top; the
+  // top-most overlay owns Escape until it closes itself
   // (otherwise one Escape while a song is open would tear down the whole
   // guide stack, since closeTrackGuide clears the open track too).
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !share && !openTrackKey) closeTrackGuide();
+      if (e.key === 'Escape' && !openTrackKey) closeTrackGuide();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, closeTrackGuide, share, openTrackKey]);
+  }, [open, closeTrackGuide, openTrackKey]);
 
   // Let the mobile back-swipe gesture close this guide instead of leaving the app.
   useBackDismiss(open, closeTrackGuide);

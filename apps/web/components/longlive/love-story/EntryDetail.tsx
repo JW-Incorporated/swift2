@@ -25,7 +25,7 @@ function entryColor(entry: LoveStoryEntry): string {
  * shown as an unfinished-looking gap in a shipped page.
  */
 export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntry; timeline: LoveStoryEntry[]; onClose: () => void }) {
-  const { share, trackGuideEraId } = useAppState();
+  const { trackGuideEraId } = useAppState();
   const { openSong } = useAppActions();
 
   // Escape collapses the expanded entry (#525), matching its X. Only mounted
@@ -33,11 +33,11 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
   // overlays own Escape while they are open on top.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !share && !trackGuideEraId) onClose();
+      if (e.key === 'Escape' && !trackGuideEraId) onClose();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [share, trackGuideEraId, onClose]);
+  }, [trackGuideEraId, onClose]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') return;

@@ -1,7 +1,17 @@
 import { describe, expect, it } from 'vitest';
-import { validateQueueItem, PLATFORM_RULES } from './queue-schema.mjs';
+import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES } from './queue-schema.mjs';
 
-const validX = { platform: 'x', body: 'a real tweet', scheduledAt: '2026-08-12T23:00:00Z' };
+const validX = {
+  platform: 'x',
+  body: 'a real tweet',
+  scheduledAt: '2026-08-12T23:00:00Z',
+  campaign: 'launch:shop-the-look:announce',
+  media: ['/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg'],
+  mediaKind: 'photo',
+  photoId: 'lover-minneapolis-2023',
+  mediaCredit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
+  mediaSource: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
+};
 const validIg = {
   platform: 'instagram',
   body: 'a real caption',
@@ -12,6 +22,15 @@ const validIg = {
 
 const findingFor = (item: unknown, needle: string | RegExp) =>
   validateQueueItem(item).find((f) => (typeof needle === 'string' ? f.includes(needle) : needle.test(f)));
+
+const library = [
+  {
+    id: 'lover-minneapolis-2023',
+    mediaPath: '/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg',
+    credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
+    source: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
+  },
+];
 
 describe('validateQueueItem', () => {
   it('accepts the two real shapes the queue actually uses', () => {
@@ -94,20 +113,69 @@ ${url}`;
   });
 
   describe('media', () => {
+    it('requires a photoId and exact inventory attribution in the queue CI binding', () => {
+      expect(validatePhotoInventoryBinding({ ...validX, photoId: undefined }, library).some((f) => f.includes('photoId: required'))).toBe(true);
+      expect(validatePhotoInventoryBinding({ ...validX, mediaCredit: 'Wrong credit' }, library).some((f) => f.includes('must use its inventory media path, exact credit, and exact source'))).toBe(true);
+      expect(validatePhotoInventoryBinding(validX, library)).toEqual([]);
+    });
+    it('rejects a text-only X draft for a normal paired campaign but preserves the appearance-lane exception', () => {
+      const pairedX = { ...validX, campaign: 'launch:shop-the-look:announce', media: undefined, mediaKind: undefined };
+      expect(findingFor(pairedX, 'x posts require at least one image')).toBeDefined();
+      expect(validateQueueItem({ ...pairedX, campaign: 'appearance:video-id', mediaKind: 'video-thumb' })).toEqual([]);
+    });
+    it('binds a launch site-screen carousel grid photo to its exact credited inventory entry', () => {
+      const carousel = {
+        ...validIg,
+        campaign: 'launch:shop-the-look:announce',
+        media: [library[0].mediaPath, '/social/library/thread-fashion-intro.png'],
+        photoId: library[0].id,
+        mediaCredit: library[0].credit,
+        mediaSource: library[0].source,
+      };
+
+      expect(validatePhotoInventoryBinding(carousel, library)).toEqual([]);
+      expect(validatePhotoInventoryBinding({ ...carousel, photoId: undefined }, library)).toContainEqual(expect.stringContaining('photoId: required'));
+      expect(validatePhotoInventoryBinding({ ...carousel, media: ['/social/library/photos/wrong.jpg', carousel.media[1]] }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+      expect(validatePhotoInventoryBinding({ ...carousel, mediaCredit: 'Wrong credit' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+      expect(validatePhotoInventoryBinding({ ...carousel, mediaSource: 'https://example.com/wrong' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+
+      const laterSlidePhoto = {
+        ...carousel,
+        media: ['/social/library/thread-fashion-intro.png', library[0].mediaPath],
+      };
+      expect(validatePhotoInventoryBinding(laterSlidePhoto, library)).toEqual([]);
+      expect(validatePhotoInventoryBinding({ ...laterSlidePhoto, photoId: undefined }, library)).toContainEqual(expect.stringContaining('photoId: required'));
+      expect(validatePhotoInventoryBinding({ ...laterSlidePhoto, mediaCredit: 'Wrong credit' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+    });
+
+    it('leaves a genuine non-photo site screen outside the inventory binding', () => {
+      expect(validatePhotoInventoryBinding(validIg, library)).toEqual([]);
+    });
+
     it('requires media on Instagram', () => {
       expect(findingFor({ ...validIg, media: [] }, 'media:')).toContain('require at least one image');
       expect(findingFor({ ...validIg, media: undefined }, 'media:')).toBeDefined();
     });
 
-    it('allows photo media on X up to the 4-image tweet cap but rejects site screens', () => {
-      expect(PLATFORM_RULES.x.media).toBe('optional');
+    it('requires photo media on normal X campaigns, up to the 4-image tweet cap, and rejects site screens', () => {
+      expect(PLATFORM_RULES.x.media).toBe('required');
       expect(
         validateQueueItem({
           ...validX,
+          campaign: 'launch:shop-the-look:announce',
           media: ['/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg'],
           mediaKind: 'photo',
-          mediaCredit: 'Someone/Getty Images',
-          mediaSource: 'https://example.com/photo',
+          photoId: 'lover-minneapolis-2023',
+          mediaCredit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
+          mediaSource: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
         }),
       ).toEqual([]);
       expect(findingFor({ ...validX, media: ['/social/library/a.png'], mediaKind: 'site-screen' }, 'X site-screen posts are permanently prohibited')).toBeDefined();
@@ -139,7 +207,7 @@ ${url}`;
     });
 
     it('accepts mediaKind "video-thumb" on X with no attached media', () => {
-      expect(validateQueueItem({ ...validX, media: undefined, mediaKind: 'video-thumb' })).toEqual([]);
+      expect(validateQueueItem({ ...validX, campaign: 'appearance:video-id', media: undefined, mediaKind: 'video-thumb' })).toEqual([]);
     });
 
     // The Taylor-photo standard (2026-08-12): a photo always ships credited
@@ -154,8 +222,7 @@ ${url}`;
     it('requires a mediaKind whenever media is present', () => {
       const noKind = { ...validIg, mediaKind: undefined };
       expect(findingFor(noKind, 'mediaKind: required')).toBeDefined();
-      // text-only X items carry no media and need no kind
-      expect(validateQueueItem(validX)).toEqual([]);
+      expect(validateQueueItem({ ...validX, media: undefined, mediaKind: undefined })).toEqual(["media: x posts require at least one image."]);
     });
 
     it('validates mediaCredit/mediaSource shape when present', () => {

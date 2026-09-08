@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/og';
+import { DEFAULT_OG_COPY, renderOgCard } from '@/lib/longlive/og-card';
 
 // Closes the #653 gap (Nils, 2026-07-15): no og:image existed, so shared
 // links rendered as bare text everywhere (iMessage, Slack, X, etc.) and
@@ -7,62 +7,16 @@ import { ImageResponse } from 'next/og';
 // dedicated twitter-image file) the Twitter card, no manual metadata
 // needed. Same current-era palette/copy as the masthead eyebrow+subtitle
 // (LandingMasthead.tsx) — not reinvented here.
-export const alt = "Long Live — the Taylor Swift time machine";
+//
+// This is now the FALLBACK card only (the "cool feature only" fix,
+// social-strategy.md §2): the bare homepage and any route with no
+// distinctive feature to show. Lens/mode deep links get a feature-specific
+// card from `app/page.tsx`'s `generateMetadata` + `app/api/og/route.tsx`
+// instead — see that route's header for why.
+export const alt = 'Long Live — the Taylor Swift time machine';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: '#2a1405',
-          padding: '80px',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            fontSize: 28,
-            fontWeight: 700,
-            letterSpacing: 6,
-            textTransform: 'uppercase',
-            color: '#ffd45e',
-            marginBottom: 28,
-          }}
-        >
-          The Taylor Swift time machine
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            fontSize: 148,
-            fontWeight: 700,
-            color: '#ffe9d0',
-            lineHeight: 1,
-          }}
-        >
-          Long Live
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            fontSize: 34,
-            color: '#e2b587',
-            marginTop: 36,
-            textAlign: 'center',
-          }}
-        >
-          Real-time updates on her whole life, or step back into any era.
-        </div>
-      </div>
-    ),
-    { ...size },
-  );
+  return renderOgCard(DEFAULT_OG_COPY);
 }
