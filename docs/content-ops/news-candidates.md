@@ -27,6 +27,46 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Tops Country Radio Charts After 13 Years
+
+- first seen: 2026-09-08 05:55 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reclaimed the No. 1 spot on country radio, marking a significant return after 13 years. This achievement highlights her enduring presence and influence in the country music scene.
+- sources:
+  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMitAFBVV95cUxOZ3dteFpVT09DMnpXTEtqd0F2SlR5NDZ0THdpNF9YR2VEUU9fcGRoVUw1VEN4YWVsVUxSYmFhcms2ZXZlLU13dWU3YjlZNFltNHlrc25ZV2x4cjFac0t6Z3hpczZWS1lyY09Td3RNWnpMQ09Nb1dNbkgxZlRmcU9VRkRfZDBxd044R1loZWM3c0R2YmZwZUEtYmpmaEpyV19UdDdoMFdoZGJKbmpCUDRIYzAxS3I?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Guide to Achieving Taylor Swift's Style on a Budget
+
+- first seen: 2026-09-08 05:55 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A guide offers tips on replicating Taylor Swift's glamorous fashion sense without overspending. The list presents practical advice for fans looking to emulate her look affordably.
+- sources:
+  - [unverified] thelist.com — https://news.google.com/rss/articles/CBMiigFBVV95cUxNQURWdGNzdTQwV1BHd0Y3aUd6MDM3WG52QlBRSXJ5OUNiMDBzSmZiMTJ0Rks3RzMzQ1A2bkxjcjQwWWZvZzY3SEkwSEN2RUplWnlJMFVrakQ5S1NYaXNYbEc0LWNoOElwNXVub0Zua183S1BqbTF2ZjNrdkV5WUpMcjY5TmhRMmh6TVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Breaks Long-Standing Chart Record
+
+- first seen: 2026-09-08 05:55 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has achieved a new milestone in her music career by breaking a chart record that she hasn't reached since 2013, highlighting her ongoing impact on the music industry.
+- sources:
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMiekFVX3lxTE5Rb0FiOGlLbG83eEllbVBQSkkzWmxjVnMtRVFzbjh0aDEzbWZRQlppMklyVk5Od20zamFDZUJPTUFVLUgyWDFqWmRpYU90UFd6b2FVaXdXRDlhQnkwTnNWWUhwMGRoY29yMEJFOW9wVF9oUThHN2djTmVn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce and Taylor Swift's First Public Date Night Captured in Photos
+
+- first seen: 2026-09-08 05:55 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Photos have emerged from Travis Kelce and Taylor Swift's first public date night following their wedding. The couple was seen enjoying their time together, marking a significant moment for fans.
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiugFBVV95cUxNbUw4eGJxdWcyVmdpblAxMWxVajNSUkUyRmx2c0EwM3pHVnR4YmVzNExtTWlMUTVXcElPSDlCdG1jSUFjSG1VNnJqMlY5MTd6ZF9rb3lPN05IWThGaE1XYS1VeUxDczA3ZlBoOC13dktJV2FnZWItMWxGSzNCeVExQ3NIZFYtbUlfMS1QaUI5aEMxT25oMV94MDFVZkJadkwyVnZud3dONFdSVDVwVVBKOTNLQ3hWUGtMN1E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Vietnamese Woman Surpasses Taylor Swift in Wealth Rankings
+
+- first seen: 2026-09-08 05:55 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A report states that the second-richest woman in South-East Asia, from Vietnam, surpasses the wealth of notable figures including Taylor Swift and Oprah Winfrey.
+- sources:
+  - [unverified] The Star — https://news.google.com/rss/articles/CBMigAJBVV95cUxQSF94ZVM5dklWWlowVHk3eWJuMEtxaGVLc1ZjaU43Nk5TTGRWSkxQd2JiUDN1SkM3aFNpLUV0Q1BVQUN1TzdaY25DNGFPUEJpOVRzMVpmOHV1QkdoNHA2Ml94RURkNnY0aGlUaXpNNXFuLXhVSFhQRDBSX0hNb3EwSDMxU2pvZWpIckxYU3BlZGVKbExlMDA0Y3dwa1VOQ1FHRTY2NjN0TEJMbURDT3ZIOUcxY3NTTWg5Y2tITVhBb3VNbEZ6WHVmaEw5b19BYVpHcW1YTTdRUWFDRzJKTjRfV2l1NzVqZVhhS1FwbmVzcUM1Tm1XQldDTWZ4RWQxMk9k?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift and Travis Kelce Enjoy Date Night in New York
 
 - first seen: 2026-09-07 23:28 UTC | category: relationship | importance: 6
@@ -903,39 +943,4 @@ Stories: 120
 - first seen: 2026-09-05 12:38 UTC | category: relationship | importance: 7
 - verification_status: single_source | source_count: 0
 - summary: Recent reports have provided insights into Taylor Swift and Travis Kelce's life together, including information about their dog, their home, and wedding plans. The couple continues to attract media attention.
-- sources: _none recorded_
-
-## Emmy Predictions Include Taylor Swift Among Potential Early Winners
-
-- first seen: 2026-09-05 12:38 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Pete Hammond's Emmy predictions suggest Taylor Swift may be among those up for early wins during the Emmy Awards presentation over Labor Day weekend, which includes numerous categories and nominees.
-- sources: _none recorded_
-
-## Lydia Kulina-Washburn Discusses Taylor Swift's Economic Impact
-
-- first seen: 2026-09-05 12:38 UTC | category: business | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: Lydia Kulina-Washburn analyzes the economic implications of Taylor Swift's influence and the so-called 'Swift recessions'. The discussion highlights how Swift's tours and merchandise contribute to local and national economies.
-- sources: _none recorded_
-
-## Travis Kelce Discusses Affection for His and Taylor Swift's Dog
-
-- first seen: 2026-09-05 12:38 UTC | category: relationship | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: Travis Kelce recently opened up about his fondness for the dog he shares with Taylor Swift. The shared pet reflects their connection and presents a glimpse into their relationship dynamics.
-- sources: _none recorded_
-
-## Tribute Event to Taylor Swift Announced on FourStatesHomepage.com
-
-- first seen: 2026-09-05 12:38 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: An unofficial tribute to Taylor Swift titled 'Blank Space' has been announced. The event is covered by KSNF/KODE on FourStatesHomepage.com, highlighting its focus on celebrating Swift's music.
-- sources: _none recorded_
-
-## Playlist Inspired by Taylor Swift for Senior Year
-
-- first seen: 2026-09-05 12:38 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: A new playlist featuring Taylor Swift's songs has been curated to celebrate the senior year experience. The collection aims to resonate with graduating students during this significant time in their lives.
 - sources: _none recorded_
