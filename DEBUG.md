@@ -22,3 +22,32 @@ Represent each supported candidate signal as `{ value, sourceField, kind }`; ret
 
 - Round 1: pagination dropped `countryCode=US` and `relationship` after an Awin next-page URL. Fixed and covered by page-two query assertions.
 - Round 2: provenance source field is ambiguous. Per `CLAUDE.md`, no third review attempt proceeds without the debug ladder/Fable ruling.
+
+---
+
+# Discord brief delivery review-round 2
+
+## Trigger
+
+Independent review of the Discord morning-brief delivery change found two
+workflow recovery gaps in sequence: a configured Discord delivery failure did
+not create a durable alert, and later successful delivery did not close those
+Discord-specific alerts.
+
+## Repairs and verification
+
+- `scripts/discord/delivery-status.mjs` now classifies the explicit failed
+  Discord-to-email fallback marker as `failed`.
+- `.github/workflows/watchdog.yml` opens a deduplicated failure alert, retries
+  the delivery workflow, and closes both Discord delivery alert classes after
+  a confirmed Discord delivery.
+- `scripts/discord/post-brief.test.ts` covers failed status parsing and both
+  alert-close workflow statements; focused suite passes 15/15.
+- Full production build passes.
+
+## Escalation
+
+The second review rejection requires the debug ladder/Fable ruling before a
+third review under `CLAUDE.md`. The required `claude --model claude-fable-5`
+consult was attempted on 2026-09-09 but the local CLI refused because Fable
+usage credits are unavailable. No third review was run.

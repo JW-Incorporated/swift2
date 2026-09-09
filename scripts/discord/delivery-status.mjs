@@ -1,6 +1,7 @@
 export function deliveryStatusFromLog(log) {
   if (/Delivered \[Founders' Brief .+\] to Discord/.test(log)) return 'delivered';
   if (/SKIPPED: DISCORD_BRIEF_WEBHOOK not configured/.test(log)) return 'unconfigured';
+  if (/FALLBACK_EMAIL: Discord delivery failed; retaining morning email/.test(log)) return 'failed';
   return 'missing';
 }
 

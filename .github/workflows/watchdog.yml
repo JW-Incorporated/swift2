@@ -102,10 +102,18 @@ jobs:
           done
           if [ "$DELIVERY" = "delivered" ]; then
             echo "Today's brief was already delivered to Discord."
+            printf '%s\n' 'Discord delivery recovered; closing any open Discord brief delivery alerts.' > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "Watchdog: Discord brief delivery unconfigured" /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "Watchdog: Discord brief delivery failed" /tmp/alert-body.md
           elif [ "$DELIVERY" = "unconfigured" ]; then
             echo "DISCORD_BRIEF_WEBHOOK is not configured; opening the deduped delivery alert."
             printf '%s\n' '@sffan15-sys — today’s Founders’ Brief exists, but Discord delivery is not configured. Add the `DISCORD_BRIEF_WEBHOOK` repository secret, then manually dispatch `brief-mailer.yml` in `brief` mode to verify delivery.' > /tmp/alert-body.md
             scripts/watchdog/upsert-alert.sh open "Watchdog: Discord brief delivery unconfigured" /tmp/alert-body.md
+          elif [ "$DELIVERY" = "failed" ]; then
+            echo "Discord delivery failed after retries; email fallback was sent and the watchdog is opening a delivery alert."
+            printf '%s\n' '@sffan15-sys — today’s Founders’ Brief was delivered by the temporary email fallback because Discord delivery failed after retries. Check the `brief-mailer` run log and manually dispatch `brief-mailer.yml` in `brief` mode after correcting the webhook or Discord outage.' > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "Watchdog: Discord brief delivery failed" /tmp/alert-body.md
+            gh workflow run brief-mailer.yml --repo "$REPO" -f mode=brief
           else
             echo "Brief exists but has no Discord delivery marker today — retrying now."
             gh workflow run brief-mailer.yml --repo "$REPO" -f mode=brief

@@ -48,6 +48,12 @@ describe('deliveryStatusFromLog', () => {
     );
   });
 
+  it('surfaces a failed Discord post even when the email fallback succeeded', () => {
+    expect(
+      deliveryStatusFromLog('FALLBACK_EMAIL: Discord delivery failed; retaining morning email'),
+    ).toBe('failed');
+  });
+
   it('returns missing when no conclusive marker exists', () => {
     expect(deliveryStatusFromLog('workflow failed before delivery')).toBe('missing');
   });
@@ -67,6 +73,16 @@ describe('brief-mailer Discord cutover', () => {
     expect(workflow).toContain('elif node scripts/discord/post-brief.mjs payload.json; then');
     expect(workflow).toContain('Discord delivery verified; morning email withheld.');
     expect(workflow).toContain('FALLBACK_EMAIL: Discord delivery failed; retaining morning email');
+  });
+
+  it('closes Discord delivery alerts after a verified delivery', () => {
+    const watchdog = readFileSync(
+      new URL('../../.github/workflows/watchdog.yml', import.meta.url),
+      'utf8',
+    );
+
+    expect(watchdog).toContain('upsert-alert.sh close "Watchdog: Discord brief delivery unconfigured"');
+    expect(watchdog).toContain('upsert-alert.sh close "Watchdog: Discord brief delivery failed"');
   });
 });
 
