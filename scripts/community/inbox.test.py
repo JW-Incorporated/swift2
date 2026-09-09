@@ -124,7 +124,7 @@ class RedditMessageSearchTests(unittest.TestCase):
             (
                 None,
                 "X-GM-RAW",
-                'in:inbox from:(reddit.com OR redditmail.com) -label:community-inbox-processed',
+                '"in:inbox from:(reddit.com OR redditmail.com) -label:community-inbox-processed"',
             ),
         )
 

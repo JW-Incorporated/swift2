@@ -93,7 +93,9 @@ def search_unprocessed_reddit_messages(conn):
     half-hourly job runs. A successful message receives the label below, while
     a failed upsert stays eligible for retry.
     """
-    _, data = conn.search(None, "X-GM-RAW", REDDIT_SEARCH_QUERY)
+    # imaplib passes criteria through verbatim; Gmail requires the complete
+    # X-GM-RAW expression as one quoted IMAP argument.
+    _, data = conn.search(None, "X-GM-RAW", f'"{REDDIT_SEARCH_QUERY}"')
     return data[0].split()
 
 
