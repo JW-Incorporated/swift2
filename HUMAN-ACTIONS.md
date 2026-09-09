@@ -26,6 +26,33 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 50. [BLOCKING] Add the Discord webhook for the social-channel morning brief and safe Permis repairs — ~5 min
+
+**Filed:** 2026-09-09
+
+**Why it matters:** the social-channel morning brief and safe Permis repair
+rollout need a private, reliable route to their Discord channel. Until this
+webhook exists, those routines cannot deliver the real brief or report a
+completed safe repair where the team can act on it.
+
+**Steps:**
+1. In the intended Discord social channel, open **Edit Channel → Integrations
+   → Webhooks → New Webhook**. Give it a clear name such as `Swift2 social
+   brief`, confirm the channel is correct, and copy its webhook URL.
+2. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables →
+   Actions → Secrets → New repository secret**. Store that URL as
+   `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` and save it. This GitHub Actions
+   repository-secret store is the approved location; do not paste the URL into
+   Discord chat, an issue, a commit, an email, or any repository file.
+3. Tell a session only that item #50 is set. It can run the normal safe
+   delivery verification without needing the webhook value.
+
+**Worked if:** the next scheduled social-channel morning brief arrives in the
+intended Discord channel, and a safe Permis repair report is delivered there
+when one is completed. The webhook URL is never exposed in logs or Git.
+
+**Status:** OPEN
+
 ### 49. [BLOCKING] Add the shared Community Tasks acknowledgement secret — ~5 min
 
 **Filed:** 2026-09-09
