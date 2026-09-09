@@ -1,4 +1,4 @@
-# Community Engine P1-6 — daily "Community Tasks" HTML digest email
+# Community Engine — daily "Community Tasks" Discord social-channel prompts
 # (docs/proposals/2026-09-06-community-engine-plan.md §2.6, board swift2).
 # Parents: P1-4 (Answerer desk drafts `engagement_lead` rows) and P1-5 (ack
 # route + HMAC token), both merged to main.
@@ -78,12 +78,10 @@ jobs:
 
       - run: npm ci --ignore-scripts
 
-      - name: Send the community digest email
+      - name: Deliver community prompts to the configured Discord social channel
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          COMMUNITY_ACK_SECRET: ${{ secrets.COMMUNITY_ACK_SECRET }}
-          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_SOCIAL_WEBHOOK: ${{ secrets.DISCORD_SOCIAL_WEBHOOK }}
           MAILER_MODE: ${{ steps.pick.outputs.mode }}
         run: node scripts/community/mailer.mjs --mode="$MAILER_MODE"
