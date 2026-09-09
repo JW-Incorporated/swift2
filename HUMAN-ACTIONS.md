@@ -200,7 +200,9 @@ says `Using remote iOS credentials (Expo server)` and reaches the compile
 phase, and `eas submit --platform ios --latest --non-interactive` runs
 without a local key path.
 
-**Status:** OPEN
+**Status:** DONE
+
+**Outcome (2026-09-08, founder):** verified on EAS via the credentials API: distribution certificate (serial 173EA08D…, valid to 2027-09-03) + App Store provisioning profile (active), App Store Connect API key `QU7P2WC49Z` assigned for submissions, and a new push key `NPQ76BT99F` (team D9N628AFHS — the iOS half of #43). Follow-up landed in the same change: `ascApiKeyPath`/`ascApiKeyId`/`ascApiKeyIssuerId` removed from `apps/mobile/eas.json` (remote key applies) and the `production-local` profile retired.
 
 
 ### 44. [BLOCKING] OS-040 — `EXPO_TOKEN` repo secret for automatic EAS Update — ~5 min
@@ -258,6 +260,8 @@ account access, not code.
 
 **Worked if:** a real device receives the push and tapping it opens the
 correct deep link in the shell (per OS-004's own "Done when").
+
+**Progress (2026-09-08):** iOS half DONE — APNs push key `NPQ76BT99F` is on EAS (created during #45). Android half still open: no FCM V1 service-account key on EAS, and `app.json` has no `googleServicesFile` yet, so a Firebase project + `google-services.json` are prerequisites (steps 1–4 above). Step 3 (test push) waits on the next build.
 
 **Status:** OPEN
 
