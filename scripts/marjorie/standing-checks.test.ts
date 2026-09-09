@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { checkRunners, checkPRs, checkCI, checkUnassigned, checkTrackerFresh, runStandingChecks, loadRunnerCadence } from './standing-checks.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { summarizeActionsUsage, gradeActionsUsage, summarizeRunVolume, summarizeThroughput, gradeThroughput, multiplierFor, attributeRunMinutes, buildRunVolumeInputs, runnerMatchesArtifact } from './meta-constraints.mjs';
+import { summarizeActionsUsage, gradeActionsUsage, summarizeRunVolume, summarizeThroughput, gradeThroughput, multiplierFor, attributeRunMinutes, buildRunVolumeInputs, runnerMatchesArtifact, markIncompleteWorkflowExpectations, gradeRunVolume, renderConstraintLine } from './meta-constraints.mjs';
 
 const NOW = new Date('2026-08-11T19:00:00Z').getTime();
 const HOUR = 3_600_000;
@@ -281,6 +281,38 @@ describe('meta-constraints', () => {
     }], { now: NOW, windowDays: 1 });
     expect(rows[0].verdict).toBe('unknown');
   });
+
+  it('marks only unseen Action routines unknown when a full page does not cover seven days', () => {
+    const workflowRuns = [
+      { name: 'routine-growth-draft', status: 'completed', created_at: ago(HOUR) },
+      ...Array.from({ length: 99 }, (_, i) => ({ name: `unrelated-${i}`, status: 'completed', created_at: ago((i + 1) * HOUR) })),
+    ];
+    const expectations = markIncompleteWorkflowExpectations([
+      { name: 'Growth', perDay: 0.14, matchKind: 'workflow-name', match: (a: { name?: string }) => a.name === 'routine-growth-draft' },
+      { name: 'Austin', perDay: 1, matchKind: 'workflow-name', match: (a: { name?: string }) => a.name === 'routine-austin-build' },
+    ], workflowRuns, { now: NOW, totalCount: 101 });
+    const rows = summarizeRunVolume(buildRunVolumeInputs([], workflowRuns), expectations, { now: NOW, windowDays: 7 });
+
+    expect(rows.find((r) => r.runner === 'Growth')?.verdict).toBe('ok');
+    expect(rows.find((r) => r.runner === 'Austin')?.verdict).toBe('unknown');
+  });
+
+  it('keeps unavailable Actions history separate from actual cadence drift', () => {
+    const unknown = { runner: 'Austin', verdict: 'unknown', observedPerDay: 0, expectedPerDay: 1 };
+    const silent = { runner: 'Vault', verdict: 'silent', observedPerDay: 0, expectedPerDay: 1 };
+
+    expect(gradeRunVolume([unknown]).level).toBe('unknown');
+    expect(gradeRunVolume([unknown, silent]).level).toBe('warn');
+    const rendered = renderConstraintLine({
+      level: 'warn',
+      actions: { pctUsed: 1, includedMinutes: 3000, pctProjected: 1 },
+      throughput: { prsMergedPerDay: 1, openPRs: 0, backlogAgeP50Days: 1, backlogAgeP90Days: 1 },
+      runVolume: [unknown, silent],
+    });
+    expect(rendered).toContain('1 runner(s) off cadence');
+    expect(rendered).toContain('1 runner(s) unavailable');
+  });
+
 
   it('flags a growing PR pile, which is the merge-latency condition', () => {
     const prs = [

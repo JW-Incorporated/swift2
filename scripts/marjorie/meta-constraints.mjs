@@ -255,6 +255,46 @@ export function buildRunVolumeInputs(artifacts, workflowRuns) {
   ];
 }
 
+/**
+ * A full first Actions page only covers the cadence window when its oldest run
+ * reaches past that window. Otherwise another workflow can push a healthy
+ * routine's completed run onto page two, making silence indistinguishable from
+ * an incomplete sample.
+ */
+export function workflowRunsCoverWindow(workflowRuns, { now, windowDays = 7, pageSize = 100 } = {}) {
+  if (!Array.isArray(workflowRuns)) return false;
+  if (workflowRuns.length < pageSize) return true;
+  const oldest = Math.min(...workflowRuns
+    .map((run) => new Date(run.created_at ?? run.run_started_at).getTime())
+    .filter(Number.isFinite));
+  if (!Number.isFinite(oldest)) return false;
+  const nowMs = typeof now === 'number' ? now : new Date(now).getTime();
+  return oldest <= nowMs - windowDays * DAY_MS;
+}
+
+/**
+ * A partial Actions page can still prove cadence for a routine whose completed
+ * run is present. Only routines absent from an incomplete coverage window are
+ * unknown; calling every routine dark would recreate the migration false alarm.
+ */
+export function markIncompleteWorkflowExpectations(expectations, workflowRuns, { now, totalCount = null, windowDays = 7 } = {}) {
+  if (!Array.isArray(workflowRuns)) {
+    return expectations.map((exp) => ({ ...exp, sourceUnavailable: exp.matchKind === 'workflow-name' }));
+  }
+  const pageIsPartial = Number.isFinite(totalCount) && totalCount > workflowRuns.length;
+  const coversWindow = workflowRunsCoverWindow(workflowRuns, { now, windowDays });
+  if (!pageIsPartial || coversWindow) return expectations;
+  return expectations.map((exp) => {
+    if (exp.matchKind !== 'workflow-name') return exp;
+    const seen = workflowRuns.some((run) => run.status === 'completed' && exp.match({
+      type: 'workflow-run',
+      at: run.created_at ?? run.run_started_at,
+      name: run.name,
+    }));
+    return seen ? exp : { ...exp, sourceUnavailable: true };
+  });
+}
+
 /** PR/issue throughput and backlog age — the "is work flowing" numbers. */
 export function summarizeThroughput({ prs = [], issues = [], complete = true }, { now, windowDays = 7 } = {}) {
   if (!complete) {
@@ -334,6 +374,7 @@ export async function collectConstraints({ org, repo, now = Date.now(), plan = '
   // and bounded: 100 runs, one request.
   const recentRuns = await ghApiSoft(`/repos/${repo}/actions/runs?per_page=100`, { workflow_runs: [] });
   const workflowRuns = recentRuns.ok ? recentRuns.data?.workflow_runs ?? [] : null;
+  const workflowRunTotalCount = recentRuns.ok ? recentRuns.data?.total_count : null;
   const topWorkflows = attributeRunMinutes(workflowRuns ?? ciRuns).slice(0, 4);
 
   const throughput = summarizeThroughput({
@@ -341,9 +382,10 @@ export async function collectConstraints({ org, repo, now = Date.now(), plan = '
     issues: state.allIssues ?? [],
     complete: !state.runnerListsCapExhausted,
   }, { now: nowMs });
-  const runVolumeExpectations = workflowRuns === null
-    ? expectations.map((exp) => ({ ...exp, sourceUnavailable: exp.matchKind === 'workflow-name' }))
-    : expectations;
+  const runVolumeExpectations = markIncompleteWorkflowExpectations(expectations, workflowRuns, {
+    now: nowMs,
+    totalCount: workflowRunTotalCount,
+  });
   const runVolume = summarizeRunVolume(buildRunVolumeInputs(artifacts, workflowRuns), runVolumeExpectations, { now: nowMs });
 
   const grades = {
@@ -370,13 +412,21 @@ export async function collectConstraints({ org, repo, now = Date.now(), plan = '
 }
 
 export function gradeRunVolume(rows) {
-  const bad = rows.filter((r) => r.verdict !== 'ok');
+  const unknown = rows.filter((r) => r.verdict === 'unknown');
+  const bad = rows.filter((r) => r.verdict !== 'ok' && r.verdict !== 'unknown');
   if (rows.length === 0) return { level: 'unknown', message: 'no runner expectations configured' };
-  if (bad.length === 0) return { level: 'ok', message: `${rows.length} runners on cadence` };
+  if (bad.length === 0) {
+    return unknown.length
+      ? { level: 'unknown', message: `${unknown.length} runner(s) have incomplete cadence evidence` }
+      : { level: 'ok', message: `${rows.length} runners on cadence` };
+  }
   const over = bad.filter((r) => r.verdict === 'over-cadence' || r.verdict === 'running-while-disabled');
   return {
     level: over.length ? 'alarm' : 'warn',
-    message: bad.map((r) => `${r.runner}: ${r.verdict} (${r.observedPerDay}/day vs ${r.expectedPerDay})`).join('; '),
+    message: [
+      ...bad.map((r) => `${r.runner}: ${r.verdict} (${r.observedPerDay}/day vs ${r.expectedPerDay})`),
+      ...(unknown.length ? [`${unknown.length} runner(s) have incomplete cadence evidence`] : []),
+    ].join('; '),
   };
 }
 
@@ -396,7 +446,9 @@ export function renderConstraintLine(c) {
     parts.push(`${c.throughput.prsMergedPerDay} PRs/day merged, ${c.throughput.openPRs} open`);
     parts.push(`backlog p50 ${c.throughput.backlogAgeP50Days}d / p90 ${c.throughput.backlogAgeP90Days}d`);
   }
-  const drift = c.runVolume.filter((r) => r.verdict !== 'ok').length;
+  const drift = c.runVolume.filter((r) => r.verdict !== 'ok' && r.verdict !== 'unknown').length;
+  const unknown = c.runVolume.filter((r) => r.verdict === 'unknown').length;
   parts.push(drift ? `${drift} runner(s) off cadence` : 'runners on cadence');
+  if (unknown) parts.push(`${unknown} runner(s) unavailable (incomplete cadence evidence)`);
   return `- ${icon} **Budget & limits:** ${parts.join(' · ')}`;
 }
