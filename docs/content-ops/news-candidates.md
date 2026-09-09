@@ -25,7 +25,106 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 74
+
+## Taylor Swift's Grammy Eligibility for 2027 Explored by Variety
+
+- first seen: 2026-09-09 19:44 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Variety discusses Taylor Swift's lack of Grammy wins for Record or Song of the Year and speculates on which of her three No. 1 hits eligible for the 2027 awards she might choose to secure a victory.
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMisgFBVV95cUxNRm9nSWp0ZWxuVU5TalloN0JwN1hmZ0Z2Y3cxX09FeXFydXBzdVpIUXBOOTZCRDluOG9IeHJwUWo5T0lFR0RFVm01RlFTUTZNVDNCOWRoTzZJT3l3VC02X0tRSlhNQzY1dVlVOXBtcUZhZGZYUC1HVnNCSGFQY3B3eTExdVlzd1A3OU5mX3dNTldlOFZabFJzbHdLTDlsemR1ZU5nRG5LbVhOQXRPTjFlMW1n?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/columns/taylor-swift-grammy-chances-i-knew-it-i-knew-you-fate-ophelia-1236849929/
+
+## Taylor Swift Connected to New Study on Bugs at UC Riverside
+
+- first seen: 2026-09-09 19:44 UTC | category: music | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: A research project at the University of California, Riverside features Taylor Swift in relation to the study of bugs. The details of her involvement or the nature of the study were not disclosed.
+- sources:
+  - [unverified] University of California, Riverside — https://news.google.com/rss/articles/CBMidEFVX3lxTFBJeEhSZkh1WnpGb2NRX1ZFX1duX3A2dGhuOHhZOTg1VGhfcU84M1llSEFZUjF0dzU3SHIwRWdPeEMyZDBCUlk0My1qaXdoTEdha3luLXo3dE91eGQ0Qk1UMjRydi1NdndtVFRSa2R3OFAwS0Mx?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce's Post-Marriage Living Plans Revealed
+
+- first seen: 2026-09-09 19:44 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are reportedly planning their living arrangements following their recent marriage. Details about their new home have emerged in news reports.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxOM0hiUjJwdGVDWmRTeGtDTEZtdmtPS3B2WkUyaU1yMUVqWTZ0UmhjNjdzR0pnUjlhMFljaVc5WXZBX244d2hGN0tqRmhmdkJlRHBJcTd4Z2o4MlVNWEZ2aXZMMGdUeVZ4VmZfS1JCY1BmZkowN0s5VWVWSmNaQzVtdzdHOE1QNjZYZW1TTl9xcVdqT0dISFBuXy0tTWtKVG9UMHVj?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Insect Species Named After Taylor Swift
+
+- first seen: 2026-09-09 19:44 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new type of insect has been named in honor of Taylor Swift, with each subspecies featuring its own unique 'Easter egg'. This naming reflects the cultural impact of the artist.
+- sources:
+  - [unverified] Good Good Good News — https://news.google.com/rss/articles/CBMigwFBVV95cUxOa0pHb3hmWnNPeWVpdmdvaGRfSU0zSkU0ejUzUkVMaEItYzNINWRSdEJ0NkUzb2RUcFdmUC1lUFBROVotZEdsN21lOGhWeXJad2lJcGZXaExoZ0JxemZLRGdUTXEta0xDWkhpa01KQXNfSUJFZ1NUZ0tFRzhHZDhqZ0k1TQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Newly Identified Insects Named After Taylor Swift
+
+- first seen: 2026-09-09 19:44 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: A new species of plant-eating insects has been discovered and named in honor of Taylor Swift. This recognition highlights her influence beyond music and into the scientific community.
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMikAFBVV95cUxQeDdyRUxlRmVzZEhYWmc2VDVxWWUxcUYxSV93TzJNQlhHT04zRXJFczRLNG5SSmhTcUtPaFIwX2ZDSFZLZ28tcEpZbmhkbmNreENyNXFmbm9MdmpmNHJTYzFnbmZFZVFUUENOMjdCNWJyS1cxVWEtUlF3OVJMczFHYzBlMWotSGstcnBScDRWOW4?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-plant-eating-insects-names-1236856051/
+
+## Stella McCartney's Instagram Post Reveals Taylor Swift Secret
+
+- first seen: 2026-09-09 19:44 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An Instagram post by Stella McCartney has inadvertently disclosed a significant secret related to Taylor Swift. The details of the secret were not specified in the report.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirwFBVV95cUxQYXIyVDREYlJwV1Ziem9DV2EyQXVrellPNjhFSVBRTTBEVGZFUlVJb0stYnJ2VEdtbkRtQWRTVE5fM3FCQjI3NG9FQzFzclc0VFNlbkNDbzRmWGh6czMyQ0t2S1dHYktFazY5SVJXT3FGalBMZldPMnVYNmlHNHNoaXJmQngtZFRfUVExTUdtUlRpRl8wVldBdUpSaDdrT3o4bjhkY0ctWmgtUVhFQ0lN?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Bug Genus Named After Taylor Swift
+
+- first seen: 2026-09-09 19:44 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A newly discovered genus of bugs has been named in honor of Taylor Swift. This recognition highlights Swift's impact beyond music and entertainment.
+- sources:
+  - [unverified] aol.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxQVzdEeUtRTTBfUUU3ZlgyWXhUZnQ3SUZlcXBLM0RtVHprZkd0dWYyZ1FYTEpHZTFnYlJrWUpRTWFSXzVMSm1ZQ1ZidHBDUkVBOG4yUWNvRHhOcFpfYXlmRURINUtkcmxZZlA4NFRRclU4ZVVKSy1yYVEyNlg3Qm1nRzFOYw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Jason Kelce Responds to Decision Involving Travis Kelce and Taylor Swift
+
+- first seen: 2026-09-09 19:44 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce has addressed an unexpected decision that involves his brother, Travis Kelce, and pop star Taylor Swift. Details surrounding the decision have not been disclosed in the article.
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMikAFBVV95cUxNU0NGdzJhX2xKNnJKSXhqOGZDNnNUNUEwbW5nZEVyU2RKc1RoM0FsOU9halFEWU0xT2o4Q3VIN3ozN0xiNWZtUEpqMWlYaGU5NnV4NlRnZGtnMEpsR1FyODVzcFZEa2ZZcmlYMUl0RGhnWUo5UXRFYUV0N2FOTlpyT21oaUV6cmlEZldSYXJfMWo?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Tops Country Radio Charts After 13 Years
+
+- first seen: 2026-09-09 19:44 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has achieved a No. 1 position on the country radio charts for the first time in 13 years, marking a significant moment in her career. This return to the top highlights her enduring popularity in the genre.
+- sources:
+  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMinwFBVV95cUxQalp3SHVkNzByazZUX281SmcxR3pteUduZk5xOWUycUVyLTR1eVY1OVo3YWxIRll5MTdzWGtjWTRhUndScTNubmJJWGNEVVBTM3hPdEF5WmRkZVBpemV4Zkt1M0theWw0THowVUVvandFNEVBWDlYTUdXc1ZEbkViTjFJMmZzZ08xaW9YUllNWTk5VFU4QnJoVTFYcWk3SXM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Bug Species Named After Taylor Swift Recognized
+
+- first seen: 2026-09-09 19:44 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Four new species of bugs named Swiftiephylus have been identified in Australia, drawing connections to Taylor Swift's global fanbase, emphasizing her widespread influence.
+- sources:
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPdmhDSnFwRTlKWFVuSmZoazRxY29jSUNQNHNSdEJKWVZoY1NPWjlzM0FxTDNlYVhhVC12UEdBZ1JocG5ValJjcVVpZGNOSVZCMmVOMWw1NXNhMkhRUnNHdGRhVDFXQzVRYWVZUUpIN1VnajI3MXJDNU9MdndoQ3ExY2lUeU9xbzNZOW9TYjdGc09CQjB2aGx4eUVLLXJtbndGWkloa29ESGxKYmM?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/culture/culture-features/taylor-swift-bugs-australia-swiftiephylus-1235623222/
+
+## Taylor Swift and George Strait to Receive Nashville Songwriting Honors
+
+- first seen: 2026-09-09 19:44 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and George Strait are scheduled to receive significant songwriting honors in Nashville. The recognition highlights their contributions to the music industry.
+- sources:
+  - [unverified] Mix93.3 — https://news.google.com/rss/articles/CBMiakFVX3lxTE4xY3JCM1d5QVFZVjNaSDNtV0RXOEpZTVRRM2l4dnpwRTV1N2dKelRqcGt3Ri1mTko1aVVVcE5oRDZ2OUhsLS04YzR0WVJfNmpSWDBBNzUwQUJIUlVLLUwwbEZsXzhMZGFBTnc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Alanis Morissette Discusses Criticism Similar to What Taylor Swift Faces
+
+- first seen: 2026-09-09 19:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Alanis Morissette reflected on the criticism she received at the height of her fame, likening it to the jealousy directed at Taylor Swift today. She highlights the common experiences of successful female artists in the music industry.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxOU294dWdLVjIzWFdORlk2RDJ4d045T1NxVWxEaVR2NEFjMndIMEw0eEF2bzllQWowalpOWHJ3ZGZ6WWFGdW95LTlVUG1Ia2R4RWcyUUs0c3V6VDU5Y3ZJTGhPUTZyRGxOejZkOUtVYWRzLUhiS3gzOEVlRlo2N3J0UWJnZWtfenNDWlJzVGhQeWwxQ1hPSV9MR1VBUW1DeVJTNTZsbkhlQjAwQWRwMTZSZg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Exploring Taylor Swift's Holiday House: A 12-Hour Experience
 
@@ -108,14 +207,6 @@ Stories: 65
 - sources:
   - [unverified] elle.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxQLUYyYm5aUEtQZG5HX3pHdm9Fdl94bFpHVDhGRDNxanJnZm5lQ3BBaFd6c2lJYmlYcjdhRW5td2h5THlXcFl6LVRVdWFFekQ5SXg4UFdXbUgzMEpZVktxeDhPRXFQbHJiZDlOUkZTYXdTSTBzX3JnUWUzclVVOVpqMDUzVG0xNDhoS09qckR4SDhTb1F2dmJiXy1jOFpkSTRkTkV5UEJfQlhyY00zLVhjQnRvbXhDck1jZEhYcw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Seen in $2,800 Dress During NYC Date Night with Travis Kelce
-
-- first seen: 2026-09-09 05:56 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted in a $2,800 dress and showcasing her new short hair during a date night in New York City with husband Travis Kelce.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMibkFVX3lxTE1jUTNtN1ZCbnc2OFFPOTRPdGpCaVl4SklMeUpMYjB2WUJFUnNPQy1wRWhxUVN1MmMxRVlObi1HWUJxN2VCZUJ0NGpVN3YzZml1VDE1QUtCalpMOHZmVjdMRE51T29BWmVad3dmZGVR?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Eras Tour Dancers Showcase Wedding Looks Shared by Taylor Swift
 
 - first seen: 2026-09-09 05:56 UTC | category: fashion | importance: 5
@@ -123,6 +214,15 @@ Stories: 65
 - summary: Dancers from Taylor Swift's Eras Tour have shared their fashion looks from her wedding. The article features various styles and outfits worn by the dancers during the event.
 - sources:
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNV2tNS2piZnFxSzJxal9HeGc1aF9LS1RaZFlHVFRlbUQxeFZTWTNrc01fRmRfQVBsUEhraTE0cHpsZ3RBSDBWRGJqbkRSUzFvUXlMQUVSYzhLWUhFWXVURlVId1VTSFQ3eWlZQ1JFTjFsdWRMTTJuaW1QUDZmZnZwQ1BoTnBVWlJUVW9LcXZUWmhBcmlXYzZST0syX0tMcVdCdWtvM2JvdDNaUVdDbXZTS0RKbWZxcHlrV2U5MDBndDV1MFNraUFhMTNHM3IzRE9N?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Seen in $2,800 Dress During NYC Date Night with Travis Kelce
+
+- first seen: 2026-09-09 05:56 UTC | category: fashion | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift was spotted in a $2,800 dress and showcasing her new short hair during a date night in New York City with husband Travis Kelce.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxOTnJmTF9zT2stMVN2VlpFbjFZTFh3U2p0YV9CeDRNYkdUVFRhdWI1WThhQWgzVnNYdHdvRTNfNWt2SkQ3LUI4TlBKVlJCSUY1LUJWbUZDc1JBYUhVY2dBNS1weDlOUmhpdWJqQkJVWk53c245M19yZTFiOVJnUk5QYzU0dXZmVUVUVTBNdWpWYWExdnVZeFNQS1JtQ2g5RVdwWHNF?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMibkFVX3lxTE1jUTNtN1ZCbnc2OFFPOTRPdGpCaVl4SklMeUpMYjB2WUJFUnNPQy1wRWhxUVN1MmMxRVlObi1HWUJxN2VCZUJ0NGpVN3YzZml1VDE1QUtCalpMOHZmVjdMRE51T29BWmVad3dmZGVR?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Tour Promoter Louis Messina Opposes Live Nation Settlement
 
@@ -536,29 +636,3 @@ Stories: 65
 - sources:
   - [unverified] ABC27 — https://news.google.com/rss/articles/CBMimwFBVV95cUxQZE85MU1McS1tampWRHk3YzVrSTJEMndBa0djRmZrdlFyR2N5MndhSllvSWZZeEZzQmI5RXRoZExObEU2RENGSnRnR0hzek1sdzRPVHZwbTN2WHpZQXZIRU9RWHpjY2h6eFBkUDBNbDNwM0JSd3N5WHB6R3BEOFlBUW5tcVVhT2JlQ3BkUnhydnN6SDA4Z2U1UjVIZ9IBoAFBVV95cUxNWU50ZkswaC1KcTFfRnRSc1JpT014Z1hkeXRERHlORkFhdmVPUHp0UVNwWi05UmZiYUJOV1kzeHB3M0xjWlJaRjNSWGpGdHY0UjZKWEtGcWNNR1NlTHlCRlhfUmo5R1FjOHlRR3BGSGFPd3JCbXI4UXp1YlZTNWNBcElTQlBjRmwtRHJ0UVdKSlB4QWNBMXhzQ0hLdm9oamRY?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] NewsNation — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdXFLQU1VMGVVbnlCMENPVGpPWUJvbEVBaVZFbGxlTlBjTjc3MGxFRWVELTMxb0U2cno5c04tNkRHTE9fVW1tYmx5QnhpLUF4MUc2XzdFMklIWE13eGUzbHZEcU80VmRUc281Xzd5MnhDZVMwX3VOVV9ZdVRVMDROWG9NSHpsYkl1U2dJVEt2T185V1NoVE5wWXY0cE5OUU1MLUVHeEM4VTcxZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## 'Eras Tour' Finale Not Nominated at 2026 Emmys
-
-- first seen: 2026-09-06 16:12 UTC | category: tour | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's 'Eras Tour' finale was not nominated at the 2026 Emmys, according to USA Today. The event concluded without recognition at the awards.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiywFBVV95cUxPcVktblduN1JCbEhZV2xvYVR0ZmxGaVllbXM1ZXN4OE1aN0tmZkRVaXk1RWRUVWV0TjZQLWhDVWpISERkbUw1bWk1bWJZdmQ0RDc4NDNGWHhObGtTaUF2WXNMZjl4blB6aWIxNmdVVV9hendNcXNRdkFnUE1JZ25zV09XQXF6WjJtdjcyWGMtSzFQbi11Nk5jRk5fcWg4aW5BTHZ6QXVWT08yajhkT2FmVGpfa0F3Y0pUMnp1eXBYOHJZWnZxb3FteTZCcw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Nikki Glaser Discusses Unique Aspect of Taylor Swift and Travis Kelce's Wedding
-
-- first seen: 2026-09-06 16:12 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Comedian Nikki Glaser highlights a distinctive feature of Taylor Swift and Travis Kelce's wedding that is rarely seen at celebrity events. The comments were made during a discussion about the high-profile couple's event.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOV0t6ZmlTU1pOMXZXTVFzdW0yZDU4TFc5VUVDcGo2UTl5Zk1fYlliSzFzWnRTcDRMLUMwcUFQRmNwTzBVR1NaTnpBWU9GajM3aW01Yjg4Qnl0WjBRaXZYYnhBemgtZmdsZVZoeXEzUVZXSkhNTzBZWTRBZWlMYmxaMWZGNTJlY3Myd3A2WTRPbDcwcHJmUHc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxOT203ZWtUX3RiTU5ocWZ2anp2bjRRTTFIenN1c1l5b0pSbVhHSEJrLTQyNm9TbFJKUHdwaGpUemlaNzE3TWh0ZmhWNHYtRk5tV0M3R1VSdWtxdjNCSC1Tdm1ndXlsVWN5eFN5RzBDU1ROYVNFNnZJVGlyVWhBVkoweV9sb0FmRDN4UUhLZ1pKVm9vZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Eras Tour Concert Movie Fails to Win at 2026 Emmy Awards
-
-- first seen: 2026-09-06 16:12 UTC | category: business | importance: 4
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift’s ‘Eras Tour’ concert movie did not win any awards at the 2026 Creative Arts Emmy Awards. This outcome highlights the competitive nature of award categories in the entertainment industry.
-- sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMioAFBVV95cUxQYUxzMXVoUVpQODc1V01sQzBKYVpJTG04SDYwUkI1dmlhNm9OZ0lLdG5uVy01VlRlX0VFaVItU2xmQVhyWTk4czdWcmFLMzNKajlKQjBTdXI2YlBYV01lQ25BaDZuUGJwcmRob3RjVTVtcG5TS05LOWV4Z2NWQUwtUUIwdlFCQ0thNW9OR3l5cF95ckd0OXpNOUdISGxrcVp5?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxPWDN4Y3ljdFdVMEE3V1BFaXBOZk5WbzZGRFIwOG9nU1FhaVpvTlk5dmd4ZWVXYkVUb0hpVmFYWDFPTDBlREFxalQ5aDE0bU12UFY3a2loZWN5TGo4SDNaX0Q3elZfSHpPU0czcHE2RW0tdlRpNUIzN1JwekdXcTRYTnh1WktvWmlYRkVSUnA5dmh5aXd3dkdfQQ?oc=5&hl=en-US&gl=US&ceid=US:en
