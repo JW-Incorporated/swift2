@@ -39,11 +39,11 @@
 // SMTP send. Any missing piece degrades to a clean no-op log line, same
 // posture as scan.mjs / community-ack's route.
 
-import { execFileSync } from 'node:child_process';
-import { createHmac } from 'node:crypto';
+import { createHash, createHmac } from 'node:crypto';
 import { URLSearchParams } from 'node:url';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
+import { buildCommunityPrompt, postCommunityPrompts } from './discord-delivery.mjs';
 
 export const SITE = 'https://www.longlivets.com';
 export const TO = 'sffan15@gmail.com';
@@ -201,7 +201,7 @@ export const FETCH_POOL_LIMIT = 200;
 export async function fetchLeadsToMail(supabase, { mode = 'daily', limit = MAX_LEADS_PER_EMAIL } = {}) {
   let query = supabase
     .from('engagement_lead')
-    .select('id, platform, community, kind, thread_id, url, locator, title, relevance, target_url, draft, draft_alt, link_included, status')
+    .select('id, platform, community, kind, thread_id, url, locator, title, relevance, target_url, draft, draft_alt, link_included, discord_ack_id, status')
     .eq('status', 'drafted')
     .order('created_at', { ascending: true })
     .limit(FETCH_POOL_LIMIT);
@@ -238,29 +238,53 @@ export async function markEmailed(supabase, leadIds, { attempts = 3, delayMs = 5
   throw lastError;
 }
 
-/**
- * Sends the rendered email via Gmail SMTP — `scripts/watchdog/send-community-
- * mail.py`, a sibling of `send-mail.py` (brief-mailer.yml/watchdog.yml's
- * proven stdlib-smtplib sender). Not reusing `send-mail.py` itself: that
- * script always renders its body through `gh api markdown` (issue-body
- * markdown -> HTML) and mails Joey only; this desk already has finished
- * HTML (drafts/ack-links need real `<a>`/`<pre>` markup markdown can't
- * express cleanly) and must CC Wyatt (§2.6/`marjorie.md` § Delivery — every
- * founder-facing Marjorie email goes to both). No new Node SMTP dependency
- * for one call site — same reasoning `send-mail.py`'s own header gives for
- * using stdlib `smtplib` over a package.
- */
-function sendMail({ subject, html, text, sender, appPassword }) {
-  const payload = JSON.stringify({ subject, html, text });
-  execFileSync('python3', ['scripts/watchdog/send-community-mail.py'], {
-    input: payload,
-    encoding: 'utf8',
-    env: { ...process.env, MARJORIE_EMAIL: sender, GMAIL_APP_PASSWORD: appPassword },
-  });
+export async function markDiscordDelivered(supabase, deliveries) {
+  for (const delivery of deliveries) {
+    const { error } = await supabase
+      .from('engagement_lead')
+      .update({ status: 'delivered', discord_delivered_at: new Date().toISOString(), discord_message_id: delivery.messageId })
+      .eq('id', delivery.leadId)
+      .eq('status', 'drafted');
+    if (error) throw error;
+  }
 }
 
-function mailEnabled(env = process.env) {
-  return Boolean(env.MARJORIE_EMAIL && env.GMAIL_APP_PASSWORD);
+function receiptKey(mode, leads) {
+  return createHash('sha256').update(`${mode}:${leads.map((lead) => lead.id).sort().join(',')}`).digest('hex');
+}
+
+async function createReceipt(supabase, mode, leads) {
+  const deliveryKey = receiptKey(mode, leads);
+  const { data: existing, error: lookupError } = await supabase
+    .from('community_delivery_receipt')
+    .select('status,delivered_count')
+    .eq('delivery_key', deliveryKey)
+    .maybeSingle();
+  if (lookupError) throw lookupError;
+  if (existing) return { deliveryKey, existing };
+  const { error } = await supabase.from('community_delivery_receipt').insert({
+    delivery_key: deliveryKey,
+    mode,
+    lead_count: leads.length,
+    draft_count: leads.filter((lead) => Boolean(lead.draft)).length,
+    status: 'started',
+  });
+  if (error) throw error;
+  return { deliveryKey, existing: null };
+}
+
+async function finishReceipt(supabase, deliveryKey, result, errorMessage = null) {
+  const { error } = await supabase
+    .from('community_delivery_receipt')
+    .update({
+      status: errorMessage ? 'failed' : 'delivered',
+      delivered_count: result.delivered.length,
+      discord_messages: result.delivered,
+      error_message: errorMessage,
+      completed_at: new Date().toISOString(),
+    })
+    .eq('delivery_key', deliveryKey);
+  if (error) throw error;
 }
 
 async function main() {
@@ -279,49 +303,41 @@ async function main() {
     return 0;
   }
 
-  const ackSecret = process.env.COMMUNITY_ACK_SECRET;
-  if (!ackSecret) {
-    console.log('community-mailer: COMMUNITY_ACK_SECRET unset — skipping (ack links cannot be minted safely without it).');
-    return 0;
-  }
-
   const leads = await fetchLeadsToMail(supabase, { mode });
   if (leads.length === 0) {
     console.log(`community-mailer: no ${mode === 'replies-waiting' ? 'reply_to_us ' : ''}drafted leads to mail — nothing to send today.`);
     return 0;
   }
 
-  const date = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
-  const html = renderEmailHtml(leads, { ackSecret, mode, date });
-  const text = renderEmailText(leads, { mode, date });
-  const subject = mode === 'replies-waiting' ? `Replies waiting — ${date}` : `Community Tasks — ${date}`;
-
   if (dryRun) {
-    console.log(`community-mailer: [dry-run] would mail ${leads.length} lead(s), subject "${subject}".`);
-    console.log(html);
+    console.log(`community-mailer: [dry-run] would deliver ${leads.length} prompt(s) to Discord (mode=${mode}).`);
     return 0;
   }
 
-  if (!mailEnabled()) {
-    console.log('community-mailer: MARJORIE_EMAIL / GMAIL_APP_PASSWORD not set — skipping send (degraded, not a crash).');
+  const receipt = await createReceipt(supabase, mode, leads);
+  if (receipt.existing) {
+    console.log(`community-mailer: duplicate-send prevention held ${leads.length} prompt(s); existing receipt is ${receipt.existing.status} (${receipt.existing.delivered_count} delivered).`);
     return 0;
   }
 
+  const prompts = leads.map((lead) => ({ id: lead.id, content: buildCommunityPrompt(lead) }));
+  let result = { status: 'failed', delivered: [] };
   try {
-    sendMail({
-      subject,
-      html,
-      text,
-      sender: process.env.MARJORIE_EMAIL,
-      appPassword: process.env.GMAIL_APP_PASSWORD,
-    });
+    result = await postCommunityPrompts(prompts);
+    if (result.status === 'unconfigured') {
+      await finishReceipt(supabase, receipt.deliveryKey, result, 'DISCORD_SOCIAL_WEBHOOK is not configured');
+      console.log('community-mailer: DISCORD_SOCIAL_WEBHOOK unset — no prompts sent; receipt recorded as failed.');
+      return 0;
+    }
+    await markDiscordDelivered(supabase, result.delivered);
+    await finishReceipt(supabase, receipt.deliveryKey, result);
   } catch (err) {
-    console.error(`community-mailer: send failed: ${err?.message ?? err}`);
+    await finishReceipt(supabase, receipt.deliveryKey, result, String(err?.message ?? err));
+    console.error(`community-mailer: Discord delivery failed: ${err?.message ?? err}`);
     return 1;
   }
 
-  await markEmailed(supabase, leads.map((l) => l.id));
-  console.log(`community-mailer: mailed ${leads.length} lead(s) (mode=${mode}), marked emailed.`);
+  console.log(`community-mailer: delivered ${result.delivered.length}/${leads.length} prompt(s) to Discord (mode=${mode}); receipt=${receipt.deliveryKey}.`);
   return 0;
 }
 
