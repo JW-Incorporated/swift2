@@ -26,29 +26,29 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 48. [UPGRADE] Put the website-shell build on the Play internal track now (Android testers still get the Aug 30 native app) — ~5 min
+### 48. [UPGRADE] Put the native-overhaul build on the Play internal track by hand (Android testers still get the Aug 30 app) — ~5 min
 
 **Filed:** 2026-09-07
 
-**Why it matters:** iOS testers have had the WebView shell (TestFlight
-build 4) since 2026-09-05; the Play internal track still serves release
-`1.0.0 (2)` from Aug 30, the pre-shell native app. The release train will
-close this gap on its own once #46 lands, but if that is days away, one
-manual upload gets Android testers the same app today. The bundle already
-exists — the 2026-09-06 train dry run built it on EAS (build
-`efd299ab`, versionCode 5, commit `7bd27f6e`, shell included). An agent
-cannot do this: the Play Console upload is a 62 MB file through your
-account, and the session's browser upload path is capped at 10 MB.
+**Why it matters:** the release train ran for real on 2026-09-08 (EAS run
+`01a08457`): iOS build 10 and Android build 7 were both built on EAS from
+`main` 0b8ca769 (the native overhaul), iOS was submitted to TestFlight,
+and `submit_android` failed because there is no Play service-account key
+on EAS (#46). So Android's bundle exists and is the same app iOS testers
+now have; only the upload is missing. #46 makes this automatic; this item
+is the manual bridge if #46 is days away. An agent cannot do it: 62 MB
+through your Play account, and the session's browser upload path caps at
+10 MB.
 
 **Steps:**
-1. Download the bundle (link is stable; it is the EAS artifact):
-   `https://expo.dev/artifacts/eas/UhgHFQSwieBfb8Vt0aRjPax3L05b5rqKRKASQDf9Igg.aab`
+1. Download the bundle (EAS artifact for build 7, commit 0b8ca769):
+   `https://expo.dev/artifacts/eas/8CP-yznaU5lS5NmhygIz_e9K11e-N1EZMGuoannLhKs.aab`
 2. Play Console → LongLive → **Test and release → Internal testing →
    Create new release** → drop the `.aab` in → release name is prefilled
-   (`5 (1.0.0)`) → release notes: "Website shell — same app as iOS build 4."
+   (`7 (1.0.0)`) → release notes: "Native app — same build as iOS TestFlight 10."
 3. **Next → Save and publish** (internal track; no Google review).
 
-**Worked if:** Internal testing shows `1.0.0 (5)` as the latest release
+**Worked if:** Internal testing shows `1.0.0 (7)` as the latest release
 and a tester on the "Jess and Joey" or "Joey" list (both are ticked and
 saved — verified 2026-09-07) sees the website inside the app after
 updating from the Play Store.
@@ -154,6 +154,8 @@ blocks `submit_ios` in the same run).
 (from `apps/mobile`) uploads to the internal track without asking for a key
 path, and the next **Mobile release train** run shows `submit_android`
 green.
+
+**Train evidence (2026-09-08):** EAS run `01a08457` built both platforms from 0b8ca769 and submitted iOS (TestFlight build 10); `submit_android` failed for lack of this key. Everything else in the pipeline is proven.
 
 **Note (2026-09-07):** a `PLAY_SERVICE_ACCOUNT_JSON` repo secret was added
 to this repo on 2026-09-06, following 4a's setup. It is harmless but
