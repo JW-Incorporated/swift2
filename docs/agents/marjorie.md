@@ -161,42 +161,32 @@ Five sections, in the skeleton's order:
 
 End with a single link line: `Full detail: journal comment below.`
 
-### Delivery (Joey, 2026-07-11: briefs go to Joey with Wyatt on CC, by email)
+### Delivery (Discord morning brief; historical email fallback retained until verified)
+
+> **Current delivery (2026-09-09):** `.github/workflows/brief-mailer.yml`
+> posts the morning Founders' Brief to the Swift2 Discord channel at 12:45 UTC,
+> in safe Discord-sized parts with a full Markdown attachment and no permitted
+> mentions. GitHub remains the source of truth. Until a scheduled Discord post
+> succeeds, the established morning-email route stays active; a missing or
+> failed webhook emits an explicit marker and watchdog opens one deduplicated
+> configuration alert. Once delivery is verified, the morning email is withheld.
+> The 8 PM Evening Delta remains a GitHub comment only.
 
 > **2026-07-17 — Slack is live** (per the pre-approved flip in decision
 > 2026-07-16): the workspace exists with **#all-longlive-hq** (org traffic;
 > GitHub app subscribed to the repo) and **#social** (growth desk lane), the
-> Claude and GitHub apps installed. Slack is now the founders' *primary*
-> interface; the email mailer below continues unchanged as delivery backup.
+> Claude and GitHub apps installed. Slack remains a separate organization
+> interface; the morning brief delivery path is the Swift2 Discord channel.
 
-- **The real email channel is the brief-mailer Action**
+- **The real morning delivery channel is the `brief-mailer` Action**
   (`.github/workflows/brief-mailer.yml`) — a deterministic, zero-AI GitHub
-  Action that emails **From Marjorie's own Gmail account** (Joey's call,
-  2026-07-11: the chief of staff writes from her own address), To
-  `sffan15@gmail.com`, CC `wjduvall@gmail.com`. Since 2026-07-15 it sends
-  multipart HTML (GitHub-rendered GFM — tables and checklists arrive as
-  tables and checklists, not raw markdown), with a plain-text fallback. It
-  mails the **morning brief only** (issue body) at 12:45 UTC — anchored so
-  it is **in founder inboxes by 6:00 AM PT** (Joey, 2026-07-16), which
-  requires the brief run itself to fire at 12:00 UTC and post by ~12:40.
-  **The 8 PM Evening Delta is no longer mailed** (Joey, 2026-08-23, folding
-  the founder-visibility rework into a strict ceiling of one email a day
-  from Marjorie plus one a week from Tree — see the Cadence table above):
-  `brief-mailer.yml`'s evening cron is retired, the delta still posts as a
-  GitHub comment per the Cadence table, and `workflow_dispatch` delta mode
-  still exists for manual testing. It is live once the founders set the
-  `MARJORIE_EMAIL` repo variable + `GMAIL_APP_PASSWORD` secret on Marjorie's
-  Gmail account (2-Step Verification on; App Password stored WITHOUT spaces —
-  TX item #484). Marjorie's address is `marjorieswift00@gmail.com` —
-  **standard spelling, with the "r"** (2026-07-17: Joey retired the
-  typo-registered `majorieswift00@gmail.com` account and created this
-  correctly-spelled one; `MARJORIE_EMAIL` + `GMAIL_APP_PASSWORD` were
-  rotated the same day). The old account is **deleted** — mail sent to it
-  bounces, so replies to pre-2026-07-17 brief emails are lost by design;
-  founders reply only to briefs from the new address.
-  Any address written here MUST match the actual registered account and the
-  repo variable exactly — a mismatch caused the 535 BadCredentials outage
-  fixed 2026-07-15 — so never edit this line without re-checking both.
+  Action that posts the existing morning issue body to Swift2 Discord at
+  12:45 UTC, in readable parts plus a full Markdown attachment. The workflow
+  uses `DISCORD_BRIEF_WEBHOOK` and disables all Discord mentions. The old
+  email path is a transition-only fallback, retained solely until a Discord
+  post succeeds; it is never used after verified Discord delivery. The 8 PM
+  Evening Delta remains a GitHub comment, with manual email dispatch retained
+  only for testing.
 - **Every brief body and every delta comment still starts with the line
   `cc @sffan15-sys @wjduvall-cmd`**, and must never be omitted — but this is
   **not** an email channel and must not be described as one. It is only how

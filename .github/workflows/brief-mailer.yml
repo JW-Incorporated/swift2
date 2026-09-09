@@ -1,14 +1,9 @@
-# Brief mailer — emails Marjorie's updates to the founders' real inboxes.
-# From Marjorie's own Gmail, To Joey, CC Wyatt (Joey's calls, 2026-07-11).
-# Deterministic, zero AI. One send per day:
-#   - 12:45 UTC (~5:45 AM PDT): the Founders' Brief (issue body). Joey's
-#     requirement (2026-07-16): the email is IN HIS INBOX BY 6:00 AM. The
-#     send is anchored at 5:45 PDT for margin; Marjorie's brief trigger must
-#     fire at 12:00 UTC (registry: docs/agents/runners.md) so the brief
-#     exists ~12:25. If it doesn't exist yet the mailer skips quietly — but
-#     see the correction below, that's no longer the whole safety net.
+# Brief delivery — posts Marjorie's morning Founders' Brief to Discord.
+# Deterministic, zero AI. At 12:45 UTC it delivers the existing issue body;
+# until that post succeeds, it safely retains the established email delivery.
+# `delta` remains email-only for manual testing and has no schedule.
 #     UTC-anchored on purpose (org precedent): winter sends land an hour
-#     earlier in PST — still in the inbox by 6:00, never after.
+#     earlier in PST — still delivered before 6:00, never after.
 #
 # EVENING DELTA (2026-08-23): retired as an email — Joey capped founder-facing
 # report email to 1-2 total (the morning brief + Tree's weekly report), and a
@@ -25,22 +20,17 @@
 # :00/:30 minutes GitHub's own docs flag as highest-contention. Two
 # mitigations landed the same day: every cron in this repo got nudged off
 # :00/:30 (this file included), and watchdog.yml's 14:30 UTC run now checks
-# whether today's brief was actually mailed — not just whether the brief
+# whether today's brief was actually delivered — not just whether the brief
 # issue exists — and retriggers this workflow same-day if not. Neither
 # guarantees exact timing; the retry is the real backstop.
 #
-# This Action is THE real email channel. The brief's `cc @mention` line is only a
-# GitHub notification aid, NOT email delivery: Marjorie posts as a founder account
-# (self-mentions don't email), and @sffan15-sys / @wjduvall-cmd are bot identities,
-# not the founders' monitored inboxes. See docs/agents/marjorie.md › Delivery.
+# This Action is the morning brief's delivery channel. The brief's `cc @mention`
+# line remains only a GitHub notification aid, never Discord delivery. See
+# docs/agents/marjorie.md › Delivery.
 #
-# Founder setup (issue #484): a Gmail account for Marjorie with 2-Step Verification
-# ON, then:
-#   - repo VARIABLE  MARJORIE_EMAIL      = that address
-#   - repo SECRET    GMAIL_APP_PASSWORD  = a 16-char App Password on THAT account
-# Gmail shows App Passwords as "xxxx xxxx xxxx xxxx"; SMTP AUTH needs them with NO
-# spaces. This workflow strips spaces defensively and, on auth failure, prints
-# exactly what to re-check. Until both var+secret exist, it skips quietly.
+# Founder setup: add the `DISCORD_BRIEF_WEBHOOK` repository secret for the
+# Swift2 Discord channel. Until it produces a successful post, the established
+# morning email stays active so no brief is lost during the transition.
 name: brief-mailer
 on:
   schedule:
@@ -125,17 +115,31 @@ jobs:
           echo "found=true" >> "$GITHUB_OUTPUT"
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
 
-      - name: Send From Marjorie, To Joey, CC Wyatt
+      - name: Deliver the morning brief to Discord without a delivery gap
         if: steps.pick.outputs.found == 'true'
         env:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GH_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          DISCORD_BRIEF_WEBHOOK: ${{ secrets.DISCORD_BRIEF_WEBHOOK }}
         run: |
           set -euo pipefail
-          # Shared with watchdog.yml (2026-07-23) — same delivery path for
-          # watchdog-alert issues, which previously relied only on GitHub
-          # @mentions that don't reach the founders' real inboxes. payload.json
-          # already has the {subject, body, url} shape send-mail.py expects.
-          python3 scripts/watchdog/send-mail.py payload.json
+          if [ "${{ steps.pick.outputs.mode }}" = "brief" ]; then
+            if [ -z "${DISCORD_BRIEF_WEBHOOK:-}" ]; then
+              # Keep the known-good email route until Discord has a configured
+              # endpoint and a successful post can be recorded in this run.
+              echo "SKIPPED: DISCORD_BRIEF_WEBHOOK not configured"
+              echo "FALLBACK_EMAIL: retaining morning email until Discord delivery succeeds"
+              python3 scripts/watchdog/send-mail.py payload.json
+            elif node scripts/discord/post-brief.mjs payload.json; then
+              echo "Discord delivery verified; morning email withheld."
+            else
+              # A failed webhook must not create a no-delivery gap. The failed
+              # Discord marker remains in the log for watchdog retry/visibility.
+              echo "FALLBACK_EMAIL: Discord delivery failed; retaining morning email"
+              python3 scripts/watchdog/send-mail.py payload.json
+            fi
+          else
+            python3 scripts/watchdog/send-mail.py payload.json
+          fi
