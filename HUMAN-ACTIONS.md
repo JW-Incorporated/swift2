@@ -26,7 +26,45 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 48. [UPGRADE] Put the native-overhaul build on the Play internal track by hand (Android testers still get the Aug 30 app) — ~5 min
+### 49. [BLOCKING] Add the shared Community Tasks acknowledgement secret — ~5 min
+
+**Filed:** 2026-09-09
+
+**Why it matters:** the daily Community Tasks workflow is otherwise fully
+configured and its scheduled runs are healthy, but it safely refuses to send
+an email until it can create secure one-click `Posted` and `Skip` links. The
+same value must be available to both the GitHub mailer and the Vercel website:
+the mailer signs each link and the website verifies it. Using different values
+would make every acknowledgement link fail; omitting either value leaves the
+safe no-send protection in place.
+
+**Steps:**
+1. On your own machine, open a terminal and run `openssl rand -hex 32`. Copy
+   the one line it prints. Treat it like a password: do not put it in chat, a
+   ticket, a commit, or an email reply.
+2. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables →
+   Actions → Secrets → New repository secret**. Set the name to
+   `COMMUNITY_ACK_SECRET`, paste that generated value, and save it.
+3. In the Vercel project that serves `longlivets.com`, open **Settings →
+   Environment Variables**. Add `COMMUNITY_ACK_SECRET` with the exact same
+   copied value for the **Production** environment, then save and redeploy so
+   the acknowledgement route receives it. Do not create a second value.
+4. In GitHub, open **Actions → community-mailer → Run workflow**, select
+   `daily`, and run it once. The run is successful when its final mailer line
+   says `mailed <number> lead(s) (mode=daily), marked emailed.`; if it says
+   there are no drafted leads, the configuration is still accepted and the
+   next drafted lead will send normally. Open the resulting email and click
+   neither acknowledgement link until there is a real item you have posted or
+   intentionally skipped.
+
+**Worked if:** a manual `daily` run no longer logs
+`COMMUNITY_ACK_SECRET unset`, the normal Community Tasks email arrives when
+there is at least one drafted lead, and its `Posted`/`Skip` links record the
+chosen outcome rather than showing a configuration error.
+
+**Status:** OPEN
+
+### 48. [UPGRADE] Put the website-shell build on the Play internal track now (Android testers still get the Aug 30 native app) — ~5 min
 
 **Filed:** 2026-09-07
 
