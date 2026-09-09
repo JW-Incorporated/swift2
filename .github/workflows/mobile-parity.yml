@@ -41,12 +41,15 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # eas-cli is not a workspace dependency (see scripts/mobile/check-parity.mjs).
+      - run: npm install -g eas-cli@23.2.0
       - name: Check parity
         id: parity
         working-directory: apps/mobile
         continue-on-error: true
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          EAS_BIN: eas
         run: |
           set +e
           if [ -z "$EXPO_TOKEN" ]; then
