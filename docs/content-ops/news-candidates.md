@@ -25,7 +25,80 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 59
+Stories: 65
+
+## Exploring Taylor Swift's Holiday House: A 12-Hour Experience
+
+- first seen: 2026-09-09 13:40 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report details a 12-hour visit around Taylor Swift's Holiday House, offering recommendations on places to visit nearby. The article provides insights into the experience of being in the vicinity of the star's residence.
+- sources:
+  - [unverified] Elite Daily — https://news.google.com/rss/articles/CBMigAFBVV95cUxNc0RWUWNVdzc0ak03b0x2Tnhzck1YcVJFMVR5clZxSFhWQ0owaTV1M0MxcmtxVE5PZVJfbkQtc1oyWjJyUXFpajh6TUtXWVNlZ0xuTm1CTnNxVlVDcmhodTlaaTlONjhiWFVac0NfQ0dTamVsQmljQWhQUEFoOWo1Uw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Paul McCartney's daughter praises Taylor Swift for wearing her dress
+
+- first seen: 2026-09-09 13:40 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Paul McCartney's daughter expresses her excitement as Taylor Swift wore a dress she designed at a wedding. The event highlights the intersection of celebrity fashion and personal achievements.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisgFBVV95cUxPdU5BblB1UFpCSWU3MWoxQ2t0R2J3YWp5YkxaNXM0R3ROVUhaLWVRb05HS3FoOGMzczdWTWVNVXA2aThlNVpTdEg1bTRwZFpmMGJrUkxxZGNiSWpaNFlpUWtXRW55OXI1U1NLdlN2Y1BvOFlOQW1hcnU5X25SMUt6bzhqb1hmQ25RRnJHU3hIWGRsQm52azZuWDhtd2NvQjZyQXgzRjI0OFdfMGRWTEJmQklB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Potential Appearance at the 2026 Emmy Awards
+
+- first seen: 2026-09-09 13:40 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Discussion arises about whether Taylor Swift will attend the 2026 Emmy Awards on Monday night. This speculation has drawn interest from fans and media alike.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMimgFBVV95cUxNcU5VTU9tbkVsdTlUR2Y5U3Rtc21WZEdWX1ZQWmlZa2FTb3NwcFVMLXJ1T09aN1UzVkx2eHBza3RKNTFKNmVFUTItRGlJR0plMFk1UmxZeGo1dk85RGVsNUh1dEdZY0xtaDlvcnU3UUpXRlpGeFZJcXloOUhOZ2M2X0N6QkRKZjZEbXlTZVlZNjJENlVnaHRvOFh3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Suki Waterhouse Discusses Music Plans and Personal Life
+
+- first seen: 2026-09-09 13:40 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Suki Waterhouse hints at upcoming secret music projects with Robert Pattinson while discussing their daughter and shares insights about Taylor Swift and challenges in modeling.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMivgFBVV95cUxNOWlqM1FPUkdxeWx4SW9fdEF0bF9Iczl3OFBpWUYtZk8takVZTDQ3d3lSalgxWXJYcnNCckJGVW5Td3lKNFNMUXZ1cGphOUN1cW83TmRBMmJvR2gza2hRTVVxbmpkdGlTbTBvdk5zMEhKaE5IR2dhbnlGRDdTb3B5c08wQ2lSYkRlRXBWZTBDY08yeVZqZVNLUGZ3cXRGZWdDci1fcUlEZERGWUF5TktfanN1S1p4Q0I5cElLTW13?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Key Storylines for the 2026 NFL Season
+
+- first seen: 2026-09-09 13:40 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Variety.com outlines seven important storylines for the upcoming 2026 NFL season, indicating significant developments for fans and stakeholders alike.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/lists/nfl-2026-season-taylor-swift-travis-kelce-trump-joe-burrow-patrick-mahomes/
+  - [unverified] variety.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNNmtrY01Na1FnM3ltUDlqNDdEV2w1ZFRVNDNWY0NnbVY5VGpjLWNFYTBPTTJFVE40UU1aSDV5SzM4VUszb3BWa05WWlF6QzQ1Y0s2TGg3eE53VEFDdjU2ZXJWLW9VV3JqemhSZWRyQWpoQUVDQ1RraHVxelZQNkN1ZDdyUXRWdHQ3RFBpYzNlaVFoaE9uSUh4c0ozTGVSWWtSb0Zn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Discovery of Creator Behind Popular Taylor Swift TikToks
+
+- first seen: 2026-09-09 13:40 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Washington Post confirms the identity of the creator responsible for the trending aesthetic Taylor Swift TikToks. This revelation highlights the influence of social media on Swift's fan engagement.
+- sources:
+  - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQVVhyWWxJVkJfUmRnVE0zaFhZMW1LR0ZzSzJGRE1LWVd1dmRUQ3FlbjVqUTBiVjRQNzNmTDJHQjZTall6NlJOZGZNUDZkNE5sUTRWZU1aT3h0ZU8yYVF6REQwdTMtU2dKczlRMkkxck9oemg4amtkYXoxRmJLNXZ2WTJfRUJMbW56RHc3UVVlR0xBZ2pJYWlnVVNYa0NRYWxwa3FuVGtoLW1LTmFuWFdCU1ltMmVRdF9Zck56MFZBNFc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Enjoy Their First Date Night After Wedding
+
+- first seen: 2026-09-09 13:40 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: E! News reports that Taylor Swift and Travis Kelce were spotted on their first date night following their wedding. The couple's outing has drawn attention from fans and media alike.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMinwFBVV95cUxQZTBsWmFjaGhBX0JHdy1HVG1fOXlKTXc4NnpaZ2FkU1ZWQ0ROMWk1WTlXUU5LWnMwN3l0WkRfOTVZOW5BR1NLYjAzcmtlMG54cFpSN2pFaDQ4bW9ERkNMMHZSblgwNkdGMHRoSWx2TUxwNklOM0picGFieUNza281OUtWX0l3MllTRkZQT0ItSjZFZndlYzBjOU9MLVh0aVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce's Post-Marriage Living Plans Revealed
+
+- first seen: 2026-09-09 13:40 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The plans for where Taylor Swift and Travis Kelce will live after getting married have been disclosed. This comes alongside details about their recent public outings together.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi3wFBVV95cUxQeExBUzFhazloNHlxTjV2cjJfQlZrSThBb3V6eWR5bEU0Y2Q5ZlVWZlVoTjJnRS1Sd2tLS0FJQk5XWGRJd0xMcFd3M0xNWUdQckhXalZtMG1TMGZTUVdvWE1hU3VzT1E1SVdGdDNDWDctMlRsNTlMb3llcXNTUGJOc3doZVJQV1dPS00weEJiV1ZrNm1ITVJzY3Brai1MRW8yNWxpVDdaRVNRVUEwSW1hUlV1aWMwaU05UXFWSVVfT3RVcDZjUk5TUFJDd3BUMkJONHd2a0hsSDBiQ1phUkFV?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Spotted on Date Night in NYC
+
+- first seen: 2026-09-09 13:40 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were seen enjoying an evening together in New York City, marking another public appearance as a couple. The outing included sightings of other celebrities like Ben Affleck.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxPLVRxaHJRTG9DaFZwNVdEN3JFZ0E2YzZSY2RmV19YUWdScXJDcW5xcFA5THJxUVNBeEJKY0tzRDRReFdabkl0R3o2Y1V6dUdLLWM4WFFsYnJMTzd2VDY4aVdpazF4QWJkMHdyRGtSU0xHZXlOeE1EZFJtNXNRQk16VVJZMklFZlJad1ozckp5X255MkE5NGlrMGpYT2dTRnJKcV9B?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Are Seen on Their First Public Date in Months
 
@@ -71,9 +144,10 @@ Stories: 59
 ## Sabrina Carpenter Wins First Emmy Award, Ahead of Taylor Swift
 
 - first seen: 2026-09-08 23:21 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Sabrina Carpenter has won her first Emmy Award, marking a significant achievement in her career. This victory comes as Carpenter surpasses Taylor Swift in the award-winning race, highlighting her growing recognition in the entertainment industry.
 - sources:
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMikgFBVV95cUxPSzVOdll4Tml3dFFqTWNvRFZMSS1YQXZJZnhDSWpKUVIySkc3NW5rZDE0NnptQW5lMEFHNjJKcFE1VGNKOHBHWlBOQ2xDSHJYQjFVbVFlWlJSLU5XSVhTcHQxME1RVnVfWmlSZGJRd1ZXOWdYNUZmd3YzTHZLTUhybEtaeEUtMlZnSXgwMmxsLTRxZw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNeUxNOVVEbEk1SjczVWNUNHZuS3VsVm84MzhOOGxBemt0UG5SRUR6cWstNGtCMWRlQTdSLTFFQkJ6MWxoT3ZzQU8xb3dCMFdlUDBMRENxanBKaHc0N1ZtUkhDd1JVcXhGRnpQVTBZbUlZcnVvMmkzcHZpSXZ0cnhJOFNZZVhwRVVsSkwtR25Oc0NiOWhrSDB4MnZtaDR2bTE2?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Promoter Claims Live Nation Excluded Him Amid Ticketmaster Breakup Calls
@@ -488,28 +562,3 @@ Stories: 59
 - sources:
   - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMioAFBVV95cUxQYUxzMXVoUVpQODc1V01sQzBKYVpJTG04SDYwUkI1dmlhNm9OZ0lLdG5uVy01VlRlX0VFaVItU2xmQVhyWTk4czdWcmFLMzNKajlKQjBTdXI2YlBYV01lQ25BaDZuUGJwcmRob3RjVTVtcG5TS05LOWV4Z2NWQUwtUUIwdlFCQ0thNW9OR3l5cF95ckd0OXpNOUdISGxrcVp5?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxPWDN4Y3ljdFdVMEE3V1BFaXBOZk5WbzZGRFIwOG9nU1FhaVpvTlk5dmd4ZWVXYkVUb0hpVmFYWDFPTDBlREFxalQ5aDE0bU12UFY3a2loZWN5TGo4SDNaX0Q3elZfSHpPU0czcHE2RW0tdlRpNUIzN1JwekdXcTRYTnh1WktvWmlYRkVSUnA5dmh5aXd3dkdfQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Celebrity Outfit Highlights of the Week Featuring Taylor Swift
-
-- first seen: 2026-09-06 12:51 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A roundup of favorite celebrity outfits of the week is showcased, including styles worn by Taylor Swift. Tips are provided on how to recreate these fashionable looks.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE5rbnNRcExJUmFFREg2SENWS2l4U0JuaEFaYUlwSm5jQTNaQmkxeFhzR0pWT3hFS09BdU9uQk5fWVNyYlRCajdJRk15Tnh2VU1CMFY2dXc3SUhLMjNuUGpMYnFFaXlNMGR4THJhWEZFTExNVlZR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Nikki Glaser Discusses Item She Nearly Took From Taylor Swift's Wedding
-
-- first seen: 2026-09-06 12:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nikki Glaser recently shared a humorous anecdote about an item she almost stole from Taylor Swift's wedding. The revelation adds a light-hearted touch to conversations surrounding the event.
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMikgFBVV95cUxPdE1hWDh3NFJEbEh6Sm5raVltUXZhSmlodU5oLUN6QmM5d1N1U0FoOXZnNDJ6ZzZya0c4M0VDYWtrWTduOFJKZnM0eXVDRE85bkZmRl82cEEtY1JoR2pOdUhzU1pPQWU3SGRJZmZOd3pELWNEcG5VV29SQ2d0N2VoRDVSMHc4eUs3cXdtOHFFVTdEdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Beverly Vance Responds to Vice President's Comments on Taylor Swift
-
-- first seen: 2026-09-06 12:51 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Beverly Vance, mother of JD Vance, has reacted to recent comments made by the vice president regarding Taylor Swift and 'childless cat ladies.'
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNVm9qQ2c3OGpZMURWMUZTbnRoRTZWeGlPb295cmg2SWxCbU4zZXhnVWRZSXJnTlJLZk9WLVdVaGhkc1BUYk9xYzB2a2JqOTc2NlFTanhaMmEtbC1lV0JIMjFWcnQyZTFlVElIYklnZUVZQmtSWUpQb3h0aGI1T01qRExwVzIxc3Y1eWx5UDhzSGRfMTIyZng3YTIyTm0wWjF1M0VGNmNrLWFPYW0tMmRhTEtNTVItdF80cUtmNkFxUnJtcXhaOG04dQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] foxnews.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPSzZ6cUZIaXhCY2hQZ0x6RVJxNHoteUdEM3Myb0EtZVdWeXpQQjJiV0FqdWtWVnl5UkxCaWpsa1JBdy1PZTdobHhTSDAzMzQ4WS05WWY5bjU3MmVRTTZLVVR2MkpMSEJQUVVfclBQb1duTTRtcXQ3MkdYQVh5dWpndGJBTDdHSUk5cmRMWHRZNDVzOE1oaWxjRE1oajk1cTJ6T183VTFEYi1kX1BVMTVzS055UW9Na2hjUVljRUNjcnRyemc?oc=5&hl=en-US&gl=US&ceid=US:en
