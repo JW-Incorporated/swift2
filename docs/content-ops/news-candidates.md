@@ -25,7 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 77
+
+## Scientists Name Insect Genus After Taylor Swift
+
+- first seen: 2026-09-09 23:11 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a nod to her influence, scientists have named a new insect genus after Taylor Swift, highlighting her impact beyond music and culture. This naming reflects a fun intersection between science and popular culture.
+- sources:
+  - [unverified] WPTZ — https://news.google.com/rss/articles/CBMiggFBVV95cUxQLVVGakxwNm03czZPNU5OUGEwa3F1SThlMk05Y2ljdzk5enNDZUVvV19zMUxrclluVGQ5QmNGa3E5X1QwODFWRE9aRm1aU0J2aVl3UnYtWTN4amVfOG1GZk8xNVBfVjNZTTlETmNWeEZUUDB1T193NlkwRVRKeDNWM2J3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Receives Unexpected Honor in Career
+
+- first seen: 2026-09-09 23:11 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been recognized with one of the most unexpected honors of her career, as reported by Cleveland.com. The specific details of the honor have not been disclosed in the announcement.
+- sources:
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxNVDkwcGR1OHNZUDE4NEdpNWpoUkdkN2JtdnFTdUl3MGF5NVR1V3JBb3owaVM3OEJqT3Rlb3Y3OU93YXZrZGg0R2dCZFhQVXhQTVdXREJWOVAtNmwtSm5OUVdLUUJvcURUaDB1N1BXcHZ4UWZrVGFaVFZzZnl4UzVpZU16Qm12WkM2OEkwRHQ4RmMwOXphTkJnY2lzMDJUdTVKbWhLbS03OHNIOFRTWks4eFlEUDRTMmpVS3fSAc4BQVVfeXFMT0JzNzc0eHZIdHZmU0tZZUpQSTA0Tk03TjJjaHQtOGIzeXgydzhFSmxGSFE5YXdfRmxkX0pubXRqelBqeEx6OFRWLUF4S2NnTTZTZUIwemxlaDcxR2lZSndpLXJlN3dsYzJMS0VSajFCTW9QbkxidmFrQk1FMnBNelFqanZ4RjhlLVg5OGRpMW1uQjFXVUY2bEh6UEhKZnZhYlBJeEdxYmFBNUlOOGhzODJQbHBYV3lFcjAxcnBlSkV2R3dZLTVseS1aYmNlMmc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Purchase $5.35M Mansion in Ohio
+
+- first seen: 2026-09-09 23:11 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have bought a mansion in Ohio for $5.35 million. This real estate acquisition highlights their relationship as they make significant investments together.
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxPNEg3cE5mRzlWeHUxT0lYb1pxdEoxYkNWZEs1aXZJNGx2bHBUVlNvZTg4RVFiNl83b0Fab1VGWHYwcmVoUXdSRy1MYmFFZy1BMmVrQVR4dGRPNHpnSlphd0RJU2lFemVrRHd0QmdqZ2dvY1ZJZTZjT0oyWmxFdDMzWVBQUm1adWloLWVFT2NLUkx1clZHWjYwT3F5bDN1YnM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Insect Genus and Species Named After Taylor Swift
+
+- first seen: 2026-09-09 23:11 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new insect genus and four species have been named in honor of Taylor Swift and her albums, as reported by Phys.org. This unique tribute highlights the impact of Swift's music on cultural and scientific recognition.
+- sources:
+  - [unverified] Phys.org — https://news.google.com/rss/articles/CBMid0FVX3lxTE9xT2dXbGFBcnlnMUU0NUcwWmxUZmduVnJjZU11cFNDYmREdDN5NzU2VjJuVlYyal94S1hncTZnUVM5YS1XSHRJcWl5RFF6UUhzZ3JtYjZrUWhab3RyTDFmcGJuaUU5NnU4SXM5bm9oNzEwdE1iMElR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## R.I. Homeowners Affected by 'Taylor Swift Tax' Analysis
+
+- first seen: 2026-09-09 23:11 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An analysis discusses the impacts of the so-called 'Taylor Swift Tax' on homeowners in Rhode Island, exploring the ongoing financial implications. This term refers to changes in housing markets possibly influenced by Taylor Swift's events.
+- sources:
+  - [unverified] Bloomberg Law News — https://news.google.com/rss/articles/CBMirAFBVV95cUxPeE43cm5TRFo1djhxQWd3M3hXdndPLUhOR0VNZWhlYllRVS1qUVNZUU9UN3hiRDVwVHVieDJuWnZaeHNQbGhkemJENVJIRWNQLTUwejJwRWhBdmNrVUo5ckNfVnltcXhQbXNlSGNYb29VcTRPVlVKVS1mWDlHTmhBS0JEY0NqeVl4QjRMTExYOHFGSzRpSVJuUjRKcE16TFpzOWo1bHBjM1htclB0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Purchases Home in Kelce Neighborhood
+
+- first seen: 2026-09-09 23:11 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reportedly expanded her real estate portfolio by purchasing a home in the Kelce neighborhood. This acquisition marks another addition to her growing collection of properties.
+- sources:
+  - [unverified] cw39.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNMms2R0w4a3FvSE9FUHVQMmprTDJGTU9seVE2UzBPQm9udnVsaXM4eHhxWVFpcUp0RHN2aVFBb194QnlxMXpMSkpZc1lNcWNJdE9KalZ4RGZ4dHlTSWZuY2NzOGN2MVZobUZQWnJHY0hXb0cxby1pcW1fd2xRSEd0WGlGeUZBY2M2SWNQaXlGTkhna2JHY3VWNjgzb3JZMWVKblppdEZyb9IBrAFBVV95cUxNT1dkSE5KRkdUcjlVUC05WE1EMWhrU2dPTnk3MmJfZnNtUWNBVVpqYVRXUi1JN012OGg1bUdBbG9rNVNGRklZR3o4bVdtTmlvWHpybzV2azNTSnBoOWc2YlU1eEFHMTZRTnhrN1BRX1k5VjdJYWNSQ255Q2Ywc0JqU3hOTVFId1poU3czNGtKQkFiZ3A4RWxWNmVXeWljWUpQSjdEZm9ORFBDYko0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Featured in Article Titled 'Is Now A Bug'
+
+- first seen: 2026-09-09 23:11 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: An article titled 'Taylor Swift Is Now A Bug' appeared on Yahoo. Details regarding the content of the article were not provided.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMidkFVX3lxTE9wV0F5LXhPQnJFMFFueWJsMzJOOFNQVzhKQlp1elEyT1U3U215MFR3dzFocGRnSmFUQ042bGlpRllXMFNaTnZ2bEZvekRJVWJ3RlB3Z1NsemQzR2hwTWtQcEJDaldLME93ZHM2cEdpTndqeThwZ3c?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Grammy Eligibility for 2027 Explored by Variety
 
@@ -183,14 +239,6 @@ Stories: 74
 - sources:
   - [unverified] E! News — https://news.google.com/rss/articles/CBMinwFBVV95cUxQZTBsWmFjaGhBX0JHdy1HVG1fOXlKTXc4NnpaZ2FkU1ZWQ0ROMWk1WTlXUU5LWnMwN3l0WkRfOTVZOW5BR1NLYjAzcmtlMG54cFpSN2pFaDQ4bW9ERkNMMHZSblgwNkdGMHRoSWx2TUxwNklOM0picGFieUNza281OUtWX0l3MllTRkZQT0ItSjZFZndlYzBjOU9MLVh0aVE?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift and Travis Kelce's Post-Marriage Living Plans Revealed
-
-- first seen: 2026-09-09 13:40 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: The plans for where Taylor Swift and Travis Kelce will live after getting married have been disclosed. This comes alongside details about their recent public outings together.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi3wFBVV95cUxQeExBUzFhazloNHlxTjV2cjJfQlZrSThBb3V6eWR5bEU0Y2Q5ZlVWZlVoTjJnRS1Sd2tLS0FJQk5XWGRJd0xMcFd3M0xNWUdQckhXalZtMG1TMGZTUVdvWE1hU3VzT1E1SVdGdDNDWDctMlRsNTlMb3llcXNTUGJOc3doZVJQV1dPS00weEJiV1ZrNm1ITVJzY3Brai1MRW8yNWxpVDdaRVNRVUEwSW1hUlV1aWMwaU05UXFWSVVfT3RVcDZjUk5TUFJDd3BUMkJONHd2a0hsSDBiQ1phUkFV?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift and Travis Kelce Spotted on Date Night in NYC
 
 - first seen: 2026-09-09 13:40 UTC | category: relationship | importance: 7
@@ -198,6 +246,17 @@ Stories: 74
 - summary: Taylor Swift and Travis Kelce were seen enjoying an evening together in New York City, marking another public appearance as a couple. The outing included sightings of other celebrities like Ben Affleck.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxPLVRxaHJRTG9DaFZwNVdEN3JFZ0E2YzZSY2RmV19YUWdScXJDcW5xcFA5THJxUVNBeEJKY0tzRDRReFdabkl0R3o2Y1V6dUdLLWM4WFFsYnJMTzd2VDY4aVdpazF4QWJkMHdyRGtSU0xHZXlOeE1EZFJtNXNRQk16VVJZMklFZlJad1ozckp5X255MkE5NGlrMGpYT2dTRnJKcV9B?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce's Post-Marriage Living Plans Revealed
+
+- first seen: 2026-09-09 13:40 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 4
+- summary: The plans for where Taylor Swift and Travis Kelce will live after getting married have been disclosed. This comes alongside details about their recent public outings together.
+- sources:
+  - [unverified] HOLA — https://news.google.com/rss/articles/CBMirgFBVV95cUxOYzlfVUpIM3QtSGZ5eXIxVS1ERjkyYjBZM2ZhSFR3NmllU0Y1Z1J5aGpkeE9hdkgxZjBUREs4S1BwRFpTMld1VnBLWWx3OWRMYWZJZUNmMWR3c3dkMmE5cS1pcXVjZjFSaXVTRlRobFd2RVF0NnJNUmpFSmVIT0ZmNjIxUEFJTjFxczRXUFFKemtFMkZCN2xUVnlsbVZZdVc2MGlnZm1Cc0JEWUl3Mmc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi3wFBVV95cUxQeExBUzFhazloNHlxTjV2cjJfQlZrSThBb3V6eWR5bEU0Y2Q5ZlVWZlVoTjJnRS1Sd2tLS0FJQk5XWGRJd0xMcFd3M0xNWUdQckhXalZtMG1TMGZTUVdvWE1hU3VzT1E1SVdGdDNDWDctMlRsNTlMb3llcXNTUGJOc3doZVJQV1dPS00weEJiV1ZrNm1ITVJzY3Brai1MRW8yNWxpVDdaRVNRVUEwSW1hUlV1aWMwaU05UXFWSVVfT3RVcDZjUk5TUFJDd3BUMkJONHd2a0hsSDBiQ1phUkFV?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxQcUxnYWNWMWlNR2Fpczl4d0xXREtoU0VUclZGNjYtelRYNXlmVEZlaVgtbGg2NzNKYUh5b2pFTG1mcDBWRl9XMHQtU1dWQVhtbllJMkdSQ2lYNVBQLUtuSDdqSHdoWHVueFZPN0JETEVwTkpaU05qdndZRUtTYWVlaDZyTUNzVl9KQmw2bw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] PureWow — https://news.google.com/rss/articles/CBMie0FVX3lxTE56eERRMDVURmVrNVhCRXFjU1p1ajhYcG9PTHZaX2FVMGdraXJnYml1bUVzVjU2VEdEYkIwc21wNG9BR3p3Y1lrRVZ2bnd4Si14V3FJRlVHS1psM24wcEQwSS1xa0R6LXhHdkVIUmFkbVhDbS1ibmNERFgwTQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Are Seen on Their First Public Date in Months
 
@@ -603,36 +662,3 @@ Stories: 74
   - [unverified] People.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxNQjhyN09YNHpRVVhfVV9zYTliT2FfbW45cS12Nk5ubE9vcHpSX3ROYTlHNnFQaGlLckNLMVY4eC1yWFVseDRidHptUS0tVkRnN2Q1QjJKbkxFbm9mVUJKaFd2RUR6UEpRTUhvSEpBWHd6THhNX3p3Qm8zMHhqUG43a2lwdXUyTzcxM1BFSlNDR2ZfOGs?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] the360mag.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxOUkJzRHFKRTA4S0NTQll5ZUtDTmlMSHowVG1hTkdjTjlpcl9rQi00d0tySWlqT0d2RUFYVUFfOVhrSHRQTmsycXJyYldaRzRzVWtVeGl4UmppbWdWR2FSV1lDeXlGUm93dWVkZEQtbmVWV1NrRDBQYXlGZ2hpemFYTXV5bjNSdUo2NmJnZ21ZanVOOVdK?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxQQ0wxbWRxLWFRakpmSXBJOEZiNWVrNU9OcUtCMll0dTVYOUFvYVlnNVJ3bVpocC14MjVDY2JCdDJlejgyMjBzUzEtbnVHSDVOWWpmQ3ZKRm9MNWQtbUw2Vm9aOWpaQi1jenFlM0tGY3k3bUF2X3FvOWk5aDhDcllhckwzLWpncDJmUDJNZ094MVNzaDZRbXVtTnNUMlZkZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reportedly Declines Move to Kansas City Over NFL Schedule Issues
-
-- first seen: 2026-09-06 22:52 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Reports indicate that Taylor Swift has chosen not to relocate to Kansas City due to frustration with Travis Kelce's NFL schedule. This decision highlights potential challenges in their relationship.
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOa1E3Y2t5VzF5TUZocy1ETk90anNpd1dTeXdNUTI0Y3hQdTh5Q0VpUVEwMGN1bFpLanJndE1BSVp4Tm1HTDhwY3lXNHZwTnNSM1RRWEQwUzB0Z3A0WkJzOTZ4MkVJSEpxd0pVQzBManh0am1EbzRZMnhFTGRfSHBHZ05rYXh1b0JBeDkwOEZZZTFEdERubV9QM1dpTVdBVHZZX1JmbjhhZG1NZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Quotes Insight on Moving On
-
-- first seen: 2026-09-06 22:52 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift shares a reflective quote about moving on without the need to forgive or forget, featured by The Times of India.
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMitANBVV95cUxOWTFBR25seUNET3VCVmpIOTlpSGZOd085T3pIVVpNbGhIZWVnV1lzbVoxTVNOdzlXOTFwaTlEaTFqX3c1bUZuR21NM1FhWlpIWExBLWdZYTZwbVppQ2RCWU94MVlDWEFDWGpaalAzWV9seEpnVm9Ic3lELV9ZMThvMjZLUjY3M3R2Z2xyT0t6ZHpxdDdrYXRQZEdveEoyR0ZJVUVDa3VVLUlGT0hqdGZiS3VtLW9NZk83WkpkbFRTRUlwNEZyaXlNeHowVXVzQTVUNlU5Z3dIbWNWWFQyU0Ewdk1FRjRfbXEzWnA3NUlna2ZEQzZCeFRrRmZMeU1YMEh5dzZQRTJUQk82N0tncUlseHVVeGlDRGF0dWZXVTFUenhaTkFhTHZJQzNjSlRFRUxHSXZRY255cmZZbmZjRmtSWE5ETTZ6VmJHQWxfb05ybkNLYjE4V2x0bzlIVHY4U2p0RWhhVDhPZ1NLSFE3dGRxNmc3bWxUempyX3pNWUJtSVN6a1dTNnA2cmtUUzBhai1lNTgxZmhIZjRnWTZhY1BLTEhvMDV5TjFsY0gzSTl0aXZYTDE20gG6A0FVX3lxTE8xRzhITGJ3ZUFYMlNrcDZVTjY5SGNEY2U0Ui1GNzQxelQxcHpKbE9TUzRXNmpnMXc1b1B4NjFyYV9mYkVmSXRPaGF0MVA4OWd1TTNWeUFpcW9oYm5sYTRod1dWNnVjeXVmSjBlQUNkbV9ac3F6TjY2LUhQdm9iNGtMbHMyYVBaMXEteHNsMjA0dWFDTDk3X0xOQzJYWWYzdGtPSUdBY1VHMGt5bUtHLWdEdUU0ejdJeHJfNDUyU004anFmZmRjdTlJMklJWmQ4Y0NwUWhQcEZYZFF6VXBYWUN2ZXBSWlUyM2w0MmhtdkgtNmdlTjRBTmN3WlZFYTJDRGN2Vi1MNFdUSG54YTJka2VHSjBsallfRklJOXVqdndnRDY4cDQ2VlpfcGJ5UDZLQmthMlVkOGE5ZWJkZVdBZXlMN2VjcTg3VjVXSFVLUTZWWWJnTmN4ZE9HZnZtTHlfMUx6OFB5Nmk1OUtRcFVzTEVTQ3loTWItaTRydk96VHBISUo2WVVvNWNDR0Y1N2M1cXh4bkpGWGpqeUN3b2FTZG03T0FqZDItXzcwR2QxYXZCeEpZMVhjNU15YXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Celebrating 69 Years of Taylor Swift's Songwriting Collaborator
-
-- first seen: 2026-09-06 22:52 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article recognizes the 69th birthday of a significant songwriting figure associated with Taylor Swift and other prominent artists. This individual is noted for their contributions to hits by Little Big Town and Carrie Underwood.
-- sources:
-  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMiiwJBVV95cUxNV3NFU0xqQjVGdnU5WVMxMUdQMzRIYUpzZGVmYVB2NFI0b2UxOW9wSUJzczZWWlNfQTJuMEx4cksta0x0aTlEd1djVHpqRDR2VXRDNEoyQTU2VUV3clp4OUZwUGJVVmItbGU4RTV2R2J0T2YwcU9aMjZpZ2prckEtUUhTOVNUTmRYSVZ6M1FDeGJFOVozTHVSbDVPQWkwVXl0R1YtMzhLMktZUEt0b1c5VWlOUXBQYWZQbnU5aUZDRnJzQTNkVW9vSWY1cWlOR3FoMjQzel9zSHZicTJDQ01EQUt2MzIzUk1BLXpqcHpLUEtGMGt1VGhCaUVRVlZBVzZzNWZsanZoSDhXRTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Purchases Home Linked to Travis Kelce
-
-- first seen: 2026-09-06 22:52 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has reportedly expanded her real estate portfolio by purchasing a home associated with NFL player Travis Kelce. This acquisition adds to her existing properties as she diversifies her investments.
-- sources:
-  - [unverified] ABC27 — https://news.google.com/rss/articles/CBMimwFBVV95cUxQZE85MU1McS1tampWRHk3YzVrSTJEMndBa0djRmZrdlFyR2N5MndhSllvSWZZeEZzQmI5RXRoZExObEU2RENGSnRnR0hzek1sdzRPVHZwbTN2WHpZQXZIRU9RWHpjY2h6eFBkUDBNbDNwM0JSd3N5WHB6R3BEOFlBUW5tcVVhT2JlQ3BkUnhydnN6SDA4Z2U1UjVIZ9IBoAFBVV95cUxNWU50ZkswaC1KcTFfRnRSc1JpT014Z1hkeXRERHlORkFhdmVPUHp0UVNwWi05UmZiYUJOV1kzeHB3M0xjWlJaRjNSWGpGdHY0UjZKWEtGcWNNR1NlTHlCRlhfUmo5R1FjOHlRR3BGSGFPd3JCbXI4UXp1YlZTNWNBcElTQlBjRmwtRHJ0UVdKSlB4QWNBMXhzQ0hLdm9oamRY?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] NewsNation — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdXFLQU1VMGVVbnlCMENPVGpPWUJvbEVBaVZFbGxlTlBjTjc3MGxFRWVELTMxb0U2cno5c04tNkRHTE9fVW1tYmx5QnhpLUF4MUc2XzdFMklIWE13eGUzbHZEcU80VmRUc281Xzd5MnhDZVMwX3VOVV9ZdVRVMDROWG9NSHpsYkl1U2dJVEt2T185V1NoVE5wWXY0cE5OUU1MLUVHeEM4VTcxZw?oc=5&hl=en-US&gl=US&ceid=US:en
