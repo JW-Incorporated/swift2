@@ -26,6 +26,8 @@ from inbox import (  # noqa: E402
     REDDIT_FROM_RE,
     community_from_link,
     dkim_pass,
+    mark_reddit_message_processed,
+    search_unprocessed_reddit_messages,
 )
 
 
@@ -102,6 +104,49 @@ class DkimPassTests(unittest.TestCase):
     def test_false_when_header_is_missing_entirely(self):
         msg = self._msg(None)
         self.assertFalse(dkim_pass(msg))
+
+
+class RedditMessageSearchTests(unittest.TestCase):
+    def test_finds_read_and_unread_inbox_reddit_mail_without_the_processed_label(self):
+        class FakeConnection:
+            def __init__(self):
+                self.args = None
+
+            def search(self, *args):
+                self.args = args
+                return "OK", [b"7 11"]
+
+        conn = FakeConnection()
+
+        self.assertEqual(search_unprocessed_reddit_messages(conn), [b"7", b"11"])
+        self.assertEqual(
+            conn.args,
+            (
+                None,
+                "X-GM-RAW",
+                'in:inbox from:(reddit.com OR redditmail.com) -label:community-inbox-processed',
+            ),
+        )
+
+    def test_marks_successful_reddit_mail_with_the_dedicated_label(self):
+        class FakeConnection:
+            def __init__(self):
+                self.calls = []
+
+            def store(self, *args):
+                self.calls.append(args)
+
+        conn = FakeConnection()
+
+        mark_reddit_message_processed(conn, b"7")
+
+        self.assertEqual(
+            conn.calls,
+            [
+                (b"7", "+X-GM-LABELS", "(community-inbox-processed)"),
+                (b"7", "+FLAGS", "\\Seen"),
+            ],
+        )
 
 
 if __name__ == "__main__":

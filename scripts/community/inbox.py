@@ -16,6 +16,10 @@
 #     <id>`): From must be a founder address, same FOUNDERS map as
 #     marjorie-inbox.yml.
 #   - Everything else is left unread and ignored (spoof resistance).
+#   - Read-state independent: successful Reddit mail gets Gmail's dedicated
+#     `community-inbox-processed` label. The Gmail search uses that label,
+#     not `\\Seen`, so a founder opening notification mail cannot hide it from
+#     intake. Founder commands still use the unread-mail path.
 #   - Idempotent: engagement_lead's own dedupe index
 #     (platform, coalesce(thread_id, locator), kind) makes a re-processed
 #     Reddit email a safe no-op; a message is marked \Seen only after its
@@ -51,6 +55,8 @@ FOUNDERS = {
 
 REDDIT_FROM_RE = re.compile(r"^(noreply@reddit\.com|[\w.+-]+@redditmail\.com)$", re.IGNORECASE)
 FOUNDER_COMMAND_RE = re.compile(r"^\s*(posted|skip)\s+([0-9a-f-]{8,36})\s*$", re.IGNORECASE | re.MULTILINE)
+REDDIT_PROCESSED_LABEL = "community-inbox-processed"
+REDDIT_SEARCH_QUERY = f"in:inbox from:(reddit.com OR redditmail.com) -label:{REDDIT_PROCESSED_LABEL}"
 
 
 def dry_run() -> bool:
@@ -77,6 +83,24 @@ def run_node(script_path, stdin_text=None, args=None):
 def dkim_pass(msg) -> bool:
     auth = " ".join(msg.get_all("Authentication-Results", []) or [])
     return "dkim=pass" in auth
+
+
+def search_unprocessed_reddit_messages(conn):
+    """Returns read or unread Reddit mail that has not completed intake.
+
+    Gmail's X-GM-RAW query is intentionally label-backed rather than UNSEEN:
+    people opening the shared inbox commonly mark mail read before this
+    half-hourly job runs. A successful message receives the label below, while
+    a failed upsert stays eligible for retry.
+    """
+    _, data = conn.search(None, "X-GM-RAW", REDDIT_SEARCH_QUERY)
+    return data[0].split()
+
+
+def mark_reddit_message_processed(conn, message_num):
+    """Records durable Gmail intake completion after every lead was handled."""
+    conn.store(message_num, "+X-GM-LABELS", f"({REDDIT_PROCESSED_LABEL})")
+    conn.store(message_num, "+FLAGS", "\\Seen")
 
 
 def community_from_link(link):
@@ -157,8 +181,13 @@ def main():
     conn.login(mail_user, mail_pass)
     conn.select("INBOX")
     _, data = conn.search(None, "UNSEEN")
-    message_nums = data[0].split()
-    print(f"{len(message_nums)} unread message(s)")
+    unread_message_nums = data[0].split()
+    reddit_message_nums = search_unprocessed_reddit_messages(conn)
+    message_nums = list(dict.fromkeys(reddit_message_nums + unread_message_nums))
+    print(
+        f"{len(reddit_message_nums)} unprocessed Reddit message(s), "
+        f"{len(unread_message_nums)} unread message(s)"
+    )
 
     processed, skipped, failed = 0, 0, 0
     for num in message_nums:
@@ -174,7 +203,7 @@ def main():
             if ok:
                 processed += 1
                 if not dry_run():
-                    conn.store(num, "+FLAGS", "\\Seen")
+                    mark_reddit_message_processed(conn, num)
             else:
                 failed += 1
             continue
