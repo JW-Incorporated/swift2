@@ -29,10 +29,10 @@
   ],
   "runners": [
     { "name": "Marjorie — morning brief", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "issue-label", "value": "founders-brief" } },
-    { "name": "Growth — daily draft", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "pr-branch", "value": "growth/" } },
-    { "name": "Austin — build runs", "perDay": 2, "maxAgeHours": 72, "match": { "kind": "pr-branch", "value": "austin/issue-" } },
+    { "name": "Growth — daily draft", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "workflow-name", "value": "routine-growth-draft" } },
+    { "name": "Austin — build runs", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "workflow-name", "value": "routine-austin-build" } },
     { "name": "Content Shift", "perDay": 2, "maxAgeHours": 30, "disabled": true, "why": "disabled 2026-09-01 (T-1 Vault Phase 4) — superseded by The Vault Run lane 1", "match": { "kind": "pr-branch", "value": "content-shift/" } },
-    { "name": "Vault Run", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "pr-branch", "value": "vault/" } },
+    { "name": "Vault Run", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "workflow-name", "value": "routine-vault-run" } },
     { "name": "Photo Enrichment", "perDay": 1, "maxAgeHours": 48, "disabled": true, "why": "disabled 2026-09-01 (T-1 Vault Phase 4) — superseded by The Vault Run lane 3", "match": { "kind": "pr-branch", "value": "content/photo-enrichment" } },
     { "name": "Kevin — daily desk (S2 digest)", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "brief-comment", "value": "<!-- kevin-stream2-digest -->" } },
     { "name": "Kevin — daily desk (S3 triage)", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "brief-comment", "value": "<!-- kevin-stream3-triage -->" } },

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { checkRunners, checkPRs, checkCI, checkUnassigned, checkTrackerFresh, runStandingChecks, loadRunnerCadence } from './standing-checks.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { summarizeActionsUsage, gradeActionsUsage, summarizeRunVolume, summarizeThroughput, multiplierFor, attributeRunMinutes } from './meta-constraints.mjs';
+import { summarizeActionsUsage, gradeActionsUsage, summarizeRunVolume, summarizeThroughput, gradeThroughput, multiplierFor, attributeRunMinutes, buildRunVolumeInputs, runnerMatchesArtifact } from './meta-constraints.mjs';
 
 const NOW = new Date('2026-08-11T19:00:00Z').getTime();
 const HOUR = 3_600_000;
@@ -39,8 +39,21 @@ describe('checkRunners', () => {
     expect(loaded.runners.length).toBeGreaterThan(10);
     for (const r of loaded.runners) {
       if (r.checkable === false) expect(r.why).toBeTruthy();
-      else expect(['pr-branch', 'pr-title', 'issue-label', 'issue-title', 'brief-comment']).toContain(r.match.kind);
+      else expect(['pr-branch', 'pr-title', 'issue-label', 'issue-title', 'brief-comment', 'workflow-name']).toContain(r.match.kind);
       if (r.disabled) expect(r.why).toBeTruthy();
+    }
+  });
+
+  it('uses completed Actions, not output PRs, for migrated daily routines', () => {
+    const runners = new Map(loadRunnerCadence().runners.map((r) => [r.name, r]));
+    for (const [name, workflow] of [
+      ['Growth — daily draft', 'routine-growth-draft'],
+      ['Austin — build runs', 'routine-austin-build'],
+      ['Vault Run', 'routine-vault-run'],
+    ]) {
+      const runner = runners.get(name);
+      expect(runner?.perDay).toBe(1);
+      expect(runner?.match).toEqual({ kind: 'workflow-name', value: workflow });
     }
   });
 
@@ -95,6 +108,14 @@ describe('checkRunners', () => {
     const briefComments = [{ createdAt: ago(5 * HOUR), body: '<!-- kevin-stream2-digest -->\n### Kevin Daily Review' }];
     expect(checkRunners({ allPRs: [], issues: [], briefComments, cadence: c, now: NOW }).status).toBe('ok');
     expect(checkRunners({ allPRs: [], issues: [], briefComments: [], cadence: c, now: NOW }).status).toBe('fail');
+  });
+
+  it('sees a completed Austin Action as healthy even when it opened no PR', () => {
+    const c = { runners: [{ name: 'Austin — build runs', perDay: 1, maxAgeHours: 30, match: { kind: 'workflow-name', value: 'routine-austin-build' } }] };
+    const workflowRuns = [{ name: 'routine-austin-build', status: 'completed', conclusion: 'success', created_at: ago(4 * HOUR) }];
+    const r = checkRunners({ allPRs: [], issues: [], workflowRuns, cadence: c, now: NOW });
+    expect(r.status).toBe('ok');
+    expect(r.rows[0].lastSeen).toBe(workflowRuns[0].created_at);
   });
 });
 
@@ -242,6 +263,25 @@ describe('meta-constraints', () => {
     expect(rows[0].verdict).toBe('over-cadence');
   });
 
+  it('counts a completed Austin Action toward its configured daily cadence', () => {
+    const runner = { name: 'Austin', perDay: 1, match: { kind: 'workflow-name', value: 'routine-austin-build' } };
+    const artifacts = buildRunVolumeInputs([], [{ name: 'routine-austin-build', status: 'completed', created_at: ago(HOUR) }]);
+    const expectations = [{ ...runner, match: (a: (typeof artifacts)[number]) => runnerMatchesArtifact(runner.match, a) }];
+    const rows = summarizeRunVolume(artifacts, expectations, { now: NOW, windowDays: 1 });
+    expect(rows[0].observedCount).toBe(1);
+    expect(rows[0].verdict).toBe('ok');
+  });
+
+  it('marks Action-backed cadence unknown when its run source is unavailable', () => {
+    const rows = summarizeRunVolume([], [{
+      name: 'Austin',
+      perDay: 1,
+      sourceUnavailable: true,
+      match: () => false,
+    }], { now: NOW, windowDays: 1 });
+    expect(rows[0].verdict).toBe('unknown');
+  });
+
   it('flags a growing PR pile, which is the merge-latency condition', () => {
     const prs = [
       ...Array.from({ length: 10 }, (_, i) => ({ number: i, state: 'open', createdAt: ago(2 * DAY) })),
@@ -249,6 +289,16 @@ describe('meta-constraints', () => {
     ];
     const t = summarizeThroughput({ prs, issues: [] }, { now: NOW });
     expect(t.prCloseRatio).toBeLessThan(0.8);
+  });
+
+  it('marks throughput unknown instead of counting a truncated PR or issue source', () => {
+    const t = summarizeThroughput({
+      prs: [{ number: 1, state: 'merged', createdAt: ago(DAY), mergedAt: ago(HOUR) }],
+      issues: [],
+      complete: false,
+    }, { now: NOW });
+    expect(t.unknown).toBe(true);
+    expect(gradeThroughput(t).level).toBe('unknown');
   });
 
   it('ranks workflows by approximate wall clock without claiming a minute total', () => {

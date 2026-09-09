@@ -63,8 +63,8 @@ import { readGateHistory, readCurrentGates, GATES } from './gate-history.mjs';
 import { buildGateActivity, extractTickets, trackerLagDays } from './gate-activity.mjs';
 import { estimateDaysToDone, renderDoneLines } from './done-estimator.mjs';
 import { partitionAsks, asksInBrief, ESCALATE_AFTER } from './founder-gate.mjs';
-import { runStandingChecks, renderStandingChecks, loadRunnerCadence, unescapeAnchor } from './standing-checks.mjs';
-import { collectConstraints } from './meta-constraints.mjs';
+import { runStandingChecks, renderStandingChecks, loadRunnerCadence } from './standing-checks.mjs';
+import { collectConstraints, runnerMatchesArtifact } from './meta-constraints.mjs';
 import { readCurrentDone, readDoneHistory, changeSinceAnchor, sinceLastBrief, STATUS_ICONS } from './done-history.mjs';
 import { readOpenActions, sortForBrief, renderActionLine, quickWins, parseMinutes } from './human-actions.mjs';
 import { fetchContentShipped, renderContentShippedSection } from './content-shipped.mjs';
@@ -666,6 +666,7 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     // checkRunners report unknown, not a confident dark, for the runners it
     // cannot fully see.
     listsCapExhausted: state.runnerListsCapExhausted,
+    workflowRuns: state.constraints?.workflowRuns,
     now,
   });
   out.push(...renderStandingChecks(checks));
@@ -712,11 +713,8 @@ if (invokedDirectly) {
           // from it is `running-while-disabled` (a real alarm), and silence is
           // the healthy state, not a `silent` warn.
           perDay: r.disabled ? 0 : r.perDay,
-          match: (art) => (r.match.kind === 'pr-branch' ? art.type === 'pr' && String(art.branch || '').startsWith(r.match.value)
-            : r.match.kind === 'pr-title' ? art.type === 'pr' && String(art.title || '').toLowerCase().includes(r.match.value.toLowerCase())
-              : r.match.kind === 'issue-label' ? art.type === 'issue' && (art.labels || []).includes(r.match.value)
-                : r.match.kind === 'brief-comment' ? art.type === 'brief-comment' && unescapeAnchor(art.firstLine) === unescapeAnchor(r.match.value)
-                  : art.type === 'issue' && String(art.title || '').includes(r.match.value)),
+          matchKind: r.match.kind,
+          match: (art) => runnerMatchesArtifact(r.match, art),
         })),
       artifacts: [
         ...state.allPRs.map((p) => ({ type: 'pr', at: p.createdAt, branch: p.headRefName, title: p.title })),

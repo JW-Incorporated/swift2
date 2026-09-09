@@ -212,7 +212,8 @@ export function summarizeRunVolume(artifacts, expectations, { now, windowDays = 
       ratio: Number.isFinite(ratio) ? Number(ratio.toFixed(2)) : null,
       lastSeen: seen.length ? seen.map((a) => a.at).sort().at(-1) : null,
       // Over-running is a budget leak; under-running is a dead runner. Both matter.
-      verdict: expectedPerDay === 0 && observedPerDay > 0 ? 'running-while-disabled'
+      verdict: exp.sourceUnavailable ? 'unknown'
+        : expectedPerDay === 0 && observedPerDay > 0 ? 'running-while-disabled'
         : observedPerDay === 0 && expectedPerDay > 0 ? 'silent'
           : ratio > 1.5 ? 'over-cadence'
             : ratio < 0.5 ? 'under-cadence' : 'ok',
@@ -221,8 +222,48 @@ export function summarizeRunVolume(artifacts, expectations, { now, windowDays = 
   return rows;
 }
 
+/** Match a cadence-registry entry to one normalized maintenance artifact. */
+export function runnerMatchesArtifact(match, artifact) {
+  switch (match.kind) {
+    case 'pr-branch':
+      return artifact.type === 'pr' && String(artifact.branch || '').startsWith(match.value);
+    case 'pr-title':
+      return artifact.type === 'pr' && String(artifact.title || '').toLowerCase().includes(match.value.toLowerCase());
+    case 'issue-label':
+      return artifact.type === 'issue' && (artifact.labels || []).includes(match.value);
+    case 'issue-title':
+      return artifact.type === 'issue' && String(artifact.title || '').includes(match.value);
+    case 'brief-comment':
+      return artifact.type === 'brief-comment' && unescapeAnchor(artifact.firstLine) === unescapeAnchor(match.value);
+    case 'workflow-name':
+      return artifact.type === 'workflow-run' && artifact.name === match.value;
+    default:
+      return false;
+  }
+}
+
+function unescapeAnchor(s) {
+  return String(s || '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();
+}
+
+export function buildRunVolumeInputs(artifacts, workflowRuns) {
+  return [
+    ...artifacts,
+    ...(workflowRuns || [])
+      .filter((r) => r.status === 'completed')
+      .map((r) => ({ type: 'workflow-run', at: r.created_at ?? r.run_started_at, name: r.name })),
+  ];
+}
+
 /** PR/issue throughput and backlog age — the "is work flowing" numbers. */
-export function summarizeThroughput({ prs = [], issues = [] }, { now, windowDays = 7 } = {}) {
+export function summarizeThroughput({ prs = [], issues = [], complete = true }, { now, windowDays = 7 } = {}) {
+  if (!complete) {
+    return {
+      windowDays,
+      unknown: true,
+      reason: 'PR or issue history was truncated, so seven-day throughput cannot be counted reliably',
+    };
+  }
   const nowMs = typeof now === 'number' ? now : new Date(now).getTime();
   const since = nowMs - windowDays * DAY_MS;
   const inWindow = (iso) => iso && new Date(iso).getTime() >= since;
@@ -258,6 +299,7 @@ export function summarizeThroughput({ prs = [], issues = [] }, { now, windowDays
 
 export function gradeThroughput(t) {
   if (!t) return { level: 'unknown', message: 'throughput unavailable' };
+  if (t.unknown) return { level: 'unknown', message: t.reason };
   const problems = [];
   if (t.prCloseRatio !== null && t.prCloseRatio < 0.8) problems.push(`PR pile growing (${t.prsMergedPerDay}/day merged vs ${t.prsOpenedPerDay}/day opened)`);
   if (t.issueCloseRatio !== null && t.issueCloseRatio < 0.8) problems.push(`issue backlog growing (${t.issuesClosedPerDay} closed vs ${t.issuesOpenedPerDay} opened per day)`);
@@ -291,10 +333,18 @@ export async function collectConstraints({ org, repo, now = Date.now(), plan = '
   // One extra page of runs (any workflow) so the burn can be attributed. Cheap
   // and bounded: 100 runs, one request.
   const recentRuns = await ghApiSoft(`/repos/${repo}/actions/runs?per_page=100`, { workflow_runs: [] });
-  const topWorkflows = attributeRunMinutes(recentRuns.data?.workflow_runs ?? ciRuns).slice(0, 4);
+  const workflowRuns = recentRuns.ok ? recentRuns.data?.workflow_runs ?? [] : null;
+  const topWorkflows = attributeRunMinutes(workflowRuns ?? ciRuns).slice(0, 4);
 
-  const throughput = summarizeThroughput({ prs: state.allPRs ?? [], issues: state.allIssues ?? [] }, { now: nowMs });
-  const runVolume = summarizeRunVolume(artifacts, expectations, { now: nowMs });
+  const throughput = summarizeThroughput({
+    prs: state.allPRs ?? [],
+    issues: state.allIssues ?? [],
+    complete: !state.runnerListsCapExhausted,
+  }, { now: nowMs });
+  const runVolumeExpectations = workflowRuns === null
+    ? expectations.map((exp) => ({ ...exp, sourceUnavailable: exp.matchKind === 'workflow-name' }))
+    : expectations;
+  const runVolume = summarizeRunVolume(buildRunVolumeInputs(artifacts, workflowRuns), runVolumeExpectations, { now: nowMs });
 
   const grades = {
     actions: gradeActionsUsage(actions),
@@ -311,6 +361,7 @@ export async function collectConstraints({ org, repo, now = Date.now(), plan = '
     billingError: billing.ok ? null : billing.error,
     actions,
     topWorkflows,
+    workflowRuns,
     throughput,
     runVolume,
     grades,
@@ -339,8 +390,12 @@ export function renderConstraintLine(c) {
   } else {
     parts.push(`Actions usage unavailable${c.billingError ? ` — ${c.billingError.slice(0, 60)}` : ''}`);
   }
-  parts.push(`${c.throughput.prsMergedPerDay} PRs/day merged, ${c.throughput.openPRs} open`);
-  parts.push(`backlog p50 ${c.throughput.backlogAgeP50Days}d / p90 ${c.throughput.backlogAgeP90Days}d`);
+  if (c.throughput?.unknown) {
+    parts.push('PR/issue throughput unknown (source history truncated)');
+  } else {
+    parts.push(`${c.throughput.prsMergedPerDay} PRs/day merged, ${c.throughput.openPRs} open`);
+    parts.push(`backlog p50 ${c.throughput.backlogAgeP50Days}d / p90 ${c.throughput.backlogAgeP90Days}d`);
+  }
   const drift = c.runVolume.filter((r) => r.verdict !== 'ok').length;
   parts.push(drift ? `${drift} runner(s) off cadence` : 'runners on cadence');
   return `- ${icon} **Budget & limits:** ${parts.join(' · ')}`;

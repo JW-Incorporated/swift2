@@ -50,7 +50,7 @@ export function unescapeAnchor(s) {
  * history to read. A runner is alive if the artifact its registry entry
  * promises has appeared inside its tolerance window.
  */
-export function checkRunners({ allPRs = [], issues = [], briefComments = [], cadence, now, listsCapExhausted = false }) {
+export function checkRunners({ allPRs = [], issues = [], briefComments = [], workflowRuns = [], cadence, now, listsCapExhausted = false }) {
   const prs = allPRs; // liveness must look at MERGED PRs too — a runner whose
   // PR auto-merged within the hour is the healthiest case, and checking only
   // open PRs marked Vault Run, Content Shift and Growth "dark" on a day all
@@ -67,11 +67,17 @@ export function checkRunners({ allPRs = [], issues = [], briefComments = [], cad
     // The cloud session HTML-escapes the anchor (`&lt;!-- x --&gt;`); accept
     // both spellings.
     'brief-comment': (v) => (a) => a.type === 'brief-comment' && unescapeAnchor(a.firstLine) === unescapeAnchor(v),
+    // GitHub Actions migrated routines can complete successfully without
+    // opening a PR. Their scheduler run is the liveness artifact, not output.
+    'workflow-name': (v) => (a) => a.type === 'workflow-run' && a.name === v,
   };
   const artifacts = [
     ...prs.map((p) => ({ type: 'pr', at: p.createdAt, branch: p.headRefName, title: p.title, number: p.number })),
     ...issues.map((i) => ({ type: 'issue', at: i.createdAt, title: i.title, number: i.number, labels: (i.labels || []).map((l) => (typeof l === 'string' ? l : l.name)) })),
     ...briefComments.map((c) => ({ type: 'brief-comment', at: c.createdAt, firstLine: String(c.body || '').split('\n')[0] })),
+    ...(workflowRuns || [])
+      .filter((r) => r.status === 'completed')
+      .map((r) => ({ type: 'workflow-run', at: r.created_at ?? r.run_started_at, name: r.name })),
   ];
   // How far back the fetched lists actually reach, per artifact type. On a
   // busy day the `--limit 100` PR list covers ~3-4 days (31 PRs/day on
@@ -91,7 +97,7 @@ export function checkRunners({ allPRs = [], issues = [], briefComments = [], cad
     return ts.length ? Math.min(...ts) : null;
   };
   const windowHoursFor = (kind) => {
-    const type = kind === 'brief-comment' ? 'brief-comment' : kind.startsWith('pr') ? 'pr' : 'issue';
+    const type = kind === 'brief-comment' ? 'brief-comment' : kind === 'workflow-name' ? 'workflow-run' : kind.startsWith('pr') ? 'pr' : 'issue';
     if (byType(type).length < LIST_LIMIT) return Infinity; // complete list: the window is everything
     const oldest = oldestSeenMs(type);
     return oldest === null ? Infinity : (nowMs - oldest) / HOUR_MS;
@@ -124,7 +130,8 @@ export function checkRunners({ allPRs = [], issues = [], briefComments = [], cad
     // not a confident dark, in that case.
     const windowHours = windowHoursFor(r.match.kind);
     const windowTooShort = last === null && windowHours < r.maxAgeHours;
-    const truncatedDark = last === null && (listsCapExhausted || windowTooShort);
+    const actionSourceUnavailable = last === null && r.match.kind === 'workflow-name' && workflowRuns === null;
+    const truncatedDark = last === null && (listsCapExhausted || windowTooShort || actionSourceUnavailable);
     rows.push({
       runner: r.name,
       status: truncatedDark ? 'unknown' : last === null ? 'fail' : ageHours <= r.maxAgeHours ? 'ok' : 'fail',
@@ -134,7 +141,9 @@ export function checkRunners({ allPRs = [], issues = [], briefComments = [], cad
       maxAgeHours: r.maxAgeHours,
       windowHours: Number.isFinite(windowHours) ? Math.round(windowHours) : null,
       detail: truncatedDark
-        ? (listsCapExhausted
+        ? (actionSourceUnavailable
+          ? 'no completed Action run was available because the Actions source could not be fetched — cannot confirm dark'
+          : listsCapExhausted
           ? `no artifact in the fetched window, but that window was truncated by gh.mjs's page cap (#3689) — cannot confirm dark`
           : `no artifact in the fetched window, but that window only reaches back ${Math.round(windowHours)}h against a ${r.maxAgeHours}h tolerance — cannot confirm dark`)
         : last === null
@@ -273,7 +282,7 @@ export function checkConstraints({ constraints }) {
   if (!constraints) return check('constraints', 'Budget and limits inside cap', null, 'constraint collector did not run');
   const level = constraints.level;
   const msgs = Object.entries(constraints.grades)
-    .filter(([, g]) => g.level !== 'ok' && g.level !== 'unknown')
+    .filter(([, g]) => g.level !== 'ok')
     .map(([, g]) => g.message);
   return check('constraints', 'Budget and limits inside cap',
     level === 'ok' ? true : level === 'unknown' ? null : false,
