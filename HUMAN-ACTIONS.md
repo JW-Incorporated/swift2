@@ -232,7 +232,9 @@ itself was run locally against the EAS account on 2026-09-07 and passed
 (iOS build 4 / Android build 5, version 1.0.0, no findings), so once the
 token exists nothing else is expected to be wrong.
 
-**Status:** OPEN
+**Status:** DONE
+
+**Outcome (2026-09-08, founder):** Wyatt set `EXPO_TOKEN` on the repo (`gh secret list` shows it, 2026-09-09 03:23 UTC). The Mobile parity check was dispatched immediately afterwards as the proof run; result recorded on its alert issue. #45/#46 remain the gates for the train's build and submit jobs.
 
 
 
