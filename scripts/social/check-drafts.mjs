@@ -451,6 +451,21 @@ function checkInventoryPhotoBinding(item, tile) {
   if (selectedPhoto.mediaPath !== tile || selectedPhoto.credit !== item.mediaCredit || selectedPhoto.source !== item.mediaSource) {
     return [`media: photoId ${JSON.stringify(item.photoId)} must use its inventory media path, exact credit, and exact source so attribution cannot drift.`];
   }
+  // photoEra (2026-09-10, kanban t_75ec7106 — the 2026-09-09 reputation/snake
+  // X post that shipped a Lover-era tour photo): a themed draft that declares
+  // its target era must be bound to a photo actually tagged for that era.
+  // Mirrors queue-schema.mjs's validatePhotoInventoryBinding so the CI
+  // backstop and this draft-time gate can never drift on the same rule.
+  if (typeof item.photoEra === 'string' && item.photoEra.trim() !== '') {
+    const era = item.photoEra.trim();
+    if (!Array.isArray(selectedPhoto.tags) || !selectedPhoto.tags.includes(era)) {
+      return [
+        `media: this draft declares photoEra "${era}", but photoId ${JSON.stringify(item.photoId)}'s tags (${JSON.stringify(selectedPhoto.tags ?? [])}) ` +
+          'do not include it — an off-era photo is worse than no photo at all (Joey, 2026-09-10). Re-run ' +
+          `\`node scripts/social/select-photo.mjs --era ${era}\` for a matching photo, or add one to social/photo-library.json first.`,
+      ];
+    }
+  }
   return [];
 }
 

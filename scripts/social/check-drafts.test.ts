@@ -585,6 +585,27 @@ describe('checkMedia', () => {
     expect(mismatchedCredit.some((f) => f.includes('must use its inventory media path, exact credit, and exact source'))).toBe(true);
   });
 
+  // 2026-09-10 (kanban t_75ec7106) — the founder-reported bug: a reputation
+  // post shipped a Lover-era tour photo. This locks in check-drafts.mjs's
+  // (draft-time) mirror of queue-schema.mjs's photoEra binding.
+  it('hard-fails a themed draft whose bound photo is not tagged for its declared photoEra', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, photoEra: 'reputation' },
+      [],
+    );
+    expect(findings.some((f) => f.includes('photoEra'))).toBe(true);
+  });
+
+  it('accepts a themed draft whose bound photo IS tagged for its declared photoEra', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, photoEra: 'lover' },
+      [],
+    );
+    expect(findings).toEqual([]);
+  });
+
   it('accepts an exactly credited, sourced, inventory-bound photo tile with no findings', async () => {
     const findings = await checkMedia(
       'a.json',
