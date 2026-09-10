@@ -7,11 +7,20 @@
 # run counts, open-PR count) into docs/audits/fleet-telemetry/, same
 # commit-via-PR shape as growth-snapshot.yml (main is branch-protected).
 #
-# It does NOT and CANNOT see Claude Code routine token spend — that has no
-# repo-visible API. The Routine Auditor's own weekly issue comment carries
-# the other half (enabled-trigger count + cadence sum) per
-# docs/agents/routine-invariants.md § Auditor arithmetic. The two together
-# are what T-17 asked for; neither claims to cover the other's half.
+# 2026-09-10: it now ALSO aggregates each routine-*.yml run's `routine-usage`
+# artifact (turns/duration/cost-equivalent, written by
+# scripts/routine-usage-report.mjs via routine-template.yml) into a
+# "Routine usage telemetry" report section — see T-17's 2026-09-10 landed
+# note in docs/TIER2-OPTIMIZATION.md. CAVEAT: that cost figure is a
+# LIST-PRICE EQUIVALENT under the shared CLAUDE_CODE_OAUTH_TOKEN plan-usage
+# model, not a real billed dollar amount — this account is not metered
+# per-token, so the actual constraint stays Joey's plan rate limit, not
+# money. This closes the routine-fleet turn/duration/cost VISIBILITY gap,
+# not a dollar cap (architecturally impossible under this auth model). The
+# Routine Auditor's own weekly issue comment still separately carries
+# enabled-trigger count + cadence sum per
+# docs/agents/routine-invariants.md § Auditor arithmetic — the two report
+# different things and neither duplicates the other.
 name: fleet-telemetry-snapshot
 
 on:
