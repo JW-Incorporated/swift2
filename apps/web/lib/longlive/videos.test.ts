@@ -374,6 +374,17 @@ describe('#3476 guardrail — every watchable record has an embed or a complete 
     ).toBe(true);
   });
 
+  it('rejects a malformed URL that merely starts with http(s):// (2026-09-10 second review pass)', () => {
+    // A regex prefix check (`/^https?:\/\//`) would wrongly accept these —
+    // `new URL()` parsing catches them because they are not valid URLs.
+    const base = allVideoRecordsForEra('1989')[0];
+    expect(isWatchable({ ...base, youtubeId: null, watchUrl: 'https://', platform: 'Netflix' })).toBe(false);
+    expect(isWatchable({ ...base, youtubeId: null, watchUrl: 'https://bad host/path', platform: 'Netflix' })).toBe(
+      false,
+    );
+    expect(isWatchable({ ...base, youtubeId: null, watchUrl: 'not a url at all', platform: 'Netflix' })).toBe(false);
+  });
+
   it('never emits a record with a lone watchUrl or a lone platform', () => {
     for (const eraId of ALL_ERA_IDS) {
       for (const v of videosForEra(eraId)) {

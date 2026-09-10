@@ -59,7 +59,13 @@ export function isWatchable(v: VideoNote): v is WatchableVideoNote {
 function hasValidWatchLink(v: VideoNote): v is VideoNote & { watchUrl: string; platform: string } {
   if (typeof v.watchUrl !== 'string' || typeof v.platform !== 'string') return false;
   if (v.platform.trim().length === 0) return false;
-  return /^https?:\/\//i.test(v.watchUrl);
+  let parsed: URL;
+  try {
+    parsed = new URL(v.watchUrl);
+  } catch {
+    return false;
+  }
+  return parsed.protocol === 'https:' || parsed.protocol === 'http:';
 }
 
 /**
