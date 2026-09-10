@@ -9302,7 +9302,7 @@ export default {
       ],
       moment: {
         context:
-          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets; Just Jared, citing an attendee, put the room at roughly 100 members, though JamBase\'s account of the night quotes Taylor herself addressing "the 200 assembled guests" from the stage — the two cited outlets disagree on the size of the crowd, and neither figure is confirmed independently. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance for the small crowd — though at first the specifics stayed inside the room. On Aug. 24, 2026 the Recording Academy released a recording of the performance, and the setlist came with it: an Eras Tour-style piano mashup of three songs she tied together by the theme of memory — her 2026 single “I Knew It, I Knew You,” “August,” and “All Too Well.” The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what first surfaced came from the guests themselves, before the Academy’s own recording put the performance on the record.\n\nWhen the Recording Academy released a conversation clip on Aug. 24, the songwriting Q&A produced the night’s most-quoted anecdote. Taylor said “I Knew You Were Trouble,” her 2012 Red single, started life as a “really, really sad” ballad with no drums — until she brought it to Max Martin and Shellback, who asked, “What if it’s dubstep?” She was unsure in the moment but came to call the pivot the best thing that could have happened to the song, adding that the collaborators she loves are the “‘Yes, and?’ people.” The same conversation had her circling back toward her country beginnings — revisiting “Tim McGraw,” her 2006 debut single — and saying she wants to honor those roots “the further along this path I get.”',
+          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets; Just Jared, citing an attendee, put the room at roughly 100 members, though JamBase\'s account of the night quotes Taylor herself addressing "the 200 assembled guests" from the stage — the two cited outlets disagree on the size of the crowd, and neither figure is confirmed independently. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance for the small crowd — though at first the specifics stayed inside the room. On Aug. 24, 2026 the Recording Academy released a recording of the performance, and the setlist came with it: an Eras Tour-style piano mashup of three songs she tied together by the theme of memory — her 2026 single “I Knew It, I Knew You,” “August,” and “All Too Well.” The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what first surfaced came from the guests themselves, before the Academy’s own recording put the performance on the record.\n\nWhen the Recording Academy released a conversation clip on Aug. 24, the songwriting Q&A produced the night’s most-quoted anecdote. Taylor said “I Knew You Were Trouble,” her 2012 Red single, started life as a “really, really sad” ballad with no drums — until she brought it to Max Martin and Shellback, who asked, “What if it’s dubstep?” She was unsure in the moment but came to call the pivot the best thing that could have happened to the song, adding that the collaborators she loves are the “‘Yes, and?’ people.” The same conversation had her circling back toward her country beginnings — revisiting “Tim McGraw,” her 2006 debut single — and saying she wants to honor those roots “the further along this path I get.”\n\nThe same conversation clip surfaced the personal alongside the craft. Asked how she copes when the scale of her own career starts to feel overwhelming, Taylor pointed to a three-word phrase she repeats to herself — “You chose this” — and its fuller form: “You chose this. You chose this every day. You could have opted out of this any day before it got unmanageably big.” She said she decided not to opt out “because I love it that much,” reframing the pressure as something she keeps choosing rather than something happening to her.',
         sources: [
           {
             outlet: 'Just Jared',
@@ -9399,6 +9399,28 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-30',
             reliability_score: 3,
+          },
+          // Coping-mantra revelation — the "You chose this" mantra from the
+          // same Recording Academy conversation clip (Vault Run 2026-09-10,
+          // enrich from intake #3908). First-tier corroboration; the ticket's
+          // women.com/AOL aggregators were not cited in favor of these.
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/article/2026/08/26/taylor-swift-coping-mantra-how-to-find-yours/',
+            source_title: "Taylor Swift Revealed Her Coping Mantra. Here's How to Find Yours",
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-10',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-public-perception-career-unmanageably-big-1236680277/',
+            source_title: 'Taylor Swift on Dealing With Public Perception, 20-Year Career',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-10',
+            reliability_score: 5,
           },
         ],
         // Photo pass (issue #1721, 2026-08-25): no cameras were allowed at
