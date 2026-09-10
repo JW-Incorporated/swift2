@@ -157,10 +157,17 @@ jobs:
       # but gated on the SAME guard as checkout, since a skipped guard never
       # checks the repo out, and this step's own script wouldn't exist on
       # disk to run. Must never fail the job itself: `routine-usage-report.mjs`
-      # degrades to a no-op notice on any missing/malformed input, and
-      # `|| true` is a second line of defense.
+      # degrades to a no-op notice on any missing/malformed input, `|| true`
+      # is a second line of defense at the shell level, and `continue-on-error`
+      # is a THIRD — telemetry is best-effort and must never be load-bearing
+      # for the routine's actual success/failure (Codex review round 1,
+      # finding 1). A small `timeout-minutes` on both this step and the
+      # upload step keeps a telemetry hang from eating into the routine's
+      # real job-timeout budget.
       - name: Record routine usage telemetry
         if: always() && steps.guard.outputs.skip == 'false'
+        continue-on-error: true
+        timeout-minutes: 3
         run: node scripts/routine-usage-report.mjs || true
         env:
           ROUTINE_NAME: ${{ inputs.routine_name }}
@@ -169,11 +176,17 @@ jobs:
           EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
           ROUTINE_USAGE_OUT: ${{ github.workspace }}/routine-usage.json
 
+      # `if-no-files-found: ignore` only covers an ABSENT file — a real
+      # upload-service error still propagates and would fail the job via
+      # `core.setFailed` without `continue-on-error` here too (same
+      # best-effort contract as the step above).
       - name: Upload routine usage telemetry
         if: always() && steps.guard.outputs.skip == 'false'
+        continue-on-error: true
+        timeout-minutes: 2
         uses: actions/upload-artifact@v4
         with:
           name: routine-usage
-          path: routine-usage.json
+          path: "" # TEMP: forces a real upload-artifact error (not a missing-file no-op) to verify continue-on-error — revert before merge
           if-no-files-found: ignore
           retention-days: 90
