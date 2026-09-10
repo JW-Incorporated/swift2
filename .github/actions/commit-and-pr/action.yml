@@ -76,13 +76,18 @@ runs:
     - name: Stage paths and check for a diff
       id: stage
       shell: bash
+      env:
+        GIT_USER_NAME: ${{ inputs.git-user-name }}
+        GIT_USER_EMAIL: ${{ inputs.git-user-email }}
+        STAGE_PATHS: ${{ inputs.paths }}
+        NO_CHANGES_MESSAGE: ${{ inputs.no-changes-message }}
       run: |
         set -euo pipefail
-        git config user.name "${{ inputs.git-user-name }}"
-        git config user.email "${{ inputs.git-user-email }}"
-        git add ${{ inputs.paths }}
+        git config user.name "$GIT_USER_NAME"
+        git config user.email "$GIT_USER_EMAIL"
+        git add $STAGE_PATHS
         if git diff --cached --quiet; then
-          echo "${{ inputs.no-changes-message }}"
+          echo "$NO_CHANGES_MESSAGE"
           echo "changed=false" >> "$GITHUB_OUTPUT"
         else
           echo "changed=true" >> "$GITHUB_OUTPUT"
