@@ -19,6 +19,15 @@ import { mkdtemp, mkdir, writeFile, readFile, readdir, rm } from 'node:fs/promis
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
+// approvedBy/approvedAt derivation (2026-09-10 approval-gate decision) reads
+// real git history via lib/git-provenance.mjs — mocked here so this suite
+// never shells out to git against a throwaway temp directory that isn't
+// even a repo.
+const getQueueFileProvenance = vi.fn();
+vi.mock('./lib/git-provenance.mjs', () => ({
+  getQueueFileProvenance: (...args: unknown[]) => getQueueFileProvenance(...args),
+}));
+
 const DUMMY_CREDS_ENV = {
   X_API_KEY: 'dummy-key',
   X_API_KEY_SECRET: 'dummy-key-secret',
@@ -155,6 +164,8 @@ beforeEach(async () => {
   delete process.env.SOCIAL_IG_POLL_TIMEOUT_MS;
   delete process.env.SOCIAL_IG_POLL_INTERVAL_MS;
   process.exitCode = 0;
+  getQueueFileProvenance.mockReset();
+  getQueueFileProvenance.mockResolvedValue({ approvedBy: null, approvedAt: null });
 });
 
 afterEach(async () => {
@@ -865,6 +876,39 @@ describe('post-queue: the happy path stays green', () => {
     expect(outcomes).toEqual([]);
     expect(spy).not.toHaveBeenCalled();
     expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+});
+
+describe('post-queue: approvedBy/approvedAt provenance (2026-09-10 approval-gate decision)', () => {
+  it('records the git-derived approver and timestamp on a successful post', async () => {
+    getQueueFileProvenance.mockResolvedValue({ approvedBy: 'Joey', approvedAt: '2026-09-10T12:00:00-07:00' });
+    stubFetch({ ok: true, status: 200, body: { data: { id: '123' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    await runPoster();
+
+    expect(getQueueFileProvenance).toHaveBeenCalledWith('social/queue/a-x.json', { cwd: root });
+    const posted = JSON.parse(
+      await readFile(path.join(root, 'social', 'posted', 'a-x.json'), 'utf-8'),
+    );
+    expect(posted.approvedBy).toBe('Joey');
+    expect(posted.approvedAt).toBe('2026-09-10T12:00:00-07:00');
+  });
+
+  it('never blocks a post when provenance lookup fails — it is an audit trail, not a gate', async () => {
+    getQueueFileProvenance.mockResolvedValue({ approvedBy: null, approvedAt: null });
+    stubFetch({ ok: true, status: 200, body: { data: { id: '456' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'x' });
+    const posted = JSON.parse(
+      await readFile(path.join(root, 'social', 'posted', 'a-x.json'), 'utf-8'),
+    );
+    expect(posted.approvedBy).toBeNull();
+    expect(posted.approvedAt).toBeNull();
   });
 });
 

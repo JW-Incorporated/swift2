@@ -541,6 +541,38 @@ jobs:
             exit 0
           fi
 
+          # ── SOCIAL APPROVAL GATE (2026-09-10, docs/decisions.md) ────────────
+          # Social posting now requires a founder's PR merge as its approval
+          # step (reverses #2316/the 2026-07-25 no-human-review decision). A
+          # PR that ADDS/MODIFIES/RENAMES a social/queue/**.json draft must
+          # NOT auto-merge — it waits for Joey to merge it by hand, and that
+          # merge IS the approval (prompted to #longlive-social by
+          # social-approval-notify.yml). `removed` is deliberately excluded:
+          # the poster's own fold-back PRs delete queue files as they move to
+          # social/posted/ (social-poster.yml), and stranding those is the
+          # exact 2026-08-11/12 Instagram-triple-post failure mode
+          # (issue #2031) — a removal-only PR still needs to auto-merge.
+          social_draft_changes=""
+          while IFS="$(printf '\t')" read -r st f prev; do
+            [ -z "$f" ] && continue
+            if printf '%s' "$f" | grep -qE '^social/queue/.*\.json$'; then
+              case "$st" in
+                added|modified|renamed|copied|changed)
+                  social_draft_changes="${social_draft_changes}- \`${f}\` (status \`${st}\`)"$'\n'
+                  ;;
+              esac
+            fi
+          done <<<"$files_meta"
+          if [ -n "$social_draft_changes" ]; then
+            verdict "declined — social draft awaiting founder approval" \
+          "PR #$PR adds or changes social draft(s) below. Per the 2026-09-10 decision (docs/decisions.md), a founder merging this PR IS the approval step now — social posting no longer auto-merges. A prompt with the full caption(s) was (or will be) sent to #longlive-social: merge the PR to approve, close it to reject.
+
+          **Social draft(s) awaiting approval**
+
+          ${social_draft_changes}"
+            exit 0
+          fi
+
           # A path under this prefix is allowlisted by .github/content-
           # automerge-allowlist.txt's plain prefix match, but that file only
           # ever sees PATHS — it cannot express "and also must be a small
