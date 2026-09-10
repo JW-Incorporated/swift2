@@ -317,7 +317,7 @@ async function main() {
   // campaign uses. Read once per run; passed to every buildSocialDraftPair
   // call below.
   const photoLibrary = JSON.parse(readFileSync(join(root, 'social', 'photo-library.json'), 'utf8')).photos;
-  let postedHistory = [];
+  let postedHistory;
   try {
     const postedDir = join(root, 'social', 'posted');
     postedHistory = readdirSync(postedDir)
