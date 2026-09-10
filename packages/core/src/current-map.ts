@@ -160,6 +160,13 @@ export interface LiveTheoryRow {
   resolution: unknown;
   promoted_to: string | null;
   expires_at: string;
+  /** Community Engine P2-3/P2-4 columns — undefined on rows/queries that
+   * predate them (bot/site rows, or a caller that hasn't widened its
+   * `select()` yet); `mapLiveTheory` treats every one of them as optional. */
+  mention_count?: number | null;
+  communities?: unknown;
+  stance?: string | null;
+  persistent?: boolean | null;
 }
 
 export function mapLiveTheory(row: LiveTheoryRow): LiveTheory {
@@ -192,6 +199,14 @@ export function mapLiveTheory(row: LiveTheoryRow): LiveTheory {
       : {}),
     ...(row.promoted_to ? { promotedTo: row.promoted_to } : {}),
     expiresAt: row.expires_at,
+    ...(typeof row.mention_count === 'number' ? { mentionCount: row.mention_count } : {}),
+    ...(row.communities !== undefined && asStringArray(row.communities).length > 0
+      ? { communities: asStringArray(row.communities) }
+      : {}),
+    ...(row.stance === 'believed' || row.stance === 'contested' || row.stance === 'debunked_by_fans'
+      ? { stance: row.stance }
+      : {}),
+    ...(row.persistent ? { persistent: true } : {}),
   };
 }
 

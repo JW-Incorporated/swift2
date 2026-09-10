@@ -3,7 +3,8 @@
  * session resolution.
  *
  * `apps/web` deliberately has no `@supabase/supabase-js` dependency (see
- * `lib/live-theories-data.ts`'s header) — this module talks to Supabase Auth
+ * `lib/current.ts`'s `loadLiveTheories`/`loadFanSignals` header comment) —
+ * this module talks to Supabase Auth
  * (GoTrue) and PostgREST the same way, raw `fetch()` over each REST endpoint,
  * rather than adding the SDK for one feature.
  *
@@ -17,6 +18,8 @@
  * "degrade to today's no-persistence behavior," never a crash, never a
  * retry-storm (one warn log per warm instance, not per request).
  */
+
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 export interface ClownSessionToken {
   accessToken: string;
@@ -43,11 +46,25 @@ export function clownMemoryEnv(): MemoryEnv | null {
   return { supabaseUrl, supabaseKey };
 }
 
-/** Every PostgREST call in this stage authenticates as the resolved
- * anonymous-auth user (their own access token), never the bare anon key —
- * that's what makes `auth.uid() = user_id` RLS scoping actually apply. */
-export function clownAuthHeaders(env: MemoryEnv, session: ClownSession): Record<string, string> {
-  return { apikey: env.supabaseKey, Authorization: `Bearer ${session.accessToken}` };
+/**
+ * One typed Supabase client, authenticated as the resolved anonymous-auth
+ * user (their own access token, carried via the `Authorization` header on
+ * every request this client makes), never the bare anon key — that's what
+ * makes `auth.uid() = user_id` RLS scoping actually apply. Same contract
+ * the old `clownAuthHeaders` gave every PostgREST call site, now built ONCE
+ * per request (Fable 5.1 architecture review, task R14) and threaded
+ * through `clown-memory.ts`/`clown-pins.ts`/`clown-predictions.ts` instead
+ * of each of those re-deriving its own headers/URL per call. Returns `null`
+ * when Supabase env isn't configured — every caller already treats a
+ * `null` db the same way it treated a `null` session/env before.
+ */
+export function createClownDbClient(session: ClownSession): SupabaseClient | null {
+  const env = clownMemoryEnv();
+  if (!env) return null;
+  return createClient(env.supabaseUrl, env.supabaseKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+    global: { headers: { Authorization: `Bearer ${session.accessToken}` } },
+  });
 }
 
 interface RawAuthResponse {

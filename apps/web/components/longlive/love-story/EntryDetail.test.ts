@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { RELATIONSHIPS } from '@/lib/longlive/lenses';
+import { RELATIONSHIPS } from '@swift2/experience';
 
 const source = readFileSync(new URL('./EntryDetail.tsx', import.meta.url), 'utf8');
 
@@ -37,7 +37,7 @@ describe('EntryDetail song chips (#1856)', () => {
   });
 
   it('leaves Escape to the song overlay before collapsing the underlying chapter', () => {
-    expect(source).toContain("e.key === 'Escape' && !share && !trackGuideEraId");
+    expect(source).toContain("e.key === 'Escape' && !trackGuideEraId");
   });
 });
 

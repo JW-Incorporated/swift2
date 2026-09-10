@@ -25,6 +25,7 @@ import path from 'node:path';
 import { writeFileSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { gh } from './lib/gh.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const DRY_RUN = process.env.DRY_RUN === 'true';
 const REPO = process.env.GITHUB_REPOSITORY || 'JW-Incorporated/swift2';
@@ -141,8 +142,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error('dependabot-alerts-snapshot:', err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'dependabot-alerts-snapshot' });
 }

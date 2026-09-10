@@ -5,18 +5,29 @@ Feeds `.github/workflows/social-poster.yml` (runs every 30 min). Full context: `
 - **`queue/`** — drafts waiting to ship. One JSON file per post. **Every draft added or changed here is checked by `scripts/social/check-drafts.mjs` before it can auto-merge** — see "Draft-time checks" below. That script is the main quality gate now; the guards in `scripts/social/lib/queue.mjs` at post time exist to stop a bad draft from actually posting wrong, not to be the first line of defense.
 - **`posted/`** — the log of everything sent, moved here automatically on success.
 
-**Hard pairing rule (Joey, 2026-08-25, made UNCONDITIONAL 2026-08-26): every
-real campaign is two queue items authored together** — one `platform: "x"`,
-one `platform: "instagram"`, with the exact same story-unique `campaign`
-value. The Instagram item already auto-cross-posts to Facebook, so never
-draft a third Facebook item. **There is no single-platform exception of any
-kind, for any reason** ("Always an IG copy. Always." — Joey, 2026-08-26). A
-single-platform exception marker existed briefly for content whose FORMAT
-genuinely could not work on the other platform; it was removed the same day
-it shipped, because it was immediately used as a scheduling pretext instead
-(the two 2026-08-26 campaigns that shipped X-only, issue #3373) — missing
-media, forgetting the sibling, convenience, or a scheduling/calendar reason
-was never valid, and now no reason is.
+**Hard pairing rule (Joey, 2026-08-25, made UNCONDITIONAL 2026-08-26,
+reaffirmed 2026-09-10 after the appearance-discovery lane's brief X-only
+carve-out): every real campaign is two queue items authored together** — one
+`platform: "x"`, one `platform: "instagram"`, with the exact same
+story-unique `campaign` value, **scheduled to post at the same instant (or
+within a few minutes of each other)** — see the `scheduledAt` note below.
+The Instagram item already auto-cross-posts to Facebook, so never draft a
+third Facebook item. **There is no single-platform exception of any kind,
+for any reason** ("Always an IG copy. Always." — Joey, 2026-08-26; "there's
+never a time where we post to only X, or only IG — everything should be the
+same" — Joey, 2026-09-10). A single-platform exception marker existed
+briefly for content whose FORMAT genuinely could not work on the other
+platform; it was removed the same day it shipped, because it was immediately
+used as a scheduling pretext instead (the two 2026-08-26 campaigns that
+shipped X-only, issue #3373) — missing media, forgetting the sibling,
+convenience, or a scheduling/calendar reason was never valid, and now no
+reason is. A second, narrower carve-out (2026-09-05, #3584: the
+appearance-discovery fast lane's `appearance:<videoId>` campaigns, on the
+theory that the lane had no license-cleared photo to offer Instagram) was
+itself the exact same mistake and was removed 2026-09-10 (kanban
+t_bac31b1a) — that lane now sources a real credited photo from
+`social/photo-library.json` for both platforms, same as every other
+campaign.
 
 **No human review gate (2026-07-25, reaffirmed 2026-08-25 — see
 `docs/decisions.md`):** `queue/` is also on
@@ -57,6 +68,7 @@ Every run resolves each touched item to an outcome — `posted`, `retrying`, `fa
   "body": "post text, exactly as it will appear",
   "media": ["/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg"],
   "mediaKind": "photo",
+  "photoId": "lover-minneapolis-2023",
   "mediaCredit": "Photographer Name/Getty Images",
   "mediaSource": "https://example.com/where-this-came-from",
   "scheduledAt": "2026-07-18T01:00:00Z",
@@ -79,15 +91,18 @@ UTC three attempts later. Rules live in `scripts/social/lib/queue-schema.mjs`.
 
 - `platform`: `"x"` or `"instagram"`.
 - `body`: required, non-empty, and **within the platform's real limit — 280 *weighted* characters for X** (X counts an autolinked URL as exactly 23 characters regardless of its real length, and most emoji/CJK as 2 — the same `weightedTweetLength` rule `check-drafts.mjs` enforces at draft time), **2,200 for Instagram.** This is not a style preference: every one of the eleven X posts in `failed/` was over the weighted limit, and X answers an over-length tweet with `403 "You are not permitted to perform this action"`, which reads like a permissions problem and is not one. If the account is ever upgraded to X Premium, raise the limit in `queue-schema.mjs` (and `check-drafts.mjs`) deliberately.
-- `media`: required for Instagram; optional for X. **X posts can carry images now** (up to 4, uploaded via the v1.1 media endpoint and attached to the tweet) — paths are relative to `apps/web/public/social/` on both platforms (that's where they must be committed — the poster fetches them from the live site, so **the media file's PR must be merged and deployed before `scheduledAt`**). Since 2026-08-11 the poster HEAD-checks each media URL before spending a real publish attempt on it (the "deploy-lag preflight" — see below): an item whose media isn't live yet **waits** (no attempt spent, reported as "waiting on deploy") and ships itself on the first run after the deploy lands.
+- `media`: required for Instagram and every X campaign — every real campaign ships credited `photo` media on both platforms (up to 4 images on X); there is no X-only link-preview lane any more (the 2026-09-05 `appearance:` exception was removed 2026-09-10). Paths are relative to `apps/web/public/social/` on both platforms (that's where they must be committed — the poster fetches them from the live site, so **the media file's PR must be merged and deployed before `scheduledAt`**). Since 2026-08-11 the poster HEAD-checks each media URL before spending a real publish attempt on it (the "deploy-lag preflight" — see below): an item whose media isn't live yet **waits** (no attempt spent, reported as "waiting on deploy") and ships itself on the first run after the deploy lands.
 - `mediaKind` — **required on every draft that carries media** (the 2026-08-12 **Taylor-photo standard**, Joey's directive after the era-tile grid + issue #2031). Two living values, one dead one:
-  - `"photo"` — a **real photograph of Taylor Swift**, and the tile **must live under `/social/library/photos/`** (path-enforced, so a screenshot can't be laundered as a credited photo — and a `site-screen` may NOT point there, so a real photo can't ship uncredited). Sourced from the repo's own credited corpus (`supabase/seed/content/**` `moment.photos`, `apps/web/lib/longlive/lenses.ts`). Requires **`mediaCredit`** (the photographer/agency line — put it in the caption too whenever the platform's length budget allows) and **`mediaSource`** (where it came from, so the credit is auditable). Never an AI image; never an unlabeled stand-in (media policy, `docs/decisions.md` 2026-07-09).
+  - `"photo"` — a **real photograph of Taylor Swift**, and the tile **must live under `/social/library/photos/`** (path-enforced, so a screenshot can't be laundered as a credited photo — and a `site-screen` may NOT point there, so a real photo can't ship uncredited). Sourced from the repo's own credited corpus (`supabase/seed/content/**` `moment.photos`, `apps/web/lib/longlive/lenses.ts`). Requires **`photoId`** plus exact matching **`mediaCredit`** (the photographer/agency line — put it in the caption too whenever the platform's length budget allows) and **`mediaSource`**, all bound to the entry in `social/photo-library.json` by `npm run validate:social`; this prevents attribution from drifting after selection. The same binding applies to a launch `site-screen` carousel's Taylor-photo grid tile. Never an AI image; never an unlabeled stand-in (media policy, `docs/decisions.md` 2026-07-09). A `mediaCredit`/`mediaSource` that reads like a rehosted video thumbnail, or a tile under the photo prefix that is absent from the credited inventory, hard-fails — a rehosted YouTube/broadcaster thumbnail is not a "photo" (`docs/decisions.md` 2026-08-15).
   - `"site-screen"` — a deliberate product screenshot for a feature/launch post; must live under `/social/library/`. Prefer a carousel with a Taylor `photo` tile first and the screenshot as slide 2 — the grid should show Taylor.
+  - `"video-thumb"` — **dead, REMOVED 2026-09-10 (kanban t_bac31b1a).** Added 2026-09-05 (#3584) as a rehosted YouTube/broadcaster thumbnail that shipped X-only with no Instagram sibling; that was itself the single-platform exception the pairing rule above already forbids, so the value is no longer schema-recognized at all — a draft declaring it hard-fails like any other unknown `mediaKind`. The appearance-discovery fast lane now sources a real credited `photo` for both platforms instead.
   - `"era-art"` — **dead.** Generic era tiles (`/eras/<id>.png`) hard-fail `check-drafts.mjs` outright, declared or not; the value stays schema-recognized only so historical `posted/` records parse. On 2026-08-06 all 17 posted IG items were era tiles; that is the failure this standard exists to end.
-  - Media may not repeat any of the last 10 posted Instagram items' media (draft-time check) — a photo corpus of 1,000+ credited entries means there is never a reason to.
-- `scheduledAt`: **this is what ships the post.** Since 2026-07-25 (see `docs/decisions.md`) there is no per-item approval gate — when this timestamp passes, the next poster run sends it, subject only to the caps, the guards below, and `SOCIAL_FREEZE`. Choose it deliberately and never backdate.
+  - Media may not repeat any of the last 10 posted Instagram items' media as a default diversity goal. The credited-photo selector prefers less-used, longer-unseen photos, then safely reuses the least-recently-used credited entry when the inventory is exhausted; this is deliberately a warning rather than a ban so the paired calendar cannot deadlock. `social/photo-library.json` is the durable inventory and `npm run social:select-photo` produces the exact `photoId`, media path, credit, and source fields for a draft.
+- `photoId`: required for every new `mediaKind: "photo"` draft. It binds a draft to one `social/photo-library.json` entry; the checker requires its media path, credit, and source to match exactly so attribution cannot drift.
+- `photoEra`: **required for a `mediaKind: "photo"` draft in a THEMED campaign family; optional otherwise** (2026-09-10, kanban t_75ec7106 — the 2026-09-09 reputation/snake X post that shipped a Lover-era tour photo, docs/decisions.md; requirement tightened in PR #4062 review round 4, Fable ruling). Names the draft's target era/theme (a `social/photo-library.json` tag, e.g. `"reputation"`) — set it whenever the post IS about a specific era. **`thread:easter-eggs:*` and `heartbeat:era-deep-cut:*` campaigns are hard-required to set it** (`scripts/social/lib/queue-schema.mjs`'s `THEMED_CAMPAIGN_PREFIXES`) — those families are inherently about one specific era (an easter-eggs/thread post keyed to a lens/egg node's `eraId`, `heartbeat:era-deep-cut:<era>-*`), so shipping without declaring the era is exactly the original bug's shape and is now a hard CI failure on its own, before the tag-mismatch check even runs. `validatePhotoInventoryBinding`/`check-drafts.mjs` then require the bound `photoId`'s `tags` to include it — a themed draft whose photo doesn't match its own declared era is a hard CI failure, not a warning. Get a matching photo with `npm run social:select-photo -- --era <tag>` (also accepts `--era=<tag>`), which prints the exact `photoId`/`media`/`mediaCredit`/`mediaSource`/`photoEra` fields to copy in, and **hard-fails loudly if no photo is tagged for that era** — that is the correct outcome (delay the draft and add inventory), never a silent fallback to an unrelated era's photo. Leave `photoEra` unset only for a non-themed campaign with no single target era (a launch/mood/merch post, a cross-era roundup). **Known gap (tracked, not yet built):** `THEMED_CAMPAIGN_PREFIXES` is a static campaign-family list, not automatic derivation from the lens/egg content data (`packages/experience/src/lenses.ts`) — the validators can't see content data today, so a themed campaign OUTSIDE the two listed prefixes could still ship without a `photoEra` check. Widen `THEMED_CAMPAIGN_PREFIXES` if a new themed family is added, or file the "wire lens/egg eraId into the queue validators" follow-up to close the gap for good.
+- `scheduledAt`: **this is what ships the post — and it is also the "all at once" signal.** Since 2026-07-25 (see `docs/decisions.md`) there is no per-item approval gate — when this timestamp passes, the next poster run sends it, subject only to the caps, the guards below, and `SOCIAL_FREEZE`. **A campaign's two siblings must carry the SAME `scheduledAt` (or one within a few minutes of the other)** — `check-drafts.mjs`'s simultaneous-pair check (2026-09-10, kanban t_bac31b1a) hard-fails a pair scheduled hours apart, which used to be common (e.g. one item at 15:00Z, its sibling at 23:00Z the same day, or even the day before). Choose it deliberately and never backdate.
 - `approvedBy` + `approvedAt`: **optional provenance only** — a record of who signed off and when, for the cases where a human did. They no longer gate anything; the poster does not check them. (They were a hard gate until 2026-07-25.)
-- `campaign`: **story-unique** (e.g. `on-this-day:red-announcement-wanegbt`), shared ONLY between the IG/X siblings covering the same story. Used by `check-drafts.mjs`'s cross-post-copy check to find an X draft's IG sibling — and by the poster's idempotency check (`findPostedDuplicate`), which treats same platform + same campaign as an already-posted duplicate. A thematic bucket value reused across stories (`heartbeat:on-this-day` on five different posts) therefore false-skips every post in the bucket after its first one lands, and the 48h rule then retires them to `failed/` — found and fixed queue-wide on 2026-08-12.
+- `campaign`: **story-unique** (e.g. `on-this-day:red-announcement-wanegbt`), shared ONLY between the IG/X siblings covering the same story. Used by `check-drafts.mjs`'s cross-post-copy check to find an X draft's IG sibling, by the simultaneous-pair check to find the sibling's `scheduledAt`, and by the poster's idempotency check (`findPostedDuplicate`), which treats same platform + same campaign as an already-posted duplicate. A thematic bucket value reused across stories (`heartbeat:on-this-day` on five different posts) therefore false-skips every post in the bucket after its first one lands, and the 48h rule then retires them to `failed/` — found and fixed queue-wide on 2026-08-12. There is no campaign-family exception to the pairing rule any more — the 2026-09-05 `appearance:<videoId>` exemption (#3584) was removed 2026-09-10 (kanban t_bac31b1a).
 - `why`: the human-readable "why this, why now" audit trail. It does not
   change routing — there is no pairing escape hatch of any kind (removed
   2026-08-26; a `Single-platform exception:` marker here does nothing now).
@@ -105,7 +120,7 @@ automatically.
 
 Run automatically by `.github/workflows/auto-merge-content.yml` whenever a PR changes `social/queue/**.json` — a failing draft just leaves the PR for a human (same fail-safe direction as the rest of that workflow), it doesn't block anything else. Run by hand any time with `node scripts/social/check-drafts.mjs` (checks every file currently in `queue/`) or `node scripts/social/check-drafts.mjs <file>...` (just those files — same idea CI uses via `--manifest <path>`, a JSON array file, so a filename with a space never gets silently split by the shell). **A file explicitly requested but not found under `queue/` is a hard failure (exit 1), not a warning** — this never silently reports "all clear" on a possibly-broken file list.
 
-Six rule families, in order (later ones assume earlier ones passed):
+Seven rule families, in order (later ones assume earlier ones passed):
 - **Schema** — `body` must be a non-empty string, `platform` must be `x`/`instagram`, `scheduledAt` must parse to a real date. A schema failure skips every other rule for that item (they all assume well-formed input) and reports only the schema finding.
 - **Voice** — reuses `scripts/content-engine/checkers/voice.mjs`'s surname-overuse, ai-tell, and wire-attribution rules against the draft's `body`.
 - **Openers** — bans a body that opens with "did you know" (case-insensitive, word-boundary matched, and normalized past any leading emoji/quote/punctuation) outright, and flags a draft whose first 6 words match the opening of anything posted in the last 14 days or any other current queue item (formula detection).
@@ -122,9 +137,21 @@ Six rule families, in order (later ones assume earlier ones passed):
   IG slot. The gate briefly honored a well-worded format-incompatibility
   exception while rejecting scheduling pretexts; Joey closed that carve-out
   the same day too ("Always an IG copy. Always.") once it became clear the
-  marker itself was the drafting lane's escape hatch of choice.
+  marker itself was the drafting lane's escape hatch of choice. A second,
+  narrower `appearance:`-family exemption (2026-09-05, #3584) reopened
+  exactly this hole for one lane; it was removed 2026-09-10 (kanban
+  t_bac31b1a) — there is no campaign-family exception left, of any kind.
+- **Simultaneous pair** (`checkSimultaneousPair`, added 2026-09-10, kanban
+  t_bac31b1a) — "all at once" means literally that: when both of a
+  campaign's siblings are in `social/queue/`, their `scheduledAt` values
+  must fall within `SIMULTANEOUS_WINDOW_MS` (5 minutes) of each other.
+  Real queue history had X post at 15:00–22:00Z and its Instagram sibling
+  ship hours later the same day (or even the day before) — that shipped
+  the story to each platform's audience at a different moment, not "all
+  together." A sibling that has already posted is out of scope (it can't be
+  rescheduled); this only fires while both items are still drafts.
 - **Cross-post copy** — an X draft whose `body` is more than 80% similar (word-overlap coefficient, not Jaccard — see the script for why) to its Instagram sibling's `body` fails. Siblings are matched by shared `campaign`; when an X draft has no `campaign`, this falls back to the closest same-day Instagram item — a near-duplicate still fails, and even a merely-plausible-looking pair gets a "you probably meant to tag these" nudge. Near-identical siblings are what triggers X's duplicate-content 403s.
-- **Media** — Instagram drafts need `media`; every media path must be a `.png`/`.jpg`/`.jpeg` (the only formats this pipeline produces or uploads to X) and exist under `apps/web/public/`; every draft carrying media must declare a `mediaKind`, and `"photo"` additionally requires `mediaCredit` + `mediaSource` and a tile under `/social/library/photos/`; era tiles fail outright; and no media may repeat one of the last 10 posted Instagram items.
+- **Media** — Instagram and X drafts both need credited image media (no X-only link-preview lane remains); every media path must be a `.png`/`.jpg`/`.jpeg` and exist under `apps/web/public/`; every `"photo"` additionally requires a mandatory, exact `photoId`/path/credit/source inventory binding; era tiles fail outright. The selector prefers diversity but permits credited reuse, so a finite inventory cannot deadlock the calendar.
 
 ## Post-time guards (`scripts/social/lib/queue.mjs`, `post-queue.mjs`)
 

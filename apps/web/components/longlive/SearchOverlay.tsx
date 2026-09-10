@@ -16,7 +16,7 @@ import {
   X,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import {
   flattenGroups,
   getSearchIndex,

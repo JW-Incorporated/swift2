@@ -37,6 +37,7 @@
 
 import { screenInput, screenOutput } from '../apps/web/lib/longlive/clown-safety.ts';
 import { ATTACKS, LEGIT, TIER_B_PROBES } from '../apps/web/lib/longlive/clown-battery-corpus.ts';
+import { runMain } from './lib/cli.mjs';
 
 // Stage 12 (PLAN.md, proposal §7 eval bullet) added 8 ATTACKS, 2
 // TIER_B_PROBES, and 6 LEGIT cases — see clown-battery-corpus-attacks-b.ts /
@@ -170,4 +171,4 @@ function main() {
   return 1;
 }
 
-process.exit(main());
+runMain(main, { name: 'check-clown-battery' });

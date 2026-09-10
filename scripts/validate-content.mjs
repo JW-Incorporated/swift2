@@ -57,7 +57,9 @@ import {
 } from './lib/rumor-redlines.mjs';
 import { PHOTO_HOST_LEGACY, hostOf as photoHostOf } from './lib/photo-host-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
+import { runMain } from './lib/cli.mjs';
 
+async function main() {
 const here = dirname(fileURLToPath(import.meta.url));
 const seed = join(here, '..', 'supabase', 'seed');
 
@@ -133,6 +135,13 @@ const SOURCE_TYPES = new Set([
 ]);
 const MEDIA_KINDS = new Set(['oembed', 'owned', 'hotlink_legacy']);
 const MEDIA_RIGHTS = new Set(['platform_tos', 'licensed', 'hotlink_legacy']);
+const VIDEO_PRESENTATION_EXCEPTIONS = new Set([
+  'unavailable',
+  'removed',
+  'rights',
+  'privacy',
+  'safety',
+]);
 
 // Keep in sync with LensId (apps/web/lib/longlive/types.ts) and
 // VALID_THREAD_IDS (sync-longlive-content.mjs). An unknown value here is
@@ -233,6 +242,34 @@ for (const { file, data } of loaded) {
     if (!Number.isInteger(it.year)) err(`year is not an integer (${it.year})`);
     if (!(Number.isInteger(it.month) && it.month >= 1 && it.month <= 12))
       err(`month out of 1..12 (${it.month})`);
+    // Future-dated moment (t_187359e9, 2026-09-06 founder escalation): the
+    // deterministic CIE checker (fact.claim-risk / numeric-date.mjs) already
+    // flags a moment dated after today, but only as a nightly-scan finding
+    // that can sit unread for days — that is exactly how
+    // florida-orchestra-taylor-swift-symphony-era-mahaffey (dated 2026-09-12,
+    // authored 2026-09-06) reached `main` and the live site. This file's
+    // items record things that happened, so a date in the future relative to
+    // the CI run is always an authoring error (wrong date, or an event
+    // written up before it occurred) — block it at merge time instead of
+    // relying on a scan someone has to notice.
+    if (
+      Number.isInteger(it.year) &&
+      Number.isInteger(it.month) &&
+      it.month >= 1 &&
+      it.month <= 12
+    ) {
+      const d = Number.isInteger(it.day) && it.day >= 1 && it.day <= 31 ? it.day : 1;
+      const itemDate = Date.UTC(it.year, it.month - 1, d);
+      const todayUtc = Date.UTC(
+        new Date().getUTCFullYear(),
+        new Date().getUTCMonth(),
+        new Date().getUTCDate(),
+      );
+      if (itemDate > todayUtc)
+        err(
+          `dated in the future (${it.year}-${String(it.month).padStart(2, '0')}-${String(d).padStart(2, '0')}, today is ${new Date().toISOString().slice(0, 10)}) — confirm the event has actually happened and fix the date, or remove/hold this item until it has`,
+        );
+    }
     if (!CATEGORIES.has(it.category))
       err(`category "${it.category}" not in ${[...CATEGORIES].join('|')}`);
     if (!it.title) err('missing title');
@@ -327,6 +364,44 @@ for (const { file, data } of loaded) {
       if (outlets >= 2 && listed)
         err(
           `listed in SINGLE_OUTLET_LEGACY as ${key} but now has ${outlets} independent outlets — delete that entry from scripts/lib/sourcing-gate.mjs`,
+        );
+    }
+
+    // A first-party YouTube upload is a watchable primary artifact, not merely
+    // a citation. The feed/detail player is driven only by item.video or
+    // moment.video, so require that explicit association before a story ships.
+    // A narrow exception is allowed only when its reason is visible in seed
+    // review; generic YouTube citations may still be fan archives and do not
+    // enter this gate unless their source_type is official.
+    const videoException = it.videoPresentationException ?? it.moment?.videoPresentationException;
+    if (videoException != null && !VIDEO_PRESENTATION_EXCEPTIONS.has(videoException))
+      err(
+        `videoPresentationException "${videoException}" not in ${[...VIDEO_PRESENTATION_EXCEPTIONS].join('|')} — exceptions must be explicit and reviewable`,
+      );
+    const canonicalYoutubeIds = (it.moment?.sources ?? [])
+      .filter(
+        (s) => s?.source_type === 'official' && /(?:youtube\.com|youtu\.be)/i.test(s?.url ?? ''),
+      )
+      .map((s) => {
+        try {
+          const url = new URL(s.url);
+          return url.hostname.endsWith('youtu.be')
+            ? url.pathname.split('/').filter(Boolean)[0]
+            : url.searchParams.get('v');
+        } catch {
+          return null;
+        }
+      })
+      .filter(Boolean);
+    if (canonicalYoutubeIds.length && videoException == null) {
+      const video = it.video ?? it.moment?.video;
+      if (!video?.youtubeId)
+        err(
+          `official YouTube source ${canonicalYoutubeIds[0]} has no matching video — attach the canonical player or record videoPresentationException (unavailable|removed|rights|privacy|safety)`,
+        );
+      else if (!canonicalYoutubeIds.includes(video.youtubeId))
+        err(
+          `video.youtubeId "${video.youtubeId}" does not match the official YouTube source (${canonicalYoutubeIds.join(', ')}) — do not attach unrelated footage`,
         );
     }
 
@@ -427,6 +502,14 @@ for (const { file, data } of loaded) {
         `significance "${it.significance}" not in ${[...SIGNIFICANCE_VALUES].join('|')} — a typo here silently loses the item's prominence`,
       );
     }
+
+    // photosReviewed (OPTIONAL, 2026-09-05, #762 top-of-feed checker): a
+    // deliberate editorial no-photo decision (privacy redline, no verifiable
+    // image, etc.), recorded on the item so content.top-of-feed-photo (the
+    // deterministic checker) and any human reader both recognize it as
+    // reviewed instead of re-flagging it as an oversight every run.
+    if (it.photosReviewed != null && !(typeof it.photosReviewed === 'string' && it.photosReviewed.trim()))
+      err('photosReviewed must be a non-empty string reason when present');
 
     // Rumor tier (2026-07-19). The sync script drops anything malformed
     // (fail-closed: an unattributed rumor never renders), so every drop
@@ -899,4 +982,7 @@ for (const file of trackFiles) {
 }
 
 console.log(`\nvalidated ${checked} content item(s) — ${errors} error(s), ${warnings} warning(s)`);
-if (errors > 0) process.exit(1);
+if (errors > 0) return 1;
+}
+
+runMain(main, { name: 'validate-content' });

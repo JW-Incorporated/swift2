@@ -1,4 +1,4 @@
-import type { MomentVideo, VideoNote } from './types';
+import type { MomentVideo, VideoNote } from '@swift2/experience';
 
 /**
  * Pairs a track guide song to the official video that plays it, so

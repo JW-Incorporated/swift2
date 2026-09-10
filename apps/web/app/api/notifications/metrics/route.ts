@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { loadMetrics } from '@swift2/core/notifications-server';
+import { supabaseAdmin } from '../../../../lib/supabase-server';
 
 // Notifications Phase 6 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §11) —
 // GET /api/notifications/metrics: the data source behind the internal
@@ -14,15 +14,6 @@ import { loadMetrics } from '@swift2/core/notifications-server';
 // SETUP_NOTIFICATIONS.md) and never indexing/linking this route publicly.
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-
-function supabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
 
 export function authorizedForDashboard(providedSecret: string | null): boolean {
   const expected = process.env.NOTIFICATIONS_DASHBOARD_SECRET;

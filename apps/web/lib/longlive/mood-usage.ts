@@ -8,19 +8,36 @@
  * it hard, and over the cap the route falls back to the free keyword matcher
  * and still returns real songs.
  *
- * HONESTY ABOUT THE BOUND: unlike the worker (which persists to Postgres so the
- * cap holds cumulatively across one-shot runs), the web route has no DB wired
- * here, so this counter is PER WARM SERVERLESS INSTANCE and resets on cold
- * start — the same limitation the feedback route's rate limiter states plainly.
- * It blunts runaway spend on a warm instance and enforces a per-instance daily
- * ceiling; it is not a globally exact quota. If exactness is ever needed, back
- * reserve() with a shared counter (Upstash/Postgres) — the seam is this class,
- * so nothing else changes. Kept intentionally simple: the real spend ceiling is
- * the console-level API cap; this is defense in depth, not the only line.
+ * THE REAL GLOBAL GATE IS THE DB (Fable 5.1 architecture review, task R13):
+ * this in-process counter alone only ever bounded spend PER WARM SERVERLESS
+ * INSTANCE — every warm instance got its own fresh `MOOD_DAILY_CAP`
+ * allowance, so the real cross-instance ceiling was `cap * (warm instance
+ * count)`, not `cap`, and reset on every cold start. `mood-client.ts`'s
+ * `classifyMood` now reserves through `usage-db-gate.ts`'s
+ * `reserveGlobalUsage`, which calls `reserve()` here FIRST as a free,
+ * synchronous pre-check (still refuses immediately once this one instance's
+ * own slice is spent, no network round trip needed), then confirms the
+ * durable cross-instance `usage_daily` row (scope `mood-chat-global`,
+ * shared with `clown-usage.ts`'s `clown-chat-global` table but never
+ * colliding — the table's primary key is `(scope, usage_date)`) is still
+ * under the SAME cap number before the call is actually allowed to spend.
+ * A local reservation the DB then denies is given back via `release()`.
+ * This class's own `reserve()`/`release()`/`used()` behaviour and every
+ * existing test against it are unchanged — it is still exactly the
+ * lightweight per-instance floor it always was; only what sits ON TOP of it
+ * changed.
  */
 
-/** Default calls/day per instance. Sonnet-cheap and bounded — tune as usage data lands (Stage 6). */
+/** Default calls/day, now enforced globally across every warm instance via
+ * the DB gate above — see the header note. Sonnet-cheap and bounded — tune
+ * as usage data lands (Stage 6). */
 export const MOOD_DAILY_CAP = 200;
+
+/** `usage_daily` scope for the durable cross-instance gate — see the
+ * header's THE REAL GLOBAL GATE IS THE DB note. Distinct from any
+ * per-user scope (this feature has none) and from Clownbot's own
+ * `clown-chat-global` (`clown-usage.ts`). */
+export const MOOD_GLOBAL_SCOPE = 'mood-chat-global';
 
 /** UTC day key (YYYY-MM-DD) — the window this counter rolls over on. */
 function dayKey(now: number): string {

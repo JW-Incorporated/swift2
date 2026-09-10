@@ -1,10 +1,10 @@
-import { createClient } from '@supabase/supabase-js';
 import {
   loadMetrics,
   MUTE_RATE_FLAG_THRESHOLD,
   type NotificationMetrics,
 } from '@swift2/core/notifications-server';
 import { authorizedForDashboard } from '@/app/api/notifications/metrics/route';
+import { supabaseAdmin } from '@/lib/supabase-server';
 
 // Notifications Phase 6 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §11) —
 // the internal metrics dashboard. Server-rendered (no client fetch round
@@ -13,15 +13,6 @@ import { authorizedForDashboard } from '@/app/api/notifications/metrics/route';
 // that route's header for the tradeoff reasoning). Not in the sitemap, not
 // linked from anywhere in the public app.
 export const dynamic = 'force-dynamic';
-
-function supabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
 
 function pct(rate: number | null): string {
   if (rate === null) return '\u2014';
@@ -77,14 +68,14 @@ export default async function NotificationsInternalDashboard({
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-12">
-      <h1 className="text-2xl font-semibold text-ink">Notifications \u2014 internal metrics</h1>
+      <h1 className="text-2xl font-semibold text-ink">Notifications — internal metrics</h1>
       <p className="mt-1 text-sm text-ink-soft">
         Last 30 days. Generated {new Date(metrics.generatedAt).toLocaleString()}.
       </p>
 
       {!metrics.hasData && (
         <p className="mt-6 rounded-lg border border-amber-400/40 bg-amber-400/10 p-4 text-sm text-amber-200">
-          No devices registered yet \u2014 every number below is seeded/test data until real traffic
+          No devices registered yet — every number below is seeded/test data until real traffic
           arrives. This is expected before launch.
         </p>
       )}
@@ -96,7 +87,7 @@ export default async function NotificationsInternalDashboard({
         <Stat label="Devices master-off" value={String(metrics.devicesMasterOff)} />
       </section>
       <p className="mt-2 text-xs text-ink-soft">
-        *Opt-in rate here is devices-with-a-push-token \u00f7 all devices \u2014 a proxy for spec
+        *Opt-in rate here is devices-with-a-push-token ÷ all devices — a proxy for spec
         \u00a711&rsquo;s true metric (opt-in \u00f7 pre-permission-screen viewers), since this app
         has no event for &ldquo;viewed the screen but declined.&rdquo;
       </p>

@@ -61,42 +61,47 @@ drifts).
 | Routine | Trigger ID | Cadence (UTC) | Enabled | Model |
 |---|---|---|---|---|
 | ~~Photo Enrichment worker~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | ~~`21 6 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 3), warm spare | `claude-sonnet-5` |
-| News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ✅ | `claude-sonnet-5` — **T-3 trial live 2026-09-01 → 2026-09-15**, see § News Triage below |
-| News Triage recall check — T-3 trial audit | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `0 17 * * 2` | ✅ | `claude-opus-4-8` — 2-week trial instrument, disable after 2026-09-15 verdict |
+| News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-news-triage.yml` | `claude-sonnet-5` — **T-3 trial live 2026-09-01 → 2026-09-15**, see § News Triage below |
+| News Triage recall check — T-3 trial audit | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `0 17 * * 2` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-news-triage-recall.yml` | `claude-opus-4-8` — 2-week trial instrument, disable after 2026-09-15 verdict |
 | ~~Cross-Link builder~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01FxMuDtwScPFvSgvhFCxdfP` | ~~`51 9 * * 1,4`~~ | ⛔ disabled — superseded by The Vault Run (lane 5), warm spare | `claude-sonnet-5` |
 | ~~Stylist — shop-link sourcing & upkeep~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_011BiHZqLEVHAJ4chfaYfGZH` | ~~`33 16 * * 0`~~ | ⛔ disabled — superseded by The Vault Run (lane 6), warm spare | `claude-sonnet-5` |
 | ~~Rumor Desk — sourcing & lifecycle~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01GS6bcMsEQjXwmyxGr7S1js` | ~~`47 14 */2 * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 4), warm spare | `claude-opus-4-8` |
 | Lex depth (sole instance) | `trig_01BoVCT67VbeLE8sRiaYPju4` | `20 */2 * * *` | ⛔ **disabled** (warm spare, intentional) | `claude-opus-4-8` |
 | ~~Answerer (sole instance)~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_016hygyYPEV9T7BunnTHAWbZ` | ~~`50 13 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 2), warm spare | `claude-opus-4-8` |
-| Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `0 10 * * 1` | ✅ | `claude-opus-5` |
-| Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `0 11 * * *` | ✅ | `claude-opus-4-8` |
-| Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `20 22 * * 1` | ✅ | `claude-opus-4-8` |
-| Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `20 18 * * 2,5` | ✅ | `claude-sonnet-5` |
-| Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ✅ | `claude-opus-4-8` — 2-week trial 2026-08-31→2026-09-14 (was `claude-fable-5`; Joey D5=A, `decisions.md`) |
-| Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `0 14 * * 1,5` | ✅ | `claude-opus-4-8` |
-| Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `23 1,13 * * *` | ✅ | `claude-haiku-4-5-20251001` |
-| Kevin — daily desk (S1+S2+S3) | `trig_01GH3EMWdDwwKpx2GCRnCYM5` | `13 15 * * *` | ✅ | `claude-sonnet-5` |
+| Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `0 10 * * 1` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-tree-weekly-plan.yml` | `claude-opus-5` |
+| Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `0 11 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-growth-draft.yml` | `claude-opus-4-8` |
+| Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `20 22 * * 1` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-paul-blart.yml` | `claude-opus-4-8` |
+| Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `20 18 * * 2,5` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-laura-a11y-walk.yml` | `claude-sonnet-5` |
+| Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-austin-build.yml` | `claude-opus-4-8` — 2-week trial 2026-08-31→2026-09-14 (was `claude-fable-5`; Joey D5=A, `decisions.md`) |
+| Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `0 14 * * 1,5` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-nils-walk.yml` | `claude-opus-4-8` |
+| Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `23 1,13 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-kevin-radar.yml` | `claude-haiku-4-5-20251001` |
+| Kevin — daily desk (S1+S2+S3) | `trig_01GH3EMWdDwwKpx2GCRnCYM5` | `13 15 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-kevin-daily-desk.yml` | `claude-sonnet-5` |
 | ~~Kevin — S3 eng triage (cloud)~~ **(DISABLED 2026-09-01, Joey, T-10)** | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | ~~`43 15 * * *`~~ | ⛔ disabled — superseded by Kevin daily desk, T-10 | `claude-sonnet-5` |
 | ~~Kevin — S2 user-feedback digest (cloud)~~ **(DISABLED 2026-09-01, Joey, T-10)** | `trig_0136mXcpmzn6mYtYoUQC3eGP` | ~~`13 15 * * *`~~ | ⛔ disabled — superseded by Kevin daily desk, T-10 | `claude-sonnet-5` |
-| Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ (pending disable — kept live until the new desk's first Sunday fire confirms Stream 1, see HUMAN-ACTIONS.md #38) | `claude-opus-4-8` |
-| Karen — nightly scan ⚠️ **RENAME PENDING (T-5, 2026-08-31)** — registered name not yet resynced to `Karen — weekly judgment slice`; prompt already judgment-only, see `runner-prompts/karen-nightly.md` and § T-5 below | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | `claude-sonnet-5` |
-| The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | `claude-opus-4-8` |
+| Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47 — doubly justified per the prior #38 pending-disable flag) — superseded by `routine-kevin-s1-karen-solver.yml` | `claude-opus-4-8` |
+| Karen — weekly judgment slice (T-5 rename applied 2026-09-06 on the live runner, `.github/workflows/routine-karen-nightly.yml`; the claude.ai trigger formerly registered as `Karen — nightly scan` was disabled 2026-09-06 per HUMAN-ACTIONS.md #47) | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-karen-nightly.yml` | `claude-sonnet-5` |
+| The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-vault-run.yml` | `claude-opus-4-8` |
 | ~~Content Shift — authoring runs~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01PonDFeQCL4iRNzceGyAYrm` | ~~`0 17 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 1), warm spare | `claude-opus-4-8` |
-| Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ✅ | `claude-opus-4-8` |
+| Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-marjorie-brief.yml` | `claude-opus-4-8` |
 | ~~Marjorie — 8 PM Evening Delta~~ **(DISABLED 2026-08-31, Joey, T-13)** | `trig_01L2EG5veWBQwMowaykXAi6B` | ~~`0 3 * * *`~~ | ⛔ disabled (warm spare, intentional — prompt preserved in `runner-prompts/marjorie-delta.md`) | `claude-fable-5` |
-| Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | `11 16 * * 0` | ✅ | `claude-haiku-4-5-20251001` |
+| Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | `11 16 * * 0` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — retired outright, replaced by `scripts/check-routine-workflows.mjs` in CI | `claude-haiku-4-5-20251001` |
 | ~~swift2 Getty purge — GitHub GC watch~~ **(DISABLED 2026-08-31, Joey, T-14)** | `trig_018QuJozjMr1bYMPcqgKUmvL` | ~~`0 3,15 * * *`~~ | ⛔ disabled (purge verified complete pre-disable — zero `media.gettyimages.com` refs remain in repo, PR #3246; no prompt file existed for this trigger, so its full `job_config` was not captured before the operator disabled it via the routines UI — if the exact original config is ever needed, it is not recoverable from this repo) | `claude-sonnet-5` |
 
-**23 Swift2 routines total, 15 enabled** in the **standing fleet** (Lex depth
-and Marjorie — 8 PM Evening Delta intentionally paused; the six standalone
-Vault lanes — Content Shift, Photo Enrichment, Cross-Link, Stylist, Rumor
-Desk, Answerer — disabled 2026-09-01 per T-1 Vault Phase 4, superseded by
-The Vault Run). The table above has 24 rows because it also carries
-`swift2 Getty purge — GitHub GC watch`, a self-retiring one-shot deliberately
-outside the fleet — which is why the 2026-08-27 audit note below says "all 24
-triggers verified live" and why [`../AUTOMATION.md`](../AUTOMATION.md), which
-counts every live trigger regardless of fleet membership, says 24/23. Both
-scopes are correct; quote whichever one your question is about.
+**23 Swift2 routines total, 0 enabled** in the **standing fleet** as of
+2026-09-06 (Lex depth and Marjorie — 8 PM Evening Delta already paused; the
+six standalone Vault lanes — Content Shift, Photo Enrichment, Cross-Link,
+Stylist, Rumor Desk, Answerer — disabled 2026-09-01 per T-1 Vault Phase 4,
+superseded by The Vault Run; the remaining 15 standing-fleet claude.ai
+triggers disabled 2026-09-06 per HUMAN-ACTIONS.md #47, each superseded by
+its GitHub Actions `.github/workflows/routine-*.yml` equivalent — see the
+Enabled column above for the per-trigger mapping). The table above has 24
+rows because it also carries `swift2 Getty purge — GitHub GC watch`, a
+self-retiring one-shot deliberately outside the fleet — which is why the
+2026-08-27 audit note below says "all 24 triggers verified live" and why
+[`../AUTOMATION.md`](../AUTOMATION.md), which counts every live trigger
+regardless of fleet membership, says 24/23. Both scopes are correct; quote
+whichever one your question is about — but as of 2026-09-06 the enabled
+count in both is 0 (fully superseded by GitHub Actions).
 `bedrock nightly audit` also lives in this account's routine list but is a
 different project (per `~/Projects/CLAUDE.md`'s ownership table) — excluded
 here on purpose, not missed. **This table is live trigger IDs only** — Karen
@@ -548,14 +553,21 @@ that PR only touched Karen Deep (T-6, a separate not-yet-created routine),
 Nils cadence, Austin's model trial, and the notification-quality desk; it
 never edited this prompt file or this trigger.
 
-**Remaining scope: rename the live trigger to match.** Tracked as
-[#3616](https://github.com/JW-Incorporated/swift2/issues/3616) so this
-doesn't strand as an untracked "whoever has access" note. The registered
-name is still `Karen — nightly scan`, contradicting its own judgment-only
-content and weekly cadence (documented above). Whoever next has account
-access to <https://claude.ai/code/routines> should, in one `job_config`
-round-trip (get → edit only `name` in the returned object → PUT the whole
-thing back — **never a partial PUT**, per the RemoteTrigger footgun above):
+**Rename — DONE 2026-09-06 (Fable ruling FR-t_a0ad2392-1, closes
+[#3616](https://github.com/JW-Incorporated/swift2/issues/3616)).** The
+routines-migration (HUMAN-ACTIONS.md #47) made
+`.github/workflows/routine-karen-nightly.yml` the live runner for this
+routine; its `routine_name` is now `Karen — weekly judgment slice`, and
+`scripts/marjorie/runner-cadence.json` matches. The claude.ai trigger
+`trig_01TmYaZgnecrEp9mkeV3Gq6X` keeps its old registered name until it is
+disabled under #47 — it is never renamed, because it is being retired.
+The `job_config` round-trip below is kept for the record only; do not run
+it against a trigger that is about to be disabled.
+
+Historical procedure (superseded): whoever next had account access to
+<https://claude.ai/code/routines> would, in one `job_config` round-trip
+(get → edit only `name` in the returned object → PUT the whole thing back
+— **never a partial PUT**, per the RemoteTrigger footgun above):
 
 | Field | Current | New |
 |---|---|---|

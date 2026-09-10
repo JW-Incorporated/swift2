@@ -101,6 +101,7 @@ import {
   formatAnnotations,
   formatPostedNotification,
 } from './lib/run-report.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 const MEDIA_BASE_URL = 'https://www.longlivets.com';
 const MAX_ATTEMPTS = 3;
@@ -354,10 +355,64 @@ export async function main() {
 
   const recentIg = recentInstagramPosts(allPostedData);
   const mediaUsedThisRun = new Set();
+  // A campaign whose BOTH siblings are due together in THIS run is one
+  // posting unit (2026-09-10, kanban t_bac31b1a — codex review round 1/2):
+  // checkSimultaneousPair's "schedule both siblings within 5 minutes" is
+  // meaningless if the poster still can't actually PUBLISH both within one
+  // run. Computed UPFRONT from `due` (order-independent — the original
+  // "exempt only after the first sibling has already posted" version broke
+  // the moment two siblings interleaved with an item from a DIFFERENT
+  // campaign between them, since `due` is a single list sorted by
+  // scheduledAt, not grouped by campaign). Each sibling is exempt from the
+  // per-run cap (a pair scheduled together must not have one half deferred
+  // to the next run, 30 minutes later) and the same-run media-reuse guard
+  // (intentionally shares the same credited photo — that's not a
+  // duplicate-content problem, it's the whole point of pairing).
+  //
+  // This is safe from ever letting an unbounded number of pairs bypass the
+  // pacing floor in one run: MAX_POSTS_PER_PLATFORM_PER_DAY is 1, so
+  // `selectDuePosts` (called with maxPerRun: Infinity below but still
+  // respecting the per-platform daily budget) can never return more than
+  // one due `x` item and one due `instagram` item in the first place —
+  // there is at most ONE pair-ready campaign per run under current caps.
+  const duePlatformsByCampaign = new Map();
+  for (const item of due) {
+    const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+    if (!campaign) continue;
+    if (!duePlatformsByCampaign.has(campaign)) duePlatformsByCampaign.set(campaign, new Set());
+    duePlatformsByCampaign.get(campaign).add(item.platform);
+  }
+  // Campaigns whose FIRST sibling this run did not reach `posted` (codex
+  // review round 2, kanban t_bac31b1a-followup): `isPairReady` alone is a
+  // static, upfront flag — if the first sibling's actual publish attempt
+  // fails, retries, gets skipped, or waits, the second sibling must NOT
+  // still post alone through the pair exemption (that is exactly the
+  // single-platform outcome this whole mechanism exists to prevent). Every
+  // non-POSTED exit below for a pair sibling adds its campaign here BEFORE
+  // moving on to the next item, so `isPairReady` sees the break immediately
+  // — except a same-platform IDEMPOTENCY duplicate (`dup`, step 2 below):
+  // that means the sibling is already live from a PRIOR run, so the
+  // remaining sibling posting now is what COMPLETES the pair, not what
+  // breaks it, and marking it broken would strand the remaining sibling
+  // until the 48h stale rule kills it.
+  const brokenPairs = new Set();
+  const isPairReady = (campaign) => campaign !== '' && !brokenPairs.has(campaign) && (duePlatformsByCampaign.get(campaign)?.size ?? 0) >= 2;
   let attemptsThisRun = 0;
 
   for (const item of due) {
     const entry = validQueued.find((q) => q.data === item);
+    const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+    const pairReady = isPairReady(campaign);
+
+    // A sibling of an already-broken pair is deferred whole this run —
+    // its partner already failed to post, so this half must not ship
+    // alone. No attempt spent, no outcome recorded; it's still due and
+    // will be reconsidered (as a fresh pair, if its sibling is retried
+    // successfully) on the next run.
+    if (campaign && brokenPairs.has(campaign)) {
+      console.log(`social-poster: deferring ${entry.file} — its campaign "${campaign}" sibling did not post this run, so this half is held rather than shipping alone.`);
+      continue;
+    }
 
     // 1. Stale check FIRST — unconditional, regardless of what else is true
     // about this item. A 3-day-stale item must not quietly post just
@@ -371,6 +426,7 @@ export async function main() {
       });
       console.error(`social-poster: ${entry.file} moved to social/failed/ — stuck >48h past scheduledAt.`);
       outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, error: failureReason });
+      if (pairReady) brokenPairs.add(campaign);
       continue;
     }
 
@@ -384,9 +440,12 @@ export async function main() {
     // media dedupe (repeated-vs-earlier-in-THIS-run — the era-art guard's
     // `recentIg` list only reflects social/posted/ as of the start of this
     // run, so without this a second IG item in the same run could reuse
-    // media the FIRST item in this same run just posted).
+    // media the FIRST item in this same run just posted). A campaign PAIR
+    // sharing the same credited photo is deliberate (see
+    // buildSocialDraftPair) — exempt only that specific case, not an
+    // unrelated item that happens to reuse the same image.
     if (!blockReason) blockReason = eraArtGuardReason(item, recentIg);
-    if (!blockReason) {
+    if (!blockReason && !pairReady) {
       const repeatedThisRun = item.media?.find((m) => mediaUsedThisRun.has(m));
       if (repeatedThisRun) blockReason = `media "${repeatedThisRun}" was already posted earlier in this same run — not reposting it again this run.`;
     }
@@ -400,6 +459,12 @@ export async function main() {
         error: `${blockReason} Left in the queue, not counted as a failed attempt.`,
         overdueHours: hoursOverdue(item, now),
       });
+      // Only a genuine block breaks the pair — a duplicate-idempotency skip
+      // (dup !== null) means the sibling is ALREADY live from a prior run,
+      // so it does not count as a failure here; every other block reason
+      // (era-art, same-run media repeat) is a real reason this sibling
+      // will not ship this run, and the partner must not ship alone.
+      if (pairReady && !dup) brokenPairs.add(campaign);
       continue;
     }
 
@@ -423,6 +488,7 @@ export async function main() {
           error: reason,
           overdueHours: hoursOverdue(item, now),
         });
+        if (pairReady) brokenPairs.add(campaign);
         continue;
       }
     }
@@ -434,7 +500,19 @@ export async function main() {
     // MAX_POSTS_PER_RUN items are postable), so it's logged but NOT an
     // outcome — annotating every deferral would train readers to skim past
     // the warnings that matter.
-    if (attemptsThisRun >= MAX_POSTS_PER_RUN) {
+    //
+    // A due campaign PAIR is exempt from the per-item cap for its second
+    // sibling (2026-09-10, kanban t_bac31b1a — codex review): checkSimul-
+    // taneousPair requires both siblings' scheduledAt to land within 5
+    // minutes of each other, but MAX_POSTS_PER_RUN=1 would otherwise always
+    // defer one sibling to the next run (30 minutes later), silently
+    // defeating "all at once" the moment a real due pair reached the
+    // poster. Treating a due pair as ONE posting unit (both siblings post
+    // in the same run, deliberately over the nominal per-run count) is what
+    // makes the pairing promise the schema enforces actually true at
+    // publish time — see MAX_POSTS_PER_PLATFORM_PER_DAY in lib/queue.mjs,
+    // which still bounds each PLATFORM's daily volume regardless.
+    if (attemptsThisRun >= MAX_POSTS_PER_RUN && !pairReady) {
       console.log(`social-poster: per-run cap (${MAX_POSTS_PER_RUN}) reached — deferring ${entry.file} to the next run.`);
       continue;
     }
@@ -469,6 +547,7 @@ export async function main() {
       allPostedData.push(posted);
     } catch (err) {
       const lastError = String(err.message ?? err);
+      if (pairReady) brokenPairs.add(campaign); // every catch branch below is a non-POSTED outcome for a pair sibling
 
       // Ambiguous (transport-level, response never received) failures are
       // never auto-retried — see lib/platforms.mjs's publishFetch and this
@@ -511,5 +590,5 @@ export async function main() {
 
 // Only auto-run as a CLI; tests import `main` and drive it directly.
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main();
+  runMain(main, { name: 'post-queue' });
 }

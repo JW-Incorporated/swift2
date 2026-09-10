@@ -1,11 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { ERAS } from './eras';
+import { ERAS, threadDoorwaysForEra, eggDoorwaysForEra, embeddedYoutubeIds, mergeEraFeed, spaceDoorways, type EraFeedEntry } from '@swift2/experience';
 import { contentForEra } from './content';
 import { eraVideoFeed } from './videos';
-import { threadDoorwaysForEra, eggDoorwaysForEra } from './doorways';
-import { embeddedYoutubeIds, mergeEraFeed, type EraFeedEntry } from './era-feed';
-import { spaceDoorways } from './space-doorways';
-import type { EraId } from './types';
+import './theories'; // side effect: wires THEORIES_RAW into @swift2/experience for eggDoorwaysForEra
+import type { EraId } from '@swift2/experience';
 
 /**
  * Corpus regression for adversarial review finding #2 (2026-08-13):

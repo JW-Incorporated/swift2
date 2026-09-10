@@ -16,7 +16,7 @@ import {
   GitFork,
 } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import { eraStyle } from '@/lib/longlive/theme';
 import {
   THREADS,
@@ -25,9 +25,9 @@ import {
   threadHeroCredit,
   threadHeroSourceUrl,
   threadHeroTiles,
-} from '@/lib/longlive/lenses';
-import type { ThreadMeta } from '@/lib/longlive/lenses';
-import type { LensId } from '@/lib/longlive/types';
+} from '@swift2/experience';
+import type { ThreadMeta } from '@swift2/experience';
+import type { LensId } from '@swift2/experience';
 import { cn } from '@/lib/utils';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { ThreadsTimeline } from './ThreadsTimeline';

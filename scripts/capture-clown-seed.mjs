@@ -25,6 +25,7 @@
 // Usage: tsx scripts/capture-clown-seed.mjs "question text"
 
 import { POST } from '../apps/web/app/api/clown/route.ts';
+import { runMain } from './lib/cli.mjs';
 
 let modelCallCount = 0;
 const realFetch = globalThis.fetch;
@@ -39,11 +40,11 @@ async function main() {
   const question = process.argv[2];
   if (!question || !question.trim()) {
     console.error('Usage: tsx scripts/capture-clown-seed.mjs "question text"');
-    process.exit(2);
+    return 2;
   }
   if (!process.env.ANTHROPIC_API_KEY) {
     console.error('capture-clown-seed: ANTHROPIC_API_KEY is not set in the environment.');
-    process.exit(2);
+    return 2;
   }
 
   const req = new Request('http://localhost/api/clown', {
@@ -60,8 +61,4 @@ async function main() {
   console.log(JSON.stringify(body, null, 2));
 }
 
-main().catch((err) => {
-  console.error('capture-clown-seed: FAILED');
-  console.error(err.stack || err.message);
-  process.exit(1);
-});
+runMain(main, { name: 'capture-clown-seed' });

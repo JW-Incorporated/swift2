@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import {
   dispatchPendingEvents,
   dispatchDueDigests,
@@ -9,6 +8,7 @@ import {
   dispatchDueCountdowns,
   runCooldownPass,
 } from '@swift2/core/notifications-server';
+import { supabaseAdmin } from '../../../../lib/supabase-server';
 
 // Notifications Phase 2 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §10) —
 // the router's HTTP entry point. Runs `dispatchPendingEvents()` (fan-out +
@@ -32,15 +32,6 @@ import {
 // client-callable route with just the anon key.
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-
-function supabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
 
 function authorized(req: Request): boolean {
   const expected = process.env.CRON_SECRET;

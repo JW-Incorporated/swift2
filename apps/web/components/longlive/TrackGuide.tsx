@@ -6,8 +6,8 @@ import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import Image from 'next/image';
 import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
-import { tracksForEra } from '@/lib/longlive/tracks';
+import { getEra } from '@swift2/experience';
+import { tracksForEra } from '@swift2/experience';
 import { videosForEra, isPlayable, VIDEO_KIND_LABEL, type PlayableVideoNote } from '@/lib/longlive/videos';
 import { trackVideoFor } from '@/lib/longlive/track-video';
 import { eraStyle } from '@/lib/longlive/theme';
@@ -16,7 +16,7 @@ import { trackKey } from './TrackDetail';
 import { TrackFivePill } from './TrackFivePill';
 import { MomentVideo } from './MomentVideo';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import type { EraId, TrackNote } from '@/lib/longlive/types';
+import type { EraId, TrackNote } from '@swift2/experience';
 
 /**
  * The album track guide — an immersive per-era overlay (same pattern as
@@ -26,7 +26,7 @@ import type { EraId, TrackNote } from '@/lib/longlive/types';
  * note exist in the data, so gaps in an album's numbering are expected.
  */
 export function TrackGuide() {
-  const { trackGuideEraId, openTrackKey, share } = useAppState();
+  const { trackGuideEraId, openTrackKey } = useAppState();
   const { closeTrackGuide } = useAppActions();
 
   const era = trackGuideEraId ? getEra(trackGuideEraId) : undefined;
@@ -38,18 +38,18 @@ export function TrackGuide() {
   useScrollLock(open);
   useFocusTrap(open, dialogRef);
 
-  // Close on Escape — unless the share sheet or a song's TrackDetail is
-  // layered on top; the top-most overlay owns Escape until it closes itself
+  // Close on Escape — unless a song's TrackDetail is layered on top; the
+  // top-most overlay owns Escape until it closes itself
   // (otherwise one Escape while a song is open would tear down the whole
   // guide stack, since closeTrackGuide clears the open track too).
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !share && !openTrackKey) closeTrackGuide();
+      if (e.key === 'Escape' && !openTrackKey) closeTrackGuide();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, closeTrackGuide, share, openTrackKey]);
+  }, [open, closeTrackGuide, openTrackKey]);
 
   // Let the mobile back-swipe gesture close this guide instead of leaving the app.
   useBackDismiss(open, closeTrackGuide);

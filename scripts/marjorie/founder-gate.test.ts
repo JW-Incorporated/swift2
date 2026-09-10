@@ -44,6 +44,39 @@ describe('asksInBrief', () => {
     expect(asks.map((a: { issues: number[] }) => a.issues)).toEqual([[979], [799]]);
     expect(asks[1].ticked).toBe(true);
   });
+
+  // 2026-09-05 audit: `HA#22 …` lines registered a phantom ask against
+  // GitHub issue #22, and every HUMAN-ACTIONS line did the same.
+  it('does not read HA#NN (a HUMAN-ACTIONS item) as GitHub issue #NN', () => {
+    const body = [
+      '- [ ] [BLOCKING] HA#22 Photo-Enrichment egress block — waiting 11d',
+      '- [ ] 🔴 HA#4 API accounts (#3584 related) — waiting 21d',
+    ].join('\n');
+    const asks = asksInBrief(body);
+    expect(asks[0].issues).toEqual([]);
+    expect(asks[1].issues).toEqual([3584]);
+  });
+});
+
+describe('founder-task issues — the second phantom-ask loop', () => {
+  it('gates a founder-task by label, so it goes through resolveAsk like a decision', () => {
+    const g = classifyFounderGate({ number: 2195, title: 'founder-task: social reach week of 2026-08-17', labels: label('founder-task'), body: '' });
+    expect(g.gated).toBe(true);
+    expect(g.reasons).toContain('founder-task');
+  });
+
+  it('resolves a founder-task when the founder answered on the task itself (#2195, 2026-08-17)', () => {
+    const task = {
+      number: 2195, title: 'founder-task: social reach week of 2026-08-17', state: 'OPEN',
+      labels: label('founder-task'), createdAt: '2026-08-12T00:00:00Z',
+      comments: [{ author: { login: 'sffan15-sys' }, createdAt: '2026-08-17T23:09:20Z', body: 'All 3 tasks are complete. Image requested is attached.' }],
+    };
+    const briefs = [{ number: 2300, createdAt: '2026-08-16T12:00:00Z', body: '- [ ] [#2195](https://github.com/o/r/issues/2195) **founder-task**' }];
+    const { open, resolved } = partitionAsks([task], { briefs, now: new Date('2026-08-18T12:00:00Z').getTime() });
+    expect(open).toEqual([]);
+    expect(resolved.map((r: { number: number }) => r.number)).toEqual([2195]);
+    expect(resolved[0].resolution.how).toBe('answered-on-ticket');
+  });
 });
 
 describe('resolveAsk — the phantom-checklist fix', () => {

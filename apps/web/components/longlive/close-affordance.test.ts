@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 // affordance — solid, high-contrast, with the class-level 44px min tap target
 // (globals.css / globals.test.ts) — never a per-component translucent or
 // low-contrast button. These four were the off-class holdouts left after the
-// shared-class fix (#853): Crossings, ShareSheet, FeedbackButton and the Love
+// shared-class fix (#853): Crossings, FeedbackButton and the Love
 // Story EntryDetail each rolled their own faint X (text-ink-soft, bg-white/10,
 // era-btn-ghost, sub-24px padding). This source-locks them onto the standard
 // so a future edit can't quietly revert one below the a11y floor.
@@ -25,7 +25,6 @@ function closeButtonTag(src: string, aria: string): string {
 
 const CLOSE_BUTTONS: Array<{ file: string; aria: string }> = [
   { file: './Crossings.tsx', aria: 'Close crossing detail' },
-  { file: './ShareSheet.tsx', aria: 'Close share' },
   { file: './FeedbackButton.tsx', aria: 'Close feedback' },
   { file: './love-story/EntryDetail.tsx', aria: 'Close' },
 ];

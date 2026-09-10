@@ -169,6 +169,10 @@ describe('privacy policy — must describe what the code actually does', () => {
     ['Clownbot conversation retention', '180 days'],
     ['the Clownbot session cookie', 'cookie'],
     ['that the Clownbot memory system may be off', 'switched on'],
+    // Mobile app (2026-09-05, App Store release): device registry + opt-in push.
+    ['the mobile app device id', 'device id'],
+    ['the mobile push token', 'push token'],
+    ['the push relay vendor', 'expo'],
   ])('discloses %s', (_label, needle) => {
     expect(corpus).toContain(needle);
   });

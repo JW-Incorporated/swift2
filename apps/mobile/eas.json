@@ -24,6 +24,7 @@
     "preview": {
       "distribution": "internal",
       "environment": "preview",
+      "channel": "preview",
       "android": {
         "buildType": "apk"
       }
@@ -31,6 +32,7 @@
     "production": {
       "autoIncrement": true,
       "environment": "production",
+      "channel": "production",
       "android": {
         "buildType": "app-bundle"
       }
@@ -43,10 +45,7 @@
       },
       "ios": {
         "ascAppId": "6807657306",
-        "appleTeamId": "D9N628AFHS",
-        "ascApiKeyPath": "./credentials/AuthKey_QU7P2WC49Z.p8",
-        "ascApiKeyId": "QU7P2WC49Z",
-        "ascApiKeyIssuerId": "26d1ad10-af24-431a-a9bb-d097ca96e9bc"
+        "appleTeamId": "D9N628AFHS"
       }
     }
   }

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Music, Play } from 'lucide-react';
-import type { ReRecord } from '@/lib/longlive/types';
+import type { ReRecord } from '@swift2/experience';
 
 type SpotifyRefs = ReRecord['spotify'];
 type Side = 'original' | 'taylorsVersion';

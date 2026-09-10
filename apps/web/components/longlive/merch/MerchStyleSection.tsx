@@ -11,7 +11,7 @@
 
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { getContentItem } from '@/lib/longlive/content';
-import { ERAS, getEra } from '@/lib/longlive/eras';
+import { ERAS, getEra } from '@swift2/experience';
 import { MERCH_CATALOGUE, type MerchItem } from '@/lib/longlive/merch';
 import {
   merchMatchesFilter,
@@ -21,7 +21,7 @@ import {
   merchKinds,
   type MerchFilterId,
 } from '@/lib/longlive/merch-filters';
-import type { EraId, Product } from '@/lib/longlive/types';
+import type { EraId, Product } from '@swift2/experience';
 import { EraSpine, type EraSpineEntry } from './EraSpine';
 import { MerchCard } from './MerchCard';
 import { MerchEmptyPanel } from './MerchEmptyPanel';

@@ -5,20 +5,14 @@
 
 import { slugify } from './longlive-sync-shared.mjs';
 import { symbolsIn } from './knowledge-symbols.mjs';
+// R9 consolidation (Fable 5.1 review): SOURCE_TIER_BY_TYPE used to be
+// hand-typed here, duplicating the same tier-by-citation-type judgment that
+// lived independently in scripts/lib/reputable-sources.mjs and
+// packages/shared/src/news/*.ts. Now sourced from the build-generated
+// plain-JS mirror of packages/shared/src/source-tiers.ts (the single
+// hand-authored source), wired into `npm run check:generated`.
+import { VAULT_SOURCE_TIER_BY_TYPE as SOURCE_TIER_BY_TYPE } from './source-tiers.generated.mjs';
 
-const SOURCE_TIER_BY_TYPE = {
-  official: 'official',
-  interview: 'official',
-  reputable_press: 'established',
-  chart_database: 'established',
-  awards_database: 'established',
-  fashion_database: 'established',
-  wiki: 'established',
-  fan_forum: 'fan',
-  social: 'fan',
-  video: 'established',
-  image_source: 'established',
-};
 const TIER_RANK = { official: 3, established: 2, fan: 1 };
 
 /**

@@ -173,6 +173,23 @@ Every fact traces to a real, findable source — not a brand name, not a
 date, not a detail invented to fill a gap. If a detail can't be confirmed,
 it's left out, not guessed. This is a hard rule, not a style preference.
 
+## Video-first presentation
+
+When a moment's primary subject is available in an official YouTube upload,
+author the exact canonical `video` (`youtubeId` and title) so the reader gets a
+player rather than a text card that merely describes footage. Cite the upload
+in `moment.sources` with `source_type: 'official'`; `npm run validate:content`
+checks that the cited video id matches the player. This is authoring, not a
+frontend guess: a generic YouTube citation can be a fan archive or third-party
+upload and must remain a citation unless it is verified official.
+
+The only exceptions are `unavailable`, `removed`, `rights`, `privacy`, or
+`safety`, recorded as `videoPresentationException` on the item (or its
+`moment`). The validator rejects any other value, keeping a deliberate
+non-embed visible to reviewers rather than silently falling back to a text-only
+post. Privacy and safety concerns can still require the story itself be cut
+under the redlines; an exception never overrides those rules.
+
 ## Length discipline
 
 Enforced by DB CHECK constraints and restated as an authoring rule:

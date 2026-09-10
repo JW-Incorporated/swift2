@@ -149,6 +149,24 @@ export interface LiveTheory {
   promotedTo?: string;
   /** ISO 8601 timestamp. */
   expiresAt: string;
+  /** Community Engine P2-3/P2-4: how many corpus mentions fed a fan-origin
+   * theory (`live_theory.mention_count`) — the Clue Web origin badge's
+   * "340 mentions" count. Undefined for non-corpus (bot/site) rows and for
+   * fan rows the corpus miner hasn't touched yet. */
+  mentionCount?: number;
+  /** The subreddits/groups a fan-origin theory was mined from
+   * (`live_theory.communities`) — the origin badge's "r/TaylorSwift" part.
+   * Empty/undefined for non-corpus rows. */
+  communities?: string[];
+  /** Fan-side confidence from the corpus (`fan_theory_candidate.stance`,
+   * carried onto the promoted `live_theory` row) — `LiveTheoryCard`'s
+   * stance chip. Undefined for non-corpus rows. */
+  stance?: 'believed' | 'contested' | 'debunked_by_fans';
+  /** `live_theory.persistent` (P0-1) — true for corpus-promoted rows that
+   * don't age out at the ordinary 60-day `expires_at` default; the "Live
+   * now" strip (§3.4 C3.2) surfaces only these. Undefined/false for a
+   * pre-Community-Engine row queried before this column existed. */
+  persistent?: boolean;
 }
 
 /** A confirmed egg/theory precedent — built from the Vault by the canonical sync. */

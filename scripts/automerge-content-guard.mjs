@@ -40,6 +40,7 @@
 import { readFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
+import { runMain } from './lib/cli.mjs';
 
 /**
  * Code-file extensions we inspect for server markers. Anything else (JSON, MD,
@@ -224,12 +225,12 @@ export function scanFiles(files) {
   return out;
 }
 
-async function main() {
+async function run() {
   const argv = process.argv.slice(2);
   const i = argv.indexOf('--manifest');
   if (i === -1 || !argv[i + 1]) {
     console.error('usage: automerge-content-guard.mjs --manifest <json-array-of-paths>');
-    process.exit(2);
+    return 2;
   }
   let paths;
   try {
@@ -240,7 +241,7 @@ async function main() {
     }
   } catch (err) {
     console.error(`automerge-content-guard: could not read manifest: ${err.message ?? err}`);
-    process.exit(2);
+    return 2;
   }
 
   const files = [];
@@ -255,7 +256,7 @@ async function main() {
       files.push({ path: p, content: await readFile(p, 'utf8') });
     } catch (err) {
       console.error(`automerge-content-guard: could not read ${p}: ${err.message ?? err}`);
-      process.exit(2);
+      return 2;
     }
   }
 
@@ -266,16 +267,26 @@ async function main() {
       console.error(`  • ${p}`);
       for (const r of reasons) console.error(`      - ${r}`);
     }
-    process.exit(1);
+    return 1;
   }
   console.log(`automerge-content-guard: ${files.length} code file(s) scanned, none server-executing — clear.`);
+  return 0;
+}
+
+// A genuinely unexpected throw (a bug in scanFiles, etc.) exits 2, the same
+// "broken gate" code as a bad manifest/unreadable file — never the generic 1
+// runMain would otherwise assign to an uncaught error.
+async function main() {
+  try {
+    return await run();
+  } catch (err) {
+    console.error(err);
+    return 2;
+  }
 }
 
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(2);
-  });
+  runMain(main, { name: 'automerge-content-guard' });
 }

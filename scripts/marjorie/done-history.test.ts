@@ -25,6 +25,14 @@ describe('parseDoneTable', () => {
     expect(out[4].blockedOn).toBeNull();
   });
 
+  // 2026-09-05 audit: DoD item 4 records `agent (Marketplace) · nobody
+  // (Community)` and the brief said "reason not recorded" every day.
+  it('keeps a compound Blocked-on cell that names real parties', () => {
+    const out = parseDoneTable(TABLE(['| 4 | Marketplace + Community | 🟡 moving | agent (Marketplace) · nobody (Community) | build |']));
+    expect(out[4].blockedOn).toBe('agent (Marketplace) · nobody (Community)');
+    expect(sinceLastBrief(4, out[4], {})).toContain('agent (Marketplace)');
+  });
+
   it('skips the legend line and any row with an unrecognised status', () => {
     const body = TABLE([
       '| 1 | Real item | 🟡 moving | founder | do the thing |',

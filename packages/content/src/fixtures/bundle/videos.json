@@ -1,0 +1,21 @@
+{
+  "eraId": "folklore",
+  "videos": [
+    {
+      "slug": "cardigan-music-video",
+      "kind": "music_video",
+      "title": "cardigan (Official Music Video)",
+      "director": "Taylor Swift",
+      "releasedOn": "2020-07-27",
+      "relatedSongs": ["cardigan"],
+      "summary": "A self-directed video shot in isolation during the pandemic, using magical-realist visuals.",
+      "easterEggs": ["A piano that becomes a portal to a forest."],
+      "symbolism": "The piano-as-portal reflects folklore's theme of escaping into memory and story.",
+      "youtubeId": "5IfTPa4l4ns",
+      "sources": [
+        { "name": "Vogue", "url": "https://example.com/cardigan-video", "reliability": 4 }
+      ],
+      "tags": ["Music"]
+    }
+  ]
+}

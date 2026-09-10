@@ -9,5 +9,8 @@ export * from './news-types';
 export * from './similarity';
 export * from './cross-outlet-similarity';
 export * from './cluster';
-export * from './credibility';
-export * from './outlet-tiers';
+// Outlet-tier map + corroboration->verification_status now live in the
+// consolidated packages/shared/src/source-tiers.ts (R9, Fable 5.1 review) —
+// re-exported here so @swift2/shared/news's public surface (lookupOutletTier,
+// computeVerificationStatus, OUTLET_TIER_MAP, Corroboration, etc.) is unchanged.
+export * from '../source-tiers';

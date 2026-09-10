@@ -9,7 +9,7 @@ import {
   resolveEraSecretLink,
 } from '@/lib/longlive/era-secrets';
 import { trackKey } from './TrackDetail';
-import type { EraId } from '@/lib/longlive/types';
+import type { EraId } from '@swift2/experience';
 
 /** The viewer's local calendar day as `YYYY-MM-DD`. Client-only (see below). */
 function todayKey(): string {

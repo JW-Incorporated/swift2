@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { ContentTag } from './types';
+import type { ContentTag } from '@swift2/experience';
 import { ALL_TAGS } from './tags';
 import { TAG_COLORS, itemMatchesFilter, tagsPresent } from './tagBadges';
 

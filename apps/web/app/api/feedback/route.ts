@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
+import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -51,16 +52,10 @@ type Location = {
 // rightmost `x-forwarded-for` hop), not the client-spoofable leftmost XFF
 // value, so a script can no longer manufacture a fresh bucket per request
 // just by rotating a header.
-const HITS = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 5;
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 5 });
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 // See lib/longlive/client-ip.ts's trustedClientIp for the #1973 rationale
@@ -160,7 +155,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // Honeypot: bots fill hidden fields. Pretend success, drop silently.
-  if (payload.hp) return NextResponse.json({ ok: true }, { status: 200 });
+  if (isHoneypotTripped(payload.hp)) return NextResponse.json({ ok: true }, { status: 200 });
 
   const message = clip(payload.message, MAX_MESSAGE).trim();
   if (!message) {

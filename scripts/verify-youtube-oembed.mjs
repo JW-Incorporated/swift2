@@ -21,6 +21,8 @@
 // human-judgment half (which id to try, studio vs live preference) stays in
 // the routine.
 
+import { runMain } from './lib/cli.mjs';
+
 const OFFICIAL_AUTHORS = new Set(['Taylor Swift', 'Taylor Swift - Topic', 'TaylorSwiftVEVO']);
 const ID_RE = /^[A-Za-z0-9_-]{11}$/;
 
@@ -80,7 +82,7 @@ async function main() {
   const entries = argv.map(parseArg).filter(Boolean);
   if (!entries.length) {
     console.error('usage: node scripts/verify-youtube-oembed.mjs <id|slug=id> [...]');
-    process.exit(2);
+    return 2;
   }
 
   let failures = 0;
@@ -95,13 +97,10 @@ async function main() {
     if (!r.ok) failures += 1;
   }
   console.log(`\n${entries.length - failures}/${entries.length} passed, ${failures} rejected`);
-  if (failures) process.exit(1);
+  if (failures) return 1;
 }
 
 const invokedDirectly = process.argv[1] && process.argv[1].endsWith('verify-youtube-oembed.mjs');
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'verify-youtube-oembed' });
 }

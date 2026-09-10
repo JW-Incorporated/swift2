@@ -35,6 +35,7 @@ import {
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
+import { runMain } from './lib/cli.mjs';
 
 // slugify now lives in the dependency-free shared module (so the content-engine
 // can import it without @supabase/supabase-js); re-exported here because
@@ -229,8 +230,14 @@ export const RUMOR_STATUSES = new Set([
   'faded',
 ]);
 
-/** Mirrors RumorSourceTier in apps/web/lib/longlive/types.ts. */
-export const RUMOR_SOURCE_TIERS = new Set(['official', 'established', 'tabloid', 'social']);
+/** Mirrors RumorSourceTier in apps/web/lib/longlive/types.ts. R9 consolidation
+ * (Fable 5.1 review): sourced from the generated mirror of
+ * packages/shared/src/source-tiers.ts (the single hand-authored source) so
+ * this vocabulary can't drift from the other four source-tier lists it used
+ * to be independently hand-typed alongside. Re-wrapped as a Set here (the
+ * generated twin exports a plain array) since callers use `.has()`. */
+import { RUMOR_SOURCE_TIERS as RUMOR_SOURCE_TIERS_ARRAY } from './lib/source-tiers.generated.mjs';
+export const RUMOR_SOURCE_TIERS = new Set(RUMOR_SOURCE_TIERS_ARRAY);
 
 /**
  * Mirrors LocationSpecificity. No 'address' member on purpose — L3 is never
@@ -723,7 +730,7 @@ export function buildOutputSource(byEra) {
   lines.push('// Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.');
   lines.push("// Re-run that script after content-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from './types';");
+  lines.push("import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from '@swift2/experience';");
   lines.push('');
   // Freshness stamp — emitted ONLY during `prebuild` (the deploy build, where
   // npm sets npm_lifecycle_event=prebuild), never into the committed file.
@@ -923,8 +930,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'sync-longlive-content' });
 }

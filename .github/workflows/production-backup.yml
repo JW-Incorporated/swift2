@@ -1,0 +1,126 @@
+# Scheduled production backup — zero-spend mitigation for the BACKUPS launch
+# gate (#680) while this project is on Supabase Free (no platform backups, no
+# PITR — Joey, 2026-08-30; docs/backup-restore.md §2).
+#
+# WHY THIS EXISTS: Fable ruling FR-t_a0ad2392-4 (docs/decisions.md
+# 2026-09-06). The only state that exists nowhere but the database is the
+# `news_*` runtime tables, `news_source.last_polled_at`, and generated uuids
+# (docs/backup-restore.md §1). Layer B (`scripts/backup-restore-test.mjs`)
+# already reads all of production in ~8s over a read-only session (35 tables
+# / 8298 rows / 11.27 MB on 2026-09-06). Upgrading the Supabase plan is real
+# recurring spend and a founder call; a scheduled Layer-B artifact is zero
+# spend and turns "accept the risk" into "risk mitigated".
+#
+# SAFETY — this is a READ against production, never a write, and it never
+# restores anything:
+#   - `scripts/backup-restore-test.mjs --backup-only --source $SUPABASE_DB_URL`
+#     runs only the backup phase: a read-only session
+#     (`default_transaction_read_only=on`, pinned server-side — see
+#     scripts/lib/pg.mjs) inside one REPEATABLE READ snapshot transaction.
+#   - No target database is created, connected to, or touched. Nothing is
+#     restored, so there is no scratch Postgres service container to run or
+#     tear down here (contrast `production-backup-drill.yml`, which does
+#     restore, into its own throwaway container, for the separate
+#     restore-honesty check).
+#
+# CADENCE — daily, offset from the news worker's 6x/day cycle
+# (news-worker.yml runs at :10 past 01/05/09/13/17/21 UTC). 03:40 UTC sits
+# squarely between two of those runs so this backup never contends with a
+# live poll cycle for the same database.
+name: production-backup
+
+on:
+  schedule:
+    - cron: '40 3 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: production-backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Preflight — confirm SUPABASE_DB_URL is configured
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if [ -z "$SUPABASE_DB_URL" ]; then
+            echo "FAIL: SUPABASE_DB_URL secret is not configured in repo Actions secrets. Nothing was run."
+            exit 1
+          fi
+          echo "SUPABASE_DB_URL is configured."
+
+      - name: Back up production (read-only, backup phase only)
+        id: backup
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          set -euo pipefail
+          node scripts/backup-restore-test.mjs \
+            --source "$SUPABASE_DB_URL" \
+            --backup-only \
+            --keep \
+            --json \
+            | tee /tmp/backup.log
+
+      - name: Upload the backup artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: production-backup-${{ github.run_id }}
+          path: .backups/**
+          if-no-files-found: warn
+          retention-days: 90
+          # .backups is a dot-directory; upload-artifact silently skips
+          # hidden paths unless told otherwise (confirmed live on run
+          # 34056146853: the backup succeeded — 35 tables/8298 rows — but
+          # the artifact upload found zero files without this flag).
+          include-hidden-files: true
+
+      # Same evolving-issue pattern as the other backup/drill workflows
+      # (scripts/watchdog/upsert-alert.sh): one persistent issue per
+      # condition, self-healing on recovery, emailed via send-mail.py.
+      - name: Record the result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          OUTCOME: ${{ steps.backup.outcome }}
+        run: |
+          set -euo pipefail
+          ALERT_TITLE="Production backup failing"
+          if [ "$OUTCOME" = "success" ]; then
+            {
+              echo "Scheduled production backup succeeded at $(date -u +'%Y-%m-%d %H:%M UTC')."
+              echo ""
+              echo "Artifact: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+              echo ""
+              echo "Retained 90 days per docs/backup-restore.md §2. Download for a restore with:"
+              echo "  gh run download ${GITHUB_RUN_ID} -n production-backup-${GITHUB_RUN_ID} --repo ${GITHUB_REPOSITORY}"
+            } > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            exit 0
+          fi
+          {
+            echo "@sffan15-sys — the scheduled production backup FAILED at $(date -u +'%H:%M UTC')."
+            echo ""
+            echo "This is the only backup that exists for the Supabase Free-tier database (no platform backups, no PITR — docs/backup-restore.md §2). A failure here means the last successful artifact is the newest recovery point available."
+            echo ""
+            echo "Run log: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          exit 1

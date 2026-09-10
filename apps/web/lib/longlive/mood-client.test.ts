@@ -53,6 +53,17 @@ describe('classifyMood', () => {
     expect(await classifyMood(usage, 'heartbroken')).toBeNull();
   });
 
+  it('kill switch: MOOD_MODEL_DISABLED=1 stays inert, without spending', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'sk-test');
+    vi.stubEnv('MOOD_MODEL_DISABLED', '1');
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+    const usage = freshUsage();
+    expect(await classifyMood(usage, 'heartbroken')).toBeNull();
+    expect(fetchSpy).not.toHaveBeenCalled();
+    expect(usage.used()).toBe(0);
+  });
+
   it('returns null when the daily cap is reached — without calling the network', async () => {
     vi.stubEnv('ANTHROPIC_API_KEY', 'sk-test');
     const fetchSpy = vi.fn();

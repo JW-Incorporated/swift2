@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { AppProvider, useAppState } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import { eraStyle, vaultStyle, merchStyle, VAULT_THEME, MERCH_THEME } from '@/lib/longlive/theme';
 import { TopBar } from './TopBar';
 import { EraStream } from './EraStream';
@@ -15,7 +15,7 @@ import { MomentDetail } from './MomentDetail';
 import { TrackGuide } from './TrackGuide';
 import { TrackDetail } from './TrackDetail';
 import { TheoryGuide } from './TheoryGuide';
-import { ShareSheet } from './ShareSheet';
+import { ShareFallbackToast } from './ShareFallbackToast';
 import { SearchOverlay } from './SearchOverlay';
 import { SiteFooter } from './SiteFooter';
 import { FeedbackButton } from './FeedbackButton';
@@ -84,7 +84,7 @@ function Shell() {
       <TrackDetail />
       <TheoryGuide />
       <MomentDetail />
-      <ShareSheet />
+      <ShareFallbackToast />
       <SearchOverlay />
 
       {/* Mobile tab bar (P4, R3) — desktop keeps TopBar's pill rail instead. */}

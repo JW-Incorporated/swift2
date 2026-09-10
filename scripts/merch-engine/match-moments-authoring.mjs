@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { matchMoment, planPaidSearch } from './match-moments.mjs';
 import { searchAwinIndex } from './awin-index-search.mjs';
 import { verifyImage } from './verify-images.mjs';
+import { callAnthropicMessages, extractToolUseInput } from '../lib/anthropic.mjs';
 
 const SEARCH_API_ENDPOINT = 'https://serpapi.com/search.json';
 
@@ -184,10 +185,9 @@ export async function runMatcherAuthoring({
 }
 
 async function judgeWithClaude({ candidate, momentImageUrl }, { apiKey, fetchImpl = fetch }) {
-  const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-    body: JSON.stringify({
+  const { raw } = await callAnthropicMessages(
+    apiKey,
+    {
       model: 'claude-sonnet-5',
       max_tokens: 256,
       thinking: { type: 'disabled' },
@@ -205,12 +205,10 @@ async function judgeWithClaude({ candidate, momentImageUrl }, { apiKey, fetchImp
           { type: 'text', text: 'Score visual match from 0 to 100 using silhouette, color/pattern, garment type, and notable details.' },
         ],
       }],
-    }),
-  });
-  if (!response.ok) throw new Error(`anthropic vision request failed (${response.status})`);
-  const body = await response.json();
-  const toolUse = (body?.content ?? []).find((block) => block?.type === 'tool_use' && block.name === 'record_match_score');
-  return toolUse?.input ?? null;
+    },
+    { fetchImpl, errorLabel: 'anthropic vision request' },
+  );
+  return extractToolUseInput(raw, { toolName: 'record_match_score' });
 }
 
 async function readJson(path) {
@@ -264,10 +262,9 @@ async function main() {
 }
 
 async function extractDescriptorsWithClaude({ moment, momentImageUrl }, { apiKey, fetchImpl = fetch }) {
-  const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-    body: JSON.stringify({
+  const { raw } = await callAnthropicMessages(
+    apiKey,
+    {
       model: 'claude-sonnet-5',
       max_tokens: 256,
       thinking: { type: 'disabled' },
@@ -295,12 +292,10 @@ async function extractDescriptorsWithClaude({ moment, momentImageUrl }, { apiKey
           { type: 'text', text: 'Extract kind, color, pattern, silhouette, and named brand/designer if stated. Do not infer a brand that is not named.' },
         ],
       }],
-    }),
-  });
-  if (!response.ok) throw new Error(`anthropic descriptor request failed (${response.status})`);
-  const body = await response.json();
-  const toolUse = (body?.content ?? []).find((block) => block?.type === 'tool_use' && block.name === 'record_descriptors');
-  return toolUse?.input ?? {};
+    },
+    { fetchImpl, errorLabel: 'anthropic descriptor request' },
+  );
+  return extractToolUseInput(raw, { toolName: 'record_descriptors', fallback: {} });
 }
 
 const self = fileURLToPath(import.meta.url);

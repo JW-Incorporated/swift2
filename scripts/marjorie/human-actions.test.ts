@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { parseOpenActions, renderActionLine, sortForBrief, STALE_AFTER_DAYS } from './human-actions.mjs';
+import { parseOpenActions, renderActionLine, sortForBrief, STALE_AFTER_DAYS, parseMinutes, quickWins } from './human-actions.mjs';
 
 const NOW = new Date('2026-08-23T12:00:00Z').getTime();
 
@@ -34,6 +34,32 @@ const DOC = [
   '**Why it matters:** blah.',
   '',
   '**Status:** OPEN',
+  '',
+  '---',
+  '',
+  '### 22. [BLOCKING] Closed in place, still under OPEN — ~5 min',
+  '',
+  '**Filed:** 2026-08-10',
+  '',
+  '**Status:** OPEN',
+  '',
+  '**Update (2026-08-20):** fixed it.',
+  '',
+  '**Status:** RESOLVED (2026-08-20)',
+  '',
+  '---',
+  '',
+  '### 24. [UPGRADE] Done, dated status form — ~2 min',
+  '',
+  '**Filed:** 2026-08-11',
+  '',
+  '**Status (2026-08-21): DONE — no longer needed.**',
+  '',
+  '---',
+  '',
+  '### 38. [DONE] Tagged done in the header itself',
+  '',
+  '**Filed:** 2026-08-12',
   '',
   '---',
   '',
@@ -74,6 +100,28 @@ describe('parseOpenActions', () => {
     expect(item10.tag).toBe('BLOCKING');
     expect(item10.title).toBe('Something urgent — ~5 min');
   });
+
+  // 2026-09-05 audit: HA#22 (RESOLVED), HA#24 (DONE), HA#35 (DONE) sat under
+  // `## OPEN` with a terminal Status line and were asked of the founders
+  // every morning with a growing "waiting Nd" age.
+  it('drops items whose own Status line is terminal, even under ## OPEN', () => {
+    const items = parseOpenActions(DOC, { now: NOW });
+    expect(items.map((i) => i.number)).not.toContain(22); // RESOLVED (date)
+    expect(items.map((i) => i.number)).not.toContain(24); // Status (date): DONE
+    expect(items.map((i) => i.number)).not.toContain(38); // [DONE] header tag
+  });
+
+  it('lets the LAST Status line win when an item accretes updates', () => {
+    const all = parseOpenActions(DOC, { now: NOW, includeClosed: true });
+    const item22 = all.find((i) => i.number === 22)!;
+    expect(item22.status).toBe('RESOLVED');
+    expect(item22.closed).toBe(true);
+  });
+
+  it('still lists a plain OPEN item with an OPEN status', () => {
+    const all = parseOpenActions(DOC, { now: NOW, includeClosed: true });
+    expect(all.find((i) => i.number === 4)!.closed).toBe(false);
+  });
 });
 
 describe('renderActionLine', () => {
@@ -105,5 +153,40 @@ describe('sortForBrief', () => {
       { number: 5, tag: 'UPGRADE', ageDays: 30 },
     ];
     expect(sortForBrief(items).map((i) => i.number)).toEqual([5, 4]);
+  });
+});
+
+describe('parseMinutes', () => {
+  it('reads the ~N min estimate out of a title', () => {
+    expect(parseMinutes('Rename Karen\u2019s live trigger — ~2 min')).toBe(2);
+    expect(parseMinutes('Mobile release train — ~35 min total')).toBe(35);
+  });
+
+  it('uses the UPPER bound of a range (honest worst-case for a "quick" claim)', () => {
+    expect(parseMinutes('Vault Phase 4 needs a session — ~10-20 min')).toBe(20);
+    expect(parseMinutes('Two PRs stuck — ~5\u201315 min, needs your GitHub UI access')).toBe(15);
+  });
+
+  it('returns null, never a guess, when no estimate is present', () => {
+    expect(parseMinutes('No estimate here')).toBeNull();
+    expect(parseMinutes(undefined)).toBeNull();
+  });
+});
+
+describe('quickWins', () => {
+  const mk = (number, title) => ({ number, title, tag: 'UPGRADE', ageDays: 1 });
+  it('keeps only items at or under the minute cap, ascending by time', () => {
+    const items = [
+      mk(1, 'Big thing — ~35 min total'),
+      mk(2, 'Tiny thing — ~2 min'),
+      mk(3, 'Medium thing — ~10 min'),
+      mk(4, 'No estimate at all'),
+    ];
+    expect(quickWins(items).map((i) => i.number)).toEqual([2, 3]);
+  });
+
+  it('respects a custom minute cap', () => {
+    const items = [mk(1, 'x — ~20 min'), mk(2, 'y — ~5 min')];
+    expect(quickWins(items, 25).map((i) => i.number)).toEqual([2, 1]);
   });
 });

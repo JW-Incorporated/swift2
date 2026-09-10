@@ -29,6 +29,7 @@ import {
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'tracks');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'tracks.generated.ts');
@@ -330,7 +331,8 @@ export function renderModule(byEra) {
   lines.push('// (or the live Supabase track_note table when configured).');
   lines.push("// Re-run that script after track-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { EraId, TrackNote } from './types';");
+  lines.push("import type { EraId, TrackNote } from '@swift2/experience';");
+  lines.push("import { setTracksRawProvider } from '@swift2/experience';");
   lines.push('');
   lines.push('export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {');
   for (const eraId of Object.keys(byEra).sort()) {
@@ -363,6 +365,8 @@ export function renderModule(byEra) {
     lines.push('  ],');
   }
   lines.push('};');
+  lines.push('');
+  lines.push('setTracksRawProvider(TRACKS_RAW);');
   lines.push('');
   return lines.join('\n');
 }
@@ -470,8 +474,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'sync-longlive-tracks' });
 }

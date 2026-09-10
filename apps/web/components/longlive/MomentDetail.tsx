@@ -18,7 +18,9 @@ import {
   MessageCircleQuestion,
   ShoppingBag,
   ExternalLink,
+  House,
 } from 'lucide-react';
+import { shareTarget as shareTargetNow } from '@/lib/longlive/share-payload';
 import {
   useAppState,
   useAppActions,
@@ -27,8 +29,8 @@ import {
 } from '@/lib/longlive/store';
 import { isPointerOutsideContainedImage } from '@/lib/longlive/contain-fit';
 import { getContentItem } from '@/lib/longlive/content';
-import { getEra } from '@/lib/longlive/eras';
-import { getThread } from '@/lib/longlive/lenses';
+import { getEra } from '@swift2/experience';
+import { getThread } from '@swift2/experience';
 import {
   resolveMotifTrail,
   resolveRelatedMoments,
@@ -60,9 +62,9 @@ import {
   type RumorNote,
   type RumorStatus,
   type SubConfirmed,
-} from '@/lib/longlive/types';
+} from '@swift2/experience';
 import { renderMomentShopLink, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
-import { formatFullDate } from '@/lib/longlive/format';
+import { formatFullDate } from '@swift2/experience';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 // A moment at/above CONFIRMED_TIER (types.ts) is established fact — no
@@ -481,8 +483,8 @@ function MomentLightbox({
 }
 
 export function MomentDetail() {
-  const { openItemId, share } = useAppState();
-  const { closeItem, openShare, openItem } = useAppActions();
+  const { openItemId } = useAppState();
+  const { closeItem, goHome, openItem } = useAppActions();
   const { progress } = useProgress();
   const { markMomentVisited, toggleFavorite } = useProgressActions();
   const [revealed, setRevealed] = useState(false);
@@ -531,17 +533,15 @@ export function MomentDetail() {
     setRevealed(false);
   }, [item]);
 
-  // Close on Escape — but not while the share sheet is open on top of us;
-  // that overlay owns Escape until it closes itself.
   useEffect(() => {
     if (!openItemId) return;
     const onKey = (e: KeyboardEvent) => {
       // While the full-screen viewer is open it owns Escape (closes itself).
-      if (e.key === 'Escape' && !share && lightboxIndex === null) closeItem();
+      if (e.key === 'Escape' && lightboxIndex === null) closeItem();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [openItemId, closeItem, share, lightboxIndex]);
+  }, [openItemId, closeItem, lightboxIndex]);
 
   // Let the mobile back-swipe gesture close this pill instead of leaving the app.
   useBackDismiss(Boolean(item), closeItem);
@@ -620,6 +620,13 @@ export function MomentDetail() {
   const heroControls = (
     <div className="absolute right-4 top-4 z-10 flex gap-2">
       <button
+        onClick={goHome}
+        className="era-icon-btn rounded-full p-2 backdrop-blur-md"
+        aria-label="Go to home"
+      >
+        <House className="h-5 w-5" />
+      </button>
+      <button
         onClick={() => toggleFavorite(item.id)}
         className="era-icon-btn rounded-full p-2 backdrop-blur-md"
         aria-pressed={isFavorite}
@@ -631,7 +638,7 @@ export function MomentDetail() {
         <Heart className="h-5 w-5" fill={isFavorite ? 'currentColor' : 'none'} />
       </button>
       <button
-        onClick={() => openShare({ kind: 'item', itemId: item.id })}
+        onClick={() => void shareTargetNow({ kind: 'item', itemId: item.id })}
         className="era-icon-btn rounded-full p-2 backdrop-blur-md"
         aria-label="Share this moment"
       >

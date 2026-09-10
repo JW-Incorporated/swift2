@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
 import { keywordQuery, isEmptyQuery, hasBereavementSignal } from './mood-keywords';
-import { matchMoods, BEREAVEMENT_SLUGS } from './mood-match';
+import { matchMoods, BEREAVEMENT_SLUGS } from '@swift2/experience';
+import './vault-wiring';
 
 /** Slugs of the top-N keyword matches for a raw message. */
 function topSlugs(text: string, limit = 5): string[] {

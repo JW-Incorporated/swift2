@@ -1,0 +1,59 @@
+name: content-publish
+
+# OS-012 (docs/specs/2026-09-05-one-source-three-surfaces.md §6): mirrors the
+# content bundle to Supabase Storage on every merge to `main`, alongside
+# Vercel's own build of apps/web (which independently runs
+# `scripts/publish-content-bundle.mjs` via apps/web's `prebuild` and ships
+# the result as static files under /content/).
+#
+# Both publish paths build the bundle from the SAME commit's
+# supabase/seed/**, and scripts/build-content-bundle.mjs is deterministic
+# (OS-011's own done-when: two builds of identical seed content produce a
+# byte-identical bundleVersion — see check:content-bundle) — so this job's
+# build of the bundle here and Vercel's separate build of it both produce
+# the same bundleVersion without either one depending on the other's output.
+# That is what makes the OS-012 done-when true: `.../content/current.json`
+# (Vercel) and the Storage URL return the same bundleVersion after a merge.
+#
+# Rollback: repoint current.json (both destinations) at a still-present
+# older <bundleVersion>/ — see docs/deploy.md. This workflow never deletes an
+# older bundleVersion from Storage.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: content-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Build the content bundle (resyncs every sync-longlive-*.mjs first)
+        run: npm run content:publish
+      - name: Preflight — confirm SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY are configured
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "FAIL: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not configured in repo Actions secrets. Nothing was mirrored."
+            exit 1
+          fi
+          echo "Supabase service-role credentials are configured."
+      - name: Mirror the bundle to Supabase Storage (bucket "content")
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npm run content:publish-storage

@@ -180,6 +180,34 @@ already-screened content — so its policy is expiry-only; `egg_ledger`/
 Vault material, not raw ingest, so they read publicly like the rest of the
 Vault).
 
+### The Community Engine (added 2026-09-06)
+
+`docs/proposals/2026-09-06-community-engine-plan.md` §5 adds a third data
+world alongside the Vault and the Current tier above:
+**engagement drafts we paste into Reddit/Facebook**, and a **year-deep
+fan-theory corpus** — schema in
+`supabase/migrations/20260917000000_community_engine.sql`, types in
+`packages/shared/src/community.ts` (exposed via the `@swift2/shared/
+community` subpath, not the root barrel — same boundary reasoning as
+`news/news-types.ts`). No automation reads or writes these tables yet;
+Phase 0 is schema only, gated behind `GATE-P0` before Phase 1 (engagement
+engine) or Phase 2 (content engine) starts:
+
+| Table | What it holds |
+|---|---|
+| `community_watchlist` | The subreddits/Facebook groups the engine watches — `scan` (daily hot-thread scan) and `crawl` (yearly corpus crawl) flags, `allows_links` (per-sub self-promo rule, human-set). Seeded from the founder-approved §8-Q1 defaults. |
+| `engagement_lead` | A candidate reply the Answerer desk drafts for a human to paste (§2.5) — `relevance` score, `draft`/`draft_alt`, `link_included`, `status` (`new → drafted → emailed → posted` or `skipped_*`). `context` is our-words summary, never a raw comment/post body. |
+| `community_post_ledger` | The "did we already comment" truth (§2.6) — Reddit gives us no such API, so this is our own dedupe source for the daily scan. |
+| `fan_theory_candidate` | A theory extracted from the year-deep crawl, pre-promotion (§3.3) — `theory_key` dedupes across threads; accepted rows promote into `live_theory` (`origin='fan'`). |
+| `live_theory.persistent`/`mention_count`/`communities` | New columns on the existing table (`20260901000000_knowledge_engine.sql`) so a corpus-mined theory doesn't age out at the default 60-day `expires_at` — it ages out only when `outcome` resolves. |
+
+RLS: unlike `current_item`/`fan_signal`/`live_theory`, these four objects
+are **service-role only** — no anon/authenticated policy exists. Drafts and
+leads never reach the browser except through the HMAC-signed
+`/api/community/ack` route (Phase 1 P1-5). Standing guardrail from the
+plan's header carries over unchanged: nothing here auto-posts,
+auto-comments, auto-replies, or auto-DMs — a human always posts.
+
 ## Enforcement (defense in depth, unchanged shape)
 
 | Layer | Change |

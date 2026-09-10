@@ -227,7 +227,12 @@ jobs:
         uses: ./.github/actions/commit-and-pr
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
-          paths: supabase/seed/content apps/web/lib/longlive/content-vault.generated.ts
+          # apps/web/lib/longlive/content-vault.generated.ts is no longer
+          # committed (OS-014, 2026-09-05 — gitignored, build-time-only); the
+          # sync:content step above still regenerates it locally so this
+          # job's own build step sees fresh data, but there is nothing to
+          # `git add` for it, so only the seed content path is staged here.
+          paths: supabase/seed/content
           branch: ${{ env.branch }}
           commit-message: "fix(merch): remove E3-demoted mismatches (run ${{ github.run_id }})"
           pr-title: "fix(merch): remove E3-demoted mismatches (run ${{ github.run_id }})"

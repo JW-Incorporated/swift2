@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { ArrowRight, Compass } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
-import { autoFocalPoint, focalPointOf, primaryImageRef, type ContentItem } from '@/lib/longlive/types';
+import { getEra } from '@swift2/experience';
+import { autoFocalPoint, focalPointOf, primaryImageRef, type ContentItem } from '@swift2/experience';
 
 // Hotlinked photo URLs bypass Next's image optimizer (whose remotePatterns
 // allowlist covers only YouTube posters) — same pattern as MomentDetail.

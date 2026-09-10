@@ -34,39 +34,23 @@
 // that would cause — neither was safe to ship in this pass without a full
 // corpus re-audit. RR2 (blind-item denylist) and RR4 (redline-category gate)
 // both still apply independently and are unaffected by this residual gap.
+//
+// R9 consolidation (Fable 5.1 review): the domain/name LISTS below used to be
+// hand-typed here, duplicating packages/shared/src/news/outlet-tiers.ts's
+// OUTLET_TIER_MAP by hand with no structural guarantee the two agreed. They
+// now come from scripts/lib/source-tiers.generated.mjs — the build-generated
+// plain-JS mirror of packages/shared/src/source-tiers.ts (the single
+// hand-authored source), wired into `npm run check:generated` so drift is a
+// red CI check. This file's own function bodies (hostOf/isOfficialDomain/
+// isEstablishedDomain/isEstablishedName) are unchanged.
 
-/** Domains that verify a claim as literally Taylor's own — the only thing
- * that can earn `official` tier. */
-export const OFFICIAL_DOMAINS = new Set(['taylorswift.com']);
+import {
+  OFFICIAL_DOMAINS,
+  ESTABLISHED_DOMAINS,
+  ESTABLISHED_SOURCE_NAMES,
+} from './source-tiers.generated.mjs';
 
-/** Direct-publisher domains that earn `established` on their own. Mirrors,
- * but does not import, `packages/shared/src/news/outlet-tiers.ts`'s
- * OUTLET_TIER_MAP — that module runs under the worker's TS build, this one
- * under plain `node scripts/*.mjs` with no compile step, so it cannot be a
- * shared import; same "mirrored, not shared" convention as
- * `packages/shared/src/current-types.ts`'s SOURCE_TIERS comment. */
-export const ESTABLISHED_DOMAINS = new Set([
-  'billboard.com', 'variety.com', 'rollingstone.com', 'hollywoodreporter.com',
-  'wwd.com', 'deadline.com', 'stereogum.com', 'theguardian.com', 'bbc.co.uk',
-  'bbc.com', 'nytimes.com', 'people.com', 'etonline.com', 'vogue.com',
-  'elle.com', 'harpersbazaar.com', 'tennessean.com', 'kansascity.com',
-  'pitchfork.com', 'forbes.com', 'nbcnews.com', 'cbsnews.com', 'today.com',
-  'apnews.com', 'reuters.com', 'usatoday.com', 'snopes.com',
-]);
-
-/** Outlet NAMES (lowercase) that earn `established` when they appear as the
- * PRIMARY or "via"-carrier component of a rumor's `reportedBy` — see
- * rumor-redlines.mjs's `primarySource()`/`viaSource()`, which extract those
- * two components specifically (not a whole-string scan) to keep this narrow. */
-export const ESTABLISHED_SOURCE_NAMES = [
-  'billboard', 'variety', 'rolling stone', 'hollywood reporter', 'wwd',
-  'deadline', 'stereogum', 'the guardian', 'bbc', 'bbc news',
-  'the new york times', 'new york times', 'people', 'entertainment tonight',
-  'et online', 'vogue', 'elle', "harper's bazaar", 'the tennessean',
-  'kansas city star', 'pitchfork', 'forbes', 'nbc news', 'cbs news', 'today',
-  'ap', 'associated press', 'reuters', 'usa today', 'snopes',
-  'yahoo entertainment', 'the sporting news', 'w magazine', 'fox 17',
-];
+export { OFFICIAL_DOMAINS, ESTABLISHED_DOMAINS, ESTABLISHED_SOURCE_NAMES };
 
 /** Case-insensitive `www.`-stripped hostname, or null for an unparsable url. */
 export function hostOf(url) {

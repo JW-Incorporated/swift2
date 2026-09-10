@@ -1,0 +1,17 @@
+{
+  "lore": [
+    {
+      "id": "lore-folklore-cabin-rumor",
+      "status": "debunked",
+      "date": "2020-07-25",
+      "lastCheckedOn": "2020-08-01",
+      "headline": "Fans speculated Taylor wrote folklore in an actual remote cabin",
+      "detail": "The rustic aesthetic was studio art direction, not a literal retreat — Taylor confirmed the album was written and recorded remotely during the pandemic, not at any single cabin.",
+      "sources": [
+        { "name": "Rolling Stone", "url": "https://example.com/folklore-imagery" }
+      ],
+      "evergreen": true,
+      "tags": ["folklore", "rollout"]
+    }
+  ]
+}

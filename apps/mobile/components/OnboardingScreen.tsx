@@ -86,7 +86,7 @@ export function OnboardingScreen({ onDone }: OnboardingScreenProps) {
           accessibilityLabel="Customize"
           style={styles.customizeButton}
         >
-          <Text style={styles.customizeText}>Customize \u2192</Text>
+          <Text style={styles.customizeText}>Customize →</Text>
         </Pressable>
       </ScrollView>
     </View>

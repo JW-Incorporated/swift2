@@ -7,6 +7,335 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-10 — Mandatory X+Instagram pairing restored; the 2026-09-05 appearance-lane X-only carve-out is superseded (kanban t_bac31b1a)
+
+**Context:** Joey, 2026-09-10 (#taylor-social), founder directive: "There's
+never a time where we post to only X, or only IG. Everything should be the
+same" — one idea goes out to X and Instagram (which auto-cross-posts to
+Facebook), together, no exceptions. This directly targeted the 2026-09-05
+entry above, whose part 2 ("Appearance-lane posts go X text-only... no
+longer manufactures an Instagram sibling at all") the founder had not
+approved and reopened the exact single-platform exception the 2026-08-26
+"Always an IG copy. Always." rule had already closed unconditionally.
+
+**Decision (supersedes the 2026-09-05 entry's part 2 and the `mediaKind:
+"video-thumb"` value entirely; part 1's underlying finding — a rehosted
+thumbnail is not a "photo" — still stands and is unaffected).**
+1. `mediaKind: "video-thumb"` is REMOVED from
+   `scripts/social/lib/queue-schema.mjs`'s `MEDIA_KINDS` — no longer
+   schema-recognized at all. A draft declaring it hard-fails like any other
+   unrecognized `mediaKind`.
+2. `checkCampaignPair`'s `appearance:`-family exemption
+   (`scripts/social/check-drafts.mjs`) is removed. Every `appearance:
+   <videoId>` campaign is now paired exactly like every other campaign —
+   no exception, of any kind, for any lane.
+3. `scripts/appearance-discovery/lib/social-draft.mjs`'s
+   `buildSocialDraftPair` now sources a real credited photo from
+   `social/photo-library.json` (the same rotation/selector every other
+   campaign draws from) and stages BOTH an X and an Instagram draft, sharing
+   the same `campaign` and `scheduledAt`. If the photo library has no
+   eligible entry, it throws rather than silently staging an X-only draft —
+   the lane simply cannot file until inventory exists, same posture as any
+   other paired campaign that can't source a photo.
+4. New: paired siblings must schedule within 5 minutes of each other
+   (`checkSimultaneousPair`, `scripts/social/check-drafts.mjs`) — "all at
+   once" is now a real scheduling constraint, not just a same-day one.
+   `scripts/social/post-queue.mjs` treats a due campaign pair as ONE posting
+   unit (exempt from the per-run item cap and the same-run media-reuse
+   guard for its second sibling) so the poster can actually publish both
+   within one run, not defer one 30 minutes to the next.
+
+**Implementation:** `scripts/social/lib/queue-schema.mjs`,
+`scripts/social/lib/queue-schema.test.ts`, `scripts/social/check-drafts.mjs`,
+`scripts/social/check-drafts.test.ts`, `scripts/social/post-queue.mjs`,
+`scripts/appearance-discovery/lib/social-draft.mjs`,
+`scripts/appearance-discovery/lib/social-draft.test.ts`,
+`scripts/appearance-discovery/discover.mjs`, `social/README.md`.
+
+**Approved by:** founder directive (Joey, 2026-09-10, #taylor-social) +
+Fable arbiter ruling FR-t_bac31b1a-1 (kanban t_bac31b1a) on the residual
+opener-rule collision-margin tradeoff in the Instagram caption template —
+review-cycle procedural point only, does not touch this policy decision.
+
+---
+
+## 2026-09-06 — Structural fix for recurring stranded-PR problem: proactive branch keep-up + faster watchdog escalation (t_21a0cd6f)
+
+**Context:** Joey, 2026-09-06, in response to t_dcb1f2c0's root-cause
+writeup on 7 stranded PRs that day ("Solve it however you want. Use your
+best judgment. I just don't want it to recur"). t_dcb1f2c0 found 6 of 7
+failed `build` for the identical reason: opened against an older `main`
+while bot content lanes merge every ~2-5 minutes, so each PR's own CI kept
+checking stale assumptions. `git merge main` fixed all 6 with zero
+conflicts — proof this was pure staleness, not real content collision.
+`watchdog.yml`'s existing "PRs stuck" step only detects this 24h+ later and
+does not repair anything.
+
+**Fix (two parts):**
+1. **New `.github/workflows/auto-merge-keepup.yml`** — runs every 15
+   minutes, lists open PRs, and for every PR that (a) targets `main`, (b) is
+   `BEHIND` main, (c) is not `hold`/`cie:escalate`/`founder-decision`
+   labelled, and (d) passes the SAME branch/author content-lane gate
+   `auto-merge-content.yml`'s `enable` job already uses
+   (`scripts/automerge-branch-author-gate.mjs`, now with a CLI entry point
+   reused via `scripts/automerge-keepup.mjs`) — merges `origin/main` into the
+   branch and pushes, using `SOCIAL_POSTER_PAT` (not `GITHUB_TOKEN`, so the
+   push actually re-triggers `build`). A real merge conflict is left
+   completely untouched (dry-run merge first, abort on conflict) — this
+   workflow never resolves content, only mechanically re-syncs. Bounded to 8
+   PRs/run (Actions-minutes discipline, same reasoning as watchdog.yml's
+   `RERUN_BUDGET`).
+2. **`watchdog.yml`'s "PRs stuck on failing or missing checks" step** now
+   runs on every hourly trigger (previously daily-only) and its
+   `RED_AFTER_H` threshold dropped 24h → 6h: with the staleness class
+   structurally prevented by (1), a PR still red after 6h is far more likely
+   a genuine failure that deserves a founder's eyes sooner. The CI re-run
+   sub-step (`gh run rerun`, `RERUN_BUDGET`) stays gated to the daily cron
+   only, so the more frequent alert pass does not multiply re-run spend.
+
+**Why this is safe to run unattended:** the keep-up job reuses the exact
+same eligibility gate auto-merge already trusts to land a PR unattended once
+green — it does not expand who/what may merge, only keeps already-eligible
+branches from drifting stale before auto-merge gets the chance. It never
+opens a PR, never resolves a conflict, never touches content.
+
+**Alternatives considered:** widen `RED_AFTER_H` re-run frequency instead of
+adding a keep-up job (rejected — a CI re-run against the same stale base
+proves nothing; the actual defect is the stale base itself, not a flaky
+check); have each content-lane agent self-rebase before re-running
+(rejected — agents no longer babysit their own PRs by design, 2026-07-25
+decision, and re-arming that would reintroduce the ~69%-of-token-spend
+self-check-in problem that decision eliminated); lower `RED_AFTER_H` without
+adding keep-up (rejected — would alert MORE on the exact staleness noise this
+fix is meant to eliminate).
+
+**Approved by:** Joey ("solve it however you want", 2026-09-06, kanban
+t_21a0cd6f).
+
+---
+
+## 2026-09-06 — Future-dated Showgirl moment pulled; blocking future-date gate added (t_187359e9)
+
+**Context:** Joey, 2026-09-06: "our engine for producing content is still
+posting stuff without images. Last two posts, one of which is dated IN THE
+FUTURE (9/12/26 = wtf?) dont have pictures." Verified against the live site
+and a local CIE run (`node scripts/content-engine/run.mjs all --no-images`):
+the two newest `the-life-of-a-showgirl` moments were, in order —
+1. `florida-orchestra-taylor-swift-symphony-era-mahaffey`, dated 2026-09-12
+   (six days after the 2026-09-06 authoring run that added it, PR #3910/#3906)
+   and with `thumbnailUrl: null` — the future date AND the missing photo.
+2. `i-knew-it-i-knew-you-country-radio-double-meanings`, dated 2026-09-05,
+   also `thumbnailUrl: null` — the second no-photo item Joey saw.
+
+**Fix:**
+- Pulled the Florida Orchestra moment entirely rather than back-dating it —
+  there is no true date to move it to since the concert has not happened
+  yet. Left a dated comment in the seed file for whoever re-authors it after
+  2026-09-12.
+- Marked the radio-interview moment `photosReviewed` (no reusable,
+  allowlisted subject photo exists for this specific interview; the era
+  already carries verified photos for the same song elsewhere) so
+  `content.top-of-feed-photo` stops re-flagging a reviewed decision as a gap.
+- Added a blocking check to `scripts/validate-content.mjs` (CI's
+  `check:validate-content` step, part of the required `build` check): any
+  seed moment dated after the CI run date is now a hard `ERROR`, not just a
+  nightly-scan finding someone has to notice. The existing deterministic CIE
+  checker (`fact.claim-risk`) already caught this pattern but only surfaces
+  in a scheduled report; this closes the gap between "detected" and
+  "blocks the merge."
+
+**Why not also fix `amc-leawood-films-eras-tour-inspiration` (the 10th-newest
+no-photo item) here:** it is not one of the two items Joey reported (it's
+already several positions back in the feed) and is already inside the
+existing photo-backlog lane (open PR #3902 and its siblings are actively
+working the `content.top-of-feed-photo` ticket queue). Fixing it here would
+duplicate that in-flight work.
+
+**Alternatives considered:** leave the future-dated item and just add a
+photo (rejected — the event genuinely has not happened yet, so no real photo
+can exist and shipping any image would misrepresent an unconfirmed future
+event); rely on the nightly CIE scan catching future dates going forward
+(rejected — that is the exact detection-without-enforcement gap that let
+this one reach the live site, per RC-3 in
+`docs/audits/2026-09-05-newest-posts-no-images-root-cause.md`).
+
+**Approved by:** Joey (direct escalation in chat, 2026-09-06, routed via
+kanban t_187359e9).
+
+---
+
+## 2026-09-06 — Fable triage of the Founders' Brief: 7 of 13 "waiting on you" items were never founder items
+
+**Context:** Joey, 2026-09-06: "Dispatch one card to assess which of the
+issues can be solved without a founder. Be aggressive, make decisions."
+Brief #3893 listed 13 open founder asks. Kanban t_a0ad2392 (Fable 5.1)
+ruled each one against the reversibility test (2026-07-11 operating
+model) and the human-only list (credentials, real spend, irreversible
+external actions, legal exposure). Rulings are binding on agents; a
+founder may overrule after the fact by commenting the ruling id.
+
+| Ruling | Item | Verdict | Why |
+|---|---|---|---|
+| FR-t_a0ad2392-1 | HA#41 / #3616 Karen trigger rename | **Done by agent** | The live runner is now `.github/workflows/routine-karen-nightly.yml` (routines migration, HA#47); renamed there + `runner-cadence.json`. The claude.ai trigger is on #47's *disable* list — you never rename something you are retiring. |
+| FR-t_a0ad2392-2 | HA#42 / #3631 Kevin comment-edit tool | **Done by agent** | Kevin's desk now runs as a GitHub Action with `Bash` + `GH_TOKEN`; `gh api -X PATCH …/issues/comments/{id}` is edit-in-place with no connector change. Revert to edit-in-place is a child card. |
+| FR-t_a0ad2392-3 | HA#9 keep PRs required on `main` | **SKIP — precedent** | `CLAUDE.md` ("`build` gates every merge") and the 2026-08-22 merge-authority entry already assume PR-only landing. Reversible via the ruleset UI any time; verified `protect-swift2-main` (id 21672404) active. |
+| FR-t_a0ad2392-4 | HA#23 / #680 BACKUPS gate | **Founder half done; engineering half found broken** | Step 1 was Joey's 2026-08-30 report. Step 3 (`workflow_dispatch`) needs no founder — ran it: backup of production bytes PASSED (35 tables / 8298 rows / 11.27 MB), restore FAILED on `auth.users` (Supabase-only schema), and the workflow **masked the failure** (`\| tee` without `pipefail`). Two child cards. "Accept the risk" is not a founder decision either: a scheduled Layer-B backup artifact at zero spend mitigates it — child card. |
+| FR-t_a0ad2392-5 | HA#16 Facebook groups checklist | **Converted** | Seed from `sources.md`'s researched groups (child card); the real export needs Joey's login and belongs on the Sunday `fb-export-reminder.yml` issue, not the daily brief. |
+| FR-t_a0ad2392-6 | HA#4 Reddit API account | **Dependency removed** | Reddit is already read without a key (`reddit-rss.ts`, `fanmade-discovery.mjs`); Etsy + Awin keys exist. E5 marketplace research unparked — child card. |
+| FR-t_a0ad2392-7 | #1955 Midnights + TTPD depth spot-check | **Agent QA, not founder taste** | The J3.5 bar is the rubric's "Active" tier (2–4 sourceable items/month). That is measurable: a depth audit script + report (child card). The merge sequence that blocked it landed 2026-08-12; the ticket was stale. `founder-task` label removed; re-add only if the audit finds a gap that needs editorial judgment. |
+| FR-t_a0ad2392-8 | #138 CSAM enrollment (PhotoDNA + NCMEC) | **Deferred with trigger** | The on-file recommendation is "defer until the site accepts user photo uploads" and it does not. 58 days unanswered *is* deferral; deferral is reversible. `founder-decision` label removed so it leaves the daily brief; `cie:safety` stays. Hard trigger: any card/PR that adds user image upload must reopen the ask first (noted on the issue + `docs/definition-of-done.md`). Enrollment itself remains human-only when that day comes. |
+| — | HA#43–46 mobile release train (EXPO_TOKEN, iOS signing, Play key, push creds) | **Human-only — consolidated** | Credentials on Expo/Apple/Google accounts. Reduced to one decision card instead of four line items; `PLAY_SERVICE_ACCOUNT_JSON` already exists as a repo secret (2026-09-06), so the Android submit can be wired from Actions once `EXPO_TOKEN` exists (child card). |
+| — | #3891 SOCIAL_FREEZE | **Already cleared** | Joey flipped it 2026-09-06 19:01; verified posting resumed. |
+
+**Net:** 13 → 4 founder items (#47's 15 routine disables, `EXPO_TOKEN`,
+Wyatt's iOS credential upload, push credentials). Everything else is
+either done or on the swift2 kanban as children of t_a0ad2392.
+
+**Alternatives considered:** leave items as founder asks until answered
+(rejected — 5 of them had aged 13–58 days with no decision content); ask
+Joey to confirm each ruling before acting (rejected — every ruling is
+reversible and the directive was "make decisions").
+
+**Approved by:** Fable arbiter (claude-fable-5-1), per
+`policy/escalation-matrix.yaml`; founder overrule by comment.
+
+---
+
+## 2026-09-05 — #3584 checker hole closed: rehosted video thumbnails can't be `mediaKind: "photo"`; appearance lane is X-only
+
+**Decision (Fable 5.1 ruling, kanban t_36d74b87 → t_503ff677, binding, reversible design/policy call — no founder reply needed).**
+1. A rehosted YouTube/broadcaster thumbnail is NOT a `photo`. This entry's
+   2026-08-15 definition of "photo" (a license-cleared local file) and
+   `docs/marketing/social-strategy.md` §2 (no typography/designed cards
+   standing in for real media) already said so — #3584 is a checker hole,
+   not a new policy. `scripts/social/check-drafts.mjs`'s `checkMedia` now
+   hard-fails a `mediaKind: "photo"` tile whose `mediaCredit`/`mediaSource`
+   reads like a rehosted video thumbnail, or that isn't in an explicit
+   allowlist of the genuinely cleared corpus files under
+   `/social/library/photos/` (`CLEARED_PHOTO_ALLOWLIST`) — either signal
+   alone fails. `scripts/social/lib/queue-schema.mjs` carries a matching
+   `mediaKind: "video-thumb"` value (the new declared kind for this shape):
+   Instagram drafts reject it outright; X drafts may only carry it with no
+   attached image (a bare link preview).
+2. Appearance-lane posts go X text-only. Instagram is skipped unless a
+   cleared photo exists (the calendar's "empty IG slot beats a failed one"
+   rule) — this lane has none to offer, so it no longer manufactures an
+   Instagram sibling at all. `checkCampaignPair`'s otherwise-unconditional
+   cross-platform pairing rule (Joey, 2026-08-25/26, "always an IG copy,
+   always") now exempts `appearance:`-family campaigns by name, since this
+   is the one lane the ruling deliberately carves an X-only shape out for.
+3. The lane may keep running unattended (2026-08-25 decision stands)
+   PROVIDED the checker enforces 1 and 2 mechanically (now true — see
+   above). Caption copy must not claim engagement with unwatched media
+   ("come watch with me", "my whole day is now about") — that template was
+   already dropped from `scripts/appearance-discovery/lib/social-draft.mjs`
+   in the 2026-08-31 entry below; this entry only removes the leftover
+   Instagram/thumbnail machinery around it (the thumbnail fetch, the vision
+   "Taylor is really in the frame" verification call, and the
+   `mediaKind: "photo"` declaration it fed).
+
+**Implementation:** `scripts/social/check-drafts.mjs`,
+`scripts/social/check-drafts.test.ts`, `scripts/social/lib/queue-schema.mjs`,
+`scripts/appearance-discovery/lib/social-draft.mjs` (rewritten X-only, pure,
+no network/vision dependency), `scripts/appearance-discovery/lib/social-draft.test.ts`,
+`scripts/appearance-discovery/discover.mjs` (drops the thumbnail fetch/write
+step for this lane). Deleted 4 stale queue files past the 48h stale window
+that would never post: `2026-08-31-appearance-ldBrFonU8NA-{x,ig}.json`,
+`2026-09-01-appearance-T6iTnTV-Rgw-{x,ig}.json` (the GMA Dolly-memorial card
+never shipped).
+
+**Approved by:** Fable 5.1 arbiter ruling on kanban t_36d74b87, implemented
+on t_503ff677 — reversible checker/policy-enforcement fix under standing
+agent authority (`merge_authority: agent`). Issue #3584 commented with this
+ruling and closed.
+
+## 2026-09-05 — ADR: the content bundle is a versioned artifact, not a database (OS-010)
+
+**Context:** D1 (ratified 2026-09-05, `docs/specs/2026-09-05-one-source-
+three-surfaces.md` §4) already decided content's source of truth is git
+seeds → published bundle, not Supabase at runtime. OS-010 is the first
+implementation card under D1: define the typed contract (`packages/content`)
+every surface (web, iOS, Android) validates the bundle against.
+
+**Decision.** `packages/content/src/schema.ts` defines zod schemas mirroring
+the hand-authored types already shipping in `apps/web/lib/longlive/
+{types,content,tracks,theories,videos,era-secrets,merch,song-moods,
+clownbot-lore}.ts`. A bundle is a `manifest.json` (`{ schemaVersion,
+bundleVersion, generatedAt, files: { name -> { path, sha256, bytes } } }`)
+plus one JSON file per domain (content is split per era; tracks/theories/
+videos/era-secrets are also per-era; merch/song-moods/clownbot-lore are
+whole-catalogue). `bundleVersion` is a content hash (sha256 of the sorted
+per-file hashes), not a timestamp or counter, so two builds from
+byte-identical seed content are byte-identical bundles — this is what lets
+OS-011's "run it twice, get identical hashes" done-when be literally true,
+and it is what makes `current.json` (OS-012) a safe, cacheable pointer: a
+client can compare `bundleVersion` strings to know whether it already has
+the content, with no clock or counter to get out of sync across three build
+pipelines (Vercel, EAS, CI).
+
+**Why an artifact, not a DB.** Three independent reasons, each sufficient on
+its own:
+1. **Determinism across three runtimes.** Web (Next.js/Vercel), iOS, and
+   Android must render byte-identical content from the same input. A shared
+   read-only JSON artifact, versioned and hashed, guarantees that trivially;
+   a live DB query does not — different query timing, different replica
+   lag, or a mid-release write could serve three surfaces three different
+   answers to "what does the app look like right now."
+2. **The stale-production failure this avoids is not hypothetical.** D1's
+   own rejected-alternative note (`docs/specs/2026-09-05-one-source-three-
+   surfaces.md` §4) cites issues #723/#725 — Supabase-as-runtime-content
+   already produced a stale-production incident once on this project. An
+   artifact with an explicit, hashed version number cannot silently drift:
+   a client either has bundle X or it doesn't, and re-fetching `current.json`
+   is the entire cache-invalidation story.
+3. **Offline-first mobile.** `packages/content`'s loader (OS-013) caches the
+   last-good bundle on-device (`expo-file-system`); a native screen renders
+   from that cache with the network off. A live DB call has no equivalent
+   fallback without re-implementing an offline cache ON TOP of Supabase,
+   which is strictly more moving parts for the same result an artifact gives
+   for free.
+
+**N-1 schema support.** `schemaVersion` is a small positive integer, bumped
+ONLY on a breaking change to the shapes in `schema.ts` (a field changing
+type or a previously-optional field becoming required — additive optional
+fields do NOT bump it). A loader built against schemaVersion N must still be
+able to read a bundle published at schemaVersion N-1: this is what lets a
+mobile client running an older EAS Update (D4) continue rendering correctly
+against a newer web-published bundle for the one release cycle before it
+catches up, instead of hard-failing on every schema bump. OS-041 owns the
+CI check that enforces this ("a schema change ships with a loader that
+still reads the previous version"); this ADR fixes the mechanism
+(`schemaVersion` field + N-1 contract) that check enforces.
+
+**Alternatives considered:**
+- *Supabase as the runtime content source* — rejected by D1 itself (re-
+  creates #723/#725's stale-production failure; a DB round-trip on every
+  page load).
+- *A single monolithic JSON file instead of per-domain files* — rejected:
+  every surface would download the whole catalogue (all eras, all tracks,
+  all lore) to render one era, defeating OS-011's per-era split and
+  inflating the mobile bundle-size risk called out in spec §8.
+- *`bundleVersion` as a build timestamp or monotonic counter* — rejected:
+  neither is reproducible from the same input (a rebuild with no content
+  change would still bump the version, breaking client-side cache reuse
+  and OS-011's determinism done-when).
+
+**Consequences:** `scripts/build-content-bundle.mjs` (OS-011) must produce
+output that validates against every schema in this file byte-for-byte
+identically across runs. `packages/content`'s loader (OS-013) is the only
+place that touches `zod` at runtime on the client; UI code continues to
+consume the same TypeScript shapes it already does today (the schemas here
+are structurally compatible with `apps/web/lib/longlive/types.ts`, not a
+new/competing type system) until OS-014/OS-015 switch the read path.
+
+**Approved by:** no separate founder approval required — this is scoped,
+reversible implementation work under D1's already-ratified decision, per
+`CLAUDE.md` decision authority; OS-010 land-your-own-green-PR authority
+covers it (`docs/specs/2026-09-05-one-source-three-surfaces.md` registry
+constraints).
+
+---
+
 ## 2026-09-02 — Nonce-based CSP removes inline-script exception
 
 **Decision.** `apps/web/proxy.ts` generates a fresh nonce for each rendered
@@ -6233,3 +6562,109 @@ MCP connectors auto-attached to the new recall-check trigger on creation
 `claude-opus-4-8` 2-week trial the table already records as decided
 (D5=A) — worth a live re-check; Karen's pending rename is tracked
 separately as issue #3616.
+
+## 2026-09-05 — The mobile app ships the website in a native shell (WebView), native port deferred
+
+**Decision (Wyatt, owner, in session 2026-09-05 — final; Joey informed via #531):**
+`apps/mobile` renders **www.longlivets.com in a full-screen WebView**
+(`components/SiteShell.tsx`) and keeps everything built natively around it:
+device registry, opt-in push registration, the bell → notification settings,
+the inbox, and notification deep links (which now navigate the WebView to the
+matching site URL). The native Vault navigator (`VaultNavigator.tsx`,
+`EraTimeline.tsx`) stays in the tree unmounted as the long-term port target.
+
+**Why:** the first TestFlight build (v1.0.0 build 3, 2026-09-05) exposed that
+the two apps had diverged completely. The website is the self-contained
+experience layer under `apps/web/lib/longlive` (~64k lines, 99 components,
+generated in-repo content — see `docs/longlive-experience.md`); the native
+app was the ~2k-line Supabase "Vault" MVP that `docs/architecture.md` intended
+the web to converge on, which never happened. Porting the site to React
+Native is weeks of work; a shell ships the real product today and every web
+deploy reaches the app instantly. Reversible: a later build can swap the
+shell for native screens one at a time.
+
+**Accepted risk:** App Store guideline 4.2 (minimum functionality) rejects
+"repackaged websites". The native push/settings/inbox surface, deep links,
+and in-app offline handling are the defense. If App Review rejects on 4.2,
+the fallback is to re-mount `VaultNavigator` as an additional native tab
+rather than argue.
+
+**Consequences:** the `/privacy` mobile section and both stores' data-safety
+answers now inherit the website's collection (feedback text, mood/Clownbot
+text to the Claude API, Vercel Web Analytics, Clownbot cookie) on top of the
+device id + push token — App Privacy label becomes Identifiers (Device ID,
+User ID), User Content, Usage Data, all not linked, no tracking.
+`apps/mobile/lib/vault.ts` and `@swift2/core` are no longer called from
+the mounted app; `architecture.md`'s "reuse packages/* unchanged" holds only
+for the deferred native port.
+
+## 2026-09-05 — Convergence decisions D1–D4 ratified: one content bundle, two renderers on one core, progressive native port, EAS Update
+
+**Decided by:** Wyatt (owner), in session, 2026-09-05 — final, not pending
+Joey's confirmation. Joey informed via issue #531. Spec:
+`docs/specs/2026-09-05-one-source-three-surfaces.md` (now marked ratified).
+
+- **D1 — Content source of truth = git seeds → published, versioned bundle.**
+  Authoring stays in `supabase/seed/**` (the content agents are untouched);
+  `scripts/build-content-bundle.mjs` publishes a hashed JSON bundle on every
+  merge that web, iOS and Android all read through `packages/content`.
+  Supabase keeps only dynamic data (devices, prefs, notification events,
+  clown memory). *Rejected:* Supabase as the runtime content source — it
+  re-creates the stale-production failure of #723/#725 and puts a DB call in
+  every page load.
+- **D2 — Two renderers, one headless core.** Next.js stays for the web,
+  React Native for mobile; both consume `packages/experience`. *Rejected:*
+  a universal react-native-web app — a full rewrite of a working 64k-line
+  site with weaker SEO and performance.
+- **D3 — Progressive native port, route by route, behind flags, with the
+  WebView shell as fallback** until the last route lands. *Rejected:*
+  big-bang rewrite behind the shell (months with nothing shipping).
+- **D4 — EAS Update for JS-only mobile changes**, fingerprint runtime
+  policy; store builds only when native code changes. *Rejected:* store
+  builds only (the app would lag the web by days on every change).
+
+**Why now:** the WebView shell (entry above) is a stop-gap; without these
+four calls no Phase 1+ card in the spec was Ready. All phases are unblocked.
+
+## 2026-09-05 — Mobile release train: iOS and Android ship as one unit, from EAS, never from a laptop
+
+**Decided by:** Wyatt (owner), in session, 2026-09-05 — "I don't want one to
+ever fall behind the other or we accidentally only push out fixes to half
+of our users." Runbook: `docs/mobile-release.md`.
+
+**What:** every merge to `main` touching `apps/mobile/**` or
+`packages/**` triggers `apps/mobile/.eas/workflows/release.yml` (an EAS
+Workflow, kicked off by `.github/workflows/mobile-release.yml`). EAS
+fingerprints the commit's native layer for each platform; platforms whose
+fingerprint already has a production build get ONE over-the-air update
+group (both platforms in one job); platforms without one get a store build,
+and **neither platform is submitted until both builds succeed**. An
+independent check, `scripts/mobile/check-parity.mjs` (run by
+`.github/workflows/mobile-parity.yml` every 6h and after every train),
+raises one persistent alert issue if the platforms' latest builds or
+updates diverge (`STRANDED_OTA`, `SPLIT_UPDATE`, `VERSION_SKEW`,
+`BUILD_LAG`) or if it cannot run.
+
+**Why now:** the 2026-09-05 manual builds of `main` failed on both platforms
+in `CONFIGURE_EXPO_UPDATES` with a runtime-version mismatch — the
+fingerprint computed on a Windows checkout of this monorepo differs from the
+one EAS computes (hoisting paths for `@expo/config-plugins`). A laptop in the
+loop is therefore not just a process risk but a correctness bug: a build
+that did slip through would never match an OTA update. Separately, the Play
+internal track was still on the 2026-08-30 bundle while iOS had moved to
+build 4 — exactly the half-shipped state this rules out.
+
+**Supersedes:** `.github/workflows/eas-update.yml` (OS-040), which
+published per-platform, unconditionally, with no store-build path — removed.
+The `production-local` iOS profile (PR #3809) becomes a stop-gap to retire
+once HUMAN-ACTIONS #45 moves the iOS credentials into EAS.
+
+**Human prerequisites (filed):** #44 `EXPO_TOKEN` repo secret; #45 iOS
+credentials + ASC key into EAS; #46 Google Play service-account key into
+EAS. Until all three exist the train fails loudly on both platforms rather
+than shipping one.
+
+**Alternatives rejected:** GitHub Actions running `eas build` per platform
+with base64 secrets (puts signing material in a second secret store and
+keeps the runner's fingerprint in play); keeping manual `eas build` +
+manual Play upload (the failure mode this replaces).

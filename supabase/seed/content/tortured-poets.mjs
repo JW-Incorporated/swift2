@@ -660,7 +660,7 @@ export default {
         'https://img.mlbstatic.com/mlb-images/image/upload/t_2x1/t_w1536/mlb/gbi9ws0peesvkjm8m0ye.jpg',
       moment: {
         context:
-          "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.\n\nThey watched from a right-field luxury suite with what Kelce later called an \"unbelievable crew\" of friends; no outlet pinned down whose suite it was, and no other celebrities were photographed inside with them. The neutral dress code was its own tell — both wore black-and-navy caps by Midnight Rodeo, a Kansas City band whose merch Kelce favors (his from its \"You're Not Dreaming\" line), with Taylor finishing the look in her signature red lip rather than any team gear.\n\nThe night's viral image was Taylor's startled reaction to Juan Soto's leadoff home run in the bottom of the third, a broadcast cutaway that MLB and the Yankees reposted on their own channels; TBS announcer Brian Anderson had already flagged Kelce as a \"big Cleveland fan.\" Kelce, a Cleveland Heights native, quietly pulled for the visiting Guardians \"in hostile territory,\" as he put it on New Heights, and days later defended his hometown loyalty on X after being trolled for wearing no Guardians gear. It was the couple's first MLB game together and their only postseason-baseball outing that October — one beat in a run of New York sporting dates that had included the Sept. 8 US Open final — with no reported early exit and no player weighing in on their presence.",
+          "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.\n\nThey watched from a right-field luxury suite with what Kelce later called an \"unbelievable crew\" of friends; no outlet pinned down whose suite it was, and no other celebrities were photographed inside with them. The neutral dress code was its own tell — both wore black-and-navy caps by Midnight Rodeo, a Kansas City band whose merch Kelce favors (his from its \"You're Not Dreaming\" line), with Taylor finishing the look in her signature red lip rather than any team gear.\n\nThe night's viral image was Taylor's startled reaction to Juan Soto's leadoff home run in the bottom of the third, a broadcast cutaway that MLB and the Yankees reposted on their own channels; TBS announcer Brian Anderson had already flagged Kelce as a \"big Cleveland fan.\" Kelce, a Cleveland Heights native, quietly pulled for the visiting Guardians \"in hostile territory,\" as he put it on New Heights, and days later defended his hometown loyalty on X after being trolled for wearing no Guardians gear. It was, per the available coverage, the couple's first MLB game together and their only reported postseason-baseball outing that October — one beat in a run of New York sporting dates that had included the Sept. 8 US Open final — with no reported early exit and no player weighing in on their presence.",
         sources: [
           {
             outlet: 'ESPN',
@@ -763,7 +763,7 @@ export default {
         'https://www.rollingstone.com/wp-content/uploads/2024/10/taylor-swift-florence-welch-florida-miami-show.jpg?w=1600&h=900&crop=1',
       moment: {
         context:
-          'The first show since Wembley on Aug. 20 — Oct. 18, 2024 at Hard Rock Stadium, and the start of the tour\'s last lap. Over its first two nights (Oct. 18–19) the run drew more than 122,000, breaking Billy Joel and Elton John\'s 1995 two-night Hard Rock Stadium record of 103,694 — with Billy Joel himself in the crowd the night it fell; a third sold-out show followed Oct. 20 with no separately published count. The layoff showed in the wardrobe: new Roberto Cavalli looks by Fausto Puglisi, headlined by the first new Reputation outfit of the entire tour — a gold-and-black one-leg bodysuit with a 3-D cobra, retiring the red-sequin-snake catsuit worn at every show since March 2023 — plus a new sapphire-fringe Fearless dress and a four-color crystal ombré wrap dress for the acoustic set (fashion desks documented three new Miami looks in all).\n\nThe TTPD set had the marquee guest: Florence Welch walked out for a live "Florida!!!" on all three nights. It wasn\'t the song\'s debut — that had come at the Aug. 20 Wembley finale — but Miami made the duet a fixture. Otherwise the setlist held; only the nightly two-song surprise changed: "Tim McGraw" / "Timeless" and "this is me trying" / "Daylight" (18th); "Should\'ve Said No" / "I Did Something Bad" and "loml" / "White Horse" (19th); "Out of the Woods" / "All You Had to Do Was Stay" and "mirrorball" / "Guilty as Sin?" (20th). Rain soaked the open-canopy opener — "a little rain never stopped Swift," wrote Deadline. Travis Kelce, mid-NFL season, missed the run, though his mother Donna and brother Jason\'s family came opening night.\n\nThe three nights sat inside a documented South Florida tourism surge: FIU analysts projected the run would push Miami\'s average hotel rate above $200 for the first October in more than a decade, against an Eras Tour per-attendee spend they estimated near $1,327 a head — likely higher in a costlier market like Miami.',
+          'The first show since Wembley on Aug. 20 — Oct. 18, 2024 at Hard Rock Stadium, and the start of the tour\'s last lap. Over its first two nights (Oct. 18–19) the run drew more than 122,000, breaking Billy Joel and Elton John\'s 1995 two-night Hard Rock Stadium record of 103,694 — with Billy Joel himself in the crowd the night it fell; a third sold-out show followed Oct. 20 with no separately published count. The layoff showed in the wardrobe: new Roberto Cavalli looks by Fausto Puglisi, headlined by the first new reputation outfit of the entire tour — a gold-and-black one-leg bodysuit with a 3-D cobra, retiring the red-sequin-snake catsuit worn at every show since March 2023 — plus a new sapphire-fringe Fearless dress and a four-color crystal ombré wrap dress for the acoustic set (fashion desks documented three new Miami looks in all).\n\nThe TTPD set had the marquee guest: Florence Welch walked out for a live "Florida!!!" on all three nights. It wasn\'t the song\'s debut — that had come at the Aug. 20 Wembley finale — but Miami made the duet a fixture. Otherwise the setlist held; only the nightly two-song surprise changed: "Tim McGraw" / "Timeless" and "this is me trying" / "Daylight" (18th); "Should\'ve Said No" / "I Did Something Bad" and "loml" / "White Horse" (19th); "Out of the Woods" / "All You Had to Do Was Stay" and "mirrorball" / "Guilty as Sin?" (20th). Rain soaked the open-canopy opener — "a little rain never stopped Swift," wrote Deadline. Travis Kelce, mid-NFL season, missed the run, though his mother Donna and brother Jason\'s family came opening night.\n\nThe three nights sat inside a documented South Florida tourism surge: FIU analysts projected the run would push Miami\'s average hotel rate above $200 for the first October in more than a decade, against an Eras Tour per-attendee spend they estimated near $1,327 a head — likely higher in a costlier market like Miami.',
         sources: [
           {
             outlet: 'Deadline',
@@ -811,7 +811,7 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
-            notes: 'First new Reputation look of the tour (gold-and-black cobra bodysuit); Roberto Cavalli / Fausto Puglisi across the final leg',
+            notes: 'First new reputation look of the tour (gold-and-black cobra bodysuit); Roberto Cavalli / Fausto Puglisi across the final leg',
           },
           {
             outlet: 'Newsweek',
@@ -851,7 +851,7 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 3,
-            notes: 'Three new Miami looks (Reputation cobra bodysuit, Fearless fringe, acoustic ombré dress) — no new Midnights look',
+            notes: 'Three new Miami looks (reputation cobra bodysuit, Fearless fringe, acoustic ombré dress) — no new Midnights look',
           },
           {
             outlet: 'TMZ',
@@ -871,7 +871,7 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
-            notes: 'The cobra-bodysuit swap fueled Reputation (Taylor\'s Version) speculation; Swift\'s Oct 22 deflection ("nice when the crowd notices").',
+            notes: 'The cobra-bodysuit swap fueled reputation (Taylor\'s Version) speculation; Swift\'s Oct 22 deflection ("nice when the crowd notices").',
           },
           {
             outlet: 'Rolling Stone',
@@ -1054,7 +1054,7 @@ export default {
         'https://wish-media.s3.us-east-2.amazonaws.com/wp-content/2024/11/04/MAIN-PIC-ac-photo-taylor-swift-1.jpg',
       moment: {
         context:
-          'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl. Mayor Joe Hogsett proclaimed "Taylor Swift Weekend," and downtown leaned into a "Swift City" nickname — press-and-fan shorthand, not an official renaming — while roughly 81% of ticket holders came from out of state. Visit Indy anticipated a "healthy nine-figure" impact and economists floated $100M-plus, though an IU economist cautioned the true figure is essentially unknowable; read it as an estimate.\n\nEach acoustic surprise slot landed with the finality fans expected. Night 1 paired "The Albatross"/"Holy Ground" and "Cold As You"/"exile"; night 2, "The Prophecy"/"This Love" and "Maroon"/"Cowboy Like Me"; and the final U.S. night (Nov. 3), "Cornelia Street"/"The Bolter" and "Death by a Thousand Cuts"/"The Great War." From the stage that night she named it plainly — the very last U.S. show the Eras Tour would ever play.\n\nInside the building each crowd topped 69,000 and each night broke the attendance record the one before had just set, for 207,000 across the weekend — opening night alone drew 69,000, itself a Lucas Oil Stadium concert record. Indianapolis is also where the Taylor–Caitlin Clark friendship began: Clark attended, met Andrea Swift and Travis Kelce in a suite, and Taylor later sent her four bags of Eras merch with a note calling her "inspiring to watch from afar" and an invitation to a Chiefs game. After Indy, only Toronto and Vancouver remained.',
+          'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl. Mayor Joe Hogsett proclaimed "Taylor Swift Weekend," and downtown leaned into a "Swift City" nickname — press-and-fan shorthand, not an official renaming — while roughly 81% of ticket holders came from out of state. Visit Indy anticipated a "healthy nine-figure" impact and economists floated $100M-plus, though an IU economist cautioned the true figure is essentially unknowable; read it as an estimate.\n\nEach acoustic surprise slot landed with the finality fans expected. Night 1 paired "The Albatross"/"Holy Ground" and "Cold As You"/"exile"; night 2, "The Prophecy"/"This Love" and "Maroon"/"Cowboy Like Me"; and the final U.S. night (Nov. 3), "Cornelia Street"/"The Bolter" and "Death by a Thousand Cuts"/"The Great War." From the stage that night she named it plainly — the very last U.S. show the Eras Tour would ever play.\n\nInside the building each crowd topped 69,000 and each night broke the attendance record the one before had just set, for 207,000 across the weekend — opening night alone drew 69,000, itself a Lucas Oil Stadium concert record. Indianapolis is also where the Taylor–Caitlin Clark friendship first became publicly visible: Clark attended, met Andrea Swift and Travis Kelce in a suite, and Taylor later sent her four bags of Eras merch with a note calling her "inspiring to watch from afar" and an invitation to a Chiefs game. After Indy, only Toronto and Vancouver remained.',
         sources: [
           {
             outlet: 'WTHR',
@@ -1384,7 +1384,7 @@ export default {
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/241208-taylor-swift-mn-1245-48703f.jpg',
             credit: 'Kevin Winter/Getty Images for TAS Rights Management',
-            caption: 'The Reputation set on the first night of the farewell stand at BC Place, Dec. 6, 2024.',
+            caption: 'The reputation set on the first night of the farewell stand at BC Place, Dec. 6, 2024.',
             focalPoint: '59% 22%',
           },
           // Photo depth pass (round 2, 2026-07-19): nine more frames, all
@@ -1430,7 +1430,7 @@ export default {
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-reputation-ae-241208-4905ed.jpg',
             credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
-            caption: 'The Reputation set on the finale night, Dec. 8, 2024.',
+            caption: 'The reputation set on the finale night, Dec. 8, 2024.',
             kind: 'primary',
             focalPoint: '55% 30%',
           },
@@ -1808,6 +1808,10 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): a real photo of the two
             // together at the March 17 2025 iHeartRadio Music Awards itself.
             url: 'https://i.abcnewsfe.com/a/a4f153c7-b859-4f68-81b3-31d32dde44cf/taylor-travis_1774576414070_hpMain_16x9.jpg?w=992',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // both faces sit in the upper half, Travis left-of-center and
+            // Taylor right-of-center — split the difference, bias high.
+            focalPoint: '54% 32%',
             credit: 'Kevin Mazur/Getty Images for iHeartRadio',
             caption: 'Taylor Swift and Travis Kelce together at the 2025 iHeartRadio Music Awards, March 17, 2025, where their Wembley cameo won Favorite Surprise Guest.',
             kind: 'reference',
@@ -1900,7 +1904,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg/500px-Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg',
       moment: {
         context:
-          'The pieces came from Elena Velez\'s Fall 2024 runway collection — Velez, the 2022 CFDA Emerging Designer of the Year, was raised in Milwaukee by a single mother who captained ships on the Great Lakes, and told Vogue her aim is a "more multi-dimensional representation of womanhood, good and bad."\n\nMonths after the video, the ensemble got museum treatment as one of 13 theatrically staged stops on the V&A\'s free Taylor Swift | Songbook Trail in London (July 27–Sept. 8, 2024), where the museum described it as fusing "monochromatic elements of B-movie sci-fi with a Victorian gothic aesthetic."',
+          'The pieces came from Elena Velez\'s Fall 2024 runway collection — Velez, the 2022 CFDA Emerging Designer of the Year, was raised in Milwaukee by a single mother who captained ships on the Great Lakes, and has described her aim as a "more multi-dimensional representation of womanhood, good and bad."\n\nMonths after the video, the ensemble got museum treatment as one of 13 theatrically staged stops on the V&A\'s free Taylor Swift | Songbook Trail in London (July 27–Sept. 8, 2024), where the museum described it as fusing "monochromatic elements of B-movie sci-fi with a Victorian gothic aesthetic."',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fortnight_(song)' },
           { outlet: 'V&A', url: 'https://www.vam.ac.uk/articles/va-trail-taylor-swift-songbook' },
@@ -1959,12 +1963,12 @@ export default {
       category: 'fashion',
       title: '2024 VMAs red carpet: a tartan Dior corset and cape',
       snippet:
-        'A custom Christian Dior look from the Resort 2025 collection — plaid bustier, open cape-like skirt, thigh-high Stuart Weitzman boots, and lace-up gloves. Fans called it "Reputation"-coded.',
+        'A custom Christian Dior look from the Resort 2025 collection — plaid bustier, open cape-like skirt, thigh-high Stuart Weitzman boots, and lace-up gloves. Fans called it "reputation"-coded.',
       sourceUrl: 'https://www.marieclaire.com/fashion/taylor-swift-2024-vmas-red-carpet-tartan-corset/',
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a-1200-80.jpg',
       moment: {
         context:
-          'The Sept. 11, 2024 look adapted a runway design from Dior\'s Resort 2025 collection — a show Dior staged in Scotland — into a tartan bustier with black hot pants and an open skirt that flowed behind her "like a Highland warrior\'s cape" — Marie Claire\'s phrase for it. Joseph Cassell Falconer styled it with Stuart Weitzman thigh-high boots, lace-up leather gloves, and a plaid choker cut to match the corset print; hair was a classic blow-out over heavy black eyeliner and a lighter-than-usual red lip.\n\nFans immediately filed the black-and-plaid punk styling as "Reputation"-coded — the same guessing game her black Versace VMAs look had set off in 2023 — though she never commented on the inspiration. Whatever the signal, the night itself became a record haul: she left with seven Moon Persons, including her third straight Video of the Year.',
+          'The Sept. 11, 2024 look adapted a runway design from Dior\'s Resort 2025 collection — a show Dior staged in Scotland — into a tartan bustier with black hot pants and an open skirt that flowed behind her "like a Highland warrior\'s cape" — Marie Claire\'s phrase for it. Joseph Cassell Falconer styled it with Stuart Weitzman thigh-high boots, lace-up leather gloves, and a plaid choker cut to match the corset print; hair was a classic blow-out over heavy black eyeliner and a lighter-than-usual red lip.\n\nFans immediately filed the black-and-plaid punk styling as "reputation"-coded — the same guessing game her black Versace VMAs look had set off in 2023 — though she never commented on the inspiration. Whatever the signal, the night itself became a record haul: she left with seven Moon Persons, including her third straight Video of the Year.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -2310,6 +2314,55 @@ export default {
       },
     },
     {
+      year: 2025,
+      month: 6,
+      // Month-level on purpose: reputable outlets disagree on the exact day
+      // (E! June 12; ABC a Friday that week), so no single day is asserted.
+      category: 'sighting',
+      title: 'A surprise afternoon at Joe DiMaggio Children\'s Hospital',
+      snippet:
+        'An unannounced visit to Joe DiMaggio Children\'s Hospital in Hollywood, Florida — signed books, hugs and selfies room to room — where one patient she met, teen cancer survivor Valentina Olivares, kept their photo as her phone wallpaper.',
+      sourceUrl:
+        'https://www.cbsnews.com/miami/news/joe-dimaggios-south-florida-cancer-survivor-taylor-swift-visit-eras-tour/',
+      thumbnailUrl: null,
+      photosReviewed:
+        'private-individual/minor redline — the only images of the visit are hospital and press-CDN frames that pair Taylor with pediatric patients (private minors); none exists on a reusable allowlisted host, so no photo is carried per privacy-redlines.md (reviewed 2026-09-05)',
+      moment: {
+        context:
+          'In June 2025, while she was in South Florida around the Stanley Cup Final, Taylor made an unannounced visit to Joe DiMaggio Children\'s Hospital in Hollywood, Florida, spending the afternoon going room to room with young patients and their families. She introduced herself, asked for hugs, handed out signed copies of her book and posed for selfies; the hospital said she "turned hospital hallways into a place of joy, comfort, and connection."\n\nAmong the patients she met was Valentina Olivares, diagnosed at 15 with a rare B-cell lymphoma found only in her spinal fluid and treated there with CAR T-cell therapy. Olivares had missed an Eras Tour date in Tampa to a fever during treatment — her care team recreated the show in her hospital room — and later attended her first concert ever, an Eras Tour night at Miami\'s Hard Rock Stadium. The selfie she took with Taylor that afternoon became, in her own words, the wallpaper on her phone.\n\nMore than a year later, a September 2026 CBS Miami retrospective for Pediatric Cancer Awareness Month caught up with her: three years past diagnosis, finished with treatment, and studying accounting at Broward College. "You are so much stronger than you think," she said. "Everything works out in the end. You just have to give it time, take one day at a time." The visit fits a year of quiet, reactive giving from Taylor — the kind that arrives without a press release and is told, when it is told at all, by the people on the receiving end. Olivares appears here only as a patient who has publicly shared her own story with the outlet that reported it.',
+        sources: [
+          {
+            outlet: 'CBS Miami',
+            url: 'https://www.cbsnews.com/miami/news/joe-dimaggios-south-florida-cancer-survivor-taylor-swift-visit-eras-tour/',
+            source_title:
+              'A South Florida cancer patient who was surprised with meeting Taylor Swift is now marking the end of her treatment',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-05',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1418750/taylor-swift-surprises-patients-at-florida-childrens-hospital',
+            source_title: 'Taylor Swift Surprises Patients at Florida Children\'s Hospital',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-05',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/taylor-swift-visits-joe-dimaggio-childrens-hospital-florida/story?id=122848133',
+            source_title: 'Taylor Swift visits Joe DiMaggio Children\'s Hospital in Florida, surprises patients',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-05',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
       // Depth audit 2026-08-12: second of the two `relationship` rows the
       // audit queued for this era (see the iHeartRadio moment above). Date
       // fixed as Tuesday June 24, 2025 by NFL.com ("Tuesday night") against
@@ -2389,6 +2442,11 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): a real still from the
             // performance itself, not just the backstage aftermath.
             url: 'https://i.ytimg.com/vi/ZgxmtNVeex8/maxresdefault.jpg',
+            // Focal point set 2026-08-31 (photo-enrichment, #762) by viewing:
+            // vertical fan-shot video letterboxed in red; the actual frame
+            // (guitar, mic, her face) sits in the center band, face upper-left
+            // of that band.
+            focalPoint: '47% 22%',
             credit: 'YouTube — "Taylor Swift - Shake It Off (with Kane Brown) (Live at TEU)"',
             caption: 'Taylor Swift performing a surprise "Shake It Off" with Kane Brown at the Tight Ends & Friends / Tight End University concert, Brooklyn Bowl Nashville, June 24, 2025.',
             kind: 'archival',
@@ -2574,6 +2632,10 @@ export default {
             // (not a raw Instagram hotlink) clears the outlet-own-CDN bar the
             // prior note above required.
             url: 'https://imagez.tmz.com/image/6c/4by3/2025/09/16/6c7d014afbfa48a9a60b29d86fbc092d_md.jpg',
+            // Focal point set 2026-08-30 (#762) by viewing: six-person group
+            // shot on a staircase; Taylor and Travis are the rightmost two,
+            // faces in the upper-fifth of the frame — bias right and high.
+            focalPoint: '68% 22%',
             credit: 'Kane Brown / Instagram, via TMZ',
             caption: 'Kane Brown\'s Instagram photo of himself with Taylor Swift and Travis Kelce at Patrick Mahomes\' 30th birthday party, September 2025.',
             kind: 'reference',
@@ -5112,7 +5174,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed, and the reported price depends on who you ask: around $360 million per Billboard, around $300 million per Rolling Stone, and — the highest figure floated — $405 million per Music Business Worldwide, for the catalog Shamrock Capital had bought from Scooter Braun\'s Ithaca Holdings in November 2020. As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs... Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville management team, a source adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe buyback gave Taylor ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned — quietly ending her long campaign urging fans to stream only the re-records. The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled. On the two unfinished re-records the letter was candid: of Reputation she wrote, "Full transparency: I haven\'t even re-recorded a quarter of it," explaining the album "was so specific to that time in my life" that she "kept hitting a stopping point" trying to remake it, and said both it and the debut "can still have their moments to re-emerge when the time is right." As of mid-2026 the debut Taylor\'s Version remained finished but unreleased, and Reputation (Taylor\'s Version) stayed shelved.',
+          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed — the going estimate lands around $360 million (Billboard), close to what Shamrock Capital itself had paid when it bought the catalog from Scooter Braun\'s Ithaca Holdings in November 2020, a 2020 purchase price variously reported at roughly $300 million (Rolling Stone/Variety) to $405 million (Billboard/Music Business Worldwide). As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs... Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville management team, a source adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe buyback gave Taylor ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned — quietly ending her long campaign urging fans to stream only the re-records. The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled. On the two unfinished re-records the letter was candid: of Reputation she wrote, "Full transparency: I haven\'t even re-recorded a quarter of it," explaining the album "was so specific to that time in my life" that she "kept hitting a stopping point" trying to remake it, and said both it and the debut "can still have their moments to re-emerge when the time is right." As of mid-2026 the debut Taylor\'s Version remained finished but unreleased, and Reputation (Taylor\'s Version) stayed shelved.',
         sources: [
           {
             outlet: 'Billboard',
@@ -5159,7 +5221,7 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-21',
             reliability_score: 2,
-            notes: 'Asset list; Reputation TV vs debut TV status; Shamrock statement wording',
+            notes: 'Asset list; reputation TV vs debut TV status; Shamrock statement wording',
           },
           {
             outlet: 'ABC News',
@@ -5199,7 +5261,7 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
-            notes: 'Letter quotes on Reputation TV (barely a quarter re-recorded) and the finished debut re-record',
+            notes: 'Letter quotes on reputation TV (barely a quarter re-recorded) and the finished debut re-record',
           },
           {
             outlet: 'NBC News',
@@ -5558,6 +5620,7 @@ export default {
       month: 9,
       day: 30,
       category: 'business',
+      slug: 'ttpd-1989-diamond-certification',
       title: '1989 itself goes Diamond, joining Fearless as her second 10-million-unit album',
       snippet:
         'Certified 14x Platinum by the RIAA — crossing the 10-million-unit Diamond threshold and putting her among a small group of women, including Adele, Mariah Carey, and Whitney Houston, with a Diamond album.',
@@ -5637,7 +5700,7 @@ export default {
           postedOn: '2025-08-26',
         },
         context:
-          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Taylor used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Taylor\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Taylor in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at his home in Leawood, Kansas (over an Eagles practice weekend, his father Ed said; exact date unconfirmed). Ed Kelce misspoke the location in his first TV interview, naming Lee\'s Summit, Missouri; Kansas City\'s own NPR station, KCUR, ran a correction the next day confirming Leawood once fans geolocated the photos to Kelce\'s house. On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.\n\nHow the scene was made came out only later, when Taylor detailed it on The Graham Norton Show. Kelce staged the whole thing during the three-to-four-hour taping of the New Heights album-reveal episode — having his Leawood backyard turned into a flower-filled "secret garden" while they recorded inside, and building a wall of hedges that had not been there before, with Taylor\'s own tour photographer hidden inside them to shoot the carousel. That is why the professionally lit frames carry only the couple\'s @taylorswift/Instagram credit and no outside photographer was ever named. Per Travis\'s father, Ed Kelce, the florists who dressed the set were still finishing and had to duck into the bushes when the couple came out — so the floral architecture was a temporary installation built for the occasion, not a standing garden feature. No event designer or florist has been publicly named, but florists reading the images for the press catalogued garden roses, "Limelight" hydrangeas, delphinium, ranunculus, lilies and southern smilax draping a domed metal arbor; Kansas City florist Sarah Burch (EverWild Florals) put the flowers alone at $10,000–$15,000. The caption had its own afterlife: within hours brands were riffing on it — Pixar paired "Your English teacher and your gym teacher are getting married" with the Incredibles — and it hardened into a documented meme format, with its own Know Your Meme entry, recycled onto countless other couples.',
+          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Taylor used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Taylor\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Taylor in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at his home in Leawood, Kansas — Ed Kelce learned of it by FaceTime while attending a Philadelphia Eagles public practice that Sunday, which is the source of the "Eagles" detail; the proposal itself has no connection to the Eagles beyond his father\'s location when the couple called with the news (exact proposal date otherwise unconfirmed). Ed Kelce misspoke the location in his first TV interview, naming Lee\'s Summit, Missouri; Kansas City\'s own NPR station, KCUR, ran a correction the next day confirming Leawood once fans geolocated the photos to Kelce\'s house. On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.\n\nHow the scene was made came out only later, when Taylor detailed it on The Graham Norton Show. Kelce staged the whole thing during the three-to-four-hour taping of the New Heights album-reveal episode — having his Leawood backyard turned into a flower-filled "secret garden" while they recorded inside, and building a wall of hedges that had not been there before, with Taylor\'s own tour photographer hidden inside them to shoot the carousel. That is why the professionally lit frames carry only the couple\'s @taylorswift/Instagram credit and no outside photographer was ever named. Per Travis\'s father, Ed Kelce, the florists who dressed the set were still finishing and had to duck into the bushes when the couple came out — so the floral architecture was a temporary installation built for the occasion, not a standing garden feature. No event designer or florist has been publicly named, but florists reading the images for the press catalogued garden roses, "Limelight" hydrangeas, delphinium, ranunculus, lilies and southern smilax draping a domed metal arbor; Kansas City florist Sarah Burch (EverWild Florals) put the flowers alone at $10,000–$15,000. The caption had its own afterlife: within hours brands were riffing on it — Pixar paired "Your English teacher and your gym teacher are getting married" with the Incredibles — and it hardened into a documented meme format, with its own Know Your Meme entry, recycled onto countless other couples.',
         // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
         // own official post imagery via ABC News' stable copies (i.abcnewsfe.com),
         // credited "@taylorswift/Instagram" as ABC credits them. Instagram's own
@@ -6135,7 +6198,8 @@ export default {
           //   - Louis Vuitton "LV Isola Sandal" (exact model per WWD): every
           //     LV domain answers HTTP 403 to verification, and LV sells
           //     first-party only — no verifiable page exists from CI.
-          //   - Cartier diamond watch (a Santos Demoiselle per Esquire):
+          //   - Cartier diamond watch (a Santos Demoiselle per Esquire Australia,
+          //     https://esquire.com.au/taylor-swift-engagement-watch/):
           //     discontinued ~2014, no cartier.com product page; linking the
           //     current Panthère would be a wrong-product substitution.
           // Having any products dequeues this moment from the
@@ -6143,6 +6207,404 @@ export default {
           // genuinely have no product pages, so re-queueing would waste
           // Stylist runs). The Stylist's MAINTAIN pass re-checks existing
           // product moments and can add these if pages ever surface.
+        ],
+      },
+    },
+    // --- J3.5 depth audit pass (2026-09-06, docs/audits/content/2026-09-06-j35-depth-audit.md) ---
+    // Below-floor / zero-weighted-category months, authored per the link-first
+    // model (docs/marketing/content-framework-2026-07-03.md): real, verified
+    // sources only, no fabrication (see docs/content-ops/ research notes for
+    // this task's sourcing trail).
+    {
+      year: 2024,
+      month: 6,
+      day: 21,
+      category: 'relationship',
+      title: 'Instagram official — a backstage selfie at Wembley',
+      snippet:
+        'Taylor and Kelce posed for a selfie backstage at her first London Eras Tour show, with Prince William, Prince George and Princess Charlotte visiting — the first photo of Kelce Swift shared on her own Instagram.',
+      sourceUrl: 'https://people.com/taylor-swift-travis-kelce-party-4am-london-eras-tour-stage-debut-8667987',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Marked the first time Taylor publicly shared a photo with Kelce on her own Instagram, taken during the royal family backstage visit at Wembley Stadium.',
+        sources: [
+          { outlet: 'People', url: 'https://people.com/taylor-swift-travis-kelce-party-4am-london-eras-tour-stage-debut-8667987' },
+          { outlet: 'E! Online', url: 'https://www.eonline.com/news/1406999/taylor-swift-and-travis-kelce-arrive-at-nyc-dinner-in-style-after-chiefs-win' },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 6,
+      day: 23,
+      category: 'sighting',
+      title: 'A surprise Eras Tour stage debut, in a tuxedo and top hat',
+      snippet:
+        'Kelce joined Taylor onstage during "I Can Do It With a Broken Heart" at her third and final London show, carrying her across the stage before the two partied at Chiltern Firehouse until 4 a.m.',
+      sourceUrl: 'https://www.cnn.com/2024/06/23/entertainment/taylor-swift-travis-kelce-on-stage',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Kelce\'s first-ever onstage appearance during the Eras Tour, at Wembley Stadium in London.',
+        sources: [
+          { outlet: 'CNN', url: 'https://www.cnn.com/2024/06/23/entertainment/taylor-swift-travis-kelce-on-stage' },
+          { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swift-and-travis-kelce-have-london-date-night-after-eras-tour/' },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 7,
+      day: 6,
+      category: 'sighting',
+      title: 'A kiss goodbye after the final Amsterdam Eras Tour show',
+      snippet:
+        'After Taylor\'s third and final Amsterdam concert at Johan Cruijff Arena, she and Kelce left hand-in-hand, with Kelce kissing the top of her head as fans cheered nearby.',
+      sourceUrl: 'https://www.today.com/popculture/music/taylor-swift-travis-kelce-amsterdam-eras-tour-rcna160532',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Kelce watched from a stadium suite rather than the usual VIP tent, then reunited with Taylor backstage after the show.',
+        sources: [
+          { outlet: 'TODAY', url: 'https://www.today.com/popculture/music/taylor-swift-travis-kelce-amsterdam-eras-tour-rcna160532' },
+          { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swift-travis-kelce-leave-3rd-amsterdam-eras-concert-together/' },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 7,
+      day: 6,
+      category: 'sighting',
+      title: 'Travis bikes around Amsterdam before the show',
+      snippet:
+        'Ahead of catching Taylor\'s Eras Tour stop in Amsterdam, Kelce was photographed riding a bike through the city on Saturday, July 6, 2024.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/travis-kelce-rides-bike-amsterdam-181438609.html',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          { outlet: 'Yahoo Entertainment', url: 'https://www.yahoo.com/entertainment/travis-kelce-rides-bike-amsterdam-181438609.html' },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 8,
+      day: 24,
+      category: 'relationship',
+      title: 'Rhode Island reunion for Blake Lively\'s birthday weekend',
+      snippet:
+        'Fresh off the end of the Eras Tour\'s European leg, Taylor and Kelce were spotted together at her Rhode Island house on Aug. 24 — their first sighting together since mid-July — joined by Blake Lively, Ryan Reynolds, the Mahomeses and the Kelces.',
+      sourceUrl: 'https://people.com/everyone-who-joined-taylor-swift-travis-kelce-in-rhode-island-celebrity-guests-8701057',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Coincided with the end of Kelce\'s preseason schedule and Taylor\'s Eras Tour hiatus before the October North American resumption.',
+        sources: [
+          { outlet: 'People', url: 'https://people.com/everyone-who-joined-taylor-swift-travis-kelce-in-rhode-island-celebrity-guests-8701057' },
+          { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swifts-rhode-island-getaway-was-grounding-source-says/' },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 8,
+      day: 20,
+      category: 'sighting',
+      title: 'An eighth, record-breaking Wembley show closes the European leg',
+      snippet:
+        'Taylor wrapped the European leg of the Eras Tour with her eighth Wembley Stadium performance, breaking a venue attendance record, bringing out Florence Welch and Jack Antonoff and debuting "So Long, London" live for the first time.',
+      sourceUrl: 'https://www.bbc.co.uk/news/articles/cr5nr3n6epvo',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Final European tour date following heightened security after the Aug. 7 Vienna cancellation.',
+        sources: [
+          { outlet: 'BBC News', url: 'https://www.bbc.co.uk/news/articles/cr5nr3n6epvo' },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 9,
+      day: 6,
+      category: 'relationship',
+      title: 'A pizza date night in Brooklyn after the Chiefs opener',
+      snippet:
+        'One day after cheering Kelce on at the Chiefs\' Sept. 5 season-opening win, the couple was spotted on a dinner date at Lucali pizzeria in Brooklyn.',
+      sourceUrl: 'https://www.eonline.com/news/1406999/taylor-swift-and-travis-kelce-arrive-at-nyc-dinner-in-style-after-chiefs-win',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor\'s return to Chiefs-related public outings marking the start of the 2024 NFL season.',
+        sources: [
+          { outlet: 'E! Online', url: 'https://www.eonline.com/news/1406999/taylor-swift-and-travis-kelce-arrive-at-nyc-dinner-in-style-after-chiefs-win' },
+          { outlet: 'New York Daily News', url: 'https://www.nydailynews.com/2024/09/07/taylor-swift-travis-kelce-brooklyn-date-night-lucali-pizza-nyc/' },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 10,
+      day: 12,
+      category: 'relationship',
+      title: 'A second straight NYC date night, hand in hand',
+      snippet:
+        'Taylor and Kelce were photographed holding hands arriving at Torrisi restaurant in Manhattan, their second consecutive date night after dining with Blake Lively and Ryan Reynolds the night before.',
+      sourceUrl: 'https://people.com/taylor-swift-and-travis-kelce-cute-nyc-dinner-date-8727621',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Date night during the Chiefs\' bye week, ahead of the Eras Tour\'s Miami resumption.',
+        sources: [
+          { outlet: 'People', url: 'https://people.com/taylor-swift-and-travis-kelce-cute-nyc-dinner-date-8727621' },
+          { outlet: 'Heavy.com', url: 'https://heavy.com/entertainment/travis-kelce-paprazzi-pic' },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 10,
+      day: 7,
+      category: 'sighting',
+      title: 'A plaid Vivienne Westwood corset for Monday Night Football',
+      snippet:
+        'Taylor arrived at Arrowhead Stadium in a plaid Vivienne Westwood corset and mini skirt as the Chiefs beat the Saints 26-13, sitting with her father Scott and reuniting with Chiefs WAGs afterward.',
+      sourceUrl: 'https://people.com/taylor-swift-serves-sexy-cheerleader-to-support-travis-kelce-chiefs-game-8715641',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'First Chiefs game Taylor attended after missing two road games during Eras Tour prep.',
+        sources: [
+          { outlet: 'People', url: 'https://people.com/taylor-swift-serves-sexy-cheerleader-to-support-travis-kelce-chiefs-game-8715641' },
+          { outlet: 'TMZ', url: 'https://tmz.com/2024/10/07/taylor-swift-arrives-travis-kelce-chiefs-monday-night-football-game' },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 12,
+      day: 31,
+      category: 'relationship',
+      title: 'A New Year\'s Eve kiss in Kansas City',
+      snippet:
+        'Taylor and Kelce rang in 2025 with a private, low-key celebration and a midnight kiss in Kansas City; a source called the night "romantic."',
+      sourceUrl: 'https://marca.com/en/nfl/kansas-city-chiefs/2025/01/04/6778bff4268e3e26178b457a.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Their first New Year together following the December end of the Eras Tour.',
+        sources: [
+          { outlet: 'Marca', url: 'https://marca.com/en/nfl/kansas-city-chiefs/2025/01/04/6778bff4268e3e26178b457a.html' },
+          { outlet: 'InStyle', url: 'https://www.instyle.com/taylor-swift-travis-kelce-new-years-eve-celebration-8769264' },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 12,
+      day: 21,
+      category: 'sighting',
+      title: 'A red faux-fur coat back at Arrowhead',
+      snippet:
+        'Two weeks after the Eras Tour ended in Vancouver, Taylor returned to Arrowhead in a red faux fur Charlotte Simone coat and vintage Chanel bucket hat with her parents to watch the Chiefs beat the Texans 27-19.',
+      sourceUrl: 'https://www.usatoday.com/story/entertainment/music/2024/12/21/taylor-swift-chiefs-texans-game/77006838007',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'First game Taylor attended after wrapping the Eras Tour on Dec. 8, 2024.',
+        sources: [
+          { outlet: 'USA Today', url: 'https://www.usatoday.com/story/entertainment/music/2024/12/21/taylor-swift-chiefs-texans-game/77006838007' },
+          { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-red-coat-chiefs-game-dec-21-2024-1235863757' },
+        ],
+      },
+    },
+    {
+      year: 2025,
+      month: 1,
+      day: 26,
+      category: 'relationship',
+      title: 'A field kiss after the AFC Championship win',
+      snippet:
+        'After the Chiefs beat the Bills 32-29 to reach Super Bowl LIX, Taylor came onto the field to kiss and embrace Kelce; the couple reportedly told each other "I love you so much."',
+      sourceUrl: 'https://people.com/travis-kelce-taylor-swift-tell-each-other-i-love-you-after-chiefs-win-8780926',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'AFC Championship Game, sending the Chiefs to a third straight Super Bowl.',
+        sources: [
+          { outlet: 'People', url: 'https://people.com/travis-kelce-taylor-swift-tell-each-other-i-love-you-after-chiefs-win-8780926' },
+          { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/entertainment/news/taylor-swift-kisses-and-cuddles-travis-kelce-on-field-after-chiefs-win/' },
+        ],
+      },
+    },
+    {
+      year: 2025,
+      month: 1,
+      day: 18,
+      category: 'sighting',
+      title: 'Back at Arrowhead for the divisional round in a Chanel tweed coat',
+      snippet:
+        'Taylor attended her first Chiefs game since December, arriving in a Chanel tweed coat with her parents and brother to watch Kansas City beat Houston 23-14 in the AFC Divisional Round.',
+      sourceUrl: 'https://people.com/taylor-swift-cheers-travis-kelce-kansas-city-chiefs-playoff-game-8774616',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Start of the Chiefs\' 2025 playoff run toward a potential Super Bowl three-peat.',
+        sources: [
+          { outlet: 'People', url: 'https://people.com/taylor-swift-cheers-travis-kelce-kansas-city-chiefs-playoff-game-8774616' },
+          { outlet: 'CBS Sports', url: 'https://www.cbssports.com/nfl/news/look-taylor-swift-arrives-at-chiefs-playoff-game-as-travis-kelce-and-kansas-city-begin-quest-for-three-peat/' },
+        ],
+      },
+    },
+    {
+      year: 2025,
+      month: 2,
+      day: 9,
+      category: 'sighting',
+      title: 'Super Bowl LIX with the Haim sisters and Ice Spice',
+      snippet:
+        'Taylor arrived at Caesars Superdome with the Haim sisters and Ice Spice to watch the Chiefs face the Eagles in Super Bowl LIX, drawing a mixed jumbotron crowd reaction; the Chiefs lost 40-22.',
+      sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-super-bowl-2025/story?id=118535158',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Chiefs fell short of a historic three-peat, losing to the Eagles.',
+        sources: [
+          { outlet: 'ABC News', url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-super-bowl-2025/story?id=118535158' },
+          { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-arrives-super-bowl-2025-travis-kelce-1235260088/' },
+        ],
+      },
+    },
+    {
+      year: 2025,
+      month: 5,
+      day: 11,
+      category: 'relationship',
+      title: 'A rare public reunion in Philadelphia',
+      snippet:
+        'After nearly two months out of the spotlight together, Taylor and Kelce were spotted dining at Talula\'s Garden in Philadelphia on Mother\'s Day, marking their first public outing since March.',
+      sourceUrl: 'https://people.com/taylor-swift-travis-kelce-in-philadelphia-for-first-public-spotting-in-months-11732745',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'First joint public sighting since the March 14 NYC dinner, following the end of the NFL season and Eras Tour.',
+        sources: [
+          { outlet: 'PEOPLE', url: 'https://people.com/taylor-swift-travis-kelce-in-philadelphia-for-first-public-spotting-in-months-11732745' },
+          { outlet: 'E! Online', url: 'https://www.eonline.com/news/1417408/taylor-swift-travis-kelces-rare-outing-will-fill-that-blank-space' },
+        ],
+      },
+    },
+    {
+      year: 2025,
+      month: 5,
+      day: 31,
+      category: 'fashion',
+      title: 'A sequined Gucci set for a masters-buyback dinner with Selena Gomez',
+      snippet:
+        'Celebrating her masters buyback announcement, Taylor stepped out at NYC\'s Monkey Bar wearing a Gucci sequined silk-and-wool set, De Beers diamond earrings, and a diamond tennis bracelet.',
+      sourceUrl: 'https://www.marieclaire.com/fashion/taylor-swift-gucci-sequin-matching-set-selena-gomez-reunion-new-york/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Outing came one day after Taylor announced she had bought back the masters to her first six albums.',
+        sources: [
+          { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/fashion/taylor-swift-gucci-sequin-matching-set-selena-gomez-reunion-new-york/' },
+          { outlet: 'CelebMafia', url: 'https://celebmafia.com/taylor-swift-gucci-look-monkey-bar-nyc-2025-4507633/' },
+        ],
+      },
+    },
+    {
+      year: 2025,
+      month: 6,
+      day: 12,
+      category: 'fashion',
+      title: 'A crystal-embellished Area tracksuit at the Stanley Cup Final',
+      snippet:
+        'Taylor and Kelce coordinated outfits for Game 4 of the 2025 Stanley Cup Final in Sunrise, Florida, Taylor wearing a beige crystal-trim Area tracksuit, Prada booties and a Chanel bag.',
+      sourceUrl: 'https://www.harpersbazaar.com/celebrity/latest/a65057043/taylor-swift-crystal-athleisure-set-hockey-game-travis-kelce-photos/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'NHL Stanley Cup Final date night, Edmonton Oilers vs. Florida Panthers, Amerant Bank Arena.',
+        sources: [
+          { outlet: 'Harper\'s Bazaar', url: 'https://www.harpersbazaar.com/celebrity/latest/a65057043/taylor-swift-crystal-athleisure-set-hockey-game-travis-kelce-photos/' },
+          { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/fashion/taylor-swift-2025-stanley-cup-finals-game-4-track-suit-chanel-bag/' },
+          { outlet: 'AP News', url: 'https://apnews.com/article/stanley-cup-oilers-panthers-taylor-swift-travis-kelce-64580f4056005e292ab261900cbd2144' },
+        ],
+        // Photo backfill (t_23e4b90b, 2026-09-06): switched from an initial
+        // media.gettyimages.com pick (flagged P2 by image.url-quality —
+        // Getty's public CDN only ever serves a watermarked "comp") to AP's
+        // own unwatermarked article photo of the exact game. HTTP-verified,
+        // downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://dims.apnews.com/dims4/default/8bc4b14/2147483647/strip/true/crop/2362x1574+11+0/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F4b%2F38%2F1959237a5262c70b6d8896c50341%2F8cba73227b004264b22837c2df69dffa',
+            credit: 'AP Photo',
+            caption: 'Taylor Swift and Travis Kelce at Game Four of the 2025 Stanley Cup Final, June 12, 2025, in Sunrise, Florida.',
+            kind: 'primary',
+            focalPoint: '45% 40%',
+          },
+        ],
+      },
+    },
+    {
+      year: 2025,
+      month: 7,
+      day: 4,
+      category: 'relationship',
+      title: 'A quiet Fourth of July at Montana\'s Yellowstone Club',
+      snippet:
+        'Skipping her traditional Rhode Island bash for a second year, Taylor and Kelce spent the July 4th weekend low-key at the exclusive Yellowstone Club resort in Big Sky, Montana.',
+      sourceUrl: 'https://pagesix.com/2025/07/09/celebrity-news/taylor-swift-and-travis-kelce-spent-fourth-of-july-in-montana/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Reported days after the holiday weekend, this getaway was framed by insiders as "a turning point" in their relationship ahead of Kelce\'s 2025 NFL season.',
+        sources: [
+          { outlet: 'Page Six', url: 'https://pagesix.com/2025/07/09/celebrity-news/taylor-swift-and-travis-kelce-spent-fourth-of-july-in-montana/' },
+          { outlet: 'Cosmopolitan', url: 'https://www.cosmopolitan.com/entertainment/celebs/a65363853/taylor-swift-travis-kelce-fourth-of-july-2025-yellowstone/' },
+        ],
+      },
+      // Privacy redline (t_23e4b90b, 2026-09-06): this getaway happened
+      // entirely inside a private, gated, members-only residential compound —
+      // the whole point of the reporting is that no paparazzi could reach
+      // them there. The only photos in circulation are stock/generic shots of
+      // the resort's private homes and grounds (residence-privacy redline,
+      // location-privacy L2 territory) or unrelated file photos of the couple
+      // from other dates mislabeled as this one — neither is honest. No real,
+      // on-record photo of this specific private weekend exists to source.
+      photosReviewed:
+        'privacy redline — the getaway took place entirely inside a private, gated members-only residential compound with no press access; the only available images are of private homes/grounds (residence-privacy) or unrelated file photos of the couple, neither of which honestly represents this specific event (reviewed 2026-09-06, t_23e4b90b)',
+    },
+    {
+      year: 2025,
+      month: 8,
+      day: 28,
+      category: 'sighting',
+      title: 'First public outing since the engagement, at a college football game',
+      snippet:
+        'Two days after announcing their engagement, Taylor and Kelce were spotted publicly together for the first time as an engaged couple, attending a Cincinnati vs. Nebraska game with the Mahomeses — Taylor wearing her ring in public for the first time.',
+      sourceUrl: 'https://pagesix.com/2025/08/30/celebrity-news/newly-engaged-taylor-swift-surfaces-in-nashville-for-brittany-mahomes-30th-birthday-party',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'This marked the couple\'s first public appearance since their Aug. 26 engagement announcement.',
+        sources: [
+          { outlet: 'Page Six', url: 'https://pagesix.com/2025/08/30/celebrity-news/newly-engaged-taylor-swift-surfaces-in-nashville-for-brittany-mahomes-30th-birthday-party' },
+          { outlet: 'AP News', url: 'https://apnews.com/article/travis-kelce-taylor-swift-nebraska-cincinnati-375c6f216299538c774b937b77869599' },
+        ],
+        // Photo backfill (t_23e4b90b, 2026-09-06): AP's own game photo,
+        // HTTP-verified, downloaded and vision-confirmed this session.
+        photos: [
+          {
+            url: 'https://dims.apnews.com/dims4/default/e0f8b9f/2147483647/strip/true/crop/2315x1543+0+0/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Feb%2Ff9%2F719ccebc3f53079cb41225f14cfd%2F40f7f8eb17be467cb7753efbaf87736f',
+            credit: 'Charlie Riedel/AP',
+            caption: 'Taylor Swift sits with fiancé Travis Kelce as they watch the Cincinnati-Nebraska game at Arrowhead Stadium, Aug. 28, 2025.',
+            kind: 'primary',
+            focalPoint: '55% 45%',
+          },
         ],
       },
     },

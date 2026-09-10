@@ -89,3 +89,20 @@ social/joey/Screenshot*.png
 
 # iOS App Store Connect API key (real credential, never commit)
 apps/mobile/credentials/
+apps/mobile/credentials.json
+
+# Published content bundle (OS-012) — build output written by
+# scripts/publish-content-bundle.mjs during apps/web's `prebuild`. Every
+# merge regenerates it deterministically from supabase/seed/**; never
+# tracked (docs/specs/2026-09-05-one-source-three-surfaces.md §6).
+/apps/web/public/content/
+
+# Long Live generated content vault (OS-014, docs/specs/2026-09-05-one-source-
+# three-surfaces.md): these are pure, deterministic output of `npm run
+# sync:content` / `prebuild` from supabase/seed/** (scripts/sync-longlive-
+# *.mjs, scripts/sync-song-moods.mjs, scripts/sync-clownbot-lore.mjs) — 3.6MB
+# of derived TypeScript that added no reviewable signal to diffs and is
+# regenerated identically on every clone/CI run. Never hand-edited; never
+# committed. See scripts/lib/generated-content.mjs (the manifest of what
+# generates what) and docs/longlive-experience.md §9.
+apps/web/lib/longlive/*.generated.ts

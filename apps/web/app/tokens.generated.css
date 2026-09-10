@@ -1,0 +1,22 @@
+/* GENERATED FILE — do not edit by hand.
+ * Source: packages/experience/src/tokens.ts (OS-031).
+ * Regenerate: npm run tokens:generate
+ * Checked in sync by: npm run check:generated
+ */
+:root {
+  --era-bg: #0c0c0c;
+  --era-surface: #161616;
+  --era-surface-2: #1e1e1e;
+  --era-ink: #ededed;
+  --era-ink-soft: #9a9a9a;
+  --era-line: #2a2a2a;
+  --era-accent: #e8e8e8;
+  --era-accent-2: #8a8a8a;
+  --era-glow: rgba(255, 255, 255, 0.12);
+  --clown-bg: #17120e;
+  --clown-panel: #1e1814;
+  --clown-raised: #272019;
+  --clown-line: #332a22;
+  --clown-ink: #f4efe9;
+  --clown-ink-soft: #a3948a;
+}
