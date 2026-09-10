@@ -108,10 +108,24 @@ describe('buildSocialDraftPair', () => {
     expect(ig.item.body.toLowerCase()).toContain('fortnight');
   });
 
+  // Regression (codex review, kanban t_bac31b1a): the Instagram caption
+  // must carry the real watch URL (no "link's in the profile" claim this
+  // pipeline never fulfills — it never updates the account bio) and the
+  // selected photo's credit line, per social/README.md's mediaKind
+  // standard (a real photograph always ships with its photographer/agency
+  // credit in the caption when the budget allows).
+  it('carries the real watch URL and the selected photo\'s credit in the Instagram caption', () => {
+    const { drafts } = build(candidate(), { now: NOW });
+    const ig = findIg({ drafts });
+    expect(ig.item.body).toContain('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+    expect(ig.item.body).toContain('Michael Hicks (CC BY 2.0), via Wikimedia Commons');
+    expect(ig.item.body.toLowerCase()).not.toContain('link\'s in the profile');
+  });
+
   it('never claims engagement with unwatched media ("come watch with me" style copy is gone)', () => {
     const { drafts } = build(candidate(), { now: NOW });
     for (const { item } of drafts) {
-      expect(item.body.toLowerCase()).not.toMatch(/come watch with me|i haven'?t watched|my whole day is now about/);
+      expect(item.body.toLowerCase()).not.toMatch(/come watch with me|haven'?t watched|watched (all|part|some)|my whole day is now about/);
     }
   });
 

@@ -420,6 +420,45 @@ describe('post-queue: blocked items are reported as skips, not silently deferred
   });
 });
 
+// --- mandatory X+IG pairing, publishable within one run (2026-09-10, kanban
+// t_bac31b1a — codex review: check-drafts.mjs's checkSimultaneousPair
+// requires both siblings to SCHEDULE within 5 minutes of each other, but
+// that promise is empty if the poster still defers one to the next run
+// (MAX_POSTS_PER_RUN=1) or blocks it as a same-run media repeat (paired
+// siblings deliberately share one credited photo). A due campaign pair is
+// one posting unit.
+describe('post-queue: a due campaign pair both post within the same run', () => {
+  it('posts both X and Instagram siblings of a due pair in one run despite MAX_POSTS_PER_RUN=1', async () => {
+    // Combined stub: X's tweet-create expects {data:{id}}, Instagram's flow
+    // needs the full multi-step shape stubIgFetch already covers. Route by
+    // URL/method the same way stubIgFetch does, but answer the X endpoint
+    // with X's own expected body shape.
+    const spy = vi.fn(async (url, init) => {
+      if (String(url).includes('api.x.com') || String(url).includes('api.twitter.com')) {
+        return toFetchResponse({ ok: true, status: 200, body: { data: { id: 'x-post-1' } } });
+      }
+      if (init?.method === 'HEAD') return toFetchResponse({ ok: true, status: 200, body: {} });
+      if (String(url).includes('/media_publish')) return toFetchResponse({ ok: true, status: 200, body: { id: 'ig-post-1' } });
+      if (init?.method === 'POST') return toFetchResponse({ ok: true, status: 200, body: { id: 'container-1' } });
+      return toFetchResponse({ ok: true, status: 200, body: { status_code: 'FINISHED' } });
+    });
+    vi.stubGlobal('fetch', spy);
+    await seedQueueItem('a-pair-x.json', xItem({ campaign: 'appearance:abc', media: undefined }));
+    await seedQueueItem('a-pair-ig.json', igItem({ campaign: 'appearance:abc' }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    const kinds = outcomes.map((o) => `${o.platform}:${o.kind}`).sort();
+    expect(kinds).toEqual(['instagram:posted', 'x:posted']);
+    expect(await readdir(path.join(root, 'social', 'posted')).then((f) => f.sort())).toEqual([
+      'a-pair-ig.json',
+      'a-pair-x.json',
+    ]);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual([]);
+  });
+});
+
 // --- the media gate, wired to the schedule --------------------------------
 // Instagram media is FETCHED by Meta from the live site, so an item whose
 // image PR hasn't merged/deployed cannot post no matter what scheduledAt
