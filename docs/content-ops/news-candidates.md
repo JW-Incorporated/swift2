@@ -25,27 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 85
 
-## CMA Awards 2026 Nominations Announced
+## Taylor Swift Receives Nomination for 2026 CMA Awards
 
-- first seen: 2026-09-10 19:37 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: The nominations for the 2026 CMA Awards have been revealed, showcasing the year's top country music talents. Fans can check out the full list of nominees on Good Morning America's website.
+- first seen: 2026-09-10 23:07 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is among the nominees for the 2026 CMA Awards, alongside Ella Langley. The awards recognize outstanding achievements in country music.
 - sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxPeUlSQmRDZGpMQnFDOWFWSXlIMzdNRzhoSFU2VGtiaW5jcnl5QURONGdJNVlsZldabElIdWVzMjUzZmppUEtwM1JJQVlaYWVIT3hKcHM1TUtaNWhnTTAwQzRyZGRsVVdoQmtpMTd1a25mNEc3M2tuSHNnT3ZCMFIyNlhZTWFNYXI5MW96cTR5anNBMmp1UUZxUGZQN21yNHNVajltZFZTclFQSkxGNVdRcEZVWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] E! Online — https://news.google.com/rss/articles/CBMilwFBVV95cUxNWU82cHl3SkpGMVNpeFV1U3YxSlk4S3BnejFmbTBWc283QjNKYjZPWWNySE5jRFMxWHNfTDVPREhmcFI5OXI3Q1MxeFZFMnFBV3A5Z3B1TG5ZNEZNQVMzd2UyUzJkMHRieHpFejhHcXEtZ2lvcFlkYXY3dWZTcGZMMm5ZeWcyZDBFakVmaGczZUdaX1lFaFVj?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] goodmorningamerica.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPY3NKVmFBTFU5aldTc0x5czdTdEFDcGwxR194M0V1bl9KaEZOc0pla3pkOU5uMEF6c1RJb0czdW1rdmFOclJ0Z2RlaFhqa1cydlIwS2UwLThVNlJiSW5SSmJtM2xZbzYtOUFDUkUwR0RQM2JaMk9hTGE2dzBFR0N4NW52VzUzazZoTE1B0gGQAUFVX3lxTFBJUUNvb1FYdjlzQ2lsREthakNrOXZKTzVYazBHZ3hSUmZFcWxrZThHTEM4VGZJX0pJS3ZyNC1YVDRVQWVqLUo2cjZCaXFIdDVYaHNLeFJVQUZzazlKcHRpRGRXRFRMX1VmWjBsZ3kzaEJZaDFFT0JOSUJQNVE2LWljWnhERl9MaV8yR3BzeExPQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi1wFBVV95cUxPSjZaZmlrWXE4cGtmLWMyVVVBaXh4WFYyUGxSZzdNUm1jMTdHbDh3dGpvRWVvNXVIQUVWN0pTSkFGRHplTmM3d0NJem5HZnBqSmp0eGI5Z0dtUk1aTUtXQkMxZnRMNlVSM29zU2t2c0RENThjX2U1ekFPcmlzQkMwcGFoVjlWblEweUJ0MU1DbTlfcENNczlWeVl1c1R0NHowLTAxcG0xbjBLU3VhY09iR2p2M3pqRUp3SmVkNnhwUERTUk42S285MlFKMFlvMlk0WllmNDg5MA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMifkFVX3lxTE9ReUIza2NoUUJFdk5PUGZvV2VHSFNhei05R0kzSkRzSFRMWkIxZ2hZRW1MNXo1OVFweVZCN3p3Q0ZidHFqOVdIamxPUlRibVVENEh6MjFySEZrY3BuRVljVEF6VjB3cHF2Y180R2tHNkd6Q2puZUc2S3ZiUEhIdw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Nominated for CMA Award After Four Years
+## Taylor Swift Confirmed to Attend CMA Awards After 10-Year Hiatus
 
-- first seen: 2026-09-10 19:37 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is nominated for Single of the Year at the CMA Awards for her song ‘I Knew It, I Knew You’. She will be attending the awards ceremony, marking her first nomination in four years.
+- first seen: 2026-09-10 23:07 UTC | category: relationship | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift will attend the CMA Awards for the first time in a decade after receiving a nomination for her single "I Knew It, I Knew You." This marks a significant moment in her return to the country music scene.
 - sources:
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxPblk3QmJHVGJUVFBfTXh4Sk5VbkNJdGhaZ18taXZtU1lUZjJtazRyOThieUdyUHV6c3d5ejVRQVhBWU5yaDF5a3EtZWRnRlNzcVM0bktDd1h6RTMxb2poejNrMWhidkpyeVNYTk00UDY1YmFKemQ1R3pUcXBYWTFSbnB4VU9jbXEyTjMxUVppWjdZTU0wVVREWmotaFFXRElzcUVEUlRnVWJRSWZjZ1E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/taylor-swift-cma-nomination-i-knew-it-i-knew-you-1235624103/
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/
+
+## Taylor Swift Becomes Namesake for Newly Described Insects
+
+- first seen: 2026-09-10 23:07 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been honored by having newly described insect species named after her. This recognition reflects her cultural impact and personal brand, extending beyond music into scientific communities.
+- sources:
+  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMilAFBVV95cUxORlM5aThmakdEVzFxbTNXLV9MVEFycldyOTJQNzBTQTFSRkppRjdlSWhMcHdwVGotYkh3U0dQbXVhalQxZXN5T1NTblNVenJKS0NlZVlYTnNtZHY3d1l4b245ZHZIckwyY3g2c2JoZE5la3hvNGh1MWR0VzdXQ3M0R1BOSHBJdUx6VXhBR3hNbmVndHAy?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Brian Duckworth of Taylor Made Passes Away at 56
+
+- first seen: 2026-09-10 23:07 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Brian Duckworth, a member of the country music group Taylor Made, has died at the age of 56. The news highlights his contributions to music and his life.
+- sources:
+  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxQanNHSVc0YlJJYkdBQnlZYllkeVN2NTJZUGhWQVlYMjFDX1ZyVUFXMHpGbWtrZTd6Rk8zUmMtV0V3bHl2UGVKdEtlOVBrdlRmWGxrWk1IWG1ad2QySUcwMjhjbzlEY1lyNmFYOC1NRmVURzVSb1NyV1ZuVUxPV2RtbFlQQlRNNjFZdU40UWstMWJvNWVXUTRvaGRRU3psRndneTVqSlNuZmFkRWF2MUhIWHNmMC11eHRid0FZUkNGcnVqaUhncDViWUhQTjYxS2lPRzA0bXF1OFBXQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Announces Return to Nashville for CMA Show
+
+- first seen: 2026-09-10 23:07 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reacted to her CMA nomination and confirmed she will be returning to Nashville for the event.
+- sources:
+  - [unverified] Sunny 106.5 — https://news.google.com/rss/articles/CBMizAFBVV95cUxOd2VzTW9lTmhkSVpkMDBWMXVkNUc2NmtmLXlfU2hBQl9mZlRfM2hWYWNyVEx2Vi1HdVRWQ0g2X1FLbGxrZ3BZVVQtci1WcnhVWXZCTkV5NzZiSU9tS3YxcmI5cHZVRDBUX2VXR1ZZSDBONVJEUk1lVXFTUDJwUS1JMWhiekJMTzVFT1ltaHlHMTY5Y1RRNU5rR1dxYjBiaHp1RTR3V0h1cEZVOGtLMG85d281NUwyWXpHd3pTTlRBUWhncC1wRjRSWEdyQkI?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Domhnall Gleeson Discusses Taylor Swift's 'Opalite' Video
 
@@ -55,13 +75,28 @@ Stories: 86
 - sources:
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxNclNhdWFIT3ZkSm0wVlpnVWlfTFNHWEg2RmVEYlRJdlU5eUtaZHpmMEJfN3hUaktMYmlYalk2TDd5MWVBWnV4V1NZV09aMV9pY05oRXBuYnhQVFZiQmdISGZlcUFuWksweWctS2ZuN2pfRXpFMWRTeG1MMEx0ZGRzVTRhZUpMQjFmVkQ4U2MwaXU5SmtIc2tiN0N0LVBvcHJRTjZsQw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Shares Personal Announcement Before NFL Game
+## Taylor Swift Nominated for CMA Award After Four Years
 
-- first seen: 2026-09-10 19:37 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a personal announcement prior to the Chiefs-Broncos NFL game, although details of the announcement were not disclosed. The event highlights her continuous public presence and engagement with NFL events.
+- first seen: 2026-09-10 19:37 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift is nominated for Single of the Year at the CMA Awards for her song ‘I Knew It, I Knew You’. She will be attending the awards ceremony, marking her first nomination in four years.
 - sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxPQ0ZXMnFVbElpUUg2bFJIOGhaajNldWE1cXNqUlNTajdpY0NwSzRQcnZRbjhUUlZmVWdGSmJSUTZPbFZ2NnBLZk44d0ljV0RDRFNvQkFYNWJwa3Z2amR1a2NIWW52U0JFdDhzbHRlLVNYWEVza2oydVVjbVo4WjcxdFhxMlpBVEF2WHhxczE4RjN3LTE1ekxXdXp0UWNMdXk2WHpSUVBaWHFOc0hHTWc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitwFBVV95cUxNMUJrUkthdkVKU0NyQnJBZnlIXzFHQ0hXdmJLZzdMRFg4TlhPZ1hsVlFpSXFvM3V5NThUaGFscnRVVmhIc29vUVJhSU5tU0pHTjhBLV9iTTcxZkhhWmdkWklkVXYyamVrb1ZxNHl1N0xxVkZBZm81RWJ1MURQZmtKbWhBX2VpLUZPX1c1SWJoNG5LZllhODhWTDhzMlc1MVN1M3BvYmZyS29sNHVsZWxwMDlKcHBfTFk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxPblk3QmJHVGJUVFBfTXh4Sk5VbkNJdGhaZ18taXZtU1lUZjJtazRyOThieUdyUHV6c3d5ejVRQVhBWU5yaDF5a3EtZWRnRlNzcVM0bktDd1h6RTMxb2poejNrMWhidkpyeVNYTk00UDY1YmFKemQ1R3pUcXBYWTFSbnB4VU9jbXEyTjMxUVppWjdZTU0wVVREWmotaFFXRElzcUVEUlRnVWJRSWZjZ1E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/taylor-swift-cma-nomination-i-knew-it-i-knew-you-1235624103/
+
+## CMA Awards 2026 Nominations Announced
+
+- first seen: 2026-09-10 19:37 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 6
+- summary: The nominations for the 2026 CMA Awards have been revealed, showcasing the year's top country music talents. Fans can check out the full list of nominees on Good Morning America's website.
+- sources:
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxPeUlSQmRDZGpMQnFDOWFWSXlIMzdNRzhoSFU2VGtiaW5jcnl5QURONGdJNVlsZldabElIdWVzMjUzZmppUEtwM1JJQVlaYWVIT3hKcHM1TUtaNWhnTTAwQzRyZGRsVVdoQmtpMTd1a25mNEc3M2tuSHNnT3ZCMFIyNlhZTWFNYXI5MW96cTR5anNBMmp1UUZxUGZQN21yNHNVajltZFZTclFQSkxGNVdRcEZVWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] E! Online — https://news.google.com/rss/articles/CBMilwFBVV95cUxNWU82cHl3SkpGMVNpeFV1U3YxSlk4S3BnejFmbTBWc283QjNKYjZPWWNySE5jRFMxWHNfTDVPREhmcFI5OXI3Q1MxeFZFMnFBV3A5Z3B1TG5ZNEZNQVMzd2UyUzJkMHRieHpFejhHcXEtZ2lvcFlkYXY3dWZTcGZMMm5ZeWcyZDBFakVmaGczZUdaX1lFaFVj?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] goodmorningamerica.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPY3NKVmFBTFU5aldTc0x5czdTdEFDcGwxR194M0V1bl9KaEZOc0pla3pkOU5uMEF6c1RJb0czdW1rdmFOclJ0Z2RlaFhqa1cydlIwS2UwLThVNlJiSW5SSmJtM2xZbzYtOUFDUkUwR0RQM2JaMk9hTGE2dzBFR0N4NW52VzUzazZoTE1B0gGQAUFVX3lxTFBJUUNvb1FYdjlzQ2lsREthakNrOXZKTzVYazBHZ3hSUmZFcWxrZThHTEM4VGZJX0pJS3ZyNC1YVDRVQWVqLUo2cjZCaXFIdDVYaHNLeFJVQUZzazlKcHRpRGRXRFRMX1VmWjBsZ3kzaEJZaDFFT0JOSUJQNVE2LWljWnhERl9MaV8yR3BzeExPQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxOd2VTYUdfRDFTTWZYOHg1TkVxc2QxcloyQWhVYzBRX1ZDaGNJQkxmOExVUVVfalY1MGxLWmF5N3dEUmUydUV0YlVSbU9SWkpDMkQwcHE5dWdySnk1UEV2RzVYTXJ1ajRITlYzU3ZWRVBwT3RQXzJuX1RjQkEzMTIybQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi1wFBVV95cUxPSjZaZmlrWXE4cGtmLWMyVVVBaXh4WFYyUGxSZzdNUm1jMTdHbDh3dGpvRWVvNXVIQUVWN0pTSkFGRHplTmM3d0NJem5HZnBqSmp0eGI5Z0dtUk1aTUtXQkMxZnRMNlVSM29zU2t2c0RENThjX2U1ekFPcmlzQkMwcGFoVjlWblEweUJ0MU1DbTlfcENNczlWeVl1c1R0NHowLTAxcG0xbjBLU3VhY09iR2p2M3pqRUp3SmVkNnhwUERTUk42S285MlFKMFlvMlk0WllmNDg5MA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] whiskeyriff.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxQNVpGaU52UG10cEktRHMxX19DZnV1YmdPekFWWDlFd01wRVhhT2dxcjlTYnpZVF9mY2gyZTZKM09pODJGeGl5dmRIeUsxSW4ybExESzZWQVZXaHkxa0pzei1SZUtfUERac0MwV3U1MVc0QU5wQzVmaVFTZEd0ZWowNm0weWpEOTFJaE1wUDQwQU5rYW1RU1AxdGFfdmo2RGFEb0plMXJwZkUwUnctNUVqTXVoVTY3VlVCc0NmNV9GcXgwZlhXYWhV?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift to Attend 2026 CMA Awards Amid Snubs and Surprises
 
@@ -103,6 +138,15 @@ Stories: 86
 - sources:
   - [unverified] Americans for Tax Reform — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdzJnYXZaLUxNMjhnQ25iMGxmemdZeWVwTzRqZGV2WmpoVVVxOUJmVjA4N0t4RDAwS0pmQVpvdl8zN3JlVEFRZzEzVDNSay1zRlduX2RnODFacmlzZFFDYVdQNnZzRHU1a192XzlYX3VsN3luVkRCUldSbWV2M3N2TlQ2NUx5M2JVUE9SRF9oWUdnS3IyRDh5amFXRjlULWllRnVqdXJ3eExmUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift Shares Personal Announcement Before NFL Game
+
+- first seen: 2026-09-10 19:37 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift made a personal announcement prior to the Chiefs-Broncos NFL game, although details of the announcement were not disclosed. The event highlights her continuous public presence and engagement with NFL events.
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxPQ0ZXMnFVbElpUUg2bFJIOGhaajNldWE1cXNqUlNTajdpY0NwSzRQcnZRbjhUUlZmVWdGSmJSUTZPbFZ2NnBLZk44d0ljV0RDRFNvQkFYNWJwa3Z2amR1a2NIWW52U0JFdDhzbHRlLVNYWEVza2oydVVjbVo4WjcxdFhxMlpBVEF2WHhxczE4RjN3LTE1ekxXdXp0UWNMdXk2WHpSUVBaWHFOc0hHTWc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNdlNFeUhCRU5TNDlFMlV6UzZiRlpwQUtwU0RvRjh1TnRHMEhrMnYzUGFGdkdGSzMzcG1LcWJ4dGRrVnlKQ2pWVDhFMGJDdXBUc3oyeTI0Mkctd2RXZmhKSlNMSGJUSkF4YTNrOTQwcVhCZ0pXMklSTE5YRExzVkZ5cGlyTEFSUHkwN3ZkQ2h6MFBxSGxuYnZpUktWM0VKY29mcjVNb0tkNHZLUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## New Bug Genus Named After Taylor Swift
 
 - first seen: 2026-09-10 13:32 UTC | category: business | importance: 5
@@ -138,11 +182,12 @@ Stories: 86
 ## Taylor Swift reportedly remains silent on Travis Kelce situation
 
 - first seen: 2026-09-10 13:32 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Taylor Swift has been reported to avoid complaining about her situation with Travis Kelce, despite feeling frustration. This comes amid ongoing public interest in their relationship.
 - sources:
   - [unverified] ew.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxOUkNXZ0xnQ3Z1cmkzQXZMUlNKQmE5WnBjOWV0STViUVMtZW9RNHJxTHFXTzJ1YlRzUjd6VUtBa0J6YVkyRUdvT3lzdDN3XzBQNDlYLWsxNHZIYkNyaldQWDBmcGFVcVdiSW9DQ1JiWUEzMmhiZmFOeWwwUG55dU1fS3JMX1Y0TG00cHJnZ1AzX01ROHp5MG5RbkttS3ZQQ0k?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxPVGw4VEswSzNwTWdkSjVEdGdHTG96QmoxS0gwNHRqYUJTZmFnTlhLSmJ5T002NkFVN0JxdjkzNkZyTEhoNWZuYUVSa2czUVFabG5NRUdKeTVmQm5vRkdLZGhENUlxQTV4ZGU0WjJGTnRSeWhzeC1UaDFaYVpEOXlwY0U2OTJvalljdDZhNDVqWnIwWlI0cWduYTd3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxQM3VnekRGeDM2ZXdiOGd1ZTdNelhicmVveDFtWlp1RERkU3JWbUNmWGswY0xSWDRoQ3IxVmxVcUNxT0pSdE9wMWd3QXRWMmlUd2J3WHR3YldLTDYyVWgxZkh5MkV6RTdtVnAtYy1FXzk0U3lWMTRTVXNSOUY5Zi1WV1ZZTUVYblhCdUh6amRZXy11TWtTWjZRMDRSTDRRaldibEZmaVdhQkxLOGZIa2FaOFp3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxPTTJGWWRaS0ZzdzRfaUo4aV9mUl9EbzduQXpTbWtTa3BqNG5VSGVvYXdHMkhoZlotZDFVOENwVk9uX1gtMGk2M3psVDBuazNZa3NoV2NsbmdJX01pdG1Gb201TDEzdWoyOXNsTGpoUHpqU2Y5aDBsdzY0NVdtVDkzenMtdkRXNFlPUDJOZGJqOXphempSdVZVRV9pVUFyTVNLVllBSUQxSlJJUjJxMk94dQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNRXkxNHN0aW5rTklUMG1pRks1VXB4Z3czend0X1pkS1VvWFlJQmdYQmtfLUc4WVQ0aHE5V0VtU25PTzBIWFVqbXVTQ0EtN2pCY3ZES1Mwa0dTdzhCeEMzbkUxX2VXV2V5YXl3cmhuaF9qenljOWNsTjV1azdua290Rl9nbEUxTWR6UGZHT1M3QnhKb2J2Tm5RVFpNTHhNaFhvU0hXTUd0cWVyX3hDNi1R?oc=5&hl=en-US&gl=US&ceid=US:en
 
@@ -692,52 +737,3 @@ Stories: 86
 - sources:
   - [unverified] heavy.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxNZUVfUjBYaHcza3hxOFNyZEdrdDZQTnczb01WZ05URnFEZ3hwMFZhTENIVTgzU0EyVF9nd3R3dE5YbDRnY0lEMVl6SGc0bWdQVWVSQy1nRjJ6blpxakpQOTdramdGa3lWTHlyVmE0NXhmMzZuZ2VmQWVKMjlfSGtSc2ItTmhMWE5rZEFibFNxS1R1dl82dHVz?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNYWpaakEwb0YtQ0dwNXBiSW5nNU5NRktqSFRmOVFDMmN2d3ZvdXpiTnk3WkdKSmhKelVKcTJ2VFVwVG9IcHhzOVVfc0xfckhjbnVnQ2pVTWJQd21YYjZKWjV6WGtnU2ZfRjlDbUZFWHZ5QjlaZGJsTmgwdy1GczV3RWFiLTFmSWJual9RaUhEeG5WU0JoaWVvWE4wbw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Visit NYC Restaurant Post-Wedding
-
-- first seen: 2026-09-07 20:32 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted dining at a popular Indian restaurant in New York City. This outing occurred two months after their wedding at Madison Square Garden.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMi5gFBVV95cUxQc3VfTUh6YkdweHptSUhFRGUyY2ZqYnA5ZFZYTjZlUFpzQ29tWndKVm1ZeTU0cGxMTmcxd3FSUkdVNHBTeEExNTdoU3UyM1kyV2pjZ1AxTVRMcGx5a0REN3kxX1NucGJzSmxfejVCVDlpcnVHT3RITWpleTZBMUVLRURNRXNzMHl5X3pubHFVV19neU5EOWJXbnc3MTcwclE4NFZsbWFUSzZJbFJPUW92YWtpcE5QdmU3dE5iTGpaSG5FQWs3OHE3QzVFZ3h2cjd0UEpZYXVoMERDblIxNC1ZQWJsRktJQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and JD Vance Drama Reemerges Following Trump's Comment
-
-- first seen: 2026-09-07 20:32 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: The ongoing drama between Taylor Swift and JD Vance has resurfaced after Donald Trump referred to Swift as ‘no longer hot’. The comment has reignited discussions around their past interactions.
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMijwFBVV95cUxNYnA1akd4bDRpQ1pUMkJuYVpXRU1hcnhRb21kQWRUM0JOa1loUGRuZUZSbXZBQy1WVDZSTXhsbElGal9NODE3ZmdET1E4WkZNdXk2MHo2M1cteVNla2hXalp1aDdBNG9XS2lWYzBFZ0xVWmpFR2JIQ1Yzc3U4SXNTOGV0Qk1uYVNocGZhb1dLTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNVHVsVUk5R0R0Xy1TVzRLTzM3bk9ud3B6dzRLSzBNUFNBRS1tZC1pczZlbTh3VThQQWlLeWxaclU2UjdzRlJiQVUwX295Z3gzNmFNc0FuaERkMmxiS3lKcmd5TTNTTjEybGVIdkl5TUQxNS01RFNLQ0xEaW1jTTBZdlhHV0Rndm1ibW9JaVlobW9zTDFGeFV4QjRVUk5Ndw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Guests at Taylor Swift's Wedding Joke About No-Phone Policy
-
-- first seen: 2026-09-07 20:32 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Celebrity guests humorously commented on the strict no-phone policy at the wedding of Taylor Swift and Travis Kelce. The lighthearted remarks add a playful tone to the event details.
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMikwJBVV95cUxNcjh2czBpdzM2andxdmk3dHh1akFHOUFoRUd2ZlRyWVhiTDhIcGhSdkdUaDdTZXlwck4xUzllUmtQak00TlRfMnlSQ29NY0RWckY5Wmo4dnVNMXcwNHFiVWRyRmZjdldzaGdoUUNxUjI0dHJsNXNXaWtSeVBrLWNkNnVuZDZXLWgwcXZfZUpKSUx6dkZySHJvTVFPVGJfNk02OTN0dDJKZ2dUemdyZ29RNlFjTk03aGVYSWNqUmpJRnF0THlkbFkzV0VWRGFaYkdPSlotcmtWVXlrQjNyR3puTUJsczRzaVNDOHh0cXFuYk1qSUNZNGRMaFFVSHNJMDFVN1hNaExDU0cydHVmclc3Umcza9IBkwJBVV95cUxPVFN4YlBGcWNScmw4ZkxUdXNhRHBvSzd4d1FDRTdmdDBPdG45NGxNNUY5NjRuNEN6Y0owdHZNNWNtcnJZS0hUX3ROekxQY1RjQkllWnMxTkFNTHNBM3dZWlExUGQwQjRMQTYtZy1vUGNLX0RvQVAwX2tTZTFzWHhINnpzZ1F4V28yV3daRXdTX1RibTQ1SExnMW5NTkxXdWNQSWUwc0gzWGl1N2ZuZGlSQ3gtOTNXV2FPclBoZ2NDeEd6QmczYXJiZEsySmhZM3ByeDV3Y0FoZDczWXdzREEtTWZ6dldnQk12Zlg4RlpxVDhWUXdkSXcwR2trM3RmdlhJV3czR3laOGpvMUdDZk8yUF9Edw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's New Country Song Reaches Number One
-
-- first seen: 2026-09-07 20:32 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has achieved a number one ranking with her latest country song, according to kxly.com. This marks a significant milestone in her music career.
-- sources:
-  - [unverified] kxly.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxPWTIyYlBBV3ljTW9NeUFySENYOWFHeGZuLTRpaWZSTUtLTEgxLWF1bkllUWtKdFN6SDFVcWtnZ0UwbVVFelNkT1piMkc5MUhzQVg3dGtjdVRvaDRkcUJ2WG0wXzA3c2R2ako5RDZxQU11aTI5LVU4c3VTZ1Vna2VSZ2podFVEbjF1S2ZCS3VEMG12U1Y0bkFvaG9ydWg5bDVya3E0Yk5rd2l2Y2V3N3VwQldCZlFLdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift May Return to Country Music for Next Album
-
-- first seen: 2026-09-07 20:32 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: There is speculation that Taylor Swift's upcoming album could mark a return to her country music roots, according to Saving Country Music. Fans are anticipating what direction her new music will take.
-- sources:
-  - [unverified] - Saving Country Music — https://news.google.com/rss/articles/CBMiogFBVV95cUxPSDlMSE9jTG5Iai16TWFZMTRhd3JELVN4MDdNUml4cE9nNjRxNG9ITDB2V05xRHRYQWZXSVRqem9RM0ktUmF4RHpnc01XUk9vSFdYQ1pYbUVLWEtNaEJzMGFtM2NIVlRYN2hHZkNMM2FjZjFKMFJlcklDTnhHWTE0WW5mMEI2eDJGODhGRi1jaXBMZndxQzhBZUMxaWJuR2I2QVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Purchases Home from Travis Kelce
-
-- first seen: 2026-09-07 20:32 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a purchase in her real estate portfolio by acquiring a home from Travis Kelce. This move adds to her existing property investments.
-- sources:
-  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMilAFBVV95cUxQMVUzdndqWTZIVEdfUTFOd1BWRHdMX3RXSHF5TXBYWXJ6S3hLZUF4RlFmSXlVZnVlc1h3MEplLTd3UFBRSDNpS2xzdENMOS1oQ2ZwWk9zeHFXbHRnbk0tM05uWGMtc1EyOE44N2dOUXFBTmQwUjRGR2l2QVFfOEdoZVhLTmRWNGo5azYxTUd3WmphYzRy0gGaAUFVX3lxTE1sRzA3Vm9HaGlGRDJrbVFBbXdwN1RYQl9GVERiU21pSHJNR195VE53ZU9vUjdWNGhTaXo2cDExYzFmOEoxdlQtTUhqQk5ZQ0JPcDRMY1Z1V3AxWkMzdGE2eVpjS2RpcU5lWDl0eWRhUFpIRDBKd2hkN0JhTTF5UW9SWkRUNHpaWXZkYUUwdDZOSzRvazVhdFlia3c?oc=5&hl=en-US&gl=US&ceid=US:en
