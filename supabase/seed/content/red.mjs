@@ -1479,6 +1479,7 @@ export default {
       relatedIds: [
         'moment:vault-speak-now-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
         'moment:vault-red-i-knew-you-were-trouble-goes-global',
+        'moment:vault-red-i-knew-you-were-trouble-debuts-live-at-the-amas',
       ],
       year: 2012,
       month: 12,
@@ -2079,6 +2080,14 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "red-i-knew-you",
+      // Cross-link (2026-09-10, Vault Run crosslink-opportunity): the "I Knew
+      // You Were Trouble" cluster — its dubstep pop-radio debut, the first live
+      // performance at the 2012 AMAs, and the birthday video drop.
+      relatedIds: [
+        'moment:vault-speak-now-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
+        'moment:vault-red-i-knew-you-were-trouble-debuts-live-at-the-amas',
+        'moment:vault-red-the-i-knew-you-were-trouble-video-drops-on-her-23rd-birthday',
+      ],
       year: 2012,
       month: 11,
       day: 12,
@@ -2117,6 +2126,15 @@ export default {
       // the actual first live performance of "I Knew You Were Trouble" at
       // the 2012 AMAs. Legacy id kept as slug for stability.
       slug: "red-snl",
+      // Cross-link (2026-09-10, Vault Run crosslink-opportunity): the "I Knew
+      // You Were Trouble" cluster — its dubstep pop-radio debut, its global
+      // chart run, and the birthday video drop. This first-live-performance
+      // page was the cluster's outlier (re-sourced 2026-09-05, #3755).
+      relatedIds: [
+        'moment:vault-speak-now-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
+        'moment:vault-red-i-knew-you-were-trouble-goes-global',
+        'moment:vault-red-the-i-knew-you-were-trouble-video-drops-on-her-23rd-birthday',
+      ],
       year: 2012,
       month: 11,
       day: 18,
