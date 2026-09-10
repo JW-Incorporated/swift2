@@ -1,10 +1,12 @@
 // @vitest-environment jsdom
 import type {} from '@testing-library/jest-dom/vitest';
+import { useRef } from 'react';
 import { describe, expect, it } from 'vitest';
 import { render, screen, within, fireEvent } from '@testing-library/react';
 import { ClownChat } from './ClownChat';
 import { AppProvider } from '@/lib/longlive/store';
 import { MAX_TEXTAREA_HEIGHT_PX } from '@/lib/longlive/clown-chat-ui';
+import { useStickToBottomScroll } from '@/lib/longlive/clown-chat-ui';
 
 function renderClownChat() {
   return render(
@@ -80,11 +82,48 @@ describe('ClownChat message stream auto-scroll', () => {
     const { container } = renderClownChat();
     // useStickToBottomScroll wires the stream container's scroll behavior;
     // aria-live="polite" is the render-observable contract that new turns
-    // get announced/kept in view — the actual scrollTop write itself has no
-    // real layout to assert against in jsdom (exercised by clown-chat-ui.ts's
-    // own unit tests instead).
+    // get announced/kept in view — the real scrollTop write itself is
+    // exercised behaviorally below, against the real hook, not the
+    // component's fetch-driven `deps` (which would need mocking the whole
+    // network/stream path just to flip them).
     const stream = container.querySelector('[aria-live="polite"]');
     expect(stream).not.toBeNull();
     expect(stream).toHaveAttribute('aria-atomic', 'false');
+  });
+});
+
+describe('useStickToBottomScroll (real behavior, not source-grep)', () => {
+  function Harness({ dep }: { dep: number }) {
+    const ref = useRef<HTMLDivElement>(null);
+    useStickToBottomScroll(ref, [dep]);
+    return <div ref={ref} data-testid="stream" />;
+  }
+
+  function stubScrollGeometry(el: HTMLElement, { scrollHeight, clientHeight, scrollTop = 0 }: { scrollHeight: number; clientHeight: number; scrollTop?: number }) {
+    Object.defineProperty(el, 'scrollHeight', { configurable: true, value: scrollHeight });
+    Object.defineProperty(el, 'clientHeight', { configurable: true, value: clientHeight });
+    Object.defineProperty(el, 'scrollTop', { configurable: true, value: scrollTop, writable: true });
+  }
+
+  it('pins the container to its full scrollHeight while the reader stays near the bottom', () => {
+    const { getByTestId, rerender } = render(<Harness dep={0} />);
+    const stream = getByTestId('stream');
+    stubScrollGeometry(stream, { scrollHeight: 400, clientHeight: 200 });
+    // `deps` changing (a new message/step/error) re-runs the pin effect;
+    // nearBottomRef starts true, so it must jump straight to the bottom.
+    rerender(<Harness dep={1} />);
+    expect(stream.scrollTop).toBe(400);
+  });
+
+  it('never yanks the container back down once the reader has scrolled up mid-stream', () => {
+    const { getByTestId, rerender } = render(<Harness dep={0} />);
+    const stream = getByTestId('stream');
+    stubScrollGeometry(stream, { scrollHeight: 400, clientHeight: 200 });
+    // 150px from the bottom — past AUTO_SCROLL_THRESHOLD_PX (96px) — is a
+    // deliberate scroll-up, not noise.
+    stream.scrollTop = 50;
+    fireEvent.scroll(stream);
+    rerender(<Harness dep={1} />);
+    expect(stream.scrollTop).toBe(50);
   });
 });

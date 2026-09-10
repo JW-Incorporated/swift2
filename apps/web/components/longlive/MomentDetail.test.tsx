@@ -30,10 +30,13 @@ function renderMoment(id: string) {
 
 // #834: the lightbox photo could render with no accessible name when the
 // image had no caption of its own — the fix falls it back to the moment's
-// title. Pick a real seeded moment whose primary image has no caption, so
-// the render exercises the actual fallback path, not a fixture we made up.
+// title. Pick a real seeded moment whose primary image has no caption AND
+// carries a second image (so the gallery has a clickable inline figure and
+// the "View photo full screen" opener is guaranteed to render — no need
+// for a fallback branch in the test itself), so the render exercises the
+// actual fallback path, not a fixture we made up.
 const noCaptionItem = CONTENT.find(
-  (c) => c.images.length > 0 && !c.images[0].caption && c.tags.length > 0,
+  (c) => c.images.length > 1 && !c.images[0].caption && c.tags.length > 0,
 );
 
 // #659: tag pill contrast — the pill background must use the lighter 10%
@@ -60,20 +63,16 @@ describe('MomentDetail — #834 (lightbox photo can be nameless)', () => {
 
   it('opens the full-screen viewer with the title reachable as the image fallback name', () => {
     const item = noCaptionItem!;
-    const { container } = renderMoment(item.id);
+    renderMoment(item.id);
 
     // The inline figure's "View photo full screen" button opens the
     // lightbox; MomentDetail renders one such button per inline gallery
     // image (the hero itself opens via its own button when present).
-    const openButtons = screen.queryAllByRole('button', { name: /view photo full screen/i });
-    if (openButtons.length === 0) {
-      // This particular item's only image is the hero and/or has no
-      // clickable inline figure (e.g. all images deduped as video stills);
-      // the #834 fallback is still provably wired — see the source check.
-      const src = container.innerHTML;
-      expect(src).toContain(item.title);
-      return;
-    }
+    // `noCaptionItem` is picked above to guarantee at least one such
+    // opener renders — no fallback branch here, so removing the opener
+    // (or the whole lightbox) fails this test instead of passing it.
+    const openButtons = screen.getAllByRole('button', { name: /view photo full screen/i });
+    expect(openButtons.length).toBeGreaterThan(0);
     fireEvent.click(openButtons[0]);
     const viewer = screen.getByRole('dialog', { name: /photo viewer/i });
     const img = within(viewer).getByRole('img');

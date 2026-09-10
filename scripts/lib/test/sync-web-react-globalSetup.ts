@@ -22,32 +22,58 @@
 // resolve/test aliases only cover requires that route through Vite's own
 // resolver, and plenty of transitive node_modules requires never do.
 //
-// Idempotent and safe to run every time: it only touches node_modules
-// (never source), and never touches package.json/package-lock.json — no
-// lockfile churn, no npm `overrides` conflict with apps/mobile's exact
-// react pin.
-import { existsSync, lstatSync, mkdirSync, realpathSync, rmSync, symlinkSync } from 'node:fs';
+// Restored on teardown: the swap only needs to hold for the duration of
+// this vitest run. Leaving the root's hoisted copy permanently replaced
+// would silently change dependency resolution for every OTHER workspace
+// (apps/mobile, apps/worker, packages/*) and any build/script that runs
+// after the test suite in the same checkout — including CI's own later
+// steps (`npm run lint`, `npm run typecheck --workspace @swift2/mobile`)
+// in the same job. Never touches package.json/package-lock.json either
+// way — no lockfile churn, no npm `overrides` conflict with apps/mobile's
+// exact react pin.
+import { existsSync, lstatSync, mkdirSync, realpathSync, renameSync, rmSync, symlinkSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 
 const repoRoot = fileURLToPath(new URL('../../..', import.meta.url));
 
-function symlinkPackage(name: string) {
+/** Where an original (pre-swap) root copy is parked so teardown can restore it. */
+function backupPathFor(dest: string): string {
+  return `${dest}.pre-render-test-harness-backup`;
+}
+
+function symlinkPackage(name: string): void {
   const source = join(repoRoot, 'apps/web/node_modules', name);
   const dest = join(repoRoot, 'node_modules', name);
   if (!existsSync(source)) return;
   if (existsSync(dest)) {
     const alreadyLinked = lstatSync(dest).isSymbolicLink() && realpathSync(dest) === realpathSync(source);
     if (alreadyLinked) return;
-    rmSync(dest, { recursive: true, force: true });
+    // Park the real root copy instead of deleting it, so teardown can put
+    // dependency resolution back exactly as npm install left it.
+    const backup = backupPathFor(dest);
+    rmSync(backup, { recursive: true, force: true });
+    renameSync(dest, backup);
   } else {
     mkdirSync(join(repoRoot, 'node_modules'), { recursive: true });
   }
   symlinkSync(source, dest, 'dir');
 }
 
+function restorePackage(name: string): void {
+  const dest = join(repoRoot, 'node_modules', name);
+  const backup = backupPathFor(dest);
+  if (!existsSync(backup)) return;
+  rmSync(dest, { recursive: true, force: true });
+  renameSync(backup, dest);
+}
+
 export default function setup() {
   symlinkPackage('react');
   symlinkPackage('react-dom');
+  return () => {
+    restorePackage('react');
+    restorePackage('react-dom');
+  };
 }
 
