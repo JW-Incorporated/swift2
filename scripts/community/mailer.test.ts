@@ -11,6 +11,7 @@ import {
   renderEmailText,
   fetchLeadsToMail,
   markEmailed,
+  getOrCreateReceipt,
   MAX_LEADS_PER_EMAIL,
   SITE,
 } from './mailer.mjs';
@@ -101,10 +102,7 @@ describe('orderLeads', () => {
   });
 
   it('sorts a null relevance last, not as a crash or a false top rank', () => {
-    const leads = [
-      lead({ id: '1', relevance: null }),
-      lead({ id: '2', relevance: 0.2 }),
-    ];
+    const leads = [lead({ id: '1', relevance: null }), lead({ id: '2', relevance: 0.2 })];
     expect(orderLeads(leads).map((l: Lead) => l.id)).toEqual(['2', '1']);
   });
 });
@@ -122,7 +120,9 @@ describe('destinationLine', () => {
   });
 
   it('renders a facebook locator, never a permalink', () => {
-    const line = destinationLine(lead({ platform: 'facebook', locator: "Taylor Swift's Vault — some post", url: null }));
+    const line = destinationLine(
+      lead({ platform: 'facebook', locator: "Taylor Swift's Vault — some post", url: null }),
+    );
     expect(line).toContain('Facebook');
     expect(line).toContain('some post');
   });
@@ -143,10 +143,16 @@ describe('renderLeadCard', () => {
   });
 
   it('shows a link candidate note only when link_included is false and a target_url exists', () => {
-    const withCandidate = renderLeadCard(lead({ link_included: false, target_url: 'https://longlivets.com/x' }), { ackSecret: 's' });
+    const withCandidate = renderLeadCard(
+      lead({ link_included: false, target_url: 'https://longlivets.com/x' }),
+      { ackSecret: 's' },
+    );
     expect(withCandidate).toContain('Link candidate');
 
-    const linked = renderLeadCard(lead({ link_included: true, target_url: 'https://longlivets.com/x' }), { ackSecret: 's' });
+    const linked = renderLeadCard(
+      lead({ link_included: true, target_url: 'https://longlivets.com/x' }),
+      { ackSecret: 's' },
+    );
     expect(linked).not.toContain('Link candidate');
   });
 
@@ -167,7 +173,11 @@ describe('renderEmailHtml / renderEmailText', () => {
     const daily = renderEmailHtml([lead()], { ackSecret: 's', mode: 'daily', date: '2026-09-07' });
     expect(daily).toContain('Community Tasks — 2026-09-07');
 
-    const rw = renderEmailHtml([lead({ kind: 'reply_to_us' })], { ackSecret: 's', mode: 'replies-waiting', date: '2026-09-07' });
+    const rw = renderEmailHtml([lead({ kind: 'reply_to_us' })], {
+      ackSecret: 's',
+      mode: 'replies-waiting',
+      date: '2026-09-07',
+    });
     expect(rw).toContain('Replies waiting — 2026-09-07');
   });
 
@@ -177,7 +187,10 @@ describe('renderEmailHtml / renderEmailText', () => {
   });
 
   it("text fallback includes every lead's draft and the thread url", () => {
-    const text = renderEmailText([lead(), lead({ id: '2', url: null, title: null })], { mode: 'daily', date: '2026-09-07' });
+    const text = renderEmailText([lead(), lead({ id: '2', url: null, title: null })], {
+      mode: 'daily',
+      date: '2026-09-07',
+    });
     expect(text).toContain('A paste-ready reply.');
     expect(text).toContain('https://www.reddit.com/r/TaylorSwift/comments/abc/post/');
     expect(text.match(/A paste-ready reply\./g)?.length).toBe(2);
@@ -223,7 +236,9 @@ describe('fetchLeadsToMail', () => {
   });
 
   it('caps at MAX_LEADS_PER_EMAIL even if the query returns more', async () => {
-    const rows = Array.from({ length: MAX_LEADS_PER_EMAIL + 5 }, (_, i) => lead({ id: String(i), relevance: i }));
+    const rows = Array.from({ length: MAX_LEADS_PER_EMAIL + 5 }, (_, i) =>
+      lead({ id: String(i), relevance: i }),
+    );
     const supabase = fakeSupabase({ rows });
     const result = await fetchLeadsToMail(supabase, { mode: 'daily' });
     expect(result.length).toBe(MAX_LEADS_PER_EMAIL);
@@ -237,7 +252,9 @@ describe('fetchLeadsToMail', () => {
     // (FETCH_POOL_LIMIT) must pull all of them so orderLeads can still put
     // the reply first.
     const rows = [
-      ...Array.from({ length: MAX_LEADS_PER_EMAIL }, (_, i) => lead({ id: `old-${i}`, kind: 'hot_thread', relevance: 0.9 })),
+      ...Array.from({ length: MAX_LEADS_PER_EMAIL }, (_, i) =>
+        lead({ id: `old-${i}`, kind: 'hot_thread', relevance: 0.9 }),
+      ),
       lead({ id: 'urgent-reply', kind: 'reply_to_us', relevance: 0.1 }),
     ];
     const supabase = fakeSupabase({ rows });
@@ -248,21 +265,88 @@ describe('fetchLeadsToMail', () => {
 
   it('throws on a genuine db error rather than mailing a silently-empty batch', async () => {
     const supabase = fakeSupabase({ rows: [], selectError: { message: 'boom' } });
-    await expect(fetchLeadsToMail(supabase, { mode: 'daily' })).rejects.toEqual({ message: 'boom' });
+    await expect(fetchLeadsToMail(supabase, { mode: 'daily' })).rejects.toEqual({
+      message: 'boom',
+    });
+  });
+});
+
+// Minimal fake covering the community_delivery_receipt surface
+// getOrCreateReceipt reads/writes.
+function fakeReceiptSupabase({
+  receiptRow = null as { status: string; delivered_count: number } | null,
+} = {}) {
+  let inserted = false;
+  return {
+    from(table: string) {
+      if (table !== 'community_delivery_receipt') throw new Error(`unexpected table ${table}`);
+      return {
+        select: () => ({
+          eq: () => ({
+            maybeSingle: () => Promise.resolve({ data: inserted ? null : receiptRow, error: null }),
+          }),
+        }),
+        insert: () => {
+          inserted = true;
+          return Promise.resolve({ error: null });
+        },
+      };
+    },
+  };
+}
+
+describe('getOrCreateReceipt (Fable ruling 2026-09-09: suppress delivered, retry failed/started)', () => {
+  it('suppresses a same-day re-run when the existing receipt is already delivered', async () => {
+    const supabase = fakeReceiptSupabase({
+      receiptRow: { status: 'delivered', delivered_count: 3 },
+    });
+    const receipt = await getOrCreateReceipt(supabase, 'daily', [lead()]);
+    expect(receipt.suppressed).toBe(true);
+    expect(receipt.existing?.status).toBe('delivered');
+  });
+
+  it('does NOT suppress and returns the existing row when the prior receipt is failed (log-and-retry)', async () => {
+    const supabase = fakeReceiptSupabase({ receiptRow: { status: 'failed', delivered_count: 1 } });
+    const receipt = await getOrCreateReceipt(supabase, 'daily', [lead()]);
+    expect(receipt.suppressed).toBe(false);
+    expect(receipt.existing?.status).toBe('failed');
+  });
+
+  it('does NOT suppress an abandoned started receipt (retry, never permanently blocked)', async () => {
+    const supabase = fakeReceiptSupabase({ receiptRow: { status: 'started', delivered_count: 0 } });
+    const receipt = await getOrCreateReceipt(supabase, 'daily', [lead()]);
+    expect(receipt.suppressed).toBe(false);
+    expect(receipt.existing?.status).toBe('started');
+  });
+
+  it('creates a fresh started receipt when none exists yet', async () => {
+    const supabase = fakeReceiptSupabase({ receiptRow: null });
+    const receipt = await getOrCreateReceipt(supabase, 'daily', [lead()]);
+    expect(receipt.suppressed).toBe(false);
+    expect(receipt.existing).toBeNull();
+    expect(receipt.deliveryKey).toContain('daily:');
   });
 });
 
 describe('markEmailed', () => {
   it('is a no-op for an empty id list (never issues a pointless update)', async () => {
     let called = false;
-    const supabase = fakeSupabase({ onUpdate: () => { called = true; } });
+    const supabase = fakeSupabase({
+      onUpdate: () => {
+        called = true;
+      },
+    });
     await markEmailed(supabase, []);
     expect(called).toBe(false);
   });
 
   it('updates status=emailed for exactly the given ids', async () => {
     let seen: { table: string; patch: { status: string }; ids: string[] } | undefined;
-    const supabase = fakeSupabase({ onUpdate: (table: string, patch: unknown, ids: string[]) => { seen = { table, patch: patch as { status: string }, ids }; } });
+    const supabase = fakeSupabase({
+      onUpdate: (table: string, patch: unknown, ids: string[]) => {
+        seen = { table, patch: patch as { status: string }, ids };
+      },
+    });
     await markEmailed(supabase, ['a', 'b']);
     expect(seen?.table).toBe('engagement_lead');
     expect(seen?.patch.status).toBe('emailed');
@@ -287,6 +371,8 @@ describe('markEmailed', () => {
 
   it('throws after exhausting all retry attempts (never re-mails silently on a persistent failure either)', async () => {
     const supabase = fakeSupabase({ updateError: { message: 'db down' } });
-    await expect(markEmailed(supabase, ['a'], { attempts: 2, delayMs: 1, sleep: () => Promise.resolve() })).rejects.toEqual({ message: 'db down' });
+    await expect(
+      markEmailed(supabase, ['a'], { attempts: 2, delayMs: 1, sleep: () => Promise.resolve() }),
+    ).rejects.toEqual({ message: 'db down' });
   });
 });

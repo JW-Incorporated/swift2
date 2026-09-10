@@ -27,12 +27,12 @@ name: community-mailer
 
 on:
   schedule:
-    - cron: "36 15 * * *" # daily send, after routine-community-answerer.yml (14:46 UTC)
-    - cron: "12 21 * * *" # bounded replies-waiting second send (reply_to_us only)
+    - cron: '36 15 * * *' # daily send, after routine-community-answerer.yml (14:46 UTC)
+    - cron: '12 21 * * *' # bounded replies-waiting second send (reply_to_us only)
   workflow_dispatch:
     inputs:
       mode:
-        description: "Which send to run: auto (pick by which cron fired), daily, or replies-waiting"
+        description: 'Which send to run: auto (pick by which cron fired), daily, or replies-waiting'
         required: false
         default: auto
         type: choice
@@ -74,7 +74,7 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: "24"
+          node-version: '24'
 
       - run: npm ci --ignore-scripts
 
@@ -83,5 +83,6 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           DISCORD_SOCIAL_WEBHOOK: ${{ secrets.DISCORD_SOCIAL_WEBHOOK }}
+          COMMUNITY_ACK_SECRET: ${{ secrets.COMMUNITY_ACK_SECRET }}
           MAILER_MODE: ${{ steps.pick.outputs.mode }}
         run: node scripts/community/mailer.mjs --mode="$MAILER_MODE"

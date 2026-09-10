@@ -62,24 +62,23 @@ export async function GET(req: Request): Promise<Response> {
   }
 
   const url = new URL(req.url);
-  let leadId = url.searchParams.get('lead')?.trim() ?? '';
-  const discordAckId = url.searchParams.get('ack')?.trim() ?? '';
+  const leadId = url.searchParams.get('lead')?.trim() ?? '';
   const action = url.searchParams.get('action')?.trim() ?? '';
   const token = url.searchParams.get('token')?.trim() ?? '';
   const linkIncluded = url.searchParams.get('link') === '1';
 
-  if ((!leadId && !discordAckId) || (leadId && !UUID_RE.test(leadId)) || (discordAckId && !UUID_RE.test(discordAckId))) {
+  if (!leadId || !UUID_RE.test(leadId)) {
     return htmlResponse(400, 'This link is missing or has an invalid lead id.');
   }
   if (action !== 'posted' && action !== 'skip') {
     return htmlResponse(400, 'This link has an invalid action.');
   }
-  if (!discordAckId && (!token || !HEX_RE.test(token))) {
+  if (!token || !HEX_RE.test(token)) {
     return htmlResponse(400, 'This link is missing its verification token.');
   }
 
   const secret = process.env.COMMUNITY_ACK_SECRET;
-  if (!discordAckId && !secret) {
+  if (!secret) {
     // Never surfaces as a 5xx bug report from a founder's inbox — same
     // clean-degrade posture as every other unconfigured route in this
     // repo — but this one really does need attention, hence the warn.
@@ -87,7 +86,7 @@ export async function GET(req: Request): Promise<Response> {
     return htmlResponse(503, 'The Community Engine ack link isn’t configured in this environment yet.');
   }
 
-  if (!discordAckId && !verifyAckToken(secret!, { leadId, action, linkIncluded }, token)) {
+  if (!verifyAckToken(secret, { leadId, action, linkIncluded }, token)) {
     // Tamper case (§9 acceptance criterion: "tests for route + tamper
     // cases") — wrong signature for this lead+action pair. Never reveals
     // whether the lead id itself exists.
@@ -98,20 +97,6 @@ export async function GET(req: Request): Promise<Response> {
   if (!db) {
     console.warn('community/ack: SUPABASE_SERVICE_ROLE_KEY not set; ack dropped');
     return htmlResponse(503, 'The Community Engine isn’t wired up in this environment yet.');
-  }
-
-  if (discordAckId) {
-    const { data: lead, error } = await db
-      .from('engagement_lead')
-      .select('id')
-      .eq('discord_ack_id', discordAckId)
-      .maybeSingle();
-    if (error) {
-      console.error('community/ack: discord ack lookup failed', error.message);
-      return htmlResponse(500, 'Something went wrong recording that — please try again shortly.');
-    }
-    if (!lead) return htmlResponse(404, 'That community task couldn’t be found — it may already have been removed.');
-    leadId = lead.id;
   }
 
   try {
