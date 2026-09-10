@@ -196,7 +196,7 @@ interface SuffixEntry {
   doc: SearchDoc;
 }
 
-const suffixIndexCache = new WeakMap<readonly SearchDoc[], SuffixEntry[]>();
+const suffixIndexCache = new WeakMap<readonly SearchDoc[], { length: number; entries: SuffixEntry[] }>();
 
 function buildSuffixIndex(docs: readonly SearchDoc[]): SuffixEntry[] {
   const entries: SuffixEntry[] = [];
@@ -218,13 +218,19 @@ function buildSuffixIndex(docs: readonly SearchDoc[]): SuffixEntry[] {
 // Keyed by the doc array's identity: `getSearchIndex()` returns the same
 // cached array on every call, so its suffix index is built once and reused;
 // a fresh array (as in tests, or a future non-singleton caller) just builds
-// its own the first time it's searched.
+// its own the first time it's searched. The cached `length` is checked on
+// every lookup and invalidates the entry if the array was appended/spliced
+// in place under the same reference — a plain identity cache would silently
+// serve a stale index and miss docs added after the first search. SearchDoc
+// objects themselves are treated as immutable once built (nothing in this
+// codebase mutates `titleNorm`/`bodyNorm`/`weight` post-`makeSearchDoc`); the
+// cache does not guard against in-place field edits on an already-indexed
+// doc, only against the array changing shape.
 function getSuffixIndex(docs: readonly SearchDoc[]): SuffixEntry[] {
-  let entries = suffixIndexCache.get(docs);
-  if (!entries) {
-    entries = buildSuffixIndex(docs);
-    suffixIndexCache.set(docs, entries);
-  }
+  const cached = suffixIndexCache.get(docs);
+  if (cached && cached.length === docs.length) return cached.entries;
+  const entries = buildSuffixIndex(docs);
+  suffixIndexCache.set(docs, { length: docs.length, entries });
   return entries;
 }
 
@@ -276,8 +282,15 @@ function candidatesForTerm(entries: readonly SuffixEntry[], term: string): TermC
  * real, authoritative scoring — this only narrows which docs it has to run
  * on, so ranking/output is unchanged. Falls back to the full doc list (same
  * cost as the pre-refactor scan, never worse) when no term narrows usefully.
+ *
+ * Returns docs in their ORIGINAL relative order (not suffix-sort order):
+ * `searchDocs`'s final sort is `score` then `title` — both computed fresh —
+ * but a tie on both falls through to whatever order the byType buckets were
+ * filled in, and that must match the pre-refactor full-array scan exactly
+ * (insertion order), or two same-score-same-title docs can swap places (and,
+ * with a finite `limitPerType`, which one gets cut can change).
  */
-function candidateDocs(docs: readonly SearchDoc[], terms: readonly string[]): Iterable<SearchDoc> {
+function candidateDocs(docs: readonly SearchDoc[], terms: readonly string[]): readonly SearchDoc[] {
   const entries = getSuffixIndex(docs);
   let candidates: Set<SearchDoc> | undefined;
   for (const term of terms) {
@@ -292,7 +305,8 @@ function candidateDocs(docs: readonly SearchDoc[], terms: readonly string[]): It
     }
     if (candidates.size === 0) return [];
   }
-  return candidates ?? docs; // no term narrowed usefully: fall back to a full scan
+  if (candidates === undefined) return docs; // no term narrowed usefully: fall back to a full scan
+  return docs.filter((doc) => candidates.has(doc));
 }
 
 export const MAX_RESULTS_PER_TYPE = 5;
