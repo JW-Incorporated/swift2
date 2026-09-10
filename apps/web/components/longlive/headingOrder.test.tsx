@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { render } from '@testing-library/react';
 import { EraSection } from './EraSection';
 import { AppProvider } from '@/lib/longlive/store';
-import { CURRENT_ERA_ID, getEra } from '@/lib/longlive/eras';
+import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
 
 /** Heading levels as they appear in a component's source, in JSX order —
  *  still used for the two thread-surface files below, which this task's
@@ -44,7 +44,7 @@ describe('heading outline has no h1 → h3 jumps (#703)', () => {
     expect(headings[0]).toBe(1);
     expect(headings.filter((l) => l === 1)).toHaveLength(1);
     const h2Index = headings.indexOf(2);
-    expect(h2Index).toBeGreaterThan(0);
+    expect(h2Index).toBe(1);
     expect(headings.filter((l) => l === 2)).toHaveLength(1);
     // Every heading after the h2 (the card titles) is an h3 — never a
     // further h1/h2 reopening the jump the fix closed.
