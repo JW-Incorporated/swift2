@@ -606,6 +606,26 @@ describe('checkMedia', () => {
     expect(findings).toEqual([]);
   });
 
+  // Fable ruling round 4 (kanban t_75ec7106, PR #4062): a themed campaign
+  // family must require photoEra, not treat it as opt-in.
+  it('hard-fails a themed-campaign photo draft with no photoEra at all', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, campaign: 'thread:easter-eggs:interactive-challenge:2026-09-find' },
+      [],
+    );
+    expect(findings.some((f) => f.includes('belongs to a themed family'))).toBe(true);
+  });
+
+  it('does not require photoEra on a non-themed campaign family', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, campaign: 'launch:shop-the-look:announce' },
+      [],
+    );
+    expect(findings).toEqual([]);
+  });
+
   it('accepts an exactly credited, sourced, inventory-bound photo tile with no findings', async () => {
     const findings = await checkMedia(
       'a.json',

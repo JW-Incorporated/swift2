@@ -88,6 +88,7 @@ import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
 import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
+import { THEMED_CAMPAIGN_PREFIXES } from './lib/queue-schema.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
@@ -465,6 +466,13 @@ function checkInventoryPhotoBinding(item, tile) {
           `\`node scripts/social/select-photo.mjs --era ${era}\` for a matching photo, or add one to social/photo-library.json first.`,
       ];
     }
+  } else if (typeof item.campaign === 'string' && THEMED_CAMPAIGN_PREFIXES.some((prefix) => item.campaign.startsWith(prefix))) {
+    return [
+      `media: campaign ${JSON.stringify(item.campaign)} belongs to a themed family (${THEMED_CAMPAIGN_PREFIXES.join(', ')}) — ` +
+        'these posts are inherently about one specific era, so `photoEra` is required, not optional, for this campaign shape ' +
+        '(kanban t_75ec7106: this is exactly the campaign shape that shipped a Lover-era photo on a reputation-era post). ' +
+        `Set \`photoEra\` to the target era and run \`node scripts/social/select-photo.mjs --era <era>\` for a matching photo.`,
+    ];
   }
   return [];
 }
