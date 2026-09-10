@@ -1,6 +1,10 @@
 name: oneoff-community-ack-backfill
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/_oneoff-community-ack-backfill.yml"
+      - "scripts/community/_oneoff-mark-posted.mjs"
 
 permissions:
   contents: read
