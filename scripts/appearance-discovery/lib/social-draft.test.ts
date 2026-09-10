@@ -140,6 +140,21 @@ describe('buildSocialDraftPair', () => {
     expect(findings).toEqual([]);
   });
 
+  // Regression (codex review round 2, kanban t_bac31b1a): with BOTH bodies
+  // leading with the bare quoted title, a 6+ word title made the X and its
+  // own Instagram sibling share an identical first-6-word window, tripping
+  // checkOpeners against each other (it compares across the whole queue,
+  // not just same-platform). The Instagram template's 2-word marker prefix
+  // ("just landed:"/"just dropped:") guarantees the two can never match.
+  it('does not collide on the opener rule between the X and Instagram SIBLINGS of the same video, even with a long title', () => {
+    const longTitle = 'Taylor Swift Performs Fortnight Live At The VMAs Tonight';
+    const { drafts } = build(candidate({ title: longTitle }), { now: NOW });
+    const x = findX({ drafts });
+    const ig = findIg({ drafts });
+    expect(checkOpeners(ig.filename, ig.item, [{ file: x.filename, body: x.item.body }])).toEqual([]);
+    expect(checkOpeners(x.filename, x.item, [{ file: ig.filename, body: ig.item.body }])).toEqual([]);
+  });
+
   it('never opens with the banned "did you know" formula on either platform', () => {
     const { drafts } = build(candidate(), { now: NOW });
     for (const { item } of drafts) {

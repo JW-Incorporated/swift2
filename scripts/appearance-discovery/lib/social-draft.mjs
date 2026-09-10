@@ -100,19 +100,29 @@ function xBodyTemplate(title, channel, url, isOfficial) {
  * lane. Restates the same sourced facts (title/channel/official-ness) as
  * the X body, never a claim about the video's content.
  *
- * Leads with the video's own TITLE (quoted) for the same reason xBodyTemplate
- * does — check-drafts.mjs's opener rule fails a draft whose first 6 words
- * match any other post from the last 14 days or any other queue item. An
- * earlier version opened every OFFICIAL-upload caption with the same fixed
- * phrase ("taylor just dropped something new on..."), which collided on the
- * opener rule the moment two official uploads landed within the lookback
- * window (codex review round 1, kanban t_bac31b1a) — title-first avoids that
- * exactly like the X body does.
+ * Leads with a short fixed 2-word marker before the video's own quoted
+ * TITLE, for two independent reasons tied to check-drafts.mjs's opener rule
+ * (fails a draft whose first 6 words match any other post from the last 14
+ * days OR any other current queue item):
+ *   1. Title-first (like the X body) keeps two different videos' IG
+ *      captions from colliding with EACH OTHER — an earlier version opened
+ *      every OFFICIAL-upload caption with the same fixed phrase ("taylor
+ *      just dropped something new on..."), which collided the instant two
+ *      official uploads landed within the lookback window (codex review
+ *      round 1, kanban t_bac31b1a).
+ *   2. The 2-word marker offsets the IG body's leading words from the X
+ *      sibling's — the X body starts with the bare quoted title, so an
+ *      earlier IG template that ALSO started with the bare quoted title
+ *      shared an identical first-6-word window with its own X sibling the
+ *      moment the title ran 6+ words, tripping the SAME opener rule against
+ *      the paired sibling itself (codex review round 2, kanban t_bac31b1a).
+ *      The marker guarantees the two siblings' openers can never match
+ *      verbatim while still leading with the distinguishing title text.
  */
 function igBodyTemplate(title, channel, isOfficial) {
   return isOfficial
-    ? `"${title}" just went up on taylor's own channel — no caption from her yet, but we're not waiting to talk about it. link's in the profile.`
-    : `"${title}" just dropped on ${channel} and taylor's name is all over it. haven't watched all the way through yet, but you know we had to tell you the second it dropped.`;
+    ? `just landed: "${title}" — no caption from her yet, but we're not waiting to talk about it. link's in the profile.`
+    : `just dropped: "${title}" on ${channel}, and taylor's name is all over it. haven't watched all the way through yet, but you know we had to tell you the second it dropped.`;
 }
 
 /** Trims `title` to fit whatever's left of X's weighted budget after the
