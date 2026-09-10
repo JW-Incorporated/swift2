@@ -7,6 +7,82 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-10 — Playable-first widened to playable-OR-watchable: 4 of 8 hidden tour films/documentaries now show a watch-link card (#3476)
+
+**Decision:** the 2026-08-13 "Playable-first timeline" rule ("if a video card
+is visible, it plays") stays in force, but "plays" now means "a reader can
+actually watch it" rather than "embeds inline on this site". `VideoNote`
+gains two optional fields, `watchUrl` and `platform`, always set together: a
+canonical official watch page (Netflix, Disney+, Apple Music, a retailer's
+official DVD/Blu-ray page) and the label the UI renders it under.
+`videosForEra()` now returns a record when it has EITHER a verified YouTube
+embed OR a complete `watchUrl`+`platform` pair (`isWatchable`, widening the
+narrower `isPlayable` at that one call site — see
+`packages/content-enrichment/src/videos.ts`). `VideoMomentCard` renders the
+existing click-to-play facade for an embed, or a "Watch on {platform}"
+link-out card (external link icon, `target="_blank" rel="noopener
+noreferrer"`) for a watch-link-only record. A record with neither signal
+stays exactly as hidden as before this change — nothing about the underlying
+invariant weakened, only what counts as satisfying it.
+
+**Why:** issue #3476 (filed by Nils, a routine content-gap walk) found that 8
+records the 08-13 decision hid — *The Eras Tour* film, *Miss Americana*,
+*reputation Stadium Tour*, *City of Lover*, *Journey to Fearless*, *The 1989
+World Tour Live*, *Speak Now World Tour – Live*, and *The Official Release
+Party of a Showgirl* — are Taylor's most significant visual works, hidden by
+a narrower-than-intended reading of "played" as "embeds on this site", not by
+the rule itself. This redo (the original PR #3708 closed stale after
+OS-014/OS-014b/OS-021/OS-022 restructured every file it touched) re-verified
+each of the 8 against live watch destinations as of 2026-09-10 rather than
+reusing the original PR's citations verbatim, and found the situation had
+changed: only 4 have a currently-live official watch destination —
+*Miss Americana* (Netflix), *The Eras Tour* film (Disney+), *Journey to
+Fearless* (retailer Blu-ray/DVD page), and *Speak Now World Tour – Live*
+(retailer DVD page). The other 4 do not: *reputation Stadium Tour* was
+removed from Netflix 2023-12-30 with no replacement, *The 1989 World Tour
+Live* was removed from Apple Music 2020-05-22 with no replacement, *The
+Official Release Party of a Showgirl*'s one-weekend theatrical run (Oct 3–5,
+2025) has no announced streaming/digital release as of this writing, and
+*City of Lover* only ever streamed on Hulu/Disney+ for a limited window in
+May 2020 and has no live destination today (a cross-provider review pass
+caught an initial draft that cited a stale `disneyplus.com` URL still
+resolving from an old crawl — JustWatch confirms the title itself, not just
+that one URL, is currently unavailable to stream anywhere). Those 4 stay
+hidden — the fix restores the reader's actual ability to watch for the
+records that genuinely have somewhere to watch; it does not fabricate a
+watch destination that doesn't exist. Each of the 4 still-hidden seed
+records carries a dated comment explaining why and inviting a
+`watchUrl`/`platform` pair the moment a real destination appears.
+
+**Scope discipline:** `musicVideosForEra()` (the dated chronological-timeline
+merge) stays `isPlayable`-only — that surface embeds inline via `MomentVideo`
+and has no slot for a link-out. Only the Videos-rail path (`videosForEra` →
+`eraVideoFeed` → `VideoMomentCard`) widened. `sync-longlive-videos.mjs`
+normalizes `watchUrl`/`platform` as a matched pair — a seed record with only
+one of the two degrades both to null rather than shipping a link with no
+label or a label with no link. Guardrail test added
+(`apps/web/lib/longlive/videos.test.ts`, "#3476 guardrail") asserting every
+generated record carries an embed or a complete watch-link pair, so a future
+authored-but-unlinkable film fails CI instead of silently vanishing the way
+these records originally did.
+
+**Alternatives considered:** embedding official trailers for the unembeddable
+works (the shipped `folklore: the long pond studio sessions` precedent, noted
+as an option in the 08-13 decision) — not done, because a trailer is not the
+work, and the issue's own concrete fix shape asked for the watch-link
+affordance specifically. Deleting the records — never on the table; the repo
+rule is to never discard sourced work. Citing the original #3708 PR's
+watch-link URLs unverified — rejected: two of them (Netflix, Apple Music) had
+gone stale between the PR's authoring and this redo, which is exactly the
+kind of silently-wrong data the guardrail test and re-verification step exist
+to prevent.
+
+**Who approved:** routine content-completeness fix per issue #3476 — bounded,
+successor to already-closed #721 (which deliberately dropped non-YouTube
+films; this closes most of the resulting gap), no founder decision required.
+
+---
+
 ## 2026-09-10 — Mandatory X+Instagram pairing restored; the 2026-09-05 appearance-lane X-only carve-out is superseded (kanban t_bac31b1a)
 
 **Context:** Joey, 2026-09-10 (#taylor-social), founder directive: "There's
