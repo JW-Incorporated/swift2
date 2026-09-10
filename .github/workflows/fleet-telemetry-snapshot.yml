@@ -38,13 +38,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v7
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
-
-      - uses: actions/setup-node@v7
-        with:
-          node-version: "24"
 
       - name: Take this month's fleet telemetry snapshot
         env:
@@ -52,23 +50,24 @@ jobs:
           DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run }}
         run: node scripts/fleet-telemetry-snapshot.mjs
 
-      - name: Commit snapshot (via PR — main is branch-protected)
+      - name: Compute PR metadata
         if: ${{ github.event_name == 'schedule' || inputs.dry_run == false }}
-        env:
-          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/audits/fleet-telemetry
-          if git diff --cached --quiet; then
-            echo "No telemetry changes to commit."
-            exit 0
-          fi
-          BRANCH="fleet-telemetry-snapshot/$(date -u +%Y%m%d%H%M%S)"
-          git checkout -b "$BRANCH"
-          git commit -m "fleet-telemetry-snapshot: $(date -u +%Y-%m)"
-          git push origin "$BRANCH"
-          gh pr create --title "fleet-telemetry-snapshot: $(date -u +%Y-%m)" \
-            --body "Automated monthly fleet telemetry snapshot (Actions workflow run counts + open-PR count). Zero LLM tokens, report-only. See docs/TIER2-OPTIMIZATION.md T-17." \
-            --base main --head "$BRANCH"
-          gh pr merge "$BRANCH" --squash --auto --delete-branch
+          STAMP=$(date -u +%Y-%m)
+          {
+            echo "branch=fleet-telemetry-snapshot/$(date -u +%Y%m%d%H%M%S)"
+            echo "commit_message=fleet-telemetry-snapshot: $STAMP"
+            echo "pr_title=fleet-telemetry-snapshot: $STAMP"
+          } >> "$GITHUB_ENV"
+      - uses: ./.github/actions/commit-and-pr
+        if: ${{ github.event_name == 'schedule' || inputs.dry_run == false }}
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: docs/audits/fleet-telemetry
+          branch: ${{ env.branch }}
+          commit-message: ${{ env.commit_message }}
+          pr-title: ${{ env.pr_title }}
+          pr-body: >-
+            Automated monthly fleet telemetry snapshot (Actions workflow run counts + open-PR count).
+            Zero LLM tokens, report-only. See docs/TIER2-OPTIMIZATION.md T-17.
+          no-changes-message: "No telemetry changes to commit."
