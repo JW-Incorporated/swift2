@@ -56,4 +56,6 @@ runs:
     - name: npm ci
       if: ${{ inputs.npm-ci == 'true' }}
       shell: bash
-      run: npm ci ${{ inputs.npm-ci-args }}
+      env:
+        NPM_CI_ARGS: ${{ inputs.npm-ci-args }}
+      run: npm ci $NPM_CI_ARGS
