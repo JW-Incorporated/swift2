@@ -1,0 +1,12 @@
+{
+  "platform": "x",
+  "body": "everyone had decided the million-copy week was extinct — a 300k debut counted as a smash. then red opened to 1.208 MILLION copies, at $7.99, no fire sale. biggest week for any album since 2002. tag whoever you split that cd with 🤍\n\nlonglivets.com/?era=red&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "media": ["/social/library/photos/taylor-red-eras-inglewood-2023.jpg"],
+  "mediaKind": "photo",
+  "photoId": "red-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_10.jpg",
+  "scheduledAt": "2026-09-11T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:red-biggest-week-2012",
+  "why": "09-11 heartbeat:era-deep-cut beat (calendar). X sibling, written first: one contradiction (the industry had written off the million-copy week; Red cleared 1.208M at $7.99) + the /?era=red link. Hook shape = the contradiction (per calendar). Sourced entirely from the Vault item 'Red sells 1.2 million copies' (supabase/seed/content/red.mjs), cited to Slate + Rolling Stone: 1.208M week-one copies, biggest opening week for any album since Eminem's The Eminem Show (2002), $7.99 full price vs Born This Way's 99-cent Amazon promo. No invented figures. Share hook ('tag whoever you split that cd with') grounded in the real $7.99 detail. ERA CHOICE: calendar targeted speak-now, fallback folklore/1989/reputation/ttpd/evermore — but photo-library.json has NO cleared photo for ANY of those (only lover/red/fearless/debut), and I can't edit the inventory (outside touch set); flagged prominently in the PR body. Red is the least-stacked available era not used by tonight's queued announce (fearless IG + debut X). MEDIA: used the era-matched red photo rather than the selector's debut-acoustic-2007 pick — a 2007 debut photo on a 2012 Red-sales post is a story/media mismatch, and the selector's diversity preference is explicitly a preference not a ban; this also avoids doubling tonight's debut-X photo. Lyric-free, blocklist-safe."
+}
