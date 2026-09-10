@@ -19,10 +19,30 @@ import { selectSocialPhoto, validatePhotoEntry } from './lib/photo-library.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const args = process.argv.slice(2);
-const eraIndex = args.indexOf('--era');
-const eraArg = eraIndex === -1 ? null : args[eraIndex + 1];
-const era = typeof eraArg === 'string' ? eraArg.trim() : null;
-if (eraIndex !== -1 && !era) throw new Error('Usage: node scripts/social/select-photo.mjs [--era <tag>] — <tag> must be a non-blank string.');
+
+// Accepts both `--era value` and `--era=value`, and REJECTS any unrecognized
+// argument outright (Codex review round 4, kanban t_75ec7106: the old parser
+// only matched a bare `--era` token and silently ignored everything else —
+// `--era=reputation` looked exactly like a request for a reputation photo
+// but was silently treated as no `--era` at all, quietly re-opening the
+// off-era-photo bug this script exists to prevent). Fail loud on anything
+// unrecognized rather than fail open into unconstrained selection.
+let era = null;
+for (let i = 0; i < args.length; i++) {
+  const arg = args[i];
+  if (arg === '--era') {
+    era = args[++i];
+    if (typeof era !== 'string') throw new Error('Usage: node scripts/social/select-photo.mjs [--era <tag>] — --era requires a value.');
+  } else if (arg.startsWith('--era=')) {
+    era = arg.slice('--era='.length);
+  } else {
+    throw new Error(`Usage: node scripts/social/select-photo.mjs [--era <tag>] — unrecognized argument ${JSON.stringify(arg)}.`);
+  }
+}
+era = typeof era === 'string' ? era.trim() : null;
+if (args.some((a) => a === '--era' || a.startsWith('--era=')) && !era) {
+  throw new Error('Usage: node scripts/social/select-photo.mjs [--era <tag>] — <tag> must be a non-blank string.');
+}
 
 async function readJsonDir(dir) {
   const { readdir } = await import('node:fs/promises');

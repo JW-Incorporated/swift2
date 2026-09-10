@@ -130,6 +130,27 @@ ${url}`;
     it('does not require photoEra at all — untagged posts (launch/mood/merch) are unaffected', () => {
       expect(validatePhotoInventoryBinding(validX, library)).toEqual([]);
     });
+
+    // Fable ruling round 4 (kanban t_75ec7106, PR #4062): a themed campaign
+    // family must not be able to silently ship without declaring photoEra —
+    // that opt-in gap is exactly how the original bug's campaign shape
+    // (thread:easter-eggs:...) would still pass validation.
+    it('requires photoEra for a themed campaign family even though the field is otherwise optional', () => {
+      const themed = { ...validX, campaign: 'thread:easter-eggs:interactive-challenge:2026-09-find', photoEra: undefined };
+      expect(validatePhotoInventoryBinding(themed, library)).toContainEqual(expect.stringContaining('photoEra: campaign'));
+    });
+    it('requires photoEra for the heartbeat:era-deep-cut family too', () => {
+      const themed = { ...validX, campaign: 'heartbeat:era-deep-cut:speak-now-blah', photoEra: undefined };
+      expect(validatePhotoInventoryBinding(themed, library)).toContainEqual(expect.stringContaining('photoEra: campaign'));
+    });
+    it('passes a themed campaign once photoEra is set and matches', () => {
+      const themed = { ...validX, campaign: 'thread:easter-eggs:interactive-challenge:2026-09-find', photoEra: 'lover' };
+      expect(validatePhotoInventoryBinding(themed, library)).toEqual([]);
+    });
+    it('does NOT require photoEra for a non-themed campaign family (launch:*)', () => {
+      const nonThemed = { ...validX, campaign: 'launch:shop-the-look:announce', photoEra: undefined };
+      expect(validatePhotoInventoryBinding(nonThemed, library)).toEqual([]);
+    });
     it('rejects a text-only X draft for a normal paired campaign, and mediaKind "video-thumb" no longer exists as an exception (2026-09-10, kanban t_bac31b1a)', () => {
       const pairedX = { ...validX, campaign: 'launch:shop-the-look:announce', media: undefined, mediaKind: undefined };
       expect(findingFor(pairedX, 'x posts require at least one image')).toBeDefined();

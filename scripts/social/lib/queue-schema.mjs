@@ -28,6 +28,37 @@ import { MAX_X_IMAGES } from './platforms.mjs';
 /** Platforms the poster can actually publish to (post-queue.mjs's postOne). */
 export const PLATFORMS = ['x', 'instagram'];
 
+/**
+ * Campaign-family prefixes whose posts are inherently ABOUT one specific
+ * era — the "easter eggs" thread ties every node to a lens/egg id with its
+ * own `eraId` (packages/experience/src/lenses.ts), and `heartbeat:era-deep-cut`
+ * names the era right in the campaign value (social/README.md's example,
+ * social/calendar.md 2026-09-10: "target speak-now ... mint
+ * era-deep-cut:speak-now-<slug>"). A `mediaKind: "photo"` draft in one of
+ * these families is exactly the shape of the founder-reported bug (kanban
+ * t_75ec7106: 2026-09-09-clue-web-reputation-snake-x.json, campaign
+ * `thread:easter-eggs:interactive-challenge:2026-09-find`, no `photoEra` set,
+ * shipped a Lover-era photo) — see validatePhotoInventoryBinding below,
+ * where a themed draft with no `photoEra` is now a hard fail instead of a
+ * silently-passing opt-in check.
+ *
+ * NOT a general "derive the era from content data" mechanism — that would
+ * require importing packages/experience/src/lenses.ts's EGG_NODES into
+ * these validators, a separate wiring change out of this card's scope (see
+ * the follow-up issue linked from social/README.md's photoEra section).
+ * This is a static, mechanical family list: it forces the AUTHOR (who
+ * already knows the target lens/egg node when minting the campaign) to
+ * declare `photoEra`, it does not itself determine which era is correct.
+ * A non-themed family (`launch:*`, `heartbeat:on-this-day`/other heartbeat
+ * subfamilies, `appearance:*`, `mood:*`) is unaffected — those posts may
+ * legitimately use any era's photo.
+ */
+export const THEMED_CAMPAIGN_PREFIXES = ['thread:easter-eggs:', 'heartbeat:era-deep-cut:'];
+
+function isThemedCampaign(campaign) {
+  return typeof campaign === 'string' && THEMED_CAMPAIGN_PREFIXES.some((prefix) => campaign.startsWith(prefix));
+}
+
 /** Declared media kinds — see the mediaKind section of validateQueueItem.
  * "video-thumb" (added 2026-09-05, #3584) was REMOVED 2026-09-10 (kanban
  * t_bac31b1a, founder directive: "there's never a time where we post to
@@ -77,15 +108,21 @@ function isIsoInstant(value) {
  * and remains outside this binding.
  *
  * `photoEra` (2026-09-10, kanban t_75ec7106 — the 2026-09-09 reputation/snake
- * X post that shipped a Lover-era tour photo, docs/decisions.md): an optional
- * string naming the draft's target era/theme (the value passed to
+ * X post that shipped a Lover-era tour photo, docs/decisions.md): a string
+ * naming the draft's target era/theme (the value passed to
  * `scripts/social/select-photo.mjs --era`, or the lens/egg node's `eraId` for
  * an easter-eggs/thread post). When present, the bound photo's `tags` MUST
  * include it — a themed draft whose photo doesn't match its own declared era
- * is exactly the bug this field exists to catch. `photoEra` is optional (not
- * every post is era-specific — a launch/mood/merch post has no single target
- * era), but once a drafter sets it, the binding is enforced, never silently
- * ignored.
+ * is exactly the bug this field exists to catch. `photoEra` is REQUIRED (not
+ * optional) for a `mediaKind: "photo"` draft whose `campaign` belongs to a
+ * THEMED_CAMPAIGN_PREFIXES family (see above) — those campaigns are
+ * inherently about one specific era, so nothing may silently ship without
+ * declaring which. It stays optional for every other family (a launch/mood/
+ * merch post has no single target era). Full automatic era derivation from
+ * lens/egg content data (packages/experience/src/lenses.ts) is intentionally
+ * out of scope here — that needs a separate wiring change to import content
+ * data into these validators; this static campaign-family check is the
+ * bounded fix (Fable ruling, kanban t_75ec7106, PR #4062 review round 4).
  */
 export function validatePhotoInventoryBinding(item, photoLibrary) {
   const photoTiles = Array.isArray(item?.media)
@@ -110,6 +147,13 @@ export function validatePhotoInventoryBinding(item, photoLibrary) {
           `\`node scripts/social/select-photo.mjs --era ${era}\` for a matching photo, or add one to social/photo-library.json first.`,
       ];
     }
+  } else if (isThemedCampaign(item.campaign)) {
+    return [
+      `photoEra: campaign ${JSON.stringify(item.campaign)} belongs to a themed family (${THEMED_CAMPAIGN_PREFIXES.join(', ')}) — ` +
+        'these posts are inherently about one specific era, so `photoEra` is required, not optional, for this campaign shape ' +
+        '(kanban t_75ec7106: this is exactly the campaign shape that shipped a Lover-era photo on a reputation-era post). ' +
+        `Set \`photoEra\` to the target era and run \`node scripts/social/select-photo.mjs --era <era>\` for a matching photo.`,
+    ];
   }
   return [];
 }
