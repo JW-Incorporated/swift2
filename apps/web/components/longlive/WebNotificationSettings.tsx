@@ -161,7 +161,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
   const groups = useMemo(groupedCategories, []);
 
   if (subscribeState.kind === 'checking') {
-    return <p className="text-ink-soft">Checking notification support\u2026</p>;
+    return <p className="text-ink-soft">Checking notification support…</p>;
   }
 
   if (subscribeState.kind === 'unsupported') {

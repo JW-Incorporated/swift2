@@ -80,6 +80,11 @@ export function CurrentItemDetail({
     }
   }
 
+  function handleHome() {
+    onClose();
+    goHome();
+  }
+
   return (
     <div
       role="dialog"
@@ -91,7 +96,7 @@ export function CurrentItemDetail({
       <div className="relative mx-auto max-w-2xl px-5 pb-16 pt-16">
         <div className="absolute right-4 top-4 flex gap-2">
           <button
-            onClick={goHome}
+            onClick={handleHome}
             className="era-icon-btn rounded-full p-2 backdrop-blur-md"
             aria-label="Go to home"
           >

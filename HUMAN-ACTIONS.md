@@ -26,7 +26,7 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 48. [VERIFY] Share flow viewport check on public preview — ~2 min
+### 52. [VERIFY] Share flow viewport check on public preview — ~2 min
 
 **Filed:** 2026-09-07
 
@@ -47,6 +47,160 @@ immediate fallback has a selectable link and direct share options.
 
 **Worked if:** one screenshot from each viewport shows the rendered page, and
 the result is recorded on Kanban task `t_b025b476` as pass/fail.
+
+**Status:** OPEN
+
+---
+
+### 51. [BLOCKING] URGENT — restore the Claude OAuth token secret: every migrated GitHub Actions routine has been inert since the 09-06 migration — ~10 min
+
+**Filed:** 2026-09-09
+
+**Why it matters:** despite item #43 being marked DONE ("secret stored &
+confirmed"), the `CLAUDE_CODE_OAUTH_TOKEN` repository secret is absent/empty
+at run time, so the guard in `.github/workflows/routine-template.yml`
+(`if [ -z "secrets.CLAUDE_CODE_OAUTH_TOKEN" ]`) skips **every** migrated
+routine with `::warning::CLAUDE_CODE_OAUTH_TOKEN is not set … Skipping run,
+not failing.` and exits clean. Verified fleet-wide on 09-06/07/08 across
+`routine-news-triage`, `routine-nils-walk`, and `routine-marjorie-brief` —
+all skipped. The whole standing fleet has effectively been **dark since the
+2026-09-06 claude.ai→Actions migration** (item #47 disabled the claude.ai
+triggers that day), while reporting green. The workflow plumbing is correct
+(`routine-template.yml` accepts the secret and each `routine-*.yml` passes
+it) — the secret itself is missing; an agent cannot set it (the human-only
+guard blocks secret mutation, and it needs your login). This item was
+drafted by a run of [#4027](https://github.com/JW-Incorporated/swift2/issues/4027)
+two days ago but never actually landed here (its own attempt to open a PR
+adding it was rejected for lacking write access) — filing it now closes that
+gap.
+
+**Concrete damage already done (unrecoverable):** News Triage never ran
+2026-09-07 or 09-08, so the T-3 recall check ([#4027](https://github.com/JW-Incorporated/swift2/issues/4027))
+found at least one confirmed story overlooked and never filed — "I Knew It,
+I Knew You" reaching No. 1 on Country Radio (her 13th career country No. 1).
+Intake issues are the only thing Content Shift reads, so a missed story is
+gone. Every further day the token stays broken drops more stories.
+
+**This is NOT a model revert.** The recall check passed on the
+Sonnet-vs-Opus question (0 Sonnet false negatives); reverting News Triage to
+Opus would fix nothing here — an Opus Actions run skips identically. The fix
+is the token, and the T-3 trial clock should be paused/extended (it has had
+zero valid Sonnet-on-Actions runs since 09-06 and cannot conclude by
+2026-09-15 as-is).
+
+**Steps:**
+1. Regenerate the token locally with `claude setup-token` on your Claude
+   Pro/Max account (per decision D1=B).
+2. Store it as the repo secret **`CLAUDE_CODE_OAUTH_TOKEN`** for
+   `JW-Incorporated/swift2`. UI path: GitHub repo → **Settings → Secrets and
+   variables → Actions → Repository secrets** → the `CLAUDE_CODE_OAUTH_TOKEN`
+   row → **Update** (or **New repository secret** if the row is absent) →
+   paste the token → **Save**.
+3. Confirm it took: the same **Repository secrets** list should show
+   `CLAUDE_CODE_OAUTH_TOKEN` with a recent "Updated" date.
+4. Trigger one routine to verify end-to-end: **Actions → routine-news-triage
+   → Run workflow**, then open the run and confirm it does **not** emit the
+   "CLAUDE_CODE_OAUTH_TOKEN is not set" warning and reaches the Claude step.
+5. Have an authorized News Triage run (or a claude.ai session) file the
+   overlooked country-radio No. 1 milestone as an `intake` issue.
+
+**Worked if:** a manually-dispatched **routine-news-triage** run reaches the
+Claude step and posts a run-log comment (or files an `intake` issue) instead
+of skipping with the missing-secret warning.
+
+**Status:** OPEN
+
+### 50. [BLOCKING] Add the Discord webhook for the social-channel morning brief and safe Permis repairs — ~5 min
+
+**Filed:** 2026-09-09
+
+**Why it matters:** the social-channel morning brief and safe Permis repair
+rollout need a private, reliable route to their Discord channel. Until this
+webhook exists, those routines cannot deliver the real brief or report a
+completed safe repair where the team can act on it.
+
+**Steps:**
+1. In the intended Discord social channel, open **Edit Channel → Integrations
+   → Webhooks → New Webhook**. Give it a clear name such as `Swift2 social
+   brief`, confirm the channel is correct, and copy its webhook URL.
+2. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables →
+   Actions → Secrets → New repository secret**. Store that URL as
+   `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` and save it. This GitHub Actions
+   repository-secret store is the approved location; do not paste the URL into
+   Discord chat, an issue, a commit, an email, or any repository file.
+3. Tell a session only that item #50 is set. It can run the normal safe
+   delivery verification without needing the webhook value.
+
+**Worked if:** the next scheduled social-channel morning brief arrives in the
+intended Discord channel, and a safe Permis repair report is delivered there
+when one is completed. The webhook URL is never exposed in logs or Git.
+
+**Status:** OPEN
+
+### 49. [BLOCKING] Add the shared Community Tasks acknowledgement secret — ~5 min
+
+**Filed:** 2026-09-09
+
+**Why it matters:** the daily Community Tasks workflow is otherwise fully
+configured and its scheduled runs are healthy, but it safely refuses to send
+an email until it can create secure one-click `Posted` and `Skip` links. The
+same value must be available to both the GitHub mailer and the Vercel website:
+the mailer signs each link and the website verifies it. Using different values
+would make every acknowledgement link fail; omitting either value leaves the
+safe no-send protection in place.
+
+**Steps:**
+1. On your own machine, open a terminal and run `openssl rand -hex 32`. Copy
+   the one line it prints. Treat it like a password: do not put it in chat, a
+   ticket, a commit, or an email reply.
+2. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables →
+   Actions → Secrets → New repository secret**. Set the name to
+   `COMMUNITY_ACK_SECRET`, paste that generated value, and save it.
+3. In the Vercel project that serves `longlivets.com`, open **Settings →
+   Environment Variables**. Add `COMMUNITY_ACK_SECRET` with the exact same
+   copied value for the **Production** environment, then save and redeploy so
+   the acknowledgement route receives it. Do not create a second value.
+4. In GitHub, open **Actions → community-mailer → Run workflow**, select
+   `daily`, and run it once. The run is successful when its final mailer line
+   says `mailed <number> lead(s) (mode=daily), marked emailed.`; if it says
+   there are no drafted leads, the configuration is still accepted and the
+   next drafted lead will send normally. Open the resulting email and click
+   neither acknowledgement link until there is a real item you have posted or
+   intentionally skipped.
+
+**Worked if:** a manual `daily` run no longer logs
+`COMMUNITY_ACK_SECRET unset`, the normal Community Tasks email arrives when
+there is at least one drafted lead, and its `Posted`/`Skip` links record the
+chosen outcome rather than showing a configuration error.
+
+**Status:** OPEN
+
+### 48. [UPGRADE] Put the website-shell build on the Play internal track now (Android testers still get the Aug 30 native app) — ~5 min
+
+**Filed:** 2026-09-07
+
+**Why it matters:** the release train ran for real on 2026-09-08 (EAS run
+`01a08457`): iOS build 10 and Android build 7 were both built on EAS from
+`main` 0b8ca769 (the native overhaul), iOS was submitted to TestFlight,
+and `submit_android` failed because there is no Play service-account key
+on EAS (#46). So Android's bundle exists and is the same app iOS testers
+now have; only the upload is missing. #46 makes this automatic; this item
+is the manual bridge if #46 is days away. An agent cannot do it: 62 MB
+through your Play account, and the session's browser upload path caps at
+10 MB.
+
+**Steps:**
+1. Download the bundle (EAS artifact for build 7, commit 0b8ca769):
+   `https://expo.dev/artifacts/eas/8CP-yznaU5lS5NmhygIz_e9K11e-N1EZMGuoannLhKs.aab`
+2. Play Console → LongLive → **Test and release → Internal testing →
+   Create new release** → drop the `.aab` in → release name is prefilled
+   (`7 (1.0.0)`) → release notes: "Native app — same build as iOS TestFlight 10."
+3. **Next → Save and publish** (internal track; no Google review).
+
+**Worked if:** Internal testing shows `1.0.0 (7)` as the latest release
+and a tester on the "Jess and Joey" or "Joey" list (both are ticked and
+saved — verified 2026-09-07) sees the website inside the app after
+updating from the Play Store.
 
 **Status:** OPEN
 
@@ -153,6 +307,18 @@ blocks `submit_ios` in the same run).
 path, and the next **Mobile release train** run shows `submit_android`
 green.
 
+**Train evidence (2026-09-08):** EAS run `01a08457` built both platforms from 0b8ca769 and submitted iOS (TestFlight build 10); `submit_android` failed for lack of this key. Everything else in the pipeline is proven.
+
+**Note (2026-09-07):** a `PLAY_SERVICE_ACCOUNT_JSON` repo secret was added
+to this repo on 2026-09-06, following 4a's setup. It is harmless but
+unused here: 4a submits to Play from GitHub Actions, while this train's
+`submit_android` is an EAS job that reads EAS credentials, and EAS cannot
+see GitHub secrets. Step 3 above (with the same JSON) is still what
+unblocks the train. After step 3, either delete the GitHub secret
+(`gh secret delete PLAY_SERVICE_ACCOUNT_JSON --repo JW-Incorporated/swift2`)
+or tell a session you'd rather mirror 4a and submit from GitHub instead —
+either is fine; two copies of one key is the only downside of leaving it.
+
 **Status:** OPEN
 
 ### 45. [BLOCKING] Mobile release train — iOS signing + App Store Connect key into EAS — ~10 min
@@ -188,7 +354,9 @@ says `Using remote iOS credentials (Expo server)` and reaches the compile
 phase, and `eas submit --platform ios --latest --non-interactive` runs
 without a local key path.
 
-**Status:** OPEN
+**Status:** DONE
+
+**Outcome (2026-09-08, founder):** verified on EAS via the credentials API: distribution certificate (serial 173EA08D…, valid to 2027-09-03) + App Store provisioning profile (active), App Store Connect API key `QU7P2WC49Z` assigned for submissions, and a new push key `NPQ76BT99F` (team D9N628AFHS — the iOS half of #43). Follow-up landed in the same change: `ascApiKeyPath`/`ascApiKeyId`/`ascApiKeyIssuerId` removed from `apps/mobile/eas.json` (remote key applies) and the `production-local` profile retired.
 
 
 ### 44. [BLOCKING] OS-040 — `EXPO_TOKEN` repo secret for automatic EAS Update — ~5 min
@@ -209,9 +377,20 @@ session doesn't have per `.claude/hooks/guard.sh`.
 2. `gh secret set EXPO_TOKEN --repo JW-Incorporated/swift2` and paste it.
 
 **Worked if:** the next JS-only merge to `apps/mobile/**` or
-`packages/**` shows a green `EAS Update (mobile OTA)` run in Actions.
+`packages/**` shows a green **Mobile release train** run in Actions
+(`eas-update.yml` was folded into the train by #3853), and the 6-hourly
+**Mobile parity check** closes its "check could not run" alert.
 
-**Status:** OPEN
+**Note (2026-09-07):** this one secret now gates all three GitHub mobile
+workflows (train, parity check, and the train's post-merge trigger); every
+run since 2026-09-06 has stopped at the token check. The parity script
+itself was run locally against the EAS account on 2026-09-07 and passed
+(iOS build 4 / Android build 5, version 1.0.0, no findings), so once the
+token exists nothing else is expected to be wrong.
+
+**Status:** DONE
+
+**Outcome (2026-09-08, founder):** Wyatt set `EXPO_TOKEN` on the repo (`gh secret list` shows it, 2026-09-09 03:23 UTC). The Mobile parity check was dispatched immediately afterwards as the proof run; result recorded on its alert issue. #45/#46 remain the gates for the train's build and submit jobs.
 
 
 
@@ -235,6 +414,8 @@ account access, not code.
 
 **Worked if:** a real device receives the push and tapping it opens the
 correct deep link in the shell (per OS-004's own "Done when").
+
+**Progress (2026-09-08):** iOS half DONE — APNs push key `NPQ76BT99F` is on EAS (created during #45). Android half still open: no FCM V1 service-account key on EAS, and `app.json` has no `googleServicesFile` yet, so a Firebase project + `google-services.json` are prerequisites (steps 1–4 above). Step 3 (test push) waits on the next build.
 
 **Status:** OPEN
 

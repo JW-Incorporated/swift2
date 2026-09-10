@@ -135,6 +135,13 @@ const SOURCE_TYPES = new Set([
 ]);
 const MEDIA_KINDS = new Set(['oembed', 'owned', 'hotlink_legacy']);
 const MEDIA_RIGHTS = new Set(['platform_tos', 'licensed', 'hotlink_legacy']);
+const VIDEO_PRESENTATION_EXCEPTIONS = new Set([
+  'unavailable',
+  'removed',
+  'rights',
+  'privacy',
+  'safety',
+]);
 
 // Keep in sync with LensId (apps/web/lib/longlive/types.ts) and
 // VALID_THREAD_IDS (sync-longlive-content.mjs). An unknown value here is
@@ -357,6 +364,44 @@ for (const { file, data } of loaded) {
       if (outlets >= 2 && listed)
         err(
           `listed in SINGLE_OUTLET_LEGACY as ${key} but now has ${outlets} independent outlets — delete that entry from scripts/lib/sourcing-gate.mjs`,
+        );
+    }
+
+    // A first-party YouTube upload is a watchable primary artifact, not merely
+    // a citation. The feed/detail player is driven only by item.video or
+    // moment.video, so require that explicit association before a story ships.
+    // A narrow exception is allowed only when its reason is visible in seed
+    // review; generic YouTube citations may still be fan archives and do not
+    // enter this gate unless their source_type is official.
+    const videoException = it.videoPresentationException ?? it.moment?.videoPresentationException;
+    if (videoException != null && !VIDEO_PRESENTATION_EXCEPTIONS.has(videoException))
+      err(
+        `videoPresentationException "${videoException}" not in ${[...VIDEO_PRESENTATION_EXCEPTIONS].join('|')} — exceptions must be explicit and reviewable`,
+      );
+    const canonicalYoutubeIds = (it.moment?.sources ?? [])
+      .filter(
+        (s) => s?.source_type === 'official' && /(?:youtube\.com|youtu\.be)/i.test(s?.url ?? ''),
+      )
+      .map((s) => {
+        try {
+          const url = new URL(s.url);
+          return url.hostname.endsWith('youtu.be')
+            ? url.pathname.split('/').filter(Boolean)[0]
+            : url.searchParams.get('v');
+        } catch {
+          return null;
+        }
+      })
+      .filter(Boolean);
+    if (canonicalYoutubeIds.length && videoException == null) {
+      const video = it.video ?? it.moment?.video;
+      if (!video?.youtubeId)
+        err(
+          `official YouTube source ${canonicalYoutubeIds[0]} has no matching video — attach the canonical player or record videoPresentationException (unavailable|removed|rights|privacy|safety)`,
+        );
+      else if (!canonicalYoutubeIds.includes(video.youtubeId))
+        err(
+          `video.youtubeId "${video.youtubeId}" does not match the official YouTube source (${canonicalYoutubeIds.join(', ')}) — do not attach unrelated footage`,
         );
     }
 

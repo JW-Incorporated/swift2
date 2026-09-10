@@ -40,6 +40,19 @@ get more than two Community Emails on the same day.
 
 Expect to spend roughly 10–15 minutes on this most days.
 
+### Reddit notification intake
+
+`community-inbox` checks Marjorie's existing inbox every 30 minutes. It does
+not depend on a message still being unread: after a verified Reddit message is
+handled, it receives a Gmail label named `community-inbox-processed`. That
+means opening a Reddit notification in Gmail before the next check cannot make
+it disappear from intake.
+
+Messages that fail Reddit sender or DKIM verification remain ignored and never
+create a lead. If you want to inspect the intake safely, run
+**community-inbox** from GitHub Actions with **dry_run** checked; it reads and
+reports eligible messages without writing a lead or changing any Gmail label.
+
 ## 2. If you'd rather reply by email than click
 
 Instead of clicking "Posted"/"Skip", you can reply directly to the

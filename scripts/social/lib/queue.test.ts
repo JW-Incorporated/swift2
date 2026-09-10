@@ -142,6 +142,32 @@ describe('selectDuePosts', () => {
     expect(selectDuePosts(items, now, new Map(), Infinity)).toHaveLength(items.length);
     expect(selectDuePosts(items, now, new Map(), 1)).toHaveLength(1);
   });
+
+  // Regression (codex review round 2, kanban t_bac31b1a-followup): pass 2's
+  // solo fallback used to let ONE sibling of an incomplete pair through
+  // alone whenever the OTHER sibling couldn't be selected — here, because
+  // its platform's daily budget was already spent. That is the exact
+  // single-platform-publication outcome mandatory pairing exists to
+  // prevent, just moved from drafting time to poster-selection time.
+  it('defers BOTH siblings of a campaign pair when one platform\'s daily budget is already spent, rather than letting the other post alone', () => {
+    const items = [
+      item({ platform: 'x', campaign: 'appearance:v', body: 'x-half' }),
+      item({ platform: 'instagram', campaign: 'appearance:v', body: 'ig-half' }),
+    ];
+    const postedToday = new Map([['x', MAX_POSTS_PER_PLATFORM_PER_DAY]]); // x's daily slot already used
+    const selected = selectDuePosts(items, now, postedToday, Infinity);
+    expect(selected).toEqual([]);
+  });
+
+  // A campaign item whose sibling has ALREADY posted (in an earlier run) is
+  // not "incomplete" in the sense above — it's a lone retry of the
+  // remaining half, and must still be solo-selectable so a genuinely
+  // finished pair's straggler isn't stranded forever.
+  it('still selects a lone campaign item whose sibling is not in the queue at all (already posted earlier)', () => {
+    const items = [item({ platform: 'x', campaign: 'appearance:v', body: 'lone-retry' })];
+    const selected = selectDuePosts(items, now, new Map(), Infinity);
+    expect(selected).toHaveLength(1);
+  });
 });
 
 describe('utcDateOnly', () => {

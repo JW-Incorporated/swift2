@@ -7,6 +7,58 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-10 — Mandatory X+Instagram pairing restored; the 2026-09-05 appearance-lane X-only carve-out is superseded (kanban t_bac31b1a)
+
+**Context:** Joey, 2026-09-10 (#taylor-social), founder directive: "There's
+never a time where we post to only X, or only IG. Everything should be the
+same" — one idea goes out to X and Instagram (which auto-cross-posts to
+Facebook), together, no exceptions. This directly targeted the 2026-09-05
+entry above, whose part 2 ("Appearance-lane posts go X text-only... no
+longer manufactures an Instagram sibling at all") the founder had not
+approved and reopened the exact single-platform exception the 2026-08-26
+"Always an IG copy. Always." rule had already closed unconditionally.
+
+**Decision (supersedes the 2026-09-05 entry's part 2 and the `mediaKind:
+"video-thumb"` value entirely; part 1's underlying finding — a rehosted
+thumbnail is not a "photo" — still stands and is unaffected).**
+1. `mediaKind: "video-thumb"` is REMOVED from
+   `scripts/social/lib/queue-schema.mjs`'s `MEDIA_KINDS` — no longer
+   schema-recognized at all. A draft declaring it hard-fails like any other
+   unrecognized `mediaKind`.
+2. `checkCampaignPair`'s `appearance:`-family exemption
+   (`scripts/social/check-drafts.mjs`) is removed. Every `appearance:
+   <videoId>` campaign is now paired exactly like every other campaign —
+   no exception, of any kind, for any lane.
+3. `scripts/appearance-discovery/lib/social-draft.mjs`'s
+   `buildSocialDraftPair` now sources a real credited photo from
+   `social/photo-library.json` (the same rotation/selector every other
+   campaign draws from) and stages BOTH an X and an Instagram draft, sharing
+   the same `campaign` and `scheduledAt`. If the photo library has no
+   eligible entry, it throws rather than silently staging an X-only draft —
+   the lane simply cannot file until inventory exists, same posture as any
+   other paired campaign that can't source a photo.
+4. New: paired siblings must schedule within 5 minutes of each other
+   (`checkSimultaneousPair`, `scripts/social/check-drafts.mjs`) — "all at
+   once" is now a real scheduling constraint, not just a same-day one.
+   `scripts/social/post-queue.mjs` treats a due campaign pair as ONE posting
+   unit (exempt from the per-run item cap and the same-run media-reuse
+   guard for its second sibling) so the poster can actually publish both
+   within one run, not defer one 30 minutes to the next.
+
+**Implementation:** `scripts/social/lib/queue-schema.mjs`,
+`scripts/social/lib/queue-schema.test.ts`, `scripts/social/check-drafts.mjs`,
+`scripts/social/check-drafts.test.ts`, `scripts/social/post-queue.mjs`,
+`scripts/appearance-discovery/lib/social-draft.mjs`,
+`scripts/appearance-discovery/lib/social-draft.test.ts`,
+`scripts/appearance-discovery/discover.mjs`, `social/README.md`.
+
+**Approved by:** founder directive (Joey, 2026-09-10, #taylor-social) +
+Fable arbiter ruling FR-t_bac31b1a-1 (kanban t_bac31b1a) on the residual
+opener-rule collision-margin tradeoff in the Instagram caption template —
+review-cycle procedural point only, does not touch this policy decision.
+
+---
+
 ## 2026-09-06 — Structural fix for recurring stranded-PR problem: proactive branch keep-up + faster watchdog escalation (t_21a0cd6f)
 
 **Context:** Joey, 2026-09-06, in response to t_dcb1f2c0's root-cause

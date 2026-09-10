@@ -79,6 +79,7 @@
 //
 // Exits non-zero with a readable findings list if anything fails.
 
+import { readFileSync } from 'node:fs';
 import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -87,6 +88,7 @@ import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
 import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
+import { THEMED_CAMPAIGN_PREFIXES } from './lib/queue-schema.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
@@ -133,18 +135,11 @@ const PHOTO_PREFIX = '/social/library/photos/';
 // a thumbnail declared "photo" without an incriminating credit string (or a
 // future non-thumbnail file nobody vetted) still can't launder through.
 const VIDEO_THUMBNAIL_CREDIT_RE = /thumbnail|youtube|video/i;
-// The genuinely license-cleared Taylor-photo corpus as of 2026-09-05 (see
-// social/calendar.md's "Cleared-photo corpus" line — update this list, and
-// that doc, together whenever a new CC/public-domain photo is added under
-// PHOTO_PREFIX). Deliberately basenames only (not full paths) so the check
-// stays correct regardless of PHOTO_PREFIX's exact value.
-const CLEARED_PHOTO_ALLOWLIST = new Set([
-  'taylor-lover-eras-minneapolis-2023.jpg',
-  'taylor-lover-eras-minneapolis-act5-2023.jpg',
-  'taylor-red-eras-inglewood-2023.jpg',
-  'taylor-fearless-eras-inglewood-2023.jpg',
-  'taylor-debut-2007-acoustic.jpg',
-]);
+// The durable credited-photo inventory replaces the hand-maintained five-file
+// allowlist. Every entry carries the exact source and credit a draft may use.
+const PHOTO_LIBRARY = JSON.parse(readFileSync(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;
+const PHOTO_LIBRARY_BY_ID = new Map(PHOTO_LIBRARY.map((photo) => [photo.id, photo]));
+const PHOTO_LIBRARY_BY_PATH = new Map(PHOTO_LIBRARY.map((photo) => [photo.mediaPath, photo]));
 // Instagram rejects a feed image whose aspect ratio (width/height) falls
 // outside ~0.8 (4:5 portrait) to 1.91 (landscape) — API error_subcode
 // 2207009 / code 36003, "the aspect ratio is not supported". X has no such
@@ -347,14 +342,13 @@ export function checkCampaignPair(file, item, allQueueItems, allPostedItems) {
     ];
   }
 
-  // appearance-discovery fast-lane campaigns are DELIBERATELY X-only
-  // (2026-09-05, #3584 Fable ruling): this lane has no license-cleared photo
-  // to offer, so it never authors an Instagram sibling at all — the
-  // otherwise-unconditional pairing rule (Joey 2026-08-25/26, "always an IG
-  // copy, always") does not apply to this one lane, which the ruling
-  // carves out by name. See scripts/appearance-discovery/lib/social-draft.mjs.
-  if (campaign.startsWith('appearance:')) return [];
-
+  // The 2026-09-05 #3584 "appearance:*-family campaigns are X-only" carve-
+  // out was itself the exact single-platform exception the founder had
+  // already closed unconditionally — REMOVED 2026-09-10 (kanban t_bac31b1a,
+  // Joey: "there's never a time where we post to only X, or only IG").
+  // scripts/appearance-discovery/lib/social-draft.mjs now authors a real
+  // photo-backed Instagram sibling for this lane too, so no exemption is
+  // needed here any more.
   const wanted = item.platform === 'x' ? 'instagram' : 'x';
   const group = [...allQueueItems, ...allPostedItems].filter(
     (o) => o.file !== file && (typeof o.data.campaign === 'string' ? o.data.campaign.trim() : '') === campaign,
@@ -368,6 +362,47 @@ export function checkCampaignPair(file, item, allQueueItems, allPostedItems) {
       `any kind (social/README.md, Joey 2026-08-25 and 2026-08-26) — author the ${wanted} item in this same change ` +
       'with the exact same `campaign` value. The Instagram item already cross-posts to Facebook, so never add a ' +
       'third Facebook item.',
+  ];
+}
+
+/**
+ * "All at once" (2026-09-10, kanban t_bac31b1a, Joey: "one idea goes out to
+ * X, Instagram... all together"): a campaign's two queue items must be
+ * scheduled within a tight window of each other, not hours apart same day.
+ * Only checked when BOTH siblings are still in social/queue/ (both being
+ * authored/edited together) — a sibling that already posted is history and
+ * cannot be rescheduled, so it is out of scope here (checkCampaignPair
+ * already treats an already-posted sibling as satisfying pairing).
+ *
+ * Scoped to the campaign of the draft being checked, same reasoning as
+ * checkCampaignPair: legacy queue items scheduled apart before this rule
+ * existed are not this check's business unless someone is actively touching
+ * one of the pair right now.
+ */
+export const SIMULTANEOUS_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+
+export function checkSimultaneousPair(file, item, allQueueItems) {
+  if (!RECOGNIZED_PLATFORMS.has(item.platform)) return []; // checkSchema already flags this
+  if (!isValidScheduledAt(item)) return []; // checkSchema already flags this
+
+  const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+  if (!campaign) return []; // checkCampaignPair already flags this — nothing to compare against
+
+  const wanted = item.platform === 'x' ? 'instagram' : 'x';
+  const sibling = allQueueItems.find(
+    (o) => o.file !== file && o.data.platform === wanted && (typeof o.data.campaign === 'string' ? o.data.campaign.trim() : '') === campaign,
+  );
+  if (!sibling || !isValidScheduledAt(sibling.data)) return [];
+
+  const deltaMs = Math.abs(new Date(item.scheduledAt).getTime() - new Date(sibling.data.scheduledAt).getTime());
+  if (deltaMs <= SIMULTANEOUS_WINDOW_MS) return [];
+
+  const deltaMinutes = Math.round(deltaMs / 60000);
+  return [
+    `simultaneous pair: campaign "${campaign}" schedules this ${item.platform} item ${deltaMinutes} minute(s) apart from its ` +
+      `${wanted} sibling ${sibling.file} — "all at once" means both siblings ship together (2026-09-10, kanban t_bac31b1a, ` +
+      `Joey: "one idea goes out to X, Instagram... all together"), not hours apart same day. Set both \`scheduledAt\` values ` +
+      `to the same instant (or within ${SIMULTANEOUS_WINDOW_MS / 60000} minutes of each other).`,
   ];
 }
 
@@ -448,11 +483,49 @@ export function checkLength(item) {
   return [];
 }
 
+function checkInventoryPhotoBinding(item, tile) {
+  if (typeof item.photoId !== 'string' || item.photoId.trim() === '') {
+    return ['media: mediaKind "photo" requires `photoId` from social/photo-library.json so its exact path, credit, and source stay bound together.'];
+  }
+  const selectedPhoto = PHOTO_LIBRARY_BY_ID.get(item.photoId);
+  if (!selectedPhoto) return [`media: photoId ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
+  if (selectedPhoto.mediaPath !== tile || selectedPhoto.credit !== item.mediaCredit || selectedPhoto.source !== item.mediaSource) {
+    return [`media: photoId ${JSON.stringify(item.photoId)} must use its inventory media path, exact credit, and exact source so attribution cannot drift.`];
+  }
+  // photoEra (2026-09-10, kanban t_75ec7106 — the 2026-09-09 reputation/snake
+  // X post that shipped a Lover-era tour photo): a themed draft that declares
+  // its target era must be bound to a photo actually tagged for that era.
+  // Mirrors queue-schema.mjs's validatePhotoInventoryBinding so the CI
+  // backstop and this draft-time gate can never drift on the same rule.
+  if (typeof item.photoEra === 'string' && item.photoEra.trim() !== '') {
+    const era = item.photoEra.trim();
+    if (!Array.isArray(selectedPhoto.tags) || !selectedPhoto.tags.includes(era)) {
+      return [
+        `media: this draft declares photoEra "${era}", but photoId ${JSON.stringify(item.photoId)}'s tags (${JSON.stringify(selectedPhoto.tags ?? [])}) ` +
+          'do not include it — an off-era photo is worse than no photo at all (Joey, 2026-09-10). Re-run ' +
+          `\`node scripts/social/select-photo.mjs --era ${era}\` for a matching photo, or add one to social/photo-library.json first.`,
+      ];
+    }
+  } else if (typeof item.campaign === 'string' && THEMED_CAMPAIGN_PREFIXES.some((prefix) => item.campaign.startsWith(prefix))) {
+    return [
+      `media: campaign ${JSON.stringify(item.campaign)} belongs to a themed family (${THEMED_CAMPAIGN_PREFIXES.join(', ')}) — ` +
+        'these posts are inherently about one specific era, so `photoEra` is required, not optional, for this campaign shape ' +
+        '(kanban t_75ec7106: this is exactly the campaign shape that shipped a Lover-era photo on a reputation-era post). ' +
+        `Set \`photoEra\` to the target era and run \`node scripts/social/select-photo.mjs --era <era>\` for a matching photo.`,
+    ];
+  }
+  return [];
+}
+
 export async function checkMedia(file, item, recentIgPosted, allQueueItems = []) {
   const findings = [];
   if (item.platform === 'instagram' && !item.media?.length) {
     findings.push('media: Instagram drafts require at least one image in `media`.');
     return findings; // nothing else to check without media
+  }
+  if (item.platform === 'x' && !item.media?.length) {
+    findings.push('media: X drafts require at least one credited image in `media` — every real campaign ships to both platforms (2026-09-10, kanban t_bac31b1a).');
+    return findings;
   }
   if (item.platform === 'x' && item.mediaKind === 'site-screen') {
     findings.push('media: X drafts may not use mediaKind "site-screen" — X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
@@ -552,7 +625,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     }
     if (repeatsRecentIgMedia(mediaPath, recentIgPosted, ERA_ART_LOOKBACK)) {
       findings.push(
-        `media: "${mediaPath}" repeats one of the last ${ERA_ART_LOOKBACK} posted Instagram items' media — even a dedicated photo shouldn't ship twice that soon.`,
+        `${WARNING_PREFIX} media: "${mediaPath}" was used in recent Instagram history; the selector prefers less-used, longer-unseen credited entries first, but reuse remains valid so a finite library cannot deadlock a paired campaign.`,
       );
     }
     // Queue-vs-queue: a SCHEDULED future repeat is invisible to the
@@ -561,7 +634,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     const alsoQueuedIn = allQueueItems.find((o) => o.file !== file && (o.data.media ?? []).includes(mediaPath));
     if (alsoQueuedIn) {
       findings.push(
-        `media: "${mediaPath}" is also scheduled in ${alsoQueuedIn.file} — two queued items may not share media; the repeat would land inside the recent-posted window by construction.`,
+        `${WARNING_PREFIX} media: "${mediaPath}" is also scheduled in ${alsoQueuedIn.file}; select another credited inventory entry when available, but retain this valid fallback so a finite library cannot deadlock the calendar.`,
       );
     }
   }
@@ -592,6 +665,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     if (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '') {
       findings.push('media: launch-campaign site-screen carousel requires `mediaSource` for its Taylor-photo grid tile.');
     }
+    findings.push(...checkInventoryPhotoBinding(item, grid));
     for (const slide of item.media.slice(1)) {
       const s = String(slide);
       if (!s.startsWith('/social/library/') || s.startsWith(PHOTO_PREFIX)) {
@@ -621,15 +695,16 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
       // already fired, so a thumbnail wrongly staged straight into
       // PHOTO_PREFIX doesn't dodge this on a technicality.
       const creditText = `${item.mediaCredit ?? ''} ${item.mediaSource ?? ''}`;
-      const basename = tile.split('/').pop() ?? '';
       const looksLikeThumbnail = VIDEO_THUMBNAIL_CREDIT_RE.test(creditText);
-      const notCleared = tile.startsWith(PHOTO_PREFIX) && !CLEARED_PHOTO_ALLOWLIST.has(basename);
+      const inventoryPhoto = PHOTO_LIBRARY_BY_PATH.get(tile);
+      const notCleared = tile.startsWith(PHOTO_PREFIX) && !inventoryPhoto;
       if (looksLikeThumbnail || notCleared) {
         findings.push(
-          `media: "${tile}" cannot be mediaKind "photo" — ${looksLikeThumbnail ? `its mediaCredit/mediaSource ("${creditText.trim()}") reads like a rehosted video thumbnail` : 'it is not in the license-cleared photo corpus allowlist'} (docs/decisions.md 2026-08-15: "photo" means a license-cleared local file; #3584 ruling). ` +
-            'Use mediaKind "video-thumb" instead — Instagram drafts reject it outright, and X drafts may only carry it with no attached image (a plain link preview).',
+          `media: "${tile}" cannot be mediaKind "photo" — ${looksLikeThumbnail ? `its mediaCredit/mediaSource ("${creditText.trim()}") reads like a rehosted video thumbnail` : 'it is not in the credited photo inventory'} (docs/decisions.md 2026-08-15: "photo" means a license-cleared local file; #3584 ruling). ` +
+            'Source a genuine credited photo from social/photo-library.json instead — a rehosted thumbnail can never ship on either platform (2026-09-10, kanban t_bac31b1a: no single-platform/uncredited-media exception of any kind).',
         );
       }
+      findings.push(...checkInventoryPhotoBinding(item, tile));
     } else if (item.mediaKind === 'site-screen') {
       if (!tile.startsWith('/social/library/') || tile.startsWith(PHOTO_PREFIX)) {
         findings.push(
@@ -640,28 +715,11 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
       findings.push(
         'media: mediaKind "era-art" is no longer allowed on drafts (2026-08-12 standard) — the value survives only so historical records parse. Use "photo" or "site-screen".',
       );
-    } else if (item.mediaKind === 'video-thumb') {
-      // See #3584 / the block comment above VIDEO_THUMBNAIL_CREDIT_RE.
-      // Instagram never gets a video-thumb — the calendar's own rule is
-      // "empty IG slot beats a failed one," and there is no cleared-photo
-      // fallback for an appearance-lane item.
-      findings.push(
-        'media: mediaKind "video-thumb" is not allowed on Instagram drafts at all — Instagram is skipped unless a cleared photo exists (Fable ruling, #3584). Drop the media/mediaKind and post text-only, or use a genuine cleared "photo".',
-      );
     } else {
       findings.push(
         `media: draft has media but no declared \`mediaKind\` (got ${JSON.stringify(item.mediaKind)}) — declare "photo" (real credited photograph of Taylor, with mediaCredit + mediaSource) or "site-screen" (deliberate product screenshot). Undeclared media is how the account drifted to a Taylor-free grid.`,
       );
     }
-  }
-  // X's video-thumb rule is independent of the media[0]-tile block above
-  // (that block only runs `if item.media?.length` and skips generic era
-  // art) — checked unconditionally here so it fires even with zero media.
-  if (item.platform === 'x' && item.mediaKind === 'video-thumb' && (item.media?.length ?? 0) > 0) {
-    findings.push(
-      'media: X drafts with mediaKind "video-thumb" may not attach an image — video-thumb only ships as a bare link preview (no `media`). ' +
-        'Drop `media` (the link unfurl already shows the thumbnail) or declare a real "photo"/"site-screen" if you genuinely mean to attach an image.',
-    );
   }
   return findings;
 }
@@ -723,6 +781,7 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
     ...(await checkVoice(target.file, target.data.body)),
     ...checkOpeners(target.file, target.data, openerContext),
     ...checkCampaignPair(target.file, target.data, allQueue, allPosted),
+    ...checkSimultaneousPair(target.file, target.data, allQueue),
     ...checkCrossPostCopy(target.file, target.data, allQueue),
     ...checkLength(target.data),
     ...(await checkMedia(target.file, target.data, recentIg, allQueue)),

@@ -11,51 +11,13 @@ Written by Tree's run of Monday 2026-09-07.
 
 ---
 
-## ⛔ THE ONE THING THAT MATTERS THIS FORTNIGHT — Instagram deadlocks after tonight
+## ✅ Photo availability — resolved by the credited inventory and selector
 
-**Founder decision filed. Until it is answered, almost nothing below can ship,
-and no amount of good planning changes that.**
+Every Instagram and normal paired X post requires a real credited Taylor/Taylor-related photo. `npm run social:select-photo` chooses the least-used, longest-unseen inventory entry, then safely reuses the least-recently-used credited entry if every photo has been used. Each photo draft must carry that entry's exact `photoId`, path, credit, and source. A valid paired campaign therefore cannot stall because a finite library is temporarily exhausted.
 
-Three rules that are each individually correct now multiply into a hard stop:
+Every inventory entry records a local publishable path, exact source URL, and truthful credit. Use `npm run social:import-photo-library -- --input <reviewed-candidates.json> --write` to backfill any number of reviewed entries after their images have been committed under `/social/library/photos/`; the tool validates source/credit shape and deduplicates by id/path. Do not use website screenshots, placeholders, era art, or untraceable images as a substitute for a credited photo.
 
-1. Every Instagram post must carry a **real cleared Taylor photo as `media[0]`**
-   — `site-screen` is rejected on any non-`launch:` campaign, and even on a
-   launch campaign the grid tile must still be a photo
-   (`check-drafts.mjs:480-499, 582-602`).
-2. A media file may not repeat inside the **last 10 posted Instagram items**
-   (`ERA_ART_LOOKBACK = 10`; `repeatsRecentIgMedia` flattens *every* slide of
-   those 10 posts, not just their tiles).
-3. **Pairing is unconditional** — a campaign with no Instagram sibling fails the
-   checker, so a blocked Instagram slot kills its X sibling too.
-
-The cleared corpus is **5 photos** (`CLEARED_PHOTO_ALLOWLIST`,
-`scripts/social/check-drafts.mjs:141-147`). Rule 2 means a photo is reusable
-only after 11 intervening Instagram posts. **A corpus of C photos can never
-sustain more than C Instagram posts before every one of them is inside the
-window — you need C ≥ 11 for a daily paired beat.**
-
-Where that lands us concretely: tonight's queued Clue Web pair uses
-`taylor-lover-eras-minneapolis-2023.jpg`, the last free photo. Once it posts,
-all 5 cleared photos sit inside the last-10 window, **the 09-08 beat has zero
-legal images, and there is no post that can roll the window forward.** It is a
-deadlock, not a slowdown — the account goes silent on both platforms until the
-corpus grows.
-
-**Each new cleared photo buys exactly one more post.** Three new photos buy
-about six days (three new posts, then `red`/`debut`/`fearless` roll free in
-turn), and then it stalls again. Eleven is the number that makes a daily beat
-sustainable.
-
-**Two working fixes exist, and both need a human:** grow the corpus to 11+, or
-relax the 10-post window for the photo corpus specifically. Filed as a
-`founder-decision` issue this run. Related and still open: #3733 (the calendar
-was undraftable all last week), #3387 (corpus too thin).
-
-⚠️ **A corpus photo is not usable until it is allowlisted.** PR **#3890** adds
-`taylor-evermore-eras-inglewood-2023.jpg` under `/social/library/photos/` but
-does **not** add its filename to `CLEARED_PHOTO_ALLOWLIST` — merging it as-is
-gives us a file the checker rejects with *"not in the license-cleared photo
-corpus allowlist."* Every corpus PR from here needs both halves.
+⚠️ `photoId` is mandatory for every new `mediaKind: "photo"` queue draft. `check-drafts.mjs` verifies that the selected path, credit, and source exactly match the inventory so attribution cannot drift.
 
 ---
 
@@ -119,9 +81,10 @@ both platforms is not drafted at all.
 - **Direction, not facts.** Every subject is a pointer into the Vault. The
   drafter sources it; nothing here is fact-checked and nothing here may be
   repeated as a claim.
-- **X is text-only unless stated.** X `site-screen` is permanently prohibited,
-  and two queued items may not share a media file — so an X sibling must never
-  reuse its Instagram sibling's photo while both sit in the queue.
+- **X carries a credited photo for every normal paired campaign.** X
+  `site-screen` is permanently prohibited. Use the selector for a diversified
+  credited inventory entry; reuse remains valid when needed, so media choice
+  cannot halt a valid pair.
 - **X length is weighted** — an autolinked URL always counts 23. Target ≤270;
   the checker hard-fails at 280.
 - **Share-design pass** (strategy, 2026-09-01): every `heartbeat:` and `mood:`
@@ -129,19 +92,14 @@ both platforms is not drafted at all.
   Thread and launch posts are exempt — they already have one. Never bolt on a
   fake one; say so in `why` instead.
 
-### The media-budget rule — read this before drafting any beat below
+### The media selection rule — read this before drafting any beat below
 
-Because of the deadlock, **dates below are intent, not a promise.**
-
-1. Draft the beats **in the order written**. Do not skip ahead to a later date's
-   beat because its media happens to be free.
-2. A beat with no free cleared photo on its day **holds and slides to the next
-   day** — it is not skipped, and it is not replaced.
-3. **Exception: thread beats are window-bound.** If a thread beat slides past
-   its window's last day (below), drop it and say so in the run's PR — a Runway
-   beat in the Blank Spaces window is worse than a missing one.
-4. An empty slot beats a failed one. Never substitute an era tile, a designed
-   card, or a bare screenshot to fill a day.
+Draft the beats in order. For each IG/X pair, use the deterministic selector
+and copy its exact `photoId`, path, credit, and source into each photo draft.
+The selector always returns a valid credited entry from a non-empty inventory:
+it prefers diversity but permits reuse, so there is no "no free photo" hold or
+calendar slide. Never substitute era art, a designed card, a bare screenshot,
+or untraceable media.
 
 ## Ledger
 
@@ -154,12 +112,12 @@ Because of the deadlock, **dates below are intent, not a promise.**
 | Mode deep links (verified `packages/experience/src/deepLink.ts:34`) | `threads` · `mood` · `clownbot` · `community` · `merch`. **`/?mode=mood` is real** — Mood beats no longer need the bare-domain workaround, but the drafter must open it once and confirm it lands on Mood before using it; fall back to `longlivets.com` + "tap Mood" if not. `?mood=` is still not a thing. |
 | **Launch arc in flight** | **`launch:shop-the-look` — RESTARTED.** The surface (100 shoppable items across all 12 eras; a separate "Made by Swifties" bucket of 22 fan-made items; the disclaimer reads verbatim **"Her look, not the product"** — all three per #3733, count them again before writing) went live 2026-08-31 and has still never been posted about: all four beats of the first attempt died on the wrong link plus no media. Re-run as announce → how-to → example → callback below, all on `/?mode=merch`. |
 | Launch backlog (reordered) | **Community Engine's fan-facing surfaces** — the Clownbot fan-theory chip (#3965) and the Clue Web live-theory board with origin badges and a "Live now" strip (#3964), merged 2026-09-07 — new to the backlog this run and the best story behind shop-the-look, because it is a *thing fans do*, not a thing we shipped. **Verify it is live on www.longlivets.com and ≥24h old before day 0.** → notifications + web push (#3568→#3583) → pinch-zoom photo viewer (#831) → photos + focal program (#762). Two arcs never overlap. |
-| ❓ Android status — **still needs Joey** | Unanswered from last run. `HUMAN-ACTIONS.md` #17 records the device test as "the only thing left **before** Play Store", while PR #3534 calls it "the shipped Android app". Tree cannot tell from the repo whether it is listed. **Barred under invariant 6 until a founder confirms.** Not re-asked this week — the deadlock is the only question worth Joey's attention right now. |
-| Mood beat | **2026-09 = `mood:chip-poll`**, cut from 3 slots to **2** (09-14, 09-19). None of last cycle's three ever drafted; three slots against a 5-photo corpus was wishful. |
+| ❓ Android status — **still needs Joey** | Unanswered from last run. `HUMAN-ACTIONS.md` #17 records the device test as "the only thing left **before** Play Store", while PR #3534 calls it "the shipped Android app". Tree cannot tell from the repo whether it is listed. **Barred under invariant 6 until a founder confirms.** Not re-asked this week. |
+| Mood beat | **2026-09 = `mood:chip-poll`**, cut from 3 slots to **2** (09-14, 09-19). None of last cycle's three ever drafted. |
 | **Blank Spaces relationship timeline — permanent weekly minimum** | **Starts 2026-09-17 at `23:00Z`** with `timeline:love-story:early-solo-years:2026-09-17`, the next flexible evening campaign beat after this calendar was written. It is additional to the 09-18/09-20 Blank Spaces thread-cycle slots. Every next calendar must reserve ≥1 story-unique `timeline:love-story:*` IG+X pair in each calendar week; Facebook rides IG automatically. Chapter sequence: early solo years → Joe Jonas era → confirmed public relationship-era material → Travis. Source precise facts only at drafting time; no rumor-stage claims. |
 | Openers burned (last 14 days) | **23 distinct patterns across 24 posts** — target ≥12, clear. One duplicate: *"Taylor Swift opens up about…"* ×2, both from the appearance lane, which is now X-only and no longer writes this shape. Still burned, do not reuse verbatim or near: bare `<month> <n>, <year>:` date-stamps · `an honest question` / `genuine question` · `she was twenty` / `she was 22` · `a fresh official Taylor upload just landed`. |
 | Eras stacked recently — spread away from these | **lover ×3** (09-07 twice, 09-02 attempt), tloas ×3, red ×2, debut ×2, fearless ×2. **Lean hard on:** speak-now, folklore, evermore, 1989, ttpd, reputation. |
-| **Cleared-photo corpus — 5 files, all currently blocked** | Every one is inside the last-10 Instagram window as of tonight. <br>• `taylor-lover-eras-minneapolis-2023.jpg` (lover) — Michael Hicks, CC BY 2.0, Wikimedia Commons <br>• `taylor-lover-eras-minneapolis-act5-2023.jpg` (lover) — Michael Hicks, CC BY 2.0, Wikimedia Commons <br>• `taylor-red-eras-inglewood-2023.jpg` (red) — Paolo Villanueva, CC BY 2.0, Wikimedia Commons <br>• `taylor-fearless-eras-inglewood-2023.jpg` (fearless) — Paolo Villanueva, CC BY 2.0, Wikimedia Commons <br>• `taylor-debut-2007-acoustic.jpg` (debut) — Brian Cantoni, CC BY 2.0, Wikimedia Commons <br>**To add one:** CC BY / CC BY-SA / CC0 / public domain only, from `commons.wikimedia.org` (never the `/wikipedia/en/` fair-use path); rehost under `/social/library/photos/`; record `mediaCredit` + `mediaSource`; **open the file and confirm the era before committing** (#3273: 4 of 4 sampled "Folklore Set Era" files were actually Speak Now); **and add the filename to `CLEARED_PHOTO_ALLOWLIST`** or it is dead on arrival. Priority eras: speak-now, folklore, 1989, reputation, ttpd, evermore. |
+| **Credited photo inventory** | `social/photo-library.json` is a scalable sourced inventory, not a five-file allowlist. Every entry records an auditable source URL and truthful credit; the selector prefers diversity but always permits a credited reuse. **To add entries:** commit the reviewed image under `/social/library/photos/`, then run `npm run social:import-photo-library -- --input <reviewed-candidates.json> --write`; the importer validates credit/source/path and deduplicates by id/path. |
 | Reddit non-promo contributions | **0 / 20.** Three consecutive weeks asked, none ticked. Every Reddit task stays a zero-link contribution until this reaches 20 (growth-plan §7). |
 | IG Insights | **Never supplied**, three months running — now named in strategy §3 as a standing blocker. Asked again this week as the lightest task. |
 | Crisis stop | **Not active.** `SOCIAL_FREEZE` set to `false` 2026-09-06 19:01Z (#3891, verified end-to-end). No founder "stop posting" outstanding. |
@@ -171,7 +129,7 @@ Because of the deadlock, **dates below are intent, not a promise.**
 - **`23:00Z` — already queued**, both platforms:
   `thread:easter-eggs:interactive-challenge:2026-09-hero`, IG on
   `taylor-lover-eras-minneapolis-2023.jpg` + `thread-easter-eggs-intro.png`
-  slide 2, X text-only.
+  slide 2; X uses a selector-chosen credited photo.
 
 **Plan nothing today.** Drafting over this would mint a second campaign for the
 same slot and both would try to ship.
@@ -187,7 +145,7 @@ same slot and both would try to ship.
   capture of the "Seen on Taylor" section has been committed under
   `/social/library/` by then, ride it as slide 2 (it is a "cool feature"
   surface); none exists today, and **photo-only is the correct answer, not a
-  blocker**. X: text-only. Hook: **direct address**.
+  blocker**. X media: selector-chosen credited photo. Hook: **direct address**.
 
 ## 2026-09-09 (Wed) — The Clue Web, slot 2 of 2 (window closes 09-10)
 
@@ -197,7 +155,7 @@ same slot and both would try to ship.
   different, >20% divergence — never a truncation of the hero.
   IG media: cleared photo tile + **`thread-easter-eggs-screen.png`** slide 2
   (not `-intro.png`, which ships tonight and will be deep inside the window).
-  X: text-only. Hook: **the number**.
+  X media: selector-chosen credited photo. Hook: **the number**.
   **Window-bound**: if this has not drafted by 09-10 it is dropped, not slid.
 
 ## 2026-09-10 (Thu) — 🚀 Launch arc +2
@@ -207,7 +165,7 @@ same slot and both would try to ship.
   never found it — how you get to the merch surface, what the tile does when you
   tap it, that the retailer opens in a new tab, and which eras carry looks
   (check: all 12 have at least one).
-  IG media: cleared photo tile, era not used since 09-08. X: text-only.
+  IG media: cleared photo tile, era not used since 09-08. X media: selector-chosen credited photo.
   Hook: **the challenge** — "open your era and find one."
 
 ## 2026-09-11 (Fri) — Heartbeat · The Runway window opens
@@ -217,7 +175,7 @@ same slot and both would try to ship.
   Link `/?era=speak-now`. If no cleared speak-now photo exists yet, take the
   first lean-on era that does — folklore, 1989, reputation, ttpd, evermore —
   and mint to match. IG media: cleared photo tile, era matched to the story.
-  X: text-only. Hook: **the contradiction**.
+  X media: selector-chosen credited photo. Hook: **the contradiction**.
   **Share hook required** (heartbeat) — tag-the-friend, grounded in the actual
   deep cut.
 
@@ -227,7 +185,7 @@ same slot and both would try to ship.
   Link `/?mode=merch`. Job: **one real result the surface produced.** A single
   look, the piece, where the tap takes you. The proof it works, not the pitch.
   Pick a look from an era outside lover/tloas/red. IG media: cleared photo tile,
-  ideally the same era as the look. X: text-only. Hook: **the artifact** — open
+  ideally the same era as the look. X media: selector-chosen credited photo. Hook: **the artifact** — open
   with what the image is.
 
 ## 2026-09-13 (Sun) — The Runway hero, slot 1 of 2
@@ -240,7 +198,7 @@ same slot and both would try to ship.
   many of those looks are tappable too rather than asserting it.
   IG media: cleared photo tile + **`thread-fashion-screen.png`** slide 2
   (`-intro.png` shipped 08-24 and may still be in the window — check).
-  X: text-only. Hook: **the number**.
+  X media: selector-chosen credited photo. Hook: **the number**.
 
 ## 2026-09-14 (Mon) — Mood beat 1 of 2 · Tree run day
 
@@ -263,7 +221,7 @@ same slot and both would try to ship.
   A different entry point into the same angle: not the counts again, but the
   single look whose sourcing was hardest to pin down, or the era whose wardrobe
   is thinnest and why. IG media: cleared photo tile + a Runway screenshot not
-  used in the last 10 IG posts; photo-only if none is free. X: text-only.
+  used in the last 10 IG posts; photo-only if none is free. X media: selector-chosen credited photo.
   Hook: **the honest question** — fresh wording, the phrase itself is burned.
   **Window-bound**: drop rather than slide past 09-15.
 
@@ -272,7 +230,7 @@ same slot and both would try to ship.
 - **`23:00Z` · `launch:shop-the-look:callback`** — mint exactly that.
   Link `/?mode=merch`. Job: tie it to a fan use-case and **invite a reply** —
   "which era's closet would you actually raid?" IG media: cleared photo tile,
-  whichever is furthest from its last use. X: text-only. Hook: **the honest
+  whichever is furthest from its last use. X media: selector-chosen credited photo. Hook: **the honest
   question**, fresh wording.
   The optional "what you did with it" follow-up runs **only** if real replies
   exist to quote with permission, and it is next Tree run's call, not Growth's.
@@ -295,8 +253,8 @@ same slot and both would try to ship.
   relevant to the era, **photo-only for this slot** so the separate 09-18 Blank
   Spaces thread hero can use its eligible lens screenshot without repeating a
   carousel asset. Never use a generic Long Live card, landing-page image, or
-  plain article screenshot. X: relevant cleared photo or text-only, never a
-  site screenshot. Hook: **the artifact**.
+  plain article screenshot. X: relevant selector-chosen credited photo, never a
+  site screenshot or text-only fallback. Hook: **the artifact**.
 
 ## 2026-09-18 (Fri) — Blank Spaces hero, slot 1 of 2
 
@@ -306,7 +264,7 @@ same slot and both would try to ship.
   people answer. The thread is the byline, named once at the end with the link,
   not the subject. IG media: cleared photo tile +
   **`thread-love-story-screen.png`** slide 2 (`-intro.png` shipped 08-29).
-  X: text-only, structurally different. Hook: **the challenge**.
+  X media: selector-chosen credited photo, structurally different. Hook: **the challenge**.
 
 ## 2026-09-19 (Sat) — Mood beat 2 of 2
 
@@ -314,7 +272,7 @@ same slot and both would try to ship.
   A **different** three chips from 09-14, quoted verbatim. Link `/?mode=mood`
   (or the bare-domain fallback). IG media: cleared photo tile +
   **`mood-feature.png`** slide 2 if it is outside the window by then, else
-  photo-only. X: text-only. Same scored-era constraint.
+  photo-only. X media: selector-chosen credited photo. Same scored-era constraint.
   **Share hook required.** Hook: **the contradiction**.
 
 ## 2026-09-20 (Sun) — Blank Spaces, slot 2 of 2 (window closes today)
@@ -323,7 +281,7 @@ same slot and both would try to ship.
   `thread:love-story:quiz-poll:2026-09-results`. Link `/?lens=love-story`.
   If 09-18's poll drew real answers, this is the results beat; if it drew none,
   it is a different either/or entirely — never a restatement. IG media: cleared
-  photo tile, photo-only is fine. X: text-only.
+  photo tile, photo-only is fine. X media: selector-chosen credited photo.
   Hook: **the artifact**. **Window-bound**: drop rather than slide.
 
 ---
@@ -338,11 +296,11 @@ run)* — three outward-reach tasks: the monthly Instagram Insights paste, one
 zero-link r/TaylorSwift contribution (counter 0 → 1 of 20), and ten follows of
 real Swiftie accounts. None of them depend on the account being able to post,
 which is deliberate: reach is the mechanism September's target actually rests
-on, and it is the one lane the deadlock does not touch.
+on, and it is independent of media selection.
 
 **Deliberately not asked this week:** the Android Play Store question. It is
 still open and still bars the Android launch arc, but it is not worth competing
-with the deadlock for Joey's attention.
+with other founder decisions for Joey's attention.
 
 **2026-09-14 — next run.** Reserved. Priorities in order: whatever the
 photo-corpus decision resolves to, then the Reddit counter, then two Swiftie

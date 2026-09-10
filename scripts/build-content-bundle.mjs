@@ -55,7 +55,7 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { register } from 'tsx/esm/api';
-import { ROOT, SYNCS, OTHER_SYNC_TARGETS } from './lib/generated-content.mjs';
+import { ROOT, PRE_BUNDLE_SYNCS, OTHER_SYNC_TARGETS } from './lib/generated-content.mjs';
 import { runMain } from './lib/cli.mjs';
 
 const SCHEMA_FILE = path.join(ROOT, 'packages', 'content', 'src', 'schema.ts');
@@ -116,13 +116,11 @@ export function renderJson(value) {
  * generated-content targets, e.g. scripts/lib/source-tiers.generated.mjs,
  * which sync-longlive-content.mjs's CONFIDENCE_VALUES import transitively
  * relies on) so every *.generated.ts/.mjs intermediate this script imports
- * is fresh off supabase/seed/**. Mirrors scripts/check-generated-in-sync
- * .mjs's own resync step (SYNCS + OTHER_SYNC_TARGETS) exactly — omitting
- * OTHER_SYNC_TARGETS here would let a bundle build silently read a stale
- * source-tiers mirror instead of failing loudly the way a missing file
- * would. */
+ * is fresh off supabase/seed/**. Unlike check-generated-in-sync.mjs, this
+ * deliberately excludes generators that read the published bundle itself:
+ * they run after publish, not while constructing its first version. */
 function resyncGeneratedIntermediates() {
-  for (const s of SYNCS) {
+  for (const s of PRE_BUNDLE_SYNCS) {
     execFileSync(process.execPath, [path.join(ROOT, s)], { stdio: ['ignore', 'ignore', 'inherit'] });
   }
   for (const { sync } of OTHER_SYNC_TARGETS) {
