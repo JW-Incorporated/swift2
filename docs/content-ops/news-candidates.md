@@ -25,15 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 80
 
-## Scientists Name Insect Genus After Taylor Swift
+## Study links Taylor Swift's 'Midnights' to increase in car accidents
 
-- first seen: 2026-09-09 23:11 UTC | category: business | importance: 5
+- first seen: 2026-09-10 05:55 UTC | category: music | importance: 6
 - verification_status: rumor | source_count: 1
-- summary: In a nod to her influence, scientists have named a new insect genus after Taylor Swift, highlighting her impact beyond music and culture. This naming reflects a fun intersection between science and popular culture.
+- summary: A study suggests that Taylor Swift's album 'Midnights' and nine other albums are associated with a 15% rise in car accidents. The findings highlight a potential correlation between music and driver safety.
 - sources:
-  - [unverified] WPTZ — https://news.google.com/rss/articles/CBMiggFBVV95cUxQLVVGakxwNm03czZPNU5OUGEwa3F1SThlMk05Y2ljdzk5enNDZUVvV19zMUxrclluVGQ5QmNGa3E5X1QwODFWRE9aRm1aU0J2aVl3UnYtWTN4amVfOG1GZk8xNVBfVjNZTTlETmNWeEZUUDB1T193NlkwRVRKeDNWM2J3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] upworthy.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPWVluVWE4RDluNG9ZNjBzVHpCQ2ZuNUFQZWhmMjNGOWp3bnUxZnhpcHg5c21LejY2c0tROTZkYVY3Y3Q4ZTVtNkRaQm9NR2d6V3VLeEZVV0UtLThMSnUzMVU2ZFBFbDJtNmdLOVZxVWtCNUNpRnBva3k5Q2RWRnhlSDFtd21IeUxac0ZYb2VaMkNqNkdnTmJLMXpWWjZmZXF0NTRGOXlHRXlYR1g4TGd0YzFpbXppVzNNSXJsbkp3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Cooper Kupp and Anna Share News About Taylor Swift and Travis Kelce
+
+- first seen: 2026-09-10 05:55 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Cooper Kupp and his wife, Anna, have revealed unexpected news regarding Taylor Swift and Travis Kelce. The details surrounding this announcement were not specified in the report.
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQZ0tzSGM4QjdWN09DZFF1enBLejlJM0p2cFprYmZDclk2ZEp3U1QxbGRUd0ZVVk9EWmVDYnRRVmNmY3dOc25iNzRueC03SVdla0FUWDI2dkV5RXZxOHRLTGw5aWJ1cGhPTnBJbmtXT25YT0lUcU5Na1puSzQyTjVuaUE1MlhJaVU1aHRFQUhObW45Nm53anV0dm5rVEdlaVM1VS1QcVgzNFNQQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Insects Named After Taylor Swift Highlight Her Cultural Impact
+
+- first seen: 2026-09-10 05:55 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A newly discovered genus of plant-eating insects and four species have been named after Taylor Swift and her albums, marking a unique honor for the artist.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE1FcV9EaVdZUF82ZFZOZ0Fxd1Y4QmNhc19ZRnlVVXpJZnlNRk9WQkJNbF93MzYtcUF0VGk3ZFdiVFFwYmZDOW4zMVFNSTRBU2oxZTh6cE1IWnZULU9WQU1QWVQ0cDA4RVBDTjJzUWxVcldBSnZZcHIybkNyRUU5dw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Receives Unexpected Honor in Career
 
@@ -83,6 +99,15 @@ Stories: 77
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMidkFVX3lxTE9wV0F5LXhPQnJFMFFueWJsMzJOOFNQVzhKQlp1elEyT1U3U215MFR3dzFocGRnSmFUQ042bGlpRllXMFNaTnZ2bEZvekRJVWJ3RlB3Z1NsemQzR2hwTWtQcEJDaldLME93ZHM2cEdpTndqeThwZ3c?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Scientists Name Insect Genus After Taylor Swift
+
+- first seen: 2026-09-09 23:11 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: In a nod to her influence, scientists have named a new insect genus after Taylor Swift, highlighting her impact beyond music and culture. This naming reflects a fun intersection between science and popular culture.
+- sources:
+  - [unverified] KCRA — https://news.google.com/rss/articles/CBMigwFBVV95cUxQMFRneXFUc2NjeWN1SGFteFhseU5sMERobDBtQW1RQ3F4NVU1cVpqczRWbm1wNnhoOHFYMFRnSUlIVGhpNkgwS3NFSDJ6TG95T0g4SGtRS2ZsVGF1VEZPZ0pWY0R0M2tXMmlvWEdrLW9pNGlFa0lNcWFPSmRZei03RFN4OA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WPTZ — https://news.google.com/rss/articles/CBMiggFBVV95cUxQLVVGakxwNm03czZPNU5OUGEwa3F1SThlMk05Y2ljdzk5enNDZUVvV19zMUxrclluVGQ5QmNGa3E5X1QwODFWRE9aRm1aU0J2aVl3UnYtWTN4amVfOG1GZk8xNVBfVjNZTTlETmNWeEZUUDB1T193NlkwRVRKeDNWM2J3?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift's Grammy Eligibility for 2027 Explored by Variety
 
 - first seen: 2026-09-09 19:44 UTC | category: music | importance: 6
@@ -99,14 +124,6 @@ Stories: 77
 - summary: A research project at the University of California, Riverside features Taylor Swift in relation to the study of bugs. The details of her involvement or the nature of the study were not disclosed.
 - sources:
   - [unverified] University of California, Riverside — https://news.google.com/rss/articles/CBMidEFVX3lxTFBJeEhSZkh1WnpGb2NRX1ZFX1duX3A2dGhuOHhZOTg1VGhfcU84M1llSEFZUjF0dzU3SHIwRWdPeEMyZDBCUlk0My1qaXdoTEdha3luLXo3dE91eGQ0Qk1UMjRydi1NdndtVFRSa2R3OFAwS0Mx?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce's Post-Marriage Living Plans Revealed
-
-- first seen: 2026-09-09 19:44 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly planning their living arrangements following their recent marriage. Details about their new home have emerged in news reports.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxOM0hiUjJwdGVDWmRTeGtDTEZtdmtPS3B2WkUyaU1yMUVqWTZ0UmhjNjdzR0pnUjlhMFljaVc5WXZBX244d2hGN0tqRmhmdkJlRHBJcTd4Z2o4MlVNWEZ2aXZMMGdUeVZ4VmZfS1JCY1BmZkowN0s5VWVWSmNaQzVtdzdHOE1QNjZYZW1TTl9xcVdqT0dISFBuXy0tTWtKVG9UMHVj?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## New Insect Species Named After Taylor Swift
 
@@ -173,6 +190,15 @@ Stories: 77
 - summary: Taylor Swift and George Strait are scheduled to receive significant songwriting honors in Nashville. The recognition highlights their contributions to the music industry.
 - sources:
   - [unverified] Mix93.3 — https://news.google.com/rss/articles/CBMiakFVX3lxTE4xY3JCM1d5QVFZVjNaSDNtV0RXOEpZTVRRM2l4dnpwRTV1N2dKelRqcGt3Ri1mTko1aVVVcE5oRDZ2OUhsLS04YzR0WVJfNmpSWDBBNzUwQUJIUlVLLUwwbEZsXzhMZGFBTnc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce's Post-Marriage Living Plans Revealed
+
+- first seen: 2026-09-09 19:44 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift and Travis Kelce are reportedly planning their living arrangements following their recent marriage. Details about their new home have emerged in news reports.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMivwFBVV95cUxOOTc2UXBRS21sWGM2OEx6SjNsSHo1MVhoa3RuSWI4YW14aVVzOFBlcTdnd2w0ME9RYVI1UWw1Y0dNZTFYTXBRcm5ERXRrcG12MUFuOXc3YXl2S2Jmek5pWmM1bUxyNnhMcVpudldsQ2Izcnd5SnhwSG41VjJlaE1IUFE2OXNxN2k1R3laVEE4bFNOdnRWaHE3VkQtMEFXVG5jdVhGVU9lNUJJelBhTjFDNHZLOEZCWTFvTU1hR1BZVQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxOM0hiUjJwdGVDWmRTeGtDTEZtdmtPS3B2WkUyaU1yMUVqWTZ0UmhjNjdzR0pnUjlhMFljaVc5WXZBX244d2hGN0tqRmhmdkJlRHBJcTd4Z2o4MlVNWEZ2aXZMMGdUeVZ4VmZfS1JCY1BmZkowN0s5VWVWSmNaQzVtdzdHOE1QNjZYZW1TTl9xcVdqT0dISFBuXy0tTWtKVG9UMHVj?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Alanis Morissette Discusses Criticism Similar to What Taylor Swift Faces
 
@@ -250,13 +276,14 @@ Stories: 77
 ## Taylor Swift and Travis Kelce's Post-Marriage Living Plans Revealed
 
 - first seen: 2026-09-09 13:40 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: The plans for where Taylor Swift and Travis Kelce will live after getting married have been disclosed. This comes alongside details about their recent public outings together.
 - sources:
   - [unverified] HOLA — https://news.google.com/rss/articles/CBMirgFBVV95cUxOYzlfVUpIM3QtSGZ5eXIxVS1ERjkyYjBZM2ZhSFR3NmllU0Y1Z1J5aGpkeE9hdkgxZjBUREs4S1BwRFpTMld1VnBLWWx3OWRMYWZJZUNmMWR3c3dkMmE5cS1pcXVjZjFSaXVTRlRobFd2RVF0NnJNUmpFSmVIT0ZmNjIxUEFJTjFxczRXUFFKemtFMkZCN2xUVnlsbVZZdVc2MGlnZm1Cc0JEWUl3Mmc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMi3wFBVV95cUxQeExBUzFhazloNHlxTjV2cjJfQlZrSThBb3V6eWR5bEU0Y2Q5ZlVWZlVoTjJnRS1Sd2tLS0FJQk5XWGRJd0xMcFd3M0xNWUdQckhXalZtMG1TMGZTUVdvWE1hU3VzT1E1SVdGdDNDWDctMlRsNTlMb3llcXNTUGJOc3doZVJQV1dPS00weEJiV1ZrNm1ITVJzY3Brai1MRW8yNWxpVDdaRVNRVUEwSW1hUlV1aWMwaU05UXFWSVVfT3RVcDZjUk5TUFJDd3BUMkJONHd2a0hsSDBiQ1phUkFV?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxQcUxnYWNWMWlNR2Fpczl4d0xXREtoU0VUclZGNjYtelRYNXlmVEZlaVgtbGg2NzNKYUh5b2pFTG1mcDBWRl9XMHQtU1dWQVhtbllJMkdSQ2lYNVBQLUtuSDdqSHdoWHVueFZPN0JETEVwTkpaU05qdndZRUtTYWVlaDZyTUNzVl9KQmw2bw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] PureWow — https://news.google.com/rss/articles/CBMie0FVX3lxTE56eERRMDVURmVrNVhCRXFjU1p1ajhYcG9PTHZaX2FVMGdraXJnYml1bUVzVjU2VEdEYkIwc21wNG9BR3p3Y1lrRVZ2bnd4Si14V3FJRlVHS1psM24wcEQwSS1xa0R6LXhHdkVIUmFkbVhDbS1ibmNERFgwTQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQZmdsNE8zNW1LeVBjcnVGSjhIbE04WkhmZEhNUDdTMDBndlFKMmliNklsQ1owaVlMOC1ha1VESTJDalJESlg2NFFuNXVxVUV1bnRadTFsZFhncDFhelhGTVpMRXFUaWZoaldpdXdxYWxNckZQbWhPX3lUREVoc0x2eEJpMzlLb2Q5UUZPUGRwTTFPSnRUSzRuOWtTU190Tk5rbUZEWWlBdw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Are Seen on Their First Public Date in Months
 
