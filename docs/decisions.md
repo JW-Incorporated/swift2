@@ -7,6 +7,30 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-10 — Social posting requires founder approval before publish (reverses #2316)
+
+**Decision:** `social/queue/**.json` drafts may no longer reach `main` without a founder merging their PR. `auto-merge-content.yml` will decline auto-merge for any PR that adds, modifies, or renames a queue draft. Approval prompts are delivered to the `#longlive-social` Discord channel via the existing `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` secret, which already routes Reddit community prompts through the same channel (verified in `community-mailer.yml` and `scripts/community/discord-delivery.mjs`).
+
+**Why:** Joey, in chat: "I agree we should reverse the fully automated social approval, and I want all social approval routed to the same channel where our other social questions from Reddit go, #longlive-social. The channel is already setup with a hook."
+
+**Explicitly supersedes:** the `## 2026-08-25` entry (issue #2316, line 1214) and the 2026-07-25 mechanics decision it rests on. That entry's "Alternatives considered (2): require human merge on social/queue/ PRs specifically while auto-merging everything else — rejected" is exactly the design now being adopted.
+
+**What does NOT change:** `social/posted/` and `social/failed/` remain auto-merge-allowlisted (they are machine-written bookkeeping; stranding them caused the 2026-08-11/12 Instagram triple-post, issue #2031, verified in `social-poster.yml` lines 184-198). `SOCIAL_FREEZE` kill switch and the per-post founder email both stay.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-09-10).
+
+---
+
+## 2026-09-10 — Routine spend is plan usage, not billable dollars; budget in turns, not dollars
+
+**Decision:** all 15 `routine-*.yml` workflows authenticate via `CLAUDE_CODE_OAUTH_TOKEN` (verified in `routine-template.yml` lines 14–19: "uses CLAUDE_CODE_OAUTH_TOKEN (Joey's Claude Pro/Max plan usage, via `claude setup-token` — see HUMAN-ACTIONS.md), NOT ANTHROPIC_API_KEY. This draws from the SAME shared plan-usage pool as Joey's own interactive Claude Code sessions, not metered per-token billing"). There is no dollar figure to cap and no invoice to read — the shared plan-usage pool is not metered per-token. A per-routine dollar hard-cap is therefore not implementable on this auth path (unlike `merch-audit-authoring.yml`'s `ANTHROPIC_API_KEY`-based $5/run cap in `scripts/merch-engine/audit-matches-authoring.mjs`, which IS real metered billing — a different system). The enforceable levers are `max_turns` and `timeout_minutes`.
+
+**Evidence:** `routine-template.yml` header (lines 14–19) explicitly states this is shared plan-usage, not metered billing. `fleet-telemetry-snapshot.yml` (lines 10–14) documents: "It does NOT and CANNOT see Claude Code routine token spend — that has no repo-visible API. The Routine Auditor's own weekly issue comment carries the other half (enabled-trigger count + cadence sum) per docs/agents/routine-invariants.md § Auditor arithmetic."
+
+**Approved by:** routine-spend-classification documentation (already checked in).
+
+---
+
 ## 2026-09-10 — Playable-first widened to playable-OR-watchable: 4 of 8 hidden tour films/documentaries now show a watch-link card (#3476)
 
 **Decision:** the 2026-08-13 "Playable-first timeline" rule ("if a video card

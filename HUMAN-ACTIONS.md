@@ -26,6 +26,58 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 56. [BLOCKING] Freeze social posting while the approval gate lands — ~2 min
+
+**Filed:** 2026-09-10
+
+**Why it matters:** there is a window between when the approval-gate notifier PR merges and when the full approval-gate enforcement lands where already-merged unapproved drafts could still post on the 30-minute cron. Setting `SOCIAL_FREEZE=true` now (before the social-approval-gate PR merges) prevents any posts from going out while the new gate is being activated.
+
+**Steps:**
+1. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables → Actions → Variables** and verify the `SOCIAL_FREEZE` variable already exists (it should, per item #22 of the audit).
+2. Set its value to `true`.
+3. Leave it at `true` until Joey has verified the new approval-gate works end-to-end.
+4. Once verified, set it back to `false` to resume normal posting.
+
+**Worked if:** the next 30-minute social-poster run logs "SOCIAL_FREEZE is set" and skips posting (confirmed in `social-poster.yml` lines 139–149), and no posts go out while the variable is set.
+
+**Status:** OPEN
+
+---
+
+### 55. [BLOCKING] Confirm #longlive-social is the Discord channel (closes prereq for the social-approval-gate track) — ~2 min
+
+**Filed:** 2026-09-10
+
+**Why it matters:** Joey said "Slack #longlive-social", but the only existing webhook in this repo is `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL`, and `community-mailer.yml` already routes Reddit community prompts through it (confirmed at line 85 of `community-mailer.yml` and used by `scripts/community/discord-delivery.mjs` line 67) — which matches "the same channel where our other social questions from Reddit go." The approval-gate notifier needs to know: build on this existing Discord webhook, or add a new `SLACK_SOCIAL_WEBHOOK_URL` secret for Slack?
+
+**Steps:**
+1. Confirm with Joey: is the social-approval-gate notifier meant to post to the Discord channel that already handles Reddit community prompts (via the existing `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` secret), or to a separate Slack #longlive-social channel?
+2. If Discord (the existing channel): nothing to do, use the existing secret and we proceed.
+3. If Slack: tell Joey that a new `SLACK_SOCIAL_WEBHOOK_URL` secret would need to be added via **Settings → Secrets and variables → Actions → Secrets → New repository secret** (a founder-only action, `gh secret set` is guard-denied for agents).
+
+**Worked if:** Joey confirms one of the two options, and the build proceeds with the correct webhook target.
+
+**Status:** OPEN
+
+---
+
+### 54. [BLOCKING] Turn on Code Scanning and set CODE_SCANNING_ENABLED (closes P5) — ~5 min
+
+**Filed:** 2026-09-10
+
+**Why it matters:** Paul Blart's CodeQL scanning (`codeql.yml`, lines 1–33) is ready to detect security and quality issues, but it only runs when the `CODE_SCANNING_ENABLED` repository variable is set to `true`. Until that flag is set, the workflow skips silently (see line 18 of `codeql.yml`), so no findings are ever collected or uploaded.
+
+**Steps:**
+1. In `JW-Incorporated/swift2` repo on GitHub, open **Settings → Code security and analysis → Code scanning → Set up → Default** to enable GitHub Advanced Security's Code Scanning for this repo (founder-only UI interaction).
+2. In the same Settings area, open **Secrets and variables → Actions → Variables → New repository variable**: name it `CODE_SCANNING_ENABLED`, set its value to `true`, and save. (This step requires repo variable write access; `gh variable set` is denied by `.claude/hooks/guard.sh` line ~41, so an agent cannot do it.)
+3. No code changes needed — `codeql.yml` already checks this variable correctly (line 18: `if: vars.CODE_SCANNING_ENABLED == 'true'`).
+
+**Worked if:** a manually dispatched `codeql.yml` run from the Actions tab shows the **Analyze** job running (not skipped) and Security → Code scanning alerts begin to populate with real findings.
+
+**Status:** OPEN
+
+---
+
 ### 52. [VERIFY] Share flow viewport check on public preview — ~2 min
 
 **Filed:** 2026-09-07
@@ -135,7 +187,7 @@ completed safe repair where the team can act on it.
 intended Discord channel, and a safe Permis repair report is delivered there
 when one is completed. The webhook URL is never exposed in logs or Git.
 
-**Status:** OPEN
+**Status:** DONE (2026-09-10) — webhook already exists and is confirmed set via `gh secret list`, used by `community-mailer.yml` and verified in `scripts/community/discord-delivery.mjs`.
 
 ### 49. [BLOCKING] Add the shared Community Tasks acknowledgement secret — ~5 min
 
