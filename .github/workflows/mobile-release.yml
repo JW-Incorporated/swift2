@@ -64,6 +64,9 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # eas-cli is not a workspace dependency; `npx eas-cli` on a non-TTY
+      # runner refuses to download it ("npx canceled due to missing packages").
+      - run: npm install -g eas-cli@23.2.0
       - name: Run the EAS release workflow for this commit and wait for it
         id: eas_workflow
         working-directory: apps/mobile
@@ -73,7 +76,7 @@ jobs:
           MESSAGE: ${{ github.event.head_commit.message || 'manual run' }}
         run: |
           set -euo pipefail
-          npx eas-cli workflow:run .eas/workflows/release.yml \
+          eas workflow:run .eas/workflows/release.yml \
             --non-interactive --wait --json \
             -F force_store_build="$FORCE" \
             -F message="$(printf '%s' "$MESSAGE" | head -n1 | cut -c1-200)" \
@@ -88,7 +91,7 @@ jobs:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: |
           set -euo pipefail
-          BUILD_JSON=$(npx eas-cli build:list \
+          BUILD_JSON=$(eas build:list \
             --platform android --status finished \
             --git-commit-hash "$GITHUB_SHA" --limit 1 \
             --non-interactive --json)
@@ -121,4 +124,4 @@ jobs:
           printf '%s' "$PLAY_SERVICE_ACCOUNT_JSON" > credentials/play-service-account.json
           chmod 600 credentials/play-service-account.json
           trap 'rm -f credentials/play-service-account.json' EXIT
-          npx eas-cli submit --platform android --id "$BUILD_ID" --profile production --non-interactive
+          eas submit --platform android --id "$BUILD_ID" --profile production --non-interactive

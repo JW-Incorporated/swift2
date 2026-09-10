@@ -37,11 +37,17 @@ export interface KnowledgeClientConfig {
   supabaseKey: string;
 }
 
-/** Filters accepted by `search()` — at minimum tier/era/symbol overlap per PLAN.md Stage 9. */
+/** Filters accepted by `search()` — at minimum tier/era/symbol overlap per PLAN.md Stage 9.
+ * `kind` (Community Engine plan §Phase 2, card P2-5) lets a caller scope to one
+ * `knowledge_doc.kind` value (e.g. `'live_theory'`) — added so the Clownbot chip
+ * can pull "what are fans theorising right now" straight from the fan-theory
+ * projection without a text query at all (an empty `query` + this filter
+ * degrades to filters-only, per `searchKnowledgeDocs`'s existing rule below). */
 export interface KnowledgeSearchFilters {
   tier?: KnowledgeDocTier;
   eraId?: string;
   symbols?: string[];
+  kind?: string;
 }
 
 /** `precedents()`'s grouping — by `mechanism`, not `technique` (empty table
@@ -140,6 +146,7 @@ export async function searchKnowledgeDocs(
   if (filters.tier) builder = builder.eq('tier', filters.tier);
   if (filters.eraId) builder = builder.eq('era_id', filters.eraId);
   if (filters.symbols && filters.symbols.length > 0) builder = builder.overlaps('symbols', filters.symbols);
+  if (filters.kind) builder = builder.eq('kind', filters.kind);
 
   let query_ = builder.order('updated_at', { ascending: false }).limit(KNOWLEDGE_DOC_MAX_ROWS);
   if (signal) query_ = query_.abortSignal(signal);

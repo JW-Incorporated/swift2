@@ -36,6 +36,9 @@ import {
 } from '@/lib/longlive/store';
 import type { EggNode, Motif, MotifId } from '@swift2/experience';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
+import { useLiveTheories } from '@/lib/longlive/use-live-theories';
+import { sortByHeatDesc, matchFanSignal, fansAreSayingLine } from '@/lib/longlive/live-theories';
+import { LiveTheoryCard } from './LiveTheoryCard';
 
 /** Motif icon strings (from the data) resolved to lucide components. */
 const MOTIF_ICONS: Record<string, typeof Hash> = {
@@ -153,6 +156,26 @@ function ClueHome({
   }, [progress]);
   const returning = hydrated && stats.eggsSeen > 0;
 
+  // Community Engine P2-4 ("What fans are watching" cluster, plan §3.4
+  // C3.1): heat-sorted fan theories, same `/vault/live/[eraId]` current-era
+  // read `TheoryGuide` uses — no era filter on `live_theory` itself
+  // (Stage 7's "no era_id to filter by server-side" precedent), so this is
+  // always the current era's slice regardless of which era the visitor is
+  // browsing. `enabled: true` unconditionally: the Clue Web mini-app has no
+  // "current era only" gate the way TheoryGuide's per-era overlay does.
+  const liveBoard = useLiveTheories(true);
+  const WATCHING_CLUSTER_CAP = 5;
+  const watchingCards = useMemo(
+    () =>
+      sortByHeatDesc(liveBoard.theories)
+        .slice(0, WATCHING_CLUSTER_CAP)
+        .map((theory) => {
+          const signal = matchFanSignal(theory, liveBoard.signals);
+          return { theory, fansAreSaying: signal ? fansAreSayingLine(signal) : undefined };
+        }),
+    [liveBoard.theories, liveBoard.signals],
+  );
+
   return (
     <div>
       {/* How the decode works */}
@@ -209,6 +232,27 @@ function ClueHome({
           <TrailCard key={m.id} motif={m} onOpen={() => onOpenTrail(m.id)} />
         ))}
       </div>
+
+      {/* Community Engine P2-4: heat-sorted "What fans are watching" cluster
+          (plan §3.4 C3.1) — additive over the static trail picker above;
+          renders nothing when the current era has no live theories, same
+          fail-soft contract `useLiveTheories` already gives every other
+          caller. */}
+      {watchingCards.length > 0 && (
+        <>
+          <div className="mt-8 flex items-center gap-2">
+            <Sparkles className="h-4 w-4 text-[color:var(--era-accent)]" />
+            <h2 className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[color:var(--era-ink-soft)]">
+              What fans are watching
+            </h2>
+          </div>
+          <ol className="mt-4 space-y-4">
+            {watchingCards.map(({ theory, fansAreSaying }) => (
+              <LiveTheoryCard key={theory.id} theory={theory} fansAreSaying={fansAreSaying} />
+            ))}
+          </ol>
+        </>
+      )}
 
       {/* Explore mode */}
       <button

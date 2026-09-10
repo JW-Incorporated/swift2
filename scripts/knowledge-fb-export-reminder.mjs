@@ -63,8 +63,25 @@ export function issueBody(groups) {
     '2. Scroll until posts are older than 7 days. Expand "See more" on anything long; don\'t open comments individually.',
     '3. `Ctrl/Cmd+S` → "Webpage, Complete" → name it `fb-<group-slug>-<YYYY-MM-DD>.html`.',
     '4. Repeat for each group above.',
-    '5. Run `npm run knowledge:fb-upload -- ~/Downloads/fb-*.html` — uploads to the private bucket, prints one line per file, deletes the local copies.',
-    '6. Tick the checklist above; close this issue. Done.',
+    '5. Run `npm run knowledge:fb-upload -- ~/Downloads/fb-*.html` — uploads each file to the ' +
+      'private `facebook-exports` Supabase Storage bucket (never the public repo) and deletes the ' +
+      'local copies once each upload is confirmed.',
+    '6. Run `node scripts/community/fb-export-ingest.mjs --group <group-slug> <file.html>` for each ' +
+      'uploaded file — parses it into a fan-signal row and paste-ready engagement leads (Community ' +
+      'Engine plan §2.4, card P1-3); the human-readable group name is looked up automatically from ' +
+      'this checklist by slug. Add `--dry-run` first if you want to see what it would write before ' +
+      'it touches the database.',
+    '7. Tick the checklist above; close this issue. Done.',
+    '',
+    '**First real export — one-time calibration (HUMAN-ACTIONS.md #16):** the parser ' +
+      '(`facebook-groups-parser.ts`) was written against Facebook\'s documented `role="article"` / ' +
+      '`aria-label` markup, never against a real saved export — no Facebook account was available to ' +
+      'verify it against. The first time you run step 6 above on a real file:',
+    '- If it reports 0 posts kept on a group you know was active this week, the parser\'s regexes ' +
+      'need retuning against your real file\'s actual markup — say so in chat with the export file ' +
+      'attached and a session will fix it.',
+    '- If it reports a sane post count, the parser is calibrated — no further action needed, and ' +
+      'this note can be deleted from future weeks\' issues once you confirm.',
     '',
     '_Filed by fb-export-reminder (deterministic, no AI)._',
   );

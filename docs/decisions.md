@@ -7,6 +7,163 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-10 — Mandatory X+Instagram pairing restored; the 2026-09-05 appearance-lane X-only carve-out is superseded (kanban t_bac31b1a)
+
+**Context:** Joey, 2026-09-10 (#taylor-social), founder directive: "There's
+never a time where we post to only X, or only IG. Everything should be the
+same" — one idea goes out to X and Instagram (which auto-cross-posts to
+Facebook), together, no exceptions. This directly targeted the 2026-09-05
+entry above, whose part 2 ("Appearance-lane posts go X text-only... no
+longer manufactures an Instagram sibling at all") the founder had not
+approved and reopened the exact single-platform exception the 2026-08-26
+"Always an IG copy. Always." rule had already closed unconditionally.
+
+**Decision (supersedes the 2026-09-05 entry's part 2 and the `mediaKind:
+"video-thumb"` value entirely; part 1's underlying finding — a rehosted
+thumbnail is not a "photo" — still stands and is unaffected).**
+1. `mediaKind: "video-thumb"` is REMOVED from
+   `scripts/social/lib/queue-schema.mjs`'s `MEDIA_KINDS` — no longer
+   schema-recognized at all. A draft declaring it hard-fails like any other
+   unrecognized `mediaKind`.
+2. `checkCampaignPair`'s `appearance:`-family exemption
+   (`scripts/social/check-drafts.mjs`) is removed. Every `appearance:
+   <videoId>` campaign is now paired exactly like every other campaign —
+   no exception, of any kind, for any lane.
+3. `scripts/appearance-discovery/lib/social-draft.mjs`'s
+   `buildSocialDraftPair` now sources a real credited photo from
+   `social/photo-library.json` (the same rotation/selector every other
+   campaign draws from) and stages BOTH an X and an Instagram draft, sharing
+   the same `campaign` and `scheduledAt`. If the photo library has no
+   eligible entry, it throws rather than silently staging an X-only draft —
+   the lane simply cannot file until inventory exists, same posture as any
+   other paired campaign that can't source a photo.
+4. New: paired siblings must schedule within 5 minutes of each other
+   (`checkSimultaneousPair`, `scripts/social/check-drafts.mjs`) — "all at
+   once" is now a real scheduling constraint, not just a same-day one.
+   `scripts/social/post-queue.mjs` treats a due campaign pair as ONE posting
+   unit (exempt from the per-run item cap and the same-run media-reuse
+   guard for its second sibling) so the poster can actually publish both
+   within one run, not defer one 30 minutes to the next.
+
+**Implementation:** `scripts/social/lib/queue-schema.mjs`,
+`scripts/social/lib/queue-schema.test.ts`, `scripts/social/check-drafts.mjs`,
+`scripts/social/check-drafts.test.ts`, `scripts/social/post-queue.mjs`,
+`scripts/appearance-discovery/lib/social-draft.mjs`,
+`scripts/appearance-discovery/lib/social-draft.test.ts`,
+`scripts/appearance-discovery/discover.mjs`, `social/README.md`.
+
+**Approved by:** founder directive (Joey, 2026-09-10, #taylor-social) +
+Fable arbiter ruling FR-t_bac31b1a-1 (kanban t_bac31b1a) on the residual
+opener-rule collision-margin tradeoff in the Instagram caption template —
+review-cycle procedural point only, does not touch this policy decision.
+
+---
+
+## 2026-09-06 — Structural fix for recurring stranded-PR problem: proactive branch keep-up + faster watchdog escalation (t_21a0cd6f)
+
+**Context:** Joey, 2026-09-06, in response to t_dcb1f2c0's root-cause
+writeup on 7 stranded PRs that day ("Solve it however you want. Use your
+best judgment. I just don't want it to recur"). t_dcb1f2c0 found 6 of 7
+failed `build` for the identical reason: opened against an older `main`
+while bot content lanes merge every ~2-5 minutes, so each PR's own CI kept
+checking stale assumptions. `git merge main` fixed all 6 with zero
+conflicts — proof this was pure staleness, not real content collision.
+`watchdog.yml`'s existing "PRs stuck" step only detects this 24h+ later and
+does not repair anything.
+
+**Fix (two parts):**
+1. **New `.github/workflows/auto-merge-keepup.yml`** — runs every 15
+   minutes, lists open PRs, and for every PR that (a) targets `main`, (b) is
+   `BEHIND` main, (c) is not `hold`/`cie:escalate`/`founder-decision`
+   labelled, and (d) passes the SAME branch/author content-lane gate
+   `auto-merge-content.yml`'s `enable` job already uses
+   (`scripts/automerge-branch-author-gate.mjs`, now with a CLI entry point
+   reused via `scripts/automerge-keepup.mjs`) — merges `origin/main` into the
+   branch and pushes, using `SOCIAL_POSTER_PAT` (not `GITHUB_TOKEN`, so the
+   push actually re-triggers `build`). A real merge conflict is left
+   completely untouched (dry-run merge first, abort on conflict) — this
+   workflow never resolves content, only mechanically re-syncs. Bounded to 8
+   PRs/run (Actions-minutes discipline, same reasoning as watchdog.yml's
+   `RERUN_BUDGET`).
+2. **`watchdog.yml`'s "PRs stuck on failing or missing checks" step** now
+   runs on every hourly trigger (previously daily-only) and its
+   `RED_AFTER_H` threshold dropped 24h → 6h: with the staleness class
+   structurally prevented by (1), a PR still red after 6h is far more likely
+   a genuine failure that deserves a founder's eyes sooner. The CI re-run
+   sub-step (`gh run rerun`, `RERUN_BUDGET`) stays gated to the daily cron
+   only, so the more frequent alert pass does not multiply re-run spend.
+
+**Why this is safe to run unattended:** the keep-up job reuses the exact
+same eligibility gate auto-merge already trusts to land a PR unattended once
+green — it does not expand who/what may merge, only keeps already-eligible
+branches from drifting stale before auto-merge gets the chance. It never
+opens a PR, never resolves a conflict, never touches content.
+
+**Alternatives considered:** widen `RED_AFTER_H` re-run frequency instead of
+adding a keep-up job (rejected — a CI re-run against the same stale base
+proves nothing; the actual defect is the stale base itself, not a flaky
+check); have each content-lane agent self-rebase before re-running
+(rejected — agents no longer babysit their own PRs by design, 2026-07-25
+decision, and re-arming that would reintroduce the ~69%-of-token-spend
+self-check-in problem that decision eliminated); lower `RED_AFTER_H` without
+adding keep-up (rejected — would alert MORE on the exact staleness noise this
+fix is meant to eliminate).
+
+**Approved by:** Joey ("solve it however you want", 2026-09-06, kanban
+t_21a0cd6f).
+
+---
+
+## 2026-09-06 — Future-dated Showgirl moment pulled; blocking future-date gate added (t_187359e9)
+
+**Context:** Joey, 2026-09-06: "our engine for producing content is still
+posting stuff without images. Last two posts, one of which is dated IN THE
+FUTURE (9/12/26 = wtf?) dont have pictures." Verified against the live site
+and a local CIE run (`node scripts/content-engine/run.mjs all --no-images`):
+the two newest `the-life-of-a-showgirl` moments were, in order —
+1. `florida-orchestra-taylor-swift-symphony-era-mahaffey`, dated 2026-09-12
+   (six days after the 2026-09-06 authoring run that added it, PR #3910/#3906)
+   and with `thumbnailUrl: null` — the future date AND the missing photo.
+2. `i-knew-it-i-knew-you-country-radio-double-meanings`, dated 2026-09-05,
+   also `thumbnailUrl: null` — the second no-photo item Joey saw.
+
+**Fix:**
+- Pulled the Florida Orchestra moment entirely rather than back-dating it —
+  there is no true date to move it to since the concert has not happened
+  yet. Left a dated comment in the seed file for whoever re-authors it after
+  2026-09-12.
+- Marked the radio-interview moment `photosReviewed` (no reusable,
+  allowlisted subject photo exists for this specific interview; the era
+  already carries verified photos for the same song elsewhere) so
+  `content.top-of-feed-photo` stops re-flagging a reviewed decision as a gap.
+- Added a blocking check to `scripts/validate-content.mjs` (CI's
+  `check:validate-content` step, part of the required `build` check): any
+  seed moment dated after the CI run date is now a hard `ERROR`, not just a
+  nightly-scan finding someone has to notice. The existing deterministic CIE
+  checker (`fact.claim-risk`) already caught this pattern but only surfaces
+  in a scheduled report; this closes the gap between "detected" and
+  "blocks the merge."
+
+**Why not also fix `amc-leawood-films-eras-tour-inspiration` (the 10th-newest
+no-photo item) here:** it is not one of the two items Joey reported (it's
+already several positions back in the feed) and is already inside the
+existing photo-backlog lane (open PR #3902 and its siblings are actively
+working the `content.top-of-feed-photo` ticket queue). Fixing it here would
+duplicate that in-flight work.
+
+**Alternatives considered:** leave the future-dated item and just add a
+photo (rejected — the event genuinely has not happened yet, so no real photo
+can exist and shipping any image would misrepresent an unconfirmed future
+event); rely on the nightly CIE scan catching future dates going forward
+(rejected — that is the exact detection-without-enforcement gap that let
+this one reach the live site, per RC-3 in
+`docs/audits/2026-09-05-newest-posts-no-images-root-cause.md`).
+
+**Approved by:** Joey (direct escalation in chat, 2026-09-06, routed via
+kanban t_187359e9).
+
+---
+
 ## 2026-09-06 — Fable triage of the Founders' Brief: 7 of 13 "waiting on you" items were never founder items
 
 **Context:** Joey, 2026-09-06: "Dispatch one card to assess which of the

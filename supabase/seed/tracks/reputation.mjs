@@ -345,7 +345,7 @@ const TRACKS = [
             "Produced by Swift and Jack Antonoff, the track breaks deliberately from its sing-song verses into a chanted title-hook chorus — the team stripped the vocal down to the repeated title, echoing the 'I'm Too Sexy' cadence — before the spoken 'the old Taylor can't come to the phone right now... she's dead' bridge.",
           ],
           fanTheories: [
-            "Swift never named a target on record — the Reputation prologue promised 'no further explanation,' and Antonoff deflected the question to her — so the near-universal read of the song as the 2016 Kanye West / Kim Kardashian / Katy Perry fallout is fan interpretation, not confirmed fact.",
+            "Swift never named a target on record — the reputation prologue promised 'no further explanation,' and Antonoff deflected the question to her — so the near-universal read of the song as the 2016 Kanye West / Kim Kardashian / Katy Perry fallout is fan interpretation, not confirmed fact.",
             "The video is a museum of self-reference: press-confirmed intentional Easter eggs include the 'Nils Sjöberg' tombstone (Swift's real songwriting pseudonym on Calvin Harris's 'This Is What You Came For'), the 'I ❤ TS' crop-tops, and the tower of past-era Taylors reciting old quotes; finer 'receipts' readings are more fan-itemized than documented.",
           ],
         },

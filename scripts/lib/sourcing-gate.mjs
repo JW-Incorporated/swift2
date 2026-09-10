@@ -43,19 +43,6 @@ import { slugify } from './longlive-sync-shared.mjs';
  */
 export const UNSOURCED_LEGACY = new Set([
   // 44 of the 45 were sourced on 2026-08-11. This is the residue.
-  //
-  // "A run of TV performances" / "Late-night and award-show stages keep Red
-  // everywhere at once" / "A dense promotional stretch put the album on every
-  // major stage as the release momentum peaked." It names no performance, no
-  // date, no venue and no outlet, so there is nothing for a citation to
-  // support — the assertion is unfalsifiable as written. Its slug also
-  // promises an SNL appearance that did not happen: Swift's SNL dates are
-  // November 2009 (host) and November 13, 2021 (musical guest, promoting Red
-  // (Taylor's Version)); the 2021 date appears to have been transposed to
-  // 2012. Filed for an editorial rewrite around the verifiable November 11,
-  // 2012 MTV EMAs appearance, at which point it gets real sources and leaves
-  // this list. Rewriting it is a content decision, not a sourcing one.
-  'red.mjs#red-snl',
 ]);
 
 /** Categories the editorial standard holds to two independent outlets. */

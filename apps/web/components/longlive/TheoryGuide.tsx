@@ -14,6 +14,7 @@ import { useLiveTheories } from '@/lib/longlive/use-live-theories';
 import { fansAreSayingLine, matchFanSignal, sortByHeatDesc } from '@/lib/longlive/live-theories';
 import { TheoryCard, countLine } from './TheoryCard';
 import { LiveTheoryCard } from './LiveTheoryCard';
+import { shareTarget as shareTargetNow } from '@/lib/longlive/share-payload';
 
 /**
  * The era theories & easter eggs guide — an immersive per-era overlay (same
@@ -28,8 +29,8 @@ import { LiveTheoryCard } from './LiveTheoryCard';
  */
 
 export function TheoryGuide() {
-  const { theoryGuideEraId, theoryGuideHighlightSlug, share } = useAppState();
-  const { closeTheoryGuide, openShare, popReturnPoint } = useAppActions();
+  const { theoryGuideEraId, theoryGuideHighlightSlug } = useAppState();
+  const { closeTheoryGuide, popReturnPoint } = useAppActions();
 
   const era = theoryGuideEraId ? getEra(theoryGuideEraId) : undefined;
   const theories = theoryGuideEraId ? theoriesForEra(theoryGuideEraId) : [];
@@ -42,28 +43,36 @@ export function TheoryGuide() {
   // attribute to itself (same "current era only" precedent Stage 5 set for
   // `current_item`, see `use-era-current-feed.ts`).
   const liveBoard = useLiveTheories(theoryGuideEraId === CURRENT_ERA_ID);
+  // Community Engine P2-4 ("Live now" strip, plan §3.4 C3.2): "top 5
+  // persistent fan theories by heat" — persistent is the corpus-promotion
+  // flag (`live_theory.persistent`, set by `theory-promote.ts`) that keeps
+  // a corpus-mined theory alive past the ordinary 60-day expiry. Non-
+  // persistent live theories (bot/site rows, or fan rows predating the
+  // corpus) still surface everywhere else `live_theory` is read — this cap
+  // is specific to this one strip, per the plan's own wording.
+  const LIVE_NOW_STRIP_CAP = 5;
   const liveTheoryCards = useMemo(
     () =>
-      sortByHeatDesc(liveBoard.theories).map((theory) => {
-        const signal = matchFanSignal(theory, liveBoard.signals);
-        return { theory, fansAreSaying: signal ? fansAreSayingLine(signal) : undefined };
-      }),
+      sortByHeatDesc(liveBoard.theories.filter((t) => t.persistent))
+        .slice(0, LIVE_NOW_STRIP_CAP)
+        .map((theory) => {
+          const signal = matchFanSignal(theory, liveBoard.signals);
+          return { theory, fansAreSaying: signal ? fansAreSayingLine(signal) : undefined };
+        }),
     [liveBoard.theories, liveBoard.signals],
   );
 
   useScrollLock(open);
   useFocusTrap(open, dialogRef);
 
-  // Close on Escape — unless the share sheet is layered on top; that overlay
-  // owns Escape until it closes itself.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !share) closeTheoryGuide();
+      if (e.key === 'Escape') closeTheoryGuide();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, closeTheoryGuide, share]);
+  }, [open, closeTheoryGuide]);
 
   // Let the mobile back-swipe gesture close this guide instead of leaving the app.
   useBackDismiss(open, closeTheoryGuide);
@@ -126,7 +135,7 @@ export function TheoryGuide() {
             the button is added here directly. */}
         <div className="absolute right-4 top-4 flex items-center gap-2">
           <button
-            onClick={() => openShare({ kind: 'theoryGuide', eraId: era.id })}
+            onClick={() => void shareTargetNow({ kind: 'theoryGuide', eraId: era.id })}
             className="era-icon-btn grid size-11 place-items-center rounded-full backdrop-blur-md"
             aria-label="Share"
             title="Share"

@@ -357,19 +357,37 @@ jobs:
       # prod smoke check exits 1 when the site is down, and a plain `if:` is
       # implicitly ANDed with success(), so every later step is skipped. An
       # outage should not also blind us to stranded PRs.
+      #
+      # FASTER ESCALATION (t_21a0cd6f, 2026-09-06): this step now runs on
+      # EVERY trigger (hourly), not gated to the 14:35 daily-only cron like
+      # the other daily jobs above — a PR that has been red 24h+ should not
+      # wait up to another 24h to be noticed just because it crossed the
+      # threshold an hour after the daily check ran. RED_AFTER_H also dropped
+      # 24h → 6h: auto-merge-keepup.yml (added the same day) now proactively
+      # re-syncs any content-lane PR against `main` every 15 minutes, which is
+      # what caused 6 of 7 stranded PRs on 2026-09-06 in the first place
+      # (t_dcb1f2c0) — with that failure class structurally prevented, a PR
+      # still red after 6h is far more likely a GENUINE failure (the RN
+      # 0.87/Expo 57 incompatibility shape, or a real content-test
+      # regression) that deserves a founder's eyes sooner, not a stale-base
+      # symptom that would have self-healed anyway. The CI re-run budget
+      # below stays DAILY-ONLY (see its own gate) so this cheaper, more
+      # frequent listing/alert pass does not multiply Actions-minutes spend
+      # the way re-running CI 24x/day would.
       - name: PRs stuck on failing or missing checks
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: "!cancelled()"
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          IS_DAILY_RUN: ${{ github.event_name != 'schedule' || github.event.schedule == '35 14 * * *' }}
         run: |
           set -euo pipefail
-          RED_AFTER_H=24        # a PR may be open and unhealthy this long before we shout
+          RED_AFTER_H=6         # a PR may be open and unhealthy this long before we shout (was 24h; auto-merge-keepup.yml now prevents the staleness class that made 24h necessary)
           STALE_H=48            # a red `build` older than this earns one re-run
-          RERUN_BUDGET=2        # hard cap on CI re-runs per pass
+          RERUN_BUDGET=2        # hard cap on CI re-runs per pass — DAILY RUN ONLY, see below
           # Same three labels auto-merge-content.yml treats as blocking. A PR
           # deliberately held for a founder is not "stranded", it is parked.
           PARKED_LABELS="hold cie:escalate founder-decision"
@@ -432,8 +450,12 @@ jobs:
 
             # Re-trigger ONLY a stale red `build` — the documented case where CI
             # died for a reason unrelated to the PR (freeze, billing, infra),
-            # auto-merge is armed, and nothing exists to nudge it.
-            if [ "$B_CONCL" = "FAILURE" ] && [ -n "$B_AT" ] && [ "$RERUNS" -lt "$RERUN_BUDGET" ]; then
+            # auto-merge is armed, and nothing exists to nudge it. DAILY RUN
+            # ONLY (t_21a0cd6f): now that this whole step runs hourly, a
+            # `gh run rerun` on every hourly tick would multiply CI spend by
+            # 24x for zero benefit — a re-run only re-checks the same commit,
+            # so doing it more than once a day just burns Actions minutes.
+            if [ "$IS_DAILY_RUN" = "true" ] && [ "$B_CONCL" = "FAILURE" ] && [ -n "$B_AT" ] && [ "$RERUNS" -lt "$RERUN_BUDGET" ]; then
               B_AGE_H=$(( ( NOW - $(date -u -d "$B_AT" +%s) ) / 3600 ))
               RUN_ID=$(printf '%s' "$B_URL" | sed -n 's#.*/actions/runs/\([0-9]*\)/.*#\1#p')
               if [ "$B_AGE_H" -ge "$STALE_H" ] && [ -n "$RUN_ID" ]; then

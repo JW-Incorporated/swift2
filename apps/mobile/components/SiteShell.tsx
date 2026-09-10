@@ -182,7 +182,7 @@ export function SiteShell({
           </Pressable>
         </View>
       ) : (
-        <WebView
+        <WebView<{}>
           key={reloadKey}
           ref={webRef}
           source={{ uri: url }}

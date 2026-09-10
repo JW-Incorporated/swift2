@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AlertTriangle, ExternalLink, MessageCircleQuestion, X } from 'lucide-react';
+import { AlertTriangle, ExternalLink, House, MessageCircleQuestion, X } from 'lucide-react';
 import type { CurrentItem } from '@swift2/shared';
 import type { Era } from '@swift2/experience';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
@@ -9,6 +9,7 @@ import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { formatFullDate } from '@swift2/experience';
 import { CURRENT_ITEM_STATUS_COPY, outletFor } from '@swift2/experience';
 import { eraStyle } from '@/lib/longlive/theme';
+import { useAppActions } from '@/lib/longlive/store';
 
 /**
  * The current-era live item's detail overlay (PLAN.md Stage 5). A lighter
@@ -36,6 +37,7 @@ export function CurrentItemDetail({
   era: Era;
   onClose: () => void;
 }) {
+  const { goHome } = useAppActions();
   const [verifyState, setVerifyState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   useScrollLock(item != null);
   useBackDismiss(item != null, onClose);
@@ -78,6 +80,11 @@ export function CurrentItemDetail({
     }
   }
 
+  function handleHome() {
+    onClose();
+    goHome();
+  }
+
   return (
     <div
       role="dialog"
@@ -87,13 +94,22 @@ export function CurrentItemDetail({
       style={eraStyle(era)}
     >
       <div className="relative mx-auto max-w-2xl px-5 pb-16 pt-16">
-        <button
-          onClick={onClose}
-          className="era-icon-btn absolute right-4 top-4 rounded-full p-2 backdrop-blur-md"
-          aria-label="Close"
-        >
-          <X className="h-5 w-5" />
-        </button>
+        <div className="absolute right-4 top-4 flex gap-2">
+          <button
+            onClick={handleHome}
+            className="era-icon-btn rounded-full p-2 backdrop-blur-md"
+            aria-label="Go to home"
+          >
+            <House className="h-5 w-5" />
+          </button>
+          <button
+            onClick={onClose}
+            className="era-icon-btn rounded-full p-2 backdrop-blur-md"
+            aria-label="Close"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
 
         <span className="inline-block text-[11px] font-semibold uppercase tracking-widest text-[color:var(--era-accent)]">
           Live{outlet ? ` · reported by ${outlet}` : ''}

@@ -1,11 +1,15 @@
 {
   "platform": "instagram",
   "body": "this is the lover set from the eras tour and i will never be normal about it — head-to-toe pastel, the softest she's ever let an era look. 💗\n\nokay but the lover deep cut i can't stop thinking about: the children you hear on 'it's nice to have a friend' are a real youth choir from toronto's regent park school of music. taylor pulled the sample from a library her producer frank dukes built on purpose — so that the royalties flow back and fund the school.\n\nso the album's tiniest, quietest closing track is secretly paying a kids' music program's bills. every single play helps keep it running. she tucked a good deed into the last minutes of the record and never made a thing of it.\n\nthat's the whole era to me. soft on the outside, quietly doing the most.\n\n(pictured: the lover act of the eras tour, minneapolis 2023 — photo by michael hicks, cc by 2.0, via wikimedia commons)\n\nlonglivets.com/?era=lover&utm_source=instagram&utm_medium=social&utm_campaign=era-deep-cut",
-  "media": ["/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg"],
+  "media": [
+    "/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg"
+  ],
   "mediaKind": "photo",
   "mediaCredit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
   "mediaSource": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg",
   "scheduledAt": "2026-09-02T15:00:00Z",
   "campaign": "heartbeat:era-deep-cut:lover-nice-to-have-a-friend",
-  "why": "Calendar 2026-09-02 Beat A 15:00Z heartbeat:era-deep-cut on lover, hook 'the artifact' (open with what the image is — the Lover act of the Eras Tour). Fact sourced: era-secrets slug lover-choir-that-funds-a-school (supabase/seed/content/lover.mjs:197) — 'It's Nice to Have a Friend' samples the Regent Park School of Music youth choir via a Frank Dukes library set up so royalties fund the school (sources: Exclaim, NOW Toronto). No lyric quoted (no-lyrics redline, docs/decisions.md 2026-07-09). IG media the cleared lover photo (Michael Hicks / CC BY 2.0 / Wikimedia Commons), NOT in the last-10-posted-IG window. Link /?era=lover with IG UTM. Story-unique campaign shared with the X sibling. Blocklist-safe."
+  "why": "Calendar 2026-09-02 Beat A 15:00Z heartbeat:era-deep-cut on lover, hook 'the artifact' (open with what the image is — the Lover act of the Eras Tour). Fact sourced: era-secrets slug lover-choir-that-funds-a-school (supabase/seed/content/lover.mjs:197) — 'It's Nice to Have a Friend' samples the Regent Park School of Music youth choir via a Frank Dukes library set up so royalties fund the school (sources: Exclaim, NOW Toronto). No lyric quoted (no-lyrics redline, docs/decisions.md 2026-07-09). IG media the cleared lover photo (Michael Hicks / CC BY 2.0 / Wikimedia Commons), NOT in the last-10-posted-IG window. Link /?era=lover with IG UTM. Story-unique campaign shared with the X sibling. Blocklist-safe.",
+  "failureReason": "Still unposted more than 48h after scheduledAt — moved to social/failed/ regardless of current guard/preflight state (see social/README.md's 48h rule).",
+  "lastAttemptAt": "2026-09-06T22:58:30.710Z"
 }

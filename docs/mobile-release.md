@@ -136,8 +136,16 @@ parity script before you stop.
 
 ## When the parity check fails
 
-The alert issue is titled **"Mobile parity: iOS and Android have diverged"**
-and carries the script output. By code:
+Two alert issues exist, because they mean different things:
+
+- **"Mobile parity: iOS and Android have diverged"** — the check ran and
+  found a real difference (exit 1). Engineering fixes it with the table
+  below.
+- **"Mobile parity: check could not run"** — the check itself failed (exit
+  2), so nothing is currently verifying parity. Not evidence of a
+  divergence. Usual cause: `EXPO_TOKEN` missing/expired → HUMAN-ACTIONS #44.
+
+Each carries the script output. By code:
 
 | Code | Meaning | Fix |
 | --- | --- | --- |

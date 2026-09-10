@@ -15,7 +15,7 @@ import { MomentDetail } from './MomentDetail';
 import { TrackGuide } from './TrackGuide';
 import { TrackDetail } from './TrackDetail';
 import { TheoryGuide } from './TheoryGuide';
-import { ShareSheet } from './ShareSheet';
+import { ShareFallbackToast } from './ShareFallbackToast';
 import { SearchOverlay } from './SearchOverlay';
 import { SiteFooter } from './SiteFooter';
 import { FeedbackButton } from './FeedbackButton';
@@ -84,7 +84,7 @@ function Shell() {
       <TrackDetail />
       <TheoryGuide />
       <MomentDetail />
-      <ShareSheet />
+      <ShareFallbackToast />
       <SearchOverlay />
 
       {/* Mobile tab bar (P4, R3) — desktop keeps TopBar's pill rail instead. */}

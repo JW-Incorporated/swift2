@@ -2,7 +2,7 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCampaignPair, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkDraft } from './check-drafts.mjs';
+import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCampaignPair, checkSimultaneousPair, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkDraft } from './check-drafts.mjs';
 
 // checkMedia reads real files under apps/web/public/ (PUBLIC_DIR in
 // check-drafts.mjs), so the aspect-ratio-rejection test below needs an actual
@@ -126,6 +126,33 @@ describe('checkDraft (schema short-circuit)', () => {
     // (Instagram requires media), proving voice/openers/media all ran.
     expect(findings.some((f) => f.startsWith('schema:'))).toBe(false);
     expect(findings.some((f) => f.includes('require at least one image'))).toBe(true);
+  });
+});
+
+describe('09-08 paired launch preview', () => {
+  const photo = {
+    photoId: 'fearless-inglewood-2023',
+    media: ['/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg'],
+    mediaKind: 'photo',
+    mediaCredit: 'Paolo Villanueva (CC BY 2.0), via Wikimedia Commons',
+    mediaSource: 'https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg',
+  };
+  const campaign = 'launch:shop-the-look:announce:2026-09-08';
+  const queue = [
+    { file: '2026-09-08-shop-the-look-ig.json', data: { platform: 'instagram', body: 'Taylor looks have a new home in the app. Find the era, open the look, and see where the details lead.', scheduledAt: '2026-09-08T23:00:00Z', campaign, ...photo } },
+    { file: '2026-09-08-shop-the-look-x.json', data: { platform: 'x', body: 'The Taylor look you keep thinking about is now easier to explore. Pick an era and follow the details from there.', scheduledAt: '2026-09-08T23:00:00Z', campaign, ...photo } },
+  ];
+
+  it('keeps the 09-08 Instagram/X planner pair credited, inventory-bound, and image-backed', async () => {
+    for (const target of queue) {
+      expect(target.data.media).toEqual(photo.media);
+      expect(target.data.photoId).toBe(photo.photoId);
+      expect(target.data.mediaCredit).toBe(photo.mediaCredit);
+      expect(target.data.mediaSource).toBe(photo.mediaSource);
+
+      const findings = await checkDraft(target, { allQueue: queue, allPosted: [], openerContext: [], recentIg: [] });
+      expect(findings.filter((finding) => !finding.startsWith('length: warning —'))).toEqual([]);
+    }
   });
 });
 
@@ -285,13 +312,63 @@ describe('checkCampaignPair', () => {
     expect(checkCampaignPair('x.json', { platform: 'tiktok', campaign: 'c1', body: 'b' }, [], [])).toEqual([]);
   });
 
-  // 2026-09-05 (#3584, Fable ruling): the appearance-discovery fast lane is
-  // deliberately X-only (no license-cleared photo to pair with) — its
-  // `appearance:<videoId>` campaigns are exempt from the otherwise-
-  // unconditional pairing rule.
-  it('exempts an appearance:-family campaign from the pairing requirement', () => {
+  // 2026-09-05 (#3584) added an `appearance:`-family exemption to this rule;
+  // 2026-09-10 (kanban t_bac31b1a, "no single-platform exception of any
+  // kind") removed it again — an appearance-lane draft is paired exactly
+  // like every other campaign now.
+  it('rejects an appearance:-family campaign with no Instagram sibling — the fast-lane exemption is gone', () => {
     const x = { file: 'x.json', data: { platform: 'x', campaign: 'appearance:dQw4w9WgXcQ', body: 'b' } };
-    expect(checkCampaignPair('x.json', x.data, [x], [])).toEqual([]);
+    const findings = checkCampaignPair('x.json', x.data, [x], []);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('no instagram sibling');
+  });
+});
+
+describe('checkSimultaneousPair', () => {
+  // "All at once" (2026-09-10, kanban t_bac31b1a, Joey: "one idea goes out
+  // to X, Instagram... all together"): the real 2026-08-30/08-28 shape —
+  // one platform at 15:00Z, the other hours later same day or the day
+  // before — must now fail.
+  it('fails when the paired sibling is scheduled hours apart, same day', () => {
+    const all = [
+      { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', scheduledAt: '2026-08-30T15:00:00Z' } },
+      { file: 'ig.json', data: { platform: 'instagram', campaign: 'c1', body: 'b', scheduledAt: '2026-08-30T23:00:00Z' } },
+    ];
+    const findings = checkSimultaneousPair('x.json', all[0].data, all);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('ig.json');
+    expect(findings[0]).toContain('480 minute');
+  });
+
+  it('passes when both siblings share the exact same scheduledAt', () => {
+    const all = [
+      { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' } },
+      { file: 'ig.json', data: { platform: 'instagram', campaign: 'c1', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' } },
+    ];
+    expect(checkSimultaneousPair('x.json', all[0].data, all)).toEqual([]);
+    expect(checkSimultaneousPair('ig.json', all[1].data, all)).toEqual([]);
+  });
+
+  it('passes when siblings are within the tight window (a few minutes apart)', () => {
+    const all = [
+      { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' } },
+      { file: 'ig.json', data: { platform: 'instagram', campaign: 'c1', body: 'b', scheduledAt: '2026-09-09T23:03:00Z' } },
+    ];
+    expect(checkSimultaneousPair('x.json', all[0].data, all)).toEqual([]);
+  });
+
+  it('is a no-op when there is no sibling in the queue at all (checkCampaignPair already flags that)', () => {
+    const all = [{ file: 'x.json', data: { platform: 'x', campaign: 'lonely', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' } }];
+    expect(checkSimultaneousPair('x.json', all[0].data, all)).toEqual([]);
+  });
+
+  it('is a no-op when there is no campaign at all (checkCampaignPair already flags that)', () => {
+    expect(checkSimultaneousPair('x.json', { platform: 'x', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' }, [])).toEqual([]);
+  });
+
+  it('is a no-op for an unrecognized platform or invalid scheduledAt (checkSchema already flags those)', () => {
+    expect(checkSimultaneousPair('x.json', { platform: 'tiktok', campaign: 'c1', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' }, [])).toEqual([]);
+    expect(checkSimultaneousPair('x.json', { platform: 'x', campaign: 'c1', body: 'b', scheduledAt: 'not-a-date' }, [])).toEqual([]);
   });
 });
 
@@ -513,17 +590,22 @@ describe('checkMedia', () => {
   // Getty-sourced corpus was removed under the third-party image policy;
   // this is the one CC-licensed photo left under photos/.)
   const CORPUS_PHOTO = '/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg';
+  const CORPUS_PHOTO_ID = 'lover-minneapolis-2023';
+  const CORPUS_PHOTO_CREDIT = 'Michael Hicks (CC BY 2.0), via Wikimedia Commons';
+  const CORPUS_PHOTO_SOURCE = 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg';
 
-  it('flags a non-era dedicated photo that repeats the recent-posted window', async () => {
+  it('warns but does not reject a credited photo that repeats recent history, preventing a finite-library deadlock', async () => {
     const recentIg = [{ platform: 'instagram', media: [CORPUS_PHOTO], postedAt: '2026-08-01T00:00:00Z' }];
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: 'c', mediaSource: 's' }, recentIg);
-    expect(findings.some((f) => f.includes('repeats'))).toBe(true);
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE }, recentIg);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toMatch(/^length: warning — media:/);
   });
 
-  it('flags a media path that is also scheduled in another queue item', async () => {
+  it('warns but does not reject a credited photo also scheduled in another queue item', async () => {
     const other = { file: 'b.json', data: { platform: 'instagram', media: [CORPUS_PHOTO] } };
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: 'c', mediaSource: 's' }, [], [other]);
-    expect(findings.some((f) => f.includes('also scheduled in b.json'))).toBe(true);
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE }, [], [other]);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toMatch(/^length: warning — media:.*also scheduled in b\.json/);
   });
 
   it('requires a declared mediaKind on any draft with media', async () => {
@@ -537,14 +619,72 @@ describe('checkMedia', () => {
     expect(findings.some((f) => f.includes('requires `mediaSource`'))).toBe(true);
   });
 
-  it('accepts a credited, sourced corpus photo tile with no findings', async () => {
+  it('requires an exact inventory binding for every credited photo tile', async () => {
+    const missingId = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE },
+      [],
+    );
+    expect(missingId.some((f) => f.includes('requires `photoId`'))).toBe(true);
+
+    const mismatchedCredit = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: 'Someone Else', mediaSource: CORPUS_PHOTO_SOURCE },
+      [],
+    );
+    expect(mismatchedCredit.some((f) => f.includes('must use its inventory media path, exact credit, and exact source'))).toBe(true);
+  });
+
+  // 2026-09-10 (kanban t_75ec7106) — the founder-reported bug: a reputation
+  // post shipped a Lover-era tour photo. This locks in check-drafts.mjs's
+  // (draft-time) mirror of queue-schema.mjs's photoEra binding.
+  it('hard-fails a themed draft whose bound photo is not tagged for its declared photoEra', async () => {
     const findings = await checkMedia(
       'a.json',
-      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: 'Someone/Getty Images', mediaSource: 'https://example.com/photo' },
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, photoEra: 'reputation' },
+      [],
+    );
+    expect(findings.some((f) => f.includes('photoEra'))).toBe(true);
+  });
+
+  it('accepts a themed draft whose bound photo IS tagged for its declared photoEra', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, photoEra: 'lover' },
       [],
     );
     expect(findings).toEqual([]);
   });
+
+  // Fable ruling round 4 (kanban t_75ec7106, PR #4062): a themed campaign
+  // family must require photoEra, not treat it as opt-in.
+  it('hard-fails a themed-campaign photo draft with no photoEra at all', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, campaign: 'thread:easter-eggs:interactive-challenge:2026-09-find' },
+      [],
+    );
+    expect(findings.some((f) => f.includes('belongs to a themed family'))).toBe(true);
+  });
+
+  it('does not require photoEra on a non-themed campaign family', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, campaign: 'launch:shop-the-look:announce' },
+      [],
+    );
+    expect(findings).toEqual([]);
+  });
+
+  it('accepts an exactly credited, sourced, inventory-bound photo tile with no findings', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE },
+      [],
+    );
+    expect(findings).toEqual([]);
+  });
+
 
   // PR #2043 review: the declared kinds are PATH-BOUND, so neither can be
   // used to launder the other — a screenshot can't become a credited "photo",
@@ -565,10 +705,10 @@ describe('checkMedia', () => {
     // campaign: launch:test — site-screen is launch-only as of 2026-08-31,
     // and (2026-08-31 round 2) must ride a carousel behind a real Taylor
     // photo tile at media[0] per strategy §2(a).
-    const ok = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO, '/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', mediaCredit: 'c', mediaSource: 's', campaign: 'launch:test' }, []);
+    const ok = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO, '/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, campaign: 'launch:test' }, []);
     expect(ok).toEqual([]);
     for (const tile of ['/social/2026-07-17-electric-lady-1.png', CORPUS_PHOTO]) {
-      const bad = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO, tile], mediaKind: 'site-screen', mediaCredit: 'c', mediaSource: 's', campaign: 'launch:test' }, []);
+      const bad = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO, tile], mediaKind: 'site-screen', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, campaign: 'launch:test' }, []);
       expect(bad.some((f) => f.includes('must be a committed product screenshot')), tile).toBe(true);
     }
   });
@@ -584,9 +724,14 @@ describe('checkMedia', () => {
     expect(findings.some((f) => f.includes('at most'))).toBe(true);
   });
 
-  it('passes an X draft with no media at all', async () => {
-    const findings = await checkMedia('a.json', { platform: 'x', body: 'text only' }, []);
-    expect(findings).toEqual([]);
+  it('rejects a text-only X sibling from a paired campaign', async () => {
+    const findings = await checkMedia('a.json', { platform: 'x', body: 'text only', campaign: 'launch:shop-the-look:announce' }, []);
+    expect(findings.some((f) => f.includes('require at least one credited image'))).toBe(true);
+  });
+
+  it('rejects an X draft with mediaKind "video-thumb" — the value is no longer schema-recognized (2026-09-10, kanban t_bac31b1a)', async () => {
+    const findings = await checkMedia('a.json', { platform: 'x', body: 'text only', campaign: 'appearance:video-id', mediaKind: 'video-thumb' }, []);
+    expect(findings.some((f) => f.includes('require at least one credited image'))).toBe(true);
   });
 
   it('rejects an X draft that declares a site-screen tile', async () => {
@@ -601,10 +746,19 @@ describe('checkMedia', () => {
   it('continues to allow an Instagram site-screen tile on a launch campaign', async () => {
     const findings = await checkMedia(
       'a.json',
-      { platform: 'instagram', media: [CORPUS_PHOTO, '/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', mediaCredit: 'c', mediaSource: 's', campaign: 'launch:shop-the-look' },
+      { platform: 'instagram', media: [CORPUS_PHOTO, '/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, campaign: 'launch:shop-the-look' },
       [],
     );
     expect(findings).toEqual([]);
+  });
+
+  it('requires an exact inventory-bound photoId for a launch carousel grid tile', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO, '/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, campaign: 'launch:shop-the-look' },
+      [],
+    );
+    expect(findings.some((f) => f.includes('requires `photoId`'))).toBe(true);
   });
 
   // 2026-08-31 (Joey, kanban t_895c2ba8): a site-screen used to be legal on
@@ -653,7 +807,7 @@ describe('checkMedia', () => {
   it('accepts a real, existing screenshot file under the declared standard', async () => {
     // 1080x1350 in-range asset (see the aspect-ratio note above; the tall
     // *-screen.png captures now correctly fail the Instagram aspect gate).
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO, '/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', mediaCredit: 'c', mediaSource: 's', campaign: 'launch:test' }, []);
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO, '/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE, campaign: 'launch:test' }, []);
     expect(findings).toEqual([]);
   });
 
@@ -712,30 +866,81 @@ describe('checkMedia', () => {
       { platform: 'instagram', media: ['/social/library/photos/some-new-uncleared-file.jpg'], mediaKind: 'photo', mediaCredit: 'A Photographer', mediaSource: 'https://example.com' },
       [],
     );
-    expect(findings.some((f) => f.includes('cannot be mediaKind "photo"') && f.includes('not in the license-cleared photo corpus allowlist'))).toBe(true);
+    expect(findings.some((f) => f.includes('cannot be mediaKind "photo"') && f.includes('not in the credited photo inventory'))).toBe(true);
   });
 
-  it('accepts a "photo" tile that is both allowlisted and has an innocuous credit', async () => {
+  it('accepts a "photo" tile that is inventory-bound with exact attribution', async () => {
     const findings = await checkMedia(
       'a.json',
-      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons', mediaSource: 'https://commons.wikimedia.org/wiki/File:Example.jpg' },
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE },
       [],
     );
     expect(findings).toEqual([]);
   });
 
-  it('rejects mediaKind "video-thumb" on an Instagram draft outright', async () => {
+  // ── Regression coverage for the three appearance-discovery items #3584
+  //    named as already-shipped/queued bad items (kanban t_ed5fb547): confirm
+  //    the mediaKind "photo" gate (rehosted-thumbnail credit regex AND the
+  //    tiny CLEARED_PHOTO_ALLOWLIST) rejects all three shapes, not just the
+  //    Taylor-absent one. None of these three files are in the allowlist, so
+  //    each is rejected on that signal alone even where the credit text
+  //    itself doesn't literally say "thumbnail"/"youtube"/"video" — a
+  //    branded-quote-card or a genuinely-Taylor-but-low-quality frame gets
+  //    no free pass just because the wording is innocuous. ──
+  it('rejects the GMA Dolly-memorial branded quote card (ldBrFonU8NA) as mediaKind "photo"', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      {
+        platform: 'instagram',
+        media: ['/social/library/photos/appearance-ldBrFonU8NA.jpg'],
+        mediaKind: 'photo',
+        mediaCredit: 'Video thumbnail: Good Morning America',
+        mediaSource: 'https://www.youtube.com/watch?v=ldBrFonU8NA',
+      },
+      [],
+    );
+    expect(findings.some((f) => f.includes('cannot be mediaKind "photo"'))).toBe(true);
+  });
+
+  it('rejects the Taylor-free animated tree/tire-swing frame (XwCWKSO0F8s) as mediaKind "photo" even with an innocuous credit', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      {
+        platform: 'instagram',
+        media: [CORPUS_PHOTO.replace('taylor-lover-eras-minneapolis-2023.jpg', 'appearance-XwCWKSO0F8s.jpg')],
+        mediaKind: 'photo',
+        // Deliberately innocuous wording (no "thumbnail"/"youtube"/"video")
+        // to prove the allowlist signal alone still catches it.
+        mediaCredit: 'Republic Records',
+        mediaSource: 'https://www.youtube.com/watch?v=XwCWKSO0F8s',
+      },
+      [],
+    );
+    expect(findings.some((f) => f.includes('cannot be mediaKind "photo"'))).toBe(true);
+  });
+
+  it('rejects the genuinely-Taylor but letterboxed/low-quality Icon Sessions frame (T6iTnTV-Rgw) as mediaKind "photo"', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      {
+        platform: 'instagram',
+        media: [CORPUS_PHOTO.replace('taylor-lover-eras-minneapolis-2023.jpg', 'appearance-T6iTnTV-Rgw.jpg')],
+        mediaKind: 'photo',
+        mediaCredit: 'The Grammy Museum',
+        mediaSource: 'https://www.youtube.com/watch?v=T6iTnTV-Rgw',
+      },
+      [],
+    );
+    expect(findings.some((f) => f.includes('cannot be mediaKind "photo"'))).toBe(true);
+  });
+
+  it('mediaKind "video-thumb" is no longer schema-recognized — falls through to the "no declared mediaKind" style rejection', async () => {
     const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/photos/appearance-dQw4w9WgXcQ.jpg'], mediaKind: 'video-thumb' }, []);
-    expect(findings.some((f) => f.includes('not allowed on Instagram drafts at all'))).toBe(true);
+    expect(findings.some((f) => f.includes('cannot be mediaKind') || f.includes('not in the credited photo inventory') || f.includes('no declared'))).toBe(true);
   });
 
-  it('rejects mediaKind "video-thumb" on an X draft that attaches an image', async () => {
-    const findings = await checkMedia('a.json', { platform: 'x', media: ['/social/library/photos/appearance-dQw4w9WgXcQ.jpg'], mediaKind: 'video-thumb' }, []);
-    expect(findings.some((f) => f.includes('may not attach an image'))).toBe(true);
-  });
-
-  it('accepts mediaKind "video-thumb" on an X draft with no attached media (link preview only)', async () => {
-    const findings = await checkMedia('a.json', { platform: 'x', mediaKind: 'video-thumb', body: 'text with a link' }, []);
-    expect(findings).toEqual([]);
+  it('rejects mediaKind "video-thumb" on X too — no exempt lane remains (2026-09-10, kanban t_bac31b1a)', async () => {
+    const findings = await checkMedia('a.json', { platform: 'x', campaign: 'appearance:video-id', mediaKind: 'video-thumb', body: 'text with a link' }, []);
+    expect(findings.length).toBeGreaterThan(0);
   });
 });

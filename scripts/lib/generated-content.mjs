@@ -47,10 +47,12 @@ export const SYNC_TARGETS = [
   {
     sync: 'scripts/generate-bundle-backed-modules.mjs',
     out: `${GENERATED_DIR}/theories-bundle.generated.ts`,
+    requiresPublishedBundle: true,
   },
   {
     sync: 'scripts/generate-bundle-backed-modules.mjs',
     out: `${GENERATED_DIR}/videos-bundle.generated.ts`,
+    requiresPublishedBundle: true,
   },
 ];
 
@@ -59,6 +61,11 @@ export const GENERATED = SYNC_TARGETS.map((t) => t.out);
 
 /** Repo-relative POSIX paths of the sync scripts, in run order. */
 export const SYNCS = SYNC_TARGETS.map((t) => t.sync);
+
+/** Sync scripts that can run before the content bundle has been published. */
+export const PRE_BUNDLE_SYNCS = SYNC_TARGETS.filter((t) => !t.requiresPublishedBundle).map(
+  (t) => t.sync,
+);
 
 /**
  * Generated artifacts OUTSIDE the Long Live UI content vault

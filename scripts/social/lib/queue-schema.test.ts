@@ -1,7 +1,17 @@
 import { describe, expect, it } from 'vitest';
-import { validateQueueItem, PLATFORM_RULES } from './queue-schema.mjs';
+import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES } from './queue-schema.mjs';
 
-const validX = { platform: 'x', body: 'a real tweet', scheduledAt: '2026-08-12T23:00:00Z' };
+const validX = {
+  platform: 'x',
+  body: 'a real tweet',
+  scheduledAt: '2026-08-12T23:00:00Z',
+  campaign: 'launch:shop-the-look:announce',
+  media: ['/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg'],
+  mediaKind: 'photo',
+  photoId: 'lover-minneapolis-2023',
+  mediaCredit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
+  mediaSource: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
+};
 const validIg = {
   platform: 'instagram',
   body: 'a real caption',
@@ -12,6 +22,16 @@ const validIg = {
 
 const findingFor = (item: unknown, needle: string | RegExp) =>
   validateQueueItem(item).find((f) => (typeof needle === 'string' ? f.includes(needle) : needle.test(f)));
+
+const library = [
+  {
+    id: 'lover-minneapolis-2023',
+    mediaPath: '/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg',
+    credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
+    source: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
+    tags: ['lover', 'eras-tour', 'minneapolis'],
+  },
+];
 
 describe('validateQueueItem', () => {
   it('accepts the two real shapes the queue actually uses', () => {
@@ -94,20 +114,103 @@ ${url}`;
   });
 
   describe('media', () => {
+    it('requires a photoId and exact inventory attribution in the queue CI binding', () => {
+      expect(validatePhotoInventoryBinding({ ...validX, photoId: undefined }, library).some((f) => f.includes('photoId: required'))).toBe(true);
+      expect(validatePhotoInventoryBinding({ ...validX, mediaCredit: 'Wrong credit' }, library).some((f) => f.includes('must use its inventory media path, exact credit, and exact source'))).toBe(true);
+      expect(validatePhotoInventoryBinding(validX, library)).toEqual([]);
+    });
+
+    // 2026-09-10 (kanban t_75ec7106) — the founder-reported off-era-photo bug.
+    it('hard-fails a themed draft whose bound photo is not tagged for its declared photoEra', () => {
+      expect(validatePhotoInventoryBinding({ ...validX, photoEra: 'reputation' }, library)).toContainEqual(expect.stringContaining('photoEra:'));
+    });
+    it('passes a themed draft whose bound photo IS tagged for its declared photoEra', () => {
+      expect(validatePhotoInventoryBinding({ ...validX, photoEra: 'lover' }, library)).toEqual([]);
+    });
+    it('does not require photoEra at all — untagged posts (launch/mood/merch) are unaffected', () => {
+      expect(validatePhotoInventoryBinding(validX, library)).toEqual([]);
+    });
+
+    // Fable ruling round 4 (kanban t_75ec7106, PR #4062): a themed campaign
+    // family must not be able to silently ship without declaring photoEra —
+    // that opt-in gap is exactly how the original bug's campaign shape
+    // (thread:easter-eggs:...) would still pass validation.
+    it('requires photoEra for a themed campaign family even though the field is otherwise optional', () => {
+      const themed = { ...validX, campaign: 'thread:easter-eggs:interactive-challenge:2026-09-find', photoEra: undefined };
+      expect(validatePhotoInventoryBinding(themed, library)).toContainEqual(expect.stringContaining('photoEra: campaign'));
+    });
+    it('requires photoEra for the heartbeat:era-deep-cut family too', () => {
+      const themed = { ...validX, campaign: 'heartbeat:era-deep-cut:speak-now-blah', photoEra: undefined };
+      expect(validatePhotoInventoryBinding(themed, library)).toContainEqual(expect.stringContaining('photoEra: campaign'));
+    });
+    it('passes a themed campaign once photoEra is set and matches', () => {
+      const themed = { ...validX, campaign: 'thread:easter-eggs:interactive-challenge:2026-09-find', photoEra: 'lover' };
+      expect(validatePhotoInventoryBinding(themed, library)).toEqual([]);
+    });
+    it('does NOT require photoEra for a non-themed campaign family (launch:*)', () => {
+      const nonThemed = { ...validX, campaign: 'launch:shop-the-look:announce', photoEra: undefined };
+      expect(validatePhotoInventoryBinding(nonThemed, library)).toEqual([]);
+    });
+    it('rejects a text-only X draft for a normal paired campaign, and mediaKind "video-thumb" no longer exists as an exception (2026-09-10, kanban t_bac31b1a)', () => {
+      const pairedX = { ...validX, campaign: 'launch:shop-the-look:announce', media: undefined, mediaKind: undefined };
+      expect(findingFor(pairedX, 'x posts require at least one image')).toBeDefined();
+      const findings = validateQueueItem({ ...pairedX, campaign: 'appearance:video-id', mediaKind: 'video-thumb' });
+      expect(findings.some((f) => f.includes('x posts require at least one image'))).toBe(true);
+      expect(findings.some((f) => f.includes('mediaKind') && f.includes('not recognized'))).toBe(true);
+    });
+    it('binds a launch site-screen carousel grid photo to its exact credited inventory entry', () => {
+      const carousel = {
+        ...validIg,
+        campaign: 'launch:shop-the-look:announce',
+        media: [library[0].mediaPath, '/social/library/thread-fashion-intro.png'],
+        photoId: library[0].id,
+        mediaCredit: library[0].credit,
+        mediaSource: library[0].source,
+      };
+
+      expect(validatePhotoInventoryBinding(carousel, library)).toEqual([]);
+      expect(validatePhotoInventoryBinding({ ...carousel, photoId: undefined }, library)).toContainEqual(expect.stringContaining('photoId: required'));
+      expect(validatePhotoInventoryBinding({ ...carousel, media: ['/social/library/photos/wrong.jpg', carousel.media[1]] }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+      expect(validatePhotoInventoryBinding({ ...carousel, mediaCredit: 'Wrong credit' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+      expect(validatePhotoInventoryBinding({ ...carousel, mediaSource: 'https://example.com/wrong' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+
+      const laterSlidePhoto = {
+        ...carousel,
+        media: ['/social/library/thread-fashion-intro.png', library[0].mediaPath],
+      };
+      expect(validatePhotoInventoryBinding(laterSlidePhoto, library)).toEqual([]);
+      expect(validatePhotoInventoryBinding({ ...laterSlidePhoto, photoId: undefined }, library)).toContainEqual(expect.stringContaining('photoId: required'));
+      expect(validatePhotoInventoryBinding({ ...laterSlidePhoto, mediaCredit: 'Wrong credit' }, library)).toContainEqual(
+        expect.stringContaining('must use its inventory media path, exact credit, and exact source'),
+      );
+    });
+
+    it('leaves a genuine non-photo site screen outside the inventory binding', () => {
+      expect(validatePhotoInventoryBinding(validIg, library)).toEqual([]);
+    });
+
     it('requires media on Instagram', () => {
       expect(findingFor({ ...validIg, media: [] }, 'media:')).toContain('require at least one image');
       expect(findingFor({ ...validIg, media: undefined }, 'media:')).toBeDefined();
     });
 
-    it('allows photo media on X up to the 4-image tweet cap but rejects site screens', () => {
-      expect(PLATFORM_RULES.x.media).toBe('optional');
+    it('requires photo media on normal X campaigns, up to the 4-image tweet cap, and rejects site screens', () => {
+      expect(PLATFORM_RULES.x.media).toBe('required');
       expect(
         validateQueueItem({
           ...validX,
+          campaign: 'launch:shop-the-look:announce',
           media: ['/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg'],
           mediaKind: 'photo',
-          mediaCredit: 'Someone/Getty Images',
-          mediaSource: 'https://example.com/photo',
+          photoId: 'lover-minneapolis-2023',
+          mediaCredit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
+          mediaSource: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
         }),
       ).toEqual([]);
       expect(findingFor({ ...validX, media: ['/social/library/a.png'], mediaKind: 'site-screen' }, 'X site-screen posts are permanently prohibited')).toBeDefined();
@@ -138,8 +241,8 @@ ${url}`;
       ).toBeDefined();
     });
 
-    it('accepts mediaKind "video-thumb" on X with no attached media', () => {
-      expect(validateQueueItem({ ...validX, media: undefined, mediaKind: 'video-thumb' })).toEqual([]);
+    it('rejects mediaKind "video-thumb" as unrecognized (removed 2026-09-10, kanban t_bac31b1a)', () => {
+      expect(findingFor({ ...validX, media: undefined, mediaKind: 'video-thumb' }, 'mediaKind:')).toBeDefined();
     });
 
     // The Taylor-photo standard (2026-08-12): a photo always ships credited
@@ -154,8 +257,7 @@ ${url}`;
     it('requires a mediaKind whenever media is present', () => {
       const noKind = { ...validIg, mediaKind: undefined };
       expect(findingFor(noKind, 'mediaKind: required')).toBeDefined();
-      // text-only X items carry no media and need no kind
-      expect(validateQueueItem(validX)).toEqual([]);
+      expect(validateQueueItem({ ...validX, media: undefined, mediaKind: undefined })).toEqual(["media: x posts require at least one image."]);
     });
 
     it('validates mediaCredit/mediaSource shape when present', () => {

@@ -1,0 +1,476 @@
+#!/usr/bin/env node
+// community-mailer.yml — daily "Community Tasks" Discord social-channel
+// prompts (Community Engine plan,
+// docs/proposals/2026-09-06-community-engine-plan.md §2.6, Phase 1 card
+// P1-6, rerouted to Discord delivery per Joey's destination correction and
+// the 2026-09-09 Fable ruling). Parents: P1-4 (Answerer desk drafts leads)
+// and P1-5 (ack route + HMAC token, unchanged). Zero-LLM: reads
+// `engagement_lead` rows the Answerer desk already drafted
+// (`status='drafted'`), renders one paste-ready prompt per lead ordered
+// replies-to-us-first then by relevance, posts each to the configured
+// Discord social-channel webhook, then marks every confirmed lead
+// `status='delivered'` the instant Discord confirms it (see
+// `markDiscordDelivered` / `discord-delivery.mjs#postCommunityPrompts`'s
+// `onDelivered` callback) so a retry only ever re-attempts what is still
+// `drafted`.
+//
+// This script drafts NOTHING and posts NOTHING TO REDDIT/FACEBOOK — the
+// Answerer desk (P1-4) already wrote
+// `draft`/`draft_alt`/`target_url`/`relevance`/`link_included` on every row
+// this reads. §6.1's "a human always posts" rule is why each Discord
+// prompt's only calls to action are the SAME signed HMAC "Posted"/"Skip"
+// links the email path always used (`/api/community/ack`, P1-5,
+// `packages/core/src/community-ack-token.ts`) — the human still does the
+// pasting by hand, and Discord's own link unfurler is prevented from
+// firing a false acknowledgement by wrapping both links in Markdown angle
+// brackets (`<url>`, see `discord-delivery.mjs#buildCommunityPrompt`).
+//
+// Delivery volume (§6.6, §4 workflow table, `routine-invariants.md` row 3):
+// bounded to ONE daily send. The plan's "bounded replies-waiting second
+// send" (an extra same-day delivery only when a `reply_to_us` lead is still
+// undelivered after the first run) exists as a second `mode` this same
+// script supports (`--mode=replies-waiting`), triggered by a second, later
+// workflow_dispatch/schedule step — never unconditionally, so delivery
+// volume is never silently exceeded by this desk.
+//
+//   node scripts/community/mailer.mjs                    # daily send
+//   node scripts/community/mailer.mjs --mode=replies-waiting
+//   node scripts/community/mailer.mjs --dry-run           # render only, no send/writes
+//
+// Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY, DISCORD_SOCIAL_WEBHOOK
+// (the configured Discord social-channel webhook — mapped in the workflow
+// from the repository secret DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL).
+// COMMUNITY_ACK_SECRET
+// (to mint the "Posted"/"Skip" ack links — see
+// packages/core/src/community-ack-token.ts) is OPTIONAL: when unset, this
+// script still delivers every prompt, each noting the acknowledgement
+// control is unavailable in this environment yet, rather than blocking
+// delivery on a secret Joey has not been asked to configure. Any missing
+// piece degrades to a clean no-op log line, same posture as scan.mjs /
+// community-ack's route.
+
+import { createHmac } from 'node:crypto';
+import { URLSearchParams } from 'node:url';
+import { serviceClient } from '../lib/supabase.mjs';
+import { runMain } from '../lib/cli.mjs';
+import { buildCommunityPrompt, postCommunityPrompts } from './discord-delivery.mjs';
+
+export const SITE = 'https://www.longlivets.com';
+
+export const MAX_LEADS_PER_EMAIL = 15; // matches Answerer's own ≤12/day draft cap + headroom
+
+/**
+ * Mirrors `packages/core/src/community-ack-token.ts`'s `signAckToken` —
+ * duplicated rather than imported because this script runs as plain Node
+ * (no TS loader wired for scripts/**, see fb-export-ingest.mjs's direct
+ * `.ts` import of a sibling worker module for the one place this repo does
+ * that) while community-ack-token.ts is consumed from `apps/web` via the
+ * TS-aware Next.js build. Any change to the signing scheme MUST update both
+ * — see that file's own header for the exact payload shape
+ * (`${leadId}:${action}:${linkIncluded ? '1' : '0'}`, HMAC-SHA256, hex).
+ */
+export function signAckToken(secret, { leadId, action, linkIncluded }) {
+  return createHmac('sha256', secret)
+    .update(`${leadId}:${action}:${linkIncluded ? '1' : '0'}`)
+    .digest('hex');
+}
+
+/** Builds the one-click ack URL for a lead + action (§2.6/§9). */
+export function buildAckUrl(secret, { leadId, action, linkIncluded = false }) {
+  const token = signAckToken(secret, { leadId, action, linkIncluded });
+  const params = new URLSearchParams({ lead: leadId, action, token });
+  if (action === 'posted') params.set('link', linkIncluded ? '1' : '0');
+  return `${SITE}/api/community/ack?${params.toString()}`;
+}
+
+/**
+ * Orders leads the way §2.6 specifies: replies-to-us first (time-sensitive),
+ * then by descending relevance (nulls last — an Answerer draft with no
+ * relevance is a contribution-only draft per §2.5 point 3's <0.45 branch,
+ * not a ranking failure).
+ */
+export function orderLeads(leads) {
+  return [...leads].sort((a, b) => {
+    const aReply = a.kind === 'reply_to_us' ? 0 : 1;
+    const bReply = b.kind === 'reply_to_us' ? 0 : 1;
+    if (aReply !== bReply) return aReply - bReply;
+    const aRel = typeof a.relevance === 'number' ? a.relevance : -1;
+    const bRel = typeof b.relevance === 'number' ? b.relevance : -1;
+    return bRel - aRel;
+  });
+}
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/** The platform + destination line for one lead card. */
+export function destinationLine(lead) {
+  const platformLabel = lead.platform === 'reddit' ? 'Reddit' : 'Facebook';
+  if (lead.platform === 'facebook') {
+    return `${platformLabel} · ${escapeHtml(lead.locator || lead.community)}`;
+  }
+  const where = lead.url
+    ? `<a href="${escapeHtml(lead.url)}">r/${escapeHtml(lead.community)}</a>`
+    : `r/${escapeHtml(lead.community)}`;
+  return `${platformLabel} · ${where}`;
+}
+
+/** One lead's HTML card: platform/destination, score, paste-ready draft(s), ack/skip links. */
+export function renderLeadCard(lead, { ackSecret }) {
+  const relevanceLabel = typeof lead.relevance === 'number' ? lead.relevance.toFixed(2) : 'n/a';
+  const kindLabel =
+    lead.kind === 'reply_to_us'
+      ? '💬 reply waiting'
+      : lead.kind === 'hot_thread'
+        ? 'hot thread'
+        : escapeHtml(lead.kind);
+  const title = lead.title ? escapeHtml(lead.title) : null;
+  const linkIncluded = Boolean(lead.link_included);
+
+  const postedUrl = ackSecret
+    ? buildAckUrl(ackSecret, { leadId: lead.id, action: 'posted', linkIncluded })
+    : null;
+  const skipUrl = ackSecret ? buildAckUrl(ackSecret, { leadId: lead.id, action: 'skip' }) : null;
+
+  const draftBlock = lead.draft
+    ? `<div class="draft"><strong>Draft${linkIncluded ? ' (link included)' : ''}:</strong><pre>${escapeHtml(lead.draft)}</pre></div>`
+    : '<div class="draft"><em>No draft on file.</em></div>';
+  const altBlock = lead.draft_alt
+    ? `<div class="draft alt"><strong>Alt (detailed):</strong><pre>${escapeHtml(lead.draft_alt)}</pre></div>`
+    : '';
+  const linkNote =
+    !linkIncluded && lead.target_url
+      ? `<p class="note">Link candidate (not yet cleared to include): <a href="${escapeHtml(lead.target_url)}">${escapeHtml(lead.target_url)}</a></p>`
+      : '';
+
+  return `<div class="card">
+  <p class="meta">${kindLabel} · ${destinationLine(lead)} · relevance ${relevanceLabel}</p>
+  ${title ? `<p class="title">${title}</p>` : ''}
+  ${draftBlock}
+  ${altBlock}
+  ${linkNote}
+  <p class="actions">${postedUrl ? `<a class="btn posted" href="${postedUrl}">✅ Posted</a>` : ''} ${skipUrl ? `<a class="btn skip" href="${skipUrl}">Skip</a>` : ''}</p>
+</div>`;
+}
+
+/** Full email HTML body for a batch of ordered leads. `mode` only changes the heading/intro copy. */
+export function renderEmailHtml(leads, { ackSecret, mode = 'daily', date }) {
+  const heading =
+    mode === 'replies-waiting' ? `Replies waiting — ${date}` : `Community Tasks — ${date}`;
+  const intro =
+    mode === 'replies-waiting'
+      ? 'Someone replied to one of our comments — these are time-sensitive.'
+      : `${leads.length} draft${leads.length === 1 ? '' : 's'} ready to paste. Click Posted after you paste one, or Skip to drop it.`;
+  const cards = leads.map((lead) => renderLeadCard(lead, { ackSecret })).join('\n');
+  return `<!doctype html><html><head><meta charset="utf-8"><style>
+  body { font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.5; color: #1f2328; margin: 0; padding: 12px; }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: 19px; }
+  .intro { color: #57606a; }
+  .card { border: 1px solid #d0d7de; border-radius: 8px; padding: 12px 14px; margin: 12px 0; }
+  .meta { color: #57606a; font-size: 13px; margin: 0 0 4px; }
+  .title { font-weight: 600; margin: 0 0 6px; }
+  .draft pre { white-space: pre-wrap; background: #f6f8fa; border-radius: 6px; padding: 8px 10px; font-family: inherit; font-size: 14px; margin: 4px 0; }
+  .draft.alt pre { background: #f0f4ff; }
+  .note { font-size: 13px; color: #57606a; }
+  .actions { margin-top: 8px; }
+  .btn { display: inline-block; padding: 6px 14px; border-radius: 6px; text-decoration: none; margin-right: 8px; font-weight: 600; }
+  .btn.posted { background: #1a7f37; color: #fff; }
+  .btn.skip { background: #eaeef2; color: #1f2328; }
+  .footer { color: #57606a; font-size: 13px; margin-top: 16px; border-top: 1px solid #d0d7de; padding-top: 8px; }
+</style></head><body><div class="wrap">
+<h1>${escapeHtml(heading)}</h1>
+<p class="intro">${escapeHtml(intro)}</p>
+${cards}
+<p class="footer">Sent by community-mailer.yml — deterministic, no AI involved. Drafts were written by the Community Answerer desk; nothing here has been posted anywhere.</p>
+</div></body></html>`;
+}
+
+/** Plain-text fallback (email clients that strip HTML). */
+export function renderEmailText(leads, { mode = 'daily', date }) {
+  const heading =
+    mode === 'replies-waiting' ? `Replies waiting — ${date}` : `Community Tasks — ${date}`;
+  const lines = [heading, ''];
+  for (const lead of leads) {
+    lines.push(
+      `--- ${lead.kind} · ${lead.platform}:${lead.community} · relevance ${typeof lead.relevance === 'number' ? lead.relevance.toFixed(2) : 'n/a'} ---`,
+    );
+    if (lead.title) lines.push(lead.title);
+    if (lead.url) lines.push(lead.url);
+    lines.push(lead.draft || '(no draft on file)');
+    lines.push('');
+  }
+  lines.push('Open the HTML version of this email to use the one-click Posted/Skip links.');
+  return lines.join('\n');
+}
+
+/** Fetches drafted, not-yet-emailed leads. `mode='replies-waiting'` narrows to reply_to_us only.
+ * Fetches a pool well above `MAX_LEADS_PER_EMAIL` (fixed `FETCH_POOL_LIMIT`,
+ * not `limit`) BEFORE re-ordering: a DB-side `.limit(limit)` applied under
+ * the `created_at` sort would silently drop a newer, more urgent
+ * `reply_to_us` lead once the drafted backlog exceeds one email's worth —
+ * undermining the §2.6 "replies-to-us first" ordering this function exists
+ * to guarantee. Order-then-slice happens entirely in JS instead. */
+export const FETCH_POOL_LIMIT = 200;
+
+export async function fetchLeadsToMail(
+  supabase,
+  { mode = 'daily', limit = MAX_LEADS_PER_EMAIL } = {},
+) {
+  let query = supabase
+    .from('engagement_lead')
+    .select(
+      'id, platform, community, kind, thread_id, url, locator, title, relevance, target_url, draft, draft_alt, link_included, status',
+    )
+    .eq('status', 'drafted')
+    .order('created_at', { ascending: true })
+    .limit(FETCH_POOL_LIMIT);
+  if (mode === 'replies-waiting') query = query.eq('kind', 'reply_to_us');
+  const { data, error } = await query;
+  if (error) throw error;
+  return orderLeads(data ?? []).slice(0, limit);
+}
+
+/**
+ * Marks every mailed lead `status='emailed'`, retrying a few times with a
+ * short delay before giving up. This runs AFTER the send succeeds, so a
+ * transient failure here (not a re-throw of a genuine send error) is the
+ * one place a duplicate email can occur: the lead stays `status='drafted'`
+ * and gets mailed again tomorrow. Retrying absorbs the common transient
+ * case (a Supabase blip); the residual risk after retries are exhausted is
+ * an occasional duplicate email, never a duplicate POST/DM/vote — §6.1's
+ * "a human always posts" guardrail is unaffected either way, and the ack
+ * links this same email carries are idempotent, so a founder re-seeing an
+ * already-posted draft is a mild inconvenience, not a correctness bug.
+ */
+export async function markEmailed(
+  supabase,
+  leadIds,
+  {
+    attempts = 3,
+    delayMs = 500,
+    sleep = (ms) =>
+      new Promise((r) => {
+        setTimeout(r, ms);
+      }),
+  } = {},
+) {
+  if (leadIds.length === 0) return;
+  let lastError;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    const { error } = await supabase
+      .from('engagement_lead')
+      .update({ status: 'emailed', emailed_at: new Date().toISOString() })
+      .in('id', leadIds);
+    if (!error) return;
+    lastError = error;
+    if (attempt < attempts) await sleep(delayMs * attempt);
+  }
+  throw lastError;
+}
+
+export async function markDiscordDelivered(supabase, deliveries) {
+  for (const delivery of deliveries) {
+    const { error } = await supabase
+      .from('engagement_lead')
+      .update({
+        status: 'delivered',
+        discord_delivered_at: new Date().toISOString(),
+        discord_message_id: delivery.messageId,
+      })
+      .eq('id', delivery.leadId)
+      .eq('status', 'drafted');
+    if (error) throw error;
+  }
+}
+
+/**
+ * One receipt per mode per UTC day (not per lead set): a retry after a
+ * partial/failed run naturally sees a SMALLER `leads` batch because
+ * `fetchLeadsToMail` only ever selects `status='drafted'` rows, and
+ * `markDiscordDelivered` flips a lead's status the instant its Discord
+ * message is confirmed (see `postCommunityPrompts`'s `onDelivered`
+ * callback below) — so keying by the lead set itself would mint a new,
+ * unrelated receipt on every retry and defeat duplicate-send prevention.
+ *
+ * Suppression rule (Fable ruling 2026-09-09 23:24): a `delivered` receipt
+ * blocks a same-day re-run outright (nothing left to retry). A `failed` or
+ * abandoned `started` receipt does NOT suppress — this run logs that it is
+ * retrying and proceeds, because some leads may still be genuinely
+ * undelivered.
+ */
+function receiptKeyForToday(mode) {
+  const day = new Date().toISOString().slice(0, 10);
+  return `${mode}:${day}`;
+}
+
+export async function getOrCreateReceipt(supabase, mode, leads) {
+  const deliveryKey = receiptKeyForToday(mode);
+  const { data: existing, error: lookupError } = await supabase
+    .from('community_delivery_receipt')
+    .select('status,delivered_count')
+    .eq('delivery_key', deliveryKey)
+    .maybeSingle();
+  if (lookupError) throw lookupError;
+
+  if (existing?.status === 'delivered') {
+    return { deliveryKey, suppressed: true, existing };
+  }
+  if (existing) {
+    // failed or started — log-and-retry, no new row.
+    return { deliveryKey, suppressed: false, existing };
+  }
+
+  const { error: insertError } = await supabase.from('community_delivery_receipt').insert({
+    delivery_key: deliveryKey,
+    mode,
+    lead_count: leads.length,
+    draft_count: leads.filter((lead) => Boolean(lead.draft)).length,
+    status: 'started',
+  });
+  if (insertError) {
+    // Unique-constraint race with a concurrent run: re-check rather than fail.
+    const { data: raced, error: racedError } = await supabase
+      .from('community_delivery_receipt')
+      .select('status,delivered_count')
+      .eq('delivery_key', deliveryKey)
+      .maybeSingle();
+    if (racedError) throw racedError;
+    if (raced?.status === 'delivered') return { deliveryKey, suppressed: true, existing: raced };
+    return { deliveryKey, suppressed: false, existing: raced ?? null };
+  }
+  return { deliveryKey, suppressed: false, existing: null };
+}
+
+async function updateReceipt(
+  supabase,
+  deliveryKey,
+  { status, deliveredCount, discordMessages, errorMessage },
+) {
+  const { error } = await supabase
+    .from('community_delivery_receipt')
+    .update({
+      status,
+      delivered_count: deliveredCount,
+      discord_messages: discordMessages,
+      error_message: errorMessage,
+      completed_at: new Date().toISOString(),
+    })
+    .eq('delivery_key', deliveryKey);
+  if (error) throw error;
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  const dryRun = args.includes('--dry-run');
+  const modeArg = args.find((a) => a.startsWith('--mode='));
+  const mode = modeArg ? modeArg.slice('--mode='.length) : 'daily';
+  if (mode !== 'daily' && mode !== 'replies-waiting') {
+    console.error(
+      `community-mailer: unknown --mode "${mode}" (expected daily or replies-waiting).`,
+    );
+    return 1;
+  }
+
+  const supabase = serviceClient();
+  if (!supabase) {
+    console.log(
+      'community-mailer: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY unset — skipping (degraded, not a crash).',
+    );
+    return 0;
+  }
+
+  const leads = await fetchLeadsToMail(supabase, { mode });
+  if (leads.length === 0) {
+    console.log(
+      `community-mailer: no ${mode === 'replies-waiting' ? 'reply_to_us ' : ''}drafted leads to mail — nothing to send today.`,
+    );
+    return 0;
+  }
+
+  if (dryRun) {
+    console.log(
+      `community-mailer: [dry-run] would deliver ${leads.length} prompt(s) to Discord (mode=${mode}).`,
+    );
+    return 0;
+  }
+
+  const receipt = await getOrCreateReceipt(supabase, mode, leads);
+  if (receipt.suppressed) {
+    console.log(
+      `community-mailer: duplicate-send prevention held ${leads.length} prompt(s); receipt ${receipt.deliveryKey} is already delivered.`,
+    );
+    return 0;
+  }
+  if (receipt.existing) {
+    console.log(
+      `community-mailer: retrying receipt ${receipt.deliveryKey} (previous status=${receipt.existing.status}, ${receipt.existing.delivered_count} previously delivered) — only still-drafted leads are re-attempted.`,
+    );
+  }
+
+  const ackSecret = process.env.COMMUNITY_ACK_SECRET;
+  const prompts = leads.map((lead) => {
+    const postedUrl = ackSecret
+      ? buildAckUrl(ackSecret, {
+          leadId: lead.id,
+          action: 'posted',
+          linkIncluded: Boolean(lead.link_included),
+        })
+      : null;
+    const skipUrl = ackSecret ? buildAckUrl(ackSecret, { leadId: lead.id, action: 'skip' }) : null;
+    return { id: lead.id, content: buildCommunityPrompt(lead, { postedUrl, skipUrl }) };
+  });
+
+  const result = await postCommunityPrompts(prompts, {
+    onDelivered: (delivery) => markDiscordDelivered(supabase, [delivery]),
+  });
+
+  if (result.status === 'unconfigured') {
+    const diagnosis =
+      'DIAGNOSIS: DISCORD_SOCIAL_WEBHOOK is not configured. PROPOSED RESPONSE: set the repository secret DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL. VERIFIED DELIVERY STATE: 0/' +
+      leads.length +
+      ' delivered.';
+    await updateReceipt(supabase, receipt.deliveryKey, {
+      status: 'failed',
+      deliveredCount: 0,
+      discordMessages: [],
+      errorMessage: diagnosis,
+    });
+    console.error(`community-mailer: ${diagnosis}`);
+    return 1;
+  }
+
+  const undeliveredCount = leads.length - result.delivered.length;
+  const diagnosis =
+    undeliveredCount === 0
+      ? null
+      : `DIAGNOSIS: ${result.failed.length} prompt(s) failed to deliver (${result.failed.map((f) => `${f.leadId}: ${f.message}`).join('; ')}). PROPOSED RESPONSE: rerun community-mailer --mode=${mode}; already-delivered leads will not be resent. VERIFIED DELIVERY STATE: ${result.delivered.length}/${leads.length} delivered.`;
+
+  await updateReceipt(supabase, receipt.deliveryKey, {
+    status: undeliveredCount === 0 ? 'delivered' : 'failed',
+    deliveredCount: result.delivered.length,
+    discordMessages: result.delivered,
+    errorMessage: diagnosis,
+  });
+
+  console.log(
+    `community-mailer: delivered ${result.delivered.length}/${leads.length} prompt(s) to Discord (mode=${mode}); receipt=${receipt.deliveryKey}.`,
+  );
+  if (undeliveredCount > 0) {
+    console.error(`community-mailer: ${diagnosis}`);
+    return 1;
+  }
+  return 0;
+}
+
+if (
+  process.argv[1] &&
+  process.argv[1].split('\\').join('/').endsWith('scripts/community/mailer.mjs')
+) {
+  runMain(main, { name: 'community-mailer' });
+}

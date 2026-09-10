@@ -85,6 +85,11 @@ jobs:
           path: .backups/**
           if-no-files-found: warn
           retention-days: 90
+          # .backups is a dot-directory; upload-artifact silently skips
+          # hidden paths unless told otherwise (confirmed live on run
+          # 34056146853: the backup succeeded — 35 tables/8298 rows — but
+          # the artifact upload found zero files without this flag).
+          include-hidden-files: true
 
       # Same evolving-issue pattern as the other backup/drill workflows
       # (scripts/watchdog/upsert-alert.sh): one persistent issue per

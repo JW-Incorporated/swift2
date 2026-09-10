@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { buildBrief, extractField, extractOptions, fetchGrowthSnapshot, fetchQueueStatus, formatGrowthLine, todayLA, shortTitle, ghCriticalList } from './assemble-brief.mjs';
+import { buildBrief, extractField, extractOptions, fetchGrowthSnapshot, fetchQueueStatus, formatGrowthLine, todayLA, shortTitle, ghCriticalList, renderCommunityTasksLine } from './assemble-brief.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { GATES, parseGateTable as parseTable } from './gate-history.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -45,6 +45,7 @@ const emptyState = {
   // v3 additions (2026-08-23) — empty-but-present so buildBrief never sees
   // `undefined` where it expects an array/object.
   founderTasks: [], openActions: [], contentShipped: [], postedSince: [],
+  communityTasks: null,
   doneItems: {}, doneSeries: [],
 };
 
@@ -148,6 +149,27 @@ describe('formatGrowthLine', () => {
   it('reports scheduled and due counts separately — the ground truth a curation pass must copy, not invent', () => {
     const line = formatGrowthLine(null, { total: 3, scheduled: 2, due: 1, awaitingApproval: 0 });
     expect(line).toContain('queue: 2 scheduled to post, 1 due now');
+  });
+});
+
+describe('renderCommunityTasksLine', () => {
+  it('is null with no summary (query failed or Community Engine not configured yet)', () => {
+    expect(renderCommunityTasksLine(null)).toBeNull();
+  });
+
+  it('is null when there is genuinely nothing to point at (never a padding line)', () => {
+    expect(renderCommunityTasksLine({ draftedLast24h: 0, repliesWaiting: 0 })).toBeNull();
+  });
+
+  it('mentions the draft count and points at the Community Tasks email', () => {
+    const line = renderCommunityTasksLine({ draftedLast24h: 4, repliesWaiting: 0 });
+    expect(line).toBe('- Community tasks: 4 community drafts ready to paste — see today\'s Community Tasks email.');
+  });
+
+  it('adds a replies-waiting clause only when there are any', () => {
+    const line = renderCommunityTasksLine({ draftedLast24h: 1, repliesWaiting: 2 });
+    expect(line).toContain('1 community draft ready to paste');
+    expect(line).toContain('2 reply/replies waiting');
   });
 });
 

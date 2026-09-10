@@ -14,15 +14,17 @@
 // CONTENT.
 //
 // FAST LANE (added 2026-08-25, docs/decisions.md "Detection-triggered social
-// auto-post"; revised 2026-09-05 by the #3584 Fable ruling): alongside that
-// intake issue, FILE mode also stages a templated X-only social/queue/*.json
-// draft (lib/social-draft.mjs) — captions that only ever restate RSS
-// metadata (title/channel/URL), never a claim about content. There is no
-// Instagram sibling: this lane has no license-cleared photo to offer, and
-// the ruling skips Instagram entirely rather than ship a rehosted YouTube
-// thumbnail mislabeled as a "photo". The workflow's own git step commits it
-// via a PR; it posts live on schedule same as any other queue draft (no
-// approval gate, per that decision) once it clears the real content gate
+// auto-post"; revised 2026-09-10 to restore mandatory X+Instagram pairing,
+// kanban t_bac31b1a): alongside that intake issue, FILE mode also stages a
+// templated PAIRED X + Instagram social/queue/*.json draft (lib/social-
+// draft.mjs) — captions that only ever restate RSS metadata (title/channel/
+// URL), never a claim about content. The Instagram sibling carries a real
+// credited photo pulled from social/photo-library.json, the same rotation
+// every other campaign draws from — there is no single-platform exception
+// (the 2026-09-05 #3584 X-only carve-out was itself that exception and has
+// been removed). The workflow's own git step commits both files via a PR;
+// they post live on schedule same as any other queue draft (no approval
+// gate, per that decision) once they clear the real content gate
 // (check-drafts.mjs).
 //
 // Usage:
@@ -310,6 +312,21 @@ async function main() {
   const candidates = [];
   let totalEntries = 0;
 
+  // The fast lane's mandatory photo-backed Instagram sibling (2026-09-10,
+  // kanban t_bac31b1a) draws from the same credited inventory every other
+  // campaign uses. Read once per run; passed to every buildSocialDraftPair
+  // call below.
+  const photoLibrary = JSON.parse(readFileSync(join(root, 'social', 'photo-library.json'), 'utf8')).photos;
+  let postedHistory;
+  try {
+    const postedDir = join(root, 'social', 'posted');
+    postedHistory = readdirSync(postedDir)
+      .filter((f) => f.endsWith('.json'))
+      .map((f) => JSON.parse(readFileSync(join(postedDir, f), 'utf8')));
+  } catch {
+    postedHistory = []; // an unreadable/missing posted/ dir just means no history to weight against
+  }
+
   console.log(
     `appearance-discovery: ${FILE_MODE ? 'FILE mode' : 'DRY RUN (no gh calls)'} — ${CHANNELS.length} channels, window ${MAX_AGE_DAYS}d, cap ${MAX_PER_RUN}/run`,
   );
@@ -435,19 +452,19 @@ async function main() {
           console.error(`  FAILED to emit official_youtube event for ${c.videoId}: ${e.message}`);
         }
       }
-      // Fast lane (docs/decisions.md 2026-08-25, revised 2026-09-05 by the
-      // #3584 Fable ruling): stage an X-only social/queue/ draft alongside
-      // the intake issue. No Instagram sibling and no thumbnail fetch —
-      // this lane has no license-cleared photo to offer, and Instagram is
-      // skipped rather than shipped with a rehosted thumbnail mislabeled as
-      // a "photo" (see lib/social-draft.mjs's header for the full ruling).
-      // Never blocks or undoes the issue that already filed — a bad draft is
-      // loud, not fatal, same "loud beats quiet" posture as everything else
-      // in this script. The workflow's own git step (appearance-discovery.yml)
-      // commits whatever lands here via a PR; check-drafts.mjs is the real
-      // content gate before it can ever post.
+      // Fast lane (docs/decisions.md 2026-08-25, revised 2026-09-10 to
+      // restore mandatory pairing, kanban t_bac31b1a): stage a PAIRED
+      // X + Instagram social/queue/ draft alongside the intake issue. The
+      // Instagram sibling carries a real credited photo from
+      // social/photo-library.json — no single-platform exception (see
+      // lib/social-draft.mjs's header). Never blocks or undoes the issue
+      // that already filed — a bad draft is loud, not fatal, same "loud
+      // beats quiet" posture as everything else in this script. The
+      // workflow's own git step (appearance-discovery.yml) commits whatever
+      // lands here via a PR; check-drafts.mjs is the real content gate
+      // before it can ever post.
       try {
-        const { drafts } = buildSocialDraftPair(c);
+        const { drafts } = buildSocialDraftPair(c, { photoLibrary, postedHistory });
         for (const { filename, item } of drafts) {
           writeFileSync(
             join(root, 'social', 'queue', filename),
@@ -456,6 +473,33 @@ async function main() {
           );
           staged++;
           console.log(`  staged social/queue/${filename}`);
+        }
+        // Reserve this run's photo selection for the REST of this batch
+        // (2026-09-10, kanban t_bac31b1a — codex review): without this,
+        // every candidate in a multi-candidate FILE run receives the
+        // identical `postedHistory` and the deterministic
+        // least-used/longest-unseen selector picks the SAME first-ranked
+        // photo for every campaign, producing a repetitive batch that only
+        // warns (never blocks) on the queue-to-queue repeat check. Push a
+        // synthetic "just used" record — shaped like a real
+        // social/posted/*.json entry (photoId + media + postedAt) — into
+        // postedHistory immediately after staging, so the NEXT candidate in
+        // this same run's selectSocialPhoto call ranks this photo behind
+        // any still-unused alternative.
+        //
+        // ONE record per DRAFT, not per pair (codex review round 2, kanban
+        // t_bac31b1a): a real posted pair leaves TWO social/posted/*.json
+        // records for the same photo (one per platform) — selectSocialPhoto
+        // counts records via historyFor, so a single reservation would
+        // undercount this photo's use-count by one relative to a real
+        // posted pair, letting a later candidate in the same batch rank it
+        // ahead of a photo that's genuinely been used less.
+        if (drafts.length) {
+          const reservedAt = new Date(now).toISOString();
+          postedHistory = [
+            ...postedHistory,
+            ...drafts.map(({ item }) => ({ photoId: item.photoId, media: item.media, postedAt: reservedAt })),
+          ];
         }
       } catch (e) {
         draftFailures.push(`${c.videoId}: ${e.message}`);
@@ -467,7 +511,7 @@ async function main() {
     // filesystem, thumbnail network, or gh — buildSocialDraftPair is pure.
     for (const c of plan.toFile) {
       try {
-        const { drafts } = buildSocialDraftPair(c);
+        const { drafts } = buildSocialDraftPair(c, { photoLibrary, postedHistory });
         for (const { filename } of drafts) console.log(`  would stage social/queue/${filename}`);
       } catch (e) {
         console.log(`  would FAIL to stage a social draft for ${c.videoId}: ${e.message}`);

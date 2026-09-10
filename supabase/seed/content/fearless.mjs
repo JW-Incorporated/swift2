@@ -1058,7 +1058,16 @@ export default {
       moment: {
         context:
           'With 3.217 million copies sold in the United States throughout 2009, Fearless was the year\'s best-selling album in the country, making Taylor, then 20, the youngest artist and the only female country musician to have a best-selling album of a calendar year.\n\nIt also spent a total of 58 weeks in the Billboard 200\'s top 10 — a record for a country musician, and the only 2000s album to spend its first full year there.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' }],
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-edges-susan-boyle-for-2009s-top-selling-album-2-960801/',
+          },
+        ],
+        // Sourcing fix (2026-09-05, issue #3758): added independent Billboard
+        // confirmation of the 2009 top-selling-album claim (3,217,000 units) to
+        // meet the 2-source minimum for business-category items.
         // Photo-enrichment run 16 (2026-07-18, #762): added a CC BY 2.0 Commons
         // shot from the Fearless Tour's 2010 leg (WEZL, Apr. 30, 2010) —
         // license verified via the Commons API, URL verified HTTP 200 +
