@@ -99,7 +99,14 @@
 # ── Seed data: the authored source of truth for all Vault content. ──────────
 supabase/seed/
 
-# ── Social queue: drafted posts (per docs/decisions.md 2026-07-25). ─────────
+# ── Social queue: drafted posts. Stays on this path allowlist so a
+#    removal-only fold-back PR (the poster moving a draft to social/posted/)
+#    still auto-merges — but ADDING/CHANGING a draft here no longer actually
+#    auto-merges: the `enable` job's SOCIAL APPROVAL GATE declines any PR
+#    whose queue-file change is added/modified/renamed/copied/changed (per
+#    docs/decisions.md 2026-09-10, reversing the 2026-07-25 no-human-review
+#    decision this comment used to cite). A founder's PR merge is the
+#    approval step now. ─────────────────────────────────────────────────────
 social/queue/
 
 # ── Social poster state ledger (ADDED 2026-08-12 — docs/decisions.md, issue

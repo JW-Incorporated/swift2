@@ -93,6 +93,7 @@ import {
 } from './lib/queue.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
 import { mediaUrlsReachable } from './lib/preflight.mjs';
+import { getQueueFileProvenance } from './lib/git-provenance.mjs';
 import {
   OUTCOME,
   hasBlockingFailure,
@@ -521,11 +522,21 @@ export async function main() {
     try {
       const result = await postOne(item);
       const { result: facebook, error: facebookError } = await crosspostToFacebook(item);
+      // Provenance, not a gate (2026-09-10 approval-gate decision,
+      // docs/decisions.md): branch protection on `main` now guarantees every
+      // queue file was founder-approved via PR merge before it could ever
+      // reach post-queue.mjs, so this just records who/when for the audit
+      // trail — a lookup failure (see git-provenance.mjs) never blocks a post.
+      const provenance = await getQueueFileProvenance(path.posix.join('social', 'queue', entry.file), {
+        cwd: root,
+      });
       const posted = {
         ...item,
         postedAt: now.toISOString(),
         platformPostId: result.id,
         url: result.url,
+        approvedBy: provenance.approvedBy,
+        approvedAt: provenance.approvedAt,
         ...(facebook ? { facebookPostId: facebook.id, facebookUrl: facebook.url } : {}),
       };
       await writeFile(path.join(postedDir, entry.file), JSON.stringify(posted, null, 2) + '\n');

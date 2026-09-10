@@ -9,6 +9,97 @@ export function neutralizeMentions(text) {
     .replace(/<@&/g, '<@\u200b&');
 }
 
+function fenceTogglesIn(str) {
+  const matches = str.match(/```/g);
+  return matches ? matches.length : 0;
+}
+
+// Headroom for a fence marker `balanceFences` may need to add on either end
+// of a chunk \u2014 `'```\n'`/`'\n```'` are both 4 chars, so 8 covers the
+// worst case (a chunk that both reopens AND has to re-close a fence).
+const FENCE_MARKER_COST = 4;
+
+/**
+ * Given a run of raw chunks that may split a triple-backtick fence across a
+ * boundary, closes an open fence at the end of a chunk and reopens it at
+ * the start of the next so every chunk is independently valid Markdown.
+ * Safe to call on chunks produced by `chunkForDiscord`'s packer, which
+ * reserves `FENCE_MARKER_COST * 2` headroom on every chunk whenever the
+ * content contains any fence marker at all \u2014 see its comment for why a
+ * blanket reservation, not a per-chunk prediction, is what's actually safe.
+ */
+function balanceFences(chunks) {
+  const result = [];
+  let openFence = false;
+  for (const chunk of chunks) {
+    const prefix = openFence ? '```\n' : '';
+    let body = prefix + chunk;
+    let stateAfter = openFence;
+    const toggles = fenceTogglesIn(chunk);
+    for (let i = 0; i < toggles; i += 1) stateAfter = !stateAfter;
+    if (stateAfter) body += '\n```';
+    result.push(body);
+    openFence = stateAfter;
+  }
+  return result;
+}
+
+/**
+ * Splits `content` into Discord-postable chunks, each `<= limit` chars even
+ * after fence-balancing. Prefers paragraph (`\n\n`) boundaries; a single
+ * paragraph that alone exceeds the pack budget falls back to a hard split
+ * (rare path \u2014 most captions don't have a single >2000-char paragraph, so a
+ * plain word-boundary-aware cut, not full re-wrapping, is good enough here).
+ *
+ * Fence safety: rather than predicting exactly which chunk boundary will
+ * land inside an open fence (a per-chunk prediction that a round 1 review
+ * found could still overflow `limit` by a few characters \u2014 reserving only
+ * where a fence was PREDICTED open missed cases where packing multiple
+ * small paragraphs together left the fence open at the end of a chunk that
+ * was never separately budget-checked), this reserves `FENCE_MARKER_COST *
+ * 2` off every packing decision UP FRONT, for the whole call, whenever the
+ * content contains any triple-backtick fence at all. That is provably
+ * enough headroom for `balanceFences` to add both a reopening prefix and a
+ * closing suffix to any one chunk and still fit `limit` \u2014 simpler and
+ * always correct, at the cost of possibly one extra chunk in a rare
+ * long-fenced caption, which is a fine trade for a Discord message.
+ */
+export function chunkForDiscord(content, limit = DISCORD_MESSAGE_LIMIT) {
+  const text = String(content ?? '');
+  if (text.length <= limit) return [text];
+
+  const packLimit = text.includes('```') ? limit - FENCE_MARKER_COST * 2 : limit;
+
+  const paragraphs = text.split('\n\n');
+  const rawChunks = [];
+  let current = '';
+  for (const para of paragraphs) {
+    const candidate = current ? `${current}\n\n${para}` : para;
+    if (candidate.length <= packLimit) {
+      current = candidate;
+      continue;
+    }
+    if (current) rawChunks.push(current);
+    if (para.length <= packLimit) {
+      current = para;
+      continue;
+    }
+    // Hard-split fallback: word-boundary-aware where cheap (lastIndexOf a
+    // space within the budget), plain char-split otherwise.
+    let remaining = para;
+    while (remaining.length > packLimit) {
+      let cut = remaining.lastIndexOf(' ', packLimit);
+      if (cut <= 0) cut = packLimit;
+      rawChunks.push(remaining.slice(0, cut));
+      remaining = remaining.slice(cut).replace(/^ /, '');
+    }
+    current = remaining;
+  }
+  if (current) rawChunks.push(current);
+
+  return balanceFences(rawChunks);
+}
+
 /**
  * Builds a paste-ready Discord prompt for one lead. Unlike the earlier
  * revision, this never mints its own acknowledgement identifier — it takes

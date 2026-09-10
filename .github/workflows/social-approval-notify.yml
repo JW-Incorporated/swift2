@@ -1,0 +1,178 @@
+# social-approval-notify — prompts a founder in #longlive-social to approve
+# a pending social draft PR (2026-09-10 decision, docs/decisions.md:
+# "Social posting requires founder approval before publish", reversing
+# #2316/the 2026-07-25 no-human-review decision). Sends the FULL caption
+# body verbatim so a founder can decide from the prompt alone; merging the
+# PR is the approval, closing it is the rejection — auto-merge-content.yml's
+# SOCIAL APPROVAL GATE declines the PR itself, this workflow only notifies.
+#
+# `pull_request_target` (matches auto-merge-content.yml's posture, needed
+# for secret access) — same trusted-checkout discipline: this job checks out
+# the BASE ref (main) so the script that RUNS is ours, and reads the PR's
+# own changed files as raw bytes via the read-only Contents API, DATA ONLY,
+# never executing PR code or checking out PR head.
+#
+# Degrades to a clean no-op, not a failure, when
+# SOCIAL_APPROVAL_WEBHOOK_URL is unset — mirrors discord-delivery.mjs's
+# `{ status: 'unconfigured' }` contract (scripts/social/approval-prompt.mjs
+# calls straight through to it).
+name: social-approval-notify
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "social/queue/**"
+  schedule:
+    # Once-daily digest of drafts still pending approval. 18:07 UTC — off
+    # :00/:30 per this repo's cron-scheduling-contention convention (see
+    # watchdog.yml's header note) and not already used by any other
+    # workflow's cron (checked against every `cron:` in .github/workflows/).
+    - cron: "7 18 * * *"
+
+permissions:
+  pull-requests: read
+  contents: read
+
+concurrency:
+  group: social-approval-notify-${{ github.event.pull_request.number || 'digest' }}
+  cancel-in-progress: true
+
+jobs:
+  notify-new:
+    if: github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # BASE ref (main) — OUR trusted copy of approval-prompt.mjs runs here,
+      # never whatever the PR head contains.
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Build the pending-drafts manifest for this PR (data only, no PR code runs)
+        id: manifest
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+          SOURCE_ROUTINE: ${{ github.event.pull_request.user.login }}
+        run: |
+          set -euo pipefail
+
+          # Paginated REST enumeration + changedFiles cross-check, same
+          # fail-closed pattern as auto-merge-content.yml's own jobs.
+          META=$(gh api --paginate "repos/$REPO/pulls/$PR/files" \
+            --jq '.[] | [.status, .filename] | @tsv')
+          GOT_COUNT=$(printf '%s\n' "$META" | grep -c . || true)
+          WANT_COUNT=$(gh pr view "$PR" --repo "$REPO" --json changedFiles --jq '.changedFiles')
+          if [ "$GOT_COUNT" -ne "$WANT_COUNT" ]; then
+            echo "PR #$PR: paginated file enumeration returned $GOT_COUNT filename(s) but the PR reports $WANT_COUNT changed — skipping this run rather than notifying on a possibly-truncated file list." >&2
+            echo "has_drafts=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Same status set the enable-job SOCIAL APPROVAL GATE trips on —
+          # scripts/automerge-social-approval-gate.mjs's TRIPPING_STATUSES,
+          # not re-derived here so the two can't drift silently apart. This
+          # job DOES checkout + setup-node (unlike auto-merge-content.yml's
+          # `enable` job), so it calls the real script's CLI mode rather
+          # than re-deriving the logic in bash/`node -e`.
+          QUEUE_FILES=$(node scripts/automerge-social-approval-gate.mjs <<<"$META")
+
+          if [ -z "$QUEUE_FILES" ]; then
+            echo "PR #$PR has no social/queue/** additions/changes needing approval — nothing to notify."
+            echo "has_drafts=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "has_drafts=true" >> "$GITHUB_OUTPUT"
+
+          # Fetch each qualifying draft's PR-head bytes (data only) and turn
+          # it into the manifest approval-prompt.mjs expects.
+          echo "[" > /tmp/drafts.json
+          first=1
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            [ "$first" -eq 1 ] || echo "," >> /tmp/drafts.json
+            first=0
+            gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
+              | jq --arg routine "$SOURCE_ROUTINE" \
+                '{platform, body, scheduledAt, campaign, mediaCredit, media: (.media[0] // null), sourceRoutine: $routine}' \
+              >> /tmp/drafts.json
+          done <<<"$QUEUE_FILES"
+          echo "]" >> /tmp/drafts.json
+
+      - name: Send the approval prompt to #longlive-social
+        if: steps.manifest.outputs.has_drafts == 'true'
+        env:
+          SOCIAL_APPROVAL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+        run: |
+          node scripts/social/approval-prompt.mjs \
+            --pr "${{ github.event.pull_request.number }}" \
+            --pr-url "${{ github.event.pull_request.html_url }}" \
+            --manifest /tmp/drafts.json
+
+  digest:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Find every open PR still awaiting a social-draft approval
+        id: prs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # Only PRs targeting main, open, that touch social/queue/** — the
+          # same population auto-merge-content.yml's SOCIAL APPROVAL GATE
+          # declines. `gh pr list` alone can't filter by changed path, so
+          # each candidate's files are checked individually below.
+          OPEN=$(gh pr list --repo "$REPO" --base main --state open --json number,url,headRefOid --jq '.[] | [.number, .url, .headRefOid] | @tsv')
+          echo "$OPEN" > /tmp/open-prs.tsv
+          # `hashFiles()` only sees paths under GITHUB_WORKSPACE, not /tmp —
+          # a step output is what actually gates the next step correctly.
+          if [ -s /tmp/open-prs.tsv ]; then
+            echo "has_open=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_open=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Send a digest prompt for each still-pending PR
+        if: steps.prs.outputs.has_open == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SOCIAL_APPROVAL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+        run: |
+          set -euo pipefail
+          [ -s /tmp/open-prs.tsv ] || { echo "No open PRs against main — nothing to digest."; exit 0; }
+          while IFS="$(printf '\t')" read -r PR URL SHA; do
+            [ -z "$PR" ] && continue
+            META=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[] | [.status, .filename] | @tsv')
+            AUTHOR=$(gh pr view "$PR" --repo "$REPO" --json author --jq '.author.login')
+            QUEUE_FILES=$(node scripts/automerge-social-approval-gate.mjs <<<"$META")
+            [ -z "$QUEUE_FILES" ] && continue
+
+            echo "[" > /tmp/digest-drafts.json
+            first=1
+            while IFS= read -r f; do
+              [ -z "$f" ] && continue
+              [ "$first" -eq 1 ] || echo "," >> /tmp/digest-drafts.json
+              first=0
+              gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
+                | jq --arg routine "$AUTHOR" \
+                  '{platform, body, scheduledAt, campaign, mediaCredit, media: (.media[0] // null), sourceRoutine: $routine}' \
+                >> /tmp/digest-drafts.json
+            done <<<"$QUEUE_FILES"
+            echo "]" >> /tmp/digest-drafts.json
+
+            node scripts/social/approval-prompt.mjs --pr "$PR" --pr-url "$URL" --manifest /tmp/digest-drafts.json
+          done < /tmp/open-prs.tsv
