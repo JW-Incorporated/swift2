@@ -62,7 +62,7 @@ drifts).
 |---|---|---|---|---|
 | ~~Photo Enrichment worker~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | ~~`21 6 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 3), warm spare | `claude-sonnet-5` |
 | News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-news-triage.yml` | `claude-sonnet-5` — **T-3 trial live 2026-09-01 → 2026-09-15**, see § News Triage below |
-| News Triage recall check — T-3 trial audit | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `0 17 * * 2` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-news-triage-recall.yml` | `claude-opus-4-8` — 2-week trial instrument, disable after 2026-09-15 verdict |
+| News Triage recall check — T-3 trial audit | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `0 17 * * 2` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — **retired 2026-09-10**, `routine-news-triage-recall.yml` deleted (docs/decisions.md) | `claude-opus-4-8` — 2-week trial instrument, retired, see docs/decisions.md 2026-09-10 |
 | ~~Cross-Link builder~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01FxMuDtwScPFvSgvhFCxdfP` | ~~`51 9 * * 1,4`~~ | ⛔ disabled — superseded by The Vault Run (lane 5), warm spare | `claude-sonnet-5` |
 | ~~Stylist — shop-link sourcing & upkeep~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_011BiHZqLEVHAJ4chfaYfGZH` | ~~`33 16 * * 0`~~ | ⛔ disabled — superseded by The Vault Run (lane 6), warm spare | `claude-sonnet-5` |
 | ~~Rumor Desk — sourcing & lifecycle~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01GS6bcMsEQjXwmyxGr7S1js` | ~~`47 14 */2 * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 4), warm spare | `claude-opus-4-8` |
@@ -872,6 +872,12 @@ it against):
    `DONE`.
 
 ### News Triage recall check — trigger config (2-week trial, T-3)
+
+**RETIRED 2026-09-10** (see `docs/decisions.md`) — zero verified false
+negatives attributable to News Triage's own judgment across the 3 recall
+issues on record (#3628, #3661, #4027); `routine-news-triage-recall.yml` and
+`docs/agents/runner-prompts/news-triage-recall-check.md` are deleted. The
+config below is retained as historical record only.
 
 **Created 2026-09-01**, trigger ID `trig_01V8JrQPZfWpUqUWiy9fvmkh` (also
 recorded in the Live trigger IDs table above). Weekly Opus audit; see

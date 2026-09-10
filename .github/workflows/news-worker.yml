@@ -152,7 +152,8 @@ jobs:
           # actually see that day" the file is long gone. Archive a dated,
           # credential-free snapshot alongside the live file every run — a
           # new file each time, no SHA lookup needed, zero LLM, zero cost.
-          # Consumed by docs/agents/runner-prompts/news-triage-recall-check.md.
+          # Was consumed by docs/agents/runner-prompts/news-triage-recall-check.md,
+          # retired 2026-09-10 (docs/decisions.md) — no current consumer.
           #
           # Gated on a marker file (main branch, not news-digest) so this
           # does not silently run forever after the trial ends: the

@@ -7,6 +7,16 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-10 — Trial routine resolutions: Austin reverted, News Triage recall retired
+
+**Austin (model trial): reverted to `claude-fable-5`.** `routine-austin-build.yml`'s Actions run history showed 3 of 4 runs failing (75% failure rate, over the decision rule's 25% cap), root-caused to a missing `CLAUDE_CODE_OAUTH_TOKEN`/OIDC token fetch failure (`HUMAN-ACTIONS.md` item #49, BLOCKING) — an infra plumbing bug, not a quality problem with `claude-opus-4-8` itself. The decision rule's failure-rate condition is dispositive regardless of the merge-rate ambiguity, so the workflow's `model` input reverts to `claude-fable-5`. Austin is a re-trial candidate on `claude-opus-4-8` once HUMAN-ACTIONS #49 is fixed — this is not a permanent verdict on the model.
+
+**News Triage recall check: retired.** 3 recall-check issues exist on record (#3628, #3661, #4027), with zero verified false negatives attributable to News Triage's own judgment — the one gap on record (#4027) was caused by the same infra outage that hit Austin, not a real miss. Per the decision rule's bias-to-retire on ambiguous/null evidence, and per the routine's own header instruction to disable or delete it once the trial resolves, `routine-news-triage-recall.yml` and `docs/agents/runner-prompts/news-triage-recall-check.md` are deleted; references in `docs/agents/runners.md` and `docs/TIER2-OPTIMIZATION.md` updated to point here instead of the deleted files.
+
+**Approved by:** research pass on this track (evidence-based recommendations), implemented per instruction.
+
+---
+
 ## 2026-09-10 — Social posting requires founder approval before publish (reverses #2316)
 
 **Decision:** `social/queue/**.json` drafts may no longer reach `main` without a founder merging their PR. `auto-merge-content.yml` will decline auto-merge for any PR that adds, modifies, or renames a queue draft. Approval prompts are delivered to the `#longlive-social` Discord channel via the existing `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` secret, which already routes Reddit community prompts through the same channel (verified in `community-mailer.yml` and `scripts/community/discord-delivery.mjs`).
