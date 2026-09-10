@@ -21,6 +21,19 @@ export function validatePhotoEntry(entry) {
   }
   if (typeof entry.credit !== 'string' || entry.credit.trim() === '') findings.push('credit is required');
   if (!isHttpUrl(entry.source)) findings.push('source must be an http(s) URL');
+  // Fable ruling, kanban t_75ec7106 (2026-09-10, PR #4062 review round 2): a
+  // library entry carrying a blank/whitespace-only tags[] entry would let a
+  // caller-supplied blank requiredTags value in selectSocialPhoto's
+  // era-filtering ACCIDENTALLY match it — the fail-closed guarantee that fix
+  // depends on ("real photo tags are never blank") was an asserted, unchecked
+  // invariant. Enforcing it here, at the source, means it can never reach
+  // `eligible` in the first place, so selectSocialPhoto itself needs no
+  // defensive change.
+  if (entry.tags !== undefined) {
+    if (!Array.isArray(entry.tags) || entry.tags.some((tag) => typeof tag !== 'string' || tag.trim() === '')) {
+      findings.push('tags entries must be non-blank strings');
+    }
+  }
   return findings;
 }
 

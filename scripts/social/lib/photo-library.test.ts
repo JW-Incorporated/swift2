@@ -42,6 +42,17 @@ describe('photo-library', () => {
     expect(validatePhotoEntry({ ...library[0], source: 'not-a-url' })).toContain('source must be an http(s) URL');
   });
 
+  // Fable ruling, kanban t_75ec7106 (PR #4062 review round 2): closes the
+  // hole a blank tags[] entry would open in selectSocialPhoto's fail-closed
+  // era filtering (a caller-supplied blank requiredTags would otherwise
+  // accidentally match it).
+  it('rejects a blank/whitespace-only entry in tags[]', () => {
+    expect(validatePhotoEntry({ ...library[0], tags: [''] })).toContain('tags entries must be non-blank strings');
+    expect(validatePhotoEntry({ ...library[0], tags: ['lover', '   '] })).toContain('tags entries must be non-blank strings');
+    expect(validatePhotoEntry({ ...library[0], tags: ['lover', 'eras-tour'] })).toEqual([]);
+    expect(validatePhotoEntry({ ...library[0], tags: undefined })).toEqual([]);
+  });
+
   it('does not deadlock after all five sources have been used: it selects the least-recently-used credited photo', () => {
     const history = [
       { photoId: 'lover-minneapolis', postedAt: '2026-09-01T23:00:00Z' },
