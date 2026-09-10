@@ -26,6 +26,31 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 58. Confirm routine-vault-run holds up under real daily scheduling — ~2 min
+
+**Filed:** 2026-09-10
+
+**Why it matters:** `routine-vault-run` failed 4 consecutive daily runs
+(2026-09-06 → 09-10) by exhausting its 80-turn budget ~18 minutes into a
+90-minute window. PR #4085 raised the budget to 200 turns and made PR
+delivery incremental (opens after Lane 1, so a future turn-exhaustion loses
+only later lanes, not everything). A hand-triggered post-merge test already
+succeeded (29 min, real content, PRs #4088 + #4089) — but that was a manual
+dispatch, not the routine's real unattended daily cron.
+
+**Steps:**
+1. Open the Actions tab for `routine-vault-run` in `JW-Incorporated/swift2`.
+2. Confirm it fired on its own schedule (not manually triggered) and
+   completed green, opening a normal `vault/<date>` PR.
+
+**Worked if:** one un-triggered daily run completes green with real content.
+If it fails again, it's a different problem than the one #4085 fixed —
+don't assume the same root cause a second time.
+
+**Status:** OPEN
+
+---
+
 ### 57. Stale git worktrees — 259 registered, 73 hidden inside the Projects tree — ~30 min
 
 **Filed:** 2026-09-10
