@@ -44,7 +44,12 @@ const MODE_COPY = new Map<string, OgCardCopy>([
 
 const VALID_LENS_IDS = THREADS.map((t) => t.id);
 
-function copyForRequest(url: URL): OgCardCopy {
+function eraForId(id: string) {
+  const era = getEra(id);
+  return era.id === id ? era : undefined;
+}
+
+export function ogCopyForRequest(url: URL): OgCardCopy {
   const itemId = url.searchParams.get('item');
   if (itemId) {
     const item = getContentItem(itemId);
@@ -56,8 +61,9 @@ function copyForRequest(url: URL): OgCardCopy {
   const eraId = url.searchParams.get('era');
   if (eraId) {
     try {
-      const era = getEra(eraId);
-      return { kicker: era.yearLabel, title: era.name, subtitle: era.tagline };
+      const era = eraForId(eraId);
+      if (era) return { kicker: era.yearLabel, title: era.name, subtitle: era.tagline };
+      return DEFAULT_OG_COPY;
     } catch {
       return DEFAULT_OG_COPY;
     }
@@ -73,8 +79,9 @@ function copyForRequest(url: URL): OgCardCopy {
   const guide = url.searchParams.get('guide');
   if (guide) {
     try {
-      const era = getEra(guide);
-      return { kicker: `Track guide · ${era.yearLabel}`, title: era.album, subtitle: 'Every song, each with a sourced note.' };
+      const era = eraForId(guide);
+      if (era) return { kicker: `Track guide · ${era.yearLabel}`, title: era.album, subtitle: 'Every song, each with a sourced note.' };
+      return DEFAULT_OG_COPY;
     } catch {
       return DEFAULT_OG_COPY;
     }
@@ -82,8 +89,9 @@ function copyForRequest(url: URL): OgCardCopy {
   const theories = url.searchParams.get('theories');
   if (theories) {
     try {
-      const era = getEra(theories);
-      return { kicker: `Theories & eggs · ${era.yearLabel}`, title: `${era.shortName} decoded`, subtitle: 'Every egg and theory, sourced and graded.' };
+      const era = eraForId(theories);
+      if (era) return { kicker: `Theories & eggs · ${era.yearLabel}`, title: `${era.shortName} decoded`, subtitle: 'Every egg and theory, sourced and graded.' };
+      return DEFAULT_OG_COPY;
     } catch {
       return DEFAULT_OG_COPY;
     }
@@ -100,6 +108,6 @@ function copyForRequest(url: URL): OgCardCopy {
 }
 
 export function GET(req: NextRequest): Response {
-  const copy = copyForRequest(new URL(req.url));
+  const copy = ogCopyForRequest(new URL(req.url));
   return renderOgCard(copy);
 }

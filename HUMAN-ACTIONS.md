@@ -26,6 +26,32 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 52. [VERIFY] Share flow viewport check on public preview — ~2 min
+
+**Filed:** 2026-09-07
+
+**Why it matters:** first-tap sharing depends on the browser/operating-system
+share sheet, which automated checks cannot open. The task sandbox retried its
+browser harness after the recovery window and has no graphical browser, so it
+cannot provide the required mobile and desktop rendered evidence. The deployed
+Open Graph image was fetched and inspected: the valid item card is 1200×630,
+legible, and feature-specific; this check is only for the interactive share
+flow and viewport rendering.
+
+**Steps:** open
+`https://swift2-web-git-wt-tb025b476-wjduvall-cmds-projects.vercel.app/?item=vault-fearless-the-interrupted-speech`
+once on a phone and once on a desktop browser. Tap/click **Share** exactly once.
+On a Web Share-capable browser, the native destination picker should open with
+no Long Live preview/interstitial. On a browser without Web Share, verify the
+immediate fallback has a selectable link and direct share options.
+
+**Worked if:** one screenshot from each viewport shows the rendered page, and
+the result is recorded on Kanban task `t_b025b476` as pass/fail.
+
+**Status:** OPEN
+
+---
+
 ### 51. [BLOCKING] URGENT — restore the Claude OAuth token secret: every migrated GitHub Actions routine has been inert since the 09-06 migration — ~10 min
 
 **Filed:** 2026-09-09
@@ -177,6 +203,9 @@ saved — verified 2026-09-07) sees the website inside the app after
 updating from the Play Store.
 
 **Status:** OPEN
+
+---
+
 ### 47. [BLOCKING] URGENT — disable 15 original claude.ai routines now duplicated by the GitHub Actions migration — ~15-20 min
 
 **Filed:** 2026-09-06
