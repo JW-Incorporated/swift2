@@ -144,8 +144,8 @@ describe('buildSocialDraftPair', () => {
   // leading with the bare quoted title, a 6+ word title made the X and its
   // own Instagram sibling share an identical first-6-word window, tripping
   // checkOpeners against each other (it compares across the whole queue,
-  // not just same-platform). The Instagram template's 2-word marker prefix
-  // ("just landed:"/"just dropped:") guarantees the two can never match.
+  // not just same-platform). The Instagram template's single-word marker
+  // prefix ("landed:"/"dropped:") guarantees the two can never match.
   it('does not collide on the opener rule between the X and Instagram SIBLINGS of the same video, even with a long title', () => {
     const longTitle = 'Taylor Swift Performs Fortnight Live At The VMAs Tonight';
     const { drafts } = build(candidate({ title: longTitle }), { now: NOW });
@@ -153,6 +153,19 @@ describe('buildSocialDraftPair', () => {
     const ig = findIg({ drafts });
     expect(checkOpeners(ig.filename, ig.item, [{ file: x.filename, body: x.item.body }])).toEqual([]);
     expect(checkOpeners(x.filename, x.item, [{ file: ig.filename, body: ig.item.body }])).toEqual([]);
+  });
+
+  // Regression (codex review round 3, kanban t_bac31b1a): a two-word marker
+  // ("just landed:") only needed the first 4 TITLE words to match for two
+  // DIFFERENT official uploads' Instagram captions to collide on the opener
+  // rule — a materially bigger regression than X's own accepted 6-word bar.
+  // The final single-word marker needs 5 matching title words, the smallest
+  // possible reduction from X's bar. Reproduces codex's exact counter-
+  // example: titles sharing their first 4 words, differing at the 5th.
+  it('does not collide on the opener rule for two different official uploads whose titles share their first 4 words (codex round 3 repro)', () => {
+    const a = findIg(build(candidate({ videoId: 'aaaaaaaaaaa', title: 'Taylor Swift Performs Fortnight Live At The VMAs Tonight', rule: 'all-uploads' }), { now: NOW }));
+    const b = findIg(build(candidate({ videoId: 'bbbbbbbbbbb', title: 'Taylor Swift Performs Fortnight Acoustic In London', rule: 'all-uploads' }), { now: NOW }));
+    expect(checkOpeners(b.filename, b.item, [{ file: a.filename, body: a.item.body }])).toEqual([]);
   });
 
   it('never opens with the banned "did you know" formula on either platform', () => {

@@ -100,29 +100,34 @@ function xBodyTemplate(title, channel, url, isOfficial) {
  * lane. Restates the same sourced facts (title/channel/official-ness) as
  * the X body, never a claim about the video's content.
  *
- * Leads with a short fixed 2-word marker before the video's own quoted
- * TITLE, for two independent reasons tied to check-drafts.mjs's opener rule
- * (fails a draft whose first 6 words match any other post from the last 14
- * days OR any other current queue item):
- *   1. Title-first (like the X body) keeps two different videos' IG
+ * Leads with a single fixed marker WORD before the video's own quoted
+ * TITLE — exactly one word, chosen deliberately to consume the smallest
+ * possible slice of check-drafts.mjs's opener-rule word budget (first 6
+ * words; a draft whose first 6 words match any other post from the last 14
+ * days OR any other current queue item fails):
+ *   1. Title-first (like the X body) keeps two different videos' Instagram
  *      captions from colliding with EACH OTHER — an earlier version opened
- *      every OFFICIAL-upload caption with the same fixed phrase ("taylor
- *      just dropped something new on..."), which collided the instant two
- *      official uploads landed within the lookback window (codex review
- *      round 1, kanban t_bac31b1a).
- *   2. The 2-word marker offsets the IG body's leading words from the X
- *      sibling's — the X body starts with the bare quoted title, so an
- *      earlier IG template that ALSO started with the bare quoted title
- *      shared an identical first-6-word window with its own X sibling the
- *      moment the title ran 6+ words, tripping the SAME opener rule against
- *      the paired sibling itself (codex review round 2, kanban t_bac31b1a).
- *      The marker guarantees the two siblings' openers can never match
- *      verbatim while still leading with the distinguishing title text.
+ *      every OFFICIAL-upload caption with the same longer fixed phrase
+ *      ("taylor just dropped something new on..."), which collided the
+ *      instant two official uploads landed within the lookback window
+ *      (codex review round 1, kanban t_bac31b1a).
+ *   2. The single marker word guarantees the Instagram opener's first word
+ *      can never equal the X sibling's first word (the X body starts
+ *      directly with the bare quoted title, no marker) — so the two
+ *      siblings' first-6-word windows can never match verbatim, closing the
+ *      collision an earlier bare-title-first IG template had against its
+ *      OWN X sibling once a title ran 6+ words (codex review round 2).
+ *   3. A single-word marker costs the LEAST possible cross-video safety
+ *      margin versus X's own accepted design: X requires 6 identical
+ *      leading title words to collide with another X post; this needs 5
+ *      (one slot spent on the marker) — a two-word marker (an earlier
+ *      version of this fix) needed only 4, a materially bigger regression
+ *      flagged and rejected in codex review round 3.
  */
 function igBodyTemplate(title, channel, isOfficial) {
   return isOfficial
-    ? `just landed: "${title}" — no caption from her yet, but we're not waiting to talk about it. link's in the profile.`
-    : `just dropped: "${title}" on ${channel}, and taylor's name is all over it. haven't watched all the way through yet, but you know we had to tell you the second it dropped.`;
+    ? `landed: "${title}" — no caption from her yet, but we're not waiting to talk about it. link's in the profile.`
+    : `dropped: "${title}" on ${channel}, and taylor's name is all over it. haven't watched all the way through yet, but you know we had to tell you the second it dropped.`;
 }
 
 /** Trims `title` to fit whatever's left of X's weighted budget after the
