@@ -6,10 +6,12 @@ import {
   eraVideoFeed as eraVideoFeedRaw,
   isAppearance,
   isPlayable,
+  isWatchable,
   musicVideosForEra as musicVideosForEraRaw,
   videosForEra as videosForEraRaw,
   VIDEO_KIND_LABEL,
   type PlayableVideoNote,
+  type WatchableVideoNote,
 } from '@swift2/content-enrichment';
 import { VIDEOS_RAW } from './videos-bundle.generated';
 
@@ -40,9 +42,10 @@ import { VIDEOS_RAW } from './videos-bundle.generated';
  */
 
 export type { PlayableVideoNote };
-export { isPlayable, VIDEO_KIND_LABEL, APPEARANCE_KINDS, isAppearance };
+export { isPlayable, VIDEO_KIND_LABEL, APPEARANCE_KINDS, isAppearance, isWatchable };
+export type { WatchableVideoNote };
 
-export function videosForEra(eraId: EraId): PlayableVideoNote[] {
+export function videosForEra(eraId: EraId): WatchableVideoNote[] {
   return videosForEraRaw(VIDEOS_RAW[eraId] ?? []);
 }
 
@@ -73,7 +76,7 @@ export function musicVideosForEra(eraId: EraId): (PlayableVideoNote & { released
 export function eraVideoFeed(
   eraId: EraId,
   embeddedYoutubeIds: ReadonlySet<string> = new Set(),
-): PlayableVideoNote[] {
+): WatchableVideoNote[] {
   return eraVideoFeedRaw(VIDEOS_RAW[eraId] ?? [], embeddedYoutubeIds);
 }
 

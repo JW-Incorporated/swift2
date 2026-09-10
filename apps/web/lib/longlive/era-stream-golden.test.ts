@@ -14,7 +14,7 @@ import {
 } from '@swift2/experience';
 import './theories'; // side effect: wires the real generated THEORIES_RAW into @swift2/experience
 import { contentForEra } from './content';
-import { eraVideoFeed, type PlayableVideoNote } from './videos';
+import { eraVideoFeed, type WatchableVideoNote } from './videos';
 import { embeddedYoutubeIds } from '@swift2/experience';
 
 /**
@@ -43,7 +43,7 @@ describe('OS-032 golden view-model: native pipeline matches web section order', 
 
     const items = contentForEra(era.id);
     const embeddedVideoIds = embeddedYoutubeIds(items);
-    const videoFeed: PlayableVideoNote[] = eraVideoFeed(era.id, embeddedVideoIds);
+    const videoFeed: WatchableVideoNote[] = eraVideoFeed(era.id, embeddedVideoIds);
     const doorwayEntries = [
       ...threadDoorwaysForEra(era.id, era.start, era.end),
       ...eggDoorwaysForEra(era.id, era.start, era.end),

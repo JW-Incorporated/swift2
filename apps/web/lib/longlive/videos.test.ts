@@ -3,6 +3,7 @@ import {
   videosForEra,
   allVideoRecordsForEra,
   isPlayable,
+  isWatchable,
   musicVideosForEra,
   eraVideoFeed,
   isAppearance,
@@ -123,39 +124,45 @@ describe('playable-first: every rendered video card plays (Joey, 2026-08-13)', (
   // stronger "nothing is rendered unless it plays" — records without a verified
   // embed are hidden, not shown as an unavailable state and not deleted.
   // See docs/decisions.md, "Playable-first timeline".
+  //
+  // #3476 (2026-09-10) widened "plays" to "plays in-app OR has a verified
+  // watch-link pair" — see the "#3476 guardrail" describe block below for
+  // the current, wider invariant. These three tests were narrowed to the
+  // still-embed-only surfaces (`musicVideosForEra`, and `eraVideoFeed`'s own
+  // embed subset) so they keep testing what they always tested — the
+  // dated-timeline merge and the raw embed-id contract — without asserting
+  // the now-superseded "no watch-link cards ever" invariant.
 
-  it('gives every record on every reader-facing surface a real embed id', () => {
+  it('gives every music-video-timeline record a real embed id (musicVideosForEra stays embed-only)', () => {
     for (const eraId of ALL_ERA_IDS) {
-      for (const v of videosForEra(eraId)) {
+      for (const v of musicVideosForEra(eraId)) {
         expect(v.youtubeId, `${v.slug} would render without an embed`).toBeTruthy();
       }
-      // The two derived surfaces inherit it rather than re-deciding.
-      for (const v of eraVideoFeed(eraId)) expect(v.youtubeId).toBeTruthy();
-      for (const v of musicVideosForEra(eraId)) expect(v.youtubeId).toBeTruthy();
     }
   });
 
-  it('hides an unplayable record rather than deleting it — the seed still holds it', () => {
+  it('shows a link-out card, not deletion, for a record with a verified watch link and no embed', () => {
     // The Eras Tour film is the clearest case: a real, important, well-sourced
-    // record whose work exists only in cinemas and on Disney+. It must not
-    // render (nothing to play) and must not be lost (the research stands).
-    expect(videosForEra('midnights').map((v) => v.slug)).not.toContain(
-      'taylor-swift-the-eras-tour-film',
-    );
-    expect(allVideoRecordsForEra('midnights').map((v) => v.slug)).toContain(
-      'taylor-swift-the-eras-tour-film',
-    );
+    // record whose work exists only in cinemas and on Disney+. Since #3476 it
+    // renders as a "Watch on Disney+" link-out card rather than hiding.
+    const eraFilmSlug = 'taylor-swift-the-eras-tour-film';
+    expect(allVideoRecordsForEra('midnights').map((v) => v.slug)).toContain(eraFilmSlug);
+    const v = videosForEra('midnights').find((x) => x.slug === eraFilmSlug);
+    expect(v, `${eraFilmSlug} should now be watchable via a link-out card`).toBeTruthy();
+    expect(v?.youtubeId).toBeNull();
+    expect(v?.watchUrl).toBeTruthy();
+    expect(v?.platform).toBeTruthy();
   });
 
-  it('hides exactly the records with no embed, and no others', () => {
+  it('hides exactly the records with neither an embed nor a complete watch-link pair, and no others', () => {
     for (const eraId of ALL_ERA_IDS) {
       const hidden = allVideoRecordsForEra(eraId)
         .filter((v) => !videosForEra(eraId).some((p) => p.slug === v.slug))
         .map((v) => v.slug);
-      const unplayable = allVideoRecordsForEra(eraId)
-        .filter((v) => !v.youtubeId)
+      const unwatchable = allVideoRecordsForEra(eraId)
+        .filter((v) => !v.youtubeId && !(typeof v.watchUrl === 'string' && typeof v.platform === 'string'))
         .map((v) => v.slug);
-      expect(hidden).toEqual(unplayable);
+      expect(hidden).toEqual(unwatchable);
     }
   });
 
@@ -326,6 +333,85 @@ describe('allVideoRecordsForEra reads the published bundle (byte-identical to VI
     const { VIDEOS_RAW } = await import('./videos.generated');
     for (const eraId of ALL_ERA_IDS) {
       expect(allVideoRecordsForEra(eraId)).toEqual(VIDEOS_RAW[eraId] ?? []);
+    }
+  });
+});
+
+// #3476 guardrail: every record `eraVideoFeed`/`videosForEra` ever renders
+// must carry either a verified embed or a complete watchUrl+platform pair —
+// never neither (a card with nothing to actually watch) and never a lone
+// watchUrl/platform half. The malformed-input case (a raw record with only
+// one of watchUrl/platform set) is unit-tested directly at the normalization
+// boundary in scripts/sync-longlive-videos.test.ts ("normalizeVideo —
+// watchUrl/platform (#3476)" — "drops a lone watchUrl with no platform
+// label", "drops a lone platform label with no watchUrl"), which proves
+// normalizeVideo degrades a mismatched pair to null/null before it ever
+// reaches this module. The tests below guard the same invariant from the
+// READ side, over the real generated corpus, so a future authored-but-
+// unlinkable record fails CI instead of silently vanishing the way the
+// original 8 records did before #3476, or silently rendering a broken
+// link-out card after it.
+describe('#3476 guardrail — every watchable record has an embed or a complete watch-link pair', () => {
+  it('never emits a record with a lone watchUrl or a lone platform', () => {
+    for (const eraId of ALL_ERA_IDS) {
+      for (const v of videosForEra(eraId)) {
+        const hasWatchUrl = typeof v.watchUrl === 'string';
+        const hasPlatform = typeof v.platform === 'string';
+        expect(hasWatchUrl).toBe(hasPlatform);
+      }
+    }
+  });
+
+  it('every isWatchable record has an embed or a complete watch-link pair', () => {
+    for (const eraId of ALL_ERA_IDS) {
+      for (const v of allVideoRecordsForEra(eraId)) {
+        if (!isWatchable(v)) continue;
+        const watchable = isPlayable(v) || (typeof v.watchUrl === 'string' && typeof v.platform === 'string');
+        expect(watchable).toBe(true);
+      }
+    }
+  });
+
+  it('surfaces the 8 tour-film/documentary records #3476 was filed for, with a link-out for the ones with a live watch destination today', () => {
+    // Netflix (miss-americana) and Disney+ (taylor-swift-the-eras-tour-film)
+    // are live and verified; retailer DVD/Blu-ray pages (journey-to-fearless,
+    // speak-now-world-tour-live) are live too, so those 4 now watch-link out.
+    // city-of-lover was initially cited against a stale disneyplus.com URL
+    // (still resolving from an old crawl) that a cross-provider review
+    // caught — JustWatch confirms it has no live streaming destination today
+    // (last on Hulu/Disney+ in a May 2020 limited window), so it correctly
+    // joins the still-hidden group below rather than shipping a broken link.
+    // reputation-stadium-tour-film (Netflix, removed 2023-12-30),
+    // the-1989-world-tour-live-film (Apple Music, removed 2020-05-22),
+    // the-official-release-party-of-a-showgirl (one-weekend theatrical only,
+    // no announced streaming release), and city-of-lover (Hulu/Disney+
+    // limited-time window closed, JustWatch confirms no live destination
+    // today) have no live official watch destination today, so they
+    // correctly stay hidden — #3476 widens the rule, it does not fabricate
+    // availability that doesn't exist.
+    const linkedOut: [EraId, string][] = [
+      ['lover', 'miss-americana'],
+      ['midnights', 'taylor-swift-the-eras-tour-film'],
+      ['fearless', 'journey-to-fearless'],
+      ['speak-now', 'speak-now-world-tour-live'],
+    ];
+    for (const [eraId, slug] of linkedOut) {
+      const v = videosForEra(eraId).find((x) => x.slug === slug);
+      expect(v, `${slug} should be watchable via a link-out card`).toBeTruthy();
+      expect(v?.youtubeId).toBeNull();
+      expect(typeof v?.watchUrl).toBe('string');
+      expect(typeof v?.platform).toBe('string');
+    }
+
+    const stillHidden: [EraId, string][] = [
+      ['reputation', 'reputation-stadium-tour-film'],
+      ['1989', 'the-1989-world-tour-live-film'],
+      ['tloas', 'the-official-release-party-of-a-showgirl'],
+      ['lover', 'city-of-lover'],
+    ];
+    for (const [eraId, slug] of stillHidden) {
+      const v = videosForEra(eraId).find((x) => x.slug === slug);
+      expect(v, `${slug} has no live watch destination and should stay hidden`).toBeUndefined();
     }
   });
 });

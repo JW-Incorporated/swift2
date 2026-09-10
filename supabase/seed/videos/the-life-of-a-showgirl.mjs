@@ -235,10 +235,14 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is a theatrical event release.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // The one-weekend theatrical run ended 2025-10-05 with no announced
+      // streaming/digital release confirmed as of this writing (#3476
+      // follow-up research, 2026-09-10) — unlike most of the records this
+      // card unlocks, there is currently no live, verifiable watch
+      // destination to cite, so this record stays hidden under the widened
+      // isWatchable rule exactly as it was under the old isPlayable-only
+      // rule. Re-add a `watchUrl` + `platform` pair here the moment a real
+      // streaming/digital release is confirmed.
       officialUrl: null,
       media: [],
       sources: [

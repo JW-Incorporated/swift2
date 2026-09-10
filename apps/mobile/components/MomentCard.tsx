@@ -14,7 +14,7 @@
 // device, without claiming a play/detail affordance this card doesn't ship.
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { CardTier, ContentItem, RenderFeedEntry } from '@swift2/experience';
-import type { PlayableVideoNote } from '@swift2/content-enrichment';
+import type { WatchableVideoNote } from '@swift2/content-enrichment';
 import { eraColors } from '../lib/theme';
 
 const TIER_IMAGE_HEIGHT: Record<CardTier, number> = {
@@ -68,7 +68,7 @@ export function MomentCard({
 }
 
 /** A placeholder row for the feed kinds this card doesn't render yet (video/thread/egg/current) — see this file's header doc. Keeps `EraFeedList`'s full section order visible on device without a play/detail affordance those kinds don't have here. */
-export function PlaceholderFeedRow({ entry }: { entry: Exclude<RenderFeedEntry<PlayableVideoNote>, { kind: 'moment' }> }) {
+export function PlaceholderFeedRow({ entry }: { entry: Exclude<RenderFeedEntry<WatchableVideoNote>, { kind: 'moment' }> }) {
   const label =
     entry.kind === 'video'
       ? entry.video.title

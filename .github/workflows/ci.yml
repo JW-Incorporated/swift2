@@ -60,12 +60,12 @@ jobs:
       (github.event_name != 'pull_request' || needs.changes.outputs.non_content == 'true')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
         with:
-          node-version: 24
+          npm-ci: 'true'
           cache: npm
-      - run: npm ci
       # OS-014 (2026-09-05): apps/web/lib/longlive/*.generated.ts are no
       # longer committed (gitignored, build-time-only — see .gitignore and
       # docs/longlive-experience.md §9), so a fresh checkout has none of
@@ -73,7 +73,8 @@ jobs:
       # them once, up front, before anything that needs them runs. This is
       # the same `npm run sync:content` a local `npm run build` gets for
       # free via apps/web's own `prebuild` — CI needs it explicit because
-      # typecheck/test run before `build` does.
+      # typecheck/test run before `build` does. (npm ci itself is already
+      # covered by setup-repo's npm-ci: 'true' above.)
       - run: npm run sync:content
       - run: npm run typecheck
       - run: npm run lint

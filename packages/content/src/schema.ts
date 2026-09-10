@@ -405,6 +405,8 @@ export const videoNoteSchema = z.object({
   easterEggs: z.array(z.string()),
   symbolism: z.string().nullable(),
   youtubeId: z.string().nullable(),
+  watchUrl: z.string().nullable().optional(),
+  platform: z.string().nullable().optional(),
   sources: z.array(eggSourceSchema),
   tags: z.array(contentTagSchema).optional(),
 });
