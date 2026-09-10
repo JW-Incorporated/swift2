@@ -165,12 +165,14 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is a live CD/DVD release.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // Add a `watchUrl`/`platform` pair (#3476) so this stays reachable via
+      // the Videos filter as a link-out card even without an embed — the
+      // retailer's official DVD product page, per the card's own scope for a
+      // physical-media-only release.
       officialUrl: null,
       media: [],
+      watchUrl: 'https://www.amazon.com/Speak-Now-World-Tour-Live/dp/B005OLF6BI',
+      platform: 'Amazon (DVD)',
       sources: [
         wiki('Speak_Now_World_Tour', 'Speak Now World Tour', 'the live album/film is documented in the tour article'),
         press(

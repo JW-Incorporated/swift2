@@ -197,12 +197,14 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is an Epix TV special / DVD release.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // Add a `watchUrl`/`platform` pair (#3476) so this stays reachable via
+      // the Videos filter as a link-out card even without an embed — the
+      // retailer's official Blu-ray/DVD product page, per the card's own
+      // scope for a physical-media-only release.
       officialUrl: null,
       media: [],
+      watchUrl: 'https://www.amazon.com/Taylor-Swift-Journey-Fearless-Blu-ray/dp/B005KQVD8W',
+      platform: 'Amazon (Blu-ray/DVD)',
       sources: [
         wiki('Journey_to_Fearless', 'Journey to Fearless'),
         press(

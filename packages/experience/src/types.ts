@@ -927,6 +927,15 @@ export interface VideoNote {
   /** YouTube ID of the official upload (extracted from the seed's verified
    * officialUrl/oEmbed media), or null when there is no official embed. */
   youtubeId: string | null;
+  /** Where to watch a work carrying no YouTube embed (#3476) — a canonical
+   * official watch page (Netflix, Disney+, Apple Music, an AMC/theatrical
+   * listing, a retailer's official DVD/Blu-ray page). Always set together
+   * with `platform`, or both null — see `isWatchable` in
+   * `@swift2/content-enrichment`. */
+  watchUrl?: string | null;
+  /** The service `watchUrl` points at, rendered as the "Watch on {platform}"
+   * label. Null/absent exactly when `watchUrl` is. */
+  platform?: string | null;
   /** Citations backing the record. Reuses the EggSource shape; never empty. */
   sources: EggSource[];
   /** Authored topic tags — ONLY where the record's own kind/title/

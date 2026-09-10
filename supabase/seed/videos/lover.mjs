@@ -146,12 +146,12 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is a Netflix original.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // Add a `watchUrl`/`platform` pair (#3476) so this stays reachable via
+      // the Videos filter as a link-out card even without an embed.
       officialUrl: null,
       media: [],
+      watchUrl: 'https://www.netflix.com/title/81028336',
+      platform: 'Netflix',
       sources: [
         wiki('Miss_Americana', 'Miss Americana'),
         press(
@@ -175,12 +175,12 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is an ABC special, then Disney+.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // Add a `watchUrl`/`platform` pair (#3476) so this stays reachable via
+      // the Videos filter as a link-out card even without an embed.
       officialUrl: null,
       media: [],
+      watchUrl: 'https://www.disneyplus.com/movies/taylor-swift-city-of-lover-concert/5Ad4iEPUZiy0',
+      platform: 'Disney+',
       sources: [
         wiki('Taylor_Swift_City_of_Lover_Concert', 'Taylor Swift City of Lover Concert'),
         press(
