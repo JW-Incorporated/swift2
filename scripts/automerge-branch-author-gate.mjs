@@ -59,6 +59,7 @@ export const CONTENT_LANE_BRANCH_PREFIXES = [
   'merch-revenue/', // .github/workflows/merch-revenue.yml (weekly generated report PRs)
   'merch-official-sync/', // .github/workflows/merch-official-sync.yml's `author` job (E4 catalog + store-drop social draft PRs)
   'merch-audit-authoring/', // .github/workflows/merch-audit-authoring.yml's demotion-apply step (E3 mismatch removal, issue #3447 P2)
+  'claude/pensive-galileo-', // Photo Enrichment worker (docs/agents/runner-prompts/photo-enrichment-worker.md) opens PRs on claude.ai/code, which names its branch `claude/<adjective-name>-<id>`; every real PR from this routine (#3343, #3384, #3405, #3420, #3466, #3579, confirmed via `gh pr list --search "head:claude/pensive-galileo"` 2026-09-05) used the exact `claude/pensive-galileo-<id>` shape. Using the narrower `claude/pensive-galileo-` prefix instead of the bare `claude/` prefix the task also allowed, because `claude/` alone would match ANY claude.ai/code branch name (including this very gate-fix's own worktree branch naming family) and is unverifiably broad; this prefix is exactly what real history proves.
 ];
 
 /**
@@ -109,4 +110,42 @@ export function evaluateBranchAuthorGate({ branch, author }) {
     reasons.push(`author \`${author}\` is not a known content-lane identity`);
   }
   return { ok: reasons.length === 0, reasons };
+}
+
+// ── CLI (added for auto-merge-keepup.yml, t_21a0cd6f) ──────────────────────
+// The `enable` job's own copy of this gate is mirrored bash (a workflow step
+// can't `import` an ESM module), which is exactly why the sibling test file
+// asserts the two stay in sync. A SECOND workflow (auto-merge-keepup.yml)
+// that pro-actively refreshes stale content-lane branches needs the same
+// WHO/WHERE-FROM judgement, and shelling out to `node` here beats maintaining
+// a THIRD hand-copied bash mirror of this list. Usage:
+//   node scripts/automerge-branch-author-gate.mjs --branch <ref> --author <login>
+// Exit 0 = passes the gate; exit 1 = does not (reasons on stderr); exit 2 =
+// missing/invalid arguments (the check itself couldn't run).
+function parseArg(argv, name) {
+  const i = argv.indexOf(name);
+  return i === -1 ? undefined : argv[i + 1];
+}
+
+function cliMain() {
+  const argv = process.argv.slice(2);
+  const branch = parseArg(argv, '--branch');
+  const author = parseArg(argv, '--author');
+  if (branch === undefined || author === undefined) {
+    console.error('usage: automerge-branch-author-gate.mjs --branch <ref> --author <login>');
+    return 2;
+  }
+  const { ok, reasons } = evaluateBranchAuthorGate({ branch, author });
+  if (!ok) {
+    for (const r of reasons) console.error(`  • ${r}`);
+    return 1;
+  }
+  console.log(`ok: branch \`${branch}\` / author \`${author}\` pass the content-lane gate`);
+  return 0;
+}
+
+const invokedDirectly =
+  process.argv[1] && process.argv[1].split('\\').join('/').endsWith('scripts/automerge-branch-author-gate.mjs');
+if (invokedDirectly) {
+  import('./lib/cli.mjs').then(({ runMain }) => runMain(cliMain, { name: 'automerge-branch-author-gate' }));
 }

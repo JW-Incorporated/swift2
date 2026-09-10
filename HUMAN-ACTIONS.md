@@ -26,6 +26,410 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 52. [VERIFY] Share flow viewport check on public preview — ~2 min
+
+**Filed:** 2026-09-07
+
+**Why it matters:** first-tap sharing depends on the browser/operating-system
+share sheet, which automated checks cannot open. The task sandbox retried its
+browser harness after the recovery window and has no graphical browser, so it
+cannot provide the required mobile and desktop rendered evidence. The deployed
+Open Graph image was fetched and inspected: the valid item card is 1200×630,
+legible, and feature-specific; this check is only for the interactive share
+flow and viewport rendering.
+
+**Steps:** open
+`https://swift2-web-git-wt-tb025b476-wjduvall-cmds-projects.vercel.app/?item=vault-fearless-the-interrupted-speech`
+once on a phone and once on a desktop browser. Tap/click **Share** exactly once.
+On a Web Share-capable browser, the native destination picker should open with
+no Long Live preview/interstitial. On a browser without Web Share, verify the
+immediate fallback has a selectable link and direct share options.
+
+**Worked if:** one screenshot from each viewport shows the rendered page, and
+the result is recorded on Kanban task `t_b025b476` as pass/fail.
+
+**Status:** OPEN
+
+---
+
+### 51. [BLOCKING] URGENT — restore the Claude OAuth token secret: every migrated GitHub Actions routine has been inert since the 09-06 migration — ~10 min
+
+**Filed:** 2026-09-09
+
+**Why it matters:** despite item #43 being marked DONE ("secret stored &
+confirmed"), the `CLAUDE_CODE_OAUTH_TOKEN` repository secret is absent/empty
+at run time, so the guard in `.github/workflows/routine-template.yml`
+(`if [ -z "secrets.CLAUDE_CODE_OAUTH_TOKEN" ]`) skips **every** migrated
+routine with `::warning::CLAUDE_CODE_OAUTH_TOKEN is not set … Skipping run,
+not failing.` and exits clean. Verified fleet-wide on 09-06/07/08 across
+`routine-news-triage`, `routine-nils-walk`, and `routine-marjorie-brief` —
+all skipped. The whole standing fleet has effectively been **dark since the
+2026-09-06 claude.ai→Actions migration** (item #47 disabled the claude.ai
+triggers that day), while reporting green. The workflow plumbing is correct
+(`routine-template.yml` accepts the secret and each `routine-*.yml` passes
+it) — the secret itself is missing; an agent cannot set it (the human-only
+guard blocks secret mutation, and it needs your login). This item was
+drafted by a run of [#4027](https://github.com/JW-Incorporated/swift2/issues/4027)
+two days ago but never actually landed here (its own attempt to open a PR
+adding it was rejected for lacking write access) — filing it now closes that
+gap.
+
+**Concrete damage already done (unrecoverable):** News Triage never ran
+2026-09-07 or 09-08, so the T-3 recall check ([#4027](https://github.com/JW-Incorporated/swift2/issues/4027))
+found at least one confirmed story overlooked and never filed — "I Knew It,
+I Knew You" reaching No. 1 on Country Radio (her 13th career country No. 1).
+Intake issues are the only thing Content Shift reads, so a missed story is
+gone. Every further day the token stays broken drops more stories.
+
+**This is NOT a model revert.** The recall check passed on the
+Sonnet-vs-Opus question (0 Sonnet false negatives); reverting News Triage to
+Opus would fix nothing here — an Opus Actions run skips identically. The fix
+is the token, and the T-3 trial clock should be paused/extended (it has had
+zero valid Sonnet-on-Actions runs since 09-06 and cannot conclude by
+2026-09-15 as-is).
+
+**Steps:**
+1. Regenerate the token locally with `claude setup-token` on your Claude
+   Pro/Max account (per decision D1=B).
+2. Store it as the repo secret **`CLAUDE_CODE_OAUTH_TOKEN`** for
+   `JW-Incorporated/swift2`. UI path: GitHub repo → **Settings → Secrets and
+   variables → Actions → Repository secrets** → the `CLAUDE_CODE_OAUTH_TOKEN`
+   row → **Update** (or **New repository secret** if the row is absent) →
+   paste the token → **Save**.
+3. Confirm it took: the same **Repository secrets** list should show
+   `CLAUDE_CODE_OAUTH_TOKEN` with a recent "Updated" date.
+4. Trigger one routine to verify end-to-end: **Actions → routine-news-triage
+   → Run workflow**, then open the run and confirm it does **not** emit the
+   "CLAUDE_CODE_OAUTH_TOKEN is not set" warning and reaches the Claude step.
+5. Have an authorized News Triage run (or a claude.ai session) file the
+   overlooked country-radio No. 1 milestone as an `intake` issue.
+
+**Worked if:** a manually-dispatched **routine-news-triage** run reaches the
+Claude step and posts a run-log comment (or files an `intake` issue) instead
+of skipping with the missing-secret warning.
+
+**Status:** OPEN
+
+### 50. [BLOCKING] Add the Discord webhook for the social-channel morning brief and safe Permis repairs — ~5 min
+
+**Filed:** 2026-09-09
+
+**Why it matters:** the social-channel morning brief and safe Permis repair
+rollout need a private, reliable route to their Discord channel. Until this
+webhook exists, those routines cannot deliver the real brief or report a
+completed safe repair where the team can act on it.
+
+**Steps:**
+1. In the intended Discord social channel, open **Edit Channel → Integrations
+   → Webhooks → New Webhook**. Give it a clear name such as `Swift2 social
+   brief`, confirm the channel is correct, and copy its webhook URL.
+2. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables →
+   Actions → Secrets → New repository secret**. Store that URL as
+   `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` and save it. This GitHub Actions
+   repository-secret store is the approved location; do not paste the URL into
+   Discord chat, an issue, a commit, an email, or any repository file.
+3. Tell a session only that item #50 is set. It can run the normal safe
+   delivery verification without needing the webhook value.
+
+**Worked if:** the next scheduled social-channel morning brief arrives in the
+intended Discord channel, and a safe Permis repair report is delivered there
+when one is completed. The webhook URL is never exposed in logs or Git.
+
+**Status:** OPEN
+
+### 49. [BLOCKING] Add the shared Community Tasks acknowledgement secret — ~5 min
+
+**Filed:** 2026-09-09
+
+**Why it matters:** the daily Community Tasks workflow is otherwise fully
+configured and its scheduled runs are healthy, but it safely refuses to send
+an email until it can create secure one-click `Posted` and `Skip` links. The
+same value must be available to both the GitHub mailer and the Vercel website:
+the mailer signs each link and the website verifies it. Using different values
+would make every acknowledgement link fail; omitting either value leaves the
+safe no-send protection in place.
+
+**Steps:**
+1. On your own machine, open a terminal and run `openssl rand -hex 32`. Copy
+   the one line it prints. Treat it like a password: do not put it in chat, a
+   ticket, a commit, or an email reply.
+2. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables →
+   Actions → Secrets → New repository secret**. Set the name to
+   `COMMUNITY_ACK_SECRET`, paste that generated value, and save it.
+3. In the Vercel project that serves `longlivets.com`, open **Settings →
+   Environment Variables**. Add `COMMUNITY_ACK_SECRET` with the exact same
+   copied value for the **Production** environment, then save and redeploy so
+   the acknowledgement route receives it. Do not create a second value.
+4. In GitHub, open **Actions → community-mailer → Run workflow**, select
+   `daily`, and run it once. The run is successful when its final mailer line
+   says `mailed <number> lead(s) (mode=daily), marked emailed.`; if it says
+   there are no drafted leads, the configuration is still accepted and the
+   next drafted lead will send normally. Open the resulting email and click
+   neither acknowledgement link until there is a real item you have posted or
+   intentionally skipped.
+
+**Worked if:** a manual `daily` run no longer logs
+`COMMUNITY_ACK_SECRET unset`, the normal Community Tasks email arrives when
+there is at least one drafted lead, and its `Posted`/`Skip` links record the
+chosen outcome rather than showing a configuration error.
+
+**Status:** OPEN
+
+### 48. [UPGRADE] Put the website-shell build on the Play internal track now (Android testers still get the Aug 30 native app) — ~5 min
+
+**Filed:** 2026-09-07
+
+**Why it matters:** the release train ran for real on 2026-09-08 (EAS run
+`01a08457`): iOS build 10 and Android build 7 were both built on EAS from
+`main` 0b8ca769 (the native overhaul), iOS was submitted to TestFlight,
+and `submit_android` failed because there is no Play service-account key
+on EAS (#46). So Android's bundle exists and is the same app iOS testers
+now have; only the upload is missing. #46 makes this automatic; this item
+is the manual bridge if #46 is days away. An agent cannot do it: 62 MB
+through your Play account, and the session's browser upload path caps at
+10 MB.
+
+**Steps:**
+1. Download the bundle (EAS artifact for build 7, commit 0b8ca769):
+   `https://expo.dev/artifacts/eas/8CP-yznaU5lS5NmhygIz_e9K11e-N1EZMGuoannLhKs.aab`
+2. Play Console → LongLive → **Test and release → Internal testing →
+   Create new release** → drop the `.aab` in → release name is prefilled
+   (`7 (1.0.0)`) → release notes: "Native app — same build as iOS TestFlight 10."
+3. **Next → Save and publish** (internal track; no Google review).
+
+**Worked if:** Internal testing shows `1.0.0 (7)` as the latest release
+and a tester on the "Jess and Joey" or "Joey" list (both are ticked and
+saved — verified 2026-09-07) sees the website inside the app after
+updating from the Play Store.
+
+**Status:** OPEN
+
+---
+
+### 47. [BLOCKING] URGENT — disable 15 original claude.ai routines now duplicated by the GitHub Actions migration — ~15-20 min
+
+**Filed:** 2026-09-06
+
+**Why it matters:** the routines-migration (t_876f9697, t_36d63712,
+t_574dfb62, t_9752a8e0, t_123b1628 — all merged) built GitHub Actions
+replacements for the whole standing fleet and they are now live on
+`main` (`.github/workflows/routine-*.yml`, using
+`CLAUDE_CODE_OAUTH_TOKEN` per D1=B). The original claude.ai triggers for
+these same routines are STILL ENABLED — every one of them is now firing
+**twice**: once from claude.ai, once from GitHub Actions. This is live
+double-spend (double API/token usage) and, for the routines that open
+PRs or file issues, doubled real-world output (duplicate PRs, duplicate
+issues) starting immediately on each one's next cron fire. This is why
+the card is marked URGENT.
+
+**Root cause this session hit:** disabling a live claude.ai trigger
+requires the `RemoteTrigger` tool authenticated to your account. No
+worker sandbox (docs/CI worktree, this one included) has that tool
+attached — confirmed directly this session, matching the same
+account-access limitation already documented at items #35/#38/#41. Only
+a `claude.ai/code` session running as you, or you directly in the
+`claude.ai/code/routines` UI, can flip these.
+
+**Steps — disable each of these 15 triggers** (via the
+`claude.ai/code/routines` UI is fastest; toggle "Enabled" to off, do NOT
+delete — same convention as every prior disable in this file):
+
+| # | Routine | Trigger ID | Now replaced by |
+|---|---|---|---|
+| 1 | Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `routine-laura-a11y-walk.yml` |
+| 2 | Karen — nightly scan (weekly judgment slice) | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `routine-karen-nightly.yml` |
+| 3 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `routine-marjorie-brief.yml` |
+| 4 | News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `routine-news-triage.yml` |
+| 5 | News Triage recall check (T-3 trial) | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `routine-news-triage-recall.yml` |
+| 6 | Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `routine-tree-weekly-plan.yml` |
+| 7 | Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `routine-growth-draft.yml` |
+| 8 | Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `routine-paul-blart.yml` |
+| 9 | Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `routine-austin-build.yml` |
+| 10 | Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `routine-nils-walk.yml` |
+| 11 | Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `routine-kevin-radar.yml` |
+| 12 | Kevin — daily desk (S1+S2+S3) | `trig_01GH3EMWdDwwKpx2GCRnCYM5` | `routine-kevin-daily-desk.yml` |
+| 13 | Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `routine-kevin-s1-karen-solver.yml` (this one was already flagged "pending disable" at item #38 — now doubly justified) |
+| 14 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `routine-vault-run.yml` |
+| 15 | Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | retired outright, replaced by `scripts/check-routine-workflows.mjs` in CI (no GH Actions cron equivalent — this one should just go off) |
+
+**Not in this list, leave alone:** Lex depth (already disabled, warm
+spare) and Marjorie — 8 PM Evening Delta (already disabled, warm spare)
+— neither was migrated. `bedrock nightly audit` is a different project's
+routine on the same account per `runners.md`'s ownership note — do not
+touch it here.
+
+**After disabling:** update `docs/agents/runners.md`'s live trigger
+table to mark all 15 as ⛔ disabled (superseded by GitHub Actions
+migration) — a session can do that edit for you once you confirm the
+disables are done; just say "disabled #47" in chat.
+
+**Worked if:** `claude.ai/code/routines` shows all 15 rows above as
+disabled, and no duplicate PR/issue/output appears from a claude.ai-side
+fire after today.
+
+**Status:** DONE
+
+**Outcome (2026-09-06, founder confirmation):** Joey confirmed in Discord
+that all 15 original claude.ai routines in the table above are disabled
+(toggled off, not deleted). `docs/agents/runners.md`'s live trigger table
+updated in this same change to mark all 15 as ⛔ disabled — superseded by
+GitHub Actions, per this item.
+
+---
+
+### 46. [BLOCKING] Mobile release train — Google Play service-account key into EAS — ~15 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/mobile-release.md`. The release train
+(`apps/mobile/.eas/workflows/release.yml`) submits Android builds to the
+Play **internal testing** track itself, so nobody uploads `.aab` files by
+hand and Android can never lag iOS. That submit step needs a Google Play
+service account, which only the Play Console owner can create and link.
+Until it exists every train run fails at `submit_android` (and, by design,
+blocks `submit_ios` in the same run).
+
+**Steps:**
+1. Google Cloud Console → create/select a project → **IAM & Admin → Service
+   Accounts → Create service account** (name e.g. `eas-play-submit`) →
+   **Keys → Add key → Create new key → JSON** → download the file.
+2. Play Console → **Users and permissions → Invite new users** → paste the
+   service account's email → App permissions: **LongLive** → Account
+   permissions: tick **Release to testing tracks** (under Releases) → Invite.
+3. On your machine, from `apps/mobile`:
+   `eas credentials --platform android` → choose **production** → **Google
+   Service Account** → **Manage your Google Service Account Key for Play Store
+   Submissions** → **Set up a Google Service Account Key** → point it at the
+   downloaded JSON. Then delete the JSON from Downloads.
+
+**Worked if:** `eas submit --platform android --latest --non-interactive`
+(from `apps/mobile`) uploads to the internal track without asking for a key
+path, and the next **Mobile release train** run shows `submit_android`
+green.
+
+**Train evidence (2026-09-08):** EAS run `01a08457` built both platforms from 0b8ca769 and submitted iOS (TestFlight build 10); `submit_android` failed for lack of this key. Everything else in the pipeline is proven.
+
+**Note (2026-09-07):** a `PLAY_SERVICE_ACCOUNT_JSON` repo secret was added
+to this repo on 2026-09-06, following 4a's setup. It is harmless but
+unused here: 4a submits to Play from GitHub Actions, while this train's
+`submit_android` is an EAS job that reads EAS credentials, and EAS cannot
+see GitHub secrets. Step 3 above (with the same JSON) is still what
+unblocks the train. After step 3, either delete the GitHub secret
+(`gh secret delete PLAY_SERVICE_ACCOUNT_JSON --repo JW-Incorporated/swift2`)
+or tell a session you'd rather mirror 4a and submit from GitHub instead —
+either is fine; two copies of one key is the only downside of leaving it.
+
+**Update (t_b31878bb, mobile PR): implemented the "mirror 4a" alternative
+this note offered — `.github/workflows/mobile-release.yml` now waits for
+the EAS release workflow, finds the Android store build for that exact
+commit, and submits it to Play itself using the existing
+`PLAY_SERVICE_ACCOUNT_JSON` repo secret (never echoed; written to a
+0600 temp file and deleted immediately after use). The EAS workflow no
+longer has a `submit_android` job at all (EAS infra can't see GitHub
+secrets, so that job could never succeed). No further founder step
+needed for Android submission; step 3 above (interactive EAS-credentials
+upload) is no longer necessary.
+
+**Status:** DONE (2026-09-10)
+
+### 45. [BLOCKING] Mobile release train — iOS signing + App Store Connect key into EAS — ~10 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/mobile-release.md`. Today the iOS distribution
+certificate, the LongLive provisioning profile, and the App Store Connect
+API key exist only in `C:\Users\wjduv\Desktop\4a-signing\` and
+`apps/mobile/credentials/` on Wyatt's laptop (`production-local` profile,
+`credentials.json`). The release train runs on EAS with no laptop
+involved, so it can only sign and submit iOS if those live in EAS
+credentials. `eas credentials` is interactive-only (no TTY in agent
+shells), so a founder has to run it once.
+
+**Steps:**
+1. From `apps/mobile` (where `credentials.json` already points at
+   `./credentials/Certificates.p12` and `./credentials/longlive.mobileprovision`):
+   `eas credentials --platform ios` → **production** → **Build Credentials**
+   → **Upload credentials from credentials.json to EAS** (confirm the
+   Distribution Certificate and the Provisioning Profile for
+   `ai.jwlabs.longlive`).
+2. Same menu → **App Store Connect: Manage your API Key** → **Use an existing
+   API Key** → key path `./credentials/AuthKey_QU7P2WC49Z.p8`, Key ID
+   `QU7P2WC49Z`, Issuer ID `26d1ad10-af24-431a-a9bb-d097ca96e9bc`.
+3. Tell a session it is done so it removes `ascApiKeyPath`/`ascApiKeyId`/
+   `ascApiKeyIssuerId` from `apps/mobile/eas.json` `submit.production.ios`
+   (the remote key then applies) and retires the `production-local` profile.
+
+**Worked if:** `eas build --platform ios --profile production --non-interactive`
+(from `apps/mobile`, no `credentials.json` needed) starts a build that
+says `Using remote iOS credentials (Expo server)` and reaches the compile
+phase, and `eas submit --platform ios --latest --non-interactive` runs
+without a local key path.
+
+**Status:** DONE
+
+**Outcome (2026-09-08, founder):** verified on EAS via the credentials API: distribution certificate (serial 173EA08D…, valid to 2027-09-03) + App Store provisioning profile (active), App Store Connect API key `QU7P2WC49Z` assigned for submissions, and a new push key `NPQ76BT99F` (team D9N628AFHS — the iOS half of #43). Follow-up landed in the same change: `ascApiKeyPath`/`ascApiKeyId`/`ascApiKeyIssuerId` removed from `apps/mobile/eas.json` (remote key applies) and the `production-local` profile retired.
+
+
+### 44. [BLOCKING] OS-040 — `EXPO_TOKEN` repo secret for automatic EAS Update — ~5 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/specs/2026-09-05-one-source-three-surfaces.md`
+§6, card OS-040 (Phase 4). `.github/workflows/eas-update.yml` publishes
+JS-only mobile changes to the `production` EAS Update channel on every
+qualifying merge to `main`, but it needs an Expo access token to
+authenticate — `gh secret set` requires repo-secret write access this
+session doesn't have per `.claude/hooks/guard.sh`.
+
+**Steps:**
+1. Generate a token at expo.dev → account settings → Access Tokens,
+   scoped to this project (owner `wjduvall`, project id
+   `a4ff0e9b-ad3e-48a4-a765-ffc19a8b3209`).
+2. `gh secret set EXPO_TOKEN --repo JW-Incorporated/swift2` and paste it.
+
+**Worked if:** the next JS-only merge to `apps/mobile/**` or
+`packages/**` shows a green **Mobile release train** run in Actions
+(`eas-update.yml` was folded into the train by #3853), and the 6-hourly
+**Mobile parity check** closes its "check could not run" alert.
+
+**Note (2026-09-07):** this one secret now gates all three GitHub mobile
+workflows (train, parity check, and the train's post-merge trigger); every
+run since 2026-09-06 has stopped at the token check. The parity script
+itself was run locally against the EAS account on 2026-09-07 and passed
+(iOS build 4 / Android build 5, version 1.0.0, no findings), so once the
+token exists nothing else is expected to be wrong.
+
+**Status:** DONE
+
+**Outcome (2026-09-08, founder):** Wyatt set `EXPO_TOKEN` on the repo (`gh secret list` shows it, 2026-09-09 03:23 UTC). The Mobile parity check was dispatched immediately afterwards as the proof run; result recorded on its alert issue. #45/#46 remain the gates for the train's build and submit jobs.
+
+
+
+### 43. [BLOCKING] OS-004 — Push credentials on EAS (One Source, Three Surfaces plan) — ~15 min
+
+**Filed:** 2026-09-05
+
+**Why it matters:** `docs/specs/2026-09-05-one-source-three-surfaces.md` §6,
+card OS-004 (Phase 0). iOS and Android push don't actually deliver yet.
+This needs interactive credential upload only you can do — Apple/Google
+account access, not code.
+
+**Steps:**
+1. Run `eas credentials -p ios` interactively (from a machine with EAS CLI
+   and your Apple Developer login) and upload/generate the APNs key under
+   team `D9N628AFHS`.
+2. Do the equivalent for Android: upload/generate the FCM v1 service
+   account key via `eas credentials -p android`.
+3. Send one test push via `scripts/send-test-push.ts` to a real TestFlight
+   device.
+
+**Worked if:** a real device receives the push and tapping it opens the
+correct deep link in the shell (per OS-004's own "Done when").
+
+**Progress (2026-09-08):** iOS half DONE — APNs push key `NPQ76BT99F` is on EAS (created during #45). Android half still open: no FCM V1 service-account key on EAS, and `app.json` has no `googleServicesFile` yet, so a Firebase project + `google-services.json` are prerequisites (steps 1–4 above). Step 3 (test push) waits on the next build.
+
+**Status:** OPEN
+
 ### 42. [UPGRADE] Add a GitHub comment-edit tool to Kevin's cloud sessions (or accept the append-and-supersede workaround) — ~10 min
 
 **Filed:** 2026-09-01
@@ -79,6 +483,22 @@ RemoteTrigger access.
 **Worked if:** either a comment-edit tool is confirmed available and a
 follow-up PR reverts to edit-in-place, or you mark this `SKIP` because no
 such tool exists.
+
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-2):** resolved by the
+routines-migration (#47), not by a connector change. Kevin's daily desk
+now runs as `.github/workflows/routine-kevin-daily-desk.yml` with `Bash`
+allowed and `GH_TOKEN` in the environment, so
+`gh api -X PATCH repos/{owner}/{repo}/issues/comments/{id}` — true
+edit-in-place — is available with no account access at all. The
+claude.ai MCP connector this item asked you to inspect is being retired
+under #47. Reverting `docs/kevin.md` and the runner prompts from
+append-and-supersede back to edit-in-place is agent work, tracked on the
+swift2 kanban (child of t_a0ad2392). Nothing left for a founder.
+
+**Status:** DONE (2026-09-06)
+
+---
+
 ### 41. [BLOCKING] Rename Karen's live trigger to match its judgment-only prompt (#3616, T-5) — ~2 min
 
 **Filed:** 2026-09-01
@@ -125,7 +545,17 @@ live duplicate), not part of this rename.
 `Karen — weekly judgment slice`, `runners.md`'s tables show the new name
 with no RENAME PENDING flag, and issue #3616 is closed.
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-1):** the ground moved
+under this item. The routines-migration (#47) made
+`.github/workflows/routine-karen-nightly.yml` the live runner; the
+claude.ai trigger this item wanted renamed is on #47's *disable* list. A
+trigger about to be retired is never renamed. The rename was applied
+where it now matters — `routine_name` in the workflow and
+`scripts/marjorie/runner-cadence.json` read `Karen — weekly judgment
+slice`; `runners.md`'s live table shows the new name with no RENAME
+PENDING flag; #3616 closed. Nothing left for a founder.
+
+**Status:** DONE (2026-09-06)
 
 ---
 
@@ -408,9 +838,22 @@ one-click Actions dispatch.
 
 ---
 
-### 23. [BLOCKING] BACKUPS launch gate (#680) — read Supabase plan/backup status off the dashboard, run one restore drill against production's own bytes — ~10 min
+### 23. [RESOLVED] BACKUPS launch gate (#680) — read Supabase plan/backup status off the dashboard, run one restore drill against production's own bytes — ~10 min
 
 **Filed:** 2026-08-26
+
+**Resolved 2026-09-06:** gate flipped 🟢 in `docs/launch-readiness.md` and
+`docs/backup-restore.md` §6. FR-t_a0ad2392-4 (2026-09-06) ruled the
+plan/backup-status question (Supabase Free, no platform backup/PITR,
+recorded 2026-08-30) mitigated at zero spend by the daily Layer-B
+scheduled GitHub-artifact backup rather than a founder plan-upgrade
+decision, so that half never needed the dashboard click. The drill itself
+needed two engineering fixes first (#3926 auth-schema shim + pipefail,
+#3931 generated-column-safe restore loader); the corrected run
+([34057210905](https://github.com/JW-Incorporated/swift2/actions/runs/34057210905))
+passed against production's own bytes: 35 tables · 8298 rows · 11.27 MB,
+every table's row count and checksum matching. Nothing further needed from
+Joey on this item.
 
 **Update (2026-08-30, Joey report):** The current project is on the Supabase
 Free plan, which has no available backup options. No backup was made and no
@@ -441,7 +884,7 @@ script's `assertSafeTarget` refuses that regardless). Step 1 (dashboard
 plan/backup-status) is still genuinely founder-only; nothing reaches that
 information programmatically.
 
-**Steps:**
+**Steps (historical — superseded by the resolution above):**
 1. Open the Supabase dashboard for the Long Live project → **Settings** →
    **Billing** (or **Database** → **Backups**). Note: (a) the plan tier,
    (b) whether **Database → Backups** lists automated daily backups, (c) the
@@ -461,9 +904,28 @@ information programmatically.
 
 **Worked if:** `docs/backup-restore.md` §6 has a drill-log row sourced from
 production (not the fixture) marked **PASS**, and §2's plan/backup-status
-table is filled in instead of "UNVERIFIED."
+table is filled in instead of "UNVERIFIED." — **both true as of 2026-09-06.**
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-4):** step 1 was already
+answered by your 2026-08-30 report (Free plan, no platform backups, no
+PITR) — that *is* the dashboard reading; §2 Layer A records it. Step 3
+needs no founder: `workflow_dispatch` is reachable from any session with
+repo write, so the production-bytes drill was clicked today —
+run [34054042528](https://github.com/JW-Incorporated/swift2/actions/runs/34054042528).
+Result: **the backup half PASSED against real production bytes** (35
+tables · 8298 rows · 11.27 MB read in 7.7 s over a read-only session)
+and **the restore half FAILED** — `20260904000000_clown_sessions.sql`
+references `auth.users`, and the throwaway Postgres has no `auth` schema
+(Supabase-only). The workflow still reported green because `node … | tee`
+without `set -o pipefail` masks the script's exit code, so the "Record the
+result" step closed the alert as PASSED. Both are agent-fixable bugs and
+are on the swift2 kanban (children of t_a0ad2392): fix the drill so a
+non-Supabase target gets a stub `auth` schema, and make the workflow fail
+honestly. The drill re-runs itself from that fix's PR. Nothing left for a
+founder on this item; the gate flips when the corrected drill passes.
+
+**Status:** DONE (2026-09-06) — founder steps complete; remaining work is
+engineering, tracked on kanban and on #680.
 
 ---
 
@@ -541,6 +1003,21 @@ This is the same intermittent policy, now confirmed to hit more than one
 scheduled trigger in this repo, so the "looks resolved" note above was
 premature — leaving Status as OPEN.
 
+**Update (2026-09-05, RESOLVED):** Joey changed the Vault Run routine's
+network access setting in claude.ai/code to "full internet access" on
+2026-09-04. Confirmed fixed on the real scheduled (non-manual) daily
+trigger: today's 16:07 UTC cron firing produced PR #3805 ("vault:
+2026-09-05 — 3 lanes"), whose Photo Enrichment lane reports egress open
+("Instagram / i.ytimg.com / outlet CDNs reachable") with a reasoned
+coverage outcome (no page needed a new photo this run) — no
+`EGRESS_BLOCKED` / `403 CONNECT` language anywhere, a clean break from
+every prior run (#3744, #3696, and this item's own history) which all
+hard-blocked. This is the founder-authorized policy change the prior
+updates were waiting on, verified on the actual trigger rather than a
+manually-fired one. Closing this out.
+
+**Status:** RESOLVED (2026-09-05)
+
 ---
 
 ### 16. [UPGRADE] Facebook groups checklist ships empty — needs your real group list, and your first real export to trust the parser
@@ -567,7 +1044,19 @@ files every Sunday and says so plainly rather than silently doing nothing.
 **Worked if:** the checklist file has real entries and at least one real
 export has been parsed without silently returning 0 posts.
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-5):** this is not a
+decision and should not sit in the Founders' Brief for 13 days. Two halves:
+(1) the checklist is being seeded by an agent from the groups already
+researched in `sources.md` § "Facebook Groups research" (Taylor Swift's
+Vault, the bracelet-trading groups, Kulto ni TAYLOR SWIFT), each entry
+flagged `candidate: true` until a real export arrives — the Sunday
+reminder then lists them instead of shipping empty; (2) the real export
+itself needs your Facebook login and stays on the Sunday
+`fb-export-reminder.yml` issue, which is the correct place to nag for it —
+not the brief. Edit the seeded list any time; nothing waits on you.
+
+**Status:** DONE (2026-09-06) — converted to the weekly reminder; seeding
+tracked on the swift2 kanban (child of t_a0ad2392).
 
 ---
 
@@ -634,7 +1123,21 @@ and is the reason `main` has stayed green.
 **Worked if:** whichever you choose, `gh api repos/JW-Incorporated/swift2/rulesets/18819106`
 reflects it, and a test PR still merges once `build` is green.
 
-**Status:** OPEN
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-3):** decided by
+precedent, no founder answer needed. `CLAUDE.md` ("`build` gates every
+merge"; "Never babysit your own PR" — land via PR + auto-merge) and
+`docs/decisions.md` 2026-08-22 (merge/push authority granted *through
+`gh pr merge`*, not direct push) already encode the answer this item's own
+recommendation gives: keep `protect-main` as is. Reversible at any time
+via the ruleset UI if a founder ever wants otherwise — that would be a new
+decision, filed fresh. Verified 2026-09-06 (`gh api
+repos/JW-Incorporated/swift2/rules/branches/main`): `main` is governed by
+active ruleset `protect-swift2-main` (id `21672404` — the `18819106` id
+above is stale, that ruleset no longer exists) enforcing `pull_request`,
+`required_status_checks`, `non_fast_forward`, `deletion`. Same posture,
+new id.
+
+**Status:** SKIP (2026-09-06) — precedent already answers it; keep PRs required.
 
 ---
 
@@ -674,13 +1177,44 @@ credentials, this was just registering accounts/keys ahead of that build.
 
 **Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
 
-**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
+**Update (2026-09-06, Fable ruling FR-t_a0ad2392-6):** Reddit is no longer
+a prerequisite. The knowledge engine already reads Reddit without any API
+key — `apps/worker/src/sources/reddit-rss.ts` documents the verified
+no-auth path (`<permalink>.rss?limit=N&sort=top`, and subreddit RSS
+feeds). `scripts/merch-engine/fanmade-discovery.mjs` has now switched its
+Reddit leg to the same proven RSS path (via shared helper
+`scripts/lib/reddit-rss.mjs`) instead of the dead-end `r/<sub>/new.json`
+call that silently 403'd on every GitHub-hosted run; the `home-relay` lane
+remains the fallback only if GitHub runners are ever RSS-blocked too, which
+has not been observed. RSS carries no score field, so hype ranking uses
+feed position under `sort=top&t=week` (`rank`) in place of Reddit's
+`score`; the script-app support ticket can be ignored or answered whenever
+Reddit replies — if a key ever arrives it becomes an optimization, not a
+gate. Etsy and Awin are done. The marketplace-research build is unparked
+and tracked on the swift2 kanban (child of t_a0ad2392). Nothing left for a
+founder.
+
+**Status:** DONE (2026-09-06) — Etsy + Awin keys in place; Reddit
+dependency removed by ruling.
 
 ---
 
 
 ## DONE
 
+
+### 43. [DONE] Generate `CLAUDE_CODE_OAUTH_TOKEN` for the routines-migration fleet
+
+**Filed:** 2026-09-05
+**Closed:** 2026-09-05
+
+**What happened:** Joey ran `claude setup-token` and sent the token to
+Hermes over Discord; Hermes stored it as the `CLAUDE_CODE_OAUTH_TOKEN`
+repository secret via `gh secret set` (confirmed present via
+`gh secret list`, never echoed or logged). All `routine-*.yml` workflows
+from the routines-migration (kanban `t_876f9697`, D1=B) can now run
+end-to-end on Joey's Claude Pro/Max plan usage instead of exiting clean
+with a missing-secret warning.
 
 ### 36. [DONE] T-3 News Triage model trial applied
 

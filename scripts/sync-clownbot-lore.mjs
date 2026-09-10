@@ -20,6 +20,7 @@ import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ROOT, esc } from './lib/longlive-sync-shared.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const SEED_FILE = path.join(ROOT, 'supabase', 'seed', 'clownbot-lore', 'clownbot-lore.mjs');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'clownbot-lore.generated.ts');
@@ -132,7 +133,7 @@ export function renderModule({ updatedOn, items }) {
   lines.push("// Re-run that script after the seed changes; don't edit this file directly.");
   lines.push('// Refresh path: docs/content-ops/clownbot-rumor-refresh.md.');
   lines.push('');
-  lines.push("import type { LoreItem } from './types';");
+  lines.push("import type { LoreItem } from '@swift2/experience';");
   lines.push('');
   lines.push(`export const LORE_UPDATED_ON = ${esc(updatedOn)};`);
   lines.push('');
@@ -188,8 +189,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'sync-clownbot-lore' });
 }

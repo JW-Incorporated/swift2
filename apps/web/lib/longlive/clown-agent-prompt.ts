@@ -9,6 +9,7 @@
 import type { ClownTurn } from './clown-client';
 import type { RetrievedItem } from './clown-fallback';
 import type { InvestigationStep } from './clown-answer';
+import type { KnowledgeDataSource } from '@swift2/core';
 import {
   toolChatter,
   toolDateMath,
@@ -129,37 +130,37 @@ interface ToolDispatch {
  * required argument; the caller reports that honestly in the tool_result
  * rather than silently skipping the call (still counts against budget —
  * a model that keeps calling badly-shaped tools must not evade the cap). */
-export async function executeReadTool(name: string, rawInput: unknown, signal?: AbortSignal): Promise<ToolDispatch | null> {
+export async function executeReadTool(client: KnowledgeDataSource | null, name: string, rawInput: unknown, signal?: AbortSignal): Promise<ToolDispatch | null> {
   const p = (rawInput ?? {}) as Record<string, unknown>;
   switch (name) {
     case 'search': {
       const query = str(p.query, 200);
       if (!query) return null;
-      return { input: { query }, result: await toolSearch(query, signal) };
+      return { input: { query }, result: await toolSearch(client, query, signal) };
     }
     case 'precedents': {
       const symbol = str(p.symbol, 100);
       if (!symbol) return null;
-      return { input: { symbol }, result: await toolPrecedents(symbol, signal) };
+      return { input: { symbol }, result: await toolPrecedents(client, symbol, signal) };
     }
     case 'recent': {
       const days = num(p.days, 7, 1, 90);
-      return { input: { days }, result: await toolRecent(days, signal) };
+      return { input: { days }, result: await toolRecent(client, days, signal) };
     }
     case 'chatter': {
       const topic = str(p.topic, 100);
       if (!topic) return null;
-      return { input: { topic }, result: await toolChatter(topic, signal) };
+      return { input: { topic }, result: await toolChatter(client, topic, signal) };
     }
     case 'symbol_activity': {
       const symbol = str(p.symbol, 100);
       if (!symbol) return null;
-      return { input: { symbol }, result: await toolSymbolActivity(symbol, signal) };
+      return { input: { symbol }, result: await toolSymbolActivity(client, symbol, signal) };
     }
     case 'track': {
       const title = str(p.title, 200);
       if (!title) return null;
-      return { input: { title }, result: await toolTrack(title, signal) };
+      return { input: { title }, result: await toolTrack(client, title, signal) };
     }
     case 'date_math': {
       const phrase = str(p.phrase, 50);
@@ -197,6 +198,7 @@ export interface DispatchOutcome {
  * version did per-block.
  */
 export async function dispatchReadBlocks(
+  client: KnowledgeDataSource | null,
   readBlocks: readonly RawToolUseBlock[],
   pool: Map<string, RetrievedItem>,
   investigation: InvestigationStep[],
@@ -212,7 +214,7 @@ export async function dispatchReadBlocks(
   const resultBlocks: AgentContentBlock[] = [];
 
   for (const block of readBlocks) {
-    const dispatch = await executeReadTool(block.name, block.input, signal);
+    const dispatch = await executeReadTool(client, block.name, block.input, signal);
     if (!dispatch) {
       resultBlocks.push({ type: 'tool_result', tool_use_id: block.id, content: 'Unrecognised tool or missing required argument.' });
       const step: InvestigationStep = { tool: block.name, input: (block.input ?? {}) as Record<string, unknown>, summary: 'call failed — bad input' };

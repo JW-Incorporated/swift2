@@ -41,6 +41,7 @@
 
 import { readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
+import { runMain } from './lib/cli.mjs';
 
 export const LOCKFILE = 'package-lock.json';
 export const ALLOWLIST_FILE = '.github/dependency-downgrade-allowlist.json';
@@ -299,5 +300,5 @@ if (
   process.argv[1] &&
   process.argv[1].split('\\').join('/').endsWith('scripts/check-no-downgrade.mjs')
 ) {
-  process.exit(main(process.argv.slice(2)));
+  runMain(() => main(process.argv.slice(2)), { name: 'check-no-downgrade' });
 }

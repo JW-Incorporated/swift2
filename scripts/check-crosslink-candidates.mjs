@@ -24,6 +24,7 @@
 import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+import { runMain } from './lib/cli.mjs';
 
 const VAULT = 'apps/web/lib/longlive/content-vault.generated.ts';
 
@@ -83,10 +84,14 @@ export function validate(candidates, defined) {
 // first shipped.
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMain) {
+  runMain(main, { name: 'check-crosslink-candidates' });
+}
+
+function main() {
   const defined = definedIds(readFileSync(VAULT, 'utf8'));
   if (defined.size === 0) {
     console.error(`✖ found no ids in ${VAULT} — the id format changed; fix definedIds().`);
-    process.exit(1);
+    return 1;
   }
   const raw = execSync(
     'gh issue list --label crosslink-candidate --state open --limit 500 --json number,body',
@@ -98,7 +103,7 @@ if (isMain) {
   console.log(`crosslink-candidate queue: ${candidates.length} open, ${defined.size} vault ids`);
   if (!problems.length) {
     console.log('✓ every candidate resolves to a real page');
-    process.exit(0);
+    return 0;
   }
   console.error(`\n✖ ${problems.length} problem(s):`);
   for (const p of problems) console.error(`    #${p.number} ${p.kind}: ${p.detail}`);
@@ -107,5 +112,5 @@ if (isMain) {
       'drops unknown ids silently. Fix the id on the issue, or close it if the target page\n' +
       'does not exist yet.\n',
   );
-  process.exit(1);
+  return 1;
 }

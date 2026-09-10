@@ -9,8 +9,8 @@
  */
 
 import { getContentItem } from './content';
-import { MOTIF_BY_ID, motifOf } from './lenses';
-import type { ContentItem, EraId, Motif, MotifId, RelatedId } from './types';
+import { MOTIF_BY_ID, motifOf } from '@swift2/experience';
+import type { ContentItem, EraId, Motif, MotifId, RelatedId } from '@swift2/experience';
 
 /** A resolved Clue Web trail target. */
 export interface MotifTarget {

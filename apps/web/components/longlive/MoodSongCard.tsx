@@ -12,7 +12,7 @@
  */
 import { useState } from 'react';
 import { Play } from 'lucide-react';
-import type { MoodMatch } from '@/lib/longlive/mood-match';
+import type { MoodMatch } from '@swift2/experience';
 
 export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: string }) {
   const [playing, setPlaying] = useState(false);

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ERAS } from './eras';
+import { ERAS } from '@swift2/experience';
 import { eraStyle, MERCH_THEME, themeStyle, VAULT_THEME } from './theme';
 
 // #659: --era-accent-text needs to reach every consumer even though most

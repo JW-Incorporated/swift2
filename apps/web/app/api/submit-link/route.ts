@@ -11,6 +11,7 @@ import {
   type SubmissionRecord,
 } from '../../../lib/longlive/submit-link';
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
+import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
 
 // The Community/Merch "submit a link" form. A visitor pastes a URL and picks
 // a section (community/merch) — that's the whole input. Nothing submitted
@@ -38,38 +39,16 @@ export const dynamic = 'force-dynamic';
 // proxy in general — the honeypot field above (`hp`) is the real floor
 // against automated abuse; this limiter only blunts accidental bursts (e.g.
 // a retry loop or a slow double-click).
-const HITS = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 5;
-const SWEEP_INTERVAL_MS = 5 * 60_000;
-let lastSweep = Date.now();
-
-/** Drops every IP whose hits have all aged out of the window. Without this,
- * an IP that hits once and never returns keeps its (eventually empty) key
- * forever — this is what let the map grow unbounded. Runs at most once per
- * `SWEEP_INTERVAL_MS`, not on every request. */
-function sweepExpiredHits(now: number): void {
-  for (const [ip, hits] of HITS) {
-    if (hits.every((t) => now - t >= WINDOW_MS)) HITS.delete(ip);
-  }
-}
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 5, sweepIntervalMs: 5 * 60_000 });
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  if (now - lastSweep > SWEEP_INTERVAL_MS) {
-    sweepExpiredHits(now);
-    lastSweep = now;
-  }
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 /** Test-only: exposes the rate limiter's internal map size so eviction can be
  * verified without reaching into module internals. Never used at runtime. */
 export function __rateLimiterSizeForTests(): number {
-  return HITS.size;
+  return limiter.size();
 }
 
 function normalizeSection(raw: unknown): Section | null {
@@ -91,7 +70,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // Honeypot: bots fill hidden fields. Pretend success, write nothing.
-  if (payload.hp) return NextResponse.json({ ok: true }, { status: 200 });
+  if (isHoneypotTripped(payload.hp)) return NextResponse.json({ ok: true }, { status: 200 });
 
   const section = normalizeSection(payload.section);
   if (!section) {

@@ -115,6 +115,56 @@ describe('Current-tier row mappers', () => {
     });
   });
 
+  it('maps Community Engine P2-4 fields (mention_count, communities, stance, persistent) when present', () => {
+    const theory = mapLiveTheory({
+      id: 'lt3',
+      name: 'Vault Track Countdown',
+      claim: 'Fans believe the countdown clock predicts a new vault track.',
+      first_seen_on: '2026-08-01',
+      last_seen_on: '2026-09-01',
+      origin: 'fan',
+      status: 'rumor',
+      outcome: 'pending',
+      evidence_ids: [],
+      symbols: ['13'],
+      heat: 12,
+      resolution: null,
+      promoted_to: null,
+      expires_at: '2026-12-01T00:00:00.000Z',
+      mention_count: 340,
+      communities: ['TaylorSwift'],
+      stance: 'believed',
+      persistent: true,
+    });
+    expect(theory.mentionCount).toBe(340);
+    expect(theory.communities).toEqual(['TaylorSwift']);
+    expect(theory.stance).toBe('believed');
+    expect(theory.persistent).toBe(true);
+  });
+
+  it('omits Community Engine P2-4 fields for a bot/site row that never carried them', () => {
+    const theory = mapLiveTheory({
+      id: 'lt4',
+      name: 'Site theory',
+      claim: 'A site-originated theory.',
+      first_seen_on: '2026-08-01',
+      last_seen_on: '2026-09-01',
+      origin: 'site',
+      status: 'rumor',
+      outcome: 'pending',
+      evidence_ids: [],
+      symbols: [],
+      heat: 3,
+      resolution: null,
+      promoted_to: null,
+      expires_at: '2026-12-01T00:00:00.000Z',
+    });
+    expect(theory.mentionCount).toBeUndefined();
+    expect(theory.communities).toBeUndefined();
+    expect(theory.stance).toBeUndefined();
+    expect(theory.persistent).toBeUndefined();
+  });
+
   it('maps an egg_ledger row', () => {
     const entry = mapEggLedgerEntry({
       id: 'egg1',

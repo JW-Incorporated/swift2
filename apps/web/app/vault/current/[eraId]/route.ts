@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
 import { loadCurrentItems } from '../../../../lib/current';
 
-// The Current tier's one read route (PLAN.md Stage 5): the current era's
-// live `current_item` rows, fetched client-side by
-// lib/longlive/use-current-items.ts. ISR revalidate: 900s (15 min) — the
-// Vault stays static (build-time), only this slice is dynamic, matching the
-// proposal's "Vault stays static, only the current era's live slice is
-// dynamic" design.
+// Thin alias over `/vault/live/[eraId]` (R17), kept for one release so the
+// mobile client's additive-only API contract still resolves this path.
+// Prefer `/vault/live/[eraId]` for new callers — it returns items + live
+// theories + fan signals in one payload; this route re-derives just the
+// `items` shape from the same `lib/current.ts` loader.
 export const revalidate = 900;
 
 export async function GET(_req: Request, { params }: { params: Promise<{ eraId: string }> }) {

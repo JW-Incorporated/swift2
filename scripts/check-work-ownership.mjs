@@ -56,6 +56,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gh } from './lib/gh.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const ROOT = join(HERE, '..');
@@ -364,58 +365,58 @@ async function fetchSnapshot(repoArgs) {
 }
 
 async function main() {
-  const argv = process.argv.slice(2);
-  const arg = (name) => {
-    const i = argv.indexOf(name);
-    return i === -1 ? undefined : argv[i + 1];
-  };
-  const repo = arg('--repo') ?? process.env.REPO ?? process.env.GITHUB_REPOSITORY;
-  const repoArgs = repo ? ['--repo', repo] : [];
+  try {
+    const argv = process.argv.slice(2);
+    const arg = (name) => {
+      const i = argv.indexOf(name);
+      return i === -1 ? undefined : argv[i + 1];
+    };
+    const repo = arg('--repo') ?? process.env.REPO ?? process.env.GITHUB_REPOSITORY;
+    const repoArgs = repo ? ['--repo', repo] : [];
 
-  const budgetPath = join(ROOT, ...BUDGET_FILE.split('/'));
-  if (!existsSync(budgetPath)) {
-    throw new Error(`${BUDGET_FILE} is missing — refusing to run an unbounded check.`);
+    const budgetPath = join(ROOT, ...BUDGET_FILE.split('/'));
+    if (!existsSync(budgetPath)) {
+      throw new Error(`${BUDGET_FILE} is missing — refusing to run an unbounded check.`);
+    }
+    const { budget, windows } = loadBudget(readFileSync(budgetPath, 'utf8'));
+
+    const snapshot = await fetchSnapshot(repoArgs);
+    const result = evaluate(snapshot, budget, new Date(), windows);
+
+    if (argv.includes('--json')) {
+      console.log(JSON.stringify({ ...result, budget, windows }, null, 2));
+    } else {
+      console.log(`work-ownership: ${snapshot.issues.length} open issue(s), ${snapshot.prs.length} open PR(s).`);
+      console.log(renderConsole(result, budget));
+    }
+
+    // --alert-body writes the markdown the watchdog upserts. Written on BOTH
+    // paths so the caller can pass the same file to `upsert-alert.sh close`.
+    const alertFile = arg('--alert-body');
+    if (alertFile) {
+      writeFileSync(
+        alertFile,
+        result.ok
+          ? `Work-ownership check is within budget as of ${new Date().toISOString().slice(0, 16)}Z — every condition at or below \`${BUDGET_FILE}\`.\n`
+          : renderAlert(result, budget, windows),
+      );
+    }
+
+    // Exit code IS the alarm signal the workflow branches on.
+    //   0 = within budget   1 = a condition breached   2 = the check itself broke
+    // The 1-vs-2 split matters: node exits 1 on an uncaught throw too, so without
+    // it a broken budget file or a GitHub query returning null fields would be
+    // reported to the founders as a real ownership alarm — an alert that lies
+    // about what it found is worse than no alert.
+    return result.ok ? 0 : 1;
+  } catch (e) {
+    console.error(`✗ work-ownership check could not run: ${e.message}`);
+    return 2;
   }
-  const { budget, windows } = loadBudget(readFileSync(budgetPath, 'utf8'));
-
-  const snapshot = await fetchSnapshot(repoArgs);
-  const result = evaluate(snapshot, budget, new Date(), windows);
-
-  if (argv.includes('--json')) {
-    console.log(JSON.stringify({ ...result, budget, windows }, null, 2));
-  } else {
-    console.log(`work-ownership: ${snapshot.issues.length} open issue(s), ${snapshot.prs.length} open PR(s).`);
-    console.log(renderConsole(result, budget));
-  }
-
-  // --alert-body writes the markdown the watchdog upserts. Written on BOTH
-  // paths so the caller can pass the same file to `upsert-alert.sh close`.
-  const alertFile = arg('--alert-body');
-  if (alertFile) {
-    writeFileSync(
-      alertFile,
-      result.ok
-        ? `Work-ownership check is within budget as of ${new Date().toISOString().slice(0, 16)}Z — every condition at or below \`${BUDGET_FILE}\`.\n`
-        : renderAlert(result, budget, windows),
-    );
-  }
-
-  // Exit code IS the alarm signal the workflow branches on.
-  //   0 = within budget   1 = a condition breached   2 = the check itself broke
-  // The 1-vs-2 split matters: node exits 1 on an uncaught throw too, so without
-  // it a broken budget file or a GitHub query returning null fields would be
-  // reported to the founders as a real ownership alarm — an alert that lies
-  // about what it found is worse than no alert.
-  process.exit(result.ok ? 0 : 1);
 }
 
 const invokedDirectly =
   process.argv[1] && process.argv[1].split(/[\\/]/).pop() === 'check-work-ownership.mjs';
 if (invokedDirectly) {
-  try {
-    await main();
-  } catch (e) {
-    console.error(`✗ work-ownership check could not run: ${e.message}`);
-    process.exit(2);
-  }
+  runMain(main, { name: 'check-work-ownership' });
 }

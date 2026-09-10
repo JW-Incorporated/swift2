@@ -173,19 +173,33 @@ jobs:
           git merge --ff-only FETCH_HEAD
 
       # THE dedupe read path (issue #2040). Overlays $LEDGER_BRANCH's
-      # social/queue|posted|failed onto this checkout — ADDITIVELY: `git
+      # social/posted|failed onto this checkout — ADDITIVELY: `git
       # archive | tar -x` only ever writes files the ledger branch has, it
-      # never deletes anything, so a brand-new queue draft that only exists
-      # on main (not yet reflected in the ledger) survives untouched, and any
-      # posted/failed record the ledger knows about that main's own copy
-      # doesn't (because a fold-back PR is stuck) gets added in. The result is
-      # the literal union post-queue.mjs's idempotency check needs — reading
-      # main alone, or the ledger branch alone, could each individually be
-      # incomplete; reading both can't be, because neither side's writer ever
-      # deletes a record.
+      # never deletes anything, so any posted/failed record the ledger knows
+      # about that main's own copy doesn't (because a fold-back PR is stuck)
+      # gets added in. The result is the literal union post-queue.mjs's
+      # idempotency check needs — reading main alone, or the ledger branch
+      # alone, could each individually be incomplete; reading both can't be,
+      # because neither side's writer ever deletes a record.
+      #
+      # Deliberately EXCLUDES social/queue (fixed 2026-09-06, recurring
+      # T6iTnTV-Rgw/ldBrFonU8NA failure — kanban t_e7ce7fe8). `queue/` is not
+      # an append-only ledger — a founder or a content PR is meant to be able
+      # to delete a stale/retired draft outright (e.g. PR #3817 deleting the
+      # two T6iTnTV-Rgw and two ldBrFonU8NA queue items). The "Fast-forward to
+      # current main" step above already gives this checkout main's true,
+      # current queue/. Because this overlay is additive-only, including
+      # social/queue here silently RESURRECTED those already-deleted drafts
+      # from the lagging ledger branch's tree on every run after #3817 merged
+      # into main but before social-ledger caught up — and each resurrection
+      # was already >48h past scheduledAt, so the very next run's 48h-stale
+      # check immediately re-retired them straight back to social/failed/,
+      # producing an identical watchdog alert every run in a loop no queue
+      # edit could ever break. Only posted/failed need the union-with-ledger
+      # treatment; queue must always reflect main, full stop.
       #
       # Skips cleanly on a cold start: the branch doesn't exist until the
-      # first run that has an actual queue/posted/failed diff pushes it (see
+      # first run that has an actual posted/failed diff pushes it (see
       # the "Push ledger update" step below) — until then main's own copy is
       # the only copy, exactly like before this fix.
       - name: Read the posted/failed ledger from social-ledger (union with main)
@@ -210,7 +224,7 @@ jobs:
             # overlay from the ledger for this dir this run" instead of
             # failing the whole step (and the run) closed.
             PATHS=""
-            for d in social/queue social/posted social/failed; do
+            for d in social/posted social/failed; do
               if git cat-file -e "FETCH_HEAD:$d" 2>/dev/null; then
                 PATHS="$PATHS $d"
               fi
@@ -218,7 +232,7 @@ jobs:
             if [ -n "$PATHS" ]; then
               git archive FETCH_HEAD $PATHS | tar -x
             fi
-            echo "social-ledger: overlaid onto this checkout."
+            echo "social-ledger: overlaid onto this checkout (posted/failed only, never queue)."
           else
             echo "social-ledger: branch does not exist yet — main's own social/posted|failed is the seed."
           fi

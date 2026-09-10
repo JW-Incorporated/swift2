@@ -93,6 +93,7 @@ import { composeFallback } from '../apps/web/lib/longlive/clown-fallback.ts';
 import { answerFromTake } from '../apps/web/lib/longlive/clown-answer.ts';
 import { ClownUsage } from '../apps/web/lib/longlive/clown-usage.ts';
 import { ATTACKS, LEGIT, TIER_B_PROBES } from '../apps/web/lib/longlive/clown-battery-corpus.ts';
+import { runMain } from './lib/cli.mjs';
 
 /* ── cli ────────────────────────────────────────────────────────────────── */
 
@@ -449,4 +450,4 @@ async function main() {
   return pass ? 0 : 1;
 }
 
-process.exitCode = await main();
+await runMain(main, { name: 'clown-live-battery' });

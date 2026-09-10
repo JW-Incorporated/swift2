@@ -2,8 +2,9 @@
 
 import { ChevronDown, Share2, X } from 'lucide-react';
 import { useAppActions, useAppState, type ShareTarget } from '@/lib/longlive/store';
-import type { Era } from '@/lib/longlive/types';
+import type { Era } from '@swift2/experience';
 import { ModeToggle } from './TopBar';
+import { shareTarget as share } from '@/lib/longlive/share-payload';
 
 /**
  * A slim global-nav bar pinned to the top of the immersive track/song overlays
@@ -16,7 +17,7 @@ import { ModeToggle } from './TopBar';
  *
  * `shareTarget` (#707): because these overlays cover the TopBar, its Share
  * button is unreachable here — so the affordance rides in this shared chrome,
- * the same reason home/toggle do. Opens the same ShareSheet every surface uses.
+ * the same reason home/toggle do. It opens the platform share picker directly.
  */
 export function OverlayNav({
   era,
@@ -28,7 +29,7 @@ export function OverlayNav({
   shareTarget?: ShareTarget;
 }) {
   const { mode } = useAppState();
-  const { goHome, setMode, closeTrackGuide, openShare, setSelectorOpen } = useAppActions();
+  const { goHome, setMode, closeTrackGuide, setSelectorOpen } = useAppActions();
   const navMode = mode === 'threads' ? 'threads' : 'era';
 
   function openEraSelector() {
@@ -89,7 +90,7 @@ export function OverlayNav({
         {shareTarget && (
           <button
             type="button"
-            onClick={() => openShare(shareTarget)}
+            onClick={() => void share(shareTarget)}
             aria-label="Share"
             title="Share"
             className="era-icon-btn grid size-11 shrink-0 place-items-center rounded-full"

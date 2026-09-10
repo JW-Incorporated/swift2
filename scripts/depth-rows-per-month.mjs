@@ -30,7 +30,9 @@ import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { SHALLOW_CONTEXT_CHARS } from './lib/content-caps.mjs';
+import { runMain } from './lib/cli.mjs';
 
+async function main() {
 const here = dirname(fileURLToPath(import.meta.url));
 const seed = join(here, '..', 'supabase', 'seed');
 
@@ -276,3 +278,6 @@ for (const r of [...eraRows].sort((a, b) => b.shallow.length - a.shallow.length)
 out();
 
 process.stdout.write(lines.join('\n') + '\n');
+}
+
+runMain(main, { name: 'depth-rows-per-month' });

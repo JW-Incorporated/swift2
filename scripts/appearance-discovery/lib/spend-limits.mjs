@@ -5,7 +5,7 @@
 // human can set to any positive integer, and — since the real photo-content
 // verification gate landed (PR #3613) — every candidate this run considers
 // now also spends up to 2 paid claude-sonnet-5 vision calls (one per
-// thumbnail URL, see fetchAppearanceThumbnail in social-draft.mjs).
+// thumbnail URL, see the appearance-discovery fast lane).
 // CLAUDE.md ("Cost discipline") requires any product LLM call to be
 // worker-side and HARD-capped, not bounded only by an operator-settable
 // input. This is a separate module (not inlined in discover.mjs) so it can

@@ -214,25 +214,46 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
         result.newStories += newStoryCount;
       }
 
-      // Attach every raw item to its resolved story id + persist its similarity key.
-      for (const a of assignments) {
-        const storyId = a.existingStoryId ?? newStoryIdByIndex.get(a.newStoryIndex!);
-        if (!storyId) continue;
-        const { error: attachError } = await db
-          .from('news_raw_item')
-          .update({ story_id: storyId, similarity_key: a.similarityKey })
-          .eq('id', a.item.id);
-        if (attachError) {
-          errors.push(`attach raw_item ${a.item.id} to story: ${attachError.message}`);
-          continue;
-        }
+      // Attach every raw item to its resolved story id + persist its similarity
+      // key in a single batched upsert (was one UPDATE per raw item).
+      const attachRows = assignments
+        .map((a) => {
+          const storyId = a.existingStoryId ?? newStoryIdByIndex.get(a.newStoryIndex!);
+          return storyId ? { storyId, similarityKey: a.similarityKey, item: a.item } : null;
+        })
+        .filter((r): r is NonNullable<typeof r> => r !== null);
 
-        await recordStorySource(
-          db,
-          storyId,
-          a.item as unknown as { id: string; url: string; source_id?: string },
-          errors,
+      if (attachRows.length > 0) {
+        // Per-row UPDATE, not upsert: every id here already exists (it came
+        // from the `unclustered` select above). A blanket .upsert() issues
+        // INSERT ... ON CONFLICT DO UPDATE under the hood, and Postgres
+        // validates the INSERT branch's NOT NULL columns (source_id,
+        // external_id, url, ...) even though the row always resolves to the
+        // UPDATE branch — that mismatch is what broke every scheduled run
+        // (#3746): "null value in column source_id ... violates not-null
+        // constraint". An explicit .update() only ever touches the columns
+        // named here and never constructs a candidate INSERT row.
+        const attachResults = await Promise.all(
+          attachRows.map((r) =>
+            db
+              .from('news_raw_item')
+              .update({ story_id: r.storyId, similarity_key: r.similarityKey })
+              .eq('id', r.item.id),
+          ),
         );
+        const attachError = attachResults.find((res) => res.error)?.error;
+        if (attachError) {
+          errors.push(`batch attach raw_item -> story: ${attachError.message}`);
+        } else {
+          await recordStorySources(
+            db,
+            attachRows.map((r) => ({
+              storyId: r.storyId,
+              rawItem: r.item as unknown as { id: string; url: string },
+            })),
+            errors,
+          );
+        }
       }
 
       if (assignments.length > 0) {
@@ -304,62 +325,95 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
   return result;
 }
 
-/** Inserts a news_story_source row if this (story, outlet) pair isn't already recorded. */
-async function recordStorySource(
+/**
+ * Inserts a news_story_source row for every (story, raw item) pair that isn't
+ * already recorded for that outlet, in a single batched
+ * `insert ... on conflict (story_id, outlet_name) do nothing` — replaces the
+ * old per-row "select existing, then insert" round trip.
+ */
+async function recordStorySources(
   db: SupabaseClient,
-  storyId: string,
-  rawItem: { id: string; url: string },
+  attachments: { storyId: string; rawItem: { id: string; url: string } }[],
   errors: string[],
 ): Promise<void> {
+  if (attachments.length === 0) return;
   try {
-    const { data: fullItem, error: itemError } = await db
+    const rawItemIds = attachments.map((a) => a.rawItem.id);
+    const { data: fullItems, error: itemsError } = await db
       .from('news_raw_item')
-      .select('source_id, url, publisher, resolved_tier, news_source(name, tier)')
-      .eq('id', rawItem.id)
-      .maybeSingle();
-    if (itemError || !fullItem) throw new Error(itemError?.message ?? 'raw item not found');
+      .select('id, source_id, url, publisher, resolved_tier, news_source(name, tier)')
+      .in('id', rawItemIds);
+    if (itemsError) throw new Error(itemsError.message);
 
-    const sourceMeta = (fullItem as unknown as { news_source: { name: string; tier: string } })
-      .news_source;
+    const itemById = new Map(
+      (fullItems ?? []).map((item) => [
+        (item as unknown as { id: string }).id,
+        item as unknown as {
+          id: string;
+          url: string;
+          publisher: string | null;
+          resolved_tier: string | null;
+          news_source: { name: string; tier: string };
+        },
+      ]),
+    );
 
-    // Attribute to the PUBLISHER the feed named, falling back to the feed
-    // itself only when it does not say. Aggregator feeds (Google News) carry
-    // many outlets, so using the feed name here both misattributed the story
-    // and — because the dedupe below is keyed on outlet_name — capped every
-    // story at a single source row, pinning source_count at 1 and making
-    // `corroborated` unreachable across the whole table.
-    const outletName = (fullItem as unknown as { publisher: string | null }).publisher?.trim()
-      || sourceMeta.name;
+    const rows: {
+      story_id: string;
+      raw_item_id: string;
+      outlet_name: string;
+      url: string;
+      tier: string;
+    }[] = [];
+    for (const { storyId, rawItem } of attachments) {
+      const fullItem = itemById.get(rawItem.id);
+      if (!fullItem) {
+        errors.push(`recordStorySources: raw item ${rawItem.id} not found`);
+        continue;
+      }
+      // Attribute to the PUBLISHER the feed named, falling back to the feed
+      // itself only when it does not say. Aggregator feeds (Google News) carry
+      // many outlets, so using the feed name here both misattributed the story
+      // and — because the unique index below is keyed on outlet_name — capped
+      // every story at a single source row, pinning source_count at 1 and
+      // making `corroborated` unreachable across the whole table.
+      const outletName = fullItem.publisher?.trim() || fullItem.news_source.name;
+      // resolved_tier overrides the source's static tier for items an
+      // aggregator feed (Google News) resolved to a real publisher domain
+      // (proposal §4.1.2). Unresolved items get resolved_tier='unverified'
+      // by resolveGoogleNewsItem, so they stay uncitable-looking rather than
+      // inheriting whatever the feed's own tier happens to be.
+      const tier = fullItem.resolved_tier ?? fullItem.news_source.tier;
+      rows.push({
+        story_id: storyId,
+        raw_item_id: rawItem.id,
+        outlet_name: outletName,
+        url: fullItem.url,
+        tier,
+      });
+    }
+    if (rows.length === 0) return;
 
-    // resolved_tier overrides the source's static tier for items an
-    // aggregator feed (Google News) resolved to a real publisher domain
-    // (proposal §4.1.2). Unresolved items get resolved_tier='unverified'
-    // by resolveGoogleNewsItem, so they stay uncitable-looking rather than
-    // inheriting whatever the feed's own tier happens to be.
-    const tier =
-      (fullItem as unknown as { resolved_tier: string | null }).resolved_tier ?? sourceMeta.tier;
-
-    const { data: existing } = await db
-      .from('news_story_source')
-      .select('id')
-      .eq('story_id', storyId)
-      .eq('outlet_name', outletName)
-      .maybeSingle();
-    if (existing) return; // already recorded for this outlet — corroboration counts distinct outlets, not raw items
-
-    const { error: insertError } = await db.from('news_story_source').insert({
-      story_id: storyId,
-      raw_item_id: rawItem.id,
-      outlet_name: outletName,
-      url: fullItem.url,
-      tier,
+    // Dedupe within this batch too — two raw items in the same cycle can
+    // resolve to the same (story, outlet); the DB constraint would reject a
+    // duplicate pair within one insert statement even with do-nothing.
+    const seen = new Set<string>();
+    const dedupedRows = rows.filter((r) => {
+      const key = `${r.story_id}::${r.outlet_name}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
     });
+
+    const { error: insertError } = await db
+      .from('news_story_source')
+      .upsert(dedupedRows, { onConflict: 'story_id,outlet_name', ignoreDuplicates: true });
     if (insertError) throw new Error(insertError.message);
     // source_count itself is set by recomputeVerification's full recount
     // from news_story_source, called for every touched story right after
     // this — no separate counter/RPC needed here.
   } catch (err) {
-    errors.push(`recordStorySource failed for story ${storyId}: ${(err as Error).message}`);
+    errors.push(`recordStorySources failed: ${(err as Error).message}`);
   }
 }
 
@@ -369,29 +423,65 @@ async function recomputeVerification(
   storyIds: string[],
   errors: string[],
 ): Promise<void> {
-  for (const storyId of storyIds) {
-    try {
-      const { data: sources, error } = await db
-        .from('news_story_source')
-        .select('tier')
-        .eq('story_id', storyId);
-      if (error) throw new Error(error.message);
+  if (storyIds.length === 0) return;
+  try {
+    // Batched select-in for all touched stories' sources, instead of one
+    // per-story SELECT — grouped in memory below.
+    const { data: allSources, error } = await db
+      .from('news_story_source')
+      .select('story_id, tier')
+      .in('story_id', storyIds);
+    if (error) throw new Error(error.message);
+
+    const sourcesByStory = new Map<string, { tier: string }[]>();
+    for (const id of storyIds) sourcesByStory.set(id, []);
+    for (const row of allSources ?? []) {
+      const list = sourcesByStory.get(row.story_id) ?? [];
+      list.push({ tier: row.tier });
+      sourcesByStory.set(row.story_id, list);
+    }
+
+    const now = new Date().toISOString();
+    const updateRows = storyIds.map((storyId) => {
+      const sources = sourcesByStory.get(storyId) ?? [];
       const status = computeVerificationStatus(
-        (sources ?? []).map((s) => ({
+        sources.map((s) => ({
           tier: s.tier as 'official' | 'established' | 'fan' | 'unverified',
         })),
       );
-      const { error: updateError } = await db
-        .from('news_story')
-        .update({
-          verification_status: status,
-          verified_at: new Date().toISOString(),
-          source_count: (sources ?? []).length,
-        })
-        .eq('id', storyId);
-      if (updateError) throw new Error(updateError.message);
-    } catch (err) {
-      errors.push(`verify failed for story ${storyId}: ${(err as Error).message}`);
-    }
+      return {
+        id: storyId,
+        verification_status: status,
+        verified_at: now,
+        source_count: sources.length,
+      };
+    });
+
+    // Per-row UPDATE, not upsert: every id here already exists (touchedStoryIds
+    // always comes from stories just attached/created above). A blanket
+    // .upsert() issues INSERT ... ON CONFLICT DO UPDATE under the hood, and
+    // Postgres validates the INSERT branch's NOT NULL columns (canonical_title,
+    // ...) even though the row always resolves to the UPDATE branch — that
+    // mismatch is what broke every scheduled run (#3746): "null value in
+    // column canonical_title ... violates not-null constraint". An explicit
+    // .update() only ever touches the columns named here.
+    const updateResults = await Promise.all(
+      updateRows.map((row) =>
+        db
+          .from('news_story')
+          .update({
+            verification_status: row.verification_status,
+            verified_at: row.verified_at,
+            source_count: row.source_count,
+          })
+          .eq('id', row.id),
+      ),
+    );
+    const updateError = updateResults.find((res) => res.error)?.error;
+    if (updateError) throw new Error(updateError.message);
+  } catch (err) {
+    errors.push(
+      `batch verify failed for stories [${storyIds.join(', ')}]: ${(err as Error).message}`,
+    );
   }
 }

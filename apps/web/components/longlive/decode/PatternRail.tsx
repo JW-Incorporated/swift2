@@ -1,8 +1,8 @@
 'use client';
 
 import { useMemo } from 'react';
-import { getEra, eraIndex } from '@/lib/longlive/eras';
-import type { CluePair } from '@/lib/longlive/types';
+import { getEra, eraIndex } from '@swift2/experience';
+import type { CluePair } from '@swift2/experience';
 import { RAIL_BUTTON_CLASS, railButtonLabel } from './patternRailLayout';
 
 /**

@@ -7,39 +7,44 @@
  * degrades to a no-op / empty list when `session` is `null`.
  */
 import type { ClownSession } from './clown-session';
-import { clownAuthHeaders, clownMemoryEnv } from './clown-session';
+import { createClownDbClient } from './clown-session';
 
-export async function pinTheory(session: ClownSession | null, liveTheoryId: string, fetchImpl: typeof fetch = fetch): Promise<void> {
+export async function pinTheory(session: ClownSession | null, liveTheoryId: string, signal?: AbortSignal): Promise<void> {
   if (!session) return;
-  const env = clownMemoryEnv();
-  if (!env) return;
-  await fetchImpl(`${env.supabaseUrl}/rest/v1/clown_pinned_theory`, {
-    method: 'POST',
-    headers: { ...clownAuthHeaders(env, session), 'content-type': 'application/json', Prefer: 'resolution=ignore-duplicates' },
-    body: JSON.stringify({ user_id: session.userId, live_theory_id: liveTheoryId }),
-  });
+  const db = createClownDbClient(session);
+  if (!db) return;
+  // `ignoreDuplicates: true` is the typed-client equivalent of the old raw
+  // fetch's `Prefer: resolution=ignore-duplicates` header — `unique
+  // (user_id, live_theory_id)` (20260904000000_clown_sessions.sql) is the
+  // conflict target either way.
+  let query_ = db
+    .from('clown_pinned_theory')
+    .upsert(
+      { user_id: session.userId, live_theory_id: liveTheoryId },
+      { onConflict: 'user_id,live_theory_id', ignoreDuplicates: true },
+    );
+  if (signal) query_ = query_.abortSignal(signal);
+  await query_;
 }
 
-export async function unpinTheory(session: ClownSession | null, liveTheoryId: string, fetchImpl: typeof fetch = fetch): Promise<void> {
+export async function unpinTheory(session: ClownSession | null, liveTheoryId: string, signal?: AbortSignal): Promise<void> {
   if (!session) return;
-  const env = clownMemoryEnv();
-  if (!env) return;
-  await fetchImpl(
-    `${env.supabaseUrl}/rest/v1/clown_pinned_theory?user_id=eq.${session.userId}&live_theory_id=eq.${liveTheoryId}`,
-    { method: 'DELETE', headers: clownAuthHeaders(env, session) },
-  );
+  const db = createClownDbClient(session);
+  if (!db) return;
+  let query_ = db.from('clown_pinned_theory').delete().eq('user_id', session.userId).eq('live_theory_id', liveTheoryId);
+  if (signal) query_ = query_.abortSignal(signal);
+  await query_;
 }
 
-export async function listPinnedTheories(session: ClownSession | null, fetchImpl: typeof fetch = fetch): Promise<string[]> {
+export async function listPinnedTheories(session: ClownSession | null, signal?: AbortSignal): Promise<string[]> {
   if (!session) return [];
-  const env = clownMemoryEnv();
-  if (!env) return [];
-  const res = await fetchImpl(
-    `${env.supabaseUrl}/rest/v1/clown_pinned_theory?select=live_theory_id&user_id=eq.${session.userId}`,
-    { headers: clownAuthHeaders(env, session) },
-  );
-  if (!res.ok) return [];
-  const rows = (await res.json()) as Array<{ live_theory_id?: unknown }>;
-  if (!Array.isArray(rows)) return [];
-  return rows.map((r) => r.live_theory_id).filter((id): id is string => typeof id === 'string');
+  const db = createClownDbClient(session);
+  if (!db) return [];
+  let query_ = db.from('clown_pinned_theory').select('live_theory_id').eq('user_id', session.userId);
+  if (signal) query_ = query_.abortSignal(signal);
+  const { data, error } = await query_;
+  if (error || !data) return [];
+  return (data as Array<{ live_theory_id?: unknown }>)
+    .map((r) => r.live_theory_id)
+    .filter((id): id is string => typeof id === 'string');
 }

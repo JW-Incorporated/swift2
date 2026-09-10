@@ -147,7 +147,7 @@ describe('renderModule', () => {
         },
       ],
     });
-    expect(ts).toContain("import type { LoreItem } from './types';");
+    expect(ts).toContain("import type { LoreItem } from '@swift2/experience';");
     expect(ts).toContain('export const LORE_UPDATED_ON = "2026-08-31";');
     expect(ts).toContain('export const LORE_RAW: LoreItem[] = [');
     expect(ts).toContain('sources: [{ name: "N", url: "https://u" }],');

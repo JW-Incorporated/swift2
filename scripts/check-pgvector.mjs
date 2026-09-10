@@ -4,6 +4,7 @@
 //
 //   node --env-file=apps/worker/.env scripts/check-pgvector.mjs
 import { makeClient, describeConnection } from './lib/pg.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const connectionString = process.env.SUPABASE_DB_URL;
 if (!connectionString) {
@@ -11,22 +12,23 @@ if (!connectionString) {
   process.exit(1);
 }
 
-const client = makeClient(connectionString);
-await client.connect();
-try {
-  console.log(`connected to ${describeConnection(connectionString)}`);
-  await client.query('create extension if not exists vector;');
-  const { rows } = await client.query(
-    "select extversion from pg_extension where extname = 'vector';",
-  );
-  if (rows.length) {
-    console.log(`pgvector is available (version ${rows[0].extversion}).`);
-  } else {
-    console.log('pgvector extension not found after create attempt — check plan tier.');
+async function main() {
+  const client = makeClient(connectionString);
+  await client.connect();
+  try {
+    console.log(`connected to ${describeConnection(connectionString)}`);
+    await client.query('create extension if not exists vector;');
+    const { rows } = await client.query(
+      "select extversion from pg_extension where extname = 'vector';",
+    );
+    if (rows.length) {
+      console.log(`pgvector is available (version ${rows[0].extversion}).`);
+    } else {
+      console.log('pgvector extension not found after create attempt — check plan tier.');
+    }
+  } finally {
+    await client.end();
   }
-} catch (err) {
-  console.error('\nCHECK FAILED:', err.message);
-  process.exitCode = 1;
-} finally {
-  await client.end();
 }
+
+runMain(main, { name: 'check-pgvector' });

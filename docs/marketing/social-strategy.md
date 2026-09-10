@@ -47,7 +47,7 @@ Three structural fixes, in priority order:
 
 ## 1. Campaign architecture
 
-Five campaigns. Every queue item belongs to exactly one. The names below are
+Six campaigns. Every queue item belongs to exactly one. The names below are
 **families** — a prefix that groups metrics — and the `campaign` field on a
 queue item is never the bare family:
 
@@ -55,6 +55,7 @@ queue item is never the bare family:
 |---|---|---|---|
 | Feature launch | `launch:<feature-slug>` | `launch:mood-chat:announce` | 0-6 slots per launch, bursty |
 | Thread cycle | `thread:<lensId>:<angle>` | `thread:hidden-clues:origin-story:2026-08` | 2 slots per thread per month (12/mo) |
+| Blank Spaces relationship timeline | `timeline:love-story:<chapter>` | `timeline:love-story:early-solo-years:2026-09-17` | **1 evening campaign beat every calendar week, permanent minimum** |
 | Mood beat | `mood:<format>` | `mood:chip-poll:2026-09` | 2-3 slots per month |
 | Daily heartbeat | `heartbeat:<pillar>` | `heartbeat:on-this-day:red-announcement` | everything left (~60-70%) |
 | Human reach | *(no queue item — a GitHub issue)* | — | 0 slots, ~15 min/week of Joey |
@@ -164,7 +165,38 @@ windows as fit and drops the rest; the next month starts again at The Decode
 with its own angle index. (August 2026 starts on the 12th, so it runs Decode →
 Clue Web → Runway → Blank Spaces and skips Taylor's Version + End Game.)
 
-### (c) Mood beat — monthly, starter-chip driven
+### (c) Blank Spaces relationship timeline — weekly, confirmed-only
+
+**Permanent minimum:** reserve at least **one 23:00Z evening campaign beat in
+every calendar week** for this series. It is additional to, and never replaces,
+the six-thread monthly rotation; Blank Spaces still receives its two thread-cycle
+slots in its normal monthly window. If a launch arc or another campaign already
+occupies the preferred evening beat, use the next available 23:00Z beat that
+week rather than double-booking a slot or adding a separate Facebook item.
+
+**Delivery shape:** each weekly beat is exactly one Instagram post and one
+structurally distinct X post with the same story-unique `timeline:love-story:*`
+campaign value and `scheduledAt`; Facebook rides the Instagram post
+automatically. Never draft or plan a standalone Facebook item.
+
+**Chronology:** begin with Taylor's early solo years, then advance through
+publicly confirmed relationship-era material toward Travis. Each beat must stand
+alone and point to `/?lens=love-story` with the standard UTM parameters. The
+calendar supplies only the chapter and sourcing direction; the Growth drafter
+must verify each specific person, relationship, event, date, quote, or other
+factual claim against the Vault or reliable public sources before it appears in
+copy. Joe Jonas may be covered only as confirmed public relationship history;
+rumor-stage relationship-existence claims, countdowns, and speculation remain
+banned.
+
+**Media:** Instagram leads with a real cleared Taylor photo relevant to the era.
+It may place a Blank Spaces lens screenshot on slide 2 only when the screenshot
+shows that lens in actual, visually rich use and satisfies §2's “cool feature
+only” rule; never use a generic Long Live card, landing-page image, or plain
+article screenshot. X follows the media ladder: a relevant cleared Taylor photo
+when it fits, otherwise text-only; never a site screenshot.
+
+### (d) Mood beat — monthly, starter-chip driven
 
 Mood is the most distinctive thing on the site and the hardest to link to.
 
@@ -195,7 +227,7 @@ Mood is the most distinctive thing on the site and the hardest to link to.
 the arc.** Don't run both — it doubles Mood to 8 slots in a month and the grid
 reads like an ad.
 
-### (d) Daily heartbeat — the everyday posts, with hook craft
+### (e) Daily heartbeat — the everyday posts, with hook craft
 
 The five pillars survive. What changes is how the copy opens.
 
@@ -252,7 +284,7 @@ can still be 300+ weighted once the link is counted — this, not duplicate
 sibling copy, is what actually broke 11 of 12 `social/failed/` items (§0,
 corrected 2026-08-11).
 
-### (e) Human reach — the lane APIs can't touch
+### (f) Human reach — the lane APIs can't touch
 
 Facebook groups, Reddit and Tumblr are where this audience actually lives, and
 no API we have reaches them. So they run on **~15 minutes of Joey per week**,
@@ -410,6 +442,22 @@ the code is what actually ships and this file is the bug.
    photo as the grid tile, the screenshot as slide 2 — the grid shows Taylor
    either way. **X site-screen posts are permanently prohibited**; the X
    sibling uses a real credited photo or text-only copy.
+
+   **The "cool feature only" rule (Joey, 2026-09-01).** A `site-screen` may
+   only show one of the site's genuinely distinctive, visually rich surfaces
+   — the thread lenses (Decode, Clue Web, Runway, Blank Spaces, Taylor's
+   Version, End Game), the Mood chat/chip experience, Clownbot, the shoppable
+   "seen on Taylor" surface, or a comparably standout feature — captured in
+   actual use (a real result on screen, not an empty state or a generic list
+   view). It may never be: a bare landing page, a plain article/moment page,
+   a letterboxed video-padding frame, or any screenshot whose only content is
+   "the site exists" rather than "look what the site does." If a launch or
+   how-to post has no genuinely cool visual to show, it drops to rung 3
+   (text-only on X) or is skipped rather than shipping a flat screenshot —
+   same "an empty slot beats a failed one" principle as the photo ladder.
+   This is a caption/media judgment call for the drafter, and `check-drafts.mjs`
+   cannot verify "cool" automatically — flag any borderline call in the
+   item's `why` field so it's auditable in the weekly review.
 3. **No image at all** (X only — Instagram always requires media). A sharp
    text-only tweet beats a decorative tile every time.
 
@@ -447,19 +495,47 @@ The site's editorial standard applies to captions verbatim
 (`docs/content-ops/editorial-voice-and-pipeline.md`): **Taylor**, not bare
 "Swift"; no AI-tell phrases; no wire-attribution framing (the outlet is not the
 subject of the sentence — the fan's read comes first, the source second).
-Register is lowercase-warm, a fan telling a fan. Fan-made is implicit in the
+Register is warm, a fan telling a fan — standard sentence capitalization
+(caption openers and every new sentence start with a capital letter, proper
+nouns capitalized normally). The one carve-out: the four albums officially
+styled all-lowercase (`folklore`, `evermore`, `reputation`, and any future
+release with a lowercase official styling) stay lowercase even at a sentence
+start, per `era-capitalization.mjs` — that is brand-name styling, not
+register, and is unaffected by this change (Joey, 2026-09-10 — "why aren't we
+capitalizing the first letter in a sentence? drives me nuts"; supersedes the
+lowercase-everything register call from 2026-08-25 below). Fan-made is implicit in the
 bio, never claimed as official. The `#36`/Clownbot blocklist (health, pregnancy,
 sexuality, family/minors, legal wrongdoing, private individuals,
 relationship-existence speculation) applies to every draft, and nothing is ever
 invented — no stat, quote, or trend without a Vault item or a verifiable source
 behind it.
 
+**Major personal-life events — confirmed-only carve-out (Joey, 2026-09-01,
+`D1=A`).** The blocklist above still bars searching for, drafting, or posting
+any pregnancy or relationship-existence *speculation* — that stays absolute,
+zero exceptions, same as every other rumor-stage topic on this list. The one
+change: once a major personal-life event (pregnancy, engagement, marriage, and
+comparable milestones) is **confirmed** — by Taylor or her team directly, or
+independently reported as settled fact by two major outlets — it is no longer
+"speculation" and social may cover it like any other confirmed public news
+event (the same treatment a Grammy win or a tour date gets): warm, factual,
+sourced, celebratory. It never gets a "clues/countdown/rumor tracker"
+treatment the way an album rollout does — that framing is reserved for
+product launches and creative rollouts, not a person's private life. Until
+confirmation, silence; the moment it's confirmed, normal coverage. This
+carve-out is social-caption policy only (this file, `docs/agents/growth.md`,
+`docs/agents/runner-prompts/growth-draft.md`) — it does not touch the
+site's Vault/editorial pipeline or the Clownbot safety gate, which remain
+governed by their own docs and are outside Tree's and Growth's mutation
+rights.
+
 **Register — a fan in love, out loud (Joey, 2026-08-25).** We are fans and we
 GUSH. Every caption is first-person fan reaction first, fact second: lead with
 the feeling ("OMG", "i can't stop thinking about", "this makes me so happy"),
 then the one concrete detail that earns it. If a caption could be read aloud
 by a documentary narrator without sounding wrong, it's in the old voice —
-rewrite it. Lowercase stays; detachment goes. Exclamation points and
+rewrite it. Standard sentence capitalization applies (2026-09-10 update
+above); detachment goes. Exclamation points and
 caps-for-emphasis are welcome; 1-2 emoji max, never strings. The specificity
 test still binds both ways: joy without a real detail is slop, and a detail
 without joy is a museum placard. Unchanged: sourcing is absolute — gush only
@@ -502,17 +578,23 @@ IG posts by reach/saves, pasted from IG Insights. 2 minutes, and it is the only
 per-post engagement signal that exists. Tree names those 3 in its next monthly
 review and says what they had in common.
 
-### Targets — reset for reality
+### Targets — reset for reality (revised 2026-09-01 — tied to mechanisms, not hopes)
 
-| By | Instagram followers | Also true |
-|---|---|---|
-| 2026-09-30 | **50** | zero failed posts; ≥12 distinct openers per 14 days; every one of the six threads taught twice |
-| 2026-10-31 | **150** | one post with measurable saves; Reddit contribution count ≥20 and the first promo post made |
-| 2026-12-31 | **500** | a repeatable format identified from Insights data |
+**Why these changed:** the previous targets were floors for an account running growth-plan §6's outward-engagement engine (daily human engagement hour, following relevant accounts, Reddit non-promo participation). That engine has not been running — near-zero traction to date is a symptom of that gap, not of calendar quality. Targets below stay the same numbers but now name the mechanism each one depends on, so a miss tells us *what* to fix, not just *that* something's wrong.
+
+| By | Instagram followers | Also true | Depends on |
+|---|---|---|---|
+| 2026-09-30 | **50** | zero failed posts; ≥12 distinct openers per 14 days; every one of the six threads taught twice; first 3 logged shares | Daily human engagement hour (comments + follows, growth-plan §6) running 3+ weeks; share-design pass (below) live on every heartbeat/mood post |
+| 2026-10-31 | **150** | one post with measurable saves; Reddit contribution count ≥20 and the first promo post made | Reddit non-promo engine producing daily draft comments; engagement hour sustained |
+| 2026-12-31 | **500** | a repeatable format identified from Insights data; first collab post with a mid-size fan account | 8+ weeks of Insights data actually arriving monthly (see below) to identify what to double down on |
+
+**App-store launch week revised down from the old day-30 fantasy (500-1,500 was growth-plan's number for an account already running the outward engine): realistic launch-week bump is +200-500 IG in 7 days**, contingent on a pre-launch base of 150+ already built per the targets above.
 
 These are floors for a fan account posting daily with real images and real
-links, not viral projections. One hit changes everything, and no plan can
+links plus a genuine outward-reach engine, not viral projections. One hit changes everything, and no plan can
 schedule one — what a plan can do is buy a ticket every day.
+
+**Standing blocker, not a new ask:** monthly IG Insights (top 3 posts by reach/saves) has been requested every month since 2026-08 and has never arrived. Without it, Tree cannot tell which content/format actually earns shares — the single most important number for tuning this plan — and every "double down / drop" call in the monthly review is a guess instead of a measurement.
 
 ### The monthly self-review
 

@@ -38,6 +38,21 @@ export const CLOWN_STARTERS: readonly ClownStarter[] = [
   },
 ];
 
+/**
+ * Community Engine plan §Phase 2, card P2-5 — the fan-theory chip. Unlike
+ * `CLOWN_STARTERS` above (a prefill only — the reader still has to hit send,
+ * which routes through the full model per `ClownChat.tsx`'s own comment),
+ * this ONE prompt is wired to send immediately as a `chip`-flagged request:
+ * `route.ts` answers it straight from the `live_theory` knowledge_doc
+ * projection (`kind='live_theory'`), zero model calls, same as a board-item
+ * tap. Kept as its own export, not a fifth `CLOWN_STARTERS` entry, so it
+ * never collides with `clown-starters.test.ts`'s length-4 assertion — that
+ * test is about the newcomer prefill wall, a different UI affordance from
+ * this one.
+ */
+export const FAN_THEORY_CHIP_LABEL = 'What are fans theorising right now?';
+export const FAN_THEORY_CHIP_PROMPT = 'What are fans theorising right now?';
+
 /** Column item -> composer text. Pure. Chips never reach the model. */
 export function promptForItem(item: BoardItem): string {
   const prompt = item.prompt.trim();

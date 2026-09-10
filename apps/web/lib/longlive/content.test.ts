@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { CONTENT, MILESTONES, build, milestonesForEra, type RawItem } from './content';
-import { formatMonthYear } from './format';
+import { formatMonthYear } from '@swift2/experience';
 import {
   autoFocalPoint,
   focalPointOf,
@@ -9,7 +11,35 @@ import {
   primaryImage,
   primaryImageRef,
   type ImageRef,
-} from './types';
+} from '@swift2/experience';
+
+/**
+ * OS-014b-2 (see content.ts's header for the full Fable-ruling reasoning):
+ * `CONTENT` keeps computing from `buildContent({}, VAULT_RAW)` rather than
+ * reading the published bundle at runtime, because this module is
+ * reachable from a `'use client'` component. Per the same lesson
+ * OS-014b-4/5 hit on era-secrets.ts/clownbot-lore.ts (this suite runs
+ * BEFORE apps/web's `prebuild` publishes the bundle to disk, so asserting
+ * against the actual published bundle file here is not possible), this
+ * test instead proves byte-identity by construction:
+ * `scripts/lib/dump-longlive-sources.ts` (the bundle builder's data
+ * source) computes its own `CONTENT` from the exact same
+ * `buildContent({}, VAULT_RAW)` call this module makes — i.e. the
+ * published bundle's content data literally comes from the same
+ * computation this file's own `CONTENT` export is, so it cannot drift.
+ */
+describe('bundle-sourced CONTENT stays wired into the published bundle build (OS-014b-2)', () => {
+  it("scripts/lib/dump-longlive-sources.ts sources CONTENT from buildContent({}, VAULT_RAW) exactly as content.ts does", () => {
+    const dumpScript = readFileSync(
+      resolve(import.meta.dirname, '../../../../scripts/lib/dump-longlive-sources.ts'),
+      'utf8',
+    );
+    expect(dumpScript).toContain(
+      "import { VAULT_RAW } from '../../apps/web/lib/longlive/content-vault.generated'",
+    );
+    expect(dumpScript).toContain('const CONTENT = buildContent({}, VAULT_RAW)');
+  });
+});
 
 /** Minimal RawItem factory — only image fields vary across these tests. */
 function raw(partial: Partial<RawItem> = {}): RawItem {
@@ -165,7 +195,11 @@ describe('CONTENT dataset invariants', () => {
     // #717: these three aesthetic moments carried release-adjacent placeholder
     // dates, so day-level labels implied precision nobody researched — Joey
     // moved them to editorial period labels.
-    expectLabel('red-snl', 'Fall 2012');
+    // 'red-snl' was re-sourced #3755 (2026-09-05) with a specific dated
+    // event (the AMAs performance) replacing the old undated stub, so it
+    // now carries a researched day-precision label instead of the prior
+    // editorial "Fall 2012" placeholder.
+    expectLabel('red-snl', 'November 18, 2012');
     expectLabel('ttpd-typewriter', 'Spring 2024');
     expectLabel('tloas-sequins', 'Fall 2025');
   });

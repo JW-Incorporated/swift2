@@ -36,6 +36,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { eras } from '../supabase/seed/eras-data.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -216,7 +217,7 @@ function main() {
     manifest = parseManifest(text);
   } catch (err) {
     console.error(`\n✗ ${err.message}\n`);
-    process.exit(1);
+    return 1;
   }
 
   const problems = validateManifest(manifest);
@@ -235,7 +236,7 @@ function main() {
         MANIFEST_FILE +
         '; an empty\n"claims": [] is always valid and means "nothing claimed".\n',
     );
-    process.exit(1);
+    return 1;
   }
   console.log(`✓ ${MANIFEST_FILE} is a valid content ownership lock.`);
 }
@@ -244,5 +245,5 @@ if (
   process.argv[1] &&
   process.argv[1].split('\\').join('/').endsWith('scripts/check-content-ownership.mjs')
 ) {
-  main();
+  runMain(main, { name: 'check-content-ownership' });
 }

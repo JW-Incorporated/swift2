@@ -1,0 +1,21 @@
+{
+  "eraId": "folklore",
+  "tracks": [
+    {
+      "slug": "the-1",
+      "trackNumber": 1,
+      "title": "the 1",
+      "note": "The opening track sets folklore's tone: wistful, conversational, string-and-piano production.",
+      "sources": [
+        { "name": "Rolling Stone", "url": "https://example.com/the-1-review", "reliability": 4 }
+      ],
+      "facts": {
+        "release": "folklore",
+        "releaseDate": "2020-07-24",
+        "writers": ["Taylor Swift", "Aaron Dessner"],
+        "producers": ["Aaron Dessner"],
+        "isSingle": false
+      }
+    }
+  ]
+}

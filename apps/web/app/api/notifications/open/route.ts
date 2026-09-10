@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { markDeliveryOpened } from '@swift2/core/notifications-server';
 import { trustedClientIp } from '../../../../lib/longlive/client-ip';
+import { makeRateLimiter } from '../../../../lib/longlive/rate-limit';
 import { supabaseAdmin } from '../../../../lib/supabase-server';
 
 // Notifications Phase 6 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §11) —
@@ -21,16 +22,10 @@ export const dynamic = 'force-dynamic';
 // POST route in this repo — a burst here is either a bug in the service
 // worker or a single user tapping several notifications in a row, neither
 // of which needs more than a generous window.
-const HITS = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 60;
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 60 });
 
 function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
-  HITS.set(ip, recent);
-  return recent.length > MAX_PER_WINDOW;
+  return limiter.isLimited(ip);
 }
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;

@@ -5,7 +5,7 @@ import { THEORIES_RAW } from './theories.generated';
 import { LORE } from './clownbot-lore';
 import { screenTopic } from './clown-blocklist';
 import { buildClownDocs, type ClownDoc } from './clown-index';
-import type { EraId } from './types';
+import type { EraId } from '@swift2/experience';
 
 /**
  * `clown-index.test.ts` mocks `./clown-blocklist` + every corpus module to

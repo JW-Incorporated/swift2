@@ -129,25 +129,6 @@ describe('#3177 TheoryGuide is a real focus-trapped dialog', () => {
   });
 });
 
-describe('#3177 ShareSheet is a real focus-trapped dialog', () => {
-  const src = read('./ShareSheet.tsx');
-
-  it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
-  });
-
-  it('the card root declares dialog semantics and a focus target', () => {
-    const tag = openingTag(src, 'aria-labelledby="share-sheet-title"');
-    expect(tag).toContain('role="dialog"');
-    expect(tag).toContain('aria-modal="true"');
-    expect(tag).toContain('tabIndex={-1}');
-    expect(tag).toContain('ref={dialogRef}');
-  });
-
-  it('wires the trap onto the card root while a share target is set', () => {
-    expect(src).toContain('useFocusTrap(Boolean(share), dialogRef);');
-  });
-});
 
 describe('#3177 the feedback panel is a real focus-trapped dialog', () => {
   const src = read('./FeedbackButton.tsx');

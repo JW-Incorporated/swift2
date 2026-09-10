@@ -420,6 +420,166 @@ describe('post-queue: blocked items are reported as skips, not silently deferred
   });
 });
 
+// --- mandatory X+IG pairing, publishable within one run (2026-09-10, kanban
+// t_bac31b1a — codex review: check-drafts.mjs's checkSimultaneousPair
+// requires both siblings to SCHEDULE within 5 minutes of each other, but
+// that promise is empty if the poster still defers one to the next run
+// (MAX_POSTS_PER_RUN=1) or blocks it as a same-run media repeat (paired
+// siblings deliberately share one credited photo). A due campaign pair is
+// one posting unit.
+describe('post-queue: a due campaign pair both post within the same run', () => {
+  it('posts both X and Instagram siblings of a due pair in one run despite MAX_POSTS_PER_RUN=1', async () => {
+    // Combined stub: X's tweet-create expects {data:{id}}, Instagram's flow
+    // needs the full multi-step shape stubIgFetch already covers. Route by
+    // URL/method the same way stubIgFetch does, but answer the X endpoint
+    // with X's own expected body shape.
+    const spy = vi.fn(async (url, init) => {
+      if (String(url).includes('api.x.com') || String(url).includes('api.twitter.com')) {
+        return toFetchResponse({ ok: true, status: 200, body: { data: { id: 'x-post-1' } } });
+      }
+      if (init?.method === 'HEAD') return toFetchResponse({ ok: true, status: 200, body: {} });
+      if (String(url).includes('/media_publish')) return toFetchResponse({ ok: true, status: 200, body: { id: 'ig-post-1' } });
+      if (init?.method === 'POST') return toFetchResponse({ ok: true, status: 200, body: { id: 'container-1' } });
+      return toFetchResponse({ ok: true, status: 200, body: { status_code: 'FINISHED' } });
+    });
+    vi.stubGlobal('fetch', spy);
+    await seedQueueItem('a-pair-x.json', xItem({ campaign: 'appearance:abc', media: undefined }));
+    await seedQueueItem('a-pair-ig.json', igItem({ campaign: 'appearance:abc' }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    const kinds = outcomes.map((o) => `${o.platform}:${o.kind}`).sort();
+    expect(kinds).toEqual(['instagram:posted', 'x:posted']);
+    expect(await readdir(path.join(root, 'social', 'posted')).then((f) => f.sort())).toEqual([
+      'a-pair-ig.json',
+      'a-pair-x.json',
+    ]);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual([]);
+  });
+
+  // Regression (codex review round 4, kanban t_bac31b1a-followup): the
+  // earlier "exempt only after the sibling has ALREADY posted this run"
+  // implementation broke the moment two different campaigns' due items
+  // interleaved in `due` (which is a single list sorted by scheduledAt, not
+  // grouped by campaign) — e.g. campaign A's X item, then campaign B's
+  // Instagram item, then campaign B's X item, then campaign A's Instagram
+  // item. selectDuePosts now selects complete pairs earliest-first, so the
+  // EARLIER campaign's pair wins the day's single per-platform slot
+  // completely (both siblings), and the later campaign's siblings are
+  // correctly deferred whole — never split across platforms.
+  it('selects and posts the earlier campaign\'s COMPLETE pair, not a split of two interleaved campaigns', async () => {
+    const spy = vi.fn(async (url, init) => {
+      if (String(url).includes('api.twitter.com')) {
+        return toFetchResponse({ ok: true, status: 200, body: { data: { id: `x-${Math.random()}` } } });
+      }
+      if (init?.method === 'HEAD') return toFetchResponse({ ok: true, status: 200, body: {} });
+      if (String(url).includes('/media_publish')) return toFetchResponse({ ok: true, status: 200, body: { id: `ig-${Math.random()}` } });
+      if (init?.method === 'POST') return toFetchResponse({ ok: true, status: 200, body: { id: `container-${Math.random()}` } });
+      return toFetchResponse({ ok: true, status: 200, body: { status_code: 'FINISHED' } });
+    });
+    vi.stubGlobal('fetch', spy);
+    // Interleaved scheduledAt ordering: A:x, B:instagram, B:x, A:instagram.
+    // A's pair is the earlier campaign (min scheduledAt across its two
+    // siblings) even though B's Instagram item is individually earlier
+    // than A's Instagram item.
+    const t = (offsetMs: number) => new Date(Date.now() - 60_000 + offsetMs).toISOString();
+    await seedQueueItem('campaign-a-x.json', xItem({ campaign: 'appearance:A', media: undefined, scheduledAt: t(0) }));
+    await seedQueueItem('campaign-b-ig.json', igItem({ campaign: 'appearance:B', scheduledAt: t(1000) }));
+    await seedQueueItem('campaign-b-x.json', xItem({ campaign: 'appearance:B', media: undefined, scheduledAt: t(2000) }));
+    await seedQueueItem('campaign-a-ig.json', igItem({ campaign: 'appearance:A', scheduledAt: t(3000) }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    // Only campaign A's pair posts — MAX_POSTS_PER_PLATFORM_PER_DAY=1 means
+    // a single X slot and a single Instagram slot per day, and they must go
+    // to the SAME campaign's siblings, not one platform to A and the other
+    // to B (the exact single-platform-publication bug this fix closes).
+    expect(outcomes.filter((o) => o.kind === 'posted')).toHaveLength(2);
+    const postedPlatformsByFile = Object.fromEntries(
+      outcomes.filter((o) => o.kind === 'posted').map((o) => [o.file, o.platform]),
+    );
+    expect(Object.keys(postedPlatformsByFile).sort()).toEqual(['campaign-a-ig.json', 'campaign-a-x.json']);
+    expect(await readdir(path.join(root, 'social', 'posted')).then((f) => f.sort())).toEqual([
+      'campaign-a-ig.json',
+      'campaign-a-x.json',
+    ]);
+    // Campaign B's siblings are both still queued — deferred WHOLE, not split.
+    expect(await readdir(path.join(root, 'social', 'queue')).then((f) => f.sort())).toEqual([
+      'campaign-b-ig.json',
+      'campaign-b-x.json',
+    ]);
+  });
+
+  // Regression (codex review round 2, kanban t_bac31b1a-followup, Fable
+  // ruling FR-t_bac31b1a-followup-1): `isPairReady` used to be a STATIC
+  // upfront flag — if the FIRST sibling's actual publish attempt fails at
+  // runtime, the second sibling would still post alone through the pair
+  // exemption, the exact single-platform outcome this mechanism exists to
+  // prevent. `brokenPairs` now tracks this live: once a pair sibling's
+  // publish attempt produces any non-POSTED outcome, its partner is
+  // deferred (held, no attempt spent) instead of shipping alone.
+  it('defers the second sibling when the first sibling\'s publish attempt fails, instead of letting it post alone', async () => {
+    // X fails with a definite (non-ambiguous, non-retryable-forever) 403;
+    // Instagram would otherwise succeed if reached.
+    const spy = vi.fn(async (url, init) => {
+      if (String(url).includes('api.twitter.com')) {
+        return toFetchResponse({ ok: false, status: 403, body: { detail: 'Forbidden' } });
+      }
+      if (init?.method === 'HEAD') return toFetchResponse({ ok: true, status: 200, body: {} });
+      if (String(url).includes('/media_publish')) return toFetchResponse({ ok: true, status: 200, body: { id: 'ig-post-1' } });
+      if (init?.method === 'POST') return toFetchResponse({ ok: true, status: 200, body: { id: 'container-1' } });
+      return toFetchResponse({ ok: true, status: 200, body: { status_code: 'FINISHED' } });
+    });
+    vi.stubGlobal('fetch', spy);
+    // X is scheduled first so it is attempted before the Instagram sibling.
+    await seedQueueItem('fail-pair-x.json', xItem({ campaign: 'appearance:fail', media: undefined, attempts: 2, scheduledAt: new Date(Date.now() - 60_000).toISOString() }));
+    await seedQueueItem('fail-pair-ig.json', igItem({ campaign: 'appearance:fail', scheduledAt: new Date(Date.now() - 59_000).toISOString() }));
+
+    const outcomes = await runPoster();
+
+    // The X sibling permanently failed (attempts exhausted at 3).
+    expect(outcomes.some((o) => o.file === 'fail-pair-x.json' && o.kind === 'failed')).toBe(true);
+    // The Instagram sibling must NOT have posted — it was deferred, still
+    // queued, no attempt spent, no outcome recorded for it at all.
+    expect(outcomes.some((o) => o.file === 'fail-pair-ig.json')).toBe(false);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['fail-pair-ig.json']);
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  // A campaign whose sibling has ALREADY posted (in an earlier run, and is
+  // therefore no longer in social/queue/) must NOT be treated as an
+  // incomplete pair — the remaining sibling posting now is what completes
+  // it, and it must not be deferred forever waiting for a partner that will
+  // never come back.
+  it('still posts the remaining sibling when its partner already posted in an earlier run (no longer queued)', async () => {
+    const spy = vi.fn(async (url, init) => {
+      if (init?.method === 'HEAD') return toFetchResponse({ ok: true, status: 200, body: {} });
+      if (String(url).includes('/media_publish')) return toFetchResponse({ ok: true, status: 200, body: { id: 'ig-post-1' } });
+      if (init?.method === 'POST') return toFetchResponse({ ok: true, status: 200, body: { id: 'container-1' } });
+      return toFetchResponse({ ok: true, status: 200, body: { status_code: 'FINISHED' } });
+    });
+    vi.stubGlobal('fetch', spy);
+    // The X sibling already posted in a prior run — it's in social/posted/,
+    // NOT social/queue/ (the normal, non-race-condition case).
+    const xPosted = xItem({ campaign: 'appearance:done', media: undefined });
+    await writeFile(
+      path.join(root, 'social', 'posted', 'done-pair-x.json'),
+      JSON.stringify({ ...xPosted, postedAt: new Date().toISOString(), platformPostId: '1', url: 'https://x.com/1' }, null, 2) + '\n',
+    );
+    await seedQueueItem('done-pair-ig.json', igItem({ campaign: 'appearance:done' }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes.some((o) => o.file === 'done-pair-ig.json' && o.kind === 'posted')).toBe(true);
+    expect(await readdir(path.join(root, 'social', 'posted')).then((f) => f.sort())).toEqual([
+      'done-pair-ig.json',
+      'done-pair-x.json',
+    ]);
+  });
+});
+
 // --- the media gate, wired to the schedule --------------------------------
 // Instagram media is FETCHED by Meta from the live site, so an item whose
 // image PR hasn't merged/deployed cannot post no matter what scheduledAt

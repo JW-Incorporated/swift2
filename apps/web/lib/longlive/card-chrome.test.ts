@@ -8,7 +8,7 @@ import {
   TIER_FOOTER,
   TIER_SPAN,
 } from './card-chrome';
-import type { CardTier } from './feed-tiers';
+import type { CardTier } from '@swift2/experience';
 
 /**
  * #2057: the era feed's play affordance rendered OUTSIDE the card's border — a

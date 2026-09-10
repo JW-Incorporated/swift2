@@ -61,10 +61,12 @@ import {
   type ClownTurn,
 } from './clown-client';
 import { CLOWN_READ_TOOLS, CLOWN_SYSTEM_PROMPT, CLOWN_TAKE_TOOL } from './clown-client-prompt';
-import type { ClownUsage } from './clown-usage';
+import { CLOWN_DAILY_CAP, CLOWN_GLOBAL_SCOPE, type ClownUsage } from './clown-usage';
+import { reserveGlobalUsage } from './usage-db-gate';
 import type { InvestigationStep } from './clown-answer';
 import type { RetrievedItem } from './clown-fallback';
 import type { ToolCallResult } from './clown-agent-tools';
+import type { KnowledgeDataSource } from '@swift2/core';
 import {
   buildInitialMessages,
   dispatchReadBlocks,
@@ -151,6 +153,7 @@ export async function runClownAgent(
   transcript: readonly ClownTurn[],
   seed: ToolCallResult,
   seedInput: Record<string, unknown>,
+  client: KnowledgeDataSource | null,
   onStep?: (step: InvestigationStep) => void,
   clock: () => number = Date.now,
   signal?: AbortSignal,
@@ -169,7 +172,7 @@ export async function runClownAgent(
   const capped = transcript.slice(-MAX_TRANSCRIPT_TURNS);
   if (capped.length === 0 || capped[capped.length - 1].role !== 'user') return degraded(investigation, pool);
 
-  if (!usage.reserve()) return degraded(investigation, pool);
+  if (!(await reserveGlobalUsage(usage, CLOWN_GLOBAL_SCOPE, CLOWN_DAILY_CAP, undefined, signal))) return degraded(investigation, pool);
   // Captured immediately after a successful reservation (HUMAN-ACTIONS.md
   // #15 round 4, day-keyed release fix) — `release()` below must give back
   // budget from the SAME day's window it was reserved from, not whatever
@@ -310,7 +313,7 @@ export async function runClownAgent(
     // credited by the whole batch size, matching the inline version this
     // replaced.
     toolCallCount += readBlocks.length;
-    const { assistantBlocks, resultBlocks } = await dispatchReadBlocks(readBlocks, pool, investigation, onStep, signal);
+    const { assistantBlocks, resultBlocks } = await dispatchReadBlocks(client, readBlocks, pool, investigation, onStep, signal);
 
     messages.push({ role: 'assistant', content: assistantBlocks });
     messages.push({ role: 'user', content: resultBlocks });

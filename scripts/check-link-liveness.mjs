@@ -20,6 +20,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { runMain } from './lib/cli.mjs';
 
 const ROOT = process.cwd();
 const SEED_DIR = join(ROOT, 'supabase', 'seed');
@@ -230,8 +231,5 @@ async function main() {
 }
 
 if (process.argv[1] && process.argv[1].endsWith('check-link-liveness.mjs')) {
-  main().catch((error) => {
-    console.error(`link-liveness: ${error.message}`);
-    process.exitCode = 1;
-  });
+  runMain(main, { name: 'check-link-liveness' });
 }

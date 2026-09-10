@@ -31,6 +31,7 @@
 //       2 = the check itself broke — caller must not report this as "clear".
 import { writeFileSync } from 'node:fs';
 import { gh } from '../lib/gh.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 export const ROTATION_AT = '2026-08-15T18:31:50Z';
 // One week — see header. news-worker's own cadence alarm (10h max-age, in the
@@ -163,16 +164,18 @@ async function main() {
   const alertFile = arg('--alert-body');
   if (alertFile) writeFileSync(alertFile, renderBody(result));
 
-  process.exit(result.status === 'confirmed-auth-failure' ? 1 : 0);
+  return result.status === 'confirmed-auth-failure' ? 1 : 0;
 }
 
 const invokedDirectly =
   process.argv[1] && process.argv[1].split(/[\\/]/).pop() === 'news-worker-rotation-check.mjs';
 if (invokedDirectly) {
-  try {
-    await main();
-  } catch (e) {
-    console.error(`✗ news-worker rotation check could not run: ${e.message}`);
-    process.exit(2);
-  }
+  runMain(async () => {
+    try {
+      return await main();
+    } catch (e) {
+      console.error(`✗ news-worker rotation check could not run: ${e.message}`);
+      return 2;
+    }
+  }, { name: 'news-worker-rotation-check' });
 }

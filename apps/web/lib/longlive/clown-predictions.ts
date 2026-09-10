@@ -14,7 +14,7 @@
 import type { ClownTake } from './clown-client';
 import type { RetrievedItem } from './clown-fallback';
 import type { ClownSession } from './clown-session';
-import { clownAuthHeaders, clownMemoryEnv } from './clown-session';
+import { createClownDbClient } from './clown-session';
 
 export interface PersistPredictionInput {
   session: ClownSession | null;
@@ -36,23 +36,21 @@ const MAX_QUESTION = 600;
  * brief. `symbols` has no source on `ClownTake`/`RetrievedItem` today, so it
  * ships `[]` — the column exists for that future pass to populate.
  */
-export async function persistPrediction(input: PersistPredictionInput): Promise<void> {
+export async function persistPrediction(input: PersistPredictionInput, signal?: AbortSignal): Promise<void> {
   if (!input.session) return;
-  const env = clownMemoryEnv();
-  if (!env) return;
-  const res = await fetch(`${env.supabaseUrl}/rest/v1/bot_prediction`, {
-    method: 'POST',
-    headers: { ...clownAuthHeaders(env, input.session), 'content-type': 'application/json' },
-    body: JSON.stringify({
-      user_id: input.session.userId,
-      question: input.question.slice(0, MAX_QUESTION),
-      claim: input.take.stance.slice(0, MAX_QUESTION) || input.question.slice(0, MAX_QUESTION),
-      theory_name: input.take.theoryName,
-      symbols: [],
-      cited_ids: input.take.citedIds,
-      delulu: input.take.delulu,
-      status: 'pending',
-    }),
+  const db = createClownDbClient(input.session);
+  if (!db) return;
+  let query_ = db.from('bot_prediction').insert({
+    user_id: input.session.userId,
+    question: input.question.slice(0, MAX_QUESTION),
+    claim: input.take.stance.slice(0, MAX_QUESTION) || input.question.slice(0, MAX_QUESTION),
+    theory_name: input.take.theoryName,
+    symbols: [],
+    cited_ids: input.take.citedIds,
+    delulu: input.take.delulu,
+    status: 'pending',
   });
-  if (!res.ok) throw new Error(`clown prediction insert failed (${res.status})`);
+  if (signal) query_ = query_.abortSignal(signal);
+  const { error } = await query_;
+  if (error) throw new Error(`clown prediction insert failed: ${error.message}`);
 }

@@ -25,6 +25,7 @@ describe('isContentLaneBranch', () => {
       'appearance-discovery/': 'appearance-discovery/123456789',
       'merch-revenue/': 'merch-revenue/123456789',
       'merch-official-sync/': 'merch-official-sync/123456789',
+      'claude/pensive-galileo-': 'claude/pensive-galileo-tx2nu4',
     };
     for (const [prefix, example] of Object.entries(examples)) {
       expect(isContentLaneBranch(example), example).toBe(true);

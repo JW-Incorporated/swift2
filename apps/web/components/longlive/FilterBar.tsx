@@ -7,7 +7,7 @@ import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { useIsomorphicLayoutEffect } from '@/lib/longlive/useIsomorphicLayoutEffect';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS } from '@/lib/longlive/tagBadges';
-import { ALL_FILTERS, type FilterId } from '@/lib/longlive/filters';
+import { ALL_FILTERS, type FilterId } from '@swift2/experience';
 
 const FILTER_ICON: Record<FilterId, LucideIcon> = {
   Music,
@@ -118,7 +118,7 @@ export function FilterBar() {
               '--chip-cue': 'var(--era-accent)',
               '--chip-bg': allActive ? 'var(--era-accent)' : 'transparent',
               '--chip-border': 'var(--era-accent)',
-              '--chip-fg': allActive ? 'var(--era-bg)' : 'var(--era-ink)',
+              '--chip-fg': allActive ? 'var(--era-accent-fg)' : 'var(--era-ink)',
             } as React.CSSProperties}
           >
             All

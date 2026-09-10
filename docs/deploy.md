@@ -119,3 +119,33 @@ mode — that's what Path B adds once the app is linked.)
 - Open the URL — you should see the eras with per-era theming.
 - Check the Tier 0 payload against budget:
   `npm run check:budget -- --url https://<your-app>/vault/tier0`
+
+---
+
+# Deploying the mobile app (EAS)
+
+## Mobile releases (iOS + Android)
+
+Superseded 2026-09-05 by the **mobile release train** — see
+`docs/mobile-release.md`. In short: a merge to `main` touching
+`apps/mobile/**` or `packages/**` runs `apps/mobile/.eas/workflows/release.yml`
+on EAS, which decides per platform (by native fingerprint) between one OTA
+update group to both platforms and store builds for both, and never submits
+one platform without the other. `scripts/mobile/check-parity.mjs` proves it
+every 6 hours. Do not run `eas build`/`eas update` for production by hand;
+the runbook lists the two recovery cases where you might.
+
+## First-time setup checklist
+
+1. `eas.json` already defines `build` profiles (`development`, `preview`,
+   `production`) and now a `channel` per profile — a build only ever
+   receives updates published to its own channel.
+2. `apps/mobile/app.json` sets `updates.url` to this project's EAS Update
+   URL and `runtimeVersion.policy: "fingerprint"` — both required for any
+   of the above to work; don't hand-set a static `runtimeVersion` string,
+   it defeats the safety property this whole scheme relies on.
+3. A store build must be created (`eas build --profile production`) with
+   these fields present before its installs can receive OTA updates at
+   all — OS-040 wires the *mechanism*, not a placeholder store build (that
+   waits on OS-004's TestFlight device + push credentials human action).
+
