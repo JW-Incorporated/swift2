@@ -981,6 +981,228 @@ for (const file of trackFiles) {
   }
 }
 
+// -- lenses (Threads / Relationships / Runway / Re-Records / Clue Web / The
+//    Decode — R12, redone against packages/experience/src) --
+// supabase/seed/lenses/*.mjs is a straight pass-through into
+// lenses.generated.ts (sync-longlive-lenses.mjs), so there is no DB shape to
+// check against — the invariants below are the structural rules the seed
+// data has always had to obey, previously enforced only by the dev guard at
+// the bottom of lenses.ts (motif classification) or by hand-audit noted in a
+// comment ("plant precedes payoff", lenses.ts's old CLUE_PAIRS header) rather
+// than by any machine check. Making them real errors here catches an
+// authoring slip before it ships silently wrong.
+{
+  const lensesDir = join(seed, 'lenses');
+  const loadLens = async (file, exportName) => {
+    const mod = await import(pathToFileURL(join(lensesDir, file)).href);
+    const data = mod[exportName];
+    if (!Array.isArray(data)) {
+      console.error(`ERROR lenses/${file}: no ${exportName}[] array exported`);
+      errors += 1;
+      return [];
+    }
+    return data;
+  };
+
+  const threads = await loadLens('threads.mjs', 'THREADS');
+  const relationships = await loadLens('relationships.mjs', 'RELATIONSHIPS');
+  const singlePeriods = await loadLens('single-periods.mjs', 'SINGLE_PERIODS');
+  const runwayLooks = await loadLens('runway-looks.mjs', 'RUNWAY_LOOKS');
+  const rerecords = await loadLens('rerecords.mjs', 'RERECORDS');
+  const eggNodes = await loadLens('egg-nodes.mjs', 'EGG_NODES');
+  const eggLinks = await loadLens('egg-links.mjs', 'EGG_LINKS');
+  const motifs = await loadLens('motifs.mjs', 'MOTIFS');
+  const cluePairs = await loadLens('clue-pairs.mjs', 'CLUE_PAIRS');
+  const motifMembershipMod = await import(
+    pathToFileURL(join(lensesDir, 'motif-membership.mjs')).href
+  );
+  const motifMembership = motifMembershipMod.MOTIF_MEMBERSHIP;
+  if (!motifMembership || typeof motifMembership !== 'object' || Array.isArray(motifMembership)) {
+    console.error('ERROR lenses/motif-membership.mjs: no MOTIF_MEMBERSHIP object exported');
+    errors += 1;
+  }
+
+  checked +=
+    threads.length +
+    relationships.length +
+    singlePeriods.length +
+    runwayLooks.length +
+    rerecords.length +
+    eggNodes.length +
+    eggLinks.length +
+    motifs.length +
+    cluePairs.length;
+
+  // Mirrors LensId (packages/experience/src/types.ts) exactly — a lens seed
+  // record with an eraId outside this set silently renders nothing (the UI
+  // looks up ERAS by id) rather than failing loudly, so it is checked here.
+  const ERA_IDS = new Set([
+    'debut', 'fearless', 'speak-now', 'red', '1989', 'reputation',
+    'lover', 'folklore', 'evermore', 'midnights', 'ttpd', 'tloas',
+  ]);
+  const uniqueBy = (rows, key, label) => {
+    const seenIds = new Map();
+    for (const row of rows) {
+      const id = row?.[key];
+      if (!id) {
+        console.error(`ERROR lenses/${label}: entry missing "${key}"`);
+        errors += 1;
+        continue;
+      }
+      if (seenIds.has(id)) {
+        console.error(`ERROR lenses/${label}: duplicate ${key} "${id}"`);
+        errors += 1;
+      }
+      seenIds.set(id, row);
+    }
+    return seenIds;
+  };
+
+  // -- THREADS: id uniqueness + valid LensId + non-empty hero/kicker/what.
+  uniqueBy(threads, 'id', 'threads.mjs');
+  for (const t of threads) {
+    const { err } = makeReporters(`lenses/threads.mjs "${t.id}"`);
+    if (t.id && !THREAD_IDS.has(t.id)) err('not a known LensId');
+    if (!t.title) err('missing title');
+    if (!t.hero) err('missing hero');
+  }
+
+  // -- RELATIONSHIPS: id uniqueness, ISO dates, end >= start, valid eraIds.
+  uniqueBy(relationships, 'id', 'relationships.mjs');
+  for (const r of relationships) {
+    const { err } = makeReporters(`lenses/relationships.mjs "${r.id ?? r.name}"`);
+    if (!ISO_DATE_RE.test(r.start ?? '')) err(`start "${r.start}" is not YYYY-MM-DD`);
+    if (r.end !== null && !ISO_DATE_RE.test(r.end ?? ''))
+      err(`end "${r.end}" is not null or YYYY-MM-DD`);
+    if (r.end && r.start && r.end < r.start)
+      err(`end "${r.end}" is before start "${r.start}"`);
+    // eraIds is required (Relationship.eraIds: EraId[] in types.ts) — lenses.ts's
+    // threadPoints() calls r.eraIds.map() directly with no fallback, so a
+    // missing/empty array here would throw at runtime instead of failing this
+    // content gate.
+    if (!Array.isArray(r.eraIds) || r.eraIds.length === 0) {
+      err('missing eraIds — needs a non-empty EraId[] array');
+    } else {
+      for (const eraId of r.eraIds) {
+        if (!ERA_IDS.has(eraId)) err(`eraId "${eraId}" is not a known EraId`);
+      }
+    }
+  }
+
+  // -- SINGLE_PERIODS: same date/eraId shape as RELATIONSHIPS.
+  uniqueBy(singlePeriods, 'id', 'single-periods.mjs');
+  for (const p of singlePeriods) {
+    const { err } = makeReporters(`lenses/single-periods.mjs "${p.id}"`);
+    if (!ISO_DATE_RE.test(p.start ?? '')) err(`start "${p.start}" is not YYYY-MM-DD`);
+    if (!ISO_DATE_RE.test(p.end ?? '')) err(`end "${p.end}" is not YYYY-MM-DD`);
+    if (p.end && p.start && p.end < p.start)
+      err(`end "${p.end}" is before start "${p.start}"`);
+    // eraIds is required (SinglePeriod.eraIds: EraId[] in types.ts) — same
+    // reasoning as RELATIONSHIPS above.
+    if (!Array.isArray(p.eraIds) || p.eraIds.length === 0) {
+      err('missing eraIds — needs a non-empty EraId[] array');
+    } else {
+      for (const eraId of p.eraIds) {
+        if (!ERA_IDS.has(eraId)) err(`eraId "${eraId}" is not a known EraId`);
+      }
+    }
+  }
+
+  // -- RUNWAY_LOOKS: id uniqueness, valid eraId, >=1 image with url/credit.
+  uniqueBy(runwayLooks, 'id', 'runway-looks.mjs');
+  for (const l of runwayLooks) {
+    const { err } = makeReporters(`lenses/runway-looks.mjs "${l.id}"`);
+    if (!ERA_IDS.has(l.eraId)) err(`eraId "${l.eraId}" is not a known EraId`);
+    if (!Array.isArray(l.images) || l.images.length === 0) err('needs at least one image');
+    for (const img of l.images ?? []) {
+      if (!img.url) err('image missing url');
+      if (!img.credit) err('image missing credit');
+    }
+  }
+
+  // -- RERECORDS: id uniqueness, originalYear/reclaimedYear shape.
+  uniqueBy(rerecords, 'id', 'rerecords.mjs');
+  for (const rr of rerecords) {
+    const { err } = makeReporters(`lenses/rerecords.mjs "${rr.id}"`);
+    if (!Number.isInteger(rr.originalYear)) err('originalYear must be an int');
+    if (rr.reclaimedYear !== null && !Number.isInteger(rr.reclaimedYear))
+      err('reclaimedYear must be null or an int');
+  }
+
+  // -- EGG_NODES: id uniqueness, valid eraId, kind, x/y in [0,100], >=1 source.
+  const eggNodeIds = uniqueBy(eggNodes, 'id', 'egg-nodes.mjs');
+  const EGG_KINDS = new Set(['clue', 'payoff']);
+  for (const n of eggNodes) {
+    const { err } = makeReporters(`lenses/egg-nodes.mjs "${n.id}"`);
+    if (!ERA_IDS.has(n.eraId)) err(`eraId "${n.eraId}" is not a known EraId`);
+    if (!EGG_KINDS.has(n.kind)) err(`kind "${n.kind}" not in clue|payoff`);
+    if (!Number.isInteger(n.year)) err('year must be an int');
+    if (!(n.x >= 0 && n.x <= 100) || !(n.y >= 0 && n.y <= 100))
+      err('x/y must be normalized 0..100 coordinates');
+    if (!Array.isArray(n.sources) || n.sources.length === 0) err('needs at least one source');
+  }
+
+  // -- EGG_LINKS: from/to must reference real EGG_NODES ids.
+  for (const link of eggLinks) {
+    const { err } = makeReporters(`lenses/egg-links.mjs "${link.from} -> ${link.to}"`);
+    if (!eggNodeIds.has(link.from)) err(`from "${link.from}" is not a known egg node id`);
+    if (!eggNodeIds.has(link.to)) err(`to "${link.to}" is not a known egg node id`);
+  }
+
+  // -- MOTIFS: id uniqueness, plus MOTIF_MEMBERSHIP (motif-membership.mjs)
+  //    references only real motif ids and only real egg-node ids, and every
+  //    EGG_NODES id is classified into EXACTLY ONE trail. This used to be
+  //    asserted only by a dev-only console.error guard in lenses.ts (runtime,
+  //    development builds only) — flagged in review as a real gap: an
+  //    unclassified egg could ship silently in production and CI. Now a hard
+  //    content-gate error instead.
+  const motifIds = uniqueBy(motifs, 'id', 'motifs.mjs');
+  if (motifMembership && typeof motifMembership === 'object' && !Array.isArray(motifMembership)) {
+    const nodeTrailCount = new Map();
+    for (const [motifId, nodeIds] of Object.entries(motifMembership)) {
+      const { err } = makeReporters(`lenses/motif-membership.mjs "${motifId}"`);
+      if (!motifIds.has(motifId)) {
+        err(`"${motifId}" is not a known MOTIFS id`);
+        continue;
+      }
+      if (!Array.isArray(nodeIds)) {
+        err(`membership list for "${motifId}" must be an array`);
+        continue;
+      }
+      for (const nodeId of nodeIds) {
+        if (!eggNodeIds.has(nodeId)) {
+          err(`"${motifId}" lists "${nodeId}", which is not a known EGG_NODES id`);
+          continue;
+        }
+        nodeTrailCount.set(nodeId, (nodeTrailCount.get(nodeId) ?? 0) + 1);
+      }
+    }
+    for (const n of eggNodes) {
+      const { err } = makeReporters(`lenses/egg-nodes.mjs "${n.id}"`);
+      const count = nodeTrailCount.get(n.id) ?? 0;
+      if (count === 0) err('not classified into any MOTIF_MEMBERSHIP trail');
+      else if (count > 1) err(`classified into ${count} MOTIF_MEMBERSHIP trails — must be exactly one`);
+    }
+  }
+
+  // -- CLUE_PAIRS: id uniqueness, valid eraIds, and the invariant the old
+  //    lenses.ts header only asserted in prose ("plant precedes payoff") —
+  //    now a real check instead of a hand-audit claim.
+  uniqueBy(cluePairs, 'id', 'clue-pairs.mjs');
+  for (const c of cluePairs) {
+    const { err } = makeReporters(`lenses/clue-pairs.mjs "${c.id}"`);
+    if (!ISO_DATE_RE.test(c.plant?.date ?? '')) err(`plant.date "${c.plant?.date}" is not YYYY-MM-DD`);
+    if (!ISO_DATE_RE.test(c.payoff?.date ?? '')) err(`payoff.date "${c.payoff?.date}" is not YYYY-MM-DD`);
+    if (c.plant?.date && c.payoff?.date && c.plant.date > c.payoff.date)
+      err(`plant.date "${c.plant.date}" is after payoff.date "${c.payoff.date}" — plant must precede payoff`);
+    if (c.plant?.eraId && !ERA_IDS.has(c.plant.eraId))
+      err(`plant.eraId "${c.plant.eraId}" is not a known EraId`);
+    if (c.payoff?.eraId && !ERA_IDS.has(c.payoff.eraId))
+      err(`payoff.eraId "${c.payoff.eraId}" is not a known EraId`);
+    if (!Array.isArray(c.sources) || c.sources.length === 0) err('needs at least one source');
+  }
+}
+
 console.log(`\nvalidated ${checked} content item(s) — ${errors} error(s), ${warnings} warning(s)`);
 if (errors > 0) return 1;
 }
