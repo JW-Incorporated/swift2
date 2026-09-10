@@ -96,4 +96,41 @@ describe('photo-library', () => {
       expect(validatePhotoInventoryBinding(draft, library)).toEqual([]);
     }
   });
+
+  // 2026-09-10 (kanban t_75ec7106) — the founder-reported bug: the
+  // 2026-09-09 reputation/villain-era X post shipped a Lover-era tour photo
+  // because selection ignored theme entirely. These lock in the fix: a
+  // themed draft must only be offered a photo tagged for its own era, and
+  // a caller must be told "no match" rather than silently getting an
+  // unrelated era's photo.
+  describe('era-constrained selection (requiredTags)', () => {
+    const taggedLibrary = [
+      { ...library[0], tags: ['lover', 'eras-tour', 'minneapolis'] },
+      { ...library[1], tags: ['red', 'eras-tour', 'inglewood'] },
+      { ...library[2], tags: ['fearless', 'eras-tour', 'inglewood'] },
+    ];
+
+    it('only offers photos tagged with a required era', () => {
+      const selected = selectSocialPhoto(taggedLibrary, [], { requiredTags: ['red'] });
+      expect(selected.id).toBe('red-inglewood');
+    });
+
+    it('never falls back to an off-era photo: returns null when no tagged photo exists', () => {
+      expect(selectSocialPhoto(taggedLibrary, [], { requiredTags: ['reputation'] })).toBeNull();
+    });
+
+    it('still applies least-used/longest-unseen as the tiebreaker WITHIN the matching era', () => {
+      const twoRed = [
+        { ...taggedLibrary[1], id: 'red-a' },
+        { ...taggedLibrary[1], id: 'red-b' },
+      ];
+      const history = [{ photoId: 'red-a', postedAt: '2026-09-01T00:00:00Z' }];
+      const selected = selectSocialPhoto(twoRed, history, { requiredTags: ['red'] });
+      expect(selected.id).toBe('red-b');
+    });
+
+    it('an unconstrained call (no requiredTags) keeps the old total-over-non-empty-library behavior', () => {
+      expect(selectSocialPhoto(taggedLibrary, [])).not.toBeNull();
+    });
+  });
 });
