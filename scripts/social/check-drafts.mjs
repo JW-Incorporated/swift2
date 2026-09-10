@@ -341,14 +341,13 @@ export function checkCampaignPair(file, item, allQueueItems, allPostedItems) {
     ];
   }
 
-  // appearance-discovery fast-lane campaigns are DELIBERATELY X-only
-  // (2026-09-05, #3584 Fable ruling): this lane has no license-cleared photo
-  // to offer, so it never authors an Instagram sibling at all — the
-  // otherwise-unconditional pairing rule (Joey 2026-08-25/26, "always an IG
-  // copy, always") does not apply to this one lane, which the ruling
-  // carves out by name. See scripts/appearance-discovery/lib/social-draft.mjs.
-  if (campaign.startsWith('appearance:')) return [];
-
+  // The 2026-09-05 #3584 "appearance:*-family campaigns are X-only" carve-
+  // out was itself the exact single-platform exception the founder had
+  // already closed unconditionally — REMOVED 2026-09-10 (kanban t_bac31b1a,
+  // Joey: "there's never a time where we post to only X, or only IG").
+  // scripts/appearance-discovery/lib/social-draft.mjs now authors a real
+  // photo-backed Instagram sibling for this lane too, so no exemption is
+  // needed here any more.
   const wanted = item.platform === 'x' ? 'instagram' : 'x';
   const group = [...allQueueItems, ...allPostedItems].filter(
     (o) => o.file !== file && (typeof o.data.campaign === 'string' ? o.data.campaign.trim() : '') === campaign,
@@ -362,6 +361,47 @@ export function checkCampaignPair(file, item, allQueueItems, allPostedItems) {
       `any kind (social/README.md, Joey 2026-08-25 and 2026-08-26) — author the ${wanted} item in this same change ` +
       'with the exact same `campaign` value. The Instagram item already cross-posts to Facebook, so never add a ' +
       'third Facebook item.',
+  ];
+}
+
+/**
+ * "All at once" (2026-09-10, kanban t_bac31b1a, Joey: "one idea goes out to
+ * X, Instagram... all together"): a campaign's two queue items must be
+ * scheduled within a tight window of each other, not hours apart same day.
+ * Only checked when BOTH siblings are still in social/queue/ (both being
+ * authored/edited together) — a sibling that already posted is history and
+ * cannot be rescheduled, so it is out of scope here (checkCampaignPair
+ * already treats an already-posted sibling as satisfying pairing).
+ *
+ * Scoped to the campaign of the draft being checked, same reasoning as
+ * checkCampaignPair: legacy queue items scheduled apart before this rule
+ * existed are not this check's business unless someone is actively touching
+ * one of the pair right now.
+ */
+export const SIMULTANEOUS_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+
+export function checkSimultaneousPair(file, item, allQueueItems) {
+  if (!RECOGNIZED_PLATFORMS.has(item.platform)) return []; // checkSchema already flags this
+  if (!isValidScheduledAt(item)) return []; // checkSchema already flags this
+
+  const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+  if (!campaign) return []; // checkCampaignPair already flags this — nothing to compare against
+
+  const wanted = item.platform === 'x' ? 'instagram' : 'x';
+  const sibling = allQueueItems.find(
+    (o) => o.file !== file && o.data.platform === wanted && (typeof o.data.campaign === 'string' ? o.data.campaign.trim() : '') === campaign,
+  );
+  if (!sibling || !isValidScheduledAt(sibling.data)) return [];
+
+  const deltaMs = Math.abs(new Date(item.scheduledAt).getTime() - new Date(sibling.data.scheduledAt).getTime());
+  if (deltaMs <= SIMULTANEOUS_WINDOW_MS) return [];
+
+  const deltaMinutes = Math.round(deltaMs / 60000);
+  return [
+    `simultaneous pair: campaign "${campaign}" schedules this ${item.platform} item ${deltaMinutes} minute(s) apart from its ` +
+      `${wanted} sibling ${sibling.file} — "all at once" means both siblings ship together (2026-09-10, kanban t_bac31b1a, ` +
+      `Joey: "one idea goes out to X, Instagram... all together"), not hours apart same day. Set both \`scheduledAt\` values ` +
+      `to the same instant (or within ${SIMULTANEOUS_WINDOW_MS / 60000} minutes of each other).`,
   ];
 }
 
@@ -460,9 +500,8 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     findings.push('media: Instagram drafts require at least one image in `media`.');
     return findings; // nothing else to check without media
   }
-  const isAppearanceException = item.platform === 'x' && typeof item.campaign === 'string' && item.campaign.startsWith('appearance:');
-  if (item.platform === 'x' && !isAppearanceException && !item.media?.length) {
-    findings.push('media: X drafts in a paired campaign require at least one credited image in `media`; only the named appearance: link-preview lane is X-only.');
+  if (item.platform === 'x' && !item.media?.length) {
+    findings.push('media: X drafts require at least one credited image in `media` — every real campaign ships to both platforms (2026-09-10, kanban t_bac31b1a).');
     return findings;
   }
   if (item.platform === 'x' && item.mediaKind === 'site-screen') {
@@ -639,7 +678,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
       if (looksLikeThumbnail || notCleared) {
         findings.push(
           `media: "${tile}" cannot be mediaKind "photo" — ${looksLikeThumbnail ? `its mediaCredit/mediaSource ("${creditText.trim()}") reads like a rehosted video thumbnail` : 'it is not in the credited photo inventory'} (docs/decisions.md 2026-08-15: "photo" means a license-cleared local file; #3584 ruling). ` +
-            'Use mediaKind "video-thumb" instead — Instagram drafts reject it outright, and X drafts may only carry it with no attached image (a plain link preview).',
+            'Source a genuine credited photo from social/photo-library.json instead — a rehosted thumbnail can never ship on either platform (2026-09-10, kanban t_bac31b1a: no single-platform/uncredited-media exception of any kind).',
         );
       }
       findings.push(...checkInventoryPhotoBinding(item, tile));
@@ -653,28 +692,11 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
       findings.push(
         'media: mediaKind "era-art" is no longer allowed on drafts (2026-08-12 standard) — the value survives only so historical records parse. Use "photo" or "site-screen".',
       );
-    } else if (item.mediaKind === 'video-thumb') {
-      // See #3584 / the block comment above VIDEO_THUMBNAIL_CREDIT_RE.
-      // Instagram never gets a video-thumb — the calendar's own rule is
-      // "empty IG slot beats a failed one," and there is no cleared-photo
-      // fallback for an appearance-lane item.
-      findings.push(
-        'media: mediaKind "video-thumb" is not allowed on Instagram drafts at all — Instagram is skipped unless a cleared photo exists (Fable ruling, #3584). Drop the media/mediaKind and post text-only, or use a genuine cleared "photo".',
-      );
     } else {
       findings.push(
         `media: draft has media but no declared \`mediaKind\` (got ${JSON.stringify(item.mediaKind)}) — declare "photo" (real credited photograph of Taylor, with mediaCredit + mediaSource) or "site-screen" (deliberate product screenshot). Undeclared media is how the account drifted to a Taylor-free grid.`,
       );
     }
-  }
-  // X's video-thumb rule is independent of the media[0]-tile block above
-  // (that block only runs `if item.media?.length` and skips generic era
-  // art) — checked unconditionally here so it fires even with zero media.
-  if (item.platform === 'x' && item.mediaKind === 'video-thumb' && (item.media?.length ?? 0) > 0) {
-    findings.push(
-      'media: X drafts with mediaKind "video-thumb" may not attach an image — video-thumb only ships as a bare link preview (no `media`). ' +
-        'Drop `media` (the link unfurl already shows the thumbnail) or declare a real "photo"/"site-screen" if you genuinely mean to attach an image.',
-    );
   }
   return findings;
 }
@@ -736,6 +758,7 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
     ...(await checkVoice(target.file, target.data.body)),
     ...checkOpeners(target.file, target.data, openerContext),
     ...checkCampaignPair(target.file, target.data, allQueue, allPosted),
+    ...checkSimultaneousPair(target.file, target.data, allQueue),
     ...checkCrossPostCopy(target.file, target.data, allQueue),
     ...checkLength(target.data),
     ...(await checkMedia(target.file, target.data, recentIg, allQueue)),

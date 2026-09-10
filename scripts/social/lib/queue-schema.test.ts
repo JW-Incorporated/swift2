@@ -118,10 +118,12 @@ ${url}`;
       expect(validatePhotoInventoryBinding({ ...validX, mediaCredit: 'Wrong credit' }, library).some((f) => f.includes('must use its inventory media path, exact credit, and exact source'))).toBe(true);
       expect(validatePhotoInventoryBinding(validX, library)).toEqual([]);
     });
-    it('rejects a text-only X draft for a normal paired campaign but preserves the appearance-lane exception', () => {
+    it('rejects a text-only X draft for a normal paired campaign, and mediaKind "video-thumb" no longer exists as an exception (2026-09-10, kanban t_bac31b1a)', () => {
       const pairedX = { ...validX, campaign: 'launch:shop-the-look:announce', media: undefined, mediaKind: undefined };
       expect(findingFor(pairedX, 'x posts require at least one image')).toBeDefined();
-      expect(validateQueueItem({ ...pairedX, campaign: 'appearance:video-id', mediaKind: 'video-thumb' })).toEqual([]);
+      const findings = validateQueueItem({ ...pairedX, campaign: 'appearance:video-id', mediaKind: 'video-thumb' });
+      expect(findings.some((f) => f.includes('x posts require at least one image'))).toBe(true);
+      expect(findings.some((f) => f.includes('mediaKind') && f.includes('not recognized'))).toBe(true);
     });
     it('binds a launch site-screen carousel grid photo to its exact credited inventory entry', () => {
       const carousel = {
@@ -206,8 +208,8 @@ ${url}`;
       ).toBeDefined();
     });
 
-    it('accepts mediaKind "video-thumb" on X with no attached media', () => {
-      expect(validateQueueItem({ ...validX, campaign: 'appearance:video-id', media: undefined, mediaKind: 'video-thumb' })).toEqual([]);
+    it('rejects mediaKind "video-thumb" as unrecognized (removed 2026-09-10, kanban t_bac31b1a)', () => {
+      expect(findingFor({ ...validX, media: undefined, mediaKind: 'video-thumb' }, 'mediaKind:')).toBeDefined();
     });
 
     // The Taylor-photo standard (2026-08-12): a photo always ships credited
