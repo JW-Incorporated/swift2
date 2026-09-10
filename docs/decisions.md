@@ -7,6 +7,16 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-10 — Marjorie explicitly excluded from social/queue merges
+
+**Decision:** Marjorie's standing merge authority (Merge authority amendment, 2026-07-14) is explicitly carved out for `social/queue/` drafts. She must never merge a PR that adds, modifies, renames, or otherwise changes any file under `social/queue/` — those require a founder's own hand per the social-approval-gate decision (2026-09-10 entry below). The gate's guarantee is "no *automated* path arms or merges a queue draft" as a matter of routine instructions, not something enforced solely by a GitHub branch-protection ruleset. Since Marjorie holds `SOCIAL_POSTER_PAT` for other social-posting duties (posting approved content from `social/posted/`), she could technically merge a queue draft anyway, and the audit trail would show only `merged_by: <PAT-owner-login>` — indistinguishable from a real founder merge. This carve-out closes the one routine that was actually instructed in a way that could trigger it.
+
+**Why:** The social-approval-gate relies on founder-visible, founder-executed merges to provide a clear audit trail that a human reviewed and approved each queued post before it reached the live pipeline. Allowing an automated routine to merge queue drafts via a shared PAT, even if the routine is generally trusted, silently breaks this visibility guarantee for the subset of posts that run through an unattended automation path.
+
+**Approved by:** Fable-level review of PR #4090 (the social-approval-gate implementation); this carve-out closes finding B from that review.
+
+---
+
 ## 2026-09-10 — Trial routine resolutions: Austin reverted, News Triage recall retired
 
 **Austin (model trial): reverted to `claude-fable-5`.** `routine-austin-build.yml`'s Actions run history showed 3 of 4 runs failing (75% failure rate, over the decision rule's 25% cap), root-caused to a missing `CLAUDE_CODE_OAUTH_TOKEN`/OIDC token fetch failure (`HUMAN-ACTIONS.md` item #49, BLOCKING) — an infra plumbing bug, not a quality problem with `claude-opus-4-8` itself. The decision rule's failure-rate condition is dispositive regardless of the merge-rate ambiguity, so the workflow's `model` input reverts to `claude-fable-5`. Austin is a re-trial candidate on `claude-opus-4-8` once HUMAN-ACTIONS #49 is fixed — this is not a permanent verdict on the model.

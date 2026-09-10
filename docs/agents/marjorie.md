@@ -369,9 +369,13 @@ changes.
    2. **Outside the non-ratchetable set.** Even a reversible PR is
       founders-merge if it touches product direction/scope, brand
       voice/public-facing copy, legal/policy, pricing, spending commitments,
-      **another agent's charter or this one**, or auth/secrets/security
-      posture. Merge authority itself is now ratchetable **only** for the
-      reversible-and-outside-this-set slice; the set above stays founders-only.
+      **another agent's charter or this one**, auth/secrets/security
+      posture, or **any file under `social/queue/`** (2026-09-10 — social
+      drafts require founder approval per the social-approval-gate decision;
+      merging one would defeat the gate's audit trail, showing a bot merge
+      indistinguishable from a real founder merge). Merge authority itself is
+      now ratchetable **only** for the reversible-and-outside-this-set slice;
+      the set above stays founders-only.
    3. **Green required CI.** Every required check passes. A failing or pending
       required check is a hard stop. (A red check on a *deprecated* project —
       e.g. the superseded `Vercel – swift2` — is not a required check and does
