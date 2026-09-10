@@ -42,7 +42,24 @@ export type WatchableVideoNote =
   | (VideoNote & { youtubeId: null; watchUrl: string; platform: string });
 
 export function isWatchable(v: VideoNote): v is WatchableVideoNote {
-  return isPlayable(v) || (typeof v.watchUrl === 'string' && typeof v.platform === 'string');
+  return isPlayable(v) || hasValidWatchLink(v);
+}
+
+/**
+ * True when `v.watchUrl`/`v.platform` are a genuinely renderable pair: both
+ * present, `platform` a non-blank label, and `watchUrl` an absolute
+ * `http(s)://` URL. Guards the exact spot `VideoMomentCard.tsx` renders
+ * `<a href={video.watchUrl}>` — a bare `typeof === 'string'` check would let
+ * an unsafe scheme (`javascript:`, `data:`) or an all-whitespace platform
+ * label reach that anchor. `sync-longlive-videos.mjs`'s `normalizeVideo`
+ * already degrades a malformed pair to null/null before it reaches the
+ * generated corpus, so this is a defense-in-depth check at the read side,
+ * not the only line of defense.
+ */
+function hasValidWatchLink(v: VideoNote): v is VideoNote & { watchUrl: string; platform: string } {
+  if (typeof v.watchUrl !== 'string' || typeof v.platform !== 'string') return false;
+  if (v.platform.trim().length === 0) return false;
+  return /^https?:\/\//i.test(v.watchUrl);
 }
 
 /**

@@ -352,6 +352,28 @@ describe('allVideoRecordsForEra reads the published bundle (byte-identical to VI
 // original 8 records did before #3476, or silently rendering a broken
 // link-out card after it.
 describe('#3476 guardrail — every watchable record has an embed or a complete watch-link pair', () => {
+  it('rejects an unsafe URL scheme or a blank platform label (review finding, 2026-09-10)', () => {
+    // isWatchable/isPlayable are type guards feeding VideoMomentCard's
+    // `<a href={video.watchUrl}>` — a bare `typeof === 'string'` check would
+    // let an unsafe scheme or an all-whitespace label reach that anchor.
+    const base = allVideoRecordsForEra('1989')[0];
+    expect(isWatchable({ ...base, youtubeId: null, watchUrl: 'javascript:alert(1)', platform: 'Netflix' })).toBe(
+      false,
+    );
+    expect(isWatchable({ ...base, youtubeId: null, watchUrl: 'data:text/html,evil', platform: 'Netflix' })).toBe(
+      false,
+    );
+    expect(isWatchable({ ...base, youtubeId: null, watchUrl: 'https://www.netflix.com/title/1', platform: '   ' })).toBe(
+      false,
+    );
+    expect(
+      isWatchable({ ...base, youtubeId: null, watchUrl: 'https://www.netflix.com/title/1', platform: 'Netflix' }),
+    ).toBe(true);
+    expect(
+      isWatchable({ ...base, youtubeId: null, watchUrl: 'http://example.com/watch', platform: 'Example' }),
+    ).toBe(true);
+  });
+
   it('never emits a record with a lone watchUrl or a lone platform', () => {
     for (const eraId of ALL_ERA_IDS) {
       for (const v of videosForEra(eraId)) {

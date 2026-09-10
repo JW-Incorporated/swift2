@@ -77,8 +77,13 @@ async function main() {
           v.symbolism ?? null,
           JSON.stringify(v.easterEggs ?? []),
           v.officialUrl ?? null,
-          v.watchUrl ?? null,
-          v.platform ?? null,
+          // Paired: both set or both null (same invariant sync-longlive-
+          // videos.mjs's normalizeVideo enforces at the read side) — a lone
+          // watchUrl or lone platform here would insert a broken half-pair
+          // that never renders correctly, so degrade together rather than
+          // trusting each seed field independently (#3476 review finding).
+          v.watchUrl && v.platform ? v.watchUrl : null,
+          v.watchUrl && v.platform ? v.platform : null,
           JSON.stringify(v.media ?? []),
           JSON.stringify(v.sources ?? []),
         ],
