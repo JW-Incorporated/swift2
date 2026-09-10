@@ -14,8 +14,7 @@
  * produces a mood vector, and the matcher can only return catalogue entries.
  */
 
-import { MOOD_AXES, type MoodAxis } from './types';
-import type { MoodQuery } from './mood-match';
+import { MOOD_AXES, type MoodAxis, type MoodQuery } from '@swift2/experience';
 
 /**
  * Axis lexicon: each mood axis maps to the words/short phrases that assert it.

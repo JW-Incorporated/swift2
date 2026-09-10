@@ -19,7 +19,7 @@ this product's source of truth mostly is not the database.
 | Layer | Lives where | If the database vanished |
 |---|---|---|
 | **Schema** | `supabase/migrations/*.sql`, in git, idempotent, applied in filename order | `npm run db:migrate` rebuilds it exactly |
-| **Content** (eras, milestones, month items, moments, track notes, theories, videos, releases, tours) | `supabase/seed/**`, in git — and the *website* renders from `apps/web/lib/longlive/*.generated.ts`, which is also committed | Reseed. **The public site never went down**: longlivets.com builds from the generated vault, not from Supabase |
+| Content (eras, milestones, month items, moments, track notes, theories, videos) | `supabase/seed/**`, in git — and every surface (web + mobile) now renders from the published content bundle (`scripts/build-content-bundle.mjs` output), also derived from these same seeds and also committed-adjacent (build artifact, OS-016) | Reseed the DB if you want, but it's cosmetic: **the public site and the app never went down** — neither reads these Supabase tables any more, both build from the content bundle |
 | **News feed seed** (`news_source` rows) | Inserted by migrations `20260719180000` / `20260719190000`, in git | Rebuilt by `db:migrate` |
 | **Runtime-only state** — `news_story`, `news_raw_item`, `news_story_source`, `news_llm_usage`, and `news_source.last_polled_at` | **Only in the database.** Written by `apps/worker/src/pipeline/run-cycle.ts` on its 6×/day cycle | **Gone forever.** Nothing in git can rebuild it |
 | **Generated `id` values** — every `uuid` primary key | **Only in the database.** The seeds carry no ids; `gen_random_uuid()` mints them at seed time | A reseed produces *different* ids. Any stored `month_item_id` (e.g. `/vault/moment/[id]`) breaks |
@@ -88,6 +88,32 @@ schema fingerprint, every table dump, and the source spot checks — runs inside
 one `REPEATABLE READ` snapshot, so the artifact is internally consistent (FK
 chains restore) even if the news worker writes mid-backup.
 
+#### Scheduled
+
+`.github/workflows/production-backup.yml` runs `scripts/backup-restore-test.mjs
+--backup-only` daily at 03:40 UTC (`workflow_dispatch` also available), using
+the same `SUPABASE_DB_URL` secret and the same read-only, single-snapshot
+backup path described above — `--backup-only` skips the restore/verify phases
+entirely, so no scratch Postgres is created and nothing is ever restored. Each
+run uploads `.backups/**` as a GitHub Actions artifact named
+`production-backup-<run-id>`, retained 90 days. This is a zero-spend
+mitigation for Supabase Free having no platform backups (§2 Layer A) — it does
+not prove a restore works end-to-end; that is `production-backup-drill.yml`
+(§6). Failures raise a persistent `watchdog-alert` issue titled
+"Production backup failing" (`scripts/watchdog/upsert-alert.sh`), closed
+automatically on the next successful run.
+
+To pull a scheduled artifact down for a restore:
+
+```bash
+gh run list --repo JW-Incorporated/swift2 --workflow production-backup.yml
+gh run download <run-id> --repo JW-Incorporated/swift2 -n production-backup-<run-id> -D ./restore-artifact
+```
+
+The downloaded directory is the same `<timestamp>/data/*.ndjson` + `manifest.json`
+shape `scripts/backup-restore-test.mjs` produces and consumes normally — point
+a restore at it the same way §3 describes.
+
 ---
 
 ## 3. How to restore
@@ -107,9 +133,9 @@ code path, so the runbook cannot drift from what actually works.
 
 | Situation | Do this | Data lost |
 |---|---|---|
-| Content wrong / partially clobbered | `npm run db:migrate` then the `db:seed*` scripts (`docs/dev-quickstart.md`) | Nothing content-side; **uuids change** |
+| Content wrong / partially clobbered | `npm run db:migrate` then the retired content seed scripts if you really want the DB to match (`docs/dev-quickstart.md` — cosmetic only, OS-016: no surface reads these tables) | Nothing content-side; **uuids change** |
 | Runtime `news_*` data lost, content fine | Restore from the most recent layer-B artifact, `news_*` tables only | Everything since that artifact |
-| Whole project gone | New Supabase project → `db:migrate` → `db:seed*` → load the newest layer-B artifact over the `news_*` tables → repoint `SUPABASE_URL`/keys | News state since the last artifact; **all uuids change** |
+| Whole project gone | New Supabase project → `db:migrate` → (content reseed optional/cosmetic, OS-016) → load the newest layer-B artifact over the `news_*` tables → repoint `SUPABASE_URL`/keys. The newest artifact is either a local `--keep` run or the latest `production-backup.yml` scheduled run (§2 "Scheduled" — `gh run download`) | News state since the last artifact; **all uuids change** |
 | Bad write in the last few minutes/hours | Supabase PITR — **only if §2 layer A says it is enabled** | Depends on the window |
 
 ### The uuid trap
@@ -184,15 +210,39 @@ quarter should be treated as unproven.
 |---|---|---|---|---|
 | 2026-08-11 | drill (fixture source, ephemeral Postgres 18.4, Windows) | repo migrations + 7 seed scripts + synthetic `news_*` | **PASS** | 14 tables, 1901 rows, 3.24 MB. backup 216 ms · restore 590 ms · verify 97 ms · 15.2 s end-to-end including booting and tearing down the cluster. Schema fingerprint match (156 columns); all 14 per-table checksums match; 8/8 spot checks byte-identical. Negative control run the same day: deliberately dropping one `theory` row and altering one `news_story` title made the drill exit 1 and name both tables plus two spot checks — the verification is not a rubber stamp. |
 | 2026-08-30 | status report (Joey) | Supabase dashboard report | **OPEN** | Current plan is Supabase Free; no backup options are available and no backup was made. No production-data restore drill was performed. This records status only and does not accept the BACKUPS launch risk. |
+| 2026-09-06 | production-bytes drill (`production-backup-drill.yml`, [run 34054042528](https://github.com/JW-Incorporated/swift2/actions/runs/34054042528)) | production `SUPABASE_DB_URL`, read-only session → throwaway Postgres 17 in the job | **FAIL (restore); backup PASS** | Backup half worked against real production data: 35 tables · 8298 rows · 11.27 MB in 7664 ms, per-table checksums recorded. Restore half died applying `20260904000000_clown_sessions.sql`: `schema "auth" does not exist` — the migration references `auth.users`, which only exists on Supabase, so any non-Supabase restore target (which `assertSafeTarget` *requires*) cannot replay the migration set. **The workflow reported green anyway** — `node … \| tee` without `pipefail` swallowed the exit code, and the alert issue was closed as PASSED. Two fixes tracked on the swift2 kanban (children of t_a0ad2392): (a) the drill/migrate path creates a stub `auth` schema + `auth.users(id uuid pk)` + `auth.uid()` on non-Supabase targets before migrating, (b) `set -o pipefail` in both drill workflows. Gate stays 🟡 until a corrected run passes end-to-end. |
+| 2026-09-06 | production-bytes drill (`production-backup-drill.yml`, [run 34056536066](https://github.com/JW-Incorporated/swift2/actions/runs/34056536066)) | production `SUPABASE_DB_URL`, read-only session → throwaway Postgres 17 in the job | **FAIL (restore, new reason); backup PASS** | Re-run from `main` after PR #3926 (auth-schema shim + pipefail, merged 2026-09-06). Both #3926 fixes worked as intended: the auth-schema shim applied cleanly ("applied Supabase auth-schema compat shim to restore target (non-Supabase target)"), migrations applied, and this time the failure was reported honestly (workflow went red, no false PASS). Backup half again worked against real production data: 35 tables · 8298 rows · 11.27 MB in 4129 ms, per-table checksums recorded. Restore died on the very first table load: `cannot insert a non-DEFAULT value into column "lag_days"` — `public.egg_ledger.lag_days` is a `generated always as (...) stored` column (`supabase/migrations/20260901000000_knowledge_engine.sql:117`), and the restore's row-loader is inserting the backed-up value for it instead of omitting the column and letting Postgres compute it. This is a distinct bug from the `auth`-schema issue #3926 fixed — new follow-up filed (see below). Gate stays 🟡. |
+| 2026-09-06 | production-bytes drill (`production-backup-drill.yml`, [run 34057210905](https://github.com/JW-Incorporated/swift2/actions/runs/34057210905)) | production `SUPABASE_DB_URL`, read-only session → throwaway Postgres 17 in the job | **PASS** | Re-run from `main` after PR #3931 (`loadTable()` now builds an explicit, `pg_attribute`-derived column list per table, excluding any `generated always ... stored` column — fixes `egg_ledger.lag_days` generically, not by name). Backup half: 35 tables · 8298 rows · 11.27 MB in 10206 ms. Restore: 829 ms. Verify: 228 ms. Total: 14259 ms. Every one of the 35 tables restored with matching row count and content checksum, including `egg_ledger` (37 rows, checksum match). `PASS — every table restored with matching row count and content checksum.` **Gate closes green.** |
 
 **Open items to close the gate fully:**
 
-- [ ] **Joey:** decide and record the backup-risk posture after the confirmed
-      absence of Supabase Free-plan backup options; the BACKUPS launch gate
-      remains unresolved unless that risk is explicitly accepted or another
-      backup path is evidenced.
-- [ ] **Joey (or anyone with repo write access — no credential handling
-      required):** one real-data drill via
+- [x] ~~**Joey:** decide and record the backup-risk posture~~ — **ruled
+      2026-09-06 (FR-t_a0ad2392-4):** not a founder decision. The only
+      state that exists nowhere but Supabase is the `news_*` runtime tables
+      and generated uuids (§1); Layer B already reads all of it in 7.7 s.
+      A *scheduled* Layer-B production backup uploaded as a 90-day GitHub
+      artifact is "another backup path evidenced" at zero spend, so the
+      risk is mitigated rather than accepted. **Mitigated 2026-09-06:**
+      `.github/workflows/production-backup.yml` runs
+      `backup-restore-test.mjs --backup-only` daily and uploads a 90-day
+      artifact (§2 "Scheduled"). Upgrading the Supabase plan would be real
+      recurring spend and stays a founder call — but nothing here needs it.
+- [x] ~~**Agent:** the production-bytes drill's restore path now fails on
+      `public.egg_ledger.lag_days` (`generated always as (...) stored`):
+      `loadTable()` in `scripts/backup-restore-test.mjs` does
+      `insert into public.<table> select r.* from jsonb_populate_record(...)`
+      with no column list, so it tries to write a value into a generated
+      column and Postgres rejects it.~~ — **fixed 2026-09-06, PR #3931.**
+      `loadTable()` now queries `pg_attribute` (`attgenerated <> ''`) per
+      table to build an explicit, generic column list excluding any
+      generated column, and uses it in both the insert target list and the
+      `jsonb_populate_record` projection — not an `egg_ledger`-specific
+      fix. Re-run [34057210905](https://github.com/JW-Incorporated/swift2/actions/runs/34057210905)
+      from `main` PASSED end-to-end (see the row above). Gate closes.
+- [x] ~~**Joey (or anyone with repo write access — no credential handling
+      required):** one real-data drill~~ — clicked 2026-09-06, see the row
+      above; will be re-run automatically from the fix PR.
+      Original text kept below for context: one real-data drill via
       `.github/workflows/production-backup-drill.yml`
       (`workflow_dispatch`) — before launch, logged above. This is the only
       step that proves production's own bytes restore. The mechanical

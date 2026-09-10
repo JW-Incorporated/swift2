@@ -2098,8 +2098,8 @@ export default {
       month: 3,
       day: 17,
       category: 'fashion',
-      title: 'A flowing purple Alberta Ferretti dress for Folklore',
-      snippet: "A flowing purple Alberta Ferretti dress captured the woodsy feel of Folklore on Eras Tour opening night.",
+      title: 'A flowing purple Alberta Ferretti dress for folklore',
+      snippet: "A flowing purple Alberta Ferretti dress captured the woodsy feel of folklore on Eras Tour opening night.",
       sourceUrl: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg',
@@ -5496,7 +5496,7 @@ export default {
         'https://assets1.cbsnewsstatic.com/hub/i/r/2024/02/05/8edd48b7-d5d3-4f41-9abc-73224e5a7012/thumbnail/620x413/c9004cfb98e90e6a93cd1764340a1057/gettyimages-1986514177.jpg',
       moment: {
         context:
-          'Accepting Best Pop Vocal Album for Midnights — her 13th career Grammy — she told the room: "I want to say thank you to the fans by telling you a secret that I\'ve been keeping from you for the last two years, which is that my brand new album comes out April 19th."\n\nFans primed by her lucky number 13 had bet on a Reputation (Taylor\'s Version) reveal; instead, a black-and-white cover photo of her lying in bed hit Instagram minutes later, captioned with lines about muses and love bombs. By the end of the night she had Album of the Year for Midnights too, making her the first artist ever to win the category four times.',
+          'Accepting Best Pop Vocal Album for Midnights — her 13th career Grammy — she told the room: "I want to say thank you to the fans by telling you a secret that I\'ve been keeping from you for the last two years, which is that my brand new album comes out April 19th."\n\nFans primed by her lucky number 13 had bet on a reputation (Taylor\'s Version) reveal; instead, a black-and-white cover photo of her lying in bed hit Instagram minutes later, captioned with lines about muses and love bombs. By the end of the night she had Album of the Year for Midnights too, making her the first artist ever to win the category four times.',
         sources: [
           {
             outlet: 'CBS News',
@@ -5583,6 +5583,241 @@ export default {
             inStock: false,
             altNote: 'The custom Schiaparelli gown was never sold at retail -- this is a current ivory strapless gown with a leg slit in a similar draped spirit, without the corset-style back lacing.',
             verifiedAt: '2026-08-30T19:22:10.691Z'
+          },
+        ],
+      },
+    },
+    // --- J3.5 depth audit pass (2026-09-06, docs/audits/content/2026-09-06-j35-depth-audit.md) ---
+    // Below-floor / zero-weighted-category months, authored per the link-first
+    // model (docs/marketing/content-framework-2026-07-03.md): real, verified
+    // sources only, no fabrication (see docs/content-ops/ research notes for
+    // this task's sourcing trail).
+    {
+      year: 2022,
+      month: 11,
+      day: 25,
+      category: 'relationship',
+      title: 'Joe Alwyn gives a rare glimpse into life with Taylor\'s cat Benjamin',
+      snippet:
+        'An Instagram Story showing his ankle with Taylor Swift\'s cat Benjamin snuggled against it — one of the couple\'s rare public glimpses into their private home life during the Midnights era.',
+      sourceUrl: 'https://www.elle.com/culture/celebrities/a42071335/taylor-swift-boyfriend-joe-alwyn-cat-benjamin/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor and Alwyn were famously private about their six-year relationship; this small Instagram Story from Alwyn was treated as a notable public relationship signal during the Midnights promotional period.',
+        sources: [
+          { outlet: 'ELLE', url: 'https://www.elle.com/culture/celebrities/a42071335/taylor-swift-boyfriend-joe-alwyn-cat-benjamin/' },
+          { outlet: 'Geo News', url: 'https://www.geo.tv/latest/455377-joe-alwyn-shares-adorable-snap-with-taylor-swifts-cat' },
+        ],
+      },
+    },
+    {
+      year: 2022,
+      month: 12,
+      day: 10,
+      category: 'sighting',
+      title: 'An unrecognized night at Preservation Hall in New Orleans',
+      snippet:
+        'No disguise, no hat — she sat in on a jazz set at the century-old French Quarter hall with Joe Alwyn, who was in town filming Yorgos Lanthimos\'s "And," and went largely unrecognized by the small crowd.',
+      sourceUrl: 'https://www.sunherald.com/entertainment/article269923742.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'A rare, low-key public sighting of the couple together while Alwyn was on location shooting a film in New Orleans, just ahead of the Midnights release-anniversary press cycle.',
+        sources: [
+          { outlet: 'Sun Herald (McClatchy wire)', url: 'https://www.sunherald.com/entertainment/article269923742.html' },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 1,
+      day: 27,
+      category: 'relationship',
+      title: 'A zodiac Easter egg for Joe Alwyn in the \'Lavender Haze\' video',
+      snippet:
+        'When Taylor released the self-directed "Lavender Haze" music video on Jan. 27, 2023, fans spotted a vinyl record cover featuring the Sagittarius and Pisces constellations — her and Alwyn\'s zodiac signs — read as a coded nod to their relationship.',
+      sourceUrl: 'https://www.eonline.com/news/1362894/taylor-swift-fans-spot-joe-alwyn-easter-egg-in-lavender-haze-video',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Part of Taylor\'s pattern of subtle, coded references to Alwyn throughout the Midnights era rather than direct public confirmation.',
+        sources: [
+          { outlet: 'E! Online', url: 'https://www.eonline.com/news/1362894/taylor-swift-fans-spot-joe-alwyn-easter-egg-in-lavender-haze-video' },
+          { outlet: 'Business Insider', url: 'https://www.businessinsider.com/taylor-swift-lavender-haze-music-video-details-easter-eggs-2023-1' },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 2,
+      day: 5,
+      category: 'relationship',
+      title: 'A borrowed Joe Alwyn jacket at the Grammys afterparty',
+      snippet:
+        'After winning Best Music Video at the Grammys on Feb. 5, 2023, Taylor was photographed at her afterparty in a Celine leather bomber jacket previously worn by Alwyn at the 2022 Toronto International Film Festival.',
+      sourceUrl: 'https://people.com/style/taylor-swift-wears-joe-alwyn-jacket-to-grammys-afterparty/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'A source told Entertainment Tonight that Alwyn also attended the afterparty at Chateau Marmont with Taylor, even though he did not accompany her on the Grammys red carpet.',
+        sources: [
+          { outlet: 'People', url: 'https://people.com/style/taylor-swift-wears-joe-alwyn-jacket-to-grammys-afterparty/' },
+          { outlet: 'Page Six', url: 'https://pagesix.com/2023/02/08/taylor-swift-borrows-joe-alwyns-jacket-at-grammys-2023-afterparty/' },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 4,
+      day: 11,
+      category: 'sighting',
+      title: 'First outing since the Joe Alwyn split, dinner with the Antonoffs',
+      snippet:
+        'Days after news broke of her breakup with Joe Alwyn, Taylor was spotted having dinner with Jack Antonoff and fiancée Margaret Qualley at Via Carota in New York, wearing a black top and bejeweled high-waisted jeans.',
+      sourceUrl: 'https://extratv.com/2023/04/11/taylor-swift-steps-out-for-first-time-since-joe-alwyn-split',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her first public outing after the Joe Alwyn breakup news broke on April 8, 2023.',
+        sources: [
+          { outlet: 'Extra', url: 'https://extratv.com/2023/04/11/taylor-swift-steps-out-for-first-time-since-joe-alwyn-split' },
+          { outlet: 'Pedestrian.tv', url: 'https://pedestrian.tv/entertainment/taylor-swift-joe-alwyn-breakup-photos' },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 5,
+      day: 16,
+      category: 'sighting',
+      title: 'Leaving Electric Lady Studios with Matty Healy and a star-studded crew',
+      snippet:
+        'Taylor and Matty Healy were seen leaving Electric Lady Studios in New York with a group including Kendrick Lamar, Jack Antonoff, Margaret Qualley, Jerrod Carmichael and Florence Welch, Taylor in an NYU sweatshirt and black skirt.',
+      sourceUrl: 'https://www.eonline.com/news/1374508/you-wont-calm-down-over-taylor-swift-and-matty-healys-latest-nyc-outing',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Part of the wave of sightings following The Sun\'s May 3, 2023 report of a budding Taylor-Healy romance and Healy\'s appearances at her Nashville Eras Tour shows.',
+        sources: [
+          { outlet: 'E! Online', url: 'https://www.eonline.com/news/1374508/you-wont-calm-down-over-taylor-swift-and-matty-healys-latest-nyc-outing' },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 6,
+      day: 5,
+      category: 'relationship',
+      title: 'A quiet split from Matty Healy after a brief romance',
+      snippet:
+        'People confirmed Taylor and Matty Healy had broken up in early June 2023, ending weeks of dating speculation that began in May — a source said "she had fun with him" but the relationship was short-lived.',
+      sourceUrl: 'https://people.com/music/taylor-swift-matty-healy-relationship-timeline/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Healy had appeared at Taylor\'s Nashville Eras Tour shows in early May 2023; the pair reportedly split around June 5, 2023, weeks after the romance was first reported.',
+        sources: [
+          { outlet: 'People', url: 'https://people.com/music/taylor-swift-matty-healy-relationship-timeline/' },
+          { outlet: 'TMZ', url: 'https://www.tmz.com/2023/06/05/taylor-swift-matty-healy-break-up-split/' },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 8,
+      day: 2,
+      category: 'relationship',
+      title: 'Travis Kelce laughs off dating rumors on NFL Network',
+      snippet:
+        'In an Aug. 2, 2023 "Inside Training Camp Live" interview, Travis Kelce burst out laughing when asked about Taylor Swift, saying "I said what I said, and I meant what I said when I said it," fueling speculation after his viral July bracelet story.',
+      sourceUrl: 'https://kansascity.com/news/local/article280456364.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'First on-camera acknowledgment moment from Kelce after his July "New Heights" podcast bracelet story sparked dating rumors, weeks before Taylor\'s Sept. 24 Chiefs game appearance made the relationship public.',
+        sources: [
+          { outlet: 'The Kansas City Star', url: 'https://kansascity.com/news/local/article280456364.html' },
+          { outlet: 'Yahoo Entertainment', url: 'https://aol.com/travis-kelce-jokingly-ends-interview-030921483.html' },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 9,
+      day: 24,
+      category: 'sighting',
+      title: 'Sitting with Donna Kelce as the relationship goes public',
+      snippet:
+        'Taylor was seen at Arrowhead Stadium on Sept. 24, 2023, sitting with Donna Kelce as the Chiefs beat the Bears 41-10; after the game she left with Travis Kelce, riding off together — the sighting that made the relationship public.',
+      sourceUrl: 'https://www.today.com/popculture/taylor-swift-kansas-city-chiefs-game-travis-kelce-rcna117098',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Widely regarded as the single most consequential sighting of the Midnights era.',
+        sources: [
+          { outlet: 'TODAY.com', url: 'https://www.today.com/popculture/taylor-swift-kansas-city-chiefs-game-travis-kelce-rcna117098' },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 3,
+      day: 9,
+      category: 'relationship',
+      title: 'A golf-cart date night in Singapore mid-Eras Tour',
+      snippet:
+        'After her fifth Singapore show, Taylor and Kelce were spotted on a date night March 8-9, 2024 — riding a golf cart at a mall, hugging and holding hands, then dining with her band and backup singers before her two-month tour hiatus.',
+      sourceUrl: 'https://people.com/taylor-swift-and-travis-kelce-spotted-on-date-night-in-singapore-8606812',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Kelce flew to Singapore to support Taylor during her Eras Tour residency; the pair kissed backstage after her show before the group dinner date.',
+        sources: [
+          { outlet: 'People', url: 'https://people.com/taylor-swift-and-travis-kelce-spotted-on-date-night-in-singapore-8606812' },
+          { outlet: 'Page Six', url: 'https://pagesix.com/2024/03/09/entertainment/taylor-swift-and-travis-kelce-enjoy-group-date-night-in-singapore-with-her-bandmates/' },
+          { outlet: 'TMZ', url: 'https://www.tmz.com/2024/03/09/taylor-swift-travis-kelce-singapore-date-night-mall/' },
+        ],
+        // Photo backfill (t_23e4b90b, 2026-09-06): TMZ's own report photo,
+        // HTTP-verified, downloaded and vision-confirmed this session.
+        photos: [
+          {
+            url: 'https://imagez.tmz.com/image/29/16by9/2024/03/09/2914720aa3fb49f5b4db062559bc0b71_xl.jpg',
+            credit: 'TMZ (Getty composite)',
+            caption:
+              'Taylor and Travis pictured around the Singapore golf-cart mall date, March 8-9, 2024.',
+            kind: 'primary',
+            focalPoint: '50% 40%',
+          },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 4,
+      day: 13,
+      category: 'relationship',
+      title: 'A Coachella debut as a couple',
+      snippet:
+        'On April 13, 2024, Taylor and Kelce were spotted dancing, kissing and holding hands backstage at Coachella watching Bleachers and Ice Spice — their first Coachella appearance together as a couple.',
+      sourceUrl: 'https://people.com/coachella-2024-what-you-didnt-see-taylor-swift-and-travis-kelce-dancing-and-more-exclusive-8631334',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'A rare public, unguarded festival date night; eyewitnesses told Us Weekly the couple was "screaming, dancing and full-on making out" during the Bleachers set.',
+        sources: [
+          { outlet: 'People', url: 'https://people.com/coachella-2024-what-you-didnt-see-taylor-swift-and-travis-kelce-dancing-and-more-exclusive-8631334' },
+          { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swift-and-teresa-giudice-meet-at-coachella-2024/' },
+        ],
+        // Photo backfill (t_23e4b90b, 2026-09-06): People's own report photo,
+        // HTTP-verified, downloaded and vision-confirmed this session.
+        photos: [
+          {
+            url: 'https://people.com/thmb/eByVsS4ATBa0YPv9gKKbnPDzvI8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(690x229:692x231)/taylor-swift-travis-kelce-neon-carnival-coachella-music-and-arts-festival-041524-1-ee59dcf6feae4473865941f320dbe788.jpg',
+            credit: 'via People',
+            caption: 'Taylor and Travis at the Neon Carnival during Coachella weekend, April 13, 2024.',
+            kind: 'primary',
+            focalPoint: '46% 15%',
           },
         ],
       },

@@ -16,24 +16,24 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import {
   tracksForEra,
   keepExploring,
   releasedFactValue,
   trackKey,
   adjacentTrackOnAlbum,
-} from '@/lib/longlive/tracks';
+} from '@swift2/experience';
 import { videosForEra } from '@/lib/longlive/videos';
 import { resolvedTrackVideo } from '@/lib/longlive/track-video';
 import { MomentVideo } from './MomentVideo';
 import { OverlayNav } from './OverlayNav';
 import { TrackFiveCallout } from './TrackFivePill';
 import { eraStyle } from '@/lib/longlive/theme';
-import { formatFullDate } from '@/lib/longlive/format';
+import { formatFullDate } from '@swift2/experience';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { useSwipeNav } from '@/lib/longlive/useSwipeNav';
-import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@/lib/longlive/types';
+import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@swift2/experience';
 
 /** Shown once, ever, the first time a song page has a swipe neighbor
  * (#774 Option 2's "subtle one-time hint"). localStorage, not session —
@@ -73,7 +73,7 @@ export { trackKey };
  * only when real sourced content exists — never a placeholder.
  */
 export function TrackDetail() {
-  const { openTrackKey, trackGuideEraId, share } = useAppState();
+  const { openTrackKey, trackGuideEraId } = useAppState();
   const { closeTrack, openTrack } = useAppActions();
 
   const era = trackGuideEraId ? getEra(trackGuideEraId) : undefined;
@@ -103,7 +103,7 @@ export function TrackDetail() {
   }, [openTrackKey, track, prevTrack, nextTrack]);
 
   useSwipeNav(
-    Boolean(track) && !share,
+    Boolean(track),
     () => nextTrack && goToTrack(nextTrack),
     () => prevTrack && goToTrack(prevTrack),
   );
@@ -111,11 +111,11 @@ export function TrackDetail() {
   useEffect(() => {
     if (!track) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !share) {
+      if (e.key === 'Escape') {
         closeTrack();
         return;
       }
-      if (share) return;
+
       // Left/Right hop songs (#774 Option 2's additive desktop shortcut) —
       // only when focus isn't in an interactive control, so it never steals
       // arrow keys from a text field, a video's own controls, etc.
@@ -127,7 +127,7 @@ export function TrackDetail() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [track, closeTrack, share, nextTrack, prevTrack]);
+  }, [track, closeTrack, nextTrack, prevTrack]);
 
   useBackDismiss(Boolean(track), closeTrack);
 

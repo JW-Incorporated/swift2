@@ -57,6 +57,22 @@ describe('social-poster.yml — social-ledger direct-push dedupe (issue #2040)',
     expect(wf).toContain('git archive FETCH_HEAD $PATHS | tar -x');
   });
 
+  it('never overlays social/queue from the ledger branch (2026-09-06, kanban t_e7ce7fe8)', () => {
+    // The additive-only overlay is exactly right for posted/failed (an
+    // append-only ledger) but wrong for queue/, which main must be free to
+    // delete from directly (a founder retiring a stale draft, e.g. PR
+    // #3817). Overlaying queue here can only ever resurrect an
+    // already-deleted draft from a lagging ledger-branch tree, and because
+    // a resurrected appearance-lane item is already >48h past scheduledAt,
+    // it gets immediately re-retired to failed/ by the very same run —
+    // exactly what happened to 2026-09-01-appearance-T6iTnTV-Rgw.
+    const forLoopMatch = wf.match(/for d in ([^;]+); do/);
+    expect(forLoopMatch).not.toBeNull();
+    const dirs = forLoopMatch![1].trim().split(/\s+/);
+    expect(dirs).toEqual(['social/posted', 'social/failed']);
+    expect(dirs).not.toContain('social/queue');
+  });
+
   it('the ledger read degrades gracefully instead of failing when a dir is empty on the ledger tip', () => {
     // `git archive` errors on a pathspec absent from the tree. Relying on
     // social/queue/.gitkeep to always exist would make that failure mode

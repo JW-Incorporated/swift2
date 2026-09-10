@@ -35,7 +35,7 @@
 // endpoint returns per-day, per-repo, per-SKU line items — strictly better
 // than the old aggregate. **No new scope is required for Actions minutes.**
 
-import { ghApiSoft } from './lib/gh-api.mjs';
+import { ghApiSoft } from '../lib/gh.mjs';
 
 const DAY_MS = 86_400_000;
 

@@ -9,8 +9,8 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { getEra } from '@/lib/longlive/eras';
-import { RELATIONSHIPS, SINGLE_PERIODS } from '@/lib/longlive/lenses';
+import { getEra } from '@swift2/experience';
+import { RELATIONSHIPS, SINGLE_PERIODS } from '@swift2/experience';
 import { allocateHitRanges, durationLabel, mergedTimeline, monthsBetween, type LoveStoryEntry } from '@/lib/longlive/love-story';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { EntryDetail } from './EntryDetail';

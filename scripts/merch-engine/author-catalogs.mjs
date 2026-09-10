@@ -4,13 +4,9 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { createClient } from '@supabase/supabase-js';
 import { curateCandidate } from './fanmade-discovery.mjs';
 import { currentFrom } from './sync-official.mjs';
-
-function supabaseAdminClient(url, key) {
-  return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
-}
+import { serviceClient } from '../lib/supabase.mjs';
 
 const OFFICIAL_HOST = 'store.taylorswift.com';
 const AMAZON_HOSTS = new Set(['amazon.com', 'www.amazon.com']);
@@ -268,10 +264,7 @@ async function main() {
 }
 
 function supabaseAdminForNotifications() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  return supabaseAdminClient(url, key);
+  return serviceClient();
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

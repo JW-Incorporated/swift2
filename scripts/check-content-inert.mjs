@@ -41,6 +41,7 @@ import ts from 'typescript';
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { dirname, join, relative, posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runMain } from './lib/cli.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const ROOT = join(HERE, '..');
@@ -274,11 +275,11 @@ function main() {
         'keys, object methods/getters, `new`, `await`, or free identifiers. If a\n' +
         'file genuinely must deviate, add it to ALLOWLIST with a reason. See #488.',
     );
-    process.exit(1);
+    return 1;
   }
   console.log('✓ all seed files are provably inert (safe to import).');
 }
 
 if (process.argv[1] && toPosix(process.argv[1]).endsWith('scripts/check-content-inert.mjs')) {
-  main();
+  runMain(main, { name: 'check-content-inert' });
 }

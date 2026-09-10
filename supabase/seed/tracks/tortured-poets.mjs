@@ -1022,7 +1022,7 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The piano dirge that redefines its own acronym by the final line — love of my life curdling into loss of my life.',
       summary:
-        'A returned lover promises everything with confetti-cannon sincerity, then vanishes on schedule: she inventories the con and files him under the acronym’s crueler expansion. A spare, Evermore-adjacent Aaron Dessner piano ballad that builds quietly to the final-line turn, it peaked at No. 12 on the Hot 100 inside TTPD’s record top-14 sweep (No. 16 Global 200; UK No. 20). Critics made it a standout — The Hollywood Reporter called it the album’s "most emotional track," with Pitchfork the notable dissent.',
+        'A returned lover promises everything with confetti-cannon sincerity, then vanishes on schedule: she inventories the con and files him under the acronym’s crueler expansion. A spare, evermore-adjacent Aaron Dessner piano ballad that builds quietly to the final-line turn, it peaked at No. 12 on the Hot 100 inside TTPD’s record top-14 sweep (No. 16 Global 200; UK No. 20). Critics made it a standout — The Hollywood Reporter called it the album’s "most emotional track," with Pitchfork the notable dissent.',
       inspiration:
         'Dessner production (piano, keys, synth bass), recorded at his Long Pond studio; critics group it with "So Long, London" and "How Did It End?" as the album’s Dessner heartbreak spine.',
       themes: ['love as con job', 'the biggest loss', 'acronyms as knives'],
@@ -1053,7 +1053,7 @@ const TRACKS = [
       ],
       dossier: {
         whyItMatters: [
-          "The piano dirge that redefines its own acronym in the final line — 'love of my life' curdling into 'loss of my life.' A spare, Evermore-adjacent Aaron Dessner ballad, it peaked at No. 12 on the Hot 100 inside TTPD's record top-14 sweep and was a critical standout: The Hollywood Reporter called it the album's 'most emotional track.'",
+          "The piano dirge that redefines its own acronym in the final line — 'love of my life' curdling into 'loss of my life.' A spare, evermore-adjacent Aaron Dessner ballad, it peaked at No. 12 on the Hot 100 inside TTPD's record top-14 sweep and was a critical standout: The Hollywood Reporter called it the album's 'most emotional track.'",
           "It live-debuted as the tour's first-ever TTPD surprise song and returned only twice; critics group it with 'So Long, London' and 'How Did It End?' as the album's Dessner heartbreak spine."
         ],
         meaning: {
@@ -2098,7 +2098,7 @@ const TRACKS = [
       ],
       dossier: {
         whyItMatters: [
-          "'Cassandra' is the Anthology's myth-as-memoir centerpiece: Swift borrows the Trojan princess cursed by Apollo to prophesy the truth and never be believed, and critics heard in it her account of the stretch that led to Reputation — the 2016 period when a public feud turned much of the culture against her. She names no one; the mapping is the reading reviewers reached for, not a subject she confirmed.",
+          "'Cassandra' is the Anthology's myth-as-memoir centerpiece: Swift borrows the Trojan princess cursed by Apollo to prophesy the truth and never be believed, and critics heard in it her account of the stretch that led to reputation — the 2016 period when a public feud turned much of the culture against her. She names no one; the mapping is the reading reviewers reached for, not a subject she confirmed.",
           "Built with Aaron Dessner at Long Pond, it is a folk-pop piano ballad of soft-glow piano and strings (orchestration recorded in Biarritz with the London Contemporary Orchestra) — a sound closer to folklore and evermore than to the standard edition's synth-pop. It charted inside TTPD's history-making week, when all 31 tracks hit the Hot 100 at once, debuting and peaking at No. 44, and Rolling Stone's Rob Sheffield called it 'one of the most powerful songs Swift and Dessner have crafted.'",
         ],
         meaning: {
@@ -2148,7 +2148,7 @@ const TRACKS = [
           {
             who: "Jason Lipshutz",
             context: "Billboard",
-            note: "Read it as insight into the Reputation-era period when the West/Kardashian feud 'turned many against her.'",
+            note: "Read it as insight into the reputation-era period when the West/Kardashian feud 'turned many against her.'",
           },
         ],
         sources: [

@@ -1,5 +1,47 @@
 # Privacy: policy + store data-safety answers
 
+> ## ✅ CURRENT ANSWERS (2026-09-05, App Store release) — use THIS block
+>
+> Re-verified against `apps/mobile/**` on 2026-09-05. Since 2026-08-30 the app
+> mints a random device id (`lib/device-id.ts`), POSTs it with platform, time
+> zone, locale and app version to `/api/devices/register` on every cold start
+> (`lib/push-registration.ts`), and — only after the user opts in via the bell
+> — sends an Expo push token to the same route. Preferences round-trip through
+> `/api/devices/:id/prefs`. So **"Data Not Collected" is false** and must not
+> be selected on either store. The `/privacy` page's "The mobile app" section
+> was rewritten to match in the same PR.
+>
+> <!-- GENERATED:mobile-privacy-inventory:start — produced by
+> `npm run privacy:mobile-doc` from `apps/web/lib/longlive/data-inventory.ts`
+> (OS-042). Do not hand-edit the lines below; edit the inventory and
+> regenerate. `data-inventory.test.ts` fails the build if this block drifts
+> from what the inventory would produce, or if the inventory ever disagrees
+> with the `/privacy` policy prose. -->
+>
+> **App Store Connect → App Privacy** (paste-ready):
+>
+> | Question | Answer |
+> | --- | --- |
+> | Do you or your third-party partners collect data from this app? | **Yes** |
+> | **Identifiers → Device ID** | the app's UUID + push token. Purpose: App Functionality. Not linked, not tracking. |
+> | **Identifiers → User ID** | an anonymous Clownbot identity — a bearer device token for the native chat screen, or the website's own session cookie on the three legal WebView pages. Purpose: App Functionality. Not linked, not tracking. |
+> | **User Content → Other User Content** | feedback-box text (to GitHub) and mood-chat / Clownbot text (to the Claude API) typed inside the in-app site. Purpose: App Functionality. Not linked, not tracking. |
+> | **Usage Data → Product Interaction** | Vercel Web Analytics page views inside the in-app site. Purpose: Analytics. Not linked, not tracking. |
+> | Every other data type | **not collected** |
+> | Resulting label | **"Data Not Linked to You: Identifiers, User Content, Usage Data"** |
+>
+> **Google Play → Data safety** (paste-ready): Collects data: **Yes**. Data type:
+> **Device or other IDs**. Collected, not shared. Not processed ephemerally.
+> Required (needed for notifications to work). Purpose: **App functionality**.
+> Encrypted in transit: **Yes**. Deletion request: **Yes** — email
+> privacy@longlivets.com (documented at /support and /privacy).
+>
+> <!-- GENERATED:mobile-privacy-inventory:end -->
+>
+> Everything below this block predates the notifications work and is kept for
+> the content-rating / age-rating answers, which are unchanged (all "No", 4+).
+
+
 > ## ⚠️ STALE — DO NOT SUBMIT EITHER STORE FORM FROM THIS DOC (2026-08-11, #800)
 >
 > Everything below was verified on 2026-07-08 and describes a **web + mobile**

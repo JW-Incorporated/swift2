@@ -37,6 +37,7 @@ import {
 // this file.
 import { CONFIDENCE_VALUES } from './lib/content-vocab.mjs';
 export { CONFIDENCE_VALUES };
+import { runMain } from './lib/cli.mjs';
 
 const SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'theories');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'theories.generated.ts');
@@ -139,7 +140,7 @@ export function renderModule(byEra) {
   lines.push('// (or the live Supabase theory table when configured).');
   lines.push("// Re-run that script after theory-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { EraId, TheoryNote } from './types';");
+  lines.push("import type { EraId, TheoryNote } from '@swift2/experience';");
   lines.push('');
   lines.push('export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {');
   for (const eraId of Object.keys(byEra).sort()) {
@@ -256,8 +257,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'sync-longlive-theories' });
 }

@@ -9,6 +9,8 @@ import {
   Bodoni_Moda,
 } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
+import { inAppPlatformFromUserAgent } from '@/lib/longlive/in-app';
+import '@/lib/longlive/vault-wiring';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
@@ -113,12 +115,15 @@ const jsonLd = {
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const nonce = (await headers()).get('x-nonce') ?? undefined;
+  const hdrs = await headers();
+  const nonce = hdrs.get('x-nonce') ?? undefined;
+  const inAppPlatform = inAppPlatformFromUserAgent(hdrs.get('user-agent'));
 
   return (
     <html
       lang="en"
       className={`${inter.variable} ${playfair.variable} ${typewriter.variable} ${script.variable} ${bodoni.variable} bg-bg`}
+      {...(inAppPlatform ? { 'data-app': inAppPlatform } : {})}
     >
       <body>
         <script

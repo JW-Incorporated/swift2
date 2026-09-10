@@ -14,23 +14,24 @@ picking a winner.
   documentation quality + every doc reference pointing at a routine or cadence
   that no longer exists) and [`review`](automation/review-2026-08-31.md)
   (overlaps, retirement candidates, gaps, seven recommendations).
-- **Fires on its own: 54 routines** — 27 GitHub Actions workflows (cron, PR,
-  push, or issue triggered), 24 Claude desk routine triggers, the product's
-  Vercel Cron job, 2 Dependabot update schedules. These run whether or not
-  anyone is watching.
+- **Fires on its own:** GitHub Actions workflows (cron, PR, push, or issue
+  triggered), the product's Vercel Cron job, and 2 Dependabot update
+  schedules. The old Claude desk-routine fleet has **0 enabled triggers** as
+  of 2026-09-06; its work is retired or superseded by Actions callers such as
+  the four quality-and-integrity workflows listed below.
 - **Manual-only: 10 workflows**, `workflow_dispatch` and nothing else, badged
   **MANUAL** below. They never fire by themselves and are **not** counted as
   scheduled routines; most sit behind a typed confirmation because they spend
   money, call a vision model, or delete something live. Indexed anyway,
   because what *can* run matters when auditing blast radius.
-- Counting unit is *one independently-triggered thing*, not one file: the 37
-  workflow files split 27 automatic / 10 manual, `.github/dependabot.yml`
-  contributes two (separate `updates:` entries, own cadences), and
-  `watchdog.yml`'s two crons are one workflow. On the desk-routine side,
-  [`agents/runners.md`](agents/runners.md)'s "23 total, 22 enabled" counts the
-  **standing fleet** and excludes `swift2 Getty purge`, a self-retiring
-  one-shot; this file counts every live trigger, hence 24 (23 enabled — Lex
-  depth is paused). Two scopes, same reality.
+- Counting unit is *one independently-triggered thing*, not one file:
+  `.github/dependabot.yml` contributes two separate `updates:` entries with
+  their own cadences, and `watchdog.yml`'s two crons are one workflow. The
+  former Claude desk-routine registry is historical: [`agents/runners.md`](agents/runners.md)
+  records 23 retired standing-fleet triggers (24 rows including the
+  self-retiring `swift2 Getty purge` one-shot), all disabled on 2026-09-06.
+  The active migrated callers are GitHub Actions workflow files, not Claude
+  dashboard triggers.
 
 ---
 
@@ -48,14 +49,14 @@ The repo runs on a deliberate split, stated as a standing rule in
 | Tier | What it is | Runs on | Costs | Fails how |
 |---|---|---|---|---|
 | **1 — Actions (deterministic)** | `.github/workflows/*.yml`. Zero or near-zero LLM. Detects, files tickets, ships queued work, commits state, alerts. | GitHub's scheduler | Actions minutes | Loudly — a red run is visible in the Actions tab |
-| **2 — Desk routines (judgment)** | Scheduled Claude sessions, one per "desk". They read what Tier 1 produced and make calls a script cannot: is this rumor sourced, is this page thin, is this alert real. Charters in [`docs/agents/`](agents/), prompts in [`docs/agents/runner-prompts/`](agents/runner-prompts/), cadence registry in [`agents/runners.md`](agents/runners.md). | Joey's Claude account — see the note below | Claude tokens | **Silently** — this repo cannot see a routine's dashboard, which is why Tier 1 carries liveness checks for them |
+| **2 — Desk routines (judgment)** | Judgment desks now called by scheduled `routine-*.yml` GitHub Actions workflows. The retired Claude trigger registry, charters, and prompts remain as historical context in [`docs/agents/`](agents/). | GitHub's scheduler | Actions minutes | Loudly — a red run is visible in the Actions tab |
 | **3 — Product runtime** | Cron built into the deployed product, not into CI. Today: exactly one, the notifications dispatcher. | Vercel Cron | Vercel plan | Silently, and **currently unwatched** — see [REC-1](automation/review-2026-08-31.md#rec-1) |
 
-**Why Tier 1 exists even where Tier 2 could do the job:** Karen (the content
-integrity engine) went dark for 10+ days in August 2026 and nobody noticed — a
-Claude routine leaves no trace here when it doesn't run. Karen's deterministic
-half became `cie-scan.yml` for that reason. Put the *freshness* half on
-Actions, the *judgment* half on a routine.
+**Historical rationale for the split:** Karen (the content integrity engine)
+went dark for 10+ days in August 2026 and nobody noticed — a Claude routine
+left no trace here when it did not run. Karen's deterministic half became
+`cie-scan.yml` for that reason. The 2026-09-06 migration moved its judgment
+half, and the other desk callers, to scheduled Actions as well.
 
 **Kill switch:** [`agents/README.md` § The kill switch](agents/README.md#the-kill-switch--pausing-the-org-gap-analysis-g10).
 Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
@@ -70,7 +71,7 @@ Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
 
 ---
 
-## Tier 1 — GitHub Actions (28 automatic + 10 manual)
+## Tier 1 — GitHub Actions (29 automatic + 10 manual)
 
 Cadences are UTC. "LLM" = does this workflow itself call a model. Minute
 offsets are deliberately non-`:00`/`:30` — see `watchdog.yml`'s header on this
@@ -184,7 +185,72 @@ call a model are separate **manually confirmed** workflows.
 |---|---|---|
 | [`dependabot-alerts-snapshot.yml`](../.github/workflows/dependabot-alerts-snapshot.yml) | Mon 21:00 (one hour before Paul Blart's patrol) | header — exists because the routine's own token 403s on the alerts API |
 | [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | header — Facebook has no API for non-administered groups, so this stays a human task |
-| [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The Claude-routine half is the Routine Auditor's weekly comment, see below |
+| [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The retired Routine Auditor's invariant work is now covered by CI's `npm run check:routines`. |
+
+### Community engine (Phase 0–2 fully landed; Phase 3 hardening/docs, P3-1 landed)
+
+Operator's guide (non-developer, what emails to expect, how to ack, how to
+stop it): [`docs/community/README.md`](community/README.md) (P3-1).
+
+Spec: [`docs/proposals/2026-09-06-community-engine-plan.md`](proposals/2026-09-06-community-engine-plan.md)
+(Fable-approved plan, board `swift2`, Phase 0–3 cards). Standing rule from
+the plan: a human always posts; nothing here auto-posts, auto-comments, or
+auto-DMs on Reddit or Facebook. `community-scan.yml` (P1-2),
+`community-crawl.yml` (P2-1), `community-inbox.yml` (P1-1),
+`community-mailer.yml` (P1-6), `theory-miner.yml` (P2-2),
+`theory-promote.yml` (P2-3), and `theory-weaving-intake.yml` (P2-6) are all
+live Tier-1 workflows now. The
+Community Answerer desk (P1-4) shipped as a Tier-2 routine, not a Tier-1
+workflow — see its row in the Tier 2 table below.
+
+| Workflow | Trigger | LLM | Mutates | Card that creates it |
+|---|---|---|---|---|
+| [`community-scan.yml`](../.github/workflows/community-scan.yml) | daily 08:17 UTC (off-peak minute, see the repo's cron-contention rule) | no | RSS hot-thread scan per `community_watchlist` → `engagement_lead`, deduped vs `community_post_ledger`; gated by repo variable `COMMUNITY_SCAN_ENABLED` (shipped off; **flipped to `true` 2026-09-07 by P1-7** after its fixture end-to-end dry run — see `docs/community/p1-7-dry-run.md`) | P1-2 (landed) |
+| [`community-crawl.yml`](../.github/workflows/community-crawl.yml) | daily 07:13 UTC, bounded | no | year-deep Reddit top-post walker (RSS `t=year` feed, real ceiling ~100 posts/sub) + bounded home-relay full-tree fetch; writes to a transient 24h Actions artifact only, never the repo/DB; gated by repo variables `COMMUNITY_CRAWL_ENABLED` (default `false`, **ships OFF**) and `COMMUNITY_CRAWL_BUDGET` (threads/run cap) | P2-1 (landed) |
+| [`community-inbox.yml`](../.github/workflows/community-inbox.yml) | every 30 min | no | reads Marjorie's Gmail (Reddit alert/reply mail, DKIM-verified) → `engagement_lead`; also parses founder `posted <id>`/`skip <id>` replies | P1-1 (landed) |
+| [`community-mailer.yml`](../.github/workflows/community-mailer.yml) | daily 15:36 UTC (after the Community Answerer desk) + a bounded 21:12 UTC replies-waiting second send (`reply_to_us` leads only) | no | reads `engagement_lead` rows the Answerer desk drafted (`status='drafted'`) → sends the daily "Community Tasks" HTML email (paste-ready drafts, one-click ack/skip links via `/api/community/ack`, P1-5) → marks each lead `status='emailed'`; degrades to a clean no-op when `SUPABASE_*`/`COMMUNITY_ACK_SECRET`/`MARJORIE_EMAIL`+`GMAIL_APP_PASSWORD` are unset | P1-6 (landed) |
+| [`theory-miner.yml`](../.github/workflows/theory-miner.yml) | daily 08:20 UTC (after `community-crawl.yml`) | yes (Haiku 4.5 extract, `apps/worker/src/extract/theory-haiku-client.ts`'s forced `record_fan_theories` tool) | downloads the latest successful `community-crawl.yml` run's transient artifact (`gh run download`, since this is a separately scheduled workflow, not a `workflow_run` trigger); one Haiku call per post+comment bundle; every theory screened (`screenTopic()`) before `fan_theory_candidate` upsert, deduped by `theory_key`; a redline hit is never stored at all (no "written but unservable" state, unlike `current_item`/`fan_signal`); has nothing to mine while `COMMUNITY_CRAWL_ENABLED` stays off, which is a clean no-op, not a failure | P2-2 (landed) |
+| [`theory-promote.yml`](../.github/workflows/theory-promote.yml) | weekly, Sunday 09:45 UTC | no (deterministic merge — see `apps/worker/src/extract/theory-promote.ts`'s header for why this is not the Opus call the plan's §4 table originally described) | reads `fan_theory_candidate` rows `status='candidate'`, merges near-duplicates via the existing name-similarity + symbol-overlap rule (`theory-match.ts`), promotes clusters with `mention_count >= 3` (and stance not `debunked_by_fans`) into `live_theory` (origin='fan', persistent=true, carries `track_slug` — added by P2-6, see below); merged rows marked `status='merged'`, rejected/held clusters marked accordingly; degrades to a clean no-op when `SUPABASE_*` are unset | P2-3 (landed) |
+| [`theory-weaving-intake.yml`](../.github/workflows/theory-weaving-intake.yml) | weekly, Sunday 09:52 UTC (after `theory-promote.yml`) | no (deterministic — reads `live_theory`, no model call) | reads `live_theory` rows `origin='fan'`, `persistent=true`, `track_slug is not null`, not `debunked`, `mention_count >= 8` (a higher bar than P2-3's own `mention_count >= 3` promotion floor — see the script's header for why); files one `intake`-labeled GitHub issue per not-already-filed theory (fingerprint-deduped the same fail-closed way as `appearance-discovery`) pointing Content Shift at `docs/content-ops/theory-weaving.md`'s mainstream-coverage sourcing bar — a LEAD, never a song-page edit; degrades to a clean no-op when `SUPABASE_*` are unset | P2-6 (landed) |
+
+**30-day review (P3-2, `docs/community/30-day-review-plan.md`)**: the
+plan's Phase 3 scheduled review (posted-ratio, link-CTR, corpus size, cost,
+cap recommendations) is a dated follow-up, not a build item — it runs
+2026-10-07 (30 days after the engagement engine's `COMMUNITY_SCAN_ENABLED`
+flip) via a one-shot cron job that opens a results card on board `swift2`.
+See that doc for the exact metrics/queries and a flagged gap: no UTM
+parameters are appended to drafted links today, so link-CTR cannot be
+measured from click data until that's added.
+
+`fb-export-ingest` (script, not its own cron — run by the Answerer desk or
+`workflow_dispatch` after a weekly Facebook export lands) and
+`theory-resolve` (folds into the existing nightly `sync:content` job as
+its final step — `scripts/community/theory-resolve.mjs`, matches
+`fan_theory_candidate.predicts`/`predicted_date` against Vault moments by
+date + shared symbol, writes `docs/audits/theory-resolutions.md` as a
+precedent-CANDIDATE report a human turns into an actual `egg_ledger` seed
+entry — it never auto-writes `egg_ledger` itself) are the other two pieces
+of workflow-level machinery this plan adds; they don't get their own row
+here because they aren't independently-triggered things per this file's
+counting rule (see the header) — `fb-export-ingest` is documented under
+P1-3, `theory-resolve` under P2-3. E5's merch-lane widening (P2-7) reuses
+`merch-fanmade.yml`'s existing cron and needs no new row either.
+
+**`/api/community/ack`** (`apps/web/app/api/community/ack/route.ts`, card
+P1-5, **shipped**) isn't a scheduled routine either — it's the click target
+of `community-mailer.yml`'s one-click "Posted"/"Skip" links (P1-6,
+**shipped**), so it went live ahead of the mailer that calls it, same as
+`engagement_lead`/`community_post_ledger` landing in P0-1 ahead of either
+desk that reads them. GET, HMAC-signed (`COMMUNITY_ACK_SECRET`, a
+generated secret — set it as a Vercel project env var, never
+`NEXT_PUBLIC_*`), idempotent (a repeat click or an email client's
+link-prefetch is a silent no-op). Marks `engagement_lead.status`
+(`posted` or the P1-5-only `skipped_by_founder`), appends the
+`community_post_ledger` row E2 dedupes against, and — link-free Reddit
+posts only — bumps the `reddit_non_promo` etiquette counter §6.5's link
+gate reads (`supabase/migrations/20260918000000_community_ack.sql`;
+mirrored for humans in `social/calendar.md`'s Ledger table, kept in sync by
+Tree's weekly run, not this route).
 
 ### Dependabot update schedules (2) — config, not workflows
 
@@ -198,18 +264,18 @@ workflow files.
 
 ---
 
-## Tier 2 — Claude desk routines (24 triggers, 23 enabled)
+## Tier 2 — Historical Claude desk routines (0 enabled)
 
 Cost/benefit optimization analysis (2026-08-31, Fable):
 **[`TIER2-OPTIMIZATION.md`](TIER2-OPTIMIZATION.md)** — per-routine assessment
 of all 24 triggers with 19 ranked recommendations (T-1…T-19), split into
 pre-approved-reversible agent actions and founder-gated spend decisions.
 
-Cadence registry and live trigger IDs: **[`agents/runners.md`](agents/runners.md)**
-— that table supersedes any trigger ID quoted elsewhere. Prompts live in
-[`agents/runner-prompts/`](agents/runner-prompts/); **the repo file is the
-source of truth**, and a trigger whose inline prompt drifts from it is a bug.
-Fleet invariants: [`agents/routine-invariants.md`](agents/routine-invariants.md).
+Cadence registry and retired trigger IDs: **[`agents/runners.md`](agents/runners.md)**.
+The old trigger table and prompts remain useful historical records, but do not
+describe active Claude dashboard work. Active migrated callers are
+`routine-*.yml` GitHub Actions workflows; [`scripts/check-routine-workflows.mjs`](../scripts/check-routine-workflows.mjs)
+runs in CI as `npm run check:routines` to enforce their routine invariants.
 
 ### Content lanes
 
@@ -224,6 +290,7 @@ Fleet invariants: [`agents/routine-invariants.md`](agents/routine-invariants.md)
 | Stylist | Sun 16:33 | Sonnet 5 | *none* | [`stylist.md`](agents/runner-prompts/stylist.md) |
 | News Triage | daily 15:40 | Opus 4.8 (T-3 trial: Sonnet 5, pending account access — `docs/agents/runners.md` § News Triage) | *none* | [`news-triage.md`](agents/runner-prompts/news-triage.md) |
 | Lex depth | **disabled** (warm spare) | Opus 4.8 | *none* | [`lex-depth.md`](agents/runner-prompts/lex-depth.md) |
+| Community Answerer — engagement drafts (P1-4, `routine-community-answerer.yml`) | daily 14:46 (after `community-scan.yml`, P1-2) | Sonnet 5 (§8-Q4) | [`community-answerer.md`](agents/community-answerer.md) | [`community-answerer.md`](agents/runner-prompts/community-answerer.md) |
 
 ⚠️ **The six standalone lanes above run *in addition to* the Vault Run built
 to replace them** — Phase 4 never landed, so Rumor Desk content lands daily
@@ -231,15 +298,15 @@ to replace them** — Phase 4 never landed, so Rumor Desk content lands daily
 designed every-other-day cadence. See
 [REC-2](automation/review-2026-08-31.md#rec-2).
 
-### Quality and integrity desks
+### Quality and integrity desks — active GitHub Actions callers
 
-| Routine | Cadence (UTC) | Model | Charter | Reads what Tier 1 produced |
+| Desk | Caller workflow | Cadence (UTC) | Model | Charter / input |
 |---|---|---|---|---|
-| Karen — weekly judgment slice (registered name still "Karen — nightly scan" pending T-5 trigger resync, `agents/runners.md` § T-5) | Sun 09:00 | Sonnet 5 | [`scripts/content-engine/README.md`](../scripts/content-engine/README.md) | `cie-scan.yml`'s findings |
-| Nils — site walk | Mon+Fri 14:00 | Opus 4.8 | [`agents/nils.md`](agents/nils.md) | live site |
-| Laura — a11y walk | daily 18:20 | Sonnet 5 | [`agents/laura.md`](agents/laura.md) | `a11y.yml` artifacts |
-| Paul Blart — security patrol | Mon 22:20 | Opus 4.8 | [`agents/paul-blart.md`](agents/paul-blart.md) | `dependabot-alerts-snapshot.yml` + `codeql.yml` |
-| Routine Auditor — fleet invariants | Sun 16:11 | Haiku 4.5 | [`agents/routine-invariants.md`](agents/routine-invariants.md) — checklist extended 2026-08-31 (T-9): drift + retirement checks; weekly comment now also states enabled-trigger count + cadence sum (T-17) | the routine fleet itself |
+| Karen — weekly judgment slice | [`routine-karen-nightly.yml`](../.github/workflows/routine-karen-nightly.yml) | Sun 09:00 | Sonnet 5 | [`scripts/content-engine/README.md`](../scripts/content-engine/README.md); `cie-scan.yml` findings |
+| Nils — site walk | [`routine-nils-walk.yml`](../.github/workflows/routine-nils-walk.yml) | Mon+Fri 14:00 | Opus 4.8 | [`agents/nils.md`](agents/nils.md); live site |
+| Laura — a11y walk | [`routine-laura-a11y-walk.yml`](../.github/workflows/routine-laura-a11y-walk.yml) | Tue+Fri 18:20 | Sonnet 5 | [`agents/laura.md`](agents/laura.md); `a11y.yml` artifacts |
+| Paul Blart — security patrol | [`routine-paul-blart.yml`](../.github/workflows/routine-paul-blart.yml) | Mon 22:20 | Opus 4.8 | [`agents/paul-blart.md`](agents/paul-blart.md); `dependabot-alerts-snapshot.yml` + `codeql.yml` |
+| Routine Auditor — fleet invariants | **Retired** | Replaced by CI on every PR and push | none | `npm run check:routines` (`scripts/check-routine-workflows.mjs`) checks the `routine-*.yml` fleet deterministically |
 
 ### Ticket operations and build
 
@@ -272,6 +339,7 @@ designed every-other-day cadence. See
 |---|---|---|
 | Karen Deep — agent review | ⚠️ **APPROVED (D3=A, 2026-08-31), NOT CREATED** — spend question resolved; only the account-access mechanic remains | [`agents/runners.md`](agents/runners.md) § "Karen Deep — trigger config to create" + [`karen-deep-review.md`](agents/runner-prompts/karen-deep-review.md) |
 | Notification quality — weekly desk | ⚠️ **APPROVED (D6=A, 2026-08-31), NOT CREATED** — sequence after REC-1's dispatch heartbeat lands ([REC-1](automation/review-2026-08-31.md#rec-1) not yet landed) | [`agents/runners.md`](agents/runners.md) § "Notification-quality desk — trigger config to create" + [`agents/notification-quality.md`](agents/notification-quality.md) + [`notification-quality-run.md`](agents/runner-prompts/notification-quality-run.md) |
+| Theory Miner — weekly Opus merge/promote pass | ✅ **LANDED (P2-3)** — shipped as [`theory-promote.yml`](../.github/workflows/theory-promote.yml), a weekly (Sunday 09:45 UTC) deterministic merge/promote pass, NOT an Opus call — see `apps/worker/src/extract/theory-promote.ts`'s header for the documented scope decision (reuses the existing name-similarity + symbol-overlap dedupe rule from `theory-match.ts` instead of a second LLM). Reads `fan_theory_candidate` rows, merges near-duplicates, promotes clusters with `mention_count >= 3` (and not `debunked_by_fans`) into `live_theory` (origin='fan', persistent=true). The resolution matcher (`predicts`/`predicted_date` -> Vault moments -> `docs/audits/theory-resolutions.md` precedent-candidate report) folds into the nightly `sync:content` job as its final step, per this row's original note — it never auto-writes `egg_ledger` (human-reviewed PR like any Vault change, same as every other precedent row in this repo). | [`docs/proposals/2026-09-06-community-engine-plan.md`](proposals/2026-09-06-community-engine-plan.md) §3.3 + `agents/runners.md` § "Theory Miner weekly merge — trigger config to create" (added when P2-3 lands) |
 
 ---
 

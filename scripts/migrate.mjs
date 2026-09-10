@@ -7,33 +7,35 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { makeClient } from './lib/pg.mjs';
+import { runMain } from './lib/cli.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const migrationsDir = join(here, '..', 'supabase', 'migrations');
 
-const connectionString = process.env.SUPABASE_DB_URL;
-if (!connectionString) {
-  console.error('SUPABASE_DB_URL not set (expected in apps/worker/.env)');
-  process.exit(1);
-}
-
-const files = readdirSync(migrationsDir)
-  .filter((f) => f.endsWith('.sql'))
-  .sort();
-
-const client = makeClient(connectionString);
-await client.connect();
-try {
-  for (const file of files) {
-    const sql = readFileSync(join(migrationsDir, file), 'utf8');
-    process.stdout.write(`applying ${file} ... `);
-    await client.query(sql);
-    console.log('ok');
+async function main() {
+  const connectionString = process.env.SUPABASE_DB_URL;
+  if (!connectionString) {
+    console.error('SUPABASE_DB_URL not set (expected in apps/worker/.env)');
+    return 1;
   }
-  console.log(`\n${files.length} migration(s) applied.`);
-} catch (err) {
-  console.error('\nMIGRATION FAILED:', err.message);
-  process.exitCode = 1;
-} finally {
-  await client.end();
+
+  const files = readdirSync(migrationsDir)
+    .filter((f) => f.endsWith('.sql'))
+    .sort();
+
+  const client = makeClient(connectionString);
+  await client.connect();
+  try {
+    for (const file of files) {
+      const sql = readFileSync(join(migrationsDir, file), 'utf8');
+      process.stdout.write(`applying ${file} ... `);
+      await client.query(sql);
+      console.log('ok');
+    }
+    console.log(`\n${files.length} migration(s) applied.`);
+  } finally {
+    await client.end();
+  }
 }
+
+runMain(main, { name: 'migrate' });

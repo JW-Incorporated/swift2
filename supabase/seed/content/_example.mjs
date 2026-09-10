@@ -29,6 +29,14 @@ export default {
       // wedding, an album release, a major breakup) — most items, including
       // most Active-tier ones, have no significance set at all.
       // significance: 'defining',
+      // photosReviewed (OPTIONAL): a one-line reason recording a DELIBERATE
+      // no-photo editorial decision (privacy redline, no verifiable image,
+      // etc.) — e.g. 'residence privacy redline (L1)'. Set this instead of
+      // leaving `photos` empty with no explanation; the top-of-feed-photo
+      // checker (content.top-of-feed-photo) otherwise flags every recent
+      // photo-less page as P1, and this field tells it (and the next reader)
+      // the gap was reviewed on purpose, not missed.
+      // photosReviewed: 'residence privacy redline (L1) — no photo of the property',
       title: 'Butterfly jumpsuit at the VMAs',
       snippet: 'One-line preview of the look — a hook, not the article.',
       // TODO: No verifiable source exists for this placeholder record as-is.

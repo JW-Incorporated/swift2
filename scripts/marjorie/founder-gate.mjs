@@ -81,6 +81,12 @@ export function classifyFounderGate(issue) {
   if (labels.includes('founders-brief')) return { gated: false, reasons: [] };
 
   if (labels.includes('founder-decision')) reasons.push('banked as a founder-decision');
+  // 2026-09-05 audit: founder-task issues used to bypass this module entirely
+  // (rendered from a raw `--state open` list, never resolved against their
+  // own thread). #2195 carried Joey's "All 3 tasks are complete" comment from
+  // 08-17 and was still re-asked on every brief through 09-05 — 19 days.
+  // Filing a `founder-task` is a deliberate act, same as banking a decision.
+  if (labels.includes('founder-task')) reasons.push('founder-task');
   if (/###\s*Tier[^\n]*\n+\s*TX\b/i.test(body) || /\bTX\s*—\s*founder-only/i.test(body)) reasons.push('tier TX — founder-only');
   if (labels.includes('launch-gate')) {
     for (const [re, why] of GATE_HINTS) if (re.test(title)) { reasons.push(why); break; }
@@ -104,7 +110,12 @@ export function asksInBrief(body) {
     const m = line.match(/^\s*[-*]\s*\[([ xX])\]\s*(.*)$/);
     if (!m) continue;
     const ticked = m[1].toLowerCase() === 'x';
-    const nums = [...m[2].matchAll(/(?:issues|pull)\/(\d+)|#(\d+)/g)]
+    // `(?<![A-Za-z])#` — a HUMAN-ACTIONS line reads `HA#22 …`, and a bare
+    // `#(\d+)` read that as GitHub issue #22 (2026-09-05 audit: every HA
+    // item was registering a phantom ask against an unrelated 2-digit
+    // issue, polluting askHistory and eating slots in the 40-issue
+    // recentlyAsked fetch).
+    const nums = [...m[2].matchAll(/(?:issues|pull)\/(\d+)|(?<![A-Za-z])#(\d+)/g)]
       .map((x) => Number(x[1] || x[2]))
       .filter((n) => Number.isFinite(n));
     out.push({ ticked, text: m[2].trim(), issues: [...new Set(nums)] });

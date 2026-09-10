@@ -91,7 +91,7 @@ read once on mount (`deepLink.ts`) and never written back.
 
 | Path (under `apps/web/`) | Responsibility |
 |---|---|
-| `lib/longlive/store.tsx` | The single state container: `mode`, `eraId`, `lensId`, overlays, era-scroll snapshot, `ReturnPoint` doorway back-to-position stack (`pushReturnPoint`/`popReturnPoint`) |
+| `lib/longlive/store/` | The state container, split into slices (R21): `navigation.tsx` (mode/era/lens/crossing/selector/scrubbing + the back-gesture nav-history stack), `overlays.tsx` (moment/track-guide/theory-guide/clue-web-trail/pending-video-anchor), `return-points.tsx` (doorway `ReturnPoint` LIFO stack), `search-share.tsx` (search overlay, share sheet, timeline filters, clown transcript). `index.tsx` composes them into one `AppProvider`; `useAppState()`/`useAppActions()` keep the pre-split public signature unchanged |
 | `lib/longlive/return-point-stack.ts` | Pure matching-consume rule for doorway return points; unrelated back restores leave the LIFO entry intact |
 | `lib/longlive/tags.ts` | `ContentTag` — the 5 authored topic tags. **Does not re-export the type; import `ContentTag` from `./types`** |
 | `lib/longlive/filters.ts` | `FilterId` (the 5 tags + `Videos`), `ALL_FILTERS`, `filterMatches`, `filtersForEntry`, `filterForThread` (LensId→FilterId, exhaustive) |

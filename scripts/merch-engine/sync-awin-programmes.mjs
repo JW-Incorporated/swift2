@@ -3,6 +3,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runMain } from '../lib/cli.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const DIRECTORY = 'apps/web/lib/longlive/awin-advertisers.json';
@@ -172,8 +173,5 @@ async function main() {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main().catch((error) => {
-    console.error(`merch-awin-programmes: ${error.message}`);
-    process.exitCode = 1;
-  });
+  runMain(main, { name: 'sync-awin-programmes' });
 }

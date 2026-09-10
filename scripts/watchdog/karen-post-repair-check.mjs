@@ -35,6 +35,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gh } from '../lib/gh.mjs';
 import { parseRunProvenance, parseFilingStatus } from '../content-engine/lib/report.mjs';
+import { runMain } from '../lib/cli.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const ROOT = join(HERE, '..', '..');
@@ -187,16 +188,18 @@ async function main() {
   const alertFile = arg('--alert-body');
   if (alertFile) writeFileSync(alertFile, renderBody(result));
 
-  process.exit(result.status === 'unconfirmed' ? 1 : 0);
+  return result.status === 'unconfirmed' ? 1 : 0;
 }
 
 const invokedDirectly =
   process.argv[1] && process.argv[1].split(/[\\/]/).pop() === 'karen-post-repair-check.mjs';
 if (invokedDirectly) {
-  try {
-    await main();
-  } catch (e) {
-    console.error(`✗ karen-post-repair check could not run: ${e.message}`);
-    process.exit(2);
-  }
+  runMain(async () => {
+    try {
+      return await main();
+    } catch (e) {
+      console.error(`✗ karen-post-repair check could not run: ${e.message}`);
+      return 2;
+    }
+  }, { name: 'karen-post-repair-check' });
 }

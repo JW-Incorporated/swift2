@@ -1,9 +1,9 @@
-// Single source of truth for era colors is apps/web/lib/longlive/eras.ts (the
+// Single source of truth for era colors is packages/experience/src/eras.ts (the
 // site's own theme data) — imported directly rather than duplicated here, so
 // a palette tweak on the site is automatically picked up by card rendering.
 // This file (and anything that imports it) must run under `tsx`, since
 // eras.ts is TypeScript and plain `node` can't resolve it.
-import { ERAS, getEra } from '../../../apps/web/lib/longlive/eras.ts';
+import { ERAS, getEra } from '../../../packages/experience/src/eras.ts';
 
 // Brand default for cards with no specific era (e.g. the Mood feature, or a
 // generic quote card) — the same warm-brown/gold pairing opengraph-image.tsx

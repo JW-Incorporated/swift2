@@ -1,6 +1,19 @@
 # Generic production DB seed runner (retires manual HUMAN-ACTIONS #24 runs
 # and any future db:seed:* command).
 #
+# OS-016 (docs/specs/2026-09-05-one-source-three-surfaces.md §6 Phase 1):
+# content seeding (eras/content/tracks/releases/tours/theories/videos) was
+# retired from here — the web and mobile surfaces now read the published
+# content bundle (`packages/content`'s loadBundle) instead of the Supabase
+# era/milestone/month_item/etc. tables, so reseeding them no longer changes
+# anything either surface renders. Only the two genuinely-dynamic
+# notification pools this workflow still seeds (`lyrics`, `on_this_day` —
+# read live by `packages/core/src/notification-fun.ts`) remain. The
+# retired seed scripts and the Supabase tables underneath them are
+# UNCHANGED and un-dropped (see the migration files' own deprecation
+# note) — this is a runbook/CI retirement, not a schema change. A
+# follow-up drops the tables themselves after one release cycle.
+#
 # workflow_dispatch ONLY — seeds are operator-triggered, never automatic.
 # Pick a `target`; this maps 1:1 to one of the db:seed* npm scripts via a
 # fixed allowlist (no interpolation), materializes an ephemeral
@@ -17,13 +30,8 @@ on:
         required: true
         type: choice
         options:
-          - eras
-          - content
-          - tracks
-          - releases
-          - tours
-          - theories
-          - videos
+          - lyrics
+          - on-this-day
 
 permissions:
   contents: read
@@ -67,13 +75,8 @@ jobs:
         run: |
           trap 'rm -f apps/worker/.env' EXIT
           case "$TARGET" in
-            eras)     npm run db:seed ;;
-            content)  npm run db:seed:content ;;
-            tracks)   npm run db:seed:tracks ;;
-            releases) npm run db:seed:releases ;;
-            tours)    npm run db:seed:tours ;;
-            theories) npm run db:seed:theories ;;
-            videos)   npm run db:seed:videos ;;
+            lyrics)      npm run db:seed:lyrics ;;
+            on-this-day) npm run db:seed:on-this-day ;;
             *)
               echo "FAIL: unrecognized target '$TARGET'"
               exit 1

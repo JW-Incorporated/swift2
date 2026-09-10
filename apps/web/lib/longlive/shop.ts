@@ -1,5 +1,5 @@
 import type { MerchItem } from './merch';
-import type { Product } from './types';
+import type { Product } from '@swift2/experience';
 import { createNetworkResolver, networkFor, type AwinAdvertisers, type NetworkResolution } from './shop-networks';
 
 declare const process: {

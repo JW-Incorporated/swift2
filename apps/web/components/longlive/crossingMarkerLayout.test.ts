@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { MIN_MARKER_GAP_PX, resolveCrossingMarkerTops } from './crossingMarkerLayout';
-import { CAREER_START_MS, careerEndMs } from '../../lib/longlive/eras';
-import { CROSSING_THREADS, threadCrossings } from '../../lib/longlive/lenses';
-import type { LensId } from '../../lib/longlive/types';
+import { CAREER_START_MS, careerEndMs } from '@swift2/experience';
+import { CROSSING_THREADS, threadCrossings } from '@swift2/experience';
+import type { LensId } from '@swift2/experience';
 
 const RAIL_HEIGHT = 900; // mirrors Crossings.tsx
 const GAP_PCT = (MIN_MARKER_GAP_PX / RAIL_HEIGHT) * 100;

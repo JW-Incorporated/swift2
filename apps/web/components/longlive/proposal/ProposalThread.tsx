@@ -2,12 +2,12 @@
 
 import Image from 'next/image';
 import { Quote } from 'lucide-react';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import { accentFgFor } from '@/lib/longlive/theme';
 import { useAppActions } from '@/lib/longlive/store';
 import { contentForThread } from '@/lib/longlive/threads';
-import { autoFocalPoint, focalPointOf, hasRealPrimaryImage, primaryImageRef } from '@/lib/longlive/types';
-import type { ImageKind } from '@/lib/longlive/types';
+import { autoFocalPoint, focalPointOf, hasRealPrimaryImage, primaryImageRef } from '@swift2/experience';
+import type { ImageKind } from '@swift2/experience';
 
 // Same rule as MomentDetail: a stand-in image must never read as the real
 // thing. 'primary' renders no badge.

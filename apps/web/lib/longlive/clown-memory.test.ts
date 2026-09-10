@@ -12,10 +12,65 @@ import type { ClownSession } from './clown-session';
 
 const FIXTURE_SESSION: ClownSession = { userId: 'user-1', accessToken: 'access-1', refreshToken: 'refresh-1' };
 
+interface Call {
+  method: string;
+  args: unknown[];
+}
+
+/**
+ * Minimal fake Supabase client (Fable 5.1 architecture review, task R14 —
+ * every call site now goes through `@supabase/supabase-js` instead of raw
+ * `fetch()`). `.from(table)`/`.rpc(name, args)` return a chain-recording,
+ * thenable builder; every chained call (`.select()`, `.eq()`, `.upsert()`,
+ * ...) is recorded and returns the same builder, and awaiting it invokes
+ * `resolver(table, calls)` to produce `{ data, error }` — mirrors how the
+ * pre-migration tests branched on the raw PostgREST URL/method, just keyed
+ * on table name + recorded method calls instead of a URL string. `table` is
+ * `'__rpc__'` for `.rpc()` calls.
+ */
+function makeDb(resolver: (table: string, calls: Call[]) => { data?: unknown; error?: unknown }) {
+  function builderFor(table: string, initial: Call[] = []) {
+    const calls: Call[] = [...initial];
+    const builder: Record<string, unknown> = {};
+    const chainMethods = ['select', 'eq', 'order', 'limit', 'abortSignal', 'upsert', 'insert', 'delete'];
+    for (const m of chainMethods) {
+      builder[m] = (...args: unknown[]) => {
+        calls.push({ method: m, args });
+        return builder;
+      };
+    }
+    // `.single()` is terminal in supabase-js (resolves the same
+    // `{ data, error }` shape, just unwraps the array to one row) — the
+    // resolver decides the shape either way, `.single()` is recorded like
+    // any other chain call for the resolver's own dispatch logic.
+    builder.single = (...args: unknown[]) => {
+      calls.push({ method: 'single', args });
+      return builder;
+    };
+    builder.then = (resolve: (v: unknown) => unknown, reject?: (e: unknown) => unknown) => {
+      try {
+        return Promise.resolve(resolver(table, calls)).then(resolve, reject);
+      } catch (e) {
+        return Promise.reject(e).then(resolve, reject);
+      }
+    };
+    return builder;
+  }
+  return {
+    from(table: string) {
+      return builderFor(table);
+    },
+    rpc(name: string, args: unknown) {
+      return builderFor('__rpc__', [{ method: 'rpc', args: [name, args] }]);
+    },
+  } as unknown as import('@supabase/supabase-js').SupabaseClient;
+}
+
 function json(body: unknown, status = 200): Response {
   if (status === 204) return new Response(null, { status });
   return new Response(JSON.stringify(body), { status });
 }
+void json;
 
 beforeEach(() => {
   vi.unstubAllEnvs();
@@ -29,93 +84,94 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-describe('incrementUserUsage — toggle OFF (no Supabase env / auth unavailable)', () => {
+describe('incrementUserUsage — no db (env not configured / auth unavailable)', () => {
   it('fails open (true) and never calls the cap RPC', async () => {
-    const fetchSpy = vi.fn();
-    const result = await incrementUserUsage(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    const result = await incrementUserUsage(FIXTURE_SESSION, null);
     expect(result).toBe(true);
-    expect(fetchSpy).not.toHaveBeenCalled();
   });
 });
 
-describe('incrementUserUsage — toggle ON (mocked anonymous auth success)', () => {
-  beforeEach(() => {
-    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
-    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
-  });
-
+describe('incrementUserUsage — db resolved', () => {
   it('reports within-cap when the RPC count is under the cap', async () => {
-    const fetchSpy = vi.fn().mockResolvedValueOnce(json(5));
-    const result = await incrementUserUsage(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    const rpcCalls: Call[] = [];
+    const db = makeDb((table, calls) => {
+      if (table === '__rpc__') {
+        rpcCalls.push(...calls);
+        return { data: 5, error: null };
+      }
+      throw new Error(`unexpected table: ${table}`);
+    });
+    const result = await incrementUserUsage(FIXTURE_SESSION, db);
     expect(result).toBe(true);
-    const rpcCall = fetchSpy.mock.calls[0];
-    expect(rpcCall[0]).toBe('https://example.supabase.co/rest/v1/rpc/increment_usage_daily');
-    expect(JSON.parse(rpcCall[1].body)).toEqual({ p_scope: 'clown-chat:user-1' });
+    const rpcCall = rpcCalls.find((c) => c.method === 'rpc');
+    expect(rpcCall?.args[0]).toBe('increment_usage_daily');
+    expect(rpcCall?.args[1]).toEqual({ p_scope: 'clown-chat:user-1' });
   });
 
   it('reports over-cap when the RPC count exceeds the daily cap', async () => {
-    const fetchSpy = vi.fn().mockResolvedValueOnce(json(CLOWN_USER_DAILY_CAP + 1));
-    const result = await incrementUserUsage(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    const db = makeDb(() => ({ data: CLOWN_USER_DAILY_CAP + 1, error: null }));
+    const result = await incrementUserUsage(FIXTURE_SESSION, db);
     expect(result).toBe(false);
   });
 
   it('fails open (true) when the RPC call itself fails', async () => {
-    const fetchSpy = vi.fn().mockRejectedValueOnce(new Error('rpc down'));
-    const result = await incrementUserUsage(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    const db = makeDb(() => ({ data: null, error: { message: 'rpc down' } }));
+    const result = await incrementUserUsage(FIXTURE_SESSION, db);
+    expect(result).toBe(true);
+  });
+
+  it('fails open (true) when the RPC call throws', async () => {
+    const db = makeDb(() => {
+      throw new Error('network down');
+    });
+    const result = await incrementUserUsage(FIXTURE_SESSION, db);
     expect(result).toBe(true);
   });
 });
 
-describe('loadClownHistory — toggle OFF / no session', () => {
-  it('returns null and never fires a network call when session is null', async () => {
-    const fetchSpy = vi.fn();
-    const result = await loadClownHistory(null, fetchSpy as unknown as typeof fetch);
+describe('loadClownHistory — no db / no session', () => {
+  it('returns null when session is null', async () => {
+    const result = await loadClownHistory(null, null);
     expect(result).toBeNull();
-    expect(fetchSpy).not.toHaveBeenCalled();
   });
 
-  it('returns null when Supabase env is not configured', async () => {
-    const fetchSpy = vi.fn();
-    const result = await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+  it('returns null when db is null (Supabase env not configured)', async () => {
+    const result = await loadClownHistory(FIXTURE_SESSION, null);
     expect(result).toBeNull();
-    expect(fetchSpy).not.toHaveBeenCalled();
   });
 });
 
-describe('loadClownHistory — toggle ON, a resolved session', () => {
-  beforeEach(() => {
-    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
-    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
-  });
-
-  it('returns null when no conversation exists yet — never creates one', async () => {
-    const fetchSpy = vi.fn(async (url: string) => {
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([]);
-      throw new Error(`unexpected call: ${url}`);
+describe('loadClownHistory — db resolved', () => {
+  it('returns null when no conversation exists yet — never queries clown_turn', async () => {
+    const queried: string[] = [];
+    const db = makeDb((table) => {
+      queried.push(table);
+      if (table === 'clown_conversation') return { data: [], error: null };
+      throw new Error(`unexpected table: ${table}`);
     });
-    const result = await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    const result = await loadClownHistory(FIXTURE_SESSION, db);
     expect(result).toBeNull();
-    const postCalls = fetchSpy.mock.calls.filter((c) => String(c[0]).endsWith('/rest/v1/clown_conversation'));
-    expect(postCalls).toHaveLength(0);
+    expect(queried.filter((t) => t === 'clown_turn')).toHaveLength(0);
   });
 
   it('returns the rolling summary plus recent turns in chronological order', async () => {
-    const fetchSpy = vi.fn(async (url: string) => {
-      if (String(url).includes('/rest/v1/clown_conversation?select')) {
-        return json([{ id: 'conv-1', summary: 'earlier folded turns' }]);
-      }
-      if (String(url).includes('/rest/v1/clown_turn?select')) {
+    const db = makeDb((table) => {
+      if (table === 'clown_conversation') return { data: [{ id: 'conv-1', summary: 'earlier folded turns' }], error: null };
+      if (table === 'clown_turn') {
         // wire order is DESC (most recent first)
-        return json([
-          { role: 'assistant', text: 'a2' },
-          { role: 'user', text: 'q2' },
-          { role: 'assistant', text: 'a1' },
-          { role: 'user', text: 'q1' },
-        ]);
+        return {
+          data: [
+            { role: 'assistant', text: 'a2' },
+            { role: 'user', text: 'q2' },
+            { role: 'assistant', text: 'a1' },
+            { role: 'user', text: 'q1' },
+          ],
+          error: null,
+        };
       }
-      throw new Error(`unexpected call: ${url}`);
+      throw new Error(`unexpected table: ${table}`);
     });
-    const result = await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    const result = await loadClownHistory(FIXTURE_SESSION, db);
     expect(result?.summary).toBe('earlier folded turns');
     expect(result?.turns).toEqual([
       { role: 'user', text: 'q1' },
@@ -126,125 +182,111 @@ describe('loadClownHistory — toggle ON, a resolved session', () => {
   });
 });
 
-// HUMAN-ACTIONS.md #15 item 2: once real sessions exist, a Supabase timeout/
-// abort/malformed-response on the READ path used to escape `loadClownHistory`
-// uncaught into `route.ts`'s `POST` (which does not wrap this read path in a
-// `.catch()` the way it does the write-side `recordClownMemory`) — a
-// Supabase hiccup would 500 the live chat route instead of degrading to
-// no-memory. These lock in the same fails-closed discipline
-// `resolveClownSession` already follows.
+// HUMAN-ACTIONS.md #15 item 2: a Supabase hiccup on the READ path used to
+// escape `loadClownHistory` uncaught into `route.ts`'s `POST` — a Supabase
+// hiccup would 500 the live chat route instead of degrading to no-memory.
+// These lock in the same fails-closed discipline `resolveClownSession`
+// already follows, now against the typed client's own failure modes.
 describe('loadClownHistory — degrades to null instead of throwing (HUMAN-ACTIONS.md #15 item 2)', () => {
-  beforeEach(() => {
-    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
-    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
+  it('degrades to null (never throws) when the conversation lookup query rejects', async () => {
+    const db = makeDb((table) => {
+      if (table === 'clown_conversation') throw new Error('network down');
+      throw new Error(`unexpected table: ${table}`);
+    });
+    await expect(loadClownHistory(FIXTURE_SESSION, db)).resolves.toBeNull();
   });
 
-  it('degrades to null (never throws) when the conversation lookup fetch rejects', async () => {
-    const fetchSpy = vi.fn(async (url: string) => {
-      if (String(url).includes('/rest/v1/clown_conversation?select')) throw new Error('network down');
-      throw new Error(`unexpected call: ${url}`);
+  it('degrades to null (never throws) when the conversation lookup returns a non-array body', async () => {
+    const db = makeDb((table) => {
+      if (table === 'clown_conversation') return { data: {}, error: null };
+      throw new Error(`unexpected table: ${table}`);
     });
-    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
+    await expect(loadClownHistory(FIXTURE_SESSION, db)).resolves.toBeNull();
   });
 
-  it('degrades to null (never throws) when the conversation lookup returns malformed JSON', async () => {
-    const fetchSpy = vi.fn(async (url: string) => {
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return new Response('not json', { status: 200 });
-      throw new Error(`unexpected call: ${url}`);
+  it('degrades to summary + empty turns (never throws) when the recent-turns query errors', async () => {
+    const db = makeDb((table) => {
+      if (table === 'clown_conversation') return { data: [{ id: 'conv-1', summary: 'x' }], error: null };
+      if (table === 'clown_turn') return { data: null, error: { message: 'down' } };
+      throw new Error(`unexpected table: ${table}`);
     });
-    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
-  });
-
-  it('degrades to null (never throws) when the recent-turns fetch rejects', async () => {
-    const fetchSpy = vi.fn(async (url: string) => {
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: 'x' }]);
-      if (String(url).includes('/rest/v1/clown_turn?select')) throw new Error('network down');
-      throw new Error(`unexpected call: ${url}`);
-    });
-    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
-  });
-
-  it('degrades to null (never throws) when the recent-turns fetch returns malformed JSON', async () => {
-    const fetchSpy = vi.fn(async (url: string) => {
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: 'x' }]);
-      if (String(url).includes('/rest/v1/clown_turn?select')) return new Response('not json', { status: 200 });
-      throw new Error(`unexpected call: ${url}`);
-    });
-    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
+    await expect(loadClownHistory(FIXTURE_SESSION, db)).resolves.toEqual({ summary: 'x', turns: [] });
   });
 
   it('logs the read-unavailability exactly once across many failing calls (no retry-storm spam)', async () => {
     const logSpy = vi.spyOn(console, 'log');
-    const fetchSpy = vi.fn().mockRejectedValue(new Error('network down'));
-    await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
-    await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
-    await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    const db = makeDb((table) => {
+      if (table === 'clown_conversation') throw new Error('network down');
+      throw new Error(`unexpected table: ${table}`);
+    });
+    await loadClownHistory(FIXTURE_SESSION, db);
+    await loadClownHistory(FIXTURE_SESSION, db);
+    await loadClownHistory(FIXTURE_SESSION, db);
     const warnCalls = logSpy.mock.calls.filter((c) => c[0] === 'clown:memory-read-unavailable');
     expect(warnCalls).toHaveLength(1);
   });
 });
 
-describe('recordClownMemory — no-ops when session is null', () => {
-  it('never fires a network call', async () => {
-    const fetchSpy = vi.fn();
-    await recordClownMemory(
-      { session: null, question: 'q', answerText: 'a' },
-      fetchSpy as unknown as typeof fetch,
-    );
-    expect(fetchSpy).not.toHaveBeenCalled();
+describe('recordClownMemory — no-ops when session or db is missing', () => {
+  it('never fires a query when session is null', async () => {
+    const db = makeDb(() => {
+      throw new Error('should not be called');
+    });
+    await recordClownMemory({ session: null, question: 'q', answerText: 'a' }, db);
+  });
+
+  it('never fires a query when db is null', async () => {
+    await recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, null);
   });
 });
 
-describe('recordClownMemory — toggle ON, a resolved session', () => {
-  beforeEach(() => {
-    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
-    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
-  });
-
+describe('recordClownMemory — db resolved', () => {
   it('creates a new conversation via an upsert, appends both turns, and folds via the RPC when none exists yet', async () => {
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([]);
-      if (String(url).includes('/rest/v1/clown_conversation') && init.method === 'POST') {
-        return json([{ id: 'conv-1' }], 201);
+    const calls: Array<{ table: string; calls: Call[] }> = [];
+    const db = makeDb((table, tableCalls) => {
+      calls.push({ table, calls: tableCalls });
+      if (table === 'clown_conversation' && tableCalls.some((c) => c.method === 'upsert')) {
+        return { data: { id: 'conv-1' }, error: null };
       }
-      if (String(url).includes('/rest/v1/clown_turn') && init.method === 'POST') return json({}, 201);
-      if (String(url).includes('/rest/v1/clown_turn?select')) return json([]);
-      if (String(url).includes('/rest/v1/rpc/fold_clown_conversation')) return json({}, 200);
-      return json({}, 200);
+      if (table === 'clown_conversation') return { data: [], error: null };
+      if (table === 'clown_turn' && tableCalls.some((c) => c.method === 'insert')) return { data: null, error: null };
+      if (table === 'clown_turn') return { data: [], error: null };
+      if (table === '__rpc__') return { data: null, error: null };
+      throw new Error(`unexpected table: ${table}`);
     });
 
     await recordClownMemory(
       { session: FIXTURE_SESSION, question: 'is this an egg', answerText: 'yes, ride or die' },
-      fetchSpy as unknown as typeof fetch,
+      db,
     );
 
-    // HUMAN-ACTIONS.md #15 round 4: conversation creation is a PostgREST
-    // upsert (`on_conflict=user_id` + `Prefer: resolution=merge-duplicates`),
-    // not a plain insert — a plain insert would permanently fail once the
-    // user's row has expired (unique constraint + still-present physical
-    // row under RLS).
-    const createCall = calls.find((c) => c.url.startsWith('https://example.supabase.co/rest/v1/clown_conversation') && c.init.method === 'POST');
-    expect(createCall).toBeDefined();
-    expect(createCall!.url).toContain('on_conflict=user_id');
-    const createHeaders = createCall!.init.headers as Record<string, string>;
-    expect(createHeaders.Prefer).toContain('resolution=merge-duplicates');
-    const createBody = JSON.parse(String(createCall!.init.body));
-    expect(createBody.user_id).toBe(FIXTURE_SESSION.userId);
-    expect(createBody.summary).toBe('');
-    expect(typeof createBody.expires_at).toBe('string');
+    // HUMAN-ACTIONS.md #15 round 4: conversation creation is an upsert
+    // (`onConflict: 'user_id'`), not a plain insert — a plain insert would
+    // permanently fail once the user's row has expired (unique constraint
+    // + still-present physical row under RLS).
+    const upsertCall = calls.find((c) => c.table === 'clown_conversation' && c.calls.some((x) => x.method === 'upsert'));
+    expect(upsertCall).toBeDefined();
+    const upsertMethodCall = upsertCall!.calls.find((c) => c.method === 'upsert')!;
+    const [upsertBody, upsertOpts] = upsertMethodCall.args as [Record<string, unknown>, { onConflict: string }];
+    expect(upsertBody.user_id).toBe(FIXTURE_SESSION.userId);
+    expect(upsertBody.summary).toBe('');
+    expect(typeof upsertBody.expires_at).toBe('string');
+    expect(upsertOpts.onConflict).toBe('user_id');
 
-    const turnPosts = calls.filter((c) => c.url.includes('/rest/v1/clown_turn') && c.init.method === 'POST');
-    expect(turnPosts).toHaveLength(1);
-    const turnPair = JSON.parse(String(turnPosts[0].init.body));
+    const turnInsertCall = calls.find((c) => c.table === 'clown_turn' && c.calls.some((x) => x.method === 'insert'));
+    expect(turnInsertCall).toBeDefined();
+    const insertMethodCall = turnInsertCall!.calls.find((c) => c.method === 'insert')!;
+    const turnPair = insertMethodCall.args[0] as Array<{ role: string; conversation_id: string; created_at: string }>;
     expect(turnPair).toHaveLength(2);
-    expect(turnPair.map((turn: { role: string }) => turn.role)).toEqual(['user', 'assistant']);
+    expect(turnPair.map((t) => t.role)).toEqual(['user', 'assistant']);
     expect(turnPair[0].created_at < turnPair[1].created_at).toBe(true);
+    expect(turnPair.every((t) => t.conversation_id === 'conv-1')).toBe(true);
 
-    const fold = calls.find((c) => c.url.includes('/rest/v1/rpc/fold_clown_conversation'));
-    expect(fold).toBeDefined();
-    expect(JSON.parse(String(fold!.init.body))).toEqual({
+    const foldCall = calls.find((c) => c.table === '__rpc__');
+    expect(foldCall).toBeDefined();
+    const rpcMethodCall = foldCall!.calls.find((c) => c.method === 'rpc')!;
+    expect(rpcMethodCall.args[0]).toBe('fold_clown_conversation');
+    expect(rpcMethodCall.args[1]).toEqual({
       p_conversation_id: 'conv-1',
       p_delete_turn_ids: [],
       p_new_summary: null,
@@ -256,153 +298,106 @@ describe('recordClownMemory — toggle ON, a resolved session', () => {
   // fall through to creating a conversation. A read FAILURE must abort as a
   // best-effort no-op instead, so a transient Supabase hiccup can never
   // create a duplicate/extra conversation for a user who already has one.
-  it('does not create a conversation when the lookup read itself fails (network error) — degrades to no-op', async () => {
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) throw new Error('network down');
-      return json({}, 200);
+  it('does not create a conversation when the lookup read itself fails — degrades to no-op', async () => {
+    const calls: Array<{ table: string; calls: Call[] }> = [];
+    const db = makeDb((table, tableCalls) => {
+      calls.push({ table, calls: tableCalls });
+      if (table === 'clown_conversation') throw new Error('network down');
+      throw new Error(`unexpected table: ${table}`);
     });
 
-    await recordClownMemory(
-      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
-      fetchSpy as unknown as typeof fetch,
-    );
+    await recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, db);
 
-    expect(calls.some((c) => c.init.method === 'POST')).toBe(false);
+    expect(calls.some((c) => c.calls.some((x) => x.method === 'upsert' || x.method === 'insert'))).toBe(false);
   });
 
-  it('does not create a conversation when the lookup read returns malformed JSON — degrades to no-op', async () => {
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return new Response('not json', { status: 200 });
-      return json({}, 200);
-    });
-
-    await recordClownMemory(
-      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
-      fetchSpy as unknown as typeof fetch,
-    );
-
-    expect(calls.some((c) => c.init.method === 'POST')).toBe(false);
-  });
-
-  // Codex review round 4, item 2: a well-formed-JSON-but-wrong-shape body
-  // (e.g. `{}` instead of `[]`) must NOT be classified as "confirmed empty"
-  // — only a genuine empty array proves no row exists. Anything else is an
-  // unexpected-shape read failure, which must abort as a no-op the same way
-  // a network error or malformed JSON already does, never fall through to
-  // the upsert path and risk resetting an existing user's conversation.
   it('does not create a conversation when the lookup read returns a non-array body — degrades to no-op', async () => {
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json({});
-      return json({}, 200);
+    const calls: Array<{ table: string; calls: Call[] }> = [];
+    const db = makeDb((table, tableCalls) => {
+      calls.push({ table, calls: tableCalls });
+      if (table === 'clown_conversation') return { data: {}, error: null };
+      throw new Error(`unexpected table: ${table}`);
     });
 
-    await recordClownMemory(
-      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
-      fetchSpy as unknown as typeof fetch,
-    );
+    await recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, db);
 
-    expect(calls.some((c) => c.init.method === 'POST')).toBe(false);
+    expect(calls.some((c) => c.calls.some((x) => x.method === 'upsert' || x.method === 'insert'))).toBe(false);
   });
 
-  // Same principle, different malformed shape: an array whose element
-  // doesn't parse as a valid row (no `id`) is neither "found" nor a genuine
-  // empty array — it must also degrade to "error", not "empty".
   it('does not create a conversation when the lookup read returns an array of unexpected shape — degrades to no-op', async () => {
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{}]);
-      return json({}, 200);
+    const calls: Array<{ table: string; calls: Call[] }> = [];
+    const db = makeDb((table, tableCalls) => {
+      calls.push({ table, calls: tableCalls });
+      if (table === 'clown_conversation') return { data: [{}], error: null };
+      throw new Error(`unexpected table: ${table}`);
     });
 
-    await recordClownMemory(
-      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
-      fetchSpy as unknown as typeof fetch,
-    );
+    await recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, db);
 
-    expect(calls.some((c) => c.init.method === 'POST')).toBe(false);
+    expect(calls.some((c) => c.calls.some((x) => x.method === 'upsert' || x.method === 'insert'))).toBe(false);
   });
 
   it('continues the most recent existing conversation instead of creating a new one', async () => {
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) {
-        return json([{ id: 'conv-existing', summary: 'earlier folded turns' }]);
-      }
-      if (String(url).includes('/rest/v1/clown_turn') && init.method === 'POST') return json({}, 201);
-      if (String(url).includes('/rest/v1/clown_turn?select')) return json([]);
-      if (String(url).includes('/rest/v1/rpc/fold_clown_conversation')) return json({}, 200);
-      return json({}, 200);
+    const calls: Array<{ table: string; calls: Call[] }> = [];
+    const db = makeDb((table, tableCalls) => {
+      calls.push({ table, calls: tableCalls });
+      if (table === 'clown_conversation') return { data: [{ id: 'conv-existing', summary: 'earlier folded turns' }], error: null };
+      if (table === 'clown_turn' && tableCalls.some((c) => c.method === 'insert')) return { data: null, error: null };
+      if (table === 'clown_turn') return { data: [], error: null };
+      if (table === '__rpc__') return { data: null, error: null };
+      throw new Error(`unexpected table: ${table}`);
     });
 
-    await recordClownMemory(
-      { session: FIXTURE_SESSION, question: 'q2', answerText: 'a2' },
-      fetchSpy as unknown as typeof fetch,
-    );
+    await recordClownMemory({ session: FIXTURE_SESSION, question: 'q2', answerText: 'a2' }, db);
 
-    const conversationPosts = calls.filter((c) => c.url === 'https://example.supabase.co/rest/v1/clown_conversation' && c.init.method === 'POST');
-    expect(conversationPosts).toHaveLength(0);
-    const turnPosts = calls.filter((c) => c.url.includes('/rest/v1/clown_turn') && c.init.method === 'POST');
-    expect(turnPosts).toHaveLength(1);
-    expect(JSON.parse(String(turnPosts[0].init.body)).every((turn: { conversation_id: string }) => turn.conversation_id === 'conv-existing')).toBe(true);
+    expect(calls.some((c) => c.table === 'clown_conversation' && c.calls.some((x) => x.method === 'upsert'))).toBe(false);
+    const turnInsertCall = calls.find((c) => c.table === 'clown_turn' && c.calls.some((x) => x.method === 'insert'));
+    const turnPair = turnInsertCall!.calls.find((c) => c.method === 'insert')!.args[0] as Array<{ conversation_id: string }>;
+    expect(turnPair.every((t) => t.conversation_id === 'conv-existing')).toBe(true);
   });
 
   it('rejects a failed atomic turn-pair insert and never folds a partial conversation', async () => {
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: '' }]);
-      if (String(url).includes('/rest/v1/clown_turn') && init.method === 'POST') return json({ message: 'write failed' }, 500);
-      return json({}, 200);
+    const calls: Array<{ table: string; calls: Call[] }> = [];
+    const db = makeDb((table, tableCalls) => {
+      calls.push({ table, calls: tableCalls });
+      if (table === 'clown_conversation') return { data: [{ id: 'conv-1', summary: '' }], error: null };
+      if (table === 'clown_turn' && tableCalls.some((c) => c.method === 'insert')) {
+        return { data: null, error: { message: 'write failed' } };
+      }
+      throw new Error(`unexpected table: ${table}`);
     });
 
     await expect(
-      recordClownMemory(
-        { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
-        fetchSpy as unknown as typeof fetch,
-      ),
-    ).rejects.toThrow('clown memory turn insert failed (500)');
+      recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, db),
+    ).rejects.toThrow('clown memory turn insert failed');
 
-    const turnPosts = calls.filter((c) => c.url.includes('/rest/v1/clown_turn') && c.init.method === 'POST');
-    expect(turnPosts).toHaveLength(1);
-    expect(JSON.parse(String(turnPosts[0].init.body))).toHaveLength(2);
-    expect(calls.some((c) => c.url.includes('/rest/v1/clown_turn?select'))).toBe(false);
-    expect(calls.some((c) => c.url.includes('/rest/v1/rpc/fold_clown_conversation'))).toBe(false);
+    expect(calls.some((c) => c.table === 'clown_turn' && c.calls.some((x) => x.method === 'select'))).toBe(false);
+    expect(calls.some((c) => c.table === '__rpc__')).toBe(false);
   });
 
   it('folds turns past the retention window into summary and deletes the evicted rows, in ONE RPC call', async () => {
     const manyTurns = Array.from({ length: 25 }, (_, i) => ({ id: `turn-${i}`, role: 'user', text: `msg ${i}` }));
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: '' }]);
-      if (String(url).includes('/rest/v1/clown_turn') && init.method === 'POST') return json({}, 201);
-      if (String(url).includes('/rest/v1/clown_turn?select')) return json(manyTurns);
-      if (String(url).includes('/rest/v1/rpc/fold_clown_conversation')) return json({}, 200);
-      return json({}, 200);
+    const calls: Array<{ table: string; calls: Call[] }> = [];
+    const db = makeDb((table, tableCalls) => {
+      calls.push({ table, calls: tableCalls });
+      if (table === 'clown_conversation') return { data: [{ id: 'conv-1', summary: '' }], error: null };
+      if (table === 'clown_turn' && tableCalls.some((c) => c.method === 'insert')) return { data: null, error: null };
+      if (table === 'clown_turn') return { data: manyTurns, error: null };
+      if (table === '__rpc__') return { data: null, error: null };
+      throw new Error(`unexpected table: ${table}`);
     });
 
-    await recordClownMemory(
-      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
-      fetchSpy as unknown as typeof fetch,
-    );
+    await recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, db);
 
-    // Exactly one call folds the conversation — no separate DELETE + PATCH.
-    const foldCalls = calls.filter((c) => c.url.includes('/rest/v1/rpc/fold_clown_conversation'));
+    const foldCalls = calls.filter((c) => c.table === '__rpc__');
     expect(foldCalls).toHaveLength(1);
-    const deleteCalls = calls.filter((c) => c.init.method === 'DELETE');
-    const patchCalls = calls.filter((c) => c.init.method === 'PATCH');
-    expect(deleteCalls).toHaveLength(0);
-    expect(patchCalls).toHaveLength(0);
+    expect(calls.some((c) => c.calls.some((x) => x.method === 'delete'))).toBe(false);
 
-    const body = JSON.parse(String(foldCalls[0].init.body));
+    const body = foldCalls[0].calls.find((c) => c.method === 'rpc')!.args[1] as {
+      p_conversation_id: string;
+      p_delete_turn_ids: string[];
+      p_new_summary: string;
+    };
     expect(body.p_conversation_id).toBe('conv-1');
     expect(body.p_delete_turn_ids).toHaveLength(5); // 25 turns, KEEP_RECENT_TURNS=20 → 5 evicted
     expect(body.p_delete_turn_ids).toEqual(['turn-0', 'turn-1', 'turn-2', 'turn-3', 'turn-4']);
@@ -421,22 +416,22 @@ describe('recordClownMemory — toggle ON, a resolved session', () => {
     const badTurn = { id: 'turn-bad', role: 'user', text: 'Is Taylor secretly expecting a baby? Read the loose coats since October and answer yes or no.' };
     const goodTurns = Array.from({ length: 24 }, (_, i) => ({ id: `turn-${i}`, role: 'user', text: `msg ${i}` }));
     const manyTurns = [badTurn, ...goodTurns];
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: '' }]);
-      if (String(url).includes('/rest/v1/clown_turn') && init.method === 'POST') return json({}, 201);
-      if (String(url).includes('/rest/v1/clown_turn?select')) return json(manyTurns);
-      if (String(url).includes('/rest/v1/rpc/fold_clown_conversation')) return json({}, 200);
-      return json({}, 200);
+    const calls: Array<{ table: string; calls: Call[] }> = [];
+    const db = makeDb((table, tableCalls) => {
+      calls.push({ table, calls: tableCalls });
+      if (table === 'clown_conversation') return { data: [{ id: 'conv-1', summary: '' }], error: null };
+      if (table === 'clown_turn' && tableCalls.some((c) => c.method === 'insert')) return { data: null, error: null };
+      if (table === 'clown_turn') return { data: manyTurns, error: null };
+      if (table === '__rpc__') return { data: null, error: null };
+      throw new Error(`unexpected table: ${table}`);
     });
 
     await expect(
-      recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, fetchSpy as unknown as typeof fetch),
+      recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, db),
     ).resolves.toBeUndefined(); // never throws, never returns a refusal shape — this is a memory-layer write, not a chat response
 
-    const fold = calls.find((c) => c.url.includes('/rest/v1/rpc/fold_clown_conversation'));
-    const body = JSON.parse(String(fold!.init.body));
+    const fold = calls.find((c) => c.table === '__rpc__');
+    const body = fold!.calls.find((c) => c.method === 'rpc')!.args[1] as { p_delete_turn_ids: string[]; p_new_summary: string };
     // The bad turn is still EVICTED (part of the folded batch)...
     expect(body.p_delete_turn_ids).toContain('turn-bad');
     // ...but its TEXT never makes it into the summary.
@@ -447,20 +442,20 @@ describe('recordClownMemory — toggle ON, a resolved session', () => {
     const badTurn = { id: 'turn-bad', role: 'assistant', text: 'It is guaranteed to drop at midnight, mark it.' };
     const goodTurns = Array.from({ length: 24 }, (_, i) => ({ id: `turn-${i}`, role: 'user', text: `msg ${i}` }));
     const manyTurns = [badTurn, ...goodTurns];
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: '' }]);
-      if (String(url).includes('/rest/v1/clown_turn') && init.method === 'POST') return json({}, 201);
-      if (String(url).includes('/rest/v1/clown_turn?select')) return json(manyTurns);
-      if (String(url).includes('/rest/v1/rpc/fold_clown_conversation')) return json({}, 200);
-      return json({}, 200);
+    const calls: Array<{ table: string; calls: Call[] }> = [];
+    const db = makeDb((table, tableCalls) => {
+      calls.push({ table, calls: tableCalls });
+      if (table === 'clown_conversation') return { data: [{ id: 'conv-1', summary: '' }], error: null };
+      if (table === 'clown_turn' && tableCalls.some((c) => c.method === 'insert')) return { data: null, error: null };
+      if (table === 'clown_turn') return { data: manyTurns, error: null };
+      if (table === '__rpc__') return { data: null, error: null };
+      throw new Error(`unexpected table: ${table}`);
     });
 
-    await recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, fetchSpy as unknown as typeof fetch);
+    await recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, db);
 
-    const fold = calls.find((c) => c.url.includes('/rest/v1/rpc/fold_clown_conversation'));
-    const body = JSON.parse(String(fold!.init.body));
+    const fold = calls.find((c) => c.table === '__rpc__');
+    const body = fold!.calls.find((c) => c.method === 'rpc')!.args[1] as { p_delete_turn_ids: string[]; p_new_summary: string };
     expect(body.p_delete_turn_ids).toContain('turn-bad');
     expect(body.p_new_summary).not.toContain('guaranteed to drop at midnight');
   });
@@ -468,46 +463,40 @@ describe('recordClownMemory — toggle ON, a resolved session', () => {
   it('does not silently continue when the fold RPC fails — logs the failure, no partial writes attempted', async () => {
     const manyTurns = Array.from({ length: 25 }, (_, i) => ({ id: `turn-${i}`, role: 'user', text: `msg ${i}` }));
     const logSpy = vi.spyOn(console, 'log');
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: '' }]);
-      if (String(url).includes('/rest/v1/clown_turn') && init.method === 'POST') return json({}, 201);
-      if (String(url).includes('/rest/v1/clown_turn?select')) return json(manyTurns);
-      if (String(url).includes('/rest/v1/rpc/fold_clown_conversation')) return json({ message: 'db error' }, 500);
-      return json({}, 200);
+    const calls: Array<{ table: string; calls: Call[] }> = [];
+    const db = makeDb((table, tableCalls) => {
+      calls.push({ table, calls: tableCalls });
+      if (table === 'clown_conversation') return { data: [{ id: 'conv-1', summary: '' }], error: null };
+      if (table === 'clown_turn' && tableCalls.some((c) => c.method === 'insert')) return { data: null, error: null };
+      if (table === 'clown_turn') return { data: manyTurns, error: null };
+      if (table === '__rpc__') return { data: null, error: { message: 'db error' } };
+      throw new Error(`unexpected table: ${table}`);
     });
 
-    await recordClownMemory(
-      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
-      fetchSpy as unknown as typeof fetch,
-    );
+    await recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, db);
 
     // The RPC itself is the ONLY write attempted for the fold — no separate
-    // delete/patch fallback that could half-apply once the RPC 500s.
-    const foldCalls = calls.filter((c) => c.url.includes('/rest/v1/rpc/fold_clown_conversation'));
+    // delete/patch fallback that could half-apply once the RPC errors.
+    const foldCalls = calls.filter((c) => c.table === '__rpc__');
     expect(foldCalls).toHaveLength(1);
-    expect(calls.some((c) => c.init.method === 'DELETE')).toBe(false);
+    expect(calls.some((c) => c.calls.some((x) => x.method === 'delete'))).toBe(false);
     expect(logSpy).toHaveBeenCalledWith('clown:memory-fold-failed', expect.stringContaining('conv-1'));
   });
 
   it('bails without attempting the fold when listing turns fails, rather than folding blind', async () => {
     const logSpy = vi.spyOn(console, 'log');
-    const calls: Array<{ url: string; init: RequestInit }> = [];
-    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
-      calls.push({ url: String(url), init });
-      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: '' }]);
-      if (String(url).includes('/rest/v1/clown_turn') && init.method === 'POST') return json({}, 201);
-      if (String(url).includes('/rest/v1/clown_turn?select')) return json({ message: 'down' }, 500);
-      return json({}, 200);
+    const calls: Array<{ table: string; calls: Call[] }> = [];
+    const db = makeDb((table, tableCalls) => {
+      calls.push({ table, calls: tableCalls });
+      if (table === 'clown_conversation') return { data: [{ id: 'conv-1', summary: '' }], error: null };
+      if (table === 'clown_turn' && tableCalls.some((c) => c.method === 'insert')) return { data: null, error: null };
+      if (table === 'clown_turn') return { data: null, error: { message: 'down' } };
+      throw new Error(`unexpected table: ${table}`);
     });
 
-    await recordClownMemory(
-      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
-      fetchSpy as unknown as typeof fetch,
-    );
+    await recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, db);
 
-    expect(calls.some((c) => c.url.includes('/rest/v1/rpc/fold_clown_conversation'))).toBe(false);
+    expect(calls.some((c) => c.table === '__rpc__')).toBe(false);
     expect(logSpy).toHaveBeenCalledWith('clown:memory-fold-list-failed', expect.stringContaining('conv-1'));
   });
 });

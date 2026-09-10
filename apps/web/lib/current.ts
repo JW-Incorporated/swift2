@@ -39,7 +39,7 @@ export async function loadCurrentItems(eraId: string): Promise<CurrentItem[]> {
 const MAX_ROWS = 200;
 
 const LIVE_THEORY_COLS =
-  'id,name,claim,first_seen_on,last_seen_on,origin,status,outcome,evidence_ids,symbols,heat,resolution,promoted_to,expires_at';
+  'id,name,claim,first_seen_on,last_seen_on,origin,status,outcome,evidence_ids,symbols,heat,resolution,promoted_to,expires_at,mention_count,communities,stance,persistent';
 const FAN_SIGNAL_COLS =
   'id,window_start,window_end,platform,community,topic,summary,volume,heat,stance_mix,symbols,theory_ids,current_item_ids,sample_urls,expires_at,redline_ok';
 

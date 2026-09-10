@@ -9,9 +9,9 @@
  * task that would unlock it; not this file's job to guess it.
  */
 
-import { ERAS } from './eras';
+import { ERAS } from '@swift2/experience';
 import { getContentItem } from './content';
-import { hasRealPrimaryImage, primaryImage, type EraId, type Product } from './types';
+import { hasRealPrimaryImage, primaryImage, type EraId, type Product } from '@swift2/experience';
 import { MERCH_CATALOGUE, type MerchItem } from './merch';
 
 export interface MerchEraGroup {

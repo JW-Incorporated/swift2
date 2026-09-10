@@ -10,7 +10,7 @@ import {
   VIDEO_KIND_LABEL,
   findVideoEraId,
 } from './videos';
-import type { EraId, VideoNote } from './types';
+import type { EraId, VideoNote } from '@swift2/experience';
 
 const ALL_ERA_IDS: EraId[] = [
   'debut',
@@ -306,6 +306,26 @@ describe('findVideoEraId', () => {
       for (const v of allVideoRecordsForEra(eraId)) {
         expect(findVideoEraId(v.slug)).toBe(eraId);
       }
+    }
+  });
+});
+
+// OS-014b-3 (kanban t_a68139a4, docs/proposals/2026-09-vault-read-path.md):
+// videos.ts now reads its raw per-era data (VIDEOS_RAW) from
+// videos-bundle.generated.ts, which scripts/generate-bundle-backed-
+// modules.mjs regenerates from the PUBLISHED content bundle
+// (apps/web/public/content/<bundleVersion>/videos.json) — instead of
+// importing videos.generated.ts (the seed-derived intermediate that feeds
+// the bundle build itself) directly. This test proves the swap is
+// byte-identical to the pre-OS-014b-3 behavior: run `npm run prebuild`
+// (apps/web) first so videos.generated.ts, the published bundle, AND
+// videos-bundle.generated.ts all exist on disk, matching production's
+// build order.
+describe('allVideoRecordsForEra reads the published bundle (byte-identical to VIDEOS_RAW)', () => {
+  it('returns exactly what VIDEOS_RAW held for each era', async () => {
+    const { VIDEOS_RAW } = await import('./videos.generated');
+    for (const eraId of ALL_ERA_IDS) {
+      expect(allVideoRecordsForEra(eraId)).toEqual(VIDEOS_RAW[eraId] ?? []);
     }
   });
 });

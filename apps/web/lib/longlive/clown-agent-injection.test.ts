@@ -110,7 +110,7 @@ describe('tool-result injection surface (Stage 10, PLAN.md Stage 12)', () => {
       }),
     );
 
-    await runClownAgent(usage(), turns('what does track five mean'), EMPTY_SEED, { query: 'x' });
+    await runClownAgent(usage(), turns('what does track five mean'), EMPTY_SEED, { query: 'x' }, null);
 
     // The SYSTEM prompt sent on the round AFTER the poisoned tool_result must
     // be byte-identical to the fixed prompt — the payload must never get
@@ -173,7 +173,7 @@ describe('tool-result injection surface (Stage 10, PLAN.md Stage 12)', () => {
 
     const result = await runClownAgent(usage(), turns('what does track five mean'), EMPTY_SEED, {
       query: 'x',
-    });
+    }, null);
     expect(result.take).not.toBeNull();
 
     const pooledItems = [...result.pool.values()];

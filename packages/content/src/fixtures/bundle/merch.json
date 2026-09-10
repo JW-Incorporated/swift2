@@ -1,0 +1,14 @@
+{
+  "shopTheLook": [],
+  "officialStore": [
+    {
+      "brand": "Taylor Swift",
+      "item": "folklore Cardigan (Fair Isle)",
+      "retailer": "store.taylorswift.com",
+      "url": "https://example.com/store/folklore-cardigan",
+      "price": "$65.00",
+      "category": "official-store"
+    }
+  ],
+  "fanMade": []
+}

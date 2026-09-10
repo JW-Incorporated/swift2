@@ -16,6 +16,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { makeClient } from './lib/pg.mjs';
+import { runMain } from './lib/cli.mjs';
 import { ROOT } from './lib/longlive-sync-shared.mjs';
 import { buildAll, loadWorkerEnvLocal } from './sync-clown-knowledge.mjs';
 
@@ -138,8 +139,5 @@ async function main() {
 const invokedDirectly =
   process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  runMain(main, { name: 'knowledge-coverage' });
 }

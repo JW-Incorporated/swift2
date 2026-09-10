@@ -18,8 +18,8 @@ import { describe, expect, it } from 'vitest';
 import { SEXUALIZATION_TERMS } from '../../packages/shared/src/redline';
 // @ts-expect-error -- plain .mjs, no type declarations (mirrored precedent throughout scripts/)
 import { CONFIG } from '../content-engine/config.mjs';
-import { CONFIRMED_TIER } from '../../apps/web/lib/longlive/types';
-import { CURRENT_ERA_ID } from '../../apps/web/lib/longlive/eras';
+import { CONFIRMED_TIER } from '../../packages/experience/src/types';
+import { CURRENT_ERA_ID } from '../../packages/experience/src/eras';
 // @ts-expect-error -- plain .mjs, no type declarations
 import { SLUG_TO_ERA_ID } from './longlive-sync-shared.mjs';
 import { MOOD_BATTERY } from '../../apps/web/lib/longlive/mood-battery';

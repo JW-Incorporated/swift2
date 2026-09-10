@@ -1,0 +1,17 @@
+{
+  "eraId": "folklore",
+  "theories": [
+    {
+      "slug": "teenage-love-triangle",
+      "kind": "theory",
+      "title": "The teenage love triangle",
+      "claim": "Fans believe \"cardigan\", \"august\", and \"betty\" tell one love triangle from three perspectives.",
+      "evidence": "Confirmed by Taylor Swift herself in interviews around the album's release.",
+      "confidence": "official",
+      "outcome": "confirmed",
+      "sources": [
+        { "name": "Entertainment Weekly", "url": "https://example.com/love-triangle", "reliability": 4 }
+      ]
+    }
+  ]
+}

@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
-import { tracksForEra } from '@/lib/longlive/tracks';
-import { threadsInEra } from '@/lib/longlive/lenses';
+import { tracksForEra } from '@swift2/experience';
+import { threadsInEra } from '@swift2/experience';
 import { videosForEra, eraVideoFeed } from '@/lib/longlive/videos';
 import { EraSecretCard } from './EraSecretCard';
 import { TrackGuideBar } from './TrackGuideBar';
@@ -16,19 +16,18 @@ import { CurrentItemDetail } from './CurrentItemDetail';
 import {
   embeddedYoutubeIds,
   eraKnownVideoIds,
-  inlineVideoMomentIds,
   mergeEraFeed,
   visibleFeed,
+  buildEraStreamViewModel,
   type EraFeedEntry,
-} from '@/lib/longlive/era-feed';
+  threadDoorwaysForEra,
+  eggDoorwaysForEra,
+  spaceDoorways,
+} from '@swift2/experience';
 import { useEraCurrentFeed } from '@/lib/longlive/use-era-current-feed';
-import { clusterSameDayMoments } from '@/lib/longlive/era-feed-clusters';
-import { threadDoorwaysForEra, eggDoorwaysForEra } from '@/lib/longlive/doorways';
-import { spaceDoorways } from '@/lib/longlive/space-doorways';
 import { feedCardImageHidden } from '@/lib/longlive/video-affordance';
-import type { Era } from '@/lib/longlive/types';
+import type { Era } from '@swift2/experience';
 import type { PlayableVideoNote } from '@/lib/longlive/videos';
-import { assignFeedTiers, withInlineVideoTiers } from '@/lib/longlive/feed-tiers';
 import type { CurrentItem } from '@swift2/shared';
 
 /**
@@ -96,32 +95,25 @@ export function EraSection({
   // Merge EVERY moment, video, doorway and live current-item into one
   // unfiltered, newest-first feed, space the doorways (spaceDoorways —
   // 'current' entries pass through untouched), then filter in one pass (R2).
-  // Selection itself lives in lib/longlive/era-feed.ts (pure + unit-tested).
+  // Selection itself lives in packages/experience/src/era-feed.ts (pure +
+  // unit-tested). Computed directly here (not via buildEraStreamViewModel
+  // below) only to get `visible` — the filtered moment list —  which
+  // `imageHiddenIds` needs BEFORE the tier pass; buildEraStreamViewModel
+  // then redoes this same, pure, deterministic merge/filter internally to
+  // assemble the final render list. This is the OS-032 shared core (see
+  // era-stream.ts) — the native renderer calls the same function.
   const mergedFeed = useMemo(
     () => spaceDoorways(mergeEraFeed(items, videoFeed, era.start, era.end, [...doorwayEntries, ...liveEntries])),
     [items, videoFeed, era.start, era.end, doorwayEntries, liveEntries],
   );
   const feedEntries = useMemo(() => visibleFeed(mergedFeed, filters), [mergedFeed, filters]);
-  // Release-day pileups (#696): same-day moment runs collapse into one
-  // collapsible card for RENDERING ONLY — every computation below (tiers,
-  // video ownership, image suppression) still reads `feedEntries`/`visible`,
-  // the ungrouped list, so grouping can never change what a card looks like,
-  // only how many of them the reader sees before expanding.
-  const renderEntries = useMemo(() => clusterSameDayMoments(feedEntries), [feedEntries]);
   // The filtered feed's moment items — everything downstream that reasons
-  // about "the moments actually on screen" (video ownership, image
-  // suppression, card tiers) reads this instead of `items`.
+  // about "the moments actually on screen" (image suppression) reads this
+  // instead of `items`.
   const visible = useMemo(
     () => feedEntries.flatMap((e) => (e.kind === 'moment' ? [e.item] : [])),
     [feedEntries],
   );
-  // Which moments own their video's inline player, when two of them embed the
-  // same one (#2057). Derived from `visible`, NOT from `items`, for the same
-  // reason the tiers below are: ownership is a property of the list on screen.
-  // Over `items` a filter that hides the owner would leave the survivor with no
-  // play control at all — a card that carries footage looking exactly like one
-  // that doesn't, which is the #2051 bug this chain exists to close.
-  const videoOwnerIds = useMemo(() => inlineVideoMomentIds(visible), [visible]);
   // Every video id this era can play — the moments' own embeds plus the Videos
   // rail's records. It is the comparison set for the deferring-card suppression
   // below, so a card showing a frame of a video it will not play is caught
@@ -141,7 +133,9 @@ export function EraSection({
   // The second half is Joey's tloas report: "'Elizabeth Taylor' goes to radio"
   // opened with a hero-sized still from the Elizabeth Taylor music video and no
   // play button, because the embed belongs to the supercut card above it. See
-  // `feedCardImageHidden`.
+  // `feedCardImageHidden`. This app-layer rule stays outside
+  // packages/experience (see content-item-provider.ts's boundary note), so it
+  // is computed here and handed IN to the shared pipeline below.
   const imageHiddenIds = useMemo(() => {
     const hidden = new Set<string>();
     for (const item of visible) {
@@ -149,34 +143,22 @@ export function EraSection({
     }
     return hidden;
   }, [visible, knownVideoIds]);
-  // Card silhouette per item — recomputed against whatever's actually on
-  // screen (so filtering doesn't reference invisible items), but a pure
-  // function of that list's ids, so it's stable across re-renders.
-  //
-  // `withInlineVideoTiers` then floors the cards that actually play a video at
-  // `media` (#2080): the full-width poster every video now renders through
-  // cannot sit under a 56px `chip` row or inside the no-photo `text` breather
-  // without destroying the silhouette that IS that tier. See feed-tiers.ts.
-  //
-  // Tiers are scored against the cards' REAL contents, which for a deferring
-  // card now means "no picture": its photo is suppressed and, unlike an owner's,
-  // nothing takes the slot — no poster, because it does not play. Left unsaid,
-  // "'Elizabeth Taylor' goes to radio" would keep the hero silhouette it earned
-  // as a photo card and render it empty. Owners are deliberately NOT in this
-  // set: their poster fills the image slot, so their tier is still honest.
-  //
-  // This lowers the SCORE-derived tiers only. `significance` still outranks it,
-  // exactly as it outranks the score (feed-tiers.ts): a 'defining' card stays
-  // `hero` and a 'notable' card keeps its `media` floor with no photo, because
-  // significance is a judgment about the event, and a missing picture is not a
-  // reason to demote one. Both tiers already render imageless today.
-  const tierlessImageIds = useMemo(
-    () => new Set([...imageHiddenIds].filter((id) => !videoOwnerIds.has(id))),
-    [imageHiddenIds, videoOwnerIds],
-  );
-  const tiers = useMemo(
-    () => withInlineVideoTiers(assignFeedTiers(visible, tierlessImageIds), videoOwnerIds),
-    [visible, videoOwnerIds, tierlessImageIds],
+  // OS-032: the exact ordering/tiering pipeline apps/mobile's native era
+  // stream also calls (era-stream.ts's `buildEraStreamViewModel`) — one
+  // shared function, so "matches the web's section order" is a property of
+  // this call, not of two hand-kept-in-sync implementations.
+  const { entries: renderEntries, tiers, videoOwnerIds } = useMemo(
+    () =>
+      buildEraStreamViewModel({
+        era,
+        items,
+        videoFeed,
+        doorwayEntries,
+        liveEntries,
+        filters,
+        imageHiddenIds,
+      }),
+    [era, items, videoFeed, doorwayEntries, liveEntries, filters, imageHiddenIds],
   );
 
   // A doorway tap (PLAN.md P3 step 16 — Joey: "back should take them right

@@ -19,8 +19,8 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { createClient } from '@supabase/supabase-js';
 import { insertEvent } from '@swift2/core';
+import { serviceClient } from '../lib/supabase.mjs';
 
 const SITE_URL = 'https://www.longlivets.com';
 
@@ -57,10 +57,7 @@ export async function emitFanmadeEvent(socialDraft, { db, now = new Date() } = {
 }
 
 function supabaseAdmin() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+  return serviceClient();
 }
 
 async function main() {

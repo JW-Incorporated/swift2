@@ -160,6 +160,15 @@ export function loadRevenueSection(path = resolve(ROOT, DEFAULT_OUTPUT_PATH)) {
   if (!existsSync(path)) return null;
   try {
     const report = JSON.parse(readFileSync(path, 'utf8'));
+    // 2026-09-05 (Marjorie audit): with zero available sources the section
+    // is 13 lines of "unavailable" and "—", every day, and Marjorie was
+    // hand-collapsing it into one sentence each morning. Until Awin/Amazon
+    // reporting is wired, the brief gets one line, not the empty table.
+    const available = (report.sources || []).some((s) => s.status === 'available');
+    if (!available) {
+      const reasons = (report.sources || []).map((s) => `${s.network} (${s.reason || 'not configured'})`).join(', ');
+      return `- Merch revenue/clicks: **no reporting connected yet**${reasons ? ` — ${reasons}` : ''}; nothing to report until an affiliate account is live.`;
+    }
     return formatRevenueSection(report);
   } catch {
     return null;

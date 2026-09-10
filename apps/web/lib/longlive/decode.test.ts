@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { erasBetween, gapYears } from './decode';
-import type { CluePoint } from './types';
+import type { CluePoint } from '@swift2/experience';
 
 function point(date: string): CluePoint {
   return { date, dateLabel: date, eraId: '1989', what: '' };

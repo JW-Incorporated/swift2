@@ -1,11 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { getEra } from '@/lib/longlive/eras';
+import { getEra } from '@swift2/experience';
 import { accentFgFor, eraStyle } from '@/lib/longlive/theme';
-import { RUNWAY_LOOKS } from '@/lib/longlive/lenses';
+import { RUNWAY_LOOKS } from '@swift2/experience';
 import { contentForThreadInEra } from '@/lib/longlive/threads';
-import { autoFocalPoint, focalPointOf } from '@/lib/longlive/types';
+import { autoFocalPoint, focalPointOf } from '@swift2/experience';
 import { FromTheEras } from '../FromTheEras';
 
 // Hotlinked photo URLs bypass Next's image optimizer (whose remotePatterns
