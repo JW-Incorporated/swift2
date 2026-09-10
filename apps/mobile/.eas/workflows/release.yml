@@ -20,11 +20,24 @@
 #      submit. Both end up carrying the commit; the parity check
 #      (scripts/mobile/check-parity.mjs) reports the store-review lag.
 #
-# Prerequisites (HUMAN-ACTIONS.md #45/#46): iOS distribution credentials and
-# the App Store Connect API key stored in EAS credentials (not on a laptop),
-# and the Google Play service-account key stored in EAS credentials. Until
-# both exist, the submit jobs fail — loudly, on both platforms, which is the
-# intended failure mode.
+# Prerequisites: iOS distribution credentials and the App Store Connect API
+# key stored in EAS credentials, not on a laptop (HUMAN-ACTIONS.md #48, was
+# #45) — until they exist, submit_ios fails loudly, which is the intended
+# failure mode.
+#
+# Android submission does NOT run as a job in this file. Decision
+# 2026-09-06 (docs/mobile-release.md "Android submission lives in the
+# GitHub Action, not here"): the Google Play service-account key arrived as
+# a GitHub Actions repo secret (`PLAY_SERVICE_ACCOUNT_JSON`) rather than
+# being uploaded to EAS credentials. This workflow runs on EAS's own
+# infrastructure, which has no visibility into GitHub repo secrets, so it
+# cannot ever complete a submit_android job. Instead
+# `.github/workflows/mobile-release.yml` waits for this workflow to finish,
+# then runs `eas submit --platform android` itself, in the environment that
+# actually has the secret. The "no half-submit" invariant (a failed iOS
+# build blocks the Android submission) is preserved by that Action step
+# only running when this whole workflow run succeeds — see the Action file
+# for the exact gating.
 #
 # Runbook: docs/mobile-release.md.
 
@@ -96,18 +109,12 @@ jobs:
       profile: production
       message: ${{ inputs.message || github.event.head_commit.message }}
 
-  # Both submits need BOTH builds. If only one platform needed a build the
-  # other build job is skipped (not failed) and the submit still runs; if a
-  # build FAILS, both submits are blocked.
-  submit_android:
-    name: Submit Android (Play internal track)
-    needs: [build_android, build_ios]
-    if: ${{ needs.build_android.outputs.build_id }}
-    type: submit
-    params:
-      build_id: ${{ needs.build_android.outputs.build_id }}
-      profile: production
-
+  # Android submission is NOT a job here — see the header comment. It runs
+  # from .github/workflows/mobile-release.yml after this workflow finishes,
+  # using the GitHub-secret-sourced Play service-account key.
+  #
+  # submit_ios still needs BOTH builds (no half-submit for the platform that
+  # *can* submit from here): if build_android FAILS, this is blocked too.
   submit_ios:
     name: Submit iOS (App Store Connect / TestFlight)
     needs: [build_android, build_ios]

@@ -319,7 +319,18 @@ unblocks the train. After step 3, either delete the GitHub secret
 or tell a session you'd rather mirror 4a and submit from GitHub instead —
 either is fine; two copies of one key is the only downside of leaving it.
 
-**Status:** OPEN
+**Update (t_b31878bb, mobile PR): implemented the "mirror 4a" alternative
+this note offered — `.github/workflows/mobile-release.yml` now waits for
+the EAS release workflow, finds the Android store build for that exact
+commit, and submits it to Play itself using the existing
+`PLAY_SERVICE_ACCOUNT_JSON` repo secret (never echoed; written to a
+0600 temp file and deleted immediately after use). The EAS workflow no
+longer has a `submit_android` job at all (EAS infra can't see GitHub
+secrets, so that job could never succeed). No further founder step
+needed for Android submission; step 3 above (interactive EAS-credentials
+upload) is no longer necessary.
+
+**Status:** DONE (2026-09-10)
 
 ### 45. [BLOCKING] Mobile release train — iOS signing + App Store Connect key into EAS — ~10 min
 
