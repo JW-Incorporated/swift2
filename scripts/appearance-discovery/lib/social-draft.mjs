@@ -99,11 +99,20 @@ function xBodyTemplate(title, channel, url, isOfficial) {
  * post) so checkCrossPostCopy's near-duplicate gate never trips on this
  * lane. Restates the same sourced facts (title/channel/official-ness) as
  * the X body, never a claim about the video's content.
+ *
+ * Leads with the video's own TITLE (quoted) for the same reason xBodyTemplate
+ * does — check-drafts.mjs's opener rule fails a draft whose first 6 words
+ * match any other post from the last 14 days or any other queue item. An
+ * earlier version opened every OFFICIAL-upload caption with the same fixed
+ * phrase ("taylor just dropped something new on..."), which collided on the
+ * opener rule the moment two official uploads landed within the lookback
+ * window (codex review round 1, kanban t_bac31b1a) — title-first avoids that
+ * exactly like the X body does.
  */
 function igBodyTemplate(title, channel, isOfficial) {
   return isOfficial
-    ? `taylor just dropped something new on her own channel: "${title}". no caption from her yet, but we're not waiting to talk about it — link's in the profile.`
-    : `${channel} just posted "${title}" and taylor's name is all over it. haven't watched all the way through yet, but you know we had to tell you the second it dropped.`;
+    ? `"${title}" just went up on taylor's own channel — no caption from her yet, but we're not waiting to talk about it. link's in the profile.`
+    : `"${title}" just dropped on ${channel} and taylor's name is all over it. haven't watched all the way through yet, but you know we had to tell you the second it dropped.`;
 }
 
 /** Trims `title` to fit whatever's left of X's weighted budget after the

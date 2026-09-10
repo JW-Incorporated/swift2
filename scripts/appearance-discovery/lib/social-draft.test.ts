@@ -127,6 +127,19 @@ describe('buildSocialDraftPair', () => {
     expect(findings).toEqual([]);
   });
 
+  // Regression (codex review round 1, kanban t_bac31b1a): an earlier version
+  // opened every OFFICIAL-upload Instagram caption with the same fixed
+  // phrase ("taylor just dropped something new on..."), which collided on
+  // the opener rule the instant two official uploads landed within the
+  // 14-day/queue lookback window. Both the OFFICIAL and non-official IG
+  // templates now lead with the video's own title, same as the X body.
+  it('does not collide on the opener rule across two different OFFICIAL uploads (Instagram body)', () => {
+    const a = findIg(build(candidate({ videoId: 'aaaaaaaaaaa', title: 'Taylor Swift Surprises Fans at the VMAs', rule: 'all-uploads' }), { now: NOW }));
+    const b = findIg(build(candidate({ videoId: 'bbbbbbbbbbb', title: 'Taylor Swift Debuts New Eras Tour Outfit', rule: 'all-uploads' }), { now: NOW }));
+    const findings = checkOpeners(b.filename, b.item, [{ file: a.filename, body: a.item.body }]);
+    expect(findings).toEqual([]);
+  });
+
   it('never opens with the banned "did you know" formula on either platform', () => {
     const { drafts } = build(candidate(), { now: NOW });
     for (const { item } of drafts) {
