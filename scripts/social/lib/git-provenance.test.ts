@@ -56,11 +56,18 @@ describe('getQueueFileProvenance', () => {
   });
 
   it('returns nulls when repo is unknown — never even attempts the git/API lookup', async () => {
+    // `repo: null`, not `repo: undefined` — a destructuring default only
+    // applies for an `undefined` value, so `undefined` here would silently
+    // fall through to the REAL `process.env.GITHUB_REPOSITORY`. That env
+    // var is always set in an actual GitHub Actions run (unlike this local
+    // sandbox), which is exactly how this test passed locally but failed in
+    // CI: it wasn't actually exercising the "repo unknown" branch there at
+    // all. `null` is a genuinely falsy override that bypasses the default.
     const execFileImpl = vi.fn();
     const runGhApi = vi.fn();
 
     const result = await getQueueFileProvenance('social/queue/a-x.json', {
-      repo: undefined,
+      repo: null,
       execFileImpl,
       runGhApi,
     });
