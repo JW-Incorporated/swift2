@@ -3,39 +3,114 @@
   "policy": "Every entry has a local publishable media path, an exact source URL, and a truthful credit. The selector chooses the least-used entry and then the longest-unseen entry; recency is a diversity preference, never an eligibility ban, so a valid campaign cannot deadlock when the finite library is exhausted.",
   "photos": [
     {
-      "id": "lover-minneapolis-2023",
-      "mediaPath": "/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg",
-      "credit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg",
-      "tags": ["lover", "eras-tour", "minneapolis"]
-    },
-    {
-      "id": "lover-minneapolis-act5-2023",
-      "mediaPath": "/social/library/photos/taylor-lover-eras-minneapolis-act5-2023.jpg",
-      "credit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_5.jpg",
-      "tags": ["lover", "eras-tour", "minneapolis"]
-    },
-    {
-      "id": "red-inglewood-2023",
-      "mediaPath": "/social/library/photos/taylor-red-eras-inglewood-2023.jpg",
+      "id": "1989-inglewood-2023",
+      "mediaPath": "/social/library/photos/taylor-1989-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_10.jpg",
-      "tags": ["red", "eras-tour", "inglewood"]
-    },
-    {
-      "id": "fearless-inglewood-2023",
-      "mediaPath": "/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg",
-      "tags": ["fearless", "eras-tour", "inglewood"]
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53110043448).jpg",
+      "tags": [
+        "1989",
+        "eras-tour",
+        "inglewood"
+      ]
     },
     {
       "id": "debut-acoustic-2007",
       "mediaPath": "/social/library/photos/taylor-debut-2007-acoustic.jpg",
       "credit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
       "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(2007)_retouched.jpg",
-      "tags": ["debut", "acoustic", "2007"]
+      "tags": [
+        "debut",
+        "acoustic",
+        "2007"
+      ]
+    },
+    {
+      "id": "evermore-inglewood-2023",
+      "mediaPath": "/social/library/photos/taylor-evermore-eras-inglewood-2023.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons (cropped by Musicharts)",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109915048)_(cropped).jpg",
+      "tags": [
+        "evermore",
+        "eras-tour",
+        "inglewood"
+      ]
+    },
+    {
+      "id": "fearless-inglewood-2023",
+      "mediaPath": "/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg",
+      "tags": [
+        "fearless",
+        "eras-tour",
+        "inglewood"
+      ]
+    },
+    {
+      "id": "folklore-inglewood-2023",
+      "mediaPath": "/social/library/photos/taylor-folklore-eras-inglewood-2023.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53109914795).jpg",
+      "tags": [
+        "folklore",
+        "eras-tour",
+        "inglewood"
+      ]
+    },
+    {
+      "id": "lover-minneapolis-2023",
+      "mediaPath": "/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg",
+      "credit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg",
+      "tags": [
+        "lover",
+        "eras-tour",
+        "minneapolis"
+      ]
+    },
+    {
+      "id": "lover-minneapolis-act5-2023",
+      "mediaPath": "/social/library/photos/taylor-lover-eras-minneapolis-act5-2023.jpg",
+      "credit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_5.jpg",
+      "tags": [
+        "lover",
+        "eras-tour",
+        "minneapolis"
+      ]
+    },
+    {
+      "id": "red-inglewood-2023",
+      "mediaPath": "/social/library/photos/taylor-red-eras-inglewood-2023.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_10.jpg",
+      "tags": [
+        "red",
+        "eras-tour",
+        "inglewood"
+      ]
+    },
+    {
+      "id": "reputation-inglewood-2023",
+      "mediaPath": "/social/library/photos/taylor-reputation-eras-inglewood-2023.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109646914).jpg",
+      "tags": [
+        "reputation",
+        "eras-tour",
+        "inglewood"
+      ]
+    },
+    {
+      "id": "speaknow-inglewood-2023",
+      "mediaPath": "/social/library/photos/taylor-speaknow-eras-inglewood-2023.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_(53109973243).jpg",
+      "tags": [
+        "speak-now",
+        "eras-tour",
+        "inglewood"
+      ]
     }
   ]
 }

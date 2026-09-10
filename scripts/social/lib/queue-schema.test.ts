@@ -29,6 +29,7 @@ const library = [
     mediaPath: '/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg',
     credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
+    tags: ['lover', 'eras-tour', 'minneapolis'],
   },
 ];
 
@@ -118,10 +119,44 @@ ${url}`;
       expect(validatePhotoInventoryBinding({ ...validX, mediaCredit: 'Wrong credit' }, library).some((f) => f.includes('must use its inventory media path, exact credit, and exact source'))).toBe(true);
       expect(validatePhotoInventoryBinding(validX, library)).toEqual([]);
     });
-    it('rejects a text-only X draft for a normal paired campaign but preserves the appearance-lane exception', () => {
+
+    // 2026-09-10 (kanban t_75ec7106) — the founder-reported off-era-photo bug.
+    it('hard-fails a themed draft whose bound photo is not tagged for its declared photoEra', () => {
+      expect(validatePhotoInventoryBinding({ ...validX, photoEra: 'reputation' }, library)).toContainEqual(expect.stringContaining('photoEra:'));
+    });
+    it('passes a themed draft whose bound photo IS tagged for its declared photoEra', () => {
+      expect(validatePhotoInventoryBinding({ ...validX, photoEra: 'lover' }, library)).toEqual([]);
+    });
+    it('does not require photoEra at all — untagged posts (launch/mood/merch) are unaffected', () => {
+      expect(validatePhotoInventoryBinding(validX, library)).toEqual([]);
+    });
+
+    // Fable ruling round 4 (kanban t_75ec7106, PR #4062): a themed campaign
+    // family must not be able to silently ship without declaring photoEra —
+    // that opt-in gap is exactly how the original bug's campaign shape
+    // (thread:easter-eggs:...) would still pass validation.
+    it('requires photoEra for a themed campaign family even though the field is otherwise optional', () => {
+      const themed = { ...validX, campaign: 'thread:easter-eggs:interactive-challenge:2026-09-find', photoEra: undefined };
+      expect(validatePhotoInventoryBinding(themed, library)).toContainEqual(expect.stringContaining('photoEra: campaign'));
+    });
+    it('requires photoEra for the heartbeat:era-deep-cut family too', () => {
+      const themed = { ...validX, campaign: 'heartbeat:era-deep-cut:speak-now-blah', photoEra: undefined };
+      expect(validatePhotoInventoryBinding(themed, library)).toContainEqual(expect.stringContaining('photoEra: campaign'));
+    });
+    it('passes a themed campaign once photoEra is set and matches', () => {
+      const themed = { ...validX, campaign: 'thread:easter-eggs:interactive-challenge:2026-09-find', photoEra: 'lover' };
+      expect(validatePhotoInventoryBinding(themed, library)).toEqual([]);
+    });
+    it('does NOT require photoEra for a non-themed campaign family (launch:*)', () => {
+      const nonThemed = { ...validX, campaign: 'launch:shop-the-look:announce', photoEra: undefined };
+      expect(validatePhotoInventoryBinding(nonThemed, library)).toEqual([]);
+    });
+    it('rejects a text-only X draft for a normal paired campaign, and mediaKind "video-thumb" no longer exists as an exception (2026-09-10, kanban t_bac31b1a)', () => {
       const pairedX = { ...validX, campaign: 'launch:shop-the-look:announce', media: undefined, mediaKind: undefined };
       expect(findingFor(pairedX, 'x posts require at least one image')).toBeDefined();
-      expect(validateQueueItem({ ...pairedX, campaign: 'appearance:video-id', mediaKind: 'video-thumb' })).toEqual([]);
+      const findings = validateQueueItem({ ...pairedX, campaign: 'appearance:video-id', mediaKind: 'video-thumb' });
+      expect(findings.some((f) => f.includes('x posts require at least one image'))).toBe(true);
+      expect(findings.some((f) => f.includes('mediaKind') && f.includes('not recognized'))).toBe(true);
     });
     it('binds a launch site-screen carousel grid photo to its exact credited inventory entry', () => {
       const carousel = {
@@ -206,8 +241,8 @@ ${url}`;
       ).toBeDefined();
     });
 
-    it('accepts mediaKind "video-thumb" on X with no attached media', () => {
-      expect(validateQueueItem({ ...validX, campaign: 'appearance:video-id', media: undefined, mediaKind: 'video-thumb' })).toEqual([]);
+    it('rejects mediaKind "video-thumb" as unrecognized (removed 2026-09-10, kanban t_bac31b1a)', () => {
+      expect(findingFor({ ...validX, media: undefined, mediaKind: 'video-thumb' }, 'mediaKind:')).toBeDefined();
     });
 
     // The Taylor-photo standard (2026-08-12): a photo always ships credited

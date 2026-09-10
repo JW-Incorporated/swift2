@@ -28,11 +28,48 @@ import { MAX_X_IMAGES } from './platforms.mjs';
 /** Platforms the poster can actually publish to (post-queue.mjs's postOne). */
 export const PLATFORMS = ['x', 'instagram'];
 
+/**
+ * Campaign-family prefixes whose posts are inherently ABOUT one specific
+ * era — the "easter eggs" thread ties every node to a lens/egg id with its
+ * own `eraId` (packages/experience/src/lenses.ts), and `heartbeat:era-deep-cut`
+ * names the era right in the campaign value (social/README.md's example,
+ * social/calendar.md 2026-09-10: "target speak-now ... mint
+ * era-deep-cut:speak-now-<slug>"). A `mediaKind: "photo"` draft in one of
+ * these families is exactly the shape of the founder-reported bug (kanban
+ * t_75ec7106: 2026-09-09-clue-web-reputation-snake-x.json, campaign
+ * `thread:easter-eggs:interactive-challenge:2026-09-find`, no `photoEra` set,
+ * shipped a Lover-era photo) — see validatePhotoInventoryBinding below,
+ * where a themed draft with no `photoEra` is now a hard fail instead of a
+ * silently-passing opt-in check.
+ *
+ * NOT a general "derive the era from content data" mechanism — that would
+ * require importing packages/experience/src/lenses.ts's EGG_NODES into
+ * these validators, a separate wiring change out of this card's scope (see
+ * the follow-up issue linked from social/README.md's photoEra section).
+ * This is a static, mechanical family list: it forces the AUTHOR (who
+ * already knows the target lens/egg node when minting the campaign) to
+ * declare `photoEra`, it does not itself determine which era is correct.
+ * A non-themed family (`launch:*`, `heartbeat:on-this-day`/other heartbeat
+ * subfamilies, `appearance:*`, `mood:*`) is unaffected — those posts may
+ * legitimately use any era's photo.
+ */
+export const THEMED_CAMPAIGN_PREFIXES = ['thread:easter-eggs:', 'heartbeat:era-deep-cut:'];
+
+function isThemedCampaign(campaign) {
+  return typeof campaign === 'string' && THEMED_CAMPAIGN_PREFIXES.some((prefix) => campaign.startsWith(prefix));
+}
+
 /** Declared media kinds — see the mediaKind section of validateQueueItem.
- * "video-thumb" added 2026-09-05 (#3584, Fable ruling): a rehosted YouTube/
- * broadcaster thumbnail is not a "photo" — see check-drafts.mjs's
- * VIDEO_THUMBNAIL_CREDIT_RE / CLEARED_PHOTO_ALLOWLIST for the full story. */
-export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art', 'video-thumb'];
+ * "video-thumb" (added 2026-09-05, #3584) was REMOVED 2026-09-10 (kanban
+ * t_bac31b1a, founder directive: "there's never a time where we post to
+ * only X, or only IG — everything should be the same"): it was a silent
+ * standing X-only exception to the otherwise-unconditional pairing rule,
+ * and the value is now schema-unrecognized — a draft declaring it hard-fails
+ * like any other unknown mediaKind. The appearance-discovery fast lane
+ * (scripts/appearance-discovery/lib/social-draft.mjs) now sources a real
+ * credited photo from social/photo-library.json for BOTH platforms instead
+ * of shipping a rehosted thumbnail X-only. */
+export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art'];
 
 /**
  * Per-platform hard limits, enforced by the platform, not by taste.
@@ -69,6 +106,23 @@ function isIsoInstant(value) {
  * provenance. A launch `site-screen` carousel is included when any slide is
  * a Taylor-photo grid tile; a genuine UI-only screen has no photo-prefix slide
  * and remains outside this binding.
+ *
+ * `photoEra` (2026-09-10, kanban t_75ec7106 — the 2026-09-09 reputation/snake
+ * X post that shipped a Lover-era tour photo, docs/decisions.md): a string
+ * naming the draft's target era/theme (the value passed to
+ * `scripts/social/select-photo.mjs --era`, or the lens/egg node's `eraId` for
+ * an easter-eggs/thread post). When present, the bound photo's `tags` MUST
+ * include it — a themed draft whose photo doesn't match its own declared era
+ * is exactly the bug this field exists to catch. `photoEra` is REQUIRED (not
+ * optional) for a `mediaKind: "photo"` draft whose `campaign` belongs to a
+ * THEMED_CAMPAIGN_PREFIXES family (see above) — those campaigns are
+ * inherently about one specific era, so nothing may silently ship without
+ * declaring which. It stays optional for every other family (a launch/mood/
+ * merch post has no single target era). Full automatic era derivation from
+ * lens/egg content data (packages/experience/src/lenses.ts) is intentionally
+ * out of scope here — that needs a separate wiring change to import content
+ * data into these validators; this static campaign-family check is the
+ * bounded fix (Fable ruling, kanban t_75ec7106, PR #4062 review round 4).
  */
 export function validatePhotoInventoryBinding(item, photoLibrary) {
   const photoTiles = Array.isArray(item?.media)
@@ -82,6 +136,24 @@ export function validatePhotoInventoryBinding(item, photoLibrary) {
   if (!photo) return [`photoId: ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
   if (photoTiles.length !== 1 || photoTiles[0] !== photo.mediaPath || item.mediaCredit !== photo.credit || item.mediaSource !== photo.source) {
     return ['photoId: must use its inventory media path, exact credit, and exact source so attribution cannot drift.'];
+  }
+  if (typeof item.photoEra === 'string' && item.photoEra.trim() !== '') {
+    const era = item.photoEra.trim();
+    if (!Array.isArray(photo.tags) || !photo.tags.includes(era)) {
+      return [
+        `photoEra: this draft declares "${era}" as its target era, but photoId ${JSON.stringify(item.photoId)}'s tags ` +
+          `(${JSON.stringify(photo.tags ?? [])}) do not include it — an off-era photo is worse than no photo (Joey, 2026-09-10: ` +
+          '"never again do I want to see a great picture with dumb text that has nothing to do with the image"). Re-run ' +
+          `\`node scripts/social/select-photo.mjs --era ${era}\` for a matching photo, or add one to social/photo-library.json first.`,
+      ];
+    }
+  } else if (isThemedCampaign(item.campaign)) {
+    return [
+      `photoEra: campaign ${JSON.stringify(item.campaign)} belongs to a themed family (${THEMED_CAMPAIGN_PREFIXES.join(', ')}) — ` +
+        'these posts are inherently about one specific era, so `photoEra` is required, not optional, for this campaign shape ' +
+        '(kanban t_75ec7106: this is exactly the campaign shape that shipped a Lover-era photo on a reputation-era post). ' +
+        `Set \`photoEra\` to the target era and run \`node scripts/social/select-photo.mjs --era <era>\` for a matching photo.`,
+    ];
   }
   return [];
 }
@@ -153,8 +225,7 @@ export function validateQueueItem(item) {
         );
       }
     }
-    const isAppearanceException = item.platform === 'x' && typeof item.campaign === 'string' && item.campaign.startsWith('appearance:');
-    if (rules?.media === 'required' && !isAppearanceException && paths.length === 0) {
+    if (rules?.media === 'required' && paths.length === 0) {
       findings.push(`media: ${item.platform} posts require at least one image.`);
     }
     if (rules && paths.length > rules.maxMedia) {
@@ -182,17 +253,6 @@ export function validateQueueItem(item) {
   }
   if (item.platform === 'x' && item.mediaKind === 'site-screen') {
     findings.push('mediaKind: X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
-  }
-  // #3584 (Fable ruling, 2026-09-05): Instagram is skipped unless a cleared
-  // photo exists — "video-thumb" (a rehosted YouTube/broadcaster thumbnail)
-  // never qualifies, so it is never allowed on an Instagram item at all.
-  if (item.platform === 'instagram' && item.mediaKind === 'video-thumb') {
-    findings.push('mediaKind: Instagram drafts may not use mediaKind "video-thumb" — Instagram is skipped unless a cleared photo exists (Fable ruling, #3584).');
-  }
-  // X's "video-thumb" ships as a bare link preview only — never an attached
-  // image (see check-drafts.mjs's mirror of this rule for the full story).
-  if (item.platform === 'x' && item.mediaKind === 'video-thumb' && Array.isArray(item.media) && item.media.length > 0) {
-    findings.push('mediaKind: X "video-thumb" drafts may not attach an image via `media` — it ships as a bare link preview only.');
   }
   for (const field of ['mediaCredit', 'mediaSource']) {
     if (item[field] !== undefined && (typeof item[field] !== 'string' || item[field].trim() === '')) {
@@ -228,7 +288,7 @@ export function validateQueueItem(item) {
   if (item.attempts !== undefined && (!Number.isInteger(item.attempts) || item.attempts < 0)) {
     findings.push(`attempts: must be a non-negative integer when present (${JSON.stringify(item.attempts)}).`);
   }
-  for (const field of ['campaign', 'why', 'approvedBy', 'lastError', 'photoId']) {
+  for (const field of ['campaign', 'why', 'approvedBy', 'lastError', 'photoId', 'photoEra']) {
     if (item[field] !== undefined && typeof item[field] !== 'string') {
       findings.push(`${field}: must be a string when present.`);
     }

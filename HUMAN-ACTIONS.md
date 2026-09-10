@@ -26,24 +26,114 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 50. [BLOCKING] Create the Swift2 Discord delivery webhook and store it as `DISCORD_BRIEF_WEBHOOK` — ~5 min
+### 53. [BLOCKING] Create the Swift2 Discord delivery webhook and store it as `DISCORD_BRIEF_WEBHOOK` — ~5 min
 
 **Filed:** 2026-09-09
 
 **Why it matters:** the morning Founders' Brief is prepared to post to the
 Swift2 Discord channel. The webhook URL is a credential that only a Discord
 channel administrator can create; it is not stored in Git and no agent can
-view or paste it.
+view or paste it. This is a distinct secret from item #50's
+`DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` (community/social-channel brief) —
+`brief-mailer.yml` reads its own `DISCORD_BRIEF_WEBHOOK` secret, which was
+confirmed absent from the repo's Actions secrets as of 2026-09-10.
 
 **Steps:** In the Swift2 Discord channel, open **Edit Channel → Integrations →
 Webhooks → New Webhook**, name it `Swift2 Brief`, and copy its URL. In GitHub,
 open **JW-Incorporated/swift2 → Settings → Secrets and variables → Actions →
 New repository secret**, name it exactly `DISCORD_BRIEF_WEBHOOK`, and paste the
-URL. Then tell Hermes `Discord webhook #50 is set`.
+URL. Then tell Hermes `Discord webhook #53 is set`.
 
 **Worked if:** Hermes manually runs `brief-mailer.yml` in `brief` mode and the
 channel receives the brief plus its attached full Markdown file; the run log
 contains `Delivered [Founders' Brief …] to Discord`.
+
+**Status:** OPEN
+
+---
+
+### 51. [BLOCKING] URGENT — restore the Claude OAuth token secret: every migrated GitHub Actions routine has been inert since the 09-06 migration — ~10 min
+
+**Filed:** 2026-09-09
+
+**Why it matters:** despite item #43 being marked DONE ("secret stored &
+confirmed"), the `CLAUDE_CODE_OAUTH_TOKEN` repository secret is absent/empty
+at run time, so the guard in `.github/workflows/routine-template.yml`
+(`if [ -z "secrets.CLAUDE_CODE_OAUTH_TOKEN" ]`) skips **every** migrated
+routine with `::warning::CLAUDE_CODE_OAUTH_TOKEN is not set … Skipping run,
+not failing.` and exits clean. Verified fleet-wide on 09-06/07/08 across
+`routine-news-triage`, `routine-nils-walk`, and `routine-marjorie-brief` —
+all skipped. The whole standing fleet has effectively been **dark since the
+2026-09-06 claude.ai→Actions migration** (item #47 disabled the claude.ai
+triggers that day), while reporting green. The workflow plumbing is correct
+(`routine-template.yml` accepts the secret and each `routine-*.yml` passes
+it) — the secret itself is missing; an agent cannot set it (the human-only
+guard blocks secret mutation, and it needs your login). This item was
+drafted by a run of [#4027](https://github.com/JW-Incorporated/swift2/issues/4027)
+two days ago but never actually landed here (its own attempt to open a PR
+adding it was rejected for lacking write access) — filing it now closes that
+gap.
+
+**Concrete damage already done (unrecoverable):** News Triage never ran
+2026-09-07 or 09-08, so the T-3 recall check ([#4027](https://github.com/JW-Incorporated/swift2/issues/4027))
+found at least one confirmed story overlooked and never filed — "I Knew It,
+I Knew You" reaching No. 1 on Country Radio (her 13th career country No. 1).
+Intake issues are the only thing Content Shift reads, so a missed story is
+gone. Every further day the token stays broken drops more stories.
+
+**This is NOT a model revert.** The recall check passed on the
+Sonnet-vs-Opus question (0 Sonnet false negatives); reverting News Triage to
+Opus would fix nothing here — an Opus Actions run skips identically. The fix
+is the token, and the T-3 trial clock should be paused/extended (it has had
+zero valid Sonnet-on-Actions runs since 09-06 and cannot conclude by
+2026-09-15 as-is).
+
+**Steps:**
+1. Regenerate the token locally with `claude setup-token` on your Claude
+   Pro/Max account (per decision D1=B).
+2. Store it as the repo secret **`CLAUDE_CODE_OAUTH_TOKEN`** for
+   `JW-Incorporated/swift2`. UI path: GitHub repo → **Settings → Secrets and
+   variables → Actions → Repository secrets** → the `CLAUDE_CODE_OAUTH_TOKEN`
+   row → **Update** (or **New repository secret** if the row is absent) →
+   paste the token → **Save**.
+3. Confirm it took: the same **Repository secrets** list should show
+   `CLAUDE_CODE_OAUTH_TOKEN` with a recent "Updated" date.
+4. Trigger one routine to verify end-to-end: **Actions → routine-news-triage
+   → Run workflow**, then open the run and confirm it does **not** emit the
+   "CLAUDE_CODE_OAUTH_TOKEN is not set" warning and reaches the Claude step.
+5. Have an authorized News Triage run (or a claude.ai session) file the
+   overlooked country-radio No. 1 milestone as an `intake` issue.
+
+**Worked if:** a manually-dispatched **routine-news-triage** run reaches the
+Claude step and posts a run-log comment (or files an `intake` issue) instead
+of skipping with the missing-secret warning.
+
+**Status:** OPEN
+
+### 50. [BLOCKING] Add the Discord webhook for the social-channel morning brief and safe Permis repairs — ~5 min
+
+**Filed:** 2026-09-09
+
+**Why it matters:** the social-channel morning brief and safe Permis repair
+rollout need a private, reliable route to their Discord channel. Until this
+webhook exists, those routines cannot deliver the real brief or report a
+completed safe repair where the team can act on it.
+
+**Steps:**
+1. In the intended Discord social channel, open **Edit Channel → Integrations
+   → Webhooks → New Webhook**. Give it a clear name such as `Swift2 social
+   brief`, confirm the channel is correct, and copy its webhook URL.
+2. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables →
+   Actions → Secrets → New repository secret**. Store that URL as
+   `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` and save it. This GitHub Actions
+   repository-secret store is the approved location; do not paste the URL into
+   Discord chat, an issue, a commit, an email, or any repository file.
+3. Tell a session only that item #50 is set. It can run the normal safe
+   delivery verification without needing the webhook value.
+
+**Worked if:** the next scheduled social-channel morning brief arrives in the
+intended Discord channel, and a safe Permis repair report is delivered there
+when one is completed. The webhook URL is never exposed in logs or Git.
 
 **Status:** OPEN
 

@@ -42,6 +42,17 @@ describe('photo-library', () => {
     expect(validatePhotoEntry({ ...library[0], source: 'not-a-url' })).toContain('source must be an http(s) URL');
   });
 
+  // Fable ruling, kanban t_75ec7106 (PR #4062 review round 2): closes the
+  // hole a blank tags[] entry would open in selectSocialPhoto's fail-closed
+  // era filtering (a caller-supplied blank requiredTags would otherwise
+  // accidentally match it).
+  it('rejects a blank/whitespace-only entry in tags[]', () => {
+    expect(validatePhotoEntry({ ...library[0], tags: [''] })).toContain('tags entries must be non-blank strings');
+    expect(validatePhotoEntry({ ...library[0], tags: ['lover', '   '] })).toContain('tags entries must be non-blank strings');
+    expect(validatePhotoEntry({ ...library[0], tags: ['lover', 'eras-tour'] })).toEqual([]);
+    expect(validatePhotoEntry({ ...library[0], tags: undefined })).toEqual([]);
+  });
+
   it('does not deadlock after all five sources have been used: it selects the least-recently-used credited photo', () => {
     const history = [
       { photoId: 'lover-minneapolis', postedAt: '2026-09-01T23:00:00Z' },
@@ -95,5 +106,54 @@ describe('photo-library', () => {
       expect(validateQueueItem(draft)).toEqual([]);
       expect(validatePhotoInventoryBinding(draft, library)).toEqual([]);
     }
+  });
+
+  // 2026-09-10 (kanban t_75ec7106) — the founder-reported bug: the
+  // 2026-09-09 reputation/villain-era X post shipped a Lover-era tour photo
+  // because selection ignored theme entirely. These lock in the fix: a
+  // themed draft must only be offered a photo tagged for its own era, and
+  // a caller must be told "no match" rather than silently getting an
+  // unrelated era's photo.
+  describe('era-constrained selection (requiredTags)', () => {
+    const taggedLibrary = [
+      { ...library[0], tags: ['lover', 'eras-tour', 'minneapolis'] },
+      { ...library[1], tags: ['red', 'eras-tour', 'inglewood'] },
+      { ...library[2], tags: ['fearless', 'eras-tour', 'inglewood'] },
+    ];
+
+    it('only offers photos tagged with a required era', () => {
+      const selected = selectSocialPhoto(taggedLibrary, [], { requiredTags: ['red'] });
+      expect(selected.id).toBe('red-inglewood');
+    });
+
+    it('never falls back to an off-era photo: returns null when no tagged photo exists', () => {
+      expect(selectSocialPhoto(taggedLibrary, [], { requiredTags: ['reputation'] })).toBeNull();
+    });
+
+    it('still applies least-used/longest-unseen as the tiebreaker WITHIN the matching era', () => {
+      const twoRed = [
+        { ...taggedLibrary[1], id: 'red-a' },
+        { ...taggedLibrary[1], id: 'red-b' },
+      ];
+      const history = [{ photoId: 'red-a', postedAt: '2026-09-01T00:00:00Z' }];
+      const selected = selectSocialPhoto(twoRed, history, { requiredTags: ['red'] });
+      expect(selected.id).toBe('red-b');
+    });
+
+    it('an unconstrained call (no requiredTags) keeps the old total-over-non-empty-library behavior', () => {
+      expect(selectSocialPhoto(taggedLibrary, [])).not.toBeNull();
+    });
+
+    // Codex review round 1 (kanban t_75ec7106): a caller-supplied blank tag
+    // must fail closed, not silently discard itself and match everything.
+    it('a blank/whitespace-only required tag fails closed instead of silently matching the whole library', () => {
+      expect(selectSocialPhoto(taggedLibrary, [], { requiredTags: ['   '] })).toBeNull();
+      expect(selectSocialPhoto(taggedLibrary, [], { requiredTags: [''] })).toBeNull();
+    });
+
+    it('trims surrounding whitespace on a required tag before matching', () => {
+      const selected = selectSocialPhoto(taggedLibrary, [], { requiredTags: [' red '] });
+      expect(selected.id).toBe('red-inglewood');
+    });
   });
 });

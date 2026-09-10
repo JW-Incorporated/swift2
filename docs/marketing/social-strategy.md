@@ -495,7 +495,15 @@ The site's editorial standard applies to captions verbatim
 (`docs/content-ops/editorial-voice-and-pipeline.md`): **Taylor**, not bare
 "Swift"; no AI-tell phrases; no wire-attribution framing (the outlet is not the
 subject of the sentence — the fan's read comes first, the source second).
-Register is lowercase-warm, a fan telling a fan. Fan-made is implicit in the
+Register is warm, a fan telling a fan — standard sentence capitalization
+(caption openers and every new sentence start with a capital letter, proper
+nouns capitalized normally). The one carve-out: the four albums officially
+styled all-lowercase (`folklore`, `evermore`, `reputation`, and any future
+release with a lowercase official styling) stay lowercase even at a sentence
+start, per `era-capitalization.mjs` — that is brand-name styling, not
+register, and is unaffected by this change (Joey, 2026-09-10 — "why aren't we
+capitalizing the first letter in a sentence? drives me nuts"; supersedes the
+lowercase-everything register call from 2026-08-25 below). Fan-made is implicit in the
 bio, never claimed as official. The `#36`/Clownbot blocklist (health, pregnancy,
 sexuality, family/minors, legal wrongdoing, private individuals,
 relationship-existence speculation) applies to every draft, and nothing is ever
@@ -526,7 +534,8 @@ GUSH. Every caption is first-person fan reaction first, fact second: lead with
 the feeling ("OMG", "i can't stop thinking about", "this makes me so happy"),
 then the one concrete detail that earns it. If a caption could be read aloud
 by a documentary narrator without sounding wrong, it's in the old voice —
-rewrite it. Lowercase stays; detachment goes. Exclamation points and
+rewrite it. Standard sentence capitalization applies (2026-09-10 update
+above); detachment goes. Exclamation points and
 caps-for-emphasis are welcome; 1-2 emoji max, never strings. The specificity
 test still binds both ways: joy without a real detail is slop, and a detail
 without joy is a museum placard. Unchanged: sourcing is absolute — gush only
