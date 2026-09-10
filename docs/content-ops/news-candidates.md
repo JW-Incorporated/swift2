@@ -27,6 +27,46 @@ so far".
 
 Stories: 80
 
+## Taylor Swift reportedly remains silent on Travis Kelce situation
+
+- first seen: 2026-09-10 13:32 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been reported to avoid complaining about her situation with Travis Kelce, despite feeling frustration. This comes amid ongoing public interest in their relationship.
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNRXkxNHN0aW5rTklUMG1pRks1VXB4Z3czend0X1pkS1VvWFlJQmdYQmtfLUc4WVQ0aHE5V0VtU25PTzBIWFVqbXVTQ0EtN2pCY3ZES1Mwa0dTdzhCeEMzbkUxX2VXV2V5YXl3cmhuaF9qenljOWNsTjV1azdua290Rl9nbEUxTWR6UGZHT1M3QnhKb2J2Tm5RVFpNTHhNaFhvU0hXTUd0cWVyX3hDNi1R?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Bug Genus Named After Taylor Swift
+
+- first seen: 2026-09-10 13:32 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A newly discovered genus of bugs has been named in honor of Taylor Swift, as reported by USA Today. This recognition highlights the cultural impact and influence of the artist in unexpected fields.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiygFBVV95cUxNeTFVZjZaX3hBTlgwWmM0clp3SjhiQkM4RGx1YXIxd192cHRnV19rdWpUcFVVMWJ0bGdCQm1MY1dxaDVDXzFLMFlUcWQtWUdtR3U1SXR3NWRfY2ptaUtDcE4zWXhzOUVJNUJFajBYazdtQ2Y1MVJSMFgwVUlmQ1FMbmRYTmE2UEZIT1BxMTBxQUdSM3MzR05rMzBFNEtmNXFXOVBBbEdHdlQ5ZUZ6ZUlYX05ReEFUSEJHQm8wOFd2RFpMY0xRX2kyY0pR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Insect Species Named After Taylor Swift
+
+- first seen: 2026-09-10 13:32 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Four new species of blonde insects have been named 'Swiftiephylus' in honor of Taylor Swift. This unique tribute highlights the impact of her influence beyond music and into the realm of scientific naming.
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxORzNUOGNLSUY4Wl9zVlkzel92TmZGSGtpaFlFWGZ1Rk9pQjVzSC1LeTFfSDN6SjFhSzlNZ3E1bklEdUptaEhTOHVwZ0VaQnhaVTg5bk9CTFU4OVY2TzZtbk1LVEk3MEVKalpsVGJEb2JsbG1TRTRFd21ORHlpaV9tcTRSTzdubm1BbkoxVS15YlhiR1JsUGU4WlI0Wk1DRHc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Insect Named After Taylor Swift: Swiftiephylus
+
+- first seen: 2026-09-10 13:32 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new insect species has been named 'Swiftiephylus' in honor of Taylor Swift, marking a unique recognition of her legacy in the scientific community.
+- sources:
+  - [unverified] Metro.Style — https://news.google.com/rss/articles/CBMiwAFBVV95cUxNQTI3amVKVkJwVkFwVlkwY2FvVDl5NlRxWFA2azQzYzVBZTZocEljMFVSSjJ6azdfWFU2MGNfV0YxOUFQTHhvejM5cmV5Szl0X3pJZ2JCbkNHOGliVF9Qc0diNHV1MWpMRGg3NDR2THdMVTJuajJsNTYwdGZWdmtjMXRkcVByYlJvYVpRc2ZrWEFERXE5UEpabWVGbEtLRU1jRzFxUnp3VW93NVhndldaVXpsTkJpbUdHUVJpMlV1el8?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Rhode Island Implements 'Taylor Swift Tax' on Vacation Homes
+
+- first seen: 2026-09-10 13:32 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Rhode Island has introduced a 'Taylor Swift tax' targeting vacation homes to generate funds for affordable housing initiatives. This measure aims to address the state's housing crisis by leveraging the popularity of Taylor Swift.
+- sources:
+  - [unverified] The Christian Science Monitor — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPcHdUUGxYSUZub3BLeVBQd3dMWThrNXN1ajRPMnU4ZnBObksyM24wa2h4WXhuYUpsWFRmZm05QnM2V092anVWUUhWaEdoWFdjNzEwcU9aWTJ5NDlPRnV3RzdwVk5YNnBMSlRHR015TldMTkE1LVhyWmRHaDNmSlhqcG9UYzdJQWVO0gGiAUFVX3lxTE5tWnNkSnFrd185V0dJMzB0aUxYX1pyT0NpRFBaanBfTmpIbVZiSV9tVlNjZVkxanU3c1ZUdnlzZ0MwZTRGVXNGclhFMnpmU3k1YUZxZHFGdDZBc0F6Yk9pVU9YdFhDejZTbTUza3JZUjNTLTNFTndpYzZhczl2ZnZDVTJ6TXd5VVBnR3ppOTV0bXlFOEJlcGVFeWlUSFVTZDhNUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Study links Taylor Swift's 'Midnights' to increase in car accidents
 
 - first seen: 2026-09-10 05:55 UTC | category: music | importance: 6
@@ -174,15 +214,6 @@ Stories: 80
 - sources:
   - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMinwFBVV95cUxQalp3SHVkNzByazZUX281SmcxR3pteUduZk5xOWUycUVyLTR1eVY1OVo3YWxIRll5MTdzWGtjWTRhUndScTNubmJJWGNEVVBTM3hPdEF5WmRkZVBpemV4Zkt1M0theWw0THowVUVvandFNEVBWDlYTUdXc1ZEbkViTjFJMmZzZ08xaW9YUllNWTk5VFU4QnJoVTFYcWk3SXM?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## New Bug Species Named After Taylor Swift Recognized
-
-- first seen: 2026-09-09 19:44 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Four new species of bugs named Swiftiephylus have been identified in Australia, drawing connections to Taylor Swift's global fanbase, emphasizing her widespread influence.
-- sources:
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPdmhDSnFwRTlKWFVuSmZoazRxY29jSUNQNHNSdEJKWVZoY1NPWjlzM0FxTDNlYVhhVC12UEdBZ1JocG5ValJjcVVpZGNOSVZCMmVOMWw1NXNhMkhRUnNHdGRhVDFXQzVRYWVZUUpIN1VnajI3MXJDNU9MdndoQ3ExY2lUeU9xbzNZOW9TYjdGc09CQjB2aGx4eUVLLXJtbndGWkloa29ESGxKYmM?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/culture/culture-features/taylor-swift-bugs-australia-swiftiephylus-1235623222/
-
 ## Taylor Swift and George Strait to Receive Nashville Songwriting Honors
 
 - first seen: 2026-09-09 19:44 UTC | category: music | importance: 7
@@ -199,6 +230,16 @@ Stories: 80
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMivwFBVV95cUxOOTc2UXBRS21sWGM2OEx6SjNsSHo1MVhoa3RuSWI4YW14aVVzOFBlcTdnd2w0ME9RYVI1UWw1Y0dNZTFYTXBRcm5ERXRrcG12MUFuOXc3YXl2S2Jmek5pWmM1bUxyNnhMcVpudldsQ2Izcnd5SnhwSG41VjJlaE1IUFE2OXNxN2k1R3laVEE4bFNOdnRWaHE3VkQtMEFXVG5jdVhGVU9lNUJJelBhTjFDNHZLOEZCWTFvTU1hR1BZVQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxOM0hiUjJwdGVDWmRTeGtDTEZtdmtPS3B2WkUyaU1yMUVqWTZ0UmhjNjdzR0pnUjlhMFljaVc5WXZBX244d2hGN0tqRmhmdkJlRHBJcTd4Z2o4MlVNWEZ2aXZMMGdUeVZ4VmZfS1JCY1BmZkowN0s5VWVWSmNaQzVtdzdHOE1QNjZYZW1TTl9xcVdqT0dISFBuXy0tTWtKVG9UMHVj?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Bug Species Named After Taylor Swift Recognized
+
+- first seen: 2026-09-09 19:44 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Four new species of bugs named Swiftiephylus have been identified in Australia, drawing connections to Taylor Swift's global fanbase, emphasizing her widespread influence.
+- sources:
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPdmhDSnFwRTlKWFVuSmZoazRxY29jSUNQNHNSdEJKWVZoY1NPWjlzM0FxTDNlYVhhVC12UEdBZ1JocG5ValJjcVVpZGNOSVZCMmVOMWw1NXNhMkhRUnNHdGRhVDFXQzVRYWVZUUpIN1VnajI3MXJDNU9MdndoQ3ExY2lUeU9xbzNZOW9TYjdGc09CQjB2aGx4eUVLLXJtbndGWkloa29ESGxKYmM?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/culture/culture-features/taylor-swift-bugs-australia-swiftiephylus-1235623222/
+  - [unverified] Rolling Stone Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxPbHNIX2pUWDdHdXQ0dFJ2X3ZBTmE3cDU1ZGhLeHI3aHVtZFhBRFgwOTh1bW1iYUJfNVFVTzVuRnpvcXZwaklZTjhrNDVkYjBpME0tYklyeUp6MnM3N0RoZUZSYjhWRDZ4d2Q1VjhudllpTUZ5bWhKOHNZSlU1NVFVTXdn?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Alanis Morissette Discusses Criticism Similar to What Taylor Swift Faces
 
@@ -645,47 +686,3 @@ Stories: 80
 - summary: Taylor Swift's country song has achieved the number one position, as reported by local3news.com. The achievement highlights her continued success in the music industry.
 - sources:
   - [unverified] local3news.com — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOSXVMZGltaVBwaHNfMTdMbjZNRm1YNnNhR0k5R1FlWVZNbEkzUlNnZ3RabmxZZndPVU43aEhVMFdLWGp2YXZGYmUxYkdDYUQ4dzlkQUljeFlEeTdnV28xUDlzeXN5VUNOd0FQbmhhbzByRXZFcUVzdnpuVnJGNlo1YTdhX25mczNUbVFzaXM4M0RMVnBSbVpsVGdsdkJ0UnBESlYwNW1vVHI3dUhTVFVaSHVIbURXWjhEYzJHUGFneGQ0WUpiVmhrcEt1QjVBbFZv?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Discusses Meanings Behind Her Country Track
-
-- first seen: 2026-09-07 06:01 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift shares insights into the themes and meanings of her latest country song, which is climbing the charts. This revelation adds depth to her music and engages fans further.
-- sources:
-  - [unverified] indiana105.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxQSGx5LWp6SFk1b1oyYTBOSExhWHFsNTZPM2Z5X25rNEJKUzNFZjZvdFZ2ZXFxQzU5emFBMWF3MGJaeXdKeE13cV9NcUhpWDQ5NGt3b2ZHeU9nSFpJSTYzdVlHb2psc21vaF9leTVjNklDY3hKTXFkR2NRQXJVOXRkYV9rUVV6akw4R21mdFZaSzRNZkgxVU1vLWRoQkVVdEJYSVdROE8taXBFbURNVG5UM1JqWE5Nd21fUUE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Unfortunate News for Taylor Swift Ahead of Chiefs Season
-
-- first seen: 2026-09-07 06:01 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift faces some unfortunate news as the Chiefs season approaches, as reported by heavy.com. The nature of the news is not detailed in the source, leaving fans to speculate about its impact.
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPcm5HTDRZSWNsOG44ZUgxelVZYlRYU3dGRzVicUVndnZIdkxhY1BzNmJaVU5qU1N5aS05Q19tSThneXlBR0p1NnhQT3MteVU3UzFIdDVUaGRLNkpMdUNSWjJUX0xQaEJiMWdKN3Q5YUFzQTVDU1paU3lIRklUYW94VDVGeXRqVkN6S29KMjhhSFpwWWdPMjRJdHc1MF9oT2hzRG96dEpmSjg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves 13th Country Radio Chart-Topper
-
-- first seen: 2026-09-07 06:01 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reached her 13th career chart-topper on the country radio charts, marking another milestone in her musical journey. This achievement highlights her enduring popularity in the country music genre.
-- sources:
-  - [unverified] The Music Universe — https://news.google.com/rss/articles/CBMikAFBVV95cUxQaXlQOFNsVEl4ckhrd0lIeE5xNUxPZXBQbWN0NVFlY0ZGclN1eERBUXhCb2ZudDVEb3hVRlFubzcyNjd3cGo1WjY5TjBtMjh6Ylp1cHdaT0NkczNMWm83dHg5dmJuUWpKTy16ZDBjTHg3TnplM1lObzRja1gzOTkxR196Zkx4M2F5WWxqMHY2dzI?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Nikki Glaser Shares Details from Taylor Swift-Travis Kelce Wedding
-
-- first seen: 2026-09-07 06:01 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nikki Glaser discusses her experience at the wedding of Taylor Swift and Travis Kelce, revealing humorous insights.
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMilAFBVV95cUxNSkdyY1M3elpsZWM0YkJjLVpncUY4ckNoY05rdmxreHdmRFZidWZnc25NMDFlaVlJSnpTRXExQ1ZNNkxpZVhNY3BFS0VwY2d6b0gtUjl4S3VpRjNka2NGd0ViQzE5Mzc2S1k2Wk9vTXBVNU9DUHBoeEk5YjgxT1MyS1B4NENHZUJxeTYtbk8wVGVLN3I5?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Tops Country Radio Chart with New Song
-
-- first seen: 2026-09-07 06:01 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 5
-- summary: Taylor Swift has reached the top of the country radio chart with her song “I Knew It, I Knew You.” This marks another success in her music career.
-- sources:
-  - [unverified] broadwayworld.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOU29XTkU0d0ROdF9XVEdfSTVlcXYzVGVQaThqMVFtYmdDcWJUUFZUQ0RfcUFNYlVXMkxzS3p5bG9YbURlT2NYZmtoSldNLUtqSW5rTkFHSTdncnRwR2hWOHV5TmdlUmNYblppQ3VLNlhfQ1dSaWNra2ZleFAyNUdRNW90cHl0cHphMW84R0RxRU5yMmJwV3c5MnZVUklvRFk2cUpnenRwUENmRHd3QmpIcktXejQydloxZ1NV?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] contactmusic.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxORjBobEFBWEhpdXhwOWItb3BleUdyTTM0TWFFR05PZHNSVXBoMkVZUWxwb01WaUxGLTdTQTdENFdrMm9SNlRYVTIzZl9ta3ZUdEhOMGxRbjN0Vy1PSkVZYndMa1o5dXNBUWZfU2JnYWx0MHJ2a05yNVVlbDN5S05PeV9iR05kWDRwRlRVTk9IN2lNeEFGN3Nnd1R2SlBrRGowUXFEREItN2JvNV9QeUxweDhibTdaUHpnNmp0ODhBM0RKOGxLbE05bFBaSkI?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxNQjhyN09YNHpRVVhfVV9zYTliT2FfbW45cS12Nk5ubE9vcHpSX3ROYTlHNnFQaGlLckNLMVY4eC1yWFVseDRidHptUS0tVkRnN2Q1QjJKbkxFbm9mVUJKaFd2RUR6UEpRTUhvSEpBWHd6THhNX3p3Qm8zMHhqUG43a2lwdXUyTzcxM1BFSlNDR2ZfOGs?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] the360mag.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxOUkJzRHFKRTA4S0NTQll5ZUtDTmlMSHowVG1hTkdjTjlpcl9rQi00d0tySWlqT0d2RUFYVUFfOVhrSHRQTmsycXJyYldaRzRzVWtVeGl4UmppbWdWR2FSV1lDeXlGUm93dWVkZEQtbmVWV1NrRDBQYXlGZ2hpemFYTXV5bjNSdUo2NmJnZ21ZanVOOVdK?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxQQ0wxbWRxLWFRakpmSXBJOEZiNWVrNU9OcUtCMll0dTVYOUFvYVlnNVJ3bVpocC14MjVDY2JCdDJlejgyMjBzUzEtbnVHSDVOWWpmQ3ZKRm9MNWQtbUw2Vm9aOWpaQi1jenFlM0tGY3k3bUF2X3FvOWk5aDhDcllhckwzLWpncDJmUDJNZ094MVNzaDZRbXVtTnNUMlZkZw?oc=5&hl=en-US&gl=US&ceid=US:en
