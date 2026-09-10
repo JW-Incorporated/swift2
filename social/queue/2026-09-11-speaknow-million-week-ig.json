@@ -1,0 +1,13 @@
+{
+  "platform": "instagram",
+  "body": "ok i genuinely can't stop thinking about this one 🤍\n\nby 2010 the story on speak now was already written: too confessional, too young, not a \"real\" songwriter. so she made the whole album completely alone — no co-writers, first time ever — as a direct answer to that.\n\nit opened to 1,047,000 copies in one week. the first album since lil wayne's tha carter III to clear a million in a single opening week, and it nearly doubled what fearless did. she became only the fourth woman ever to sell a million copies in a week, after britney spears, whitney houston, and norah jones.\n\ntag whoever doubted her range back then — you know they're eating their words now.\n\n📷 speak now set, the eras tour, inglewood 2023 — paolo villanueva (cc by 2.0), via wikimedia commons.\n\nlonglivets.com/?era=speak-now&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat",
+  "media": ["/social/library/photos/taylor-speaknow-eras-inglewood-2023.jpg"],
+  "mediaKind": "photo",
+  "photoId": "speaknow-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_(53109973243).jpg",
+  "scheduledAt": "2026-09-11T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:speak-now-million-week-2010",
+  "photoEra": "speak-now",
+  "why": "IG sibling of the 09-11 heartbeat:era-deep-cut speak-now beat (GH issue #4069 fix, card t_42b5f6d8). Long-form, gush-first (feeling then the concrete facts), structurally and lexically diverged from the X post (>20%). Hook shape = the contradiction. All figures from the Vault item 'Speak Now sells over a million copies in a single week' (supabase/seed/content/speak-now.mjs), cited to Billboard + Grammy.com + The Boot: 1,047,000 week-one copies, first million-copy week since Lil Wayne's Tha Carter III, an opening week that 'nearly doubled what Fearless did' (Grammy.com's own framing), and the fourth-woman-ever detail (after Britney Spears, Whitney Houston, Norah Jones) — all in the same Vault item. Nothing invented. Share hook ('tag whoever doubted her range back then') grounded in the same no-co-writers detail as the X post. Era-matched credited speak-now Eras-Tour photo (inventory entry speaknow-inglewood-2023, added by PR #4062); photo-only per heartbeat media rule. Replaces the stale red-fallback queue pair, whose `why` field incorrectly claimed no cleared speak-now photo existed. Lyric-free, blocklist-safe."
+}
