@@ -42,38 +42,64 @@ function backupPathFor(dest: string): string {
   return `${dest}.pre-render-test-harness-backup`;
 }
 
-function symlinkPackage(name: string): void {
+/**
+ * Swaps `node_modules/<name>` for a symlink into apps/web's copy, and
+ * reports how to undo it on teardown.
+ *
+ * Three starting states, three teardown actions — this is the one place
+ * that distinction matters, so it lives here rather than being inferred
+ * later from filesystem state that a parallel process could have already
+ * changed:
+ *   - 'already-linked': nothing was touched; teardown does nothing.
+ *   - 'restore': a real root copy existed and was parked; teardown must
+ *     put it back (the round-2 review's fixed case).
+ *   - 'remove': no root copy existed at all — root node_modules had no
+ *     hoisted `react`/`react-dom` of its own; teardown must delete the
+ *     symlink this run created, not silently leave it (the remaining gap
+ *     the round-2 review found: a no-op teardown here would permanently
+ *     introduce a root package that never existed before this test run).
+ */
+function symlinkPackage(name: string): 'already-linked' | 'restore' | 'remove' | 'skip' {
   const source = join(repoRoot, 'apps/web/node_modules', name);
   const dest = join(repoRoot, 'node_modules', name);
-  if (!existsSync(source)) return;
+  if (!existsSync(source)) return 'skip';
   if (existsSync(dest)) {
     const alreadyLinked = lstatSync(dest).isSymbolicLink() && realpathSync(dest) === realpathSync(source);
-    if (alreadyLinked) return;
+    if (alreadyLinked) return 'already-linked';
     // Park the real root copy instead of deleting it, so teardown can put
     // dependency resolution back exactly as npm install left it.
     const backup = backupPathFor(dest);
     rmSync(backup, { recursive: true, force: true });
     renameSync(dest, backup);
-  } else {
-    mkdirSync(join(repoRoot, 'node_modules'), { recursive: true });
+    symlinkSync(source, dest, 'dir');
+    return 'restore';
   }
+  mkdirSync(join(repoRoot, 'node_modules'), { recursive: true });
   symlinkSync(source, dest, 'dir');
+  return 'remove';
 }
 
-function restorePackage(name: string): void {
+function teardownPackage(name: string, action: 'already-linked' | 'restore' | 'remove' | 'skip'): void {
   const dest = join(repoRoot, 'node_modules', name);
-  const backup = backupPathFor(dest);
-  if (!existsSync(backup)) return;
-  rmSync(dest, { recursive: true, force: true });
-  renameSync(backup, dest);
+  if (action === 'restore') {
+    const backup = backupPathFor(dest);
+    if (!existsSync(backup)) return;
+    rmSync(dest, { recursive: true, force: true });
+    renameSync(backup, dest);
+  } else if (action === 'remove') {
+    // Nothing existed at the root before this run created the symlink —
+    // undo means delete it, not restore a backup that was never taken.
+    rmSync(dest, { recursive: true, force: true });
+  }
+  // 'already-linked' and 'skip': nothing to undo.
 }
 
 export default function setup() {
-  symlinkPackage('react');
-  symlinkPackage('react-dom');
+  const reactAction = symlinkPackage('react');
+  const reactDomAction = symlinkPackage('react-dom');
   return () => {
-    restorePackage('react');
-    restorePackage('react-dom');
+    teardownPackage('react', reactAction);
+    teardownPackage('react-dom', reactDomAction);
   };
 }
 
