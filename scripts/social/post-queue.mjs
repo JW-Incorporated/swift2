@@ -355,23 +355,40 @@ export async function main() {
 
   const recentIg = recentInstagramPosts(allPostedData);
   const mediaUsedThisRun = new Set();
-  // Campaigns with a sibling already posted THIS run (2026-09-10, kanban
-  // t_bac31b1a — codex review: checkSimultaneousPair's "schedule both
-  // siblings within 5 minutes" is meaningless if the poster still can't
-  // actually PUBLISH both within one run). A due campaign pair is one
-  // posting UNIT: once one sibling posts, its partner is exempt from both
-  // the same-run media-reuse guard (intentionally shares the same credited
-  // photo — that's not a duplicate-content problem, it's the whole point of
-  // pairing) and the per-run MAX_POSTS_PER_RUN cap (a pair scheduled
-  // together must not have one half deferred to the next run, 30 minutes
-  // later, defeating "all at once").
-  const postedCampaignsThisRun = new Set();
+  // A campaign whose BOTH siblings are due together in THIS run is one
+  // posting unit (2026-09-10, kanban t_bac31b1a — codex review round 1/2):
+  // checkSimultaneousPair's "schedule both siblings within 5 minutes" is
+  // meaningless if the poster still can't actually PUBLISH both within one
+  // run. Computed UPFRONT from `due` (order-independent — the original
+  // "exempt only after the first sibling has already posted" version broke
+  // the moment two siblings interleaved with an item from a DIFFERENT
+  // campaign between them, since `due` is a single list sorted by
+  // scheduledAt, not grouped by campaign). Each sibling is exempt from the
+  // per-run cap (a pair scheduled together must not have one half deferred
+  // to the next run, 30 minutes later) and the same-run media-reuse guard
+  // (intentionally shares the same credited photo — that's not a
+  // duplicate-content problem, it's the whole point of pairing).
+  //
+  // This is safe from ever letting an unbounded number of pairs bypass the
+  // pacing floor in one run: MAX_POSTS_PER_PLATFORM_PER_DAY is 1, so
+  // `selectDuePosts` (called with maxPerRun: Infinity below but still
+  // respecting the per-platform daily budget) can never return more than
+  // one due `x` item and one due `instagram` item in the first place —
+  // there is at most ONE pair-ready campaign per run under current caps.
+  const duePlatformsByCampaign = new Map();
+  for (const item of due) {
+    const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+    if (!campaign) continue;
+    if (!duePlatformsByCampaign.has(campaign)) duePlatformsByCampaign.set(campaign, new Set());
+    duePlatformsByCampaign.get(campaign).add(item.platform);
+  }
+  const isPairReady = (campaign) => campaign !== '' && (duePlatformsByCampaign.get(campaign)?.size ?? 0) >= 2;
   let attemptsThisRun = 0;
 
   for (const item of due) {
     const entry = validQueued.find((q) => q.data === item);
     const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
-    const siblingAlreadyPostedThisRun = campaign !== '' && postedCampaignsThisRun.has(campaign);
+    const pairReady = isPairReady(campaign);
 
     // 1. Stale check FIRST — unconditional, regardless of what else is true
     // about this item. A 3-day-stale item must not quietly post just
@@ -403,7 +420,7 @@ export async function main() {
     // buildSocialDraftPair) — exempt only that specific case, not an
     // unrelated item that happens to reuse the same image.
     if (!blockReason) blockReason = eraArtGuardReason(item, recentIg);
-    if (!blockReason && !siblingAlreadyPostedThisRun) {
+    if (!blockReason && !pairReady) {
       const repeatedThisRun = item.media?.find((m) => mediaUsedThisRun.has(m));
       if (repeatedThisRun) blockReason = `media "${repeatedThisRun}" was already posted earlier in this same run — not reposting it again this run.`;
     }
@@ -463,7 +480,7 @@ export async function main() {
     // makes the pairing promise the schema enforces actually true at
     // publish time — see MAX_POSTS_PER_PLATFORM_PER_DAY in lib/queue.mjs,
     // which still bounds each PLATFORM's daily volume regardless.
-    if (attemptsThisRun >= MAX_POSTS_PER_RUN && !siblingAlreadyPostedThisRun) {
+    if (attemptsThisRun >= MAX_POSTS_PER_RUN && !pairReady) {
       console.log(`social-poster: per-run cap (${MAX_POSTS_PER_RUN}) reached — deferring ${entry.file} to the next run.`);
       continue;
     }
@@ -496,7 +513,6 @@ export async function main() {
       for (const m of item.media ?? []) mediaUsedThisRun.add(m);
       if (item.platform === 'instagram') recentIg.push(posted);
       allPostedData.push(posted);
-      if (campaign) postedCampaignsThisRun.add(campaign);
     } catch (err) {
       const lastError = String(err.message ?? err);
 

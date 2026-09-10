@@ -486,11 +486,19 @@ async function main() {
         // postedHistory immediately after staging, so the NEXT candidate in
         // this same run's selectSocialPhoto call ranks this photo behind
         // any still-unused alternative.
-        const [firstDraft] = drafts;
-        if (firstDraft) {
+        //
+        // ONE record per DRAFT, not per pair (codex review round 2, kanban
+        // t_bac31b1a): a real posted pair leaves TWO social/posted/*.json
+        // records for the same photo (one per platform) — selectSocialPhoto
+        // counts records via historyFor, so a single reservation would
+        // undercount this photo's use-count by one relative to a real
+        // posted pair, letting a later candidate in the same batch rank it
+        // ahead of a photo that's genuinely been used less.
+        if (drafts.length) {
+          const reservedAt = new Date(now).toISOString();
           postedHistory = [
             ...postedHistory,
-            { photoId: firstDraft.item.photoId, media: firstDraft.item.media, postedAt: new Date(now).toISOString() },
+            ...drafts.map(({ item }) => ({ photoId: item.photoId, media: item.media, postedAt: reservedAt })),
           ];
         }
       } catch (e) {

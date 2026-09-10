@@ -97,20 +97,90 @@ export function isDue(item, now) {
  * with `maxPerRun: Infinity` to get every due-and-within-daily-budget
  * candidate, then enforces MAX_POSTS_PER_RUN itself in the loop, counted
  * only against items it actually attempts to post — not ones it skips.
+ *
+ * PAIR-AWARE selection (2026-09-10, kanban t_bac31b1a-followup — codex
+ * review round 4): the per-platform daily budget is independent per
+ * platform, so a naive earliest-due-first selection can pick campaign A's
+ * `x` item (because it's the earliest due `x`) and campaign B's `instagram`
+ * item (earliest due `instagram`) in the SAME run, leaving A's Instagram
+ * sibling and B's X sibling both unpicked — the exact single-platform
+ * publication checkSimultaneousPair's "schedule within 5 minutes" promise
+ * exists to prevent, just moved from drafting time to selection time. Fixed
+ * with two passes:
+ *   1. COMPLETE PAIRS FIRST: find every `campaign` whose both `x` AND
+ *      `instagram` siblings are due, in ascending order of the EARLIER
+ *      sibling's `scheduledAt`. A pair is selected together — both siblings
+ *      or neither — and only when each platform still has daily budget for
+ *      it (so a pair never partially claims a budget slot and then stalls).
+ *   2. REMAINING BUDGET, SOLO ITEMS: everything left (items with no
+ *      `campaign`, or whose sibling isn't due yet) fills any still-open
+ *      per-platform daily slots in the original earliest-due-first order —
+ *      unchanged from before this fix.
+ * A pair consumes exactly one slot of EACH platform's daily budget, same as
+ * two independent solo items would — this does not raise
+ * MAX_POSTS_PER_PLATFORM_PER_DAY, it only avoids splitting a pair across
+ * two different campaigns' items competing for the same per-platform slot.
  */
 export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PER_RUN) {
   const remaining = new Map(postedToday);
   const due = items.filter((item) => isDue(item, now)).sort((a, b) => new Date(a.scheduledAt) - new Date(b.scheduledAt));
 
   const selected = [];
-  for (const item of due) {
-    if (selected.length >= maxPerRun) break;
-    const usedToday = remaining.get(item.platform) ?? 0;
-    if (usedToday >= MAX_POSTS_PER_PLATFORM_PER_DAY) continue;
-    selected.push(item);
-    remaining.set(item.platform, usedToday + 1);
+  const takenIndices = new Set();
+
+  const hasBudget = (platform) => (remaining.get(platform) ?? 0) < MAX_POSTS_PER_PLATFORM_PER_DAY;
+  const claim = (platform) => remaining.set(platform, (remaining.get(platform) ?? 0) + 1);
+
+  // Pass 1: complete campaign pairs, earliest-sibling-first.
+  const byCampaign = new Map();
+  due.forEach((item, index) => {
+    const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+    if (!campaign) return;
+    if (!byCampaign.has(campaign)) byCampaign.set(campaign, []);
+    byCampaign.get(campaign).push({ item, index });
+  });
+  const pairCandidates = [];
+  for (const entries of byCampaign.values()) {
+    const platforms = new Set(entries.map((e) => e.item.platform));
+    if (platforms.size < 2) continue; // not a due pair — leave both for pass 2
+    const earliest = Math.min(...entries.map((e) => new Date(e.item.scheduledAt).getTime()));
+    pairCandidates.push({ entries, earliest });
   }
-  return selected;
+  pairCandidates.sort((a, b) => a.earliest - b.earliest);
+  for (const { entries } of pairCandidates) {
+    if (selected.length >= maxPerRun) break;
+    // Take one representative entry per platform (the earliest-due one, in
+    // case of a stale duplicate scheduling) so a pair never selects more
+    // than one item per platform.
+    const byPlatform = new Map();
+    for (const e of entries) {
+      const existing = byPlatform.get(e.item.platform);
+      if (!existing || new Date(e.item.scheduledAt) < new Date(existing.item.scheduledAt)) byPlatform.set(e.item.platform, e);
+    }
+    const reps = [...byPlatform.values()];
+    if (reps.length < 2) continue;
+    if (!reps.every((e) => hasBudget(e.item.platform))) continue; // one side's platform is already at its daily cap — skip the pair, not a partial pick
+    for (const e of reps) {
+      selected.push(e.item);
+      takenIndices.add(e.index);
+      claim(e.item.platform);
+    }
+  }
+
+  // Pass 2: fill any remaining budget/run slots with solo items, unchanged
+  // earliest-due-first behavior.
+  due.forEach((item, index) => {
+    if (selected.length >= maxPerRun) return;
+    if (takenIndices.has(index)) return;
+    if (!hasBudget(item.platform)) return;
+    selected.push(item);
+    claim(item.platform);
+  });
+
+  // Restore overall earliest-due-first ORDER in the returned list (pass 1
+  // can otherwise put a later-scheduled pair ahead of an earlier solo item)
+  // — callers (post-queue.mjs) process `due` in the order this returns.
+  return selected.sort((a, b) => new Date(a.scheduledAt) - new Date(b.scheduledAt));
 }
 
 /** YYYY-MM-DD in UTC, used to bucket social/posted/ files by day. */

@@ -196,6 +196,28 @@ describe('buildSocialDraftPair', () => {
     expect(checkCrossPostCopy(x.filename, x.item, allQueue)).toEqual([]);
   });
 
+  // Regression (codex review round 2/4, kanban t_bac31b1a-followup): an
+  // earlier igBodyTemplate used near-identical phrasing to the X body
+  // ("no caption yet, link below" on both), and once both siblings also
+  // shared the exact same title tokens AND URL, that pushed bodySimilarity
+  // over checkCrossPostCopy's 0.8 hard-fail threshold for ordinary titles —
+  // the generated draft would never have passed the real content gate.
+  // Exercise several representative title shapes (long, short, punctuated)
+  // across both official and third-party candidates.
+  it.each([
+    'Taylor Swift Performs Fortnight Live At The VMAs',
+    'Taylor Swift - The Fate of Ophelia (Official Music Video)',
+    'The Life of a Showgirl: A Very Long Interview About the New Album',
+    'Hi',
+  ])('does not trip checkCrossPostCopy for title %s across all-uploads and third-party rules', (title) => {
+    for (const rule of ['all-uploads', 'taylor-swift']) {
+      const { drafts } = build(candidate({ title, rule }), { now: NOW });
+      const x = findX({ drafts });
+      const allQueue = drafts.map((d) => ({ file: d.filename, data: d.item }));
+      expect(checkCrossPostCopy(x.filename, x.item, allQueue)).toEqual([]);
+    }
+  });
+
   it('truncates an implausibly long title and stays under X\'s weighted limit', () => {
     const longTitle = `Taylor Swift ${'performs a very long segment title '.repeat(15)}live`;
     const { drafts } = build(candidate({ title: longTitle }), { now: NOW });

@@ -131,6 +131,14 @@ function xBodyTemplate(title, channel, url, isOfficial) {
  *      version of this fix) needed only 4, a materially bigger regression
  *      flagged and rejected in codex review round 3.
  *
+ * The surrounding prose is deliberately LONG and substantially different
+ * from the X body's terse "no caption yet, link below" (codex review round
+ * 4, kanban t_bac31b1a-followup): once both bodies carry the same shared
+ * title tokens AND the same URL's tokenized form, that overlap alone pushes
+ * `bodySimilarity` uncomfortably close to `checkCrossPostCopy`'s 0.8
+ * hard-fail threshold for an ordinary-length title — the terse phrasing an
+ * earlier version used compounded that instead of counteracting it.
+ *
  * `url` is included as plain text (Instagram captions don't autolink, but
  * every other paired post in social/posted/ ships its link as visible
  * caption text the same way — see any *-ig.json sample) rather than a
@@ -140,8 +148,8 @@ function xBodyTemplate(title, channel, url, isOfficial) {
  */
 function igBodyTemplate(title, channel, url, credit, isOfficial) {
   return isOfficial
-    ? `landed: "${title}" — no caption from her yet, but we're not waiting to talk about it. ${url}\n\n📷 ${credit}`
-    : `dropped: "${title}" on ${channel}. unverified beyond the title itself, but taylor's name is right there — ${url}\n\n📷 ${credit}`;
+    ? `landed: "${title}." that's genuinely the entire situation right now — her own channel, zero caption, zero context, just a title and a running clock until someone figures out what it means. going to be an interesting few hours around here.\n${url}\n\n📷 ${credit}`
+    : `spotted: "${title}." ${channel} put it up, her name's sitting right there in plain sight, and that is the full extent of what anyone actually knows at this exact moment — draw your own conclusions.\n${url}\n\n📷 ${credit}`;
 }
 
 /** Trims `title` to fit whatever's left of X's weighted budget after the
