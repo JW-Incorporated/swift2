@@ -552,10 +552,26 @@ jobs:
           # social/posted/ (social-poster.yml), and stranding those is the
           # exact 2026-08-11/12 Instagram-triple-post failure mode
           # (issue #2031) — a removal-only PR still needs to auto-merge.
+          #
+          # EXEMPTION (2026-09-10, Fable review finding A on #4090): the
+          # poster's own `social-poster/state-*` PRs also write `attempts+1`
+          # retry bookkeeping back into an EXISTING queue file — a `modified`
+          # status, not a new draft. Declining those strands the retry
+          # counter forever and pings #longlive-social to "approve" internal
+          # bookkeeping. Only `modified` on this exact branch prefix is
+          # exempt — `added` is NEVER exempt, on any branch, so a state
+          # branch can never smuggle in a brand-new draft. Mirrors
+          # scripts/automerge-social-approval-gate.mjs's STATE_BRANCH_PREFIX
+          # exemption; keep the two in step.
           social_draft_changes=""
           while IFS="$(printf '\t')" read -r st f prev; do
             [ -z "$f" ] && continue
             if printf '%s' "$f" | grep -qE '^social/queue/.*\.json$'; then
+              if [ "$st" = "modified" ]; then
+                case "${HEAD_REF:-}" in
+                  social-poster/state-*) continue ;;
+                esac
+              fi
               case "$st" in
                 added|modified|renamed|copied|changed)
                   social_draft_changes="${social_draft_changes}- \`${f}\` (status \`${st}\`)"$'\n'

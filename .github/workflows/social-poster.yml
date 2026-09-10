@@ -253,6 +253,12 @@ jobs:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          # scripts/social/lib/git-provenance.mjs's `gh api` call needs this
+          # to populate approvedBy/approvedAt (2026-09-10 approval-gate
+          # decision) — it swallows errors on failure, so without a token it
+          # silently returned null on every REAL run (Fable review finding C
+          # on #4090).
+          GH_TOKEN: ${{ github.token }}
         run: node scripts/social/post-queue.mjs
 
       # THE dedupe WRITE path (issue #2040) — the step correctness now
