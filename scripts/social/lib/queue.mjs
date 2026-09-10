@@ -168,11 +168,30 @@ export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PE
   }
 
   // Pass 2: fill any remaining budget/run slots with solo items, unchanged
-  // earliest-due-first behavior.
+  // earliest-due-first behavior — EXCEPT a campaign item whose sibling is
+  // still QUEUED (anywhere in `items`, not just `due`) never ships solo
+  // through this pass (codex review round 2, kanban t_bac31b1a-followup):
+  // pass 1 already ships every campaign whose pair is genuinely complete
+  // and affordable; if pass 1 skipped it (sibling not due yet, or one
+  // platform's daily budget already spent), this pass must defer the whole
+  // pair rather than let the one available sibling through alone. A
+  // campaign item with NO queued sibling at all (the sibling already
+  // posted in an earlier run; this is a retry of the remaining half) is
+  // correctly still solo-eligible — checking the full `items` list, not
+  // `due`, is what tells the two cases apart.
+  const queuedPlatformsByCampaign = new Map();
+  for (const item of items) {
+    const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+    if (!campaign) continue;
+    if (!queuedPlatformsByCampaign.has(campaign)) queuedPlatformsByCampaign.set(campaign, new Set());
+    queuedPlatformsByCampaign.get(campaign).add(item.platform);
+  }
   due.forEach((item, index) => {
     if (selected.length >= maxPerRun) return;
     if (takenIndices.has(index)) return;
     if (!hasBudget(item.platform)) return;
+    const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+    if (campaign && (queuedPlatformsByCampaign.get(campaign)?.size ?? 0) >= 2) return;
     selected.push(item);
     claim(item.platform);
   });

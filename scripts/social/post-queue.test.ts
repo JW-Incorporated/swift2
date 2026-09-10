@@ -511,6 +511,73 @@ describe('post-queue: a due campaign pair both post within the same run', () => 
       'campaign-b-x.json',
     ]);
   });
+
+  // Regression (codex review round 2, kanban t_bac31b1a-followup, Fable
+  // ruling FR-t_bac31b1a-followup-1): `isPairReady` used to be a STATIC
+  // upfront flag — if the FIRST sibling's actual publish attempt fails at
+  // runtime, the second sibling would still post alone through the pair
+  // exemption, the exact single-platform outcome this mechanism exists to
+  // prevent. `brokenPairs` now tracks this live: once a pair sibling's
+  // publish attempt produces any non-POSTED outcome, its partner is
+  // deferred (held, no attempt spent) instead of shipping alone.
+  it('defers the second sibling when the first sibling\'s publish attempt fails, instead of letting it post alone', async () => {
+    // X fails with a definite (non-ambiguous, non-retryable-forever) 403;
+    // Instagram would otherwise succeed if reached.
+    const spy = vi.fn(async (url, init) => {
+      if (String(url).includes('api.twitter.com')) {
+        return toFetchResponse({ ok: false, status: 403, body: { detail: 'Forbidden' } });
+      }
+      if (init?.method === 'HEAD') return toFetchResponse({ ok: true, status: 200, body: {} });
+      if (String(url).includes('/media_publish')) return toFetchResponse({ ok: true, status: 200, body: { id: 'ig-post-1' } });
+      if (init?.method === 'POST') return toFetchResponse({ ok: true, status: 200, body: { id: 'container-1' } });
+      return toFetchResponse({ ok: true, status: 200, body: { status_code: 'FINISHED' } });
+    });
+    vi.stubGlobal('fetch', spy);
+    // X is scheduled first so it is attempted before the Instagram sibling.
+    await seedQueueItem('fail-pair-x.json', xItem({ campaign: 'appearance:fail', media: undefined, attempts: 2, scheduledAt: new Date(Date.now() - 60_000).toISOString() }));
+    await seedQueueItem('fail-pair-ig.json', igItem({ campaign: 'appearance:fail', scheduledAt: new Date(Date.now() - 59_000).toISOString() }));
+
+    const outcomes = await runPoster();
+
+    // The X sibling permanently failed (attempts exhausted at 3).
+    expect(outcomes.some((o) => o.file === 'fail-pair-x.json' && o.kind === 'failed')).toBe(true);
+    // The Instagram sibling must NOT have posted — it was deferred, still
+    // queued, no attempt spent, no outcome recorded for it at all.
+    expect(outcomes.some((o) => o.file === 'fail-pair-ig.json')).toBe(false);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['fail-pair-ig.json']);
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  // A campaign whose sibling has ALREADY posted (in an earlier run, and is
+  // therefore no longer in social/queue/) must NOT be treated as an
+  // incomplete pair — the remaining sibling posting now is what completes
+  // it, and it must not be deferred forever waiting for a partner that will
+  // never come back.
+  it('still posts the remaining sibling when its partner already posted in an earlier run (no longer queued)', async () => {
+    const spy = vi.fn(async (url, init) => {
+      if (init?.method === 'HEAD') return toFetchResponse({ ok: true, status: 200, body: {} });
+      if (String(url).includes('/media_publish')) return toFetchResponse({ ok: true, status: 200, body: { id: 'ig-post-1' } });
+      if (init?.method === 'POST') return toFetchResponse({ ok: true, status: 200, body: { id: 'container-1' } });
+      return toFetchResponse({ ok: true, status: 200, body: { status_code: 'FINISHED' } });
+    });
+    vi.stubGlobal('fetch', spy);
+    // The X sibling already posted in a prior run — it's in social/posted/,
+    // NOT social/queue/ (the normal, non-race-condition case).
+    const xPosted = xItem({ campaign: 'appearance:done', media: undefined });
+    await writeFile(
+      path.join(root, 'social', 'posted', 'done-pair-x.json'),
+      JSON.stringify({ ...xPosted, postedAt: new Date().toISOString(), platformPostId: '1', url: 'https://x.com/1' }, null, 2) + '\n',
+    );
+    await seedQueueItem('done-pair-ig.json', igItem({ campaign: 'appearance:done' }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes.some((o) => o.file === 'done-pair-ig.json' && o.kind === 'posted')).toBe(true);
+    expect(await readdir(path.join(root, 'social', 'posted')).then((f) => f.sort())).toEqual([
+      'done-pair-ig.json',
+      'done-pair-x.json',
+    ]);
+  });
 });
 
 // --- the media gate, wired to the schedule --------------------------------

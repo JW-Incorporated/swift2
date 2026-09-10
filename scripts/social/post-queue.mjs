@@ -382,13 +382,37 @@ export async function main() {
     if (!duePlatformsByCampaign.has(campaign)) duePlatformsByCampaign.set(campaign, new Set());
     duePlatformsByCampaign.get(campaign).add(item.platform);
   }
-  const isPairReady = (campaign) => campaign !== '' && (duePlatformsByCampaign.get(campaign)?.size ?? 0) >= 2;
+  // Campaigns whose FIRST sibling this run did not reach `posted` (codex
+  // review round 2, kanban t_bac31b1a-followup): `isPairReady` alone is a
+  // static, upfront flag — if the first sibling's actual publish attempt
+  // fails, retries, gets skipped, or waits, the second sibling must NOT
+  // still post alone through the pair exemption (that is exactly the
+  // single-platform outcome this whole mechanism exists to prevent). Every
+  // non-POSTED exit below for a pair sibling adds its campaign here BEFORE
+  // moving on to the next item, so `isPairReady` sees the break immediately
+  // — except a same-platform IDEMPOTENCY duplicate (`dup`, step 2 below):
+  // that means the sibling is already live from a PRIOR run, so the
+  // remaining sibling posting now is what COMPLETES the pair, not what
+  // breaks it, and marking it broken would strand the remaining sibling
+  // until the 48h stale rule kills it.
+  const brokenPairs = new Set();
+  const isPairReady = (campaign) => campaign !== '' && !brokenPairs.has(campaign) && (duePlatformsByCampaign.get(campaign)?.size ?? 0) >= 2;
   let attemptsThisRun = 0;
 
   for (const item of due) {
     const entry = validQueued.find((q) => q.data === item);
     const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
     const pairReady = isPairReady(campaign);
+
+    // A sibling of an already-broken pair is deferred whole this run —
+    // its partner already failed to post, so this half must not ship
+    // alone. No attempt spent, no outcome recorded; it's still due and
+    // will be reconsidered (as a fresh pair, if its sibling is retried
+    // successfully) on the next run.
+    if (campaign && brokenPairs.has(campaign)) {
+      console.log(`social-poster: deferring ${entry.file} — its campaign "${campaign}" sibling did not post this run, so this half is held rather than shipping alone.`);
+      continue;
+    }
 
     // 1. Stale check FIRST — unconditional, regardless of what else is true
     // about this item. A 3-day-stale item must not quietly post just
@@ -402,6 +426,7 @@ export async function main() {
       });
       console.error(`social-poster: ${entry.file} moved to social/failed/ — stuck >48h past scheduledAt.`);
       outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, error: failureReason });
+      if (pairReady) brokenPairs.add(campaign);
       continue;
     }
 
@@ -434,6 +459,12 @@ export async function main() {
         error: `${blockReason} Left in the queue, not counted as a failed attempt.`,
         overdueHours: hoursOverdue(item, now),
       });
+      // Only a genuine block breaks the pair — a duplicate-idempotency skip
+      // (dup !== null) means the sibling is ALREADY live from a prior run,
+      // so it does not count as a failure here; every other block reason
+      // (era-art, same-run media repeat) is a real reason this sibling
+      // will not ship this run, and the partner must not ship alone.
+      if (pairReady && !dup) brokenPairs.add(campaign);
       continue;
     }
 
@@ -457,6 +488,7 @@ export async function main() {
           error: reason,
           overdueHours: hoursOverdue(item, now),
         });
+        if (pairReady) brokenPairs.add(campaign);
         continue;
       }
     }
@@ -515,6 +547,7 @@ export async function main() {
       allPostedData.push(posted);
     } catch (err) {
       const lastError = String(err.message ?? err);
+      if (pairReady) brokenPairs.add(campaign); // every catch branch below is a non-POSTED outcome for a pair sibling
 
       // Ambiguous (transport-level, response never received) failures are
       // never auto-retried — see lib/platforms.mjs's publishFetch and this
