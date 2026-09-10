@@ -38,7 +38,9 @@
 //   node scripts/community/mailer.mjs --dry-run           # render only, no send/writes
 //
 // Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY, DISCORD_SOCIAL_WEBHOOK
-// (the configured Discord social-channel webhook). COMMUNITY_ACK_SECRET
+// (the configured Discord social-channel webhook — mapped in the workflow
+// from the repository secret DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL).
+// COMMUNITY_ACK_SECRET
 // (to mint the "Posted"/"Skip" ack links — see
 // packages/core/src/community-ack-token.ts) is OPTIONAL: when unset, this
 // script still delivers every prompt, each noting the acknowledgement
@@ -430,7 +432,7 @@ async function main() {
 
   if (result.status === 'unconfigured') {
     const diagnosis =
-      'DIAGNOSIS: DISCORD_SOCIAL_WEBHOOK is not configured. PROPOSED RESPONSE: set the repository secret DISCORD_SOCIAL_WEBHOOK. VERIFIED DELIVERY STATE: 0/' +
+      'DIAGNOSIS: DISCORD_SOCIAL_WEBHOOK is not configured. PROPOSED RESPONSE: set the repository secret DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL. VERIFIED DELIVERY STATE: 0/' +
       leads.length +
       ' delivered.';
     await updateReceipt(supabase, receipt.deliveryKey, {
