@@ -196,7 +196,7 @@ interface SuffixEntry {
   doc: SearchDoc;
 }
 
-const suffixIndexCache = new WeakMap<readonly SearchDoc[], { length: number; entries: SuffixEntry[] }>();
+const suffixIndexCache = new WeakMap<readonly SearchDoc[], { snapshot: readonly SearchDoc[]; entries: SuffixEntry[] }>();
 
 function buildSuffixIndex(docs: readonly SearchDoc[]): SuffixEntry[] {
   const entries: SuffixEntry[] = [];
@@ -215,22 +215,31 @@ function buildSuffixIndex(docs: readonly SearchDoc[]): SuffixEntry[] {
   return entries;
 }
 
+/** Elementwise identity check against a stored snapshot (cheap: O(n) doc-reference compares, no string work). */
+function sameElements(a: readonly SearchDoc[], b: readonly SearchDoc[]): boolean {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+  return true;
+}
+
 // Keyed by the doc array's identity: `getSearchIndex()` returns the same
 // cached array on every call, so its suffix index is built once and reused;
 // a fresh array (as in tests, or a future non-singleton caller) just builds
-// its own the first time it's searched. The cached `length` is checked on
-// every lookup and invalidates the entry if the array was appended/spliced
-// in place under the same reference — a plain identity cache would silently
-// serve a stale index and miss docs added after the first search. SearchDoc
-// objects themselves are treated as immutable once built (nothing in this
-// codebase mutates `titleNorm`/`bodyNorm`/`weight` post-`makeSearchDoc`); the
-// cache does not guard against in-place field edits on an already-indexed
-// doc, only against the array changing shape.
+// its own the first time it's searched. A snapshot of the array's element
+// references is stored alongside the index and compared elementwise on every
+// lookup — a plain identity- or length-only cache would silently serve a
+// stale index after the array was mutated in place under the same reference
+// (push, splice, or an index reassignment that leaves the length unchanged),
+// missing docs the equivalent full scan would still find. SearchDoc objects
+// themselves are treated as immutable once built (nothing in this codebase
+// mutates `titleNorm`/`bodyNorm`/`weight` post-`makeSearchDoc`); this cache
+// only guards against the array's membership changing, not a field on an
+// already-indexed doc being edited in place.
 function getSuffixIndex(docs: readonly SearchDoc[]): SuffixEntry[] {
   const cached = suffixIndexCache.get(docs);
-  if (cached && cached.length === docs.length) return cached.entries;
+  if (cached && sameElements(cached.snapshot, docs)) return cached.entries;
   const entries = buildSuffixIndex(docs);
-  suffixIndexCache.set(docs, { length: docs.length, entries });
+  suffixIndexCache.set(docs, { snapshot: docs.slice(), entries });
   return entries;
 }
 
