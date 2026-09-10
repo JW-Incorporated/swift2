@@ -75,6 +75,17 @@ function isIsoInstant(value) {
  * provenance. A launch `site-screen` carousel is included when any slide is
  * a Taylor-photo grid tile; a genuine UI-only screen has no photo-prefix slide
  * and remains outside this binding.
+ *
+ * `photoEra` (2026-09-10, kanban t_75ec7106 — the 2026-09-09 reputation/snake
+ * X post that shipped a Lover-era tour photo, docs/decisions.md): an optional
+ * string naming the draft's target era/theme (the value passed to
+ * `scripts/social/select-photo.mjs --era`, or the lens/egg node's `eraId` for
+ * an easter-eggs/thread post). When present, the bound photo's `tags` MUST
+ * include it — a themed draft whose photo doesn't match its own declared era
+ * is exactly the bug this field exists to catch. `photoEra` is optional (not
+ * every post is era-specific — a launch/mood/merch post has no single target
+ * era), but once a drafter sets it, the binding is enforced, never silently
+ * ignored.
  */
 export function validatePhotoInventoryBinding(item, photoLibrary) {
   const photoTiles = Array.isArray(item?.media)
@@ -88,6 +99,17 @@ export function validatePhotoInventoryBinding(item, photoLibrary) {
   if (!photo) return [`photoId: ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
   if (photoTiles.length !== 1 || photoTiles[0] !== photo.mediaPath || item.mediaCredit !== photo.credit || item.mediaSource !== photo.source) {
     return ['photoId: must use its inventory media path, exact credit, and exact source so attribution cannot drift.'];
+  }
+  if (typeof item.photoEra === 'string' && item.photoEra.trim() !== '') {
+    const era = item.photoEra.trim();
+    if (!Array.isArray(photo.tags) || !photo.tags.includes(era)) {
+      return [
+        `photoEra: this draft declares "${era}" as its target era, but photoId ${JSON.stringify(item.photoId)}'s tags ` +
+          `(${JSON.stringify(photo.tags ?? [])}) do not include it — an off-era photo is worse than no photo (Joey, 2026-09-10: ` +
+          '"never again do I want to see a great picture with dumb text that has nothing to do with the image"). Re-run ' +
+          `\`node scripts/social/select-photo.mjs --era ${era}\` for a matching photo, or add one to social/photo-library.json first.`,
+      ];
+    }
   }
   return [];
 }
@@ -222,7 +244,7 @@ export function validateQueueItem(item) {
   if (item.attempts !== undefined && (!Number.isInteger(item.attempts) || item.attempts < 0)) {
     findings.push(`attempts: must be a non-negative integer when present (${JSON.stringify(item.attempts)}).`);
   }
-  for (const field of ['campaign', 'why', 'approvedBy', 'lastError', 'photoId']) {
+  for (const field of ['campaign', 'why', 'approvedBy', 'lastError', 'photoId', 'photoEra']) {
     if (item[field] !== undefined && typeof item[field] !== 'string') {
       findings.push(`${field}: must be a string when present.`);
     }

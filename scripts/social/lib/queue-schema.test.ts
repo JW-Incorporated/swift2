@@ -29,6 +29,7 @@ const library = [
     mediaPath: '/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg',
     credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
+    tags: ['lover', 'eras-tour', 'minneapolis'],
   },
 ];
 
@@ -116,6 +117,17 @@ ${url}`;
     it('requires a photoId and exact inventory attribution in the queue CI binding', () => {
       expect(validatePhotoInventoryBinding({ ...validX, photoId: undefined }, library).some((f) => f.includes('photoId: required'))).toBe(true);
       expect(validatePhotoInventoryBinding({ ...validX, mediaCredit: 'Wrong credit' }, library).some((f) => f.includes('must use its inventory media path, exact credit, and exact source'))).toBe(true);
+      expect(validatePhotoInventoryBinding(validX, library)).toEqual([]);
+    });
+
+    // 2026-09-10 (kanban t_75ec7106) — the founder-reported off-era-photo bug.
+    it('hard-fails a themed draft whose bound photo is not tagged for its declared photoEra', () => {
+      expect(validatePhotoInventoryBinding({ ...validX, photoEra: 'reputation' }, library)).toContainEqual(expect.stringContaining('photoEra:'));
+    });
+    it('passes a themed draft whose bound photo IS tagged for its declared photoEra', () => {
+      expect(validatePhotoInventoryBinding({ ...validX, photoEra: 'lover' }, library)).toEqual([]);
+    });
+    it('does not require photoEra at all — untagged posts (launch/mood/merch) are unaffected', () => {
       expect(validatePhotoInventoryBinding(validX, library)).toEqual([]);
     });
     it('rejects a text-only X draft for a normal paired campaign, and mediaKind "video-thumb" no longer exists as an exception (2026-09-10, kanban t_bac31b1a)', () => {
