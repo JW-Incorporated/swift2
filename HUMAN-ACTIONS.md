@@ -26,6 +26,25 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 57. Stale git worktrees — 259 registered, 73 hidden inside the Projects tree — ~30 min
+
+**Filed:** 2026-09-10
+
+**Why it matters:** a research pass found `git worktree list` returns 259 registered worktrees repo-wide, and `git worktree prune --dry-run` reports 0 prunable — meaning all 259 directories still physically exist on disk. 73 of them live under `.claude/worktrees/` INSIDE `Documents\Claude\Projects\Swift2` itself, hidden from `git status` by a `.git/info/exclude` entry — which is why no prior audit caught them. Many contain `node_modules/` and `.next/` build output, so the disk footprint is plausibly tens of GB. Their existence also violates this repo's own convention that worktrees belong in a Temp/scratchpad directory, never inside the Projects tree.
+
+**Steps (for Joey, when he has time — explicitly non-blocking, no rush):**
+1. Run `git worktree list` to review what's there.
+2. For anything safe to remove, `git worktree remove <path>` per entry (this command refuses if a checkout is dirty, so it fails safe rather than silently discarding work).
+3. Once entries are removed, `git worktree prune` to clean the registry.
+
+**Important note:** do NOT use `git worktree remove --force` blind — that discards uncommitted work without checking.
+
+**Worked if:** `git worktree list` count drops substantially and disk space is reclaimed, with no lost work.
+
+**Status:** OPEN
+
+---
+
 ### 56. [BLOCKING] Freeze social posting while the approval gate lands — ~2 min
 
 **Filed:** 2026-09-10
