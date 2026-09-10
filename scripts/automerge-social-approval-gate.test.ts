@@ -55,6 +55,33 @@ describe('evaluateSocialApprovalGate', () => {
     expect(SOCIAL_QUEUE_PATH_RE.test('social/posted/a.json')).toBe(false);
     expect(SOCIAL_QUEUE_PATH_RE.test('social/queue/a.txt')).toBe(false);
   });
+
+  it('does not trip on the poster\'s own retry bookkeeping (modified, social-poster/state-* branch)', () => {
+    const r = evaluateSocialApprovalGate(
+      [{ status: 'modified', filename: 'social/queue/2026-09-10-launch-x.json' }],
+      'social-poster/state-20260910120000',
+    );
+    expect(r.blocked).toBe(false);
+    expect(r.matches).toEqual([]);
+  });
+
+  it('still trips on an added draft from a social-poster/state-* branch (no smuggling a new draft in)', () => {
+    const r = evaluateSocialApprovalGate(
+      [{ status: 'added', filename: 'social/queue/2026-09-10-launch-x.json' }],
+      'social-poster/state-20260910120000',
+    );
+    expect(r.blocked).toBe(true);
+    expect(r.matches).toHaveLength(1);
+  });
+
+  it('still trips on a modified draft from a non-state branch', () => {
+    const r = evaluateSocialApprovalGate(
+      [{ status: 'modified', filename: 'social/queue/2026-09-10-launch-x.json' }],
+      'content-shift/some-branch',
+    );
+    expect(r.blocked).toBe(true);
+    expect(r.matches).toHaveLength(1);
+  });
 });
 
 // ── the workflow must keep mirroring this gate (same "must not silently
@@ -76,5 +103,9 @@ describe('the auto-merge workflow mirrors this gate', () => {
   it('excludes "removed" from the tripping case (fold-back PRs still enable)', () => {
     const match = wf.match(/added\|modified\|renamed\|copied\|changed\)/);
     expect(match).not.toBeNull();
+  });
+
+  it('exempts only modified status on the social-poster/state-* branch prefix', () => {
+    expect(wf).toContain('social-poster/state-*) continue ;;');
   });
 });

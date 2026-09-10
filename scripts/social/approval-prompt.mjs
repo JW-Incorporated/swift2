@@ -108,6 +108,10 @@ async function main() {
   }
   console.log(`approval-prompt: ${result.delivered.length} chunk(s) delivered, ${result.failed.length} failed.`);
   for (const f of result.failed) console.error(`approval-prompt: chunk ${f.chunk} failed: ${f.message}`);
+  // A rotated/deleted webhook secret must not fail silently forever (Fable
+  // review finding D on #4090) — a red Actions run here is what
+  // watchdog.yml-style monitoring would catch.
+  if (result.failed.length > 0) return 1;
 }
 
 if (process.argv[1]?.split(/[\\/]/).pop() === 'approval-prompt.mjs') {

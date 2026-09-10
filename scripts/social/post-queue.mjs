@@ -523,10 +523,13 @@ export async function main() {
       const result = await postOne(item);
       const { result: facebook, error: facebookError } = await crosspostToFacebook(item);
       // Provenance, not a gate (2026-09-10 approval-gate decision,
-      // docs/decisions.md): branch protection on `main` now guarantees every
-      // queue file was founder-approved via PR merge before it could ever
-      // reach post-queue.mjs, so this just records who/when for the audit
-      // trail — a lookup failure (see git-provenance.mjs) never blocks a post.
+      // docs/decisions.md): branch protection on `main` guarantees every
+      // queue file rode in on a MERGED PR before it could ever reach
+      // post-queue.mjs, but that alone doesn't prove a founder merged it —
+      // that's a process guarantee from docs/decisions.md (fix B, done
+      // separately), not something branch protection itself can verify.
+      // This just records who/when for the audit trail — a lookup failure
+      // (see git-provenance.mjs) never blocks a post.
       const provenance = await getQueueFileProvenance(path.posix.join('social', 'queue', entry.file), {
         cwd: root,
       });

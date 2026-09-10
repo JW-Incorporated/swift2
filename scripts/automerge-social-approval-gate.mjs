@@ -16,16 +16,29 @@ export const SOCIAL_QUEUE_PATH_RE = /^social\/queue\/.*\.json$/;
 // the 2026-08-11/12 Instagram triple-post (issue #2031).
 export const TRIPPING_STATUSES = ['added', 'modified', 'renamed', 'copied', 'changed'];
 
+// The poster's own fold-back PRs (branch prefix `social-poster/state-*`,
+// opened via .github/actions/commit-and-pr/action.yml) write `attempts+1`
+// retry bookkeeping back into an existing social/queue/*.json file — a
+// `modified` status, not a new draft. Declining those PRs strands the retry
+// counter forever (it never reaches main) and spams #longlive-social asking
+// a founder to "approve" internal bookkeeping. Only `modified` is exempted,
+// and only on this exact branch prefix — `added` never is, on any branch,
+// so a state-update branch can never smuggle in a brand-new draft.
+export const STATE_BRANCH_PREFIX = 'social-poster/state-';
+
 /**
  * @param {{status: string, filename: string}[]} filesMeta
+ * @param {string} [headRef] - the PR's head branch name
  * @returns {{blocked: boolean, matches: {status: string, filename: string}[]}}
  */
-export function evaluateSocialApprovalGate(filesMeta) {
+export function evaluateSocialApprovalGate(filesMeta, headRef) {
+  const isStateBranch = typeof headRef === 'string' && headRef.startsWith(STATE_BRANCH_PREFIX);
   const matches = (filesMeta ?? []).filter(
     ({ status, filename }) =>
       typeof filename === 'string' &&
       SOCIAL_QUEUE_PATH_RE.test(filename) &&
-      TRIPPING_STATUSES.includes(status),
+      TRIPPING_STATUSES.includes(status) &&
+      !(isStateBranch && status === 'modified'),
   );
   return { blocked: matches.length > 0, matches };
 }
@@ -48,7 +61,7 @@ async function main() {
       const [status, filename] = line.split('\t');
       return { status, filename };
     });
-  const { matches } = evaluateSocialApprovalGate(filesMeta);
+  const { matches } = evaluateSocialApprovalGate(filesMeta, process.env.HEAD_REF);
   for (const m of matches) console.log(m.filename);
 }
 

@@ -59,6 +59,7 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
           SHA: ${{ github.event.pull_request.head.sha }}
           SOURCE_ROUTINE: ${{ github.event.pull_request.user.login }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
           set -euo pipefail
 
@@ -135,7 +136,7 @@ jobs:
           # same population auto-merge-content.yml's SOCIAL APPROVAL GATE
           # declines. `gh pr list` alone can't filter by changed path, so
           # each candidate's files are checked individually below.
-          OPEN=$(gh pr list --repo "$REPO" --base main --state open --json number,url,headRefOid --jq '.[] | [.number, .url, .headRefOid] | @tsv')
+          OPEN=$(gh pr list --repo "$REPO" --base main --state open --limit 200 --json number,url,headRefOid,headRefName --jq '.[] | [.number, .url, .headRefOid, .headRefName] | @tsv')
           echo "$OPEN" > /tmp/open-prs.tsv
           # `hashFiles()` only sees paths under GITHUB_WORKSPACE, not /tmp —
           # a step output is what actually gates the next step correctly.
@@ -154,11 +155,11 @@ jobs:
         run: |
           set -euo pipefail
           [ -s /tmp/open-prs.tsv ] || { echo "No open PRs against main — nothing to digest."; exit 0; }
-          while IFS="$(printf '\t')" read -r PR URL SHA; do
+          while IFS="$(printf '\t')" read -r PR URL SHA HEAD_REF; do
             [ -z "$PR" ] && continue
             META=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[] | [.status, .filename] | @tsv')
             AUTHOR=$(gh pr view "$PR" --repo "$REPO" --json author --jq '.author.login')
-            QUEUE_FILES=$(node scripts/automerge-social-approval-gate.mjs <<<"$META")
+            QUEUE_FILES=$(HEAD_REF="$HEAD_REF" node scripts/automerge-social-approval-gate.mjs <<<"$META")
             [ -z "$QUEUE_FILES" ] && continue
 
             echo "[" > /tmp/digest-drafts.json
