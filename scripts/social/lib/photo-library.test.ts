@@ -132,5 +132,17 @@ describe('photo-library', () => {
     it('an unconstrained call (no requiredTags) keeps the old total-over-non-empty-library behavior', () => {
       expect(selectSocialPhoto(taggedLibrary, [])).not.toBeNull();
     });
+
+    // Codex review round 1 (kanban t_75ec7106): a caller-supplied blank tag
+    // must fail closed, not silently discard itself and match everything.
+    it('a blank/whitespace-only required tag fails closed instead of silently matching the whole library', () => {
+      expect(selectSocialPhoto(taggedLibrary, [], { requiredTags: ['   '] })).toBeNull();
+      expect(selectSocialPhoto(taggedLibrary, [], { requiredTags: [''] })).toBeNull();
+    });
+
+    it('trims surrounding whitespace on a required tag before matching', () => {
+      const selected = selectSocialPhoto(taggedLibrary, [], { requiredTags: [' red '] });
+      expect(selected.id).toBe('red-inglewood');
+    });
   });
 });

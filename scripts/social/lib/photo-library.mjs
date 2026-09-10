@@ -70,9 +70,17 @@ export function selectSocialPhoto(library, history = [], options = {}) {
   if (!eligible.length) return null;
 
   const requiredTags = Array.isArray(options.requiredTags)
-    ? options.requiredTags.filter((tag) => typeof tag === 'string' && tag.trim() !== '')
+    ? options.requiredTags.map((tag) => (typeof tag === 'string' ? tag.trim() : tag)).filter((tag) => tag !== undefined && tag !== null)
     : [];
 
+  // A caller that explicitly passes a blank/whitespace-only tag (as opposed
+  // to omitting requiredTags entirely) meant to constrain selection and got
+  // it wrong — treat it as "no photo can satisfy this" (fail closed, same as
+  // any other unmatched era) rather than silently discarding it and falling
+  // through to the unconstrained, match-everything behavior (Codex review
+  // round 1, kanban t_75ec7106: `--era '   '` was quietly selecting from the
+  // whole library). Real photo tags are never blank, so a blank required tag
+  // can never match and the pool below will correctly come up empty.
   const pool = requiredTags.length ? eligible.filter((entry) => photoMatchesRequiredTags(entry, requiredTags)) : eligible;
   if (!pool.length) return null;
 

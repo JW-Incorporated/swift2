@@ -20,8 +20,9 @@ import { selectSocialPhoto, validatePhotoEntry } from './lib/photo-library.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const args = process.argv.slice(2);
 const eraIndex = args.indexOf('--era');
-const era = eraIndex === -1 ? null : args[eraIndex + 1];
-if (eraIndex !== -1 && !era) throw new Error('Usage: node scripts/social/select-photo.mjs [--era <tag>]');
+const eraArg = eraIndex === -1 ? null : args[eraIndex + 1];
+const era = typeof eraArg === 'string' ? eraArg.trim() : null;
+if (eraIndex !== -1 && !era) throw new Error('Usage: node scripts/social/select-photo.mjs [--era <tag>] — <tag> must be a non-blank string.');
 
 async function readJsonDir(dir) {
   const { readdir } = await import('node:fs/promises');
@@ -45,7 +46,9 @@ if (!selected) {
 }
 console.log(
   JSON.stringify(
-    { photoId: selected.id, media: [selected.mediaPath], mediaCredit: selected.credit, mediaSource: selected.source, photoEra: era, reused: selected.reused },
+    era
+      ? { photoId: selected.id, media: [selected.mediaPath], mediaCredit: selected.credit, mediaSource: selected.source, photoEra: era, reused: selected.reused }
+      : { photoId: selected.id, media: [selected.mediaPath], mediaCredit: selected.credit, mediaSource: selected.source, reused: selected.reused },
     null,
     2,
   ),
