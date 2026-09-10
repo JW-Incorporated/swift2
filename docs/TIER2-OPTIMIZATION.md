@@ -190,8 +190,12 @@ the end.
   misclassification here reaches authored content in one hop, as its own
   prompt warns), but Opus is over-tiered for it.
 - **Recommendation (T-3) — move News Triage to Sonnet 5.** **Status
+  2026-09-10: recall-check trial retired** (see `docs/decisions.md`) —
+  zero verified false negatives attributable to News Triage's own judgment;
+  `docs/agents/runner-prompts/news-triage-recall-check.md` and
+  `routine-news-triage-recall.yml` are deleted. **Status
   2026-08-31: prep landed (PR #3608) — the recall-check trial design
-  (`docs/agents/runner-prompts/news-triage-recall-check.md`) and the
+  (deleted, see above) and the
   deterministic digest-archive step (`news-worker.yml`) are in place.
   Applying the trigger's model field itself is pending account access — see
   `docs/agents/runners.md` § News Triage for the exact config and the
