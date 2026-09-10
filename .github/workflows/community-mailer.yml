@@ -82,7 +82,7 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          DISCORD_SOCIAL_WEBHOOK: ${{ secrets.DISCORD_SOCIAL_WEBHOOK }}
+          DISCORD_SOCIAL_WEBHOOK: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
           COMMUNITY_ACK_SECRET: ${{ secrets.COMMUNITY_ACK_SECRET }}
           MAILER_MODE: ${{ steps.pick.outputs.mode }}
         run: node scripts/community/mailer.mjs --mode="$MAILER_MODE"
