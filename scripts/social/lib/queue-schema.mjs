@@ -29,10 +29,16 @@ import { MAX_X_IMAGES } from './platforms.mjs';
 export const PLATFORMS = ['x', 'instagram'];
 
 /** Declared media kinds — see the mediaKind section of validateQueueItem.
- * "video-thumb" added 2026-09-05 (#3584, Fable ruling): a rehosted YouTube/
- * broadcaster thumbnail is not a "photo" — see check-drafts.mjs's
- * VIDEO_THUMBNAIL_CREDIT_RE / CLEARED_PHOTO_ALLOWLIST for the full story. */
-export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art', 'video-thumb'];
+ * "video-thumb" (added 2026-09-05, #3584) was REMOVED 2026-09-10 (kanban
+ * t_bac31b1a, founder directive: "there's never a time where we post to
+ * only X, or only IG — everything should be the same"): it was a silent
+ * standing X-only exception to the otherwise-unconditional pairing rule,
+ * and the value is now schema-unrecognized — a draft declaring it hard-fails
+ * like any other unknown mediaKind. The appearance-discovery fast lane
+ * (scripts/appearance-discovery/lib/social-draft.mjs) now sources a real
+ * credited photo from social/photo-library.json for BOTH platforms instead
+ * of shipping a rehosted thumbnail X-only. */
+export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art'];
 
 /**
  * Per-platform hard limits, enforced by the platform, not by taste.
@@ -175,8 +181,7 @@ export function validateQueueItem(item) {
         );
       }
     }
-    const isAppearanceException = item.platform === 'x' && typeof item.campaign === 'string' && item.campaign.startsWith('appearance:');
-    if (rules?.media === 'required' && !isAppearanceException && paths.length === 0) {
+    if (rules?.media === 'required' && paths.length === 0) {
       findings.push(`media: ${item.platform} posts require at least one image.`);
     }
     if (rules && paths.length > rules.maxMedia) {
@@ -204,17 +209,6 @@ export function validateQueueItem(item) {
   }
   if (item.platform === 'x' && item.mediaKind === 'site-screen') {
     findings.push('mediaKind: X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
-  }
-  // #3584 (Fable ruling, 2026-09-05): Instagram is skipped unless a cleared
-  // photo exists — "video-thumb" (a rehosted YouTube/broadcaster thumbnail)
-  // never qualifies, so it is never allowed on an Instagram item at all.
-  if (item.platform === 'instagram' && item.mediaKind === 'video-thumb') {
-    findings.push('mediaKind: Instagram drafts may not use mediaKind "video-thumb" — Instagram is skipped unless a cleared photo exists (Fable ruling, #3584).');
-  }
-  // X's "video-thumb" ships as a bare link preview only — never an attached
-  // image (see check-drafts.mjs's mirror of this rule for the full story).
-  if (item.platform === 'x' && item.mediaKind === 'video-thumb' && Array.isArray(item.media) && item.media.length > 0) {
-    findings.push('mediaKind: X "video-thumb" drafts may not attach an image via `media` — it ships as a bare link preview only.');
   }
   for (const field of ['mediaCredit', 'mediaSource']) {
     if (item[field] !== undefined && (typeof item[field] !== 'string' || item[field].trim() === '')) {
