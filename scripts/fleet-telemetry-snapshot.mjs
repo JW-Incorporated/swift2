@@ -155,13 +155,23 @@ async function fetchRoutineRunIds(workflowId, sinceIso) {
   return text.split('\n').filter(Boolean).map((line) => parseInt(line, 10));
 }
 
-/** Artifact names attached to one workflow run. */
+/**
+ * Artifact names attached to one workflow run. `--paginate` + `per_page=100`
+ * (a routine run realistically carries 1-2 artifacts, so this is cheap
+ * insurance, not new plumbing) so a run with more artifacts than the
+ * default page size of 30 can't silently hide `routine-usage` past page 1.
+ * Lets a real API failure propagate — callers must not silently fold that
+ * into "no artifact" (Codex review round 1, finding 3).
+ */
 async function fetchRunArtifactNames(runId) {
   const { stdout } = await gh([
     'api',
     `repos/${REPO}/actions/runs/${runId}/artifacts`,
+    '--paginate',
     '-X',
     'GET',
+    '-f',
+    'per_page=100',
     '--jq',
     '.artifacts[].name',
   ]);
@@ -169,34 +179,61 @@ async function fetchRunArtifactNames(runId) {
 }
 
 /**
- * Downloads and parses one run's `routine-usage` artifact, or returns `null`
- * when the run has none (skipped/guarded-off routine runs never produce one)
- * or the download/parse fails — a single bad run must not abort the snapshot.
+ * Downloads and parses one run's `routine-usage` artifact.
+ *
+ * Returns `null` when the run genuinely has none (a skipped/guarded-off
+ * routine run never produces one — not a coverage gap, just nothing to
+ * report). Returns an INCOMPLETE placeholder record (routineName known,
+ * every metric `null`, `incomplete: true`) when the artifact SHOULD exist
+ * but the lookup, download, or parse failed — this must read as "we don't
+ * know", never silently as "this run used ~0 turns" (Codex review round 1,
+ * finding 3). A single bad run must never abort the whole snapshot.
  */
-async function fetchRoutineUsageRecord(runId) {
-  const names = await fetchRunArtifactNames(runId).catch(() => []);
+async function fetchRoutineUsageRecord(runId, routineName) {
+  const incomplete = (reason) => ({
+    routineName,
+    numTurns: null,
+    durationMs: null,
+    totalCostUsd: null,
+    incomplete: true,
+    reason,
+  });
+
+  let names;
+  try {
+    names = await fetchRunArtifactNames(runId);
+  } catch (err) {
+    console.error(`fleet-telemetry-snapshot: artifact lookup failed for run ${runId}: ${err?.message ?? err}`);
+    return incomplete('lookup-failed');
+  }
   if (!names.includes(ROUTINE_ARTIFACT_NAME)) return null;
+
   const dir = await mkdtemp(path.join(tmpdir(), 'routine-usage-'));
   try {
     await gh(['run', 'download', String(runId), '--name', ROUTINE_ARTIFACT_NAME, '--dir', dir, '--repo', REPO]);
     const raw = await readFile(path.join(dir, 'routine-usage.json'), 'utf8');
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object' || typeof parsed.routineName !== 'string') {
+      console.error(`fleet-telemetry-snapshot: routine-usage artifact for run ${runId} failed schema validation.`);
+      return incomplete('invalid-schema');
+    }
+    return parsed;
   } catch (err) {
     console.error(`fleet-telemetry-snapshot: could not read routine-usage artifact for run ${runId}: ${err?.message ?? err}`);
-    return null;
+    return incomplete('download-failed');
   } finally {
     await rm(dir, { recursive: true, force: true }).catch(() => {});
   }
 }
 
-/** All parsed `routine-usage` records across every `routine-*` workflow's runs this window. */
+/** All parsed `routine-usage` records (including `incomplete` placeholders for lookup/download/parse failures) across every `routine-*` workflow's runs this window. */
 async function fetchRoutineUsageRecords(sinceIso) {
   const workflows = (await fetchWorkflows()).filter((wf) => isRoutineWorkflow(wf.name));
   const records = [];
   for (const wf of workflows) {
     const runIds = await fetchRoutineRunIds(wf.id, sinceIso);
     for (const runId of runIds) {
-      const record = await fetchRoutineUsageRecord(runId);
+      const record = await fetchRoutineUsageRecord(runId, wf.name);
       if (record) records.push(record);
     }
   }
@@ -214,35 +251,61 @@ export function median(nums) {
 /**
  * Groups `routine-usage.json` records by routine name into per-routine run
  * count / total & median turns / total duration / summed cost-equivalent.
- * Rows missing a numeric field are excluded from that field's aggregate
- * rather than treated as zero (a `null` cost, e.g. from a malformed
- * execution file, must not silently understate the total). Exported and
- * pure for tests.
+ *
+ * Uses a `Map`, NOT a plain object, as the accumulator — a routine literally
+ * named (or otherwise keyed as) `constructor` resolves `{}`'s inherited
+ * `Object.prototype.constructor` instead of creating a new entry, then
+ * crashes reading `.turns` off it (Codex review round 1, finding 2,
+ * reproduced with `aggregateRoutineUsage([{routineName: 'constructor', ...}])`).
+ *
+ * Every record is schema-checked before it is aggregated: not an object, or
+ * `routineName` isn't a non-empty string, is skipped entirely (unattributable
+ * — there is no row to charge it to). A record explicitly marked
+ * `incomplete: true` (an upstream lookup/download/parse failure —
+ * `fetchRoutineUsageRecord`) or missing/non-finite on any of its three
+ * numeric fields counts toward `runCount` but NOT `recordsWithData`, so a
+ * row's `partial` flag surfaces exactly the case Codex flagged: one real run
+ * plus one run with null metrics must never render identically to two full
+ * runs' worth of data. Numeric fields still individually accumulate
+ * wherever they ARE present, so a partial row's totals are still the best
+ * available lower bound, just visibly labeled as such by the caller.
+ * Exported and pure for tests.
  */
 export function aggregateRoutineUsage(records) {
-  const byRoutine = {};
+  const byRoutine = new Map();
   for (const r of records || []) {
-    if (!r || !r.routineName) continue;
-    const agg = (byRoutine[r.routineName] ??= {
-      routineName: r.routineName,
-      runCount: 0,
-      turns: [],
-      totalDurationMs: 0,
-      totalCostUsd: 0,
-      hasCost: false,
-    });
+    if (!r || typeof r.routineName !== 'string' || !r.routineName) continue;
+    let agg = byRoutine.get(r.routineName);
+    if (!agg) {
+      agg = {
+        routineName: r.routineName,
+        runCount: 0,
+        recordsWithData: 0,
+        turns: [],
+        totalDurationMs: 0,
+        totalCostUsd: 0,
+        hasCost: false,
+      };
+      byRoutine.set(r.routineName, agg);
+    }
     agg.runCount += 1;
-    if (Number.isFinite(r.numTurns)) agg.turns.push(r.numTurns);
-    if (Number.isFinite(r.durationMs)) agg.totalDurationMs += r.durationMs;
-    if (Number.isFinite(r.totalCostUsd)) {
+    const numTurnsOk = Number.isFinite(r.numTurns);
+    const durationOk = Number.isFinite(r.durationMs);
+    const costOk = Number.isFinite(r.totalCostUsd);
+    if (r.incomplete !== true && numTurnsOk && durationOk && costOk) agg.recordsWithData += 1;
+    if (numTurnsOk) agg.turns.push(r.numTurns);
+    if (durationOk) agg.totalDurationMs += r.durationMs;
+    if (costOk) {
       agg.totalCostUsd += r.totalCostUsd;
       agg.hasCost = true;
     }
   }
-  return Object.values(byRoutine)
+  return [...byRoutine.values()]
     .map((agg) => ({
       routineName: agg.routineName,
       runCount: agg.runCount,
+      recordsWithData: agg.recordsWithData,
+      partial: agg.recordsWithData < agg.runCount,
       totalTurns: agg.turns.reduce((a, b) => a + b, 0),
       medianTurns: median(agg.turns),
       totalDurationMs: agg.totalDurationMs,
@@ -278,18 +341,23 @@ export function renderRoutineUsageSection(aggregates) {
       ' model, not a real billed dollar amount** — the actual constraint' +
       ' remains Joey\'s plan rate limit, not money.',
     '',
+    '`Coverage` is `recordsWithData/runCount` — a row marked ⚠️ PARTIAL had' +
+      ' at least one run whose artifact lookup/download/parse failed or was' +
+      ' missing a metric; its totals below are a lower bound from the runs' +
+      ' that DID report, never a stand-in for the missing ones.',
+    '',
   ];
   if (!aggregates.length) {
     return [...header, '_No `routine-usage` artifacts found in this window._', ''].join('\n');
   }
   const rows = aggregates.map(
     (a) =>
-      `| ${a.routineName} | ${a.runCount} | ${a.totalTurns} | ${a.medianTurns ?? '—'} | ${formatDurationTotal(a.totalDurationMs)} | ${a.totalCostUsd != null ? `$${a.totalCostUsd.toFixed(2)}` : '—'} |`,
+      `| ${a.routineName} | ${a.runCount} | ${a.recordsWithData}/${a.runCount}${a.partial ? ' ⚠️ PARTIAL' : ''} | ${a.totalTurns} | ${a.medianTurns ?? '—'} | ${formatDurationTotal(a.totalDurationMs)} | ${a.totalCostUsd != null ? `$${a.totalCostUsd.toFixed(2)}` : '—'} |`,
   );
   return [
     ...header,
-    '| Routine | Runs | Total turns | Median turns | Total duration | List-price cost-equivalent |',
-    '|---|---|---|---|---|---|',
+    '| Routine | Runs | Coverage | Total turns | Median turns | Total duration | List-price cost-equivalent |',
+    '|---|---|---|---|---|---|---|',
     ...rows,
     '',
   ].join('\n');

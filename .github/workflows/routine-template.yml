@@ -187,6 +187,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: routine-usage
-          path: "" # TEMP: forces a real upload-artifact error (not a missing-file no-op) to verify continue-on-error — revert before merge
+          path: routine-usage.json
           if-no-files-found: ignore
           retention-days: 90
