@@ -65,7 +65,16 @@ function symlinkPackage(name: string): 'already-linked' | 'restore' | 'remove' |
   if (!existsSync(source)) return 'skip';
   if (existsSync(dest)) {
     const alreadyLinked = lstatSync(dest).isSymbolicLink() && realpathSync(dest) === realpathSync(source);
-    if (alreadyLinked) return 'already-linked';
+    if (alreadyLinked) {
+      // A stale backup means a PRIOR run's swap crashed before its own
+      // teardown ran (e.g. SIGKILL/OOM) and never unwound — this run
+      // should be the one to unwind it, or the parked backup is stranded
+      // forever and root resolution stays swapped permanently. Fable
+      // ruling (PR #3727, round 3): fold this in as the crash-safety case
+      // teardown-completeness had not yet covered.
+      if (existsSync(backupPathFor(dest))) return 'restore';
+      return 'already-linked';
+    }
     // Park the real root copy instead of deleting it, so teardown can put
     // dependency resolution back exactly as npm install left it.
     const backup = backupPathFor(dest);
