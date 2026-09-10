@@ -355,10 +355,23 @@ export async function main() {
 
   const recentIg = recentInstagramPosts(allPostedData);
   const mediaUsedThisRun = new Set();
+  // Campaigns with a sibling already posted THIS run (2026-09-10, kanban
+  // t_bac31b1a — codex review: checkSimultaneousPair's "schedule both
+  // siblings within 5 minutes" is meaningless if the poster still can't
+  // actually PUBLISH both within one run). A due campaign pair is one
+  // posting UNIT: once one sibling posts, its partner is exempt from both
+  // the same-run media-reuse guard (intentionally shares the same credited
+  // photo — that's not a duplicate-content problem, it's the whole point of
+  // pairing) and the per-run MAX_POSTS_PER_RUN cap (a pair scheduled
+  // together must not have one half deferred to the next run, 30 minutes
+  // later, defeating "all at once").
+  const postedCampaignsThisRun = new Set();
   let attemptsThisRun = 0;
 
   for (const item of due) {
     const entry = validQueued.find((q) => q.data === item);
+    const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+    const siblingAlreadyPostedThisRun = campaign !== '' && postedCampaignsThisRun.has(campaign);
 
     // 1. Stale check FIRST — unconditional, regardless of what else is true
     // about this item. A 3-day-stale item must not quietly post just
@@ -385,9 +398,12 @@ export async function main() {
     // media dedupe (repeated-vs-earlier-in-THIS-run — the era-art guard's
     // `recentIg` list only reflects social/posted/ as of the start of this
     // run, so without this a second IG item in the same run could reuse
-    // media the FIRST item in this same run just posted).
+    // media the FIRST item in this same run just posted). A campaign PAIR
+    // sharing the same credited photo is deliberate (see
+    // buildSocialDraftPair) — exempt only that specific case, not an
+    // unrelated item that happens to reuse the same image.
     if (!blockReason) blockReason = eraArtGuardReason(item, recentIg);
-    if (!blockReason) {
+    if (!blockReason && !siblingAlreadyPostedThisRun) {
       const repeatedThisRun = item.media?.find((m) => mediaUsedThisRun.has(m));
       if (repeatedThisRun) blockReason = `media "${repeatedThisRun}" was already posted earlier in this same run — not reposting it again this run.`;
     }
@@ -435,7 +451,19 @@ export async function main() {
     // MAX_POSTS_PER_RUN items are postable), so it's logged but NOT an
     // outcome — annotating every deferral would train readers to skim past
     // the warnings that matter.
-    if (attemptsThisRun >= MAX_POSTS_PER_RUN) {
+    //
+    // A due campaign PAIR is exempt from the per-item cap for its second
+    // sibling (2026-09-10, kanban t_bac31b1a — codex review): checkSimul-
+    // taneousPair requires both siblings' scheduledAt to land within 5
+    // minutes of each other, but MAX_POSTS_PER_RUN=1 would otherwise always
+    // defer one sibling to the next run (30 minutes later), silently
+    // defeating "all at once" the moment a real due pair reached the
+    // poster. Treating a due pair as ONE posting unit (both siblings post
+    // in the same run, deliberately over the nominal per-run count) is what
+    // makes the pairing promise the schema enforces actually true at
+    // publish time — see MAX_POSTS_PER_PLATFORM_PER_DAY in lib/queue.mjs,
+    // which still bounds each PLATFORM's daily volume regardless.
+    if (attemptsThisRun >= MAX_POSTS_PER_RUN && !siblingAlreadyPostedThisRun) {
       console.log(`social-poster: per-run cap (${MAX_POSTS_PER_RUN}) reached — deferring ${entry.file} to the next run.`);
       continue;
     }
@@ -468,6 +496,7 @@ export async function main() {
       for (const m of item.media ?? []) mediaUsedThisRun.add(m);
       if (item.platform === 'instagram') recentIg.push(posted);
       allPostedData.push(posted);
+      if (campaign) postedCampaignsThisRun.add(campaign);
     } catch (err) {
       const lastError = String(err.message ?? err);
 

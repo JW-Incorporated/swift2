@@ -95,10 +95,17 @@ function xBodyTemplate(title, channel, url, isOfficial) {
 
 /**
  * The Instagram caption — deliberately a DIFFERENT shape from the X body
- * (longer-form, no raw link — the credited photo tile is what carries the
- * post) so checkCrossPostCopy's near-duplicate gate never trips on this
- * lane. Restates the same sourced facts (title/channel/official-ness) as
- * the X body, never a claim about the video's content.
+ * (longer-form, with the credited photo's attribution spelled out — see
+ * social/README.md's mediaKind section: a real photograph always ships with
+ * its photographer/agency credit in the caption when the length budget
+ * allows, and Instagram's 2,200-char budget always allows it) so
+ * checkCrossPostCopy's near-duplicate gate never trips on this lane.
+ * Restates the same sourced facts (title/channel/official-ness/URL) as the
+ * X body, never a claim about the video's content or about having watched
+ * it (codex review: an earlier version said "haven't watched all the way
+ * through yet," which — however hedged — still implied partial viewing;
+ * this lane's whole invariant is that NOBODY has watched it at all, see
+ * this file's header and docs/decisions.md 2026-09-10).
  *
  * Leads with a single fixed marker WORD before the video's own quoted
  * TITLE — exactly one word, chosen deliberately to consume the smallest
@@ -123,11 +130,18 @@ function xBodyTemplate(title, channel, url, isOfficial) {
  *      (one slot spent on the marker) — a two-word marker (an earlier
  *      version of this fix) needed only 4, a materially bigger regression
  *      flagged and rejected in codex review round 3.
+ *
+ * `url` is included as plain text (Instagram captions don't autolink, but
+ * every other paired post in social/posted/ ships its link as visible
+ * caption text the same way — see any *-ig.json sample) rather than a
+ * "link's in the profile" claim this pipeline never fulfills (it never
+ * updates the account bio — codex review finding on the official-upload
+ * branch).
  */
-function igBodyTemplate(title, channel, isOfficial) {
+function igBodyTemplate(title, channel, url, credit, isOfficial) {
   return isOfficial
-    ? `landed: "${title}" — no caption from her yet, but we're not waiting to talk about it. link's in the profile.`
-    : `dropped: "${title}" on ${channel}, and taylor's name is all over it. haven't watched all the way through yet, but you know we had to tell you the second it dropped.`;
+    ? `landed: "${title}" — no caption from her yet, but we're not waiting to talk about it. ${url}\n\n📷 ${credit}`
+    : `dropped: "${title}" on ${channel}. unverified beyond the title itself, but taylor's name is right there — ${url}\n\n📷 ${credit}`;
 }
 
 /** Trims `title` to fit whatever's left of X's weighted budget after the
@@ -196,7 +210,7 @@ export function buildSocialDraftPair(c, { now = new Date(), photoLibrary = [], p
     // waiting for a human.
     throw new Error(`social draft over X's weighted ${X_MAX_WEIGHTED}-char limit (${measured}): ${xBody}`);
   }
-  const igBody = igBodyTemplate(toHouseStyle(sanitize(c.title)), channel, isOfficial);
+  const igBody = igBodyTemplate(toHouseStyle(sanitize(c.title)), channel, c.url, photo.credit, isOfficial);
 
   const scheduledAt = new Date(now.getTime() + SCHEDULE_DELAY_MS).toISOString();
   const day = scheduledAt.slice(0, 10);
