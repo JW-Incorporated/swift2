@@ -3,6 +3,11 @@
 // (R12 redo against the OS-021 packages/experience/src layout). Authored/
 // reviewed content — this file, not lenses.generated.ts, is what content PRs
 // review and merge.
+//
+// Sourcing note: RunwayLook has no `sources` field yet (schema change
+// landing separately) — grounding is in `// Source:` comments per entry
+// until that field exists. Descriptions below cite one specific, real,
+// verifiable occasion/detail per era rather than a generic mood/vibe line.
 export const RUNWAY_LOOKS = [
   {
     id: 'look-debut',

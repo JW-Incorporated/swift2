@@ -3,6 +3,16 @@
 // (R12 redo against the OS-021 packages/experience/src layout). Authored/
 // reviewed content — this file, not lenses.generated.ts, is what content PRs
 // review and merge.
+//
+// Sourcing note: switched from a deliberately non-identifying naming
+// convention to real names on 2026-07-10 (see docs/decisions.md) — the Love
+// Story thread's whole premise is "who was she with, when," so hiding names
+// defeated the feature. `Relationship` doesn't yet have a `sources` field
+// (a schema change landing separately); until it does, each entry below
+// carries a `// Sources:` comment so the grounding is visible in-repo.
+// Dates verified via web research 2026-07-10, not from memory — see the
+// per-entry comments for the specific caveats where public reporting is
+// genuinely imprecise (Mayer's end date, Alwyn's start date).
 export const RELATIONSHIPS = [
   {
     id: 'rel-jonas',

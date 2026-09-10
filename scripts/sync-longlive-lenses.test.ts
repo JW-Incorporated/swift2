@@ -11,16 +11,23 @@ describe('renderModule', () => {
       { exportName: 'RELATIONSHIPS', type: 'Relationship[]', data: [] },
       { exportName: 'CLUE_PAIRS', type: 'CluePair[]', data: [{ id: 'clue-x', title: 'X' }] },
     ];
-    const ts = renderModule(datasets);
+    const ts = renderModule(datasets, { 'number-13': ['egg-1'] });
     expect(ts).toContain('// GENERATED FILE — do not hand-edit.');
     expect(ts).toContain(
-      "import type { CluePair, EggLink, EggNode, Motif, ReRecord, Relationship, RunwayLook, SinglePeriod } from './types';",
+      "import type { CluePair, EggLink, EggNode, Motif, MotifId, ReRecord, Relationship, RunwayLook, SinglePeriod } from './types';",
     );
     expect(ts).toContain("import type { ThreadMeta } from './lenses';");
     expect(ts).toContain('export const THREADS: ThreadMeta[] = [');
     expect(ts).toContain('"id": "the-proposal"');
     expect(ts).toContain('export const RELATIONSHIPS: Relationship[] = [];');
     expect(ts).toContain('export const CLUE_PAIRS: CluePair[] = [');
+    expect(ts).toContain('export const MOTIF_MEMBERSHIP: Record<MotifId, string[]> = {');
+    expect(ts).toContain('"number-13"');
+  });
+
+  it('omits MOTIF_MEMBERSHIP entirely when not provided', () => {
+    const ts = renderModule([{ exportName: 'THREADS', type: 'ThreadMeta[]', data: [] }]);
+    expect(ts).not.toContain('MOTIF_MEMBERSHIP');
   });
 
   it('round-trips every field through JSON.stringify without loss', () => {

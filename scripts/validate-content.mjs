@@ -1013,6 +1013,14 @@ for (const file of trackFiles) {
   const eggLinks = await loadLens('egg-links.mjs', 'EGG_LINKS');
   const motifs = await loadLens('motifs.mjs', 'MOTIFS');
   const cluePairs = await loadLens('clue-pairs.mjs', 'CLUE_PAIRS');
+  const motifMembershipMod = await import(
+    pathToFileURL(join(lensesDir, 'motif-membership.mjs')).href
+  );
+  const motifMembership = motifMembershipMod.MOTIF_MEMBERSHIP;
+  if (!motifMembership || typeof motifMembership !== 'object' || Array.isArray(motifMembership)) {
+    console.error('ERROR lenses/motif-membership.mjs: no MOTIF_MEMBERSHIP object exported');
+    errors += 1;
+  }
 
   checked +=
     threads.length +
@@ -1068,8 +1076,16 @@ for (const file of trackFiles) {
       err(`end "${r.end}" is not null or YYYY-MM-DD`);
     if (r.end && r.start && r.end < r.start)
       err(`end "${r.end}" is before start "${r.start}"`);
-    for (const eraId of r.eraIds ?? []) {
-      if (!ERA_IDS.has(eraId)) err(`eraId "${eraId}" is not a known EraId`);
+    // eraIds is required (Relationship.eraIds: EraId[] in types.ts) — lenses.ts's
+    // threadPoints() calls r.eraIds.map() directly with no fallback, so a
+    // missing/empty array here would throw at runtime instead of failing this
+    // content gate.
+    if (!Array.isArray(r.eraIds) || r.eraIds.length === 0) {
+      err('missing eraIds — needs a non-empty EraId[] array');
+    } else {
+      for (const eraId of r.eraIds) {
+        if (!ERA_IDS.has(eraId)) err(`eraId "${eraId}" is not a known EraId`);
+      }
     }
   }
 
@@ -1081,8 +1097,14 @@ for (const file of trackFiles) {
     if (!ISO_DATE_RE.test(p.end ?? '')) err(`end "${p.end}" is not YYYY-MM-DD`);
     if (p.end && p.start && p.end < p.start)
       err(`end "${p.end}" is before start "${p.start}"`);
-    for (const eraId of p.eraIds ?? []) {
-      if (!ERA_IDS.has(eraId)) err(`eraId "${eraId}" is not a known EraId`);
+    // eraIds is required (SinglePeriod.eraIds: EraId[] in types.ts) — same
+    // reasoning as RELATIONSHIPS above.
+    if (!Array.isArray(p.eraIds) || p.eraIds.length === 0) {
+      err('missing eraIds — needs a non-empty EraId[] array');
+    } else {
+      for (const eraId of p.eraIds) {
+        if (!ERA_IDS.has(eraId)) err(`eraId "${eraId}" is not a known EraId`);
+      }
     }
   }
 
@@ -1127,9 +1149,41 @@ for (const file of trackFiles) {
     if (!eggNodeIds.has(link.to)) err(`to "${link.to}" is not a known egg node id`);
   }
 
-  // -- MOTIFS: id uniqueness (membership itself is asserted by lenses.ts's
-  //    own dev-only guard against the live EGG_NODES import, not here).
-  uniqueBy(motifs, 'id', 'motifs.mjs');
+  // -- MOTIFS: id uniqueness, plus MOTIF_MEMBERSHIP (motif-membership.mjs)
+  //    references only real motif ids and only real egg-node ids, and every
+  //    EGG_NODES id is classified into EXACTLY ONE trail. This used to be
+  //    asserted only by a dev-only console.error guard in lenses.ts (runtime,
+  //    development builds only) — flagged in review as a real gap: an
+  //    unclassified egg could ship silently in production and CI. Now a hard
+  //    content-gate error instead.
+  const motifIds = uniqueBy(motifs, 'id', 'motifs.mjs');
+  if (motifMembership && typeof motifMembership === 'object' && !Array.isArray(motifMembership)) {
+    const nodeTrailCount = new Map();
+    for (const [motifId, nodeIds] of Object.entries(motifMembership)) {
+      const { err } = makeReporters(`lenses/motif-membership.mjs "${motifId}"`);
+      if (!motifIds.has(motifId)) {
+        err(`"${motifId}" is not a known MOTIFS id`);
+        continue;
+      }
+      if (!Array.isArray(nodeIds)) {
+        err(`membership list for "${motifId}" must be an array`);
+        continue;
+      }
+      for (const nodeId of nodeIds) {
+        if (!eggNodeIds.has(nodeId)) {
+          err(`"${motifId}" lists "${nodeId}", which is not a known EGG_NODES id`);
+          continue;
+        }
+        nodeTrailCount.set(nodeId, (nodeTrailCount.get(nodeId) ?? 0) + 1);
+      }
+    }
+    for (const n of eggNodes) {
+      const { err } = makeReporters(`lenses/egg-nodes.mjs "${n.id}"`);
+      const count = nodeTrailCount.get(n.id) ?? 0;
+      if (count === 0) err('not classified into any MOTIF_MEMBERSHIP trail');
+      else if (count > 1) err(`classified into ${count} MOTIF_MEMBERSHIP trails — must be exactly one`);
+    }
+  }
 
   // -- CLUE_PAIRS: id uniqueness, valid eraIds, and the invariant the old
   //    lenses.ts header only asserted in prose ("plant precedes payoff") —

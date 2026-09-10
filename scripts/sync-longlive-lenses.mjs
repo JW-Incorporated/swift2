@@ -51,6 +51,12 @@ const DATASETS = [
 
 const OUT_FILE = path.join(ROOT, 'packages', 'experience', 'src', 'lenses.generated.ts');
 
+// MOTIF_MEMBERSHIP is object-shaped (Record<MotifId, string[]>), not an
+// array like the DATASETS above, so it is loaded/rendered separately rather
+// than forced into the array-only DATASETS pipeline.
+const MOTIF_MEMBERSHIP_FILE = 'motif-membership.mjs';
+const MOTIF_MEMBERSHIP_EXPORT = 'MOTIF_MEMBERSHIP';
+
 /**
  * Render one seed array as a TS literal. The seed files already hold plain
  * JSON-compatible data (strings/numbers/booleans/arrays/objects — no
@@ -63,14 +69,14 @@ function renderArray(items) {
 }
 
 /** Render the generated TypeScript module. Pure string building. */
-export function renderModule(datasets) {
+export function renderModule(datasets, motifMembership) {
   const lines = [];
   lines.push('// GENERATED FILE — do not hand-edit.');
   lines.push('// Produced by scripts/sync-longlive-lenses.mjs from supabase/seed/lenses/**.');
   lines.push("// Re-run that script after lenses-seed changes; don't edit this file directly.");
   lines.push('');
   lines.push(
-    "import type { CluePair, EggLink, EggNode, Motif, ReRecord, Relationship, RunwayLook, SinglePeriod } from './types';",
+    "import type { CluePair, EggLink, EggNode, Motif, MotifId, ReRecord, Relationship, RunwayLook, SinglePeriod } from './types';",
   );
   // ThreadMeta stays defined in lenses.ts itself (not types.ts) on this repo's
   // current layout — a type-only import back to it is erased at compile time,
@@ -80,6 +86,13 @@ export function renderModule(datasets) {
   lines.push('');
   for (const { exportName, type, data } of datasets) {
     lines.push(`export const ${exportName}: ${type} = ${renderArray(data)};`);
+    lines.push('');
+  }
+  if (motifMembership !== undefined) {
+    lines.push('/** Source of truth for which eggs belong to which trail. */');
+    lines.push(
+      `export const MOTIF_MEMBERSHIP: Record<MotifId, string[]> = ${renderArray(motifMembership)};`,
+    );
     lines.push('');
   }
   return lines.join('\n');
@@ -96,6 +109,19 @@ async function loadDataset({ file, exportName }) {
   return data;
 }
 
+/** Load supabase/seed/lenses/motif-membership.mjs's MOTIF_MEMBERSHIP object. */
+async function loadMotifMembership() {
+  const filePath = path.join(SEED_DIR, MOTIF_MEMBERSHIP_FILE);
+  const mod = await import(pathToFileURL(filePath).href);
+  const data = mod[MOTIF_MEMBERSHIP_EXPORT];
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    throw new Error(
+      `sync-longlive-lenses: ${filePath} did not export a ${MOTIF_MEMBERSHIP_EXPORT} object`,
+    );
+  }
+  return data;
+}
+
 /** Load every supabase/seed/lenses/*.mjs source file. */
 async function fetchFromLocalFiles() {
   const loaded = [];
@@ -103,16 +129,18 @@ async function fetchFromLocalFiles() {
     const data = await loadDataset(dataset);
     loaded.push({ ...dataset, data });
   }
+  const motifMembership = await loadMotifMembership();
   const total = loaded.reduce((n, d) => n + d.data.length, 0);
   console.log(
-    `sync-longlive-lenses: loaded ${total} entries across ${loaded.length} datasets from local seed files.`,
+    `sync-longlive-lenses: loaded ${total} entries across ${loaded.length} datasets ` +
+      `(+ MOTIF_MEMBERSHIP) from local seed files.`,
   );
-  return loaded;
+  return { datasets: loaded, motifMembership };
 }
 
 async function main() {
-  const datasets = await fetchFromLocalFiles();
-  await writeFile(OUT_FILE, renderModule(datasets), 'utf-8');
+  const { datasets, motifMembership } = await fetchFromLocalFiles();
+  await writeFile(OUT_FILE, renderModule(datasets, motifMembership), 'utf-8');
   const total = datasets.reduce((n, d) => n + d.data.length, 0);
   console.log(`Synced ${total} lens entries -> ${path.relative(ROOT, OUT_FILE)}`);
 }

@@ -12,6 +12,7 @@ import {
   EGG_LINKS,
   EGG_NODES,
   MOTIFS,
+  MOTIF_MEMBERSHIP,
   RERECORDS,
   RELATIONSHIPS,
   RUNWAY_LOOKS,
@@ -296,30 +297,6 @@ function eraForYear(year: number): string {
   return best?.id ?? 'debut';
 }
 
-// Sourcing note: switched from a deliberately non-identifying naming
-// convention to real names on 2026-07-10 (see docs/decisions.md) — the Love
-// Story thread's whole premise is "who was she with, when," so hiding names
-// defeated the feature. `Relationship` doesn't yet have a `sources` field
-// (a schema change landing separately); until it does, each entry below
-// carries a `// Sources:` comment so the grounding is visible in-repo.
-// Dates verified via web research 2026-07-10, not from memory — see the
-// per-entry comments for the specific caveats where public reporting is
-// genuinely imprecise (Mayer's end date, Alwyn's start date).
-
-// Solo/single stretches between the relationships above — first-class
-// entries (not derived gaps) so the Love Story thread can answer "who she
-// wasn't with" as well as "who she was." Dates verified 2026-07-10 against
-// the same research pass as RELATIONSHIPS; gaps under ~1 month between
-// adjacent relationships (where public reporting isn't precise enough to
-// place a meaningful boundary) are folded into the neighboring relationship
-// rather than represented as a separate sliver.
-
-// Sourcing note: RunwayLook has no `sources` field yet (schema change
-// landing separately) — grounding is in `// Source:` comments per entry
-// until that field exists. Descriptions below cite one specific, real,
-// verifiable occasion/detail per era rather than a generic mood/vibe line.
-
-
 // ── Easter Egg Web (constellation) ──────────────────────────────────────────
 // x/y are normalized 0–100 coordinates for the SVG constellation layout.
 // Dataset compiled by an AI research pass and hand-audited (URLs flattened,
@@ -334,42 +311,13 @@ function eraForYear(year: number): string {
 // a readable story. EGG_LINKS remain the cross-trail connections drawn on the
 // exploratory constellation map. Every node belongs to exactly one trail.
 //
-// Adding an egg? Add it to EGG_NODES and to exactly one trail in
-// MOTIF_MEMBERSHIP below. The dev guard at the bottom fails loudly if a node is
-// left unclassified — that is what keeps new content consistent.
-
+// Adding an egg? Add it to EGG_NODES (supabase/seed/lenses/egg-nodes.mjs)
+// and to exactly one trail in MOTIF_MEMBERSHIP
+// (supabase/seed/lenses/motif-membership.mjs). scripts/validate-content.mjs
+// fails loudly at `npm run validate:content` time if a node is left
+// unclassified — see its lenses/egg-nodes.mjs membership check.
 
 export const MOTIF_BY_ID = Object.fromEntries(MOTIFS.map((m) => [m.id, m])) as Record<MotifId, Motif>;
-
-/** Source of truth for which eggs belong to which trail. */
-const MOTIF_MEMBERSHIP: Record<MotifId, string[]> = {
-  'number-13': ['egg-13-debut', 'egg-13-video-1989', 'egg-13-tracks-midnights'],
-  'hidden-messages': ['egg-capitals-debut', 'egg-capitals-fearless', 'egg-fearless-tv-scramble', 'egg-wood-track-tloas'],
-  'the-snake': ['egg-snake-instagram', 'egg-snake-lwymmd', 'egg-snake-me-mv'],
-  'color-coding': ['egg-red-burning', 'egg-color-daylight', 'egg-string-willow', 'egg-karma-album-theory'],
-  'clocks-countdowns': [
-    'egg-clock-lastkiss',
-    'egg-midnights-vinyl-clock',
-    'egg-grammys-two-fingers',
-    'egg-ttpd-timetable-clock',
-    'egg-ttpd-anthology-drop',
-  ],
-  'doors-rooms': [
-    'egg-loverhouse-mv',
-    'egg-cabin-folklore',
-    'egg-eras-burning-house',
-    'egg-tloas-orange-doors',
-    'egg-tloas-album-drop',
-  ],
-  'the-rerecordings': [
-    'egg-man-graffiti',
-    'egg-red-tv-rings',
-    'egg-bejeweled-elevator',
-    'egg-rep-tv-clue-bejeweled',
-    'egg-speaknow-tv-nashville',
-    'egg-1989-tv-la',
-  ],
-};
 
 const NODE_TO_MOTIF: Record<string, MotifId> = Object.entries(MOTIF_MEMBERSHIP).reduce(
   (acc, [motif, ids]) => {
@@ -404,8 +352,11 @@ export function motifEraIds(motifId: MotifId): string[] {
   return out;
 }
 
-// Dev-only guard: every egg must live on exactly one trail. An unclassified
-// node should fail loudly here instead of silently vanishing from the UI.
+// Dev-only guard: every egg must live on exactly one trail. The authoritative
+// check is scripts/validate-content.mjs's MOTIF_MEMBERSHIP invariant (fails
+// `npm run validate:content` in CI); this stays as a cheap in-browser/dev
+// signal so an unclassified node is also visible immediately during local
+// development, not just at the next content-gate run.
 if (process.env.NODE_ENV !== 'production') {
   const unclassified = EGG_NODES.filter((n) => !NODE_TO_MOTIF[n.id]).map((n) => n.id);
   if (unclassified.length > 0) {

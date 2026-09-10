@@ -3,6 +3,14 @@
 // (R12 redo against the OS-021 packages/experience/src layout). Authored/
 // reviewed content — this file, not lenses.generated.ts, is what content PRs
 // review and merge.
+//
+// Solo/single stretches between the relationships above — first-class
+// entries (not derived gaps) so the Love Story thread can answer "who she
+// wasn't with" as well as "who she was." Dates verified 2026-07-10 against
+// the same research pass as RELATIONSHIPS; gaps under ~1 month between
+// adjacent relationships (where public reporting isn't precise enough to
+// place a meaningful boundary) are folded into the neighboring relationship
+// rather than represented as a separate sliver.
 export const SINGLE_PERIODS = [
   {
     id: 'single-early',
