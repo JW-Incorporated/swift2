@@ -340,11 +340,17 @@ describe('allVideoRecordsForEra reads the published bundle (byte-identical to VI
 // #3476 guardrail: every record `eraVideoFeed`/`videosForEra` ever renders
 // must carry either a verified embed or a complete watchUrl+platform pair —
 // never neither (a card with nothing to actually watch) and never a lone
-// watchUrl/platform half (sync-longlive-videos.mjs's normalizeVideo already
-// degrades a mismatched pair to null/null, but this guards the invariant at
-// the read side too, so a future authored-but-unlinkable record fails CI
-// instead of silently vanishing the way the original 8 records did before
-// #3476, or silently rendering a broken link-out card after it).
+// watchUrl/platform half. The malformed-input case (a raw record with only
+// one of watchUrl/platform set) is unit-tested directly at the normalization
+// boundary in scripts/sync-longlive-videos.test.ts ("normalizeVideo —
+// watchUrl/platform (#3476)" — "drops a lone watchUrl with no platform
+// label", "drops a lone platform label with no watchUrl"), which proves
+// normalizeVideo degrades a mismatched pair to null/null before it ever
+// reaches this module. The tests below guard the same invariant from the
+// READ side, over the real generated corpus, so a future authored-but-
+// unlinkable record fails CI instead of silently vanishing the way the
+// original 8 records did before #3476, or silently rendering a broken
+// link-out card after it.
 describe('#3476 guardrail — every watchable record has an embed or a complete watch-link pair', () => {
   it('never emits a record with a lone watchUrl or a lone platform', () => {
     for (const eraId of ALL_ERA_IDS) {
@@ -367,19 +373,24 @@ describe('#3476 guardrail — every watchable record has an embed or a complete 
   });
 
   it('surfaces the 8 tour-film/documentary records #3476 was filed for, with a link-out for the ones with a live watch destination today', () => {
-    // Netflix (miss-americana), Disney+ (city-of-lover,
-    // taylor-swift-the-eras-tour-film), and retailer DVD/Blu-ray pages
-    // (journey-to-fearless, speak-now-world-tour-live) are all live and
-    // verified as of this writing, so those 5 now watch-link out.
+    // Netflix (miss-americana) and Disney+ (taylor-swift-the-eras-tour-film)
+    // are live and verified; retailer DVD/Blu-ray pages (journey-to-fearless,
+    // speak-now-world-tour-live) are live too, so those 4 now watch-link out.
+    // city-of-lover was initially cited against a stale disneyplus.com URL
+    // (still resolving from an old crawl) that a cross-provider review
+    // caught — JustWatch confirms it has no live streaming destination today
+    // (last on Hulu/Disney+ in a May 2020 limited window), so it correctly
+    // joins the still-hidden group below rather than shipping a broken link.
     // reputation-stadium-tour-film (Netflix, removed 2023-12-30),
-    // the-1989-world-tour-live-film (Apple Music, removed 2020-05-22), and
+    // the-1989-world-tour-live-film (Apple Music, removed 2020-05-22),
     // the-official-release-party-of-a-showgirl (one-weekend theatrical only,
-    // no announced streaming release) have no live official watch
-    // destination today, so they correctly stay hidden — #3476 widens the
-    // rule, it does not fabricate availability that doesn't exist.
+    // no announced streaming release), and city-of-lover (Hulu/Disney+
+    // limited-time window closed, JustWatch confirms no live destination
+    // today) have no live official watch destination today, so they
+    // correctly stay hidden — #3476 widens the rule, it does not fabricate
+    // availability that doesn't exist.
     const linkedOut: [EraId, string][] = [
       ['lover', 'miss-americana'],
-      ['lover', 'city-of-lover'],
       ['midnights', 'taylor-swift-the-eras-tour-film'],
       ['fearless', 'journey-to-fearless'],
       ['speak-now', 'speak-now-world-tour-live'],
@@ -396,6 +407,7 @@ describe('#3476 guardrail — every watchable record has an embed or a complete 
       ['reputation', 'reputation-stadium-tour-film'],
       ['1989', 'the-1989-world-tour-live-film'],
       ['tloas', 'the-official-release-party-of-a-showgirl'],
+      ['lover', 'city-of-lover'],
     ];
     for (const [eraId, slug] of stillHidden) {
       const v = videosForEra(eraId).find((x) => x.slug === slug);

@@ -7,7 +7,7 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-09-10 — Playable-first widened to playable-OR-watchable: 5 of 8 hidden tour films/documentaries now show a watch-link card (#3476)
+## 2026-09-10 — Playable-first widened to playable-OR-watchable: 4 of 8 hidden tour films/documentaries now show a watch-link card (#3476)
 
 **Decision:** the 2026-08-13 "Playable-first timeline" rule ("if a video card
 is visible, it plays") stays in force, but "plays" now means "a reader can
@@ -35,19 +35,24 @@ the rule itself. This redo (the original PR #3708 closed stale after
 OS-014/OS-014b/OS-021/OS-022 restructured every file it touched) re-verified
 each of the 8 against live watch destinations as of 2026-09-10 rather than
 reusing the original PR's citations verbatim, and found the situation had
-changed: only 5 have a currently-live official watch destination —
-*Miss Americana* (Netflix), *City of Lover* (Disney+), *The Eras Tour* film
-(Disney+), *Journey to Fearless* (retailer Blu-ray/DVD page), and *Speak Now
-World Tour – Live* (retailer DVD page). The other 3 do not: *reputation
-Stadium Tour* was removed from Netflix 2023-12-30 with no replacement, *The
-1989 World Tour Live* was removed from Apple Music 2020-05-22 with no
-replacement, and *The Official Release Party of a Showgirl*'s one-weekend
-theatrical run (Oct 3–5, 2025) has no announced streaming/digital release as
-of this writing. Those 3 stay hidden — the fix restores the reader's actual
-ability to watch for the records that genuinely have somewhere to watch;
-it does not fabricate a watch destination that doesn't exist. Each of the 3
-still-hidden seed records carries a dated comment explaining why and inviting
-a `watchUrl`/`platform` pair the moment a real destination appears.
+changed: only 4 have a currently-live official watch destination —
+*Miss Americana* (Netflix), *The Eras Tour* film (Disney+), *Journey to
+Fearless* (retailer Blu-ray/DVD page), and *Speak Now World Tour – Live*
+(retailer DVD page). The other 4 do not: *reputation Stadium Tour* was
+removed from Netflix 2023-12-30 with no replacement, *The 1989 World Tour
+Live* was removed from Apple Music 2020-05-22 with no replacement, *The
+Official Release Party of a Showgirl*'s one-weekend theatrical run (Oct 3–5,
+2025) has no announced streaming/digital release as of this writing, and
+*City of Lover* only ever streamed on Hulu/Disney+ for a limited window in
+May 2020 and has no live destination today (a cross-provider review pass
+caught an initial draft that cited a stale `disneyplus.com` URL still
+resolving from an old crawl — JustWatch confirms the title itself, not just
+that one URL, is currently unavailable to stream anywhere). Those 4 stay
+hidden — the fix restores the reader's actual ability to watch for the
+records that genuinely have somewhere to watch; it does not fabricate a
+watch destination that doesn't exist. Each of the 4 still-hidden seed
+records carries a dated comment explaining why and inviting a
+`watchUrl`/`platform` pair the moment a real destination appears.
 
 **Scope discipline:** `musicVideosForEra()` (the dated chronological-timeline
 merge) stays `isPlayable`-only — that surface embeds inline via `MomentVideo`
