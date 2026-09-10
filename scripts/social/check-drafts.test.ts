@@ -2,7 +2,7 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCampaignPair, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkDraft } from './check-drafts.mjs';
+import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCampaignPair, checkSimultaneousPair, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkDraft } from './check-drafts.mjs';
 
 // checkMedia reads real files under apps/web/public/ (PUBLIC_DIR in
 // check-drafts.mjs), so the aspect-ratio-rejection test below needs an actual
@@ -312,13 +312,63 @@ describe('checkCampaignPair', () => {
     expect(checkCampaignPair('x.json', { platform: 'tiktok', campaign: 'c1', body: 'b' }, [], [])).toEqual([]);
   });
 
-  // 2026-09-05 (#3584, Fable ruling): the appearance-discovery fast lane is
-  // deliberately X-only (no license-cleared photo to pair with) — its
-  // `appearance:<videoId>` campaigns are exempt from the otherwise-
-  // unconditional pairing rule.
-  it('exempts an appearance:-family campaign from the pairing requirement', () => {
+  // 2026-09-05 (#3584) added an `appearance:`-family exemption to this rule;
+  // 2026-09-10 (kanban t_bac31b1a, "no single-platform exception of any
+  // kind") removed it again — an appearance-lane draft is paired exactly
+  // like every other campaign now.
+  it('rejects an appearance:-family campaign with no Instagram sibling — the fast-lane exemption is gone', () => {
     const x = { file: 'x.json', data: { platform: 'x', campaign: 'appearance:dQw4w9WgXcQ', body: 'b' } };
-    expect(checkCampaignPair('x.json', x.data, [x], [])).toEqual([]);
+    const findings = checkCampaignPair('x.json', x.data, [x], []);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('no instagram sibling');
+  });
+});
+
+describe('checkSimultaneousPair', () => {
+  // "All at once" (2026-09-10, kanban t_bac31b1a, Joey: "one idea goes out
+  // to X, Instagram... all together"): the real 2026-08-30/08-28 shape —
+  // one platform at 15:00Z, the other hours later same day or the day
+  // before — must now fail.
+  it('fails when the paired sibling is scheduled hours apart, same day', () => {
+    const all = [
+      { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', scheduledAt: '2026-08-30T15:00:00Z' } },
+      { file: 'ig.json', data: { platform: 'instagram', campaign: 'c1', body: 'b', scheduledAt: '2026-08-30T23:00:00Z' } },
+    ];
+    const findings = checkSimultaneousPair('x.json', all[0].data, all);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('ig.json');
+    expect(findings[0]).toContain('480 minute');
+  });
+
+  it('passes when both siblings share the exact same scheduledAt', () => {
+    const all = [
+      { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' } },
+      { file: 'ig.json', data: { platform: 'instagram', campaign: 'c1', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' } },
+    ];
+    expect(checkSimultaneousPair('x.json', all[0].data, all)).toEqual([]);
+    expect(checkSimultaneousPair('ig.json', all[1].data, all)).toEqual([]);
+  });
+
+  it('passes when siblings are within the tight window (a few minutes apart)', () => {
+    const all = [
+      { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' } },
+      { file: 'ig.json', data: { platform: 'instagram', campaign: 'c1', body: 'b', scheduledAt: '2026-09-09T23:03:00Z' } },
+    ];
+    expect(checkSimultaneousPair('x.json', all[0].data, all)).toEqual([]);
+  });
+
+  it('is a no-op when there is no sibling in the queue at all (checkCampaignPair already flags that)', () => {
+    const all = [{ file: 'x.json', data: { platform: 'x', campaign: 'lonely', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' } }];
+    expect(checkSimultaneousPair('x.json', all[0].data, all)).toEqual([]);
+  });
+
+  it('is a no-op when there is no campaign at all (checkCampaignPair already flags that)', () => {
+    expect(checkSimultaneousPair('x.json', { platform: 'x', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' }, [])).toEqual([]);
+  });
+
+  it('is a no-op for an unrecognized platform or invalid scheduledAt (checkSchema already flags those)', () => {
+    expect(checkSimultaneousPair('x.json', { platform: 'tiktok', campaign: 'c1', body: 'b', scheduledAt: '2026-09-09T23:00:00Z' }, [])).toEqual([]);
+    expect(checkSimultaneousPair('x.json', { platform: 'x', campaign: 'c1', body: 'b', scheduledAt: 'not-a-date' }, [])).toEqual([]);
   });
 });
 
@@ -679,9 +729,9 @@ describe('checkMedia', () => {
     expect(findings.some((f) => f.includes('require at least one credited image'))).toBe(true);
   });
 
-  it('allows the explicitly exempt appearance lane to remain a bare video preview', async () => {
+  it('rejects an X draft with mediaKind "video-thumb" — the value is no longer schema-recognized (2026-09-10, kanban t_bac31b1a)', async () => {
     const findings = await checkMedia('a.json', { platform: 'x', body: 'text only', campaign: 'appearance:video-id', mediaKind: 'video-thumb' }, []);
-    expect(findings).toEqual([]);
+    expect(findings.some((f) => f.includes('require at least one credited image'))).toBe(true);
   });
 
   it('rejects an X draft that declares a site-screen tile', async () => {
@@ -884,18 +934,13 @@ describe('checkMedia', () => {
     expect(findings.some((f) => f.includes('cannot be mediaKind "photo"'))).toBe(true);
   });
 
-  it('rejects mediaKind "video-thumb" on an Instagram draft outright', async () => {
+  it('mediaKind "video-thumb" is no longer schema-recognized — falls through to the "no declared mediaKind" style rejection', async () => {
     const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/photos/appearance-dQw4w9WgXcQ.jpg'], mediaKind: 'video-thumb' }, []);
-    expect(findings.some((f) => f.includes('not allowed on Instagram drafts at all'))).toBe(true);
+    expect(findings.some((f) => f.includes('cannot be mediaKind') || f.includes('not in the credited photo inventory') || f.includes('no declared'))).toBe(true);
   });
 
-  it('rejects mediaKind "video-thumb" on an X draft that attaches an image', async () => {
-    const findings = await checkMedia('a.json', { platform: 'x', media: ['/social/library/photos/appearance-dQw4w9WgXcQ.jpg'], mediaKind: 'video-thumb' }, []);
-    expect(findings.some((f) => f.includes('may not attach an image'))).toBe(true);
-  });
-
-  it('accepts mediaKind "video-thumb" on an exempt X appearance draft with no attached media (link preview only)', async () => {
+  it('rejects mediaKind "video-thumb" on X too — no exempt lane remains (2026-09-10, kanban t_bac31b1a)', async () => {
     const findings = await checkMedia('a.json', { platform: 'x', campaign: 'appearance:video-id', mediaKind: 'video-thumb', body: 'text with a link' }, []);
-    expect(findings).toEqual([]);
+    expect(findings.length).toBeGreaterThan(0);
   });
 });
