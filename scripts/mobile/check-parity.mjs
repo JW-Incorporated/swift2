@@ -29,16 +29,19 @@ const asJson = args.includes('--json');
 const lagIdx = args.indexOf('--lag-hours');
 const LAG_HOURS = lagIdx >= 0 ? Number(args[lagIdx + 1]) : 48;
 
+// CI installs eas-cli globally and sets EAS_BIN=eas (eas-cli is not a
+// workspace dependency — adding it reshuffles package-lock.json by hundreds
+// of entries). Locally the default `npx --no-install eas-cli` path is used.
+const EAS_BIN = process.env.EAS_BIN || null;
+
 function eas(cmdArgs) {
-  const out = execFileSync(
-    'npx',
-    ['--no-install', 'eas-cli', ...cmdArgs, '--json', '--non-interactive'],
-    {
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'pipe'],
-      shell: process.platform === 'win32',
-    },
-  );
+  const bin = EAS_BIN ?? 'npx';
+  const prefix = EAS_BIN ? [] : ['--no-install', 'eas-cli'];
+  const out = execFileSync(bin, [...prefix, ...cmdArgs, '--json', '--non-interactive'], {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+    shell: process.platform === 'win32',
+  });
   // eas prints upgrade notices to stdout before the JSON on some versions.
   const start = out.search(/[[{]/);
   return JSON.parse(out.slice(start));
@@ -47,7 +50,10 @@ function eas(cmdArgs) {
 function latestFinishedBuild(builds, platform) {
   return builds
     .filter(
-      (b) => b.platform === platform && b.status === 'FINISHED' && String(b.buildProfile || '').startsWith('production'),
+      (b) =>
+        b.platform === platform &&
+        b.status === 'FINISHED' &&
+        String(b.buildProfile || '').startsWith('production'),
     )
     .sort(
       (a, b) => new Date(b.completedAt || b.createdAt) - new Date(a.completedAt || a.createdAt),
