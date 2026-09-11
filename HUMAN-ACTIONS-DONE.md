@@ -1,0 +1,53 @@
+# Human actions — Swift2 — CLOSED
+
+<!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
+     Full bodies are in git history. Numbers here are never reused. -->
+
+- #59 · 2026-09-11 · done · Generate `CLAUDE_CODE_OAUTH_TOKEN` for the routines-migration fleet — "legacy-dup of #43" · by migration
+- #50 · 2026-09-11 · done · Add the Discord webhook for the social-channel morning brief and safe Permis repairs — "the social-channel morning brief and safe Permis repair rollout need a private, reliable route to their Discord channel …" · by migration
+- #47 · 2026-09-11 · done · URGENT — disable 15 original claude.ai routines now duplicated by the GitHub Actions migration — ~15-20 min — "the routines-migration (t_876f9697, t_36d63712, t_574dfb62, t_9752a8e0, t_123b1628 — all merged) built GitHub Actions replacements for the w …" · by migration
+- #46 · 2026-09-11 · done · Mobile release train — Google Play service-account key into EAS — "`docs/mobile-release.md`. The release train (`apps/mobile/.eas/workflows/release.yml`) submits Android builds to the Play **internal …" · by migration
+- #45 · 2026-09-11 · done · Mobile release train — iOS signing + App Store Connect key into EAS — "`docs/mobile-release.md`. Today the iOS distribution certificate, the LongLive provisioning profile, and the App Store Connect API key …" · by migration
+- #44 · 2026-09-11 · done · OS-040 — `EXPO_TOKEN` repo secret for automatic EAS Update — "`docs/specs/2026-09-05-one-source-three-surfaces.md` §6, card OS-040 (Phase 4) …" · by migration
+- #42 · 2026-09-11 · done · Add a GitHub comment-edit tool to Kevin's cloud sessions (or accept the append-and-supersede workaround) — "issue #3631. Kevin's `docs/kevin.md` anchor-comment contract (Stream 2 digest / Stream 3 triage) was written assuming a same-day re-run …" · by migration
+- #41 · 2026-09-11 · done · Rename Karen's live trigger to match its judgment-only prompt (#3616, T-5) — "issue #3616 / `docs/agents/runners.md` § T-5. The rename itself is pre-approved, standing-agent-authority work — no founder decision needed …" · by migration
+- #40 · 2026-09-11 · done · Etsy API returns 403 to the E5 evidence workflow — check app approval — "migrated from legacy format" · by migration
+- #39 · 2026-09-11 · done · Restore Etsy v3 API access for E5 fan-made evidence collection — existing account/key — "migrated from legacy format" · by migration
+- #38 · 2026-09-11 · done · Apply the Kevin daily-desk trigger cutover (T-10) — "migrated from legacy format" · by migration
+- #37 · 2026-09-11 · done · Sync T-20 attribution trailer to all 24 live Tier-2 routines — "migrated from legacy format" · by migration
+- #36 · 2026-09-11 · done · T-3 News Triage model trial applied — "migrated from legacy format" · by migration
+- #35 · 2026-09-11 · done · Vault Phase 4 needs a RemoteTrigger-capable session on your account — the disable step can't run from a docs/CI sandbox — ~10-20 min — "`docs/agents/vault-run-plan.md` Phase 4 (retiring the six standalone content-lane triggers now duplicated by the Vault Run — worth ~3.9 fewe …" · by migration
+- #34 · 2026-09-11 · done · Codex review quota lock on merge-ready merch PR #3549 — pick one, ~2 min — "PR #3549 (test-only, 69 lines added to `apps/web/lib/longlive/merch.test.ts`) was independently reviewed twice with every check green (12/12 …" · by migration
+- #33 · 2026-09-11 · done · Confirm the Phase 2 merch catalog on mobile and desktop — "Phase 2's deterministic acceptance checks are green on merged `main`: generated coverage is current for 463 products, every uncovered row ha …" · by migration
+- #32 · 2026-09-11 · done · Etsy API returns 403 to the E5 evidence workflow — check app approval, ~10 min — "migrated from legacy format" · by migration
+- #31 · 2026-09-11 · done · Higher-cap paid-search request — superseded, ~0 min (no action needed) — "migrated from legacy format" · by migration
+- #30 · 2026-09-11 · done · Confirm the two owner-authorized X post deletions — "migrated from legacy format" · by migration
+- #29 · 2026-09-11 · done · Search-API account for merch engine E6 — payment card, ~10 min — "engine E6 (Moment→Product Matcher, merch plan Phase 4) needs a Google Shopping-class search API for the matches the free Awin product index  …" · by migration
+- #28 · 2026-09-11 · done · Merch plan: save credentials under canonical names — "Joey's D1/D3 product decisions are complete under HUMAN-ACTIONS #26. The remaining owner action is the credential-naming cleanup: the …" · by migration
+- #27 · 2026-09-11 · done · External IP-counsel review of the merch affiliate layer — gates merch Phases 2–4 — "`docs/decisions.md` 2026-07-08 §3 is the standing rule:" · by migration
+- #26 · 2026-09-11 · done · Record owner decisions D1 and D3 for the autonomous marketplace — "migrated from legacy format" · by migration
+- #25 · 2026-09-11 · done · Two PRs stuck with zero GitHub Actions check-suite — one is the live IG/X posting bug fix — ~5-15 min, needs your GitHub UI access — "you asked why Instagram posts have been silent while X posts keep firing, and why 4 posts went out at once instead of ~daily." · by migration
+- #24 · 2026-09-11 · done · Unblock the video seed — code fix is in, just re-run the command — "issue #725. Running the four seed commands today, `db:seed:content` (718 items) and `db:seed:theories` (74) succeeded; `db:seed:videos` …" · by migration
+- #23 · 2026-09-11 · done · BACKUPS launch gate (#680) — read Supabase plan/backup status off the dashboard, run one restore drill against production's own bytes — "the BACKUPS launch gate has been 🟡 since 2026-08-12. The restore mechanism itself is built, tested, and green in CI (#1890) — a drill that …" · by migration
+- #22 · 2026-09-11 · done · Photo-Enrichment worker's scheduled environment has total network egress block — 3 consecutive no-op runs — "the Photo-Enrichment worker (issue #762) needs to fetch press pages and Instagram embed HTML, and download/vision-confirm candidate images,  …" · by migration
+- #21 · 2026-09-11 · done · Grant the Paul Blart runner read access to Dependabot alerts — "Paul Blart's whole job is "zero CVEs sitting unseen." Right now he **cannot see them at all.** The token the scheduled runner uses returns ` …" · by migration
+- #20 · 2026-09-11 · done · Register a DMCA agent with the U.S. Copyright Office — ~15 min + a small filing fee — "Joey decided (2026-08-24, in chat) to register a DMCA agent. `apps/web/lib/longlive/legal.ts`'s takedown-notice section (PR #2332) now says …" · by migration
+- #19 · 2026-09-11 · done · 17 Getty photos with unclear rights, still live in seed content — ~15 min to decide, lawyer's call — "migrated from legacy format" · by migration
+- #18 · 2026-09-11 · done · Refresh the production database — content seed has drifted, not urgent — ~15 min, needs Wyatt — "issue #725 — production `month_item`/`track_note`/ `theory`/`video_work` tables are stale against `supabase/seed/**` …" · by migration
+- #17 · 2026-09-11 · done · Android — real-device test is the only thing left before Play Store — ~15 min, needs Wyatt — "issue #530. Engineering is done — two draft PRs (#42, #67) hold a working Expo/EAS build plus the shipping checklist …" · by migration
+- #16 · 2026-09-11 · done · Facebook groups checklist ships empty — needs your real group list, and your first real export to trust the parser — "`scripts/knowledge/fb-groups-checklist.mjs` (`fb-export-reminder.yml`'s Sunday reminder, PLAN.md Stage 6) ships with zero groups — only you  …" · by migration
+- #15 · 2026-09-11 · done · Two knowledge-engine calls still open after #12 — Reddit Data API status, Supabase anonymous-auth toggle — "you answered 3 of #12's 5 items in chat tonight (GNews free-tier yes, embedding vendor = OpenAI, Tumblr key set) and marked #12 DONE — carry …" · by migration
+- #14 · 2026-09-11 · done · No `apps/worker/.env` in knowledge-engine worktrees — 10 migrations unapplied against prod, pgvector untested, one real security gap to close first — "Stage 2 of the knowledge-engine build (`PLAN.md`) asked me to test `create extension vector` against the real Supabase project first, then a …" · by migration
+- #13 · 2026-09-11 · done · Add `ANTHROPIC_API_KEY` as a worker repo secret — "migrated from legacy format" · by migration
+- #12 · 2026-09-11 · done · Vendor/account decisions for the knowledge engine build — "migrated from legacy format" · by migration
+- #11 · 2026-09-11 · done · Six stale duplicate routines from a July handoff — "migrated from legacy format" · by migration
+- #10 · 2026-09-11 · skip · Strip Claude_Code_Remote from 22 new routines — ~20-30 min — "migrated from legacy format" · by migration
+- #9 · 2026-09-11 · skip · Decide whether `main` should keep requiring PRs — "whichever you choose, `gh api repos/JW-Incorporated/swift2/rulesets/18819106` reflects it, and a test PR still merges once `build` is green." · by migration
+- #8 · 2026-09-11 · skip · Turn on the spam gate for link submissions — "you asked for "a very simple captcha... the box you click that says I'm human" on the Community/Merch link-submission form …" · by migration
+- #7 · 2026-09-11 · done · Three questions left open when #2110 merged — "you deferred these to land the branch. Merging did not answer them, and the dataset ages from here." · by migration
+- #6 · 2026-09-11 · done · Should `auto-merge-content` keep auto-landing UI code? — "PR #2140 changed two `.tsx`/`.ts` files and merged itself with no human involved …" · by migration
+- #5 · 2026-09-11 · done · Five product/tech decisions that lost their owner — "these were Wyatt's calls. With him gone they are yours, or they ship unratified by default. None is urgent; all are cheap to answer." · by migration
+- #4 · 2026-09-11 · done · API accounts for the marketplace research — "you asked for a curated dataset of official + viral fan-made merch. Tier 1 (the official store) is already solved and needs nothing from …" · by migration
+- #3 · 2026-09-11 · done · Device-check the bottom nav — "the nav has been fixed three times from code, and each time a real phone found something the tests did not …" · by migration
+- #2 · 2026-09-11 · done · Confirm Karen's cloud routine is actually enabled — "migrated from legacy format" · by migration
+- #1 · 2026-09-11 · done · Get the production site and CI off Wyatt's accounts — ~30–60 min — "Wyatt has left the project, but the live product still runs on his infrastructure. This is the single largest standing risk in the repo …" · by migration
