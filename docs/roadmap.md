@@ -91,12 +91,17 @@ side task: **goal #1 growth, goal #2 keeping the fan base loving the app**
 approval — the WPs below inherit its desk/charter pattern and don't start
 before it's approved).
 
+**Social ownership: Tree (single owner)** — strategy, the calendar, every
+caption, and the weekly founder brief (2026-09-12, epic #4117). The Growth &
+Community desk was folded into `docs/agents/tree.md`; `docs/agents/growth.md`
+is a tombstone. One name owns the plan, the writing and the result.
+
 | WP | What | Status |
 |----|------|--------|
 | **L1** | **Watch desk (launch gate):** first define which serving path is authoritative for users (the static LongLive `/` vs the Supabase-wired path — see the known gap at the top of this doc), then uptime + error monitoring on that path's key routes, cost-cap watch, Tier-3 paging; usage-analytics stack decided (decision entry) and baseline wired | ⬜ pre-launch |
 | **L2** | **Feedback loop:** in-app feedback (PR #427) + app-store reviews + social complaints funneled into Kevin's triage; recurring themes surface as banked product decisions | ⬜ at launch |
-| **L3** | **Growth & Community desk, listening-first:** daily social/media/fandom scan (r/TaylorSwift, X, app stores) → sentiment + opportunity digest in the Founders' Brief; social-account creation TX items surfaced early (lead time) | ⬜ **pre-launch** (pulled forward 2026-07-11, Joey) |
-| **L4** | **Automated announcements:** era-drop (J7) + feature announcements posted through the same queue-and-ship pipeline as the rest of social. The per-channel autopost grant landed 2026-07-25 (`docs/decisions.md`, reaffirmed 2026-08-25) — there is no per-item founder approval step; the founder-notification email on every post is the only checkpoint. Engagement replies stay human indefinitely | ⬜ post-launch (J7 not yet started; the autopost mechanism itself is already live) |
+| **L3** | **Tree (was: Growth & Community desk), listening-first:** daily social/media/fandom scan (r/TaylorSwift, X, app stores) → sentiment + opportunity digest in the Founders' Brief; social-account creation TX items surfaced early (lead time) | ⬜ **pre-launch** (pulled forward 2026-07-11, Joey) |
+| **L4** | **Automated announcements:** era-drop (J7) + feature announcements posted through the same queue-and-ship pipeline as the rest of social. Per-item founder approval was restored 2026-09-10 and is now the founder's own Discord ✅ on the brief in `#longlive-social`, HMAC-signed (`docs/decisions.md` 2026-09-11, B1) — the notification email is a record after the fact, not the checkpoint. Engagement replies stay human indefinitely | ⬜ post-launch (J7 not yet started; the autopost mechanism itself is already live) |
 | **L5** | **Standing marketing agent (replaces the /marketing command, which Joey judged not-a-team):** monthly research cadence with state between runs (recommended → shipped → measured), verdicts land as banked decisions; `docs/marketing/growth-plan.md` maintained from real metrics, founder-reviewed quarterly. **First deliverable: the launch campaign plan** | ⬜ **pre-launch** (pulled forward 2026-07-11, Joey) |
 
 ## 🎁 Ported from Orbit — and the important caveat

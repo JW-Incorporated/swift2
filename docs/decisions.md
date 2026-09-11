@@ -7,6 +7,301 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-12 — Autonomy ladder: a campaign type can earn post-and-notify, per type, revocably (T7)
+
+**Decision:** A campaign family that accumulates ≥8 briefs over a trailing
+28 days with ≥95% plain ✅ and **zero** ❌ becomes *eligible*, which permits
+Tree to propose — in the Monday brief, as a numbered proposal — that posts
+of that one family ship on schedule and notify afterwards. Only the
+founder's ✅ on that proposal creates the grant, written to
+`social/autonomy.json`. Eligibility never grants anything by itself. The
+approval schema gains `v: 3` with a signed `kind` field (`founder` |
+`policy`); a policy stamp's `by` is `policy:<type>@<grant date>`, which is
+deliberately NOT a `discord:` identity and must never be added to
+`SOCIAL_APPROVERS` (B5's disjointness test). `kind` is inside the v3
+signature payload so a founder stamp can never be relabelled a policy one,
+or the reverse. A ❌ on the after-the-fact notice within 24h revokes the
+grant, strips the policy stamp from every unposted item of that type,
+records a lesson, and retracts what can be retracted. At most one grant
+proposal per week. Grants are per campaign family only — the schema cannot
+express a global grant. Spec: `docs/specs/tree-overhaul/t7-autonomy-ladder.md`.
+
+**Why:** The founder gate is not the bottleneck on an account with zero
+users — the quality of the writing is — so the ladder is deliberately
+narrow, slow and revocable rather than a general loosening. Per-family
+grants are the only unit where evidence can accumulate at all: a `campaign`
+value is story-unique and used once, so a per-campaign grant could never
+earn anything. Zero ❌ (rather than a rate) is required because a rejection
+is categorically different from an edit — an edit says "nearly right", a
+rejection says "don't post this".
+
+**The residual, stated plainly:** Instagram has no delete operation for
+published media — the Graph API rejects it with code 100 / subcode 33
+regardless of token permissions (confirmed 2026-07-17,
+`scripts/social/delete-media.mjs`). So a post shipped under policy can be
+irrevocably public as far as any automation is concerned. X is deletable
+(new work), Facebook is deletable (`delete-media.mjs`), Instagram is
+removable only by a human in the app. The 24h ❌ stops the *next* post and
+hands the founder two taps for that one. **This is the one thing in Wave 1
+the founder had to accept explicitly rather than the AI deciding it**, and
+the spec carries the recommendation to drop T7 entirely if the answer is no.
+
+**Alternatives considered:** a global autonomy grant (rejected — the failure
+mode is unbounded and the schema deliberately cannot express it); X-only
+autonomy (rejected as currently impossible — X+Instagram pairing has been
+mandatory with no exceptions since 2026-08-26, so no X-only campaign
+exists); a shorter eligibility window (rejected — 28 days is the shortest
+window that spans a full campaign rotation); requiring a reason on the
+revoking ❌ (rejected — the post is already public and stopping the next one
+outranks collecting the reason first; the reason is asked for afterwards).
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — Side doors write facts, not captions (T6)
+
+**Decision:** `merch-official-sync` and `appearance-discovery` stop writing
+`social/queue/**` entirely. They write a `social/inbox/<id>.json` *intent*
+carrying only observed metadata (product name/price/availability/URL, or
+channel/title/publish date/video id), the media path, and a deadline (merch
+72h, appearance 48h). Tree's daily run drafts any post from the intent under
+a six-dimension rubric — T2's five plus `timely` — with `timely ≥ 4` a hard
+gate. A fast-lane post **displaces** a planned calendar slot rather than
+adding one (the daily cap is one post per platform per UTC day), capped at
+one per day and three per rolling 7 days. A declined intent gets a
+plain-English `declinedReason` commented back on its source issue/PR and
+reported once in the Monday brief. A ❌-rejected fast-lane draft does not
+return to the inbox. Spec: `docs/specs/tree-overhaul/t6-side-doors.md`.
+
+**Why:** These two lanes are the structural gap named in
+`docs/agents/growth.md` (2026-08-31, kanban `t_895c2ba8`) and issue #3584 —
+template-generated captions reaching the queue with no planning layer and no
+judgment, which is what produced the 2026-08-31 captions that triggered
+`SOCIAL_FREEZE`. Fixing the templates fixed those captions; removing the
+lanes' ability to author a caption at all fixes the class. `timely ≥ 4` is
+what keeps the fast lane a fast lane rather than a second unplanned content
+pipeline, since a fast-lane item is spending a planned slot.
+
+**Alternatives considered:** keeping the lanes' captions but routing them
+through Tree for review (rejected — review is weaker than authorship and
+leaves the templates in place); intake-issue-only, with no fast lane at all
+(rejected — a genuine same-day product drop is worth posting, and the
+founder gate already bounds the risk); letting the fast lane add a post
+rather than displace one (rejected — the per-platform daily cap would just
+drop one silently).
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — The lessons ledger: founder feedback becomes standing rules, in the founder's own words (T5)
+
+**Decision:** `social/lessons.md` is a human-first Markdown ledger, one
+block per rule, carrying id, status, first seen, **times fired**, last
+fired, evidence links, a verbatim **"You said"** quote, and an imperative
+**"So I"** rule. It is distilled every Monday from `social/feedback/*.jsonl`
+(S3) and ingested thread replies, never hand-written by the founder. Tree
+reads every active rule before drafting and cites the ids it checked in
+`critique.rulesChecked`. `Times fired` counts **the founder having to say it
+again** — not Tree's consultations — and at 3 firings Tree files a `codify:`
+issue to turn the rule into a deterministic check in `check-drafts.mjs`,
+after which the rule retires as superseded. At most 3 new rules per week.
+Strategy changes implied by a lesson are staged as a diff to
+`docs/marketing/social-strategy.md` in the plan PR and surfaced as a T4
+proposal; **the founder merges that PR themselves** — neither Tree nor the
+approval poll may merge a plan PR. Spec:
+`docs/specs/tree-overhaul/t5-lessons-ledger.md`.
+
+**Why:** The feedback loop was wired but fed nothing (the 2026-09-11
+recheck). A ledger is what turns a one-off correction into a standing
+constraint. Markdown rather than JSON because the founder is the primary
+reader and a rule they can recognise as their own sentence is a rule they
+can correct; verbatim quotes for the same reason. Counting founder
+repetitions rather than agent consultations makes the 3× trigger mean "this
+cannot be trusted to a prompt", which is exactly `CLAUDE.md` rule 8's test.
+The founder merging the strategy PR keeps the one-tap Discord mechanism —
+built to approve captions — from silently acquiring the power to rewrite the
+strategy it implements.
+
+**Alternatives considered:** a JSON ledger (rejected — read by nobody,
+corrected by nobody); paraphrasing feedback into rule language (rejected —
+paraphrase is how feedback becomes unrecognisable to the person who gave
+it); codifying at 2 firings (rejected — 3 matches rule 8 and avoids
+codifying a one-off restated); letting the poll merge an approved strategy
+PR (rejected — see above).
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — The Monday brief moves to Discord and becomes two-way (T4)
+
+**Decision:** Tree's weekly plan is posted to `#longlive-social` as a
+sequence of webhook messages — a 5-line scorecard plus "what changed and
+why", the 14-day calendar in two messages (28 slots will not fit in
+Discord's 2000-character limit), up to three numbered proposals each as its
+own reactable message, and up to two questions. Founder replies, in a thread
+or as a plain reply, are ingested by the approval poll and posted as
+comments on Tree's plan PR (deduped on a `discord-reply: <id>` trailer). A
+reply landing before **Wednesday 23:59 UTC** dispatches exactly one mid-week
+re-plan run (`mode=replan`), which amends the existing plan PR and leaves
+already-approved slots alone; a later reply is deferred to next Monday, not
+dropped. The weekly email becomes a copy of record, dispatched by the plan
+workflow rather than triggered by the PR event. Spec:
+`docs/specs/tree-overhaul/t4-weekly-brief.md`.
+
+**Why:** The founder already answers in Discord; the weekly email asked for
+a reply in a second place and got none, so the "two-way strategy chat"
+Joey asked for on 2026-08-23 never happened. Proposals get one message each
+so a reaction binds unambiguously — the same property the draft brief
+already depends on. The Wednesday cut-off exists so a mid-week answer can
+still change the week it is about; dispatching the mailer instead of
+PR-triggering it removes a real race where the email could beat the Discord
+post and carry no permalink.
+
+**Alternatives considered:** keeping email primary with a Discord pointer
+(rejected — that is today, and it does not work); one message for the whole
+brief (rejected — it does not fit, and a single reaction target could not
+distinguish three proposals); a Friday cut-off (rejected — it leaves no time
+to execute a re-plan).
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — Tree self-scores every draft, and the score is never part of the approval hash (T2)
+
+**Decision:** Before queueing anything, Tree scores its own draft 1–5 on
+five dimensions — on-strategy, on-voice, specific, media-earns-its-place,
+and "would I be embarrassed to send this" — and writes them into the queue
+item as `critique: { v, scores, total, rationale, rulesChecked, revision }`.
+Queueable requires every dimension ≥3, `total` ≥18/25, and
+`notEmbarrassed` ≥4 as an independent floor. One rewrite on failure, then
+the slot is **left empty**. The two-sentence `rationale` becomes the first
+paragraph of the Discord brief; the numeric scores are never shown to the
+founder. The threshold is enforced in `validateQueueItem`/`check-drafts.mjs`,
+not only in the prompt. **`critique` is deliberately outside
+`contentHashPayload`** and is written once, never updated. Spec:
+`docs/specs/tree-overhaul/t2-self-critique.md`.
+
+**Why for the hash exclusion — the load-bearing part:** S3 lets a founder
+replace a caption by replying ✏️ to the brief. If `critique` were hashed,
+that edit would void the stamp unless Tree re-scored the founder's own
+words, which is either a rubber stamp or Tree refusing to queue the
+founder's caption — there is no coherent behaviour in the hashed design.
+Beyond that, the hash means "what the founder approved" (words, picture,
+time); Tree's reasoning about those things is provenance, the same category
+as the already-unhashed `why` and `mediaCredit`. And the point of scoring at
+all is comparing Tree's *pre-hoc* score to the founder's *post-hoc* verdict,
+which requires an edited item to keep the score Tree gave the draft it
+actually wrote.
+
+**Why enforced in the schema:** a model's promise to self-score is not a
+gate; a failing check is.
+
+**Alternatives considered:** showing scores in the brief (rejected — it
+anchors the founder on auditing Tree's marking instead of judging the post);
+folding "would I be embarrassed" into the total (rejected — it is the only
+dimension that catches what the other four miss, and the one a model is most
+tempted to inflate); prompt-only enforcement (rejected as above);
+re-critiquing after a founder edit (rejected — the founder's edit *is* the
+judgment, and re-scoring destroys the calibration data).
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — Growth folds into Tree: one social desk, two runs, one name (T1)
+
+**Decision:** The Growth & Community desk ceases to exist as a separate
+agent. `docs/agents/tree.md` absorbs its mission, its six hard rails, its
+voice and content boundaries, its daily cadence and its definition of done;
+`docs/agents/growth.md` is reduced to a tombstone pointer (not deleted —
+too many in-repo citations). Growth's pipeline mechanics and incident
+history move verbatim to a new `docs/social/pipeline.md`. Tree's invariant
+1 changes from "never writes to `social/queue/`" to "never posts, ever" —
+Tree now drafts. `routine-growth-draft` becomes `routine-tree-daily-draft`,
+the runner prompts are renamed to match, the `growth` label is renamed
+`tree`, Tier-2 attribution becomes `Tree — daily social draft` /
+`Tree — weekly social plan`, and the weekly email's From display name
+becomes "Tree (Long Live social)" via a new optional `fromName` in
+`scripts/watchdog/send-mail.py`. The queue item's `sourceRoutine` becomes
+`lane` (`calendar | merch | appearance | reddit`). **The GitHub PR author
+stays an automation identity.** Spec:
+`docs/specs/tree-overhaul/t1-one-charter.md`.
+
+**Why:** The 2026-09-11 recheck found Tree was not the accountable owner of
+anything a founder sees. With planning and drafting split across two
+charters, every quality problem had two possible owners and therefore none.
+The split was created 2026-08-11 to add a planning layer that did not exist;
+that layer now exists and the second charter is the leftover scaffolding.
+The PR author is left alone because inventing a "Tree" GitHub identity would
+recreate exactly the fiction B1 rejected — GitHub has one login for the
+owner and every routine's PAT; identity lives where it is real, which is
+Discord.
+
+**Alternatives considered:** deleting `growth.md` (rejected — dangling links
+across a dozen docs); absorbing the pipeline history into the charter
+(rejected — a charter nobody finishes reading is not a charter); keeping
+`sourceRoutine` alongside `lane` for a migration period (rejected —
+`social/queue/` is empty today, which is the one moment the rename is free);
+a `Tier-2:` alias so output sampling spans the rename (rejected — permanent
+machinery for a days-long reporting gap at zero users).
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — ✏️ and ❌ require a written reason, and every verdict is logged (S3)
+
+**Decision:** The Discord approval gate gains a third reaction, ✏️ (edit),
+and both ✏️ and ❌ require a **reply to the brief message from an approver**
+before anything happens. ✏️ replaces the caption with the reply text
+verbatim, records an unhashed `edit` provenance object, re-stamps against
+the edited content and merges. ❌ removes the file (or closes the PR, on the
+header) with the founder's reason carried into the `reject:` comment. A
+reaction with no reply is `pending`: nothing happens, and the poll posts one
+nudge per target per 24 hours, finding its own prior nudges in the channel
+rather than keeping a state file. **A bare ❌ never closes a PR again.**
+Every resolved verdict — including plain ✅ — is appended to
+`social/feedback/<ISO-week>.jsonl` on `main`. The reaction→action table is
+generalised so the third field of the `ref:` line is a scope token, letting
+Reddit items (S6) and Monday brief proposals (T4) reuse the same mechanism.
+Spec: `docs/specs/tree-overhaul/s3-reason-protocol.md`.
+
+**Also decided, and required by ✏️:** a Discord brief whose `ref:` head SHA
+is stale is still authoritative for a queue file that already carries a
+valid `approval` naming that exact message. Freshness is required to
+*create* an approval, never to keep honouring one. This closes #4127's
+second finding, which ✏️ turns from a race into a certainty — the bot's own
+edit commit always moves the head SHA. It does not widen what an automation
+can approve: the honoured path can only merge a file that already carries a
+valid signature over its own content, never mint one, so the fact that
+`approval.message` is outside `approvalSigPayload` grants nothing. The
+signature payload is therefore left untouched (changing it would invalidate
+every prior stamp).
+
+**Why:** The recheck found the feedback loop wired but fed nothing. A ❌
+with no reason teaches nothing and, worse, silently destroyed the PR that
+was the only record of what was rejected. Logging ✅ rows too is what makes
+the edit-rate trend and T7's eligibility computable at all — a ledger of
+failures alone has no denominator.
+
+**Alternatives considered:** a slash command or modal for the reason
+(rejected — it is more ceremony than the tap it replaces, and the bot is
+read-only by design with no write scope at all); keeping the ledger on the
+PR branch (rejected — a rejected PR's branch is deleted, destroying the
+record of the very thing it documents); acting on a bare ❌ and asking for
+the reason afterwards (rejected for drafts — nothing is public yet, so
+waiting costs nothing; **note the deliberate opposite call in T7**, where
+the post is already live and stopping the next one outranks collecting the
+reason first).
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
 ## 2026-09-11 — Approval is the founder's Discord ✅, signed (B1); supersedes A2's merge-keyed stamp
 
 **Decision:** Social-post approval is no longer "a founder merged the
