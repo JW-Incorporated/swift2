@@ -17,13 +17,12 @@ import {
 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
-import {
-  tracksForEra,
-  keepExploring,
-  releasedFactValue,
-  trackKey,
-  adjacentTrackOnAlbum,
-} from '@swift2/experience';
+// tracksForEra/keepExploring/adjacentTrackOnAlbum must come from the app's
+// wired wrapper, not '@swift2/experience' directly (issue #4082) — see
+// EraSection.tsx's comment for why a direct import silently returns zero
+// tracks in the client bundle.
+import { tracksForEra, keepExploring, adjacentTrackOnAlbum } from '@/lib/longlive/tracks';
+import { releasedFactValue, trackKey } from '@swift2/experience';
 import { videosForEra } from '@/lib/longlive/videos';
 import { resolvedTrackVideo } from '@/lib/longlive/track-video';
 import { MomentVideo } from './MomentVideo';

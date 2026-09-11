@@ -6,7 +6,12 @@ import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
 import { durationLabel, monthsBetween, soloLeadIn, type LoveStoryEntry } from '@/lib/longlive/love-story';
 import { contentForThreadInRange } from '@/lib/longlive/threads';
-import { songTargetOf, trackKey } from '@swift2/experience';
+// songTargetOf must come from the app's wired wrapper, not
+// '@swift2/experience' directly (issue #4082) — see EraSection.tsx's
+// comment for why a direct import silently returns null in the client
+// bundle.
+import { songTargetOf } from '@/lib/longlive/tracks';
+import { trackKey } from '@swift2/experience';
 import { FromTheEras } from '../FromTheEras';
 
 function fmtYear(iso: string): string {

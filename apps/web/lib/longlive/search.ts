@@ -1,7 +1,11 @@
 import { CONTENT } from './content';
 import { ERAS } from '@swift2/experience';
 import { EGG_NODES, motifOf, THREADS } from '@swift2/experience';
-import { tracksForEra, trackKey } from '@swift2/experience';
+// tracksForEra must come from the app's wired wrapper, not
+// '@swift2/experience' directly (issue #4082) — see EraSection.tsx's
+// comment for why a direct import silently returns zero tracks.
+import { tracksForEra } from '@/lib/longlive/tracks';
+import { trackKey } from '@swift2/experience';
 import { theoriesForEra } from './theories';
 import { allVideoRecordsForEra } from './videos';
 import {
