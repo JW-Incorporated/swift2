@@ -65,6 +65,16 @@ export function buildMerchDropIntents(products, { mediaPath, now = new Date() } 
   const day = now.toISOString().slice(0, 10);
   const createdAt = now.toISOString();
   const deadline = new Date(now.getTime() + MERCH_DEADLINE_MS).toISOString();
+  // The rendered card is one shared asset per run (render-card.mjs's
+  // --detail is only ever the FIRST new product's name) -- every intent in
+  // a multi-product batch points at the same image, so its altTextHint
+  // must describe what the card actually shows, not claim it "names" each
+  // individual product in the batch (Codex review, PR #4140 LOW finding).
+  const leadName = sanitize(rows[0]?.item);
+  const cardAltText =
+    rows.length === 1
+      ? `A Long Live store-drop card naming "${leadName}" as newly available on the official store.`
+      : `A Long Live store-drop card for ${rows.length} items newly available on the official store, led by "${leadName}".`;
 
   return rows.map((product) => {
     const name = sanitize(product?.item);
@@ -78,7 +88,11 @@ export function buildMerchDropIntents(products, { mediaPath, now = new Date() } 
     };
     return {
       v: 1,
-      id: `merch-${day}-${slugify(name)}`,
+      // sourceId is the actual unique key (Codex review, PR #4140: a
+      // date+name-slug id let two distinct products whose names agreed in
+      // their first 60 characters silently overwrite each other's intent
+      // file); the slug stays for readability only.
+      id: `merch-${day}-${slugify(name)}-${product?.sourceId}`,
       source: 'merch-official-sync',
       lane: 'merch',
       createdAt,
@@ -88,7 +102,7 @@ export function buildMerchDropIntents(products, { mediaPath, now = new Date() } 
       media: [mediaPath],
       mediaCredit: 'Long Live merch-drop card, rendered from the official store listing',
       mediaSource: product?.url,
-      altTextHint: `A Long Live store-drop card naming "${name}" as newly available on the official store.`,
+      altTextHint: cardAltText,
       links: { pr: null, issue: null },
     };
   });

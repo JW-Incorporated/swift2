@@ -1,3 +1,7 @@
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { describe, expect, it } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — The executable authoring runner is intentionally plain ESM.
@@ -45,6 +49,10 @@ describe('E4/E5 catalog authoring', () => {
     ]);
     expect(result.summary).toEqual({ eraAttributed: 1, verifiedAlternate: 1 });
     expect(result.socialDraft).toEqual({ type: 'merch-drop-draft', products: [{ sourceId: '101', item: official.item, url: official.url }] });
+    // Full-field rows for the same new product socialDraft.products narrows
+    // (Codex review, PR #4140) -- build-drop-draft.mjs's intent needs price/
+    // inStock/discoveredAt, not just {sourceId, item, url}.
+    expect(result.newProducts).toEqual([{ ...official, eraId: 'the-tortured-poets-department', altListing: { retailer: 'amazon.com', url: 'https://www.amazon.com/dp/B0TEST' } }]);
   });
 
   it('never attaches an unverified Amazon twin or guesses an era for an unmapped collection', () => {
@@ -171,5 +179,43 @@ describe('E4/E5 catalog authoring', () => {
     expect(source).toContain('export const OFFICIAL = [');
     expect(source).toContain(official.url);
     expect(source).not.toMatch(/awin1|post-queue|social\/post/i);
+  });
+});
+
+// Codex review, PR #4140 (HIGH): merch-official-sync.yml read
+// summary.official.catalog from the real CLI's stdout, but the CLI never
+// wrote that field -- only authorOfficialCatalog()'s in-process return
+// value has it, never serialized to JSON. Every merch drop silently
+// produced zero intents. This spawns the actual CLI (not just the
+// exported pure function) so the real stdout contract is what's under
+// test, matching exactly what the workflow parses.
+describe('author-catalogs.mjs CLI: the real stdout summary the workflow parses', () => {
+  it('writes newProducts (full-field rows) on summary.official, not just the narrowed socialDraft handoff', () => {
+    const root = process.cwd();
+    const fixtureDir = mkdtempSync(join(tmpdir(), 'author-catalogs-cli-'));
+    const planPath = join(fixtureDir, 'plan.json');
+    const officialOutPath = join(fixtureDir, 'official.mjs');
+    writeFileSync(
+      planPath,
+      JSON.stringify({
+        plan: { added: [official], updated: [], discontinued: [] },
+      }),
+    );
+
+    try {
+      const stdout = execFileSync(
+        'node',
+        ['scripts/merch-engine/author-catalogs.mjs', '--official-plan', planPath, '--write-official', officialOutPath],
+        { cwd: root, encoding: 'utf8' },
+      );
+      const summary = JSON.parse(stdout);
+      expect(Array.isArray(summary.official?.newProducts)).toBe(true);
+      expect(summary.official.newProducts).toEqual([official]);
+      // The field the workflow used to (wrongly) read never existed on the
+      // real CLI output -- confirms the bug's actual shape, not a guess.
+      expect(summary.official).not.toHaveProperty('catalog');
+    } finally {
+      rmSync(fixtureDir, { recursive: true, force: true });
+    }
   });
 });

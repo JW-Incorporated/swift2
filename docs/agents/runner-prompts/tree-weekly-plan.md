@@ -7,8 +7,12 @@ BACKGROUND (why this runner exists, 2026-08-11): before you, nothing planned. Th
 ## Steps
 
 0. **Read the founder feedback loop, before anything else** (added
-   2026-08-23). Find last week's Tree PR (`gh pr list --search "head:tree/"
-   --state all --limit 1 --json number,title,comments,url`) and read every
+   2026-08-23; narrowed 2026-09-12, Tree Overhaul T1, Codex review PR #4140
+   — `head:tree/` alone now also matches the far more frequent daily-draft
+   PRs, which would win `--limit 1` almost every time and silently skip
+   this step's actual feedback). Find last week's Tree PR (`gh pr list
+   --search "head:tree/plan/" --state all --limit 1
+   --json number,title,comments,url`) and read every
    comment on it. Founder replies to the weekly-plan email land there
    automatically (`marjorie-inbox.yml` routes any reply whose subject
    starts `Tree's weekly plan: ` onto that PR). If a founder asked a

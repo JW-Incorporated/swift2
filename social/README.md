@@ -82,6 +82,7 @@ Every run resolves each touched item to an outcome — `posted`, `retrying`, `fa
 ```json
 {
   "platform": "x",
+  "lane": "calendar",
   "body": "post text, exactly as it will appear",
   "media": ["/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg"],
   "mediaKind": "photo",
@@ -129,6 +130,7 @@ required check on `main`. A malformed draft fails on its own PR, not at 23:00
 UTC three attempts later. Rules live in `scripts/social/lib/queue-schema.mjs`.
 
 - `platform`: `"x"` or `"instagram"`.
+- `lane`: **required on every draft** (Tree Overhaul T1, 2026-09-12 — replaces the old free-text `sourceRoutine`) — one of `"calendar"` (a slot Tree planned in `social/calendar.md`, the normal path), `"merch"`/`"appearance"` (a T6 fast-lane item drafted from a `social/inbox/` intent), or `"reddit"` (an S6 Reddit prompt, not a platform post). A drafted-from-the-calendar item is always `"calendar"`.
 - `body`: required, non-empty, and **within the platform's real limit — 280 *weighted* characters for X** (X counts an autolinked URL as exactly 23 characters regardless of its real length, and most emoji/CJK as 2 — the same `weightedTweetLength` rule `check-drafts.mjs` enforces at draft time), **2,200 for Instagram.** This is not a style preference: every one of the eleven X posts in `failed/` was over the weighted limit, and X answers an over-length tweet with `403 "You are not permitted to perform this action"`, which reads like a permissions problem and is not one. If the account is ever upgraded to X Premium, raise the limit in `queue-schema.mjs` (and `check-drafts.mjs`) deliberately.
 - `media`: required for Instagram and every X campaign — every real campaign ships credited `photo` media on both platforms (up to 4 images on X); there is no X-only link-preview lane any more (the 2026-09-05 `appearance:` exception was removed 2026-09-10). Paths are relative to `apps/web/public/social/` on both platforms (that's where they must be committed — the poster fetches them from the live site, so **the media file's PR must be merged and deployed before `scheduledAt`**). Since 2026-08-11 the poster HEAD-checks each media URL before spending a real publish attempt on it (the "deploy-lag preflight" — see below): an item whose media isn't live yet **waits** (no attempt spent, reported as "waiting on deploy") and ships itself on the first run after the deploy lands.
 - `mediaKind` — **required on every draft that carries media** (the 2026-08-12 **Taylor-photo standard**, Joey's directive after the era-tile grid + issue #2031). Two living values, one dead one:

@@ -67,6 +67,18 @@ describe('buildApprovalPrompt', () => {
     expect(messages[0].content).toContain('Drafted by: calendar');
   });
 
+  it('the per-draft body\'s own "Drafted by:" line also prefers `lane` and always renders (reviewer catch, PR #4140 round 1)', () => {
+    const [, withLane] = buildApprovalPrompt(pr(), [draft({ lane: 'merch', sourceRoutine: undefined })], { now: NOW, headSha: 'abc123' });
+    expect(withLane.content).toContain('Drafted by: merch');
+
+    // No lane AND no sourceRoutine (neither jq projection in
+    // social-approval-notify.yml writes sourceRoutine any more) must still
+    // render the line, not silently omit it as the old
+    // `draft.sourceRoutine ? ... : null` conditional did.
+    const [, withNeither] = buildApprovalPrompt(pr(), [draft({ lane: undefined, sourceRoutine: undefined })], { now: NOW, headSha: 'abc123' });
+    expect(withNeither.content).toContain('Drafted by: unknown');
+  });
+
   it('falls back to "unspecified" pillar when a draft has no `why`', () => {
     const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ why: undefined })], { now: NOW, headSha: 'abc123' });
     expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: 2026-09-11 15:00 UTC · pillar: unspecified');

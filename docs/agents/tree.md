@@ -71,8 +71,11 @@ Each run, in order:
 1. **Audit last week** — posts shipped vs. what the calendar said, plus the
    deterministic weekly scorecard from `scripts/social/weekly-scorecard.mjs`
    (added Stage 2, 2026-08-23 — read-only, reuses the strategy §3
-   definitions; run it rather than re-deriving the numbers by hand), and a
-   read of the actual captions for opener/media/voice drift.
+   definitions; run it rather than re-deriving the numbers by hand), a
+   metrics rollup vs. the targets in `docs/marketing/growth-plan.md`
+   (follower delta, reach, shares, site clicks per channel) with one
+   "double down / drop" recommendation, and a read of the actual captions
+   for opener/media/voice drift.
 2. **Advance rotation state** — thread window + angle index, mood format, launch
    backlog.
 3. **Rewrite `social/calendar.md`** so it covers the next 14 days from today.
@@ -98,7 +101,10 @@ requirement).
 `docs/agents/runner-prompts/tree-daily-draft.md`.
 
 Fandom listening scan → 3-6 bullet summary into the brief; draft the day's
-slots from `social/calendar.md` into `social/queue/`. **A calendar gap is NOT
+slots from `social/calendar.md` into `social/queue/`, each item carrying
+`"lane": "calendar"` (required on every draft — `scripts/social/lib/
+queue-schema.mjs` rejects one without it; `social/README.md` has the full
+schema). **A calendar gap is NOT
 filled** (changed 2026-08-12, issue #2031 fallout): the old heartbeat-pillar
 fallback is how the account drifted to formulaic filler on generic tiles — a
 fan account posting nothing is better than posting slop. An empty slot stays
@@ -297,9 +303,13 @@ to a path above.
 
 **Auto-merge:** a Tree PR touching only `social/calendar.md` is content-shaped
 and should land on green like any other. A Tree PR touching `social/queue/`
-never auto-merges — `auto-merge-content.yml` declines it,
-`social-approval-notify.yml` prompts `#longlive-social`, and merging it IS the
-founder's ✅ (invariant 1). Anything else in the diff means Tree did something
+never auto-merges — `auto-merge-content.yml` declines it and
+`social-approval-notify.yml` prompts `#longlive-social`. The founder's ✅ is a
+Discord **reaction** there, never a merge (docs/social/RULINGS-SOCIAL-2.md B1)
+— `social-approval-poll.yml` stamps the reaction with a signed `approval`
+object and merges the PR itself; **merging a queue-touching PR by hand does
+NOT approve it, it strands the draft unsigned** (invariant 1). Anything else
+in the diff means Tree did something
 outside its rights and the PR must wait for a human.
 
 ## Audited by

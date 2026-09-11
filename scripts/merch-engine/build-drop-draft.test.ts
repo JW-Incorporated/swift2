@@ -115,5 +115,36 @@ describe('E4 store-drop side door: sync-official plan -> authored catalog + soci
     expect(intents).toHaveLength(2);
     expect(new Set(intents.map((i: { id: string }) => i.id)).size).toBe(2);
     for (const intent of intents) expect(validateIntent(intent)).toEqual([]);
+
+    // Both intents share the one rendered card (Codex review, PR #4140 LOW
+    // finding) -- neither's altTextHint should claim the card "names" its
+    // own product specifically; both describe the shared batch card,
+    // led by the first product's name.
+    for (const intent of intents) {
+      expect(intent.altTextHint).toContain('2 items');
+      expect(intent.altTextHint).toContain('The Life of a Showgirl Vinyl');
+      expect(intent.altTextHint).not.toContain('Showgirl Tour Hoodie');
+    }
+  });
+
+  it('never collides two distinct products whose names agree in their first 60 characters (Codex review, PR #4140)', () => {
+    const sameNamePrefix = 'A'.repeat(70);
+    const twoProductPlan = {
+      plan: {
+        added: [
+          { ...oneNewProductPlan.plan.added[0], sourceId: '9001', item: `${sameNamePrefix} Vinyl` },
+          { ...oneNewProductPlan.plan.added[0], sourceId: '9002', item: `${sameNamePrefix} Hoodie`, url: 'https://store.taylorswift.com/products/other', price: '$65.00' },
+        ],
+        updated: [],
+        discontinued: [],
+      },
+    };
+    const authored = authorOfficialCatalog({ plan: twoProductPlan });
+    const intents = buildMerchDropIntents(newProductRows(authored), { mediaPath: '/social/library/merch-drop-test.png', now });
+    expect(intents).toHaveLength(2);
+    const ids = intents.map((i: { id: string }) => i.id);
+    expect(new Set(ids).size).toBe(2);
+    expect(ids[0]).toContain('9001');
+    expect(ids[1]).toContain('9002');
   });
 });

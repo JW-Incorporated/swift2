@@ -29,7 +29,7 @@
   ],
   "runners": [
     { "name": "Marjorie — morning brief", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "issue-label", "value": "founders-brief" } },
-    { "name": "Growth — daily draft", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "pr-branch", "value": "growth/" } },
+    { "name": "Tree — daily social draft", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "pr-branch", "value": "tree/draft/" } },
     { "name": "Austin — build runs", "perDay": 2, "maxAgeHours": 72, "match": { "kind": "pr-branch", "value": "austin/issue-" } },
     { "name": "Content Shift", "perDay": 2, "maxAgeHours": 30, "disabled": true, "why": "disabled 2026-09-01 (T-1 Vault Phase 4) — superseded by The Vault Run lane 1", "match": { "kind": "pr-branch", "value": "content-shift/" } },
     { "name": "Vault Run", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "pr-branch", "value": "vault/" } },

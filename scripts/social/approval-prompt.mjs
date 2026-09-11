@@ -143,7 +143,7 @@ function formatDraftLines(draft, { now, headSha, repo, facebookCrosspost }) {
     draft.mediaCredit ? `Credit: ${draft.mediaCredit}` : null,
     formatWhyLine(draft, { headSha, repo }),
     draft.campaign ? `Campaign: ${draft.campaign}` : null,
-    draft.sourceRoutine ? `Drafted by: ${draft.sourceRoutine}` : null,
+    `Drafted by: ${draft.lane ?? draft.sourceRoutine ?? 'unknown'}`,
   ].filter((l) => l !== null && l !== undefined);
 }
 

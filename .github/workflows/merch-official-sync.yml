@@ -94,14 +94,14 @@ jobs:
           node --input-type=module <<'NODE'
           import { readFile, writeFile } from 'node:fs/promises';
           const summary = JSON.parse(await readFile('.official-authoring-summary.json', 'utf8'));
-          const socialDraft = summary.official?.socialDraft ?? { type: 'merch-drop-draft', products: [] };
-          // Full-field rows (price/inStock/discoveredAt) for the same new
-          // products socialDraft.products names — build-drop-draft.mjs's
-          // intent needs the catalog metadata authorOfficialCatalog() already
-          // produces, not the narrowed {sourceId, item, url} handoff.
-          const catalog = Array.isArray(summary.official?.catalog) ? summary.official.catalog : [];
-          const newIds = new Set((socialDraft.products ?? []).map((p) => p.sourceId));
-          const products = catalog.filter((row) => newIds.has(row.sourceId));
+          // Full-field rows (price/inStock/discoveredAt) for the newly-added
+          // products this cycle — authorOfficialCatalog()'s own newProducts,
+          // exposed on the CLI summary alongside the narrower {sourceId,
+          // item, url} socialDraft handoff. build-drop-draft.mjs's intent
+          // needs the richer shape (Codex review, PR #4140: this used to
+          // read a summary.official.catalog field the CLI never wrote,
+          // silently producing zero intents on every drop).
+          const products = Array.isArray(summary.official?.newProducts) ? summary.official.newProducts : [];
           const draft = { type: 'merch-drop-draft', products };
           await writeFile('.official-social-draft.json', JSON.stringify(draft));
           const hasProducts = products.length > 0;

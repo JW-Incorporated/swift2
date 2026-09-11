@@ -676,7 +676,7 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
   out.push('');
   out.push('**What ran:**');
   out.push(formatGrowthLine(state.growth, state.queueStatus));
-  out.push(`- Content + social PRs landed today: ${a.merged24.filter((p) => /^(content|vault|growth|social)/.test(p.headRefName || '')).length} · intake queue ${state.intake.length} open`);
+  out.push(`- Content + social PRs landed today: ${a.merged24.filter((p) => /^(content|vault|tree|social)/.test(p.headRefName || '')).length} · intake queue ${state.intake.length} open`);
   out.push('');
   out.push('Full evidence: journal comment below.');
 
