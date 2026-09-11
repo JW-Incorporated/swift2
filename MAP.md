@@ -397,6 +397,13 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `docs/plans/tree-overhaul/waves/*.md` | Paste-ready prompts, one per wave, each a fresh session |
 | `docs/plans/tree-overhaul/checkpoints.json` | Dated observation checkpoints R1–R4; `plan-recheck.yml` fires the routine when one is due |
 | `docs/plans/tree-overhaul/rechecks/` | Routine-written recheck reports (one per checkpoint) |
+| `docs/specs/tree-overhaul/s3-reason-protocol.md` | Wave 1 design: ✏️/❌ require a written reason; `social/feedback/*.jsonl` ledger on `social-ledger`; the generic reaction→action scope table S6/T4 reuse |
+| `docs/specs/tree-overhaul/t1-one-charter.md` | Wave 1 design: Growth folds into Tree; `sourceRoutine` → `lane`; what "from Tree" means on every surface |
+| `docs/specs/tree-overhaul/t2-self-critique.md` | Wave 1 design: the 5-dimension draft rubric, the queue threshold, the brief's pitch line; why `critique` is NOT in the content hash |
+| `docs/specs/tree-overhaul/t4-weekly-brief.md` | Wave 1 design: the Monday brief in Discord, proposals as reaction targets, the Wednesday re-plan cut-off |
+| `docs/specs/tree-overhaul/t5-lessons-ledger.md` | Wave 1 design: `social/lessons.md` schema, Monday distillation, codify-at-3-firings, propose-never-merge for strategy changes |
+| `docs/specs/tree-overhaul/t6-side-doors.md` | Wave 1 design: merch/appearance write `social/inbox/` intents, never captions; the fast lane and its `timely` gate |
+| `docs/specs/tree-overhaul/t7-autonomy-ladder.md` | Wave 1 design: per-campaign-type post-and-notify, signed grants, approval schema `v: 3`. **Designed, recommended NOT to build** — Instagram posts cannot be deleted by any API |
 | `docs/agents/runner-prompts/plan-recheck.md` | Prompt for the plan-recheck routine (Opus, read-only, reports to #4117) |
 | `.github/workflows/plan-recheck.yml` | Daily gate job + routine-template call; no-op when nothing is due |
 | `docs/social/RULINGS-SOCIAL.md` | Architect (Fable) rulings A1–A6 on the social approval gate, reconstructed 2026-09-11 (Wave 2 S4) from PR #4098's body + `docs/decisions.md` — canonical citation target for `RULINGS-SOCIAL.md` references repo-wide |
