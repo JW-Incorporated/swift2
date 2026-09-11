@@ -11,8 +11,8 @@ Every Monday morning, Tree posts its week in `#longlive-social` — the same pla
 
 You get, in order:
 
-1. **Five lines of scorecard** — posts shipped, follower change, failures, how many drafts you approved / edited / rejected, and how long it took you to answer.
-2. **What changed and why** — two or three sentences. "You rejected both product posts for sounding like ads, so I've dropped the product beat from the heartbeat rotation and replaced it with era deep-cuts."
+1. **Five lines of scorecard** — posts shipped, follower change, failures, how many drafts you approved / edited / rejected, how long you took to answer.
+2. **What changed and why** — two or three sentences. "You rejected both product posts for sounding like ads, so I've dropped the product beat and replaced it with era deep-cuts."
 3. **The next 14 days**, one line per slot with the reason it's there.
 4. **Up to three proposals**, numbered, each its own message. React ✅ or ❌ on each. That's the whole approval — no form, no PR.
 5. **Up to two questions**, if Tree genuinely needs your judgement.
@@ -40,6 +40,19 @@ The brief is a sequence of webhook messages, every one carrying the S3 `ref:` li
 Splitting the calendar across two messages is not cosmetic: 14 days is 28 campaign slots (2 beats/day per `docs/marketing/social-strategy.md` §2), and 28 rationale lines exceed Discord's 2000-character message limit. Two messages of 14 slots fit with room to spare, and they chunk further through the existing `chunkPreservingRefLine` if a week runs long.
 
 Only `proposal:<n>` messages are reactable. ✅/❌ on `brief`, `calendar:*` or `questions` is recorded in the ledger as feedback with no action — a founder ❌-ing the whole brief is telling Tree something, and it should land as a lesson (T5), not as an error.
+
+### Plan-brief scopes bind by `(pr, messageId)` — never by SHA, never by PR state
+
+The draft-brief machinery drops any ref whose SHA differs from the PR's current head, and `continue`s past any PR that is not `OPEN`. Both rules are right for a draft and **fatally wrong for a proposal**: a plan PR gets merged (that is its purpose), and `mode=replan` amends it, moving the head. Under the draft rules, every proposal would stop being answerable the moment the plan PR landed — which is usually within hours, since green PRs here get merged fast — and a founder reacting on Wednesday would get silence.
+
+So for the `brief`, `calendar:*`, `proposal:*` and `questions` scopes:
+
+- the reaction binds to `(pr, messageId)` alone; the `ref:` line's SHA is carried for provenance and **not compared**;
+- **a merged or closed plan PR is still processed** for these scopes. Nothing about them touches the queue or mints an approval — they produce PR comments, a ledger row, and at most a `workflow_dispatch` — so none of the safety reasoning behind the draft-side SHA and OPEN checks applies.
+
+This is a deliberate divergence from the draft path, not an oversight, and the build must keep the two dispatch branches visibly separate so a later change cannot collapse them into one.
+
+The corollary for T5: a ❌ on a strategy proposal is **not** repaired by editing the plan PR (which is likely already merged). The revert is carried by the **next** weekly run, as a normal change in that run's own PR.
 
 ### The five scorecard lines
 
@@ -137,7 +150,8 @@ It returns the delivered message ids so the workflow can write the Discord perma
 
 - Gains `workflow_dispatch` inputs `mode` (`plan` | `replan`, default `plan`) and `pr`.
 - Step order becomes: write the calendar → open (or amend) the PR → run `weekly-brief.mjs` with the PR number and head SHA → write the Discord permalink into the PR body → dispatch `tree-mail.yml`.
-- Needs `SOCIAL_APPROVAL_WEBHOOK_URL`, so it must run in the `social` GitHub environment like the poll does.
+
+**The brief is sent from a separate, deterministic job — never from the agent job, and never inside the `social` environment.** The webhook is a plain repo secret (`secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL`), which `social-approval-notify.yml` already consumes with no `environment:` at all, so no environment is needed to post. Putting the `claude-code-action` job into the `social` environment to get it would also hand `SOCIAL_APPROVAL_KEY` and `DISCORD_BOT_TOKEN` to an agent process — the exact authority separation B1 rests on. The agent job writes the calendar and the PR; a plain `node` job with only the webhook secret sends the brief.
 
 ### `.github/workflows/tree-mail.yml`
 
@@ -156,6 +170,7 @@ Adds the brief's required shape, the ≤3 proposals / ≤2 questions caps, the "
 1. A dispatched weekly-plan run posts the full message sequence to Discord, each message carrying a well-formed `ref:` line matching `REF_LINE_RE`, with scope tokens `brief`, `calendar:1`, `calendar:2`, `proposal:1..n`, `questions`.
 2. A 14-day plan with 28 slots renders without any single message exceeding Discord's 2000-character limit.
 3. ✅ on `proposal:2` writes a ledger row with `file: "proposal:2"` and the plan PR number; ❌ on it writes a `reject` row and **requires a reply** exactly as S3 specifies for every other scope.
+3b. A ✅ on `proposal:2` is still processed when the plan PR is **merged** and its head SHA differs from the brief's `ref:` line — the regression test for the binding rule above. The equivalent reaction on a `social/queue/**` scope, under the same conditions, is still ignored.
 4. A thread reply from an approver appears as a plan-PR comment quoting it verbatim and carrying `discord-reply: <id>`; running the poll again posts no duplicate.
 5. A reply from a non-approver produces no PR comment and no dispatch.
 6. A Tuesday reply dispatches `routine-tree-weekly-plan.yml` with `mode=replan` exactly once; a second and third reply the same day dispatch nothing further.

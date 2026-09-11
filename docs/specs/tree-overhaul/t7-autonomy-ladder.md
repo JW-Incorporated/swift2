@@ -10,18 +10,18 @@
 
 Nothing, for a long time. On day one nothing is eligible and nothing changes.
 
-Once a *kind* of post has earned it — say the "on this day" heartbeat: eight or more briefs over four weeks, you approved every one with a plain ✅, never edited one, never rejected one — Monday's brief carries a proposal:
+Once one *kind* of post has earned it — say the "on this day" heartbeat: 8+ briefs over four weeks, every one a plain ✅, none edited, none rejected — Monday's brief carries a proposal:
 
 > **Proposal 1 — let me post "on this day" without waiting for you**
 > 11 briefs in 4 weeks, 11 plain ✅, 0 edits, 0 rejections. I'd post these
-> on schedule and tell you in the channel afterwards. Everything else keeps
-> waiting for you. ✅ to grant, ❌ to leave it as it is.
+> on schedule and tell you afterwards. Everything else keeps waiting for
+> you. ✅ to grant, ❌ to leave it as it is.
 
-If you ✅ it, posts of that one kind go out on schedule, and you get a message afterwards saying so, with the link. If you ❌ that message within 24 hours, **that kind of post goes straight back to needing your approval** and Tree writes down why.
+✅ it and posts of that kind go out on schedule, with a message afterwards carrying the link. ❌ that message within 24 hours and **that kind goes straight back to needing your approval**, with Tree writing down why.
 
-**Read this part carefully: ❌ after the fact does not delete the post.** Instagram has no delete in its API at all — confirmed, not a limitation we can engineer around. Tree will delete the X post automatically and give you the exact two-tap steps to remove the Instagram one by hand, but for some minutes or hours it was public. Approving a grant means accepting that.
+**Read this carefully: ❌ after the fact does not delete the post.** Instagram has no delete in its API at all — confirmed, not something we can engineer around. Tree deletes the X post and gives you two-tap steps for the Instagram one — but it was public meanwhile. Granting means accepting that.
 
-You can revoke any grant at any time by saying so. There is no appeal and no re-earning period shorter than another four clean weeks.
+You can revoke any grant at any time. Re-earning takes another four clean weeks.
 
 ---
 
@@ -43,7 +43,8 @@ You can revoke any grant at any time by saying so. There is no appeal and no re-
       "evidence": { "briefs": 11, "approved": 11, "edited": 0, "rejected": 0, "windowStart": "2026-09-16", "windowEnd": "2026-10-14" },
       "revokedAt": null,
       "revokedReason": null,
-      "revokedMessage": null
+      "revokedMessage": null,
+      "sig": "hmac-sha256:…"          // written only by the poll job; see below
     }
   ]
 }
@@ -52,6 +53,20 @@ You can revoke any grant at any time by saying so. There is no appeal and no re-
 `type` is a **campaign family** as defined in `docs/marketing/social-strategy.md` §1 — the value `pillarOf(campaign)` returns (S3). Grants are per family, never per campaign (a campaign value is story-unique and used once, so a per-campaign grant could never accumulate evidence) and never global. There is no "all posts" grant and the schema cannot express one.
 
 Revoked grants stay in the array forever. Re-granting appends a new entry; it never edits the revoked one.
+
+### The grant must itself be signed
+
+`social/autonomy.json` is an ordinary file. Every agent and routine in this repo writes files that reach a branch. If `stampUnderPolicy` simply trusted `status: "active"` read off disk, an agent could write a forged grant, and the poll — which holds `SOCIAL_APPROVAL_KEY` — would then dutifully sign a `kind: "policy"` stamp and a post would go live with **zero founder involvement**. That is a direct break of B1's core property, and it is the single most dangerous thing in this spec.
+
+So each grant carries its own HMAC, written only by the poll job and verified by every consumer:
+
+```jsonc
+"sig": "hmac-sha256:…"   // HMAC(SOCIAL_APPROVAL_KEY, `${type}|${grantedAt}|${grantedBy}|${proposalPr}|${proposalMessage}|${status}`)
+```
+
+`status` is inside the payload, so a revoked grant cannot be flipped back to `active` by editing the file — the revocation is re-signed when it is written. `social/autonomy.json` is written to the **`social-ledger`** branch (S3 §1b) for the same reason the feedback ledger is: `main` is branch-protected and nothing can push to it.
+
+The eligibility *evidence* — `social/feedback/*.jsonl` — is deliberately **not** signed. It is lower stakes by construction: forged rows can only make Tree *propose* a grant the founder still has to read and ✅. But this is a real asymmetry and it is why the grant, not the evidence, is the thing that must be unforgeable.
 
 ### Eligibility
 
@@ -98,7 +113,7 @@ Eligibility is necessary, not sufficient. It only permits Tree to *propose*. **O
 
 `kind` must be signed. If it were not, a `v: 3` record could be assembled from a founder stamp's signed fields and relabelled `kind: "policy"`, or the reverse — a policy stamp presented as a founder approval, which is exactly the distinction the ledger and the ladder both depend on.
 
-`approvalStatus` for `kind: "policy"` requires **all** of: a valid `v: 3` signature · `by` matching the policy form · a grant for that type with `status: "active"` in `social/autonomy.json` · the grant's date matching the one in `by` · the item's `pillarOf(campaign)` equalling the grant's `type` · `contentHash` matching. Any failure is an ordinary invalid approval and the poster refuses the item exactly as it does today.
+`approvalStatus` for `kind: "policy"` requires **all** of: a valid `v: 3` signature · `by` matching the policy form · a grant for that type in `options.grants` with `status: "active"` **and a valid grant signature** · the grant's date matching the one in `by` · the item's `pillarOf(campaign)` equalling the grant's `type` · `contentHash` matching. Any failure is an ordinary invalid approval and the poster refuses the item exactly as it does today.
 
 `kind: "founder"` is required on every `v: 3` founder stamp, and `v: 2` records are still accepted — no migration, no grandfathering hole, since a `v: 2` record still has to satisfy the original Discord-identity checks.
 
@@ -143,7 +158,7 @@ An item whose type has no active grant behaves exactly as it does today: no stam
 ## Mechanics
 
 - **`scripts/social/lib/queue.mjs`** — `approvalSigPayload` version-aware; `approvalStatus` handles `kind`; `signApproval` unchanged in shape.
-- **`scripts/social/lib/autonomy.mjs`** (new) — `readGrants`, `activeGrantFor(type)`, `eligibility(ledgerRows, type, now)` → `{ eligible, briefs, approvedPct, rejected, reason }`, `grant(...)`, `revoke(...)`. Pure, unit-tested.
+- **`scripts/social/lib/autonomy.mjs`** (new) — `readGrants`, `verifyGrant(grant, key)`, `activeGrantFor(grants, type)`, `eligibility(ledgerRows, type, now)` → `{ eligible, briefs, approvedPct, rejected, reason }`, `signGrant(...)`, `revoke(...)`. Pure, unit-tested. **`approvalStatus` must stay pure** (`queue.mjs`) — it is called by the poster and by `check-drafts.mjs` — so grants are passed in via `options.grants`, never read from disk inside it, exactly as `approvers` and `key` already are.
 - **`scripts/social/stamp-approval.mjs`** — a `stampUnderPolicy(files, {type, grant, key, pr, message})` path, refusing unless `activeGrantFor(type)` returns a grant and every file's `pillarOf(campaign)` matches it. Same belt-and-braces posture as the existing `SOCIAL_APPROVERS.includes(by)` check: it does not trust its caller.
 - **`scripts/social/social-approval-poll.mjs`** — on seeing a draft PR whose every queue item is covered by an active grant, stamp under policy and merge without waiting for a reaction; handle `posted:<type>` ❌ (revoke, unstamp, retract, lesson); handle `proposal:<n>` ✅ that carries an autonomy proposal (write the grant).
 - **`.github/workflows/social-poster.yml`** — post the "posted under policy" notice for any item with `approval.kind === "policy"`.
@@ -169,7 +184,7 @@ So: eligible does not mean granted, a grant is one type, one grant per week, and
 Two conditions. One is met, one is not:
 
 - **If a bad autonomous post could not be retracted at all, by anyone.** This *nearly* fires. Instagram has no delete API. It survives only because a human can still delete the post in the app in about ten seconds — so the 24h ❌ degrades to "Tree deletes X, hands you two taps for Instagram" rather than "nothing can be done". If that manual path did not exist, I would recommend against the ladder outright.
-- **If the evidence could be produced by anything other than the founder.** It cannot: eligibility reads only `social/feedback/` rows, which are written only from Discord reactions by `SOCIAL_APPROVERS` ids that no automation holds. If a future change ever let an agent write a ledger row, this ladder must be switched off in the same PR. That is stated here so the dependency is discoverable from the thing that depends on it.
+- **If the *grant* could be produced by anything other than the founder.** With the signed grant above, it cannot — the signature is minted only by the poll job, and `status` is inside the signed payload. Note the honest asymmetry: the *evidence* (`social/feedback/*.jsonl`) is an unsigned file, so forged rows could in principle make Tree propose a grant it has not earned. That is tolerable only because a proposal is something the founder still reads and ✅s; it is **not** tolerable for the grant itself, which is why the grant is signed and the ledger is not. If a future change ever moves a decision from the grant to the evidence, this ladder must be switched off in the same PR. Stated here so the dependency is discoverable from the thing that depends on it.
 
 I would also rule it out if anyone proposed a **global** grant, a grant with **no** revocation path, or eligibility over a window **shorter than 28 days**. None of those are in this design and the schema cannot express the first.
 
@@ -183,6 +198,9 @@ I would also rule it out if anyone proposed a **global** grant, a grant with **n
 4. `approvalStatus` accepts a `v: 3` `kind: "founder"` record and a `v: 2` record; it rejects a `v: 3` record whose `kind` was altered after signing.
 5. `approvalStatus` rejects a `kind: "policy"` record when: no grant exists · the grant is revoked · the grant date in `by` does not match · the item's campaign family differs from the grant's type · the signature is invalid.
 6. `stampUnderPolicy` refuses to write anything when handed a file whose campaign family does not match the grant.
+6b. `verifyGrant` rejects a grant whose `sig` is absent, whose `sig` was computed over a different `type`/`grantedBy`/`proposalPr`, or whose `status` was edited from `revoked` to `active` after signing; `stampUnderPolicy` and `approvalStatus` both refuse on any of those.
+6c. A hand-written `social/autonomy.json` containing a plausible but unsigned `status: "active"` grant produces **no** policy stamp and **no** post — the forged-grant regression test.
+6d. `approvalStatus` performs no filesystem access: called with `options.grants` omitted, a `kind: "policy"` record is invalid, never a disk read.
 7. A ❌ on a `posted:<type>` notice within 24h: revokes the grant · removes the policy `approval` from every unposted item of that type · creates a T5 lesson · dispatches the retraction workflow. **No reply is required for any of it.**
 8. A ❌ on the same notice at 25h revokes the grant and dispatches **no** retraction.
 9. The retraction workflow deletes the X post, deletes the Facebook post, and files a `founder-task` for Instagram containing the post URL and the in-app steps; its channel message does not state or imply that the Instagram post was removed.
@@ -221,6 +239,10 @@ Everything else in these seven specs is reversible by a code change. This is not
 If the answer is yes, T7 ships as written. If it is no, the honest alternatives are:
 
 - **(a) Ship T7 X-only.** Currently impossible: X+Instagram pairing is mandatory with no exceptions (`checkCampaignPair`, 2026-08-26), so there is no X-only campaign to grant. It would take a founder decision to reopen pairing, and pairing exists for good reasons.
-- **(b) Don't ship T7.** Keep the gate universal and spend the effort on T2/T5, which improve what gets written rather than who waves it through. **This is what I would choose if the mitigation above does not satisfy you** — the ladder's value at zero users is small, and it is the one item in this wave whose worst case is not undoable.
+- **(b) Don't build T7.** Keep the gate universal and spend the effort on T2/T5, which improve what gets written rather than who waves it through.
+
+**(b) is my recommendation.** The ladder's value at zero users is small, and it is the only item in this wave whose worst case cannot be undone by a revert. The independent Fable review of these specs reached the same conclusion independently — it rated T7 the riskiest spec in the set and recommended parking it as designed-not-built, dropping the `kind`/`v: 3` schema change from Wave 4 along with it.
+
+So the concrete proposal: **approve T7 as a design, don't schedule it.** It costs nothing to leave specified, the eligibility check still ships as part of the Wave 4 gate (returning "not eligible" for everything, which is correct at day 0 and gives us the data for free), and if in three months the ledger shows a genuinely stable campaign type, the design is already written and reviewed. Reopen it then, with real numbers, instead of committing to it now on none.
 
 I have specified it fully so the choice is between two finished things, not between a plan and a shrug.

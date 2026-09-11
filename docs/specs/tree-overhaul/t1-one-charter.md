@@ -43,9 +43,24 @@ No queue-schema change except one rename.
 | `appearance` | a fast-lane item from an appearance intent (T6) |
 | `reddit` | a Reddit prompt (S6), not a platform post |
 
-`lane` is **not** in `contentHashPayload`, so adding it cannot void a stamp. `validateQueueItem` (`scripts/social/lib/queue-schema.mjs`) gains `lane` as a required enum for new drafts. `social/queue/` is empty today, so this is a clean rename with no migration; `social/posted/` history keeps `sourceRoutine` and nothing reads it.
+`lane` is **not** in `contentHashPayload`, so adding it cannot void a stamp. `validateQueueItem` (`scripts/social/lib/queue-schema.mjs`) gains `lane` as a required enum for new drafts. `social/posted/` history keeps `sourceRoutine` and nothing reads it.
+
+**Precondition, not an assumption: `social/queue/` must be empty when this lands.** It is *not* empty today — it holds four live drafts (`2026-09-12-shop-the-look-announce-{ig,x}.json`, `2026-09-13-speaknow-million-week-{ig,x}.json`) awaiting the gate. Making `lane` required while those sit there turns every one of them red. The build must either land after those four have resolved through the gate, or backfill `lane: "calendar"` into whatever remains in the same PR. Whoever picks this up: check the directory first — do not trust this paragraph's file list.
 
 `approval-prompt.mjs` reads `draft.lane ?? draft.sourceRoutine ?? 'unknown'` in `formatTreeIdentityLine` and the header's `Drafted by:` line for exactly one release, then drops the fallback.
+
+Note on what `sourceRoutine` actually contains today: `.github/workflows/social-approval-notify.yml` sets it from `github.event.pull_request.user.login`, so the brief's `Drafted by:` line currently shows a **GitHub login**, not a routine name — which is one more reason it carries no useful information and is worth replacing rather than keeping.
+
+### Wave-ordering constraint (T1/T2 vs T6)
+
+T1 makes `lane` required and T2 makes `critique` required, both in **Wave 3**. `merch-official-sync` and `appearance-discovery` keep writing queue files with neither until **T6 lands in Wave 4**. Between those waves every side-door PR would be red on a check the side door cannot yet satisfy.
+
+Resolve it one of two ways, decided at build time by whoever sequences Wave 3 — both are fine, neither may be skipped:
+
+- **(a)** gate both requirements on the item's lane: required when `lane === "calendar"` or `lane` is absent-and-authored-by-Tree, advisory for `merch`/`appearance` until T6; or
+- **(b)** pull T6's "stop writing captions" half forward into Wave 3, leaving only the fast-lane drafting and rubric in Wave 4.
+
+(b) is cleaner and is the recommendation — it removes the unreviewed-caption path a wave earlier, which is the change with the most safety value in this whole set.
 
 ### What "from Tree" means, surface by surface
 

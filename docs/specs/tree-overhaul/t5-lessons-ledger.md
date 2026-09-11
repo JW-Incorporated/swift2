@@ -7,27 +7,23 @@
 
 ## Behavior you will see
 
-A file called `social/lessons.md` you can read in one sitting. It is the list of things you have told Tree, in your own words, and what Tree now does about each one.
+`social/lessons.md`, readable in one sitting: the things you have told Tree, in your own words, and what Tree now does about each.
 
 ```
 ### L004 — Don't open two posts in a row with a question
-
-Status: active · First seen: 2026-09-17 · Times fired: 3 · Last: 2026-10-01
+Status: active · Times fired: 3 · Last: 2026-10-01
 
 You said: "this is the third question opener in a row, it reads like a quiz account."
-So I: check the previous post on the same platform, and never open with a
-question twice running.
+So I: never open with a question when the last post on that platform did.
 ```
 
-You do not write it. It is distilled every Monday from the reasons you gave with your ✏️ and ❌ reactions, and from what you say in the thread.
-
-Three things follow from it:
+You don't write it. It's distilled every Monday from your ✏️ and ❌ reasons and your thread replies. Three things follow:
 
 - **Tree reads it every morning before drafting.** A rule you gave once is applied every day after, not forgotten by Friday.
-- **When you have had to say the same thing three times, Tree stops relying on itself** and files a ticket to turn that rule into an automated check, so the mistake becomes impossible rather than merely discouraged.
-- **When a lesson means the strategy itself is wrong**, Monday's brief carries it as a numbered proposal. You react ✅ and Tree opens the change to `docs/marketing/social-strategy.md` as a PR for you to merge. Tree never edits the strategy on its own.
+- **When you've had to say the same thing three times, Tree stops trusting itself** and files a ticket to turn that rule into an automated check — so the mistake becomes impossible, not merely discouraged.
+- **When a lesson means the strategy is wrong**, Monday's brief carries it as a numbered proposal. React ✅ and Tree opens the change as a PR for you to merge — it never edits the strategy itself.
 
-Retired rules stay in the file, marked retired, with the reason. Nothing is quietly deleted.
+Retired rules stay, marked retired — nothing is quietly deleted.
 
 ---
 
@@ -117,9 +113,9 @@ Tree writes `social/lessons.md` directly — it is added to Tree's mutation righ
 Tree's invariant 2 stands: **Tree may propose a strategy change, never merge one.** The mechanism:
 
 - The diff to `docs/marketing/social-strategy.md` is committed in the plan PR, on Tree's branch, under a PR-body heading `## Proposed strategy change (proposal N — not yet approved)`.
-- `auto-merge-content.yml` must **not** auto-merge a plan PR whose diff touches `docs/marketing/social-strategy.md`. That file is added to the same human-gate list that already covers `docs/specs/` and `docs/decisions.md`.
+- `auto-merge-content.yml` must **not** auto-merge a plan PR whose diff touches `docs/marketing/social-strategy.md`. **This already holds and needs no change**: the gate reads `.github/content-automerge-allowlist.txt`, which is a strict allow-list (a file must match an allow prefix and no `!` deny prefix), and no `docs/` prefix other than `docs/audits/` and `docs/ops/MERCH-REVENUE.json` is on it. The build adds a test asserting that `docs/marketing/social-strategy.md` matches no allow prefix, so a future widening of the allowlist cannot silently hand Tree the ability to merge its own strategy change.
 - The founder's ✅ on `proposal:N` in Discord is the approval; **the founder still merges the PR themselves.** Tree does not merge it and the poll does not merge it. The social-draft poll merges *draft* PRs only, never plan PRs — a strategy change is not a caption, and the one-tap mechanism built for captions should not silently acquire the power to rewrite the strategy it implements.
-- A ❌ on the proposal: the poll comments the reason on the PR; Tree's next run reverts that file in the plan PR and records the ❌ as a firing against the lesson that produced it.
+- A ❌ on the proposal: the poll comments the reason on the PR. **The revert is carried by the next weekly run in its own PR, not by editing the plan PR** — by the time a ❌ arrives the plan PR is usually merged (T4, *Plan-brief scopes bind by `(pr, messageId)`*), so there is nothing left to amend. Tree also records the ❌ as a firing against the lesson that produced the proposal.
 
 ### The codification issue
 
@@ -148,7 +144,7 @@ Before drafting, read `social/lessons.md` and take every `active` rule as bindin
 5. A rule reaching `Times fired: 3` with `Codify: —` produces exactly one `codify:` issue with the `intake` and `social` labels; a second run over the same ledger files no second issue.
 6. A rule with no firing for 8 weeks **and** ≥10 briefs in the window is retired; one with 8 quiet weeks and 2 briefs is **not**.
 7. A retired rule that fires again is reactivated with its `Evidence` history intact and its original id.
-8. `auto-merge-content.yml` declines a plan PR whose diff touches `docs/marketing/social-strategy.md`.
+8. The allowlist test asserts `docs/marketing/social-strategy.md` matches no allow prefix in `.github/content-automerge-allowlist.txt`, so a plan PR touching it can never auto-merge.
 9. A ❌ on a strategy proposal results in that file being reverted in the plan PR on the next run, and a firing recorded.
 10. The daily draft run's PR body lists the active rule ids it read.
 
@@ -164,7 +160,7 @@ Before drafting, read `social/lessons.md` and take every `active` rule as bindin
 | `docs/agents/runner-prompts/tree-daily-draft.md` | read the ledger; populate `rulesChecked` |
 | `scripts/social/lib/queue-schema.mjs` | `rulesChecked` non-empty when active rules exist |
 | `docs/agents/tree.md` | `social/lessons.md` added to mutation rights; invariant 2 restated with the propose-never-merge mechanism |
-| `.github/workflows/auto-merge-content.yml` | `docs/marketing/social-strategy.md` added to the human-gate list |
+| `tests/` (automerge) | assertion that `docs/marketing/social-strategy.md` matches no allow prefix |
 | `scripts/social/social-approval-poll.mjs` | a plan PR is never auto-merged (explicit, tested) |
 | `tests/` | round-trip, id allocation, retirement windows, codify-once |
 

@@ -11,9 +11,9 @@ Every brief opens with Tree's own pitch — two sentences, in plain English, abo
 
 > This is the Decode thread's origin-story beat: it teaches the one mechanic new followers don't get yet, using a dated, verifiable 2012 detail rather than a vibe. The photo is a credited Red-era shot, so the image earns its place instead of decorating.
 
-That is Tree telling you *why this post exists* before you read a word of the caption. If the pitch is weak, you will usually know to react ❌ without reading further — which is the point.
+That is Tree telling you *why this post exists* before you read a word of the caption. If the pitch is weak, you'll usually know to react ❌ without reading further — which is the point.
 
-You will also see fewer bad drafts. Before queueing anything, Tree scores its own draft out of 5 on five things: is it on strategy, is it in our voice, is it specific rather than generic, does the image earn its place, and — the one that matters most — *would I be embarrassed to send this?* Anything that fails its own scoring gets one rewrite, and if it still fails, **the slot is left empty**. An empty slot is better than filler; that rule already exists and this enforces it earlier.
+You'll also see fewer bad drafts. Before queueing anything, Tree scores its own draft out of 5 on five things: on strategy, in our voice, specific rather than generic, does the image earn its place, and — the one that matters most — *would I be embarrassed to send this?* A draft that fails gets one rewrite, and if it still fails, **the slot is left empty**. An empty slot beats filler; that rule already exists and this enforces it earlier.
 
 On Monday you get one line telling you whether Tree's self-scores actually predicted your ✅s and ❌s. If they don't, Tree says so.
 
@@ -45,7 +45,7 @@ On Monday you get one line telling you whether Tree's self-scores actually predi
 | `v` | `1` | schema version |
 | `scores.*` | integer 1–5 | all five required; no nulls, no half-points |
 | `total` | integer 5–25 | must equal the sum; validated, not trusted |
-| `rationale` | string | **exactly two sentences**, ≤ 320 characters, plain English, no repo jargon |
+| `rationale` | string | about two sentences, ≤ 320 characters (enforced), plain English, no repo jargon |
 | `rulesChecked` | string[] | ids of the lessons-ledger rules Tree checked against (T5); `[]` before T5 ships |
 | `revision` | 1 or 2 | how many attempts it took |
 
@@ -119,7 +119,7 @@ The prompt states the rubric table verbatim so the run never depends on reading 
 - `critique` required, `v === 1`;
 - all five `scores` present, integers 1–5;
 - `total` equals the sum (computed, compared — never trusted);
-- `rationale` present, ≤ 320 chars, and **exactly two sentences** (counted as terminal `.`/`?`/`!` outside quotes — a deliberately crude check that catches a five-sentence essay, not an edge case);
+- `rationale` present and ≤ 320 chars. **No sentence count is enforced.** A terminal-punctuation counter mis-splits the exact prose this field is meant to contain — "22 Oct.", "vs.", "No. 1" — and a rationale rejected by a broken counter blocks a good draft. The two-sentence shape is stated in the prompt and bounded by the character cap, which is the honest enforcement;
 - the threshold holds: min score ≥ 3, `total` ≥ 18, `notEmbarrassed` ≥ 4.
 
 A draft below threshold is therefore rejected by `check-drafts.mjs` at CI time, not merely by the prompt's good intentions. This is the enforcement that makes the rubric real: an LLM's promise to self-score is not a gate, a failing check is.
@@ -133,7 +133,7 @@ New `checkCritique` in the `checkDraft` orchestrator, reporting each failure wit
 `formatDraftLines` gains the rationale as the **first paragraph** of each draft message, immediately under the Tree identity line and above `Posts at:` — unlabeled, because it is the pitch, not a field:
 
 ```
-Tree · slot: 2026-09-18 15:00 UTC · pillar: thread:hidden-clues
+Tree · slot: 2026-09-18 15:00 UTC · pillar: thread:hidden-clues:origin-story
 **Draft 1 · X — @longlivetscom**
 This is the Decode thread's origin-story beat: it teaches the one mechanic
 new followers don't get yet, using a dated, verifiable 2012 detail rather
@@ -156,12 +156,12 @@ New exported `calibration({ ledgerRows, items })` returning `{ approvedMean, edi
 
 ## Acceptance criteria
 
-1. `validateQueueItem` rejects: a missing `critique`; a score of 0 or 6; a non-integer score; a `total` that does not equal the sum; a `rationale` of one sentence or of three; a `rationale` over 320 characters.
+1. `validateQueueItem` rejects: a missing `critique`; a score of 0 or 6; a non-integer score; a `total` that does not equal the sum; a `rationale` over 320 characters. It **accepts** a rationale containing "22 Oct." and "vs." (the regression test for not counting sentences).
 2. `validateQueueItem` rejects an item with `notEmbarrassed: 3` even when `total` is 22 and every other dimension is 5 (the hard gate is independent of the total).
 3. `validateQueueItem` accepts the exact boundary case: all fives except `notEmbarrassed: 4`, i.e. `total: 24`; and the minimum passing case `{3,3,4,4,4} = 18`.
 4. `check-drafts.mjs` fails a below-threshold draft with a message naming the dimension and its score.
 5. A brief message renders the rationale as its first paragraph and shows **no** numeric scores.
-6. The identity line renders `pillar: thread:hidden-clues` for a `thread:hidden-clues:origin-story:2026-09` campaign, and `pillar: unspecified` for a null campaign.
+6. The identity line renders `pillar: thread:hidden-clues:origin-story` for a `thread:hidden-clues:origin-story:2026-09` campaign (per S3's per-prefix family table), and `pillar: unspecified` for a null campaign.
 7. An ✏️ edit (S3) leaves `critique` byte-identical and still produces a valid stamp — the regression test for the not-hashed decision.
 8. `calibration()` returns `verdict: 'insufficient'` with fewer than 3 rejections, and never emits a mean over n<1.
 9. `calibration()` flags `verdict: 'uncalibrated'` when a rejected item's total exceeds the approved mean.

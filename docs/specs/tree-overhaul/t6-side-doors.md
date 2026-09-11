@@ -8,19 +8,19 @@
 
 ## Behavior you will see
 
-Two automated lanes currently write captions straight into the queue without Tree or anyone else looking at them: the merch sync (when a new official product appears) and the appearance discovery (when Taylor turns up in a new video). They are the lanes that produced the 2026-08-31 captions you complained about, which is what triggered the posting freeze.
+Two automated lanes write captions straight into the queue today with nobody looking at them: the merch sync, when a new product appears, and the appearance discovery, when Taylor turns up in a new video. They produced the 2026-08-31 captions that triggered the posting freeze.
 
-After this, **neither lane writes a caption.** They write a fact sheet: *"New product: the folklore cardigan, £58, in stock since this morning, here is the picture and the link."* Tree reads those every morning and writes the post itself, held to the same standard as everything else — plus one extra test the planned posts don't get: **is this actually news right now?** A product that has been on the shelf for a week is not.
+After this, **neither lane writes a caption.** They write a fact sheet: *"New product: the folklore cardigan, £58, in stock since this morning, here's the picture and the link."* Tree reads those and writes the post itself, to the usual standard plus one test planned posts don't get: **is this actually news right now?** A product on the shelf a week is not.
 
-In the channel, a fast-lane post looks like every other brief, with its lane named:
+In the channel it looks like any other brief, its lane named:
 
 > Tree · slot: fast lane (merch) · pillar: launch:merch
 
-You still approve it with ✅ / ✏️ / ❌. Nothing ships without you — that gate is untouched.
+You still approve it with ✅ / ✏️ / ❌. Nothing ships without you.
 
-If Tree judges a fact sheet not worth a post, it says so in Monday's brief in one line ("skipped the Sept 14 podcast appearance — nothing in it we could source"). You can tell it to do it anyway by replying.
+If Tree judges a fact sheet not worth a post, Monday's brief says so in one line ("skipped the Sept 14 appearance — nothing in it we could source"). Reply and it'll do it anyway.
 
-Because we post roughly once a day per platform, a fast-lane post **takes** a planned slot rather than adding one. Tree tells you which slot it moved and where it went.
+Since we post about once a day per platform, a fast-lane post **takes** a planned slot rather than adding one. Tree says which slot moved, and where to.
 
 ---
 
@@ -135,7 +135,7 @@ Deleting the caption templates is the point of the change, not a side effect: te
 
 ### `.github/workflows/auto-merge-content.yml`
 
-`social/inbox/**` is added to the content allowlist. It carries no publishable text, so it needs no human gate — the gate is on the post Tree writes from it.
+`social/inbox/` is added as an allow prefix in `.github/content-automerge-allowlist.txt` (the strict allow-list the gate reads). It carries no publishable text, so it needs no human gate — the gate is on the post Tree writes from it.
 
 ### `docs/agents/runner-prompts/tree-daily-draft.md`
 
@@ -186,7 +186,7 @@ A new step before drafting the calendar's slots:
 | `scripts/social/lib/inbox.mjs` | **new** |
 | `scripts/social/lib/queue-schema.mjs` | `v: 2` rubric selected by `lane` |
 | `scripts/social/check-drafts.mjs` | `checkFastLaneDisplacement` |
-| `.github/workflows/auto-merge-content.yml` | `social/inbox/**` allowlisted |
+| `.github/content-automerge-allowlist.txt` | `social/inbox/` allow prefix added |
 | `docs/agents/runner-prompts/tree-daily-draft.md` | the fast-lane step |
 | `docs/agents/runner-prompts/tree-weekly-plan.md` | report declines and expiries |
 | `social/inbox/.gitkeep`, `social/inbox/closed/.gitkeep` | **new** |

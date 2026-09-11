@@ -14,7 +14,13 @@ Format: date, decision, why, alternatives considered, who approved.
 Tree to propose — in the Monday brief, as a numbered proposal — that posts
 of that one family ship on schedule and notify afterwards. Only the
 founder's ✅ on that proposal creates the grant, written to
-`social/autonomy.json`. Eligibility never grants anything by itself. The
+`social/autonomy.json` on the `social-ledger` branch and **HMAC-signed with
+`SOCIAL_APPROVAL_KEY` by the poll job** — a grant without a valid signature is
+inert. Signing it is not optional: otherwise any agent could write
+`status: "active"` into that file and the poll, which holds the key, would
+then sign a policy stamp and publish with zero founder involvement. `status`
+is inside the signed payload, so a revoked grant cannot be flipped back to
+active by editing the file. Eligibility never grants anything by itself. The
 approval schema gains `v: 3` with a signed `kind` field (`founder` |
 `policy`); a policy stamp's `by` is `policy:<type>@<grant date>`, which is
 deliberately NOT a `discord:` identity and must never be added to
@@ -54,6 +60,14 @@ exists); a shorter eligibility window (rejected — 28 days is the shortest
 window that spans a full campaign rotation); requiring a reason on the
 revoking ❌ (rejected — the post is already public and stopping the next one
 outranks collecting the reason first; the reason is asked for afterwards).
+
+**Recommendation attached to this entry:** approve T7 as a *design* and do
+not schedule the build. Its value at zero users is small and it is the only
+item in Wave 1 whose worst case cannot be undone by a revert; the independent
+Fable review of these specs reached the same conclusion and rated it the
+riskiest spec in the set. The Wave 4 eligibility check still ships (returning
+"not eligible" for everything, correct at day 0), so the data accrues for free
+and the design can be reopened in three months against real numbers.
 
 **Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
 
@@ -265,7 +279,10 @@ reaction with no reply is `pending`: nothing happens, and the poll posts one
 nudge per target per 24 hours, finding its own prior nudges in the channel
 rather than keeping a state file. **A bare ❌ never closes a PR again.**
 Every resolved verdict — including plain ✅ — is appended to
-`social/feedback/<ISO-week>.jsonl` on `main`. The reaction→action table is
+`social/feedback/<ISO-week>.jsonl` on the **`social-ledger` branch** (`main` is
+branch-protected and nothing can push to it; `social-ledger` is the pattern
+issue #2040 already established for the posted/failed ledger, and readers
+overlay it exactly as `social-poster.yml` does). The reaction→action table is
 generalised so the third field of the `ref:` line is a scope token, letting
 Reddit items (S6) and Monday brief proposals (T4) reuse the same mechanism.
 Spec: `docs/specs/tree-overhaul/s3-reason-protocol.md`.
@@ -287,6 +304,13 @@ with no reason teaches nothing and, worse, silently destroyed the PR that
 was the only record of what was rejected. Logging ✅ rows too is what makes
 the edit-rate trend and T7's eligibility computable at all — a ledger of
 failures alone has no denominator.
+
+**Also decided:** the ✏️ edit path runs `checkDraft` on the founder's
+caption *before* stamping. Without it an over-length or duplicate caption
+commits, CI goes red, and the draft strands forever with nothing said in the
+channel. On a failing check the poll writes nothing and says why in the
+channel. Related: ✏️ on the PR-wide header is unsupported — one reply cannot
+be the new caption for an X item and its Instagram sibling at once.
 
 **Alternatives considered:** a slash command or modal for the reason
 (rejected — it is more ceremony than the tap it replaces, and the bot is
