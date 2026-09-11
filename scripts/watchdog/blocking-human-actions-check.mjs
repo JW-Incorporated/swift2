@@ -111,7 +111,7 @@ async function main() {
   const lines = [
     `${aged.length} OPEN \`[BLOCKING]\` human action(s) in \`${filePath}\` ${aged.length === 1 ? 'is' : 'are'} older than ${maxAgeHours}h.`,
     '',
-    '**Why this matters:** a filed-but-unexecuted human action is a single point of failure that looks identical to a handled one unless something watches its age — item #56 ("freeze social posting while the approval gate lands") sat open for this exact reason tonight (docs/social/RULINGS-SOCIAL.md).',
+    '**Why this matters:** a filed-but-unexecuted human action is a single point of failure that looks identical to a handled one unless something watches its age — item #56 ("freeze social posting while the approval gate lands") sat open for this exact reason tonight (RULINGS-SOCIAL.md).',
     '',
   ];
   for (const item of aged) {
