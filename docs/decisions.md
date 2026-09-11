@@ -1730,10 +1730,11 @@ content.
 
 **Decision:** removed two items from `CLAUDE.md` § Decision authority's "AI may
 NOT, without explicit human approval" list — "merge or push to `main`" and
-"deploy anything." Also amended § HUMAN-ACTIONS.md (and the matching line in
-`HUMAN-ACTIONS.md` itself): a session may now write an item's `**Status:**`
-change directly when Joey says so in chat, not only when he edits the file
-himself — a session still may not flip a status on its own judgment.
+"deploy anything." Also amended § HUMAN-ACTIONS.md: format v2 has no
+`**Status:**` field to flip, so this now reads as closing authority — a
+session may run `ha close` (or post the Discord `done`/`skip <why>` reply)
+directly when Joey says so in chat, not only when he closes the card himself
+— a session still may not close an item on its own judgment.
 
 **Why:** Joey's call, made in chat 2026-08-22 while working the Wyatt-account
 routine handoff (issue #2258) — he wants Claude executing this class of work
@@ -1760,6 +1761,12 @@ no-ops `mcp_connections: []`. Corrected in place rather than left to mislead
 the next session working that file.
 
 **Approved by:** Joey
+
+**Superseded in shape, not in authority, by format v2 (2026-09-10):** the
+mechanism changed from "edit a Status word" to "run `ha close` / reply to
+the card," but the rule this entry states — closes only with Joey's
+explicit say-so in chat, never an agent's own judgment — is unchanged and is
+the authority `ha close` exercises.
 
 ## 2026-08-22 — AI Dev OS removed entirely; no orchestration framework replaces it
 

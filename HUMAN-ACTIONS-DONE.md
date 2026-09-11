@@ -3,6 +3,8 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #55 · 2026-09-11 · done · Confirm #longlive-social is the Discord channel (closes prereq for the social-approval-gate track) — "Settled when #4090 shipped: the notifier posts to the existing Discord social channel; owner authorized closing in the 2026-09-11 session" · by owner
+- #56 · 2026-09-11 · done · Freeze social posting while the approval gate lands — "SOCIAL_FREEZE=true set by the 2026-09-10 session; owner authorized closing in the 2026-09-11 session" · by owner
 - #59 · 2026-09-11 · done · Generate `CLAUDE_CODE_OAUTH_TOKEN` for the routines-migration fleet — "legacy-dup of #43" · by migration
 - #50 · 2026-09-11 · done · Add the Discord webhook for the social-channel morning brief and safe Permis repairs — "the social-channel morning brief and safe Permis repair rollout need a private, reliable route to their Discord channel …" · by migration
 - #47 · 2026-09-11 · done · URGENT — disable 15 original claude.ai routines now duplicated by the GitHub Actions migration — ~15-20 min — "the routines-migration (t_876f9697, t_36d63712, t_574dfb62, t_9752a8e0, t_123b1628 — all merged) built GitHub Actions replacements for the w …" · by migration

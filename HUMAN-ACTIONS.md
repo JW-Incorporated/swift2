@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -41,37 +41,6 @@ don't assume the same root cause a second time.
 
 ---
 
-## #56 🔴 [BLOCKING] Freeze social posting while the approval gate lands (~2 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** there is a window between when the approval-gate notifier PR merges and when the full approval-gate enforcement lands where already-merged unapproved drafts could still post on the 30-minute cron. Setting `SOCIAL_FREEZE=true` now (before the social-approval-gate PR merges) prevents any posts from go
-
-**Steps:**
-1. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables → Actions → Variables** and verify the `SOCIAL_FREEZE` variable already exists (it should, per item #22 of the audit).
-2. Set its value to `true`.
-3. Leave it at `true` until Joey has verified the new approval-gate works end-to-end.
-4. Once verified, set it back to `false` to resume normal posting.
-
-**Worked if:** the next 30-minute social-poster run logs "SOCIAL_FREEZE is set" and skips posting (confirmed in `social-poster.yml` lines 139–149), and no posts go out while the variable is set.
-
-
----
-
-## #55 🔴 [BLOCKING] Confirm #longlive-social is the Discord channel (closes prereq for the social-approval-gate track) (~2 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** Joey said "Slack #longlive-social", but the only existing webhook in this repo is `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL`, and `community-mailer.yml` already routes Reddit community prompts through it (confirmed at line 85 of `community-mailer.yml` and used by `scripts/community/discord-delivery.mjs` l
-
-**Steps:**
-1. Confirm with Joey: is the social-approval-gate notifier meant to post to the Discord channel that already handles Reddit community prompts (via the existing `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` secret
-2. If Discord (the existing channel): nothing to do, use the existing secret and we proceed.
-3. If Slack: tell Joey that a new `SLACK_SOCIAL_WEBHOOK_URL` secret would need to be added via **Settings → Secrets and variables → Actions → Secrets → New repository secret** (a founder-only action, `gh
-
-**Worked if:** Joey confirms one of the two options, and the build proceeds with the correct webhook target.
-
-
----
-
 ## #54 🔴 [BLOCKING] Turn on Code Scanning and set CODE_SCANNING_ENABLED (closes P5) (~5 min)
 <!-- ha filed=2026-09-11 -->
 
@@ -79,7 +48,7 @@ don't assume the same root cause a second time.
 
 **Steps:**
 1. In `JW-Incorporated/swift2` repo on GitHub, open **Settings → Code security and analysis → Code scanning → Set up → Default** to enable GitHub Advanced Security's Code Scanning for this repo (founder-
-2. In the same Settings area, open **Secrets and variables → Actions → Variables → New repository variable**: name it `CODE_SCANNING_ENABLED`, set its value to `true`, and save. (This step requires repo 
+2. In the same Settings area, open **Secrets and variables → Actions → Variables → New repository variable**: name it `CODE_SCANNING_ENABLED`, set its value to `true`, and save. (This step requires repo
 3. No code changes needed — `codeql.yml` already checks this variable correctly (line 18: `if: vars.CODE_SCANNING_ENABLED == 'true'`).
 
 **Worked if:** a manually dispatched `codeql.yml` run from the Actions tab shows the **Analyze** job running (not skipped) and Security → Code scanning alerts begin to populate with real findings.
@@ -97,7 +66,13 @@ cannot provide the required mobile and desktop rendered evidence. The deployed
 Open Gr
 
 **Steps:**
-1. TODO — steps needed
+1. Open https://www.longlivets.com/ on a real phone (or Chrome DevTools mobile emulation) at a mobile viewport (e.g. 390x844).
+2. Tap the Share icon (top-right, next to Search) in the top bar and confirm the OS native share sheet opens with a Long Live title/link.
+3. Screenshot the open share sheet on mobile and save it.
+4. Open https://www.longlivets.com/ in a desktop browser window (e.g. 1440x900).
+5. Click the same Share icon; since desktop browsers usually lack navigator.share, confirm it falls back to copying the link (check clipboard or any on-screen confirmation).
+6. Screenshot the desktop result and save it.
+7. Post both screenshots as pass/fail evidence on Kanban task t_b025b476.
 
 **Worked if:** one screenshot from each viewport shows the rendered page, and
 the result is recorded on Kanban task `t_b025b476` as pass/fail.
@@ -152,7 +127,7 @@ chosen outc
 `01a08457`): iOS build 10 and Android build 7 were both built on EAS from
 `main` 0b8ca769 (the native overhaul), iOS was submitted to TestFlight,
 and `submit_android` failed because there is no Play service-account key
-on EAS (#46). So Android's 
+on EAS (#46). So Android's
 
 **Steps:**
 1. Download the bundle (EAS artifact for build 7, commit 0b8ca769):
