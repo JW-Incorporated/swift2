@@ -74,6 +74,8 @@ docs `CLAUDE.md` points at:
 | `docs/archive/kit-v3-2026-08-19/` | The retired kit-v3 framework, verbatim (`STATE.md`, `PLAN.md`, hooks, agents, pause skill) |
 | `scripts/watchdog/karen-post-repair-check.mjs` | Self-limiting: Karen ran after the repair? Auto-closes 2026-08-22 |
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
+| `scripts/watchdog/cron-maxage-hours.mjs` | Derives per-workflow cadence maxage-hours from a `routine-*.yml`'s own cron, for watchdog.yml's dynamic WATCHED list (tree-overhaul #4117 task A1) |
+| `.claude/hooks/guard.test.sh` | Minimal shell fixture asserting guard.sh's deny patterns actually block (task A5) |
 
 **Retired 2026-08-19 (kit-v3):** `STATE.md`, `PLAN.md`, `PLANtemplate.md`,
 `docs/OPERATINGMANUAL.md`, `hooks/triage.sh`, `hooks/checkpoint-gate.sh`,
