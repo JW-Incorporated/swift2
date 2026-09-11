@@ -32,9 +32,10 @@
 // against a real pending draft, per this track's brief.
 
 import { readFile } from 'node:fs/promises';
-import { neutralizeMentions, chunkForDiscord, DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
+import { neutralizeMentions, DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
 import { mediaUrlsFor, MEDIA_BASE_URL, hoursOverdue } from './lib/queue.mjs';
 import { PLATFORM_RULES } from './lib/queue-schema.mjs';
+import { chunkPreservingRefLine } from './lib/ref-line-chunk.mjs';
 import { runMain } from '../lib/cli.mjs';
 
 function escapeFences(text) {
@@ -194,8 +195,10 @@ export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, rep
 
 /**
  * Sends every built message as its own Discord webhook POST, chunking any
- * over-limit `content` with `chunkForDiscord` and attaching `embeds` ONLY
- * to the LAST chunk of a message (Discord embeds render against the
+ * over-limit `content` with `chunkPreservingRefLine` (guarantees the
+ * trailing `ref:` line social-approval-poll.mjs parses always survives
+ * intact on one chunk — see lib/ref-line-chunk.mjs) and attaching `embeds`
+ * ONLY to the LAST chunk of a message (Discord embeds render against the
  * message they're attached to, and putting them on every chunk would
  * duplicate the image). Checks the `?wait=true` response's `embeds.length`
  * against what was sent — the machine-verifiable half of "the image shows"
@@ -217,7 +220,7 @@ export async function sendApprovalPrompt(
 
   for (let m = 0; m < messages.length; m += 1) {
     const { content, embeds = [] } = messages[m];
-    const chunks = chunkForDiscord(content, DISCORD_MESSAGE_LIMIT);
+    const chunks = chunkPreservingRefLine(content, DISCORD_MESSAGE_LIMIT);
     for (let i = 0; i < chunks.length; i += 1) {
       const isLastChunk = i === chunks.length - 1;
       const chunkEmbeds = isLastChunk ? embeds : [];
