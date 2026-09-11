@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 85
+
+## Taylor Swift Reportedly Frustrated With Travis Kelce Post-Wedding
+
+- first seen: 2026-09-11 13:30 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report indicates that Taylor Swift is feeling frustrated with Travis Kelce a few months after their wedding. The details of the situation have not been disclosed.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPVXB1d3FTVEFMZnNRbkRhaW1TeFg1Y2RYN2dmODZhQ2dXVEdLQTFNVG1IM1NPRFJkbnNJY0s0MUNPM21SVjFiWWRycTE1UnB6S2FEM2V4d3BkM204eG5kc0hSVGYtcW9nMDJQUklwRlU4TXJsRmRTT3haZ0psUG5SbEM2RkUzRFg3ZWpvYWVqeE9jc0NNakZhNElvbWgtOEN1OVZIUE9WVkdjQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Offer Insight into Their Married Life
+
+- first seen: 2026-09-11 13:30 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce share a rare look into their married life, providing fans with a glimpse of their relationship. This update comes from a report by Yahoo.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNaTdBRmdWQmV5UGVLZmZyU1hMSS1CaEZQNU1nc3VERG1KU1ZNTDN2dUxmam5xbTJvU0tXQ3NUd3NuVl9iNkpiT25EbjczRnZtaWRxdndMSWVkalczVzFWZ1JiVjhIempNRVNhQXpKLTh5NkF3YzRfWXJoaExyTXRsV05mOS1hd2lLQTNzenJDMWg5UkluUjFGd19ES0swT1BfLVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Attend CMA Awards After a Decade Absence
+
+- first seen: 2026-09-11 13:30 UTC | category: sighting | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to attend the CMA Awards for the first time in ten years. This marks a significant return for the artist to the country music awards show.
+- sources:
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxNcUtqWHl4TzhRSnRwTjJPOTVWMk1ldnVOUkEyZTB4WnNQbHpzMXBsN0ZYUlJmX3BMeGV6bHBpc3IzSmxvZDdKTFN3ZDdJWTgtQl9HT2h6cTNKRFdFU094YmFoWWdrTE9YRDBFcVdnY3ZMQlh6cVR2VjFQWENIMVowS3VMeV9oc0dZYTBZZWNzbw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Florida Orchestra to Perform Taylor Swift's Music on Saturday
+
+- first seen: 2026-09-11 13:30 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Florida Orchestra is set to perform music by Taylor Swift this Saturday, according to Creative Loafing Tampa. This event highlights the influence of Swift's songs in orchestral arrangements.
+- sources:
+  - [unverified] Creative Loafing Tampa — https://news.google.com/rss/articles/CBMinwFBVV95cUxOTk1US1R3TElPR2JlNDY2SzgtRGdFUDFpbkxkeDgxUVpqY0J3ek9kcFlFN2JZamhMT2x4d01POE5VOV9WeHZZVTdjSnRyR3o1dnprX05vNElCcW4ydWl1dGtUcl9XSTlvWGM4Sjd6SVhubWE2cGF0dEZHRmFVSmFkeEM2V1p4YWktbmFzWEh4dmVONXM0Q1N0SkJrYlotNEU?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Newly Identified Bugs Named After Taylor Swift
 
