@@ -107,11 +107,11 @@ Threshold for a fast-lane draft: every dimension ≥ 3, `total` ≥ **21** (of 3
 
 Queue caps are one post per platform per UTC day (`MAX_POSTS_PER_PLATFORM_PER_DAY`, `scripts/social/lib/queue.mjs`), so a fast-lane campaign cannot be additive. Tree:
 
-1. drafts the fast-lane pair for the **earliest beat not already drafted** that day;
+1. drafts the fast-lane pair for the **earliest day whose beat is not already drafted** (the calendar runs one beat a day — `social/calendar.md`);
 2. moves the displaced calendar slot to the next day with a free beat, rewriting `social/calendar.md`;
 3. names both in the draft PR body: *"Fast lane (merch) takes Thu beat A. `thread:hidden-clues:behind-the-data` moves Thu A → Sat A."*
 
-**At most one fast-lane campaign per day**, and **at most three per rolling 7 days**. If more intents are open than that, Tree takes the one with the nearest deadline and lets the rest expire, saying so in the brief. A week where the fast lane consumed half the calendar is a week with no strategy, and the cap makes that impossible rather than merely discouraged.
+**At most one fast-lane campaign per day**, and **at most two per rolling 7 days**. If more intents are open than that, Tree takes the one with the nearest deadline and lets the rest expire, saying so in the brief. At one beat a day a week has seven slots; two keeps the fast lane under a third of them. A week where the fast lane consumed half the calendar is a week with no strategy, and the cap makes that impossible rather than merely discouraged.
 
 ---
 
@@ -143,7 +143,7 @@ A new step before drafting the calendar's slots:
 
 1. Read `social/inbox/*.json` where `status: "open"`.
 2. Expire anything past its deadline.
-3. Apply the caps (1/day, 3/rolling-7d) and pick by nearest deadline.
+3. Apply the caps (1/day, 2/rolling-7d) and pick by nearest deadline.
 4. For the chosen intent: draft the pair, score against the six-dimension rubric, and on a pass write the queue items with `lane: "merch"|"appearance"`, set the intent to `drafted` with its `queueFiles`, and displace the calendar slot.
 5. On a fail (either rewrite), or on any blocklist / duplicate / unsourceable judgement: set `declined` with a one-sentence `declinedReason` in plain English, and comment that reason on the source `intake` issue or merch PR so the originating lane's own record shows it.
 6. Name every decline and expiry in the run's PR body.
@@ -165,7 +165,7 @@ A new step before drafting the calendar's slots:
 2. That intent contains no field whose value is prose written for publication; `facts` values all appear in the fixture catalog input.
 3. An appearance-discovery FILE-mode run writes an intent and its `intake` issue, and **zero** files under `social/queue/`.
 4. `auto-merge-content.yml` permits a PR whose diff is `social/inbox/**` + `supabase/seed/merch/**` + an image, and still declines one containing `social/queue/**` without a stamp.
-5. `selectFastLane` picks the nearest-deadline open intent, returns at most one, and returns none when three fast-lane items already posted in the rolling 7 days.
+5. `selectFastLane` picks the nearest-deadline open intent, returns at most one, and returns none when two fast-lane campaigns already posted in the rolling 7 days.
 6. An intent past its deadline transitions to `expired`, moves to `social/inbox/closed/`, and produces no queue item.
 7. `validateQueueItem` requires six dimensions and `total ≥ 21` for `lane: "merch"`, and rejects a fast-lane item with `timely: 3` even at `total: 27`.
 8. `validateQueueItem` still accepts a five-dimension `v: 1` critique for `lane: "calendar"`.
@@ -202,7 +202,7 @@ None blocking. Decided here — all reversible:
 - **`facts` only, never prose.** The lanes' captions were the problem; removing the ability to write one is the fix, and a lane that can write "exciting" can write the 2026-08-31 captions again.
 - **A fast-lane item displaces rather than adds**, because the daily cap is 1 per platform and pretending otherwise would just let the poster drop one silently.
 - **`timely ≥ 4` is a hard gate.** It is what keeps the fast lane a fast lane instead of a second content pipeline.
-- **Caps of 1/day and 3/rolling-7d**, chosen so the fast lane can never take more than three of fourteen beats in a week.
+- **Caps of 1/day and 2/rolling-7d.** The calendar runs one beat a day (`social/calendar.md`), so a week has seven slots and two keeps the fast lane under a third of them. *(Corrected 2026-09-11, Wave 1 review: the spec previously said three "of fourteen beats", a count taken from strategy §2's superseded two-beat day — three of seven would have been the very half-a-calendar this cap exists to prevent.)*
 - **A ❌-ed fast-lane draft does not return to `open`.** Re-offering it tomorrow is relitigating the founder's decision.
 - **Declines are reported weekly, not per-decline.** A daily "I skipped something" message is noise; a weekly line is reviewable.
 - **Expiry is the expected outcome and is reported as a count**, not as a list of failures.

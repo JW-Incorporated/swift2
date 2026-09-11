@@ -43,9 +43,12 @@ One append-only JSONL file per ISO week, named `2026-W38.jsonl` (ISO-8601 week, 
   "editedBody": "On 22 Oct 2012, Taylor...",   // present only when action === "edit"
   "approver": "discord:338508192755482626",
   "messageId": "1416...",                // the brief message the reaction sat on
-  "replyId": "1416..."                   // the reply carrying the reason; null for "approve"
+  "replyId": "1416...",                  // the reply carrying the reason; null for "approve"
+  "critiqueTotal": 23                    // optional — T2's self-score total, when the item carries a critique
 }
 ```
+
+`action` is one of `approve` | `edit` | `reject` | `skip` | `revoke`. `skip` is written only for `reddit` items (S6, ⏭️); `revoke` only by T7's posted-under-policy ❌. Rows for non-draft scopes (`reddit`, `proposal`, `posted:<type>`) carry the scope token in `file` and `null` for `platform`, `campaign` and `pillar`; every per-family metric (T2 calibration, T7 eligibility) filters on `file.startsWith('social/queue/')` so these rows are counted by T5 and nowhere else.
 
 Field rules:
 
@@ -101,14 +104,19 @@ A **reaction target** is any webhook-authored message whose last line matches th
 |---|---|---|
 | `*` | `pr` | every reactable item on the PR |
 | `social/queue/**.json` | `draft` | one social draft |
-| `social/reddit/**.json` | `reddit` | one Reddit prompt (S6) |
+| `reddit:<postId>` | `reddit` | one Reddit reply prompt (S6) — no file, no PR; see the note under the reaction table |
 | `proposal:<n>` | `proposal` | proposal *n* in Tree's Monday brief (T4) |
 
 | Reaction | Reply required | `draft` | `reddit` (S6) | `proposal` (T4) |
 |---|---|---|---|---|
-| ✅ | no | stamp, then merge | mark the item done | accepted; Tree implements it next run |
+| ✅ | no | stamp, then merge | mark the item done (the founder replied on Reddit) | accepted; Tree implements it next run |
 | ✏️ | **yes** | replace `body` with the reply, write `edit`, stamp, merge | replace the prompt text with the reply | accepted *as amended by the reply* |
 | ❌ | **yes** | `git rm` the file, comment `reject: <file> — <reason>`; on `*`, close the PR with the reason | drop the item, record the reason | rejected |
+| ⏭️ | no | ignored | skipped — `action: "skip"`, no reason asked; counts as "not replied" in the scorecard, never as a rejection | ignored |
+
+⏭️ is `%E2%8F%AD%EF%B8%8F` (U+23ED U+FE0F, variation selector included, same rule as ✏️). It exists because a Reddit prompt the founder chooses not to answer is not a mistake Tree made, so it must not need a reason and must not feed the lessons ledger.
+
+**What S6 must add for the `reddit` kind to work — stated here so it is not discovered at build time.** Reddit prompts are sent today by `community-mailer.yml` through `scripts/community/discord-delivery.mjs` with **no `ref:` line, no PR and no per-item file** (there is no `social/reddit/` directory). So: (1) the mailer appends a ref line per prompt; since there is no PR or SHA, the grammar is a second form, `ref: reddit · <postId>`, matched by its own regex beside `REF_LINE_RE` — the PR form is not stretched to fit; (2) the scope token is `reddit:<postId>` and the ledger row carries `pr: null`; (3) every `reddit` action is a ledger row and a scorecard count only — there is no file to stamp, remove or merge, so "mark the item done" and "drop the item" in the table mean exactly that row.
 
 Rules holding for every kind:
 
@@ -228,7 +236,7 @@ Pure helpers, unit-tested, I/O only through injected readers: `isoWeek(date)`, `
 | `.github/workflows/social-approval-poll.yml` | ledger push to `social-ledger`; fold-back PR for visibility |
 | `social/feedback/.gitkeep` | **new** directory |
 | `social/README.md` | document `edit` on a queue item and the `social/feedback/` ledger |
-| `docs/agents/runner-prompts/growth-draft.md` | the drafting run reads the ledger, not only `reject:` comments (detail in T5) |
+| `docs/agents/runner-prompts/growth-draft.md` (`tree-daily-draft.md` once T1 lands in the same wave) | the drafting run reads the ledger, not only `reject:` comments (detail in T5) |
 | `tests/` (beside the existing social tests) | `feedback.test.ts` + poll integration cases |
 
 ---
@@ -241,5 +249,5 @@ None blocking. Decided here — all reversible:
 - **JSONL over a single JSON file.** Append-only, line-level conflict-free between runs, `jq`-readable.
 - **One file per ISO week.** Matches the Monday cadence T5 distils on and keeps each file readable whole.
 - **✅ rows are logged.** Needed as T7's denominator and for the edit-rate trend.
-- **Latest reply wins for an edit; all replies concatenate for a reason.** A founder typing several lines of *explanation* meant all of them; several *drafts of a caption* means the last one.
+- **Latest reply wins, for an edit and for a reason alike** (§4). Concatenating several replies produces nonsense for a caption and guesses at intent for a reason; one reply is what the nudge asks for, so one reply is what is read.
 - **`edit` stays out of the content hash**, and the signature payload is left untouched.

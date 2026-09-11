@@ -14,7 +14,7 @@ You get, in order:
 1. **Five lines of scorecard** — posts shipped, follower change, failures, how many drafts you approved / edited / rejected, how long you took to answer.
 2. **What changed and why** — two or three sentences. "You rejected both product posts for sounding like ads, so I've dropped the product beat and replaced it with era deep-cuts."
 3. **The next 14 days**, one line per slot with the reason it's there.
-4. **Up to three proposals**, numbered, each its own message. React ✅ or ❌ on each. That's the whole approval — no form, no PR.
+4. **Up to three proposals**, numbered, each its own message. React ✅ or ❌ on each. For a calendar or rotation change that is the whole approval — no form, no PR. The one exception: a proposal to change the strategy document itself becomes a small PR Tree opens after your ✅, which you merge (T5).
 5. **Up to two questions**, if Tree genuinely needs your judgement.
 
 **Reply in the thread on any message** (or just reply to the message) and Tree reads it. If you answer before **Wednesday midnight UTC**, Tree re-plans the rest of the week that same day rather than waiting a week. After Wednesday your reply still counts — it shapes next Monday.
@@ -37,9 +37,9 @@ The brief is a sequence of webhook messages, every one carrying the S3 `ref:` li
 | 4..6 | one proposal each (≤3) | `proposal:1`, `proposal:2`, `proposal:3` |
 | last | questions (≤2) + how to reply | `questions` |
 
-Splitting the calendar across two messages is not cosmetic: 14 days is 28 campaign slots (2 beats/day per `docs/marketing/social-strategy.md` §2), and 28 rationale lines exceed Discord's 2000-character message limit. Two messages of 14 slots fit with room to spare, and they chunk further through the existing `chunkPreservingRefLine` if a week runs long.
+Splitting the calendar across two messages is not cosmetic. The calendar runs **one beat a day** (`social/calendar.md`, which on 2026-09-11 corrected strategy §2's two beats; the §2 text is still pending that correction), so 14 days is 14 campaign slots, each an X + Instagram pair. Fourteen slot lines each carrying a rationale already crowd Discord's 2000-character limit; two messages of seven days fit with room to spare, still fit if the second beat ever returns (14 slots each), and chunk further through the existing `chunkPreservingRefLine` if a week runs long.
 
-Only `proposal:<n>` messages are reactable. ✅/❌ on `brief`, `calendar:*` or `questions` is recorded in the ledger as feedback with no action — a founder ❌-ing the whole brief is telling Tree something, and it should land as a lesson (T5), not as an error.
+Only `proposal:<n>` messages are reactable. ✅/❌ on `brief`, `calendar:*` or `questions` is recorded in the ledger as feedback with no action, **no reply required and no nudge** — S3's reply rule exists to gate an action, and there is none here. A reply, if the founder leaves one, is ingested like any other. A founder ❌-ing the whole brief is telling Tree something, and it should land as a lesson (T5), not as an error.
 
 ### Plan-brief scopes bind by `(pr, messageId)` — never by SHA, never by PR state
 
@@ -168,7 +168,7 @@ Adds the brief's required shape, the ≤3 proposals / ≤2 questions caps, the "
 ## Acceptance criteria
 
 1. A dispatched weekly-plan run posts the full message sequence to Discord, each message carrying a well-formed `ref:` line matching `REF_LINE_RE`, with scope tokens `brief`, `calendar:1`, `calendar:2`, `proposal:1..n`, `questions`.
-2. A 14-day plan with 28 slots renders without any single message exceeding Discord's 2000-character limit.
+2. A 14-day plan renders without any single message exceeding Discord's 2000-character limit — tested at both 14 slots (today's one beat a day) and 28 (strategy §2's two-beat maximum, as a stress case).
 3. ✅ on `proposal:2` writes a ledger row with `file: "proposal:2"` and the plan PR number; ❌ on it writes a `reject` row and **requires a reply** exactly as S3 specifies for every other scope.
 3b. A ✅ on `proposal:2` is still processed when the plan PR is **merged** and its head SHA differs from the brief's `ref:` line — the regression test for the binding rule above. The equivalent reaction on a `social/queue/**` scope, under the same conditions, is still ignored.
 4. A thread reply from an approver appears as a plan-PR comment quoting it verbatim and carrying `discord-reply: <id>`; running the poll again posts no duplicate.
@@ -190,7 +190,7 @@ Adds the brief's required shape, the ≤3 proposals / ≤2 questions caps, the "
 | `scripts/social/social-approval-poll.mjs` | thread fetch, new scope tokens, reply→PR-comment, replan dispatch |
 | `scripts/social/weekly-scorecard.mjs` | `verdicts`, `latency`, 5-line render |
 | `scripts/social/lib/feedback.mjs` | latency + verdict aggregation helpers |
-| `.github/workflows/routine-tree-weekly-plan.yml` | `mode`/`pr` inputs, `social` environment, step order, permalink |
+| `.github/workflows/routine-tree-weekly-plan.yml` | `mode`/`pr` inputs; a separate deterministic brief-sending job holding only the webhook secret (never the `social` environment); step order; permalink |
 | `.github/workflows/tree-mail.yml` | narrowed trigger, dispatch path, "this is a copy" line |
 | `docs/agents/runner-prompts/tree-weekly-plan.md` | brief shape, caps, evidence rule, replan |
 | `docs/agents/tree.md` | the Monday brief as the primary founder surface |

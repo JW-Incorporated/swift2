@@ -85,8 +85,9 @@ telemetry thresholds · A4 quality sampling · A5 guard delete path.
   acceptance **at that time**, not on the strength of the 2026-09-11 approval.
 - Wave 5 **done**: `eligibility()` still returns "not eligible" for anything
   that has not earned it; a forged unsigned grant produces no stamp and no
-  post (the regression test); a synthetic revocation strips the policy stamp
-  from every unposted item of that type, files the Instagram `founder-task`,
+  post (the regression test); a synthetic revocation makes `approvalStatus` reject every
+  unposted policy-stamped item of that type (no queue-file edit — `main` is
+  branch-protected), files the Instagram `founder-task`,
   and posts a channel message that does **not** imply the Instagram post was
   removed.
 

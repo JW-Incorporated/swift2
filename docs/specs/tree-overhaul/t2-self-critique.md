@@ -42,7 +42,7 @@ On Monday you get one line telling you whether Tree's self-scores actually predi
 
 | Key | Type | Rule |
 |---|---|---|
-| `v` | `1` | schema version |
+| `v` | `1` | schema version — `1` is the five-dimension calendar-lane rubric; T6 adds `v: 2` (six dimensions, `timely`) for `merch`/`appearance` lanes, selected by `lane` |
 | `scores.*` | integer 1–5 | all five required; no nulls, no half-points |
 | `total` | integer 5–25 | must equal the sum; validated, not trusted |
 | `rationale` | string | about two sentences, ≤ 320 characters (enforced), plain English, no repo jargon |
@@ -81,7 +81,7 @@ An item is queueable when **all** hold:
 
 ### The Monday calibration
 
-The weekly run joins every `social/feedback/<week>.jsonl` row to its item's `critique.scores` by `file`, and reports:
+The weekly run joins every `social/feedback/<week>.jsonl` row whose `file` starts with `social/queue/` (drafts only — proposal and Reddit rows are excluded) to its item's `critique.scores` by `file`, and reports:
 
 ```
 Self-scoring: mean 21.4 on the 9 you approved, 20.8 on the 2 you edited,

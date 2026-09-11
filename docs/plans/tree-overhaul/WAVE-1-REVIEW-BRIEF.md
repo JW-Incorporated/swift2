@@ -80,7 +80,7 @@ Several thresholds have no data behind them and are stated as though they do:
 | T2 | queue threshold 18/25, floors of 3, `notEmbarrassed` ≥ 4 |
 | T2 | calibration "spread ≥ 3.0 points" |
 | T5 | codify at 3 firings; retire at 8 quiet weeks + 10 briefs; ≤3 new rules/week |
-| T6 | merch 72h / appearance 48h deadlines; 1/day and 3/rolling-7d caps; `timely` ≥ 4 |
+| T6 | merch 72h / appearance 48h deadlines; 1/day and 2/rolling-7d caps (was 3 — corrected in the 2026-09-11 review, see below); `timely` ≥ 4 |
 | T7 | ≥8 briefs, ≥95%, 0 ❌, 28-day window |
 
 Each spec admits this locally. Nobody has asked whether they are *collectively*
@@ -161,6 +161,34 @@ with the reasoning against preserved rather than deleted.
   faking precision.
 - #4127 (the poll's own commit moving the head SHA and stranding the PR) is
   *designed* closed by S3's stale-SHA honouring rule, not merely deferred.
+
+## Review outcome (2026-09-11, Fable session)
+
+Done in the PR that carries this section. What it found, so a later reader
+does not re-derive it:
+
+- **Two design contradictions, fixed toward the founder-approved Behavior
+  sections.** T5 staged the strategy diff in the plan PR (Behavior and T4
+  said a separate PR the founder merges) → separate PR, opened only after ✅.
+  T7 "stripped" policy stamps from items already on branch-protected `main`
+  → revocation invalidates them through `approvalStatus`, no file edit.
+- **Two counts taken from the superseded two-beat day.** T4's "28 slots" and
+  T6's "three of fourteen beats" — the calendar runs one beat a day. T6's
+  rolling cap goes 3 → 2 so it still means what its own justification says.
+- **Push point 1 (is S3's table sufficient for S6): no, not as written.**
+  Reddit prompts have no PR, no per-item file and no `ref:` line; S3 now
+  says what S6 must add. T3 needs nothing from the table.
+- **Push point 4 (T2 self-assessment) is real but narrower than stated
+  above:** T7's eligibility reads founder verdicts from the ledger, never
+  `critique` scores, so inflation cannot reach the ladder. Its cost is that
+  T2 stops filtering — which the Monday calibration line is designed to
+  expose. Left as designed.
+- Smaller: S3's two reply-handling statements disagreed (latest wins, now
+  everywhere); ⏭️ was in the runbook but not the table; T1's open-questions
+  bullet still said the queue was empty; T4's file table still placed the
+  plan job in the `social` environment; the Wave 4 prompt's T7 bullet still
+  described the acting half; the Wave 3 prompt did not carry the T6-forward
+  and queue-backfill items from the #4117 comment.
 
 ## Open items not owned by any wave
 

@@ -103,7 +103,7 @@ A new step, after the audit and before writing the calendar:
 3. For each `edit`/`reject` row, attribute it per the rules above: increment (bumping `Times fired`, `Last fired`, appending to `Evidence`, replacing **You said** with the newest quote) or create.
 4. Apply retirement checks.
 5. For any active rule now at `Times fired ≥ 3` with `Codify: —`, file the codification issue and write its number into the field.
-6. For any lesson that implies the *strategy* is wrong rather than the drafting, write it as one of Monday's ≤3 proposals (T4) **and** stage the corresponding diff to `docs/marketing/social-strategy.md` in the plan PR, clearly marked as not-yet-approved.
+6. For any lesson that implies the *strategy* is wrong rather than the drafting, write it as one of Monday's ≤3 proposals (T4). The proposal text states the exact change; **no diff to `docs/marketing/social-strategy.md` is staged in the plan PR** (see *The strategy diff* below for why).
 7. List every rule created, incremented or retired in the brief's "what changed and why".
 
 Tree writes `social/lessons.md` directly — it is added to Tree's mutation rights in `docs/agents/tree.md` alongside `social/calendar.md`.
@@ -112,10 +112,11 @@ Tree writes `social/lessons.md` directly — it is added to Tree's mutation righ
 
 Tree's invariant 2 stands: **Tree may propose a strategy change, never merge one.** The mechanism:
 
-- The diff to `docs/marketing/social-strategy.md` is committed in the plan PR, on Tree's branch, under a PR-body heading `## Proposed strategy change (proposal N — not yet approved)`.
-- `auto-merge-content.yml` must **not** auto-merge a plan PR whose diff touches `docs/marketing/social-strategy.md`. **This already holds and needs no change**: the gate reads `.github/content-automerge-allowlist.txt`, which is a strict allow-list (a file must match an allow prefix and no `!` deny prefix), and no `docs/` prefix other than `docs/audits/` and `docs/ops/MERCH-REVENUE.json` is on it. The build adds a test asserting that `docs/marketing/social-strategy.md` matches no allow prefix, so a future widening of the allowlist cannot silently hand Tree the ability to merge its own strategy change.
-- The founder's ✅ on `proposal:N` in Discord is the approval; **the founder still merges the PR themselves.** Tree does not merge it and the poll does not merge it. The social-draft poll merges *draft* PRs only, never plan PRs — a strategy change is not a caption, and the one-tap mechanism built for captions should not silently acquire the power to rewrite the strategy it implements.
-- A ❌ on the proposal: the poll comments the reason on the PR. **The revert is carried by the next weekly run in its own PR, not by editing the plan PR** — by the time a ❌ arrives the plan PR is usually merged (T4, *Plan-brief scopes bind by `(pr, messageId)`*), so there is nothing left to amend. Tree also records the ❌ as a firing against the lesson that produced the proposal.
+- The strategy diff lives in **its own PR**, never in the plan PR. The plan PR carries the calendar, which must land the same day so the daily drafter has slots to fill; a strategy diff inside it would either hold the calendar hostage until the founder decides, or — worse — be merged along with the calendar by a founder who never ✅-ed the proposal. The two decisions have different reviewers and different clocks, so they get different PRs.
+- The ✅ on `proposal:N` in Discord is ingested by the poll as a comment on the plan PR (T4). **The next Tree run** (the Wednesday re-plan if the ✅ lands before the cut-off, else next Monday) reads that comment and opens `tree/strategy/<ISO-week>-<n>` with the diff to `docs/marketing/social-strategy.md` and a body quoting the proposal and the founder's reaction. Tree never opens the strategy PR before the ✅ — an open PR is a standing invitation to merge, and the proposal is the thing being decided.
+- `auto-merge-content.yml` must **not** auto-merge that PR. **This already holds and needs no change**: the gate reads `.github/content-automerge-allowlist.txt`, which is a strict allow-list (a file must match an allow prefix and no `!` deny prefix), and no `docs/` prefix other than `docs/audits/` and `docs/ops/MERCH-REVENUE.json` is on it. The build adds a test asserting that `docs/marketing/social-strategy.md` matches no allow prefix, so a future widening of the allowlist cannot silently hand Tree the ability to merge its own strategy change.
+- **The founder merges the strategy PR themselves.** Tree does not merge it and the poll does not merge it. The social-draft poll merges *draft* PRs only, never plan or strategy PRs — a strategy change is not a caption, and the one-tap mechanism built for captions should not silently acquire the power to rewrite the strategy it implements.
+- A ❌ on the proposal: the poll comments the reason on the plan PR; no strategy PR is ever opened, so there is nothing to revert. Tree records the ❌ as a firing against the lesson that produced the proposal, and does not re-propose the same change without new evidence.
 
 ### The codification issue
 
@@ -145,7 +146,7 @@ Before drafting, read `social/lessons.md` and take every `active` rule as bindin
 6. A rule with no firing for 8 weeks **and** ≥10 briefs in the window is retired; one with 8 quiet weeks and 2 briefs is **not**.
 7. A retired rule that fires again is reactivated with its `Evidence` history intact and its original id.
 8. The allowlist test asserts `docs/marketing/social-strategy.md` matches no allow prefix in `.github/content-automerge-allowlist.txt`, so a plan PR touching it can never auto-merge.
-9. A ❌ on a strategy proposal results in that file being reverted in the plan PR on the next run, and a firing recorded.
+9. A ✅ on a strategy proposal results in a separate `tree/strategy/*` PR on the next run, quoting the proposal, that the auto-merge gate declines; a ❌ opens no PR and records a firing. The plan PR's diff never touches `docs/marketing/social-strategy.md` in either case.
 10. The daily draft run's PR body lists the active rule ids it read.
 
 ---
@@ -178,3 +179,4 @@ None blocking. Decided here — all reversible:
 - **Attribution is judgment, done by the Opus weekly run**, and every attribution is surfaced in the brief so a wrong one is visible and correctable.
 - **Retirement needs 8 quiet weeks *and* 10 briefs**, so a posting freeze cannot quietly retire the rule set.
 - **The founder merges the strategy PR themselves.** The one-tap Discord mechanism was built to approve captions; letting it also rewrite the strategy document would widen a narrow, carefully-reasoned gate by accident.
+- **The strategy diff gets its own PR, opened only after the ✅.** Bundling it into the plan PR would hold the week's calendar hostage to a strategy decision, or let a merge of the calendar silently carry an unapproved strategy change. *(Corrected 2026-09-11, Wave 1 review — the spec previously staged the diff in the plan PR, contradicting its own Behavior section and T4's proposal shape.)*
