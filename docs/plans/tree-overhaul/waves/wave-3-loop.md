@@ -11,6 +11,7 @@ You are executing Wave 3 of the Tree Overhaul (`docs/plans/tree-overhaul/PLAN.md
 ## Order
 
 **Batch 1 (parallel):**
+- **#4127 + #4131 first, inside S3's worktree** (Wave 2 carry-over, 2026-09-11): the poller cannot finish a merge unattended after its own stamp commit advances the PR head SHA, so the S3 poller work must land the #4127 fix (match by PR number, not head SHA, or re-read the SHA after checkout) before the founder test below can prove a full cycle without a manual merge. #4131 is a one-line watchdog list fix; fold it into T1's PR.
 - **S3** reason protocol + `social/feedback/` ledger, per `s3-reason-protocol.md`. Includes the generic reaction→action table in the poller. Tests: 429 path still passes; ❌ without reply stays pending; ❌ with reply writes ledger + comment; ✏️ rewrites caption, restamps, keeps both bodies.
 - **T1** one charter, per `t1-one-charter.md`. Renames, docs, `runners.md`, Tier-2 trailers, Discord username already "Tree" from Wave 2.
 - **T5** lessons ledger file + Monday distillation step in `tree-plan.md` + daily-draft read step, per `t5-lessons-ledger.md`. Seed `social/lessons.md` with the rules already implied by the checker (banned openers, opener reuse, wire attribution) so it is not empty on day one.
