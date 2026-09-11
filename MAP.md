@@ -74,6 +74,8 @@ docs `CLAUDE.md` points at:
 | `docs/archive/kit-v3-2026-08-19/` | The retired kit-v3 framework, verbatim (`STATE.md`, `PLAN.md`, hooks, agents, pause skill) |
 | `scripts/watchdog/karen-post-repair-check.mjs` | Self-limiting: Karen ran after the repair? Auto-closes 2026-08-22 |
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
+| `scripts/watchdog/cron-maxage-hours.mjs` | Derives per-workflow cadence maxage-hours from a `routine-*.yml`'s own cron, for watchdog.yml's dynamic WATCHED list (tree-overhaul #4117 task A1) |
+| `.claude/hooks/guard.test.sh` | Minimal shell fixture asserting guard.sh's deny patterns actually block (task A5) |
 
 **Retired 2026-08-19 (kit-v3):** `STATE.md`, `PLAN.md`, `PLANtemplate.md`,
 `docs/OPERATINGMANUAL.md`, `hooks/triage.sh`, `hooks/checkpoint-gate.sh`,
@@ -399,3 +401,5 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `.github/workflows/plan-recheck.yml` | Daily gate job + routine-template call; no-op when nothing is due |
 | `docs/social/RULINGS-SOCIAL.md` | Architect (Fable) rulings A1–A6 on the social approval gate, reconstructed 2026-09-11 (Wave 2 S4) from PR #4098's body + `docs/decisions.md` — canonical citation target for `RULINGS-SOCIAL.md` references repo-wide |
 | `docs/social/RULINGS-SOCIAL-2.md` | Architect (Fable) rulings B1–B5, superseding A2/A5, reconstructed 2026-09-11 from PR #4104's body + `docs/decisions.md` — canonical citation target for `RULINGS-SOCIAL-2.md` references repo-wide |
+| `apps/web/public/social/tree-avatar.png` | Wave 2 S5: Discord webhook avatar for "Tree" identity (approval-prompt.mjs, community/discord-delivery.mjs). Placeholder (377 bytes, generated solid-circle+glyph PNG) — meant to be replaced with real brand art later |
+| `scripts/social/lib/ref-line-chunk.mjs` | Wave 2 S5: `chunkPreservingRefLine` — Discord message chunking that guarantees the trailing `ref:` line social-approval-poll.mjs parses always survives intact on one chunk, even once the new Tree identity line pushes a message over the 2,000-char limit (split out of approval-prompt.mjs, Codex review finding) |

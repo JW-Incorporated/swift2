@@ -152,7 +152,11 @@ describe('postCommunityPrompts', () => {
     expect(fetchImpl).toHaveBeenCalledOnce();
     const [url, init] = fetchImpl.mock.calls[0];
     expect(url).toBe('https://discord.example/webhook?wait=true');
-    expect(JSON.parse(String(init.body))).toMatchObject({ allowed_mentions: { parse: [] } });
+    expect(JSON.parse(String(init.body))).toMatchObject({
+      allowed_mentions: { parse: [] },
+      username: 'Tree',
+      avatar_url: 'https://www.longlivets.com/social/tree-avatar.png',
+    });
   });
 
   it('fails closed before posting when the configured social-channel webhook is absent', async () => {

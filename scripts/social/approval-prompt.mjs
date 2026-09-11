@@ -32,13 +32,39 @@
 // against a real pending draft, per this track's brief.
 
 import { readFile } from 'node:fs/promises';
-import { neutralizeMentions, chunkForDiscord, DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
+import { neutralizeMentions, DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
 import { mediaUrlsFor, MEDIA_BASE_URL, hoursOverdue } from './lib/queue.mjs';
 import { PLATFORM_RULES } from './lib/queue-schema.mjs';
+import { chunkPreservingRefLine } from './lib/ref-line-chunk.mjs';
 import { runMain } from '../lib/cli.mjs';
 
 function escapeFences(text) {
   return String(text ?? '').replace(/```/g, '``​`');
+}
+
+/** Webhook display identity (Tree Overhaul S5) — every message this script
+ * posts to #longlive-social shows as "Tree", not a bare webhook name, with
+ * a stable avatar so the channel reads as one consistent actor.
+ * `apps/web/public/social/tree-avatar.png` is a placeholder (see MAP.md),
+ * served from the same host post-queue.mjs/mediaUrlsFor already publish
+ * from (MEDIA_BASE_URL) so this never depends on a second CDN/host. */
+export const TREE_WEBHOOK_USERNAME = 'Tree';
+export const TREE_AVATAR_URL = `${MEDIA_BASE_URL}/social/tree-avatar.png`;
+
+/** "Tree · slot: <calendar slot or fast-lane routine> · pillar: <why or
+ * unspecified>" — the first line of every draft brief (Tree Overhaul S5).
+ * `slot` prefers the draft's scheduled calendar time (same formatting as
+ * formatScheduleLine's compact stamp); a draft with no valid `scheduledAt`
+ * fell outside normal calendar scheduling, so it's labeled by the routine
+ * that produced it instead. `pillar` surfaces the `why` field (truncated)
+ * so a founder sees at a glance whether this draft is sourced. */
+function formatTreeIdentityLine(draft) {
+  const scheduled = new Date(draft.scheduledAt);
+  const slot = Number.isNaN(scheduled.getTime())
+    ? `fast lane: ${draft.sourceRoutine ?? 'unknown'}`
+    : `${draft.scheduledAt.slice(0, 16).replace('T', ' ')} UTC`;
+  const pillar = draft.why ? (draft.why.length > 80 ? `${draft.why.slice(0, 80)}...` : draft.why) : 'unspecified';
+  return `Tree · slot: ${slot} · pillar: ${pillar}`;
 }
 
 /** Account identity shown per platform — constant, not derived from a
@@ -156,6 +182,7 @@ export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, rep
     const mediaUrls = mediaUrlsFor({ media: draft.media ?? [] }, MEDIA_BASE_URL);
     const embeds = mediaUrls.map((url) => ({ image: { url } }));
     const content = [
+      formatTreeIdentityLine(draft),
       `**Draft ${i + 1} · ${account.label} — ${account.handle}**`,
       ...formatDraftLines(draft, { now, headSha, repo, facebookCrosspost }),
       `ref: PR #${pr.number} · ${headSha} · ${draft.file}`,
@@ -168,8 +195,10 @@ export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, rep
 
 /**
  * Sends every built message as its own Discord webhook POST, chunking any
- * over-limit `content` with `chunkForDiscord` and attaching `embeds` ONLY
- * to the LAST chunk of a message (Discord embeds render against the
+ * over-limit `content` with `chunkPreservingRefLine` (guarantees the
+ * trailing `ref:` line social-approval-poll.mjs parses always survives
+ * intact on one chunk — see lib/ref-line-chunk.mjs) and attaching `embeds`
+ * ONLY to the LAST chunk of a message (Discord embeds render against the
  * message they're attached to, and putting them on every chunk would
  * duplicate the image). Checks the `?wait=true` response's `embeds.length`
  * against what was sent — the machine-verifiable half of "the image shows"
@@ -191,7 +220,7 @@ export async function sendApprovalPrompt(
 
   for (let m = 0; m < messages.length; m += 1) {
     const { content, embeds = [] } = messages[m];
-    const chunks = chunkForDiscord(content, DISCORD_MESSAGE_LIMIT);
+    const chunks = chunkPreservingRefLine(content, DISCORD_MESSAGE_LIMIT);
     for (let i = 0; i < chunks.length; i += 1) {
       const isLastChunk = i === chunks.length - 1;
       const chunkEmbeds = isLastChunk ? embeds : [];
@@ -201,6 +230,8 @@ export async function sendApprovalPrompt(
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({
             content: chunks[i],
+            username: TREE_WEBHOOK_USERNAME,
+            avatar_url: TREE_AVATAR_URL,
             allowed_mentions: { parse: [] },
             ...(chunkEmbeds.length ? { embeds: chunkEmbeds } : {}),
           }),

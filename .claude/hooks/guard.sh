@@ -53,6 +53,8 @@ PATTERNS = [
     # Dispatching the send paths via CI instead of running them locally.
     (r"\bgh\s+workflow\s+run\b[^;&|]*\bsocial-(poster|delete-media)\b",
      "dispatching the social poster workflow (real posts / real deletions)"),
+    (r"\bgh\s+workflow\s+run\b[^;&|]*\bremove-x-site-screens\b",
+     "dispatching the remove-x-site-screens workflow (real deletions)"),
 ]
 
 # Real secret files only — .env.example/.sample/.template/.dist stay readable.
@@ -82,7 +84,10 @@ ENV_PATTERN = (
 #   npx eslint .../post-queue.mjs        -> allow  (eslint is executed)
 #   grep -rn "post-queue.mjs" scripts/   -> allow  (grep is executed)
 #   npx vitest run .../post-queue.test.ts -> allow (different file)
-SEND_SCRIPTS = {"post-queue.mjs", "delete-media.mjs"}
+#
+# delete-x-site-screens.mjs added (tree-overhaul epic #4117 task A5): same
+# real-delete shape as delete-media.mjs, just for X-site screenshots.
+SEND_SCRIPTS = {"post-queue.mjs", "delete-media.mjs", "delete-x-site-screens.mjs"}
 RUNNERS = {"node", "node.exe", "npx", "npx.cmd", "tsx", "ts-node", "bun",
            "deno", "bash", "sh", "zsh", "env", "time", "nohup", "xargs"}
 

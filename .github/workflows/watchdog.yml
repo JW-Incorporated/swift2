@@ -243,6 +243,20 @@ jobs:
       # success(), so a live prod outage was silently skipping this detection
       # step too — the same idiom the "PRs stuck" step below already uses,
       # applied here for the same reason.
+      # WATCHED list dynamic since tree-overhaul epic #4117 task A1
+      # (2026-09-11): the old hand-maintained `news-worker.yml:10
+      # social-poster.yml:6 marjorie-inbox.yml:6` list only ever covered
+      # three workflows and rotted silently as `routine-*.yml` files were
+      # added — nothing forced it to stay in sync with the repo. WATCHED is
+      # now built from every `routine-*.yml` file (excluding the reusable
+      # `routine-template.yml` caller template, which has no schedule of its
+      # own) plus explicitly `output-sampling.yml`, `plan-recheck.yml`, and
+      # `fleet-telemetry-snapshot.yml`. Per-workflow maxage-hours is derived
+      # straight from each file's own cron via
+      # scripts/watchdog/cron-maxage-hours.mjs (same "~2x the schedule"
+      # principle the old hand-tuned windows used, with a bit more slack —
+      # see that script's header). A workflow with no `schedule:` trigger at
+      # all is skipped, same as the old per-entry `gh workflow view` guard.
       - name: Scheduled workflows healthy (cadence view)
         if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
         env:
@@ -253,15 +267,24 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          # workflow:max-age-hours — a workflow with NO successful run inside
-          # its window is considered down. Windows are ~2x the schedule so a
-          # single miss doesn't page anyone.
-          WATCHED="news-worker.yml:10 social-poster.yml:6 marjorie-inbox.yml:6"
+          WATCHED=""
+          for F in .github/workflows/routine-*.yml \
+                   .github/workflows/output-sampling.yml \
+                   .github/workflows/plan-recheck.yml \
+                   .github/workflows/fleet-telemetry-snapshot.yml; do
+            [ -f "$F" ] || continue
+            WF=$(basename "$F")
+            [ "$WF" = "routine-template.yml" ] && continue
+            MAXAGE=$(node scripts/watchdog/cron-maxage-hours.mjs "$F" 2>/dev/null) || continue
+            [ -z "$MAXAGE" ] && continue
+            # Skip a workflow that isn't in this repo (keeps the list portable).
+            gh workflow view "$WF" --repo "$REPO" >/dev/null 2>&1 || continue
+            WATCHED="${WATCHED} ${WF}:${MAXAGE}"
+          done
+
           BROKEN=""
           for ENTRY in $WATCHED; do
             WF="${ENTRY%%:*}"; MAXAGE="${ENTRY##*:}"
-            # Skip a workflow that isn't in this repo (keeps the list portable).
-            gh workflow view "$WF" --repo "$REPO" >/dev/null 2>&1 || continue
             LAST_OK=$(gh run list --repo "$REPO" --workflow "$WF" --status success \
               --limit 1 --json createdAt --jq '.[0].createdAt // empty')
             if [ -z "$LAST_OK" ]; then
@@ -280,18 +303,42 @@ jobs:
             echo "All watched workflows are succeeding as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
             scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             echo "cadence OK"
-            exit 0
+          else
+            {
+              echo "@sffan15-sys — a scheduled workflow is running but never succeeding, which is silent by nature (a failing job produces no output to miss)."
+              echo ""
+              printf "%b" "$BROKEN"
+              echo "Check the run logs: https://github.com/${REPO}/actions"
+              echo ""
+              echo "Most common cause: a required repo secret is unset or misnamed. Note that **Vercel environment variables are NOT GitHub Actions secrets** — a routine reads repo-level Actions secrets (Settings → Secrets and variables → Actions), not Vercel's env store, and not *Environment*-scoped secrets."
+            } > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
           fi
 
-          {
-            echo "@sffan15-sys — a scheduled workflow is running but never succeeding, which is silent by nature (a failing job produces no output to miss)."
-            echo ""
-            printf "%b" "$BROKEN"
-            echo "Check the run logs: https://github.com/${REPO}/actions"
-            echo ""
-            echo "Most common cause: a required repo secret is unset or misnamed. Note that **Vercel environment variables are NOT GitHub Actions secrets** — the news-worker reads repo-level Actions secrets (Settings → Secrets and variables → Actions), not Vercel's env store, and not *Environment*-scoped secrets (its job declares no \`environment:\`)."
-          } > /tmp/alert-body.md
-          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          # NEW (task A1): 2 consecutive scheduled-run failures for a watched
+          # workflow opens a DEDICATED per-workflow self-healing issue,
+          # distinct from the combined cadence alert above (which only fires
+          # once NOTHING has succeeded inside the whole maxage window). This
+          # catches a workflow that ran recently — so the combined check
+          # above stays quiet — but has failed its last two scheduled runs in
+          # a row. Resolves automatically: the next scheduled success makes
+          # this loop close it, same upsert-alert.sh mechanism as every other
+          # alert in this file.
+          for ENTRY in $WATCHED; do
+            WF="${ENTRY%%:*}"
+            LAST_TWO=$(gh run list --repo "$REPO" --workflow "$WF" --event schedule \
+              --limit 2 --json conclusion --jq '[.[].conclusion]')
+            COUNT=$(echo "$LAST_TWO" | jq 'length')
+            FAILS=$(echo "$LAST_TWO" | jq '[.[] | select(. == "failure")] | length')
+            ALERT_TITLE="Watchdog: ${WF} failed its last 2 scheduled runs"
+            if [ "$COUNT" -ge 2 ] && [ "$FAILS" -eq "$COUNT" ]; then
+              echo "@sffan15-sys — \`${WF}\`'s last ${COUNT} scheduled runs both failed. Check https://github.com/${REPO}/actions/workflows/${WF}" > /tmp/alert-body.md
+              scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            else
+              echo "\`${WF}\` not 2-consecutive-failing as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+              scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            fi
+          done
 
       # ── Stalled PRs: red too long, or a check that will never come back ──
       # Added 2026-07-30 (PR #1629); rewritten 2026-08-11 after replaying the

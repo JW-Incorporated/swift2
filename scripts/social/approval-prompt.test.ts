@@ -27,7 +27,41 @@ function draft(overrides: Record<string, unknown> = {}) {
 // A fixed "now" so schedule-line assertions (in Xd Yh / OVERDUE) are stable.
 const NOW = new Date('2026-09-11T09:00:00Z');
 
+// The exact regex social-approval-poll.mjs uses to bind a reaction to a
+// draft (that file's own `REF_LINE_RE`, duplicated here rather than
+// imported — that script executes `run()` under a module-load guard and
+// this test only needs to prove format compatibility, not exercise it).
+// Any edit to that script's REF_LINE_RE must be mirrored here.
+const POLL_REF_LINE_RE = /^ref: PR #(\d+) · ([0-9a-f]{40}) · (.+)$/m;
+
 describe('buildApprovalPrompt', () => {
+  it('every message still ends with a ref: line matching social-approval-poll.mjs\'s REF_LINE_RE (Tree identity line must not break this)', () => {
+    const messages = buildApprovalPrompt(pr({ number: 4130 }), [draft(), draft({ platform: 'instagram', file: 'social/queue/x-ig.json' })], {
+      now: NOW,
+      headSha: 'c'.repeat(40),
+    });
+    for (const message of messages) {
+      expect(message.content).toMatch(POLL_REF_LINE_RE);
+    }
+  });
+
+  it('prefixes each draft message with the Tree identity line ("Tree · slot: ... · pillar: ...") without disturbing the ref: line', () => {
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft()], { now: NOW, headSha: 'abc123' });
+    const lines = draftMsg.content.split('\n');
+    expect(lines[0]).toBe('Tree · slot: 2026-09-11 15:00 UTC · pillar: sourcing explanation');
+    expect(draftMsg.content.trim().endsWith(`ref: PR #4100 · abc123 · ${'social/queue/2026-09-12-shop-the-look-announce-x.json'}`)).toBe(true);
+  });
+
+  it('falls back to "fast lane: <sourceRoutine>" for the Tree identity slot when scheduledAt is missing/invalid', () => {
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ scheduledAt: 'not-a-date', sourceRoutine: 'growth-draft' })], { now: NOW, headSha: 'abc123' });
+    expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: fast lane: growth-draft · pillar: sourcing explanation');
+  });
+
+  it('falls back to "unspecified" pillar when a draft has no `why`', () => {
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ why: undefined })], { now: NOW, headSha: 'abc123' });
+    expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: 2026-09-11 15:00 UTC · pillar: unspecified');
+  });
+
   it('returns a header message plus one message per draft', () => {
     const messages = buildApprovalPrompt(pr(), [draft(), draft({ platform: 'instagram', file: 'social/queue/x-ig.json' })], { now: NOW, headSha: 'abc123' });
     expect(messages).toHaveLength(3);
@@ -140,6 +174,10 @@ describe('sendApprovalPrompt', () => {
     const bodies = calls.map((init) => JSON.parse(String((init as { body: string }).body)));
     expect(bodies[0].embeds).toBeUndefined(); // header carries no embed
     expect(bodies[1].embeds).toEqual([{ image: { url: 'https://www.longlivets.com/social/library/photos/example.jpg' } }]);
+    for (const body of bodies) {
+      expect(body.username).toBe('Tree');
+      expect(body.avatar_url).toBe('https://www.longlivets.com/social/tree-avatar.png');
+    }
   });
 
   it('chunks a long message at the Discord limit, attaching embeds only to the final chunk', async () => {
