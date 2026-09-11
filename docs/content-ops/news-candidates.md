@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 81
+
+## Newly Identified Bugs Named After Taylor Swift
+
+- first seen: 2026-09-11 05:55 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent article highlights that several newly discovered bugs have been named in honor of Taylor Swift, reflecting her cultural impact. This recognition showcases the intersection of science and popular culture.
+- sources:
+  - [unverified] NBC Los Angeles — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNOUJuVFhYLTN0ZlU3cGdOVU9aUWRQQTNTdDFHNEphUHZpbXppZkh1bzAzdkhwVDhocWhCQlVQcGtRUVZ5ekVZYUNzbWtXOURXenNkX1V1VnE3bWtlQUZ4VUtTaTNDM3JiTFRyWGdDemZQdHZpdzV2Q29Oc2pwR0JmTFdaNlZHNE5TbmMzVTVYNkR2ZEJDdWV0TVlEdTQ3c1FrY1BCRUtoSG1ReVhXNkNtSFlDSEVlNEJDYnJYdGpjdEtrVGQ4UFNUZNIB0AFBVV95cUxNNHQ5ZzB3OXNHOURuSFUyUEtnWU1mVG5oNUZLMFRZQ01uVURZcV9zMDJ5NFlUNVBDeFN2T1VhRUVTYjNIRGtfLU9vUXZfLVFRRUhIdVR5Yk9UcnVBenVjSmwzaTNBWEM4d19VemZtcXk5MWhkSnlmY0NfTlhQVmFLcnE4UjJqNHpwaFBGUWlncmZnelM1ZDBsTmJ3V19VaUNIVlYxQVJMTlh2UHhhVFM0VXlCSjJnV25fRVFsZmtNR0JNaHNzWE5LREFyMktpMHNu?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Eras Tour Dancers Share Wedding Looks
+
+- first seen: 2026-09-11 05:55 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Fourteen of the fifteen dancers from Taylor Swift's Eras Tour have shared their looks from her wedding. This showcase highlights the fashion choices made for the special occasion.
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi3AFBVV95cUxNd3FLVUJNVVo2SmhwTl9ZUFBOR1BpSTdOejI5MUdmRnVxSHY0aU5VcXFyZWVrMm5nZXNRbW9qSThfeU9Sa1NPMl93OWJiUmN4U2tjeVgyRUV6NGJsMHl5OHJLYVdWX3ZyN09rdzZYNmtIeThfSGRJek1zRTVmZHVLeXJGRjUwaUpHMHdDNWhUR3ZJRFcxdFg5QlRjYVZkWU5PUm43amQwOW9qb1pLSF9TRTc1dFdGZEg1ZG1fTHdnN1lFdjhYVGdzaFd1U1ZtaEFJU0pEV2tHMWVPLVRN?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Genus of Australian Plant Bugs Named After Taylor Swift
+
+- first seen: 2026-09-11 05:55 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A dedicated Taylor Swift fan has named a newly discovered genus of Australian plant bugs in honor of the singer, reflecting her influence and distinctive style. This creative recognition highlights the connection between art and nature.
+- sources:
+  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxOTUVCUVplZ3J1X2ZhV1B5X05LRHlacHN6SGNXdnc0TGdOcTE1Y1ZBNFJSSTYzRlN5NWpUNEJYZGR2TW1laDg0RXlESk5Ed2w4RnY2TktzYllCZUhKemFadEQ3T2Q0eVI5XzlPZDdQZWg5MHQ5WFp2RGpBTFhndGN5bm9ybnhmTkg0RGRQT1YwVnlMVmlkRi1jMURwR2lJMFVMQkdHZ3RaOHF1cHk1ZlZBM2tuNDZhaUJTQ0tEdnU0T3NPRkhpSWwzbWNaZmlaQW03ZTJJekcyWVBHSGNfTHFB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Attend CMA Awards
+
+- first seen: 2026-09-11 05:55 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is confirmed to make an appearance at the upcoming CMA Awards. Fans are excited about her return to the event.
+- sources:
+  - [unverified] Vulture — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOenVIcUlkQ3lQMTJvcmM3V05ma1VaZV8yalF4OXRubnRlU1ptLTBRSGhrLUtDX015RE80YXgxNlhjNXNkaDVyamRxMnFwaFZDeXBMbFdwanprNzRnVFBSQ2FDOTg5RFZwYnZMRE14QkloZ2gxT3hkSEhZcGU3cTR3Nl9sb002RlhP?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Perform at Upcoming CMAs
+
+- first seen: 2026-09-11 05:55 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to make a significant return to the Country Music Association Awards (CMAs). Details about her performance are anticipated by fans.
+- sources:
+  - [unverified] The Cut — https://news.google.com/rss/articles/CBMickFVX3lxTE1tdDJkQkJneEdyXzZGdHdrXzg3WTlPdG5HZ2lMenFVaW5NUnB4RzJ4QkpOMjFuRl9nUUUtSGpPY1JfZ1c4TXIwYXBTMnNGWF96LVItTUZ2dDR2N1VJalhqeHpYcmNscHdnRExEbmxWS0lqQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Receives Nomination for 2026 CMA Awards
 
@@ -88,11 +128,12 @@ Stories: 85
 ## CMA Awards 2026 Nominations Announced
 
 - first seen: 2026-09-10 19:37 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: The nominations for the 2026 CMA Awards have been revealed, showcasing the year's top country music talents. Fans can check out the full list of nominees on Good Morning America's website.
 - sources:
   - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxPeUlSQmRDZGpMQnFDOWFWSXlIMzdNRzhoSFU2VGtiaW5jcnl5QURONGdJNVlsZldabElIdWVzMjUzZmppUEtwM1JJQVlaYWVIT3hKcHM1TUtaNWhnTTAwQzRyZGRsVVdoQmtpMTd1a25mNEc3M2tuSHNnT3ZCMFIyNlhZTWFNYXI5MW96cTR5anNBMmp1UUZxUGZQN21yNHNVajltZFZTclFQSkxGNVdRcEZVWQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] E! Online — https://news.google.com/rss/articles/CBMilwFBVV95cUxNWU82cHl3SkpGMVNpeFV1U3YxSlk4S3BnejFmbTBWc283QjNKYjZPWWNySE5jRFMxWHNfTDVPREhmcFI5OXI3Q1MxeFZFMnFBV3A5Z3B1TG5ZNEZNQVMzd2UyUzJkMHRieHpFejhHcXEtZ2lvcFlkYXY3dWZTcGZMMm5ZeWcyZDBFakVmaGczZUdaX1lFaFVj?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPY3NKVmFBTFU5aldTc0x5czdTdEFDcGwxR194M0V1bl9KaEZOc0pla3pkOU5uMEF6c1RJb0czdW1rdmFOclJ0Z2RlaFhqa1cydlIwS2UwLThVNlJiSW5SSmJtM2xZbzYtOUFDUkUwR0RQM2JaMk9hTGE2dzBFR0N4NW52VzUzazZoTE1B?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] goodmorningamerica.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPY3NKVmFBTFU5aldTc0x5czdTdEFDcGwxR194M0V1bl9KaEZOc0pla3pkOU5uMEF6c1RJb0czdW1rdmFOclJ0Z2RlaFhqa1cydlIwS2UwLThVNlJiSW5SSmJtM2xZbzYtOUFDUkUwR0RQM2JaMk9hTGE2dzBFR0N4NW52VzUzazZoTE1B0gGQAUFVX3lxTFBJUUNvb1FYdjlzQ2lsREthakNrOXZKTzVYazBHZ3hSUmZFcWxrZThHTEM4VGZJX0pJS3ZyNC1YVDRVQWVqLUo2cjZCaXFIdDVYaHNLeFJVQUZzazlKcHRpRGRXRFRMX1VmWjBsZ3kzaEJZaDFFT0JOSUJQNVE2LWljWnhERl9MaV8yR3BzeExPQQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxOd2VTYUdfRDFTTWZYOHg1TkVxc2QxcloyQWhVYzBRX1ZDaGNJQkxmOExVUVVfalY1MGxLWmF5N3dEUmUydUV0YlVSbU9SWkpDMkQwcHE5dWdySnk1UEV2RzVYTXJ1ajRITlYzU3ZWRVBwT3RQXzJuX1RjQkEzMTIybQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMi1wFBVV95cUxPSjZaZmlrWXE4cGtmLWMyVVVBaXh4WFYyUGxSZzdNUm1jMTdHbDh3dGpvRWVvNXVIQUVWN0pTSkFGRHplTmM3d0NJem5HZnBqSmp0eGI5Z0dtUk1aTUtXQkMxZnRMNlVSM29zU2t2c0RENThjX2U1ekFPcmlzQkMwcGFoVjlWblEweUJ0MU1DbTlfcENNczlWeVl1c1R0NHowLTAxcG0xbjBLU3VhY09iR2p2M3pqRUp3SmVkNnhwUERTUk42S285MlFKMFlvMlk0WllmNDg5MA?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -662,78 +703,3 @@ Stories: 85
 - summary: Taylor Swift made a stunning appearance in a liquid gold halter dress during her first public outing with Travis Kelce following their wedding.
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNcTlsWmY0Zi1OQmhsWE5sckFpQ1JtNlI3Rk9CTFljd29vSEQ4SUxVV2E4S29VdnJyNXNyOUNndnZpWjd4bWQ4RTZpMThRS3k1WFR3Ymd0MEZneEFkc0ZfQmVSSl9YeGF6bEVETG5XLTFvTWRqX0MyQUJxbEdUM1NsX01IUU1JcG4zc2FkU2lpY3k2QkVwNU0yYXBBNHdFUGs0aWppYm5hTWtBdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Tops Country Radio Charts After 13 Years
-
-- first seen: 2026-09-08 05:55 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reclaimed the No. 1 spot on country radio, marking a significant return after 13 years. This achievement highlights her enduring presence and influence in the country music scene.
-- sources:
-  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMitAFBVV95cUxOZ3dteFpVT09DMnpXTEtqd0F2SlR5NDZ0THdpNF9YR2VEUU9fcGRoVUw1VEN4YWVsVUxSYmFhcms2ZXZlLU13dWU3YjlZNFltNHlrc25ZV2x4cjFac0t6Z3hpczZWS1lyY09Td3RNWnpMQ09Nb1dNbkgxZlRmcU9VRkRfZDBxd044R1loZWM3c0R2YmZwZUEtYmpmaEpyV19UdDdoMFdoZGJKbmpCUDRIYzAxS3I?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Guide to Achieving Taylor Swift's Style on a Budget
-
-- first seen: 2026-09-08 05:55 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A guide offers tips on replicating Taylor Swift's glamorous fashion sense without overspending. The list presents practical advice for fans looking to emulate her look affordably.
-- sources:
-  - [unverified] thelist.com — https://news.google.com/rss/articles/CBMiigFBVV95cUxNQURWdGNzdTQwV1BHd0Y3aUd6MDM3WG52QlBRSXJ5OUNiMDBzSmZiMTJ0Rks3RzMzQ1A2bkxjcjQwWWZvZzY3SEkwSEN2RUplWnlJMFVrakQ5S1NYaXNYbEc0LWNoOElwNXVub0Zua183S1BqbTF2ZjNrdkV5WUpMcjY5TmhRMmh6TVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Breaks Long-Standing Chart Record
-
-- first seen: 2026-09-08 05:55 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has achieved a new milestone in her music career by breaking a chart record that she hasn't reached since 2013, highlighting her ongoing impact on the music industry.
-- sources:
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMiekFVX3lxTE5Rb0FiOGlLbG83eEllbVBQSkkzWmxjVnMtRVFzbjh0aDEzbWZRQlppMklyVk5Od20zamFDZUJPTUFVLUgyWDFqWmRpYU90UFd6b2FVaXdXRDlhQnkwTnNWWUhwMGRoY29yMEJFOW9wVF9oUThHN2djTmVn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce and Taylor Swift's First Public Date Night Captured in Photos
-
-- first seen: 2026-09-08 05:55 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Photos have emerged from Travis Kelce and Taylor Swift's first public date night following their wedding. The couple was seen enjoying their time together, marking a significant moment for fans.
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiugFBVV95cUxNbUw4eGJxdWcyVmdpblAxMWxVajNSUkUyRmx2c0EwM3pHVnR4YmVzNExtTWlMUTVXcElPSDlCdG1jSUFjSG1VNnJqMlY5MTd6ZF9rb3lPN05IWThGaE1XYS1VeUxDczA3ZlBoOC13dktJV2FnZWItMWxGSzNCeVExQ3NIZFYtbUlfMS1QaUI5aEMxT25oMV94MDFVZkJadkwyVnZud3dONFdSVDVwVVBKOTNLQ3hWUGtMN1E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPd3RWdWdjbnIwWDV5RDl1OXkyV3BxbEl4Y2JrTzc3STZMd05KSmJ2OGllZFVTQnU1WnJQb0FIWE5pZWd4SV9kZ0FZNDZhUWNsV3FLTU10Zmp2SXZoNlZKWXZ0QVV3NG9QNE5FT2tBZ1NiYTFLM2xvSXJnUG9PNVI1bzRtZEVsOHRBcFBUQllGZ0E3bGJwaXBTUW5UZkgzV0lxZ0JLbg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Vietnamese Woman Surpasses Taylor Swift in Wealth Rankings
-
-- first seen: 2026-09-08 05:55 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A report states that the second-richest woman in South-East Asia, from Vietnam, surpasses the wealth of notable figures including Taylor Swift and Oprah Winfrey.
-- sources:
-  - [unverified] The Star — https://news.google.com/rss/articles/CBMigAJBVV95cUxQSF94ZVM5dklWWlowVHk3eWJuMEtxaGVLc1ZjaU43Nk5TTGRWSkxQd2JiUDN1SkM3aFNpLUV0Q1BVQUN1TzdaY25DNGFPUEJpOVRzMVpmOHV1QkdoNHA2Ml94RURkNnY0aGlUaXpNNXFuLXhVSFhQRDBSX0hNb3EwSDMxU2pvZWpIckxYU3BlZGVKbExlMDA0Y3dwa1VOQ1FHRTY2NjN0TEJMbURDT3ZIOUcxY3NTTWg5Y2tITVhBb3VNbEZ6WHVmaEw5b19BYVpHcW1YTTdRUWFDRzJKTjRfV2l1NzVqZVhhS1FwbmVzcUM1Tm1XQldDTWZ4RWQxMk9k?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Enjoy Date Night in New York
-
-- first seen: 2026-09-07 23:28 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Travis Kelce were spotted on a date night in New York following the conclusion of NFL training camp.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOQWNfaV90VjROU3VYdDZfTF92UlBEbEduLWFzVWFjQ1FLa3EwLVVONHNzTnF3VmhMNTZobzkxemQwem45VjNLTzZlSF85cElTWFJxRW1hbTZWYWNsS0dfV0p4a1YwLUNYME5hYkZLUGlZd1VQSkpzak5NMl9pejE0YXBVWElUbGZoUDZkM3BQdzFrOWhaSUZNV2VuNG9wZndtSE92YXRneTZPdw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPMHBrcTNhR1d6YmZSLWZNTnNPWk9MbDZVRVhpLWJFcVRQNHBQejg0RkJuV3JHaDdudFFzMDdiekY3OFFZYmg2RVlmUHlrWTN2bU5jSTRhWlRaVmF4QWl4N0l2dS1RWUZIY0xZWk1STjFkZ0xpcmhCT0ZQbWcyajI0QlQ2UkQwdEtiZWFsV3owZmkxYTB4ZUtxWVoyeWVGUjFGWF9hQXBB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Spotted on Date Night in NYC
-
-- first seen: 2026-09-07 23:28 UTC | category: sighting | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were seen on their first date night in New York City since their wedding two months ago. The sighting highlights their continuing relationship after their recent nuptials.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNMGlxeGlJOFV1azRNek56Mkt3djh5RUpNQUVPOExqZjZDQVlCV1BSNDVYYlBFa3pUUGVGQ1FWaE9ER09Zb2gxclFpbGdtZktPSnJWYVl6ZWloS0ljZ01xYXhKdE5WVE5CX3BWX3RGTzFrWFJOdjM0TVRwUEpIYlc1dW1FZWtkc1dvakpRNFF1NjJZZ1hlb2tGQ0JveUUtSk80Smc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Curious Iguana Celebrates 13th Birthday with Taylor Swift Theme
-
-- first seen: 2026-09-07 23:28 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Curious Iguana, a local business, marked its 13th anniversary by celebrating in a style inspired by Taylor Swift. The event showcased the store's unique character and connection to the pop star's cultural influence.
-- sources:
-  - [unverified] The Frederick News-Post — https://news.google.com/rss/articles/CBMiggJBVV95cUxOaU1NRmw2ZzdXMmd2VVBQQ1VQN2JyV3ZkNlFQck00MG5oVC14VTI3MERQX3NhVlNZVWs3TW0xVWtDb2lta1U2WWJ6bW16Zi1halV0STNKZWJfbUluaGNsZllXd0daVURwQXduVjVTd2duUExtM1luV1lsQUJCWGp6WkZpTDFKU0RlVnZjbWtDazE5bmdlbUQ0MHRHUlZnNS1qTEpYZ3gwRUQzYTNMNEx3OFl1UGg1VEYyYU9qVm9rUXdqUGFjM1FKR2h4M2Q4SVFHekRpMV9idmVvOHdNSFhacmZtOWF6Umx3N0ZsQ3lRd01wczFkYTUteVRDN3F2Z0otQlE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Involved in Ed Sheeran Dispute Ahead of NFL Opener
-
-- first seen: 2026-09-07 23:28 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is reported to be facing a new conflict with Ed Sheeran just days before Travis Kelce's NFL opening game. Details of the conflict remain unspecified in the report.
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxNZUVfUjBYaHcza3hxOFNyZEdrdDZQTnczb01WZ05URnFEZ3hwMFZhTENIVTgzU0EyVF9nd3R3dE5YbDRnY0lEMVl6SGc0bWdQVWVSQy1nRjJ6blpxakpQOTdramdGa3lWTHlyVmE0NXhmMzZuZ2VmQWVKMjlfSGtSc2ItTmhMWE5rZEFibFNxS1R1dl82dHVz?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNYWpaakEwb0YtQ0dwNXBiSW5nNU5NRktqSFRmOVFDMmN2d3ZvdXpiTnk3WkdKSmhKelVKcTJ2VFVwVG9IcHhzOVVfc0xfckhjbnVnQ2pVTWJQd21YYjZKWjV6WGtnU2ZfRjlDbUZFWHZ5QjlaZGJsTmgwdy1GczV3RWFiLTFmSWJual9RaUhEeG5WU0JoaWVvWE4wbw?oc=5&hl=en-US&gl=US&ceid=US:en
