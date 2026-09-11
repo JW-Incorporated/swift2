@@ -2979,16 +2979,6 @@ export default {
           },
         ],
         context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/cMPEd8m79Hw/hqdefault.jpg',
-            focalPoint: '48% 34%',
-            credit: 'Big Machine Records, via YouTube/TaylorSwift',
-            caption:
-              'Taylor on a Paris rooftop in the official “Begin Again” music video (2012), the Eiffel Tower behind her — oEmbed-verified against the TaylorSwift YouTube channel (video cMPEd8m79Hw).',
-            kind: 'reference',
-          },
-        ],
       },
     },
   ],
