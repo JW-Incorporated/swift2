@@ -83,7 +83,7 @@ async function fetchReactors(channelId, messageId, emoji, token) {
   return users.map((u) => `discord:${u.id}`);
 }
 
-export async function run({ env = process.env, execGh = gh, fetchImpl = fetch } = {}) {
+export async function run({ execGh = gh, fetchImpl = fetch } = {}) {
   const botToken = requireEnv.call(null, 'DISCORD_BOT_TOKEN');
   const webhookUrl = requireEnv.call(null, 'SOCIAL_APPROVAL_WEBHOOK_URL');
   const approvalKey = requireEnv.call(null, 'SOCIAL_APPROVAL_KEY');
@@ -191,7 +191,7 @@ export async function run({ env = process.env, execGh = gh, fetchImpl = fetch } 
     });
 
     if (toStamp.length > 0) {
-      const approverRef = current.find((r) => SOCIAL_APPROVERS.length > 0)?.message;
+      const approverRef = current.find(() => SOCIAL_APPROVERS.length > 0)?.message;
       const approvedByIds = new Set();
       for (const { message } of current) {
         for (const id of await fetchReactors(channelId, message.id, CHECK_MARK, botToken)) {
