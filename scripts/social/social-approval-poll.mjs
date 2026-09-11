@@ -175,13 +175,21 @@ export async function run({ execGh = gh, fetchImpl = fetch, sleepImpl = defaultS
     let rejectHeader = false;
     const rejectFiles = [];
     const reactionCache = new Map();
+    // Files (and the header, tracked separately) whose message's reactions
+    // could not be read this run — an unreadable message could carry a ❌
+    // we can't see, so it must never be silently approved through, whether
+    // directly or via a header '*' expansion that would otherwise cover it.
+    const unresolvedFiles = new Set();
+    let headerUnresolved = false;
 
     for (const { message, file } of current) {
       let approvedBy, rejectedBy;
       try {
         ({ approvedBy, rejectedBy } = await getMessageApprovals(message, channelId, botToken, discordOpts, reactionCache));
       } catch (err) {
-        console.error(`::warning::social-approval-poll: could not fetch reactions for message ${message.id} (PR #${pr}, file ${file}) — skipping this message: ${err.message}`);
+        console.error(`::warning::social-approval-poll: could not fetch reactions for message ${message.id} (PR #${pr}, file ${file}) — treating as unresolved this run (retries next run): ${err.message}`);
+        if (file === '*') headerUnresolved = true;
+        else unresolvedFiles.add(file);
         continue;
       }
 
@@ -225,11 +233,18 @@ export async function run({ execGh = gh, fetchImpl = fetch, sleepImpl = defaultS
       execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', `reject: ${file} — founder reacted ❌ in #longlive-social (no written reason)`]);
     }
 
-    // Approve path: resolve "*" (header ✅) to every tripping file on the PR.
-    let targetFiles = [...filesToStamp].filter((f) => f !== '*');
-    if (filesToStamp.has('*')) {
+    // Approve path: resolve "*" (header ✅) to every tripping file on the PR
+    // — but never when the header message itself, or an individual draft's
+    // own message, failed to fetch this run (see unresolvedFiles/
+    // headerUnresolved above): treat it as not-yet-approved rather than
+    // silently stamping through an unreadable message.
+    let targetFiles = [...filesToStamp].filter((f) => f !== '*' && !unresolvedFiles.has(f));
+    if (filesToStamp.has('*') && !headerUnresolved) {
       const filesMeta = JSON.parse(execGh(['pr', 'view', String(pr), '--repo', repo, '--json', 'files'])).files;
-      targetFiles = filesMeta.filter((f) => f.path.startsWith('social/queue/') && f.path.endsWith('.json')).map((f) => f.path);
+      targetFiles = filesMeta
+        .filter((f) => f.path.startsWith('social/queue/') && f.path.endsWith('.json'))
+        .map((f) => f.path)
+        .filter((f) => !unresolvedFiles.has(f) && !unresolvedFiles.has(path.basename(f)));
     }
 
     const toStamp = targetFiles.filter((file) => {

@@ -39,11 +39,21 @@ function jsonResponse(body: unknown, status = 200) {
   };
 }
 
+const HEADER_MESSAGE_ID = '333333333333333333';
+
 function briefMessage() {
   return {
     id: MESSAGE_ID,
     webhook_id: '999999999999999999',
     content: `Draft 1 · X\nref: PR #${PR_NUMBER} · ${HEAD_SHA} · social/queue/${QUEUE_FILE}`,
+  };
+}
+
+function headerMessage() {
+  return {
+    id: HEADER_MESSAGE_ID,
+    webhook_id: '999999999999999999',
+    content: `PR #${PR_NUMBER} · 1 draft\nref: PR #${PR_NUMBER} · ${HEAD_SHA} · *`,
   };
 }
 
@@ -68,7 +78,31 @@ function makeFetchImpl(script: { check: Array<() => unknown>; cross?: Array<() =
   return { impl, calls };
 }
 
-function makeExecGh() {
+/** Fetches reactions keyed per message id, so a header message and a
+ * draft's own message can be scripted independently in the same PR. */
+function makeFetchImplByMessage(messages: Array<{ id: string; content: string }>, byMessage: Record<string, { check: Array<() => unknown>; cross?: Array<() => unknown> }>) {
+  const calls = new Map<string, { check: number; cross: number }>();
+  const impl = vi.fn(async (url: string) => {
+    if (url.includes('/messages?limit=100')) return jsonResponse(messages);
+    for (const [id, script] of Object.entries(byMessage)) {
+      const crossScript = script.cross ?? [() => jsonResponse([])];
+      if (!calls.has(id)) calls.set(id, { check: 0, cross: 0 });
+      const c = calls.get(id)!;
+      if (url.includes(`/messages/${id}/reactions/${CHECK_MARK}`)) {
+        const i = Math.min(c.check++, script.check.length - 1);
+        return script.check[i]();
+      }
+      if (url.includes(`/messages/${id}/reactions/${CROSS_MARK}`)) {
+        const i = Math.min(c.cross++, crossScript.length - 1);
+        return crossScript[i]();
+      }
+    }
+    throw new Error(`unexpected fetchImpl url: ${url}`);
+  });
+  return { impl, calls };
+}
+
+function makeExecGh({ files = [] as Array<{ path: string }> } = {}) {
   const calls: string[][] = [];
   const impl = vi.fn((args: string[]) => {
     calls.push(args);
@@ -76,7 +110,7 @@ function makeExecGh() {
       return JSON.stringify({ headRefOid: HEAD_SHA, headRefName: 'feature/x', state: 'OPEN', number: PR_NUMBER });
     }
     if (args[0] === 'pr' && args[1] === 'view' && args.includes('files')) {
-      return JSON.stringify({ files: [] }); // keeps the merge phase inert for these tests
+      return JSON.stringify({ files }); // empty keeps the merge phase inert for these tests
     }
     return '';
   });
@@ -160,6 +194,30 @@ describe('discordGet 429 handling', () => {
     const raw = await readFile(path.join(root, 'social', 'queue', QUEUE_FILE), 'utf8');
     const item = JSON.parse(raw);
     expect(item.approval).toBeUndefined();
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('a header ✅ never stamps a draft whose OWN message failed to fetch (exhausted retries) — an unreadable message could carry a ❌', async () => {
+    const { impl: fetchImpl } = makeFetchImplByMessage([headerMessage(), briefMessage()], {
+      [HEADER_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] }, // header itself: readable, approved
+      [MESSAGE_ID]: {
+        check: [
+          () => jsonResponse({ message: '429', retry_after: 0.01, global: false }, 429),
+          () => jsonResponse({ message: '429', retry_after: 0.01, global: false }, 429),
+          () => jsonResponse({ message: '429', retry_after: 0.01, global: false }, 429),
+        ],
+      },
+    });
+    const { impl: execGh } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+    const sleepImpl = vi.fn(() => Promise.resolve());
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    await run({ execGh, fetchImpl, sleepImpl });
+
+    expect(errorSpy.mock.calls.some(([msg]) => typeof msg === 'string' && msg.includes('::warning::'))).toBe(true);
+    const raw = await readFile(path.join(root, 'social', 'queue', QUEUE_FILE), 'utf8');
+    const item = JSON.parse(raw);
+    expect(item.approval).toBeUndefined(); // header approval must not stamp through an unreadable draft message
     expect(process.exitCode).toBe(0);
   });
 });
