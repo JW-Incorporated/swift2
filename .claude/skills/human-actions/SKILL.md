@@ -1,74 +1,60 @@
 ---
 name: human-actions
-description: Conventions for HUMAN-ACTIONS.md — invoke whenever a session creates, reads, or updates HUMAN-ACTIONS.md, or discovers any action only the owner can perform (login, payment, approval, UI click, guard-denied command).
+description: Use whenever a session creates, reads, or updates HUMAN-ACTIONS.md (format v2), or discovers any action only the owner can perform.
+version: 2.0.0
 ---
 
-# HUMAN-ACTIONS.md — the single place for anything the owner must do
+# HUMAN-ACTIONS.md — format v2
 
-**Every action that requires the owner goes in `HUMAN-ACTIONS.md` at the
-project root. One file, that exact name, no exceptions.** If it needs his
-identity, his login, his payment method, his approval, a click in a UI you
-can't reach, or it hit the human-only guard list — it goes there. Not only in
-chat, not only in `STATE.md`. Chat scrolls away and `STATE.md` is your
-memory, not his queue.
+**Filename is always `HUMAN-ACTIONS.md`, project root, never a variant**
+(`OWNER-ACTIONS.md`, `TODO.md`). Closed items live in a sibling
+`HUMAN-ACTIONS-DONE.md` — a machine ledger the owner never opens.
+**Presence in `HUMAN-ACTIONS.md` means open. There is no `Status:` field.**
+An item is open because it is in this file — nothing else encodes it.
 
-Create the file the first time you need it. Never rename it, never invent a
-variant (`OWNER-ACTIONS.md`, `TODO-JOEY.md`) — one predictable filename is
-the whole point.
+## Shape — every item, exactly
 
-**Every entry carries six things, in this order:**
-1. **A title** with a `[BLOCKING]` or `[UPGRADE]` tag and a rough time cost.
-   `[BLOCKING]` = something is genuinely stuck; `[UPGRADE]` = improves things,
-   nothing halted. Be honest — inflating everything to BLOCKING trains him to
-   ignore the tag.
-2. **`**Filed:** YYYY-MM-DD`** — the date you're writing this item, right
-   under the title. Added 2026-08-23: Marjorie's morning brief reads this to
-   show how long each OPEN item has been waiting on Joey. Never omit it on a
-   new item; never backdate or remove it. DONE/SKIP items don't need one.
-3. **Why**, in a sentence or two — enough to judge priority without asking.
-4. **Steps** — numbered, light. Point him in the right direction; he is
-   capable, he just needs the path.
-5. **Every exact value written out literally** — URLs, secret names, file
-   paths, menu labels, button text. This is what actually costs him time and
-   must not be paraphrased. A wrong menu name sends him into the wrong flow;
-   that has already happened once.
-6. **"Worked if:"** — one concrete, checkable signal. Not "it should work."
+```markdown
+## #<N> <glyph> [<KIND>] <title> (~<eta>)
+<!-- ha filed=YYYY-MM-DD -->
 
-**Conventions**
-- Newest open action at the top of an `# OPEN` section.
-- Done items move to `# DONE` with the date. **Never delete** — the history
-  is how you stop re-asking him for things he already did.
-- An action that turns out unnecessary moves to DONE marked "no longer
-  needed", with why.
-- If OPEN is empty, say so plainly — nothing is waiting on him.
-- Include a short "How to mark something done" section at the top of the file
-  itself, so the convention is discoverable without reading this skill.
+**Why:** <≤300 chars — concrete consequence, not "this matters">
+**Steps:**
+1. <literal step, ≤200 chars>
+...up to 10
+**Worked if:** <one checkable signal, ≤200 chars>
+```
 
-## Closing the loop is your job, not his
+No other `**Label:**` line is legal (`**Decision**`, `**Update**`,
+`**Verified**`, a separate `**Filed**` field, `**Status**` — all rejected;
+`filed=` lives only in the meta comment). Whole item ≤1,500 bytes. **A
+write over any cap is linted and refused — never reaches the file.** Steps
+are literal navigation (exact URL, menu path, filename) — never teach
+basic computer skills.
 
-Every entry carries a `**Status:** OPEN` line directly under its title. He
-changes that one word:
+`KIND` is exactly one of `BLOCKING` (🔴 stuck on this), `DECIDE` (🟡
+answer is the whole action), `UPGRADE` (🟢 nothing halted) — glyph follows
+`KIND`, never chosen independently. **Order: descending by `N`, newest at
+top, everywhere — file and Discord alike.**
 
-| He writes | Means |
-|---|---|
-| `DONE` | He did it |
-| `SKIP` | He chose not to, on purpose — plus a few words why |
-| `BLOCKED` | He tried and something stopped him — plus what |
+## Numbering
+Never reused, never renumbered. Allocator is always `max(N in open file ∪
+N in ledger) + 1` — never "next free-looking number." Duplicate `N` in the
+open file, or the same `N` in both, is a lint error.
 
-That is the entire interface. He never cuts, pastes, or moves a block, and
-never has to be in a session to record progress.
+## Filing and closing
 
-**Every session that opens `HUMAN-ACTIONS.md` reconciles it**: move each
-non-`OPEN` item into `DONE`, stamp the date, stop tracking it. "I did #2"
-said in chat is identical to him editing the line.
+File via `ha add` on the VM; on the PC, write v2 directly and expect the
+lint on the next sync/commit — it is the contract, not a courtesy.
+Close: exactly two paths — `done`/`skip <why>` reply to the card in
+Discord, or `ha close` run because the owner said so in chat. **Never an
+agent's own judgment** — not "the owner seemed to say it was done," not
+inferred from unrelated conversation. **`SKIP` is final** — never re-raise
+or re-argue a skipped item.
 
-**Item numbers are stable IDs, not ordering.** Never reuse, never renumber —
-`#4` means the same thing forever, including after it is filed under DONE.
+## Never
 
-**`SKIP` is final.** Never re-raise a skipped item or re-argue the
-recommendation behind it. His risk judgement is his; record the decision and
-move on. Re-litigating settled judgement is how a useful file becomes one he
-stops reading.
-
-**Never let a human action exist only in conversation.** Write it down first,
-then mention it.
+Invent a filename variant · write a `**Status:**` line · renumber, reuse,
+or hand-pick a number outside the allocator · add a `**Label:**` beyond
+Why / Steps / Worked if · close an item on your own judgment · re-raise a
+`SKIP` · write a secret value into the file.
