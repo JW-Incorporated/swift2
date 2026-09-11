@@ -237,7 +237,7 @@ export function buildSocialDraftPair(c, { now = new Date(), photoLibrary = [], p
     photoId: photo.id,
     mediaCredit: photo.credit,
     mediaSource: photo.source,
-    // RULINGS-SOCIAL.md A3/B2 — altText is required whenever media ships;
+    // docs/social/RULINGS-SOCIAL.md A3/B2 — altText is required whenever media ships;
     // the library's own `alt` is the one description per photo, copied
     // verbatim so it can never drift from validatePhotoInventoryBinding's
     // exact-match check.

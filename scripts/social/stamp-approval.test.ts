@@ -1,4 +1,4 @@
-// RULINGS-SOCIAL-2.md B5 — the issuer test. The three A2 refusal tests
+// docs/social/RULINGS-SOCIAL-2.md B5 — the issuer test. The three A2 refusal tests
 // (now in post-queue.test.ts / queue.test.ts) all feed a bad stamp to the
 // VERIFIER and check it's rejected. None of them ever called the MINTING
 // function with an automation identity and checked it refuses — which is

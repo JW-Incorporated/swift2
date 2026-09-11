@@ -1,5 +1,5 @@
 // stampFiles — writes the B1 v2 approval stamp into each queue file the
-// owner's Discord ✅ covers. This is a pure LIBRARY now (RULINGS-SOCIAL-2.md
+// owner's Discord ✅ covers. This is a pure LIBRARY now (docs/social/RULINGS-SOCIAL-2.md
 // B3): the CLI, the `--merge-sha` blob-at-merge comparison, and the
 // merge-triggered workflow that used to call it are all deleted. The only
 // caller is scripts/social/social-approval-poll.mjs, which stamps the PR

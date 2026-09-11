@@ -77,7 +77,7 @@ what you can see is red before you exit. Scheduled runners live on Joey's
 account per the automation-account-ownership policy (D1=B, 2026-08-31).
 
 **Exception — approval is the founder's own ✅ in `#longlive-social`, not a
-merge (RULINGS-SOCIAL-2.md B1, superseding A2's merge-keyed stamp).** A
+merge (docs/social/RULINGS-SOCIAL-2.md B1, superseding A2's merge-keyed stamp).** A
 Discord reaction from the owner's own Discord user id is stamped and
 signed by `social-approval-poll.yml` (schema v2, HMAC-signed with a key
 held only in the `main`-only `social` environment); the poll job merges

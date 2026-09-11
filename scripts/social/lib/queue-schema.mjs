@@ -141,7 +141,7 @@ export function validatePhotoInventoryBinding(item, photoLibrary) {
   }
   // Alt text for the library tile is WRITTEN ONCE on the photo entry itself
   // (the photo never changes per post, so its alt text shouldn't either) —
-  // RULINGS-SOCIAL.md A3/B2. The draft's altText[] entry at the tile's index
+  // docs/social/RULINGS-SOCIAL.md A3/B2. The draft's altText[] entry at the tile's index
   // must match it exactly, the same attribution-cannot-drift discipline as
   // mediaCredit/mediaSource above.
   const tileIndex = Array.isArray(item.media) ? item.media.indexOf(photo.mediaPath) : -1;
@@ -297,7 +297,7 @@ export function validateQueueItem(item) {
     );
   }
 
-  // --- altText (RULINGS-SOCIAL.md A3/B2 — required whenever media ships) --
+  // --- altText (docs/social/RULINGS-SOCIAL.md A3/B2 — required whenever media ships) --
   // X's 1000-char cap (its media/metadata/create alt_text limit) is the
   // binding constraint here, not Instagram's/Facebook's more generous ones
   // — one field is sent to all three platforms (lib/platforms.mjs), so it
@@ -327,7 +327,7 @@ export function validateQueueItem(item) {
     findings.push('altText: must not be present when `media` is empty — nothing to describe.');
   }
 
-  // --- approval (RULINGS-SOCIAL-2.md B1, superseding A2) -------------------
+  // --- approval (docs/social/RULINGS-SOCIAL-2.md B1, superseding A2) -------------------
   // `approval` (schema v2, signed) is written ONLY by the poll job
   // (.github/workflows/social-approval-poll.yml, reacting to the owner's
   // Discord ✅), never by a drafter and never by a merge — but a drafter
@@ -347,7 +347,7 @@ export function validateQueueItem(item) {
   }
 
   // --- optional provenance/bookkeeping fields ------------------------------
-  // `approvedAt`/`approvedBy` are retired (RULINGS-SOCIAL.md A2) — the
+  // `approvedAt`/`approvedBy` are retired (docs/social/RULINGS-SOCIAL.md A2) — the
   // `approval` object above is the only provenance record now. A queue item
   // still carrying either legacy field is not itself a validation error
   // (old social/posted/ records are never re-validated; validate-queue.mjs

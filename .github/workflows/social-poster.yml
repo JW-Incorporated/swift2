@@ -146,7 +146,7 @@ env:
 jobs:
   post:
     runs-on: ubuntu-latest
-    # RULINGS-SOCIAL-2.md B1: SOCIAL_APPROVAL_KEY is an environment secret
+    # docs/social/RULINGS-SOCIAL-2.md B1: SOCIAL_APPROVAL_KEY is an environment secret
     # restricted to `main` by a custom deployment-branch policy — no
     # `pull_request` workflow run on a branch can ever read it.
     environment: social
@@ -275,7 +275,7 @@ jobs:
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           SOCIAL_APPROVAL_KEY: ${{ secrets.SOCIAL_APPROVAL_KEY }}
-        # No GH_TOKEN here any more (RULINGS-SOCIAL.md A2): the poster is now
+        # No GH_TOKEN here any more (docs/social/RULINGS-SOCIAL.md A2): the poster is now
         # the sole approval-enforcement point and reads only the `approval`
         # object already on each queue item — no GitHub API call at post
         # time, fail-closed with no network dependence for the gate itself.

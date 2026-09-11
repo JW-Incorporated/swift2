@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Watchdog check (RULINGS-SOCIAL.md A6): a `[BLOCKING]` human action can be
+// Watchdog check (docs/social/RULINGS-SOCIAL.md A6): a `[BLOCKING]` human action can be
 // late, but it must never be SILENT. Tonight's near-miss (#56 — "freeze
 // social posting while the approval gate lands", filed 2026-09-10, not
 // executed until a session caught it independently at 2026-09-11T00:02:22Z)

@@ -1,5 +1,5 @@
 // Builds and sends the Discord approval prompt for pending social draft
-// PR(s) (RULINGS-SOCIAL.md A3, rebuilding the 2026-09-10 text-only version
+// PR(s) (docs/social/RULINGS-SOCIAL.md A3, rebuilding the 2026-09-10 text-only version
 // per the RCA at scratchpad/RCA-social-brief-image.md). One Discord MESSAGE
 // per draft, each carrying an `image.url` embed built from the exact same
 // MEDIA_BASE_URL/mediaUrlsFor helpers post-queue.mjs publishes from
@@ -10,7 +10,7 @@
 // disclosure (A4) on every Instagram draft.
 //
 // Approve = react ✅ in #longlive-social, on a draft message for just that
-// one or on the header for every draft in the PR (RULINGS-SOCIAL-2.md B1 —
+// one or on the header for every draft in the PR (docs/social/RULINGS-SOCIAL-2.md B1 —
 // social-approval-poll.yml polls for the reaction, stamps a v2 signed
 // approval, then merges; merging the PR yourself does NOT approve it, it
 // kills the draft). Reject = react ❌ the same way — on a draft drops just

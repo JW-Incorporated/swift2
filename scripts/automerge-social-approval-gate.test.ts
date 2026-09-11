@@ -83,7 +83,7 @@ describe('evaluateSocialApprovalGate', () => {
     expect(r.matches).toHaveLength(1);
   });
 
-  // RULINGS-SOCIAL-2.md B3: the merge-triggered stamper is deleted — there
+  // docs/social/RULINGS-SOCIAL-2.md B3: the merge-triggered stamper is deleted — there
   // is no longer a separate stamp-branch PR to exempt. Stamping happens
   // before the merge now, via social-approval-poll.yml.
 });

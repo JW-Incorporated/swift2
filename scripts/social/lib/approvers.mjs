@@ -1,5 +1,5 @@
 // The hardcoded list of identities whose Discord ✅ counts as the
-// founder's real approval (RULINGS-SOCIAL-2.md B1, superseding A2's
+// founder's real approval (docs/social/RULINGS-SOCIAL-2.md B1, superseding A2's
 // merge-keyed list).
 //
 // Every entry MUST be a `discord:<snowflake>` identity — `/^discord:\d{17,
@@ -8,8 +8,8 @@
 // point of B1 is that GitHub has only one identity (`sffan15-sys`) for the
 // owner, every agent session's `gh`, every routine's PAT, and the auto-merge
 // actor — so a GitHub-login-keyed approver list can never distinguish the
-// owner's own tap from automation (RULINGS-SOCIAL.md "what I verified" #2;
-// RULINGS-SOCIAL-2.md's corrections #2-3). Discord is the one channel in
+// owner's own tap from automation (docs/social/RULINGS-SOCIAL.md "what I verified" #2;
+// docs/social/RULINGS-SOCIAL-2.md's corrections #2-3). Discord is the one channel in
 // this system where the owner holds an identity no agent or routine holds:
 // agents have the webhook URL (write-only), not his user account, and the
 // read-only poll bot token can observe reactions but cannot react as him.
@@ -22,7 +22,7 @@
 // *** SETUP INCOMPLETE — DO NOT MERGE A PR THAT SHIPS THIS EMPTY LIST AS
 // THE FINAL STATE. ***
 // This is deliberately empty until the owner pastes his real Discord user
-// id (RULINGS-SOCIAL-2.md B1 one-time setup, step 3 — Discord Settings ->
+// id (docs/social/RULINGS-SOCIAL-2.md B1 one-time setup, step 3 — Discord Settings ->
 // Advanced -> Developer Mode ON -> right-click his own name -> Copy User
 // ID). An empty SOCIAL_APPROVERS is a safe, total-refusal state (nothing
 // can ever be approved), not a silent bug — approvers.test.ts's "non-empty"

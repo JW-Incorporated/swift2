@@ -21,7 +21,7 @@ export function validatePhotoEntry(entry) {
   }
   if (typeof entry.credit !== 'string' || entry.credit.trim() === '') findings.push('credit is required');
   if (!isHttpUrl(entry.source)) findings.push('source must be an http(s) URL');
-  // RULINGS-SOCIAL.md A3/B2 — alt text is written ONCE per library entry
+  // docs/social/RULINGS-SOCIAL.md A3/B2 — alt text is written ONCE per library entry
   // (the photo never changes per post), never per draft, so it must exist
   // here before any draft can bind to this entry at all.
   if (typeof entry.alt !== 'string' || entry.alt.trim() === '') findings.push('alt is required — write the accessibility description once here (RULINGS-SOCIAL A3)');

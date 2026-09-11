@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // social-approval-poll — the ONLY place a ✅/❌ in #longlive-social turns
-// into a signed approval stamp and a merge (RULINGS-SOCIAL-2.md B1).
+// into a signed approval stamp and a merge (docs/social/RULINGS-SOCIAL-2.md B1).
 // Deterministic, no LLM. Invoked by .github/workflows/social-approval-poll.yml
 // on a 15-minute cron + workflow_dispatch, inside the `social` GitHub
 // environment (so SOCIAL_APPROVAL_KEY / DISCORD_BOT_TOKEN are only ever
