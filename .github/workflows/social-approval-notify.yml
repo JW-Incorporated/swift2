@@ -31,7 +31,7 @@ on:
     - cron: "7 18 * * *"
 
 permissions:
-  pull-requests: read
+  pull-requests: write
   contents: read
 
 concurrency:
@@ -91,7 +91,9 @@ jobs:
           echo "has_drafts=true" >> "$GITHUB_OUTPUT"
 
           # Fetch each qualifying draft's PR-head bytes (data only) and turn
-          # it into the manifest approval-prompt.mjs expects.
+          # it into the manifest approval-prompt.mjs expects. Full `media`
+          # array (not just [0]) and `altText`/`why` — the 2026-09-10
+          # version dropped all three (RCA-social-brief-image.md §1, §4).
           echo "[" > /tmp/drafts.json
           first=1
           while IFS= read -r f; do
@@ -99,11 +101,23 @@ jobs:
             [ "$first" -eq 1 ] || echo "," >> /tmp/drafts.json
             first=0
             gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
-              | jq --arg routine "$SOURCE_ROUTINE" \
-                '{platform, body, scheduledAt, campaign, mediaCredit, media: (.media[0] // null), sourceRoutine: $routine}' \
+              | jq --arg routine "$SOURCE_ROUTINE" --arg file "$f" \
+                '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, sourceRoutine: $routine}' \
               >> /tmp/drafts.json
           done <<<"$QUEUE_FILES"
           echo "]" >> /tmp/drafts.json
+
+      # RULINGS-SOCIAL.md A3 — labeled so the digest, the rejection-reading
+      # step in growth-draft.md, and any future tooling can all find
+      # "PRs that went through the real approval brief" by label instead of
+      # re-deriving the queue-path check.
+      - name: Label the PR social-draft
+        if: steps.manifest.outputs.has_drafts == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: gh pr edit "$PR" --repo "$REPO" --add-label social-draft
 
       - name: Send the approval prompt to #longlive-social
         if: steps.manifest.outputs.has_drafts == 'true'
@@ -113,7 +127,10 @@ jobs:
           node scripts/social/approval-prompt.mjs \
             --pr "${{ github.event.pull_request.number }}" \
             --pr-url "${{ github.event.pull_request.html_url }}" \
-            --manifest /tmp/drafts.json
+            --manifest /tmp/drafts.json \
+            --head-sha "${{ github.event.pull_request.head.sha }}" \
+            --repo "${{ github.repository }}" \
+            --facebook-crosspost "${{ secrets.FB_PAGE_ID != '' }}"
 
   digest:
     if: github.event_name == 'schedule'
@@ -169,11 +186,38 @@ jobs:
               [ "$first" -eq 1 ] || echo "," >> /tmp/digest-drafts.json
               first=0
               gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
-                | jq --arg routine "$AUTHOR" \
-                  '{platform, body, scheduledAt, campaign, mediaCredit, media: (.media[0] // null), sourceRoutine: $routine}' \
+                | jq --arg routine "$AUTHOR" --arg file "$f" \
+                  '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, sourceRoutine: $routine}' \
                 >> /tmp/digest-drafts.json
             done <<<"$QUEUE_FILES"
             echo "]" >> /tmp/digest-drafts.json
 
-            node scripts/social/approval-prompt.mjs --pr "$PR" --pr-url "$URL" --manifest /tmp/digest-drafts.json
+            node scripts/social/approval-prompt.mjs --pr "$PR" --pr-url "$URL" --manifest /tmp/digest-drafts.json \
+              --head-sha "$SHA" --repo "$REPO" --facebook-crosspost "${{ secrets.FB_PAGE_ID != '' }}"
           done < /tmp/open-prs.tsv
+
+      # RULINGS-SOCIAL.md A3 — "closed without a reason" backstop: a
+      # `social-draft` PR closed unmerged in the last 24h with no `reject:`
+      # comment gives the drafting routine nothing to learn from. Listed
+      # here (loud in the Action log/step summary), not auto-filed anywhere
+      # — the drafting routine's own read of rejected PRs (growth-draft.md)
+      # is the consumer that matters; this is a human-visible backstop for
+      # when even that silent-close case happens.
+      - name: Flag social-draft PRs closed unmerged with no reject reason
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          SINCE=$(date -u -d '24 hours ago' +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -v-24H +%Y-%m-%dT%H:%M:%SZ)
+          CLOSED=$(gh pr list --repo "$REPO" --state closed --label social-draft --search "is:unmerged closed:>=$SINCE" --json number,url,comments --jq '.[]')
+          [ -z "$CLOSED" ] && { echo "No social-draft PRs closed unmerged in the last 24h."; exit 0; }
+          printf '%s\n' "$CLOSED" | jq -c '.' | while IFS= read -r pr; do
+            NUM=$(echo "$pr" | jq -r '.number')
+            URL=$(echo "$pr" | jq -r '.url')
+            HAS_REASON=$(echo "$pr" | jq -r '[.comments[]?.body // "" | select(startswith("reject:"))] | length > 0')
+            if [ "$HAS_REASON" != "true" ]; then
+              echo "::warning title=social-draft closed without a reason::PR #$NUM ($URL) was closed unmerged with no 'reject:' comment — the drafter cannot learn from this."
+            fi
+          done

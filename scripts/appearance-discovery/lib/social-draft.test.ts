@@ -23,6 +23,10 @@ const PHOTO_LIBRARY = [
     mediaPath: '/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg',
     credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
+    // RULINGS-SOCIAL.md A3/B2 — alt is now required on every library entry
+    // (lib/photo-library.mjs's validatePhotoEntry); without it
+    // selectSocialPhoto treats the whole library as ineligible.
+    alt: 'Taylor Swift performing the Lover set in Minneapolis, 2023.',
   },
 ];
 

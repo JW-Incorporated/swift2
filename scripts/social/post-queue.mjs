@@ -90,10 +90,12 @@ import {
   missingCredsFor,
   needsMediaPreflight,
   mediaUrlsFor,
+  approvalStatus,
+  MEDIA_BASE_URL,
 } from './lib/queue.mjs';
+import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
 import { mediaUrlsReachable } from './lib/preflight.mjs';
-import { getQueueFileProvenance } from './lib/git-provenance.mjs';
 import {
   OUTCOME,
   hasBlockingFailure,
@@ -104,7 +106,6 @@ import {
 } from './lib/run-report.mjs';
 import { runMain } from '../lib/cli.mjs';
 
-const MEDIA_BASE_URL = 'https://www.longlivets.com';
 const MAX_ATTEMPTS = 3;
 
 function resolveRoot() {
@@ -298,18 +299,56 @@ export async function main() {
   // everything below (see isValidScheduledAt's docstring in lib/queue.mjs).
   const validQueued = [];
   for (const entry of queued) {
-    if (isValidScheduledAt(entry.data)) {
-      validQueued.push(entry);
+    if (!isValidScheduledAt(entry.data)) {
+      const failureReason = `Invalid or missing "scheduledAt" (${JSON.stringify(entry.data.scheduledAt)}) — this item could never become due or stale, so it would have sat unprocessed forever.`;
+      await moveToFailed(failedDir, entry, {
+        ...entry.data,
+        failureReason,
+        lastAttemptAt: now.toISOString(),
+      });
+      console.error(`social-poster: ${entry.file} has an invalid/missing scheduledAt — moved to social/failed/.`);
+      outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: entry.data.platform ?? 'unknown', error: failureReason });
       continue;
     }
-    const failureReason = `Invalid or missing "scheduledAt" (${JSON.stringify(entry.data.scheduledAt)}) — this item could never become due or stale, so it would have sat unprocessed forever.`;
-    await moveToFailed(failedDir, entry, {
-      ...entry.data,
-      failureReason,
-      lastAttemptAt: now.toISOString(),
-    });
-    console.error(`social-poster: ${entry.file} has an invalid/missing scheduledAt — moved to social/failed/.`);
-    outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: entry.data.platform ?? 'unknown', error: failureReason });
+
+    // A2 (RULINGS-SOCIAL.md): the poster is the SOLE enforcement point for
+    // approval, reading only `approval` on the item itself — no GitHub API
+    // call, no network dependence, fail-closed regardless of how a file
+    // reached `main`. A pre-2026-09-11 draft has no `approval` key at all,
+    // so grandfathering is impossible by construction: every item that
+    // reaches this branch without a CURRENTLY-VALID stamp is unapproved,
+    // full stop, whether it never had a key or its content changed since.
+    const approval = approvalStatus(entry.data, { approvers: SOCIAL_APPROVERS });
+    if (!approval.ok) {
+      if (isStaleDue(entry.data, now)) {
+        const failureReason = `Unapproved for >48h past scheduledAt — ${approval.reason}`;
+        await moveToFailed(failedDir, entry, {
+          ...entry.data,
+          failureReason,
+          lastAttemptAt: now.toISOString(),
+        });
+        console.error(`social-poster: ${entry.file} moved to social/failed/ — unapproved and stale: ${approval.reason}`);
+        outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: entry.data.platform ?? 'unknown', error: failureReason });
+      } else {
+        console.error(`social-poster: UNAPPROVED ${entry.file} — ${approval.reason}. Nothing posted; no attempt spent; it cannot claim a daily-budget slot.`);
+        outcomes.push({
+          kind: OUTCOME.UNAPPROVED,
+          file: entry.file,
+          platform: entry.data.platform ?? 'unknown',
+          error: approval.reason,
+          overdueHours: hoursOverdue(entry.data, now),
+        });
+      }
+      // Deliberately NOT pushed to validQueued — selectDuePosts only ever
+      // sees items this loop has already let through, so an unapproved
+      // item can never be selected, never claim a per-platform daily
+      // budget slot (MAX_POSTS_PER_PLATFORM_PER_DAY is claimed at
+      // selection time, lib/queue.mjs's selectDuePosts), and never reach
+      // postOne() — there is no path to publish from here.
+      continue;
+    }
+
+    validQueued.push(entry);
   }
 
   // `required` — fail closed. See readJsonDir's docstring and issue #2031:
@@ -522,24 +561,19 @@ export async function main() {
     try {
       const result = await postOne(item);
       const { result: facebook, error: facebookError } = await crosspostToFacebook(item);
-      // Provenance, not a gate (2026-09-10 approval-gate decision,
-      // docs/decisions.md): branch protection on `main` guarantees every
-      // queue file rode in on a MERGED PR before it could ever reach
-      // post-queue.mjs, but that alone doesn't prove a founder merged it —
-      // that's a process guarantee from docs/decisions.md (fix B, done
-      // separately), not something branch protection itself can verify.
-      // This just records who/when for the audit trail — a lookup failure
-      // (see git-provenance.mjs) never blocks a post.
-      const provenance = await getQueueFileProvenance(path.posix.join('social', 'queue', entry.file), {
-        cwd: root,
-      });
+      // Approval provenance is now the `approval` object already on
+      // `item` (A2) — it rode in via the `...item` spread below, written
+      // once by the merge-triggered stamper (social-approval-stamp.yml),
+      // never re-derived here. The old git-provenance.mjs lookup (dead
+      // code — queried commits/{sha}/pulls, whose response never carries
+      // merged_by) is deleted; nothing in this file talks to GitHub's API
+      // any more, so posting has no network dependency beyond the
+      // platforms themselves.
       const posted = {
         ...item,
         postedAt: now.toISOString(),
         platformPostId: result.id,
         url: result.url,
-        approvedBy: provenance.approvedBy,
-        approvedAt: provenance.approvedAt,
         ...(facebook ? { facebookPostId: facebook.id, facebookUrl: facebook.url } : {}),
       };
       await writeFile(path.join(postedDir, entry.file), JSON.stringify(posted, null, 2) + '\n');

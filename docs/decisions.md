@@ -7,6 +7,68 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-11 — Approval is data (A2), superseding "merge IS the approval"
+
+**Decision:** Social-post approval is no longer "the PR was merged" — it is
+a stamped, content-bound `approval` object written into the queue item
+itself, ONLY by a merge-triggered workflow (`.github/workflows/social-
+approval-stamp.yml`), never by a drafter, never by `post-queue.mjs`. `by`
+is checked against a hardcoded `scripts/social/lib/approvers.mjs` list;
+`contentHash` covers `platform`/`body`/`media`/`altText`/`scheduledAt`/
+`campaign`, so editing any of those after the stamp voids it.
+`post-queue.mjs` reads only this object — no GitHub API call at post time —
+and refuses (loud `unapproved` outcome, red past 24h overdue, retired to
+`social/failed/` at 48h) anything without a currently-valid one. A
+pre-2026-09-11 draft has no `approval` key at all, so grandfathering is
+impossible by construction. The dead `scripts/social/lib/
+git-provenance.mjs` (queried `commits/{sha}/pulls`, which never carries
+`merged_by`) is deleted along with the `approvedBy`/`approvedAt` fields it
+populated with `null` on every real run.
+
+**Why now:** the 2026-09-10 "merge IS the approval" decision (entry below)
+could not actually distinguish the owner's own "Merge" tap from an agent's
+`gh pr merge` — `auto-merge-content.yml` arms auto-merge with
+`SOCIAL_POSTER_PAT`, the same identity every agent session's `gh` CLI also
+runs as, so both a hand-merge and a bot-merge recorded the identical
+`merged_by`. An agent merged a social PR on 2026-09-10 night under the old
+rule. Separately, four drafts that landed on `main` BEFORE the 2026-09-10
+gate existed were retroactively invisible to it (approval was "is merged,"
+and they already were) — see the A1 entry and `scratchpad/RCA-social-
+brief-image.md` §0 for the near-miss this produced (an unapproved pair
+~25h from auto-publishing to live IG/X, held off only by an unrelated daily
+cap). Both holes close under A2: approval is now data the poster itself
+checks, not a predicate inferred from a different system's (GitHub's)
+state.
+
+**Fencing the shared identity (owner's kit, not a Swift2 PR):** `Projects/
+.claude/hooks/guard.sh` denies `gh pr merge` on any PR that adds or modifies
+`social/queue/**.json`, and denies an agent writing an `"approval"` key
+anywhere. `CLAUDE.md`'s "Never babysit your own PR" section carries the same
+carve-out for human sessions running through this repo. A Discord-reaction
+approval mechanism (giving the owner an identity agents genuinely cannot
+hold) is deferred, not rejected — build it if the guard above ever logs a
+denied queue-PR merge attempt by an agent.
+
+**Definition of done for any future gate PR:** the PR's CI output must show
+`validate-queue`'s unstamped-draft warnings for whatever already sits on
+`main` at merge time — the list that would have named the four pre-gate
+files on #4090/#4097 before A1 deleted them.
+
+**Requires the owner (A5, unfreeze conditions — NOT all met by this PR):**
+the queue must be empty or fully stamped; PR-B1 (this PR) must be merged
+green with the two named refusal tests; one real `social-approval-notify`
+run must log `approval-prompt: embeds accepted: N` for a founder-visible
+brief with the image; and the owner must say in chat that he saw the image
+in `#longlive-social`. `SOCIAL_FREEZE` stays `true` until all four hold —
+this PR does not flip it and does not claim to.
+
+**Approved by:** architect (Fable) ruling, `scratchpad/RULINGS-SOCIAL.md`,
+2026-09-11T00:10Z.
+
+---
+
+---
+
 ## 2026-09-10 — Marjorie explicitly excluded from social/queue merges
 
 **Decision:** Marjorie's standing merge authority (Merge authority amendment, 2026-07-14) is explicitly carved out for `social/queue/` drafts. She must never merge a PR that adds, modifies, renames, or otherwise changes any file under `social/queue/` — those require a founder's own hand per the social-approval-gate decision (2026-09-10 entry below). The gate's guarantee is "no *automated* path arms or merges a queue draft" as a matter of routine instructions, not something enforced solely by a GitHub branch-protection ruleset. Since Marjorie holds `SOCIAL_POSTER_PAT` for other social-posting duties (posting approved content from `social/posted/`), she could technically merge a queue draft anyway, and the audit trail would show only `merged_by: <PAT-owner-login>` — indistinguishable from a real founder merge. This carve-out closes the one routine that was actually instructed in a way that could trigger it.
