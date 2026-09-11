@@ -7,7 +7,10 @@ import Image from 'next/image';
 import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
-import { tracksForEra } from '@swift2/experience';
+// See EraSection.tsx's comment (issue #4082): must import through the
+// app's wired wrapper, not '@swift2/experience' directly, or the client
+// bundle reads an unwired provider and always gets zero tracks.
+import { tracksForEra } from '@/lib/longlive/tracks';
 import { videosForEra, isPlayable, VIDEO_KIND_LABEL, type WatchableVideoNote } from '@/lib/longlive/videos';
 import { trackVideoFor } from '@/lib/longlive/track-video';
 import { eraStyle } from '@/lib/longlive/theme';
