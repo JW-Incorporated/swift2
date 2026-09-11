@@ -366,9 +366,9 @@ function replyMessage({ id, parentId, authorId = APPROVER, content = 'a reason',
 /** Wraps a base fetchImpl (GET-only, e.g. from makeFetchImplByMessage) so a
  * POST (nudge / edit-failure notice / "merged before approval") is captured
  * instead of falling through to that mock's "unexpected url" throw. */
-function withPostCapture(baseImpl: (url: string, init?: any) => any) {
+function withPostCapture(baseImpl: (url: string, init?: RequestInit) => unknown) {
   const posts: Array<{ url: string; body: Record<string, unknown> }> = [];
-  const impl = vi.fn(async (url: string, init?: any) => {
+  const impl = vi.fn(async (url: string, init?: RequestInit) => {
     if (init?.method === 'POST') {
       posts.push({ url, body: init.body ? JSON.parse(String(init.body)) : {} });
       return jsonResponse({ id: 'posted' });
