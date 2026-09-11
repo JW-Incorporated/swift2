@@ -26,7 +26,7 @@ const DESKS = [
   ['desk:critic', 'Critic desk (Nils) — site experience findings'],
   ['desk:a11y', 'Accessibility desk (Laura) — WCAG findings'],
   ['desk:security', 'Security desk (Paul Blart) — dependencies, supply chain, CI/security config'],
-  ['desk:growth', 'Growth desk — social drafting and community'],
+  ['desk:tree', 'Tree — social media manager (drafting and community)'],
   ['desk:founder', 'A human founder owes an action here (TX items, legal, product intent)'],
   ['desk:unowned', 'NO CHARTER COVERS THIS — the fence complement, deliberately countable'],
 ];

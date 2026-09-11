@@ -31,7 +31,7 @@ jobs:
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Tree — weekly social plan"
-      prompt_file: docs/agents/runner-prompts/tree-plan.md
+      prompt_file: docs/agents/runner-prompts/tree-weekly-plan.md
       model: claude-opus-5
       allowed_tools: "Bash,Read,Write,Edit,Glob,Grep"
       timeout_minutes: 45

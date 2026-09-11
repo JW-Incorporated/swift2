@@ -258,9 +258,13 @@ export function renderSocialPostedLine(item) {
   return `- ${platform} · ${item.campaign || 'uncategorized'}: "${snippet}${ellipsis}"${linkPart}`;
 }
 
-/** Tree's most recent weekly-plan PR (head branch starts `tree/`), or null. */
+/** Tree's most recent weekly-plan PR (head branch starts `tree/plan/`), or
+ * null. Deliberately narrower than `tree/` (Tree Overhaul T1, 2026-09-12):
+ * the daily draft run's branches are also `tree/draft/<date>` now that
+ * Growth folded into Tree, and this must keep meaning the weekly plan PR
+ * specifically, not whichever Tree PR is most recent. */
 export function findLatestTreePR(allPRs) {
-  const treePRs = (allPRs || []).filter((p) => String(p.headRefName || '').startsWith('tree/'));
+  const treePRs = (allPRs || []).filter((p) => String(p.headRefName || '').startsWith('tree/plan/'));
   if (treePRs.length === 0) return null;
   return [...treePRs].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
 }
