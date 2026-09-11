@@ -1,0 +1,65 @@
+{
+  "$comment": "Observation checkpoints for the Tree Overhaul (epic #4117). plan-recheck.yml runs daily; the plan-recheck routine handles every entry whose due <= today and status == pending, then flips status to reported via PR. Statuses: pending | reported | skipped.",
+  "epic": 4117,
+  "checkpoints": [
+    {
+      "id": "R1",
+      "due": "2026-09-14",
+      "status": "pending",
+      "title": "Gate reliability + hygiene fixes hold under real schedules",
+      "checks": [
+        "social-approval-poll.yml: every scheduled run since Wave 2 merged completed (conclusion success), and at least one run log shows a retry or an idle pass, not a crash",
+        "At least one approval stamp was written from a real founder reaction (approvedBy is a discord: id, not a policy)",
+        "SOCIAL_FREEZE is false (gh variable list)",
+        "routine-vault-run.yml: all scheduled runs since 2026-09-11 succeeded; if any failed, did watchdog open a watchdog-alert issue within 2 runs",
+        "e2e.yml: scheduled runs green since the Track Guide quarantine",
+        "output-sampling.yml and fleet-telemetry-snapshot.yml each have one natural scheduled run on main with a report PR",
+        "No unstamped draft was retired to social/failed/ while its PR was still open",
+        "Wave 1 specs merged and Wave 3 started (per #4117 comments)"
+      ]
+    },
+    {
+      "id": "R2",
+      "due": "2026-09-21",
+      "status": "pending",
+      "title": "First full week of the closed loop",
+      "checks": [
+        "A Monday brief was posted in #longlive-social by Tree (notify run log or social-approval-poll ingestion log) with scorecard, calendar rationale, proposals",
+        "social/feedback/*.jsonl has at least one entry with a non-empty reason",
+        "The most recent daily draft PR body quotes a prior reason or explicitly states no rejections in window",
+        "weekly-scorecard output includes approval latency, edit rate, rejection reasons by category",
+        "Founder thread replies (if any) appear as comments on Tree's plan PR",
+        "Every brief in the channel this week carried the Tree first line and a why paragraph",
+        "Wave 4 status per #4117"
+      ]
+    },
+    {
+      "id": "R3",
+      "due": "2026-10-02",
+      "status": "pending",
+      "title": "Metrics and memory are real",
+      "checks": [
+        "social/metrics/posts/ has files for posts published in the last 14 days, written by a scheduled growth-snapshot run",
+        "social/lessons.md has >= 3 dated active rules with evidence links, and the last two Monday runs changed it",
+        "Any lesson fired 3x has a corresponding checker issue or check-drafts.mjs rule",
+        "fleet-telemetry-snapshot shows week-over-week deltas (A3) or a dated TODO exists",
+        "docs/audits/ has an output-sampling report with per-PR quality scores (A4)",
+        "e2e.yml green with the Track Guide quarantine removed, or #4082 open with DEBUG.md",
+        "Rejection rate and edit rate for the trailing 2 weeks, compared with week 1"
+      ]
+    },
+    {
+      "id": "R4",
+      "due": "2026-10-16",
+      "status": "pending",
+      "title": "Is the manager improving? Close or extend the plan",
+      "checks": [
+        "Trend over 4 weeks: briefs sent, approval rate, edit rate, rejection rate, median approval latency, expired-while-pending",
+        "Any campaign type meets the T7 eligibility bar; if so, did Tree propose it and what did the founder do",
+        "Founder thread replies ingested in at least 2 of the last 4 weeks",
+        "Tree proposed at least one strategy diff to docs/marketing/social-strategy.md and its outcome",
+        "Remaining open items from PLAN.md item map, with a recommendation: close the epic, or extend with specific next items and a new checkpoint"
+      ]
+    }
+  ]
+}

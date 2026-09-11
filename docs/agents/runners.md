@@ -1038,3 +1038,10 @@ removes both. Cron floor is 1 hour, so sub-hourly radar is not expressible in cl
   them, with an explicit account owner justified against the 1:10 split.
 - The manager-hat telemetry reports tokens-per-account monthly so the split
   is measured, not assumed.
+
+
+## GitHub-Actions-only routines (no claude.ai trigger)
+
+| Routine | Workflow | Cadence (UTC) | Model | Notes |
+|---|---|---|---|---|
+| Plan recheck — Tree Overhaul | `plan-recheck.yml` | daily `33 15 * * *`, gated on `docs/plans/tree-overhaul/checkpoints.json` due dates | `claude-opus-5` | Read-only verifier; posts to #4117, opens a docs PR. Prompt `docs/agents/runner-prompts/plan-recheck.md`. Expected to run 4 times total (R1–R4) then be retired with the epic. |

@@ -384,3 +384,16 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 
 
 
+
+
+## Tree Overhaul plan (2026-09-11, epic #4117)
+
+| File | Purpose |
+|---|---|
+| `docs/plans/tree-overhaul/PLAN.md` | Plan of record: waves, item map, gates, checkpoints |
+| `docs/plans/tree-overhaul/RUNBOOK.md` | Founder runbook: what to paste, which model, when to clear, what to react to |
+| `docs/plans/tree-overhaul/waves/*.md` | Paste-ready prompts, one per wave, each a fresh session |
+| `docs/plans/tree-overhaul/checkpoints.json` | Dated observation checkpoints R1–R4; `plan-recheck.yml` fires the routine when one is due |
+| `docs/plans/tree-overhaul/rechecks/` | Routine-written recheck reports (one per checkpoint) |
+| `docs/agents/runner-prompts/plan-recheck.md` | Prompt for the plan-recheck routine (Opus, read-only, reports to #4117) |
+| `.github/workflows/plan-recheck.yml` | Daily gate job + routine-template call; no-op when nothing is due |
