@@ -1,0 +1,13 @@
+{
+  "platform": "x",
+  "body": "you know when taylor wears some incredible coat and you NEED to know where it's from? we finally built exactly that.\n\nSeen on Taylor: tap a real outfit and it sends you to where the piece is for sale. her look, not the product 🤍\n\nlonglivets.com/?mode=merch&utm_source=x&utm_medium=social&utm_campaign=launch",
+  "media": ["/social/library/photos/taylor-debut-2007-acoustic.jpg"],
+  "mediaKind": "photo",
+  "photoId": "debut-acoustic-2007",
+  "mediaCredit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(2007)_retouched.jpg",
+  "altText": ["Taylor Swift in 2007, seated with an acoustic guitar, long curly blonde hair, smiling at the camera."],
+  "scheduledAt": "2026-09-12T23:00:00Z",
+  "campaign": "launch:shop-the-look:announce",
+  "why": "Launch arc DAY 0 (announce), not the calendar's +2 how-to. The arc's day-0 slot (09-08) produced nothing — the queue is empty and no 09-08 post shipped on any platform — so running '+2 how-to' before the feature has ever been announced would ship 'here's where to tap' for a surface fans were never introduced to. Announce is the standalone arc-opener; placed in the next launch slot (09-10 23:00Z). Flagged prominently for Tree in the PR body. Sourced from live merch surface (apps/web/lib/longlive/merch.ts + components/longlive/merch/MerchCard.tsx): 'Seen on Taylor' tiles are buy links, each labeled verbatim 'Her look, not the product'; link /?mode=merch verified in packages/experience/src/deepLink.ts. No item counts asserted (unverified). X sibling written first, direct-address hook, vocabulary diverged from IG. Selector-chosen credited photo (site-screens X-prohibited; no merch screenshot committed anyway). Launch arc = share-hook exempt. Lyric-free, blocklist-safe. Re-drafted after the reaction-approval gate landed (RULINGS-SOCIAL-2 PR-D); body unchanged from the retired pre-gate draft, altText added, rescheduled."
+}
