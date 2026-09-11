@@ -1,9 +1,10 @@
 # Social posting queue
 
-Feeds `.github/workflows/social-poster.yml` (runs every 30 min). Full context: `docs/agents/growth.md` and `docs/marketing/growth-plan.md` §4.
+Feeds `.github/workflows/social-poster.yml` (runs every 30 min). Full context: `docs/agents/tree.md` and `docs/marketing/growth-plan.md` §4.
 
 - **`queue/`** — drafts waiting to ship. One JSON file per post. **Every draft added or changed here is checked by `scripts/social/check-drafts.mjs` before it can auto-merge** — see "Draft-time checks" below. That script is the main quality gate now; the guards in `scripts/social/lib/queue.mjs` at post time exist to stop a bad draft from actually posting wrong, not to be the first line of defense.
 - **`posted/`** — the log of everything sent, moved here automatically on success.
+- **`inbox/`** — fact sheets from the merch and appearance side doors (Tree Overhaul T6, 2026-09-12): no caption, no queue write; Tree's daily draft reads them and decides whether to post. `scripts/social/lib/inbox.mjs` has the shape; the full lane (selection, expiry, the fast-lane rubric) is Wave 4's own doc pass.
 
 **Hard pairing rule (Joey, 2026-08-25, made UNCONDITIONAL 2026-08-26,
 reaffirmed 2026-09-10 after the appearance-discovery lane's brief X-only
@@ -71,7 +72,7 @@ staleness-on-`main` problem, not a live-duplicate risk. Full mechanics:
 `.github/workflows/social-poster.yml`'s header comment and `docs/
 decisions.md` 2026-08-25. The 2026-08-11/12 Instagram triple-post (three
 identical live posts the IG API cannot delete) is what this exists to
-prevent — see `docs/agents/growth.md`'s duplicate-post-incident section.
+prevent — see `docs/social/pipeline.md`'s duplicate-post-incident section.
 - **`failed/`** — anything that failed 3 times in a row, hit an ambiguous transport failure (see "Post-time guards" below — never auto-retried), had an invalid/missing `scheduledAt`, sat due (past `scheduledAt`) for more than 48h without posting for any reason (repeated failure, a guard skip, a deploy-lag skip, an idempotency skip), or was retired by hand — see `failureReason` below. Needs a human look either way.
 
 Every run resolves each touched item to an outcome — `posted`, `retrying`, `failed`, `skipped`, `waiting` (media not deployed yet), or `unapproved` (no valid A2 approval stamp) — and `scripts/social/lib/run-report.mjs` turns those into a markdown report (job summary + queue-state PR body) and `::error::`/`::warning::` annotations. A permanently failed item makes the run exit non-zero; before 2026-08-11, twelve posts died into `failed/` across runs that all finished green. `skipped` and `waiting` deliberately spend **no** attempt, so escalation is a ladder: past **24 hours overdue** either state reddens the run (`::error::`, non-zero exit) while the item is still recoverable, and at **48 hours** the staleness rule below retires it to `failed/`.

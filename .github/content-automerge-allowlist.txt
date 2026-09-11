@@ -109,6 +109,15 @@ supabase/seed/
 #    approval step now. ─────────────────────────────────────────────────────
 social/queue/
 
+# ── Social inbox: side-door fact sheets (Tree Overhaul T6, 2026-09-12).
+#    merch-official-sync.yml and appearance-discovery.yml write these
+#    instead of a social/queue/ draft — a `social/inbox/*.json` intent
+#    carries no publishable text (facts only, restated never fabricated),
+#    so it needs no human gate the way a queue draft does; the gate is on
+#    the post Tree later drafts FROM it, once that draft reaches
+#    social/queue/ itself. ────────────────────────────────────────────────
+social/inbox/
+
 # ── Social poster state ledger (ADDED 2026-08-12 — docs/decisions.md, issue
 #    #2031). `social/posted/` and `social/failed/` are machine-written
 #    BOOKKEEPING, not content: the poster records "this item posted / failed"

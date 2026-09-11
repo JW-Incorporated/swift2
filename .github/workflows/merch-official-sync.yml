@@ -14,9 +14,10 @@
 #
 # Per docs/SPEC.merch-autonomy.md §6.4 ("a batch of genuinely new products =
 # a drop"): when the plan's `added` list is non-empty, this job also authors
-# the store-drop social/queue/*.json X+Instagram pair from
-# authorOfficialCatalog()'s `socialDraft` output (scripts/merch-engine/
-# build-drop-draft.mjs) and renders its card image
+# a social/inbox/*.json fact-sheet intent per new product from
+# authorOfficialCatalog()'s catalog output (scripts/merch-engine/
+# build-drop-draft.mjs — Tree Overhaul T6, 2026-09-12: no caption, no
+# social/queue/ write, ever) and renders its card image
 # (scripts/social/render-card.mjs) in the SAME PR — the "store-drop fixture"
 # docs/ops/MERCH-PHASE-4-ACCEPTANCE.md flagged as absent
 # (scripts/merch-engine/build-drop-draft.test.ts is the unit-level proof).
@@ -93,9 +94,17 @@ jobs:
           node --input-type=module <<'NODE'
           import { readFile, writeFile } from 'node:fs/promises';
           const summary = JSON.parse(await readFile('.official-authoring-summary.json', 'utf8'));
-          const draft = summary.official?.socialDraft ?? { type: 'merch-drop-draft', products: [] };
+          const socialDraft = summary.official?.socialDraft ?? { type: 'merch-drop-draft', products: [] };
+          // Full-field rows (price/inStock/discoveredAt) for the same new
+          // products socialDraft.products names — build-drop-draft.mjs's
+          // intent needs the catalog metadata authorOfficialCatalog() already
+          // produces, not the narrowed {sourceId, item, url} handoff.
+          const catalog = Array.isArray(summary.official?.catalog) ? summary.official.catalog : [];
+          const newIds = new Set((socialDraft.products ?? []).map((p) => p.sourceId));
+          const products = catalog.filter((row) => newIds.has(row.sourceId));
+          const draft = { type: 'merch-drop-draft', products };
           await writeFile('.official-social-draft.json', JSON.stringify(draft));
-          const hasProducts = Array.isArray(draft.products) && draft.products.length > 0;
+          const hasProducts = products.length > 0;
           console.log(`has_drop=${hasProducts}`);
           NODE
       - name: Check for a catalog diff
@@ -134,13 +143,13 @@ jobs:
             --stat-label "new item$([ "$count" = "1" ] || echo s)" \
             --detail "$lead" \
             --out "apps/web/public/social/library/merch-drop-${GITHUB_RUN_ID}.png"
-      - name: Build the store-drop social/queue draft
+      - name: Build the store-drop social/inbox intents
         if: ${{ steps.drop.outputs.count != '0' }}
         run: |
           node scripts/merch-engine/build-drop-draft.mjs \
             --social-draft .official-social-draft.json \
             --media-path "/social/library/merch-drop-${GITHUB_RUN_ID}.png" \
-            --out-dir social/queue
+            --intent-out social/inbox
       - name: Emit official_merch notification event
         if: ${{ steps.drop.outputs.count != '0' }}
         env:
@@ -154,16 +163,17 @@ jobs:
         if: ${{ steps.diff.outputs.changed == 'true' || steps.drop.outputs.count != '0' }}
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
-          paths: supabase/seed/merch/official.mjs social/queue apps/web/public/social/library
+          paths: supabase/seed/merch/official.mjs social/inbox apps/web/public/social/library
           branch: ${{ env.branch }}
           commit-message: "feat(merch): author official-store sync plan (run ${{ github.run_id }})"
           pr-title: "feat(merch): author official-store sync plan (run ${{ github.run_id }})"
           pr-body: >-
             Automated E4 authoring lane (scripts/merch-engine/author-catalogs.mjs). Consumes the detect
             job's verified sync plan and writes supabase/seed/merch/official.mjs; when the plan contains
-            new products, also stages the store-drop social/queue/*.json X+Instagram pair
+            new products, also writes a store-drop fact sheet to social/inbox/*.json
             (scripts/merch-engine/build-drop-draft.mjs) and its rendered card image. Restates only
-            observed catalog metadata (R2) — no fabricated price/stock/content claims. Auto-merges once
-            check-drafts.mjs + the required build check pass; a human can still merge or hold it.
+            observed catalog metadata (R2) — no fabricated price/stock/content claims. Writes a fact
+            sheet to social/inbox/. Tree drafts any post from it in its next daily run; a founder still
+            approves that post in #longlive-social.
           no-changes-message: "Nothing to commit — a diff was detected but staged empty; nothing to do."
 
