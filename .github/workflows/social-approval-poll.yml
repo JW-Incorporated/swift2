@@ -22,15 +22,23 @@
 # cron tick. The cron stays as the steady-state fallback.
 #
 # Ordering vs. `social-poster.yml` (which actually publishes an approved
-# item): `social-poster.yml` carries its own `workflow_run` trigger on THIS
-# workflow completing (Codex adversarial review round 1 on PR #4125 — a
-# comment here alone, without that trigger, could not actually guarantee
-# "runs before social-poster" if a scheduled poster tick were the one that
-# got dropped). Combined with this workflow's own 15-minute cron and its
-# workflow_run trigger on `social-approval-notify` above, the full
-# notify -> poll -> poster path is event-driven end to end, so no single
-# dropped cron tick anywhere in the chain stalls publishing a
-# founder-approved item.
+# item): `social-poster.yml` deliberately does NOT carry a `workflow_run`
+# trigger on this workflow completing (considered and reverted, 2026-09-11,
+# Codex adversarial review round 2 on PR #4125) — this workflow's own
+# stamp-commit/merge activity, and the poster's own state-commit PR, both
+# touch `social/queue/**`, which is exactly what `social-approval-notify`'s
+# `pull_request_target` trigger watches; chaining the poster off THIS
+# workflow's completion would let the poster's own routine state PR
+# re-trigger notify -> poll -> poster indefinitely, regardless of whether
+# anything new was actually approved. What this file's own `workflow_run`
+# trigger above still buys: an approval is stamped and merged promptly
+# after the founder reacts, even if this workflow's own cron tick is the
+# one GitHub drops — it does NOT by itself guarantee the poster's next run
+# happens promptly afterward (that still rides the poster's own 30-minute
+# cron, also best-effort). Closing that residual gap needs
+# social-approval-notify/poll to distinguish "a founder-authored draft PR"
+# from "the poster's own state PR" before firing downstream — left as an
+# open follow-up (see the PR body) rather than shipping the loop.
 name: social-approval-poll
 
 on:
