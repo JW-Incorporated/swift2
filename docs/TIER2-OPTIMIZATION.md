@@ -660,6 +660,25 @@ Action; agent call. **Landed 2026-08-31** — Actions half:
 monthly, writing `docs/audits/fleet-telemetry/`. Auditor-arithmetic half:
 [`routine-invariants.md`](agents/routine-invariants.md#auditor-arithmetic-t-17-2026-08-31--docstier2-optimizationmd--t-17).
 
+**Landed 2026-09-10 — routine-fleet turn/duration/cost half.** The gap this
+section previously called unfixable ("cannot see Claude Code routine token
+spend — no repo-visible API") is closed for turns/duration/cost, NOT
+attribution (T-20's per-PR routine attribution is a separate concern).
+`anthropics/claude-code-action@v1`'s `execution_file` output exposes the SDK
+session log; `.github/workflows/routine-template.yml` now reads its terminal
+`result` message via `scripts/routine-usage-report.mjs` (`if: always()`,
+never fails the job) and uploads a `routine-usage` artifact per run.
+`scripts/fleet-telemetry-snapshot.mjs` aggregates those artifacts per
+routine (run count, total/median turns, total duration, summed cost) into
+the monthly snapshot's new "Routine usage telemetry" section. **Caveat that
+must not be dropped:** the reported `total_cost_usd` is a LIST-PRICE
+EQUIVALENT under the shared `CLAUDE_CODE_OAUTH_TOKEN` plan-usage model
+(`routine-template.yml`'s header) — not a real billed dollar amount, since
+this account draws from Joey's shared Claude Pro/Max plan usage, not
+metered per-token billing. The actual constraint remains Joey's plan rate
+limit, not money; this closes a VISIBILITY gap, not a dollar-cap gap (a
+dollar cap is architecturally impossible under this auth model).
+
 #### T-18 — Re-sync prompts and registry after the changes land
 
 Several recommendations above (T-1, T-3, T-5, T-9, T-10, T-11, T-13) edit

@@ -136,6 +136,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Run ${{ inputs.routine_name }}
+        id: claude
         if: steps.guard.outputs.skip == 'false'
         uses: anthropics/claude-code-action@v1
         with:
@@ -147,3 +148,45 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+
+      # T-17 visibility gap (docs/TIER2-OPTIMIZATION.md, docs/agents/codex.md
+      # invocation not required here — zero-LLM script): reads the terminal
+      # SDK `result` message from `steps.claude.outputs.execution_file` for
+      # num_turns/duration/cost-equivalent. Runs even when the routine step
+      # itself failed (that is exactly when the turn count matters most) —
+      # but gated on the SAME guard as checkout, since a skipped guard never
+      # checks the repo out, and this step's own script wouldn't exist on
+      # disk to run. Must never fail the job itself: `routine-usage-report.mjs`
+      # degrades to a no-op notice on any missing/malformed input, `|| true`
+      # is a second line of defense at the shell level, and `continue-on-error`
+      # is a THIRD — telemetry is best-effort and must never be load-bearing
+      # for the routine's actual success/failure (Codex review round 1,
+      # finding 1). A small `timeout-minutes` on both this step and the
+      # upload step keeps a telemetry hang from eating into the routine's
+      # real job-timeout budget.
+      - name: Record routine usage telemetry
+        if: always() && steps.guard.outputs.skip == 'false'
+        continue-on-error: true
+        timeout-minutes: 3
+        run: node scripts/routine-usage-report.mjs || true
+        env:
+          ROUTINE_NAME: ${{ inputs.routine_name }}
+          ROUTINE_MODEL: ${{ inputs.model }}
+          MAX_TURNS: ${{ inputs.max_turns }}
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
+          ROUTINE_USAGE_OUT: ${{ github.workspace }}/routine-usage.json
+
+      # `if-no-files-found: ignore` only covers an ABSENT file — a real
+      # upload-service error still propagates and would fail the job via
+      # `core.setFailed` without `continue-on-error` here too (same
+      # best-effort contract as the step above).
+      - name: Upload routine usage telemetry
+        if: always() && steps.guard.outputs.skip == 'false'
+        continue-on-error: true
+        timeout-minutes: 2
+        uses: actions/upload-artifact@v4
+        with:
+          name: routine-usage
+          path: routine-usage.json
+          if-no-files-found: ignore
+          retention-days: 90
