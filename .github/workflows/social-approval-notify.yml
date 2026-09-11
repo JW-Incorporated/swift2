@@ -58,7 +58,6 @@ jobs:
           REPO: ${{ github.repository }}
           PR: ${{ github.event.pull_request.number }}
           SHA: ${{ github.event.pull_request.head.sha }}
-          SOURCE_ROUTINE: ${{ github.event.pull_request.user.login }}
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
           set -euo pipefail
@@ -101,8 +100,8 @@ jobs:
             [ "$first" -eq 1 ] || echo "," >> /tmp/drafts.json
             first=0
             gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
-              | jq --arg routine "$SOURCE_ROUTINE" --arg file "$f" \
-                '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, sourceRoutine: $routine}' \
+              | jq --arg file "$f" \
+                '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, lane}' \
               >> /tmp/drafts.json
           done <<<"$QUEUE_FILES"
           echo "]" >> /tmp/drafts.json
@@ -116,7 +115,7 @@ jobs:
           fi
 
       # RULINGS-SOCIAL.md A3 — labeled so the digest, the rejection-reading
-      # step in growth-draft.md, and any future tooling can all find
+      # step in tree-daily-draft.md, and any future tooling can all find
       # "PRs that went through the real approval brief" by label instead of
       # re-deriving the queue-path check.
       - name: Label the PR social-draft
@@ -183,7 +182,6 @@ jobs:
           while IFS="$(printf '\t')" read -r PR URL SHA HEAD_REF; do
             [ -z "$PR" ] && continue
             META=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[] | [.status, .filename] | @tsv')
-            AUTHOR=$(gh pr view "$PR" --repo "$REPO" --json author --jq '.author.login')
             QUEUE_FILES=$(HEAD_REF="$HEAD_REF" node scripts/automerge-social-approval-gate.mjs <<<"$META")
             [ -z "$QUEUE_FILES" ] && continue
 
@@ -194,8 +192,8 @@ jobs:
               [ "$first" -eq 1 ] || echo "," >> /tmp/digest-drafts.json
               first=0
               gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
-                | jq --arg routine "$AUTHOR" --arg file "$f" \
-                  '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, sourceRoutine: $routine}' \
+                | jq --arg file "$f" \
+                  '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, lane}' \
                 >> /tmp/digest-drafts.json
             done <<<"$QUEUE_FILES"
             echo "]" >> /tmp/digest-drafts.json
@@ -216,7 +214,7 @@ jobs:
       # `social-draft` PR closed unmerged in the last 24h with no `reject:`
       # comment gives the drafting routine nothing to learn from. Listed
       # here (loud in the Action log/step summary), not auto-filed anywhere
-      # — the drafting routine's own read of rejected PRs (growth-draft.md)
+      # — the drafting routine's own read of rejected PRs (tree-daily-draft.md)
       # is the consumer that matters; this is a human-visible backstop for
       # when even that silent-close case happens.
       - name: Flag social-draft PRs closed unmerged with no reject reason

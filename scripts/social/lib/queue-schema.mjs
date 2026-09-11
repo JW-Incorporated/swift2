@@ -30,6 +30,13 @@ import { approvalStatus } from './queue.mjs';
 /** Platforms the poster can actually publish to (post-queue.mjs's postOne). */
 export const PLATFORMS = ['x', 'instagram'];
 
+/** Which lane a queue item came down — replaces the free-text `sourceRoutine`
+ * (Tree Overhaul T1, 2026-09-12): with one drafter, the routine name carried
+ * no information; the lane does. `calendar` is a slot Tree planned in
+ * social/calendar.md (the normal path); `merch`/`appearance` are T6 fast-lane
+ * items; `reddit` is a Reddit prompt (S6), not a platform post. */
+export const LANES = ['calendar', 'merch', 'appearance', 'reddit'];
+
 /**
  * Campaign-family prefixes whose posts are inherently ABOUT one specific
  * era — the "easter eggs" thread ties every node to a lens/egg id with its
@@ -200,6 +207,11 @@ export function validateQueueItem(item) {
     );
   }
   const rules = PLATFORM_RULES[item.platform];
+
+  // --- lane (Tree Overhaul T1, 2026-09-12 — replaces sourceRoutine) -------
+  if (!LANES.includes(item.lane)) {
+    findings.push(`lane: ${JSON.stringify(item.lane)} is not one of ${LANES.map((l) => `"${l}"`).join(', ')}.`);
+  }
 
   // --- body ---------------------------------------------------------------
   if (typeof item.body !== 'string' || item.body.trim() === '') {

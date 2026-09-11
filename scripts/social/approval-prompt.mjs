@@ -16,7 +16,7 @@
 // kills the draft). Reject = react ❌ the same way — on a draft drops just
 // that file, on the header closes the whole PR; the poll job then carries
 // out the A3 rejection path (git rm + PR comment / PR close), so
-// docs/agents/runner-prompts/growth-draft.md's drafting routine still reads
+// docs/agents/runner-prompts/tree-daily-draft.md's drafting routine still reads
 // a `reject:` comment before drafting again.
 //
 // Every message this builds carries a machine-readable
@@ -61,7 +61,7 @@ export const TREE_AVATAR_URL = `${MEDIA_BASE_URL}/social/tree-avatar.png`;
 function formatTreeIdentityLine(draft) {
   const scheduled = new Date(draft.scheduledAt);
   const slot = Number.isNaN(scheduled.getTime())
-    ? `fast lane: ${draft.sourceRoutine ?? 'unknown'}`
+    ? `fast lane: ${draft.lane ?? draft.sourceRoutine ?? 'unknown'}`
     : `${draft.scheduledAt.slice(0, 16).replace('T', ' ')} UTC`;
   const pillar = draft.why ? (draft.why.length > 80 ? `${draft.why.slice(0, 80)}...` : draft.why) : 'unspecified';
   return `Tree · slot: ${slot} · pillar: ${pillar}`;
@@ -169,7 +169,7 @@ export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, rep
   const header = {
     content: [
       `**Social approval needed · PR #${pr.number}** — <${pr.url}>`,
-      `Drafted by: ${drafts[0]?.sourceRoutine ?? 'unknown'} · ${drafts.length} draft${drafts.length === 1 ? '' : 's'}` +
+      `Drafted by: ${drafts[0]?.lane ?? drafts[0]?.sourceRoutine ?? 'unknown'} · ${drafts.length} draft${drafts.length === 1 ? '' : 's'}` +
         (drafts[0]?.campaign ? ` · campaign \`${drafts[0].campaign}\`` : ''),
       'Approve: react ✅ on a draft below, or on this message for all of them. Reject: react ❌ (on a draft drops just that one; here closes the PR). Merging the PR yourself does NOT approve — it kills the drafts.',
       `ref: PR #${pr.number} · ${headSha} · *`,

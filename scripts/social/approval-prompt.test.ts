@@ -57,6 +57,16 @@ describe('buildApprovalPrompt', () => {
     expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: fast lane: growth-draft · pillar: sourcing explanation');
   });
 
+  it('prefers `lane` over `sourceRoutine` for the Tree identity slot fast-lane label (Tree Overhaul T1)', () => {
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ scheduledAt: 'not-a-date', lane: 'merch', sourceRoutine: 'growth-draft' })], { now: NOW, headSha: 'abc123' });
+    expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: fast lane: merch · pillar: sourcing explanation');
+  });
+
+  it('header renders "Drafted by: calendar" (not "unknown") for a lane item — spec AC#6', () => {
+    const messages = buildApprovalPrompt(pr(), [draft({ lane: 'calendar', sourceRoutine: undefined })], { now: NOW, headSha: 'abc123' });
+    expect(messages[0].content).toContain('Drafted by: calendar');
+  });
+
   it('falls back to "unspecified" pillar when a draft has no `why`', () => {
     const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ why: undefined })], { now: NOW, headSha: 'abc123' });
     expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: 2026-09-11 15:00 UTC · pillar: unspecified');
