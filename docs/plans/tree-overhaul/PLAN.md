@@ -47,7 +47,7 @@ telemetry thresholds · A4 quality sampling · A5 guard delete path.
 
 | Wave | Items |
 |---|---|
-| 1 | specs for S3, T1, T2, T4, T5, T6, T7 (+ ladder policy → decisions.md) |
+| 1 | specs for S3, T1, T2, T4, T5, T6, T7 (+ ladder policy → decisions.md). **S6 and T3 are deliberately NOT designed in Wave 1** — they are built directly in Waves 3/4 against S3's generic reaction table. R2/R3 must not expect a spec for either. |
 | 2 | S1, S2, S4, S5, S7, A1, A2-quarantine, A5 |
 | 3 | S3, T1, T2, T4, T5, S6, S8 |
 | 4 | T3, T6, T7, A4, A3 (after 2 snapshots), A2-real-fix |

@@ -165,4 +165,14 @@ now code-complete across all 7 phases (0-6).**
 
 ## Architect invocations
 
-None this task.
+- **2026-09-11, Tree Overhaul Wave 1 design review** (Fable, read-only, ~20 min).
+  One pass over the seven `docs/specs/tree-overhaul/*.md` specs against the
+  plan's goal state. By judgment, not mandatory: a seven-spec design fork whose
+  consequences are Waves 3-4 of rework. Returned 7 must-fix findings, 5
+  should-fix, and a recommendation to park T7. All 7 must-fix were verified
+  against the code by the orchestrator before folding in — 2 of them corrected
+  facts an earlier researcher agent had reported wrongly (`social/queue/` is NOT
+  empty; the poll already declares `contents: write`). Folded in: all 7
+  must-fix, 4 of 5 should-fix. Rejected with reasons in the PR body: dropping
+  T4's mid-week replan dispatch, dropping thread ingestion, dropping T6's
+  rolling-7d fast-lane cap.
