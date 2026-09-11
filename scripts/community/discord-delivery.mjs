@@ -2,6 +2,15 @@ import { runMain } from '../lib/cli.mjs';
 
 export const DISCORD_MESSAGE_LIMIT = 2_000;
 
+/** Webhook display identity (Tree Overhaul S5) — matches approval-prompt.mjs's
+ * TREE_WEBHOOK_USERNAME/TREE_AVATAR_URL so every message this repo posts to
+ * a Discord social channel, community prompts included, shows as "Tree"
+ * with the same stable avatar. `apps/web/public/social/tree-avatar.png` is a
+ * placeholder (see MAP.md), served from the same host post-queue.mjs
+ * publishes media from. */
+export const TREE_WEBHOOK_USERNAME = 'Tree';
+export const TREE_AVATAR_URL = 'https://www.longlivets.com/social/tree-avatar.png';
+
 export function neutralizeMentions(text) {
   return String(text ?? '')
     .replace(/@everyone/g, '@\u200beveryone')
@@ -170,7 +179,12 @@ export async function postCommunityPrompts(
       const response = await fetchImpl(`${webhook}?wait=true`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ content: prompt.content, allowed_mentions: { parse: [] } }),
+        body: JSON.stringify({
+          content: prompt.content,
+          username: TREE_WEBHOOK_USERNAME,
+          avatar_url: TREE_AVATAR_URL,
+          allowed_mentions: { parse: [] },
+        }),
       });
       if (!response.ok)
         throw new Error(`Discord social-channel delivery failed with HTTP ${response.status}`);

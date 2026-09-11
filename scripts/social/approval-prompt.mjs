@@ -41,6 +41,31 @@ function escapeFences(text) {
   return String(text ?? '').replace(/```/g, '``​`');
 }
 
+/** Webhook display identity (Tree Overhaul S5) — every message this script
+ * posts to #longlive-social shows as "Tree", not a bare webhook name, with
+ * a stable avatar so the channel reads as one consistent actor.
+ * `apps/web/public/social/tree-avatar.png` is a placeholder (see MAP.md),
+ * served from the same host post-queue.mjs/mediaUrlsFor already publish
+ * from (MEDIA_BASE_URL) so this never depends on a second CDN/host. */
+export const TREE_WEBHOOK_USERNAME = 'Tree';
+export const TREE_AVATAR_URL = `${MEDIA_BASE_URL}/social/tree-avatar.png`;
+
+/** "Tree · slot: <calendar slot or fast-lane routine> · pillar: <why or
+ * unspecified>" — the first line of every draft brief (Tree Overhaul S5).
+ * `slot` prefers the draft's scheduled calendar time (same formatting as
+ * formatScheduleLine's compact stamp); a draft with no valid `scheduledAt`
+ * fell outside normal calendar scheduling, so it's labeled by the routine
+ * that produced it instead. `pillar` surfaces the `why` field (truncated)
+ * so a founder sees at a glance whether this draft is sourced. */
+function formatTreeIdentityLine(draft) {
+  const scheduled = new Date(draft.scheduledAt);
+  const slot = Number.isNaN(scheduled.getTime())
+    ? `fast lane: ${draft.sourceRoutine ?? 'unknown'}`
+    : `${draft.scheduledAt.slice(0, 16).replace('T', ' ')} UTC`;
+  const pillar = draft.why ? (draft.why.length > 80 ? `${draft.why.slice(0, 80)}...` : draft.why) : 'unspecified';
+  return `Tree · slot: ${slot} · pillar: ${pillar}`;
+}
+
 /** Account identity shown per platform — constant, not derived from a
  * draft's own fields (a draft carries no account id; the posted ledger's
  * URLs are the only place the handle shows up today, and hardcoding it
@@ -156,6 +181,7 @@ export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, rep
     const mediaUrls = mediaUrlsFor({ media: draft.media ?? [] }, MEDIA_BASE_URL);
     const embeds = mediaUrls.map((url) => ({ image: { url } }));
     const content = [
+      formatTreeIdentityLine(draft),
       `**Draft ${i + 1} · ${account.label} — ${account.handle}**`,
       ...formatDraftLines(draft, { now, headSha, repo, facebookCrosspost }),
       `ref: PR #${pr.number} · ${headSha} · ${draft.file}`,
@@ -201,6 +227,8 @@ export async function sendApprovalPrompt(
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({
             content: chunks[i],
+            username: TREE_WEBHOOK_USERNAME,
+            avatar_url: TREE_AVATAR_URL,
             allowed_mentions: { parse: [] },
             ...(chunkEmbeds.length ? { embeds: chunkEmbeds } : {}),
           }),

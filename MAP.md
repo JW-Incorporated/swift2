@@ -397,3 +397,4 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `docs/plans/tree-overhaul/rechecks/` | Routine-written recheck reports (one per checkpoint) |
 | `docs/agents/runner-prompts/plan-recheck.md` | Prompt for the plan-recheck routine (Opus, read-only, reports to #4117) |
 | `.github/workflows/plan-recheck.yml` | Daily gate job + routine-template call; no-op when nothing is due |
+| `apps/web/public/social/tree-avatar.png` | Wave 2 S5: Discord webhook avatar for "Tree" identity (approval-prompt.mjs, community/discord-delivery.mjs). Placeholder (377 bytes, generated solid-circle+glyph PNG) — meant to be replaced with real brand art later |
