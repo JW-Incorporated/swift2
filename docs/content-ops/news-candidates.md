@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 84
+
+## Taylor Swift Responds to Wedding Guest's Controversial Claim
+
+- first seen: 2026-09-11 23:13 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly upset over a wedding guest's assertion that some attendees did not know the bride well, with claims that some of them had never met her. This revelation has sparked discussions about the guest list and event dynamics.
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMinwFBVV95cUxNSWJWbkQ1RUUtald5VVFGb1FWLTBIRGp4RWtyR2R2dzdNRmpDRVRHSWhmblRHS084XzNOUmpiZlFwV0taMEI4SUNMVDZMNkp3b2tOcmd0elp2ZTVVYXd6NUJCUC03RzdXXy1ucWozbXMtYjZBUWRzRlJBbmI2Zm4tTkNXS2hrV0JxWGsyTTllNk9tRDJ1RnZtcHNrS3NrNnc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Describes Wedding to Taylor Swift as Best Night
+
+- first seen: 2026-09-11 23:13 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has called his wedding to Taylor Swift the best night of his life, according to Extra TV. The couple's union has garnered significant public interest and highlights their relationship status.
+- sources:
+  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxNX1c0YkZhclFxVXlsUTFuYWs0RTF0d0s4ZnFzYXNLVHpJM3hiN0JCdkY0cng3cWJHUmVCUk84aU5JWk5LS0l3N3ZLZUowc0h5NTVCMHpJbUd5VGRKZUVYa2ZaMjRRaUZESDdhWl9lSmU5dXhXVExGRENFQ241blNNeF9FR0FaeTd4dm16TDdXd0xDQURuaXQyWWMxY00?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Supports Travis Kelce's New Relationship
+
+- first seen: 2026-09-11 23:13 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has reportedly started seeing someone new, and Taylor Swift is said to support him in this decision. The news reflects ongoing developments in their personal lives.
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMijAFBVV95cUxNY0w5aGZ2ajdMajY4YnBGVnFMdXBLWHM2dmhRQlF4WWNZSTB4UnNJU2V2amp2cHBwN0ktZnREU0lYbkVvVGlWam9wV0NPTzBUQ1ZybXJkNlVvdV8tVDRVcWNRV3k4aUlVaXY4ZGVYX0owc2pxdnMwUU04Xy1NcFhKWVQyMVB4aktkeC1xOQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New York Event at M.S.G. Hints at Possible Taylor Swift Appearance
+
+- first seen: 2026-09-11 23:13 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An upcoming event at Madison Square Garden in New York has sparked speculation about a potential appearance by Taylor Swift, based on various clues leading up to the date.
+- sources:
+  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMilgFBVV95cUxOdkhha0N5cGhxYTg2RjlFVkJDQUJRekkxMk9KYmlnR0tFaDdZTEN1SXlOcW9CN2h0emtlOU1MNXpESVU4NXlxalhLa0lBOWozMnM1NTMwbVEwV1U0Z3RhWWNUY2tCLWhWbGlSRk0tSkI1eDdkOERtdXRuNHlFSzdmNGpLaWlYS21VMWt2UDFQa1ZjYTB3YUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Gets Insect Named After Her
 
@@ -42,26 +74,6 @@ Stories: 88
 - summary: Travis Kelce expressed his feelings about marrying Taylor Swift, stating it is more than he ever imagined. This reveals his deep appreciation for their relationship.
 - sources:
   - [unverified] eonline.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxPVWx2ZnRSZDkya21xaUhEbTIySk5tUldtQkdXUXRLMF92ZnpJM3ZxRklHMDhQZEM0T2lDenZLb0xTNjlXTE5GeXREV3dVVXF2c09QT0FfVFFoRzlGSmVQMU1ESElNajB3aTkyNGx6UXoxbEFsRFFKc2p6bUt2MmdCUWtUYU5nT2NVd2o2eFBRN3pIVU5VT1VaS1R0ZVN1VWp0QmpFQ0UyY29tXzhr?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Attend CMA Awards
-
-- first seen: 2026-09-11 19:38 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is confirmed to attend the upcoming CMA Awards, marking her return to the event. Details about her participation are yet to be revealed.
-- sources:
-  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMikAFBVV95cUxORU1oU256RzZaRTAyRzFHS2w2OVpUcVNpX05rSUh5dGYxUVVJZS1GMVRyeWNvSlpCTktYY0IyVGFmaThudTl6UlptVzJTVkR5T2d2bURGaU9BN0V6SXNUNE5WVVVhcmMyeWZERzJLajdZVnNGQWZXTHJqU05RSFFORUhpcE96WVNhRW92ckltVGU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Reflects on Taylor Swift Wedding as Best Night of His Life
-
-- first seen: 2026-09-11 19:38 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 5
-- summary: Travis Kelce recently expressed that his wedding to Taylor Swift was the best night of his life, sharing his thoughts in a new interview. His comments highlight the significance of the event in his personal life.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxPNV85TVFta3JfdlVtRVdmRnc2UmY0eWNMWlBsLU1vdjZDYjNZX1RBdXZKdnJsREI0V1ZKVEFTM2tIdkdPd3NRZEZ4ZE1haDB1WC1BTFhaVE80R1o0dElyelc0MWhSNE45SFV4Z1g0Q19NeUpXck1uZ1FxMmpaeW9uNklYZ3J0T2xvZTdyOElCdWdaN0xJbmQzZDZGV0JtbURwU2FZX2tDTEtZQXFrYkE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQdloxZExLbG1GNTVEMm9NYVYtWjNhaWFrWWtmbHRCR1A4c0lncHNxTG9mUG5oVHd2QjlrOF84cDk2clhsbjdERk4xQzREM0xzcExhb2s4M3o1X29qSXFvU0EwbEphZHdTd25VU0NIcm5FRlhSWUUxV0NmX184Zkk1Z21PNF9OZWFZQTFETHNSMDhlbzczZnJJaUVtV3ZDR2VJVERzVG85UVZIUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rural Radio Network — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOWlMydXo5VUxsVGQyaUlWUWJPYXg2endYc2ZJSUY1NzFSUmcwRi1HNXRZVTd6dkFNNmxRV3Rwd1h5dERRZExtUUdlbjJWa29Rd0EyMWNOVE1QVy16VGFmZWxTVlZ1Z0lZQ1hXMXo4aEdVQm9wOXhTNFdJVjRSQUJHLUhwUGR4RmM4RnRxUkF4ZElvTDk3dzVZVFV3Rk9hVFBMZ3BRSjQ2bUY5a0xXM3ZCVHdyYzRMNHhpcEtsZzhNeXlEQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMiwwFBVV95cUxNRGd4T0x5NEVZeUhPTTRfSkw5dDFiRnh6SWlXZ3dTSkt4RHo5dG85LXYzYlNoQUprWUpZNWpoREtMakVQRzlHU2hEbEdUcTY0N0xiZVBvcGJaWnQxMVVudDFPNFdWMlE3T1BXSGk4NS1kZ2p4VlFWbVdIYnpfYVBzeWFqT0lqbzRlRXFhZ3d0eGhPS2RjLTdvcW1TYXJkTTExVjJxZURhRGZ6N3FvNk1hSHBMazBaWFBnWWpoY0cyeTB4Yzg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxOOEY2clRKXzlBbFpyVERDYktIZGN3c0Foc3F2ZWZ2T2I0SlpQNE9NYnRMWDUzYUNLeDBmTGN0cENhTk0wcVNyQWktTzNBWkVJeHdSM2dKSkQwcXYybENaeWRvdmJVY2NCSWttaklGN1RnMGJmUHBZOWJlQ05PY3JCOTd2V0MwSEpXQVhoR3lwbm5Ld3Byb1dRdA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Discusses Marriage to Taylor Swift
 
@@ -94,6 +106,30 @@ Stories: 88
 - summary: In a recent interview, Travis Kelce shared heartfelt sentiments about his relationship with Taylor Swift, saying it exceeds his dreams. The remarks highlight the depth of their connection to each other.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOMVFKWXgyLTA1MkVGcGY5SndwSTZHRFdPTFoxMnFRVmhQcmxyRS1zU29Xc1dVT3lXQzBDQ3hSS1VtVVFDN1p3STdBTWU0MHRhc0F1S3RaamFrSDgzY0NXNFVOVmwxWFo3azVlMXlnSGo1QTQ1WjlKYXAwODA4cG1RWTVVVUUxUXB2M0VjdTNTUTlZaUpiUFE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Attend CMA Awards
+
+- first seen: 2026-09-11 19:38 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift is confirmed to attend the upcoming CMA Awards, marking her return to the event. Details about her participation are yet to be revealed.
+- sources:
+  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMikAFBVV95cUxORU1oU256RzZaRTAyRzFHS2w2OVpUcVNpX05rSUh5dGYxUVVJZS1GMVRyeWNvSlpCTktYY0IyVGFmaThudTl6UlptVzJTVkR5T2d2bURGaU9BN0V6SXNUNE5WVVVhcmMyeWZERzJLajdZVnNGQWZXTHJqU05RSFFORUhpcE96WVNhRW92ckltVGU?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KATU — https://news.google.com/rss/articles/CBMixwFBVV95cUxQdlpDSlFGTW5hN3ZFY2VBVDVXd2E2eFhReFRIRXE0UXNRb082VmFqNHFTbllsbWdZRER1QnBweTcySGhOSVlXX0hfb3E0Tk1iemhSb2cxVU9nR3ZRT01FUGFQdUVnS2tHb2Y1VkR0UHRBZ2h1dDgyenRhczBtOHFJcVlSTWZES3lMMHl6dTFoYW5vTHBQUmYxN01CdVNYVVRWOERkWjZKNDZQblI0dG92Mk5DZ2ZfTl9uOEpkV3c2R3VHYVhmOFhj?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WJAC — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOY3djenY2OFQxcGRDdHZBdENPM2FBV0ZoMkF4MFJXQkNhRDZrWGtfN1N6UW9WWUZscTJHRXlZanhzN0dIRmZQZUVYUjJ3TXlUenNveWNkVUtPWi1sYWpQVE5BbEsyWHNnT3ZCeHlxdk1wbGZfbFJSYWJQeExkbVNsbWxPby15NV92QXphNWtTQUplazl6Q0U1RTJpc2NKZGhKT3ZFaHlUbWZYZDFtbU15QXFSMkhEY1o2Rmd4V1I5bXJxV0U?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Reflects on Taylor Swift Wedding as Best Night of His Life
+
+- first seen: 2026-09-11 19:38 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 7
+- summary: Travis Kelce recently expressed that his wedding to Taylor Swift was the best night of his life, sharing his thoughts in a new interview. His comments highlight the significance of the event in his personal life.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxPNV85TVFta3JfdlVtRVdmRnc2UmY0eWNMWlBsLU1vdjZDYjNZX1RBdXZKdnJsREI0V1ZKVEFTM2tIdkdPd3NRZEZ4ZE1haDB1WC1BTFhaVE80R1o0dElyelc0MWhSNE45SFV4Z1g0Q19NeUpXck1uZ1FxMmpaeW9uNklYZ3J0T2xvZTdyOElCdWdaN0xJbmQzZDZGV0JtbURwU2FZX2tDTEtZQXFrYkE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMisgFBVV95cUxPUV9NMzEzVXNTUTBGSjV0NDJmLVh1VUkzaFlrcEZnRmYtOFllbGQ0d0JSUTRxaVZyOWZBY2dxel9aWU5UNGx4bmJrZ0FrLUVZeUM5dGdCLUd1aHJNanJfZnBWdEVsTTNPTjlxQlBsYkFXcnd6SUx2SGJNQll6bm9ISzV4c2NTQ0s4ZFFBaXBvZ1FqUWF6bi1RVUl0aGFpQVVQRjBEMlJHZ191N1poNUZJQjZn?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQdloxZExLbG1GNTVEMm9NYVYtWjNhaWFrWWtmbHRCR1A4c0lncHNxTG9mUG5oVHd2QjlrOF84cDk2clhsbjdERk4xQzREM0xzcExhb2s4M3o1X29qSXFvU0EwbEphZHdTd25VU0NIcm5FRlhSWUUxV0NmX184Zkk1Z21PNF9OZWFZQTFETHNSMDhlbzczZnJJaUVtV3ZDR2VJVERzVG85UVZIUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Rural Radio Network — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOWlMydXo5VUxsVGQyaUlWUWJPYXg2endYc2ZJSUY1NzFSUmcwRi1HNXRZVTd6dkFNNmxRV3Rwd1h5dERRZExtUUdlbjJWa29Rd0EyMWNOVE1QVy16VGFmZWxTVlZ1Z0lZQ1hXMXo4aEdVQm9wOXhTNFdJVjRSQUJHLUhwUGR4RmM4RnRxUkF4ZElvTDk3dzVZVFV3Rk9hVFBMZ3BRSjQ2bUY5a0xXM3ZCVHdyYzRMNHhpcEtsZzhNeXlEQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMiwwFBVV95cUxNRGd4T0x5NEVZeUhPTTRfSkw5dDFiRnh6SWlXZ3dTSkt4RHo5dG85LXYzYlNoQUprWUpZNWpoREtMakVQRzlHU2hEbEdUcTY0N0xiZVBvcGJaWnQxMVVudDFPNFdWMlE3T1BXSGk4NS1kZ2p4VlFWbVdIYnpfYVBzeWFqT0lqbzRlRXFhZ3d0eGhPS2RjLTdvcW1TYXJkTTExVjJxZURhRGZ6N3FvNk1hSHBMazBaWFBnWWpoY0cyeTB4Yzg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxOOEY2clRKXzlBbFpyVERDYktIZGN3c0Foc3F2ZWZ2T2I0SlpQNE9NYnRMWDUzYUNLeDBmTGN0cENhTk0wcVNyQWktTzNBWkVJeHdSM2dKSkQwcXYybENaeWRvdmJVY2NCSWttaklGN1RnMGJmUHBZOWJlQ05PY3JCOTd2V0MwSEpXQVhoR3lwbm5Ld3Byb1dRdA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxNbUt2a1B0TkVPVWpVbUtuZjdtSzlSX0steTN5b0tLNGp6M2s3b2JGZU03Vy1pak9aYy1zVTBPN2UyZW1Pb0prd0p1ZXFRazRiNU9PMGNLQXJkanpkQ3lLbWlXZFlaaDdaZXZ1VUZtZGhLQjNjUVlhblNiZ1hvbWViSTdGeWJJMnhqenc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Reportedly Frustrated With Travis Kelce Post-Wedding
 
@@ -698,68 +734,3 @@ Stories: 88
 - summary: Taylor Swift and Travis Kelce were spotted on their first date night since getting married. The couple stepped out together, making their outing a special occasion.
 - sources:
   - [unverified] Vogue — https://news.google.com/rss/articles/CBMimgFBVV95cUxNRy04a3h3Qk9xbVlXTDJBb0lzS2NMMlYyZWlOY3ZLbE5iME5BdmRfT0pGVU1OOXd3Sk1jNW5BNjdsb0UtY2x4Y3VpalBkNzIyRTRxdkZSWDlncF83MDBZZXJfbWl5UnpxT2ZtX1lZandtdnNLeDNNaTFFdHFIb25WdmFzYUUwNjZWbFdKSmRPMUNRbENsMHl6cjBR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Returns to Top of Country Radio Chart After 13 Years
-
-- first seen: 2026-09-08 19:53 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has achieved a milestone by reaching the top of the country radio chart for the first time in 13 years. This marks a significant comeback for the artist in the country music genre.
-- sources:
-  - [unverified] Gulf Coast News and Weather — https://news.google.com/rss/articles/CBMihgFBVV95cUxPd1pZdWMxZlVaS0djZm0wOTN5MG5pWjdYWVU0bGhaa1RRWGo1M3IzWUtoTFg0LW1ueURTd1B1TzhNOWhnbFhGS3RaQ094cnRsWnAxdG9ld3RKdmRMWkxyaWZzNG52R2pkVzdoMkZlRU91eVlFbTdFdzZaTGZadk0zZFhUalNCQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Latest Song Reaches Top of Billboard Hot 100 and Country Radio
-
-- first seen: 2026-09-08 19:53 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's newest song has achieved the top position on both the Billboard Hot 100 chart and country radio rankings, marking a significant milestone in her music career.
-- sources:
-  - [unverified] CW33.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxPM1czdUJ2dzVvVF8yTlViN0RYMC1YYnFRaUdvcUpyb0tKRkxSblg3cldJdnpwcW1FRFhqNmdfM2pqQWh0eDBGRzJ4VFNZRnByR2d3NVo3SHhZTHNYeUFhRmt4WWJCOENXTGxuUXB3cklNSFhNR2Jjc3dyWl84U0pCWW5SRUpuVXFVdUg5bk9reFNBLTExUWt4ay1oYl90bmZxbXNWVdIBqgFBVV95cUxQUlp5Wl8yX21KbXpIdkNlaWFQWDNqS1FQRTk3VjIzWmIyUDU0Z0xTcDR1YndTbHdnMW5wQnlvUjVLY1JScFJHNVhSOU5XM3lQbGlTSUhOb2RTa08yWW1ZdEJFMHB2eEUxczZKcVFvRlZwVmZQamR3NUQtdG44SC1heWpTWnZ2R2MtbmppUU9NNzJ4UHBmTXM1TUlHTnVTVVdFWjVNWHBCaDBYQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Weill Center Announces Fall Lineup Featuring Taylor Swift Tribute and Ghost Tours
-
-- first seen: 2026-09-08 19:53 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Weill Center has revealed its fall lineup, which includes a tribute to Taylor Swift along with ghost tours. This event promises to showcase diverse entertainment options for attendees.
-- sources:
-  - [unverified] The Sheboygan Press — https://news.google.com/rss/articles/CBMi5AFBVV95cUxNdmZ1elRUWm9QLVYzY1ZtUnBxNGhpU3pTY0ktOXVWMXRfeHhWc0FfaFIxT2RrZUtWbWFWMW9JWWZSd2wzTENkSmlMMHprelk2bDdxYWNxd0pBcVBTWjZJeTJUclJaWURnRVE4RTcwYnBEMGNtRUJERzl4MmVDSmV2V3RxMVBMQVFnbUFIb3lSNC0zdk9wVWoySnI5bUs5akdDSUZ3WHdPQWlwbmFKdUxmRlBYenZBN2VmaWtEemNYb2czNEZPQ2V0a0FQTVhyVTdaLVNCWDJKemlSaEstZjZZMXVaWXU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and George Strait to Receive Honors at Nashville Gala
-
-- first seen: 2026-09-08 19:53 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and George Strait are set to be honored at a gala in Nashville on October 26, as reported by The Tennessean. The event will celebrate their contributions to the music industry.
-- sources:
-  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMiygFBVV95cUxOblNhdmtRQmN2WG85d3h1QlJOUWRjWUIxa042ZFJpZWJEWjVTb2NLQkZxdml5WFEzcFdGbnZTZXVRZmxuWklORDZYaW9JVlR4OW01VExPMWN2RDV5MWpNbTZaazlpaVNqT0pQUUZsc0w4SXFXNFVHeElFeFFvNGRCMV9TNXVjX1hYdXZBdmNTT2xXQmg5RlNoSkZSVFNwZENYM1ByU1ZwcXI4c2xJeGFsWDQ0ZWV2eU1oakEtZWR3WVlCYVMybWhFdW9R?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOMFhxdkF4ZDkwUXduUUNEUTNJc1hkLUV6SHZSMHYzOXNSbDBEYk91eVJ4V3BHYkxWclkwUC1jczJuSWwxdTBJWUhwWXdPVUJSVk9BdmV4eUsyRjVWVmhjeVJmSmRoYlFVTlA3bVlLTDF5ZHRyUjVFemp2VmVUQ3IxQUtzWnV2Z1Z2TVVUcm9xU3VzdHczdncycG5wZlNhMkVqMmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves 14th No. 1 at Country Radio
-
-- first seen: 2026-09-08 19:53 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has secured her 14th career No. 1 hit on country radio, as reported by MusicRow.com. This milestone further solidifies her impact on the country music genre.
-- sources:
-  - [unverified] MusicRow.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPQXRUOVZXOWo2dkRXZ3FSbm9YdldhNVp3Z3M1cUtkWDZVUHk3SHhxMTZ3OHdNN1R6bDkxbGQzZGxnOExOaDY4dEJCUVdOTDFtczRDZmJPbzRxZm1RcFRJUEQ2c2twV0laVDBPNFh1MnR5WlFwQm0yLUh3SVZxWEk2NXZsdWg3RGhM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Wear Matching Wedding Bands in NYC
-
-- first seen: 2026-09-08 19:53 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were seen wearing matching gold wedding bands during a night out in New York City, highlighting their recent marriage. The couple's appearance together continues to draw attention from fans and media alike.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMikAFBVV95cUxOcTFWbGZ1dGhoaFlBUkdwMExNaTllRjkwVlZTMWJVaGc0V1l5ZmxYTm1ESlcyckRvUUJEZGVuZk1KeUl1d21oU2k5SU01cS1XX3k3WU8wQkVnR1JqcHdsVE15YTRqWmkzQm1rTVA1aG1nMGZjU2NBNWxldHdxTi1UcEdWY2ZPaUl3Qk9yY0wyZTU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Jeweler Creates Baby Signet Ring for Her Daughter
-
-- first seen: 2026-09-08 19:53 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Vogue reports on a special baby signet ring made by Taylor Swift's favorite jeweler for her newborn daughter, highlighting the personal touch of the creation.
-- sources:
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMihgFBVV95cUxNMHgxbWtpWFp1NWdWdTBmRHNTbjk2NTRDUDh4US1qdmI1YmF5VVRnaUtPY1FFU1ZmV2NNeE9xZUtYRG1DYktOSm9XTkFxTVdMYnhGaDlPWl93WFpZTUlzRThJaWhYX3lQcFhpSXcxcnNqdWhKWTRXeGl2Yl84bGloYWJHUXFUZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Campaign Focus Post-Emmys in Question
-
-- first seen: 2026-09-08 19:53 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Discussion arises whether Taylor Swift will shift her campaign efforts towards the Grammys and Oscars following the conclusion of the Creative Arts Emmys.
-- sources:
-  - [unverified] LaineyGossip — https://news.google.com/rss/articles/CBMixAFBVV95cUxNRUJNRnRPaUVKSnl5RWdacmtvWHNNTExyclBHZGpjcmNndFYyYWZRNjdZc1lGNDFCd1djaHcxaUFxU1ZteHNJNWR3clpCMW95Y0ZOV2Vqa19UTTh3TnpDamZGcmRnRjBoTGkwUElWSF9GNzZHSE9Wc3FtMktBcjYyeEdhWHlINndLYVc2WUZZOUIxNl82cW44MDVDNXlWNnRuTU9aZWJlQVFucnJDc1R2N2xTdnlCdmRWN3pSelpqSFpocWNX?oc=5&hl=en-US&gl=US&ceid=US:en
