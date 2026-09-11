@@ -81,6 +81,16 @@ A month-old yes is not consent for an authority change whose worst case cannot
 be reverted. Full reasoning in `docs/plans/tree-overhaul/PLAN.md`, "Why T7 is
 its own wave, gated on R4".
 
+**Amended 2026-09-11 (Wave 1 review):** revocation does **not** "strip the
+policy stamp" from unposted items — those items are already merged to
+branch-protected `main`, which the poll cannot push to, so no file edit is
+possible and none is needed. `approvalStatus` for `kind: "policy"` requires
+an *active* grant, and the poster reads grants from `social-ledger` at post
+time, so revoking the grant invalidates every stamp it minted; the poster
+retires those items as unapproved and Tree re-drafts through the normal
+gate. Likewise the poll writes a `revoke` row to `social/feedback/` rather
+than a lesson — lessons are created only by the Monday run (T5).
+
 **Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
 
 ---
@@ -116,6 +126,13 @@ leaves the templates in place); intake-issue-only, with no fast lane at all
 founder gate already bounds the risk); letting the fast lane add a post
 rather than displace one (rejected — the per-platform daily cap would just
 drop one silently).
+
+**Amended 2026-09-11 (Wave 1 review):** the rolling-7-day cap is **two**,
+not three. The calendar runs one beat a day (`social/calendar.md`, which
+corrected strategy §2's two beats), so a week has seven slots; the spec's
+"three of fourteen" justification was computed against the superseded
+two-beat day, and three of seven would have been the half-a-calendar the cap
+exists to prevent.
 
 **Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
 
@@ -157,6 +174,15 @@ it); codifying at 2 firings (rejected — 3 matches rule 8 and avoids
 codifying a one-off restated); letting the poll merge an approved strategy
 PR (rejected — see above).
 
+**Amended 2026-09-11 (Wave 1 review):** the strategy diff is **not** staged
+in the plan PR. Tree opens a separate `tree/strategy/<week>-<n>` PR only
+after the founder's ✅ on the proposal, and the founder merges it. Bundling
+it into the plan PR would hold the week's calendar hostage to a strategy
+decision, or let a merge of the calendar silently carry an unapproved
+strategy change — and it contradicted the spec's own Behavior section and
+T4's proposal shape ("I'll open it as a PR for you to merge"). A ❌ opens no
+PR and there is nothing to revert.
+
 **Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
 
 ---
@@ -191,6 +217,12 @@ post and carry no permalink.
 brief (rejected — it does not fit, and a single reaction target could not
 distinguish three proposals); a Friday cut-off (rejected — it leaves no time
 to execute a re-plan).
+
+**Amended 2026-09-11 (Wave 1 review):** at one beat a day the 14-day
+calendar is 14 slots, not 28; the two-message split stands (14 rationale
+lines still crowd the limit, and 28 remains the tested stress case).
+Reactions on non-proposal messages need no reply and draw no nudge — S3's
+reply rule gates an action, and there is none there.
 
 **Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
 
@@ -333,6 +365,14 @@ the reason afterwards (rejected for drafts — nothing is public yet, so
 waiting costs nothing; **note the deliberate opposite call in T7**, where
 the post is already live and stopping the next one outranks collecting the
 reason first).
+
+**Amended 2026-09-11 (Wave 1 review):** the reaction table gains ⏭️ for
+Reddit items (skip — no reason asked, never a rejection, never a lesson),
+and the `reddit` scope is `reddit:<postId>` with `pr: null`, because
+Reddit prompts have no PR, no per-item file and — today — no `ref:` line;
+S6 adds a second ref-line form (`ref: reddit · <postId>`) with its own
+regex rather than stretching the PR form. Latest reply wins for a reason as
+well as for an edit (the spec's open-questions bullet had said otherwise).
 
 **Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
 

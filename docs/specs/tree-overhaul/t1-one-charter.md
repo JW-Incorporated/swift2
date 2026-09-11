@@ -202,6 +202,6 @@ None blocking. Decided here — all reversible:
 - **PR author identity is left alone.** Inventing a "Tree" GitHub identity would recreate exactly the fiction B1 rejected. *(reversible: a bot account could be added later)*
 - **Pipeline mechanics split out to `docs/social/pipeline.md` rather than absorbed.** A charter nobody finishes reading is not a charter. *(reversible)*
 - **Tombstone, not deletion.** Too many in-repo citations; a dangling link is worse than a three-line redirect. *(reversible)*
-- **`lane` replaces `sourceRoutine` outright**, no dual-write period, because `social/queue/` is empty today — the one moment this rename is free. *(reversible)*
+- **`lane` replaces `sourceRoutine` outright**, no dual-write period. The queue is *not* empty (see the precondition above), so the build either lands after the live drafts resolve or backfills `lane: "calendar"` into whatever remains, in the same PR — a one-off backfill is cheaper than a permanent dual-write. *(reversible)*
 - **The Tier-2 sampling gap is accepted, not engineered around.** *(reversible)*
 - **The weekly email's envelope sender stays `MARJORIE_EMAIL`.** Changing it is a credential action — founder-only — and the display name achieves the readable outcome. *(reversible)*

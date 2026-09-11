@@ -13,13 +13,13 @@ You are executing Wave 3 of the Tree Overhaul (`docs/plans/tree-overhaul/PLAN.md
 **Batch 1 (parallel):**
 - **#4127 + #4131 first, inside S3's worktree** (Wave 2 carry-over, 2026-09-11): the poller cannot finish a merge unattended after its own stamp commit advances the PR head SHA, so the S3 poller work must land the #4127 fix (match by PR number, not head SHA, or re-read the SHA after checkout) before the founder test below can prove a full cycle without a manual merge. #4131 is a one-line watchdog list fix; fold it into T1's PR.
 - **S3** reason protocol + `social/feedback/` ledger, per `s3-reason-protocol.md`. Includes the generic reaction→action table in the poller. Tests: 429 path still passes; ❌ without reply stays pending; ❌ with reply writes ledger + comment; ✏️ rewrites caption, restamps, keeps both bodies.
-- **T1** one charter, per `t1-one-charter.md`. Renames, docs, `runners.md`, Tier-2 trailers, Discord username already "Tree" from Wave 2.
+- **T1** one charter, per `t1-one-charter.md`. Renames, docs, `runners.md`, Tier-2 trailers, Discord username already "Tree" from Wave 2. **Two Wave 1 carry-overs land here:** (1) `social/queue/` is not empty — check it, and backfill `lane: "calendar"` into any live draft in the same PR that makes `lane` required; (2) T1/T2 make `lane` and `critique` required while the side doors cannot supply them until T6, so **pull T6's "stop writing captions" half forward into this wave** (merch-official-sync and appearance-discovery write `social/inbox/*.json` intents and zero `social/queue/` files, per `t6-side-doors.md` §Mechanics; the fast-lane drafting, rubric `v: 2` and `inbox.mjs` selection stay in Wave 4). Codex review — it touches the queue path.
 - **T5** lessons ledger file + Monday distillation step in `tree-plan.md` + daily-draft read step, per `t5-lessons-ledger.md`. Seed `social/lessons.md` with the rules already implied by the checker (banned openers, opener reuse, wire attribution) so it is not empty on day one.
 
 **Batch 2 (after Batch 1 merges, parallel):**
 - **T2** self-critique + why in the daily draft prompt and queue schema; `approval-prompt.mjs` renders the why as the first paragraph; `check-drafts.mjs` validates the `critique` object, per `t2-self-critique.md`.
 - **T4** weekly brief: Monday post from Tree, thread ingestion in the poller, Wednesday re-plan dispatch, per `t4-weekly-brief.md`. Dispatch the plan routine once against a scratch branch to render a real brief in the channel (mark it "TEST — ignore" in the first line) and screenshot-equivalent: paste the Discord message JSON the notifier sent into the PR body.
-- **S6 + S8** Reddit ✅/⏭️ completion via the reaction table; approval latency, expired-while-pending, Reddit-replies-done added to `weekly-scorecard.mjs`.
+- **S6 + S8** Reddit ✅/⏭️ completion via the reaction table (S3's `reddit` row: ✅ = replied, ⏭️ = skipped with no reason asked, ❌ = dropped with a reason; the prompt message must carry a `ref:` line whose scope token names the Reddit item); approval latency, expired-while-pending, Reddit-replies-done added to `weekly-scorecard.mjs`.
 
 ## Founder test at the end
 

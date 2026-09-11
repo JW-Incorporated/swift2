@@ -1,6 +1,6 @@
 # T7 — The autonomy ladder
 
-**Status:** spec, awaiting founder approval · **Epic:** #4117 (Tree Overhaul — Wave 1 design, Wave 4 build)
+**Status:** spec, approved for build · **Epic:** #4117 (Tree Overhaul — Wave 1 design; Wave 4 builds the read-only half, Wave 5 the acting half)
 **Depends on:** S3 (the ledger is the only evidence), T4 (proposals are how a grant is made), T5 (a revocation becomes a lesson).
 **Open question RESOLVED 2026-09-11** — the founder accepted the irrevocable-Instagram risk and approved T7 **for build**. It ships split across Wave 4 (measurement) and a new **Wave 5** (acting), gated on checkpoint R4. See the end, and `PLAN.md` → "Why T7 is its own wave, gated on R4".
 
@@ -138,9 +138,9 @@ A `posted:<type>` scope token (S3's table) with ❌ — and, exceptionally, **no
 
 On ❌ within 24h of the notice (measured from the notice message's timestamp):
 
-1. Set the grant `status: "revoked"`, with `revokedAt`, `revokedMessage`, and `revokedReason: null` until the reply lands.
-2. Every unposted queue item carrying a policy stamp for that type has its `approval` **removed** and returns to the gate. (Removing it is correct: the stamp's authority came from a grant that no longer exists.)
-3. Write a T5 lesson, `Times fired: 1`, titled for the type, with the notice and the reply as evidence.
+1. Set the grant `status: "revoked"` on `social-ledger`, with `revokedAt`, `revokedMessage`, and `revokedReason: null` until the reply lands.
+2. Every unposted queue item carrying a policy stamp for that type is **invalid from this moment, with no file edit**: `approvalStatus` for `kind: "policy"` requires an *active* grant in `options.grants`, and the poster reads grants from `social-ledger` at post time, so a revoked grant makes every stamp it minted fail verification. (No edit is possible anyway — those items are already merged to branch-protected `main`.) The poster treats them exactly as any unapproved merged item today: reported `unapproved`, retired at 48h. Tree re-drafts anything still worth posting through the normal gate in its next daily run, and the revocation message names the items this happened to.
+3. Append a `social/feedback/` row with `action: "revoke"`, `file: "posted:<type>"`, the notice as `messageId` and the reply (when it lands) as `reason`. **The lesson itself is written by the next Monday distillation** (T5 — lessons are created only in the Monday run, on `main`, via Tree's plan PR), titled for the type, with the notice and the reply as evidence and `Times fired: 1`.
 4. Retract what can be retracted:
    - **X** — delete via `DELETE /2/tweets/:id`. Not implemented today; new work in `scripts/social/lib/platforms.mjs`.
    - **Facebook** — `scripts/social/delete-media.mjs` already does this, invoked by the workflow. (Agents still may not run it by hand — that guard denial stands.)
@@ -194,14 +194,14 @@ I would also rule it out if anyone proposed a **global** grant, a grant with **n
 
 1. `eligibility()` returns `eligible: false` for: 7 briefs at 100% · 8 briefs with 1 ❌ · 8 briefs with 1 ✏️ (fails 95% at n=8) · any type while `SOCIAL_FREEZE` is set · a type with an existing active grant.
 2. `eligibility()` returns `eligible: true` for exactly 8 briefs, 8 plain ✅, 0 ✏️, 0 ❌ in the window.
-3. On day 0, with an empty ledger, the eligibility check runs and returns "not eligible" for every one of the six campaign families — no crash, no empty output. *(This is the Wave 4 gate in `docs/plans/tree-overhaul/PLAN.md`.)*
+3. On day 0, with an empty ledger, the eligibility check runs and returns "not eligible" for every one of the five queue-item campaign families (S3's `pillarOf` table; Human reach produces no posts and has no standing) — no crash, no empty output. *(This is the Wave 4 gate in `docs/plans/tree-overhaul/PLAN.md`.)*
 4. `approvalStatus` accepts a `v: 3` `kind: "founder"` record and a `v: 2` record; it rejects a `v: 3` record whose `kind` was altered after signing.
 5. `approvalStatus` rejects a `kind: "policy"` record when: no grant exists · the grant is revoked · the grant date in `by` does not match · the item's campaign family differs from the grant's type · the signature is invalid.
 6. `stampUnderPolicy` refuses to write anything when handed a file whose campaign family does not match the grant.
 6b. `verifyGrant` rejects a grant whose `sig` is absent, whose `sig` was computed over a different `type`/`grantedBy`/`proposalPr`, or whose `status` was edited from `revoked` to `active` after signing; `stampUnderPolicy` and `approvalStatus` both refuse on any of those.
 6c. A hand-written `social/autonomy.json` containing a plausible but unsigned `status: "active"` grant produces **no** policy stamp and **no** post — the forged-grant regression test.
 6d. `approvalStatus` performs no filesystem access: called with `options.grants` omitted, a `kind: "policy"` record is invalid, never a disk read.
-7. A ❌ on a `posted:<type>` notice within 24h: revokes the grant · removes the policy `approval` from every unposted item of that type · creates a T5 lesson · dispatches the retraction workflow. **No reply is required for any of it.**
+7. A ❌ on a `posted:<type>` notice within 24h: revokes the grant · makes `approvalStatus` return invalid for every unposted policy-stamped item of that type with no file edit (the poster then refuses them) · writes a `revoke` ledger row that the next Monday run turns into a T5 lesson · dispatches the retraction workflow. **No reply is required for any of it.**
 8. A ❌ on the same notice at 25h revokes the grant and dispatches **no** retraction.
 9. The retraction workflow deletes the X post, deletes the Facebook post, and files a `founder-task` for Instagram containing the post URL and the in-app steps; its channel message does not state or imply that the Instagram post was removed.
 10. The weekly brief lists every campaign family's ladder standing, whether or not anything is eligible.
