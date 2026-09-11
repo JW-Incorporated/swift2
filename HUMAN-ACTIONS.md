@@ -79,7 +79,7 @@ don't assume the same root cause a second time.
 
 **Steps:**
 1. In `JW-Incorporated/swift2` repo on GitHub, open **Settings → Code security and analysis → Code scanning → Set up → Default** to enable GitHub Advanced Security's Code Scanning for this repo (founder-
-2. In the same Settings area, open **Secrets and variables → Actions → Variables → New repository variable**: name it `CODE_SCANNING_ENABLED`, set its value to `true`, and save. (This step requires repo 
+2. In the same Settings area, open **Secrets and variables → Actions → Variables → New repository variable**: name it `CODE_SCANNING_ENABLED`, set its value to `true`, and save. (This step requires repo
 3. No code changes needed — `codeql.yml` already checks this variable correctly (line 18: `if: vars.CODE_SCANNING_ENABLED == 'true'`).
 
 **Worked if:** a manually dispatched `codeql.yml` run from the Actions tab shows the **Analyze** job running (not skipped) and Security → Code scanning alerts begin to populate with real findings.
@@ -97,7 +97,13 @@ cannot provide the required mobile and desktop rendered evidence. The deployed
 Open Gr
 
 **Steps:**
-1. TODO — steps needed
+1. Open https://www.longlivets.com/ on a real phone (or Chrome DevTools mobile emulation) at a mobile viewport (e.g. 390x844).
+2. Tap the Share icon (top-right, next to Search) in the top bar and confirm the OS native share sheet opens with a Long Live title/link.
+3. Screenshot the open share sheet on mobile and save it.
+4. Open https://www.longlivets.com/ in a desktop browser window (e.g. 1440x900).
+5. Click the same Share icon; since desktop browsers usually lack navigator.share, confirm it falls back to copying the link (check clipboard or any on-screen confirmation).
+6. Screenshot the desktop result and save it.
+7. Post both screenshots as pass/fail evidence on Kanban task t_b025b476.
 
 **Worked if:** one screenshot from each viewport shows the rendered page, and
 the result is recorded on Kanban task `t_b025b476` as pass/fail.
@@ -152,7 +158,7 @@ chosen outc
 `01a08457`): iOS build 10 and Android build 7 were both built on EAS from
 `main` 0b8ca769 (the native overhaul), iOS was submitted to TestFlight,
 and `submit_android` failed because there is no Play service-account key
-on EAS (#46). So Android's 
+on EAS (#46). So Android's
 
 **Steps:**
 1. Download the bundle (EAS artifact for build 7, commit 0b8ca769):
