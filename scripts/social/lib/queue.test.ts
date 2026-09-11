@@ -18,6 +18,10 @@ import {
   mediaUrlsFor,
   MAX_POSTS_PER_RUN,
   MAX_POSTS_PER_PLATFORM_PER_DAY,
+  contentHash,
+  approvalStatus,
+  signApproval,
+  verifyApprovalSig,
 } from './queue.mjs';
 
 const now = new Date('2026-07-17T20:00:00Z');
@@ -413,5 +417,73 @@ describe('mediaUrlsFor', () => {
 
   it('is an empty array for no media', () => {
     expect(mediaUrlsFor({}, 'https://example.com')).toEqual([]);
+  });
+});
+
+// RULINGS-SOCIAL-2.md B1/B5 — approvalStatus v2, and the property the whole
+// mechanism rests on: a hand-written approval object is inert at the
+// verifier. These exercise approvalStatus directly (the VERIFIER); the
+// issuer (who can mint a good one) is exercised in stamp-approval.test.ts.
+describe('approvalStatus (v2, signed)', () => {
+  const key = 'test-key';
+  const approver = 'discord:100000000000000001';
+  const item = { platform: 'x', body: 'hello', scheduledAt: '2026-09-20T00:00:00Z' };
+
+  function validStamp() {
+    const unsigned = { v: 2, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash(item) };
+    return { ...unsigned, sig: signApproval(unsigned, key) };
+  }
+
+  it('accepts a correctly signed v2 stamp from an approver, with the key', () => {
+    const stamped = { ...item, approval: validStamp() };
+    expect(approvalStatus(stamped, { approvers: [approver], key })).toEqual({ ok: true });
+  });
+
+  it('a v1 (unsigned) stamp is malformed under v2 — nothing from before 2026-09-11 grandfathers', () => {
+    const v1 = { v: 1, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, contentHash: contentHash(item) };
+    const stamped = { ...item, approval: v1 };
+    const status = approvalStatus(stamped, { approvers: [approver], key });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toBe('malformed approval record');
+  });
+
+  it('rejects a GitHub login as `by`, even if it is on the approvers list — discord: only', () => {
+    const unsigned = { v: 2, by: 'sffan15-sys', at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash(item) };
+    const signed = { ...unsigned, sig: signApproval(unsigned, key) };
+    const stamped = { ...item, approval: signed };
+    const status = approvalStatus(stamped, { approvers: ['sffan15-sys'], key });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toContain('not a discord: identity');
+  });
+
+  it('rejects a hand-written stamp whose sig does not verify — inert at the verifier regardless of who wrote it', () => {
+    const unsigned = { v: 2, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash(item) };
+    const forged = { ...unsigned, sig: 'hmac-sha256:' + '1'.repeat(64) };
+    const stamped = { ...item, approval: forged };
+    const status = approvalStatus(stamped, { approvers: [approver], key });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toContain('signature invalid');
+  });
+
+  it('omitting `key` entirely skips signature verification — shape+id+hash only (CI callers)', () => {
+    const unsigned = { v: 2, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash(item) };
+    const forged = { ...unsigned, sig: 'hmac-sha256:' + '1'.repeat(64) };
+    const stamped = { ...item, approval: forged };
+    expect(approvalStatus(stamped, { approvers: [approver] })).toEqual({ ok: true });
+  });
+
+  it('passing `key: \'\'` (env var genuinely unset) refuses everything, loud — never a silent pass', () => {
+    const stamped = { ...item, approval: validStamp() };
+    const status = approvalStatus(stamped, { approvers: [approver], key: '' });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toContain('SOCIAL_APPROVAL_KEY is not configured');
+  });
+});
+
+describe('verifyApprovalSig', () => {
+  it('returns false, never throws, on a malformed sig field', () => {
+    expect(verifyApprovalSig({ v: 2, by: 'discord:1', at: 'x', pr: 1, contentHash: 'sha256:x', sig: 'not-even-close' }, 'key')).toBe(false);
+    expect(verifyApprovalSig({ v: 2, by: 'discord:1', at: 'x', pr: 1, contentHash: 'sha256:x' }, 'key')).toBe(false);
+    expect(verifyApprovalSig(null, 'key')).toBe(false);
   });
 });

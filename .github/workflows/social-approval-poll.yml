@@ -1,0 +1,48 @@
+# social-approval-poll — reads the owner's Discord ✅/❌ on the brief and
+# turns it into a signed approval stamp + merge (RULINGS-SOCIAL-2.md B1).
+# This is the ONLY place `approval` is ever written now (B3 deletes the
+# merge-triggered stamper entirely) and the ONLY place a social-draft PR
+# is ever merged by automation.
+#
+# Runs inside the `social` environment so SOCIAL_APPROVAL_KEY and
+# DISCORD_BOT_TOKEN — both environment secrets restricted to `main` by a
+# custom deployment-branch policy — are never readable from a `pull_request`
+# workflow run on a branch.
+name: social-approval-poll
+
+on:
+  schedule:
+    # Off the :00/:30 mark on purpose (repo's contention note) — every 15m.
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: social-approval-poll
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Run poll
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          SOCIAL_APPROVAL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          SOCIAL_APPROVAL_KEY: ${{ secrets.SOCIAL_APPROVAL_KEY }}
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          REPO: ${{ github.repository }}
+        run: node scripts/social/social-approval-poll.mjs

@@ -327,14 +327,18 @@ export function validateQueueItem(item) {
     findings.push('altText: must not be present when `media` is empty — nothing to describe.');
   }
 
-  // --- approval (RULINGS-SOCIAL.md A2) -------------------------------------
-  // `approval` is written ONLY by the merge-triggered stamper
-  // (.github/workflows/social-approval-stamp.yml), never by a drafter — but
-  // a drafter could still hand-author one (accidentally or otherwise), so
-  // CI validates its SHAPE and CONTENT whenever present, hard-failing a
-  // malformed or self-stamped one rather than silently accepting it. Its
-  // absence is never a CI failure here — every draft legitimately arrives
-  // unstamped; validate-queue.mjs prints that as a warning instead (A6).
+  // --- approval (RULINGS-SOCIAL-2.md B1, superseding A2) -------------------
+  // `approval` (schema v2, signed) is written ONLY by the poll job
+  // (.github/workflows/social-approval-poll.yml, reacting to the owner's
+  // Discord ✅), never by a drafter and never by a merge — but a drafter
+  // could still hand-author one (accidentally or otherwise), so CI
+  // validates its SHAPE and CONTENT whenever present, hard-failing a
+  // malformed or self-stamped one rather than silently accepting it. CI
+  // never passes `key` here (it never holds SOCIAL_APPROVAL_KEY), so this
+  // check cannot catch a forged-but-well-formed signature — only the
+  // poster's own keyed call is the real boundary. Absence is never a CI
+  // failure here — every draft legitimately arrives unstamped;
+  // validate-queue.mjs prints that as a warning instead (A6).
   if (item.approval !== undefined) {
     const status = approvalStatus(item, { approvers: SOCIAL_APPROVERS });
     if (!status.ok && status.reason !== 'no approval on file — never reviewed by a founder (or reviewed before the 2026-09-11 approval schema; re-open a PR for it)') {

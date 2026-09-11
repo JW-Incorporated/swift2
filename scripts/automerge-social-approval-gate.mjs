@@ -26,27 +26,18 @@ export const TRIPPING_STATUSES = ['added', 'modified', 'renamed', 'copied', 'cha
 // so a state-update branch can never smuggle in a brand-new draft.
 export const STATE_BRANCH_PREFIX = 'social-poster/state-';
 
-// RULINGS-SOCIAL.md A2 — the merge-triggered stamper
-// (.github/workflows/social-approval-stamp.yml) writes the `approval`
-// object back into an EXISTING social/queue/*.json file via its own
-// throwaway PR, branch prefix `social-approval/stamp-<PR>`. That write is
-// a `modified` status, not a new draft — same shape as the poster's own
-// state-PR exemption above, and exempted the same narrow way: only
-// `modified` on this exact prefix, never `added`, so a stamp branch can
-// never smuggle in a brand-new draft either. Mirrored inline in
-// auto-merge-content.yml's `enable` job case statement — keep the two in
-// step (see that workflow's "workflow mirrors this" test).
-export const STAMP_BRANCH_PREFIX = 'social-approval/stamp-';
-
 /**
  * @param {{status: string, filename: string}[]} filesMeta
  * @param {string} [headRef] - the PR's head branch name
  * @returns {{blocked: boolean, matches: {status: string, filename: string}[]}}
  */
 export function evaluateSocialApprovalGate(filesMeta, headRef) {
-  const isExemptModifyBranch =
-    typeof headRef === 'string' &&
-    (headRef.startsWith(STATE_BRANCH_PREFIX) || headRef.startsWith(STAMP_BRANCH_PREFIX));
+  // RULINGS-SOCIAL-2.md B3: the merge-triggered stamper (and its
+  // STAMP_BRANCH_PREFIX exemption) is deleted — stamping now happens
+  // BEFORE the merge, via social-approval-poll.yml, so there is no
+  // separate "stamp PR" whose modify needs exempting any more. Only the
+  // poster's own state-update branch is exempt.
+  const isExemptModifyBranch = typeof headRef === 'string' && headRef.startsWith(STATE_BRANCH_PREFIX);
   const matches = (filesMeta ?? []).filter(
     ({ status, filename }) =>
       typeof filename === 'string' &&

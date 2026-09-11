@@ -7,7 +7,49 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-09-11 — Approval is data (A2), superseding "merge IS the approval"
+## 2026-09-11 — Approval is the founder's Discord ✅, signed (B1); supersedes A2's merge-keyed stamp
+
+**Decision:** Social-post approval is no longer "a founder merged the
+draft PR" — it is the owner's own ✅ reaction, on Discord, on the exact
+brief message that names the PR/head-SHA/file, verified by a read-only bot
+token and minted into an HMAC-signed v2 stamp (`scripts/social/lib/
+queue.mjs`'s `signApproval`/`verifyApprovalSig`, keyed by
+`SOCIAL_APPROVAL_KEY`, an environment secret restricted to `main`).
+
+**Why:** GitHub has exactly one identity for the owner (`sffan15-sys`) —
+the same login every agent session's `gh`, every content routine's PAT, and
+the auto-merge actor also run as. `scripts/automerge-branch-author-gate.
+mjs`'s `KNOWN_CONTENT_AUTHORS` already listed `sffan15-sys` as a content
+author; A2's `SOCIAL_APPROVERS = ['sffan15-sys']` sat inside that same set.
+No GitHub-recorded event — `merged_by`, a review, an environment approval —
+can ever distinguish the owner's own tap from an agent's `gh pr merge`
+running under his login. Discord is the only channel in this system where
+the owner holds an identity no agent or routine holds: agents have the
+write-only webhook URL, not his user account.
+
+**Alternatives considered:** a second GitHub account (rejected — puts the
+burden on the owner to be logged into the right account on whatever client
+opens the link, and fails silently-ish on the wrong one); an
+email-approval link (rejected — this harness's Gmail MCP tools make a
+mailed link clickable by an agent too, so it carries the same hole).
+
+**Residual, stated plainly:** an agent that rewrites a `main` workflow and
+merges it can still read the environment secrets — that is the
+deliberate-sabotage threat, outside this decision's model (agents doing
+their instructed jobs), and the A6 freeze check makes it a two-step,
+logged act.
+
+**Definition of done for any future identity-keyed gate:** list every
+actor that can produce each input the gate trusts; if any is an automation
+identity, the gate is not done. Today's five (precedent): `sffan15-sys`,
+`wjduvall-cmd`, `claude[bot]`, `github-actions[bot]`, `app/claude`.
+
+**Who approved:** the owner, via the RULINGS-SOCIAL-2.md architect
+ruling (B1/B2/B3/B5).
+
+---
+
+## 2026-09-11 — Approval is data (A2), superseding "merge IS the approval" — SUPERSEDED BY THE ENTRY ABOVE
 
 **Decision:** Social-post approval is no longer "the PR was merged" — it is
 a stamped, content-bound `approval` object written into the queue item

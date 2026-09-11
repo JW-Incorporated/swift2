@@ -9,10 +9,21 @@
 // a truncated `why` with a file link, and the Facebook cross-post
 // disclosure (A4) on every Instagram draft.
 //
-// Approve = merge the PR (the merge-triggered stamper then writes the A2
-// approval; see social-approval-stamp.yml). Reject = close the PR with a
-// comment starting "reject:" — docs/agents/runner-prompts/growth-draft.md's
-// drafting routine reads that comment before drafting again.
+// Approve = react ✅ in #longlive-social, on a draft message for just that
+// one or on the header for every draft in the PR (RULINGS-SOCIAL-2.md B1 —
+// social-approval-poll.yml polls for the reaction, stamps a v2 signed
+// approval, then merges; merging the PR yourself does NOT approve it, it
+// kills the draft). Reject = react ❌ the same way — on a draft drops just
+// that file, on the header closes the whole PR; the poll job then carries
+// out the A3 rejection path (git rm + PR comment / PR close), so
+// docs/agents/runner-prompts/growth-draft.md's drafting routine still reads
+// a `reject:` comment before drafting again.
+//
+// Every message this builds carries a machine-readable
+// `ref: PR #<n> · <headSha> · <file|*>` line as its last content line —
+// webhook-authored, so an agent cannot forge which draft a reaction is
+// binding to (see social-approval-poll.mjs's header comment for why that
+// property holds).
 //
 // This never runs against a real Discord webhook from an agent's own
 // context — it is invoked by .github/workflows/social-approval-notify.yml
@@ -125,12 +136,17 @@ function formatDraftLines(draft, { now, headSha, repo, facebookCrosspost }) {
  * build the `why` field's file link.
  */
 export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, repo, facebookCrosspost = false } = {}) {
+  if (!headSha) {
+    throw new Error('buildApprovalPrompt: headSha is required — every brief message must carry a verifiable ref: line (RULINGS-SOCIAL-2.md B1)');
+  }
+
   const header = {
     content: [
       `**Social approval needed · PR #${pr.number}** — <${pr.url}>`,
       `Drafted by: ${drafts[0]?.sourceRoutine ?? 'unknown'} · ${drafts.length} draft${drafts.length === 1 ? '' : 's'}` +
         (drafts[0]?.campaign ? ` · campaign \`${drafts[0].campaign}\`` : ''),
-      'Approve: tap Merge on the PR. Reject: close the PR with a comment starting "reject:" — that comment is what the drafter reads before its next run.',
+      'Approve: react ✅ on a draft below, or on this message for all of them. Reject: react ❌ (on a draft drops just that one; here closes the PR). Merging the PR yourself does NOT approve — it kills the drafts.',
+      `ref: PR #${pr.number} · ${headSha} · *`,
     ].join('\n'),
     embeds: [],
   };
@@ -142,6 +158,7 @@ export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, rep
     const content = [
       `**Draft ${i + 1} · ${account.label} — ${account.handle}**`,
       ...formatDraftLines(draft, { now, headSha, repo, facebookCrosspost }),
+      `ref: PR #${pr.number} · ${headSha} · ${draft.file}`,
     ].join('\n');
     return { content, embeds };
   });

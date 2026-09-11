@@ -18,16 +18,32 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { mkdtemp, mkdir, writeFile, readFile, readdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { contentHash } from './lib/queue.mjs';
+import { contentHash, signApproval } from './lib/queue.mjs';
 
-// A valid, correctly-stamped approval (RULINGS-SOCIAL.md A2) by the one
-// approver every fixture below authors as, matching SOCIAL_APPROVERS in
-// lib/approvers.mjs. xItem/igItem auto-stamp with this shape (computed
-// against the item's own content) unless a test explicitly overrides
-// `approval` — see those factories below.
-const VALID_APPROVER = 'sffan15-sys';
+// RULINGS-SOCIAL-2.md B1: production's SOCIAL_APPROVERS (lib/approvers.mjs)
+// is intentionally EMPTY until the owner's real Discord user id is pinned
+// in — these tests must not depend on that being filled in yet, so they
+// mock the approver list to one fixed test identity. This is the identity
+// every fixture below is stamped as approved by.
+const VALID_APPROVER = 'discord:100000000000000001';
+vi.mock('./lib/approvers.mjs', () => ({ SOCIAL_APPROVERS: [VALID_APPROVER] }));
+
+const TEST_SIGNING_KEY = 'test-signing-key-do-not-use-in-prod';
+
+// A valid, correctly-stamped, SIGNED v2 approval (RULINGS-SOCIAL-2.md B1) by
+// the one approver every fixture below authors as. xItem/igItem auto-stamp
+// with this shape (computed against the item's own content) unless a test
+// explicitly overrides `approval` — see those factories below.
 function validApproval(item: Record<string, unknown>) {
-  return { v: 1, by: VALID_APPROVER, at: '2026-09-11T00:00:00Z', pr: 1, contentHash: contentHash(item) };
+  const unsigned = {
+    v: 2,
+    by: VALID_APPROVER,
+    at: '2026-09-11T00:00:00Z',
+    pr: 1,
+    message: '999',
+    contentHash: contentHash(item),
+  };
+  return { ...unsigned, sig: signApproval(unsigned, TEST_SIGNING_KEY) };
 }
 
 const DUMMY_CREDS_ENV = {
@@ -182,6 +198,7 @@ beforeEach(async () => {
     ...DUMMY_CREDS_ENV,
     SOCIAL_ROOT: root,
     SOCIAL_POSTER_REPORT: reportPath,
+    SOCIAL_APPROVAL_KEY: TEST_SIGNING_KEY,
   };
   delete process.env.SOCIAL_FREEZE;
   delete process.env.GITHUB_STEP_SUMMARY;
@@ -928,10 +945,26 @@ describe('post-queue: A2 approval gate refusals', () => {
     expect(process.exitCode).toBe(0);
   });
 
-  it('refuses an item stamped by someone who is not in SOCIAL_APPROVERS', async () => {
+  it('refuses an approval whose by is a GitHub login — only discord: identities approve', async () => {
     const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
     const item = xItem();
-    item.approval = { v: 1, by: 'some-agent-session', at: '2026-09-11T00:00:00Z', pr: 1, contentHash: contentHash(item) };
+    const unsigned = { v: 2, by: 'sffan15-sys', at: '2026-09-11T00:00:00Z', pr: 1, message: '999', contentHash: contentHash(item) };
+    item.approval = { ...unsigned, sig: signApproval(unsigned, TEST_SIGNING_KEY) };
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('not a discord: identity');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('refuses an item stamped by a well-formed discord: identity who is not in SOCIAL_APPROVERS', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem();
+    const unsigned = { v: 2, by: 'discord:999999999999999999', at: '2026-09-11T00:00:00Z', pr: 1, message: '999', contentHash: contentHash(item) };
+    item.approval = { ...unsigned, sig: signApproval(unsigned, TEST_SIGNING_KEY) };
     await seedQueueItem('a-x.json', item);
 
     const outcomes = await runPoster();
@@ -939,6 +972,46 @@ describe('post-queue: A2 approval gate refusals', () => {
     expect(spy).not.toHaveBeenCalled();
     expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
     expect(outcomes[0].error).toContain('not in SOCIAL_APPROVERS');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('refuses an approval whose signature does not verify — a hand-written approval object is inert', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem();
+    // Every field is well-formed and matches SOCIAL_APPROVERS/contentHash —
+    // EXCEPT the signature, which a hand-written record (by an agent, a
+    // drafter, or a copy-paste of a real record onto different content)
+    // cannot produce without the key. This is the property B1's whole
+    // mechanism rests on.
+    item.approval = {
+      v: 2,
+      by: VALID_APPROVER,
+      at: '2026-09-11T00:00:00Z',
+      pr: 1,
+      message: '999',
+      contentHash: contentHash(item),
+      sig: 'hmac-sha256:' + '0'.repeat(64),
+    };
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('signature invalid');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('refuses every item, loud, when SOCIAL_APPROVAL_KEY is not configured — never a silent pass', async () => {
+    delete process.env.SOCIAL_APPROVAL_KEY;
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('SOCIAL_APPROVAL_KEY is not configured');
     expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
   });
 
