@@ -55,6 +55,13 @@ function gh(args, { input } = {}) {
   return execFileSync('gh', args, { encoding: 'utf8', input, env: process.env }).trim();
 }
 
+// `gh` has no add/commit/push/rm subcommands — local git writes (stamping,
+// rejecting) go through the real `git` binary instead. `gh` stays reserved
+// for actual GitHub API operations (pr view/checkout/comment/close/merge).
+function git(args, { cwd, input } = {}) {
+  return execFileSync('git', args, { cwd, encoding: 'utf8', input, env: process.env }).trim();
+}
+
 const DISCORD_MIN_INTERVAL_MS = 350; // rate-limit courtesy floor between successive Discord API calls
 const DISCORD_MAX_ATTEMPTS = 3; // total attempts per Discord GET (including the first); retries only on 429
 
@@ -124,7 +131,7 @@ async function getMessageApprovals(message, channelId, botToken, opts, cache) {
   return result;
 }
 
-export async function run({ execGh = gh, fetchImpl = fetch, sleepImpl = defaultSleep } = {}) {
+export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleepImpl = defaultSleep } = {}) {
   const botToken = requireEnv.call(null, 'DISCORD_BOT_TOKEN');
   const webhookUrl = requireEnv.call(null, 'SOCIAL_APPROVAL_WEBHOOK_URL');
   const approvalKey = requireEnv.call(null, 'SOCIAL_APPROVAL_KEY');
@@ -134,6 +141,19 @@ export async function run({ execGh = gh, fetchImpl = fetch, sleepImpl = defaultS
 
   const webhookId = webhookIdFromUrl(webhookUrl);
   const channelId = await resolveChannelId(webhookUrl);
+
+  // The workflow checks the runner out at `ref: main`, but a queue file
+  // being stamped/rejected lives on the PR's own (unmerged) branch — local
+  // git reads/writes below must happen on that branch, not main. Configured
+  // once, lazily, right before the first PR that actually needs a local
+  // git write/checkout this run.
+  let gitIdentityConfigured = false;
+  function ensureGitIdentity() {
+    if (gitIdentityConfigured) return;
+    execGit(['config', 'user.name', 'github-actions[bot]']);
+    execGit(['config', 'user.email', 'github-actions[bot]@users.noreply.github.com']);
+    gitIdentityConfigured = true;
+  }
 
   const messages = await discordGet(`${DISCORD_API}/channels/${channelId}/messages?limit=100`, botToken, discordOpts);
 
@@ -227,9 +247,23 @@ export async function run({ execGh = gh, fetchImpl = fetch, sleepImpl = defaultS
       execGh(['pr', 'close', String(pr), '--repo', repo, '--comment', 'reject: founder reacted ❌ on the brief (no written reason)']);
       continue;
     }
+
+    // Everything below reads and/or writes the queue file on disk — it must
+    // happen on the PR's own branch, not whatever the workflow started on
+    // (main). Check out the PR's head branch locally before any local git
+    // or fs access for this PR.
+    try {
+      ensureGitIdentity();
+      execGh(['pr', 'checkout', String(pr), '--repo', repo]);
+    } catch (err) {
+      console.error(`::error::social-approval-poll: could not check out PR #${pr}'s branch for local git operations — ${err.message}`);
+      continue;
+    }
+
     for (const file of rejectFiles) {
-      execGh(['rm', path.posix.join('social', 'queue', path.basename(file))]);
-      execGh(['commit', '-m', `social-approval: reject ${file} (founder ❌ in Discord)`]);
+      execGit(['rm', path.posix.join('social', 'queue', path.basename(file))]);
+      execGit(['commit', '-m', `social-approval: reject ${file} (founder ❌ in Discord)`]);
+      execGit(['push', 'origin', `HEAD:${prView.headRefName}`]);
       execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', `reject: ${file} — founder reacted ❌ in #longlive-social (no written reason)`]);
     }
 
@@ -288,9 +322,9 @@ export async function run({ execGh = gh, fetchImpl = fetch, sleepImpl = defaultS
           console.log(`social-approval-poll: stamped ${f} (${by} ✅ on message ${current[0].message.id})`);
         }
         if (result.stamped.length > 0) {
-          execGh(['add', ...result.stamped]);
-          execGh(['commit', '-m', `social-approval: stamp ${result.stamped.join(', ')} (discord ✅ by founder, PR #${pr})`]);
-          execGh(['push']);
+          execGit(['add', ...result.stamped]);
+          execGit(['commit', '-m', `social-approval: stamp ${result.stamped.join(', ')} (discord ✅ by founder, PR #${pr})`]);
+          execGit(['push', 'origin', `HEAD:${prView.headRefName}`]);
         }
       }
     }

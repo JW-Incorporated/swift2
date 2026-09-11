@@ -117,6 +117,15 @@ function makeExecGh({ files = [] as Array<{ path: string }> } = {}) {
   return { impl, calls };
 }
 
+function makeExecGit() {
+  const calls: string[][] = [];
+  const impl = vi.fn((args: string[]) => {
+    calls.push(args);
+    return '';
+  });
+  return { impl, calls };
+}
+
 beforeEach(async () => {
   savedEnv = process.env;
   savedCwd = process.cwd();
@@ -163,15 +172,41 @@ describe('discordGet 429 handling', () => {
       ],
     });
     const { impl: execGh } = makeExecGh();
+    const { impl: execGit } = makeExecGit();
     const sleepImpl = vi.fn(() => Promise.resolve());
 
-    await run({ execGh, fetchImpl, sleepImpl });
+    await run({ execGh, execGit, fetchImpl, sleepImpl });
 
     expect(calls.check).toBe(2); // one 429, one retry that succeeded
     const raw = await readFile(path.join(root, 'social', 'queue', QUEUE_FILE), 'utf8');
     const item = JSON.parse(raw);
     expect(item.approval?.by).toBe(APPROVER);
     expect(approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: TEST_KEY }).ok).toBe(true);
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('stamp commits and pushes to the PR\'s own head branch (headRefName), never main — checkout happens via gh, writes via git', async () => {
+    const { impl: fetchImpl } = makeFetchImpl({
+      check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])],
+    });
+    const { impl: execGh, calls: ghCalls } = makeExecGh();
+    const { impl: execGit, calls: gitCalls } = makeExecGit();
+    const sleepImpl = vi.fn(() => Promise.resolve());
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl });
+
+    // gh checks out the PR's branch before any local git write happens.
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'checkout' && c[2] === String(PR_NUMBER))).toBe(true);
+    const checkoutIdx = ghCalls.findIndex((c) => c[0] === 'pr' && c[1] === 'checkout');
+    const addIdx = gitCalls.findIndex((c) => c[0] === 'add');
+    expect(checkoutIdx).toBeGreaterThanOrEqual(0);
+    expect(addIdx).toBeGreaterThanOrEqual(0);
+    // The stamp/commit/push sequence goes through git, never gh.
+    expect(ghCalls.some((c) => c[0] === 'add' || c[0] === 'commit' || c[0] === 'push' || c[0] === 'rm')).toBe(false);
+    expect(gitCalls.some((c) => c[0] === 'add')).toBe(true);
+    expect(gitCalls.some((c) => c[0] === 'commit')).toBe(true);
+    const pushCall = gitCalls.find((c) => c[0] === 'push');
+    expect(pushCall).toEqual(['push', 'origin', 'HEAD:feature/x']); // headRefName from makeExecGh's pr view stub, never main
     expect(process.exitCode).toBe(0);
   });
 
@@ -184,10 +219,11 @@ describe('discordGet 429 handling', () => {
       ],
     });
     const { impl: execGh } = makeExecGh();
+    const { impl: execGit } = makeExecGit();
     const sleepImpl = vi.fn(() => Promise.resolve());
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    await expect(run({ execGh, fetchImpl, sleepImpl })).resolves.toBeUndefined();
+    await expect(run({ execGh, execGit, fetchImpl, sleepImpl })).resolves.toBeUndefined();
 
     expect(calls.check).toBe(3);
     expect(errorSpy.mock.calls.some(([msg]) => typeof msg === 'string' && msg.includes('::warning::'))).toBe(true);
@@ -209,10 +245,11 @@ describe('discordGet 429 handling', () => {
       },
     });
     const { impl: execGh } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+    const { impl: execGit } = makeExecGit();
     const sleepImpl = vi.fn(() => Promise.resolve());
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    await run({ execGh, fetchImpl, sleepImpl });
+    await run({ execGh, execGit, fetchImpl, sleepImpl });
 
     expect(errorSpy.mock.calls.some(([msg]) => typeof msg === 'string' && msg.includes('::warning::'))).toBe(true);
     const raw = await readFile(path.join(root, 'social', 'queue', QUEUE_FILE), 'utf8');
@@ -233,10 +270,11 @@ describe('discordGet 429 handling', () => {
       [MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] }, // draft: readable, individually approved
     });
     const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+    const { impl: execGit } = makeExecGit();
     const sleepImpl = vi.fn(() => Promise.resolve());
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    await run({ execGh, fetchImpl, sleepImpl });
+    await run({ execGh, execGit, fetchImpl, sleepImpl });
 
     expect(
       errorSpy.mock.calls.some(
@@ -282,10 +320,11 @@ describe('discordGet 429 handling', () => {
     const { impl: execGh, calls: ghCalls } = makeExecGh({
       files: [{ path: `social/queue/${QUEUE_FILE}` }, { path: `social/queue/${QUEUE_FILE_B}` }],
     });
+    const { impl: execGit } = makeExecGit();
     const sleepImpl = vi.fn(() => Promise.resolve());
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    await run({ execGh, fetchImpl, sleepImpl });
+    await run({ execGh, execGit, fetchImpl, sleepImpl });
 
     expect(
       errorSpy.mock.calls.some(
