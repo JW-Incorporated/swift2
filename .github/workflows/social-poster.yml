@@ -100,11 +100,26 @@
 # (steps.post.outcome == 'failure' vs. a written SOCIAL_POSTER_NOTIFY
 # payload), so a run with both a success and a permanent failure sends both
 # emails, and a run with only one sends only that one.
+#
+# workflow_run on social-approval-poll (2026-09-11, Tree Overhaul Wave 2
+# S2, Codex adversarial review round 1 on PR #4125): the 30-minute cron
+# above is, like every GitHub Actions `schedule:`, best-effort — a dropped
+# tick meant a freshly-stamped approval could sit unposted well past its
+# next expected run with nothing surfacing it. Chaining this workflow to
+# fire the moment social-approval-poll.yml completes (which itself now
+# chains off social-approval-notify.yml — see that file's header) makes
+# the whole notify -> poll -> poster path event-driven end to end, so a
+# single dropped cron tick anywhere in the chain no longer stalls
+# publishing a founder-approved item. The cron stays as the steady-state
+# fallback (a poll run with nothing newly approved is a normal no-op here).
 name: social-poster
 on:
   schedule:
     - cron: "*/30 * * * *"
   workflow_dispatch:
+  workflow_run:
+    workflows: [social-approval-poll]
+    types: [completed]
 
 permissions:
   contents: write

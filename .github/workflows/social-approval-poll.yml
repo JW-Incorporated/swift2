@@ -22,12 +22,15 @@
 # cron tick. The cron stays as the steady-state fallback.
 #
 # Ordering vs. `social-poster.yml` (which actually publishes an approved
-# item): this workflow polls/stamps every 15 minutes (now reinforced by the
-# notify-triggered run above) against the poster's 30-minute cron, so an
-# approval stamped here reliably lands on `main` before the poster's next
-# run picks the item up as due — no cross-workflow `needs`/`workflow_run`
-# coupling from the poster's side is needed for that, and none was added to
-# `social-poster.yml` here (out of this change's scope; see the PR body).
+# item): `social-poster.yml` carries its own `workflow_run` trigger on THIS
+# workflow completing (Codex adversarial review round 1 on PR #4125 — a
+# comment here alone, without that trigger, could not actually guarantee
+# "runs before social-poster" if a scheduled poster tick were the one that
+# got dropped). Combined with this workflow's own 15-minute cron and its
+# workflow_run trigger on `social-approval-notify` above, the full
+# notify -> poll -> poster path is event-driven end to end, so no single
+# dropped cron tick anywhere in the chain stalls publishing a
+# founder-approved item.
 name: social-approval-poll
 
 on:
