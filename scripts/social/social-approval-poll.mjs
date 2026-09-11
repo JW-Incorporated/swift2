@@ -233,13 +233,25 @@ export async function run({ execGh = gh, fetchImpl = fetch, sleepImpl = defaultS
       execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', `reject: ${file} — founder reacted ❌ in #longlive-social (no written reason)`]);
     }
 
+    // A header message whose reactions couldn't be fetched this run could be
+    // carrying a PR-wide ❌ (rejectHeader) we simply can't see — in that case
+    // NOTHING on this PR is safe to stamp or merge this run, not even a
+    // draft whose own message resolved cleanly with its own ✅, because we
+    // cannot know whether the unreadable header's reject should have closed
+    // the whole PR instead. Skip the entire PR's approve+merge phases and
+    // retry on the next run (individual-file rejects above are unaffected —
+    // they don't depend on the header being readable).
+    if (headerUnresolved) {
+      console.error(`::warning::social-approval-poll: PR #${pr} header message unresolved this run (reactions unreadable after retries) — skipping stamp/merge for the whole PR this run, it could be carrying a ❌ we can't see; retrying next run`);
+      continue;
+    }
+
     // Approve path: resolve "*" (header ✅) to every tripping file on the PR
-    // — but never when the header message itself, or an individual draft's
-    // own message, failed to fetch this run (see unresolvedFiles/
-    // headerUnresolved above): treat it as not-yet-approved rather than
-    // silently stamping through an unreadable message.
+    // — but never when an individual draft's own message failed to fetch
+    // this run (see unresolvedFiles above): treat it as not-yet-approved
+    // rather than silently stamping through an unreadable message.
     let targetFiles = [...filesToStamp].filter((f) => f !== '*' && !unresolvedFiles.has(f));
-    if (filesToStamp.has('*') && !headerUnresolved) {
+    if (filesToStamp.has('*')) {
       const filesMeta = JSON.parse(execGh(['pr', 'view', String(pr), '--repo', repo, '--json', 'files'])).files;
       targetFiles = filesMeta
         .filter((f) => f.path.startsWith('social/queue/') && f.path.endsWith('.json'))

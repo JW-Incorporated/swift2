@@ -220,4 +220,33 @@ describe('discordGet 429 handling', () => {
     expect(item.approval).toBeUndefined(); // header approval must not stamp through an unreadable draft message
     expect(process.exitCode).toBe(0);
   });
+
+  it('an unresolved header blocks stamp/merge for the WHOLE PR, even a draft with its own successfully-fetched ✅', async () => {
+    const { impl: fetchImpl } = makeFetchImplByMessage([headerMessage(), briefMessage()], {
+      [HEADER_MESSAGE_ID]: {
+        check: [
+          () => jsonResponse({ message: '429', retry_after: 0.01, global: false }, 429),
+          () => jsonResponse({ message: '429', retry_after: 0.01, global: false }, 429),
+          () => jsonResponse({ message: '429', retry_after: 0.01, global: false }, 429),
+        ],
+      }, // header itself: unresolved after exhausting retries — could carry an unseen PR-wide ❌
+      [MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] }, // draft: readable, individually approved
+    });
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+    const sleepImpl = vi.fn(() => Promise.resolve());
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    await run({ execGh, fetchImpl, sleepImpl });
+
+    expect(
+      errorSpy.mock.calls.some(
+        ([msg]) => typeof msg === 'string' && msg.includes('::warning::') && msg.includes(String(PR_NUMBER)) && msg.includes('header'),
+      ),
+    ).toBe(true);
+    const raw = await readFile(path.join(root, 'social', 'queue', QUEUE_FILE), 'utf8');
+    const item = JSON.parse(raw);
+    expect(item.approval).toBeUndefined(); // individually-readable draft ✅ must not stamp when the PR's header is unresolved
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
+    expect(process.exitCode).toBe(0);
+  });
 });
