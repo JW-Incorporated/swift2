@@ -16,6 +16,7 @@ export const MAX_X_IMAGES = 4;
 
 const X_UPLOAD_URL = 'https://upload.twitter.com/1.1/media/upload.json';
 const X_TWEET_URL = 'https://api.twitter.com/2/tweets';
+const X_MEDIA_METADATA_URL = 'https://upload.twitter.com/1.1/media/metadata/create.json';
 
 const MIME_BY_EXT = {
   png: 'image/png',
@@ -128,6 +129,36 @@ async function uploadXMedia(mediaPath, creds, mediaBaseUrl) {
 }
 
 /**
+ * Attaches alt text to an already-uploaded X media item (RULINGS-SOCIAL.md
+ * A3/B2 — alt text is now a required schema field). Not wrapped in
+ * publishFetch: nothing has been posted yet at this point (the media is
+ * uploaded but not attached to a tweet), so a failure here is always safe
+ * to retry the whole item. Thrown, not swallowed — an alt-text call that
+ * silently failed would ship an inaccessible image with no record of why.
+ * OAuth1 signs no body params here either (JSON body, same convention as
+ * the tweet-create call below).
+ */
+async function setXMediaAltText(mediaId, altText, creds) {
+  const header = oauth1Header({
+    method: 'POST',
+    url: X_MEDIA_METADATA_URL,
+    consumerKey: creds.apiKey,
+    consumerSecret: creds.apiKeySecret,
+    token: creds.accessToken,
+    tokenSecret: creds.accessTokenSecret,
+  });
+  const res = await fetch(X_MEDIA_METADATA_URL, {
+    method: 'POST',
+    headers: { Authorization: header, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ media_id: mediaId, alt_text: { text: altText } }),
+  });
+  if (!res.ok) {
+    const { text } = await parseResponse(res);
+    throw new Error(`X media alt-text (media/metadata/create) failed for media_id ${mediaId} (${res.status}): ${text}`);
+  }
+}
+
+/**
  * Posts a tweet via X's v2 API (OAuth1 user context). Text-only when the
  * item has no `media`; otherwise uploads each image (up to MAX_X_IMAGES) via
  * the v1.1 media endpoint first and attaches the resulting media_ids —
@@ -143,8 +174,11 @@ export async function postToX(item, creds, mediaBaseUrl) {
   const payload = { text: item.body };
   if (item.media?.length) {
     const mediaIds = [];
-    for (const mediaPath of item.media) {
-      mediaIds.push(await uploadXMedia(mediaPath, creds, mediaBaseUrl));
+    for (const [i, mediaPath] of item.media.entries()) {
+      const mediaId = await uploadXMedia(mediaPath, creds, mediaBaseUrl);
+      const altText = item.altText?.[i];
+      if (altText) await setXMediaAltText(mediaId, altText, creds);
+      mediaIds.push(mediaId);
     }
     payload.media = { media_ids: mediaIds };
   }
@@ -204,15 +238,19 @@ export async function postToInstagram(item, creds, mediaBaseUrl, options = {}) {
   const awaitReady = (id) => waitForContainerReady(graphRoot, creds.accessToken, id, options);
 
   if (item.media.length === 1) {
-    const containerId = await createImageContainer(base, creds.accessToken, `${mediaBaseUrl}${item.media[0]}`, item.body);
+    const containerId = await createImageContainer(base, creds.accessToken, `${mediaBaseUrl}${item.media[0]}`, item.body, false, item.altText?.[0]);
     await awaitReady(containerId);
     return publishContainer(base, creds.accessToken, containerId);
   }
 
   // Carousel: one child container per image, then a parent carousel container.
+  // Verified against the Graph API v25.0 Content Publishing reference
+  // (2026-09, RULINGS-SOCIAL.md A3/B2): `alt_text` was added to
+  // POST /{ig-user-id}/media for image posts (2025-03-24) and is accepted
+  // on carousel child containers the same as a single-image container.
   const childIds = [];
-  for (const path of item.media) {
-    const childId = await createImageContainer(base, creds.accessToken, `${mediaBaseUrl}${path}`, null, true);
+  for (const [i, path] of item.media.entries()) {
+    const childId = await createImageContainer(base, creds.accessToken, `${mediaBaseUrl}${path}`, null, true, item.altText?.[i]);
     await awaitReady(childId);
     childIds.push(childId);
   }
@@ -235,10 +273,11 @@ export async function postToInstagram(item, creds, mediaBaseUrl, options = {}) {
 
 /** Not wrapped in publishFetch — a container isn't visible/published yet, so a
  * failure here is always safe to retry (nothing shipped). */
-async function createImageContainer(base, accessToken, imageUrl, caption, isCarouselItem = false) {
+async function createImageContainer(base, accessToken, imageUrl, caption, isCarouselItem = false, altText = undefined) {
   const payload = { image_url: imageUrl, access_token: accessToken };
   if (caption) payload.caption = caption;
   if (isCarouselItem) payload.is_carousel_item = true;
+  if (altText) payload.alt_text = altText;
   const res = await fetch(`${base}/media`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -290,6 +329,10 @@ export async function postToFacebookPage(item, creds, mediaBaseUrl) {
       url: `${mediaBaseUrl}${item.media[0]}`,
       caption: item.body,
       access_token: creds.accessToken,
+      // RULINGS-SOCIAL.md A3/B2 — same alt text as the Instagram post this
+      // cross-posts from (image 1 only — the cross-post is always a
+      // degraded single-image copy, A4).
+      ...(item.altText?.[0] ? { alt_text_custom: item.altText[0] } : {}),
     }),
   });
   const { json: body, text } = await parseResponse(res);

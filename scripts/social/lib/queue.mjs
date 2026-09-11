@@ -10,6 +10,16 @@
 
 import { createHash } from 'node:crypto';
 
+/** The live site origin queued media paths are resolved against — the
+ * single export both post-queue.mjs (publishing) and approval-prompt.mjs
+ * (the Discord brief, RULINGS-SOCIAL A3) must use, so the two can never
+ * drift onto different hosts. Deliberately the `www.` host, not the bare
+ * apex: `longlivets.com` 308-redirects to `www.longlivets.com`, and while
+ * fetchers generally follow redirects, Discord's embed fetcher is not
+ * guaranteed to, so the brief and the poster both skip the redirect hop
+ * entirely rather than rely on it. */
+export const MEDIA_BASE_URL = 'https://www.longlivets.com';
+
 /** Hard per-run and per-platform-per-day backstops (charter rail 3: caps are
  * code, never trust-based). Overridable only by editing this file — a PR,
  * same as any other rail change. */
@@ -393,7 +403,95 @@ export function mediaUrlsFor(item, mediaBaseUrl) {
  * scheduled-vs-pending, not approved-vs-not. `awaitingApproval` is retained
  * as an always-0 alias so an un-updated brief prompt can't crash.
  */
-export function summarizeQueueStatus(items, now = new Date()) {
+export function summarizeQueueStatus(items, now = new Date(), { approvers } = {}) {
   const scheduled = items.filter((item) => new Date(item.scheduledAt).getTime() > now.getTime()).length;
-  return { total: items.length, scheduled, due: items.length - scheduled, awaitingApproval: 0 };
+  const awaitingApproval = Array.isArray(approvers) ? items.filter((item) => !approvalStatus(item, { approvers }).ok).length : 0;
+  return { total: items.length, scheduled, due: items.length - scheduled, awaitingApproval };
+}
+
+/**
+ * The exact content-bound payload an `approval.contentHash` covers
+ * (RULINGS-SOCIAL.md A2) — every field the AUDIENCE sees or that changes
+ * WHEN a post ships. Deliberately excludes `why`, `attempts`, `lastError`,
+ * `lastAttemptAt`, `mediaCredit`/`mediaSource`/`photoId` (bound separately,
+ * byte-for-byte, by validatePhotoInventoryBinding) and `approval` itself —
+ * a state PR's `attempts+1` bookkeeping, or an unrelated ledger field, must
+ * never silently void a founder's stamp. Key order is fixed so the hash is
+ * stable across callers; JSON.stringify on a plain object with these exact
+ * keys, in this exact order, already preserves insertion order per the
+ * spec, so no extra sorting is needed as long as every caller builds the
+ * object the same way — which is exactly why this is one shared function
+ * and not duplicated at each call site.
+ */
+export function contentHashPayload(item) {
+  return {
+    platform: item?.platform,
+    body: item?.body,
+    media: item?.media ?? [],
+    altText: item?.altText ?? [],
+    scheduledAt: item?.scheduledAt,
+    campaign: item?.campaign ?? null,
+  };
+}
+
+/** `sha256:<hex>` of `contentHashPayload(item)` — see that function's
+ * docstring for exactly what is (and isn't) covered. */
+export function contentHash(item) {
+  const json = JSON.stringify(contentHashPayload(item));
+  return `sha256:${createHash('sha256').update(json, 'utf8').digest('hex')}`;
+}
+
+/**
+ * The A2 gate itself: is `item.approval` a valid, content-bound stamp from
+ * a hardcoded approver? Returns `{ ok: true }` or `{ ok: false, reason }`
+ * with one of four exact reasons (post-queue.mjs surfaces `reason` verbatim
+ * in the loud `unapproved` outcome, and validate-queue.mjs's unstamped-draft
+ * warning uses the same strings):
+ *
+ *   - no approval at all (including every pre-2026-09-11 draft — there is
+ *     no key to grandfather, by construction);
+ *   - a malformed approval object (wrong shape — fail closed, never guess);
+ *   - `by` merged it but is not in `approvers` (the shared-identity problem
+ *     A2 exists to catch even after the stamp is written — e.g. the
+ *     approver list narrows later);
+ *   - `contentHash` no longer matches — the content changed after the
+ *     stamp was written, so the stamp no longer attests to what's on file.
+ *
+ * Never throws; never mutates `item`. `approvers` must be passed explicitly
+ * (normally `SOCIAL_APPROVERS` from lib/approvers.mjs) rather than imported
+ * here, so this stays a pure function of its arguments and the one real
+ * approver list is defined in exactly one place.
+ */
+export function approvalStatus(item, { approvers } = {}) {
+  const approval = item?.approval;
+  if (approval === undefined || approval === null) {
+    return {
+      ok: false,
+      reason:
+        'no approval on file — never reviewed by a founder (or reviewed before the 2026-09-11 approval schema; re-open a PR for it)',
+    };
+  }
+  const shapeOk =
+    typeof approval === 'object' &&
+    !Array.isArray(approval) &&
+    approval.v === 1 &&
+    typeof approval.by === 'string' &&
+    approval.by.trim() !== '' &&
+    typeof approval.at === 'string' &&
+    Number.isInteger(approval.pr) &&
+    typeof approval.contentHash === 'string' &&
+    approval.contentHash.startsWith('sha256:');
+  if (!shapeOk) {
+    return { ok: false, reason: 'malformed approval record' };
+  }
+  if (!Array.isArray(approvers) || !approvers.includes(approval.by)) {
+    return { ok: false, reason: `approved by "${approval.by}", who is not in SOCIAL_APPROVERS` };
+  }
+  if (approval.contentHash !== contentHash(item)) {
+    return {
+      ok: false,
+      reason: 'edited after approval — body/media/altText/scheduledAt/campaign no longer match what was approved',
+    };
+  }
+  return { ok: true };
 }

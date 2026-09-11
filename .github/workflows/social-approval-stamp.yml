@@ -1,0 +1,91 @@
+# social-approval-stamp — writes the A2 approval stamp into every
+# social/queue/**.json file a just-merged PR added or changed
+# (RULINGS-SOCIAL.md A2). This is the ONLY place `approval` is ever
+# written — never a drafter, never post-queue.mjs itself.
+#
+# Runs on `pull_request_target: closed` so it has secret access
+# (SOCIAL_POSTER_PAT, to open/auto-merge its own stamping PR) but checks out
+# the BASE ref — the merge has already happened by the time `closed` fires,
+# so `main`'s HEAD already contains the merged content; no PR code ever
+# runs here.
+#
+# Metadata comes from `pulls/{n}`, the FULL pull-request schema — verified
+# live (RULINGS-SOCIAL.md "what I verified" #1) that THIS endpoint carries
+# `merged_by`/`merged_at`/`merge_commit_sha`, unlike `commits/{sha}/pulls`
+# (the dead endpoint the deleted lib/git-provenance.mjs used, which never
+# has `merged_by` on its response shape at all).
+name: social-approval-stamp
+
+on:
+  pull_request_target:
+    types: [closed]
+    paths:
+      - "social/queue/**"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: social-approval-stamp-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  stamp:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Fetch merge metadata and this PR's queue-file changes
+        id: meta
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          read -r MERGED_BY MERGED_AT MERGE_SHA <<<"$(gh api "repos/$REPO/pulls/$PR" --jq '[.merged_by.login, .merged_at, .merge_commit_sha] | @tsv')"
+          echo "merged_by=$MERGED_BY" >> "$GITHUB_OUTPUT"
+          echo "merged_at=$MERGED_AT" >> "$GITHUB_OUTPUT"
+          echo "merge_sha=$MERGE_SHA" >> "$GITHUB_OUTPUT"
+
+          # Same TRIPPING_STATUSES the gate itself used, so the stamper
+          # stamps exactly the population that needed approval — never a
+          # file this PR only removed (removal-only PRs never reached the
+          # gate in the first place).
+          META=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[] | [.status, .filename] | @tsv')
+          QUEUE_FILES=$(printf '%s\n' "$META" | node scripts/automerge-social-approval-gate.mjs)
+          echo "$QUEUE_FILES" > /tmp/stamp-files.txt
+          if [ -s /tmp/stamp-files.txt ]; then
+            echo "has_files=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_files=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Stamp approval into each file
+        if: steps.meta.outputs.has_files == 'true'
+        run: |
+          node scripts/social/stamp-approval.mjs \
+            --by "${{ steps.meta.outputs.merged_by }}" \
+            --at "${{ steps.meta.outputs.merged_at }}" \
+            --pr "${{ github.event.pull_request.number }}" \
+            --merge-sha "${{ steps.meta.outputs.merge_sha }}" \
+            < /tmp/stamp-files.txt
+
+      - uses: ./.github/actions/commit-and-pr
+        if: steps.meta.outputs.has_files == 'true'
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: social/queue
+          branch: social-approval/stamp-${{ github.event.pull_request.number }}
+          commit-message: "social-approval: stamp PR #${{ github.event.pull_request.number }} (merged by ${{ steps.meta.outputs.merged_by }} at ${{ steps.meta.outputs.merged_at }})"
+          pr-title: "social-approval: stamp PR #${{ github.event.pull_request.number }} (merged by ${{ steps.meta.outputs.merged_by }} at ${{ steps.meta.outputs.merged_at }})"
+          pr-body: "Founder approval stamp for #${{ github.event.pull_request.number }} — RULINGS-SOCIAL.md A2. This PR only writes the approval object; it never changes post content, so it auto-merges through the existing SOCIAL APPROVAL GATE's social-approval/stamp-* exemption (modified-only, never added)."
+          no-changes-message: "stamp-approval: nothing to stamp for PR #${{ github.event.pull_request.number }} (files already stamped, skipped as changed-since, or none matched)."

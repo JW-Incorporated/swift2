@@ -22,6 +22,7 @@ describe('isContentLaneBranch', () => {
       'content/rumor-desk-': 'content/rumor-desk-2026-08-17-reapply',
       'content/stylist-': 'content/stylist-2026-08-16',
       'social-poster/state-': 'social-poster/state-20260824153850',
+      'social-approval/stamp-': 'social-approval/stamp-4130',
       'appearance-discovery/': 'appearance-discovery/123456789',
       'merch-revenue/': 'merch-revenue/123456789',
       'merch-official-sync/': 'merch-official-sync/123456789',

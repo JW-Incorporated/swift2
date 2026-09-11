@@ -253,12 +253,13 @@ jobs:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
-          # scripts/social/lib/git-provenance.mjs's `gh api` call needs this
-          # to populate approvedBy/approvedAt (2026-09-10 approval-gate
-          # decision) — it swallows errors on failure, so without a token it
-          # silently returned null on every REAL run (Fable review finding C
-          # on #4090).
-          GH_TOKEN: ${{ github.token }}
+        # No GH_TOKEN here any more (RULINGS-SOCIAL.md A2): the poster is now
+        # the sole approval-enforcement point and reads only the `approval`
+        # object already on each queue item — no GitHub API call at post
+        # time, fail-closed with no network dependence for the gate itself.
+        # The deleted lib/git-provenance.mjs used to need this token to query
+        # commits/{sha}/pulls — an endpoint that never carried `merged_by`
+        # in the first place, so the token was never the fix.
         run: node scripts/social/post-queue.mjs
 
       # THE dedupe WRITE path (issue #2040) — the step correctness now

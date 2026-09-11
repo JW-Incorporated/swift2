@@ -1,12 +1,13 @@
 {
   "version": 1,
-  "policy": "Every entry has a local publishable media path, an exact source URL, and a truthful credit. The selector chooses the least-used entry and then the longest-unseen entry; recency is a diversity preference, never an eligibility ban, so a valid campaign cannot deadlock when the finite library is exhausted.",
+  "policy": "Every entry has a local publishable media path, an exact source URL, and a truthful credit. The selector chooses the least-used entry and then the longest-unseen entry; recency is a diversity preference, never an eligibility ban, so a valid campaign cannot deadlock when the finite library is exhausted. Every entry also carries an \"alt\" accessibility description (RULINGS-SOCIAL.md A3/B2), written ONCE here and reviewed in this file's own PR — a draft's altText[] must copy it verbatim (see scripts/social/select-photo.mjs's output and lib/queue-schema.mjs's validatePhotoInventoryBinding) rather than retyping it per post, so attribution and description cannot drift apart.",
   "photos": [
     {
       "id": "1989-inglewood-2023",
       "mediaPath": "/social/library/photos/taylor-1989-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
       "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53110043448).jpg",
+      "alt": "Taylor Swift performing the 1989 set of the Eras Tour in Inglewood, 2023, in a sequined bodysuit under blue stage lighting.",
       "tags": [
         "1989",
         "eras-tour",
@@ -18,6 +19,7 @@
       "mediaPath": "/social/library/photos/taylor-debut-2007-acoustic.jpg",
       "credit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
       "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(2007)_retouched.jpg",
+      "alt": "Taylor Swift in 2007, seated with an acoustic guitar, long curly blonde hair, smiling at the camera.",
       "tags": [
         "debut",
         "acoustic",
@@ -29,6 +31,7 @@
       "mediaPath": "/social/library/photos/taylor-evermore-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons (cropped by Musicharts)",
       "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109915048)_(cropped).jpg",
+      "alt": "Taylor Swift performing the evermore set of the Eras Tour in Inglewood, 2023, in a cardigan-style stage costume with a wooded cabin backdrop.",
       "tags": [
         "evermore",
         "eras-tour",
@@ -40,6 +43,7 @@
       "mediaPath": "/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
       "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg",
+      "alt": "Taylor Swift performing the Fearless set of the Eras Tour in Inglewood, 2023, in a gold fringed dress, guitar in hand.",
       "tags": [
         "fearless",
         "eras-tour",
@@ -51,6 +55,7 @@
       "mediaPath": "/social/library/photos/taylor-folklore-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
       "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53109914795).jpg",
+      "alt": "Taylor Swift performing the folklore set of the Eras Tour in Inglewood, 2023, on a moss-covered cottage stage set.",
       "tags": [
         "folklore",
         "eras-tour",
@@ -62,6 +67,7 @@
       "mediaPath": "/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg",
       "credit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
       "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg",
+      "alt": "Taylor Swift performing the Lover set of the Eras Tour in Minneapolis, 2023, under pastel pink and blue stage lighting.",
       "tags": [
         "lover",
         "eras-tour",
@@ -73,6 +79,7 @@
       "mediaPath": "/social/library/photos/taylor-lover-eras-minneapolis-act5-2023.jpg",
       "credit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
       "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_5.jpg",
+      "alt": "Taylor Swift performing the Lover set of the Eras Tour in Minneapolis, 2023, mid-stride across the stage with pastel lighting.",
       "tags": [
         "lover",
         "eras-tour",
@@ -84,6 +91,7 @@
       "mediaPath": "/social/library/photos/taylor-red-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
       "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_10.jpg",
+      "alt": "Taylor Swift performing the Red set of the Eras Tour in Inglewood, 2023, in a fringed red dress under warm stage lighting.",
       "tags": [
         "red",
         "eras-tour",
@@ -95,6 +103,7 @@
       "mediaPath": "/social/library/photos/taylor-reputation-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
       "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109646914).jpg",
+      "alt": "Taylor Swift performing the reputation set of the Eras Tour in Inglewood, 2023, in a black snake-motif costume under dark green stage lighting.",
       "tags": [
         "reputation",
         "eras-tour",
@@ -106,6 +115,7 @@
       "mediaPath": "/social/library/photos/taylor-speaknow-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
       "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_(53109973243).jpg",
+      "alt": "Taylor Swift performing the Speak Now set of the Eras Tour in Inglewood, 2023, in a purple ball gown under matching stage lighting.",
       "tags": [
         "speak-now",
         "eras-tour",

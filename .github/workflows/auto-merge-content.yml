@@ -444,7 +444,7 @@ jobs:
           # already documents for itself.
           branch_ok=0
           case "${HEAD_REF:-}" in
-            content-shift/*|vault/*|growth/*|tree/*|depth/answerer-*|content/rumor-desk-*|content/stylist-*|social-poster/state-*|appearance-discovery/*|merch-revenue/*|merch-official-sync/*|merch-audit-authoring/*|claude/pensive-galileo-*|fix/karen-tickets|kevin/user-fixes)
+            content-shift/*|vault/*|growth/*|tree/*|depth/answerer-*|content/rumor-desk-*|content/stylist-*|social-poster/state-*|social-approval/stamp-*|appearance-discovery/*|merch-revenue/*|merch-official-sync/*|merch-audit-authoring/*|claude/pensive-galileo-*|fix/karen-tickets|kevin/user-fixes)
               branch_ok=1 ;;
           esac
           author_ok=0
@@ -563,13 +563,21 @@ jobs:
           # branch can never smuggle in a brand-new draft. Mirrors
           # scripts/automerge-social-approval-gate.mjs's STATE_BRANCH_PREFIX
           # exemption; keep the two in step.
+          #
+          # SECOND EXEMPTION (RULINGS-SOCIAL.md A2): the new merge-triggered
+          # stamper's own `social-approval/stamp-*` PRs write the `approval`
+          # object back into an EXISTING queue file the same way — also
+          # `modified`, never `added`. Mirrors
+          # scripts/automerge-social-approval-gate.mjs's STAMP_BRANCH_PREFIX
+          # exemption; keep the two in step (see its "workflow mirrors this"
+          # test).
           social_draft_changes=""
           while IFS="$(printf '\t')" read -r st f prev; do
             [ -z "$f" ] && continue
             if printf '%s' "$f" | grep -qE '^social/queue/.*\.json$'; then
               if [ "$st" = "modified" ]; then
                 case "${HEAD_REF:-}" in
-                  social-poster/state-*) continue ;;
+                  social-poster/state-*|social-approval/stamp-*) continue ;;
                 esac
               fi
               case "$st" in

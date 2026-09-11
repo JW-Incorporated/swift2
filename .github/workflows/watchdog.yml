@@ -700,6 +700,36 @@ jobs:
         with:
           node-version: '24'
 
+      # RULINGS-SOCIAL.md A6 — "a watchdog that reddens and emails when an
+      # OPEN [BLOCKING] human action is older than 24h." Tonight's near-miss
+      # (#56, the freeze, filed but not executed until a session caught it
+      # independently) is the exact single point of failure this closes: a
+      # load-bearing human action may be late, but must never be silent.
+      # Read-only against HUMAN-ACTIONS.md — never writes to it (that file's
+      # entry-numbering/SKIP-is-final convention is a separate concern).
+      - name: Aged [BLOCKING] human actions (RULINGS-SOCIAL A6)
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: an OPEN [BLOCKING] human action is aging silently"
+          STATUS=0
+          node scripts/watchdog/blocking-human-actions-check.mjs --alert-body /tmp/alert-body.md || STATUS=$?
+          if [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "blocking-human-actions OK"
+          elif [ "$STATUS" -eq 1 ]; then
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          else
+            echo "::error::blocking-human-actions-check.mjs exited $STATUS — the check is broken, not clear."
+            exit "$STATUS"
+          fi
+
       - name: Work-ownership check (zero AI)
         if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
         env:
