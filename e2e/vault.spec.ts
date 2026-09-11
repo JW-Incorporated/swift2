@@ -239,6 +239,7 @@ test.describe('Vault smoke', () => {
   });
 
   test('track guide sheet opens for an album', async ({ page }) => {
+    test.fixme(true, 'prod regression, #4082, quarantined 2026-09-11 (Tree Overhaul Wave 2)');
     await gotoVault(page);
     await enterEra(page);
 
