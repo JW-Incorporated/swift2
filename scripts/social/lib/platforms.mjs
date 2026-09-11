@@ -129,7 +129,7 @@ async function uploadXMedia(mediaPath, creds, mediaBaseUrl) {
 }
 
 /**
- * Attaches alt text to an already-uploaded X media item (RULINGS-SOCIAL.md
+ * Attaches alt text to an already-uploaded X media item (docs/social/RULINGS-SOCIAL.md
  * A3/B2 — alt text is now a required schema field). Not wrapped in
  * publishFetch: nothing has been posted yet at this point (the media is
  * uploaded but not attached to a tweet), so a failure here is always safe
@@ -245,7 +245,7 @@ export async function postToInstagram(item, creds, mediaBaseUrl, options = {}) {
 
   // Carousel: one child container per image, then a parent carousel container.
   // Verified against the Graph API v25.0 Content Publishing reference
-  // (2026-09, RULINGS-SOCIAL.md A3/B2): `alt_text` was added to
+  // (2026-09, docs/social/RULINGS-SOCIAL.md A3/B2): `alt_text` was added to
   // POST /{ig-user-id}/media for image posts (2025-03-24) and is accepted
   // on carousel child containers the same as a single-image container.
   const childIds = [];
@@ -329,7 +329,7 @@ export async function postToFacebookPage(item, creds, mediaBaseUrl) {
       url: `${mediaBaseUrl}${item.media[0]}`,
       caption: item.body,
       access_token: creds.accessToken,
-      // RULINGS-SOCIAL.md A3/B2 — same alt text as the Instagram post this
+      // docs/social/RULINGS-SOCIAL.md A3/B2 — same alt text as the Instagram post this
       // cross-posts from (image 1 only — the cross-post is always a
       // degraded single-image copy, A4).
       ...(item.altText?.[0] ? { alt_text_custom: item.altText[0] } : {}),

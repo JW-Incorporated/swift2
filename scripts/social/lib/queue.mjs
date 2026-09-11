@@ -411,7 +411,7 @@ export function summarizeQueueStatus(items, now = new Date(), { approvers } = {}
 
 /**
  * The exact content-bound payload an `approval.contentHash` covers
- * (RULINGS-SOCIAL.md A2) — every field the AUDIENCE sees or that changes
+ * (docs/social/RULINGS-SOCIAL.md A2) — every field the AUDIENCE sees or that changes
  * WHEN a post ships. Deliberately excludes `why`, `attempts`, `lastError`,
  * `lastAttemptAt`, `mediaCredit`/`mediaSource`/`photoId` (bound separately,
  * byte-for-byte, by validatePhotoInventoryBinding) and `approval` itself —
@@ -482,7 +482,7 @@ export function verifyApprovalSig(a, key) {
 /**
  * The B1 gate: is `item.approval` a valid, content-bound, SIGNED stamp
  * traceable to the owner's own Discord ✅ (schema v2, superseding A2's
- * merge-keyed v1 — RULINGS-SOCIAL-2.md B1)? Returns `{ ok: true }` or
+ * merge-keyed v1 — docs/social/RULINGS-SOCIAL-2.md B1)? Returns `{ ok: true }` or
  * `{ ok: false, reason }`, checked in this fixed order so the first true
  * reason is always what's reported: absent → malformed → not-a-discord-
  * identity → not-in-approvers → content-hash mismatch → bad signature.

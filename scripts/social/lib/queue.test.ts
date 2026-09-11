@@ -420,7 +420,7 @@ describe('mediaUrlsFor', () => {
   });
 });
 
-// RULINGS-SOCIAL-2.md B1/B5 — approvalStatus v2, and the property the whole
+// docs/social/RULINGS-SOCIAL-2.md B1/B5 — approvalStatus v2, and the property the whole
 // mechanism rests on: a hand-written approval object is inert at the
 // verifier. These exercise approvalStatus directly (the VERIFIER); the
 // issuer (who can mint a good one) is exercised in stamp-approval.test.ts.

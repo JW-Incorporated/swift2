@@ -20,7 +20,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { contentHash, signApproval } from './lib/queue.mjs';
 
-// RULINGS-SOCIAL-2.md B1: production's SOCIAL_APPROVERS (lib/approvers.mjs)
+// docs/social/RULINGS-SOCIAL-2.md B1: production's SOCIAL_APPROVERS (lib/approvers.mjs)
 // is intentionally EMPTY until the owner's real Discord user id is pinned
 // in — these tests must not depend on that being filled in yet, so they
 // mock the approver list to one fixed test identity. This is the identity
@@ -30,7 +30,7 @@ vi.mock('./lib/approvers.mjs', () => ({ SOCIAL_APPROVERS: [VALID_APPROVER] }));
 
 const TEST_SIGNING_KEY = 'test-signing-key-do-not-use-in-prod';
 
-// A valid, correctly-stamped, SIGNED v2 approval (RULINGS-SOCIAL-2.md B1) by
+// A valid, correctly-stamped, SIGNED v2 approval (docs/social/RULINGS-SOCIAL-2.md B1) by
 // the one approver every fixture below authors as. xItem/igItem auto-stamp
 // with this shape (computed against the item's own content) unless a test
 // explicitly overrides `approval` — see those factories below.
@@ -919,7 +919,7 @@ describe('post-queue: the happy path stays green', () => {
   });
 });
 
-// ── A2 approval gate (RULINGS-SOCIAL.md A2) — the deliverable: a draft with
+// ── A2 approval gate (docs/social/RULINGS-SOCIAL.md A2) — the deliverable: a draft with
 // no stamp, a stamp by a non-approver, and a stamp whose contentHash no
 // longer matches must each be refused, with a test proving it. The previous
 // gate ("merge IS the approval") shipped with no test proving it ever

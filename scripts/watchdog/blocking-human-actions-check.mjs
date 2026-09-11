@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Watchdog check (RULINGS-SOCIAL.md A6): a `[BLOCKING]` human action can be
+// Watchdog check (docs/social/RULINGS-SOCIAL.md A6): a `[BLOCKING]` human action can be
 // late, but it must never be SILENT. Tonight's near-miss (#56 — "freeze
 // social posting while the approval gate lands", filed 2026-09-10, not
 // executed until a session caught it independently at 2026-09-11T00:02:22Z)
@@ -111,7 +111,7 @@ async function main() {
   const lines = [
     `${aged.length} OPEN \`[BLOCKING]\` human action(s) in \`${filePath}\` ${aged.length === 1 ? 'is' : 'are'} older than ${maxAgeHours}h.`,
     '',
-    '**Why this matters:** a filed-but-unexecuted human action is a single point of failure that looks identical to a handled one unless something watches its age — item #56 ("freeze social posting while the approval gate lands") sat open for this exact reason tonight (RULINGS-SOCIAL.md).',
+    '**Why this matters:** a filed-but-unexecuted human action is a single point of failure that looks identical to a handled one unless something watches its age — item #56 ("freeze social posting while the approval gate lands") sat open for this exact reason tonight (docs/social/RULINGS-SOCIAL.md).',
     '',
   ];
   for (const item of aged) {

@@ -25,7 +25,7 @@ export const OUTCOME = {
    * not live on the site yet, so the platform's fetch would 404. Costs no
    * attempt and ships itself once the image PR is merged and deployed. */
   WAITING: 'waiting',
-  /** Due, but has no valid approval stamp (RULINGS-SOCIAL.md A2) — no
+  /** Due, but has no valid approval stamp (docs/social/RULINGS-SOCIAL.md A2) — no
    * `approval` at all, a stamp from a non-approver, or a stamp whose
    * contentHash no longer matches the current content. Costs no attempt
    * (there is nothing to retry; a human/stamper action is what changes
@@ -218,7 +218,7 @@ export function formatReportMarkdown(outcomes, { runUrl, abortReason } = {}) {
     lines.push(
       `### 🔒 ${unapproved.length} awaiting approval (no attempt spent)`,
       '',
-      'No valid founder approval stamp on file (RULINGS-SOCIAL.md A2) — merge the draft\'s PR to stamp it, or re-open one if its content changed after it was stamped.',
+      'No valid founder approval stamp on file (docs/social/RULINGS-SOCIAL.md A2) — merge the draft\'s PR to stamp it, or re-open one if its content changed after it was stamped.',
       '',
     );
     for (const outcome of unapproved) {

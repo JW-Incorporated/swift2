@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Drops any draft from a notify manifest that the poll job has already
-// stamped (RULINGS-SOCIAL-2.md B1) — a `synchronize` re-run of
+// stamped (docs/social/RULINGS-SOCIAL-2.md B1) — a `synchronize` re-run of
 // social-approval-notify.yml must not re-brief a file the owner already
 // reacted ✅ to. Checked WITHOUT the signing key (this workflow never
 // holds SOCIAL_APPROVAL_KEY) — shape+id+hash is enough to tell "already

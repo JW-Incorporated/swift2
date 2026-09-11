@@ -700,7 +700,7 @@ jobs:
         with:
           node-version: '24'
 
-      # RULINGS-SOCIAL.md A6 — "a watchdog that reddens and emails when an
+      # docs/social/RULINGS-SOCIAL.md A6 — "a watchdog that reddens and emails when an
       # OPEN [BLOCKING] human action is older than 24h." Tonight's near-miss
       # (#56, the freeze, filed but not executed until a session caught it
       # independently) is the exact single point of failure this closes: a

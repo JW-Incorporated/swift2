@@ -1,4 +1,4 @@
-// RULINGS-SOCIAL-2.md B5 — the check that would have caught A2's hole.
+// docs/social/RULINGS-SOCIAL-2.md B5 — the check that would have caught A2's hole.
 // The three refusal tests A2 shipped with all exercised the *verifier*
 // ("does the poster reject a bad stamp?"). None of them exercised the
 // *issuer* ("who can mint a good one?") — and the repo already had the
@@ -27,7 +27,7 @@ describe('SOCIAL_APPROVERS', () => {
 
   it('is non-empty — an empty list is a deliberate total-refusal state, not a silent accident', () => {
     // EXPECTED TO FAIL until the owner's Discord user id is pinned into
-    // approvers.mjs (RULINGS-SOCIAL-2.md B1 setup step 3). A failure here
+    // approvers.mjs (docs/social/RULINGS-SOCIAL-2.md B1 setup step 3). A failure here
     // is the loud signal that setup is incomplete, not a bug in the test.
     expect(SOCIAL_APPROVERS.length).toBeGreaterThan(0);
   });

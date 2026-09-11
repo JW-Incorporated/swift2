@@ -47,7 +47,7 @@ describe('photo-library', () => {
     expect(validatePhotoEntry({ ...library[0], source: 'not-a-url' })).toContain('source must be an http(s) URL');
   });
 
-  // RULINGS-SOCIAL.md A3/B2 — alt text is written once per library entry.
+  // docs/social/RULINGS-SOCIAL.md A3/B2 — alt text is written once per library entry.
   it('requires a non-blank alt description for every inventory entry', () => {
     expect(validatePhotoEntry({ ...library[0], alt: undefined })).toContain('alt is required — write the accessibility description once here (RULINGS-SOCIAL A3)');
     expect(validatePhotoEntry({ ...library[0], alt: '   ' })).toContain('alt is required — write the accessibility description once here (RULINGS-SOCIAL A3)');

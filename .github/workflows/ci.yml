@@ -153,7 +153,7 @@ jobs:
           git fetch --no-tags --depth=1 origin main
           npm run check:voice -- --base-ref FETCH_HEAD
       - run: npm run content:coverage
-      # RULINGS-SOCIAL.md A6 — "CI fails any PR touching the posting path
+      # docs/social/RULINGS-SOCIAL.md A6 — "CI fails any PR touching the posting path
       # while SOCIAL_FREEZE is off, making the switch a merge precondition."
       # The hole that shipped tonight existed because the gate's predicate
       # (PR file status) and the poster's predicate (isDue) were different

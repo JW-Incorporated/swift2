@@ -44,7 +44,7 @@ actor that can produce each input the gate trusts; if any is an automation
 identity, the gate is not done. Today's five (precedent): `sffan15-sys`,
 `wjduvall-cmd`, `claude[bot]`, `github-actions[bot]`, `app/claude`.
 
-**Who approved:** the owner, via the RULINGS-SOCIAL-2.md architect
+**Who approved:** the owner, via the docs/social/RULINGS-SOCIAL-2.md architect
 ruling (B1/B2/B3/B5).
 
 ---
@@ -104,7 +104,7 @@ brief with the image; and the owner must say in chat that he saw the image
 in `#longlive-social`. `SOCIAL_FREEZE` stays `true` until all four hold —
 this PR does not flip it and does not claim to.
 
-**Approved by:** architect (Fable) ruling, `scratchpad/RULINGS-SOCIAL.md`,
+**Approved by:** architect (Fable) ruling, `docs/social/RULINGS-SOCIAL.md`,
 2026-09-11T00:10Z.
 
 ---

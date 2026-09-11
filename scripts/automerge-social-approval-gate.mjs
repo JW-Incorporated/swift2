@@ -32,7 +32,7 @@ export const STATE_BRANCH_PREFIX = 'social-poster/state-';
  * @returns {{blocked: boolean, matches: {status: string, filename: string}[]}}
  */
 export function evaluateSocialApprovalGate(filesMeta, headRef) {
-  // RULINGS-SOCIAL-2.md B3: the merge-triggered stamper (and its
+  // docs/social/RULINGS-SOCIAL-2.md B3: the merge-triggered stamper (and its
   // STAMP_BRANCH_PREFIX exemption) is deleted — stamping now happens
   // BEFORE the merge, via social-approval-poll.yml, so there is no
   // separate "stamp PR" whose modify needs exempting any more. Only the

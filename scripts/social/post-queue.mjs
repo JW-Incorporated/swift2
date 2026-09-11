@@ -311,7 +311,7 @@ export async function main() {
       continue;
     }
 
-    // A2 (RULINGS-SOCIAL.md): the poster is the SOLE enforcement point for
+    // A2 (docs/social/RULINGS-SOCIAL.md): the poster is the SOLE enforcement point for
     // approval, reading only `approval` on the item itself — no GitHub API
     // call, no network dependence, fail-closed regardless of how a file
     // reached `main`. A pre-2026-09-11 draft has no `approval` key at all,
@@ -562,7 +562,7 @@ export async function main() {
       const result = await postOne(item);
       const { result: facebook, error: facebookError } = await crosspostToFacebook(item);
       // Approval provenance is now the `approval` object already on
-      // `item` (RULINGS-SOCIAL-2.md B1) — it rode in via the `...item`
+      // `item` (docs/social/RULINGS-SOCIAL-2.md B1) — it rode in via the `...item`
       // spread below, written once by social-approval-poll.yml reacting to
       // the owner's own Discord ✅, never re-derived here. The old
       // git-provenance.mjs lookup (dead code — queried commits/{sha}/pulls,

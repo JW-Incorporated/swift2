@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "policy": "Every entry has a local publishable media path, an exact source URL, and a truthful credit. The selector chooses the least-used entry and then the longest-unseen entry; recency is a diversity preference, never an eligibility ban, so a valid campaign cannot deadlock when the finite library is exhausted. Every entry also carries an \"alt\" accessibility description (RULINGS-SOCIAL.md A3/B2), written ONCE here and reviewed in this file's own PR — a draft's altText[] must copy it verbatim (see scripts/social/select-photo.mjs's output and lib/queue-schema.mjs's validatePhotoInventoryBinding) rather than retyping it per post, so attribution and description cannot drift apart.",
+  "policy": "Every entry has a local publishable media path, an exact source URL, and a truthful credit. The selector chooses the least-used entry and then the longest-unseen entry; recency is a diversity preference, never an eligibility ban, so a valid campaign cannot deadlock when the finite library is exhausted. Every entry also carries an \"alt\" accessibility description (docs/social/RULINGS-SOCIAL.md A3/B2), written ONCE here and reviewed in this file's own PR — a draft's altText[] must copy it verbatim (see scripts/social/select-photo.mjs's output and lib/queue-schema.mjs's validatePhotoInventoryBinding) rather than retyping it per post, so attribution and description cannot drift apart.",
   "photos": [
     {
       "id": "1989-inglewood-2023",

@@ -51,7 +51,7 @@ export async function validateDir(dir) {
     }
     const findings = [...validateQueueItem(data), ...validatePhotoInventoryBinding(data, photoLibrary)];
     if (findings.length) failures.push({ file, findings });
-    // RULINGS-SOCIAL.md A6 ("validate-queue prints unstamped drafts as
+    // docs/social/RULINGS-SOCIAL.md A6 ("validate-queue prints unstamped drafts as
     // warnings") — every draft legitimately arrives with no `approval` at
     // all (it's only written by the merge-triggered stamper, AFTER this
     // PR merges), so this is a WARNING, never a hard failure; it never adds
