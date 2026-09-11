@@ -50,6 +50,7 @@ import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { appendRows, classifyReaction, isoWeek, pillarOf, PENCIL_UNSUPPORTED_ON_HEADER } from './lib/feedback.mjs';
 import { approvalStatus, contentHash } from './lib/queue.mjs';
 import { stampFiles } from './stamp-approval.mjs';
+import { checkDraft, isWarningFinding, POSTED_DIR, QUEUE_DIR, readJsonDir, recentInstagramPosted, recentPostedOpeners } from './check-drafts.mjs';
 
 const DISCORD_API = 'https://discord.com/api/v10';
 const REF_LINE_RE = /^ref: PR #(\d+) · ([0-9a-f]{40}) · (.+)$/m;
@@ -79,26 +80,47 @@ function git(args, { cwd, input } = {}) {
   return execFileSync('git', args, { cwd, encoding: 'utf8', input, env: process.env }).trim();
 }
 
-/** The real checkDraft path (spec §Mechanics-4): shells out to the SAME
- * CLI auto-merge-content.yml already uses (`node scripts/social/check-drafts.mjs
- * <file>`) rather than re-deriving check-drafts.mjs's non-exported
- * allQueue/allPosted/openerContext/recentIg context here — that context IS
- * the checker, duplicating it would be a second implementation of an
- * existing mechanism. Injectable (`checkDraftImpl`) because this default
- * only works when process.cwd() is a real repo checkout — never true in
- * this file's own unit tests. */
-function defaultCheckDraft(relPath) {
+/** The real checkDraft path (spec §Mechanics-4). Calls the SAME checker
+ * auto-merge-content.yml uses, but as a direct in-process import rather
+ * than the earlier `node scripts/social/check-drafts.mjs <file>` subprocess
+ * (Codex round-1 review, PR #4139 finding 1): a subprocess re-reads that
+ * file from disk at spawn time, which — after this run's `gh pr checkout`
+ * has swapped the working tree to the PR's own branch — would execute
+ * THAT PR's own (potentially modified) copy of check-drafts.mjs with this
+ * job's signing credentials. That breaks the "DATA ONLY, never executing
+ * PR code" boundary social-approval-notify.yml already draws elsewhere in
+ * this pipeline. `checkDraft` and its context-builders are imported at the
+ * top of THIS file instead, so Node resolves and evaluates them once, from
+ * the trusted `ref: main` checkout the workflow starts from, before any PR
+ * branch is ever checked out — Node's module cache then keeps serving that
+ * same in-memory code for the rest of the process regardless of what a
+ * later `gh pr checkout` changes on disk. Only the DRAFT CONTENT is read
+ * fresh off disk per call (via readJsonDir/readFileSync), which is exactly
+ * "passing the draft content as data": the PR fully controls what it puts
+ * in social/queue/**.json, never what code checks it. Injectable
+ * (`checkDraftImpl`) because this default only works when process.cwd() is
+ * a real repo checkout — never true in this file's own unit tests. */
+async function defaultCheckDraft(relPath) {
+  const absPath = path.join(process.cwd(), relPath);
+  let data;
   try {
-    execFileSync('node', ['scripts/social/check-drafts.mjs', relPath], { encoding: 'utf8', env: process.env });
-    return { ok: true, findings: [] };
+    data = JSON.parse(readFileSync(absPath, 'utf8'));
   } catch (err) {
-    const output = `${err.stdout ?? ''}${err.stderr ?? ''}`;
-    const findings = output
-      .split('\n')
-      .map((line) => line.trim())
-      .filter((line) => line.startsWith('- '))
-      .map((line) => line.slice(2));
-    return { ok: false, findings: findings.length > 0 ? findings : [output.trim() || 'check-drafts failed with no findings text'] };
+    return { ok: false, findings: [`could not read/parse ${relPath} for checkDraft: ${err.message}`] };
+  }
+  try {
+    const target = { file: path.basename(relPath), full: absPath, data };
+    const allQueue = await readJsonDir(QUEUE_DIR);
+    const allPosted = await readJsonDir(POSTED_DIR);
+    const recentIg = await recentInstagramPosted();
+    const recentPosted = await recentPostedOpeners();
+    const openerContext = [...recentPosted, ...allQueue.map((q) => ({ file: q.file, body: q.data.body }))];
+    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg });
+    const hardFindings = findings.filter((f) => !isWarningFinding(f));
+    if (hardFindings.length === 0) return { ok: true, findings: [] };
+    return { ok: false, findings: [...hardFindings, ...findings.filter(isWarningFinding)] };
+  } catch (err) {
+    return { ok: false, findings: [`checkDraft crashed: ${err.stack ?? err}`] };
   }
 }
 
@@ -253,18 +275,78 @@ function readFileAtSha(execGit, sha, relPath) {
   }
 }
 
+// The identity ensureGitIdentity() configures for every commit THIS script
+// makes — the only bar isPollAuthorizedDeletion below checks a deletion
+// commit against (finding #9). Not a cryptographic proof (anyone who can
+// push to the PR branch can set this same git config locally), but the
+// same trust level the rest of this file's `reject:`-prefix comment
+// convention already relies on, and a real improvement over today's "any
+// deletion disqualifies the whole diff, no exception, ever."
+const POLL_COMMIT_AUTHOR = 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>';
+
+/**
+ * #4139 round-1 finding 9: a file legitimately removed by the poll's OWN
+ * reject commit must not itself disqualify honouring the REST of a
+ * stale->head diff (reject draft A, stamp draft B, push, CI goes red — the
+ * next run's diff for B's ref now spans A's deletion too, and A no longer
+ * exists to read at head). Verifiable exception: the changed path's entire
+ * history in the stale->head range must be exactly ONE commit, authored by
+ * this script's own identity, with exactly the commit message the reject
+ * loop below writes for that same path — anything else (more than one
+ * commit touching it, a different author, a different message) is refused,
+ * not assumed safe.
+ */
+function isPollAuthorizedDeletion(execGit, staleSha, headSha, changedPath) {
+  let log;
+  try {
+    log = execGit(['log', `${staleSha}..${headSha}`, '--format=%an <%ae>%x09%s', '--', changedPath]);
+  } catch {
+    return false;
+  }
+  const commits = log.split('\n').filter((line) => line.trim() !== '');
+  if (commits.length !== 1) return false;
+  const [author, subject] = commits[0].split('\t');
+  if (author !== POLL_COMMIT_AUTHOR) return false;
+  return subject === `social-approval: reject ${changedPath} (founder ❌ in Discord)`;
+}
+
+// #4139 round-1 finding 5: contentHashPayload only covers platform/body/
+// media/altText/scheduledAt/campaign, so a commit that rewrites an unhashed
+// field (why, mediaCredit) on an already-approved file leaves
+// approvalStatus().ok === true even though the founder never saw that
+// change — "is head still validly signed" is not the same test as "is this
+// the poll's own stamp/edit commit and nothing else." Only `approval`
+// changing (a stamp), or `body`+`edit`+`approval` changing TOGETHER (an
+// edit), are the shapes the poll's own commits ever produce; anything else
+// disqualifies honouring for this file.
+const HONOURED_MUTABLE_FIELDS = new Set(['approval', 'body', 'edit']);
+
+function honouredFieldChangeOk(staleItem, headItem) {
+  const keys = new Set([...Object.keys(staleItem ?? {}), ...Object.keys(headItem ?? {})]);
+  for (const key of keys) {
+    const same = JSON.stringify(staleItem?.[key]) === JSON.stringify(headItem?.[key]);
+    if (!same && !HONOURED_MUTABLE_FIELDS.has(key)) return false;
+  }
+  const bodyChanged = JSON.stringify(staleItem?.body) !== JSON.stringify(headItem?.body);
+  const editChanged = JSON.stringify(staleItem?.edit) !== JSON.stringify(headItem?.edit);
+  return bodyChanged === editChanged; // body only ever moves together with `edit` (one edit commit) — never alone
+}
+
 /**
  * #4127 issue 2 (spec: "The stale-SHA problem ✏️ makes acute"). Partitions
  * a PR's refs into `current` (head SHA matches — may create a fresh
  * approval) and `honoured` (stale, but safe to let PROCEED TO MERGE only —
  * never to mint). Honouring requires the queue file already naming that
  * exact message, its contentHash still matching, and the stale->head diff
- * touching only already-validly-stamped social/queue/**.json files (the
- * diff restriction is load-bearing — see the spec's "why the naive rule was
- * wrong").  A shallow CI checkout (actions/checkout@v7's default) may not
- * hold the stale commit's objects yet, so this fetches (bounded depth —
- * real staleness here is a handful of commits, never more) before reading;
- * a fetch failure just means nothing gets honoured this run, not a crash.
+ * touching only already-validly-stamped social/queue/**.json files, each
+ * changed ONLY in the fields the poll's own stamp/edit commits ever touch
+ * (the diff restriction is load-bearing — see the spec's "why the naive
+ * rule was wrong", and finding 5 above for why validity-of-signature alone
+ * isn't a strong enough test). A shallow CI checkout (actions/checkout@v7's
+ * default) may not hold the stale commit's objects yet, so this fetches
+ * (bounded depth — real staleness here is a handful of commits, never more)
+ * before reading; a fetch failure just means nothing gets honoured this
+ * run, not a crash.
  */
 function partitionCurrentHonoured(pr, refs, prView, execGit, approvalKey) {
   const current = refs.filter((r) => r.sha === prView.headRefOid);
@@ -280,7 +362,18 @@ function partitionCurrentHonoured(pr, refs, prView, execGit, approvalKey) {
 
   const honoured = [];
   for (const ref of stale) {
-    if (ref.file === '*') continue; // no per-file approval.message to honour against on the header
+    if (ref.file === '*') {
+      // #4139 round-1 finding 4a: no per-file approval.message to validate
+      // against on the header, but that's not a reason to drop it from
+      // `allRefs` entirely — a stale header's REACTIONS must still be
+      // readable (a late ❌+reason must still close the PR), it just must
+      // never MINT a fresh approval. That suppression already exists at the
+      // call site (`honouredMessageIds.has(message.id)` before any
+      // filesToStamp.add('*')) — honouring the ref here only enables
+      // reading, never approving.
+      honoured.push(ref);
+      continue;
+    }
     const relPath = path.posix.join('social', 'queue', path.basename(ref.file));
     const headContent = readFileAtSha(execGit, prView.headRefOid, relPath);
     if (!headContent) continue;
@@ -301,10 +394,20 @@ function partitionCurrentHonoured(pr, refs, prView, execGit, approvalKey) {
     }
     const diffIsAllValidlyStampedQueueFiles = changedPaths.every((p) => {
       if (!p.startsWith('social/queue/') || !p.endsWith('.json')) return false;
-      const content = readFileAtSha(execGit, prView.headRefOid, p);
-      if (!content) return false;
+      const headFileContent = readFileAtSha(execGit, prView.headRefOid, p);
+      if (!headFileContent) {
+        // Deleted between stale and head — safe ONLY when it's the poll's
+        // own verifiable reject commit for this exact path (finding 9);
+        // otherwise a legitimate reject would forever strand every OTHER
+        // file's honouring whose diff range happens to span the same commit.
+        return isPollAuthorizedDeletion(execGit, ref.sha, prView.headRefOid, p);
+      }
+      const staleFileContent = readFileAtSha(execGit, ref.sha, p);
+      if (!staleFileContent) return false; // newly-added mid-diff — not a stamp/edit of something pre-existing
       try {
-        return approvalStatus(JSON.parse(content), { approvers: SOCIAL_APPROVERS, key: approvalKey }).ok;
+        const headFileItem = JSON.parse(headFileContent);
+        if (!approvalStatus(headFileItem, { approvers: SOCIAL_APPROVERS, key: approvalKey }).ok) return false;
+        return honouredFieldChangeOk(JSON.parse(staleFileContent), headFileItem);
       } catch {
         return false;
       }
@@ -318,10 +421,14 @@ function partitionCurrentHonoured(pr, refs, prView, execGit, approvalKey) {
 /** spec §1b/social-poster.yml's own pattern, adapted for a script that (unlike
  * social-poster.yml) switches branches per PR over the course of one run:
  * checks out `social-ledger` fresh (from its own tip, or from origin/main
- * if the branch doesn't exist yet) as the LAST git operation of the run, so
- * the tree it commits from is never contaminated by whichever PR branch
- * this run last had checked out. Idempotent (feedback.mjs's appendRows) and
- * fails the run loudly — never silently — on a non-fast-forward push. */
+ * if the branch doesn't exist yet) so the tree it commits from is never
+ * contaminated by whichever PR branch this run last had checked out.
+ * Idempotent (feedback.mjs's appendRows) and fails the run loudly — never
+ * silently — on a non-fast-forward push. Called once per PR (see the
+ * `finally` in the caller below, #4139 round-1 finding 7) rather than once
+ * at the very end of the whole run, so an already-resolved PR's row is
+ * durably pushed before moving on, even if a LATER PR's own processing
+ * throws or the run is interrupted. */
 function pushLedgerRows(execGit, ensureGitIdentity, rows, now = new Date()) {
   if (rows.length === 0) return;
   ensureGitIdentity();
@@ -403,7 +510,6 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
   const repliesByParent = buildRepliesByParent(messages);
   const nudgeHistory = recentNudges(messages, webhookId);
   const runResolvedAt = new Date();
-  const ledgerRows = [];
 
   // Group candidate messages by the PR they reference, keeping the ref's
   // headSha alongside each so the current/honoured partition below can
@@ -419,6 +525,13 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
   }
 
   for (const [pr, refs] of byPr.entries()) {
+    // #4139 round-1 finding 7: pushed per-PR in the `finally` at the bottom
+    // of this loop body, not accumulated across every PR in the run and
+    // pushed once at the end — a merge that succeeds for THIS PR gets its
+    // ledger row persisted before moving to the next one, even if a LATER
+    // PR in the same run throws or the run is interrupted.
+    const prLedgerRows = [];
+    try {
     let prView;
     try {
       prView = JSON.parse(execGh(['pr', 'view', String(pr), '--repo', repo, '--json', 'headRefOid,headRefName,state,number']));
@@ -434,10 +547,18 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
 
     const filesToStamp = new Set();
     let rejectHeaderClassified = null;
+    let rejectHeaderMessageId = null;
     const rejectFiles = []; // { file, reason, approver, replyId, messageId }
     const editTargets = []; // { file, message, classified }
     const pendingTargets = []; // { message, file, pendingKind, reason }
     const reactionCache = new Map();
+    // #4139 round-1 finding 4b: each file's OWN approving message/approver,
+    // never collapsed onto one shared id — a header ✅ approves every
+    // expanded file through the header's own message (headerApproval),
+    // while an individual file's own ✅ takes precedence over that when both
+    // are present (set below, per-file wins).
+    const approvalSourceByFile = new Map(); // file -> { message, approver }
+    let headerApproval = null; // { message, approver }
     // Files (and the header, tracked separately) whose message's reactions
     // could not be read this run — an unreadable message could carry a ❌
     // we can't see, so it must never be silently approved through, whether
@@ -460,8 +581,10 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       const classified = classifyReaction(reactions, replies, { kind: file === '*' ? 'pr' : 'draft' });
 
       if (classified.action === 'reject') {
-        if (file === '*') rejectHeaderClassified = classified;
-        else rejectFiles.push({ file, reason: classified.reason, approver: classified.approver, replyId: classified.replyId, messageId: message.id });
+        if (file === '*') {
+          rejectHeaderClassified = classified;
+          rejectHeaderMessageId = message.id;
+        } else rejectFiles.push({ file, reason: classified.reason, approver: classified.approver, replyId: classified.replyId, messageId: message.id });
         continue;
       }
       if (classified.action === 'edit' && file !== '*') {
@@ -475,6 +598,11 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         // The merge phase below re-validates the file's existing stamp
         // fresh from disk regardless, so doing nothing here is correct.
         if (honouredMessageIds.has(message.id)) continue;
+        if (file === '*') {
+          headerApproval = { message, approver: classified.approver };
+        } else {
+          approvalSourceByFile.set(file, { message, approver: classified.approver });
+        }
         filesToStamp.add(file === '*' ? '*' : file);
         continue;
       }
@@ -484,6 +612,17 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       }
       // 'none' and 'skip' (S6-only, unreachable here): nothing to do.
     }
+
+    // #4139 round-1 finding 3: a pending target (an unanswered ✏️/❌, or —
+    // set further below — a caption that failed checkDraft THIS run) must
+    // block stamping and merging for the WHOLE PR, full stop. Without this,
+    // a header ✅ could still stamp/merge a file with its OWN pending ✏️
+    // (the reaction table's opposite intent), an already-stamped file could
+    // still merge despite a pending ❌ arriving on it, and a failed ✏️
+    // replacement could revert to — and then merge — the previously-
+    // approved original instead of leaving the target pending, all three
+    // reproduced against the pre-fix code.
+    let prBlockedByPending = pendingTargets.length > 0;
 
     if (prView.state !== 'OPEN') {
       if (filesToStamp.size > 0) {
@@ -508,6 +647,26 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
     // resolved a qualifying reply (never on a bare ❌).
     if (rejectHeaderClassified) {
       execGh(['pr', 'close', String(pr), '--repo', repo, '--comment', `reject: founder reacted ❌ on the brief — ${rejectHeaderClassified.reason}`]);
+      // #4139 round-1 finding 8: a header-wide reject used to close the PR
+      // and move on without ever recording the founder's reason — silently
+      // losing exactly what the ledger exists to capture. Scope token '*'
+      // and null platform/campaign/pillar match the spec's general rule for
+      // non-per-draft-file rows (proposal/reddit scopes use the same shape).
+      prLedgerRows.push({
+        ts: runResolvedAt.toISOString(),
+        pr,
+        file: '*',
+        platform: null,
+        campaign: null,
+        pillar: null,
+        action: 'reject',
+        reason: rejectHeaderClassified.reason,
+        originalBody: null,
+        editedBody: null,
+        approver: rejectHeaderClassified.approver,
+        messageId: rejectHeaderMessageId,
+        replyId: rejectHeaderClassified.replyId,
+      });
       continue;
     }
 
@@ -555,7 +714,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       execGit(['commit', '-m', `social-approval: reject ${file} (founder ❌ in Discord)`]);
       execGit(['push', 'origin', `HEAD:${prView.headRefName}`]);
       execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', `reject: ${file} — ${reason}`]);
-      ledgerRows.push({
+      prLedgerRows.push({
         ts: runResolvedAt.toISOString(),
         pr,
         file: relPath,
@@ -573,6 +732,10 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
     }
 
     for (const { file, message, classified } of editTargets) {
+      // #4139 round-1 finding 3: a pending target anywhere on this PR (set
+      // before this loop, or by an earlier iteration's checkDraft failure
+      // below) blocks every stamp/merge action this run, full stop.
+      if (prBlockedByPending) continue;
       const relPath = path.posix.join('social', 'queue', path.basename(file));
       const absPath = path.join(process.cwd(), relPath);
       let raw;
@@ -583,6 +746,18 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         continue;
       }
       const item = JSON.parse(raw);
+
+      // #4139 round-1 finding 10: a retry after a merge-phase failure would
+      // otherwise re-apply an edit whose body/stamp already exactly match
+      // this reply — corrupting `edit.fromBody` (it would capture the
+      // ALREADY-edited body as its own "from") and forcing a needless extra
+      // commit + CI cycle every run until the merge finally succeeds. The
+      // merge phase below re-attempts on its own, unconditionally, so
+      // nothing is lost by treating an already-applied edit as a no-op here.
+      if (item.body === classified.editedBody && approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: approvalKey }).ok) {
+        continue;
+      }
+
       const nowIso = new Date().toISOString();
       const editedItem = { ...item, body: classified.editedBody, edit: { by: classified.approver, at: nowIso, message: message.id, fromBody: item.body } };
       writeFileSync(absPath, JSON.stringify(editedItem, null, 2) + '\n');
@@ -591,12 +766,16 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       // founder's caption is unvalidated text and could fail checkDraft in
       // any of its 5 rule families. Without this, the edit commits, CI goes
       // red, and the draft sits stranded with nothing said in the channel.
-      const checkResult = checkDraftImpl(relPath);
+      const checkResult = await checkDraftImpl(relPath);
       if (!checkResult.ok) {
         writeFileSync(absPath, raw); // revert — never commit/stamp an unvalidated edit
         const findingText = checkResult.findings[0] ?? 'the edited caption failed a draft-time check';
         console.error(`::warning::social-approval-poll: PR #${pr} ${relPath} — edited caption failed checkDraft, leaving pending: ${findingText}`);
         await postToChannel(fetchImpl, webhookUrl, `Couldn't use that caption for ${path.basename(relPath)}: ${findingText}. Reply again with a different one.`);
+        // finding 3, scenario (c): a failed replacement leaves the file
+        // reverted to its previous (possibly already-approved) content —
+        // that must not be free to merge this run as if nothing happened.
+        prBlockedByPending = true;
         continue;
       }
 
@@ -608,7 +787,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       execGit(['add', ...result.stamped]);
       execGit(['commit', '-m', `social-approval: edit ${relPath} (discord ✏️ by founder, PR #${pr})`]);
       execGit(['push', 'origin', `HEAD:${prView.headRefName}`]);
-      ledgerRows.push({
+      prLedgerRows.push({
         ts: runResolvedAt.toISOString(),
         pr,
         file: relPath,
@@ -623,6 +802,16 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         messageId: message.id,
         replyId: classified.replyId,
       });
+    }
+
+    // #4139 round-1 finding 3: full stop — nothing on this PR stamps or
+    // merges this run while any target (individual file, header, or a
+    // caption that just failed checkDraft above) is pending. Nudges for
+    // classification-time pendings already fired earlier, and rejects above
+    // are unaffected (they only narrow the queue, never merge anything).
+    if (prBlockedByPending) {
+      console.error(`::warning::social-approval-poll: PR #${pr} has an unresolved pending target this run (unanswered ✏️/❌, or a caption that failed checkDraft) — deferring all stamping and merge for the whole PR until it resolves.`);
+      continue;
     }
 
     // A header message whose reactions couldn't be fetched this run could be
@@ -645,66 +834,76 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
     let targetFiles = [...filesToStamp].filter((f) => f !== '*' && !unresolvedFiles.has(f));
     if (filesToStamp.has('*')) {
       const filesMeta = JSON.parse(execGh(['pr', 'view', String(pr), '--repo', repo, '--json', 'files'])).files;
-      targetFiles = filesMeta
+      const expandedFiles = filesMeta
         .filter((f) => f.path.startsWith('social/queue/') && f.path.endsWith('.json'))
         .map((f) => f.path)
         .filter((f) => !unresolvedFiles.has(f) && !unresolvedFiles.has(path.basename(f)));
+      targetFiles = [...new Set([...targetFiles, ...expandedFiles])];
     }
 
+    // #4139 round-1 finding 4b: each file's OWN approving message/approver
+    // (an individual ✅ takes precedence; a header ✅ covers whatever's
+    // left) — never one shared message id applied to every file, which
+    // silently corrupted OTHER files' `approval.message` whenever more than
+    // one message resolved to 'approve' in the same run, breaking future
+    // reaction matching against the real (now-overwritten) message.
     const stampCandidates = targetFiles.map((file) => {
       const relPath = path.posix.join('social', 'queue', path.basename(file));
       const raw = readFileSync(path.join(process.cwd(), relPath), 'utf8');
       const item = JSON.parse(raw);
-      return { file, relPath, item, needsStamp: !approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: approvalKey }).ok };
+      const source = approvalSourceByFile.get(file) ?? headerApproval;
+      return { file, relPath, item, source, needsStamp: !approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: approvalKey }).ok };
     });
-    const toStamp = stampCandidates.filter((c) => c.needsStamp).map((c) => c.file);
+    const toStamp = stampCandidates.filter((c) => c.needsStamp);
 
     if (toStamp.length > 0) {
-      const approverRef = current.find(() => SOCIAL_APPROVERS.length > 0)?.message;
-      const approvedByIds = new Set();
-      for (const { message } of current) {
-        const cached = reactionCache.get(message.id);
-        if (!cached) continue; // this message's reactions failed to fetch above and was already logged
-        for (const id of cached.approvedBy) approvedByIds.add(id);
-      }
-      const by = [...approvedByIds][0];
-      const stampMessageId = String(approverRef?.id ?? current[0].message.id);
-      const result = stampFiles(toStamp, {
-        by,
-        at: new Date().toISOString(),
-        pr,
-        message: stampMessageId,
-        key: approvalKey,
-      });
-      if (!result.ok) {
-        console.error(`::error::social-approval-poll: ${result.reason}`);
-      } else {
-        for (const f of result.stamped) {
-          console.log(`social-approval-poll: stamped ${f} (${by} ✅ on message ${current[0].message.id})`);
+      const groups = new Map(); // `${approver}::${messageId}` -> { by, message, files: [] }
+      for (const candidate of toStamp) {
+        if (!candidate.source) {
+          console.error(`::error::social-approval-poll: PR #${pr} ${candidate.relPath} needs stamping but no approval source was tracked for it — refusing to stamp with an unattributed message (should be unreachable).`);
+          continue;
         }
-        if (result.stamped.length > 0) {
-          execGit(['add', ...result.stamped]);
-          execGit(['commit', '-m', `social-approval: stamp ${result.stamped.join(', ')} (discord ✅ by founder, PR #${pr})`]);
-          execGit(['push', 'origin', `HEAD:${prView.headRefName}`]);
-          for (const relPath of result.stamped) {
-            const candidate = stampCandidates.find((c) => c.relPath === relPath);
-            if (!candidate) continue;
-            ledgerRows.push({
-              ts: runResolvedAt.toISOString(),
-              pr,
-              file: relPath,
-              platform: candidate.item.platform ?? null,
-              campaign: candidate.item.campaign ?? null,
-              pillar: pillarOf(candidate.item.campaign ?? null),
-              action: 'approve',
-              reason: null,
-              originalBody: candidate.item.body ?? null,
-              editedBody: null,
-              approver: by,
-              messageId: stampMessageId,
-              replyId: null,
-            });
-          }
+        const key = `${candidate.source.approver}::${candidate.source.message.id}`;
+        if (!groups.has(key)) groups.set(key, { by: candidate.source.approver, message: candidate.source.message.id, files: [] });
+        groups.get(key).files.push(candidate.file);
+      }
+
+      const nowIso = new Date().toISOString();
+      const allStamped = []; // { relPath, by, message }
+      for (const { by, message, files } of groups.values()) {
+        const result = stampFiles(files, { by, at: nowIso, pr, message, key: approvalKey });
+        if (!result.ok) {
+          console.error(`::error::social-approval-poll: ${result.reason}`);
+          continue;
+        }
+        for (const f of result.stamped) {
+          console.log(`social-approval-poll: stamped ${f} (${by} ✅ on message ${message})`);
+        }
+        allStamped.push(...result.stamped.map((relPath) => ({ relPath, by, message })));
+      }
+
+      if (allStamped.length > 0) {
+        execGit(['add', ...allStamped.map((s) => s.relPath)]);
+        execGit(['commit', '-m', `social-approval: stamp ${allStamped.map((s) => s.relPath).join(', ')} (discord ✅ by founder, PR #${pr})`]);
+        execGit(['push', 'origin', `HEAD:${prView.headRefName}`]);
+        for (const { relPath, by, message } of allStamped) {
+          const candidate = stampCandidates.find((c) => c.relPath === relPath);
+          if (!candidate) continue;
+          prLedgerRows.push({
+            ts: runResolvedAt.toISOString(),
+            pr,
+            file: relPath,
+            platform: candidate.item.platform ?? null,
+            campaign: candidate.item.campaign ?? null,
+            pillar: pillarOf(candidate.item.campaign ?? null),
+            action: 'approve',
+            reason: null,
+            originalBody: candidate.item.body ?? null,
+            editedBody: null,
+            approver: by,
+            messageId: message,
+            replyId: null,
+          });
         }
       }
     }
@@ -736,18 +935,29 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
     if (allApproved && trippingFiles.length > 0) {
       try {
         execGh(['pr', 'checks', String(pr), '--repo', repo, '--watch', '--fail-fast']);
-        execGh(['pr', 'merge', String(pr), '--repo', repo, '--squash', '--delete-branch']);
+        // #4139 round-1 finding 2: the merge-time SHA race. Everything above
+        // only validated content up to whatever this run itself last pushed
+        // (or, if it pushed nothing, the TOCTOU-guarded checkout SHA) — a
+        // commit landing on the branch after that point (during the
+        // `pr checks --watch` wait, for instance) would otherwise merge
+        // silently with nothing above having looked at it.
+        // `--match-head-commit` makes `gh`/GitHub itself re-verify the head
+        // at the moment of merge and refuse if it no longer matches, closing
+        // the second window issue #4127 named alongside the checkout guard.
+        const finalValidatedSha = execGit(['rev-parse', 'HEAD']);
+        execGh(['pr', 'merge', String(pr), '--repo', repo, '--squash', '--delete-branch', '--match-head-commit', finalValidatedSha]);
       } catch (err) {
-        console.error(`::error::social-approval-poll: PR #${pr} checks red or merge failed — leaving open for the next run: ${err.message}`);
+        console.error(`::error::social-approval-poll: PR #${pr} checks red, head moved, or merge failed — leaving open for the next run: ${err.message}`);
       }
     }
-  }
-
-  try {
-    pushLedgerRows(execGit, ensureGitIdentity, ledgerRows, runResolvedAt);
-  } catch (err) {
-    console.error(`::error::social-approval-poll: feedback ledger write/push failed: ${err.message}`);
-    process.exitCode = 1;
+    } finally {
+      try {
+        pushLedgerRows(execGit, ensureGitIdentity, prLedgerRows, runResolvedAt);
+      } catch (err) {
+        console.error(`::error::social-approval-poll: PR #${pr} — feedback ledger write/push failed: ${err.message}`);
+        process.exitCode = 1;
+      }
+    }
   }
 }
 

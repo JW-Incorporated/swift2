@@ -89,9 +89,12 @@ jobs:
       # over the course of one run, so a YAML-level `git add`+commit-tree
       # step here would risk staging whatever random PR branch's tree was
       # last checked out, not main's. The script instead does its own
-      # `git checkout -B social-ledger` as the last thing it does, so
+      # `git checkout -B social-ledger` itself — once per PR, immediately
+      # after that PR's own work finishes (2026-09-11, #4139 round-1 finding
+      # 7: durability, not just once at the very end of the whole run), so
       # correctness (issue #2040's pattern: direct push, no PR, loud on a
-      # non-fast-forward) never depends on any step below this one.
+      # non-fast-forward) never depends on any step below this one, or on
+      # every other PR in the same run also finishing cleanly.
       #
       # Folding social/feedback/** back into main is VISIBILITY ONLY (same
       # framing as social-poster.yml's own fold-back step) — nothing's

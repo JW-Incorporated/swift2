@@ -91,8 +91,8 @@ import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
 import { THEMED_CAMPAIGN_PREFIXES } from './lib/queue-schema.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
-const POSTED_DIR = path.join(ROOT, 'social', 'posted');
+export const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
+export const POSTED_DIR = path.join(ROOT, 'social', 'posted');
 const PUBLIC_DIR = path.join(ROOT, 'apps', 'web', 'public');
 
 const OPENER_WORDS = 6;
@@ -163,7 +163,7 @@ const X_WEIGHTED_LENGTH_WARN_THRESHOLD = 270;
 // and main()'s severity split below.
 const WARNING_PREFIX = 'length: warning —';
 
-async function readJsonDir(dir) {
+export async function readJsonDir(dir) {
   let files;
   try {
     files = (await readdir(dir)).filter((f) => f.endsWith('.json'));
@@ -724,12 +724,12 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
   return findings;
 }
 
-async function recentInstagramPosted(n = ERA_ART_LOOKBACK) {
+export async function recentInstagramPosted(n = ERA_ART_LOOKBACK) {
   const posted = (await readJsonDir(POSTED_DIR)).map((p) => p.data).filter((d) => d.platform === 'instagram');
   return posted.sort((a, b) => new Date(a.postedAt) - new Date(b.postedAt)).slice(-n);
 }
 
-async function recentPostedOpeners(days = POSTED_LOOKBACK_DAYS) {
+export async function recentPostedOpeners(days = POSTED_LOOKBACK_DAYS) {
   const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
   const posted = await readJsonDir(POSTED_DIR);
   return posted.filter((p) => p.data.postedAt && new Date(p.data.postedAt).getTime() >= cutoff).map((p) => ({ file: p.file, body: p.data.body }));
@@ -790,7 +790,7 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
 
 /** True for a finding that's advisory only (see WARNING_PREFIX / checkLength)
  * — main() keeps these out of the pass/fail exit code but still prints them. */
-function isWarningFinding(finding) {
+export function isWarningFinding(finding) {
   return finding.startsWith(WARNING_PREFIX);
 }
 

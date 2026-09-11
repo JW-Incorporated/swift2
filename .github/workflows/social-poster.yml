@@ -215,14 +215,26 @@ jobs:
       # was already >48h past scheduledAt, so the very next run's 48h-stale
       # check immediately re-retired them straight back to social/failed/,
       # producing an identical watchdog alert every run in a loop no queue
-      # edit could ever break. Only posted/failed need the union-with-ledger
-      # treatment; queue must always reflect main, full stop.
+      # edit could ever break. queue must always reflect main, full stop.
+      #
+      # ALSO includes social/feedback (2026-09-11, Codex round-1 review on
+      # PR #4139 finding 6): the "Push ledger update" step below builds its
+      # social-ledger commit from a full `git write-tree` snapshot of this
+      # checkout, not a partial diff — so ANY namespace social-ledger owns
+      # that isn't explicitly overlaid here gets silently reverted to
+      # whatever main's own (possibly stale/absent, since fold-back is
+      # visibility-only) copy has, even with no timing race at all. This
+      # workflow doesn't write social/feedback (that's social-approval-
+      # poll.mjs's job) but a writer that snapshots the whole tree must still
+      # preserve every namespace it doesn't own, or its very first ledger
+      # commit after S3 lands would erase every feedback row recorded since
+      # main's last fold-back.
       #
       # Skips cleanly on a cold start: the branch doesn't exist until the
       # first run that has an actual posted/failed diff pushes it (see
       # the "Push ledger update" step below) — until then main's own copy is
       # the only copy, exactly like before this fix.
-      - name: Read the posted/failed ledger from social-ledger (union with main)
+      - name: Read the posted/failed/feedback ledger from social-ledger (union with main)
         if: steps.freeze.outputs.frozen != 'true'
         run: |
           set -euo pipefail
@@ -244,7 +256,7 @@ jobs:
             # overlay from the ledger for this dir this run" instead of
             # failing the whole step (and the run) closed.
             PATHS=""
-            for d in social/posted social/failed; do
+            for d in social/posted social/failed social/feedback; do
               if git cat-file -e "FETCH_HEAD:$d" 2>/dev/null; then
                 PATHS="$PATHS $d"
               fi
@@ -252,7 +264,7 @@ jobs:
             if [ -n "$PATHS" ]; then
               git archive FETCH_HEAD $PATHS | tar -x
             fi
-            echo "social-ledger: overlaid onto this checkout (posted/failed only, never queue)."
+            echo "social-ledger: overlaid onto this checkout (posted/failed/feedback only, never queue)."
           else
             echo "social-ledger: branch does not exist yet — main's own social/posted|failed is the seed."
           fi
@@ -322,8 +334,18 @@ jobs:
           # that had nothing to do with a post failing. Set it here, first.
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add social/queue social/posted social/failed
-          if git diff --cached --quiet; then
+          # social/feedback is staged too (finding 6 above) so that WHENEVER
+          # this step does write a commit, its full-tree snapshot carries
+          # social-ledger's own current feedback rows forward rather than
+          # reverting them to main's lagging copy — but it deliberately does
+          # NOT by itself trigger a commit: the emptiness check right below
+          # stays scoped to this workflow's OWN namespaces, so a run that
+          # posted nothing doesn't push a redundant no-op commit just because
+          # feedback hasn't been folded into main yet. social-approval-
+          # poll.mjs's own pushLedgerRows already persists feedback rows the
+          # moment it resolves them, independent of this workflow ever running.
+          git add social/queue social/posted social/failed social/feedback
+          if git diff --cached --quiet -- social/queue social/posted social/failed; then
             echo "No queue/ledger changes this run — social-ledger unchanged."
             exit 0
           fi
