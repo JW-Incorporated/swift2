@@ -100,6 +100,23 @@
 # (steps.post.outcome == 'failure' vs. a written SOCIAL_POSTER_NOTIFY
 # payload), so a run with both a success and a permanent failure sends both
 # emails, and a run with only one sends only that one.
+#
+# NOT chained via workflow_run off social-approval-poll (considered and
+# reverted, 2026-09-11, Tree Overhaul Wave 2 S2, Codex adversarial review
+# round 2 on PR #4125): this workflow's own state-commit PR (the fold-back
+# PR below) touches `social/queue/**`, which is exactly what
+# social-approval-notify.yml's `pull_request_target` trigger watches — and
+# social-approval-poll.yml now fires on social-approval-notify completing
+# (that file's header). Chaining THIS workflow to also fire on
+# social-approval-poll completing therefore closes a real loop: every
+# normal poster run's own state PR can re-trigger notify -> poll -> poster
+# again, regardless of whether anything new was actually approved. Round 1
+# found the 30-minute cron alone doesn't guarantee posting soon after a
+# stamp lands; that gap is real but is NOT closed by this file — closing it
+# needs the notify/poll chain to distinguish "a founder-authored draft PR"
+# from "the poster's own state PR" before firing downstream, which is a
+# bigger change than this task's scope. Left as an open follow-up (see the
+# PR body) rather than shipping the loop.
 name: social-poster
 on:
   schedule:

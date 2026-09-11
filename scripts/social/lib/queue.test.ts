@@ -9,6 +9,7 @@ import {
   repeatsRecentIgMedia,
   eraArtGuardReason,
   isStaleDue,
+  isStaleApproved,
   recentInstagramPosts,
   countPostedToday,
   bodyHash,
@@ -281,6 +282,32 @@ describe('isStaleDue', () => {
 
   it('is false for an item not yet due (future scheduledAt)', () => {
     expect(isStaleDue({ scheduledAt: '2099-01-01T00:00:00Z' }, now)).toBe(false);
+  });
+});
+
+describe('isStaleApproved', () => {
+  const now = new Date('2026-08-11T12:00:00Z');
+
+  it('is false just under the 48h threshold, measured from approval.at', () => {
+    expect(isStaleApproved({ approval: { at: '2026-08-09T13:00:00Z' } }, now)).toBe(false);
+  });
+
+  it('is true at/over the 48h threshold, measured from approval.at', () => {
+    expect(isStaleApproved({ approval: { at: '2026-08-09T12:00:00Z' } }, now)).toBe(true);
+    expect(isStaleApproved({ approval: { at: '2026-08-01T00:00:00Z' } }, now)).toBe(true);
+  });
+
+  it('respects a custom maxAgeHours', () => {
+    expect(isStaleApproved({ approval: { at: '2026-08-11T11:00:00Z' } }, now, 2)).toBe(false);
+    expect(isStaleApproved({ approval: { at: '2026-08-11T09:00:00Z' } }, now, 2)).toBe(true);
+  });
+
+  it('ignores scheduledAt entirely — a long-overdue schedule with a recent approval is not stale', () => {
+    expect(isStaleApproved({ scheduledAt: '2020-01-01T00:00:00Z', approval: { at: '2026-08-11T11:59:00Z' } }, now)).toBe(false);
+  });
+
+  it('a due-but-recent schedule with a stale approval IS stale', () => {
+    expect(isStaleApproved({ scheduledAt: '2026-08-11T11:59:00Z', approval: { at: '2026-08-01T00:00:00Z' } }, now)).toBe(true);
   });
 });
 

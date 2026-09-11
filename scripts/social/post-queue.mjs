@@ -81,6 +81,7 @@ import {
   selectDuePosts,
   eraArtGuardReason,
   isStaleDue,
+  isStaleApproved,
   isValidScheduledAt,
   hoursOverdue,
   MAX_POSTS_PER_RUN,
@@ -457,14 +458,19 @@ export async function main() {
     // 1. Stale check FIRST — unconditional, regardless of what else is true
     // about this item. A 3-day-stale item must not quietly post just
     // because it happens to be unblocked on the run that finally checks it.
-    if (isStaleDue(item, now)) {
-      const failureReason = 'Still unposted more than 48h after scheduledAt — moved to social/failed/ regardless of current guard/preflight state (see social/README.md\'s 48h rule).';
+    // `due` only ever contains items that already passed the approval gate
+    // above (validQueued), so every item reaching this point has a valid
+    // stamp — staleness is measured from the founder's own approval
+    // (`approval.at`), not `scheduledAt`/queue time (lib/queue.mjs's
+    // isStaleApproved).
+    if (isStaleApproved(item, now)) {
+      const failureReason = 'Still unposted more than 48h after founder approval — moved to social/failed/ regardless of current guard/preflight state (see social/README.md\'s 48h rule).';
       await moveToFailed(failedDir, entry, {
         ...item,
         failureReason,
         lastAttemptAt: now.toISOString(),
       });
-      console.error(`social-poster: ${entry.file} moved to social/failed/ — stuck >48h past scheduledAt.`);
+      console.error(`social-poster: ${entry.file} moved to social/failed/ — stuck >48h past founder approval.`);
       outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, error: failureReason });
       if (pairReady) brokenPairs.add(campaign);
       continue;

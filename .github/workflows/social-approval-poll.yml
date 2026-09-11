@@ -8,13 +8,49 @@
 # DISCORD_BOT_TOKEN — both environment secrets restricted to `main` by a
 # custom deployment-branch policy — are never readable from a `pull_request`
 # workflow run on a branch.
+#
+# GitHub's `schedule:` cron is BEST-EFFORT, not a guarantee (2026-09-11,
+# Tree Overhaul Wave 2 S2): only 2 of this workflow's own scheduled fires
+# were observed in a 9-hour window that day, against the every-15-minutes
+# cron below — GitHub can silently delay or drop a scheduled run under
+# platform load with no error surfaced anywhere. A founder's Discord ✅ was
+# sitting unpolled for hours as a result. `workflow_run` below closes that
+# gap by ALSO firing this poll the moment `social-approval-notify` (which
+# posts the approval prompt in the first place) finishes a run — an event
+# trigger GitHub actually delivers reliably, unlike cron — so a fresh brief
+# gets its first poll immediately rather than waiting on the next lucky
+# cron tick. The cron stays as the steady-state fallback.
+#
+# Ordering vs. `social-poster.yml` (which actually publishes an approved
+# item): `social-poster.yml` deliberately does NOT carry a `workflow_run`
+# trigger on this workflow completing (considered and reverted, 2026-09-11,
+# Codex adversarial review round 2 on PR #4125) — this workflow's own
+# stamp-commit/merge activity, and the poster's own state-commit PR, both
+# touch `social/queue/**`, which is exactly what `social-approval-notify`'s
+# `pull_request_target` trigger watches; chaining the poster off THIS
+# workflow's completion would let the poster's own routine state PR
+# re-trigger notify -> poll -> poster indefinitely, regardless of whether
+# anything new was actually approved. What this file's own `workflow_run`
+# trigger above still buys: an approval is stamped and merged promptly
+# after the founder reacts, even if this workflow's own cron tick is the
+# one GitHub drops — it does NOT by itself guarantee the poster's next run
+# happens promptly afterward (that still rides the poster's own 30-minute
+# cron, also best-effort). Closing that residual gap needs
+# social-approval-notify/poll to distinguish "a founder-authored draft PR"
+# from "the poster's own state PR" before firing downstream — left as an
+# open follow-up (see the PR body) rather than shipping the loop.
 name: social-approval-poll
 
 on:
   schedule:
     # Off the :00/:30 mark on purpose (repo's contention note) — every 15m.
+    # Best-effort only — see the header note above; workflow_run below is
+    # what actually keeps this timely.
     - cron: "7,22,37,52 * * * *"
   workflow_dispatch: {}
+  workflow_run:
+    workflows: [social-approval-notify]
+    types: [completed]
 
 permissions:
   contents: write

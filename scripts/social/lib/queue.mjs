@@ -298,6 +298,24 @@ export function isStaleDue(item, now, maxAgeHours = 48) {
   return now.getTime() - scheduled >= maxAgeHours * 60 * 60 * 1000;
 }
 
+/**
+ * The stamped-draft counterpart to isStaleDue above. A founder's own ✅
+ * (RULINGS-SOCIAL-2.md B1) is the moment a human actually acted on the
+ * item — measuring staleness from `scheduledAt`/queue time instead would
+ * retire a freshly-approved-but-not-yet-posted item on the same 48h clock
+ * as one nobody has ever looked at, which conflates "no human has acted"
+ * with "a human acted and it still didn't ship." Callers must only pass an
+ * item whose `approvalStatus(...).ok` is already true — post-queue.mjs's
+ * due-item loop guarantees this (an unapproved item never reaches
+ * selectDuePosts, so it never reaches this function either; it stays on
+ * isStaleDue/`scheduledAt` above) — `item.approval.at` is trusted as-is
+ * here, no re-verification.
+ */
+export function isStaleApproved(item, now, maxAgeHours = 48) {
+  const approvedAt = new Date(item.approval?.at).getTime();
+  return now.getTime() - approvedAt >= maxAgeHours * 60 * 60 * 1000;
+}
+
 /** Hours since `scheduledAt` passed (0 for a not-yet-due item). The number a
  * waiting/skipped item carries into the run report so "waiting" and "stuck"
  * are distinguishable without reading two days of Action logs — see
