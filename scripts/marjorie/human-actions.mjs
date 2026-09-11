@@ -1,12 +1,22 @@
-// Parses HUMAN-ACTIONS.md's OPEN section for Marjorie's brief — deterministic,
-// zero AI, same reasoning as gate-history.mjs: the file is the source of
-// truth and re-deriving structured data from an LLM reading prose is exactly
-// the "data problem masquerading as a writing problem" the 2026-08-11 brief
-// rebuild's header note warns about.
+// Parses HUMAN-ACTIONS.md for Marjorie's brief — deterministic, zero AI, same
+// reasoning as gate-history.mjs: the file is the source of truth and
+// re-deriving structured data from an LLM reading prose is exactly the "data
+// problem masquerading as a writing problem" the 2026-08-11 brief rebuild's
+// header note warns about.
 //
-// Requires every OPEN item to carry a `**Filed:** YYYY-MM-DD` line (added to
-// the file and mandated by the human-actions skill, 2026-08-23) — an item
-// missing one is reported with age `null` rather than guessed.
+// FORMAT v2 (RULINGS-2 / ARCHITECTURE-decision.md §3, P3 migration landed
+// 2026-09-11): the file now holds ONLY open items — presence means open,
+// there is no `**Status:**` field and no `## OPEN`/`## DONE` split. Closed
+// items live one-line-each in the sibling `HUMAN-ACTIONS-DONE.md`, which
+// this module does not read (nothing here needs it — founders never open
+// it either). An item's filed date moved from a `**Filed:**` body line into
+// a hidden `<!-- ha filed=YYYY-MM-DD ... -->` comment right under its
+// heading, and the kind vocabulary is now exactly BLOCKING / DECIDE /
+// UPGRADE (glyph follows kind, the parser ignores the glyph). An optional
+// `(~<eta>)` trailer on the heading is captured into its own `eta` field
+// instead of staying glued to `title` — see parseMinutes()'s doc comment for
+// why that split makes the "quickest to clear" feature MORE robust than the
+// v1 parser, not less.
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -15,85 +25,62 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 export const HUMAN_ACTIONS_PATH = 'HUMAN-ACTIONS.md';
 const DAY_MS = 86_400_000;
 
-const ITEM_HEADER = /^###\s+(\d+)\.\s+\[(BLOCKING|UPGRADE|REVIEW|MERCH|DONE)\]\s+(.*?)\s*$/;
-const FILED = /^\*\*Filed:\*\*\s*(\d{4}-\d{2}-\d{2})/;
-// `**Status:** DONE`, `**Status:** RESOLVED (2026-09-05)`, `**Status (2026-08-23): DONE`
-// — the file's authors write all three. The LAST status line inside an item
-// wins (items accrete `**Update:**` blocks and the newest verdict is at the
-// bottom), which parseItems() gets for free by overwriting.
-const STATUS = /^\*\*Status(?:\s*\([^)]*\))?:(?:\*\*)?\s*([A-Za-z]+)/;
-
-// Terminal statuses. An item carrying one of these is finished even when it
-// still physically sits under `## OPEN` — authors close items in place and
-// move them to `## DONE` later (or never). 2026-09-05 audit: HA#22 (RESOLVED),
-// HA#24 (DONE) and HA#35 (DONE) were all rendered as open founder asks with
-// "waiting Nd" ages on every brief, because this parser only looked at which
-// section an item sat in and never at what the item said about itself.
-export const CLOSED_STATUSES = new Set(['DONE', 'RESOLVED', 'SKIP', 'SKIPPED', 'CLOSED', 'SUPERSEDED']);
-
-export function isClosedStatus(status) {
-  return CLOSED_STATUSES.has(String(status || '').toUpperCase());
-}
+// `## #43 🔴 [BLOCKING] Title (~15 min)` — `\S*` eats the glyph (any single
+// non-space token; the parser never chokes on an unrecognized or missing
+// one), the KIND vocabulary is the v2 three, and a trailing `(~...)` eta is
+// stripped out of the captured title by the non-capturing group so `title`
+// never carries a half-rendered annotation.
+const ITEM_HEADER = /^##\s+#(\d+)\s+\S*\s*\[(BLOCKING|DECIDE|UPGRADE)\]\s+(.*?)(?:\s+\(~[^)]*\))?\s*$/;
+// The eta, captured independently of ITEM_HEADER so a heading's `title`
+// group and its `eta` are two clean fields instead of one field an author
+// has to un-glue by regex later. Kept including the leading `~` so it feeds
+// parseMinutes() unchanged.
+const ETA = /\((~[^)]*)\)\s*$/;
+// `<!-- ha filed=2026-09-11 -->` or `<!-- ha filed=2026-09-11 kind=inferred -->`
+// — filed= is always the first key; extra `k=v` pairs (e.g. migration's
+// `kind=inferred` marker) are legal and ignored here.
+const FILED = /^<!--\s*ha filed=(\d{4}-\d{2}-\d{2})\b/;
 
 /**
- * Split a HUMAN-ACTIONS.md body into its `## OPEN` and `## DONE` sections.
- * Sections are matched by heading text, not position, so a future
- * reordering of the file doesn't silently break this.
+ * Parse every item block (`## #N <glyph> [KIND] Title (~eta)` through the
+ * next such heading, or end of file) out of the whole document. There is no
+ * section split any more — v2's entire open file is items, full stop.
  */
-function sectionBody(markdown, heading) {
-  const re = new RegExp(`^##\\s+${heading}\\s*$`, 'm');
-  const m = re.exec(markdown);
-  if (!m) return '';
-  const rest = markdown.slice(m.index + m[0].length);
-  const next = /^##\s+\S/m.exec(rest);
-  return next ? rest.slice(0, next.index) : rest;
-}
-
-/**
- * Parse every item block (`### N. [TAG] Title` through the next `---` or
- * `### `) out of one section's body.
- */
-function parseItems(sectionText) {
+function parseItems(markdown) {
   const items = [];
-  const lines = sectionText.split('\n');
+  const lines = markdown.split('\n');
   let current = null;
   for (const line of lines) {
     const h = ITEM_HEADER.exec(line);
     if (h) {
       if (current) items.push(current);
-      current = { number: Number(h[1]), tag: h[2], title: h[3], filed: null, status: null };
+      const eta = ETA.exec(line);
+      current = { number: Number(h[1]), tag: h[2], title: h[3].trim(), eta: eta ? eta[1] : null, filed: null };
       continue;
     }
     if (!current) continue;
     const f = FILED.exec(line);
     if (f) current.filed = f[1];
-    const s = STATUS.exec(line);
-    if (s) current.status = s[1];
   }
   if (current) items.push(current);
   return items;
 }
 
 /**
- * OPEN items, with age-in-days computed from `Filed:` (null if the item
- * predates the convention and was never backfilled — report the gap, don't
- * guess an age).
- *
- * Items whose own `**Status:**` line is terminal (DONE / RESOLVED / SKIP …)
- * are excluded even when they still sit under `## OPEN` — see CLOSED_STATUSES.
- * Items whose header tag is `[DONE]` are excluded for the same reason.
- * `parseOpenActions(md, { includeClosed: true })` returns them too, with
- * `closed: true`, so a journal can list what was filtered and why.
+ * Every item in HUMAN-ACTIONS.md, with age-in-days computed from the
+ * `<!-- ha filed=... -->` comment (null if somehow missing — report the
+ * gap, don't guess an age). Presence in the file is the only "is this open"
+ * test now: there is no `**Status:**` line left to read and no `[DONE]`
+ * header tag, so there is nothing here to filter — every parsed item is, by
+ * construction of the v2 format, open. (v1 needed `includeClosed` because a
+ * closed item could still physically sit in the open file; v2's migration
+ * and lint make that state unreachable, so the option is gone, not hidden.)
  */
-export function parseOpenActions(markdown, { now = Date.now(), includeClosed = false } = {}) {
-  const items = parseItems(sectionBody(markdown, 'OPEN'));
-  return items
-    .map((it) => ({
-      ...it,
-      closed: it.tag === 'DONE' || isClosedStatus(it.status),
-      ageDays: it.filed ? Math.floor((now - new Date(`${it.filed}T00:00:00Z`).getTime()) / DAY_MS) : null,
-    }))
-    .filter((it) => includeClosed || !it.closed);
+export function parseOpenActions(markdown, { now = Date.now() } = {}) {
+  return parseItems(markdown).map((it) => ({
+    ...it,
+    ageDays: it.filed ? Math.floor((now - new Date(`${it.filed}T00:00:00Z`).getTime()) / DAY_MS) : null,
+  }));
 }
 
 export function readOpenActions({ repoRoot = ROOT, file = HUMAN_ACTIONS_PATH, now = Date.now() } = {}) {
@@ -128,15 +115,17 @@ export function sortForBrief(items) {
 }
 
 /**
- * Pull the author's own `~N min` (or `~N-M min`) estimate out of an item's
- * title, if any. Every HUMAN-ACTIONS.md item is written with one (see the
- * file's own template) — the brief already had this number sitting in plain
- * text and never used it for anything. Real titles use both forms (`~2 min`
- * and `~10-20 min`/`~30–60 min` with a hyphen or en dash); a range's UPPER
- * bound is used, because this number feeds a "quick to clear" promise — the
- * worst case is the honest claim for "will this actually take 15 min or
- * less", not the best case. Returns null, never a guess, when no estimate is
- * present at all.
+ * Pull the author's own `~N min` (or `~N-M min`) estimate out of a string,
+ * if any. Call sites pass `item.eta` first and fall back to `item.title`
+ * (see quickWins() below) — v2 items carry the estimate in their own `eta`
+ * field (parsed out of the heading's `(~...)` trailer), while v1-shaped
+ * test fixtures and any estimate an author happens to leave inline in the
+ * title text still match here exactly as before. Real titles use both
+ * range forms (`~2 min` and `~10-20 min`/`~30–60 min` with a hyphen or en
+ * dash); a range's UPPER bound is used, because this number feeds a "quick
+ * to clear" promise — the worst case is the honest claim for "will this
+ * actually take 15 min or less", not the best case. Returns null, never a
+ * guess, when no estimate is present at all.
  */
 export function parseMinutes(title) {
   const m = /~\s*(\d+)(?:\s*[-–]\s*(\d+))?\s*min/i.exec(String(title || ''));
@@ -157,7 +146,7 @@ export const QUICK_WIN_MAX_MINUTES = 15;
 
 export function quickWins(items, maxMinutes = QUICK_WIN_MAX_MINUTES) {
   return items
-    .map((it) => ({ item: it, minutes: parseMinutes(it.title) }))
+    .map((it) => ({ item: it, minutes: parseMinutes(it.eta ?? it.title) }))
     .filter((x) => x.minutes !== null && x.minutes <= maxMinutes)
     .sort((a, b) => a.minutes - b.minutes)
     .map((x) => x.item);

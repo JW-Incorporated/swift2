@@ -560,7 +560,7 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     out.push(`**🫵 Waiting on you: ${totalWaiting}**${escalated.length ? ` — ${escalated.length} overdue decision(s); each needs an answer **or a close**.` : '.'}`, '');
     const wins = quickWins(actionItems);
     if (wins.length) {
-      const fastest = wins.slice(0, 4).map((w) => `HA#${w.number} (~${parseMinutes(w.title)}m)`).join(', ');
+      const fastest = wins.slice(0, 4).map((w) => `HA#${w.number} (~${parseMinutes(w.eta ?? w.title)}m)`).join(', ');
       out.push(`**⚡ Quickest to clear:** ${fastest}${wins.length > 4 ? ` +${wins.length - 4} more` : ''} — start here if you only have a few minutes.`, '');
     }
     for (const e of escalated) out.push(`- 🔴 ${link(e.number)} **${shortTitle(e.title)}** — ${e.escalateReason}`);
