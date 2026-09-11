@@ -176,7 +176,7 @@ jobs:
             true|1|TRUE|True) exit 0 ;;
           esac
           FILES=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename')
-          POSTING_PATH='^(scripts/social/post-queue\.mjs|scripts/social/lib/queue\.mjs|scripts/social/lib/queue-schema\.mjs|scripts/social/lib/platforms\.mjs|scripts/social/lib/approvers\.mjs|scripts/social/stamp-approval\.mjs|scripts/automerge-social-approval-gate\.mjs|\.github/workflows/social-poster\.yml|\.github/workflows/social-approval-stamp\.yml|\.github/workflows/auto-merge-content\.yml)$'
+          POSTING_PATH='^(scripts/social/post-queue\.mjs|scripts/social/lib/queue\.mjs|scripts/social/lib/queue-schema\.mjs|scripts/social/lib/platforms\.mjs|scripts/social/lib/approvers\.mjs|scripts/social/stamp-approval\.mjs|scripts/social/social-approval-poll\.mjs|scripts/automerge-social-approval-gate\.mjs|\.github/workflows/social-poster\.yml|\.github/workflows/social-approval-poll\.yml|\.github/workflows/auto-merge-content\.yml)$'
           if printf '%s\n' "$FILES" | grep -qE "$POSTING_PATH"; then
             echo "::error::This PR changes the live posting path while SOCIAL_FREEZE is off. Freeze first (gh variable set SOCIAL_FREEZE --repo $REPO --body true), re-run, merge, then unfreeze deliberately."
             exit 1

@@ -29,7 +29,7 @@ const NOW = new Date('2026-09-11T09:00:00Z');
 
 describe('buildApprovalPrompt', () => {
   it('returns a header message plus one message per draft', () => {
-    const messages = buildApprovalPrompt(pr(), [draft(), draft({ platform: 'instagram', file: 'social/queue/x-ig.json' })], { now: NOW });
+    const messages = buildApprovalPrompt(pr(), [draft(), draft({ platform: 'instagram', file: 'social/queue/x-ig.json' })], { now: NOW, headSha: 'abc123' });
     expect(messages).toHaveLength(3);
     expect(messages[0].content).toContain('PR #4100');
     expect(messages[0].content).toContain('<https://github.com/JW-Incorporated/swift2/pull/4100>');
@@ -55,49 +55,66 @@ describe('buildApprovalPrompt', () => {
   });
 
   it('attaches an image embed built from the same MEDIA_BASE_URL/mediaUrlsFor helper as the poster, with the www host', () => {
-    const [, draftMsg] = buildApprovalPrompt(pr(), [draft()], { now: NOW });
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft()], { now: NOW, headSha: 'abc123' });
     expect(draftMsg.embeds).toEqual([{ image: { url: 'https://www.longlivets.com/social/library/photos/example.jpg' } }]);
   });
 
   it('emits an OVERDUE annotation instead of a bare timestamp for a past-due draft', () => {
     const overdueDraft = draft({ scheduledAt: '2026-09-10T08:00:00Z' }); // 25h before NOW
-    const [, draftMsg] = buildApprovalPrompt(pr(), [overdueDraft], { now: NOW });
+    const [, draftMsg] = buildApprovalPrompt(pr(), [overdueDraft], { now: NOW, headSha: 'abc123' });
     expect(draftMsg.content).toMatch(/OVERDUE by 25h/);
     expect(draftMsg.content).toContain('retired to failed/ at 48h');
   });
 
   it('emits a relative "in Xd Yh" annotation for a future draft, never a bare timestamp', () => {
-    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ scheduledAt: '2026-09-12T23:00:00Z' })], { now: NOW });
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ scheduledAt: '2026-09-12T23:00:00Z' })], { now: NOW, headSha: 'abc123' });
     expect(draftMsg.content).toMatch(/Posts at: 2026-09-12 23:00 UTC \(in \d+d \d+h\)/);
   });
 
   it('adds the Facebook cross-post disclosure on an Instagram draft iff facebookCrosspost is true, never on X', () => {
     const igDraft = draft({ platform: 'instagram' });
-    const withFb = buildApprovalPrompt(pr(), [igDraft], { now: NOW, facebookCrosspost: true });
+    const withFb = buildApprovalPrompt(pr(), [igDraft], { now: NOW, headSha: 'abc123', facebookCrosspost: true });
     expect(withFb[1].content).toContain('Also publishes to: your Facebook Page — automatic, image 1 + this caption verbatim, same alt text.');
 
-    const withoutFb = buildApprovalPrompt(pr(), [igDraft], { now: NOW, facebookCrosspost: false });
+    const withoutFb = buildApprovalPrompt(pr(), [igDraft], { now: NOW, headSha: 'abc123', facebookCrosspost: false });
     expect(withoutFb[1].content).not.toContain('Also publishes to');
 
-    const xWithFbFlag = buildApprovalPrompt(pr(), [draft({ platform: 'x' })], { now: NOW, facebookCrosspost: true });
+    const xWithFbFlag = buildApprovalPrompt(pr(), [draft({ platform: 'x' })], { now: NOW, headSha: 'abc123', facebookCrosspost: true });
     expect(xWithFbFlag[1].content).not.toContain('Also publishes to');
   });
 
   it('neutralizes broadcast mentions in an untrusted caption body', () => {
-    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ body: '@everyone check this out' })], { now: NOW });
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ body: '@everyone check this out' })], { now: NOW, headSha: 'abc123' });
     expect(draftMsg.content).not.toContain('@everyone check');
   });
 
   it('escapes a caption body that itself contains a triple-backtick fence', () => {
-    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ body: 'before ```danger``` after' })], { now: NOW });
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ body: 'before ```danger``` after' })], { now: NOW, headSha: 'abc123' });
     expect(draftMsg.content).not.toMatch(/```\n?danger/);
+  });
+
+  it('requires headSha — every brief message must carry a verifiable ref: line (RULINGS-SOCIAL-2.md B1)', () => {
+    expect(() => buildApprovalPrompt(pr(), [draft()], { now: NOW })).toThrow(/headSha is required/);
+  });
+
+  it('the header message ends with the machine-readable ref: line naming the PR, headSha, and "*" (RULINGS-SOCIAL-2.md B1)', () => {
+    const [header] = buildApprovalPrompt(pr({ number: 4130 }), [draft()], { now: NOW, headSha: 'a'.repeat(40) });
+    expect(header.content.trim().endsWith(`ref: PR #4130 · ${'a'.repeat(40)} · *`)).toBe(true);
+  });
+
+  it('each draft message ends with the machine-readable ref: line naming the PR, headSha, and its own file (RULINGS-SOCIAL-2.md B1)', () => {
+    const [, draftMsg] = buildApprovalPrompt(pr({ number: 4130 }), [draft({ file: 'social/queue/2026-09-12-example-x.json' })], {
+      now: NOW,
+      headSha: 'b'.repeat(40),
+    });
+    expect(draftMsg.content.trim().endsWith(`ref: PR #4130 · ${'b'.repeat(40)} · social/queue/2026-09-12-example-x.json`)).toBe(true);
   });
 
   it('formats multiple drafts (the X+Instagram sibling pair) with distinct handles', () => {
     const messages = buildApprovalPrompt(
       pr(),
       [draft({ platform: 'x' }), draft({ platform: 'instagram', body: 'IG sibling body' })],
-      { now: NOW },
+      { now: NOW, headSha: 'abc123' },
     );
     expect(messages[1].content).toContain('Draft 1 · X — @longlivetscom');
     expect(messages[2].content).toContain('Draft 2 · Instagram — @longlivetscom');
@@ -107,7 +124,7 @@ describe('buildApprovalPrompt', () => {
 
 describe('sendApprovalPrompt', () => {
   it('sends each message as its own webhook POST and attaches embeds only to the last chunk of a message', async () => {
-    const messages = buildApprovalPrompt(pr(), [draft()], { now: NOW });
+    const messages = buildApprovalPrompt(pr(), [draft()], { now: NOW, headSha: 'abc123' });
     const calls: unknown[] = [];
     const fetchImpl = vi.fn(async (_url: string, init: unknown) => {
       calls.push(init);
@@ -127,7 +144,7 @@ describe('sendApprovalPrompt', () => {
 
   it('chunks a long message at the Discord limit, attaching embeds only to the final chunk', async () => {
     const longBody = 'word '.repeat(500); // pushes one draft message over 2000 chars
-    const messages = buildApprovalPrompt(pr(), [draft({ body: longBody })], { now: NOW });
+    const messages = buildApprovalPrompt(pr(), [draft({ body: longBody })], { now: NOW, headSha: 'abc123' });
     expect(messages[1].content.length).toBeGreaterThan(DISCORD_MESSAGE_LIMIT);
 
     const bodies: Array<{ content: string; embeds?: unknown }> = [];
@@ -155,7 +172,7 @@ describe('sendApprovalPrompt', () => {
   });
 
   it('isolates a failed chunk send — the rest still deliver', async () => {
-    const messages = buildApprovalPrompt(pr(), [draft(), draft({ platform: 'instagram', file: 'x-ig.json' })], { now: NOW });
+    const messages = buildApprovalPrompt(pr(), [draft(), draft({ platform: 'instagram', file: 'x-ig.json' })], { now: NOW, headSha: 'abc123' });
 
     let call = 0;
     const fetchImpl = vi.fn(async (_url: string, init: unknown) => {
@@ -173,7 +190,7 @@ describe('sendApprovalPrompt', () => {
   });
 
   it('treats a Discord response reporting fewer embeds than sent as a failed chunk — the machine-verifiable half of "the image shows"', async () => {
-    const messages = buildApprovalPrompt(pr(), [draft()], { now: NOW });
+    const messages = buildApprovalPrompt(pr(), [draft()], { now: NOW, headSha: 'abc123' });
     const fetchImpl = vi.fn(async () => new Response(JSON.stringify({ id: 'msg-1', embeds: [] }), { status: 200 }));
 
     const result = await sendApprovalPrompt(messages, { webhook: 'https://discord.example/webhook', fetchImpl });

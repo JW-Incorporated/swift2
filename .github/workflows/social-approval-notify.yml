@@ -107,6 +107,14 @@ jobs:
           done <<<"$QUEUE_FILES"
           echo "]" >> /tmp/drafts.json
 
+          # RULINGS-SOCIAL-2.md B1: a file the poll job already stamped
+          # (owner's Discord ✅) must not be re-briefed on a `synchronize`.
+          FILTER_OUT=$(node scripts/social/filter-already-stamped.mjs /tmp/drafts.json)
+          echo "$FILTER_OUT"
+          if printf '%s' "$FILTER_OUT" | grep -q 'already-stamped: all drafts filtered'; then
+            echo "has_drafts=false" >> "$GITHUB_OUTPUT"
+          fi
+
       # RULINGS-SOCIAL.md A3 — labeled so the digest, the rejection-reading
       # step in growth-draft.md, and any future tooling can all find
       # "PRs that went through the real approval brief" by label instead of
@@ -191,6 +199,14 @@ jobs:
                 >> /tmp/digest-drafts.json
             done <<<"$QUEUE_FILES"
             echo "]" >> /tmp/digest-drafts.json
+
+            # RULINGS-SOCIAL-2.md B1: skip a PR whose drafts are already
+            # all stamped (awaiting only the poll job's next merge pass).
+            FILTER_OUT=$(node scripts/social/filter-already-stamped.mjs /tmp/digest-drafts.json)
+            echo "$FILTER_OUT"
+            if printf '%s' "$FILTER_OUT" | grep -q 'already-stamped: all drafts filtered'; then
+              continue
+            fi
 
             node scripts/social/approval-prompt.mjs --pr "$PR" --pr-url "$URL" --manifest /tmp/digest-drafts.json \
               --head-sha "$SHA" --repo "$REPO" --facebook-crosspost "${{ secrets.FB_PAGE_ID != '' }}"

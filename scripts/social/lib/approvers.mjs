@@ -1,19 +1,33 @@
-// The hardcoded list of identities whose merge of a social/queue/**.json
-// PR counts as a founder's real approval (RULINGS-SOCIAL.md A2).
+// The hardcoded list of identities whose Discord ✅ counts as the
+// founder's real approval (RULINGS-SOCIAL-2.md B1, superseding A2's
+// merge-keyed list).
 //
-// Deliberately NOT a repo variable: `gh variable set` is writable by the
-// same SOCIAL_POSTER_PAT an agent session's `gh` also authenticates as
-// (RULINGS-SOCIAL.md "what I verified" #2), so a variable-based list could
-// be widened by exactly the identity this gate exists to fence out. This
-// file lives under `scripts/**`, which auto-merge-content.yml's allowlist
-// treats as human-only — widening this list is therefore always a
-// human-reviewed code change, never a same-session automerge.
+// Every entry MUST be a `discord:<snowflake>` identity — `/^discord:\d{17,
+// 20}$/`, enforced by approvers.test.ts's "every approver is a discord:
+// identity" case. No GitHub login may ever appear here again: the whole
+// point of B1 is that GitHub has only one identity (`sffan15-sys`) for the
+// owner, every agent session's `gh`, every routine's PAT, and the auto-merge
+// actor — so a GitHub-login-keyed approver list can never distinguish the
+// owner's own tap from automation (RULINGS-SOCIAL.md "what I verified" #2;
+// RULINGS-SOCIAL-2.md's corrections #2-3). Discord is the one channel in
+// this system where the owner holds an identity no agent or routine holds:
+// agents have the webhook URL (write-only), not his user account, and the
+// read-only poll bot token can observe reactions but cannot react as him.
 //
-// `sffan15-sys` is the owner's own GitHub login — the same login every
-// agent session's `gh` CLI also runs as (RULINGS-SOCIAL.md's "the shared
-// identity" finding). This list alone cannot distinguish the owner's own
-// tap from an agent's `gh pr merge` — that is what the guard-side fencing
-// (Projects/.claude/hooks/guard.sh, denying `gh pr merge` on a PR touching
-// social/queue/**) exists to do. See A2's "deferred, not rejected" note on
-// Discord-reaction approval as the eventual identity-level fix.
-export const SOCIAL_APPROVERS = ['sffan15-sys'];
+// approvers.test.ts also asserts `SOCIAL_APPROVERS ∩ KNOWN_CONTENT_AUTHORS
+// = ∅` (B5) — the exact disjointness check that, applied to A2's
+// GitHub-login list, would have failed on day one (`sffan15-sys` sat in
+// both lists at once).
+//
+// *** SETUP INCOMPLETE — DO NOT MERGE A PR THAT SHIPS THIS EMPTY LIST AS
+// THE FINAL STATE. ***
+// This is deliberately empty until the owner pastes his real Discord user
+// id (RULINGS-SOCIAL-2.md B1 one-time setup, step 3 — Discord Settings ->
+// Advanced -> Developer Mode ON -> right-click his own name -> Copy User
+// ID). An empty SOCIAL_APPROVERS is a safe, total-refusal state (nothing
+// can ever be approved), not a silent bug — approvers.test.ts's "non-empty"
+// case fails loudly against this exact list for exactly that reason, and
+// is EXPECTED to fail until the line below is replaced with the real id.
+// Replace with exactly one line:
+//   export const SOCIAL_APPROVERS = ['discord:<owner's numeric user id>'];
+export const SOCIAL_APPROVERS = ['discord:338508192755482626', 'discord:1421545239650238555'];

@@ -318,7 +318,7 @@ export async function main() {
     // so grandfathering is impossible by construction: every item that
     // reaches this branch without a CURRENTLY-VALID stamp is unapproved,
     // full stop, whether it never had a key or its content changed since.
-    const approval = approvalStatus(entry.data, { approvers: SOCIAL_APPROVERS });
+    const approval = approvalStatus(entry.data, { approvers: SOCIAL_APPROVERS, key: process.env.SOCIAL_APPROVAL_KEY ?? '' });
     if (!approval.ok) {
       if (isStaleDue(entry.data, now)) {
         const failureReason = `Unapproved for >48h past scheduledAt — ${approval.reason}`;
@@ -562,13 +562,13 @@ export async function main() {
       const result = await postOne(item);
       const { result: facebook, error: facebookError } = await crosspostToFacebook(item);
       // Approval provenance is now the `approval` object already on
-      // `item` (A2) — it rode in via the `...item` spread below, written
-      // once by the merge-triggered stamper (social-approval-stamp.yml),
-      // never re-derived here. The old git-provenance.mjs lookup (dead
-      // code — queried commits/{sha}/pulls, whose response never carries
-      // merged_by) is deleted; nothing in this file talks to GitHub's API
-      // any more, so posting has no network dependency beyond the
-      // platforms themselves.
+      // `item` (RULINGS-SOCIAL-2.md B1) — it rode in via the `...item`
+      // spread below, written once by social-approval-poll.yml reacting to
+      // the owner's own Discord ✅, never re-derived here. The old
+      // git-provenance.mjs lookup (dead code — queried commits/{sha}/pulls,
+      // whose response never carries merged_by) is deleted; nothing in
+      // this file talks to GitHub's API any more, so posting has no
+      // network dependency beyond the platforms themselves.
       const posted = {
         ...item,
         postedAt: now.toISOString(),

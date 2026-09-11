@@ -8,7 +8,7 @@
 // mediaUrlsFor/countPostedToday/recentInstagramPosts), even though they read
 // like post-queue.mjs's own helpers.
 
-import { createHash } from 'node:crypto';
+import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 
 /** The live site origin queued media paths are resolved against — the
  * single export both post-queue.mjs (publishing) and approval-prompt.mjs
@@ -442,27 +442,69 @@ export function contentHash(item) {
 }
 
 /**
- * The A2 gate itself: is `item.approval` a valid, content-bound stamp from
- * a hardcoded approver? Returns `{ ok: true }` or `{ ok: false, reason }`
- * with one of four exact reasons (post-queue.mjs surfaces `reason` verbatim
- * in the loud `unapproved` outcome, and validate-queue.mjs's unstamped-draft
- * warning uses the same strings):
- *
- *   - no approval at all (including every pre-2026-09-11 draft — there is
- *     no key to grandfather, by construction);
- *   - a malformed approval object (wrong shape — fail closed, never guess);
- *   - `by` merged it but is not in `approvers` (the shared-identity problem
- *     A2 exists to catch even after the stamp is written — e.g. the
- *     approver list narrows later);
- *   - `contentHash` no longer matches — the content changed after the
- *     stamp was written, so the stamp no longer attests to what's on file.
- *
- * Never throws; never mutates `item`. `approvers` must be passed explicitly
- * (normally `SOCIAL_APPROVERS` from lib/approvers.mjs) rather than imported
- * here, so this stays a pure function of its arguments and the one real
- * approver list is defined in exactly one place.
+ * The exact byte string an approval's `sig` is computed over (B1). Fixed
+ * field order and `|` delimiters — changing this invalidates every
+ * previously-issued signature, so it is one named function, never inlined.
  */
-export function approvalStatus(item, { approvers } = {}) {
+export function approvalSigPayload(a) {
+  return `${a.v}|${a.by}|${a.at}|${a.pr}|${a.contentHash}`;
+}
+
+/** `hmac-sha256:<hex>` of `approvalSigPayload(a)` under `key`. Only two
+ * on-`main` workflows ever hold `key` — `social-approval-poll.yml` (via
+ * `stampFiles`, which calls this) and `social-poster.yml`'s post step
+ * (which only ever verifies, never signs). */
+export function signApproval(a, key) {
+  return 'hmac-sha256:' + createHmac('sha256', key).update(approvalSigPayload(a), 'utf8').digest('hex');
+}
+
+/**
+ * Constant-time verification of `a.sig` against `key`. Returns false on any
+ * shape error (missing prefix, non-hex, wrong length) rather than throwing
+ * — a hand-written `approval` object must be inert here, never crash the
+ * poster into an unhandled exception.
+ */
+export function verifyApprovalSig(a, key) {
+  if (typeof a?.sig !== 'string' || !a.sig.startsWith('hmac-sha256:')) return false;
+  const given = a.sig.slice('hmac-sha256:'.length);
+  let givenBuf, expectedBuf;
+  try {
+    const expected = createHmac('sha256', key).update(approvalSigPayload(a), 'utf8').digest('hex');
+    givenBuf = Buffer.from(given, 'hex');
+    expectedBuf = Buffer.from(expected, 'hex');
+  } catch {
+    return false;
+  }
+  if (givenBuf.length !== expectedBuf.length) return false;
+  return timingSafeEqual(givenBuf, expectedBuf);
+}
+
+/**
+ * The B1 gate: is `item.approval` a valid, content-bound, SIGNED stamp
+ * traceable to the owner's own Discord ✅ (schema v2, superseding A2's
+ * merge-keyed v1 — RULINGS-SOCIAL-2.md B1)? Returns `{ ok: true }` or
+ * `{ ok: false, reason }`, checked in this fixed order so the first true
+ * reason is always what's reported: absent → malformed → not-a-discord-
+ * identity → not-in-approvers → content-hash mismatch → bad signature.
+ *
+ * A v1 (unsigned) stamp is malformed under v2 — nothing from before
+ * 2026-09-11 grandfathers; there is no code path that inspects a draft's
+ * age or schema version to exempt it.
+ *
+ * `key` is read via `hasOwnProperty`, not destructuring, so "the caller
+ * didn't pass `key` at all" (CI's validate-queue, the schema validator —
+ * neither ever holds SOCIAL_APPROVAL_KEY, by design; they get shape+id+hash
+ * checking only) is distinguishable from "the caller passed `key: ''`"
+ * (post-queue.mjs when the env var is genuinely unset — that DOES trigger
+ * the signature-unverifiable refusal, loud, never a silent pass). Only
+ * post-queue.mjs's own call is the real security boundary; every other
+ * caller's `ok` only ever meant "shape/identity/hash line up," not
+ * "safe to post." Never throws; never mutates `item`.
+ */
+export function approvalStatus(item, options = {}) {
+  const { approvers } = options;
+  const hasKey = Object.prototype.hasOwnProperty.call(options, 'key');
+  const key = options.key;
   const approval = item?.approval;
   if (approval === undefined || approval === null) {
     return {
@@ -474,15 +516,24 @@ export function approvalStatus(item, { approvers } = {}) {
   const shapeOk =
     typeof approval === 'object' &&
     !Array.isArray(approval) &&
-    approval.v === 1 &&
+    approval.v === 2 &&
     typeof approval.by === 'string' &&
     approval.by.trim() !== '' &&
     typeof approval.at === 'string' &&
     Number.isInteger(approval.pr) &&
+    typeof approval.message === 'string' &&
     typeof approval.contentHash === 'string' &&
-    approval.contentHash.startsWith('sha256:');
+    approval.contentHash.startsWith('sha256:') &&
+    typeof approval.sig === 'string' &&
+    approval.sig.startsWith('hmac-sha256:');
   if (!shapeOk) {
     return { ok: false, reason: 'malformed approval record' };
+  }
+  if (!/^discord:\d{17,20}$/.test(approval.by)) {
+    return {
+      ok: false,
+      reason: `approved by "${approval.by}", which is not a discord: identity — GitHub logins can never approve`,
+    };
   }
   if (!Array.isArray(approvers) || !approvers.includes(approval.by)) {
     return { ok: false, reason: `approved by "${approval.by}", who is not in SOCIAL_APPROVERS` };
@@ -492,6 +543,14 @@ export function approvalStatus(item, { approvers } = {}) {
       ok: false,
       reason: 'edited after approval — body/media/altText/scheduledAt/campaign no longer match what was approved',
     };
+  }
+  if (hasKey) {
+    if (!key) {
+      return { ok: false, reason: 'approval signature cannot be verified — SOCIAL_APPROVAL_KEY is not configured' };
+    }
+    if (!verifyApprovalSig(approval, key)) {
+      return { ok: false, reason: 'approval signature invalid — this record was not written by the approval workflow' };
+    }
   }
   return { ok: true };
 }
