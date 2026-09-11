@@ -30,4 +30,4 @@
 // is EXPECTED to fail until the line below is replaced with the real id.
 // Replace with exactly one line:
 //   export const SOCIAL_APPROVERS = ['discord:<owner's numeric user id>'];
-export const SOCIAL_APPROVERS = [];
+export const SOCIAL_APPROVERS = ['discord:338508192755482626', 'discord:1421545239650238555'];
