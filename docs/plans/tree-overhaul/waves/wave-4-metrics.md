@@ -1,8 +1,10 @@
-# Wave 4 — Metrics, side doors, autonomy ladder, quality sampling
+# Wave 4 — Metrics, side doors, ladder measurement, quality sampling
 
 Paste everything below this line into a fresh Sonnet session in Swift2. Prerequisite: Wave 3 merged.
 
 ---
+
+**SCOPE CHANGE 2026-09-11 — T7 is now split; Wave 4 builds the READ-ONLY half only.** Build `eligibility()` in `scripts/social/lib/autonomy.mjs` and the Monday ladder-standing block in `weekly-scorecard.mjs`, and nothing else from T7. **Do NOT build in this wave:** signed grants, `social/autonomy.json` writes, approval schema `v: 3`/`kind`, `stampUnderPolicy`, the posted-under-policy notice, revocation, or the retraction workflow. All of that is **Wave 5**, gated on checkpoint R4 — see `PLAN.md` → "Why T7 is its own wave, gated on R4". If you find yourself editing `approvalStatus` or `approvalSigPayload` in this wave, stop: you are out of scope.
 
 You are executing Wave 4 of the Tree Overhaul (`docs/plans/tree-overhaul/PLAN.md`, epic #4117). Read `PLAN.md`, `docs/specs/tree-overhaul/t6-side-doors.md`, `t7-autonomy-ladder.md`, and the Wave 3 comment on #4117. The owner authorizes up to 6 concurrent subagents. Same hard rules as every wave: no `git restore`/`reset --hard`/`clean`; never run `post-queue.mjs`/`delete-media.mjs`; never hand-write an `approval` object; never merge a `social/queue/**.json` PR; Codex review on anything touching the gate, poller, stamper or poster; you confirm real CI yourself before merging; `gh secret`/`gh variable` mutation is human-only → `HUMAN-ACTIONS.md` with exact steps.
 

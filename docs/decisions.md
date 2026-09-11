@@ -61,13 +61,25 @@ window that spans a full campaign rotation); requiring a reason on the
 revoking ❌ (rejected — the post is already public and stopping the next one
 outranks collecting the reason first; the reason is asked for afterwards).
 
-**Recommendation attached to this entry:** approve T7 as a *design* and do
-not schedule the build. Its value at zero users is small and it is the only
-item in Wave 1 whose worst case cannot be undone by a revert; the independent
-Fable review of these specs reached the same conclusion and rated it the
-riskiest spec in the set. The Wave 4 eligibility check still ships (returning
-"not eligible" for everything, correct at day 0), so the data accrues for free
-and the design can be reopened in three months against real numbers.
+**Recommendation made, and OVERRULED by the founder (2026-09-11) — build it.**
+The recommendation attached to this entry was to approve T7 as a *design* and
+not schedule the build (the independent Fable review of these specs reached the
+same conclusion and rated it the riskiest spec in the set). The founder
+considered that and decided to build it into the plan. Recorded here rather
+than quietly replaced: the reasoning against is still the reasoning that shapes
+*how* it ships.
+
+**How it ships, as a result:** split across two waves rather than built whole.
+Wave 4 takes the read-only half (`eligibility()` and the Monday ladder-standing
+block) — which was already Wave 4's gate criterion and is what generates the
+evidence. **Wave 5**, a new wave, takes the acting half (signed grants, schema
+`v: 3`, policy stamping, the notice, revocation and retraction) and is gated on
+observation checkpoint **R4 (2026-10-16)** reporting a campaign family at or
+near eligibility, on the X delete path being proven against a real post, and on
+the founder **re-confirming** the irrevocable-Instagram acceptance at that time.
+A month-old yes is not consent for an authority change whose worst case cannot
+be reverted. Full reasoning in `docs/plans/tree-overhaul/PLAN.md`, "Why T7 is
+its own wave, gated on R4".
 
 **Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
 
