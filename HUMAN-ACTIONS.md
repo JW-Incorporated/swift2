@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -37,22 +37,6 @@ don't assume the same root cause a second time.
 3. Once entries are removed, `git worktree prune` to clean the registry.
 
 **Worked if:** `git worktree list` count drops substantially and disk space is reclaimed, with no lost work.
-
-
----
-
-## #56 🔴 [BLOCKING] Freeze social posting while the approval gate lands (~2 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** there is a window between when the approval-gate notifier PR merges and when the full approval-gate enforcement lands where already-merged unapproved drafts could still post on the 30-minute cron. Setting `SOCIAL_FREEZE=true` now (before the social-approval-gate PR merges) prevents any posts from go
-
-**Steps:**
-1. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables → Actions → Variables** and verify the `SOCIAL_FREEZE` variable already exists (it should, per item #22 of the audit).
-2. Set its value to `true`.
-3. Leave it at `true` until Joey has verified the new approval-gate works end-to-end.
-4. Once verified, set it back to `false` to resume normal posting.
-
-**Worked if:** the next 30-minute social-poster run logs "SOCIAL_FREEZE is set" and skips posting (confirmed in `social-poster.yml` lines 139–149), and no posts go out while the variable is set.
 
 
 ---
