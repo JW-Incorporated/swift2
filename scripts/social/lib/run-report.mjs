@@ -116,7 +116,7 @@ export function summarizeRun(outcomes) {
   push(`STUCK >${STUCK_AFTER_HOURS}h`, stuck);
   push('skipped', groups.skipped.filter((o) => !isStuck(o)));
   push('waiting on deploy', groups.waiting.filter((o) => !isStuck(o)));
-  push('awaiting approval', groups.unapproved.filter((o) => !isStuck(o)));
+  push('awaiting founder', groups.unapproved.filter((o) => !isStuck(o)));
   return segments.join(' · ');
 }
 
@@ -216,7 +216,7 @@ export function formatReportMarkdown(outcomes, { runUrl, abortReason } = {}) {
   const unapproved = groups.unapproved.filter((o) => !isStuck(o));
   if (unapproved.length) {
     lines.push(
-      `### 🔒 ${unapproved.length} awaiting approval (no attempt spent)`,
+      `### 🔒 ${unapproved.length} awaiting founder (no attempt spent)`,
       '',
       'No valid founder approval stamp on file (RULINGS-SOCIAL.md A2) — merge the draft\'s PR to stamp it, or re-open one if its content changed after it was stamped.',
       '',
@@ -330,7 +330,7 @@ export function formatAnnotations(outcomes, { abortReason } = {}) {
       .filter((o) => !isStuck(o))
       .map(
         (o) =>
-          `::warning title=social-poster: post awaiting approval::${o.file} — no attempt spent — ${o.error}`,
+          `::warning title=social-poster: post awaiting founder::${o.file} — no attempt spent — ${o.error}`,
       ),
     ...groups.posted
       .filter((o) => o.facebookError)

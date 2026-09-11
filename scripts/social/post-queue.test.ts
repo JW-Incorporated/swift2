@@ -33,12 +33,16 @@ const TEST_SIGNING_KEY = 'test-signing-key-do-not-use-in-prod';
 // A valid, correctly-stamped, SIGNED v2 approval (RULINGS-SOCIAL-2.md B1) by
 // the one approver every fixture below authors as. xItem/igItem auto-stamp
 // with this shape (computed against the item's own content) unless a test
-// explicitly overrides `approval` — see those factories below.
-function validApproval(item: Record<string, unknown>) {
+// explicitly overrides `approval` — see those factories below. `at` defaults
+// to "right now" (not a fixed literal) so a freshly-stamped fixture is never
+// accidentally >48h stale under isStaleApproved (lib/queue.mjs) regardless of
+// what day the suite runs — tests that need a STALE approval pass `at`
+// explicitly (see staleApprovedAt() below).
+function validApproval(item: Record<string, unknown>, at: string = new Date().toISOString()) {
   const unsigned = {
     v: 2,
     by: VALID_APPROVER,
-    at: '2026-09-11T00:00:00Z',
+    at,
     pr: 1,
     message: '999',
     contentHash: contentHash(item),
@@ -73,6 +77,10 @@ function stuckDue() {
 }
 /** Due 3 days ago — past the 48h staleness rule. */
 function staleDue() {
+  return new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString();
+}
+/** Approved 3 days ago — past isStaleApproved's 48h rule (lib/queue.mjs). */
+function staleApprovedAt() {
   return new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString();
 }
 
@@ -392,9 +400,11 @@ describe('post-queue: an Instagram failure is reported just as loudly', () => {
 // attempts-exhausted platform rejection — the swallow was in the run's exit
 // code, not in any single failure branch.
 describe('post-queue: every other route into social/failed/ also reddens the run', () => {
-  it('a stale item (>48h past scheduledAt) fails loudly instead of vanishing quietly', async () => {
+  it('a stale item (>48h past founder approval) fails loudly instead of vanishing quietly', async () => {
     const spy = stubFetch({ ok: true, status: 200, body: {} });
-    await seedQueueItem('a-x.json', xItem({ scheduledAt: '2020-01-01T00:00:00Z' }));
+    const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-x.json', item);
 
     const outcomes = await runPoster();
 
@@ -404,6 +414,33 @@ describe('post-queue: every other route into social/failed/ also reddens the run
     expect(spy).not.toHaveBeenCalled(); // never attempted — straight to failed/
     expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
     expect(await readFile(reportPath, 'utf-8')).toContain('PERMANENTLY FAILED');
+  });
+
+  it('a due-but-recently-approved item does NOT retire even though scheduledAt is long past (staleness is measured from approval.at, not scheduledAt)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    item.approval = validApproval(item, justDue());
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'x' });
+    expect(spy).toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual([]);
+  });
+
+  it('a freshly-due item with a stale approval DOES retire (approval.at, not scheduledAt, drives the 48h clock)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    const item = xItem({ scheduledAt: justDue() });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'x' });
+    expect(outcomes[0].error).toContain('founder approval');
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
   });
 
   it('an item with an invalid scheduledAt is quarantined loudly', async () => {
@@ -741,7 +778,9 @@ describe('post-queue: an indefinitely-skipped item escalates', () => {
 
   it('retires an item stuck past 48h to social/failed/ as a reported failure', async () => {
     stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
-    await seedQueueItem('a-ig.json', igItem({ scheduledAt: staleDue() }));
+    const item = igItem({ scheduledAt: staleDue() });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-ig.json', item);
 
     const outcomes = await runPoster();
 
@@ -943,6 +982,8 @@ describe('post-queue: A2 approval gate refusals', () => {
     // Green for a recoverable, not-yet-stuck unapproved item (see the 24h
     // stuck case below for when this turns red).
     expect(process.exitCode).toBe(0);
+    // Reworded "awaiting founder" (was "awaiting approval") — lib/run-report.mjs.
+    expect(await readFile(reportPath, 'utf-8')).toContain('awaiting founder');
   });
 
   it('refuses an approval whose by is a GitHub login — only discord: identities approve', async () => {

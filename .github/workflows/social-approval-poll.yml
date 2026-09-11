@@ -8,13 +8,38 @@
 # DISCORD_BOT_TOKEN — both environment secrets restricted to `main` by a
 # custom deployment-branch policy — are never readable from a `pull_request`
 # workflow run on a branch.
+#
+# GitHub's `schedule:` cron is BEST-EFFORT, not a guarantee (2026-09-11,
+# Tree Overhaul Wave 2 S2): only 2 of this workflow's own scheduled fires
+# were observed in a 9-hour window that day, against the every-15-minutes
+# cron below — GitHub can silently delay or drop a scheduled run under
+# platform load with no error surfaced anywhere. A founder's Discord ✅ was
+# sitting unpolled for hours as a result. `workflow_run` below closes that
+# gap by ALSO firing this poll the moment `social-approval-notify` (which
+# posts the approval prompt in the first place) finishes a run — an event
+# trigger GitHub actually delivers reliably, unlike cron — so a fresh brief
+# gets its first poll immediately rather than waiting on the next lucky
+# cron tick. The cron stays as the steady-state fallback.
+#
+# Ordering vs. `social-poster.yml` (which actually publishes an approved
+# item): this workflow polls/stamps every 15 minutes (now reinforced by the
+# notify-triggered run above) against the poster's 30-minute cron, so an
+# approval stamped here reliably lands on `main` before the poster's next
+# run picks the item up as due — no cross-workflow `needs`/`workflow_run`
+# coupling from the poster's side is needed for that, and none was added to
+# `social-poster.yml` here (out of this change's scope; see the PR body).
 name: social-approval-poll
 
 on:
   schedule:
     # Off the :00/:30 mark on purpose (repo's contention note) — every 15m.
+    # Best-effort only — see the header note above; workflow_run below is
+    # what actually keeps this timely.
     - cron: "7,22,37,52 * * * *"
   workflow_dispatch: {}
+  workflow_run:
+    workflows: [social-approval-notify]
+    types: [completed]
 
 permissions:
   contents: write
