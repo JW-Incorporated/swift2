@@ -4,342 +4,362 @@ Owner: Wyatt (CTO). This is the source of truth for stack, hosting, data, and
 coding standards. Expensive-to-reverse choices are mirrored as entries in
 `docs/decisions.md`.
 
-Status: v0.2 — stack proven against the reference workload. The Supabase-backed
-web Vault reader UI (era-scrubber, `VaultReader.tsx` and its exclusive
-dependencies) was built against this plan, was never mounted, and was
-**deleted on 2026-08-11** — `/` renders the static LongLive experience instead
-(see the front-end note below and `docs/longlive-experience.md`). It is
-recoverable from git history if the convergence ever wants it; rebuilding
-against the current schema is likely cheaper than reviving it.
+Status: v0.4 — rewritten 2026-09-10 against current `origin/main` (superseding
+the v0.3 rewrite from PR #3725, which itself went stale within a day as
+OS-021/OS-039 landed). This doc describes what the repo actually is today,
+not a plan still in progress.
 
-**The two-tier HTTP serving path it read is still here and still supported:**
-`apps/web/app/vault/tier0`, `/vault/moment/[id]`, `/vault/album/[slug]/tracks`
-and `apps/web/lib/vault.ts`. Those are shipped deliverables of record (roadmap
-W4.5/W7, `docs/decisions.md`) and `/vault/tier0` is the default target of
-`npm run check:budget`. Only the unmounted UI was removed. The Expo mobile app is scaffolded
-reusing `packages/*` unchanged (validating the shared boundary). Product
-vision (`docs/vision.md`) is still Joey's to fill in; this doc grows as
-features are specced.
+## What this repo actually is — two products in one, plus a mobile app now on a headless core
 
-> **Front-end note.** The interactive experience currently shipped on the web
-> (the era/threads reader at `/`) is a self-contained, statically-authored
-> layer under `apps/web/components/longlive/**` + `apps/web/lib/longlive/**`.
-> It does not yet read from the Supabase two-tier path described below. That
-> layer has its own manual: **`docs/longlive-experience.md`** — read it before
-> working on the site UI. This doc remains the source of truth for the
-> underlying stack/data plan the two will converge on.
+1. **The website.** One client-rendered Next.js page (`apps/web/app/page.tsx`
+   → `<LongLive/>` in `apps/web/components/longlive/**`) driven by
+   `apps/web/lib/longlive/**`. Content used to live in committed
+   `*.generated.ts` files; those are gone now (see "Content pipeline" below).
+   This is the interactive era/threads reader users see at `/`. **Its
+   operational manual is `docs/longlive-experience.md` — read it before
+   touching site UI.**
+2. **The factory around it.** `scripts/` (~70k lines across content-engine,
+   knowledge-engine, merch-engine, community, social, news, watchdog, and
+   other sub-engines), 67 GitHub Actions workflows, and product Vercel Cron —
+   these write content, file issues, post to social, and merge their own
+   PRs. The old Claude desk-routine fleet is fully retired (0 enabled
+   triggers as of 2026-09-06; see `docs/AUTOMATION.md`'s history). **Its
+   operational manual is `docs/AUTOMATION.md` — read it before touching any
+   workflow, script, or desk routine.**
+3. **The mobile app (`apps/mobile`).** No longer a WebView shell. As of
+   OS-039 (2026-09-05), the app's default surface is **five native screens**
+   behind a persistent `BottomTabBar` (era stream, threads, clownbot,
+   community, merch) — see "Mobile app" below.
 
----
+Both apps, the factory, and the shared headless core are real and
+load-bearing; none substitutes for another's manual.
 
-## Guiding principle
+## Convergence: one content bundle, two renderers, one headless core
 
-Boring, proven, already-operated beats theoretically-optimal. Two people plus
-AI can't afford to babysit novel infra. We deliberately inherit the stack
-topology from the sibling project **Orbit**, which already runs this exact
-shape of problem (a Taylor Swift app, web now + Expo mobile next, two-person
-AI-first team). We reuse Orbit's *patterns and code*, not its *backend* — see
-Decision: "Reuse Orbit stack, separate backend."
+Ratified 2026-09-05 (`docs/decisions.md` "Convergence decisions D1–D4",
+spec `docs/specs/2026-09-05-one-source-three-surfaces.md`) and now largely
+implemented, not aspirational:
+
+- **D1 — content source of truth = git seeds → published, versioned
+  bundle.** Authoring stays in `supabase/seed/**`;
+  `scripts/build-content-bundle.mjs` (OS-011) publishes a hashed, versioned
+  JSON bundle (manifest.json + one file per domain) that both web and
+  mobile read through `packages/content`. Supabase keeps only dynamic
+  runtime data (devices, prefs, notification events, clownbot memory) —
+  content tables are frozen/deprecated under this plan (OS-016 marked the
+  9 Vault content tables deprecated via `COMMENT ON TABLE`, not dropped).
+  **Implemented and shipped**, not a plan: see "Content pipeline" below.
+- **D2 — two renderers, one headless core.** Next.js for the web, React
+  Native for mobile; both consume `packages/experience` (OS-020/OS-021),
+  the platform-agnostic core (eras, deep links, lenses, filters, feeds,
+  threads, track guide, search, progress — ~11.8k lines, zero React-DOM/
+  Next/React-Native imports, enforced by an ESLint `no-restricted-imports`
+  rule scoped to `packages/experience/**`). *Rejected:* a universal
+  react-native-web rewrite of the working ~55k-line web app.
+- **D3 — progressive native port, route by route, behind flags, WebView
+  shell as fallback until the last route lands.** OS-032..OS-039 shipped
+  five native screens flag-on by default; the WebView (`SiteShell.tsx`)
+  now only ever renders the three static legal pages. **Substantially
+  complete, not "next" — see "Mobile app" below.**
+- **D4 — EAS Update for JS-only mobile changes**, fingerprint runtime
+  policy; store builds only when native code changes. See
+  `docs/mobile-release.md` for the release train mechanics.
 
 ## Stack
 
 | Layer | Choice | Notes |
 |-------|--------|-------|
-| Language | **TypeScript** everywhere | Web, mobile, shared logic, any worker |
-| Web | **Next.js (App Router)** | SSR/SSG + CDN caching; deploys on Vercel |
-| Mobile | **Expo / React Native** | iOS + Android from one codebase |
-| Shared logic | **`packages/shared`** (types, domain, no I/O) + **`packages/core`** (data access) | Must stay platform-agnostic so web and Expo reuse it unchanged |
-| Backend / DB / auth | **Supabase** (Postgres + RLS + Auth + Storage) | New, isolated project — NOT Orbit's |
-| Web hosting | **Vercel** (auto-deploy from `main` once we allow it) | |
-| Mobile builds | **EAS (Expo Application Services)** | |
-| Animation / gesture | **Reanimated + Gesture Handler** (native); **CSS transforms + rAF** (web) | The one place logic is NOT shared — see reference workload |
+| Language | **TypeScript** everywhere | Web, mobile, worker, shared logic |
+| Web | **Next.js 16 (App Router)**, React 19 | SSR/SSG + CDN caching; deploys on Vercel |
+| Mobile | **Expo / React Native** | iOS + Android from one codebase; native screens behind a `BottomTabBar`, not a WebView |
+| Headless core | **`packages/experience`** (~11.8k lines, zero-I/O, zero-UI-framework) | Eras, deep links, lenses, filters, feeds, threads, track guide, search — the D2 shared core both renderers consume |
+| Content contract | **`packages/content`** (zod schemas + typed loader) | Reads the published bundle over HTTP with ETag caching + offline last-good fallback (mobile's consumer); `apps/web` reads the same published JSON synchronously off local disk instead — see "Content pipeline" |
+| Content enrichment | **`packages/content-enrichment`** | Zero-`apps/web`-dependency enrichment logic extracted from the old web-only generators (OS-014b) |
+| Data access (legacy) | **`packages/core`** | Now holds only shared types (`vault-types.ts`) and the News/Current live-read helpers; the old Supabase Vault client (`createVaultClient`) was deleted (OS-014b-6) |
+| Backend / DB / auth | **Supabase** (Postgres + RLS + Auth + Storage) | Dynamic runtime data only under D1 (devices, prefs, notifications, clownbot memory, News/Current); content authoring lives in `supabase/seed/**` |
+| Ingest worker | **`apps/worker`** | News/Current pipeline, polls every 4h (`news-worker.yml` cron `10 1,5,9,13,17,21 * * *`) |
+| Web hosting | **Vercel** (auto-deploy from `main`) | |
+| Mobile builds | **EAS (Expo Application Services)** | One release train ships iOS + Android together; see `docs/mobile-release.md` |
+| Animation / gesture | **Reanimated + Gesture Handler** (native); **CSS transforms + rAF** (web) | Still the one deliberately-not-shared layer |
 
-Monorepo, npm workspaces (Orbit's layout):
+Monorepo, npm workspaces:
 
 ```
-apps/web        Next.js reader
-apps/mobile     Expo app            (scaffolded — reuses packages/* unchanged)
-packages/shared types + domain, zero I/O — portable
-packages/core   data-access layer over Supabase — portable
-packages/content zod schemas + typed loader for the published content
-                bundle (OS-010/013) — the Layer 1 contract in
-                docs/specs/2026-09-05-one-source-three-surfaces.md §2;
-                no I/O of its own beyond the injectable loader
+apps/web            Next.js reader (~55k lines incl. app/lib/components)
+apps/mobile         Expo app: 5 native screens + BottomTabBar (~7.9k lines)
+apps/worker         News/Current ingest pipeline, polls every 4h (~7.4k lines)
+packages/shared     types + domain, zero I/O — portable (~5.6k lines)
+packages/core       shared Vault types + News/Current live-read helpers (~8k lines)
+packages/experience headless core (D2): eras, deep links, lenses, filters,
+                    feeds, threads, track guide, search, progress — zero
+                    React/Next/RN imports (~11.8k lines)
+packages/content    zod schemas + typed async loader for the published
+                    content bundle (~1.5k lines) — mobile's read path
+packages/content-enrichment  zero-apps/web-dependency enrichment logic
+                    extracted from the old generators (~0.5k lines)
+scripts/            automation: sub-engines (content-engine, knowledge-
+                    engine, merch-engine, community, social, news,
+                    watchdog, images, ...) + top-level scripts (~70k lines,
+                    ~380 files)
+supabase/           migrations + seed files — the content corpus
 ```
 
-**Hard boundary:** new business logic goes in `packages/shared` or
-`packages/core`, never in an app's view layer. The view layer (React
-components, screens) is the only non-portable code. This is what lets the
-future Expo app reuse everything but the views.
+**Hard boundary:** new business logic that is genuinely platform-agnostic
+goes in `packages/experience` (preferred going forward) or `packages/shared`,
+never in an app's view layer. The view layer (React components, RN screens)
+is the only non-portable code. This is the boundary that lets `apps/mobile`
+reuse the same era/feed/thread/search logic `apps/web` uses, rather than
+each reimplementing it — see "Mobile app" below for how far that's actually
+landed.
 
-### Content bundle boundary (`packages/content`, OS-010)
+## Content pipeline — one bundle, no more committed generated TypeScript
 
-Per convergence decision D1 (`docs/decisions.md` 2026-09-05, spec §4),
-content authoring stays in `supabase/seed/**`; `scripts/build-content-
-bundle.mjs` (OS-011) publishes it as a hashed, versioned JSON artifact that
-`packages/content` gives every surface a typed, runtime-validated way to
-read (`manifest.json` + one file per domain — see the ADR in
-`docs/decisions.md` for why an artifact and not a live DB, and for the
-N-1 schema-version compatibility rule OS-041 enforces in CI). Supabase
-keeps only dynamic runtime data (devices, prefs, notification events, clown
-memory) — content tables are frozen under this plan and retired in OS-016.
-`packages/content`'s schemas mirror `apps/web/lib/longlive/types.ts`
-structurally; they do not replace it until OS-014/OS-015 switch the read
-path off the generated `*.generated.ts` files.
+The old `apps/web/lib/longlive/*.generated.ts` committed files (era content,
+tracks, theories, videos, era-secrets, song-moods — the "six generated
+files" the old manifest tracked) are **gone**. OS-014b (six sub-phases,
+merged 2026-09-06) rewired every domain module
+(`content.ts`, `tracks.ts`, `theories.ts`, `videos.ts`, `era-secrets.ts`,
+`merch.ts`) to read from the published content bundle instead:
 
-**Schema compatibility policy (`packages/content/src/compat.ts`, OS-041).**
-`CURRENT_SCHEMA_VERSION` bumps ONLY on a breaking schema change (a field
-changing type, or a previously-optional field becoming required — additive
-optional fields never bump it). `isSchemaVersionSupported`/
-`assertSchemaVersionSupported` enforce the N-1 window: a loader built
-against version N must still read a bundle published at N-1. `compat.test.ts`
-is the CI check for "a schema change ships with a loader that still reads
-the previous version" — it runs a deliberate simulated version-bump case
-(N → N+1) proving N is still accepted, N+1 is accepted, and N-1 relative to
-the new current is correctly rejected. It runs as part of the root
-`npm run test` job already required in `.github/workflows/ci.yml`.
+1. `supabase/seed/**` — content is authored/versioned in the repo, same as
+   before.
+2. `scripts/build-content-bundle.mjs` (OS-011) publishes a hashed,
+   versioned JSON bundle (`manifest.json` + one file per domain), validated
+   against `packages/content`'s zod schemas.
+3. **Two different readers of the same published artifact, by design**
+   (`apps/web/lib/longlive/read-bundle-artifact.ts`'s own header explains
+   why, citing Fable ruling FR-t_cd5741fc-1/-2):
+   - `apps/web`'s `prebuild` script (`scripts/publish-content-bundle.mjs`)
+     writes the bundle JSON to local disk (`apps/web/public/content/**`)
+     before the Next.js build runs, so web reads it **synchronously off the
+     local filesystem** — no HTTP round trip, because by build time it's
+     already on the same machine. This is required specifically for any
+     module reachable from a `'use client'` import graph, since Next.js/
+     Turbopack cannot bundle `node:fs` for the browser.
+   - `packages/content`'s `loadBundle()` is an **async HTTP client** (fetch +
+     ETag caching + offline last-good fallback) for a genuinely remote,
+     distributed consumer — mobile (OS-015 switched
+     `apps/mobile/lib/vault.ts` off Supabase onto this loader).
+4. `packages/content-enrichment` holds the zero-`apps/web`-dependency
+   enrichment logic extracted from the old generator scripts (OS-014b-1),
+   so both readers can share the transform logic without either depending
+   on the other's runtime.
+
+**The old parallel Supabase-direct Vault pipeline is retired, not just
+deprioritized.** `docs/proposals/2026-09-vault-read-path.md` (originally a
+DRAFT decision doc, R24) is now marked **CLOSED / SHIPPED**: Joey's D1
+decision independently reached the same conclusion as that doc's
+recommended "Option A" and it has been fully executed —
+`packages/core/src/vault.ts` (`createVaultClient`), `apps/web/lib/vault.ts`,
+and the `apps/web/app/vault/{tier0,moment,album/[slug]/tracks}` routes are
+**deleted**. Only `packages/core/src/vault-types.ts` (the `VaultSkeleton`
+shape, zero I/O) survives because mobile's `@swift2/core` import still
+needs the shared Tier-0 type. The 9 Supabase Vault content tables are
+marked deprecated (`COMMENT ON TABLE`) but not dropped, as a rollback
+window. `db-seed.yml`'s Vault-content seeding is retired.
+
+**Not part of this retirement — still live and unrelated:**
+`apps/web/app/vault/{live,live-theories,current}` are a separate "Current"
+tier (News/Current world, reads `current_item`/`live_theory`/`fan_signal`
+via `apps/web/lib/current.ts`), intentionally left untouched.
 
 ## Data architecture: two worlds, kept apart
 
-The product has two content cadences that must not be coupled:
+The product still has two content cadences that must not be coupled:
 
 1. **Vault — curated, slow, editorial.** Eras, milestones (album releases,
-   tours), fashion looks. Authored and versioned *in the repo* (seed files /
-   migrations), effectively static between deploys, aggressively cacheable,
-   served from the CDN. This is the world the era-scrubber navigates.
-2. **News / Current — live, polled, ranked.** Changing hourly via an ingest
-   pipeline (Orbit-style worker, if/when we build it). Volatile, freshness
-   matters.
+   tours), fashion looks. Authored in `supabase/seed/**`, compiled into the
+   published content bundle above, effectively static between deploys,
+   aggressively cacheable, served from the CDN. This is the world the era
+   reader and mobile's era-stream tab both navigate — now off the same
+   bundle rather than two separate pipelines.
+2. **News / Current — live, polled, ranked.** Changing every 4 hours via
+   `apps/worker` (`news-worker.yml`). Volatile, freshness matters. Served
+   via `apps/web/app/vault/{live,live-theories,current}` on the web; not
+   yet ported to mobile as a native screen.
 
 They live in separate tables and are served on separate surfaces/routes. The
-Vault must never inherit the News feed's volatility or its cache-busting. This
-mirrors Orbit's split and is a deliberate boundary.
+Vault must never inherit the News feed's volatility or its cache-busting.
 
-### Vault data model (v1)
+## Mobile app — native screens behind a BottomTabBar, not a WebView shell
 
-Editorial content, small and typed. Shape (names illustrative):
+**This is the single biggest structural change since the last architecture
+doc revision, and it reverses a decision that doc itself recorded.** The
+2026-09-05 "ships the website in a native shell" decision
+(`docs/decisions.md`) was explicitly a stop-gap ("a later build can swap the
+shell for native screens one at a time"); OS-032 through OS-039 did exactly
+that, and OS-039 (merged, `docs/decisions.md` / commit `c128d5a4`) flipped
+the default:
 
-- **`era`** — id, title, album, start_date, end_date, order, color/theme,
-  cover art ref. Ordered along the timeline.
-- **`milestone`** — id, era_id, type (`album_release` | `tour`), title, date,
-  optional link/art. **Wavetops only** in v1 — high-visibility events, not
-  every single/MV.
+- `apps/mobile/App.tsx` renders one of **five native screens** — era
+  stream, threads, clownbot, community, merch — behind a persistent
+  `BottomTabBar` (`apps/mobile/components/BottomTabBar.tsx`), the mobile
+  equivalent of the web's own `BottomNav.tsx`. All five ship flag-on by
+  default (`routes.ts`'s `DEFAULT_ROUTE_FLAGS`).
+- The WebView (`apps/mobile/components/SiteShell.tsx`) still exists and is
+  still mounted, but **only ever shows one of the three legal pages**
+  (`/privacy`, `/terms`, `/support`) — see `isLegalPageUrl` in `App.tsx`.
+  Any other URL that would previously have opened the WebView (a bare site
+  root, an off-site link, a stale notification param with no native
+  equivalent) now degrades to the native home screen instead.
+- Mobile's Vault data no longer touches Supabase at all (OS-015): it reads
+  `packages/content`'s `loadBundle()`, the same published bundle web reads.
+  `apps/mobile/lib/vault.ts` / `VaultNavigator.tsx` / `EraTimeline.tsx`
+  still exist on disk but are dead code, no longer the mounted app's data
+  path or UI — not imported from anything reachable from `App.tsx`.
+- The web → native bridge (below) still applies to the three legal pages
+  the WebView renders; the protocol itself is unchanged from when it also
+  served the full site.
+- Release process: one EAS Workflow train ships both platforms together
+  (`docs/decisions.md` 2026-09-05 "iOS and Android ship as one unit");
+  never a manual laptop build. Full mechanics in `docs/mobile-release.md`.
 
-Milestones are the navigation anchors the scrubber renders. Because the set is
-small and curated, the whole Vault can be fetched/cached as one static payload
-per channel and driven client-side with zero per-frame network cost.
+### Web → native bridge (OS-002)
 
-## Reference workload — the Vault era-scrubber (this shapes the build)
+The site calls `postToNativeApp(message)` (`apps/web/lib/longlive/in-app.ts`),
+detected via the `LongLiveApp/<ver> (ios|android)` user-agent marker
+(OS-001), which does nothing outside the app and otherwise calls
+`window.ReactNativeWebView.postMessage(...)`. `SiteShell` wires the
+WebView's `onMessage` and `App.tsx` maps it onto the corresponding native
+screen. Currently a small closed union (`openNotificationSettings`,
+`openInbox`). Extending it: add a member to `NativeBridgeMessage` in both
+`apps/web/lib/longlive/in-app.ts` and `apps/mobile/components/SiteShell.tsx`
+(kept in sync by hand).
 
-The Vault's primary navigation is a **morph-on-grab timeline scrubber**. The
-build is designed around it from day one, not retrofitted.
+## Reference workload — the era experience (still shapes the build)
 
-**Interaction model — two axes, bidirectionally coupled:**
+The interaction model the original "morph-on-grab timeline scrubber" concept
+described now lives as the web's era-mode vertical scroll
+(`docs/longlive-experience.md` §1 has the current, shipped mental model —
+read that doc, not this section, for the actual UI behavior) and mobile's
+native `EraStreamScreen`. The non-negotiable performance bar carries over
+unchanged:
 
-- **Horizontal = era switching**, driven by the timeline scrubber.
-- **Vertical = content within an era.**
-- Coupling is two-way: scrubbing the timeline jumps the page to that era; and
-  scrolling content into a new era updates the timeline's position indicator.
-
-**Summon / expand behavior:**
-
-- A persistent thin **peek strip** sits at the top (always discoverable).
-- **Grabbing** the strip expands it into the full navigator (primary
-  affordance).
-- **Overscroll at the top of an era** also expands it (pull-to-refresh muscle
-  memory, but it navigates). Fired only at the content top edge so it never
-  fights normal vertical scroll.
-
-**Snap:** v1 snaps to **era boundaries only**. (Free-scrub with milestone
-sub-anchors is a possible v2; explicitly out of scope now.)
-
-**Milestones:** wavetops only — album releases and tours. Rendered as markers
-inside the expanded timeline to aid orientation.
-
-### Performance requirements (non-negotiable — "smooth and low-latency" IS the feature)
-
-- The scrub gesture and the coupled page transition must hold 60fps on mid-tier
-  hardware, including mid-range Android.
-- **Mobile:** all gesture + animation runs on the **UI thread via Reanimated
-  worklets + Gesture Handler**. No React/JS-thread state updates per frame.
-- **Web:** driven by **CSS transforms + `requestAnimationFrame`**. No React
-  `setState` per pointer-move (that drops frames).
-- The full Vault dataset is loaded/cached up front so scrubbing never waits on
-  the network. Era content is virtualized/lazy where heavy (images), but
-  timeline markers are cheap and always resident.
+- The scrub/scroll gesture and coupled transitions must hold 60fps on
+  mid-tier hardware, including mid-range Android.
+- **Mobile:** gesture + animation runs on the UI thread via Reanimated
+  worklets + Gesture Handler. No React/JS-thread state updates per frame.
+- **Web:** driven by CSS transforms + `requestAnimationFrame`. No React
+  `setState` per pointer-move.
 
 ### What is and isn't shared across platforms
 
-- **Shared** (`packages/shared` / `packages/core`): era + milestone data model,
-  ordering, the mapping from scrub-position → era → content section, snap math.
-- **Not shared** (per-platform view layer): the gesture recognizer and the
-  animated timeline component itself — one web implementation (Pointer Events +
-  CSS/rAF), one native implementation (Reanimated + Gesture Handler). Same data
-  and snap logic underneath; different animation runtime on top.
-
-This is the deliberate exception to "write once": we accept two gesture
-implementations because a shared abstraction over two very different animation
-runtimes would cost more than it saves and would risk the frame budget.
+- **Shared** (`packages/experience`, increasingly `packages/shared`): era +
+  feed data model, ordering, deep-link resolution, lenses/filters, search,
+  track-guide logic, thread content resolution.
+- **Not shared** (per-platform view layer): the gesture recognizer and
+  animated components themselves — one web implementation (Pointer Events +
+  CSS/rAF), one native implementation (Reanimated + Gesture Handler). Same
+  data and logic underneath; different animation runtime on top.
 
 ## Auth
 
-Supabase Auth. Depth depends on Joey's vision (read-only content vs. accounts /
-UGC). v1 assumes the Vault is public, read-only, no login required; auth is
-provisioned but not load-bearing until a feature needs per-user state. RLS on
-by default for any user-scoped table.
+Supabase Auth. v1 remains public, read-only, no login required; auth is
+provisioned but not load-bearing until a feature needs per-user state. RLS
+on by default for any user-scoped table.
 
 ## AI-integration approach
 
-Carried over from Orbit's discipline:
-
-- Any LLM calls happen only in a **worker / server path with a hard daily cost
-  cap and a rule-based fallback**, never in a synchronous user-request path.
+- LLM calls happen in worker/server paths with a cost cap and a rule-based
+  fallback, never in a synchronous user-request path — clownbot chat, the
+  content/knowledge/merch engines under `scripts/`, and the News pipeline
+  are the current call sites.
 - Keys live only in gitignored env files (`apps/*/.env*`), never committed,
   never read into output.
-- No user-facing AI feature is in scope until a spec calls for one; when one
-  does, it gets its own decision-log entry (cost model, latency budget, where
-  keys live).
 
-## Coding standards (first draft — Wyatt to ratify)
+## Coding standards
 
 - TypeScript strict mode across all workspaces.
 - `npm run typecheck` must pass before any PR.
-- Business logic in `shared`/`core`; views stay thin and platform-specific.
+- Business logic in `packages/experience`/`packages/shared`/`packages/core`;
+  views stay thin and platform-specific. This boundary is real and enforced
+  for `packages/experience` (an ESLint rule blocks React-DOM/Next/RN
+  imports there), not just aspirational.
 - Conventional-commit style: `feat(vault): …`, `fix(web): …`, `docs: …`.
-- Branch per task (`feature/<name>`, `fix/<name>`); never commit to `main`.
-- Automated tests for every feature; full suite green before "done."
+- Branch per task (`feature/<name>`, `fix/<name>`); never commit to `main`
+  directly — CI (`ci.yml` job `build`, plus `build-full`/`build-content`) is
+  the reviewer for most of what lands on the automation side; see
+  `docs/AUTOMATION.md`.
+- Automated tests for every feature; `npm run test` (vitest) full suite
+  green before "done."
 - **Media & content sourcing** (full policy + rationale: `docs/decisions.md`,
-  2026-07-09 "no rules against hosting photos"). The product presents rich
-  media on-site (goal #7 — users don't click out):
-  - **Text:** original summaries in our own words + links; never paste article
-    bodies / lyrics / official statements verbatim.
+  2026-07-09 "no rules against hosting photos"):
+  - **Text:** original summaries in our own words + links; never paste
+    article bodies / lyrics / official statements verbatim.
   - **Images: no hosting restriction.** Any real photo may appear on-site by
-    any means — oEmbed, hotlink, or **rehost/CDN** (paparazzi, press, agency
-    all included), with a credit line where available. A knowing risk
-    acceptance, not an oversight. The only image rules are content-integrity:
-    **no AI-generated fakes,** and reference/comparable stand-ins (e.g. a
-    designer's prior work standing in for a not-yet-photographed item) must be
-    visibly labeled as reference, never presented as the real thing.
-  - **Monetization** (affiliate/commercial) ships only after **external
-    IP-counsel review**; UNOFFICIAL disclaimer stays prominent.
-  - Unchanged: the no-fabrication rule and the Tier 0 payload budget.
+    any means — oEmbed, hotlink, or rehost/CDN — with a credit line where
+    available. The only image rules are content-integrity: no AI-generated
+    fakes, and reference/comparable stand-ins must be visibly labeled as
+    reference.
+  - **Monetization** (affiliate/commercial) ships only after external
+    IP-counsel review; UNOFFICIAL disclaimer stays prominent.
 
-## Shipping one feature across web + mobile (first draft — Wyatt to ratify)
+## Shipping one feature across web + mobile
 
 The shared-package boundary above answers *where code lives*. This answers
-*how a feature actually ships without the three surfaces drifting apart* —
-Joey's 2026-07-17 question, prompted by the mobile app (`apps/mobile`,
-draft PR #67) approaching real use. The risk isn't writing a feature three
-times (the shared boundary already prevents that); it's that **web deploys
-instantly on every merge and mobile does not** — an EAS store build sits in
-App Store / Play review for days, and adoption of a new version is gradual,
-never instant. Any process here has to survive that asymmetry.
+*how a feature ships without the surfaces drifting apart* — the risk isn't
+writing a feature twice (the shared boundary prevents that); it's that
+**web deploys instantly on every merge and mobile does not**. EAS Update
+(D4) narrows that gap for JS-only changes but native-code changes still sit
+in App Store / Play review for days.
 
 **The checklist, in order, for a feature that touches data:**
 
-1. Schema/data change (if any) → `packages/core`, with a migration.
-2. Shape the feature's types once in `packages/shared` — this is the single
-   contract both apps read; a mismatch here is where drift actually starts.
-3. Implement the view in `apps/web` against that shared shape. Ships on the
-   next merge to `main` (Vercel auto-deploy) — no lag.
-4. Implement the view in `apps/mobile` against the *same* shared shape —
-   never re-derive the data logic per-platform (see `apps/mobile/lib/vault.ts`
-   for the existing pattern: it imports `@swift2/core` directly, it doesn't
-   reimplement it). Ships on the next EAS store build — **days of lag**, and
-   not every installed copy updates immediately after.
-5. The one standing exception: if the feature touches the timeline-scrubber's
-   gesture/animation layer, it's implemented twice on purpose (see that
-   decision above) — everything else follows steps 1-4 unchanged.
-6. Test once, mostly: unit tests for the shared logic in `packages/*` cover
-   both platforms simultaneously — that's the whole payoff of the boundary.
-   Add platform-specific tests only for the thin view layer itself.
+1. Schema/data change (if any) → seed it in `supabase/seed/**`, publish via
+   the content bundle (or `packages/core` + a migration for dynamic runtime
+   data).
+2. Shape the feature's logic once in `packages/experience` (preferred) or
+   `packages/shared` — the single contract both apps read.
+3. Implement the view in `apps/web`. Ships on the next merge to `main`
+   (Vercel auto-deploy) — no lag.
+4. Implement the view in `apps/mobile` against the same shared logic —
+   never re-derive it per-platform. Ships via the next EAS Workflow train:
+   an OTA update group if no native code changed (near-instant per D4), a
+   store build + review if it did (days of lag).
+5. The one standing exception: if the feature touches gesture/animation, it
+   is implemented twice on purpose — everything else follows steps 1-4.
+6. Test once, mostly: unit tests for shared logic in `packages/*` cover
+   both platforms simultaneously. Add platform-specific tests only for the
+   thin view layer.
 
-**Backend compatibility across the mobile release lag (the actual hard part
-ChatGPT's summary correctly flagged as "version drift"):** because an old
-mobile build can be in the wild for days-to-weeks after a backend/schema
-change ships, `packages/core`'s public shape is an **additive-only contract**
-until further notice — add fields/endpoints freely, but don't remove or
-repurpose one that a shipped mobile build still reads without a deprecation
-window. (Formal API versioning is overkill at this scale; this single rule is
-the cheap version of it. Revisit if/when usage data shows real staggered
-adoption across versions.)
+**Backend compatibility across the mobile release lag:** an old mobile
+build can be in the wild for days after a backend/schema or bundle-schema
+change ships. `packages/content`'s bundle schema enforces this formally —
+`CURRENT_SCHEMA_VERSION` bumps only on a breaking change, and
+`isSchemaVersionSupported`/`assertSchemaVersionSupported`
+(`packages/content/src/compat.ts`, OS-041) enforce an N-1 compatibility
+window: a loader built against version N must still read a bundle published
+at N-1, checked in CI (`compat.test.ts`). `packages/core`'s remaining public
+shape (News/Current, shared types) follows the same additive-only
+discipline by convention.
 
-**Feature flags — not built yet, and deliberately not built until a feature
-needs it.** Web can revert a bad change in a minute; mobile cannot un-ship a
-build. The plan for when a mobile-facing feature is risky enough to want a
-kill switch without a new store submission: a small remote config read at
-app launch (a single row in Supabase, or even a static JSON the app already
-has a data client for — no new vendor, matches the cost rails) gating the
-feature client-side. Build this the first time a feature actually needs it,
-not speculatively.
+**Feature flags:** `apps/mobile/lib/routes.ts`'s `DEFAULT_ROUTE_FLAGS`
+already gates every native screen per-route — this is now a real mechanism
+in production use (all five native screens shipped behind it and were
+flipped on progressively through OS-032..OS-039), not a future plan.
 
-**Where this lives going forward:** this section, updated in the same PR as
-any change to the shared boundary or the mobile release process. Anything
-that turns out to be genuinely hard to reverse (e.g., committing to real API
-versioning, adopting a paid feature-flag vendor) gets its own
-`docs/decisions.md` entry when it happens, same as any other stack choice.
+## Operational manuals (read these before touching the live system)
 
-## Web → native bridge (OS-002, One Source/Three Surfaces Phase 0)
-
-**OS-039 update (Phase 3 complete):** the app's default surface is now
-native, not the WebView. `apps/mobile/App.tsx` renders one of five native
-worlds (era stream, threads, clownbot, community, merch) behind a
-persistent `BottomTabBar`; the WebView (`SiteShell.tsx`) only ever loads
-one of the three legal pages (`/privacy`, `/terms`, `/support`), which have
-no native screen and never will. The web → native bridge below still
-applies to any of those three legal pages the same way it always did — the
-protocol itself didn't change, just which pages can invoke it.
-
-The site (`apps/web`) runs inside the app's WebView (`apps/mobile/components/
-SiteShell.tsx`), and detects that with the `LongLiveApp/<ver> (ios|android)`
-user-agent marker — see `apps/web/lib/longlive/in-app.ts` (OS-001). Phase 0
-adds a **one-way message channel** so the site's own UI can hand off to a
-native screen instead of the app floating a duplicate control (e.g. a bell)
-on top of the page.
-
-**Protocol.** The site calls `postToNativeApp(message)` (`apps/web/lib/
-longlive/in-app.ts`), which does nothing outside the app and otherwise calls
-`window.ReactNativeWebView.postMessage(JSON.stringify(message))`. Messages
-are a small closed union, currently:
-
-```ts
-type NativeBridgeMessage =
-  | { type: 'openNotificationSettings' }
-  | { type: 'openInbox' };
-```
-
-`SiteShell` wires the WebView's `onMessage` to `onBridgeMessage`, JSON-parses
-and validates the payload (a malformed or unknown `type` is dropped, never
-thrown), and `App.tsx` maps it onto the same native screens the push
-notification deep-link handler (`destinationFor`) already opens —
-`NotificationSettingsScreen` for `openNotificationSettings`,
-`NotificationInboxScreen` for `openInbox`.
-
-**Site-side usage.** `TopBar.tsx` renders the bell as a native `<Button>`
-press (calling `postToNativeApp`) only when `isInAppDocument()` is true;
-outside the app it stays the existing `<Link href="/settings/notifications">`
-so the web-only path (including web push, Phase 6 of
-`NOTIFICATIONS_PLAN.md`) is unaffected. `isInAppDocument()` reads the
-`data-app` attribute `RootLayout` already sets from the server-side UA check
-(OS-001) — the client never re-parses `navigator.userAgent` itself, keeping
-one source of truth for "am I in the app" across server and client renders.
-Because that attribute isn't known until after hydration, the bell renders
-in its web (`Link`) form for one frame and flips to the native form in a
-mount effect — a deliberate hydration-safe flash, not a bug.
-
-**Why one-way, for now.** The app already has everything it needs to answer
-(local onboarding state, notification settings) without a reply from the
-site; a native→web acknowledgement channel can be added the same way
-(`webRef.current.injectJavaScript(...)` from `SiteShell`) if a future card
-needs it. Extending the protocol: add a member to the `NativeBridgeMessage`
-union in **both** `apps/web/lib/longlive/in-app.ts` and
-`apps/mobile/components/SiteShell.tsx` (kept in sync by hand until OS-003's
-deep-link contract test pattern is generalized to this channel too).
+- **`docs/longlive-experience.md`** — the web reader UI (the era/threads
+  experience at `/`): components, state, content flow.
+- **`docs/AUTOMATION.md`** — the automation index: GitHub Actions workflows,
+  Vercel Cron, and the (now fully retired) Claude desk-routine history.
+- **`docs/mobile-release.md`** — the EAS release train mechanics.
+- **`docs/decisions.md`** — the append-only decision log; the source for
+  every "why" cited above.
 
 ## Open questions (need Joey's vision or a later decision)
 
-- Product class: read-only content vs. social/UGC vs. utility — gates how much
-  auth/RLS/realtime we actually build.
-- Free-scrub-with-milestone-anchors (scrubber v2) — deferred.
+- Product class: read-only content vs. social/UGC vs. utility — gates how
+  much auth/RLS/realtime we actually build.
+- News/Current world as a native mobile screen — not yet ported; currently
+  web-only.
+- Dead code cleanup: `apps/mobile/lib/vault.ts`, `VaultNavigator.tsx`,
+  `EraTimeline.tsx` are unreferenced from the mounted app after OS-015; no
+  card yet to remove them.
 
-_Resolved:_ v1 scope is the **Vault only**; the News/Current world is out of v1
-(see `docs/decisions.md`, 2026-07-03).
+_Resolved:_ v1 scope is the **Vault only**; the News/Current world is out of
+v1 (2026-07-03). _Resolved:_ the Supabase-direct Vault read path is retired,
+not adopted — see "Content pipeline" above (2026-09-06). _Resolved:_ the
+mobile app is native-screens-by-default, not a WebView shell — see "Mobile
+app" above (OS-039, 2026-09-05/06).
