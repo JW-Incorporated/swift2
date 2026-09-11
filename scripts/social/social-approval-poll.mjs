@@ -55,12 +55,42 @@ function gh(args, { input } = {}) {
   return execFileSync('gh', args, { encoding: 'utf8', input, env: process.env }).trim();
 }
 
-async function discordGet(url, token) {
-  const res = await fetch(url, { headers: { Authorization: `Bot ${token}` } });
-  if (!res.ok) {
-    throw new Error(`Discord GET ${url} -> ${res.status} ${await res.text()}`);
+const DISCORD_MIN_INTERVAL_MS = 350; // rate-limit courtesy floor between successive Discord API calls
+const DISCORD_MAX_ATTEMPTS = 3; // total attempts per Discord GET (including the first); retries only on 429
+
+function defaultSleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+let lastDiscordCallAt = 0;
+
+async function discordThrottle(sleepImpl) {
+  const wait = lastDiscordCallAt + DISCORD_MIN_INTERVAL_MS - Date.now();
+  if (wait > 0) await sleepImpl(wait);
+  lastDiscordCallAt = Date.now();
+}
+
+async function discordGet(url, token, { fetchImpl = fetch, sleepImpl = defaultSleep } = {}) {
+  let lastErr;
+  for (let attempt = 1; attempt <= DISCORD_MAX_ATTEMPTS; attempt++) {
+    await discordThrottle(sleepImpl);
+    const res = await fetchImpl(url, { headers: { Authorization: `Bot ${token}` } });
+    if (res.status === 429) {
+      const body = await res.json().catch(() => ({}));
+      const retryAfterSec = typeof body.retry_after === 'number' ? body.retry_after : 1;
+      lastErr = new Error(`Discord GET ${url} -> 429 rate limited (retry_after ${retryAfterSec}s)`);
+      if (attempt < DISCORD_MAX_ATTEMPTS) {
+        await sleepImpl(retryAfterSec * 1000);
+        continue;
+      }
+      throw lastErr;
+    }
+    if (!res.ok) {
+      throw new Error(`Discord GET ${url} -> ${res.status} ${await res.text()}`);
+    }
+    return res.json();
   }
-  return res.json();
+  throw lastErr;
 }
 
 /** Derive the webhook id from its URL: .../webhooks/{id}/{token}. */
@@ -78,22 +108,34 @@ async function resolveChannelId(webhookUrl) {
   return data.channel_id;
 }
 
-async function fetchReactors(channelId, messageId, emoji, token) {
-  const users = await discordGet(`${DISCORD_API}/channels/${channelId}/messages/${messageId}/reactions/${emoji}?limit=100`, token);
+async function fetchReactors(channelId, messageId, emoji, token, opts) {
+  const users = await discordGet(`${DISCORD_API}/channels/${channelId}/messages/${messageId}/reactions/${emoji}?limit=100`, token, opts);
   return users.map((u) => `discord:${u.id}`);
 }
 
-export async function run({ execGh = gh, fetchImpl = fetch } = {}) {
+/** Fetches both reaction sets for a message in the fewest calls possible (one per emoji),
+ * caching per message id so the later stamp phase never re-fetches the same message. */
+async function getMessageApprovals(message, channelId, botToken, opts, cache) {
+  if (cache.has(message.id)) return cache.get(message.id);
+  const approvedBy = (await fetchReactors(channelId, message.id, CHECK_MARK, botToken, opts)).filter((id) => SOCIAL_APPROVERS.includes(id));
+  const rejectedBy = (await fetchReactors(channelId, message.id, CROSS_MARK, botToken, opts)).filter((id) => SOCIAL_APPROVERS.includes(id));
+  const result = { approvedBy, rejectedBy };
+  cache.set(message.id, result);
+  return result;
+}
+
+export async function run({ execGh = gh, fetchImpl = fetch, sleepImpl = defaultSleep } = {}) {
   const botToken = requireEnv.call(null, 'DISCORD_BOT_TOKEN');
   const webhookUrl = requireEnv.call(null, 'SOCIAL_APPROVAL_WEBHOOK_URL');
   const approvalKey = requireEnv.call(null, 'SOCIAL_APPROVAL_KEY');
   requireEnv.call(null, 'GH_TOKEN');
   const repo = requireEnv.call(null, 'REPO');
+  const discordOpts = { fetchImpl, sleepImpl };
 
   const webhookId = webhookIdFromUrl(webhookUrl);
   const channelId = await resolveChannelId(webhookUrl);
 
-  const messages = await discordGet(`${DISCORD_API}/channels/${channelId}/messages?limit=100`, botToken);
+  const messages = await discordGet(`${DISCORD_API}/channels/${channelId}/messages?limit=100`, botToken, discordOpts);
 
   const candidates = messages.filter((m) => String(m.webhook_id) === String(webhookId));
   for (const m of candidates) {
@@ -132,10 +174,16 @@ export async function run({ execGh = gh, fetchImpl = fetch } = {}) {
     const filesToStamp = new Set();
     let rejectHeader = false;
     const rejectFiles = [];
+    const reactionCache = new Map();
 
     for (const { message, file } of current) {
-      const approvedBy = (await fetchReactors(channelId, message.id, CHECK_MARK, botToken)).filter((id) => SOCIAL_APPROVERS.includes(id));
-      const rejectedBy = (await fetchReactors(channelId, message.id, CROSS_MARK, botToken)).filter((id) => SOCIAL_APPROVERS.includes(id));
+      let approvedBy, rejectedBy;
+      try {
+        ({ approvedBy, rejectedBy } = await getMessageApprovals(message, channelId, botToken, discordOpts, reactionCache));
+      } catch (err) {
+        console.error(`::warning::social-approval-poll: could not fetch reactions for message ${message.id} (PR #${pr}, file ${file}) — skipping this message: ${err.message}`);
+        continue;
+      }
 
       if (rejectedBy.length > 0) {
         if (file === '*') rejectHeader = true;
@@ -194,9 +242,9 @@ export async function run({ execGh = gh, fetchImpl = fetch } = {}) {
       const approverRef = current.find(() => SOCIAL_APPROVERS.length > 0)?.message;
       const approvedByIds = new Set();
       for (const { message } of current) {
-        for (const id of await fetchReactors(channelId, message.id, CHECK_MARK, botToken)) {
-          if (SOCIAL_APPROVERS.includes(id)) approvedByIds.add(id);
-        }
+        const cached = reactionCache.get(message.id);
+        if (!cached) continue; // this message's reactions failed to fetch above and was already logged
+        for (const id of cached.approvedBy) approvedByIds.add(id);
       }
       const by = [...approvedByIds][0];
       const result = stampFiles(toStamp, {
