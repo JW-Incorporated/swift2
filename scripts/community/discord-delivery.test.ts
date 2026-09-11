@@ -4,6 +4,7 @@ import {
   buildCommunityPrompt,
   postCommunityPrompts,
   deliveryStatusFromResult,
+  chunkForDiscord,
 } from './discord-delivery.mjs';
 
 describe('buildCommunityPrompt', () => {
@@ -79,6 +80,59 @@ describe('buildCommunityPrompt', () => {
     });
 
     expect(prompt).not.toContain('@everyone');
+  });
+});
+
+describe('chunkForDiscord', () => {
+  it('returns a single unchanged chunk when content is under the limit', () => {
+    const result = chunkForDiscord('short content', 2000);
+    expect(result).toEqual(['short content']);
+  });
+
+  it('splits on a paragraph boundary when content is just over the limit', () => {
+    const paraA = 'a'.repeat(1200);
+    const paraB = 'b'.repeat(1200);
+    const content = `${paraA}\n\n${paraB}`;
+    const result = chunkForDiscord(content, 2000);
+    expect(result).toEqual([paraA, paraB]);
+    for (const chunk of result) expect(chunk.length).toBeLessThanOrEqual(2000);
+  });
+
+  it('hard-splits a single paragraph that alone exceeds the limit', () => {
+    const words = Array.from({ length: 400 }, (_, i) => `word${i}`);
+    const giant = words.join(' ');
+    const result = chunkForDiscord(giant, 2000);
+    expect(result.length).toBeGreaterThan(1);
+    for (const chunk of result) expect(chunk.length).toBeLessThanOrEqual(2000);
+    expect(result.join(' ')).toBe(giant);
+  });
+
+  it('keeps fences balanced when a fenced code block would straddle a chunk boundary', () => {
+    const paraA = 'intro '.repeat(300); // well under the limit on its own
+    const fenced = '```\n' + 'code line\n'.repeat(120) + '```'; // pushes past the limit combined
+    const content = `${paraA}\n\n${fenced}`;
+    const result = chunkForDiscord(content, 2000);
+    expect(result.length).toBeGreaterThan(1);
+    for (const chunk of result) {
+      expect(chunk.length).toBeLessThanOrEqual(2000);
+      const fenceCount = (chunk.match(/```/g) || []).length;
+      expect(fenceCount % 2).toBe(0);
+    }
+  });
+
+  it('regression: a fenced body with an internal blank line never overflows the limit after balancing (round-1 review finding)', () => {
+    // Reproduces the exact shape Codex found: a fence whose CONTENT has a
+    // blank line (a real caption paragraph break), so `\n\n`-splitting cuts
+    // inside the still-open fence — the packer must reserve room for
+    // balanceFences's reopen/close markers even on chunks it never predicted
+    // would need one.
+    const fenced = '```\n' + 'a'.repeat(1911) + '\n\n' + 'b'.repeat(30) + '\n```';
+    const result = chunkForDiscord(fenced, 2000);
+    for (const chunk of result) {
+      expect(chunk.length).toBeLessThanOrEqual(2000);
+      const fenceCount = (chunk.match(/```/g) || []).length;
+      expect(fenceCount % 2).toBe(0);
+    }
   });
 });
 

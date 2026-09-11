@@ -7,6 +7,112 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-11 — Approval is data (A2), superseding "merge IS the approval"
+
+**Decision:** Social-post approval is no longer "the PR was merged" — it is
+a stamped, content-bound `approval` object written into the queue item
+itself, ONLY by a merge-triggered workflow (`.github/workflows/social-
+approval-stamp.yml`), never by a drafter, never by `post-queue.mjs`. `by`
+is checked against a hardcoded `scripts/social/lib/approvers.mjs` list;
+`contentHash` covers `platform`/`body`/`media`/`altText`/`scheduledAt`/
+`campaign`, so editing any of those after the stamp voids it.
+`post-queue.mjs` reads only this object — no GitHub API call at post time —
+and refuses (loud `unapproved` outcome, red past 24h overdue, retired to
+`social/failed/` at 48h) anything without a currently-valid one. A
+pre-2026-09-11 draft has no `approval` key at all, so grandfathering is
+impossible by construction. The dead `scripts/social/lib/
+git-provenance.mjs` (queried `commits/{sha}/pulls`, which never carries
+`merged_by`) is deleted along with the `approvedBy`/`approvedAt` fields it
+populated with `null` on every real run.
+
+**Why now:** the 2026-09-10 "merge IS the approval" decision (entry below)
+could not actually distinguish the owner's own "Merge" tap from an agent's
+`gh pr merge` — `auto-merge-content.yml` arms auto-merge with
+`SOCIAL_POSTER_PAT`, the same identity every agent session's `gh` CLI also
+runs as, so both a hand-merge and a bot-merge recorded the identical
+`merged_by`. An agent merged a social PR on 2026-09-10 night under the old
+rule. Separately, four drafts that landed on `main` BEFORE the 2026-09-10
+gate existed were retroactively invisible to it (approval was "is merged,"
+and they already were) — see the A1 entry and `scratchpad/RCA-social-
+brief-image.md` §0 for the near-miss this produced (an unapproved pair
+~25h from auto-publishing to live IG/X, held off only by an unrelated daily
+cap). Both holes close under A2: approval is now data the poster itself
+checks, not a predicate inferred from a different system's (GitHub's)
+state.
+
+**Fencing the shared identity (owner's kit, not a Swift2 PR):** `Projects/
+.claude/hooks/guard.sh` denies `gh pr merge` on any PR that adds or modifies
+`social/queue/**.json`, and denies an agent writing an `"approval"` key
+anywhere. `CLAUDE.md`'s "Never babysit your own PR" section carries the same
+carve-out for human sessions running through this repo. A Discord-reaction
+approval mechanism (giving the owner an identity agents genuinely cannot
+hold) is deferred, not rejected — build it if the guard above ever logs a
+denied queue-PR merge attempt by an agent.
+
+**Definition of done for any future gate PR:** the PR's CI output must show
+`validate-queue`'s unstamped-draft warnings for whatever already sits on
+`main` at merge time — the list that would have named the four pre-gate
+files on #4090/#4097 before A1 deleted them.
+
+**Requires the owner (A5, unfreeze conditions — NOT all met by this PR):**
+the queue must be empty or fully stamped; PR-B1 (this PR) must be merged
+green with the two named refusal tests; one real `social-approval-notify`
+run must log `approval-prompt: embeds accepted: N` for a founder-visible
+brief with the image; and the owner must say in chat that he saw the image
+in `#longlive-social`. `SOCIAL_FREEZE` stays `true` until all four hold —
+this PR does not flip it and does not claim to.
+
+**Approved by:** architect (Fable) ruling, `scratchpad/RULINGS-SOCIAL.md`,
+2026-09-11T00:10Z.
+
+---
+
+---
+
+## 2026-09-10 — Marjorie explicitly excluded from social/queue merges
+
+**Decision:** Marjorie's standing merge authority (Merge authority amendment, 2026-07-14) is explicitly carved out for `social/queue/` drafts. She must never merge a PR that adds, modifies, renames, or otherwise changes any file under `social/queue/` — those require a founder's own hand per the social-approval-gate decision (2026-09-10 entry below). The gate's guarantee is "no *automated* path arms or merges a queue draft" as a matter of routine instructions, not something enforced solely by a GitHub branch-protection ruleset. Since Marjorie holds `SOCIAL_POSTER_PAT` for other social-posting duties (posting approved content from `social/posted/`), she could technically merge a queue draft anyway, and the audit trail would show only `merged_by: <PAT-owner-login>` — indistinguishable from a real founder merge. This carve-out closes the one routine that was actually instructed in a way that could trigger it.
+
+**Why:** The social-approval-gate relies on founder-visible, founder-executed merges to provide a clear audit trail that a human reviewed and approved each queued post before it reached the live pipeline. Allowing an automated routine to merge queue drafts via a shared PAT, even if the routine is generally trusted, silently breaks this visibility guarantee for the subset of posts that run through an unattended automation path.
+
+**Approved by:** Fable-level review of PR #4090 (the social-approval-gate implementation); this carve-out closes finding B from that review.
+
+---
+
+## 2026-09-10 — Trial routine resolutions: Austin reverted, News Triage recall retired
+
+**Austin (model trial): reverted to `claude-fable-5`.** `routine-austin-build.yml`'s Actions run history showed 3 of 4 runs failing (75% failure rate, over the decision rule's 25% cap), root-caused to a missing `CLAUDE_CODE_OAUTH_TOKEN`/OIDC token fetch failure (`HUMAN-ACTIONS.md` item #49, BLOCKING) — an infra plumbing bug, not a quality problem with `claude-opus-4-8` itself. The decision rule's failure-rate condition is dispositive regardless of the merge-rate ambiguity, so the workflow's `model` input reverts to `claude-fable-5`. Austin is a re-trial candidate on `claude-opus-4-8` once HUMAN-ACTIONS #49 is fixed — this is not a permanent verdict on the model.
+
+**News Triage recall check: retired.** 3 recall-check issues exist on record (#3628, #3661, #4027), with zero verified false negatives attributable to News Triage's own judgment — the one gap on record (#4027) was caused by the same infra outage that hit Austin, not a real miss. Per the decision rule's bias-to-retire on ambiguous/null evidence, and per the routine's own header instruction to disable or delete it once the trial resolves, `routine-news-triage-recall.yml` and `docs/agents/runner-prompts/news-triage-recall-check.md` are deleted; references in `docs/agents/runners.md` and `docs/TIER2-OPTIMIZATION.md` updated to point here instead of the deleted files.
+
+**Approved by:** research pass on this track (evidence-based recommendations), implemented per instruction.
+
+---
+
+## 2026-09-10 — Social posting requires founder approval before publish (reverses #2316)
+
+**Decision:** `social/queue/**.json` drafts may no longer reach `main` without a founder merging their PR. `auto-merge-content.yml` will decline auto-merge for any PR that adds, modifies, or renames a queue draft. Approval prompts are delivered to the `#longlive-social` Discord channel via the existing `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` secret, which already routes Reddit community prompts through the same channel (verified in `community-mailer.yml` and `scripts/community/discord-delivery.mjs`).
+
+**Why:** Joey, in chat: "I agree we should reverse the fully automated social approval, and I want all social approval routed to the same channel where our other social questions from Reddit go, #longlive-social. The channel is already setup with a hook."
+
+**Explicitly supersedes:** the `## 2026-08-25` entry (issue #2316, line 1214) and the 2026-07-25 mechanics decision it rests on. That entry's "Alternatives considered (2): require human merge on social/queue/ PRs specifically while auto-merging everything else — rejected" is exactly the design now being adopted.
+
+**What does NOT change:** `social/posted/` and `social/failed/` remain auto-merge-allowlisted (they are machine-written bookkeeping; stranding them caused the 2026-08-11/12 Instagram triple-post, issue #2031, verified in `social-poster.yml` lines 184-198). `SOCIAL_FREEZE` kill switch and the per-post founder email both stay.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-09-10).
+
+---
+
+## 2026-09-10 — Routine spend is plan usage, not billable dollars; budget in turns, not dollars
+
+**Decision:** all 15 `routine-*.yml` workflows authenticate via `CLAUDE_CODE_OAUTH_TOKEN` (verified in `routine-template.yml` lines 14–19: "uses CLAUDE_CODE_OAUTH_TOKEN (Joey's Claude Pro/Max plan usage, via `claude setup-token` — see HUMAN-ACTIONS.md), NOT ANTHROPIC_API_KEY. This draws from the SAME shared plan-usage pool as Joey's own interactive Claude Code sessions, not metered per-token billing"). There is no dollar figure to cap and no invoice to read — the shared plan-usage pool is not metered per-token. A per-routine dollar hard-cap is therefore not implementable on this auth path (unlike `merch-audit-authoring.yml`'s `ANTHROPIC_API_KEY`-based $5/run cap in `scripts/merch-engine/audit-matches-authoring.mjs`, which IS real metered billing — a different system). The enforceable levers are `max_turns` and `timeout_minutes`.
+
+**Evidence:** `routine-template.yml` header (lines 14–19) explicitly states this is shared plan-usage, not metered billing. `fleet-telemetry-snapshot.yml` (lines 10–14) documents: "It does NOT and CANNOT see Claude Code routine token spend — that has no repo-visible API. The Routine Auditor's own weekly issue comment carries the other half (enabled-trigger count + cadence sum) per docs/agents/routine-invariants.md § Auditor arithmetic."
+
+**Approved by:** routine-spend-classification documentation (already checked in).
+
+---
+
 ## 2026-09-10 — Playable-first widened to playable-OR-watchable: 4 of 8 hidden tour films/documentaries now show a watch-link card (#3476)
 
 **Decision:** the 2026-08-13 "Playable-first timeline" rule ("if a video card

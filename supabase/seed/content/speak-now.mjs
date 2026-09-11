@@ -2079,11 +2079,13 @@ export default {
       month: 10,
       day: 9,
       category: 'music',
-      // Cross-link (Stage 3, 2026-07-27): the "I Knew You Were Trouble"
-      // cluster — the dubstep debut, its global chart run, and the video's
-      // birthday drop — now interlink.
+      // Cross-link (Stage 3, 2026-07-27; extended 2026-09-10, Vault Run
+      // crosslink-opportunity): the "I Knew You Were Trouble" cluster — the
+      // dubstep debut, its global chart run, the first live performance at the
+      // 2012 AMAs, and the video's birthday drop — now interlink.
       relatedIds: [
         'moment:vault-red-i-knew-you-were-trouble-goes-global',
+        'moment:vault-red-i-knew-you-were-trouble-debuts-live-at-the-amas',
         'moment:vault-red-the-i-knew-you-were-trouble-video-drops-on-her-23rd-birthday',
       ],
       title: 'I Knew You Were Trouble brings dubstep to pop radio',

@@ -24,6 +24,8 @@
 
 import { weightedTweetLength } from './x-length.mjs';
 import { MAX_X_IMAGES } from './platforms.mjs';
+import { SOCIAL_APPROVERS } from './approvers.mjs';
+import { approvalStatus } from './queue.mjs';
 
 /** Platforms the poster can actually publish to (post-queue.mjs's postOne). */
 export const PLATFORMS = ['x', 'instagram'];
@@ -137,6 +139,21 @@ export function validatePhotoInventoryBinding(item, photoLibrary) {
   if (photoTiles.length !== 1 || photoTiles[0] !== photo.mediaPath || item.mediaCredit !== photo.credit || item.mediaSource !== photo.source) {
     return ['photoId: must use its inventory media path, exact credit, and exact source so attribution cannot drift.'];
   }
+  // Alt text for the library tile is WRITTEN ONCE on the photo entry itself
+  // (the photo never changes per post, so its alt text shouldn't either) —
+  // RULINGS-SOCIAL.md A3/B2. The draft's altText[] entry at the tile's index
+  // must match it exactly, the same attribution-cannot-drift discipline as
+  // mediaCredit/mediaSource above.
+  const tileIndex = Array.isArray(item.media) ? item.media.indexOf(photo.mediaPath) : -1;
+  if (tileIndex !== -1) {
+    const draftAlt = Array.isArray(item.altText) ? item.altText[tileIndex] : undefined;
+    if (typeof photo.alt !== 'string' || photo.alt.trim() === '') {
+      return [`photoId: ${JSON.stringify(item.photoId)} has no "alt" string in social/photo-library.json — add one before this draft can ship (RULINGS-SOCIAL A3).`];
+    }
+    if (draftAlt !== photo.alt) {
+      return [`altText[${tileIndex}]: must match photoId ${JSON.stringify(item.photoId)}'s library "alt" text exactly — copy it from \`select-photo.mjs\`'s output rather than retyping it.`];
+    }
+  }
   if (typeof item.photoEra === 'string' && item.photoEra.trim() !== '') {
     const era = item.photoEra.trim();
     if (!Array.isArray(photo.tags) || !photo.tags.includes(era)) {
@@ -213,10 +230,11 @@ export function validateQueueItem(item) {
 
   // --- media --------------------------------------------------------------
   const media = item.media;
+  let paths = [];
   if (media !== undefined && !Array.isArray(media)) {
     findings.push('media: must be an array of paths when present.');
   } else {
-    const paths = media ?? [];
+    paths = media ?? [];
     for (const p of paths) {
       if (typeof p !== 'string' || !p.startsWith('/')) {
         findings.push(
@@ -279,8 +297,59 @@ export function validateQueueItem(item) {
     );
   }
 
+  // --- altText (RULINGS-SOCIAL.md A3/B2 — required whenever media ships) --
+  // X's 1000-char cap (its media/metadata/create alt_text limit) is the
+  // binding constraint here, not Instagram's/Facebook's more generous ones
+  // — one field is sent to all three platforms (lib/platforms.mjs), so it
+  // must satisfy the tightest of the three.
+  const MAX_ALT_TEXT_CHARS = 1000;
+  if (paths.length > 0) {
+    if (!Array.isArray(item.altText)) {
+      findings.push(
+        'altText: required whenever `media` is present — one non-empty, descriptive string per image, same length as `media`. ' +
+          'Sent to X via media/metadata/create, Instagram via the `alt_text` field, Facebook via `alt_text_custom`.',
+      );
+    } else {
+      if (item.altText.length !== paths.length) {
+        findings.push(`altText: has ${item.altText.length} entr(ies) but media has ${paths.length} — must be exactly one alt text per image, in the same order.`);
+      }
+      item.altText.forEach((alt, i) => {
+        if (typeof alt !== 'string' || alt.trim() === '') {
+          findings.push(`altText[${i}]: must be a non-empty string.`);
+        } else if (alt.length > MAX_ALT_TEXT_CHARS) {
+          findings.push(`altText[${i}]: ${alt.length} characters exceeds X's ${MAX_ALT_TEXT_CHARS}-character alt-text limit (media/metadata/create).`);
+        } else if (typeof item.body === 'string' && alt === item.body) {
+          findings.push(`altText[${i}]: must describe the image, not repeat the post body verbatim.`);
+        }
+      });
+    }
+  } else if (item.altText !== undefined) {
+    findings.push('altText: must not be present when `media` is empty — nothing to describe.');
+  }
+
+  // --- approval (RULINGS-SOCIAL.md A2) -------------------------------------
+  // `approval` is written ONLY by the merge-triggered stamper
+  // (.github/workflows/social-approval-stamp.yml), never by a drafter — but
+  // a drafter could still hand-author one (accidentally or otherwise), so
+  // CI validates its SHAPE and CONTENT whenever present, hard-failing a
+  // malformed or self-stamped one rather than silently accepting it. Its
+  // absence is never a CI failure here — every draft legitimately arrives
+  // unstamped; validate-queue.mjs prints that as a warning instead (A6).
+  if (item.approval !== undefined) {
+    const status = approvalStatus(item, { approvers: SOCIAL_APPROVERS });
+    if (!status.ok && status.reason !== 'no approval on file — never reviewed by a founder (or reviewed before the 2026-09-11 approval schema; re-open a PR for it)') {
+      findings.push(`approval: ${status.reason}`);
+    }
+  }
+
   // --- optional provenance/bookkeeping fields ------------------------------
-  for (const field of ['approvedAt', 'lastAttemptAt']) {
+  // `approvedAt`/`approvedBy` are retired (RULINGS-SOCIAL.md A2) — the
+  // `approval` object above is the only provenance record now. A queue item
+  // still carrying either legacy field is not itself a validation error
+  // (old social/posted/ records are never re-validated; validate-queue.mjs
+  // only targets social/queue/ where these keys should never reappear), but
+  // they are no longer documented or written by any current code path.
+  for (const field of ['lastAttemptAt']) {
     if (item[field] !== undefined && !isIsoInstant(item[field])) {
       findings.push(`${field}: present but not an ISO-8601 instant (${JSON.stringify(item[field])}).`);
     }
@@ -288,7 +357,7 @@ export function validateQueueItem(item) {
   if (item.attempts !== undefined && (!Number.isInteger(item.attempts) || item.attempts < 0)) {
     findings.push(`attempts: must be a non-negative integer when present (${JSON.stringify(item.attempts)}).`);
   }
-  for (const field of ['campaign', 'why', 'approvedBy', 'lastError', 'photoId', 'photoEra']) {
+  for (const field of ['campaign', 'why', 'lastError', 'photoId', 'photoEra']) {
     if (item[field] !== undefined && typeof item[field] !== 'string') {
       findings.push(`${field}: must be a string when present.`);
     }

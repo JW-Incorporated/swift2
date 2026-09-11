@@ -64,11 +64,14 @@ if (!selected) {
       : 'No credited photo is available in social/photo-library.json.',
   );
 }
+// altText[0] (RULINGS-SOCIAL.md A3/B2) — copy this verbatim into the
+// draft; validatePhotoInventoryBinding requires it to match the library
+// entry's `alt` exactly, so retyping it is how drift happens.
 console.log(
   JSON.stringify(
     era
-      ? { photoId: selected.id, media: [selected.mediaPath], mediaCredit: selected.credit, mediaSource: selected.source, photoEra: era, reused: selected.reused }
-      : { photoId: selected.id, media: [selected.mediaPath], mediaCredit: selected.credit, mediaSource: selected.source, reused: selected.reused },
+      ? { photoId: selected.id, media: [selected.mediaPath], mediaCredit: selected.credit, mediaSource: selected.source, altText: [selected.alt], photoEra: era, reused: selected.reused }
+      : { photoId: selected.id, media: [selected.mediaPath], mediaCredit: selected.credit, mediaSource: selected.source, altText: [selected.alt], reused: selected.reused },
     null,
     2,
   ),

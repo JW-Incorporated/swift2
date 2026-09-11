@@ -1,0 +1,79 @@
+# Weekly routine-output sampling — a Tier-1 deterministic script runner, NOT
+# a `routine-*.yml` judgment routine. Deliberately named without the
+# `routine-` prefix so `npm run check:routines` (which globs
+# `routine-*.yml`, excluding only `routine-template.yml`) does not count it
+# toward the fleet total — verified via `npm run check:routines` after
+# adding this file (still reports 15 routine files).
+#
+# What it does: runs scripts/routine-output-sample.mjs, which greps GitHub
+# PRs/issues for each of the 15 judgment routines' T-20 `Tier-2: <Identifier>`
+# attribution trailer over the last 7 days and reports opened/merged/
+# closed-unmerged PR counts, stale (>72h) open PRs, and issue counts. Zero
+# LLM tokens, report-only — same commit-via-PR shape as
+# fleet-telemetry-snapshot.yml (main is branch-protected).
+#
+# Cron offset (per watchdog.yml's scheduling-contention note): this repo has
+# several daily crons clustered at :00/:30 (social-poster.yml,
+# marjorie-inbox.yml) where GitHub Actions schedule triggers are documented
+# to slip under load, so every workflow here picks a minute away from that
+# cluster. 12 9 * * 1 = Monday 09:12 UTC — weekly, off both :00 and :30.
+name: routine-output-sampling-report
+
+on:
+  schedule:
+    - cron: "12 9 * * 1" # Monday 09:12 UTC — off :00/:30 per watchdog.yml's scheduling-contention note
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print the report that would be written without committing it"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+concurrency:
+  group: routine-output-sampling
+  cancel-in-progress: false
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+      - name: Sample the last 7 days of routine PR/issue output
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run }}
+        run: node scripts/routine-output-sample.mjs
+
+      - name: Compute PR metadata
+        if: ${{ github.event_name == 'schedule' || inputs.dry_run == false }}
+        run: |
+          STAMP=$(date -u +%Y-%m-%d)
+          {
+            echo "branch=routine-output-sampling/$(date -u +%Y%m%d%H%M%S)"
+            echo "commit_message=routine-output-sampling: $STAMP"
+            echo "pr_title=routine-output-sampling: $STAMP"
+          } >> "$GITHUB_ENV"
+      - uses: ./.github/actions/commit-and-pr
+        if: ${{ github.event_name == 'schedule' || inputs.dry_run == false }}
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: docs/audits/routine-output-sampling
+          branch: ${{ env.branch }}
+          commit-message: ${{ env.commit_message }}
+          pr-title: ${{ env.pr_title }}
+          pr-body: >-
+            Automated weekly routine-output sample (PR/issue counts per T-20
+            attribution tag, last 7 days). Zero LLM tokens, report-only. See
+            docs/TIER2-OPTIMIZATION.md T-20.
+          no-changes-message: "No routine-output changes to commit."

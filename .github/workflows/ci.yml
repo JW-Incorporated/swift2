@@ -153,6 +153,34 @@ jobs:
           git fetch --no-tags --depth=1 origin main
           npm run check:voice -- --base-ref FETCH_HEAD
       - run: npm run content:coverage
+      # RULINGS-SOCIAL.md A6 — "CI fails any PR touching the posting path
+      # while SOCIAL_FREEZE is off, making the switch a merge precondition."
+      # The hole that shipped tonight existed because the gate's predicate
+      # (PR file status) and the poster's predicate (isDue) were different
+      # functions, bridged only by a filed-but-unexecuted human action
+      # (#56). This makes the bridge mechanical: a PR cannot even merge
+      # while it edits the live posting path unless the freeze is already
+      # on. PR-pull_request only (not push-to-main) — by the time a PR
+      # merges the freeze requirement already gated it once; re-checking on
+      # push would only block a merge that already happened.
+      - name: Social posting-path changes require SOCIAL_FREEZE=true (RULINGS-SOCIAL A6)
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          FREEZE: ${{ vars.SOCIAL_FREEZE }}
+        run: |
+          set -euo pipefail
+          case "${FREEZE:-}" in
+            true|1|TRUE|True) exit 0 ;;
+          esac
+          FILES=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename')
+          POSTING_PATH='^(scripts/social/post-queue\.mjs|scripts/social/lib/queue\.mjs|scripts/social/lib/queue-schema\.mjs|scripts/social/lib/platforms\.mjs|scripts/social/lib/approvers\.mjs|scripts/social/stamp-approval\.mjs|scripts/automerge-social-approval-gate\.mjs|\.github/workflows/social-poster\.yml|\.github/workflows/social-approval-stamp\.yml|\.github/workflows/auto-merge-content\.yml)$'
+          if printf '%s\n' "$FILES" | grep -qE "$POSTING_PATH"; then
+            echo "::error::This PR changes the live posting path while SOCIAL_FREEZE is off. Freeze first (gh variable set SOCIAL_FREEZE --repo $REPO --body true), re-run, merge, then unfreeze deliberately."
+            exit 1
+          fi
       - run: npm run build
       # Bundle-size gate (R7, Fable 5.1 architecture review, #3709): detection
       # only — fails CI if apps/web's shipped client bundle

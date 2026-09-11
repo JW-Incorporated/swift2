@@ -29,14 +29,27 @@ t_bac31b1a) — that lane now sources a real credited photo from
 `social/photo-library.json` for both platforms, same as every other
 campaign.
 
-**No human review gate (2026-07-25, reaffirmed 2026-08-25 — see
-`docs/decisions.md`):** `queue/` is also on
-`.github/content-automerge-allowlist.txt` and auto-merges on green exactly
-like `posted/`/`failed/` below — a draft PR is never held open for a founder
-to read. The only gate on a queue item before it ships is automated:
-`scripts/social/check-drafts.mjs` at PR time (schema, voice, sourcing,
-length, media). The founder's only checkpoint is the notification email the
-poster sends on every post, success or failure, after the fact.
+**Founder approval gate, restored (2026-09-10 — see `docs/decisions.md`,
+reversing the 2026-07-25/2026-08-25 no-human-review decisions):** a PR that
+adds, modifies, or renames a `social/queue/**.json` draft no longer
+auto-merges — `.github/workflows/auto-merge-content.yml`'s `enable` job
+declines it outright (the SOCIAL APPROVAL GATE), and
+`.github/workflows/social-approval-notify.yml` posts the full caption(s), an
+embedded image, and everything else a go/no-go needs to `#longlive-social` so
+a founder can decide from the prompt alone. **Merging the PR is the approval
+*act*; closing it (with a `reject:` comment) is the rejection.** Since
+2026-09-11 (RULINGS-SOCIAL.md A2) the merge is no longer itself the
+*record* — `.github/workflows/social-approval-stamp.yml` runs on the merge and
+writes the `approval` object (see the schema section below); `post-queue.mjs`
+reads only that object, never GitHub, so the gate survives even if a merge
+were ever misattributed. A PR that only
+*removes* queue files (the poster's own fold-back PRs, moving a shipped
+draft to `social/posted/`) is unaffected and still auto-merges — see
+`scripts/automerge-social-approval-gate.mjs`. `scripts/social/
+check-drafts.mjs` still runs at PR time and is unchanged (schema, voice,
+sourcing, length, media) — it is a quality gate, orthogonal to this
+approval-authority gate. The per-post founder email on every post, success
+or failure, is unchanged too.
 
 **State recording (2026-08-25, issue #2040, supersedes the 2026-08-12/issue
 #2031 mechanism):** every run pushes its queue/posted/failed changes
@@ -58,7 +71,7 @@ identical live posts the IG API cannot delete) is what this exists to
 prevent — see `docs/agents/growth.md`'s duplicate-post-incident section.
 - **`failed/`** — anything that failed 3 times in a row, hit an ambiguous transport failure (see "Post-time guards" below — never auto-retried), had an invalid/missing `scheduledAt`, sat due (past `scheduledAt`) for more than 48h without posting for any reason (repeated failure, a guard skip, a deploy-lag skip, an idempotency skip), or was retired by hand — see `failureReason` below. Needs a human look either way.
 
-Every run resolves each touched item to an outcome — `posted`, `retrying`, `failed`, `skipped`, or `waiting` (media not deployed yet) — and `scripts/social/lib/run-report.mjs` turns those into a markdown report (job summary + queue-state PR body) and `::error::`/`::warning::` annotations. A permanently failed item makes the run exit non-zero; before 2026-08-11, twelve posts died into `failed/` across runs that all finished green. `skipped` and `waiting` deliberately spend **no** attempt, so escalation is a ladder: past **24 hours overdue** either state reddens the run (`::error::`, non-zero exit) while the item is still recoverable, and at **48 hours** the staleness rule below retires it to `failed/`.
+Every run resolves each touched item to an outcome — `posted`, `retrying`, `failed`, `skipped`, `waiting` (media not deployed yet), or `unapproved` (no valid A2 approval stamp) — and `scripts/social/lib/run-report.mjs` turns those into a markdown report (job summary + queue-state PR body) and `::error::`/`::warning::` annotations. A permanently failed item makes the run exit non-zero; before 2026-08-11, twelve posts died into `failed/` across runs that all finished green. `skipped` and `waiting` deliberately spend **no** attempt, so escalation is a ladder: past **24 hours overdue** either state reddens the run (`::error::`, non-zero exit) while the item is still recoverable, and at **48 hours** the staleness rule below retires it to `failed/`.
 
 ## Queue item schema
 
@@ -72,9 +85,23 @@ Every run resolves each touched item to an outcome — `posted`, `retrying`, `fa
   "mediaCredit": "Photographer Name/Getty Images",
   "mediaSource": "https://example.com/where-this-came-from",
   "scheduledAt": "2026-07-18T01:00:00Z",
-  "approvedBy": "joey",
-  "approvedAt": "2026-07-17T20:00:00Z",
+  "altText": ["A real photograph of Taylor Swift, described for a screen-reader."],
   "campaign": "launch:mood-chat:announce"
+}
+```
+
+An APPROVED item additionally carries (written only by the merge-triggered
+stamper, never by a drafter — see the `approval` bullet below):
+
+```json
+{
+  "approval": {
+    "v": 1,
+    "by": "sffan15-sys",
+    "at": "2026-09-12T14:03:11Z",
+    "pr": 4123,
+    "contentHash": "sha256:<hex>"
+  }
 }
 ```
 
@@ -100,8 +127,9 @@ UTC three attempts later. Rules live in `scripts/social/lib/queue-schema.mjs`.
   - Media may not repeat any of the last 10 posted Instagram items' media as a default diversity goal. The credited-photo selector prefers less-used, longer-unseen photos, then safely reuses the least-recently-used credited entry when the inventory is exhausted; this is deliberately a warning rather than a ban so the paired calendar cannot deadlock. `social/photo-library.json` is the durable inventory and `npm run social:select-photo` produces the exact `photoId`, media path, credit, and source fields for a draft.
 - `photoId`: required for every new `mediaKind: "photo"` draft. It binds a draft to one `social/photo-library.json` entry; the checker requires its media path, credit, and source to match exactly so attribution cannot drift.
 - `photoEra`: **required for a `mediaKind: "photo"` draft in a THEMED campaign family; optional otherwise** (2026-09-10, kanban t_75ec7106 — the 2026-09-09 reputation/snake X post that shipped a Lover-era tour photo, docs/decisions.md; requirement tightened in PR #4062 review round 4, Fable ruling). Names the draft's target era/theme (a `social/photo-library.json` tag, e.g. `"reputation"`) — set it whenever the post IS about a specific era. **`thread:easter-eggs:*` and `heartbeat:era-deep-cut:*` campaigns are hard-required to set it** (`scripts/social/lib/queue-schema.mjs`'s `THEMED_CAMPAIGN_PREFIXES`) — those families are inherently about one specific era (an easter-eggs/thread post keyed to a lens/egg node's `eraId`, `heartbeat:era-deep-cut:<era>-*`), so shipping without declaring the era is exactly the original bug's shape and is now a hard CI failure on its own, before the tag-mismatch check even runs. `validatePhotoInventoryBinding`/`check-drafts.mjs` then require the bound `photoId`'s `tags` to include it — a themed draft whose photo doesn't match its own declared era is a hard CI failure, not a warning. Get a matching photo with `npm run social:select-photo -- --era <tag>` (also accepts `--era=<tag>`), which prints the exact `photoId`/`media`/`mediaCredit`/`mediaSource`/`photoEra` fields to copy in, and **hard-fails loudly if no photo is tagged for that era** — that is the correct outcome (delay the draft and add inventory), never a silent fallback to an unrelated era's photo. Leave `photoEra` unset only for a non-themed campaign with no single target era (a launch/mood/merch post, a cross-era roundup). **Known gap (tracked, not yet built):** `THEMED_CAMPAIGN_PREFIXES` is a static campaign-family list, not automatic derivation from the lens/egg content data (`packages/experience/src/lenses.ts`) — the validators can't see content data today, so a themed campaign OUTSIDE the two listed prefixes could still ship without a `photoEra` check. Widen `THEMED_CAMPAIGN_PREFIXES` if a new themed family is added, or file the "wire lens/egg eraId into the queue validators" follow-up to close the gap for good.
-- `scheduledAt`: **this is what ships the post — and it is also the "all at once" signal.** Since 2026-07-25 (see `docs/decisions.md`) there is no per-item approval gate — when this timestamp passes, the next poster run sends it, subject only to the caps, the guards below, and `SOCIAL_FREEZE`. **A campaign's two siblings must carry the SAME `scheduledAt` (or one within a few minutes of the other)** — `check-drafts.mjs`'s simultaneous-pair check (2026-09-10, kanban t_bac31b1a) hard-fails a pair scheduled hours apart, which used to be common (e.g. one item at 15:00Z, its sibling at 23:00Z the same day, or even the day before). Choose it deliberately and never backdate.
-- `approvedBy` + `approvedAt`: **optional provenance only** — a record of who signed off and when, for the cases where a human did. They no longer gate anything; the poster does not check them. (They were a hard gate until 2026-07-25.)
+- `scheduledAt`: **this is what ships the post — and it is also the "all at once" signal.** A draft only reaches `queue/` on `main` at all once a founder has merged its PR (the 2026-09-10 approval gate above); once it's there, this timestamp passing is what the next poster run acts on, subject only to the caps, the guards below, and `SOCIAL_FREEZE`. **A campaign's two siblings must carry the SAME `scheduledAt` (or one within a few minutes of the other)** — `check-drafts.mjs`'s simultaneous-pair check (2026-09-10, kanban t_bac31b1a) hard-fails a pair scheduled hours apart, which used to be common (e.g. one item at 15:00Z, its sibling at 23:00Z the same day, or even the day before). Choose it deliberately and never backdate.
+- `approval`: **the A2 approval gate (2026-09-11, superseding the 2026-09-10 "merge IS the approval" decision and the dead `approvedBy`/`approvedAt` provenance fields).** Written ONLY by the merge-triggered stamper (`.github/workflows/social-approval-stamp.yml` + `scripts/social/stamp-approval.mjs`), never by a drafter, never by `post-queue.mjs` itself. `by` is checked against the hardcoded `scripts/social/lib/approvers.mjs` list; `contentHash` covers `platform`/`body`/`media`/`altText`/`scheduledAt`/`campaign` (see `lib/queue.mjs`'s `contentHash`) so editing any of those after the stamp voids it. `post-queue.mjs` publishes **only** an item whose `approval.ok` (`lib/queue.mjs`'s `approvalStatus`) is true; everything else is a loud `unapproved` outcome that spends no attempt, reddens past 24h overdue, and retires to `social/failed/` at 48h — same ladder as `skipped`/`waiting`. A pre-2026-09-11 draft has no `approval` key at all, so grandfathering is impossible by construction. The old git-provenance lookup (`scripts/social/lib/git-provenance.mjs`, queried `commits/{sha}/pulls`, which never carried `merged_by`) is deleted — `approvedBy`/`approvedAt` were `null` on every real run, ever.
+- `altText`: **required whenever `media` is non-empty**, one non-empty descriptive string per image, same length/order as `media`, each ≤1000 chars (X's alt-text limit) and never equal to `body`. Sent to X via `media/metadata/create`, Instagram via the `alt_text` field on `/media` (Graph API v25.0, added 2025-03-24 — verified live against the current Graph API reference), Facebook via `alt_text_custom`. A Taylor-photo tile's alt text is written ONCE in `social/photo-library.json`'s `alt` field (the photo never changes per post) and the draft's `altText[i]` at that tile's index must match it exactly — `npm run social:select-photo` prints it to copy in.
 - `campaign`: **story-unique** (e.g. `on-this-day:red-announcement-wanegbt`), shared ONLY between the IG/X siblings covering the same story. Used by `check-drafts.mjs`'s cross-post-copy check to find an X draft's IG sibling, by the simultaneous-pair check to find the sibling's `scheduledAt`, and by the poster's idempotency check (`findPostedDuplicate`), which treats same platform + same campaign as an already-posted duplicate. A thematic bucket value reused across stories (`heartbeat:on-this-day` on five different posts) therefore false-skips every post in the bucket after its first one lands, and the 48h rule then retires them to `failed/` — found and fixed queue-wide on 2026-08-12. There is no campaign-family exception to the pairing rule any more — the 2026-09-05 `appearance:<videoId>` exemption (#3584) was removed 2026-09-10 (kanban t_bac31b1a).
 - `why`: the human-readable "why this, why now" audit trail. It does not
   change routing — there is no pairing escape hatch of any kind (removed

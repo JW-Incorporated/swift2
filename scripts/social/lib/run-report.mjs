@@ -25,6 +25,14 @@ export const OUTCOME = {
    * not live on the site yet, so the platform's fetch would 404. Costs no
    * attempt and ships itself once the image PR is merged and deployed. */
   WAITING: 'waiting',
+  /** Due, but has no valid approval stamp (RULINGS-SOCIAL.md A2) — no
+   * `approval` at all, a stamp from a non-approver, or a stamp whose
+   * contentHash no longer matches the current content. Costs no attempt
+   * (there is nothing to retry; a human/stamper action is what changes
+   * this), ships itself once a real stamp lands, and — like SKIPPED/
+   * WAITING — escalates through the same stuck-after-24h/stale-after-48h
+   * ladder rather than hiding forever. */
+  UNAPPROVED: 'unapproved',
 };
 
 /** Past this many hours overdue, a `skipped`/`waiting` item stops being a
@@ -40,7 +48,7 @@ export const STUCK_AFTER_HOURS = 24;
  * enough to count as broken rather than pending. */
 export function isStuck(outcome) {
   return (
-    (outcome.kind === OUTCOME.SKIPPED || outcome.kind === OUTCOME.WAITING) &&
+    (outcome.kind === OUTCOME.SKIPPED || outcome.kind === OUTCOME.WAITING || outcome.kind === OUTCOME.UNAPPROVED) &&
     typeof outcome.overdueHours === 'number' &&
     outcome.overdueHours >= STUCK_AFTER_HOURS
   );
@@ -74,7 +82,7 @@ export function hasBlockingFailure(outcomes) {
 
 /** Groups outcomes by kind, preserving input order within each group. */
 export function groupOutcomes(outcomes) {
-  const groups = { posted: [], retrying: [], failed: [], skipped: [], waiting: [] };
+  const groups = { posted: [], retrying: [], failed: [], skipped: [], waiting: [], unapproved: [] };
   for (const outcome of outcomes) groups[outcome.kind]?.push(outcome);
   return groups;
 }
@@ -104,10 +112,11 @@ export function summarizeRun(outcomes) {
   push('posted', groups.posted);
   push('PERMANENTLY FAILED', groups.failed);
   push('retrying', groups.retrying);
-  const stuck = [...groups.skipped, ...groups.waiting].filter(isStuck);
+  const stuck = [...groups.skipped, ...groups.waiting, ...groups.unapproved].filter(isStuck);
   push(`STUCK >${STUCK_AFTER_HOURS}h`, stuck);
   push('skipped', groups.skipped.filter((o) => !isStuck(o)));
   push('waiting on deploy', groups.waiting.filter((o) => !isStuck(o)));
+  push('awaiting approval', groups.unapproved.filter((o) => !isStuck(o)));
   return segments.join(' · ');
 }
 
@@ -153,7 +162,7 @@ export function formatReportMarkdown(outcomes, { runUrl, abortReason } = {}) {
     lines.push('');
   }
 
-  const stuck = [...groups.skipped, ...groups.waiting].filter(isStuck);
+  const stuck = [...groups.skipped, ...groups.waiting, ...groups.unapproved].filter(isStuck);
   if (stuck.length) {
     lines.push(
       `### ⛔ ${stuck.length} item${stuck.length === 1 ? '' : 's'} STUCK more than ${STUCK_AFTER_HOURS}h past schedule — not posted, not failed, going nowhere`,
@@ -200,6 +209,20 @@ export function formatReportMarkdown(outcomes, { runUrl, abortReason } = {}) {
       lines.push(
         `- \`${outcome.file}\` (${outcome.platform}) — waiting ${formatOverdue(outcome.overdueHours)} — ${outcome.error}`,
       );
+    }
+    lines.push('');
+  }
+
+  const unapproved = groups.unapproved.filter((o) => !isStuck(o));
+  if (unapproved.length) {
+    lines.push(
+      `### 🔒 ${unapproved.length} awaiting approval (no attempt spent)`,
+      '',
+      'No valid founder approval stamp on file (RULINGS-SOCIAL.md A2) — merge the draft\'s PR to stamp it, or re-open one if its content changed after it was stamped.',
+      '',
+    );
+    for (const outcome of unapproved) {
+      lines.push(`- \`${outcome.file}\` (${outcome.platform}) — ${outcome.error}`);
     }
     lines.push('');
   }
@@ -272,7 +295,7 @@ export function formatPostedNotification(outcomes, { runUrl } = {}) {
  */
 export function formatAnnotations(outcomes, { abortReason } = {}) {
   const groups = groupOutcomes(outcomes);
-  const held = [...groups.skipped, ...groups.waiting];
+  const held = [...groups.skipped, ...groups.waiting, ...groups.unapproved];
   return [
     ...(abortReason
       ? [`::error title=social-poster: run aborted::${abortReason}`]
@@ -302,6 +325,12 @@ export function formatAnnotations(outcomes, { abortReason } = {}) {
       .map(
         (o) =>
           `::warning title=social-poster: post waiting on deploy::${o.file} — media not live yet, no attempt spent — ${o.error}`,
+      ),
+    ...groups.unapproved
+      .filter((o) => !isStuck(o))
+      .map(
+        (o) =>
+          `::warning title=social-poster: post awaiting approval::${o.file} — no attempt spent — ${o.error}`,
       ),
     ...groups.posted
       .filter((o) => o.facebookError)

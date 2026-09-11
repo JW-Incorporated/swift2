@@ -10,10 +10,15 @@ edit this file, including to expand its own authority.
 Get Long Live in front of the fans it was built for, and report honestly on
 what's working. The desk runs the social/community program defined in
 `docs/marketing/growth-plan.md` (its working plan, which it maintains from
-real metrics) — drafting content, watching the fandom, and measuring. Posting
-itself is fully automated with no per-item founder approval (rail 2 below;
-`docs/decisions.md` 2026-07-25, reaffirmed 2026-08-25) — a founder-
-notification email on every post, success or failure, is the only checkpoint.
+real metrics) — drafting content, watching the fandom, and measuring.
+**Posting itself now requires a founder's PR merge as its approval step**
+(rail 2 below; `docs/decisions.md` 2026-09-10, reversing the
+2026-07-25/2026-08-25 no-human-review decisions this section used to
+describe) — the desk still writes every draft into `social/queue/`, but
+publishing on `main` (and therefore ever reaching `social-poster.yml`) now
+waits for that merge. Approval prompts with the full caption land in
+`#longlive-social`; a founder-notification email on every post, success or
+failure, remains a separate, unchanged checkpoint after the fact.
 
 ## Planning moved to Tree (2026-08-11) — what this desk still owns
 
@@ -53,13 +58,17 @@ stay this desk's to maintain.
    feeding the Founders' Brief — what Swifties are talking about, what
    content of ours resonated, what flopped, anything reputational. Posting
    is the exception, not the default.
-2. **Queue-and-ship posting** *(rail amended 2026-07-25 by Wyatt, CTO — see
-   `docs/decisions.md`; previously "a founder approves, then a founder
-   posts")*. The desk writes post drafts into `social/queue/`; each item's
-   `scheduledAt` is when it ships; `social-poster.yml` posts it. **There is
-   no per-item human approval step any more.** The desk still never calls a
-   platform API itself — the queue plus the poster is the only path out, so
-   `SOCIAL_FREEZE` remains a single, total kill switch.
+2. **Queue-and-ship posting, gated by a founder PR merge** *(rail amended
+   2026-07-25 by Wyatt, CTO, then again 2026-09-10 by Joey — see
+   `docs/decisions.md`)*. The desk writes post drafts into `social/queue/`;
+   a PR adding/changing one no longer auto-merges — `auto-merge-content.yml`
+   declines it and `social-approval-notify.yml` prompts `#longlive-social`
+   with the full caption. **Merging that PR is the per-item approval step,
+   restored 2026-09-10.** Once the draft is on `main`, its `scheduledAt` is
+   still when it ships; `social-poster.yml` posts it exactly as before. The
+   desk still never calls a platform API itself — the queue plus the poster
+   is the only path out, so `SOCIAL_FREEZE` remains a single, total kill
+   switch, now on top of the approval gate rather than instead of it.
 3. **Autoposting is ON for X and Instagram** *(amended 2026-07-25, same
    decision)*. It is bounded by code, not by trust: the per-run and
    per-platform-per-day caps in `scripts/social/lib/queue.mjs`, the
@@ -82,11 +91,17 @@ stay this desk's to maintain.
 and files each item under `social/posted/` (success) or `social/failed/`
 (3 failed attempts). Full schema and the founder crisis-stop switch
 (`SOCIAL_FREEZE` repo variable — instant halt, no PR needed) are documented
-in `social/README.md`. As of 2026-07-25 this automates the whole path:
-`isDue` no longer requires an `approvedBy`/`approvedAt` pair, so an item
-posts when its `scheduledAt` arrives. Those two fields survive as optional
-provenance (who/when, when a human *did* weigh in) and are no longer a gate.
-What still bounds posting is all code, not trust: per-run and daily
+in `social/README.md`. As of 2026-09-10, reaching `social/queue/` on `main`
+at all requires a founder's PR merge (the approval gate above); from there,
+`isDue` still just checks `scheduledAt`, so an approved item posts when its
+`scheduledAt` arrives with no further per-item check. `approvedBy`/
+`approvedAt` are written automatically by the poster as an audit trail
+(not hand-set by a drafter) via a GitHub API lookup (`merged_by`/
+`merged_at` on the commit's associated PR) — local git metadata can't
+identify who clicked Merge on a GitHub squash merge, so this deliberately
+isn't a `git log` field; see `social/README.md`'s note and `DEBUG.md`.
+Either way, not something the poster blocks on. What still bounds posting
+is all code, not trust: per-run and daily
 per-platform caps in `scripts/social/lib/queue.mjs` (changing them is a
 normal reviewed code change), the `SOCIAL_FREEZE` repo variable, and the
 `social/posted/` dedupe ledger. As of 2026-08-25 (issue #2040) that ledger's
@@ -97,11 +112,13 @@ check) immediately after posting, and reads the union of that branch and
 visibility problem now, not a duplicate-post risk. `social-poster.yml`'s
 own header comment is the fullest account of the mechanics.
 
-**What this moves onto the drafting run.** With no human between the draft
-and the timeline, the Growth run's own judgment is the only editorial gate
-left. The #36/Clownbot blocklist, the sourcing standard, and the "never
-invent a stat, quote, or trend" rule stop being things a founder would have
-caught and start being things only the desk can catch. Draft accordingly.
+**What this still means for the drafting run.** A founder now reads every
+caption before it can ship (the 2026-09-10 approval gate), but that founder
+look is a fast yes/no on the prompt in `#longlive-social`, not an editorial
+pass — the desk's own judgment is still the real editorial gate. The
+#36/Clownbot blocklist, the sourcing standard, and the "never invent a stat,
+quote, or trend" rule are still things only the desk reliably catches; don't
+draft assuming a founder will fact-check for you. Draft accordingly.
 
 Live once these exist (founder TX, issue #738): an X (Twitter) developer
 App on `@longlivetscom` with Read+Write permissions → repo secrets
@@ -203,8 +220,9 @@ from the X API, not a bug: the account really does have ~0 followers.
 ## Founder-notification buckets (reuse the existing system — never invent a new channel)
 
 - **Social queue status** → the Founders' Brief (6 AM / 8 PM delta) under a
-  "Social queue" section, for visibility only — since 2026-07-25 posting
-  needs no founder reply; the brief just reports what's queued and what
+  "Social queue" section, for visibility — the real-time approval ask lives
+  in `#longlive-social` (2026-09-10 approval gate), not the brief; the brief
+  just reports what's queued, what's still awaiting a merge, and what
   shipped.
 - **New account creation / logins / paid tools** → **TX items**, written for
   a non-software human per Marjorie's charter §2.

@@ -8,30 +8,35 @@ const library = [
     mediaPath: '/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg',
     credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_Minnesota_-_acoustic_set_2.jpg',
+    alt: 'Taylor Swift performing the Lover set in Minneapolis, 2023.',
   },
   {
     id: 'red-inglewood',
     mediaPath: '/social/library/photos/taylor-red-eras-inglewood-2023.jpg',
     credit: 'Paolo Villanueva (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_2023.jpg',
+    alt: 'Taylor Swift performing the Red set in Inglewood, 2023.',
   },
   {
     id: 'fearless-inglewood',
     mediaPath: '/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg',
     credit: 'Paolo Villanueva (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg',
+    alt: 'Taylor Swift performing the Fearless set in Inglewood, 2023.',
   },
   {
     id: 'debut-acoustic',
     mediaPath: '/social/library/photos/taylor-debut-2007-acoustic.jpg',
     credit: 'Brian Cantoni (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Taylor_Swift_(2007)_retouched.jpg',
+    alt: 'Taylor Swift seated with an acoustic guitar, 2007.',
   },
   {
     id: 'lover-minneapolis-act5',
     mediaPath: '/social/library/photos/taylor-lover-eras-minneapolis-act5-2023.jpg',
     credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_5.jpg',
+    alt: 'Taylor Swift performing the Lover set, act 5, in Minneapolis, 2023.',
   },
 ];
 
@@ -40,6 +45,12 @@ describe('photo-library', () => {
     expect(validatePhotoEntry(library[0])).toEqual([]);
     expect(validatePhotoEntry({ ...library[0], credit: '' })).toContain('credit is required');
     expect(validatePhotoEntry({ ...library[0], source: 'not-a-url' })).toContain('source must be an http(s) URL');
+  });
+
+  // RULINGS-SOCIAL.md A3/B2 — alt text is written once per library entry.
+  it('requires a non-blank alt description for every inventory entry', () => {
+    expect(validatePhotoEntry({ ...library[0], alt: undefined })).toContain('alt is required — write the accessibility description once here (RULINGS-SOCIAL A3)');
+    expect(validatePhotoEntry({ ...library[0], alt: '   ' })).toContain('alt is required — write the accessibility description once here (RULINGS-SOCIAL A3)');
   });
 
   // Fable ruling, kanban t_75ec7106 (PR #4062 review round 2): closes the
@@ -93,6 +104,7 @@ describe('photo-library', () => {
       photoId: selected.id,
       mediaCredit: selected.credit,
       mediaSource: selected.source,
+      altText: [selected.alt],
       scheduledAt: '2026-09-08T23:00:00Z',
       campaign: 'launch:shop-the-look:announce',
     };
