@@ -4,7 +4,7 @@
 // after sitting due >48h for any reason, or after an ambiguous transport
 // failure — see isStaleDue/failureReason notes below). Run as a scheduled
 // GitHub Action (.github/workflows/social-poster.yml) — see
-// docs/agents/growth.md for the approval flow this sits downstream of.
+// docs/social/pipeline.md for the approval flow this sits downstream of.
 //
 // Per-item processing order (Codex review round 1 on PR #1900 fixed the
 // original order, which let a stale item post once "unblocked" and let
@@ -36,7 +36,7 @@
 //
 // Crisis stop: if the repo variable SOCIAL_FREEZE is set to anything
 // truthy, this exits immediately without posting or touching the queue —
-// per the Growth desk charter's hard rail. Any founder can set it.
+// per Tree's charter hard rail. Any founder can set it.
 //
 // Failures are LOUD (2026-08-11). Any item that leaves the schedule without
 // reaching a timeline — attempts exhausted, stale >48h, invalid scheduledAt,

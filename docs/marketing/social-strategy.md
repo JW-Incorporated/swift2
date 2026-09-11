@@ -12,10 +12,10 @@ to post and when*, this file wins.
 
 Who does what, in one line each:
 
-- **Tree** plans (this strategy → `social/calendar.md`, one weekly run).
-- **The Growth daily run** drafts what the calendar says into `social/queue/`.
+- **Tree** plans (this strategy → `social/calendar.md`, one weekly run) and
+  drafts what the calendar says into `social/queue/` (a second, daily run).
 - **`social-poster.yml`** ships it every 30 min. No human in the path.
-- **Growth's charter** (`docs/agents/growth.md`) still owns listening, metrics,
+- **Tree's charter** (`docs/agents/tree.md`) owns listening, metrics,
   and the six hard rails — including the `SOCIAL_FREEZE` crisis stop.
 
 ---
@@ -523,10 +523,10 @@ sourced, celebratory. It never gets a "clues/countdown/rumor tracker"
 treatment the way an album rollout does — that framing is reserved for
 product launches and creative rollouts, not a person's private life. Until
 confirmation, silence; the moment it's confirmed, normal coverage. This
-carve-out is social-caption policy only (this file, `docs/agents/growth.md`,
-`docs/agents/runner-prompts/growth-draft.md`) — it does not touch the
+carve-out is social-caption policy only (this file, `docs/agents/tree.md`,
+`docs/agents/runner-prompts/tree-daily-draft.md`) — it does not touch the
 site's Vault/editorial pipeline or the Clownbot safety gate, which remain
-governed by their own docs and are outside Tree's and Growth's mutation
+governed by their own docs and are outside Tree's mutation
 rights.
 
 **Register — a fan in love, out loud (Joey, 2026-08-25).** We are fans and we

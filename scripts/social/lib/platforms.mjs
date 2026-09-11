@@ -210,7 +210,7 @@ export async function postToX(item, creds, mediaBaseUrl) {
  * queued images under apps/web/public/social/**, so `mediaBaseUrl` (the live
  * site origin) + the item's relative path is what Graph API fetches from.
  * That means a queued image needs its PR merged and deployed before its
- * scheduled time — see docs/agents/growth.md. post-queue.mjs HEAD-checks
+ * scheduled time — see docs/social/pipeline.md. post-queue.mjs HEAD-checks
  * that before spending an attempt (lib/preflight.mjs).
  *
  * FIXED — #1897 (2026-08-11): every container is now polled to `FINISHED`

@@ -1,7 +1,7 @@
 # Social poster — ships founder-approved queue items (social/queue/*.json)
-# to X and Instagram on schedule. See docs/agents/growth.md for the
-# approve-then-post pipeline this is the tail end of, and the crisis-stop
-# rule (repo variable SOCIAL_FREEZE).
+# to X and Instagram on schedule. See docs/social/pipeline.md for the
+# approve-then-post pipeline this is the tail end of, and docs/agents/tree.md
+# for the crisis-stop rule (repo variable SOCIAL_FREEZE).
 #
 # Founder setup (issue #738), all repo SECRETS unless noted:
 #   X_API_KEY, X_API_KEY_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET

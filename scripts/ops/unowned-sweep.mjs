@@ -69,7 +69,7 @@ export const OWNED_BY = new Map([
   ['security', 'Paul Blart desk'],
   ['dependencies', 'Paul Blart desk'],
   ['deployment', 'In-session engineering'],
-  ['growth', 'Growth desk'],
+  ['tree', 'Tree — social media manager'],
   ['needs-human-review', 'Blocked on a named human — tracked, not unowned'],
   ['hold', 'Deliberately held by a human'],
   [TRIAGE_LABEL, 'Kevin S3 triage (author-independent)'],
