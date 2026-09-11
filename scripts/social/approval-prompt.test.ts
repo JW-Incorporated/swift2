@@ -93,16 +93,16 @@ describe('buildApprovalPrompt', () => {
     expect(draftMsg.content).not.toMatch(/```\n?danger/);
   });
 
-  it('requires headSha — every brief message must carry a verifiable ref: line (docs/social/RULINGS-SOCIAL-2.md B1)', () => {
+  it('requires headSha — every brief message must carry a verifiable ref: line (RULINGS-SOCIAL-2.md B1)', () => {
     expect(() => buildApprovalPrompt(pr(), [draft()], { now: NOW })).toThrow(/headSha is required/);
   });
 
-  it('the header message ends with the machine-readable ref: line naming the PR, headSha, and "*" (docs/social/RULINGS-SOCIAL-2.md B1)', () => {
+  it('the header message ends with the machine-readable ref: line naming the PR, headSha, and "*" (RULINGS-SOCIAL-2.md B1)', () => {
     const [header] = buildApprovalPrompt(pr({ number: 4130 }), [draft()], { now: NOW, headSha: 'a'.repeat(40) });
     expect(header.content.trim().endsWith(`ref: PR #4130 · ${'a'.repeat(40)} · *`)).toBe(true);
   });
 
-  it('each draft message ends with the machine-readable ref: line naming the PR, headSha, and its own file (docs/social/RULINGS-SOCIAL-2.md B1)', () => {
+  it('each draft message ends with the machine-readable ref: line naming the PR, headSha, and its own file (RULINGS-SOCIAL-2.md B1)', () => {
     const [, draftMsg] = buildApprovalPrompt(pr({ number: 4130 }), [draft({ file: 'social/queue/2026-09-12-example-x.json' })], {
       now: NOW,
       headSha: 'b'.repeat(40),

@@ -31,19 +31,39 @@ job, `social-approval-poll.mjs`, only ever stamps and merges an OPEN PR).
 identity → not-in-approvers → contentHash mismatch → signature. Supersedes
 A2's merge-keyed stamp.
 
-## B2 — Alt text is written once in the photo library, copied verbatim into drafts
+## B2 — No guard fence against an agent's `gh pr merge` on a social-draft PR
 
-Continuing A3's alt-text requirement: every `social/photo-library.json`
-entry carries an `alt` accessibility description, written ONCE and reviewed
-in that file's own PR, and a draft's `altText[]` entry at each tile's index
-must copy the library's `alt` string verbatim rather than being retyped per
-post (`scripts/social/lib/queue-schema.mjs`'s
-`validatePhotoInventoryBinding`) — so attribution and description can't
-drift apart across posts reusing the same photo. Note: this ruling's exact
-text was not present in PR #4104's body; its substance is reconstructed
-from consistent in-repo citations (`photo-library.json`'s `policy` field,
-`queue-schema.mjs`, `photo-library.mjs`) and should get a founder
-confirmation pass if precision matters later.
+Ruled against adding a `.claude/hooks/guard.sh` deny rule for `gh pr merge`
+on a PR that adds/modifies `social/queue/**.json`, even though A2's
+decision entry had floated exactly that fence ("a Discord-reaction approval
+mechanism... is deferred, not rejected — build it if the guard above ever
+logs a denied queue-PR merge attempt by an agent"). Under B1, merging a
+`social-draft` PR yourself no longer approves it — the poll job
+(`social-approval-poll.mjs`) only ever stamps and merges an OPEN PR, so an
+agent's premature merge just strands the draft as `unapproved` (red at 24h,
+retired at 48h, a "merged before approval" notice to `#longlive-social`),
+not an unauthorized post. A guard fence would therefore imply a coverage
+guarantee ("this can't be merged without approval") that no longer matches
+what actually happens — the real protection is the poll job never stamping
+an unsigned merge, not a pre-merge block. Source: `CLAUDE.md`'s "Never
+babysit your own PR" exception, which states this directly ("not because a
+guard denies it (B2 ruled against building that fence...)").
+
+**Open discrepancy, not resolved by this doc:** roughly a dozen in-repo
+code comments (`photo-library.json`'s `policy` field,
+`scripts/social/lib/queue-schema.mjs`, `scripts/social/lib/photo-library.mjs`,
+`scripts/social/lib/platforms.mjs`, `scripts/appearance-discovery/lib/
+social-draft.mjs`, etc.) cite "RULINGS-SOCIAL.md A3/B2" for the alt-text
+binding requirement (a draft's `altText[]` must copy the photo library's
+`alt` field verbatim) — i.e., they use "B2" to mean the alt-text rule, not
+the guard-fence rejection above. Neither PR #4098's nor PR #4104's body
+names an alt-text ruling as "B2," and PR #4098 covers alt text under A3
+only. This reconstruction follows the one traceable, quotable source for
+what "B2" is (`CLAUDE.md:90`); the widespread "A3/B2" comments may be a
+pre-existing mislabeling in the codebase, or B2 may cover both alt-text
+binding AND the guard-fence rejection as two halves of one ruling — this
+needs founder confirmation before those comments are treated as
+authoritative.
 
 ## B3 — The merge-triggered stamper is deleted; stamping is now poll-driven
 

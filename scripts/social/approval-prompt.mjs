@@ -137,7 +137,7 @@ function formatDraftLines(draft, { now, headSha, repo, facebookCrosspost }) {
  */
 export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, repo, facebookCrosspost = false } = {}) {
   if (!headSha) {
-    throw new Error('buildApprovalPrompt: headSha is required — every brief message must carry a verifiable ref: line (docs/social/RULINGS-SOCIAL-2.md B1)');
+    throw new Error('buildApprovalPrompt: headSha is required — every brief message must carry a verifiable ref: line (RULINGS-SOCIAL-2.md B1)');
   }
 
   const header = {
