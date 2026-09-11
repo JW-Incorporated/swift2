@@ -395,6 +395,7 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `docs/plans/tree-overhaul/PLAN.md` | Plan of record: waves, item map, gates, checkpoints |
 | `docs/plans/tree-overhaul/RUNBOOK.md` | Founder runbook: what to paste, which model, when to clear, what to react to |
 | `docs/plans/tree-overhaul/waves/*.md` | Paste-ready prompts, one per wave, each a fresh session |
+| `docs/plans/tree-overhaul/WAVE-1-REVIEW-BRIEF.md` | Handoff for a later review session: what Wave 1 decided, what was already reviewed, and the five places worth pushing hardest |
 | `docs/plans/tree-overhaul/checkpoints.json` | Dated observation checkpoints R1–R4; `plan-recheck.yml` fires the routine when one is due |
 | `docs/plans/tree-overhaul/rechecks/` | Routine-written recheck reports (one per checkpoint) |
 | `docs/specs/tree-overhaul/s3-reason-protocol.md` | Wave 1 design: ✏️/❌ require a written reason; `social/feedback/*.jsonl` ledger on `social-ledger`; the generic reaction→action scope table S6/T4 reuse |

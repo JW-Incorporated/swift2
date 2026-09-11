@@ -2,7 +2,7 @@
 
 **Status:** spec, awaiting founder approval · **Epic:** #4117 (Tree Overhaul — Wave 1 design, Wave 4 build)
 **Depends on:** S3 (the ledger is the only evidence), T4 (proposals are how a grant is made), T5 (a revocation becomes a lesson).
-**Carries the one open question in this wave** — see the end.
+**Open question RESOLVED 2026-09-11** — the founder accepted the irrevocable-Instagram risk and approved T7 **for build**. It ships split across Wave 4 (measurement) and a new **Wave 5** (acting), gated on checkpoint R4. See the end, and `PLAN.md` → "Why T7 is its own wave, gated on R4".
 
 ---
 
@@ -230,19 +230,19 @@ I would also rule it out if anyone proposed a **global** grant, a grant with **n
 
 ---
 
-## Open question — the one in this wave that is yours
+## Open question — the one in this wave that is yours — RESOLVED
 
-**Do you accept that a post approved by policy may be irrevocably public on Instagram?**
+**The question was:** do you accept that a post approved by policy may be irrevocably public on Instagram?
 
-Everything else in these seven specs is reversible by a code change. This is not, because it is not really a code decision: on any day a grant is active, an autonomous Instagram post can go out that neither Tree nor any workflow can delete. The 24h ❌ stops the *next* one and hands you two taps to remove that one by hand. That is the whole of the mitigation.
+**The founder's answer, 2026-09-11: yes — build it.** That overrules the recommendation this section previously carried (approve as a design, don't schedule), and it overrules the independent Fable review, which had reached the same conclusion. The decision is recorded in `docs/decisions.md` (2026-09-12 T7 entry, amended) and the reasoning against is preserved there rather than deleted, because it is what now shapes *how* T7 ships.
 
-If the answer is yes, T7 ships as written. If it is no, the honest alternatives are:
+**What the answer does not settle.** Instagram still has no delete operation in its API. Nothing in this spec changes that, and no future revision of it should imply otherwise. The mitigation remains exactly what §Revocation describes: X deleted automatically, Facebook deleted automatically, Instagram handed to a human as a `founder-task` with the post link and the in-app steps. Any channel message about a revocation must never state or imply the Instagram post is gone.
 
-- **(a) Ship T7 X-only.** Currently impossible: X+Instagram pairing is mandatory with no exceptions (`checkCampaignPair`, 2026-08-26), so there is no X-only campaign to grant. It would take a founder decision to reopen pairing, and pairing exists for good reasons.
-- **(b) Don't build T7.** Keep the gate universal and spend the effort on T2/T5, which improve what gets written rather than who waves it through.
+**Consequences for the build, all now in `PLAN.md`:**
 
-**(b) is my recommendation.** The ladder's value at zero users is small, and it is the only item in this wave whose worst case cannot be undone by a revert. The independent Fable review of these specs reached the same conclusion independently — it rated T7 the riskiest spec in the set and recommended parking it as designed-not-built, dropping the `kind`/`v: 3` schema change from Wave 4 along with it.
+- **Wave 4 takes the read-only half only** — `eligibility()` and the Monday ladder-standing block. It was already Wave 4's gate criterion, and it is what generates the evidence the decision to go further will rest on.
+- **Wave 5 takes the acting half** — signed grants, approval schema `v: 3`, policy stamping, the posted-under-policy notice, revocation and retraction.
+- **Wave 5 does not start until all three hold:** R4 (2026-10-16) reports a campaign family at or within two briefs of eligibility; `DELETE /2/tweets/:id` has been exercised successfully against a real throwaway post; and the founder **re-confirms** the acceptance above at that time. A month-old yes is not consent for an authority change whose worst case cannot be reverted — and by R4 there will be real numbers to re-decide on, which there are not today.
+- **Wave 5 is Opus with a mandatory Codex review.** It is the only wave that changes who may approve a post.
 
-So the concrete proposal: **approve T7 as a design, don't schedule it.** It costs nothing to leave specified, the eligibility check still ships as part of the Wave 4 gate (returning "not eligible" for everything, which is correct at day 0 and gives us the data for free), and if in three months the ledger shows a genuinely stable campaign type, the design is already written and reviewed. Reopen it then, with real numbers, instead of committing to it now on none.
-
-I have specified it fully so the choice is between two finished things, not between a plan and a shrug.
+The eligibility thresholds in this spec (≥8 briefs, ≥95%, 0 ❌, 28 days) were chosen with no data behind them. Expect R4 to move them, and treat a Wave 5 that ships them unchanged as a sign nobody looked.
