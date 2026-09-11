@@ -296,9 +296,21 @@ export async function run({ execGh = gh, fetchImpl = fetch, sleepImpl = defaultS
     }
 
     // Merge phase — independent of this run's reactions, so a red-CI retry
-    // on a later run still merges once checks go green.
+    // on a later run still merges once checks go green. EXCEPT: a draft
+    // whose own reaction message couldn't be read this run (unresolvedFiles)
+    // must never be treated as safely mergeable even if it already carries a
+    // valid stamp from an earlier run — the unreadable message could be
+    // carrying a fresher ❌ we simply can't see this run. Defer the WHOLE
+    // PR's merge in that case (Codex finding, PR #4124 round 2 review).
     const filesMeta = JSON.parse(execGh(['pr', 'view', String(pr), '--repo', repo, '--json', 'files'])).files;
     const trippingFiles = filesMeta.filter((f) => f.path.startsWith('social/queue/') && f.path.endsWith('.json'));
+    const unresolvedTripping = trippingFiles.filter((f) => unresolvedFiles.has(f.path) || unresolvedFiles.has(path.basename(f.path)));
+    if (unresolvedTripping.length > 0) {
+      console.error(
+        `::warning::social-approval-poll: PR #${pr} has unresolved reactions this run for ${unresolvedTripping.map((f) => f.path).join(', ')} — deferring merge even though a prior stamp may be valid, it could be carrying a ❌ we can't see this run; retrying next run`,
+      );
+      continue;
+    }
     const allApproved = trippingFiles.every((f) => {
       try {
         const raw = readFileSync(path.join(process.cwd(), f.path), 'utf8');

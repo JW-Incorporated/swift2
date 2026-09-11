@@ -10,7 +10,7 @@ import path from 'node:path';
 // @ts-expect-error — implementation is plain .mjs
 import { run } from './social-approval-poll.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
-import { approvalStatus } from './lib/queue.mjs';
+import { approvalStatus, contentHash, signApproval } from './lib/queue.mjs';
 
 const CHECK_MARK = '%E2%9C%85';
 const CROSS_MARK = '%E2%9D%8C';
@@ -246,6 +246,54 @@ describe('discordGet 429 handling', () => {
     const raw = await readFile(path.join(root, 'social', 'queue', QUEUE_FILE), 'utf8');
     const item = JSON.parse(raw);
     expect(item.approval).toBeUndefined(); // individually-readable draft ✅ must not stamp when the PR's header is unresolved
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('a previously-stamped draft does NOT merge when a DIFFERENT remaining draft in the same PR has unresolved reactions this run (Codex finding, PR #4124)', async () => {
+    const QUEUE_FILE_B = '2026-09-21-example-y.json';
+    const itemA = { platform: 'x', body: 'hello world', scheduledAt: '2026-09-20T00:00:00Z' };
+    const approvalWithoutSig = { v: 2, by: APPROVER, at: '2026-09-10T00:00:00Z', pr: PR_NUMBER, message: MESSAGE_ID, contentHash: contentHash(itemA) };
+    const stampedItemA = { ...itemA, approval: { ...approvalWithoutSig, sig: signApproval(approvalWithoutSig, TEST_KEY) } };
+    await writeFile(path.join(root, 'social', 'queue', QUEUE_FILE), JSON.stringify(stampedItemA, null, 2) + '\n');
+    await writeFile(
+      path.join(root, 'social', 'queue', QUEUE_FILE_B),
+      JSON.stringify({ platform: 'x', body: 'second draft', scheduledAt: '2026-09-21T00:00:00Z' }, null, 2) + '\n',
+    );
+
+    const DRAFT_B_MESSAGE_ID = '444444444444444444';
+    const draftBMessage = {
+      id: DRAFT_B_MESSAGE_ID,
+      webhook_id: '999999999999999999',
+      content: `Draft 2 · Y\nref: PR #${PR_NUMBER} · ${HEAD_SHA} · social/queue/${QUEUE_FILE_B}`,
+    };
+
+    const { impl: fetchImpl } = makeFetchImplByMessage([headerMessage(), briefMessage(), draftBMessage], {
+      [HEADER_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] }, // header: readable, approved
+      [MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] }, // draft A: readable, individually approved (already stamped)
+      [DRAFT_B_MESSAGE_ID]: {
+        check: [
+          () => jsonResponse({ message: '429', retry_after: 0.01, global: false }, 429),
+          () => jsonResponse({ message: '429', retry_after: 0.01, global: false }, 429),
+          () => jsonResponse({ message: '429', retry_after: 0.01, global: false }, 429),
+        ],
+      }, // draft B: reaction fetch exhausts retries — unresolved this run
+    });
+    const { impl: execGh, calls: ghCalls } = makeExecGh({
+      files: [{ path: `social/queue/${QUEUE_FILE}` }, { path: `social/queue/${QUEUE_FILE_B}` }],
+    });
+    const sleepImpl = vi.fn(() => Promise.resolve());
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    await run({ execGh, fetchImpl, sleepImpl });
+
+    expect(
+      errorSpy.mock.calls.some(
+        ([msg]) => typeof msg === 'string' && msg.includes('::warning::') && msg.includes(String(PR_NUMBER)) && msg.includes(QUEUE_FILE_B),
+      ),
+    ).toBe(true);
+    // draft A's own valid, previously-stamped approval must not be enough to merge
+    // while draft B in the same PR carries an unresolved (possibly ❌) reaction message.
     expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
     expect(process.exitCode).toBe(0);
   });
