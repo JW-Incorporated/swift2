@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -37,21 +37,6 @@ don't assume the same root cause a second time.
 3. Once entries are removed, `git worktree prune` to clean the registry.
 
 **Worked if:** `git worktree list` count drops substantially and disk space is reclaimed, with no lost work.
-
-
----
-
-## #55 🔴 [BLOCKING] Confirm #longlive-social is the Discord channel (closes prereq for the social-approval-gate track) (~2 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** Joey said "Slack #longlive-social", but the only existing webhook in this repo is `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL`, and `community-mailer.yml` already routes Reddit community prompts through it (confirmed at line 85 of `community-mailer.yml` and used by `scripts/community/discord-delivery.mjs` l
-
-**Steps:**
-1. Confirm with Joey: is the social-approval-gate notifier meant to post to the Discord channel that already handles Reddit community prompts (via the existing `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` secret
-2. If Discord (the existing channel): nothing to do, use the existing secret and we proceed.
-3. If Slack: tell Joey that a new `SLACK_SOCIAL_WEBHOOK_URL` secret would need to be added via **Settings → Secrets and variables → Actions → Secrets → New repository secret** (a founder-only action, `gh
-
-**Worked if:** Joey confirms one of the two options, and the build proceeds with the correct webhook target.
 
 
 ---
