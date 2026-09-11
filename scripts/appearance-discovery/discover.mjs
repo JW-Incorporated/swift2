@@ -416,7 +416,7 @@ async function main() {
       );
     }
     for (const c of plan.toFile) {
-      let issueNumber = null;
+      let issueNumber;
       try {
         const url = await createIntakeIssue(c);
         filed++;
