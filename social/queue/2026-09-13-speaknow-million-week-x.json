@@ -1,0 +1,27 @@
+{
+  "platform": "x",
+  "body": "1,047,000 copies in seven days. nobody had crossed a million in an opening week since Tha Carter III — and she wrote all 14 standard-edition tracks herself, no co-writers, first and only time she's done that. tag whoever counted her out 🤍\n\nlonglivets.com/?era=speak-now&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/taylor-speaknow-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "speaknow-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_(53109973243).jpg",
+  "altText": [
+    "Taylor Swift performing the Speak Now set of the Eras Tour in Inglewood, 2023, in a purple ball gown under matching stage lighting."
+  ],
+  "scheduledAt": "2026-09-13T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:speak-now-million-week-2010",
+  "photoEra": "speak-now",
+  "why": "GH issue #4069 fix (card t_42b5f6d8): regenerated to target the calendar's actual top-of-list era, speak-now, now that PR #4062 cleared a speak-now photo (speaknow-inglewood-2023, tags: speak-now, in social/photo-library.json). The prior red-fallback queue pair's `why` field was stale — it claimed no cleared photo existed for speak-now/folklore/1989/reputation/ttpd/evermore, which stopped being true the moment #4062 merged. 09-11 heartbeat:era-deep-cut beat (calendar). X sibling, written distinctly from the IG sibling (own hook framing, per check-drafts.mjs's cross-post-similarity gate) + the /?era=speak-now link. Hook shape = the contradiction (per calendar): a million-copy week when the record was made with zero collaborators. Sales/chart figures sourced from the Vault item 'Speak Now sells over a million copies in a single week' (supabase/seed/content/speak-now.mjs:16-40), cited to Billboard + Grammy.com + The Boot: 1,047,000 week-one copies, first album since Lil Wayne's Tha Carter III to cross a million in its opening week. The no-co-writers/'only album written entirely alone' claim is sourced from the separate Vault item 'Speak Now: the only album Taylor Swift has ever written entirely alone' (supabase/seed/content/speak-now.mjs:930-943), which scopes solo authorship to the 14 standard-edition tracks and names the deluxe bonus track 'If This Was a Movie' (Martin Johnson co-write) as the one exception — hence the X body's 'all 14 standard-edition tracks' qualifier (added in a follow-up commit after an official codex review.sh finding flagged the unqualified claim as overstating the source). No invented figures. Share hook ('tag whoever counted her out') grounded in the real no-co-writers detail. MEDIA: speaknow-inglewood-2023 (Speak Now Eras Tour set, era-matched, freshly cleared by #4062). Lyric-free, blocklist-safe. Re-drafted after the reaction-approval gate landed (RULINGS-SOCIAL-2 PR-D); body unchanged from the retired pre-gate draft, altText added, rescheduled.",
+  "approval": {
+    "v": 2,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-11T16:26:33.227Z",
+    "pr": 4108,
+    "message": "1547824198238339083",
+    "contentHash": "sha256:891798e117752f01ad83ff8a1a039f5e446b0cdafbec925c7a0ac41e521d6799",
+    "sig": "hmac-sha256:a6b7225bc969f8c624de2bb8b8a2338b54f0d2b18911f9dca460a6b453fc4708"
+  }
+}
