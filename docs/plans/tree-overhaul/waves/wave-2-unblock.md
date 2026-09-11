@@ -1,0 +1,29 @@
+# Wave 2 — Unblock the social gate + hygiene
+
+Paste everything below this line into a fresh Sonnet session in Swift2.
+
+---
+
+You are executing Wave 2 of the Tree Overhaul (`docs/plans/tree-overhaul/PLAN.md`, epic #4117). Read `PLAN.md` first, then this brief; do not read the other waves. The owner authorizes up to 6 concurrent subagents for this session. Work is mechanical and fully specified; use `executor` agents in their own worktrees (outside `Documents\Claude\Projects\`), one task each, and you orchestrate: open PRs, run Codex review where required, confirm real CI via your own `gh pr checks`, merge, exit. Never babysit a PR.
+
+**Hard rules carried in:** never `git restore`/`checkout --`/`reset --hard`/`clean`; never run `scripts/social/post-queue.mjs` or `delete-media.mjs`; never write an `approval` object into a queue file; never merge a PR that adds/modifies `social/queue/**.json`; `gh variable set` is human-only (the founder flips `SOCIAL_FREEZE`); anything touching `scripts/social/**`, `social-approval-*.yml`, or `auto-merge-content.yml` gets `codex:rescue --background` (read results via `codex-companion.mjs result <job>`), max two rounds. Files under 300 lines; update `MAP.md` for new files. PR body: TL;DR, then `---`, then detail.
+
+## Tasks (one executor each; A–F parallel, G after A)
+
+**A. S1 — poll survives Discord rate limits.** `scripts/social/social-approval-poll.mjs`: the `discordGet` helper (≈line 61) throws on 429. Make it honor `retry_after` (sleep, retry ≤3), add a 350 ms floor between Discord calls, and make a per-message failure log and continue rather than abort the run. Fetch each message's reactions with the fewest calls possible. Unit test: a 429-then-200 sequence stamps; a 3×429 sequence skips that message and the run still exits 0 with a `::warning::`. Evidence: both scheduled runs on 2026-09-11 (08:06Z, 12:47Z) failed with `429 retry_after 1.035`.
+
+**B. S2 — the human's clock.** (1) `scripts/social/post-queue.mjs`: unstamped drafts are retired at 48h from `scheduledAt`/queue time. Change: an unstamped draft whose PR is still open is never retired; measure staleness for stamped drafts from `approval.approvedAt`; unstamped drafts with a closed PR retire as today. Keep the 24h red escalation but reword it "awaiting founder". (2) `.github/workflows/social-approval-poll.yml`: add `workflow_run` triggers so the poll also runs after `social-approval-notify` completes and before `social-poster` (chain: poster job `needs` a poll job, or poster calls the poll script first). Document in the workflow header that GitHub cron is best-effort (observed 2 fires in 9h on 2026-09-11). Tests for the staleness rule.
+
+**C. S4 — knowledge in the repo.** Reconstruct `RULINGS-SOCIAL.md` (A1–A6) and `RULINGS-SOCIAL-2.md` (B1–B5) from the bodies of PRs #4098 and #4104 (`gh pr view <n> --json body`) and `docs/decisions.md`; commit as `docs/social/RULINGS-SOCIAL.md` and `docs/social/RULINGS-SOCIAL-2.md`, one paragraph per ruling, "reconstructed 2026-09-11 from PR bodies" note at top. Repoint every code/doc citation (`rg "RULINGS-SOCIAL"`). Update `docs/agents/runner-prompts/growth-draft.md` step 6 (≈line 82), which still says merging is the approval: approval is now a ✅ reaction by an approver in `#longlive-social`, stamped by `social-approval-poll`. No other prompt changes (Wave 3 owns the rest).
+
+**D. S5 — everything in the channel is Tree's.** In `scripts/social/approval-prompt.mjs` and the Discord delivery in `community-mailer.yml`'s prompt script: set webhook `username: "Tree"` and a stable `avatar_url` (add `apps/web/public/social/tree-avatar.png`, any tasteful placeholder, ≤50 KB, documented as replaceable). Add a first line to each social brief: `Tree · slot: <calendar slot or "fast lane: <sourceRoutine>"> · pillar: <from why field if present, else "unspecified">`. Do not change the `ref:` line or anything the poll parses; add a test that the ref regex still matches.
+
+**E. A1 + A5 — watch and guard.** (1) `.github/workflows/watchdog.yml` cadence check: replace the hand list with every `routine-*.yml` (+ `output-sampling.yml`, `plan-recheck.yml`, `fleet-telemetry-snapshot.yml`); rule: 2 consecutive scheduled failures → self-healing issue labelled `watchdog-alert`, resolved automatically on next success. (2) `.claude/hooks/guard.sh`: add `scripts/social/delete-x-site-screens.mjs` to the deny set and deny `gh workflow run remove-x-site-screens`. Test guard.sh with its existing test harness if present, else a shell fixture.
+
+**F. A2 — make the monitor mean something.** In the Playwright suite behind `e2e.yml`, mark the Track Guide spec `test.fixme` with the reason "prod regression, #4082, quarantined 2026-09-11 (Tree Overhaul Wave 2)". Reopen #4082 with a comment that says the fix is scheduled in Wave 4 and the quarantine must be removed with it. Nothing else changes.
+
+**G. S7 — prove it live (after A merges).** Dispatch `social-approval-poll.yml` once. Then tell the founder exactly: "**YOU:** in #longlive-social, react ✅ on the brief for PR #4108 (the `ref: PR #4108` message)." When they confirm, dispatch the poll again and read the run log for the stamp write and the merge. Then tell the founder: "**YOU:** set repo variable `SOCIAL_FREEZE` to `false` (GitHub → Settings → Secrets and variables → Actions → Variables)." Confirm via `gh variable list`. If #4108 has been closed or superseded, use whatever open `social-draft` PR exists; if none, say so and leave S7 open on #4117.
+
+## Done means
+
+Every task's PR merged with your own `gh pr checks` output quoted; Codex clean on A, B, D; `gh run list --workflow social-approval-poll.yml` shows a completed run after A; `SOCIAL_FREEZE=false` in `gh variable list` (or the founder declined, recorded on #4117); `e2e.yml` dispatched once and green. Post a checklist comment on #4117 ticking Wave 2 with PR numbers, and update `STATE.md`. Then stop.
