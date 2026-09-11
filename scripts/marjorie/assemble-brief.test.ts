@@ -88,7 +88,7 @@ describe('todayLA', () => {
 describe('formatGrowthLine', () => {
   it('says so plainly when no snapshot exists yet', () => {
     expect(formatGrowthLine(null, emptyQueueStatus)).toBe(
-      "- Growth: no snapshot yet (growth-snapshot.yml hasn't run) · queue: empty (nothing drafted)",
+      "- Tree: no snapshot yet (growth-snapshot.yml hasn't run) · queue: empty (nothing drafted)",
     );
   });
 
@@ -103,7 +103,7 @@ describe('formatGrowthLine', () => {
       emptyQueueStatus,
     );
     expect(line).toBe(
-      '- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 3 posts/24h (X 1/IG 1/FB 1) · queue: empty (nothing drafted) · site: pending #799',
+      '- Tree: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 3 posts/24h (X 1/IG 1/FB 1) · queue: empty (nothing drafted) · site: pending #799',
     );
   });
 
@@ -117,7 +117,7 @@ describe('formatGrowthLine', () => {
       },
       emptyQueueStatus,
     );
-    expect(line).toBe('- Growth: IG ? · X 340 (+5) · FB 89 · 1 post/24h (X 0/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799');
+    expect(line).toBe('- Tree: IG ? · X 340 (+5) · FB 89 · 1 post/24h (X 0/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799');
   });
 
   // The 2026-08-11 misread: the brief showed one aggregate "0 posts today"
@@ -399,7 +399,7 @@ describe('buildBrief — five sections (v3, 2026-08-23)', () => {
       { date: '2026-07-12', now: NOW },
     );
     expect(withSnapshot).toContain(
-      '- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts/24h (X 1/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799',
+      '- Tree: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts/24h (X 1/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799',
     );
   });
 
@@ -429,7 +429,7 @@ describe('buildBrief — five sections (v3, 2026-08-23)', () => {
       { ...withGates, growth: { followers: { instagram: 1200, x: 340, facebook: 89 }, deltas: { instagram: 18, x: 5, facebook: 0 }, postsToday: 2 } },
       { date: '2026-07-12', now: NOW },
     );
-    expect(brief).toContain('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today (pre-24h-window snapshot) · queue: empty (nothing drafted) · site: pending #799');
+    expect(brief).toContain('- Tree: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today (pre-24h-window snapshot) · queue: empty (nothing drafted) · site: pending #799');
   });
 
   it('stamps its own line and word count so a run cannot silently blow the cap', () => {

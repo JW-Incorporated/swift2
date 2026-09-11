@@ -174,14 +174,14 @@ function formatQueueStatus(queueStatus) {
 
 export function formatGrowthLine(growth, queueStatus) {
   const queuePart = formatQueueStatus(queueStatus);
-  if (!growth) return `- Growth: no snapshot yet (growth-snapshot.yml hasn't run) · ${queuePart}`;
+  if (!growth) return `- Tree: no snapshot yet (growth-snapshot.yml hasn't run) · ${queuePart}`;
   const { followers, deltas } = growth;
   const parts = [
     `IG ${formatFollowerCount(followers.instagram)}${formatDelta(deltas.instagram)}`,
     `X ${formatFollowerCount(followers.x)}${formatDelta(deltas.x)}`,
     `FB ${formatFollowerCount(followers.facebook)}${formatDelta(deltas.facebook)}`,
   ];
-  return `- Growth: ${parts.join(' · ')} · ${formatPostsPart(growth)} · ${queuePart} · site: pending #799`;
+  return `- Tree: ${parts.join(' · ')} · ${formatPostsPart(growth)} · ${queuePart} · site: pending #799`;
 }
 
 // Posts published in the last 24h, per platform. Was "<n> posts today" from
