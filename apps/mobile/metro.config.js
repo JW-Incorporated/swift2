@@ -1,11 +1,24 @@
 // Metro config for the npm-workspace monorepo: watch the repo root and let
 // Metro resolve the hoisted node_modules + the workspace packages
 // (@swift2/shared, @swift2/core) that this app consumes as source.
+const { execFileSync } = require('child_process');
 const { getDefaultConfig } = require('expo/metro-config');
 const path = require('path');
 
 const projectRoot = __dirname;
 const workspaceRoot = path.resolve(projectRoot, '../..');
+
+// Generated content the bundle imports at runtime. `*.generated.ts` is
+// gitignored since OS-014; web gets it from apps/web's `prebuild` and CI from
+// `npm run sync:content`, but EAS build and `eas update` jobs only run Metro —
+// so without this every mobile release fails with "Unable to resolve module
+// ./lenses.generated". Regenerated on every Metro start (reads
+// supabase/seed/lenses, no network). content-ids.generated.ts is imported
+// type-only and erased by Babel, so it isn't needed here.
+execFileSync(process.execPath, [path.join(workspaceRoot, 'scripts/sync-longlive-lenses.mjs')], {
+  cwd: workspaceRoot,
+  stdio: 'inherit',
+});
 
 const config = getDefaultConfig(projectRoot);
 
