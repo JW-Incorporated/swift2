@@ -1,8 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — implementation is plain .mjs
-import { buildWeeklyBrief, sendWeeklyBrief, resolveWebhookContext, discordPermalink, sendReplanUpdate } from './weekly-brief.mjs';
-// @ts-expect-error — implementation is plain .mjs
-import { chunkPreservingRefLine } from './lib/ref-line-chunk.mjs';
+import { buildWeeklyBrief, sendWeeklyBrief, resolveWebhookContext, discordPermalink, sendReplanUpdate, sendReplanUpdateFromPlan } from './weekly-brief.mjs';
 // @ts-expect-error — implementation is plain .mjs
 import { DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
 
@@ -12,6 +10,7 @@ import { DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
 // executes `run()` under a module-load guard). Any edit to that script's
 // REF_LINE_RE must be mirrored here.
 const POLL_REF_LINE_RE = /^ref: PR #(\d+) · ([0-9a-f]{40}) · (.+)$/m;
+const POLL_REF_LINE_RE_GLOBAL = /^ref: PR #(\d+) · ([0-9a-f]{40}) · (.+)$/gm;
 
 const PR = { number: 4200, url: 'https://github.com/JW-Incorporated/swift2/pull/4200' };
 const HEAD_SHA = 'a'.repeat(40);
@@ -106,13 +105,70 @@ describe('buildWeeklyBrief', () => {
     expect(cal2.content).toContain('Day 14 —');
   });
 
+  // HIGH 2 (Codex round 1): Codex's exact repro — evidence text containing a
+  // ref:-shaped line pointing at a different open draft PR must never be
+  // confused with the real, trailing ref line social-approval-poll.mjs binds
+  // reactions against.
+  describe('HIGH 2 — ref-line injection via quoted evidence', () => {
+    const injectedRefLine = `ref: PR #9999 · ${'f'.repeat(40)} · social/queue/2026-09-01-some-other-draft-x.json`;
+
+    it("neutralizes an injected ref:-shaped line in a proposal's evidence — only the real footer matches (Codex's exact repro: the quoted text spans multiple lines, with one line exactly ref:-shaped)", () => {
+      const messages = buildWeeklyBrief(
+        plan({ proposals: [proposal({ evidence: `You said last time:\n${injectedRefLine}\nkeep that in mind.` })] }),
+        SCORECARD,
+        { headSha: HEAD_SHA, pr: PR },
+      );
+      const proposalMsg = messages.find((m: { content: string }) => /proposal:1$/m.test(m.content));
+      const allMatches = [...proposalMsg.content.matchAll(POLL_REF_LINE_RE_GLOBAL)];
+      expect(allMatches).toHaveLength(1);
+      expect(allMatches[0][1]).toBe(String(PR.number));
+      expect(allMatches[0][2]).toBe(HEAD_SHA);
+      expect(allMatches[0][3]).toBe('proposal:1');
+      // The literal injected string must not survive verbatim.
+      expect(proposalMsg.content).not.toContain(injectedRefLine);
+      expect(proposalMsg.content).toContain('9999'); // still human-readable, just not machine-bindable
+    });
+
+    it('also neutralizes an injected ref-line lookalike in whatChangedAndWhy, calendar slot text, and questions', () => {
+      const messages = buildWeeklyBrief(
+        plan({
+          whatChangedAndWhy: `Founder quoted:\n${injectedRefLine}`,
+          calendar: [{ day: 1, text: `see also:\n${injectedRefLine}` }],
+          questions: [`about:\n${injectedRefLine}?`],
+        }),
+        SCORECARD,
+        { headSha: HEAD_SHA, pr: PR },
+      );
+      for (const m of messages) {
+        const matches = [...m.content.matchAll(POLL_REF_LINE_RE_GLOBAL)];
+        expect(matches.length).toBeLessThanOrEqual(1);
+        if (matches.length === 1) expect(matches[0][1]).toBe(String(PR.number));
+      }
+    });
+  });
+
+  // MEDIUM 9 (Codex round 1): production is one beat/day (14 slots) — a
+  // hand-off carrying more must never silently render a 28-slot brief with
+  // no signal that something upstream is wrong.
+  it('MEDIUM 9: warns loudly (never silently) when the calendar carries more than 14 slots', () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const calendar = Array.from({ length: 14 }, (_, i) => i + 1).flatMap((day) => [daySlot(day, ' A'), daySlot(day, ' B')]);
+    buildWeeklyBrief(plan({ calendar }), SCORECARD, { headSha: HEAD_SHA, pr: PR });
+    expect(errorSpy.mock.calls.some(([msg]) => typeof msg === 'string' && msg.includes('::warning::') && msg.includes('28 slots'))).toBe(true);
+    errorSpy.mockRestore();
+  });
+
+  it('does not warn for a normal 14-slot (one beat/day) calendar', () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    buildWeeklyBrief(plan(), SCORECARD, { headSha: HEAD_SHA, pr: PR });
+    expect(errorSpy).not.toHaveBeenCalled();
+    errorSpy.mockRestore();
+  });
+
   // AC#2: "tested at both 14 slots (today's one beat a day) and 28 (strategy
   // §2's two-beat maximum, as a stress case)".
-  describe('AC#2 — chunk limit at 14 and 28 slots', () => {
+  describe('AC#2 — message length at 14 and 28 slots', () => {
     const SLOT_TEXT = ' — beat A, a full sentence-length reason for this slot, long enough to matter';
-    // Padded well past a realistic slot line so 14 of them in one message
-    // reliably exceed Discord's 2000-char limit — a real stress case, not a
-    // fixture that happens to pass without ever exercising chunking.
     const LONG_SLOT_TEXT =
       ' — beat A, a full sentence-length reason for this slot, padded further so this line alone is closer to two hundred characters wide, which is what fourteen of these in one message actually needs to force a chunk split';
     const LONG_SLOT_TEXT_B =
@@ -126,19 +182,12 @@ describe('buildWeeklyBrief', () => {
       for (const m of calendarMessages) expect(m.content.length).toBeLessThanOrEqual(DISCORD_MESSAGE_LIMIT);
     });
 
-    it("28 slots (strategy §2's superseded two-beat maximum, as a stress case) still chunk further, ref: line intact on every calendar message", () => {
+    it("28 slots (strategy §2's superseded two-beat maximum, as a stress case) exceed the limit — sendWeeklyBrief is what must chunk it (see its own describe block)", () => {
       const calendar = Array.from({ length: 14 }, (_, i) => i + 1).flatMap((day) => [daySlot(day, LONG_SLOT_TEXT), daySlot(day, LONG_SLOT_TEXT_B)]);
       const messages = buildWeeklyBrief(plan({ calendar }), SCORECARD, { headSha: HEAD_SHA, pr: PR });
       const calendarMessages = messages.filter((m: { content: string }) => /calendar:[12]$/m.test(m.content));
       expect(calendarMessages).toHaveLength(2);
-      // Proves this fixture actually exercises multi-chunk splitting, not a
-      // no-op pass-through under the limit.
       expect(calendarMessages.some((m: { content: string }) => m.content.length > DISCORD_MESSAGE_LIMIT)).toBe(true);
-      for (const m of calendarMessages) {
-        const chunks = chunkPreservingRefLine(m.content, DISCORD_MESSAGE_LIMIT);
-        for (const chunk of chunks) expect(chunk.length).toBeLessThanOrEqual(DISCORD_MESSAGE_LIMIT);
-        expect(chunks.some((c: string) => POLL_REF_LINE_RE.test(c))).toBe(true);
-      }
     });
   });
 });
@@ -190,6 +239,45 @@ describe('sendWeeklyBrief', () => {
     expect(result.failed).toHaveLength(1);
     expect(result.delivered.length).toBeGreaterThan(0);
   });
+
+  // MEDIUM 7 (Codex round 1): chunkPreservingRefLine puts the ref line only
+  // on the LAST chunk — right for a draft, wrong here, since the poll only
+  // recognizes a message carrying a ref line at all. Every chunk of a T4
+  // message must carry the SAME ref line, and the permalink (built from the
+  // first delivered chunk) must therefore always be bound too.
+  it('MEDIUM 7: every chunk of an over-limit message carries the same, matching ref: line — not just the last', async () => {
+    const longCalendar = Array.from({ length: 14 }, (_, i) => i + 1).flatMap((day) => [
+      daySlot(day, ' — beat A, a full sentence-length reason for this slot, long enough to force chunking across multiple Discord messages'),
+      daySlot(day, ' — beat B, a second full sentence-length reason for this slot, also long enough to matter here'),
+    ]);
+    const messages = buildWeeklyBrief(plan({ calendar: longCalendar }), SCORECARD, { headSha: HEAD_SHA, pr: PR });
+    const cal1Index = messages.findIndex((m: { content: string }) => /calendar:1$/m.test(m.content));
+    expect(messages[cal1Index].content.length).toBeGreaterThan(DISCORD_MESSAGE_LIMIT); // proves this fixture forces a real split
+
+    const bodies: Array<{ content: string }> = [];
+    const fetchImpl = vi.fn(async (_url: string, init: { body: string }) => {
+      const body = JSON.parse(init.body);
+      bodies.push(body);
+      return new Response(JSON.stringify({ id: `msg-${bodies.length}` }), { status: 200 });
+    });
+
+    const result = await sendWeeklyBrief(messages, { webhook: 'https://discord.example/webhook', fetchImpl });
+    expect(result.status).toBe('delivered');
+
+    const cal1Chunks = result.delivered.filter((d: { message: number }) => d.message === cal1Index);
+    expect(cal1Chunks.length).toBeGreaterThan(1); // really did chunk
+    const cal1ChunkBodies = bodies.filter((_, i) => result.delivered[i]?.message === cal1Index);
+    for (const body of cal1ChunkBodies) {
+      const match = body.content.match(POLL_REF_LINE_RE);
+      expect(match?.[3]).toBe('calendar:1');
+    }
+
+    // The permalink is built from the FIRST delivered chunk of the header —
+    // with every chunk bound, that is always safe, even for an oversized
+    // message.
+    const firstCal1Delivery = result.delivered.find((d: { message: number }) => d.message === cal1Index);
+    expect(bodies[result.delivered.indexOf(firstCal1Delivery)].content).toMatch(POLL_REF_LINE_RE);
+  });
 });
 
 describe('resolveWebhookContext / discordPermalink', () => {
@@ -206,11 +294,15 @@ describe('resolveWebhookContext / discordPermalink', () => {
   });
 });
 
-// mode=replan (spec §Data "The Wednesday cut-off"): a short update posted
-// into the EXISTING thread, never a new brief — still only the webhook
-// secret, never DISCORD_BOT_TOKEN.
+// mode=replan (spec §Data "The Wednesday cut-off"): a short update posted as
+// a new message linking back to the original brief — MEDIUM 5 (Codex round
+// 1): never via Discord's `?thread_id=` webhook param, since this script
+// never actually creates a thread and a thread_id naming a plain message id
+// does not behave as a real thread against Discord's own API.
 describe('sendReplanUpdate', () => {
-  it('posts into the given thread via the webhook\'s ?thread_id= query param, under the Tree identity', async () => {
+  const PERMALINK = 'https://discord.com/channels/1/2/3';
+
+  it('posts a new plain message linking back to the original brief, under the Tree identity — never a ?thread_id= param', async () => {
     let capturedUrl = '';
     let capturedBody: Record<string, unknown> = {};
     const fetchImpl = vi.fn(async (url: string, init: { body: string }) => {
@@ -219,25 +311,86 @@ describe('sendReplanUpdate', () => {
       return new Response(JSON.stringify({ id: 'msg-1' }), { status: 200 });
     });
 
-    const result = await sendReplanUpdate('Rewrote Wed-Sun from your reply.', '555', { webhook: 'https://discord.example/webhook', fetchImpl });
+    const result = await sendReplanUpdate('Rewrote Wed-Sun from your reply.', PERMALINK, { webhook: 'https://discord.example/webhook', fetchImpl });
 
     expect(result).toEqual({ status: 'delivered' });
-    expect(capturedUrl).toBe('https://discord.example/webhook?wait=true&thread_id=555');
-    expect(capturedBody.content).toBe('Rewrote Wed-Sun from your reply.');
+    expect(capturedUrl).toBe('https://discord.example/webhook?wait=true');
+    expect(capturedUrl).not.toContain('thread_id');
+    expect(capturedBody.content).toContain('Rewrote Wed-Sun from your reply.');
+    expect(capturedBody.content).toContain(PERMALINK);
     expect(capturedBody.username).toBe('Tree');
   });
 
   it('is a clean no-op when the webhook is not configured', async () => {
     const fetchImpl = vi.fn();
-    const result = await sendReplanUpdate('x', '555', { webhook: '', fetchImpl });
+    const result = await sendReplanUpdate('x', PERMALINK, { webhook: '', fetchImpl });
     expect(result).toEqual({ status: 'unconfigured' });
     expect(fetchImpl).not.toHaveBeenCalled();
   });
 
   it('reports a failed send rather than throwing', async () => {
     const fetchImpl = vi.fn(async () => new Response('server error', { status: 500 }));
-    const result = await sendReplanUpdate('x', '555', { webhook: 'https://discord.example/webhook', fetchImpl });
+    const result = await sendReplanUpdate('x', PERMALINK, { webhook: 'https://discord.example/webhook', fetchImpl });
     expect(result.status).toBe('failed');
     expect(result.error).toMatch(/500/);
+  });
+});
+
+// MEDIUM 4 (Codex round 1): the replan summary must come from the real
+// calendar.brief.json hand-off (plan.replanSummary), never a hardcoded
+// placeholder and never a bare string handed straight to the sender —
+// these tests exercise the real, full plan-object shape end to end.
+describe('sendReplanUpdateFromPlan', () => {
+  const PERMALINK = 'https://discord.com/channels/1/2/3';
+
+  it('sends plan.replanSummary from a full calendar.brief.json-shaped object, not a placeholder', async () => {
+    const fullPlan = {
+      weekOf: '2026-09-14',
+      whatChangedAndWhy: 'unused for a replan',
+      calendar: [],
+      proposals: [],
+      questions: [],
+      replanSummary: 'Rewrote Wednesday through Sunday from your Tuesday reply — dropped the product-peek beat.',
+    };
+    let capturedBody: Record<string, unknown> = {};
+    const fetchImpl = vi.fn(async (_url: string, init: { body: string }) => {
+      capturedBody = JSON.parse(init.body);
+      return new Response(JSON.stringify({ id: 'msg-1' }), { status: 200 });
+    });
+
+    const result = await sendReplanUpdateFromPlan(fullPlan, PERMALINK, { webhook: 'https://discord.example/webhook', fetchImpl });
+
+    expect(result).toEqual({ status: 'delivered' });
+    expect(capturedBody.content).toContain('Rewrote Wednesday through Sunday from your Tuesday reply');
+    expect(capturedBody.content).not.toContain('Re-planned the rest of this week from your reply'); // the old hardcoded placeholder
+  });
+
+  it('reads the hand-off from a real JSON file end to end (the actual CLI path), not a string passed directly to the builder', async () => {
+    const { mkdtemp, writeFile, rm } = await import('node:fs/promises');
+    const { readFile } = await import('node:fs/promises');
+    const path = await import('node:path');
+    const os = await import('node:os');
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'weekly-brief-replan-test-'));
+    const planPath = path.join(dir, 'calendar.brief.json');
+    await writeFile(planPath, JSON.stringify({ replanSummary: 'From the real file on disk.' }));
+
+    const planFromDisk = JSON.parse(await readFile(planPath, 'utf-8'));
+    let capturedBody: Record<string, unknown> = {};
+    const fetchImpl = vi.fn(async (_url: string, init: { body: string }) => {
+      capturedBody = JSON.parse(init.body);
+      return new Response(JSON.stringify({ id: 'msg-1' }), { status: 200 });
+    });
+
+    const result = await sendReplanUpdateFromPlan(planFromDisk, PERMALINK, { webhook: 'https://discord.example/webhook', fetchImpl });
+
+    expect(result).toEqual({ status: 'delivered' });
+    expect(capturedBody.content).toContain('From the real file on disk.');
+    await rm(dir, { recursive: true, force: true });
+  });
+
+  it('throws loudly when the hand-off has no replanSummary — never silently sends nothing/a placeholder', async () => {
+    const fetchImpl = vi.fn();
+    await expect(sendReplanUpdateFromPlan({ weekOf: '2026-09-14' }, PERMALINK, { fetchImpl })).rejects.toThrow(/replanSummary/);
+    expect(fetchImpl).not.toHaveBeenCalled();
   });
 });

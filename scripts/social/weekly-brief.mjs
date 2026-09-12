@@ -3,8 +3,8 @@
 // founder already approves drafts in, instead of an email-only report.
 // Mirrors approval-prompt.mjs's structure deliberately: a pure
 // `buildWeeklyBrief` (everything worth testing) and a thin `sendWeeklyBrief`
-// that reuses the exact same webhook/identity/chunking helpers
-// approval-prompt.mjs already established — never reimplemented here.
+// that reuses the exact same webhook/identity helpers approval-prompt.mjs
+// already established — never reimplemented here.
 //
 // Message sequence (spec §Data "Message layout"), each carrying the S3
 // `ref:` line so social-approval-poll.mjs's scope-token dispatch can bind a
@@ -20,10 +20,17 @@
 // scopes bind by (pr, messageId)") -- that is social-approval-poll.mjs's
 // concern, not this builder's; this file only writes the ref line, it never
 // interprets one.
+//
+// This file is only ever RUN from a trusted `main` checkout (never a plan
+// PR's own branch) -- routine-tree-weekly-plan.yml's send-brief job holds
+// the Discord webhook secret and must never execute a checkout of anything
+// an agent-writable branch could have modified (Codex round-1 HIGH 1). The
+// plan PR's own content (calendar.brief.json) reaches this script only as
+// DATA, fetched by the workflow via the GitHub API, never by checking out
+// that branch's code.
 import { readFile } from 'node:fs/promises';
-import { neutralizeMentions, DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
+import { chunkForDiscord, neutralizeMentions, DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
 import { TREE_WEBHOOK_USERNAME, TREE_AVATAR_URL } from './approval-prompt.mjs';
-import { chunkPreservingRefLine } from './lib/ref-line-chunk.mjs';
 import { buildScorecard, renderScorecard } from './weekly-scorecard.mjs';
 import { runMain } from '../lib/cli.mjs';
 
@@ -34,14 +41,41 @@ function ref(pr, headSha, scope) {
   return `ref: PR #${pr.number} · ${headSha} · ${scope}`;
 }
 
+const REF_LOOKALIKE_RE = /^ref: PR #\d+ · [0-9a-f]{40} · .+$/gm;
+
+/** HIGH 2 (Codex round 1): a proposal's evidence quotes the founder's own
+ * past words verbatim (spec's own design) — a founder pasting an old brief
+ * back, or any other free text this builder renders, could contain
+ * something ref-line-shaped. social-approval-poll.mjs must never be able
+ * to confuse that for the real footer (which would misdirect a founder's
+ * ✅ on a proposal into approving a completely different, unrelated draft
+ * PR they never saw), so any ref:-shaped line found ANYWHERE in a
+ * message's own body is neutralized — same zero-width-space technique
+ * neutralizeMentions already uses for @everyone/@here — before the one
+ * real, trailing ref line for THIS message is appended below it. */
+function escapeRefLookalikes(text) {
+  return String(text ?? '').replace(REF_LOOKALIKE_RE, (line) => line.replace(/^ref:/, 'ref​:'));
+}
+
+/** Joins `bodyLines`, neutralizes any injected ref-line lookalike in that
+ * body, then appends the one real `refLine` — the only place a message's
+ * content and its ref line are combined, so every builder below goes
+ * through the same defense. */
+function withRef(bodyLines, refLine) {
+  const body = escapeRefLookalikes(bodyLines.filter((l) => l !== null && l !== undefined).join('\n'));
+  return `${body}\n${refLine}`;
+}
+
 /** One calendar message: `**<label>**`, one `Day <n> — <text>` line per
  * slot (spec: "one line per slot with the reason it's there"), then the
  * ref line. `slots`: `{ day, text }[]`, already filtered to this message's
- * half — a day with two beats (strategy §2's superseded maximum, tested at
- * AC#2) contributes two lines sharing one `day` number. */
+ * half. Production is one beat/day (14 slots total, spec's own Wave-1
+ * correction) — a day carrying two entries is only ever exercised as
+ * AC#2's explicit stress test, never the expected shape a real plan hands
+ * this builder (see the >14-slot warning in buildWeeklyBrief below). */
 function buildCalendarMessage(slots, label, scope, pr, headSha) {
   const lines = slots.length > 0 ? slots.map((s) => `Day ${s.day} — ${s.text}`) : ['Nothing new scheduled this half.'];
-  return { content: [`**${label}**`, '', ...lines, '', ref(pr, headSha, scope)].join('\n') };
+  return { content: withRef([`**${label}**`, '', ...lines], ref(pr, headSha, scope)) };
 }
 
 /** spec §Data "Proposal message shape": what changes (the title) · evidence
@@ -52,7 +86,7 @@ function buildCalendarMessage(slots, label, scope, pr, headSha) {
  * a build-time check, since evidence quality is a judgement call the LLM
  * planning run makes, not something this pure renderer can verify. */
 function buildProposalMessage(proposal, n, total, pr, headSha) {
-  const content = [
+  const bodyLines = [
     `**Proposal ${n} of ${total} — ${proposal.title}**`,
     '',
     [proposal.evidence, proposal.cost].filter(Boolean).join(' '),
@@ -61,25 +95,15 @@ function buildProposalMessage(proposal, n, total, pr, headSha) {
     proposal.onReject,
     '',
     "React ✅ or ❌. Reply in the thread if it's neither.",
-    ref(pr, headSha, `proposal:${n}`),
   ];
-  return { content: content.join('\n') };
+  return { content: withRef(bodyLines, ref(pr, headSha, `proposal:${n}`)) };
 }
 
 function buildQuestionsMessage(questions, pr, headSha) {
   const capped = (questions ?? []).slice(0, 2);
   const body = capped.length > 0 ? capped.map((q, i) => `${i + 1}. ${q}`) : ['No open questions this week.'];
-  return {
-    content: [
-      '**Questions for you**',
-      '',
-      ...body,
-      '',
-      'Reply in the thread on any message above (or just reply to it) and I\'ll read it.',
-      WEDNESDAY_CUTOFF_NOTE,
-      ref(pr, headSha, 'questions'),
-    ].join('\n'),
-  };
+  const bodyLines = ['**Questions for you**', '', ...body, '', "Reply in the thread on any message above (or just reply to it) and I'll read it.", WEDNESDAY_CUTOFF_NOTE];
+  return { content: withRef(bodyLines, ref(pr, headSha, 'questions')) };
 }
 
 /**
@@ -103,19 +127,24 @@ export function buildWeeklyBrief(plan, scorecard, { headSha, pr } = {}) {
 
   const headerTitle = plan.weekOf ? `Tree's week of ${plan.weekOf}` : "Tree's week";
   const header = {
-    content: [
-      `**${headerTitle}**`,
-      '',
-      scorecard,
-      '',
-      plan.whatChangedAndWhy ?? '',
-      '',
-      'Proposals below are ✅/❌. Everything else here just records feedback — reply in the thread if you want to say more.',
+    content: withRef(
+      [`**${headerTitle}**`, '', scorecard, '', plan.whatChangedAndWhy ?? '', '', 'Proposals below are ✅/❌. Everything else here just records feedback — reply in the thread if you want to say more.'],
       ref(pr, headSha, 'brief'),
-    ].join('\n'),
+    ),
   };
 
   const calendar = plan.calendar ?? [];
+  // MEDIUM 9 (Codex round 1): production is one beat/day (14 slots) —
+  // strategy §2's two-beat maximum is only ever a deliberate AC#2 stress
+  // case, never a real plan's shape. A silent 28-slot brief from a
+  // mis-shaped hand-off is exactly the "wrong content ships" failure mode
+  // this whole epic keeps finding elsewhere; a loud warning replaces the
+  // silent acceptance without hard-failing the stress test itself.
+  if (calendar.length > 14) {
+    console.error(
+      `::warning::weekly-brief: plan.calendar carries ${calendar.length} slots — this design is one beat/day (14 slots over 2 messages); check social/calendar.md and the runner prompt if a two-beat day was genuinely intended.`,
+    );
+  }
   const firstHalf = calendar.filter((s) => s.day <= 7);
   const secondHalf = calendar.filter((s) => s.day > 7);
   const calendarMessages = [
@@ -131,11 +160,39 @@ export function buildWeeklyBrief(plan, scorecard, { headSha, pr } = {}) {
   return [header, ...calendarMessages, ...proposalMessages, questionsMessage];
 }
 
+const REF_LINE_TAIL_RE = /^ref: PR #\d+ · [0-9a-f]{40} · .+$/;
+
+/** MEDIUM 7 (Codex round 1): approval-prompt.mjs's shared
+ * `chunkPreservingRefLine` (lib/ref-line-chunk.mjs) puts the ref line on
+ * only the LAST chunk of an over-limit message — correct for a draft
+ * (only the last chunk is ever that target's mint source there), wrong
+ * here: social-approval-poll.mjs only recognizes a message that carries a
+ * ref line AT ALL, so a reaction or reply on an EARLIER chunk of an
+ * oversized T4 message would be silently unbound, and a permalink built
+ * from a message's first chunk could point founders at a message with no
+ * binding whatsoever. Every chunk of a T4 message carries the SAME ref
+ * line instead — this is a local function, not a change to the shared
+ * ref-line-chunk.mjs, which approval-prompt.mjs's own draft/header path
+ * still needs exactly as it was. social-approval-poll.mjs's groupPlanRefs
+ * already unions reactions/replies across every message naming one scope
+ * (the same shape a re-briefed draft already produces), so several bound
+ * chunks for one scope is not a new case to handle. */
+function chunkWithRefOnEveryChunk(content, limit) {
+  const lines = content.split('\n');
+  const lastLine = lines[lines.length - 1];
+  if (!REF_LINE_TAIL_RE.test(lastLine)) return chunkForDiscord(content, limit);
+  const body = lines.slice(0, -1).join('\n');
+  const reserved = lastLine.length + 1; // +1 for the joining "\n" before the ref line
+  const bodyChunks = chunkForDiscord(body, Math.max(1, limit - reserved));
+  return bodyChunks.map((chunk) => `${chunk}\n${lastLine}`);
+}
+
 /**
- * Thin sender — mirrors sendApprovalPrompt's webhook POST + chunking, minus
- * embeds (the brief carries no images). Returns delivered message ids per
- * built message index so a caller can construct the Discord permalink for
- * whichever one it needs (the workflow only needs the header's).
+ * Thin sender — mirrors sendApprovalPrompt's webhook POST, minus embeds
+ * (the brief carries no images). Returns delivered message ids per built
+ * message index so a caller can construct the Discord permalink for
+ * whichever one it needs (the workflow only needs the header's — every
+ * chunk is bound the same way, so the first chunk is always a safe pick).
  */
 export async function sendWeeklyBrief(messages, { webhook = process.env.SOCIAL_APPROVAL_WEBHOOK_URL, fetchImpl = fetch } = {}) {
   if (!webhook) return { status: 'unconfigured', delivered: [], failed: [] };
@@ -143,7 +200,7 @@ export async function sendWeeklyBrief(messages, { webhook = process.env.SOCIAL_A
   const delivered = [];
   const failed = [];
   for (let m = 0; m < messages.length; m += 1) {
-    const chunks = chunkPreservingRefLine(neutralizeMentions(messages[m].content), DISCORD_MESSAGE_LIMIT);
+    const chunks = chunkWithRefOnEveryChunk(neutralizeMentions(messages[m].content), DISCORD_MESSAGE_LIMIT);
     for (let i = 0; i < chunks.length; i += 1) {
       try {
         const response = await fetchImpl(`${webhook}?wait=true`, {
@@ -185,22 +242,27 @@ export function discordPermalink({ guildId, channelId, messageId }) {
 
 /**
  * `mode=replan` (spec §Data "The Wednesday cut-off"): "posts a short 'what
- * I changed' message in the existing brief's thread instead of a whole new
- * brief." Posted with Discord's `?thread_id=` webhook query param, so it
- * still needs only the plain webhook secret, never `DISCORD_BOT_TOKEN` --
- * the same authority-separation this whole job exists for (spec
- * §Mechanics: "never inside the agent job, never in the social
- * environment"). `threadId` is the original brief header message's own id
- * -- starting a Discord thread FROM a message reuses that message's id as
- * the thread's id.
+ * I changed' message ... instead of a whole new brief." MEDIUM 5 (Codex
+ * round 1): posted as a NEW plain channel message linking back to the
+ * original brief's permalink, never via Discord's `?thread_id=` webhook
+ * param — this script never actually creates a Discord thread (a thread a
+ * FOUNDER starts themselves from a message is what
+ * social-approval-poll.mjs's thread-reply ingestion reads; creating one
+ * from OUR side needs a bot token with MANAGE_THREADS, which this job
+ * must never hold — see the "never DISCORD_BOT_TOKEN" rule this whole
+ * authority-separation exists for), so a `thread_id` naming a plain
+ * message id is not a real thread and would not behave as intended
+ * against Discord's actual API. A plain new message needs no special
+ * permission and actually works.
  */
-export async function sendReplanUpdate(summary, threadId, { webhook = process.env.SOCIAL_APPROVAL_WEBHOOK_URL, fetchImpl = fetch } = {}) {
+export async function sendReplanUpdate(summary, headerPermalink, { webhook = process.env.SOCIAL_APPROVAL_WEBHOOK_URL, fetchImpl = fetch } = {}) {
   if (!webhook) return { status: 'unconfigured' };
+  const content = ['**Mid-week update on this week\'s plan**', '', neutralizeMentions(String(summary ?? '').trim()), '', `Original brief: ${headerPermalink}`].join('\n');
   try {
-    const response = await fetchImpl(`${webhook}?wait=true&thread_id=${threadId}`, {
+    const response = await fetchImpl(`${webhook}?wait=true`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ content: neutralizeMentions(summary), username: TREE_WEBHOOK_USERNAME, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] } }),
+      body: JSON.stringify({ content, username: TREE_WEBHOOK_USERNAME, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] } }),
     });
     if (!response.ok) throw new Error(`Discord replan-update delivery failed with HTTP ${response.status}`);
     return { status: 'delivered' };
@@ -209,20 +271,37 @@ export async function sendReplanUpdate(summary, threadId, { webhook = process.en
   }
 }
 
+/** MEDIUM 4 (Codex round 1): the summary comes from `plan.replanSummary` —
+ * the SAME calendar.brief.json the agent already wrote and send-brief
+ * already fetches as data (see routine-tree-weekly-plan.md step 10) —
+ * never a hardcoded placeholder and never a second, parallel hand-off
+ * file. Takes the parsed plan OBJECT (not a bare string) precisely so a
+ * test exercising this proves the real hand-off file's shape works end to
+ * end, not merely that sendReplanUpdate can post a string handed to it
+ * directly. */
+export async function sendReplanUpdateFromPlan(plan, headerPermalink, opts = {}) {
+  const summary = plan?.replanSummary;
+  if (!summary) {
+    throw new Error('sendReplanUpdateFromPlan: plan.replanSummary is required for a mode=replan run — the agent must write it into calendar.brief.json (docs/agents/runner-prompts/tree-weekly-plan.md step 10)');
+  }
+  return sendReplanUpdate(summary, headerPermalink, opts);
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const flag = (name) => {
     const i = args.indexOf(`--${name}`);
     return i === -1 ? undefined : args[i + 1];
   };
-  const replanThreadId = flag('replan-thread-id');
-  const replanSummaryPath = flag('replan-summary');
-  if (replanThreadId || replanSummaryPath) {
-    if (!replanThreadId || !replanSummaryPath) {
-      throw new Error('Usage: weekly-brief.mjs --replan-thread-id <id> --replan-summary <path-to-text-file>');
-    }
-    const summary = await readFile(replanSummaryPath, 'utf-8');
-    const result = await sendReplanUpdate(summary, replanThreadId);
+  const planPath = flag('plan');
+  if (!planPath) {
+    throw new Error('Usage: weekly-brief.mjs --plan <path-to-calendar.brief.json> (--replan-permalink <url> | --pr <number> --pr-url <url> --head-sha <sha>)');
+  }
+  const plan = JSON.parse(await readFile(planPath, 'utf-8'));
+
+  const replanPermalink = flag('replan-permalink');
+  if (replanPermalink) {
+    const result = await sendReplanUpdateFromPlan(plan, replanPermalink);
     if (result.status === 'failed') {
       console.error(`weekly-brief: replan update failed: ${result.error}`);
       return 1;
@@ -234,12 +313,10 @@ async function main() {
   const prNumber = flag('pr');
   const prUrl = flag('pr-url');
   const headSha = flag('head-sha');
-  const planPath = flag('plan');
-  if (!prNumber || !prUrl || !headSha || !planPath) {
+  if (!prNumber || !prUrl || !headSha) {
     throw new Error('Usage: weekly-brief.mjs --pr <number> --pr-url <url> --head-sha <sha> --plan <path-to-plan.json>');
   }
 
-  const plan = JSON.parse(await readFile(planPath, 'utf-8'));
   const scorecard = renderScorecard(buildScorecard());
   const messages = buildWeeklyBrief(plan, scorecard, { headSha, pr: { number: Number(prNumber), url: prUrl } });
   const result = await sendWeeklyBrief(messages);
