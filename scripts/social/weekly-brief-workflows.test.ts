@@ -113,9 +113,10 @@ describe('LOW (Codex round 3): the permalink line always resolves to the LAST oc
     expect(workflow).not.toMatch(/Discord brief:[\s\S]*?\|\s*head -1/);
   });
 
-  it('tree-mail.yml takes the last regex match, never just the first', () => {
-    const workflow = readWorkflow('.github/workflows/tree-mail.yml');
-    expect(workflow).toContain('matches[-1]');
-    expect(workflow).not.toMatch(/re\.search\(r"Discord brief:/);
-  });
+  // The tree-mail.yml counterpart to this test (a "takes the last regex
+  // match" guard on the "Build payload from the plan PR" step) was removed
+  // along with that step (Marjorie Overhaul C3, docs/specs/marjorie-overhaul/
+  // c3-email-retired.md): the weekly-plan email is deleted outright, not
+  // re-routed, so there is no more permalink-substitution logic in this file
+  // to regress.
 });

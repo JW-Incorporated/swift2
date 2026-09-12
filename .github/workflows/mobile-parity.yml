@@ -22,6 +22,7 @@ permissions:
 jobs:
   parity:
     runs-on: ubuntu-latest
+    environment: ops
     env:
       # Two alerts, because they mean different things and need different
       # people: DIVERGED = the platforms really carry different releases

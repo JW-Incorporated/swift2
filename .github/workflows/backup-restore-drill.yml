@@ -47,6 +47,7 @@ concurrency:
 jobs:
   drill:
     runs-on: ubuntu-latest
+    environment: ops
     services:
       postgres:
         # Matches Supabase's major version. The drill exercises the same DDL
@@ -97,8 +98,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
-          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           OUTCOME: ${{ steps.drill.outcome }}
         run: |

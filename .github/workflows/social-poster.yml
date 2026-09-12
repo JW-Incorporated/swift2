@@ -74,32 +74,29 @@
 # in the queue-state PR's title and body. The state-commit step runs with
 # `if: always()` so a red run still records what happened — see its comment.
 #
-# Founder success email (2026-08-25, docs/decisions.md same date). Joey,
-# explicit exception to the founder-email cap, scoped to social only: email
-# on EVERY post that actually goes live, not just failures — "I dont mind
-# more emails for social". post-queue.mjs writes a mail-ready payload
-# (SOCIAL_POSTER_NOTIFY) with a real per-platform post link whenever at
-# least one item posted this run; the "Notify founder of successful posts"
-# step below just forwards it through scripts/watchdog/send-mail.py, the
-# same delivery path watchdog.yml and brief-mailer.yml already use. Separate
-# from the failure surfacing above — that reddens the run and alerts via
-# watchdog; this only ever reports good news, one email per run that had one.
+# Founder success email (2026-08-25, docs/decisions.md same date) — RETIRED
+# (Marjorie Overhaul C3, docs/specs/marjorie-overhaul/c3-email-retired.md).
+# Joey's 2026-08-25 exception ("I dont mind more emails for social") narrows
+# to one line instead: the brief's "Since yesterday" section already counts
+# `social/posted/*.json` via `fetchPostedSince`, so the per-post success
+# email step (post-queue.mjs's SOCIAL_POSTER_NOTIFY payload, forwarded
+# through scripts/watchdog/send-mail.py) is deleted rather than re-routed —
+# post-queue.mjs still writes the payload file, it's just unread now.
 #
-# Failure EMAIL (2026-08-25, traced from a real incident — 2026-08-24's
+# Failure ALERT (2026-08-25, traced from a real incident — 2026-08-24's
 # Midnights/Anti-Hero item died to an X 403 "duplicate content" error and
-# nobody heard about it, issue #3282). A red run alone wasn't reaching Joey:
-# watchdog's cadence check only alarms on zero successes in its window, and a
-# single permanently-failed item sandwiched between successful runs (the
-# normal case — most 30-minute runs post something else fine) stays
-# invisible to it. The "Email Joey on a permanent post failure" step below
-# closes that gap directly, reusing the exact send path already proven for
-# the Founders' Brief and watchdog alerts (scripts/watchdog/send-mail.py,
-# GMAIL_APP_PASSWORD + MARJORIE_EMAIL — provisioned since issue #484, no new
-# secret) instead of inventing a second one. This one covers FAILURES only —
-# genuinely independent of the success email above: different trigger
-# (steps.post.outcome == 'failure' vs. a written SOCIAL_POSTER_NOTIFY
-# payload), so a run with both a success and a permanent failure sends both
-# emails, and a run with only one sends only that one.
+# nobody heard about it, issue #3282; rerouted through upsert-alert.sh by
+# Marjorie Overhaul C3). A red run alone wasn't reaching Joey: watchdog's
+# cadence check only alarms on zero successes in its window, and a single
+# permanently-failed item sandwiched between successful runs (the normal
+# case — most 30-minute runs post something else fine) stays invisible to
+# it. The "Alert on a permanent post failure" step below closes that gap
+# directly, posting to #longlive-marjorie via scripts/watchdog/upsert-alert.sh
+# (falling back to email while `social`'s environment still lacks
+# DISCORD_MARJORIE_WEBHOOK_URL — see that step's own comment). This one
+# covers FAILURES only, independent of the deleted success email above:
+# `steps.post.outcome == 'failure'`, not a written SOCIAL_POSTER_NOTIFY
+# payload.
 #
 # NOT chained via workflow_run off social-approval-poll (considered and
 # reverted, 2026-09-11, Tree Overhaul Wave 2 S2, Codex adversarial review
@@ -407,38 +404,6 @@ jobs:
             sleep "$ATTEMPT"
           done
 
-      # Founder success email (2026-08-25, docs/decisions.md same date):
-      # Joey wants an email on every post that actually goes live, not just
-      # failures — explicit exception to the founder-email cap, scoped to
-      # social only ("I dont mind more emails for social"). post-queue.mjs
-      # writes SOCIAL_POSTER_NOTIFY only when at least one item posted this
-      # run, so a "nothing due"/all-failed run sends no mail — this step just
-      # forwards whatever's there through the same mailer watchdog.yml uses
-      # (scripts/watchdog/send-mail.py), never a new send path. Runs whenever
-      # the poster actually ran, same condition as the ledger-push step
-      # above, so a post that landed still gets its email even if a
-      # different item in the same run permanently failed.
-      - name: Notify founder of successful posts
-        if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
-        env:
-          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          # send-mail.py shells out to `gh api markdown` to render the email
-          # body — same as every other caller (brief-mailer.yml, watchdog.yml)
-          # — and needs a token for that. Missing here on first landing
-          # (2026-08-25) made every run's notify step fail with `gh` exit 4
-          # (auth required), even though the post itself succeeded.
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          NOTIFY_FILE="${{ runner.temp }}/social-poster-notify.json"
-          if [ -s "$NOTIFY_FILE" ]; then
-            python3 scripts/watchdog/send-mail.py "$NOTIFY_FILE"
-          else
-            echo "No successful posts this run — nothing to email."
-          fi
-
       # Fold-back PR into main (VISIBILITY ONLY as of issue #2040 — see the
       # header note). Dedupe correctness no longer depends on this PR landing
       # — the "Push ledger update" step above already made the posted/failed
@@ -496,20 +461,28 @@ jobs:
           pr-body-file: ${{ env.body_file }}
           no-changes-message: "No queue changes to fold back into main."
 
-      # See the "Failure EMAIL" header note above. `if: always()` — this must
-      # fire even if the fold-back step above fails to push/open its PR;
-      # email delivery must not depend on git succeeding. `steps.post.outcome`
-      # is the exact same signal the fold-back step already uses for
-      # POST_OUTCOME / the PR's "⛔ A POST FAILED" title suffix, so there is
-      # no second definition of "did this run fail" to keep in sync.
-      # send-mail.py skips quietly (exit 0) if GMAIL_APP_PASSWORD/
-      # MARJORIE_EMAIL are ever unset — never blocks the run either way.
-      - name: Email Joey on a permanent post failure
+      # Routed through upsert-alert.sh (Marjorie Overhaul C3), not a direct
+      # send-mail.py call: `post` runs under `environment: social`, not
+      # `ops`, so the Discord leg inside upsert-alert.sh finds
+      # DISCORD_MARJORIE_WEBHOOK_URL empty, fails to post, and falls through
+      # to send-mail.py automatically (no ALERT_ALSO_MAIL — this alert never
+      # went through that dual-send path). MARJORIE_EMAIL/GMAIL_APP_PASSWORD
+      # stay here so that fallback keeps working (HUMAN-ACTIONS: add the
+      # Discord webhook to the `social` environment too, so this reaches
+      # #longlive-marjorie like every other alert instead of relying on the
+      # fallback). `if: always()` — this must fire even if the fold-back step
+      # above fails to push/open its PR; alert delivery must not depend on
+      # git succeeding. `steps.post.outcome` is the exact same signal the
+      # fold-back step already uses for POST_OUTCOME / the PR's
+      # "⛔ A POST FAILED" title suffix, so there is no second definition of
+      # "did this run fail" to keep in sync.
+      - name: Alert on a permanent post failure
         if: always() && steps.post.outcome == 'failure'
         env:
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           REPORT_FILE: ${{ runner.temp }}/social-poster-report.md
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -521,6 +494,8 @@ jobs:
           else
             echo "A post permanently failed but produced no report (the poster step crashed before reporting)." > "$BODY_FILE"
           fi
-          jq -n --arg body "$(cat "$BODY_FILE")" --arg url "$RUN_URL" \
-            '{subject: "⛔ Social post failed — longlivets.com", body: $body, url: $url}' > payload.json
-          python3 scripts/watchdog/send-mail.py payload.json
+          {
+            echo ""
+            echo "Run log: $RUN_URL"
+          } >> "$BODY_FILE"
+          scripts/watchdog/upsert-alert.sh open "Watchdog: a social post permanently failed" "$BODY_FILE"
