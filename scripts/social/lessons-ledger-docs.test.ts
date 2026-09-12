@@ -53,6 +53,13 @@ describe('tree-weekly-plan.md — the Monday distillation (AC#4-7, #9)', () => {
     expect(doc).toContain('`intake`+`social`');
   });
 
+  it('checks a new/incremented rule against approved strategy before writing it, routing a collision through the proposal mechanism instead (Founder Test finding, 2026-09-12)', () => {
+    expect(doc).toContain("check it against `docs/marketing/social-strategy.md`");
+    expect(doc).toContain('a strategy question wearing drafting clothes, not a lesson');
+    expect(doc).toContain('do not write it as a lesson: route it as one of this week\'s ≤3 proposals instead');
+    expect(doc).toContain('prefer the narrower reading');
+  });
+
   it('AC#7 — checks retired rules too and reactivates on a match, instead of minting a new id', () => {
     expect(doc).toContain('read every active AND retired rule first');
     expect(doc).toContain('a reason that means the same thing as a *retired* rule reactivates it');
