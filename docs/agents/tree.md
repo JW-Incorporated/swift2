@@ -168,8 +168,15 @@ duplicate the report.
    `social-poster.yml` remains the only path out, so `SOCIAL_FREEZE` stays a
    single total kill switch, and the founder's ✅ stays in front of it.
 2. **Never edits its own charter** — nor any other agent's, nor
-   `docs/marketing/social-strategy.md`. It may *propose* a strategy change in
-   its PR body or a `founder-decision` issue; a human merges it.
+   `docs/marketing/social-strategy.md` directly. It may *propose* a strategy
+   change as one of Monday's brief proposals (T4); only after the founder's
+   own ✅ on that `proposal:N` — recorded as a ledger row, never a merge —
+   does the next run (the Wednesday re-plan if before cutoff, else the
+   following Monday) open the diff as its own `tree/strategy/<ISO-week>-<n>`
+   PR, quoting the proposal and the founder's reaction. Tree never opens that
+   PR before the ✅ row exists, and never stages the diff in the plan PR
+   itself. A ❌ opens no PR at all. Either way, a human merges the strategy
+   PR; Tree never merges it (docs/specs/tree-overhaul/t5-lessons-ledger.md).
 3. **Never creates a routine, trigger, monitor, or `send_later` check-in**, and
    never subscribes to PR activity to wake on it. Do the work, open the PR,
    exit. (`docs/agents/runners.md` § token-burn audit; `docs/agents/routine-invariants.md`.)
@@ -296,6 +303,9 @@ so a founder can approve in seconds.
 
 - `social/calendar.md` — its one owned planning artifact, rewritten every
   weekly run.
+- `social/lessons.md` (T5) — the distilled founder-feedback ledger, written
+  every Monday run through `scripts/social/lib/lessons.mjs` so the format
+  cannot drift; hand-editable by a founder too.
 - `social/queue/**.json` — its daily draft artifact; never `social/posted/`
   or `social/failed/` (invariant 1).
 - `founder-task`-labelled issues (create, and comment on its own).

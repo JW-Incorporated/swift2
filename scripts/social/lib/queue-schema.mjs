@@ -341,7 +341,7 @@ export function isPlausibleCritiqueTotal(value) {
  * mid-edit and no replacement caption can ever satisfy this function
  * afterward — a permanent per-target deadlock, not a security hole.
  */
-export function findCritiqueIssues(item) {
+export function findCritiqueIssues(item, { activeLessonIds = [] } = {}) {
   if (approvalStatus(item, { approvers: SOCIAL_APPROVERS }).ok) {
     return [];
   }
@@ -399,6 +399,12 @@ export function findCritiqueIssues(item) {
   }
   if (!Array.isArray(critique.rulesChecked) || !critique.rulesChecked.every((r) => typeof r === 'string')) {
     findings.push('critique.rulesChecked: required, must be an array of strings (e.g. [] before T5 ships).');
+  } else if (activeLessonIds.length > 0 && critique.rulesChecked.length === 0) {
+    // Tree Overhaul T5: catches the failure mode of the read-the-ledger step
+    // being skipped entirely — it cannot (and does not try to) confirm the
+    // rules were honestly applied, only that SOME ids were recorded once
+    // social/lessons.md has at least one active rule to check against.
+    findings.push('critique.rulesChecked: must be non-empty — social/lessons.md has active rules that must be checked and recorded.');
   }
   if (critique.revision !== 1 && critique.revision !== 2) {
     findings.push(`critique.revision: must be 1 or 2, got ${JSON.stringify(critique.revision)}.`);
@@ -411,12 +417,17 @@ export function findCritiqueIssues(item) {
  * findings; an empty array means the item is well-formed. Never throws —
  * callers get every problem at once rather than the first one.
  *
+ * `activeLessonIds` (Tree Overhaul T5) — the `social/lessons.md` active rule
+ * ids, read from disk by the caller (validate-queue.mjs) and passed in here
+ * so this function stays pure (no fs, no network — see the module header).
+ * Omitted, it defaults to `[]`, preserving pre-T5 behavior exactly.
+ *
  * Deliberately does NOT judge content quality (voice, openers, whether the
  * image is a lazy era-art fallback, cross-post similarity). That is
  * check-drafts.mjs's complementary draft-time gate; this one only answers
  * "can the platform API accept this at all".
  */
-export function validateQueueItem(item) {
+export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
   const findings = [];
 
   if (item === null || typeof item !== 'object' || Array.isArray(item)) {
@@ -438,7 +449,7 @@ export function validateQueueItem(item) {
   }
 
   // --- critique (Tree Overhaul T2, self-critique before queueing) --------
-  findings.push(...findCritiqueIssues(item));
+  findings.push(...findCritiqueIssues(item, { activeLessonIds }));
 
   // --- body ---------------------------------------------------------------
   if (typeof item.body !== 'string' || item.body.trim() === '') {

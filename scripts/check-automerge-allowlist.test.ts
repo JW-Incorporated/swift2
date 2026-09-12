@@ -413,6 +413,17 @@ describe('runtime allow/deny matching on the committed allowlist', () => {
     // the queue itself was always allowlisted; keep all three lanes proven
     expect(mergeable('social/queue/2026-08-12-example-x.json')).toBe(true);
   });
+
+  // Tree Overhaul T5 (spec AC#8) — a stays-excluded regression guard, not a
+  // fix: docs/marketing/social-strategy.md already matches no allow prefix
+  // today (only docs/audits/ and docs/ops/MERCH-REVENUE.json are docs/-
+  // prefixed allow entries). This is what keeps a founder's merge the only
+  // way a tree/strategy/<week>-<n> PR (T5) can ever land, even if a future
+  // change widens this file — see docs/specs/tree-overhaul/t5-lessons-ledger.md
+  // "The strategy diff".
+  it('docs/marketing/social-strategy.md matches no allow prefix, so a strategy-diff PR can never auto-merge', () => {
+    expect(mergeable('docs/marketing/social-strategy.md')).toBe(false);
+  });
 });
 
 // ── the real repo must pass, and the specific regression must stay fixed ──

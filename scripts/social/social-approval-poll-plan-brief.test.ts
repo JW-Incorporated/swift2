@@ -258,6 +258,34 @@ describe('AC#3b — the binding regression', () => {
   });
 });
 
+// Tree Overhaul T5 (docs/specs/tree-overhaul/t5-lessons-ledger.md, PLAN step
+// 8) — allRefs.filter(PLAN_SCOPE_RE) / allRefs.filter(!PLAN_SCOPE_RE) already
+// partition every ref exhaustively before either dispatch branch runs (this
+// script's own header comment: "two dispatch branches, not one collapsed
+// together"), so a PR whose refs are ALL plan-brief scopes structurally
+// cannot reach the draft classify/stamp/merge path — this proves that
+// separation end to end rather than adding a redundant runtime check.
+describe('a plan-scope PR is never auto-merged (regression guard)', () => {
+  it('a PR carrying only brief/proposal:n refs is processed for its ledger rows but never reaches `gh pr merge`', async () => {
+    const messages = [refMessage({ id: BRIEF_MESSAGE_ID, scope: 'brief' }), refMessage({ id: PROPOSAL_MESSAGE_ID, scope: 'proposal:1' })];
+    const { impl: fetchImpl } = makeFetchImpl(messages, {
+      [BRIEF_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+      [PROPOSAL_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+    });
+    const { impl: execGh, calls } = makeExecGh({ [PR_NUMBER]: {} });
+    const execGit = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    // the plan-brief dispatch still ran normally...
+    const rows = readAllLedgerRows();
+    expect(rows).toContainEqual(expect.objectContaining({ pr: PR_NUMBER, file: 'brief', action: 'approve' }));
+    expect(rows).toContainEqual(expect.objectContaining({ pr: PR_NUMBER, file: 'proposal:1', action: 'approve' }));
+    // ...but nothing ever merged this (or any) PR.
+    expect(calls.some((args) => args[0] === 'pr' && args[1] === 'merge')).toBe(false);
+  });
+});
+
 describe('thread-reply ingestion (AC#4, AC#5)', () => {
   it('AC#4: a thread reply from an approver appears as a plan-PR comment quoting it verbatim, carrying discord-reply:<id>; a second run posts no duplicate', async () => {
     const threadId = '400000000000000001';
