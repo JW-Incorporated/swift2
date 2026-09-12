@@ -31,30 +31,44 @@ export const ACTIONS = ['redispatch', 'comment-only', 'human-action', 'build-des
 /** Actions that never expire — see header. */
 const PERMANENT_ACTIONS = new Set(['escalate']);
 
-// One entry per row of the spec's handler table, in the same order. `match`
-// takes the alert issue's exact title string.
-const HANDLERS = [
-  { key: 'no-founders-brief', match: (t) => t === "Watchdog: no Founders' Brief" },
-  { key: 'prod-smoke-check-failing', match: (t) => t === 'Watchdog: prod smoke check failing' },
-  { key: 'scheduled-workflows-not-succeeding', match: (t) => t === 'Watchdog: scheduled workflow(s) not succeeding' },
-  { key: 'workflow-failed-last-2-runs', match: (t) => /^Watchdog: .+ failed its last 2 scheduled runs$/.test(t) },
-  { key: 'prs-stuck', match: (t) => t === 'Watchdog: PR(s) stuck on a failing or missing check' },
-  { key: 'karen-no-tickets', match: (t) => t === 'Watchdog: Karen scanned but filed no tickets' },
-  { key: 'vault-run-cadence', match: (t) => t === 'Watchdog: routine-vault-run scheduled cadence' },
-  { key: 'blocking-human-action-aging', match: (t) => t === 'Watchdog: an OPEN [BLOCKING] human action is aging silently' },
-  { key: 'work-unowned', match: (t) => t === 'Watchdog: work is going unowned' },
-  { key: 'karen-post-repair-removed', match: (t) => t === 'Watchdog: Karen post-repair still unconfirmed' },
-  { key: 'news-worker-rotation-removed', match: (t) => t === 'Watchdog: news-worker rotated key looks broken' },
-  { key: 'lane-quiet', match: (t) => /^Watchdog: .+ hasn't produced a PR in \d+h$/.test(t) },
-  { key: 'fb-export-due', match: (t) => t === 'Watchdog: no FB group export closed in 9 days' },
-  { key: 'knowledge-stale', match: (t) => t === 'Watchdog: knowledge engine current-tier data is stale' },
+// One entry per static-title row of the spec's handler table. Kept as a
+// Map (exact string equality only) rather than a generic `{key, match}`
+// dispatch table so the two genuinely dynamic rows below are the only place
+// a regex's `.test()` is ever called — CodeQL's regex-injection query
+// (`js/regex-injection`) loses precision across a polymorphic array of
+// closures and had flagged the exact-match entries as if their titles
+// flowed into a regex construction, which they never did. This shape has
+// no such call site to misattribute.
+const EXACT_TITLES = new Map([
+  ["Watchdog: no Founders' Brief", 'no-founders-brief'],
+  ['Watchdog: prod smoke check failing', 'prod-smoke-check-failing'],
+  ['Watchdog: scheduled workflow(s) not succeeding', 'scheduled-workflows-not-succeeding'],
+  ['Watchdog: PR(s) stuck on a failing or missing check', 'prs-stuck'],
+  ['Watchdog: Karen scanned but filed no tickets', 'karen-no-tickets'],
+  ['Watchdog: routine-vault-run scheduled cadence', 'vault-run-cadence'],
+  ['Watchdog: an OPEN [BLOCKING] human action is aging silently', 'blocking-human-action-aging'],
+  ['Watchdog: work is going unowned', 'work-unowned'],
+  ['Watchdog: Karen post-repair still unconfirmed', 'karen-post-repair-removed'],
+  ['Watchdog: news-worker rotated key looks broken', 'news-worker-rotation-removed'],
+  ['Watchdog: no FB group export closed in 9 days', 'fb-export-due'],
+  ['Watchdog: knowledge engine current-tier data is stale', 'knowledge-stale'],
+]);
+
+// The two dynamic rows (`${WF}`/`${LANE}` interpolated by watchdog.yml).
+// Both patterns are fixed literals, never built from the title itself —
+// `title` is only ever the subject `.test()`s against, not the pattern.
+const DYNAMIC_PATTERNS = [
+  { key: 'workflow-failed-last-2-runs', re: /^Watchdog: .+ failed its last 2 scheduled runs$/ },
+  { key: 'lane-quiet', re: /^Watchdog: .+ hasn't produced a PR in \d+h$/ },
 ];
 
 /** Title → handler key, or null if the title matches none of the 14 rows
  * (e.g. a non-watchdog issue that happens to carry the `watchdog-alert`
  * label — the routine takes no action on a null match). */
 export function matchAlertTitle(title) {
-  const hit = HANDLERS.find((h) => h.match(String(title || '')));
+  const t = String(title || '');
+  if (EXACT_TITLES.has(t)) return EXACT_TITLES.get(t);
+  const hit = DYNAMIC_PATTERNS.find(({ re }) => re.test(t));
   return hit ? hit.key : null;
 }
 
