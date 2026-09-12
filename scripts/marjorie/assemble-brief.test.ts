@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { buildBrief, extractField, extractOptions, fetchGrowthSnapshot, fetchQueueStatus, formatGrowthLine, todayLA, shortTitle, ghCriticalList, renderCommunityTasksLine } from './assemble-brief.mjs';
+import { buildBrief, extractField, extractOptions, fetchGrowthSnapshot, fetchQueueStatus, findLatestTreePR, formatGrowthLine, todayLA, shortTitle, ghCriticalList, renderCommunityTasksLine } from './assemble-brief.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { GATES, parseGateTable as parseTable } from './gate-history.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -88,7 +88,7 @@ describe('todayLA', () => {
 describe('formatGrowthLine', () => {
   it('says so plainly when no snapshot exists yet', () => {
     expect(formatGrowthLine(null, emptyQueueStatus)).toBe(
-      "- Growth: no snapshot yet (growth-snapshot.yml hasn't run) · queue: empty (nothing drafted)",
+      "- Tree: no snapshot yet (growth-snapshot.yml hasn't run) · queue: empty (nothing drafted)",
     );
   });
 
@@ -103,7 +103,7 @@ describe('formatGrowthLine', () => {
       emptyQueueStatus,
     );
     expect(line).toBe(
-      '- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 3 posts/24h (X 1/IG 1/FB 1) · queue: empty (nothing drafted) · site: pending #799',
+      '- Tree: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 3 posts/24h (X 1/IG 1/FB 1) · queue: empty (nothing drafted) · site: pending #799',
     );
   });
 
@@ -117,7 +117,7 @@ describe('formatGrowthLine', () => {
       },
       emptyQueueStatus,
     );
-    expect(line).toBe('- Growth: IG ? · X 340 (+5) · FB 89 · 1 post/24h (X 0/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799');
+    expect(line).toBe('- Tree: IG ? · X 340 (+5) · FB 89 · 1 post/24h (X 0/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799');
   });
 
   // The 2026-08-11 misread: the brief showed one aggregate "0 posts today"
@@ -399,7 +399,7 @@ describe('buildBrief — five sections (v3, 2026-08-23)', () => {
       { date: '2026-07-12', now: NOW },
     );
     expect(withSnapshot).toContain(
-      '- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts/24h (X 1/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799',
+      '- Tree: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts/24h (X 1/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799',
     );
   });
 
@@ -429,7 +429,7 @@ describe('buildBrief — five sections (v3, 2026-08-23)', () => {
       { ...withGates, growth: { followers: { instagram: 1200, x: 340, facebook: 89 }, deltas: { instagram: 18, x: 5, facebook: 0 }, postsToday: 2 } },
       { date: '2026-07-12', now: NOW },
     );
-    expect(brief).toContain('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today (pre-24h-window snapshot) · queue: empty (nothing drafted) · site: pending #799');
+    expect(brief).toContain('- Tree: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today (pre-24h-window snapshot) · queue: empty (nothing drafted) · site: pending #799');
   });
 
   it('stamps its own line and word count so a run cannot silently blow the cap', () => {
@@ -457,5 +457,31 @@ describe('ghCriticalList', () => {
   it('throws loudly instead of returning a truncated list as if it were complete', async () => {
     vi.spyOn(ghMjs, 'gh').mockResolvedValue({ stdout: '[]', capExhausted: true, complete: false });
     await expect(ghCriticalList(['issue', 'list', '--label', 'founder-decision'])).rejects.toThrow(/#3689/);
+  });
+});
+
+// Reviewer nit, PR #4140 round 1: no prior coverage at all for this
+// function -- added alongside narrowing it from `tree/` to `tree/plan/`
+// (Tree Overhaul T1) so a later regression back to the bare prefix (which
+// the far-more-frequent daily-draft PRs would then win) fails a test
+// instead of silently misreporting "Tree last planned" in the brief.
+describe('findLatestTreePR', () => {
+  it('picks the most recent PR whose branch starts tree/plan/, ignoring daily-draft PRs even when they are newer', () => {
+    const allPRs = [
+      { number: 1, headRefName: 'tree/plan/2026-09-01', createdAt: '2026-09-01T10:00:00Z' },
+      { number: 2, headRefName: 'tree/draft/2026-09-10', createdAt: '2026-09-10T11:00:00Z' },
+      { number: 3, headRefName: 'tree/plan/2026-09-08', createdAt: '2026-09-08T10:00:00Z' },
+    ];
+    expect(findLatestTreePR(allPRs)?.number).toBe(3);
+  });
+
+  it('returns null when there is no weekly-plan PR at all', () => {
+    const allPRs = [{ number: 2, headRefName: 'tree/draft/2026-09-10', createdAt: '2026-09-10T11:00:00Z' }];
+    expect(findLatestTreePR(allPRs)).toBeNull();
+  });
+
+  it('returns null for an empty/missing PR list', () => {
+    expect(findLatestTreePR([])).toBeNull();
+    expect(findLatestTreePR(undefined)).toBeNull();
   });
 });

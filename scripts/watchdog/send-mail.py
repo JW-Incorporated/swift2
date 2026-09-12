@@ -74,7 +74,8 @@ def main() -> int:
 
     msg = EmailMessage()
     msg["Subject"] = payload["subject"]
-    msg["From"] = f"Marjorie (swift2 chief of staff) <{sender}>"
+    from_name = payload.get("fromName", "Marjorie (swift2 chief of staff)")
+    msg["From"] = f"{from_name} <{sender}>"
     msg["To"] = TO
     msg.set_content(
         f"{payload['body']}\n\n---\nOpen here: {payload['url']}\n"

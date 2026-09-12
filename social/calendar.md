@@ -1,7 +1,7 @@
 # Social calendar — the next 14 days
 
-**Owned by Tree** (`docs/agents/tree.md`), rewritten every Monday. **Read by the
-Growth daily run** (`docs/agents/runner-prompts/growth-draft.md`), which drafts
+**Owned by Tree** (`docs/agents/tree.md`), rewritten every Monday. **Read by
+Tree's daily draft run** (`docs/agents/runner-prompts/tree-daily-draft.md`), which drafts
 these slots into `social/queue/`. Nothing else may edit this file — the drafter
 reading its own assignment and then rewriting it is exactly the loop this
 replaces.

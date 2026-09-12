@@ -165,7 +165,7 @@ End with a single link line: `Full detail: journal comment below.`
 
 > **2026-07-17 — Slack is live** (per the pre-approved flip in decision
 > 2026-07-16): the workspace exists with **#all-longlive-hq** (org traffic;
-> GitHub app subscribed to the repo) and **#social** (growth desk lane), the
+> GitHub app subscribed to the repo) and **#social** (Tree's lane), the
 > Claude and GitHub apps installed. Slack is now the founders' *primary*
 > interface; the email mailer below continues unchanged as delivery backup.
 

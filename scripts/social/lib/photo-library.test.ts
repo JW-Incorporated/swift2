@@ -107,6 +107,7 @@ describe('photo-library', () => {
       altText: [selected.alt],
       scheduledAt: '2026-09-08T23:00:00Z',
       campaign: 'launch:shop-the-look:announce',
+      lane: 'calendar',
     };
     const pair = [
       { ...common, platform: 'instagram', body: 'See the look.' },
