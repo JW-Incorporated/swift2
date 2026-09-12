@@ -41,3 +41,42 @@ jobs:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+
+  # Marjorie Overhaul C2 (docs/specs/marjorie-overhaul/c2-brief.md):
+  # delivery is a second, plain (non-agent) job, not a final step in `run` —
+  # an environment secret is only visible to a job that declares that
+  # environment, `routine-template.yml` has no `environment` key, and `run`
+  # is a single job. Mirrors `routine-tree-weekly-plan.yml`'s `send-brief`
+  # job on the two things that matter most: `environment: ops` is the only
+  # way to see DISCORD_MARJORIE_WEBHOOK_URL, and checkout pins `ref: main`
+  # explicitly rather than trusting the triggering ref, because a job
+  # holding a secret must never execute code from a dispatch-controlled or
+  # agent-writable ref (same property `routine-tree-weekly-plan.yml`'s
+  # own HIGH-1 finding documents). The issue stays the source of truth —
+  # this job only reads it, never writes it.
+  deliver:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: ops
+    permissions:
+      contents: read
+      issues: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Fetch today's brief issue and deliver it
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+        run: |
+          set -euo pipefail
+          ISSUE_JSON=$(gh issue list --repo "$GITHUB_REPOSITORY" --label founders-brief --state open --json number,body,url --limit 1)
+          echo "$ISSUE_JSON" | jq -r '.[0].body' > /tmp/brief-body.md
+          ISSUE_URL=$(echo "$ISSUE_JSON" | jq -r '.[0].url')
+          node scripts/marjorie/post-or-mail.mjs --subject "Founders' Brief" --body-file /tmp/brief-body.md --url "$ISSUE_URL"
