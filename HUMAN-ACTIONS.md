@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -10,10 +10,12 @@
 <!-- ha filed=2026-09-12 -->
 
 **Why:** Marjorie Overhaul wave M1 (epic #4180) posts her brief and every watchdog alert to #longlive-marjorie. Nothing can post there until a webhook exists in a main-only environment; M0 (design) can run without it, M1 cannot be verified.
+
 **Steps:**
 1. Discord → #longlive-marjorie → Edit Channel → Integrations → Webhooks → New Webhook; name it `Marjorie`; Copy Webhook URL.
 2. https://github.com/JW-Incorporated/swift2/settings/environments → New environment → name `ops` → Deployment branches: Selected branches → add `main` → Save.
 3. In the `ops` environment → Environment secrets → Add secret → name `DISCORD_MARJORIE_WEBHOOK_URL` → paste the URL.
+
 **Worked if:** `gh api repos/JW-Incorporated/swift2/environments/ops/secrets` lists DISCORD_MARJORIE_WEBHOOK_URL.
 
 ## #64 🟡 [DECIDE] X per-post metrics need a paid API tier (~5 min)
@@ -38,20 +40,6 @@
 3. `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` with the regenerated token.
 
 **Worked if:** a real `GET /{ig-media-id}?fields=reach,saved,shares` call returns values instead of a `(#10)` permission error.
-
-## #57 🟡 [DECIDE] Stale git worktrees — 259 registered, 73 hidden inside the Projects tree (~30 min)
-<!-- ha filed=2026-09-11 kind=default -->
-
-**Why:** a research pass found `git worktree list` returns 259 registered worktrees repo-wide, and `git worktree prune --dry-run` reports 0 prunable — meaning all 259 directories still physically exist on disk. 73 of them live under `.claude/worktrees/` INSIDE `Documents\Claude\Projects\Swift2` itself, hidde
-
-**Steps:**
-1. Run `git worktree list` to review what's there.
-2. For anything safe to remove, `git worktree remove <path>` per entry (this command refuses if a checkout is dirty, so it fails safe rather than silently discarding work).
-3. Once entries are removed, `git worktree prune` to clean the registry.
-
-**Worked if:** `git worktree list` count drops substantially and disk space is reclaimed, with no lost work.
-
----
 
 ## #54 🔴 [BLOCKING] Turn on Code Scanning and set CODE_SCANNING_ENABLED (closes P5) (~5 min)
 <!-- ha filed=2026-09-11 -->
