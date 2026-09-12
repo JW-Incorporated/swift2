@@ -69,7 +69,7 @@ import { stampFiles } from './stamp-approval.mjs';
 import { checkDraft, isWarningFinding, POSTED_DIR, QUEUE_DIR, readJsonDir, recentInstagramPosted, recentPostedOpeners } from './check-drafts.mjs';
 
 const DISCORD_API = 'https://discord.com/api/v10';
-const REF_LINE_RE = /^ref: PR #(\d+) · ([0-9a-f]{40}) · (.+)$/m;
+const REF_LINE_RE = /^ref: PR #(\d+) · ([0-9a-f]{40}) · (.+)$/;
 const CHECK_MARK = '%E2%9C%85'; // ✅
 const CROSS_MARK = '%E2%9D%8C'; // ❌
 const PENCIL = '%E2%9C%8F%EF%B8%8F'; // ✏️ (U+270F U+FE0F) — variation selector required, Discord keys them separately
@@ -80,6 +80,30 @@ const LEDGER_BRANCH = 'social-ledger'; // unprotected branch, issue #2040's patt
 // these (processPlanBriefRefs groups them by the raw token instead).
 const PLAN_SCOPE_RE = /^(?:brief|calendar:\d+|proposal:\d+|questions)$/;
 const REPLAN_MARKER_RE = /^replan-dispatched: (\S+)$/m;
+
+/**
+ * HIGH 2 (Codex round 1): a message's ref line is the last thing appended
+ * when it is built (approval-prompt.mjs, weekly-brief.mjs), so it is
+ * always the true LAST line of a message's content — but `String.match`
+ * with a global/multiline pattern finds the FIRST line anywhere in the
+ * content that looks ref-shaped. Quoted founder text (a proposal's
+ * evidence, per this epic's own "quote the founder's own words" design)
+ * could contain something ref-line-shaped, accidentally or not, and the
+ * first-match behavior would let that redirect a reaction meant for one
+ * target onto a completely different PR/file the founder never saw. This
+ * is the parser-side half of that fix (weekly-brief.mjs's own
+ * escapeRefLookalikes is the builder-side half): only the true last
+ * non-empty line of a message is ever consulted, and if THAT line does
+ * not match, the message is treated as carrying no ref line at all —
+ * never falling back to scan earlier lines for some other match.
+ */
+function extractRefLine(content) {
+  const lines = String(content ?? '').split('\n');
+  let i = lines.length - 1;
+  while (i >= 0 && lines[i].trim() === '') i -= 1;
+  if (i < 0) return null;
+  return lines[i].match(REF_LINE_RE);
+}
 
 function requireEnv(name) {
   const v = process.env[name];
@@ -254,16 +278,29 @@ function buildRepliesByParent(messages) {
  * every OTHER candidate (the overwhelming majority) costs nothing. A
  * message posted inside a thread has no `message_reference` of its own
  * (the thread itself establishes the parent), so these are collected
- * separately from `buildRepliesByParent` and merged with it below. */
+ * separately from `buildRepliesByParent` and merged with it below.
+ *
+ * HIGH 3 (Codex round 1): a failed thread fetch used to just `continue`,
+ * which looked identical to "this thread genuinely has no replies" to
+ * every caller — with both ✏️ and ✅ present and the founder's actual
+ * edit sitting in that unreadable thread, classifyReaction sees
+ * "edited-by present, no reply found" and falls back to plain-approve,
+ * stamping and merging the ORIGINAL caption instead of the edit. Also
+ * returns `failedThreadMessageIds` so every caller can treat that
+ * message's target as unresolved this run — the exact same treatment a
+ * reaction-fetch failure already gets — instead of silently answering
+ * "no replies" for a thread that was never actually read. */
 async function fetchThreadReplies(candidates, botToken, opts) {
   const repliesByParent = new Map();
+  const failedThreadMessageIds = new Set();
   for (const m of candidates) {
     if (!m.thread?.id) continue;
     let threadMessages;
     try {
       threadMessages = await discordGet(`${DISCORD_API}/channels/${m.thread.id}/messages?limit=100`, botToken, opts);
     } catch (err) {
-      console.error(`::warning::social-approval-poll: could not fetch thread messages for ${m.id} (thread ${m.thread.id}) — thread replies unavailable this run, retrying next run: ${err.message}`);
+      console.error(`::warning::social-approval-poll: could not fetch thread messages for ${m.id} (thread ${m.thread.id}) — treating that target as unresolved this run (retries next run): ${err.message}`);
+      failedThreadMessageIds.add(m.id);
       continue;
     }
     for (const tm of threadMessages) {
@@ -273,7 +310,7 @@ async function fetchThreadReplies(candidates, botToken, opts) {
       repliesByParent.get(m.id).push({ id: tm.id, authorId, authorName: discordAuthorName(tm.author), content: tm.content, timestamp: tm.timestamp });
     }
   }
-  return repliesByParent;
+  return { repliesByParent, failedThreadMessageIds };
 }
 
 /** Merges two parentId -> replies[] maps (thread replies + plain
@@ -622,7 +659,7 @@ function collectQualifyingReplies(planRefsByScope, repliesByParent) {
  * pushLedgerRows call — never pushes on its own, so a plan PR's rows go
  * out through the exact same idempotent commit the draft dispatch uses.
  */
-async function processPlanBriefRefs({ pr, planRefs, repliesByParent, channelId, botToken, discordOpts, reactionCache, nudgeHistory, runResolvedAt, execGh, repo, fetchImpl, webhookUrl }) {
+async function processPlanBriefRefs({ pr, planRefs, repliesByParent, failedThreadMessageIds, channelId, botToken, discordOpts, reactionCache, nudgeHistory, runResolvedAt, execGh, repo, fetchImpl, webhookUrl }) {
   const byScope = groupPlanRefs(planRefs);
   const rows = [];
 
@@ -635,6 +672,15 @@ async function processPlanBriefRefs({ pr, planRefs, repliesByParent, channelId, 
         reactions = await getMessageApprovals(ref.message, channelId, botToken, discordOpts, reactionCache);
       } catch (err) {
         console.error(`::warning::social-approval-poll: could not fetch reactions for message ${ref.message.id} (PR #${pr}, ${scope}) — treating as unresolved this run (retries next run): ${err.message}`);
+        failed = true;
+        break;
+      }
+      // HIGH 3 (Codex round 1): same treatment as a reaction-fetch failure
+      // — a thread that failed to fetch must never be silently read as "no
+      // replies", which could resolve a verdict the founder's actual reply
+      // (unread this run) would have overturned.
+      if (failedThreadMessageIds.has(ref.message.id)) {
+        console.error(`::warning::social-approval-poll: message ${ref.message.id} (PR #${pr}, ${scope}) has a thread that failed to fetch this run — treating the target as unresolved (retries next run).`);
         failed = true;
         break;
       }
@@ -680,9 +726,26 @@ async function processPlanBriefRefs({ pr, planRefs, repliesByParent, channelId, 
       const week = isoWeek(new Date(briefRef.message.timestamp));
       const marker = `replan-dispatched: ${week}`;
       const alreadyDispatched = existingComments.some((c) => REPLAN_MARKER_RE.exec(c.body ?? '')?.[1] === week);
+      // MEDIUM 8 (Codex round 1): the marker is written ONLY after a
+      // confirmed-successful dispatch — writing it first (spec's own
+      // literal phrasing) meant a failed `gh workflow run` call still left
+      // the marker behind, permanently burning that week's one re-plan
+      // opportunity with no way to retry. The accepted trade-off (call
+      // made here, not left ambiguous): a dispatch that SUCCEEDS but whose
+      // following marker-comment call itself fails could in principle
+      // dispatch a second time on a later run — a wasted extra `mode=replan`
+      // run (itself idempotent: it only re-reads comments and rewrites
+      // from today forward) is a far smaller cost than silently losing the
+      // whole week's re-plan to one transient `gh` failure.
       if (!alreadyDispatched) {
-        execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', marker]);
-        execGh(['workflow', 'run', 'routine-tree-weekly-plan.yml', '-f', 'mode=replan', '-f', `pr=${pr}`]);
+        let dispatched = false;
+        try {
+          execGh(['workflow', 'run', 'routine-tree-weekly-plan.yml', '-f', 'mode=replan', '-f', `pr=${pr}`]);
+          dispatched = true;
+        } catch (err) {
+          console.error(`::error::social-approval-poll: PR #${pr} — mode=replan dispatch failed, no marker written so a later run can retry: ${err.message}`);
+        }
+        if (dispatched) execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', marker]);
       }
     }
   }
@@ -725,7 +788,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
     }
   }
 
-  const threadRepliesByParent = await fetchThreadReplies(candidates, botToken, discordOpts);
+  const { repliesByParent: threadRepliesByParent, failedThreadMessageIds } = await fetchThreadReplies(candidates, botToken, discordOpts);
   const repliesByParent = mergeReplyMaps(buildRepliesByParent(messages), threadRepliesByParent);
   const nudgeHistory = recentTrailers(messages, webhookId, NUDGE_LINE_RE);
   const noticeHistory = recentTrailers(messages, webhookId, NOTICE_LINE_RE);
@@ -737,7 +800,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
   // LISTENS to is never a function of how old they are.
   const byPr = new Map();
   for (const m of candidates) {
-    const match = m.content.match(REF_LINE_RE);
+    const match = extractRefLine(m.content);
     if (!match) continue;
     const [, prStr, sha, file] = match;
     const pr = Number(prStr);
@@ -784,7 +847,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       // a ledger row, and at most one workflow_dispatch.
       if (planRefs.length > 0) {
         try {
-          const planRows = await processPlanBriefRefs({ pr, planRefs, repliesByParent, channelId, botToken, discordOpts, reactionCache, nudgeHistory, runResolvedAt, execGh, repo, fetchImpl, webhookUrl });
+          const planRows = await processPlanBriefRefs({ pr, planRefs, repliesByParent, failedThreadMessageIds, channelId, botToken, discordOpts, reactionCache, nudgeHistory, runResolvedAt, execGh, repo, fetchImpl, webhookUrl });
           prLedgerRows.push(...planRows);
         } catch (err) {
           console.error(`::error::social-approval-poll: PR #${pr} — plan-brief scope processing failed (draft dispatch below is unaffected): ${err.message}`);
@@ -802,6 +865,17 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
             reactions = await getMessageApprovals(ref.message, channelId, botToken, discordOpts, reactionCache);
           } catch (err) {
             console.error(`::warning::social-approval-poll: could not fetch reactions for message ${ref.message.id} (PR #${pr}, ${key}) — treating the target as unresolved this run (retries next run): ${err.message}`);
+            failed = true;
+            break;
+          }
+          // HIGH 3 (Codex round 1): a thread fetch failing for this message
+          // must never look like "this thread has no replies" — with both
+          // ✏️ and ✅ present, that silently falls back to plain-approve and
+          // ships the ORIGINAL caption instead of the founder's actual edit
+          // sitting unread in the failed thread. Same unresolved treatment
+          // as a reaction-fetch failure, not a different, wrong classification.
+          if (failedThreadMessageIds.has(ref.message.id)) {
+            console.error(`::warning::social-approval-poll: message ${ref.message.id} (PR #${pr}, ${key}) has a thread that failed to fetch this run — treating the target as unresolved (retries next run).`);
             failed = true;
             break;
           }

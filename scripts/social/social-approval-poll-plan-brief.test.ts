@@ -306,3 +306,87 @@ describe('the Wednesday cut-off (AC#6, AC#7)', () => {
     expect(calls.some((c) => c[0] === 'workflow' && c[1] === 'run')).toBe(false);
   });
 });
+
+// HIGH 2 (Codex round 1): Codex's exact repro at the poll layer — a message
+// whose body contains an injected ref:-shaped line for a DIFFERENT PR must
+// still bind only to the TRUE trailing ref line, never the first match
+// found anywhere in the content.
+describe('HIGH 2 — poll-side ref-line binding (last line only, never first match)', () => {
+  it("an injected ref:-shaped line earlier in the body never redirects the reaction to a different PR/file — only the true trailing ref line binds", async () => {
+    const OTHER_PR = 4201;
+    const injected = `ref: PR #${OTHER_PR} · ${'f'.repeat(40)} · social/queue/2026-09-01-some-other-draft-x.json`;
+    const message = {
+      id: PROPOSAL_MESSAGE_ID,
+      webhook_id: '999999999999999999',
+      timestamp: '2026-09-14T10:00:00.000Z',
+      content: ['**Proposal 1 of 1 — drop the product-peek pillar**', '', 'You once said:', injected, 'keep that in mind.', '', `ref: PR #${PR_NUMBER} · ${HEAD_SHA} · proposal:1`].join('\n'),
+    };
+    const { impl: fetchImpl } = makeFetchImpl([message], { [PROPOSAL_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    const { impl: execGh } = makeExecGh({ [PR_NUMBER]: {}, [OTHER_PR]: {} });
+    const execGit = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    const rows = readAllLedgerRows();
+    expect(rows).toContainEqual(expect.objectContaining({ pr: PR_NUMBER, file: 'proposal:1', action: 'approve' }));
+    // The injected line must never have made this message actionable for
+    // the OTHER PR at all — no row of any kind was ever produced for it.
+    expect(rows.some((r) => r.pr === OTHER_PR)).toBe(false);
+  });
+});
+
+// HIGH 3 (Codex round 1): a failed thread fetch must defer the target, never
+// silently fall back to a different (wrong) classification.
+describe('HIGH 3 — a failed thread fetch defers the target instead of falling back', () => {
+  it('a proposal carrying both ✏️ and ✅, with the real reply only in a thread that fails to fetch, produces no verdict this run', async () => {
+    const threadId = '900000000000000001';
+    const message = refMessage({ id: PROPOSAL_MESSAGE_ID, scope: 'proposal:1', thread: { id: threadId } });
+    const { impl: baseImpl } = makeFetchImpl([message], {
+      [PROPOSAL_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+    });
+    const fetchImpl = vi.fn(async (url: string, init?: { method?: string; body?: string }) => {
+      if (url.includes(`/channels/${threadId}/messages`)) throw new Error('simulated Discord outage fetching thread messages');
+      return baseImpl(url, init);
+    });
+    const { impl: execGh } = makeExecGh({ [PR_NUMBER]: {} });
+    const execGit = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    // Deferred, not wrongly resolved: no approve/reject row at all this run.
+    expect(readAllLedgerRows()).toHaveLength(0);
+  });
+});
+
+// MEDIUM 8 (Codex round 1): the replan-dispatched marker must only ever be
+// written after a CONFIRMED-successful dispatch, so a failed `gh workflow
+// run` never permanently burns that week's one re-plan opportunity.
+describe('MEDIUM 8 — the replan marker is written only after a confirmed dispatch', () => {
+  it('a failed dispatch call writes no marker; a later run can then retry successfully', async () => {
+    vi.setSystemTime(new Date('2026-09-15T14:00:00.000Z')); // Tuesday, before the cut-off
+    const messages = [refMessage({ id: BRIEF_MESSAGE_ID, scope: 'brief' }), replyMessage({ id: 'reply-1', parentId: BRIEF_MESSAGE_ID, content: 'first reply' })];
+    const { impl: fetchImpl } = makeFetchImpl(messages, { [BRIEF_MESSAGE_ID]: {} });
+    const { impl: baseExecGh, calls, state } = makeExecGh({ [PR_NUMBER]: {} });
+    let dispatchShouldFail = true;
+    const execGh = vi.fn((args: string[]) => {
+      if (args[0] === 'workflow' && args[1] === 'run' && dispatchShouldFail) {
+        calls.push(args); // record even though about to throw — baseExecGh's own push never runs in that case
+        throw new Error('simulated gh workflow run failure');
+      }
+      return baseExecGh(args);
+    });
+    const execGit = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(calls.some((c) => c[0] === 'workflow' && c[1] === 'run')).toBe(true); // it did try
+    expect(state[PR_NUMBER].comments.some((c) => c.startsWith('replan-dispatched:'))).toBe(false); // but never marked as dispatched
+
+    dispatchShouldFail = false;
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    const dispatchCalls = calls.filter((c) => c[0] === 'workflow' && c[1] === 'run');
+    expect(dispatchCalls).toHaveLength(2); // the failed attempt, then the successful retry
+    expect(state[PR_NUMBER].comments.some((c) => c.startsWith('replan-dispatched: 2026-W38'))).toBe(true);
+  });
+});
