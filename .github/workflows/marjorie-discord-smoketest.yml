@@ -1,0 +1,28 @@
+name: marjorie-discord-smoketest
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoketest:
+    runs-on: ubuntu-latest
+    environment: ops
+    timeout-minutes: 5
+    steps:
+      # ref: main, not the triggering ref — this job holds the ops-scoped
+      # webhook secret, same defense-in-depth convention as
+      # routine-tree-weekly-plan.yml's send-brief job and tree-mail.yml: a
+      # secret-holding job must never execute code from a dispatch-
+      # controlled or agent-writable ref.
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Post a smoke-test message to #longlive-marjorie
+        run: |
+          echo "Marjorie Discord smoke test — $(date -u +%Y-%m-%dT%H:%M:%SZ)" > /tmp/smoketest-body.txt
+          node scripts/marjorie/post-or-mail.mjs --subject "Discord smoke test" --body-file /tmp/smoketest-body.txt --no-mail-fallback
+        env:
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
