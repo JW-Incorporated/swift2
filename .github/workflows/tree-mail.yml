@@ -81,6 +81,18 @@ jobs:
   tree-pr-mail:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.pr != ''
     runs-on: ubuntu-latest
+    # HIGH-1, third finding (Codex round 3): a checkout-step `ref: main`
+    # override is only file content on whatever ref actually got
+    # dispatched -- `gh workflow run tree-mail.yml --ref <attacker-branch>`
+    # runs that branch's own copy of this whole job, override included. This
+    # job holds GMAIL_APP_PASSWORD, so `environment: tree-mail` adds the
+    # server-side gate GitHub enforces before the job can even start,
+    # regardless of file content on any ref -- its deployment branch policy
+    # is restricted to `main` only (verified directly via `gh api
+    # repos/JW-Incorporated/swift2/environments/tree-mail` and its
+    # `deployment-branch-policies` sub-resource; it holds no secret of its
+    # own). The checkout `ref: main` below stays too -- defense in depth.
+    environment: tree-mail
     concurrency:
       group: tree-mail-pr-${{ github.event.inputs.pr }}
       cancel-in-progress: true
@@ -108,8 +120,13 @@ jobs:
           import json, os, re
           pr = json.loads(os.environ["PR_JSON"])
           body = pr.get("body") or "(no PR body)"
-          m = re.search(r"Discord brief: (https://discord\.com/channels/\S+)", body)
-          link = m.group(1) if m else None
+          # LOW (Codex round 3): mirrors routine-tree-weekly-plan.yml's own
+          # tail-1 fix for the identical marker convention -- the line is
+          # APPENDED each time send-brief runs, so the last one in the body
+          # is always the real, current one; re.search alone would take
+          # the first.
+          matches = re.findall(r"Discord brief: (https://discord\.com/channels/\S+)", body)
+          link = matches[-1] if matches else None
           copy_line = (
               "This is a copy. The live version, where you can react and reply, is in #longlive-social: " + link
               if link
@@ -144,6 +161,9 @@ jobs:
   founder-task-digest:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.pr == ''
     runs-on: ubuntu-latest
+    # HIGH-1, third finding (Codex round 3): same server-side gate as
+    # tree-pr-mail above — this job also holds GMAIL_APP_PASSWORD.
+    environment: tree-mail
     concurrency:
       group: tree-mail-digest
       cancel-in-progress: false

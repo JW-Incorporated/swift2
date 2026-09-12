@@ -85,6 +85,32 @@ jobs:
     if: always() && needs.run.result == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    # HIGH-1, third finding (Codex round 3): `ref: main` on the checkout
+    # step alone is enforced only by FILE CONTENT on whatever ref actually
+    # got dispatched -- `gh workflow run routine-tree-weekly-plan.yml --ref
+    # <attacker-branch>` runs THAT branch's entire workflow file
+    # definition, checkout step included, so an attacker controlling the
+    # dispatch ref controls the pin too. `environment: social-brief` is a
+    # server-side gate GitHub enforces before the job can even start,
+    # independent of any file content on any ref -- its deployment branch
+    # policy is restricted to `main` only (verified directly via `gh api
+    # repos/JW-Incorporated/swift2/environments/social-brief` and its
+    # `deployment-branch-policies` sub-resource before wiring this in; it
+    # holds no secret of its own). `ref: main` below stays too -- defense
+    # in depth, not a replacement.
+    environment: social-brief
+    # LOW (Codex round 3): mirrors tree-mail.yml's own existing concurrency
+    # group -- without this, two overlapping runs (a scheduled Monday fire
+    # racing a manual re-dispatch, say) could both find the same plan PR
+    # and double-post the whole brief. Keyed the same way tree-mail.yml
+    # keys tree-pr-mail: on `inputs.pr` when present (isolating one
+    # mode=replan dispatch's lane to just that PR) and empty otherwise,
+    # which correctly puts every normal mode=plan run (scheduled or a bare
+    # manual dispatch) into the SAME shared lane -- exactly the runs that
+    # could otherwise race to auto-discover and re-brief the same PR.
+    concurrency:
+      group: send-brief-${{ github.event.inputs.pr }}
+      cancel-in-progress: false
     permissions:
       contents: read
       pull-requests: write
@@ -227,7 +253,18 @@ jobs:
           PR_BODY: ${{ steps.find_pr.outputs.body }}
         run: |
           set -euo pipefail
-          PERMALINK=$(printf '%s' "$PR_BODY" | grep -oE 'Discord brief: https://discord\.com/channels/[0-9]+/[0-9]+/[0-9]+' | sed -E 's/^Discord brief: //' | head -1 || true)
+          # LOW (Codex round 3): `head -1` took the FIRST "Discord brief:"
+          # line in the PR body, which is attacker-influenceable content --
+          # nothing dedupes across runs, so a second mode=plan dispatch
+          # leaves two such lines, and this would link whichever came
+          # first (possibly an earlier or injected one). `tail -1` is both
+          # more correct (this line is APPENDED each run, so the true
+          # current one is always the last) and safer (our own most
+          # recently written line always wins over anything earlier in the
+          # body, injected or not). Reproduced pre-fix: a body with two
+          # "Discord brief:" lines resolved to the first, wrong one; tail
+          # -1 resolves to the real, most recent one.
+          PERMALINK=$(printf '%s' "$PR_BODY" | grep -oE 'Discord brief: https://discord\.com/channels/[0-9]+/[0-9]+/[0-9]+' | sed -E 's/^Discord brief: //' | tail -1 || true)
           if [ -z "$PERMALINK" ]; then
             echo "::warning::send-brief: no 'Discord brief:' permalink found in the plan PR body — cannot post the mid-week update, skipping."
             exit 0
