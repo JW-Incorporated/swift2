@@ -69,7 +69,7 @@ git worktree add "C:\Users\<you>\AppData\Local\Temp\claude-worktrees\<branch-nam
 
 | Charter | Agent | Status |
 |---|---|---|
-| [`marjorie.md`](marjorie.md) | Chief of staff + manager | Phase 1 — active |
+| [`marjorie.md`](marjorie.md) | Chief of staff + manager, and **site-ops manager** — the site runs and the user experience improves; she dispatches every fix (issues to the build desk, human actions for founders) and is accountable for the outcome. Never writes product code or content | **Active** — charter amended 2026-09-12 (epic #4180); everything she says lands in `#longlive-marjorie`, design in [`docs/specs/marjorie-overhaul/`](../specs/marjorie-overhaul/) |
 | [`austin.md`](austin.md) | Build desk autonomous lane | **Active** (2026-07-11, #494; G3 waived pending the Team-plan upgrade) |
 | [`nils.md`](nils.md) | The critic — walks the site daily, tickets what's unworthy | **Active** (2026-07-11, Joey directive) |
 | [`content-shift.md`](content-shift.md) | The standing writer — authors intake + experience + depth tickets | **Active** (2026-07-11, Joey directive) |
