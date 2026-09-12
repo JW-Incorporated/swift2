@@ -149,7 +149,15 @@ export function calibration({ ledgerRows = [], items = [] } = {}) {
   const itemsByFile = new Map(items.map((it) => [it.file, it]));
   const draftRows = ledgerRows.filter((row) => typeof row?.file === 'string' && row.file.startsWith('social/queue/'));
 
-  const byAction = { approve: [], edit: [], reject: [] };
+  // Round 6 review: a null prototype, not a plain `{}` — `row.action` is an
+  // untrusted ledger-row value used directly as a key, and the `in` check
+  // below walks the prototype chain, so `action: "constructor"` (a
+  // corrupted/hand-edited ledger line) passed `!(row.action in byAction)`
+  // and then crashed on `byAction[row.action].push(...)`, since
+  // `Object.prototype.constructor` isn't an array. The exact same shape as
+  // this round's PLATFORM_RULES/ACCOUNT_BY_PLATFORM fix, just via `in`
+  // instead of a bracket lookup with a falsy-check.
+  const byAction = Object.assign(Object.create(null), { approve: [], edit: [], reject: [] });
   for (const row of draftRows) {
     if (!(row.action in byAction)) continue;
     const total = critiqueTotalFor(row, itemsByFile);

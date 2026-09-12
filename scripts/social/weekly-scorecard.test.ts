@@ -159,6 +159,22 @@ describe('calibration (Tree Overhaul T2 — the Monday calibration)', () => {
     expect(c.verdict).toBe('insufficient');
   });
 
+  // Round 6 review: `byAction` was a plain `{}`, so `row.action in byAction`
+  // walks the prototype chain — `action: "constructor"` (a corrupted/
+  // hand-edited ledger line) passed the guard and then crashed on
+  // `byAction[row.action].push(...)`, the identical shape this round's
+  // PLATFORM_RULES/ACCOUNT_BY_PLATFORM fixes already closed elsewhere.
+  it('an Object.prototype property name as `action` does not crash — excluded, not treated as a real bucket', () => {
+    for (const evilAction of ['constructor', 'toString', 'valueOf', 'hasOwnProperty']) {
+      expect(() => calibration({ ledgerRows: [{ action: evilAction, file: 'social/queue/a.json', critiqueTotal: 20 }] })).not.toThrow();
+      const c = calibration({ ledgerRows: [{ action: evilAction, file: 'social/queue/a.json', critiqueTotal: 20 }] });
+      expect(c.approvedMean).toBeNull();
+      expect(c.editedMean).toBeNull();
+      expect(c.rejectedMean).toBeNull();
+      expect(c.n).toBe(0);
+    }
+  });
+
   // Codex round 1, MEDIUM 3 — reproduction: an approved item whose live
   // queue/posted file carries only `{ critique: { total: 999 } }` used to
   // override a CORRECT ledger critiqueTotal:20, and with 3 real rejects
