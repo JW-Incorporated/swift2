@@ -713,38 +713,6 @@ jobs:
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
-      # Vault Run scheduled-cadence check (2026-09-12, swift2#58). Replaces
-      # the one-off founder ask "confirm vault-run holds up under daily
-      # scheduling" with a standing, self-reporting watchdog: routine-vault-
-      # run.yml's scheduled runs failed four days straight (2026-09-06 →
-      # 2026-09-09) before a turn-budget fix landed 2026-09-10, and only one
-      # clean scheduled day (2026-09-11) had been observed as of filing. This
-      # step watches every future scheduled run instead of asking a human to
-      # keep re-checking. Logic lives in
-      # scripts/watchdog/routine-vault-run-check.mjs (unit-tested,
-      # deterministic, zero AI) — same shape as the Karen/news-worker checks
-      # above. Same daily-only gate as those: cadence questions don't need
-      # an hourly look.
-      - name: Vault Run scheduled-cadence check
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-        run: |
-          set -uo pipefail
-          ALERT_TITLE="Watchdog: routine-vault-run scheduled cadence"
-          if node --use-env-proxy scripts/watchdog/routine-vault-run-check.mjs \
-              --repo "$REPO" --alert-body /tmp/alert-body.md; then
-            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
-            echo "vault-run cadence OK"
-          else
-            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
-            echo "vault-run cadence ALARM"
-          fi
-
       # Work-ownership check (2026-08-11). Every other job in this file watches
       # whether a RUNNER is alive. None of them watch whether the WORK has an
       # owner, and that is the failure the 2026-08-11 audit actually found: on
@@ -783,6 +751,43 @@ jobs:
         if: "!cancelled()"
         with:
           node-version: '24'
+
+      # Vault Run scheduled-cadence check (2026-09-12, swift2#58). Replaces
+      # the one-off founder ask "confirm vault-run holds up under daily
+      # scheduling" with a standing, self-reporting watchdog: routine-vault-
+      # run.yml's scheduled runs failed four days straight (2026-09-06 →
+      # 2026-09-09) before a turn-budget fix landed 2026-09-10, and only one
+      # clean scheduled day (2026-09-11) had been observed as of filing. This
+      # step watches every future scheduled run instead of asking a human to
+      # keep re-checking. Logic lives in
+      # scripts/watchdog/routine-vault-run-check.mjs (unit-tested,
+      # deterministic, zero AI) — same shape as the Karen/news-worker checks
+      # below. Placed AFTER setup-node (Codex review, 2026-09-12): the
+      # invocation uses `node --use-env-proxy`, a Node 24+ flag (#2008) — an
+      # unrecognised flag on whatever Node a runner image happens to
+      # preinstall exits 9 with "bad option" before a line of the script
+      # runs, so this step, like the Karen/news-worker checks below, must
+      # come after Node is pinned. Same daily-only gate as those: cadence
+      # questions don't need an hourly look.
+      - name: Vault Run scheduled-cadence check
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: routine-vault-run scheduled cadence"
+          if node --use-env-proxy scripts/watchdog/routine-vault-run-check.mjs \
+              --repo "$REPO" --alert-body /tmp/alert-body.md; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "vault-run cadence OK"
+          else
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "vault-run cadence ALARM"
+          fi
 
       # docs/social/RULINGS-SOCIAL.md A6 — "a watchdog that reddens and emails when an
       # OPEN [BLOCKING] human action is older than 24h." Tonight's near-miss
