@@ -3,6 +3,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCampaignPair, checkSimultaneousPair, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkCritique, checkDraft } from './check-drafts.mjs';
+import { contentHash } from './lib/queue.mjs';
+import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 
 const VALID_CRITIQUE = {
   v: 1,
@@ -977,6 +979,29 @@ describe('checkCritique (Tree Overhaul T2 — spec AC#4)', () => {
 
   it('flags a missing critique entirely', () => {
     expect(checkCritique({}).some((f) => f.includes('critique'))).toBe(true);
+  });
+
+  // Real-CI regression (PR #4144): an item already carrying a valid, signed
+  // approval (any real content, no critique — exactly the four live
+  // 2026-09-12/13 social/queue/ items, which predate T2) is exempt from
+  // critique entirely — checkCritique shares findCritiqueIssues, so this is
+  // the same rule as queue-schema.test.ts's, re-verified at this gate too
+  // so the two can never drift on which items are exempt.
+  it('is exempt once the item already carries a valid, signed approval — even with no critique at all', () => {
+    const base = { platform: 'x', body: 'a real tweet', scheduledAt: '2026-08-12T23:00:00Z', media: ['/social/library/photos/a.jpg'], altText: ['alt'] };
+    const approved = {
+      ...base,
+      approval: {
+        v: 2,
+        by: SOCIAL_APPROVERS[0],
+        at: '2026-09-11T16:26:33.227Z',
+        pr: 4108,
+        message: '1',
+        contentHash: contentHash(base),
+        sig: `hmac-sha256:${'0'.repeat(64)}`,
+      },
+    };
+    expect(checkCritique(approved)).toEqual([]);
   });
 
   it('is wired into checkDraft alongside the other rule families', async () => {

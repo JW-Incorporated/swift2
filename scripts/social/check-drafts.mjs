@@ -733,7 +733,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
  * below-threshold draft would slip past one gate but not the other.
  */
 export function checkCritique(item) {
-  return findCritiqueIssues(item.critique);
+  return findCritiqueIssues(item);
 }
 
 export async function recentInstagramPosted(n = ERA_ART_LOOKBACK) {

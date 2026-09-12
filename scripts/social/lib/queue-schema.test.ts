@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES, LANES, findCritiqueIssues } from './queue-schema.mjs';
+import { contentHash } from './queue.mjs';
+import { SOCIAL_APPROVERS } from './approvers.mjs';
 
 const validCritique = {
   v: 1,
@@ -33,6 +35,31 @@ const validIg = {
   scheduledAt: '2026-08-12T23:00:00Z',
   critique: validCritique,
 };
+
+/** A validly-approved item shaped like the four real 2026-09-12/13
+ * social/queue/ items (v2, `SOCIAL_APPROVERS[0]`, no `critique` — they
+ * predate T2 entirely) — `contentHash` is real and matches, `sig` only
+ * needs the right shape since approvalStatus is called with no `key` here,
+ * same as validateQueueItem's own approval check. */
+function approvedItem(overrides: Record<string, unknown> = {}) {
+  const base: Record<string, unknown> = { ...validX };
+  delete base.critique;
+  const { approval: approvalOverride, ...restOverrides } = overrides as { approval?: Record<string, unknown> };
+  const item = { ...base, ...restOverrides };
+  return {
+    ...item,
+    approval: {
+      v: 2,
+      by: SOCIAL_APPROVERS[0],
+      at: '2026-09-11T16:26:33.227Z',
+      pr: 4108,
+      message: '1547824198238339083',
+      contentHash: contentHash(item),
+      sig: `hmac-sha256:${'0'.repeat(64)}`,
+      ...approvalOverride,
+    },
+  };
+}
 
 const findingFor = (item: unknown, needle: string | RegExp) =>
   validateQueueItem(item).find((f) => (typeof needle === 'string' ? f.includes(needle) : needle.test(f)));
@@ -85,6 +112,39 @@ describe('validateQueueItem', () => {
   describe('critique (Tree Overhaul T2, self-critique before queueing)', () => {
     it('rejects a missing critique', () => {
       expect(findingFor({ ...validX, critique: undefined }, 'critique')).toBeDefined();
+    });
+
+    // Real-CI regression (PR #4144, build-full on the four live 2026-09-12/13
+    // social/queue/ items, which predate T2 and already carry a founder-signed
+    // v2 approval): critique must not be retroactively required of content a
+    // founder already approved under an earlier rule. Grandfathering here is
+    // a DIFFERENT question from lib/queue.mjs's "a v1 stamp is malformed
+    // under v2" signature-strength rule (that one intentionally grandfathers
+    // nothing) — this one is about scope, not security.
+    describe('exempt once already validly approved (independent of critique)', () => {
+      it('an UNAPPROVED item with no critique still fails, exactly as before', () => {
+        const unapproved: Record<string, unknown> = { ...validX };
+        delete unapproved.critique;
+        expect(findingFor(unapproved, 'critique')).toBeDefined();
+      });
+
+      it('an APPROVED item with no critique now PASSES', () => {
+        expect(validateQueueItem(approvedItem())).toEqual([]);
+      });
+
+      it('an APPROVED item with a PRESENT BUT MALFORMED critique (score of 6) also PASSES — approval exempts critique entirely, valid or not', () => {
+        const malformed = { ...validCritique, scores: { ...validCritique.scores, onVoice: 6 } };
+        expect(validateQueueItem(approvedItem({ critique: malformed }))).toEqual([]);
+      });
+
+      it('findCritiqueIssues itself short-circuits on a valid approval, before ever looking at critique', () => {
+        expect(findCritiqueIssues(approvedItem({ critique: { garbage: true } }))).toEqual([]);
+      });
+
+      it('an item with a present-but-INVALID approval (unrecognized approver) is NOT exempt — still requires critique', () => {
+        const fakeApproval = approvedItem({ approval: { by: 'discord:99999999999999999' } });
+        expect(findingFor(fakeApproval, 'critique')).toBeDefined();
+      });
     });
 
     it('rejects a score of 0 or 6', () => {
@@ -151,8 +211,9 @@ describe('validateQueueItem', () => {
 
     it('validateQueueItem surfaces exactly findCritiqueIssues\' findings (shared, not a second implementation)', () => {
       const broken = { ...validCritique, scores: { ...validCritique.scores, notEmbarrassed: 2 } };
-      expect(findCritiqueIssues(broken).length).toBeGreaterThan(0);
-      expect(validateQueueItem({ ...validX, critique: broken })).toEqual(findCritiqueIssues(broken));
+      const item = { ...validX, critique: broken };
+      expect(findCritiqueIssues(item).length).toBeGreaterThan(0);
+      expect(validateQueueItem(item)).toEqual(findCritiqueIssues(item));
     });
   });
 

@@ -208,8 +208,33 @@ export const CRITIQUE_RATIONALE_MAX_CHARS = 320;
  * terminal-punctuation counter mis-splits the exact prose this field
  * contains ("22 Oct.", "vs.", "No. 1"), so the character cap is the only
  * enforcement (spec §Mechanics).
+ *
+ * EXEMPT entirely once the item already carries a valid, signed `approval`
+ * — checked the exact way validateQueueItem's own `approval` finding below
+ * already does, `approvalStatus(item, { approvers: SOCIAL_APPROVERS })` with
+ * no `key` (this module never holds SOCIAL_APPROVAL_KEY, so this is
+ * shape/id/hash only — a forged-but-well-formed signature is the poster's
+ * problem, not this gate's, same caveat as the approval check below). This
+ * is a DIFFERENT question from lib/queue.mjs's "a v1 stamp is malformed
+ * under v2 — nothing before that date grandfathers": that rule is about
+ * signature STRENGTH and deliberately grandfathers nothing; this one is
+ * about SCOPE — critique exists to force Tree to self-score BEFORE a human
+ * ever sees a draft, and a founder's own approval is already a later,
+ * stronger check than a rubric this gate would otherwise retroactively
+ * demand of content approved under an earlier rule (four real live queue
+ * items predate T2 entirely and can never have a real one — a v1-only
+ * stamp is not a live case here since S3's redesign re-stamps every
+ * still-live item to v2/v3). Once approved, critique is not checked at
+ * all here — present, absent, or malformed makes no difference: the
+ * founder's sign-off is the stronger gate this rule was always downstream
+ * of (see the PR body for why "ignore entirely" rather than "still
+ * validate a present-but-malformed one").
  */
-export function findCritiqueIssues(critique) {
+export function findCritiqueIssues(item) {
+  if (approvalStatus(item, { approvers: SOCIAL_APPROVERS }).ok) {
+    return [];
+  }
+  const critique = item?.critique;
   const findings = [];
   if (critique === null || typeof critique !== 'object' || Array.isArray(critique)) {
     return ['critique: required — every social/queue/ item carries a self-critique (Tree Overhaul T2).'];
@@ -291,7 +316,7 @@ export function validateQueueItem(item) {
   }
 
   // --- critique (Tree Overhaul T2, self-critique before queueing) --------
-  findings.push(...findCritiqueIssues(item.critique));
+  findings.push(...findCritiqueIssues(item));
 
   // --- body ---------------------------------------------------------------
   if (typeof item.body !== 'string' || item.body.trim() === '') {
