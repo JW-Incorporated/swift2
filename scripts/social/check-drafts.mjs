@@ -89,6 +89,7 @@ import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly 
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
 import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
 import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues } from './lib/queue-schema.mjs';
+import { parseLessons } from './lib/lessons.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
@@ -140,6 +141,20 @@ const VIDEO_THUMBNAIL_CREDIT_RE = /thumbnail|youtube|video/i;
 const PHOTO_LIBRARY = JSON.parse(readFileSync(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;
 const PHOTO_LIBRARY_BY_ID = new Map(PHOTO_LIBRARY.map((photo) => [photo.id, photo]));
 const PHOTO_LIBRARY_BY_PATH = new Map(PHOTO_LIBRARY.map((photo) => [photo.mediaPath, photo]));
+// Tree Overhaul T5 (round 2 review) — this is the PR-time gate, the one that
+// is supposed to stop a bad draft before a PR is ever opened, so it must read
+// the same active-rules ledger validate-queue.mjs's CI backstop does. Own,
+// independent read (mirrors PHOTO_LIBRARY above) rather than importing from
+// validate-queue.mjs — the two CLI scripts each load their own copy of
+// shared repo data, never each other's exports (see lib/queue-schema.mjs's
+// header on why the two gates stay independent code paths).
+const ACTIVE_LESSON_IDS = (() => {
+  try {
+    return parseLessons(readFileSync(path.join(ROOT, 'social', 'lessons.md'), 'utf8')).active.map((rule) => rule.id);
+  } catch {
+    return [];
+  }
+})();
 // Instagram rejects a feed image whose aspect ratio (width/height) falls
 // outside ~0.8 (4:5 portrait) to 1.91 (landscape) — API error_subcode
 // 2207009 / code 36003, "the aspect ratio is not supported". X has no such
@@ -731,9 +746,13 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
  * findCritiqueIssues rather than re-implementing the rubric numbers: two
  * independent ports would drift, and a drifted rubric is exactly how a
  * below-threshold draft would slip past one gate but not the other.
+ *
+ * `activeLessonIds` (Tree Overhaul T5, round 2 review) defaults to `[]` —
+ * callers that don't pass one (existing tests, an ad-hoc call) keep today's
+ * lenient behavior; `checkDraft` below always passes the real ledger.
  */
-export function checkCritique(item) {
-  return findCritiqueIssues(item);
+export function checkCritique(item, { activeLessonIds = [] } = {}) {
+  return findCritiqueIssues(item, { activeLessonIds });
 }
 
 export async function recentInstagramPosted(n = ERA_ART_LOOKBACK) {
@@ -785,7 +804,7 @@ async function resolveTargets(argv) {
   return { targetPaths: rawPaths.map((a) => (path.isAbsolute(a) ? a : path.resolve(ROOT, a))) };
 }
 
-export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg }) {
+export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg, activeLessonIds = [] }) {
   const schemaFindings = checkSchema(target.data);
   if (schemaFindings.length) return schemaFindings; // other rules assume a valid shape — don't risk a confusing crash/misfire
 
@@ -797,7 +816,7 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
     ...checkCrossPostCopy(target.file, target.data, allQueue),
     ...checkLength(target.data),
     ...(await checkMedia(target.file, target.data, recentIg, allQueue)),
-    ...checkCritique(target.data),
+    ...checkCritique(target.data, { activeLessonIds }),
   ];
 }
 
@@ -857,7 +876,7 @@ async function main() {
   let hadFindings = false;
   let hadWarnings = false;
   for (const target of targets) {
-    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg });
+    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg, activeLessonIds: ACTIVE_LESSON_IDS });
     // A warning (currently only checkLength's over-270-but-within-280 case)
     // is advisory: it prints, but never flips the exit code on its own — see
     // WARNING_PREFIX/isWarningFinding. Any non-warning finding is a hard

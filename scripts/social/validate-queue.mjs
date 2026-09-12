@@ -23,13 +23,31 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { validatePhotoInventoryBinding, validateQueueItem } from './lib/queue-schema.mjs';
 import { approvalStatus } from './lib/queue.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
+import { parseLessons } from './lib/lessons.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const photoLibrary = JSON.parse(await readFile(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;
 
+/** Reads `<root>/social/lessons.md` and returns its active rule ids —
+ * exported so a test can point it at a fixture ledger under a temp root
+ * without touching the real repo file (Tree Overhaul T5). A missing file
+ * (never expected once this PR lands, but cheap to guard) reads as "no
+ * active rules" rather than failing CI. */
+export async function readActiveLessonIds(root = ROOT) {
+  let markdown;
+  try {
+    markdown = await readFile(path.join(root, 'social', 'lessons.md'), 'utf8');
+  } catch {
+    return [];
+  }
+  return parseLessons(markdown).active.map((rule) => rule.id);
+}
+
 /** Validates every *.json in `dir`. `failures` are hard CI failures;
- * `warnings` (unstamped drafts — see below) never are. */
-export async function validateDir(dir) {
+ * `warnings` (unstamped drafts — see below) never are. `activeLessonIds`
+ * (Tree Overhaul T5) defaults to `[]`, preserving pre-T5 behavior when a
+ * caller (a test, say) does not pass one. */
+export async function validateDir(dir, activeLessonIds = []) {
   let files;
   try {
     files = (await readdir(dir)).filter((f) => f.endsWith('.json'));
@@ -49,7 +67,7 @@ export async function validateDir(dir) {
       failures.push({ file, findings: [`unparseable JSON: ${err.message ?? err}`] });
       continue;
     }
-    const findings = [...validateQueueItem(data), ...validatePhotoInventoryBinding(data, photoLibrary)];
+    const findings = [...validateQueueItem(data, { activeLessonIds }), ...validatePhotoInventoryBinding(data, photoLibrary)];
     if (findings.length) failures.push({ file, findings });
     // docs/social/RULINGS-SOCIAL.md A6 ("validate-queue prints unstamped drafts as
     // warnings") — every draft legitimately arrives with no `approval` at
@@ -66,12 +84,13 @@ export async function validateDir(dir) {
 async function main() {
   const dirs = process.argv.slice(2).map((d) => (path.isAbsolute(d) ? d : path.resolve(ROOT, d)));
   if (!dirs.length) dirs.push(path.join(ROOT, 'social', 'queue'));
+  const activeLessonIds = await readActiveLessonIds();
 
   let checked = 0;
   let failed = 0;
   let unstamped = 0;
   for (const dir of dirs) {
-    const result = await validateDir(dir);
+    const result = await validateDir(dir, activeLessonIds);
     checked += result.checked;
     failed += result.failures.length;
     unstamped += result.warnings.length;

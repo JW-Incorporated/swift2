@@ -61,8 +61,8 @@ function approvedItem(overrides: Record<string, unknown> = {}) {
   };
 }
 
-const findingFor = (item: unknown, needle: string | RegExp) =>
-  validateQueueItem(item).find((f) => (typeof needle === 'string' ? f.includes(needle) : needle.test(f)));
+const findingFor = (item: unknown, needle: string | RegExp, options?: { activeLessonIds?: string[] }) =>
+  validateQueueItem(item, options).find((f) => (typeof needle === 'string' ? f.includes(needle) : needle.test(f)));
 
 const library = [
   {
@@ -270,6 +270,16 @@ describe('validateQueueItem', () => {
       expect(findingFor({ ...validX, critique: { ...validCritique, rulesChecked: undefined } }, 'critique.rulesChecked')).toBeDefined();
       expect(findingFor({ ...validX, critique: { ...validCritique, rulesChecked: [1] } }, 'critique.rulesChecked')).toBeDefined();
       expect(validateQueueItem({ ...validX, critique: { ...validCritique, rulesChecked: [] } })).toEqual([]);
+    });
+
+    // Tree Overhaul T5 (spec AC#3) — activeLessonIds is opt-in via the
+    // second param; omitting it entirely preserves the pre-T5 behavior
+    // above (empty rulesChecked always accepted).
+    it('rejects empty rulesChecked when the fixture ledger has an active rule, accepts it when the ledger has none', () => {
+      const item = { ...validX, critique: { ...validCritique, rulesChecked: [] } };
+      expect(findingFor(item, 'critique.rulesChecked: must be non-empty', { activeLessonIds: ['L001'] })).toBeDefined();
+      expect(validateQueueItem(item, { activeLessonIds: [] })).toEqual([]);
+      expect(validateQueueItem({ ...validX, critique: { ...validCritique, rulesChecked: ['L001'] } }, { activeLessonIds: ['L001'] })).toEqual([]);
     });
 
     it('rejects a revision outside 1 or 2, and a v other than 1', () => {

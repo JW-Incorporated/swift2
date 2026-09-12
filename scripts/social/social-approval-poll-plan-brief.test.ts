@@ -258,6 +258,57 @@ describe('AC#3b — the binding regression', () => {
   });
 });
 
+// Tree Overhaul T5 (docs/specs/tree-overhaul/t5-lessons-ledger.md, PLAN step
+// 8; hardened in round 2 review). allRefs.filter(PLAN_SCOPE_RE) /
+// allRefs.filter(!PLAN_SCOPE_RE) partition every ref before either dispatch
+// branch runs, but round 2 review traced the merge phase itself and found
+// the "never merges" property was EMERGENT, not structural: it held only
+// because a real plan PR's `gh pr view --json files` list happens to be
+// empty (Tree's own posting discipline never touches social/queue/ from its
+// plan PR), not because any code tied "this PR carries planRefs" to "skip
+// the merge phase". listPrQueueFiles now returns `[]` outright whenever
+// planRefs is non-empty, regardless of what GitHub's file list would say —
+// the first test below proves the OLD emergent case still holds; the second
+// proves the NEW explicit invariant, by seeding the exact counter-example
+// (a plan PR whose real file list improbably includes a queue path) that
+// would have merged under the old, convention-only behavior.
+describe('a plan-scope PR is never auto-merged (regression guard)', () => {
+  it('a PR carrying only brief/proposal:n refs is processed for its ledger rows but never reaches `gh pr merge`', async () => {
+    const messages = [refMessage({ id: BRIEF_MESSAGE_ID, scope: 'brief' }), refMessage({ id: PROPOSAL_MESSAGE_ID, scope: 'proposal:1' })];
+    const { impl: fetchImpl } = makeFetchImpl(messages, {
+      [BRIEF_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+      [PROPOSAL_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+    });
+    const { impl: execGh, calls } = makeExecGh({ [PR_NUMBER]: {} });
+    const execGit = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    // the plan-brief dispatch still ran normally...
+    const rows = readAllLedgerRows();
+    expect(rows).toContainEqual(expect.objectContaining({ pr: PR_NUMBER, file: 'brief', action: 'approve' }));
+    expect(rows).toContainEqual(expect.objectContaining({ pr: PR_NUMBER, file: 'proposal:1', action: 'approve' }));
+    // ...but nothing ever merged this (or any) PR.
+    expect(calls.some((args) => args[0] === 'pr' && args[1] === 'merge')).toBe(false);
+  });
+
+  it('never even asks GitHub for the file list on a plan-scope PR, even one GitHub would say touches social/queue/', async () => {
+    const messages = [refMessage({ id: BRIEF_MESSAGE_ID, scope: 'brief' })];
+    const { impl: fetchImpl } = makeFetchImpl(messages, { [BRIEF_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    // The counter-example round 2 review named: GitHub's own file list for
+    // this "plan" PR improbably includes a queue path — the case the OLD
+    // code had no explicit defense against, only the accident that Tree
+    // never actually produces it.
+    const { impl: execGh, calls } = makeExecGh({ [PR_NUMBER]: { files: [{ path: 'social/queue/2026-09-20-example-x.json' }] } });
+    const execGit = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(calls.some((args) => args[0] === 'pr' && args[1] === 'merge')).toBe(false);
+    expect(calls.some((args) => args[0] === 'pr' && args[1] === 'view' && args.includes('files'))).toBe(false);
+  });
+});
+
 describe('thread-reply ingestion (AC#4, AC#5)', () => {
   it('AC#4: a thread reply from an approver appears as a plan-PR comment quoting it verbatim, carrying discord-reply:<id>; a second run posts no duplicate', async () => {
     const threadId = '400000000000000001';
