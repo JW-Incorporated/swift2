@@ -5,6 +5,7 @@
 // S6 and T4") so a later reddit/proposal `kind` plugs in without a rewrite.
 // Everything worth a unit test lives here rather than in the poll script,
 // per the precedent in lib/queue.mjs's own header comment.
+import path from 'node:path';
 import { neutralizeMentions } from '../../community/discord-delivery.mjs';
 import { SOCIAL_APPROVERS } from './approvers.mjs';
 
@@ -59,6 +60,18 @@ function cleanReplyText(content) {
   const trimmed = String(content ?? '').trim();
   const neutralized = neutralizeMentions(trimmed);
   return neutralized.length > REASON_MAX_LENGTH ? neutralized.slice(0, REASON_MAX_LENGTH) : neutralized;
+}
+
+/** DEBUG.md round-2 finding 6: the 2000-char cap is spec'd for `reason`
+ * (spec §Data-1 field rules) only — it is NOT a caption-length rule, and
+ * applying it to `editedBody` (the actual replacement caption an ✏️ writes
+ * into `body`) silently truncated any founder reply between 2001 and 2200
+ * characters, which Instagram permits. `editedBody` gets the same
+ * trim+neutralize treatment with no arbitrary cap; `checkDraft`'s existing
+ * per-platform length check (run on the edited item before it is ever
+ * stamped) is the real validation for caption length. */
+function cleanEditedBody(content) {
+  return neutralizeMentions(String(content ?? '').trim());
 }
 
 function filterApprovers(ids) {
@@ -131,8 +144,9 @@ export function classifyReaction(reactions = {}, replies = [], { kind = 'draft' 
 
   if (editedBy.length > 0) {
     if (qualifyingReply) {
-      const text = cleanReplyText(qualifyingReply.content);
-      return { action: 'edit', reason: text, editedBody: text, approver: qualifyingReply.authorId, replyId: qualifyingReply.id };
+      const reason = cleanReplyText(qualifyingReply.content);
+      const editedBody = cleanEditedBody(qualifyingReply.content);
+      return { action: 'edit', reason, editedBody, approver: qualifyingReply.authorId, replyId: qualifyingReply.id };
     }
     // ✏️ with no reply yet: ✅ also present -> the founder's approval still
     // stands (spec: "treat as ✏️ if a qualifying reply exists, else ✅").
@@ -147,6 +161,29 @@ export function classifyReaction(reactions = {}, replies = [], { kind = 'draft' 
   }
 
   return { action: 'none', reason: null, editedBody: null, approver: null, replyId: null };
+}
+
+/**
+ * DEBUG.md debug-ladder redesign (PR #4139 round 2, findings 1+2): resolves
+ * the ONE message that identifies a queue file across runs, given every
+ * `{ message, sha, file }` ref this PR's brief carries (header `*` and any
+ * per-file refs — current or stale alike; freshness/safety is a SEPARATE
+ * concern the caller judges elsewhere, this function only answers "which
+ * message is this file's own"). A file's own per-file brief message, when
+ * the PR has one, is its permanent identity — never the header — so a
+ * header-driven approval that writes THIS resolution's result into
+ * `approval.message` can never orphan a later reaction placed on the file's
+ * own message (the mechanism both round-1 and round-2 review found gaps in:
+ * two conflated axes, "which message governs a file" and "what diff is safe
+ * to honour", collapsed onto one shared id). Only a file with no per-file
+ * message of its own this run (never posted, or reachable solely through
+ * the header's ✅ file-list expansion) falls back to the header.
+ */
+export function resolveGoverningRef(file, refs) {
+  const target = path.basename(file);
+  const ownRef = (refs ?? []).find((r) => r.file !== '*' && path.basename(r.file) === target);
+  if (ownRef) return ownRef;
+  return (refs ?? []).find((r) => r.file === '*') ?? null;
 }
 
 function dedupeKey(row) {

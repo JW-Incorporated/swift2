@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { appendRows, classifyReaction, isoWeek, pillarOf, PENCIL_UNSUPPORTED_ON_HEADER } from './feedback.mjs';
+import { appendRows, classifyReaction, isoWeek, pillarOf, PENCIL_UNSUPPORTED_ON_HEADER, resolveGoverningRef } from './feedback.mjs';
 import { SOCIAL_APPROVERS } from './approvers.mjs';
 
 const APPROVER = SOCIAL_APPROVERS[0];
@@ -59,6 +59,15 @@ describe('classifyReaction', () => {
     expect(result.reason).toBe('On 22 Oct 2012, Taylor...');
     expect(result.approver).toBe(APPROVER);
     expect(result.replyId).toBe('reply-1');
+  });
+
+  it('DEBUG.md round-2 finding 6: an edit reply between 2001-2200 chars is NOT truncated in editedBody, but reason still caps at 2000', () => {
+    const longReply = 'x'.repeat(2200);
+    const result = classifyReaction({ editedBy: [APPROVER] }, [reply({ content: longReply })]);
+    expect(result.action).toBe('edit');
+    expect(result.editedBody).toHaveLength(2200);
+    expect(result.editedBody).toBe(longReply);
+    expect(result.reason).toHaveLength(2000);
   });
 
   it('✏️ alone (no reply) -> pending', () => {
@@ -183,5 +192,42 @@ describe('appendRows', () => {
     const rejectRow = row({ action: 'reject' });
     const appended = appendRows([JSON.stringify(approveRow)], [rejectRow]);
     expect(appended).toEqual([rejectRow]);
+  });
+});
+
+describe('resolveGoverningRef', () => {
+  function fileRef(file: string, id: string) {
+    return { message: { id }, sha: 'a'.repeat(40), file };
+  }
+
+  it('a file with its own per-file ref resolves to that ref, not the header', () => {
+    const refs = [fileRef('*', 'header-msg'), fileRef('social/queue/foo.json', 'foo-msg')];
+    expect(resolveGoverningRef('social/queue/foo.json', refs)).toEqual(fileRef('social/queue/foo.json', 'foo-msg'));
+  });
+
+  it('DEBUG.md round-2 finding 2: still resolves to the file\'s own ref even when the file was already stamped via the header (never falls back to the header for a file that has its own brief)', () => {
+    // The scenario finding 2 reproduced: approval.message on disk names the
+    // HEADER's id (a past header-driven stamp), but the file's own per-file
+    // brief message still exists among this run's refs — resolution must
+    // still prefer it, which is what lets a later reaction on the file's
+    // OWN message keep being read on subsequent runs once the stamp path
+    // uses this resolution instead of the reacted-on message's id.
+    const refs = [fileRef('*', 'header-msg'), fileRef('social/queue/foo.json', 'foo-own-msg')];
+    const resolved = resolveGoverningRef('foo.json', refs);
+    expect(resolved?.message.id).toBe('foo-own-msg');
+  });
+
+  it('falls back to the header when the file has no per-file ref of its own', () => {
+    const refs = [fileRef('*', 'header-msg')];
+    expect(resolveGoverningRef('social/queue/foo.json', refs)?.message.id).toBe('header-msg');
+  });
+
+  it('returns null when neither a per-file ref nor a header ref exists', () => {
+    expect(resolveGoverningRef('social/queue/foo.json', [])).toBeNull();
+  });
+
+  it('matches by basename, tolerating a full relPath vs. a bare filename on either side', () => {
+    const refs = [fileRef('foo.json', 'foo-own-msg')];
+    expect(resolveGoverningRef('social/queue/foo.json', refs)?.message.id).toBe('foo-own-msg');
   });
 });

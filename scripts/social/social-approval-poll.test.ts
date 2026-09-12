@@ -537,21 +537,32 @@ describe('S3 reason protocol', () => {
       diffPaths,
       revParseHead = HEAD_SHA,
       staleItem = { platform: 'x', body: 'hello world', scheduledAt: '2026-09-20T00:00:00Z' },
-      log = [] as Array<{ author: string; subject: string }>,
+      log = [] as Array<{ author: string; subject: string; authorDate?: string }>,
+      ledgerRows = [] as Array<Record<string, unknown>>,
     }: {
       diffPaths: string[];
       revParseHead?: string;
       staleItem?: unknown;
-      log?: Array<{ author: string; subject: string }>;
+      log?: Array<{ author: string; subject: string; authorDate?: string }>;
+      ledgerRows?: Array<Record<string, unknown>>;
     }) {
       const calls: string[][] = [];
       const headContent = JSON.stringify(honouredStampedItem());
       const staleContent = JSON.stringify(staleItem);
+      const DEFAULT_LOG_DATE = '2026-09-19T00:00:00Z';
+      const ledgerWeek = isoWeek(new Date(log[0]?.authorDate ?? DEFAULT_LOG_DATE));
+      const ledgerPath = `origin/social-ledger:social/feedback/${ledgerWeek}.jsonl`;
+      const ledgerContent = ledgerRows.map((r) => JSON.stringify(r)).join('\n') + (ledgerRows.length ? '\n' : '');
       const impl = vi.fn((args: string[]) => {
         calls.push(args);
         if (args[0] === 'rev-parse' && args[1] === 'HEAD') return revParseHead;
         if (args[0] === 'fetch') return '';
         if (args[0] === 'show') {
+          if (args[1] === ledgerPath) {
+            if (ledgerRows.length === 0) throw new Error(`no ledger fixture for ${args[1]}`);
+            return ledgerContent;
+          }
+          if (args[1].startsWith('origin/social-ledger:social/feedback/')) throw new Error(`no ledger fixture for ${args[1]}`);
           const [sha, ...pathParts] = args[1].split(':');
           const filePath = pathParts.join(':');
           if (filePath !== path.posix.join('social', 'queue', QUEUE_FILE)) throw new Error(`unexpected git show path: ${args[1]}`);
@@ -560,7 +571,7 @@ describe('S3 reason protocol', () => {
           throw new Error(`unexpected git show sha: ${args[1]}`);
         }
         if (args[0] === 'diff' && args[1] === '--name-only') return diffPaths.join('\n');
-        if (args[0] === 'log') return log.map((c) => `${c.author}\t${c.subject}`).join('\n');
+        if (args[0] === 'log') return log.map((c) => `${c.author}\t${c.authorDate ?? DEFAULT_LOG_DATE}\t${c.subject}`).join('\n');
         return '';
       });
       return { impl, calls };
@@ -644,6 +655,48 @@ describe('S3 reason protocol', () => {
       expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
     });
 
+    it('finding 1 (round 2): a stale-but-unconditionally-honoured header must not let a sibling file with independently-unsafe drift merge', async () => {
+      // The header's own unconditional honouring (finding 4a) exists so a
+      // stale header's REACTIONS stay readable — it must never, by itself,
+      // certify a DIFFERENT file's drifted content safe to ship. Reproduces
+      // DEBUG.md's exact case: "changing only `why`/an unhashed field after
+      // header approval still merges" when a header ref happens to also be
+      // in play on the same PR.
+      await writeFile(path.join(root, 'social', 'queue', QUEUE_FILE), JSON.stringify(honouredStampedItem(), null, 2) + '\n');
+      const { impl: baseImpl } = makeFetchImplByMessage([staleBriefMessage(), staleHeaderMessage()], {
+        [MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+        [HEADER_MESSAGE_ID]: {},
+      });
+      const { impl: fetchImpl } = withPostCapture(baseImpl);
+      const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+      const staleItemWithMediaCredit = { platform: 'x', body: 'hello world', scheduledAt: '2026-09-20T00:00:00Z', mediaCredit: 'a different credit' };
+      const { impl: execGit } = makeExecGitForHonouring({ diffPaths: [path.posix.join('social', 'queue', QUEUE_FILE)], staleItem: staleItemWithMediaCredit });
+
+      await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+      expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
+    });
+
+    it('finding 1 (round 2, no regression): a FRESH header ✅ against the current head still stamps/merges despite an old, unrelated per-file drift flag', async () => {
+      // The safety gate above must not overcorrect into stranding a
+      // genuinely fresh, current-head approval just because some OTHER
+      // stale per-file ref on the same PR independently failed its own
+      // (unrelated) honouring check — a fresh mint validates against
+      // CURRENT disk content and is not the case findings 1/8b are about.
+      await writeFile(path.join(root, 'social', 'queue', QUEUE_FILE), JSON.stringify({ platform: 'x', body: 'hello world', scheduledAt: '2026-09-20T00:00:00Z' }, null, 2) + '\n');
+      const { impl: baseImpl } = makeFetchImplByMessage([staleBriefMessage(), headerMessage()], {
+        [MESSAGE_ID]: {},
+        [HEADER_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+      });
+      const { impl: fetchImpl } = withPostCapture(baseImpl);
+      const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+      const { impl: execGit } = makeExecGitForHonouring({ diffPaths: [path.posix.join('social', 'queue', QUEUE_FILE)] });
+
+      await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+      expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(true);
+    });
+
     it('finding 9: a legitimately-rejected sibling file\'s deletion does not strand honouring the rest of the diff', async () => {
       await writeFile(path.join(root, 'social', 'queue', QUEUE_FILE), JSON.stringify(honouredStampedItem(), null, 2) + '\n');
       const REJECTED_FILE = 'social/queue/2026-09-19-rejected-sibling.json';
@@ -653,11 +706,36 @@ describe('S3 reason protocol', () => {
       const { impl: execGit } = makeExecGitForHonouring({
         diffPaths: [path.posix.join('social', 'queue', QUEUE_FILE), REJECTED_FILE],
         log: [{ author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>', subject: `social-approval: reject ${REJECTED_FILE} (founder ❌ in Discord)` }],
+        // DEBUG.md round-2 finding 4: the shape match alone (author+message)
+        // is no longer sufficient — a corroborating ledger row is required.
+        // In reality the SAME earlier run that made this reject commit also
+        // durably recorded this row via pushLedgerRows before this run ever
+        // evaluates the commit's authorization.
+        ledgerRows: [{ pr: PR_NUMBER, file: REJECTED_FILE, action: 'reject' }],
       });
 
       await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
 
       expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(true);
+    });
+
+    it('finding 4 (round 2): a deletion matching the poll\'s own commit SHAPE but with NO corroborating ledger row still strands honouring (shape alone is forgeable)', async () => {
+      await writeFile(path.join(root, 'social', 'queue', QUEUE_FILE), JSON.stringify(honouredStampedItem(), null, 2) + '\n');
+      const REJECTED_FILE = 'social/queue/2026-09-19-rejected-sibling.json';
+      const { impl: baseImpl } = makeFetchImplByMessage([staleBriefMessage()], { [MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+      const { impl: fetchImpl } = withPostCapture(baseImpl);
+      const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+      const { impl: execGit } = makeExecGitForHonouring({
+        diffPaths: [path.posix.join('social', 'queue', QUEUE_FILE), REJECTED_FILE],
+        log: [{ author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>', subject: `social-approval: reject ${REJECTED_FILE} (founder ❌ in Discord)` }],
+        // No ledgerRows fixture — nothing on social-ledger corroborates this
+        // commit, exactly what an attacker with mere branch-write access
+        // (but not social-ledger push access) would be stuck with.
+      });
+
+      await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+      expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
     });
 
     it('finding 9 (negative): a deletion NOT matching the poll\'s own verifiable commit shape still strands honouring', async () => {
@@ -777,6 +855,31 @@ describe('S3 reason protocol', () => {
     expect(itemB.approval.by).toBe(OTHER_APPROVER);
     expect(approvalStatus(itemA, { approvers: SOCIAL_APPROVERS, key: TEST_KEY }).ok).toBe(true);
     expect(approvalStatus(itemB, { approvers: SOCIAL_APPROVERS, key: TEST_KEY }).ok).toBe(true);
+  });
+
+  it('finding 2 (round 2): a header-driven ✅ records the FILE\'S OWN per-file message in approval.message, never the header\'s', async () => {
+    // DEBUG.md's exact mechanism: a header-driven stamp used to write the
+    // HEADER's message id into approval.message, permanently orphaning the
+    // draft's own brief message (partitionCurrentHonoured's per-file check
+    // requires headItem.approval.message === ref.message.id) — a LATER ❌
+    // placed on that one draft's own message would then never be read
+    // again on any future run. Asserting the attribution directly here
+    // pins the fix at its root; AC8c already proves the downstream read
+    // works correctly once approval.message names the file's own ref.
+    const { impl: baseImpl } = makeFetchImplByMessage([briefMessage(), headerMessage()], {
+      [MESSAGE_ID]: {}, // the draft's own message: no reaction of its own this run
+      [HEADER_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] }, // approved via the header only
+    });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+    const { impl: execGit } = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    const item = await readQueueItem();
+    expect(item.approval.message).toBe(MESSAGE_ID);
+    expect(item.approval.message).not.toBe(HEADER_MESSAGE_ID);
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(true);
   });
 
   it('finding 3a: a header ✅ does not stamp a file that has its own pending (no-reply) ✏️', async () => {
@@ -905,5 +1008,94 @@ describe('S3 reason protocol', () => {
     const item = await readQueueItem();
     expect(item.edit).toEqual(editObj); // fromBody/at/message not corrupted by a re-application
     expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(true); // the merge phase still retries independently
+  });
+
+  it('finding 5a (round 2): a reject\'s ledger row survives a comment-post failure (queued before the risky call, not after)', async () => {
+    const { impl: baseImpl } = makeFetchImplByMessage([briefMessage(), replyMessage({ id: 'reply-1', parentId: MESSAGE_ID, content: 'too salesy' })], {
+      [MESSAGE_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+    });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const execGh = vi.fn((args: string[]) => {
+      if (args[0] === 'pr' && args[1] === 'view' && args.includes('headRefOid,headRefName,state,number')) {
+        return JSON.stringify({ headRefOid: HEAD_SHA, headRefName: 'feature/x', state: 'OPEN', number: PR_NUMBER });
+      }
+      if (args[0] === 'pr' && args[1] === 'view' && args.includes('files')) {
+        return JSON.stringify({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+      }
+      if (args[0] === 'pr' && args[1] === 'comment') {
+        throw new Error('simulated GitHub API failure posting the reject comment');
+      }
+      return '';
+    });
+    const { impl: execGit, calls: gitCalls } = makeExecGit();
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    void errorSpy;
+
+    await expect(run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) })).rejects.toThrow('simulated GitHub API failure posting the reject comment');
+
+    expect(gitCalls.some((c) => c[0] === 'rm')).toBe(true); // the deletion itself already landed
+    const rows = await readLedgerLines();
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ action: 'reject', reason: 'too salesy' });
+  });
+
+  it('finding 5b (round 2): an already-MERGED PR whose ledger push failed earlier self-heals its lost approve row from the file\'s own signed approval', async () => {
+    const REJECT_STALE_SHA = 'b'.repeat(40);
+    const staleBrief = { id: MESSAGE_ID, webhook_id: '999999999999999999', content: `Draft 1 · X\nref: PR #${PR_NUMBER} · ${REJECT_STALE_SHA} · social/queue/${QUEUE_FILE}` };
+    const base = { platform: 'x', body: 'hello world', scheduledAt: '2026-09-20T00:00:00Z' };
+    const approvalWithoutSig = { v: 2, by: APPROVER, at: '2026-09-10T00:00:00Z', pr: PR_NUMBER, message: MESSAGE_ID, contentHash: contentHash(base) };
+    const alreadyStamped = { ...base, approval: { ...approvalWithoutSig, sig: signApproval(approvalWithoutSig, TEST_KEY) } };
+    await writeFile(path.join(root, 'social', 'queue', QUEUE_FILE), JSON.stringify(alreadyStamped, null, 2) + '\n');
+
+    const { impl: baseImpl } = makeFetchImplByMessage([staleBrief], { [MESSAGE_ID]: {} });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const execGh = vi.fn((args: string[]) => {
+      if (args[0] === 'pr' && args[1] === 'view' && args.includes('headRefOid,headRefName,state,number')) {
+        return JSON.stringify({ headRefOid: HEAD_SHA, headRefName: 'feature/x', state: 'MERGED', number: PR_NUMBER });
+      }
+      return '';
+    });
+    const execGit = vi.fn((args: string[]) => {
+      if (args[0] === 'rev-parse' && args[1] === 'HEAD') return HEAD_SHA;
+      if (args[0] === 'fetch') return '';
+      if (args[0] === 'show' && args[1] === `${HEAD_SHA}:social/queue/${QUEUE_FILE}`) return JSON.stringify(alreadyStamped);
+      if (args[0] === 'diff' && args[1] === '--name-only') return '';
+      return '';
+    });
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    const rows = await readLedgerLines();
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ pr: PR_NUMBER, file: `social/queue/${QUEUE_FILE}`, action: 'approve', approver: APPROVER, messageId: MESSAGE_ID, reason: null });
+  });
+
+  it('finding 5b (round 2, negative): a CLOSED-without-merge PR does NOT get a synthesized approve row for an individually-stamped file', async () => {
+    const REJECT_STALE_SHA = 'b'.repeat(40);
+    const staleBrief = { id: MESSAGE_ID, webhook_id: '999999999999999999', content: `Draft 1 · X\nref: PR #${PR_NUMBER} · ${REJECT_STALE_SHA} · social/queue/${QUEUE_FILE}` };
+    const base = { platform: 'x', body: 'hello world', scheduledAt: '2026-09-20T00:00:00Z' };
+    const approvalWithoutSig = { v: 2, by: APPROVER, at: '2026-09-10T00:00:00Z', pr: PR_NUMBER, message: MESSAGE_ID, contentHash: contentHash(base) };
+    const alreadyStamped = { ...base, approval: { ...approvalWithoutSig, sig: signApproval(approvalWithoutSig, TEST_KEY) } };
+    await writeFile(path.join(root, 'social', 'queue', QUEUE_FILE), JSON.stringify(alreadyStamped, null, 2) + '\n');
+
+    const { impl: baseImpl } = makeFetchImplByMessage([staleBrief], { [MESSAGE_ID]: {} });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const execGh = vi.fn((args: string[]) => {
+      if (args[0] === 'pr' && args[1] === 'view' && args.includes('headRefOid,headRefName,state,number')) {
+        return JSON.stringify({ headRefOid: HEAD_SHA, headRefName: 'feature/x', state: 'CLOSED', number: PR_NUMBER });
+      }
+      return '';
+    });
+    const execGit = vi.fn((args: string[]) => {
+      if (args[0] === 'rev-parse' && args[1] === 'HEAD') return HEAD_SHA;
+      if (args[0] === 'fetch') return '';
+      if (args[0] === 'show' && args[1] === `${HEAD_SHA}:social/queue/${QUEUE_FILE}`) return JSON.stringify(alreadyStamped);
+      if (args[0] === 'diff' && args[1] === '--name-only') return '';
+      return '';
+    });
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(await readLedgerLines()).toHaveLength(0);
   });
 });

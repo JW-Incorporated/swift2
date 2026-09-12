@@ -47,7 +47,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
-import { appendRows, classifyReaction, isoWeek, pillarOf, PENCIL_UNSUPPORTED_ON_HEADER } from './lib/feedback.mjs';
+import { appendRows, classifyReaction, isoWeek, pillarOf, PENCIL_UNSUPPORTED_ON_HEADER, resolveGoverningRef } from './lib/feedback.mjs';
 import { approvalStatus, contentHash } from './lib/queue.mjs';
 import { stampFiles } from './stamp-approval.mjs';
 import { checkDraft, isWarningFinding, POSTED_DIR, QUEUE_DIR, readJsonDir, recentInstagramPosted, recentPostedOpeners } from './check-drafts.mjs';
@@ -295,19 +295,71 @@ const POLL_COMMIT_AUTHOR = 'github-actions[bot] <github-actions[bot]@users.norep
  * loop below writes for that same path — anything else (more than one
  * commit touching it, a different author, a different message) is refused,
  * not assumed safe.
+ *
+ * #4139 round-2 finding 4: author name/email and commit-message text are
+ * both attacker-settable by anyone with push access to the PR branch — on
+ * their own they are not an authentication signal, just a shape check. The
+ * commit is additionally required to be corroborated by a matching
+ * `action: "reject"` row already durably recorded on `social-ledger`
+ * (`pr`, `file` = this exact path) — a branch this same commit's author
+ * could NOT also have written to (it is pushed only by this script, from
+ * the `social` environment's own credentials), so forging the shape above
+ * without ALSO having forged a ledger row raises the bar to the same trust
+ * boundary the rest of this mechanism already relies on (SOCIAL_APPROVAL_KEY,
+ * social-ledger). A missing/unreadable ledger fails closed, same as every
+ * other check here.
  */
-function isPollAuthorizedDeletion(execGit, staleSha, headSha, changedPath) {
+function isPollAuthorizedDeletion(execGit, staleSha, headSha, changedPath, pr) {
   let log;
   try {
-    log = execGit(['log', `${staleSha}..${headSha}`, '--format=%an <%ae>%x09%s', '--', changedPath]);
+    log = execGit(['log', `${staleSha}..${headSha}`, '--format=%an <%ae>%x09%aI%x09%s', '--', changedPath]);
   } catch {
     return false;
   }
   const commits = log.split('\n').filter((line) => line.trim() !== '');
   if (commits.length !== 1) return false;
-  const [author, subject] = commits[0].split('\t');
+  const [author, authorDate, subject] = commits[0].split('\t');
   if (author !== POLL_COMMIT_AUTHOR) return false;
-  return subject === `social-approval: reject ${changedPath} (founder ❌ in Discord)`;
+  if (subject !== `social-approval: reject ${changedPath} (founder ❌ in Discord)`) return false;
+  return ledgerHasRejectRow(execGit, pr, changedPath, authorDate);
+}
+
+/** Reads `social/feedback/<week>.jsonl` off `origin/social-ledger` (never
+ * the PR branch this run may have checked out) for a `{pr, file, action:
+ * "reject"}` row — the corroboration isPollAuthorizedDeletion needs. Checks
+ * the commit's own week plus the week before, the same boundary tolerance
+ * pushLedgerRows itself reads with, since a reject recorded right at a week
+ * rollover could land either side depending on exactly when the run that
+ * made it resolved. Any fetch/read/parse failure is "not corroborated", not
+ * a crash — fail closed, matching every other check in this function. */
+function ledgerHasRejectRow(execGit, pr, changedPath, authorDateIso) {
+  try {
+    execGit(['fetch', 'origin', LEDGER_BRANCH]);
+  } catch {
+    return false;
+  }
+  const when = new Date(authorDateIso);
+  if (Number.isNaN(when.getTime())) return false;
+  const weeks = new Set([isoWeek(when), isoWeek(new Date(when.getTime() - 7 * 24 * 60 * 60 * 1000))]);
+  for (const week of weeks) {
+    let raw;
+    try {
+      raw = execGit(['show', `origin/${LEDGER_BRANCH}:social/feedback/${week}.jsonl`]);
+    } catch {
+      continue; // no ledger file for that week — not evidence of forgery, just nothing to read
+    }
+    for (const line of raw.split('\n')) {
+      if (!line.trim()) continue;
+      let row;
+      try {
+        row = JSON.parse(line);
+      } catch {
+        continue;
+      }
+      if (row.pr === pr && row.file === changedPath && row.action === 'reject') return true;
+    }
+  }
+  return false;
 }
 
 // #4139 round-1 finding 5: contentHashPayload only covers platform/body/
@@ -347,20 +399,34 @@ function honouredFieldChangeOk(staleItem, headItem) {
  * (bounded depth — real staleness here is a handful of commits, never more)
  * before reading; a fetch failure just means nothing gets honoured this
  * run, not a crash.
+ *
+ * Also returns `unsafeFiles` (#4139 round-2 finding 1): the relPaths of
+ * every per-file ref that WAS evaluated above and refused honouring. The
+ * header's own unconditional-honour just above exists so a stale header's
+ * REACTIONS stay readable (finding 4a) — it was never meant to certify any
+ * particular file's CONTENT safe to merge, but because the merge phase used
+ * to gate purely on "is `current`+`honoured` non-empty for the PR", a
+ * present-but-unrelated honoured header silently let the whole PR past that
+ * gate regardless of a sibling file failing its OWN safety check right
+ * above. `unsafeFiles` lets the merge phase (further down in `run`) enforce
+ * that check per file, uniformly, regardless of whether a header ref
+ * happens to also be in play — the two axes (which message identifies a
+ * file vs. what diff is safe to honour) are judged independently now.
  */
 function partitionCurrentHonoured(pr, refs, prView, execGit, approvalKey) {
   const current = refs.filter((r) => r.sha === prView.headRefOid);
   const stale = refs.filter((r) => r.sha !== prView.headRefOid);
-  if (stale.length === 0) return { current, honoured: [] };
+  if (stale.length === 0) return { current, honoured: [], unsafeFiles: new Set() };
 
   try {
     execGit(['fetch', '--depth=100', 'origin', `pull/${pr}/head`]);
   } catch (err) {
     console.error(`::warning::social-approval-poll: PR #${pr} — could not fetch history to evaluate stale-SHA honouring this run (will retry next run): ${err.message}`);
-    return { current, honoured: [] };
+    return { current, honoured: [], unsafeFiles: new Set() };
   }
 
   const honoured = [];
+  const unsafeFiles = new Set();
   for (const ref of stale) {
     if (ref.file === '*') {
       // #4139 round-1 finding 4a: no per-file approval.message to validate
@@ -370,7 +436,7 @@ function partitionCurrentHonoured(pr, refs, prView, execGit, approvalKey) {
       // never MINT a fresh approval. That suppression already exists at the
       // call site (`honouredMessageIds.has(message.id)` before any
       // filesToStamp.add('*')) — honouring the ref here only enables
-      // reading, never approving.
+      // reading, never approving or certifying any file's content safe.
       honoured.push(ref);
       continue;
     }
@@ -384,12 +450,16 @@ function partitionCurrentHonoured(pr, refs, prView, execGit, approvalKey) {
       continue;
     }
     if (!headItem.approval || headItem.approval.message !== ref.message.id) continue;
-    if (headItem.approval.contentHash !== contentHash(headItem)) continue;
+    if (headItem.approval.contentHash !== contentHash(headItem)) {
+      unsafeFiles.add(relPath);
+      continue;
+    }
 
     let changedPaths;
     try {
       changedPaths = execGit(['diff', '--name-only', ref.sha, prView.headRefOid]).split('\n').filter(Boolean);
     } catch {
+      unsafeFiles.add(relPath);
       continue;
     }
     const diffIsAllValidlyStampedQueueFiles = changedPaths.every((p) => {
@@ -400,7 +470,7 @@ function partitionCurrentHonoured(pr, refs, prView, execGit, approvalKey) {
         // own verifiable reject commit for this exact path (finding 9);
         // otherwise a legitimate reject would forever strand every OTHER
         // file's honouring whose diff range happens to span the same commit.
-        return isPollAuthorizedDeletion(execGit, ref.sha, prView.headRefOid, p);
+        return isPollAuthorizedDeletion(execGit, ref.sha, prView.headRefOid, p, pr);
       }
       const staleFileContent = readFileAtSha(execGit, ref.sha, p);
       if (!staleFileContent) return false; // newly-added mid-diff — not a stamp/edit of something pre-existing
@@ -412,10 +482,13 @@ function partitionCurrentHonoured(pr, refs, prView, execGit, approvalKey) {
         return false;
       }
     });
-    if (!diffIsAllValidlyStampedQueueFiles) continue;
+    if (!diffIsAllValidlyStampedQueueFiles) {
+      unsafeFiles.add(relPath);
+      continue;
+    }
     honoured.push(ref);
   }
-  return { current, honoured };
+  return { current, honoured, unsafeFiles };
 }
 
 /** spec §1b/social-poster.yml's own pattern, adapted for a script that (unlike
@@ -540,7 +613,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       continue;
     }
 
-    const { current, honoured } = partitionCurrentHonoured(pr, refs, prView, execGit, approvalKey);
+    const { current, honoured, unsafeFiles } = partitionCurrentHonoured(pr, refs, prView, execGit, approvalKey);
     if (current.length === 0 && honoured.length === 0) continue; // every ref is stale and none is safe to honour
     const allRefs = [...current, ...honoured];
     const honouredMessageIds = new Set(honoured.map((r) => r.message.id));
@@ -639,6 +712,51 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
           // best-effort notice; the ::error:: above is the load-bearing signal
         }
       }
+      // #4139 round-2 finding 5: self-heal for a PR THIS automation already
+      // merged (an earlier run's own approve+merge), whose ledger push then
+      // failed — classifyReaction never re-fires 'approve' for an
+      // already-stamped file (needsStamp is permanently false once a valid
+      // signature exists), so without this the row is gone for good even
+      // though the spec's premise is "rows are re-derivable from Discord".
+      // Reads straight off the PR's own merge-time ref (refs/pull/<n>/head
+      // stays reachable after --delete-branch), so it needs no fresh
+      // reactions this run at all. Scoped to MERGED specifically (not any
+      // non-OPEN state) — a header-rejected PR's individually-stamped-but-
+      // never-shipped files must never be recorded as "approved"; that
+      // approval was superseded by the reject, not lost. pushLedgerRows'
+      // own idempotent dedupe (current+previous week) makes this safe to
+      // recompute every run: once the row lands, later runs find it already
+      // there and add nothing.
+      if (prView.state === 'MERGED') {
+        for (const ref of refs) {
+          if (ref.file === '*') continue;
+          const relPath = path.posix.join('social', 'queue', path.basename(ref.file));
+          const headContent = readFileAtSha(execGit, prView.headRefOid, relPath);
+          if (!headContent) continue;
+          let item;
+          try {
+            item = JSON.parse(headContent);
+          } catch {
+            continue;
+          }
+          if (!item.approval || !approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: approvalKey }).ok) continue;
+          prLedgerRows.push({
+            ts: runResolvedAt.toISOString(),
+            pr,
+            file: relPath,
+            platform: item.platform ?? null,
+            campaign: item.campaign ?? null,
+            pillar: pillarOf(item.campaign ?? null),
+            action: 'approve',
+            reason: null,
+            originalBody: item.body ?? null,
+            editedBody: null,
+            approver: item.approval.by,
+            messageId: item.approval.message,
+            replyId: null,
+          });
+        }
+      }
       continue;
     }
 
@@ -713,7 +831,12 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       execGit(['rm', relPath]);
       execGit(['commit', '-m', `social-approval: reject ${file} (founder ❌ in Discord)`]);
       execGit(['push', 'origin', `HEAD:${prView.headRefName}`]);
-      execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', `reject: ${file} — ${reason}`]);
+      // #4139 round-2 finding 5: queued BEFORE the comment call (not after)
+      // — the deletion itself is already durable at this point (pushed
+      // above), so a comment-post failure below must not also cost the
+      // ledger row; the `finally` at the bottom of this PR's processing
+      // persists whatever is in prLedgerRows regardless of what throws
+      // after this point.
       prLedgerRows.push({
         ts: runResolvedAt.toISOString(),
         pr,
@@ -729,6 +852,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         messageId,
         replyId,
       });
+      execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', `reject: ${file} — ${reason}`]);
     }
 
     for (const { file, message, classified } of editTargets) {
@@ -847,12 +971,28 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
     // silently corrupted OTHER files' `approval.message` whenever more than
     // one message resolved to 'approve' in the same run, breaking future
     // reaction matching against the real (now-overwritten) message.
+    // #4139 round-2 finding 2: `stampMessageId` — what gets written into
+    // `approval.message` — is resolved to the FILE'S OWN per-file brief
+    // message whenever one exists, independent of `source` (who/which
+    // message actually triggered this run's approve action, still used for
+    // `by` and for grouping the write). A header-driven bulk approve used
+    // to write the HEADER's message id into approval.message, permanently
+    // orphaning the file's own brief message from ever matching it again
+    // (partitionCurrentHonoured's per-file check above requires
+    // headItem.approval.message === ref.message.id) — a later ❌ placed on
+    // that draft's own message would then never be read again. Resolving
+    // through the file's own identity here means that equality check keeps
+    // passing on every future run regardless of how THIS run's approval
+    // arrived. `message` is never part of the signed payload (spec §Data-2),
+    // so this changes nothing about what a stamp attests to.
     const stampCandidates = targetFiles.map((file) => {
       const relPath = path.posix.join('social', 'queue', path.basename(file));
       const raw = readFileSync(path.join(process.cwd(), relPath), 'utf8');
       const item = JSON.parse(raw);
       const source = approvalSourceByFile.get(file) ?? headerApproval;
-      return { file, relPath, item, source, needsStamp: !approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: approvalKey }).ok };
+      const governingRef = resolveGoverningRef(file, refs);
+      const stampMessageId = governingRef ? governingRef.message.id : source?.message.id;
+      return { file, relPath, item, source, stampMessageId, needsStamp: !approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: approvalKey }).ok };
     });
     const toStamp = stampCandidates.filter((c) => c.needsStamp);
 
@@ -863,8 +1003,8 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
           console.error(`::error::social-approval-poll: PR #${pr} ${candidate.relPath} needs stamping but no approval source was tracked for it — refusing to stamp with an unattributed message (should be unreachable).`);
           continue;
         }
-        const key = `${candidate.source.approver}::${candidate.source.message.id}`;
-        if (!groups.has(key)) groups.set(key, { by: candidate.source.approver, message: candidate.source.message.id, files: [] });
+        const key = `${candidate.source.approver}::${candidate.stampMessageId}`;
+        if (!groups.has(key)) groups.set(key, { by: candidate.source.approver, message: candidate.stampMessageId, files: [] });
         groups.get(key).files.push(candidate.file);
       }
 
@@ -905,6 +1045,11 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
             replyId: null,
           });
         }
+        // A file freshly (re-)stamped THIS run is safe regardless of
+        // anything partitionCurrentHonoured found about its OLD, now-
+        // superseded ref — the new signature covers whatever is on disk
+        // right now, which is exactly what is about to merge.
+        for (const { relPath } of allStamped) unsafeFiles.delete(relPath);
       }
     }
 
@@ -921,6 +1066,20 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
     if (unresolvedTripping.length > 0) {
       console.error(
         `::warning::social-approval-poll: PR #${pr} has unresolved reactions this run for ${unresolvedTripping.map((f) => f.path).join(', ')} — deferring merge even though a prior stamp may be valid, it could be carrying a ❌ we can't see this run; retrying next run`,
+      );
+      continue;
+    }
+    // #4139 round-2 finding 1: a per-file ref that partitionCurrentHonoured
+    // found stale-and-unsafe (drifted in an unhashed field, or an
+    // unreadable diff) must defer merge for the WHOLE PR even though a
+    // header ref elsewhere on the same PR is (unconditionally, see above)
+    // honoured for reading — the header's presence must never by itself
+    // certify a sibling file's drifted content safe to ship. Cleared above
+    // for anything this run freshly (re-)stamped.
+    const unsafeTripping = trippingFiles.filter((f) => unsafeFiles.has(f.path));
+    if (unsafeTripping.length > 0) {
+      console.error(
+        `::warning::social-approval-poll: PR #${pr} has files whose stale reference failed the honouring safety check this run (${unsafeTripping.map((f) => f.path).join(', ')}) — deferring merge for the whole PR; retrying next run`,
       );
       continue;
     }

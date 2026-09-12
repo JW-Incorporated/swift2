@@ -350,13 +350,44 @@ jobs:
             exit 0
           fi
           NEW_TREE=$(git write-tree)
-          if git rev-parse --verify --quiet "origin/$LEDGER_BRANCH" >/dev/null 2>&1; then
-            NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "origin/$LEDGER_BRANCH" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ)")
-          else
-            NEW_COMMIT=$(git commit-tree "$NEW_TREE" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ) (first push)")
-          fi
-          git push origin "$NEW_COMMIT:refs/heads/$LEDGER_BRANCH"
-          echo "social-ledger updated -> $NEW_COMMIT"
+          # Retries on a non-fast-forward (DEBUG.md round-2 finding 3, PR
+          # #4139): social-approval-poll.yml pushes to this SAME branch from
+          # a SEPARATE concurrency group, so a genuine concurrent write here
+          # is expected, not exceptional — a lost push is not "re-derivable
+          # from Discord next run" the way social-approval-poll.mjs's own
+          # ledger push is, because post-queue.mjs already fired the real
+          # X/IG API calls above: losing this push risks a duplicate
+          # real-world post next run, not merely a late ledger row. NEW_TREE
+          # (this run's own posted/failed/feedback snapshot) never changes
+          # across attempts, only its parent does, so re-parenting onto the
+          # branch's fresh tip and retrying is safe. Bounded so a genuinely
+          # stuck branch (e.g. protected out from under us) still fails the
+          # run loudly rather than looping forever.
+          ATTEMPT=1
+          MAX_ATTEMPTS=5
+          while true; do
+            if [ "$ATTEMPT" -gt 1 ]; then
+              git fetch origin "$LEDGER_BRANCH" || true
+              if git rev-parse --verify --quiet FETCH_HEAD >/dev/null 2>&1; then
+                git update-ref "refs/remotes/origin/$LEDGER_BRANCH" FETCH_HEAD
+              fi
+            fi
+            if git rev-parse --verify --quiet "origin/$LEDGER_BRANCH" >/dev/null 2>&1; then
+              NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "origin/$LEDGER_BRANCH" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ)")
+            else
+              NEW_COMMIT=$(git commit-tree "$NEW_TREE" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ) (first push)")
+            fi
+            if git push origin "$NEW_COMMIT:refs/heads/$LEDGER_BRANCH"; then
+              echo "social-ledger updated -> $NEW_COMMIT"
+              break
+            fi
+            if [ "$ATTEMPT" -ge "$MAX_ATTEMPTS" ]; then
+              echo "::error::social-poster: push to $LEDGER_BRANCH failed after $MAX_ATTEMPTS attempts (concurrent writer never cleared) — failing loudly; a subsequent run may re-post whatever this run's posted/failed rows were about to record."
+              exit 1
+            fi
+            ATTEMPT=$((ATTEMPT + 1))
+            sleep "$ATTEMPT"
+          done
 
       # Founder success email (2026-08-25, docs/decisions.md same date):
       # Joey wants an email on every post that actually goes live, not just

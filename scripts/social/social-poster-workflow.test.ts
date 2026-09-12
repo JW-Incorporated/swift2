@@ -128,6 +128,22 @@ describe('social-poster.yml — social-ledger direct-push dedupe (issue #2040)',
     expect(wf).toContain('git commit-tree');
   });
 
+  it('the ledger push retries on a non-fast-forward instead of failing on the first attempt (DEBUG.md round-2 finding 3)', () => {
+    // social-approval-poll.yml pushes to the SAME $LEDGER_BRANCH from a
+    // separate concurrency group — a genuine concurrent write here is
+    // expected, not exceptional. A single-shot push would let one workflow's
+    // rejected push strand its posted/failed rows, risking a duplicate
+    // real-world post on a later run. Bounded so a truly stuck branch still
+    // fails loudly instead of looping forever.
+    const pushSection = wf.slice(wf.indexOf('- name: Push ledger update directly to social-ledger'));
+    expect(pushSection).toContain('MAX_ATTEMPTS=5');
+    expect(pushSection).toContain('while true; do');
+    expect(pushSection).toMatch(/if git push origin "\$NEW_COMMIT:refs\/heads\/\$LEDGER_BRANCH"; then/);
+    expect(pushSection).toContain('git fetch origin "$LEDGER_BRANCH"');
+    expect(pushSection).toContain('::error::social-poster: push to $LEDGER_BRANCH failed after $MAX_ATTEMPTS attempts');
+    expect(pushSection).toMatch(/exit 1/);
+  });
+
   it('the fold-back PR into main is explicitly downgraded to visibility-only, but still asks to be merged not closed', () => {
     const wfLower = wf;
     expect(wfLower).toContain('Fold ledger back into main (via PR — visibility only, not correctness-critical)');
