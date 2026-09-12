@@ -10,7 +10,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { countPostsByPlatformSince, computeDeltas } from './lib/growth.mjs';
 import { isPlausibleCritiqueTotal } from './lib/queue-schema.mjs';
-import { aggregateLatency, aggregateVerdicts } from './lib/feedback.mjs';
+import { aggregateLatency, aggregateVerdicts, snowflakeTimestampMs } from './lib/feedback.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const POSTED_DIR = path.join(ROOT, 'social', 'posted');
@@ -141,8 +141,96 @@ export function buildScorecard({ now = Date.now(), postedDir, failedDir, metrics
   const { deltas, weekAgoDate } = weeklyFollowerDeltas(series, now);
   const verdicts = aggregateVerdicts(ledgerRows);
   const latency = aggregateLatency(ledgerRows);
+  const redditLatency = aggregateLatency(ledgerRows, redditRows);
+  const expired = expiredWhilePending(ledgerRows);
+  const repliesDone = redditRepliesDone(ledgerRows);
 
-  return { posts, failedCount: failedRecent.length, deltas, weekAgoDate, verdicts, latency };
+  return { posts, failedCount: failedRecent.length, deltas, weekAgoDate, verdicts, latency, redditLatency, expiredWhilePending: expired, redditRepliesDone: repliesDone };
+}
+
+// Tree Overhaul S8 (docs/plans/tree-overhaul PLAN.md, S6+S8 task, "S8 —
+// scorecard extensions"): three more lines over the same ledger rows
+// buildScorecard already loads. `REDDIT_ROW_PREFIX` gets its own named
+// constant (rather than calibration()'s own inline 'social/queue/' literal
+// below) because S8 needs the reddit prefix in more than one place in this
+// file — a repeated inline literal here would actually drift, not just
+// look untidy.
+const REDDIT_ROW_PREFIX = 'reddit:';
+// PR body: matches the "retired at 48h" threshold this repo already uses
+// for a founder decision left too long outstanding on a social-draft PR
+// (CLAUDE.md's Never-babysit-your-own-PR exception) — the closest existing
+// precedent for "how long is too long to leave a founder decision
+// hanging," scaled for a weekly (168h window) report rather than the 24h
+// nudge-repeat interval, which is about suppression cadence, not severity.
+const EXPIRED_WHILE_PENDING_HOURS = 48;
+
+function isRedditRow(row) {
+  return typeof row?.file === 'string' && row.file.startsWith(REDDIT_ROW_PREFIX);
+}
+
+function redditRows(rows) {
+  return (rows ?? []).filter(isRedditRow);
+}
+
+/** Brief-posted -> ledger-row-resolved span for one row, in ms — the exact
+ * computation aggregateLatency already makes, pulled out here because S8b
+ * needs it as a per-row THRESHOLD test rather than a median/slowest
+ * summary. `null` for an undecodable messageId or a negative span (clock
+ * skew), same as aggregateLatency, never counted as a zero. */
+function latencyMsFor(row) {
+  const posted = snowflakeTimestampMs(row?.messageId);
+  const resolved = Date.parse(row?.ts ?? '');
+  if (posted === null || Number.isNaN(resolved)) return null;
+  const ms = resolved - posted;
+  return ms >= 0 ? ms : null;
+}
+
+/**
+ * S8b: "expired while pending" — count of draft or reddit targets whose
+ * brief-to-answer latency exceeded EXPIRED_WHILE_PENDING_HOURS.
+ *
+ * This is deliberately NOT a live "still awaiting a reaction right now"
+ * count: weekly-scorecard.mjs is a pure offline reader of
+ * social/feedback/**.jsonl (aggregateLatency's own doc comment) and a
+ * target that has never been reacted on leaves no row anywhere this file
+ * can read — there is no persisted "prompt sent, not yet resolved" record
+ * for either kind (a draft's own queue file gets deleted/merged away on
+ * resolution; S6 deliberately keeps no `social/reddit/` state at all, per
+ * spec). What IS computable from the ledger alone: among targets that DID
+ * eventually get a resolution, how many sat unresolved past the threshold
+ * before that resolution landed — genuinely true for however long they
+ * took, even though the ledger only records the eventually-resolved case.
+ * See the PR body for the full reasoning and this limitation.
+ *
+ * `null` (never a bare 0) when nothing in the window has a decodable
+ * latency sample at all, matching aggregateLatency/aggregateVerdicts'
+ * own convention.
+ */
+export function expiredWhilePending(ledgerRows = []) {
+  let eligible = 0;
+  let slow = 0;
+  for (const row of ledgerRows) {
+    const tracked = isRedditRow(row) || (typeof row?.file === 'string' && row.file.startsWith('social/queue/'));
+    if (!tracked) continue;
+    const ms = latencyMsFor(row);
+    if (ms === null) continue;
+    eligible += 1;
+    if (ms >= EXPIRED_WHILE_PENDING_HOURS * 60 * 60 * 1000) slow += 1;
+  }
+  return eligible === 0 ? null : slow;
+}
+
+/** S8c: count of `action:"approve"` reddit rows in the window — spec §3's
+ * reddit reaction table: ✅ means the founder already replied on Reddit
+ * themselves ("mark done"; no automation ever posts/replies on Reddit).
+ * `null` (never a bare 0) when no reddit row of ANY action appears in the
+ * window at all, so an inactive week reads as "nothing to report," not
+ * "zero replies done" — the same distinction aggregateVerdicts/
+ * aggregateLatency already draw. */
+export function redditRepliesDone(ledgerRows = []) {
+  const reddit = redditRows(ledgerRows);
+  if (reddit.length === 0) return null;
+  return reddit.filter((r) => r.action === 'approve').length;
 }
 
 // Tree Overhaul T2 (docs/specs/tree-overhaul/t2-self-critique.md §Data "The
@@ -270,6 +358,8 @@ function fmtDelta(n) {
 }
 
 const NO_DRAFTS_SENTENCE = 'no drafts went to you this week';
+const NO_REDDIT_SENTENCE = 'no Reddit prompts were resolved this week';
+const NO_RESOLVED_TARGETS_SENTENCE = 'no drafts or Reddit prompts were resolved this week';
 
 /** "3h 10m" / "19h" (spec §Data line 5's own example) — minutes omitted
  * when they round to zero, never a false "3h 0m" precision. */
@@ -283,8 +373,11 @@ function formatDuration(ms) {
 /** The verbatim block Tree pastes into its weekly PR body — never
  * paraphrased. Lines 1-3 are byte-identical to the pre-T4 3-line render for
  * the same fixture (spec AC#9 — a hard regression test, not a suggestion);
- * lines 4-5 are new (T4). `card.verdicts`/`card.latency` are optional so a
- * caller on the old 3-field shape still renders the honest empty-window
+ * lines 4-5 are T4's; lines 6-8 are S8's, appended in the same
+ * optional-line style, never inserted between existing lines.
+ * `card.verdicts`/`card.latency`/`card.redditLatency`/
+ * `card.expiredWhilePending`/`card.redditRepliesDone` are all optional so a
+ * caller on an older card shape still renders the honest empty-window
  * sentence rather than throwing. */
 export function renderScorecard(card) {
   const lines = [];
@@ -312,6 +405,24 @@ export function renderScorecard(card) {
     latency
       ? `**Time to your answer:** median ${formatDuration(latency.median)}, slowest ${formatDuration(latency.slowest)}`
       : `**Time to your answer:** ${NO_DRAFTS_SENTENCE}`
+  );
+  const redditLatency = card.redditLatency;
+  lines.push(
+    redditLatency
+      ? `**Time to your Reddit answer:** median ${formatDuration(redditLatency.median)}, slowest ${formatDuration(redditLatency.slowest)}`
+      : `**Time to your Reddit answer:** ${NO_REDDIT_SENTENCE}`
+  );
+  const expired = card.expiredWhilePending;
+  lines.push(
+    typeof expired === 'number'
+      ? `**Expired while pending (>${EXPIRED_WHILE_PENDING_HOURS}h):** ${expired} target${expired === 1 ? '' : 's'} took longer than ${EXPIRED_WHILE_PENDING_HOURS}h to hear back from you`
+      : `**Expired while pending (>${EXPIRED_WHILE_PENDING_HOURS}h):** ${NO_RESOLVED_TARGETS_SENTENCE}`
+  );
+  const repliesDone = card.redditRepliesDone;
+  lines.push(
+    typeof repliesDone === 'number'
+      ? `**Reddit replies done:** ${repliesDone}`
+      : `**Reddit replies done:** ${NO_REDDIT_SENTENCE}`
   );
   return lines.join('\n');
 }

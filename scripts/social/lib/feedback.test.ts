@@ -413,4 +413,20 @@ describe('aggregateLatency', () => {
     expect(aggregateLatency([{ file: 'social/queue/a.json', messageId: null, ts: '2026-09-14T13:10:00.000Z' }])).toBeNull();
     expect(aggregateLatency([{ file: 'proposal:1', messageId: POSTED_1, ts: '2026-09-14T13:10:00.000Z' }])).toBeNull();
   });
+
+  // S8 (docs/plans/tree-overhaul PLAN.md, S6+S8 task): weekly-scorecard.mjs
+  // needs the identical median/slowest computation over reddit-scoped rows
+  // instead of draft ones — a second filter argument (default draftRows,
+  // unchanged for every caller above) rather than a second implementation
+  // of the same aggregation.
+  it('accepts an optional row filter, so a caller can measure a different row family than drafts', () => {
+    const rows = [
+      { file: 'reddit:abc123', messageId: POSTED_1, ts: '2026-09-14T13:10:00.000Z' }, // 3h10m
+      { file: 'social/queue/a.json', messageId: POSTED_2, ts: '2026-09-15T19:00:00.000Z' }, // excluded by the reddit filter
+    ];
+    const redditOnly = (candidates) => candidates.filter((row) => typeof row.file === 'string' && row.file.startsWith('reddit:'));
+    const latency = aggregateLatency(rows, redditOnly);
+    const expectedMs = 3 * 60 * 60 * 1000 + 10 * 60 * 1000;
+    expect(latency).toEqual({ median: expectedMs, slowest: expectedMs });
+  });
 });

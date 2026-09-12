@@ -408,10 +408,13 @@ export function snowflakeTimestampMs(id) {
  * documents that on the rendered line rather than hiding it. Rows with no
  * decodable messageId, or a negative span (clock skew), are skipped, never
  * counted as a zero. Returns `null` (not `{median: 0, ...}`) when there is
- * no sample to measure. */
-export function aggregateLatency(rows) {
+ * no sample to measure. `filterRows` (default `draftRows`, every caller
+ * before S8) lets a caller measure the identical median/slowest over a
+ * different row family — e.g. weekly-scorecard.mjs's own reddit-scoped
+ * filter — without a second implementation of this computation. */
+export function aggregateLatency(rows, filterRows = draftRows) {
   const samples = [];
-  for (const row of draftRows(rows)) {
+  for (const row of filterRows(rows)) {
     const posted = snowflakeTimestampMs(row?.messageId);
     const resolved = Date.parse(row?.ts ?? '');
     if (posted === null || Number.isNaN(resolved)) continue;
