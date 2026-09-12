@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 71
+
+## Taylor Swift's Luxury Date Night Bag Reflects Fall Fashion Trend
+
+- first seen: 2026-09-12 19:15 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been spotted with a $1,520 date night bag that showcases one of the fall's richest color trends. Affordable alternatives can be found for as little as $34.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxObmlSZjRZclNndFhaYjlGaG5oa2stWXVjQ1hReXVXc2d1bW1FbzJIQzJGZmFfZTBTTDRwbGlucTBMYkw2b1FsN1c3d1dnTjV1VVNCUXFZdERwaVBOYWhlTFhLc1pOLXNpcWtRQ3lscHIxZ3psSHc0WEJld2VnSjhueXRRbzlHWWQ1MmFobmluY05NSXdleVdB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce and Taylor Swift's Post-Wedding Living Plans Revealed
+
+- first seen: 2026-09-12 19:15 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A report discusses the living arrangements for Travis Kelce and Taylor Swift following their wedding. Details about their future home have been shared by Sports Illustrated.
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMitgFBVV95cUxPZGdZaTN6cHNzUzVLNFFZX3FrckRvLTdDQzRUVVpVSVJUZl9Ed2xWOEVXdF9LS21sNlpwNVVnQVdIbkVoSmVEdFZaWHBqWnhvQmlKVWp3bFJ3V0tHVlBFYzJhdDYtajduQUQ1MzdqZDBXa2RQZm5UTTFWSWE0aXlzZGdPOEZEM1UtRldYTFBWSktoZ1VPVWQtUmJ1VGJaYVJCR29nR2NzcjU2RHJnYnRncnNCdEltQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Details Revealed from Taylor Swift's Wedding by Guest
 
@@ -39,10 +55,11 @@ Stories: 69
 ## Travis Kelce Discusses Wedding Plans with Taylor Swift
 
 - first seen: 2026-09-12 12:49 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Travis Kelce shared details regarding his forthcoming wedding to Taylor Swift, highlighting their plans together. The news provides insight into their relationship milestones.
 - sources:
   - [unverified] creators.yahoo.com — https://news.google.com/rss/articles/CBMi4gFBVV95cUxPMFlfckdEREVYMWZrWG5EQ290SWdBUmtxLXZnUEdJSU8wbXV5d21GNVJpXzFTcDRxY0xKUUdqQWJvNkNqNHVQSFA3b01qN0Qxbng0YmN2SklOc01Rb3hsSy1fR1I2SUlZSUc3dDdPcWZEWi1BQ2lfLU9HamM5UzBZaFpKRmgxVGVKaEZOT0dBdElvRWZ4ck5vTUNEcXJfbldVaTFfSFhvaV93cllwNXl2SGhDYVFybGhOelE4NW13dk9oRTR4QUI2MUhLZVNqZVY5VTJISm5kdkVWOTFfeWFwV1BB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxPb0VXZURWM2d3RnJVRjFNcmRYb0FfVlJfTnhHenB6MXVOVlM0ejNfYldCalBteFlSM281YVlwZnlaSWZTTGNWanZJZE1VUTBCRTM3ejhHM2dLTnUtMUhyb2ROYmdqQ1dRMEVNNWNGeDFQMkhkLWtRTTJ5aFU4d0tCa2hXX1ZRWlFJRnNnU1p0cE1Nc01NdHV1eXRZYlJjWERHS01GSHRRN1lpYVRFU2NF?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMijAFBVV95cUxPU2d2Y3B4QzRJQUdHcW9RSm5oeTNpQ3F2ODRJNUdxYWw1UzZ4aXlBemR0NE02SjZaSEhlTm5wOTRHMXFmbFpUNVZoUHZFMDFaVXdOUHMzc3I4TkFSUjVONkhfdFZJVldlMXFSc1dpMTlmRXdWRXJreFJ5ZHBXcHlWRUhYTnFaZUlKUlBqRtIBiwFBVV95cUxPZ214cHphLUhXMTRPYUxUSFk0VFRHdkJpdlN4MEl2aWFXV3NtdG9NZk11dnJxRmFXUW1ib2VySjd3Szd1aTFMb3VzSkd0LTZSQTJtcEhPRUx0c3FFSXdQWnptbXNjTmh2WFJmem94MWdmYmpURE9UZlJVVnVqWjdNOW5EdHY0VDRvQkVz?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Address Rumors Ahead of NFL Season
