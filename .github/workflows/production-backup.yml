@@ -102,6 +102,15 @@ jobs:
           REPO: ${{ github.repository }}
           OUTCOME: ${{ steps.backup.outcome }}
           ALERT_ALSO_MAIL: 1
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          # Pre-existing gap, found by Codex review (PR #4201): this step
+          # never had these two wired in, so send-mail.py has always
+          # silently no-op'd here (see its own unset-creds skip branch) —
+          # meaning the "one deliberate backup-email exception" this whole
+          # spec relies on has never actually sent mail. Fixed here since
+          # ALERT_ALSO_MAIL is added on this exact step anyway.
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: |
           set -euo pipefail
           ALERT_TITLE="Production backup failing"

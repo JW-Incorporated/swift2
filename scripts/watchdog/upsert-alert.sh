@@ -80,6 +80,14 @@ fi
 
 # Post to Discord only on a state CHANGE (NOTIFY=1) — otherwise an hourly
 # watchdog re-check of a standing alert would flood the channel.
+#
+# KNOWN LIMITATION (Codex review, PR #4201): the issue create/close above
+# already happened by the time we get here, so if post-or-mail.mjs fails
+# BOTH legs (Discord down and mail unreachable/unconfigured), this state
+# change is never retried -- the next run either sees "already open" (no
+# NOTIFY) or has nothing left to close. A double-outage at the exact moment
+# of a state change is the only way to hit this; tracked as a hardening
+# follow-up (candidate for the M2 watchdog-handling wave), not fixed here.
 if [ "$NOTIFY" = "1" ]; then
   node scripts/marjorie/post-or-mail.mjs \
     --subject "$TITLE" --body-file "$BODY_FILE" --url "$ISSUE_URL" ${MAIL_FLAG:-}

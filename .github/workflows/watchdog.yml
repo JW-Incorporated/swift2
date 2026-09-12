@@ -92,6 +92,7 @@ jobs:
           TODAY: ${{ steps.brief.outputs.today }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -119,6 +120,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -171,6 +173,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -244,6 +247,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -410,6 +414,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           IS_DAILY_RUN: ${{ github.event_name != 'schedule' || github.event.schedule == '35 14 * * *' }}
         run: |
@@ -587,6 +592,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -752,6 +758,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -uo pipefail
@@ -779,6 +786,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -uo pipefail
@@ -802,6 +810,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -uo pipefail
@@ -866,6 +875,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -uo pipefail
@@ -918,6 +928,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -uo pipefail
@@ -999,6 +1010,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -1078,6 +1090,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -1143,6 +1156,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

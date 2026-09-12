@@ -109,6 +109,7 @@ jobs:
           REPO: ${{ github.repository }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           OUTCOME: ${{ steps.drill.outcome }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
         run: |
           set -euo pipefail
           ALERT_TITLE="Backup/restore drill failing"
