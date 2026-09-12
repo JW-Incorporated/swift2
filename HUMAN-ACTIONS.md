@@ -2,19 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #66 🟢 [UPGRADE] Create a Discord webhook for #longlive-marjorie and deposit it in a new `ops` environment (~5 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** Marjorie Overhaul wave M1 (epic #4180) posts her brief and every watchdog alert to #longlive-marjorie. Nothing can post there until a webhook exists in a main-only environment; M0 (design) can run without it, M1 cannot be verified.
-**Steps:**
-1. Discord → #longlive-marjorie → Edit Channel → Integrations → Webhooks → New Webhook; name it `Marjorie`; Copy Webhook URL.
-2. https://github.com/JW-Incorporated/swift2/settings/environments → New environment → name `ops` → Deployment branches: Selected branches → add `main` → Save.
-3. In the `ops` environment → Environment secrets → Add secret → name `DISCORD_MARJORIE_WEBHOOK_URL` → paste the URL.
-**Worked if:** `gh api repos/JW-Incorporated/swift2/environments/ops/secrets` lists DISCORD_MARJORIE_WEBHOOK_URL.
 
 ## #64 🟡 [DECIDE] X per-post metrics need a paid API tier (~5 min)
 <!-- ha filed=2026-09-12 -->
