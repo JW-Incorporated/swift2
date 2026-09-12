@@ -129,6 +129,19 @@ describe('mergedPrsInWindow', () => {
     ];
     expect(mergedPrsInWindow(prs, now)).toEqual([prs[0]]);
   });
+
+  it('matches state case-insensitively — gh search prs --json state returns lowercase', () => {
+    const prs = [
+      {
+        number: 1,
+        state: 'merged',
+        createdAt: '2026-09-08T00:00:00.000Z',
+        closedAt: '2026-09-09T00:00:00.000Z',
+      },
+      { number: 2, state: 'open', createdAt: '2026-09-08T00:00:00.000Z', closedAt: null },
+    ];
+    expect(mergedPrsInWindow(prs, now)).toEqual([prs[0]]);
+  });
 });
 
 describe('readRawPrData', () => {

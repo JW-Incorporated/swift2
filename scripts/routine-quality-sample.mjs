@@ -112,10 +112,19 @@ export function classifyRubric({ identifier, charterDoc = null, charterText = nu
   return { rubric, reason: null };
 }
 
-/** Merged PRs within the same WINDOW_DAYS window computeMetrics uses, from a raw fetchForRoutine() result. */
+/**
+ * Merged PRs within the same WINDOW_DAYS window computeMetrics uses, from a
+ * raw fetchForRoutine() result. Case-insensitive state match: `gh search prs
+ * --json state` returns lowercase ("merged"), not the GraphQL-style
+ * uppercase computeMetrics's own fixtures use — verified against a real PR
+ * (repo search, 2026-09-12) after a live dispatch found zero merged PRs
+ * fleet-wide despite real recent merges, e.g. #4140 (Tree daily draft).
+ */
 export function mergedPrsInWindow(prs, now) {
   const windowStart = new Date(now.getTime() - WINDOW_DAYS * 24 * 60 * 60 * 1000);
-  return prs.filter((p) => p.state === 'MERGED' && new Date(p.createdAt) >= windowStart);
+  return prs.filter(
+    (p) => p.state?.toUpperCase() === 'MERGED' && new Date(p.createdAt) >= windowStart,
+  );
 }
 
 /**
