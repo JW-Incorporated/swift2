@@ -349,7 +349,6 @@ jobs:
             echo "No queue/ledger changes this run — social-ledger unchanged."
             exit 0
           fi
-          NEW_TREE=$(git write-tree)
           # Retries on a non-fast-forward (DEBUG.md round-2 finding 3, PR
           # #4139): social-approval-poll.yml pushes to this SAME branch from
           # a SEPARATE concurrency group, so a genuine concurrent write here
@@ -357,12 +356,23 @@ jobs:
           # from Discord next run" the way social-approval-poll.mjs's own
           # ledger push is, because post-queue.mjs already fired the real
           # X/IG API calls above: losing this push risks a duplicate
-          # real-world post next run, not merely a late ledger row. NEW_TREE
-          # (this run's own posted/failed/feedback snapshot) never changes
-          # across attempts, only its parent does, so re-parenting onto the
-          # branch's fresh tip and retrying is safe. Bounded so a genuinely
-          # stuck branch (e.g. protected out from under us) still fails the
-          # run loudly rather than looping forever.
+          # real-world post next run, not merely a late ledger row.
+          #
+          # The tree is rebuilt PER ATTEMPT from the branch's FRESH tip
+          # (docs/decisions.md 2026-09-12, architect verdict R2-3): a fixed
+          # full-tree snapshot taken once from this checkout would, on any
+          # retry, re-push social/feedback as this checkout read it at the
+          # start of the run — silently reverting the very feedback rows the
+          # poll pushed in between, which is exactly the write that made the
+          # first attempt non-fast-forward. So each attempt reads the fresh
+          # tip's tree into a scratch index and stages only THIS workflow's
+          # own namespaces (queue/posted/failed) from the working tree over
+          # it; every other namespace (feedback) stays whatever the tip has.
+          # A scratch index (GIT_INDEX_FILE) keeps the real index — which the
+          # fold-back PR step below still needs — exactly as-is. Bounded so a
+          # genuinely stuck branch (e.g. protected out from under us) still
+          # fails the run loudly rather than looping forever.
+          SCRATCH_INDEX_DIR=$(mktemp -d)
           ATTEMPT=1
           MAX_ATTEMPTS=5
           while true; do
@@ -372,9 +382,17 @@ jobs:
                 git update-ref "refs/remotes/origin/$LEDGER_BRANCH" FETCH_HEAD
               fi
             fi
+            rm -f "$SCRATCH_INDEX_DIR/index"
             if git rev-parse --verify --quiet "origin/$LEDGER_BRANCH" >/dev/null 2>&1; then
+              GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git read-tree "origin/$LEDGER_BRANCH"
+              GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git add social/queue social/posted social/failed
+              NEW_TREE=$(GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git write-tree)
               NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "origin/$LEDGER_BRANCH" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ)")
             else
+              # First push ever: no tip to preserve — this checkout's own
+              # staged tree (main + this run's queue/posted/failed/feedback)
+              # seeds the branch, exactly as before.
+              NEW_TREE=$(git write-tree)
               NEW_COMMIT=$(git commit-tree "$NEW_TREE" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ) (first push)")
             fi
             if git push origin "$NEW_COMMIT:refs/heads/$LEDGER_BRANCH"; then

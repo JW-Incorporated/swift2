@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { appendRows, classifyReaction, isoWeek, pillarOf, PENCIL_UNSUPPORTED_ON_HEADER, resolveGoverningRef } from './feedback.mjs';
+import { appendRows, capReason, classifyReaction, classifyTarget, groupTargets, isoWeek, pillarOf, PENCIL_UNSUPPORTED_ON_HEADER, pollOwnFieldChange } from './feedback.mjs';
 import { SOCIAL_APPROVERS } from './approvers.mjs';
 
 const APPROVER = SOCIAL_APPROVERS[0];
@@ -195,39 +195,114 @@ describe('appendRows', () => {
   });
 });
 
-describe('resolveGoverningRef', () => {
-  function fileRef(file: string, id: string) {
-    return { message: { id }, sha: 'a'.repeat(40), file };
-  }
+// Architect-directed redesign (docs/decisions.md 2026-09-12): the listening
+// axis reads the UNION of every window message per target. These are the
+// pure functions the poll gates that on.
+describe('groupTargets', () => {
+  const msg = (id: string) => ({ id, timestamp: '2026-09-19T00:00:00Z' });
 
-  it('a file with its own per-file ref resolves to that ref, not the header', () => {
-    const refs = [fileRef('*', 'header-msg'), fileRef('social/queue/foo.json', 'foo-msg')];
-    expect(resolveGoverningRef('social/queue/foo.json', refs)).toEqual(fileRef('social/queue/foo.json', 'foo-msg'));
+  it('groups every ref for a file under its social/queue/<basename> key — any SHA, bare filename or relPath — and the header under "*"', () => {
+    const refs = [
+      { message: msg('h1'), sha: 'a'.repeat(40), file: '*' },
+      { message: msg('f1'), sha: 'a'.repeat(40), file: 'social/queue/foo.json' },
+      { message: msg('f2'), sha: 'b'.repeat(40), file: 'foo.json' },
+      { message: msg('h2'), sha: 'b'.repeat(40), file: '*' },
+    ];
+    const targets = groupTargets(refs);
+    expect([...targets.keys()]).toEqual(['*', 'social/queue/foo.json']);
+    expect(targets.get('*')!.map((r) => r.message.id)).toEqual(['h1', 'h2']);
+    expect(targets.get('social/queue/foo.json')!.map((r) => r.message.id)).toEqual(['f1', 'f2']);
+  });
+});
+
+describe('classifyTarget (union across every message naming a target)', () => {
+  const SHA_A = 'a'.repeat(40);
+  const SHA_B = 'b'.repeat(40);
+  const entry = (id: string, sha: string, reactions: Record<string, string[]> = {}, replies: Array<Record<string, unknown>> = [], timestamp = '2026-09-19T00:00:00Z') => ({
+    message: { id, timestamp },
+    sha,
+    reactions,
+    replies,
+  });
+  const aReply = (id: string, content: string, timestamp = '2026-09-19T01:00:00Z') => ({ id, authorId: APPROVER, content, timestamp });
+
+  it('a ❌+reply on one (stale) message wins over a ✅ on another — ❌ anywhere wins; the replied-to message is the first anchor', () => {
+    const r = classifyTarget([entry('current', SHA_B, { approvedBy: [APPROVER] }), entry('stale', SHA_A, { rejectedBy: [APPROVER] }, [aReply('r1', 'wrong photo')])]);
+    expect(r.action).toBe('reject');
+    expect(r.reason).toBe('wrong photo');
+    expect(r.messageId).toBe('stale');
+    expect(r.sha).toBe(SHA_A);
+    expect(r.anchors[0]).toEqual({ messageId: 'stale', sha: SHA_A });
+    expect(r.replyTimestamp).toBe('2026-09-19T01:00:00Z');
   });
 
-  it('DEBUG.md round-2 finding 2: still resolves to the file\'s own ref even when the file was already stamped via the header (never falls back to the header for a file that has its own brief)', () => {
-    // The scenario finding 2 reproduced: approval.message on disk names the
-    // HEADER's id (a past header-driven stamp), but the file's own per-file
-    // brief message still exists among this run's refs — resolution must
-    // still prefer it, which is what lets a later reaction on the file's
-    // OWN message keep being read on subsequent runs once the stamp path
-    // uses this resolution instead of the reacted-on message's id.
-    const refs = [fileRef('*', 'header-msg'), fileRef('social/queue/foo.json', 'foo-own-msg')];
-    const resolved = resolveGoverningRef('foo.json', refs);
-    expect(resolved?.message.id).toBe('foo-own-msg');
+  it('✅s spread across duplicate briefs are unioned; every ✅-bearing message is an anchor with its own SHA, the latest is the audit id', () => {
+    const r = classifyTarget([
+      entry('old', SHA_A, { approvedBy: [APPROVER] }, [], '2026-09-18T00:00:00Z'),
+      entry('new', SHA_B, { approvedBy: [APPROVER] }, [], '2026-09-19T00:00:00Z'),
+      entry('none', SHA_B),
+    ]);
+    expect(r.action).toBe('approve');
+    expect(r.anchors).toEqual([
+      { messageId: 'old', sha: SHA_A },
+      { messageId: 'new', sha: SHA_B },
+    ]);
+    expect(r.messageId).toBe('new');
+    expect(r.sha).toBe(SHA_B);
+    expect(r.pending).toBeNull();
   });
 
-  it('falls back to the header when the file has no per-file ref of its own', () => {
-    const refs = [fileRef('*', 'header-msg')];
-    expect(resolveGoverningRef('social/queue/foo.json', refs)?.message.id).toBe('header-msg');
+  it('the latest qualifying reply anywhere wins for an edit, and its parent message is the first anchor', () => {
+    const r = classifyTarget([
+      entry('m1', SHA_A, { editedBy: [APPROVER] }, [aReply('r1', 'first caption', '2026-09-19T01:00:00Z')]),
+      entry('m2', SHA_B, {}, [aReply('r2', 'second caption', '2026-09-19T02:00:00Z')]),
+    ]);
+    expect(r.action).toBe('edit');
+    expect(r.editedBody).toBe('second caption');
+    expect(r.replyId).toBe('r2');
+    expect(r.anchors).toEqual([
+      { messageId: 'm2', sha: SHA_B },
+      { messageId: 'm1', sha: SHA_A },
+    ]);
   });
 
-  it('returns null when neither a per-file ref nor a header ref exists', () => {
-    expect(resolveGoverningRef('social/queue/foo.json', [])).toBeNull();
+  it('an unanswered ❌ is pending, naming the LATEST message that carries it (the one to nudge)', () => {
+    const r = classifyTarget([entry('older', SHA_A, { rejectedBy: [APPROVER] }, [], '2026-09-18T00:00:00Z'), entry('newer', SHA_B, { rejectedBy: [APPROVER] }, [], '2026-09-19T00:00:00Z')]);
+    expect(r.action).toBe('pending');
+    expect(r.pending).toEqual({ messageId: 'newer', kind: 'reject', reason: null });
+    expect(r.anchors).toEqual([]);
   });
 
-  it('matches by basename, tolerating a full relPath vs. a bare filename on either side', () => {
-    const refs = [fileRef('foo.json', 'foo-own-msg')];
-    expect(resolveGoverningRef('social/queue/foo.json', refs)?.message.id).toBe('foo-own-msg');
+  it('✏️ on a header target is pending with the fixed nudge text, kind pencil-header, even with a reply', () => {
+    const r = classifyTarget([entry('h', SHA_A, { editedBy: [APPROVER] }, [aReply('r1', 'a fix')])], { kind: 'pr' });
+    expect(r.action).toBe('pending');
+    expect(r.pending).toEqual({ messageId: 'h', kind: 'pencil-header', reason: PENCIL_UNSUPPORTED_ON_HEADER });
+  });
+
+  it('no messages / no reactions -> none, with no anchors and no pending', () => {
+    expect(classifyTarget([])).toMatchObject({ action: 'none', anchors: [], pending: null, messageId: null, sha: null, replyTimestamp: null });
+  });
+});
+
+describe('pollOwnFieldChange', () => {
+  const base = { platform: 'x', body: 'hello', scheduledAt: '2026-09-20T00:00:00Z' };
+
+  it("a stamp (approval only) and an edit (body + edit + approval together) are the poll's own shapes", () => {
+    expect(pollOwnFieldChange(base, { ...base, approval: { v: 3 } })).toBe(true);
+    expect(pollOwnFieldChange(base, { ...base, body: 'new', edit: { fromBody: 'hello' }, approval: { v: 3 } })).toBe(true);
+  });
+
+  it('an unhashed field (why, mediaCredit) changing, or body moving without edit, is not', () => {
+    expect(pollOwnFieldChange(base, { ...base, why: 'x', approval: { v: 3 } })).toBe(false);
+    expect(pollOwnFieldChange(base, { ...base, mediaCredit: 'x' })).toBe(false);
+    expect(pollOwnFieldChange(base, { ...base, body: 'new' })).toBe(false);
+  });
+});
+
+describe('capReason', () => {
+  it('caps at 2000 characters and leaves shorter text alone', () => {
+    expect(capReason('x'.repeat(2500))).toHaveLength(2000);
+    expect(capReason('short')).toBe('short');
+    expect(capReason(null)).toBe('');
   });
 });

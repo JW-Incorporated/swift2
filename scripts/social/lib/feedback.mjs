@@ -56,10 +56,16 @@ export function pillarOf(campaign) {
   return campaign.split(':').slice(0, PILLAR_ARITY[prefix]).join(':');
 }
 
+/** spec §Data-1's 2000-character cap on `reason`, applied on its own so a
+ * ledger row derived from an already-cleaned `body` (an edit stamp read
+ * back off disk) gets the same `reason` the run that applied it wrote. */
+export function capReason(text) {
+  const s = String(text ?? '');
+  return s.length > REASON_MAX_LENGTH ? s.slice(0, REASON_MAX_LENGTH) : s;
+}
+
 function cleanReplyText(content) {
-  const trimmed = String(content ?? '').trim();
-  const neutralized = neutralizeMentions(trimmed);
-  return neutralized.length > REASON_MAX_LENGTH ? neutralized.slice(0, REASON_MAX_LENGTH) : neutralized;
+  return capReason(neutralizeMentions(String(content ?? '').trim()));
 }
 
 /** DEBUG.md round-2 finding 6: the 2000-char cap is spec'd for `reason`
@@ -164,26 +170,119 @@ export function classifyReaction(reactions = {}, replies = [], { kind = 'draft' 
 }
 
 /**
- * DEBUG.md debug-ladder redesign (PR #4139 round 2, findings 1+2): resolves
- * the ONE message that identifies a queue file across runs, given every
- * `{ message, sha, file }` ref this PR's brief carries (header `*` and any
- * per-file refs — current or stale alike; freshness/safety is a SEPARATE
- * concern the caller judges elsewhere, this function only answers "which
- * message is this file's own"). A file's own per-file brief message, when
- * the PR has one, is its permanent identity — never the header — so a
- * header-driven approval that writes THIS resolution's result into
- * `approval.message` can never orphan a later reaction placed on the file's
- * own message (the mechanism both round-1 and round-2 review found gaps in:
- * two conflated axes, "which message governs a file" and "what diff is safe
- * to honour", collapsed onto one shared id). Only a file with no per-file
- * message of its own this run (never posted, or reachable solely through
- * the header's ✅ file-list expansion) falls back to the header.
+ * Listening axis (docs/decisions.md 2026-09-12): every `{ message, sha,
+ * file }` ref a PR's window messages carry, grouped by TARGET — the header
+ * (`*`) or one queue file (normalised to its `social/queue/<basename>`
+ * relPath) — regardless of the ref's head SHA. Notify re-posts briefs on
+ * every synchronize and the digest re-posts them daily, so several messages
+ * per target is the normal state, not an edge case; a message id is never
+ * a key here, only a member of a target's set.
  */
-export function resolveGoverningRef(file, refs) {
-  const target = path.basename(file);
-  const ownRef = (refs ?? []).find((r) => r.file !== '*' && path.basename(r.file) === target);
-  if (ownRef) return ownRef;
-  return (refs ?? []).find((r) => r.file === '*') ?? null;
+export function groupTargets(refs) {
+  const targets = new Map();
+  for (const ref of refs ?? []) {
+    if (!ref?.file) continue;
+    const key = ref.file === '*' ? '*' : path.posix.join('social', 'queue', path.basename(ref.file));
+    if (!targets.has(key)) targets.set(key, []);
+    targets.get(key).push(ref);
+  }
+  return targets;
+}
+
+function uniqueIds(lists) {
+  const out = [];
+  for (const list of lists) {
+    for (const id of list ?? []) if (!out.includes(id)) out.push(id);
+  }
+  return out;
+}
+
+function messageTime(m) {
+  return Date.parse(m?.timestamp ?? '') || 0;
+}
+
+function latestMessage(messages) {
+  return messages.reduce((latest, m) => (!latest || messageTime(m) >= messageTime(latest) ? m : latest), null);
+}
+
+/**
+ * Classifies ONE target over the UNION of every window message that names
+ * it. `entries`: `{ message: { id, timestamp }, sha, reactions: { approvedBy,
+ * rejectedBy, editedBy, skippedBy }, replies: { id, authorId, content,
+ * timestamp }[] }[]` — one per message, `sha` being that message's `ref:`
+ * head SHA. Reactions are unioned (a ❌ anywhere wins, exactly as
+ * classifyReaction already ranks them), replies are pooled (the latest
+ * qualifying one anywhere wins), and the result adds what the safety axis
+ * needs on top of classifyReaction's fields:
+ *   - `anchors`: `{ messageId, sha }[]` — every message that carries the
+ *     deciding reaction (for an edit/reject, the replied-to message first),
+ *     so the poll can ask "is any of these mintable against head?";
+ *   - `messageId`/`sha`: the first anchor — audit-only, never a gate;
+ *   - `pending`: `{ messageId, kind, reason }` for an unanswered ❌/✏️ (the
+ *     latest message carrying it, which is the one to nudge), else null;
+ *   - `replyTimestamp`: when the winning reply was posted.
+ */
+export function classifyTarget(entries = [], { kind = 'draft' } = {}) {
+  const messages = entries.map((e) => ({ id: e.message?.id, timestamp: e.message?.timestamp, sha: e.sha, reactions: e.reactions ?? {} }));
+  const union = {
+    approvedBy: uniqueIds(messages.map((m) => m.reactions.approvedBy)),
+    rejectedBy: uniqueIds(messages.map((m) => m.reactions.rejectedBy)),
+    editedBy: uniqueIds(messages.map((m) => m.reactions.editedBy)),
+    skippedBy: uniqueIds(messages.map((m) => m.reactions.skippedBy)),
+  };
+  const replies = entries.flatMap((e) => (e.replies ?? []).map((r) => ({ ...r, parentId: e.message?.id, parentSha: e.sha })));
+  const base = classifyReaction(union, replies, { kind });
+
+  const bearing = (field) => messages.filter((m) => filterApprovers(m.reactions[field]).length > 0);
+  const toAnchor = (m) => ({ messageId: m.id, sha: m.sha });
+  const winningReply = base.replyId ? (replies.find((r) => r.id === base.replyId) ?? null) : null;
+  const replyAnchor = winningReply ? { messageId: winningReply.parentId, sha: winningReply.parentSha } : null;
+
+  let anchors = [];
+  if (base.action === 'approve') anchors = bearing('approvedBy').map(toAnchor);
+  else if (base.action === 'edit') anchors = [replyAnchor, ...bearing('editedBy').map(toAnchor)];
+  else if (base.action === 'reject') anchors = [replyAnchor, ...bearing('rejectedBy').map(toAnchor)];
+  else if (base.action === 'skip') anchors = bearing('skippedBy').map(toAnchor);
+  const seen = new Set();
+  anchors = anchors.filter((a) => a && a.messageId && !seen.has(a.messageId) && seen.add(a.messageId));
+
+  let messageId = anchors[0]?.messageId ?? null;
+  if (base.action === 'approve') messageId = latestMessage(bearing('approvedBy'))?.id ?? messageId;
+
+  let pending = null;
+  if (base.action === 'pending') {
+    const pendingKind = base.reason === PENCIL_UNSUPPORTED_ON_HEADER ? 'pencil-header' : union.rejectedBy.length > 0 ? 'reject' : 'edit';
+    const carrier = latestMessage(bearing(pendingKind === 'reject' ? 'rejectedBy' : 'editedBy'));
+    pending = { messageId: carrier?.id ?? null, kind: pendingKind, reason: base.reason };
+    messageId = pending.messageId;
+  }
+
+  return { ...base, messageId, sha: anchors.find((a) => a.messageId === messageId)?.sha ?? anchors[0]?.sha ?? null, anchors, pending, replyTimestamp: winningReply?.timestamp ?? null };
+}
+
+// contentHashPayload only covers platform/body/media/altText/scheduledAt/
+// campaign, so a commit that rewrites an unhashed field (why, mediaCredit)
+// on an already-approved file leaves approvalStatus().ok === true even
+// though the founder never saw that change — "is head still validly
+// signed" is not the same test as "is this the poll's own stamp/edit commit
+// and nothing else." Only `approval` changing (a stamp), or
+// `body`+`edit`+`approval` changing TOGETHER (an edit), are the shapes the
+// poll's own commits ever produce.
+const POLL_OWN_MUTABLE_FIELDS = new Set(['approval', 'body', 'edit']);
+
+/** Safety axis, per file: do `fromItem` (the file at `approval.sha`) and
+ * `toItem` (the file at head) differ ONLY in the fields the poll's own
+ * stamp/edit commits touch? Self-anchored — a sibling's drift is never this
+ * file's problem, so an untouched file can never be stranded by one. */
+export function pollOwnFieldChange(fromItem, toItem) {
+  const keys = new Set([...Object.keys(fromItem ?? {}), ...Object.keys(toItem ?? {})]);
+  for (const key of keys) {
+    const same = JSON.stringify(fromItem?.[key]) === JSON.stringify(toItem?.[key]);
+    if (!same && !POLL_OWN_MUTABLE_FIELDS.has(key)) return false;
+  }
+  const bodyChanged = JSON.stringify(fromItem?.body) !== JSON.stringify(toItem?.body);
+  const editChanged = JSON.stringify(fromItem?.edit) !== JSON.stringify(toItem?.edit);
+  return bodyChanged === editChanged; // body only ever moves together with `edit` (one edit commit) — never alone
 }
 
 function dedupeKey(row) {

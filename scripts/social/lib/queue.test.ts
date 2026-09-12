@@ -20,6 +20,7 @@ import {
   MAX_POSTS_PER_RUN,
   MAX_POSTS_PER_PLATFORM_PER_DAY,
   contentHash,
+  approvalSigPayload,
   approvalStatus,
   signApproval,
   verifyApprovalSig,
@@ -512,5 +513,37 @@ describe('verifyApprovalSig', () => {
     expect(verifyApprovalSig({ v: 2, by: 'discord:1', at: 'x', pr: 1, contentHash: 'sha256:x', sig: 'not-even-close' }, 'key')).toBe(false);
     expect(verifyApprovalSig({ v: 2, by: 'discord:1', at: 'x', pr: 1, contentHash: 'sha256:x' }, 'key')).toBe(false);
     expect(verifyApprovalSig(null, 'key')).toBe(false);
+  });
+});
+
+describe('approvalStatus (v3 — the head SHA is signed, docs/decisions.md 2026-09-12)', () => {
+  const key = 'test-key';
+  const approver = 'discord:100000000000000001';
+  const item = { platform: 'x', body: 'hello', scheduledAt: '2026-09-20T00:00:00Z' };
+  const sha = 'a'.repeat(40);
+
+  function validV3() {
+    const unsigned = { v: 3, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, sha, message: '1', contentHash: contentHash(item) };
+    return { ...unsigned, sig: signApproval(unsigned, key) };
+  }
+
+  it('R2: accepts a correctly signed v3 stamp, and rejects the same stamp once `sha` is hand-edited — the SHA is inside the signature', () => {
+    expect(approvalStatus({ ...item, approval: validV3() }, { approvers: [approver], key })).toEqual({ ok: true });
+    const status = approvalStatus({ ...item, approval: { ...validV3(), sha: 'b'.repeat(40) } }, { approvers: [approver], key });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toContain('signature invalid');
+  });
+
+  it('a v3 stamp whose sha is not a 40-hex commit id is malformed, signature or not', () => {
+    const unsigned = { v: 3, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, sha: 'not-a-sha', message: '1', contentHash: contentHash(item) };
+    const status = approvalStatus({ ...item, approval: { ...unsigned, sig: signApproval(unsigned, key) } }, { approvers: [approver], key });
+    expect(status).toEqual({ ok: false, reason: 'malformed approval record' });
+  });
+
+  it('a v2 stamp still verifies under the unchanged v2 payload — already-merged content keeps posting, no migration', () => {
+    const unsigned = { v: 2, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash(item) };
+    expect(approvalStatus({ ...item, approval: { ...unsigned, sig: signApproval(unsigned, key) } }, { approvers: [approver], key })).toEqual({ ok: true });
+    expect(approvalSigPayload(unsigned)).toBe(`2|${approver}|2026-09-20T00:00:00Z|1|${contentHash(item)}`);
+    expect(approvalSigPayload({ ...unsigned, v: 3, sha })).toBe(`3|${approver}|2026-09-20T00:00:00Z|1|${sha}|${contentHash(item)}`);
   });
 });

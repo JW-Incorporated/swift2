@@ -450,3 +450,33 @@ adversarial review finds a merge where a ❌ on any window-visible message
 for that file went unread, or where `diff approval.sha head` contains a
 non-`social/queue/**` path — either means the two axes leaked back
 together.
+
+## Round 4 — the verdict, implemented (2026-09-12)
+
+Implemented as designed, not as a patch: `docs/decisions.md` 2026-09-12
+entry written first (rule 6); `partitionCurrentHonoured`, every `honoured*`
+name, `unsafeFiles`, `POLL_COMMIT_AUTHOR`, `isPollAuthorizedDeletion`,
+`ledgerHasRejectRow`, `resolveGoverningRef` and the MERGED-only self-heal
+are deleted outright. Listening axis: `groupTargets`/`classifyTarget`
+(`lib/feedback.mjs`) classify every target over the union of all its window
+messages. Safety axis: v3 stamps (`approvalSigPayload` dispatches on `v`,
+`stampFiles` requires `sha`, `stampedSha` reads it only off a verified v3),
+`cleanSince`/`selfClean`/`mintableAnchor`/`stampHealth` in the poll, one
+notice per PR per 24h (`notice:` trailer). Ledger rows derived from state
+every run, deduped against every week file, written into the week of their
+own `ts`. Poster: `social-poster.yml` rebuilds its ledger tree per retry
+attempt from the fresh tip via a scratch index. Bonus bug confirmed and
+fixed: `social-approval-notify.yml`'s jq projections never emitted
+`approval`, so `filter-already-stamped.mjs` filtered nothing.
+
+Every regression test the verdict listed was run against the pre-fix code
+first and failed for the stated reason, then passed after (details in the
+PR body). Two things the verdict did not anticipate, stated rather than
+hidden: (1) T7's 2026-09-12 decision entry had already reserved `v: 3` for
+a signed `kind` — this v3 (`sha`) lands first, T7's `kind` becomes `v: 4`
+layered on it (recorded in the new decision entry; T7's spec needs the
+renumber before its build); (2) reject rows use the run's own resolution
+time as `ts` (spec §Data-1's meaning), with dedupe widened to every week
+file on the branch so a re-derived row is still caught whatever week it
+lands in — the verdict's "week file matching the row's own ts" is honoured
+for where a row is written, and strictly widened for where it is checked.
