@@ -1,5 +1,21 @@
 # STATE — session working memory
 
+## 2026-09-12 (session: Fable — post-M0 audit)
+
+- **PR #4190** (auto-merge armed): M1–M4 wave prompts (`waves/m1-comms.md`,
+  `m2-watchdog-handling.md`, `m3-triage.md`, `m4-loop.md`) — M0 had never
+  written them; PLAN.md gains "M0 findings that bind M1" (durable copy of the
+  section below); C3 row + M1 gate corrected (`send-mail.py` is reached via
+  `upsert-alert.sh`); s1's `founder-decision` label marked not-live (M3
+  creates it); retired "founder-approved PR" wording removed from
+  c2/s1/RUNBOOK.
+- Audit verdict (Sonnet researcher, spot-checked): all five specs compliant,
+  no cross-spec contradictions, load-bearing repo facts confirmed.
+- Reply poller moved M4 → M2 in PLAN. M4 now depends on M1 + M2.
+- Runbook artifact republished (v7): M0 done, M1 prompt with copy button.
+- Stale worktree `ha-close-51-65` removed (its PR #4182 was merged).
+- **Next:** founder does HA #66, then pastes `waves/m1-comms.md` (Sonnet).
+
 ## 2026-09-12 (session: Opus — Marjorie Overhaul M0 + the charter-merge rule)
 
 ### Shipped and MERGED
