@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 77
+
+## Taylor Swift and Travis Kelce Address Rumors Ahead of NFL Season
+
+- first seen: 2026-09-12 12:49 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are facing unusual rumors as the NFL season approaches. The speculation comes as both prepare for the upcoming football season.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQRUFOdHFBR28yY3BZVzBkSzREcFU1bU1qZ0xvVUdZR0RmWjF0ajhRQ1pxY3BYUl9uVHNUTEdWM1N4MjBScXgyeEtpUEJJUS1TZUpBSXhfZmdEVmltaTVIQndvc1FqNUh4WEpFMm84YllwMGxaLWJ0ZXlEdlNsbVlWeUQzZ1ZnbDBOb3VuZExzQ2pLNDdGMlJSLXR4emJBSmFnWEE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses Wedding Plans with Taylor Swift
+
+- first seen: 2026-09-12 12:49 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shared details regarding his forthcoming wedding to Taylor Swift, highlighting their plans together. The news provides insight into their relationship milestones.
+- sources:
+  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMijAFBVV95cUxPU2d2Y3B4QzRJQUdHcW9RSm5oeTNpQ3F2ODRJNUdxYWw1UzZ4aXlBemR0NE02SjZaSEhlTm5wOTRHMXFmbFpUNVZoUHZFMDFaVXdOUHMzc3I4TkFSUjVONkhfdFZJVldlMXFSc1dpMTlmRXdWRXJreFJ5ZHBXcHlWRUhYTnFaZUlKUlBqRtIBiwFBVV95cUxPZ214cHphLUhXMTRPYUxUSFk0VFRHdkJpdlN4MEl2aWFXV3NtdG9NZk11dnJxRmFXUW1ib2VySjd3Szd1aTFMb3VzSkd0LTZSQTJtcEhPRUx0c3FFSXdQWnptbXNjTmh2WFJmem94MWdmYmpURE9UZlJVVnVqWjdNOW5EdHY0VDRvQkVz?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Nominated for 2026 CMA Awards
+
+- first seen: 2026-09-12 12:49 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has received a nomination for the 2026 CMA Awards, marking her continued presence in the country music scene. The announcement highlights her contributions to the genre.
+- sources:
+  - [unverified] Indiana 105 — https://news.google.com/rss/articles/CBMikwFBVV95cUxPaDdvckwyRXdXWm5BU214ZDI4NXgxR0o1UFh5alYtUngxZlR2eGJHWEcwSmxoT21IWHpHTUVIbjVKUUtXdFVCY0pkUUZ0Qk5jWTJ5a3NoVmF0ekRyeUlCWjdacGhiWDYzLXB5U3RQeWZUMF91T1cwelpxQVNHb3FEU1dYb2Y2WU8zcnFGZHltWWZWbFU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Fans Honor Her by Naming New Species
+
+- first seen: 2026-09-12 12:49 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Fans of Taylor Swift are making their mark in the STEM field by naming new species after her. This trend highlights the intersection of popular culture and scientific recognition.
+- sources:
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMilAFBVV95cUxPRVFnZmdXNjZMRDlXRGU5VlNFSG5tU2tEWHUwT1UwUUtxNS0yLXNuVjc3UFJyRG5sVEZqSEdjV3dIZGw4QXVYQW81SDhHMFhyeEgyZHF5alk3NWJfUndFZnNTTzdsdV9vT2tXM25fVXRpT2QzbXpaTGJsUGs0bXlPNm10UTVab2U5VnFfeG1iMm4yelFO?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Post-Wedding Appearance Raises Questions About Taylor Swift and Travis Kelce's Marriage
 
@@ -645,45 +677,3 @@ Stories: 78
   - [unverified] People.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxQcUxnYWNWMWlNR2Fpczl4d0xXREtoU0VUclZGNjYtelRYNXlmVEZlaVgtbGg2NzNKYUh5b2pFTG1mcDBWRl9XMHQtU1dWQVhtbllJMkdSQ2lYNVBQLUtuSDdqSHdoWHVueFZPN0JETEVwTkpaU05qdndZRUtTYWVlaDZyTUNzVl9KQmw2bw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] PureWow — https://news.google.com/rss/articles/CBMie0FVX3lxTE56eERRMDVURmVrNVhCRXFjU1p1ajhYcG9PTHZaX2FVMGdraXJnYml1bUVzVjU2VEdEYkIwc21wNG9BR3p3Y1lrRVZ2bnd4Si14V3FJRlVHS1psM24wcEQwSS1xa0R6LXhHdkVIUmFkbVhDbS1ibmNERFgwTQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQZmdsNE8zNW1LeVBjcnVGSjhIbE04WkhmZEhNUDdTMDBndlFKMmliNklsQ1owaVlMOC1ha1VESTJDalJESlg2NFFuNXVxVUV1bnRadTFsZFhncDFhelhGTVpMRXFUaWZoaldpdXdxYWxNckZQbWhPX3lUREVoc0x2eEJpMzlLb2Q5UUZPUGRwTTFPSnRUSzRuOWtTU190Tk5rbUZEWWlBdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Are Seen on Their First Public Date in Months
-
-- first seen: 2026-09-09 05:56 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce recently enjoyed their first public date in several months, marking a notable moment for the couple. Details of their outing have been reported by various sources.
-- sources:
-  - [unverified] elle.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxQLUYyYm5aUEtQZG5HX3pHdm9Fdl94bFpHVDhGRDNxanJnZm5lQ3BBaFd6c2lJYmlYcjdhRW5td2h5THlXcFl6LVRVdWFFekQ5SXg4UFdXbUgzMEpZVktxeDhPRXFQbHJiZDlOUkZTYXdTSTBzX3JnUWUzclVVOVpqMDUzVG0xNDhoS09qckR4SDhTb1F2dmJiXy1jOFpkSTRkTkV5UEJfQlhyY00zLVhjQnRvbXhDck1jZEhYcw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Eras Tour Dancers Showcase Wedding Looks Shared by Taylor Swift
-
-- first seen: 2026-09-09 05:56 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Dancers from Taylor Swift's Eras Tour have shared their fashion looks from her wedding. The article features various styles and outfits worn by the dancers during the event.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNV2tNS2piZnFxSzJxal9HeGc1aF9LS1RaZFlHVFRlbUQxeFZTWTNrc01fRmRfQVBsUEhraTE0cHpsZ3RBSDBWRGJqbkRSUzFvUXlMQUVSYzhLWUhFWXVURlVId1VTSFQ3eWlZQ1JFTjFsdWRMTTJuaW1QUDZmZnZwQ1BoTnBVWlJUVW9LcXZUWmhBcmlXYzZST0syX0tMcVdCdWtvM2JvdDNaUVdDbXZTS0RKbWZxcHlrV2U5MDBndDV1MFNraUFhMTNHM3IzRE9N?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Seen in $2,800 Dress During NYC Date Night with Travis Kelce
-
-- first seen: 2026-09-09 05:56 UTC | category: fashion | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift was spotted in a $2,800 dress and showcasing her new short hair during a date night in New York City with husband Travis Kelce.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxOTnJmTF9zT2stMVN2VlpFbjFZTFh3U2p0YV9CeDRNYkdUVFRhdWI1WThhQWgzVnNYdHdvRTNfNWt2SkQ3LUI4TlBKVlJCSUY1LUJWbUZDc1JBYUhVY2dBNS1weDlOUmhpdWJqQkJVWk53c245M19yZTFiOVJnUk5QYzU0dXZmVUVUVTBNdWpWYWExdnVZeFNQS1JtQ2g5RVdwWHNF?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMibkFVX3lxTE1jUTNtN1ZCbnc2OFFPOTRPdGpCaVl4SklMeUpMYjB2WUJFUnNPQy1wRWhxUVN1MmMxRVlObi1HWUJxN2VCZUJ0NGpVN3YzZml1VDE1QUtCalpMOHZmVjdMRE51T29BWmVad3dmZGVR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Tour Promoter Louis Messina Opposes Live Nation Settlement
-
-- first seen: 2026-09-09 05:56 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Louis Messina, Taylor Swift's tour promoter, is urging a judge to reject the Live Nation/Ticketmaster antitrust settlement, expressing concern that it could harm his business and others in the industry.
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMirAFBVV95cUxQbjhpc0ZwWjMwWk5US0Fvc0lNUXJqSUhFQVRrbzh2UnNrbk1nNDZPNDZaTWgxYmY2QXlTVDBtX0xINU5lZk5NdzVTT29GQUoyVWMyYTlQWVhVOGFmUEo3TWRhR0pETjh3dXczSFU5Z1NZenF5b3hkZV9kMy1UYlNDWER2ZHdHVmdBQ3l4b3hPMUtoOUdTdW16UE9uZWpjWHNEaEMybXlZcUpPZFZo?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/louis-messina-taylor-swift-promoter-live-nation-ticketmaster-1236855357/
-
-## Taylor Swift Returns to No. 1 on the Charts
-
-- first seen: 2026-09-09 05:56 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reclaimed the No. 1 position on music charts, as reported by ABC News. The details surrounding her chart performance highlight her continued success in the music industry.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE42SjFkUzNLVTJKLThQYk15SUlSWWs3MnI2NWw1WHVXZFpId0lhOXF4ZktkMDZTVGlydFRSYkhBa2E4ZDNyMVl3d0NWYVI?oc=5&hl=en-US&gl=US&ceid=US:en
