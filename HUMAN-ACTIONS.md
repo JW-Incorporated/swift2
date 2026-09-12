@@ -2,21 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #60 🔴 [BLOCKING] Set SOCIAL_FREEZE=true — Wave 3 PRs blocked by the RULINGS-SOCIAL A6 CI gate (~2 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** A6 fails CI's `build-full` on any PR touching the live posting path while `SOCIAL_FREEZE` is off. Nearly every Tree Overhaul Wave 3 PR (#4117) touches `social-approval-poll.mjs`/`queue-schema.mjs`, so #4139 is already red on this and more will follow.
-
-**Steps:**
-1. `gh variable set SOCIAL_FREEZE --repo JW-Incorporated/swift2 --body true` — freezes live posting; the 4 already-approved 09-12/09-13 scheduled posts will not go out while frozen.
-2. Re-run the failed `build-full` job on #4139 (and any later wave-3 PR red on this same check) from its Actions run page.
-3. Once every Wave 3 posting-path PR has merged, set it back to `false` deliberately — I'll flag this again when the wave closes.
-
-**Worked if:** #4139's `build-full` check goes green on re-run.
 
 ## #58 🟡 [DECIDE] Confirm routine-vault-run holds up under real daily scheduling (~2 min)
 <!-- ha filed=2026-09-11 kind=default -->
