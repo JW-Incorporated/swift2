@@ -2,9 +2,20 @@
 
 <!-- ha-format: 2 -->
 
-> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #65 🔴 [BLOCKING] Freeze, merge Tree T6 PR #4166, unfreeze — CI A6 gate blocks it while SOCIAL_FREEZE=false (~5 min)
+<!-- ha filed=2026-09-12 -->
+
+**Why:** Wave 4 T6 (fast-lane drafting) edits scripts/social/lib/queue-schema.mjs, a posting-path file, so CI fails by design until the freeze is on. Auto-merge is armed; nothing else in Wave 4 is blocked. The wave is 5/6 merged until this lands.
+**Steps:**
+1. `gh variable set SOCIAL_FREEZE --repo JW-Incorporated/swift2 --body true`
+2. `gh run rerun 34697966900 --failed --repo JW-Incorporated/swift2` (the PR then auto-merges itself when green)
+3. Wait until `gh pr view 4166 --repo JW-Incorporated/swift2 --json state` shows MERGED (~10 min).
+4. `gh variable set SOCIAL_FREEZE --repo JW-Incorporated/swift2 --body false`
+**Worked if:** PR #4166 shows MERGED and the SOCIAL_FREEZE variable reads false again.
 
 ## #64 🟡 [DECIDE] X per-post metrics need a paid API tier (~5 min)
 <!-- ha filed=2026-09-12 -->
