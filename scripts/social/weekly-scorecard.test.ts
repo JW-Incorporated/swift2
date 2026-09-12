@@ -73,7 +73,7 @@ describe('renderScorecard', () => {
     const withVerdicts = { ...BASE_CARD, verdicts: { approve: 9, edit: 2, reject: 1, total: 12, needsChangePct: 25 }, latency: { median: 190 * 60000, slowest: 19 * 60 * 60000 } };
     const legacyLines = renderScorecard(BASE_CARD).split('\n');
     const fullLines = renderScorecard(withVerdicts).split('\n');
-    expect(fullLines).toHaveLength(8); // S8 appends lines 6-8 unconditionally; see the dedicated 8-line test below
+    expect(fullLines).toHaveLength(9); // S8 appends lines 6-8, T7 appends line 9, both unconditionally; see the dedicated tests below
     expect(fullLines.slice(0, 3)).toEqual(legacyLines.slice(0, 3));
     expect(fullLines[3]).toBe('**Your verdicts:** 9 ✅ · 2 ✏️ · 1 ❌ — 25% needed a change from you');
     expect(fullLines[4]).toBe('**Time to your answer:** median 3h 10m, slowest 19h');
@@ -89,7 +89,7 @@ describe('renderScorecard', () => {
 
   it('renders the same empty-window sentences when verdicts/latency are simply absent (pre-T4 callers)', () => {
     const out = renderScorecard(BASE_CARD);
-    expect(out.split('\n')).toHaveLength(8); // S8 appends lines 6-8 unconditionally; see the dedicated 8-line test below
+    expect(out.split('\n')).toHaveLength(9); // S8 appends lines 6-8, T7 appends line 9, both unconditionally; see the dedicated tests below
     expect(out).toContain('**Your verdicts:** no drafts went to you this week');
     expect(out).toContain('**Time to your answer:** no drafts went to you this week');
   });
@@ -99,11 +99,11 @@ describe('renderScorecard', () => {
   // optional-line style T4 established for lines 4-5.
   const WITH_T4 = { ...BASE_CARD, verdicts: { approve: 9, edit: 2, reject: 1, total: 12, needsChangePct: 25 }, latency: { median: 190 * 60000, slowest: 19 * 60 * 60000 } };
 
-  it('grows to 8 lines, with the first 5 byte-identical to the pre-S8 render for the same fixture', () => {
+  it('grows to 9 lines, with the first 5 byte-identical to the pre-S8 render for the same fixture', () => {
     const withReddit = { ...WITH_T4, redditLatency: { median: 3 * 60 * 60000, slowest: 8 * 60 * 60000 }, expiredWhilePending: 1, redditRepliesDone: 4 };
     const preS8Lines = renderScorecard(WITH_T4).split('\n');
     const fullLines = renderScorecard(withReddit).split('\n');
-    expect(fullLines).toHaveLength(8);
+    expect(fullLines).toHaveLength(9);
     expect(fullLines.slice(0, 5)).toEqual(preS8Lines.slice(0, 5));
     expect(fullLines[5]).toBe('**Time to your Reddit answer:** median 3h, slowest 8h');
     expect(fullLines[6]).toBe('**Slowest to hear back (>48h):** 1 target took longer than 48h to hear back from you');
@@ -126,12 +126,28 @@ describe('renderScorecard', () => {
     expect(out).not.toMatch(/undefined|NaN/);
   });
 
-  it('renders the same 8 lines, with 6-8 as sentences, when the 3 new fields are simply absent (pre-S8 callers)', () => {
+  it('renders the same 9 lines, with 6-8 as sentences, when the 3 new fields are simply absent (pre-S8 callers)', () => {
     const out = renderScorecard(WITH_T4);
-    expect(out.split('\n')).toHaveLength(8);
+    expect(out.split('\n')).toHaveLength(9);
     expect(out).toContain('**Time to your Reddit answer:** no Reddit prompts were resolved this week');
     expect(out).toContain('**Slowest to hear back (>48h):** no drafts or Reddit prompts were resolved this week');
     expect(out).toContain('**Reddit replies done:** no Reddit prompts were resolved this week');
+  });
+
+  // Tree Overhaul T7 (docs/specs/tree-overhaul/t7-autonomy-ladder.md
+  // Mechanics): "an eligibility() block in the Monday brief listing every
+  // type's standing... visible every week whether or not anything is
+  // proposed" — line 9, appended unconditionally like every prior line.
+  it('T7: renders the ladder-standing block as its own trailing section', () => {
+    const card = { ...WITH_T4, ladderStanding: [{ type: 'heartbeat:on-this-day', eligible: true, briefs: 8, approvedPct: 100, rejected: 0, reason: null }] };
+    const out = renderScorecard(card);
+    expect(out).toContain('**Autonomy ladder standing:**');
+    expect(out).toContain('heartbeat:on-this-day — 8 briefs, 100% ✅, eligible');
+  });
+
+  it('renders the honest "no campaign families" sentence when ladderStanding is simply absent (pre-T7 callers)', () => {
+    const out = renderScorecard(WITH_T4);
+    expect(out).toContain('**Autonomy ladder standing:** no campaign families to report yet');
   });
 });
 
