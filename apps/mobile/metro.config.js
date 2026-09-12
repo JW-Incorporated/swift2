@@ -15,9 +15,14 @@ const workspaceRoot = path.resolve(projectRoot, '../..');
 // ./lenses.generated". Regenerated on every Metro start (reads
 // supabase/seed/lenses, no network). content-ids.generated.ts is imported
 // type-only and erased by Babel, so it isn't needed here.
+//
+// stdout is discarded on purpose: `eas build:internal` loads this file
+// in-process while emitting JSON on stdout, and the generator's progress lines
+// corrupted it ("Failed to run eas build:internal"). Failures still surface —
+// execFileSync throws on a non-zero exit and stderr is passed through.
 execFileSync(process.execPath, [path.join(workspaceRoot, 'scripts/sync-longlive-lenses.mjs')], {
   cwd: workspaceRoot,
-  stdio: 'inherit',
+  stdio: ['ignore', 'ignore', 'inherit'],
 });
 
 const config = getDefaultConfig(projectRoot);
