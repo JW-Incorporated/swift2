@@ -79,6 +79,37 @@ Filed as #4170.
 8. `desk:*` labels don't exist live. `plan-recheck-marjorie.yml` isn't
    watched by watchdog; `marjorie-inbox.yml` is.
 
+### ⚠️ M1 BLOCKER I created: PR #4047 collides with C1/C2
+
+**Read this before writing any M1 Discord code.** PR #4047 "Deliver the
+morning brief to Discord" (open since 2026-09-09) already implements most of
+C1/C2's delivery layer — `scripts/discord/post-brief.mjs` + 15 tests,
+`delivery-status.mjs`, chunking, mention suppression, retry, a Gmail
+fallback, and watchdog delivered/unconfigured/failed classification.
+
+**I missed it during M0.** My research passes grepped merged code for
+existing Discord delivery and never checked open PRs. C1 as written is a
+second implementation of an existing mechanism — `CLAUDE.md`'s scope
+tripwire names exactly that. Full analysis is a comment on #4180 and on
+#4047 itself.
+
+It is not a simple "merge #4047 instead": it is `CONFLICTING` against `main`
+(touches `marjorie.md` and `watchdog.yml`, both changed today), it builds on
+`brief-mailer.yml` which C3 deletes, it uses a repo-level secret rather than
+an environment one (the property C1 chose deliberately), and it predates the
+three-channel decision so it targets the wrong channel.
+
+**M1: lift its chunking/mention/retry logic and tests, keep C1's
+environment-scoped secret and two-job shape, drop everything hanging off
+`brief-mailer.yml`, then rebase or close #4047.**
+
+**Related fact worth not re-deriving:** #4047's human gate wanted
+`DISCORD_BRIEF_WEBHOOK`. HA #50 was closed "done" on 2026-09-11 but **that
+secret does not exist** — verified against repo secrets and every
+environment. The only Discord webhook secret present is
+`DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` (the `#longlive-tree` one). A closed HA
+is not proof the thing was done.
+
 ### Architect invocations
 
 **1 — 2026-09-12, Fable, read-only review of the five M0 specs.** Found three
