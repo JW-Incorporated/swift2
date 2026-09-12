@@ -233,8 +233,8 @@ so it is a known gap, not a surprise.
 
 The table above, plus `MAP.md` rows for the two new `lib/` modules, and
 `docs/agents/marjorie.md` § Brief format / § Cadence / § Delivery — amended in
-PR 2 (`docs/marjorie-charter-amendment`), not here, because the charter may
-only change by founder-approved PR.
+PR 2 (`docs/marjorie-charter-amendment`), not here — a charter changes only
+by a PR Marjorie did not write (invariant 5); it merges on green CI.
 
 ## Open questions
 

@@ -398,7 +398,7 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `docs/plans/marjorie-overhaul/PLAN.md` | Marjorie Overhaul (epic #4180) plan of record: waves M0–M4, item map, gates, why M4 waits for Tree R2 |
 | `docs/plans/marjorie-overhaul/RUNBOOK.md` | Founder runbook for the Marjorie waves: schedule, standing job in `#longlive-marjorie` |
 | `docs/plans/marjorie-overhaul/checkpoints.json` | MR1/MR2 rechecks; `due` is null until the M1 session sets it |
-| `docs/plans/marjorie-overhaul/waves/*.md` | Paste-ready prompts, one per wave (M0 written; M1–M4 written by M0) |
+| `docs/plans/marjorie-overhaul/waves/*.md` | Paste-ready prompts, one per wave: `m0-design` (done), `m1-comms`, `m2-watchdog-handling`, `m3-triage`, `m4-loop` |
 | `.github/workflows/plan-recheck-marjorie.yml` | Fork of `plan-recheck.yml` for the Marjorie plan (path hard-coded there); daily gate, Opus only when due |
 | `docs/agents/runner-prompts/plan-recheck-marjorie.md` | Prompt for the Marjorie recheck routine, reports on #4180 |
 | `docs/plans/tree-overhaul/WAVE-1-REVIEW-BRIEF.md` | Handoff for a later review session: what Wave 1 decided, what was already reviewed, and the five places worth pushing hardest |
