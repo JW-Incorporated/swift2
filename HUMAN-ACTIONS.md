@@ -2,9 +2,18 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #61 🔴 [BLOCKING] Set SOCIAL_FREEZE=false — Wave 3 of the Tree Overhaul is fully merged (~2 min)
+<!-- ha filed=2026-09-12 -->
+
+**Why:** SOCIAL_FREEZE=true (HA #60) unblocked CI for Wave 3's posting-path PRs; all 6 have now merged (#4139/4140/4144/4145/4148/4149), so the freeze's reason is gone and 4 real scheduled posts stay paused until you flip it back.
+**Steps:**
+1. `gh variable set SOCIAL_FREEZE --repo JW-Incorporated/swift2 --body false`
+2. Confirm: `gh api repos/JW-Incorporated/swift2/actions/variables/SOCIAL_FREEZE` shows `"value":"false"`
+**Worked if:** the next scheduled social-poster run posts normally instead of being blocked by the A6 freeze gate.
 
 ## #58 🟡 [DECIDE] Confirm routine-vault-run holds up under real daily scheduling (~2 min)
 <!-- ha filed=2026-09-11 kind=default -->
