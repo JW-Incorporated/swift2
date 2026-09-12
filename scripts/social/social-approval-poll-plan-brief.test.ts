@@ -86,23 +86,44 @@ function makeFetchImpl(messages: unknown[], byMessage: Record<string, { check?: 
 
 /** `pr view --json ...`/`pr comment`/`workflow run`, keyed per PR number so
  * a test can exercise two PRs (a plan PR + a draft PR) in one run(). */
-function makeExecGh(byPr: Record<number, { state?: string; files?: Array<{ path: string }>; comments?: string[] }> = {}) {
-  const state: Record<number, { state: string; files: Array<{ path: string }>; comments: string[] }> = {};
-  for (const [k, v] of Object.entries(byPr)) state[Number(k)] = { state: v.state ?? 'OPEN', files: v.files ?? [], comments: [...(v.comments ?? [])] };
+// LOW (Codex round 2): the poll only trusts a marker/dedupe comment
+// authored by its OWN identity (resolved at runtime via `gh api user`) —
+// BOT_LOGIN is that fixture's stand-in.
+const BOT_LOGIN = 'tree-poster-bot';
+const OTHER_COMMENTER = 'a-different-collaborator';
+
+type SeedComment = string | { body: string; author: string };
+
+function makeExecGh(byPr: Record<number, { state?: string; files?: Array<{ path: string }>; comments?: SeedComment[] }> = {}) {
+  const state: Record<number, { state: string; files: Array<{ path: string }>; comments: string[]; commentAuthors: string[] }> = {};
+  for (const [k, v] of Object.entries(byPr)) {
+    const seeded = v.comments ?? [];
+    state[Number(k)] = {
+      state: v.state ?? 'OPEN',
+      files: v.files ?? [],
+      comments: seeded.map((c) => (typeof c === 'string' ? c : c.body)),
+      commentAuthors: seeded.map((c) => (typeof c === 'string' ? BOT_LOGIN : c.author)),
+    };
+  }
   const calls: string[][] = [];
   const impl = vi.fn((args: string[]) => {
     calls.push(args);
+    if (args[0] === 'api' && args[1] === 'user') return BOT_LOGIN;
     if (args[0] === 'pr' && args[1] === 'view') {
       const n = Number(args[2]);
-      const cfg = (state[n] ??= { state: 'OPEN', files: [], comments: [] });
+      const cfg = (state[n] ??= { state: 'OPEN', files: [], comments: [], commentAuthors: [] });
       if (args.includes('headRefOid,headRefName,state,number')) return JSON.stringify({ headRefOid: HEAD_SHA, headRefName: `tree/plan/${n}`, state: cfg.state, number: n });
       if (args.includes('files')) return JSON.stringify({ files: cfg.files });
-      if (args.includes('comments')) return JSON.stringify({ comments: cfg.comments.map((body) => ({ body })) });
+      if (args.includes('comments')) {
+        return JSON.stringify({ comments: cfg.comments.map((body, i) => ({ body, author: { login: cfg.commentAuthors[i] ?? BOT_LOGIN } })) });
+      }
     }
     if (args[0] === 'pr' && args[1] === 'comment') {
       const n = Number(args[2]);
       const bodyIndex = args.indexOf('--body');
-      (state[n] ??= { state: 'OPEN', files: [], comments: [] }).comments.push(args[bodyIndex + 1]);
+      const cfg = (state[n] ??= { state: 'OPEN', files: [], comments: [], commentAuthors: [] });
+      cfg.comments.push(args[bodyIndex + 1]);
+      cfg.commentAuthors.push(BOT_LOGIN); // this call IS the poll itself posting
       return '';
     }
     return '';
@@ -388,5 +409,40 @@ describe('MEDIUM 8 — the replan marker is written only after a confirmed dispa
     const dispatchCalls = calls.filter((c) => c[0] === 'workflow' && c[1] === 'run');
     expect(dispatchCalls).toHaveLength(2); // the failed attempt, then the successful retry
     expect(state[PR_NUMBER].comments.some((c) => c.startsWith('replan-dispatched: 2026-W38'))).toBe(true);
+  });
+});
+
+// LOW (Codex round 2): a marker/dedupe comment from ANY commenter used to
+// count — a founder or any other collaborator could spoof either marker and
+// suppress the real thing.
+describe('LOW — marker/dedupe comments only count when authored by the poll itself', () => {
+  it('a replan-dispatched marker posted by someone else is ignored -- the real dispatch still fires', async () => {
+    vi.setSystemTime(new Date('2026-09-15T14:00:00.000Z')); // Tuesday, before the cut-off
+    const messages = [refMessage({ id: BRIEF_MESSAGE_ID, scope: 'brief' }), replyMessage({ id: 'reply-1', parentId: BRIEF_MESSAGE_ID, content: 'first reply' })];
+    const { impl: fetchImpl } = makeFetchImpl(messages, { [BRIEF_MESSAGE_ID]: {} });
+    const { impl: execGh, calls, state } = makeExecGh({
+      [PR_NUMBER]: { comments: [{ body: 'replan-dispatched: 2026-W38', author: OTHER_COMMENTER }] },
+    });
+    const execGit = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(calls.some((c) => c[0] === 'workflow' && c[1] === 'run')).toBe(true); // the spoofed marker did not suppress it
+    expect(state[PR_NUMBER].comments.filter((c) => c.startsWith('replan-dispatched: 2026-W38'))).toHaveLength(2); // the spoofed one, plus our own real one
+  });
+
+  it('a discord-reply marker posted by someone else is ignored -- the real reply still relays', async () => {
+    const messages = [refMessage({ id: BRIEF_MESSAGE_ID, scope: 'brief' }), replyMessage({ id: 'reply-1', parentId: BRIEF_MESSAGE_ID, content: 'a real reply' })];
+    const { impl: fetchImpl } = makeFetchImpl(messages, { [BRIEF_MESSAGE_ID]: {} });
+    const { impl: execGh, state } = makeExecGh({
+      [PR_NUMBER]: { comments: [{ body: 'discord-reply: reply-1', author: OTHER_COMMENTER }] },
+    });
+    const execGit = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    const relayed = state[PR_NUMBER].comments.filter((c) => c.includes('discord-reply: reply-1'));
+    expect(relayed).toHaveLength(2); // the spoofed one, plus our own real relay
+    expect(relayed.some((c) => c.includes('a real reply'))).toBe(true);
   });
 });

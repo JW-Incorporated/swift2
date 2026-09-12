@@ -589,6 +589,17 @@ function planScopeVerdict(scope, classified) {
   if (!isProposal && classified.action === 'pending' && classified.pending?.kind === 'reject') {
     return { ...classified, action: 'reject' };
   }
+  // LOW (Codex round 2): an `edit` classification (✏️ + a qualifying reply)
+  // deliberately produces no row and no nudge here, on either a proposal or
+  // a brief/calendar/questions scope — intentional, not an oversight. ✏️ has
+  // no defined meaning anywhere in spec §Data for these scopes: unlike a
+  // real draft, none of them has a `body` for a reply to replace, so
+  // recording `action: 'edit'` would leave editedBody/originalBody null in
+  // the ledger, a shape T5's distillation never expects. The founder's
+  // reply is not lost — collectQualifyingReplies relays it as a plan-PR
+  // comment regardless of what (if anything) the reaction classifies as,
+  // which is the mechanism that actually matters for a correction/comment
+  // on these scopes.
   return null;
 }
 
@@ -703,18 +714,36 @@ async function processPlanBriefRefs({ pr, planRefs, repliesByParent, failedThrea
   // plan PR's own existing comments — one extra `gh pr view` call (never
   // added to the draft dispatch's own, already-tested `--json` field list
   // above) covers both, per S3's "no new state file" pattern.
+  //
+  // LOW (Codex round 2): both dedupe checks used to match ANY comment on
+  // the PR containing the marker text, from any commenter — a founder or
+  // any other collaborator typing (accidentally or not) a line shaped like
+  // `replan-dispatched: <week>` could permanently suppress that week's real
+  // dispatch, and the same for `discord-reply: <id>` suppressing a real
+  // reply's relay. Both checks are now restricted to comments actually
+  // authored by this poll's own identity. `sffan15-sys` (lib/approvers.mjs's
+  // own header comment: "GitHub has only one identity ... for the owner,
+  // every agent session's gh, every routine's PAT" — SOCIAL_POSTER_PAT
+  // authenticates as that same account) is shared across this repo's
+  // automation broadly, so this narrows the threat to "another routine
+  // impersonating this exact marker shape", not a perfect Discord-webhook-id
+  // -style binding — resolved at runtime via `gh api user`, never hardcoded,
+  // so it never drifts from whichever identity GH_TOKEN actually is.
   let existingComments;
+  let botLogin;
   try {
     existingComments = JSON.parse(execGh(['pr', 'view', String(pr), '--repo', repo, '--json', 'comments'])).comments ?? [];
+    botLogin = execGh(['api', 'user', '--jq', '.login']);
   } catch (err) {
-    console.error(`::warning::social-approval-poll: PR #${pr} — could not list comments for reply-relay/replan dedupe this run: ${err.message}`);
+    console.error(`::warning::social-approval-poll: PR #${pr} — could not list comments/resolve our own identity for reply-relay/replan dedupe this run: ${err.message}`);
     return rows;
   }
+  const ownComments = existingComments.filter((c) => c.author?.login === botLogin);
 
   const qualifyingReplies = collectQualifyingReplies(byScope, repliesByParent);
   for (const { reply, message } of qualifyingReplies) {
     const trailer = `discord-reply: ${reply.id}`;
-    if (existingComments.some((c) => c.body?.includes(trailer))) continue;
+    if (ownComments.some((c) => c.body?.includes(trailer))) continue;
     execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', replyCommentBody(reply.authorName, messageTitle(message.content), reply.id, reply.content)]);
   }
 
@@ -725,7 +754,7 @@ async function processPlanBriefRefs({ pr, planRefs, repliesByParent, failedThrea
     } else if (runResolvedAt.getTime() <= wednesdayCutoffUtc(new Date(briefRef.message.timestamp)).getTime()) {
       const week = isoWeek(new Date(briefRef.message.timestamp));
       const marker = `replan-dispatched: ${week}`;
-      const alreadyDispatched = existingComments.some((c) => REPLAN_MARKER_RE.exec(c.body ?? '')?.[1] === week);
+      const alreadyDispatched = ownComments.some((c) => REPLAN_MARKER_RE.exec(c.body ?? '')?.[1] === week);
       // MEDIUM 8 (Codex round 1): the marker is written ONLY after a
       // confirmed-successful dispatch — writing it first (spec's own
       // literal phrasing) meant a failed `gh workflow run` call still left
@@ -740,7 +769,7 @@ async function processPlanBriefRefs({ pr, planRefs, repliesByParent, failedThrea
       if (!alreadyDispatched) {
         let dispatched = false;
         try {
-          execGh(['workflow', 'run', 'routine-tree-weekly-plan.yml', '-f', 'mode=replan', '-f', `pr=${pr}`]);
+          execGh(['workflow', 'run', 'routine-tree-weekly-plan.yml', '--repo', repo, '-f', 'mode=replan', '-f', `pr=${pr}`]);
           dispatched = true;
         } catch (err) {
           console.error(`::error::social-approval-poll: PR #${pr} — mode=replan dispatch failed, no marker written so a later run can retry: ${err.message}`);
