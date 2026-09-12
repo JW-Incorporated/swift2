@@ -38,7 +38,11 @@ modifies, or renames a `social/queue/**.json` draft no longer auto-merges —
 outright (the SOCIAL APPROVAL GATE), and
 `.github/workflows/social-approval-notify.yml` posts the full caption(s), an
 embedded image, and everything else a go/no-go needs to `#longlive-social` so
-the founder can decide from the prompt alone. **Approval is the founder's
+the founder can decide from the prompt alone (a draft whose stamp still
+*covers* the PR head — `scripts/social/filter-already-stamped.mjs`, the same
+`cleanSince`/`selfClean` check the poll merges on — is left out of a
+re-brief; one whose stamp no longer covers it is briefed again, header
+included, because a fresh header ✅ is how it gets re-approved). **Approval is the founder's
 own ✅ reaction on that message (on a draft for just that one, on the header
 for all of them) — merging the PR yourself does NOT approve it, it kills the
 draft.** `.github/workflows/social-approval-poll.yml` polls for the
@@ -95,17 +99,19 @@ Every run resolves each touched item to an outcome — `posted`, `retrying`, `fa
 }
 ```
 
-An APPROVED item additionally carries (schema v2, written only by
-`social-approval-poll.yml` reacting to the owner's Discord ✅, never by a
-drafter and never by a merge — see the `approval` bullet below):
+An APPROVED item additionally carries (schema v3 since 2026-09-12 —
+`docs/decisions.md` that date; written only by `social-approval-poll.yml`
+reacting to the owner's Discord ✅, never by a drafter and never by a merge
+— see the `approval` bullet below):
 
 ```json
 {
   "approval": {
-    "v": 2,
+    "v": 3,
     "by": "discord:123456789012345678",
     "at": "2026-09-12T14:03:11Z",
     "pr": 4123,
+    "sha": "<40-hex PR head commit the poll validated this content at>",
     "message": "987654321098765432",
     "contentHash": "sha256:<hex>",
     "sig": "hmac-sha256:<hex>"
@@ -113,10 +119,16 @@ drafter and never by a merge — see the `approval` bullet below):
 }
 ```
 
-`sig` is `HMAC-SHA256(SOCIAL_APPROVAL_KEY, "2|" + by + "|" + at + "|" + pr +
-"|" + contentHash)` — a hand-written `approval` object fails
+`sig` is `HMAC-SHA256(SOCIAL_APPROVAL_KEY, "3|" + by + "|" + at + "|" + pr +
+"|" + sha + "|" + contentHash)` — a hand-written `approval` object fails
 `verifyApprovalSig` and is inert at the poster regardless of who wrote it
-or whether every other field looks right.
+or whether every other field looks right. `sha` is inside the signature on
+purpose: it is what lets the poll prove, with `git diff <sha> <head>`, that
+nothing the founder never saw rides along to `main`. `message` is
+audit-only — nothing gates on it. A v2 stamp (payload `"2|" + by + "|" +
+at + "|" + pr + "|" + contentHash`, no `sha`) still verifies, so
+already-merged content keeps posting; a v2 stamp still sitting on an
+*open* PR needs one fresh ✅ to become v3.
 
 This example is the shape to copy. Note the two fields that are easiest to get
 wrong, both for reasons documented below: `mediaKind` is `"photo"` (era tiles
@@ -142,7 +154,8 @@ UTC three attempts later. Rules live in `scripts/social/lib/queue-schema.mjs`.
 - `photoId`: required for every new `mediaKind: "photo"` draft. It binds a draft to one `social/photo-library.json` entry; the checker requires its media path, credit, and source to match exactly so attribution cannot drift.
 - `photoEra`: **required for a `mediaKind: "photo"` draft in a THEMED campaign family; optional otherwise** (2026-09-10, kanban t_75ec7106 — the 2026-09-09 reputation/snake X post that shipped a Lover-era tour photo, docs/decisions.md; requirement tightened in PR #4062 review round 4, Fable ruling). Names the draft's target era/theme (a `social/photo-library.json` tag, e.g. `"reputation"`) — set it whenever the post IS about a specific era. **`thread:easter-eggs:*` and `heartbeat:era-deep-cut:*` campaigns are hard-required to set it** (`scripts/social/lib/queue-schema.mjs`'s `THEMED_CAMPAIGN_PREFIXES`) — those families are inherently about one specific era (an easter-eggs/thread post keyed to a lens/egg node's `eraId`, `heartbeat:era-deep-cut:<era>-*`), so shipping without declaring the era is exactly the original bug's shape and is now a hard CI failure on its own, before the tag-mismatch check even runs. `validatePhotoInventoryBinding`/`check-drafts.mjs` then require the bound `photoId`'s `tags` to include it — a themed draft whose photo doesn't match its own declared era is a hard CI failure, not a warning. Get a matching photo with `npm run social:select-photo -- --era <tag>` (also accepts `--era=<tag>`), which prints the exact `photoId`/`media`/`mediaCredit`/`mediaSource`/`photoEra` fields to copy in, and **hard-fails loudly if no photo is tagged for that era** — that is the correct outcome (delay the draft and add inventory), never a silent fallback to an unrelated era's photo. Leave `photoEra` unset only for a non-themed campaign with no single target era (a launch/mood/merch post, a cross-era roundup). **Known gap (tracked, not yet built):** `THEMED_CAMPAIGN_PREFIXES` is a static campaign-family list, not automatic derivation from the lens/egg content data (`packages/experience/src/lenses.ts`) — the validators can't see content data today, so a themed campaign OUTSIDE the two listed prefixes could still ship without a `photoEra` check. Widen `THEMED_CAMPAIGN_PREFIXES` if a new themed family is added, or file the "wire lens/egg eraId into the queue validators" follow-up to close the gap for good.
 - `scheduledAt`: **this is what ships the post — and it is also the "all at once" signal.** A draft only reaches `queue/` on `main` at all once a founder has reacted ✅ on the Discord brief and `social-approval-poll.yml` has stamped and merged its PR (the B1 approval gate below); once it's there, this timestamp passing is what the next poster run acts on, subject only to the caps, the guards below, and `SOCIAL_FREEZE`. **A campaign's two siblings must carry the SAME `scheduledAt` (or one within a few minutes of the other)** — `check-drafts.mjs`'s simultaneous-pair check (2026-09-10, kanban t_bac31b1a) hard-fails a pair scheduled hours apart, which used to be common (e.g. one item at 15:00Z, its sibling at 23:00Z the same day, or even the day before). Choose it deliberately and never backdate.
-- `approval`: **the B1 approval gate (2026-09-11, superseding A2's merge-keyed v1 stamp — docs/social/RULINGS-SOCIAL-2.md).** Written ONLY by `social-approval-poll.yml` (`scripts/social/social-approval-poll.mjs` + `scripts/social/stamp-approval.mjs`'s `stampFiles`), reacting to the owner's own ✅ on the Discord brief — never by a drafter, never by a merge, never by `post-queue.mjs` itself. `by` must be a `discord:<snowflake>` identity in the hardcoded `scripts/social/lib/approvers.mjs` list (a GitHub login is refused before the approvers check even runs); `contentHash` covers `platform`/`body`/`media`/`altText`/`scheduledAt`/`campaign` (see `lib/queue.mjs`'s `contentHash`) so editing any of those after the stamp voids it; `sig` is an HMAC-SHA256 over the stamp under `SOCIAL_APPROVAL_KEY` (an environment secret restricted to `main`) — a hand-written or copied-from-elsewhere `approval` object fails signature verification and is inert at the poster. `post-queue.mjs` publishes **only** an item whose `approval.ok` (`lib/queue.mjs`'s `approvalStatus`, called WITH the key) is true; everything else is a loud `unapproved` outcome that spends no attempt, reddens past 24h overdue, and retires to `social/failed/` at 48h — same ladder as `skipped`/`waiting`. A v1 (unsigned) stamp is malformed under v2 — nothing from before 2026-09-11 grandfathers, by construction. Merging a `social-draft` PR yourself does NOT approve it; it kills the draft (the poll job only ever stamps and merges an OPEN PR).
+- `approval`: **the B1 approval gate (2026-09-11, superseding A2's merge-keyed v1 stamp — docs/social/RULINGS-SOCIAL-2.md).** Written ONLY by `social-approval-poll.yml` (`scripts/social/social-approval-poll.mjs` + `scripts/social/stamp-approval.mjs`'s `stampFiles`), reacting to the owner's own ✅ on the Discord brief — never by a drafter, never by a merge, never by `post-queue.mjs` itself. `by` must be a `discord:<snowflake>` identity in the hardcoded `scripts/social/lib/approvers.mjs` list (a GitHub login is refused before the approvers check even runs); `contentHash` covers `platform`/`body`/`media`/`altText`/`scheduledAt`/`campaign` (see `lib/queue.mjs`'s `contentHash`) so editing any of those after the stamp voids it; `sig` is an HMAC-SHA256 over the stamp under `SOCIAL_APPROVAL_KEY` (an environment secret restricted to `main`) — a hand-written or copied-from-elsewhere `approval` object fails signature verification and is inert at the poster. `post-queue.mjs` publishes **only** an item whose `approval.ok` (`lib/queue.mjs`'s `approvalStatus`, called WITH the key) is true; everything else is a loud `unapproved` outcome that spends no attempt, reddens past 24h overdue, and retires to `social/failed/` at 48h — same ladder as `skipped`/`waiting`. A v1 (unsigned) stamp is malformed under v2 — nothing from before 2026-09-11 grandfathers, by construction. Since 2026-09-12 the poll mints **v3** stamps whose signed payload also carries `sha`, the PR head commit the poll validated the content at (`docs/decisions.md` 2026-09-12): the poll merges a PR only when every queue file's stamp is clean since that commit (`git diff approval.sha <head>` touches nothing but validly-stamped or deleted `social/queue/**.json` files, and the file itself changed only in `approval`/`body`/`edit`) — otherwise it posts one notice per PR per 24h naming the offending paths, and a fresh ✅ on the newest brief re-mints. The poll listens on **every** Discord message that names a PR, at any head SHA (a ❌ anywhere wins); `approval.message` is audit-only. Merging a `social-draft` PR yourself does NOT approve it; it kills the draft (the poll job only ever stamps and merges an OPEN PR).
+- `edit`: **present only after a founder's ✏️ (Tree Overhaul S3 — docs/specs/tree-overhaul/s3-reason-protocol.md).** React ✏️ on a draft's brief message, then reply with the caption you want instead — `social-approval-poll.mjs` swaps it into `body` verbatim, records `{ by, at, message, reply, fromBody }` here (`by`/`message`/`reply` are the replying founder, the brief message the ✏️ sat on and the reply that carried the caption — audit-only, like `approval.message`; `fromBody` is what `body` was before; `at` equals `approval.at`, which is how the ledger tells an edit stamp from a plain approve), re-runs `check-drafts.mjs` on the edited item, and only then stamps — one commit, not two, so an edited-but-unstamped body can never land. `edit` sits deliberately **outside** `contentHashPayload`, so adding it cannot itself void a stamp; `body` *is* in the payload, so the edit is written before stamping and the resulting `contentHash` covers the founder's own words. A caption that fails `check-drafts.mjs` is never written at all — the file stays exactly as it was, and the channel gets a message naming the failing check instead.
 - `altText`: **required whenever `media` is non-empty**, one non-empty descriptive string per image, same length/order as `media`, each ≤1000 chars (X's alt-text limit) and never equal to `body`. Sent to X via `media/metadata/create`, Instagram via the `alt_text` field on `/media` (Graph API v25.0, added 2025-03-24 — verified live against the current Graph API reference), Facebook via `alt_text_custom`. A Taylor-photo tile's alt text is written ONCE in `social/photo-library.json`'s `alt` field (the photo never changes per post) and the draft's `altText[i]` at that tile's index must match it exactly — `npm run social:select-photo` prints it to copy in.
 - `campaign`: **story-unique** (e.g. `on-this-day:red-announcement-wanegbt`), shared ONLY between the IG/X siblings covering the same story. Used by `check-drafts.mjs`'s cross-post-copy check to find an X draft's IG sibling, by the simultaneous-pair check to find the sibling's `scheduledAt`, and by the poster's idempotency check (`findPostedDuplicate`), which treats same platform + same campaign as an already-posted duplicate. A thematic bucket value reused across stories (`heartbeat:on-this-day` on five different posts) therefore false-skips every post in the bucket after its first one lands, and the 48h rule then retires them to `failed/` — found and fixed queue-wide on 2026-08-12. There is no campaign-family exception to the pairing rule any more — the 2026-09-05 `appearance:<videoId>` exemption (#3584) was removed 2026-09-10 (kanban t_bac31b1a).
 - `why`: the human-readable "why this, why now" audit trail. It does not
@@ -157,6 +170,38 @@ exception marker that suppresses it. `social/failed/` does not satisfy the
 rule: a failed item neither reached the audience nor remains queued to do so.
 Historical findings are surfaced for review rather than backfilled
 automatically.
+
+## Feedback ledger (`social/feedback/<ISO-week>.jsonl`)
+
+Every reaction `social-approval-poll.mjs` resolves — ✅, ✏️, or ❌ — is
+appended as one line to `social/feedback/<ISO-week>.jsonl` (ISO-8601 week,
+UTC, e.g. `2026-W38.jsonl`): `ts`, `pr`, `file`, `platform`, `campaign`,
+`pillar` (the campaign *family*, derived — never hand-written; an
+unrecognised `campaign` prefix logs a `::warning::` and sets it `null`),
+`action` (`"approve" | "edit" | "reject"`, plus `"skip"`/`"revoke"` reserved
+for later stages), `reason` (the founder's reply verbatim; `null` for a
+frictionless ✅), `originalBody`/`editedBody`, `approver`, `messageId`, and
+`replyId`. Rows are never edited or deleted — a reversal is a new row.
+Frictionless ✅s are logged too, with `reason: null`: they're the
+denominator for any edit-rate/approval-rate metric, not just the failures.
+Rows are **derived from state on every poll run**, not only from what a
+run happened to do (`docs/decisions.md` 2026-09-12): every valid stamp on a
+PR's head is an `approve` row — or an `edit` row when `edit.at ===
+approval.at`, never both for one stamp — with `ts = approval.at`, and every
+❌+reason whose file is gone from the head is a `reject` row; each row
+dedupes on `(pr, file, messageId, action)` against every week file on the
+branch, so a ledger push that fails is recovered on the next run.
+
+**Lives on the unprotected `social-ledger` branch, not `main` and not the
+draft's own PR branch** — same pattern `social-poster.yml` established for
+issue #2040 (`main` is branch-protected, and a rejected PR's branch gets
+deleted). The poll script pushes directly, no PR, and fails the run loudly
+on a non-fast-forward rather than retrying silently; a periodic fold-back PR
+into `main` (`.github/workflows/social-approval-poll.yml`) is for human
+visibility only — nothing's correctness depends on it merging. A reader
+(a weekly scorecard, a distillation run) overlays `social-ledger`'s
+`social/feedback/` onto its own checkout before reading, exactly as
+`social-poster.yml` already does for `social/posted`/`social/failed`.
 
 ## Draft-time checks (`scripts/social/check-drafts.mjs`)
 

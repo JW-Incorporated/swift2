@@ -171,7 +171,10 @@ export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, rep
       `**Social approval needed · PR #${pr.number}** — <${pr.url}>`,
       `Drafted by: ${drafts[0]?.lane ?? drafts[0]?.sourceRoutine ?? 'unknown'} · ${drafts.length} draft${drafts.length === 1 ? '' : 's'}` +
         (drafts[0]?.campaign ? ` · campaign \`${drafts[0].campaign}\`` : ''),
-      'Approve: react ✅ on a draft below, or on this message for all of them. Reject: react ❌ (on a draft drops just that one; here closes the PR). Merging the PR yourself does NOT approve — it kills the drafts.',
+      'Approve: ✅. Approve with a fix: ✏️ then reply with the caption you want.',
+      'Reject: ❌ then reply with why. ✏️ and ❌ do nothing until you reply.',
+      'React on a draft for that one, or here for all of them.',
+      'Merging the PR yourself does NOT approve — it kills the drafts.',
       `ref: PR #${pr.number} · ${headSha} · *`,
     ].join('\n'),
     embeds: [],

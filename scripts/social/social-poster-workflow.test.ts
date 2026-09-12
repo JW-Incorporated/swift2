@@ -3,7 +3,9 @@
 // — because the behaviors they pin are safety controls that must not be
 // silently droppable or renamable in an "unrelated cleanup".
 
-import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { ROOT } from '../lib/generated-content.mjs';
@@ -47,7 +49,7 @@ describe('social-poster.yml — social-ledger direct-push dedupe (issue #2040)',
   });
 
   it('reads the ledger additively (union with main), before posting anything', () => {
-    const readAt = wf.indexOf('Read the posted/failed ledger from social-ledger');
+    const readAt = wf.indexOf('Read the posted/failed/feedback ledger from social-ledger');
     const postAt = wf.indexOf('- name: Post due queue items');
     expect(readAt).toBeGreaterThan(-1);
     expect(postAt).toBeGreaterThan(readAt);
@@ -58,19 +60,36 @@ describe('social-poster.yml — social-ledger direct-push dedupe (issue #2040)',
   });
 
   it('never overlays social/queue from the ledger branch (2026-09-06, kanban t_e7ce7fe8)', () => {
-    // The additive-only overlay is exactly right for posted/failed (an
-    // append-only ledger) but wrong for queue/, which main must be free to
-    // delete from directly (a founder retiring a stale draft, e.g. PR
-    // #3817). Overlaying queue here can only ever resurrect an
-    // already-deleted draft from a lagging ledger-branch tree, and because
-    // a resurrected appearance-lane item is already >48h past scheduledAt,
-    // it gets immediately re-retired to failed/ by the very same run —
-    // exactly what happened to 2026-09-01-appearance-T6iTnTV-Rgw.
+    // The additive-only overlay is exactly right for posted/failed/feedback
+    // (append-only ledgers this workflow doesn't own but must not silently
+    // revert — social/feedback added 2026-09-11, Codex round-1 review on PR
+    // #4139 finding 6: the write step below snapshots the WHOLE checkout,
+    // so any ledger namespace not overlaid here gets reverted to main's
+    // lagging copy) but wrong for queue/, which main must be free to delete
+    // from directly (a founder retiring a stale draft, e.g. PR #3817).
+    // Overlaying queue here can only ever resurrect an already-deleted
+    // draft from a lagging ledger-branch tree, and because a resurrected
+    // appearance-lane item is already >48h past scheduledAt, it gets
+    // immediately re-retired to failed/ by the very same run — exactly what
+    // happened to 2026-09-01-appearance-T6iTnTV-Rgw.
     const forLoopMatch = wf.match(/for d in ([^;]+); do/);
     expect(forLoopMatch).not.toBeNull();
     const dirs = forLoopMatch![1].trim().split(/\s+/);
-    expect(dirs).toEqual(['social/posted', 'social/failed']);
+    expect(dirs).toEqual(['social/posted', 'social/failed', 'social/feedback']);
     expect(dirs).not.toContain('social/queue');
+  });
+
+  it('the ledger commit preserves social/feedback without treating it alone as a reason to push (2026-09-11, PR #4139 finding 6)', () => {
+    // The write step below snapshots the WHOLE checkout via write-tree, not
+    // a partial diff, so social/feedback must be staged too or this
+    // workflow's very first ledger commit after S3 would silently revert
+    // every feedback row social-approval-poll.mjs has recorded since main's
+    // last (visibility-only) fold-back. It must NOT, by itself, count
+    // toward "is there anything to push this run" — that stays scoped to
+    // this workflow's own queue/posted/failed, so a run that posted nothing
+    // doesn't push a redundant no-op commit just because feedback lags main.
+    expect(wf).toContain('git add social/queue social/posted social/failed social/feedback');
+    expect(wf).toContain('git diff --cached --quiet -- social/queue social/posted social/failed');
   });
 
   it('the ledger read degrades gracefully instead of failing when a dir is empty on the ledger tip', () => {
@@ -111,6 +130,22 @@ describe('social-poster.yml — social-ledger direct-push dedupe (issue #2040)',
     expect(wf).toContain('git commit-tree');
   });
 
+  it('the ledger push retries on a non-fast-forward instead of failing on the first attempt (DEBUG.md round-2 finding 3)', () => {
+    // social-approval-poll.yml pushes to the SAME $LEDGER_BRANCH from a
+    // separate concurrency group — a genuine concurrent write here is
+    // expected, not exceptional. A single-shot push would let one workflow's
+    // rejected push strand its posted/failed rows, risking a duplicate
+    // real-world post on a later run. Bounded so a truly stuck branch still
+    // fails loudly instead of looping forever.
+    const pushSection = wf.slice(wf.indexOf('- name: Push ledger update directly to social-ledger'));
+    expect(pushSection).toContain('MAX_ATTEMPTS=5');
+    expect(pushSection).toContain('while true; do');
+    expect(pushSection).toMatch(/if git push origin "\$NEW_COMMIT:refs\/heads\/\$LEDGER_BRANCH"; then/);
+    expect(pushSection).toContain('git fetch origin "$LEDGER_BRANCH"');
+    expect(pushSection).toContain('::error::social-poster: push to $LEDGER_BRANCH failed after $MAX_ATTEMPTS attempts');
+    expect(pushSection).toMatch(/exit 1/);
+  });
+
   it('the fold-back PR into main is explicitly downgraded to visibility-only, but still asks to be merged not closed', () => {
     const wfLower = wf;
     expect(wfLower).toContain('Fold ledger back into main (via PR — visibility only, not correctness-critical)');
@@ -119,7 +154,7 @@ describe('social-poster.yml — social-ledger direct-push dedupe (issue #2040)',
 
   it('checks SOCIAL_FREEZE before every other step, so frozen runs are green no-ops', () => {
     const freezeAt = wf.indexOf('id: freeze');
-    const readAt = wf.indexOf('Read the posted/failed ledger from social-ledger');
+    const readAt = wf.indexOf('Read the posted/failed/feedback ledger from social-ledger');
     expect(freezeAt).toBeGreaterThan(-1);
     expect(readAt).toBeGreaterThan(freezeAt);
     expect(wf).toContain("if: steps.freeze.outputs.frozen != 'true'");
@@ -168,4 +203,106 @@ describe('auto-merge-content.yml — #2031 hardening', () => {
     expect(wf).toContain('^social/(posted|failed)/');
     expect(wf).toContain('declined — ledger rewrite');
   });
+});
+
+// The push step's `run:` body executed for real (bash + git in a throwaway
+// pair of repos) — the DEBUG.md architect verdict's R2-3 closure: a retry
+// after a non-fast-forward must rebuild its tree from the FRESH ledger tip
+// and stage only this workflow's own namespaces, never re-push a stale
+// full-tree snapshot that silently reverts feedback rows the poll pushed in
+// between. Ran against the pre-redesign step first and failed (PR #4139 body).
+describe('social-poster.yml — ledger push step, executed', () => {
+  const wf = read('.github/workflows/social-poster.yml');
+  const hasBash = (() => {
+    try {
+      execFileSync('bash', ['-c', 'true'], { stdio: 'ignore' });
+      return true;
+    } catch {
+      return false;
+    }
+  })();
+
+  /** The `run: |` body of the push step, dedented — the same bytes CI runs. */
+  function pushStepScript(): string {
+    const lines = wf.split('\n');
+    const start = lines.findIndex((l) => l.includes('- name: Push ledger update directly to social-ledger'));
+    expect(start).toBeGreaterThan(-1);
+    const runAt = lines.findIndex((l, i) => i > start && /^\s+run: \|\s*$/.test(l));
+    expect(runAt).toBeGreaterThan(start);
+    const indent = lines[runAt + 1].match(/^(\s*)/)![1].length;
+    const body: string[] = [];
+    for (let i = runAt + 1; i < lines.length; i++) {
+      const l = lines[i];
+      if (l.trim() === '') {
+        body.push('');
+        continue;
+      }
+      if (l.match(/^(\s*)/)![1].length < indent) break;
+      body.push(l.slice(indent));
+    }
+    return body.join('\n');
+  }
+
+  const git = (cwd: string, args: string[]) => execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+
+  it.skipIf(!hasBash)(
+    "R5: a retry that races an interleaved social-approval-poll push keeps the poll's feedback rows AND lands this run's posted/failed rows",
+    () => {
+      const sandbox = mkdtempSync(join(tmpdir(), 'social-poster-push-'));
+      try {
+        const origin = join(sandbox, 'origin.git');
+        const work = join(sandbox, 'work');
+        const poll = join(sandbox, 'poll');
+        git(sandbox, ['init', '--bare', '-q', origin]);
+        git(sandbox, ['init', '-q', '-b', 'main', work]);
+        git(work, ['config', 'user.name', 'test']);
+        git(work, ['config', 'user.email', 'test@example.com']);
+        for (const d of ['social/queue', 'social/posted', 'social/failed', 'social/feedback']) {
+          mkdirSync(join(work, d), { recursive: true });
+          writeFileSync(join(work, d, '.gitkeep'), '');
+        }
+        writeFileSync(join(work, 'social/queue/item.json'), '{"body":"due"}\n');
+        git(work, ['add', '-A']);
+        git(work, ['commit', '-q', '-m', 'main']);
+        git(work, ['remote', 'add', 'origin', origin]);
+        git(work, ['push', '-q', 'origin', 'HEAD:main']);
+        git(work, ['push', '-q', 'origin', 'HEAD:social-ledger']); // the ledger's first tip = main
+        // What the "Read the ledger" step leaves behind: the remote ref materialized at THIS (soon stale) tip.
+        git(work, ['fetch', '-q', 'origin', 'social-ledger']);
+        git(work, ['update-ref', 'refs/remotes/origin/social-ledger', 'FETCH_HEAD']);
+
+        // The interleaved poll push: social-ledger advances with a feedback row after `work` read it.
+        git(sandbox, ['clone', '-q', '-b', 'social-ledger', origin, poll]);
+        git(poll, ['config', 'user.name', 'poll']);
+        git(poll, ['config', 'user.email', 'poll@example.com']);
+        const row = '{"pr":1,"file":"social/queue/other.json","action":"approve"}';
+        writeFileSync(join(poll, 'social/feedback/2026-W37.jsonl'), row + '\n');
+        git(poll, ['add', 'social/feedback/2026-W37.jsonl']);
+        git(poll, ['commit', '-q', '-m', 'social-feedback: 1 reaction(s) recorded']);
+        git(poll, ['push', '-q', 'origin', 'HEAD:social-ledger']);
+
+        // This run's own posting: the due item moved from queue/ to posted/ in the working tree.
+        rmSync(join(work, 'social/queue/item.json'));
+        writeFileSync(join(work, 'social/posted/item.json'), '{"body":"due","postedAt":"2026-09-12T00:00:00Z"}\n');
+
+        execFileSync('bash', ['-c', pushStepScript()], {
+          cwd: work,
+          encoding: 'utf8',
+          stdio: ['ignore', 'pipe', 'pipe'],
+          env: { ...process.env, LEDGER_BRANCH: 'social-ledger' },
+        });
+
+        const tip = git(origin, ['rev-parse', 'social-ledger']);
+        const paths = git(origin, ['ls-tree', '-r', '--name-only', tip]).split('\n');
+        expect(paths).toContain('social/feedback/2026-W37.jsonl'); // the poll's row survived the retry
+        expect(git(origin, ['show', `${tip}:social/feedback/2026-W37.jsonl`])).toBe(row);
+        expect(paths).toContain('social/posted/item.json'); // this run's own row landed
+        expect(paths).not.toContain('social/queue/item.json');
+        expect(git(origin, ['rev-list', '--count', tip])).toBe('3'); // main, the poll's commit, this push — a genuine fast-forward
+      } finally {
+        rmSync(sandbox, { recursive: true, force: true });
+      }
+    },
+    30_000,
+  );
 });

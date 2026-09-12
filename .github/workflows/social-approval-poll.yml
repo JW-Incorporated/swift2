@@ -82,3 +82,58 @@ jobs:
           GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
           REPO: ${{ github.repository }}
         run: node scripts/social/social-approval-poll.mjs
+
+      # Ledger commits/pushes to social-ledger happen INSIDE the poll script
+      # itself (social-approval-poll.mjs's pushLedgerRows) — unlike
+      # social-poster.yml, this job checks out a DIFFERENT branch per PR
+      # over the course of one run, so a YAML-level `git add`+commit-tree
+      # step here would risk staging whatever random PR branch's tree was
+      # last checked out, not main's. The script instead does its own
+      # `git checkout -B social-ledger` itself — once per PR, immediately
+      # after that PR's own work finishes (2026-09-11, #4139 round-1 finding
+      # 7: durability, not just once at the very end of the whole run), so
+      # correctness (issue #2040's pattern: direct push, no PR, loud on a
+      # non-fast-forward) never depends on any step below this one, or on
+      # every other PR in the same run also finishing cleanly.
+      #
+      # Folding social/feedback/** back into main is VISIBILITY ONLY (same
+      # framing as social-poster.yml's own fold-back step) — nothing's
+      # correctness depends on this PR merging, or even opening. Re-checks
+      # out main fresh (the poll script may have left HEAD on social-ledger,
+      # on some PR's branch, or unmoved) and overlays social-ledger's
+      # social/feedback additively, mirroring social-poster.yml's "Read the
+      # posted/failed ledger" overlay technique, before diffing against
+      # main's own copy.
+      - name: Checkout main for the feedback ledger fold-back
+        if: always()
+        run: |
+          git fetch origin main
+          git checkout -B main origin/main
+
+      - name: Overlay social/feedback from social-ledger
+        if: always()
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin social-ledger >/dev/null 2>&1; then
+            git fetch origin social-ledger
+            if git cat-file -e FETCH_HEAD:social/feedback 2>/dev/null; then
+              git archive FETCH_HEAD social/feedback | tar -x
+            fi
+          fi
+
+      - name: Fold feedback ledger back into main (visibility only, not correctness-critical)
+        if: always()
+        uses: ./.github/actions/commit-and-pr
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: social/feedback
+          branch: social-approval-poll/feedback-${{ github.run_id }}
+          commit-message: "social-feedback: fold ledger into main"
+          pr-title: "social-feedback: fold ledger into main"
+          pr-body: >-
+            Automated visibility-only fold of social/feedback/** from the
+            unprotected social-ledger branch (same pattern as
+            social-poster.yml's own fold-back — issue #2040). Nothing's
+            correctness depends on this PR merging; social-ledger is already
+            the durable, authoritative copy every reader overlays.
+          no-changes-message: "No feedback ledger changes to fold back into main."

@@ -461,11 +461,28 @@ export function contentHash(item) {
 
 /**
  * The exact byte string an approval's `sig` is computed over (B1). Fixed
- * field order and `|` delimiters — changing this invalidates every
- * previously-issued signature, so it is one named function, never inlined.
+ * field order and `|` delimiters, VERSIONED on `v` (docs/decisions.md
+ * 2026-09-12): v2's string is unchanged so every previously-issued
+ * signature keeps verifying; v3 adds the head SHA the poll stamped on, so
+ * `git diff approval.sha head` is a question a forger cannot rephrase by
+ * editing an unsigned field. One named function, never inlined.
  */
 export function approvalSigPayload(a) {
+  if (a.v === 3) return `${a.v}|${a.by}|${a.at}|${a.pr}|${a.sha}|${a.contentHash}`;
   return `${a.v}|${a.by}|${a.at}|${a.pr}|${a.contentHash}`;
+}
+
+const HEAD_SHA_RE = /^[0-9a-f]{40}$/;
+
+/** The head SHA a v3 stamp was minted against, or null for anything else
+ * (a v2 stamp has none; a `sha` hand-added to a v2 record is ignored by
+ * construction — it was never signed). Only meaningful AFTER
+ * `approvalStatus(item, { key })` returned ok: the field sits inside v3's
+ * signed payload, so a verified signature is what makes it trustworthy. */
+export function stampedSha(item) {
+  const a = item?.approval;
+  if (a?.v !== 3 || typeof a.sha !== 'string' || !HEAD_SHA_RE.test(a.sha)) return null;
+  return a.sha;
 }
 
 /** `hmac-sha256:<hex>` of `approvalSigPayload(a)` under `key`. Only two
@@ -500,14 +517,19 @@ export function verifyApprovalSig(a, key) {
 /**
  * The B1 gate: is `item.approval` a valid, content-bound, SIGNED stamp
  * traceable to the owner's own Discord ✅ (schema v2, superseding A2's
- * merge-keyed v1 — docs/social/RULINGS-SOCIAL-2.md B1)? Returns `{ ok: true }` or
- * `{ ok: false, reason }`, checked in this fixed order so the first true
- * reason is always what's reported: absent → malformed → not-a-discord-
- * identity → not-in-approvers → content-hash mismatch → bad signature.
+ * merge-keyed v1 — docs/social/RULINGS-SOCIAL-2.md B1; or v3, which
+ * additionally signs the head SHA it was minted on — docs/decisions.md
+ * 2026-09-12)? Returns `{ ok: true }` or `{ ok: false, reason }`, checked in
+ * this fixed order so the first true reason is always what's reported:
+ * absent → malformed → not-a-discord-identity → not-in-approvers →
+ * content-hash mismatch → bad signature.
  *
  * A v1 (unsigned) stamp is malformed under v2 — nothing from before
  * 2026-09-11 grandfathers; there is no code path that inspects a draft's
- * age or schema version to exempt it.
+ * age or schema version to exempt it. v2 and v3 are both accepted here
+ * (already-merged v2 content keeps posting); only the poll decides whether
+ * a v2 stamp still sitting on an OPEN PR needs a fresh ✅ (it does — see
+ * `stampedSha`).
  *
  * `key` is read via `hasOwnProperty`, not destructuring, so "the caller
  * didn't pass `key` at all" (CI's validate-queue, the schema validator —
@@ -534,7 +556,7 @@ export function approvalStatus(item, options = {}) {
   const shapeOk =
     typeof approval === 'object' &&
     !Array.isArray(approval) &&
-    approval.v === 2 &&
+    (approval.v === 2 || (approval.v === 3 && typeof approval.sha === 'string' && HEAD_SHA_RE.test(approval.sha))) &&
     typeof approval.by === 'string' &&
     approval.by.trim() !== '' &&
     typeof approval.at === 'string' &&
