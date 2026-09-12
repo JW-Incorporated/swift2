@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { validateIntent, readIntents, INTENT_LANES, INTENT_STATUSES } from './inbox.mjs';
+import { validateIntent, readIntents, INTENT_LANES, INTENT_STATUSES, isExpired, selectFastLane, closeIntent, FAST_LANE_ROLLING_WINDOW_CAP } from './inbox.mjs';
 
 const validMerch = {
   v: 1,
@@ -107,5 +107,98 @@ describe('readIntents', () => {
     } finally {
       await rm(dir, { recursive: true, force: true });
     }
+  });
+});
+
+describe('isExpired', () => {
+  it('is false one second before the deadline, true one second after', () => {
+    expect(isExpired({ deadline: '2026-09-21T08:17:44Z' }, new Date('2026-09-21T08:17:43Z'))).toBe(false);
+    expect(isExpired({ deadline: '2026-09-21T08:17:44Z' }, new Date('2026-09-21T08:17:45Z'))).toBe(true);
+  });
+
+  it('is false (not thrown) for a missing or unparseable deadline', () => {
+    expect(isExpired({}, new Date())).toBe(false);
+    expect(isExpired({ deadline: 'not-a-date' }, new Date())).toBe(false);
+  });
+});
+
+describe('selectFastLane', () => {
+  const now = new Date('2026-09-18T12:00:00Z');
+  const nearest = { file: 'appearance.json', data: { ...validAppearance, status: 'open', deadline: '2026-09-19T00:00:00Z' } };
+  const later = { file: 'merch.json', data: { ...validMerch, status: 'open', deadline: '2026-09-22T00:00:00Z' } };
+  const drafted = { file: 'drafted.json', data: { ...validMerch, status: 'drafted', deadline: '2026-09-18T13:00:00Z' } };
+  const expired = { file: 'expired.json', data: { ...validMerch, status: 'open', deadline: '2026-09-01T00:00:00Z' } };
+
+  it('picks the nearest-deadline OPEN intent (AC#5)', () => {
+    expect(selectFastLane([later, nearest, drafted], [], now)?.file).toBe('appearance.json');
+  });
+
+  it('returns at most one intent (a single entry, not an array)', () => {
+    const picked = selectFastLane([later, nearest], [], now);
+    expect(Array.isArray(picked)).toBe(false);
+    expect(picked?.file).toBe('appearance.json');
+  });
+
+  it('returns null when nothing is open', () => {
+    expect(selectFastLane([drafted], [], now)).toBeNull();
+  });
+
+  it('ignores an intent past its deadline even when status is still "open"', () => {
+    expect(selectFastLane([expired], [], now)).toBeNull();
+  });
+
+  // Codex review round 1, MEDIUM 2: a malformed deadline used to survive the
+  // `open` filter (isExpired reads it as not-expired) and could then win the
+  // sort via a NaN comparison rather than losing to a genuinely valid,
+  // nearer-deadline intent — reproduced exactly with this ordering.
+  it('never selects an intent with a malformed deadline, even ahead of a valid one in the input order', () => {
+    const badDeadline = { file: 'bad.json', data: { ...validMerch, status: 'open', deadline: 'not-a-date' } };
+    expect(selectFastLane([badDeadline, nearest], [], now)?.file).toBe('appearance.json');
+    expect(selectFastLane([badDeadline], [], now)).toBeNull();
+  });
+
+  it('returns none when two fast-lane campaigns already posted in the rolling 7 days (AC#5)', () => {
+    expect(FAST_LANE_ROLLING_WINDOW_CAP).toBe(2);
+    const postedWindow = ['2026-09-15T00:00:00Z', '2026-09-16T00:00:00Z'];
+    expect(selectFastLane([later, nearest], postedWindow, now)).toBeNull();
+  });
+
+  it('still selects when only one fast-lane campaign posted in the rolling 7 days', () => {
+    expect(selectFastLane([later, nearest], ['2026-09-15T00:00:00Z'], now)?.file).toBe('appearance.json');
+  });
+
+  it('ignores a posted timestamp outside the rolling 7-day window', () => {
+    const postedWindow = ['2026-09-01T00:00:00Z', '2026-09-02T00:00:00Z'];
+    expect(selectFastLane([later, nearest], postedWindow, now)?.file).toBe('appearance.json');
+  });
+});
+
+describe('closeIntent', () => {
+  it('transitions to "declined" and requires a non-empty declinedReason (AC#10)', () => {
+    const closed = closeIntent(validMerch, 'declined', 'a competitor already covered this drop first');
+    expect(closed.status).toBe('declined');
+    expect(closed.declinedReason).toBe('a competitor already covered this drop first');
+  });
+
+  it('throws for "declined" with no reason', () => {
+    expect(() => closeIntent(validMerch, 'declined', '')).toThrow();
+    expect(() => closeIntent(validMerch, 'declined', undefined)).toThrow();
+  });
+
+  it('transitions to "expired" with no declinedReason required', () => {
+    const closed = closeIntent(validMerch, 'expired');
+    expect(closed.status).toBe('expired');
+    expect(closed.declinedReason).toBeUndefined();
+  });
+
+  it('rejects any status other than declined/expired', () => {
+    expect(() => closeIntent(validMerch, 'drafted')).toThrow();
+    expect(() => closeIntent(validMerch, 'open')).toThrow();
+  });
+
+  it('does not mutate the input intent', () => {
+    const copy = { ...validMerch };
+    closeIntent(validMerch, 'expired');
+    expect(validMerch).toEqual(copy);
   });
 });

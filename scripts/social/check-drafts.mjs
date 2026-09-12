@@ -88,7 +88,7 @@ import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
 import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
-import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues } from './lib/queue-schema.mjs';
+import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES } from './lib/queue-schema.mjs';
 import { parseLessons } from './lib/lessons.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -468,6 +468,42 @@ export function checkCrossPostCopy(file, item, allQueueItems) {
   return [];
 }
 
+/**
+ * T6's slot-displacement cap (docs/specs/tree-overhaul/t6-side-doors.md
+ * "Slot displacement"), expressed as a CI backstop: a fast-lane item
+ * (`lane: "merch"|"appearance"`) takes its beat's planned slot rather than
+ * adding to it, so it must never share a `platform` + UTC day with a
+ * `lane: "calendar"` item. The daily-draft prompt is what's actually
+ * supposed to move the bumped calendar item to the next free-beat day in
+ * `social/calendar.md` — this only catches a prompt slip that skipped that
+ * step, turning it into a red CI run instead of two posts fighting over one
+ * day. Symmetric: fires whether the item under check is the fast-lane
+ * draft or the calendar item it collides with.
+ */
+export function checkFastLaneDisplacement(file, item, allQueueItems) {
+  if (!RECOGNIZED_PLATFORMS.has(item.platform)) return []; // checkSchema already flags this
+  if (!isValidScheduledAt(item)) return []; // checkSchema already flags this
+
+  const isFastLane = FAST_LANE_LANES.includes(item.lane);
+  const isCalendar = item.lane === 'calendar';
+  if (!isFastLane && !isCalendar) return []; // e.g. reddit — not part of this pairing
+
+  const day = utcDateOnly(item.scheduledAt);
+  const conflict = allQueueItems.find((o) => {
+    if (o.file === file || o.data.platform !== item.platform || !isValidScheduledAt(o.data)) return false;
+    if (utcDateOnly(o.data.scheduledAt) !== day) return false;
+    return isFastLane ? o.data.lane === 'calendar' : FAST_LANE_LANES.includes(o.data.lane);
+  });
+  if (!conflict) return [];
+
+  return [
+    `fast-lane displacement: this "${item.lane}" item shares platform "${item.platform}" and UTC day ${day} with ` +
+      `${conflict.file}'s "${conflict.data.lane}" item — a fast-lane post takes its beat's planned slot rather than adding ` +
+      'to it (docs/specs/tree-overhaul/t6-side-doors.md). Move the displaced calendar item to the next day with a free ' +
+      'beat in social/calendar.md and reschedule its queue item, or drop this fast-lane draft.',
+  ];
+}
+
 // The weighted-length rule itself (AUTOLINK_URL_RE, wide-char weighting,
 // weightedTweetLength) lives in lib/x-length.mjs so the CI schema gate
 // (lib/queue-schema.mjs, run on every queue file by validate-queue.mjs in
@@ -814,6 +850,7 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
     ...checkCampaignPair(target.file, target.data, allQueue, allPosted),
     ...checkSimultaneousPair(target.file, target.data, allQueue),
     ...checkCrossPostCopy(target.file, target.data, allQueue),
+    ...checkFastLaneDisplacement(target.file, target.data, allQueue),
     ...checkLength(target.data),
     ...(await checkMedia(target.file, target.data, recentIg, allQueue)),
     ...checkCritique(target.data, { activeLessonIds }),

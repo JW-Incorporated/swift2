@@ -207,6 +207,25 @@ export const CRITIQUE_MIN_DIMENSION_SCORE = 3;
 export const CRITIQUE_TOTAL_THRESHOLD = 18;
 export const CRITIQUE_NOT_EMBARRASSED_MIN = 4;
 export const CRITIQUE_RATIONALE_MAX_CHARS = 320;
+
+/**
+ * T6's six-dimension rubric (docs/specs/tree-overhaul/t6-side-doors.md "The
+ * fast-lane rubric") — T2's five dimensions plus `timely`, selected by
+ * `lane` (`findCritiqueIssues` below): a `merch`/`appearance` item must
+ * clear `v: 2` on this rubric, every other lane keeps the `v: 1` five-
+ * dimension one above unchanged. `timely` shares `notEmbarrassed`'s higher
+ * floor (4, not the plain 3) — a HARD gate independent of `total`, since a
+ * fast-lane post displaces a planned slot and a post that isn't genuinely
+ * time-sensitive has no claim on it.
+ */
+export const FAST_LANE_LANES = ['merch', 'appearance'];
+export const FAST_LANE_CRITIQUE_DIMENSIONS = [...CRITIQUE_DIMENSIONS, 'timely'];
+export const FAST_LANE_CRITIQUE_TOTAL_THRESHOLD = 21;
+export const FAST_LANE_CRITIQUE_TIMELY_MIN = 4;
+/** Per-dimension score floors that differ from CRITIQUE_MIN_DIMENSION_SCORE's
+ * plain 3 — shared by both rubrics above so a dimension's floor can never
+ * drift between the two lane-selected paths. */
+export const CRITIQUE_DIMENSION_MIN_OVERRIDES = { notEmbarrassed: CRITIQUE_NOT_EMBARRASSED_MIN, timely: FAST_LANE_CRITIQUE_TIMELY_MIN };
 /** Newlines and other C0/DEL control characters, PLUS the Unicode line
  * separator (U+2028) and paragraph separator (U+2029) — `rationale`
  * renders as the first line of the approval brief, above the trusted
@@ -222,10 +241,14 @@ export const CRITIQUE_RATIONALE_MAX_CHARS = 320;
  */
 // eslint-disable-next-line no-control-regex
 export const CRITIQUE_RATIONALE_CONTROL_CHAR_RE = /[\x00-\x1F\x7F\u2028\u2029]/;
-/** The only mathematically possible range for a real critique total — five
- * dimensions, each 1-5. */
+/** The only mathematically possible range for a real critique total —
+ * across BOTH rubrics (five dimensions for calendar/reddit, six for T6's
+ * fast lane), each dimension 1-5, so a real fast-lane total (up to 30)
+ * isn't misread as implausible by a caller that doesn't itself know which
+ * rubric produced the bare integer it's checking (isPlausibleCritiqueTotal
+ * below). */
 export const CRITIQUE_MIN_POSSIBLE_TOTAL = CRITIQUE_DIMENSIONS.length;
-export const CRITIQUE_MAX_POSSIBLE_TOTAL = CRITIQUE_DIMENSIONS.length * 5;
+export const CRITIQUE_MAX_POSSIBLE_TOTAL = FAST_LANE_CRITIQUE_DIMENSIONS.length * 5;
 
 /**
  * Whether `value` is a plausible critique total — a bounded integer
@@ -248,7 +271,11 @@ export function isPlausibleCritiqueTotal(value) {
  * (`v`, `scores.*`, `total`, `rationale`, `rulesChecked`, `revision`) and the
  * queueing threshold (every dimension >= 3, `total` >= 18, `notEmbarrassed`
  * >= 4 specifically — independent of the total, since it is the dimension a
- * model is most tempted to inflate). Shared by validateQueueItem below (the
+ * model is most tempted to inflate). **T6:** `item.lane` selects the rubric
+ * before any of that runs — `merch`/`appearance` require `v: 2`/six
+ * dimensions/`total` >= 21/`timely` >= 4 (FAST_LANE_* above); every other
+ * lane keeps this paragraph's five-dimension `v: 1` numbers exactly as
+ * they've always been. Shared by validateQueueItem below (the
  * CI schema gate) and check-drafts.mjs's checkCritique (the PR-time quality
  * gate) so the two can never drift on the rubric's numbers — the same
  * drift concern documented on check-drafts.mjs's re-exported
@@ -345,40 +372,51 @@ export function findCritiqueIssues(item, { activeLessonIds = [] } = {}) {
   if (approvalStatus(item, { approvers: SOCIAL_APPROVERS }).ok) {
     return [];
   }
+  // T6: a fast-lane item (`lane: "merch"|"appearance"`) clears the six-
+  // dimension `v: 2` rubric instead of T2's five-dimension `v: 1` one —
+  // selected by `lane` alone, per the spec ("validateQueueItem selects the
+  // rubric by lane"), so an unrecognized/missing lane (already its own
+  // `lane:` finding elsewhere in validateQueueItem) still falls back to the
+  // original five-dimension path unchanged.
+  const isFastLane = FAST_LANE_LANES.includes(item?.lane);
+  const dimensions = isFastLane ? FAST_LANE_CRITIQUE_DIMENSIONS : CRITIQUE_DIMENSIONS;
+  const expectedVersion = isFastLane ? 2 : 1;
+  const totalThreshold = isFastLane ? FAST_LANE_CRITIQUE_TOTAL_THRESHOLD : CRITIQUE_TOTAL_THRESHOLD;
+
   const critique = item?.critique;
   const findings = [];
   if (critique === null || typeof critique !== 'object' || Array.isArray(critique)) {
     return ['critique: required — every social/queue/ item carries a self-critique (Tree Overhaul T2).'];
   }
-  if (critique.v !== 1) {
-    findings.push(`critique.v: must be 1, got ${JSON.stringify(critique.v)}.`);
+  if (critique.v !== expectedVersion) {
+    findings.push(`critique.v: must be ${expectedVersion}, got ${JSON.stringify(critique.v)}.`);
   }
   const scores = critique.scores;
   const hasScoresObject = scores !== null && typeof scores === 'object' && !Array.isArray(scores);
   if (!hasScoresObject) {
-    findings.push('critique.scores: required object with all five dimensions.');
+    findings.push(`critique.scores: required object with all ${dimensions.length} dimensions.`);
   } else {
-    for (const dim of CRITIQUE_DIMENSIONS) {
+    for (const dim of dimensions) {
       if (!Number.isInteger(scores[dim]) || scores[dim] < 1 || scores[dim] > 5) {
         findings.push(`critique.scores.${dim}: must be an integer 1-5, got ${JSON.stringify(scores[dim])}.`);
       }
     }
   }
   const allScoresValid =
-    hasScoresObject && CRITIQUE_DIMENSIONS.every((dim) => Number.isInteger(scores[dim]) && scores[dim] >= 1 && scores[dim] <= 5);
+    hasScoresObject && dimensions.every((dim) => Number.isInteger(scores[dim]) && scores[dim] >= 1 && scores[dim] <= 5);
   if (allScoresValid) {
-    const sum = CRITIQUE_DIMENSIONS.reduce((total, dim) => total + scores[dim], 0);
+    const sum = dimensions.reduce((total, dim) => total + scores[dim], 0);
     if (critique.total !== sum) {
-      findings.push(`critique.total: is ${JSON.stringify(critique.total)}, must equal the sum of the five scores (${sum}).`);
+      findings.push(`critique.total: is ${JSON.stringify(critique.total)}, must equal the sum of the ${dimensions.length} scores (${sum}).`);
     }
-    for (const dim of CRITIQUE_DIMENSIONS) {
-      const min = dim === 'notEmbarrassed' ? CRITIQUE_NOT_EMBARRASSED_MIN : CRITIQUE_MIN_DIMENSION_SCORE;
+    for (const dim of dimensions) {
+      const min = CRITIQUE_DIMENSION_MIN_OVERRIDES[dim] ?? CRITIQUE_MIN_DIMENSION_SCORE;
       if (scores[dim] < min) {
         findings.push(`critique.${dim} is ${scores[dim]}, needs ${min}`);
       }
     }
-    if (sum < CRITIQUE_TOTAL_THRESHOLD) {
-      findings.push(`critique.total is ${sum}, needs ${CRITIQUE_TOTAL_THRESHOLD}`);
+    if (sum < totalThreshold) {
+      findings.push(`critique.total is ${sum}, needs ${totalThreshold}`);
     }
   }
   if (typeof critique.rationale !== 'string' || critique.rationale.trim() === '') {

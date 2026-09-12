@@ -121,6 +121,8 @@ item — title `intake: YouTube appearance — <channel>: "<title>"` — and ent
 queue at priority 1 like the rest. These extra rules apply to them, and only to
 them.
 
+**A sibling fact sheet, not yours to act on (Tree Overhaul T6, 2026-09-12).** The same detection also writes a `social/inbox/*.json` intent (no caption, RSS metadata only) that carries this issue's number via `links.issue` — Tree's own daily draft reads it independently and decides whether to post a fast-lane pair from it. This intake issue stays the Content Shift's own record for triage/authoring exactly as below; the fast lane is a completely separate decision by a different desk and never changes how you verify or place this issue.
+
 **The detection is deterministic and UNVERIFIED.** Nobody watched the video. A
 keyword matched a title. The drop is never the copy (rules of the door,
 `docs/content-ops/intake.md`) applies with full force: the issue is a lead, and

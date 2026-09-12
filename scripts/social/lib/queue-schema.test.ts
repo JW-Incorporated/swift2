@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES, LANES, findCritiqueIssues } from './queue-schema.mjs';
+import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES, LANES, findCritiqueIssues, FAST_LANE_LANES, FAST_LANE_CRITIQUE_TOTAL_THRESHOLD, isPlausibleCritiqueTotal } from './queue-schema.mjs';
 import { contentHash, approvalStatus } from './queue.mjs';
 import { SOCIAL_APPROVERS } from './approvers.mjs';
 
@@ -8,6 +8,15 @@ const validCritique = {
   scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 },
   total: 23,
   rationale: "This is the Decode thread's origin-story beat, using a dated, verifiable 2012 detail rather than a vibe.",
+  rulesChecked: [],
+  revision: 1,
+};
+// T6's six-dimension rubric (v: 2) — merch/appearance lanes only.
+const validFastLaneCritique = {
+  v: 2,
+  scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5, timely: 5 },
+  total: 28,
+  rationale: 'The cardigan restocked this morning and sells out within days every time — genuinely news today.',
   rulesChecked: [],
   revision: 1,
 };
@@ -116,10 +125,20 @@ describe('validateQueueItem', () => {
       expect(findingFor({ ...validX, lane: 'sourceRoutine' }, 'lane:')).toBeDefined();
     });
 
-    it('accepts each of the 4 valid lane values', () => {
+    // T6: merch/appearance now require the six-dimension v:2 critique
+    // (below), so this only asserts the plain v:1 rubric still applies to
+    // the two lanes that don't select the fast-lane path.
+    it('accepts the two non-fast-lane values with the plain v:1 critique', () => {
       expect(LANES).toEqual(['calendar', 'merch', 'appearance', 'reddit']);
-      for (const lane of LANES) {
+      for (const lane of ['calendar', 'reddit']) {
         expect(validateQueueItem({ ...validX, lane })).toEqual([]);
+      }
+    });
+
+    it('accepts each fast-lane value with the six-dimension v:2 critique', () => {
+      expect(FAST_LANE_LANES).toEqual(['merch', 'appearance']);
+      for (const lane of FAST_LANE_LANES) {
+        expect(validateQueueItem({ ...validX, lane, critique: validFastLaneCritique })).toEqual([]);
       }
     });
   });
@@ -292,6 +311,67 @@ describe('validateQueueItem', () => {
       const item = { ...validX, critique: broken };
       expect(findCritiqueIssues(item).length).toBeGreaterThan(0);
       expect(validateQueueItem(item)).toEqual(findCritiqueIssues(item));
+    });
+  });
+
+  describe('fast-lane critique (Tree Overhaul T6, v: 2 six-dimension rubric — spec AC#7/AC#8)', () => {
+    const fastLaneItem = { ...validX, lane: 'merch', critique: validFastLaneCritique };
+
+    it('accepts a well-formed six-dimension critique', () => {
+      expect(validateQueueItem(fastLaneItem)).toEqual([]);
+    });
+
+    it('requires v: 2, not v: 1, for a fast-lane item', () => {
+      expect(findingFor({ ...fastLaneItem, critique: { ...validFastLaneCritique, v: 1 } }, 'critique.v')).toBeDefined();
+    });
+
+    // Codex review round 1, LOW 2: a shallow `{ ...validFastLaneCritique }`
+    // copy still shares the SAME `scores` object reference, so `delete`ing a
+    // key off the copy mutated the shared module-level fixture for every
+    // later test in this file — `scores` must be cloned too.
+    it('requires all six dimensions, including timely', () => {
+      const missingTimely = { ...validFastLaneCritique, scores: { ...validFastLaneCritique.scores } };
+      delete (missingTimely.scores as Record<string, unknown>).timely;
+      expect(findingFor({ ...fastLaneItem, critique: missingTimely }, 'critique.scores.timely')).toBeDefined();
+      // Regression guard for the mutation bug itself: the shared fixture
+      // must still carry `timely` after the test above runs.
+      expect(validFastLaneCritique.scores.timely).toBe(5);
+    });
+
+    it('rejects total < 21 even when every other lane-agnostic rule would pass', () => {
+      const scores = { onStrategy: 3, onVoice: 3, specific: 3, mediaEarnsItsPlace: 3, notEmbarrassed: 4, timely: 4 };
+      const findings = validateQueueItem({ ...fastLaneItem, critique: { ...validFastLaneCritique, scores, total: 20 } });
+      expect(findings).toContain('critique.total is 20, needs 21');
+    });
+
+    it('accepts the exact boundary case: total 21 with every floor exactly met', () => {
+      const scores = { onStrategy: 4, onVoice: 3, specific: 3, mediaEarnsItsPlace: 3, notEmbarrassed: 4, timely: 4 };
+      expect(validateQueueItem({ ...fastLaneItem, critique: { ...validFastLaneCritique, scores, total: 21 } })).toEqual([]);
+    });
+
+    // The spec's own example: rejects timely: 3 even at total: 27 — the
+    // hard gate is independent of the total, same shape as notEmbarrassed's
+    // T2 floor (spec AC#7).
+    it('rejects timely: 3 even at total: 27', () => {
+      const scores = { onStrategy: 5, onVoice: 5, specific: 5, mediaEarnsItsPlace: 5, notEmbarrassed: 4, timely: 3 };
+      const findings = validateQueueItem({ ...fastLaneItem, critique: { ...validFastLaneCritique, scores, total: 27 } });
+      expect(findings).toContain('critique.timely is 3, needs 4');
+    });
+
+    it('still requires notEmbarrassed >= 4 on the six-dimension rubric', () => {
+      const scores = { onStrategy: 5, onVoice: 5, specific: 5, mediaEarnsItsPlace: 5, notEmbarrassed: 3, timely: 5 };
+      const findings = validateQueueItem({ ...fastLaneItem, critique: { ...validFastLaneCritique, scores, total: 28 } });
+      expect(findings).toContain('critique.notEmbarrassed is 3, needs 4');
+    });
+
+    it('a calendar-lane item with a six-dimension critique is rejected — v:2 only applies to fast-lane items (spec AC#8)', () => {
+      expect(findingFor({ ...validX, lane: 'calendar', critique: validFastLaneCritique }, 'critique.v')).toBeDefined();
+    });
+
+    it('isPlausibleCritiqueTotal accepts a real fast-lane total up to 30, not just the five-dimension 25 ceiling', () => {
+      expect(FAST_LANE_CRITIQUE_TOTAL_THRESHOLD).toBe(21);
+      expect(isPlausibleCritiqueTotal(30)).toBe(true);
+      expect(isPlausibleCritiqueTotal(31)).toBe(false);
     });
   });
 
