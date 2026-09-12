@@ -216,11 +216,27 @@ async function main() {
   // worth of queries (same reasoning as fleet-telemetry-snapshot.mjs).
   for (const r of discovered) {
     if (!r.identifier) {
-      routines.push({ name: r.name, identifier: null, metrics: null });
+      routines.push({ name: r.name, identifier: null, metrics: null, prs: [] });
       continue;
     }
     const data = await fetchForRoutine(r.identifier);
-    routines.push({ name: r.name, identifier: r.identifier, metrics: computeMetrics(data, now) });
+    routines.push({ name: r.name, identifier: r.identifier, metrics: computeMetrics(data, now), prs: data.prs });
+  }
+
+  // Optional: hand this run's already-fetched raw PR lists to a downstream
+  // job (output-sampling.yml's quality-sample) via a build artifact, so it
+  // never re-issues the same `gh search prs` queries this process just
+  // made — the GitHub Search API's per-minute cap is easy for two jobs in
+  // the same run to collide on back-to-back (T5, found via a real dispatch:
+  // quality-sample's first attempt hit "API rate limit exceeded" on its
+  // second routine because it re-fetched all 13 routines' searches moments
+  // after this loop already spent that same window). Unset by default —
+  // zero behavior change for anyone running this script standalone.
+  if (process.env.RAW_OUTPUT_FILE) {
+    await writeFile(
+      process.env.RAW_OUTPUT_FILE,
+      JSON.stringify(routines.map(({ name, identifier, prs }) => ({ name, identifier, prs }))),
+    );
   }
 
   const report = buildReport({ date, repo: REPO, routines });

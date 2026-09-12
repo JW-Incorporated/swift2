@@ -70,7 +70,21 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run }}
+          RAW_OUTPUT_FILE: ${{ github.workspace }}/routine-output-raw.json
         run: node scripts/routine-output-sample.mjs
+
+      # Hands this run's already-fetched PR lists to quality-sample so it
+      # never re-issues the same gh search queries (the Search API's
+      # per-minute cap is easy for two jobs in the same run to collide on
+      # back-to-back — see routine-output-sample.mjs's RAW_OUTPUT_FILE
+      # comment).
+      - name: Upload raw PR data for quality-sample
+        uses: actions/upload-artifact@v4
+        with:
+          name: routine-output-raw
+          path: routine-output-raw.json
+          if-no-files-found: ignore
+          retention-days: 1
 
       - name: Compute PR metadata
         id: meta
@@ -115,11 +129,18 @@ jobs:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
           ref: ${{ needs.sample.outputs.branch }}
 
+      - name: Download the first job's raw PR data
+        uses: actions/download-artifact@v4
+        with:
+          name: routine-output-raw
+          path: ${{ github.workspace }}/raw
+
       - name: Sample <=2 merged PRs per routine and score against each charter's rubric
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           REPORT_DATE: ${{ needs.sample.outputs.date }}
+          RAW_DATA_FILE: ${{ github.workspace }}/raw/routine-output-raw.json
         run: node scripts/routine-quality-sample.mjs
 
       - name: Append the quality section to the same branch/PR the first job opened

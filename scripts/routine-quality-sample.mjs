@@ -265,6 +265,17 @@ function loadRubricForRoutine(routine) {
   return classifyRubric({ identifier: routine.identifier, charterDoc, charterText });
 }
 
+/** Job one's raw per-routine PR lists (RAW_OUTPUT_FILE artifact), keyed by routine name — null when unavailable. */
+export function readRawPrData(rawDataFile) {
+  if (!rawDataFile) return null;
+  try {
+    const parsed = JSON.parse(readFileSync(rawDataFile, 'utf8'));
+    return new Map(parsed.map((r) => [r.name, r.prs || []]));
+  } catch {
+    return null;
+  }
+}
+
 async function loadPrDetails(number) {
   const [viewOut, diffOut] = await Promise.all([
     gh(['pr', 'view', String(number), '--json', 'number,title,body,url']),
@@ -290,11 +301,21 @@ async function main() {
   }
 
   // Only routines with a resolved Tier-2: identifier have volume data at all.
+  // Prefer the first job's own already-fetched PR lists (RAW_DATA_FILE, an
+  // artifact from output-sampling.yml's `sample` job) over a fresh
+  // `gh search prs` per routine — the Search API's per-minute cap is easy
+  // for two jobs in the same run to collide on back-to-back, confirmed by a
+  // real dispatch (see routine-output-sample.mjs's RAW_OUTPUT_FILE comment).
+  // Falls back to a live fetch when no artifact is available (standalone
+  // runs, e.g. local testing).
+  const rawPrsByRoutine = readRawPrData(process.env.RAW_DATA_FILE);
   const withVolume = discovered.filter((r) => r.identifier);
   const routinesWithPrs = [];
   for (const routine of withVolume) {
-    const data = await fetchForRoutine(routine.identifier);
-    routinesWithPrs.push({ name: routine.name, mergedPrs: mergedPrsInWindow(data.prs, now) });
+    const prs = rawPrsByRoutine
+      ? (rawPrsByRoutine.get(routine.name) ?? [])
+      : (await fetchForRoutine(routine.identifier)).prs;
+    routinesWithPrs.push({ name: routine.name, mergedPrs: mergedPrsInWindow(prs, now) });
   }
 
   const selections = selectPrsToSample(routinesWithPrs);

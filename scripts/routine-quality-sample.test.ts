@@ -1,4 +1,7 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, afterEach, beforeEach } from 'vitest';
+import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 import {
   resolveCharterDoc,
   extractRubric,
@@ -8,6 +11,7 @@ import {
   normalizeScore,
   buildQualitySection,
   scorePrWithClaude,
+  readRawPrData,
   MAX_PRS_PER_ROUTINE,
   MAX_PRS_PER_WEEK,
 } from './routine-quality-sample.mjs';
@@ -124,6 +128,46 @@ describe('mergedPrsInWindow', () => {
       },
     ];
     expect(mergedPrsInWindow(prs, now)).toEqual([prs[0]]);
+  });
+});
+
+describe('readRawPrData', () => {
+  let dir: string;
+
+  beforeEach(async () => {
+    dir = await mkdtemp(path.join(tmpdir(), 'routine-quality-sample-'));
+  });
+
+  afterEach(async () => {
+    await rm(dir, { recursive: true, force: true });
+  });
+
+  it('returns null when no path is given', () => {
+    expect(readRawPrData(undefined)).toBeNull();
+  });
+
+  it('returns null when the file does not exist', () => {
+    expect(readRawPrData(path.join(dir, 'missing.json'))).toBeNull();
+  });
+
+  it('returns null on malformed JSON instead of throwing', async () => {
+    const file = path.join(dir, 'raw.json');
+    await writeFile(file, 'not json');
+    expect(readRawPrData(file)).toBeNull();
+  });
+
+  it('reads a written raw-output file into a name-keyed Map', async () => {
+    const file = path.join(dir, 'raw.json');
+    await writeFile(
+      file,
+      JSON.stringify([
+        { name: 'routine-austin-build', identifier: 'Austin — build runs', prs: [{ number: 1 }] },
+        { name: 'routine-kevin-daily-desk', identifier: null, prs: [] },
+      ]),
+    );
+    const data = readRawPrData(file);
+    expect(data?.get('routine-austin-build')).toEqual([{ number: 1 }]);
+    expect(data?.get('routine-kevin-daily-desk')).toEqual([]);
   });
 });
 
