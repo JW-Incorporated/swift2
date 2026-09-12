@@ -35,13 +35,13 @@ describe('main()', () => {
     const reply = { id: '2222222222222222222', author: { username: 'joeyfounder', global_name: 'Joey' }, content: 'sounds good', timestamp: '2026-09-12T13:00:00.000Z' };
     const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200, [rootMessage, reply]));
 
-    const exitCode = await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl });
+    const exitCode = await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl, repo: 'JW-Incorporated/swift2' });
 
     expect(exitCode).toBe(0);
     expect(execImpl).toHaveBeenCalledTimes(3);
     const postArgs = execImpl.mock.calls[2];
     expect(postArgs[0]).toBe('gh');
-    expect(postArgs[1]).toEqual(['issue', 'comment', '42', '--repo', '', '--body', expect.stringContaining('💬 Reply from Joey')]);
+    expect(postArgs[1]).toEqual(['issue', 'comment', '42', '--repo', 'JW-Incorporated/swift2', '--body', expect.stringContaining('💬 Reply from Joey')]);
     expect(postArgs[1][6]).toContain('<!-- relay-id: 2222222222222222222 -->');
   });
 

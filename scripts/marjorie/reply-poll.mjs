@@ -132,13 +132,15 @@ function isRootOrWebhookMessage(message, threadId) {
  * `marjorie-reply-poll.yml`'s plain `run:` step.
  *
  * @param {{ fetchImpl?: typeof fetch, sleepImpl?: (ms:number)=>Promise<void>,
- *   execImpl?: typeof execFileSync }} [deps] Test-only injection points,
- *   the same pattern `discord.mjs`'s `fetchImpl`/`waitImpl` and
- *   `post-or-mail.mjs`'s `spawnImpl` use.
+ *   execImpl?: typeof execFileSync, repo?: string }} [deps] Test-only
+ *   injection points, the same pattern `discord.mjs`'s
+ *   `fetchImpl`/`waitImpl` and `post-or-mail.mjs`'s `spawnImpl` use.
+ *   `repo` defaults from env (real runs never pass it) so a test asserting
+ *   on the `--repo` argument isn't at the mercy of whether
+ *   `GITHUB_REPOSITORY` happens to be set in whatever shell runs the suite.
  */
-export async function main({ fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync } = {}) {
+export async function main({ fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, repo = process.env.REPO || process.env.GITHUB_REPOSITORY || '' } = {}) {
   const token = process.env.DISCORD_BOT_TOKEN || '';
-  const repo = process.env.REPO || process.env.GITHUB_REPOSITORY || '';
 
   const issue = findBriefIssue(execImpl, repo);
   if (!issue) {
