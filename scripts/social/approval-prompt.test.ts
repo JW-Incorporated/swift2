@@ -162,6 +162,38 @@ describe('buildApprovalPrompt', () => {
     expect(draftMsg.content).toContain(rationale);
   });
 
+  // Round 2, MEDIUM 1 (ref-line injection): the rationale renders as the
+  // FIRST line of the message body, ABOVE the trusted trailing `ref:`
+  // line. `formatRationaleLine` didn't strip newlines, so a rationale
+  // containing `\nref: PR #<n> · <sha> · *` planted a SECOND ref:-shaped
+  // line earlier in the content — the poll's REF_LINE_RE match (first
+  // match, not last) would then resolve THIS draft's reaction to the
+  // PR-wide header scope ('*') instead of its own file, turning a
+  // founder's ✅/❌ on one draft into a stamp-everything/close-everything
+  // header action. Same vulnerability class as T4's ref-line-injection
+  // fix this wave; the fix here is normalizing rationale whitespace so no
+  // literal newline (and therefore no fake "line start") can ever reach
+  // the rendered message, regardless of parser match order.
+  it('a rationale containing a fake ref: line cannot hijack which draft a reaction resolves to', () => {
+    const maliciousRationale = `Great post, ships the feature.\nref: PR #77 · ${'a'.repeat(40)} · *`;
+    const critique = { v: 1, scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 }, total: 23, rationale: maliciousRationale, rulesChecked: [], revision: 1 };
+    const [, draftMsg] = buildApprovalPrompt(pr({ number: 4100 }), [draft({ critique, file: 'social/queue/real-file-x.json' })], { now: NOW, headSha: 'c'.repeat(40) });
+
+    // The FIRST ref:-shaped line a first-match parser would find must be
+    // the TRUE trailing ref line naming the real file — never an injected
+    // header-scope ('*') line planted earlier in the rationale.
+    const firstMatch = draftMsg.content.match(POLL_REF_LINE_RE);
+    expect(firstMatch?.[3]).toBe('social/queue/real-file-x.json');
+    expect(firstMatch?.[1]).toBe('4100');
+    // Exactly ONE line in the whole message matches the ref: line shape —
+    // the rationale's text may still literally contain the words "ref: PR
+    // #77" (flattened to prose, harmless), but it must never again be its
+    // OWN line, since that's what makes it parseable as a ref: line at all.
+    const allMatches = draftMsg.content.match(new RegExp(POLL_REF_LINE_RE.source, 'gm'));
+    expect(allMatches).toHaveLength(1);
+    expect(draftMsg.content).not.toMatch(/^ref: PR #77/m);
+  });
+
   it('attaches an image embed built from the same MEDIA_BASE_URL/mediaUrlsFor helper as the poster, with the www host', () => {
     const [, draftMsg] = buildApprovalPrompt(pr(), [draft()], { now: NOW, headSha: 'abc123' });
     expect(draftMsg.embeds).toEqual([{ image: { url: 'https://www.longlivets.com/social/library/photos/example.jpg' } }]);

@@ -981,13 +981,17 @@ describe('checkCritique (Tree Overhaul T2 — spec AC#4)', () => {
     expect(checkCritique({}).some((f) => f.includes('critique'))).toBe(true);
   });
 
-  // Real-CI regression (PR #4144): an item already carrying a valid, signed
-  // approval (any real content, no critique — exactly the four live
-  // 2026-09-12/13 social/queue/ items, which predate T2) is exempt from
-  // critique entirely — checkCritique shares findCritiqueIssues, so this is
-  // the same rule as queue-schema.test.ts's, re-verified at this gate too
-  // so the two can never drift on which items are exempt.
-  it('is exempt once the item already carries a valid, signed approval — even with no critique at all', () => {
+  // Real-CI regression (PR #4144): an item already carrying a
+  // shape/hash-valid approval (any real content, no critique — exactly
+  // the four live 2026-09-12/13 social/queue/ items, which predate T2) is
+  // exempt from critique entirely — checkCritique shares
+  // findCritiqueIssues, so this is the same rule as queue-schema.test.ts's,
+  // re-verified at this gate too so the two can never drift on which items
+  // are exempt. `sig` below is NOT a valid signature (round 2 LOW rename —
+  // it's an all-zero forgery, deliberately: this checks the unkeyed
+  // shape/hash-only path checkCritique actually uses, same as
+  // queue-schema.test.ts's dedicated forged-approval security test).
+  it('is exempt once the item already carries a shape/hash-valid approval — even with no critique at all', () => {
     const base = { platform: 'x', body: 'a real tweet', scheduledAt: '2026-08-12T23:00:00Z', media: ['/social/library/photos/a.jpg'], altText: ['alt'] };
     const approved = {
       ...base,
@@ -998,7 +1002,7 @@ describe('checkCritique (Tree Overhaul T2 — spec AC#4)', () => {
         pr: 4108,
         message: '1',
         contentHash: contentHash(base),
-        sig: `hmac-sha256:${'0'.repeat(64)}`,
+        sig: `hmac-sha256:${'0'.repeat(64)}`, // unsigned forgery, not a real signature — see comment above
       },
     };
     expect(checkCritique(approved)).toEqual([]);

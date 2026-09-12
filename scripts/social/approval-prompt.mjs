@@ -135,7 +135,19 @@ function formatWhyLine(draft, { headSha, repo }) {
 function formatRationaleLine(draft) {
   const rationale = draft.critique?.rationale;
   if (!rationale) return null;
-  return escapeFences(neutralizeMentions(rationale));
+  // Round 2, MEDIUM 1 (ref-line injection, same class as T4's this wave):
+  // this is the FIRST line of the message, above the trusted trailing
+  // `ref:` line. Collapsing ALL whitespace — including newlines — to a
+  // single space, before escaping/neutralizing, means no literal newline
+  // from this field can ever reach the rendered message: an attacker
+  // cannot plant a second, fake `ref: PR #<n> · <sha> · *`-shaped line
+  // earlier in the content to hijack which draft/scope a reaction
+  // resolves to, regardless of whether a downstream parser trusts the
+  // first or last matching line. findCritiqueIssues additionally rejects
+  // control characters in `rationale` outright, so this can't happen via
+  // any other path either.
+  const singleLine = rationale.replace(/\s+/g, ' ').trim();
+  return escapeFences(neutralizeMentions(singleLine));
 }
 
 /** One draft's message body lines (everything except the header line and

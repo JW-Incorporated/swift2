@@ -194,6 +194,13 @@ export const CRITIQUE_MIN_DIMENSION_SCORE = 3;
 export const CRITIQUE_TOTAL_THRESHOLD = 18;
 export const CRITIQUE_NOT_EMBARRASSED_MIN = 4;
 export const CRITIQUE_RATIONALE_MAX_CHARS = 320;
+/** Newlines and other C0/DEL control characters — `rationale` renders as
+ * the first line of the approval brief, above the trusted `ref:` line
+ * (round 2, MEDIUM 1 — ref-line-injection hardening). The control
+ * characters are the whole point of this regex, not an accident.
+ */
+// eslint-disable-next-line no-control-regex
+export const CRITIQUE_RATIONALE_CONTROL_CHAR_RE = /[\x00-\x1F\x7F]/;
 /** The only mathematically possible range for a real critique total — five
  * dimensions, each 1-5. */
 export const CRITIQUE_MIN_POSSIBLE_TOTAL = CRITIQUE_DIMENSIONS.length;
@@ -234,30 +241,58 @@ export function isPlausibleCritiqueTotal(value) {
  * })`, no `key`, the exact call validateQueueItem's own `approval` finding
  * below already makes.
  *
- * SECURITY NOTE, stated explicitly rather than left implicit (Codex round 1,
- * MEDIUM 2 — verified by forging one: take any real item, recompute its
+ * SECURITY NOTE, stated explicitly and CORRECTLY (Codex round 1, MEDIUM 2;
+ * corrected round 2 after a real repro proved the round-1 wording wrong —
+ * see below) — verified by forging one: take any real item, recompute its
  * public `contentHash`, pair it with an approver id from the public
  * SOCIAL_APPROVERS list and any string shaped like `hmac-sha256:<hex>`, and
  * this check accepts it, because it CANNOT verify the HMAC signature
  * without `SOCIAL_APPROVAL_KEY` — a secret this module must never hold, since
  * it is a pure, unit-tested validator with no network/fs access, called from
- * plain CI (`validate-queue.mjs`) that never has it either. So: an item can
- * pass THIS gate's critique exemption on a forged approval. What that
- * forgery can and cannot do is the load-bearing fact: it CANNOT make
- * anything post — `post-queue.mjs` calls `approvalStatus` WITH the real key
- * before ever publishing, and `verifyApprovalSig` (lib/queue.mjs) rejects a
- * non-matching HMAC there, every time, unconditionally. The forgery's only
- * effect is getting a critique-less item PAST THIS CI CHECK, where it will
- * sit in `social/queue/` and never post — the exact "unapproved" outcome
- * an item with no approval at all already gets at post time, just reached
- * by a different door. Given that, shape/hash-valid (option "b" of the
- * three considered — see the PR body) is deliberately accepted as the best
- * signal available to a keyless, pure validator for this NARROW purpose:
- * the real security boundary was always downstream at post time, is
- * unaffected by this exemption, and is proven so by
- * queue.test.ts's "a forged approval... is REJECTED by the real keyed
- * check" regression. Options considered and rejected: (a) something CI
- * could verify without the secret that still can't be forged — nothing
+ * plain CI (`validate-queue.mjs`) that never has it either.
+ *
+ * What the forgery can actually do (corrected): round 1's comment claimed
+ * this "buys nothing but a stuck, unpublishable item" — FALSE, proven false
+ * by a real repro. A keyless-forged approval passes this exemption, CI goes
+ * green, and if a founder then genuinely reacts ✅ in Discord on that item
+ * (having no way to know critique was ever skipped — the brief shows the
+ * rationale/caption, never critique's pass/fail status), the poll job
+ * mints a REAL, validly-signed v3 approval in response to that REAL
+ * reaction — overwriting whatever fake `approval` was already there,
+ * exactly as it would for any other item — and merges it. The item DOES
+ * post, having never been through the self-critique gate at all. The
+ * forged approval's only job was to survive CI long enough to reach a real
+ * founder's eyes; the founder's own genuine ✅ supplies the real,
+ * cryptographically valid signature that actually ships it.
+ *
+ * What is still true, and still the load-bearing fact: NOTHING can post
+ * without a GENUINE founder reaction. `post-queue.mjs` calls
+ * `approvalStatus` WITH the real key before ever publishing, and
+ * `verifyApprovalSig` (lib/queue.mjs) rejects a non-matching HMAC there,
+ * unconditionally — a forged approval that a founder NEVER reacts to
+ * really does sit in `social/queue/` and never post. And this exemption
+ * only ever touches the critique check specifically: every OTHER gate
+ * (length, media/photo binding, campaign pairing, voice, cross-post
+ * copy — check-drafts.mjs's whole rule set, and queue-schema.mjs's own
+ * shape/platform rules) still fully applies to a critique-exempt item,
+ * forged approval or not. So the honest framing is: a forged approval lets
+ * a critique-less item skip the self-scoring gate entirely, IF it is good
+ * enough (voice, length, sourcing, everything else Tree's other checks and
+ * a human eye would catch) to fool a founder into approving it without
+ * noticing — not "harmless," but bounded to exactly the same trust
+ * boundary this whole pipeline already rests on: the founder's own read of
+ * what's in front of them in Discord.
+ *
+ * Given that corrected picture, shape/hash-valid (option "b" of the three
+ * considered — see the PR body) is still the chosen answer, but on the
+ * right grounds: critique is a quality aid that grades TREE's drafting
+ * (spec: "the founder judges the post; the scores exist to grade Tree"),
+ * not itself a safety gate — the founder's own judgment already was, and
+ * remains, the actual gate on what ships, forged critique-exemption or
+ * not. Losing critique's quality signal on a successfully-fooled item is a
+ * real but bounded cost, not a new hole in the thing that was never
+ * critique's job to guard. Options considered and rejected: (a) something
+ * CI could verify without the secret that still can't be forged — nothing
  * exists that isn't itself either forgeable from public repo content or
  * new git-diff-aware plumbing this pure module was deliberately never
  * given (see its own module docstring).
@@ -276,6 +311,14 @@ export function isPlausibleCritiqueTotal(value) {
  * absent, or malformed makes no difference: the founder's sign-off (or,
  * worst case, a forgery already contained by the paragraph above) is the
  * gate this rule was always downstream of.
+ *
+ * KNOWN GAP (round 2 review, latent, documented not fixed — see
+ * social-approval-poll.mjs's edit-handling loop for the full writeup):
+ * an ✏️ edit on an item that was ONLY exempt via this approval check (never
+ * had a real critique) voids that approval's contentHash on the very
+ * change that's supposed to go through, so the exemption stops applying
+ * mid-edit and no replacement caption can ever satisfy this function
+ * afterward — a permanent per-target deadlock, not a security hole.
  */
 export function findCritiqueIssues(item) {
   if (approvalStatus(item, { approvers: SOCIAL_APPROVERS }).ok) {
@@ -321,6 +364,17 @@ export function findCritiqueIssues(item) {
     findings.push('critique.rationale: required, non-empty string.');
   } else if (critique.rationale.length > CRITIQUE_RATIONALE_MAX_CHARS) {
     findings.push(`critique.rationale: ${critique.rationale.length} characters exceeds the ${CRITIQUE_RATIONALE_MAX_CHARS}-character cap.`);
+  } else if (CRITIQUE_RATIONALE_CONTROL_CHAR_RE.test(critique.rationale)) {
+    // Round 2, MEDIUM 1 (ref-line injection): `rationale` renders as the
+    // FIRST line of the approval brief, above the trusted trailing `ref:`
+    // line (approval-prompt.mjs's formatRationaleLine) — a newline or
+    // other control character here could otherwise plant a fake
+    // `ref: PR #<n> · <sha> · *`-shaped line earlier in the message and
+    // hijack which draft/scope a reaction resolves to. formatRationaleLine
+    // also normalizes whitespace defensively, but a malformed rationale
+    // should never pass CI in the first place — plain, single-line
+    // English prose has no legitimate reason to contain one.
+    findings.push('critique.rationale: must not contain newlines or other control characters.');
   }
   if (!Array.isArray(critique.rulesChecked) || !critique.rulesChecked.every((r) => typeof r === 'string')) {
     findings.push('critique.rulesChecked: required, must be an array of strings (e.g. [] before T5 ships).');

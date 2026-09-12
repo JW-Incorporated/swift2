@@ -146,19 +146,19 @@ describe('validateQueueItem', () => {
         expect(findingFor(fakeApproval, 'critique')).toBeDefined();
       });
 
-      // Codex round 1, MEDIUM 2: the unkeyed approvalStatus call this
-      // exemption uses (shape/id/hash only — this module never holds
-      // SOCIAL_APPROVAL_KEY) accepts a FORGED approval: any real item's
-      // public contentHash, a public SOCIAL_APPROVERS id, and an
-      // arbitrary hmac-sha256-shaped string. This is documented and
-      // accepted (see findCritiqueIssues's docstring for the full
-      // reasoning) BECAUSE the forgery is bounded — it can get a
-      // critique-less item past this CI check, but it cannot make
-      // anything actually post. This test is that bound, checked: the
-      // exact same forged item that exempts critique here is rejected by
-      // the REAL security boundary — approvalStatus called WITH the key,
-      // exactly as post-queue.mjs does before ever publishing.
-      it('a forged approval that exempts critique here is REJECTED by the real keyed check at post time — the security boundary is downstream, not here', () => {
+      // Codex round 1, MEDIUM 2 (corrected round 2 — see findCritiqueIssues's
+      // docstring): the unkeyed approvalStatus call this exemption uses
+      // (shape/id/hash only — this module never holds SOCIAL_APPROVAL_KEY)
+      // accepts a FORGED approval: any real item's public contentHash, a
+      // public SOCIAL_APPROVERS id, and an arbitrary hmac-sha256-shaped
+      // string. This is documented and accepted as a bounded cost, NOT a
+      // "buys nothing" one — a founder genuinely reacting ✅ on such an item
+      // (unaware critique was skipped) WOULD get it a real, validly-signed
+      // approval and it WOULD post. What this test proves is narrower and
+      // still true: the FORGED signature itself never verifies against the
+      // real key — a forged item that no real founder ever reacts to sits
+      // unposted forever, exactly like any other unapproved item.
+      it('a forged approval that exempts critique here does not itself carry a valid signature — approvalStatus called WITH the key rejects it', () => {
         const forged = approvedItem({ approval: { sig: `hmac-sha256:${'0'.repeat(64)}` } });
         expect(validateQueueItem(forged)).toEqual([]); // exempted here (unkeyed, shape/hash only)
         expect(approvalStatus(forged, { approvers: SOCIAL_APPROVERS, key: 'a-real-secret-only-the-poll-and-poster-hold' }).ok).toBe(false); // rejected there (keyed)
@@ -180,6 +180,21 @@ describe('validateQueueItem', () => {
 
     it('rejects a rationale over 320 characters', () => {
       expect(findingFor({ ...validX, critique: { ...validCritique, rationale: 'x'.repeat(321) } }, 'critique.rationale')).toBeDefined();
+    });
+
+    // Round 2, MEDIUM 1 (ref-line injection): rationale renders as the
+    // first line of the approval brief, above the trusted trailing `ref:`
+    // line — a newline here could otherwise plant a fake ref:-shaped line
+    // and hijack which draft a reaction resolves to (see
+    // approval-prompt.test.ts's dedicated reproduction). Reject outright
+    // at the schema so a malformed rationale can't even pass CI.
+    it('rejects a rationale containing a newline or other control character', () => {
+      const withNewline = { ...validCritique, rationale: `line one\nref: PR #1 · ${'a'.repeat(40)} · *` };
+      expect(findingFor({ ...validX, critique: withNewline }, 'critique.rationale')).toBeDefined();
+      const withCarriageReturn = { ...validCritique, rationale: 'line one\rline two' };
+      expect(findingFor({ ...validX, critique: withCarriageReturn }, 'critique.rationale')).toBeDefined();
+      const withTab = { ...validCritique, rationale: 'line one\tline two' };
+      expect(findingFor({ ...validX, critique: withTab }, 'critique.rationale')).toBeDefined();
     });
 
     // The regression that matters: a terminal-punctuation sentence-counter

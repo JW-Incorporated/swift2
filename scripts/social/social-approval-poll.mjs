@@ -637,7 +637,16 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       if (header?.action === 'reject') {
         execGh(['pr', 'close', String(pr), '--repo', repo, '--comment', `reject: founder reacted ❌ on the brief — ${header.reason}`]);
         prLedgerRows.push(rejectRow(pr, '*', header, null, runResolvedAt));
-        prLedgerRows.push(...perDraftRejectRows(pr, header, listPrQueueFiles(), gitState, prView.headRefOid, runResolvedAt));
+        // Round 2 LOW: guarded the same way the CLOSED-path's identical
+        // call is above — one flaky `gh pr view` must not abort the whole
+        // run for every remaining PR.
+        let openPrQueueFiles = [];
+        try {
+          openPrQueueFiles = listPrQueueFiles();
+        } catch (err) {
+          console.error(`::warning::social-approval-poll: PR #${pr} — could not list files (${err.message}); per-file reject rows re-derive next run`);
+        }
+        prLedgerRows.push(...perDraftRejectRows(pr, header, openPrQueueFiles, gitState, prView.headRefOid, runResolvedAt));
         continue;
       }
 
@@ -692,6 +701,32 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
 
       // Edits: the founder's caption replaces `body`, provenance travels in
       // `edit`, checkDraft runs on the result BEFORE stamping, one commit.
+      //
+      // KNOWN GAP (round 2 review — confirmed real, currently LATENT: no
+      // open social-draft PR has an item in this state right now). If
+      // `item` was originally exempt from critique via a valid approval
+      // (findCritiqueIssues, queue-schema.mjs — e.g. a pre-T2 item like the
+      // four real 2026-09-12/13 social/queue/ files, which can never carry
+      // a real critique), an ✏️ edit here changes `body`, which voids that
+      // approval's `contentHash` match BEFORE checkDraftImpl re-checks the
+      // result a few lines down — so the exemption no longer applies, the
+      // edited item has no real critique to fall back on, checkDraftImpl
+      // fails with "critique: required", the edit reverts, and prompts the
+      // founder to "reply again with a different one" — but NO caption can
+      // ever satisfy it, since there is no path for a Discord reply to
+      // supply a critique. `prBlockedByPending` then never clears for this
+      // target, permanently blocking the WHOLE PR's stamp/merge (see the
+      // check a few lines below this loop). Likely correct fix: have
+      // findCritiqueIssues ALSO exempt an item carrying `edit` when the
+      // item reconstructed with `body: edit.fromBody` (its own pre-edit
+      // shape — an edit only ever changes `body`, nothing else) was itself
+      // validly approved — this run mints a genuinely fresh, real
+      // signature via stampFiles below regardless, so extending the
+      // exemption through an already-approved item's edit introduces no
+      // new forgery surface. Not fixed this round: needs a real test
+      // matrix (double-edits, a missing/malformed `edit.fromBody`) this
+      // pass didn't have room for — documented per the reviewer's own
+      // guidance rather than rushed.
       for (const [key, c] of classified) {
         if (key === '*' || c.action !== 'edit') continue;
         if (prBlockedByPending) continue;
