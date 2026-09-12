@@ -245,7 +245,9 @@ filed.**
 5c. An alert left open across three consecutive hourly watchdog runs produces
    **one** Discord post, not three, and three issue comments.
 6. A forced watchdog alert (`gh workflow run watchdog.yml`) appears in
-   `#longlive-marjorie` with a 2xx in the log, and sends **no** email.
+   `#longlive-marjorie` with a 2xx in the log, and sends **no** email. The
+   synthetic proof path for this without waiting on a real watchdog
+   condition is `marjorie-discord-smoketest.yml` with `mode=upsert-alert`.
 7. A forced `production-backup` failure both opens the alert in-channel
    **and** sends the email.
 8. `watchdog.yml` is shorter than at `93b93360` (the brief-mailer catch-up

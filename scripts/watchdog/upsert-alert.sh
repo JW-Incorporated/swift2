@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-# Deterministic, zero-AI: create-or-update a persistent watchdog-alert issue
-# and email it via send-mail.py. Shared by every alert path in
-# watchdog.yml (2026-07-23) so this pattern -- one evolving issue per
-# condition instead of a new one every day, plus real email delivery -- isn't
-# duplicated per job.
+# Deterministic, zero-AI: create-or-update a persistent watchdog-alert issue,
+# then notify. Shared by every alert path in watchdog.yml (2026-07-23) so this
+# pattern -- one evolving issue per condition instead of a new one every day --
+# isn't duplicated per job.
 #
 # Why persistent, non-date-scoped titles: a date-scoped title ("...for
 # 2026-07-20") mints a brand-new issue every day a condition stays broken --
@@ -11,10 +10,12 @@
 # (#947, #1177, #1203, #1224) with zero comments between them, because
 # nothing tied them together as one ongoing incident.
 #
-# Why emailed here, not left to GitHub @mentions: this repo's own
-# brief-mailer.yml already documents that @sffan15-sys / @wjduvall-cmd are
-# bot identities whose mentions don't reach the founders' real inboxes --
-# that's the same reason those 4 alerts went unseen.
+# Notification: Discord, to #longlive-marjorie via post-or-mail.mjs, is the
+# default channel (Marjorie Overhaul C3 retired the standing bot-email path)
+# and only fires on a state CHANGE (NOTIFY=1) -- an hourly re-check of a
+# standing alert never re-posts. Email is opt-in per call via
+# `ALERT_ALSO_MAIL=1` (still routed through send-mail.py), for the rare
+# caller that still needs a mail leg alongside Discord.
 #
 # Usage:
 #   upsert-alert.sh open  <title> <body-file>   # create, or comment on the existing open one

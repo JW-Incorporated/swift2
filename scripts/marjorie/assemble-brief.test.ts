@@ -418,6 +418,33 @@ describe('buildBrief — six sections (Marjorie Overhaul C2, 2026-09-12)', () =>
     expect(brief).toContain('Two');
   });
 
+  // Reviewer finding (M1 audit): every section maxed SIMULTANEOUSLY used to
+  // render 41 lines, one over the spec's cap, because the per-section
+  // budgets summed to 41 (headings + blanks included). Every budget here is
+  // deliberately at its ceiling — PRs, alerts, dispatched items, done items —
+  // all at once, the true worst case.
+  it('stays at exactly 40 lines when every section is simultaneously maxed out', () => {
+    const doneItems: Record<number, DoneItemFixture> = {};
+    for (let i = 1; i <= 8; i += 1) doneItems[i] = { title: `Item ${i}`, status: 'red', blockedOn: 'nobody', nextAction: 'x' };
+    const brief = buildBrief({
+      ...emptyState,
+      openActions: Array.from({ length: 40 }, (_, i) => ({ number: 200 + i, tag: 'UPGRADE', title: `Oversized item ${i}`, ageDays: i, eta: null })),
+      allPRs: Array.from({ length: 20 }, (_, i) => ({
+        number: 1000 + i, title: `PR ${i}`, createdAt: new Date(NOW - 1000).toISOString(),
+        mergedAt: new Date(NOW - 1000).toISOString(), headRefName: 'x', state: 'MERGED',
+      })),
+      alerts: Array.from({ length: 20 }, (_, i) => ({
+        number: 2000 + i, title: `Watchdog: alert ${i}`, createdAt: new Date(NOW - 1000).toISOString(),
+        closedAt: new Date(NOW - 1000).toISOString(), state: 'closed',
+      })),
+      dispatched: Array.from({ length: 5 }, (_, i) => ({ number: 3000 + i, createdAt: new Date(NOW - i * 86_400_000).toISOString() })),
+      contentShipped: [{ a: 1 }],
+      treeLines: ['- tree line 1', '- tree line 2', '- tree line 3', '- tree line 4', '- tree line 5'],
+      doneItems,
+    }, { now: NOW });
+    expect(brief.split('\n').length).toBeLessThanOrEqual(40);
+  });
+
   // Same cap, exercised from the other direction: Distance to done's OWN
   // content can also overflow its budget (all eight items non-green) — it
   // must truncate its item list, never drop the closing sentence of
