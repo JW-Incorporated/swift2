@@ -119,3 +119,37 @@ export function nextId({ active = [], retired = [] } = {}) {
   }, 0);
   return `L${String(max + 1).padStart(3, '0')}`;
 }
+
+/**
+ * Active rules eligible for Monday's codification check (spec AC#5, §The
+ * codification issue): `Times fired >= 3` and not yet filed (`Codify` still
+ * `—`). Filing the issue is the Monday run's job (it needs `gh`); this is
+ * only the threshold arithmetic, deterministic over already-parsed ledger
+ * fields — round 2 review + owner ruling: this is mechanical counting, not
+ * the semantic judgment spec's "done by the Opus weekly run rather than by
+ * a matcher" line is about, so it is code (CLAUDE.md rule 8), not prose. A
+ * rule already carrying a real `Codify` value (`#n` or `done (#n)`) never
+ * matches again, which is what keeps a second run over the same ledger from
+ * filing a second issue.
+ */
+export function findCodifiableRules({ active = [] } = {}) {
+  return active.filter((rule) => rule.timesFired >= 3 && rule.codify === '—');
+}
+
+/**
+ * Active rules eligible for Monday retirement as "stale" (spec AC#6,
+ * §Retirement): no firing in >= 8 consecutive weeks AND >= 10 briefs sent in
+ * that window — the brief-count half is what stops a posting freeze from
+ * silently retiring the rule set. `windows` is keyed by rule id; computing
+ * `weeksQuiet`/`briefsInWindow` needs real posting history (the weekly-plan
+ * PR list) this module has no access to, so the Monday run supplies it —
+ * this function is only the threshold arithmetic, the same division of
+ * labor `nextId` already has (it takes the parsed ledger rather than
+ * reading social/lessons.md itself).
+ */
+export function findRetirableRules({ active = [] } = {}, windows = {}) {
+  return active.filter((rule) => {
+    const w = windows[rule.id];
+    return !!w && w.weeksQuiet >= 8 && w.briefsInWindow >= 10;
+  });
+}

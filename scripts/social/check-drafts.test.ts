@@ -1017,4 +1017,26 @@ describe('checkCritique (Tree Overhaul T2 — spec AC#4)', () => {
     const findings = await checkDraft(target, { allQueue: [], openerContext: [], recentIg: [] });
     expect(findings.some((f) => f.includes('critique'))).toBe(true);
   });
+
+  // Round 2 review (real CI-only-vs-PR-time gate drift, T5): this is the
+  // draft-time gate — the one that is supposed to stop a bad draft before a
+  // PR is ever opened. It must reject exactly what queue-schema.mjs's CI
+  // backstop rejects, or the rule only ever surfaces as an avoidable red CI
+  // check on an already-opened PR.
+  it('rejects empty rulesChecked when activeLessonIds is non-empty, accepts it when omitted (matches queue-schema.mjs)', () => {
+    const critique = { ...VALID_CRITIQUE, rulesChecked: [] };
+    expect(checkCritique({ critique }, { activeLessonIds: ['L001'] })).toContain(
+      'critique.rulesChecked: must be non-empty — social/lessons.md has active rules that must be checked and recorded.',
+    );
+    expect(checkCritique({ critique })).toEqual([]);
+    expect(checkCritique({ critique }, { activeLessonIds: [] })).toEqual([]);
+  });
+
+  it('threads activeLessonIds through checkDraft, not just checkCritique directly', async () => {
+    const target = { file: 'empty-rules.json', data: { platform: 'instagram', body: 'a perfectly fine fan post about the eras tour.', scheduledAt: '2026-08-11T00:00:00Z', critique: { ...VALID_CRITIQUE, rulesChecked: [] } } };
+    const withLessons = await checkDraft(target, { allQueue: [], openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
+    expect(withLessons.some((f) => f.includes('critique.rulesChecked: must be non-empty'))).toBe(true);
+    const withoutLessons = await checkDraft(target, { allQueue: [], openerContext: [], recentIg: [] });
+    expect(withoutLessons.some((f) => f.includes('critique.rulesChecked'))).toBe(false);
+  });
 });

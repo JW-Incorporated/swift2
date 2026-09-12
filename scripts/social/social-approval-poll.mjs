@@ -894,7 +894,19 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
     let gitState = null;
     let treeIsHead = false; // the working tree is the PR head we classified against (checkout + TOCTOU passed)
     let prQueueFilesCache = null;
+    // T5 round 2 review: a plan-scope PR (any planRefs) is NEVER treated as
+    // carrying a mintable/stampable/mergeable queue file, full stop — not
+    // merely because Tree's own posting discipline happens to keep such a
+    // PR's real file list empty, but as an explicit invariant every caller
+    // of listPrQueueFiles below (the merge phase, the MERGED-state
+    // unstamped-approval check, the OPEN-state comment logic, problem
+    // reporting) inherits automatically. Converts "the founder merges the
+    // strategy PR themselves, never Tree" (docs/agents/tree.md invariant 2)
+    // from an emergent property of what Tree happens to post into something
+    // that holds even if a future bug ever attached a queue-shaped ref to a
+    // plan PR's messages.
     const listPrQueueFiles = () => {
+      if (planRefs.length > 0) return [];
       if (prQueueFilesCache) return prQueueFilesCache;
       const filesMeta = JSON.parse(execGh(['pr', 'view', String(pr), '--repo', repo, '--json', 'files'])).files ?? [];
       prQueueFilesCache = filesMeta.map((f) => f.path).filter(isQueueJson);

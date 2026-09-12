@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseLessons, renderLessons, nextId } from './lessons.mjs';
+import { parseLessons, renderLessons, nextId, findCodifiableRules, findRetirableRules } from './lessons.mjs';
 
 // spec AC#1 — active rule, a retired rule with `Superseded by`, and a rule
 // with `Codify: done (#n)` (the retired rule carries both, matching the
@@ -85,5 +85,105 @@ describe('nextId (AC#2)', () => {
 
   it('takes the max id regardless of array order', () => {
     expect(nextId({ active: [{ id: 'L002' }, { id: 'L009' }, { id: 'L005' }], retired: [] })).toBe('L010');
+  });
+});
+
+// Round 2 review + owner ruling: AC#5/#6 are deterministic arithmetic over
+// already-parsed ledger fields, not the semantic judgment spec's "done by
+// the Opus weekly run rather than by a matcher" line covers — so they are
+// code, tested here, mirroring nextId's own pure-function pattern.
+describe('findCodifiableRules (AC#5)', () => {
+  it('includes an active rule at Times fired >= 3 with Codify still unset', () => {
+    const rules = { active: [{ id: 'L001', timesFired: 3, codify: '—' }], retired: [] };
+    expect(findCodifiableRules(rules)).toEqual([rules.active[0]]);
+  });
+
+  it('excludes a rule already carrying a real Codify value — a second run over the same ledger never re-files', () => {
+    const rules = {
+      active: [
+        { id: 'L001', timesFired: 5, codify: 'done (#4201)' },
+        { id: 'L002', timesFired: 5, codify: '#4300' },
+      ],
+      retired: [],
+    };
+    expect(findCodifiableRules(rules)).toEqual([]);
+  });
+
+  it('excludes a rule below the 3-firing threshold', () => {
+    const rules = { active: [{ id: 'L001', timesFired: 2, codify: '—' }], retired: [] };
+    expect(findCodifiableRules(rules)).toEqual([]);
+  });
+});
+
+describe('findRetirableRules (AC#6)', () => {
+  it('retires a rule with no firing for 8 weeks AND >=10 briefs in that window', () => {
+    const rules = { active: [{ id: 'L001', timesFired: 3, codify: '—' }], retired: [] };
+    expect(findRetirableRules(rules, { L001: { weeksQuiet: 8, briefsInWindow: 10 } })).toEqual(rules.active);
+  });
+
+  // spec AC#6's own counter-example, verbatim: 8 quiet weeks is not enough
+  // on its own — a posting freeze must never silently retire the rule set.
+  it('does NOT retire a rule with 8 quiet weeks but only 2 briefs in the window', () => {
+    const rules = { active: [{ id: 'L001', timesFired: 3, codify: '—' }], retired: [] };
+    expect(findRetirableRules(rules, { L001: { weeksQuiet: 8, briefsInWindow: 2 } })).toEqual([]);
+  });
+
+  it('does NOT retire a rule with enough briefs but fewer than 8 quiet weeks', () => {
+    const rules = { active: [{ id: 'L001', timesFired: 3, codify: '—' }], retired: [] };
+    expect(findRetirableRules(rules, { L001: { weeksQuiet: 7, briefsInWindow: 10 } })).toEqual([]);
+  });
+
+  it('does NOT retire a rule with no window data at all', () => {
+    const rules = { active: [{ id: 'L001', timesFired: 3, codify: '—' }], retired: [] };
+    expect(findRetirableRules(rules, {})).toEqual([]);
+  });
+});
+
+// Round 2 review — AC#7: a retired rule that fires again is reactivated
+// with its original id and Evidence history intact, never re-created under
+// a new id. lessons.mjs has no dedicated "reactivate" function (the owner's
+// ruling keeps the matching decision itself in tree-weekly-plan.md's prose)
+// — this proves the DATA MODEL represents reactivation correctly: moving a
+// rule from retired to active, flipping Status, dropping Superseded by, and
+// APPENDING (never replacing) Evidence all round-trip losslessly.
+describe('reactivation (AC#7)', () => {
+  it('a reactivated rule keeps its original id and its full Evidence history, and drops Superseded by', () => {
+    const retiredRule = {
+      id: 'L003',
+      title: 'Never open with a pun',
+      status: 'retired',
+      firstSeen: '2026-08-01 (PR #4000)',
+      timesFired: 2,
+      lastFired: '2026-08-15 (PR #4010)',
+      evidence: '[#4000 ✏️](https://example.com/1), [#4010 ✏️](https://example.com/2)',
+      codify: '—',
+      supersededBy: '— (no firings since 2026-08-15)',
+      youSaid: '"puns again, please stop."',
+      soI: 'never open with a pun.',
+    };
+    // "Fires again": same id, moved back to active, history appended not
+    // replaced, Superseded by no longer applies once the rule is live again.
+    const reactivated = {
+      ...retiredRule,
+      status: 'active',
+      timesFired: retiredRule.timesFired + 1,
+      lastFired: '2026-11-01 (PR #4300)',
+      evidence: `${retiredRule.evidence}, [#4300 ✏️](https://example.com/3)`,
+      youSaid: '"still doing the pun thing."',
+    };
+    delete reactivated.supersededBy;
+
+    const rendered = renderLessons({ active: [reactivated], retired: [] });
+    const parsed = parseLessons(rendered);
+
+    expect(parsed.retired).toEqual([]);
+    expect(parsed.active).toHaveLength(1);
+    expect(parsed.active[0].id).toBe('L003');
+    expect(parsed.active[0].status).toBe('active');
+    expect(parsed.active[0].timesFired).toBe(3);
+    expect(parsed.active[0].evidence).toContain('#4000');
+    expect(parsed.active[0].evidence).toContain('#4010');
+    expect(parsed.active[0].evidence).toContain('#4300');
+    expect(parsed.active[0].supersededBy).toBeUndefined();
   });
 });
