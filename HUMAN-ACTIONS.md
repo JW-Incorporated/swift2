@@ -2,9 +2,18 @@
 
 <!-- ha-format: 2 -->
 
-> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #62 🟢 [UPGRADE] File the T7/Codex SOCIAL_FREEZE workflow-wiring finding as a GitHub issue (~2 min)
+<!-- ha filed=2026-09-12 -->
+
+**Why:** gh issue create was guard-denied (false positive on the words post-queue.mjs in prose) filing a T7 follow-up: routine-tree-weekly-plan.yml never passes SOCIAL_FREEZE to the brief step, so the ladder-standing block can show eligible during a real freeze. No risk yet; must land before Wave 5.
+**Steps:**
+1. Run `gh issue create --repo JW-Incorporated/swift2` titled "T7 ladder standing reads SOCIAL_FREEZE but routine-tree-weekly-plan.yml never passes it through" (body in PR #4159 session log).
+2. Or tell an agent to retry filing it directly — the guard matched the literal filename in prose, not a real invocation.
+**Worked if:** the issue exists in the tracker, linked from epic #4117 and PR #4159.
 
 ## #61 🔴 [BLOCKING] Set SOCIAL_FREEZE=false — Wave 3 of the Tree Overhaul is fully merged (~2 min)
 <!-- ha filed=2026-09-12 -->
