@@ -183,6 +183,83 @@ export function validatePhotoInventoryBinding(item, photoLibrary) {
 }
 
 /**
+ * `critique` shape + threshold (Tree Overhaul T2,
+ * docs/specs/tree-overhaul/t2-self-critique.md) — the five-dimension rubric
+ * a draft must clear before it can queue. `v: 1` is the only schema version
+ * this checks; T6 adds `v: 2` (six dimensions, `timely`) for merch/appearance
+ * lanes on its own lane-selected path.
+ */
+export const CRITIQUE_DIMENSIONS = ['onStrategy', 'onVoice', 'specific', 'mediaEarnsItsPlace', 'notEmbarrassed'];
+export const CRITIQUE_MIN_DIMENSION_SCORE = 3;
+export const CRITIQUE_TOTAL_THRESHOLD = 18;
+export const CRITIQUE_NOT_EMBARRASSED_MIN = 4;
+export const CRITIQUE_RATIONALE_MAX_CHARS = 320;
+
+/**
+ * Findings against ONE queue item's `critique` object — required shape
+ * (`v`, `scores.*`, `total`, `rationale`, `rulesChecked`, `revision`) and the
+ * queueing threshold (every dimension >= 3, `total` >= 18, `notEmbarrassed`
+ * >= 4 specifically — independent of the total, since it is the dimension a
+ * model is most tempted to inflate). Shared by validateQueueItem below (the
+ * CI schema gate) and check-drafts.mjs's checkCritique (the PR-time quality
+ * gate) so the two can never drift on the rubric's numbers — the same
+ * drift concern documented on check-drafts.mjs's re-exported
+ * weightedTweetLength. No sentence count is enforced on `rationale`: a
+ * terminal-punctuation counter mis-splits the exact prose this field
+ * contains ("22 Oct.", "vs.", "No. 1"), so the character cap is the only
+ * enforcement (spec §Mechanics).
+ */
+export function findCritiqueIssues(critique) {
+  const findings = [];
+  if (critique === null || typeof critique !== 'object' || Array.isArray(critique)) {
+    return ['critique: required — every social/queue/ item carries a self-critique (Tree Overhaul T2).'];
+  }
+  if (critique.v !== 1) {
+    findings.push(`critique.v: must be 1, got ${JSON.stringify(critique.v)}.`);
+  }
+  const scores = critique.scores;
+  const hasScoresObject = scores !== null && typeof scores === 'object' && !Array.isArray(scores);
+  if (!hasScoresObject) {
+    findings.push('critique.scores: required object with all five dimensions.');
+  } else {
+    for (const dim of CRITIQUE_DIMENSIONS) {
+      if (!Number.isInteger(scores[dim]) || scores[dim] < 1 || scores[dim] > 5) {
+        findings.push(`critique.scores.${dim}: must be an integer 1-5, got ${JSON.stringify(scores[dim])}.`);
+      }
+    }
+  }
+  const allScoresValid =
+    hasScoresObject && CRITIQUE_DIMENSIONS.every((dim) => Number.isInteger(scores[dim]) && scores[dim] >= 1 && scores[dim] <= 5);
+  if (allScoresValid) {
+    const sum = CRITIQUE_DIMENSIONS.reduce((total, dim) => total + scores[dim], 0);
+    if (critique.total !== sum) {
+      findings.push(`critique.total: is ${JSON.stringify(critique.total)}, must equal the sum of the five scores (${sum}).`);
+    }
+    for (const dim of CRITIQUE_DIMENSIONS) {
+      const min = dim === 'notEmbarrassed' ? CRITIQUE_NOT_EMBARRASSED_MIN : CRITIQUE_MIN_DIMENSION_SCORE;
+      if (scores[dim] < min) {
+        findings.push(`critique.${dim} is ${scores[dim]}, needs ${min}`);
+      }
+    }
+    if (sum < CRITIQUE_TOTAL_THRESHOLD) {
+      findings.push(`critique.total is ${sum}, needs ${CRITIQUE_TOTAL_THRESHOLD}`);
+    }
+  }
+  if (typeof critique.rationale !== 'string' || critique.rationale.trim() === '') {
+    findings.push('critique.rationale: required, non-empty string.');
+  } else if (critique.rationale.length > CRITIQUE_RATIONALE_MAX_CHARS) {
+    findings.push(`critique.rationale: ${critique.rationale.length} characters exceeds the ${CRITIQUE_RATIONALE_MAX_CHARS}-character cap.`);
+  }
+  if (!Array.isArray(critique.rulesChecked) || !critique.rulesChecked.every((r) => typeof r === 'string')) {
+    findings.push('critique.rulesChecked: required, must be an array of strings (e.g. [] before T5 ships).');
+  }
+  if (critique.revision !== 1 && critique.revision !== 2) {
+    findings.push(`critique.revision: must be 1 or 2, got ${JSON.stringify(critique.revision)}.`);
+  }
+  return findings;
+}
+
+/**
  * Validates one parsed queue item. Returns an array of human-readable
  * findings; an empty array means the item is well-formed. Never throws —
  * callers get every problem at once rather than the first one.
@@ -212,6 +289,9 @@ export function validateQueueItem(item) {
   if (!LANES.includes(item.lane)) {
     findings.push(`lane: ${JSON.stringify(item.lane)} is not one of ${LANES.map((l) => `"${l}"`).join(', ')}.`);
   }
+
+  // --- critique (Tree Overhaul T2, self-critique before queueing) --------
+  findings.push(...findCritiqueIssues(item.critique));
 
   // --- body ---------------------------------------------------------------
   if (typeof item.body !== 'string' || item.body.trim() === '') {

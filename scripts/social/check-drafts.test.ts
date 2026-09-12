@@ -2,7 +2,16 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCampaignPair, checkSimultaneousPair, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkDraft } from './check-drafts.mjs';
+import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCampaignPair, checkSimultaneousPair, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkCritique, checkDraft } from './check-drafts.mjs';
+
+const VALID_CRITIQUE = {
+  v: 1,
+  scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 },
+  total: 23,
+  rationale: "This is the Decode thread's origin-story beat, using a dated, verifiable 2012 detail rather than a vibe.",
+  rulesChecked: [],
+  revision: 1,
+};
 
 // checkMedia reads real files under apps/web/public/ (PUBLIC_DIR in
 // check-drafts.mjs), so the aspect-ratio-rejection test below needs an actual
@@ -136,6 +145,7 @@ describe('09-08 paired launch preview', () => {
     mediaKind: 'photo',
     mediaCredit: 'Paolo Villanueva (CC BY 2.0), via Wikimedia Commons',
     mediaSource: 'https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg',
+    critique: VALID_CRITIQUE,
   };
   const campaign = 'launch:shop-the-look:announce:2026-09-08';
   const queue = [
@@ -942,5 +952,40 @@ describe('checkMedia', () => {
   it('rejects mediaKind "video-thumb" on X too — no exempt lane remains (2026-09-10, kanban t_bac31b1a)', async () => {
     const findings = await checkMedia('a.json', { platform: 'x', campaign: 'appearance:video-id', mediaKind: 'video-thumb', body: 'text with a link' }, []);
     expect(findings.length).toBeGreaterThan(0);
+  });
+});
+
+describe('checkCritique (Tree Overhaul T2 — spec AC#4)', () => {
+  it('passes a well-formed critique', () => {
+    expect(checkCritique({ critique: VALID_CRITIQUE })).toEqual([]);
+  });
+
+  // AC#4's exact quoted format, naming the dimension and its score.
+  it('fails a below-threshold draft with a message naming the dimension and its score', () => {
+    const critique = { ...VALID_CRITIQUE, scores: { ...VALID_CRITIQUE.scores, notEmbarrassed: 3 }, total: 21 };
+    expect(checkCritique({ critique })).toContain('critique.notEmbarrassed is 3, needs 4');
+  });
+
+  // AC#10's testable half: a fixture engineered to fail `specific` names
+  // that dimension (the daily run's own PR-body naming of the failing
+  // dimension is the runner prompt's job, not something check-drafts.mjs
+  // can produce — see the PR body for that caveat).
+  it('names `specific` when that is the dimension a fixture is engineered to fail', () => {
+    const critique = { ...VALID_CRITIQUE, scores: { ...VALID_CRITIQUE.scores, specific: 2 }, total: 20 };
+    expect(checkCritique({ critique })).toContain('critique.specific is 2, needs 3');
+  });
+
+  it('flags a missing critique entirely', () => {
+    expect(checkCritique({}).some((f) => f.includes('critique'))).toBe(true);
+  });
+
+  it('is wired into checkDraft alongside the other rule families', async () => {
+    // Same fixture as "runs the full rule set for a schema-valid item"
+    // above (no media, so checkMedia short-circuits on its own "requires at
+    // least one image" finding rather than touching disk) — proves a
+    // missing `critique` now ALSO surfaces alongside that finding.
+    const target = { file: 'no-critique.json', data: { platform: 'instagram', body: 'a perfectly fine fan post about the eras tour.', scheduledAt: '2026-08-11T00:00:00Z' } };
+    const findings = await checkDraft(target, { allQueue: [], openerContext: [], recentIg: [] });
+    expect(findings.some((f) => f.includes('critique'))).toBe(true);
   });
 });

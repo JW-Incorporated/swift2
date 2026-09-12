@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES, LANES } from './queue-schema.mjs';
+import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES, LANES, findCritiqueIssues } from './queue-schema.mjs';
 
+const validCritique = {
+  v: 1,
+  scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 },
+  total: 23,
+  rationale: "This is the Decode thread's origin-story beat, using a dated, verifiable 2012 detail rather than a vibe.",
+  rulesChecked: [],
+  revision: 1,
+};
 const validX = {
   platform: 'x',
   lane: 'calendar',
@@ -13,6 +21,7 @@ const validX = {
   photoId: 'lover-minneapolis-2023',
   mediaCredit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
   mediaSource: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
+  critique: validCritique,
 };
 const validIg = {
   platform: 'instagram',
@@ -22,6 +31,7 @@ const validIg = {
   altText: ['A screenshot of the mood chat feature.'],
   mediaKind: 'site-screen',
   scheduledAt: '2026-08-12T23:00:00Z',
+  critique: validCritique,
 };
 
 const findingFor = (item: unknown, needle: string | RegExp) =>
@@ -69,6 +79,80 @@ describe('validateQueueItem', () => {
       for (const lane of LANES) {
         expect(validateQueueItem({ ...validX, lane })).toEqual([]);
       }
+    });
+  });
+
+  describe('critique (Tree Overhaul T2, self-critique before queueing)', () => {
+    it('rejects a missing critique', () => {
+      expect(findingFor({ ...validX, critique: undefined }, 'critique')).toBeDefined();
+    });
+
+    it('rejects a score of 0 or 6', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, scores: { ...validCritique.scores, onVoice: 0 } } }, 'critique.scores.onVoice')).toBeDefined();
+      expect(findingFor({ ...validX, critique: { ...validCritique, scores: { ...validCritique.scores, onVoice: 6 } } }, 'critique.scores.onVoice')).toBeDefined();
+    });
+
+    it('rejects a non-integer score', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, scores: { ...validCritique.scores, specific: 3.5 } } }, 'critique.scores.specific')).toBeDefined();
+    });
+
+    it('rejects a total that does not equal the sum', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, total: 24 } }, 'critique.total')).toBeDefined();
+    });
+
+    it('rejects a rationale over 320 characters', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, rationale: 'x'.repeat(321) } }, 'critique.rationale')).toBeDefined();
+    });
+
+    // The regression that matters: a terminal-punctuation sentence-counter
+    // would misfire on ordinary prose like this. No such counter runs here —
+    // the character cap is the only enforcement (spec §Mechanics).
+    it('accepts a rationale containing "22 Oct." and "vs." (never counts sentences)', () => {
+      const rationale = 'On 22 Oct. this beat the Lover era vs. every other era in engagement, No. 1 by a wide margin.';
+      expect(validateQueueItem({ ...validX, critique: { ...validCritique, rationale } })).toEqual([]);
+    });
+
+    // AC#2 (spec): the hard gate is independent of the total — every OTHER
+    // dimension at 5 and a correctly-computed total of 23 must still fail
+    // on notEmbarrassed alone.
+    it('rejects notEmbarrassed: 3 even when every other dimension is 5 and the total is correctly computed', () => {
+      const scores = { onStrategy: 5, onVoice: 5, specific: 5, mediaEarnsItsPlace: 5, notEmbarrassed: 3 };
+      const findings = validateQueueItem({ ...validX, critique: { ...validCritique, scores, total: 23 } });
+      expect(findings).toContain('critique.notEmbarrassed is 3, needs 4');
+    });
+
+    // AC#3 boundary cases.
+    it('accepts the exact boundary case: all fives except notEmbarrassed: 4 (total 24)', () => {
+      const scores = { onStrategy: 5, onVoice: 5, specific: 5, mediaEarnsItsPlace: 5, notEmbarrassed: 4 };
+      expect(validateQueueItem({ ...validX, critique: { ...validCritique, scores, total: 24 } })).toEqual([]);
+    });
+
+    it('accepts the minimum passing case {3,3,4,4,4} = 18', () => {
+      const scores = { onStrategy: 3, onVoice: 3, specific: 4, mediaEarnsItsPlace: 4, notEmbarrassed: 4 };
+      expect(validateQueueItem({ ...validX, critique: { ...validCritique, scores, total: 18 } })).toEqual([]);
+    });
+
+    it('rejects a total of 17 — one under the 18 threshold', () => {
+      const scores = { onStrategy: 3, onVoice: 3, specific: 3, mediaEarnsItsPlace: 4, notEmbarrassed: 4 };
+      const findings = validateQueueItem({ ...validX, critique: { ...validCritique, scores, total: 17 } });
+      expect(findings).toContain('critique.total is 17, needs 18');
+    });
+
+    it('rejects rulesChecked when missing or not an array of strings, but accepts []', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, rulesChecked: undefined } }, 'critique.rulesChecked')).toBeDefined();
+      expect(findingFor({ ...validX, critique: { ...validCritique, rulesChecked: [1] } }, 'critique.rulesChecked')).toBeDefined();
+      expect(validateQueueItem({ ...validX, critique: { ...validCritique, rulesChecked: [] } })).toEqual([]);
+    });
+
+    it('rejects a revision outside 1 or 2, and a v other than 1', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, revision: 3 } }, 'critique.revision')).toBeDefined();
+      expect(findingFor({ ...validX, critique: { ...validCritique, v: 2 } }, 'critique.v')).toBeDefined();
+    });
+
+    it('validateQueueItem surfaces exactly findCritiqueIssues\' findings (shared, not a second implementation)', () => {
+      const broken = { ...validCritique, scores: { ...validCritique.scores, notEmbarrassed: 2 } };
+      expect(findCritiqueIssues(broken).length).toBeGreaterThan(0);
+      expect(validateQueueItem({ ...validX, critique: broken })).toEqual(findCritiqueIssues(broken));
     });
   });
 

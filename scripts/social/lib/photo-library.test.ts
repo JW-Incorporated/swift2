@@ -108,6 +108,14 @@ describe('photo-library', () => {
       scheduledAt: '2026-09-08T23:00:00Z',
       campaign: 'launch:shop-the-look:announce',
       lane: 'calendar',
+      critique: {
+        v: 1,
+        scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 },
+        total: 23,
+        rationale: 'See the look ties a real Taylor photo to the shoppable feature launch, which is what earns the post its place.',
+        rulesChecked: [],
+        revision: 1,
+      },
     };
     const pair = [
       { ...common, platform: 'instagram', body: 'See the look.' },
