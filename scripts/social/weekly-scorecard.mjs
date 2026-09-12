@@ -415,8 +415,8 @@ export function renderScorecard(card) {
   const expired = card.expiredWhilePending;
   lines.push(
     typeof expired === 'number'
-      ? `**Expired while pending (>${EXPIRED_WHILE_PENDING_HOURS}h):** ${expired} target${expired === 1 ? '' : 's'} took longer than ${EXPIRED_WHILE_PENDING_HOURS}h to hear back from you`
-      : `**Expired while pending (>${EXPIRED_WHILE_PENDING_HOURS}h):** ${NO_RESOLVED_TARGETS_SENTENCE}`
+      ? `**Slowest to hear back (>${EXPIRED_WHILE_PENDING_HOURS}h):** ${expired} target${expired === 1 ? '' : 's'} took longer than ${EXPIRED_WHILE_PENDING_HOURS}h to hear back from you`
+      : `**Slowest to hear back (>${EXPIRED_WHILE_PENDING_HOURS}h):** ${NO_RESOLVED_TARGETS_SENTENCE}`
   );
   const repliesDone = card.redditRepliesDone;
   lines.push(

@@ -106,7 +106,7 @@ in an inbox.
 - `docs/agents/README.md` › label table defines `founder-task` and
   `desk-coordination`.
 - `docs/agents/tree.md` (hard invariants) and
-  `docs/agents/runner-prompts/tree-plan.md` (step 7) bind Tree, the standing
+  `docs/agents/runner-prompts/tree-weekly-plan.md` (step 7) bind Tree, the standing
   weekly filer of founder tasks, to this document.
 - Any NEW runner prompt that files `founder-task` or `founder-decision`
   issues must reference this file in the step that files them.

@@ -793,7 +793,7 @@ the API silently no-ops `mcp_connections: []`).
 To bring Tree live, from Joey's account: create a routine named
 `Tree — weekly social plan`, cron `0 10 * * 1`, model `claude-opus-5` (or the
 fleet's current Opus), prompt = the **exact contents** of
-[`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md), then run the
+[`runner-prompts/tree-weekly-plan.md`](runner-prompts/tree-weekly-plan.md), then run the
 `routine-invariants.md` checklist on it — remove the `Claude_Code_Remote`
 connector (Edit → Connectors → `×` → Save; the API silently ignores
 `mcp_connections: []`), `persist_session: false`, no `Task` in `allowed_tools`.

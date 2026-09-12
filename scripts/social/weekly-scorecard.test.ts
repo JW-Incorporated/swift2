@@ -106,14 +106,14 @@ describe('renderScorecard', () => {
     expect(fullLines).toHaveLength(8);
     expect(fullLines.slice(0, 5)).toEqual(preS8Lines.slice(0, 5));
     expect(fullLines[5]).toBe('**Time to your Reddit answer:** median 3h, slowest 8h');
-    expect(fullLines[6]).toBe('**Expired while pending (>48h):** 1 target took longer than 48h to hear back from you');
+    expect(fullLines[6]).toBe('**Slowest to hear back (>48h):** 1 target took longer than 48h to hear back from you');
     expect(fullLines[7]).toBe('**Reddit replies done:** 4');
   });
 
   it('pluralizes "targets" correctly and renders a real, informative zero (not a sentinel) when nothing was slow', () => {
     const zero = { ...WITH_T4, redditLatency: null, expiredWhilePending: 0, redditRepliesDone: 0 };
     const out = renderScorecard(zero);
-    expect(out).toContain('**Expired while pending (>48h):** 0 targets took longer than 48h to hear back from you');
+    expect(out).toContain('**Slowest to hear back (>48h):** 0 targets took longer than 48h to hear back from you');
     expect(out).toContain('**Reddit replies done:** 0');
   });
 
@@ -121,7 +121,7 @@ describe('renderScorecard', () => {
     const card = { ...WITH_T4, redditLatency: null, expiredWhilePending: null, redditRepliesDone: null };
     const out = renderScorecard(card);
     expect(out).toContain('**Time to your Reddit answer:** no Reddit prompts were resolved this week');
-    expect(out).toContain('**Expired while pending (>48h):** no drafts or Reddit prompts were resolved this week');
+    expect(out).toContain('**Slowest to hear back (>48h):** no drafts or Reddit prompts were resolved this week');
     expect(out).toContain('**Reddit replies done:** no Reddit prompts were resolved this week');
     expect(out).not.toMatch(/undefined|NaN/);
   });
@@ -130,7 +130,7 @@ describe('renderScorecard', () => {
     const out = renderScorecard(WITH_T4);
     expect(out.split('\n')).toHaveLength(8);
     expect(out).toContain('**Time to your Reddit answer:** no Reddit prompts were resolved this week');
-    expect(out).toContain('**Expired while pending (>48h):** no drafts or Reddit prompts were resolved this week');
+    expect(out).toContain('**Slowest to hear back (>48h):** no drafts or Reddit prompts were resolved this week');
     expect(out).toContain('**Reddit replies done:** no Reddit prompts were resolved this week');
   });
 });

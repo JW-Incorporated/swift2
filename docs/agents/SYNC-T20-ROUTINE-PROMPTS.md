@@ -450,7 +450,7 @@ ATTRIBUTION (T-20 Phase 1): include the exact line `Tier-2: Answerer` in the bod
 
 ### 8. Tree — weekly social plan
 - **Trigger ID:** `trig_015YHCK6J3FwKLVn2oABUSic`
-- **Prompt file:** `docs/agents/runner-prompts/tree-plan.md`
+- **Prompt file:** `docs/agents/runner-prompts/tree-weekly-plan.md`
 - [ ] Synced
 
 <details>

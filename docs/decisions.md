@@ -259,6 +259,11 @@ reads every active rule before drafting and cites the ids it checked in
 again** — not Tree's consultations — and at 3 firings Tree files a `codify:`
 issue to turn the rule into a deterministic check in `check-drafts.mjs`,
 after which the rule retires as superseded. At most 3 new rules per week.
+The ledger starts **empty** (Wave 3 audit, 2026-09-12): the Wave 3 brief
+asked for it to be seeded with checker-implied rules, but every rule must
+carry a verbatim "You said" quote and there is none to quote — seeding
+would fabricate founder words. Enforcement is therefore dormant until the
+first real ✏️/❌ reason; that is by design, not an omission.
 Strategy changes implied by a lesson are staged as a diff to
 `docs/marketing/social-strategy.md` in the plan PR and surfaced as a T4
 proposal; **the founder merges that PR themselves** — neither Tree nor the
