@@ -13,18 +13,39 @@
 # allowed_tools mirrors the prompt's own steps (Bash for `gh`/the
 # weekly-scorecard script, Read/Write/Edit/Glob/Grep for calendar and
 # founder-comms edits) per docs/agents/routine-invariants.md — no Task tool.
+#
+# T4 (docs/specs/tree-overhaul/t4-weekly-brief.md): `mode`/`pr` inputs let
+# this same workflow be re-dispatched mid-week (`mode=replan`) by
+# social-approval-poll.mjs after a founder's Discord reply lands before the
+# Wednesday cut-off — docs/agents/runner-prompts/tree-weekly-plan.md's own
+# step 0.5 is what actually reads these (via $GITHUB_EVENT_PATH, since the
+# `claude-code-action` prompt is a static file with no templating).
 name: routine-tree-weekly-plan
 
 on:
   schedule:
     - cron: "0 10 * * 1" # same cadence as the claude.ai trigger (UTC)
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "plan (normal Monday run) or replan (mid-week, re-reads the plan PR's comments and amends it)"
+        required: false
+        default: plan
+        type: choice
+        options:
+          - plan
+          - replan
+      pr:
+        description: "Plan PR number to amend — required for mode=replan, ignored for mode=plan"
+        required: false
+        type: string
 
 permissions:
   contents: write
   pull-requests: write
   id-token: write  # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
   issues: write
+  actions: write # send-brief dispatches tree-mail.yml (mode=plan)
 
 jobs:
   run:
@@ -39,3 +60,109 @@ jobs:
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+  # T4: the brief is sent from a separate, deterministic job holding only
+  # the plain webhook secret — never the agent job above, and never the
+  # `social` GitHub environment, which also holds SOCIAL_APPROVAL_KEY and
+  # DISCORD_BOT_TOKEN (spec §Mechanics: an agent process must never see
+  # those — the exact authority separation Wave-1's architect review
+  # flagged as serious). `secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` is a
+  # plain repo secret, the same one social-approval-notify.yml already
+  # posts drafts through with no `environment:` at all.
+  send-brief:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write
+      actions: write
+    steps:
+      - name: Find the plan PR this run just opened or amended
+        id: find_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          INPUT_PR: ${{ github.event.inputs.pr }}
+        run: |
+          set -euo pipefail
+          if [ -n "${INPUT_PR:-}" ]; then
+            PR_JSON=$(gh pr view "$INPUT_PR" --repo "$REPO" --json number,url,headRefName,headRefOid,body)
+          else
+            PR_JSON=$(gh pr list --repo "$REPO" --search "head:tree/plan/" --state open --limit 1 --json number,url,headRefName,headRefOid,body --jq '.[0]')
+          fi
+          if [ -z "$PR_JSON" ] || [ "$PR_JSON" = "null" ]; then
+            echo "::error::send-brief: could not find the plan PR to send a brief for (pr input: '${INPUT_PR:-}')"
+            exit 1
+          fi
+          echo "number=$(echo "$PR_JSON" | jq -r .number)" >> "$GITHUB_OUTPUT"
+          echo "url=$(echo "$PR_JSON" | jq -r .url)" >> "$GITHUB_OUTPUT"
+          echo "head_ref=$(echo "$PR_JSON" | jq -r .headRefName)" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$(echo "$PR_JSON" | jq -r .headRefOid)" >> "$GITHUB_OUTPUT"
+          {
+            echo 'body<<PR_BODY_EOF'
+            echo "$PR_JSON" | jq -r .body
+            echo PR_BODY_EOF
+          } >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.find_pr.outputs.head_ref }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      # mode=replan: docs/agents/runner-prompts/tree-weekly-plan.md's own
+      # replan behaviour posts a short "what I changed" message into the
+      # EXISTING thread instead of a whole new brief — the thread id is the
+      # original brief header message's own id, recovered from the
+      # permalink this same job already wrote into the PR body last Monday.
+      - name: Send a short mode=replan update into the existing thread
+        if: github.event.inputs.mode == 'replan'
+        id: send_replan
+        env:
+          SOCIAL_APPROVAL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          PR_BODY: ${{ steps.find_pr.outputs.body }}
+        run: |
+          set -euo pipefail
+          THREAD_ID=$(printf '%s' "$PR_BODY" | grep -oE 'Discord thread: https://discord\.com/channels/[0-9]+/[0-9]+/[0-9]+' | grep -oE '[0-9]+$' | head -1 || true)
+          if [ -z "$THREAD_ID" ]; then
+            echo "::warning::send-brief: no 'Discord thread:' permalink found in the plan PR body — cannot post the mid-week update, skipping."
+            exit 0
+          fi
+          echo "Re-planned the rest of this week from your reply." > /tmp/replan-summary.txt
+          node scripts/social/weekly-brief.mjs --replan-thread-id "$THREAD_ID" --replan-summary /tmp/replan-summary.txt
+
+      - name: Send the weekly brief to #longlive-social
+        if: github.event.inputs.mode != 'replan'
+        id: send
+        env:
+          SOCIAL_APPROVAL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+        run: |
+          node scripts/social/weekly-brief.mjs \
+            --pr "${{ steps.find_pr.outputs.number }}" \
+            --pr-url "${{ steps.find_pr.outputs.url }}" \
+            --head-sha "${{ steps.find_pr.outputs.head_sha }}" \
+            --plan social/calendar.brief.json
+
+      - name: Write the Discord permalink into the PR body
+        if: github.event.inputs.mode != 'replan' && steps.send.outputs.permalink != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ steps.find_pr.outputs.number }}
+          PERMALINK: ${{ steps.send.outputs.permalink }}
+          PR_BODY: ${{ steps.find_pr.outputs.body }}
+        run: |
+          set -euo pipefail
+          printf '%s\n\n%s\n' "$PR_BODY" "Discord thread: $PERMALINK" > /tmp/pr-body-with-permalink.md
+          gh pr edit "$PR" --repo "$REPO" --body-file /tmp/pr-body-with-permalink.md
+
+      - name: Dispatch tree-mail.yml now that the permalink is in the PR body
+        if: github.event.inputs.mode != 'replan' && steps.send.outputs.permalink != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: gh workflow run tree-mail.yml --repo "$REPO" -f pr="${{ steps.find_pr.outputs.number }}"

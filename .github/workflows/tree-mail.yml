@@ -53,46 +53,69 @@ on:
   pull_request:
     types: [opened]
   # Digest sweep's schedule removed 2026-08-23 — see the RETIRED note above.
-  # `workflow_dispatch` still runs the digest job manually for testing.
+  # T4 (docs/specs/tree-overhaul/t4-weekly-brief.md): `pr` lets
+  # routine-tree-weekly-plan.yml's send-brief job dispatch the plan-PR mail
+  # explicitly, once the Discord permalink is written into the PR body —
+  # see tree-pr-mail's own `if:` below for why the `pull_request` event no
+  # longer fires that job at all.
   workflow_dispatch:
+    inputs:
+      pr:
+        description: "Plan PR number to mail (dispatched by routine-tree-weekly-plan.yml's send-brief job)"
+        required: false
+        type: string
 
 permissions:
   contents: read
   issues: write # digest sweep applies the `founder-mailed` bookkeeping label
 
 jobs:
-  # Tree's weekly planning PR (head branch `tree/<date>`, per
+  # Tree's weekly planning PR (head branch `tree/plan/<date>`, per
   # docs/agents/tree.md › Mutation rights) — the PR body IS Tree's weekly
-  # report to its manager, so it goes out instantly on `opened`. This is the
-  # only per-event mail left, and it is Tree-authored by construction.
+  # report to its manager, so it mails as soon as the Discord brief exists.
+  #
+  # T4: no longer fires on `pull_request: opened` at all (previously its
+  # only trigger, narrowed to zero rather than to "every PR except
+  # tree/plan/**" — the latter would mail on literally every other PR
+  # opened in the whole repo, which is not what "exclude tree/plan/**"
+  # means here). `pull_request:opened` raced the Discord post: mail could
+  # go out with no permalink in it if the brief hadn't sent yet. Explicit
+  # `workflow_dispatch` from send-brief, AFTER the permalink is written
+  # into the PR body, removes the race instead of papering over it.
   tree-pr-mail:
-    if: >
-      github.event_name == 'pull_request' &&
-      startsWith(github.event.pull_request.head.ref, 'tree/plan/')
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     concurrency:
-      group: tree-mail-pr-${{ github.event.pull_request.number }}
+      group: tree-mail-pr-${{ github.event.inputs.pr }}
       cancel-in-progress: true
     steps:
       # Trusted base-ref checkout only — never the PR head. The mailer script
       # is the only thing we need from the tree.
       - uses: actions/checkout@v7
 
-      - name: Build payload from the event
+      - name: Build payload from the plan PR
         env:
-          # Event fields via env, never inline-interpolated into the script,
-          # so a crafted PR body cannot inject shell.
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_BODY: ${{ github.event.pull_request.body }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.inputs.pr }}
         run: |
           set -euo pipefail
+          export PR_JSON=$(gh pr view "$PR" --repo "$REPO" --json title,body,url)
           python3 - <<'PY'
-          import json, os
+          import json, os, re
+          pr = json.loads(os.environ["PR_JSON"])
+          body = pr.get("body") or "(no PR body)"
+          m = re.search(r"Discord thread: (https://discord\.com/channels/\S+)", body)
+          link = m.group(1) if m else None
+          copy_line = (
+              "This is a copy. The live version, where you can react and reply, is in #longlive-social: " + link
+              if link
+              else "This is a copy. The live version is in #longlive-social."
+          )
           payload = {
-              "subject": "Tree's weekly plan: " + os.environ["PR_TITLE"],
-              "body": os.environ.get("PR_BODY") or "(no PR body)",
-              "url": os.environ["PR_URL"],
+              "subject": "Tree's weekly plan: " + pr["title"],
+              "body": copy_line + "\n\n" + body,
+              "url": pr["url"],
               "fromName": "Tree (Long Live social)",
           }
           with open("payload.json", "w", encoding="utf-8") as f:
