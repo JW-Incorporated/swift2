@@ -96,6 +96,14 @@ caption, and the weekly founder brief (2026-09-12, epic #4117). The Growth &
 Community desk was folded into `docs/agents/tree.md`; `docs/agents/growth.md`
 is a tombstone. One name owns the plan, the writing and the result.
 
+**Site ownership: Marjorie (single owner)** — the site running and the user
+experience improving (2026-09-12, epic #4180). Everything Tree does not own:
+content flow, uptime, routine liveness, watchdog alerts, and user submissions.
+She diagnoses and *dispatches* — GitHub issues to the build desk, human
+actions for what only a founder can do — and is accountable for the outcome,
+not the ticket. She never writes product code or content. Everything she says
+lands in `#longlive-marjorie`; specs in `docs/specs/marjorie-overhaul/`.
+
 | WP | What | Status |
 |----|------|--------|
 | **L1** | **Watch desk (launch gate):** first define which serving path is authoritative for users (the static LongLive `/` vs the Supabase-wired path — see the known gap at the top of this doc), then uptime + error monitoring on that path's key routes, cost-cap watch, Tier-3 paging; usage-analytics stack decided (decision entry) and baseline wired | ⬜ pre-launch |

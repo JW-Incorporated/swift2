@@ -404,6 +404,11 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `docs/plans/tree-overhaul/WAVE-1-REVIEW-BRIEF.md` | Handoff for a later review session: what Wave 1 decided, what was already reviewed, and the five places worth pushing hardest |
 | `docs/plans/tree-overhaul/checkpoints.json` | Dated observation checkpoints R1–R4; `plan-recheck.yml` fires the routine when one is due |
 | `docs/plans/tree-overhaul/rechecks/` | Routine-written recheck reports (one per checkpoint) |
+| `docs/specs/marjorie-overhaul/c1-delivery.md` | M0 design: `scripts/marjorie/lib/discord.mjs`, webhook-not-bot-token and why, the `ops` environment, the mechanical `[discord failed]` mail fallback, and what M4 needs to read thread replies |
+| `docs/specs/marjorie-overhaul/c2-brief.md` | M0 design: the Founders' Brief rebuilt — six sections, 40-line cap, exact template with a filled example; Distance to done scores `docs/definition-of-done.md`'s eight items, not the 12 retired gates |
+| `docs/specs/marjorie-overhaul/c3-email-retired.md` | M0 design: every `send-mail.py` call site and what it becomes; the `ALERT_ALSO_MAIL` opt-in that keeps the backup receipt on email; why the Gmail secrets must NOT be deleted |
+| `docs/specs/marjorie-overhaul/w1-watchdog-handling.md` | M0 design: `routine-marjorie-ops.yml`, a handler row for all 14 watchdog alerts, the re-run budget, and the Facebook-export human action's final text |
+| `docs/specs/marjorie-overhaul/s1-triage.md` | M0 design: `routine-marjorie-triage.yml`; submissions selected by title prefix (the `intake` label has three producers); five classes; spam is the only autonomous close |
 | `docs/specs/tree-overhaul/s3-reason-protocol.md` | Wave 1 design: ✏️/❌ require a written reason; `social/feedback/*.jsonl` ledger on `social-ledger`; the generic reaction→action scope table S6/T4 reuse |
 | `docs/specs/tree-overhaul/t1-one-charter.md` | Wave 1 design: Growth folds into Tree; `sourceRoutine` → `lane`; what "from Tree" means on every surface |
 | `docs/specs/tree-overhaul/t2-self-critique.md` | Wave 1 design: the 5-dimension draft rubric, the queue threshold, the brief's pitch line; why `critique` is NOT in the content hash |
