@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -10,69 +10,59 @@
 <!-- ha filed=2026-09-12 -->
 
 **Why:** Wave 4 T6 (fast-lane drafting) edits scripts/social/lib/queue-schema.mjs, a posting-path file, so CI fails by design until the freeze is on. Auto-merge is armed; nothing else in Wave 4 is blocked. The wave is 5/6 merged until this lands.
+
 **Steps:**
 1. `gh variable set SOCIAL_FREEZE --repo JW-Incorporated/swift2 --body true`
 2. `gh run rerun 34697966900 --failed --repo JW-Incorporated/swift2` (the PR then auto-merges itself when green)
 3. Wait until `gh pr view 4166 --repo JW-Incorporated/swift2 --json state` shows MERGED (~10 min).
 4. `gh variable set SOCIAL_FREEZE --repo JW-Incorporated/swift2 --body false`
+
 **Worked if:** PR #4166 shows MERGED and the SOCIAL_FREEZE variable reads false again.
 
 ## #64 🟡 [DECIDE] X per-post metrics need a paid API tier (~5 min)
 <!-- ha filed=2026-09-12 -->
 
 **Why:** Tree Overhaul T3 (per-post engagement): X retired free per-post metric reads; every call is now metered (~$0.005/post-read). Backfilling the current posted X items would run ~$0.45 once, plus pennies/day ongoing. Spend decisions are yours, not built without one.
+
 **Steps:**
 1. Check the X Developer Portal → Products → Billing for the current pay-per-use per-post read price (confirm ~$0.005/read still holds).
 2. Decide: approve ongoing per-post X metric reads (~$0.45 backfill + pennies/day), or decline and stay Instagram-only (v1 ships either way).
+
 **Worked if:** you reply approved or declined for X per-post metric spend.
 
 ## #63 🟢 [UPGRADE] Add instagram_manage_insights scope so reach/saved/shares can be built next (~15 min)
 <!-- ha filed=2026-09-12 -->
 
 **Why:** T3 v1 ships Instagram like_count/comments_count only. reach/saved/shares need the instagram_manage_insights scope, which the current IG_ACCESS_TOKEN (instagram_basic, instagram_content_publish, pages_read_engagement, business_management, pages_show_list, pages_manage_posts) doesn't carry.
+
 **Steps:**
 1. Meta App Dashboard → App Review → Permissions and Features → add instagram_manage_insights.
 2. Regenerate the long-lived Graph API token for the same app/IG account with the new scope included.
 3. `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` with the regenerated token.
+
 **Worked if:** a real `GET /{ig-media-id}?fields=reach,saved,shares` call returns values instead of a `(#10)` permission error.
 
 ## #62 🟢 [UPGRADE] File the T7/Codex SOCIAL_FREEZE workflow-wiring finding as a GitHub issue (~2 min)
 <!-- ha filed=2026-09-12 -->
 
 **Why:** gh issue create was guard-denied (false positive on the words post-queue.mjs in prose) filing a T7 follow-up: routine-tree-weekly-plan.yml never passes SOCIAL_FREEZE to the brief step, so the ladder-standing block can show eligible during a real freeze. No risk yet; must land before Wave 5.
+
 **Steps:**
 1. Run `gh issue create --repo JW-Incorporated/swift2` titled "T7 ladder standing reads SOCIAL_FREEZE but routine-tree-weekly-plan.yml never passes it through" (body in PR #4159 session log).
 2. Or tell an agent to retry filing it directly — the guard matched the literal filename in prose, not a real invocation.
+
 **Worked if:** the issue exists in the tracker, linked from epic #4117 and PR #4159.
 
 ## #61 🔴 [BLOCKING] Set SOCIAL_FREEZE=false — Wave 3 of the Tree Overhaul is fully merged (~2 min)
 <!-- ha filed=2026-09-12 -->
 
 **Why:** SOCIAL_FREEZE=true (HA #60) unblocked CI for Wave 3's posting-path PRs; all 6 have now merged (#4139/4140/4144/4145/4148/4149), so the freeze's reason is gone and 4 real scheduled posts stay paused until you flip it back.
+
 **Steps:**
 1. `gh variable set SOCIAL_FREEZE --repo JW-Incorporated/swift2 --body false`
 2. Confirm: `gh api repos/JW-Incorporated/swift2/actions/variables/SOCIAL_FREEZE` shows `"value":"false"`
+
 **Worked if:** the next scheduled social-poster run posts normally instead of being blocked by the A6 freeze gate.
-
-## #58 🟡 [DECIDE] Confirm routine-vault-run holds up under real daily scheduling (~2 min)
-<!-- ha filed=2026-09-11 kind=default -->
-
-**Why:** `routine-vault-run` failed 4 consecutive daily runs
-(2026-09-06 → 09-10) by exhausting its 80-turn budget ~18 minutes into a
-90-minute window. PR #4085 raised the budget to 200 turns and made PR
-delivery incremental (opens after Lane 1, so a future turn-exhaustion loses
-only later lanes, not everyth
-
-**Steps:**
-1. Open the Actions tab for `routine-vault-run` in `JW-Incorporated/swift2`.
-2. Confirm it fired on its own schedule (not manually triggered) and
-
-**Worked if:** one un-triggered daily run completes green with real content.
-If it fails again, it's a different problem than the one #4085 fixed —
-don't assume the same root cause a second time.
-
-
----
 
 ## #57 🟡 [DECIDE] Stale git worktrees — 259 registered, 73 hidden inside the Projects tree (~30 min)
 <!-- ha filed=2026-09-11 kind=default -->
@@ -100,30 +90,6 @@ don't assume the same root cause a second time.
 3. No code changes needed — `codeql.yml` already checks this variable correctly (line 18: `if: vars.CODE_SCANNING_ENABLED == 'true'`).
 
 **Worked if:** a manually dispatched `codeql.yml` run from the Actions tab shows the **Analyze** job running (not skipped) and Security → Code scanning alerts begin to populate with real findings.
-
-
----
-
-## #52 🟢 [UPGRADE] Share flow viewport check on public preview (~2 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** first-tap sharing depends on the browser/operating-system
-share sheet, which automated checks cannot open. The task sandbox retried its
-browser harness after the recovery window and has no graphical browser, so it
-cannot provide the required mobile and desktop rendered evidence. The deployed
-Open Gr
-
-**Steps:**
-1. Open https://www.longlivets.com/ on a real phone (or Chrome DevTools mobile emulation) at a mobile viewport (e.g. 390x844).
-2. Tap the Share icon (top-right, next to Search) in the top bar and confirm the OS native share sheet opens with a Long Live title/link.
-3. Screenshot the open share sheet on mobile and save it.
-4. Open https://www.longlivets.com/ in a desktop browser window (e.g. 1440x900).
-5. Click the same Share icon; since desktop browsers usually lack navigator.share, confirm it falls back to copying the link (check clipboard or any on-screen confirmation).
-6. Screenshot the desktop result and save it.
-7. Post both screenshots as pass/fail evidence on Kanban task t_b025b476.
-
-**Worked if:** one screenshot from each viewport shows the rendered page, and
-the result is recorded on Kanban task `t_b025b476` as pass/fail.
 
 
 ---

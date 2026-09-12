@@ -3,6 +3,8 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #58 · 2026-09-12 · done · Confirm routine-vault-run holds up under real daily scheduling — "closed via Discord reply" · by discord
+- #52 · 2026-09-12 · done · Share flow viewport check on public preview — "closed via Discord reply" · by discord
 - #60 · 2026-09-11 · done · Set SOCIAL_FREEZE=true — Wave 3 PRs blocked by the RULINGS-SOCIAL A6 CI gate — "owner set it in chat, verified via gh api repos/JW-Incorporated/swift2/actions/variables/SOCIAL_FREEZE (value true, updated_at 2026-09-11T23:44:07Z) before closing" · by owner
 - #55 · 2026-09-11 · done · Confirm #longlive-social is the Discord channel (closes prereq for the social-approval-gate track) — "Settled when #4090 shipped: the notifier posts to the existing Discord social channel; owner authorized closing in the 2026-09-11 session" · by owner
 - #56 · 2026-09-11 · done · Freeze social posting while the approval gate lands — "SOCIAL_FREEZE=true set by the 2026-09-10 session; owner authorized closing in the 2026-09-11 session" · by owner
