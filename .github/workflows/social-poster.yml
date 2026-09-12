@@ -98,6 +98,14 @@
 # `steps.post.outcome == 'failure'`, not a written SOCIAL_POSTER_NOTIFY
 # payload.
 #
+# KNOWN GAP (Codex review, PR #4201): this step only ever calls `... open`,
+# never `close` — nothing here resolves the alert on a later successful run,
+# so a second, independent post failure after the first only comments on
+# the still-open issue (NOTIFY=0, no fresh Discord post) until someone or
+# something closes it. Per the spec, that's meant to be a Marjorie-ops
+# routine (M2, not built yet) actually handling and closing the alert, not
+# a second automated close call from here — tracked, not silently accepted.
+#
 # NOT chained via workflow_run off social-approval-poll (considered and
 # reverted, 2026-09-11, Tree Overhaul Wave 2 S2, Codex adversarial review
 # round 2 on PR #4125): this workflow's own state-commit PR (the fold-back
@@ -123,6 +131,12 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  # Marjorie Overhaul C3: the permanent-failure alert step calls
+  # upsert-alert.sh, which creates/comments/closes a `watchdog-alert` issue
+  # via `gh issue`. Without this, that call 403s and, under
+  # upsert-alert.sh's `set -euo pipefail`, aborts before either the Discord
+  # or email leg ever runs (Codex review, PR #4201).
+  issues: write
 
 concurrency:
   group: social-poster

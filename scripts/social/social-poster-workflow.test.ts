@@ -99,13 +99,13 @@ describe('social-poster.yml — social-ledger direct-push dedupe (issue #2040)',
     expect(wf).toContain('git cat-file -e "FETCH_HEAD:$d"');
   });
 
-  it('pushes the ledger update directly (no PR) immediately after posting, before any email step', () => {
+  it('pushes the ledger update directly (no PR) immediately after posting, before any alert step', () => {
     const postAt = wf.indexOf('- name: Post due queue items');
     const pushAt = wf.indexOf('- name: Push ledger update directly to social-ledger');
-    const notifyAt = wf.indexOf('- name: Notify founder of successful posts');
+    const alertAt = wf.indexOf('- name: Alert on a permanent post failure');
     const foldbackAt = wf.indexOf('- name: Fold ledger back into main');
     expect(pushAt).toBeGreaterThan(postAt);
-    expect(pushAt).toBeLessThan(notifyAt);
+    expect(pushAt).toBeLessThan(alertAt);
     expect(pushAt).toBeLessThan(foldbackAt);
     expect(wf).toContain(
       "if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')",
@@ -161,24 +161,31 @@ describe('social-poster.yml — social-ledger direct-push dedupe (issue #2040)',
   });
 });
 
-describe('social-poster.yml — founder success email (2026-08-25 decision)', () => {
+describe('social-poster.yml — permanent-failure alert (Marjorie Overhaul C3, retiring bot email)', () => {
   const wf = read('.github/workflows/social-poster.yml');
 
-  it('routes SOCIAL_POSTER_NOTIFY through the shared mailer, not a new send path', () => {
-    // Must reuse scripts/watchdog/send-mail.py — the same proven delivery
-    // path watchdog.yml/brief-mailer.yml already use — never invent a
-    // second way to send mail from this repo.
-    expect(wf).toContain('SOCIAL_POSTER_NOTIFY');
-    expect(wf).toContain('scripts/watchdog/send-mail.py');
+  it('the per-post success email is retired outright, not renamed or re-routed', () => {
+    // docs/specs/marjorie-overhaul/c3-email-retired.md: the brief's "Since
+    // yesterday" section counts social/posted/*.json instead (fetchPostedSince).
+    // post-queue.mjs still writes SOCIAL_POSTER_NOTIFY's payload file (out of
+    // scope for this task -- see PLAN.md), it's just unread here now.
+    expect(wf).not.toContain('Notify founder of successful posts');
   });
 
-  it('the notify step runs whenever the poster ran, even if the run also failed', () => {
+  it('routes the permanent-failure alert through the shared upsert-alert.sh path, not a new send path', () => {
     const postAt = wf.indexOf('id: post');
-    // The header comment mentions this step by name too, so search for the
-    // step itself (- name: ...) starting after the posting step's id.
-    const notifyAt = wf.indexOf('- name: Notify founder of successful posts', postAt);
-    expect(notifyAt).toBeGreaterThan(postAt);
-    expect(wf).toContain("if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')");
+    const failAt = wf.indexOf('- name: Alert on a permanent post failure', postAt);
+    expect(failAt).toBeGreaterThan(postAt);
+    const failSection = wf.slice(failAt);
+    expect(failSection).toContain("if: always() && steps.post.outcome == 'failure'");
+    expect(failSection).toContain(
+      'scripts/watchdog/upsert-alert.sh open "Watchdog: a social post permanently failed"',
+    );
+    // `post` runs under environment: social, not ops -- upsert-alert.sh's
+    // Discord leg finds DISCORD_MARJORIE_WEBHOOK_URL empty here and falls
+    // back to send-mail.py, so these two must stay until HA closes the gap.
+    expect(failSection).toContain('MARJORIE_EMAIL');
+    expect(failSection).toContain('GMAIL_APP_PASSWORD');
   });
 });
 
