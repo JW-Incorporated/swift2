@@ -57,9 +57,32 @@ describe('buildApprovalPrompt', () => {
     expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: fast lane: growth-draft · pillar: thread:hidden-clues:origin-story');
   });
 
-  it('prefers `lane` over `sourceRoutine` for the Tree identity slot fast-lane label (Tree Overhaul T1)', () => {
+  // Tree Overhaul T1's original fallback rendered `fast lane: merch` here
+  // (colon) because it only keyed off an invalid scheduledAt; T6 (below)
+  // changed this specific case to the parenthetical form UNCONDITIONALLY
+  // for the two real fast-lane lane values, since T6 fast-lane items do
+  // carry a real scheduledAt in practice and still need this label — so a
+  // `merch`/`appearance` lane now always wins over the colon fallback,
+  // invalid scheduledAt or not. The colon fallback itself still exists,
+  // just for a `lane` other than the two T6 values (see the next test).
+  it('prefers `lane` over `sourceRoutine` for the Tree identity slot fast-lane label, now in the T6 parenthetical form (Tree Overhaul T1, superseded by T6)', () => {
     const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ scheduledAt: 'not-a-date', lane: 'merch', sourceRoutine: 'growth-draft' })], { now: NOW, headSha: 'abc123' });
-    expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: fast lane: merch · pillar: thread:hidden-clues:origin-story');
+    expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: fast lane (merch) · pillar: thread:hidden-clues:origin-story');
+  });
+
+  // Tree Overhaul T6 (spec AC#11) — a fast-lane item DOES carry a real
+  // scheduledAt (it takes a displaced calendar slot's day/time), but still
+  // renders "fast lane (<lane>)", not the raw timestamp, so the brief reads
+  // as what drafted it at a glance. Exact string from the spec's own
+  // example: "Tree · slot: fast lane (merch) · pillar: launch:merch".
+  it('renders "fast lane (merch)" for a T6 fast-lane item even with a valid scheduledAt (Tree Overhaul T6, spec AC#11)', () => {
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ lane: 'merch', sourceRoutine: undefined, campaign: 'launch:merch:folklore-cardigan' })], { now: NOW, headSha: 'abc123' });
+    expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: fast lane (merch) · pillar: launch:merch');
+  });
+
+  it('renders "fast lane (appearance)" for the other T6 fast-lane value', () => {
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ lane: 'appearance', sourceRoutine: undefined })], { now: NOW, headSha: 'abc123' });
+    expect(draftMsg.content.split('\n')[0]).toContain('slot: fast lane (appearance)');
   });
 
   it('header renders "Drafted by: calendar" (not "unknown") for a lane item — spec AC#6', () => {

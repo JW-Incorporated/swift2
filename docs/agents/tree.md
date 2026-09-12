@@ -114,6 +114,23 @@ genuinely dated, sourced on-this-day Vault match for that exact day. Also
 reports social queue status (scheduled posts, metrics deltas worth a
 sentence) into the brief.
 
+**Fast lane (Tree Overhaul T6, 2026-09-12).** Before the calendar slots
+above, the same run also clears `social/inbox/` — fact-sheet intents the
+merch-sync and appearance-discovery side doors write when they have
+something time-sensitive but write no caption for (`docs/specs/tree-
+overhaul/t6-side-doors.md`). At most one intent is drafted per run (nearest
+deadline first, capped at two POSTED per rolling 7 days —
+`scripts/social/lib/inbox.mjs`'s `selectFastLane`), scored against the
+six-dimension `v: 2` rubric (T2's five plus `timely`, which must clear 4 on
+its own — a fast-lane post takes a planned slot rather than adding one, so
+it must actually be news). A drafted fast-lane item carries `"lane":
+"merch"` or `"lane": "appearance"` and displaces that day's calendar beat
+to the next free one — the one narrow exception permitting this run to
+edit `social/calendar.md` (mechanics in
+`docs/agents/runner-prompts/tree-daily-draft.md`). Expired and declined
+intents move to `social/inbox/closed/` and are reported as counts, not
+failures.
+
 ## Weekly report format (added 2026-08-23; tightened 2026-08-24)
 
 The PR body **is** the weekly report Joey asked for — not a routine PR
@@ -249,7 +266,10 @@ duplicate the report.
     is stated in full in `docs/agents/runner-prompts/tree-daily-draft.md` and
     enforced by `scripts/social/lib/queue-schema.mjs` and `check-drafts.mjs`,
     not merely by the prompt's good intentions; `critique` is written once at
-    draft time and never re-scored by a later ✏️ edit.
+    draft time and never re-scored by a later ✏️ edit. **T6:** a fast-lane
+    item (`lane: "merch"|"appearance"`) clears a sixth dimension instead —
+    `timely` ≥4, a hard gate independent of `total` (which rises to ≥21 of
+    30) — since it displaces a planned slot rather than adding one.
 
 ## Voice and content boundaries
 
@@ -311,7 +331,11 @@ so a founder can approve in seconds.
 **May create/edit:**
 
 - `social/calendar.md` — its one owned planning artifact, rewritten every
-  weekly run.
+  weekly run; the daily run may also move ONE beat within it, only as the
+  fast lane's slot-displacement step (T6, see Daily draft above).
+- `social/inbox/**` (T6) — the daily run's fast-lane bookkeeping: moving an
+  intent to `drafted`/`declined`/`expired`, and to `social/inbox/closed/`
+  on the latter two.
 - `social/lessons.md` (T5) — the distilled founder-feedback ledger, written
   every Monday run through `scripts/social/lib/lessons.mjs` so the format
   cannot drift; hand-editable by a founder too.
@@ -332,9 +356,14 @@ scripts, workflows, seed content, or any other agent's issues and PRs.
 since it is read-only and writes nothing; it may not run anything that writes
 to a path above.
 
-**Auto-merge:** a Tree PR touching only `social/calendar.md` is content-shaped
-and should land on green like any other. A Tree PR touching `social/queue/`
-never auto-merges — `auto-merge-content.yml` declines it and
+**Auto-merge:** a Tree PR touching only `social/calendar.md` and/or
+`social/inbox/**` (T6 — e.g. a run that only expired or declined intents,
+drafting nothing) is content-shaped and should land on green like any
+other; `social/inbox/` carries no publishable text, so it needs no human
+gate of its own (`.github/content-automerge-allowlist.txt`). A Tree PR
+touching `social/queue/` never auto-merges, even when it ALSO touches
+`social/inbox/` or `social/calendar.md` in the same fast-lane-displacement
+change — `auto-merge-content.yml` declines it and
 `social-approval-notify.yml` prompts `#longlive-social`. The founder's ✅ is a
 Discord **reaction** there, never a merge (docs/social/RULINGS-SOCIAL-2.md B1)
 — `social-approval-poll.yml` stamps the reaction with a signed `approval`

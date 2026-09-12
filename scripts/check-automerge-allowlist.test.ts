@@ -414,6 +414,23 @@ describe('runtime allow/deny matching on the committed allowlist', () => {
     expect(mergeable('social/queue/2026-08-12-example-x.json')).toBe(true);
   });
 
+  // Tree Overhaul T6 (spec AC#4) — a merch-official-sync PR's whole diff
+  // (fact-sheet intent + catalog seed + rendered card image) matches at the
+  // path level, so it needs no human gate the way a queue draft does; the
+  // intent itself carries no publishable text. This is the path-allowlist
+  // HALF of AC#4 only — the OTHER half ("still declines an unstamped
+  // social/queue/** change") is proven above (`social/queue/` IS
+  // path-mergeable, same as ever) and by
+  // scripts/automerge-social-approval-gate.test.ts's own suite: the actual
+  // decline is a content-based gate on the queue-file change itself, not a
+  // path-allowlist rule, so it is never expressed as `mergeable() === false`
+  // here.
+  it('a T6 fast-lane PR (social/inbox/ intent + merch seed + rendered card image) auto-merges (spec AC#4)', () => {
+    expect(mergeable('social/inbox/merch-2026-09-18-folklore-cardigan.json')).toBe(true);
+    expect(mergeable('supabase/seed/merch/official.mjs')).toBe(true);
+    expect(mergeable('apps/web/public/social/library/merch-drop-123.png')).toBe(true);
+  });
+
   // Tree Overhaul T5 (spec AC#8) — a stays-excluded regression guard, not a
   // fix: docs/marketing/social-strategy.md already matches no allow prefix
   // today (only docs/audits/ and docs/ops/MERCH-REVENUE.json are docs/-

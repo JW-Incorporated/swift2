@@ -34,7 +34,7 @@
 import { readFile } from 'node:fs/promises';
 import { neutralizeMentions, DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
 import { mediaUrlsFor, MEDIA_BASE_URL, hoursOverdue } from './lib/queue.mjs';
-import { PLATFORM_RULES } from './lib/queue-schema.mjs';
+import { PLATFORM_RULES, FAST_LANE_LANES } from './lib/queue-schema.mjs';
 import { pillarOf } from './lib/feedback.mjs';
 import { chunkPreservingRefLine } from './lib/ref-line-chunk.mjs';
 import { runMain } from '../lib/cli.mjs';
@@ -149,20 +149,32 @@ function asArray(value) {
 export const TREE_WEBHOOK_USERNAME = 'Tree';
 export const TREE_AVATAR_URL = `${MEDIA_BASE_URL}/social/tree-avatar.png`;
 
-/** "Tree · slot: <calendar slot or fast-lane routine> · pillar: <derived or
- * unspecified>" — the first line of every draft brief (Tree Overhaul S5).
+/** "Tree · slot: <calendar time, fast lane (lane), or fast-lane routine> ·
+ * pillar: <derived or unspecified>" — the first line of every draft brief
+ * (Tree Overhaul S5). A T6 fast-lane item (`lane: "merch"|"appearance"`)
+ * renders as `fast lane (<lane>)` unconditionally — spec's own example,
+ * "Tree · slot: fast lane (merch) · pillar: launch:merch" — even though it
+ * DOES carry a real `scheduledAt` (it takes a displaced calendar slot's
+ * day/time): the brief should read as what drafted it, not just when it
+ * ships, same as any other calendar slot's time already does. Otherwise
  * `slot` prefers the draft's scheduled calendar time (same formatting as
  * formatScheduleLine's compact stamp); a draft with no valid `scheduledAt`
- * fell outside normal calendar scheduling, so it's labeled by the routine
- * that produced it instead. `pillar` is `pillarOf(draft.campaign)` (Tree
- * Overhaul T2 — replaces a truncated `why`, which yielded a sentence
- * fragment where a pillar name belongs), falling back to "unspecified" for a
- * null campaign. */
+ * AND no fast-lane `lane` fell outside normal calendar scheduling entirely
+ * (the pre-T6 `fast lane: <routine>` shape, Tree Overhaul T1), so it's
+ * labeled by the routine that produced it instead. `pillar` is
+ * `pillarOf(draft.campaign)` (Tree Overhaul T2 — replaces a truncated
+ * `why`, which yielded a sentence fragment where a pillar name belongs),
+ * falling back to "unspecified" for a null campaign. */
 function formatTreeIdentityLine(draft) {
   const scheduled = new Date(draft.scheduledAt);
-  const slot = Number.isNaN(scheduled.getTime())
-    ? `fast lane: ${sanitizeInlineField(draft.lane ?? draft.sourceRoutine ?? 'unknown')}`
-    : `${compactUtcStamp(scheduled)} UTC`;
+  let slot;
+  if (FAST_LANE_LANES.includes(draft.lane)) {
+    slot = `fast lane (${sanitizeInlineField(draft.lane)})`;
+  } else if (Number.isNaN(scheduled.getTime())) {
+    slot = `fast lane: ${sanitizeInlineField(draft.lane ?? draft.sourceRoutine ?? 'unknown')}`;
+  } else {
+    slot = `${compactUtcStamp(scheduled)} UTC`;
+  }
   // Round 3, MEDIUM (ref-line injection via pillar/campaign): `campaign` is
   // schema-validated only as "a string when present" — no newline/control-
   // char restriction — so pillarOf's output (which passes an unrecognized
