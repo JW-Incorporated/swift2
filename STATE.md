@@ -147,5 +147,4 @@ over-built pieces and caught two overstatements of mine. High value.
 `apps/web/app/tokens.generated.css` shows modified but the diff is CRLF-only
 — do not revert, do not commit. Untracked `PLAN.md` is the Tree Wave 4 lane
 plan (historical; not tracked). Local vitest cannot run (Windows EPERM
-symlink in globalSetup) — CI is the gate. All this session's worktrees are
-removed except `ha-close-61-62` (drop it once #4186 lands).
+symlink in globalSetup) — CI is the gate. All worktrees from that session are removed.
