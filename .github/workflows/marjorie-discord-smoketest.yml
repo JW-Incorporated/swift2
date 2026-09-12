@@ -41,6 +41,8 @@ jobs:
         run: |
           echo "Synthetic smoke test — $(date -u +%Y-%m-%dT%H:%M:%SZ)" > /tmp/body.md
           scripts/watchdog/upsert-alert.sh open "Watchdog: synthetic smoke test" /tmp/body.md
+          # GitHub's issue search index lags a fresh create; without this the close finds nothing (run 34724164886).
+          sleep 45
           scripts/watchdog/upsert-alert.sh close "Watchdog: synthetic smoke test" /tmp/body.md
           echo "SMOKE: open+close done"
         env:
