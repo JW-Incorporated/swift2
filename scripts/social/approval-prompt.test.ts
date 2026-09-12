@@ -14,7 +14,7 @@ function draft(overrides: Record<string, unknown> = {}) {
     platform: 'x',
     body: 'on this day in 2010: "mine" leaked early.',
     scheduledAt: '2026-09-11T15:00:00Z',
-    campaign: 'test:campaign',
+    campaign: 'thread:hidden-clues:origin-story:2026-09',
     mediaCredit: 'Photographer/Getty',
     media: ['/social/library/photos/example.jpg'],
     altText: ['Taylor Swift performing live in 2010, guitar in hand.'],
@@ -48,18 +48,18 @@ describe('buildApprovalPrompt', () => {
   it('prefixes each draft message with the Tree identity line ("Tree · slot: ... · pillar: ...") without disturbing the ref: line', () => {
     const [, draftMsg] = buildApprovalPrompt(pr(), [draft()], { now: NOW, headSha: 'abc123' });
     const lines = draftMsg.content.split('\n');
-    expect(lines[0]).toBe('Tree · slot: 2026-09-11 15:00 UTC · pillar: sourcing explanation');
+    expect(lines[0]).toBe('Tree · slot: 2026-09-11 15:00 UTC · pillar: thread:hidden-clues:origin-story');
     expect(draftMsg.content.trim().endsWith(`ref: PR #4100 · abc123 · ${'social/queue/2026-09-12-shop-the-look-announce-x.json'}`)).toBe(true);
   });
 
   it('falls back to "fast lane: <sourceRoutine>" for the Tree identity slot when scheduledAt is missing/invalid', () => {
     const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ scheduledAt: 'not-a-date', sourceRoutine: 'growth-draft' })], { now: NOW, headSha: 'abc123' });
-    expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: fast lane: growth-draft · pillar: sourcing explanation');
+    expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: fast lane: growth-draft · pillar: thread:hidden-clues:origin-story');
   });
 
   it('prefers `lane` over `sourceRoutine` for the Tree identity slot fast-lane label (Tree Overhaul T1)', () => {
     const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ scheduledAt: 'not-a-date', lane: 'merch', sourceRoutine: 'growth-draft' })], { now: NOW, headSha: 'abc123' });
-    expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: fast lane: merch · pillar: sourcing explanation');
+    expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: fast lane: merch · pillar: thread:hidden-clues:origin-story');
   });
 
   it('header renders "Drafted by: calendar" (not "unknown") for a lane item — spec AC#6', () => {
@@ -79,9 +79,12 @@ describe('buildApprovalPrompt', () => {
     expect(withNeither.content).toContain('Drafted by: unknown');
   });
 
-  it('falls back to "unspecified" pillar when a draft has no `why`', () => {
-    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ why: undefined })], { now: NOW, headSha: 'abc123' });
-    expect(draftMsg.content.split('\n')[0]).toBe('Tree · slot: 2026-09-11 15:00 UTC · pillar: unspecified');
+  it('renders `pillar:` from `pillarOf(campaign)` for a real campaign, and "unspecified" for a null one (Tree Overhaul T2, spec AC#6)', () => {
+    const [, real] = buildApprovalPrompt(pr(), [draft({ campaign: 'thread:hidden-clues:origin-story:2026-09' })], { now: NOW, headSha: 'abc123' });
+    expect(real.content.split('\n')[0]).toBe('Tree · slot: 2026-09-11 15:00 UTC · pillar: thread:hidden-clues:origin-story');
+
+    const [, nullCampaign] = buildApprovalPrompt(pr(), [draft({ campaign: null })], { now: NOW, headSha: 'abc123' });
+    expect(nullCampaign.content.split('\n')[0]).toBe('Tree · slot: 2026-09-11 15:00 UTC · pillar: unspecified');
   });
 
   it('returns a header message plus one message per draft', () => {
@@ -106,8 +109,26 @@ describe('buildApprovalPrompt', () => {
     expect(draftMsg.content).toContain('Credit: Photographer/Getty');
     expect(draftMsg.content).toContain('Why: sourcing explanation');
     expect(draftMsg.content).toContain('https://github.com/JW-Incorporated/swift2/blob/abc123/social/queue/2026-09-12-shop-the-look-announce-x.json');
-    expect(draftMsg.content).toContain('Campaign: test:campaign');
+    expect(draftMsg.content).toContain('Campaign: thread:hidden-clues:origin-story:2026-09');
     expect(draftMsg.content).toContain('Drafted by: growth-draft');
+  });
+
+  it('renders the critique rationale as the first paragraph, right after the header line, with no numeric scores shown (Tree Overhaul T2, spec AC#5)', () => {
+    const rationale = "This is the Decode thread's origin-story beat: it teaches the one mechanic new followers don't get yet.";
+    const critique = { v: 1, scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 }, total: 23, rationale, rulesChecked: [], revision: 1 };
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ critique })], { now: NOW, headSha: 'abc123' });
+    const lines = draftMsg.content.split('\n');
+    const headerIndex = lines.findIndex((l) => l.startsWith('**Draft'));
+
+    expect(lines[headerIndex + 1]).toBe(rationale);
+    expect(lines.findIndex((l) => l.startsWith('Posts at:'))).toBeGreaterThan(headerIndex + 1);
+    expect(draftMsg.content).not.toMatch(/onStrategy|onVoice|mediaEarnsItsPlace|notEmbarrassed/i);
+    expect(draftMsg.content).not.toMatch(/\b(total|score)\s*[:=]?\s*\d/i);
+  });
+
+  it('renders no rationale paragraph for a draft with no critique yet, rather than crashing', () => {
+    const [, draftMsg] = buildApprovalPrompt(pr(), [draft({ critique: undefined })], { now: NOW, headSha: 'abc123' });
+    expect(draftMsg.content).toContain('Posts at:');
   });
 
   it('attaches an image embed built from the same MEDIA_BASE_URL/mediaUrlsFor helper as the poster, with the www host', () => {

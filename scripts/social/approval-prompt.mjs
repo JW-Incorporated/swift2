@@ -35,6 +35,7 @@ import { readFile } from 'node:fs/promises';
 import { neutralizeMentions, DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
 import { mediaUrlsFor, MEDIA_BASE_URL, hoursOverdue } from './lib/queue.mjs';
 import { PLATFORM_RULES } from './lib/queue-schema.mjs';
+import { pillarOf } from './lib/feedback.mjs';
 import { chunkPreservingRefLine } from './lib/ref-line-chunk.mjs';
 import { runMain } from '../lib/cli.mjs';
 
@@ -51,19 +52,21 @@ function escapeFences(text) {
 export const TREE_WEBHOOK_USERNAME = 'Tree';
 export const TREE_AVATAR_URL = `${MEDIA_BASE_URL}/social/tree-avatar.png`;
 
-/** "Tree · slot: <calendar slot or fast-lane routine> · pillar: <why or
+/** "Tree · slot: <calendar slot or fast-lane routine> · pillar: <derived or
  * unspecified>" — the first line of every draft brief (Tree Overhaul S5).
  * `slot` prefers the draft's scheduled calendar time (same formatting as
  * formatScheduleLine's compact stamp); a draft with no valid `scheduledAt`
  * fell outside normal calendar scheduling, so it's labeled by the routine
- * that produced it instead. `pillar` surfaces the `why` field (truncated)
- * so a founder sees at a glance whether this draft is sourced. */
+ * that produced it instead. `pillar` is `pillarOf(draft.campaign)` (Tree
+ * Overhaul T2 — replaces a truncated `why`, which yielded a sentence
+ * fragment where a pillar name belongs), falling back to "unspecified" for a
+ * null campaign. */
 function formatTreeIdentityLine(draft) {
   const scheduled = new Date(draft.scheduledAt);
   const slot = Number.isNaN(scheduled.getTime())
     ? `fast lane: ${draft.lane ?? draft.sourceRoutine ?? 'unknown'}`
     : `${draft.scheduledAt.slice(0, 16).replace('T', ' ')} UTC`;
-  const pillar = draft.why ? (draft.why.length > 80 ? `${draft.why.slice(0, 80)}...` : draft.why) : 'unspecified';
+  const pillar = pillarOf(draft.campaign ?? null) ?? 'unspecified';
   return `Tree · slot: ${slot} · pillar: ${pillar}`;
 }
 
@@ -121,6 +124,20 @@ function formatWhyLine(draft, { headSha, repo }) {
   return `Why: ${escapeFences(truncated)}${fileLink}`;
 }
 
+/** The critique's rationale as the first, UNLABELED paragraph of the brief
+ * (Tree Overhaul T2) — "why this post exists," immediately under the Tree
+ * identity/draft-number header lines and above `Posts at:`. Unlabeled
+ * because it is the pitch, not a field; the existing `Why:` line (sourcing —
+ * what the claim rests on) is a different question and is untouched. Scores
+ * are never shown here or anywhere in the brief (spec: "the founder judges
+ * the post; the scores exist to grade Tree") — only this text. `null` for a
+ * draft with no critique yet, so an older/malformed draft still renders. */
+function formatRationaleLine(draft) {
+  const rationale = draft.critique?.rationale;
+  if (!rationale) return null;
+  return escapeFences(neutralizeMentions(rationale));
+}
+
 /** One draft's message body lines (everything except the header line and
  * the embed, which buildApprovalPrompt/sendApprovalPrompt handle
  * separately). */
@@ -130,6 +147,7 @@ function formatDraftLines(draft, { now, headSha, repo, facebookCrosspost }) {
   const mediaUrls = mediaUrlsFor({ media }, MEDIA_BASE_URL);
 
   return [
+    formatRationaleLine(draft),
     facebookCrosspost && draft.platform === 'instagram'
       ? 'Also publishes to: your Facebook Page — automatic, image 1 + this caption verbatim, same alt text.'
       : null,
@@ -153,8 +171,8 @@ function formatDraftLines(draft, { now, headSha, repo, facebookCrosspost }) {
  * (`image.url` per image) for sendApprovalPrompt to attach. `pr` is
  * `{ number, url }`. `drafts` is the PR's changed `social/queue/**.json`
  * entries: `{ file, platform, body, scheduledAt, campaign, mediaCredit,
- * media, altText, why, sourceRoutine }` (the FULL `media` array, not just
- * the first element — .github/workflows/social-approval-notify.yml's
+ * media, altText, why, sourceRoutine, critique }` (the FULL `media` array,
+ * not just the first element — .github/workflows/social-approval-notify.yml's
  * projection was fixed to stop dropping it).
  *
  * `options.facebookCrosspost` (A4) — when true, every Instagram draft's
