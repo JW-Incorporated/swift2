@@ -252,6 +252,14 @@ test.describe('Vault smoke', () => {
     // was checking for something that never existed.
     await expect(dialog).toBeVisible();
     await expect(dialog.getByRole('heading').first()).toBeVisible();
+    // Album heading PLUS at least one song heading. #4082's symptom was an
+    // empty track catalogue in the client bundle (`trackCount === 0`), and
+    // this spec is the regression guard for it — asserting only that *some*
+    // heading is visible would still pass on a guide listing no songs, i.e.
+    // it would not actually catch the bug it was quarantined for.
+    await expect
+      .poll(async () => dialog.getByRole('heading').count())
+      .toBeGreaterThanOrEqual(2);
 
     await dialog.getByRole('button', { name: 'Close' }).click();
     await expect(dialog).toBeHidden();
