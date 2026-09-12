@@ -349,6 +349,12 @@ function stampRow(relPath, item) {
     approver: a.by,
     messageId: edit ? (edit.message ?? a.message ?? null) : (a.message ?? null),
     replyId: edit ? (edit.reply ?? null) : null,
+    // Tree Overhaul T2: Tree's pre-hoc self-score, carried onto the row so
+    // the Monday calibration (weekly-scorecard.mjs's calibration()) has
+    // something to read even for a rejected item, whose queue file the ❌
+    // deletes (see rejectRow below) — `critique` itself is never hashed and
+    // never updated by an edit, so this is the draft's original score either way.
+    critiqueTotal: item.critique?.total ?? null,
   };
 }
 
@@ -367,6 +373,10 @@ function rejectRow(pr, file, classified, item, now) {
     approver: classified.approver,
     messageId: classified.messageId,
     replyId: classified.replyId,
+    // Tree Overhaul T2: the ONLY surviving record of a rejected draft's
+    // self-score, since the ❌ deletes its queue file (spec docs/specs/
+    // tree-overhaul/t2-self-critique.md §Data "The Monday calibration").
+    critiqueTotal: item?.critique?.total ?? null,
   };
 }
 
