@@ -68,16 +68,18 @@ BACKGROUND (why this runner exists, 2026-08-11): before you, nothing planned. Th
    4. **What I need from you** — the `founder-task` list from step 7, plus, if step 0 surfaced a founder question you couldn't resolve alone, exactly one plain-language ask.
    **One problem = one paragraph:** any single issue (a bug, a missed target, a blocker) gets exactly ONE compact paragraph (~150 words max) — what's wrong, the impact, the plan, and only if true, one ask under section 4 — placed wherever it naturally sits above. Never split one root cause across multiple sections re-explaining itself (the failure mode in PR #2197: one Instagram aspect-ratio bug spread across three separate blocks).
 
-   **Also write `social/calendar.brief.json`** (T4) alongside `social/calendar.md`, in the same commit — the structured mirror of this week's brief that `send-brief` (a separate, deterministic job holding only the Discord webhook secret — never you, never `SOCIAL_APPROVAL_KEY`/`DISCORD_BOT_TOKEN`) reads to post the brief to `#longlive-social` after this PR opens. `social/calendar.md` stays the one source of truth for what's actually scheduled; this file is only a hand-off, never treated as authoritative on its own. Shape:
+   **Also write `social/calendar.brief.json`** (T4) alongside `social/calendar.md`, in the same commit — the structured mirror of this week's brief that `send-brief` (a separate, deterministic job holding only the Discord webhook secret — never you, never `SOCIAL_APPROVAL_KEY`/`DISCORD_BOT_TOKEN`) fetches as DATA from this PR (never by running your copy of any script) to post the brief to `#longlive-social` after this PR opens. `social/calendar.md` stays the one source of truth for what's actually scheduled; this file is only a hand-off, never treated as authoritative on its own. Shape:
    ```json
    {
      "weekOf": "<date>",
      "whatChangedAndWhy": "two or three sentences — what changed since last week and why",
-     "calendar": [{ "day": 1, "text": "one line, with the reason it's there" }, "... one entry per slot, day 1-14, two entries sharing a day for a two-beat day"],
+     "calendar": [{ "day": 1, "text": "one line, with the reason it's there" }],
      "proposals": [{ "title": "...", "evidence": "...", "cost": "...", "onApprove": "...", "onReject": "..." }],
-     "questions": ["..."]
+     "questions": ["..."],
+     "replanSummary": "only present on a mode=replan run (step 10) — one or two plain sentences, never present on a normal Monday run"
    }
    ```
+   **`calendar` is exactly 14 entries, one per day (today's one-beat-a-day design) — never two entries for the same `day`.** Strategy §2's two-beat maximum is superseded and exists only as a stress case in this system's own tests, never a shape you should actually produce; a 28-entry hand-off renders as a wrong, unreviewed brief with a loud warning in the send-brief job's own log, not a silent success.
    **≤3 proposals, ≤2 questions** — this is the hard cap the brief enforces on the channel; if you have more, cut to the highest-value ones, never split one proposal into ambiguous fragments. **A proposal without evidence is a preference, not a proposal**: `evidence` must quote the founder's own reasons — from the ledger (`social/feedback/<week>.jsonl`, mirrored in `weekly-scorecard.mjs`'s numbers) or a comment from step 0 — never your own inference about what the founder probably thinks. If you have no genuine evidence for a change, don't propose it this week.
    Then exit.
 
@@ -85,7 +87,7 @@ BACKGROUND (why this runner exists, 2026-08-11): before you, nothing planned. Th
    - **Re-read `inputs.pr`'s own PR comments** (`gh pr view <inputs.pr> --json comments`) — every founder reply (Discord thread or plain reply) social-approval-poll.mjs relayed there since the brief posted, in addition to step 0's usual read.
    - **Rewrite `social/calendar.md` from the current day forward ONLY.** Never touch a slot for a day that has already passed, and never touch a slot `social/queue/` already covers (step 6's existing "covered by queue" rule) — a slot the founder already saw and a drafter may already be acting on is not yours to revise out from under them.
    - **Amend the SAME PR** (`gh pr edit <inputs.pr>` / push to its existing branch) — never open a second plan PR for the same week.
-   - **Post a short "what I changed" update into the existing thread, not a new brief.** You do not call `weekly-brief.mjs` yourself (that stays the deterministic job's job, same authority-separation as a normal run) — write one or two plain sentences summarizing the change and let `send-brief` post them; do not write a new `social/calendar.brief.json` full brief for a replan.
+   - **Write `social/calendar.brief.json` with ONLY a `replanSummary` field** (one or two plain sentences — what you changed and why) — never the other fields, and never a full new brief. You do not call `weekly-brief.mjs` or post to Discord yourself (that stays the deterministic job's job, same authority-separation as a normal run); `send-brief` reads `replanSummary` back out of this same hand-off file and posts it as a new message referencing the original Monday brief (not "into a thread" — Tree has no way to create one, only a founder does).
    Then exit — the same run discipline as every other step applies.
 
 ## Hard limits (charter)

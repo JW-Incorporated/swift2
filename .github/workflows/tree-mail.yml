@@ -44,24 +44,23 @@
 # which never mails anyone.
 #
 # Zero AI, no polling loops. The `founder-mailed` label is created by
-# scripts/marjorie/bootstrap-labels.mjs. `pull_request` on a same-repo branch
-# has normal secrets access; Tree cannot run code here (no PR-head checkout —
-# the mailer runs from the trusted base ref).
+# scripts/marjorie/bootstrap-labels.mjs. Tree cannot run code here (no
+# PR-head checkout — the mailer runs from the trusted base ref).
 name: tree-mail
 
 on:
-  pull_request:
-    types: [opened]
-  # Digest sweep's schedule removed 2026-08-23 — see the RETIRED note above.
-  # T4 (docs/specs/tree-overhaul/t4-weekly-brief.md): `pr` lets
-  # routine-tree-weekly-plan.yml's send-brief job dispatch the plan-PR mail
-  # explicitly, once the Discord permalink is written into the PR body —
-  # see tree-pr-mail's own `if:` below for why the `pull_request` event no
-  # longer fires that job at all.
+  # Digest sweep's schedule removed 2026-08-23 — see the RETIRED note below.
+  # T4 (docs/specs/tree-overhaul/t4-weekly-brief.md): the `pull_request`
+  # trigger this file used to carry was REMOVED, not narrowed — it was the
+  # ONLY thing that ever fired tree-pr-mail, and `pull_request:opened` raced
+  # the Discord post (mail could go out with no permalink if the brief
+  # hadn't sent yet). `pr` lets routine-tree-weekly-plan.yml's send-brief
+  # job dispatch the plan-PR mail explicitly instead, once the permalink is
+  # already written into the PR body.
   workflow_dispatch:
     inputs:
       pr:
-        description: "Plan PR number to mail (dispatched by routine-tree-weekly-plan.yml's send-brief job)"
+        description: "Plan PR number to mail (dispatched by routine-tree-weekly-plan.yml's send-brief job) — leave blank to run the founder-task digest sweep instead"
         required: false
         type: string
 
@@ -74,16 +73,13 @@ jobs:
   # docs/agents/tree.md › Mutation rights) — the PR body IS Tree's weekly
   # report to its manager, so it mails as soon as the Discord brief exists.
   #
-  # T4: no longer fires on `pull_request: opened` at all (previously its
-  # only trigger, narrowed to zero rather than to "every PR except
-  # tree/plan/**" — the latter would mail on literally every other PR
-  # opened in the whole repo, which is not what "exclude tree/plan/**"
-  # means here). `pull_request:opened` raced the Discord post: mail could
-  # go out with no permalink in it if the brief hadn't sent yet. Explicit
-  # `workflow_dispatch` from send-brief, AFTER the permalink is written
-  # into the PR body, removes the race instead of papering over it.
+  # LOW 10 (Codex round 1): gated on `inputs.pr` being non-empty so a manual
+  # `workflow_dispatch` with no `pr` filled in (the digest sweep's own
+  # long-standing manual-testing path) can never ALSO try to run this job —
+  # the two dispatch modes are mutually exclusive, never a side effect of
+  # each other.
   tree-pr-mail:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.pr != ''
     runs-on: ubuntu-latest
     concurrency:
       group: tree-mail-pr-${{ github.event.inputs.pr }}
@@ -105,7 +101,7 @@ jobs:
           import json, os, re
           pr = json.loads(os.environ["PR_JSON"])
           body = pr.get("body") or "(no PR body)"
-          m = re.search(r"Discord thread: (https://discord\.com/channels/\S+)", body)
+          m = re.search(r"Discord brief: (https://discord\.com/channels/\S+)", body)
           link = m.group(1) if m else None
           copy_line = (
               "This is a copy. The live version, where you can react and reply, is in #longlive-social: " + link
@@ -134,8 +130,12 @@ jobs:
   # batched into ONE email. Exactly-once via the `founder-mailed` label —
   # applied only after the send step succeeds, so a failed send retries on
   # the next sweep instead of going silent.
+  #
+  # LOW 10 (Codex round 1): mutually exclusive with tree-pr-mail above —
+  # this only runs a `workflow_dispatch` with `pr` left blank, never
+  # alongside a plan-PR mail dispatch.
   founder-task-digest:
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.pr == ''
     runs-on: ubuntu-latest
     concurrency:
       group: tree-mail-digest

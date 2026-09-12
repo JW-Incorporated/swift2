@@ -69,6 +69,17 @@ jobs:
   # flagged as serious). `secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` is a
   # plain repo secret, the same one social-approval-notify.yml already
   # posts drafts through with no `environment:` at all.
+  #
+  # HIGH 1 (Codex round 1): this job holds that webhook secret, so it must
+  # NEVER execute a checkout of the plan PR's own (agent-writable) branch —
+  # an agent-writable branch modifying its own copy of weekly-brief.mjs (or
+  # anything it imports) could otherwise steal the webhook or post
+  # arbitrary content under Tree's trusted identity. It checks out `main`
+  # (trusted code only — this is where weekly-brief.mjs actually runs from)
+  # and reads the plan PR's own calendar.brief.json ONLY as DATA, via the
+  # GitHub Contents API, never by checking out that branch — the same
+  # "DATA ONLY, never executing PR code" pattern social-approval-notify.yml's
+  # own header comment documents and this whole epic keeps converging on.
   send-brief:
     needs: run
     if: always() && needs.run.result == 'success'
@@ -88,9 +99,9 @@ jobs:
         run: |
           set -euo pipefail
           if [ -n "${INPUT_PR:-}" ]; then
-            PR_JSON=$(gh pr view "$INPUT_PR" --repo "$REPO" --json number,url,headRefName,headRefOid,body)
+            PR_JSON=$(gh pr view "$INPUT_PR" --repo "$REPO" --json number,url,headRefOid,body)
           else
-            PR_JSON=$(gh pr list --repo "$REPO" --search "head:tree/plan/" --state open --limit 1 --json number,url,headRefName,headRefOid,body --jq '.[0]')
+            PR_JSON=$(gh pr list --repo "$REPO" --search "head:tree/plan/" --state open --limit 1 --json number,url,headRefOid,body --jq '.[0]')
           fi
           if [ -z "$PR_JSON" ] || [ "$PR_JSON" = "null" ]; then
             echo "::error::send-brief: could not find the plan PR to send a brief for (pr input: '${INPUT_PR:-}')"
@@ -98,7 +109,6 @@ jobs:
           fi
           echo "number=$(echo "$PR_JSON" | jq -r .number)" >> "$GITHUB_OUTPUT"
           echo "url=$(echo "$PR_JSON" | jq -r .url)" >> "$GITHUB_OUTPUT"
-          echo "head_ref=$(echo "$PR_JSON" | jq -r .headRefName)" >> "$GITHUB_OUTPUT"
           echo "head_sha=$(echo "$PR_JSON" | jq -r .headRefOid)" >> "$GITHUB_OUTPUT"
           {
             echo 'body<<PR_BODY_EOF'
@@ -106,20 +116,56 @@ jobs:
             echo PR_BODY_EOF
           } >> "$GITHUB_OUTPUT"
 
+      # Trusted checkout ONLY — the default branch (main), never the plan
+      # PR's own head. weekly-brief.mjs (and everything it imports) runs
+      # from THIS tree for the rest of the job, regardless of what the plan
+      # PR branch itself contains.
       - uses: actions/checkout@v7
-        with:
-          ref: ${{ steps.find_pr.outputs.head_ref }}
 
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
 
+      # MEDIUM 6 (Codex round 1): social/feedback/'s authoritative home is
+      # the unprotected social-ledger branch (S3's own design — main's copy
+      # is fold-back/visibility-only and can lag). weekly-brief.mjs's
+      # buildScorecard() reads social/feedback/ off THIS checkout, so
+      # without this overlay the scorecard could falsely report "no drafts
+      # went to you this week" whenever the fold-back PR hasn't landed yet.
+      # Same overlay technique social-approval-poll.yml's own fold-back
+      # step already uses for this exact branch.
+      - name: Overlay social/feedback from social-ledger (the ledger's authoritative home)
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin social-ledger >/dev/null 2>&1; then
+            git fetch origin social-ledger
+            if git cat-file -e FETCH_HEAD:social/feedback 2>/dev/null; then
+              git archive FETCH_HEAD social/feedback | tar -x
+            fi
+          fi
+
+      # DATA ONLY (HIGH 1): the plan PR's own calendar.brief.json, fetched
+      # as raw bytes over the API -- never a checkout of that branch's code.
+      - name: Fetch the brief hand-off content from the plan PR (data only, no PR code runs)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ steps.find_pr.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+          gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/social/calendar.brief.json?ref=$HEAD_SHA" > /tmp/calendar.brief.json
+
       # mode=replan: docs/agents/runner-prompts/tree-weekly-plan.md's own
-      # replan behaviour posts a short "what I changed" message into the
-      # EXISTING thread instead of a whole new brief — the thread id is the
-      # original brief header message's own id, recovered from the
-      # permalink this same job already wrote into the PR body last Monday.
-      - name: Send a short mode=replan update into the existing thread
+      # replan behaviour posts a short "what changed" update instead of a
+      # whole new brief. MEDIUM 5 (Codex round 1): posted as a new message
+      # linking back to the original brief's permalink -- weekly-brief.mjs
+      # never creates a real Discord thread (that needs a bot token with
+      # MANAGE_THREADS, which this job must never hold), so a `thread_id`
+      # naming a plain message id would not behave as intended. MEDIUM 4
+      # (Codex round 1): the summary text itself is `plan.replanSummary`,
+      # read from the SAME calendar.brief.json just fetched above -- never a
+      # hardcoded placeholder.
+      - name: Send a short mode=replan update referencing the original brief
         if: github.event.inputs.mode == 'replan'
         id: send_replan
         env:
@@ -127,13 +173,12 @@ jobs:
           PR_BODY: ${{ steps.find_pr.outputs.body }}
         run: |
           set -euo pipefail
-          THREAD_ID=$(printf '%s' "$PR_BODY" | grep -oE 'Discord thread: https://discord\.com/channels/[0-9]+/[0-9]+/[0-9]+' | grep -oE '[0-9]+$' | head -1 || true)
-          if [ -z "$THREAD_ID" ]; then
-            echo "::warning::send-brief: no 'Discord thread:' permalink found in the plan PR body — cannot post the mid-week update, skipping."
+          PERMALINK=$(printf '%s' "$PR_BODY" | grep -oE 'Discord brief: https://discord\.com/channels/[0-9]+/[0-9]+/[0-9]+' | sed -E 's/^Discord brief: //' | head -1 || true)
+          if [ -z "$PERMALINK" ]; then
+            echo "::warning::send-brief: no 'Discord brief:' permalink found in the plan PR body — cannot post the mid-week update, skipping."
             exit 0
           fi
-          echo "Re-planned the rest of this week from your reply." > /tmp/replan-summary.txt
-          node scripts/social/weekly-brief.mjs --replan-thread-id "$THREAD_ID" --replan-summary /tmp/replan-summary.txt
+          node scripts/social/weekly-brief.mjs --replan-permalink "$PERMALINK" --plan /tmp/calendar.brief.json
 
       - name: Send the weekly brief to #longlive-social
         if: github.event.inputs.mode != 'replan'
@@ -145,7 +190,7 @@ jobs:
             --pr "${{ steps.find_pr.outputs.number }}" \
             --pr-url "${{ steps.find_pr.outputs.url }}" \
             --head-sha "${{ steps.find_pr.outputs.head_sha }}" \
-            --plan social/calendar.brief.json
+            --plan /tmp/calendar.brief.json
 
       - name: Write the Discord permalink into the PR body
         if: github.event.inputs.mode != 'replan' && steps.send.outputs.permalink != ''
@@ -157,7 +202,7 @@ jobs:
           PR_BODY: ${{ steps.find_pr.outputs.body }}
         run: |
           set -euo pipefail
-          printf '%s\n\n%s\n' "$PR_BODY" "Discord thread: $PERMALINK" > /tmp/pr-body-with-permalink.md
+          printf '%s\n\n%s\n' "$PR_BODY" "Discord brief: $PERMALINK" > /tmp/pr-body-with-permalink.md
           gh pr edit "$PR" --repo "$REPO" --body-file /tmp/pr-body-with-permalink.md
 
       - name: Dispatch tree-mail.yml now that the permalink is in the PR body
