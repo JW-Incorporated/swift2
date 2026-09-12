@@ -47,7 +47,16 @@ concurrency:
 jobs:
   drill:
     runs-on: ubuntu-latest
-    environment: ops
+    # Conditional, not a bare `ops` — this workflow also runs on
+    # `pull_request` (path-filtered, and this very file is one of those
+    # paths), which the `ops` environment's main-only deployment-branch
+    # policy would otherwise block the WHOLE JOB from even starting on a
+    # PR branch — even though the one step that needs the secret is
+    # already gated to `github.event_name == 'schedule'` (below) and never
+    # runs on a pull_request anyway. `|| null` (confirmed correct GitHub
+    # Actions semantics for "no environment" — PR #4197 review) means only
+    # the real scheduled/dispatched drill runs under `ops`.
+    environment: ${{ github.event_name == 'schedule' && 'ops' || null }}
     services:
       postgres:
         # Matches Supabase's major version. The drill exercises the same DDL
