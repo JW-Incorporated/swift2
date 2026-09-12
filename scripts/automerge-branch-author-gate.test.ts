@@ -16,7 +16,6 @@ describe('isContentLaneBranch', () => {
     const examples: Record<string, string> = {
       'content-shift/': 'content-shift/2026-08-24',
       'vault/': 'vault/2026-08-24-run2',
-      'growth/': 'growth/2026-08-24',
       'tree/': 'tree/2026-08-24',
       'depth/answerer-': 'depth/answerer-2026-08-24',
       'content/rumor-desk-': 'content/rumor-desk-2026-08-17-reapply',

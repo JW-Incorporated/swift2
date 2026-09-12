@@ -179,8 +179,10 @@ appended as one line to `social/feedback/<ISO-week>.jsonl` (ISO-8601 week,
 UTC, e.g. `2026-W38.jsonl`): `ts`, `pr`, `file`, `platform`, `campaign`,
 `pillar` (the campaign *family*, derived — never hand-written; an
 unrecognised `campaign` prefix logs a `::warning::` and sets it `null`),
-`action` (`"approve" | "edit" | "reject"`, plus `"skip"`/`"revoke"` reserved
-for later stages), `reason` (the founder's reply verbatim; `null` for a
+`action` (`"approve" | "edit" | "reject" | "skip"` — `skip` is the Reddit ⏭️,
+no reason asked; `"revoke"` is reserved for Wave 5), Reddit prompt rows
+(S6) carry `pr: null` and `file: "reddit:<postId>"` from the prompt's
+`ref: reddit · <postId>` line, `reason` (the founder's reply verbatim; `null` for a
 frictionless ✅), `originalBody`/`editedBody`, `approver`, `messageId`, and
 `replyId`. Rows are never edited or deleted — a reversal is a new row.
 Frictionless ✅s are logged too, with `reason: null`: they're the

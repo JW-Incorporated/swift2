@@ -278,6 +278,15 @@ duplicate the report.
   in `#longlive-social` (2026-09-10 approval gate), not the brief; the brief
   just reports what's queued, what's still awaiting a merge, and what
   shipped.
+- **The Monday strategy brief** → posted by the weekly run into
+  `#longlive-social` as Tree (T4, `scripts/social/weekly-brief.mjs`,
+  `routine-tree-weekly-plan.yml`): 5-line scorecard, what changed and why,
+  the next 14-day calendar with one rationale per slot, ≤3 numbered
+  proposals (✅/❌ each), ≤2 questions. **This is the primary founder
+  surface for strategy** — the founder replies in the message's thread;
+  `social-approval-poll` copies approver replies onto the plan PR as
+  comments, and a reply before Wednesday 23:59 UTC dispatches a mid-week
+  re-plan. `tree-mail.yml` mails a copy; the email is never the primary.
 - **New account creation / logins / paid tools** → **TX items**, written for
   a non-software human per Marjorie's charter §2.
 - **Channel autopost grants, strategy changes, anything reputational** →
