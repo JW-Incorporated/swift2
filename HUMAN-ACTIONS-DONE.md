@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #64 · 2026-09-12 · done · X per-post metrics need a paid API tier — "closed via Discord reply" · by discord
 - #61 · 2026-09-12 · done · Set SOCIAL_FREEZE=false — Wave 3 of the Tree Overhaul is fully merged — "verified false via `gh variable list` (updated_at 2026-09-12T15:43:52Z); the Worked-if predicate is objectively met" · by owner
 - #62 · 2026-09-12 · done · File the T7/Codex SOCIAL_FREEZE workflow-wiring finding as a GitHub issue — "issue #4169 exists and is OPEN with the exact required title; the guard false-positive was worked around by filing from a body file" · by agent
 - #65 · 2026-09-12 · done · Freeze, merge Tree T6 PR #4166, unfreeze — CI A6 gate blocks it while SOCIAL_FREEZE=false — "owner ran all four steps in chat; PR #4166 MERGED, SOCIAL_FREEZE verified false via gh variable list before closing" · by owner

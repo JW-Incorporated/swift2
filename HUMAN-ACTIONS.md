@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -10,22 +10,13 @@
 <!-- ha filed=2026-09-12 -->
 
 **Why:** Marjorie Overhaul wave M1 (epic #4180) posts her brief and every watchdog alert to #longlive-marjorie. Nothing can post there until a webhook exists in a main-only environment; M0 (design) can run without it, M1 cannot be verified.
+
 **Steps:**
 1. Discord → #longlive-marjorie → Edit Channel → Integrations → Webhooks → New Webhook; name it `Marjorie`; Copy Webhook URL.
 2. https://github.com/JW-Incorporated/swift2/settings/environments → New environment → name `ops` → Deployment branches: Selected branches → add `main` → Save.
 3. In the `ops` environment → Environment secrets → Add secret → name `DISCORD_MARJORIE_WEBHOOK_URL` → paste the URL.
+
 **Worked if:** `gh api repos/JW-Incorporated/swift2/environments/ops/secrets` lists DISCORD_MARJORIE_WEBHOOK_URL.
-
-## #64 🟡 [DECIDE] X per-post metrics need a paid API tier (~5 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** Tree Overhaul T3 (per-post engagement): X retired free per-post metric reads; every call is now metered (~$0.005/post-read). Backfilling the current posted X items would run ~$0.45 once, plus pennies/day ongoing. Spend decisions are yours, not built without one.
-
-**Steps:**
-1. Check the X Developer Portal → Products → Billing for the current pay-per-use per-post read price (confirm ~$0.005/read still holds).
-2. Decide: approve ongoing per-post X metric reads (~$0.45 backfill + pennies/day), or decline and stay Instagram-only (v1 ships either way).
-
-**Worked if:** you reply approved or declined for X per-post metric spend.
 
 ## #63 🟢 [UPGRADE] Add instagram_manage_insights scope so reach/saved/shares can be built next (~15 min)
 <!-- ha filed=2026-09-12 -->
