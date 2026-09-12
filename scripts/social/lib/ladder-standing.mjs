@@ -5,7 +5,7 @@
 // only — no proposal text lives here; that is Wave 5's `tree-weekly-plan.md`
 // job, once a founder can actually grant something.
 import { pillarOf } from './feedback.mjs';
-import { eligibility } from './autonomy.mjs';
+import { eligibility, readGrants } from './autonomy.mjs';
 
 // S3's pillarOf table (feedback.mjs's own unexported PILLAR_ARITY) has
 // exactly these five queue-item-producing prefixes (docs/marketing/
@@ -53,10 +53,13 @@ export function discoverTypes(ledgerRows) {
  * — the full data behind the Monday ladder-standing block. `ledgerRows`
  * should be the full, unwindowed ledger (eligibility() applies its own
  * trailing-28-day window per type internally), not the caller's own
- * 7-day-windowed rows.
+ * 7-day-windowed rows. Grants are read from disk exactly once up front
+ * (rather than once per type via eligibility()'s own default) — there is
+ * only ever one small `social/autonomy.json`, never one per type.
  */
 export function buildLadderStanding(ledgerRows, now = Date.now()) {
-  return discoverTypes(ledgerRows).map((type) => ({ type, ...eligibility(ledgerRows, type, now) }));
+  const grants = readGrants();
+  return discoverTypes(ledgerRows).map((type) => ({ type, ...eligibility(ledgerRows, type, now, grants) }));
 }
 
 function line({ type, eligible, briefs, approvedPct, reason }) {
