@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -15,19 +15,6 @@
 2. https://github.com/JW-Incorporated/swift2/settings/environments → New environment → name `ops` → Deployment branches: Selected branches → add `main` → Save.
 3. In the `ops` environment → Environment secrets → Add secret → name `DISCORD_MARJORIE_WEBHOOK_URL` → paste the URL.
 **Worked if:** `gh api repos/JW-Incorporated/swift2/environments/ops/secrets` lists DISCORD_MARJORIE_WEBHOOK_URL.
-
-## #65 🔴 [BLOCKING] Freeze, merge Tree T6 PR #4166, unfreeze — CI A6 gate blocks it while SOCIAL_FREEZE=false (~5 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** Wave 4 T6 (fast-lane drafting) edits scripts/social/lib/queue-schema.mjs, a posting-path file, so CI fails by design until the freeze is on. Auto-merge is armed; nothing else in Wave 4 is blocked. The wave is 5/6 merged until this lands.
-
-**Steps:**
-1. `gh variable set SOCIAL_FREEZE --repo JW-Incorporated/swift2 --body true`
-2. `gh run rerun 34697966900 --failed --repo JW-Incorporated/swift2` (the PR then auto-merges itself when green)
-3. Wait until `gh pr view 4166 --repo JW-Incorporated/swift2 --json state` shows MERGED (~10 min).
-4. `gh variable set SOCIAL_FREEZE --repo JW-Incorporated/swift2 --body false`
-
-**Worked if:** PR #4166 shows MERGED and the SOCIAL_FREEZE variable reads false again.
 
 ## #64 🟡 [DECIDE] X per-post metrics need a paid API tier (~5 min)
 <!-- ha filed=2026-09-12 -->
@@ -103,26 +90,6 @@
 
 
 ---
-
-## #51 🔴 [BLOCKING] URGENT — restore the Claude OAuth token secret: every migrated GitHub Actions routine has been inert since the 09-06 migration (~10 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** despite item #43 being marked DONE ("secret stored &
-confirmed"), the `CLAUDE_CODE_OAUTH_TOKEN` repository secret is absent/empty
-at run time, so the guard in `.github/workflows/routine-template.yml`
-(`if [ -z "secrets.CLAUDE_CODE_OAUTH_TOKEN" ]`) skips **every** migrated
-routine with `::warning::CL
-
-**Steps:**
-1. Regenerate the token locally with `claude setup-token` on your Claude
-2. Store it as the repo secret **`CLAUDE_CODE_OAUTH_TOKEN`** for
-3. Confirm it took: the same **Repository secrets** list should show
-4. Trigger one routine to verify end-to-end: **Actions → routine-news-triage
-5. Have an authorized News Triage run (or a claude.ai session) file the
-
-**Worked if:** a manually-dispatched **routine-news-triage** run reaches the
-Claude step and posts a run-log comment (or files an `intake` issue) instead
-of skipping with the missing-secret warning.
 
 ## #49 🔴 [BLOCKING] Add the shared Community Tasks acknowledgement secret (~5 min)
 <!-- ha filed=2026-09-11 -->

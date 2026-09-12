@@ -3,6 +3,8 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #65 · 2026-09-12 · done · Freeze, merge Tree T6 PR #4166, unfreeze — CI A6 gate blocks it while SOCIAL_FREEZE=false — "owner ran all four steps in chat; PR #4166 MERGED, SOCIAL_FREEZE verified false via gh variable list before closing" · by owner
+- #51 · 2026-09-12 · done · URGENT — restore the Claude OAuth token secret: every migrated GitHub Actions routine has been inert since the 09-06 migration — "owner said done in chat; plan-recheck and routine runs are the live proof" · by owner
 - #58 · 2026-09-12 · done · Confirm routine-vault-run holds up under real daily scheduling — "closed via Discord reply" · by discord
 - #52 · 2026-09-12 · done · Share flow viewport check on public preview — "closed via Discord reply" · by discord
 - #60 · 2026-09-11 · done · Set SOCIAL_FREEZE=true — Wave 3 PRs blocked by the RULINGS-SOCIAL A6 CI gate — "owner set it in chat, verified via gh api repos/JW-Incorporated/swift2/actions/variables/SOCIAL_FREEZE (value true, updated_at 2026-09-11T23:44:07Z) before closing" · by owner
