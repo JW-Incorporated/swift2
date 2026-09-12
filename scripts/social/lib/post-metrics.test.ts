@@ -183,6 +183,10 @@ describe('aggregateEngagement', () => {
     expect(byCampaign['constructor']).toEqual({ posts: 1, like_count: 2, comments_count: 2 });
     expect(Object.getPrototypeOf(byCampaign)).toBeNull();
     expect(typeof byCampaign.hasOwnProperty).not.toBe('function');
+    // byPillar gets the same null-prototype fix, even though pillarOf's own
+    // arity logic never lets a bucket key collapse to a bare "__proto__" —
+    // it always keeps the family prefix (e.g. "mood:__proto__").
+    expect(Object.getPrototypeOf(byPillar)).toBeNull();
   });
 });
 
