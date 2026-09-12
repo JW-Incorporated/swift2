@@ -172,6 +172,18 @@ describe('aggregateEngagement', () => {
     expect(aggregateEngagement([])).toEqual({ totalPosts: 0, byCampaign: {}, byPillar: {} });
     expect(aggregateEngagement(undefined)).toEqual({ totalPosts: 0, byCampaign: {}, byPillar: {} });
   });
+
+  it('treats a campaign literally named __proto__/constructor as a plain bucket key, never the object prototype', () => {
+    const records = [
+      { campaign: '__proto__', like_count: 1, comments_count: 1 },
+      { campaign: 'constructor', like_count: 2, comments_count: 2 },
+    ];
+    const { byCampaign, byPillar } = aggregateEngagement(records);
+    expect(byCampaign['__proto__']).toEqual({ posts: 1, like_count: 1, comments_count: 1 });
+    expect(byCampaign['constructor']).toEqual({ posts: 1, like_count: 2, comments_count: 2 });
+    expect(Object.getPrototypeOf(byCampaign)).toBeNull();
+    expect(typeof byCampaign.hasOwnProperty).not.toBe('function');
+  });
 });
 
 describe('buildEngagementSummary', () => {

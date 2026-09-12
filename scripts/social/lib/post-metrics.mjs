@@ -128,10 +128,16 @@ const NO_PILLAR_LABEL = '(unrecognized)';
  * `mood:`/`heartbeat:` campaign-naming convention pillarOf recognizes, so
  * those land in `byPillar['(unrecognized)']` (pillarOf itself already logs
  * a `::warning::` for each) rather than being dropped.
+ *
+ * `byCampaign`/`byPillar` are null-prototype objects (same fix as
+ * growth.mjs's countPostsByPlatformSince/feedback.mjs's aggregateVerdicts):
+ * `campaign` comes from social/posted/*.json content, not a closed enum, so
+ * a value of e.g. `"__proto__"` must land as an own data property, never
+ * reassign the bucket object's actual prototype.
  */
 export function aggregateEngagement(records) {
-  const byCampaign = {};
-  const byPillar = {};
+  const byCampaign = Object.create(null);
+  const byPillar = Object.create(null);
   for (const record of records ?? []) {
     addTo(byCampaign, record?.campaign, NO_CAMPAIGN_LABEL, record);
     addTo(byPillar, pillarOf(record?.campaign), NO_PILLAR_LABEL, record);
