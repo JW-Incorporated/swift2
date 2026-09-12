@@ -33,8 +33,9 @@ needs real run data. One fresh session per wave, paste-ready prompts in
 - Discord from Actions: REST with a webhook or bot token held in a repo
   environment. Agent processes never see `DISCORD_BOT_TOKEN` (standing rule
   from `routine-tree-weekly-plan.yml`); a poller job that reads replies may.
-- Marjorie's charter forbids self-edits; the amendment lands by founder-
-  approved PR in Wave M0.
+- Marjorie's charter forbids *self*-edits (invariant 5). The amendment
+  lands as an ordinary PR in Wave M0 — green CI, merged by whoever opened
+  it, no separate founder comment (2026-09-12, Joey).
 - Files under 300 lines; `watchdog.yml` is already ~1,100 lines and gets
   smaller, never bigger: new logic goes in `scripts/watchdog/lib/` or
   `scripts/marjorie/lib/`.
@@ -67,8 +68,7 @@ M2 and M3 are independent; run in either order, never in one checkout.
 
 ## Gates
 
-**M0 done:** specs merged; charter amendment PR merged with the founder's
-approval comment; each spec has Behavior / Data / Mechanics / Acceptance
+**M0 done:** specs merged; charter amendment PR merged on green CI; each spec has Behavior / Data / Mechanics / Acceptance
 criteria / Files affected / Open questions; decisions logged; HA #66 status
 known.
 
