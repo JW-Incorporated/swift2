@@ -6,7 +6,7 @@
 // Usage:
 //   node post-or-mail.mjs --subject "<subject>" --body-file <path> \
 //     [--url <url>] [--thread <id>] [--no-mail-fallback]
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -41,7 +41,12 @@ function parseArgs(argv) {
  * only a confirmed send counts as `email`.
  */
 function sendMailFallback(subject, body, url, spawnImpl) {
-  const tmpFile = path.join(tmpdir(), `marjorie-mail-${process.pid}-${Date.now()}.json`);
+  // mkdtempSync (not a predictable pid/timestamp filename) avoids a
+  // symlink-race on the shared OS temp dir: it atomically creates a
+  // fresh, exclusively-owned directory with a random suffix, so nothing
+  // could have pre-created a link at this path (CodeQL js/insecure-temporary-file).
+  const tmpDir = mkdtempSync(path.join(tmpdir(), 'marjorie-mail-'));
+  const tmpFile = path.join(tmpDir, 'payload.json');
   writeFileSync(tmpFile, JSON.stringify({ subject: `[discord failed] ${subject}`, body, url }));
   const result = spawnImpl('python3', [SEND_MAIL_PY, tmpFile], { encoding: 'utf8' });
   const stdout = result?.stdout || '';
