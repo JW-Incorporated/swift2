@@ -211,3 +211,63 @@ All 6 re-verified with tests that fail when the corresponding fix is
 reverted (see `social-approval-poll.test.ts` "round 2" cases and
 `feedback.test.ts`/`social-poster-workflow.test.ts`). Full rationale and
 verification commands in the PR body's "Debug-ladder escalation" section.
+
+## Codex review of Round 3 — still BLOCKED. Escalating to architect now.
+
+Fresh Codex thread, 12 in-memory scenarios against the actual code (commit
+`58f6fc6e`). Verdict: **BLOCKED.** 5 of 6 original findings only
+**partially** closed (only #6 fully closed); **3 new HIGH findings the
+redesign itself introduces or leaves open**, plus 2 new MEDIUM:
+
+- **HIGH (finding 1 residual)** — an unsigned `approval.message` can still
+  be hand-edited to point at the header id (alongside a `why` change);
+  `partitionCurrentHonoured` skips the real per-file ref *before* marking it
+  unsafe, so the honoured header still permits merge without ever reading
+  the file's actual ❌.
+- **HIGH (new) — `resolveGoverningRef` has no way to disambiguate duplicate
+  briefs.** It picks the *first* matching per-file ref; with two same-SHA
+  briefs for one file, approving the older one can stamp the newer
+  message's id, silently skipping a rejection placed on the message that
+  was actually acted on.
+- **HIGH (new) — governing identity isn't stable across runs.** A file
+  first stamped via the header, which later gains its own per-file brief,
+  keeps the header's id (`needsStamp` stays false) — a rejection on that
+  later brief is skipped. The reverse also reproduces: a fresh header
+  approval can stamp a file despite an existing rejection sitting on that
+  file's own stale brief.
+- **MEDIUM (new)** — the Finding-5 `MERGED` self-heal always synthesizes an
+  `approve` row even when a correct `edit` row already exists for that
+  file, corrupting the edit-rate/approval denominator T7 will eventually
+  read.
+- **MEDIUM (new)** — a fresh, valid header approval cannot clear
+  `unsafeFiles` for a file whose own signature still validates unchanged
+  (`needsStamp` false) — it stays wrongly stranded pending indefinitely,
+  with no path to recovery.
+
+**This is the second consecutive attempt — a narrow patch, then a genuine
+redesign — to leave new adjacent gaps in the same mechanism.** Per
+`debug-protocol`: "If the fresh-context agent returns without a fix →
+architect (Fable), immediately... no deliberation." Escalating now. See
+"Synthesis for architect" below for the one cross-attempt pattern worth
+naming, offered as a hypothesis for architect's own judgment, not an
+instruction.
+
+## Synthesis across all 3 attempts, for architect
+
+Every attempt — a narrow patch, then a full redesign — has modeled "which
+message/commit is authoritative for a file" as something **re-derivable
+fresh from this run's own snapshot** (this run's fetched Discord messages,
+this run's diff from a stale SHA), rather than as a genuinely stateful
+property that must stay consistent *across* runs, duplicate notifications,
+retries, and two independent workflows (`social-approval-poll.yml` +
+`social-poster.yml`) writing the same `social-ledger` branch. Each fix adds
+one more rule for resolving that snapshot correctly in one more case
+Codex's simulation found, and each new rule opens exactly one new seam
+(duplicate briefs, identity-not-preserved-across-runs, an unsigned field
+surviving a valid signature). The `social/feedback` ledger this same spec
+already builds is an append-only, durable, write-once record — the
+governing-message resolution problem looks structurally like the same kind
+of problem, currently solved the opposite way (re-derived each run instead
+of recorded once and trusted thereafter). Whether that's the right
+direction, and what the minimal correct version of it looks like, is
+exactly the judgment this escalation is for.
