@@ -25,7 +25,25 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 69
+
+## Details Revealed from Taylor Swift's Wedding by Guest
+
+- first seen: 2026-09-12 16:15 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: A wedding guest shared a reportedly 'mortifying' detail about Taylor Swift's wedding day, drawing attention to the event. The specifics of the detail have not been disclosed.
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMilgFBVV95cUxPel8xZGE1UVduLURsVVJETFpkdGNRa1JiWk51WC11WmYyVWJNNzhIX2k4Q3czMVQ0NmtyMWVSZldWMWZ0ckpCaGtJSllnSVVoZjJVLWdETHRDVkdQY05JSzVna0p6WmkzUXVWbDNsT2c0cnN0bERLc3UtM1N3TzF1WUNUWHdRNjM5VVpDalNHaFlsNWlOSnc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQWG5fZ0lQV0U4c3ZuQlZpZTUySDZ2VU1URlJlbjhuV3pWaFJ0enl1MkZqc0I1RkhTcDN0dHhOR2t0UXlQdEpOaUxycWVnc2xUTW1VOHVENl9UbW9IZGFSeENNR0IzZk1aeGdaM09jOXZZTlRWR0g1ZE1yMFkwS2NPQVByT2FpZTJHalo3ZGFLRmpiYTVYQTF5MmxQZ0c4WDlMVXhsVA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses Wedding Plans with Taylor Swift
+
+- first seen: 2026-09-12 12:49 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce shared details regarding his forthcoming wedding to Taylor Swift, highlighting their plans together. The news provides insight into their relationship milestones.
+- sources:
+  - [unverified] creators.yahoo.com — https://news.google.com/rss/articles/CBMi4gFBVV95cUxPMFlfckdEREVYMWZrWG5EQ290SWdBUmtxLXZnUEdJSU8wbXV5d21GNVJpXzFTcDRxY0xKUUdqQWJvNkNqNHVQSFA3b01qN0Qxbng0YmN2SklOc01Rb3hsSy1fR1I2SUlZSUc3dDdPcWZEWi1BQ2lfLU9HamM5UzBZaFpKRmgxVGVKaEZOT0dBdElvRWZ4ck5vTUNEcXJfbldVaTFfSFhvaV93cllwNXl2SGhDYVFybGhOelE4NW13dk9oRTR4QUI2MUhLZVNqZVY5VTJISm5kdkVWOTFfeWFwV1BB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMijAFBVV95cUxPU2d2Y3B4QzRJQUdHcW9RSm5oeTNpQ3F2ODRJNUdxYWw1UzZ4aXlBemR0NE02SjZaSEhlTm5wOTRHMXFmbFpUNVZoUHZFMDFaVXdOUHMzc3I4TkFSUjVONkhfdFZJVldlMXFSc1dpMTlmRXdWRXJreFJ5ZHBXcHlWRUhYTnFaZUlKUlBqRtIBiwFBVV95cUxPZ214cHphLUhXMTRPYUxUSFk0VFRHdkJpdlN4MEl2aWFXV3NtdG9NZk11dnJxRmFXUW1ib2VySjd3Szd1aTFMb3VzSkd0LTZSQTJtcEhPRUx0c3FFSXdQWnptbXNjTmh2WFJmem94MWdmYmpURE9UZlJVVnVqWjdNOW5EdHY0VDRvQkVz?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Address Rumors Ahead of NFL Season
 
@@ -34,14 +52,6 @@ Stories: 77
 - summary: Taylor Swift and Travis Kelce are facing unusual rumors as the NFL season approaches. The speculation comes as both prepare for the upcoming football season.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQRUFOdHFBR28yY3BZVzBkSzREcFU1bU1qZ0xvVUdZR0RmWjF0ajhRQ1pxY3BYUl9uVHNUTEdWM1N4MjBScXgyeEtpUEJJUS1TZUpBSXhfZmdEVmltaTVIQndvc1FqNUh4WEpFMm84YllwMGxaLWJ0ZXlEdlNsbVlWeUQzZ1ZnbDBOb3VuZExzQ2pLNDdGMlJSLXR4emJBSmFnWEE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses Wedding Plans with Taylor Swift
-
-- first seen: 2026-09-12 12:49 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce shared details regarding his forthcoming wedding to Taylor Swift, highlighting their plans together. The news provides insight into their relationship milestones.
-- sources:
-  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMijAFBVV95cUxPU2d2Y3B4QzRJQUdHcW9RSm5oeTNpQ3F2ODRJNUdxYWw1UzZ4aXlBemR0NE02SjZaSEhlTm5wOTRHMXFmbFpUNVZoUHZFMDFaVXdOUHMzc3I4TkFSUjVONkhfdFZJVldlMXFSc1dpMTlmRXdWRXJreFJ5ZHBXcHlWRUhYTnFaZUlKUlBqRtIBiwFBVV95cUxPZ214cHphLUhXMTRPYUxUSFk0VFRHdkJpdlN4MEl2aWFXV3NtdG9NZk11dnJxRmFXUW1ib2VySjd3Szd1aTFMb3VzSkd0LTZSQTJtcEhPRUx0c3FFSXdQWnptbXNjTmh2WFJmem94MWdmYmpURE9UZlJVVnVqWjdNOW5EdHY0VDRvQkVz?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Nominated for 2026 CMA Awards
 
@@ -254,6 +264,24 @@ Stories: 77
 - sources:
   - [unverified] The Cut — https://news.google.com/rss/articles/CBMickFVX3lxTE1tdDJkQkJneEdyXzZGdHdrXzg3WTlPdG5HZ2lMenFVaW5NUnB4RzJ4QkpOMjFuRl9nUUUtSGpPY1JfZ1c4TXIwYXBTMnNGWF96LVItTUZ2dDR2N1VJalhqeHpYcmNscHdnRExEbmxWS0lqQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift Confirmed to Attend CMA Awards After 10-Year Hiatus
+
+- first seen: 2026-09-10 23:07 UTC | category: relationship | importance: 8
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift will attend the CMA Awards for the first time in a decade after receiving a nomination for her single "I Knew It, I Knew You." This marks a significant moment in her return to the country music scene.
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPcFVzS0JPLXFGaW5naGVxdG5LcVExdDFsLVAyOG5iazIyMVlVbTZfY2tkQ2ZqS2tKTEloU01tblhhbEUyanlLTEtQTDBwb0IxQ2FRQUFsbUMwMUNhTWtkNmtQaldNOE8wblJhdzFGbkx3SUxZbG9fOFRDWHhoNnNwXzhkOWwyT3htaWtqa1NBbW41dVozMUxNTXRDTTJDV2dqVHU0MHdka1kzYmc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/
+
+## Taylor Swift Becomes Namesake for Newly Described Insects
+
+- first seen: 2026-09-10 23:07 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has been honored by having newly described insect species named after her. This recognition reflects her cultural impact and personal brand, extending beyond music into scientific communities.
+- sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMie0FVX3lxTE1kWjNNUVlPQ2VtcGJ0RVZuR1lNNTRfNDZacEF3aXRYUEQtaTNlQVZSRXhWdmFtT2FXS3lEbFA1Z1JaZEJETjB5LWVBeG9NWkJ6RDdneE5hSTR4OE01bWtiaC12MkZCTjFhMjZwanktRjlqbHFxa216YzFhWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMilAFBVV95cUxORlM5aThmakdEVzFxbTNXLV9MVEFycldyOTJQNzBTQTFSRkppRjdlSWhMcHdwVGotYkh3U0dQbXVhalQxZXN5T1NTblNVenJKS0NlZVlYTnNtZHY3d1l4b245ZHZIckwyY3g2c2JoZE5la3hvNGh1MWR0VzdXQ3M0R1BOSHBJdUx6VXhBR3hNbmVndHAy?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Receives Nomination for 2026 CMA Awards
 
 - first seen: 2026-09-10 23:07 UTC | category: music | importance: 6
@@ -261,22 +289,6 @@ Stories: 77
 - summary: Taylor Swift is among the nominees for the 2026 CMA Awards, alongside Ella Langley. The awards recognize outstanding achievements in country music.
 - sources:
   - [unverified] Deadline — https://news.google.com/rss/articles/CBMifkFVX3lxTE9ReUIza2NoUUJFdk5PUGZvV2VHSFNhei05R0kzSkRzSFRMWkIxZ2hZRW1MNXo1OVFweVZCN3p3Q0ZidHFqOVdIamxPUlRibVVENEh6MjFySEZrY3BuRVljVEF6VjB3cHF2Y180R2tHNkd6Q2puZUc2S3ZiUEhIdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Confirmed to Attend CMA Awards After 10-Year Hiatus
-
-- first seen: 2026-09-10 23:07 UTC | category: relationship | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift will attend the CMA Awards for the first time in a decade after receiving a nomination for her single "I Knew It, I Knew You." This marks a significant moment in her return to the country music scene.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/
-
-## Taylor Swift Becomes Namesake for Newly Described Insects
-
-- first seen: 2026-09-10 23:07 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been honored by having newly described insect species named after her. This recognition reflects her cultural impact and personal brand, extending beyond music into scientific communities.
-- sources:
-  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMilAFBVV95cUxORlM5aThmakdEVzFxbTNXLV9MVEFycldyOTJQNzBTQTFSRkppRjdlSWhMcHdwVGotYkh3U0dQbXVhalQxZXN5T1NTblNVenJKS0NlZVlYTnNtZHY3d1l4b245ZHZIckwyY3g2c2JoZE5la3hvNGh1MWR0VzdXQ3M0R1BOSHBJdUx6VXhBR3hNbmVndHAy?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Brian Duckworth of Taylor Made Passes Away at 56
 
@@ -600,80 +612,3 @@ Stories: 77
 - summary: Alanis Morissette reflected on the criticism she received at the height of her fame, likening it to the jealousy directed at Taylor Swift today. She highlights the common experiences of successful female artists in the music industry.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxOU294dWdLVjIzWFdORlk2RDJ4d045T1NxVWxEaVR2NEFjMndIMEw0eEF2bzllQWowalpOWHJ3ZGZ6WWFGdW95LTlVUG1Ia2R4RWcyUUs0c3V6VDU5Y3ZJTGhPUTZyRGxOejZkOUtVYWRzLUhiS3gzOEVlRlo2N3J0UWJnZWtfenNDWlJzVGhQeWwxQ1hPSV9MR1VBUW1DeVJTNTZsbkhlQjAwQWRwMTZSZg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exploring Taylor Swift's Holiday House: A 12-Hour Experience
-
-- first seen: 2026-09-09 13:40 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report details a 12-hour visit around Taylor Swift's Holiday House, offering recommendations on places to visit nearby. The article provides insights into the experience of being in the vicinity of the star's residence.
-- sources:
-  - [unverified] Elite Daily — https://news.google.com/rss/articles/CBMigAFBVV95cUxNc0RWUWNVdzc0ak03b0x2Tnhzck1YcVJFMVR5clZxSFhWQ0owaTV1M0MxcmtxVE5PZVJfbkQtc1oyWjJyUXFpajh6TUtXWVNlZ0xuTm1CTnNxVlVDcmhodTlaaTlONjhiWFVac0NfQ0dTamVsQmljQWhQUEFoOWo1Uw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Paul McCartney's daughter praises Taylor Swift for wearing her dress
-
-- first seen: 2026-09-09 13:40 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Paul McCartney's daughter expresses her excitement as Taylor Swift wore a dress she designed at a wedding. The event highlights the intersection of celebrity fashion and personal achievements.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisgFBVV95cUxPdU5BblB1UFpCSWU3MWoxQ2t0R2J3YWp5YkxaNXM0R3ROVUhaLWVRb05HS3FoOGMzczdWTWVNVXA2aThlNVpTdEg1bTRwZFpmMGJrUkxxZGNiSWpaNFlpUWtXRW55OXI1U1NLdlN2Y1BvOFlOQW1hcnU5X25SMUt6bzhqb1hmQ25RRnJHU3hIWGRsQm52azZuWDhtd2NvQjZyQXgzRjI0OFdfMGRWTEJmQklB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Potential Appearance at the 2026 Emmy Awards
-
-- first seen: 2026-09-09 13:40 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Discussion arises about whether Taylor Swift will attend the 2026 Emmy Awards on Monday night. This speculation has drawn interest from fans and media alike.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMimgFBVV95cUxNcU5VTU9tbkVsdTlUR2Y5U3Rtc21WZEdWX1ZQWmlZa2FTb3NwcFVMLXJ1T09aN1UzVkx2eHBza3RKNTFKNmVFUTItRGlJR0plMFk1UmxZeGo1dk85RGVsNUh1dEdZY0xtaDlvcnU3UUpXRlpGeFZJcXloOUhOZ2M2X0N6QkRKZjZEbXlTZVlZNjJENlVnaHRvOFh3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Suki Waterhouse Discusses Music Plans and Personal Life
-
-- first seen: 2026-09-09 13:40 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Suki Waterhouse hints at upcoming secret music projects with Robert Pattinson while discussing their daughter and shares insights about Taylor Swift and challenges in modeling.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMivgFBVV95cUxNOWlqM1FPUkdxeWx4SW9fdEF0bF9Iczl3OFBpWUYtZk8takVZTDQ3d3lSalgxWXJYcnNCckJGVW5Td3lKNFNMUXZ1cGphOUN1cW83TmRBMmJvR2gza2hRTVVxbmpkdGlTbTBvdk5zMEhKaE5IR2dhbnlGRDdTb3B5c08wQ2lSYkRlRXBWZTBDY08yeVZqZVNLUGZ3cXRGZWdDci1fcUlEZERGWUF5TktfanN1S1p4Q0I5cElLTW13?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Key Storylines for the 2026 NFL Season
-
-- first seen: 2026-09-09 13:40 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Variety.com outlines seven important storylines for the upcoming 2026 NFL season, indicating significant developments for fans and stakeholders alike.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/lists/nfl-2026-season-taylor-swift-travis-kelce-trump-joe-burrow-patrick-mahomes/
-  - [unverified] variety.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNNmtrY01Na1FnM3ltUDlqNDdEV2w1ZFRVNDNWY0NnbVY5VGpjLWNFYTBPTTJFVE40UU1aSDV5SzM4VUszb3BWa05WWlF6QzQ1Y0s2TGg3eE53VEFDdjU2ZXJWLW9VV3JqemhSZWRyQWpoQUVDQ1RraHVxelZQNkN1ZDdyUXRWdHQ3RFBpYzNlaVFoaE9uSUh4c0ozTGVSWWtSb0Zn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Discovery of Creator Behind Popular Taylor Swift TikToks
-
-- first seen: 2026-09-09 13:40 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Washington Post confirms the identity of the creator responsible for the trending aesthetic Taylor Swift TikToks. This revelation highlights the influence of social media on Swift's fan engagement.
-- sources:
-  - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQVVhyWWxJVkJfUmRnVE0zaFhZMW1LR0ZzSzJGRE1LWVd1dmRUQ3FlbjVqUTBiVjRQNzNmTDJHQjZTall6NlJOZGZNUDZkNE5sUTRWZU1aT3h0ZU8yYVF6REQwdTMtU2dKczlRMkkxck9oemg4amtkYXoxRmJLNXZ2WTJfRUJMbW56RHc3UVVlR0xBZ2pJYWlnVVNYa0NRYWxwa3FuVGtoLW1LTmFuWFdCU1ltMmVRdF9Zck56MFZBNFc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Enjoy Their First Date Night After Wedding
-
-- first seen: 2026-09-09 13:40 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: E! News reports that Taylor Swift and Travis Kelce were spotted on their first date night following their wedding. The couple's outing has drawn attention from fans and media alike.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMinwFBVV95cUxQZTBsWmFjaGhBX0JHdy1HVG1fOXlKTXc4NnpaZ2FkU1ZWQ0ROMWk1WTlXUU5LWnMwN3l0WkRfOTVZOW5BR1NLYjAzcmtlMG54cFpSN2pFaDQ4bW9ERkNMMHZSblgwNkdGMHRoSWx2TUxwNklOM0picGFieUNza281OUtWX0l3MllTRkZQT0ItSjZFZndlYzBjOU9MLVh0aVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Spotted on Date Night in NYC
-
-- first seen: 2026-09-09 13:40 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were seen enjoying an evening together in New York City, marking another public appearance as a couple. The outing included sightings of other celebrities like Ben Affleck.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxPLVRxaHJRTG9DaFZwNVdEN3JFZ0E2YzZSY2RmV19YUWdScXJDcW5xcFA5THJxUVNBeEJKY0tzRDRReFdabkl0R3o2Y1V6dUdLLWM4WFFsYnJMTzd2VDY4aVdpazF4QWJkMHdyRGtSU0xHZXlOeE1EZFJtNXNRQk16VVJZMklFZlJad1ozckp5X255MkE5NGlrMGpYT2dTRnJKcV9B?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce's Post-Marriage Living Plans Revealed
-
-- first seen: 2026-09-09 13:40 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 5
-- summary: The plans for where Taylor Swift and Travis Kelce will live after getting married have been disclosed. This comes alongside details about their recent public outings together.
-- sources:
-  - [unverified] HOLA — https://news.google.com/rss/articles/CBMirgFBVV95cUxOYzlfVUpIM3QtSGZ5eXIxVS1ERjkyYjBZM2ZhSFR3NmllU0Y1Z1J5aGpkeE9hdkgxZjBUREs4S1BwRFpTMld1VnBLWWx3OWRMYWZJZUNmMWR3c3dkMmE5cS1pcXVjZjFSaXVTRlRobFd2RVF0NnJNUmpFSmVIT0ZmNjIxUEFJTjFxczRXUFFKemtFMkZCN2xUVnlsbVZZdVc2MGlnZm1Cc0JEWUl3Mmc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi3wFBVV95cUxQeExBUzFhazloNHlxTjV2cjJfQlZrSThBb3V6eWR5bEU0Y2Q5ZlVWZlVoTjJnRS1Sd2tLS0FJQk5XWGRJd0xMcFd3M0xNWUdQckhXalZtMG1TMGZTUVdvWE1hU3VzT1E1SVdGdDNDWDctMlRsNTlMb3llcXNTUGJOc3doZVJQV1dPS00weEJiV1ZrNm1ITVJzY3Brai1MRW8yNWxpVDdaRVNRVUEwSW1hUlV1aWMwaU05UXFWSVVfT3RVcDZjUk5TUFJDd3BUMkJONHd2a0hsSDBiQ1phUkFV?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxQcUxnYWNWMWlNR2Fpczl4d0xXREtoU0VUclZGNjYtelRYNXlmVEZlaVgtbGg2NzNKYUh5b2pFTG1mcDBWRl9XMHQtU1dWQVhtbllJMkdSQ2lYNVBQLUtuSDdqSHdoWHVueFZPN0JETEVwTkpaU05qdndZRUtTYWVlaDZyTUNzVl9KQmw2bw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] PureWow — https://news.google.com/rss/articles/CBMie0FVX3lxTE56eERRMDVURmVrNVhCRXFjU1p1ajhYcG9PTHZaX2FVMGdraXJnYml1bUVzVjU2VEdEYkIwc21wNG9BR3p3Y1lrRVZ2bnd4Si14V3FJRlVHS1psM24wcEQwSS1xa0R6LXhHdkVIUmFkbVhDbS1ibmNERFgwTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQZmdsNE8zNW1LeVBjcnVGSjhIbE04WkhmZEhNUDdTMDBndlFKMmliNklsQ1owaVlMOC1ha1VESTJDalJESlg2NFFuNXVxVUV1bnRadTFsZFhncDFhelhGTVpMRXFUaWZoaldpdXdxYWxNckZQbWhPX3lUREVoc0x2eEJpMzlLb2Q5UUZPUGRwTTFPSnRUSzRuOWtTU190Tk5rbUZEWWlBdw?oc=5&hl=en-US&gl=US&ceid=US:en
