@@ -1,0 +1,46 @@
+# Marjorie's reply poller (Marjorie Overhaul M2, moved here from M4 —
+# docs/plans/marjorie-overhaul/waves/m2-watchdog-handling.md). A plain
+# `run:`-step job, never an agent step or `claude-code-action` — this is how
+# DISCORD_BOT_TOKEN stays out of an agent context (c1-delivery.md's stated
+# invariant, `social-approval-poll.yml` is the proven pattern this is
+# modelled on).
+#
+# `environment: social` (not a new `marjorie` environment): DISCORD_BOT_TOKEN
+# already lives there, scoped read-only and main-only by that environment's
+# deployment-branch policy — reusing it needs no new secret, no founder
+# provisioning step, and no wider scope than a channel-read already implies.
+#
+# Cron offset (":03/18/33/48") is deliberately off the top-of-hour/half-hour
+# marks, same reasoning as `social-approval-poll.yml`'s own offset — cron is
+# best-effort under GitHub platform load, this just avoids adding to the
+# exact-top-of-hour pileup.
+name: marjorie-reply-poll
+
+on:
+  schedule:
+    - cron: "3,18,33,48 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Relay founder replies to the brief issue
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: node scripts/marjorie/reply-poll.mjs

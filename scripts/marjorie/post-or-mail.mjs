@@ -71,6 +71,11 @@ export async function main(argv = process.argv.slice(2), { spawnImpl = spawnSync
 
   if (result.ok) {
     console.log('delivered: discord');
+    // Reply poller (Marjorie Overhaul M2) needs the posted message's id to
+    // find the founder-reply thread later — printed only when `post()`
+    // actually got one back, so callers that don't care (or a mocked
+    // `post()` in tests) see no extra output.
+    if (result.messageId) console.log(`discord-message-id: ${result.messageId}`);
     return 0;
   }
 

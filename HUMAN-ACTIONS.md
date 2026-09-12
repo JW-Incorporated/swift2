@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #69 🟢 [UPGRADE] Grant the Discord bot View Channel + Read Message History on #longlive-marjorie (~5 min)
+<!-- ha filed=2026-09-12 -->
+
+**Why:** Marjorie Overhaul M2's reply poller (`reply-poll.mjs`, `marjorie-reply-poll.yml`) reads founder replies in `#longlive-marjorie`'s thread on the day's brief message and relays them as GitHub issue comments. `#longlive-marjorie` is a brand-new channel the existing Discord bot almost certainly can't see yet. Non-blocking: the poller degrades to a harmless no-op (a logged warning, exit 0) until this is granted — nothing else in the brief pipeline depends on it, so it ships as UPGRADE, not BLOCKING, matching HA #67's shape.
+**Steps:**
+1. Discord server settings → `#longlive-marjorie` channel → Permissions → find the existing Marjorie/social bot role (the one already used for `DISCORD_BOT_TOKEN`).
+2. Grant it "View Channel" and "Read Message History" on `#longlive-marjorie`.
+3. Save.
+**Worked if:** a `workflow_dispatch` run of `marjorie-reply-poll.yml` after a real founder thread reply posts that reply as a comment on the day's `founders-brief` issue, instead of logging "could not fetch thread messages" / a 403.
 
 ## #68 🟢 [UPGRADE] Freeze, merge PR #4202 (social-poster alert reroute), unfreeze (~10 min)
 <!-- ha filed=2026-09-12 -->
