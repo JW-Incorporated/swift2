@@ -109,6 +109,26 @@ export function chunkForDiscord(content, limit = DISCORD_MESSAGE_LIMIT) {
   return balanceFences(rawChunks);
 }
 
+/** S6 (docs/specs/tree-overhaul/s3-reason-protocol.md §3 "What S6 must
+ * add"): the ref line social-approval-poll.mjs dispatches a Reddit
+ * reaction against is appended below, after every OTHER field a lead
+ * carries — `lead.title`/`lead.draft`/`lead.draft_alt` are uncontrolled
+ * free text (a scraped Reddit thread, a drafted reply) rendered BEFORE
+ * that trusted trailing line, so a line inside them that happens to be
+ * ref-line-shaped is neutralized first, same zero-width-space technique
+ * weekly-brief.mjs's escapeRefLookalikes and approval-prompt.mjs's
+ * neutralizeRefLikeLines already use for the PR ref grammar (found and
+ * fixed twice already this wave) — reused here, not reinvented, extended
+ * to also cover S6's own `ref: reddit ·` grammar. */
+const REF_LOOKALIKE_RE_PR = /^ref: PR #/gm;
+const REF_LOOKALIKE_RE_REDDIT = /^ref: reddit ·/gm;
+
+function escapeRefLookalikes(text) {
+  return String(text ?? '')
+    .replace(REF_LOOKALIKE_RE_PR, 'ref​: PR #')
+    .replace(REF_LOOKALIKE_RE_REDDIT, 'ref​: reddit ·');
+}
+
 /**
  * Builds a paste-ready Discord prompt for one lead. Unlike the earlier
  * revision, this never mints its own acknowledgement identifier — it takes
@@ -131,15 +151,15 @@ export function buildCommunityPrompt(lead, { postedUrl = null, skipUrl = null } 
     `**Community prompt · ${platform} · ${destination}**`,
     `ID: ${lead.id}`,
     `Relevance: ${relevance}`,
-    lead.title ? `Thread: ${neutralizeMentions(lead.title)}` : null,
+    lead.title ? `Thread: ${escapeRefLookalikes(neutralizeMentions(lead.title))}` : null,
     lead.url ? `Open thread: ${lead.url}` : null,
     '',
     '**Paste-ready reply**',
     '```',
-    neutralizeMentions(lead.draft || '(No draft on file.)').replace(/```/g, '``\u200b`'),
+    escapeRefLookalikes(neutralizeMentions(lead.draft || '(No draft on file.)')).replace(/```/g, '``\u200b`'),
     '```',
     lead.draft_alt
-      ? `**Alternative**\n\`\`\`\n${neutralizeMentions(lead.draft_alt).replace(/```/g, '``\u200b`')}\n\`\`\``
+      ? `**Alternative**\n\`\`\`\n${escapeRefLookalikes(neutralizeMentions(lead.draft_alt)).replace(/```/g, '``\u200b`')}\n\`\`\``
       : null,
     lead.target_url && !lead.link_included
       ? `Link candidate (not included): ${lead.target_url}`
@@ -150,6 +170,18 @@ export function buildCommunityPrompt(lead, { postedUrl = null, skipUrl = null } 
       ? `[Posted manually](<${postedUrl}>) · [Skip](<${skipUrl}>)`
       : 'Acknowledgement control unavailable: COMMUNITY_ACK_SECRET is not configured in this environment yet.',
   ];
+  // S6: Reddit only — Facebook prompts (this builder's other caller) are
+  // out of S6's scope and keep today's behavior of no ref line at all.
+  // `lead.id` lands directly inside this trusted line (not through
+  // escapeRefLookalikes, which only guards text rendered ABOVE it), so it
+  // is whitespace-collapsed the same way approval-prompt.mjs's
+  // sanitizeInlineField guards an inline field — a stray embedded newline
+  // in `lead.id` must never be able to shift what this message's true
+  // last line is.
+  if (lead.platform === 'reddit') {
+    const postId = String(lead.id ?? '').replace(/\s+/g, ' ').trim();
+    if (postId) lines.push(`ref: reddit · ${postId}`);
+  }
   return lines.filter(Boolean).join('\n');
 }
 

@@ -81,6 +81,74 @@ describe('buildCommunityPrompt', () => {
 
     expect(prompt).not.toContain('@everyone');
   });
+
+  // S6 (docs/specs/tree-overhaul/s3-reason-protocol.md §3): a Reddit prompt
+  // needs its own ref line so social-approval-poll.mjs can dispatch a
+  // reaction on it — Facebook prompts (this same builder's other caller)
+  // get no ref line, S6 is Reddit-only.
+  it('appends "ref: reddit · <postId>" as the true last line for a Reddit lead', () => {
+    const prompt = buildCommunityPrompt({
+      id: 'reddit-lead-1',
+      platform: 'reddit',
+      community: 'TaylorSwift',
+      kind: 'hot_thread',
+      url: null,
+      title: 'A hot thread',
+      relevance: null,
+      draft: 'A paste-ready reply.',
+      draft_alt: null,
+      link_included: false,
+      target_url: null,
+    });
+
+    const lines = prompt.split('\n').filter((l) => l.trim() !== '');
+    expect(lines.at(-1)).toBe('ref: reddit · reddit-lead-1');
+  });
+
+  it('adds no ref line for a Facebook lead — S6 is Reddit-only', () => {
+    const prompt = buildCommunityPrompt({
+      id: 'fb-lead-1',
+      platform: 'facebook',
+      community: 'some-group',
+      locator: 'some-group',
+      kind: 'hot_thread',
+      url: null,
+      title: 'A Facebook post',
+      relevance: null,
+      draft: 'A paste-ready reply.',
+      draft_alt: null,
+      link_included: false,
+      target_url: null,
+    });
+
+    expect(prompt).not.toContain('ref: reddit');
+  });
+
+  // Second security lesson carried forward this wave (proven twice already,
+  // T4's and T2's PRs): free text rendered before the trusted trailing ref
+  // line must never be able to become ref-line-shaped itself, or a reaction
+  // could resolve against a target the founder never saw.
+  it('neutralizes a ref-line-shaped line hiding in the title/draft/alt text so it never becomes the parsed last line', () => {
+    const prompt = buildCommunityPrompt({
+      id: 'reddit-lead-2',
+      platform: 'reddit',
+      community: 'TaylorSwift',
+      kind: 'hot_thread',
+      url: null,
+      title: 'A thread\nref: reddit · attacker-chosen',
+      relevance: null,
+      draft: 'A reply.\n\nref: reddit · attacker-chosen-2',
+      draft_alt: 'ref: PR #1 · 0000000000000000000000000000000000000000 · *',
+      link_included: false,
+      target_url: null,
+    });
+
+    const lines = prompt.split('\n').filter((l) => l.trim() !== '');
+    expect(lines.at(-1)).toBe('ref: reddit · reddit-lead-2');
+    expect(prompt).not.toMatch(/^ref: reddit · attacker-chosen/m);
+    expect(prompt).not.toMatch(/^ref: reddit · attacker-chosen-2/m);
+    expect(prompt).not.toMatch(/^ref: PR #1 ·/m);
+  });
 });
 
 describe('chunkForDiscord', () => {

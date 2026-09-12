@@ -70,9 +70,14 @@ import { checkDraft, isWarningFinding, POSTED_DIR, QUEUE_DIR, readJsonDir, recen
 
 const DISCORD_API = 'https://discord.com/api/v10';
 const REF_LINE_RE = /^ref: PR #(\d+) · ([0-9a-f]{40}) · (.+)$/;
+// S6 (docs/specs/tree-overhaul/s3-reason-protocol.md §3 "What S6 must
+// add"): a Reddit prompt carries no PR and no SHA, so it gets its own
+// grammar rather than being stretched to fit REF_LINE_RE's three captures.
+const REDDIT_REF_LINE_RE = /^ref: reddit · (.+)$/;
 const CHECK_MARK = '%E2%9C%85'; // ✅
 const CROSS_MARK = '%E2%9D%8C'; // ❌
 const PENCIL = '%E2%9C%8F%EF%B8%8F'; // ✏️ (U+270F U+FE0F) — variation selector required, Discord keys them separately
+const SKIP_MARK = '%E2%8F%AD%EF%B8%8F'; // ⏭️ (U+23ED U+FE0F) — variation selector required, same rule as PENCIL; reddit-only (spec §3)
 const LEDGER_BRANCH = 'social-ledger'; // unprotected branch, issue #2040's pattern — see social-poster.yml
 // T4 (docs/specs/tree-overhaul/t4-weekly-brief.md §Data "Message layout"):
 // weekly-brief.mjs's own ref: scope tokens — never a real queue file path,
@@ -103,6 +108,21 @@ function extractRefLine(content) {
   while (i >= 0 && lines[i].trim() === '') i -= 1;
   if (i < 0) return null;
   return lines[i].match(REF_LINE_RE);
+}
+
+/** S6's own last-line-only parse for the `ref: reddit · <postId>` grammar —
+ * same injection defense as extractRefLine above (HIGH 2, Codex round 1):
+ * only the true last non-empty line is ever consulted, so free text
+ * rendered earlier in the message (a Reddit thread title, a suggested
+ * reply) can never be mistaken for the real ref line no matter what it
+ * contains. discord-delivery.mjs's escapeRefLookalikes is the
+ * builder-side half of the same defense. */
+function extractRedditRefLine(content) {
+  const lines = String(content ?? '').split('\n');
+  let i = lines.length - 1;
+  while (i >= 0 && lines[i].trim() === '') i -= 1;
+  if (i < 0) return null;
+  return lines[i].match(REDDIT_REF_LINE_RE);
 }
 
 function requireEnv(name) {
@@ -237,6 +257,28 @@ async function getMessageApprovals(message, channelId, botToken, opts, cache) {
   const rejectedBy = (await fetchReactors(channelId, message.id, CROSS_MARK, botToken, opts)).filter((id) => SOCIAL_APPROVERS.includes(id));
   const editedBy = (await fetchReactors(channelId, message.id, PENCIL, botToken, opts)).filter((id) => SOCIAL_APPROVERS.includes(id));
   const result = { approvedBy, rejectedBy, editedBy };
+  cache.set(message.id, result);
+  return result;
+}
+
+/** Reddit-only variant of getMessageApprovals above — S6 is the only kind
+ * that gives ⏭️ (SKIP_MARK) any meaning (spec §3), so this fetches a 4th
+ * reaction that no other dispatch path needs, rather than adding an
+ * always-fetched 4th Discord call to every draft/PR-header/plan-brief
+ * message getMessageApprovals already serves (this file's own "fewest
+ * calls possible" rate-limit discipline). Takes its own cache: reddit
+ * messages are a structurally disjoint set from every other kind (a
+ * message's last line matches at most one ref-line grammar), so there is
+ * never a real message.id collision with the caller's other reactionCache
+ * to worry about — a separate Map keeps that invariant true unconditionally
+ * rather than assumed. */
+async function getRedditMessageApprovals(message, channelId, botToken, opts, cache) {
+  if (cache.has(message.id)) return cache.get(message.id);
+  const approvedBy = (await fetchReactors(channelId, message.id, CHECK_MARK, botToken, opts)).filter((id) => SOCIAL_APPROVERS.includes(id));
+  const rejectedBy = (await fetchReactors(channelId, message.id, CROSS_MARK, botToken, opts)).filter((id) => SOCIAL_APPROVERS.includes(id));
+  const editedBy = (await fetchReactors(channelId, message.id, PENCIL, botToken, opts)).filter((id) => SOCIAL_APPROVERS.includes(id));
+  const skippedBy = (await fetchReactors(channelId, message.id, SKIP_MARK, botToken, opts)).filter((id) => SOCIAL_APPROVERS.includes(id));
+  const result = { approvedBy, rejectedBy, editedBy, skippedBy };
   cache.set(message.id, result);
   return result;
 }
@@ -640,6 +682,33 @@ function planScopeRow(pr, scope, verdict, now) {
     ts: now.toISOString(),
     pr,
     file: scope,
+    platform: null,
+    campaign: null,
+    pillar: null,
+    action: verdict.action,
+    reason: verdict.reason ?? null,
+    originalBody: null,
+    editedBody: null,
+    approver: verdict.approver,
+    messageId: verdict.messageId,
+    replyId: verdict.replyId,
+  };
+}
+
+/** S6's own ledger row — same shape planScopeRow establishes, but `pr` is
+ * always null (a Reddit prompt has no PR, spec §3) and `file` carries the
+ * `reddit:<postId>` scope token rather than a plan-brief token.
+ * `editedBody` stays null even for an ✏️ resolution: nothing is ever
+ * auto-posted to Reddit (spec §3 / docs/agents/routine-invariants.md's
+ * Community Engine guardrails), so there is no `body` field for a
+ * replacement to overwrite — the founder's corrected reply text is already
+ * fully captured in `reason` (classifyReaction cleans the same reply
+ * content into both fields; only `reason` is kept here). */
+function redditRow(postId, verdict, now) {
+  return {
+    ts: now.toISOString(),
+    pr: null,
+    file: `reddit:${postId}`,
     platform: null,
     campaign: null,
     pillar: null,
@@ -1328,6 +1397,61 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         process.exitCode = 1;
       }
     }
+  }
+
+  // S6 (docs/specs/tree-overhaul/s3-reason-protocol.md §3 "What S6 must
+  // add") — structurally separate from the byPr loop above: a Reddit
+  // prompt has no PR and no SHA (the "one finding" PLAN.md's S6/S8 task
+  // opens with), so there is nothing to key byPr by. Its own scan of the
+  // same window, its own regex, its own grouping (by postId), its own
+  // reaction resolution (classifyTarget, reused unchanged), its own
+  // ledger-row push. No file operations, no stamping, no merging, ever —
+  // every reddit action is a ledger row and a scorecard count only.
+  const redditGroups = new Map(); // postId -> Discord message[]
+  for (const m of candidates) {
+    const match = extractRedditRefLine(m.content);
+    if (!match) continue;
+    const postId = match[1];
+    if (!redditGroups.has(postId)) redditGroups.set(postId, []);
+    redditGroups.get(postId).push(m);
+  }
+
+  const redditReactionCache = new Map();
+  const redditLedgerRows = [];
+  for (const [postId, msgs] of redditGroups) {
+    const entries = [];
+    let failed = false;
+    for (const message of msgs) {
+      let reactions;
+      try {
+        reactions = await getRedditMessageApprovals(message, channelId, botToken, discordOpts, redditReactionCache);
+      } catch (err) {
+        console.error(`::warning::social-approval-poll: could not fetch reactions for message ${message.id} (reddit:${postId}) — treating the target as unresolved this run (retries next run): ${err.message}`);
+        failed = true;
+        break;
+      }
+      if (failedThreadMessageIds.has(message.id)) {
+        console.error(`::warning::social-approval-poll: message ${message.id} (reddit:${postId}) has a thread that failed to fetch this run — treating the target as unresolved (retries next run).`);
+        failed = true;
+        break;
+      }
+      entries.push({ message, sha: null, reactions, replies: repliesByParent.get(message.id) ?? [] });
+    }
+    if (failed) continue;
+    const result = classifyTarget(entries, { kind: 'reddit' });
+    // 'none': nothing happened yet. 'pending' (✏️/❌ with no reply): spec
+    // §3's generic rule for every kind — "the poll acts on nothing, logs
+    // nothing, re-evaluates next run." A reddit-specific nudge is not
+    // built here — out of this task's declared scope; see the PR body.
+    if (result.action === 'none' || result.action === 'pending') continue;
+    redditLedgerRows.push(redditRow(postId, result, runResolvedAt));
+  }
+
+  try {
+    pushLedgerRows(execGit, ensureGitIdentity, redditLedgerRows, runResolvedAt);
+  } catch (err) {
+    console.error(`::error::social-approval-poll: reddit feedback ledger write/push failed: ${err.message}`);
+    process.exitCode = 1;
   }
 }
 
