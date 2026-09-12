@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import { countPostsByPlatformSince, computeDeltas } from './lib/growth.mjs';
 import { isPlausibleCritiqueTotal } from './lib/queue-schema.mjs';
 import { aggregateLatency, aggregateVerdicts, snowflakeTimestampMs } from './lib/feedback.mjs';
+import { buildLadderStanding, renderLadderStanding } from './lib/ladder-standing.mjs';
 import { buildEngagementSummary, renderEngagement } from './lib/post-metrics.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -130,7 +131,8 @@ export function buildScorecard({ now = Date.now(), postedDir, failedDir, metrics
   const posted = fetchPosted(postedDir);
   const failed = fetchFailed(failedDir);
   const series = fetchMetricsSeries(metricsDir);
-  const ledgerRows = rowsInWindow(fetchLedgerRows(feedbackDir), now, WEEK_HOURS);
+  const allLedgerRows = fetchLedgerRows(feedbackDir);
+  const ledgerRows = rowsInWindow(allLedgerRows, now, WEEK_HOURS);
   const postEngagement = buildEngagementSummary(postsMetricsDir); // Tree Overhaul T3
 
   const posts = countPostsByPlatformSince(posted, now, WEEK_HOURS);
@@ -147,8 +149,12 @@ export function buildScorecard({ now = Date.now(), postedDir, failedDir, metrics
   const redditLatency = aggregateLatency(ledgerRows, redditRows);
   const expired = expiredWhilePending(ledgerRows);
   const repliesDone = redditRepliesDone(ledgerRows);
+  // T7 (docs/specs/tree-overhaul/t7-autonomy-ladder.md Mechanics): the
+  // ladder needs its own trailing-28-day view, independent of this
+  // scorecard's 7-day window, so it reads the full, unwindowed ledger.
+  const ladderStanding = buildLadderStanding(allLedgerRows, now);
 
-  return { posts, failedCount: failedRecent.length, deltas, weekAgoDate, verdicts, latency, redditLatency, expiredWhilePending: expired, redditRepliesDone: repliesDone, postEngagement };
+  return { posts, failedCount: failedRecent.length, deltas, weekAgoDate, verdicts, latency, redditLatency, expiredWhilePending: expired, redditRepliesDone: repliesDone, ladderStanding, postEngagement };
 }
 
 // Tree Overhaul S8 (docs/plans/tree-overhaul PLAN.md, S6+S8 task, "S8 —
@@ -427,6 +433,7 @@ export function renderScorecard(card) {
       ? `**Reddit replies done:** ${repliesDone}`
       : `**Reddit replies done:** ${NO_REDDIT_SENTENCE}`
   );
+  lines.push(renderLadderStanding(card.ladderStanding));
   lines.push(renderEngagement(card.postEngagement)); // Tree Overhaul T3
   return lines.join('\n');
 }

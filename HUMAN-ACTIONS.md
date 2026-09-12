@@ -2,11 +2,11 @@
 
 <!-- ha-format: 2 -->
 
-> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
-## #63 🟡 [DECIDE] X per-post metrics need a paid API tier (~5 min)
+## #64 🟡 [DECIDE] X per-post metrics need a paid API tier (~5 min)
 <!-- ha filed=2026-09-12 -->
 
 **Why:** Tree Overhaul T3 (per-post engagement): X retired free per-post metric reads; every call is now metered (~$0.005/post-read). Backfilling the current posted X items would run ~$0.45 once, plus pennies/day ongoing. Spend decisions are yours, not built without one.
@@ -15,7 +15,7 @@
 2. Decide: approve ongoing per-post X metric reads (~$0.45 backfill + pennies/day), or decline and stay Instagram-only (v1 ships either way).
 **Worked if:** you reply approved or declined for X per-post metric spend.
 
-## #62 🟢 [UPGRADE] Add instagram_manage_insights scope so reach/saved/shares can be built next (~15 min)
+## #63 🟢 [UPGRADE] Add instagram_manage_insights scope so reach/saved/shares can be built next (~15 min)
 <!-- ha filed=2026-09-12 -->
 
 **Why:** T3 v1 ships Instagram like_count/comments_count only. reach/saved/shares need the instagram_manage_insights scope, which the current IG_ACCESS_TOKEN (instagram_basic, instagram_content_publish, pages_read_engagement, business_management, pages_show_list, pages_manage_posts) doesn't carry.
@@ -24,6 +24,15 @@
 2. Regenerate the long-lived Graph API token for the same app/IG account with the new scope included.
 3. `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` with the regenerated token.
 **Worked if:** a real `GET /{ig-media-id}?fields=reach,saved,shares` call returns values instead of a `(#10)` permission error.
+
+## #62 🟢 [UPGRADE] File the T7/Codex SOCIAL_FREEZE workflow-wiring finding as a GitHub issue (~2 min)
+<!-- ha filed=2026-09-12 -->
+
+**Why:** gh issue create was guard-denied (false positive on the words post-queue.mjs in prose) filing a T7 follow-up: routine-tree-weekly-plan.yml never passes SOCIAL_FREEZE to the brief step, so the ladder-standing block can show eligible during a real freeze. No risk yet; must land before Wave 5.
+**Steps:**
+1. Run `gh issue create --repo JW-Incorporated/swift2` titled "T7 ladder standing reads SOCIAL_FREEZE but routine-tree-weekly-plan.yml never passes it through" (body in PR #4159 session log).
+2. Or tell an agent to retry filing it directly — the guard matched the literal filename in prose, not a real invocation.
+**Worked if:** the issue exists in the tracker, linked from epic #4117 and PR #4159.
 
 ## #61 🔴 [BLOCKING] Set SOCIAL_FREEZE=false — Wave 3 of the Tree Overhaul is fully merged (~2 min)
 <!-- ha filed=2026-09-12 -->
