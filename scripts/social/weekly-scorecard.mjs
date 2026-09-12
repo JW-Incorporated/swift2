@@ -12,10 +12,12 @@ import { countPostsByPlatformSince, computeDeltas } from './lib/growth.mjs';
 import { isPlausibleCritiqueTotal } from './lib/queue-schema.mjs';
 import { aggregateLatency, aggregateVerdicts, snowflakeTimestampMs } from './lib/feedback.mjs';
 import { buildLadderStanding, renderLadderStanding } from './lib/ladder-standing.mjs';
+import { buildEngagementSummary, renderEngagement } from './lib/post-metrics.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const POSTED_DIR = path.join(ROOT, 'social', 'posted');
 const METRICS_DIR = path.join(ROOT, 'social', 'metrics');
+const POSTS_METRICS_DIR = path.join(METRICS_DIR, 'posts');
 const FEEDBACK_DIR = path.join(ROOT, 'social', 'feedback');
 const WEEK_HOURS = 7 * 24;
 
@@ -125,12 +127,13 @@ function rowsInWindow(rows, now, windowHours) {
  * a non-zero failed/ count as an incident, not a style miss), founder
  * verdicts over 7 days, and brief-to-verdict latency over 7 days.
  */
-export function buildScorecard({ now = Date.now(), postedDir, failedDir, metricsDir, feedbackDir } = {}) {
+export function buildScorecard({ now = Date.now(), postedDir, failedDir, metricsDir, feedbackDir, postsMetricsDir = POSTS_METRICS_DIR } = {}) {
   const posted = fetchPosted(postedDir);
   const failed = fetchFailed(failedDir);
   const series = fetchMetricsSeries(metricsDir);
   const allLedgerRows = fetchLedgerRows(feedbackDir);
   const ledgerRows = rowsInWindow(allLedgerRows, now, WEEK_HOURS);
+  const postEngagement = buildEngagementSummary(postsMetricsDir); // Tree Overhaul T3
 
   const posts = countPostsByPlatformSince(posted, now, WEEK_HOURS);
   const failedRecent = failed.filter((f) => {
@@ -151,7 +154,7 @@ export function buildScorecard({ now = Date.now(), postedDir, failedDir, metrics
   // scorecard's 7-day window, so it reads the full, unwindowed ledger.
   const ladderStanding = buildLadderStanding(allLedgerRows, now);
 
-  return { posts, failedCount: failedRecent.length, deltas, weekAgoDate, verdicts, latency, redditLatency, expiredWhilePending: expired, redditRepliesDone: repliesDone, ladderStanding };
+  return { posts, failedCount: failedRecent.length, deltas, weekAgoDate, verdicts, latency, redditLatency, expiredWhilePending: expired, redditRepliesDone: repliesDone, ladderStanding, postEngagement };
 }
 
 // Tree Overhaul S8 (docs/plans/tree-overhaul PLAN.md, S6+S8 task, "S8 —
@@ -431,5 +434,6 @@ export function renderScorecard(card) {
       : `**Reddit replies done:** ${NO_REDDIT_SENTENCE}`
   );
   lines.push(renderLadderStanding(card.ladderStanding));
+  lines.push(renderEngagement(card.postEngagement)); // Tree Overhaul T3
   return lines.join('\n');
 }

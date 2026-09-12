@@ -2,9 +2,28 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #64 🟡 [DECIDE] X per-post metrics need a paid API tier (~5 min)
+<!-- ha filed=2026-09-12 -->
+
+**Why:** Tree Overhaul T3 (per-post engagement): X retired free per-post metric reads; every call is now metered (~$0.005/post-read). Backfilling the current posted X items would run ~$0.45 once, plus pennies/day ongoing. Spend decisions are yours, not built without one.
+**Steps:**
+1. Check the X Developer Portal → Products → Billing for the current pay-per-use per-post read price (confirm ~$0.005/read still holds).
+2. Decide: approve ongoing per-post X metric reads (~$0.45 backfill + pennies/day), or decline and stay Instagram-only (v1 ships either way).
+**Worked if:** you reply approved or declined for X per-post metric spend.
+
+## #63 🟢 [UPGRADE] Add instagram_manage_insights scope so reach/saved/shares can be built next (~15 min)
+<!-- ha filed=2026-09-12 -->
+
+**Why:** T3 v1 ships Instagram like_count/comments_count only. reach/saved/shares need the instagram_manage_insights scope, which the current IG_ACCESS_TOKEN (instagram_basic, instagram_content_publish, pages_read_engagement, business_management, pages_show_list, pages_manage_posts) doesn't carry.
+**Steps:**
+1. Meta App Dashboard → App Review → Permissions and Features → add instagram_manage_insights.
+2. Regenerate the long-lived Graph API token for the same app/IG account with the new scope included.
+3. `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` with the regenerated token.
+**Worked if:** a real `GET /{ig-media-id}?fields=reach,saved,shares` call returns values instead of a `(#10)` permission error.
 
 ## #62 🟢 [UPGRADE] File the T7/Codex SOCIAL_FREEZE workflow-wiring finding as a GitHub issue (~2 min)
 <!-- ha filed=2026-09-12 -->
