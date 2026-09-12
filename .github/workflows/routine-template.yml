@@ -66,6 +66,15 @@ on:
         required: false
         type: string
         default: "GITHUB_TOKEN"
+      environment:
+        description: |
+          GitHub Actions environment to run the job under (e.g. 'ops'), for
+          routines that must read an environment-scoped secret. Empty string
+          (default) means no environment — every existing routine caller
+          passes nothing and must be completely unaffected.
+        required: false
+        type: string
+        default: ""
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN:
         required: false
@@ -94,6 +103,7 @@ jobs:
   run-routine:
     runs-on: ubuntu-latest
     timeout-minutes: ${{ inputs.timeout_minutes }}
+    environment: ${{ inputs.environment || null }}
     concurrency:
       # One routine, one lane — the same routine's next scheduled fire never
       # queues behind or races a still-running prior one.
