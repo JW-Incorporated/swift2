@@ -1,15 +1,19 @@
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { buildBrief, extractField, extractOptions, fetchGrowthSnapshot, fetchQueueStatus, findLatestTreePR, formatGrowthLine, todayLA, shortTitle, ghCriticalList, renderCommunityTasksLine } from './assemble-brief.mjs';
-// @ts-expect-error — plain .mjs module, no type declarations
-import { GATES, parseGateTable as parseTable } from './gate-history.mjs';
+import {
+  buildBrief, extractField, extractOptions, findLatestTreePR, todayLA, shortTitle, ghCriticalList,
+  capSection, renderHumanActionLine, renderMergedLine, renderAlertsLine, renderDispatchedLine,
+  renderSiteLine, renderDistanceClosingLine,
+} from './assemble-brief.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import * as ghMjs from '../lib/gh.mjs';
 
 const NOW = new Date('2026-07-12T13:00:00Z').getTime();
+
+// assemble-brief.mjs is plain JS with no exported types — this local shape
+// covers only the fields these two fixtures/tests actually read
+// (title/status/blockedOn/nextAction), just enough to avoid `any`.
+type DoneItemFixture = { title?: string; status?: string; blockedOn?: string; nextAction?: string };
 
 const formBody = [
   '### Context',
@@ -27,25 +31,18 @@ const formBody = [
   'T2 — banked for the daily brief (default)',
 ].join('\n');
 
-const emptyQueueStatus = { total: 0, scheduled: 0, due: 0, awaitingApproval: 0 };
-
-// A 12-gate tracker in the real file's shape, all red, so buildBrief has a
-// goalpost to measure against.
-const gateTable = [
-  '| # | Gate | Status | Next action · owner |',
-  '|---|---|---|---|',
-  ...GATES.map((g: string) => `| ${g} | a description | 🔴 not started | do the thing · Some desk |`),
-].join('\n');
-
+// State shape for the six-section rebuild (Marjorie Overhaul C2) — every key
+// a real fetchState() run produces, empty-but-present so buildBrief never
+// sees `undefined` where it expects an array/object.
 const emptyState = {
-  decisions: [], askedBefore: [], intake: [], alerts: [],
-  openPRs: [], allPRs: [], allIssues: [], briefs: [],
-  gates: {}, series: [], ciRuns: [],
-  growth: null, queueStatus: emptyQueueStatus, constraints: null,
-  // v3 additions (2026-08-23) — empty-but-present so buildBrief never sees
-  // `undefined` where it expects an array/object.
-  founderTasks: [], openActions: [], contentShipped: [], postedSince: [],
-  communityTasks: null,
+  allPRs: [], allPRsCapExhausted: false,
+  alerts: [],
+  dispatched: [],
+  submissions: {},
+  contentShipped: [],
+  treeLines: [],
+  openActions: [],
+  cadence: { runners: [] },
   doneItems: {}, doneSeries: [],
 };
 
@@ -85,142 +82,6 @@ describe('todayLA', () => {
   });
 });
 
-describe('formatGrowthLine', () => {
-  it('says so plainly when no snapshot exists yet', () => {
-    expect(formatGrowthLine(null, emptyQueueStatus)).toBe(
-      "- Tree: no snapshot yet (growth-snapshot.yml hasn't run) · queue: empty (nothing drafted)",
-    );
-  });
-
-  it('formats follower counts, signed deltas, and a per-platform 24h post count', () => {
-    const line = formatGrowthLine(
-      {
-        followers: { instagram: 1204, x: 340, facebook: 89 },
-        deltas: { instagram: 18, x: 5, facebook: 0 },
-        postsToday: 2,
-        postsLast24h: { total: 3, x: 1, instagram: 1, facebook: 1 },
-      },
-      emptyQueueStatus,
-    );
-    expect(line).toBe(
-      '- Tree: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 3 posts/24h (X 1/IG 1/FB 1) · queue: empty (nothing drafted) · site: pending #799',
-    );
-  });
-
-  it('renders "?" for a platform that failed to fetch and omits its delta', () => {
-    const line = formatGrowthLine(
-      {
-        followers: { instagram: null, x: 340, facebook: 89 },
-        deltas: { instagram: null, x: 5, facebook: null },
-        postsToday: 1,
-        postsLast24h: { total: 1, x: 0, instagram: 1, facebook: 0 },
-      },
-      emptyQueueStatus,
-    );
-    expect(line).toBe('- Tree: IG ? · X 340 (+5) · FB 89 · 1 post/24h (X 0/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799');
-  });
-
-  // The 2026-08-11 misread: the brief showed one aggregate "0 posts today"
-  // number taken at 11:05 UTC against a 23:00 UTC posting cadence, and it was
-  // read as "the X poster is silently failing" while X had posted six nights
-  // running. The per-platform 24h window can't produce that ambiguity.
-  it('shows X posting even when the calendar-day count is 0', () => {
-    const line = formatGrowthLine(
-      {
-        followers: { instagram: 1, x: 0, facebook: 8 },
-        deltas: { instagram: 0, x: 0, facebook: 0 },
-        postsToday: 0,
-        postsLast24h: { total: 2, x: 1, instagram: 1, facebook: 0 },
-      },
-      emptyQueueStatus,
-    );
-    expect(line).toContain('2 posts/24h (X 1/IG 1/FB 0)');
-    expect(line).not.toContain('0 posts');
-  });
-
-  it('falls back to the legacy count, labelled, for snapshots taken before the 24h window existed', () => {
-    const line = formatGrowthLine(
-      { followers: { instagram: 1, x: 0, facebook: 8 }, deltas: { instagram: null, x: null, facebook: null }, postsToday: 2 },
-      emptyQueueStatus,
-    );
-    expect(line).toContain('2 posts today (pre-24h-window snapshot)');
-  });
-
-  it('reports scheduled and due counts separately — the ground truth a curation pass must copy, not invent', () => {
-    const line = formatGrowthLine(null, { total: 3, scheduled: 2, due: 1, awaitingApproval: 0 });
-    expect(line).toContain('queue: 2 scheduled to post, 1 due now');
-  });
-});
-
-describe('renderCommunityTasksLine', () => {
-  it('is null with no summary (query failed or Community Engine not configured yet)', () => {
-    expect(renderCommunityTasksLine(null)).toBeNull();
-  });
-
-  it('is null when there is genuinely nothing to point at (never a padding line)', () => {
-    expect(renderCommunityTasksLine({ draftedLast24h: 0, repliesWaiting: 0 })).toBeNull();
-  });
-
-  it('mentions the draft count and points at the Community Tasks email', () => {
-    const line = renderCommunityTasksLine({ draftedLast24h: 4, repliesWaiting: 0 });
-    expect(line).toBe('- Community tasks: 4 community drafts ready to paste — see today\'s Community Tasks email.');
-  });
-
-  it('adds a replies-waiting clause only when there are any', () => {
-    const line = renderCommunityTasksLine({ draftedLast24h: 1, repliesWaiting: 2 });
-    expect(line).toContain('1 community draft ready to paste');
-    expect(line).toContain('2 reply/replies waiting');
-  });
-});
-
-describe('fetchGrowthSnapshot', () => {
-  let dir: string;
-  afterEach(() => { if (dir) rmSync(dir, { recursive: true, force: true }); });
-
-  it('returns null when the metrics directory does not exist yet', () => {
-    expect(fetchGrowthSnapshot(path.join(tmpdir(), 'nonexistent-metrics-dir'))).toBeNull();
-  });
-
-  it('computes deltas against the prior day on day two', () => {
-    dir = mkdtempSync(path.join(tmpdir(), 'growth-metrics-'));
-    writeFileSync(path.join(dir, '2026-07-16.json'), JSON.stringify({ date: '2026-07-16', followers: { x: 335, instagram: 1182, facebook: 89 }, postsToday: 1 }));
-    writeFileSync(path.join(dir, '2026-07-17.json'), JSON.stringify({ date: '2026-07-17', followers: { x: 340, instagram: 1200, facebook: 89 }, postsToday: 2 }));
-    expect(fetchGrowthSnapshot(dir)).toEqual({
-      date: '2026-07-17',
-      followers: { x: 340, instagram: 1200, facebook: 89 },
-      postsToday: 2,
-      deltas: { x: 5, instagram: 18, facebook: 0 },
-    });
-  });
-
-  it('yields null deltas on day one (no prior file)', () => {
-    dir = mkdtempSync(path.join(tmpdir(), 'growth-metrics-'));
-    writeFileSync(path.join(dir, '2026-07-16.json'), JSON.stringify({ date: '2026-07-16', followers: { x: 335, instagram: 1182, facebook: 89 }, postsToday: 1 }));
-    expect(fetchGrowthSnapshot(dir)).toEqual({
-      date: '2026-07-16',
-      followers: { x: 335, instagram: 1182, facebook: 89 },
-      postsToday: 1,
-      deltas: { x: null, instagram: null, facebook: null },
-    });
-  });
-});
-
-describe('fetchQueueStatus', () => {
-  let dir: string;
-  afterEach(() => { if (dir) rmSync(dir, { recursive: true, force: true }); });
-
-  it('is all zeros when the queue directory does not exist', () => {
-    expect(fetchQueueStatus(path.join(tmpdir(), 'nonexistent-queue-dir'))).toEqual(emptyQueueStatus);
-  });
-
-  it('reads real queue files off disk and splits scheduled from due', () => {
-    dir = mkdtempSync(path.join(tmpdir(), 'social-queue-'));
-    writeFileSync(path.join(dir, 'a.json'), JSON.stringify({ platform: 'x', scheduledAt: '2099-01-01T00:00:00Z' }));
-    writeFileSync(path.join(dir, 'b.json'), JSON.stringify({ platform: 'instagram', scheduledAt: '2020-01-01T00:00:00Z' }));
-    expect(fetchQueueStatus(dir)).toEqual({ total: 2, scheduled: 1, due: 1, awaitingApproval: 0 });
-  });
-});
-
 describe('shortTitle', () => {
   it('cuts at a word boundary — a line ending mid-word reads as a bug', () => {
     expect(shortTitle('LEGAL/image: 17 distinct Getty comp URLs hotlinked across 4 era files')).not.toMatch(/\ber…$/);
@@ -229,212 +90,116 @@ describe('shortTitle', () => {
   });
 });
 
-describe('buildBrief — five sections (v3, 2026-08-23)', () => {
-  const withGates = { ...emptyState, gates: parseTable(gateTable) };
-
-  it('leads with Waiting on you, then Last 24h, then Gates, then Social strategy, then Distance to done', () => {
-    const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain("# Founders' Brief — 2026-07-12");
-    expect(brief).toContain('## 1 · Waiting on you');
-    expect(brief).toContain('## 2 · Last 24 hours');
-    expect(brief).toContain('## 3 · Gates — product Definition of Done');
-    expect(brief).toContain('## 4 · Social strategy');
-    expect(brief).toContain('## 5 · Distance to done + maintenance');
-    const order = ['## 1 ·', '## 2 ·', '## 3 ·', '## 4 ·', '## 5 ·'].map((h) => brief.indexOf(h));
-    expect(order).toEqual([...order].sort((a, b) => a - b));
+describe('capSection', () => {
+  it('passes an under-budget list through unchanged', () => {
+    expect(capSection(['a', 'b'], 5)).toEqual(['a', 'b']);
   });
 
-  it('never pre-ticks a box', () => {
-    const decision = {
-      number: 501, title: '[decision] Persona names', body: formBody, state: 'OPEN',
-      labels: [{ name: 'founder-decision' }], createdAt: '2026-07-11T01:00:00Z', comments: [],
-    };
-    const brief = buildBrief({ ...withGates, decisions: [decision] }, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain('#501');
-    expect(brief).toContain('- [ ] ');
-    expect(brief).not.toContain('- [x]');
+  it('truncates to budget-1 items plus a final +N more line', () => {
+    expect(capSection(['a', 'b', 'c', 'd', 'e'], 3)).toEqual(['a', 'b', '+3 more']);
   });
 
-  it('says so plainly when nothing is waiting on the founder at all', () => {
-    expect(buildBrief(withGates, { date: '2026-07-12', now: NOW })).toContain('Nothing is gated on you');
+  it('is exact-fit safe (length === budget needs no +N more line)', () => {
+    expect(capSection(['a', 'b', 'c'], 3)).toEqual(['a', 'b', 'c']);
+  });
+});
+
+describe('renderHumanActionLine', () => {
+  it('renders number, age and title with no checkbox and no HA# prefix', () => {
+    expect(renderHumanActionLine({ number: 66, ageDays: 0, tag: 'UPGRADE', title: 'Create a Discord webhook', eta: '~5 min' }))
+      .toBe('- #66 · 0d · Create a Discord webhook (~5 min)');
   });
 
-  it('folds open HUMAN-ACTIONS items into Waiting on you, with age', () => {
-    const brief = buildBrief({
-      ...withGates,
-      openActions: [{ number: 4, tag: 'UPGRADE', title: 'API accounts for research', ageDays: 8 }],
-    }, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain('HA#4');
-    expect(brief).toContain('waiting 8d');
-    expect(brief).not.toContain('Nothing is gated on you');
+  it('prefixes [BLOCKING] items but leaves other tags unmarked', () => {
+    expect(renderHumanActionLine({ number: 43, ageDays: 19, tag: 'BLOCKING', title: 'OS-004', eta: '~15 min' }))
+      .toBe('- #43 · 19d · [BLOCKING] OS-004 (~15 min)');
   });
 
-  // 2026-09-06 content-quality fix: surface which open HUMAN-ACTIONS items
-  // are cheap to clear, so a founder skimming top-to-bottom doesn't have to
-  // read every line's own "~N min" estimate by hand to find a quick win.
-  it('surfaces a "Quickest to clear" callout above the full checklist, fastest first', () => {
-    const brief = buildBrief({
-      ...withGates,
-      openActions: [
-        { number: 1, tag: 'BLOCKING', title: 'Big thing — ~35 min total', ageDays: 1 },
-        { number: 2, tag: 'BLOCKING', title: 'Tiny thing — ~2 min', ageDays: 1 },
-        { number: 3, tag: 'UPGRADE', title: 'Medium thing — ~10 min', ageDays: 1 },
-      ],
-    }, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain('⚡ Quickest to clear');
-    const calloutLine = brief.split('\n').find((l) => l.includes('Quickest to clear'));
-    expect(calloutLine).toBeDefined();
-    // Fastest (HA#2, 2m) must appear before the slower one (HA#3, 10m); the
-    // over-cap item (HA#1, 35m) must not appear in the callout at all.
-    expect(calloutLine!.indexOf('HA#2')).toBeLessThan(calloutLine!.indexOf('HA#3'));
-    expect(calloutLine).not.toContain('HA#1');
-    // The full checklist below is untouched — every item still listed.
-    expect(brief).toContain('HA#1');
+  it('omits the eta parenthetical when there is none, and says so when age is unknown', () => {
+    expect(renderHumanActionLine({ number: 7, ageDays: null, tag: 'DECIDE', title: 'No estimate', eta: null }))
+      .toBe('- #7 · age unknown · No estimate');
+  });
+});
+
+describe('renderMergedLine', () => {
+  it('lists merged PR numbers and counts titles starting "Revert" as reverted', () => {
+    const merged = [
+      { number: 7, title: 'feat: thing' },
+      { number: 3, title: 'Revert "feat: thing"' },
+    ];
+    expect(renderMergedLine(merged)).toBe('- 2 PRs merged (#7 #3), 1 reverted');
   });
 
-  it('lists up to 4 quick wins and says how many more exist beyond that', () => {
-    const brief = buildBrief({
-      ...withGates,
-      openActions: Array.from({ length: 6 }, (_, i) => ({
-        number: 10 + i, tag: 'UPGRADE', title: `Item ${i} — ~${i + 1} min`, ageDays: 1,
-      })),
-    }, { date: '2026-07-12', now: NOW });
-    const calloutLine = brief.split('\n').find((l) => l.includes('Quickest to clear'))!;
-    expect(calloutLine).toContain('+2 more');
+  it('says 0/0 plainly on a day with nothing merged', () => {
+    expect(renderMergedLine([])).toBe('- 0 PRs merged, 0 reverted');
+  });
+});
+
+describe('renderAlertsLine', () => {
+  it('counts alerts opened and closed in the last 24h, naming the closed one', () => {
+    const alerts = [
+      { title: 'Watchdog: prod smoke check failing', createdAt: new Date(NOW - 60 * 60 * 1000).toISOString(), closedAt: null, state: 'OPEN' },
+      { title: 'Watchdog: prod smoke check failing', createdAt: new Date(NOW - 30 * 24 * 60 * 60 * 1000).toISOString(), closedAt: new Date(NOW - 60 * 60 * 1000).toISOString(), state: 'CLOSED' },
+    ];
+    expect(renderAlertsLine(alerts, NOW)).toBe('- Alerts: 1 opened, 1 closed (prod smoke check failing)');
   });
 
-  it('omits the callout entirely when no open action has a parseable ~N min estimate', () => {
-    const brief = buildBrief({
-      ...withGates,
-      openActions: [{ number: 7, tag: 'UPGRADE', title: 'No estimate at all', ageDays: 1 }],
-    }, { date: '2026-07-12', now: NOW });
-    expect(brief).not.toContain('Quickest to clear');
+  it('is all zeros with no alerts', () => {
+    expect(renderAlertsLine([], NOW)).toBe('- Alerts: 0 opened, 0 closed');
+  });
+});
+
+describe('renderDispatchedLine', () => {
+  it('is null (omitted) with nothing dispatched', () => {
+    expect(renderDispatchedLine([], NOW)).toBeNull();
+    expect(renderDispatchedLine(undefined, NOW)).toBeNull();
   });
 
-  it('folds open founder-task issues into Waiting on you', () => {
-    const brief = buildBrief({
-      ...withGates,
-      founderTasks: [{ number: 1955, title: 'founder-task: paste your IG Insights', labels: [{ name: 'founder-task' }], state: 'OPEN', createdAt: '2026-07-11T01:00:00Z', comments: [] }],
-    }, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain('#1955');
-    expect(brief).toContain('founder-task');
+  it('reports the open count and the oldest item, oldest by createdAt', () => {
+    const dispatched = [
+      { number: 10, createdAt: new Date(NOW - 2 * 86_400_000).toISOString() },
+      { number: 9, createdAt: new Date(NOW - 5 * 86_400_000).toISOString() },
+    ];
+    expect(renderDispatchedLine(dispatched, NOW)).toBe('- dispatched: 2 open, oldest 5d (#9)');
+  });
+});
+
+describe('renderSiteLine', () => {
+  it('renders all four pills from already-fetched data, e2e honestly unwired', () => {
+    const line = renderSiteLine({
+      openAlertsNow: [],
+      vaultRow: { status: 'ok', ageLabel: '14h' },
+      contentShipped: [{ pr: { number: 1 } }],
+    });
+    expect(line).toBe('- Prod smoke 🟢 · e2e ⚪ (not wired yet) · Vault Run last PR 14h ago 🟢 · content lanes 🟢');
   });
 
-  // 2026-09-05 audit: founder-tasks were rendered from the raw open list and
-  // never resolved against their own thread — Joey's "All 3 tasks are
-  // complete" on #2195 (08-17) was invisible for 19 briefs.
-  it('clears a founder-task the founder answered on the task itself', () => {
-    const brief = buildBrief({
-      ...withGates,
-      briefs: [{ number: 1, createdAt: '2026-07-11T12:00:00Z', body: '- [ ] [#2195](https://github.com/o/r/issues/2195) **founder-task**' }],
-      founderTasks: [{
-        number: 2195, title: 'founder-task: social reach', labels: [{ name: 'founder-task' }], state: 'OPEN', createdAt: '2026-07-05T01:00:00Z',
-        comments: [{ author: { login: 'sffan15-sys' }, createdAt: '2026-07-11T23:00:00Z', body: 'All 3 tasks are complete.' }],
-      }],
-    }, { date: '2026-07-12', now: NOW });
-    expect(brief).not.toContain('- [ ] [#2195]');
-    expect(brief).toContain('**Cleared: 1**');
-    expect(brief).toContain('#2195');
+  it('flags prod smoke red when a matching alert is open, and content lanes red when nothing shipped', () => {
+    const line = renderSiteLine({
+      openAlertsNow: [{ title: 'Watchdog: prod smoke check failing' }],
+      vaultRow: null,
+      contentShipped: [],
+    });
+    expect(line).toContain('Prod smoke 🔴');
+    expect(line).toContain('content lanes 🔴');
+    expect(line).toContain('Vault Run ⚪ (not in runner registry)');
+  });
+});
+
+describe('renderDistanceClosingLine', () => {
+  it('names the count blocked on nobody and says so plainly with no history', () => {
+    const doneOpen: [string, DoneItemFixture][] = [
+      ['4', { blockedOn: 'agent (Marketplace) · nobody (Community)' }],
+      ['5', { blockedOn: 'agent' }],
+    ];
+    const line = renderDistanceClosingLine(doneOpen, []);
+    expect(line).toContain('No recorded status change');
+    expect(line).toContain('1 item blocked on `nobody`');
   });
 
-  it('renders the Definition of Done table with every non-green item stating why', () => {
-    const brief = buildBrief({
-      ...withGates,
-      doneItems: {
-        1: { title: 'Landing page rethink', status: 'notstarted', blockedOn: 'nobody', nextAction: 'spec it' },
-        2: { title: 'Cards differentiated', status: 'yellow', blockedOn: 'founder', nextAction: 'Joey checks it' },
-      },
-      doneSeries: [],
-    }, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain('Landing page rethink');
-    expect(brief).toContain('unstaffed');
-    expect(brief).toContain('Cards differentiated');
-    expect(brief).toContain('blocked on founder');
-  });
-
-  it('points at the live definition-of-done.md and social-strategy.md, not the superseded launch-readiness.md, for the current bar', () => {
-    const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain('docs/definition-of-done.md');
-    expect(brief).toContain('docs/marketing/social-strategy.md');
-  });
-
-  it('the Distance-to-done estimator still names itself as the historical proxy, honestly, not silently repointed', () => {
-    const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain('12 historical launch-readiness gates');
-  });
-
-  it('calls a day with no merges, no closes, no new content, and no new posts a failed org day', () => {
-    expect(buildBrief(withGates, { date: '2026-07-12', now: NOW })).toContain('failed org day');
-  });
-
-  it('does not call it a failed day when new content shipped even with zero PR/issue activity', () => {
-    const brief = buildBrief({
-      ...withGates,
-      contentShipped: [{ pr: { number: 2291, title: 'content: red era' }, files: ['supabase/seed/content/red.mjs'] }],
-    }, { date: '2026-07-12', now: NOW });
-    expect(brief).not.toContain('failed org day');
-    expect(brief).toContain('New on the site');
-  });
-
-  it('reports new social posts from the last 24h', () => {
-    const brief = buildBrief({
-      ...withGates,
-      postedSince: [{ platform: 'x', body: 'a real post', campaign: 'on-this-day:x', postedAt: '2026-07-12T05:00:00Z', url: 'https://x.com/1' }],
-    }, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain('New on social');
-    expect(brief).toContain('a real post');
-  });
-
-  it('reports posts per platform over a rolling 24h window when the snapshot has one', () => {
-    const withSnapshot = buildBrief(
-      {
-        ...withGates,
-        growth: {
-          followers: { instagram: 1200, x: 340, facebook: 89 },
-          deltas: { instagram: 18, x: 5, facebook: 0 },
-          postsToday: 2,
-          postsLast24h: { total: 2, x: 1, instagram: 1, facebook: 0 },
-        },
-      },
-      { date: '2026-07-12', now: NOW },
-    );
-    expect(withSnapshot).toContain(
-      '- Tree: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts/24h (X 1/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799',
-    );
-  });
-
-  it('includes the deterministic merch revenue section when a weekly report is available', () => {
-    const brief = buildBrief(
-      { ...withGates, revenueSection: '## Merch revenue and clicks\n\n- Total reported: 6 clicks · $4.75' },
-      { date: '2026-07-12', now: NOW },
-    );
-    expect(brief).toContain('## Merch revenue and clicks');
-    expect(brief).toContain('6 clicks · $4.75');
-  });
-
-  it('reports what landed in the last 24h from real timestamps', () => {
-    const brief = buildBrief({
-      ...withGates,
-      allPRs: [
-        { number: 7, title: 'landed today', mergedAt: '2026-07-12T08:00:00Z', createdAt: '2026-07-12T07:00:00Z', headRefName: 'x' },
-        { number: 3, title: 'landed last week', mergedAt: '2026-07-05T08:00:00Z', createdAt: '2026-07-05T07:00:00Z', headRefName: 'x' },
-      ],
-    }, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain('#7 landed today');
-    expect(brief).not.toContain('#3 landed last week');
-  });
-
-  it('keeps the growth line as the single source for any social claim', () => {
-    const brief = buildBrief(
-      { ...withGates, growth: { followers: { instagram: 1200, x: 340, facebook: 89 }, deltas: { instagram: 18, x: 5, facebook: 0 }, postsToday: 2 } },
-      { date: '2026-07-12', now: NOW },
-    );
-    expect(brief).toContain('- Tree: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today (pre-24h-window snapshot) · queue: empty (nothing drafted) · site: pending #799');
-  });
-
-  it('stamps its own line and word count so a run cannot silently blow the cap', () => {
-    const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
-    expect(brief).toMatch(/<!-- budget: \d+ lines \/ \d+ words -->/);
+  it('never invents an ETA', () => {
+    const line = renderDistanceClosingLine([['5', { blockedOn: 'agent' }]], []);
+    expect(line).not.toMatch(/\d+\s*(day|week)s?\s+(to|until)\s+done/i);
   });
 });
 
@@ -442,8 +207,8 @@ describe('buildBrief — five sections (v3, 2026-08-23)', () => {
 // `capExhausted` flag gh.mjs computes for every list call, so a founder ask
 // past whatever page the underlying fetch happened to stop on rendered as
 // "0 asks" instead of as the truncated-data bug it is. `ghCriticalList` is
-// the fix for the ASK-SOURCE queries (founder-decision, founder-task):
-// refuse the run rather than silently under-report.
+// kept as a small, generically useful, independently-tested guard against
+// that failure mode.
 describe('ghCriticalList', () => {
   afterEach(() => {
     vi.restoreAllMocks();
@@ -483,5 +248,186 @@ describe('findLatestTreePR', () => {
   it('returns null for an empty/missing PR list', () => {
     expect(findLatestTreePR([])).toBeNull();
     expect(findLatestTreePR(undefined)).toBeNull();
+  });
+});
+
+describe('buildBrief — six sections (Marjorie Overhaul C2, 2026-09-12)', () => {
+  it('leads with the six bold headings, in order, and nothing else', () => {
+    const brief = buildBrief(emptyState, { now: NOW });
+    const headings = ['**Waiting on you', '**Since yesterday**', '**Today**', '**Site**', '**Tree**', '**Distance to done**'];
+    for (const h of headings) expect(brief).toContain(h);
+    const order = headings.map((h) => brief.indexOf(h));
+    expect(order).toEqual([...order].sort((a: number, b: number) => a - b));
+    expect(brief).not.toContain('## 1 ·');
+    expect(brief).not.toContain("# Founders' Brief");
+  });
+
+  it('never emits the cc line or the self-link header — both are the runner prompt\'s job', () => {
+    const brief = buildBrief(emptyState, { now: NOW });
+    expect(brief).not.toContain('cc @sffan15-sys');
+    expect(brief).not.toMatch(/\[issue #\d+\]/);
+  });
+
+  it('says so plainly when nothing is waiting on the founder, and the heading still counts zero', () => {
+    const brief = buildBrief(emptyState, { now: NOW });
+    expect(brief).toContain('**Waiting on you (0)**');
+    expect(brief).toContain('Nothing is waiting on you right now.');
+  });
+
+  it('lists every open HUMAN-ACTIONS item — number, age, title — exactly (MR1: acceptance criterion 5)', () => {
+    const brief = buildBrief({
+      ...emptyState,
+      openActions: [
+        { number: 4, tag: 'UPGRADE', title: 'API accounts for research', ageDays: 8, eta: null },
+      ],
+    }, { now: NOW });
+    expect(brief).toContain('**Waiting on you (1)**');
+    expect(brief).toContain('- #4 · 8d · API accounts for research');
+  });
+
+  it('shows five open actions and a +N more line, never all of them past five', () => {
+    const brief = buildBrief({
+      ...emptyState,
+      openActions: Array.from({ length: 9 }, (_, i) => ({ number: 100 + i, tag: 'UPGRADE', title: `Item ${i}`, ageDays: i, eta: null })),
+    }, { now: NOW });
+    expect(brief).toContain('**Waiting on you (9)**');
+    expect(brief).toContain('+4 more in HUMAN-ACTIONS.md');
+    // Exactly 5 rendered item lines (plus the +N more line) — never a 6th item line.
+    const waitingBlock = brief.split('**Since yesterday**')[0];
+    expect((waitingBlock.match(/^- #\d+/gm) || []).length).toBe(5);
+  });
+
+  it('reports PRs merged and reverted since yesterday', () => {
+    const brief = buildBrief({
+      ...emptyState,
+      allPRs: [
+        { number: 7, title: 'landed today', mergedAt: '2026-07-12T08:00:00Z', createdAt: '2026-07-12T07:00:00Z', headRefName: 'x', state: 'MERGED' },
+        { number: 3, title: 'landed last week', mergedAt: '2026-07-05T08:00:00Z', createdAt: '2026-07-05T07:00:00Z', headRefName: 'x', state: 'MERGED' },
+      ],
+    }, { now: NOW });
+    expect(brief).toContain('- 1 PR merged (#7), 0 reverted');
+  });
+
+  it('adds the dispatched accountability line only when Marjorie has open dispatched work', () => {
+    const withDispatch = buildBrief({
+      ...emptyState,
+      dispatched: [{ number: 55, createdAt: new Date(NOW - 3 * 86_400_000).toISOString() }],
+    }, { now: NOW });
+    expect(withDispatch).toContain('dispatched: 1 open, oldest 3d (#55)');
+
+    const without = buildBrief(emptyState, { now: NOW });
+    expect(without).not.toContain('dispatched:');
+  });
+
+  it('points at an open Tree weekly-plan PR in Since yesterday, but not a merged/closed one', () => {
+    const open = buildBrief({
+      ...emptyState,
+      allPRs: [{ number: 42, headRefName: 'tree/plan/2026-07-10', createdAt: '2026-07-10T10:00:00Z', state: 'OPEN' }],
+    }, { now: NOW });
+    expect(open).toContain("Tree's plan PR #42 is up for your ✅ in #longlive-tree");
+
+    const merged = buildBrief({
+      ...emptyState,
+      allPRs: [{ number: 42, headRefName: 'tree/plan/2026-07-10', createdAt: '2026-07-10T10:00:00Z', state: 'MERGED' }],
+    }, { now: NOW });
+    expect(merged).not.toContain("Tree's plan PR");
+  });
+
+  it('passes the submissions line through from the already-computed counts', () => {
+    const brief = buildBrief({
+      ...emptyState,
+      submissions: { 'user-feedback': 0, feedback: 2, intake: 3, 'link-submission': 0 },
+    }, { now: NOW });
+    expect(brief).toContain('- Submissions in: 0 user-feedback, 2 feedback, 3 intake, 0 link-submission');
+  });
+
+  it('Today always has something to say, even with zero registered runners', () => {
+    const brief = buildBrief(emptyState, { now: NOW });
+    expect(brief).toContain('**Today**');
+    expect(brief).toContain('- Runs: no routines currently registered as scheduled.');
+    expect(brief).toContain('- Me: sweep the 0 open watchdog alerts, triage anything new');
+  });
+
+  it('Tree falls back to a plain line when there is nothing to report, and otherwise passes state.treeLines through', () => {
+    expect(buildBrief(emptyState, { now: NOW })).toContain('Nothing to report yet.');
+    const withLines = buildBrief({ ...emptyState, treeLines: ['- Lessons: none logged yet.', '- Scorecard: 3 posts this week.'] }, { now: NOW });
+    expect(withLines).toContain('- Lessons: none logged yet.');
+    expect(withLines).toContain('- Scorecard: 3 posts this week.');
+  });
+
+  it('Distance to done reports N/8 green and cites the definition-of-done doc', () => {
+    const brief = buildBrief({
+      ...emptyState,
+      doneItems: {
+        1: { title: 'Landing page rethink', status: 'green', blockedOn: null, nextAction: 'none' },
+        2: { title: 'Cards differentiated', status: 'notstarted', blockedOn: 'nobody', nextAction: 'spec it' },
+      },
+    }, { now: NOW });
+    expect(brief).toContain('**Distance to done** — 1/2 green (`docs/definition-of-done.md`)');
+    expect(brief).toContain('Cards differentiated');
+    expect(brief).toContain('unstaffed');
+  });
+
+  it('calls out every non-green item with who it is blocked on, never inventing an ETA', () => {
+    const brief = buildBrief({
+      ...emptyState,
+      doneItems: {
+        4: { title: 'Marketplace + Community sections', status: 'yellow', blockedOn: 'agent (Marketplace) · nobody (Community)', nextAction: 'x' },
+      },
+    }, { now: NOW });
+    expect(brief).toContain('#4 Marketplace + Community sections');
+    expect(brief).toContain('blocked on');
+    expect(brief).not.toMatch(/\d+\s*(day|week)s?\s+(to|until)\s+done/i);
+  });
+
+  it('celebrates all eight green with no non-green bullets', () => {
+    const brief = buildBrief({
+      ...emptyState,
+      doneItems: { 1: { title: 'A', status: 'green' }, 2: { title: 'B', status: 'green' } },
+    }, { now: NOW });
+    expect(brief).toContain('**Distance to done** — 2/2 green');
+    expect(brief).toContain('All 8 items are green');
+  });
+
+  it('says so plainly when the definition-of-done table did not parse, without dropping the section', () => {
+    const brief = buildBrief(emptyState, { now: NOW });
+    expect(brief).toContain('**Distance to done**');
+    expect(brief).toContain('did not parse');
+  });
+
+  // Acceptance criterion 1 / the 40-line cap: a single global truncation at
+  // line 40 always used to eat whichever section came last (Distance to
+  // done). Per-section budgeting means an oversized Waiting-on-you can never
+  // starve it — every section still appears, headings included, and
+  // Distance to done still prints its full heading + content.
+  it('stays under the 40-line cap and never lets other sections crowd out Distance to done', () => {
+    const brief = buildBrief({
+      ...emptyState,
+      openActions: Array.from({ length: 40 }, (_, i) => ({ number: 200 + i, tag: 'UPGRADE', title: `Oversized item ${i}`, ageDays: i, eta: null })),
+      doneItems: {
+        1: { title: 'One', status: 'yellow', blockedOn: 'agent', nextAction: 'x' },
+        2: { title: 'Two', status: 'yellow', blockedOn: 'nobody', nextAction: 'x' },
+      },
+    }, { now: NOW });
+    expect(brief.split('\n').length).toBeLessThanOrEqual(40);
+    for (const h of ['**Waiting on you', '**Since yesterday**', '**Today**', '**Site**', '**Tree**', '**Distance to done**']) {
+      expect(brief).toContain(h);
+    }
+    expect(brief).toContain('**Distance to done** — 0/2 green');
+    expect(brief).toContain('One');
+    expect(brief).toContain('Two');
+  });
+
+  // Same cap, exercised from the other direction: Distance to done's OWN
+  // content can also overflow its budget (all eight items non-green) — it
+  // must truncate its item list, never drop the closing sentence of
+  // judgment, which is reserved its own slot.
+  it('truncates its own oversized item list but always keeps the closing sentence', () => {
+    const doneItems: Record<number, DoneItemFixture> = {};
+    for (let i = 1; i <= 8; i += 1) doneItems[i] = { title: `Item ${i}`, status: 'red', blockedOn: 'nobody', nextAction: 'x' };
+    const brief = buildBrief({ ...emptyState, doneItems }, { now: NOW });
+    expect(brief.split('\n').length).toBeLessThanOrEqual(40);
+    expect(brief).toMatch(/\+\d+ more/);
+    expect(brief).toContain('blocked on `nobody`');
   });
 });

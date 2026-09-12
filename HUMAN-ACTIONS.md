@@ -2,9 +2,21 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #68 🟢 [UPGRADE] Freeze, merge PR #4202 (social-poster alert reroute), unfreeze (~10 min)
+<!-- ha filed=2026-09-12 -->
+
+**Why:** PR #4202 (Marjorie Overhaul C3 follow-up) reroutes social-poster.yml's failure alert through upsert-alert.sh. CI's build-full blocks it while the social posting freeze is off (RULINGS-SOCIAL A6) — routine, matches the #60/#65 precedent, not urgent.
+**Steps:**
+1. Confirm PR #4202's body shows the Marjorie C3 PR already merged to main — if not yet, wait, this isn't ready.
+2. github.com/JW-Incorporated/swift2/settings/variables/actions → SOCIAL_FREEZE → Update → value `true` → Save.
+3. On PR #4202, click "Ready for review" (it's a draft), then re-run the failed build-full check.
+4. Once green, merge PR #4202 (squash).
+5. Unfreeze once the standard post-merge conditions are met (docs/social/RULINGS-SOCIAL-2.md B4) — set SOCIAL_FREEZE back to `false` the same way as step 2.
+**Worked if:** PR #4202 is merged to main.
 
 ## #67 🟢 [UPGRADE] Add DISCORD_MARJORIE_WEBHOOK_URL to the `social` environment too (~5 min)
 <!-- ha filed=2026-09-12 -->
