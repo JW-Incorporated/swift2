@@ -1,4 +1,4 @@
-# Growth — daily draft, migrated from claude.ai Routine
+# Tree — daily social draft, migrated from claude.ai Routine
 # `trig_01UBvxMi2Pz7x7qnsffLHAU3` to this scheduled Action per
 # docs/audits/2026-09-05-claude-routines-relocation-assessment.md + the
 # 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
@@ -12,7 +12,7 @@
 # SOCIAL_POSTER_PAT (main is branch-protected; the built-in GITHUB_TOKEN
 # cannot trigger this repo's required `build` check on its own PRs — same
 # reason growth-snapshot.yml / appearance-discovery.yml use the PAT).
-name: routine-growth-draft
+name: routine-tree-daily-draft
 
 on:
   schedule:
@@ -29,8 +29,8 @@ jobs:
   run:
     uses: ./.github/workflows/routine-template.yml
     with:
-      routine_name: "Growth — daily draft"
-      prompt_file: docs/agents/runner-prompts/growth-draft.md
+      routine_name: "Tree — daily social draft"
+      prompt_file: docs/agents/runner-prompts/tree-daily-draft.md
       model: claude-opus-4-8
       allowed_tools: "Bash,Read,Grep,Glob,Write,WebSearch,WebFetch"
       timeout_minutes: 30

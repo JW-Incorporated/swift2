@@ -226,7 +226,7 @@ export function utcDateOnly(isoOrDate) {
  * distinct era-cover files in rotation and the current/recent eras getting
  * picked disproportionately, the live profile grid looked like the same 2-3
  * generic images repeating over and over, which is exactly what it was (see
- * docs/decisions.md, same date). growth-draft.md now requires sourcing a
+ * docs/decisions.md, same date). tree-daily-draft.md now requires sourcing a
  * real dedicated photo per post; this is the code-level backstop, since a
  * doc instruction alone didn't hold — a real check does.
  */

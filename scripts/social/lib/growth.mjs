@@ -1,7 +1,8 @@
 // Pure logic for the daily growth snapshot — kept separate from the
 // network/filesystem code in growth-snapshot.mjs so it's unit-testable.
-// See docs/agents/growth.md and the 2026-07-17 growth-snapshot decision
-// for what this feeds (the Founders' Brief's Growth bullet).
+// See docs/agents/tree.md and the 2026-07-17 growth-snapshot decision
+// for what this feeds (the Founders' Brief's Growth bullet — that bullet's
+// own name is unrelated to and unrenamed by Tree Overhaul T1, 2026-09-12).
 
 import { utcDateOnly } from './queue.mjs';
 

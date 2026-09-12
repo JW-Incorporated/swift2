@@ -250,8 +250,11 @@ jobs:
       # added — nothing forced it to stay in sync with the repo. WATCHED is
       # now built from every `routine-*.yml` file (excluding the reusable
       # `routine-template.yml` caller template, which has no schedule of its
-      # own) plus explicitly `output-sampling.yml`, `plan-recheck.yml`, and
-      # `fleet-telemetry-snapshot.yml`. Per-workflow maxage-hours is derived
+      # own) plus explicitly `output-sampling.yml`, `plan-recheck.yml`,
+      # `fleet-telemetry-snapshot.yml`, and (issue #4131 fold-in, 2026-09-12
+      # — dropped by the rebuild above since none match `routine-*.yml`)
+      # `news-worker.yml`, `social-poster.yml`, `marjorie-inbox.yml`.
+      # Per-workflow maxage-hours is derived
       # straight from each file's own cron via
       # scripts/watchdog/cron-maxage-hours.mjs (same "~2x the schedule"
       # principle the old hand-tuned windows used, with a bit more slack —
@@ -271,7 +274,10 @@ jobs:
           for F in .github/workflows/routine-*.yml \
                    .github/workflows/output-sampling.yml \
                    .github/workflows/plan-recheck.yml \
-                   .github/workflows/fleet-telemetry-snapshot.yml; do
+                   .github/workflows/fleet-telemetry-snapshot.yml \
+                   .github/workflows/news-worker.yml \
+                   .github/workflows/social-poster.yml \
+                   .github/workflows/marjorie-inbox.yml; do
             [ -f "$F" ] || continue
             WF=$(basename "$F")
             [ "$WF" = "routine-template.yml" ] && continue

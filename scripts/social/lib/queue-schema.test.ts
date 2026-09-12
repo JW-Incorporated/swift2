@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES } from './queue-schema.mjs';
+import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES, LANES } from './queue-schema.mjs';
 
 const validX = {
   platform: 'x',
+  lane: 'calendar',
   body: 'a real tweet',
   scheduledAt: '2026-08-12T23:00:00Z',
   campaign: 'launch:shop-the-look:announce',
@@ -15,6 +16,7 @@ const validX = {
 };
 const validIg = {
   platform: 'instagram',
+  lane: 'calendar',
   body: 'a real caption',
   media: ['/social/library/mood-chat-screen.png'],
   altText: ['A screenshot of the mood chat feature.'],
@@ -51,6 +53,23 @@ describe('validateQueueItem', () => {
   it('rejects an unknown platform', () => {
     expect(findingFor({ ...validX, platform: 'twitter' }, 'platform:')).toBeDefined();
     expect(findingFor({ ...validX, platform: undefined }, 'platform:')).toBeDefined();
+  });
+
+  describe('lane (Tree Overhaul T1, 2026-09-12 — replaces sourceRoutine)', () => {
+    it('rejects a missing lane', () => {
+      expect(findingFor({ ...validX, lane: undefined }, 'lane:')).toBeDefined();
+    });
+
+    it('rejects a lane outside the four-value enum', () => {
+      expect(findingFor({ ...validX, lane: 'sourceRoutine' }, 'lane:')).toBeDefined();
+    });
+
+    it('accepts each of the 4 valid lane values', () => {
+      expect(LANES).toEqual(['calendar', 'merch', 'appearance', 'reddit']);
+      for (const lane of LANES) {
+        expect(validateQueueItem({ ...validX, lane })).toEqual([]);
+      }
+    });
   });
 
   describe('body length', () => {

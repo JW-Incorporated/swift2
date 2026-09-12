@@ -9,16 +9,17 @@
 # claims anything about a video's CONTENT.
 #
 # FAST LANE (added 2026-08-25, docs/decisions.md "Detection-triggered social
-# auto-post: confirmed live, not staged; email on every send"): discover.mjs
-# also stages a templated social/queue/*.json draft next to each filed intake
-# issue (lib/social-draft.mjs) — restating RSS metadata only, never a claim
-# about content. The "Stage social drafts" step below commits any new files
-# it left in the working tree via a PR, same pattern social-poster.yml uses
-# for its own state commits (branch/author registered in
+# auto-post"; revised 2026-09-12, Tree Overhaul T6, to stop writing
+# captions): discover.mjs also writes a social/inbox/*.json fact sheet next
+# to each filed intake issue (lib/appearance-intent.mjs) — restating RSS
+# metadata only, never a claim about content, and no caption text of any
+# kind. The "Stage social drafts" step below commits any new files it left
+# in the working tree via a PR, same pattern social-poster.yml uses for its
+# own state commits (branch/author registered in
 # scripts/automerge-branch-author-gate.mjs so auto-merge-content.yml can
-# land it — check-drafts.mjs is the real content gate). Per that decision,
-# there is deliberately no approval gate: it posts live on schedule like any
-# other queue draft, same as the Content Shift's own drafts already do.
+# land it like any other content PR — the intent carries no publishable
+# text, so no approval gate applies). Tree's own daily draft reads the
+# intent in a later run and decides whether (and how) to post.
 #
 # Deliberately zero AI, same family as watchdog.yml and unowned-sweep.yml:
 # detection is a mechanical job, so it runs as dumb code on a cheap schedule
@@ -145,29 +146,31 @@ jobs:
           fi
           node scripts/appearance-discovery/discover.mjs "$@"
 
-      # Fast lane (docs/decisions.md 2026-08-25): commit whatever
-      # discover.mjs left under social/queue/ — it only writes there in FILE
-      # mode, after an intake issue for the same video already filed
-      # successfully, so a dry run or a fully-refused run leaves nothing to
-      # commit here and this step is a silent no-op. Runs `always()` +
-      # outcome check (not a plain `if: success()`) so a video whose intake
-      # issue filed but whose sibling draft the previous step already
-      # reported failed loudly still gets a chance — draft failures never
-      # stop discover.mjs's own exit code from going non-zero, this step
-      # just should not silently swallow whatever DID stage.
+      # Fast lane (docs/decisions.md 2026-08-25; Tree Overhaul T6,
+      # 2026-09-12): commit whatever discover.mjs left under social/inbox/ —
+      # it only writes there in FILE mode, after an intake issue for the
+      # same video already filed successfully, so a dry run or a
+      # fully-refused run leaves nothing to commit here and this step is a
+      # silent no-op. Runs `always()` + outcome check (not a plain
+      # `if: success()`) so a video whose intake issue filed but whose
+      # sibling intent the previous step already reported failed loudly
+      # still gets a chance — intent-build failures never stop
+      # discover.mjs's own exit code from going non-zero, this step just
+      # should not silently swallow whatever DID stage.
       - name: Stage social drafts (via PR — main is branch-protected)
         if: always() && (steps.discover.conclusion == 'success' || steps.discover.conclusion == 'failure')
         uses: ./.github/actions/commit-and-pr
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
-          paths: social/queue apps/web/public/social/library/photos
+          paths: social/inbox apps/web/public/social/library/photos
           branch: appearance-discovery/${{ github.run_id }}
-          commit-message: "appearance-discovery: fast-lane social draft(s) — run ${{ github.run_id }}"
-          pr-title: "appearance-discovery: fast-lane social draft(s) — run ${{ github.run_id }}"
+          commit-message: "appearance-discovery: fast-lane inbox intent(s) — run ${{ github.run_id }}"
+          pr-title: "appearance-discovery: fast-lane inbox intent(s) — run ${{ github.run_id }}"
           pr-body: >-
             Auto-drafted from a genuinely new, deterministically-matched official-channel upload — see
-            `scripts/appearance-discovery/lib/social-draft.mjs` and docs/decisions.md 2026-08-25
+            `scripts/appearance-discovery/lib/appearance-intent.mjs` and docs/decisions.md 2026-08-25
             ("Detection-triggered social auto-post"). Never a claim about the video's content, only RSS
-            metadata (title/channel/URL). Auto-merges once `scripts/social/check-drafts.mjs` passes, same
-            as any other queue draft; posts live on its own `scheduledAt`, no further approval.
-          no-changes-message: "No new social drafts staged this run."
+            metadata (title/channel/URL) — no caption, no queue write. Writes a fact sheet to
+            social/inbox/. Tree drafts any post from it in its next daily run; a founder still approves
+            that post in #longlive-social.
+          no-changes-message: "No new inbox intents staged this run."

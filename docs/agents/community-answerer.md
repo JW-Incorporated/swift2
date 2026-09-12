@@ -1,8 +1,8 @@
 # Community Answerer desk
 
 **Charter v1 (Phase 1 card P1-4, `docs/proposals/2026-09-06-community-engine-plan.md`
-§2.5).** This desk is new — it does not replace or absorb the Growth &
-Community desk (`docs/agents/growth.md`), which still owns the *outbound*
+§2.5).** This desk is new — it does not replace or absorb Tree
+(`docs/agents/tree.md`), which still owns the *outbound*
 social calendar. This desk owns *inbound* engagement: turning a Reddit/
 Facebook lead someone else surfaced into a paste-ready reply draft for a
 human to use or ignore.
@@ -54,7 +54,7 @@ Reddit or Facebook except through a human's own hands, later, via
 6. **Draft** in the site's Reddit voice: fan-made framing (never official),
    no marketing tone, ≤120 words unless the thread is genuinely long-form, no
    em-dash tells, no "great question" openers, no AI-tell phrases (same
-   register discipline as `docs/agents/growth.md`'s voice section, applied
+   register discipline as `docs/agents/tree.md`'s voice section, applied
    to a reply instead of a post). Two variants (`draft`, `draft_alt`) only
    when a short/detailed split is genuinely useful — never pad a second
    draft that says the same thing.

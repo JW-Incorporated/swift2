@@ -68,7 +68,7 @@ jobs:
   tree-pr-mail:
     if: >
       github.event_name == 'pull_request' &&
-      startsWith(github.event.pull_request.head.ref, 'tree/')
+      startsWith(github.event.pull_request.head.ref, 'tree/plan/')
     runs-on: ubuntu-latest
     concurrency:
       group: tree-mail-pr-${{ github.event.pull_request.number }}
@@ -93,12 +93,13 @@ jobs:
               "subject": "Tree's weekly plan: " + os.environ["PR_TITLE"],
               "body": os.environ.get("PR_BODY") or "(no PR body)",
               "url": os.environ["PR_URL"],
+              "fromName": "Tree (Long Live social)",
           }
           with open("payload.json", "w", encoding="utf-8") as f:
               json.dump(payload, f)
           PY
 
-      - name: Send From Marjorie, To Joey, CC Wyatt
+      - name: Send From Tree, To Joey
         env:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}

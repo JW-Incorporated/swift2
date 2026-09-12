@@ -174,14 +174,14 @@ function formatQueueStatus(queueStatus) {
 
 export function formatGrowthLine(growth, queueStatus) {
   const queuePart = formatQueueStatus(queueStatus);
-  if (!growth) return `- Growth: no snapshot yet (growth-snapshot.yml hasn't run) · ${queuePart}`;
+  if (!growth) return `- Tree: no snapshot yet (growth-snapshot.yml hasn't run) · ${queuePart}`;
   const { followers, deltas } = growth;
   const parts = [
     `IG ${formatFollowerCount(followers.instagram)}${formatDelta(deltas.instagram)}`,
     `X ${formatFollowerCount(followers.x)}${formatDelta(deltas.x)}`,
     `FB ${formatFollowerCount(followers.facebook)}${formatDelta(deltas.facebook)}`,
   ];
-  return `- Growth: ${parts.join(' · ')} · ${formatPostsPart(growth)} · ${queuePart} · site: pending #799`;
+  return `- Tree: ${parts.join(' · ')} · ${formatPostsPart(growth)} · ${queuePart} · site: pending #799`;
 }
 
 // Posts published in the last 24h, per platform. Was "<n> posts today" from
@@ -258,9 +258,13 @@ export function renderSocialPostedLine(item) {
   return `- ${platform} · ${item.campaign || 'uncategorized'}: "${snippet}${ellipsis}"${linkPart}`;
 }
 
-/** Tree's most recent weekly-plan PR (head branch starts `tree/`), or null. */
+/** Tree's most recent weekly-plan PR (head branch starts `tree/plan/`), or
+ * null. Deliberately narrower than `tree/` (Tree Overhaul T1, 2026-09-12):
+ * the daily draft run's branches are also `tree/draft/<date>` now that
+ * Growth folded into Tree, and this must keep meaning the weekly plan PR
+ * specifically, not whichever Tree PR is most recent. */
 export function findLatestTreePR(allPRs) {
-  const treePRs = (allPRs || []).filter((p) => String(p.headRefName || '').startsWith('tree/'));
+  const treePRs = (allPRs || []).filter((p) => String(p.headRefName || '').startsWith('tree/plan/'));
   if (treePRs.length === 0) return null;
   return [...treePRs].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
 }
@@ -672,7 +676,7 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
   out.push('');
   out.push('**What ran:**');
   out.push(formatGrowthLine(state.growth, state.queueStatus));
-  out.push(`- Content + social PRs landed today: ${a.merged24.filter((p) => /^(content|vault|growth|social)/.test(p.headRefName || '')).length} · intake queue ${state.intake.length} open`);
+  out.push(`- Content + social PRs landed today: ${a.merged24.filter((p) => /^(content|vault|tree|social)/.test(p.headRefName || '')).length} · intake queue ${state.intake.length} open`);
   out.push('');
   out.push('Full evidence: journal comment below.');
 

@@ -70,11 +70,11 @@ git worktree add "C:\Users\<you>\AppData\Local\Temp\claude-worktrees\<branch-nam
 | [`austin.md`](austin.md) | Build desk autonomous lane | **Active** (2026-07-11, #494; G3 waived pending the Team-plan upgrade) |
 | [`nils.md`](nils.md) | The critic — walks the site daily, tickets what's unworthy | **Active** (2026-07-11, Joey directive) |
 | [`content-shift.md`](content-shift.md) | The standing writer — authors intake + experience + depth tickets | **Active** (2026-07-11, Joey directive) |
-| [`tree.md`](tree.md) | Social media manager — plans `social/calendar.md` weekly; Growth drafts it, the poster ships it | **Active** (2026-08-11, Joey directive) — routine is a pending Wyatt-side paste, see [`runners.md`](runners.md) |
+| [`tree.md`](tree.md) | Social media manager — plans `social/calendar.md` weekly and drafts it daily, the poster ships it | **Active** (2026-08-11, Joey directive; Growth & Community folded in 2026-09-12, T1) — routine is a pending Wyatt-side paste, see [`runners.md`](runners.md) |
 | `../kevin.md` | Ticket ops (moves here in Phase 2) | Active on Wyatt's side |
 | *(Phase 2)* | Karen (Integrity), v0, delegation scripts | Charters pending |
 | *(Phase 1, copy desk)* | Theo, Loren, Vera, Deb — `docs/content-ops/personas/` | Spec approved (#463) |
-| *(Phase 3)* | Growth & Community, Watch | Pre-launch |
+| *(Phase 3)* | Watch | Pre-launch |
 
 ## The kill switch — pausing the org (gap analysis G10)
 
