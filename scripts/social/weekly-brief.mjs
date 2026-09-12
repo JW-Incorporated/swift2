@@ -257,18 +257,44 @@ export function discordPermalink({ guildId, channelId, messageId }) {
  */
 export async function sendReplanUpdate(summary, headerPermalink, { webhook = process.env.SOCIAL_APPROVAL_WEBHOOK_URL, fetchImpl = fetch } = {}) {
   if (!webhook) return { status: 'unconfigured' };
-  const content = ['**Mid-week update on this week\'s plan**', '', neutralizeMentions(String(summary ?? '').trim()), '', `Original brief: ${headerPermalink}`].join('\n');
-  try {
-    const response = await fetchImpl(`${webhook}?wait=true`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ content, username: TREE_WEBHOOK_USERNAME, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] } }),
-    });
-    if (!response.ok) throw new Error(`Discord replan-update delivery failed with HTTP ${response.status}`);
-    return { status: 'delivered' };
-  } catch (err) {
-    return { status: 'failed', error: String(err?.message ?? err) };
+  // MEDIUM (Codex round 3): every other free-text path in this file goes
+  // through `withRef`, which applies escapeRefLookalikes -- this is a
+  // plain message with no ref line to append, but the summary text still
+  // needs the same defense (it can quote a founder's own words, same as a
+  // proposal's evidence) so it is applied directly here rather than
+  // skipped just because there is nothing to call `withRef` for.
+  const content = [
+    "**Mid-week update on this week's plan**",
+    '',
+    escapeRefLookalikes(neutralizeMentions(String(summary ?? '').trim())),
+    '',
+    `Original brief: ${headerPermalink}`,
+  ].join('\n');
+
+  // MEDIUM (Codex round 3): by the time this runs, the poll has ALREADY
+  // written the replan-dispatched: marker (a one-shot-per-week gate) --
+  // a summary long enough to exceed Discord's limit must not just fail
+  // outright and silently burn that week's one re-plan for nothing.
+  // Chunked with the same plain chunkForDiscord sendWeeklyBrief's own
+  // chunker builds on -- no ref line to preserve here, nothing reacts to
+  // this message.
+  const chunks = chunkForDiscord(content, DISCORD_MESSAGE_LIMIT);
+  const failed = [];
+  for (let i = 0; i < chunks.length; i += 1) {
+    try {
+      const response = await fetchImpl(`${webhook}?wait=true`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ content: chunks[i], username: TREE_WEBHOOK_USERNAME, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] } }),
+      });
+      if (!response.ok) throw new Error(`Discord replan-update delivery failed with HTTP ${response.status}`);
+    } catch (err) {
+      failed.push({ chunk: i, error: String(err?.message ?? err) });
+    }
   }
+  if (failed.length === 0) return { status: 'delivered' };
+  if (failed.length === chunks.length) return { status: 'failed', error: failed[0].error };
+  return { status: 'partial', failed };
 }
 
 /** MEDIUM 4 (Codex round 1): the summary comes from `plan.replanSummary` —

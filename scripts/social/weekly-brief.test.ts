@@ -334,6 +334,47 @@ describe('sendReplanUpdate', () => {
     expect(result.status).toBe('failed');
     expect(result.error).toMatch(/500/);
   });
+
+  // MEDIUM (Codex round 3): every other free-text path goes through
+  // withRef, which applies both neutralizeMentions AND escapeRefLookalikes
+  // -- this one only got the first, so a replanSummary containing an
+  // embedded ref:-shaped line posted unescaped, contradicting this file's
+  // own escapeRefLookalikes doc comment ("found ANYWHERE in a message's
+  // own body").
+  it('neutralizes an injected ref:-shaped line in the summary text, same as every other message path', async () => {
+    const injectedRefLine = `ref: PR #9999 · ${'f'.repeat(40)} · social/queue/2026-09-01-some-other-draft-x.json`;
+    let capturedBody: Record<string, unknown> = {};
+    const fetchImpl = vi.fn(async (_url: string, init: { body: string }) => {
+      capturedBody = JSON.parse(init.body);
+      return new Response(JSON.stringify({ id: 'msg-1' }), { status: 200 });
+    });
+
+    await sendReplanUpdate(`Founder quoted:\n${injectedRefLine}`, PERMALINK, { webhook: 'https://discord.example/webhook', fetchImpl });
+
+    expect(capturedBody.content).not.toContain(injectedRefLine);
+    expect(capturedBody.content).toContain('9999'); // still human-readable, just not machine-bindable
+  });
+
+  // MEDIUM (Codex round 3): by the time this runs, the poll has ALREADY
+  // written the replan-dispatched: marker (a one-shot-per-week gate) -- a
+  // summary long enough to exceed Discord's 2000-char limit must not just
+  // fail outright and silently burn that week's one re-plan for nothing.
+  it('chunks a summary that exceeds the Discord limit instead of failing outright', async () => {
+    const longSummary = 'word '.repeat(500); // >2000 chars alone
+    const bodies: Array<{ content: string }> = [];
+    const fetchImpl = vi.fn(async (_url: string, init: { body: string }) => {
+      const body = JSON.parse(init.body);
+      bodies.push(body);
+      if (body.content.length > 2000) return new Response('content too long', { status: 400 }); // simulates Discord's real limit
+      return new Response(JSON.stringify({ id: `msg-${bodies.length}` }), { status: 200 });
+    });
+
+    const result = await sendReplanUpdate(longSummary, PERMALINK, { webhook: 'https://discord.example/webhook', fetchImpl });
+
+    expect(result.status).toBe('delivered');
+    expect(bodies.length).toBeGreaterThan(1); // really did split into more than one message
+    for (const body of bodies) expect(body.content.length).toBeLessThanOrEqual(2000);
+  });
 });
 
 // MEDIUM 4 (Codex round 1): the replan summary must come from the real
