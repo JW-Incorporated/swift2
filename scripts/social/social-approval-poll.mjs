@@ -60,6 +60,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { neutralizeMentions } from '../community/discord-delivery.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { appendRows, capReason, classifyTarget, groupTargets, isoWeek, pillarOf } from './lib/feedback.mjs';
 import { approvalStatus } from './lib/queue.mjs';
@@ -73,6 +74,12 @@ const CHECK_MARK = '%E2%9C%85'; // ✅
 const CROSS_MARK = '%E2%9D%8C'; // ❌
 const PENCIL = '%E2%9C%8F%EF%B8%8F'; // ✏️ (U+270F U+FE0F) — variation selector required, Discord keys them separately
 const LEDGER_BRANCH = 'social-ledger'; // unprotected branch, issue #2040's pattern — see social-poster.yml
+// T4 (docs/specs/tree-overhaul/t4-weekly-brief.md §Data "Message layout"):
+// weekly-brief.mjs's own ref: scope tokens — never a real queue file path,
+// so groupTargets' social/queue/<basename> normalization does not apply to
+// these (processPlanBriefRefs groups them by the raw token instead).
+const PLAN_SCOPE_RE = /^(?:brief|calendar:\d+|proposal:\d+|questions)$/;
+const REPLAN_MARKER_RE = /^replan-dispatched: (\S+)$/m;
 
 function requireEnv(name) {
   const v = process.env[name];
@@ -218,6 +225,15 @@ async function getMessageApprovals(message, channelId, botToken, opts, cache) {
  * message that doesn't exist yet, so it holds by construction; spec §4
  * itself notes this is a weaker stand-in for "after the reaction", which
  * Discord exposes no way to check at all. */
+/** Discord's own display name for a reply's author — `global_name` (the
+ * modern display name) first, falling back to the legacy `username`, then
+ * a generic label. Only T4's plan-PR-comment format (spec §Data
+ * "Thread-reply ingestion": "**From Joey in #longlive-social**") reads
+ * this; every other consumer of a reply object only ever used `authorId`. */
+function discordAuthorName(author) {
+  return author?.global_name || author?.username || 'a founder';
+}
+
 function buildRepliesByParent(messages) {
   const repliesByParent = new Map();
   for (const m of messages) {
@@ -226,9 +242,53 @@ function buildRepliesByParent(messages) {
     const authorId = `discord:${m.author?.id}`;
     if (!SOCIAL_APPROVERS.includes(authorId)) continue;
     if (!repliesByParent.has(parentId)) repliesByParent.set(parentId, []);
-    repliesByParent.get(parentId).push({ id: m.id, authorId, content: m.content, timestamp: m.timestamp });
+    repliesByParent.get(parentId).push({ id: m.id, authorId, authorName: discordAuthorName(m.author), content: m.content, timestamp: m.timestamp });
   }
   return repliesByParent;
+}
+
+/** T4 spec §Data "Thread-reply ingestion" route 1: "Discord attaches a
+ * `thread` object to the message a thread was started from. The poll reads
+ * `message.thread.id` and fetches `GET /channels/<threadId>/messages?
+ * limit=100`." One extra Discord call per candidate that carries a thread —
+ * every OTHER candidate (the overwhelming majority) costs nothing. A
+ * message posted inside a thread has no `message_reference` of its own
+ * (the thread itself establishes the parent), so these are collected
+ * separately from `buildRepliesByParent` and merged with it below. */
+async function fetchThreadReplies(candidates, botToken, opts) {
+  const repliesByParent = new Map();
+  for (const m of candidates) {
+    if (!m.thread?.id) continue;
+    let threadMessages;
+    try {
+      threadMessages = await discordGet(`${DISCORD_API}/channels/${m.thread.id}/messages?limit=100`, botToken, opts);
+    } catch (err) {
+      console.error(`::warning::social-approval-poll: could not fetch thread messages for ${m.id} (thread ${m.thread.id}) — thread replies unavailable this run, retrying next run: ${err.message}`);
+      continue;
+    }
+    for (const tm of threadMessages) {
+      const authorId = `discord:${tm.author?.id}`;
+      if (!SOCIAL_APPROVERS.includes(authorId)) continue;
+      if (!repliesByParent.has(m.id)) repliesByParent.set(m.id, []);
+      repliesByParent.get(m.id).push({ id: tm.id, authorId, authorName: discordAuthorName(tm.author), content: tm.content, timestamp: tm.timestamp });
+    }
+  }
+  return repliesByParent;
+}
+
+/** Merges two parentId -> replies[] maps (thread replies + plain
+ * message_reference replies) into one, so every downstream consumer
+ * (classifyTarget's entries, the plan-PR-comment relay) reads replies from
+ * either route the same way, per spec §Data: "neither is privileged." */
+function mergeReplyMaps(...maps) {
+  const merged = new Map();
+  for (const map of maps) {
+    for (const [parentId, replies] of map) {
+      if (!merged.has(parentId)) merged.set(parentId, []);
+      merged.get(parentId).push(...replies);
+    }
+  }
+  return merged;
 }
 
 const NUDGE_LINE_RE = /^nudge: PR #\d+ · (\S+)$/m;
@@ -446,6 +506,190 @@ function pushLedgerRows(execGit, ensureGitIdentity, rows, now = new Date()) {
   }
 }
 
+// T4 (docs/specs/tree-overhaul/t4-weekly-brief.md) — the plan-brief scope
+// dispatch. Deliberately its own self-contained section: no checkout, no
+// git write, no minting, no merge — a PR comment, a ledger row, and at most
+// one `gh workflow run`. See PLAN.md's correction note / this file's own
+// "Two axes" header comment for why this must never fold into the draft
+// dispatch above it.
+
+/** Groups raw plan-brief refs by their OWN scope token (never through
+ * groupTargets' social/queue/<basename> normalization, which assumes a
+ * real queue file and would mangle "proposal:2" into "social/queue/
+ * proposal:2" — these are ledger `file` values in their own right, spec
+ * §Mechanics: "file: 'proposal:2'"). */
+function groupPlanRefs(planRefs) {
+  const targets = new Map();
+  for (const ref of planRefs) {
+    if (!targets.has(ref.file)) targets.set(ref.file, []);
+    targets.get(ref.file).push(ref);
+  }
+  return targets;
+}
+
+/** 23:59:59.999 UTC on the Wednesday of `date`'s (Monday-start) week —
+ * spec §Data "The Wednesday cut-off". Independent of isoWeek's own
+ * Thursday-anchored week-NUMBERING algorithm; this only needs "which day is
+ * Wednesday in the same Mon-Sun week as `date`". */
+function wednesdayCutoffUtc(date) {
+  const d = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  const dayNum = d.getUTCDay() || 7; // Monday=1 .. Sunday=7
+  const monday = new Date(d);
+  monday.setUTCDate(d.getUTCDate() - (dayNum - 1));
+  return new Date(Date.UTC(monday.getUTCFullYear(), monday.getUTCMonth(), monday.getUTCDate() + 2, 23, 59, 59, 999));
+}
+
+/** spec §Data: only `proposal:<n>` requires a reply to turn a ❌ into a
+ * `reject` row (same rule S3 uses everywhere else); a bare ❌ on
+ * `brief`/`calendar:<n>`/`questions` is ALREADY a complete `reject` row —
+ * "no action, no reply required, no nudge" — since nothing here mints or
+ * merges. Returns the normalized `{action: 'approve'|'reject', ...}` verdict
+ * to record, or `null` when there is nothing yet to record (no reaction, an
+ * unanswered proposal ❌ awaiting its required reply, or an unsupported ✏️). */
+function planScopeVerdict(scope, classified) {
+  if (classified.action === 'approve' || classified.action === 'reject') return classified;
+  const isProposal = scope.startsWith('proposal:');
+  if (!isProposal && classified.action === 'pending' && classified.pending?.kind === 'reject') {
+    return { ...classified, action: 'reject' };
+  }
+  return null;
+}
+
+function planScopeRow(pr, scope, verdict, now) {
+  return {
+    ts: now.toISOString(),
+    pr,
+    file: scope,
+    platform: null,
+    campaign: null,
+    pillar: null,
+    action: verdict.action,
+    reason: verdict.reason ?? null,
+    originalBody: null,
+    editedBody: null,
+    approver: verdict.approver,
+    messageId: verdict.messageId,
+    replyId: verdict.replyId,
+  };
+}
+
+/** The bolded first line of a Tree message — weekly-brief.mjs writes one on
+ * every message it builds (`**Tree's week ...**` / `**Proposal N of M ---
+ * ...**` / etc.) — used only as the human-readable "(on: ...)" label on a
+ * relayed reply comment (spec §Data "Thread-reply ingestion"), never to
+ * classify or gate anything. */
+function messageTitle(content) {
+  const firstLine = String(content ?? '').split('\n')[0] ?? '';
+  const bold = firstLine.match(/^\*\*(.*)\*\*$/);
+  return (bold ? bold[1] : firstLine).trim();
+}
+
+function cleanQuotedReply(content) {
+  return capReason(neutralizeMentions(String(content ?? '').trim()));
+}
+
+/** spec §Data "Thread-reply ingestion" — the exact comment shape, quoting
+ * the reply verbatim (cleaned the same way S3 cleans every other founder
+ * reply text) and carrying the `discord-reply: <id>` dedupe trailer. */
+function replyCommentBody(authorName, title, replyId, content) {
+  const quoted = cleanQuotedReply(content)
+    .split('\n')
+    .map((l) => `> ${l}`)
+    .join('\n');
+  return [`**From ${authorName} in #longlive-social** (on: ${title})`, '', quoted, '', `discord-reply: ${replyId}`].join('\n');
+}
+
+/** Every DISTINCT qualifying reply (approver, non-empty — repliesByParent
+ * already filtered to approvers) across every message naming any plan-brief
+ * scope for this PR, deduped by reply id (a reply could in principle be
+ * attached under more than one ref for the same scope). */
+function collectQualifyingReplies(planRefsByScope, repliesByParent) {
+  const byId = new Map();
+  for (const refsForScope of planRefsByScope.values()) {
+    for (const ref of refsForScope) {
+      for (const reply of repliesByParent.get(ref.message.id) ?? []) {
+        if (typeof reply.content !== 'string' || reply.content.trim() === '') continue;
+        if (!byId.has(reply.id)) byId.set(reply.id, { reply, message: ref.message });
+      }
+    }
+  }
+  return [...byId.values()];
+}
+
+/**
+ * The plan-brief scope dispatch (spec §Mechanics social-approval-poll.mjs
+ * items 2-4). Returns the ledger rows to fold into this PR's normal
+ * pushLedgerRows call — never pushes on its own, so a plan PR's rows go
+ * out through the exact same idempotent commit the draft dispatch uses.
+ */
+async function processPlanBriefRefs({ pr, planRefs, repliesByParent, channelId, botToken, discordOpts, reactionCache, nudgeHistory, runResolvedAt, execGh, repo, fetchImpl, webhookUrl }) {
+  const byScope = groupPlanRefs(planRefs);
+  const rows = [];
+
+  for (const [scope, targetRefs] of byScope) {
+    const entries = [];
+    let failed = false;
+    for (const ref of targetRefs) {
+      let reactions;
+      try {
+        reactions = await getMessageApprovals(ref.message, channelId, botToken, discordOpts, reactionCache);
+      } catch (err) {
+        console.error(`::warning::social-approval-poll: could not fetch reactions for message ${ref.message.id} (PR #${pr}, ${scope}) — treating as unresolved this run (retries next run): ${err.message}`);
+        failed = true;
+        break;
+      }
+      entries.push({ message: ref.message, sha: ref.sha, reactions, replies: repliesByParent.get(ref.message.id) ?? [] });
+    }
+    if (failed) continue;
+
+    const classified = classifyTarget(entries, { kind: scope.startsWith('proposal:') ? 'proposal' : 'draft' });
+    const verdict = planScopeVerdict(scope, classified);
+    if (verdict) {
+      rows.push(planScopeRow(pr, scope, verdict, runResolvedAt));
+    } else if (scope.startsWith('proposal:') && classified.action === 'pending' && classified.pending?.messageId) {
+      if (!withinRepeatWindow(nudgeHistory, classified.pending.messageId, runResolvedAt)) {
+        await postToChannel(fetchImpl, webhookUrl, nudgeTextFor(pr, scope, classified.pending.messageId, classified.pending.kind, classified.pending.reason));
+      }
+    }
+  }
+
+  // Reply relay + the Wednesday re-plan dispatch both dedupe against the
+  // plan PR's own existing comments — one extra `gh pr view` call (never
+  // added to the draft dispatch's own, already-tested `--json` field list
+  // above) covers both, per S3's "no new state file" pattern.
+  let existingComments;
+  try {
+    existingComments = JSON.parse(execGh(['pr', 'view', String(pr), '--repo', repo, '--json', 'comments'])).comments ?? [];
+  } catch (err) {
+    console.error(`::warning::social-approval-poll: PR #${pr} — could not list comments for reply-relay/replan dedupe this run: ${err.message}`);
+    return rows;
+  }
+
+  const qualifyingReplies = collectQualifyingReplies(byScope, repliesByParent);
+  for (const { reply, message } of qualifyingReplies) {
+    const trailer = `discord-reply: ${reply.id}`;
+    if (existingComments.some((c) => c.body?.includes(trailer))) continue;
+    execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', replyCommentBody(reply.authorName, messageTitle(message.content), reply.id, reply.content)]);
+  }
+
+  if (qualifyingReplies.length > 0) {
+    const briefRef = byScope.get('brief')?.[0];
+    if (!briefRef) {
+      console.error(`::warning::social-approval-poll: PR #${pr} — a qualifying reply landed but no 'brief' scope ref is in this window; cannot determine the brief's ISO week, skipping the replan-dispatch check this run.`);
+    } else if (runResolvedAt.getTime() <= wednesdayCutoffUtc(new Date(briefRef.message.timestamp)).getTime()) {
+      const week = isoWeek(new Date(briefRef.message.timestamp));
+      const marker = `replan-dispatched: ${week}`;
+      const alreadyDispatched = existingComments.some((c) => REPLAN_MARKER_RE.exec(c.body ?? '')?.[1] === week);
+      if (!alreadyDispatched) {
+        execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', marker]);
+        execGh(['workflow', 'run', 'routine-tree-weekly-plan.yml', '-f', 'mode=replan', '-f', `pr=${pr}`]);
+      }
+    }
+  }
+
+  return rows;
+}
+
 export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleepImpl = defaultSleep, checkDraftImpl = defaultCheckDraft } = {}) {
   const botToken = requireEnv.call(null, 'DISCORD_BOT_TOKEN');
   const webhookUrl = requireEnv.call(null, 'SOCIAL_APPROVAL_WEBHOOK_URL');
@@ -481,7 +725,8 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
     }
   }
 
-  const repliesByParent = buildRepliesByParent(messages);
+  const threadRepliesByParent = await fetchThreadReplies(candidates, botToken, discordOpts);
+  const repliesByParent = mergeReplyMaps(buildRepliesByParent(messages), threadRepliesByParent);
   const nudgeHistory = recentTrailers(messages, webhookId, NUDGE_LINE_RE);
   const noticeHistory = recentTrailers(messages, webhookId, NOTICE_LINE_RE);
   const runResolvedAt = new Date();
@@ -500,7 +745,16 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
     byPr.get(pr).push({ message: m, sha, file });
   }
 
-  for (const [pr, refs] of byPr.entries()) {
+  for (const [pr, allRefs] of byPr.entries()) {
+    // T4 (docs/specs/tree-overhaul/t4-weekly-brief.md §Data "Plan-brief
+    // scopes bind by (pr, messageId) — never by SHA, never by PR state"):
+    // kept as a visibly separate partition from the very top of this PR's
+    // processing, so the draft dispatch below (queueRefs) never sees a
+    // plan-brief ref and vice versa — two dispatch branches, not one
+    // collapsed together (spec: "the build must keep the two dispatch
+    // branches visibly separate in the code").
+    const planRefs = allRefs.filter((r) => PLAN_SCOPE_RE.test(r.file));
+    const refs = allRefs.filter((r) => !PLAN_SCOPE_RE.test(r.file));
     const prLedgerRows = [];
     const problems = []; // { path, why } — what keeps this PR from minting/merging, for the notice
     const rejectedThisRun = new Map(); // relPath -> the item as read right before `git rm`
@@ -523,6 +777,19 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         continue;
       }
       gitState = makeGitState(execGit, pr);
+
+      // Plan-brief scopes (brief/calendar:n/proposal:n/questions): processed
+      // regardless of prView.state, entirely independent of the draft
+      // dispatch below — no checkout, no minting, no merge, just comments,
+      // a ledger row, and at most one workflow_dispatch.
+      if (planRefs.length > 0) {
+        try {
+          const planRows = await processPlanBriefRefs({ pr, planRefs, repliesByParent, channelId, botToken, discordOpts, reactionCache, nudgeHistory, runResolvedAt, execGh, repo, fetchImpl, webhookUrl });
+          prLedgerRows.push(...planRows);
+        } catch (err) {
+          console.error(`::error::social-approval-poll: PR #${pr} — plan-brief scope processing failed (draft dispatch below is unaffected): ${err.message}`);
+        }
+      }
 
       // Listening axis: classify every target over the union of its messages.
       const unresolved = new Set(); // targets with a message whose reactions couldn't be read — could carry a ❌ we can't see
