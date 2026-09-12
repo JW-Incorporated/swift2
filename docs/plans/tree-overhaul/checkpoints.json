@@ -24,7 +24,7 @@
       "status": "pending",
       "title": "First full week of the closed loop",
       "checks": [
-        "A Monday brief was posted in #longlive-social by Tree (notify run log or social-approval-poll ingestion log) with scorecard, calendar rationale, proposals",
+        "A Monday brief was posted in #longlive-tree by Tree (notify run log or social-approval-poll ingestion log) with scorecard, calendar rationale, proposals",
         "social/feedback/*.jsonl has at least one entry with a non-empty reason",
         "The most recent daily draft PR body quotes a prior reason or explicitly states no rejections in window",
         "weekly-scorecard output includes approval latency, edit rate, rejection reasons by category",

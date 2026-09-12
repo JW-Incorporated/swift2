@@ -280,7 +280,7 @@ jobs:
       # is referenced as a shell variable instead, which is immune to this
       # class of injection regardless of content (reproduced for real
       # before this fix; see the PR body's own writeup).
-      - name: Send the weekly brief to #longlive-social
+      - name: Send the weekly brief to #longlive-tree
         if: github.event.inputs.mode != 'replan'
         id: send
         env:

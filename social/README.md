@@ -37,7 +37,7 @@ modifies, or renames a `social/queue/**.json` draft no longer auto-merges —
 `.github/workflows/auto-merge-content.yml`'s `enable` job declines it
 outright (the SOCIAL APPROVAL GATE), and
 `.github/workflows/social-approval-notify.yml` posts the full caption(s), an
-embedded image, and everything else a go/no-go needs to `#longlive-social` so
+embedded image, and everything else a go/no-go needs to `#longlive-tree` so
 the founder can decide from the prompt alone (a draft whose stamp still
 *covers* the PR head — `scripts/social/filter-already-stamped.mjs`, the same
 `cleanSince`/`selfClean` check the poll merges on — is left out of a

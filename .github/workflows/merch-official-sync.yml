@@ -174,6 +174,6 @@ jobs:
             (scripts/merch-engine/build-drop-draft.mjs) and its rendered card image. Restates only
             observed catalog metadata (R2) — no fabricated price/stock/content claims. Writes a fact
             sheet to social/inbox/. Tree drafts any post from it in its next daily run; a founder still
-            approves that post in #longlive-social.
+            approves that post in #longlive-tree.
           no-changes-message: "Nothing to commit — a diff was detected but staged empty; nothing to do."
 

@@ -128,9 +128,9 @@ jobs:
           matches = re.findall(r"Discord brief: (https://discord\.com/channels/\S+)", body)
           link = matches[-1] if matches else None
           copy_line = (
-              "This is a copy. The live version, where you can react and reply, is in #longlive-social: " + link
+              "This is a copy. The live version, where you can react and reply, is in #longlive-tree: " + link
               if link
-              else "This is a copy. The live version is in #longlive-social."
+              else "This is a copy. The live version is in #longlive-tree."
           )
           payload = {
               "subject": "Tree's weekly plan: " + pr["title"],

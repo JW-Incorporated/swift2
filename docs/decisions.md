@@ -7,6 +7,64 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-12 — Three Discord channels, one job each; email retired as a bot channel (Marjorie overhaul kickoff)
+
+**Decision (Joey, in chat, 2026-09-12):**
+
+1. **`#longlive-tree`** (the channel formerly `#longlive-social`, renamed
+   in Discord; every webhook and the reaction poller are bound to the
+   channel id, so nothing broke). Carries only what needs a founder's
+   ✅/✏️/❌ or a thread reply: post briefs, the Monday strategy brief,
+   Reddit reply prompts, and later the posted-under-policy notices. A
+   human writing in this channel is addressing Tree directly, about
+   social. Nothing else posts here, so a reaction always means what the
+   poller thinks it means.
+2. **`#longlive-marjorie`** (new). Marjorie tells the founders things and
+   the founders give her feedback: the daily Founders' Brief, watchdog
+   alerts and their resolutions, submission triage that needs a founder,
+   and the Tree/Marjorie working thread. Replies here are conversation,
+   never a signed approval.
+3. **`#longlive`** (the channel formerly `#long-live`). The founders tell
+   the system to do work. Hermes (bot1) replies and works from here. No
+   scheduled routine ever posts here unprompted.
+4. **Human-action cards** for this project go to Hermes' `human-action-1`
+   channel, because Hermes1 owns the project; they do not go to a
+   Long Live channel.
+5. **Email is retired as a bot channel.** Every routine that mails a
+   founder today (brief mailer, watchdog, Tree's weekly mail, the social
+   poster, production backup) moves to Discord. The only permitted
+   fallback to email is a failed Discord webhook call, decided
+   mechanically, never by judgment. The production-backup receipt stays
+   on email as the one deliberate exception, so a Discord outage never
+   hides a missed backup.
+6. **Wyatt** is not tagged or notified separately anywhere; he reads what
+   Joey reads. The CC on outgoing mail goes away with the mail.
+7. **Marjorie's charter is amended in principle:** she is accountable for
+   the site running and for the user experience, and she *dispatches*
+   every fix (issues to the build desk, Kanban cards, human actions) but
+   never writes product code or content herself. The amendment text
+   lands via the Marjorie overhaul's design wave.
+8. **The FB group export chore** is real but has never been done. It stays
+   a watchdog check; Marjorie turns it into a human action with literal
+   steps rather than a bare alert.
+
+**Why:** three inboxes were drifting into one. The approval channel needs
+to stay reaction-pure or the approval poller's meaning erodes; the
+founders get five bot emails a day with no feedback path; and the new
+site-ops persona needs a place to talk that is neither the approval
+surface nor the command line.
+
+**Alternatives considered:** one channel with prefixes (rejected: reaction
+semantics); keep email for the brief (rejected: no feedback loop, one
+multi-day silent outage already on record).
+
+**Follow-through:** the channel rename is mechanical across docs and
+scripts. Files on CI's posting-path list (`social-approval-poll.mjs`,
+`automerge-social-approval-gate.mjs`, `auto-merge-content.yml`,
+`social-approval-poll.yml`) still say `#longlive-tree` in comments
+and strings; they are renamed in the next freeze window, not in a
+freeze of their own.
+
 ## 2026-09-12 — Approval stamps become v3 (the head SHA is signed); a Discord message id is never a gate again (S3 redesign, architect-directed)
 
 **Decision:** `social-approval-poll.mjs` stops using Discord message identity
@@ -303,7 +361,7 @@ PR and there is nothing to revert.
 
 ## 2026-09-12 — The Monday brief moves to Discord and becomes two-way (T4)
 
-**Decision:** Tree's weekly plan is posted to `#longlive-social` as a
+**Decision:** Tree's weekly plan is posted to `#longlive-tree` as a
 sequence of webhook messages — a 5-line scorecard plus "what changed and
 why", the 14-day calendar in two messages (28 slots will not fit in
 Discord's 2000-character limit), up to three numbered proposals each as its
@@ -586,7 +644,7 @@ the queue must be empty or fully stamped; PR-B1 (this PR) must be merged
 green with the two named refusal tests; one real `social-approval-notify`
 run must log `approval-prompt: embeds accepted: N` for a founder-visible
 brief with the image; and the owner must say in chat that he saw the image
-in `#longlive-social`. `SOCIAL_FREEZE` stays `true` until all four hold —
+in `#longlive-tree`. `SOCIAL_FREEZE` stays `true` until all four hold —
 this PR does not flip it and does not claim to.
 
 **Approved by:** architect (Fable) ruling, `docs/social/RULINGS-SOCIAL.md`,
@@ -618,9 +676,9 @@ this PR does not flip it and does not claim to.
 
 ## 2026-09-10 — Social posting requires founder approval before publish (reverses #2316)
 
-**Decision:** `social/queue/**.json` drafts may no longer reach `main` without a founder merging their PR. `auto-merge-content.yml` will decline auto-merge for any PR that adds, modifies, or renames a queue draft. Approval prompts are delivered to the `#longlive-social` Discord channel via the existing `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` secret, which already routes Reddit community prompts through the same channel (verified in `community-mailer.yml` and `scripts/community/discord-delivery.mjs`).
+**Decision:** `social/queue/**.json` drafts may no longer reach `main` without a founder merging their PR. `auto-merge-content.yml` will decline auto-merge for any PR that adds, modifies, or renames a queue draft. Approval prompts are delivered to the `#longlive-tree` Discord channel via the existing `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` secret, which already routes Reddit community prompts through the same channel (verified in `community-mailer.yml` and `scripts/community/discord-delivery.mjs`).
 
-**Why:** Joey, in chat: "I agree we should reverse the fully automated social approval, and I want all social approval routed to the same channel where our other social questions from Reddit go, #longlive-social. The channel is already setup with a hook."
+**Why:** Joey, in chat: "I agree we should reverse the fully automated social approval, and I want all social approval routed to the same channel where our other social questions from Reddit go, #longlive-tree. The channel is already setup with a hook."
 
 **Explicitly supersedes:** the `## 2026-08-25` entry (issue #2316, line 1214) and the 2026-07-25 mechanics decision it rests on. That entry's "Alternatives considered (2): require human merge on social/queue/ PRs specifically while auto-merging everything else — rejected" is exactly the design now being adopted.
 

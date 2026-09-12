@@ -7,7 +7,7 @@
 
 ## Behavior you will see
 
-Every Monday morning, Tree posts its week in `#longlive-social` — the same place you already approve drafts, instead of an email you have to go find.
+Every Monday morning, Tree posts its week in `#longlive-tree` — the same place you already approve drafts, instead of an email you have to go find.
 
 You get, in order:
 
@@ -100,7 +100,7 @@ A founder reply reaches Tree by either route, and neither is privileged:
 Both are filtered to `SOCIAL_APPROVERS` authors. Each qualifying reply becomes one comment on Tree's plan PR:
 
 ```
-**From Joey in #longlive-social** (on: Proposal 2 of 3 — drop the product-peek heartbeat pillar)
+**From Joey in #longlive-tree** (on: Proposal 2 of 3 — drop the product-peek heartbeat pillar)
 
 > keep it but only when there's an actual new product, not as filler
 
@@ -157,7 +157,7 @@ It returns the delivered message ids so the workflow can write the Discord perma
 
 The `tree-pr-mail` job's `pull_request` trigger is narrowed to exclude `tree/plan/**` branches, and a `workflow_dispatch` path taking a PR number is added. This removes a real race: today the mail fires on the PR event, which can beat the Discord post and mail a body with no permalink in it. Ordering it explicitly is simpler than making the mailer wait.
 
-The email is otherwise unchanged — same subject, same verbatim PR body — and gains one first line: *"This is a copy. The live version, where you can react and reply, is in #longlive-social: <link>."*
+The email is otherwise unchanged — same subject, same verbatim PR body — and gains one first line: *"This is a copy. The live version, where you can react and reply, is in #longlive-tree: <link>."*
 
 ### `docs/agents/runner-prompts/tree-weekly-plan.md`
 

@@ -7,7 +7,7 @@
 
 ## Behavior you will see
 
-Today a brief from Tree lands in `#longlive-social` and you react ✅ or ❌. After this there are three reactions:
+Today a brief from Tree lands in `#longlive-tree` and you react ✅ or ❌. After this there are three reactions:
 
 - **✅** — approve. Nothing else needed. It posts on schedule, exactly as now.
 - **✏️** — approve *with a fix*. React ✏️, then **reply to that same brief message** with the caption you want instead. Within 15 minutes Tree swaps your text in, re-signs it, and merges. Your words are what ships, verbatim.

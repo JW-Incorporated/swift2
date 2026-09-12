@@ -25,13 +25,13 @@ are mostly waiting or reviewing behavior, not diffs.
 
 | When | You do | Session model | Duration | Then |
 |---|---|---|---|---|
-| **Thu 09-11, now** | `/clear` → paste `waves/wave-2-unblock.md` | Sonnet | 2–3h | Two **YOU** steps will surface: react ✅ on the #4108 brief in #longlive-social when asked; flip `SOCIAL_FREEZE` to `false` in GitHub → Settings → Secrets and variables → Actions → Variables when it reports the gate proven. |
+| **Thu 09-11, now** | `/clear` → paste `waves/wave-2-unblock.md` | Sonnet | 2–3h | Two **YOU** steps will surface: react ✅ on the #4108 brief in #longlive-tree when asked; flip `SOCIAL_FREEZE` to `false` in GitHub → Settings → Secrets and variables → Actions → Variables when it reports the gate proven. |
 | **Thu evening or Fri 09-12 morning** | `/clear` → `/model opus` → paste `waves/wave-1-design.md` | Opus | 2–3h | It opens one docs PR with 7 specs + decisions entries and stops. |
 | **Fri 09-12 midday, 30 min** | Read each spec's "Behavior you will see" section only (they are written for you). Reply in chat: "approved" or what to change. | same session | 30 min | It merges the docs PR. `/clear`. |
 | **Fri 09-12 afternoon → Sat** | `/clear` → paste `waves/wave-3-loop.md` | Sonnet | ~1 day agent time | **YOU:** one Discord reaction test at the end (a ❌ with a reply on a synthetic brief). |
 | **Sun 09-14 → Mon 09-15** | `/clear` → paste `waves/wave-4-metrics.md` | Sonnet | 1–2 days | **YOU:** Instagram/X API access may need your login (it will write `HUMAN-ACTIONS.md` entries with exact steps). |
 | **Mon 09-14 ~09:00 PT** | Nothing. R1 recheck fires by itself and comments on #4117. Read the comment. | — | 5 min | If the comment includes a "Follow-up session prompt" block, run it (Opus). |
-| **Mon 09-21** | R2 recheck. Also your first real Tree strategy brief in #longlive-social. Reply in its thread. | — | 15 min | Same follow-up rule. |
+| **Mon 09-21** | R2 recheck. Also your first real Tree strategy brief in #longlive-tree. Reply in its thread. | — | 15 min | Same follow-up rule. |
 | **Thu 10-02** | R3 recheck. | — | 5 min | Same. |
 | **Thu 10-16** | R4 recheck proposes closing the plan or extending it. | — | 15 min | Decide in a comment on #4117. |
 
@@ -46,7 +46,7 @@ collision on 09-10.
   with the exact caption you want. ❌ reject: reply to the brief with one
   sentence of why. No reply = the poll waits and the daily digest asks you.
   The reason is the product here; a bare ❌ teaches nothing.
-- **Monday brief.** Tree posts it in #longlive-social. Reply in the thread
+- **Monday brief.** Tree posts it in #longlive-tree. Reply in the thread
   by Wednesday and the current week re-plans; later and it shapes next week.
   React ✅/❌ on each numbered proposal.
 - **Reddit prompts.** ✅ when you replied, ⏭️ to skip.

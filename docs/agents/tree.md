@@ -16,7 +16,7 @@ Tree owns the *entire* social account: which campaigns are live, what each
 day's slot is for, what actually gets drafted, and whether last week's posts
 were any good. Its planning artifact is **`social/calendar.md`**, kept always
 covering the next 14 days; its daily output is a draft PR into
-**`social/queue/`**, gated by the founder's ✅ in `#longlive-social`.
+**`social/queue/`**, gated by the founder's ✅ in `#longlive-tree`.
 `social-poster.yml` ships the queue once approved — its mechanics and
 incident history live in `docs/social/pipeline.md`, not here.
 
@@ -295,11 +295,11 @@ duplicate the report.
 
 - **Social queue status** → the Founders' Brief (6 AM / 8 PM delta) under a
   "Social queue" section, for visibility — the real-time approval ask lives
-  in `#longlive-social` (2026-09-10 approval gate), not the brief; the brief
+  in `#longlive-tree` (2026-09-10 approval gate), not the brief; the brief
   just reports what's queued, what's still awaiting a merge, and what
   shipped.
 - **The Monday strategy brief** → posted by the weekly run into
-  `#longlive-social` as Tree (T4, `scripts/social/weekly-brief.mjs`,
+  `#longlive-tree` as Tree (T4, `scripts/social/weekly-brief.mjs`,
   `routine-tree-weekly-plan.yml`): 5-line scorecard, what changed and why,
   the next 14-day calendar with one rationale per slot, ≤3 numbered
   proposals (✅/❌ each), ≤2 questions. **This is the primary founder
@@ -364,7 +364,7 @@ gate of its own (`.github/content-automerge-allowlist.txt`). A Tree PR
 touching `social/queue/` never auto-merges, even when it ALSO touches
 `social/inbox/` or `social/calendar.md` in the same fast-lane-displacement
 change — `auto-merge-content.yml` declines it and
-`social-approval-notify.yml` prompts `#longlive-social`. The founder's ✅ is a
+`social-approval-notify.yml` prompts `#longlive-tree`. The founder's ✅ is a
 Discord **reaction** there, never a merge (docs/social/RULINGS-SOCIAL-2.md B1)
 — `social-approval-poll.yml` stamps the reaction with a signed `approval`
 object and merges the PR itself; **merging a queue-touching PR by hand does

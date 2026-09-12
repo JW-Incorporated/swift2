@@ -23,7 +23,7 @@ You are executing Wave 3 of the Tree Overhaul (`docs/plans/tree-overhaul/PLAN.md
 
 ## Founder test at the end
 
-Tell the founder: "**YOU:** in #longlive-social there is a TEST brief. React ❌ and reply to it with the words `test reason: too generic`." Dispatch the poll, then show them the resulting `social/feedback/<week>.jsonl` line and the PR comment. Then remove the test artifacts via a small PR.
+Tell the founder: "**YOU:** in #longlive-tree there is a TEST brief. React ❌ and reply to it with the words `test reason: too generic`." Dispatch the poll, then show them the resulting `social/feedback/<week>.jsonl` line and the PR comment. Then remove the test artifacts via a small PR.
 
 ## Done means
 

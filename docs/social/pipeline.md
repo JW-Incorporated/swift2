@@ -39,7 +39,7 @@ own header comment is the fullest account of the mechanics.
 
 **What this still means for the drafting run.** A founder now reads every
 caption before it can ship (the 2026-09-10 approval gate), but that founder
-look is a fast yes/no on the prompt in `#longlive-social`, not an editorial
+look is a fast yes/no on the prompt in `#longlive-tree`, not an editorial
 pass — the desk's own judgment is still the real editorial gate. The
 #36/Clownbot blocklist, the sourcing standard, and the "never invent a stat,
 quote, or trend" rule are still things only the desk reliably catches; don't

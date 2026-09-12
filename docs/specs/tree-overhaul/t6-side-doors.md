@@ -125,7 +125,7 @@ The `--social-draft`/`--out-dir social/queue` path is replaced by `--intent-out 
 
 - Stops staging `social/queue/**`; stages `social/inbox/**` plus the seed and image it already writes.
 - Its PR therefore no longer contains a social draft, so `automerge-social-approval-gate.mjs` no longer holds it and it lands on green like any other content PR.
-- **Fix the stale PR-body text** that still says "Auto-merges once check-drafts.mjs + the required build check pass" — which has been wrong since the 2026-09-10 approval gate and would now be wrong in a new way. It becomes: *"Writes a fact sheet to `social/inbox/`. Tree drafts any post from it in its next daily run; a founder still approves that post in #longlive-social."*
+- **Fix the stale PR-body text** that still says "Auto-merges once check-drafts.mjs + the required build check pass" — which has been wrong since the 2026-09-10 approval gate and would now be wrong in a new way. It becomes: *"Writes a fact sheet to `social/inbox/`. Tree drafts any post from it in its next daily run; a founder still approves that post in #longlive-tree."*
 
 ### `scripts/appearance-discovery/discover.mjs`
 

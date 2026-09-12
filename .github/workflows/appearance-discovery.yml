@@ -172,5 +172,5 @@ jobs:
             ("Detection-triggered social auto-post"). Never a claim about the video's content, only RSS
             metadata (title/channel/URL) — no caption, no queue write. Writes a fact sheet to
             social/inbox/. Tree drafts any post from it in its next daily run; a founder still approves
-            that post in #longlive-social.
+            that post in #longlive-tree.
           no-changes-message: "No new inbox intents staged this run."

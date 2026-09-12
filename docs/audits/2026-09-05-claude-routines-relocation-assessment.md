@@ -1,7 +1,7 @@
 # Can the Claude Routines live somewhere Hermes and Claude Code can both manage?
 
 **Filed:** 2026-09-05 — Fable 5.1, low effort, kanban `t_6dcfb062` (board `swift2`).
-**Asked by:** Joey, #long-live, 2026-09-05, verbatim: *"is there somewhere else
+**Asked by:** Joey, #longlive, 2026-09-05, verbatim: *"is there somewhere else
 we can run & manage these same routines, somewhere not locked into my specific
 account page, where Hermes (this OS) and claudecode can access the routines, add
 new ones, delete old ones, and otherwise maintain the routines. I'm tired of all
